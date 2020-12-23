@@ -17,6 +17,7 @@ Large parts of the textures have been created by [ridanisaurus](https://www.curs
 
 ### Textures
 - Various textures are from the public domain Soartex pack 1.2.5 by Soar49.
-  
+- Various textures are from the CC0-1.0 licensed [Rosources](https://github.com/Richienb/Rosources) pack.
+
 ### Sounds
 - Various sounds from freesound.org (CC0 1.0)

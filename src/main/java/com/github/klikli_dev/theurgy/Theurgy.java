@@ -22,8 +22,10 @@
 
 package com.github.klikli_dev.theurgy;
 
+import com.github.klikli_dev.theurgy.config.TheurgyConfig;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -38,14 +40,14 @@ public class Theurgy {
     public static final String MODID = "theurgy";
     public static final String NAME = "Theurgy";
     public static final Logger LOGGER = LogManager.getLogger(MODID);
+    private static final TheurgyConfig CONFIG = new TheurgyConfig();
     public static Theurgy INSTANCE;
     //endregion Fields
 
     //region Initialization
     public Theurgy() {
         INSTANCE = this;
-        //TODO: enable config
-        //ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, CONFIG.spec);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, CONFIG.spec);
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         //TODO: register deferred registries
@@ -62,11 +64,10 @@ public class Theurgy {
     //endregion Initialization
     //region Methods
     public void onModConfigEvent(final ModConfig.ModConfigEvent event) {
-        //TODO: clear config after setting it up
-        //        if (event.getConfig().getSpec() == CONFIG.spec) {
-        //            //Clear the config cache on reload.
-        //            CONFIG.clear();
-        //        }
+        if (event.getConfig().getSpec() == CONFIG.spec) {
+            //Clear the config cache on reload.
+            CONFIG.clear();
+        }
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {

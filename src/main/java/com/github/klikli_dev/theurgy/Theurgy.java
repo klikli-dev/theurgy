@@ -22,7 +22,9 @@
 
 package com.github.klikli_dev.theurgy;
 
+import com.github.klikli_dev.theurgy.common.TheurgyItemGroup;
 import com.github.klikli_dev.theurgy.config.TheurgyConfig;
+import net.minecraft.item.ItemGroup;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -40,6 +42,7 @@ public class Theurgy {
     public static final String MODID = "theurgy";
     public static final String NAME = "Theurgy";
     public static final Logger LOGGER = LogManager.getLogger(MODID);
+    public static final ItemGroup ITEM_GROUP = new TheurgyItemGroup();
     private static final TheurgyConfig CONFIG = new TheurgyConfig();
     public static Theurgy INSTANCE;
     //endregion Fields

@@ -24,6 +24,7 @@ package com.github.klikli_dev.theurgy;
 
 import com.github.klikli_dev.theurgy.common.TheurgyItemGroup;
 import com.github.klikli_dev.theurgy.common.config.TheurgyConfig;
+import com.github.klikli_dev.theurgy.registry.ItemRegistry;
 import net.minecraft.item.ItemGroup;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -53,10 +54,9 @@ public class Theurgy {
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, CONFIG.spec);
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
-        //TODO: register deferred registries
+        ItemRegistry.ITEMS.register(modEventBus);
 
         //register event buses
-        //TODO: register capabilities
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::serverSetup);
         modEventBus.addListener(this::onModConfigEvent);

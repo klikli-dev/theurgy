@@ -20,43 +20,27 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.github.klikli_dev.theurgy.config.value;
+package com.github.klikli_dev.theurgy.common.config.value;
 
-import com.github.klikli_dev.theurgy.config.IConfigCache;
+import com.github.klikli_dev.theurgy.common.config.IConfigCache;
 import net.minecraftforge.common.ForgeConfigSpec;
 
-public class CachedFloat extends CachedPrimitive<Double> {
+public class CachedPrimitive<T> implements ICachedValue {
     //region Fields
-    protected float cachedValue;
+    protected ForgeConfigSpec.ConfigValue<T> configValue;
+    protected boolean cacheAvailable;
     //endregion Fields
 
     //region Initialization
-    protected CachedFloat(IConfigCache cache,
-                          ForgeConfigSpec.ConfigValue<Double> configValue) {
-        super(cache, configValue);
+    protected CachedPrimitive(IConfigCache cache, ForgeConfigSpec.ConfigValue<T> configValue) {
+        this.configValue = configValue;
+        cache.cache(this);
     }
     //endregion Initialization
 
-    //region Static Methods
-    public static CachedFloat cache(IConfigCache cache, ForgeConfigSpec.ConfigValue<Double> internal) {
-        return new CachedFloat(cache, internal);
+    //region Overrides
+    public void clear() {
+        this.cacheAvailable = false;
     }
-    //endregion Static Methods
-
-    //region Methods
-    public float get() {
-        if (!this.cacheAvailable) {
-            //If we don't have a cached value or need to resolve it again, get it from the actual ConfigValue
-            this.cachedValue = this.configValue.get().floatValue();
-            this.cacheAvailable = true;
-        }
-        return this.cachedValue;
-    }
-
-    public void set(float value) {
-        this.configValue.set((double) value);
-        this.cachedValue = value;
-        this.cacheAvailable = true;
-    }
-    //endregion Methods
+    //endregion Overrides
 }

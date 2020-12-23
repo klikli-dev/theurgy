@@ -23,7 +23,7 @@
 package com.github.klikli_dev.theurgy;
 
 import com.github.klikli_dev.theurgy.common.TheurgyItemGroup;
-import com.github.klikli_dev.theurgy.config.TheurgyConfig;
+import com.github.klikli_dev.theurgy.common.config.TheurgyConfig;
 import net.minecraft.item.ItemGroup;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;

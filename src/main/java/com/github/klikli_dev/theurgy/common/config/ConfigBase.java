@@ -20,9 +20,9 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.github.klikli_dev.theurgy.config;
+package com.github.klikli_dev.theurgy.common.config;
 
-import com.github.klikli_dev.theurgy.config.value.ICachedValue;
+import com.github.klikli_dev.theurgy.common.config.value.ICachedValue;
 
 import java.util.ArrayList;
 

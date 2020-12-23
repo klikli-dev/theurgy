@@ -20,10 +20,15 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.github.klikli_dev.theurgy.config.value;
+package com.github.klikli_dev.theurgy.common.config;
 
-public interface ICachedValue {
+
+import com.github.klikli_dev.theurgy.common.config.value.ICachedValue;
+
+public interface IConfigCache {
     //region Methods
+    void cache(ICachedValue value);
+
     void clear();
     //endregion Methods
 }

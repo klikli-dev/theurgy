@@ -20,43 +20,34 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.github.klikli_dev.theurgy.config.value;
+package com.github.klikli_dev.theurgy.common.config;
 
-import com.github.klikli_dev.theurgy.config.IConfigCache;
+
+import com.github.klikli_dev.theurgy.common.config.value.ICachedValue;
 import net.minecraftforge.common.ForgeConfigSpec;
 
-public class CachedBoolean extends CachedPrimitive<Boolean> {
+public class ConfigCategoryBase implements IConfigCache {
     //region Fields
-    protected boolean cachedValue;
+    public IConfigCache parent;
+    public ForgeConfigSpec.Builder builder;
     //endregion Fields
 
     //region Initialization
-    protected CachedBoolean(IConfigCache cache,
-                            ForgeConfigSpec.ConfigValue<Boolean> configValue) {
-        super(cache, configValue);
+    public ConfigCategoryBase(IConfigCache parent, ForgeConfigSpec.Builder builder) {
+        this.parent = parent;
+        this.builder = builder;
     }
     //endregion Initialization
 
-    //region Static Methods
-    public static CachedBoolean cache(IConfigCache cache, ForgeConfigSpec.ConfigValue<Boolean> internal) {
-        return new CachedBoolean(cache, internal);
-    }
-    //endregion Static Methods
-
-    //region Methods
-    public boolean get() {
-        if (!this.cacheAvailable) {
-            //If we don't have a cached value or need to resolve it again, get it from the actual ConfigValue
-            this.cachedValue = this.configValue.get();
-            this.cacheAvailable = true;
-        }
-        return this.cachedValue;
+    //region Overrides
+    @Override
+    public void cache(ICachedValue value) {
+        this.parent.cache(value);
     }
 
-    public void set(boolean value) {
-        this.configValue.set(value);
-        this.cachedValue = value;
-        this.cacheAvailable = true;
+    @Override
+    public void clear() {
+        this.parent.clear();
     }
-    //endregion Methods
+    //endregion Overrides
 }

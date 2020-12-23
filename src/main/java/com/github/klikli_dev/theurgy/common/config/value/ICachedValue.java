@@ -20,27 +20,10 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.github.klikli_dev.theurgy.config.value;
+package com.github.klikli_dev.theurgy.common.config.value;
 
-import com.github.klikli_dev.theurgy.config.IConfigCache;
-import net.minecraftforge.common.ForgeConfigSpec;
-
-public class CachedPrimitive<T> implements ICachedValue {
-    //region Fields
-    protected ForgeConfigSpec.ConfigValue<T> configValue;
-    protected boolean cacheAvailable;
-    //endregion Fields
-
-    //region Initialization
-    protected CachedPrimitive(IConfigCache cache, ForgeConfigSpec.ConfigValue<T> configValue) {
-        this.configValue = configValue;
-        cache.cache(this);
-    }
-    //endregion Initialization
-
-    //region Overrides
-    public void clear() {
-        this.cacheAvailable = false;
-    }
-    //endregion Overrides
+public interface ICachedValue {
+    //region Methods
+    void clear();
+    //endregion Methods
 }

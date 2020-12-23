@@ -20,34 +20,22 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.github.klikli_dev.theurgy.config;
+package com.github.klikli_dev.theurgy.common.config;
 
-
-import com.github.klikli_dev.theurgy.config.value.ICachedValue;
 import net.minecraftforge.common.ForgeConfigSpec;
 
-public class ConfigCategoryBase implements IConfigCache {
+public class TheurgyConfig extends ConfigBase {
+
     //region Fields
-    public IConfigCache parent;
-    public ForgeConfigSpec.Builder builder;
+    public final ForgeConfigSpec spec;
     //endregion Fields
 
     //region Initialization
-    public ConfigCategoryBase(IConfigCache parent, ForgeConfigSpec.Builder builder) {
-        this.parent = parent;
-        this.builder = builder;
+    public TheurgyConfig() {
+        ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
+        //TODO: instantiate settings
+        this.spec = builder.build();
     }
     //endregion Initialization
 
-    //region Overrides
-    @Override
-    public void cache(ICachedValue value) {
-        this.parent.cache(value);
-    }
-
-    @Override
-    public void clear() {
-        this.parent.clear();
-    }
-    //endregion Overrides
 }

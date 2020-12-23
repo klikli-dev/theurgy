@@ -20,9 +20,9 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.github.klikli_dev.theurgy.config.value;
+package com.github.klikli_dev.theurgy.common.config.value;
 
-import com.github.klikli_dev.theurgy.config.IConfigCache;
+import com.github.klikli_dev.theurgy.common.config.IConfigCache;
 import net.minecraftforge.common.ForgeConfigSpec;
 
 public class CachedObject<T> implements ICachedValue {

@@ -20,22 +20,43 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.github.klikli_dev.theurgy.config;
+package com.github.klikli_dev.theurgy.common.config.value;
 
+import com.github.klikli_dev.theurgy.common.config.IConfigCache;
 import net.minecraftforge.common.ForgeConfigSpec;
 
-public class TheurgyConfig extends ConfigBase {
-
+public class CachedBoolean extends CachedPrimitive<Boolean> {
     //region Fields
-    public final ForgeConfigSpec spec;
+    protected boolean cachedValue;
     //endregion Fields
 
     //region Initialization
-    public TheurgyConfig() {
-        ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
-        //TODO: instantiate settings
-        this.spec = builder.build();
+    protected CachedBoolean(IConfigCache cache,
+                            ForgeConfigSpec.ConfigValue<Boolean> configValue) {
+        super(cache, configValue);
     }
     //endregion Initialization
 
+    //region Static Methods
+    public static CachedBoolean cache(IConfigCache cache, ForgeConfigSpec.ConfigValue<Boolean> internal) {
+        return new CachedBoolean(cache, internal);
+    }
+    //endregion Static Methods
+
+    //region Methods
+    public boolean get() {
+        if (!this.cacheAvailable) {
+            //If we don't have a cached value or need to resolve it again, get it from the actual ConfigValue
+            this.cachedValue = this.configValue.get();
+            this.cacheAvailable = true;
+        }
+        return this.cachedValue;
+    }
+
+    public void set(boolean value) {
+        this.configValue.set(value);
+        this.cachedValue = value;
+        this.cacheAvailable = true;
+    }
+    //endregion Methods
 }

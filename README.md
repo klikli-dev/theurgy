@@ -1,6 +1,5 @@
 # Theurgy 
-An open-source magic mod based roughly on the lore and concepts of Thaumcraft, while making certain changes, simplifications and taking other liberties. 
-
+An open-source magic mod inspired by Thaumcraft.
 
 ## Curseforge
 https://www.curseforge.com/minecraft/mc-mods/theurgy

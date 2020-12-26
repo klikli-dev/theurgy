@@ -23,27 +23,31 @@
 package com.github.klikli_dev.theurgy.common.handlers;
 
 import com.github.klikli_dev.theurgy.Theurgy;
+import com.github.klikli_dev.theurgy.client.render.tile.CrucibleRenderer;
+import com.github.klikli_dev.theurgy.registry.TileRegistry;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
 @Mod.EventBusSubscriber(modid = Theurgy.MODID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ClientSetupEventHandler {
 
-//region Static Methods
+    //region Static Methods
     @SubscribeEvent
-    public static void onClientSetup(FMLClientSetupEvent event){
+    public static void onClientSetup(FMLClientSetupEvent event) {
         //Register client side event handlers
 
         //Register Entity Renderers
 
         //Register Tile Entity Renderers
+        ClientRegistry.bindTileEntityRenderer(TileRegistry.CRUCIBLE.get(), CrucibleRenderer::new);
 
         //Setup block render layers
 
-
-       registerItemModelProperties(event);
+        //register item modl properties
+        registerItemModelProperties(event);
 
         //Not safe to call during parallel load, so register to run threadsafe.
         event.enqueueWork(() -> {
@@ -54,9 +58,8 @@ public class ClientSetupEventHandler {
 
         Theurgy.LOGGER.info("Client setup complete.");
     }
-//endregion Static Methods
 
-    public static void registerItemModelProperties(FMLClientSetupEvent event){
+    public static void registerItemModelProperties(FMLClientSetupEvent event) {
 
         //Not safe to call during parallel load, so register to run threadsafe
         event.enqueueWork(() -> {
@@ -65,4 +68,5 @@ public class ClientSetupEventHandler {
             Theurgy.LOGGER.debug("Registered Item Properties");
         });
     }
+    //endregion Static Methods
 }

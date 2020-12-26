@@ -1,11 +1,13 @@
 package com.github.klikli_dev.theurgy.common.tile;
 
+import com.github.klikli_dev.theurgy.registry.TagRegistry;
 import com.github.klikli_dev.theurgy.registry.TileRegistry;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
@@ -45,9 +47,46 @@ public class CrucibleTileEntity extends NetworkedTileEntity implements ITickable
     }
     //endregion Initialization
 
+//region Getter / Setter
+    public boolean isOnHeatSource() {
+        BlockState heatSourceBlock = world.getBlockState(pos.down());
+        if (TagRegistry.HEAT_SOURCES.contains(heatSourceBlock.getBlock()))
+            return true;
+
+        if (TagRegistry.HEAT_SOURCES_LIT.contains(heatSourceBlock.getBlock()) && heatSourceBlock.get(
+                BlockStateProperties.LIT))
+            return true;
+
+        return false;
+    }
+//endregion Getter / Setter
+
     //region Overrides
     @Override
     public void tick() {
+
+        //count down crafting ticks
+        if (this.remainingCraftingTicks > 0)
+            this.remainingCraftingTicks--;
+
+        //every 20 ticks/1 second, check boiling status
+        if (this.waterLevel > 0 && this.world.getGameTime() % 200 == 0) {
+            boolean isOnHeatSource = this.isOnHeatSource();
+
+            //if heat source was added, start boiling
+            if (!this.isBoiling && isOnHeatSource) {
+                this.isBoiling = true;
+                if (!world.isRemote)
+                    this.markNetworkDirty();
+            }
+            //if heat is removed, stop boiling
+            else if (this.isBoiling && !isOnHeatSource) {
+                this.isBoiling = false;
+                if (!world.isRemote)
+                    this.markNetworkDirty();
+            }
+        }
+
         //on client, show boiling particles
         if (this.world.isRemote && this.waterLevel > 0 && this.isBoiling) {
             //TODO: show boiling particles
@@ -55,6 +94,9 @@ public class CrucibleTileEntity extends NetworkedTileEntity implements ITickable
 
             //TODO: if we have crafting ticks, show more steam
         }
+
+        //TODO: consume dropped in items if boiling
+        //TODO: if boiling and crafting timer, check for recipes
     }
 
     @Override

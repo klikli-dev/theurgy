@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:magma_block",
+    "minecraft:fire",
+    "minecraft:soul_fire",
+    "minecraft:lava"
+  ]
+}

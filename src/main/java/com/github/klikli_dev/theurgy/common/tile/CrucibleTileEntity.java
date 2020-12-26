@@ -24,6 +24,11 @@ public class CrucibleTileEntity extends NetworkedTileEntity implements ITickable
     public boolean isBoiling;
 
     /**
+     * True if anything has been dissolved in the crucible.
+     */
+    public boolean hasContents;
+
+    /**
      * The current water level. 0 is empty, MAX_WATER_LEVEL is full.
      */
     public int waterLevel;
@@ -43,7 +48,13 @@ public class CrucibleTileEntity extends NetworkedTileEntity implements ITickable
     //region Overrides
     @Override
     public void tick() {
+        //on client, show boiling particles
+        if (this.world.isRemote && this.waterLevel > 0 && this.isBoiling) {
+            //TODO: show boiling particles
+            //TODO: show steam particles
 
+            //TODO: if we have crafting ticks, show more steam
+        }
     }
 
     @Override
@@ -52,6 +63,7 @@ public class CrucibleTileEntity extends NetworkedTileEntity implements ITickable
         this.waterLevel = compound.getByte("waterLevel");
         this.remainingCraftingTicks = compound.getByte("remainingCraftingTicks");
         this.isBoiling = compound.getBoolean("isBoiling");
+        this.hasContents = compound.getBoolean("hasContents");
     }
 
     @Override
@@ -59,6 +71,7 @@ public class CrucibleTileEntity extends NetworkedTileEntity implements ITickable
         compound.putByte("waterLevel", (byte) this.waterLevel);
         compound.putByte("remainingCraftingTicks", (byte) this.remainingCraftingTicks);
         compound.putBoolean("isBoiling", this.isBoiling);
+        compound.putBoolean("hasContents", this.hasContents);
         return super.writeNetwork(compound);
     }
 
@@ -67,9 +80,7 @@ public class CrucibleTileEntity extends NetworkedTileEntity implements ITickable
         if (hand == Hand.MAIN_HAND) {
             //On shift-click with empty hand, empty and reset the crucible
             if (player.isSneaking() && player.getHeldItem(hand).isEmpty() && this.waterLevel > 0) {
-                this.isBoiling = false;
-                this.waterLevel = 0;
-                this.remainingCraftingTicks = 0;
+                this.resetCrucible();
 
                 if (!this.world.isRemote) {
                     this.markNetworkDirty();
@@ -96,6 +107,9 @@ public class CrucibleTileEntity extends NetworkedTileEntity implements ITickable
                 player.setHeldItem(hand, new ItemStack(Items.WATER_BUCKET));
                 this.waterLevel--;
 
+                if(waterLevel == 0)
+                    this.resetCrucible();
+
                 if (!this.world.isRemote) {
                     this.markNetworkDirty();
                     //vanilla cauldron empty sound
@@ -111,4 +125,13 @@ public class CrucibleTileEntity extends NetworkedTileEntity implements ITickable
         return ActionResultType.PASS;
     }
     //endregion Overrides
+
+    //region Methods
+    public void resetCrucible() {
+        this.isBoiling = false;
+        this.hasContents = false;
+        this.waterLevel = 0;
+        this.remainingCraftingTicks = 0;
+    }
+    //endregion Methods
 }

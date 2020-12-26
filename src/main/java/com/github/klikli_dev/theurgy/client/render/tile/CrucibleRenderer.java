@@ -55,8 +55,8 @@ public class CrucibleRenderer extends TileEntityRenderer<CrucibleTileEntity> {
             TextureAtlasSprite waterPlane = minecraft.getAtlasSpriteGetter(AtlasTexture.LOCATION_BLOCKS_TEXTURE)
                                                     .apply(new ResourceLocation("minecraft", "block/water_still"));
 
-            //water default color is 0x3F76E4, while crafting show it as purple 0x9932CC
-            int color = tileEntityIn.remainingCraftingTicks > 0 ? 0x9932CC : 0x3F76E4;
+            //water default color is 0x3F76E4, if it has contents show it as purple 0x9932CC
+            int color = tileEntityIn.hasContents ? 0x9932CC : 0x3F76E4;
             int r = ColorHelper.PackedColor.getRed(color);
             int g = ColorHelper.PackedColor.getGreen(color);
             int b = ColorHelper.PackedColor.getBlue(color);

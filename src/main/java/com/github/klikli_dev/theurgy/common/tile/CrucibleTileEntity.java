@@ -1,5 +1,6 @@
 package com.github.klikli_dev.theurgy.common.tile;
 
+import com.github.klikli_dev.theurgy.client.particle.CrucibleBubbleParticleData;
 import com.github.klikli_dev.theurgy.registry.TagRegistry;
 import com.github.klikli_dev.theurgy.registry.TileRegistry;
 import net.minecraft.block.BlockState;
@@ -9,45 +10,45 @@ import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
+
+import java.util.Random;
 
 public class CrucibleTileEntity extends NetworkedTileEntity implements ITickableTileEntity, IActivatableTileEntity {
 
     //region Fields
     static final int MAX_WATER_LEVEL = 4;
-
+    static final int STIRRING_CRAFTING_TICKS = 100;
+    /**
+     * Random used to color bubble particles.
+     */
+    protected final Random colorRandom = new Random();
     /**
      * True if the water is boiling, allowing to dissolve items.
      */
     public boolean isBoiling;
-
     /**
      * True if anything has been dissolved in the crucible.
      */
     public boolean hasContents;
-
     /**
      * The current water level. 0 is empty, MAX_WATER_LEVEL is full.
      */
     public int waterLevel;
-
     /**
      * The ticks remaining during which items can be dropped in to fulfill recipes
      */
     public int remainingCraftingTicks;
-    //endregion Fields
 
+    //endregion Fields
     //region Initialization
     public CrucibleTileEntity() {
         super(TileRegistry.CRUCIBLE.get());
     }
     //endregion Initialization
 
-//region Getter / Setter
+    //region Getter / Setter
     public boolean isOnHeatSource() {
         BlockState heatSourceBlock = world.getBlockState(pos.down());
         if (TagRegistry.HEAT_SOURCES.contains(heatSourceBlock.getBlock()))
@@ -59,8 +60,8 @@ public class CrucibleTileEntity extends NetworkedTileEntity implements ITickable
 
         return false;
     }
-//endregion Getter / Setter
 
+    //endregion Getter / Setter
     //region Overrides
     @Override
     public void tick() {
@@ -76,23 +77,53 @@ public class CrucibleTileEntity extends NetworkedTileEntity implements ITickable
             //if heat source was added, start boiling
             if (!this.isBoiling && isOnHeatSource) {
                 this.isBoiling = true;
-                if (!world.isRemote)
+                if (!this.world.isRemote)
                     this.markNetworkDirty();
             }
             //if heat is removed, stop boiling
             else if (this.isBoiling && !isOnHeatSource) {
                 this.isBoiling = false;
-                if (!world.isRemote)
+                this.remainingCraftingTicks = 0;
+                this.hasContents = false;
+                //TODO: release flux here
+                if (!this.world.isRemote)
                     this.markNetworkDirty();
             }
         }
 
         //on client, show boiling particles
         if (this.world.isRemote && this.waterLevel > 0 && this.isBoiling) {
-            //TODO: show boiling particles
-            //TODO: show steam particles
 
-            //TODO: if we have crafting ticks, show more steam
+            float bubbleR = 1.0f;
+            float bubbleG = 1.0f;
+            float bubbleB = 1.0f;
+
+            if (this.hasContents && this.remainingCraftingTicks > 0) {
+                //if we are crafting, show random colored bubbles
+                bubbleR = this.colorRandom.nextFloat();
+                // /2.0f: reduce green and blue, to keep them slightly purplish
+                // +0.5f: use only lighter green and blue tones to keep bubbles light
+                bubbleG = this.colorRandom.nextFloat() / 2.0f + 0.5f;
+                bubbleB = this.colorRandom.nextFloat() / 2.0f + 0.5f;
+            }
+            else if (this.hasContents) {
+                //If we have contents but are not crafting, show purple bubbles to match purple render
+                int bubbleColor = 0xDDA0DD;
+                bubbleR = ColorHelper.PackedColor.getRed(bubbleColor) / 255.0f;
+                bubbleG = ColorHelper.PackedColor.getGreen(bubbleColor) / 255.0f;
+                bubbleB = ColorHelper.PackedColor.getBlue(bubbleColor) / 255.0f;
+            }
+
+            CrucibleBubbleParticleData data = new CrucibleBubbleParticleData(bubbleR, bubbleG, bubbleB);
+
+            float waterPlaneHeight = 0.1f + 0.2f * this.waterLevel;
+
+            this.world.addParticle(data,
+                    this.pos.getX() + 0.15 + 0.7 * this.world.rand.nextFloat(),
+                    this.pos.getY() + waterPlaneHeight,
+                    this.pos.getZ() + 0.15 + 0.7 * this.world.rand.nextFloat(),
+                    0.0, 0.015, 0.0
+            );
         }
 
         //TODO: consume dropped in items if boiling
@@ -149,7 +180,7 @@ public class CrucibleTileEntity extends NetworkedTileEntity implements ITickable
                 player.setHeldItem(hand, new ItemStack(Items.WATER_BUCKET));
                 this.waterLevel--;
 
-                if(waterLevel == 0)
+                if (waterLevel == 0)
                     this.resetCrucible();
 
                 if (!this.world.isRemote) {
@@ -159,10 +190,24 @@ public class CrucibleTileEntity extends NetworkedTileEntity implements ITickable
                 }
                 return ActionResultType.SUCCESS;
             }
-
             //TODO: if clicked with stick, it was "stirred" and crafting ticks need to be set;
             //      play fitting sound (entity.getSplashSound)
             //      crafting ticks can only be enabled while boiling
+            //TODO: use stick tag here
+            //TODO: use hascontent as additional constraint
+            if (player.getHeldItem(hand).getItem() == Items.STICK && this.isBoiling) {
+                this.remainingCraftingTicks = STIRRING_CRAFTING_TICKS;
+
+                if (!this.world.isRemote) {
+                    this.markNetworkDirty();
+                    //Play splash sound
+                    this.world
+                            .playSound(null, pos, SoundEvents.ENTITY_FISHING_BOBBER_SPLASH, SoundCategory.BLOCKS, 1.0F,
+                                    1.0F);
+                }
+                return ActionResultType.SUCCESS;
+            }
+
         }
         return ActionResultType.PASS;
     }

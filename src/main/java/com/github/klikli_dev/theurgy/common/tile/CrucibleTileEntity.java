@@ -187,12 +187,8 @@ public class CrucibleTileEntity extends NetworkedTileEntity implements ITickable
                 }
                 return ActionResultType.SUCCESS;
             }
-            //TODO: if clicked with stick, it was "stirred" and crafting ticks need to be set;
-            //      play fitting sound (entity.getSplashSound)
-            //      crafting ticks can only be enabled while boiling
-            //TODO: use stick tag here
-            //TODO: use hascontent as additional constraint
-            if (player.getHeldItem(hand).getItem() == Items.STICK && this.isBoiling) {
+            
+            if (TagRegistry.RODS_WOODEN.contains(player.getHeldItem(hand).getItem()) && this.isBoiling && this.hasContents) {
                 this.remainingCraftingTicks = STIRRING_CRAFTING_TICKS;
 
                 if (!this.world.isRemote) {

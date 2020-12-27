@@ -1,9 +1,11 @@
 package com.github.klikli_dev.theurgy.common.tile;
 
 import com.github.klikli_dev.theurgy.client.particle.CrucibleBubbleParticleData;
+import com.github.klikli_dev.theurgy.common.theurgy.EssentiaCache;
 import com.github.klikli_dev.theurgy.registry.TagRegistry;
 import com.github.klikli_dev.theurgy.registry.TileRegistry;
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -11,8 +13,10 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.*;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 
+import java.util.List;
 import java.util.Random;
 
 public class CrucibleTileEntity extends NetworkedTileEntity implements ITickableTileEntity, IActivatableTileEntity {
@@ -41,10 +45,16 @@ public class CrucibleTileEntity extends NetworkedTileEntity implements ITickable
      */
     public int remainingCraftingTicks;
 
+    /**
+     * The essentia stored in the crucible
+     */
+    public EssentiaCache essentiaCache;
+
     //endregion Fields
     //region Initialization
     public CrucibleTileEntity() {
         super(TileRegistry.CRUCIBLE.get());
+        this.essentiaCache = new EssentiaCache();
     }
     //endregion Initialization
 
@@ -123,8 +133,26 @@ public class CrucibleTileEntity extends NetworkedTileEntity implements ITickable
             );
         }
 
-        //TODO: consume dropped in items if boiling
-        //TODO: if boiling and crafting timer, check for recipes
+        //if we have boiling water, check dropped items on a slow tick
+        if (!this.world.isRemote && this.waterLevel > 10 && this.isBoiling && this.world.getGameTime() % 10 == 0) {
+
+            //first, disable instant pickup on any items in the crucible to avoid accidental pickup
+            List<ItemEntity> items = this.world.getEntitiesWithinAABB(ItemEntity.class, new AxisAlignedBB(this.pos).shrink(0.125));
+            for (ItemEntity item : items) item.setPickupDelay(40); //2 second pickup delay
+
+            if(this.remainingCraftingTicks > 0){
+                //If we are in crafting mode, check for crafting recipes
+                //TODO: craft with dropped item
+                //      reset hasContent if empty
+            } else {
+                //if we are not in crafting mode, check for dissolution recipes
+                //TODO: consume dropped item
+                //TODO: set hasContent
+            }
+        }
+
+        //TODO: dissolve stored essentia over time
+        //      reset "hasContent" if empty
     }
 
     @Override
@@ -134,6 +162,9 @@ public class CrucibleTileEntity extends NetworkedTileEntity implements ITickable
         this.remainingCraftingTicks = compound.getByte("remainingCraftingTicks");
         this.isBoiling = compound.getBoolean("isBoiling");
         this.hasContents = compound.getBoolean("hasContents");
+        if(compound.contains("essentiaCache")){
+            this.essentiaCache.deserializeNBT(compound.getCompound("essentiaCache"));
+        }
     }
 
     @Override
@@ -142,6 +173,7 @@ public class CrucibleTileEntity extends NetworkedTileEntity implements ITickable
         compound.putByte("remainingCraftingTicks", (byte) this.remainingCraftingTicks);
         compound.putBoolean("isBoiling", this.isBoiling);
         compound.putBoolean("hasContents", this.hasContents);
+        compound.put("essentiaCache", this.essentiaCache.serializeNBT());
         return super.writeNetwork(compound);
     }
 
@@ -187,7 +219,7 @@ public class CrucibleTileEntity extends NetworkedTileEntity implements ITickable
                 }
                 return ActionResultType.SUCCESS;
             }
-            
+
             if (TagRegistry.RODS_WOODEN.contains(player.getHeldItem(hand).getItem()) && this.isBoiling && this.hasContents) {
                 this.remainingCraftingTicks = STIRRING_CRAFTING_TICKS;
 

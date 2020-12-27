@@ -50,15 +50,12 @@ public class CrucibleTileEntity extends NetworkedTileEntity implements ITickable
 
     //region Getter / Setter
     public boolean isOnHeatSource() {
-        BlockState heatSourceBlock = world.getBlockState(pos.down());
+        BlockState heatSourceBlock = this.world.getBlockState(this.pos.down());
         if (TagRegistry.HEAT_SOURCES.contains(heatSourceBlock.getBlock()))
             return true;
 
-        if (TagRegistry.HEAT_SOURCES_LIT.contains(heatSourceBlock.getBlock()) && heatSourceBlock.get(
-                BlockStateProperties.LIT))
-            return true;
-
-        return false;
+        return TagRegistry.HEAT_SOURCES_LIT.contains(heatSourceBlock.getBlock()) && heatSourceBlock.get(
+                BlockStateProperties.LIT);
     }
 
     //endregion Getter / Setter
@@ -180,7 +177,7 @@ public class CrucibleTileEntity extends NetworkedTileEntity implements ITickable
                 player.setHeldItem(hand, new ItemStack(Items.WATER_BUCKET));
                 this.waterLevel--;
 
-                if (waterLevel == 0)
+                if (this.waterLevel == 0)
                     this.resetCrucible();
 
                 if (!this.world.isRemote) {

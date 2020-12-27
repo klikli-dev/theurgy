@@ -1,0 +1,10 @@
+{
+  "type": "theurgy:essentia",
+  "ingredient": {
+    "tag": "forge:stone"
+  },
+  "result": {
+    "item": "theurgy:essentia_terra",
+    "count": 1
+  }
+}

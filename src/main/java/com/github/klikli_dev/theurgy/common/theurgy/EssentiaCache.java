@@ -7,8 +7,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.registries.ForgeRegistries;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 //region Overrides
 //endregion Overrides
 //endregion Overrides
@@ -84,6 +84,10 @@ public class EssentiaCache implements INBTSerializable<CompoundNBT> {
         this.essentia.put(essentia, amount);
     }
 
+    public void clear(){
+        this.essentia.clear();
+    }
+
     /**
      * Get the current amount of the given essentia type.
      *
@@ -109,6 +113,18 @@ public class EssentiaCache implements INBTSerializable<CompoundNBT> {
         }
         else {
             this.essentia.put(essentia, remaining);
+        }
+    }
+
+    /**
+     * Remove the given amount from each essentia type, independent of remaining amount.
+     * @param amount
+     */
+    public void removeAll(int amount){
+        //copy entry set to safely iterate
+        List<Item> essentia = new ArrayList<>(this.essentia.keySet());
+        for (Item item : essentia) {
+            this.remove(item, amount);
         }
     }
 

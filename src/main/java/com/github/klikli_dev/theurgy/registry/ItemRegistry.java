@@ -20,10 +20,8 @@ public class ItemRegistry {
 
     //Essentia
     public static final RegistryObject<Item> ESSENTIA_AER = registerEssentia("essentia_aer", 0xfcfc03); //yellow
-    public static final RegistryObject<Item> ESSENTIA_AETHER = registerEssentia("essentia_aether", 0xcccccc); //light grey
     public static final RegistryObject<Item> ESSENTIA_AQUA = registerEssentia("essentia_aqua", 0x00aeff); //light blue
     public static final RegistryObject<Item> ESSENTIA_IGNIS= registerEssentia("essentia_ignis", 0xe89b00); //orange
-    public static final RegistryObject<Item> ESSENTIA_TAINT= registerEssentia("essentia_taint", 0xab009d); //purple
     public static final RegistryObject<Item> ESSENTIA_TERRA= registerEssentia("essentia_terra", 0x008f0e); //green
 
     //endregion Fields

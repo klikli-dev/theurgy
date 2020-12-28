@@ -24,8 +24,7 @@ package com.github.klikli_dev.theurgy;
 
 import com.github.klikli_dev.theurgy.common.TheurgyItemGroup;
 import com.github.klikli_dev.theurgy.common.config.TheurgyConfig;
-import com.github.klikli_dev.theurgy.registry.BlockRegistry;
-import com.github.klikli_dev.theurgy.registry.ItemRegistry;
+import com.github.klikli_dev.theurgy.registry.*;
 import net.minecraft.item.ItemGroup;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -57,6 +56,9 @@ public class Theurgy {
 
         ItemRegistry.ITEMS.register(modEventBus);
         BlockRegistry.BLOCKS.register(modEventBus);
+        TileRegistry.TILES.register(modEventBus);
+        ParticleRegistry.PARTICLES.register(modEventBus);
+        RecipeRegistry.RECIPES.register(modEventBus);
 
         //register event buses
         modEventBus.addListener(this::commonSetup);

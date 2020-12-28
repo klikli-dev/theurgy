@@ -2,5 +2,16 @@
   "_comment": "Item Groups",
   "itemGroup.theurgy": "Theurgy",
   "_comment": "Items",
-  "item.theurgy.grimoire": "Hermetica"
+  "item.theurgy.grimoire": "Hermetica",
+  "_comment": "Blocks",
+  "block.theurgy.crucible": "Crucible",
+  "_comment": "Essentia",
+  "item.theurgy.essentia_aer": "Aer",
+  "item.theurgy.essentia_aether": "Aether",
+  "item.theurgy.essentia_aqua": "Aqua",
+  "item.theurgy.essentia_ignis": "Ignis",
+  "item.theurgy.essentia_taint": "Taint",
+  "item.theurgy.essentia_terra": "Terra",
+
+  "tooltip.theurgy.essentia_information": "%s: %d"
 }

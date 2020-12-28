@@ -23,50 +23,34 @@
 package com.github.klikli_dev.theurgy.common.handlers;
 
 import com.github.klikli_dev.theurgy.Theurgy;
-import com.github.klikli_dev.theurgy.client.render.tile.CrucibleRenderer;
-import com.github.klikli_dev.theurgy.registry.TileRegistry;
+import com.github.klikli_dev.theurgy.registry.ItemRegistry;
+import net.minecraft.client.renderer.color.BlockColors;
+import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
-@Mod.EventBusSubscriber(modid = Theurgy.MODID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
-public class ClientSetupEventHandler {
+@Mod.EventBusSubscriber(modid = Theurgy.MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+public class ColorEventHandler {
 
     //region Static Methods
     @SubscribeEvent
-    public static void onClientSetup(FMLClientSetupEvent event) {
-        //Register client side event handlers
+    public static void onRegisterBlockColors(ColorHandlerEvent.Block event) {
 
-        //Register Entity Renderers
-
-        //Register Tile Entity Renderers
-        ClientRegistry.bindTileEntityRenderer(TileRegistry.CRUCIBLE.get(), CrucibleRenderer::new);
-
-        //Setup block render layers
-
-        //register item modl properties
-        registerItemModelProperties(event);
-
-        //Not safe to call during parallel load, so register to run threadsafe.
-        event.enqueueWork(() -> {
-            //Register screen factories
-
-            Theurgy.LOGGER.debug("Registered Screen Containers");
-        });
-
-        Theurgy.LOGGER.info("Client setup complete.");
+        //Theurgy.LOGGER.info("Block color registration complete.");
     }
 
-    public static void registerItemModelProperties(FMLClientSetupEvent event) {
+    @SubscribeEvent
+    public static void onRegisterItemColors(ColorHandlerEvent.Item event) {
+        ItemColors itemColors = event.getItemColors();
 
-        //Not safe to call during parallel load, so register to run threadsafe
-        event.enqueueWork(() -> {
-            //Register item model properties
-
-            Theurgy.LOGGER.debug("Registered Item Properties");
+        //register esseentia colors
+        ItemRegistry.ESSENTIA_COLORS.forEach((item, color) -> {
+            itemColors.register((stack, tintColor) -> color, item.get());
         });
+
+        Theurgy.LOGGER.info("Item color registration complete.");
     }
     //endregion Static Methods
 }

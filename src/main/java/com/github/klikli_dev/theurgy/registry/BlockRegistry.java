@@ -21,7 +21,11 @@ public class BlockRegistry {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS,
             Theurgy.MODID);
     public static final Map<ResourceLocation, BlockDataGenSettings> BLOCK_DATA_GEN_SETTINGS = new HashMap<>();
-    
+
+    public static final RegistryObject<CrucibleBlock> CRUCIBLE =
+            register("crucible", () -> new CrucibleBlock(
+                    Block.Properties.create(Material.IRON, MaterialColor.STONE)
+                            .setRequiresTool().hardnessAndResistance(2.0F).notSolid()));
     //endregion Fields
 
     //region Static Methods

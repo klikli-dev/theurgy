@@ -1,0 +1,16 @@
+{
+  "type": "theurgy:crucible",
+  "ingredient": {
+    "tag": "forge:ores/iron"
+  },
+  "essentia": [
+    {
+      "item": "theurgy:essentia_terra",
+      "count": 10
+    }
+  ],
+  "result": {
+    "item": "minecraft:iron_nugget",
+    "count": 15
+  }
+}

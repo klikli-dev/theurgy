@@ -3,8 +3,10 @@
   "ingredient": {
     "tag": "forge:stone"
   },
-  "result": {
-    "item": "theurgy:essentia_terra",
-    "count": 1
-  }
+  "essentia": [
+    {
+      "item": "theurgy:essentia_terra",
+      "count": 1
+    }
+  ]
 }

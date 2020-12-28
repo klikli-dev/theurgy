@@ -32,7 +32,7 @@ public class ItemRegistry {
     }
 
     public static RegistryObject<Item> registerEssentia(String name, int color) {
-        RegistryObject<Item> item = ITEMS.register(name, () -> new Item(defaultProperties().maxStackSize(1024)));
+        RegistryObject<Item> item = ITEMS.register(name, () -> new Item(defaultProperties().maxStackSize(1024 * 100)));
         ESSENTIA_COLORS.put(item, color);
         return item;
     }

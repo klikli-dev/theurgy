@@ -6,12 +6,13 @@
   "_comment": "Blocks",
   "block.theurgy.crucible": "Crucible",
   "_comment": "Essentia",
-  "item.theurgy.essentia_aer": "Aer",
-  "item.theurgy.essentia_aether": "Aether",
-  "item.theurgy.essentia_aqua": "Aqua",
-  "item.theurgy.essentia_ignis": "Ignis",
-  "item.theurgy.essentia_taint": "Taint",
-  "item.theurgy.essentia_terra": "Terra",
-
-  "tooltip.theurgy.essentia_information": "%s: %d"
+  "item.theurgy.essentia_aer": "Aer Essentia",
+  "item.theurgy.essentia_aqua": "Aqua Essentia",
+  "item.theurgy.essentia_ignis": "Ignis Essentia",
+  "item.theurgy.essentia_terra": "Terra Essentia",
+  "_comment": "Tooltips",
+  "tooltip.theurgy.essentia_information": "%s: %d",
+  "_comment": "Jei",
+  "jei.theurgy.essentia_recipe": "Essentia Smelting",
+  "jei.theurgy.crucible_recipe": "Crucible"
 }

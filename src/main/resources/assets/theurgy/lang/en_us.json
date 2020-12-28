@@ -13,5 +13,6 @@
   "_comment": "Tooltips",
   "tooltip.theurgy.essentia_information": "%s: %d",
   "_comment": "Jei",
-  "jei.theurgy.essentia_recipe": "Essentia Smelting"
+  "jei.theurgy.essentia_recipe": "Essentia Smelting",
+  "jei.theurgy.crucible_recipe": "Crucible"
 }

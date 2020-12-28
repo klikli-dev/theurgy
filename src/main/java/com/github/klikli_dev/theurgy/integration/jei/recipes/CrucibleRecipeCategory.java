@@ -23,11 +23,10 @@
 package com.github.klikli_dev.theurgy.integration.jei.recipes;
 
 import com.github.klikli_dev.theurgy.Theurgy;
+import com.github.klikli_dev.theurgy.common.crafting.recipe.CrucibleRecipe;
 import com.github.klikli_dev.theurgy.common.crafting.recipe.EssentiaRecipe;
 import com.github.klikli_dev.theurgy.registry.BlockRegistry;
 import com.github.klikli_dev.theurgy.registry.RecipeRegistry;
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.systems.RenderSystem;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -36,11 +35,13 @@ import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 
 import java.util.List;
 
-public class EssentiaRecipeCategory implements IRecipeCategory<EssentiaRecipe> {
+public class CrucibleRecipeCategory implements IRecipeCategory<CrucibleRecipe> {
 
     //region Fields
     private final IDrawable background;
@@ -49,7 +50,7 @@ public class EssentiaRecipeCategory implements IRecipeCategory<EssentiaRecipe> {
     //endregion Fields
 
     //region Initialization
-    public EssentiaRecipeCategory(IGuiHelper guiHelper) {
+    public CrucibleRecipeCategory(IGuiHelper guiHelper) {
         this.background = guiHelper.createBlankDrawable(168, 86);
         this.icon = guiHelper.createDrawableIngredient(this.renderStack);
         this.renderStack.getOrCreateTag().putBoolean("RenderFull", true);
@@ -59,17 +60,17 @@ public class EssentiaRecipeCategory implements IRecipeCategory<EssentiaRecipe> {
     //region Overrides
     @Override
     public ResourceLocation getUid() {
-        return RecipeRegistry.ESSENTIA.getId();
+        return RecipeRegistry.CRUCIBLE.getId();
     }
 
     @Override
-    public Class<? extends EssentiaRecipe> getRecipeClass() {
-        return EssentiaRecipe.class;
+    public Class<? extends CrucibleRecipe> getRecipeClass() {
+        return CrucibleRecipe.class;
     }
 
     @Override
     public String getTitle() {
-        return I18n.format("jei." + Theurgy.MODID + ".essentia_recipe");
+        return I18n.format("jei." + Theurgy.MODID + ".crucible_recipe");
     }
 
     @Override
@@ -83,37 +84,48 @@ public class EssentiaRecipeCategory implements IRecipeCategory<EssentiaRecipe> {
     }
 
     @Override
-    public void setIngredients(EssentiaRecipe recipe, IIngredients ingredients) {
+    public void setIngredients(CrucibleRecipe recipe, IIngredients ingredients) {
         ingredients.setInputIngredients(recipe.getIngredients());
-        ingredients.setOutputs(VanillaTypes.ITEM, recipe.getEssentia());
+        ingredients.setOutput(VanillaTypes.ITEM, recipe.getRecipeOutput());
     }
 
     @Override
-    public void setRecipe(IRecipeLayout recipeLayout, EssentiaRecipe recipe, IIngredients ingredients) {
+    public void setRecipe(IRecipeLayout recipeLayout, CrucibleRecipe recipe, IIngredients ingredients) {
         int index = 0;
         int iconWidth = this.icon.getWidth();
         int x = this.background.getWidth() / 2 - iconWidth/2;
-        int y = 12;
-        recipeLayout.getItemStacks().init(index, true, x, y);
-        recipeLayout.getItemStacks().set(index, ingredients.getInputs(VanillaTypes.ITEM).get(0));
-        index++;
-        y += 10;
+        int y = 0;
 
+        List<List<ItemStack>> inputs = ingredients.getInputs(VanillaTypes.ITEM);
+
+        //draw trigger ingredient
+        recipeLayout.getItemStacks().init(index, true, x, y);
+        recipeLayout.getItemStacks().set(index, inputs.get(0));
+        index++;
+        y += 20;
+
+        //draw essentia ingredients
+        inputs.remove(0); //remove trigger ingredient
+        int essentiaSlotOffset = 10;
+        int essentiaX = x;
+        if(inputs.size() > 1)
+            essentiaX = essentiaX - (inputs.size() * (iconWidth + essentiaSlotOffset)) / 2 + (iconWidth + essentiaSlotOffset)/2;
+        for(int i = 0; i < inputs.size(); i++){
+            recipeLayout.getItemStacks().init(index, false, essentiaX + i * (iconWidth + essentiaSlotOffset), y);
+            recipeLayout.getItemStacks().set(index, inputs.get(i));
+            index++;
+        }
+        y += 20;
+
+        //draw crucible
         recipeLayout.getItemStacks().init(index, true, x, y);
         recipeLayout.getItemStacks().set(index, this.renderStack);
         index++;
         y += 20;
 
-
-        List<List<ItemStack>> essentia = ingredients.getOutputs(VanillaTypes.ITEM);
-        int essentiaSlotOffset = 10;
-        if(essentia.size() > 1)
-            x = x - (essentia.size() * (iconWidth + essentiaSlotOffset)) / 2 + (iconWidth + essentiaSlotOffset)/2;
-        for(int i = 0; i < essentia.size(); i++){
-            recipeLayout.getItemStacks().init(index+i, false, x + i * (iconWidth + essentiaSlotOffset), y);
-            recipeLayout.getItemStacks().set(index+i, essentia.get(i));
-        }
-;
+        //draw output
+        recipeLayout.getItemStacks().init(index, false, x, y);
+        recipeLayout.getItemStacks().set(index, ingredients.getOutputs(VanillaTypes.ITEM).get(0));
     }
 
     //endregion Overrides

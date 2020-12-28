@@ -23,7 +23,6 @@
 package com.github.klikli_dev.theurgy.common.crafting.recipe;
 
 import com.github.klikli_dev.theurgy.registry.RecipeRegistry;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
@@ -42,6 +41,7 @@ import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CrucibleRecipe implements IRecipe<CrucibleItemStackFakeInventory> {
     //region Fields
@@ -52,6 +52,7 @@ public class CrucibleRecipe implements IRecipe<CrucibleItemStackFakeInventory> {
     protected final ItemStack output;
 
     protected final List<ItemStack> essentia;
+    protected final NonNullList<Ingredient> ingredients;
     //endregion Fields
 
     //region Initialization
@@ -61,6 +62,11 @@ public class CrucibleRecipe implements IRecipe<CrucibleItemStackFakeInventory> {
         this.input = input;
         this.essentia = essentia;
         this.output = output;
+        List<Ingredient> allIngredients = new ArrayList<>();
+        allIngredients.add(input); //first slot is "trigger" item
+        //remainder is essentia
+        allIngredients.addAll(this.essentia.stream().map(Ingredient::fromStacks).collect(Collectors.toList()));
+        this.ingredients = NonNullList.from(Ingredient.EMPTY, allIngredients.stream().toArray(Ingredient[]::new));
     }
     //endregion Initialization
 
@@ -103,7 +109,7 @@ public class CrucibleRecipe implements IRecipe<CrucibleItemStackFakeInventory> {
 
     @Override
     public NonNullList<Ingredient> getIngredients() {
-        return NonNullList.from(Ingredient.EMPTY, this.input);
+        return this.ingredients;
     }
 
     @Override

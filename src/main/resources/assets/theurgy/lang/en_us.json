@@ -10,8 +10,8 @@
   "item.theurgy.essentia_aqua": "Aqua Essentia",
   "item.theurgy.essentia_ignis": "Ignis Essentia",
   "item.theurgy.essentia_terra": "Terra Essentia",
-  "item.theurgy.essentia_taint": "Taint",
-  "item.theurgy.essentia_terra": "Terra",
-
-  "tooltip.theurgy.essentia_information": "%s: %d"
+  "_comment": "Tooltips",
+  "tooltip.theurgy.essentia_information": "%s: %d",
+  "_comment": "Jei",
+  "jei.theurgy.essentia_recipe": "Essentia Smelting"
 }

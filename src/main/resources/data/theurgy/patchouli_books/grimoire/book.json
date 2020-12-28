@@ -4,6 +4,7 @@
   "landing_text": "The definite guide for the aspiring theurgist.",
   "model": "theurgy:grimoire",
   "book_texture": "patchouli:textures/gui/book_gray.png",
+  "filler_texture": "theurgy:textures/gui/1px_transparent.png",
   "show_toasts": true,
   "creative_tab": "theurgy",
   "show_progress": false,

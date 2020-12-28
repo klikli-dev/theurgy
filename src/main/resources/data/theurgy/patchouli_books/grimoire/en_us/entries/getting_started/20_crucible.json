@@ -1,0 +1,28 @@
+{
+  "name": "The Crucible",
+  "icon": "theurgy:crucible",
+  "category": "10_getting_started",
+  "sortnum": 20,
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "theurgy:crucible",
+      "text": "The crucible is the first and likely most important tool of the $(thing)Hermeticist$(). It allows to dissolve objects into their $(thing)Essentia$(), and then use the $(thing)Essentia$() to create other objects."
+    },
+    {
+      "type": "crafting",
+      "recipe": "theurgy:crucible",
+      "text": "test"
+    },
+    {
+      "type": "text",
+      "title": "Heating",
+      "text": "In order to use the crucible, it needs to be filled with water using buckets. The water needs to be brought to a boil, to achieve this. place the crucible on a heate source, such as fire, lava, magma or a lit campfire."
+    },
+    {
+      "type": "text",
+      "title": "Usage",
+      "text": "To use the crucible to $(italics)create$() matter, one first needs to $(italics)dissolve$() matter to release it's $(thing)Essentia$(). To dissolve an item, simply drop it into the boiling water in the crucible. In order to use the crucible to create new items, stir the boiling $(thing)Essentia$() by right-clicking the crucible with a stick, then drop in the ingredient."
+    }
+  ]
+}

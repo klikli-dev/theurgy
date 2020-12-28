@@ -1,0 +1,23 @@
+{
+  "name": "The Four Elements",
+  "icon": "theurgy:essentia_aer",
+  "category": "10_getting_started",
+  "sortnum": 10,
+  "pages": [
+    {
+      "type": "text",
+      "title": "Alchemy",
+      "text": "The goal of alchemy is the mastery of matter. Master $(thing)Hermeticists$() are said to be able to replicate any object and to transform any material into any other. In other words: Unmeasurable riches await those understanding the manipulation of matter."
+    },
+    {
+      "type": "text",
+      "title": "Essentia",
+      "text": "All matter is made up of four primary elements, also known as $(thing)Essentia$(): $(#fcfc03)Aer$(), $(#00aeff)Aqua$(), $(#e89b00)Ignis$(), $(#008f0e)Terra$(). Finding a way to work with $(thing)Essentia$() should $(italics)theoretically$() allow manipulation of matter on a fundamental level."
+    },
+    {
+      "type": "text",
+      "title": "Prima Materia",
+      "text": "The possibly greatest mystery in the study of Hermeticism is $(thing)Prima Materia$(), a mystical substance made up of the four $(thing)Essentia$() in perfect balance. $(thing)Prima Materia() can be transformed into any material. While $(thing)Prima Materia$() is said to be all around, making it visible, stable and usable, is among the greatest challenges on the way towards mastery of alchemy."
+    }
+  ]
+}

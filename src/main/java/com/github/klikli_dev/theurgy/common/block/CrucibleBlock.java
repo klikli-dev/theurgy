@@ -1,8 +1,11 @@
 package com.github.klikli_dev.theurgy.common.block;
 
+import com.github.klikli_dev.theurgy.Theurgy;
+import com.github.klikli_dev.theurgy.common.theurgy.IEssentiaInformationProvider;
 import com.github.klikli_dev.theurgy.common.tile.CrucibleTileEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
@@ -13,12 +16,15 @@ import net.minecraft.util.math.shapes.IBooleanFunction;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
+import java.util.List;
 
-public class CrucibleBlock extends Block {
+public class CrucibleBlock extends Block implements IEssentiaInformationProvider {
 
     //region Fields
     private static final VoxelShape INSIDE = makeCuboidShape(2.0D, 4.0D, 2.0D, 14.0D, 16.0D, 14.0D);
@@ -45,7 +51,7 @@ public class CrucibleBlock extends Block {
         if (this.hasTileEntity(state)) {
             TileEntity tileEntity = worldIn.getTileEntity(pos);
             if (tileEntity instanceof CrucibleTileEntity) {
-                return ((CrucibleTileEntity) worldIn.getTileEntity(pos))
+                return ((CrucibleTileEntity) tileEntity)
                                .onTileEntityActivated(state, pos, player, handIn);
             }
         }
@@ -66,6 +72,21 @@ public class CrucibleBlock extends Block {
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world) {
         return new CrucibleTileEntity();
+    }
+
+    @Override
+    public List<ITextComponent> getEssentiaInformation(World world, BlockPos pos, BlockState state,
+                                                       List<ITextComponent> tooltip) {
+        TileEntity tileEntity = world.getTileEntity(pos);
+        if (tileEntity instanceof CrucibleTileEntity) {
+            CrucibleTileEntity crucible = (CrucibleTileEntity) tileEntity;
+            crucible.essentiaCache.essentia.forEach((item, amount) -> {
+                tooltip.add(new TranslationTextComponent(
+                        "tooltip." + Theurgy.MODID + ".essentia_information",
+                        I18n.format(item.getTranslationKey()), amount));
+            });
+        }
+        return tooltip;
     }
     //endregion Overrides
 }

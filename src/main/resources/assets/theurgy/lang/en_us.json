@@ -11,5 +11,7 @@
   "item.theurgy.essentia_aqua": "Aqua",
   "item.theurgy.essentia_ignis": "Ignis",
   "item.theurgy.essentia_taint": "Taint",
-  "item.theurgy.essentia_terra": "Terra"
+  "item.theurgy.essentia_terra": "Terra",
+
+  "tooltip.theurgy.essentia_information": "%s: %d"
 }

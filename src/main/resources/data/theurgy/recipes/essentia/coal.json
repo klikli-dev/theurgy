@@ -1,0 +1,10 @@
+{
+  "type": "theurgy:essentia",
+  "ingredient": {
+    "item": "minecraft:coal"
+  },
+  "result": {
+    "item": "theurgy:essentia_ignis",
+    "count": 10
+  }
+}

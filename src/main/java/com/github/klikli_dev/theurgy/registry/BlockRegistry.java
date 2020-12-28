@@ -2,8 +2,10 @@ package com.github.klikli_dev.theurgy.registry;
 
 import com.github.klikli_dev.theurgy.Theurgy;
 import com.github.klikli_dev.theurgy.common.block.CrucibleBlock;
+import com.github.klikli_dev.theurgy.common.block.PrimaMateriaCrystalBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.CauldronBlock;
+import net.minecraft.block.DirectionalBlock;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
@@ -22,10 +24,17 @@ public class BlockRegistry {
             Theurgy.MODID);
     public static final Map<ResourceLocation, BlockDataGenSettings> BLOCK_DATA_GEN_SETTINGS = new HashMap<>();
 
+    //Machines
     public static final RegistryObject<CrucibleBlock> CRUCIBLE =
             register("crucible", () -> new CrucibleBlock(
                     Block.Properties.create(Material.IRON, MaterialColor.STONE)
                             .setRequiresTool().hardnessAndResistance(2.0F).notSolid()));
+
+    //Resources
+    public static final RegistryObject<PrimaMateriaCrystalBlock> PRIMA_MATERIA_CRYSTAL = register("prima_materia_crystal", () -> new PrimaMateriaCrystalBlock(
+            Block.Properties.create(Material.GLASS).sound(SoundType.GLASS).hardnessAndResistance(0.3f, 0.3f)) {
+    });
+
     //endregion Fields
 
     //region Static Methods

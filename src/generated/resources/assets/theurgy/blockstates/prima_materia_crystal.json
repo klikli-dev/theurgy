@@ -1,0 +1,30 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "theurgy:block/prima_materia_crystal",
+      "x": 180
+    },
+    "facing=up": {
+      "model": "theurgy:block/prima_materia_crystal"
+    },
+    "facing=north": {
+      "model": "theurgy:block/prima_materia_crystal",
+      "x": 90
+    },
+    "facing=south": {
+      "model": "theurgy:block/prima_materia_crystal",
+      "x": 90,
+      "y": 180
+    },
+    "facing=west": {
+      "model": "theurgy:block/prima_materia_crystal",
+      "x": 90,
+      "y": 270
+    },
+    "facing=east": {
+      "model": "theurgy:block/prima_materia_crystal",
+      "x": 90,
+      "y": 90
+    }
+  }
+}

@@ -131,7 +131,7 @@ public class CrucibleRecipe implements IRecipe<CrucibleItemStackFakeInventory> {
                     "ingredient") : JSONUtils.getJsonObject(json, "ingredient");
             Ingredient ingredient = Ingredient.deserialize(ingredientElement);
 
-            List<ItemStack> essentia = readEssentiaList(JSONUtils.getJsonArray(json, "essentia"));
+            List<ItemStack> essentia = RecipeJsonHelper.readItemStackArray(JSONUtils.getJsonArray(json, "essentia"));
             if (essentia.isEmpty()) {
                 throw new JsonParseException("No essentia specified for crucible recipe");
             }
@@ -164,18 +164,5 @@ public class CrucibleRecipe implements IRecipe<CrucibleItemStackFakeInventory> {
             recipe.essentia.forEach(buffer::writeItemStack);
         }
         //endregion Overrides
-
-        //region Static Methods
-        private static List<ItemStack> readEssentiaList(JsonArray essentiaArray) {
-            List<ItemStack> list = new ArrayList<>();
-
-            for (int i = 0; i < essentiaArray.size(); ++i) {
-                ItemStack stack = CraftingHelper.getItemStack(essentiaArray.get(i).getAsJsonObject(), false);
-                list.add(stack);
-            }
-
-            return list;
-        }
-        //endregion Static Methods
     }
 }

@@ -1,12 +1,16 @@
 {
   "type": "theurgy:essentia",
   "ingredient": {
-    "item": "minecraft:coal"
+    "tag": "forge:gems/diamond"
   },
   "essentia": [
     {
       "item": "theurgy:essentia_ignis",
-      "count": 10
+      "count": 1500
+    },
+    {
+      "item": "theurgy:essentia_terra",
+      "count": 1000
     }
   ]
 }

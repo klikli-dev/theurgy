@@ -212,10 +212,12 @@ public class CrucibleTileEntity extends NetworkedTileEntity implements ITickable
                         dissolvedAnyItem = true;
                         item.remove();
 
-                        //get crafting result
-                        ItemStack result = recipe.get().getCraftingResult(this.fakeInventory);
-                        //store result in essentia cache, always consume all
-                        this.essentiaCache.add(result.getItem(), result.getCount() * item.getItem().getCount());
+                        //get resulting essentia
+                        List<ItemStack> essentia = recipe.get().getEssentia();
+
+                        //store result in essentia cache, always use up entire stack
+                        essentia.forEach(itemStack -> this.essentiaCache.add(itemStack.getItem(), itemStack.getCount() * item.getItem().getCount()));
+
                         this.hasContents = true;
                     }
                 }

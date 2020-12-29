@@ -23,9 +23,9 @@
 package com.github.klikli_dev.theurgy.integration.jei;
 
 import com.github.klikli_dev.theurgy.Theurgy;
-import com.github.klikli_dev.theurgy.common.crafting.recipe.CrucibleRecipe;
+import com.github.klikli_dev.theurgy.common.crafting.recipe.PurificationRecipe;
 import com.github.klikli_dev.theurgy.common.crafting.recipe.EssentiaRecipe;
-import com.github.klikli_dev.theurgy.integration.jei.recipes.CrucibleRecipeCategory;
+import com.github.klikli_dev.theurgy.integration.jei.recipes.PurificationRecipeCategory;
 import com.github.klikli_dev.theurgy.integration.jei.recipes.EssentiaRecipeCategory;
 import com.github.klikli_dev.theurgy.registry.BlockRegistry;
 import com.github.klikli_dev.theurgy.registry.RecipeRegistry;
@@ -53,7 +53,7 @@ public class JeiPlugin implements IModPlugin {
     @Override
     public void registerCategories(IRecipeCategoryRegistration registration) {
         registration.addRecipeCategories(new EssentiaRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
-        registration.addRecipeCategories(new CrucibleRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
+        registration.addRecipeCategories(new PurificationRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
     }
 
     @Override
@@ -63,8 +63,8 @@ public class JeiPlugin implements IModPlugin {
 
         List<EssentiaRecipe> essentiaRecipes = recipeManager.getRecipesForType(RecipeRegistry.ESSENTIA_TYPE.get());
         registration.addRecipes(essentiaRecipes, RecipeRegistry.ESSENTIA.getId());
-        List<CrucibleRecipe> crucibleRecipes = recipeManager.getRecipesForType(RecipeRegistry.CRUCIBLE_TYPE.get());
-        registration.addRecipes(crucibleRecipes, RecipeRegistry.CRUCIBLE.getId());
+        List<PurificationRecipe> purificationRecipes = recipeManager.getRecipesForType(RecipeRegistry.PURIFICATION_TYPE.get());
+        registration.addRecipes(purificationRecipes, RecipeRegistry.PURIFICATION.getId());
     }
 
     @Override
@@ -72,7 +72,7 @@ public class JeiPlugin implements IModPlugin {
         registration.addRecipeCatalyst(new ItemStack(BlockRegistry.CRUCIBLE.get()),
                 RecipeRegistry.ESSENTIA.getId());
         registration.addRecipeCatalyst(new ItemStack(BlockRegistry.CRUCIBLE.get()),
-                RecipeRegistry.CRUCIBLE.getId());
+                RecipeRegistry.PURIFICATION.getId());
     }
 
     //endregion Overrides

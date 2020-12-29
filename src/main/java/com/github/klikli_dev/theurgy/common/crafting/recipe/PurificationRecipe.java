@@ -43,7 +43,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class CrucibleRecipe implements IRecipe<CrucibleItemStackFakeInventory> {
+public class PurificationRecipe implements IRecipe<CrucibleItemStackFakeInventory> {
     //region Fields
     public static Serializer SERIALIZER = new Serializer();
 
@@ -56,8 +56,8 @@ public class CrucibleRecipe implements IRecipe<CrucibleItemStackFakeInventory> {
     //endregion Fields
 
     //region Initialization
-    public CrucibleRecipe(ResourceLocation id, Ingredient input, List<ItemStack> essentia,
-                          ItemStack output) {
+    public PurificationRecipe(ResourceLocation id, Ingredient input, List<ItemStack> essentia,
+                              ItemStack output) {
         this.id = id;
         this.input = input;
         this.essentia = essentia;
@@ -124,30 +124,30 @@ public class CrucibleRecipe implements IRecipe<CrucibleItemStackFakeInventory> {
 
     @Override
     public IRecipeType<?> getType() {
-        return RecipeRegistry.CRUCIBLE_TYPE.get();
+        return RecipeRegistry.PURIFICATION_TYPE.get();
     }
     //endregion Overrides
 
-    public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<CrucibleRecipe> {
+    public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<PurificationRecipe> {
 
         //region Overrides
         @Override
-        public CrucibleRecipe read(ResourceLocation recipeId, JsonObject json) {
+        public PurificationRecipe read(ResourceLocation recipeId, JsonObject json) {
             JsonElement ingredientElement = JSONUtils.isJsonArray(json, "ingredient") ? JSONUtils.getJsonArray(json,
                     "ingredient") : JSONUtils.getJsonObject(json, "ingredient");
             Ingredient ingredient = Ingredient.deserialize(ingredientElement);
 
             List<ItemStack> essentia = RecipeJsonHelper.readItemStackArray(JSONUtils.getJsonArray(json, "essentia"));
             if (essentia.isEmpty()) {
-                throw new JsonParseException("No essentia specified for crucible recipe");
+                throw new JsonParseException("No essentia specified for purification recipe");
             }
             ItemStack result = CraftingHelper.getItemStack(JSONUtils.getJsonObject(json, "result"), true);
 
-            return new CrucibleRecipe(recipeId, ingredient, essentia, result);
+            return new PurificationRecipe(recipeId, ingredient, essentia, result);
         }
 
         @Override
-        public CrucibleRecipe read(ResourceLocation recipeId, PacketBuffer buffer) {
+        public PurificationRecipe read(ResourceLocation recipeId, PacketBuffer buffer) {
 
             Ingredient ingredient = Ingredient.read(buffer);
             ItemStack result = buffer.readItemStack();
@@ -159,11 +159,11 @@ public class CrucibleRecipe implements IRecipe<CrucibleItemStackFakeInventory> {
                 essentia.add(buffer.readItemStack());
             }
 
-            return new CrucibleRecipe(recipeId, ingredient, essentia, result);
+            return new PurificationRecipe(recipeId, ingredient, essentia, result);
         }
 
         @Override
-        public void write(PacketBuffer buffer, CrucibleRecipe recipe) {
+        public void write(PacketBuffer buffer, PurificationRecipe recipe) {
             recipe.input.write(buffer);
             buffer.writeItemStack(recipe.output);
             buffer.writeVarInt(recipe.essentia.size());

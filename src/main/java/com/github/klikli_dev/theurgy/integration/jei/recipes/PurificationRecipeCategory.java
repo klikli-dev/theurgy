@@ -23,8 +23,7 @@
 package com.github.klikli_dev.theurgy.integration.jei.recipes;
 
 import com.github.klikli_dev.theurgy.Theurgy;
-import com.github.klikli_dev.theurgy.common.crafting.recipe.CrucibleRecipe;
-import com.github.klikli_dev.theurgy.common.crafting.recipe.EssentiaRecipe;
+import com.github.klikli_dev.theurgy.common.crafting.recipe.PurificationRecipe;
 import com.github.klikli_dev.theurgy.registry.BlockRegistry;
 import com.github.klikli_dev.theurgy.registry.RecipeRegistry;
 import mezz.jei.api.constants.VanillaTypes;
@@ -35,13 +34,11 @@ import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 
 import java.util.List;
 
-public class CrucibleRecipeCategory implements IRecipeCategory<CrucibleRecipe> {
+public class PurificationRecipeCategory implements IRecipeCategory<PurificationRecipe> {
 
     //region Fields
     private final IDrawable background;
@@ -50,7 +47,7 @@ public class CrucibleRecipeCategory implements IRecipeCategory<CrucibleRecipe> {
     //endregion Fields
 
     //region Initialization
-    public CrucibleRecipeCategory(IGuiHelper guiHelper) {
+    public PurificationRecipeCategory(IGuiHelper guiHelper) {
         this.background = guiHelper.createBlankDrawable(168, 86);
         this.icon = guiHelper.createDrawableIngredient(this.renderStack);
         this.renderStack.getOrCreateTag().putBoolean("RenderFull", true);
@@ -60,17 +57,17 @@ public class CrucibleRecipeCategory implements IRecipeCategory<CrucibleRecipe> {
     //region Overrides
     @Override
     public ResourceLocation getUid() {
-        return RecipeRegistry.CRUCIBLE.getId();
+        return RecipeRegistry.PURIFICATION.getId();
     }
 
     @Override
-    public Class<? extends CrucibleRecipe> getRecipeClass() {
-        return CrucibleRecipe.class;
+    public Class<? extends PurificationRecipe> getRecipeClass() {
+        return PurificationRecipe.class;
     }
 
     @Override
     public String getTitle() {
-        return I18n.format("jei." + Theurgy.MODID + ".crucible_recipe");
+        return I18n.format("jei." + Theurgy.MODID + ".purification_recipe");
     }
 
     @Override
@@ -84,13 +81,13 @@ public class CrucibleRecipeCategory implements IRecipeCategory<CrucibleRecipe> {
     }
 
     @Override
-    public void setIngredients(CrucibleRecipe recipe, IIngredients ingredients) {
+    public void setIngredients(PurificationRecipe recipe, IIngredients ingredients) {
         ingredients.setInputIngredients(recipe.getIngredients());
         ingredients.setOutput(VanillaTypes.ITEM, recipe.getRecipeOutput());
     }
 
     @Override
-    public void setRecipe(IRecipeLayout recipeLayout, CrucibleRecipe recipe, IIngredients ingredients) {
+    public void setRecipe(IRecipeLayout recipeLayout, PurificationRecipe recipe, IIngredients ingredients) {
         int index = 0;
         int iconWidth = this.icon.getWidth();
         int x = this.background.getWidth() / 2 - iconWidth/2;

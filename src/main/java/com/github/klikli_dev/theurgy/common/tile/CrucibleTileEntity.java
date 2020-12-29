@@ -24,7 +24,7 @@ package com.github.klikli_dev.theurgy.common.tile;
 
 import com.github.klikli_dev.theurgy.client.particle.CrucibleBubbleParticleData;
 import com.github.klikli_dev.theurgy.common.crafting.recipe.CrucibleItemStackFakeInventory;
-import com.github.klikli_dev.theurgy.common.crafting.recipe.CrucibleRecipe;
+import com.github.klikli_dev.theurgy.common.crafting.recipe.PurificationRecipe;
 import com.github.klikli_dev.theurgy.common.crafting.recipe.EssentiaRecipe;
 import com.github.klikli_dev.theurgy.common.theurgy.EssentiaCache;
 import com.github.klikli_dev.theurgy.registry.RecipeRegistry;
@@ -185,8 +185,8 @@ public class CrucibleTileEntity extends NetworkedTileEntity implements ITickable
                     this.fakeInventory.setInventorySlotContents(0, item.getItem());
 
                     //look up fitting recipes
-                    Optional<CrucibleRecipe> recipe =
-                            this.world.getRecipeManager().getRecipe(RecipeRegistry.CRUCIBLE_TYPE.get(),
+                    Optional<PurificationRecipe> recipe =
+                            this.world.getRecipeManager().getRecipe(RecipeRegistry.PURIFICATION_TYPE.get(),
                                     this.fakeInventory, this.world);
 
                     if (recipe.isPresent()) {

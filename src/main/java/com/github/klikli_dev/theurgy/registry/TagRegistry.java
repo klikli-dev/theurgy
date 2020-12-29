@@ -29,6 +29,9 @@ public class TagRegistry {
     public static final ITag<Block> OBSIDIAN =
             makeBlockTag(new ResourceLocation("forge", "obsidian"));
 
+    public static final ITag<Block> CRYSTALS =
+            makeBlockTag(new ResourceLocation("theurgy", "crystals"));
+
     //Item Tags
     public static final ITag<Item> RODS_WOODEN =
             makeItemTag(new ResourceLocation("forge", "rods/wooden"));

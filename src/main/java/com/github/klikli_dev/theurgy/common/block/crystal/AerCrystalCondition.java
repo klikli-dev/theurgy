@@ -22,16 +22,31 @@
 
 package com.github.klikli_dev.theurgy.common.block.crystal;
 
+import com.github.klikli_dev.theurgy.registry.TagRegistry;
+import com.github.klikli_dev.theurgy.util.Math3DUtil;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
 
+/**
+ * Can have max 3 adjacent solid blocks that are not crystals.
+ * Should allow to grow them in columns
+ */
 public class AerCrystalCondition implements ICrystalSpreadCondition{
     @Override
     public Direction canSpreadTo(IWorld world, BlockState targetState, BlockPos targetPos, BlockPos sourcePos) {
-        //TODO: Implement aer conditions
-        Direction placementDirection = this.getPlacementDirection(world, targetPos, sourcePos);
-        return null;
+        long solidBlocks = Math3DUtil.getBlockPosInBox(sourcePos, 1)
+                                   .filter((pos) -> {
+                                       BlockState state = world.getBlockState(pos);
+                                       return !pos.equals(sourcePos)
+                                              //only count non-air blocks that are not crystals
+                                              && !state.isAir(world, pos) && !TagRegistry.CRYSTALS.contains(state.getBlock());
+                                   }).count();
+        if(solidBlocks > 3)
+            return null;
+
+        return this.getPlacementDirection(world, targetPos, sourcePos);
     }
 }

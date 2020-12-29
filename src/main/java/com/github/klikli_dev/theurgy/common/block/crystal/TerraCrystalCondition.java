@@ -27,10 +27,11 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
 
-public class PureCrystalCondition implements ICrystalSpreadCondition{
+public class TerraCrystalCondition implements ICrystalSpreadCondition{
     @Override
     public Direction canSpreadTo(IWorld world, BlockState targetState, BlockPos targetPos, BlockPos sourcePos) {
-        //pure crystals only need a solid surface
-        return this.getPlacementDirection(world, targetPos, sourcePos);
+        //TODO: Implement aer conditions
+        Direction placementDirection = this.getPlacementDirection(world, targetPos, sourcePos);
+        return null;
     }
 }

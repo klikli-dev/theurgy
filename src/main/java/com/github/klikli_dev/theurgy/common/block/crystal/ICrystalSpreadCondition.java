@@ -27,6 +27,7 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -47,7 +48,9 @@ public interface ICrystalSpreadCondition {
      * @return a list of directions.
      */
     default List<Direction> getValidPlacementDirections(){
-        return Arrays.asList(Direction.values());
+        ArrayList<Direction> list = new ArrayList<>(Direction.values().length);
+        Collections.addAll(list,Direction.values());
+        return list;
     }
 
     /**

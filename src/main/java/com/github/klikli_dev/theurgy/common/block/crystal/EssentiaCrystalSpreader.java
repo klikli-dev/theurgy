@@ -36,12 +36,14 @@ public class EssentiaCrystalSpreader implements ICrystalSpreadHandler {
 
     //region Fields
     public ICrystalSpreadCondition condition;
+    public int chanceToSpread;
     public Supplier<Block> crystalBlock;
     //endregion Fields
 
     //region Initialization
-    public EssentiaCrystalSpreader(ICrystalSpreadCondition condition, Supplier<Block> crystalBlock) {
+    public EssentiaCrystalSpreader(ICrystalSpreadCondition condition, int chanceToSpread, Supplier<Block> crystalBlock) {
         this.condition = condition;
+        this.chanceToSpread = chanceToSpread;
         this.crystalBlock = crystalBlock;
     }
     //endregion Initialization
@@ -50,6 +52,9 @@ public class EssentiaCrystalSpreader implements ICrystalSpreadHandler {
     @Override
     public boolean handleSpread(CrystalBlock sourceCrystalType, IWorld world, BlockState sourceState,
                                 BlockPos sourcePos) {
+
+        if(world.getRandom().nextInt(this.chanceToSpread) != 0)
+            return false;
 
         //get possible blocks to spread to,
         List<BlockPos> possibleTargets = this.getPossibleSpreadBlockPos(world, sourcePos);

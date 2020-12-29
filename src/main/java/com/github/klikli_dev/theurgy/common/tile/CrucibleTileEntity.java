@@ -53,6 +53,7 @@ public class CrucibleTileEntity extends NetworkedTileEntity implements ITickable
     //region Fields
     static final int MAX_WATER_LEVEL = 4;
     static final int STIRRING_CRAFTING_TICKS = 100;
+    static final int MAX_STIRRING_CRAFTING_TICKS = STIRRING_CRAFTING_TICKS * 5;
     /**
      * Random used to color bubble particles.
      */
@@ -373,7 +374,9 @@ public class CrucibleTileEntity extends NetworkedTileEntity implements ITickable
                     return ActionResultType.PASS;
                 }
 
-                this.remainingCraftingTicks = STIRRING_CRAFTING_TICKS;
+                this.remainingCraftingTicks += STIRRING_CRAFTING_TICKS;
+                if(this.remainingCraftingTicks > MAX_STIRRING_CRAFTING_TICKS)
+                    this.remainingCraftingTicks = MAX_STIRRING_CRAFTING_TICKS;
 
                 if (!this.world.isRemote) {
                     this.markNetworkDirty();

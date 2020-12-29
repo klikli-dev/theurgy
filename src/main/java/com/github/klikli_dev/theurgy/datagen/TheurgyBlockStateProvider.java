@@ -17,6 +17,8 @@ public class TheurgyBlockStateProvider extends BlockStateProvider {
     //region Overrides
     @Override
     protected void registerStatesAndModels() {
+        this.directionalBlock(BlockRegistry.PURE_CRYSTAL.get(),
+                this.models().getExistingFile(this.modLoc("block/pure_crystal")));
         this.directionalBlock(BlockRegistry.PRIMA_MATERIA_CRYSTAL.get(),
                 this.models().getExistingFile(this.modLoc("block/prima_materia_crystal")));
     }

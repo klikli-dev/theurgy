@@ -1,0 +1,30 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "theurgy:block/pure_crystal",
+      "x": 180
+    },
+    "facing=up": {
+      "model": "theurgy:block/pure_crystal"
+    },
+    "facing=north": {
+      "model": "theurgy:block/pure_crystal",
+      "x": 90
+    },
+    "facing=south": {
+      "model": "theurgy:block/pure_crystal",
+      "x": 90,
+      "y": 180
+    },
+    "facing=west": {
+      "model": "theurgy:block/pure_crystal",
+      "x": 90,
+      "y": 270
+    },
+    "facing=east": {
+      "model": "theurgy:block/pure_crystal",
+      "x": 90,
+      "y": 90
+    }
+  }
+}

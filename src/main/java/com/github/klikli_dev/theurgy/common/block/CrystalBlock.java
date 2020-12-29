@@ -42,7 +42,7 @@ import net.minecraft.world.IBlockReader;
 
 import java.util.Map;
 
-public class PrimaMateriaCrystalBlock extends DirectionalBlock {
+public class CrystalBlock extends DirectionalBlock {
     private static final Map<Direction, VoxelShape> SHAPES = Maps.newEnumMap(
             ImmutableMap.<Direction, VoxelShape>builder()
                     .put(Direction.EAST, Block.makeCuboidShape(4, 4, 4, 12, 12, 12))  //TODO: Find correct rotation
@@ -53,7 +53,7 @@ public class PrimaMateriaCrystalBlock extends DirectionalBlock {
                     .put(Direction.DOWN, Block.makeCuboidShape(4, 2, 4, 12, 16, 12))
                     .build());
     //region Initialization
-    public PrimaMateriaCrystalBlock(AbstractBlock.Properties builder) {
+    public CrystalBlock(AbstractBlock.Properties builder) {
         super(builder);
         this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.UP));
     }

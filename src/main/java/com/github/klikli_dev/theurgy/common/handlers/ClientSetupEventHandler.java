@@ -49,6 +49,7 @@ public class ClientSetupEventHandler {
 
         //Setup block render layers
         RenderTypeLookup.setRenderLayer(BlockRegistry.PRIMA_MATERIA_CRYSTAL.get(), RenderType.getTranslucent());
+        RenderTypeLookup.setRenderLayer(BlockRegistry.PURE_CRYSTAL.get(), RenderType.getTranslucent());
 
         //register item modl properties
         registerItemModelProperties(event);

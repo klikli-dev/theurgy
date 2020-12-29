@@ -2,7 +2,10 @@ package com.github.klikli_dev.theurgy.registry;
 
 import com.github.klikli_dev.theurgy.Theurgy;
 import com.github.klikli_dev.theurgy.common.block.CrucibleBlock;
-import com.github.klikli_dev.theurgy.common.block.CrystalBlock;
+import com.github.klikli_dev.theurgy.common.block.crystal.CrystalBlock;
+import com.github.klikli_dev.theurgy.common.block.crystal.ICrystalSpreadHandler;
+import com.github.klikli_dev.theurgy.common.block.crystal.PureCrystalCondition;
+import com.github.klikli_dev.theurgy.common.block.crystal.PureCrystalSpreader;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -29,12 +32,24 @@ public class BlockRegistry {
                             .setRequiresTool().hardnessAndResistance(2.0F).notSolid()));
 
     //Resources
+    public static final ICrystalSpreadHandler PURE_CRYSTAL_SPREADER = new PureCrystalSpreader(
+            new PureCrystalCondition(),
+            new PureCrystalCondition(), //TODO: provide the correct spread conditions
+            new PureCrystalCondition(),
+            new PureCrystalCondition(),
+            new PureCrystalCondition(),
+            new PureCrystalCondition()
+    );
     public static final RegistryObject<CrystalBlock> PURE_CRYSTAL = register("pure_crystal", () -> new CrystalBlock(
-            Block.Properties.create(Material.GLASS).sound(SoundType.GLASS).hardnessAndResistance(0.3f, 0.3f)) {
+            Block.Properties.create(Material.GLASS).sound(SoundType.GLASS)
+                    .hardnessAndResistance(0.3f, 0.3f).tickRandomly()
+            , PURE_CRYSTAL_SPREADER) {
     });
-
+    //TODO: provide the correct spread handler
     public static final RegistryObject<CrystalBlock> PRIMA_MATERIA_CRYSTAL = register("prima_materia_crystal", () -> new CrystalBlock(
-            Block.Properties.create(Material.GLASS).sound(SoundType.GLASS).hardnessAndResistance(0.3f, 0.3f)) {
+            Block.Properties.create(Material.GLASS).sound(SoundType.GLASS)
+                    .hardnessAndResistance(0.3f, 0.3f).tickRandomly(),
+            null) {
     });
 
     //endregion Fields

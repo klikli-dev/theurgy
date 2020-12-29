@@ -20,7 +20,7 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.github.klikli_dev.theurgy.common.block;
+package com.github.klikli_dev.theurgy.common.block.crystal;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
@@ -40,8 +40,10 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
+import net.minecraft.world.server.ServerWorld;
 
 import java.util.Map;
+import java.util.Random;
 
 public class CrystalBlock extends DirectionalBlock implements IWaterLoggable {
 
@@ -57,16 +59,33 @@ public class CrystalBlock extends DirectionalBlock implements IWaterLoggable {
                     .put(Direction.UP, Block.makeCuboidShape(4, 0, 4, 12, 14, 12))
                     .put(Direction.DOWN, Block.makeCuboidShape(4, 2, 4, 12, 16, 12))
                     .build());
+
+    public ICrystalSpreadHandler spreadHandler;
     //endregion Fields
 
     //region Initialization
-    public CrystalBlock(AbstractBlock.Properties builder) {
+    public CrystalBlock(AbstractBlock.Properties builder, ICrystalSpreadHandler spreadHandler) {
         super(builder);
+        this.spreadHandler = spreadHandler;
         this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.UP).with(WATERLOGGED, false));
     }
     //endregion Initialization
 
     //region Overrides
+
+
+    @Override
+    public void randomTick(BlockState state, ServerWorld worldIn, BlockPos pos, Random random) {
+        if (!worldIn.isAreaLoaded(pos, 2))
+            return; //avoid loading unloaded chunks when checking for placement.
+        //30% chance to grow on tick
+        //if(worldIn.rand.nextInt(2) == 0){
+            if(this.spreadHandler == null)
+                return;
+            this.spreadHandler.handleSpread(this, worldIn, state, pos);
+       // }
+    }
+
     @Override
     public BlockState getStateForPlacement(BlockItemUseContext context) {
         Direction direction = context.getFace();

@@ -74,12 +74,17 @@ public class PureCrystalSpreader implements ICrystalSpreadHandler {
         //            world.setBlockState(spreadTo, BlockRegistry.AER_CRYSTAL.get().getDefaultState(), 2);
         //            return true;
         //        }
-        //TODO: if none apply, check prima materia
 
+        //if no essentia crystals can grow, attempt to grow prima materia
+        CrystalPlacementInfo spreadTo = this.getValidSpreadPosition(this.primaMateriaCondition, world, possibleTargets, sourcePos);
+        if (spreadTo != null) {
+            //TODO: consume essentia from chunk
+            world.setBlockState(spreadTo.pos, BlockRegistry.PRIMA_MATERIA_CRYSTAL.get().getDefaultState().with(BlockStateProperties.FACING, spreadTo.direction), 2);
+            return true;
+        }
 
         //If no other crystal type is valid, check pure condition
-
-        CrystalPlacementInfo spreadTo = this.getValidSpreadPosition(this.pureCondition, world, possibleTargets, sourcePos);
+        spreadTo = this.getValidSpreadPosition(this.pureCondition, world, possibleTargets, sourcePos);
         if (spreadTo != null) {
             world.setBlockState(spreadTo.pos, BlockRegistry.PURE_CRYSTAL.get().getDefaultState().with(BlockStateProperties.FACING, spreadTo.direction), 2);
             return true;

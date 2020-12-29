@@ -1,0 +1,7 @@
+{
+  "parent": "theurgy:block/crystal",
+  "textures": {
+    "particle": "theurgy:block/aer_crystal",
+    "texture": "theurgy:block/aer_crystal"
+  }
+}

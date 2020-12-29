@@ -2,10 +2,7 @@ package com.github.klikli_dev.theurgy.registry;
 
 import com.github.klikli_dev.theurgy.Theurgy;
 import com.github.klikli_dev.theurgy.common.block.CrucibleBlock;
-import com.github.klikli_dev.theurgy.common.block.crystal.CrystalBlock;
-import com.github.klikli_dev.theurgy.common.block.crystal.ICrystalSpreadHandler;
-import com.github.klikli_dev.theurgy.common.block.crystal.PureCrystalCondition;
-import com.github.klikli_dev.theurgy.common.block.crystal.PureCrystalSpreader;
+import com.github.klikli_dev.theurgy.common.block.crystal.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -32,26 +29,53 @@ public class BlockRegistry {
                             .setRequiresTool().hardnessAndResistance(2.0F).notSolid()));
 
     //Resources
+    public static final ICrystalSpreadCondition PURE_CRYSTAL_CONDITION = new PureCrystalCondition();
+    public static final ICrystalSpreadCondition PRIMA_MATERIA_CRYSTAL_CONDITION = new PrimaMateriaCrystalCondition();
+    public static final ICrystalSpreadCondition AER_CRYSTAL_CONDITION = new PureCrystalCondition(); //TODO: provide the correct spread conditions
+    public static final ICrystalSpreadCondition AQUA_CRYSTAL_CONDITION = new PureCrystalCondition();
+    public static final ICrystalSpreadCondition IGNIS_CRYSTAL_CONDITION = new PureCrystalCondition();
+    public static final ICrystalSpreadCondition TERRA_CRYSTAL_CONDITION = new PureCrystalCondition();
+
     public static final ICrystalSpreadHandler PURE_CRYSTAL_SPREADER = new PureCrystalSpreader(
-            new PureCrystalCondition(),
-            new PureCrystalCondition(), //TODO: provide the correct spread conditions
-            new PureCrystalCondition(),
-            new PureCrystalCondition(),
-            new PureCrystalCondition(),
-            new PureCrystalCondition()
+            PURE_CRYSTAL_CONDITION,
+            PRIMA_MATERIA_CRYSTAL_CONDITION,
+            AER_CRYSTAL_CONDITION,
+            AQUA_CRYSTAL_CONDITION,
+            IGNIS_CRYSTAL_CONDITION,
+            TERRA_CRYSTAL_CONDITION
     );
     public static final RegistryObject<CrystalBlock> PURE_CRYSTAL = register("pure_crystal", () -> new CrystalBlock(
             Block.Properties.create(Material.GLASS).sound(SoundType.GLASS)
                     .hardnessAndResistance(0.3f, 0.3f).tickRandomly()
             , PURE_CRYSTAL_SPREADER) {
     });
-    //TODO: provide the correct spread handler
+
     public static final RegistryObject<CrystalBlock> PRIMA_MATERIA_CRYSTAL = register("prima_materia_crystal", () -> new CrystalBlock(
             Block.Properties.create(Material.GLASS).sound(SoundType.GLASS)
                     .hardnessAndResistance(0.3f, 0.3f).tickRandomly(),
-            null) {
+            new PrimaMateriaCrystalSpreader(PRIMA_MATERIA_CRYSTAL_CONDITION, ()-> BlockRegistry.PRIMA_MATERIA_CRYSTAL.get())) {
     });
 
+    public static final RegistryObject<CrystalBlock> AER_CRYSTAL = register("aer_crystal", () -> new CrystalBlock(
+            Block.Properties.create(Material.GLASS).sound(SoundType.GLASS)
+                    .hardnessAndResistance(0.3f, 0.3f).tickRandomly()
+            , new EssentiaCrystalSpreader(AER_CRYSTAL_CONDITION, () -> BlockRegistry.AER_CRYSTAL.get())) {
+    });
+    public static final RegistryObject<CrystalBlock> AQUA_CRYSTAL = register("aqua_crystal", () -> new CrystalBlock(
+            Block.Properties.create(Material.GLASS).sound(SoundType.GLASS)
+                    .hardnessAndResistance(0.3f, 0.3f).tickRandomly()
+            , new EssentiaCrystalSpreader(AQUA_CRYSTAL_CONDITION, () -> BlockRegistry.AQUA_CRYSTAL.get())) {
+    });
+    public static final RegistryObject<CrystalBlock> IGNIS_CRYSTAL = register("ignis_crystal", () -> new CrystalBlock(
+            Block.Properties.create(Material.GLASS).sound(SoundType.GLASS)
+                    .hardnessAndResistance(0.3f, 0.3f).tickRandomly()
+            , new EssentiaCrystalSpreader(IGNIS_CRYSTAL_CONDITION, () -> BlockRegistry.IGNIS_CRYSTAL.get())) {
+    });
+    public static final RegistryObject<CrystalBlock> TERRA_CRYSTAL = register("terra_crystal", () -> new CrystalBlock(
+            Block.Properties.create(Material.GLASS).sound(SoundType.GLASS)
+                    .hardnessAndResistance(0.3f, 0.3f).tickRandomly()
+            , new EssentiaCrystalSpreader(TERRA_CRYSTAL_CONDITION, () -> BlockRegistry.TERRA_CRYSTAL.get())) {
+    });
     //endregion Fields
 
     //region Static Methods

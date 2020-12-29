@@ -1,0 +1,12 @@
+{
+  "type": "theurgy:essentia",
+  "ingredient": {
+    "item": "theurgy:aqua_crystal"
+  },
+  "essentia": [
+    {
+      "item": "theurgy:essentia_aqua",
+      "count": 1500
+    }
+  ]
+}

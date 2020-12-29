@@ -1,0 +1,7 @@
+{
+  "parent": "theurgy:block/crystal",
+  "textures": {
+    "particle": "theurgy:block/prima_materia_crystal",
+    "texture": "theurgy:block/prima_materia_crystal"
+  }
+}

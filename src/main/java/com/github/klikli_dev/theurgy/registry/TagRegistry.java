@@ -26,6 +26,12 @@ public class TagRegistry {
     public static final ITag<Block> HEAT_SOURCES_LIT =
             makeBlockTag(new ResourceLocation(Theurgy.MODID, "heat_sources_lit"));
 
+    public static final ITag<Block> OBSIDIAN =
+            makeBlockTag(new ResourceLocation("forge", "obsidian"));
+
+    public static final ITag<Block> CRYSTALS =
+            makeBlockTag(new ResourceLocation("theurgy", "crystals"));
+
     //Item Tags
     public static final ITag<Item> RODS_WOODEN =
             makeItemTag(new ResourceLocation("forge", "rods/wooden"));

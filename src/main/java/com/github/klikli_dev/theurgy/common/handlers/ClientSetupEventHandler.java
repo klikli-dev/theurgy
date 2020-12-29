@@ -24,7 +24,10 @@ package com.github.klikli_dev.theurgy.common.handlers;
 
 import com.github.klikli_dev.theurgy.Theurgy;
 import com.github.klikli_dev.theurgy.client.render.tile.CrucibleRenderer;
+import com.github.klikli_dev.theurgy.registry.BlockRegistry;
 import com.github.klikli_dev.theurgy.registry.TileRegistry;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
@@ -45,6 +48,12 @@ public class ClientSetupEventHandler {
         ClientRegistry.bindTileEntityRenderer(TileRegistry.CRUCIBLE.get(), CrucibleRenderer::new);
 
         //Setup block render layers
+        RenderTypeLookup.setRenderLayer(BlockRegistry.PRIMA_MATERIA_CRYSTAL.get(), RenderType.getTranslucent());
+        RenderTypeLookup.setRenderLayer(BlockRegistry.PURE_CRYSTAL.get(), RenderType.getTranslucent());
+        RenderTypeLookup.setRenderLayer(BlockRegistry.AER_CRYSTAL.get(), RenderType.getTranslucent());
+        RenderTypeLookup.setRenderLayer(BlockRegistry.AQUA_CRYSTAL.get(), RenderType.getTranslucent());
+        RenderTypeLookup.setRenderLayer(BlockRegistry.IGNIS_CRYSTAL.get(), RenderType.getTranslucent());
+        RenderTypeLookup.setRenderLayer(BlockRegistry.TERRA_CRYSTAL.get(), RenderType.getTranslucent());
 
         //register item modl properties
         registerItemModelProperties(event);

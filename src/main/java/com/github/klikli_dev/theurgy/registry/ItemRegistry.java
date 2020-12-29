@@ -19,10 +19,10 @@ public class ItemRegistry {
             () -> new GrimoireItem(defaultProperties().maxStackSize(1)));
 
     //Essentia
-    public static final RegistryObject<Item> ESSENTIA_AER = registerEssentia("essentia_aer", 0xfcfc03); //yellow
-    public static final RegistryObject<Item> ESSENTIA_AQUA = registerEssentia("essentia_aqua", 0x00aeff); //light blue
-    public static final RegistryObject<Item> ESSENTIA_IGNIS= registerEssentia("essentia_ignis", 0xe89b00); //orange
-    public static final RegistryObject<Item> ESSENTIA_TERRA= registerEssentia("essentia_terra", 0x008f0e); //green
+    public static final RegistryObject<Item> AER_ESSENTIA = registerEssentia("aer_essentia", 0xfcfc03); //yellow
+    public static final RegistryObject<Item> AQUA_ESSENTIA = registerEssentia("aqua_essentia", 0x00aeff); //light blue
+    public static final RegistryObject<Item> IGNIS_ESSENTIA = registerEssentia("ignis_essentia", 0xe89b00); //orange
+    public static final RegistryObject<Item> TERRA_ESSENTIA = registerEssentia("terra_essentia", 0x008f0e); //green
 
     //endregion Fields
 

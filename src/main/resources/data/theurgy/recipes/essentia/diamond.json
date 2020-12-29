@@ -5,11 +5,11 @@
   },
   "essentia": [
     {
-      "item": "theurgy:essentia_ignis",
+      "item": "theurgy:ignis_essentia",
       "count": 1500
     },
     {
-      "item": "theurgy:essentia_terra",
+      "item": "theurgy:terra_essentia",
       "count": 1000
     }
   ]

@@ -23,10 +23,12 @@
 package com.github.klikli_dev.theurgy.common.tile;
 
 import com.github.klikli_dev.theurgy.client.particle.CrucibleBubbleParticleData;
+import com.github.klikli_dev.theurgy.common.crafting.recipe.CrucibleCraftingType;
 import com.github.klikli_dev.theurgy.common.crafting.recipe.CrucibleItemStackFakeInventory;
-import com.github.klikli_dev.theurgy.common.crafting.recipe.PurificationRecipe;
+import com.github.klikli_dev.theurgy.common.crafting.recipe.CrucibleRecipe;
 import com.github.klikli_dev.theurgy.common.crafting.recipe.EssentiaRecipe;
 import com.github.klikli_dev.theurgy.common.theurgy.EssentiaCache;
+import com.github.klikli_dev.theurgy.registry.ItemRegistry;
 import com.github.klikli_dev.theurgy.registry.RecipeRegistry;
 import com.github.klikli_dev.theurgy.registry.TagRegistry;
 import com.github.klikli_dev.theurgy.registry.TileRegistry;
@@ -71,6 +73,10 @@ public class CrucibleTileEntity extends NetworkedTileEntity implements ITickable
      * The ticks remaining during which items can be dropped in to fulfill recipes
      */
     public int remainingCraftingTicks;
+    /**
+     * The current crucible crafting type - depends on the tool used to stir.
+     */
+    public CrucibleCraftingType craftingType = CrucibleCraftingType.PURIFICATION;
 
     /**
      * The essentia stored in the crucible
@@ -185,9 +191,21 @@ public class CrucibleTileEntity extends NetworkedTileEntity implements ITickable
                     this.fakeInventory.setInventorySlotContents(0, item.getItem());
 
                     //look up fitting recipes
-                    Optional<PurificationRecipe> recipe =
-                            this.world.getRecipeManager().getRecipe(RecipeRegistry.PURIFICATION_TYPE.get(),
+                    Optional<? extends CrucibleRecipe> recipe = Optional.empty();
+                    switch (this.craftingType) {
+                        case PURIFICATION:
+                            recipe = this.world.getRecipeManager().getRecipe(RecipeRegistry.PURIFICATION_TYPE.get(),
                                     this.fakeInventory, this.world);
+                            break;
+                        case REPLICATION:
+                            recipe = this.world.getRecipeManager().getRecipe(RecipeRegistry.REPLICATION_TYPE.get(),
+                                    this.fakeInventory, this.world);
+                            break;
+                        case TRANSMUTATION:
+                            //TODO: transmutation type
+                            break;
+                    }
+
 
                     if (recipe.isPresent()) {
                         craftedAny = true;
@@ -238,7 +256,8 @@ public class CrucibleTileEntity extends NetworkedTileEntity implements ITickable
                         List<ItemStack> essentia = recipe.get().getEssentia();
 
                         //store result in essentia cache, always use up entire stack
-                        essentia.forEach(itemStack -> this.essentiaCache.add(itemStack.getItem(), itemStack.getCount() * item.getItem().getCount()));
+                        essentia.forEach(itemStack -> this.essentiaCache.add(itemStack.getItem(),
+                                itemStack.getCount() * item.getItem().getCount()));
 
                         this.hasContents = true;
                     }
@@ -266,6 +285,7 @@ public class CrucibleTileEntity extends NetworkedTileEntity implements ITickable
         super.readNetwork(compound);
         this.waterLevel = compound.getByte("waterLevel");
         this.remainingCraftingTicks = compound.getByte("remainingCraftingTicks");
+        this.craftingType = CrucibleCraftingType.values()[compound.getByte("craftingType")];
         this.isBoiling = compound.getBoolean("isBoiling");
         this.hasContents = compound.getBoolean("hasContents");
         if (compound.contains("essentiaCache")) {
@@ -277,6 +297,7 @@ public class CrucibleTileEntity extends NetworkedTileEntity implements ITickable
     public CompoundNBT writeNetwork(CompoundNBT compound) {
         compound.putByte("waterLevel", (byte) this.waterLevel);
         compound.putByte("remainingCraftingTicks", (byte) this.remainingCraftingTicks);
+        compound.putByte("craftingType", (byte) this.craftingType.ordinal());
         compound.putBoolean("isBoiling", this.isBoiling);
         compound.putBoolean("hasContents", this.hasContents);
         compound.put("essentiaCache", this.essentiaCache.serializeNBT());
@@ -328,8 +349,30 @@ public class CrucibleTileEntity extends NetworkedTileEntity implements ITickable
                 return ActionResultType.SUCCESS;
             }
 
-            if (TagRegistry.RODS_WOODEN.contains(player.getHeldItem(hand).getItem()) && this.isBoiling &&
-                this.hasContents) {
+            //handle stirring
+            if (this.isBoiling && this.hasContents) {
+                ItemStack held = player.getHeldItem(hand);
+                if (TagRegistry.RODS_WOODEN.contains(held.getItem())) {
+                    //Stick leads to purification
+                    this.craftingType = CrucibleCraftingType.PURIFICATION;
+                }
+                else if (held.getItem() == ItemRegistry.PURE_CRYSTAL_STIRRER.get()) {
+                    //pure crystal is for replication
+                    this.craftingType = CrucibleCraftingType.REPLICATION;
+                    held.damageItem(1, player, (p) -> {
+                    });
+                }
+                else if (held.getItem() == ItemRegistry.PURE_CRYSTAL_STIRRER.get()) {
+                    //prima materia crystal is for transmutation
+                    this.craftingType = CrucibleCraftingType.TRANSMUTATION;
+                    held.damageItem(1, player, (p) -> {
+                    });
+                }
+                else {
+                    //other items do not interest us here
+                    return ActionResultType.PASS;
+                }
+
                 this.remainingCraftingTicks = STIRRING_CRAFTING_TICKS;
 
                 if (!this.world.isRemote) {

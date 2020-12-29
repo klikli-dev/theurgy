@@ -23,29 +23,29 @@
 package com.github.klikli_dev.theurgy.integration.jei.recipes;
 
 import com.github.klikli_dev.theurgy.Theurgy;
-import com.github.klikli_dev.theurgy.common.crafting.recipe.PurificationRecipe;
+import com.github.klikli_dev.theurgy.common.crafting.recipe.ReplicationRecipe;
 import com.github.klikli_dev.theurgy.registry.RecipeRegistry;
 import mezz.jei.api.helpers.IGuiHelper;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ResourceLocation;
 
-public class PurificationRecipeCategory extends CrucibleRecipeCategory<PurificationRecipe> {
-    public PurificationRecipeCategory(IGuiHelper guiHelper) {
+public class ReplicationRecipeCategory extends CrucibleRecipeCategory<ReplicationRecipe> {
+    public ReplicationRecipeCategory(IGuiHelper guiHelper) {
         super(guiHelper);
     }
 
     @Override
     public ResourceLocation getUid() {
-        return RecipeRegistry.PURIFICATION.getId();
+        return RecipeRegistry.REPLICATION.getId();
     }
 
     @Override
-    public Class<? extends PurificationRecipe> getRecipeClass() {
-        return PurificationRecipe.class;
+    public Class<? extends ReplicationRecipe> getRecipeClass() {
+        return ReplicationRecipe.class;
     }
 
     @Override
     public String getTitle() {
-        return I18n.format("jei." + Theurgy.MODID + ".purification_recipe");
+        return I18n.format("jei." + Theurgy.MODID + ".replication_recipe");
     }
 }

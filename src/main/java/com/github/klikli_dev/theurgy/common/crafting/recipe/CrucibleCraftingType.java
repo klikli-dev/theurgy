@@ -20,32 +20,10 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.github.klikli_dev.theurgy.integration.jei.recipes;
+package com.github.klikli_dev.theurgy.common.crafting.recipe;
 
-import com.github.klikli_dev.theurgy.Theurgy;
-import com.github.klikli_dev.theurgy.common.crafting.recipe.PurificationRecipe;
-import com.github.klikli_dev.theurgy.registry.RecipeRegistry;
-import mezz.jei.api.helpers.IGuiHelper;
-import net.minecraft.client.resources.I18n;
-import net.minecraft.util.ResourceLocation;
-
-public class PurificationRecipeCategory extends CrucibleRecipeCategory<PurificationRecipe> {
-    public PurificationRecipeCategory(IGuiHelper guiHelper) {
-        super(guiHelper);
-    }
-
-    @Override
-    public ResourceLocation getUid() {
-        return RecipeRegistry.PURIFICATION.getId();
-    }
-
-    @Override
-    public Class<? extends PurificationRecipe> getRecipeClass() {
-        return PurificationRecipe.class;
-    }
-
-    @Override
-    public String getTitle() {
-        return I18n.format("jei." + Theurgy.MODID + ".purification_recipe");
-    }
+public enum CrucibleCraftingType {
+    PURIFICATION,
+    REPLICATION,
+    TRANSMUTATION
 }

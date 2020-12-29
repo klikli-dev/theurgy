@@ -20,32 +20,40 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.github.klikli_dev.theurgy.integration.jei.recipes;
+package com.github.klikli_dev.theurgy.common.crafting.recipe;
 
-import com.github.klikli_dev.theurgy.Theurgy;
-import com.github.klikli_dev.theurgy.common.crafting.recipe.PurificationRecipe;
 import com.github.klikli_dev.theurgy.registry.RecipeRegistry;
-import mezz.jei.api.helpers.IGuiHelper;
-import net.minecraft.client.resources.I18n;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipeSerializer;
+import net.minecraft.item.crafting.IRecipeType;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
 
-public class PurificationRecipeCategory extends CrucibleRecipeCategory<PurificationRecipe> {
-    public PurificationRecipeCategory(IGuiHelper guiHelper) {
-        super(guiHelper);
+import java.util.List;
+
+public class ReplicationRecipe extends CrucibleRecipe {
+
+    //region Fields
+    public static final IRecipeSerializer<ReplicationRecipe> SERIALIZER =
+            new CrucibleRecipeSerializer<>(ReplicationRecipe::new);
+    //endregion Fields
+
+    //region Initialization
+    public ReplicationRecipe(ResourceLocation id, Ingredient input,
+                             List<ItemStack> essentia, ItemStack output) {
+        super(id, input, essentia, output);
+    }
+    //endregion Initialization
+
+    //region Overrides
+    @Override
+    public IRecipeSerializer<?> getSerializer() {
+        return SERIALIZER;
     }
 
     @Override
-    public ResourceLocation getUid() {
-        return RecipeRegistry.PURIFICATION.getId();
+    public IRecipeType<?> getType() {
+        return RecipeRegistry.REPLICATION_TYPE.get();
     }
-
-    @Override
-    public Class<? extends PurificationRecipe> getRecipeClass() {
-        return PurificationRecipe.class;
-    }
-
-    @Override
-    public String getTitle() {
-        return I18n.format("jei." + Theurgy.MODID + ".purification_recipe");
-    }
+    //endregion Overrides
 }

@@ -23,10 +23,12 @@
 package com.github.klikli_dev.theurgy.integration.jei;
 
 import com.github.klikli_dev.theurgy.Theurgy;
-import com.github.klikli_dev.theurgy.common.crafting.recipe.PurificationRecipe;
 import com.github.klikli_dev.theurgy.common.crafting.recipe.EssentiaRecipe;
-import com.github.klikli_dev.theurgy.integration.jei.recipes.PurificationRecipeCategory;
+import com.github.klikli_dev.theurgy.common.crafting.recipe.PurificationRecipe;
+import com.github.klikli_dev.theurgy.common.crafting.recipe.ReplicationRecipe;
 import com.github.klikli_dev.theurgy.integration.jei.recipes.EssentiaRecipeCategory;
+import com.github.klikli_dev.theurgy.integration.jei.recipes.PurificationRecipeCategory;
+import com.github.klikli_dev.theurgy.integration.jei.recipes.ReplicationRecipeCategory;
 import com.github.klikli_dev.theurgy.registry.BlockRegistry;
 import com.github.klikli_dev.theurgy.registry.RecipeRegistry;
 import mezz.jei.api.IModPlugin;
@@ -54,6 +56,7 @@ public class JeiPlugin implements IModPlugin {
     public void registerCategories(IRecipeCategoryRegistration registration) {
         registration.addRecipeCategories(new EssentiaRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new PurificationRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
+        registration.addRecipeCategories(new ReplicationRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
     }
 
     @Override
@@ -65,6 +68,8 @@ public class JeiPlugin implements IModPlugin {
         registration.addRecipes(essentiaRecipes, RecipeRegistry.ESSENTIA.getId());
         List<PurificationRecipe> purificationRecipes = recipeManager.getRecipesForType(RecipeRegistry.PURIFICATION_TYPE.get());
         registration.addRecipes(purificationRecipes, RecipeRegistry.PURIFICATION.getId());
+        List<ReplicationRecipe> replicationRecipes = recipeManager.getRecipesForType(RecipeRegistry.REPLICATION_TYPE.get());
+        registration.addRecipes(replicationRecipes, RecipeRegistry.REPLICATION.getId());
     }
 
     @Override
@@ -73,6 +78,8 @@ public class JeiPlugin implements IModPlugin {
                 RecipeRegistry.ESSENTIA.getId());
         registration.addRecipeCatalyst(new ItemStack(BlockRegistry.CRUCIBLE.get()),
                 RecipeRegistry.PURIFICATION.getId());
+        registration.addRecipeCatalyst(new ItemStack(BlockRegistry.CRUCIBLE.get()),
+                RecipeRegistry.REPLICATION.getId());
     }
 
     //endregion Overrides

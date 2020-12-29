@@ -23,8 +23,10 @@
 package com.github.klikli_dev.theurgy.registry;
 
 import com.github.klikli_dev.theurgy.Theurgy;
-import com.github.klikli_dev.theurgy.common.crafting.recipe.PurificationRecipe;
+import com.github.klikli_dev.theurgy.common.crafting.recipe.CrucibleRecipe;
 import com.github.klikli_dev.theurgy.common.crafting.recipe.EssentiaRecipe;
+import com.github.klikli_dev.theurgy.common.crafting.recipe.PurificationRecipe;
+import com.github.klikli_dev.theurgy.common.crafting.recipe.ReplicationRecipe;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraftforge.common.util.NonNullLazy;
@@ -41,10 +43,14 @@ public class RecipeRegistry {
 
     public static final NonNullLazy<IRecipeType<PurificationRecipe>> PURIFICATION_TYPE =
             NonNullLazy.of(() -> IRecipeType.register("theurgy:purification"));
+    public static final NonNullLazy<IRecipeType<ReplicationRecipe>> REPLICATION_TYPE =
+            NonNullLazy.of(() -> IRecipeType.register("theurgy:replication"));
 
     public static final RegistryObject<IRecipeSerializer<EssentiaRecipe>> ESSENTIA = RECIPES.register("essentia",
             () -> EssentiaRecipe.SERIALIZER);
 
     public static final RegistryObject<IRecipeSerializer<PurificationRecipe>> PURIFICATION = RECIPES.register("purification",
             () -> PurificationRecipe.SERIALIZER);
+    public static final RegistryObject<IRecipeSerializer<ReplicationRecipe>> REPLICATION = RECIPES.register("replication",
+            () -> ReplicationRecipe.SERIALIZER);
 }

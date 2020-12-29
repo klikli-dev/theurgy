@@ -73,17 +73,17 @@ public class CrystalBlock extends DirectionalBlock implements IWaterLoggable {
 
     //region Overrides
 
+    public void spread(BlockState state, ServerWorld worldIn, BlockPos pos){
+        if(this.spreadHandler != null)
+            this.spreadHandler.handleSpread(this, worldIn, state, pos);
+    }
 
     @Override
     public void randomTick(BlockState state, ServerWorld worldIn, BlockPos pos, Random random) {
         if (!worldIn.isAreaLoaded(pos, 2))
-            return; //avoid loading unloaded chunks when checking for placement.
-        //30% chance to grow on tick
-        //if(worldIn.rand.nextInt(2) == 0){
-            if(this.spreadHandler == null)
-                return;
-            this.spreadHandler.handleSpread(this, worldIn, state, pos);
-       // }
+            return;
+
+        this.spread(state, worldIn, pos);
     }
 
     @Override

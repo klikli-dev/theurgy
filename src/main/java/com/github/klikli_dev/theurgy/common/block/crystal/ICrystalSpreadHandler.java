@@ -24,6 +24,7 @@ package com.github.klikli_dev.theurgy.common.block.crystal;
 
 import com.github.klikli_dev.theurgy.util.Math3DUtil;
 import net.minecraft.block.BlockState;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
 
@@ -56,14 +57,15 @@ public interface ICrystalSpreadHandler {
                                                  .collect(Collectors.toList());
     }
 
-    default BlockPos getValidSpreadPosition(ICrystalSpreadCondition condition,  IWorld world, List<BlockPos> possibleTargets){
+    default CrystalPlacementInfo getValidSpreadPosition(ICrystalSpreadCondition condition,  IWorld world, List<BlockPos> possibleTargets, BlockPos sourcePos){
         //randomize order to avoid a preference for one direction of spread
         Collections.shuffle(possibleTargets);
 
         for(BlockPos pos : possibleTargets){
             BlockState state = world.getBlockState(pos);
-            if(condition.canSpreadTo(world, state, pos))
-                return pos;
+            Direction direction = condition.canSpreadTo(world, state, pos, sourcePos);
+            if(direction != null)
+                return new CrystalPlacementInfo(pos, direction.getOpposite());
         }
         return null;
     }

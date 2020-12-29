@@ -24,6 +24,7 @@ package com.github.klikli_dev.theurgy.common.block.crystal;
 
 import com.github.klikli_dev.theurgy.registry.BlockRegistry;
 import net.minecraft.block.BlockState;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
 
@@ -78,9 +79,9 @@ public class PureCrystalSpreader implements ICrystalSpreadHandler {
 
         //If no other crystal type is valid, check pure condition
 
-        BlockPos spreadTo = this.getValidSpreadPosition(this.pureCondition, world, possibleTargets);
+        CrystalPlacementInfo spreadTo = this.getValidSpreadPosition(this.pureCondition, world, possibleTargets, sourcePos);
         if (spreadTo != null) {
-            world.setBlockState(spreadTo, BlockRegistry.PURE_CRYSTAL.get().getDefaultState(), 2);
+            world.setBlockState(spreadTo.pos, BlockRegistry.PURE_CRYSTAL.get().getDefaultState().with(BlockStateProperties.FACING, spreadTo.direction), 2);
             return true;
         }
         return false;

@@ -37,9 +37,10 @@ public interface ICrystalSpreadCondition {
      * @param world the world to spread in.
      * @param targetState the block state of the target position.
      * @param targetPos the target position.
-     * @return true if can spread, false otherwise
+     * @param sourcePos the source position.
+     * @return Valid direction if can spread, null otherwise
      */
-    boolean canSpreadTo(IWorld world, BlockState targetState, BlockPos targetPos);
+    Direction canSpreadTo(IWorld world, BlockState targetState, BlockPos targetPos, BlockPos sourcePos);
 
     /**
      * Gets a list of valid placement directions. Can be used to restrict spread to e.g. ceilings only.
@@ -53,14 +54,19 @@ public interface ICrystalSpreadCondition {
      * Gets a random valid placement direction for the target block pos.
      * @param world the world to place in.
      * @param targetPos the target block pos.
+     * @param sourcePos the source block pos.
      * @return The direction to place or null if there is no valid one.
      */
-    default Direction getPlacementDirection(IWorld world, BlockPos targetPos){
+    default Direction getPlacementDirection(IWorld world, BlockPos targetPos, BlockPos sourcePos){
         List<Direction> directions = this.getValidPlacementDirections();
         Collections.shuffle(directions);
         for(Direction direction : directions){
-            BlockState neighbor = world.getBlockState(targetPos.offset(direction));
-            if(neighbor.isSolid())
+            BlockPos neighborPos = targetPos.offset(direction);
+            if(neighborPos.equals(sourcePos)) //don't use the source crystal as substrate
+                continue;
+
+            BlockState neighbor = world.getBlockState(neighborPos);
+            if(neighbor.isSolidSide(world, neighborPos, direction))
                 return direction;
         }
 

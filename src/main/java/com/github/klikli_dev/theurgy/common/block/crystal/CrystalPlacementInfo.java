@@ -22,16 +22,19 @@
 
 package com.github.klikli_dev.theurgy.common.block.crystal;
 
-import net.minecraft.block.BlockState;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IWorld;
 
-public class PureCrystalCondition implements ICrystalSpreadCondition{
-    @Override
-    public Direction canSpreadTo(IWorld world, BlockState targetState, BlockPos targetPos, BlockPos sourcePos) {
-        //pure crystals only need a solid surface
-        Direction placementDirection = this.getPlacementDirection(world, targetPos, sourcePos);
-        return placementDirection;
+public class CrystalPlacementInfo {
+    //region Fields
+    public BlockPos pos;
+    public Direction direction;
+    //endregion Fields
+
+    //region Initialization
+    public CrystalPlacementInfo(BlockPos pos, Direction direction) {
+        this.pos = pos;
+        this.direction = direction;
     }
+    //endregion Initialization
 }

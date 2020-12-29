@@ -53,6 +53,10 @@ public interface ICrystalSpreadCondition {
         return list;
     }
 
+    default boolean isValidNeighbor(IWorld world, BlockState neighborState, BlockPos neighborPos, Direction neighborDirection){
+        return neighborState.isSolidSide(world, neighborPos, neighborDirection);
+    }
+
     /**
      * Gets a random valid placement direction for the target block pos.
      * @param world the world to place in.
@@ -69,7 +73,7 @@ public interface ICrystalSpreadCondition {
                 continue;
 
             BlockState neighbor = world.getBlockState(neighborPos);
-            if(neighbor.isSolidSide(world, neighborPos, direction))
+            if(this.isValidNeighbor(world, neighbor, neighborPos, direction))
                 return direction;
         }
 

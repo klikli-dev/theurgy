@@ -22,16 +22,27 @@
 
 package com.github.klikli_dev.theurgy.common.block.crystal;
 
+import com.github.klikli_dev.theurgy.registry.TagRegistry;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
 
+/**
+ * can only grow on obsidian and requires y < 30
+ */
 public class TerraCrystalCondition implements ICrystalSpreadCondition{
     @Override
     public Direction canSpreadTo(IWorld world, BlockState targetState, BlockPos targetPos, BlockPos sourcePos) {
-        //TODO: Implement aer conditions
-        Direction placementDirection = this.getPlacementDirection(world, targetPos, sourcePos);
-        return null;
+        if(targetPos.getY() >= 30)
+            return null;
+
+        return this.getPlacementDirection(world, targetPos, sourcePos);
+    }
+
+    @Override
+    public boolean isValidNeighbor(IWorld world, BlockState neighborState, BlockPos neighborPos,
+                                   Direction neighborDirection) {
+        return TagRegistry.OBSIDIAN.contains(neighborState.getBlock());
     }
 }

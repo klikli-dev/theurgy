@@ -1,0 +1,12 @@
+{
+  "type": "theurgy:essentia",
+  "ingredient": {
+    "item": "theurgy:aer_crystal"
+  },
+  "essentia": [
+    {
+      "item": "theurgy:essentia_aer",
+      "count": 1500
+    }
+  ]
+}

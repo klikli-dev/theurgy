@@ -1,0 +1,12 @@
+{
+  "type": "theurgy:essentia",
+  "ingredient": {
+    "item": "theurgy:ignis_crystal"
+  },
+  "essentia": [
+    {
+      "item": "theurgy:essentia_ignis",
+      "count": 1500
+    }
+  ]
+}

@@ -22,10 +22,11 @@
 
 package com.github.klikli_dev.theurgy.common.block.crystal;
 
-import com.github.klikli_dev.theurgy.registry.BlockRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.fluid.FluidState;
 import net.minecraft.state.properties.BlockStateProperties;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
 
@@ -41,7 +42,8 @@ public class EssentiaCrystalSpreader implements ICrystalSpreadHandler {
     //endregion Fields
 
     //region Initialization
-    public EssentiaCrystalSpreader(ICrystalSpreadCondition condition, int chanceToSpread, Supplier<Block> crystalBlock) {
+    public EssentiaCrystalSpreader(ICrystalSpreadCondition condition, int chanceToSpread,
+                                   Supplier<Block> crystalBlock) {
         this.condition = condition;
         this.chanceToSpread = chanceToSpread;
         this.crystalBlock = crystalBlock;
@@ -53,7 +55,7 @@ public class EssentiaCrystalSpreader implements ICrystalSpreadHandler {
     public boolean handleSpread(CrystalBlock sourceCrystalType, IWorld world, BlockState sourceState,
                                 BlockPos sourcePos) {
 
-        if(world.getRandom().nextInt(this.chanceToSpread) != 0)
+        if (world.getRandom().nextInt(this.chanceToSpread) != 0)
             return false;
 
         //get possible blocks to spread to,
@@ -63,7 +65,12 @@ public class EssentiaCrystalSpreader implements ICrystalSpreadHandler {
 
         CrystalPlacementInfo spreadTo = this.getValidSpreadPosition(this.condition, world, possibleTargets, sourcePos);
         if (spreadTo != null) {
-            world.setBlockState(spreadTo.pos, this.crystalBlock.get().getDefaultState().with(BlockStateProperties.FACING, spreadTo.direction), 2);
+            //copy fluid state from current block to avoid despawning water
+            FluidState fluidState = world.getFluidState(spreadTo.pos);
+            world.setBlockState(spreadTo.pos, this.crystalBlock.get().getDefaultState()
+                                                  .with(BlockStateProperties.FACING, spreadTo.direction)
+                                                  .with(BlockStateProperties.WATERLOGGED, fluidState.isTagged(
+                                                          FluidTags.WATER) && fluidState.getLevel() == 8), 2);
             return true;
         }
         return false;

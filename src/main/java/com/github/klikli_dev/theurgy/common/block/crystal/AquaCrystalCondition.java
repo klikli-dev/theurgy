@@ -23,15 +23,22 @@
 package com.github.klikli_dev.theurgy.common.block.crystal;
 
 import net.minecraft.block.BlockState;
+import net.minecraft.fluid.Fluid;
+import net.minecraft.fluid.Fluids;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
 
+/**
+ * Needs to grow underwater
+ */
 public class AquaCrystalCondition implements ICrystalSpreadCondition{
     @Override
     public Direction canSpreadTo(IWorld world, BlockState targetState, BlockPos targetPos, BlockPos sourcePos) {
-        //TODO: Implement aqua conditions
-        Direction placementDirection = this.getPlacementDirection(world, targetPos, sourcePos);
-        return null;
+        if(world.getFluidState(targetPos).isTagged(FluidTags.WATER))
+            return null;
+
+        return this.getPlacementDirection(world, targetPos, sourcePos);
     }
 }

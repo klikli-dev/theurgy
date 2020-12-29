@@ -24,6 +24,7 @@ package com.github.klikli_dev.theurgy.common.block.crystal;
 
 import com.github.klikli_dev.theurgy.util.Math3DUtil;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
@@ -50,10 +51,13 @@ public interface ICrystalSpreadHandler {
      * @return a list of positions.
      */
     default List<BlockPos> getPossibleSpreadBlockPos(IWorld world, BlockPos sourcePos){
-        //TODO: verify if getPossibleSpreadBlockPos allows spreading in water
         return Math3DUtil.getBlockPosInBox(sourcePos, 1)
-                                                 .filter(pos -> !pos.equals(sourcePos)
-                                                                && world.getBlockState(pos).isAir(world, pos))
+                                                 .filter((pos) -> {
+                                                     BlockState state = world.getBlockState(pos);
+                                                     return !pos.equals(sourcePos)
+                                                            //allow air or water for crystals
+                                                     && (state.isAir(world, pos) || state.isIn(Blocks.WATER));
+                                                 })
                                                  .collect(Collectors.toList());
     }
 

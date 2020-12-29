@@ -22,16 +22,28 @@
 
 package com.github.klikli_dev.theurgy.common.block.crystal;
 
+import com.github.klikli_dev.theurgy.registry.TagRegistry;
+import com.github.klikli_dev.theurgy.util.Math3DUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
 
-public class IgnisCrystalCondition implements ICrystalSpreadCondition{
+/**
+ * Requires an adjacent heat source
+ */
+public class IgnisCrystalCondition implements ICrystalSpreadCondition {
+    //region Overrides
     @Override
     public Direction canSpreadTo(IWorld world, BlockState targetState, BlockPos targetPos, BlockPos sourcePos) {
-        //TODO: Implement ignis conditions
-        Direction placementDirection = this.getPlacementDirection(world, targetPos, sourcePos);
-        return null;
+        long heatSources = Math3DUtil.getBlockPosInBox(sourcePos, 1)
+                                   .filter(pos -> TagRegistry.HEAT_SOURCES
+                                                          .contains(world.getBlockState(pos).getBlock()))
+                                   .count();
+        if (heatSources == 0)
+            return null;
+
+        return this.getPlacementDirection(world, targetPos, sourcePos);
     }
+    //endregion Overrides
 }

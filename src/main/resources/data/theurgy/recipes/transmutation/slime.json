@@ -1,0 +1,20 @@
+{
+  "type": "theurgy:transmutation",
+  "ingredient": {
+    "item": "minecraft:spider_eye"
+  },
+  "essentia": [
+    {
+      "item": "theurgy:terra_essentia",
+      "count": 50
+    },
+    {
+      "item": "theurgy:aqua_essentia",
+      "count": 50
+    }
+  ],
+  "result": {
+    "item": "minecraft:slime_ball",
+    "count": 1
+  }
+}

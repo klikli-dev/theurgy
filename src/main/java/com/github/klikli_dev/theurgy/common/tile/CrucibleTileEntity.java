@@ -203,7 +203,7 @@ public class CrucibleTileEntity extends NetworkedTileEntity implements ITickable
                                     this.fakeInventory, this.world);
                             break;
                         case TRANSMUTATION:
-                            //TODO: transmutation type
+                            recipe = this.world.getRecipeManager().getRecipe(RecipeRegistry.TRANSMUTATION_TYPE.get(),
                             break;
                     }
 
@@ -363,7 +363,7 @@ public class CrucibleTileEntity extends NetworkedTileEntity implements ITickable
                     held.damageItem(1, player, (p) -> {
                     });
                 }
-                else if (held.getItem() == ItemRegistry.PURE_CRYSTAL_STIRRER.get()) {
+                else if (held.getItem() == ItemRegistry.PRIMA_MATERIA_CRYSTAL_STIRRER.get()) {
                     //prima materia crystal is for transmutation
                     this.craftingType = CrucibleCraftingType.TRANSMUTATION;
                     held.damageItem(1, player, (p) -> {

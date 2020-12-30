@@ -23,5 +23,6 @@
   "_comment": "Jei",
   "jei.theurgy.essentia_recipe": "Essentia Smelting",
   "jei.theurgy.purification_recipe": "Purification",
-  "jei.theurgy.replication_recipe": "Replication"
+  "jei.theurgy.replication_recipe": "Replication",
+  "jei.theurgy.transmutation_recipe": "Transmutation"
 }

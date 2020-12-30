@@ -212,14 +212,31 @@ public class CrucibleTileEntity extends NetworkedTileEntity implements ITickable
 
                     if (recipe.isPresent()) {
                         craftedAny = true;
-                        item.remove();
 
-                        //take essentia from cache
-                        recipe.get().getEssentia()
-                                .forEach(essentia -> this.essentiaCache.take(essentia.getItem(), essentia.getCount()));
+                        //get the maximum crafting count that the input stack allows
+                        int craftingCount = item.getItem().getCount();
+                        //then check each essentia and find the maximum amount of crafting the essentia cache allwows
+                        for(ItemStack essentia : recipe.get().getEssentia()){
+                            int maxPossibleCraftings = Math.floorDiv(this.essentiaCache.get(essentia.getItem()), essentia.getCount());
+                            if(maxPossibleCraftings < craftingCount)
+                                craftingCount = maxPossibleCraftings;
+                        }
+
+                        //now take the essentia from the cache
+                        for(ItemStack essentia : recipe.get().getEssentia()){
+                            //multiply by crafting count
+                            this.essentiaCache.take(essentia.getItem(), essentia.getCount() * craftingCount);
+                        }
+
+                        //take input item from stack
+                        item.getItem().shrink(craftingCount);
+                        //if stack is empty, despawn entity
+                        if(item.getItem().isEmpty())
+                            item.remove();
 
                         //get crafting result
                         ItemStack result = recipe.get().getCraftingResult(this.fakeInventory);
+                        result.setCount(craftingCount);
 
                         //InventoryHelper.spawnItemStack(this.world, this.pos.getX() + 0.5, this.pos.getX() + 1.5, this.pos.getZ() + 0.5, result);
                         //spawn item with proper motion, spawn item stack sometimes gets stuck in the cauldron

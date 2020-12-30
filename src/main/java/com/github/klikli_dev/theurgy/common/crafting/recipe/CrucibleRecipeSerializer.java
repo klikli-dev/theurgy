@@ -61,16 +61,17 @@ public class CrucibleRecipeSerializer<T extends CrucibleRecipe> extends ForgeReg
         if (essentia.isEmpty()) {
             throw new JsonParseException("No essentia specified for purification recipe");
         }
-        ItemStack result = CraftingHelper.getItemStack(JSONUtils.getJsonObject(json, "result"), true);
 
-        return factory.create(recipeId, ingredient, essentia, result);
+        RecipeOutput result = RecipeOutput.fromJson(JSONUtils.getJsonObject(json, "result"));
+
+        return this.factory.create(recipeId, ingredient, essentia, result);
     }
 
     @Override
     public T read(ResourceLocation recipeId, PacketBuffer buffer) {
 
         Ingredient ingredient = Ingredient.read(buffer);
-        ItemStack result = buffer.readItemStack();
+        RecipeOutput result = RecipeOutput.read(buffer);
 
         List<ItemStack> essentia = new ArrayList<>();
 
@@ -79,13 +80,13 @@ public class CrucibleRecipeSerializer<T extends CrucibleRecipe> extends ForgeReg
             essentia.add(buffer.readItemStack());
         }
 
-        return factory.create(recipeId, ingredient, essentia, result);
+        return this.factory.create(recipeId, ingredient, essentia, result);
     }
 
     @Override
     public void write(PacketBuffer buffer, T recipe) {
         recipe.input.write(buffer);
-        buffer.writeItemStack(recipe.output);
+        recipe.output.write(buffer);
         buffer.writeVarInt(recipe.essentia.size());
         recipe.essentia.forEach(buffer::writeItemStack);
     }
@@ -94,7 +95,7 @@ public class CrucibleRecipeSerializer<T extends CrucibleRecipe> extends ForgeReg
     public interface ICrucibleRecipeFactory<T> {
         //region Methods
         T create(ResourceLocation id, Ingredient input,
-                 List<ItemStack> essentia, ItemStack output);
+                 List<ItemStack> essentia, RecipeOutput output);
         //endregion Methods
     }
 }

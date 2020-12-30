@@ -40,7 +40,7 @@ public class PurificationRecipe extends CrucibleRecipe {
 
     //region Initialization
     public PurificationRecipe(ResourceLocation id, Ingredient input,
-                              List<ItemStack> essentia, ItemStack output) {
+                              List<ItemStack> essentia, RecipeOutput output) {
         super(id, input, essentia, output);
     }
     //endregion Initialization

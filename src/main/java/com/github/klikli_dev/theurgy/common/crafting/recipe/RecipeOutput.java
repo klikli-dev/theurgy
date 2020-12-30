@@ -43,17 +43,24 @@ public class RecipeOutput {
     public RecipeOutput(Ingredient ingredient, int count, CompoundNBT nbt) {
         this.ingredient = ingredient;
         this.count = count;
-        this.stack = ItemStack.EMPTY;
+        this.stack = null;
     }
     //endregion Initialization
 
     //region Getter / Setter
     public ItemStack getStack() {
         if (this.stack == ItemStack.EMPTY) {
-            this.stack = this.ingredient.getMatchingStacks()[0].copy();
-            this.stack.setCount(this.count);
-            if(this.nbt != null)
-                this.stack.setTag(this.nbt);
+            ItemStack[] matchingStacks = this.ingredient.getMatchingStacks();
+            if(matchingStacks.length > 0 ){
+                this.stack = matchingStacks[0].copy();
+                this.stack.setCount(this.count);
+                if(this.nbt != null)
+                    this.stack.setTag(this.nbt);
+            }
+            else {
+                //if no matching stacks found, return empty stack
+                this.stack = ItemStack.EMPTY;
+            }
         }
         return this.stack;
     }

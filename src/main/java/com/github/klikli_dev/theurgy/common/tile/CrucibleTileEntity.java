@@ -114,10 +114,11 @@ public class CrucibleTileEntity extends NetworkedTileEntity implements ITickable
     public void tick() {
 
         //count down crafting ticks
-        if (this.remainingCraftingTicks > 0) {
+        if (!this.world.isRemote && this.remainingCraftingTicks > 0) {
             this.remainingCraftingTicks--;
-            if (this.remainingCraftingTicks <= 0)
+            if (this.remainingCraftingTicks <= 0){
                 this.markNetworkDirty();
+            }
         }
 
         //every 10 seconds, check boiling status
@@ -204,6 +205,7 @@ public class CrucibleTileEntity extends NetworkedTileEntity implements ITickable
                             break;
                         case TRANSMUTATION:
                             recipe = this.world.getRecipeManager().getRecipe(RecipeRegistry.TRANSMUTATION_TYPE.get(),
+                                    this.fakeInventory, this.world);
                             break;
                     }
 
@@ -285,7 +287,7 @@ public class CrucibleTileEntity extends NetworkedTileEntity implements ITickable
     public void readNetwork(CompoundNBT compound) {
         super.readNetwork(compound);
         this.waterLevel = compound.getByte("waterLevel");
-        this.remainingCraftingTicks = compound.getByte("remainingCraftingTicks");
+        this.remainingCraftingTicks = compound.getShort("remainingCraftingTicks");
         this.craftingType = CrucibleCraftingType.values()[compound.getByte("craftingType")];
         this.isBoiling = compound.getBoolean("isBoiling");
         this.hasContents = compound.getBoolean("hasContents");
@@ -297,7 +299,7 @@ public class CrucibleTileEntity extends NetworkedTileEntity implements ITickable
     @Override
     public CompoundNBT writeNetwork(CompoundNBT compound) {
         compound.putByte("waterLevel", (byte) this.waterLevel);
-        compound.putByte("remainingCraftingTicks", (byte) this.remainingCraftingTicks);
+        compound.putShort("remainingCraftingTicks", (short) this.remainingCraftingTicks);
         compound.putByte("craftingType", (byte) this.craftingType.ordinal());
         compound.putBoolean("isBoiling", this.isBoiling);
         compound.putBoolean("hasContents", this.hasContents);

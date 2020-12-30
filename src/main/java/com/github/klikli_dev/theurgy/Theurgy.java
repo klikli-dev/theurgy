@@ -24,6 +24,7 @@ package com.github.klikli_dev.theurgy;
 
 import com.github.klikli_dev.theurgy.common.TheurgyItemGroup;
 import com.github.klikli_dev.theurgy.common.config.TheurgyConfig;
+import com.github.klikli_dev.theurgy.common.network.Packets;
 import com.github.klikli_dev.theurgy.registry.*;
 import net.minecraft.item.ItemGroup;
 import net.minecraftforge.common.MinecraftForge;
@@ -78,7 +79,7 @@ public class Theurgy {
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
-
+        Packets.registerMessages();
         LOGGER.info("Common setup complete.");
     }
 

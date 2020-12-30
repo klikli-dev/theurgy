@@ -23,6 +23,7 @@
 package com.github.klikli_dev.theurgy.registry;
 
 import com.github.klikli_dev.theurgy.Theurgy;
+import com.github.klikli_dev.theurgy.common.item.tool.EssentiaGaugeItem;
 import com.github.klikli_dev.theurgy.common.item.tool.GrimoireItem;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.RegistryObject;
@@ -40,6 +41,9 @@ public class ItemRegistry {
     //Tools
     public static final RegistryObject<GrimoireItem> GRIMOIRE = ITEMS.register("grimoire",
             () -> new GrimoireItem(defaultProperties().maxStackSize(1)));
+
+    public static final RegistryObject<EssentiaGaugeItem> ESSENTIA_GAUGE = ITEMS.register("essentia_gauge",
+            () -> new EssentiaGaugeItem(defaultProperties().maxStackSize(1)));
 
     public static final RegistryObject<Item> PURE_CRYSTAL_STIRRER = ITEMS.register("pure_crystal_stirrer",
             () -> new Item(defaultProperties().maxStackSize(1).maxDamage(50)));

@@ -1,0 +1,6 @@
+{
+  "parent": "theurgy:item/essentia_gauge_default",
+  "textures": {
+    "layer0": "theurgy:item/essentia_gauge_animation"
+  }
+}

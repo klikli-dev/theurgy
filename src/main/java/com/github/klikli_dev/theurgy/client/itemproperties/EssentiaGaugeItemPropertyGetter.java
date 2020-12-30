@@ -20,22 +20,27 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.github.klikli_dev.theurgy.common.theurgy;
+package com.github.klikli_dev.theurgy.client.itemproperties;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.world.World;
+import com.github.klikli_dev.theurgy.common.item.tool.EssentiaGaugeItem;
+import net.minecraft.client.world.ClientWorld;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.item.IItemPropertyGetter;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
-import java.util.List;
+import javax.annotation.Nullable;
 
-public interface IEssentiaInformationProvider {
-    /**
-     * Gets the essentia information to render for this block when looked at.
-     * @param world the world.
-     * @param pos the block position.
-     * @param state the block state.
-     * @param tooltip the list of tooltips to insert into.
-     */
-    void getEssentiaInformation(World world, BlockPos pos, BlockState state, List<ITextComponent> tooltip);
+@OnlyIn(Dist.CLIENT)
+public class EssentiaGaugeItemPropertyGetter implements IItemPropertyGetter {
+    //region Overrides
+    @OnlyIn(Dist.CLIENT)
+    @Override
+    public float call(ItemStack stack, @Nullable ClientWorld worldIn, @Nullable LivingEntity entityIn) {
+        if (!stack.getOrCreateTag().contains(EssentiaGaugeItem.PROPERTY_TAG_NAME) ||
+            stack.getTag().getFloat(EssentiaGaugeItem.PROPERTY_TAG_NAME) < 0)
+            return EssentiaGaugeItem.NOT_FOUND;
+        return stack.getTag().getFloat(EssentiaGaugeItem.PROPERTY_TAG_NAME);
+    }
 }

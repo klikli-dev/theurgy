@@ -14,7 +14,7 @@
     }
   ],
   "result": {
-    "item": "minecraft:iron_ingot",
+    "tag": "forge:ingots/iron",
     "count": 2
   }
 }

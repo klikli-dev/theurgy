@@ -236,7 +236,7 @@ public class CrucibleTileEntity extends NetworkedTileEntity implements ITickable
 
                         //get crafting result
                         ItemStack result = recipe.get().getCraftingResult(this.fakeInventory);
-                        result.setCount(craftingCount);
+                        result.setCount(result.getCount() * craftingCount);
 
                         //InventoryHelper.spawnItemStack(this.world, this.pos.getX() + 0.5, this.pos.getX() + 1.5, this.pos.getZ() + 0.5, result);
                         //spawn item with proper motion, spawn item stack sometimes gets stuck in the cauldron

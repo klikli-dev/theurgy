@@ -38,7 +38,7 @@ public abstract class CrucibleRecipe implements IRecipe<CrucibleItemStackFakeInv
 
     protected final ResourceLocation id;
     protected final Ingredient input;
-    protected final ItemStack output;
+    protected final RecipeOutput output;
 
     protected final List<ItemStack> essentia;
     protected final NonNullList<Ingredient> ingredients;
@@ -46,7 +46,7 @@ public abstract class CrucibleRecipe implements IRecipe<CrucibleItemStackFakeInv
 
     //region Initialization
     public CrucibleRecipe(ResourceLocation id, Ingredient input, List<ItemStack> essentia,
-                          ItemStack output) {
+                          RecipeOutput output) {
         this.id = id;
         this.input = input;
         this.essentia = essentia;
@@ -93,7 +93,7 @@ public abstract class CrucibleRecipe implements IRecipe<CrucibleItemStackFakeInv
 
     @Override
     public ItemStack getRecipeOutput() {
-        return this.output;
+        return this.output.getStack();
     }
 
     @Override

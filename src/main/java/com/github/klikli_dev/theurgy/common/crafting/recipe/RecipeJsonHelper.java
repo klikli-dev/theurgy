@@ -22,17 +22,28 @@
 
 package com.github.klikli_dev.theurgy.common.crafting.recipe;
 
-import com.google.gson.JsonArray;
+import com.google.gson.*;
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.JsonToNBT;
+import net.minecraft.util.JSONUtils;
 import net.minecraftforge.common.crafting.CraftingHelper;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class RecipeJsonHelper {
+    //region Fields
+    //Same Gson settings as in CraftingHelper
+    private static Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
+    //endregion Fields
+
+    //region Static Methods
 
     /**
      * Reads a json array of item stacks
+     *
      * @param itemStackArray the item stack json array
      * @return a list of item stacks.
      */
@@ -46,4 +57,29 @@ public class RecipeJsonHelper {
 
         return list;
     }
+
+    /**
+     * Reads an nbt compound from a given json element. Supports json nbt object and json nbt string.
+     * Based on {@link CraftingHelper#getItemStack(JsonObject, boolean)}'s nbt reading logic
+     *
+     * @param element the json element to read.
+     * @return the compound.
+     */
+    public static CompoundNBT readNBT(JsonElement element) {
+        try {
+            CompoundNBT nbt;
+            if (element.isJsonObject())
+                nbt = JsonToNBT.getTagFromJson(GSON.toJson(element));
+            else
+                nbt = JsonToNBT.getTagFromJson(JSONUtils.getString(element, "nbt"));
+
+            if (nbt.contains("ForgeCaps")) {
+                nbt.remove("ForgeCaps");
+            }
+            return nbt;
+        } catch (CommandSyntaxException e) {
+            throw new JsonSyntaxException("Invalid NBT Entry: " + e.toString());
+        }
+    }
+    //endregion Static Methods
 }

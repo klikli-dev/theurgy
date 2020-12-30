@@ -24,7 +24,6 @@ package com.github.klikli_dev.theurgy.integration.jei.recipes;
 
 import com.github.klikli_dev.theurgy.Theurgy;
 import com.github.klikli_dev.theurgy.common.crafting.recipe.CrucibleRecipe;
-import com.github.klikli_dev.theurgy.common.crafting.recipe.EssentiaRecipe;
 import com.github.klikli_dev.theurgy.registry.BlockRegistry;
 import com.github.klikli_dev.theurgy.registry.RecipeRegistry;
 import mezz.jei.api.constants.VanillaTypes;
@@ -35,13 +34,11 @@ import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 
 import java.util.List;
 
-public class CrucibleRecipeCategory implements IRecipeCategory<CrucibleRecipe> {
+public abstract class CrucibleRecipeCategory<T extends CrucibleRecipe> implements IRecipeCategory<T> {
 
     //region Fields
     private final IDrawable background;
@@ -58,20 +55,6 @@ public class CrucibleRecipeCategory implements IRecipeCategory<CrucibleRecipe> {
     //endregion Initialization
 
     //region Overrides
-    @Override
-    public ResourceLocation getUid() {
-        return RecipeRegistry.CRUCIBLE.getId();
-    }
-
-    @Override
-    public Class<? extends CrucibleRecipe> getRecipeClass() {
-        return CrucibleRecipe.class;
-    }
-
-    @Override
-    public String getTitle() {
-        return I18n.format("jei." + Theurgy.MODID + ".crucible_recipe");
-    }
 
     @Override
     public IDrawable getBackground() {
@@ -84,13 +67,13 @@ public class CrucibleRecipeCategory implements IRecipeCategory<CrucibleRecipe> {
     }
 
     @Override
-    public void setIngredients(CrucibleRecipe recipe, IIngredients ingredients) {
+    public void setIngredients(T recipe, IIngredients ingredients) {
         ingredients.setInputIngredients(recipe.getIngredients());
         ingredients.setOutput(VanillaTypes.ITEM, recipe.getRecipeOutput());
     }
 
     @Override
-    public void setRecipe(IRecipeLayout recipeLayout, CrucibleRecipe recipe, IIngredients ingredients) {
+    public void setRecipe(IRecipeLayout recipeLayout, T recipe, IIngredients ingredients) {
         int index = 0;
         int iconWidth = this.icon.getWidth();
         int x = this.background.getWidth() / 2 - iconWidth/2;

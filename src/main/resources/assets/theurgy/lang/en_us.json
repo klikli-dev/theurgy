@@ -3,6 +3,8 @@
   "itemGroup.theurgy": "Theurgy",
   "_comment": "Items",
   "item.theurgy.grimoire": "Hermetica",
+  "item.theurgy.pure_crystal_stirrer": "Pure Crystal Stirrer",
+  "item.theurgy.prima_materia_crystal_stirrer": "Prima Materia Crystal Stirrer",
   "_comment": "Blocks",
   "block.theurgy.crucible": "Crucible",
   "block.theurgy.pure_crystal": "Pure Crystal",
@@ -20,5 +22,7 @@
   "tooltip.theurgy.essentia_information": "%s: %d",
   "_comment": "Jei",
   "jei.theurgy.essentia_recipe": "Essentia Smelting",
-  "jei.theurgy.crucible_recipe": "Crucible"
+  "jei.theurgy.purification_recipe": "Purification",
+  "jei.theurgy.replication_recipe": "Replication",
+  "jei.theurgy.transmutation_recipe": "Transmutation"
 }

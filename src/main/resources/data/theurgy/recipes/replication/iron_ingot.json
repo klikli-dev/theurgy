@@ -1,0 +1,20 @@
+{
+  "type": "theurgy:replication",
+  "ingredient": {
+    "tag": "forge:ingots/iron"
+  },
+  "essentia": [
+    {
+      "item": "theurgy:terra_essentia",
+      "count": 100
+    },
+    {
+      "item": "theurgy:ignis_essentia",
+      "count": 100
+    }
+  ],
+  "result": {
+    "item": "minecraft:iron_ingot",
+    "count": 2
+  }
+}

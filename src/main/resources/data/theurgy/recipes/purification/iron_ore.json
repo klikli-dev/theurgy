@@ -1,5 +1,5 @@
 {
-  "type": "theurgy:crucible",
+  "type": "theurgy:purification",
   "ingredient": {
     "tag": "forge:ores/iron"
   },

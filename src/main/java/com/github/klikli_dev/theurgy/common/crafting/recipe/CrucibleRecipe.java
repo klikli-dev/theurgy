@@ -22,30 +22,19 @@
 
 package com.github.klikli_dev.theurgy.common.crafting.recipe;
 
-import com.github.klikli_dev.theurgy.registry.RecipeRegistry;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.JSONUtils;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-import net.minecraftforge.common.crafting.CraftingHelper;
-import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class CrucibleRecipe implements IRecipe<CrucibleItemStackFakeInventory> {
+public abstract class CrucibleRecipe implements IRecipe<CrucibleItemStackFakeInventory> {
     //region Fields
-    public static Serializer SERIALIZER = new Serializer();
 
     protected final ResourceLocation id;
     protected final Ingredient input;
@@ -117,58 +106,5 @@ public class CrucibleRecipe implements IRecipe<CrucibleItemStackFakeInventory> {
         return this.id;
     }
 
-    @Override
-    public IRecipeSerializer<?> getSerializer() {
-        return SERIALIZER;
-    }
-
-    @Override
-    public IRecipeType<?> getType() {
-        return RecipeRegistry.CRUCIBLE_TYPE.get();
-    }
     //endregion Overrides
-
-    public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<CrucibleRecipe> {
-
-        //region Overrides
-        @Override
-        public CrucibleRecipe read(ResourceLocation recipeId, JsonObject json) {
-            JsonElement ingredientElement = JSONUtils.isJsonArray(json, "ingredient") ? JSONUtils.getJsonArray(json,
-                    "ingredient") : JSONUtils.getJsonObject(json, "ingredient");
-            Ingredient ingredient = Ingredient.deserialize(ingredientElement);
-
-            List<ItemStack> essentia = RecipeJsonHelper.readItemStackArray(JSONUtils.getJsonArray(json, "essentia"));
-            if (essentia.isEmpty()) {
-                throw new JsonParseException("No essentia specified for crucible recipe");
-            }
-            ItemStack result = CraftingHelper.getItemStack(JSONUtils.getJsonObject(json, "result"), true);
-
-            return new CrucibleRecipe(recipeId, ingredient, essentia, result);
-        }
-
-        @Override
-        public CrucibleRecipe read(ResourceLocation recipeId, PacketBuffer buffer) {
-
-            Ingredient ingredient = Ingredient.read(buffer);
-            ItemStack result = buffer.readItemStack();
-
-            List<ItemStack> essentia = new ArrayList<>();
-
-            int length = buffer.readVarInt();
-            for (int i = 0; i < length; i++) {
-                essentia.add(buffer.readItemStack());
-            }
-
-            return new CrucibleRecipe(recipeId, ingredient, essentia, result);
-        }
-
-        @Override
-        public void write(PacketBuffer buffer, CrucibleRecipe recipe) {
-            recipe.input.write(buffer);
-            buffer.writeItemStack(recipe.output);
-            buffer.writeVarInt(recipe.essentia.size());
-            recipe.essentia.forEach(buffer::writeItemStack);
-        }
-        //endregion Overrides
-    }
 }

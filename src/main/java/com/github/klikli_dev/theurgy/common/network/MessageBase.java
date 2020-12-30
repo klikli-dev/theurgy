@@ -20,22 +20,36 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.github.klikli_dev.theurgy.common.theurgy;
+package com.github.klikli_dev.theurgy.common.network;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.world.World;
+import net.minecraft.client.Minecraft;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.server.MinecraftServer;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.fml.network.NetworkEvent;
 
-import java.util.List;
+public abstract class MessageBase implements IMessage {
 
-public interface IEssentiaInformationProvider {
-    /**
-     * Gets the essentia information to render for this block when looked at.
-     * @param world the world.
-     * @param pos the block position.
-     * @param state the block state.
-     * @param tooltip the list of tooltips to insert into.
-     */
-    void getEssentiaInformation(World world, BlockPos pos, BlockState state, List<ITextComponent> tooltip);
+    //region Initialization
+
+    protected MessageBase() {
+    }
+
+    //endregion Initialization
+
+    //region Overrides
+    @OnlyIn(Dist.CLIENT)
+    public void onClientReceived(Minecraft minecraft, PlayerEntity player, NetworkEvent.Context context) {
+    }
+
+    public void onServerReceived(MinecraftServer minecraftServer, ServerPlayerEntity player,
+                                 NetworkEvent.Context context) {
+    }
+    //endregion Overrides
+
+
+    //region Methods
+    //endregion Methods
 }

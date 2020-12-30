@@ -23,11 +23,16 @@
 package com.github.klikli_dev.theurgy.common.handlers;
 
 import com.github.klikli_dev.theurgy.Theurgy;
+import com.github.klikli_dev.theurgy.client.itemproperties.EssentiaGaugeItemPropertyGetter;
 import com.github.klikli_dev.theurgy.client.render.tile.CrucibleRenderer;
+import com.github.klikli_dev.theurgy.common.item.tool.EssentiaGaugeItem;
 import com.github.klikli_dev.theurgy.registry.BlockRegistry;
+import com.github.klikli_dev.theurgy.registry.ItemRegistry;
 import com.github.klikli_dev.theurgy.registry.TileRegistry;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
+import net.minecraft.item.ItemModelsProperties;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
@@ -55,7 +60,7 @@ public class ClientSetupEventHandler {
         RenderTypeLookup.setRenderLayer(BlockRegistry.IGNIS_CRYSTAL.get(), RenderType.getTranslucent());
         RenderTypeLookup.setRenderLayer(BlockRegistry.TERRA_CRYSTAL.get(), RenderType.getTranslucent());
 
-        //register item modl properties
+        //register item model properties
         registerItemModelProperties(event);
 
         //Not safe to call during parallel load, so register to run threadsafe.
@@ -73,7 +78,8 @@ public class ClientSetupEventHandler {
         //Not safe to call during parallel load, so register to run threadsafe
         event.enqueueWork(() -> {
             //Register item model properties
-
+            ItemModelsProperties.registerProperty(ItemRegistry.ESSENTIA_GAUGE.get(),
+                    new ResourceLocation(Theurgy.MODID, EssentiaGaugeItem.PROPERTY_TAG_NAME), new EssentiaGaugeItemPropertyGetter());
             Theurgy.LOGGER.debug("Registered Item Properties");
         });
     }

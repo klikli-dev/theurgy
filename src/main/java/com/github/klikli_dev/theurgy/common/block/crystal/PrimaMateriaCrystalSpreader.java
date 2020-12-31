@@ -55,10 +55,19 @@ public class PrimaMateriaCrystalSpreader implements ICrystalSpreadHandler {
         if (possibleTargets.size() == 0)
             return false;
 
-        CrystalPlacementInfo spreadTo = this.getValidSpreadPosition(this.condition, world, possibleTargets, sourceState, sourcePos);
+        CrystalPlacementInfo spreadTo =
+                this.getValidSpreadPosition(this.condition, world, possibleTargets, sourceState, sourcePos);
         if (spreadTo != null) {
-            //TODO: consume essentia from chunk
-            world.setBlockState(spreadTo.pos, this.crystalBlock.get().getDefaultState().with(BlockStateProperties.FACING, spreadTo.direction), 2);
+            //Note: for now prima materia crystals spread without consuming essentia
+            //            EssentiaChunk chunkEssentia = EssentiaChunkHandler.getOrCreateEssentiaChunk(
+            //                    ((World)world).getDimensionKey(), new ChunkPos(spreadTo.pos));
+            //
+            //            //consume essentia from chunk
+            //            chunkEssentia.essentia.removeAll(Theurgy.CONFIG.crystalSettings.primaMateriaSpreadEssentia.get());
+            //            chunkEssentia.markDirty();
+
+            world.setBlockState(spreadTo.pos,
+                    this.crystalBlock.get().getDefaultState().with(BlockStateProperties.FACING, spreadTo.direction), 2);
             return true;
         }
         return false;

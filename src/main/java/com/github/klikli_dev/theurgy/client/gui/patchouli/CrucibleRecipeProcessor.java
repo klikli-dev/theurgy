@@ -62,7 +62,10 @@ public class CrucibleRecipeProcessor implements IComponentProcessor {
 
         if (key.startsWith("essentia")) {
             int index = Integer.parseInt(key.substring("essentia".length())) - 1;
-            ItemStack essentia = recipe.getEssentia().get(index);
+            //we have 4 essentia slots, but recipe may not use all, so exit if none exists.
+            if(index >= this.recipe.getEssentia().size())
+                return null;
+            ItemStack essentia = this.recipe.getEssentia().get(index);
             return IVariable.from(essentia);
         }
 

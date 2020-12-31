@@ -35,7 +35,7 @@ import net.minecraft.world.IWorld;
  */
 public class AquaCrystalCondition implements ICrystalSpreadCondition{
     @Override
-    public Direction canSpreadTo(IWorld world, BlockState targetState, BlockPos targetPos, BlockPos sourcePos) {
+    public Direction canSpreadTo(IWorld world, BlockState targetState, BlockPos targetPos, BlockState sourceState, BlockPos sourcePos) {
         if(!world.getFluidState(targetPos).isTagged(FluidTags.WATER))
             return null;
 

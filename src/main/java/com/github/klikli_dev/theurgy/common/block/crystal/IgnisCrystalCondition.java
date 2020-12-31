@@ -35,7 +35,7 @@ import net.minecraft.world.IWorld;
 public class IgnisCrystalCondition implements ICrystalSpreadCondition {
     //region Overrides
     @Override
-    public Direction canSpreadTo(IWorld world, BlockState targetState, BlockPos targetPos, BlockPos sourcePos) {
+    public Direction canSpreadTo(IWorld world, BlockState targetState, BlockPos targetPos, BlockState sourceState, BlockPos sourcePos) {
         long heatSources = Math3DUtil.getBlockPosInBox(targetPos, 1)
                                    .filter(pos -> TagRegistry.HEAT_SOURCES
                                                           .contains(world.getBlockState(pos).getBlock()))

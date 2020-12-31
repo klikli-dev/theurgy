@@ -63,7 +63,7 @@ public class EssentiaCrystalSpreader implements ICrystalSpreadHandler {
         if (possibleTargets.size() == 0)
             return false;
 
-        CrystalPlacementInfo spreadTo = this.getValidSpreadPosition(this.condition, world, possibleTargets, sourcePos);
+        CrystalPlacementInfo spreadTo = this.getValidSpreadPosition(this.condition, world, possibleTargets, sourceState, sourcePos);
         if (spreadTo != null) {
             //copy fluid state from current block to avoid despawning water
             FluidState fluidState = world.getFluidState(spreadTo.pos);

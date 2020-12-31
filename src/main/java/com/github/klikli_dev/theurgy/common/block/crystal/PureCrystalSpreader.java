@@ -68,35 +68,35 @@ public class PureCrystalSpreader implements ICrystalSpreadHandler {
             return false;
 
         //Check aer
-        CrystalPlacementInfo spreadTo = this.getValidSpreadPosition(this.aerCondition, world, possibleTargets, sourcePos);
+        CrystalPlacementInfo spreadTo = this.getValidSpreadPosition(this.aerCondition, world, possibleTargets, sourceState, sourcePos);
         if (spreadTo != null) {
             world.setBlockState(spreadTo.pos, BlockRegistry.AER_CRYSTAL.get().getDefaultState().with(BlockStateProperties.FACING, spreadTo.direction), 2);
             return true;
         }
 
         //Check aqua
-        spreadTo = this.getValidSpreadPosition(this.aquaCondition, world, possibleTargets, sourcePos);
+        spreadTo = this.getValidSpreadPosition(this.aquaCondition, world, possibleTargets, sourceState, sourcePos);
         if (spreadTo != null) {
             world.setBlockState(spreadTo.pos, BlockRegistry.AQUA_CRYSTAL.get().getDefaultState().with(BlockStateProperties.FACING, spreadTo.direction), 2);
             return true;
         }
 
         //Check ignis
-        spreadTo = this.getValidSpreadPosition(this.ignisCondition, world, possibleTargets, sourcePos);
+        spreadTo = this.getValidSpreadPosition(this.ignisCondition, world, possibleTargets, sourceState, sourcePos);
         if (spreadTo != null) {
             world.setBlockState(spreadTo.pos, BlockRegistry.IGNIS_CRYSTAL.get().getDefaultState().with(BlockStateProperties.FACING, spreadTo.direction), 2);
             return true;
         }
 
         //Check terra
-        spreadTo = this.getValidSpreadPosition(this.terraCondition, world, possibleTargets, sourcePos);
+        spreadTo = this.getValidSpreadPosition(this.terraCondition, world, possibleTargets, sourceState, sourcePos);
         if (spreadTo != null) {
             world.setBlockState(spreadTo.pos, BlockRegistry.TERRA_CRYSTAL.get().getDefaultState().with(BlockStateProperties.FACING, spreadTo.direction), 2);
             return true;
         }
 
         //if no essentia crystals can grow, attempt to grow prima materia
-        spreadTo = this.getValidSpreadPosition(this.primaMateriaCondition, world, possibleTargets, sourcePos);
+        spreadTo = this.getValidSpreadPosition(this.primaMateriaCondition, world, possibleTargets, sourceState, sourcePos);
         if (spreadTo != null) {
             //TODO: consume essentia from chunk
             world.setBlockState(spreadTo.pos, BlockRegistry.PRIMA_MATERIA_CRYSTAL.get().getDefaultState().with(BlockStateProperties.FACING, spreadTo.direction), 2);
@@ -104,7 +104,7 @@ public class PureCrystalSpreader implements ICrystalSpreadHandler {
         }
 
         //If no other crystal type is valid, check pure condition
-        spreadTo = this.getValidSpreadPosition(this.pureCondition, world, possibleTargets, sourcePos);
+        spreadTo = this.getValidSpreadPosition(this.pureCondition, world, possibleTargets, sourceState, sourcePos);
         if (spreadTo != null) {
             world.setBlockState(spreadTo.pos, BlockRegistry.PURE_CRYSTAL.get().getDefaultState().with(BlockStateProperties.FACING, spreadTo.direction), 2);
             return true;

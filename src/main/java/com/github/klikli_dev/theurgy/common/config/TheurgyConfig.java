@@ -22,20 +22,43 @@
 
 package com.github.klikli_dev.theurgy.common.config;
 
+import com.github.klikli_dev.theurgy.common.config.value.CachedInt;
 import net.minecraftforge.common.ForgeConfigSpec;
 
 public class TheurgyConfig extends ConfigBase {
 
     //region Fields
     public final ForgeConfigSpec spec;
+    public final CrystalSettings crystalSettings;
     //endregion Fields
 
     //region Initialization
     public TheurgyConfig() {
         ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
-        //TODO: instantiate settings
+
+        this.crystalSettings = new CrystalSettings(this, builder);
+
         this.spec = builder.build();
     }
-    //endregion Initialization
 
+    //endregion Initialization
+    public class CrystalSettings extends ConfigCategoryBase {
+        //region Fields
+        public final CachedInt primaMateriaSpreadEssentia;
+        //endregion Fields
+
+        //region Initialization
+        public CrystalSettings(IConfigCache parent, ForgeConfigSpec.Builder builder) {
+            super(parent, builder);
+            builder.comment("Crystal Settings").push("crystals");
+
+            this.primaMateriaSpreadEssentia = CachedInt.cache(this,
+                    builder.comment(
+                            "The amount of dissolved essentia required in a chunk for a pure crystal to create a prima materia crystal.")
+                            .define("primaMateriaSpreadEssentia", 1000));
+
+            builder.pop();
+        }
+        //endregion Initialization
+    }
 }

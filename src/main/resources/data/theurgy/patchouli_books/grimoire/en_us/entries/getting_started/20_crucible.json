@@ -11,8 +11,7 @@
     },
     {
       "type": "crafting",
-      "recipe": "theurgy:crucible",
-      "text": "test"
+      "recipe": "theurgy:crafting/crucible"
     },
     {
       "type": "text",

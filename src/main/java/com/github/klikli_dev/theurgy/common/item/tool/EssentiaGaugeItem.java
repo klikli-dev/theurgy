@@ -25,6 +25,7 @@ package com.github.klikli_dev.theurgy.common.item.tool;
 import com.github.klikli_dev.theurgy.common.handlers.ClientRenderEventHandler;
 import com.github.klikli_dev.theurgy.common.network.MessageEssentiaChunkData;
 import com.github.klikli_dev.theurgy.common.network.Packets;
+import com.github.klikli_dev.theurgy.common.theurgy.essentia_chunks.EssentiaChunkHandler;
 import com.github.klikli_dev.theurgy.registry.ItemRegistry;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
@@ -35,6 +36,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
+import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
@@ -68,13 +70,11 @@ public class EssentiaGaugeItem extends Item {
             player.setActiveHand(hand);
 
             if (!world.isRemote) {
-                Packets.sendTo((ServerPlayerEntity) player, new MessageEssentiaChunkData( new HashMap<Item, Integer>() {
-                    {
-                        put(ItemRegistry.AER_ESSENTIA.get(), 5);
-                        put(ItemRegistry.AQUA_ESSENTIA.get(), 500);
-                    }
-                }));
-                //TODO: send real chunk info packet here
+                Packets.sendTo((ServerPlayerEntity) player, new MessageEssentiaChunkData(
+                        EssentiaChunkHandler.getEssentiaCache(
+                                world.getDimensionKey(),
+                                new ChunkPos(player.getPosition())).essentia
+                ));
             }
         }
 

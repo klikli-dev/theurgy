@@ -45,7 +45,7 @@ public class Theurgy {
     public static final String NAME = "Theurgy";
     public static final Logger LOGGER = LogManager.getLogger(MODID);
     public static final ItemGroup ITEM_GROUP = new TheurgyItemGroup();
-    private static final TheurgyConfig CONFIG = new TheurgyConfig();
+    public static final TheurgyConfig CONFIG = new TheurgyConfig();
     public static Theurgy INSTANCE;
     //endregion Fields
 

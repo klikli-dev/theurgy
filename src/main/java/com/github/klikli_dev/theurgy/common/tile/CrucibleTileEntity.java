@@ -22,12 +22,14 @@
 
 package com.github.klikli_dev.theurgy.common.tile;
 
+import com.github.klikli_dev.theurgy.Theurgy;
 import com.github.klikli_dev.theurgy.client.particle.CrucibleBubbleParticleData;
 import com.github.klikli_dev.theurgy.common.crafting.recipe.CrucibleCraftingType;
 import com.github.klikli_dev.theurgy.common.crafting.recipe.CrucibleItemStackFakeInventory;
 import com.github.klikli_dev.theurgy.common.crafting.recipe.CrucibleRecipe;
 import com.github.klikli_dev.theurgy.common.crafting.recipe.EssentiaRecipe;
 import com.github.klikli_dev.theurgy.common.theurgy.EssentiaCache;
+import com.github.klikli_dev.theurgy.common.theurgy.essentia_chunks.EssentiaChunkHandler;
 import com.github.klikli_dev.theurgy.registry.ItemRegistry;
 import com.github.klikli_dev.theurgy.registry.RecipeRegistry;
 import com.github.klikli_dev.theurgy.registry.TagRegistry;
@@ -35,6 +37,7 @@ import com.github.klikli_dev.theurgy.registry.TileRegistry;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
@@ -43,7 +46,9 @@ import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.*;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkPos;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
@@ -108,6 +113,24 @@ public class CrucibleTileEntity extends NetworkedTileEntity implements ITickable
                 BlockStateProperties.LIT);
     }
 
+    public void diffuseAllEssentia(){
+        EssentiaCache chunkEssentia = EssentiaChunkHandler.getEssentiaCache(this.world.getDimensionKey(), new ChunkPos(this.pos));
+
+        //take all essentia from the cache and add to the chunk
+        List<Item> essentiaToDissolve = new ArrayList<>(this.essentiaCache.essentia.keySet());
+        for(Item e : essentiaToDissolve){
+            //get the amount we can actually diffuse
+            int amount = this.essentiaCache.get(e);
+            //remove it from crucible cache
+            this.essentiaCache.remove(e, amount);
+            //add to chunk cache
+            chunkEssentia.add(e, amount);
+        }
+
+        //Mark essentia dimension for saving
+        EssentiaChunkHandler.markDirty(this.world.getDimensionKey());
+    }
+
     //endregion Getter / Setter
     //region Overrides
     @Override
@@ -136,7 +159,9 @@ public class CrucibleTileEntity extends NetworkedTileEntity implements ITickable
                 this.isBoiling = false;
                 this.remainingCraftingTicks = 0;
                 this.hasContents = false;
-                //TODO: release flux here
+
+                this.diffuseAllEssentia();
+
                 if (!this.world.isRemote)
                     this.markNetworkDirty();
             }
@@ -289,13 +314,30 @@ public class CrucibleTileEntity extends NetworkedTileEntity implements ITickable
             }
         }
 
-        //on slow tick very 10sec, dissolve essentia
-        if (this.hasContents && this.world.getGameTime() % 200 == 0) {
-            this.essentiaCache.removeAll(10);
+        //on slow tick, diffuse essentia
+        if (!this.world.isRemote && this.hasContents &&
+            this.world.getGameTime() % Theurgy.CONFIG.essentiaSettings.crucibleDiffuseTicks.get() == 0) {
+
+            EssentiaCache chunkEssentia = EssentiaChunkHandler.getEssentiaCache(this.world.getDimensionKey(), new ChunkPos(this.pos));
+
+            //get the amount we want to diffuse
+            int amountToDissolve = Theurgy.CONFIG.essentiaSettings.crucibleEssentiaToDiffuse.get();
+            List<Item> essentiaToDissolve = new ArrayList<>(this.essentiaCache.essentia.keySet());
+            for(Item e : essentiaToDissolve){
+                //get the amount we can actually diffuse
+                int amount = Math.min(this.essentiaCache.get(e), amountToDissolve);
+                //remove it from crucible cache
+                this.essentiaCache.remove(e, amount);
+                //add to chunk cache
+                chunkEssentia.add(e, amount);
+            }
+
+            //Mark essentia dimension for saving
+            EssentiaChunkHandler.markDirty(this.world.getDimensionKey());
+
             if (this.essentiaCache.isEmpty()) {
                 this.hasContents = false;
             }
-            //TODO: generate flux
             this.markNetworkDirty();
         }
     }
@@ -329,8 +371,9 @@ public class CrucibleTileEntity extends NetworkedTileEntity implements ITickable
         if (hand == Hand.MAIN_HAND) {
             //On shift-click with empty hand, empty and reset the crucible
             if (player.isSneaking() && player.getHeldItem(hand).isEmpty() && this.waterLevel > 0) {
+                this.diffuseAllEssentia();
                 this.resetCrucible();
-                //TODO: release flux here
+
                 if (!this.world.isRemote) {
                     this.markNetworkDirty();
                     //vanilla cauldron empty sound
@@ -357,8 +400,8 @@ public class CrucibleTileEntity extends NetworkedTileEntity implements ITickable
                 this.waterLevel--;
 
                 if (this.waterLevel == 0) {
-                    //TODO: release flux here
                     this.resetCrucible();
+                    this.diffuseAllEssentia();
                 }
 
                 if (!this.world.isRemote) {

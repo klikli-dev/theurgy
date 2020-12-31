@@ -61,13 +61,13 @@ public interface ICrystalSpreadHandler {
                                                  .collect(Collectors.toList());
     }
 
-    default CrystalPlacementInfo getValidSpreadPosition(ICrystalSpreadCondition condition,  IWorld world, List<BlockPos> possibleTargets, BlockPos sourcePos){
+    default CrystalPlacementInfo getValidSpreadPosition(ICrystalSpreadCondition condition,  IWorld world, List<BlockPos> possibleTargets, BlockState sourceState, BlockPos sourcePos){
         //randomize order to avoid a preference for one direction of spread
         Collections.shuffle(possibleTargets);
 
         for(BlockPos pos : possibleTargets){
             BlockState state = world.getBlockState(pos);
-            Direction direction = condition.canSpreadTo(world, state, pos, sourcePos);
+            Direction direction = condition.canSpreadTo(world, state, pos, sourceState, sourcePos);
             if(direction != null)
                 return new CrystalPlacementInfo(pos, direction.getOpposite());
         }

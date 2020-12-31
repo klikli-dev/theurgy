@@ -20,25 +20,26 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.github.klikli_dev.theurgy.common.block.crystal;
+package com.github.klikli_dev.theurgy.common.handlers;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.tags.FluidTags;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
+import com.github.klikli_dev.theurgy.Theurgy;
+import com.github.klikli_dev.theurgy.common.theurgy.essentia_chunks.EssentiaChunkHandler;
 import net.minecraft.world.IWorld;
+import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.event.world.WorldEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 
-/**
- * Needs to grow underwater
- */
-public class AquaCrystalCondition implements ICrystalSpreadCondition{
-    @Override
-    public Direction canSpreadTo(IWorld world, BlockState targetState, BlockPos targetPos, BlockState sourceState, BlockPos sourcePos) {
-        if(!world.getFluidState(targetPos).isTagged(FluidTags.WATER))
-            return null;
+@Mod.EventBusSubscriber(modid = Theurgy.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
+public class WorldEventHandler {
 
-        return this.getPlacementDirection(world, targetPos, sourcePos);
+    //region Static Methods
+    @SubscribeEvent
+    public static void onWorldLoaded(WorldEvent.Load event) {
+        IWorld world = event.getWorld();
+        if (!event.getWorld().isRemote() && event.getWorld() instanceof ServerWorld) {
+            EssentiaChunkHandler.onDimensionLoaded((ServerWorld) world);
+        }
     }
+    //endregion Static Methods
 }

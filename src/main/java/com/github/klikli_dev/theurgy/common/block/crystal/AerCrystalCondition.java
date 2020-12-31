@@ -36,7 +36,7 @@ import net.minecraft.world.IWorld;
  */
 public class AerCrystalCondition implements ICrystalSpreadCondition{
     @Override
-    public Direction canSpreadTo(IWorld world, BlockState targetState, BlockPos targetPos, BlockPos sourcePos) {
+    public Direction canSpreadTo(IWorld world, BlockState targetState, BlockPos targetPos, BlockState sourceState, BlockPos sourcePos) {
         long solidBlocks = Math3DUtil.getBlockPosInBox(sourcePos, 1)
                                    .filter((pos) -> {
                                        BlockState state = world.getBlockState(pos);

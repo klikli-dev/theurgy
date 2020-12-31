@@ -38,10 +38,11 @@ public interface ICrystalSpreadCondition {
      * @param world the world to spread in.
      * @param targetState the block state of the target position.
      * @param targetPos the target position.
+     * @param sourceState the source block state.
      * @param sourcePos the source position.
      * @return Valid direction if can spread, null otherwise
      */
-    Direction canSpreadTo(IWorld world, BlockState targetState, BlockPos targetPos, BlockPos sourcePos);
+    Direction canSpreadTo(IWorld world, BlockState targetState, BlockPos targetPos, BlockState sourceState, BlockPos sourcePos);
 
     /**
      * Gets a list of valid placement directions. Can be used to restrict spread to e.g. ceilings only.

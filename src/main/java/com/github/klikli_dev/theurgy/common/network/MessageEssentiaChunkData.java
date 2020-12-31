@@ -59,7 +59,7 @@ public class MessageEssentiaChunkData extends MessageBase {
 
     @Override
     public void onClientReceived(Minecraft minecraft, PlayerEntity player, NetworkEvent.Context context) {
-        ClientRenderEventHandler.displayChunkEssentiaTicks = ClientRenderEventHandler.CHUNK_ESSENTIA_TICKS;
+        ClientRenderEventHandler.displayChunkEssentia = true;
         ClientRenderEventHandler.chunkEssentia = this.essentia;
     }
 

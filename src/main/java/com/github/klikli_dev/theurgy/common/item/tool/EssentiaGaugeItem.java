@@ -101,7 +101,7 @@ public class EssentiaGaugeItem extends Item {
         stack.getOrCreateTag().putFloat(EssentiaGaugeItem.PROPERTY_TAG_NAME, NOT_FOUND);
         if(world.isRemote){
             //Stop rendering when item use is stopped early
-            ClientRenderEventHandler.displayChunkEssentiaTicks = 0;
+            ClientRenderEventHandler.displayChunkEssentia = false;
         }
         super.onPlayerStoppedUsing(stack, world, entityLiving, timeLeft);
     }

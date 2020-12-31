@@ -25,8 +25,6 @@ package com.github.klikli_dev.theurgy.common.handlers;
 import com.github.klikli_dev.theurgy.Theurgy;
 import com.github.klikli_dev.theurgy.common.theurgy.IEssentiaInformationProvider;
 import com.github.klikli_dev.theurgy.registry.ItemRegistry;
-import com.github.klikli_dev.theurgy.registry.TagRegistry;
-import com.google.common.collect.Lists;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MainWindow;
@@ -39,7 +37,10 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.text.*;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.LanguageMap;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -55,10 +56,11 @@ import java.util.Map;
 @Mod.EventBusSubscriber(modid = Theurgy.MODID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class ClientRenderEventHandler {
 
-    public static final int CHUNK_ESSENTIA_TICKS = 400;
-    public static int displayChunkEssentiaTicks = 0;
+//region Fields
+    public static boolean displayChunkEssentia = false;
 
     public static Map<Item, Integer> chunkEssentia = new HashMap<>();
+//endregion Fields
 
     //region Static Methods
     @OnlyIn(Dist.CLIENT)
@@ -72,16 +74,19 @@ public class ClientRenderEventHandler {
 
         List<ITextComponent> tooltip = new ArrayList<>();
 
-        if(displayChunkEssentiaTicks > 0){
-            displayChunkEssentiaTicks--;
+        if (displayChunkEssentia) {
+            if (player.getHeldItemMainhand().getItem() != ItemRegistry.ESSENTIA_GAUGE.get()) {
+                //if item was switched by scrolling or dropping, disable essentia display
+                displayChunkEssentia = false;
+            }
 
-                //Render golden bold header
-                tooltip.add(new TranslationTextComponent(
-                        "tooltip." + Theurgy.MODID + ".essentia_information.chunk.heading")
-                                    .mergeStyle(TextFormatting.BOLD)
-                                    .mergeStyle(TextFormatting.GOLD));
+            //Render golden bold header
+            tooltip.add(new TranslationTextComponent(
+                    "tooltip." + Theurgy.MODID + ".essentia_information.chunk.heading")
+                                .mergeStyle(TextFormatting.BOLD)
+                                .mergeStyle(TextFormatting.GOLD));
 
-            if(chunkEssentia.size() > 0){
+            if (chunkEssentia.size() > 0) {
                 //Render each essentia type
                 chunkEssentia.forEach((item, amount) -> {
                     tooltip.add(new TranslationTextComponent(
@@ -108,7 +113,7 @@ public class ClientRenderEventHandler {
                     //get essentia tooltip
                     if (state.getBlock() instanceof IEssentiaInformationProvider) {
                         ((IEssentiaInformationProvider) state.getBlock())
-                                            .getEssentiaInformation(world, blockRayTraceResult.getPos(), state, tooltip);
+                                .getEssentiaInformation(world, blockRayTraceResult.getPos(), state, tooltip);
                     }
 
                     //render essentia tooltip
@@ -117,7 +122,7 @@ public class ClientRenderEventHandler {
         }
 
         //If we have any tooltips, render them here
-        if(tooltip.size() > 0){
+        if (tooltip.size() > 0) {
             MatrixStack matrixStack = event.getMatrixStack();
             FontRenderer fontRenderer = Minecraft.getInstance().fontRenderer;
             for (int i = 0; i < tooltip.size(); i++) {
@@ -127,7 +132,8 @@ public class ClientRenderEventHandler {
                 ITextComponent component = tooltip.get(i);
                 fontRenderer.func_238416_a_(LanguageMap.getInstance().func_241870_a(component),
                         centerX - fontRenderer.getStringPropertyWidth(component) / 2.0f,
-                        centerY + 40 + 11 * i, -1, true, matrixStack.getLast().getMatrix(), renderType, false, 0, 15728880);
+                        centerY + 40 + 11 * i, -1, true, matrixStack.getLast().getMatrix(), renderType, false, 0,
+                        15728880);
 
                 renderType.finish();
             }

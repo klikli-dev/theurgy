@@ -23,6 +23,7 @@
 package com.github.klikli_dev.theurgy.common;
 
 import com.github.klikli_dev.theurgy.Theurgy;
+import com.github.klikli_dev.theurgy.registry.ItemRegistry;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -37,7 +38,7 @@ public class TheurgyItemGroup extends ItemGroup {
     //region Overrides
     @Override
     public ItemStack createIcon() {
-        return new ItemStack(Items.DIAMOND); //TODO: Return a theurgy icon here.
+        return new ItemStack(ItemRegistry.GRIMOIRE.get());
     }
     //endregion Overrides
 }

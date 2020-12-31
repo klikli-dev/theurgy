@@ -26,8 +26,6 @@ import com.github.klikli_dev.theurgy.Theurgy;
 import com.github.klikli_dev.theurgy.common.crafting.recipe.EssentiaRecipe;
 import com.github.klikli_dev.theurgy.registry.BlockRegistry;
 import com.github.klikli_dev.theurgy.registry.RecipeRegistry;
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.systems.RenderSystem;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -92,7 +90,7 @@ public class EssentiaRecipeCategory implements IRecipeCategory<EssentiaRecipe> {
     public void setRecipe(IRecipeLayout recipeLayout, EssentiaRecipe recipe, IIngredients ingredients) {
         int index = 0;
         int iconWidth = this.icon.getWidth();
-        int x = this.background.getWidth() / 2 - iconWidth/2;
+        int x = this.background.getWidth() / 2 - iconWidth / 2;
         int y = 12;
         recipeLayout.getItemStacks().init(index, true, x, y);
         recipeLayout.getItemStacks().set(index, ingredients.getInputs(VanillaTypes.ITEM).get(0));
@@ -107,13 +105,13 @@ public class EssentiaRecipeCategory implements IRecipeCategory<EssentiaRecipe> {
 
         List<List<ItemStack>> essentia = ingredients.getOutputs(VanillaTypes.ITEM);
         int essentiaSlotOffset = 10;
-        if(essentia.size() > 1)
-            x = x - (essentia.size() * (iconWidth + essentiaSlotOffset)) / 2 + (iconWidth + essentiaSlotOffset)/2;
-        for(int i = 0; i < essentia.size(); i++){
-            recipeLayout.getItemStacks().init(index+i, false, x + i * (iconWidth + essentiaSlotOffset), y);
-            recipeLayout.getItemStacks().set(index+i, essentia.get(i));
+        if (essentia.size() > 1)
+            x = x - (essentia.size() * (iconWidth + essentiaSlotOffset)) / 2 + (iconWidth + essentiaSlotOffset) / 2;
+        for (int i = 0; i < essentia.size(); i++) {
+            recipeLayout.getItemStacks().init(index + i, false, x + i * (iconWidth + essentiaSlotOffset), y);
+            recipeLayout.getItemStacks().set(index + i, essentia.get(i));
         }
-;
+        ;
     }
 
     //endregion Overrides

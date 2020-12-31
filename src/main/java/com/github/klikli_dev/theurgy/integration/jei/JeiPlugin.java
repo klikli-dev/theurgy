@@ -69,11 +69,14 @@ public class JeiPlugin implements IModPlugin {
 
         List<EssentiaRecipe> essentiaRecipes = recipeManager.getRecipesForType(RecipeRegistry.ESSENTIA_TYPE.get());
         registration.addRecipes(essentiaRecipes, RecipeRegistry.ESSENTIA.getId());
-        List<PurificationRecipe> purificationRecipes = recipeManager.getRecipesForType(RecipeRegistry.PURIFICATION_TYPE.get());
+        List<PurificationRecipe> purificationRecipes =
+                recipeManager.getRecipesForType(RecipeRegistry.PURIFICATION_TYPE.get());
         registration.addRecipes(purificationRecipes, RecipeRegistry.PURIFICATION.getId());
-        List<ReplicationRecipe> replicationRecipes = recipeManager.getRecipesForType(RecipeRegistry.REPLICATION_TYPE.get());
+        List<ReplicationRecipe> replicationRecipes =
+                recipeManager.getRecipesForType(RecipeRegistry.REPLICATION_TYPE.get());
         registration.addRecipes(replicationRecipes, RecipeRegistry.REPLICATION.getId());
-        List<TransmutationRecipe> transmutationRecipes = recipeManager.getRecipesForType(RecipeRegistry.TRANSMUTATION_TYPE.get());
+        List<TransmutationRecipe> transmutationRecipes =
+                recipeManager.getRecipesForType(RecipeRegistry.TRANSMUTATION_TYPE.get());
         registration.addRecipes(transmutationRecipes, RecipeRegistry.TRANSMUTATION.getId());
     }
 

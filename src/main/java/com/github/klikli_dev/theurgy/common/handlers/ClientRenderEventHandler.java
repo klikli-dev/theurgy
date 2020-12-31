@@ -56,11 +56,11 @@ import java.util.Map;
 @Mod.EventBusSubscriber(modid = Theurgy.MODID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class ClientRenderEventHandler {
 
-//region Fields
+    //region Fields
     public static boolean displayChunkEssentia = false;
 
     public static Map<Item, Integer> chunkEssentia = new HashMap<>();
-//endregion Fields
+    //endregion Fields
 
     //region Static Methods
     @OnlyIn(Dist.CLIENT)

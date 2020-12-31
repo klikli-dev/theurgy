@@ -30,12 +30,16 @@ import net.minecraft.world.World;
 import java.util.List;
 
 public interface IEssentiaInformationProvider {
+    //region Methods
+
     /**
      * Gets the essentia information to render for this block when looked at.
-     * @param world the world.
-     * @param pos the block position.
-     * @param state the block state.
+     *
+     * @param world   the world.
+     * @param pos     the block position.
+     * @param state   the block state.
      * @param tooltip the list of tooltips to insert into.
      */
     void getEssentiaInformation(World world, BlockPos pos, BlockState state, List<ITextComponent> tooltip);
+    //endregion Methods
 }

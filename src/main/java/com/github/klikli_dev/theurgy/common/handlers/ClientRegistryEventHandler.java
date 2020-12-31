@@ -38,7 +38,7 @@ public class ClientRegistryEventHandler {
     @SubscribeEvent()
     public static void onRegisterParticleFactories(ParticleFactoryRegisterEvent event) {
         ParticleManager manager = Minecraft.getInstance().particles;
-        
+
         manager.registerFactory(ParticleRegistry.CRUCIBLE_BUBBLES.get(), CrucibleBubbleParticleType.Factory::new);
 
         Theurgy.LOGGER.info("Registered Particle Factories");

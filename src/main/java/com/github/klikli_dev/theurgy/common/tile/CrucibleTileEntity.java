@@ -112,26 +112,8 @@ public class CrucibleTileEntity extends NetworkedTileEntity implements ITickable
         return TagRegistry.HEAT_SOURCES_LIT.contains(heatSourceBlock.getBlock()) && heatSourceBlock.get(
                 BlockStateProperties.LIT);
     }
-
-    public void diffuseAllEssentia(){
-        EssentiaCache chunkEssentia = EssentiaChunkHandler.getEssentiaCache(this.world.getDimensionKey(), new ChunkPos(this.pos));
-
-        //take all essentia from the cache and add to the chunk
-        List<Item> essentiaToDissolve = new ArrayList<>(this.essentiaCache.essentia.keySet());
-        for(Item e : essentiaToDissolve){
-            //get the amount we can actually diffuse
-            int amount = this.essentiaCache.get(e);
-            //remove it from crucible cache
-            this.essentiaCache.remove(e, amount);
-            //add to chunk cache
-            chunkEssentia.add(e, amount);
-        }
-
-        //Mark essentia dimension for saving
-        EssentiaChunkHandler.markDirty(this.world.getDimensionKey());
-    }
-
     //endregion Getter / Setter
+
     //region Overrides
     @Override
     public void tick() {
@@ -139,7 +121,7 @@ public class CrucibleTileEntity extends NetworkedTileEntity implements ITickable
         //count down crafting ticks
         if (!this.world.isRemote && this.remainingCraftingTicks > 0) {
             this.remainingCraftingTicks--;
-            if (this.remainingCraftingTicks <= 0){
+            if (this.remainingCraftingTicks <= 0) {
                 this.markNetworkDirty();
             }
         }
@@ -241,14 +223,15 @@ public class CrucibleTileEntity extends NetworkedTileEntity implements ITickable
                         //get the maximum crafting count that the input stack allows
                         int craftingCount = item.getItem().getCount();
                         //then check each essentia and find the maximum amount of crafting the essentia cache allwows
-                        for(ItemStack essentia : recipe.get().getEssentia()){
-                            int maxPossibleCraftings = Math.floorDiv(this.essentiaCache.get(essentia.getItem()), essentia.getCount());
-                            if(maxPossibleCraftings < craftingCount)
+                        for (ItemStack essentia : recipe.get().getEssentia()) {
+                            int maxPossibleCraftings =
+                                    Math.floorDiv(this.essentiaCache.get(essentia.getItem()), essentia.getCount());
+                            if (maxPossibleCraftings < craftingCount)
                                 craftingCount = maxPossibleCraftings;
                         }
 
                         //now take the essentia from the cache
-                        for(ItemStack essentia : recipe.get().getEssentia()){
+                        for (ItemStack essentia : recipe.get().getEssentia()) {
                             //multiply by crafting count
                             this.essentiaCache.take(essentia.getItem(), essentia.getCount() * craftingCount);
                         }
@@ -256,7 +239,7 @@ public class CrucibleTileEntity extends NetworkedTileEntity implements ITickable
                         //take input item from stack
                         item.getItem().shrink(craftingCount);
                         //if stack is empty, despawn entity
-                        if(item.getItem().isEmpty())
+                        if (item.getItem().isEmpty())
                             item.remove();
 
                         //get crafting result
@@ -318,12 +301,13 @@ public class CrucibleTileEntity extends NetworkedTileEntity implements ITickable
         if (!this.world.isRemote && this.hasContents &&
             this.world.getGameTime() % Theurgy.CONFIG.essentiaSettings.crucibleDiffuseTicks.get() == 0) {
 
-            EssentiaCache chunkEssentia = EssentiaChunkHandler.getEssentiaCache(this.world.getDimensionKey(), new ChunkPos(this.pos));
+            EssentiaCache chunkEssentia =
+                    EssentiaChunkHandler.getEssentiaCache(this.world.getDimensionKey(), new ChunkPos(this.pos));
 
             //get the amount we want to diffuse
             int amountToDissolve = Theurgy.CONFIG.essentiaSettings.crucibleEssentiaToDiffuse.get();
             List<Item> essentiaToDissolve = new ArrayList<>(this.essentiaCache.essentia.keySet());
-            for(Item e : essentiaToDissolve){
+            for (Item e : essentiaToDissolve) {
                 //get the amount we can actually diffuse
                 int amount = Math.min(this.essentiaCache.get(e), amountToDissolve);
                 //remove it from crucible cache
@@ -437,7 +421,7 @@ public class CrucibleTileEntity extends NetworkedTileEntity implements ITickable
                 }
 
                 this.remainingCraftingTicks += STIRRING_CRAFTING_TICKS;
-                if(this.remainingCraftingTicks > MAX_STIRRING_CRAFTING_TICKS)
+                if (this.remainingCraftingTicks > MAX_STIRRING_CRAFTING_TICKS)
                     this.remainingCraftingTicks = MAX_STIRRING_CRAFTING_TICKS;
 
                 if (!this.world.isRemote) {
@@ -456,6 +440,25 @@ public class CrucibleTileEntity extends NetworkedTileEntity implements ITickable
     //endregion Overrides
 
     //region Methods
+    public void diffuseAllEssentia() {
+        EssentiaCache chunkEssentia =
+                EssentiaChunkHandler.getEssentiaCache(this.world.getDimensionKey(), new ChunkPos(this.pos));
+
+        //take all essentia from the cache and add to the chunk
+        List<Item> essentiaToDissolve = new ArrayList<>(this.essentiaCache.essentia.keySet());
+        for (Item e : essentiaToDissolve) {
+            //get the amount we can actually diffuse
+            int amount = this.essentiaCache.get(e);
+            //remove it from crucible cache
+            this.essentiaCache.remove(e, amount);
+            //add to chunk cache
+            chunkEssentia.add(e, amount);
+        }
+
+        //Mark essentia dimension for saving
+        EssentiaChunkHandler.markDirty(this.world.getDimensionKey());
+    }
+
     public void resetCrucible() {
         this.isBoiling = false;
         this.hasContents = false;

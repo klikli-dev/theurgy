@@ -22,7 +22,9 @@
 
 package com.github.klikli_dev.theurgy.client.particle;
 
-import net.minecraft.client.particle.*;
+import net.minecraft.client.particle.IAnimatedSprite;
+import net.minecraft.client.particle.IParticleRenderType;
+import net.minecraft.client.particle.SpriteTexturedParticle;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.api.distmarker.Dist;
@@ -36,7 +38,8 @@ public class CrucibleBubbleParticle extends SpriteTexturedParticle {
     //endregion Fields
 
     //region Initialization
-    public CrucibleBubbleParticle(IAnimatedSprite spriteSet, CrucibleBubbleParticleData data, ClientWorld world, double x, double y, double z,
+    public CrucibleBubbleParticle(IAnimatedSprite spriteSet, CrucibleBubbleParticleData data, ClientWorld world,
+                                  double x, double y, double z,
                                   double motionX, double motionY, double motionZ) {
         super(world, x, y, z);
         this.spriteSet = spriteSet;
@@ -54,7 +57,7 @@ public class CrucibleBubbleParticle extends SpriteTexturedParticle {
     @Override
     public void tick() {
         super.tick();
-        float progress = (float)this.age / this.maxAge;
+        float progress = (float) this.age / this.maxAge;
         //change particle based on age progress
         this.setAlphaF(MathHelper.lerp(progress, 1.0f, 0.75f));
 

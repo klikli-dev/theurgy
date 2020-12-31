@@ -22,19 +22,15 @@
 
 package com.github.klikli_dev.theurgy.integration.jei.recipes;
 
-import com.github.klikli_dev.theurgy.Theurgy;
 import com.github.klikli_dev.theurgy.common.crafting.recipe.CrucibleRecipe;
 import com.github.klikli_dev.theurgy.registry.BlockRegistry;
-import com.github.klikli_dev.theurgy.registry.RecipeRegistry;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
 
 import java.util.List;
 
@@ -76,7 +72,7 @@ public abstract class CrucibleRecipeCategory<T extends CrucibleRecipe> implement
     public void setRecipe(IRecipeLayout recipeLayout, T recipe, IIngredients ingredients) {
         int index = 0;
         int iconWidth = this.icon.getWidth();
-        int x = this.background.getWidth() / 2 - iconWidth/2;
+        int x = this.background.getWidth() / 2 - iconWidth / 2;
         int y = 0;
 
         List<List<ItemStack>> inputs = ingredients.getInputs(VanillaTypes.ITEM);
@@ -91,9 +87,10 @@ public abstract class CrucibleRecipeCategory<T extends CrucibleRecipe> implement
         inputs.remove(0); //remove trigger ingredient
         int essentiaSlotOffset = 10;
         int essentiaX = x;
-        if(inputs.size() > 1)
-            essentiaX = essentiaX - (inputs.size() * (iconWidth + essentiaSlotOffset)) / 2 + (iconWidth + essentiaSlotOffset)/2;
-        for(int i = 0; i < inputs.size(); i++){
+        if (inputs.size() > 1)
+            essentiaX = essentiaX - (inputs.size() * (iconWidth + essentiaSlotOffset)) / 2 +
+                        (iconWidth + essentiaSlotOffset) / 2;
+        for (int i = 0; i < inputs.size(); i++) {
             recipeLayout.getItemStacks().init(index, false, essentiaX + i * (iconWidth + essentiaSlotOffset), y);
             recipeLayout.getItemStacks().set(index, inputs.get(i));
             index++;

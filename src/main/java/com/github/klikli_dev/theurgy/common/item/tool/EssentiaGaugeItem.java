@@ -26,7 +26,6 @@ import com.github.klikli_dev.theurgy.common.handlers.ClientRenderEventHandler;
 import com.github.klikli_dev.theurgy.common.network.MessageEssentiaChunkData;
 import com.github.klikli_dev.theurgy.common.network.Packets;
 import com.github.klikli_dev.theurgy.common.theurgy.essentia_chunks.EssentiaChunkHandler;
-import com.github.klikli_dev.theurgy.registry.ItemRegistry;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -42,7 +41,6 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
-import java.util.HashMap;
 import java.util.List;
 
 public class EssentiaGaugeItem extends Item {
@@ -99,7 +97,7 @@ public class EssentiaGaugeItem extends Item {
     public void onPlayerStoppedUsing(ItemStack stack, World world, LivingEntity entityLiving, int timeLeft) {
         //player interrupted, so we can reset to not found.
         stack.getOrCreateTag().putFloat(EssentiaGaugeItem.PROPERTY_TAG_NAME, NOT_FOUND);
-        if(world.isRemote){
+        if (world.isRemote) {
             //Stop rendering when item use is stopped early
             ClientRenderEventHandler.displayChunkEssentia = false;
         }

@@ -51,10 +51,10 @@ public class RecipeOutput {
     public ItemStack getStack() {
         if (this.stack == null) {
             ItemStack[] matchingStacks = this.ingredient.getMatchingStacks();
-            if(matchingStacks.length > 0 ){
+            if (matchingStacks.length > 0) {
                 this.stack = matchingStacks[0].copy();
                 this.stack.setCount(this.count);
-                if(this.nbt != null)
+                if (this.nbt != null)
                     this.stack.setTag(this.nbt);
             }
             else {
@@ -95,7 +95,7 @@ public class RecipeOutput {
         this.ingredient.write(buffer);
         buffer.writeVarInt(this.count);
         buffer.writeBoolean(this.nbt != null);
-        if(this.nbt != null)
+        if (this.nbt != null)
             buffer.writeCompoundTag(this.nbt);
     }
     //endregion Methods

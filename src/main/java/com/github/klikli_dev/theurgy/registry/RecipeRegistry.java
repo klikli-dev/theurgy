@@ -23,7 +23,10 @@
 package com.github.klikli_dev.theurgy.registry;
 
 import com.github.klikli_dev.theurgy.Theurgy;
-import com.github.klikli_dev.theurgy.common.crafting.recipe.*;
+import com.github.klikli_dev.theurgy.common.crafting.recipe.EssentiaRecipe;
+import com.github.klikli_dev.theurgy.common.crafting.recipe.PurificationRecipe;
+import com.github.klikli_dev.theurgy.common.crafting.recipe.ReplicationRecipe;
+import com.github.klikli_dev.theurgy.common.crafting.recipe.TransmutationRecipe;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraftforge.common.util.NonNullLazy;
@@ -32,6 +35,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class RecipeRegistry {
+    //region Fields
     public static final DeferredRegister<IRecipeSerializer<?>> RECIPES = DeferredRegister.create(
             ForgeRegistries.RECIPE_SERIALIZERS, Theurgy.MODID);
 
@@ -48,10 +52,14 @@ public class RecipeRegistry {
     public static final RegistryObject<IRecipeSerializer<EssentiaRecipe>> ESSENTIA = RECIPES.register("essentia",
             () -> EssentiaRecipe.SERIALIZER);
 
-    public static final RegistryObject<IRecipeSerializer<PurificationRecipe>> PURIFICATION = RECIPES.register("purification",
-            () -> PurificationRecipe.SERIALIZER);
-    public static final RegistryObject<IRecipeSerializer<ReplicationRecipe>> REPLICATION = RECIPES.register("replication",
-            () -> ReplicationRecipe.SERIALIZER);
-    public static final RegistryObject<IRecipeSerializer<TransmutationRecipe>> TRANSMUTATION = RECIPES.register("transmutation",
-            () -> TransmutationRecipe.SERIALIZER);
+    public static final RegistryObject<IRecipeSerializer<PurificationRecipe>> PURIFICATION =
+            RECIPES.register("purification",
+                    () -> PurificationRecipe.SERIALIZER);
+    public static final RegistryObject<IRecipeSerializer<ReplicationRecipe>> REPLICATION =
+            RECIPES.register("replication",
+                    () -> ReplicationRecipe.SERIALIZER);
+    public static final RegistryObject<IRecipeSerializer<TransmutationRecipe>> TRANSMUTATION =
+            RECIPES.register("transmutation",
+                    () -> TransmutationRecipe.SERIALIZER);
+    //endregion Fields
 }

@@ -72,20 +72,6 @@ public class CrystalBlock extends DirectionalBlock implements IWaterLoggable {
     //endregion Initialization
 
     //region Overrides
-
-    public void spread(BlockState state, ServerWorld worldIn, BlockPos pos){
-        if(this.spreadHandler != null)
-            this.spreadHandler.handleSpread(this, worldIn, state, pos);
-    }
-
-    @Override
-    public void randomTick(BlockState state, ServerWorld worldIn, BlockPos pos, Random random) {
-        if (!worldIn.isAreaLoaded(pos, 2))
-            return;
-
-        this.spread(state, worldIn, pos);
-    }
-
     @Override
     public BlockState getStateForPlacement(BlockItemUseContext context) {
         Direction direction = context.getFace();
@@ -111,7 +97,6 @@ public class CrystalBlock extends DirectionalBlock implements IWaterLoggable {
 
         return super.updatePostPlacement(stateIn, facing, facingState, worldIn, currentPos, facingPos);
     }
-
 
     @Override
     public FluidState getFluidState(BlockState state) {
@@ -140,5 +125,20 @@ public class CrystalBlock extends DirectionalBlock implements IWaterLoggable {
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
         return SHAPES.get(state.get(BlockStateProperties.FACING));
     }
+
+    @Override
+    public void randomTick(BlockState state, ServerWorld worldIn, BlockPos pos, Random random) {
+        if (!worldIn.isAreaLoaded(pos, 2))
+            return;
+
+        this.spread(state, worldIn, pos);
+    }
     //endregion Overrides
+
+    //region Methods
+    public void spread(BlockState state, ServerWorld worldIn, BlockPos pos) {
+        if (this.spreadHandler != null)
+            this.spreadHandler.handleSpread(this, worldIn, state, pos);
+    }
+    //endregion Methods
 }

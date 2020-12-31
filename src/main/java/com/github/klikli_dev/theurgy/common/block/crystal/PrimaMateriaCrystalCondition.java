@@ -36,7 +36,8 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
-public class PrimaMateriaCrystalCondition extends PureCrystalCondition{
+public class PrimaMateriaCrystalCondition extends PureCrystalCondition {
+    //region Overrides
     @Override
     public List<Direction> getValidPlacementDirections() {
         List<Direction> validPlacements = super.getValidPlacementDirections();
@@ -45,12 +46,14 @@ public class PrimaMateriaCrystalCondition extends PureCrystalCondition{
     }
 
     @Override
-    public Direction canSpreadTo(IWorld world, BlockState targetState, BlockPos targetPos, BlockState sourceState, BlockPos sourcePos) {
-        if( sourceState.getBlock() != BlockRegistry.PRIMA_MATERIA_CRYSTAL.get()){
+    public Direction canSpreadTo(IWorld world, BlockState targetState, BlockPos targetPos, BlockState sourceState,
+                                 BlockPos sourcePos) {
+        if (sourceState.getBlock() != BlockRegistry.PRIMA_MATERIA_CRYSTAL.get()) {
             //when spreading from prima materia crystal we can ignore essentia
             //but otherwise we can only spread if enough essentia is available.
-            EssentiaCache cache = EssentiaChunkHandler.getEssentiaCache(((World)world).getDimensionKey(), new ChunkPos(targetPos));
-            if( cache.min(
+            EssentiaCache cache =
+                    EssentiaChunkHandler.getEssentiaCache(((World) world).getDimensionKey(), new ChunkPos(targetPos));
+            if (cache.min(
                     ItemRegistry.AER_ESSENTIA.get(),
                     ItemRegistry.AQUA_ESSENTIA.get(),
                     ItemRegistry.IGNIS_ESSENTIA.get(),
@@ -60,4 +63,5 @@ public class PrimaMateriaCrystalCondition extends PureCrystalCondition{
         }
         return super.canSpreadTo(world, targetState, targetPos, sourceState, sourcePos);
     }
+    //endregion Overrides
 }

@@ -29,7 +29,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
-import net.minecraft.enchantment.AquaAffinityEnchantment;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
@@ -74,12 +73,14 @@ public class BlockRegistry {
             , PURE_CRYSTAL_SPREADER) {
     });
 
-    public static final RegistryObject<CrystalBlock> PRIMA_MATERIA_CRYSTAL = register("prima_materia_crystal", () -> new CrystalBlock(
-            Block.Properties.create(Material.GLASS).sound(SoundType.GLASS)
-                    .hardnessAndResistance(0.3f, 0.3f)
-                    .setLightLevel((state) -> 8).tickRandomly(),
-            new PrimaMateriaCrystalSpreader(PRIMA_MATERIA_CRYSTAL_CONDITION, BlockRegistry.PRIMA_MATERIA_CRYSTAL::get)) {
-    });
+    public static final RegistryObject<CrystalBlock> PRIMA_MATERIA_CRYSTAL =
+            register("prima_materia_crystal", () -> new CrystalBlock(
+                    Block.Properties.create(Material.GLASS).sound(SoundType.GLASS)
+                            .hardnessAndResistance(0.3f, 0.3f)
+                            .setLightLevel((state) -> 8).tickRandomly(),
+                    new PrimaMateriaCrystalSpreader(PRIMA_MATERIA_CRYSTAL_CONDITION,
+                            BlockRegistry.PRIMA_MATERIA_CRYSTAL::get)) {
+            });
 
     public static final RegistryObject<CrystalBlock> AER_CRYSTAL = register("aer_crystal", () -> new CrystalBlock(
             Block.Properties.create(Material.GLASS).sound(SoundType.GLASS)
@@ -103,7 +104,7 @@ public class BlockRegistry {
             Block.Properties.create(Material.GLASS).sound(SoundType.GLASS)
                     .hardnessAndResistance(0.3f, 0.3f)
                     .setLightLevel((state) -> 8).tickRandomly()
-            , new EssentiaCrystalSpreader(TERRA_CRYSTAL_CONDITION,5, BlockRegistry.TERRA_CRYSTAL::get)) {
+            , new EssentiaCrystalSpreader(TERRA_CRYSTAL_CONDITION, 5, BlockRegistry.TERRA_CRYSTAL::get)) {
     });
     //endregion Fields
 

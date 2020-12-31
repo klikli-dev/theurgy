@@ -31,13 +31,6 @@ import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.*;
-import java.util.stream.Collectors;
-//region Overrides
-//endregion Overrides
-//endregion Overrides
-//region Methods
-//endregion Methods
-//endregion Methods
 
 public class EssentiaCache implements INBTSerializable<CompoundNBT> {
     //region Fields
@@ -107,7 +100,7 @@ public class EssentiaCache implements INBTSerializable<CompoundNBT> {
         this.essentia.put(essentia, amount);
     }
 
-    public void clear(){
+    public void clear() {
         this.essentia.clear();
     }
 
@@ -128,7 +121,7 @@ public class EssentiaCache implements INBTSerializable<CompoundNBT> {
      * @param essentia the essentia to check.
      * @return the minimum amount of essentia available.
      */
-    public int min(Item ... essentia){
+    public int min(Item... essentia) {
         return Arrays.stream(essentia).mapToInt(e -> this.essentia.get(e)).min().orElse(0);
     }
 
@@ -151,9 +144,10 @@ public class EssentiaCache implements INBTSerializable<CompoundNBT> {
 
     /**
      * Remove the given amount from each essentia type, independent of remaining amount.
+     *
      * @param amount
      */
-    public void removeAll(int amount){
+    public void removeAll(int amount) {
         //copy entry set to safely iterate
         List<Item> essentia = new ArrayList<>(this.essentia.keySet());
         for (Item item : essentia) {

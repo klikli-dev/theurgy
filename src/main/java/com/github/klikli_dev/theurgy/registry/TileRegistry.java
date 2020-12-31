@@ -30,10 +30,12 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class TileRegistry {
+    //region Fields
     public static final DeferredRegister<TileEntityType<?>> TILES = DeferredRegister.create(
             ForgeRegistries.TILE_ENTITIES, Theurgy.MODID);
 
     public static final RegistryObject<TileEntityType<CrucibleTileEntity>> CRUCIBLE = TILES.register(
             "crucible", () -> TileEntityType.Builder.create(CrucibleTileEntity::new,
                     BlockRegistry.CRUCIBLE.get()).build(null));
+    //endregion Fields
 }

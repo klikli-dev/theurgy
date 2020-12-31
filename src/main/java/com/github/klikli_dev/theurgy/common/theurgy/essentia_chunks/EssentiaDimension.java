@@ -26,7 +26,6 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
@@ -35,7 +34,6 @@ import net.minecraftforge.common.util.Constants;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 public class EssentiaDimension extends WorldSavedData {
 
@@ -74,7 +72,7 @@ public class EssentiaDimension extends WorldSavedData {
         ListNBT chunks = new ListNBT();
         compound.put("essentiaChunks", chunks);
         this.essentiaChunks.forEach((chunkPos, chunk) -> {
-            chunks.add(    chunk.serializeNBT());
+            chunks.add(chunk.serializeNBT());
         });
         return compound;
     }

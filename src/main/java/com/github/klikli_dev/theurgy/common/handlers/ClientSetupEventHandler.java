@@ -79,7 +79,8 @@ public class ClientSetupEventHandler {
         event.enqueueWork(() -> {
             //Register item model properties
             ItemModelsProperties.registerProperty(ItemRegistry.ESSENTIA_GAUGE.get(),
-                    new ResourceLocation(Theurgy.MODID, EssentiaGaugeItem.PROPERTY_TAG_NAME), new EssentiaGaugeItemPropertyGetter());
+                    new ResourceLocation(Theurgy.MODID, EssentiaGaugeItem.PROPERTY_TAG_NAME),
+                    new EssentiaGaugeItemPropertyGetter());
             Theurgy.LOGGER.debug("Registered Item Properties");
         });
     }

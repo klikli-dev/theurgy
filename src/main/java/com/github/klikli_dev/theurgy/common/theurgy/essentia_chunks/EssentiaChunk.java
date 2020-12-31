@@ -38,7 +38,7 @@ public class EssentiaChunk implements net.minecraftforge.common.util.INBTSeriali
 
     public EssentiaChunk(EssentiaDimension essentiaDimension) {
         this.essentiaDimension = essentiaDimension;
-        this.chunkPos = new ChunkPos(0,0);
+        this.chunkPos = new ChunkPos(0, 0);
         this.essentia = new EssentiaCache();
     }
 
@@ -63,12 +63,15 @@ public class EssentiaChunk implements net.minecraftforge.common.util.INBTSeriali
         this.chunkPos = new ChunkPos(nbt.getLong("chunkPos"));
         this.essentia.deserializeNBT(nbt.getCompound("essentia"));
     }
+    //endregion Overrides
+
+    //region Methods
 
     /**
      * Should be called after each essentia operation
      */
-    public void markDirty(){
+    public void markDirty() {
         this.essentiaDimension.markDirty();
     }
-    //endregion Overrides
+    //endregion Methods
 }

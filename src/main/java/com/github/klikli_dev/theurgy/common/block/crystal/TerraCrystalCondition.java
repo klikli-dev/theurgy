@@ -31,10 +31,12 @@ import net.minecraft.world.IWorld;
 /**
  * can only grow on obsidian and requires y < 30
  */
-public class TerraCrystalCondition implements ICrystalSpreadCondition{
+public class TerraCrystalCondition implements ICrystalSpreadCondition {
+    //region Overrides
     @Override
-    public Direction canSpreadTo(IWorld world, BlockState targetState, BlockPos targetPos, BlockState sourceState, BlockPos sourcePos) {
-        if(targetPos.getY() >= 30)
+    public Direction canSpreadTo(IWorld world, BlockState targetState, BlockPos targetPos, BlockState sourceState,
+                                 BlockPos sourcePos) {
+        if (targetPos.getY() >= 30)
             return null;
 
         return this.getPlacementDirection(world, targetPos, sourcePos);
@@ -45,4 +47,5 @@ public class TerraCrystalCondition implements ICrystalSpreadCondition{
                                    Direction neighborDirection) {
         return TagRegistry.OBSIDIAN.contains(neighborState.getBlock());
     }
+    //endregion Overrides
 }

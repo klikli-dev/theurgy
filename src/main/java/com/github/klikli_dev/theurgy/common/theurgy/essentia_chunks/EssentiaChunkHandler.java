@@ -48,50 +48,55 @@ public class EssentiaChunkHandler {
 
     /**
      * Gets the essentia dimension for the given dimension.
-     * @throws IllegalStateException if the dimension was never loaded and no essentia dimension exists for it therefore.
+     *
      * @param dimension the dimension to look up.
      * @return the essentia dimension for the given dimension.
+     * @throws IllegalStateException if the dimension was never loaded and no essentia dimension exists for it therefore.
      */
-    public static EssentiaDimension getEssentiaDimension(RegistryKey<World> dimension){
-        if(!essentiaDimensions.containsKey(dimension))
-            throw new IllegalStateException(String.format("Requesting Essentia chunk for dimension that was never loaded: %s", dimension));
+    public static EssentiaDimension getEssentiaDimension(RegistryKey<World> dimension) {
+        if (!essentiaDimensions.containsKey(dimension))
+            throw new IllegalStateException(
+                    String.format("Requesting Essentia chunk for dimension that was never loaded: %s", dimension));
 
-        return  essentiaDimensions.get(dimension);
+        return essentiaDimensions.get(dimension);
     }
 
     /**
      * Gets the essentia chunk in the given dimension at the given position.
-     * @throws IllegalStateException if the dimension was never loaded and no essentia dimension exists for it therefore.
+     *
      * @param dimension the dimension to look up.
-     * @param chunkPos the chunk pos to look up.
+     * @param chunkPos  the chunk pos to look up.
      * @return the essentia chunk, or null if no chunk exists.
+     * @throws IllegalStateException if the dimension was never loaded and no essentia dimension exists for it therefore.
      */
-    public static EssentiaChunk getEssentiaChunk(RegistryKey<World> dimension, ChunkPos chunkPos){
-        return  getEssentiaDimension(dimension).essentiaChunks.get(chunkPos);
+    public static EssentiaChunk getEssentiaChunk(RegistryKey<World> dimension, ChunkPos chunkPos) {
+        return getEssentiaDimension(dimension).essentiaChunks.get(chunkPos);
     }
 
     /**
      * Gets the essentia chunk in the given dimension at the given position or creates a new one if none exists.
-     * @throws IllegalStateException if the dimension was never loaded and no essentia dimension exists for it therefore.
+     *
      * @param dimension the dimension to look up.
-     * @param chunkPos the chunk pos to look up.
+     * @param chunkPos  the chunk pos to look up.
      * @return the essentia chunk.
+     * @throws IllegalStateException if the dimension was never loaded and no essentia dimension exists for it therefore.
      */
-    public static EssentiaChunk getOrCreateEssentiaChunk(RegistryKey<World> dimension, ChunkPos chunkPos){
+    public static EssentiaChunk getOrCreateEssentiaChunk(RegistryKey<World> dimension, ChunkPos chunkPos) {
         EssentiaChunk chunk = getEssentiaChunk(dimension, chunkPos);
-        if(chunk == null)
+        if (chunk == null)
             chunk = addEssentiaChunk(dimension, chunkPos);
         return chunk;
     }
 
     /**
      * Adds a new essentia chunk in the given dimension at the given position.
-     * @throws IllegalStateException if the dimension was never loaded and no essentia dimension exists for it therefore.
+     *
      * @param dimension the dimension to look up.
-     * @param chunkPos the chunk pos to insert at.
+     * @param chunkPos  the chunk pos to insert at.
      * @return the new essentia chunk.
+     * @throws IllegalStateException if the dimension was never loaded and no essentia dimension exists for it therefore.
      */
-    public static EssentiaChunk addEssentiaChunk(RegistryKey<World> dimension, ChunkPos chunkPos){
+    public static EssentiaChunk addEssentiaChunk(RegistryKey<World> dimension, ChunkPos chunkPos) {
         EssentiaDimension essentiaDimension = getEssentiaDimension(dimension);
         EssentiaChunk chunk = new EssentiaChunk(essentiaDimension, chunkPos);
         essentiaDimension.essentiaChunks.put(chunkPos, chunk);
@@ -100,32 +105,35 @@ public class EssentiaChunkHandler {
 
     /**
      * Gets the essentia cache for the chunk in the given dimension at the given position.
-     * @throws IllegalStateException if the dimension was never loaded and no essentia dimension exists for it therefore.
+     *
      * @param dimension the dimension to look up.
-     * @param chunkPos the chunk pos to look up.
+     * @param chunkPos  the chunk pos to look up.
      * @return the essentia cache at the given position.
+     * @throws IllegalStateException if the dimension was never loaded and no essentia dimension exists for it therefore.
      */
-    public static EssentiaCache getEssentiaCache(RegistryKey<World> dimension, ChunkPos chunkPos){
+    public static EssentiaCache getEssentiaCache(RegistryKey<World> dimension, ChunkPos chunkPos) {
         return getOrCreateEssentiaChunk(dimension, chunkPos).essentia;
     }
 
     /**
      * Marks the essentia chunk in the given dimension at the given position for saving.
-     * @throws IllegalStateException if the dimension was never loaded and no essentia dimension exists for it therefore.
+     *
      * @param dimension the dimension to look up.
-     * @param chunkPos the chunk pos to look up.
+     * @param chunkPos  the chunk pos to look up.
+     * @throws IllegalStateException if the dimension was never loaded and no essentia dimension exists for it therefore.
      */
-    public static void markDirty(RegistryKey<World> dimension, ChunkPos chunkPos){
+    public static void markDirty(RegistryKey<World> dimension, ChunkPos chunkPos) {
         //As chunks currently just forward mark dirty to the dimension anyway, we can just mark the essentia dimension dirty directly.
         markDirty(dimension);
     }
 
     /**
      * Marks the essentia dimension for the given dimension for saving.
-     * @throws IllegalStateException if the dimension was never loaded and no essentia dimension exists for it therefore.
+     *
      * @param dimension the dimension to look up.
+     * @throws IllegalStateException if the dimension was never loaded and no essentia dimension exists for it therefore.
      */
-    public static void markDirty(RegistryKey<World> dimension){
+    public static void markDirty(RegistryKey<World> dimension) {
         EssentiaDimension essentiaDimension = getEssentiaDimension(dimension);
         essentiaDimension.markDirty();
     }
@@ -137,12 +145,13 @@ public class EssentiaChunkHandler {
         //get save data manager for this dimension
         DimensionSavedDataManager storage = world.getSavedData();
         //provide a supplier to create a new empty world save data
-        Supplier<EssentiaDimension> supplier = () -> new EssentiaDimension(SAVE_DATA_NAME.toString(), world.getDimensionKey());
+        Supplier<EssentiaDimension> supplier =
+                () -> new EssentiaDimension(SAVE_DATA_NAME.toString(), world.getDimensionKey());
         //get the world save data for this dimension
         EssentiaDimension worldSaveData = storage.getOrCreate(supplier, SAVE_DATA_NAME.toString());
 
         //store the save data in the lookup table
-        essentiaDimensions.put(world.getDimensionKey(),worldSaveData);
+        essentiaDimensions.put(world.getDimensionKey(), worldSaveData);
     }
     //endregion Static Methods
 }

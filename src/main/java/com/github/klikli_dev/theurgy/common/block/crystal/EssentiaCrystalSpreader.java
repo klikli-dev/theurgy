@@ -63,14 +63,15 @@ public class EssentiaCrystalSpreader implements ICrystalSpreadHandler {
         if (possibleTargets.size() == 0)
             return false;
 
-        CrystalPlacementInfo spreadTo = this.getValidSpreadPosition(this.condition, world, possibleTargets, sourceState, sourcePos);
+        CrystalPlacementInfo spreadTo =
+                this.getValidSpreadPosition(this.condition, world, possibleTargets, sourceState, sourcePos);
         if (spreadTo != null) {
             //copy fluid state from current block to avoid despawning water
             FluidState fluidState = world.getFluidState(spreadTo.pos);
             world.setBlockState(spreadTo.pos, this.crystalBlock.get().getDefaultState()
-                                                  .with(BlockStateProperties.FACING, spreadTo.direction)
-                                                  .with(BlockStateProperties.WATERLOGGED, fluidState.isTagged(
-                                                          FluidTags.WATER) && fluidState.getLevel() == 8), 2);
+                                                      .with(BlockStateProperties.FACING, spreadTo.direction)
+                                                      .with(BlockStateProperties.WATERLOGGED, fluidState.isTagged(
+                                                              FluidTags.WATER) && fluidState.getLevel() == 8), 2);
             return true;
         }
         return false;

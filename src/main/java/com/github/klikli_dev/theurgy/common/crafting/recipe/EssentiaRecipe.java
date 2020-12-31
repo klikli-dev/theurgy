@@ -36,9 +36,7 @@ import net.minecraft.util.JSONUtils;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.registries.ForgeRegistryEntry;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -85,14 +83,15 @@ public class EssentiaRecipe implements IRecipe<ItemStackFakeInventory> {
     }
 
     @Override
+    public ItemStack getRecipeOutput() {
+        return this.essentia.get(0);
+    }
+
+    @Override
     public NonNullList<Ingredient> getIngredients() {
         return NonNullList.from(Ingredient.EMPTY, this.input);
     }
 
-    @Override
-    public ItemStack getRecipeOutput() {
-        return this.essentia.get(0);
-    }
     @Override
     public ResourceLocation getId() {
         return this.id;

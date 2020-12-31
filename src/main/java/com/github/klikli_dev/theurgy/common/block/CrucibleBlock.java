@@ -99,15 +99,16 @@ public class CrucibleBlock extends Block implements IEssentiaInformationProvider
 
     @Override
     public void getEssentiaInformation(World world, BlockPos pos, BlockState state,
-                                                       List<ITextComponent> tooltip) {
+                                       List<ITextComponent> tooltip) {
         TileEntity tileEntity = world.getTileEntity(pos);
         if (tileEntity instanceof CrucibleTileEntity) {
             CrucibleTileEntity crucible = (CrucibleTileEntity) tileEntity;
             tooltip.add(new TranslationTextComponent(
-                    "tooltip." + Theurgy.MODID + ".essentia_information.block.heading", I18n.format(this.getTranslationKey()))
+                    "tooltip." + Theurgy.MODID + ".essentia_information.block.heading",
+                    I18n.format(this.getTranslationKey()))
                                 .mergeStyle(TextFormatting.BOLD)
                                 .mergeStyle(TextFormatting.GOLD));
-            if(crucible.essentiaCache.essentia.size() > 0 ){
+            if (crucible.essentiaCache.essentia.size() > 0) {
                 crucible.essentiaCache.essentia.forEach((item, amount) -> {
                     tooltip.add(new TranslationTextComponent(
                             "tooltip." + Theurgy.MODID + ".essentia_information.block.content",

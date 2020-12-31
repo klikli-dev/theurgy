@@ -30,10 +30,13 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ResourceLocation;
 
 public class PurificationRecipeCategory extends CrucibleRecipeCategory<PurificationRecipe> {
+    //region Initialization
     public PurificationRecipeCategory(IGuiHelper guiHelper) {
         super(guiHelper);
     }
+    //endregion Initialization
 
+    //region Overrides
     @Override
     public ResourceLocation getUid() {
         return RecipeRegistry.PURIFICATION.getId();
@@ -48,4 +51,5 @@ public class PurificationRecipeCategory extends CrucibleRecipeCategory<Purificat
     public String getTitle() {
         return I18n.format("jei." + Theurgy.MODID + ".purification_recipe");
     }
+    //endregion Overrides
 }

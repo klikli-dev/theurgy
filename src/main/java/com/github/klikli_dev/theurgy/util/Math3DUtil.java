@@ -27,14 +27,18 @@ import net.minecraft.util.math.BlockPos;
 import java.util.stream.Stream;
 
 public class Math3DUtil {
+    //region Static Methods
+
     /**
      * Gets all block positions in a box of the given radius around the given pos.
-     * @param pos the block pos.
+     *
+     * @param pos    the block pos.
      * @param radius the size of the box
      * @return an interable of block positions, including the given position.
      */
-    public static Stream<BlockPos> getBlockPosInBox(BlockPos pos, int radius){
-        return BlockPos.getAllInBox(pos.getX() - radius,pos.getY() - radius, pos.getZ() - radius,
+    public static Stream<BlockPos> getBlockPosInBox(BlockPos pos, int radius) {
+        return BlockPos.getAllInBox(pos.getX() - radius, pos.getY() - radius, pos.getZ() - radius,
                 pos.getX() + radius, pos.getY() + radius, pos.getZ() + radius).map(BlockPos::toImmutable);
     }
+    //endregion Static Methods
 }

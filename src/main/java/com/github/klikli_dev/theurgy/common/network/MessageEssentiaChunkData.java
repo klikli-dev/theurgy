@@ -27,13 +27,9 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.common.ForgeConfig;
 import net.minecraftforge.fml.network.NetworkEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 
-import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -66,7 +62,7 @@ public class MessageEssentiaChunkData extends MessageBase {
     @Override
     public void encode(PacketBuffer buf) {
         buf.writeVarInt(this.essentia.size());
-        this.essentia.forEach((item, amount) ->{
+        this.essentia.forEach((item, amount) -> {
             buf.writeResourceLocation(item.getRegistryName());
             buf.writeVarInt(amount);
         });
@@ -76,7 +72,7 @@ public class MessageEssentiaChunkData extends MessageBase {
     public void decode(PacketBuffer buf) {
         int size = buf.readVarInt();
         this.essentia = new HashMap<>(size);
-        for(int i = 0; i < size; i++){
+        for (int i = 0; i < size; i++) {
             Item item = ForgeRegistries.ITEMS.getValue(buf.readResourceLocation());
             int amount = buf.readVarInt();
             this.essentia.put(item, amount);

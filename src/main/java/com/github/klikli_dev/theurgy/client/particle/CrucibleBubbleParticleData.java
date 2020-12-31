@@ -73,6 +73,7 @@ public class CrucibleBubbleParticleData implements IParticleData {
     //endregion Fields
 
 
+    //region Initialization
     public CrucibleBubbleParticleData() {
         super();
     }
@@ -83,6 +84,7 @@ public class CrucibleBubbleParticleData implements IParticleData {
         this.green = green;
         this.blue = blue;
     }
+    //endregion Initialization
 
     //region Overrides
     @Override

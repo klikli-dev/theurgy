@@ -34,43 +34,50 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public interface ICrystalSpreadHandler {
+    //region Methods
+
     /**
      * Handles spreading the crystal at the given position to a nearby block.
+     *
      * @param sourceCrystalType the source crystal type trying to spread.
-     * @param world the world to spread in.
-     * @param sourceState the block state of the source position.
-     * @param sourcePos the source position.
+     * @param world             the world to spread in.
+     * @param sourceState       the block state of the source position.
+     * @param sourcePos         the source position.
      * @return true if the block was spread, false otherwise
      */
     boolean handleSpread(CrystalBlock sourceCrystalType, IWorld world, BlockState sourceState, BlockPos sourcePos);
 
     /**
      * Gets a list of blocks that a crystal can spread to. Excludes source pos and any blocked blocks.
-     * @param world the world.
+     *
+     * @param world     the world.
      * @param sourcePos the source position to search around.
      * @return a list of positions.
      */
-    default List<BlockPos> getPossibleSpreadBlockPos(IWorld world, BlockPos sourcePos){
+    default List<BlockPos> getPossibleSpreadBlockPos(IWorld world, BlockPos sourcePos) {
         return Math3DUtil.getBlockPosInBox(sourcePos, 1)
-                                                 .filter((pos) -> {
-                                                     BlockState state = world.getBlockState(pos);
-                                                     return !pos.equals(sourcePos)
-                                                            //allow air or water for crystals
-                                                     && (state.isAir(world, pos) || state.isIn(Blocks.WATER));
-                                                 })
-                                                 .collect(Collectors.toList());
+                       .filter((pos) -> {
+                           BlockState state = world.getBlockState(pos);
+                           return !pos.equals(sourcePos)
+                                  //allow air or water for crystals
+                                  && (state.isAir(world, pos) || state.isIn(Blocks.WATER));
+                       })
+                       .collect(Collectors.toList());
     }
 
-    default CrystalPlacementInfo getValidSpreadPosition(ICrystalSpreadCondition condition,  IWorld world, List<BlockPos> possibleTargets, BlockState sourceState, BlockPos sourcePos){
+    default CrystalPlacementInfo getValidSpreadPosition(ICrystalSpreadCondition condition, IWorld world,
+                                                        List<BlockPos> possibleTargets, BlockState sourceState,
+                                                        BlockPos sourcePos) {
         //randomize order to avoid a preference for one direction of spread
         Collections.shuffle(possibleTargets);
 
-        for(BlockPos pos : possibleTargets){
+        for (BlockPos pos : possibleTargets) {
             BlockState state = world.getBlockState(pos);
             Direction direction = condition.canSpreadTo(world, state, pos, sourceState, sourcePos);
-            if(direction != null)
+            if (direction != null)
                 return new CrystalPlacementInfo(pos, direction.getOpposite());
         }
         return null;
     }
+    //endregion Methods
 }

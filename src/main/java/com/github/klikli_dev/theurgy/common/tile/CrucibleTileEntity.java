@@ -113,6 +113,24 @@ public class CrucibleTileEntity extends NetworkedTileEntity implements ITickable
                 BlockStateProperties.LIT);
     }
 
+    public void diffuseAllEssentia(){
+        EssentiaCache chunkEssentia = EssentiaChunkHandler.getEssentiaCache(this.world.getDimensionKey(), new ChunkPos(this.pos));
+
+        //take all essentia from the cache and add to the chunk
+        List<Item> essentiaToDissolve = new ArrayList<>(this.essentiaCache.essentia.keySet());
+        for(Item e : essentiaToDissolve){
+            //get the amount we can actually diffuse
+            int amount = this.essentiaCache.get(e);
+            //remove it from crucible cache
+            this.essentiaCache.remove(e, amount);
+            //add to chunk cache
+            chunkEssentia.add(e, amount);
+        }
+
+        //Mark essentia dimension for saving
+        EssentiaChunkHandler.markDirty(this.world.getDimensionKey());
+    }
+
     //endregion Getter / Setter
     //region Overrides
     @Override
@@ -141,7 +159,9 @@ public class CrucibleTileEntity extends NetworkedTileEntity implements ITickable
                 this.isBoiling = false;
                 this.remainingCraftingTicks = 0;
                 this.hasContents = false;
-                //TODO: release flux here
+
+                this.diffuseAllEssentia();
+
                 if (!this.world.isRemote)
                     this.markNetworkDirty();
             }
@@ -351,8 +371,9 @@ public class CrucibleTileEntity extends NetworkedTileEntity implements ITickable
         if (hand == Hand.MAIN_HAND) {
             //On shift-click with empty hand, empty and reset the crucible
             if (player.isSneaking() && player.getHeldItem(hand).isEmpty() && this.waterLevel > 0) {
+                this.diffuseAllEssentia();
                 this.resetCrucible();
-                //TODO: release flux here
+
                 if (!this.world.isRemote) {
                     this.markNetworkDirty();
                     //vanilla cauldron empty sound
@@ -379,8 +400,8 @@ public class CrucibleTileEntity extends NetworkedTileEntity implements ITickable
                 this.waterLevel--;
 
                 if (this.waterLevel == 0) {
-                    //TODO: release flux here
                     this.resetCrucible();
+                    this.diffuseAllEssentia();
                 }
 
                 if (!this.world.isRemote) {

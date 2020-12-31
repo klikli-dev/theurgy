@@ -1,0 +1,25 @@
+{
+  "type": "theurgy:purification",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:ores/copper"
+      }
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:ores/copper"
+  },
+  "essentia": [
+    {
+      "item": "theurgy:terra_essentia",
+      "count": 10
+    }
+  ],
+  "result": {
+    "tag": "forge:ingots/copper",
+    "count": 2
+  }
+}

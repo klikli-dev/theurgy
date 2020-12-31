@@ -40,8 +40,6 @@ import java.util.Map;
 public class MessageEssentiaChunkData extends MessageBase {
 
     //region Fields
-    //TODO: store essentia map here
-
     public Map<Item, Integer> essentia;
 
     //endregion Fields

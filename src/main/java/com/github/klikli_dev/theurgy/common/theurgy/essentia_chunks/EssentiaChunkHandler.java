@@ -94,7 +94,8 @@ public class EssentiaChunkHandler {
     public static EssentiaChunk addEssentiaChunk(RegistryKey<World> dimension, ChunkPos chunkPos){
         EssentiaDimension essentiaDimension = getEssentiaDimension(dimension);
         EssentiaChunk chunk = new EssentiaChunk(essentiaDimension, chunkPos);
-        return essentiaDimension.essentiaChunks.put(chunkPos, chunk);
+        essentiaDimension.essentiaChunks.put(chunkPos, chunk);
+        return chunk;
     }
 
     /**

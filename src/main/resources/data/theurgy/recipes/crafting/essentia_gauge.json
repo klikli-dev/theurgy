@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " g ",
+    "gcg",
+    "ig "
+  ],
+  "key": {
+    "i": {
+      "tag": "forge:ingots/iron"
+    },
+    "g": {
+      "tag": "forge:ingots/gold"
+    },
+    "c": {
+      "item": "theurgy:pure_crystal"
+    }
+  },
+  "result": {
+    "item": "theurgy:essentia_gauge"
+  }
+}

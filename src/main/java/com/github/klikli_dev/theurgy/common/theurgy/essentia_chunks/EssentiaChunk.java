@@ -22,5 +22,53 @@
 
 package com.github.klikli_dev.theurgy.common.theurgy.essentia_chunks;
 
-public class EssentiaChunk {
+import com.github.klikli_dev.theurgy.common.theurgy.EssentiaCache;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.math.ChunkPos;
+
+public class EssentiaChunk implements net.minecraftforge.common.util.INBTSerializable<CompoundNBT> {
+
+    //region Fields
+    public ChunkPos chunkPos;
+    public EssentiaCache essentia;
+    public EssentiaDimension essentiaDimension;
+    //endregion Fields
+
+    //region Initialization
+
+    public EssentiaChunk(EssentiaDimension essentiaDimension) {
+        this.essentiaDimension = essentiaDimension;
+        this.chunkPos = new ChunkPos(0,0);
+        this.essentia = new EssentiaCache();
+    }
+
+    public EssentiaChunk(EssentiaDimension essentiaDimension, ChunkPos chunkPos) {
+        this.essentiaDimension = essentiaDimension;
+        this.chunkPos = chunkPos;
+        this.essentia = new EssentiaCache();
+    }
+    //endregion Initialization
+
+    //region Overrides
+    @Override
+    public CompoundNBT serializeNBT() {
+        CompoundNBT compound = new CompoundNBT();
+        compound.putLong("chunkPos", this.chunkPos.asLong());
+        compound.put("essentia", this.essentia.serializeNBT());
+        return compound;
+    }
+
+    @Override
+    public void deserializeNBT(CompoundNBT nbt) {
+        this.chunkPos = new ChunkPos(nbt.getLong("chunkPos"));
+        this.essentia.deserializeNBT(nbt.getCompound("essentia"));
+    }
+
+    /**
+     * Should be called after each essentia operation
+     */
+    public void markDirty(){
+        this.essentiaDimension.markDirty();
+    }
+    //endregion Overrides
 }

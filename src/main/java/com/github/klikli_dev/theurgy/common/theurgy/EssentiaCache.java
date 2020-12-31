@@ -26,6 +26,7 @@ import net.minecraft.item.Item;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -78,7 +79,7 @@ public class EssentiaCache implements INBTSerializable<CompoundNBT> {
     public void deserializeNBT(CompoundNBT nbt) {
         this.essentia.clear();
         if (nbt.contains("essentia")) {
-            ListNBT essentiaList = nbt.getList("essentia", 10);
+            ListNBT essentiaList = nbt.getList("essentia", Constants.NBT.TAG_COMPOUND);
             for (int i = 0; i < essentiaList.size(); i++) {
                 CompoundNBT entry = essentiaList.getCompound(i);
                 if (entry.contains("essentia") && entry.contains("amount")) {

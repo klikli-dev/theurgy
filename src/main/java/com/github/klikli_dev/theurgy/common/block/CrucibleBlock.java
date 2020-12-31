@@ -107,11 +107,18 @@ public class CrucibleBlock extends Block implements IEssentiaInformationProvider
                     "tooltip." + Theurgy.MODID + ".essentia_information.block.heading", I18n.format(this.getTranslationKey()))
                                 .mergeStyle(TextFormatting.BOLD)
                                 .mergeStyle(TextFormatting.GOLD));
-            crucible.essentiaCache.essentia.forEach((item, amount) -> {
+            if(crucible.essentiaCache.essentia.size() > 0 ){
+                crucible.essentiaCache.essentia.forEach((item, amount) -> {
+                    tooltip.add(new TranslationTextComponent(
+                            "tooltip." + Theurgy.MODID + ".essentia_information.block.content",
+                            I18n.format(item.getTranslationKey()), amount));
+                });
+            }
+            else {
                 tooltip.add(new TranslationTextComponent(
-                        "tooltip." + Theurgy.MODID + ".essentia_information.block",
-                        I18n.format(item.getTranslationKey()), amount));
-            });
+                        "tooltip." + Theurgy.MODID + ".essentia_information.block.no_content"));
+            }
+
         }
     }
     //endregion Overrides

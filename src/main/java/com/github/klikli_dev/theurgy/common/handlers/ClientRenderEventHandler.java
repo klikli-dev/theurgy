@@ -75,19 +75,23 @@ public class ClientRenderEventHandler {
         if(displayChunkEssentiaTicks > 0){
             displayChunkEssentiaTicks--;
 
-            if(chunkEssentia.size() > 0){
                 //Render golden bold header
                 tooltip.add(new TranslationTextComponent(
                         "tooltip." + Theurgy.MODID + ".essentia_information.chunk.heading")
                                     .mergeStyle(TextFormatting.BOLD)
                                     .mergeStyle(TextFormatting.GOLD));
 
+            if(chunkEssentia.size() > 0){
                 //Render each essentia type
                 chunkEssentia.forEach((item, amount) -> {
                     tooltip.add(new TranslationTextComponent(
                             "tooltip." + Theurgy.MODID + ".essentia_information.chunk.content",
                             I18n.format(item.getTranslationKey()), amount));
                 });
+            }
+            else {
+                tooltip.add(new TranslationTextComponent(
+                        "tooltip." + Theurgy.MODID + ".essentia_information.chunk.no_content"));
             }
         }
 

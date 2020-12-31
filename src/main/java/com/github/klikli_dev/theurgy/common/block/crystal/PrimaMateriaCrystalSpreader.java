@@ -55,7 +55,7 @@ public class PrimaMateriaCrystalSpreader implements ICrystalSpreadHandler {
         if (possibleTargets.size() == 0)
             return false;
 
-        CrystalPlacementInfo spreadTo = this.getValidSpreadPosition(this.condition, world, possibleTargets, sourcePos);
+        CrystalPlacementInfo spreadTo = this.getValidSpreadPosition(this.condition, world, possibleTargets, sourceState, sourcePos);
         if (spreadTo != null) {
             //TODO: consume essentia from chunk
             world.setBlockState(spreadTo.pos, this.crystalBlock.get().getDefaultState().with(BlockStateProperties.FACING, spreadTo.direction), 2);

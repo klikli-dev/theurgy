@@ -123,6 +123,16 @@ public class EssentiaCache implements INBTSerializable<CompoundNBT> {
     }
 
     /**
+     * Gets the minimum amount that is availalbe for all of the given essentia types.
+     *
+     * @param essentia the essentia to check.
+     * @return the minimum amount of essentia available.
+     */
+    public int min(Item ... essentia){
+        return Arrays.stream(essentia).mapToInt(e -> this.essentia.get(e)).min().orElse(0);
+    }
+
+    /**
      * Remove the given amount of essentia, independent of remaining amount.
      * To *take* essentia, use {@link #take(Item, int)}
      *

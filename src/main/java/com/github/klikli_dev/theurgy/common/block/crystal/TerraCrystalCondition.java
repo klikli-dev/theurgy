@@ -33,7 +33,7 @@ import net.minecraft.world.IWorld;
  */
 public class TerraCrystalCondition implements ICrystalSpreadCondition{
     @Override
-    public Direction canSpreadTo(IWorld world, BlockState targetState, BlockPos targetPos, BlockPos sourcePos) {
+    public Direction canSpreadTo(IWorld world, BlockState targetState, BlockPos targetPos, BlockState sourceState, BlockPos sourcePos) {
         if(targetPos.getY() >= 30)
             return null;
 

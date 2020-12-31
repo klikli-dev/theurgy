@@ -312,6 +312,9 @@ public class CrucibleTileEntity extends NetworkedTileEntity implements ITickable
                 chunkEssentia.add(e, amount);
             }
 
+            //Mark essentia dimension for saving
+            EssentiaChunkHandler.markDirty(this.world.getDimensionKey());
+
             if (this.essentiaCache.isEmpty()) {
                 this.hasContents = false;
             }

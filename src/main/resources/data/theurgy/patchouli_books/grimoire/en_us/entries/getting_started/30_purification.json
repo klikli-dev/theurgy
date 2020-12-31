@@ -1,0 +1,13 @@
+{
+  "name": "Purification",
+  "icon": "minecraft:stick",
+  "category": "10_getting_started",
+  "sortnum": 30,
+  "pages": [
+    {
+      "type": "theurgy:crucible_recipe",
+      "recipe": "theurgy:purification/iron_ore",
+      "title": "Purify Iron Ore"
+    }
+  ]
+}

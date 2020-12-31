@@ -32,6 +32,9 @@
       "type": "item", "item": "theurgy:crucible", "x": 4, "y": 85
     },
     {
+      "type": "item", "item": "#tool", "x": 24, "y": 85
+    },
+    {
       "type": "text", "text": "Result:", "x": 4, "y": 105
     },
     {

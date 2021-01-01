@@ -7,6 +7,7 @@
   "item.theurgy.prima_materia_crystal_stirrer": "Prima Materia Crystal Stirrer",
   "item.theurgy.essentia_gauge": "Essentia Gauge",
   "item.theurgy.essentia_gauge.tooltip": "Look at a machine to display it's Essentia storage. Right-Click and hold to display the chunk's diffused Essentia.",
+  "item.theurgy.crystal_substrate": "Crystal Substrate",
   "_comment": "Blocks",
   "block.theurgy.crucible": "Crucible",
   "block.theurgy.pure_crystal": "Pure Crystal",

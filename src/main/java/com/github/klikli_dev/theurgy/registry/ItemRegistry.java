@@ -51,6 +51,11 @@ public class ItemRegistry {
             ITEMS.register("prima_materia_crystal_stirrer",
                     () -> new Item(defaultProperties().maxStackSize(1).maxDamage(50)));
 
+    //Resources
+    public static final RegistryObject<Item> CRYSTAL_SUBSTRATE = ITEMS.register("crystal_substrate",
+            () -> new Item(defaultProperties()));
+
+
     //Essentia
     public static final RegistryObject<Item> AER_ESSENTIA = registerEssentia("aer_essentia", 0xfcfc03); //yellow
     public static final RegistryObject<Item> AQUA_ESSENTIA = registerEssentia("aqua_essentia", 0x00aeff); //light blue

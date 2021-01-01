@@ -42,12 +42,14 @@ public class CrucibleRecipeProcessor implements IComponentProcessor {
     public void setup(IVariableProvider variables) {
         String recipeId = variables.get("recipe").asString();
         this.recipe = (CrucibleRecipe) Minecraft.getInstance().world.getRecipeManager()
-                                               .getRecipe(new ResourceLocation(recipeId))
-                                               .orElseThrow(IllegalArgumentException::new);
+                                               .getRecipe(new ResourceLocation(recipeId)).orElse(null);
     }
 
     @Override
     public IVariable process(String key) {
+        if(this.recipe == null)
+            return null; // if recipe was not found (e.g. due to modpack changes) exit early
+
         if (key.equals("input")) {
             Ingredient ingredient = this.recipe.getIngredients().get(0);
             ItemStack[] stacks = ingredient.getMatchingStacks();

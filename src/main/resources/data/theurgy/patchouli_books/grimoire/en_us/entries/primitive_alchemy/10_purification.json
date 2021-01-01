@@ -1,9 +1,13 @@
 {
   "name": "Purification",
   "icon": "minecraft:stick",
-  "category": "10_getting_started",
-  "sortnum": 30,
+  "category": "20_primitive_alchemy",
+  "sortnum": 10,
   "pages": [
+    {
+      "type": "text",
+      "text": "The simplest application of alchemy is purification. It is so simple in fact, that many scholars do not even regard it as an alchemical process at all. It does not allow to create new objects nor transform one type of matter into another, instead it allows to precisely extract one type of matter out of a mix of materials."
+    },
     {
       "type": "text",
       "text": "Alchemical purification is based on the theory that $(bold)like attracts like$(). The example of ore purification illustrates this well: When placing ore in a cauldron that contains $(thing)Terra Essentia$() the stone intermixed with the ore is bound to the Essentia and dissolved while the metal remains, $(bold)leading to higher yields$()."
@@ -24,6 +28,11 @@
       "recipe": "theurgy:purification/gold_ore",
       "tool": "minecraft:stick",
       "title": "Purify Gold Ore"
+    },
+    {
+      "type": "spotlight",
+      "item": "minecraft:clay",
+      "text": "The purification of dirt into clay is the opposite of the classical purification process. Water-affine clay particles in regular dirt are extracted by binding them to $(thing)Aqua Essentia$(), while the dirt remains in the cauldron."
     },
     {
       "type": "theurgy:crucible_recipe",

@@ -27,12 +27,14 @@ import com.github.klikli_dev.theurgy.common.crafting.recipe.PurificationRecipe;
 import com.github.klikli_dev.theurgy.registry.RecipeRegistry;
 import mezz.jei.api.helpers.IGuiHelper;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.util.ResourceLocation;
 
 public class PurificationRecipeCategory extends CrucibleRecipeCategory<PurificationRecipe> {
     //region Initialization
     public PurificationRecipeCategory(IGuiHelper guiHelper) {
-        super(guiHelper);
+        super(guiHelper, new ItemStack(Items.STICK));
     }
     //endregion Initialization
 

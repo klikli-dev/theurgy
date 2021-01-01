@@ -11,7 +11,7 @@
     {
       "type": "text",
       "title": "Using Diffused Essentia",
-      "text": "Another alchemical principle is that matter cannot be created nor destroyed, only transformed. Naturally this means there has to be a way to access the diffused Essentia. A promising approach seems to be to provide a pure lattice of matter for the ssentia to gather in $(bold)TODO: link to crystals page$()"
+      "text": "Another alchemical principle is that matter cannot be created nor destroyed, only transformed. Naturally this means there has to be a way to access the diffused Essentia. A promising approach seems to be to provide a $(l:primitive_alchemy/20_pure_crystals)pure lattice of matter for the Essentia to gather in$()."
     }
   ]
 }

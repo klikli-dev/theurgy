@@ -1,0 +1,32 @@
+{
+  "name": "Pure Crystals",
+  "icon": "theurgy:pure_crystal",
+  "category": "20_primitive_alchemy",
+  "sortnum": 20,
+  "pages": [
+    {
+      "type": "text",
+      "text": "Crystals hold a special place in the theories of alchemists. While most matter is in an at least somewhat chaotic state, crystals exhibit an extraordinarily $(bold)ordered$() structure. At the opposite end of that spectrum are the highly unstable raw $(thing)Essentia$(). It seems obvious to try and stabilize Essentia using crystals."
+    },
+    {
+      "type": "spotlight",
+      "item": "theurgy:pure_crystal",
+      "text": "Simply $(italics)infusing$() any crystal with Essentia would have undesirable side effects: Crystals already contain Essentia of their own. The first step is therefore to obtain a raw $(thing)crystal lattice$() that has been freed of any Essentia: a $(thing)Pure Crystal$(). "
+    },
+    {
+      "type": "text",
+      "text": "As purifying any single type of crystals consistently fails to produce pure crystals, a promising approach seems to be to $(bold)mix$() multiple types. From there it should be simple to apply the usual purification process, and removing $(bold)all$() Essentia at once. Whatever remains should be the raw crystal lattice we desire."
+    },
+    {
+      "type": "crafting",
+      "recipe": "theurgy:crafting/crystal_substrate",
+      "text": "By crushing and mixing multiple types of crystals in a bowl using a piece of flint we can obtain a substrate consisting of various crystals and various amounts of the different Essentia."
+    },
+    {
+      "type": "theurgy:crucible_recipe",
+      "recipe": "theurgy:purification/pure_crystal",
+      "tool": "minecraft:stick",
+      "title": "Purify Crystal"
+    }
+  ]
+}

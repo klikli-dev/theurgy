@@ -28,6 +28,12 @@
       "title": "Stirring Tools",
       "text": "The stirring tool determines the type of crafting: $(li)$(thing)Stick$(): Purification$() $(li)$(thing)Pure Crystal Stirrer$(): Replication$()$() $(li)$(thing)Prima Materia Crystal Stirrer$(): Transmutation$()$()",
       "anchor": "stirring_tools"
+    },
+    {
+      "type": "text",
+      "title": "Emptying",
+      "text": "To empty the crucible of water and all Essentia, shift-click it with an empty hand. The Essentia will diffuse into the environment immediately.",
+      "anchor": "emptying"
     }
   ]
 }

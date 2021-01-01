@@ -1,0 +1,20 @@
+{
+  "type": "theurgy:essentia",
+  "ingredient": {
+    "tag": "forge:gems/emerald"
+  },
+  "essentia": [
+    {
+      "item": "theurgy:aqua_essentia",
+      "count": 1000
+    },
+    {
+      "item": "theurgy:ignis_essentia",
+      "count": 1500
+    },
+    {
+      "item": "theurgy:terra_essentia",
+      "count": 1500
+    }
+  ]
+}

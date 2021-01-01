@@ -17,13 +17,13 @@
       "type": "item", "item": "#essentia1", "x": 4, "y": 55
     },
     {
-      "type": "item", "item": "#essentia2", "x": 24, "y": 55
+      "type": "item", "item": "#essentia2", "x": 34, "y": 55
     },
     {
-      "type": "item", "item": "#essentia3", "x": 44, "y": 55
+      "type": "item", "item": "#essentia3", "x": 64, "y": 55
     },
     {
-      "type": "item", "item": "#essentia4", "x": 64, "y": 55
+      "type": "item", "item": "#essentia4", "x": 94, "y": 55
     },
     {
       "type": "text", "text": "Construct:", "x": 4, "y": 75

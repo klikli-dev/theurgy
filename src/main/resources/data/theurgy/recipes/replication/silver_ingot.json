@@ -1,0 +1,20 @@
+{
+  "type": "theurgy:replication",
+  "ingredient": {
+    "tag": "forge:ingots/silver"
+  },
+  "essentia": [
+    {
+      "item": "theurgy:terra_essentia",
+      "count": 150
+    },
+    {
+      "item": "theurgy:ignis_essentia",
+      "count": 150
+    }
+  ],
+  "result": {
+    "tag": "forge:ingots/silver",
+    "count": 2
+  }
+}

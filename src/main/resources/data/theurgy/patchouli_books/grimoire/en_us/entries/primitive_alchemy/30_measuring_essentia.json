@@ -1,0 +1,21 @@
+{
+  "name": "Measuring Essentia",
+  "icon": "theurgy:essentia_gauge",
+  "category": "20_primitive_alchemy",
+  "sortnum": 30,
+  "pages": [
+    {
+      "type": "text",
+      "text": "In order to work with Essentia in a more precise manner it is necessary to be able to measure $(bold)exactly$() how much Essentia is involved in any process. The $(item)Pure Crystal$() we just created is, in fact, the perfect instrument for that. Essentia seeping through the crystal shows small colorations, allowing accurate measurements."
+    },
+    {
+      "type": "crafting",
+      "recipe": "theurgy:crafting/essentia_gauge",
+      "text": "Set into alchemically mostly inert precious metals such as gold, the pure crystal acts as a precise gauge for local Essentia levels."
+    },
+    {
+      "type": "text",
+      "text": "$(bold)Usage on Constructs$()$(br)To measure the Essentia levels in a construct, such as a crucible, simply look at the construct with the $(item)Essentia Gauge$() in hand.$(br2)$(bold)Usage in the Environment$()$(br)To measure the Essentia levels in a chunk, right-click and hold with the $(item)Essentia Gauge$() in hand."
+    }
+  ]
+}

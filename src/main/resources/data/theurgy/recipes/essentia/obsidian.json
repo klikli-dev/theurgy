@@ -1,7 +1,7 @@
 {
   "type": "theurgy:essentia",
   "ingredient": {
-    "tag": "forge/obsidian"
+    "item": "minecraft:obsidian"
   },
   "essentia": [
     {

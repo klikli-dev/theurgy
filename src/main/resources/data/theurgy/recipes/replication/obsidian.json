@@ -1,7 +1,7 @@
 {
   "type": "theurgy:replication",
   "ingredient": {
-    "tag": "forge:obsidian"
+    "item": "minecraft:obsidian"
   },
   "essentia": [
     {
@@ -10,7 +10,7 @@
     }
   ],
   "result": {
-    "tag": "forge:obsidian",
+    "item": "minecraft:obsidian",
     "count": 2
   }
 }

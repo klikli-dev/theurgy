@@ -20,26 +20,74 @@
     {
       "type": "theurgy:crucible_recipe",
       "recipe": "theurgy:replication/emerald",
-      "item": "theurgy:pure_crystal_stirrer",
-      "title": "Replicate Emerald"
+      "tool": "theurgy:pure_crystal_stirrer",
+      "title": "Emerald"
     },
     {
       "type": "theurgy:crucible_recipe",
       "recipe": "theurgy:replication/diamond",
-      "item": "theurgy:pure_crystal_stirrer",
-      "title": "Replicate Diamond"
+      "tool": "theurgy:pure_crystal_stirrer",
+      "title": "Diamond"
+    },
+    {
+      "type": "theurgy:crucible_recipe",
+      "recipe": "theurgy:replication/prismarine_crystal",
+      "tool": "theurgy:pure_crystal_stirrer",
+      "title": "Prismarine Crystal"
+    },
+    {
+      "type": "theurgy:crucible_recipe",
+      "recipe": "theurgy:replication/prismarine_shard",
+      "tool": "theurgy:pure_crystal_stirrer",
+      "title": "Prismarine Shard"
+    },
+    {
+      "type": "theurgy:crucible_recipe",
+      "recipe": "theurgy:replication/netherite_ingot",
+      "tool": "theurgy:pure_crystal_stirrer",
+      "title": "Netherite Ingot"
     },
     {
       "type": "theurgy:crucible_recipe",
       "recipe": "theurgy:replication/gold_ingot",
-      "item": "theurgy:pure_crystal_stirrer",
-      "title": "Replicate Gold Ingot"
+      "tool": "theurgy:pure_crystal_stirrer",
+      "title": "Gold Ingot"
     },
     {
       "type": "theurgy:crucible_recipe",
       "recipe": "theurgy:replication/iron_ingot",
-      "item": "theurgy:pure_crystal_stirrer",
-      "title": "Replicate Iron Ingot"
+      "tool": "theurgy:pure_crystal_stirrer",
+      "title": "Iron Ingot"
+    },
+    {
+      "type": "theurgy:crucible_recipe",
+      "recipe": "theurgy:replication/quartz",
+      "tool": "theurgy:pure_crystal_stirrer",
+      "title": "Nether Quartz"
+    },
+    {
+      "type": "theurgy:crucible_recipe",
+      "recipe": "theurgy:replication/lapis",
+      "tool": "theurgy:pure_crystal_stirrer",
+      "title": "Lapis"
+    },
+    {
+      "type": "theurgy:crucible_recipe",
+      "recipe": "theurgy:replication/redstone_dust",
+      "tool": "theurgy:pure_crystal_stirrer",
+      "title": "Redstone Dust"
+    },
+    {
+      "type": "theurgy:crucible_recipe",
+      "recipe": "theurgy:replication/glowstone_dust",
+      "tool": "theurgy:pure_crystal_stirrer",
+      "title": "Glowstone Dust"
+    },
+    {
+      "type": "theurgy:crucible_recipe",
+      "recipe": "theurgy:replication/obsidian",
+      "tool": "theurgy:pure_crystal_stirrer",
+      "title": "Obsidian"
     },
     {
       "type": "text",

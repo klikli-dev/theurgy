@@ -1,0 +1,20 @@
+{
+  "type": "theurgy:replication",
+  "ingredient": {
+    "tag": "forge:gems/lapis"
+  },
+  "essentia": [
+    {
+      "item": "theurgy:terra_essentia",
+      "count": 10
+    },
+    {
+      "item": "theurgy:aqua_essentia",
+      "count": 10
+    }
+  ],
+  "result": {
+    "tag": "forge:gems/lapis",
+    "count": 2
+  }
+}

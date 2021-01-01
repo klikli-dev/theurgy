@@ -1,5 +1,14 @@
 {
   "type": "theurgy:replication",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:ores/tin"
+      }
+    }
+  ],
   "ingredient": {
     "tag": "forge:ingots/tin"
   },

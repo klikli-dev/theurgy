@@ -122,6 +122,8 @@ public class EssentiaCache implements INBTSerializable<CompoundNBT> {
      * @return the minimum amount of essentia available.
      */
     public int min(Item... essentia) {
+        if(this.isEmpty())
+            return 0;
         return Arrays.stream(essentia).mapToInt(e -> this.essentia.get(e)).min().orElse(0);
     }
 

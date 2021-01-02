@@ -44,21 +44,40 @@ public class PureCrystalSpreader implements ICrystalSpreadHandler {
     public ICrystalSpreadCondition aquaCondition;
     public ICrystalSpreadCondition ignisCondition;
     public ICrystalSpreadCondition terraCondition;
+    public int pureCrystalChanceToSpread;
+    public int primaMateriaCrystalChanceToSpread;
+    public int aerCrystalChanceToSpread;
+    public int aquaCrystalChanceToSpread;
+    public int ignisCrystalChanceToSpread;
+    public int terraCrystalChanceToSpread;
     //endregion Fields
 
     //region Initialization
     public PureCrystalSpreader(ICrystalSpreadCondition pureCondition,
+                               int pureCrystalChanceToSpread,
                                ICrystalSpreadCondition primaMateriaCondition,
+                               int primaMateriaCrystalChanceToSpread,
                                ICrystalSpreadCondition aerCondition,
+                               int aerCrystalChanceToSpread,
                                ICrystalSpreadCondition aquaCondition,
+                               int aquaCrystalChanceToSpread,
                                ICrystalSpreadCondition ignisCondition,
-                               ICrystalSpreadCondition terraCondition) {
+                               int ignisCrystalChanceToSpread,
+                               ICrystalSpreadCondition terraCondition,
+                               int terraCrystalChanceToSpread) {
         this.pureCondition = pureCondition;
         this.primaMateriaCondition = primaMateriaCondition;
         this.aerCondition = aerCondition;
         this.aquaCondition = aquaCondition;
         this.ignisCondition = ignisCondition;
         this.terraCondition = terraCondition;
+        this.pureCrystalChanceToSpread = pureCrystalChanceToSpread;
+        this.primaMateriaCrystalChanceToSpread = primaMateriaCrystalChanceToSpread;
+        this.aerCrystalChanceToSpread = aerCrystalChanceToSpread;
+        this.aquaCrystalChanceToSpread = aquaCrystalChanceToSpread;
+        this.ignisCrystalChanceToSpread = ignisCrystalChanceToSpread;
+        this.terraCrystalChanceToSpread = terraCrystalChanceToSpread;
+
     }
     //endregion Initialization
 
@@ -67,66 +86,85 @@ public class PureCrystalSpreader implements ICrystalSpreadHandler {
     public boolean handleSpread(CrystalBlock sourceCrystalType, IWorld world, BlockState sourceState,
                                 BlockPos sourcePos) {
 
+
         //get possible blocks to spread to,
         List<BlockPos> possibleTargets = this.getPossibleSpreadBlockPos(world, sourcePos);
         if (possibleTargets.size() == 0)
             return false;
 
         //Check aer
-        CrystalPlacementInfo spreadTo =
-                this.getValidSpreadPosition(this.aerCondition, world, possibleTargets, sourceState, sourcePos);
-        if (spreadTo != null) {
-            world.setBlockState(spreadTo.pos, BlockRegistry.AER_CRYSTAL.get().getDefaultState()
-                                                      .with(BlockStateProperties.FACING, spreadTo.direction), 2);
-            return true;
+        if (world.getRandom().nextInt(this.aerCrystalChanceToSpread) == 0) {
+            CrystalPlacementInfo spreadTo =
+                    this.getValidSpreadPosition(this.aerCondition, world, possibleTargets, sourceState, sourcePos);
+            if (spreadTo != null) {
+                world.setBlockState(spreadTo.pos, BlockRegistry.AER_CRYSTAL.get().getDefaultState()
+                                                          .with(BlockStateProperties.FACING, spreadTo.direction), 2);
+                return true;
+            }
         }
 
         //Check aqua
-        spreadTo = this.getValidSpreadPosition(this.aquaCondition, world, possibleTargets, sourceState, sourcePos);
-        if (spreadTo != null) {
-            world.setBlockState(spreadTo.pos, BlockRegistry.AQUA_CRYSTAL.get().getDefaultState()
-                                                      .with(BlockStateProperties.FACING, spreadTo.direction), 2);
-            return true;
+        if (world.getRandom().nextInt(this.aquaCrystalChanceToSpread) == 0) {
+            CrystalPlacementInfo spreadTo =
+                    this.getValidSpreadPosition(this.aquaCondition, world, possibleTargets, sourceState, sourcePos);
+            if (spreadTo != null) {
+                world.setBlockState(spreadTo.pos, BlockRegistry.AQUA_CRYSTAL.get().getDefaultState()
+                                                          .with(BlockStateProperties.FACING, spreadTo.direction), 2);
+                return true;
+            }
         }
+
 
         //Check ignis
-        spreadTo = this.getValidSpreadPosition(this.ignisCondition, world, possibleTargets, sourceState, sourcePos);
-        if (spreadTo != null) {
-            world.setBlockState(spreadTo.pos, BlockRegistry.IGNIS_CRYSTAL.get().getDefaultState()
-                                                      .with(BlockStateProperties.FACING, spreadTo.direction), 2);
-            return true;
+        if (world.getRandom().nextInt(this.ignisCrystalChanceToSpread) == 0) {
+            CrystalPlacementInfo spreadTo =
+                    this.getValidSpreadPosition(this.ignisCondition, world, possibleTargets, sourceState, sourcePos);
+            if (spreadTo != null) {
+                world.setBlockState(spreadTo.pos, BlockRegistry.IGNIS_CRYSTAL.get().getDefaultState()
+                                                          .with(BlockStateProperties.FACING, spreadTo.direction), 2);
+                return true;
+            }
         }
+
 
         //Check terra
-        spreadTo = this.getValidSpreadPosition(this.terraCondition, world, possibleTargets, sourceState, sourcePos);
-        if (spreadTo != null) {
-            world.setBlockState(spreadTo.pos, BlockRegistry.TERRA_CRYSTAL.get().getDefaultState()
-                                                      .with(BlockStateProperties.FACING, spreadTo.direction), 2);
-            return true;
+        if (world.getRandom().nextInt(this.terraCrystalChanceToSpread) == 0) {
+            CrystalPlacementInfo spreadTo =
+                    this.getValidSpreadPosition(this.terraCondition, world, possibleTargets, sourceState, sourcePos);
+            if (spreadTo != null) {
+                world.setBlockState(spreadTo.pos, BlockRegistry.TERRA_CRYSTAL.get().getDefaultState()
+                                                          .with(BlockStateProperties.FACING, spreadTo.direction), 2);
+                return true;
+            }
         }
 
-        //if no essentia crystals can grow, attempt to grow prima materia
-        spreadTo =
-                this.getValidSpreadPosition(this.primaMateriaCondition, world, possibleTargets, sourceState, sourcePos);
-        if (spreadTo != null) {
-            EssentiaChunk chunkEssentia = EssentiaChunkHandler.getOrCreateEssentiaChunk(
-                    ((World) world).getDimensionKey(), new ChunkPos(spreadTo.pos));
+        if (world.getRandom().nextInt(this.primaMateriaCrystalChanceToSpread) == 0) {
+            //if no essentia crystals can grow, attempt to grow prima materia
+            CrystalPlacementInfo spreadTo =
+                    this.getValidSpreadPosition(this.primaMateriaCondition, world, possibleTargets, sourceState,
+                            sourcePos);
+            if (spreadTo != null) {
+                EssentiaChunk chunkEssentia = EssentiaChunkHandler.getOrCreateEssentiaChunk(
+                        ((World) world).getDimensionKey(), new ChunkPos(spreadTo.pos));
 
-            //consume essentia from chunk
-            chunkEssentia.essentia.removeAll(Theurgy.CONFIG.crystalSettings.primaMateriaSpreadEssentia.get());
-            chunkEssentia.markDirty();
+                //consume essentia from chunk
+                chunkEssentia.essentia.removeAll(Theurgy.CONFIG.crystalSettings.primaMateriaSpreadEssentia.get());
+                chunkEssentia.markDirty();
 
-            world.setBlockState(spreadTo.pos, BlockRegistry.PRIMA_MATERIA_CRYSTAL.get().getDefaultState()
-                                                      .with(BlockStateProperties.FACING, spreadTo.direction), 2);
-            return true;
+                world.setBlockState(spreadTo.pos, BlockRegistry.PRIMA_MATERIA_CRYSTAL.get().getDefaultState()
+                                                          .with(BlockStateProperties.FACING, spreadTo.direction), 2);
+                return true;
+            }
         }
 
+        if (world.getRandom().nextInt(this.pureCrystalChanceToSpread) == 0){
         //If no other crystal type is valid, check pure condition
-        spreadTo = this.getValidSpreadPosition(this.pureCondition, world, possibleTargets, sourceState, sourcePos);
-        if (spreadTo != null) {
-            world.setBlockState(spreadTo.pos, BlockRegistry.PURE_CRYSTAL.get().getDefaultState()
-                                                      .with(BlockStateProperties.FACING, spreadTo.direction), 2);
-            return true;
+            CrystalPlacementInfo spreadTo = this.getValidSpreadPosition(this.pureCondition, world, possibleTargets, sourceState, sourcePos);
+            if (spreadTo != null) {
+                world.setBlockState(spreadTo.pos, BlockRegistry.PURE_CRYSTAL.get().getDefaultState()
+                                                          .with(BlockStateProperties.FACING, spreadTo.direction), 2);
+                return true;
+            }
         }
         return false;
     }

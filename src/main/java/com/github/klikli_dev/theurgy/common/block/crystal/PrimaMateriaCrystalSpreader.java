@@ -22,11 +22,16 @@
 
 package com.github.klikli_dev.theurgy.common.block.crystal;
 
+import com.github.klikli_dev.theurgy.Theurgy;
+import com.github.klikli_dev.theurgy.common.theurgy.essentia_chunks.EssentiaChunk;
+import com.github.klikli_dev.theurgy.common.theurgy.essentia_chunks.EssentiaChunkHandler;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.IWorld;
+import net.minecraft.world.World;
 
 import java.util.List;
 import java.util.function.Supplier;
@@ -36,11 +41,13 @@ public class PrimaMateriaCrystalSpreader implements ICrystalSpreadHandler {
     //region Fields
     public ICrystalSpreadCondition condition;
     public Supplier<Block> crystalBlock;
+    public int chanceToSpread;
     //endregion Fields
 
     //region Initialization
-    public PrimaMateriaCrystalSpreader(ICrystalSpreadCondition condition, Supplier<Block> crystalBlock) {
+    public PrimaMateriaCrystalSpreader(ICrystalSpreadCondition condition, int chanceToSpread, Supplier<Block> crystalBlock) {
         this.condition = condition;
+        this.chanceToSpread = chanceToSpread;
         this.crystalBlock = crystalBlock;
     }
     //endregion Initialization
@@ -50,6 +57,9 @@ public class PrimaMateriaCrystalSpreader implements ICrystalSpreadHandler {
     public boolean handleSpread(CrystalBlock sourceCrystalType, IWorld world, BlockState sourceState,
                                 BlockPos sourcePos) {
 
+        if (world.getRandom().nextInt(this.chanceToSpread) != 0)
+            return false;
+
         //get possible blocks to spread to,
         List<BlockPos> possibleTargets = this.getPossibleSpreadBlockPos(world, sourcePos);
         if (possibleTargets.size() == 0)
@@ -58,13 +68,12 @@ public class PrimaMateriaCrystalSpreader implements ICrystalSpreadHandler {
         CrystalPlacementInfo spreadTo =
                 this.getValidSpreadPosition(this.condition, world, possibleTargets, sourceState, sourcePos);
         if (spreadTo != null) {
-            //Note: for now prima materia crystals spread without consuming essentia
-            //            EssentiaChunk chunkEssentia = EssentiaChunkHandler.getOrCreateEssentiaChunk(
-            //                    ((World)world).getDimensionKey(), new ChunkPos(spreadTo.pos));
-            //
-            //            //consume essentia from chunk
-            //            chunkEssentia.essentia.removeAll(Theurgy.CONFIG.crystalSettings.primaMateriaSpreadEssentia.get());
-            //            chunkEssentia.markDirty();
+            EssentiaChunk chunkEssentia = EssentiaChunkHandler.getOrCreateEssentiaChunk(
+                    ((World) world).getDimensionKey(), new ChunkPos(spreadTo.pos));
+
+            //consume essentia from chunk
+            chunkEssentia.essentia.removeAll(Theurgy.CONFIG.crystalSettings.primaMateriaSpreadEssentia.get());
+            chunkEssentia.markDirty();
 
             world.setBlockState(spreadTo.pos,
                     this.crystalBlock.get().getDefaultState().with(BlockStateProperties.FACING, spreadTo.direction), 2);

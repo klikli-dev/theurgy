@@ -22,17 +22,21 @@
 
 package com.github.klikli_dev.theurgy.datagen;
 
+import com.github.klikli_dev.theurgy.Theurgy;
 import com.github.klikli_dev.theurgy.datagen.recipe.CrucibleRecipeBuilder;
 import com.github.klikli_dev.theurgy.datagen.recipe.EssentiaRecipeBuilder;
 import com.github.klikli_dev.theurgy.registry.ItemRegistry;
+import com.github.klikli_dev.theurgy.registry.TagRegistry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.data.RecipeProvider;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
+import net.minecraft.tags.ITag;
 import net.minecraftforge.common.Tags;
-import net.minecraftforge.common.data.ForgeItemTagsProvider;
+import net.minecraftforge.common.crafting.ConditionalRecipe;
+import net.minecraftforge.common.crafting.conditions.NotCondition;
+import net.minecraftforge.common.crafting.conditions.TagEmptyCondition;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +44,12 @@ import java.util.Optional;
 import java.util.function.Consumer;
 
 public class TheurgyRecipeProvider extends RecipeProvider {
+
+    //region Fields
+    public static final ITag.INamedTag<Item> COPPER_INGOT = TagRegistry.makeForgeItemTag("ingots/copper");
+    public static final ITag.INamedTag<Item> SILVER_INGOT = TagRegistry.makeForgeItemTag("ingots/silver");
+    //endregion Fields
+
     //region Initialization
     public TheurgyRecipeProvider(DataGenerator generatorIn) {
         super(generatorIn);
@@ -54,27 +64,45 @@ public class TheurgyRecipeProvider extends RecipeProvider {
         Item ignis = ItemRegistry.IGNIS_ESSENTIA.get();
         Item terra = ItemRegistry.TERRA_ESSENTIA.get();
 
+        EssentiaRecipeBuilder copperEssentia = EssentiaRecipeBuilder.create()
+                                                       .setRecipeName("copper_ingot")
+                                                       .ingredient(COPPER_INGOT)
+                                                       .essentia(ignis, 100)
+                                                       .essentia(terra, 100);
+
+        this.registerTagExistsCondition(copperEssentia, COPPER_INGOT, consumer);
+
         EssentiaRecipeBuilder ironEssentia = EssentiaRecipeBuilder.create()
+                                                     .setRecipeName("iron_ingot")
                                                      .ingredient(Tags.Items.INGOTS_IRON)
                                                      .essentia(ignis, 100)
                                                      .essentia(terra, 100)
-                                                     .build(consumer, "iron_ingot");
+                                                     .build(consumer);
         EssentiaRecipeBuilder goldEssentia = EssentiaRecipeBuilder.create()
+                                                     .setRecipeName("gold_ingot")
                                                      .ingredient(Tags.Items.INGOTS_GOLD)
                                                      .essentia(aer, 50)
                                                      .essentia(ignis, 200)
                                                      .essentia(terra, 200)
-                                                     .build(consumer, "gold_ingot");
+                                                     .build(consumer);
 
 
         CrucibleRecipeBuilder.transmutation(Tags.Items.INGOTS_GOLD, 1)
+                .setRecipeName("gold_ingot")
                 .ingredient(Tags.Items.INGOTS_IRON)
                 .essentia(this.essentiaDifference(ironEssentia.essentia, goldEssentia.essentia))
-                .build(consumer, "gold_ingot");
+                .build(consumer);
     }
     //endregion Overrides
 
     //region Methods
+    protected void registerTagExistsCondition(EssentiaRecipeBuilder builder, ITag.INamedTag<Item> tag,
+                                              Consumer<IFinishedRecipe> consumer) {
+        ConditionalRecipe.builder()
+                .addCondition(new NotCondition(new TagEmptyCondition(tag.getName())))
+                .addRecipe(builder::build)
+                .build(consumer, Theurgy.MODID, "essentia/" + builder.recipeName);
+    }
 
     /**
      * Gets the remaining required essentia for an item

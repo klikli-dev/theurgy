@@ -46,13 +46,14 @@ import java.util.function.Consumer;
 
 public class CrucibleRecipeBuilder {
     //region Fields
-    private final IRecipeSerializer<?> serializer;
-    private final Ingredient result;
-    private final int count;
-    private final List<ItemStack> essentia = new ArrayList<>();
-    private Ingredient ingredient;
-    private String group;
-    private String folder;
+    public final IRecipeSerializer<?> serializer;
+    public final Ingredient result;
+    public final int count;
+    public final List<ItemStack> essentia = new ArrayList<>();
+    public Ingredient ingredient;
+    public String group;
+    public String folder;
+    public String recipeName;
     //endregion Fields
 
     //region Initialization
@@ -65,6 +66,10 @@ public class CrucibleRecipeBuilder {
     //endregion Initialization
 
     //region Getter / Setter
+    public CrucibleRecipeBuilder setRecipeName(String recipeName) {
+        this.recipeName = recipeName;
+        return this;
+    }
     public CrucibleRecipeBuilder setGroup(String groupIn) {
         this.group = groupIn;
         return this;
@@ -112,7 +117,7 @@ public class CrucibleRecipeBuilder {
     }
 
     public CrucibleRecipeBuilder build(Consumer<IFinishedRecipe> consumerIn) {
-        return this.build(consumerIn, this.ingredient.getMatchingStacks()[0].getItem());
+        return this.build(consumerIn, this.recipeName);
     }
 
     public CrucibleRecipeBuilder build(Consumer<IFinishedRecipe> consumerIn, Item recipeNameItem) {

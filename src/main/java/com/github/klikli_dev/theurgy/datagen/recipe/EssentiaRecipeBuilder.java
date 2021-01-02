@@ -45,13 +45,18 @@ import java.util.function.Consumer;
 public class EssentiaRecipeBuilder {
     //region Fields
     public final List<ItemStack> essentia = new ArrayList<>();
-    private Ingredient ingredient;
-    private String group;
+    public Ingredient ingredient;
+    public String group;
+    public String recipeName;
     //endregion Fields
 
     //region Getter / Setter
     public EssentiaRecipeBuilder setGroup(String groupIn) {
         this.group = groupIn;
+        return this;
+    }
+    public EssentiaRecipeBuilder setRecipeName(String recipeName) {
+        this.recipeName = recipeName;
         return this;
     }
     //endregion Getter / Setter
@@ -82,7 +87,7 @@ public class EssentiaRecipeBuilder {
     }
 
     public EssentiaRecipeBuilder build(Consumer<IFinishedRecipe> consumerIn) {
-        return this.build(consumerIn, this.ingredient.getMatchingStacks()[0].getItem());
+        return this.build(consumerIn, this.recipeName);
     }
 
     public EssentiaRecipeBuilder build(Consumer<IFinishedRecipe> consumerIn, Item recipeNameItem) {

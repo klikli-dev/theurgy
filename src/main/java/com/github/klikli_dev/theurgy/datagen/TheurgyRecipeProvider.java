@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright 2020 klikli-dev
+ * Copyright 2021 klikli-dev
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction, including
@@ -23,24 +23,22 @@
 package com.github.klikli_dev.theurgy.datagen;
 
 import net.minecraft.data.DataGenerator;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
+import net.minecraft.data.IFinishedRecipe;
+import net.minecraft.data.RecipeProvider;
 
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
-public class DataGenerators {
+import java.util.function.Consumer;
 
-    //region Static Methods
-    @SubscribeEvent
-    public static void gatherData(GatherDataEvent event) {
-        DataGenerator generator = event.getGenerator();
-        if (event.includeServer()) {
-            generator.addProvider(new TheurgyLootTableProvider(generator));
-            generator.addProvider(new TheurgyRecipeProvider(generator));
-        }
-        if (event.includeClient()) {
-            generator.addProvider(new TheurgyBlockStateProvider(generator, event.getExistingFileHelper()));
-        }
+public class TheurgyRecipeProvider extends RecipeProvider {
+    //region Initialization
+    public TheurgyRecipeProvider(DataGenerator generatorIn) {
+        super(generatorIn);
     }
-    //endregion Static Methods
+    //endregion Initialization
+
+    //region Overrides
+    @Override
+    protected void registerRecipes(Consumer<IFinishedRecipe> consumer) {
+
+    }
+    //endregion Overrides
 }

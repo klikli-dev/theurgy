@@ -32,9 +32,9 @@ import net.minecraft.util.JSONUtils;
 public class RecipeOutput {
 
     //region Fields
-    protected Ingredient ingredient;
-    protected int count;
-    protected CompoundNBT nbt;
+    public Ingredient ingredient;
+    public int count;
+    public CompoundNBT nbt;
 
     protected ItemStack stack;
     //endregion Fields
@@ -43,6 +43,7 @@ public class RecipeOutput {
     public RecipeOutput(Ingredient ingredient, int count, CompoundNBT nbt) {
         this.ingredient = ingredient;
         this.count = count;
+        this.nbt = nbt;
         this.stack = null;
     }
     //endregion Initialization

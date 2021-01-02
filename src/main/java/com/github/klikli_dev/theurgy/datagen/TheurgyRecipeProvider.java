@@ -74,24 +74,24 @@ public class TheurgyRecipeProvider extends RecipeProvider {
         //Essentia recipes
         //Modded Ingots
         EssentiaRecipeBuilder copperIngotEssentia = EssentiaRecipeBuilder.create()
-                                                       .setRecipeName("copper_ingot")
-                                                       .ingredient(COPPER_INGOT)
-                                                       .essentia(ignis, 100)
-                                                       .essentia(terra, 100);
+                                                            .setRecipeName("copper_ingot")
+                                                            .ingredient(COPPER_INGOT)
+                                                            .essentia(ignis, 100)
+                                                            .essentia(terra, 100);
         this.registerTagExistsCondition(copperIngotEssentia, COPPER_INGOT, consumer);
 
         EssentiaRecipeBuilder tinIngotEssentia = EssentiaRecipeBuilder.create()
-                                                    .setRecipeName("tin_ingot")
-                                                    .ingredient(TIN_INGOT)
-                                                    .essentia(ignis, 100)
-                                                    .essentia(terra, 100);
+                                                         .setRecipeName("tin_ingot")
+                                                         .ingredient(TIN_INGOT)
+                                                         .essentia(ignis, 100)
+                                                         .essentia(terra, 100);
         this.registerTagExistsCondition(tinIngotEssentia, TIN_INGOT, consumer);
 
         EssentiaRecipeBuilder silverIngotEssentia = EssentiaRecipeBuilder.create()
-                                                       .setRecipeName("silver_ingot")
-                                                       .ingredient(SILVER_INGOT)
-                                                       .essentia(ignis, 150)
-                                                       .essentia(terra, 150);
+                                                            .setRecipeName("silver_ingot")
+                                                            .ingredient(SILVER_INGOT)
+                                                            .essentia(ignis, 150)
+                                                            .essentia(terra, 150);
         this.registerTagExistsCondition(silverIngotEssentia, SILVER_INGOT, consumer);
 
         //Vanilla ingots
@@ -207,11 +207,11 @@ public class TheurgyRecipeProvider extends RecipeProvider {
                                                      .essentia(terra, 10)
                                                      .build(consumer);
         EssentiaRecipeBuilder slimeBallEssentia = EssentiaRecipeBuilder.create()
-                                                     .setRecipeName("slime_ball")
-                                                     .ingredient(Items.SLIME_BALL)
-                                                     .essentia(terra, 10)
-                                                     .essentia(aqua, 10)
-                                                     .build(consumer);
+                                                          .setRecipeName("slime_ball")
+                                                          .ingredient(Items.SLIME_BALL)
+                                                          .essentia(terra, 10)
+                                                          .essentia(aqua, 10)
+                                                          .build(consumer);
         //Theurgy Items
         EssentiaRecipeBuilder aerCrystalEssentia = EssentiaRecipeBuilder.create()
                                                            .setRecipeName("aer_crystal")
@@ -304,86 +304,89 @@ public class TheurgyRecipeProvider extends RecipeProvider {
                                                                    .essentia(aqua, 10)
                                                                    .build(consumer);
 
-        CrucibleRecipeBuilder pureCrystalPurification = CrucibleRecipeBuilder.purification(ItemRegistry.PURE_CRYSTAL_STIRRER.get(), 1)
-                                                                .setRecipeName("pure_crystal")
-                                                                .ingredient(ItemRegistry.CRYSTAL_SUBSTRATE
-                                                                                    .get())
-                                                                .essentia(aer, 100)
-                                                                .essentia(aqua, 100)
-                                                                .essentia(ignis, 100)
-                                                                .essentia(terra, 100)
-                                                                .build(consumer);
+        CrucibleRecipeBuilder pureCrystalPurification =
+                CrucibleRecipeBuilder.purification(ItemRegistry.PURE_CRYSTAL_STIRRER.get(), 1)
+                        .setRecipeName("pure_crystal")
+                        .ingredient(ItemRegistry.CRYSTAL_SUBSTRATE
+                                            .get())
+                        .essentia(aer, 100)
+                        .essentia(aqua, 100)
+                        .essentia(ignis, 100)
+                        .essentia(terra, 100)
+                        .build(consumer);
 
         //Replication recipes
         //Modded Ingots
         CrucibleRecipeBuilder copperIngotReplication = CrucibleRecipeBuilder.replication(COPPER_INGOT, 2)
-                .setRecipeName("copper_ingot")
-                .ingredient(COPPER_INGOT)
-                .essentia(copperIngotEssentia.essentia);
+                                                               .setRecipeName("copper_ingot")
+                                                               .ingredient(COPPER_INGOT)
+                                                               .essentia(copperIngotEssentia.essentia);
         this.registerTagExistsCondition(copperIngotReplication, COPPER_INGOT, consumer);
 
         CrucibleRecipeBuilder tinIngotReplication = CrucibleRecipeBuilder.replication(TIN_INGOT, 2)
-                .setRecipeName("tin_ingot")
-                .ingredient(TIN_INGOT)
-                .essentia(tinIngotEssentia.essentia);
+                                                            .setRecipeName("tin_ingot")
+                                                            .ingredient(TIN_INGOT)
+                                                            .essentia(tinIngotEssentia.essentia);
         this.registerTagExistsCondition(tinIngotReplication, TIN_INGOT, consumer);
 
         CrucibleRecipeBuilder silverIngotReplication = CrucibleRecipeBuilder.replication(SILVER_INGOT, 2)
-                .setRecipeName("silver_ingot")
-                .ingredient(SILVER_INGOT)
-                .essentia(silverIngotEssentia.essentia);
+                                                               .setRecipeName("silver_ingot")
+                                                               .ingredient(SILVER_INGOT)
+                                                               .essentia(silverIngotEssentia.essentia);
         this.registerTagExistsCondition(silverIngotReplication, SILVER_INGOT, consumer);
 
         //Vanilla Ingots
         CrucibleRecipeBuilder ironIngotReplication = CrucibleRecipeBuilder.replication(Tags.Items.INGOTS_IRON, 2)
-                                                            .setRecipeName("iron_ingot")
-                                                            .ingredient(Tags.Items.INGOTS_IRON)
-                                                            .essentia(ironIngotEssentia.essentia)
-                                                            .build(consumer);
+                                                             .setRecipeName("iron_ingot")
+                                                             .ingredient(Tags.Items.INGOTS_IRON)
+                                                             .essentia(ironIngotEssentia.essentia)
+                                                             .build(consumer);
         CrucibleRecipeBuilder goldIngotReplication = CrucibleRecipeBuilder.replication(Tags.Items.INGOTS_GOLD, 2)
                                                              .setRecipeName("gold_ingot")
                                                              .ingredient(Tags.Items.INGOTS_GOLD)
                                                              .essentia(goldIngotEssentia.essentia)
                                                              .build(consumer);
-        CrucibleRecipeBuilder netheriteIngotReplication = CrucibleRecipeBuilder.replication(Tags.Items.INGOTS_NETHERITE, 2)
-                                                             .setRecipeName("netherite_ingot")
-                                                             .ingredient(Tags.Items.INGOTS_NETHERITE)
-                                                             .essentia(netheriteIngotEssentia.essentia)
-                                                             .build(consumer);
+        CrucibleRecipeBuilder netheriteIngotReplication =
+                CrucibleRecipeBuilder.replication(Tags.Items.INGOTS_NETHERITE, 2)
+                        .setRecipeName("netherite_ingot")
+                        .ingredient(Tags.Items.INGOTS_NETHERITE)
+                        .essentia(netheriteIngotEssentia.essentia)
+                        .build(consumer);
 
         //Coal
         CrucibleRecipeBuilder coalReplication = CrucibleRecipeBuilder.replication(Items.COAL, 2)
-                                                                  .setRecipeName("coal")
-                                                                  .ingredient(Items.COAL)
-                                                                  .essentia(coalEssentia.essentia)
-                                                                  .build(consumer);
-        CrucibleRecipeBuilder charcoalReplication = CrucibleRecipeBuilder.replication(Items.CHARCOAL, 2)
-                                                        .setRecipeName("charcoal")
-                                                        .ingredient(Items.CHARCOAL)
-                                                        .essentia(charcoalEssentia.essentia)
+                                                        .setRecipeName("coal")
+                                                        .ingredient(Items.COAL)
+                                                        .essentia(coalEssentia.essentia)
                                                         .build(consumer);
+        CrucibleRecipeBuilder charcoalReplication = CrucibleRecipeBuilder.replication(Items.CHARCOAL, 2)
+                                                            .setRecipeName("charcoal")
+                                                            .ingredient(Items.CHARCOAL)
+                                                            .essentia(charcoalEssentia.essentia)
+                                                            .build(consumer);
 
         //Vanilla Gems
         CrucibleRecipeBuilder quartzReplication = CrucibleRecipeBuilder.replication(Tags.Items.GEMS_QUARTZ, 2)
-                                                             .setRecipeName("quartz")
-                                                             .ingredient(Tags.Items.GEMS_QUARTZ)
-                                                             .essentia(quartzEssentia.essentia)
-                                                             .build(consumer);
-        CrucibleRecipeBuilder lapisReplication = CrucibleRecipeBuilder.replication(Tags.Items.GEMS_LAPIS, 2)
-                                                          .setRecipeName("lapis")
-                                                          .ingredient(Tags.Items.GEMS_LAPIS)
-                                                          .essentia(lapisEssentia.essentia)
+                                                          .setRecipeName("quartz")
+                                                          .ingredient(Tags.Items.GEMS_QUARTZ)
+                                                          .essentia(quartzEssentia.essentia)
                                                           .build(consumer);
-        CrucibleRecipeBuilder prismarineCrystalReplication = CrucibleRecipeBuilder.replication(Tags.Items.GEMS_PRISMARINE, 2)
-                                                         .setRecipeName("prismarine_crystal")
-                                                         .ingredient(Tags.Items.GEMS_PRISMARINE)
-                                                         .essentia(prismarineCrystalEssentia.essentia)
+        CrucibleRecipeBuilder lapisReplication = CrucibleRecipeBuilder.replication(Tags.Items.GEMS_LAPIS, 2)
+                                                         .setRecipeName("lapis")
+                                                         .ingredient(Tags.Items.GEMS_LAPIS)
+                                                         .essentia(lapisEssentia.essentia)
                                                          .build(consumer);
+        CrucibleRecipeBuilder prismarineCrystalReplication =
+                CrucibleRecipeBuilder.replication(Tags.Items.GEMS_PRISMARINE, 2)
+                        .setRecipeName("prismarine_crystal")
+                        .ingredient(Tags.Items.GEMS_PRISMARINE)
+                        .essentia(prismarineCrystalEssentia.essentia)
+                        .build(consumer);
         CrucibleRecipeBuilder diamondReplication = CrucibleRecipeBuilder.replication(Tags.Items.GEMS_DIAMOND, 2)
-                                                                     .setRecipeName("diamond")
-                                                                     .ingredient(Tags.Items.GEMS_DIAMOND)
-                                                                     .essentia(diamondEssentia.essentia)
-                                                                     .build(consumer);
+                                                           .setRecipeName("diamond")
+                                                           .ingredient(Tags.Items.GEMS_DIAMOND)
+                                                           .essentia(diamondEssentia.essentia)
+                                                           .build(consumer);
         CrucibleRecipeBuilder emeraldReplication = CrucibleRecipeBuilder.replication(Tags.Items.GEMS_EMERALD, 2)
                                                            .setRecipeName("emerald")
                                                            .ingredient(Tags.Items.GEMS_EMERALD)
@@ -397,52 +400,89 @@ public class TheurgyRecipeProvider extends RecipeProvider {
                                                             .essentia(redstoneDustEssentia.essentia)
                                                             .build(consumer);
         CrucibleRecipeBuilder glowstoneReplication = CrucibleRecipeBuilder.replication(Tags.Items.DUSTS_GLOWSTONE, 2)
-                                                            .setRecipeName("glowstone_dust")
-                                                            .ingredient(Tags.Items.DUSTS_GLOWSTONE)
-                                                            .essentia(glowstoneDustEssentia.essentia)
-                                                            .build(consumer);
-        CrucibleRecipeBuilder prismarineShardReplication = CrucibleRecipeBuilder.replication(Tags.Items.DUSTS_PRISMARINE, 2)
-                                                             .setRecipeName("prismarine_shard")
-                                                             .ingredient(Tags.Items.DUSTS_PRISMARINE)
-                                                             .essentia(prismarineShardEssentia.essentia)
+                                                             .setRecipeName("glowstone_dust")
+                                                             .ingredient(Tags.Items.DUSTS_GLOWSTONE)
+                                                             .essentia(glowstoneDustEssentia.essentia)
                                                              .build(consumer);
+        CrucibleRecipeBuilder prismarineShardReplication =
+                CrucibleRecipeBuilder.replication(Tags.Items.DUSTS_PRISMARINE, 2)
+                        .setRecipeName("prismarine_shard")
+                        .ingredient(Tags.Items.DUSTS_PRISMARINE)
+                        .essentia(prismarineShardEssentia.essentia)
+                        .build(consumer);
 
         //Vanilla Blocks
         CrucibleRecipeBuilder obsidianReplication = CrucibleRecipeBuilder.replication(Tags.Items.OBSIDIAN, 2)
-                                                                   .setRecipeName("obsidian")
-                                                                   .ingredient(Tags.Items.OBSIDIAN)
-                                                                   .essentia(obsidianEssentia.essentia)
-                                                                   .build(consumer);
+                                                            .setRecipeName("obsidian")
+                                                            .ingredient(Tags.Items.OBSIDIAN)
+                                                            .essentia(obsidianEssentia.essentia)
+                                                            .build(consumer);
 
         //Other Items
         CrucibleRecipeBuilder boneReplication = CrucibleRecipeBuilder.replication(Tags.Items.BONES, 2)
-                                                            .setRecipeName("bone")
-                                                            .ingredient(Tags.Items.BONES)
-                                                            .essentia(boneEssentia.essentia)
-                                                            .build(consumer);
-        CrucibleRecipeBuilder slimeBallReplication = CrucibleRecipeBuilder.replication(Tags.Items.SLIMEBALLS, 2)
-                                                        .setRecipeName("slime_ball")
-                                                        .ingredient(Tags.Items.SLIMEBALLS)
-                                                        .essentia(slimeBallEssentia.essentia)
+                                                        .setRecipeName("bone")
+                                                        .ingredient(Tags.Items.BONES)
+                                                        .essentia(boneEssentia.essentia)
                                                         .build(consumer);
+        CrucibleRecipeBuilder slimeBallReplication = CrucibleRecipeBuilder.replication(Tags.Items.SLIMEBALLS, 2)
+                                                             .setRecipeName("slime_ball")
+                                                             .ingredient(Tags.Items.SLIMEBALLS)
+                                                             .essentia(slimeBallEssentia.essentia)
+                                                             .build(consumer);
 
         //Transmutation recipes
         //Modded Ingots
+        CrucibleRecipeBuilder copperIngotToGoldIngotTransmutation =
+                CrucibleRecipeBuilder.replication(Tags.Items.INGOTS_GOLD, 1)
+                        .setRecipeName("copper_ingot_to_gold_ingot")
+                        .ingredient(COPPER_INGOT)
+                        .essentia(this.essentiaDifference(copperIngotEssentia.essentia, goldIngotEssentia.essentia));
+        this.registerTagExistsCondition(copperIngotToGoldIngotTransmutation, SILVER_INGOT, consumer);
+
+        CrucibleRecipeBuilder tinIngotToGoldIngotTransmutation =
+                CrucibleRecipeBuilder.replication(Tags.Items.INGOTS_GOLD, 1)
+                        .setRecipeName("tin_ingot_to_gold_ingot")
+                        .ingredient(TIN_INGOT)
+                        .essentia(this.essentiaDifference(tinIngotEssentia.essentia, goldIngotEssentia.essentia));
+        this.registerTagExistsCondition(tinIngotToGoldIngotTransmutation, TIN_INGOT, consumer);
+
+        CrucibleRecipeBuilder silverIngotToGoldIngotTransmutation =
+                CrucibleRecipeBuilder.replication(Tags.Items.INGOTS_GOLD, 1)
+                        .setRecipeName("silver_ingot_to_gold_ingot")
+                        .ingredient(SILVER_INGOT)
+                        .essentia(this.essentiaDifference(silverIngotEssentia.essentia, goldIngotEssentia.essentia));
+        this.registerTagExistsCondition(silverIngotToGoldIngotTransmutation, SILVER_INGOT, consumer);
+
 
         //Vanilla Ingots
-        CrucibleRecipeBuilder goldIngotTransmutation = CrucibleRecipeBuilder.transmutation(Tags.Items.INGOTS_GOLD, 1)
-                                                               .setRecipeName("gold_ingot")
-                                                               .ingredient(Tags.Items.INGOTS_IRON)
-                                                               .essentia(this.essentiaDifference(ironIngotEssentia.essentia, goldIngotEssentia.essentia))
-                                                               .build(consumer);
+        CrucibleRecipeBuilder ironIngotToGoldIngotTransmutation =
+                CrucibleRecipeBuilder.transmutation(Tags.Items.INGOTS_GOLD, 1)
+                        .setRecipeName("iron_ingot_to_gold_ingot")
+                        .ingredient(Tags.Items.INGOTS_IRON)
+                        .essentia(this.essentiaDifference(ironIngotEssentia.essentia, goldIngotEssentia.essentia))
+                        .build(consumer);
+
+        //Vanilla Gems
+        CrucibleRecipeBuilder goldIngotToDiamondTransmutation =
+                CrucibleRecipeBuilder.transmutation(Tags.Items.GEMS_DIAMOND, 1)
+                        .setRecipeName("gold_ingot_to_diamond")
+                        .ingredient(Tags.Items.INGOTS_GOLD)
+                        .essentia(this.essentiaDifference(goldIngotEssentia.essentia, diamondEssentia.essentia))
+                        .build(consumer);
+        CrucibleRecipeBuilder diamondToEmeraldTransmutation =
+                CrucibleRecipeBuilder.transmutation(Tags.Items.GEMS_EMERALD, 1)
+                        .setRecipeName("diamond_to_emerald")
+                        .ingredient(Tags.Items.GEMS_DIAMOND)
+                        .essentia(this.essentiaDifference(diamondEssentia.essentia, emeraldEssentia.essentia))
+                        .build(consumer);
 
         //Loot
         CrucibleRecipeBuilder slimeTransmutation = CrucibleRecipeBuilder.transmutation(Tags.Items.SLIMEBALLS, 1)
-                .setRecipeName("slime_ball")
-                .ingredient(Items.SPIDER_EYE)
-                .essentia(terra, 50)
-                .essentia(aqua, 50)
-                .build(consumer);
+                                                           .setRecipeName("slime_ball")
+                                                           .ingredient(Items.SPIDER_EYE)
+                                                           .essentia(terra, 50)
+                                                           .essentia(aqua, 50)
+                                                           .build(consumer);
     }
     //endregion Overrides
 

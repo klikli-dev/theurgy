@@ -1,0 +1,24 @@
+{
+  "type": "theurgy:transmutation",
+  "ingredient": {
+    "tag": "forge:gems/diamond"
+  },
+  "essentia": [
+    {
+      "item": "theurgy:aqua_essentia",
+      "count": 1000
+    },
+    {
+      "item": "minecraft:air",
+      "count": 0
+    },
+    {
+      "item": "theurgy:terra_essentia",
+      "count": 500
+    }
+  ],
+  "result": {
+    "tag": "forge:gems/emerald",
+    "count": 1
+  }
+}

@@ -22,15 +22,21 @@
 
 package com.github.klikli_dev.theurgy.datagen;
 
-import com.github.klikli_dev.theurgy.common.crafting.recipe.TransmutationRecipe;
 import com.github.klikli_dev.theurgy.datagen.recipe.CrucibleRecipeBuilder;
+import com.github.klikli_dev.theurgy.datagen.recipe.EssentiaRecipeBuilder;
 import com.github.klikli_dev.theurgy.registry.ItemRegistry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.data.RecipeProvider;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.util.IItemProvider;
+import net.minecraftforge.common.Tags;
+import net.minecraftforge.common.data.ForgeItemTagsProvider;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import java.util.function.Consumer;
 
 public class TheurgyRecipeProvider extends RecipeProvider {
@@ -43,11 +49,72 @@ public class TheurgyRecipeProvider extends RecipeProvider {
     //region Overrides
     @Override
     protected void registerRecipes(Consumer<IFinishedRecipe> consumer) {
-        CrucibleRecipeBuilder.transmutation(Items.ACACIA_LOG, 1)
-                .ingredient(Items.OAK_LOG)
-                .essentia(ItemRegistry.AER_ESSENTIA.get(), 100)
-                .build(consumer,Items.ACACIA_LOG.getRegistryName());
+        Item aer = ItemRegistry.AER_ESSENTIA.get();
+        Item aqua = ItemRegistry.AQUA_ESSENTIA.get();
+        Item ignis = ItemRegistry.IGNIS_ESSENTIA.get();
+        Item terra = ItemRegistry.TERRA_ESSENTIA.get();
+
+        EssentiaRecipeBuilder ironEssentia = EssentiaRecipeBuilder.create()
+                                                     .ingredient(Tags.Items.INGOTS_IRON)
+                                                     .essentia(ignis, 100)
+                                                     .essentia(terra, 100)
+                                                     .build(consumer, "iron_ingot");
+        EssentiaRecipeBuilder goldEssentia = EssentiaRecipeBuilder.create()
+                                                     .ingredient(Tags.Items.INGOTS_GOLD)
+                                                     .essentia(aer, 50)
+                                                     .essentia(ignis, 200)
+                                                     .essentia(terra, 200)
+                                                     .build(consumer, "gold_ingot");
+
+
+        CrucibleRecipeBuilder.transmutation(Tags.Items.INGOTS_GOLD, 1)
+                .ingredient(Tags.Items.INGOTS_IRON)
+                .essentia(this.essentiaDifference(ironEssentia.essentia, goldEssentia.essentia))
+                .build(consumer, "gold_ingot");
+    }
+    //endregion Overrides
+
+    //region Methods
+
+    /**
+     * Gets the remaining required essentia for an item
+     *
+     * @param inputEssentia the essentia contained in the input item.
+     * @param inputEssentia the essentia contained in the desired output item.
+     */
+    protected List<ItemStack> essentiaDifference(List<ItemStack> inputEssentia, List<ItemStack> outputEssentia) {
+        return essentiaDifference(inputEssentia, outputEssentia, 1.0f);
     }
 
-    //endregion Overrides
+    /**
+     * Gets the remaining required essentia for an item
+     *
+     * @param inputEssentia            the essentia contained in the input item.
+     * @param inputEssentia            the essentia contained in the desired output item.
+     * @param outputEssentiaMultiplier a multiplier for the output essentia, usually to simulate loss / additional cost
+     */
+    protected List<ItemStack> essentiaDifference(List<ItemStack> inputEssentia, List<ItemStack> outputEssentia,
+                                                 float outputEssentiaMultiplier) {
+        List<ItemStack> result = new ArrayList<>();
+        for (ItemStack essentia : outputEssentia) {
+            Optional<ItemStack> other = inputEssentia.stream()
+                                                .filter(stack -> stack.getItem() == essentia.getItem())
+                                                .findFirst();
+            if (other.isPresent()) {
+                //if input has matching essentia, subtract it from requirement
+                ItemStack output = essentia.copy();
+                int difference = Math.max(0, essentia.getCount() - other.get().getCount());
+                output.setCount((int) (difference * outputEssentiaMultiplier));
+                result.add(output);
+            }
+            else {
+                //if no matching input essentia, just return the output essentia * outputEssentiaMultiplier
+                ItemStack output = essentia.copy();
+                output.setCount((int) (essentia.getCount() * outputEssentiaMultiplier));
+                result.add(output);
+            }
+        }
+        return result;
+    }
+    //endregion Methods
 }

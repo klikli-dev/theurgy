@@ -23,9 +23,8 @@
 package com.github.klikli_dev.theurgy.datagen.recipe;
 
 import com.github.klikli_dev.theurgy.Theurgy;
+import com.github.klikli_dev.theurgy.common.crafting.recipe.EssentiaRecipe;
 import com.github.klikli_dev.theurgy.common.crafting.recipe.TransmutationRecipe;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import net.minecraft.data.IFinishedRecipe;
@@ -41,98 +40,68 @@ import net.minecraftforge.registries.ForgeRegistries;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ResourceBundle;
 import java.util.function.Consumer;
 
-public class CrucibleRecipeBuilder {
+public class EssentiaRecipeBuilder {
     //region Fields
-    private final IRecipeSerializer<?> serializer;
-    private final Ingredient result;
-    private final int count;
-    private final List<ItemStack> essentia = new ArrayList<>();
+    public final List<ItemStack> essentia = new ArrayList<>();
     private Ingredient ingredient;
     private String group;
-    private String folder;
     //endregion Fields
 
-    //region Initialization
-
-    public CrucibleRecipeBuilder(IRecipeSerializer<?> serializer, Ingredient result, int count) {
-        this.result = result;
-        this.serializer = serializer;
-        this.count = count;
-    }
-    //endregion Initialization
-
     //region Getter / Setter
-    public CrucibleRecipeBuilder setGroup(String groupIn) {
+    public EssentiaRecipeBuilder setGroup(String groupIn) {
         this.group = groupIn;
-        return this;
-    }
-    public CrucibleRecipeBuilder setFolder(String folder) {
-        this.folder = folder;
         return this;
     }
     //endregion Getter / Setter
 
     //region Static Methods
-    public static CrucibleRecipeBuilder transmutation(Ingredient result, int count) {
-        return new CrucibleRecipeBuilder(TransmutationRecipe.SERIALIZER, result, count).setFolder("transmutation");
-    }
-    public static CrucibleRecipeBuilder transmutation(ITag<Item> result, int count) {
-        return transmutation(Ingredient.fromTag(result), count);
-    }
-    public static CrucibleRecipeBuilder transmutation(IItemProvider result, int count) {
-        return transmutation(Ingredient.fromItems(result), count);
+    public static EssentiaRecipeBuilder create() {
+        return new EssentiaRecipeBuilder();
     }
     //endregion Static Methods
 
     //region Methods
-    public CrucibleRecipeBuilder essentia(List<ItemStack> essentia) {
-        this.essentia.addAll(essentia);
-        return this;
-    }
-
-    public CrucibleRecipeBuilder essentia(IItemProvider essentia, int count) {
+    public EssentiaRecipeBuilder essentia(IItemProvider essentia, int count) {
         this.essentia.add(new ItemStack(essentia, count));
         return this;
     }
 
-    public CrucibleRecipeBuilder ingredient(ITag<Item> ingredient) {
+    public EssentiaRecipeBuilder ingredient(ITag<Item> ingredient) {
         return this.ingredient(Ingredient.fromTag(ingredient));
     }
 
-    public CrucibleRecipeBuilder ingredient(IItemProvider ingredient) {
+    public EssentiaRecipeBuilder ingredient(IItemProvider ingredient) {
         return this.ingredient(Ingredient.fromItems(ingredient));
     }
 
-    public CrucibleRecipeBuilder ingredient(Ingredient ingredient) {
+    public EssentiaRecipeBuilder ingredient(Ingredient ingredient) {
         this.ingredient = ingredient;
         return this;
     }
 
-    public CrucibleRecipeBuilder build(Consumer<IFinishedRecipe> consumerIn) {
+    public EssentiaRecipeBuilder build(Consumer<IFinishedRecipe> consumerIn) {
         return this.build(consumerIn, this.ingredient.getMatchingStacks()[0].getItem());
     }
 
-    public CrucibleRecipeBuilder build(Consumer<IFinishedRecipe> consumerIn, Item recipeNameItem) {
+    public EssentiaRecipeBuilder build(Consumer<IFinishedRecipe> consumerIn, Item recipeNameItem) {
         ResourceLocation itemLocation = recipeNameItem.getRegistryName();
-        return this.build(consumerIn,  itemLocation.getPath());
+        return this.build(consumerIn, itemLocation.getPath());
     }
 
-    public CrucibleRecipeBuilder build(Consumer<IFinishedRecipe> consumerIn, String recipeName) {
-        ResourceLocation recipeLocation = new ResourceLocation(Theurgy.MODID, this.folder
-                                                                              + "/" + recipeName);
+    public EssentiaRecipeBuilder build(Consumer<IFinishedRecipe> consumerIn, String recipeName) {
+        ResourceLocation recipeLocation = new ResourceLocation(Theurgy.MODID, "essentia/" + recipeName);
         return this.build(consumerIn, recipeLocation);
     }
 
     /**
      * Builds this recipe into an {@link IFinishedRecipe}.
      */
-    public CrucibleRecipeBuilder build(Consumer<IFinishedRecipe> consumerIn, ResourceLocation id) {
+    public EssentiaRecipeBuilder build(Consumer<IFinishedRecipe> consumerIn, ResourceLocation id) {
         consumerIn.accept(
-                new CrucibleRecipeBuilder.Result(id, this.serializer, this.group == null ? "" : this.group,
-                        this.result, this.count, this.essentia, this.ingredient));
+                new EssentiaRecipeBuilder.Result(id, this.group == null ? "" : this.group,
+                        this.essentia, this.ingredient));
         return this;
     }
     //endregion Methods
@@ -141,22 +110,15 @@ public class CrucibleRecipeBuilder {
 
         //region Fields
         private final ResourceLocation id;
-        private final IRecipeSerializer<?> serializer;
-        private final Ingredient result;
-        private final int count;
         private final List<ItemStack> essentia;
         private final Ingredient ingredient;
         private final String group;
         //endregion Fields
 
         //region Initialization
-        public Result(ResourceLocation id, IRecipeSerializer<?> serializer, String group, Ingredient result,
-                      int count, List<ItemStack> essentia, Ingredient ingredient) {
+        public Result(ResourceLocation id, String group, List<ItemStack> essentia, Ingredient ingredient) {
             this.id = id;
-            this.serializer = serializer;
             this.group = group;
-            this.result = result;
-            this.count = count;
             this.essentia = essentia;
             this.ingredient = ingredient;
         }
@@ -180,11 +142,6 @@ public class CrucibleRecipeBuilder {
             }
 
             json.add("essentia", essentiaJson);
-
-            JsonObject resultJson = (JsonObject) this.result.serialize();
-            resultJson.addProperty("count", this.count);
-
-            json.add("result", resultJson);
         }
 
         @Override
@@ -194,7 +151,7 @@ public class CrucibleRecipeBuilder {
 
         @Override
         public IRecipeSerializer<?> getSerializer() {
-            return this.serializer;
+            return EssentiaRecipe.SERIALIZER;
         }
 
         @Nullable

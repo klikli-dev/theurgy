@@ -70,37 +70,37 @@ public class TheurgyConfig extends ConfigBase {
                     builder.comment(
                             "The chance for a crystal to spread to a neighbor block on a random tick. " +
                             "Calculated as x in 1, therefore a higher number here means a lower chance of spread.")
-                            .define("pureCrystalChanceToSpread", 5));
+                            .define("pureCrystalChanceToSpread", 10));
 
             this.aerCrystalChanceToSpread = CachedInt.cache(this,
                     builder.comment(
                             "The chance for a crystal to spread to a neighbor block on a random tick. " +
                             "Calculated as x in 1, therefore a higher number here means a lower chance of spread.")
-                            .define("aerCrystalChanceToSpread", 5));
+                            .define("aerCrystalChanceToSpread", 10));
 
             this.aquaCrystalChanceToSpread = CachedInt.cache(this,
                     builder.comment(
                             "The chance for a crystal to spread to a neighbor block on a random tick. " +
                             "Calculated as x in 1, therefore a higher number here means a lower chance of spread.")
-                            .define("aquaCrystalChanceToSpread", 5));
+                            .define("aquaCrystalChanceToSpread", 10));
 
             this.ignisCrystalChanceToSpread = CachedInt.cache(this,
                     builder.comment(
                             "The chance for a crystal to spread to a neighbor block on a random tick. " +
                             "Calculated as x in 1, therefore a higher number here means a lower chance of spread.")
-                            .define("ignisCrystalChanceToSpread", 5));
+                            .define("ignisCrystalChanceToSpread", 10));
 
             this.terraCrystalChanceToSpread = CachedInt.cache(this,
                     builder.comment(
                             "The chance for a crystal to spread to a neighbor block on a random tick. " +
                             "Calculated as x in 1, therefore a higher number here means a lower chance of spread.")
-                            .define("terraCrystalChanceToSpread", 5));
+                            .define("terraCrystalChanceToSpread", 10));
 
             this.primaMateriaCrystalChanceToSpread = CachedInt.cache(this,
                     builder.comment(
                             "The chance for a crystal to spread to a neighbor block on a random tick. " +
                             "Calculated as x in 1, therefore a higher number here means a lower chance of spread.")
-                            .define("primaMateriaCrystalChanceToSpread", 5));
+                            .define("primaMateriaCrystalChanceToSpread", 10));
 
             builder.pop();
         }

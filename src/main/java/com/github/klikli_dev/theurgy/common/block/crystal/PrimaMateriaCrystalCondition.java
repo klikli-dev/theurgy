@@ -57,8 +57,9 @@ public class PrimaMateriaCrystalCondition extends PureCrystalCondition {
                 ItemRegistry.AQUA_ESSENTIA.get(),
                 ItemRegistry.IGNIS_ESSENTIA.get(),
                 ItemRegistry.TERRA_ESSENTIA.get()
-        ) < Theurgy.CONFIG.crystalSettings.primaMateriaSpreadEssentia.get())
+        ) < Theurgy.CONFIG.crystalSettings.primaMateriaSpreadEssentia.get()) {
             return null;
+        }
 
         return super.canSpreadTo(world, targetState, targetPos, sourceState, sourcePos);
     }

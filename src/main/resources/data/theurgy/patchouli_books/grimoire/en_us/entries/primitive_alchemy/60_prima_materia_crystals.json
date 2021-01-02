@@ -1,0 +1,26 @@
+{
+  "name": "Prima Materia",
+  "icon": "theurgy:prima_materia_crystal",
+  "category": "20_primitive_alchemy",
+  "sortnum": 60,
+  "pages": [
+    {
+      "type": "text",
+      "text": "$(thing)Prima Materia$() is a mystical substance said to unlock the path to true power over matter. Some even see it as the main ingredient to crafting the legendary $(thing)Philosopher's Stone$(). Scholars agree, however, that Prima Materia is the key to $(bold)transmutation$(), the almost limitless transformation of any type of matter into any other. "
+    },
+    {
+      "type": "text",
+      "text": "The key property of Prima Materia is that it consist of all four Essentia in perfect balance. Successfully infusing Pure Crystals with one type of Essentia hints at the possibility to infuse more than one Essentia, and potentially all four types. This, in theory, should result in a $(item)Prima Materia Crystal$()."
+    },
+    {
+      "type": "spotlight",
+      "item": "theurgy:prima_materia_crystal",
+      "text": "To that end, we need to release 1000 of each Essentia into a chunk using the $(item)Crucible$(), then place down a Pure Crystal. As long as we ensure that none of the Essentia Crystal conditions are met, the crystal will consume the Essentia and grow a $(item)Prima Materia Crystal$()."
+    },
+    {
+      "type": "image",
+      "images": ["theurgy:textures/gui/grimoire/prima_materia_crystal_growing.png"],
+      "text": "Prima Materia Crystals oddly seem not to grow on floors, only on walls and the ceiling."
+    }
+  ]
+}

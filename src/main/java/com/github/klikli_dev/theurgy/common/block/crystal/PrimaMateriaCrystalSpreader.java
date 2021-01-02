@@ -41,11 +41,13 @@ public class PrimaMateriaCrystalSpreader implements ICrystalSpreadHandler {
     //region Fields
     public ICrystalSpreadCondition condition;
     public Supplier<Block> crystalBlock;
+    public int chanceToSpread;
     //endregion Fields
 
     //region Initialization
-    public PrimaMateriaCrystalSpreader(ICrystalSpreadCondition condition, Supplier<Block> crystalBlock) {
+    public PrimaMateriaCrystalSpreader(ICrystalSpreadCondition condition, int chanceToSpread, Supplier<Block> crystalBlock) {
         this.condition = condition;
+        this.chanceToSpread = chanceToSpread;
         this.crystalBlock = crystalBlock;
     }
     //endregion Initialization
@@ -54,6 +56,9 @@ public class PrimaMateriaCrystalSpreader implements ICrystalSpreadHandler {
     @Override
     public boolean handleSpread(CrystalBlock sourceCrystalType, IWorld world, BlockState sourceState,
                                 BlockPos sourcePos) {
+
+        if (world.getRandom().nextInt(this.chanceToSpread) != 0)
+            return false;
 
         //get possible blocks to spread to,
         List<BlockPos> possibleTargets = this.getPossibleSpreadBlockPos(world, sourcePos);

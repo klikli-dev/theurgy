@@ -44,21 +44,40 @@ public class PureCrystalSpreader implements ICrystalSpreadHandler {
     public ICrystalSpreadCondition aquaCondition;
     public ICrystalSpreadCondition ignisCondition;
     public ICrystalSpreadCondition terraCondition;
+    public int pureCrystalChanceToSpread;
+    public int primaMateriaCrystalChanceToSpread;
+    public int aerCrystalChanceToSpread;
+    public int aquaCrystalChanceToSpread;
+    public int ignisCrystalChanceToSpread;
+    public int terraCrystalChanceToSpread;
     //endregion Fields
 
     //region Initialization
     public PureCrystalSpreader(ICrystalSpreadCondition pureCondition,
+                               int pureCrystalChanceToSpread,
                                ICrystalSpreadCondition primaMateriaCondition,
+                               int primaMateriaCrystalChanceToSpread,
                                ICrystalSpreadCondition aerCondition,
+                               int aerCrystalChanceToSpread,
                                ICrystalSpreadCondition aquaCondition,
+                               int aquaCrystalChanceToSpread,
                                ICrystalSpreadCondition ignisCondition,
-                               ICrystalSpreadCondition terraCondition) {
+                               int ignisCrystalChanceToSpread,
+                               ICrystalSpreadCondition terraCondition,
+                               int terraCrystalChanceToSpread) {
         this.pureCondition = pureCondition;
         this.primaMateriaCondition = primaMateriaCondition;
         this.aerCondition = aerCondition;
         this.aquaCondition = aquaCondition;
         this.ignisCondition = ignisCondition;
         this.terraCondition = terraCondition;
+        this.pureCrystalChanceToSpread = pureCrystalChanceToSpread;
+        this.primaMateriaCrystalChanceToSpread = primaMateriaCrystalChanceToSpread;
+        this.aerCrystalChanceToSpread = aerCrystalChanceToSpread;
+        this.aquaCrystalChanceToSpread = aquaCrystalChanceToSpread;
+        this.ignisCrystalChanceToSpread = ignisCrystalChanceToSpread;
+        this.terraCrystalChanceToSpread = terraCrystalChanceToSpread;
+
     }
     //endregion Initialization
 
@@ -66,6 +85,8 @@ public class PureCrystalSpreader implements ICrystalSpreadHandler {
     @Override
     public boolean handleSpread(CrystalBlock sourceCrystalType, IWorld world, BlockState sourceState,
                                 BlockPos sourcePos) {
+
+
 
         //get possible blocks to spread to,
         List<BlockPos> possibleTargets = this.getPossibleSpreadBlockPos(world, sourcePos);
@@ -76,6 +97,8 @@ public class PureCrystalSpreader implements ICrystalSpreadHandler {
         CrystalPlacementInfo spreadTo =
                 this.getValidSpreadPosition(this.aerCondition, world, possibleTargets, sourceState, sourcePos);
         if (spreadTo != null) {
+            if (world.getRandom().nextInt(this.aerCrystalChanceToSpread) != 0)
+                return false;
             world.setBlockState(spreadTo.pos, BlockRegistry.AER_CRYSTAL.get().getDefaultState()
                                                       .with(BlockStateProperties.FACING, spreadTo.direction), 2);
             return true;
@@ -84,6 +107,8 @@ public class PureCrystalSpreader implements ICrystalSpreadHandler {
         //Check aqua
         spreadTo = this.getValidSpreadPosition(this.aquaCondition, world, possibleTargets, sourceState, sourcePos);
         if (spreadTo != null) {
+            if (world.getRandom().nextInt(this.aquaCrystalChanceToSpread) != 0)
+                return false;
             world.setBlockState(spreadTo.pos, BlockRegistry.AQUA_CRYSTAL.get().getDefaultState()
                                                       .with(BlockStateProperties.FACING, spreadTo.direction), 2);
             return true;
@@ -92,6 +117,8 @@ public class PureCrystalSpreader implements ICrystalSpreadHandler {
         //Check ignis
         spreadTo = this.getValidSpreadPosition(this.ignisCondition, world, possibleTargets, sourceState, sourcePos);
         if (spreadTo != null) {
+            if (world.getRandom().nextInt(this.ignisCrystalChanceToSpread) != 0)
+                return false;
             world.setBlockState(spreadTo.pos, BlockRegistry.IGNIS_CRYSTAL.get().getDefaultState()
                                                       .with(BlockStateProperties.FACING, spreadTo.direction), 2);
             return true;
@@ -100,6 +127,8 @@ public class PureCrystalSpreader implements ICrystalSpreadHandler {
         //Check terra
         spreadTo = this.getValidSpreadPosition(this.terraCondition, world, possibleTargets, sourceState, sourcePos);
         if (spreadTo != null) {
+            if (world.getRandom().nextInt(this.terraCrystalChanceToSpread) != 0)
+                return false;
             world.setBlockState(spreadTo.pos, BlockRegistry.TERRA_CRYSTAL.get().getDefaultState()
                                                       .with(BlockStateProperties.FACING, spreadTo.direction), 2);
             return true;
@@ -109,6 +138,8 @@ public class PureCrystalSpreader implements ICrystalSpreadHandler {
         spreadTo =
                 this.getValidSpreadPosition(this.primaMateriaCondition, world, possibleTargets, sourceState, sourcePos);
         if (spreadTo != null) {
+            if (world.getRandom().nextInt(this.primaMateriaCrystalChanceToSpread) != 0)
+                return false;
             EssentiaChunk chunkEssentia = EssentiaChunkHandler.getOrCreateEssentiaChunk(
                     ((World) world).getDimensionKey(), new ChunkPos(spreadTo.pos));
 
@@ -124,6 +155,8 @@ public class PureCrystalSpreader implements ICrystalSpreadHandler {
         //If no other crystal type is valid, check pure condition
         spreadTo = this.getValidSpreadPosition(this.pureCondition, world, possibleTargets, sourceState, sourcePos);
         if (spreadTo != null) {
+            if (world.getRandom().nextInt(this.pureCrystalChanceToSpread) != 0)
+                return false;
             world.setBlockState(spreadTo.pos, BlockRegistry.PURE_CRYSTAL.get().getDefaultState()
                                                       .with(BlockStateProperties.FACING, spreadTo.direction), 2);
             return true;

@@ -1,0 +1,20 @@
+{
+  "type": "theurgy:replication",
+  "ingredient": {
+    "item": "minecraft:bone"
+  },
+  "essentia": [
+    {
+      "item": "theurgy:aer_essentia",
+      "count": 10
+    },
+    {
+      "item": "theurgy:terra_essentia",
+      "count": 10
+    }
+  ],
+  "result": {
+    "item": "minecraft:bone",
+    "count": 2
+  }
+}

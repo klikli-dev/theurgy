@@ -1,0 +1,12 @@
+{
+  "type": "theurgy:essentia",
+  "ingredient": {
+    "item": "minecraft:obsidian"
+  },
+  "essentia": [
+    {
+      "item": "theurgy:terra_essentia",
+      "count": 10
+    }
+  ]
+}

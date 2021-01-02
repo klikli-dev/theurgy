@@ -21,7 +21,19 @@
     {
       "type": "text",
       "title": "Usage",
-      "text": "To use the crucible to $(italics)create$() matter, one first needs to $(italics)dissolve$() matter to release it's $(thing)Essentia$(). To dissolve an item, simply drop it into the boiling water in the crucible. In order to use the crucible to create new items, stir the boiling $(thing)Essentia$() by right-clicking the crucible with a stick, then drop in the ingredient."
+      "text": "To use the crucible to $(italics)create$() items, one first needs to $(italics)dissolve$() matter to release it's $(thing)Essentia$(). To dissolve an item, simply drop it into the boiling water in the crucible. In order to use the crucible to create new items, $(bold)stir$() the boiling $(thing)Essentia$() by right-clicking it with $(l:getting_started/20_crucible#stirring_tools)the right stirring tool$(), then drop in the ingredient while $(bold)colorful bubbles$() show. The crafting time can be extended by stirring multiple times."
+    },
+    {
+      "type": "text",
+      "title": "Stirring Tools",
+      "text": "The stirring tool determines the type of crafting: $(li)$(thing)Stick$(): Purification$() $(li)$(thing)Pure Crystal Stirrer$(): Replication$()$() $(li)$(thing)Prima Materia Crystal Stirrer$(): Transmutation$()$()",
+      "anchor": "stirring_tools"
+    },
+    {
+      "type": "text",
+      "title": "Emptying",
+      "text": "To empty the crucible of water and all Essentia, shift-click it with an empty hand. The Essentia will diffuse into the environment immediately.",
+      "anchor": "emptying"
     }
   ]
 }

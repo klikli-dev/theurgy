@@ -1,7 +1,7 @@
 {
-  "type": "theurgy:purification",
+  "type": "theurgy:replication",
   "ingredient": {
-    "tag": "forge:ores/iron"
+    "item": "minecraft:obsidian"
   },
   "essentia": [
     {
@@ -10,7 +10,7 @@
     }
   ],
   "result": {
-    "tag": "forge:ingots/iron",
+    "item": "minecraft:obsidian",
     "count": 2
   }
 }

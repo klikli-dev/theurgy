@@ -1,0 +1,44 @@
+{
+  "processor": "com.github.klikli_dev.theurgy.client.gui.patchouli.CrucibleRecipeProcessor",
+  "components": [
+    {
+      "type": "header", "text": "#title", "centered": false, "x": 4, "y": 0
+    },
+    {
+      "type": "text", "text": "Ingredient:", "x": 4, "y": 15
+    },
+    {
+      "type": "item", "item": "#input", "x": 4, "y": 25
+    },
+    {
+      "type": "text", "text": "Essentia:", "x": 4, "y": 45
+    },
+    {
+      "type": "item", "item": "#essentia1", "x": 4, "y": 55
+    },
+    {
+      "type": "item", "item": "#essentia2", "x": 34, "y": 55
+    },
+    {
+      "type": "item", "item": "#essentia3", "x": 64, "y": 55
+    },
+    {
+      "type": "item", "item": "#essentia4", "x": 94, "y": 55
+    },
+    {
+      "type": "text", "text": "Construct:", "x": 4, "y": 75
+    },
+    {
+      "type": "item", "item": "theurgy:crucible", "x": 4, "y": 85
+    },
+    {
+      "type": "item", "item": "#tool", "x": 24, "y": 85
+    },
+    {
+      "type": "text", "text": "Result:", "x": 4, "y": 105
+    },
+    {
+      "type": "item", "item": "#output", "x": 4, "y": 115
+    }
+  ]
+}

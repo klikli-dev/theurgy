@@ -30,6 +30,7 @@ import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 import java.util.List;
@@ -39,14 +40,18 @@ public abstract class CrucibleRecipeCategory<T extends CrucibleRecipe> implement
     //region Fields
     private final IDrawable background;
     private final IDrawable icon;
-    private final ItemStack renderStack = new ItemStack(BlockRegistry.CRUCIBLE.get());
+    private final ItemStack construct = new ItemStack(BlockRegistry.CRUCIBLE.get());
+    private final ItemStack stirrer;
     //endregion Fields
 
     //region Initialization
-    public CrucibleRecipeCategory(IGuiHelper guiHelper) {
+    public CrucibleRecipeCategory(IGuiHelper guiHelper, ItemStack stirrer) {
         this.background = guiHelper.createBlankDrawable(168, 86);
-        this.icon = guiHelper.createDrawableIngredient(this.renderStack);
-        this.renderStack.getOrCreateTag().putBoolean("RenderFull", true);
+        this.stirrer = stirrer;
+        this.icon = guiHelper.createDrawableIngredient(this.construct);
+        this.construct.getOrCreateTag().putBoolean("RenderFull", true);
+        if(this.stirrer != ItemStack.EMPTY)
+            this.stirrer.getOrCreateTag().putBoolean("RenderFull", true);
     }
     //endregion Initialization
 
@@ -99,9 +104,14 @@ public abstract class CrucibleRecipeCategory<T extends CrucibleRecipe> implement
 
         //draw crucible
         recipeLayout.getItemStacks().init(index, true, x, y);
-        recipeLayout.getItemStacks().set(index, this.renderStack);
+        recipeLayout.getItemStacks().set(index, this.construct);
         index++;
         y += 20;
+
+        //draw stirrer in upper left corner
+        recipeLayout.getItemStacks().init(index, true, 0, 0);
+        recipeLayout.getItemStacks().set(index, this.stirrer);
+        index++;
 
         //draw output
         recipeLayout.getItemStacks().init(index, false, x, y);

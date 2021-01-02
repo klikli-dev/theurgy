@@ -1,7 +1,7 @@
 {
   "type": "theurgy:purification",
   "ingredient": {
-    "tag": "forge:ores/iron"
+    "tag": "forge:ores/redstone"
   },
   "essentia": [
     {
@@ -10,7 +10,7 @@
     }
   ],
   "result": {
-    "tag": "forge:ingots/iron",
-    "count": 2
+    "item": "minecraft:redstone",
+    "count": 10
   }
 }

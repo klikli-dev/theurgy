@@ -24,15 +24,18 @@ package com.github.klikli_dev.theurgy.integration.jei.recipes;
 
 import com.github.klikli_dev.theurgy.Theurgy;
 import com.github.klikli_dev.theurgy.common.crafting.recipe.ReplicationRecipe;
+import com.github.klikli_dev.theurgy.registry.ItemRegistry;
 import com.github.klikli_dev.theurgy.registry.RecipeRegistry;
 import mezz.jei.api.helpers.IGuiHelper;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.util.ResourceLocation;
 
 public class ReplicationRecipeCategory extends CrucibleRecipeCategory<ReplicationRecipe> {
     //region Initialization
     public ReplicationRecipeCategory(IGuiHelper guiHelper) {
-        super(guiHelper);
+        super(guiHelper, new ItemStack(ItemRegistry.PURE_CRYSTAL_STIRRER.get()));
     }
     //endregion Initialization
 

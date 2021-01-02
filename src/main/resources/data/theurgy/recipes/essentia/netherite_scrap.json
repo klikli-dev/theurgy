@@ -1,0 +1,16 @@
+{
+  "type": "theurgy:essentia",
+  "ingredient": {
+    "tag": "forge:ingots/netherite"
+  },
+  "essentia": [
+    {
+      "item": "theurgy:ignis_essentia",
+      "count": 500
+    },
+    {
+      "item": "theurgy:aer_essentia",
+      "count": 500
+    }
+  ]
+}

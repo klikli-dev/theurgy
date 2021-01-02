@@ -1,0 +1,20 @@
+{
+  "type": "theurgy:replication",
+  "ingredient": {
+    "tag": "forge:ingots/netherite"
+  },
+  "essentia": [
+    {
+      "item": "theurgy:ignis_essentia",
+      "count": 2000
+    },
+    {
+      "item": "theurgy:aer_essentia",
+      "count": 2000
+    }
+  ],
+  "result": {
+    "tag": "forge:ingots/netherite",
+    "count": 2
+  }
+}

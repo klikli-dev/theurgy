@@ -1,13 +1,13 @@
 {
   "name": "The Four Elements",
-  "icon": "theurgy:aer_essentia",
+  "icon": "theurgy:ignis_essentia",
   "category": "10_getting_started",
   "sortnum": 10,
   "pages": [
     {
       "type": "text",
       "title": "Alchemy",
-      "text": "The goal of alchemy is the mastery of matter. Master $(thing)Hermeticists$() are said to be able to replicate any object and to transform any material into any other. In other words: Unmeasurable riches await those understanding the manipulation of matter."
+      "text": "The goal of alchemy is the mastery of matter. Master $(thing)Hermeticists$() are said to be able to replicate any object and transform any material into any other. In other words: Unmeasurable riches await those understanding the manipulation of matter. The challenge seems to lie in attaining said mastery."
     },
     {
       "type": "text",

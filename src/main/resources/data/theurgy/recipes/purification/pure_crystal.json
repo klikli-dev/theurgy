@@ -1,0 +1,28 @@
+{
+  "type": "theurgy:purification",
+  "ingredient": {
+    "item": "theurgy:crystal_substrate"
+  },
+  "essentia": [
+    {
+      "item": "theurgy:aer_essentia",
+      "count": 100
+    },
+    {
+      "item": "theurgy:aqua_essentia",
+      "count": 100
+    },
+    {
+      "item": "theurgy:ignis_essentia",
+      "count": 100
+    },
+    {
+      "item": "theurgy:terra_essentia",
+      "count": 100
+    }
+  ],
+  "result": {
+    "item": "theurgy:pure_crystal",
+    "count": 1
+  }
+}

@@ -1,0 +1,98 @@
+{
+  "name": "Object Replication",
+  "icon": "theurgy:pure_crystal_stirrer",
+  "category": "20_primitive_alchemy",
+  "sortnum": 40,
+  "pages": [
+    {
+      "type": "text",
+      "text": "While purification already proved to be invaluable in enriching ourselves, we are now ready to dive deeper into the mysteries of alchemical manipulation. Using the $(item)Essentia Gauge$() has shown that $(item)Pure Crystals$() have a unique interaction with Essentia."
+    },
+    {
+      "type": "text",
+      "text": "It seems possible that these crystals can be used to direct Essentia to mimic the shape of a given reference object, $(bold)effectively allowing to duplicate items$(). While this seems an exciting prospect, the knowledgeable Hermeticist knows, this comes at a cost: $(bold)lots of Essentia$(). In that sense, replication is already a primitive type of transmutation: Dissolve items, in order to replicate others."
+    },
+    {
+      "type": "spotlight",
+      "item": "theurgy:pure_crystal_stirrer",
+      "text": "To $(bold)replicate$() items in the cauldron, stir with a $(item)Pure Crystal Stirrer$() by right-clicking the boiling cauldron. Stir multiple times to increase the time you can drop in items. Crafting will only work while colorful bubbles show. Small parts of the crystal will break off at each use and enable the replication process."
+    },
+    {
+      "type": "theurgy:crucible_recipe",
+      "recipe": "theurgy:replication/emerald",
+      "tool": "theurgy:pure_crystal_stirrer",
+      "title": "Emerald"
+    },
+    {
+      "type": "theurgy:crucible_recipe",
+      "recipe": "theurgy:replication/diamond",
+      "tool": "theurgy:pure_crystal_stirrer",
+      "title": "Diamond"
+    },
+    {
+      "type": "theurgy:crucible_recipe",
+      "recipe": "theurgy:replication/prismarine_crystal",
+      "tool": "theurgy:pure_crystal_stirrer",
+      "title": "Prismarine Crystal"
+    },
+    {
+      "type": "theurgy:crucible_recipe",
+      "recipe": "theurgy:replication/prismarine_shard",
+      "tool": "theurgy:pure_crystal_stirrer",
+      "title": "Prismarine Shard"
+    },
+    {
+      "type": "theurgy:crucible_recipe",
+      "recipe": "theurgy:replication/netherite_ingot",
+      "tool": "theurgy:pure_crystal_stirrer",
+      "title": "Netherite Ingot"
+    },
+    {
+      "type": "theurgy:crucible_recipe",
+      "recipe": "theurgy:replication/gold_ingot",
+      "tool": "theurgy:pure_crystal_stirrer",
+      "title": "Gold Ingot"
+    },
+    {
+      "type": "theurgy:crucible_recipe",
+      "recipe": "theurgy:replication/iron_ingot",
+      "tool": "theurgy:pure_crystal_stirrer",
+      "title": "Iron Ingot"
+    },
+    {
+      "type": "theurgy:crucible_recipe",
+      "recipe": "theurgy:replication/quartz",
+      "tool": "theurgy:pure_crystal_stirrer",
+      "title": "Nether Quartz"
+    },
+    {
+      "type": "theurgy:crucible_recipe",
+      "recipe": "theurgy:replication/lapis",
+      "tool": "theurgy:pure_crystal_stirrer",
+      "title": "Lapis"
+    },
+    {
+      "type": "theurgy:crucible_recipe",
+      "recipe": "theurgy:replication/redstone_dust",
+      "tool": "theurgy:pure_crystal_stirrer",
+      "title": "Redstone Dust"
+    },
+    {
+      "type": "theurgy:crucible_recipe",
+      "recipe": "theurgy:replication/glowstone_dust",
+      "tool": "theurgy:pure_crystal_stirrer",
+      "title": "Glowstone Dust"
+    },
+    {
+      "type": "theurgy:crucible_recipe",
+      "recipe": "theurgy:replication/obsidian",
+      "tool": "theurgy:pure_crystal_stirrer",
+      "title": "Obsidian"
+    },
+    {
+      "type": "text",
+      "title": "But wait, there's more!",
+      "text": "To find further (modded) replication recipes, use JEI to check for all uses of the $(thing)Crucible$()."
+    }
+  ]
+}

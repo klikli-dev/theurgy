@@ -1,0 +1,29 @@
+{
+  "type": "theurgy:replication",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:ores/copper"
+      }
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:ingots/copper"
+  },
+  "essentia": [
+    {
+      "item": "theurgy:terra_essentia",
+      "count": 100
+    },
+    {
+      "item": "theurgy:ignis_essentia",
+      "count": 100
+    }
+  ],
+  "result": {
+    "tag": "forge:ingots/copper",
+    "count": 2
+  }
+}

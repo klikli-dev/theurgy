@@ -1,0 +1,25 @@
+{
+  "type": "theurgy:purification",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:ores/tin"
+      }
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:ores/tin"
+  },
+  "essentia": [
+    {
+      "item": "theurgy:terra_essentia",
+      "count": 10
+    }
+  ],
+  "result": {
+    "tag": "forge:ingots/tin",
+    "count": 2
+  }
+}

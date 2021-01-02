@@ -1,0 +1,16 @@
+{
+  "type": "theurgy:essentia",
+  "ingredient": {
+    "tag": "forge:dusts/prismarine"
+  },
+  "essentia": [
+    {
+      "item": "theurgy:aqua_essentia",
+      "count": 500
+    },
+    {
+      "item": "theurgy:terra_essentia",
+      "count": 500
+    }
+  ]
+}

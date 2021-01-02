@@ -24,15 +24,17 @@ package com.github.klikli_dev.theurgy.integration.jei.recipes;
 
 import com.github.klikli_dev.theurgy.Theurgy;
 import com.github.klikli_dev.theurgy.common.crafting.recipe.TransmutationRecipe;
+import com.github.klikli_dev.theurgy.registry.ItemRegistry;
 import com.github.klikli_dev.theurgy.registry.RecipeRegistry;
 import mezz.jei.api.helpers.IGuiHelper;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
 public class TransmutationRecipeCategory extends CrucibleRecipeCategory<TransmutationRecipe> {
     //region Initialization
     public TransmutationRecipeCategory(IGuiHelper guiHelper) {
-        super(guiHelper);
+        super(guiHelper, new ItemStack(ItemRegistry.PRIMA_MATERIA_CRYSTAL_STIRRER.get()));
     }
     //endregion Initialization
 

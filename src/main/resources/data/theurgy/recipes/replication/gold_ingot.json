@@ -1,0 +1,24 @@
+{
+  "type": "theurgy:replication",
+  "ingredient": {
+    "tag": "forge:ingots/gold"
+  },
+  "essentia": [
+    {
+      "item": "theurgy:terra_essentia",
+      "count": 200
+    },
+    {
+      "item": "theurgy:ignis_essentia",
+      "count": 200
+    },
+    {
+      "item": "theurgy:aer_essentia",
+      "count": 50
+    }
+  ],
+  "result": {
+    "tag": "forge:ingots/gold",
+    "count": 2
+  }
+}

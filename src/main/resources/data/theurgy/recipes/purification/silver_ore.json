@@ -1,0 +1,25 @@
+{
+  "type": "theurgy:purification",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:ores/silver"
+      }
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:ores/silver"
+  },
+  "essentia": [
+    {
+      "item": "theurgy:terra_essentia",
+      "count": 10
+    }
+  ],
+  "result": {
+    "tag": "forge:ingots/silver",
+    "count": 2
+  }
+}

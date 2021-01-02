@@ -1,16 +1,16 @@
 {
   "type": "theurgy:purification",
   "ingredient": {
-    "tag": "forge:ores/iron"
+    "item": "minecraft:dirt"
   },
   "essentia": [
     {
-      "item": "theurgy:terra_essentia",
+      "item": "theurgy:aqua_essentia",
       "count": 10
     }
   ],
   "result": {
-    "tag": "forge:ingots/iron",
+    "item": "minecraft:clay_ball",
     "count": 2
   }
 }

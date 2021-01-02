@@ -1,0 +1,24 @@
+{
+  "type": "theurgy:transmutation",
+  "ingredient": {
+    "tag": "forge:ingots/iron"
+  },
+  "essentia": [
+    {
+      "item": "theurgy:terra_essentia",
+      "count": 100
+    },
+    {
+      "item": "theurgy:ignis_essentia",
+      "count": 100
+    },
+    {
+      "item": "theurgy:aer_essentia",
+      "count": 50
+    }
+  ],
+  "result": {
+    "tag": "forge:ingots/gold",
+    "count": 1
+  }
+}

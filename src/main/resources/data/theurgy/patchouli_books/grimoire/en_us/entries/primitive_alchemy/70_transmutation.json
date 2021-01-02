@@ -1,0 +1,28 @@
+{
+  "name": "Transmutation",
+  "icon": "theurgy:prima_materia_crystal_stirrer",
+  "category": "20_primitive_alchemy",
+  "sortnum": 70,
+  "pages": [
+    {
+      "type": "text",
+      "text": "Transmutation is by many considered the pinnacle of Alchemical research. They $(bold)key$() to this process is Prima Materia. While Pure Crystals allow Essentia to replicate the structure of a reference object, Prima Materia Crystals allow to create an independent new object. This process seems to be $(bold)a lot more$() expensive than replication, but also opens a whole world of new possibilities."
+    },
+    {
+      "type": "spotlight",
+      "item": "theurgy:prima_materia_crystal_stirrer",
+      "text": "To $(bold)transmute$() items in the cauldron, stir with a $(item)Prima Materia Crystal Stirrer$() by right-clicking the boiling cauldron. Stir multiple times to increase the time you can drop in items. Crafting will only work while colorful bubbles show. Small parts of the crystal will break off at each use and enable the transmutation process."
+    },
+    {
+      "type": "theurgy:crucible_recipe",
+      "recipe": "theurgy:transmutation/gold_ingot",
+      "tool": "theurgy:prima_materia_crystal_stirrer",
+      "title": "Gold Ingot"
+    },
+    {
+      "type": "text",
+      "title": "But wait, there's more!",
+      "text": "To find further (modded) transmutation recipes, use JEI to check for all uses of the $(thing)Crucible$()."
+    }
+  ]
+}

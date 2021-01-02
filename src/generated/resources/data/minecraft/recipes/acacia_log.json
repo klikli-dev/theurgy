@@ -1,0 +1,16 @@
+{
+  "type": "theurgy:transmutation",
+  "ingredient": {
+    "item": "minecraft:oak_log"
+  },
+  "essentia": [
+    {
+      "item": "theurgy:aer_essentia",
+      "count": 100
+    }
+  ],
+  "result": {
+    "item": "minecraft:oak_log",
+    "count": 1
+  }
+}

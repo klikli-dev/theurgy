@@ -22,9 +22,14 @@
 
 package com.github.klikli_dev.theurgy.datagen;
 
+import com.github.klikli_dev.theurgy.common.crafting.recipe.TransmutationRecipe;
+import com.github.klikli_dev.theurgy.datagen.recipe.CrucibleRecipeBuilder;
+import com.github.klikli_dev.theurgy.registry.ItemRegistry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.data.RecipeProvider;
+import net.minecraft.item.Items;
+import net.minecraft.util.IItemProvider;
 
 import java.util.function.Consumer;
 
@@ -38,7 +43,11 @@ public class TheurgyRecipeProvider extends RecipeProvider {
     //region Overrides
     @Override
     protected void registerRecipes(Consumer<IFinishedRecipe> consumer) {
-
+        CrucibleRecipeBuilder.transmutation(Items.ACACIA_LOG, 1)
+                .ingredient(Items.OAK_LOG)
+                .essentia(ItemRegistry.AER_ESSENTIA.get(), 100)
+                .build(consumer,Items.ACACIA_LOG.getRegistryName());
     }
+
     //endregion Overrides
 }

@@ -22,46 +22,99 @@
 
 package com.github.klikli_dev.theurgy.datagen.recipe;
 
-import com.github.klikli_dev.theurgy.common.crafting.recipe.RecipeOutput;
+import com.github.klikli_dev.theurgy.common.crafting.recipe.TransmutationRecipe;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import net.minecraft.advancements.Advancement;
 import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class CrucibleRecipeBuilder {
     //region Fields
-    private static final Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
+    private final IRecipeSerializer<?> serializer;
+    private final Ingredient result;
+    private final int count;
+    private final List<ItemStack> essentia = new ArrayList<>();
+    private Ingredient ingredient;
+    private String group;
     //endregion Fields
+
+    //region Initialization
+    public CrucibleRecipeBuilder(IRecipeSerializer<?> serializer, IItemProvider result, int count) {
+        this(serializer, Ingredient.fromItems(result), count);
+    }
+
+    public CrucibleRecipeBuilder(IRecipeSerializer<?> serializer, Ingredient result, int count) {
+        this.result = result;
+        this.serializer = serializer;
+        this.count = count;
+    }
+    //endregion Initialization
+
+    //region Getter / Setter
+    public CrucibleRecipeBuilder setGroup(String groupIn) {
+        this.group = groupIn;
+        return this;
+    }
+    //endregion Getter / Setter
+
+    //region Static Methods
+    public static CrucibleRecipeBuilder transmutation(IItemProvider result, int count) {
+        return new CrucibleRecipeBuilder(TransmutationRecipe.SERIALIZER, result, count);
+    }
+    //endregion Static Methods
+
+    //region Methods
+    public CrucibleRecipeBuilder essentia(IItemProvider essentia, int count) {
+        this.essentia.add(new ItemStack(essentia, count));
+        return this;
+    }
+
+    public CrucibleRecipeBuilder ingredient(IItemProvider ingredient) {
+        return this.ingredient(Ingredient.fromItems(ingredient));
+    }
+
+    public CrucibleRecipeBuilder ingredient(Ingredient ingredient) {
+        this.ingredient = ingredient;
+        return this;
+    }
+
+    /**
+     * Builds this recipe into an {@link IFinishedRecipe}.
+     */
+    public void build(Consumer<IFinishedRecipe> consumerIn, ResourceLocation id) {
+        consumerIn.accept(
+                new CrucibleRecipeBuilder.Result(id, this.serializer, this.group == null ? "" : this.group,
+                        this.result, this.count, this.essentia, this.ingredient));
+    }
+    //endregion Methods
 
     public class Result implements IFinishedRecipe {
 
         //region Fields
         private final ResourceLocation id;
         private final IRecipeSerializer<?> serializer;
-        private final RecipeOutput result;
+        private final Ingredient result;
         private final int count;
         private final List<ItemStack> essentia;
         private final Ingredient ingredient;
         private final String group;
-        private final Advancement.Builder advancementBuilder;
-        private final ResourceLocation advancementId;
         //endregion Fields
 
         //region Initialization
-        public Result(ResourceLocation id, IRecipeSerializer<?> serializer, String group, RecipeOutput result,
-                      int count,
-                      List<ItemStack> essentia, Ingredient ingredient, Advancement.Builder advancementBuilder,
-                      ResourceLocation advancementId) {
+        public Result(ResourceLocation id, IRecipeSerializer<?> serializer, String group, Ingredient result,
+                      int count, List<ItemStack> essentia, Ingredient ingredient) {
             this.id = id;
             this.serializer = serializer;
             this.group = group;
@@ -69,8 +122,6 @@ public class CrucibleRecipeBuilder {
             this.count = count;
             this.essentia = essentia;
             this.ingredient = ingredient;
-            this.advancementBuilder = advancementBuilder;
-            this.advancementId = advancementId;
         }
         //endregion Initialization
 
@@ -93,10 +144,8 @@ public class CrucibleRecipeBuilder {
 
             json.add("essentia", essentiaJson);
 
-            JsonObject resultJson = (JsonObject) this.result.ingredient.serialize();
+            JsonObject resultJson = (JsonObject) this.ingredient.serialize();
             resultJson.addProperty("count", this.count);
-            if (this.result.nbt != null)
-                resultJson.add("nbt", GSON.toJsonTree(this.result.nbt.toString()));
 
             json.add("result", resultJson);
         }
@@ -114,13 +163,13 @@ public class CrucibleRecipeBuilder {
         @Nullable
         @Override
         public JsonObject getAdvancementJson() {
-            return this.advancementBuilder.serialize();
+            return null;
         }
 
         @Nullable
         @Override
         public ResourceLocation getAdvancementID() {
-            return this.advancementId;
+            return null;
         }
         //endregion Overrides
     }

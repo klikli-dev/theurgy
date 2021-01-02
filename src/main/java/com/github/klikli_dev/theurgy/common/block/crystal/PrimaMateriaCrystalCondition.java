@@ -25,7 +25,6 @@ package com.github.klikli_dev.theurgy.common.block.crystal;
 import com.github.klikli_dev.theurgy.Theurgy;
 import com.github.klikli_dev.theurgy.common.theurgy.EssentiaCache;
 import com.github.klikli_dev.theurgy.common.theurgy.essentia_chunks.EssentiaChunkHandler;
-import com.github.klikli_dev.theurgy.registry.BlockRegistry;
 import com.github.klikli_dev.theurgy.registry.ItemRegistry;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.Direction;
@@ -48,19 +47,19 @@ public class PrimaMateriaCrystalCondition extends PureCrystalCondition {
     @Override
     public Direction canSpreadTo(IWorld world, BlockState targetState, BlockPos targetPos, BlockState sourceState,
                                  BlockPos sourcePos) {
-        if (sourceState.getBlock() != BlockRegistry.PRIMA_MATERIA_CRYSTAL.get()) {
-            //when spreading from prima materia crystal we can ignore essentia
-            //but otherwise we can only spread if enough essentia is available.
-            EssentiaCache cache =
-                    EssentiaChunkHandler.getEssentiaCache(((World) world).getDimensionKey(), new ChunkPos(targetPos));
-            if (cache.min(
-                    ItemRegistry.AER_ESSENTIA.get(),
-                    ItemRegistry.AQUA_ESSENTIA.get(),
-                    ItemRegistry.IGNIS_ESSENTIA.get(),
-                    ItemRegistry.TERRA_ESSENTIA.get()
-            ) < Theurgy.CONFIG.crystalSettings.primaMateriaSpreadEssentia.get())
-                return null;
-        }
+
+        //Prima materia crystals require all 4 essences to spread
+
+        EssentiaCache cache =
+                EssentiaChunkHandler.getEssentiaCache(((World) world).getDimensionKey(), new ChunkPos(targetPos));
+        if (cache.min(
+                ItemRegistry.AER_ESSENTIA.get(),
+                ItemRegistry.AQUA_ESSENTIA.get(),
+                ItemRegistry.IGNIS_ESSENTIA.get(),
+                ItemRegistry.TERRA_ESSENTIA.get()
+        ) < Theurgy.CONFIG.crystalSettings.primaMateriaSpreadEssentia.get())
+            return null;
+
         return super.canSpreadTo(world, targetState, targetPos, sourceState, sourcePos);
     }
     //endregion Overrides

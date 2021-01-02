@@ -23,6 +23,8 @@
 package com.github.klikli_dev.theurgy.datagen.recipe;
 
 import com.github.klikli_dev.theurgy.Theurgy;
+import com.github.klikli_dev.theurgy.common.crafting.recipe.PurificationRecipe;
+import com.github.klikli_dev.theurgy.common.crafting.recipe.ReplicationRecipe;
 import com.github.klikli_dev.theurgy.common.crafting.recipe.TransmutationRecipe;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -89,6 +91,26 @@ public class CrucibleRecipeBuilder {
     }
     public static CrucibleRecipeBuilder transmutation(IItemProvider result, int count) {
         return transmutation(Ingredient.fromItems(result), count);
+    }
+
+    public static CrucibleRecipeBuilder purification(Ingredient result, int count) {
+        return new CrucibleRecipeBuilder(PurificationRecipe.SERIALIZER, result, count).setFolder("purification");
+    }
+    public static CrucibleRecipeBuilder purification(ITag<Item> result, int count) {
+        return purification(Ingredient.fromTag(result), count);
+    }
+    public static CrucibleRecipeBuilder purification(IItemProvider result, int count) {
+        return purification(Ingredient.fromItems(result), count);
+    }
+
+    public static CrucibleRecipeBuilder replication(Ingredient result, int count) {
+        return new CrucibleRecipeBuilder(ReplicationRecipe.SERIALIZER, result, count).setFolder("replication");
+    }
+    public static CrucibleRecipeBuilder replication(ITag<Item> result, int count) {
+        return replication(Ingredient.fromTag(result), count);
+    }
+    public static CrucibleRecipeBuilder replication(IItemProvider result, int count) {
+        return replication(Ingredient.fromItems(result), count);
     }
     //endregion Static Methods
 

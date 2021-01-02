@@ -1,25 +1,32 @@
 {
-  "type": "theurgy:essentia",
-  "conditions": [
+  "type": "forge:conditional",
+  "recipes": [
     {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "forge:ores/copper"
+      "conditions": [
+        {
+          "value": {
+            "tag": "forge:ingots/copper",
+            "type": "forge:tag_empty"
+          },
+          "type": "forge:not"
+        }
+      ],
+      "recipe": {
+        "type": "theurgy:essentia",
+        "ingredient": {
+          "tag": "forge:ingots/copper"
+        },
+        "essentia": [
+          {
+            "item": "theurgy:ignis_essentia",
+            "count": 100
+          },
+          {
+            "item": "theurgy:terra_essentia",
+            "count": 100
+          }
+        ]
       }
-    }
-  ],
-  "ingredient": {
-    "tag": "forge:ingots/copper"
-  },
-  "essentia": [
-    {
-      "item": "theurgy:terra_essentia",
-      "count": 100
-    },
-    {
-      "item": "theurgy:ignis_essentia",
-      "count": 100
     }
   ]
 }

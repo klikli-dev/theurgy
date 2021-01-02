@@ -1,0 +1,20 @@
+{
+  "type": "theurgy:replication",
+  "ingredient": {
+    "tag": "forge:gems/quartz"
+  },
+  "essentia": [
+    {
+      "item": "theurgy:aer_essentia",
+      "count": 20
+    },
+    {
+      "item": "theurgy:ignis_essentia",
+      "count": 20
+    }
+  ],
+  "result": {
+    "tag": "forge:gems/quartz",
+    "count": 2
+  }
+}

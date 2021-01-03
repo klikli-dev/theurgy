@@ -5,6 +5,13 @@
       "conditions": [
         {
           "value": {
+            "tag": "forge:ores/silver",
+            "type": "forge:tag_empty"
+          },
+          "type": "forge:not"
+        },
+        {
+          "value": {
             "tag": "forge:ingots/silver",
             "type": "forge:tag_empty"
           },
@@ -14,7 +21,7 @@
       "recipe": {
         "type": "theurgy:purification",
         "ingredient": {
-          "tag": "forge:ingots/silver"
+          "tag": "forge:ores/silver"
         },
         "essentia": [
           {

@@ -1,0 +1,11 @@
+{
+  "type": "theurgy:transmutation",
+  "ingredient": {
+    "item": "minecraft:jungle_sapling"
+  },
+  "essentia": [],
+  "result": {
+    "item": "minecraft:acacia_sapling",
+    "count": 1
+  }
+}

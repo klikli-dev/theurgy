@@ -1,0 +1,11 @@
+{
+  "type": "theurgy:transmutation",
+  "ingredient": {
+    "item": "minecraft:potato"
+  },
+  "essentia": [],
+  "result": {
+    "item": "minecraft:carrot",
+    "count": 1
+  }
+}

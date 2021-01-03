@@ -1,0 +1,20 @@
+{
+  "type": "theurgy:transmutation",
+  "ingredient": {
+    "item": "minecraft:stone_bricks"
+  },
+  "essentia": [
+    {
+      "item": "theurgy:terra_essentia",
+      "count": 3
+    },
+    {
+      "item": "theurgy:aer_essentia",
+      "count": 4
+    }
+  ],
+  "result": {
+    "item": "minecraft:mossy_stone_bricks",
+    "count": 1
+  }
+}

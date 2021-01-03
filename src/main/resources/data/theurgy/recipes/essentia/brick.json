@@ -1,0 +1,16 @@
+{
+  "type": "theurgy:essentia",
+  "ingredient": {
+    "tag": "forge:ingots/brick"
+  },
+  "essentia": [
+    {
+      "item": "theurgy:terra_essentia",
+      "count": 1
+    },
+    {
+      "item": "theurgy:ignis_essentia",
+      "count": 1
+    }
+  ]
+}

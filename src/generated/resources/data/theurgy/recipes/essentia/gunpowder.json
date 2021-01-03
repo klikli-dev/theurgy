@@ -1,0 +1,12 @@
+{
+  "type": "theurgy:essentia",
+  "ingredient": {
+    "item": "minecraft:gunpowder"
+  },
+  "essentia": [
+    {
+      "item": "theurgy:ignis_essentia",
+      "count": 20
+    }
+  ]
+}

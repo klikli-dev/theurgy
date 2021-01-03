@@ -70,7 +70,11 @@ public class EssentiaRecipeBuilder {
 
     //region Methods
     public EssentiaRecipeBuilder essentia(List<ItemStack> essentia) {
-        essentia.forEach(stack -> this.essentia(stack.getItem(), stack.getCount()));
+        return this.essentia(essentia, 1);
+    }
+
+    public EssentiaRecipeBuilder essentia(List<ItemStack> essentia, int multiplier) {
+        essentia.forEach(stack -> this.essentia(stack.getItem(), stack.getCount() * multiplier));
         return this;
     }
 

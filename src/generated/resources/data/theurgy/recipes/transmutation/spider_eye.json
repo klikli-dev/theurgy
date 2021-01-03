@@ -1,0 +1,16 @@
+{
+  "type": "theurgy:transmutation",
+  "ingredient": {
+    "item": "minecraft:sugar"
+  },
+  "essentia": [
+    {
+      "item": "theurgy:aqua_essentia",
+      "count": 10
+    }
+  ],
+  "result": {
+    "item": "minecraft:spider_eye",
+    "count": 1
+  }
+}

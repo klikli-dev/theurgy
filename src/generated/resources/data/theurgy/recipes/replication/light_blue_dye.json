@@ -1,0 +1,16 @@
+{
+  "type": "theurgy:replication",
+  "ingredient": {
+    "tag": "forge:dyes/light_blue"
+  },
+  "essentia": [
+    {
+      "item": "theurgy:aqua_essentia",
+      "count": 10
+    }
+  ],
+  "result": {
+    "tag": "forge:dyes/light_blue",
+    "count": 2
+  }
+}

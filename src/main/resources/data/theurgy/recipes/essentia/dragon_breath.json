@@ -1,0 +1,16 @@
+{
+  "type": "theurgy:essentia",
+  "ingredient": {
+    "item": "minecraft:dragon_breath"
+  },
+  "essentia": [
+    {
+      "item": "theurgy:ignis_essentia",
+      "count": 200
+    },
+    {
+      "item": "theurgy:aer_essentia",
+      "count": 200
+    }
+  ]
+}

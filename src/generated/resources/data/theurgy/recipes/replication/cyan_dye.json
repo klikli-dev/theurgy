@@ -1,0 +1,16 @@
+{
+  "type": "theurgy:replication",
+  "ingredient": {
+    "tag": "forge:dyes/cyan"
+  },
+  "essentia": [
+    {
+      "item": "theurgy:aqua_essentia",
+      "count": 10
+    }
+  ],
+  "result": {
+    "tag": "forge:dyes/cyan",
+    "count": 2
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "type": "theurgy:transmutation",
+  "ingredient": {
+    "tag": "forge:string"
+  },
+  "essentia": [
+    {
+      "item": "theurgy:aer_essentia",
+      "count": 15
+    }
+  ],
+  "result": {
+    "item": "minecraft:white_wool",
+    "count": 1
+  }
+}

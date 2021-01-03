@@ -1,0 +1,24 @@
+{
+  "type": "theurgy:transmutation",
+  "ingredient": {
+    "item": "minecraft:skeleton_skull"
+  },
+  "essentia": [
+    {
+      "item": "theurgy:terra_essentia",
+      "count": 1200
+    },
+    {
+      "item": "theurgy:ignis_essentia",
+      "count": 1200
+    },
+    {
+      "item": "theurgy:aer_essentia",
+      "count": 600
+    }
+  ],
+  "result": {
+    "item": "minecraft:wither_skeleton_skull",
+    "count": 1
+  }
+}

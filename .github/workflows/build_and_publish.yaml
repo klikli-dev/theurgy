@@ -61,7 +61,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ github.ref }}
-          release_name: occultism-${{ steps.get_mc_version.outputs.result }}-${{ steps.get_version.outputs.result }}-${{ steps.get_release_type.outputs.result }}
+          release_name: theurgy-${{ steps.get_mc_version.outputs.result }}-${{ steps.get_version.outputs.result }}-${{ steps.get_release_type.outputs.result }}
           body: |
             [Automated Build]]
             ## Changelog
@@ -75,8 +75,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./build/libs/occultism-${{ steps.get_mc_version.outputs.result }}-${{ steps.get_version.outputs.result }}.jar
-          asset_name: occultism-${{ steps.get_mc_version.outputs.result }}-${{ steps.get_version.outputs.result }}-${{ steps.get_release_type.outputs.result }}.jar
+          asset_path: ./build/libs/theurgy-${{ steps.get_mc_version.outputs.result }}-${{ steps.get_version.outputs.result }}.jar
+          asset_name: theurgy-${{ steps.get_mc_version.outputs.result }}-${{ steps.get_version.outputs.result }}-${{ steps.get_release_type.outputs.result }}.jar
           asset_content_type: application/java-archive
       - name: Upload to Curseforge
         id: curseforge
@@ -86,4 +86,4 @@ jobs:
           VERSION: ${{ steps.get_version.outputs.result }}
           MC_VERSION: ${{ steps.get_mc_version.outputs.result }}
           RELEASE_TYPE: ${{ steps.get_release_type.outputs.result }}
-          CURSEFORGE_API_KEY: ${{ secrets.Occultism }}
+          CURSEFORGE_API_KEY: ${{ secrets.CURSEFORGE_API_KEY }}

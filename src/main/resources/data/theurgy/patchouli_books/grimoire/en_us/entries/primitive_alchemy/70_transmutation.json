@@ -15,9 +15,21 @@
     },
     {
       "type": "theurgy:crucible_recipe",
-      "recipe": "theurgy:transmutation/gold_ingot",
+      "recipe": "theurgy:transmutation/iron_ingot_to_gold_ingot",
       "tool": "theurgy:prima_materia_crystal_stirrer",
       "title": "Gold Ingot"
+    },
+    {
+      "type": "theurgy:crucible_recipe",
+      "recipe": "theurgy:transmutation/gold_ingot_to_diamond",
+      "tool": "theurgy:prima_materia_crystal_stirrer",
+      "title": "Diamond"
+    },
+    {
+      "type": "theurgy:crucible_recipe",
+      "recipe": "theurgy:transmutation/diamond_to_emerald",
+      "tool": "theurgy:prima_materia_crystal_stirrer",
+      "title": "Emerald"
     },
     {
       "type": "text",

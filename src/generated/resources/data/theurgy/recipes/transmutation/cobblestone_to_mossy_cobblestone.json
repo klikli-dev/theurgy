@@ -1,20 +1,20 @@
 {
   "type": "theurgy:transmutation",
   "ingredient": {
-    "item": "minecraft:spider_eye"
+    "item": "minecraft:cobblestone"
   },
   "essentia": [
     {
       "item": "theurgy:terra_essentia",
-      "count": 50
+      "count": 3
     },
     {
-      "item": "theurgy:aqua_essentia",
-      "count": 50
+      "item": "theurgy:aer_essentia",
+      "count": 4
     }
   ],
   "result": {
-    "item": "minecraft:slime_ball",
+    "item": "minecraft:mossy_cobblestone",
     "count": 1
   }
 }

@@ -1,0 +1,16 @@
+{
+  "type": "theurgy:purification",
+  "ingredient": {
+    "item": "minecraft:dirt"
+  },
+  "essentia": [
+    {
+      "item": "theurgy:aqua_essentia",
+      "count": 10
+    }
+  ],
+  "result": {
+    "item": "minecraft:clay_ball",
+    "count": 2
+  }
+}

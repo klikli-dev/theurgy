@@ -1,0 +1,16 @@
+{
+  "type": "theurgy:essentia",
+  "ingredient": {
+    "item": "minecraft:clay"
+  },
+  "essentia": [
+    {
+      "item": "theurgy:terra_essentia",
+      "count": 4
+    },
+    {
+      "item": "theurgy:aqua_essentia",
+      "count": 4
+    }
+  ]
+}

@@ -31,6 +31,7 @@ import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.tags.ITag;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.Tags;
 
 public class TagRegistry {
 
@@ -64,6 +65,14 @@ public class TagRegistry {
     //endregion Fields
 
     //region Static Methods
+    public static Tags.IOptionalNamedTag<Item> makeForgeItemTag(String id) {
+        return ItemTags.createOptional(new ResourceLocation("forge", id));
+    }
+
+    public static ITag.INamedTag<Item> makeItemTag(String namespace, String id) {
+        return makeItemTag(new ResourceLocation(namespace, id));
+    }
+
     public static ITag.INamedTag<Item> makeItemTag(ResourceLocation id) {
         return ItemTags.makeWrapperTag(id.toString());
     }

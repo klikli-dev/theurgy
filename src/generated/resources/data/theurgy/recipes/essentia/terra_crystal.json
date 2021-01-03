@@ -1,0 +1,12 @@
+{
+  "type": "theurgy:essentia",
+  "ingredient": {
+    "item": "theurgy:terra_crystal"
+  },
+  "essentia": [
+    {
+      "item": "theurgy:terra_essentia",
+      "count": 1500
+    }
+  ]
+}

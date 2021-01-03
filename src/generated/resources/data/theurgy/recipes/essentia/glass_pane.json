@@ -1,0 +1,16 @@
+{
+  "type": "theurgy:essentia",
+  "ingredient": {
+    "tag": "forge:glass"
+  },
+  "essentia": [
+    {
+      "item": "theurgy:terra_essentia",
+      "count": 1
+    },
+    {
+      "item": "theurgy:ignis_essentia",
+      "count": 1
+    }
+  ]
+}

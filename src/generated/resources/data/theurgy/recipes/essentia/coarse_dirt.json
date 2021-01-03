@@ -1,0 +1,12 @@
+{
+  "type": "theurgy:essentia",
+  "ingredient": {
+    "item": "minecraft:coarse_dirt"
+  },
+  "essentia": [
+    {
+      "item": "theurgy:terra_essentia",
+      "count": 1
+    }
+  ]
+}

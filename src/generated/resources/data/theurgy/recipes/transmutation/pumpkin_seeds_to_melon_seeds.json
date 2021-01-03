@@ -1,0 +1,11 @@
+{
+  "type": "theurgy:transmutation",
+  "ingredient": {
+    "item": "minecraft:pumpkin_seeds"
+  },
+  "essentia": [],
+  "result": {
+    "item": "minecraft:melon_seeds",
+    "count": 1
+  }
+}

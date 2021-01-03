@@ -1,0 +1,12 @@
+{
+  "type": "theurgy:essentia",
+  "ingredient": {
+    "tag": "minecraft:saplings"
+  },
+  "essentia": [
+    {
+      "item": "theurgy:terra_essentia",
+      "count": 2
+    }
+  ]
+}

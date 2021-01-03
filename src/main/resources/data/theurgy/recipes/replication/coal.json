@@ -1,0 +1,16 @@
+{
+  "type": "theurgy:replication",
+  "ingredient": {
+    "item": "minecraft:coal"
+  },
+  "essentia": [
+    {
+      "item": "theurgy:ignis_essentia",
+      "count": 10
+    }
+  ],
+  "result": {
+    "item": "minecraft:coal",
+    "count": 2
+  }
+}

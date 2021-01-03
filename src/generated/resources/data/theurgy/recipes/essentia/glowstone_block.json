@@ -1,0 +1,16 @@
+{
+  "type": "theurgy:essentia",
+  "ingredient": {
+    "item": "minecraft:glowstone"
+  },
+  "essentia": [
+    {
+      "item": "theurgy:aer_essentia",
+      "count": 40
+    },
+    {
+      "item": "theurgy:ignis_essentia",
+      "count": 40
+    }
+  ]
+}

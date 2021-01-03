@@ -1,0 +1,11 @@
+{
+  "type": "theurgy:transmutation",
+  "ingredient": {
+    "item": "minecraft:carrot"
+  },
+  "essentia": [],
+  "result": {
+    "item": "minecraft:wheat_seeds",
+    "count": 1
+  }
+}

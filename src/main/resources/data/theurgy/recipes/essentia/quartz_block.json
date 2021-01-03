@@ -1,0 +1,16 @@
+{
+  "type": "theurgy:essentia",
+  "ingredient": {
+    "tag": "forge:storage_blocks/quartz"
+  },
+  "essentia": [
+    {
+      "item": "theurgy:aer_essentia",
+      "count": 180
+    },
+    {
+      "item": "theurgy:ignis_essentia",
+      "count": 180
+    }
+  ]
+}

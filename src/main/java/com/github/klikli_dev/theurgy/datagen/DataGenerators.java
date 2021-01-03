@@ -36,6 +36,7 @@ public class DataGenerators {
         DataGenerator generator = event.getGenerator();
         if (event.includeServer()) {
             generator.addProvider(new TheurgyLootTableProvider(generator));
+            generator.addProvider(new TheurgyRecipeProvider(generator));
         }
         if (event.includeClient()) {
             generator.addProvider(new TheurgyBlockStateProvider(generator, event.getExistingFileHelper()));

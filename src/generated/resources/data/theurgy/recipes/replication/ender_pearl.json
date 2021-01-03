@@ -1,0 +1,16 @@
+{
+  "type": "theurgy:replication",
+  "ingredient": {
+    "tag": "forge:ender_pearls"
+  },
+  "essentia": [
+    {
+      "item": "theurgy:aer_essentia",
+      "count": 375
+    }
+  ],
+  "result": {
+    "item": "minecraft:ender_pearl",
+    "count": 2
+  }
+}

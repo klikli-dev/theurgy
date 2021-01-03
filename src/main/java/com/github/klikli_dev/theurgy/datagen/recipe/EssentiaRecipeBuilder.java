@@ -43,7 +43,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
 
-public class EssentiaRecipeBuilder {
+public class EssentiaRecipeBuilder implements IEssentiaBuilder<EssentiaRecipeBuilder>{
     //region Fields
     public final List<ItemStack> essentia = new ArrayList<>();
     public Ingredient ingredient;
@@ -69,14 +69,6 @@ public class EssentiaRecipeBuilder {
     //endregion Static Methods
 
     //region Methods
-    public EssentiaRecipeBuilder essentia(List<ItemStack> essentia) {
-        return this.essentia(essentia, 1);
-    }
-
-    public EssentiaRecipeBuilder essentia(List<ItemStack> essentia, int multiplier) {
-        essentia.forEach(stack -> this.essentia(stack.getItem(), stack.getCount() * multiplier));
-        return this;
-    }
 
     public EssentiaRecipeBuilder essentia(IItemProvider essentia, int count) {
         Optional<ItemStack> existing = this.essentia.stream()

@@ -1,0 +1,16 @@
+{
+  "type": "theurgy:replication",
+  "ingredient": {
+    "item": "minecraft:phantom_membrane"
+  },
+  "essentia": [
+    {
+      "item": "theurgy:aer_essentia",
+      "count": 750
+    }
+  ],
+  "result": {
+    "item": "minecraft:phantom_membrane",
+    "count": 2
+  }
+}

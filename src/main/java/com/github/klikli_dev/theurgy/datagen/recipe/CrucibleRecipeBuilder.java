@@ -44,10 +44,9 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.ResourceBundle;
 import java.util.function.Consumer;
 
-public class CrucibleRecipeBuilder {
+public class CrucibleRecipeBuilder implements IEssentiaBuilder<CrucibleRecipeBuilder> {
     //region Fields
     public final IRecipeSerializer<?> serializer;
     public final Ingredient result;
@@ -116,11 +115,6 @@ public class CrucibleRecipeBuilder {
     //endregion Static Methods
 
     //region Methods
-    public CrucibleRecipeBuilder essentia(List<ItemStack> essentia) {
-        essentia.forEach(stack -> this.essentia(stack.getItem(), stack.getCount()));
-        return this;
-    }
-
     public CrucibleRecipeBuilder essentia(IItemProvider essentia, int count) {
         Optional<ItemStack> existing = this.essentia.stream()
                                             .filter(stack -> stack.getItem() == essentia)

@@ -1,0 +1,16 @@
+{
+  "type": "theurgy:essentia",
+  "ingredient": {
+    "item": "minecraft:bone_meal"
+  },
+  "essentia": [
+    {
+      "item": "theurgy:aer_essentia",
+      "count": 3
+    },
+    {
+      "item": "theurgy:terra_essentia",
+      "count": 3
+    }
+  ]
+}

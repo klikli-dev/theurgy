@@ -1,0 +1,20 @@
+{
+  "type": "theurgy:essentia",
+  "ingredient": {
+    "item": "minecraft:dragon_head"
+  },
+  "essentia": [
+    {
+      "item": "theurgy:terra_essentia",
+      "count": 500
+    },
+    {
+      "item": "theurgy:ignis_essentia",
+      "count": 500
+    },
+    {
+      "item": "theurgy:aer_essentia",
+      "count": 250
+    }
+  ]
+}

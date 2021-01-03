@@ -1,0 +1,16 @@
+{
+  "type": "theurgy:essentia",
+  "ingredient": {
+    "item": "minecraft:egg"
+  },
+  "essentia": [
+    {
+      "item": "theurgy:terra_essentia",
+      "count": 10
+    },
+    {
+      "item": "theurgy:aqua_essentia",
+      "count": 40
+    }
+  ]
+}

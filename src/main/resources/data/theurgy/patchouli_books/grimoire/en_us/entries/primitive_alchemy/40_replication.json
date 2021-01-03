@@ -90,9 +90,39 @@
       "title": "Obsidian"
     },
     {
+      "type": "theurgy:crucible_recipe",
+      "recipe": "theurgy:replication/ender_pearl",
+      "tool": "theurgy:pure_crystal_stirrer",
+      "title": "Ender Pearl"
+    },
+    {
+      "type": "theurgy:crucible_recipe",
+      "recipe": "theurgy:replication/ghast_tear",
+      "tool": "theurgy:pure_crystal_stirrer",
+      "title": "Ghast Tear"
+    },
+    {
+      "type": "theurgy:crucible_recipe",
+      "recipe": "theurgy:replication/magma_cream",
+      "tool": "theurgy:pure_crystal_stirrer",
+      "title": "Magma Cream"
+    },
+    {
+      "type": "theurgy:crucible_recipe",
+      "recipe": "theurgy:replication/slime_ball",
+      "tool": "theurgy:pure_crystal_stirrer",
+      "title": "Slime Ball"
+    },
+    {
+      "type": "theurgy:crucible_recipe",
+      "recipe": "theurgy:replication/wither_skeleton_skull",
+      "tool": "theurgy:pure_crystal_stirrer",
+      "title": "Wither Skeleton Skull"
+    },
+    {
       "type": "text",
       "title": "But wait, there's more!",
-      "text": "To find further (modded) replication recipes, use JEI to check for all uses of the $(thing)Crucible$()."
+      "text": "To find many more replication recipes, use JEI to check for all uses of the $(thing)Crucible$()."
     }
   ]
 }

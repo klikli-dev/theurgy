@@ -1,0 +1,16 @@
+{
+  "type": "theurgy:replication",
+  "ingredient": {
+    "tag": "forge:string"
+  },
+  "essentia": [
+    {
+      "item": "theurgy:aer_essentia",
+      "count": 5
+    }
+  ],
+  "result": {
+    "item": "minecraft:string",
+    "count": 2
+  }
+}

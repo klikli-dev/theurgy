@@ -19,11 +19,11 @@
         "essentia": [
           {
             "item": "theurgy:ignis_essentia",
-            "count": 10
+            "count": 11
           },
           {
             "item": "theurgy:terra_essentia",
-            "count": 10
+            "count": 11
           }
         ]
       }

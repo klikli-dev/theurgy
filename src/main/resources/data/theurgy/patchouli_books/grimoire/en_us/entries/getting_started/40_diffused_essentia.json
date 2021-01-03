@@ -2,7 +2,7 @@
   "name": "Diffused Essentia",
   "icon": "theurgy:textures/gui/grimoire/diffused_essentia.png",
   "category": "10_getting_started",
-  "sortnum": 30,
+  "sortnum": 40,
   "pages": [
     {
       "type": "text",

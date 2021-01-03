@@ -1,0 +1,16 @@
+{
+  "type": "theurgy:essentia",
+  "ingredient": {
+    "item": "minecraft:snow_block"
+  },
+  "essentia": [
+    {
+      "item": "theurgy:aqua_essentia",
+      "count": 40
+    },
+    {
+      "item": "theurgy:aer_essentia",
+      "count": 40
+    }
+  ]
+}

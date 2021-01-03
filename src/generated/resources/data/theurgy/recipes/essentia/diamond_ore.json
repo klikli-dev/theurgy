@@ -1,0 +1,16 @@
+{
+  "type": "theurgy:essentia",
+  "ingredient": {
+    "tag": "forge:ores/diamond"
+  },
+  "essentia": [
+    {
+      "item": "theurgy:ignis_essentia",
+      "count": 1500
+    },
+    {
+      "item": "theurgy:terra_essentia",
+      "count": 1000
+    }
+  ]
+}

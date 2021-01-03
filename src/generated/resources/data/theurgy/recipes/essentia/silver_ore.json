@@ -5,35 +5,27 @@
       "conditions": [
         {
           "value": {
-            "tag": "forge:ingots/tin",
+            "tag": "forge:ores/silver",
             "type": "forge:tag_empty"
           },
           "type": "forge:not"
         }
       ],
       "recipe": {
-        "type": "theurgy:replication",
+        "type": "theurgy:essentia",
         "ingredient": {
-          "tag": "forge:ingots/tin"
+          "tag": "forge:ores/silver"
         },
         "essentia": [
           {
-            "item": "theurgy:aer_essentia",
-            "count": 50
-          },
-          {
             "item": "theurgy:ignis_essentia",
-            "count": 100
+            "count": 150
           },
           {
             "item": "theurgy:terra_essentia",
-            "count": 100
+            "count": 150
           }
-        ],
-        "result": {
-          "tag": "forge:ingots/gold",
-          "count": 1
-        }
+        ]
       }
     }
   ]

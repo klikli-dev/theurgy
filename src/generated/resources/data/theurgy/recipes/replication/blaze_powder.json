@@ -1,0 +1,20 @@
+{
+  "type": "theurgy:replication",
+  "ingredient": {
+    "item": "minecraft:blaze_powder"
+  },
+  "essentia": [
+    {
+      "item": "theurgy:aer_essentia",
+      "count": 37
+    },
+    {
+      "item": "theurgy:ignis_essentia",
+      "count": 37
+    }
+  ],
+  "result": {
+    "item": "minecraft:blaze_powder",
+    "count": 2
+  }
+}

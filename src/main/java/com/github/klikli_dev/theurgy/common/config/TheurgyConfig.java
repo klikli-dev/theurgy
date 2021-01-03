@@ -121,12 +121,12 @@ public class TheurgyConfig extends ConfigBase {
             this.crucibleEssentiaToDiffuse = CachedInt.cache(this,
                     builder.comment(
                             "The amount of essentia to diffuse from cauldrons after crucibleDiffuseTicks have elapsed.")
-                            .define("cruciblcrucibleEssentiaToDiffuseeAmountToDissolve", 10));
+                            .define("cruciblcrucibleEssentiaToDiffuseAmountToDissolve", 10));
 
             this.crucibleDiffuseTicks = CachedInt.cache(this,
                     builder.comment(
                             "The amount of ticks between diffusing essentia from crucibles.")
-                            .define("crucibleDiffuseTicks", 200));
+                            .define("crucibleDiffuseTicks", 400));
 
             builder.pop();
         }

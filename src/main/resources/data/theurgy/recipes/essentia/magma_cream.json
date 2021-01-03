@@ -1,0 +1,16 @@
+{
+  "type": "theurgy:essentia",
+  "ingredient": {
+    "item": "minecraft:magma_cream"
+  },
+  "essentia": [
+    {
+      "item": "theurgy:aqua_essentia",
+      "count": 100
+    },
+    {
+      "item": "theurgy:ignis_essentia",
+      "count": 100
+    }
+  ]
+}

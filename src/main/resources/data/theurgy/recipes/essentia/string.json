@@ -1,0 +1,12 @@
+{
+  "type": "theurgy:essentia",
+  "ingredient": {
+    "tag": "forge:string"
+  },
+  "essentia": [
+    {
+      "item": "theurgy:aer_essentia",
+      "count": 5
+    }
+  ]
+}

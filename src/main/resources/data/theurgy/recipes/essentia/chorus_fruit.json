@@ -1,0 +1,12 @@
+{
+  "type": "theurgy:essentia",
+  "ingredient": {
+    "item": "minecraft:chorus_fruit"
+  },
+  "essentia": [
+    {
+      "item": "theurgy:aer_essentia",
+      "count": 50
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "type": "theurgy:essentia",
+  "ingredient": {
+    "item": "minecraft:phantom_membrane"
+  },
+  "essentia": [
+    {
+      "item": "theurgy:aer_essentia",
+      "count": 500
+    }
+  ]
+}

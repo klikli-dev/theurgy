@@ -1,0 +1,12 @@
+{
+  "type": "theurgy:essentia",
+  "ingredient": {
+    "tag": "minecraft:arrows"
+  },
+  "essentia": [
+    {
+      "item": "theurgy:aer_essentia",
+      "count": 100
+    }
+  ]
+}

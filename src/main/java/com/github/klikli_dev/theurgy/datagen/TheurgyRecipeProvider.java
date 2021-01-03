@@ -25,6 +25,7 @@ package com.github.klikli_dev.theurgy.datagen;
 import com.github.klikli_dev.theurgy.Theurgy;
 import com.github.klikli_dev.theurgy.datagen.recipe.CrucibleRecipeBuilder;
 import com.github.klikli_dev.theurgy.datagen.recipe.EssentiaRecipeBuilder;
+import com.github.klikli_dev.theurgy.datagen.recipe.IEssentiaBuilder;
 import com.github.klikli_dev.theurgy.registry.BlockRegistry;
 import com.github.klikli_dev.theurgy.registry.ItemRegistry;
 import com.github.klikli_dev.theurgy.registry.TagRegistry;
@@ -36,6 +37,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.tags.ITag;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.Tag;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.crafting.ConditionalRecipe;
 import net.minecraftforge.common.crafting.conditions.NotCondition;
@@ -49,18 +51,6 @@ import java.util.function.Consumer;
 public class TheurgyRecipeProvider extends RecipeProvider {
 
     //region Fields
-    public static final ITag.INamedTag<Item> COPPER_ORE = TagRegistry.makeForgeItemTag("ores/copper");
-    public static final ITag.INamedTag<Item> TIN_ORE = TagRegistry.makeForgeItemTag("ores/tin");
-    public static final ITag.INamedTag<Item> SILVER_ORE = TagRegistry.makeForgeItemTag("ores/silver");
-
-    public static final ITag.INamedTag<Item> COPPER_INGOT = TagRegistry.makeForgeItemTag("ingots/copper");
-    public static final ITag.INamedTag<Item> TIN_INGOT = TagRegistry.makeForgeItemTag("ingots/tin");
-    public static final ITag.INamedTag<Item> SILVER_INGOT = TagRegistry.makeForgeItemTag("ingots/silver");
-
-    public static final ITag.INamedTag<Item> COPPER_NUGGET = TagRegistry.makeForgeItemTag("nuggets/copper");
-    public static final ITag.INamedTag<Item> TIN_NUGGET = TagRegistry.makeForgeItemTag("nuggets/tin");
-    public static final ITag.INamedTag<Item> SILVER_NUGGET = TagRegistry.makeForgeItemTag("nuggets/silver");
-
     public static final ITag.INamedTag<Item> ICE = TagRegistry.makeForgeItemTag("ice");
 
     public static final ITag.INamedTag<Item> RAW_MEAT = TagRegistry.makeForgeItemTag("meats/raw");
@@ -84,51 +74,12 @@ public class TheurgyRecipeProvider extends RecipeProvider {
         Item ignis = ItemRegistry.IGNIS_ESSENTIA.get();
         Item terra = ItemRegistry.TERRA_ESSENTIA.get();
 
-        //Essentia recipes
         //Modded Ingots
-        EssentiaRecipeBuilder copperIngotEssentia = EssentiaRecipeBuilder.create()
-                                                            .setRecipeName("copper_ingot")
-                                                            .ingredient(COPPER_INGOT)
-                                                            .essentia(ignis, 100)
-                                                            .essentia(terra, 100);
-        this.registerTagExistsCondition(copperIngotEssentia, COPPER_INGOT, consumer);
+        this.registerModMetal("copper", 0, 0, 100, 100, consumer);
+        this.registerModMetal("tin", 0, 0, 100, 100, consumer);
+        this.registerModMetal("silver", 0, 0, 150, 150, consumer);
 
-        EssentiaRecipeBuilder tinIngotEssentia = EssentiaRecipeBuilder.create()
-                                                         .setRecipeName("tin_ingot")
-                                                         .ingredient(TIN_INGOT)
-                                                         .essentia(ignis, 100)
-                                                         .essentia(terra, 100);
-        this.registerTagExistsCondition(tinIngotEssentia, TIN_INGOT, consumer);
-
-        EssentiaRecipeBuilder silverIngotEssentia = EssentiaRecipeBuilder.create()
-                                                            .setRecipeName("silver_ingot")
-                                                            .ingredient(SILVER_INGOT)
-                                                            .essentia(ignis, 150)
-                                                            .essentia(terra, 150);
-        this.registerTagExistsCondition(silverIngotEssentia, SILVER_INGOT, consumer);
-
-        //Modded nuggets
-        EssentiaRecipeBuilder copperNuggetEssentia = EssentiaRecipeBuilder.create()
-                                                             .setRecipeName("copper_nugget")
-                                                             .ingredient(COPPER_NUGGET)
-                                                             .essentia(ignis, 10)
-                                                             .essentia(terra, 10);
-        this.registerTagExistsCondition(copperNuggetEssentia, COPPER_NUGGET, consumer);
-
-        EssentiaRecipeBuilder tinNuggetEssentia = EssentiaRecipeBuilder.create()
-                                                          .setRecipeName("tin_nugget")
-                                                          .ingredient(TIN_NUGGET)
-                                                          .essentia(ignis, 10)
-                                                          .essentia(terra, 10);
-        this.registerTagExistsCondition(tinNuggetEssentia, TIN_NUGGET, consumer);
-
-        EssentiaRecipeBuilder silverNuggetEssentia = EssentiaRecipeBuilder.create()
-                                                             .setRecipeName("silver_nugget")
-                                                             .ingredient(SILVER_NUGGET)
-                                                             .essentia(ignis, 15)
-                                                             .essentia(terra, 15);
-        this.registerTagExistsCondition(silverNuggetEssentia, SILVER_NUGGET, consumer);
-
+        //Essentia recipes
 
         //Vanilla ingots
         EssentiaRecipeBuilder ironIngotEssentia = EssentiaRecipeBuilder.create()
@@ -165,14 +116,6 @@ public class TheurgyRecipeProvider extends RecipeProvider {
                                                            .essentia(ignis, 20)
                                                            .essentia(terra, 20)
                                                            .build(consumer);
-
-        //Vanilla Ores
-        EssentiaRecipeBuilder netheriteScrapEssentia = EssentiaRecipeBuilder.create()
-                                                               .setRecipeName("netherite_scrap")
-                                                               .ingredient(Tags.Items.ORES_NETHERITE_SCRAP)
-                                                               .essentia(aer, 500)
-                                                               .essentia(ignis, 500)
-                                                               .build(consumer);
 
         //Vanilla Gems
         EssentiaRecipeBuilder quartzEssentia = EssentiaRecipeBuilder.create()
@@ -238,6 +181,50 @@ public class TheurgyRecipeProvider extends RecipeProvider {
                                                          .ingredient(Items.CHARCOAL)
                                                          .essentia(ignis, 10)
                                                          .build(consumer);
+
+
+        //Vanilla Ores
+        EssentiaRecipeBuilder netheriteScrapEssentia = EssentiaRecipeBuilder.create()
+                                                               .setRecipeName("netherite_scrap")
+                                                               .ingredient(Tags.Items.ORES_NETHERITE_SCRAP)
+                                                               .essentia(aer, 500)
+                                                               .essentia(ignis, 500)
+                                                               .build(consumer);
+        EssentiaRecipeBuilder goldOreEssentia = EssentiaRecipeBuilder.create()
+                                                        .setRecipeName("gold_ore")
+                                                        .ingredient(Tags.Items.ORES_GOLD)
+                                                        .essentia(goldIngotEssentia.essentia)
+                                                        .build(consumer);
+        EssentiaRecipeBuilder ironOreEssentia = EssentiaRecipeBuilder.create()
+                                                        .setRecipeName("iron_ore")
+                                                        .ingredient(Tags.Items.ORES_IRON)
+                                                        .essentia(ironIngotEssentia.essentia)
+                                                        .build(consumer);
+        EssentiaRecipeBuilder diamondOreEssentia = EssentiaRecipeBuilder.create()
+                                                           .setRecipeName("diamond_ore")
+                                                           .ingredient(Tags.Items.ORES_DIAMOND)
+                                                           .essentia(diamondEssentia.essentia)
+                                                           .build(consumer);
+        EssentiaRecipeBuilder emeraldOreEssentia = EssentiaRecipeBuilder.create()
+                                                           .setRecipeName("emerald_ore")
+                                                           .ingredient(Tags.Items.ORES_EMERALD)
+                                                           .essentia(emeraldEssentia.essentia)
+                                                           .build(consumer);
+        EssentiaRecipeBuilder quartzOreEssentia = EssentiaRecipeBuilder.create()
+                                                          .setRecipeName("quartz_ore")
+                                                          .ingredient(Tags.Items.ORES_QUARTZ)
+                                                          .essentia(quartzEssentia.essentia)
+                                                          .build(consumer);
+        EssentiaRecipeBuilder redstoneOreEssentia = EssentiaRecipeBuilder.create()
+                                                          .setRecipeName("redstone_ore")
+                                                          .ingredient(Tags.Items.ORES_REDSTONE)
+                                                          .essentia(redstoneDustEssentia.essentia, 2)
+                                                          .build(consumer);
+        EssentiaRecipeBuilder lapisOreEssentia = EssentiaRecipeBuilder.create()
+                                                            .setRecipeName("lapis_ore")
+                                                            .ingredient(Tags.Items.ORES_LAPIS)
+                                                            .essentia(lapisEssentia.essentia, 2)
+                                                            .build(consumer);
 
         //Storage Blocks
         EssentiaRecipeBuilder coalBlockEssentia = EssentiaRecipeBuilder.create()
@@ -579,11 +566,11 @@ public class TheurgyRecipeProvider extends RecipeProvider {
                                                              .essentia(aer, 200)
                                                              .build(consumer);
         EssentiaRecipeBuilder eggEssentia = EssentiaRecipeBuilder.create()
-                                                           .setRecipeName("egg")
-                                                           .ingredient(Items.EGG)
-                                                           .essentia(terra, 10)
-                                                           .essentia(aqua, 40)
-                                                           .build(consumer);
+                                                    .setRecipeName("egg")
+                                                    .ingredient(Items.EGG)
+                                                    .essentia(terra, 10)
+                                                    .essentia(aqua, 40)
+                                                    .build(consumer);
         //Vanilla Plants
         EssentiaRecipeBuilder saplingEssentia = EssentiaRecipeBuilder.create()
                                                         .setRecipeName("sapling")
@@ -696,25 +683,6 @@ public class TheurgyRecipeProvider extends RecipeProvider {
                                                              .build(consumer);
 
         //Purification recipes
-        //Modded Ores
-        CrucibleRecipeBuilder copperOrePurification = CrucibleRecipeBuilder.purification(COPPER_INGOT, 2)
-                                                              .setRecipeName("copper_ore")
-                                                              .ingredient(COPPER_ORE)
-                                                              .essentia(terra, 10);
-        this.registerTagExistsCondition(copperOrePurification, COPPER_ORE, consumer);
-
-        CrucibleRecipeBuilder tinOrePurification = CrucibleRecipeBuilder.purification(TIN_INGOT, 2)
-                                                           .setRecipeName("tin_ore")
-                                                           .ingredient(TIN_ORE)
-                                                           .essentia(terra, 10);
-        this.registerTagExistsCondition(tinOrePurification, TIN_ORE, consumer);
-
-        CrucibleRecipeBuilder silverOrePurification = CrucibleRecipeBuilder.purification(SILVER_INGOT, 2)
-                                                              .setRecipeName("silver_ore")
-                                                              .ingredient(SILVER_INGOT)
-                                                              .essentia(terra, 10);
-        this.registerTagExistsCondition(silverOrePurification, SILVER_INGOT, consumer);
-
         //Vanilla Ores
         CrucibleRecipeBuilder ironOrePurification = CrucibleRecipeBuilder.purification(Tags.Items.INGOTS_IRON, 2)
                                                             .setRecipeName("iron_ore")
@@ -777,24 +745,6 @@ public class TheurgyRecipeProvider extends RecipeProvider {
                         .build(consumer);
 
         //Replication recipes
-        //Modded Ingots
-        CrucibleRecipeBuilder copperIngotReplication = CrucibleRecipeBuilder.replication(COPPER_INGOT, 2)
-                                                               .setRecipeName("copper_ingot")
-                                                               .ingredient(COPPER_INGOT)
-                                                               .essentia(copperIngotEssentia.essentia);
-        this.registerTagExistsCondition(copperIngotReplication, COPPER_INGOT, consumer);
-
-        CrucibleRecipeBuilder tinIngotReplication = CrucibleRecipeBuilder.replication(TIN_INGOT, 2)
-                                                            .setRecipeName("tin_ingot")
-                                                            .ingredient(TIN_INGOT)
-                                                            .essentia(tinIngotEssentia.essentia);
-        this.registerTagExistsCondition(tinIngotReplication, TIN_INGOT, consumer);
-
-        CrucibleRecipeBuilder silverIngotReplication = CrucibleRecipeBuilder.replication(SILVER_INGOT, 2)
-                                                               .setRecipeName("silver_ingot")
-                                                               .ingredient(SILVER_INGOT)
-                                                               .essentia(silverIngotEssentia.essentia);
-        this.registerTagExistsCondition(silverIngotReplication, SILVER_INGOT, consumer);
 
         //Vanilla Ingots
         CrucibleRecipeBuilder ironIngotReplication = CrucibleRecipeBuilder.replication(Tags.Items.INGOTS_IRON, 2)
@@ -1064,28 +1014,6 @@ public class TheurgyRecipeProvider extends RecipeProvider {
                 .build(consumer);
 
         //Transmutation recipes
-        //Modded Ingots
-        CrucibleRecipeBuilder copperIngotToGoldIngotTransmutation =
-                CrucibleRecipeBuilder.replication(Tags.Items.INGOTS_GOLD, 1)
-                        .setRecipeName("copper_ingot_to_gold_ingot")
-                        .ingredient(COPPER_INGOT)
-                        .essentia(this.essentiaDifference(copperIngotEssentia.essentia, goldIngotEssentia.essentia));
-        this.registerTagExistsCondition(copperIngotToGoldIngotTransmutation, SILVER_INGOT, consumer);
-
-        CrucibleRecipeBuilder tinIngotToGoldIngotTransmutation =
-                CrucibleRecipeBuilder.replication(Tags.Items.INGOTS_GOLD, 1)
-                        .setRecipeName("tin_ingot_to_gold_ingot")
-                        .ingredient(TIN_INGOT)
-                        .essentia(this.essentiaDifference(tinIngotEssentia.essentia, goldIngotEssentia.essentia));
-        this.registerTagExistsCondition(tinIngotToGoldIngotTransmutation, TIN_INGOT, consumer);
-
-        CrucibleRecipeBuilder silverIngotToGoldIngotTransmutation =
-                CrucibleRecipeBuilder.replication(Tags.Items.INGOTS_GOLD, 1)
-                        .setRecipeName("silver_ingot_to_gold_ingot")
-                        .ingredient(SILVER_INGOT)
-                        .essentia(this.essentiaDifference(silverIngotEssentia.essentia, goldIngotEssentia.essentia));
-        this.registerTagExistsCondition(silverIngotToGoldIngotTransmutation, SILVER_INGOT, consumer);
-
 
         //Vanilla Ingots
         CrucibleRecipeBuilder ironIngotToGoldIngotTransmutation =
@@ -1263,19 +1191,81 @@ public class TheurgyRecipeProvider extends RecipeProvider {
     //endregion Overrides
 
     //region Methods
-    protected void registerTagExistsCondition(EssentiaRecipeBuilder builder, ITag.INamedTag<Item> tag,
-                                              Consumer<IFinishedRecipe> consumer) {
-        ConditionalRecipe.builder()
-                .addCondition(new NotCondition(new TagEmptyCondition(tag.getName())))
-                .addRecipe(builder::build)
+    protected void addEssentia(IEssentiaBuilder<?> builder, int aerAmount, int aquaAmount, int ignisAmount,
+                               int terraAmount) {
+        Item aer = ItemRegistry.AER_ESSENTIA.get();
+        Item aqua = ItemRegistry.AQUA_ESSENTIA.get();
+        Item ignis = ItemRegistry.IGNIS_ESSENTIA.get();
+        Item terra = ItemRegistry.TERRA_ESSENTIA.get();
+        if (aerAmount > 0)
+            builder.essentia(aer, aerAmount);
+        if (aquaAmount > 0)
+            builder.essentia(aqua, aquaAmount);
+        if (ignisAmount > 0)
+            builder.essentia(ignis, ignisAmount);
+        if (terraAmount > 0)
+            builder.essentia(terra, terraAmount);
+    }
+
+    protected void registerModMetal(String name, int aerAmount, int aquaAmount, int ignisAmount, int terraAmount,
+                                    Consumer<IFinishedRecipe> consumer) {
+        ITag.INamedTag<Item> oreTag = TagRegistry.makeForgeItemTag("ores/" + name);
+        ITag.INamedTag<Item> ingotTag = TagRegistry.makeForgeItemTag("ingots/" + name);
+        ITag.INamedTag<Item> nuggetTag = TagRegistry.makeForgeItemTag("nuggets/" + name);
+
+        EssentiaRecipeBuilder oreEssentia = EssentiaRecipeBuilder.create()
+                                                    .setRecipeName(name + "_ore")
+                                                    .ingredient(oreTag);
+        this.addEssentia(oreEssentia, aerAmount, aquaAmount, ignisAmount, terraAmount);
+        this.registerTagExistsCondition(oreEssentia, consumer, oreTag);
+
+        EssentiaRecipeBuilder ingotEssentia = EssentiaRecipeBuilder.create()
+                                                      .setRecipeName(name + "_ingot")
+                                                      .ingredient(ingotTag);
+        this.addEssentia(ingotEssentia, aerAmount, aquaAmount, ignisAmount, terraAmount);
+        this.registerTagExistsCondition(ingotEssentia, consumer, ingotTag);
+
+        EssentiaRecipeBuilder nuggetEssentia = EssentiaRecipeBuilder.create()
+                                                       .setRecipeName(name + "_nugget")
+                                                       .ingredient(nuggetTag);
+        this.addEssentia(nuggetEssentia, aerAmount / 9, aquaAmount / 9, ignisAmount / 9, terraAmount / 9);
+        this.registerTagExistsCondition(nuggetEssentia, consumer, nuggetTag);
+
+        CrucibleRecipeBuilder orePurification = CrucibleRecipeBuilder.purification(ingotTag, 2)
+                                                        .setRecipeName(name + "_ore")
+                                                        .ingredient(oreTag)
+                                                        .essentia(ItemRegistry.TERRA_ESSENTIA.get(), 10);
+        this.registerTagExistsCondition(orePurification, consumer, oreTag, ingotTag);
+
+        CrucibleRecipeBuilder ingotReplication = CrucibleRecipeBuilder.replication(ingotTag, 2)
+                                                         .setRecipeName(name + "_ingot")
+                                                               .ingredient(ingotTag)
+                                                               .essentia(ingotEssentia.essentia);
+        this.registerTagExistsCondition(ingotReplication, consumer, ingotTag);
+    }
+
+
+    @SafeVarargs
+    protected final void registerTagExistsCondition(EssentiaRecipeBuilder builder,
+                                                    Consumer<IFinishedRecipe> consumer,
+                                                    Tag.INamedTag<Item> ... tags) {
+        ConditionalRecipe.Builder conditionBuilder = ConditionalRecipe.builder();
+        for(ITag.INamedTag<Item> tag : tags){
+            conditionBuilder.addCondition(new NotCondition(new TagEmptyCondition(tag.getName())));
+        }
+        conditionBuilder.addRecipe(builder::build)
                 .build(consumer, Theurgy.MODID, "essentia/" + builder.recipeName);
     }
 
-    protected void registerTagExistsCondition(CrucibleRecipeBuilder builder, ITag.INamedTag<Item> tag,
-                                              Consumer<IFinishedRecipe> consumer) {
-        ConditionalRecipe.builder()
-                .addCondition(new NotCondition(new TagEmptyCondition(tag.getName())))
-                .addRecipe(builder::build)
+    @SafeVarargs
+    protected final void registerTagExistsCondition(CrucibleRecipeBuilder builder,
+                                              Consumer<IFinishedRecipe> consumer,
+                                              Tag.INamedTag<Item> ... tags) {
+        ConditionalRecipe.Builder conditionBuilder = ConditionalRecipe.builder();
+        for(ITag.INamedTag<Item> tag : tags){
+            conditionBuilder.addCondition(new NotCondition(new TagEmptyCondition(tag.getName())));
+        }
+        conditionBuilder.addRecipe(builder::build)
                 .build(consumer, Theurgy.MODID, builder.folder + "/" + builder.recipeName);
     }
 

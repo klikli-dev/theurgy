@@ -1,0 +1,16 @@
+{
+  "type": "theurgy:essentia",
+  "ingredient": {
+    "tag": "forge:ores/redstone"
+  },
+  "essentia": [
+    {
+      "item": "theurgy:ignis_essentia",
+      "count": 20
+    },
+    {
+      "item": "theurgy:terra_essentia",
+      "count": 20
+    }
+  ]
+}

@@ -92,7 +92,7 @@
     {
       "type": "text",
       "title": "But wait, there's more!",
-      "text": "To find further (modded) replication recipes, use JEI to check for all uses of the $(thing)Crucible$()."
+      "text": "To find many more replication recipes, use JEI to check for all uses of the $(thing)Crucible$()."
     }
   ]
 }

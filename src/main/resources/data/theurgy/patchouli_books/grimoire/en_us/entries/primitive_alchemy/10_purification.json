@@ -36,7 +36,7 @@
     },
     {
       "type": "theurgy:crucible_recipe",
-      "recipe": "theurgy:purification/dirt_to_clay",
+      "recipe": "theurgy:purification/dirt_to_clay_ball",
       "tool": "minecraft:stick",
       "title": "Purify Dirt into Clay"
     },

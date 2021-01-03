@@ -33,9 +33,9 @@
     },
     {
       "type": "theurgy:crucible_recipe",
-      "recipe": "theurgy:transmutation/slime",
+      "recipe": "theurgy:transmutation/slime_ball",
       "tool": "theurgy:prima_materia_crystal_stirrer",
-      "title": "Slime"
+      "title": "Slime Ball"
     },
     {
       "type": "theurgy:crucible_recipe",

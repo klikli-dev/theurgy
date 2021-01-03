@@ -57,9 +57,6 @@ public class CrucibleRecipeSerializer<T extends CrucibleRecipe> extends ForgeReg
         Ingredient ingredient = Ingredient.deserialize(ingredientElement);
 
         List<ItemStack> essentia = RecipeJsonHelper.readItemStackArray(JSONUtils.getJsonArray(json, "essentia"));
-        if (essentia.isEmpty()) {
-            throw new JsonParseException("No essentia specified for purification recipe");
-        }
 
         RecipeOutput result = RecipeOutput.fromJson(JSONUtils.getJsonObject(json, "result"));
 

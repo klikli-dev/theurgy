@@ -1,0 +1,20 @@
+{
+  "type": "theurgy:transmutation",
+  "ingredient": {
+    "item": "minecraft:gunpowder"
+  },
+  "essentia": [
+    {
+      "item": "theurgy:aqua_essentia",
+      "count": 300
+    },
+    {
+      "item": "theurgy:ignis_essentia",
+      "count": 240
+    }
+  ],
+  "result": {
+    "item": "minecraft:magma_cream",
+    "count": 1
+  }
+}

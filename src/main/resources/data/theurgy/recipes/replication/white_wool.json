@@ -1,0 +1,16 @@
+{
+  "type": "theurgy:replication",
+  "ingredient": {
+    "tag": "minecraft:wool"
+  },
+  "essentia": [
+    {
+      "item": "theurgy:aer_essentia",
+      "count": 20
+    }
+  ],
+  "result": {
+    "item": "minecraft:white_wool",
+    "count": 2
+  }
+}

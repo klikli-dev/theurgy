@@ -73,8 +73,8 @@ public class EssentiaRecipeBuilder {
         return this.essentia(essentia, 1);
     }
 
-    public EssentiaRecipeBuilder essentia(List<ItemStack> essentia, int multiplier) {
-        essentia.forEach(stack -> this.essentia(stack.getItem(), stack.getCount() * multiplier));
+    public EssentiaRecipeBuilder essentia(List<ItemStack> essentia, float multiplier) {
+        essentia.forEach(stack -> this.essentia(stack.getItem(), (int)(stack.getCount() * multiplier)));
         return this;
     }
 

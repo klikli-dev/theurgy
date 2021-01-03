@@ -32,6 +32,42 @@
       "title": "Emerald"
     },
     {
+      "type": "theurgy:crucible_recipe",
+      "recipe": "theurgy:transmutation/slime",
+      "tool": "theurgy:prima_materia_crystal_stirrer",
+      "title": "Slime"
+    },
+    {
+      "type": "theurgy:crucible_recipe",
+      "recipe": "theurgy:transmutation/blaze_rod",
+      "tool": "theurgy:prima_materia_crystal_stirrer",
+      "title": "Blaze Rod"
+    },
+    {
+      "type": "theurgy:crucible_recipe",
+      "recipe": "theurgy:transmutation/ender_pearl",
+      "tool": "theurgy:prima_materia_crystal_stirrer",
+      "title": "Ender Pearl"
+    },
+    {
+      "type": "theurgy:crucible_recipe",
+      "recipe": "theurgy:transmutation/ghast_tear",
+      "tool": "theurgy:prima_materia_crystal_stirrer",
+      "title": "Ghast Tear"
+    },
+    {
+      "type": "theurgy:crucible_recipe",
+      "recipe": "theurgy:transmutation/magma_cream",
+      "tool": "theurgy:prima_materia_crystal_stirrer",
+      "title": "Magma Cream"
+    },
+    {
+      "type": "theurgy:crucible_recipe",
+      "recipe": "theurgy:transmutation/wither_skeleton_skull",
+      "tool": "theurgy:prima_materia_crystal_stirrer",
+      "title": "Wither Skeleton Skull"
+    },
+    {
       "type": "text",
       "title": "But wait, there's more!",
       "text": "To find many more transmutation recipes, use JEI to check for all uses of the $(thing)Crucible$()."

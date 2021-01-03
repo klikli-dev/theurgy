@@ -67,6 +67,7 @@ public class TheurgyRecipeProvider extends RecipeProvider {
     public static final ITag.INamedTag<Item> COOKED_MEAT = TagRegistry.makeForgeItemTag("meats/cooked");
     public static final ITag.INamedTag<Item> RAW_FISH = TagRegistry.makeForgeItemTag("fish/raw");
     public static final ITag.INamedTag<Item> COOKED_FISH = TagRegistry.makeForgeItemTag("fish/cooked");
+    public static final ITag.INamedTag<Item> ROTTEN_FLESH = TagRegistry.makeForgeItemTag("meat/rotten");
     //endregion Fields
 
     //region Initialization
@@ -108,17 +109,17 @@ public class TheurgyRecipeProvider extends RecipeProvider {
 
         //Modded nuggets
         EssentiaRecipeBuilder copperNuggetEssentia = EssentiaRecipeBuilder.create()
-                                                           .setRecipeName("copper_nugget")
-                                                           .ingredient(COPPER_NUGGET)
-                                                           .essentia(ignis, 10)
-                                                           .essentia(terra, 10);
+                                                             .setRecipeName("copper_nugget")
+                                                             .ingredient(COPPER_NUGGET)
+                                                             .essentia(ignis, 10)
+                                                             .essentia(terra, 10);
         this.registerTagExistsCondition(copperNuggetEssentia, COPPER_NUGGET, consumer);
 
         EssentiaRecipeBuilder tinNuggetEssentia = EssentiaRecipeBuilder.create()
-                                                             .setRecipeName("tin_nugget")
-                                                             .ingredient(TIN_NUGGET)
-                                                             .essentia(ignis, 10)
-                                                             .essentia(terra, 10);
+                                                          .setRecipeName("tin_nugget")
+                                                          .ingredient(TIN_NUGGET)
+                                                          .essentia(ignis, 10)
+                                                          .essentia(terra, 10);
         this.registerTagExistsCondition(tinNuggetEssentia, TIN_NUGGET, consumer);
 
         EssentiaRecipeBuilder silverNuggetEssentia = EssentiaRecipeBuilder.create()
@@ -152,11 +153,11 @@ public class TheurgyRecipeProvider extends RecipeProvider {
 
         //Vanilla nuggets
         EssentiaRecipeBuilder ironNuggetEssentia = EssentiaRecipeBuilder.create()
-                                                          .setRecipeName("iron_nugget")
-                                                          .ingredient(Tags.Items.NUGGETS_IRON)
-                                                          .essentia(ignis, 10)
-                                                          .essentia(terra, 10)
-                                                          .build(consumer);
+                                                           .setRecipeName("iron_nugget")
+                                                           .ingredient(Tags.Items.NUGGETS_IRON)
+                                                           .essentia(ignis, 10)
+                                                           .essentia(terra, 10)
+                                                           .build(consumer);
         EssentiaRecipeBuilder goldNuggetEssentia = EssentiaRecipeBuilder.create()
                                                            .setRecipeName("gold_nugget")
                                                            .ingredient(Tags.Items.NUGGETS_GOLD)
@@ -255,35 +256,35 @@ public class TheurgyRecipeProvider extends RecipeProvider {
                                                           .essentia(goldIngotEssentia.essentia, 9)
                                                           .build(consumer);
         EssentiaRecipeBuilder netheriteBlockEssentia = EssentiaRecipeBuilder.create()
-                                                          .setRecipeName("netherite_block")
-                                                          .ingredient(Tags.Items.STORAGE_BLOCKS_NETHERITE)
-                                                          .essentia(netheriteIngotEssentia.essentia, 9)
-                                                          .build(consumer);
-        EssentiaRecipeBuilder quartzBlockEssentia = EssentiaRecipeBuilder.create()
-                                                          .setRecipeName("quartz_block")
-                                                          .ingredient(Tags.Items.STORAGE_BLOCKS_QUARTZ)
-                                                          .essentia(quartzEssentia.essentia, 9)
-                                                          .build(consumer);
-        EssentiaRecipeBuilder lapisBlockEssentia = EssentiaRecipeBuilder.create()
-                                                            .setRecipeName("lapis_block")
-                                                            .ingredient(Tags.Items.STORAGE_BLOCKS_LAPIS)
-                                                            .essentia(lapisEssentia.essentia, 9)
-                                                            .build(consumer);
-        EssentiaRecipeBuilder redstoneBlockEssentia = EssentiaRecipeBuilder.create()
-                                                           .setRecipeName("redstone_block")
-                                                           .ingredient(Tags.Items.STORAGE_BLOCKS_REDSTONE)
-                                                           .essentia(redstoneDustEssentia.essentia, 9)
-                                                           .build(consumer);
-        EssentiaRecipeBuilder glowstoneBlockEssentia = EssentiaRecipeBuilder.create()
-                                                              .setRecipeName("glowstone_block")
-                                                              .ingredient(Items.GLOWSTONE)
-                                                              .essentia(glowstoneDustEssentia.essentia, 4)
-                                                              .build(consumer);
-        EssentiaRecipeBuilder diamondBlockEssentia = EssentiaRecipeBuilder.create()
-                                                               .setRecipeName("diamond_block")
-                                                               .ingredient(Tags.Items.STORAGE_BLOCKS_DIAMOND)
-                                                               .essentia(diamondEssentia.essentia, 9)
+                                                               .setRecipeName("netherite_block")
+                                                               .ingredient(Tags.Items.STORAGE_BLOCKS_NETHERITE)
+                                                               .essentia(netheriteIngotEssentia.essentia, 9)
                                                                .build(consumer);
+        EssentiaRecipeBuilder quartzBlockEssentia = EssentiaRecipeBuilder.create()
+                                                            .setRecipeName("quartz_block")
+                                                            .ingredient(Tags.Items.STORAGE_BLOCKS_QUARTZ)
+                                                            .essentia(quartzEssentia.essentia, 9)
+                                                            .build(consumer);
+        EssentiaRecipeBuilder lapisBlockEssentia = EssentiaRecipeBuilder.create()
+                                                           .setRecipeName("lapis_block")
+                                                           .ingredient(Tags.Items.STORAGE_BLOCKS_LAPIS)
+                                                           .essentia(lapisEssentia.essentia, 9)
+                                                           .build(consumer);
+        EssentiaRecipeBuilder redstoneBlockEssentia = EssentiaRecipeBuilder.create()
+                                                              .setRecipeName("redstone_block")
+                                                              .ingredient(Tags.Items.STORAGE_BLOCKS_REDSTONE)
+                                                              .essentia(redstoneDustEssentia.essentia, 9)
+                                                              .build(consumer);
+        EssentiaRecipeBuilder glowstoneBlockEssentia = EssentiaRecipeBuilder.create()
+                                                               .setRecipeName("glowstone_block")
+                                                               .ingredient(Items.GLOWSTONE)
+                                                               .essentia(glowstoneDustEssentia.essentia, 4)
+                                                               .build(consumer);
+        EssentiaRecipeBuilder diamondBlockEssentia = EssentiaRecipeBuilder.create()
+                                                             .setRecipeName("diamond_block")
+                                                             .ingredient(Tags.Items.STORAGE_BLOCKS_DIAMOND)
+                                                             .essentia(diamondEssentia.essentia, 9)
+                                                             .build(consumer);
         EssentiaRecipeBuilder emeraldBlockEssentia = EssentiaRecipeBuilder.create()
                                                              .setRecipeName("emerald_block")
                                                              .ingredient(Tags.Items.STORAGE_BLOCKS_EMERALD)
@@ -301,25 +302,25 @@ public class TheurgyRecipeProvider extends RecipeProvider {
                                                          .essentia(terra, 10)
                                                          .build(consumer);
         EssentiaRecipeBuilder sandEssentia = EssentiaRecipeBuilder.create()
-                                                      .setRecipeName("sand")
-                                                      .ingredient(Tags.Items.SAND)
-                                                      .essentia(terra, 1)
-                                                      .build(consumer);
+                                                     .setRecipeName("sand")
+                                                     .ingredient(Tags.Items.SAND)
+                                                     .essentia(terra, 1)
+                                                     .build(consumer);
         EssentiaRecipeBuilder dirtEssentia = EssentiaRecipeBuilder.create()
                                                      .setRecipeName("dirt")
                                                      .ingredient(Items.DIRT)
                                                      .essentia(terra, 1)
                                                      .build(consumer);
         EssentiaRecipeBuilder coarseDirtEssentia = EssentiaRecipeBuilder.create()
-                                                     .setRecipeName("coarse_dirt")
-                                                     .ingredient(Items.COARSE_DIRT)
-                                                     .essentia(terra, 1)
-                                                     .build(consumer);
+                                                           .setRecipeName("coarse_dirt")
+                                                           .ingredient(Items.COARSE_DIRT)
+                                                           .essentia(terra, 1)
+                                                           .build(consumer);
         EssentiaRecipeBuilder sandstoneEssentia = EssentiaRecipeBuilder.create()
-                                                     .setRecipeName("sandstone")
-                                                     .ingredient(Tags.Items.SANDSTONE)
-                                                     .essentia(terra, 1)
-                                                     .build(consumer);
+                                                          .setRecipeName("sandstone")
+                                                          .ingredient(Tags.Items.SANDSTONE)
+                                                          .essentia(terra, 1)
+                                                          .build(consumer);
         EssentiaRecipeBuilder clayBlockEssentia = EssentiaRecipeBuilder.create()
                                                           .setRecipeName("clay_block")
                                                           .ingredient(Items.CLAY)
@@ -327,21 +328,21 @@ public class TheurgyRecipeProvider extends RecipeProvider {
                                                           .essentia(aqua, 4)
                                                           .build(consumer);
         EssentiaRecipeBuilder cobblestoneEssentia = EssentiaRecipeBuilder.create()
-                                                     .setRecipeName("cobblestone")
-                                                     .ingredient(Items.COBBLESTONE)
-                                                     .essentia(terra, 1)
-                                                     .build(consumer);
+                                                            .setRecipeName("cobblestone")
+                                                            .ingredient(Items.COBBLESTONE)
+                                                            .essentia(terra, 1)
+                                                            .build(consumer);
         EssentiaRecipeBuilder stoneBricksEssentia = EssentiaRecipeBuilder.create()
                                                             .setRecipeName("stone_bricks")
                                                             .ingredient(Items.STONE_BRICKS)
                                                             .essentia(terra, 1)
                                                             .build(consumer);
         EssentiaRecipeBuilder mossyCobblestoneEssentia = EssentiaRecipeBuilder.create()
-                                                            .setRecipeName("mossy_cobblestone")
-                                                            .ingredient(Items.MOSSY_COBBLESTONE)
-                                                            .essentia(terra, 4)
-                                                            .essentia(aer, 4)
-                                                            .build(consumer);
+                                                                 .setRecipeName("mossy_cobblestone")
+                                                                 .ingredient(Items.MOSSY_COBBLESTONE)
+                                                                 .essentia(terra, 4)
+                                                                 .essentia(aer, 4)
+                                                                 .build(consumer);
         EssentiaRecipeBuilder mossyStoneBricksEssentia = EssentiaRecipeBuilder.create()
                                                                  .setRecipeName("mossy_stone_bricks")
                                                                  .ingredient(Items.MOSSY_STONE_BRICKS)
@@ -349,53 +350,53 @@ public class TheurgyRecipeProvider extends RecipeProvider {
                                                                  .essentia(aer, 4)
                                                                  .build(consumer);
         EssentiaRecipeBuilder netherrackEssentia = EssentiaRecipeBuilder.create()
-                                                            .setRecipeName("netherrack")
-                                                            .ingredient(Tags.Items.NETHERRACK)
-                                                            .essentia(ignis, 1)
-                                                            .build(consumer);
-        EssentiaRecipeBuilder gravelEssentia = EssentiaRecipeBuilder.create()
-                                                           .setRecipeName("gravel")
-                                                           .ingredient(Tags.Items.GRAVEL)
-                                                           .essentia(terra, 1)
+                                                           .setRecipeName("netherrack")
+                                                           .ingredient(Tags.Items.NETHERRACK)
+                                                           .essentia(ignis, 1)
                                                            .build(consumer);
-        EssentiaRecipeBuilder glassEssentia = EssentiaRecipeBuilder.create()
-                                                       .setRecipeName("glass")
-                                                       .ingredient(Tags.Items.GLASS)
+        EssentiaRecipeBuilder gravelEssentia = EssentiaRecipeBuilder.create()
+                                                       .setRecipeName("gravel")
+                                                       .ingredient(Tags.Items.GRAVEL)
                                                        .essentia(terra, 1)
-                                                       .essentia(ignis, 1)
                                                        .build(consumer);
-        EssentiaRecipeBuilder glassPaneEssentia = EssentiaRecipeBuilder.create()
-                                                      .setRecipeName("glass_pane")
+        EssentiaRecipeBuilder glassEssentia = EssentiaRecipeBuilder.create()
+                                                      .setRecipeName("glass")
                                                       .ingredient(Tags.Items.GLASS)
                                                       .essentia(terra, 1)
                                                       .essentia(ignis, 1)
                                                       .build(consumer);
-        EssentiaRecipeBuilder logEssentia = EssentiaRecipeBuilder.create()
-                                                          .setRecipeName("log")
-                                                          .ingredient(ItemTags.LOGS)
+        EssentiaRecipeBuilder glassPaneEssentia = EssentiaRecipeBuilder.create()
+                                                          .setRecipeName("glass_pane")
+                                                          .ingredient(Tags.Items.GLASS)
                                                           .essentia(terra, 1)
+                                                          .essentia(ignis, 1)
                                                           .build(consumer);
-        EssentiaRecipeBuilder plankEssentia = EssentiaRecipeBuilder.create()
-                                                    .setRecipeName("plank")
-                                                    .ingredient(ItemTags.PLANKS)
+        EssentiaRecipeBuilder logEssentia = EssentiaRecipeBuilder.create()
+                                                    .setRecipeName("log")
+                                                    .ingredient(ItemTags.LOGS)
                                                     .essentia(terra, 1)
                                                     .build(consumer);
-        EssentiaRecipeBuilder iceEssentia = EssentiaRecipeBuilder.create()
-                                                      .setRecipeName("ice")
-                                                      .ingredient(ICE)
-                                                      .essentia(aqua, 50)
+        EssentiaRecipeBuilder plankEssentia = EssentiaRecipeBuilder.create()
+                                                      .setRecipeName("plank")
+                                                      .ingredient(ItemTags.PLANKS)
+                                                      .essentia(terra, 1)
                                                       .build(consumer);
-        EssentiaRecipeBuilder snowBlockEssentia = EssentiaRecipeBuilder.create()
-                                                    .setRecipeName("snow_block")
-                                                    .ingredient(Items.SNOW_BLOCK)
-                                                    .essentia(aqua, 40)
-                                                    .essentia(aer, 40)
+        EssentiaRecipeBuilder iceEssentia = EssentiaRecipeBuilder.create()
+                                                    .setRecipeName("ice")
+                                                    .ingredient(ICE)
+                                                    .essentia(aqua, 50)
                                                     .build(consumer);
-        EssentiaRecipeBuilder endStoneEssentia = EssentiaRecipeBuilder.create()
-                                                          .setRecipeName("end_stone")
-                                                          .ingredient(Tags.Items.END_STONES)
-                                                          .essentia(aer, 5)
+        EssentiaRecipeBuilder snowBlockEssentia = EssentiaRecipeBuilder.create()
+                                                          .setRecipeName("snow_block")
+                                                          .ingredient(Items.SNOW_BLOCK)
+                                                          .essentia(aqua, 40)
+                                                          .essentia(aer, 40)
                                                           .build(consumer);
+        EssentiaRecipeBuilder endStoneEssentia = EssentiaRecipeBuilder.create()
+                                                         .setRecipeName("end_stone")
+                                                         .ingredient(Tags.Items.END_STONES)
+                                                         .essentia(aer, 5)
+                                                         .build(consumer);
 
         //Vanilla Loot
         EssentiaRecipeBuilder boneEssentia = EssentiaRecipeBuilder.create()
@@ -404,6 +405,12 @@ public class TheurgyRecipeProvider extends RecipeProvider {
                                                      .essentia(aer, 10)
                                                      .essentia(terra, 10)
                                                      .build(consumer);
+        EssentiaRecipeBuilder boneMealEssentia = EssentiaRecipeBuilder.create()
+                                                         .setRecipeName("bone_meal")
+                                                         .ingredient(Items.BONE_MEAL)
+                                                         .essentia(aer, 3)
+                                                         .essentia(terra, 3)
+                                                         .build(consumer);
         EssentiaRecipeBuilder slimeBallEssentia = EssentiaRecipeBuilder.create()
                                                           .setRecipeName("slime_ball")
                                                           .ingredient(Items.SLIME_BALL)
@@ -416,152 +423,206 @@ public class TheurgyRecipeProvider extends RecipeProvider {
                                                           .essentia(ignis, 20)
                                                           .build(consumer);
         EssentiaRecipeBuilder netherStarEssentia = EssentiaRecipeBuilder.create()
-                                                          .setRecipeName("nether_star")
-                                                          .ingredient(Tags.Items.NETHER_STARS)
-                                                          .essentia(aer, 10000)
-                                                          .essentia(aqua, 10000)
-                                                          .essentia(ignis, 10000)
-                                                          .essentia(terra, 10000)
-                                                          .build(consumer);
+                                                           .setRecipeName("nether_star")
+                                                           .ingredient(Tags.Items.NETHER_STARS)
+                                                           .essentia(aer, 10000)
+                                                           .essentia(aqua, 10000)
+                                                           .essentia(ignis, 10000)
+                                                           .essentia(terra, 10000)
+                                                           .build(consumer);
         EssentiaRecipeBuilder enderPearlEssentia = EssentiaRecipeBuilder.create()
                                                            .setRecipeName("ender_pearl")
                                                            .ingredient(Tags.Items.ENDER_PEARLS)
                                                            .essentia(aer, 250)
                                                            .build(consumer);
         EssentiaRecipeBuilder blazeRodEssentia = EssentiaRecipeBuilder.create()
-                                                           .setRecipeName("blaze_rod")
-                                                           .ingredient(Tags.Items.RODS_BLAZE)
-                                                           .essentia(aer, 100)
-                                                           .essentia(ignis, 100)
-                                                           .build(consumer);
-        EssentiaRecipeBuilder blazePowderEssentia = EssentiaRecipeBuilder.create()
-                                                         .setRecipeName("blaze_powder")
-                                                         .ingredient(Items.BLAZE_POWDER)
-                                                         .essentia(aer, 25)
-                                                         .essentia(ignis, 25)
+                                                         .setRecipeName("blaze_rod")
+                                                         .ingredient(Tags.Items.RODS_BLAZE)
+                                                         .essentia(aer, 100)
+                                                         .essentia(ignis, 100)
                                                          .build(consumer);
-        EssentiaRecipeBuilder rawMeatEssentia = EssentiaRecipeBuilder.create()
-                                                            .setRecipeName("raw_meat")
-                                                            .ingredient(RAW_MEAT)
-                                                            .essentia(aqua, 10)
-                                                            .essentia(ignis, 10)
+        EssentiaRecipeBuilder blazePowderEssentia = EssentiaRecipeBuilder.create()
+                                                            .setRecipeName("blaze_powder")
+                                                            .ingredient(Items.BLAZE_POWDER)
+                                                            .essentia(aer, 25)
+                                                            .essentia(ignis, 25)
                                                             .build(consumer);
-        EssentiaRecipeBuilder cookedMeatEssentia = EssentiaRecipeBuilder.create()
-                                                        .setRecipeName("cooked_meat")
-                                                        .ingredient(COOKED_MEAT)
+        EssentiaRecipeBuilder rawMeatEssentia = EssentiaRecipeBuilder.create()
+                                                        .setRecipeName("raw_meat")
+                                                        .ingredient(RAW_MEAT)
                                                         .essentia(aqua, 10)
-                                                        .essentia(ignis, 20)
-                                                        .build(consumer);
-        EssentiaRecipeBuilder rawFishEssentia = EssentiaRecipeBuilder.create()
-                                                           .setRecipeName("raw_fish")
-                                                           .ingredient(RAW_FISH)
-                                                           .essentia(aqua, 20)
-                                                           .build(consumer);
-        EssentiaRecipeBuilder cookedFishEssentia = EssentiaRecipeBuilder.create()
-                                                        .setRecipeName("cooked_fish")
-                                                        .ingredient(COOKED_FISH)
-                                                        .essentia(aqua, 20)
                                                         .essentia(ignis, 10)
                                                         .build(consumer);
-        EssentiaRecipeBuilder rottenFleshEssentia = EssentiaRecipeBuilder.create()
-                                                           .setRecipeName("rotten_flesh")
-                                                           .ingredient(Items.ROTTEN_FLESH)
-                                                           .essentia(terra, 10)
+        EssentiaRecipeBuilder cookedMeatEssentia = EssentiaRecipeBuilder.create()
+                                                           .setRecipeName("cooked_meat")
+                                                           .ingredient(COOKED_MEAT)
+                                                           .essentia(aqua, 10)
+                                                           .essentia(ignis, 20)
                                                            .build(consumer);
-        EssentiaRecipeBuilder leatherEssentia = EssentiaRecipeBuilder.create()
-                                                            .setRecipeName("leather")
-                                                            .ingredient(Tags.Items.LEATHER)
+        EssentiaRecipeBuilder rawFishEssentia = EssentiaRecipeBuilder.create()
+                                                        .setRecipeName("raw_fish")
+                                                        .ingredient(RAW_FISH)
+                                                        .essentia(aqua, 20)
+                                                        .build(consumer);
+        EssentiaRecipeBuilder cookedFishEssentia = EssentiaRecipeBuilder.create()
+                                                           .setRecipeName("cooked_fish")
+                                                           .ingredient(COOKED_FISH)
+                                                           .essentia(aqua, 20)
+                                                           .essentia(ignis, 10)
+                                                           .build(consumer);
+        EssentiaRecipeBuilder rottenFleshEssentia = EssentiaRecipeBuilder.create()
+                                                            .setRecipeName("rotten_flesh")
+                                                            .ingredient(Items.ROTTEN_FLESH)
                                                             .essentia(terra, 10)
-                                                            .essentia(ignis, 10)
                                                             .build(consumer);
-        EssentiaRecipeBuilder rabbitHideEssentia = EssentiaRecipeBuilder.create()
-                                                        .setRecipeName("rabbit_hide")
-                                                        .ingredient(Items.RABBIT_HIDE)
+        EssentiaRecipeBuilder leatherEssentia = EssentiaRecipeBuilder.create()
+                                                        .setRecipeName("leather")
+                                                        .ingredient(Tags.Items.LEATHER)
                                                         .essentia(terra, 10)
                                                         .essentia(ignis, 10)
                                                         .build(consumer);
+        EssentiaRecipeBuilder rabbitHideEssentia = EssentiaRecipeBuilder.create()
+                                                           .setRecipeName("rabbit_hide")
+                                                           .ingredient(Items.RABBIT_HIDE)
+                                                           .essentia(terra, 10)
+                                                           .essentia(ignis, 10)
+                                                           .build(consumer);
         EssentiaRecipeBuilder spiderEyeEssentia = EssentiaRecipeBuilder.create()
-                                                           .setRecipeName("spider_eye")
-                                                           .ingredient(Items.SPIDER_EYE)
-                                                           .essentia(aqua, 10)
-                                                           .build(consumer);
+                                                          .setRecipeName("spider_eye")
+                                                          .ingredient(Items.SPIDER_EYE)
+                                                          .essentia(aqua, 10)
+                                                          .build(consumer);
         EssentiaRecipeBuilder woolEssentia = EssentiaRecipeBuilder.create()
-                                                          .setRecipeName("wool")
-                                                          .ingredient(ItemTags.WOOL)
-                                                          .essentia(aer, 20)
-                                                          .build(consumer);
-        EssentiaRecipeBuilder stringEssentia = EssentiaRecipeBuilder.create()
-                                                     .setRecipeName("string")
-                                                     .ingredient(Tags.Items.STRING)
-                                                     .essentia(aer, 5)
+                                                     .setRecipeName("wool")
+                                                     .ingredient(ItemTags.WOOL)
+                                                     .essentia(aer, 20)
                                                      .build(consumer);
-        EssentiaRecipeBuilder headsEssentia = EssentiaRecipeBuilder.create()
-                                                       .setRecipeName("heads")
-                                                       .ingredient(Tags.Items.HEADS)
-                                                       .essentia(aer, 50)
-                                                       .essentia(ignis, 50)
+        EssentiaRecipeBuilder stringEssentia = EssentiaRecipeBuilder.create()
+                                                       .setRecipeName("string")
+                                                       .ingredient(Tags.Items.STRING)
+                                                       .essentia(aer, 5)
                                                        .build(consumer);
+        EssentiaRecipeBuilder headsEssentia = EssentiaRecipeBuilder.create()
+                                                      .setRecipeName("heads")
+                                                      .ingredient(Tags.Items.HEADS)
+                                                      .essentia(aer, 50)
+                                                      .essentia(ignis, 50)
+                                                      .build(consumer);
         EssentiaRecipeBuilder ghastTearEssentia = EssentiaRecipeBuilder.create()
-                                                      .setRecipeName("ghast_tear")
-                                                      .ingredient(Items.GHAST_TEAR)
-                                                      .essentia(aer, 500)
-                                                      .essentia(ignis, 500)
-                                                      .build(consumer);
-        EssentiaRecipeBuilder magmaCreamEssentia = EssentiaRecipeBuilder.create()
-                                                          .setRecipeName("magma_cream")
-                                                          .ingredient(Items.MAGMA_CREAM)
-                                                          .essentia(aqua, 100)
-                                                          .essentia(ignis, 100)
+                                                          .setRecipeName("ghast_tear")
+                                                          .ingredient(Items.GHAST_TEAR)
+                                                          .essentia(aer, 500)
+                                                          .essentia(ignis, 500)
                                                           .build(consumer);
-        EssentiaRecipeBuilder arrowEssentia = EssentiaRecipeBuilder.create()
-                                                           .setRecipeName("arrow")
-                                                           .ingredient(ItemTags.ARROWS)
-                                                           .essentia(aer, 100)
+        EssentiaRecipeBuilder magmaCreamEssentia = EssentiaRecipeBuilder.create()
+                                                           .setRecipeName("magma_cream")
+                                                           .ingredient(Items.MAGMA_CREAM)
+                                                           .essentia(aqua, 100)
+                                                           .essentia(ignis, 100)
                                                            .build(consumer);
-        EssentiaRecipeBuilder phantomMembraneEssentia = EssentiaRecipeBuilder.create()
-                                                      .setRecipeName("phantom_membrane")
-                                                      .ingredient(Items.PHANTOM_MEMBRANE)
-                                                      .essentia(aer, 500)
+        EssentiaRecipeBuilder arrowEssentia = EssentiaRecipeBuilder.create()
+                                                      .setRecipeName("arrow")
+                                                      .ingredient(ItemTags.ARROWS)
+                                                      .essentia(aer, 100)
                                                       .build(consumer);
+        EssentiaRecipeBuilder phantomMembraneEssentia = EssentiaRecipeBuilder.create()
+                                                                .setRecipeName("phantom_membrane")
+                                                                .ingredient(Items.PHANTOM_MEMBRANE)
+                                                                .essentia(aer, 500)
+                                                                .build(consumer);
+        EssentiaRecipeBuilder skeletonSkullEssentia = EssentiaRecipeBuilder.create()
+                                                              .setRecipeName("skeleton_skull")
+                                                              .ingredient(Items.SKELETON_SKULL)
+                                                              .essentia(terra, 100)
+                                                              .essentia(ignis, 100)
+                                                              .essentia(aer, 50)
+                                                              .build(consumer);
+        EssentiaRecipeBuilder witherSkeletonSkullEssentia = EssentiaRecipeBuilder.create()
+                                                                    .setRecipeName("wither_skeleton_skull")
+                                                                    .ingredient(Items.WITHER_SKELETON_SKULL)
+                                                                    .essentia(terra, 200)
+                                                                    .essentia(ignis, 200)
+                                                                    .essentia(aer, 100)
+                                                                    .build(consumer);
+        EssentiaRecipeBuilder zombieHeadEssentia = EssentiaRecipeBuilder.create()
+                                                           .setRecipeName("zombie_head")
+                                                           .ingredient(Items.ZOMBIE_HEAD)
+                                                           .essentia(terra, 100)
+                                                           .essentia(ignis, 100)
+                                                           .essentia(aer, 50)
+                                                           .build(consumer);
+        EssentiaRecipeBuilder creeperHeadEssentia = EssentiaRecipeBuilder.create()
+                                                            .setRecipeName("creeper_head")
+                                                            .ingredient(Items.CREEPER_HEAD)
+                                                            .essentia(terra, 100)
+                                                            .essentia(ignis, 100)
+                                                            .essentia(aer, 50)
+                                                            .build(consumer);
+        EssentiaRecipeBuilder dragonHeadEssentia = EssentiaRecipeBuilder.create()
+                                                           .setRecipeName("dragon_head")
+                                                           .ingredient(Items.DRAGON_HEAD)
+                                                           .essentia(terra, 500)
+                                                           .essentia(ignis, 500)
+                                                           .essentia(aer, 250)
+                                                           .build(consumer);
+        EssentiaRecipeBuilder dragonEggEssentia = EssentiaRecipeBuilder.create()
+                                                          .setRecipeName("dragon_egg")
+                                                          .ingredient(Items.DRAGON_EGG)
+                                                          .essentia(aqua, 500)
+                                                          .essentia(ignis, 500)
+                                                          .essentia(aer, 250)
+                                                          .build(consumer);
+        EssentiaRecipeBuilder dragonBreathEssentia = EssentiaRecipeBuilder.create()
+                                                             .setRecipeName("dragon_breath")
+                                                             .ingredient(Items.DRAGON_BREATH)
+                                                             .essentia(ignis, 200)
+                                                             .essentia(aer, 200)
+                                                             .build(consumer);
+        EssentiaRecipeBuilder eggEssentia = EssentiaRecipeBuilder.create()
+                                                           .setRecipeName("egg")
+                                                           .ingredient(Items.EGG)
+                                                           .essentia(terra, 10)
+                                                           .essentia(aqua, 40)
+                                                           .build(consumer);
         //Vanilla Plants
         EssentiaRecipeBuilder saplingEssentia = EssentiaRecipeBuilder.create()
-                                                             .setRecipeName("sapling")
-                                                             .ingredient(ItemTags.SAPLINGS)
-                                                             .essentia(terra, 2)
-                                                             .build(consumer);
-        EssentiaRecipeBuilder leavesEssentia = EssentiaRecipeBuilder.create()
-                                                        .setRecipeName("leaves")
-                                                        .ingredient(ItemTags.LEAVES)
+                                                        .setRecipeName("sapling")
+                                                        .ingredient(ItemTags.SAPLINGS)
                                                         .essentia(terra, 2)
-                                                        .essentia(aer, 2)
                                                         .build(consumer);
-        EssentiaRecipeBuilder seedsEssentia = EssentiaRecipeBuilder.create()
-                                                       .setRecipeName("seeds")
-                                                       .ingredient(Tags.Items.SEEDS)
+        EssentiaRecipeBuilder leavesEssentia = EssentiaRecipeBuilder.create()
+                                                       .setRecipeName("leaves")
+                                                       .ingredient(ItemTags.LEAVES)
                                                        .essentia(terra, 2)
+                                                       .essentia(aer, 2)
                                                        .build(consumer);
+        EssentiaRecipeBuilder seedsEssentia = EssentiaRecipeBuilder.create()
+                                                      .setRecipeName("seeds")
+                                                      .ingredient(Tags.Items.SEEDS)
+                                                      .essentia(terra, 2)
+                                                      .build(consumer);
         EssentiaRecipeBuilder cropsEssentia = EssentiaRecipeBuilder.create()
                                                       .setRecipeName("crops")
                                                       .ingredient(Tags.Items.CROPS)
                                                       .essentia(terra, 2)
                                                       .build(consumer);
         EssentiaRecipeBuilder sugarCaneEssentia = EssentiaRecipeBuilder.create()
-                                                      .setRecipeName("sugar_cane")
-                                                      .ingredient(Items.SUGAR_CANE)
-                                                      .essentia(aer, 20)
-                                                      .essentia(terra, 10)
-                                                      .build(consumer);
-        EssentiaRecipeBuilder cactusEssentia = EssentiaRecipeBuilder.create()
-                                                          .setRecipeName("cactus")
-                                                          .ingredient(Items.CACTUS)
+                                                          .setRecipeName("sugar_cane")
+                                                          .ingredient(Items.SUGAR_CANE)
                                                           .essentia(aer, 20)
-                                                          .essentia(ignis, 20)
+                                                          .essentia(terra, 10)
                                                           .build(consumer);
-        EssentiaRecipeBuilder chorusFruitEssentia = EssentiaRecipeBuilder.create()
-                                                       .setRecipeName("chorus_fruit")
-                                                       .ingredient(Items.CHORUS_FRUIT)
-                                                       .essentia(aer, 50)
+        EssentiaRecipeBuilder cactusEssentia = EssentiaRecipeBuilder.create()
+                                                       .setRecipeName("cactus")
+                                                       .ingredient(Items.CACTUS)
+                                                       .essentia(aer, 20)
+                                                       .essentia(ignis, 20)
                                                        .build(consumer);
+        EssentiaRecipeBuilder chorusFruitEssentia = EssentiaRecipeBuilder.create()
+                                                            .setRecipeName("chorus_fruit")
+                                                            .ingredient(Items.CHORUS_FRUIT)
+                                                            .essentia(aer, 50)
+                                                            .build(consumer);
         EssentiaRecipeBuilder chorusPlantEssentia = EssentiaRecipeBuilder.create()
                                                             .setRecipeName("chorus_plant")
                                                             .ingredient(Items.CHORUS_PLANT)
@@ -575,21 +636,21 @@ public class TheurgyRecipeProvider extends RecipeProvider {
                                                          .essentia(aqua, 1)
                                                          .build(consumer);
         EssentiaRecipeBuilder brickEssentia = EssentiaRecipeBuilder.create()
-                                                         .setRecipeName("brick")
-                                                         .ingredient(Tags.Items.INGOTS_BRICK)
-                                                         .essentia(terra, 1)
-                                                         .essentia(ignis, 1)
-                                                         .build(consumer);
+                                                      .setRecipeName("brick")
+                                                      .ingredient(Tags.Items.INGOTS_BRICK)
+                                                      .essentia(terra, 1)
+                                                      .essentia(ignis, 1)
+                                                      .build(consumer);
         EssentiaRecipeBuilder netherBrickEssentia = EssentiaRecipeBuilder.create()
-                                                      .setRecipeName("nether_brick")
-                                                      .ingredient(Tags.Items.INGOTS_NETHER_BRICK)
-                                                      .essentia(ignis, 2)
-                                                      .build(consumer);
+                                                            .setRecipeName("nether_brick")
+                                                            .ingredient(Tags.Items.INGOTS_NETHER_BRICK)
+                                                            .essentia(ignis, 2)
+                                                            .build(consumer);
         EssentiaRecipeBuilder featherEssentia = EssentiaRecipeBuilder.create()
-                                                      .setRecipeName("feather")
-                                                      .ingredient(Tags.Items.FEATHERS)
-                                                      .essentia(aer, 30)
-                                                      .build(consumer);
+                                                        .setRecipeName("feather")
+                                                        .ingredient(Tags.Items.FEATHERS)
+                                                        .essentia(aer, 30)
+                                                        .build(consumer);
         EssentiaRecipeBuilder snowBallEssentia = EssentiaRecipeBuilder.create()
                                                          .setRecipeName("snow_ball")
                                                          .ingredient(Items.SNOWBALL)
@@ -603,15 +664,15 @@ public class TheurgyRecipeProvider extends RecipeProvider {
                                                       .essentia(terra, 10)
                                                       .build(consumer);
         EssentiaRecipeBuilder waterBucketEssentia = EssentiaRecipeBuilder.create()
-                                                      .setRecipeName("water_bucket")
-                                                      .ingredient(Items.WATER_BUCKET)
-                                                      .essentia(aqua, 200)
-                                                      .build(consumer);
-        EssentiaRecipeBuilder potionEssentia = EssentiaRecipeBuilder.create()
-                                                            .setRecipeName("potion")
-                                                            .ingredient(Items.POTION)
-                                                            .essentia(aqua, 100)
+                                                            .setRecipeName("water_bucket")
+                                                            .ingredient(Items.WATER_BUCKET)
+                                                            .essentia(aqua, 200)
                                                             .build(consumer);
+        EssentiaRecipeBuilder potionEssentia = EssentiaRecipeBuilder.create()
+                                                       .setRecipeName("potion")
+                                                       .ingredient(Items.POTION)
+                                                       .essentia(aqua, 100)
+                                                       .build(consumer);
         //Theurgy Items
         EssentiaRecipeBuilder aerCrystalEssentia = EssentiaRecipeBuilder.create()
                                                            .setRecipeName("aer_crystal")
@@ -819,16 +880,188 @@ public class TheurgyRecipeProvider extends RecipeProvider {
                                                             .build(consumer);
 
         //Other Items
+        CrucibleRecipeBuilder.replication(Tags.Items.DYES_BLACK, 2)
+                .setRecipeName("black_dye")
+                .ingredient(Tags.Items.DYES_BLACK)
+                .essentia(aqua, 10)
+                .build(consumer);
+        CrucibleRecipeBuilder.replication(Tags.Items.DYES_BLUE, 2)
+                .setRecipeName("blue_dye")
+                .ingredient(Tags.Items.DYES_BLUE)
+                .essentia(aqua, 10)
+                .build(consumer);
+        CrucibleRecipeBuilder.replication(Tags.Items.DYES_BROWN, 2)
+                .setRecipeName("brown_dye")
+                .ingredient(Tags.Items.DYES_BROWN)
+                .essentia(aqua, 10)
+                .build(consumer);
+        CrucibleRecipeBuilder.replication(Tags.Items.DYES_RED, 2)
+                .setRecipeName("red_dye")
+                .ingredient(Tags.Items.DYES_RED)
+                .essentia(aqua, 10)
+                .build(consumer);
+        CrucibleRecipeBuilder.replication(Tags.Items.DYES_CYAN, 2)
+                .setRecipeName("cyan_dye")
+                .ingredient(Tags.Items.DYES_CYAN)
+                .essentia(aqua, 10)
+                .build(consumer);
+        CrucibleRecipeBuilder.replication(Tags.Items.DYES_GRAY, 2)
+                .setRecipeName("gray_dye")
+                .ingredient(Tags.Items.DYES_GRAY)
+                .essentia(aqua, 10)
+                .build(consumer);
+        CrucibleRecipeBuilder.replication(Tags.Items.DYES_GREEN, 2)
+                .setRecipeName("green_dye")
+                .ingredient(Tags.Items.DYES_GREEN)
+                .essentia(aqua, 10)
+                .build(consumer);
+        CrucibleRecipeBuilder.replication(Tags.Items.DYES_LIGHT_BLUE, 2)
+                .setRecipeName("light_blue_dye")
+                .ingredient(Tags.Items.DYES_LIGHT_BLUE)
+                .essentia(aqua, 10)
+                .build(consumer);
+        CrucibleRecipeBuilder.replication(Tags.Items.DYES_LIGHT_GRAY, 2)
+                .setRecipeName("light_gray_dye")
+                .ingredient(Tags.Items.DYES_LIGHT_GRAY)
+                .essentia(aqua, 10)
+                .build(consumer);
+        CrucibleRecipeBuilder.replication(Tags.Items.DYES_LIME, 2)
+                .setRecipeName("lime_dye")
+                .ingredient(Tags.Items.DYES_LIME)
+                .essentia(aqua, 10)
+                .build(consumer);
+        CrucibleRecipeBuilder.replication(Tags.Items.DYES_MAGENTA, 2)
+                .setRecipeName("magenta_dye")
+                .ingredient(Tags.Items.DYES_MAGENTA)
+                .essentia(aqua, 10)
+                .build(consumer);
+        CrucibleRecipeBuilder.replication(Tags.Items.DYES_ORANGE, 2)
+                .setRecipeName("orange_dye")
+                .ingredient(Tags.Items.DYES_ORANGE)
+                .essentia(aqua, 10)
+                .build(consumer);
+        CrucibleRecipeBuilder.replication(Tags.Items.DYES_PINK, 2)
+                .setRecipeName("pink_dye")
+                .ingredient(Tags.Items.DYES_PINK)
+                .essentia(aqua, 10)
+                .build(consumer);
+        CrucibleRecipeBuilder.replication(Tags.Items.DYES_PURPLE, 2)
+                .setRecipeName("purple_dye")
+                .ingredient(Tags.Items.DYES_PURPLE)
+                .essentia(aqua, 10)
+                .build(consumer);
+        CrucibleRecipeBuilder.replication(Tags.Items.DYES_WHITE, 2)
+                .setRecipeName("white_dye")
+                .ingredient(Tags.Items.DYES_WHITE)
+                .essentia(aqua, 10)
+                .build(consumer);
+        CrucibleRecipeBuilder.replication(Tags.Items.DYES_YELLOW, 2)
+                .setRecipeName("yellow_dye")
+                .ingredient(Tags.Items.DYES_YELLOW)
+                .essentia(aqua, 10)
+                .build(consumer);
+
+        //Loot
         CrucibleRecipeBuilder boneReplication = CrucibleRecipeBuilder.replication(Tags.Items.BONES, 2)
                                                         .setRecipeName("bone")
                                                         .ingredient(Tags.Items.BONES)
                                                         .essentia(boneEssentia.essentia)
                                                         .build(consumer);
+        CrucibleRecipeBuilder boneMealReplication = CrucibleRecipeBuilder.replication(Items.BONE_MEAL, 2)
+                                                            .setRecipeName("bone_meal")
+                                                            .ingredient(Items.BONE_MEAL)
+                                                            .essentia(boneMealEssentia.essentia)
+                                                            .build(consumer);
         CrucibleRecipeBuilder slimeBallReplication = CrucibleRecipeBuilder.replication(Tags.Items.SLIMEBALLS, 2)
                                                              .setRecipeName("slime_ball")
                                                              .ingredient(Tags.Items.SLIMEBALLS)
                                                              .essentia(slimeBallEssentia.essentia)
                                                              .build(consumer);
+        CrucibleRecipeBuilder whiteWoolReplication = CrucibleRecipeBuilder.replication(Items.WHITE_WOOL, 2)
+                                                             .setRecipeName("white_wool")
+                                                             .ingredient(ItemTags.WOOL)
+                                                             .essentia(woolEssentia.essentia)
+                                                             .build(consumer);
+        CrucibleRecipeBuilder.replication(Items.STRING, 2)
+                .setRecipeName("string")
+                .ingredient(Tags.Items.STRING)
+                .essentia(stringEssentia.essentia)
+                .build(consumer);
+        CrucibleRecipeBuilder.replication(Items.SPIDER_EYE, 2)
+                .setRecipeName("spider_eye")
+                .ingredient(Items.SPIDER_EYE)
+                .essentia(spiderEyeEssentia.essentia)
+                .build(consumer);
+        CrucibleRecipeBuilder.replication(Items.ENDER_PEARL, 2)
+                .setRecipeName("ender_pearl")
+                .ingredient(Tags.Items.ENDER_PEARLS)
+                .essentia(enderPearlEssentia.essentia, 1.5f)
+                .build(consumer);
+        CrucibleRecipeBuilder.replication(Items.BLAZE_ROD, 2)
+                .setRecipeName("blaze_rod")
+                .ingredient(Tags.Items.RODS_BLAZE)
+                .essentia(blazeRodEssentia.essentia, 1.5f)
+                .build(consumer);
+        CrucibleRecipeBuilder.replication(Items.BLAZE_POWDER, 2)
+                .setRecipeName("blaze_powder")
+                .ingredient(Items.BLAZE_POWDER)
+                .essentia(blazePowderEssentia.essentia, 1.5f)
+                .build(consumer);
+        CrucibleRecipeBuilder.replication(Items.ROTTEN_FLESH, 2)
+                .setRecipeName("rotten_flesh")
+                .ingredient(ROTTEN_FLESH)
+                .essentia(rottenFleshEssentia.essentia, 1f)
+                .build(consumer);
+        CrucibleRecipeBuilder.replication(Items.GHAST_TEAR, 2)
+                .setRecipeName("ghast_tear")
+                .ingredient(Items.GHAST_TEAR)
+                .essentia(ghastTearEssentia.essentia, 1.5f)
+                .build(consumer);
+        CrucibleRecipeBuilder.replication(Items.MAGMA_CREAM, 2)
+                .setRecipeName("magma_cream")
+                .ingredient(Items.MAGMA_CREAM)
+                .essentia(magmaCreamEssentia.essentia, 1.5f)
+                .build(consumer);
+        CrucibleRecipeBuilder.replication(Items.PHANTOM_MEMBRANE, 2)
+                .setRecipeName("phantom_membrane")
+                .ingredient(Items.PHANTOM_MEMBRANE)
+                .essentia(phantomMembraneEssentia.essentia, 1.5f)
+                .build(consumer);
+        CrucibleRecipeBuilder.replication(Items.DRAGON_EGG, 2)
+                .setRecipeName("dragon_egg")
+                .ingredient(Items.DRAGON_EGG)
+                .essentia(dragonEggEssentia.essentia, 1.5f)
+                .build(consumer);
+        CrucibleRecipeBuilder.replication(Items.DRAGON_BREATH, 2)
+                .setRecipeName("dragon_breath")
+                .ingredient(Items.DRAGON_BREATH)
+                .essentia(dragonBreathEssentia.essentia, 1.5f)
+                .build(consumer);
+        CrucibleRecipeBuilder.replication(Items.SKELETON_SKULL, 2)
+                .setRecipeName("skeleton_skull")
+                .ingredient(Items.SKELETON_SKULL)
+                .essentia(skeletonSkullEssentia.essentia, 1.5f)
+                .build(consumer);
+        CrucibleRecipeBuilder.replication(Items.WITHER_SKELETON_SKULL, 2)
+                .setRecipeName("wither_skeleton_skull")
+                .ingredient(Items.WITHER_SKELETON_SKULL)
+                .essentia(witherSkeletonSkullEssentia.essentia, 1.5f)
+                .build(consumer);
+        CrucibleRecipeBuilder.replication(Items.CREEPER_HEAD, 2)
+                .setRecipeName("creeper_head")
+                .ingredient(Items.CREEPER_HEAD)
+                .essentia(creeperHeadEssentia.essentia, 1.5f)
+                .build(consumer);
+        CrucibleRecipeBuilder.replication(Items.ZOMBIE_HEAD, 2)
+                .setRecipeName("zombie_head")
+                .ingredient(Items.ZOMBIE_HEAD)
+                .essentia(zombieHeadEssentia.essentia, 1.5f)
+                .build(consumer);
+        CrucibleRecipeBuilder.replication(Items.DRAGON_HEAD, 2)
+                .setRecipeName("dragon_head")
+                .ingredient(Items.DRAGON_HEAD)
+                .essentia(dragonHeadEssentia.essentia, 1.5f)
+                .build(consumer);
 
         //Transmutation recipes
         //Modded Ingots
@@ -888,14 +1121,16 @@ public class TheurgyRecipeProvider extends RecipeProvider {
                 CrucibleRecipeBuilder.transmutation(Items.MOSSY_COBBLESTONE, 1)
                         .setRecipeName("cobblestone_to_mossy_cobblestone")
                         .ingredient(Items.COBBLESTONE)
-                        .essentia(this.essentiaDifference(cobblestoneEssentia.essentia, mossyCobblestoneEssentia.essentia))
+                        .essentia(this.essentiaDifference(cobblestoneEssentia.essentia,
+                                mossyCobblestoneEssentia.essentia))
                         .build(consumer);
 
         CrucibleRecipeBuilder stoneBricksToMossyStoneBricksCobblestone =
                 CrucibleRecipeBuilder.transmutation(Items.MOSSY_STONE_BRICKS, 1)
                         .setRecipeName("stone_bricks_to_mossy_stone_bricks")
                         .ingredient(Items.STONE_BRICKS)
-                        .essentia(this.essentiaDifference(stoneBricksEssentia.essentia, mossyStoneBricksEssentia.essentia))
+                        .essentia(this.essentiaDifference(stoneBricksEssentia.essentia,
+                                mossyStoneBricksEssentia.essentia))
                         .build(consumer);
 
 
@@ -975,6 +1210,55 @@ public class TheurgyRecipeProvider extends RecipeProvider {
                                                            .essentia(terra, 50)
                                                            .essentia(aqua, 50)
                                                            .build(consumer);
+        CrucibleRecipeBuilder blazeRodTransmutation =
+                CrucibleRecipeBuilder.transmutation(Items.BLAZE_ROD, 1)
+                        .setRecipeName("blaze_rod")
+                        .ingredient(Tags.Items.BONES)
+                        .essentia(this.essentiaDifference(boneEssentia.essentia,
+                                blazeRodEssentia.essentia, 4f))
+                        .build(consumer);
+
+        CrucibleRecipeBuilder woolTransmutation =
+                CrucibleRecipeBuilder.transmutation(Items.WHITE_WOOL, 1)
+                        .setRecipeName("white_wool")
+                        .ingredient(Tags.Items.STRING)
+                        .essentia(this.essentiaDifference(stringEssentia.essentia,
+                                woolEssentia.essentia))
+                        .build(consumer);
+        CrucibleRecipeBuilder spiderEyeTransmutation =
+                CrucibleRecipeBuilder.transmutation(Items.SPIDER_EYE, 1)
+                        .setRecipeName("spider_eye")
+                        .ingredient(Items.SUGAR)
+                        .essentia(this.essentiaDifference(sugarEssentia.essentia,
+                                spiderEyeEssentia.essentia))
+                        .build(consumer);
+        CrucibleRecipeBuilder enderPearlTransmutation =
+                CrucibleRecipeBuilder.transmutation(Items.ENDER_PEARL, 1)
+                        .setRecipeName("ender_pearl")
+                        .ingredient(Items.EGG)
+                        .essentia(this.essentiaDifference(eggEssentia.essentia,
+                                enderPearlEssentia.essentia, 4f))
+                        .build(consumer);
+        CrucibleRecipeBuilder magmaCreamTransmutation =
+                CrucibleRecipeBuilder.transmutation(Items.MAGMA_CREAM, 1)
+                        .setRecipeName("magma_cream")
+                        .ingredient(Items.GUNPOWDER)
+                        .essentia(this.essentiaDifference(gunpowderEssentia.essentia,
+                                magmaCreamEssentia.essentia, 3f))
+                        .build(consumer);
+        CrucibleRecipeBuilder ghastTearTransmutation =
+                CrucibleRecipeBuilder.transmutation(Items.GHAST_TEAR, 1)
+                        .setRecipeName("ghast_tear")
+                        .ingredient(Items.FERMENTED_SPIDER_EYE)
+                        .essentia(this.essentiaDifference(gunpowderEssentia.essentia,
+                                ghastTearEssentia.essentia, 4f))
+                        .build(consumer);
+        CrucibleRecipeBuilder witherSkeletonSkullTransmutation =
+                CrucibleRecipeBuilder.transmutation(Items.WITHER_SKELETON_SKULL, 1)
+                        .setRecipeName("wither_skeleton_skull")
+                        .ingredient(Items.SKELETON_SKULL)
+                        .essentia(witherSkeletonSkullEssentia.essentia, 6)
+                        .build(consumer);
     }
     //endregion Overrides
 

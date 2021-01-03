@@ -1,0 +1,20 @@
+{
+  "type": "theurgy:replication",
+  "ingredient": {
+    "item": "minecraft:magma_cream"
+  },
+  "essentia": [
+    {
+      "item": "theurgy:aqua_essentia",
+      "count": 150
+    },
+    {
+      "item": "theurgy:ignis_essentia",
+      "count": 150
+    }
+  ],
+  "result": {
+    "item": "minecraft:magma_cream",
+    "count": 2
+  }
+}

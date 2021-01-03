@@ -1,0 +1,20 @@
+{
+  "type": "theurgy:transmutation",
+  "ingredient": {
+    "item": "minecraft:fermented_spider_eye"
+  },
+  "essentia": [
+    {
+      "item": "theurgy:aer_essentia",
+      "count": 2000
+    },
+    {
+      "item": "theurgy:ignis_essentia",
+      "count": 1920
+    }
+  ],
+  "result": {
+    "item": "minecraft:ghast_tear",
+    "count": 1
+  }
+}

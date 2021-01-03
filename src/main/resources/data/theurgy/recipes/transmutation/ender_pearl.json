@@ -1,0 +1,16 @@
+{
+  "type": "theurgy:transmutation",
+  "ingredient": {
+    "item": "minecraft:egg"
+  },
+  "essentia": [
+    {
+      "item": "theurgy:aer_essentia",
+      "count": 1000
+    }
+  ],
+  "result": {
+    "item": "minecraft:ender_pearl",
+    "count": 1
+  }
+}

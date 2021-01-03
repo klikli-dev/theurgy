@@ -117,7 +117,11 @@ public class CrucibleRecipeBuilder {
 
     //region Methods
     public CrucibleRecipeBuilder essentia(List<ItemStack> essentia) {
-        essentia.forEach(stack -> this.essentia(stack.getItem(), stack.getCount()));
+        return this.essentia(essentia, 1);
+    }
+
+    public CrucibleRecipeBuilder essentia(List<ItemStack> essentia, float multiplier) {
+        essentia.forEach(stack -> this.essentia(stack.getItem(), (int)(stack.getCount() * multiplier)));
         return this;
     }
 

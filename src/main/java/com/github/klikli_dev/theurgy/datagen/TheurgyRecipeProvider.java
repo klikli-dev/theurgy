@@ -67,7 +67,7 @@ public class TheurgyRecipeProvider extends RecipeProvider {
     public static final ITag.INamedTag<Item> COOKED_MEAT = TagRegistry.makeForgeItemTag("meats/cooked");
     public static final ITag.INamedTag<Item> RAW_FISH = TagRegistry.makeForgeItemTag("fish/raw");
     public static final ITag.INamedTag<Item> COOKED_FISH = TagRegistry.makeForgeItemTag("fish/cooked");
-    public static final ITag.INamedTag<Item> ROTTEN_FLESH = TagRegistry.makeForgeItemTag("meat/rotten");
+    public static final ITag.INamedTag<Item> ROTTEN_FLESH = TagRegistry.makeForgeItemTag("meats/rotten");
     //endregion Fields
 
     //region Initialization

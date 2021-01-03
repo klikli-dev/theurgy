@@ -34,7 +34,7 @@
     {
       "type": "text",
       "title": "But wait, there's more!",
-      "text": "To find further (modded) transmutation recipes, use JEI to check for all uses of the $(thing)Crucible$()."
+      "text": "To find many more transmutation recipes, use JEI to check for all uses of the $(thing)Crucible$()."
     }
   ]
 }

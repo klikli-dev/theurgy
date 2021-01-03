@@ -11,13 +11,3 @@ Currently no third party software is in use.
 All resources not explicitly listed below are available under the terms of the license of this project, see [LICENSE](./LICENSE).
 
 Large parts of the textures have been created by [ridanisaurus](https://www.curseforge.com/members/ridanisaurus/followers).
-
-### Images
-- Various icons from https://shikashiassets.itch.io/shikashis-fantasy-icons-pack (CC BY 3.0)
-
-### Textures
-- Various textures are from the public domain Soartex pack 1.2.5 by Soar49.
-- Various textures are from the CC0-1.0 licensed [Rosources](https://github.com/Richienb/Rosources) pack.
-
-### Sounds
-- Various sounds from freesound.org (CC0 1.0)

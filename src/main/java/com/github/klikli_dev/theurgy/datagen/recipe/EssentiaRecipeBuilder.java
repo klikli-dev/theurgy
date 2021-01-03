@@ -40,6 +40,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Consumer;
 
 public class EssentiaRecipeBuilder {
@@ -68,8 +69,20 @@ public class EssentiaRecipeBuilder {
     //endregion Static Methods
 
     //region Methods
+    public EssentiaRecipeBuilder essentia(List<ItemStack> essentia) {
+        essentia.forEach(stack -> this.essentia(stack.getItem(), stack.getCount()));
+        return this;
+    }
+
     public EssentiaRecipeBuilder essentia(IItemProvider essentia, int count) {
-        this.essentia.add(new ItemStack(essentia, count));
+        Optional<ItemStack> existing = this.essentia.stream()
+                                               .filter(stack -> stack.getItem() == essentia)
+                                               .findFirst();
+        if(existing.isPresent()){
+            existing.get().setCount(existing.get().getCount() + count);
+        } else {
+            this.essentia.add(new ItemStack(essentia, count));
+        }
         return this;
     }
 

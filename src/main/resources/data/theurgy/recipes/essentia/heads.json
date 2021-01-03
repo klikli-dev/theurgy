@@ -1,0 +1,16 @@
+{
+  "type": "theurgy:essentia",
+  "ingredient": {
+    "tag": "forge:heads"
+  },
+  "essentia": [
+    {
+      "item": "theurgy:aer_essentia",
+      "count": 50
+    },
+    {
+      "item": "theurgy:ignis_essentia",
+      "count": 50
+    }
+  ]
+}

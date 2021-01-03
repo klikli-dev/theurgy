@@ -1,0 +1,16 @@
+{
+  "type": "theurgy:essentia",
+  "ingredient": {
+    "item": "minecraft:blaze_powder"
+  },
+  "essentia": [
+    {
+      "item": "theurgy:aer_essentia",
+      "count": 25
+    },
+    {
+      "item": "theurgy:ignis_essentia",
+      "count": 25
+    }
+  ]
+}

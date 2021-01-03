@@ -33,7 +33,7 @@ credits="""See https://github.com/klikli-dev/theurgy#licensing""" #optional
 # A text field displayed in the mod UI
 authors="Kli Kli" #optional
 # The description text for the mod (multi line!) (#mandatory)
-description='''An open-source magic mod based roughly on the lore and concepts of Thaumcraft, while making certain changes, simplifications and taking other liberties.'''
+description='''An open-source magic mod built around classical alchemy to replicate and transmute matter, and create magical artifacts.'''
 
 # A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
 [[dependencies.occultism]]

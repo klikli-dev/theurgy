@@ -46,10 +46,6 @@ public abstract class GlowingBallEntity extends Entity implements IEntityAdditio
     //region Initialization
     public GlowingBallEntity(EntityType<?> entityTypeIn, World worldIn) {
         super(entityTypeIn, worldIn);
-        //TODO: remove debug code
-        //      should instead use additional spawn data to transfer the color once packed?
-        //      or better: fixed color for aether + enum that returns color for essentia
-        this.color = new Vector3f(60.0f/255.0f, 1.0f, 16.0f/255.0f);
     }
 
     @Override
@@ -69,6 +65,7 @@ public abstract class GlowingBallEntity extends Entity implements IEntityAdditio
 
 
     //region Overrides
+
 
     @Override
     public void tick() {

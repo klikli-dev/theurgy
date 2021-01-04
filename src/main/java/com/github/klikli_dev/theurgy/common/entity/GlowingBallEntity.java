@@ -66,7 +66,6 @@ public abstract class GlowingBallEntity extends Entity implements IEntityAdditio
 
     //region Overrides
 
-
     @Override
     public void tick() {
         super.tick();

@@ -58,12 +58,14 @@ public class EssentiaBallEntity extends GlowingBallEntity {
         super.readAdditional(compound);
         this.essentiaType = EssentiaType.values()[compound.getByte("essentiaType")];
         this.color = this.essentiaType.getEssentiaBallColor();
+        this.value = compound.getShort("value");
     }
 
     @Override
     protected void writeAdditional(CompoundNBT compound) {
         super.writeAdditional(compound);
         compound.putByte("essentiaType", (byte) this.essentiaType.ordinal());
+        compound.putShort("value", (short) this.value);
     }
 
     @Override

@@ -22,11 +22,9 @@
 
 package com.github.klikli_dev.theurgy.common.entity;
 
-import com.github.klikli_dev.theurgy.common.theurgy.EssentiaType;
 import com.github.klikli_dev.theurgy.registry.EntityRegistry;
 import net.minecraft.entity.EntityType;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.World;
@@ -34,19 +32,34 @@ import net.minecraft.world.World;
 public class AetherBallEntity extends GlowingBallEntity {
 
     //region Fields
+    public static final Vector3f COLOR = new Vector3f(168.0f / 255.0f, 50.0f / 255.0f, 158.0f / 255.0f);
     public int value;
     //endregion Fields
 
     //region Initialization
     public AetherBallEntity(EntityType<?> entityTypeIn, World worldIn) {
         super(entityTypeIn, worldIn);
+        this.color = COLOR;
     }
 
     public AetherBallEntity(World worldIn, double x, double y, double z, int value,
                             BlockPos target, double motionX, double motionY, double motionZ) {
-        super(EntityRegistry.AETHER_BALL_TYPE.get(), worldIn, x, y, z, target, motionX, motionY, motionZ,
-                new Vector3f(168.0f/255.0f, 50.0f/255.0f, 158.0f/255.0f));
+        super(EntityRegistry.AETHER_BALL_TYPE.get(), worldIn, x, y, z, target, motionX, motionY, motionZ, COLOR);
         this.value = value;
     }
     //endregion Initialization
+
+    //region Overrides
+    @Override
+    protected void readAdditional(CompoundNBT compound) {
+        super.readAdditional(compound);
+        this.value = compound.getShort("value");
+    }
+
+    @Override
+    protected void writeAdditional(CompoundNBT compound) {
+        super.writeAdditional(compound);
+        compound.putShort("value", (short) this.value);
+    }
+    //endregion Overrides
 }

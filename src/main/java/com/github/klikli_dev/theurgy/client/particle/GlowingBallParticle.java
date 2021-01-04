@@ -117,7 +117,7 @@ public class GlowingBallParticle extends SpriteTexturedParticle {
         }
 
         public String toString() {
-            return "PARTICLE_SHEET_TRANSLUCENT";
+            return "PARTICLE_SHEET_ADDITIVE";
         }
     };
 }

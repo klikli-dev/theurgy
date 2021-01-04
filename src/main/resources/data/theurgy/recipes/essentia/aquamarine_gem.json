@@ -1,0 +1,32 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "value": {
+            "tag": "forge:gems/aquamarine",
+            "type": "forge:tag_empty"
+          },
+          "type": "forge:not"
+        }
+      ],
+      "recipe": {
+        "type": "theurgy:essentia",
+        "ingredient": {
+          "tag": "forge:gems/aquamarine"
+        },
+        "essentia": [
+          {
+            "item": "theurgy:aqua_essentia",
+            "count": 200
+          },
+          {
+            "item": "theurgy:terra_essentia",
+            "count": 200
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "value": {
+            "tag": "forge:ores/ruby",
+            "type": "forge:tag_empty"
+          },
+          "type": "forge:not"
+        },
+        {
+          "value": {
+            "tag": "forge:gems/ruby",
+            "type": "forge:tag_empty"
+          },
+          "type": "forge:not"
+        }
+      ],
+      "recipe": {
+        "type": "theurgy:purification",
+        "ingredient": {
+          "tag": "forge:ores/ruby"
+        },
+        "essentia": [
+          {
+            "item": "theurgy:terra_essentia",
+            "count": 10
+          }
+        ],
+        "result": {
+          "tag": "forge:gems/ruby",
+          "count": 2
+        }
+      }
+    }
+  ]
+}

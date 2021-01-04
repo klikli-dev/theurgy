@@ -1,0 +1,36 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "value": {
+            "tag": "forge:gems/tanzanite",
+            "type": "forge:tag_empty"
+          },
+          "type": "forge:not"
+        }
+      ],
+      "recipe": {
+        "type": "theurgy:replication",
+        "ingredient": {
+          "tag": "forge:gems/tanzanite"
+        },
+        "essentia": [
+          {
+            "item": "theurgy:aqua_essentia",
+            "count": 100
+          },
+          {
+            "item": "theurgy:terra_essentia",
+            "count": 200
+          }
+        ],
+        "result": {
+          "tag": "forge:gems/tanzanite",
+          "count": 2
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "value": {
+            "tag": "forge:ores/amethyst",
+            "type": "forge:tag_empty"
+          },
+          "type": "forge:not"
+        },
+        {
+          "value": {
+            "tag": "forge:gems/amethyst",
+            "type": "forge:tag_empty"
+          },
+          "type": "forge:not"
+        }
+      ],
+      "recipe": {
+        "type": "theurgy:purification",
+        "ingredient": {
+          "tag": "forge:ores/amethyst"
+        },
+        "essentia": [
+          {
+            "item": "theurgy:terra_essentia",
+            "count": 10
+          }
+        ],
+        "result": {
+          "tag": "forge:gems/amethyst",
+          "count": 2
+        }
+      }
+    }
+  ]
+}

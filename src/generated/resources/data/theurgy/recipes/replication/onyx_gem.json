@@ -1,0 +1,32 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "value": {
+            "tag": "forge:gems/onyx",
+            "type": "forge:tag_empty"
+          },
+          "type": "forge:not"
+        }
+      ],
+      "recipe": {
+        "type": "theurgy:replication",
+        "ingredient": {
+          "tag": "forge:gems/onyx"
+        },
+        "essentia": [
+          {
+            "item": "theurgy:terra_essentia",
+            "count": 300
+          }
+        ],
+        "result": {
+          "tag": "forge:gems/onyx",
+          "count": 2
+        }
+      }
+    }
+  ]
+}

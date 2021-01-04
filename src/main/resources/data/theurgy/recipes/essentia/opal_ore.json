@@ -1,0 +1,28 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "value": {
+            "tag": "forge:ores/opal",
+            "type": "forge:tag_empty"
+          },
+          "type": "forge:not"
+        }
+      ],
+      "recipe": {
+        "type": "theurgy:essentia",
+        "ingredient": {
+          "tag": "forge:ores/opal"
+        },
+        "essentia": [
+          {
+            "item": "theurgy:aer_essentia",
+            "count": 300
+          }
+        ]
+      }
+    }
+  ]
+}

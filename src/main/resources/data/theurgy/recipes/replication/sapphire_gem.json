@@ -1,0 +1,32 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "value": {
+            "tag": "forge:gems/sapphire",
+            "type": "forge:tag_empty"
+          },
+          "type": "forge:not"
+        }
+      ],
+      "recipe": {
+        "type": "theurgy:replication",
+        "ingredient": {
+          "tag": "forge:gems/sapphire"
+        },
+        "essentia": [
+          {
+            "item": "theurgy:aqua_essentia",
+            "count": 400
+          }
+        ],
+        "result": {
+          "tag": "forge:gems/sapphire",
+          "count": 2
+        }
+      }
+    }
+  ]
+}

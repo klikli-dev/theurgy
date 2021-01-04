@@ -1,0 +1,39 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "value": {
+            "tag": "forge:ores/malachite",
+            "type": "forge:tag_empty"
+          },
+          "type": "forge:not"
+        },
+        {
+          "value": {
+            "tag": "forge:gems/malachite",
+            "type": "forge:tag_empty"
+          },
+          "type": "forge:not"
+        }
+      ],
+      "recipe": {
+        "type": "theurgy:purification",
+        "ingredient": {
+          "tag": "forge:ores/malachite"
+        },
+        "essentia": [
+          {
+            "item": "theurgy:terra_essentia",
+            "count": 10
+          }
+        ],
+        "result": {
+          "tag": "forge:gems/malachite",
+          "count": 2
+        }
+      }
+    }
+  ]
+}

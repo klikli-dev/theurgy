@@ -95,6 +95,25 @@ public class TheurgyRecipeProvider extends RecipeProvider {
         this.registerModMetal("iesnium", 0, 0, 600, 600, consumer);
         this.registerModMetal("platinum", 0, 0, 250, 250, consumer);
 
+        //Modded Gems
+        this.registerModGem("amber", 200, 0, 0, 200, 2, consumer);
+        this.registerModGem("amethyst", 0, 200, 200, 200, 2, consumer);
+        this.registerModGem("aquamarine", 0, 200, 0, 200, 2, consumer);
+        this.registerModGem("beryl", 100, 0, 300, 0, 2, consumer);
+        this.registerModGem("certus_quartz", 100, 100, 0, 0, 4, consumer);
+        this.registerModGem("charged_certus_quartz", 100, 100, 200, 0, 4, consumer);
+        this.registerModGem("garnet", 100, 0, 100, 100, 2, consumer);
+        this.registerModGem("heliodore", 0, 0, 100, 100, 2, consumer);
+        this.registerModGem("malachite", 0, 0, 100, 200, 2, consumer);
+        this.registerModGem("morganite", 0, 0, 100, 300, 2, consumer);
+        this.registerModGem("onyx", 0, 0, 0, 300, 2, consumer);
+        this.registerModGem("opal", 300, 0, 0, 0, 2, consumer);
+        this.registerModGem("peridot", 100, 0, 300, 0, 2, consumer);
+        this.registerModGem("ruby", 100, 0, 300, 0, 2, consumer);
+        this.registerModGem("sapphire", 0, 400, 0, 0, 2, consumer);
+        this.registerModGem("tanzanite", 0, 100, 0, 200, 2, consumer);
+        this.registerModGem("topaz", 100, 100, 0, 100, 2, consumer);
+
 
         //Essentia recipes
 
@@ -1259,6 +1278,36 @@ public class TheurgyRecipeProvider extends RecipeProvider {
                                                                .ingredient(ingotTag)
                                                                .essentia(ingotEssentia.essentia);
         this.registerTagExistsCondition(ingotReplication, consumer, ingotTag);
+    }
+
+    protected void registerModGem(String name, int aerAmount, int aquaAmount, int ignisAmount, int terraAmount, int purificationCount,
+                                    Consumer<IFinishedRecipe> consumer) {
+        ITag.INamedTag<Item> oreTag = TagRegistry.makeForgeItemTag("ores/" + name);
+        ITag.INamedTag<Item> gemTag = TagRegistry.makeForgeItemTag("gems/" + name);
+
+        EssentiaRecipeBuilder oreEssentia = EssentiaRecipeBuilder.create()
+                                                    .setRecipeName(name + "_ore")
+                                                    .ingredient(oreTag);
+        this.addEssentia(oreEssentia, aerAmount, aquaAmount, ignisAmount, terraAmount);
+        this.registerTagExistsCondition(oreEssentia, consumer, oreTag);
+
+        EssentiaRecipeBuilder gemEssentia = EssentiaRecipeBuilder.create()
+                                                      .setRecipeName(name + "_gem")
+                                                      .ingredient(gemTag);
+        this.addEssentia(gemEssentia, aerAmount, aquaAmount, ignisAmount, terraAmount);
+        this.registerTagExistsCondition(gemEssentia, consumer, gemTag);
+
+        CrucibleRecipeBuilder orePurification = CrucibleRecipeBuilder.purification(gemTag, purificationCount)
+                                                        .setRecipeName(name + "_ore")
+                                                        .ingredient(oreTag)
+                                                        .essentia(ItemRegistry.TERRA_ESSENTIA.get(), 10);
+        this.registerTagExistsCondition(orePurification, consumer, oreTag, gemTag);
+
+        CrucibleRecipeBuilder gemReplication = CrucibleRecipeBuilder.replication(gemTag, 2)
+                                                         .setRecipeName(name + "_gem")
+                                                         .ingredient(gemTag)
+                                                         .essentia(gemEssentia.essentia);
+        this.registerTagExistsCondition(gemReplication, consumer, gemTag);
     }
 
 

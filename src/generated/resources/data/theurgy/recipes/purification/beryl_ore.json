@@ -1,0 +1,39 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "value": {
+            "tag": "forge:ores/beryl",
+            "type": "forge:tag_empty"
+          },
+          "type": "forge:not"
+        },
+        {
+          "value": {
+            "tag": "forge:gems/beryl",
+            "type": "forge:tag_empty"
+          },
+          "type": "forge:not"
+        }
+      ],
+      "recipe": {
+        "type": "theurgy:purification",
+        "ingredient": {
+          "tag": "forge:ores/beryl"
+        },
+        "essentia": [
+          {
+            "item": "theurgy:terra_essentia",
+            "count": 10
+          }
+        ],
+        "result": {
+          "tag": "forge:gems/beryl",
+          "count": 2
+        }
+      }
+    }
+  ]
+}

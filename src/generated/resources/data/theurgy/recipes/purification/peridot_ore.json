@@ -1,0 +1,39 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "value": {
+            "tag": "forge:ores/peridot",
+            "type": "forge:tag_empty"
+          },
+          "type": "forge:not"
+        },
+        {
+          "value": {
+            "tag": "forge:gems/peridot",
+            "type": "forge:tag_empty"
+          },
+          "type": "forge:not"
+        }
+      ],
+      "recipe": {
+        "type": "theurgy:purification",
+        "ingredient": {
+          "tag": "forge:ores/peridot"
+        },
+        "essentia": [
+          {
+            "item": "theurgy:terra_essentia",
+            "count": 10
+          }
+        ],
+        "result": {
+          "tag": "forge:gems/peridot",
+          "count": 2
+        }
+      }
+    }
+  ]
+}

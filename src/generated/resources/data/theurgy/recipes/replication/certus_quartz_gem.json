@@ -1,0 +1,36 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "value": {
+            "tag": "forge:gems/certus_quartz",
+            "type": "forge:tag_empty"
+          },
+          "type": "forge:not"
+        }
+      ],
+      "recipe": {
+        "type": "theurgy:replication",
+        "ingredient": {
+          "tag": "forge:gems/certus_quartz"
+        },
+        "essentia": [
+          {
+            "item": "theurgy:aer_essentia",
+            "count": 100
+          },
+          {
+            "item": "theurgy:aqua_essentia",
+            "count": 100
+          }
+        ],
+        "result": {
+          "tag": "forge:gems/certus_quartz",
+          "count": 2
+        }
+      }
+    }
+  ]
+}

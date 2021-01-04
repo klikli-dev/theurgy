@@ -24,9 +24,11 @@ package com.github.klikli_dev.theurgy.common.handlers;
 
 import com.github.klikli_dev.theurgy.Theurgy;
 import com.github.klikli_dev.theurgy.client.itemproperties.EssentiaGaugeItemPropertyGetter;
+import com.github.klikli_dev.theurgy.client.render.entity.GlowingBallEntityRenderer;
 import com.github.klikli_dev.theurgy.client.render.tile.CrucibleRenderer;
 import com.github.klikli_dev.theurgy.common.item.tool.EssentiaGaugeItem;
 import com.github.klikli_dev.theurgy.registry.BlockRegistry;
+import com.github.klikli_dev.theurgy.registry.EntityRegistry;
 import com.github.klikli_dev.theurgy.registry.ItemRegistry;
 import com.github.klikli_dev.theurgy.registry.TileRegistry;
 import net.minecraft.client.renderer.RenderType;
@@ -36,6 +38,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
+import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
@@ -48,6 +51,8 @@ public class ClientSetupEventHandler {
         //Register client side event handlers
 
         //Register Entity Renderers
+        RenderingRegistry
+                .registerEntityRenderingHandler(EntityRegistry.GLOWING_BALL.get(), GlowingBallEntityRenderer::new);
 
         //Register Tile Entity Renderers
         ClientRegistry.bindTileEntityRenderer(TileRegistry.CRUCIBLE.get(), CrucibleRenderer::new);

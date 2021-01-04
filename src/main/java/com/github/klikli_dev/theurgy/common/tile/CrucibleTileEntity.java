@@ -29,12 +29,10 @@ import com.github.klikli_dev.theurgy.common.crafting.recipe.CrucibleCraftingType
 import com.github.klikli_dev.theurgy.common.crafting.recipe.CrucibleItemStackFakeInventory;
 import com.github.klikli_dev.theurgy.common.crafting.recipe.CrucibleRecipe;
 import com.github.klikli_dev.theurgy.common.crafting.recipe.EssentiaRecipe;
+import com.github.klikli_dev.theurgy.common.entity.GlowingBallEntity;
 import com.github.klikli_dev.theurgy.common.theurgy.EssentiaCache;
 import com.github.klikli_dev.theurgy.common.theurgy.essentia_chunks.EssentiaChunkHandler;
-import com.github.klikli_dev.theurgy.registry.ItemRegistry;
-import com.github.klikli_dev.theurgy.registry.RecipeRegistry;
-import com.github.klikli_dev.theurgy.registry.TagRegistry;
-import com.github.klikli_dev.theurgy.registry.TileRegistry;
+import com.github.klikli_dev.theurgy.registry.*;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -49,6 +47,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.math.vector.Vector3f;
 
 import java.util.ArrayList;
 import java.util.List;

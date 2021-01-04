@@ -1,0 +1,36 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "value": {
+            "tag": "forge:ingots/platinum",
+            "type": "forge:tag_empty"
+          },
+          "type": "forge:not"
+        }
+      ],
+      "recipe": {
+        "type": "theurgy:replication",
+        "ingredient": {
+          "tag": "forge:ingots/platinum"
+        },
+        "essentia": [
+          {
+            "item": "theurgy:ignis_essentia",
+            "count": 250
+          },
+          {
+            "item": "theurgy:terra_essentia",
+            "count": 250
+          }
+        ],
+        "result": {
+          "tag": "forge:ingots/platinum",
+          "count": 2
+        }
+      }
+    }
+  ]
+}

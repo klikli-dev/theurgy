@@ -74,10 +74,27 @@ public class TheurgyRecipeProvider extends RecipeProvider {
         Item ignis = ItemRegistry.IGNIS_ESSENTIA.get();
         Item terra = ItemRegistry.TERRA_ESSENTIA.get();
 
-        //Modded Ingots
+        //Modded Metals
         this.registerModMetal("copper", 0, 0, 100, 100, consumer);
         this.registerModMetal("tin", 0, 0, 100, 100, consumer);
+        this.registerModMetal("aluminum", 0, 0, 100, 100, consumer);
+
+        this.registerModMetal("lead", 0, 0, 100, 100, consumer);
+        this.registerModMetal("magnesium", 0, 0, 100, 100, consumer);
+        this.registerModMetal("nickel", 0, 0, 100, 100, consumer);
+        this.registerModMetal("osmium", 0, 0, 100, 100, consumer);
+        this.registerModMetal("zinc", 0, 0, 100, 100, consumer);
+
         this.registerModMetal("silver", 0, 0, 150, 150, consumer);
+        this.registerModMetal("ardite", 0, 0, 200, 200, consumer);
+        this.registerModMetal("cobalt", 0, 0, 200, 200, consumer);
+        this.registerModMetal("tungsten", 0, 0, 150, 150, consumer);
+        this.registerModMetal("uranium", 0, 0, 200, 200, consumer);
+
+        this.registerModMetal("mithril", 0, 0, 300, 300, consumer);
+        this.registerModMetal("iesnium", 0, 0, 600, 600, consumer);
+        this.registerModMetal("platinum", 0, 0, 250, 250, consumer);
+
 
         //Essentia recipes
 

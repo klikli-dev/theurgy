@@ -1,0 +1,36 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "value": {
+            "tag": "forge:ingots/ardite",
+            "type": "forge:tag_empty"
+          },
+          "type": "forge:not"
+        }
+      ],
+      "recipe": {
+        "type": "theurgy:replication",
+        "ingredient": {
+          "tag": "forge:ingots/ardite"
+        },
+        "essentia": [
+          {
+            "item": "theurgy:ignis_essentia",
+            "count": 200
+          },
+          {
+            "item": "theurgy:terra_essentia",
+            "count": 200
+          }
+        ],
+        "result": {
+          "tag": "forge:ingots/ardite",
+          "count": 2
+        }
+      }
+    }
+  ]
+}

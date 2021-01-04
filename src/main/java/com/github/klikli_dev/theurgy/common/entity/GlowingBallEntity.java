@@ -23,6 +23,7 @@
 package com.github.klikli_dev.theurgy.common.entity;
 
 import com.github.klikli_dev.theurgy.client.particle.GlowingBallParticleData;
+import com.github.klikli_dev.theurgy.registry.EntityRegistry;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.nbt.CompoundNBT;
@@ -49,6 +50,11 @@ public class GlowingBallEntity extends Entity {
     //region Initialization
     public GlowingBallEntity(EntityType<?> entityTypeIn, World worldIn) {
         super(entityTypeIn, worldIn);
+    }
+
+    public GlowingBallEntity(World worldIn, double x, double y, double z) {
+        this(EntityRegistry.GLOWING_BALL_TYPE.get(), worldIn);
+        this.setPosition(x, y, z);
     }
     //endregion Initialization
 

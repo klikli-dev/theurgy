@@ -38,7 +38,7 @@ public class EntityRegistry {
             Theurgy.MODID);
 
     public static final NonNullLazy<EntityType<GlowingBallEntity>> GLOWING_BALL_TYPE =
-            NonNullLazy.of(() -> EntityType.Builder.create(GlowingBallEntity::new,
+            NonNullLazy.of(() -> EntityType.Builder.<GlowingBallEntity>create(GlowingBallEntity::new,
                     EntityClassification.MISC)
                                          .size(0.25f, 0.25f)
                                          .trackingRange(6)

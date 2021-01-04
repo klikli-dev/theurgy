@@ -203,7 +203,7 @@ curseforge {
 
     project {
         apiKey = curse_api_key
-        id = '253449'
+        id = '430636'
         changelog = '[Automated Build]\nFind changes at https://github.com/klikli-dev/theurgy/releases'
         releaseType = release_type
         addGameVersion env_mc_version

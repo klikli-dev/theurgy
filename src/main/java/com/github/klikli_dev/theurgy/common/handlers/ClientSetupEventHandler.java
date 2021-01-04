@@ -51,8 +51,8 @@ public class ClientSetupEventHandler {
         //Register client side event handlers
 
         //Register Entity Renderers
-        RenderingRegistry
-                .registerEntityRenderingHandler(EntityRegistry.GLOWING_BALL.get(), GlowingBallEntityRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.ESSENTIA_BALL.get(), GlowingBallEntityRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.AETHER_BALL.get(), GlowingBallEntityRenderer::new);
 
         //Register Tile Entity Renderers
         ClientRegistry.bindTileEntityRenderer(TileRegistry.CRUCIBLE.get(), CrucibleRenderer::new);

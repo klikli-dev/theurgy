@@ -28,51 +28,44 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.IPacket;
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.network.datasync.DataSerializers;
-import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.network.play.server.SSpawnObjectPacket;
+import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 import net.minecraftforge.fml.network.NetworkHooks;
 
-public class GlowingBallEntity extends Entity {
+public abstract class GlowingBallEntity extends Entity implements IEntityAdditionalSpawnData {
     //region Fields
-    protected static final DataParameter<BlockPos> TARGET =
-            EntityDataManager.createKey(GlowingBallEntity.class, DataSerializers.BLOCK_POS);
     public int lifespan = 80;
-
-    public Vector3f color;
+    public BlockPos target = new BlockPos(0, 0, 0);
+    public Vector3f color = new Vector3f(0, 0, 0);
     //endregion Fields
 
     //region Initialization
     public GlowingBallEntity(EntityType<?> entityTypeIn, World worldIn) {
         super(entityTypeIn, worldIn);
-        //TODO: remove debug code
-        //      should instead use additional spawn data to transfer the color once packed?
-        //      or better: fixed color for aether + enum that returns color for essentia
-        this.color = new Vector3f(60.0f/255.0f, 1.0f, 16.0f/255.0f);
     }
 
-    public GlowingBallEntity(World worldIn, double x, double y, double z) {
-        this(EntityRegistry.GLOWING_BALL_TYPE.get(), worldIn);
+    @Override
+    protected void registerData() {
+
+    }
+
+    public GlowingBallEntity(EntityType<?> entityTypeIn, World worldIn, double x, double y, double z,
+                             BlockPos target, double motionX, double motionY, double motionZ, Vector3f color) {
+        this(entityTypeIn, worldIn);
         this.setPosition(x, y, z);
+        this.target = target;
+        this.setMotion(motionX, motionY, motionZ);
+        this.color = color;
     }
     //endregion Initialization
 
-    //region Getter / Setter
-    public BlockPos getTarget() {
-        return this.dataManager.get(TARGET);
-    }
-    //endregion Getter / Setter
 
     //region Overrides
-    @Override
-    protected void registerData() {
-        this.dataManager.register(TARGET, new BlockPos(0, 0, 0));
-    }
+
 
     @Override
     public void tick() {
@@ -84,10 +77,9 @@ public class GlowingBallEntity extends Entity {
         }
 
         if (this.isAlive()) {
-            BlockPos target = this.getTarget();
-            double targetX = target.getX() + 0.5;
-            double targetY = target.getY() + 0.5;
-            double targetZ = target.getZ() + 0.5;
+            double targetX = this.target.getX() + 0.5;
+            double targetY = this.target.getY() + 0.5;
+            double targetZ = this.target.getZ() + 0.5;
             Vector3d targetVector = new Vector3d(
                     targetX - this.getPosX(),
                     targetY - this.getPosY(),
@@ -117,7 +109,7 @@ public class GlowingBallEntity extends Entity {
             );
 
             //if target reached
-            if (this.getPosition().withinDistance(this.getTarget(), 0.5f)) {
+            if (this.getPosition().withinDistance(this.target, 0.5f)) {
                 this.onTargetReached();
             }
 
@@ -151,31 +143,32 @@ public class GlowingBallEntity extends Entity {
     @Override
     protected void readAdditional(CompoundNBT compound) {
         this.lifespan = compound.getByte("lifespan");
-        if (compound.contains("target")) {
-            this.dataManager.set(TARGET, BlockPos.fromLong(compound.getLong("target")));
-        }
+        this.target = BlockPos.fromLong(compound.getLong("target"));
     }
 
     @Override
     protected void writeAdditional(CompoundNBT compound) {
         compound.putByte("lifespan", (byte) this.lifespan);
-        compound.putLong("target", this.dataManager.get(TARGET).toLong());
+        compound.putLong("target", this.target.toLong());
     }
 
     @Override
     public IPacket<?> createSpawnPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
+
+    @Override
+    public void writeSpawnData(PacketBuffer buffer) {
+        buffer.writeBlockPos(this.target);
+    }
+
+    @Override
+    public void readSpawnData(PacketBuffer additionalData) {
+        this.target = additionalData.readBlockPos();
+    }
     //endregion Overrides
 
     //region Methods
-    public void init(BlockPos target, double motionX, double motionY,
-                     double motionZ, Vector3f color) {
-        this.dataManager.set(TARGET, target);
-        this.setMotion(motionX, motionY, motionZ);
-        this.color = color;
-    }
-
     protected void onTargetReached() {
         this.lifespan = 0;
         this.setMotion(0, 0, 0);

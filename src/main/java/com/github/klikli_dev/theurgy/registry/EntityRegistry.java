@@ -23,7 +23,8 @@
 package com.github.klikli_dev.theurgy.registry;
 
 import com.github.klikli_dev.theurgy.Theurgy;
-import com.github.klikli_dev.theurgy.common.entity.GlowingBallEntity;
+import com.github.klikli_dev.theurgy.common.entity.AetherBallEntity;
+import com.github.klikli_dev.theurgy.common.entity.EssentiaBallEntity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.ResourceLocation;
@@ -37,15 +38,25 @@ public class EntityRegistry {
     public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITIES,
             Theurgy.MODID);
 
-    public static final NonNullLazy<EntityType<GlowingBallEntity>> GLOWING_BALL_TYPE =
-            NonNullLazy.of(() -> EntityType.Builder.<GlowingBallEntity>create(GlowingBallEntity::new,
+    public static final NonNullLazy<EntityType<EssentiaBallEntity>> ESSENTIA_BALL_TYPE =
+            NonNullLazy.of(() -> EntityType.Builder.<EssentiaBallEntity>create(EssentiaBallEntity::new,
                     EntityClassification.MISC)
                                          .size(0.25f, 0.25f)
                                          .trackingRange(6)
-                                         .build(new ResourceLocation(Theurgy.MODID, "glowing_ball").toString()));
+                                         .build(new ResourceLocation(Theurgy.MODID, "essentia_ball").toString()));
 
-    public static final RegistryObject<EntityType<GlowingBallEntity>> GLOWING_BALL =
-            ENTITIES.register("glowing_ball", GLOWING_BALL_TYPE::get);
+    public static final RegistryObject<EntityType<EssentiaBallEntity>> ESSENTIA_BALL =
+            ENTITIES.register("essentia_ball", ESSENTIA_BALL_TYPE::get);
+
+    public static final NonNullLazy<EntityType<AetherBallEntity>> AETHER_BALL_TYPE =
+            NonNullLazy.of(() -> EntityType.Builder.<AetherBallEntity>create(AetherBallEntity::new,
+                    EntityClassification.MISC)
+                                         .size(0.25f, 0.25f)
+                                         .trackingRange(6)
+                                         .build(new ResourceLocation(Theurgy.MODID, "aether_ball").toString()));
+
+    public static final RegistryObject<EntityType<AetherBallEntity>> AETHER_BALL =
+            ENTITIES.register("aether_ball", AETHER_BALL_TYPE::get);
     //endregion Fields
 
 }

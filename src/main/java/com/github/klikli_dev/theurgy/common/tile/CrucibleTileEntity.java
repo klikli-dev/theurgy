@@ -29,8 +29,11 @@ import com.github.klikli_dev.theurgy.common.crafting.recipe.CrucibleCraftingType
 import com.github.klikli_dev.theurgy.common.crafting.recipe.CrucibleItemStackFakeInventory;
 import com.github.klikli_dev.theurgy.common.crafting.recipe.CrucibleRecipe;
 import com.github.klikli_dev.theurgy.common.crafting.recipe.EssentiaRecipe;
+import com.github.klikli_dev.theurgy.common.entity.AetherBallEntity;
+import com.github.klikli_dev.theurgy.common.entity.EssentiaBallEntity;
 import com.github.klikli_dev.theurgy.common.entity.GlowingBallEntity;
 import com.github.klikli_dev.theurgy.common.theurgy.EssentiaCache;
+import com.github.klikli_dev.theurgy.common.theurgy.EssentiaType;
 import com.github.klikli_dev.theurgy.common.theurgy.essentia_chunks.EssentiaChunkHandler;
 import com.github.klikli_dev.theurgy.registry.*;
 import net.minecraft.block.BlockState;

@@ -123,6 +123,58 @@ public class CrucibleTileEntity extends NetworkedTileEntity implements ITickable
     @Override
     public void tick() {
 
+        if(this.world.isRemote && this.testLifetime > 0){
+            double targetX = this.testTarget.getX() + 0.5;
+            double targetY = this.testTarget.getY() + 0.5;
+            double targetZ = this.testTarget.getZ() + 0.5;
+            if(this.testTarget.getX() != 0 || this.testTarget.getY() != 0 || this.testTarget.getZ() != 0) {
+                Vector3d targetVector = new Vector3d(targetX - this.testPosX, targetY - this.testPosY, targetZ - this.testPosZ);
+                double length = targetVector.length();
+                targetVector = targetVector.scale(0.3/length);
+                double weight  = 0;
+                if (length <= 3){
+                    weight = 0.9*((3.0-length)/3.0);
+                }
+                this.testMotionX = (0.9-weight)*this.testMotionX+(0.1+weight)*targetVector.x;
+                this.testMotionY = (0.9-weight)*this.testMotionY+(0.1+weight)*targetVector.y;
+                this.testMotionZ = (0.9-weight)*this.testMotionZ+(0.1+weight)*targetVector.z;
+            }
+            this.testPrevPosX = this.testPosX;
+            this.testPrevPosY = this.testPosY;
+            this.testPrevPosZ = this.testPosZ;
+            this.testPosX += this.testMotionX;
+            this.testPosY += this.testMotionY;
+            this.testPosZ += this.testMotionZ;
+
+            //distance to test target block center
+            if(Math.abs(this.testPosX - targetX) < 0.5 && Math.abs(this.testPosY - targetY) < 0.5 && Math.abs(this.testPosZ - targetZ) < 0.5){
+                //stop if reached target
+                this.testLifetime = 0;
+                this.testMotionX = 0;
+                this.testMotionY = 0;
+                this.testMotionZ = 0;
+            }
+
+            double deltaX =  this.testPosX - this.testPrevPosX;
+            double deltaY =  this.testPosY - this.testPrevPosY;
+            double deltaZ =  this.testPosZ - this.testPrevPosZ;
+            double dist = Math.ceil(Math.sqrt(deltaX*deltaX+deltaY*deltaY+deltaZ*deltaZ) * 20);
+            for (double i = 0; i < dist; i ++){
+                double coeff = i/dist;
+               // GlowingBallParticleData data = new GlowingBallParticleData(1.0f, 64.0f/255.0f, 16.0f/255.0f, 0.5f, 0.5f, 12);
+                GlowingBallParticleData data = new GlowingBallParticleData(60.0f/255.0f, 1.0f, 16.0f/255.0f, 0.5f, 0.5f, 12);
+
+                this.world.addParticle(data,
+                        (float) (this.testPrevPosX + deltaX * coeff),
+                        (float) (this.testPrevPosY + deltaY * coeff),
+                        (float) (this.testPrevPosZ + deltaZ * coeff),
+                        0.0125f*(this.world.rand.nextFloat()-0.5f),
+                        0.0125f*(this.world.rand.nextFloat()-0.5f),
+                        0.0125f*(this.world.rand.nextFloat()-0.5f)
+                        );
+            }
+        }
+
         //count down crafting ticks
         if (!this.world.isRemote && this.remainingCraftingTicks > 0) {
             this.remainingCraftingTicks--;

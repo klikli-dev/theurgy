@@ -76,7 +76,7 @@ public class EssentiaGaugeItem extends Item {
         World world = context.getWorld();
         BlockPos pos = context.getPos();
         if (context.getPlayer().isSneaking()) {
-            compound.putString("targetDimensionKey", context.getWorld().getDimensionKey().toString());
+            compound.putString("targetDimensionKey", context.getWorld().getDimensionKey().getLocation().toString());
             compound.putLong("target", pos.toLong());
             compound.putInt("linkType", 0); //0 for essentia, 1 for future aether
             world.playSound(null, pos, SoundEvents.BLOCK_ANVIL_LAND, SoundCategory.BLOCKS, 1.0f,

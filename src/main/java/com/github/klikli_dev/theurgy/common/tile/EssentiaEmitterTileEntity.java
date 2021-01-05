@@ -50,6 +50,7 @@ public class EssentiaEmitterTileEntity extends NetworkedTileEntity implements IT
     public static final int EMITTER_ESSENTIA_CAPACITY = 500;
     public static final int BURST_RATE = 50;
     public static final int PULL_RATE = 50;
+    public static final int BURST_TICKS = 40;
     public static final Vector3d BURST_DOWN = new Vector3d(0, -0.5, 0);
     public static final Vector3d BURST_UP = new Vector3d(0, 0.5, 0);
     public static final Vector3d BURST_NORTH = new Vector3d(0, -0.01, -0.5);
@@ -120,7 +121,7 @@ public class EssentiaEmitterTileEntity extends NetworkedTileEntity implements IT
             }
             //on even slower tick, send essentia to target
             this.target.ifPresent(target -> {
-                if ((this.world.getGameTime() + this.burstOffset) % 20 == 0) {
+                if ((this.world.getGameTime() + this.burstOffset) % BURST_TICKS == 0) {
                     //get the current burst type
                     Item burstEssentia = this.burstType.getEssentiaItem().get();
                     //if current burst type has no essentia, skip
@@ -145,7 +146,7 @@ public class EssentiaEmitterTileEntity extends NetworkedTileEntity implements IT
                             //TODO: Sound effect for essentia burst?
                         }
                     }
-                    this.burstType.next(); //advance to next type for next burst
+                    this.burstType = this.burstType.next(); //advance to next type for next burst
                 }
             });
 

@@ -23,6 +23,7 @@
 package com.github.klikli_dev.theurgy.registry;
 
 import com.github.klikli_dev.theurgy.Theurgy;
+import com.github.klikli_dev.theurgy.common.tile.CreativeEssentiaSourceTileEntity;
 import com.github.klikli_dev.theurgy.common.tile.CrucibleTileEntity;
 import com.github.klikli_dev.theurgy.common.tile.EssentiaEmitterTileEntity;
 import com.github.klikli_dev.theurgy.common.tile.EssentiaReceiverTileEntity;
@@ -44,8 +45,12 @@ public class TileRegistry {
             "essentia_emitter", () -> TileEntityType.Builder.create(EssentiaEmitterTileEntity::new,
                     BlockRegistry.ESSENTIA_EMITTER.get()).build(null));
 
-    public static final RegistryObject<TileEntityType<EssentiaReceiverTileEntity>> ESSENTIA_RECEIVER= TILES.register(
+    public static final RegistryObject<TileEntityType<EssentiaReceiverTileEntity>> ESSENTIA_RECEIVER = TILES.register(
             "essentia_receiver", () -> TileEntityType.Builder.create(EssentiaReceiverTileEntity::new,
                     BlockRegistry.ESSENTIA_EMITTER.get()).build(null));
+
+    public static final RegistryObject<TileEntityType<CreativeEssentiaSourceTileEntity>> CREATIVE_ESSENTIA_SOURCE = TILES.register(
+            "creaitve_essentia_source", () -> TileEntityType.Builder.create(CreativeEssentiaSourceTileEntity::new,
+                    BlockRegistry.CREATIVE_ESSENTIA_SOURCE.get()).build(null));
     //endregion Fields
 }

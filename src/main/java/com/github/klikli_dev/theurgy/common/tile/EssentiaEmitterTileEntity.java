@@ -44,7 +44,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Optional;
 
-public class EssentiaEmitterTileEntity extends NetworkedTileEntity implements ITickableTileEntity {
+public class EssentiaEmitterTileEntity extends NetworkedTileEntity implements ITickableTileEntity, IEssentiaEmitter {
 
     //region Fields
     public static final int EMITTER_ESSENTIA_CAPACITY = 500;

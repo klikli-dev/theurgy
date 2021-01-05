@@ -23,6 +23,7 @@
 package com.github.klikli_dev.theurgy.registry;
 
 import com.github.klikli_dev.theurgy.Theurgy;
+import com.github.klikli_dev.theurgy.common.block.CreativeEssentiaSourceBlock;
 import com.github.klikli_dev.theurgy.common.block.CrucibleBlock;
 import com.github.klikli_dev.theurgy.common.block.EssentiaEmitterBlock;
 import com.github.klikli_dev.theurgy.common.block.EssentiaReceiverBlock;
@@ -59,6 +60,11 @@ public class BlockRegistry {
 
     public static final RegistryObject<EssentiaReceiverBlock> ESSENTIA_RECEIVER =
             register("essentia_receiver", () -> new EssentiaReceiverBlock(
+                    Block.Properties.create(Material.IRON, MaterialColor.STONE)
+                            .setRequiresTool().hardnessAndResistance(1.0F).notSolid()));
+
+    public static final RegistryObject<CreativeEssentiaSourceBlock> CREATIVE_ESSENTIA_SOURCE =
+            register("creative_essentia_source", () -> new CreativeEssentiaSourceBlock(
                     Block.Properties.create(Material.IRON, MaterialColor.STONE)
                             .setRequiresTool().hardnessAndResistance(1.0F).notSolid()));
 

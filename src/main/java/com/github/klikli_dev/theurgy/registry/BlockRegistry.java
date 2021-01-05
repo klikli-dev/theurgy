@@ -24,6 +24,7 @@ package com.github.klikli_dev.theurgy.registry;
 
 import com.github.klikli_dev.theurgy.Theurgy;
 import com.github.klikli_dev.theurgy.common.block.CrucibleBlock;
+import com.github.klikli_dev.theurgy.common.block.EmitterBlock;
 import com.github.klikli_dev.theurgy.common.block.crystal.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
@@ -49,6 +50,11 @@ public class BlockRegistry {
             register("crucible", () -> new CrucibleBlock(
                     Block.Properties.create(Material.IRON, MaterialColor.STONE)
                             .setRequiresTool().hardnessAndResistance(2.0F).notSolid()));
+
+    public static final RegistryObject<EmitterBlock> ESSENTIA_EMITTER =
+            register("essentia_emitter", () -> new EmitterBlock(
+                    Block.Properties.create(Material.IRON, MaterialColor.STONE)
+                            .setRequiresTool().hardnessAndResistance(1.0F).notSolid()));
 
     //Resources
     public static final ICrystalSpreadCondition PURE_CRYSTAL_CONDITION = new PureCrystalCondition();

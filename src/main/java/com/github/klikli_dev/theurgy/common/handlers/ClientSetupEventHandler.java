@@ -64,6 +64,7 @@ public class ClientSetupEventHandler {
         RenderTypeLookup.setRenderLayer(BlockRegistry.AQUA_CRYSTAL.get(), RenderType.getTranslucent());
         RenderTypeLookup.setRenderLayer(BlockRegistry.IGNIS_CRYSTAL.get(), RenderType.getTranslucent());
         RenderTypeLookup.setRenderLayer(BlockRegistry.TERRA_CRYSTAL.get(), RenderType.getTranslucent());
+        RenderTypeLookup.setRenderLayer(BlockRegistry.ESSENTIA_EMITTER.get(), RenderType.getTranslucent());
 
         //register item model properties
         registerItemModelProperties(event);

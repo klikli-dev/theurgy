@@ -51,6 +51,10 @@ public class TheurgyBlockStateProvider extends BlockStateProvider {
                 this.models().getExistingFile(this.modLoc("block/ignis_crystal")));
         this.directionalBlock(BlockRegistry.TERRA_CRYSTAL.get(),
                 this.models().getExistingFile(this.modLoc("block/terra_crystal")));
+
+
+        this.directionalBlock(BlockRegistry.ESSENTIA_EMITTER.get(),
+                this.models().getExistingFile(this.modLoc("block/essentia_emitter")));
     }
     //endregion Overrides
 }

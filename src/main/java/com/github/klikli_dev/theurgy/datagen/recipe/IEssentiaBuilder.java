@@ -32,6 +32,7 @@ public interface IEssentiaBuilder<T extends IEssentiaBuilder<?>> {
         return this.essentia(essentia, 1);
     }
 
+    @SuppressWarnings("unchecked")
     default T essentia(List<ItemStack> essentia, float multiplier) {
         essentia.forEach(stack -> this.essentia(stack.getItem(), (int)(stack.getCount() * multiplier)));
         return (T)this;

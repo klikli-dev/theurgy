@@ -243,7 +243,7 @@ public class CrucibleTileEntity extends NetworkedTileEntity implements ITickable
                         //now take the essentia from the cache
                         for (ItemStack essentia : recipe.get().getEssentia()) {
                             //multiply by crafting count
-                            this.essentiaCache.take(essentia.getItem(), essentia.getCount() * craftingCount);
+                            this.essentiaCache.remove(essentia.getItem(), essentia.getCount() * craftingCount, false);
                         }
 
                         //take input item from stack
@@ -295,7 +295,7 @@ public class CrucibleTileEntity extends NetworkedTileEntity implements ITickable
 
                         //store result in essentia cache, always use up entire stack
                         essentia.forEach(itemStack -> this.essentiaCache.add(itemStack.getItem(),
-                                itemStack.getCount() * item.getItem().getCount()));
+                                itemStack.getCount() * item.getItem().getCount(), false));
 
                         this.hasContents = true;
                     }
@@ -318,12 +318,8 @@ public class CrucibleTileEntity extends NetworkedTileEntity implements ITickable
             int amountToDissolve = Theurgy.CONFIG.essentiaSettings.crucibleEssentiaToDiffuse.get();
             List<Item> essentiaToDissolve = new ArrayList<>(this.essentiaCache.essentia.keySet());
             for (Item e : essentiaToDissolve) {
-                //get the amount we can actually diffuse
-                int amount = Math.min(this.essentiaCache.get(e), amountToDissolve);
-                //remove it from crucible cache
-                this.essentiaCache.remove(e, amount);
-                //add to chunk cache
-                chunkEssentia.add(e, amount);
+                //move essentia to chunk
+                chunkEssentia.add(e, this.essentiaCache.remove(e, amountToDissolve, false), false);
             }
 
             //Mark essentia dimension for saving
@@ -458,12 +454,8 @@ public class CrucibleTileEntity extends NetworkedTileEntity implements ITickable
         //take all essentia from the cache and add to the chunk
         List<Item> essentiaToDissolve = new ArrayList<>(this.essentiaCache.essentia.keySet());
         for (Item e : essentiaToDissolve) {
-            //get the amount we can actually diffuse
-            int amount = this.essentiaCache.get(e);
-            //remove it from crucible cache
-            this.essentiaCache.remove(e, amount);
-            //add to chunk cache
-            chunkEssentia.add(e, amount);
+            //Take as much essentia as is in the cache and add it to the chunk
+            chunkEssentia.add(e, this.essentiaCache.remove(e, Integer.MAX_VALUE, false), false);
         }
 
         //Mark essentia dimension for saving

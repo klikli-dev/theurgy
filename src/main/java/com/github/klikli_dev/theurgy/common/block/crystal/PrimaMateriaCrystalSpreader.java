@@ -72,7 +72,9 @@ public class PrimaMateriaCrystalSpreader implements ICrystalSpreadHandler {
                     ((World) world).getDimensionKey(), new ChunkPos(spreadTo.pos));
 
             //consume essentia from chunk
-            chunkEssentia.essentia.removeAll(Theurgy.CONFIG.crystalSettings.primaMateriaSpreadEssentia.get());
+            chunkEssentia.essentia.essentia.forEach((item, amount) -> {
+                chunkEssentia.essentia.remove(item, Theurgy.CONFIG.crystalSettings.primaMateriaSpreadEssentia.get(), false);
+            });
             chunkEssentia.markDirty();
 
             world.setBlockState(spreadTo.pos,

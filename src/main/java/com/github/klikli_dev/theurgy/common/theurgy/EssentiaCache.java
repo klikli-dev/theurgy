@@ -22,6 +22,7 @@
 
 package com.github.klikli_dev.theurgy.common.theurgy;
 
+import com.github.klikli_dev.theurgy.registry.ItemRegistry;
 import net.minecraft.item.Item;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
@@ -32,15 +33,27 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.*;
 
+/**
+ *
+ */
 public class EssentiaCache implements INBTSerializable<CompoundNBT> {
     //region Fields
-    public Map<Item, Integer> essentia = new HashMap<>();
+    public Map<Item, Integer> essentia;
+    private int capacity;
     //endregion Fields
 
     //region Getter / Setter
 
+    public EssentiaCache(){
+        this.essentia = new HashMap<>();
+        this.capacity = Integer.MAX_VALUE;
+    }
+
+    /**
+     * @return true if there is no essentia at all in this cache.
+     */
     public boolean isEmpty() {
-        return this.essentia.isEmpty();
+        return this.getEssentiaSum() <= 0;
     }
 
     /**
@@ -51,12 +64,29 @@ public class EssentiaCache implements INBTSerializable<CompoundNBT> {
     public int getEssentiaSum() {
         return this.essentia.values().stream().reduce(0, Integer::sum);
     }
+
+    /**
+     * Gets the capacity for each essentia type in this cache.
+     * @return the capacity.
+     */
+    public int getCapacity() {
+        return this.capacity;
+    }
+
+    /**
+     * Sets the capacity for each essentia type in this cache.
+     * @param capacity the capacity.
+     */
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
+    }
     //endregion Getter / Setter
 
     //region Overrides
     @Override
     public CompoundNBT serializeNBT() {
         CompoundNBT compound = new CompoundNBT();
+        compound.putInt("capacity", this.capacity);
         ListNBT essentiaList = new ListNBT();
         compound.put("essentia", essentiaList);
         this.essentia.forEach((esssentia, amount) -> {
@@ -70,13 +100,14 @@ public class EssentiaCache implements INBTSerializable<CompoundNBT> {
 
     @Override
     public void deserializeNBT(CompoundNBT nbt) {
-        this.essentia.clear();
+        this.clear();
+        this.capacity = nbt.getInt("capacity");
         if (nbt.contains("essentia")) {
             ListNBT essentiaList = nbt.getList("essentia", Constants.NBT.TAG_COMPOUND);
             for (int i = 0; i < essentiaList.size(); i++) {
                 CompoundNBT entry = essentiaList.getCompound(i);
                 if (entry.contains("essentia") && entry.contains("amount")) {
-                    this.add(ForgeRegistries.ITEMS.getValue(
+                    this.set(ForgeRegistries.ITEMS.getValue(
                             new ResourceLocation(entry.getString("essentia"))).getItem(),
                             entry.getInt("amount"));
                 }
@@ -91,17 +122,27 @@ public class EssentiaCache implements INBTSerializable<CompoundNBT> {
      *
      * @param essentia the essentia type to add.
      * @param amount   the amount to add.
+     * @param simulate true to only simulate the change.
+     * @return the amount added.
      */
-    public void add(Item essentia, int amount) {
-        if (this.essentia.containsKey(essentia)) {
-            int currentAmount = this.essentia.get(essentia);
-            amount += currentAmount;
+    public int add(Item essentia, int amount, boolean simulate) {
+        int currentAmount = this.get(essentia);
+        int added = Math.min(this.capacity - currentAmount, amount);
+        int newAmount = currentAmount + added;
+        if(!simulate){
+            this.essentia.put(essentia, newAmount);
+            if(newAmount != currentAmount){
+                this.onContentsChanged();
+            }
         }
-        this.essentia.put(essentia, amount);
+        return added;
     }
 
+    /**
+     * Resets all essentia in the cache to 0.
+     */
     public void clear() {
-        this.essentia.clear();
+        this.essentia.forEach((item, amount) -> this.essentia.put(item, 0));
     }
 
     /**
@@ -116,6 +157,15 @@ public class EssentiaCache implements INBTSerializable<CompoundNBT> {
     }
 
     /**
+     * Sets the amount of the given essentia.
+     * @param essentia
+     * @param value
+     */
+    public void set(Item essentia, int value) {
+        this.essentia.put(essentia, value);
+    }
+
+    /**
      * Gets the minimum amount that is availalbe for all of the given essentia types.
      *
      * @param essentia the essentia to check.
@@ -126,59 +176,28 @@ public class EssentiaCache implements INBTSerializable<CompoundNBT> {
     }
 
     /**
-     * Remove the given amount of essentia, independent of remaining amount.
-     * To *take* essentia, use {@link #take(Item, int)}
+     * Remove the given amount of Essentia.
      *
      * @param essentia the essentia type to remove.
      * @param amount   the amount to remove.
+     * @param simulate true to only simulate the change.
+     * @return the amount removed.
      */
-    public void remove(Item essentia, int amount) {
-        int remaining = this.get(essentia) - amount;
-        if (remaining <= 0) {
-            this.essentia.remove(essentia);
-        }
-        else {
-            this.essentia.put(essentia, remaining);
-        }
-    }
-
-    /**
-     * Remove the given amount from each essentia type, independent of remaining amount.
-     *
-     * @param amount
-     */
-    public void removeAll(int amount) {
-        //copy entry set to safely iterate
-        List<Item> essentia = new ArrayList<>(this.essentia.keySet());
-        for (Item item : essentia) {
-            this.remove(item, amount);
-        }
-    }
-
-    /**
-     * Remove the entire amount of the given type of essentia.
-     *
-     * @param essentia the essentia type to remove.
-     */
-    public void remove(Item essentia) {
-        this.essentia.remove(essentia);
-    }
-
-    /**
-     * Take the given amount of essentia from the essentia cache.
-     *
-     * @param essentia the essentia type to take.
-     * @param amount   the amount to take.
-     * @return False if not enough essentia is in the cache.
-     */
-    public boolean take(Item essentia, int amount) {
+    public int remove(Item essentia, int amount, boolean simulate) {
         int currentAmount = this.get(essentia);
-        if (currentAmount >= amount) {
-            int remaining = currentAmount - amount;
-            this.essentia.put(essentia, remaining);
-            return true;
+        int removed = Math.min(currentAmount, amount);
+        int newAmount = currentAmount - removed;
+        if(!simulate){
+            this.essentia.put(essentia, newAmount);
+            if(newAmount != currentAmount){
+                this.onContentsChanged();
+            }
         }
-        return false;
+        return removed;
+    }
+
+    public void onContentsChanged() {
+
     }
     //endregion Methods
 }

@@ -33,7 +33,7 @@
   "jei.theurgy.purification_recipe": "Purification",
   "jei.theurgy.replication_recipe": "Replication",
   "jei.theurgy.transmutation_recipe": "Transmutation",
-  "jei.theurgy.ingredient.prima_materia_crystal.description": " View the §6Hermetica§r for more information. Place a Pure Crystal in a chunk with 1000 diffused Essentia of each type. The crystal will create Prima Materia Crystals on adjacent non-floor (ceiling, wall) blocks. To diffuse Essentia into a chunk, dissolve items in the Crucible, over time the dissolved Essentia will diffuse.",
+  "jei.theurgy.ingredient.prima_materia_crystal.description": "View the §6Hermetica§r for more information. Place a Pure Crystal in a chunk with 1000 diffused Essentia of each type. The crystal will create Prima Materia Crystals on adjacent non-floor (ceiling, wall) blocks. To diffuse Essentia into a chunk, dissolve items in the Crucible, over time the dissolved Essentia will diffuse.",
   "jei.theurgy.ingredient.aer_crystal.description": "Place a Pure Crystal in the right conditions and it will grow Aer Crystals on adjacent blocks. View the §6Hermetica§r for more information.",
   "jei.theurgy.ingredient.aqua_crystal.description": "Place a Pure Crystal in the right conditions and it will grow Aqua Crystals on adjacent blocks. View the §6Hermetica§r for more information.",
   "jei.theurgy.ingredient.ignis_crystal.description": "Place a Pure Crystal in the right conditions and it will grow Ignis Crystals on adjacent blocks. View the §6Hermetica§r for more information.",

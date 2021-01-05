@@ -26,7 +26,6 @@ import com.github.klikli_dev.theurgy.common.TheurgyItemGroup;
 import com.github.klikli_dev.theurgy.common.config.TheurgyConfig;
 import com.github.klikli_dev.theurgy.common.network.Packets;
 import com.github.klikli_dev.theurgy.registry.*;
-import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemGroup;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -82,6 +81,7 @@ public class Theurgy {
 
     private void commonSetup(final FMLCommonSetupEvent event) {
         Packets.registerMessages();
+        CapabilityRegistry.commonSetup(event);
         LOGGER.info("Common setup complete.");
     }
 

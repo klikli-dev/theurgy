@@ -49,4 +49,8 @@ public enum EssentiaType {
     public Supplier<Item> getEssentiaItem() {
         return essentiaItem;
     }
+
+    public EssentiaType next() {
+        return values()[(this.ordinal() + 1) % EssentiaType.values().length];
+    }
 }

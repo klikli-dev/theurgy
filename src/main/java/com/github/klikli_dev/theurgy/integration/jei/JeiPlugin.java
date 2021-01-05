@@ -34,14 +34,18 @@ import com.github.klikli_dev.theurgy.integration.jei.recipes.TransmutationRecipe
 import com.github.klikli_dev.theurgy.registry.BlockRegistry;
 import com.github.klikli_dev.theurgy.registry.RecipeRegistry;
 import mezz.jei.api.IModPlugin;
+import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.world.ClientWorld;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.RecipeManager;
+import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.RegistryObject;
 
 import java.util.List;
 
@@ -78,6 +82,18 @@ public class JeiPlugin implements IModPlugin {
         List<TransmutationRecipe> transmutationRecipes =
                 recipeManager.getRecipesForType(RecipeRegistry.TRANSMUTATION_TYPE.get());
         registration.addRecipes(transmutationRecipes, RecipeRegistry.TRANSMUTATION.getId());
+
+        //Register ingredient info
+        this.registerIngredientInfo(registration, BlockRegistry.PRIMA_MATERIA_CRYSTAL.get());
+        this.registerIngredientInfo(registration,BlockRegistry.AER_CRYSTAL.get());
+        this.registerIngredientInfo(registration,BlockRegistry.AQUA_CRYSTAL.get());
+        this.registerIngredientInfo(registration,BlockRegistry.IGNIS_CRYSTAL.get());
+        this.registerIngredientInfo(registration,BlockRegistry.TERRA_CRYSTAL.get());
+    }
+
+    public void registerIngredientInfo(IRecipeRegistration registration, IItemProvider ingredient){
+        registration.addIngredientInfo(new ItemStack(ingredient.asItem()), VanillaTypes.ITEM,
+                "jei."+ Theurgy.MODID + ".ingredient."+ingredient.asItem().getRegistryName().getPath()+".description");
     }
 
     @Override

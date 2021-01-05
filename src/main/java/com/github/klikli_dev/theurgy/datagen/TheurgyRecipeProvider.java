@@ -770,7 +770,7 @@ public class TheurgyRecipeProvider extends RecipeProvider {
                                                                    .build(consumer);
 
         CrucibleRecipeBuilder pureCrystalPurification =
-                CrucibleRecipeBuilder.purification(ItemRegistry.PURE_CRYSTAL_STIRRER.get(), 1)
+                CrucibleRecipeBuilder.purification(BlockRegistry.PURE_CRYSTAL.get(), 1)
                         .setRecipeName("pure_crystal")
                         .ingredient(ItemRegistry.CRYSTAL_SUBSTRATE
                                             .get())

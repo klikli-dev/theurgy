@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "forge:rods/wooden"
+    },
+    {
+      "item": "theurgy:pure_crystal"
+    }
+  ],
+  "result": {
+    "item": "theurgy:pure_crystal_stirrer"
+  }
+}

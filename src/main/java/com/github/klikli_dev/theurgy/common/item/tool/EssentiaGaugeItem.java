@@ -26,22 +26,31 @@ import com.github.klikli_dev.theurgy.common.handlers.ClientRenderEventHandler;
 import com.github.klikli_dev.theurgy.common.network.MessageEssentiaChunkData;
 import com.github.klikli_dev.theurgy.common.network.Packets;
 import com.github.klikli_dev.theurgy.common.theurgy.essentia_chunks.EssentiaChunkHandler;
+import com.github.klikli_dev.theurgy.common.tile.IEssentiaEmitter;
+import com.github.klikli_dev.theurgy.common.tile.IEssentiaReceiver;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
+import net.minecraft.item.ItemUseContext;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.*;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.Optional;
 
 public class EssentiaGaugeItem extends Item {
     //region Fields
@@ -58,6 +67,43 @@ public class EssentiaGaugeItem extends Item {
     //endregion Initialization
 
     //region Overrides
+
+
+    @Override
+    public ActionResultType onItemUse(ItemUseContext context) {
+        ItemStack stack = context.getItem();
+        CompoundNBT compound = stack.getOrCreateTag();
+        World world = context.getWorld();
+        BlockPos pos = context.getPos();
+        if (context.getPlayer().isSneaking()) {
+            compound.putString("targetDimensionKey", context.getWorld().getDimensionKey().toString());
+            compound.putLong("target", pos.toLong());
+            compound.putInt("linkType", 0); //0 for essentia, 1 for future aether
+            world.playSound(null, pos, SoundEvents.BLOCK_ANVIL_LAND, SoundCategory.BLOCKS, 1.0f,
+                    1.9f + world.rand.nextFloat() * 0.2f);
+            return ActionResultType.SUCCESS;
+        }
+        else if (compound.contains("target")) {
+            RegistryKey<World> dimensionKey = RegistryKey.getOrCreateKey(Registry.WORLD_KEY,
+                    new ResourceLocation(compound.getString("targetDimensionKey")));
+            if (world.getDimensionKey() != dimensionKey)
+                return ActionResultType.FAIL;
+
+            TileEntity tile = world.getTileEntity(pos);
+            BlockPos targetPos = BlockPos.fromLong(compound.getLong("target"));
+            //TODO: Check link type here to link correctly to aether / essentia stuff -> or use separate tool
+            if (tile instanceof IEssentiaEmitter) {
+                TileEntity targetTile = world.getTileEntity(targetPos);
+                if (targetTile instanceof IEssentiaReceiver) {
+                    ((IEssentiaEmitter) tile).setTarget(Optional.of(targetPos));
+                    world.playSound(null, pos, SoundEvents.BLOCK_ANVIL_LAND, SoundCategory.BLOCKS, 1.0f,
+                            1.9f + world.rand.nextFloat() * 0.2f);
+                    return ActionResultType.SUCCESS;
+                }
+            }
+        }
+        return ActionResultType.PASS;
+    }
 
     @Override
     public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, Hand hand) {
@@ -108,6 +154,22 @@ public class EssentiaGaugeItem extends Item {
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip,
                                ITooltipFlag flagIn) {
         tooltip.add(new TranslationTextComponent(this.getTranslationKey() + ".tooltip"));
+        CompoundNBT compound = stack.getOrCreateTag();
+        if (compound.contains("target")) {
+            RegistryKey<World> dimensionKey = RegistryKey.getOrCreateKey(Registry.WORLD_KEY,
+                    new ResourceLocation(compound.getString("targetDimensionKey")));
+
+            if (worldIn.getDimensionKey() == dimensionKey) {
+                BlockPos pos = BlockPos.fromLong(compound.getLong("target"));
+                BlockState blockState = worldIn.getBlockState(pos);
+                tooltip.add(new TranslationTextComponent(
+                        this.getTranslationKey() + ".tooltip.target_block",
+                        blockState.getBlock().getTranslatedName().mergeStyle(TextFormatting.BOLD)));
+                tooltip.add(new StringTextComponent(" X=" + pos.getX()));
+                tooltip.add(new StringTextComponent(" Y=" + pos.getY()));
+                tooltip.add(new StringTextComponent(" Z=" + pos.getZ()));
+            }
+        }
         super.addInformation(stack, worldIn, tooltip, flagIn);
     }
     //endregion Overrides

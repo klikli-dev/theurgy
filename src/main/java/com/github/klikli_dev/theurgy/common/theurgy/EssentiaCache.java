@@ -92,7 +92,7 @@ public class EssentiaCache implements INBTSerializable<CompoundNBT>, IEssentiaCa
 
     @Override
     public Map<Item, Integer> getEssentia() {
-        return this.getEssentia();
+        return this.essentia;
     }
 
     @Override

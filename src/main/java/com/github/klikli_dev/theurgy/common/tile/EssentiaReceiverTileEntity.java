@@ -22,12 +22,23 @@
 
 package com.github.klikli_dev.theurgy.common.tile;
 
+import com.github.klikli_dev.theurgy.common.entity.EssentiaBallEntity;
 import com.github.klikli_dev.theurgy.registry.TileRegistry;
 
-public class EssentiaReceiverTileEntity extends NetworkedTileEntity {
+public class EssentiaReceiverTileEntity extends NetworkedTileEntity implements IEssentiaReceiver{
     //region Initialization
     public EssentiaReceiverTileEntity() {
         super(TileRegistry.ESSENTIA_RECEIVER.get());
     }
     //endregion Initialization
+
+    @Override
+    public boolean isFull() {
+        return false; //TODO: Implement
+    }
+
+    @Override
+    public boolean onReceive(EssentiaBallEntity essentiaBallEntity) {
+        return true; //TODO: Implement
+    }
 }

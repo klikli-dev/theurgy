@@ -23,10 +23,14 @@
 package com.github.klikli_dev.theurgy.common.entity;
 
 import com.github.klikli_dev.theurgy.common.theurgy.EssentiaType;
+import com.github.klikli_dev.theurgy.common.tile.IEssentiaReceiver;
+import com.github.klikli_dev.theurgy.registry.CapabilityRegistry;
 import com.github.klikli_dev.theurgy.registry.EntityRegistry;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityType;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -80,5 +84,24 @@ public class EssentiaBallEntity extends GlowingBallEntity {
         this.essentiaType = additionalData.readEnumValue(EssentiaType.class);
         this.color = this.essentiaType.getEssentiaBallColor();
     }
+
+    @Override
+    protected void onTargetReached() {
+        if(!this.world.isRemote) {
+            BlockState state = this.world.getBlockState(this.getPosition());
+            TileEntity tile = this.world.getTileEntity(this.getPosition());
+            if(tile instanceof IEssentiaReceiver){
+                if(((IEssentiaReceiver)tile).onReceive(this)){
+                    tile.getCapability(CapabilityRegistry.ESSENTIA).ifPresent(cap -> {
+                        //TODO: Sound? -> should probably check for !isRemote only here to avoid packet
+                        cap.add(this.essentiaType.getEssentiaItem().get(), this.value, false);
+                        tile.markDirty();
+                    });
+                }
+            }
+        }
+        super.onTargetReached();
+    }
+
     //endregion Overrides
 }

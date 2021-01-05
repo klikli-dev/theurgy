@@ -40,6 +40,8 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
+import net.minecraft.world.IWorldReader;
+import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
 import java.util.Map;
@@ -52,12 +54,12 @@ public class CrystalBlock extends DirectionalBlock implements IWaterLoggable {
 
     private static final Map<Direction, VoxelShape> SHAPES = Maps.newEnumMap(
             ImmutableMap.<Direction, VoxelShape>builder()
-                    .put(Direction.EAST, Block.makeCuboidShape(4, 4, 4, 12, 12, 12))  //TODO: Find correct rotation
-                    .put(Direction.WEST, Block.makeCuboidShape(4, 4, 4, 12, 12, 12))  //      Find correct rotation
-                    .put(Direction.NORTH, Block.makeCuboidShape(4, 4, 4, 12, 12, 12)) //      Find correct rotation
-                    .put(Direction.SOUTH, Block.makeCuboidShape(4, 4, 4, 12, 12, 12)) //      Find correct rotation
-                    .put(Direction.UP, Block.makeCuboidShape(4, 0, 4, 12, 14, 12))
-                    .put(Direction.DOWN, Block.makeCuboidShape(4, 2, 4, 12, 16, 12))
+                    .put(Direction.EAST, Block.makeCuboidShape(0, 4, 4, 15, 12, 12))
+                    .put(Direction.WEST, Block.makeCuboidShape(1, 4, 4, 16, 12, 12))
+                    .put(Direction.NORTH, Block.makeCuboidShape(4, 4, 1, 12, 12, 16))
+                    .put(Direction.SOUTH, Block.makeCuboidShape(4, 4, 0, 12, 12, 15))
+                    .put(Direction.UP, Block.makeCuboidShape(4, 0, 4, 12, 15, 12))
+                    .put(Direction.DOWN, Block.makeCuboidShape(4, 1, 4, 12, 16, 12))
                     .build());
 
     public ICrystalSpreadHandler spreadHandler;
@@ -99,6 +101,17 @@ public class CrystalBlock extends DirectionalBlock implements IWaterLoggable {
     }
 
     @Override
+    public void neighborChanged(BlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos,
+                                boolean isMoving) {
+        super.neighborChanged(state, worldIn, pos, blockIn, fromPos, isMoving);
+
+        if (!this.isValidPosition(state, worldIn, pos)) {
+            spawnDrops(state, worldIn, pos);
+            worldIn.removeBlock(pos, false);
+        }
+    }
+
+    @Override
     public FluidState getFluidState(BlockState state) {
         return state.get(WATERLOGGED) ? Fluids.WATER.getStillFluidState(false) : super.getFluidState(state);
     }
@@ -119,6 +132,13 @@ public class CrystalBlock extends DirectionalBlock implements IWaterLoggable {
     @Override
     public BlockState mirror(BlockState state, Mirror mirrorIn) {
         return state.with(FACING, mirrorIn.mirror(state.get(FACING)));
+    }
+
+    @Override
+    public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
+        Direction facing = state.get(FACING);
+        BlockState facingNeighborState = worldIn.getBlockState(pos.offset(facing.getOpposite()));
+        return facingNeighborState.isSolidSide(worldIn, pos, facing);
     }
 
     @Override

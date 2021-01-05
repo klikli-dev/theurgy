@@ -55,6 +55,10 @@ public class TheurgyBlockStateProvider extends BlockStateProvider {
 
         this.directionalBlock(BlockRegistry.ESSENTIA_EMITTER.get(),
                 this.models().getExistingFile(this.modLoc("block/essentia_emitter")));
+
+        this.directionalBlock(BlockRegistry.ESSENTIA_RECEIVER.get(),
+                this.models().getExistingFile(this.modLoc("block/essentia_receiver")));
+
     }
     //endregion Overrides
 }

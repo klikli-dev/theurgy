@@ -1,0 +1,30 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "theurgy:block/essentia_receiver",
+      "x": 180
+    },
+    "facing=up": {
+      "model": "theurgy:block/essentia_receiver"
+    },
+    "facing=north": {
+      "model": "theurgy:block/essentia_receiver",
+      "x": 90
+    },
+    "facing=south": {
+      "model": "theurgy:block/essentia_receiver",
+      "x": 90,
+      "y": 180
+    },
+    "facing=west": {
+      "model": "theurgy:block/essentia_receiver",
+      "x": 90,
+      "y": 270
+    },
+    "facing=east": {
+      "model": "theurgy:block/essentia_receiver",
+      "x": 90,
+      "y": 90
+    }
+  }
+}

@@ -24,6 +24,8 @@ package com.github.klikli_dev.theurgy.registry;
 
 import com.github.klikli_dev.theurgy.Theurgy;
 import com.github.klikli_dev.theurgy.common.tile.CrucibleTileEntity;
+import com.github.klikli_dev.theurgy.common.tile.EssentiaEmitterTileEntity;
+import com.github.klikli_dev.theurgy.common.tile.EssentiaReceiverTileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
@@ -37,5 +39,13 @@ public class TileRegistry {
     public static final RegistryObject<TileEntityType<CrucibleTileEntity>> CRUCIBLE = TILES.register(
             "crucible", () -> TileEntityType.Builder.create(CrucibleTileEntity::new,
                     BlockRegistry.CRUCIBLE.get()).build(null));
+
+    public static final RegistryObject<TileEntityType<EssentiaEmitterTileEntity>> ESSENTIA_EMITTER = TILES.register(
+            "essentia_emitter", () -> TileEntityType.Builder.create(EssentiaEmitterTileEntity::new,
+                    BlockRegistry.ESSENTIA_EMITTER.get()).build(null));
+
+    public static final RegistryObject<TileEntityType<EssentiaReceiverTileEntity>> ESSENTIA_RECEIVER= TILES.register(
+            "essentia_receiver", () -> TileEntityType.Builder.create(EssentiaReceiverTileEntity::new,
+                    BlockRegistry.ESSENTIA_EMITTER.get()).build(null));
     //endregion Fields
 }

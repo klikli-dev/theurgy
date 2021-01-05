@@ -17,6 +17,8 @@
   "block.theurgy.aqua_crystal": "Aqua Crystal",
   "block.theurgy.ignis_crystal": "Ignis Crystal",
   "block.theurgy.terra_crystal": "Terra Crystal",
+  "block.theurgy.essentia_emitter": "Essentia Emitter",
+  "block.theurgy.essentia_receiver": "Essentia Receiver",
   "_comment": "Essentia",
   "item.theurgy.aer_essentia": "Aer Essentia",
   "item.theurgy.aqua_essentia": "Aqua Essentia",

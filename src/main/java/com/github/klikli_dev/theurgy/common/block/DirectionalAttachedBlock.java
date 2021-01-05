@@ -42,22 +42,10 @@ import net.minecraft.world.World;
 
 import java.util.Map;
 
-public class EmitterBlock extends DirectionalBlock {
-    //region Fields
-    private static final Map<Direction, VoxelShape> SHAPES = Maps.newEnumMap(
-            ImmutableMap.<Direction, VoxelShape>builder()
-                    .put(Direction.EAST, Block.makeCuboidShape(0, 4, 4, 15, 12, 12))
-                    .put(Direction.WEST, Block.makeCuboidShape(1, 4, 4, 16, 12, 12))
-                    .put(Direction.NORTH, Block.makeCuboidShape(4, 4, 1, 12, 12, 16))
-                    .put(Direction.SOUTH, Block.makeCuboidShape(4, 4, 0, 12, 12, 15))
-                    .put(Direction.UP, Block.makeCuboidShape(4, 0, 4, 12, 15, 12))
-                    .put(Direction.DOWN, Block.makeCuboidShape(4, 1, 4, 12, 16, 12))
-                    .build());
-    //endregion Fields
-
+public class DirectionalAttachedBlock extends DirectionalBlock {
 
     //region Initialization
-    public EmitterBlock(Properties properties) {
+    public DirectionalAttachedBlock(Properties properties) {
         super(properties);
         this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.UP));
     }
@@ -69,7 +57,6 @@ public class EmitterBlock extends DirectionalBlock {
                                 boolean isMoving) {
         super.neighborChanged(state, worldIn, pos, blockIn, fromPos, isMoving);
 
-        //TODO: update neighbor for tile entity
         if (!this.isValidPosition(state, worldIn, pos)) {
             spawnDrops(state, worldIn, pos);
             worldIn.removeBlock(pos, false);
@@ -99,11 +86,6 @@ public class EmitterBlock extends DirectionalBlock {
         Direction facing = state.get(FACING);
         BlockState facingNeighborState = worldIn.getBlockState(pos.offset(facing.getOpposite()));
         return facingNeighborState.isSolidSide(worldIn, pos, facing);
-    }
-
-    @Override
-    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-        return SHAPES.get(state.get(BlockStateProperties.FACING));
     }
 
     @Override

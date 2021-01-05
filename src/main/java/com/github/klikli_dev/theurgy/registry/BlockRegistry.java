@@ -24,7 +24,8 @@ package com.github.klikli_dev.theurgy.registry;
 
 import com.github.klikli_dev.theurgy.Theurgy;
 import com.github.klikli_dev.theurgy.common.block.CrucibleBlock;
-import com.github.klikli_dev.theurgy.common.block.EmitterBlock;
+import com.github.klikli_dev.theurgy.common.block.EssentiaEmitterBlock;
+import com.github.klikli_dev.theurgy.common.block.EssentiaReceiverBlock;
 import com.github.klikli_dev.theurgy.common.block.crystal.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
@@ -45,14 +46,19 @@ public class BlockRegistry {
             Theurgy.MODID);
     public static final Map<ResourceLocation, BlockDataGenSettings> BLOCK_DATA_GEN_SETTINGS = new HashMap<>();
 
-    //Machines
+    //Constructs
     public static final RegistryObject<CrucibleBlock> CRUCIBLE =
             register("crucible", () -> new CrucibleBlock(
                     Block.Properties.create(Material.IRON, MaterialColor.STONE)
                             .setRequiresTool().hardnessAndResistance(2.0F).notSolid()));
 
-    public static final RegistryObject<EmitterBlock> ESSENTIA_EMITTER =
-            register("essentia_emitter", () -> new EmitterBlock(
+    public static final RegistryObject<EssentiaEmitterBlock> ESSENTIA_EMITTER =
+            register("essentia_emitter", () -> new EssentiaEmitterBlock(
+                    Block.Properties.create(Material.IRON, MaterialColor.STONE)
+                            .setRequiresTool().hardnessAndResistance(1.0F).notSolid()));
+
+    public static final RegistryObject<EssentiaReceiverBlock> ESSENTIA_RECEIVER =
+            register("essentia_receiver", () -> new EssentiaReceiverBlock(
                     Block.Properties.create(Material.IRON, MaterialColor.STONE)
                             .setRequiresTool().hardnessAndResistance(1.0F).notSolid()));
 

@@ -116,25 +116,43 @@ public abstract class GlowingBallEntity extends Entity implements IEntityAdditio
                 double deltaX = this.getPosX() - this.prevPosX;
                 double deltaY = this.getPosY() - this.prevPosY;
                 double deltaZ = this.getPosZ() - this.prevPosZ;
-                double dist = Math.ceil(Math.sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ) * 20);
-                for (double i = 0; i < dist; i++) {
-                    double coeff = i / dist;
+                //Note: enable this to layer multiple particles, leading to an intense glow -> expensive!
+//                double dist = Math.ceil(Math.sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ) * 20);
+//                for (double i = 0; i < dist; i++) {
+//                    if(i % 3 != 0)
+//                        continue;
+//                    double coeff = i / dist;
+//
+//                    GlowingBallParticleData data = new GlowingBallParticleData(
+//                            this.color.getX(),
+//                            this.color.getY(),
+//                            this.color.getZ(),
+//                            0.5f, 0.5f, 12);
+//
+//                    this.world.addParticle(data,
+//                            (float) (this.prevPosX + deltaX * coeff),
+//                            (float) (this.prevPosY + deltaY * coeff),
+//                            (float) (this.prevPosZ + deltaZ * coeff),
+//                            0.0125f * (this.world.rand.nextFloat() - 0.5f),
+//                            0.0125f * (this.world.rand.nextFloat() - 0.5f),
+//                            0.0125f * (this.world.rand.nextFloat() - 0.5f)
+//                    );
+//                }
 
-                    GlowingBallParticleData data = new GlowingBallParticleData(
-                            this.color.getX(),
-                            this.color.getY(),
-                            this.color.getZ(),
-                            0.5f, 0.5f, 12);
+                GlowingBallParticleData data = new GlowingBallParticleData(
+                        this.color.getX(),
+                        this.color.getY(),
+                        this.color.getZ(),
+                        1f, 0.5f, 24);
 
-                    this.world.addParticle(data,
-                            (float) (this.prevPosX + deltaX * coeff),
-                            (float) (this.prevPosY + deltaY * coeff),
-                            (float) (this.prevPosZ + deltaZ * coeff),
-                            0.0125f * (this.world.rand.nextFloat() - 0.5f),
-                            0.0125f * (this.world.rand.nextFloat() - 0.5f),
-                            0.0125f * (this.world.rand.nextFloat() - 0.5f)
-                    );
-                }
+                this.world.addParticle(data,
+                        (float) (this.prevPosX + deltaX),
+                        (float) (this.prevPosY + deltaY),
+                        (float) (this.prevPosZ + deltaZ),
+                        0.0125f * (this.world.rand.nextFloat() - 0.5f),
+                        0.0125f * (this.world.rand.nextFloat() - 0.5f),
+                        0.0125f * (this.world.rand.nextFloat() - 0.5f)
+                );
             }
         }
     }

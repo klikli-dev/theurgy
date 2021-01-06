@@ -27,7 +27,7 @@
   "item.theurgy.ignis_essentia": "Ignis Essentia",
   "item.theurgy.terra_essentia": "Terra Essentia",
   "_comment": "Overlay Tooltips",
-  "tooltip.theurgy.essentia_information.block.heading": "Construct Essentia: %s",
+  "tooltip.theurgy.essentia_information.block.heading": "%s",
   "tooltip.theurgy.essentia_information.block.content": "%s: %d",
   "tooltip.theurgy.essentia_information.block.no_content": "No essentia",
   "tooltip.theurgy.essentia_information.chunk.heading": "Chunk Essentia",

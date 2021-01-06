@@ -58,7 +58,7 @@ public class EssentiaReceiverTileEntity extends NetworkedTileEntity implements I
             @Override
             public void onContentsChanged() {
                 super.onContentsChanged();
-                EssentiaReceiverTileEntity.this.markDirty();
+                EssentiaReceiverTileEntity.this.markNetworkDirty();
             }
             //endregion Overrides
         };
@@ -76,16 +76,18 @@ public class EssentiaReceiverTileEntity extends NetworkedTileEntity implements I
         return super.getCapability(cap, direction);
     }
 
+
     @Override
-    public void read(BlockState state, CompoundNBT compound) {
-        super.read(state, compound);
+    public void readNetwork(CompoundNBT compound) {
+        super.readNetwork(compound);
         this.essentiaCapability.deserializeNBT(compound.getCompound("essentia"));
     }
 
     @Override
-    public CompoundNBT write(CompoundNBT compound) {
+    public CompoundNBT writeNetwork(CompoundNBT compound) {
         compound.put("essentia", this.essentiaCapability.serializeNBT());
-        return super.write(compound);
+
+        return super.writeNetwork(compound);
     }
 
     @Override

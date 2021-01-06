@@ -22,6 +22,7 @@
 
 package com.github.klikli_dev.theurgy.common.block;
 
+import com.github.klikli_dev.theurgy.common.theurgy.IEssentiaInformationProvider;
 import com.github.klikli_dev.theurgy.common.tile.EssentiaReceiverTileEntity;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
@@ -38,7 +39,7 @@ import net.minecraft.world.IBlockReader;
 import javax.annotation.Nullable;
 import java.util.Map;
 
-public class EssentiaReceiverBlock extends DirectionalAttachedBlock {
+public class EssentiaReceiverBlock extends DirectionalAttachedBlock implements IEssentiaInformationProvider {
 
     //region Fields
     private static final Map<Direction, VoxelShape> SHAPES = Maps.newEnumMap(

@@ -63,6 +63,7 @@ public class EssentiaEmitterTileEntity extends NetworkedTileEntity implements IT
     public EssentiaType burstType;
     public boolean isEnabled;
     protected Optional<BlockPos> target;
+
     //endregion Fields
     //region Initialization
     public EssentiaEmitterTileEntity() {
@@ -73,7 +74,7 @@ public class EssentiaEmitterTileEntity extends NetworkedTileEntity implements IT
             @Override
             public void onContentsChanged() {
                 super.onContentsChanged();
-                EssentiaEmitterTileEntity.this.markDirty();
+                EssentiaEmitterTileEntity.this.markNetworkDirty();
             }
             //endregion Overrides
         };
@@ -90,7 +91,7 @@ public class EssentiaEmitterTileEntity extends NetworkedTileEntity implements IT
 
     public void setEnabled(boolean enabled) {
         this.isEnabled = enabled;
-        this.markDirty();
+        this.markNetworkDirty();
     }
 
     public Optional<BlockPos> getTarget() {
@@ -138,7 +139,8 @@ public class EssentiaEmitterTileEntity extends NetworkedTileEntity implements IT
                         //find the target tile
                         TileEntity targetTile = this.world.getTileEntity(target);
                         //if target tile has space, send packet
-                        if (targetTile instanceof IEssentiaReceiver && ((IEssentiaReceiver) targetTile).hasCapacity(burstEssentia)) {
+                        if (targetTile instanceof IEssentiaReceiver &&
+                            ((IEssentiaReceiver) targetTile).hasCapacity(burstEssentia)) {
 
                             //take essentia to send
                             int essentiaAmount = this.essentiaCapability.remove(burstEssentia, BURST_RATE, false);
@@ -174,7 +176,6 @@ public class EssentiaEmitterTileEntity extends NetworkedTileEntity implements IT
     public void read(BlockState state, CompoundNBT compound) {
         super.read(state, compound);
         this.isEnabled = compound.getBoolean("isEnabled");
-        this.essentiaCapability.deserializeNBT(compound.getCompound("essentia"));
         if (compound.contains("target")) {
             this.target = Optional.of(BlockPos.fromLong(compound.getLong("target")));
         }
@@ -183,10 +184,20 @@ public class EssentiaEmitterTileEntity extends NetworkedTileEntity implements IT
     @Override
     public CompoundNBT write(CompoundNBT compound) {
         compound.putBoolean("isEnabled", this.isEnabled);
-        compound.put("essentia", this.essentiaCapability.serializeNBT());
         this.target.ifPresent(target -> compound.putLong("target", target.toLong()));
-
         return super.write(compound);
+    }
+
+    @Override
+    public void readNetwork(CompoundNBT compound) {
+        super.readNetwork(compound);
+        this.essentiaCapability.deserializeNBT(compound.getCompound("essentia"));
+    }
+
+    @Override
+    public CompoundNBT writeNetwork(CompoundNBT compound) {
+        compound.put("essentia", this.essentiaCapability.serializeNBT());
+        return super.writeNetwork(compound);
     }
     //endregion Overrides
 

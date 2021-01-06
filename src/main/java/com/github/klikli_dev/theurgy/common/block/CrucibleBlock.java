@@ -105,14 +105,14 @@ public class CrucibleBlock extends Block implements IEssentiaInformationProvider
             CrucibleTileEntity crucible = (CrucibleTileEntity) tileEntity;
             tooltip.add(new TranslationTextComponent(
                     "tooltip." + Theurgy.MODID + ".essentia_information.block.heading",
-                    I18n.format(this.getTranslationKey()))
+                    this.getTranslatedName())
                                 .mergeStyle(TextFormatting.BOLD)
                                 .mergeStyle(TextFormatting.GOLD));
             if (crucible.essentiaCache.essentia.size() > 0) {
-                crucible.essentiaCache.essentia.forEach((item, amount) -> {
+                crucible.essentiaCache.essentia.forEach((essentia, amount) -> {
                     tooltip.add(new TranslationTextComponent(
                             "tooltip." + Theurgy.MODID + ".essentia_information.block.content",
-                            I18n.format(item.getTranslationKey()), amount));
+                            new TranslationTextComponent(essentia.getTranslationKey()), amount));
                 });
             }
             else {

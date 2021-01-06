@@ -88,10 +88,10 @@ public class ClientRenderEventHandler {
 
             if (chunkEssentia.size() > 0) {
                 //Render each essentia type
-                chunkEssentia.forEach((item, amount) -> {
+                chunkEssentia.forEach((essentia, amount) -> {
                     tooltip.add(new TranslationTextComponent(
                             "tooltip." + Theurgy.MODID + ".essentia_information.chunk.content",
-                            I18n.format(item.getTranslationKey()), amount));
+                            new TranslationTextComponent(essentia.getTranslationKey()), amount));
                 });
             }
             else {

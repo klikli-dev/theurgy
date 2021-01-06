@@ -59,24 +59,5 @@ public class CreativeEssentiaSourceBlock extends Block implements IEssentiaInfor
     public TileEntity createTileEntity(BlockState state, IBlockReader world) {
         return new CreativeEssentiaSourceTileEntity();
     }
-
-    @Override
-    public void getEssentiaInformation(World world, BlockPos pos, BlockState state, List<ITextComponent> tooltip) {
-        TileEntity tileEntity = world.getTileEntity(pos);
-        if (tileEntity instanceof CreativeEssentiaSourceTileEntity) {
-            tileEntity.getCapability(CapabilityRegistry.ESSENTIA).ifPresent(cap -> {
-                tooltip.add(new TranslationTextComponent(
-                        "tooltip." + Theurgy.MODID + ".essentia_information.block.heading",
-                        I18n.format(this.getTranslationKey()))
-                                    .mergeStyle(TextFormatting.BOLD)
-                                    .mergeStyle(TextFormatting.GOLD));
-                cap.getEssentia().forEach((essentia, amount) -> {
-                    tooltip.add(new TranslationTextComponent(
-                            "tooltip." + Theurgy.MODID + ".essentia_information.block.content",
-                            I18n.format(essentia.getTranslationKey()), amount));
-                });
-            });
-        }
-    }
     //endregion Overrides
 }

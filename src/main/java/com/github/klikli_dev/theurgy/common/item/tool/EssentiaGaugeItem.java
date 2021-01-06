@@ -94,6 +94,10 @@ public class EssentiaGaugeItem extends Item {
                         return ActionResultType.SUCCESS;
                     }
                 }
+                
+                compound.remove("targetDimensionKey");
+                compound.remove("target");
+                compound.remove("linkType");
             }
             else {
                 compound.putString("targetDimensionKey", context.getWorld().getDimensionKey().getLocation().toString());

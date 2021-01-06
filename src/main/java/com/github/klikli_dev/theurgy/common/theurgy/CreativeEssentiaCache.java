@@ -48,6 +48,11 @@ public class CreativeEssentiaCache extends EssentiaCache {
     }
 
     @Override
+    public boolean hasCapacity(Item essentia) {
+        return true;
+    }
+
+    @Override
     public int add(Item essentia, int amount, boolean simulate) {
         return amount;
     }

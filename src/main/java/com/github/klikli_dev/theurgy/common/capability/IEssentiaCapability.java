@@ -26,7 +26,6 @@ import net.minecraft.item.Item;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.common.util.INBTSerializable;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -50,6 +49,8 @@ public interface IEssentiaCapability extends INBTSerializable<CompoundNBT> {
     //endregion Overrides
 
     //region Methods
+    boolean hasCapacity(Item essentia);
+
     int add(Item essentia, int amount, boolean simulate);
 
     void clear();

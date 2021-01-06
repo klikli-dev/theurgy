@@ -134,6 +134,11 @@ public class EssentiaCache implements INBTSerializable<CompoundNBT>, IEssentiaCa
         }
     }
 
+    @Override
+    public boolean hasCapacity(Item essentia) {
+        return this.capacity >  this.get(essentia);
+    }
+
     //region Methods
 
     /**

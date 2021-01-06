@@ -22,9 +22,10 @@
 
 package com.github.klikli_dev.theurgy.common.tile;
 
-import com.github.klikli_dev.theurgy.common.entity.EssentiaBallEntity;
+import net.minecraft.item.Item;
 
 public interface IEssentiaReceiver {
-    boolean isFull();
-    boolean onReceive(EssentiaBallEntity essentiaBallEntity);
+    //region Methods
+    boolean hasCapacity(Item essentia);
+    //endregion Methods
 }

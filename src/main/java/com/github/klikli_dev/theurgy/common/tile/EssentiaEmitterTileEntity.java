@@ -120,8 +120,7 @@ public class EssentiaEmitterTileEntity extends NetworkedTileEntity implements IT
                 if (attachedTile != null) {
                     attachedTile.getCapability(CapabilityRegistry.ESSENTIA, facing).ifPresent(attachedCap -> {
                         attachedCap.getEssentia().forEach((essentia, amount) -> {
-                            if (amount > 0 &&
-                                this.essentiaCapability.get(essentia) < this.essentiaCapability.getCapacity()) {
+                            if (amount > 0 && this.essentiaCapability.hasCapacity(essentia)) {
                                 int removed = attachedCap.remove(essentia, PULL_RATE, false);
                                 this.essentiaCapability.add(essentia, removed, false);
                             }
@@ -139,7 +138,7 @@ public class EssentiaEmitterTileEntity extends NetworkedTileEntity implements IT
                         //find the target tile
                         TileEntity targetTile = this.world.getTileEntity(target);
                         //if target tile has space, send packet
-                        if (targetTile instanceof IEssentiaReceiver && !((IEssentiaReceiver) targetTile).isFull()) {
+                        if (targetTile instanceof IEssentiaReceiver && ((IEssentiaReceiver) targetTile).hasCapacity(burstEssentia)) {
 
                             //take essentia to send
                             int essentiaAmount = this.essentiaCapability.remove(burstEssentia, BURST_RATE, false);
@@ -153,7 +152,6 @@ public class EssentiaEmitterTileEntity extends NetworkedTileEntity implements IT
                                     target, motion.x, motion.y, motion.z);
                             //spawn entity
                             this.world.addEntity(essentiaBallEntity);
-                            //TODO: Sound effect for essentia burst?
                         }
                     }
                     this.burstType = this.burstType.next(); //advance to next type for next burst

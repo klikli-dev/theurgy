@@ -22,23 +22,93 @@
 
 package com.github.klikli_dev.theurgy.common.tile;
 
-import com.github.klikli_dev.theurgy.common.entity.EssentiaBallEntity;
+import com.github.klikli_dev.theurgy.common.capability.IEssentiaCapability;
+import com.github.klikli_dev.theurgy.common.theurgy.EssentiaCache;
+import com.github.klikli_dev.theurgy.registry.CapabilityRegistry;
 import com.github.klikli_dev.theurgy.registry.TileRegistry;
+import net.minecraft.block.BlockState;
+import net.minecraft.item.Item;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.state.properties.BlockStateProperties;
+import net.minecraft.tileentity.ITickableTileEntity;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.Direction;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.util.LazyOptional;
 
-public class EssentiaReceiverTileEntity extends NetworkedTileEntity implements IEssentiaReceiver{
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
+public class EssentiaReceiverTileEntity extends NetworkedTileEntity implements ITickableTileEntity, IEssentiaReceiver {
+
+    //region Fields
+    public static final int EMITTER_RECEIVER_CAPACITY = 500;
+    public static final int PUSH_RATE = 50;
+
+    public final LazyOptional<IEssentiaCapability> essentiaCapabilityLazyOptional;
+    public IEssentiaCapability essentiaCapability;
+    //endregion Fields
+
     //region Initialization
     public EssentiaReceiverTileEntity() {
         super(TileRegistry.ESSENTIA_RECEIVER.get());
+
+        this.essentiaCapability = new EssentiaCache(EMITTER_RECEIVER_CAPACITY) {
+            //region Overrides
+            @Override
+            public void onContentsChanged() {
+                super.onContentsChanged();
+                EssentiaReceiverTileEntity.this.markDirty();
+            }
+            //endregion Overrides
+        };
+        this.essentiaCapabilityLazyOptional = LazyOptional.of(() -> this.essentiaCapability);
     }
     //endregion Initialization
 
+    //region Overrides
+    @Nonnull
     @Override
-    public boolean isFull() {
-        return false; //TODO: Implement
+    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction direction) {
+        if (cap == CapabilityRegistry.ESSENTIA) {
+            return this.essentiaCapabilityLazyOptional.cast();
+        }
+        return super.getCapability(cap, direction);
     }
 
     @Override
-    public boolean onReceive(EssentiaBallEntity essentiaBallEntity) {
-        return true; //TODO: Implement
+    public void read(BlockState state, CompoundNBT compound) {
+        super.read(state, compound);
+        this.essentiaCapability.deserializeNBT(compound.getCompound("essentia"));
     }
+
+    @Override
+    public CompoundNBT write(CompoundNBT compound) {
+        compound.put("essentia", this.essentiaCapability.serializeNBT());
+        return super.write(compound);
+    }
+
+    @Override
+    public boolean hasCapacity(Item essentia) {
+        return this.essentiaCapability.hasCapacity(essentia);
+    }
+
+    @Override
+    public void tick() {
+        if (this.world.getGameTime() % 10 == 0) {
+            BlockState state = this.world.getBlockState(this.pos);
+            Direction facing = state.get(BlockStateProperties.FACING);
+            TileEntity attachedTile = this.world.getTileEntity(this.pos.offset(facing.getOpposite()));
+
+            attachedTile.getCapability(CapabilityRegistry.ESSENTIA, facing).ifPresent(attachedCap -> {
+                this.essentiaCapability.getEssentia().forEach((essentia, amount) -> {
+                    if (amount > 0 && attachedCap.hasCapacity(essentia)) {
+                        int added = attachedCap.add(essentia, PUSH_RATE, false);
+                        this.essentiaCapability.remove(essentia, added, false);
+                    }
+                });
+            });
+        }
+    }
+    //endregion Overrides
 }

@@ -22,24 +22,30 @@
 
 package com.github.klikli_dev.theurgy.common.block;
 
+import com.github.klikli_dev.theurgy.common.theurgy.EssentiaType;
 import com.github.klikli_dev.theurgy.common.tile.EssentiaEmitterTileEntity;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.state.BooleanProperty;
+import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Direction;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
+import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 import java.util.Map;
 
 public class EssentiaEmitterBlock extends DirectionalAttachedBlock {
-
+    public static final BooleanProperty ENABLED = BlockStateProperties.ENABLED;
     //region Fields
     private static final Map<Direction, VoxelShape> SHAPES =
             Maps.newEnumMap(ImmutableMap.<Direction, VoxelShape>builder()
@@ -55,6 +61,7 @@ public class EssentiaEmitterBlock extends DirectionalAttachedBlock {
     //region Initialization
     public EssentiaEmitterBlock(Properties properties) {
         super(properties);
+        this.setDefaultState(this.getDefaultState().with(ENABLED, true));
     }
     //endregion Initialization
 
@@ -74,5 +81,33 @@ public class EssentiaEmitterBlock extends DirectionalAttachedBlock {
     public TileEntity createTileEntity(BlockState state, IBlockReader world) {
         return new EssentiaEmitterTileEntity();
     }
+
+    @Override
+    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+        super.fillStateContainer(builder);
+        builder.add(ENABLED);
+    }
+
+    @Override
+    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player,
+                                             Hand handIn, BlockRayTraceResult hit) {
+        if(!worldIn.isRemote){
+            //switch enabled state on block
+            boolean isEnabled = state.get(ENABLED);
+            boolean newEnabled = !isEnabled;
+            worldIn.setBlockState(pos, state.with(ENABLED, newEnabled), 3);
+
+            //switch enabled state on tile
+            TileEntity tile = worldIn.getTileEntity(pos);
+            if(tile instanceof EssentiaEmitterTileEntity){
+                ((EssentiaEmitterTileEntity)tile).setEnabled(newEnabled);
+            }
+
+            worldIn.playSound(null, pos, SoundEvents.BLOCK_LEVER_CLICK, SoundCategory.BLOCKS, 0.3F,  newEnabled ? 0.6f : 0.5f);
+        }
+
+        return ActionResultType.SUCCESS;
+    }
+
     //endregion Overrides
 }

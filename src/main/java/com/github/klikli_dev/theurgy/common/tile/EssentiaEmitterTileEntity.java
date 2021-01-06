@@ -61,8 +61,8 @@ public class EssentiaEmitterTileEntity extends NetworkedTileEntity implements IT
     public IEssentiaCapability essentiaCapability;
     public int burstOffset;
     public EssentiaType burstType;
+    public boolean isEnabled;
     protected Optional<BlockPos> target;
-
     //endregion Fields
     //region Initialization
     public EssentiaEmitterTileEntity() {
@@ -79,10 +79,20 @@ public class EssentiaEmitterTileEntity extends NetworkedTileEntity implements IT
         };
         this.essentiaCapabilityLazyOptional = LazyOptional.of(() -> this.essentiaCapability);
         this.burstType = EssentiaType.AER;
+        this.isEnabled = true;
     }
     //endregion Initialization
 
     //region Getter / Setter
+    public boolean isEnabled() {
+        return this.isEnabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.isEnabled = enabled;
+        this.markDirty();
+    }
+
     public Optional<BlockPos> getTarget() {
         return this.target;
     }
@@ -101,7 +111,7 @@ public class EssentiaEmitterTileEntity extends NetworkedTileEntity implements IT
 
     @Override
     public void tick() {
-        if (!this.world.isRemote) {
+        if (!this.world.isRemote && this.isEnabled) {
             //on slow tick, pull essentia from attached tile
             if (this.world.getGameTime() % 10 == 0) {
                 BlockState state = this.world.getBlockState(this.pos);
@@ -165,6 +175,7 @@ public class EssentiaEmitterTileEntity extends NetworkedTileEntity implements IT
     @Override
     public void read(BlockState state, CompoundNBT compound) {
         super.read(state, compound);
+        this.isEnabled = compound.getBoolean("isEnabled");
         this.essentiaCapability.deserializeNBT(compound.getCompound("essentia"));
         if (compound.contains("target")) {
             this.target = Optional.of(BlockPos.fromLong(compound.getLong("target")));
@@ -173,6 +184,7 @@ public class EssentiaEmitterTileEntity extends NetworkedTileEntity implements IT
 
     @Override
     public CompoundNBT write(CompoundNBT compound) {
+        compound.putBoolean("isEnabled", this.isEnabled);
         compound.put("essentia", this.essentiaCapability.serializeNBT());
         this.target.ifPresent(target -> compound.putLong("target", target.toLong()));
 

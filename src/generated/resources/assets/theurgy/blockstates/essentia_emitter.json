@@ -1,27 +1,53 @@
 {
   "variants": {
-    "facing=down": {
+    "enabled=false,facing=down": {
+      "model": "theurgy:block/essentia_emitter_disabled",
+      "x": 180
+    },
+    "enabled=true,facing=down": {
       "model": "theurgy:block/essentia_emitter",
       "x": 180
     },
-    "facing=up": {
+    "enabled=false,facing=up": {
+      "model": "theurgy:block/essentia_emitter_disabled"
+    },
+    "enabled=true,facing=up": {
       "model": "theurgy:block/essentia_emitter"
     },
-    "facing=north": {
+    "enabled=false,facing=north": {
+      "model": "theurgy:block/essentia_emitter_disabled",
+      "x": 90
+    },
+    "enabled=true,facing=north": {
       "model": "theurgy:block/essentia_emitter",
       "x": 90
     },
-    "facing=south": {
+    "enabled=false,facing=south": {
+      "model": "theurgy:block/essentia_emitter_disabled",
+      "x": 90,
+      "y": 180
+    },
+    "enabled=true,facing=south": {
       "model": "theurgy:block/essentia_emitter",
       "x": 90,
       "y": 180
     },
-    "facing=west": {
+    "enabled=false,facing=west": {
+      "model": "theurgy:block/essentia_emitter_disabled",
+      "x": 90,
+      "y": 270
+    },
+    "enabled=true,facing=west": {
       "model": "theurgy:block/essentia_emitter",
       "x": 90,
       "y": 270
     },
-    "facing=east": {
+    "enabled=false,facing=east": {
+      "model": "theurgy:block/essentia_emitter_disabled",
+      "x": 90,
+      "y": 90
+    },
+    "enabled=true,facing=east": {
       "model": "theurgy:block/essentia_emitter",
       "x": 90,
       "y": 90

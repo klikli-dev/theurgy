@@ -76,30 +76,32 @@ public class EssentiaGaugeItem extends Item {
         World world = context.getWorld();
         BlockPos pos = context.getPos();
         if (context.getPlayer().isSneaking()) {
-            compound.putString("targetDimensionKey", context.getWorld().getDimensionKey().getLocation().toString());
-            compound.putLong("target", pos.toLong());
-            compound.putInt("linkType", 0); //0 for essentia, 1 for future aether
-            world.playSound(null, pos, SoundEvents.BLOCK_ANVIL_LAND, SoundCategory.BLOCKS, 1.0f,
-                    1.9f + world.rand.nextFloat() * 0.2f);
-            return ActionResultType.SUCCESS;
-        }
-        else if (compound.contains("target")) {
-            RegistryKey<World> dimensionKey = RegistryKey.getOrCreateKey(Registry.WORLD_KEY,
-                    new ResourceLocation(compound.getString("targetDimensionKey")));
-            if (world.getDimensionKey() != dimensionKey)
-                return ActionResultType.FAIL;
+            if (compound.contains("target")) {
+                RegistryKey<World> dimensionKey = RegistryKey.getOrCreateKey(Registry.WORLD_KEY,
+                        new ResourceLocation(compound.getString("targetDimensionKey")));
+                if (world.getDimensionKey() != dimensionKey)
+                    return ActionResultType.FAIL;
 
-            TileEntity tile = world.getTileEntity(pos);
-            BlockPos targetPos = BlockPos.fromLong(compound.getLong("target"));
-            //TODO: Check link type here to link correctly to aether / essentia stuff -> or use separate tool
-            if (tile instanceof IEssentiaEmitter) {
-                TileEntity targetTile = world.getTileEntity(targetPos);
-                if (targetTile instanceof IEssentiaReceiver) {
-                    ((IEssentiaEmitter) tile).setTarget(Optional.of(targetPos));
-                    world.playSound(null, pos, SoundEvents.BLOCK_ANVIL_LAND, SoundCategory.BLOCKS, 1.0f,
-                            1.9f + world.rand.nextFloat() * 0.2f);
-                    return ActionResultType.SUCCESS;
+                TileEntity tile = world.getTileEntity(pos);
+                BlockPos targetPos = BlockPos.fromLong(compound.getLong("target"));
+                //TODO: Check link type here to link correctly to aether / essentia stuff -> or use separate tool
+                if (tile instanceof IEssentiaEmitter) {
+                    TileEntity targetTile = world.getTileEntity(targetPos);
+                    if (targetTile instanceof IEssentiaReceiver) {
+                        ((IEssentiaEmitter) tile).setTarget(Optional.of(targetPos));
+                        world.playSound(null, pos, SoundEvents.BLOCK_ANVIL_LAND, SoundCategory.BLOCKS, 1.0f,
+                                1.9f + world.rand.nextFloat() * 0.2f);
+                        return ActionResultType.SUCCESS;
+                    }
                 }
+            }
+            else {
+                compound.putString("targetDimensionKey", context.getWorld().getDimensionKey().getLocation().toString());
+                compound.putLong("target", pos.toLong());
+                compound.putInt("linkType", 0); //0 for essentia, 1 for future aether
+                world.playSound(null, pos, SoundEvents.BLOCK_ANVIL_LAND, SoundCategory.BLOCKS, 1.0f,
+                        1.9f + world.rand.nextFloat() * 0.2f);
+                return ActionResultType.SUCCESS;
             }
         }
         return ActionResultType.PASS;

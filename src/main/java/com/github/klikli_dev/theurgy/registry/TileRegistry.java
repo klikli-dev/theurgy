@@ -47,7 +47,7 @@ public class TileRegistry {
 
     public static final RegistryObject<TileEntityType<EssentiaReceiverTileEntity>> ESSENTIA_RECEIVER = TILES.register(
             "essentia_receiver", () -> TileEntityType.Builder.create(EssentiaReceiverTileEntity::new,
-                    BlockRegistry.ESSENTIA_EMITTER.get()).build(null));
+                    BlockRegistry.ESSENTIA_RECEIVER.get()).build(null));
 
     public static final RegistryObject<TileEntityType<CreativeEssentiaSourceTileEntity>> CREATIVE_ESSENTIA_SOURCE = TILES.register(
             "creaitve_essentia_source", () -> TileEntityType.Builder.create(CreativeEssentiaSourceTileEntity::new,

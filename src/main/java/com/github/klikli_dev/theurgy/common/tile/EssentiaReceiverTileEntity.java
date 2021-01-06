@@ -100,15 +100,16 @@ public class EssentiaReceiverTileEntity extends NetworkedTileEntity implements I
             BlockState state = this.world.getBlockState(this.pos);
             Direction facing = state.get(BlockStateProperties.FACING);
             TileEntity attachedTile = this.world.getTileEntity(this.pos.offset(facing.getOpposite()));
-
-            attachedTile.getCapability(CapabilityRegistry.ESSENTIA, facing).ifPresent(attachedCap -> {
-                this.essentiaCapability.getEssentia().forEach((essentia, amount) -> {
-                    if (amount > 0 && attachedCap.hasCapacity(essentia)) {
-                        int added = attachedCap.add(essentia, PUSH_RATE, false);
-                        this.essentiaCapability.remove(essentia, added, false);
-                    }
+            if(attachedTile != null){
+                attachedTile.getCapability(CapabilityRegistry.ESSENTIA, facing).ifPresent(attachedCap -> {
+                    this.essentiaCapability.getEssentia().forEach((essentia, amount) -> {
+                        if (amount > 0 && attachedCap.hasCapacity(essentia)) {
+                            int added = attachedCap.add(essentia, PUSH_RATE, false);
+                            this.essentiaCapability.remove(essentia, added, false);
+                        }
+                    });
                 });
-            });
+            }
         }
     }
     //endregion Overrides

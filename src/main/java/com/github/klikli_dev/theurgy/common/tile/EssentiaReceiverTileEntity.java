@@ -86,7 +86,6 @@ public class EssentiaReceiverTileEntity extends NetworkedTileEntity implements I
     @Override
     public CompoundNBT writeNetwork(CompoundNBT compound) {
         compound.put("essentia", this.essentiaCapability.serializeNBT());
-
         return super.writeNetwork(compound);
     }
 
@@ -97,7 +96,7 @@ public class EssentiaReceiverTileEntity extends NetworkedTileEntity implements I
 
     @Override
     public void tick() {
-        if (this.world.getGameTime() % 10 == 0) {
+        if (!this.world.isRemote && this.world.getGameTime() % 10 == 0) {
             BlockState state = this.world.getBlockState(this.pos);
             Direction facing = state.get(BlockStateProperties.FACING);
             TileEntity attachedTile = this.world.getTileEntity(this.pos.offset(facing.getOpposite()));

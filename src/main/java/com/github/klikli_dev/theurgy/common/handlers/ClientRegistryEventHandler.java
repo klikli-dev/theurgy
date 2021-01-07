@@ -25,6 +25,7 @@ package com.github.klikli_dev.theurgy.common.handlers;
 import com.github.klikli_dev.theurgy.Theurgy;
 import com.github.klikli_dev.theurgy.client.particle.CrucibleBubbleParticleType;
 import com.github.klikli_dev.theurgy.client.particle.GlowingBallParticleType;
+import com.github.klikli_dev.theurgy.client.particle.SparkleParticleType;
 import com.github.klikli_dev.theurgy.registry.ParticleRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.ParticleManager;
@@ -42,6 +43,7 @@ public class ClientRegistryEventHandler {
 
         manager.registerFactory(ParticleRegistry.CRUCIBLE_BUBBLES.get(), CrucibleBubbleParticleType.Factory::new);
         manager.registerFactory(ParticleRegistry.GLOWING_BALL.get(), GlowingBallParticleType.Factory::new);
+        manager.registerFactory(ParticleRegistry.SPARKLE.get(), SparkleParticleType.Factory::new);
 
         Theurgy.LOGGER.info("Registered Particle Factories");
     }

@@ -22,18 +22,9 @@
 
 package com.github.klikli_dev.theurgy.client.particle;
 
-import com.mojang.blaze3d.platform.GlStateManager;
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.particle.IAnimatedSprite;
 import net.minecraft.client.particle.IParticleRenderType;
 import net.minecraft.client.particle.SpriteTexturedParticle;
-import net.minecraft.client.renderer.ActiveRenderInfo;
-import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.texture.AtlasTexture;
-import net.minecraft.client.renderer.texture.TextureManager;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.world.ClientWorld;
 
 public class GlowingBallParticle extends SpriteTexturedParticle {
@@ -82,7 +73,7 @@ public class GlowingBallParticle extends SpriteTexturedParticle {
 
     @Override
     public IParticleRenderType getRenderType() {
-        return PARTICLE_SHEET_ADDITIVE;
+        return TheurgyParticleRenderTypes.PARTICLE_SHEET_ADDITIVE;
     }
 
     @Override
@@ -96,28 +87,4 @@ public class GlowingBallParticle extends SpriteTexturedParticle {
     }
 
     //endregion Overrides
-
-    IParticleRenderType PARTICLE_SHEET_ADDITIVE = new IParticleRenderType() {
-        public void beginRender(BufferBuilder bufferBuilder, TextureManager textureManager) {
-            RenderSystem.depthMask(true);
-            textureManager.bindTexture(AtlasTexture.LOCATION_PARTICLES_TEXTURE);
-            RenderSystem.disableCull();
-            RenderSystem.depthMask(false);
-            RenderSystem.enableBlend();
-            RenderSystem.blendFunc(
-                    GlStateManager.SourceFactor.SRC_ALPHA,
-                    GlStateManager.DestFactor.ONE
-            );
-            RenderSystem.alphaFunc(516, 0.003921569F);
-            bufferBuilder.begin(7, DefaultVertexFormats.PARTICLE_POSITION_TEX_COLOR_LMAP);
-        }
-
-        public void finishRender(Tessellator tesselator) {
-            tesselator.draw();
-        }
-
-        public String toString() {
-            return "PARTICLE_SHEET_ADDITIVE";
-        }
-    };
 }

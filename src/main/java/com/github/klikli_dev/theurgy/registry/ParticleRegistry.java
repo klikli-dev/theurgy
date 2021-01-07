@@ -25,6 +25,8 @@ package com.github.klikli_dev.theurgy.registry;
 import com.github.klikli_dev.theurgy.Theurgy;
 import com.github.klikli_dev.theurgy.client.particle.CrucibleBubbleParticleType;
 import com.github.klikli_dev.theurgy.client.particle.GlowingBallParticleType;
+import com.github.klikli_dev.theurgy.client.particle.SparkleParticle;
+import com.github.klikli_dev.theurgy.client.particle.SparkleParticleType;
 import net.minecraft.particles.ParticleType;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
@@ -40,5 +42,8 @@ public class ParticleRegistry {
 
     public static final RegistryObject<GlowingBallParticleType> GLOWING_BALL = PARTICLES.register(
             "glowing_ball", GlowingBallParticleType::new);
+
+    public static final RegistryObject<SparkleParticleType> SPARKLE = PARTICLES.register(
+            "sparkle", SparkleParticleType::new);
     //endregion Fields
 }

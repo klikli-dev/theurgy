@@ -23,6 +23,7 @@
 package com.github.klikli_dev.theurgy.common.block;
 
 import com.github.klikli_dev.theurgy.common.theurgy.IEssentiaInformationProvider;
+import com.github.klikli_dev.theurgy.common.tile.AetherEmitterTile;
 import com.github.klikli_dev.theurgy.common.tile.EssentiaEmitterTileEntity;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
@@ -68,13 +69,13 @@ public class AetherEmitterBlock extends DirectionalAttachedBlock implements IEss
     //region Overrides
     @Override
     public boolean hasTileEntity(BlockState state) {
-        return false;
+        return true;
     }
 
     @Nullable
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-        return null;
+        return new AetherEmitterTile();
     }
 
     @Override
@@ -94,10 +95,9 @@ public class AetherEmitterBlock extends DirectionalAttachedBlock implements IEss
 
             //switch enabled state on tile
             TileEntity tile = worldIn.getTileEntity(pos);
-            //TODO
-//            if (tile instanceof EssentiaEmitterTileEntity) {
-//                ((EssentiaEmitterTileEntity) tile).setEnabled(newEnabled);
-//            }
+            if (tile instanceof AetherEmitterTile) {
+                ((AetherEmitterTile) tile).setEnabled(newEnabled);
+            }
 
             worldIn.playSound(null, pos, SoundEvents.BLOCK_LEVER_CLICK, SoundCategory.BLOCKS, 0.3F,
                     newEnabled ? 0.6f : 0.5f);

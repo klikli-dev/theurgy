@@ -23,6 +23,7 @@
 package com.github.klikli_dev.theurgy.common.block;
 
 import com.github.klikli_dev.theurgy.common.theurgy.IEssentiaInformationProvider;
+import com.github.klikli_dev.theurgy.common.tile.AetherReceiverTile;
 import com.github.klikli_dev.theurgy.common.tile.EssentiaReceiverTileEntity;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
@@ -67,13 +68,13 @@ public class AetherReceiverBlock extends DirectionalAttachedBlock implements IEs
 
     @Override
     public boolean hasTileEntity(BlockState state) {
-        return false;
+        return true;
     }
 
     @Nullable
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-        return null;
+        return new AetherReceiverTile();
     }
     //endregion Overrides
 }

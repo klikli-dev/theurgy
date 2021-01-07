@@ -23,10 +23,7 @@
 package com.github.klikli_dev.theurgy.registry;
 
 import com.github.klikli_dev.theurgy.Theurgy;
-import com.github.klikli_dev.theurgy.common.tile.CreativeEssentiaSourceTileEntity;
-import com.github.klikli_dev.theurgy.common.tile.CrucibleTileEntity;
-import com.github.klikli_dev.theurgy.common.tile.EssentiaEmitterTileEntity;
-import com.github.klikli_dev.theurgy.common.tile.EssentiaReceiverTileEntity;
+import com.github.klikli_dev.theurgy.common.tile.*;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
@@ -52,5 +49,13 @@ public class TileRegistry {
     public static final RegistryObject<TileEntityType<CreativeEssentiaSourceTileEntity>> CREATIVE_ESSENTIA_SOURCE = TILES.register(
             "creaitve_essentia_source", () -> TileEntityType.Builder.create(CreativeEssentiaSourceTileEntity::new,
                     BlockRegistry.CREATIVE_ESSENTIA_SOURCE.get()).build(null));
+
+    public static final RegistryObject<TileEntityType<AetherEmitterTile>> AETHER_EMITTER = TILES.register(
+            "aether_emitter", () -> TileEntityType.Builder.create(AetherEmitterTile::new,
+                    BlockRegistry.AETHER_EMITTER.get()).build(null));
+
+    public static final RegistryObject<TileEntityType<AetherReceiverTile>> AETHER_RECEIVER = TILES.register(
+            "aether_receiver", () -> TileEntityType.Builder.create(AetherReceiverTile::new,
+                    BlockRegistry.AETHER_RECEIVER.get()).build(null));
     //endregion Fields
 }

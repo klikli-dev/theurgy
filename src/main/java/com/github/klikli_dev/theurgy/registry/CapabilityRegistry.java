@@ -23,8 +23,7 @@
 package com.github.klikli_dev.theurgy.registry;
 
 import com.github.klikli_dev.theurgy.Theurgy;
-import com.github.klikli_dev.theurgy.common.capability.EssentiaCapabilityStorage;
-import com.github.klikli_dev.theurgy.common.capability.IEssentiaCapability;
+import com.github.klikli_dev.theurgy.common.capability.*;
 import com.github.klikli_dev.theurgy.common.theurgy.EssentiaCache;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.capabilities.Capability;
@@ -35,15 +34,23 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 public class CapabilityRegistry {
     //region Fields
     public static final ResourceLocation ESSENTIA_ID = new ResourceLocation(Theurgy.MODID, "essentia");
+    public static final ResourceLocation AETHER_ID = new ResourceLocation(Theurgy.MODID, "aether");
 
     @CapabilityInject(IEssentiaCapability.class)
     public static Capability<IEssentiaCapability> ESSENTIA;
+
+
+    @CapabilityInject(IAetherCapability.class)
+    public static Capability<IAetherCapability> AETHER;
     //endregion Fields
 
     //region Static Methods
     public static void commonSetup(final FMLCommonSetupEvent event) {
         CapabilityManager.INSTANCE
                 .register(IEssentiaCapability.class, new EssentiaCapabilityStorage(), EssentiaCache::new);
+        CapabilityManager.INSTANCE
+                .register(IAetherCapability.class, new AetherCapabilityStorage(),
+                        () -> new DefaultAetherCapability(1000));
     }
     //endregion Static Methods
 }

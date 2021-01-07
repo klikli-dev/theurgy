@@ -34,6 +34,7 @@ import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 public class PureCrystalSpreader implements ICrystalSpreadHandler {
 
@@ -44,27 +45,27 @@ public class PureCrystalSpreader implements ICrystalSpreadHandler {
     public ICrystalSpreadCondition aquaCondition;
     public ICrystalSpreadCondition ignisCondition;
     public ICrystalSpreadCondition terraCondition;
-    public int pureCrystalChanceToSpread;
-    public int primaMateriaCrystalChanceToSpread;
-    public int aerCrystalChanceToSpread;
-    public int aquaCrystalChanceToSpread;
-    public int ignisCrystalChanceToSpread;
-    public int terraCrystalChanceToSpread;
+    public Supplier<Integer> pureCrystalChanceToSpread;
+    public Supplier<Integer> primaMateriaCrystalChanceToSpread;
+    public Supplier<Integer> aerCrystalChanceToSpread;
+    public Supplier<Integer> aquaCrystalChanceToSpread;
+    public Supplier<Integer> ignisCrystalChanceToSpread;
+    public Supplier<Integer> terraCrystalChanceToSpread;
     //endregion Fields
 
     //region Initialization
     public PureCrystalSpreader(ICrystalSpreadCondition pureCondition,
-                               int pureCrystalChanceToSpread,
+                               Supplier<Integer> pureCrystalChanceToSpread,
                                ICrystalSpreadCondition primaMateriaCondition,
-                               int primaMateriaCrystalChanceToSpread,
+                               Supplier<Integer> primaMateriaCrystalChanceToSpread,
                                ICrystalSpreadCondition aerCondition,
-                               int aerCrystalChanceToSpread,
+                               Supplier<Integer> aerCrystalChanceToSpread,
                                ICrystalSpreadCondition aquaCondition,
-                               int aquaCrystalChanceToSpread,
+                               Supplier<Integer> aquaCrystalChanceToSpread,
                                ICrystalSpreadCondition ignisCondition,
-                               int ignisCrystalChanceToSpread,
+                               Supplier<Integer> ignisCrystalChanceToSpread,
                                ICrystalSpreadCondition terraCondition,
-                               int terraCrystalChanceToSpread) {
+                               Supplier<Integer> terraCrystalChanceToSpread) {
         this.pureCondition = pureCondition;
         this.primaMateriaCondition = primaMateriaCondition;
         this.aerCondition = aerCondition;
@@ -93,7 +94,7 @@ public class PureCrystalSpreader implements ICrystalSpreadHandler {
             return false;
 
         //Check aer
-        if (world.getRandom().nextInt(this.aerCrystalChanceToSpread) == 0) {
+        if (world.getRandom().nextInt(this.aerCrystalChanceToSpread.get()) == 0) {
             CrystalPlacementInfo spreadTo =
                     this.getValidSpreadPosition(this.aerCondition, world, possibleTargets, sourceState, sourcePos);
             if (spreadTo != null) {
@@ -104,7 +105,7 @@ public class PureCrystalSpreader implements ICrystalSpreadHandler {
         }
 
         //Check aqua
-        if (world.getRandom().nextInt(this.aquaCrystalChanceToSpread) == 0) {
+        if (world.getRandom().nextInt(this.aquaCrystalChanceToSpread.get()) == 0) {
             CrystalPlacementInfo spreadTo =
                     this.getValidSpreadPosition(this.aquaCondition, world, possibleTargets, sourceState, sourcePos);
             if (spreadTo != null) {
@@ -116,7 +117,7 @@ public class PureCrystalSpreader implements ICrystalSpreadHandler {
 
 
         //Check ignis
-        if (world.getRandom().nextInt(this.ignisCrystalChanceToSpread) == 0) {
+        if (world.getRandom().nextInt(this.ignisCrystalChanceToSpread.get()) == 0) {
             CrystalPlacementInfo spreadTo =
                     this.getValidSpreadPosition(this.ignisCondition, world, possibleTargets, sourceState, sourcePos);
             if (spreadTo != null) {
@@ -128,7 +129,7 @@ public class PureCrystalSpreader implements ICrystalSpreadHandler {
 
 
         //Check terra
-        if (world.getRandom().nextInt(this.terraCrystalChanceToSpread) == 0) {
+        if (world.getRandom().nextInt(this.terraCrystalChanceToSpread.get()) == 0) {
             CrystalPlacementInfo spreadTo =
                     this.getValidSpreadPosition(this.terraCondition, world, possibleTargets, sourceState, sourcePos);
             if (spreadTo != null) {
@@ -138,7 +139,7 @@ public class PureCrystalSpreader implements ICrystalSpreadHandler {
             }
         }
 
-        if (world.getRandom().nextInt(this.primaMateriaCrystalChanceToSpread) == 0) {
+        if (world.getRandom().nextInt(this.primaMateriaCrystalChanceToSpread.get()) == 0) {
             //if no essentia crystals can grow, attempt to grow prima materia
             CrystalPlacementInfo spreadTo =
                     this.getValidSpreadPosition(this.primaMateriaCondition, world, possibleTargets, sourceState,
@@ -157,7 +158,7 @@ public class PureCrystalSpreader implements ICrystalSpreadHandler {
             }
         }
 
-        if (world.getRandom().nextInt(this.pureCrystalChanceToSpread) == 0){
+        if (world.getRandom().nextInt(this.pureCrystalChanceToSpread.get()) == 0){
         //If no other crystal type is valid, check pure condition
             CrystalPlacementInfo spreadTo = this.getValidSpreadPosition(this.pureCondition, world, possibleTargets, sourceState, sourcePos);
             if (spreadTo != null) {

@@ -22,12 +22,16 @@
 
 package com.github.klikli_dev.theurgy.common.tile;
 
+import com.github.klikli_dev.theurgy.client.particle.SparkleParticleData;
+import com.github.klikli_dev.theurgy.common.capability.DefaultAetherCapability;
 import com.github.klikli_dev.theurgy.common.capability.IAetherCapability;
+import com.github.klikli_dev.theurgy.registry.CapabilityRegistry;
 import com.github.klikli_dev.theurgy.registry.TileRegistry;
 import net.minecraft.block.BlockState;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.ITickableTileEntity;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
@@ -55,8 +59,17 @@ public class AetherEmitterTile extends NetworkedTileEntity implements ITickableT
     public AetherEmitterTile() {
         super(TileRegistry.AETHER_EMITTER.get());
         this.target = Optional.empty();
-        //TODO: set up capability
-        this.aetherCapability = null;
+
+        this.aetherCapability = new DefaultAetherCapability(EMITTER_AETHER_CAPACITY) {
+            //region Overrides
+            @Override
+            public void onContentsChanged() {
+                super.onContentsChanged();
+                AetherEmitterTile.this.markNetworkDirty();
+            }
+            //endregion Overrides
+        };
+
         this.aetherCapabilityLazyOptional = LazyOptional.of(() -> this.aetherCapability);
         this.isEnabled = true;
     }
@@ -91,59 +104,68 @@ public class AetherEmitterTile extends NetworkedTileEntity implements ITickableT
     @Override
     public void tick() {
         if (!this.world.isRemote && this.isEnabled) {
-            //on slow tick, pull essentia from attached tile
+            //on slow tick, pull aether from attached tile
             if (this.world.getGameTime() % 10 == 0) {
                 BlockState state = this.world.getBlockState(this.pos);
                 Direction facing = state.get(BlockStateProperties.FACING);
-                //                TileEntity attachedTile = this.world.getTileEntity(this.pos.offset(facing.getOpposite()));
-                //                if (attachedTile != null) {
-                //                    attachedTile.getCapability(CapabilityRegistry.ESSENTIA, facing).ifPresent(attachedCap -> {
-                //                        attachedCap.getEssentia().forEach((essentia, amount) -> {
-                //                            if (amount > 0 && this.aetherCapability.hasCapacity(essentia)) {
-                //                                int removed = attachedCap.remove(essentia, PULL_RATE, false);
-                //                                this.aetherCapability.add(essentia, removed, false);
-                //                            }
-                //                        });
-                //                    });
-                //                }
+                TileEntity attachedTile = this.world.getTileEntity(this.pos.offset(facing.getOpposite()));
+                if (attachedTile != null) {
+                    attachedTile.getCapability(CapabilityRegistry.AETHER, facing).ifPresent(attachedCap -> {
+                        if (attachedCap.canExtract() && this.aetherCapability.canReceive()) {
+                            int available = attachedCap.extractEnergy(PULL_RATE, true);
+                            int received = this.aetherCapability.receiveEnergy(available, false);
+                            //now extract for real
+                            attachedCap.extractEnergy(received, false);
+                        }
+                    });
+                }
             }
-            //on even slower tick, send essentia to target
+        }
+        if (this.isEnabled) {
+            //on even slower tick, send aether to target
             this.target.ifPresent(target -> {
                 if ((this.world.getGameTime() + this.burstOffset) % BURST_TICKS == 0) {
-                    //                  if (this.aetherCapability.get() > 0) {
-                    //find the target tile
-                    //                      TileEntity targetTile = this.world.getTileEntity(target);
-                    //if target tile has space, send packet
-                    //                        if (targetTile instanceof IEssentiaReceiver &&
-                    //                            ((IEssentiaReceiver) targetTile).hasCapacity(burstEssentia)) {
-                    //
-                    //                            //take essentia to send
-                    //                            int essentiaAmount = this.aetherCapability.remove(burstEssentia, BURST_RATE, false);
-                    //
-                    //                            //get the motion vector
-                    //                            Vector3d motion = this.getBurstMotion(
-                    //                                    this.world.getBlockState(this.pos).get(BlockStateProperties.FACING));
-                    //                            EssentiaBallEntity essentiaBallEntity = new EssentiaBallEntity(this.world,
-                    //                                    this.pos.getX() + 0.5, this.pos.getY() + 0.75, this.pos.getZ() + 0.5,
-                    //                                    this.burstType, essentiaAmount,
-                    //                                    target, motion.x, motion.y, motion.z);
-                    //                            //spawn entity
-                    //                            this.world.addEntity(essentiaBallEntity);
-                    //                        }
-                    //                   }
+                    TileEntity targetTile = this.world.getTileEntity(target);
+                    if (targetTile != null) {
+                        if (!world.isRemote) {
+                            //on server perform transfer
+                            targetTile.getCapability(CapabilityRegistry.AETHER).ifPresent(targetCap -> {
+                                if (this.aetherCapability.canExtract() && targetCap.canReceive()) {
+                                    int available = this.aetherCapability.extractEnergy(BURST_RATE, true);
+                                    int received = targetCap.receiveEnergy(available, false);
+                                    //now extract for real
+                                    this.aetherCapability.extractEnergy(received, false);
+                                }
+                            });
+                        }
+                        else {
+                            //on client show particles
+                            //TODO: decide on particle count for sparkle
+                            for (int i = 0; i < 5; i++) {
+                                SparkleParticleData data = new SparkleParticleData(
+                                        0.6f + this.world.rand.nextFloat() * 0.3f,
+                                        0.2f,
+                                        0.6f + this.world.rand.nextFloat() * 0.3f,
+                                        this.pos.getX() + 20, this.pos.getY() + 1, this.pos.getZ());
+
+                                this.world
+                                        .addParticle(data, this.pos.getX() + this.world.rand.nextFloat(),
+                                                this.pos.getY() + this.world.rand.nextFloat(),
+                                                this.pos.getZ() + this.world.rand.nextFloat(), 0, 0, 0);
+                            }
+                        }
+                    }
                 }
             });
-
         }
     }
 
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction direction) {
-        //        if (cap == CapabilityRegistry.ESSENTIA) {
-        //            return this.aetherCapabilityLazyOptional.cast();
-        //        }
-        //TODO: Capability
+        if (cap == CapabilityRegistry.AETHER) {
+            return this.aetherCapabilityLazyOptional.cast();
+        }
         return super.getCapability(cap, direction);
     }
 

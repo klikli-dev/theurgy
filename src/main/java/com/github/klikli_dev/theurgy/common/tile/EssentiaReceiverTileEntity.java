@@ -42,7 +42,7 @@ import javax.annotation.Nullable;
 public class EssentiaReceiverTileEntity extends NetworkedTileEntity implements ITickableTileEntity, IEssentiaReceiver {
 
     //region Fields
-    public static final int EMITTER_RECEIVER_CAPACITY = 500;
+    public static final int RECEIVER_ESSENTIA_CAPACITY = 500;
     public static final int PUSH_RATE = 50;
 
     public final LazyOptional<IEssentiaCapability> essentiaCapabilityLazyOptional;
@@ -53,7 +53,7 @@ public class EssentiaReceiverTileEntity extends NetworkedTileEntity implements I
     public EssentiaReceiverTileEntity() {
         super(TileRegistry.ESSENTIA_RECEIVER.get());
 
-        this.essentiaCapability = new EssentiaCache(EMITTER_RECEIVER_CAPACITY) {
+        this.essentiaCapability = new EssentiaCache(RECEIVER_ESSENTIA_CAPACITY) {
             //region Overrides
             @Override
             public void onContentsChanged() {

@@ -22,12 +22,12 @@
 
 package com.github.klikli_dev.theurgy.common.tile;
 
+import com.github.klikli_dev.theurgy.common.capability.DefaultAetherCapability;
 import com.github.klikli_dev.theurgy.common.capability.IAetherCapability;
 import com.github.klikli_dev.theurgy.common.theurgy.EssentiaCache;
 import com.github.klikli_dev.theurgy.registry.CapabilityRegistry;
 import com.github.klikli_dev.theurgy.registry.TileRegistry;
 import net.minecraft.block.BlockState;
-import net.minecraft.item.Item;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.ITickableTileEntity;
@@ -42,7 +42,7 @@ import javax.annotation.Nullable;
 public class AetherReceiverTile extends NetworkedTileEntity implements ITickableTileEntity {
 
     //region Fields
-    public static final int EMITTER_RECEIVER_CAPACITY = 500;
+    public static final int RECEIVER_AETHER_CAPACITY = 500;
     public static final int PUSH_RATE = 50;
 
     public final LazyOptional<IAetherCapability> aetherCapabilityLazyOptional;
@@ -53,8 +53,14 @@ public class AetherReceiverTile extends NetworkedTileEntity implements ITickable
     public AetherReceiverTile() {
         super(TileRegistry.AETHER_RECEIVER.get());
 
-        //TODO: Setup capability
-        this.aetherCapability = null;
+        this.aetherCapability = new DefaultAetherCapability(RECEIVER_AETHER_CAPACITY){
+            @Override
+            public void onContentsChanged() {
+                super.onContentsChanged();
+                AetherReceiverTile.this.markNetworkDirty();
+            }
+        };
+
         this.aetherCapabilityLazyOptional = LazyOptional.of(() -> this.aetherCapability);
     }
     //endregion Initialization
@@ -63,10 +69,9 @@ public class AetherReceiverTile extends NetworkedTileEntity implements ITickable
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction direction) {
-//        if (cap == CapabilityRegistry.ESSENTIA) {
-//            return this.aetherCapabilityLazyOptional.cast();
-//        }
-        //TODO: Capability
+        if (cap == CapabilityRegistry.AETHER) {
+            return this.aetherCapabilityLazyOptional.cast();
+        }
         return super.getCapability(cap, direction);
     }
 
@@ -90,14 +95,14 @@ public class AetherReceiverTile extends NetworkedTileEntity implements ITickable
             Direction facing = state.get(BlockStateProperties.FACING);
             TileEntity attachedTile = this.world.getTileEntity(this.pos.offset(facing.getOpposite()));
             if(attachedTile != null){
-//                attachedTile.getCapability(CapabilityRegistry.ESSENTIA, facing).ifPresent(attachedCap -> {
-//                    this.aetherCapability.getEssentia().forEach((essentia, amount) -> {
-//                        if (amount > 0 && attachedCap.hasCapacity(essentia)) {
-//                            int added = attachedCap.add(essentia, PUSH_RATE, false);
-//                            this.aetherCapability.remove(essentia, added, false);
-//                        }
-//                    });
-//                });
+                attachedTile.getCapability(CapabilityRegistry.AETHER, facing).ifPresent(attachedCap -> {
+                    if(this.aetherCapability.canExtract() && attachedCap.canReceive()){
+                        int available = this.aetherCapability.extractEnergy(PUSH_RATE, true);
+                        int received = attachedCap.receiveEnergy(available, false);
+                        //now extract for real
+                        this.aetherCapability.extractEnergy(received, false);
+                    }
+                });
             }
         }
     }

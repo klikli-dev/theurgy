@@ -1,0 +1,56 @@
+{
+  "variants": {
+    "enabled=false,facing=down": {
+      "model": "theurgy:block/aether_emitter_disabled",
+      "x": 180
+    },
+    "enabled=true,facing=down": {
+      "model": "theurgy:block/aether_emitter",
+      "x": 180
+    },
+    "enabled=false,facing=up": {
+      "model": "theurgy:block/aether_emitter_disabled"
+    },
+    "enabled=true,facing=up": {
+      "model": "theurgy:block/aether_emitter"
+    },
+    "enabled=false,facing=north": {
+      "model": "theurgy:block/aether_emitter_disabled",
+      "x": 90
+    },
+    "enabled=true,facing=north": {
+      "model": "theurgy:block/aether_emitter",
+      "x": 90
+    },
+    "enabled=false,facing=south": {
+      "model": "theurgy:block/aether_emitter_disabled",
+      "x": 90,
+      "y": 180
+    },
+    "enabled=true,facing=south": {
+      "model": "theurgy:block/aether_emitter",
+      "x": 90,
+      "y": 180
+    },
+    "enabled=false,facing=west": {
+      "model": "theurgy:block/aether_emitter_disabled",
+      "x": 90,
+      "y": 270
+    },
+    "enabled=true,facing=west": {
+      "model": "theurgy:block/aether_emitter",
+      "x": 90,
+      "y": 270
+    },
+    "enabled=false,facing=east": {
+      "model": "theurgy:block/aether_emitter_disabled",
+      "x": 90,
+      "y": 90
+    },
+    "enabled=true,facing=east": {
+      "model": "theurgy:block/aether_emitter",
+      "x": 90,
+      "y": 90
+    }
+  }
+}

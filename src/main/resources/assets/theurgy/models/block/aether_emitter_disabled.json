@@ -1,0 +1,7 @@
+{
+  "parent": "theurgy:block/essentia_emitter_disabled",
+  "textures": {
+    "1": "theurgy:block/aether_receiver",
+    "particle": "theurgy:block/aether_receiver"
+  }
+}

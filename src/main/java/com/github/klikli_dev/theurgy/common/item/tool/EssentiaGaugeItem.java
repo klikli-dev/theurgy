@@ -22,17 +22,15 @@
 
 package com.github.klikli_dev.theurgy.common.item.tool;
 
-import com.github.klikli_dev.theurgy.client.particle.GlowingBallParticleData;
-import com.github.klikli_dev.theurgy.client.particle.SparkleParticle;
-import com.github.klikli_dev.theurgy.client.particle.SparkleParticleData;
 import com.github.klikli_dev.theurgy.common.handlers.ClientRenderEventHandler;
 import com.github.klikli_dev.theurgy.common.network.MessageEssentiaChunkData;
 import com.github.klikli_dev.theurgy.common.network.Packets;
 import com.github.klikli_dev.theurgy.common.theurgy.essentia_chunks.EssentiaChunkHandler;
+import com.github.klikli_dev.theurgy.common.tile.IAetherEmitter;
+import com.github.klikli_dev.theurgy.common.tile.IAetherReceiver;
 import com.github.klikli_dev.theurgy.common.tile.IEssentiaEmitter;
 import com.github.klikli_dev.theurgy.common.tile.IEssentiaReceiver;
 import net.minecraft.block.BlockState;
-import net.minecraft.client.particle.Particle;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -89,13 +87,28 @@ public class EssentiaGaugeItem extends Item {
 
                 TileEntity tile = world.getTileEntity(pos);
                 BlockPos targetPos = BlockPos.fromLong(compound.getLong("target"));
-                //TODO: Check link type here to link correctly to aether / essentia stuff -> or use separate tool
-                if (tile instanceof IEssentiaEmitter) {
+
+                if (compound.getInt("linkType") == 0 && tile instanceof IEssentiaEmitter) {
                     TileEntity targetTile = world.getTileEntity(targetPos);
                     if (targetTile instanceof IEssentiaReceiver) {
                         ((IEssentiaEmitter) tile).setTarget(Optional.of(targetPos));
                         world.playSound(null, pos, SoundEvents.BLOCK_ANVIL_LAND, SoundCategory.BLOCKS, 1.0f,
                                 1.9f + world.rand.nextFloat() * 0.2f);
+                        compound.remove("targetDimensionKey");
+                        compound.remove("target");
+                        compound.remove("linkType");
+                        return ActionResultType.SUCCESS;
+                    }
+                }
+                if (compound.getInt("linkType") == 1 && tile instanceof IAetherEmitter) {
+                    TileEntity targetTile = world.getTileEntity(targetPos);
+                    if (targetTile instanceof IAetherReceiver) {
+                        ((IAetherEmitter) tile).setTarget(Optional.of(targetPos));
+                        world.playSound(null, pos, SoundEvents.BLOCK_ANVIL_LAND, SoundCategory.BLOCKS, 1.0f,
+                                1.9f + world.rand.nextFloat() * 0.2f);
+                        compound.remove("targetDimensionKey");
+                        compound.remove("target");
+                        compound.remove("linkType");
                         return ActionResultType.SUCCESS;
                     }
                 }
@@ -105,12 +118,26 @@ public class EssentiaGaugeItem extends Item {
                 compound.remove("linkType");
             }
             else {
-                compound.putString("targetDimensionKey", context.getWorld().getDimensionKey().getLocation().toString());
-                compound.putLong("target", pos.toLong());
-                compound.putInt("linkType", 0); //0 for essentia, 1 for future aether
-                world.playSound(null, pos, SoundEvents.BLOCK_ANVIL_LAND, SoundCategory.BLOCKS, 1.0f,
-                        1.9f + world.rand.nextFloat() * 0.2f);
-                return ActionResultType.SUCCESS;
+                TileEntity tile = world.getTileEntity(pos);
+                if (tile instanceof IEssentiaReceiver) {
+                    compound.putString("targetDimensionKey",
+                            context.getWorld().getDimensionKey().getLocation().toString());
+                    compound.putLong("target", pos.toLong());
+                    compound.putInt("linkType", 0); //0 for essentia,
+                    world.playSound(null, pos, SoundEvents.BLOCK_ANVIL_LAND, SoundCategory.BLOCKS, 1.0f,
+                            1.9f + world.rand.nextFloat() * 0.2f);
+                    return ActionResultType.SUCCESS;
+                }
+                if (tile instanceof IAetherReceiver) {
+                    compound.putString("targetDimensionKey",
+                            context.getWorld().getDimensionKey().getLocation().toString());
+                    compound.putLong("target", pos.toLong());
+                    compound.putInt("linkType", 1); //0 for essentia,
+                    world.playSound(null, pos, SoundEvents.BLOCK_ANVIL_LAND, SoundCategory.BLOCKS, 1.0f,
+                            1.9f + world.rand.nextFloat() * 0.2f);
+                    return ActionResultType.SUCCESS;
+                }
+
             }
         }
         return ActionResultType.PASS;
@@ -118,19 +145,6 @@ public class EssentiaGaugeItem extends Item {
 
     @Override
     public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, Hand hand) {
-
-        //TODO: remove debug code
-        if(world.isRemote){
-            BlockPos pos = player.getPosition();
-            for(int i = 0; i < 5; i++){
-                    SparkleParticleData data = new SparkleParticleData(
-                            0.2f, 0.6f + world.rand.nextFloat() * 0.3f, 0.2f,
-                            pos.getX() + 20, pos.getY() + 1, pos.getZ());
-
-                    world.addParticle(data, pos.getX() + world.rand.nextFloat(), pos.getY() + world.rand.nextFloat(), pos.getZ() + world.rand.nextFloat(), 0, 0, 0);
-            }
-        }
-
         ItemStack stack = player.getHeldItem(hand);
 
         if (!player.isSneaking()) {

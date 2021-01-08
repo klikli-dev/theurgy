@@ -57,5 +57,9 @@ public class TileRegistry {
     public static final RegistryObject<TileEntityType<AetherReceiverTile>> AETHER_RECEIVER = TILES.register(
             "aether_receiver", () -> TileEntityType.Builder.create(AetherReceiverTile::new,
                     BlockRegistry.AETHER_RECEIVER.get()).build(null));
+
+    public static final RegistryObject<TileEntityType<CreativeAetherSourceTile>> CREATIVE_AETHER_SOURCE = TILES.register(
+            "creaitve_aether_source", () -> TileEntityType.Builder.create(CreativeAetherSourceTile::new,
+                    BlockRegistry.CREATIVE_AETHER_SOURCE.get()).build(null));
     //endregion Fields
 }

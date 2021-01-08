@@ -75,6 +75,12 @@ public class BlockRegistry {
                     Block.Properties.create(Material.IRON, MaterialColor.STONE)
                             .setRequiresTool().hardnessAndResistance(1.0F).notSolid()));
 
+    public static final RegistryObject<CreativeAetherSourceBlock> CREATIVE_AETHER_SOURCE =
+            register("creative_aether_source", () -> new CreativeAetherSourceBlock(
+                    Block.Properties.create(Material.IRON, MaterialColor.STONE)
+                            .setRequiresTool().hardnessAndResistance(1.0F).notSolid()));
+
+
     //Resources
     public static final ICrystalSpreadCondition PURE_CRYSTAL_CONDITION = new PureCrystalCondition();
     public static final ICrystalSpreadCondition PRIMA_MATERIA_CRYSTAL_CONDITION = new PrimaMateriaCrystalCondition();

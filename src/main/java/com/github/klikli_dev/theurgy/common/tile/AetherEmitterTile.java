@@ -146,7 +146,7 @@ public class AetherEmitterTile extends NetworkedTileEntity implements ITickableT
                                         0.6f + this.world.rand.nextFloat() * 0.3f,
                                         0.2f,
                                         0.6f + this.world.rand.nextFloat() * 0.3f,
-                                        this.pos.getX() + 20, this.pos.getY() + 1, this.pos.getZ());
+                                        target.getX(), target.getY(), target.getZ());
 
                                 this.world
                                         .addParticle(data, this.pos.getX() + this.world.rand.nextFloat(),

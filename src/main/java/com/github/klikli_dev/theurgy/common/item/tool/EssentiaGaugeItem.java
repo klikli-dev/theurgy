@@ -75,7 +75,7 @@ public class EssentiaGaugeItem extends Item {
         World world = context.getWorld();
         BlockPos pos = context.getPos();
 
-        if (context.getPlayer().isSneaking()) {
+        if (!world.isRemote && context.getPlayer().isSneaking()) {
 
             TileEntity tile = world.getTileEntity(pos);
             if (tile instanceof IReceiver) {

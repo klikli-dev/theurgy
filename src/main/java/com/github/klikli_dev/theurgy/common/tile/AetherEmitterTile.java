@@ -91,7 +91,7 @@ public class AetherEmitterTile extends NetworkedTileEntity implements ITickableT
 
     public void setTarget(Optional<BlockPos> target) {
         this.target = target;
-        this.markDirty();
+        this.markNetworkDirty();
     }
     //endregion Getter / Setter
 
@@ -173,26 +173,26 @@ public class AetherEmitterTile extends NetworkedTileEntity implements ITickableT
     public void read(BlockState state, CompoundNBT compound) {
         super.read(state, compound);
         this.isEnabled = compound.getBoolean("isEnabled");
-        if (compound.contains("target")) {
-            this.target = Optional.of(BlockPos.fromLong(compound.getLong("target")));
-        }
     }
 
     @Override
     public CompoundNBT write(CompoundNBT compound) {
         compound.putBoolean("isEnabled", this.isEnabled);
-        this.target.ifPresent(target -> compound.putLong("target", target.toLong()));
         return super.write(compound);
     }
 
     @Override
     public void readNetwork(CompoundNBT compound) {
         super.readNetwork(compound);
+        if (compound.contains("target")) {
+            this.target = Optional.of(BlockPos.fromLong(compound.getLong("target")));
+        }
         this.aetherCapability.deserializeNBT(compound.getCompound("aether"));
     }
 
     @Override
     public CompoundNBT writeNetwork(CompoundNBT compound) {
+        this.target.ifPresent(target -> compound.putLong("target", target.toLong()));
         compound.put("aether", this.aetherCapability.serializeNBT());
         return super.writeNetwork(compound);
     }

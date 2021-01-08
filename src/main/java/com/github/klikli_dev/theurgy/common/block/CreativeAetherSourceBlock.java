@@ -33,7 +33,7 @@ import net.minecraft.world.IBlockReader;
 
 import javax.annotation.Nullable;
 
-public class CreativeAetherSourceBlock extends Block implements IEssentiaInformationProvider {
+public class CreativeAetherSourceBlock extends Block  {
     //region Initialization
     public CreativeAetherSourceBlock(Properties properties) {
         super(properties);

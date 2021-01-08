@@ -40,7 +40,7 @@ import net.minecraft.world.IBlockReader;
 import javax.annotation.Nullable;
 import java.util.Map;
 
-public class AetherReceiverBlock extends DirectionalAttachedBlock implements IEssentiaInformationProvider {
+public class AetherReceiverBlock extends DirectionalAttachedBlock {
 
     //region Fields
     private static final Map<Direction, VoxelShape> SHAPES = Maps.newEnumMap(

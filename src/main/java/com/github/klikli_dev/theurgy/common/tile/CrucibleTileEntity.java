@@ -24,14 +24,12 @@ package com.github.klikli_dev.theurgy.common.tile;
 
 import com.github.klikli_dev.theurgy.Theurgy;
 import com.github.klikli_dev.theurgy.client.particle.CrucibleBubbleParticleData;
-import com.github.klikli_dev.theurgy.client.particle.GlowingBallParticleData;
 import com.github.klikli_dev.theurgy.common.crafting.recipe.CrucibleCraftingType;
 import com.github.klikli_dev.theurgy.common.crafting.recipe.CrucibleItemStackFakeInventory;
 import com.github.klikli_dev.theurgy.common.crafting.recipe.CrucibleRecipe;
 import com.github.klikli_dev.theurgy.common.crafting.recipe.EssentiaRecipe;
 import com.github.klikli_dev.theurgy.common.entity.AetherBallEntity;
 import com.github.klikli_dev.theurgy.common.entity.EssentiaBallEntity;
-import com.github.klikli_dev.theurgy.common.entity.GlowingBallEntity;
 import com.github.klikli_dev.theurgy.common.theurgy.EssentiaCache;
 import com.github.klikli_dev.theurgy.common.theurgy.EssentiaType;
 import com.github.klikli_dev.theurgy.common.theurgy.essentia_chunks.EssentiaChunkHandler;
@@ -49,8 +47,6 @@ import net.minecraft.util.*;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.util.math.vector.Vector3f;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -235,7 +231,7 @@ public class CrucibleTileEntity extends NetworkedTileEntity implements ITickable
                             }
 
                             int maxPossibleCraftings =
-                                    Math.floorDiv(this.essentiaCache.get(essentia.getItem()), essentia.getCount());
+                                    Math.floorDiv(this.essentiaCache.getEssentiaStored(essentia.getItem()), essentia.getCount());
                             if (maxPossibleCraftings < craftingCount)
                                 craftingCount = maxPossibleCraftings;
                         }
@@ -243,7 +239,7 @@ public class CrucibleTileEntity extends NetworkedTileEntity implements ITickable
                         //now take the essentia from the cache
                         for (ItemStack essentia : recipe.get().getEssentia()) {
                             //multiply by crafting count
-                            this.essentiaCache.remove(essentia.getItem(), essentia.getCount() * craftingCount, false);
+                            this.essentiaCache.extractEssentia(essentia.getItem(), essentia.getCount() * craftingCount, false);
                         }
 
                         //take input item from stack
@@ -294,7 +290,7 @@ public class CrucibleTileEntity extends NetworkedTileEntity implements ITickable
                         List<ItemStack> essentia = recipe.get().getEssentia();
 
                         //store result in essentia cache, always use up entire stack
-                        essentia.forEach(itemStack -> this.essentiaCache.add(itemStack.getItem(),
+                        essentia.forEach(itemStack -> this.essentiaCache.receiveEssentia(itemStack.getItem(),
                                 itemStack.getCount() * item.getItem().getCount(), false));
 
                         this.hasContents = true;
@@ -319,7 +315,7 @@ public class CrucibleTileEntity extends NetworkedTileEntity implements ITickable
             List<Item> essentiaToDissolve = new ArrayList<>(this.essentiaCache.essentia.keySet());
             for (Item e : essentiaToDissolve) {
                 //move essentia to chunk
-                chunkEssentia.add(e, this.essentiaCache.remove(e, amountToDissolve, false), false);
+                chunkEssentia.receiveEssentia(e, this.essentiaCache.extractEssentia(e, amountToDissolve, false), false);
             }
 
             //Mark essentia dimension for saving
@@ -455,7 +451,7 @@ public class CrucibleTileEntity extends NetworkedTileEntity implements ITickable
         List<Item> essentiaToDissolve = new ArrayList<>(this.essentiaCache.essentia.keySet());
         for (Item e : essentiaToDissolve) {
             //Take as much essentia as is in the cache and add it to the chunk
-            chunkEssentia.add(e, this.essentiaCache.remove(e, Integer.MAX_VALUE, false), false);
+            chunkEssentia.receiveEssentia(e, this.essentiaCache.extractEssentia(e, Integer.MAX_VALUE, false), false);
         }
 
         //Mark essentia dimension for saving

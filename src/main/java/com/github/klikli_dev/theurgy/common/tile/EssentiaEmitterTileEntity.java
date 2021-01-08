@@ -121,9 +121,11 @@ public class EssentiaEmitterTileEntity extends NetworkedTileEntity implements IT
                 if (attachedTile != null) {
                     attachedTile.getCapability(CapabilityRegistry.ESSENTIA, facing).ifPresent(attachedCap -> {
                         attachedCap.getEssentia().forEach((essentia, amount) -> {
-                            if (amount > 0 && this.essentiaCapability.hasCapacity(essentia)) {
-                                int removed = attachedCap.remove(essentia, PULL_RATE, false);
-                                this.essentiaCapability.add(essentia, removed, false);
+                            if (attachedCap.canExtract() && this.essentiaCapability.canReceive()) {
+                                int available = attachedCap.extractEssentia(essentia, PULL_RATE, true);
+                                int received = this.essentiaCapability.receiveEssentia(essentia, available, false);
+                                //now extract for real
+                                attachedCap.extractEssentia(essentia, received, false);
                             }
                         });
                     });
@@ -135,25 +137,32 @@ public class EssentiaEmitterTileEntity extends NetworkedTileEntity implements IT
                     //get the current burst type
                     Item burstEssentia = this.burstType.getEssentiaItem().get();
                     //if current burst type has no essentia, skip
-                    if (this.essentiaCapability.get(burstEssentia) > 0) {
+                    if (this.essentiaCapability.getEssentiaStored(burstEssentia) > 0) {
                         //find the target tile
                         TileEntity targetTile = this.world.getTileEntity(target);
+
+
                         //if target tile has space, send packet
-                        if (targetTile instanceof IEssentiaReceiver &&
-                            ((IEssentiaReceiver) targetTile).hasCapacity(burstEssentia)) {
+                        if (targetTile instanceof IEssentiaReceiver) {
+                            targetTile.getCapability(CapabilityRegistry.ESSENTIA).ifPresent(targetCap -> {
+                                int available = this.essentiaCapability.extractEssentia(burstEssentia, BURST_RATE, true);
+                                int received = targetCap.receiveEssentia(burstEssentia, available, true);
 
-                            //take essentia to send
-                            int essentiaAmount = this.essentiaCapability.remove(burstEssentia, BURST_RATE, false);
+                                if(received > 0){
+                                    //now extract for real
+                                    int essentiaAmount = this.essentiaCapability.extractEssentia(burstEssentia, received, false);
 
-                            //get the motion vector
-                            Vector3d motion = this.getBurstMotion(
-                                    this.world.getBlockState(this.pos).get(BlockStateProperties.FACING));
-                            EssentiaBallEntity essentiaBallEntity = new EssentiaBallEntity(this.world,
-                                    this.pos.getX() + 0.5, this.pos.getY() + 0.75, this.pos.getZ() + 0.5,
-                                    this.burstType, essentiaAmount,
-                                    target, motion.x, motion.y, motion.z);
-                            //spawn entity
-                            this.world.addEntity(essentiaBallEntity);
+                                    //get the motion vector
+                                    Vector3d motion = this.getBurstMotion(
+                                            this.world.getBlockState(this.pos).get(BlockStateProperties.FACING));
+                                    EssentiaBallEntity essentiaBallEntity = new EssentiaBallEntity(this.world,
+                                            this.pos.getX() + 0.5, this.pos.getY() + 0.75, this.pos.getZ() + 0.5,
+                                            this.burstType, essentiaAmount,
+                                            target, motion.x, motion.y, motion.z);
+                                    //spawn entity
+                                    this.world.addEntity(essentiaBallEntity);
+                                }
+                            });
                         }
                     }
                     this.burstType = this.burstType.next(); //advance to next type for next burst

@@ -52,12 +52,14 @@ public class PrimaMateriaCrystalCondition extends PureCrystalCondition {
 
         EssentiaCache cache =
                 EssentiaChunkHandler.getEssentiaCache(((World) world).getDimensionKey(), new ChunkPos(targetPos));
-        if (cache.min(
-                ItemRegistry.AER_ESSENTIA.get(),
-                ItemRegistry.AQUA_ESSENTIA.get(),
-                ItemRegistry.IGNIS_ESSENTIA.get(),
-                ItemRegistry.TERRA_ESSENTIA.get()
-        ) < Theurgy.CONFIG.crystalSettings.primaMateriaSpreadEssentia.get()) {
+
+
+        int required = Theurgy.CONFIG.crystalSettings.primaMateriaSpreadEssentia.get();
+        if (cache.getEssentiaStored(ItemRegistry.AER_ESSENTIA.get()) < required ||
+            cache.getEssentiaStored(ItemRegistry.AQUA_ESSENTIA.get()) < required ||
+            cache.getEssentiaStored(ItemRegistry.IGNIS_ESSENTIA.get()) < required ||
+            cache.getEssentiaStored(ItemRegistry.TERRA_ESSENTIA.get()) < required
+        ) {
             return null;
         }
 

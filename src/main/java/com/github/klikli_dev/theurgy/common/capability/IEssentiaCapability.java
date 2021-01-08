@@ -27,19 +27,18 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.common.util.INBTSerializable;
 
 import java.util.Map;
-import java.util.Set;
 
 public interface IEssentiaCapability extends INBTSerializable<CompoundNBT> {
     //region Getter / Setter
-    boolean isEmpty();
-
-    int getCapacity();
-
-    void setCapacity(int capacity);
 
     Map<Item, Integer> getEssentia();
 
-    Set<Item> getEssentiaTypes();
+    int getMaxEssentiaStored();
+
+    /**
+     * @return true if there is no essentia at all in this cache.
+     */
+    boolean isEmpty();
     //endregion Getter / Setter
 
     //region Overrides
@@ -49,20 +48,38 @@ public interface IEssentiaCapability extends INBTSerializable<CompoundNBT> {
     //endregion Overrides
 
     //region Methods
-    boolean hasCapacity(Item essentia);
+    /**
+     * Receive the given amount of essentia.
+     *
+     * @param essentia the essentia type to receive.
+     * @param amount   the amount to receive.
+     * @param simulate true to only simulate the change.
+     * @return the amount received.
+     */
+    int receiveEssentia(Item essentia, int amount, boolean simulate);
 
-    int add(Item essentia, int amount, boolean simulate);
+    /**
+     * Get the current amount of the given essentia type.
+     *
+     * @param essentia the essentia type to look up.
+     * @return the current amount.
+     */
+    int getEssentiaStored(Item essentia);
 
-    void clear();
-
-    int get(Item essentia);
-
-    void set(Item essentia, int value);
-
-    int min(Item... essentia);
-
-    int remove(Item essentia, int amount, boolean simulate);
+    /**
+     * Remove the given amount of Essentia.
+     *
+     * @param essentia the essentia type to remove.
+     * @param amount   the amount to remove.
+     * @param simulate true to only simulate the change.
+     * @return the amount removed.
+     */
+    int extractEssentia(Item essentia, int amount, boolean simulate);
 
     void onContentsChanged();
+
+    boolean canExtract();
+
+    boolean canReceive();
     //endregion Methods
 }

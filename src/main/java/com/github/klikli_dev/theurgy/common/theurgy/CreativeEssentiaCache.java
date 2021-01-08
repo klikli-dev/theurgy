@@ -43,37 +43,17 @@ public class CreativeEssentiaCache extends EssentiaCache {
     }
 
     @Override
-    public int getEssentiaSum() {
-        return Integer.MAX_VALUE;
-    }
-
-    @Override
-    public boolean hasCapacity(Item essentia) {
-        return true;
-    }
-
-    @Override
-    public int add(Item essentia, int amount, boolean simulate) {
+    public int receiveEssentia(Item essentia, int amount, boolean simulate) {
         return amount;
     }
 
     @Override
-    public int get(Item essentia) {
+    public int getEssentiaStored(Item essentia) {
         return Integer.MAX_VALUE;
     }
 
     @Override
-    public void set(Item essentia, int value) {
-
-    }
-
-    @Override
-    public int min(Item... essentia) {
-        return Integer.MAX_VALUE;
-    }
-
-    @Override
-    public int remove(Item essentia, int amount, boolean simulate) {
+    public int extractEssentia(Item essentia, int amount, boolean simulate) {
         return amount;
     }
     //endregion Overrides

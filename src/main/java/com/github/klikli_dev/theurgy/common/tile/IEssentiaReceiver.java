@@ -25,7 +25,5 @@ package com.github.klikli_dev.theurgy.common.tile;
 import net.minecraft.item.Item;
 
 public interface IEssentiaReceiver extends IReceiver {
-    //region Methods
-    boolean hasCapacity(Item essentia);
-    //endregion Methods
+
 }

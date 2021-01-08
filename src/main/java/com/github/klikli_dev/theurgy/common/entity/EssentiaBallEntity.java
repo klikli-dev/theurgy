@@ -25,7 +25,6 @@ package com.github.klikli_dev.theurgy.common.entity;
 import com.github.klikli_dev.theurgy.common.theurgy.EssentiaType;
 import com.github.klikli_dev.theurgy.registry.CapabilityRegistry;
 import com.github.klikli_dev.theurgy.registry.EntityRegistry;
-import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityType;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
@@ -90,7 +89,7 @@ public class EssentiaBallEntity extends GlowingBallEntity {
             TileEntity tile = this.world.getTileEntity(this.getPosition());
             if(tile != null){
                 tile.getCapability(CapabilityRegistry.ESSENTIA).ifPresent(cap -> {
-                    cap.add(this.essentiaType.getEssentiaItem().get(), this.value, false);
+                    cap.receiveEssentia(this.essentiaType.getEssentiaItem().get(), this.value, false);
                     tile.markDirty();
                 });
             }

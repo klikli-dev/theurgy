@@ -27,7 +27,6 @@ import com.github.klikli_dev.theurgy.common.theurgy.EssentiaCache;
 import com.github.klikli_dev.theurgy.registry.CapabilityRegistry;
 import com.github.klikli_dev.theurgy.registry.TileRegistry;
 import net.minecraft.block.BlockState;
-import net.minecraft.item.Item;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.ITickableTileEntity;
@@ -90,22 +89,19 @@ public class EssentiaReceiverTileEntity extends NetworkedTileEntity implements I
     }
 
     @Override
-    public boolean hasCapacity(Item essentia) {
-        return this.essentiaCapability.hasCapacity(essentia);
-    }
-
-    @Override
     public void tick() {
         if (!this.world.isRemote && this.world.getGameTime() % 10 == 0) {
             BlockState state = this.world.getBlockState(this.pos);
             Direction facing = state.get(BlockStateProperties.FACING);
             TileEntity attachedTile = this.world.getTileEntity(this.pos.offset(facing.getOpposite()));
-            if(attachedTile != null){
+            if (attachedTile != null) {
                 attachedTile.getCapability(CapabilityRegistry.ESSENTIA, facing).ifPresent(attachedCap -> {
                     this.essentiaCapability.getEssentia().forEach((essentia, amount) -> {
-                        if (amount > 0 && attachedCap.hasCapacity(essentia)) {
-                            int added = attachedCap.add(essentia, PUSH_RATE, false);
-                            this.essentiaCapability.remove(essentia, added, false);
+                        if (this.essentiaCapability.canExtract() && attachedCap.canReceive()) {
+                            int available = this.essentiaCapability.extractEssentia(essentia, PUSH_RATE, true);
+                            int received = attachedCap.receiveEssentia(essentia, available, false);
+                            //now extract for real
+                            this.essentiaCapability.extractEssentia(essentia, received, false);
                         }
                     });
                 });

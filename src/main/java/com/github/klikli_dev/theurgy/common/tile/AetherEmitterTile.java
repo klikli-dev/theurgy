@@ -41,7 +41,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Optional;
 
-public class AetherEmitterTile extends NetworkedTileEntity implements ITickableTileEntity, IEssentiaEmitter {
+public class AetherEmitterTile extends NetworkedTileEntity implements ITickableTileEntity, IAetherEmitter {
 
     //region Fields
     public static final int EMITTER_AETHER_CAPACITY = 500;

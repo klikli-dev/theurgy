@@ -39,7 +39,7 @@ import net.minecraftforge.common.util.LazyOptional;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class AetherReceiverTile extends NetworkedTileEntity implements ITickableTileEntity {
+public class AetherReceiverTile extends NetworkedTileEntity implements ITickableTileEntity, IAetherReceiver {
 
     //region Fields
     public static final int RECEIVER_AETHER_CAPACITY = 500;

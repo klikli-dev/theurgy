@@ -135,9 +135,9 @@ public class EssentiaGaugeItem extends Item {
 
             if (!world.isRemote) {
                 Packets.sendTo((ServerPlayerEntity) player, new MessageEssentiaChunkData(
-                        EssentiaChunkHandler.getEssentiaCache(
+                        EssentiaChunkHandler.getChunkEssentiaCapability(
                                 world.getDimensionKey(),
-                                new ChunkPos(player.getPosition())).essentia
+                                new ChunkPos(player.getPosition()))
                 ));
             }
         }

@@ -22,18 +22,18 @@
 
 package com.github.klikli_dev.theurgy.common.crafting.recipe;
 
-import com.github.klikli_dev.theurgy.common.theurgy.EssentiaCache;
+import com.github.klikli_dev.theurgy.common.capability.IEssentiaCapability;
 import net.minecraft.item.ItemStack;
 
 public class CrucibleItemStackFakeInventory extends ItemStackFakeInventory {
     //region Fields
-    public EssentiaCache essentiaCache;
+    public IEssentiaCapability essentiaCapability;
     //endregion Fields
 
     //region Initialization
-    public CrucibleItemStackFakeInventory(ItemStack input, EssentiaCache essentiaCache) {
+    public CrucibleItemStackFakeInventory(ItemStack input, IEssentiaCapability essentiaCapability) {
         super(input);
-        this.essentiaCache = essentiaCache;
+        this.essentiaCapability = essentiaCapability;
     }
     //endregion Initialization
 

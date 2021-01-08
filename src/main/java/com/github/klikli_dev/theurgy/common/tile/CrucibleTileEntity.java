@@ -24,20 +24,20 @@ package com.github.klikli_dev.theurgy.common.tile;
 
 import com.github.klikli_dev.theurgy.Theurgy;
 import com.github.klikli_dev.theurgy.client.particle.CrucibleBubbleParticleData;
+import com.github.klikli_dev.theurgy.common.capability.IEssentiaCapability;
 import com.github.klikli_dev.theurgy.common.crafting.recipe.CrucibleCraftingType;
 import com.github.klikli_dev.theurgy.common.crafting.recipe.CrucibleItemStackFakeInventory;
 import com.github.klikli_dev.theurgy.common.crafting.recipe.CrucibleRecipe;
 import com.github.klikli_dev.theurgy.common.crafting.recipe.EssentiaRecipe;
 import com.github.klikli_dev.theurgy.common.entity.AetherBallEntity;
 import com.github.klikli_dev.theurgy.common.entity.EssentiaBallEntity;
-import com.github.klikli_dev.theurgy.common.theurgy.EssentiaCache;
+import com.github.klikli_dev.theurgy.common.capability.DefaultEssentiaCapability;
 import com.github.klikli_dev.theurgy.common.theurgy.EssentiaType;
 import com.github.klikli_dev.theurgy.common.theurgy.essentia_chunks.EssentiaChunkHandler;
 import com.github.klikli_dev.theurgy.registry.*;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
@@ -48,10 +48,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Random;
+import java.util.*;
 
 public class CrucibleTileEntity extends NetworkedTileEntity implements ITickableTileEntity, IActivatableTileEntity {
 
@@ -87,7 +84,7 @@ public class CrucibleTileEntity extends NetworkedTileEntity implements ITickable
     /**
      * The essentia stored in the crucible
      */
-    public EssentiaCache essentiaCache;
+    public IEssentiaCapability essentiaCapability;
 
     /**
      * The fake inventory to use for dissolution crafting
@@ -98,8 +95,8 @@ public class CrucibleTileEntity extends NetworkedTileEntity implements ITickable
     //region Initialization
     public CrucibleTileEntity() {
         super(TileRegistry.CRUCIBLE.get());
-        this.essentiaCache = new EssentiaCache();
-        this.fakeInventory = new CrucibleItemStackFakeInventory(ItemStack.EMPTY, this.essentiaCache);
+        this.essentiaCapability = new DefaultEssentiaCapability();
+        this.fakeInventory = new CrucibleItemStackFakeInventory(ItemStack.EMPTY, this.essentiaCapability);
     }
     //endregion Initialization
 
@@ -231,7 +228,7 @@ public class CrucibleTileEntity extends NetworkedTileEntity implements ITickable
                             }
 
                             int maxPossibleCraftings =
-                                    Math.floorDiv(this.essentiaCache.getEssentiaStored(essentia.getItem()), essentia.getCount());
+                                    Math.floorDiv(this.essentiaCapability.getEssentiaStored(essentia.getItem()), essentia.getCount());
                             if (maxPossibleCraftings < craftingCount)
                                 craftingCount = maxPossibleCraftings;
                         }
@@ -239,7 +236,8 @@ public class CrucibleTileEntity extends NetworkedTileEntity implements ITickable
                         //now take the essentia from the cache
                         for (ItemStack essentia : recipe.get().getEssentia()) {
                             //multiply by crafting count
-                            this.essentiaCache.extractEssentia(essentia.getItem(), essentia.getCount() * craftingCount, false);
+                            this.essentiaCapability
+                                    .extractEssentia(essentia.getItem(), essentia.getCount() * craftingCount, false);
                         }
 
                         //take input item from stack
@@ -263,7 +261,7 @@ public class CrucibleTileEntity extends NetworkedTileEntity implements ITickable
                     }
                 }
                 if (craftedAny) {
-                    if (this.essentiaCache.isEmpty())
+                    if (this.essentiaCapability.isEmpty())
                         this.hasContents = false;
                     this.markNetworkDirty();
                     this.world.playSound(null, this.pos, SoundEvents.BLOCK_BREWING_STAND_BREW, SoundCategory.BLOCKS, 1,
@@ -290,7 +288,7 @@ public class CrucibleTileEntity extends NetworkedTileEntity implements ITickable
                         List<ItemStack> essentia = recipe.get().getEssentia();
 
                         //store result in essentia cache, always use up entire stack
-                        essentia.forEach(itemStack -> this.essentiaCache.receiveEssentia(itemStack.getItem(),
+                        essentia.forEach(itemStack -> this.essentiaCapability.receiveEssentia(itemStack.getItem(),
                                 itemStack.getCount() * item.getItem().getCount(), false));
 
                         this.hasContents = true;
@@ -307,21 +305,21 @@ public class CrucibleTileEntity extends NetworkedTileEntity implements ITickable
         if (!this.world.isRemote && this.hasContents &&
             this.world.getGameTime() % Theurgy.CONFIG.essentiaSettings.crucibleDiffuseTicks.get() == 0) {
 
-            EssentiaCache chunkEssentia =
-                    EssentiaChunkHandler.getEssentiaCache(this.world.getDimensionKey(), new ChunkPos(this.pos));
+            IEssentiaCapability chunkEssentia =
+                    EssentiaChunkHandler.getChunkEssentiaCapability(this.world.getDimensionKey(), new ChunkPos(this.pos));
 
             //get the amount we want to diffuse
             int amountToDissolve = Theurgy.CONFIG.essentiaSettings.crucibleEssentiaToDiffuse.get();
-            List<Item> essentiaToDissolve = new ArrayList<>(this.essentiaCache.essentia.keySet());
-            for (Item e : essentiaToDissolve) {
-                //move essentia to chunk
-                chunkEssentia.receiveEssentia(e, this.essentiaCache.extractEssentia(e, amountToDissolve, false), false);
-            }
+
+            this.essentiaCapability.getEssentia().forEach((e, amount) ->{
+                chunkEssentia.receiveEssentia(e, this.essentiaCapability.extractEssentia(e, amountToDissolve, false), false);
+
+            });
 
             //Mark essentia dimension for saving
             EssentiaChunkHandler.markDirty(this.world.getDimensionKey());
 
-            if (this.essentiaCache.isEmpty()) {
+            if (this.essentiaCapability.isEmpty()) {
                 this.hasContents = false;
             }
             this.markNetworkDirty();
@@ -337,7 +335,7 @@ public class CrucibleTileEntity extends NetworkedTileEntity implements ITickable
         this.isBoiling = compound.getBoolean("isBoiling");
         this.hasContents = compound.getBoolean("hasContents");
         if (compound.contains("essentiaCache")) {
-            this.essentiaCache.deserializeNBT(compound.getCompound("essentiaCache"));
+            this.essentiaCapability.deserializeNBT(compound.getCompound("essentiaCache"));
         }
     }
 
@@ -348,7 +346,7 @@ public class CrucibleTileEntity extends NetworkedTileEntity implements ITickable
         compound.putByte("craftingType", (byte) this.craftingType.ordinal());
         compound.putBoolean("isBoiling", this.isBoiling);
         compound.putBoolean("hasContents", this.hasContents);
-        compound.put("essentiaCache", this.essentiaCache.serializeNBT());
+        compound.put("essentiaCache", this.essentiaCapability.serializeNBT());
         return super.writeNetwork(compound);
     }
 
@@ -444,15 +442,14 @@ public class CrucibleTileEntity extends NetworkedTileEntity implements ITickable
 
     //region Methods
     public void diffuseAllEssentia() {
-        EssentiaCache chunkEssentia =
-                EssentiaChunkHandler.getEssentiaCache(this.world.getDimensionKey(), new ChunkPos(this.pos));
+        IEssentiaCapability chunkEssentia =
+                EssentiaChunkHandler.getChunkEssentiaCapability(this.world.getDimensionKey(), new ChunkPos(this.pos));
 
         //take all essentia from the cache and add to the chunk
-        List<Item> essentiaToDissolve = new ArrayList<>(this.essentiaCache.essentia.keySet());
-        for (Item e : essentiaToDissolve) {
-            //Take as much essentia as is in the cache and add it to the chunk
-            chunkEssentia.receiveEssentia(e, this.essentiaCache.extractEssentia(e, Integer.MAX_VALUE, false), false);
-        }
+        this.essentiaCapability.getEssentia().forEach((e, amount) ->{
+            chunkEssentia.receiveEssentia(e, this.essentiaCapability.extractEssentia(e, amount, false), false);
+
+        });
 
         //Mark essentia dimension for saving
         EssentiaChunkHandler.markDirty(this.world.getDimensionKey());
@@ -461,7 +458,7 @@ public class CrucibleTileEntity extends NetworkedTileEntity implements ITickable
     public void resetCrucible() {
         this.isBoiling = false;
         this.hasContents = false;
-        this.essentiaCache.clear();
+        ((DefaultEssentiaCapability)this.essentiaCapability).clear();
         this.waterLevel = 0;
         this.remainingCraftingTicks = 0;
     }

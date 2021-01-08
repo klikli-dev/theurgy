@@ -23,7 +23,7 @@
 package com.github.klikli_dev.theurgy.common.block.crystal;
 
 import com.github.klikli_dev.theurgy.Theurgy;
-import com.github.klikli_dev.theurgy.common.theurgy.EssentiaCache;
+import com.github.klikli_dev.theurgy.common.capability.IEssentiaCapability;
 import com.github.klikli_dev.theurgy.common.theurgy.essentia_chunks.EssentiaChunkHandler;
 import com.github.klikli_dev.theurgy.registry.ItemRegistry;
 import net.minecraft.block.BlockState;
@@ -50,9 +50,8 @@ public class PrimaMateriaCrystalCondition extends PureCrystalCondition {
 
         //Prima materia crystals require all 4 essences to spread
 
-        EssentiaCache cache =
-                EssentiaChunkHandler.getEssentiaCache(((World) world).getDimensionKey(), new ChunkPos(targetPos));
-
+        IEssentiaCapability cache =
+                EssentiaChunkHandler.getChunkEssentiaCapability(((World) world).getDimensionKey(), new ChunkPos(targetPos));
 
         int required = Theurgy.CONFIG.crystalSettings.primaMateriaSpreadEssentia.get();
         if (cache.getEssentiaStored(ItemRegistry.AER_ESSENTIA.get()) < required ||

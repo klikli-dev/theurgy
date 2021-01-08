@@ -27,7 +27,6 @@ import com.github.klikli_dev.theurgy.common.theurgy.IEssentiaInformationProvider
 import com.github.klikli_dev.theurgy.common.tile.CrucibleTileEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
@@ -108,8 +107,8 @@ public class CrucibleBlock extends Block implements IEssentiaInformationProvider
                     this.getTranslatedName())
                                 .mergeStyle(TextFormatting.BOLD)
                                 .mergeStyle(TextFormatting.GOLD));
-            if (crucible.essentiaCache.essentia.size() > 0) {
-                crucible.essentiaCache.essentia.forEach((essentia, amount) -> {
+            if (!crucible.essentiaCapability.isEmpty()) {
+                crucible.essentiaCapability.getEssentia().forEach((essentia, amount) -> {
                     tooltip.add(new TranslationTextComponent(
                             "tooltip." + Theurgy.MODID + ".essentia_information.block.content",
                             new TranslationTextComponent(essentia.getTranslationKey()), amount));

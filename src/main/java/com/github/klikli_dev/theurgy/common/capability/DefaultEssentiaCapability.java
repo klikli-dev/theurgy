@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright 2020 klikli-dev
+ * Copyright 2021 klikli-dev
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction, including
@@ -20,7 +20,7 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.github.klikli_dev.theurgy.common.theurgy;
+package com.github.klikli_dev.theurgy.common.capability;
 
 import com.github.klikli_dev.theurgy.common.capability.IEssentiaCapability;
 import net.minecraft.item.Item;
@@ -37,7 +37,7 @@ import java.util.Map;
 /**
  *
  */
-public class EssentiaCache implements INBTSerializable<CompoundNBT>, IEssentiaCapability {
+public class DefaultEssentiaCapability implements INBTSerializable<CompoundNBT>, IEssentiaCapability {
     //region Fields
     public Map<Item, Integer> essentia;
     protected int capacity;
@@ -46,21 +46,21 @@ public class EssentiaCache implements INBTSerializable<CompoundNBT>, IEssentiaCa
     //endregion Fields
 
     //region Initialization
-    public EssentiaCache() {
+    public DefaultEssentiaCapability() {
         this(Integer.MAX_VALUE);
 
         this.capacity = Integer.MAX_VALUE;
     }
 
-    public EssentiaCache(int capacity) {
+    public DefaultEssentiaCapability(int capacity) {
         this(capacity, capacity);
     }
 
-    public EssentiaCache(int capacity, int maxTransfer) {
+    public DefaultEssentiaCapability(int capacity, int maxTransfer) {
         this(capacity, maxTransfer, maxTransfer);
     }
 
-    public EssentiaCache(int capacity, int maxReceive, int maxExtract) {
+    public DefaultEssentiaCapability(int capacity, int maxReceive, int maxExtract) {
         this.capacity = capacity;
         this.maxReceive = maxReceive;
         this.maxExtract = maxExtract;

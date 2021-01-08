@@ -74,7 +74,7 @@ public abstract class CrucibleRecipe implements IRecipe<CrucibleItemStackFakeInv
 
         //match each essentia, exit if any essentia is too little
         for (ItemStack essentia : this.essentia) {
-            if (inv.essentiaCache.getEssentiaStored(essentia.getItem()) < essentia.getCount())
+            if (inv.essentiaCapability.getEssentiaStored(essentia.getItem()) < essentia.getCount())
                 return false;
         }
 

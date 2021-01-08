@@ -149,8 +149,8 @@ public class PureCrystalSpreader implements ICrystalSpreadHandler {
                         ((World) world).getDimensionKey(), new ChunkPos(spreadTo.pos));
 
                 //consume essentia from chunk
-                chunkEssentia.essentia.essentia.forEach((item, amount) -> {
-                    chunkEssentia.essentia.extractEssentia(item, Theurgy.CONFIG.crystalSettings.primaMateriaSpreadEssentia.get(), false);
+                chunkEssentia.essentiaCapability.getEssentia().forEach((item, amount) -> {
+                    chunkEssentia.essentiaCapability.extractEssentia(item, Theurgy.CONFIG.crystalSettings.primaMateriaSpreadEssentia.get(), false);
                 });
                 chunkEssentia.markDirty();
 

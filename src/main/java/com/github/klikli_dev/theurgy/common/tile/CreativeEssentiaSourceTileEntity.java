@@ -23,7 +23,7 @@
 package com.github.klikli_dev.theurgy.common.tile;
 
 import com.github.klikli_dev.theurgy.common.capability.IEssentiaCapability;
-import com.github.klikli_dev.theurgy.common.theurgy.CreativeEssentiaCache;
+import com.github.klikli_dev.theurgy.common.capability.CreativeEssentiaCapability;
 import com.github.klikli_dev.theurgy.registry.CapabilityRegistry;
 import com.github.klikli_dev.theurgy.registry.TileRegistry;
 import net.minecraft.util.Direction;
@@ -43,7 +43,7 @@ public class CreativeEssentiaSourceTileEntity extends NetworkedTileEntity {
     //region Initialization
     public CreativeEssentiaSourceTileEntity() {
         super(TileRegistry.CREATIVE_ESSENTIA_SOURCE.get());
-        this.essentiaCapability = new CreativeEssentiaCache();
+        this.essentiaCapability = new CreativeEssentiaCapability();
         this.essentiaCapabilityLazyOptional = LazyOptional.of(() -> this.essentiaCapability);
     }
     //endregion Initialization

@@ -23,7 +23,7 @@
 package com.github.klikli_dev.theurgy.common.tile;
 
 import com.github.klikli_dev.theurgy.common.capability.IEssentiaCapability;
-import com.github.klikli_dev.theurgy.common.theurgy.EssentiaCache;
+import com.github.klikli_dev.theurgy.common.capability.DefaultEssentiaCapability;
 import com.github.klikli_dev.theurgy.registry.CapabilityRegistry;
 import com.github.klikli_dev.theurgy.registry.TileRegistry;
 import net.minecraft.block.BlockState;
@@ -52,7 +52,7 @@ public class EssentiaReceiverTileEntity extends NetworkedTileEntity implements I
     public EssentiaReceiverTileEntity() {
         super(TileRegistry.ESSENTIA_RECEIVER.get());
 
-        this.essentiaCapability = new EssentiaCache(RECEIVER_ESSENTIA_CAPACITY) {
+        this.essentiaCapability = new DefaultEssentiaCapability(RECEIVER_ESSENTIA_CAPACITY) {
             //region Overrides
             @Override
             public void onContentsChanged() {

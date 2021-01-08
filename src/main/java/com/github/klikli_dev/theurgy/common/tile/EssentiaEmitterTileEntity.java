@@ -24,7 +24,7 @@ package com.github.klikli_dev.theurgy.common.tile;
 
 import com.github.klikli_dev.theurgy.common.capability.IEssentiaCapability;
 import com.github.klikli_dev.theurgy.common.entity.EssentiaBallEntity;
-import com.github.klikli_dev.theurgy.common.theurgy.EssentiaCache;
+import com.github.klikli_dev.theurgy.common.capability.DefaultEssentiaCapability;
 import com.github.klikli_dev.theurgy.common.theurgy.EssentiaType;
 import com.github.klikli_dev.theurgy.registry.CapabilityRegistry;
 import com.github.klikli_dev.theurgy.registry.TileRegistry;
@@ -69,7 +69,7 @@ public class EssentiaEmitterTileEntity extends NetworkedTileEntity implements IT
     public EssentiaEmitterTileEntity() {
         super(TileRegistry.ESSENTIA_EMITTER.get());
         this.target = Optional.empty();
-        this.essentiaCapability = new EssentiaCache(EMITTER_ESSENTIA_CAPACITY) {
+        this.essentiaCapability = new DefaultEssentiaCapability(EMITTER_ESSENTIA_CAPACITY) {
             //region Overrides
             @Override
             public void onContentsChanged() {

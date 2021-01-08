@@ -23,7 +23,7 @@
 package com.github.klikli_dev.theurgy.common.theurgy.essentia_chunks;
 
 import com.github.klikli_dev.theurgy.Theurgy;
-import com.github.klikli_dev.theurgy.common.theurgy.EssentiaCache;
+import com.github.klikli_dev.theurgy.common.capability.IEssentiaCapability;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.ChunkPos;
@@ -104,15 +104,15 @@ public class EssentiaChunkHandler {
     }
 
     /**
-     * Gets the essentia cache for the chunk in the given dimension at the given position.
+     * Gets the essentia capability for the chunk in the given dimension at the given position.
      *
      * @param dimension the dimension to look up.
      * @param chunkPos  the chunk pos to look up.
      * @return the essentia cache at the given position.
      * @throws IllegalStateException if the dimension was never loaded and no essentia dimension exists for it therefore.
      */
-    public static EssentiaCache getEssentiaCache(RegistryKey<World> dimension, ChunkPos chunkPos) {
-        return getOrCreateEssentiaChunk(dimension, chunkPos).essentia;
+    public static IEssentiaCapability getChunkEssentiaCapability(RegistryKey<World> dimension, ChunkPos chunkPos) {
+        return getOrCreateEssentiaChunk(dimension, chunkPos).essentiaCapability;
     }
 
     /**

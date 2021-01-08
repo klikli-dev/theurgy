@@ -20,15 +20,16 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.github.klikli_dev.theurgy.common.theurgy;
+package com.github.klikli_dev.theurgy.common.capability;
 
+import com.github.klikli_dev.theurgy.common.theurgy.EssentiaType;
 import net.minecraft.item.Item;
 
 import java.util.Arrays;
 
-public class CreativeEssentiaCache extends EssentiaCache {
+public class CreativeEssentiaCapability extends DefaultEssentiaCapability {
     //region Initialization
-    public CreativeEssentiaCache() {
+    public CreativeEssentiaCapability() {
         super(Integer.MAX_VALUE);
         Arrays.stream(EssentiaType.values()).forEach(essentiaType -> {
             this.essentia.put(essentiaType.getEssentiaItem().get(), Integer.MAX_VALUE);

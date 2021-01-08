@@ -23,6 +23,7 @@
 package com.github.klikli_dev.theurgy.common.handlers;
 
 import com.github.klikli_dev.theurgy.Theurgy;
+import com.github.klikli_dev.theurgy.common.capability.IEssentiaCapability;
 import com.github.klikli_dev.theurgy.common.theurgy.IAetherInformationProvider;
 import com.github.klikli_dev.theurgy.common.theurgy.IEssentiaInformationProvider;
 import com.github.klikli_dev.theurgy.registry.ItemRegistry;
@@ -34,7 +35,6 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.ITextComponent;
@@ -51,7 +51,6 @@ import net.minecraftforge.fml.common.Mod;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Mod.EventBusSubscriber(modid = Theurgy.MODID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class ClientRenderEventHandler {
@@ -59,7 +58,7 @@ public class ClientRenderEventHandler {
     //region Fields
     public static boolean displayChunkEssentia = false;
 
-    public static Map<Item, Integer> chunkEssentia = new HashMap<>();
+    public static IEssentiaCapability chunkEssentiaCapability = null;
     //endregion Fields
 
     //region Static Methods
@@ -86,9 +85,9 @@ public class ClientRenderEventHandler {
                                 .mergeStyle(TextFormatting.BOLD)
                                 .mergeStyle(TextFormatting.GOLD));
 
-            if (chunkEssentia.size() > 0) {
+            if (chunkEssentiaCapability != null && !chunkEssentiaCapability.isEmpty()) {
                 //Render each essentia type
-                chunkEssentia.forEach((essentia, amount) -> {
+                chunkEssentiaCapability.getEssentia().forEach((essentia, amount) -> {
                     tooltip.add(new TranslationTextComponent(
                             "tooltip." + Theurgy.MODID + ".essentia_information.chunk.content",
                             new TranslationTextComponent(essentia.getTranslationKey()), amount));

@@ -24,7 +24,6 @@ package com.github.klikli_dev.theurgy.common.tile;
 
 import com.github.klikli_dev.theurgy.common.capability.DefaultAetherCapability;
 import com.github.klikli_dev.theurgy.common.capability.IAetherCapability;
-import com.github.klikli_dev.theurgy.common.theurgy.EssentiaCache;
 import com.github.klikli_dev.theurgy.registry.CapabilityRegistry;
 import com.github.klikli_dev.theurgy.registry.TileRegistry;
 import net.minecraft.block.BlockState;

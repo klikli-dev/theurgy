@@ -22,21 +22,18 @@
 
 package com.github.klikli_dev.theurgy.common.network;
 
+import com.github.klikli_dev.theurgy.common.capability.IEssentiaCapability;
 import com.github.klikli_dev.theurgy.common.handlers.ClientRenderEventHandler;
+import com.github.klikli_dev.theurgy.common.capability.DefaultEssentiaCapability;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.network.NetworkEvent;
-import net.minecraftforge.registries.ForgeRegistries;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class MessageEssentiaChunkData extends MessageBase {
 
     //region Fields
-    public Map<Item, Integer> essentia;
+    public IEssentiaCapability essentiaCapability;
 
     //endregion Fields
 
@@ -46,8 +43,8 @@ public class MessageEssentiaChunkData extends MessageBase {
         this.decode(buf);
     }
 
-    public MessageEssentiaChunkData(Map<Item, Integer> essentia) {
-        this.essentia = essentia;
+    public MessageEssentiaChunkData(IEssentiaCapability essentiaCapability) {
+        this.essentiaCapability = essentiaCapability;
     }
     //endregion Initialization
 
@@ -56,27 +53,18 @@ public class MessageEssentiaChunkData extends MessageBase {
     @Override
     public void onClientReceived(Minecraft minecraft, PlayerEntity player, NetworkEvent.Context context) {
         ClientRenderEventHandler.displayChunkEssentia = true;
-        ClientRenderEventHandler.chunkEssentia = this.essentia;
+        ClientRenderEventHandler.chunkEssentiaCapability = this.essentiaCapability;
     }
 
     @Override
     public void encode(PacketBuffer buf) {
-        buf.writeVarInt(this.essentia.size());
-        this.essentia.forEach((item, amount) -> {
-            buf.writeResourceLocation(item.getRegistryName());
-            buf.writeVarInt(amount);
-        });
+        buf.writeCompoundTag(this.essentiaCapability.serializeNBT());
     }
 
     @Override
     public void decode(PacketBuffer buf) {
-        int size = buf.readVarInt();
-        this.essentia = new HashMap<>(size);
-        for (int i = 0; i < size; i++) {
-            Item item = ForgeRegistries.ITEMS.getValue(buf.readResourceLocation());
-            int amount = buf.readVarInt();
-            this.essentia.put(item, amount);
-        }
+        this.essentiaCapability = new DefaultEssentiaCapability();
+        this.essentiaCapability.deserializeNBT(buf.readCompoundTag());
     }
     //endregion Overrides
 }

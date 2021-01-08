@@ -69,7 +69,7 @@ public class SparkleParticle extends SpriteTexturedParticle {
         this.motionY = ((float) this.rand.nextGaussian() * motionScale);
         this.motionZ = ((float) this.rand.nextGaussian() * motionScale);
 
-        this.particleGravity = 0.2F;
+        this.particleGravity = 0.2f;
         this.particleAlpha = 1.0f;
 
         this.canCollide = false;
@@ -82,7 +82,7 @@ public class SparkleParticle extends SpriteTexturedParticle {
 
 
         float bob = MathHelper.sin(this.age / 3.0F) * 0.5F + 1.0F;
-        float bobOffset = 0.1F * this.particleScale * bob;
+        float bobOffset = 0.05F * this.particleScale * bob; //0.1f *
 
         //copied from super.renderParticle, but applies bob offset
         Vector3d vector3d = renderInfo.getProjectedView();
@@ -91,7 +91,7 @@ public class SparkleParticle extends SpriteTexturedParticle {
         float currentZ = (float) (MathHelper.lerp(partialTicks, this.prevPosZ, this.posZ) - vector3d.getZ());
 
         currentX -= bobOffset;
-        currentY -= bobOffset;
+        currentY += bobOffset;
         currentZ -= bobOffset;
 
         Quaternion quaternion;
@@ -170,7 +170,7 @@ public class SparkleParticle extends SpriteTexturedParticle {
         double dz = this.targetZ - this.posZ;
         double distance = MathHelper.sqrt(dx * dx + dy * dy + dz * dz);
         double clamp = Math.min(0.25d, distance / 15.0d);
-        if (distance < 2.0d)
+        if (distance < 1.0d) //2
             this.particleScale *= 0.9F;
         dx /= distance;
         dy /= distance;

@@ -23,6 +23,7 @@
 package com.github.klikli_dev.theurgy.common.handlers;
 
 import com.github.klikli_dev.theurgy.Theurgy;
+import com.github.klikli_dev.theurgy.common.theurgy.IAetherInformationProvider;
 import com.github.klikli_dev.theurgy.common.theurgy.IEssentiaInformationProvider;
 import com.github.klikli_dev.theurgy.registry.ItemRegistry;
 import com.mojang.blaze3d.matrix.MatrixStack;
@@ -32,7 +33,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.util.math.BlockRayTraceResult;
@@ -64,7 +64,7 @@ public class ClientRenderEventHandler {
 
     //region Static Methods
     @OnlyIn(Dist.CLIENT)
-    public static void renderEssentiaInfo(RenderGameOverlayEvent.Post event, PlayerEntity player, World world) {
+    public static void renderAdditionalInfo(RenderGameOverlayEvent.Post event, PlayerEntity player, World world) {
         MainWindow window = Minecraft.getInstance().getMainWindow();
         int width = window.getScaledWidth();
         int height = window.getScaledHeight();
@@ -116,7 +116,11 @@ public class ClientRenderEventHandler {
                                 .getEssentiaInformation(world, blockRayTraceResult.getPos(), state, tooltip);
                     }
 
-                    //render essentia tooltip
+                    //get aether tooltip
+                    if(state.getBlock() instanceof IAetherInformationProvider){
+                        ((IAetherInformationProvider) state.getBlock())
+                                .getAetherInformation(world, blockRayTraceResult.getPos(), state, tooltip);
+                    }
                 }
             }
         }
@@ -146,7 +150,7 @@ public class ClientRenderEventHandler {
         if (event.getType() == RenderGameOverlayEvent.ElementType.TEXT) {
             PlayerEntity player = Minecraft.getInstance().player;
             World world = player.getEntityWorld();
-            renderEssentiaInfo(event, player, world);
+            renderAdditionalInfo(event, player, world);
         }
     }
     //endregion Static Methods

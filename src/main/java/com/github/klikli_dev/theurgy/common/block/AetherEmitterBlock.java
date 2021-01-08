@@ -22,6 +22,7 @@
 
 package com.github.klikli_dev.theurgy.common.block;
 
+import com.github.klikli_dev.theurgy.common.theurgy.IAetherInformationProvider;
 import com.github.klikli_dev.theurgy.common.theurgy.IEssentiaInformationProvider;
 import com.github.klikli_dev.theurgy.common.tile.AetherEmitterTile;
 import com.github.klikli_dev.theurgy.common.tile.EssentiaEmitterTileEntity;
@@ -45,7 +46,7 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 import java.util.Map;
 
-public class AetherEmitterBlock extends DirectionalAttachedBlock  {
+public class AetherEmitterBlock extends DirectionalAttachedBlock implements IAetherInformationProvider {
     //region Fields
     public static final BooleanProperty ENABLED = BlockStateProperties.ENABLED;
     private static final Map<Direction, VoxelShape> SHAPES =

@@ -22,6 +22,7 @@
 
 package com.github.klikli_dev.theurgy.common.block;
 
+import com.github.klikli_dev.theurgy.common.theurgy.IAetherInformationProvider;
 import com.github.klikli_dev.theurgy.common.theurgy.IEssentiaInformationProvider;
 import com.github.klikli_dev.theurgy.common.tile.AetherReceiverTile;
 import com.github.klikli_dev.theurgy.common.tile.EssentiaReceiverTileEntity;
@@ -40,7 +41,7 @@ import net.minecraft.world.IBlockReader;
 import javax.annotation.Nullable;
 import java.util.Map;
 
-public class AetherReceiverBlock extends DirectionalAttachedBlock {
+public class AetherReceiverBlock extends DirectionalAttachedBlock implements IAetherInformationProvider {
 
     //region Fields
     private static final Map<Direction, VoxelShape> SHAPES = Maps.newEnumMap(

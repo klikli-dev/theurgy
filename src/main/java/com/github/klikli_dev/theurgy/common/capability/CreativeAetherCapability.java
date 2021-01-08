@@ -22,9 +22,6 @@
 
 package com.github.klikli_dev.theurgy.common.capability;
 
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraftforge.energy.EnergyStorage;
-
 public class CreativeAetherCapability extends DefaultAetherCapability {
 
     //region Initialization
@@ -48,6 +45,16 @@ public class CreativeAetherCapability extends DefaultAetherCapability {
     @Override
     public void onContentsChanged() {
 
+    }
+
+    @Override
+    public int getEnergyStored() {
+        return Integer.MAX_VALUE;
+    }
+
+    @Override
+    public int getMaxEnergyStored() {
+        return Integer.MAX_VALUE;
     }
     //endregion Overrides
 }

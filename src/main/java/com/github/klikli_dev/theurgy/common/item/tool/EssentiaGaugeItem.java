@@ -26,10 +26,7 @@ import com.github.klikli_dev.theurgy.common.handlers.ClientRenderEventHandler;
 import com.github.klikli_dev.theurgy.common.network.MessageEssentiaChunkData;
 import com.github.klikli_dev.theurgy.common.network.Packets;
 import com.github.klikli_dev.theurgy.common.theurgy.essentia_chunks.EssentiaChunkHandler;
-import com.github.klikli_dev.theurgy.common.tile.IAetherEmitter;
-import com.github.klikli_dev.theurgy.common.tile.IAetherReceiver;
-import com.github.klikli_dev.theurgy.common.tile.IEssentiaEmitter;
-import com.github.klikli_dev.theurgy.common.tile.IEssentiaReceiver;
+import com.github.klikli_dev.theurgy.common.tile.*;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
@@ -79,65 +76,50 @@ public class EssentiaGaugeItem extends Item {
         BlockPos pos = context.getPos();
 
         if (context.getPlayer().isSneaking()) {
-            if (compound.contains("target")) {
+
+            TileEntity tile = world.getTileEntity(pos);
+            if (tile instanceof IReceiver) {
+                compound.putString("targetDimensionKey",
+                        context.getWorld().getDimensionKey().getLocation().toString());
+                compound.putLong("target", pos.toLong());
+                if (tile instanceof IEssentiaReceiver) {
+                    compound.putInt("linkType", 0); //0 for essentia,
+                }
+                else if (tile instanceof IAetherReceiver) {
+                    compound.putInt("linkType", 1); //1 for aether,
+                }
+                world.playSound(null, pos, SoundEvents.BLOCK_ANVIL_LAND, SoundCategory.BLOCKS, 1.0f,
+                        1.9f + world.rand.nextFloat() * 0.2f);
+                return ActionResultType.SUCCESS;
+            }
+            else if (compound.contains("target")) {
+
                 RegistryKey<World> dimensionKey = RegistryKey.getOrCreateKey(Registry.WORLD_KEY,
                         new ResourceLocation(compound.getString("targetDimensionKey")));
                 if (world.getDimensionKey() != dimensionKey)
                     return ActionResultType.FAIL;
 
-                TileEntity tile = world.getTileEntity(pos);
                 BlockPos targetPos = BlockPos.fromLong(compound.getLong("target"));
+                int linkType = compound.getInt("linkType");
 
-                if (compound.getInt("linkType") == 0 && tile instanceof IEssentiaEmitter) {
+                if (linkType == 0 && tile instanceof IEssentiaEmitter) {
                     TileEntity targetTile = world.getTileEntity(targetPos);
                     if (targetTile instanceof IEssentiaReceiver) {
                         ((IEssentiaEmitter) tile).setTarget(Optional.of(targetPos));
                         world.playSound(null, pos, SoundEvents.BLOCK_ANVIL_LAND, SoundCategory.BLOCKS, 1.0f,
                                 1.9f + world.rand.nextFloat() * 0.2f);
-                        compound.remove("targetDimensionKey");
-                        compound.remove("target");
-                        compound.remove("linkType");
                         return ActionResultType.SUCCESS;
                     }
                 }
-                if (compound.getInt("linkType") == 1 && tile instanceof IAetherEmitter) {
+                else if (linkType == 1 && tile instanceof IAetherEmitter) {
                     TileEntity targetTile = world.getTileEntity(targetPos);
                     if (targetTile instanceof IAetherReceiver) {
                         ((IAetherEmitter) tile).setTarget(Optional.of(targetPos));
                         world.playSound(null, pos, SoundEvents.BLOCK_ANVIL_LAND, SoundCategory.BLOCKS, 1.0f,
                                 1.9f + world.rand.nextFloat() * 0.2f);
-                        compound.remove("targetDimensionKey");
-                        compound.remove("target");
-                        compound.remove("linkType");
                         return ActionResultType.SUCCESS;
                     }
                 }
-
-                compound.remove("targetDimensionKey");
-                compound.remove("target");
-                compound.remove("linkType");
-            }
-            else {
-                TileEntity tile = world.getTileEntity(pos);
-                if (tile instanceof IEssentiaReceiver) {
-                    compound.putString("targetDimensionKey",
-                            context.getWorld().getDimensionKey().getLocation().toString());
-                    compound.putLong("target", pos.toLong());
-                    compound.putInt("linkType", 0); //0 for essentia,
-                    world.playSound(null, pos, SoundEvents.BLOCK_ANVIL_LAND, SoundCategory.BLOCKS, 1.0f,
-                            1.9f + world.rand.nextFloat() * 0.2f);
-                    return ActionResultType.SUCCESS;
-                }
-                if (tile instanceof IAetherReceiver) {
-                    compound.putString("targetDimensionKey",
-                            context.getWorld().getDimensionKey().getLocation().toString());
-                    compound.putLong("target", pos.toLong());
-                    compound.putInt("linkType", 1); //0 for essentia,
-                    world.playSound(null, pos, SoundEvents.BLOCK_ANVIL_LAND, SoundCategory.BLOCKS, 1.0f,
-                            1.9f + world.rand.nextFloat() * 0.2f);
-                    return ActionResultType.SUCCESS;
-                }
-
             }
         }
         return ActionResultType.PASS;

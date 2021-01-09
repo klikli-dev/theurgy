@@ -103,25 +103,27 @@ public class AetherEmitterTile extends NetworkedTileEntity implements ITickableT
 
     @Override
     public void tick() {
-        if (!this.world.isRemote && this.isEnabled) {
-            //on slow tick, pull aether from attached tile
-            if (this.world.getGameTime() % 10 == 0) {
-                BlockState state = this.world.getBlockState(this.pos);
-                Direction facing = state.get(BlockStateProperties.FACING);
-                TileEntity attachedTile = this.world.getTileEntity(this.pos.offset(facing.getOpposite()));
-                if (attachedTile != null) {
-                    attachedTile.getCapability(CapabilityRegistry.AETHER, facing).ifPresent(attachedCap -> {
-                        if (attachedCap.canExtract() && this.aetherCapability.canReceive()) {
-                            int available = attachedCap.extractEnergy(PULL_RATE, true);
-                            int received = this.aetherCapability.receiveEnergy(available, false);
-                            //now extract for real
-                            attachedCap.extractEnergy(received, false);
-                        }
-                    });
+
+        if (this.isEnabled) {
+            if (!this.world.isRemote) {
+                //on slow tick, pull aether from attached tile
+                if (this.world.getGameTime() % 10 == 0) {
+                    BlockState state = this.world.getBlockState(this.pos);
+                    Direction facing = state.get(BlockStateProperties.FACING);
+                    TileEntity attachedTile = this.world.getTileEntity(this.pos.offset(facing.getOpposite()));
+                    if (attachedTile != null) {
+                        attachedTile.getCapability(CapabilityRegistry.AETHER, facing).ifPresent(attachedCap -> {
+                            if (attachedCap.canExtract() && this.aetherCapability.canReceive()) {
+                                int available = attachedCap.extractEnergy(PULL_RATE, true);
+                                int received = this.aetherCapability.receiveEnergy(available, false);
+                                //now extract for real
+                                attachedCap.extractEnergy(received, false);
+                            }
+                        });
+                    }
                 }
             }
-        }
-        if (this.isEnabled) {
+
             //on even slower tick, send aether to target
             this.target.ifPresent(target -> {
                 if ((this.world.getGameTime() + this.burstOffset) % BURST_TICKS == 0) {
@@ -139,20 +141,28 @@ public class AetherEmitterTile extends NetworkedTileEntity implements ITickableT
                             });
                         }
                         else {
-                            //on client show particles
-                            //TODO: decide on particle count for sparkle
-                            for (int i = 0; i < 5; i++) {
-                                SparkleParticleData data = new SparkleParticleData(
-                                        0.6f + this.world.rand.nextFloat() * 0.3f,
-                                        0.2f,
-                                        0.6f + this.world.rand.nextFloat() * 0.3f,
-                                        target.getX() + 0.5f, target.getY()+ 0.5f, target.getZ()+ 0.5f);
 
-                                this.world
-                                        .addParticle(data, this.pos.getX() + this.world.rand.nextFloat(),
-                                                this.pos.getY() + this.world.rand.nextFloat(),
-                                                this.pos.getZ() + this.world.rand.nextFloat(), 0, 0, 0);
-                            }
+                            targetTile.getCapability(CapabilityRegistry.AETHER).ifPresent(targetCap -> {
+                                if (this.aetherCapability.canExtract() && targetCap.canReceive()) {
+                                    int available = this.aetherCapability.extractEnergy(BURST_RATE, true);
+                                    int received = targetCap.receiveEnergy(available, false);
+
+                                    if (received > 0) {
+                                        for (int i = 0; i < 5; i++) {
+                                            SparkleParticleData data = new SparkleParticleData(
+                                                    0.6f + this.world.rand.nextFloat() * 0.3f,
+                                                    0.2f,
+                                                    0.6f + this.world.rand.nextFloat() * 0.3f,
+                                                    target.getX() + 0.5f, target.getY() + 0.5f, target.getZ() + 0.5f);
+
+                                            this.world
+                                                    .addParticle(data, this.pos.getX() + this.world.rand.nextFloat(),
+                                                            this.pos.getY() + this.world.rand.nextFloat(),
+                                                            this.pos.getZ() + this.world.rand.nextFloat(), 0, 0, 0);
+                                        }
+                                    }
+                                }
+                            });
                         }
                     }
                 }

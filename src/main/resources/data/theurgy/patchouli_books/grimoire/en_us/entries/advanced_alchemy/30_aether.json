@@ -1,0 +1,13 @@
+{
+  "name": "Mystical Energy",
+  "icon": "theurgy:textures/gui/grimoire/aether.png",
+  "category": "30_advanced_alchemy",
+  "sortnum": 30,
+  "pages": [
+    {
+      "type": "text",
+      "title": "Accessing Aether",
+      "text": "$(italics)TODO: this page should describe how to corrupt a crystal in order to access aether$()"
+    }
+  ]
+}

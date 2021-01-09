@@ -7,6 +7,14 @@
     {
       "item": "theurgy:aer_essentia",
       "count": 200
+    },
+    {
+      "item": "theurgy:ignis_essentia",
+      "count": 50
+    },
+    {
+      "item": "theurgy:terra_essentia",
+      "count": 50
     }
   ],
   "result": {

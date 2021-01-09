@@ -1,0 +1,28 @@
+{
+  "name": "Mystical Interactions",
+  "icon": "theurgy:ignis_crystal",
+  "category": "30_advanced_alchemy",
+  "sortnum": 10,
+  "pages": [
+    {
+      "type": "text",
+      "title": "Something doesn't add up",
+      "text": "After countless experiments with Essentia Crystals you have determined, that something is not $(italics)quite$() right. Despite crystals growing all over the place, environmental Essentia levels are not decreasing to the expected degree. Where are those crystals getting their Essentia from? There really is only one explanation: we are, entirely by accident, interacting with another plane of existence."
+    },
+    {
+      "type": "text",
+      "title": "The Celestial Sphere",
+      "text": "All things living exist on the terrestrial sphere, but there are spheres beyond our reach. The sphere closest to ours is the $(thing)Celestial Sphere$() - where the sun and stars reside. It is important to understand that the Celestial Sphere is not $(bold)above$() ours, but rather, metaphysically speaking, next to ours, thus the light and warmth of the sun reach us, no matter the apparent distance."
+    },
+    {
+      "type": "text",
+      "title": "Taking from other spheres",
+      "text": "It seems reasonable that our crystals are able to take Essentia not only from our own sphere, but also our neighbor plane, the Celestial Sphere. It's questionable if this is entirely safe, but so far we have not noticed any adverse effects. To the curious mind this immediately raises the question: If we can take Essentia, what else can we take?"
+    },
+    {
+      "type": "text",
+      "title": "Aether",
+      "text": "As is well known, the celestial bodies are fueled by a mystical energy known as $(thing)Aether$(). If we can find a way to tap even a trickle of this force, this power that $(bold)holds the sun in place$() and moves the stars, it would open entirely new possibilities. We should research this topic further."
+    }
+  ]
+}

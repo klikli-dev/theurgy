@@ -1230,6 +1230,8 @@ public class TheurgyRecipeProvider extends RecipeProvider {
                         .setRecipeName("halfgold_brass_ingot")
                         .ingredient(Tags.Items.INGOTS_GOLD)
                         .essentia(aer, 200)
+                        .essentia(ignis, 50)
+                        .essentia(terra, 50)
                         .build(consumer);
     }
     //endregion Overrides

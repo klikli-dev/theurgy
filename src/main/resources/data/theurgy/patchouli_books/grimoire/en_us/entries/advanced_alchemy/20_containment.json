@@ -1,0 +1,28 @@
+{
+  "name": "Containment",
+  "icon": "theurgy:halfgold_brass_plate",
+  "category": "30_advanced_alchemy",
+  "sortnum": 20,
+  "pages": [
+    {
+      "type": "text",
+      "text": "In order to tackle the mysteries of $(thing)Aether$() and other spheres, we should first work on obtaining materials that will allow us to interact with alchemical substances and energies safely. Gold, as a noble metal, is mostly inert and us such can resist most substances, however it is also a very soft metal, that is vulnerable to physical stress."
+    },
+    {
+      "type": "spotlight",
+      "item": "theurgy:halfgold_brass_ingot",
+      "text": "To make gold usable, we need to reinforce it with additional Essentia, resulting in a metal that is both chemically inert like gold, and durable like metals commonly used in tool creation."
+    },
+    {
+      "type": "theurgy:crucible_recipe",
+      "recipe": "theurgy:transmutation/halfgold_brass_ingot",
+      "tool": "theurgy:prima_materia_crystal_stirrer",
+      "title": "Halfgold Brass Ingot"
+    },
+    {
+      "type": "crafting",
+      "recipe": "theurgy:crafting/halfgold_brass_plate",
+      "recipe2": "theurgy:crafting/halfgold_brass_gear"
+    }
+  ]
+}

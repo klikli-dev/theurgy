@@ -1060,11 +1060,11 @@ public class TheurgyRecipeProvider extends RecipeProvider {
                         .build(consumer);
 
         //Vanilla Gems
-        CrucibleRecipeBuilder goldIngotToDiamondTransmutation =
+        CrucibleRecipeBuilder quartzToDiamondTransmutation =
                 CrucibleRecipeBuilder.transmutation(Tags.Items.GEMS_DIAMOND, 1)
-                        .setRecipeName("gold_ingot_to_diamond")
-                        .ingredient(Tags.Items.INGOTS_GOLD)
-                        .essentia(this.essentiaDifference(goldIngotEssentia.essentia, diamondEssentia.essentia))
+                        .setRecipeName("quartz_to_diamond")
+                        .ingredient(Tags.Items.GEMS_QUARTZ)
+                        .essentia(this.essentiaDifference(quartzEssentia.essentia, diamondEssentia.essentia))
                         .build(consumer);
         CrucibleRecipeBuilder diamondToEmeraldTransmutation =
                 CrucibleRecipeBuilder.transmutation(Tags.Items.GEMS_EMERALD, 1)
@@ -1222,6 +1222,14 @@ public class TheurgyRecipeProvider extends RecipeProvider {
                         .setRecipeName("wither_skeleton_skull")
                         .ingredient(Items.SKELETON_SKULL)
                         .essentia(witherSkeletonSkullEssentia.essentia, 6)
+                        .build(consumer);
+
+        //mod items transmutation
+        CrucibleRecipeBuilder halfGoldBrassIngot =
+                CrucibleRecipeBuilder.transmutation(ItemRegistry.HALFGOLD_BRASS_INGOT.get(), 1)
+                        .setRecipeName("halfgold_brass_ingot")
+                        .ingredient(Tags.Items.INGOTS_GOLD)
+                        .essentia(aer, 200)
                         .build(consumer);
     }
     //endregion Overrides

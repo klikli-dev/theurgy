@@ -1,16 +1,16 @@
 {
   "type": "theurgy:transmutation",
   "ingredient": {
-    "tag": "forge:ingots/gold"
+    "tag": "forge:gems/quartz"
   },
   "essentia": [
     {
       "item": "theurgy:ignis_essentia",
-      "count": 1300
+      "count": 1480
     },
     {
       "item": "theurgy:terra_essentia",
-      "count": 800
+      "count": 1000
     }
   ],
   "result": {

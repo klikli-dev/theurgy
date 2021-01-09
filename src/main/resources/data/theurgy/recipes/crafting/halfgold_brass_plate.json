@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "forge:ingots/halfgold_brass"
+    },
+    {
+      "tag": "forge:ingots/halfgold_brass"
+    }
+  ],
+  "result": {
+    "item": "theurgy:halfgold_brass_plate"
+  }
+}

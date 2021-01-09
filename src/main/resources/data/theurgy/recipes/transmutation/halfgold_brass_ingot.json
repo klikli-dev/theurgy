@@ -1,0 +1,16 @@
+{
+  "type": "theurgy:transmutation",
+  "ingredient": {
+    "tag": "forge:ingots/gold"
+  },
+  "essentia": [
+    {
+      "item": "theurgy:aer_essentia",
+      "count": 200
+    }
+  ],
+  "result": {
+    "item": "theurgy:halfgold_brass_ingot",
+    "count": 1
+  }
+}

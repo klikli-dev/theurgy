@@ -56,6 +56,12 @@ public class ItemRegistry {
     //Resources
     public static final RegistryObject<Item> CRYSTAL_SUBSTRATE = ITEMS.register("crystal_substrate",
             () -> new Item(defaultProperties()));
+    public static final RegistryObject<Item> HALFGOLD_BRASS_INGOT = ITEMS.register("halfgold_brass_ingot",
+            () -> new Item(defaultProperties()));
+    public static final RegistryObject<Item> HALFGOLD_BRASS_PLATE = ITEMS.register("halfgold_brass_plate",
+            () -> new Item(defaultProperties()));
+    public static final RegistryObject<Item> HALFGOLD_BRASS_GEAR = ITEMS.register("halfgold_brass_gear",
+            () -> new Item(defaultProperties()));
 
 
     //Essentia

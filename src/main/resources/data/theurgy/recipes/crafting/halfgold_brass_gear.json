@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " i ",
+    "iri",
+    " i "
+  ],
+  "key": {
+    "i": {
+      "tag": "forge:ingots/halfgold_brass"
+    },
+    "r": {
+      "tag": "forge:rods/wooden"
+    }
+  },
+  "result": {
+    "item": "theurgy:halfgold_brass_gear"
+  }
+}

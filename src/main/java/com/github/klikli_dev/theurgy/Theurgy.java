@@ -27,6 +27,7 @@ import com.github.klikli_dev.theurgy.common.config.TheurgyConfig;
 import com.github.klikli_dev.theurgy.common.network.Packets;
 import com.github.klikli_dev.theurgy.registry.*;
 import net.minecraft.item.ItemGroup;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -37,6 +38,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLDedicatedServerSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import vazkii.patchouli.api.PatchouliAPI;
 
 @Mod(Theurgy.MODID)
 public class Theurgy {
@@ -82,6 +84,15 @@ public class Theurgy {
     private void commonSetup(final FMLCommonSetupEvent event) {
         Packets.registerMessages();
         CapabilityRegistry.commonSetup(event);
+
+        //Register multiblocks
+        PatchouliAPI.IPatchouliAPI api = PatchouliAPI.get();
+        MultiblockRegistry.REGISTRY.getValues().forEach(multiblock -> {
+            ResourceLocation multiBlockId = new ResourceLocation(Theurgy.MODID,"multiblock." + multiblock.getRegistryName().getPath());
+            if (api.getMultiblock(multiBlockId) == null)
+                multiblock.registerMultiblock(multiBlockId);
+        });
+
         LOGGER.info("Common setup complete.");
     }
 

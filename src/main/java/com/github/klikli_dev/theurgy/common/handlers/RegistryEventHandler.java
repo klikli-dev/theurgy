@@ -23,22 +23,37 @@
 package com.github.klikli_dev.theurgy.common.handlers;
 
 import com.github.klikli_dev.theurgy.Theurgy;
+import com.github.klikli_dev.theurgy.common.multiblock.MultiblockStructure;
 import com.github.klikli_dev.theurgy.registry.BlockRegistry;
+import com.github.klikli_dev.theurgy.registry.MultiblockRegistry;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.SpawnEggItem;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.IForgeRegistry;
+import net.minecraftforge.registries.RegistryBuilder;
 
 @Mod.EventBusSubscriber(modid = Theurgy.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class RegistryEventHandler {
 
     //region Static Methods
+
+    @SubscribeEvent
+    public static void registerRegistries(RegistryEvent.NewRegistry event) {
+        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+        new RegistryBuilder<MultiblockStructure>().setName(new ResourceLocation(Theurgy.MODID, "multiblock"))
+                .setType(MultiblockStructure.class).create();
+
+        MultiblockRegistry.MULTIBLOCKS.register(modEventBus);
+    }
+
 
     @SubscribeEvent
     public static void onRegisterItems(RegistryEvent.Register<Item> event) {

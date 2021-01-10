@@ -1,0 +1,7 @@
+{
+  "parent": "theurgy:block/crystal",
+  "textures": {
+    "particle": "theurgy:block/empty_end_crystal",
+    "texture": "theurgy:block/empty_end_crystal"
+  }
+}

@@ -108,8 +108,7 @@ public class BlockRegistry {
             Block.Properties.create(Material.GLASS).sound(SoundType.GLASS)
                     .hardnessAndResistance(0.3f, 0.3f)
                     .setLightLevel((state) -> 8).tickRandomly()
-            , PURE_CRYSTAL_SPREADER) {
-    });
+            , PURE_CRYSTAL_SPREADER));
 
     public static final RegistryObject<CrystalBlock> PRIMA_MATERIA_CRYSTAL =
             register("prima_materia_crystal", () -> new CrystalBlock(
@@ -118,8 +117,7 @@ public class BlockRegistry {
                             .setLightLevel((state) -> 8).tickRandomly(),
                     new PrimaMateriaCrystalSpreader(PRIMA_MATERIA_CRYSTAL_CONDITION,
                             Theurgy.CONFIG.crystalSettings.primaMateriaSpreadEssentia::get,
-                            BlockRegistry.PRIMA_MATERIA_CRYSTAL::get)) {
-            });
+                            BlockRegistry.PRIMA_MATERIA_CRYSTAL::get)));
 
     public static final RegistryObject<CrystalBlock> AER_CRYSTAL = register("aer_crystal", () -> new CrystalBlock(
             Block.Properties.create(Material.GLASS).sound(SoundType.GLASS)
@@ -127,32 +125,40 @@ public class BlockRegistry {
                     .setLightLevel((state) -> 8).tickRandomly()
             , new EssentiaCrystalSpreader(AER_CRYSTAL_CONDITION,
             Theurgy.CONFIG.crystalSettings.aerCrystalChanceToSpread::get,
-            BlockRegistry.AER_CRYSTAL::get)) {
-    });
+            BlockRegistry.AER_CRYSTAL::get)));
     public static final RegistryObject<CrystalBlock> AQUA_CRYSTAL = register("aqua_crystal", () -> new CrystalBlock(
             Block.Properties.create(Material.GLASS).sound(SoundType.GLASS)
                     .hardnessAndResistance(0.3f, 0.3f)
                     .setLightLevel((state) -> 8).tickRandomly()
             , new EssentiaCrystalSpreader(AQUA_CRYSTAL_CONDITION,
             Theurgy.CONFIG.crystalSettings.aquaCrystalChanceToSpread::get,
-            BlockRegistry.AQUA_CRYSTAL::get)) {
-    });
+            BlockRegistry.AQUA_CRYSTAL::get)));
     public static final RegistryObject<CrystalBlock> IGNIS_CRYSTAL = register("ignis_crystal", () -> new CrystalBlock(
             Block.Properties.create(Material.GLASS).sound(SoundType.GLASS)
                     .hardnessAndResistance(0.3f, 0.3f)
                     .setLightLevel((state) -> 8).tickRandomly()
             , new EssentiaCrystalSpreader(IGNIS_CRYSTAL_CONDITION,
             Theurgy.CONFIG.crystalSettings.ignisCrystalChanceToSpread::get,
-            BlockRegistry.IGNIS_CRYSTAL::get)) {
-    });
+            BlockRegistry.IGNIS_CRYSTAL::get)));
     public static final RegistryObject<CrystalBlock> TERRA_CRYSTAL = register("terra_crystal", () -> new CrystalBlock(
             Block.Properties.create(Material.GLASS).sound(SoundType.GLASS)
                     .hardnessAndResistance(0.3f, 0.3f)
                     .setLightLevel((state) -> 8).tickRandomly()
             , new EssentiaCrystalSpreader(TERRA_CRYSTAL_CONDITION,
             Theurgy.CONFIG.crystalSettings.terraCrystalChanceToSpread::get,
-            BlockRegistry.TERRA_CRYSTAL::get)) {
-    });
+            BlockRegistry.TERRA_CRYSTAL::get)));
+
+    //not spreading crystals
+    public static final RegistryObject<CrystalBlock> EMPTY_END_CRYSTAL = register("empty_end_crystal", () -> new CrystalBlock(
+            Block.Properties.create(Material.GLASS).sound(SoundType.GLASS)
+                    .hardnessAndResistance(0.3f, 0.3f)
+                    .setLightLevel((state) -> 8)
+            , new NoSpreadCrystalSpreader()));
+    public static final RegistryObject<CrystalBlock> END_INFUSED_CRYSTAL = register("end_infused_crystal", () -> new CrystalBlock(
+            Block.Properties.create(Material.GLASS).sound(SoundType.GLASS)
+                    .hardnessAndResistance(0.3f, 0.3f)
+                    .setLightLevel((state) -> 8)
+            , new NoSpreadCrystalSpreader()));
     //endregion Fields
 
     //region Static Methods

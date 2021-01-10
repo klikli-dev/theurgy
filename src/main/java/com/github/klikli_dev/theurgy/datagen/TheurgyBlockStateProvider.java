@@ -58,6 +58,11 @@ public class TheurgyBlockStateProvider extends BlockStateProvider {
         this.directionalBlock(BlockRegistry.TERRA_CRYSTAL.get(),
                 this.models().getExistingFile(this.modLoc("block/terra_crystal")));
 
+        this.directionalBlock(BlockRegistry.EMPTY_END_CRYSTAL.get(),
+                this.getExistingModel(BlockRegistry.EMPTY_END_CRYSTAL.get()));
+        this.directionalBlock(BlockRegistry.END_INFUSED_CRYSTAL.get(),
+                this.getExistingModel(BlockRegistry.END_INFUSED_CRYSTAL.get()));
+
         this.directionalBlock(BlockRegistry.ESSENTIA_RECEIVER.get(),
                 this.getExistingModel(BlockRegistry.ESSENTIA_RECEIVER.get()));
         this.generateEmitterState(BlockRegistry.ESSENTIA_EMITTER.get());

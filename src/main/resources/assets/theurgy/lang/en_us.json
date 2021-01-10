@@ -21,6 +21,8 @@
   "block.theurgy.aqua_crystal": "Aqua Crystal",
   "block.theurgy.ignis_crystal": "Ignis Crystal",
   "block.theurgy.terra_crystal": "Terra Crystal",
+  "block.theurgy.empty_end_crystal": "End Crystal",
+  "block.theurgy.end_infused_crystal": "End Infused Crystal",
   "block.theurgy.essentia_emitter": "Essentia Emitter",
   "block.theurgy.essentia_receiver": "Essentia Receiver",
   "block.theurgy.creative_essentia_source": "Creative Essentia Source",

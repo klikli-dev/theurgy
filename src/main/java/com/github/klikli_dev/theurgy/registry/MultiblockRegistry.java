@@ -23,7 +23,9 @@
 package com.github.klikli_dev.theurgy.registry;
 
 import com.github.klikli_dev.theurgy.Theurgy;
+import com.github.klikli_dev.theurgy.common.multiblock.AetherGeneratorMultiblock;
 import com.github.klikli_dev.theurgy.common.multiblock.MultiblockStructure;
+import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.RegistryManager;
@@ -32,4 +34,6 @@ public class MultiblockRegistry {
     public static final IForgeRegistry<MultiblockStructure> REGISTRY = RegistryManager.ACTIVE.getRegistry(MultiblockStructure.class);
     public static final DeferredRegister<MultiblockStructure> MULTIBLOCKS = DeferredRegister.create(REGISTRY,
             Theurgy.MODID);
+    public static final RegistryObject<AetherGeneratorMultiblock> AETHER_GENERATOR =
+            MULTIBLOCKS.register("aether_generator", AetherGeneratorMultiblock::new);
 }

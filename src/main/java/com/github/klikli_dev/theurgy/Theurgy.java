@@ -88,7 +88,7 @@ public class Theurgy {
         //Register multiblocks
         PatchouliAPI.IPatchouliAPI api = PatchouliAPI.get();
         MultiblockRegistry.REGISTRY.getValues().forEach(multiblock -> {
-            ResourceLocation multiBlockId = new ResourceLocation(Theurgy.MODID,"multiblock." + multiblock.getRegistryName().getPath());
+            ResourceLocation multiBlockId = new ResourceLocation(Theurgy.MODID,multiblock.getRegistryName().getPath());
             if (api.getMultiblock(multiBlockId) == null)
                 multiblock.registerMultiblock(multiBlockId);
         });

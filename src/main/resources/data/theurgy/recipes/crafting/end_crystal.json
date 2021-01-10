@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " e ",
+    "ece",
+    " e "
+  ],
+  "key": {
+    "e": {
+      "tag": "forge:end_stones"
+    },
+    "c": {
+      "item": "theurgy:prima_materia_crystal"
+    }
+  },
+  "result": {
+    "item": "theurgy:end_crystal"
+  }
+}

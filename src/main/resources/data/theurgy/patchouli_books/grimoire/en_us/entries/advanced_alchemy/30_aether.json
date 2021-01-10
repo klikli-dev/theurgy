@@ -7,7 +7,39 @@
     {
       "type": "text",
       "title": "Accessing Aether",
-      "text": "$(italics)TODO: this page should describe how to corrupt a crystal in order to access aether$()"
+      "text": "In order to obtain Aether, we need to create a crystal that, instead of drawing in Essentia, draws in Aether. As Aether usually can only exist in the Celestia Sphere, we need to imbue our crystal with properties that allow it to stabilize Aether. There is one sphere of existence that we can access, that shares many properties with the Celestial Sphere, and thus is promising for this approach: The End."
+    },
+    {
+      "type": "crafting",
+      "recipe": "theurgy:crafting/empty_end_crystal",
+      "text": "To imbue a crystal with the properties of The End, we simply surround a prima materia crystal with 4 $(item)End Stones$() and allow it to absorb them entirely."
+    },
+    {
+      "type": "spotlight",
+      "item": "theurgy:empty_end_crystal",
+      "text": "The resulting crystal already $(italics)looks$() like it would fit in The End, but something seems to be missing still. The $(italics)spirit$() of the end, if you will, something the $(thing)Enderman$() impersonates. Capturing the living essence of an Enderman in an end crystal, should give us the crystal we are looking for."
+    },
+    {
+      "type": "text",
+      "text": "$(italics)TODO: describe end crystal spear, enderman hunt and end infused crystal$()"
+    },
+    {
+      "type": "text",
+      "text": "$(italics)TODO: describe aether generator$()"
+    },
+    {
+      "type": "multiblock",
+      "name": "",
+      "multiblock_id": "theurgy:aether_generator",
+      "text": "Click the $(italics)eye-icon$() to properly show the structure in-world."
+    },
+    {
+      "type": "text",
+      "text": "$(italics)TODO: recipe for main block$()"
+    },
+    {
+      "type": "text",
+      "text": "$(italics)TODO: recipe for condenser block$()"
     }
   ]
 }

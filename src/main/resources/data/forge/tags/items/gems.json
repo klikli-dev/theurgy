@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "#forge:ingots/empty_end",
+    "#forge:ingots/end_infused"
+  ]
+}

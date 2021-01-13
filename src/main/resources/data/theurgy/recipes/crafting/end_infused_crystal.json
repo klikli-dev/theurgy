@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "theurgy:end_infused_crystal_sword"
+    }
+  ],
+  "result": {
+    "item": "theurgy:end_infused_crystal"
+  }
+}

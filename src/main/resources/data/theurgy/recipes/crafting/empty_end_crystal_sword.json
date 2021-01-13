@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "c",
+    "c",
+    "r"
+  ],
+  "key": {
+    "c": {
+      "tag": "forge:gems/empty_end"
+    },
+    "r": {
+      "tag": "forge:rods/wooden"
+    }
+  },
+  "result": {
+    "item": "theurgy:empty_end_crystal_sword"
+  }
+}

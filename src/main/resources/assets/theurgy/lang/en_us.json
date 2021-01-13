@@ -53,5 +53,6 @@
   "jei.theurgy.ingredient.aer_crystal.description": "Place a Pure Crystal in the right conditions and it will grow Aer Crystals on adjacent blocks. View the §6Hermetica§r for more information.",
   "jei.theurgy.ingredient.aqua_crystal.description": "Place a Pure Crystal in the right conditions and it will grow Aqua Crystals on adjacent blocks. View the §6Hermetica§r for more information.",
   "jei.theurgy.ingredient.ignis_crystal.description": "Place a Pure Crystal in the right conditions and it will grow Ignis Crystals on adjacent blocks. View the §6Hermetica§r for more information.",
-  "jei.theurgy.ingredient.terra_crystal.description": "Place a Pure Crystal in the right conditions and it will grow Terra Crystals on adjacent blocks. View the §6Hermetica§r for more information."
+  "jei.theurgy.ingredient.terra_crystal.description": "Place a Pure Crystal in the right conditions and it will grow Terra Crystals on adjacent blocks. View the §6Hermetica§r for more information.",
+  "jei.theurgy.ingredient.end_infused_crystal_sword.description": "Kill an Enderman with an §6End Crystal Sword§r to infuse it with it's essence and obtain the §6End Infused Crystal Sword§r."
 }

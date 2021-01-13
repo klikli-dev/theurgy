@@ -90,6 +90,7 @@ public class JeiPlugin implements IModPlugin {
         this.registerIngredientInfo(registration,BlockRegistry.AQUA_CRYSTAL.get());
         this.registerIngredientInfo(registration,BlockRegistry.IGNIS_CRYSTAL.get());
         this.registerIngredientInfo(registration,BlockRegistry.TERRA_CRYSTAL.get());
+        this.registerIngredientInfo(registration, ItemRegistry.END_INFUSED_CRYSTAL_SWORD.get());
     }
 
     public void registerIngredientInfo(IRecipeRegistration registration, IItemProvider ingredient){

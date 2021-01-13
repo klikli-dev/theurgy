@@ -78,7 +78,7 @@ public interface ICrystalSpreadCondition {
         List<Direction> directions = this.getValidPlacementDirections();
         Collections.shuffle(directions);
         for (Direction direction : directions) {
-            BlockPos neighborPos = targetPos.offset(direction);
+            BlockPos neighborPos = targetPos.offset(direction.getOpposite());
             if (neighborPos.equals(sourcePos)) //don't use the source crystal as substrate
                 continue;
 

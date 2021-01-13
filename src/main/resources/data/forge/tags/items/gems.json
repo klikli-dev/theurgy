@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    "#forge:ingots/empty_end",
-    "#forge:ingots/end_infused"
+    "#forge:gems/empty_end",
+    "#forge:gems/end_infused"
   ]
 }

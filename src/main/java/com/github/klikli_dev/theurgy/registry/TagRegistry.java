@@ -49,18 +49,17 @@ public class TagRegistry {
     public static final ITag<Block> HEAT_SOURCES_LIT =
             makeBlockTag(new ResourceLocation(Theurgy.MODID, "heat_sources_lit"));
 
-    public static final ITag<Block> OBSIDIAN =
-            makeBlockTag(new ResourceLocation("forge", "obsidian"));
-
     public static final ITag<Block> CRYSTALS =
-            makeBlockTag(new ResourceLocation("theurgy", "crystals"));
+            makeBlockTag(new ResourceLocation(Theurgy.MODID, "crystals"));
+
+    public static final ITag<Block> OBSIDIAN = makeForgeBlockTag("obsidian");
 
     //Item Tags
-    public static final ITag<Item> RODS_WOODEN =
-            makeItemTag(new ResourceLocation("forge", "rods/wooden"));
-
+    public static final ITag<Item> RODS_WOODEN = makeForgeItemTag("rods/wooden");
+    public static final ITag<Item> END_CRYSTAL_SWORDS = makeItemTag(new ResourceLocation(Theurgy.MODID, "end_crystal_swords"));
 
     //Entity Tags
+    public static final ITag<EntityType<?>> ENDERMEN = makeForgeEntityTag("endermen");
 
     //endregion Fields
 
@@ -69,20 +68,24 @@ public class TagRegistry {
         return ItemTags.createOptional(new ResourceLocation("forge", id));
     }
 
-    public static ITag.INamedTag<Item> makeItemTag(String namespace, String id) {
-        return makeItemTag(new ResourceLocation(namespace, id));
+    public static Tags.IOptionalNamedTag<Item> makeItemTag(ResourceLocation id) {
+        return ItemTags.createOptional(id);
     }
 
-    public static ITag.INamedTag<Item> makeItemTag(ResourceLocation id) {
-        return ItemTags.makeWrapperTag(id.toString());
+    public static Tags.IOptionalNamedTag<Block> makeForgeBlockTag(String id) {
+        return makeBlockTag(new ResourceLocation("forge", id));
     }
 
-    public static ITag.INamedTag<Block> makeBlockTag(ResourceLocation id) {
-        return BlockTags.makeWrapperTag(id.toString());
+    public static Tags.IOptionalNamedTag<Block> makeBlockTag(ResourceLocation id) {
+        return BlockTags.createOptional(id);
     }
 
-    public static ITag.INamedTag<EntityType<?>> makeEntityTypeTag(ResourceLocation id) {
-        return EntityTypeTags.getTagById(id.toString());
+    public static Tags.IOptionalNamedTag<EntityType<?>> makeForgeEntityTag(String id) {
+        return makeEntityTypeTag(new ResourceLocation("forge", id));
+    }
+
+    public static Tags.IOptionalNamedTag<EntityType<?>> makeEntityTypeTag(ResourceLocation id) {
+        return EntityTypeTags.createOptional(id);
     }
     //endregion Static Methods
 }

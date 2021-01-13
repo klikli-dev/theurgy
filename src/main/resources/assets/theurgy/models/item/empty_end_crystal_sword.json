@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "theurgy:item/empty_end_crystal_sword"
+  }
+}

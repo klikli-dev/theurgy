@@ -13,6 +13,8 @@
   "item.theurgy.halfgold_brass_ingot": "Halfgold Brass Ingot",
   "item.theurgy.halfgold_brass_plate": "Halfgold Brass Plate",
   "item.theurgy.halfgold_brass_gear": "Halfgold Brass Gear",
+  "item.theurgy.empty_end_crystal_sword": "End Crystal Sword",
+  "item.theurgy.end_infused_crystal_sword": "End Infused Crystal Sword",
   "_comment": "Blocks",
   "block.theurgy.crucible": "Crucible",
   "block.theurgy.pure_crystal": "Pure Crystal",

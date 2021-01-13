@@ -24,8 +24,6 @@ package com.github.klikli_dev.theurgy.common.handlers;
 
 import com.github.klikli_dev.theurgy.Theurgy;
 import com.github.klikli_dev.theurgy.client.itemproperties.EssentiaGaugeItemPropertyGetter;
-import com.github.klikli_dev.theurgy.client.render.entity.EmptyEndCrystalSpearRenderer;
-import com.github.klikli_dev.theurgy.client.render.entity.EndInfusedCrystalSpearRenderer;
 import com.github.klikli_dev.theurgy.client.render.entity.GlowingBallEntityRenderer;
 import com.github.klikli_dev.theurgy.client.render.tile.CrucibleRenderer;
 import com.github.klikli_dev.theurgy.common.item.tool.EssentiaGaugeItem;
@@ -57,10 +55,6 @@ public class ClientSetupEventHandler {
                 .registerEntityRenderingHandler(EntityRegistry.ESSENTIA_BALL.get(), GlowingBallEntityRenderer::new);
         RenderingRegistry
                 .registerEntityRenderingHandler(EntityRegistry.AETHER_BALL.get(), GlowingBallEntityRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.EMPTY_END_CRYSTAL_SPEAR.get(),
-                EmptyEndCrystalSpearRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.END_INFUSED_CRYSTAL_SPEAR.get(),
-                EndInfusedCrystalSpearRenderer::new);
 
         //Register Tile Entity Renderers
         ClientRegistry.bindTileEntityRenderer(TileRegistry.CRUCIBLE.get(), CrucibleRenderer::new);

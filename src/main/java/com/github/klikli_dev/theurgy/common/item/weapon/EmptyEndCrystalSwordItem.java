@@ -22,22 +22,17 @@
 
 package com.github.klikli_dev.theurgy.common.item.weapon;
 
-import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import net.minecraft.enchantment.IVanishable;
-import net.minecraft.entity.ai.attributes.Attribute;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.item.Item;
+import net.minecraft.item.IItemTier;
+import net.minecraft.item.SwordItem;
 
-public class SpearItem extends Item implements IVanishable {
-    private final Multimap<Attribute, AttributeModifier> spearAttributes;
+public class EmptyEndCrystalSwordItem extends SwordItem implements IVanishable {
 
-    public SpearItem(Properties properties) {
-        super(properties);
-        ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
-        builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Tool modifier", 4.0D, AttributeModifier.Operation.ADDITION));
-        builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(ATTACK_SPEED_MODIFIER, "Tool modifier", -2.9F, AttributeModifier.Operation.ADDITION));
-        this.spearAttributes = builder.build();
+    public EmptyEndCrystalSwordItem(IItemTier tier, int attackDamageIn, float attackSpeedIn,
+                                    Properties builderIn) {
+        super(tier, attackDamageIn, attackSpeedIn, builderIn);
     }
+    //TODO: increase damage against endermen
+    //TODO: on enderman kill, convert to end infused sword
 }

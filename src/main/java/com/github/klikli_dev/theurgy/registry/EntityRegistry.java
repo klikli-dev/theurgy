@@ -24,8 +24,6 @@ package com.github.klikli_dev.theurgy.registry;
 
 import com.github.klikli_dev.theurgy.Theurgy;
 import com.github.klikli_dev.theurgy.common.entity.AetherBallEntity;
-import com.github.klikli_dev.theurgy.common.entity.EmptyEndCrystalSpearEntity;
-import com.github.klikli_dev.theurgy.common.entity.EndInfusedCrystalSpearEntity;
 import com.github.klikli_dev.theurgy.common.entity.EssentiaBallEntity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
@@ -60,28 +58,6 @@ public class EntityRegistry {
     public static final RegistryObject<EntityType<AetherBallEntity>> AETHER_BALL =
             ENTITIES.register("aether_ball", AETHER_BALL_TYPE::get);
 
-
-    public static final NonNullLazy<EntityType<EmptyEndCrystalSpearEntity>> EMPTY_END_CRYSTAL_SPEAR_TYPE =
-            NonNullLazy.of(() -> EntityType.Builder.<EmptyEndCrystalSpearEntity>create(EmptyEndCrystalSpearEntity::new,
-                    EntityClassification.MISC)
-                                         .size(0.5f, 0.5f)
-                                         .trackingRange(4)
-                                         .func_233608_b_(20)
-                                         .build(new ResourceLocation(Theurgy.MODID, "empty_end_crystal_spear").toString()));
-
-    public static final RegistryObject<EntityType<EmptyEndCrystalSpearEntity>> EMPTY_END_CRYSTAL_SPEAR =
-            ENTITIES.register("empty_end_crystal_spear", EMPTY_END_CRYSTAL_SPEAR_TYPE::get);
-
-    public static final NonNullLazy<EntityType<EndInfusedCrystalSpearEntity>> END_INFUSED_CRYSTAL_SPEAR_TYPE =
-            NonNullLazy.of(() -> EntityType.Builder.<EndInfusedCrystalSpearEntity>create(EndInfusedCrystalSpearEntity::new,
-                    EntityClassification.MISC)
-                                         .size(0.5f, 0.5f)
-                                         .trackingRange(4)
-                                         .func_233608_b_(20)
-                                         .build(new ResourceLocation(Theurgy.MODID, "end_infused_crystal_spear").toString()));
-
-    public static final RegistryObject<EntityType<EndInfusedCrystalSpearEntity>> END_INFUSED_CRYSTAL_SPEAR =
-            ENTITIES.register("end_infused_crystal_spear", END_INFUSED_CRYSTAL_SPEAR_TYPE::get);
     //endregion Fields
 
 }

@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "theurgy:item/empty_end_crystal_spear"
-  }
-}

@@ -25,10 +25,10 @@ package com.github.klikli_dev.theurgy.registry;
 import com.github.klikli_dev.theurgy.Theurgy;
 import com.github.klikli_dev.theurgy.common.item.tool.EssentiaGaugeItem;
 import com.github.klikli_dev.theurgy.common.item.tool.GrimoireItem;
-import com.github.klikli_dev.theurgy.common.item.weapon.SpearItem;
+import com.github.klikli_dev.theurgy.common.item.weapon.EmptyEndCrystalSwordItem;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.TridentItem;
+import net.minecraft.item.ItemTier;
+import net.minecraft.item.SwordItem;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -56,12 +56,13 @@ public class ItemRegistry {
             ITEMS.register("prima_materia_crystal_stirrer",
                     () -> new Item(defaultProperties().maxStackSize(1).maxDamage(50)));
 
-    public static final RegistryObject<SpearItem> EMPTY_END_CRYSTAL_SPEAR =
-            ITEMS.register("empty_end_crystal_spear",
-                    () -> new SpearItem(defaultProperties().maxStackSize(1).maxDamage(100)));
-    public static final RegistryObject<SpearItem> END_INFUSED_CRYSTAL_SPEAR =
-            ITEMS.register("end_infused_crystal_spear",
-                    () -> new SpearItem(defaultProperties().maxStackSize(1).maxDamage(100)));
+
+    public static final RegistryObject<EmptyEndCrystalSwordItem> EMPTY_END_CRYSTAL_SWORD =
+            ITEMS.register("empty_end_crystal_sword",
+                    () -> new EmptyEndCrystalSwordItem(ItemTier.IRON, 3, -2.4F,defaultProperties().maxStackSize(1)));
+    public static final RegistryObject<SwordItem> END_INFUSED_CRYSTAL_SWORD =
+            ITEMS.register("end_infused_crystal_sword",
+                    () -> new SwordItem(ItemTier.IRON, 3, -2.4F, defaultProperties().maxStackSize(1)));
 
     //Resources
     public static final RegistryObject<Item> CRYSTAL_SUBSTRATE = ITEMS.register("crystal_substrate",

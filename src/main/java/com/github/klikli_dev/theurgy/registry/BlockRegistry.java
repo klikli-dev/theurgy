@@ -29,6 +29,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
+import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
@@ -77,6 +78,16 @@ public class BlockRegistry {
 
     public static final RegistryObject<CreativeAetherSourceBlock> CREATIVE_AETHER_SOURCE =
             register("creative_aether_source", () -> new CreativeAetherSourceBlock(
+                    Block.Properties.create(Material.IRON, MaterialColor.STONE)
+                            .setRequiresTool().hardnessAndResistance(1.0F).notSolid()));
+
+    public static final RegistryObject<AetherCondenserBlock> AETHER_CONDENSER =
+            register("aether_condenser", () -> new AetherCondenserBlock(
+                    Block.Properties.create(Material.IRON, MaterialColor.STONE)
+                            .setRequiresTool().hardnessAndResistance(1.0F).notSolid()));
+
+    public static final RegistryObject<AetherGeneratorBlock> AETHER_GENERATOR =
+            register("aether_generator", () -> new AetherGeneratorBlock(
                     Block.Properties.create(Material.IRON, MaterialColor.STONE)
                             .setRequiresTool().hardnessAndResistance(1.0F).notSolid()));
 

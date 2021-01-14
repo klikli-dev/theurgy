@@ -31,6 +31,8 @@
   "block.theurgy.aether_emitter": "Aether Emitter",
   "block.theurgy.aether_receiver": "Aether Receiver",
   "block.theurgy.creative_aether_source": "Creative Aether Source",
+  "block.theurgy.aether_generator": "Aether Collector",
+  "block.theurgy.aether_condenser": "Aether Condenser",
   "_comment": "Essentia",
   "item.theurgy.aer_essentia": "Aer Essentia",
   "item.theurgy.aqua_essentia": "Aqua Essentia",

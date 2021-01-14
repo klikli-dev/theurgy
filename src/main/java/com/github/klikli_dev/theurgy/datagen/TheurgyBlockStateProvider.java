@@ -70,6 +70,12 @@ public class TheurgyBlockStateProvider extends BlockStateProvider {
         this.directionalBlock(BlockRegistry.AETHER_RECEIVER.get(),
                 this.getExistingModel(BlockRegistry.AETHER_RECEIVER.get()));
         this.generateEmitterState(BlockRegistry.AETHER_EMITTER.get());
+
+        this.directionalBlock(BlockRegistry.AETHER_CONDENSER.get(),
+                this.getExistingModel(BlockRegistry.AETHER_CONDENSER.get()));
+
+        this.simpleBlock(BlockRegistry.AETHER_GENERATOR.get(),
+                this.getExistingModel(BlockRegistry.AETHER_GENERATOR.get()));
     }
     //endregion Overrides
 

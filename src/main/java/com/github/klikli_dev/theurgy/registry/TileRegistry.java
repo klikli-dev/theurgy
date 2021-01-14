@@ -47,7 +47,7 @@ public class TileRegistry {
                     BlockRegistry.ESSENTIA_RECEIVER.get()).build(null));
 
     public static final RegistryObject<TileEntityType<CreativeEssentiaSourceTileEntity>> CREATIVE_ESSENTIA_SOURCE = TILES.register(
-            "creaitve_essentia_source", () -> TileEntityType.Builder.create(CreativeEssentiaSourceTileEntity::new,
+            "creative_essentia_source", () -> TileEntityType.Builder.create(CreativeEssentiaSourceTileEntity::new,
                     BlockRegistry.CREATIVE_ESSENTIA_SOURCE.get()).build(null));
 
     public static final RegistryObject<TileEntityType<AetherEmitterTile>> AETHER_EMITTER = TILES.register(
@@ -59,7 +59,11 @@ public class TileRegistry {
                     BlockRegistry.AETHER_RECEIVER.get()).build(null));
 
     public static final RegistryObject<TileEntityType<CreativeAetherSourceTile>> CREATIVE_AETHER_SOURCE = TILES.register(
-            "creaitve_aether_source", () -> TileEntityType.Builder.create(CreativeAetherSourceTile::new,
+            "creative_aether_source", () -> TileEntityType.Builder.create(CreativeAetherSourceTile::new,
                     BlockRegistry.CREATIVE_AETHER_SOURCE.get()).build(null));
+
+    public static final RegistryObject<TileEntityType<AetherGeneratorTile>> AETHER_GENERATOR = TILES.register(
+            "aether_generator", () -> TileEntityType.Builder.create(AetherGeneratorTile::new,
+                    BlockRegistry.AETHER_GENERATOR.get()).build(null));
     //endregion Fields
 }

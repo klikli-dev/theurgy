@@ -24,6 +24,8 @@ package com.github.klikli_dev.theurgy.common.multiblock;
 
 import com.github.klikli_dev.theurgy.registry.BlockRegistry;
 import net.minecraft.block.Blocks;
+import net.minecraft.state.properties.BlockStateProperties;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.Tags;
 import vazkii.patchouli.api.IMultiblock;
@@ -39,11 +41,12 @@ public class AetherGeneratorMultiblock extends MultiblockStructure {
         Map<BlockPos, IStateMatcher> template = new HashMap<>();
 
         //main block - generator
-        //TODO: use real generator block here
-        template.put(new BlockPos(0, 0, 0), this.api.looseBlockMatcher(BlockRegistry.CREATIVE_AETHER_SOURCE.get()));
+        template.put(new BlockPos(0, 0, 0), this.api.looseBlockMatcher(BlockRegistry.AETHER_GENERATOR.get()));
         //below generator, place "condenser"
-        //TODO: use real condenser here. Should have crystals to 4 sides.
-        template.put(new BlockPos(0, -1, 0), this.api.looseBlockMatcher(BlockRegistry.AETHER_EMITTER.get()));
+
+        template.put(new BlockPos(0, -1, 0),
+                this.api.stateMatcher(BlockRegistry.AETHER_CONDENSER.get().getDefaultState()
+                                              .with(BlockStateProperties.FACING, Direction.DOWN)));
 
         //one layer down and to all 4 sides: end infused crystals
         template.put(new BlockPos(-4, -2, 0), this.api.looseBlockMatcher(BlockRegistry.END_INFUSED_CRYSTAL.get()));

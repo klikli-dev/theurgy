@@ -31,6 +31,7 @@ public class TheurgyConfig extends ConfigBase {
     public final ForgeConfigSpec spec;
     public final CrystalSettings crystalSettings;
     public final EssentiaSettings essentiaSettings;
+    public final AetherSettings aetherSettings;
     //endregion Fields
 
     //region Initialization
@@ -39,6 +40,7 @@ public class TheurgyConfig extends ConfigBase {
 
         this.crystalSettings = new CrystalSettings(this, builder);
         this.essentiaSettings = new EssentiaSettings(this, builder);
+        this.aetherSettings = new AetherSettings(this, builder);
 
         this.spec = builder.build();
     }
@@ -127,6 +129,32 @@ public class TheurgyConfig extends ConfigBase {
                     builder.comment(
                             "The amount of ticks between diffusing essentia from crucibles.")
                             .define("crucibleDiffuseTicks", 400));
+
+            builder.pop();
+        }
+        //endregion Initialization
+    }
+
+    public class AetherSettings extends ConfigCategoryBase {
+        //region Fields
+        public final CachedInt tier1GenerationRate;
+        public final CachedInt tier1GenerationAmount;
+        //endregion Fields
+
+        //region Initialization
+        public AetherSettings(IConfigCache parent, ForgeConfigSpec.Builder builder) {
+            super(parent, builder);
+            builder.comment("Aether Settings").push("aether");
+
+            this.tier1GenerationRate = CachedInt.cache(this,
+                    builder.comment(
+                            "The ticks between two aether generation events.")
+                            .define("tier1GenerationRate", 20 * 60));
+
+            this.tier1GenerationAmount = CachedInt.cache(this,
+                    builder.comment(
+                            "The amount of aether to generate on each generation event.")
+                            .define("tier1GenerationAmount", 500));
 
             builder.pop();
         }

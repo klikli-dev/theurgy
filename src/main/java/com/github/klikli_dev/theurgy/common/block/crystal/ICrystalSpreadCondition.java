@@ -83,7 +83,7 @@ public interface ICrystalSpreadCondition {
                 continue;
 
             BlockState neighbor = world.getBlockState(neighborPos);
-            if (this.isValidNeighbor(world, neighbor, neighborPos, direction.getOpposite()))
+            if (this.isValidNeighbor(world, neighbor, neighborPos, direction))
                 return direction;
         }
 

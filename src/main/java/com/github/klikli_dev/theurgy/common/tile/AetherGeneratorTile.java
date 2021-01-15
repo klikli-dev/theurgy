@@ -23,15 +23,16 @@
 package com.github.klikli_dev.theurgy.common.tile;
 
 import com.github.klikli_dev.theurgy.Theurgy;
+import com.github.klikli_dev.theurgy.client.particle.SparkleParticleData;
 import com.github.klikli_dev.theurgy.common.capability.DefaultAetherCapability;
 import com.github.klikli_dev.theurgy.common.capability.IAetherCapability;
-import com.github.klikli_dev.theurgy.common.config.TheurgyConfig;
 import com.github.klikli_dev.theurgy.registry.CapabilityRegistry;
 import com.github.klikli_dev.theurgy.registry.MultiblockRegistry;
 import com.github.klikli_dev.theurgy.registry.TileRegistry;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.Direction;
+import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 
@@ -41,6 +42,13 @@ import javax.annotation.Nullable;
 public class AetherGeneratorTile extends NetworkedTileEntity implements ITickableTileEntity {
 
     //region Fields
+    public static final BlockPos[] CRYSTAL_POSITIONS = new BlockPos[]{
+            new BlockPos(-4, -2, 0),
+            new BlockPos(4, -2, 0),
+            new BlockPos(0, -2, -4),
+            new BlockPos(0, -2, 4)
+    };
+
     public static final int GENERATOR_AETHER_CAPACITY = 10000;
     public static final int MULTIBLOCK_VALIDITY_RATE = 20 * 120;
     public static final int MULTIBLOCK_VALIDITY_RATE_CLIENT = 20 * 10;
@@ -92,19 +100,33 @@ public class AetherGeneratorTile extends NetworkedTileEntity implements ITickabl
         long time = this.world.getGameTime();
 
         //Validate the multiblock. Do this rarely on server, but more often on client
-        if(this.world.isRemote && time % MULTIBLOCK_VALIDITY_RATE_CLIENT == 0){
+        if (this.world.isRemote && time % MULTIBLOCK_VALIDITY_RATE_CLIENT == 0) {
             this.hasValidMultiblock = this.validateMultiblock();
         }
-        if(!this.world.isRemote && time % MULTIBLOCK_VALIDITY_RATE == 0){
+        if (!this.world.isRemote && time % MULTIBLOCK_VALIDITY_RATE == 0) {
             this.hasValidMultiblock = this.validateMultiblock();
         }
 
-        //TODO: Client side spawn effects on crystals
-        //TODO: client side spawn other particles if generator is not working
+        //show client side particle effects
+        if (this.world.isRemote && this.hasValidMultiblock && time % 10 == 0) {
+            BlockPos crystalPos = this.pos.add(CRYSTAL_POSITIONS[this.world.rand.nextInt(CRYSTAL_POSITIONS.length)]);
+            //target is one block below our pos -> the condenser
+            SparkleParticleData data = new SparkleParticleData(
+                    0.6f + this.world.rand.nextFloat() * 0.3f,
+                    0.2f,
+                    0.6f + this.world.rand.nextFloat() * 0.3f,
+                    this.pos.getX() + 0.5f, this.pos.getY() - 1 + 0.5f, this.pos.getZ() + 0.5f);
+
+            this.world
+                    .addParticle(data, crystalPos.getX() + this.world.rand.nextFloat(),
+                            crystalPos.getY() + this.world.rand.nextFloat(),
+                            crystalPos.getZ() + this.world.rand.nextFloat(), 0, 0, 0);
+
+        }
 
         //generate energy
-        if(!this.world.isRemote && this.hasValidMultiblock &&
-           time % Theurgy.CONFIG.aetherSettings.tier1GenerationRate.get() == 0){
+        if (!this.world.isRemote && this.hasValidMultiblock &&
+            time % Theurgy.CONFIG.aetherSettings.tier1GenerationRate.get() == 0) {
             int amountToGenerate = Theurgy.CONFIG.aetherSettings.tier1GenerationAmount.get();
             this.aetherCapability.receiveEnergy(amountToGenerate, false);
         }

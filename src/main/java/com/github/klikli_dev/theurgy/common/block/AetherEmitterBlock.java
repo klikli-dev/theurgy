@@ -23,9 +23,7 @@
 package com.github.klikli_dev.theurgy.common.block;
 
 import com.github.klikli_dev.theurgy.common.theurgy.IAetherInformationProvider;
-import com.github.klikli_dev.theurgy.common.theurgy.IEssentiaInformationProvider;
 import com.github.klikli_dev.theurgy.common.tile.AetherEmitterTile;
-import com.github.klikli_dev.theurgy.common.tile.EssentiaEmitterTileEntity;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 import net.minecraft.block.Block;
@@ -49,14 +47,15 @@ import java.util.Map;
 public class AetherEmitterBlock extends DirectionalAttachedBlock implements IAetherInformationProvider {
     //region Fields
     public static final BooleanProperty ENABLED = BlockStateProperties.ENABLED;
+    private static final int SHAPE_LENGTH = 4;
     private static final Map<Direction, VoxelShape> SHAPES =
             Maps.newEnumMap(ImmutableMap.<Direction, VoxelShape>builder()
-                                    .put(Direction.EAST, Block.makeCuboidShape(0, 4, 4, 13, 12, 12))
-                                    .put(Direction.WEST, Block.makeCuboidShape(3, 4, 4, 16, 12, 12))
-                                    .put(Direction.NORTH, Block.makeCuboidShape(4, 4, 3, 12, 12, 16))
-                                    .put(Direction.SOUTH, Block.makeCuboidShape(4, 4, 0, 12, 12, 13))
-                                    .put(Direction.UP, Block.makeCuboidShape(4, 0, 4, 12, 13, 12))
-                                    .put(Direction.DOWN, Block.makeCuboidShape(4, 3, 4, 12, 16, 12))
+                                    .put(Direction.EAST, Block.makeCuboidShape(0, 4, 4, SHAPE_LENGTH, 12, 12))
+                                    .put(Direction.WEST, Block.makeCuboidShape(16 - SHAPE_LENGTH, 4, 4, 16, 12, 12))
+                                    .put(Direction.NORTH, Block.makeCuboidShape(4, 4, 16 - SHAPE_LENGTH, 12, 12, 16))
+                                    .put(Direction.SOUTH, Block.makeCuboidShape(4, 4, 0, 12, 12, SHAPE_LENGTH))
+                                    .put(Direction.UP, Block.makeCuboidShape(4, 0, 4, 12, SHAPE_LENGTH, 12))
+                                    .put(Direction.DOWN, Block.makeCuboidShape(4, 16 - SHAPE_LENGTH, 4, 12, 16, 12))
                                     .build());
     //endregion Fields
 

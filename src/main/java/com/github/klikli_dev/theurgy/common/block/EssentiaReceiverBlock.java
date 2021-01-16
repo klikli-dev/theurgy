@@ -42,15 +42,16 @@ import java.util.Map;
 public class EssentiaReceiverBlock extends DirectionalAttachedBlock implements IEssentiaInformationProvider {
 
     //region Fields
-    private static final Map<Direction, VoxelShape> SHAPES = Maps.newEnumMap(
-            ImmutableMap.<Direction, VoxelShape>builder()
-                    .put(Direction.EAST, Block.makeCuboidShape(0, 4, 4, 8, 12, 12))
-                    .put(Direction.WEST, Block.makeCuboidShape(8, 4, 4, 16, 12, 12))
-                    .put(Direction.NORTH, Block.makeCuboidShape(4, 4, 8, 12, 12, 16))
-                    .put(Direction.SOUTH, Block.makeCuboidShape(4, 4, 0, 12, 12, 8))
-                    .put(Direction.UP, Block.makeCuboidShape(4, 0, 4, 12, 8, 12))
-                    .put(Direction.DOWN, Block.makeCuboidShape(4, 8, 4, 12, 16, 12))
-                    .build());
+    private static final int SHAPE_LENGTH = 2;
+    private static final Map<Direction, VoxelShape> SHAPES =
+            Maps.newEnumMap(ImmutableMap.<Direction, VoxelShape>builder()
+                                    .put(Direction.EAST, Block.makeCuboidShape(0, 4, 4, SHAPE_LENGTH, 12, 12))
+                                    .put(Direction.WEST, Block.makeCuboidShape(16 - SHAPE_LENGTH, 4, 4, 16, 12, 12))
+                                    .put(Direction.NORTH, Block.makeCuboidShape(4, 4, 16 - SHAPE_LENGTH, 12, 12, 16))
+                                    .put(Direction.SOUTH, Block.makeCuboidShape(4, 4, 0, 12, 12, SHAPE_LENGTH))
+                                    .put(Direction.UP, Block.makeCuboidShape(4, 0, 4, 12, SHAPE_LENGTH, 12))
+                                    .put(Direction.DOWN, Block.makeCuboidShape(4, 16 - SHAPE_LENGTH, 4, 12, 16, 12))
+                                    .build());
     //endregion Fields
 
     //region Initialization

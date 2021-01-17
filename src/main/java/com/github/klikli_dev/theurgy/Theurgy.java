@@ -52,7 +52,7 @@ public class Theurgy {
     //region Initialization
     public Theurgy() {
         INSTANCE = this;
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, CONFIG.spec);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, CONFIG.spec);
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         ItemRegistry.ITEMS.register(modEventBus);

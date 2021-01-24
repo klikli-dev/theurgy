@@ -222,8 +222,13 @@ public class CrucibleTileEntity extends NetworkedTileEntity implements ITickable
 
                         //get the maximum crafting count that the input stack allows
                         int craftingCount = item.getItem().getCount();
-                        //then check each essentia and find the maximum amount of crafting the essentia cache allwows
+                        //then check each essentia and find the maximum amount of crafting the essentia cache allows
                         for (ItemStack essentia : recipe.get().getEssentia()) {
+                            //if the recipe specifies the essentia, but provides 0, we skip here to avoid div by zero
+                            if(essentia.getCount() == 0){
+                                continue;
+                            }
+
                             int maxPossibleCraftings =
                                     Math.floorDiv(this.essentiaCache.get(essentia.getItem()), essentia.getCount());
                             if (maxPossibleCraftings < craftingCount)

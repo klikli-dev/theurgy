@@ -352,88 +352,89 @@ public class CrucibleTileEntity extends NetworkedTileEntity implements ITickable
 
     @Override
     public ActionResultType onTileEntityActivated(BlockState state, BlockPos pos, PlayerEntity player, Hand hand) {
-        if (hand == Hand.MAIN_HAND) {
-            //On shift-click with empty hand, empty and reset the crucible
-            if (player.isSneaking() && player.getHeldItem(hand).isEmpty() && this.waterLevel > 0) {
-                this.diffuseAllEssentia();
-                this.resetCrucible();
-
-                if (!this.world.isRemote) {
-                    this.markNetworkDirty();
-                    //vanilla cauldron empty sound
-                    this.world.playSound(null, pos, SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.BLOCKS, 1.0F, 1.0F);
-                }
-                return ActionResultType.SUCCESS;
-            }
-
-            //if clicked with filled bucket, and there is still capacity, fill the crucible further
-            if (player.getHeldItem(hand).getItem() == Items.WATER_BUCKET && this.waterLevel < MAX_WATER_LEVEL) {
-                player.setHeldItem(hand, new ItemStack(Items.BUCKET));
-                this.waterLevel++;
-
-                if (!this.world.isRemote) {
-                    this.markNetworkDirty();
-                    //vanilla cauldron fill sound
-                    this.world.playSound(null, pos, SoundEvents.ITEM_BUCKET_FILL, SoundCategory.BLOCKS, 1.0F, 1.0F);
-                }
-                return ActionResultType.SUCCESS;
-            }
-            //if clicked with empty bucket, and there is something in the crucible, fill the bucket
-            if (player.getHeldItem(hand).getItem() == Items.BUCKET && this.waterLevel > 0) {
-                player.setHeldItem(hand, new ItemStack(Items.WATER_BUCKET));
-                this.waterLevel--;
-
-                if (this.waterLevel == 0) {
-                    this.resetCrucible();
+        if(!this.world.isRemote){
+            if (hand == Hand.MAIN_HAND) {
+                //On shift-click with empty hand, empty and reset the crucible
+                if (player.isSneaking() && player.getHeldItem(hand).isEmpty() && this.waterLevel > 0) {
                     this.diffuseAllEssentia();
+                    this.resetCrucible();
+
+                    if (!this.world.isRemote) {
+                        this.markNetworkDirty();
+                        //vanilla cauldron empty sound
+                        this.world.playSound(null, pos, SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                    }
+                    return ActionResultType.SUCCESS;
                 }
 
-                if (!this.world.isRemote) {
-                    this.markNetworkDirty();
-                    //vanilla cauldron empty sound
-                    this.world.playSound(null, pos, SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                //if clicked with filled bucket, and there is still capacity, fill the crucible further
+                if (player.getHeldItem(hand).getItem() == Items.WATER_BUCKET && this.waterLevel < MAX_WATER_LEVEL) {
+                    player.setHeldItem(hand, new ItemStack(Items.BUCKET));
+                    this.waterLevel++;
+
+                    if (!this.world.isRemote) {
+                        this.markNetworkDirty();
+                        //vanilla cauldron fill sound
+                        this.world.playSound(null, pos, SoundEvents.ITEM_BUCKET_FILL, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                    }
+                    return ActionResultType.SUCCESS;
                 }
-                return ActionResultType.SUCCESS;
+                //if clicked with empty bucket, and there is something in the crucible, fill the bucket
+                if (player.getHeldItem(hand).getItem() == Items.BUCKET && this.waterLevel > 0) {
+                    player.setHeldItem(hand, new ItemStack(Items.WATER_BUCKET));
+                    this.waterLevel--;
+
+                    if (this.waterLevel == 0) {
+                        this.resetCrucible();
+                        this.diffuseAllEssentia();
+                    }
+
+                    if (!this.world.isRemote) {
+                        this.markNetworkDirty();
+                        //vanilla cauldron empty sound
+                        this.world.playSound(null, pos, SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                    }
+                    return ActionResultType.SUCCESS;
+                }
+
+                //handle stirring
+                if (this.isBoiling && this.hasContents) {
+                    ItemStack held = player.getHeldItem(hand);
+                    if (TagRegistry.RODS_WOODEN.contains(held.getItem())) {
+                        //Stick leads to purification
+                        this.craftingType = CrucibleCraftingType.PURIFICATION;
+                    }
+                    else if (held.getItem() == ItemRegistry.PURE_CRYSTAL_STIRRER.get()) {
+                        //pure crystal is for replication
+                        this.craftingType = CrucibleCraftingType.REPLICATION;
+                        held.damageItem(1, player, (p) -> {
+                        });
+                    }
+                    else if (held.getItem() == ItemRegistry.PRIMA_MATERIA_CRYSTAL_STIRRER.get()) {
+                        //prima materia crystal is for transmutation
+                        this.craftingType = CrucibleCraftingType.TRANSMUTATION;
+                        held.damageItem(1, player, (p) -> {
+                        });
+                    }
+                    else {
+                        //other items do not interest us here
+                        return ActionResultType.PASS;
+                    }
+
+                    this.remainingCraftingTicks += STIRRING_CRAFTING_TICKS;
+                    if (this.remainingCraftingTicks > MAX_STIRRING_CRAFTING_TICKS)
+                        this.remainingCraftingTicks = MAX_STIRRING_CRAFTING_TICKS;
+
+                    if (!this.world.isRemote) {
+                        this.markNetworkDirty();
+                        //Play splash sound
+                        this.world
+                                .playSound(null, pos, SoundEvents.ENTITY_FISHING_BOBBER_SPLASH, SoundCategory.BLOCKS, 1.0F,
+                                        1.0F);
+                    }
+                    return ActionResultType.SUCCESS;
+                }
             }
-
-            //handle stirring
-            if (this.isBoiling && this.hasContents) {
-                ItemStack held = player.getHeldItem(hand);
-                if (TagRegistry.RODS_WOODEN.contains(held.getItem())) {
-                    //Stick leads to purification
-                    this.craftingType = CrucibleCraftingType.PURIFICATION;
-                }
-                else if (held.getItem() == ItemRegistry.PURE_CRYSTAL_STIRRER.get()) {
-                    //pure crystal is for replication
-                    this.craftingType = CrucibleCraftingType.REPLICATION;
-                    held.damageItem(1, player, (p) -> {
-                    });
-                }
-                else if (held.getItem() == ItemRegistry.PRIMA_MATERIA_CRYSTAL_STIRRER.get()) {
-                    //prima materia crystal is for transmutation
-                    this.craftingType = CrucibleCraftingType.TRANSMUTATION;
-                    held.damageItem(1, player, (p) -> {
-                    });
-                }
-                else {
-                    //other items do not interest us here
-                    return ActionResultType.PASS;
-                }
-
-                this.remainingCraftingTicks += STIRRING_CRAFTING_TICKS;
-                if (this.remainingCraftingTicks > MAX_STIRRING_CRAFTING_TICKS)
-                    this.remainingCraftingTicks = MAX_STIRRING_CRAFTING_TICKS;
-
-                if (!this.world.isRemote) {
-                    this.markNetworkDirty();
-                    //Play splash sound
-                    this.world
-                            .playSound(null, pos, SoundEvents.ENTITY_FISHING_BOBBER_SPLASH, SoundCategory.BLOCKS, 1.0F,
-                                    1.0F);
-                }
-                return ActionResultType.SUCCESS;
-            }
-
         }
         return ActionResultType.PASS;
     }

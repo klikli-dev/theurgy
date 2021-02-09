@@ -32,6 +32,7 @@ import com.github.klikli_dev.theurgy.integration.jei.recipes.PurificationRecipeC
 import com.github.klikli_dev.theurgy.integration.jei.recipes.ReplicationRecipeCategory;
 import com.github.klikli_dev.theurgy.integration.jei.recipes.TransmutationRecipeCategory;
 import com.github.klikli_dev.theurgy.registry.BlockRegistry;
+import com.github.klikli_dev.theurgy.registry.ItemRegistry;
 import com.github.klikli_dev.theurgy.registry.RecipeRegistry;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.constants.VanillaTypes;
@@ -102,9 +103,15 @@ public class JeiPlugin implements IModPlugin {
                 RecipeRegistry.ESSENTIA.getId());
         registration.addRecipeCatalyst(new ItemStack(BlockRegistry.CRUCIBLE.get()),
                 RecipeRegistry.PURIFICATION.getId());
+        registration.addRecipeCatalyst(new ItemStack(ItemRegistry.IRON_STIRRER.get()),
+                RecipeRegistry.PURIFICATION.getId());
         registration.addRecipeCatalyst(new ItemStack(BlockRegistry.CRUCIBLE.get()),
                 RecipeRegistry.REPLICATION.getId());
+        registration.addRecipeCatalyst(new ItemStack(ItemRegistry.PURE_CRYSTAL_STIRRER.get()),
+                RecipeRegistry.REPLICATION.getId());
         registration.addRecipeCatalyst(new ItemStack(BlockRegistry.CRUCIBLE.get()),
+                RecipeRegistry.TRANSMUTATION.getId());
+        registration.addRecipeCatalyst(new ItemStack(ItemRegistry.PRIMA_MATERIA_CRYSTAL_STIRRER.get()),
                 RecipeRegistry.TRANSMUTATION.getId());
     }
 

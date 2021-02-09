@@ -158,15 +158,16 @@ public class PureCrystalSpreader implements ICrystalSpreadHandler {
             }
         }
 
-        if (world.getRandom().nextInt(this.pureCrystalChanceToSpread.get()) == 0){
-        //If no other crystal type is valid, check pure condition
-            CrystalPlacementInfo spreadTo = this.getValidSpreadPosition(this.pureCondition, world, possibleTargets, sourceState, sourcePos);
-            if (spreadTo != null) {
-                world.setBlockState(spreadTo.pos, BlockRegistry.PURE_CRYSTAL.get().getDefaultState()
-                                                          .with(BlockStateProperties.FACING, spreadTo.direction), 2);
-                return true;
-            }
-        }
+        //Disable pure crystals spreading into more pure crystals. Serves no purpose except covering everything.
+//        if (world.getRandom().nextInt(this.pureCrystalChanceToSpread.get()) == 0){
+//        //If no other crystal type is valid, check pure condition
+//            CrystalPlacementInfo spreadTo = this.getValidSpreadPosition(this.pureCondition, world, possibleTargets, sourceState, sourcePos);
+//            if (spreadTo != null) {
+//                world.setBlockState(spreadTo.pos, BlockRegistry.PURE_CRYSTAL.get().getDefaultState()
+//                                                          .with(BlockStateProperties.FACING, spreadTo.direction), 2);
+//                return true;
+//            }
+//        }
         return false;
     }
     //endregion Overrides

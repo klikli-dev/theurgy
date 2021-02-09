@@ -26,7 +26,7 @@
     {
       "type": "text",
       "title": "Инструменты для перемешивания",
-      "text": "Инструмент для перемешивания определяет тип изготовления: $(li)$(thing)Stick$(): Purification$() $(li)$(thing)Pure Crystal Stirrer$(): Replication$()$() $(li)$(thing)Prima Materia Crystal Stirrer$(): Transmutation$()$()",
+      "text": "Инструмент для перемешивания определяет тип изготовления: $(li)$(thing)Iron Stirrer$(): Purification$() $(li)$(thing)Pure Crystal Stirrer$(): Replication$()$() $(li)$(thing)Prima Materia Crystal Stirrer$(): Transmutation$()$()",
       "anchor": "stirring_tools"
     },
     {

@@ -45,6 +45,8 @@ public class ItemRegistry {
     public static final RegistryObject<EssentiaGaugeItem> ESSENTIA_GAUGE = ITEMS.register("essentia_gauge",
             () -> new EssentiaGaugeItem(defaultProperties().maxStackSize(1)));
 
+    public static final RegistryObject<Item> IRON_STIRRER = ITEMS.register("iron_stirrer",
+            () -> new Item(defaultProperties().maxStackSize(1).maxDamage(50)));
     public static final RegistryObject<Item> PURE_CRYSTAL_STIRRER = ITEMS.register("pure_crystal_stirrer",
             () -> new Item(defaultProperties().maxStackSize(1).maxDamage(50)));
     public static final RegistryObject<Item> PRIMA_MATERIA_CRYSTAL_STIRRER =

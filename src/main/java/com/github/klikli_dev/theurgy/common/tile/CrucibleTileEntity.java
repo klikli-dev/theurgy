@@ -405,7 +405,7 @@ public class CrucibleTileEntity extends NetworkedTileEntity implements ITickable
                 //handle stirring
                 if (this.isBoiling && this.hasContents) {
                     ItemStack held = player.getHeldItem(hand);
-                    if (TagRegistry.RODS_WOODEN.contains(held.getItem())) {
+                    if (held.getItem() == ItemRegistry.IRON_STIRRER.get()) {
                         //Stick leads to purification
                         this.craftingType = CrucibleCraftingType.PURIFICATION;
                     }

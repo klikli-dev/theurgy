@@ -25,7 +25,7 @@
     {
       "type": "theurgy:crucible_recipe",
       "recipe": "theurgy:purification/pure_crystal",
-      "tool": "minecraft:stick",
+      "tool": "theurgy:iron_stirrer",
       "title": "Purify Crystal"
     }
   ]

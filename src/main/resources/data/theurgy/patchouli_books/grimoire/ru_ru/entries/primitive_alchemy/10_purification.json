@@ -1,6 +1,6 @@
 {
   "name": "Purification",
-  "icon": "minecraft:stick",
+  "icon": "theurgy:iron_stirrer",
   "category": "20_primitive_alchemy",
   "sortnum": 10,
   "pages": [
@@ -14,19 +14,19 @@
     },
     {
       "type": "spotlight",
-      "item": "minecraft:stick",
+      "tool": "theurgy:iron_stirrer",
       "text": "Чтобы $(bold)purify$() предметы в котле, перемешайте палкой содержимое, щелкнув правой кнопкой мыши на кипящий котёл. Перемешайте несколько раз, чтобы увеличить время добавления предметов. Ремесло будет работать, только пока отображаются разноцветные пузыри."
     },
     {
       "type": "theurgy:crucible_recipe",
       "recipe": "theurgy:purification/iron_ore",
-      "tool": "minecraft:stick",
+      "tool": "theurgy:iron_stirrer",
       "title": "Purify Iron Ore"
     },
     {
       "type": "theurgy:crucible_recipe",
       "recipe": "theurgy:purification/gold_ore",
-      "tool": "minecraft:stick",
+      "tool": "theurgy:iron_stirrer",
       "title": "Purify Gold Ore"
     },
     {
@@ -37,37 +37,37 @@
     {
       "type": "theurgy:crucible_recipe",
       "recipe": "theurgy:purification/dirt_to_clay_ball",
-      "tool": "minecraft:stick",
+      "tool": "theurgy:iron_stirrer",
       "title": "Purify Dirt into Clay"
     },
     {
       "type": "theurgy:crucible_recipe",
       "recipe": "theurgy:purification/diamond_ore",
-      "tool": "minecraft:stick",
+      "tool": "theurgy:iron_stirrer",
       "title": "Purify Diamond Ore"
     },
     {
       "type": "theurgy:crucible_recipe",
       "recipe": "theurgy:purification/emerald_ore",
-      "tool": "minecraft:stick",
+      "tool": "theurgy:iron_stirrer",
       "title": "Purify Emerald Ore"
     },
     {
       "type": "theurgy:crucible_recipe",
       "recipe": "theurgy:purification/coal_ore",
-      "tool": "minecraft:stick",
+      "tool": "theurgy:iron_stirrer",
       "title": "Purify Coal Ore"
     },
     {
       "type": "theurgy:crucible_recipe",
       "recipe": "theurgy:purification/lapis_ore",
-      "tool": "minecraft:stick",
+      "tool": "theurgy:iron_stirrer",
       "title": "Purify Lapis Ore"
     },
     {
       "type": "theurgy:crucible_recipe",
       "recipe": "theurgy:purification/redstone_ore",
-      "tool": "minecraft:stick",
+      "tool": "theurgy:iron_stirrer",
       "title": "Purify Redstone Ore"
     },
     {

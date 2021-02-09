@@ -1,0 +1,128 @@
+{
+  "name": "Object Replication",
+  "icon": "theurgy:pure_crystal_stirrer",
+  "category": "20_primitive_alchemy",
+  "sortnum": 40,
+  "pages": [
+    {
+      "type": "text",
+      "text": "Хотя очищение уже оказалось неоценимым для нашего обогащения, теперь мы готовы глубже погрузиться в тайны алхимических манипуляций. С использованием$(item)Essentia Gauge$() показал, что$(item)Pure Crystals$() имеют уникальное взаимодействие с Эссенцией."
+    },
+    {
+      "type": "text",
+      "text": "Кажется возможным, что эти кристаллы можно использовать, чтобы заставить Эссенцию имитировать форму данного эталонного объекта, $(bold)effectively allowing to duplicate items$(). Хотя это кажется захватывающей перспективой, опытный Герметик знает, что за это приходится платить: $(bold)lots of Essentia$(). В этом смысле репликация уже является примитивным типом трансмутации: растворять элементы, чтобы воспроизвести другие."
+    },
+    {
+      "type": "spotlight",
+      "item": "theurgy:pure_crystal_stirrer",
+      "text": "Чтобы $(bold)replicate$() предметы в Тигеле, перемешайте $(item)Pure Crystal Stirrer$() щелкнув правой кнопкой мыши по кипящему котлу (тигелю). Перемешайте несколько раз, чтобы увеличить время добавления предметов. Ремесло будет работать, только пока отображаются разноцветные пузыри. Небольшие части кристалла будут отламываться при каждом использовании и запускать процесс репликации."
+    },
+    {
+      "type": "theurgy:crucible_recipe",
+      "recipe": "theurgy:replication/emerald",
+      "tool": "theurgy:pure_crystal_stirrer",
+      "title": "Emerald"
+    },
+    {
+      "type": "theurgy:crucible_recipe",
+      "recipe": "theurgy:replication/diamond",
+      "tool": "theurgy:pure_crystal_stirrer",
+      "title": "Diamond"
+    },
+    {
+      "type": "theurgy:crucible_recipe",
+      "recipe": "theurgy:replication/prismarine_crystal",
+      "tool": "theurgy:pure_crystal_stirrer",
+      "title": "Prismarine Crystal"
+    },
+    {
+      "type": "theurgy:crucible_recipe",
+      "recipe": "theurgy:replication/prismarine_shard",
+      "tool": "theurgy:pure_crystal_stirrer",
+      "title": "Prismarine Shard"
+    },
+    {
+      "type": "theurgy:crucible_recipe",
+      "recipe": "theurgy:replication/netherite_ingot",
+      "tool": "theurgy:pure_crystal_stirrer",
+      "title": "Netherite Ingot"
+    },
+    {
+      "type": "theurgy:crucible_recipe",
+      "recipe": "theurgy:replication/gold_ingot",
+      "tool": "theurgy:pure_crystal_stirrer",
+      "title": "Gold Ingot"
+    },
+    {
+      "type": "theurgy:crucible_recipe",
+      "recipe": "theurgy:replication/iron_ingot",
+      "tool": "theurgy:pure_crystal_stirrer",
+      "title": "Iron Ingot"
+    },
+    {
+      "type": "theurgy:crucible_recipe",
+      "recipe": "theurgy:replication/quartz",
+      "tool": "theurgy:pure_crystal_stirrer",
+      "title": "Nether Quartz"
+    },
+    {
+      "type": "theurgy:crucible_recipe",
+      "recipe": "theurgy:replication/lapis",
+      "tool": "theurgy:pure_crystal_stirrer",
+      "title": "Lapis"
+    },
+    {
+      "type": "theurgy:crucible_recipe",
+      "recipe": "theurgy:replication/redstone_dust",
+      "tool": "theurgy:pure_crystal_stirrer",
+      "title": "Redstone Dust"
+    },
+    {
+      "type": "theurgy:crucible_recipe",
+      "recipe": "theurgy:replication/glowstone_dust",
+      "tool": "theurgy:pure_crystal_stirrer",
+      "title": "Glowstone Dust"
+    },
+    {
+      "type": "theurgy:crucible_recipe",
+      "recipe": "theurgy:replication/obsidian",
+      "tool": "theurgy:pure_crystal_stirrer",
+      "title": "Obsidian"
+    },
+    {
+      "type": "theurgy:crucible_recipe",
+      "recipe": "theurgy:replication/ender_pearl",
+      "tool": "theurgy:pure_crystal_stirrer",
+      "title": "Ender Pearl"
+    },
+    {
+      "type": "theurgy:crucible_recipe",
+      "recipe": "theurgy:replication/ghast_tear",
+      "tool": "theurgy:pure_crystal_stirrer",
+      "title": "Ghast Tear"
+    },
+    {
+      "type": "theurgy:crucible_recipe",
+      "recipe": "theurgy:replication/magma_cream",
+      "tool": "theurgy:pure_crystal_stirrer",
+      "title": "Magma Cream"
+    },
+    {
+      "type": "theurgy:crucible_recipe",
+      "recipe": "theurgy:replication/slime_ball",
+      "tool": "theurgy:pure_crystal_stirrer",
+      "title": "Slime Ball"
+    },
+    {
+      "type": "theurgy:crucible_recipe",
+      "recipe": "theurgy:replication/wither_skeleton_skull",
+      "tool": "theurgy:pure_crystal_stirrer",
+      "title": "Wither Skeleton Skull"
+    },
+    {
+      "type": "text",
+      "title": "But wait, there's more!",
+      "text": "Чтобы найти еще много рецептов репликации, используйте JEI для проверки всех вариантов использования $(thing)Crucible$()."
+    }
+  ]
+}

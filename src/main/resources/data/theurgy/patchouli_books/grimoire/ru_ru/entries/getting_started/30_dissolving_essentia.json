@@ -1,0 +1,83 @@
+{
+  "name": "Dissolving Essentia",
+  "icon": "theurgy:aqua_essentia",
+  "category": "10_getting_started",
+  "sortnum": 30,
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "theurgy:crucible",
+      "text": "Чтобы получить эссенцию для различных алхимических рецептов крафта, вам нужно растворять предметы в котле. Для этого просто бросайте предметы в кипящий котёл. На следующих страницах подробно описаны основные рецепты получения всех 4 видов эссенции."
+    },
+    {
+      "type": "theurgy:essentia_recipe",
+      "recipe": "theurgy:essentia/cobblestone",
+      "title": "Cobblestone"
+    },
+    {
+      "type": "theurgy:essentia_recipe",
+      "recipe": "theurgy:essentia/coal",
+      "title": "Coal"
+    },
+    {
+      "type": "theurgy:essentia_recipe",
+      "recipe": "theurgy:essentia/iron_ingot",
+      "title": "Iron Ingot"
+    },
+    {
+      "type": "theurgy:essentia_recipe",
+      "recipe": "theurgy:essentia/gold_ingot",
+      "title": "Gold Ingot"
+    },
+    {
+      "type": "theurgy:essentia_recipe",
+      "recipe": "theurgy:essentia/quartz",
+      "title": "Quartz"
+    },
+    {
+      "type": "theurgy:essentia_recipe",
+      "recipe": "theurgy:essentia/lapis",
+      "title": "Lapis"
+    },
+    {
+      "type": "theurgy:essentia_recipe",
+      "recipe": "theurgy:essentia/feather",
+      "title": "Feather"
+    },
+    {
+      "type": "theurgy:essentia_recipe",
+      "recipe": "theurgy:essentia/clay_block",
+      "title": "Clay Block"
+    },
+    {
+      "type": "theurgy:essentia_recipe",
+      "recipe": "theurgy:essentia/bone",
+      "title": "Bone"
+    },
+    {
+      "type": "theurgy:essentia_recipe",
+      "recipe": "theurgy:essentia/diamond",
+      "title": "Diamond"
+    },
+    {
+      "type": "theurgy:essentia_recipe",
+      "recipe": "theurgy:essentia/emerald",
+      "title": "Emerald"
+    },
+    {
+      "type": "theurgy:essentia_recipe",
+      "recipe": "theurgy:essentia/prismarine_crystal",
+      "title": "Prismarine Crystal"
+    },
+    {
+      "type": "theurgy:essentia_recipe",
+      "recipe": "theurgy:essentia/prismarine_shard",
+      "title": "Prismarine Shard"
+    },
+    {
+      "type": "text",
+      "title": "But wait, there's more!",
+      "text": "Чтобы найти еще больше рецептов Эссенции, используйте JEI для проверки всех вариантов использования $(thing)Crucible$()."
+    }
+  ]
+}

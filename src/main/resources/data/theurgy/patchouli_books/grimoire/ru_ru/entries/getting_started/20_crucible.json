@@ -1,0 +1,39 @@
+{
+  "name": "The Crucible",
+  "icon": "theurgy:crucible",
+  "category": "10_getting_started",
+  "sortnum": 20,
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "theurgy:crucible",
+      "text": "Тигель - это первый и, вероятно, самый важный инструмент $(thing)Hermeticist$(). Позволяет растворять предметы в их $(thing)Essentia$(), а затем используйте $(thing)Essentia$() чтобы создавать другие объекты."
+    },
+    {
+      "type": "crafting",
+      "recipe": "theurgy:crafting/crucible"
+    },
+    {
+      "type": "text",
+      "title": "Нагрев",
+      "text": "Чтобы использовать тигель, его нужно наполнить водой с помощью ведер. Для этого воду необходимо довести до кипения. поместите тигель на источник тепла, такой как огонь, лава, магма или зажженный костер."
+    },
+    {
+      "type": "text",
+      "title": "Использование",
+      "text": "Чтобы использовать тигель для $(italics)create$() предметы, сначала нужно $(italics)dissolve$() важно выпустить  $(thing)Essentia$(). Чтобы растворить предмет, просто опустите его в кипящую воду в тигле. Чтобы использовать тигель для создания новых предметов, $(bold)stir$() кипение $(thing)Essentia$() щелкнув на него правой кнопкой мыши $(l:getting_started/20_crucible#stirring_tools)the right stirring tool$(), затем добавьте ингредиент, пока $(bold)colorful bubbles$() летят вверх. Время изготовления можно увеличить, перемешивая несколько раз.."
+    },
+    {
+      "type": "text",
+      "title": "Инструменты для перемешивания",
+      "text": "Инструмент для перемешивания определяет тип изготовления: $(li)$(thing)Stick$(): Purification$() $(li)$(thing)Pure Crystal Stirrer$(): Replication$()$() $(li)$(thing)Prima Materia Crystal Stirrer$(): Transmutation$()$()",
+      "anchor": "stirring_tools"
+    },
+    {
+      "type": "text",
+      "title": "Очистка (Опорожнение)",
+      "text": "Чтобы очистить тигель от воды и всей эссенции, щелкните на нео пустой рукой, удерживая клавишу Shift. TЭссенция немедленно проникнет в окружающую среду.",
+      "anchor": "emptying"
+    }
+  ]
+}

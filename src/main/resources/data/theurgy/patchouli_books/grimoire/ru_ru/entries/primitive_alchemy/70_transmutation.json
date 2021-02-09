@@ -1,0 +1,76 @@
+{
+  "name": "Transmutation",
+  "icon": "theurgy:prima_materia_crystal_stirrer",
+  "category": "20_primitive_alchemy",
+  "sortnum": 70,
+  "pages": [
+    {
+      "type": "text",
+      "text": "Многие считают трансмутацию вершиной алхимических исследований. (Ключем) $(bold)key$() к этому процессу является Prima Materia (Первозданная материя). В то время как чистые кристаллы позволяют Эссенция воспроизводить структуру эталонного объекта, кристаллы Prima Materia (Первозданной материи) позволяют создавать новый независимый объект. Этот процесс кажется $(bold)a lot more$() дороже, чем репликация, но также открывает целый мир новых возможностей."
+    },
+    {
+      "type": "spotlight",
+      "item": "theurgy:prima_materia_crystal_stirrer",
+      "text": "Чтобы $(bold)transmute$() предметы в Тигеле, перемешайте $(item)Prima Materia Crystal Stirrer$() щелкнув правой кнопкой мыши по кипящему котлу (тигелю). Перемешайте несколько раз, чтобы увеличить время добавления предметов. Ремесло будет работать, только пока отображаются разноцветные пузыри. Небольшие части кристалла будут отламываться при каждом использовании и запускать процесс трансмутации."
+    },
+    {
+      "type": "theurgy:crucible_recipe",
+      "recipe": "theurgy:transmutation/iron_ingot_to_gold_ingot",
+      "tool": "theurgy:prima_materia_crystal_stirrer",
+      "title": "Gold Ingot"
+    },
+    {
+      "type": "theurgy:crucible_recipe",
+      "recipe": "theurgy:transmutation/gold_ingot_to_diamond",
+      "tool": "theurgy:prima_materia_crystal_stirrer",
+      "title": "Diamond"
+    },
+    {
+      "type": "theurgy:crucible_recipe",
+      "recipe": "theurgy:transmutation/diamond_to_emerald",
+      "tool": "theurgy:prima_materia_crystal_stirrer",
+      "title": "Emerald"
+    },
+    {
+      "type": "theurgy:crucible_recipe",
+      "recipe": "theurgy:transmutation/slime_ball",
+      "tool": "theurgy:prima_materia_crystal_stirrer",
+      "title": "Slime Ball"
+    },
+    {
+      "type": "theurgy:crucible_recipe",
+      "recipe": "theurgy:transmutation/blaze_rod",
+      "tool": "theurgy:prima_materia_crystal_stirrer",
+      "title": "Blaze Rod"
+    },
+    {
+      "type": "theurgy:crucible_recipe",
+      "recipe": "theurgy:transmutation/ender_pearl",
+      "tool": "theurgy:prima_materia_crystal_stirrer",
+      "title": "Ender Pearl"
+    },
+    {
+      "type": "theurgy:crucible_recipe",
+      "recipe": "theurgy:transmutation/ghast_tear",
+      "tool": "theurgy:prima_materia_crystal_stirrer",
+      "title": "Ghast Tear"
+    },
+    {
+      "type": "theurgy:crucible_recipe",
+      "recipe": "theurgy:transmutation/magma_cream",
+      "tool": "theurgy:prima_materia_crystal_stirrer",
+      "title": "Magma Cream"
+    },
+    {
+      "type": "theurgy:crucible_recipe",
+      "recipe": "theurgy:transmutation/wither_skeleton_skull",
+      "tool": "theurgy:prima_materia_crystal_stirrer",
+      "title": "Wither Skeleton Skull"
+    },
+    {
+      "type": "text",
+      "title": "But wait, there's more!",
+      "text": "Чтобы найти еще много рецептов трансмутации, используйте JEI для проверки всех вариантов использования $(thing)Crucible$()."
+    }
+  ]
+}

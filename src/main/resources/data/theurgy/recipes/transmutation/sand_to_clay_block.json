@@ -5,12 +5,12 @@
   },
   "essentia": [
     {
-      "item": "theurgy:terra_essentia",
-      "count": 3
-    },
-    {
       "item": "theurgy:aqua_essentia",
       "count": 4
+    },
+    {
+      "item": "theurgy:terra_essentia",
+      "count": 3
     }
   ],
   "result": {

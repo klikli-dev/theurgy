@@ -1,15 +1,15 @@
 {
   "type": "theurgy:essentia",
   "ingredient": {
-    "tag": "forge:glass"
+    "tag": "forge:glass_panes"
   },
   "essentia": [
     {
-      "item": "theurgy:terra_essentia",
+      "item": "theurgy:ignis_essentia",
       "count": 1
     },
     {
-      "item": "theurgy:ignis_essentia",
+      "item": "theurgy:terra_essentia",
       "count": 1
     }
   ]

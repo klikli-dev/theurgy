@@ -59,6 +59,10 @@ public class TagRegistry {
     public static final ITag<Item> RODS_WOODEN =
             makeItemTag(new ResourceLocation("forge", "rods/wooden"));
 
+    public static final ITag<Item> ITEMS_DIRT =
+            makeItemTag(new ResourceLocation("forge", "dirt"));
+    public static final ITag<Item> ITEMS_STORAGE_BLOCKS_CLAY =
+            makeItemTag(new ResourceLocation("forge", "storage_blocks/clay"));
 
     //Entity Tags
 

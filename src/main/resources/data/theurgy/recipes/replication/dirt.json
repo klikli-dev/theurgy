@@ -1,5 +1,5 @@
 {
-  "type": "theurgy:essentia",
+  "type": "theurgy:replication",
   "ingredient": {
     "tag": "forge:dirt"
   },
@@ -8,5 +8,9 @@
       "item": "theurgy:terra_essentia",
       "count": 1
     }
-  ]
+  ],
+  "result": {
+    "tag": "forge:dirt",
+    "count": 2
+  }
 }

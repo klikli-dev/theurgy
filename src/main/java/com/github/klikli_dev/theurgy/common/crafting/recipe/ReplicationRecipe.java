@@ -47,6 +47,14 @@ public class ReplicationRecipe extends CrucibleRecipe {
 
     //region Overrides
     @Override
+    public ItemStack getCraftingResult(CrucibleItemStackFakeInventory inv) {
+        //replication should return what it got, instead of the default tag output
+        ItemStack copy = inv.getStackInSlot(0).copy();
+        copy.setCount(this.getRecipeOutput().getCount());
+        return copy;
+    }
+
+    @Override
     public IRecipeSerializer<?> getSerializer() {
         return SERIALIZER;
     }

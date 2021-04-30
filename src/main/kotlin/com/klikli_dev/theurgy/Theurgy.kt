@@ -21,6 +21,7 @@
  */
 package com.klikli_dev.theurgy
 
+import net.minecraft.util.ResourceLocation
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent
 import net.minecraftforge.fml.event.lifecycle.FMLDedicatedServerSetupEvent
@@ -47,4 +48,6 @@ object Theurgy {
     private fun serverSetup(@Suppress("UNUSED_PARAMETER") event: FMLDedicatedServerSetupEvent) {
         LOGGER.info("Dedicated server setup complete.")
     }
+
+    fun id(path: String): ResourceLocation = ResourceLocation(MOD_ID, path)
 }

@@ -38,7 +38,7 @@ object TheurgyDataGenerators {
         }
 
         if (event.includeServer()) {
-            //generator.addProvider(AdvancementsGenerator(generator))
+            generator.addProvider(AdvancementsGenerator(generator))
         }
     }
 }

@@ -22,32 +22,18 @@
 
 package com.klikli_dev.theurgy.datagen
 
-import net.minecraftforge.eventbus.api.SubscribeEvent
-import net.minecraftforge.fml.common.Mod
-import net.minecraftforge.fml.event.lifecycle.GatherDataEvent
+import com.klikli_dev.theurgy.Theurgy
+import net.minecraft.data.BlockTagsProvider
+import net.minecraft.data.DataGenerator
+import net.minecraftforge.common.data.ExistingFileHelper
 
 /**
- * See also https://github.com/TheOnlyTails/RubyMod/blob/master/src/main/kotlin/com/theonlytails/rubymod/datagen/DataGenerators.kt
+ * See https://github.com/TheOnlyTails/RubyMod/blob/master/src/main/kotlin/com/theonlytails/rubymod/datagen/BlockTagDataGenerator.kt
  */
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
-object TheurgyDataGenerators {
-    @SubscribeEvent
-    fun gatherData(event: GatherDataEvent) {
-        val generator = event.generator
-        val helper = event.existingFileHelper
+class BlockTagDataGenerator(generator: DataGenerator, helper: ExistingFileHelper) :
+    BlockTagsProvider(generator, Theurgy.MOD_ID, helper) {
 
-        if (event.includeClient()) {
-            generator.addProvider(LangGenerator.English(generator))
-        }
-
-        if (event.includeServer()) {
-            val blockTags = BlockTagDataGenerator(generator, helper)
-            val itemModels = ItemModelsGenerator(generator, helper)
-
-            generator.addProvider(AdvancementsGenerator(generator))
-            generator.addProvider(blockTags)
-            generator.addProvider(ItemTagGenerator(generator, blockTags, helper))
-            generator.addProvider(itemModels)
-        }
+    override fun registerTags() {
+        //getOrCreateBuilder(Blocks.ORES).add(BlockRegistry.myOre)
     }
 }

@@ -22,32 +22,33 @@
 
 package com.klikli_dev.theurgy.datagen
 
-import net.minecraftforge.eventbus.api.SubscribeEvent
-import net.minecraftforge.fml.common.Mod
-import net.minecraftforge.fml.event.lifecycle.GatherDataEvent
+import com.klikli_dev.theurgy.Theurgy
+import net.minecraft.data.DataGenerator
+import net.minecraftforge.client.model.generators.ItemModelProvider
+import net.minecraftforge.client.model.generators.ModelFile
+import net.minecraftforge.common.data.ExistingFileHelper
 
-/**
- * See also https://github.com/TheOnlyTails/RubyMod/blob/master/src/main/kotlin/com/theonlytails/rubymod/datagen/DataGenerators.kt
- */
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
-object TheurgyDataGenerators {
-    @SubscribeEvent
-    fun gatherData(event: GatherDataEvent) {
-        val generator = event.generator
-        val helper = event.existingFileHelper
+class ItemModelsGenerator(generator: DataGenerator, helper: ExistingFileHelper) :
+    ItemModelProvider(generator, Theurgy.MOD_ID, helper) {
 
-        if (event.includeClient()) {
-            generator.addProvider(LangGenerator.English(generator))
-        }
+    override fun registerModels() {
+        registerItemGenerated("grimoire")
+    }
 
-        if (event.includeServer()) {
-            val blockTags = BlockTagDataGenerator(generator, helper)
-            val itemModels = ItemModelsGenerator(generator, helper)
+    private fun registerItemGenerated(name: String) {
+        getBuilder(name)
+            .parent(ModelFile.UncheckedModelFile("item/generated"))
+            .texture("layer0", Theurgy.id("items/$name"))
+    }
 
-            generator.addProvider(AdvancementsGenerator(generator))
-            generator.addProvider(blockTags)
-            generator.addProvider(ItemTagGenerator(generator, blockTags, helper))
-            generator.addProvider(itemModels)
-        }
+    private fun registerItemHandheld(name: String) {
+        getBuilder(name)
+            .parent(ModelFile.UncheckedModelFile("item/handheld"))
+            .texture("layer0", Theurgy.id("items/$name"))
+    }
+
+    private fun registerBlockItem(name: String) {
+        getBuilder(name)
+            .parent(ModelFile.UncheckedModelFile("block/$name"))
     }
 }

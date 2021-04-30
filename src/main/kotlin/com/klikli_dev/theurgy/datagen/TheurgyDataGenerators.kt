@@ -34,7 +34,7 @@ object TheurgyDataGenerators {
         val helper = event.existingFileHelper
 
         if (event.includeClient()) {
-            //generator.addProvider(LangGenerator.English(generator))
+            generator.addProvider(LangGenerator.English(generator))
         }
 
         if (event.includeServer()) {

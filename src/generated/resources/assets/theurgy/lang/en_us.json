@@ -1,4 +1,6 @@
 {
+  "item.patchouli.guide_book.tooltip": "Test without shift.",
+  "item.patchouli.guide_book.tooltip.shift": "Test with shift.",
   "item.theurgy.grimoire": "The Hermetica",
   "itemGroup.theurgy": "Theurgy",
   "message.theurgy.command.help.reply": "Stuck or need help? \u00A76\u00A7lClick this message to visit our Discord!\u00A7r",
@@ -19,5 +21,6 @@
   "theurgy.page.introduction.4.title": "Aether",
   "theurgy.page.introduction.5.text": "The concept, that every object oscillates at a certain frequency. Once the frequency is known, finding alike objects is trivial.",
   "theurgy.page.introduction.5.title": "Resonance",
-  "theurgy.page.introduction.name": "Introduction"
+  "theurgy.page.introduction.name": "Introduction",
+  "tooltip.theurgy.shift_for_more_information": "\u00A7oPress \u00A7lShift\u00A7r \u00A7ofor more information.\u00A7r"
 }

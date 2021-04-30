@@ -21,6 +21,7 @@
  */
 package com.klikli_dev.theurgy
 
+import com.klikli_dev.theurgy.registries.TooltipRegistry.withTooltip
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent
@@ -28,6 +29,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLDedicatedServerSetupEvent
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 import thedarkcolour.kotlinforforge.forge.MOD_BUS
+import vazkii.patchouli.api.PatchouliAPI
 
 @Mod(Theurgy.MOD_ID)
 object Theurgy {
@@ -44,6 +46,10 @@ object Theurgy {
 
     private fun commonSetup(@Suppress("UNUSED_PARAMETER") event: FMLCommonSetupEvent) {
         LOGGER.info("Common setup complete.")
+
+        PatchouliAPI.get().getBookStack(id("grimoire")).item.withTooltip(true) { stack ->
+            stack.tag?.getString("patchouli:book") == "theurgy:grimoire"
+        };
     }
 
     private fun serverSetup(@Suppress("UNUSED_PARAMETER") event: FMLDedicatedServerSetupEvent) {

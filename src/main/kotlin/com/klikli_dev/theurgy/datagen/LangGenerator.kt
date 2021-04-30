@@ -42,8 +42,11 @@ abstract class LangGenerator(generator: DataGenerator, locale: String) :
             //Essentia
 
             //Overlay Tooltips
+            add("tooltip.${Theurgy.MOD_ID}.shift_for_more_information", "§oPress §lShift§r §ofor more information.§r");
+            add("item.patchouli.guide_book.tooltip", "Test without shift.");
+            add("item.patchouli.guide_book.tooltip.shift", "Test with shift.");
 
-            //Command replys
+            //Command replies
 
             add("message.${Theurgy.MOD_ID}.command.help.reply", "Stuck or need help? §6§lClick this message to visit our Discord!§r");
 

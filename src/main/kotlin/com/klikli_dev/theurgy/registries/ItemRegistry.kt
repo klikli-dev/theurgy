@@ -27,4 +27,5 @@ import thedarkcolour.kotlinforforge.forge.KDeferredRegister
 
 object ItemRegistry {
     val items = KDeferredRegister(ForgeRegistries.ITEMS, Theurgy.MOD_ID)
+
 }

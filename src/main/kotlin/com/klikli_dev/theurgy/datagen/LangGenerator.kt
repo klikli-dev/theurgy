@@ -43,6 +43,10 @@ abstract class LangGenerator(generator: DataGenerator, locale: String) :
 
             //Overlay Tooltips
 
+            //Command replys
+
+            add("message.${Theurgy.MOD_ID}.command.help.reply", "Stuck or need help? §6§lClick this message to visit our Discord!§r");
+
             //Jei
 
             //Patchouli

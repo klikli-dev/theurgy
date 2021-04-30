@@ -1,6 +1,7 @@
 {
   "item.theurgy.grimoire": "The Hermetica",
   "itemGroup.theurgy": "Theurgy",
+  "message.theurgy.command.help.reply": "Stuck or need help? \u00A76\u00A7lClick this message to visit our Discord!\u00A7r",
   "theurgy.book.landing": "The definite guide for the aspiring Theurgist. $(br2)For help or to give feedback please join us in Discord $(l:https://invite.gg/klikli)https://invite.gg/klikli$().",
   "theurgy.book.subtitle": "A Theurgist's Guide.",
   "theurgy.category.getting_started.description": "In this chapter the reader learns how to get started in Theurgy.",

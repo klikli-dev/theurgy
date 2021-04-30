@@ -1,0 +1,37 @@
+{
+  "name": "Introduction",
+  "icon": "theurgy:textures/item/grimoire.png",
+  "category": "10_getting_started",
+  "sortnum": 10,
+  "pages": [
+    {
+      "type": "text",
+      "text": "Dearest reader,$(br2)The volume before you shall be your trusted guide through the mysteries of Theurgy. Before we start our journey, let me introduce the most important terms to you."
+    },
+    {
+      "type": "text",
+      "title": "Theurgy",
+      "text": "Called \"miracle-working\" by the uneducated. Referred to in educated circles as Hermeticism, Thaumaturgy or Alchemy, it is the science of the invisible forces that govern our universe."
+    },
+    {
+      "type": "text",
+      "title": "Theurgist",
+      "text": "Known also as Hermeticist, Thaumaturge, Alchemist. Often seen as a performer of miracles, but simply a person learned in the science of Theurgy."
+    },
+    {
+      "type": "text",
+      "title": "Essentia",
+      "text": "The indivisible elements $(i)everything$() is made of. Control over essentia equals (almost) total control over matter."
+    },
+    {
+      "type": "text",
+      "title": "Aether",
+      "text": "The invisible force that drives and controls the universe. It permeates every object and being. An obvious choice as energy source, if one knows how to access it."
+    },
+    {
+      "type": "text",
+      "title": "Resonance",
+      "text": "The concept, that every object oscillates at a certain frequency. Once the frequency is known, finding alike objects is trivial."
+    }
+  ]
+}

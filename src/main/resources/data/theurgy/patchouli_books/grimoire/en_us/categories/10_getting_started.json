@@ -1,6 +1,6 @@
 {
   "name": "Getting Started",
-  "description": "In this chapter the prospective $(thing)Hermeticist$() is introduced to the basic concepts of classical alchemy and learns how to craft the tools for their trade. For help or to give feedback please join us in Discord $(l:https://invite.gg/klikli)https://invite.gg/klikli$().",
-  "icon": "theurgy:ignis_essentia",
+  "description": "In this chapter the reader learns how to get started in Theurgy.",
+  "icon": "theurgy:textures/item/grimoire.png",
   "sortnum": 10
 }

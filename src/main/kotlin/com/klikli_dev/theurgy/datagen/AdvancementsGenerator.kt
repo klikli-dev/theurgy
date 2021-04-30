@@ -41,7 +41,7 @@ import java.nio.file.Path
  * See also https://github.com/Sirttas/ElementalCraft/blob/1.16/src/main/java/sirttas/elementalcraft/datagen/ECAdvancementProvider.java
  */
 class AdvancementsGenerator(private val generator: DataGenerator) : IDataProvider {
-    private val GSON = GsonBuilder().setPrettyPrinting().create()
+    private val gson = GsonBuilder().setPrettyPrinting().create()
 
     /**
      * Performs this provider's action.
@@ -51,7 +51,7 @@ class AdvancementsGenerator(private val generator: DataGenerator) : IDataProvide
         val path = generator.outputFolder
 
         //TODO: generate advancements for relevant items
-        //IDataProvider.save(GSON, cache, itemPickup(item).serialize(), getPickupPath(path, item))
+        //IDataProvider.save(gson, cache, itemPickup(item).serialize(), getPickupPath(path, item))
     }
 
     /**

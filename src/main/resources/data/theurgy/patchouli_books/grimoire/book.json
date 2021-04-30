@@ -1,7 +1,8 @@
 {
   "name": "Hermetica",
   "version": "1",
-  "landing_text": "The definite guide for the aspiring Theurgist. $(br2)For help or to give feedback please join us in Discord $(l:https://invite.gg/klikli)https://invite.gg/klikli$().",
+  "landing_text": "theurgy.book.landing",
+  "subtitle": "theurgy.book.subtitle",
   "model": "theurgy:grimoire",
   "book_texture": "patchouli:textures/gui/book_gray.png",
   "filler_texture": "theurgy:textures/gui/1px_transparent.png",

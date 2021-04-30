@@ -1,12 +1,12 @@
 {
-  "name": "Divination Rods",
+  "name": "theurgy.page.divination_rods.name",
   "icon": "TODO: Add divination rod icon",
   "category": "10_getting_started",
   "sortnum": 20,
   "pages": [
     {
       "type": "text",
-      "text": ""
-    },
+      "text": "theurgy.page.divination_rods.0.text"
+    }
   ]
 }

@@ -1,6 +1,6 @@
 {
   "name": "Getting Started",
-  "description": "In this chapter the reader learns how to get started in Theurgy.",
+  "description": "theurgy.category.getting_started.description",
   "icon": "theurgy:textures/item/grimoire.png",
   "sortnum": 10
 }

@@ -19,7 +19,6 @@
  * OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
  * OTHER DEALINGS IN THE SOFTWARE.
  */
-
 package com.klikli_dev.theurgy.registries
 
 import com.klikli_dev.theurgy.Theurgy
@@ -28,6 +27,4 @@ import thedarkcolour.kotlinforforge.forge.KDeferredRegister
 
 object ItemRegistry {
     val items = KDeferredRegister(ForgeRegistries.ITEMS, Theurgy.MOD_ID)
-
-
 }

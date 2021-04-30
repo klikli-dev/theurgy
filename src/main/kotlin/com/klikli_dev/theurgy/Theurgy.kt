@@ -26,6 +26,7 @@ import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent
 import net.minecraftforge.fml.event.lifecycle.FMLDedicatedServerSetupEvent
 import org.apache.logging.log4j.LogManager
+import org.apache.logging.log4j.Logger
 import thedarkcolour.kotlinforforge.forge.MOD_BUS
 
 @Mod(Theurgy.MOD_ID)
@@ -33,7 +34,7 @@ object Theurgy {
 
     const val MOD_ID: String = "theurgy"
 
-    val LOGGER = LogManager.getLogger(MOD_ID)
+    val LOGGER: Logger = LogManager.getLogger(MOD_ID)
 
     init {
         //register event buses

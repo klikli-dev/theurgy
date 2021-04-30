@@ -45,6 +45,7 @@ object TheurgyDataGenerators {
             val itemModels = ItemModelsGenerator(generator, helper)
 
             generator.addProvider(AdvancementsGenerator(generator))
+            generator.addProvider(BlockLootTablesGenerator(generator))
             generator.addProvider(blockTags)
             generator.addProvider(ItemTagGenerator(generator, blockTags, helper))
             generator.addProvider(itemModels)

@@ -32,10 +32,10 @@ abstract class LangGenerator(generator: DataGenerator, locale: String) :
     class English(generator: DataGenerator) : LangGenerator(generator, "en_us") {
         override fun addTranslations() {
             //Item Groups
-            add("itemGroup.theurgy", "Theurgy");
+            add("itemGroup.${Theurgy.MOD_ID}", "Theurgy");
 
             //Items
-            add("item.theurgy.grimoire", "The Hermetica");
+            add("item.${Theurgy.MOD_ID}.grimoire", "The Hermetica");
 
             //Blocks
 
@@ -49,60 +49,60 @@ abstract class LangGenerator(generator: DataGenerator, locale: String) :
 
 
             add(
-                "theurgy.book.landing",
+                "${Theurgy.MOD_ID}.book.landing",
                 "The definite guide for the aspiring Theurgist. $(br2)For help or to give feedback please join " +
                         "us in Discord $(l:https://invite.gg/klikli)https://invite.gg/klikli$()."
             )
-            add("theurgy.book.subtitle", "A Theurgist's Guide.")
+            add("${Theurgy.MOD_ID}.book.subtitle", "A Theurgist's Guide.")
 
             add(
-                "theurgy.category.getting_started.description",
+                "${Theurgy.MOD_ID}.category.getting_started.description",
                 "In this chapter the reader learns how to get started in Theurgy."
             )
 
-            add("theurgy.page.introduction.name", "Introduction")
+            add("${Theurgy.MOD_ID}.page.introduction.name", "Introduction")
             add(
-                "theurgy.page.introduction.0.text",
+                "${Theurgy.MOD_ID}.page.introduction.0.text",
                 "Dearest reader,$(br2)The volume before you shall be your trusted guide through the mysteries of Theurgy. " +
                         "Before we start our journey, let me introduce the most important terms to you."
             )
-            add("theurgy.page.introduction.1.title", "Theurgy")
+            add("${Theurgy.MOD_ID}.page.introduction.1.title", "Theurgy")
             add(
-                "theurgy.page.introduction.1.text",
+                "${Theurgy.MOD_ID}.page.introduction.1.text",
                 "Called \"miracle-working\" by the uneducated. Referred to in educated circles as Hermeticism, Thaumaturgy or Alchemy, " +
                         "it is the science of the invisible forces that govern our universe."
             )
-            add("theurgy.page.introduction.2.title", "Theurgist")
+            add("${Theurgy.MOD_ID}.page.introduction.2.title", "Theurgist")
             add(
-                "theurgy.page.introduction.2.text",
+                "${Theurgy.MOD_ID}.page.introduction.2.text",
                 "Known also as Hermeticist, Thaumaturge, Alchemist. Often seen as a performer of miracles, " +
                         "but simply a person learned in the science of Theurgy."
             )
-            add("theurgy.page.introduction.3.title", "Essentia")
+            add("${Theurgy.MOD_ID}.page.introduction.3.title", "Essentia")
             add(
-                "theurgy.page.introduction.3.text",
+                "${Theurgy.MOD_ID}.page.introduction.3.text",
                 "The indivisible elements $(o)everything$() is made of. Control over essentia equals (almost) total control over matter."
             )
-            add("theurgy.page.introduction.4.title", "Aether")
+            add("${Theurgy.MOD_ID}.page.introduction.4.title", "Aether")
             add(
-                "theurgy.page.introduction.4.text",
+                "${Theurgy.MOD_ID}.page.introduction.4.text",
                 "The invisible force that drives and controls the universe. It permeates every object and being. " +
                         "An obvious choice as energy source, if one knows how to access it."
             )
-            add("theurgy.page.introduction.5.title", "Resonance")
+            add("${Theurgy.MOD_ID}.page.introduction.5.title", "Resonance")
             add(
-                "theurgy.page.introduction.5.text",
+                "${Theurgy.MOD_ID}.page.introduction.5.text",
                 "The concept, that every object oscillates at a certain frequency. Once the frequency is known, finding alike objects is trivial."
             )
 
-            add("theurgy.page.divination_rods.name", "Divination Rods")
-            add("theurgy.page.divination_rods.0.title", "")
-            add("theurgy.page.divination_rods.0.text", "")
+            add("${Theurgy.MOD_ID}.page.divination_rods.name", "Divination Rods")
+            add("${Theurgy.MOD_ID}.page.divination_rods.0.title", "")
+            add("${Theurgy.MOD_ID}.page.divination_rods.0.text", "")
 
-//            add("theurgy.page.introduction.x.title", "")
-//            add("theurgy.page.introduction.x.text", "")
+//            add("${Theurgy.MOD_ID}.page.introduction.x.title", "")
+//            add("${Theurgy.MOD_ID}.page.introduction.x.text", "")
 //
-//            add("theurgy.page.x.name", "")
+//            add("${Theurgy.MOD_ID}.page.x.name", "")
         }
     }
 }

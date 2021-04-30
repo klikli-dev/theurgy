@@ -1,6 +1,6 @@
 {
   "criteria": {
-    "occultism_present": {
+    "theurgy_present": {
       "trigger": "minecraft:tick"
     }
   },

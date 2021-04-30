@@ -38,13 +38,13 @@ class ItemModelsGenerator(generator: DataGenerator, helper: ExistingFileHelper) 
     private fun registerItemGenerated(name: String) {
         getBuilder(name)
             .parent(ModelFile.UncheckedModelFile("item/generated"))
-            .texture("layer0", Theurgy.id("items/$name"))
+            .texture("layer0", Theurgy.id("item/$name"))
     }
 
     private fun registerItemHandheld(name: String) {
         getBuilder(name)
             .parent(ModelFile.UncheckedModelFile("item/handheld"))
-            .texture("layer0", Theurgy.id("items/$name"))
+            .texture("layer0", Theurgy.id("item/$name"))
     }
 
     private fun registerBlockItem(name: String) {

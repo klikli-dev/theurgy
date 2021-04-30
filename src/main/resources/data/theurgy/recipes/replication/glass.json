@@ -1,7 +1,7 @@
 {
-  "type": "theurgy:essentia",
+  "type": "theurgy:replication",
   "ingredient": {
-    "tag": "forge:glass_panes"
+    "tag": "forge:glass"
   },
   "essentia": [
     {
@@ -12,5 +12,9 @@
       "item": "theurgy:terra_essentia",
       "count": 1
     }
-  ]
+  ],
+  "result": {
+    "tag": "forge:glass",
+    "count": 2
+  }
 }

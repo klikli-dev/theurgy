@@ -58,6 +58,11 @@ public class TagRegistry {
     public static final ITag<Item> RODS_WOODEN = makeForgeItemTag("rods/wooden");
     public static final ITag<Item> END_CRYSTAL_SWORDS = makeItemTag(new ResourceLocation(Theurgy.MODID, "end_crystal_swords"));
 
+    public static final ITag<Item> ITEMS_DIRT =
+            makeItemTag(new ResourceLocation("forge", "dirt"));
+    public static final ITag<Item> ITEMS_STORAGE_BLOCKS_CLAY =
+            makeItemTag(new ResourceLocation("forge", "storage_blocks/clay"));
+
     //Entity Tags
     public static final ITag<EntityType<?>> ENDERMEN = makeForgeEntityTag("endermen");
 

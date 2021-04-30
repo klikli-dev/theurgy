@@ -15,12 +15,12 @@
     {
       "type": "spotlight",
       "item": "theurgy:pure_crystal",
-      "text": "Pure crystals seem not to have any special requirements, so go ahead and place one down. If there are free adjacent blocks, new crystals will grow there after some time. Remember: $(italics)Patience is a virtue$()."
+      "text": "Pure crystals can grow into other crystal types, under the right conditions. If all requirements are met and there are free adjacent blocks, new crystals will grow there after some time. Remember: $(italics)Patience is a virtue$()."
     },
     {
       "type": "text",
       "title": "Essentia Crystals",
-      "text": "Growing pure crystals is certainly an achievement, but sadly not overly useful on its own. Our goal is clear: We want to gain more usable Essentia. We shall therefore attempt to create $(thing)crystals that hold only one type of Essentia$(). To this end, we need to create environments that encourage crystals to $(bold)draw in$() that one type of Essentia, and then grow."
+      "text": "Our goal is clear: We want to gain more usable Essentia. We shall therefore attempt to create $(thing)crystals that hold only one type of Essentia$(). To this end, we need to create environments that encourage crystals to $(bold)draw in$() that one type of Essentia, and then grow."
     },
     {
       "type": "spotlight",

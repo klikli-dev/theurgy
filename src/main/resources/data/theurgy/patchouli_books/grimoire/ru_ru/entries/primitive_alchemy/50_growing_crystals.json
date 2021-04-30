@@ -15,12 +15,12 @@
     {
       "type": "spotlight",
       "item": "theurgy:pure_crystal",
-      "text": "Кажется, что чистые кристаллы не предъявляют никаких особых требований, так что положите один вниз. Если есть свободные соседние блоки, через некоторое время там вырастут новые кристаллы. Помнить: $(italics)Patience is a virtue$()."
+      "text": "Pure crystals can grow into other crystal types, under the right conditions. If all requirements are met and there are free adjacent blocks, new crystals will grow there after some time. Remember: $(italics)Patience is a virtue$()."
     },
     {
       "type": "text",
       "title": "Essentia Crystals",
-      "text": "Выращивание чистых кристаллов, безусловно, является достижением, но, к сожалению, само по себе не очень полезно. Наша цель ясна: мы хотим получить больше полезной Эссенции. Поэтому мы попытаемся создать $(thing)crystals that hold only one type of Essentia$(). Для этого нам нужно создать среду, которая побуждает кристаллы $(bold)draw in$() тот один вид Эссенции, а затем выращивать."
+      "text": "Наша цель ясна: мы хотим получить больше полезной Эссенции. Поэтому мы попытаемся создать $(thing)crystals that hold only one type of Essentia$(). Для этого нам нужно создать среду, которая побуждает кристаллы $(bold)draw in$() тот один вид Эссенции, а затем выращивать."
     },
     {
       "type": "spotlight",

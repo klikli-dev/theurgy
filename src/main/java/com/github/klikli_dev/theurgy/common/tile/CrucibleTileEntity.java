@@ -240,14 +240,16 @@ public class CrucibleTileEntity extends NetworkedTileEntity implements ITickable
                                     .extractEssentia(essentia.getItem(), essentia.getCount() * craftingCount, false);
                         }
 
+                        //find crafting result
+                        ItemStack result = recipe.get().getCraftingResult(this.fakeInventory);
+
                         //take input item from stack
                         item.getItem().shrink(craftingCount);
                         //if stack is empty, despawn entity
                         if (item.getItem().isEmpty())
                             item.remove();
 
-                        //get crafting result
-                        ItemStack result = recipe.get().getCraftingResult(this.fakeInventory);
+                        //set result count
                         result.setCount(result.getCount() * craftingCount);
 
                         //InventoryHelper.spawnItemStack(this.world, this.pos.getX() + 0.5, this.pos.getX() + 1.5, this.pos.getZ() + 0.5, result);

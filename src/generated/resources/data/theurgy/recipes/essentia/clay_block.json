@@ -1,15 +1,15 @@
 {
   "type": "theurgy:essentia",
   "ingredient": {
-    "item": "minecraft:clay"
+    "tag": "forge:storage_blocks/clay"
   },
   "essentia": [
     {
-      "item": "theurgy:terra_essentia",
+      "item": "theurgy:aqua_essentia",
       "count": 4
     },
     {
-      "item": "theurgy:aqua_essentia",
+      "item": "theurgy:terra_essentia",
       "count": 4
     }
   ]

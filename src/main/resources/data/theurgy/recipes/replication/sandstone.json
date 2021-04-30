@@ -1,0 +1,16 @@
+{
+  "type": "theurgy:replication",
+  "ingredient": {
+    "tag": "forge:sandstone"
+  },
+  "essentia": [
+    {
+      "item": "theurgy:terra_essentia",
+      "count": 1
+    }
+  ],
+  "result": {
+    "tag": "forge:sandstone",
+    "count": 2
+  }
+}

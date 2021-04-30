@@ -1,7 +1,0 @@
-{
-  "parent": "theurgy:block/crystal",
-  "textures": {
-    "particle": "theurgy:block/terra_crystal",
-    "texture": "theurgy:block/terra_crystal"
-  }
-}

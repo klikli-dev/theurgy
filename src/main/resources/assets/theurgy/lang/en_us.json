@@ -1,42 +1,15 @@
 {
   "_comment": "Item Groups",
   "itemGroup.theurgy": "Theurgy",
+
   "_comment": "Items",
   "item.theurgy.grimoire": "Hermetica",
-  "item.theurgy.iron_stirrer": "Iron Stirrer",
-  "item.theurgy.pure_crystal_stirrer": "Pure Crystal Stirrer",
-  "item.theurgy.prima_materia_crystal_stirrer": "Prima Materia Crystal Stirrer",
-  "item.theurgy.essentia_gauge": "Essentia Gauge",
-  "item.theurgy.essentia_gauge.tooltip": "Look at a machine to display it's Essentia storage. Right-Click and hold to display the chunk's diffused Essentia.",
-  "item.theurgy.crystal_substrate": "Crystal Substrate",
+
   "_comment": "Blocks",
-  "block.theurgy.crucible": "Crucible",
-  "block.theurgy.pure_crystal": "Pure Crystal",
-  "block.theurgy.prima_materia_crystal": "Prima Materia Crystal",
-  "block.theurgy.aer_crystal": "Aer Crystal",
-  "block.theurgy.aqua_crystal": "Aqua Crystal",
-  "block.theurgy.ignis_crystal": "Ignis Crystal",
-  "block.theurgy.terra_crystal": "Terra Crystal",
+
   "_comment": "Essentia",
-  "item.theurgy.aer_essentia": "Aer Essentia",
-  "item.theurgy.aqua_essentia": "Aqua Essentia",
-  "item.theurgy.ignis_essentia": "Ignis Essentia",
-  "item.theurgy.terra_essentia": "Terra Essentia",
+
   "_comment": "Overlay Tooltips",
-  "tooltip.theurgy.essentia_information.block.heading": "Construct Essentia: %s",
-  "tooltip.theurgy.essentia_information.block.content": "%s: %d",
-  "tooltip.theurgy.essentia_information.block.no_content": "No essentia",
-  "tooltip.theurgy.essentia_information.chunk.heading": "Chunk Essentia",
-  "tooltip.theurgy.essentia_information.chunk.content": "%s: %d",
-  "tooltip.theurgy.essentia_information.chunk.no_content": "No essentia",
+
   "_comment": "Jei",
-  "jei.theurgy.essentia_recipe": "Essentia Smelting",
-  "jei.theurgy.purification_recipe": "Purification",
-  "jei.theurgy.replication_recipe": "Replication",
-  "jei.theurgy.transmutation_recipe": "Transmutation",
-  "jei.theurgy.ingredient.prima_materia_crystal.description": "View the §6Hermetica§r for more information. Place a Pure Crystal in a chunk with 1000 diffused Essentia of each type. The crystal will create Prima Materia Crystals on adjacent non-floor (ceiling, wall) blocks. To diffuse Essentia into a chunk, dissolve items in the Crucible, over time the dissolved Essentia will diffuse.",
-  "jei.theurgy.ingredient.aer_crystal.description": "Place a Pure Crystal in the right conditions and it will grow Aer Crystals on adjacent blocks. View the §6Hermetica§r for more information.",
-  "jei.theurgy.ingredient.aqua_crystal.description": "Place a Pure Crystal in the right conditions and it will grow Aqua Crystals on adjacent blocks. View the §6Hermetica§r for more information.",
-  "jei.theurgy.ingredient.ignis_crystal.description": "Place a Pure Crystal in the right conditions and it will grow Ignis Crystals on adjacent blocks. View the §6Hermetica§r for more information.",
-  "jei.theurgy.ingredient.terra_crystal.description": "Place a Pure Crystal in the right conditions and it will grow Terra Crystals on adjacent blocks. View the §6Hermetica§r for more information."
 }

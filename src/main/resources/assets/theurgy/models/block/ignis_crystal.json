@@ -1,7 +1,0 @@
-{
-  "parent": "theurgy:block/crystal",
-  "textures": {
-    "particle": "theurgy:block/ignis_crystal",
-    "texture": "theurgy:block/ignis_crystal"
-  }
-}

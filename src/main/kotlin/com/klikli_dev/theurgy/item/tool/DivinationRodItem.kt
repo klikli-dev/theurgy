@@ -21,7 +21,6 @@
  */
 package com.klikli_dev.theurgy.item.tool
 
-import com.klikli_dev.theurgy.Theurgy
 import com.klikli_dev.theurgy.client.divination.ScanManager
 import com.klikli_dev.theurgy.client.render.SelectedBlockRenderer
 import com.klikli_dev.theurgy.registry.SoundRegistry
@@ -57,45 +56,34 @@ class DivinationRodItem
         val stack: ItemStack = context.item
         if (player.isSneaking) {
             val state: BlockState = world.getBlockState(pos)
-            if (!state.block.isAir(state, world, pos)) {
-                //TODO: handle block type and harvest level
 
-                if (this.itemTier.harvestLevel >= state.block.getHarvestLevel(state)) {
-                    if (!world.isRemote) {
-                        val translationKey = state.block.translationKey
-                        stack.orCreateTag.putString("linkedBlockId", state.block.registryName.toString())
-                        stack.tag?.putFloat("linked", 1.0f)
-                        player.sendMessage(
-                            TranslationTextComponent(
-                                "${this.translationKey}.message.linked_block",
-                                TranslationTextComponent(translationKey)
-                            ), Util.DUMMY_UUID
-                        )
-                    }
-                    world.playSound(
-                        player, player.position, SoundRegistry.tuningFork,
-                        SoundCategory.PLAYERS, 1f, 1f
-                    )
-                } else {
-                    if (!world.isRemote) {
-                        //TODO: Useful response - mention if ore tier is the issue or if invalid block
-
-                        player.sendMessage(
-                            TranslationTextComponent("$translationKey.message.no_link_found"), Util.DUMMY_UUID
-                        )
-                    }
-                }
-                return ActionResultType.SUCCESS
-            } else {
-                if(!world.isRemote){
-                    //TODO: Unlink
-                    stack.tag?.putFloat("linked", 0.0f)
-                    stack.tag?.remove("linkedBlockId")
+            //TODO: handle block type and harvest level
+            if (this.itemTier.harvestLevel >= state.block.getHarvestLevel(state)) {
+                if (!world.isRemote) {
+                    val translationKey = state.block.translationKey
+                    stack.orCreateTag.putString("linkedBlockId", state.block.registryName.toString())
+                    stack.tag?.putFloat("linked", 1.0f)
                     player.sendMessage(
-                        TranslationTextComponent("$translationKey.message.unlinked_block"), Util.DUMMY_UUID
+                        TranslationTextComponent(
+                            "${this.translationKey}.message.linked_block",
+                            TranslationTextComponent(translationKey)
+                        ), Util.DUMMY_UUID
+                    )
+                }
+                world.playSound(
+                    player, player.position, SoundRegistry.tuningFork,
+                    SoundCategory.PLAYERS, 1f, 1f
+                )
+            } else {
+                if (!world.isRemote) {
+                    //TODO: Useful response - mention if ore tier is the issue or if invalid block
+
+                    player.sendMessage(
+                        TranslationTextComponent("$translationKey.message.no_link_found"), Util.DUMMY_UUID
                     )
                 }
             }
+            return ActionResultType.SUCCESS
         }
         return ActionResultType.PASS
     }
@@ -125,6 +113,15 @@ class DivinationRodItem
                     Util.DUMMY_UUID
                 )
             }
+        } else {
+            //if we shift-right click, we reset linked block
+            if (!world.isRemote) {
+                stack.tag?.putFloat("linked", 0.0f)
+                stack.tag?.remove("linkedBlockId")
+                player.sendMessage(
+                    TranslationTextComponent("$translationKey.message.unlinked_block"), Util.DUMMY_UUID
+                )
+            }
         }
 
         return ActionResult(ActionResultType.SUCCESS, stack)
@@ -137,8 +134,9 @@ class DivinationRodItem
 
         if (world.isRemote) {
             //TODO: finish scan
-             val result: BlockPos? = ScanManager.finishScan(player)
+            val result: BlockPos? = ScanManager.finishScan(player)
             if (result != null) {
+                //TODO: Store result to re-use
                 //TODO: show particle here instead
                 //Show debug visualization
                 SelectedBlockRenderer.selectBlock(result, System.currentTimeMillis() + 10000)
@@ -152,11 +150,11 @@ class DivinationRodItem
     }
 
     override fun onPlayerStoppedUsing(stack: ItemStack, world: World, entityLiving: LivingEntity?, timeLeft: Int) {
-        //player interrupted, so we can safely set not found on server
-       // stack.orCreateTag.putFloat("distance", NOT_FOUND)
+        //player interrupted, so we cancel scan
         if (world.isRemote) {
             ScanManager.cancelScan()
         }
+        //TODO: display particle here
         super.onPlayerStoppedUsing(stack, world, entityLiving, timeLeft)
     }
 

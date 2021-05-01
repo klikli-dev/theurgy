@@ -53,11 +53,12 @@ object Theurgy {
         SoundRegistry.sounds.register(MOD_BUS);
 
         //register event buses
+        MOD_BUS.addListener(Theurgy::clientSetup)
         MOD_BUS.addListener(Theurgy::commonSetup)
         MOD_BUS.addListener(Theurgy::serverSetup)
     }
 
-    private fun clientSetup(@Suppress("UNUSED_PARAMETER") event: FMLClientSetupEvent) {
+    private fun clientSetup( event: FMLClientSetupEvent) {
         logger.info("Client setup complete.")
 
         //register item model properties
@@ -66,7 +67,7 @@ object Theurgy {
             //Register item model properties
             ItemModelsProperties.registerProperty(
                 ItemRegistry.divinationRodT1,
-                ResourceLocation("linked")
+                id("linked")
             ) { itemStack: ItemStack, _, _ ->
                 itemStack.tag?.getFloat("linked") ?: 0.0f
             }

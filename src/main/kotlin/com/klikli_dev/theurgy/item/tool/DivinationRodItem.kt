@@ -29,10 +29,7 @@ import net.minecraft.block.BlockState
 import net.minecraft.client.util.ITooltipFlag
 import net.minecraft.entity.LivingEntity
 import net.minecraft.entity.player.PlayerEntity
-import net.minecraft.item.Item
-import net.minecraft.item.ItemStack
-import net.minecraft.item.ItemTier
-import net.minecraft.item.ItemUseContext
+import net.minecraft.item.*
 import net.minecraft.util.*
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.text.ITextComponent
@@ -47,6 +44,10 @@ class DivinationRodItem
         if (entityLiving.world.isRemote && entityLiving is PlayerEntity) {
             ScanManager.updateScan(entityLiving, false)
         }
+    }
+
+    override fun getUseAction(stack: ItemStack): UseAction {
+        return UseAction.BOW;
     }
 
     override fun onItemUse(context: ItemUseContext): ActionResultType {
@@ -89,6 +90,7 @@ class DivinationRodItem
                 if(!world.isRemote){
                     //TODO: Unlink
                     stack.tag?.putFloat("linked", 0.0f)
+                    stack.tag?.remove("linkedBlockId")
                     player.sendMessage(
                         TranslationTextComponent("$translationKey.message.unlinked_block"), Util.DUMMY_UUID
                     )
@@ -103,7 +105,6 @@ class DivinationRodItem
 
         if (!player.isSneaking) {
             if (stack.orCreateTag.contains("linkedBlockId")) {
-                stack.tag!!.putFloat("linked", 0.0f)
                 player.activeHand = hand
                 world.playSound(
                     player,
@@ -118,6 +119,7 @@ class DivinationRodItem
                     ScanManager.beginScan(player, ForgeRegistries.BLOCKS.getValue(id)!!)
                 }
             } else if (!world.isRemote) {
+                //TODO: ensure there is a message if there is no linked block
                 player.sendMessage(
                     TranslationTextComponent("$translationKey.message.no_linked_block"),
                     Util.DUMMY_UUID

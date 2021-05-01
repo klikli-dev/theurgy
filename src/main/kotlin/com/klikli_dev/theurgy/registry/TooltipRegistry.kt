@@ -20,7 +20,7 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.klikli_dev.theurgy.registries
+package com.klikli_dev.theurgy.registry
 
 import com.klikli_dev.theurgy.Theurgy
 import net.minecraft.client.gui.screen.Screen

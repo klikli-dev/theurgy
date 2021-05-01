@@ -4,7 +4,8 @@
   "item.theurgy.divination_rod_t1": "Crude Divination Rod",
   "item.theurgy.divination_rod_t1.message.linked_block": "Attuned to %s",
   "item.theurgy.divination_rod_t1.tooltip": "Can be used to find ores and other objects it can be attuned to.",
-  "item.theurgy.divination_rod_t1.tooltip.shift": "Shift+Right Click to scan for the attuned object.\nRight Click to show where the last found object is.",
+  "item.theurgy.divination_rod_t1.tooltip.attuned": "Can be used to find ores and other objects it can be attuned to.\nAttuned to: %s",
+  "item.theurgy.divination_rod_t1.tooltip.shift": "Shift + Right Click an object to attune the divination rod to it.\nShift + Right Click into the air to remove the attunement.\nRight Click + Hold (takes a few seconds!) to search for the attuned object.\nRight Click without holding to show the direction of the last found object.",
   "item.theurgy.grimoire": "The Hermetica",
   "itemGroup.theurgy": "Theurgy",
   "message.theurgy.command.help.reply": "Stuck or need help? \u00A76\u00A7lClick this message to visit our Discord!\u00A7r",
@@ -26,5 +27,6 @@
   "theurgy.page.introduction.5.text": "The concept, that every object oscillates at a certain frequency. Once the frequency is known, finding alike objects is trivial.",
   "theurgy.page.introduction.5.title": "Resonance",
   "theurgy.page.introduction.name": "Introduction",
+  "theurgy.subtitle.tuning_fork": "Tuning Fork Sound playing",
   "tooltip.theurgy.shift_for_more_information": "\u00A7oPress \u00A7lShift\u00A7r \u00A7ofor more information.\u00A7r"
 }

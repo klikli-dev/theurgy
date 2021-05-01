@@ -32,31 +32,52 @@ abstract class LangGenerator(generator: DataGenerator, locale: String) :
     class English(generator: DataGenerator) : LangGenerator(generator, "en_us") {
         override fun addTranslations() {
             //Item Groups
-            add("itemGroup.${Theurgy.MOD_ID}", "Theurgy");
+            add("itemGroup.${Theurgy.MOD_ID}", "Theurgy")
 
             //Items
-            add("item.${Theurgy.MOD_ID}.grimoire", "The Hermetica");
-            add("item.${Theurgy.MOD_ID}.divination_rod_t1", "Crude Divination Rod");
-            add("item.${Theurgy.MOD_ID}.divination_rod_t1.message.linked_block", "Attuned to %s");
+            add("item.${Theurgy.MOD_ID}.grimoire", "The Hermetica")
+            add("item.${Theurgy.MOD_ID}.divination_rod_t1", "Crude Divination Rod")
+            add("item.${Theurgy.MOD_ID}.divination_rod_t1.message.linked_block", "Attuned to %s")
 
             //Blocks
 
             //Essentia
 
             //Overlay Tooltips
-            add("tooltip.${Theurgy.MOD_ID}.shift_for_more_information", "§oPress §lShift§r §ofor more information.§r");
-            add("item.patchouli.guide_book.tooltip", "Craft or use command (available to all players) to obtain.");
-            add("item.patchouli.guide_book.tooltip.shift", "Use §o/theurgy guide§r to obtain.");
-            add("item.${Theurgy.MOD_ID}.divination_rod_t1.tooltip", "Can be used to find ores and other objects it can be attuned to.");
-            add("item.${Theurgy.MOD_ID}.divination_rod_t1.tooltip.shift", "Shift+Right Click to scan for the attuned object.\nRight Click to show where the last found object is.");
+            add("tooltip.${Theurgy.MOD_ID}.shift_for_more_information", "§oPress §lShift§r §ofor more information.§r")
+            add("item.patchouli.guide_book.tooltip", "Craft or use command (available to all players) to obtain.")
+            add("item.patchouli.guide_book.tooltip.shift", "Use §o/theurgy guide§r to obtain.")
+            add(
+                "item.${Theurgy.MOD_ID}.divination_rod_t1.tooltip",
+                "Can be used to find ores and other objects it can be attuned to."
+            )
+            add(
+                "item.${Theurgy.MOD_ID}.divination_rod_t1.tooltip.attuned",
+                """
+                    Can be used to find ores and other objects it can be attuned to.
+                    Attuned to: %s
+                """.trimIndent()
+            )
+            add(
+                "item.${Theurgy.MOD_ID}.divination_rod_t1.tooltip.shift",
+                """
+                    Shift + Right Click an object to attune the divination rod to it.
+                    Shift + Right Click into the air to remove the attunement.
+                    Right Click + Hold (takes a few seconds!) to search for the attuned object.
+                    Right Click without holding to show the direction of the last found object.
+                """.trimIndent()
+            )
 
             //Command replies
-            add("message.${Theurgy.MOD_ID}.command.help.reply", "Stuck or need help? §6§lClick this message to visit our Discord!§r");
+            add(
+                "message.${Theurgy.MOD_ID}.command.help.reply",
+                "Stuck or need help? §6§lClick this message to visit our Discord!§r"
+            )
 
             //Jei
 
             //Subtitles
-            add("${Theurgy.MOD_ID}.subtitle.tuning_fork", "Tuning Fork Sound playing");
+            add("${Theurgy.MOD_ID}.subtitle.tuning_fork", "Tuning Fork Sound playing")
 
 
             //Patchouli

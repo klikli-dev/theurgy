@@ -33,35 +33,9 @@ import net.minecraftforge.event.entity.player.ItemTooltipEvent
 import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.common.Mod
 
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE)
-object TooltipRegistry {
-    private val tooltips = hashMapOf<Item, TooltipInfo>()
-    private val shiftForMoreInformation =
-        TranslationTextComponent("tooltip.${Theurgy.MOD_ID}.shift_for_more_information")
 
-    @SubscribeEvent
-    fun onAddInformation(event: ItemTooltipEvent) {
-        val tooltip = tooltips[event.itemStack.item]
-        if (tooltip != null && tooltip.predicate.invoke(event.itemStack)) {
-            if (!Screen.hasShiftDown()) {
-                //we cache the text component
-                if(tooltip.tooltip == null)
-                    tooltip.tooltip = TranslationTextComponent("${event.itemStack.item.translationKey}.tooltip")
-                event.toolTip.add(tooltip.tooltip);
-                if (tooltip.withShift) {
-                    event.toolTip.add(StringTextComponent(""))
-                    event.toolTip.add(shiftForMoreInformation)
-                }
-            } else {
-                if (tooltip.withShift) {
-                    //we cache the text component
-                    if(tooltip.shiftTooltip == null)
-                        tooltip.shiftTooltip = TranslationTextComponent("${event.itemStack.item.translationKey}.tooltip.shift")
-                    event.toolTip.add(tooltip.shiftTooltip)
-                }
-            }
-        }
-    }
+object TooltipRegistry {
+    val tooltips = hashMapOf<Item, TooltipInfo>()
 
     fun with(item: Item, withShift: Boolean = false, predicate: (ItemStack) -> Boolean = { _ -> true }) {
         tooltips[item] =

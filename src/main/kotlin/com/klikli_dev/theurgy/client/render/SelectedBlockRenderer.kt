@@ -30,12 +30,13 @@ import net.minecraft.client.renderer.IRenderTypeBuffer
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.vector.Matrix4f
 import net.minecraft.util.math.vector.Vector3d
+import net.minecraftforge.api.distmarker.Dist
 import net.minecraftforge.client.event.RenderWorldLastEvent
 import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.common.Mod
 import java.awt.Color
 
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE)
+@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE, value= [Dist.CLIENT])
 object SelectedBlockRenderer {
     private var selectedBlocks: MutableSet<SelectionInfo> = HashSet()
 

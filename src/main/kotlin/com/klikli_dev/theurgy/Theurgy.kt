@@ -24,8 +24,6 @@ package com.klikli_dev.theurgy
 import com.klikli_dev.theurgy.registry.ItemRegistry
 import com.klikli_dev.theurgy.registry.SoundRegistry
 import com.klikli_dev.theurgy.registry.TooltipRegistry.withTooltip
-import net.minecraft.client.world.ClientWorld
-import net.minecraft.entity.LivingEntity
 import net.minecraft.item.ItemGroup
 import net.minecraft.item.ItemModelsProperties
 import net.minecraft.item.ItemStack

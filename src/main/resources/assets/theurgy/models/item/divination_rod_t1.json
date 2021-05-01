@@ -1,0 +1,19 @@
+{
+  "parent": "theurgy:item/divination_rod_t1_unlinked",
+  "overrides": [
+    {
+      "__comment": "linked >= 0.0",
+      "predicate": {
+        "theurgy:linked": 0.0
+      },
+      "model": "theurgy:item/divination_rod_t1_unlinked"
+    },
+    {
+      "__comment": "linked >= 1.0",
+      "predicate": {
+        "theurgy:linked": 1.0
+      },
+      "model": "theurgy:item/divination_rod_t1_linked"
+    }
+  ]
+}

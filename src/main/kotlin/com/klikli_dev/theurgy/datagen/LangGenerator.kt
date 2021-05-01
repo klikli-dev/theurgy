@@ -36,6 +36,8 @@ abstract class LangGenerator(generator: DataGenerator, locale: String) :
 
             //Items
             add("item.${Theurgy.MOD_ID}.grimoire", "The Hermetica");
+            add("item.${Theurgy.MOD_ID}.divination_rod_t1", "Crude Divination Rod");
+            add("item.${Theurgy.MOD_ID}.divination_rod_t1.message.linked_block", "Attuned to %s");
 
             //Blocks
 
@@ -45,16 +47,19 @@ abstract class LangGenerator(generator: DataGenerator, locale: String) :
             add("tooltip.${Theurgy.MOD_ID}.shift_for_more_information", "§oPress §lShift§r §ofor more information.§r");
             add("item.patchouli.guide_book.tooltip", "Craft or use command (available to all players) to obtain.");
             add("item.patchouli.guide_book.tooltip.shift", "Use §o/theurgy guide§r to obtain.");
+            add("item.${Theurgy.MOD_ID}.divination_rod_t1.tooltip", "Can be used to find ores and other objects it can be attuned to.");
+            add("item.${Theurgy.MOD_ID}.divination_rod_t1.tooltip.shift", "Shift+Right Click to scan for the attuned object.\nRight Click to show where the last found object is.");
 
             //Command replies
-
             add("message.${Theurgy.MOD_ID}.command.help.reply", "Stuck or need help? §6§lClick this message to visit our Discord!§r");
 
             //Jei
 
+            //Subtitles
+            add("${Theurgy.MOD_ID}.subtitle.tuning_fork", "Tuning Fork Sound playing");
+
+
             //Patchouli
-
-
             add(
                 "${Theurgy.MOD_ID}.book.landing",
                 "The definite guide for the aspiring Theurgist. $(br2)For help or to give feedback please join " +

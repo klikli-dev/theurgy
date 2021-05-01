@@ -1,6 +1,10 @@
 {
   "item.patchouli.guide_book.tooltip": "Craft or use command (available to all players) to obtain.",
   "item.patchouli.guide_book.tooltip.shift": "Use \u00A7o/theurgy guide\u00A7r to obtain.",
+  "item.theurgy.divination_rod_t1": "Crude Divination Rod",
+  "item.theurgy.divination_rod_t1.message.linked_block": "Attuned to %s",
+  "item.theurgy.divination_rod_t1.tooltip": "Can be used to find ores and other objects it can be attuned to.",
+  "item.theurgy.divination_rod_t1.tooltip.shift": "Shift+Right Click to scan for the attuned object.\nRight Click to show where the last found object is.",
   "item.theurgy.grimoire": "The Hermetica",
   "itemGroup.theurgy": "Theurgy",
   "message.theurgy.command.help.reply": "Stuck or need help? \u00A76\u00A7lClick this message to visit our Discord!\u00A7r",

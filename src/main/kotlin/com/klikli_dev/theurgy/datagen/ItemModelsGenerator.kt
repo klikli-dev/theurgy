@@ -33,6 +33,9 @@ class ItemModelsGenerator(generator: DataGenerator, helper: ExistingFileHelper) 
 
     override fun registerModels() {
         registerItemGenerated("grimoire")
+        registerItemGenerated("theurgy", "grimoire")
+        registerItemHandheld("divination_rod_t1_unlinked")
+        registerItemHandheld("divination_rod_t1_linked")
     }
 
     private fun registerItemGenerated(name: String) {

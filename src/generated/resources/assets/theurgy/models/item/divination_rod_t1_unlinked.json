@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "theurgy:item/divination_rod_t1_unlinked"
+  }
+}

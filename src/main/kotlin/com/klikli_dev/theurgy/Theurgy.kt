@@ -21,13 +21,17 @@
  */
 package com.klikli_dev.theurgy
 
-import com.klikli_dev.theurgy.registry.TooltipRegistry.withTooltip
 import com.klikli_dev.theurgy.registry.ItemRegistry
 import com.klikli_dev.theurgy.registry.SoundRegistry
+import com.klikli_dev.theurgy.registry.TooltipRegistry.withTooltip
+import net.minecraft.client.world.ClientWorld
+import net.minecraft.entity.LivingEntity
 import net.minecraft.item.ItemGroup
+import net.minecraft.item.ItemModelsProperties
 import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.fml.common.Mod
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent
 import net.minecraftforge.fml.event.lifecycle.FMLDedicatedServerSetupEvent
 import org.apache.logging.log4j.LogManager
@@ -40,7 +44,7 @@ object Theurgy {
 
     const val MOD_ID: String = "theurgy"
 
-    val itemGroup: ItemGroup = object : ItemGroup("theurgy"){
+    val itemGroup: ItemGroup = object : ItemGroup("theurgy") {
         override fun createIcon() = ItemStack(ItemRegistry.theurgy)
     }
 
@@ -55,13 +59,30 @@ object Theurgy {
         MOD_BUS.addListener(Theurgy::serverSetup)
     }
 
-    private fun commonSetup(@Suppress("UNUSED_PARAMETER") event: FMLCommonSetupEvent) {
-        logger.info("Common setup complete.")
+    private fun clientSetup(@Suppress("UNUSED_PARAMETER") event: FMLClientSetupEvent) {
+        logger.info("Client setup complete.")
 
+        //register item model properties
+        event.enqueueWork {
+
+            //Register item model properties
+            ItemModelsProperties.registerProperty(
+                ItemRegistry.divinationRodT1,
+                ResourceLocation("linked")
+            ) { itemStack: ItemStack, _, _ ->
+                itemStack.tag?.getFloat("linked") ?: 0.0f
+            }
+            logger.debug("Registered Item Model Properties")
+        }
+    }
+
+    private fun commonSetup(@Suppress("UNUSED_PARAMETER") event: FMLCommonSetupEvent) {
         //add tooltip to the hermetica / guide book
         PatchouliAPI.get().getBookStack(id("grimoire")).item.withTooltip(true) {
             it.tag?.getString("patchouli:book") == "theurgy:grimoire"
         };
+
+        logger.info("Common setup complete.")
     }
 
     private fun serverSetup(@Suppress("UNUSED_PARAMETER") event: FMLDedicatedServerSetupEvent) {

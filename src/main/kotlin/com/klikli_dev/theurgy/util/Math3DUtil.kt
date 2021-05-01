@@ -19,25 +19,18 @@
  * OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
  * OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.klikli_dev.theurgy.registry
 
-import com.klikli_dev.theurgy.Theurgy
-import com.klikli_dev.theurgy.item.tool.DivinationRodItem
-import com.klikli_dev.theurgy.registry.TooltipRegistry.withTooltip
-import net.minecraft.item.Item
-import net.minecraft.item.ItemTier
-import net.minecraftforge.registries.ForgeRegistries
-import thedarkcolour.kotlinforforge.forge.KDeferredRegister
+package com.klikli_dev.theurgy.util
 
-object ItemRegistry {
-    val items = KDeferredRegister(ForgeRegistries.ITEMS, Theurgy.MOD_ID)
-    val defaultProperty: Item.Properties = Item.Properties().group(Theurgy.itemGroup)
+import net.minecraft.util.math.BlockPos
+import net.minecraft.util.math.vector.Vector3d
 
-    val theurgy by items.registerObject("theurgy") { Item(Item.Properties()) }
+object Math3DUtil {
+    fun center(pos: BlockPos): Vector3d {
+        return Vector3d(pos.x + 0.5, pos.y + 0.5, pos.z + 0.5)
+    }
 
-    val divinationRodT1 by items.registerObject("divination_rod_t1") {
-        DivinationRodItem(ItemTier.IRON, defaultProperty).apply {
-            this.withTooltip(true)
-        }
+    fun BlockPos.getCenter(): Vector3d{
+        return center(this);
     }
 }

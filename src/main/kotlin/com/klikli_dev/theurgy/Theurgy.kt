@@ -22,6 +22,7 @@
 package com.klikli_dev.theurgy
 
 import com.klikli_dev.theurgy.registries.TooltipRegistry.withTooltip
+import com.klikli_dev.theurgy.registry.SoundRegistry
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent
@@ -39,6 +40,8 @@ object Theurgy {
     val LOGGER: Logger = LogManager.getLogger(MOD_ID)
 
     init {
+        MOD_BUS.register(SoundRegistry.sounds)
+
         //register event buses
         MOD_BUS.addListener(Theurgy::commonSetup)
         MOD_BUS.addListener(Theurgy::serverSetup)

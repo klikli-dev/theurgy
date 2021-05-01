@@ -35,15 +35,18 @@ import net.minecraftforge.fml.common.Mod
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE)
 object TooltipRegistry {
-    private val tooltips = hashMapOf<String, TooltipInfo>()
+    private val tooltips = hashMapOf<Item, TooltipInfo>()
     private val shiftForMoreInformation =
         TranslationTextComponent("tooltip.${Theurgy.MOD_ID}.shift_for_more_information")
 
     @SubscribeEvent
     fun onAddInformation(event: ItemTooltipEvent) {
-        val tooltip = tooltips[event.itemStack.translationKey]
+        val tooltip = tooltips[event.itemStack.item]
         if (tooltip != null && tooltip.predicate.invoke(event.itemStack)) {
             if (!Screen.hasShiftDown()) {
+                //we cache the text component
+                if(tooltip.tooltip == null)
+                    tooltip.tooltip = TranslationTextComponent("${event.itemStack.item.translationKey}.tooltip")
                 event.toolTip.add(tooltip.tooltip);
                 if (tooltip.withShift) {
                     event.toolTip.add(StringTextComponent(""))
@@ -51,22 +54,18 @@ object TooltipRegistry {
                 }
             } else {
                 if (tooltip.withShift) {
+                    //we cache the text component
+                    if(tooltip.shiftTooltip == null)
+                        tooltip.shiftTooltip = TranslationTextComponent("${event.itemStack.item.translationKey}.tooltip.shift")
                     event.toolTip.add(tooltip.shiftTooltip)
                 }
             }
         }
     }
 
-    fun with(translationKey: String, withShift: Boolean = false, predicate: (ItemStack) -> Boolean = { _ -> true }) {
-        tooltips[translationKey] =
-            TooltipInfo(
-                "$translationKey.tooltip", withShift,
-                if (withShift) "$translationKey.tooltip.shift" else "", predicate
-            );
-    }
-
     fun with(item: Item, withShift: Boolean = false, predicate: (ItemStack) -> Boolean = { _ -> true }) {
-        this.with(item.translationKey, withShift, predicate)
+        tooltips[item] =
+            TooltipInfo(withShift, predicate);
     }
 
     fun Item.withTooltip(withShift: Boolean = false, predicate: (ItemStack) -> Boolean = { _ -> true }) {
@@ -74,12 +73,10 @@ object TooltipRegistry {
     }
 
     class TooltipInfo(
-        tooltipTranslationKey: String,
         val withShift: Boolean,
-        shiftTooltipTranslationKey: String,
         val predicate: (ItemStack) -> Boolean = { _ -> true }
     ) {
-        val tooltip: ITextComponent = TranslationTextComponent(tooltipTranslationKey)
-        val shiftTooltip: ITextComponent = TranslationTextComponent(shiftTooltipTranslationKey)
+        var tooltip: ITextComponent? = null
+        var shiftTooltip: ITextComponent? = null
     }
 }

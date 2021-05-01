@@ -21,7 +21,7 @@
  */
 package com.klikli_dev.theurgy
 
-import com.klikli_dev.theurgy.registries.TooltipRegistry.withTooltip
+import com.klikli_dev.theurgy.registry.TooltipRegistry.withTooltip
 import com.klikli_dev.theurgy.registry.ItemRegistry
 import com.klikli_dev.theurgy.registry.SoundRegistry
 import net.minecraft.util.ResourceLocation

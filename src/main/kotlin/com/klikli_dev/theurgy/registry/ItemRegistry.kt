@@ -19,7 +19,7 @@
  * OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
  * OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.klikli_dev.theurgy.registries
+package com.klikli_dev.theurgy.registry
 
 import com.klikli_dev.theurgy.Theurgy
 import net.minecraftforge.registries.ForgeRegistries
@@ -28,4 +28,6 @@ import thedarkcolour.kotlinforforge.forge.KDeferredRegister
 object ItemRegistry {
     val items = KDeferredRegister(ForgeRegistries.ITEMS, Theurgy.MOD_ID)
 
+    val divinationRodT1
+    //    val tuning_fork by sounds.registerObject("tuning_fork"){ SoundEvent(Theurgy.id("tuning_fork")) }
 }

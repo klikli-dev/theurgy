@@ -88,7 +88,7 @@ class BlockLootTablesGenerator(private val generator: DataGenerator) : LootTable
             try {
                 IDataProvider.save(gson, cache, LootTableManager.toJson(table), path)
             } catch (e: Exception) {
-                Theurgy.LOGGER.error("Couldn't write loot table $path", e)
+                Theurgy.logger.error("Couldn't write loot table $path", e)
             }
         }
     }

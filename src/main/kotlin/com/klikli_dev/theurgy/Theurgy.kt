@@ -24,6 +24,8 @@ package com.klikli_dev.theurgy
 import com.klikli_dev.theurgy.registry.TooltipRegistry.withTooltip
 import com.klikli_dev.theurgy.registry.ItemRegistry
 import com.klikli_dev.theurgy.registry.SoundRegistry
+import net.minecraft.item.ItemGroup
+import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent
@@ -38,11 +40,15 @@ object Theurgy {
 
     const val MOD_ID: String = "theurgy"
 
-    val LOGGER: Logger = LogManager.getLogger(MOD_ID)
+    val itemGroup: ItemGroup = object : ItemGroup("theurgy"){
+        override fun createIcon() = ItemStack(ItemRegistry.theurgy)
+    }
+
+    val logger: Logger = LogManager.getLogger(MOD_ID)
 
     init {
-        MOD_BUS.register(ItemRegistry.items)
-        MOD_BUS.register(SoundRegistry.sounds)
+        ItemRegistry.items.register(MOD_BUS);
+        SoundRegistry.sounds.register(MOD_BUS);
 
         //register event buses
         MOD_BUS.addListener(Theurgy::commonSetup)
@@ -50,7 +56,7 @@ object Theurgy {
     }
 
     private fun commonSetup(@Suppress("UNUSED_PARAMETER") event: FMLCommonSetupEvent) {
-        LOGGER.info("Common setup complete.")
+        logger.info("Common setup complete.")
 
         //add tooltip to the hermetica / guide book
         PatchouliAPI.get().getBookStack(id("grimoire")).item.withTooltip(true) {
@@ -59,7 +65,7 @@ object Theurgy {
     }
 
     private fun serverSetup(@Suppress("UNUSED_PARAMETER") event: FMLDedicatedServerSetupEvent) {
-        LOGGER.info("Dedicated server setup complete.")
+        logger.info("Dedicated server setup complete.")
     }
 
     fun id(path: String): ResourceLocation = ResourceLocation(MOD_ID, path)

@@ -1,6 +1,6 @@
 {
-  "item.patchouli.guide_book.tooltip": "Test without shift.",
-  "item.patchouli.guide_book.tooltip.shift": "Test with shift.",
+  "item.patchouli.guide_book.tooltip": "Craft or use command (available to all players) to obtain.",
+  "item.patchouli.guide_book.tooltip.shift": "Use \u00A7o/theurgy guide\u00A7r to obtain.",
   "item.theurgy.grimoire": "The Hermetica",
   "itemGroup.theurgy": "Theurgy",
   "message.theurgy.command.help.reply": "Stuck or need help? \u00A76\u00A7lClick this message to visit our Discord!\u00A7r",

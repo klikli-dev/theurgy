@@ -47,8 +47,9 @@ object Theurgy {
     private fun commonSetup(@Suppress("UNUSED_PARAMETER") event: FMLCommonSetupEvent) {
         LOGGER.info("Common setup complete.")
 
-        PatchouliAPI.get().getBookStack(id("grimoire")).item.withTooltip(true) { stack ->
-            stack.tag?.getString("patchouli:book") == "theurgy:grimoire"
+        //add tooltip to the hermetica / guide book
+        PatchouliAPI.get().getBookStack(id("grimoire")).item.withTooltip(true) {
+            it.tag?.getString("patchouli:book") == "theurgy:grimoire"
         };
     }
 

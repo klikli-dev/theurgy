@@ -43,8 +43,8 @@ abstract class LangGenerator(generator: DataGenerator, locale: String) :
 
             //Overlay Tooltips
             add("tooltip.${Theurgy.MOD_ID}.shift_for_more_information", "§oPress §lShift§r §ofor more information.§r");
-            add("item.patchouli.guide_book.tooltip", "Test without shift.");
-            add("item.patchouli.guide_book.tooltip.shift", "Test with shift.");
+            add("item.patchouli.guide_book.tooltip", "Craft or use command (available to all players) to obtain.");
+            add("item.patchouli.guide_book.tooltip.shift", "Use §o/theurgy guide§r to obtain.");
 
             //Command replies
 

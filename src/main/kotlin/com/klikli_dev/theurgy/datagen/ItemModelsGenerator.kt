@@ -36,9 +36,13 @@ class ItemModelsGenerator(generator: DataGenerator, helper: ExistingFileHelper) 
     }
 
     private fun registerItemGenerated(name: String) {
+        registerItemGenerated(name, name)
+    }
+
+    private fun registerItemGenerated(name: String, texture: String) {
         getBuilder(name)
             .parent(ModelFile.UncheckedModelFile("item/generated"))
-            .texture("layer0", Theurgy.id("item/$name"))
+            .texture("layer0", Theurgy.id("item/$texture"))
     }
 
     private fun registerItemHandheld(name: String) {

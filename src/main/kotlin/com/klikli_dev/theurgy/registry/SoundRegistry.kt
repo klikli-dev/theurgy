@@ -30,5 +30,5 @@ import thedarkcolour.kotlinforforge.forge.KDeferredRegister
 object SoundRegistry {
     val sounds = KDeferredRegister(ForgeRegistries.SOUND_EVENTS, Theurgy.MOD_ID)
 
-    val tuning_fork by sounds.registerObject("tuning_fork"){ SoundEvent(Theurgy.id("tuning_fork")) }
+    val tuningFork by sounds.registerObject("tuning_fork"){ SoundEvent(Theurgy.id("tuning_fork")) }
 }

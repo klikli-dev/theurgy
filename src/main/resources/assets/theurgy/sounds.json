@@ -1,8 +1,8 @@
 {
   "tuning_fork": {
     "sounds": [
-      "occultism:tuning_fork"
+      "theurgy:tuning_fork"
     ],
-    "subtitle": "occultism.subtitle.tuning_fork"
+    "subtitle": "theurgy.subtitle.tuning_fork"
   }
 }

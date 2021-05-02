@@ -21,6 +21,8 @@
  */
 package com.klikli_dev.theurgy.client.divination
 
+import com.klikli_dev.theurgy.config.TheurgyClientConfig
+import com.klikli_dev.theurgy.config.TheurgyServerConfig
 import com.klikli_dev.theurgy.util.Math3DUtil.getCenter
 import net.minecraft.block.Block
 import net.minecraft.entity.player.PlayerEntity
@@ -32,9 +34,6 @@ import java.util.function.Consumer
  * Based on https://github.com/MightyPirates/Scannable
  */
 object ScanManager {
-    const val SCAN_DURATION_TICKS = 40
-    const val SCAN_RADIUS_BLOCKS = 96
-
     private var results: MutableList<BlockPos> = ArrayList()
     private var scanner: Scanner? = null
     private var scanningTicks = -1
@@ -42,11 +41,13 @@ object ScanManager {
     fun beginScan(player: PlayerEntity, target: Block) {
         cancelScan()
         scanner = Scanner(target)
-        scanner!!.initialize(player, player.positionVec, SCAN_RADIUS_BLOCKS.toFloat(), SCAN_DURATION_TICKS)
+        scanner!!.initialize(player, player.positionVec,
+            TheurgyClientConfig.divinationSettings.divinationRadius.get().toFloat(),
+            TheurgyServerConfig.divinationSettings.divinationTicks.get())
     }
 
     fun updateScan(player: PlayerEntity?, forceFinish: Boolean) {
-        val remainingTicks = SCAN_DURATION_TICKS - scanningTicks
+        val remainingTicks = TheurgyServerConfig.divinationSettings.divinationTicks.get() - scanningTicks
         if (remainingTicks <= 0 || scanner == null) {
             return
         }

@@ -23,6 +23,7 @@ package com.klikli_dev.theurgy.item.tool
 
 import com.klikli_dev.theurgy.client.divination.ScanManager
 import com.klikli_dev.theurgy.client.render.SelectedBlockRenderer
+import com.klikli_dev.theurgy.config.TheurgyServerConfig
 import com.klikli_dev.theurgy.registry.SoundRegistry
 import net.minecraft.block.BlockState
 import net.minecraft.client.util.ITooltipFlag
@@ -146,10 +147,10 @@ class DivinationRodItem
     }
 
     override fun getUseDuration(stack: ItemStack?): Int {
-        return ScanManager.SCAN_DURATION_TICKS
+        return TheurgyServerConfig.divinationSettings.divinationTicks.get()
     }
 
-    override fun onPlayerStoppedUsing(stack: ItemStack, world: World, entityLiving: LivingEntity?, timeLeft: Int) {
+    override fun onPlayerStoppedUsing(stack: ItemStack, world: World, entityLiving: LivingEntity, timeLeft: Int) {
         //player interrupted, so we cancel scan
         if (world.isRemote) {
             ScanManager.cancelScan()

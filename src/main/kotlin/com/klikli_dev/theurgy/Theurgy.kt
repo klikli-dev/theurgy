@@ -21,6 +21,9 @@
  */
 package com.klikli_dev.theurgy
 
+import com.klikli_dev.theurgy.config.TheurgyClientConfig
+import com.klikli_dev.theurgy.config.TheurgyCommonConfig
+import com.klikli_dev.theurgy.config.TheurgyServerConfig
 import com.klikli_dev.theurgy.registry.ItemRegistry
 import com.klikli_dev.theurgy.registry.SoundRegistry
 import com.klikli_dev.theurgy.registry.TooltipRegistry.withTooltip
@@ -28,7 +31,9 @@ import net.minecraft.item.ItemGroup
 import net.minecraft.item.ItemModelsProperties
 import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
+import net.minecraftforge.fml.ModLoadingContext
 import net.minecraftforge.fml.common.Mod
+import net.minecraftforge.fml.config.ModConfig
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent
 import net.minecraftforge.fml.event.lifecycle.FMLDedicatedServerSetupEvent
@@ -49,6 +54,10 @@ object Theurgy {
     val logger: Logger = LogManager.getLogger(MOD_ID)
 
     init {
+        ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, TheurgyServerConfig.spec)
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, TheurgyCommonConfig.spec)
+        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, TheurgyClientConfig.spec)
+
         ItemRegistry.items.register(MOD_BUS);
         SoundRegistry.sounds.register(MOD_BUS);
 
@@ -58,7 +67,20 @@ object Theurgy {
         MOD_BUS.addListener(Theurgy::serverSetup)
     }
 
-    private fun clientSetup( event: FMLClientSetupEvent) {
+    private fun onModConfigEvent(event: ModConfig.ModConfigEvent) {
+        //Clear the config cache on reload.
+        if (event.config.spec === TheurgyServerConfig.spec) {
+            TheurgyServerConfig.clear()
+        }
+        if (event.config.spec === TheurgyCommonConfig.spec) {
+            TheurgyCommonConfig.clear()
+        }
+        if (event.config.spec === TheurgyClientConfig.spec) {
+            TheurgyClientConfig.clear()
+        }
+    }
+
+    private fun clientSetup(event: FMLClientSetupEvent) {
         logger.info("Client setup complete.")
 
         //register item model properties

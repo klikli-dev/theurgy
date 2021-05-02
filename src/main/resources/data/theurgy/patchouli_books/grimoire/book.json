@@ -8,6 +8,7 @@
   "filler_texture": "theurgy:textures/gui/1px_transparent.png",
   "show_toasts": true,
   "creative_tab": "theurgy",
+  "advancements_tab": "theurgy",
   "show_progress": false,
   "i18n": true
 }

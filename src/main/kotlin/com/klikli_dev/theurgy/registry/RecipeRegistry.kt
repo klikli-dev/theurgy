@@ -19,26 +19,28 @@
  * OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
  * OTHER DEALINGS IN THE SOFTWARE.
  */
+
 package com.klikli_dev.theurgy.registry
 
 import com.klikli_dev.theurgy.Theurgy
-import com.klikli_dev.theurgy.item.tool.DivinationRodItem
-import com.klikli_dev.theurgy.registry.TooltipRegistry.withTooltip
-import net.minecraft.item.Item
-import net.minecraft.item.ItemTier
+import com.klikli_dev.theurgy.crafting.KeepDamageShapelessRecipe
+import net.minecraft.item.crafting.ICraftingRecipe
+import net.minecraft.item.crafting.IRecipeType
+import net.minecraftforge.common.util.NonNullLazy
 import net.minecraftforge.registries.ForgeRegistries
 import thedarkcolour.kotlinforforge.forge.KDeferredRegister
+import thedarkcolour.kotlinforforge.forge.ObjectHolderDelegate
 
-object ItemRegistry {
-    val items = KDeferredRegister(ForgeRegistries.ITEMS, Theurgy.MOD_ID)
+object RecipeRegistry {
+    val recipes = KDeferredRegister(ForgeRegistries.RECIPE_SERIALIZERS, Theurgy.MOD_ID)
 
-    val theurgy by items.registerObject("theurgy") { Item(Item.Properties()) }
+    val keepDamageShapelessRecipeType: NonNullLazy<IRecipeType<ICraftingRecipe>> =
+        NonNullLazy.of {
+            IRecipeType.CRAFTING //this should work in any place vanilla crafting works
+        }
 
-    val divinationRodT1 by items.registerObject("divination_rod_t1") {
-        DivinationRodItem(ItemTier.STONE, defaultProperties().maxDamage(10))
-    }
-
-    private fun defaultProperties(): Item.Properties{
-        return Item.Properties().group(Theurgy.itemGroup)
-    }
+    val keepDamageShapelessRecipe: ObjectHolderDelegate<KeepDamageShapelessRecipe.Serializer> =
+        recipes.registerObject(
+            "keep_damage_shapeless"
+        ) { KeepDamageShapelessRecipe.Serializer }
 }

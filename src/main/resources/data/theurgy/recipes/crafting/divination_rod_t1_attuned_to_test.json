@@ -1,0 +1,18 @@
+{
+  "type": "theurgy:keep_damage_shapeless",
+  "ingredients": [
+    {
+      "item": "theurgy:divination_rod_t1"
+    },
+    {
+      "item": "minecraft:dirt"
+    }
+  ],
+  "result": {
+    "item": "theurgy:divination_rod_t1",
+    "nbt": {
+      "theurgy:divinationLinkedBlockId": "minecraft:dirt",
+      "theurgy:divinationIsLinked": true
+    }
+  }
+}

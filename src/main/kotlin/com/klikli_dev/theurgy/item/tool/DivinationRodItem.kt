@@ -151,8 +151,11 @@ class DivinationRodItem
         val player: PlayerEntity = entityLiving
         player.cooldownTracker.setCooldown(this, 40)
 
+        if(!world.isRemote){
+            stack.damageItem(1, entityLiving) {}
+        }
+
         if (world.isRemote) {
-            //TODO: finish scan
             val result: BlockPos? = ScanManager.finishScan(player)
             if (result != null) {
                 TheurgyPackets.sendToServer(MessageSetDivinationResult(result))

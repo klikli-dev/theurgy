@@ -29,7 +29,29 @@ if (System.getenv('VERSION') != null) {
 group = "com.klikli_dev"
 archivesBaseName = "theurgy"
 
-sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
+java.toolchain.languageVersion = JavaLanguageVersion.of(8)
+
+sourceSets {
+    api {
+        java {
+            srcDir 'src/api/kotlin'
+        }
+    }
+    main {
+        resources {
+            srcDir 'src/generated/resources'
+        }
+        compileClasspath += api.output
+        runtimeClasspath += api.output
+    }
+}
+
+configurations {
+    apiCompile.extendsFrom(compile)
+    apiImplementation.extendsFrom(implementation)
+    apiCompileOnly.extendsFrom(compileOnly)
+}
+
 
 println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
 minecraft {
@@ -162,6 +184,9 @@ compileKotlin {
 
 // Example for how to get properties into the manifest for reading by the runtime..
 jar {
+    from sourceSets.api.output
+    from sourceSets.main.output
+
     manifest {
         attributes([
                 "Specification-Title": "theurgy",
@@ -173,4 +198,13 @@ jar {
                 "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
     }
+    afterEvaluate {finalizedBy('reobfJar') }
 }
+
+task apiJar(type: Jar) {
+    archiveClassifier = "api"
+    from sourceSets.api.output
+    afterEvaluate {finalizedBy('reobfJar') }
+}
+
+build.dependsOn tasks.apiJar

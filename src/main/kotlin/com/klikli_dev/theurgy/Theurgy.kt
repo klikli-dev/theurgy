@@ -24,6 +24,7 @@ package com.klikli_dev.theurgy
 import com.klikli_dev.theurgy.config.TheurgyClientConfig
 import com.klikli_dev.theurgy.config.TheurgyCommonConfig
 import com.klikli_dev.theurgy.config.TheurgyServerConfig
+import com.klikli_dev.theurgy.network.TheurgyPackets
 import com.klikli_dev.theurgy.registry.ItemRegistry
 import com.klikli_dev.theurgy.registry.SoundRegistry
 import com.klikli_dev.theurgy.registry.TooltipRegistry.withTooltip
@@ -91,13 +92,15 @@ object Theurgy {
                 ItemRegistry.divinationRodT1,
                 id("linked")
             ) { itemStack: ItemStack, _, _ ->
-                itemStack.tag?.getFloat("linked") ?: 0.0f
+                itemStack.tag?.getFloat(TheurgyNbt.DIVINATION_IS_LINKED) ?: 0.0f
             }
             logger.debug("Registered Item Model Properties")
         }
     }
 
     private fun commonSetup(@Suppress("UNUSED_PARAMETER") event: FMLCommonSetupEvent) {
+        TheurgyPackets.registerMessages()
+
         //add tooltip to the hermetica / guide book
         PatchouliAPI.get().getBookStack(id("grimoire")).item.withTooltip(true) {
             it.tag?.getString("patchouli:book") == "theurgy:grimoire"

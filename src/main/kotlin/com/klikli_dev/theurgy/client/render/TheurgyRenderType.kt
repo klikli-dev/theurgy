@@ -26,6 +26,7 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats
 import net.minecraft.client.renderer.vertex.VertexFormat
 import java.util.*
 
+@Suppress("INACCESSIBLE_TYPE")
 class TheurgyRenderType
     (
     name: String, vertexFormat: VertexFormat, drawMode: Int, bufferSize: Int,

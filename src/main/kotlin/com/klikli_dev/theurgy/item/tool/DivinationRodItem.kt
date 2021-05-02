@@ -21,10 +21,13 @@
  */
 package com.klikli_dev.theurgy.item.tool
 
+import com.klikli_dev.theurgy.TheurgyNbt
 import com.klikli_dev.theurgy.client.divination.ScanManager
 import com.klikli_dev.theurgy.client.render.SelectedBlockRenderer
 import com.klikli_dev.theurgy.client.tooltip.TooltipHandler
 import com.klikli_dev.theurgy.config.TheurgyServerConfig
+import com.klikli_dev.theurgy.network.MessageSetDivinationResult
+import com.klikli_dev.theurgy.network.TheurgyPackets
 import com.klikli_dev.theurgy.registry.SoundRegistry
 import net.minecraft.block.BlockState
 import net.minecraft.client.gui.screen.Screen
@@ -67,8 +70,8 @@ class DivinationRodItem
                 if (Tags.Blocks.ORES.contains(state.block)) {
                     if (!world.isRemote) {
                         val translationKey = state.block.translationKey
-                        stack.orCreateTag.putString("linkedBlockId", state.block.registryName.toString())
-                        stack.tag?.putFloat("linked", 1.0f)
+                        stack.orCreateTag.putString(TheurgyNbt.DIVINATION_LINKED_BLOCK_ID, state.block.registryName.toString())
+                        stack.tag?.putFloat(TheurgyNbt.DIVINATION_IS_LINKED, 1.0f)
                         player.sendMessage(
                             TranslationTextComponent(
                                 "${this.translationKey}.message.linked_block",
@@ -83,12 +86,14 @@ class DivinationRodItem
                 }
                 //not an ore
                 else {
-                    player.sendMessage(
-                        TranslationTextComponent(
-                            "${this.translationKey}.message.not_an_ore",
-                            TranslationTextComponent(translationKey)
-                        ), Util.DUMMY_UUID
-                    )
+                    if (!world.isRemote) {
+                        player.sendMessage(
+                            TranslationTextComponent(
+                                "${this.translationKey}.message.not_an_ore",
+                                TranslationTextComponent(translationKey)
+                            ), Util.DUMMY_UUID
+                        )
+                    }
                 }
             } else {
                 if (!world.isRemote) {
@@ -106,7 +111,7 @@ class DivinationRodItem
         val stack: ItemStack = player.getHeldItem(hand)
 
         if (!player.isSneaking) {
-            if (stack.orCreateTag.contains("linkedBlockId")) {
+            if (stack.orCreateTag.contains(TheurgyNbt.DIVINATION_LINKED_BLOCK_ID)) {
                 player.activeHand = hand
                 world.playSound(
                     player,
@@ -117,7 +122,7 @@ class DivinationRodItem
                     1f
                 )
                 if (world.isRemote) {
-                    val id = ResourceLocation(stack.tag!!.getString("linkedBlockId"))
+                    val id = ResourceLocation(stack.tag!!.getString(TheurgyNbt.DIVINATION_LINKED_BLOCK_ID))
                     ScanManager.beginScan(player, ForgeRegistries.BLOCKS.getValue(id)!!)
                 }
             } else if (!world.isRemote) {
@@ -129,8 +134,9 @@ class DivinationRodItem
         } else {
             //if we shift-right click, we reset linked block
             if (!world.isRemote) {
-                stack.tag?.putFloat("linked", 0.0f)
-                stack.tag?.remove("linkedBlockId")
+                stack.tag?.putFloat(TheurgyNbt.DIVINATION_IS_LINKED, 0.0f)
+                stack.tag?.remove(TheurgyNbt.DIVINATION_LINKED_BLOCK_ID)
+                stack.tag?.remove(TheurgyNbt.DIVINATION_RESULT)
                 player.sendMessage(
                     TranslationTextComponent("$translationKey.message.unlinked_block"), Util.DUMMY_UUID
                 )
@@ -149,8 +155,7 @@ class DivinationRodItem
             //TODO: finish scan
             val result: BlockPos? = ScanManager.finishScan(player)
             if (result != null) {
-                //TODO: Send result to server
-                //TODO: Store result to re-use
+                TheurgyPackets.sendToServer(MessageSetDivinationResult(result))
                 //TODO: show particle here instead
                 //Show debug visualization
                 SelectedBlockRenderer.selectBlock(result, System.currentTimeMillis() + 10000)
@@ -164,11 +169,20 @@ class DivinationRodItem
     }
 
     override fun onPlayerStoppedUsing(stack: ItemStack, world: World, entityLiving: LivingEntity, timeLeft: Int) {
-        //player interrupted, so we cancel scan
         if (world.isRemote) {
+            //player interrupted, so we cancel scan
             ScanManager.cancelScan()
+
+            //if we have a result stored, we display it
+            val result = stack.tag?.getLong(TheurgyNbt.DIVINATION_RESULT)?.let { BlockPos.fromLong(it) };
+            if(result != null){
+                //TODO: show particle here instead
+                //Show debug visualization
+                SelectedBlockRenderer.selectBlock(result, System.currentTimeMillis() + 10000)
+            }
         }
-        //TODO: display particle here
+
+
         super.onPlayerStoppedUsing(stack, world, entityLiving, timeLeft)
     }
 
@@ -180,7 +194,7 @@ class DivinationRodItem
         if (!Screen.hasShiftDown()) {
             tooltip.add(TranslationTextComponent("${this.translationKey}.tooltip"));
             //if we are linked we show the linked object
-            val linkedBlockId = stack.tag?.getString("linkedBlockId")
+            val linkedBlockId = stack.tag?.getString(TheurgyNbt.DIVINATION_LINKED_BLOCK_ID)
             if (linkedBlockId != null) {
                 val block = ForgeRegistries.BLOCKS.getValue(ResourceLocation(linkedBlockId))
                 if (block != null) {

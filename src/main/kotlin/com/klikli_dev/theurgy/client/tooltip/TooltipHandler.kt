@@ -34,7 +34,7 @@ import net.minecraftforge.fml.common.Mod
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE, value = [Dist.CLIENT])
 object TooltipHandler {
-    private val shiftForMoreInformation =
+    val shiftForMoreInformation =
         TranslationTextComponent("tooltip.${Theurgy.MOD_ID}.shift_for_more_information")
 
     @SubscribeEvent
@@ -47,7 +47,6 @@ object TooltipHandler {
                     tooltip.tooltip = TranslationTextComponent("${event.itemStack.item.translationKey}.tooltip")
                 event.toolTip.add(tooltip.tooltip);
                 if (tooltip.withShift) {
-                    event.toolTip.add(StringTextComponent(""))
                     event.toolTip.add(shiftForMoreInformation)
                 }
             } else {

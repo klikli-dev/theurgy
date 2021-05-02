@@ -2,10 +2,15 @@
   "item.patchouli.guide_book.tooltip": "Craft or use command (available to all players) to obtain.",
   "item.patchouli.guide_book.tooltip.shift": "Use \u00A7o/theurgy guide\u00A7r to obtain.",
   "item.theurgy.divination_rod_t1": "Crude Divination Rod",
-  "item.theurgy.divination_rod_t1.message.linked_block": "Attuned to %s",
+  "item.theurgy.divination_rod_t1.message.linked_block": "Attuned to %s.",
+  "item.theurgy.divination_rod_t1.message.no_linked_block": "Your rod is currently not attuned to any block.",
+  "item.theurgy.divination_rod_t1.message.not_an_ore": "The rod can only be attuned to ores.",
+  "item.theurgy.divination_rod_t1.message.tier_too_low": "You need a higher tier rod to attune to this type of ore.",
+  "item.theurgy.divination_rod_t1.message.unlinked_block": "The rod is no longer attuned to any block.",
   "item.theurgy.divination_rod_t1.tooltip": "Can be used to find ores and other objects it can be attuned to.",
-  "item.theurgy.divination_rod_t1.tooltip.attuned": "Can be used to find ores and other objects it can be attuned to.\nAttuned to: %s",
-  "item.theurgy.divination_rod_t1.tooltip.shift": "Shift + Right Click an object to attune the divination rod to it.\nShift + Right Click into the air to remove the attunement.\nRight Click + Hold (takes a few seconds!) to search for the attuned object.\nRight Click without holding to show the direction of the last found object.",
+  "item.theurgy.divination_rod_t1.tooltip.attuned": "Attuned to: %s",
+  "item.theurgy.divination_rod_t1.tooltip.not_attuned": "Not attuned to any block.",
+  "item.theurgy.divination_rod_t1.tooltip.shift": "Craft with fitting items to attune to an Essentia (see JEI for recipes).\nShift + Right Click an object to attune the divination rod to it.\nShift + Right Click into the air to remove the attunement.\nRight Click + Hold (takes a few seconds!) to search for the attuned object.\nRight Click without holding to show the direction of the last found object.",
   "item.theurgy.grimoire": "The Hermetica",
   "itemGroup.theurgy": "Theurgy",
   "message.theurgy.command.help.reply": "Stuck or need help? \u00A76\u00A7lClick this message to visit our Discord!\u00A7r",
@@ -28,5 +33,5 @@
   "theurgy.page.introduction.5.title": "Resonance",
   "theurgy.page.introduction.name": "Introduction",
   "theurgy.subtitle.tuning_fork": "Tuning Fork Sound playing",
-  "tooltip.theurgy.shift_for_more_information": "\u00A7oPress \u00A7lShift\u00A7r \u00A7ofor more information.\u00A7r"
+  "tooltip.theurgy.shift_for_more_information": "\n\u00A7oPress \u00A7lShift\u00A7r \u00A7ofor more information.\u00A7r"
 }

@@ -38,30 +38,31 @@ abstract class LangGenerator(generator: DataGenerator, locale: String) :
             //Items
             add("item.${Theurgy.MOD_ID}.grimoire", "The Hermetica")
             add("item.${Theurgy.MOD_ID}.divination_rod_t1", "Crude Divination Rod")
-            add("item.${Theurgy.MOD_ID}.divination_rod_t1.message.linked_block", "Attuned to %s")
+            add("item.${Theurgy.MOD_ID}.divination_rod_t1.message.linked_block", "Attuned to %s.")
+            add("item.${Theurgy.MOD_ID}.divination_rod_t1.message.unlinked_block", "The rod is no longer attuned to any block.")
+            add("item.${Theurgy.MOD_ID}.divination_rod_t1.message.no_linked_block", "Your rod is currently not attuned to any block.")
+            add("item.${Theurgy.MOD_ID}.divination_rod_t1.message.not_an_ore", "The rod can only be attuned to ores.")
+            add("item.${Theurgy.MOD_ID}.divination_rod_t1.message.tier_too_low", "You need a higher tier rod to attune to this type of ore.")
 
             //Blocks
 
             //Essentia
 
             //Overlay Tooltips
-            add("tooltip.${Theurgy.MOD_ID}.shift_for_more_information", "§oPress §lShift§r §ofor more information.§r")
+            add("tooltip.${Theurgy.MOD_ID}.shift_for_more_information", "\n§oPress §lShift§r §ofor more information.§r")
             add("item.patchouli.guide_book.tooltip", "Craft or use command (available to all players) to obtain.")
             add("item.patchouli.guide_book.tooltip.shift", "Use §o/theurgy guide§r to obtain.")
+
             add(
                 "item.${Theurgy.MOD_ID}.divination_rod_t1.tooltip",
                 "Can be used to find ores and other objects it can be attuned to."
             )
-            add(
-                "item.${Theurgy.MOD_ID}.divination_rod_t1.tooltip.attuned",
-                """
-                    Can be used to find ores and other objects it can be attuned to.
-                    Attuned to: %s
-                """.trimIndent()
-            )
+            add("item.${Theurgy.MOD_ID}.divination_rod_t1.tooltip.attuned", "Attuned to: %s")
+            add("item.${Theurgy.MOD_ID}.divination_rod_t1.tooltip.not_attuned", "Not attuned to any block.")
             add(
                 "item.${Theurgy.MOD_ID}.divination_rod_t1.tooltip.shift",
                 """
+                    Craft with fitting items to attune to an Essentia (see JEI for recipes).
                     Shift + Right Click an object to attune the divination rod to it.
                     Shift + Right Click into the air to remove the attunement.
                     Right Click + Hold (takes a few seconds!) to search for the attuned object.

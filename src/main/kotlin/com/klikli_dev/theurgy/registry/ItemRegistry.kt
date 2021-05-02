@@ -36,8 +36,6 @@ object ItemRegistry {
     val theurgy by items.registerObject("theurgy") { Item(Item.Properties()) }
 
     val divinationRodT1 by items.registerObject("divination_rod_t1") {
-        DivinationRodItem(ItemTier.IRON, defaultProperty).apply {
-            this.withTooltip(true)
-        }
+        DivinationRodItem(ItemTier.STONE, defaultProperty)
     }
 }

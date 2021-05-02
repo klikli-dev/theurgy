@@ -23,9 +23,11 @@ package com.klikli_dev.theurgy.item.tool
 
 import com.klikli_dev.theurgy.client.divination.ScanManager
 import com.klikli_dev.theurgy.client.render.SelectedBlockRenderer
+import com.klikli_dev.theurgy.client.tooltip.TooltipHandler
 import com.klikli_dev.theurgy.config.TheurgyServerConfig
 import com.klikli_dev.theurgy.registry.SoundRegistry
 import net.minecraft.block.BlockState
+import net.minecraft.client.gui.screen.Screen
 import net.minecraft.client.util.ITooltipFlag
 import net.minecraft.entity.LivingEntity
 import net.minecraft.entity.player.PlayerEntity
@@ -35,6 +37,7 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.util.text.ITextComponent
 import net.minecraft.util.text.TranslationTextComponent
 import net.minecraft.world.World
+import net.minecraftforge.common.Tags
 import net.minecraftforge.registries.ForgeRegistries
 
 class DivinationRodItem
@@ -58,29 +61,39 @@ class DivinationRodItem
         if (player.isSneaking) {
             val state: BlockState = world.getBlockState(pos)
 
-            //TODO: handle block type and harvest level
+            //only allow blocks that fit the harvest level
             if (this.itemTier.harvestLevel >= state.block.getHarvestLevel(state)) {
-                if (!world.isRemote) {
-                    val translationKey = state.block.translationKey
-                    stack.orCreateTag.putString("linkedBlockId", state.block.registryName.toString())
-                    stack.tag?.putFloat("linked", 1.0f)
+                //only allow ores
+                if (Tags.Blocks.ORES.contains(state.block)) {
+                    if (!world.isRemote) {
+                        val translationKey = state.block.translationKey
+                        stack.orCreateTag.putString("linkedBlockId", state.block.registryName.toString())
+                        stack.tag?.putFloat("linked", 1.0f)
+                        player.sendMessage(
+                            TranslationTextComponent(
+                                "${this.translationKey}.message.linked_block",
+                                TranslationTextComponent(translationKey)
+                            ), Util.DUMMY_UUID
+                        )
+                    }
+                    world.playSound(
+                        player, player.position, SoundRegistry.tuningFork,
+                        SoundCategory.PLAYERS, 1f, 1f
+                    )
+                }
+                //not an ore
+                else {
                     player.sendMessage(
                         TranslationTextComponent(
-                            "${this.translationKey}.message.linked_block",
+                            "${this.translationKey}.message.not_an_ore",
                             TranslationTextComponent(translationKey)
                         ), Util.DUMMY_UUID
                     )
                 }
-                world.playSound(
-                    player, player.position, SoundRegistry.tuningFork,
-                    SoundCategory.PLAYERS, 1f, 1f
-                )
             } else {
                 if (!world.isRemote) {
-                    //TODO: Useful response - mention if ore tier is the issue or if invalid block
-
                     player.sendMessage(
-                        TranslationTextComponent("$translationKey.message.no_link_found"), Util.DUMMY_UUID
+                        TranslationTextComponent("${this.translationKey}.message.tier_too_low"), Util.DUMMY_UUID
                     )
                 }
             }
@@ -108,7 +121,6 @@ class DivinationRodItem
                     ScanManager.beginScan(player, ForgeRegistries.BLOCKS.getValue(id)!!)
                 }
             } else if (!world.isRemote) {
-                //TODO: ensure there is a message if there is no linked block
                 player.sendMessage(
                     TranslationTextComponent("$translationKey.message.no_linked_block"),
                     Util.DUMMY_UUID
@@ -137,6 +149,7 @@ class DivinationRodItem
             //TODO: finish scan
             val result: BlockPos? = ScanManager.finishScan(player)
             if (result != null) {
+                //TODO: Send result to server
                 //TODO: Store result to re-use
                 //TODO: show particle here instead
                 //Show debug visualization
@@ -163,22 +176,29 @@ class DivinationRodItem
         stack: ItemStack, worldIn: World?, tooltip: List<ITextComponent>,
         flagIn: ITooltipFlag
     ) {
-        // TODO: Add tooltip
-//        if (stack.orCreateTag.contains("linkedBlockId")) {
-//            val id = ResourceLocation(stack.tag.getString("linkedBlockId"))
-//            val block: Block = ForgeRegistries.BLOCKS.getValue(id)
-//            val translationKey = if (block is IOtherworldBlock) (block as IOtherworldBlock).getUncoveredBlock()
-//                .getTranslationKey() else block.translationKey
-//            tooltip.add(
-//                TranslationTextComponent(
-//                    this.translationKey + ".tooltip.linked_block",
-//                    TranslationTextComponent(translationKey)
-//                        .mergeStyle(TextFormatting.BOLD, TextFormatting.ITALIC)
-//                )
-//            )
-//        } else {
-//            tooltip.add(TranslationTextComponent(translationKey + ".tooltip.no_linked_block"))
-//        }
-//        super.addInformation(stack, worldIn, tooltip, flagIn)
+        tooltip as MutableList<ITextComponent>
+        if (!Screen.hasShiftDown()) {
+            tooltip.add(TranslationTextComponent("${this.translationKey}.tooltip"));
+            //if we are linked we show the linked object
+            val linkedBlockId = stack.tag?.getString("linkedBlockId")
+            if (linkedBlockId != null) {
+                val block = ForgeRegistries.BLOCKS.getValue(ResourceLocation(linkedBlockId))
+                if (block != null) {
+                    tooltip.add(
+                        TranslationTextComponent(
+                            "${this.translationKey}.tooltip.attuned",
+                            TranslationTextComponent(block.translationKey)
+                        )
+                    );
+                }
+            } else {
+                tooltip.add(TranslationTextComponent("${this.translationKey}.tooltip.not_attuned"));
+            }
+            tooltip.add(TooltipHandler.shiftForMoreInformation)
+        } else {
+            tooltip.add(TranslationTextComponent("${this.translationKey}.tooltip.shift"));
+        }
+
+        super.addInformation(stack, worldIn, tooltip, flagIn)
     }
 }

@@ -24,4 +24,10 @@ package com.klikli_dev.theurgy.api
 
 object TheurgyConstants {
     val ESSENTIA_TYPE = "essentia_type"
+
+    object Nbt{
+        const val DIVINATION_RESULT = "theurgy:divinationResult"
+        const val DIVINATION_LINKED_BLOCK_ID = "theurgy:divinationLinkedBlockId"
+        const val DIVINATION_IS_LINKED = "theurgy:divinationIsLinked"
+    }
 }

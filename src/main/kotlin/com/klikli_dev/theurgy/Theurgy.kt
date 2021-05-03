@@ -21,6 +21,7 @@
  */
 package com.klikli_dev.theurgy
 
+import com.klikli_dev.theurgy.api.TheurgyConstants
 import com.klikli_dev.theurgy.config.TheurgyClientConfig
 import com.klikli_dev.theurgy.config.TheurgyCommonConfig
 import com.klikli_dev.theurgy.config.TheurgyServerConfig
@@ -94,7 +95,7 @@ object Theurgy {
                 ItemRegistry.divinationRodT1,
                 id("linked")
             ) { itemStack: ItemStack, _, _ ->
-                itemStack.tag?.getFloat(TheurgyNbt.DIVINATION_IS_LINKED) ?: 0.0f
+                itemStack.tag?.getFloat(TheurgyConstants.Nbt.DIVINATION_IS_LINKED) ?: 0.0f
             }
             logger.debug("Registered Item Model Properties")
         }

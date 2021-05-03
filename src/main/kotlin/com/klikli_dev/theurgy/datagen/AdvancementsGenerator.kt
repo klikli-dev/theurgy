@@ -84,7 +84,7 @@ class AdvancementsGenerator(private val generator: DataGenerator) : IDataProvide
      * Creates a new [InventoryChangeTrigger] that checks for a player having
      * a certain item.
      */
-    private fun hasItem(item: IItemProvider?): InventoryChangeTrigger.Instance {
+    private fun hasItem(item: IItemProvider): InventoryChangeTrigger.Instance {
         return hasItem(ItemPredicate.Builder.create().item(item).build())
     }
 
@@ -92,7 +92,7 @@ class AdvancementsGenerator(private val generator: DataGenerator) : IDataProvide
      * Creates a new [InventoryChangeTrigger] that checks for a player having
      * an item within the given tag.
      */
-    private fun hasItem(tag: ITag<Item?>?): InventoryChangeTrigger.Instance {
+    private fun hasItem(tag: ITag<Item>): InventoryChangeTrigger.Instance {
         return hasItem(ItemPredicate.Builder.create().tag(tag).build())
     }
 
@@ -100,7 +100,7 @@ class AdvancementsGenerator(private val generator: DataGenerator) : IDataProvide
      * Creates a new [InventoryChangeTrigger] that checks for a player having
      * a certain item.
      */
-    private fun hasItem(vararg predicate: ItemPredicate?): InventoryChangeTrigger.Instance {
+    private fun hasItem(vararg predicate: ItemPredicate): InventoryChangeTrigger.Instance {
         return InventoryChangeTrigger.Instance(
             EntityPredicate.AndPredicate.ANY_AND,
             MinMaxBounds.IntBound.UNBOUNDED,

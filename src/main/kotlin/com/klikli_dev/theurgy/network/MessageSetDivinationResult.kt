@@ -21,7 +21,7 @@
  */
 package com.klikli_dev.theurgy.network
 
-import com.klikli_dev.theurgy.TheurgyNbt
+import com.klikli_dev.theurgy.api.TheurgyConstants
 import com.klikli_dev.theurgy.item.tool.DivinationRodItem
 import net.minecraft.entity.player.ServerPlayerEntity
 import net.minecraft.network.PacketBuffer
@@ -47,7 +47,7 @@ class MessageSetDivinationResult : MessageBase {
     ) {
         val stack = player.getHeldItem(Hand.MAIN_HAND)
         if (stack.item is DivinationRodItem) {
-            stack.orCreateTag.putLong(TheurgyNbt.DIVINATION_RESULT, result.toLong())
+            stack.orCreateTag.putLong(TheurgyConstants.Nbt.DIVINATION_RESULT, result.toLong())
             player.container.detectAndSendChanges()
         }
     }

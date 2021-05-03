@@ -33,7 +33,7 @@ java.toolchain.languageVersion = JavaLanguageVersion.of(8)
 
 sourceSets {
     api {
-        java {
+        kotlin {
             srcDir 'src/api/kotlin'
         }
     }
@@ -51,7 +51,6 @@ configurations {
     apiImplementation.extendsFrom(implementation)
     apiCompileOnly.extendsFrom(compileOnly)
 }
-
 
 println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
 minecraft {
@@ -174,6 +173,14 @@ dependencies {
 }
 
 compileKotlin {
+    kotlinOptions {
+        jvmTarget = '1.8'
+        languageVersion = '1.4'
+        apiVersion = '1.4'
+    }
+}
+
+compileApiKotlin  {
     kotlinOptions {
         jvmTarget = '1.8'
         languageVersion = '1.4'

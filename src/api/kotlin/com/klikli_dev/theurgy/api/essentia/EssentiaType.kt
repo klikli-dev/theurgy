@@ -24,6 +24,7 @@ package com.klikli_dev.theurgy.api.essentia
 
 import com.klikli_dev.theurgy.api.TheurgyAPI
 import com.klikli_dev.theurgy.api.TheurgyConstants
+import com.mojang.serialization.Codec
 import net.minecraft.state.EnumProperty
 import net.minecraft.util.ColorHelper
 import net.minecraft.util.IStringSerializable
@@ -40,9 +41,6 @@ enum class EssentiaType(r: Int, g: Int, b: Int, name: String) : IStringSerializa
     TERRA(76, 133, 102, "terra"),
     ORDO(255, 255, 255, "ordo"),
     PERDITIO(0, 0, 0, "perditio");
-
-    val essentiaBlockProperty: EnumProperty<EssentiaType> =
-        EnumProperty.create(TheurgyConstants.ESSENTIA_TYPE, EssentiaType::class.java)
 
     private val r = r / 255f
     private val g = g / 255f
@@ -68,6 +66,11 @@ enum class EssentiaType(r: Int, g: Int, b: Int, name: String) : IStringSerializa
     }
 
     companion object {
+        val codec: Codec<EssentiaType> = IStringSerializable.createEnumCodec(EssentiaType::values, EssentiaType::byName)
+
+        val essentiaBlockProperty: EnumProperty<EssentiaType> =
+            EnumProperty.create(TheurgyConstants.ESSENTIA_TYPE, EssentiaType::class.java)
+
         fun byName(name: String): EssentiaType {
             for (elementType in values()) {
                 if (elementType.name == name) {

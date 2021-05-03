@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright 2021 klikli-dev
+ * Copyright 2021 klikli-dev, sirttas
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction, including
@@ -28,6 +28,9 @@ import net.minecraft.state.EnumProperty
 import net.minecraft.util.ColorHelper
 import net.minecraft.util.IStringSerializable
 
+/**
+ * https://github.com/Sirttas/ElementalCraft
+ */
 enum class EssentiaType(r: Int, g: Int, b: Int, name: String) : IStringSerializable, IEssentiaTypeProvider {
 
     NONE(128, 128, 128, "none"),

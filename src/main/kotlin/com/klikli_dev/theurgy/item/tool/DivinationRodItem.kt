@@ -22,13 +22,17 @@
 package com.klikli_dev.theurgy.item.tool
 
 import com.klikli_dev.theurgy.api.TheurgyConstants
+import com.klikli_dev.theurgy.api.essentia.EssentiaType
 import com.klikli_dev.theurgy.client.divination.ScanManager
+import com.klikli_dev.theurgy.client.particle.EssentiaTypeParticleData
 import com.klikli_dev.theurgy.client.render.SelectedBlockRenderer
 import com.klikli_dev.theurgy.client.tooltip.TooltipHandler
 import com.klikli_dev.theurgy.config.TheurgyServerConfig
 import com.klikli_dev.theurgy.network.MessageSetDivinationResult
 import com.klikli_dev.theurgy.network.TheurgyPackets
+import com.klikli_dev.theurgy.registry.ParticleRegistry
 import com.klikli_dev.theurgy.registry.SoundRegistry
+import com.klikli_dev.theurgy.util.Math3DUtil.getCenter
 import net.minecraft.block.BlockState
 import net.minecraft.client.gui.screen.Screen
 import net.minecraft.client.util.ITooltipFlag
@@ -37,6 +41,7 @@ import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.item.*
 import net.minecraft.util.*
 import net.minecraft.util.math.BlockPos
+import net.minecraft.util.math.vector.Vector3d
 import net.minecraft.util.text.ITextComponent
 import net.minecraft.util.text.TranslationTextComponent
 import net.minecraft.world.World
@@ -160,6 +165,16 @@ class DivinationRodItem
             if (result != null) {
                 TheurgyPackets.sendToServer(MessageSetDivinationResult(result))
                 //TODO: show particle here instead
+                val pos = player.positionVec
+                val dir = result.getCenter().subtract(pos).normalize()
+                val x: Double = pos.getX() + (world.rand.nextDouble() * 6 - 3) / 16
+                val y: Double = pos.getY() - 3.0 / 16
+                val z: Double = pos.getZ() + (world.rand.nextDouble() * 6 - 3) / 16
+                world.addParticle(
+                    EssentiaTypeParticleData(ParticleRegistry.divinationRodIndicator, EssentiaType.NONE),
+                    x, y, z, dir.x, dir.y, dir.z
+                )
+
                 //Show debug visualization
                 SelectedBlockRenderer.selectBlock(result, System.currentTimeMillis() + 10000)
             }

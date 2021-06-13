@@ -27,6 +27,7 @@ import com.klikli_dev.theurgy.config.TheurgyCommonConfig
 import com.klikli_dev.theurgy.config.TheurgyServerConfig
 import com.klikli_dev.theurgy.network.TheurgyPackets
 import com.klikli_dev.theurgy.registry.ItemRegistry
+import com.klikli_dev.theurgy.registry.ParticleRegistry
 import com.klikli_dev.theurgy.registry.RecipeRegistry
 import com.klikli_dev.theurgy.registry.SoundRegistry
 import com.klikli_dev.theurgy.registry.TooltipRegistry.withTooltip
@@ -64,6 +65,7 @@ object Theurgy {
         ItemRegistry.items.register(MOD_BUS);
         SoundRegistry.sounds.register(MOD_BUS);
         RecipeRegistry.recipes.register(MOD_BUS);
+        ParticleRegistry.particles.register(MOD_BUS)
 
         //register event buses
         MOD_BUS.addListener(Theurgy::clientSetup)

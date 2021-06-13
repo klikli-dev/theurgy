@@ -7,7 +7,7 @@ buildscript {
     dependencies {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '4.+', changing: true
         // Make sure this version matches the one included in Kotlin for Forge
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.32"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.10"
     }
 }
 
@@ -158,7 +158,7 @@ dependencies {
     minecraft 'net.minecraftforge:forge:1.16.5-36.1.13'
 
     //KotlinForForge
-    fg.deobf(implementation('thedarkcolour:kotlinforforge:1.11.1'))
+    fg.deobf(implementation('thedarkcolour:kotlinforforge:1.12.1'))
 
     //curios
     compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}:api")
@@ -175,8 +175,8 @@ dependencies {
 compileKotlin {
     kotlinOptions {
         jvmTarget = '1.8'
-        languageVersion = '1.4'
-        apiVersion = '1.4'
+        languageVersion = '1.5'
+        apiVersion = '1.5'
     }
 }
 

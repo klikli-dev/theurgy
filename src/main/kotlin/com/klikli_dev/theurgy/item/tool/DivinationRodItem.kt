@@ -164,9 +164,9 @@ class DivinationRodItem
             val result: BlockPos? = ScanManager.finishScan(player)
             if (result != null) {
                 TheurgyPackets.sendToServer(MessageSetDivinationResult(result))
-                //TODO: show particle here instead
+
                 val pos = player.positionVec
-                val dir = result.getCenter().subtract(pos).normalize()
+                val dir = result.getCenter().subtract(pos)
                 val x: Double = pos.getX() + (world.rand.nextDouble() * 6 - 3) / 16
                 val y: Double = pos.getY() - 3.0 / 16
                 val z: Double = pos.getZ() + (world.rand.nextDouble() * 6 - 3) / 16

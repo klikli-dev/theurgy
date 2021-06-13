@@ -32,27 +32,39 @@ import net.minecraft.util.math.vector.Vector3d
 /**
  * https://github.com/Sirttas/ElementalCraft
  */
-class ParticleDivinationRodIndicator(world: ClientWorld, x: Double, y: Double, z: Double, motionX: Double, motionY: Double, motionZ: Double, type: EssentiaType) :
+class ParticleDivinationRodIndicator(
+    world: ClientWorld,
+    x: Double,
+    y: Double,
+    z: Double,
+    motionX: Double,
+    motionY: Double,
+    motionZ: Double,
+    type: EssentiaType
+) :
     SpriteTexturedParticle(world, x, y, z, motionX, motionY, motionZ) {
 
     private val originX: Double = x
     private val originY: Double = y
     private val originZ: Double = z
 
-    init{
+    init {
         this.prevPosX = this.originX * this.motionX;
         this.prevPosY = this.originY * this.motionY;
         this.prevPosZ = this.originZ * this.motionZ;
         this.posX = this.prevPosX;
         this.posY = this.prevPosY;
         this.posZ = this.prevPosZ;
-        particleScale = 0.1f * (rand.nextFloat() * 0.5f + 0.2f)
+        this.particleScale = 0.1f * (this.rand.nextFloat() * 0.5f + 0.2f)
         val f = rand.nextFloat() * 0.4f + 0.6f
-        particleRed = f * type.getRed()
-        particleGreen = f * type.getGreen()
-        particleBlue = f * type.getBlue()
-        canCollide = false
-        maxAge = ((rand.nextInt(10) + 30) * Vector3d(motionX, motionY, motionZ).length()).toInt()
+        this.particleRed = f * type.getRed()
+        this.particleGreen = f * type.getGreen()
+        this.particleBlue = f * type.getBlue()
+        this.canCollide = false
+        this.maxAge = ((this.rand.nextInt(10) + 30) * Vector3d(motionX, motionY, motionZ).length()).toInt()
+
+        //TODO: Fix particle. Currently it stays exactly where it is, and with default settings is too small to see
+        this.particleScale = 1.0f
     }
 
     override fun getRenderType(): IParticleRenderType {
@@ -63,28 +75,28 @@ class ParticleDivinationRodIndicator(world: ClientWorld, x: Double, y: Double, z
     }
 
     override fun move(x: Double, y: Double, z: Double) {
-        boundingBox = boundingBox.offset(x, y, z)
-        resetPositionToBB()
+        this.boundingBox = this.boundingBox.offset(x, y, z)
+        this.resetPositionToBB()
     }
 
     override fun tick() {
-        prevPosX = posX
-        prevPosY = posY
-        prevPosZ = posZ
-        if (age++ >= maxAge) {
-            setExpired()
+        this.prevPosX = this.posX
+        this.prevPosY = this.posY
+        this.prevPosZ = this.posZ
+        if (this.age++ >= this.maxAge) {
+            this.setExpired()
         } else {
-            var f = age.toFloat() / maxAge.toFloat()
+            var f = this.age.toFloat() / this.maxAge.toFloat()
             f = 1.0f - f
-            posX = this.originX + motionX * f
-            posY = this.originY + motionY * f
-            posZ = this.originZ + motionZ * f
+            this.posX = this.originX + this.motionX * f
+            this.posY = this.originY + this.motionY * f
+            this.posZ = this.originZ + this.motionZ * f
         }
     }
 
     override fun getBrightnessForRender(partialTick: Float): Int {
         val i = super.getBrightnessForRender(partialTick)
-        var f = age.toFloat() / maxAge.toFloat()
+        var f = this.age.toFloat() / this.maxAge.toFloat()
         f *= f
         f *= f
         val j = i and 255

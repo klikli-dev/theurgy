@@ -24,6 +24,27 @@ if (System.getenv('VERSION') != null) {
 group = "com.github.klikli_dev"
 archivesBaseName = "theurgy"
 
+sourceSets {
+    api {
+        java {
+            srcDir 'src/api/java'
+        }
+    }
+    main {
+        resources {
+            srcDir 'src/generated/resources'
+        }
+        compileClasspath += api.output
+        runtimeClasspath += api.output
+    }
+}
+
+configurations {
+    apiCompile.extendsFrom(compile)
+    apiImplementation.extendsFrom(implementation)
+    apiCompileOnly.extendsFrom(compileOnly)
+}
+
 java.toolchain.languageVersion = JavaLanguageVersion.of(16)
 
 println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
@@ -132,6 +153,9 @@ dependencies {
 
 // Example for how to get properties into the manifest for reading by the runtime..
 jar {
+    from sourceSets.api.output
+    from sourceSets.main.output
+
     manifest {
         attributes([
                 "Specification-Title": "theurgy",
@@ -150,6 +174,14 @@ jar {
 jar.finalizedBy('reobfJar')
 // However if you are in a multi-project build, dev time needs unobfed jar files, so you can delay the obfuscation until publishing by doing
 //publish.dependsOn('reobfJar')
+
+task apiJar(type: Jar) {
+    archiveClassifier = "api"
+    from sourceSets.api.output
+    afterEvaluate {finalizedBy('reobfJar') }
+}
+
+build.dependsOn tasks.apiJar
 
 publishing {
     publications {

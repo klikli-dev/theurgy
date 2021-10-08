@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright 2020 klikli-dev
+ * Copyright 2021 klikli-dev
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction, including
@@ -20,11 +20,16 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.github.klikli_dev.theurgy;
+package com.klikli_dev.theurgy;
 
+import com.klikli_dev.theurgy.config.ClientConfig;
+import com.klikli_dev.theurgy.config.CommonConfig;
+import com.klikli_dev.theurgy.config.ServerConfig;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.config.ModConfigEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLDedicatedServerSetupEvent;
@@ -34,18 +39,18 @@ import org.apache.logging.log4j.Logger;
 
 @Mod(Theurgy.MODID)
 public class Theurgy {
-    //region Fields
-    public static final String MODID = "theurgy";
-    public static final String NAME = "Theurgy";
+    public static final String MODID = TheurgyAPI.ID;
     public static final Logger LOGGER = LogManager.getLogger(MODID);
-    public static Theurgy INSTANCE;
-    //endregion Fields
 
-    //region Initialization
+    public static Theurgy INSTANCE;
+
     public Theurgy() {
         INSTANCE = this;
-        //TODO: enable config
-        //ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, CONFIG.spec);
+
+        ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, ServerConfig.getInstance().spec);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, CommonConfig.getInstance().spec);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ClientConfig.getInstance().spec);
+
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         //TODO: register deferred registries
@@ -59,17 +64,19 @@ public class Theurgy {
         MinecraftForge.EVENT_BUS.register(this);
     }
 
-    //endregion Initialization
-    //region Methods
     public void onModConfigEvent(final ModConfigEvent event) {
-//        if (event.getConfig().getSpec() == SERVER_CONFIG.spec) {
-//            //Clear the config cache on reload.
-//            SERVER_CONFIG.clear();
-//        }
-//        if (event.getConfig().getSpec() == CLIENT_CONFIG.spec) {
-//            //Clear the config cache on reload.
-//            CLIENT_CONFIG.clear();
-//        }
+        if (event.getConfig().getSpec() == ClientConfig.getInstance().spec) {
+            //Clear the config cache on reload.
+            ClientConfig.getInstance().clear();
+        }
+        if (event.getConfig().getSpec() == CommonConfig.getInstance().spec) {
+            //Clear the config cache on reload.
+            CommonConfig.getInstance().clear();
+        }
+        if (event.getConfig().getSpec() == ServerConfig.getInstance().spec) {
+            //Clear the config cache on reload.
+            ServerConfig.getInstance().clear();
+        }
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
@@ -80,5 +87,4 @@ public class Theurgy {
     private void serverSetup(final FMLDedicatedServerSetupEvent event) {
         LOGGER.info("Dedicated server setup complete.");
     }
-    //endregion Methods
 }

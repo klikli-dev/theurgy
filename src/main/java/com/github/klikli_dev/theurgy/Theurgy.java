@@ -25,7 +25,7 @@ package com.github.klikli_dev.theurgy;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.config.ModConfigEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLDedicatedServerSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -61,12 +61,15 @@ public class Theurgy {
 
     //endregion Initialization
     //region Methods
-    public void onModConfigEvent(final ModConfig.ModConfigEvent event) {
-        //TODO: clear config after setting it up
-        //        if (event.getConfig().getSpec() == CONFIG.spec) {
-        //            //Clear the config cache on reload.
-        //            CONFIG.clear();
-        //        }
+    public void onModConfigEvent(final ModConfigEvent event) {
+//        if (event.getConfig().getSpec() == SERVER_CONFIG.spec) {
+//            //Clear the config cache on reload.
+//            SERVER_CONFIG.clear();
+//        }
+//        if (event.getConfig().getSpec() == CLIENT_CONFIG.spec) {
+//            //Clear the config cache on reload.
+//            CLIENT_CONFIG.clear();
+//        }
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {

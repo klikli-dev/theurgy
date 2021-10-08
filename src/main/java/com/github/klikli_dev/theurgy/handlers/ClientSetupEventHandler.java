@@ -23,29 +23,16 @@
 package com.github.klikli_dev.theurgy.handlers;
 
 import com.github.klikli_dev.theurgy.Theurgy;
-import net.minecraft.client.gui.ScreenManager;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.RenderTypeLookup;
-import net.minecraft.client.renderer.entity.EndermanRenderer;
-import net.minecraft.client.renderer.entity.EndermiteRenderer;
-import net.minecraft.client.renderer.entity.SkeletonRenderer;
-import net.minecraft.client.renderer.entity.WitherSkeletonRenderer;
-import net.minecraft.item.ItemModelsProperties;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.client.registry.ClientRegistry;
-import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
 @Mod.EventBusSubscriber(modid = Theurgy.MODID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ClientSetupEventHandler {
 
-//region Static Methods
     @SubscribeEvent
-    public static void onClientSetup(FMLClientSetupEvent event){
+    public static void onClientSetup(FMLClientSetupEvent event) {
         //Register client side event handlers
 
         //Register Entity Renderers
@@ -55,7 +42,7 @@ public class ClientSetupEventHandler {
         //Setup block render layers
 
 
-       registerItemModelProperties(event);
+        registerItemModelProperties(event);
 
         //Not safe to call during parallel load, so register to run threadsafe.
         event.enqueueWork(() -> {
@@ -66,9 +53,8 @@ public class ClientSetupEventHandler {
 
         Theurgy.LOGGER.info("Client setup complete.");
     }
-//endregion Static Methods
 
-    public static void registerItemModelProperties(FMLClientSetupEvent event){
+    public static void registerItemModelProperties(FMLClientSetupEvent event) {
 
         //Not safe to call during parallel load, so register to run threadsafe
         event.enqueueWork(() -> {

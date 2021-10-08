@@ -1,20 +1,17 @@
 buildscript {
     repositories {
         maven { url = 'https://files.minecraftforge.net/maven' }
-        jcenter()
+        maven { url = 'https://maven.parchmentmc.org' }
         mavenCentral()
     }
     dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
+        classpath 'org.parchmentmc:librarian:1.+'
     }
 }
 
-plugins {
-    id "com.matthewprenger.cursegradle" version "1.4.0"
-}
-
 apply plugin: 'net.minecraftforge.gradle'
-// Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
+apply plugin: 'org.parchmentmc.librarian.forgegradle'
 apply plugin: 'idea'
 apply plugin: 'maven-publish'
 
@@ -27,18 +24,11 @@ if (System.getenv('VERSION') != null) {
 group = "com.github.klikli_dev"
 archivesBaseName = "theurgy"
 
-sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
+java.toolchain.languageVersion = JavaLanguageVersion.of(16)
 
 println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
 minecraft {
-    // The mappings can be changed at any time, and must be in the following format.
-    // snapshot_YYYYMMDD   Snapshot are built nightly.
-    // stable_#            Stables are built at the discretion of the MCP team.
-    // Use non-default mappings at your own risk. they may not always work.
-    // Simply re-run your setup task after changing the mappings to update your workspace.
-    mappings channel: 'snapshot', version: '20201028-1.16.3'
-    // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
-
+    mappings channel: 'parchment', version: mapping_version
     // accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 
     // Default run configurations.
@@ -53,8 +43,9 @@ minecraft {
             // Recommended logging level for the console
             property 'forge.logging.console.level', 'debug'
 
-            //Workaround for patchouli mixin crash
-            property 'mixin.env.disableRefMap', 'true'
+            //Fix for patchouli mixin crash
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
 
             mods {
                 occultism {
@@ -72,8 +63,9 @@ minecraft {
             // Recommended logging level for the console
             property 'forge.logging.console.level', 'debug'
 
-            //Workaround for patchouli mixin crash
-            property 'mixin.env.disableRefMap', 'true'
+            //Fix for patchouli mixin crash
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
 
             mods {
                 occultism {
@@ -91,8 +83,9 @@ minecraft {
             // Recommended logging level for the console
             property 'forge.logging.console.level', 'debug'
 
-            //Workaround for patchouli mixin crash
-            property 'mixin.env.disableRefMap', 'true'
+            //Fix for patchouli mixin crash
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
 
             // Specify the modid for data generation, where to output the resulting resource, and where to look for existing resources.
             args '--mod', 'occultism', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
@@ -111,8 +104,8 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
     maven {
-        name = "Hwyla/Waila Maven"
-        url = "https://maven.tehnut.info"
+        name = "KliKli Maven Mirror"
+        url = "https://klikli-dev.github.io/maven"
     }
     maven {
         name = "Patchouli Maven"
@@ -122,25 +115,19 @@ repositories {
         name = "Progwm16 maven - JEI"
         url = 'https://dvs1.progwml6.com/files/maven'
     }
-    maven {
-        name = "ModMaven - JEI"
-        url = "https://modmaven.k-4u.nl"
-    }
 }
 
 dependencies {
-    // Specify the version of Minecraft to use, If this is any group other then 'net.minecraft' it is assumed
-    // that the dep is a ForgeGradle 'patcher' dependency. And it's patches will be applied.
-    // The userdev artifact is a special name and will get all sorts of transformations applied to it.
-    minecraft 'net.minecraftforge:forge:1.16.4-35.1.13'
+    minecraft "net.minecraftforge:forge:${forge_version}"
 
-    //Note: Enabling hwyla leads to build errors on github actions, even when just including the runtime version.
-    //compileOnly fg.deobf("mcp.mobius.waila:Hwyla:${hwyla_version}:api")
-    //runtimeOnly fg.deobf("mcp.mobius.waila:Hwyla:${hwyla_version}")
-    compileOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}:api")
-    runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}")
+    //Jei
+    compileOnly fg.deobf("mezz.jei:jei-${jei_mc_version}:${jei_version}:api")
+    runtimeOnly fg.deobf("mezz.jei:jei-${jei_mc_version}:${jei_version}")
 
-    compile fg.deobf("vazkii.patchouli:Patchouli:${mc_version}-${patchouli_version}")
+    //TODO: link dependencies once updated
+//    //patchouli books
+//    compileOnly fg.deobf("vazkii.patchouli:Patchouli:${patchouli_mc_version}-${patchouli_version}:api")
+//    runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:${patchouli_mc_version}-${patchouli_version}")
 }
 
 // Example for how to get properties into the manifest for reading by the runtime..
@@ -177,38 +164,11 @@ publishing {
     }
 }
 
-curseforge {
-    def curse_api_key = System.getenv('CURSEFORGE_API_KEY')
-    if (curse_api_key == null) {
-        println 'No API Key for Curseforge found.'
-        curse_api_key = ''
-        return
-    }
-
-    def release_type = System.getenv("RELEASE_TYPE")
-    if(release_type == null){
-        println "No release type, no upload to Curseforge."
-        return
-    }
-    if(release_type == "test"){
-        println "Release type test, no upload to Curseforge."
-        return
-    }
-    def env_mc_version = System.getenv("MC_VERSION")
-    if(env_mc_version == null){
-        println "No mc version found, assuming ${mc_version}"
-        env_mc_version = "${mc_version}"
-        return
-    }
-
-    project {
-        apiKey = curse_api_key
-        id = '253449'
-        changelog = '[Automated Build]\nFind changes at https://github.com/klikli-dev/theurgy/releases'
-        releaseType = release_type
-        addGameVersion env_mc_version
-    }
-    options {
-        javaVersionAutoDetect = false
+//increase max errors from 100 to 2000
+afterEvaluate {
+    tasks.withType(JavaCompile) {
+        options.compilerArgs << "-Xmaxerrs" << "2000"
     }
 }
+
+processResources.setDuplicatesStrategy(DuplicatesStrategy.WARN)

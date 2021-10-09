@@ -23,11 +23,10 @@
 package com.klikli_dev.theurgy.datagen;
 
 import com.klikli_dev.theurgy.Theurgy;
-import com.klikli_dev.theurgy.TheurgyAPI;
 import com.klikli_dev.theurgy.TheurgyConstants;
+import com.klikli_dev.theurgy.registry.ItemRegistry;
 import net.minecraft.ChatFormatting;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.common.data.LanguageProvider;
 
@@ -38,22 +37,30 @@ public abstract class LangGenerator extends LanguageProvider {
         super(generator, Theurgy.MODID, locale);
     }
 
-    protected String itemKey(String id){
+    protected String itemKey(String id) {
         return "item." + Theurgy.MODID + "." + id;
     }
 
-    protected void addTooltip(Item item, String tooltip) {
-        this.add(item.getDescriptionId() + TheurgyConstants.I18n.TOOLTIP_SUFFIX, tooltip);
+    protected void advancementTitle(String name, String s) {
+        this.add(AdvancementsGenerator.title(name).getKey(), s);
     }
 
-    protected void addTooltip(Item item, String tooltip, String extendedTooltip) {
-        this.addTooltip(item, tooltip);
-        this.add(item.getDescriptionId() + TheurgyConstants.I18n.TOOLTIP_EXTENDED_SUFFIX, extendedTooltip);
+    protected void advancementDescr(String name, String s) {
+        this.add(AdvancementsGenerator.descr(name).getKey(), s);
     }
 
-    protected void addTooltip(Item item, String tooltip, String extendedTooltip, String usageTooltip) {
-        this.addTooltip(item, tooltip, extendedTooltip);
-        this.add(item.getDescriptionId() + TheurgyConstants.I18n.TOOLTIP_USAGE_SUFFIX, usageTooltip);
+    protected void addTooltip(Supplier<? extends Item> key, String tooltip) {
+        this.add(key.get().getDescriptionId() + TheurgyConstants.I18n.TOOLTIP_SUFFIX, tooltip);
+    }
+
+    protected void addTooltip(Supplier<? extends Item> key, String tooltip, String extendedTooltip) {
+        this.addTooltip(key, tooltip);
+        this.add(key.get().getDescriptionId() + TheurgyConstants.I18n.TOOLTIP_EXTENDED_SUFFIX, extendedTooltip);
+    }
+
+    protected void addTooltip(Supplier<? extends Item> key, String tooltip, String extendedTooltip, String usageTooltip) {
+        this.addTooltip(key, tooltip, extendedTooltip);
+        this.add(key.get().getDescriptionId() + TheurgyConstants.I18n.TOOLTIP_USAGE_SUFFIX, usageTooltip);
     }
 
     public static final class English extends LangGenerator {
@@ -64,26 +71,40 @@ public abstract class LangGenerator extends LanguageProvider {
 
         protected void addTranslations() {
             this.addMisc();
+            this.addItems();
             this.addTooltips();
+            this.addAdvancements();
             this.addPatchouli();
         }
 
-        private void addMisc(){
+        private void addMisc() {
             this.add("itemGroup.theurgy", "Theurgy");
-            this.add(TheurgyConstants.I18n.TOOLTIP_SHOW_EXTENDED,
-                    ChatFormatting.GOLD + "[" +
+            this.add(TheurgyConstants.I18n.TOOLTIP_SHOW_EXTENDED, ChatFormatting.GOLD + "[" +
                             ChatFormatting.LIGHT_PURPLE + "shift" +
                             ChatFormatting.GRAY + "read more" +
                             ChatFormatting.GOLD + "]");
-            this.add(TheurgyConstants.I18n.TOOLTIP_SHOW_USAGE,
-                    ChatFormatting.GOLD + "[" +
+            this.add(TheurgyConstants.I18n.TOOLTIP_SHOW_USAGE, ChatFormatting.GOLD + "[" +
                             ChatFormatting.LIGHT_PURPLE + "shift-n" +
                             ChatFormatting.GRAY + "show usage" +
                             ChatFormatting.GOLD + "]");
         }
 
-        private void addTooltips(){
+        private void addItems() {
+            this.addItem(ItemRegistry.THEURGY, "Theurgy");
+            this.addItem(ItemRegistry.TEST, "Test Item");
+        }
 
+        private void addTooltips() {
+            this.addTooltip(ItemRegistry.THEURGY, "Dummy item for easy access to the Theurgy icon.");
+            this.addTooltip(ItemRegistry.TEST,
+                    "A test item to test tooltips.",
+                    "It also has an extended tooltip.",
+                    "And even usage info.");
+        }
+
+        private void addAdvancements() {
+            this.advancementTitle("root", "Theurgy");
+            this.advancementDescr("root", "The journey towards uncovering the mysteries of the universe lies ahead.");
         }
 
         private void addPatchouli() {

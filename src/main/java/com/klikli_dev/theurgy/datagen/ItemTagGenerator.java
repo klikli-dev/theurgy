@@ -22,31 +22,21 @@
 
 package com.klikli_dev.theurgy.datagen;
 
+import com.klikli_dev.theurgy.Theurgy;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.tags.BlockTagsProvider;
+import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
 
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
-public class DataGenerators {
+import javax.annotation.Nullable;
 
-    @SubscribeEvent
-    public static void gatherData(GatherDataEvent event) {
-        DataGenerator generator = event.getGenerator();
-        ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
+public class ItemTagGenerator extends ItemTagsProvider {
+    public ItemTagGenerator(DataGenerator pGenerator, BlockTagsProvider pBlockTagsProvider, @Nullable ExistingFileHelper existingFileHelper) {
+        super(pGenerator, pBlockTagsProvider, Theurgy.MODID, existingFileHelper);
+    }
 
-        if (event.includeClient()) {
-            generator.addProvider(new LangGenerator.English(generator));
-            generator.addProvider(new ItemModelsGenerator(generator, existingFileHelper));
-        }
+    @Override
+    protected void addTags() {
 
-        if (event.includeServer()) {
-            var blockTags = new BlockTagGenerator(generator, existingFileHelper);
-            generator.addProvider(blockTags);
-            generator.addProvider(new ItemTagGenerator(generator, blockTags, existingFileHelper));
-            generator.addProvider(new BlockLootTablesGenerator(generator));
-            generator.addProvider(new AdvancementsGenerator(generator));
-        }
     }
 }

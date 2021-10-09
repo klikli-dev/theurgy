@@ -25,6 +25,8 @@ package com.klikli_dev.theurgy;
 import com.klikli_dev.theurgy.config.ClientConfig;
 import com.klikli_dev.theurgy.config.CommonConfig;
 import com.klikli_dev.theurgy.config.ServerConfig;
+import com.klikli_dev.theurgy.registry.ItemRegistry;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -54,6 +56,7 @@ public class Theurgy {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         //TODO: register deferred registries
+        ItemRegistry.ITEMS.register(modEventBus);
 
         //register event buses
         //TODO: register capabilities
@@ -62,6 +65,10 @@ public class Theurgy {
         modEventBus.addListener(this::onModConfigEvent);
 
         MinecraftForge.EVENT_BUS.register(this);
+    }
+
+    public static ResourceLocation id(String path){
+        return new ResourceLocation(MODID, path);
     }
 
     public void onModConfigEvent(final ModConfigEvent event) {

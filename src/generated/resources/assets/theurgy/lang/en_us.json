@@ -8,6 +8,6 @@
   "item.theurgy.theurgy": "Theurgy",
   "item.theurgy.theurgy.tooltip": "Dummy item for easy access to the Theurgy icon.",
   "itemGroup.theurgy": "Theurgy",
-  "tooltip.theurgy.show_extended": "\u00A76[\u00A7dshift\u00A77read more\u00A76]",
-  "tooltip.theurgy.show_usage": "\u00A76[\u00A7dshift-n\u00A77show usage\u00A76]"
+  "tooltip.theurgy.show_extended": "\u00A76[\u00A7dshift \u00A77read more\u00A76]",
+  "tooltip.theurgy.show_usage": "\u00A76[\u00A7dctrl-shift \u00A77show usage\u00A76]"
 }

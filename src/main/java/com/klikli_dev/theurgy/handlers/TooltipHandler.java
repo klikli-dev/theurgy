@@ -54,7 +54,7 @@ public class TooltipHandler {
             boolean usageTooltipExists = net.minecraft.client.resources.language.I18n.exists(usageTooltipKey);
 
             //first check usage tooltip
-            if (Screen.hasShiftDown() && hasNDown() && usageTooltipExists) {
+            if (Screen.hasShiftDown() && Screen.hasControlDown() && usageTooltipExists) {
                 event.getToolTip().add(new TranslatableComponent(usageTooltipKey));
             }
             //then extended tooltip - hint at usage, if available
@@ -69,7 +69,7 @@ public class TooltipHandler {
             else {
                 //only add the default tooltip if we have one
                 if (tooltipExists) {
-                    event.getToolTip().add(new TranslatableComponent(extendedTooltipKey));
+                    event.getToolTip().add(new TranslatableComponent(tooltipKey));
                 }
                 //but if we have other tooltips, hint at them
                 if (extendedTooltipExists) {
@@ -81,9 +81,4 @@ public class TooltipHandler {
             }
         }
     }
-
-    public static boolean hasNDown() {
-        return InputConstants.isKeyDown(Minecraft.getInstance().getWindow().getWindow(), GLFW.GLFW_KEY_N);
-    }
-
 }

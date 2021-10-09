@@ -80,11 +80,11 @@ public abstract class LangGenerator extends LanguageProvider {
         private void addMisc() {
             this.add("itemGroup.theurgy", "Theurgy");
             this.add(TheurgyConstants.I18n.TOOLTIP_SHOW_EXTENDED, ChatFormatting.GOLD + "[" +
-                            ChatFormatting.LIGHT_PURPLE + "shift" +
+                            ChatFormatting.LIGHT_PURPLE + "shift " +
                             ChatFormatting.GRAY + "read more" +
                             ChatFormatting.GOLD + "]");
             this.add(TheurgyConstants.I18n.TOOLTIP_SHOW_USAGE, ChatFormatting.GOLD + "[" +
-                            ChatFormatting.LIGHT_PURPLE + "shift-n" +
+                            ChatFormatting.LIGHT_PURPLE + "ctrl-shift " +
                             ChatFormatting.GRAY + "show usage" +
                             ChatFormatting.GOLD + "]");
         }

@@ -20,19 +20,23 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.klikli_dev.theurgy;
+package com.klikli_dev.theurgy.datagen;
 
-public class TheurgyConstants {
+import com.klikli_dev.theurgy.Theurgy;
+import net.minecraft.data.DataGenerator;
+import net.minecraft.data.tags.BlockTagsProvider;
+import net.minecraft.data.tags.ItemTagsProvider;
+import net.minecraftforge.common.data.ExistingFileHelper;
 
-    public static class Nbt {
+import javax.annotation.Nullable;
 
+public class ItemTagGenerator extends ItemTagsProvider {
+    public ItemTagGenerator(DataGenerator pGenerator, BlockTagsProvider pBlockTagsProvider, @Nullable ExistingFileHelper existingFileHelper) {
+        super(pGenerator, pBlockTagsProvider, Theurgy.MODID, existingFileHelper);
     }
 
-    public static class I18n {
-        public static final String TOOLTIP_SHOW_EXTENDED = "tooltip.theurgy.show_extended";
-        public static final String TOOLTIP_SHOW_USAGE = "tooltip.theurgy.show_usage";
-        public static final String TOOLTIP_SUFFIX = "tooltip";
-        public static final String TOOLTIP_EXTENDED_SUFFIX = "tooltip.extended";
-        public static final String TOOLTIP_USAGE_SUFFIX = "tooltip.usage";
+    @Override
+    protected void addTags() {
+
     }
 }

@@ -44,17 +44,17 @@ public class TooltipHandler {
         ItemStack stack = event.getItemStack();
 
         //only run for theurgy items
-        if (stack.getItem().getRegistryName().getPath().equals(Theurgy.MODID)) {
-            String tooltipKey = stack.getDescriptionId() + ".tooltip";
-            String extendedTooltipKey = stack.getDescriptionId() + ".tooltip.extended";
-            String usageTooltipKey = stack.getDescriptionId() + ".tooltip.usage";
+        if (stack.getItem().getRegistryName().getNamespace().equals(Theurgy.MODID)) {
+            String tooltipKey = stack.getDescriptionId() + "." + TheurgyConstants.I18n.TOOLTIP_SUFFIX;
+            String extendedTooltipKey = stack.getDescriptionId() + "." + TheurgyConstants.I18n.TOOLTIP_EXTENDED_SUFFIX;
+            String usageTooltipKey = stack.getDescriptionId() + "." + TheurgyConstants.I18n.TOOLTIP_USAGE_SUFFIX;
 
             boolean tooltipExists = net.minecraft.client.resources.language.I18n.exists(tooltipKey);
             boolean extendedTooltipExists = net.minecraft.client.resources.language.I18n.exists(extendedTooltipKey);
             boolean usageTooltipExists = net.minecraft.client.resources.language.I18n.exists(usageTooltipKey);
 
             //first check usage tooltip
-            if (Screen.hasShiftDown() && hasNDown() && usageTooltipExists) {
+            if (Screen.hasShiftDown() && Screen.hasControlDown() && usageTooltipExists) {
                 event.getToolTip().add(new TranslatableComponent(usageTooltipKey));
             }
             //then extended tooltip - hint at usage, if available
@@ -69,7 +69,7 @@ public class TooltipHandler {
             else {
                 //only add the default tooltip if we have one
                 if (tooltipExists) {
-                    event.getToolTip().add(new TranslatableComponent(extendedTooltipKey));
+                    event.getToolTip().add(new TranslatableComponent(tooltipKey));
                 }
                 //but if we have other tooltips, hint at them
                 if (extendedTooltipExists) {
@@ -81,9 +81,4 @@ public class TooltipHandler {
             }
         }
     }
-
-    public static boolean hasNDown() {
-        return InputConstants.isKeyDown(Minecraft.getInstance().getWindow().getWindow(), GLFW.GLFW_KEY_N);
-    }
-
 }

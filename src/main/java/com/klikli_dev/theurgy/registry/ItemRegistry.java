@@ -20,19 +20,24 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.klikli_dev.theurgy;
+package com.klikli_dev.theurgy.registry;
 
-public class TheurgyConstants {
+import com.klikli_dev.theurgy.Theurgy;
+import net.minecraft.world.item.Item;
+import net.minecraftforge.fmllegacy.RegistryObject;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
 
-    public static class Nbt {
+public class ItemRegistry {
+    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Theurgy.MODID);
 
-    }
+    public static final RegistryObject<Item> THEURGY =
+            ITEMS.register("theurgy", () -> new Item(new Item.Properties()));
 
-    public static class I18n {
-        public static final String TOOLTIP_SHOW_EXTENDED = "tooltip.theurgy.show_extended";
-        public static final String TOOLTIP_SHOW_USAGE = "tooltip.theurgy.show_usage";
-        public static final String TOOLTIP_SUFFIX = "tooltip";
-        public static final String TOOLTIP_EXTENDED_SUFFIX = "tooltip.extended";
-        public static final String TOOLTIP_USAGE_SUFFIX = "tooltip.usage";
+    public static final RegistryObject<Item> TEST = ITEMS.register("test",
+            () -> new Item(defaultProperties()));
+
+    public static Item.Properties defaultProperties() {
+        return new Item.Properties().tab(Theurgy.CREATIVE_MODE_TAB);
     }
 }

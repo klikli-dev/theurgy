@@ -20,19 +20,20 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.klikli_dev.theurgy;
+package com.klikli_dev.theurgy.item;
 
-public class TheurgyConstants {
+import com.klikli_dev.theurgy.Theurgy;
+import com.klikli_dev.theurgy.registry.ItemRegistry;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
 
-    public static class Nbt {
-
+public class TheurgyCreativeModeTab extends CreativeModeTab {
+    public TheurgyCreativeModeTab() {
+        super(Theurgy.MODID);
     }
 
-    public static class I18n {
-        public static final String TOOLTIP_SHOW_EXTENDED = "tooltip.theurgy.show_extended";
-        public static final String TOOLTIP_SHOW_USAGE = "tooltip.theurgy.show_usage";
-        public static final String TOOLTIP_SUFFIX = "tooltip";
-        public static final String TOOLTIP_EXTENDED_SUFFIX = "tooltip.extended";
-        public static final String TOOLTIP_USAGE_SUFFIX = "tooltip.usage";
+    @Override
+    public ItemStack makeIcon() {
+        return new ItemStack(ItemRegistry.THEURGY.get());
     }
 }

@@ -1,0 +1,29 @@
+{
+  "display": {
+    "icon": {
+      "item": "theurgy:theurgy"
+    },
+    "title": {
+      "translate": "advancements.theurgy.root.title"
+    },
+    "description": {
+      "translate": "advancements.theurgy.root.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false,
+    "background": "minecraft:textures/gui/advancements/backgrounds/stone.png"
+  },
+  "criteria": {
+    "occultism_present": {
+      "trigger": "minecraft:tick",
+      "conditions": {}
+    }
+  },
+  "requirements": [
+    [
+      "occultism_present"
+    ]
+  ]
+}

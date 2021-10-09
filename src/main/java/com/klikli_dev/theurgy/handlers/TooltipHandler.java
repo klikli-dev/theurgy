@@ -45,9 +45,9 @@ public class TooltipHandler {
 
         //only run for theurgy items
         if (stack.getItem().getRegistryName().getPath().equals(Theurgy.MODID)) {
-            String tooltipKey = stack.getDescriptionId() + ".tooltip";
-            String extendedTooltipKey = stack.getDescriptionId() + ".tooltip.extended";
-            String usageTooltipKey = stack.getDescriptionId() + ".tooltip.usage";
+            String tooltipKey = stack.getDescriptionId() + "." + TheurgyConstants.I18n.TOOLTIP_SUFFIX;
+            String extendedTooltipKey = stack.getDescriptionId() + "." + TheurgyConstants.I18n.TOOLTIP_EXTENDED_SUFFIX;
+            String usageTooltipKey = stack.getDescriptionId() + "." + TheurgyConstants.I18n.TOOLTIP_USAGE_SUFFIX;
 
             boolean tooltipExists = net.minecraft.client.resources.language.I18n.exists(tooltipKey);
             boolean extendedTooltipExists = net.minecraft.client.resources.language.I18n.exists(extendedTooltipKey);

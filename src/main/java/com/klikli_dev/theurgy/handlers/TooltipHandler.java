@@ -44,7 +44,7 @@ public class TooltipHandler {
         ItemStack stack = event.getItemStack();
 
         //only run for theurgy items
-        if (stack.getItem().getRegistryName().getPath().equals(Theurgy.MODID)) {
+        if (stack.getItem().getRegistryName().getNamespace().equals(Theurgy.MODID)) {
             String tooltipKey = stack.getDescriptionId() + "." + TheurgyConstants.I18n.TOOLTIP_SUFFIX;
             String extendedTooltipKey = stack.getDescriptionId() + "." + TheurgyConstants.I18n.TOOLTIP_EXTENDED_SUFFIX;
             String usageTooltipKey = stack.getDescriptionId() + "." + TheurgyConstants.I18n.TOOLTIP_USAGE_SUFFIX;

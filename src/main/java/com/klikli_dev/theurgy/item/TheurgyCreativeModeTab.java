@@ -20,24 +20,20 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.klikli_dev.theurgy.registry;
+package com.klikli_dev.theurgy.item;
 
 import com.klikli_dev.theurgy.Theurgy;
-import net.minecraft.world.item.Item;
-import net.minecraftforge.fmllegacy.RegistryObject;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
+import com.klikli_dev.theurgy.registry.ItemRegistry;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
 
-public class ItemRegistry {
-    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Theurgy.MODID);
+public class TheurgyCreativeModeTab extends CreativeModeTab {
+    public TheurgyCreativeModeTab() {
+        super(Theurgy.MODID);
+    }
 
-    public static final RegistryObject<Item> THEURGY =
-            ITEMS.register("theurgy", () -> new Item(new Item.Properties()));
-
-    public static final RegistryObject<Item> TEST = ITEMS.register("test",
-            () -> new Item(defaultProperties()));
-
-    public static Item.Properties defaultProperties() {
-        return new Item.Properties().tab(Theurgy.CREATIVE_MODE_TAB);
+    @Override
+    public ItemStack makeIcon() {
+        return new ItemStack(ItemRegistry.THEURGY.get());
     }
 }

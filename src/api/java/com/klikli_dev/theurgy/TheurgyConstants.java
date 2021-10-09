@@ -27,4 +27,9 @@ public class TheurgyConstants {
     public static class Nbt {
 
     }
+
+    public static class I18n {
+        public static final String TOOLTIP_SHOW_EXTENDED = "tooltip.theurgy.show_extended";
+        public static final String TOOLTIP_SHOW_USAGE = "tooltip.theurgy.show_usage";
+    }
 }

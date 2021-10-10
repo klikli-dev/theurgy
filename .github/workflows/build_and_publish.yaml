@@ -64,8 +64,7 @@ jobs:
           release_name: theurgy-${{ steps.get_mc_version.outputs.result }}-${{ steps.get_version.outputs.result }}-${{ steps.get_release_type.outputs.result }}
           body: |
             [[Automated Build]]
-            ## Changelog
-            [${{ steps.get_version.outputs.result }}](https://github.com/klikli-dev/theurgy/wiki/${{ steps.get_version.outputs.result }})
+            Changelog will be added on milestone close.
           draft: false
           prerelease: false
       - name: Upload release asset
@@ -89,7 +88,7 @@ jobs:
           file_path: ./build/libs/theurgy-${{ steps.get_mc_version.outputs.result }}-${{ steps.get_version.outputs.result }}.jar
           changelog: |-
             [Automated Build]
-            Changelog for this build: https://github.com/klikli-dev/theurgy/wiki/${{ steps.get_version.outputs.result }}
+            Changelog for this build: https://github.com/klikli-dev/occultism/releases/tag/${{ steps.get_release_type.outputs.result }}%2Fv${{ steps.get_mc_version.outputs.result }}-${{ steps.get_version.outputs.result }}
             Find changes for all versions at https://github.com/klikli-dev/theurgy/releases
           display_name: theurgy-${{ steps.get_version.outputs.result }}.jar
           game_versions: Forge,1.17.1,${{ steps.get_mc_version.outputs.result }}

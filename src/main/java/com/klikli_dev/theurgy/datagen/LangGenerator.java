@@ -92,6 +92,7 @@ public abstract class LangGenerator extends LanguageProvider {
         private void addItems() {
             this.addItem(ItemRegistry.THEURGY, "Theurgy");
             this.addItem(ItemRegistry.TEST, "Test Item");
+            this.addItem(ItemRegistry.HEDGE, "Hedge");
         }
 
         private void addTooltips() {

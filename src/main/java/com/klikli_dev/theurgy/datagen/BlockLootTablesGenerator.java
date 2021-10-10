@@ -25,6 +25,7 @@ package com.klikli_dev.theurgy.datagen;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.klikli_dev.theurgy.Theurgy;
+import com.klikli_dev.theurgy.registry.BlockRegistry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.HashCache;
@@ -50,6 +51,7 @@ public class BlockLootTablesGenerator extends LootTableProvider {
     }
 
     private void addLootTables(BlockLootTablesGenerator loot) {
+        this.dropSelf(BlockRegistry.HEDGE.get());
     }
 
     private void dropSelf(Block block) {
@@ -71,7 +73,7 @@ public class BlockLootTablesGenerator extends LootTableProvider {
 
         var namespacedTables = new HashMap<ResourceLocation, LootTable>();
 
-        for (var entry : tables.entrySet()) {
+        for (var entry : this.tables.entrySet()) {
             namespacedTables.put(entry.getKey().getLootTable(), entry.getValue());
         }
 

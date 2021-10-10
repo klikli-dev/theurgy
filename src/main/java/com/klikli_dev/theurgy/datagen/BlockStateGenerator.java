@@ -22,32 +22,29 @@
 
 package com.klikli_dev.theurgy.datagen;
 
+import com.klikli_dev.theurgy.Theurgy;
+import com.klikli_dev.theurgy.block.HedgeBlock;
+import com.klikli_dev.theurgy.registry.BlockRegistry;
 import net.minecraft.data.DataGenerator;
+import net.minecraftforge.client.model.generators.BlockStateProvider;
+import net.minecraftforge.client.model.generators.ConfiguredModel;
+import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
 
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
-public class DataGenerators {
+public class BlockStateGenerator extends BlockStateProvider {
+    public BlockStateGenerator(DataGenerator gen,
+                               ExistingFileHelper exFileHelper) {
+        super(gen, Theurgy.MODID, exFileHelper);
+    }
 
-    @SubscribeEvent
-    public static void gatherData(GatherDataEvent event) {
-        DataGenerator generator = event.getGenerator();
-        ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
-
-        if (event.includeClient()) {
-            generator.addProvider(new LangGenerator.English(generator));
-            generator.addProvider(new ItemModelsGenerator(generator, existingFileHelper));
-        }
-
-        if (event.includeServer()) {
-            var blockTags = new BlockTagGenerator(generator, existingFileHelper);
-            generator.addProvider(blockTags);
-            generator.addProvider(new ItemTagGenerator(generator, blockTags, existingFileHelper));
-            generator.addProvider(new BlockLootTablesGenerator(generator));
-            generator.addProvider(new AdvancementsGenerator(generator));
-            generator.addProvider(new BlockStateGenerator(generator, existingFileHelper));
-        }
+    @Override
+    protected void registerStatesAndModels() {
+        ModelFile.ExistingModelFile hedgeModel = this.models().getExistingFile(this.modLoc("block/hedge"));
+        ModelFile.ExistingModelFile hedgeNoFruitModel = this.models().getExistingFile(
+                this.modLoc("block/hedge_no_fruit"));
+        this.getVariantBuilder(BlockRegistry.HEDGE.get()).forAllStates(state -> {
+            int age = state.getValue(HedgeBlock.AGE);
+            return ConfiguredModel.builder().modelFile(age == HedgeBlock.MAX_AGE ? hedgeModel : hedgeNoFruitModel).build();
+        });
     }
 }

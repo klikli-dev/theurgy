@@ -26,6 +26,7 @@ import com.klikli_dev.theurgy.config.ClientConfig;
 import com.klikli_dev.theurgy.config.CommonConfig;
 import com.klikli_dev.theurgy.config.ServerConfig;
 import com.klikli_dev.theurgy.item.TheurgyCreativeModeTab;
+import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
@@ -59,11 +60,12 @@ public class Theurgy {
 
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
-        //TODO: register deferred registries
         ItemRegistry.ITEMS.register(modEventBus);
+        BlockRegistry.BLOCKS.register(modEventBus);
+
+        //TODO: register capabilities
 
         //register event buses
-        //TODO: register capabilities
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::serverSetup);
         modEventBus.addListener(this::onModConfigEvent);

@@ -23,28 +23,19 @@
 package com.klikli_dev.theurgy.registry;
 
 import com.klikli_dev.theurgy.Theurgy;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.Item;
+import com.klikli_dev.theurgy.block.HedgeBlock;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.material.Material;
 import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.IForgeRegistry;
 
-public class ItemRegistry {
-    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Theurgy.MODID);
+public class BlockRegistry {
 
-    public static final RegistryObject<Item> THEURGY =
-            ITEMS.register("theurgy", () -> new Item(new Item.Properties()));
+    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Theurgy.MODID);
 
-    public static final RegistryObject<Item> TEST = ITEMS.register("test",
-            () -> new Item(defaultProperties()));
-
-    public static final RegistryObject<Item> HEDGE = ITEMS.register("hedge",
-            () -> new BlockItem(BlockRegistry.HEDGE.get(), defaultProperties()));
-
-
-    public static Item.Properties defaultProperties() {
-        return new Item.Properties().tab(Theurgy.CREATIVE_MODE_TAB);
-    }
+    public static final RegistryObject<Block> HEDGE = BLOCKS.register("hedge",
+            () -> new HedgeBlock(BlockBehaviour.Properties.of(Material.PLANT).randomTicks().noCollission().noOcclusion().sound(SoundType.SWEET_BERRY_BUSH).strength(0.2f)));
 }

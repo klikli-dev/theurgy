@@ -1,6 +1,7 @@
 {
   "advancements.theurgy.root.description": "The journey towards uncovering the mysteries of the universe lies ahead.",
   "advancements.theurgy.root.title": "Theurgy",
+  "block.theurgy.hedge": "Hedge",
   "item.theurgy.test": "Test Item",
   "item.theurgy.test.tooltip": "A test item to test tooltips.",
   "item.theurgy.test.tooltip.extended": "It also has an extended tooltip.",

@@ -23,7 +23,7 @@
 package com.klikli_dev.theurgy.datagen;
 
 import com.klikli_dev.theurgy.Theurgy;
-import com.klikli_dev.theurgy.block.HedgeBlock;
+import com.klikli_dev.theurgy.block.GraftingHedgeBlock;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
@@ -39,12 +39,6 @@ public class BlockStateGenerator extends BlockStateProvider {
 
     @Override
     protected void registerStatesAndModels() {
-        ModelFile.ExistingModelFile hedgeModel = this.models().getExistingFile(this.modLoc("block/hedge"));
-        ModelFile.ExistingModelFile hedgeNoFruitModel = this.models().getExistingFile(
-                this.modLoc("block/hedge_no_fruit"));
-        this.getVariantBuilder(BlockRegistry.HEDGE.get()).forAllStates(state -> {
-            int age = state.getValue(HedgeBlock.AGE);
-            return ConfiguredModel.builder().modelFile(age == HedgeBlock.MAX_AGE ? hedgeModel : hedgeNoFruitModel).build();
-        });
+        this.simpleBlock(BlockRegistry.GRAFTING_HEDGE.get(),  this.models().getExistingFile(this.modLoc("block/grafting_hedge")));
     }
 }

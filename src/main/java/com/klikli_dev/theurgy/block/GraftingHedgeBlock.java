@@ -1,30 +1,40 @@
 package com.klikli_dev.theurgy.block;
 
+import com.klikli_dev.theurgy.blockentity.GraftingHedgeBlockEntity;
+import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
+import com.klikli_dev.theurgy.registry.TagRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.BushBlock;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.util.Constants;
+import net.minecraftforge.items.ItemHandlerHelper;
 
+import javax.annotation.Nullable;
 import java.util.Random;
 
-public class HedgeBlock extends BushBlock implements BonemealableBlock {
+public class GraftingHedgeBlock extends BushBlock implements BonemealableBlock, EntityBlock {
     public static final IntegerProperty AGE = BlockStateProperties.AGE_3;
     public static final int MAX_AGE = BlockStateProperties.MAX_AGE_3;
 
@@ -32,7 +42,7 @@ public class HedgeBlock extends BushBlock implements BonemealableBlock {
             Block.box(1.0D, 2.0D, 1.0D, 15.0D, 16.0D, 15.0D),
             Block.box(5.0D, 0.D, 5.0D, 11.0D, 2.0D, 11.0D));
 
-    public HedgeBlock(Properties properties) {
+    public GraftingHedgeBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(this.getStateDefinition().any().setValue(AGE, 0));
     }
@@ -40,12 +50,6 @@ public class HedgeBlock extends BushBlock implements BonemealableBlock {
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
         return SHAPE;
-    }
-
-    @Override
-    public ItemStack getCloneItemStack(BlockGetter pLevel, BlockPos pPos, BlockState pState) {
-        //TODO: return grown item here
-        return new ItemStack(Items.APPLE);
     }
 
     @Override
@@ -62,6 +66,33 @@ public class HedgeBlock extends BushBlock implements BonemealableBlock {
         if (pEntity instanceof LivingEntity) {
             pEntity.makeStuckInBlock(pState, new Vec3(0.8D, 0.75D, 0.8D));
         }
+    }
+
+    @Override
+    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
+        BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
+        if (blockEntity instanceof GraftingHedgeBlockEntity hedge) {
+            ItemStack heldItem = pPlayer.getItemInHand(InteractionHand.MAIN_HAND);
+
+            //Graft fruit to hedge if there is none
+            if(hedge.getFruitToGrow().isEmpty() && TagRegistry.FRUITS.contains(heldItem.getItem())){
+                ItemStack itemToGraft = heldItem.copy();
+                itemToGraft.setCount(1);
+                hedge.setFruitToGrow(itemToGraft);
+                //reset hedge to avoid people cheesing an instant harvest
+                pLevel.setBlock(pPos, pState.setValue(AGE, 0), Constants.BlockFlags.BLOCK_UPDATE);
+                pPlayer.swing(InteractionHand.MAIN_HAND);
+            }
+
+            //if we have a grafted fruit and it's ripe, harvest
+             if(!hedge.getFruitToGrow().isEmpty() && pState.getValue(AGE) == MAX_AGE){
+                ItemStack fruit = hedge.getFruitToGrow().copy();
+                ItemHandlerHelper.giveItemToPlayer(pPlayer, fruit);
+                //reset hedge
+                pLevel.setBlock(pPos, pState.setValue(AGE, 0), Constants.BlockFlags.BLOCK_UPDATE);
+            }
+        }
+        return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
     }
 
     @Override
@@ -83,5 +114,11 @@ public class HedgeBlock extends BushBlock implements BonemealableBlock {
     public void performBonemeal(ServerLevel pLevel, Random pRandom, BlockPos pPos, BlockState pState) {
         int newAge = Math.min(MAX_AGE, pState.getValue(AGE) + 1);
         pLevel.setBlock(pPos, pState.setValue(AGE, newAge), Constants.BlockFlags.BLOCK_UPDATE);
+    }
+
+    @Nullable
+    @Override
+    public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
+        return BlockEntityRegistry.GRAFTING_HEDGE.get().create(pPos, pState);
     }
 }

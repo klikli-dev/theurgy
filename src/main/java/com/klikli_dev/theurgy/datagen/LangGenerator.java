@@ -50,17 +50,20 @@ public abstract class LangGenerator extends LanguageProvider {
     }
 
     protected void addTooltip(Supplier<? extends Item> key, String tooltip) {
-        this.add(key.get().getDescriptionId() + "." + TheurgyConstants.I18n.TOOLTIP_SUFFIX, tooltip);
+        if(tooltip != null)
+            this.add(key.get().getDescriptionId() + "." + TheurgyConstants.I18n.TOOLTIP_SUFFIX, tooltip);
     }
 
     protected void addTooltip(Supplier<? extends Item> key, String tooltip, String extendedTooltip) {
         this.addTooltip(key, tooltip);
-        this.add(key.get().getDescriptionId() + "." + TheurgyConstants.I18n.TOOLTIP_EXTENDED_SUFFIX, extendedTooltip);
+        if(tooltip != null)
+            this.add(key.get().getDescriptionId() + "." + TheurgyConstants.I18n.TOOLTIP_EXTENDED_SUFFIX, extendedTooltip);
     }
 
     protected void addTooltip(Supplier<? extends Item> key, String tooltip, String extendedTooltip, String usageTooltip) {
         this.addTooltip(key, tooltip, extendedTooltip);
-        this.add(key.get().getDescriptionId() + "." + TheurgyConstants.I18n.TOOLTIP_USAGE_SUFFIX, usageTooltip);
+        if(tooltip != null)
+            this.add(key.get().getDescriptionId() + "." + TheurgyConstants.I18n.TOOLTIP_USAGE_SUFFIX, usageTooltip);
     }
 
     public static final class English extends LangGenerator {
@@ -92,7 +95,7 @@ public abstract class LangGenerator extends LanguageProvider {
         private void addItems() {
             this.addItem(ItemRegistry.THEURGY, "Theurgy");
             this.addItem(ItemRegistry.TEST, "Test Item");
-            this.addItem(ItemRegistry.HEDGE, "Hedge");
+            this.addItem(ItemRegistry.GRAFTING_HEDGE, "Grafting Hedge");
         }
 
         private void addTooltips() {
@@ -101,6 +104,11 @@ public abstract class LangGenerator extends LanguageProvider {
                     "A test item to test tooltips.",
                     "It also has an extended tooltip.",
                     "And even usage info.");
+
+            this.addTooltip(ItemRegistry.GRAFTING_HEDGE,
+                    "Grafting hedges can grow any type of fruit.",
+                    "When ripe the fruit can be seen hanging in the hedge.",
+                    "Right-click with a fruit to a hedge to graft it onto the plant. It will then grow that kind of fruit.");
         }
 
         private void addAdvancements() {

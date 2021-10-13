@@ -43,7 +43,7 @@ public class ItemModelsGenerator extends ItemModelProvider {
     protected void registerModels() {
         this.registerItemGenerated(this.name(ItemRegistry.TEST.get()), "grimoire");
         this.registerItemGenerated(this.name(ItemRegistry.THEURGY.get()), "grimoire");
-        this.registerBlockItem(this.name(ItemRegistry.HEDGE.get()));
+        this.registerBlockItem(this.name(ItemRegistry.GRAFTING_HEDGE.get()));
     }
 
     private void registerItemGenerated(String name) {

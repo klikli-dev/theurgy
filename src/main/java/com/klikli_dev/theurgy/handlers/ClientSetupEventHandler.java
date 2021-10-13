@@ -43,7 +43,7 @@ public class ClientSetupEventHandler {
         //Register Tile Entity Renderers
 
         //Setup block render layers
-        ItemBlockRenderTypes.setRenderLayer(BlockRegistry.HEDGE.get(), RenderType.cutoutMipped());
+        ItemBlockRenderTypes.setRenderLayer(BlockRegistry.GRAFTING_HEDGE.get(), RenderType.cutoutMipped());
 
         registerItemModelProperties(event);
 

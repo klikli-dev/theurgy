@@ -22,27 +22,30 @@
 
 package com.klikli_dev.theurgy.registry;
 
-import com.klikli_dev.theurgy.Theurgy;
-import net.minecraft.world.item.BlockItem;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.Tag;
 import net.minecraft.world.item.Item;
-import net.minecraftforge.fmllegacy.RegistryObject;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraft.world.level.block.Block;
 
-public class ItemRegistry {
-    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Theurgy.MODID);
+public class TagRegistry {
 
-    public static final RegistryObject<Item> THEURGY =
-            ITEMS.register("theurgy", () -> new Item(new Item.Properties()));
+    public static final Tag<Item> FRUITS = makeItemTag(new ResourceLocation("forge", "fruits"));
 
-    public static final RegistryObject<Item> TEST = ITEMS.register("test",
-            () -> new Item(defaultProperties()));
+    public static Tag.Named<Item> makeItemTag(String id) {
+        return makeItemTag(new ResourceLocation(id));
+    }
 
-    public static final RegistryObject<Item> GRAFTING_HEDGE = ITEMS.register("grafting_hedge",
-            () -> new BlockItem(BlockRegistry.GRAFTING_HEDGE.get(), defaultProperties()));
+    public static Tag.Named<Item> makeItemTag(ResourceLocation id) {
+        return ItemTags.bind(id.toString());
+    }
 
+    public static Tag.Named<Block> makeBlockTag(String id) {
+        return makeBlockTag(new ResourceLocation(id));
+    }
 
-    public static Item.Properties defaultProperties() {
-        return new Item.Properties().tab(Theurgy.CREATIVE_MODE_TAB);
+    public static Tag.Named<Block> makeBlockTag(ResourceLocation id) {
+        return BlockTags.bind(id.toString());
     }
 }

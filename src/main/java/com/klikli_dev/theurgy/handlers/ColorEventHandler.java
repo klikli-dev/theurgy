@@ -24,7 +24,6 @@ package com.klikli_dev.theurgy.handlers;
 
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
-import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.FoliageColor;
@@ -51,7 +50,7 @@ public class ColorEventHandler {
                     //      blockAndTintGetter usually is a clientlevel or wrapper for threaded rendering
                     blockAndTintGetter != null && pos != null ? 0x720a67 : FoliageColor.getDefaultColor();
             default -> 0xFFFFFF; //white
-        }, BlockRegistry.HEDGE.get());
+        }, BlockRegistry.GRAFTING_HEDGE.get());
 
         Theurgy.LOGGER.info("Block color registration complete.");
     }
@@ -65,7 +64,7 @@ public class ColorEventHandler {
                             BlockState blockstate = ((BlockItem) stack.getItem()).getBlock().defaultBlockState();
                             return blockColors.getColor(blockstate, null, null, tintIndex);
                         }, //oak leaves color
-                        BlockRegistry.HEDGE.get());
+                        BlockRegistry.GRAFTING_HEDGE.get());
 
         Theurgy.LOGGER.info("Item color registration complete.");
     }

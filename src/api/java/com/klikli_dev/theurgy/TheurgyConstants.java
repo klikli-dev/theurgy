@@ -25,7 +25,8 @@ package com.klikli_dev.theurgy;
 public class TheurgyConstants {
 
     public static class Nbt {
-
+        public static final String PREFIX = TheurgyAPI.ID + ":";
+        public static final String FRUIT_TO_GROW = PREFIX + "fruit_to_grow";
     }
 
     public static class I18n {

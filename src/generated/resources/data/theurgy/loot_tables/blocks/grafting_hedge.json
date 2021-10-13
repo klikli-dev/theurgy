@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "theurgy:hedge"
+          "name": "theurgy:grafting_hedge"
         }
       ],
       "conditions": [

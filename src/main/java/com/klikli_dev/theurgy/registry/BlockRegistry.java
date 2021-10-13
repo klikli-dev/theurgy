@@ -23,7 +23,7 @@
 package com.klikli_dev.theurgy.registry;
 
 import com.klikli_dev.theurgy.Theurgy;
-import com.klikli_dev.theurgy.block.HedgeBlock;
+import com.klikli_dev.theurgy.block.GraftingHedgeBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -36,6 +36,6 @@ public class BlockRegistry {
 
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Theurgy.MODID);
 
-    public static final RegistryObject<Block> HEDGE = BLOCKS.register("hedge",
-            () -> new HedgeBlock(BlockBehaviour.Properties.of(Material.PLANT).randomTicks().noCollission().noOcclusion().sound(SoundType.SWEET_BERRY_BUSH).strength(0.2f)));
+    public static final RegistryObject<Block> GRAFTING_HEDGE = BLOCKS.register("grafting_hedge",
+            () -> new GraftingHedgeBlock(BlockBehaviour.Properties.of(Material.PLANT).randomTicks().noCollission().noOcclusion().sound(SoundType.SWEET_BERRY_BUSH).strength(0.2f)));
 }

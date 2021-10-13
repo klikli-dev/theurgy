@@ -51,7 +51,7 @@ public class BlockLootTablesGenerator extends LootTableProvider {
     }
 
     private void addLootTables(BlockLootTablesGenerator loot) {
-        this.dropSelf(BlockRegistry.HEDGE.get());
+        this.dropSelf(BlockRegistry.GRAFTING_HEDGE.get());
     }
 
     private void dropSelf(Block block) {

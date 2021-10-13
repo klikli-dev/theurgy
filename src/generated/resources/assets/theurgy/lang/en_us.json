@@ -1,7 +1,10 @@
 {
   "advancements.theurgy.root.description": "The journey towards uncovering the mysteries of the universe lies ahead.",
   "advancements.theurgy.root.title": "Theurgy",
-  "block.theurgy.hedge": "Hedge",
+  "block.theurgy.grafting_hedge": "Grafting Hedge",
+  "block.theurgy.grafting_hedge.tooltip": "Grafting hedges can grow any type of fruit.",
+  "block.theurgy.grafting_hedge.tooltip.extended": "When ripe the fruit can be seen hanging in the hedge.",
+  "block.theurgy.grafting_hedge.tooltip.usage": "Right-click with a fruit to a hedge to graft it onto the plant. It will then grow that kind of fruit.",
   "item.theurgy.test": "Test Item",
   "item.theurgy.test.tooltip": "A test item to test tooltips.",
   "item.theurgy.test.tooltip.extended": "It also has an extended tooltip.",

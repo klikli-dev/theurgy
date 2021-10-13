@@ -23,26 +23,18 @@
 package com.klikli_dev.theurgy.registry;
 
 import com.klikli_dev.theurgy.Theurgy;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.Item;
+import com.klikli_dev.theurgy.blockentity.GraftingHedgeBlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
-public class ItemRegistry {
-    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Theurgy.MODID);
+public class BlockEntityRegistry {
+    public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(
+            ForgeRegistries.BLOCK_ENTITIES, Theurgy.MODID);
 
-    public static final RegistryObject<Item> THEURGY =
-            ITEMS.register("theurgy", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<BlockEntityType<GraftingHedgeBlockEntity>> GRAFTING_HEDGE = BLOCK_ENTITIES.register(
+            "grafting_hedge", () -> BlockEntityType.Builder.of(GraftingHedgeBlockEntity::new,
+                    BlockRegistry.GRAFTING_HEDGE.get()).build(null));
 
-    public static final RegistryObject<Item> TEST = ITEMS.register("test",
-            () -> new Item(defaultProperties()));
-
-    public static final RegistryObject<Item> GRAFTING_HEDGE = ITEMS.register("grafting_hedge",
-            () -> new BlockItem(BlockRegistry.GRAFTING_HEDGE.get(), defaultProperties()));
-
-
-    public static Item.Properties defaultProperties() {
-        return new Item.Properties().tab(Theurgy.CREATIVE_MODE_TAB);
-    }
 }

@@ -52,14 +52,6 @@ public class RegistryEventHandler {
 
         // Register compostable items
 
-        // Theurgy.LOGGER.info("Registered compostable Iítems");
-    }
-
-    public static void registerSpawnEgg(IForgeRegistry<Item> registry, EntityType<? extends Mob> entityType,
-                                        String name, int primaryColor, int secondaryColor) {
-        SpawnEggItem spawnEggItem = new SpawnEggItem(entityType, primaryColor, secondaryColor,
-                new Item.Properties().tab(Theurgy.CREATIVE_MODE_TAB));
-        spawnEggItem.setRegistryName(Theurgy.id("spawn_egg/" + name));
-        registry.register(spawnEggItem);
+        // Theurgy.LOGGER.info("Registered compostable items");
     }
 }

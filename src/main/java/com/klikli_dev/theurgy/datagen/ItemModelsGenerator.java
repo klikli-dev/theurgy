@@ -41,9 +41,9 @@ public class ItemModelsGenerator extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
-        this.registerItemGenerated(this.name(ItemRegistry.TEST.get()), "grimoire");
         this.registerItemGenerated(this.name(ItemRegistry.THEURGY.get()), "grimoire");
         this.registerBlockItem(this.name(ItemRegistry.GRAFTING_HEDGE.get()));
+        this.registerItemGenerated(this.name(ItemRegistry.UNRIPE_GRAFTING_FRUIT.get()));
     }
 
     private void registerItemGenerated(String name) {

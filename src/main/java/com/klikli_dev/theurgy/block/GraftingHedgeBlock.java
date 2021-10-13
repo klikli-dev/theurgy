@@ -90,6 +90,7 @@ public class GraftingHedgeBlock extends BushBlock implements BonemealableBlock, 
                 ItemHandlerHelper.giveItemToPlayer(pPlayer, fruit);
                 //reset hedge
                 pLevel.setBlock(pPos, pState.setValue(AGE, 0), Constants.BlockFlags.BLOCK_UPDATE);
+                pPlayer.swing(InteractionHand.MAIN_HAND);
             }
         }
         return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);

@@ -5,12 +5,9 @@
   "block.theurgy.grafting_hedge.tooltip": "Grafting hedges can grow any type of fruit.",
   "block.theurgy.grafting_hedge.tooltip.extended": "When ripe the fruit can be seen hanging in the hedge.",
   "block.theurgy.grafting_hedge.tooltip.usage": "Right-click with a fruit to a hedge to graft it onto the plant. It will then grow that kind of fruit.",
-  "item.theurgy.test": "Test Item",
-  "item.theurgy.test.tooltip": "A test item to test tooltips.",
-  "item.theurgy.test.tooltip.extended": "It also has an extended tooltip.",
-  "item.theurgy.test.tooltip.usage": "And even usage info.",
   "item.theurgy.theurgy": "Theurgy",
   "item.theurgy.theurgy.tooltip": "Dummy item for easy access to the Theurgy icon.",
+  "item.theurgy.unripe_grafting_fruit": "Unripe Grafted Fruit",
   "itemGroup.theurgy": "Theurgy",
   "tooltip.theurgy.show_extended": "\u00A76[\u00A7dshift \u00A77read more\u00A76]",
   "tooltip.theurgy.show_usage": "\u00A76[\u00A7dctrl-shift \u00A77show usage\u00A76]"

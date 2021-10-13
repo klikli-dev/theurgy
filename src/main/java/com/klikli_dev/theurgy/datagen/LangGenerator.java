@@ -94,17 +94,12 @@ public abstract class LangGenerator extends LanguageProvider {
 
         private void addItems() {
             this.addItem(ItemRegistry.THEURGY, "Theurgy");
-            this.addItem(ItemRegistry.TEST, "Test Item");
             this.addItem(ItemRegistry.GRAFTING_HEDGE, "Grafting Hedge");
+            this.addItem(ItemRegistry.UNRIPE_GRAFTING_FRUIT, "Unripe Grafted Fruit");
         }
 
         private void addTooltips() {
             this.addTooltip(ItemRegistry.THEURGY, "Dummy item for easy access to the Theurgy icon.");
-            this.addTooltip(ItemRegistry.TEST,
-                    "A test item to test tooltips.",
-                    "It also has an extended tooltip.",
-                    "And even usage info.");
-
             this.addTooltip(ItemRegistry.GRAFTING_HEDGE,
                     "Grafting hedges can grow any type of fruit.",
                     "When ripe the fruit can be seen hanging in the hedge.",

@@ -56,7 +56,8 @@ public class GraftingHedgeBlockEntity extends NetworkedBlockEntity {
 
     @Override
     public CompoundTag saveNetwork(CompoundTag compound) {
-        compound.put(TheurgyConstants.Nbt.FRUIT_TO_GROW, this.fruitToGrow.save(new CompoundTag()));
+        if(!this.fruitToGrow.isEmpty())
+            compound.put(TheurgyConstants.Nbt.FRUIT_TO_GROW, this.fruitToGrow.save(new CompoundTag()));
         return super.saveNetwork(compound);
     }
 

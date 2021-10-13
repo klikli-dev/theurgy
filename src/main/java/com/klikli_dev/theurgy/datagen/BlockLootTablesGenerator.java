@@ -34,8 +34,17 @@ import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.ShulkerBoxBlock;
+import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.LootTables;
+import net.minecraft.world.level.storage.loot.entries.DynamicLoot;
+import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.functions.CopyNameFunction;
+import net.minecraft.world.level.storage.loot.functions.CopyNbtFunction;
+import net.minecraft.world.level.storage.loot.functions.SetContainerContents;
+import net.minecraft.world.level.storage.loot.providers.nbt.ContextNbtProvider;
+import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -50,12 +59,17 @@ public class BlockLootTablesGenerator extends LootTableProvider {
         this.generator = generator;
     }
 
-    private void addLootTables(BlockLootTablesGenerator loot) {
-        this.dropSelf(BlockRegistry.GRAFTING_HEDGE.get());
+    private void addLootTables() {
+        //These blocks handle their own drops to keep nbt
+        this.dropNothing(BlockRegistry.GRAFTING_HEDGE.get());
     }
 
     private void dropSelf(Block block) {
         this.registerDropping(block, block);
+    }
+
+    public void dropNothing(Block block) {
+        this.registerLootTable(block, LootTable.lootTable().withPool(LootPool.lootPool()).build());
     }
 
     private void registerDropping(Block blockIn, ItemLike drop) {
@@ -69,7 +83,7 @@ public class BlockLootTablesGenerator extends LootTableProvider {
 
     @Override
     public void run(HashCache cache) {
-        this.addLootTables(this);
+        this.addLootTables();
 
         var namespacedTables = new HashMap<ResourceLocation, LootTable>();
 

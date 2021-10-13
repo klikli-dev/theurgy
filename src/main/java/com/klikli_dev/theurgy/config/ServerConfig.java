@@ -38,7 +38,7 @@ public class ServerConfig extends ConfigBase {
         this.spec = builder.build();
     }
 
-    public static ServerConfig getInstance() {
+    public static ServerConfig get() {
         return instance;
     }
 

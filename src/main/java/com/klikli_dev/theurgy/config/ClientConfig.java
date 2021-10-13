@@ -38,7 +38,7 @@ public class ClientConfig extends ConfigBase {
         this.spec = builder.build();
     }
 
-    public static ClientConfig getInstance() {
+    public static ClientConfig get() {
         return instance;
     }
 

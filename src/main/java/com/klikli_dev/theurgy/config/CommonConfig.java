@@ -38,7 +38,7 @@ public class CommonConfig extends ConfigBase {
         this.spec = builder.build();
     }
 
-    public static CommonConfig getInstance() {
+    public static CommonConfig get() {
         return instance;
     }
 

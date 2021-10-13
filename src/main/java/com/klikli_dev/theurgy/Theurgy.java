@@ -53,9 +53,9 @@ public class Theurgy {
     public Theurgy() {
         INSTANCE = this;
 
-        ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, ServerConfig.getInstance().spec);
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, CommonConfig.getInstance().spec);
-        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ClientConfig.getInstance().spec);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, ServerConfig.get().spec);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, CommonConfig.get().spec);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ClientConfig.get().spec);
 
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
@@ -76,17 +76,17 @@ public class Theurgy {
     }
 
     public void onModConfigEvent(final ModConfigEvent event) {
-        if (event.getConfig().getSpec() == ClientConfig.getInstance().spec) {
+        if (event.getConfig().getSpec() == ClientConfig.get().spec) {
             //Clear the config cache on reload.
-            ClientConfig.getInstance().clear();
+            ClientConfig.get().clear();
         }
-        if (event.getConfig().getSpec() == CommonConfig.getInstance().spec) {
+        if (event.getConfig().getSpec() == CommonConfig.get().spec) {
             //Clear the config cache on reload.
-            CommonConfig.getInstance().clear();
+            CommonConfig.get().clear();
         }
-        if (event.getConfig().getSpec() == ServerConfig.getInstance().spec) {
+        if (event.getConfig().getSpec() == ServerConfig.get().spec) {
             //Clear the config cache on reload.
-            ServerConfig.getInstance().clear();
+            ServerConfig.get().clear();
         }
     }
 

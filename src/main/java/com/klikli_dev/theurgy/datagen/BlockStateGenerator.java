@@ -39,6 +39,21 @@ public class BlockStateGenerator extends BlockStateProvider {
 
     @Override
     protected void registerStatesAndModels() {
-        this.simpleBlock(BlockRegistry.GRAFTING_HEDGE.get(),  this.models().getExistingFile(this.modLoc("block/grafting_hedge")));
+        this.graftingHedge();
+    }
+
+    private void graftingHedge(){
+        //The hedge uses a flower-free model before grafted, and when ripe (the latter case uses a tile entity renderer)
+        ModelFile.ExistingModelFile graftingHedgeModel = this.models().getExistingFile(this.modLoc("block/grafting_hedge"));
+        this.getVariantBuilder(BlockRegistry.GRAFTING_HEDGE.get()).forAllStates(state -> {
+            if(!state.getValue(GraftingHedgeBlock.IS_GRAFTED))
+                return ConfiguredModel.builder().modelFile(graftingHedgeModel).build();
+
+            int age = state.getValue(GraftingHedgeBlock.AGE);
+            return ConfiguredModel.builder().modelFile(age == GraftingHedgeBlock.MAX_AGE ?
+                    graftingHedgeModel :
+                    this.models().getExistingFile(this.modLoc("block/grafting_hedge_flowering_" + age))
+            ).build();
+        });
     }
 }

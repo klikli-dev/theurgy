@@ -1,0 +1,6 @@
+{
+  "parent": "occultism:block/candle",
+  "textures": {
+    "fruit": "theurgy:block/hedge_flowers_0"
+  }
+}

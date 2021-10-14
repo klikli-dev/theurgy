@@ -24,7 +24,6 @@ package com.klikli_dev.theurgy.client.render.blockentity;
 
 import com.klikli_dev.theurgy.block.GraftingHedgeBlock;
 import com.klikli_dev.theurgy.blockentity.GraftingHedgeBlockEntity;
-import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -33,11 +32,8 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.resources.model.BakedModel;
-import net.minecraft.world.item.ItemStack;
 
 public class GraftingHedgeRenderer implements BlockEntityRenderer<GraftingHedgeBlockEntity> {
-
-    ItemStack unripeFruit = ItemStack.EMPTY;
 
     public GraftingHedgeRenderer(BlockEntityRendererProvider.Context context) {
 
@@ -45,14 +41,8 @@ public class GraftingHedgeRenderer implements BlockEntityRenderer<GraftingHedgeB
 
     @Override
     public void render(GraftingHedgeBlockEntity pBlockEntity, float pPartialTicks, PoseStack pMatrixStack, MultiBufferSource pBuffer, int pCombinedLight, int pCombinedOverlay) {
-        if (this.unripeFruit.isEmpty())
-            this.unripeFruit = new ItemStack(ItemRegistry.UNRIPE_GRAFTING_FRUIT.get());
-
-        int age = pBlockEntity.getBlockState().getValue(GraftingHedgeBlock.AGE);
-
-        if (!pBlockEntity.getFruitToGrow().isEmpty()) {
-
-            ItemStack fruitToRender = age == GraftingHedgeBlock.MAX_AGE ? pBlockEntity.getFruitToGrow() : this.unripeFruit;
+        if (!pBlockEntity.getFruitToGrow().isEmpty() &&
+                pBlockEntity.getBlockState().getValue(GraftingHedgeBlock.AGE) == GraftingHedgeBlock.MAX_AGE) {
 
             pMatrixStack.pushPose();
 
@@ -61,15 +51,11 @@ public class GraftingHedgeRenderer implements BlockEntityRenderer<GraftingHedgeB
 
             //scale
             float scale = 0.5f;
-            if (age != GraftingHedgeBlock.MAX_AGE) {
-                scale = Math.min(1f, (0.4f + age * 0.3f) * 0.2f);
-            }
             pMatrixStack.scale(scale, scale, scale);
 
-
             ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
-            BakedModel model = itemRenderer.getModel(fruitToRender, pBlockEntity.getLevel(), null, 0);
-            itemRenderer.render(fruitToRender, ItemTransforms.TransformType.FIXED, true, pMatrixStack, pBuffer,
+            BakedModel model = itemRenderer.getModel(pBlockEntity.getFruitToGrow(), pBlockEntity.getLevel(), null, 0);
+            itemRenderer.render(pBlockEntity.getFruitToGrow(), ItemTransforms.TransformType.FIXED, true, pMatrixStack, pBuffer,
                     pCombinedLight, pCombinedOverlay, model);
 
             pMatrixStack.popPose();

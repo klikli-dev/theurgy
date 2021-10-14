@@ -35,9 +35,6 @@ public class ItemRegistry {
     public static final RegistryObject<Item> THEURGY =
             ITEMS.register("theurgy", () -> new Item(new Item.Properties()));
 
-    public static final RegistryObject<Item> UNRIPE_GRAFTING_FRUIT = ITEMS.register("unripe_grafting_fruit",
-            () -> new Item(defaultProperties()));
-
     public static final RegistryObject<Item> GRAFTING_HEDGE = ITEMS.register("grafting_hedge",
             () -> new BlockItem(BlockRegistry.GRAFTING_HEDGE.get(), defaultProperties()));
 

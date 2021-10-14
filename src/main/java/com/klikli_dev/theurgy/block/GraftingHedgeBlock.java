@@ -1,5 +1,6 @@
 package com.klikli_dev.theurgy.block;
 
+import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.blockentity.GraftingHedgeBlockEntity;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.TagRegistry;
@@ -13,6 +14,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
@@ -21,6 +23,7 @@ import net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
@@ -39,6 +42,7 @@ import java.util.Random;
 
 public class GraftingHedgeBlock extends BushBlock implements BonemealableBlock, EntityBlock {
     public static final IntegerProperty AGE = BlockStateProperties.AGE_3;
+    public static final BooleanProperty IS_GRAFTED = BooleanProperty.create("is_grafted");
     public static final int MAX_AGE = BlockStateProperties.MAX_AGE_3;
 
     protected static final VoxelShape SHAPE = Shapes.or(
@@ -47,7 +51,7 @@ public class GraftingHedgeBlock extends BushBlock implements BonemealableBlock, 
 
     public GraftingHedgeBlock(Properties properties) {
         super(properties);
-        this.registerDefaultState(this.getStateDefinition().any().setValue(AGE, 0));
+        this.registerDefaultState(this.getStateDefinition().any().setValue(AGE, 0).setValue(IS_GRAFTED, false));
     }
 
     @Override
@@ -58,7 +62,7 @@ public class GraftingHedgeBlock extends BushBlock implements BonemealableBlock, 
     @Override
     public void randomTick(BlockState pState, ServerLevel pLevel, BlockPos pPos, Random pRandom) {
         int age = pState.getValue(AGE);
-        if (age < MAX_AGE && pLevel.getRawBrightness(pPos.above(), 0) >= 9 && ForgeHooks.onCropsGrowPre(pLevel, pPos, pState, pRandom.nextInt(5) == 0)) {
+        if (pState.getValue(IS_GRAFTED) && age < MAX_AGE && pLevel.getRawBrightness(pPos.above(), 0) >= 9 && ForgeHooks.onCropsGrowPre(pLevel, pPos, pState, pRandom.nextInt(5) == 0)) {
             pLevel.setBlock(pPos, pState.setValue(AGE, age + 1), Constants.BlockFlags.BLOCK_UPDATE);
             ForgeHooks.onCropsGrowPost(pLevel, pPos, pState);
         }
@@ -82,8 +86,8 @@ public class GraftingHedgeBlock extends BushBlock implements BonemealableBlock, 
                 ItemStack itemToGraft = heldItem.copy();
                 itemToGraft.setCount(1);
                 hedge.setFruitToGrow(itemToGraft);
-                //reset hedge to avoid people cheesing an instant harvest
-                pLevel.setBlock(pPos, pState.setValue(AGE, 0), Constants.BlockFlags.BLOCK_UPDATE);
+                //set hedge as grafted
+                pLevel.setBlock(pPos, pState.setValue(IS_GRAFTED, true), Constants.BlockFlags.BLOCK_UPDATE);
                 pPlayer.swing(InteractionHand.MAIN_HAND);
             }
 
@@ -110,14 +114,25 @@ public class GraftingHedgeBlock extends BushBlock implements BonemealableBlock, 
         super.onRemove(state, worldIn, pos, newState, isMoving);
     }
 
+    @Nullable
+    @Override
+    public BlockState getStateForPlacement(BlockPlaceContext pContext) {
+        CompoundTag blockEntityTag = pContext.getItemInHand().getTagElement("BlockEntityTag");
+        if(blockEntityTag != null && blockEntityTag.contains(TheurgyConstants.Nbt.FRUIT_TO_GROW)) {
+            return super.getStateForPlacement(pContext).setValue(IS_GRAFTED, true);
+        }
+        return super.getStateForPlacement(pContext);
+    }
+
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
         pBuilder.add(AGE);
+        pBuilder.add(IS_GRAFTED);
     }
 
     @Override
     public boolean isValidBonemealTarget(BlockGetter pLevel, BlockPos pPos, BlockState pState, boolean pIsClient) {
-        return pState.getValue(AGE) < MAX_AGE;
+        return pState.getValue(IS_GRAFTED) && pState.getValue(AGE) < MAX_AGE;
     }
 
     @Override

@@ -95,7 +95,6 @@ public abstract class LangGenerator extends LanguageProvider {
         private void addItems() {
             this.addItem(ItemRegistry.THEURGY, "Theurgy");
             this.addItem(ItemRegistry.GRAFTING_HEDGE, "Grafting Hedge");
-            this.addItem(ItemRegistry.UNRIPE_GRAFTING_FRUIT, "Unripe Grafted Fruit");
         }
 
         private void addTooltips() {

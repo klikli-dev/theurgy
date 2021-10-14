@@ -23,6 +23,7 @@
 package com.klikli_dev.theurgy.registry;
 
 import com.klikli_dev.theurgy.Theurgy;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
@@ -34,8 +35,9 @@ public class ItemRegistry {
     public static final RegistryObject<Item> THEURGY =
             ITEMS.register("theurgy", () -> new Item(new Item.Properties()));
 
-    public static final RegistryObject<Item> TEST = ITEMS.register("test",
-            () -> new Item(defaultProperties()));
+    public static final RegistryObject<Item> GRAFTING_HEDGE = ITEMS.register("grafting_hedge",
+            () -> new BlockItem(BlockRegistry.GRAFTING_HEDGE.get(), defaultProperties()));
+
 
     public static Item.Properties defaultProperties() {
         return new Item.Properties().tab(Theurgy.CREATIVE_MODE_TAB);

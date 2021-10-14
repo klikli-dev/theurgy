@@ -1,0 +1,6 @@
+{
+  "parent": "theurgy:block/grafting_hedge_flowered",
+  "textures": {
+    "fruit": "theurgy:block/hedge_flowers_1"
+  }
+}

@@ -20,20 +20,32 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.klikli_dev.theurgy;
+package com.klikli_dev.theurgy.registry;
 
-public class TheurgyConstants {
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.Tag;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
 
-    public static class Nbt {
-        public static final String PREFIX = TheurgyAPI.ID + ":";
-        public static final String FRUIT_TO_GROW = PREFIX + "fruit_to_grow";
+public class TagRegistry {
+
+    public static final Tag<Item> FRUITS = makeItemTag(new ResourceLocation("forge", "fruits"));
+
+    public static Tag.Named<Item> makeItemTag(String id) {
+        return makeItemTag(new ResourceLocation(id));
     }
 
-    public static class I18n {
-        public static final String TOOLTIP_SHOW_EXTENDED = "tooltip.theurgy.show_extended";
-        public static final String TOOLTIP_SHOW_USAGE = "tooltip.theurgy.show_usage";
-        public static final String TOOLTIP_SUFFIX = "tooltip";
-        public static final String TOOLTIP_EXTENDED_SUFFIX = "tooltip.extended";
-        public static final String TOOLTIP_USAGE_SUFFIX = "tooltip.usage";
+    public static Tag.Named<Item> makeItemTag(ResourceLocation id) {
+        return ItemTags.bind(id.toString());
+    }
+
+    public static Tag.Named<Block> makeBlockTag(String id) {
+        return makeBlockTag(new ResourceLocation(id));
+    }
+
+    public static Tag.Named<Block> makeBlockTag(ResourceLocation id) {
+        return BlockTags.bind(id.toString());
     }
 }

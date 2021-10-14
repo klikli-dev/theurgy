@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "age=0,is_grafted=false": {
+      "model": "theurgy:block/grafting_hedge"
+    },
+    "age=1,is_grafted=false": {
+      "model": "theurgy:block/grafting_hedge"
+    },
+    "age=2,is_grafted=false": {
+      "model": "theurgy:block/grafting_hedge"
+    },
+    "age=3,is_grafted=false": {
+      "model": "theurgy:block/grafting_hedge"
+    },
+    "age=0,is_grafted=true": {
+      "model": "theurgy:block/grafting_hedge_flowered_0"
+    },
+    "age=1,is_grafted=true": {
+      "model": "theurgy:block/grafting_hedge_flowered_1"
+    },
+    "age=2,is_grafted=true": {
+      "model": "theurgy:block/grafting_hedge_flowered_2"
+    },
+    "age=3,is_grafted=true": {
+      "model": "theurgy:block/grafting_hedge"
+    }
+  }
+}

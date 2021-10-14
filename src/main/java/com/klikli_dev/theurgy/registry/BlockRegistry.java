@@ -20,20 +20,22 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.klikli_dev.theurgy;
+package com.klikli_dev.theurgy.registry;
 
-public class TheurgyConstants {
+import com.klikli_dev.theurgy.Theurgy;
+import com.klikli_dev.theurgy.block.GraftingHedgeBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.material.Material;
+import net.minecraftforge.fmllegacy.RegistryObject;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
 
-    public static class Nbt {
-        public static final String PREFIX = TheurgyAPI.ID + ":";
-        public static final String FRUIT_TO_GROW = PREFIX + "fruit_to_grow";
-    }
+public class BlockRegistry {
 
-    public static class I18n {
-        public static final String TOOLTIP_SHOW_EXTENDED = "tooltip.theurgy.show_extended";
-        public static final String TOOLTIP_SHOW_USAGE = "tooltip.theurgy.show_usage";
-        public static final String TOOLTIP_SUFFIX = "tooltip";
-        public static final String TOOLTIP_EXTENDED_SUFFIX = "tooltip.extended";
-        public static final String TOOLTIP_USAGE_SUFFIX = "tooltip.usage";
-    }
+    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Theurgy.MODID);
+
+    public static final RegistryObject<Block> GRAFTING_HEDGE = BLOCKS.register("grafting_hedge",
+            () -> new GraftingHedgeBlock(BlockBehaviour.Properties.of(Material.PLANT).randomTicks().noCollission().noOcclusion().sound(SoundType.SWEET_BERRY_BUSH).strength(0.2f)));
 }

@@ -41,8 +41,8 @@ public class ItemModelsGenerator extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
-        this.registerItemGenerated(this.name(ItemRegistry.TEST.get()), "grimoire");
         this.registerItemGenerated(this.name(ItemRegistry.THEURGY.get()), "grimoire");
+        this.registerBlockItem(this.name(ItemRegistry.GRAFTING_HEDGE.get()));
     }
 
     private void registerItemGenerated(String name) {
@@ -63,6 +63,6 @@ public class ItemModelsGenerator extends ItemModelProvider {
 
     private void registerBlockItem(String name) {
         this.getBuilder(name)
-                .parent(new ModelFile.UncheckedModelFile("block/" + name));
+                .parent(new ModelFile.UncheckedModelFile(Theurgy.id("block/" + name)));
     }
 }

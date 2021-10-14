@@ -20,20 +20,21 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.klikli_dev.theurgy;
+package com.klikli_dev.theurgy.registry;
 
-public class TheurgyConstants {
+import com.klikli_dev.theurgy.Theurgy;
+import com.klikli_dev.theurgy.blockentity.GraftingHedgeBlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraftforge.fmllegacy.RegistryObject;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
 
-    public static class Nbt {
-        public static final String PREFIX = TheurgyAPI.ID + ":";
-        public static final String FRUIT_TO_GROW = PREFIX + "fruit_to_grow";
-    }
+public class BlockEntityRegistry {
+    public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(
+            ForgeRegistries.BLOCK_ENTITIES, Theurgy.MODID);
 
-    public static class I18n {
-        public static final String TOOLTIP_SHOW_EXTENDED = "tooltip.theurgy.show_extended";
-        public static final String TOOLTIP_SHOW_USAGE = "tooltip.theurgy.show_usage";
-        public static final String TOOLTIP_SUFFIX = "tooltip";
-        public static final String TOOLTIP_EXTENDED_SUFFIX = "tooltip.extended";
-        public static final String TOOLTIP_USAGE_SUFFIX = "tooltip.usage";
-    }
+    public static final RegistryObject<BlockEntityType<GraftingHedgeBlockEntity>> GRAFTING_HEDGE = BLOCK_ENTITIES.register(
+            "grafting_hedge", () -> BlockEntityType.Builder.of(GraftingHedgeBlockEntity::new,
+                    BlockRegistry.GRAFTING_HEDGE.get()).build(null));
+
 }

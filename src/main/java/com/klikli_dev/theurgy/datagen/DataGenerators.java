@@ -47,6 +47,7 @@ public class DataGenerators {
             generator.addProvider(new ItemTagGenerator(generator, blockTags, existingFileHelper));
             generator.addProvider(new BlockLootTablesGenerator(generator));
             generator.addProvider(new AdvancementsGenerator(generator));
+            generator.addProvider(new BlockStateGenerator(generator, existingFileHelper));
         }
     }
 }

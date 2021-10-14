@@ -23,6 +23,12 @@
 package com.klikli_dev.theurgy.handlers;
 
 import com.klikli_dev.theurgy.Theurgy;
+import com.klikli_dev.theurgy.client.render.blockentity.GraftingHedgeRenderer;
+import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
+import com.klikli_dev.theurgy.registry.BlockRegistry;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -38,9 +44,10 @@ public class ClientSetupEventHandler {
         //Register Entity Renderers
 
         //Register Tile Entity Renderers
+        BlockEntityRenderers.register(BlockEntityRegistry.GRAFTING_HEDGE.get(), GraftingHedgeRenderer::new);
 
         //Setup block render layers
-
+        ItemBlockRenderTypes.setRenderLayer(BlockRegistry.GRAFTING_HEDGE.get(), RenderType.cutoutMipped());
 
         registerItemModelProperties(event);
 

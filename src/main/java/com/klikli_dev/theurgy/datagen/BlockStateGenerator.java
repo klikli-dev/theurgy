@@ -52,7 +52,7 @@ public class BlockStateGenerator extends BlockStateProvider {
             int age = state.getValue(GraftingHedgeBlock.AGE);
             return ConfiguredModel.builder().modelFile(age == GraftingHedgeBlock.MAX_AGE ?
                     graftingHedgeModel :
-                    this.models().getExistingFile(this.modLoc("block/grafting_hedge_flowering_" + age))
+                    this.models().getExistingFile(this.modLoc("block/grafting_hedge_flowered_" + age))
             ).build();
         });
     }

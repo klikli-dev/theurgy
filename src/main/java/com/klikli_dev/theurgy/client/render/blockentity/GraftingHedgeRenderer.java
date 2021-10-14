@@ -25,6 +25,8 @@ package com.klikli_dev.theurgy.client.render.blockentity;
 import com.klikli_dev.theurgy.block.GraftingHedgeBlock;
 import com.klikli_dev.theurgy.blockentity.GraftingHedgeBlockEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Quaternion;
+import com.mojang.math.Vector3f;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
@@ -44,17 +46,51 @@ public class GraftingHedgeRenderer implements BlockEntityRenderer<GraftingHedgeB
         if (!pBlockEntity.getFruitToGrow().isEmpty() &&
                 pBlockEntity.getBlockState().getValue(GraftingHedgeBlock.AGE) == GraftingHedgeBlock.MAX_AGE) {
 
-            pMatrixStack.pushPose();
-
-            //place at center of hedge
-            pMatrixStack.translate(0.5, 0.7, 0.5);
-
-            //scale
-            float scale = 0.5f;
-            pMatrixStack.scale(scale, scale, scale);
-
             ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
             BakedModel model = itemRenderer.getModel(pBlockEntity.getFruitToGrow(), pBlockEntity.getLevel(), null, 0);
+            float scale = 0.5f;
+
+            pMatrixStack.pushPose();
+
+            pMatrixStack.translate(0.5, 0.6, 0.05);
+
+            //scale
+            pMatrixStack.scale(scale, scale, scale);
+            itemRenderer.render(pBlockEntity.getFruitToGrow(), ItemTransforms.TransformType.FIXED, true, pMatrixStack, pBuffer,
+                    pCombinedLight, pCombinedOverlay, model);
+
+            pMatrixStack.popPose();
+
+            pMatrixStack.pushPose();
+
+            pMatrixStack.translate(0.5, 0.6, 0.95);
+
+            //scale
+            pMatrixStack.scale(scale, scale, scale);
+            itemRenderer.render(pBlockEntity.getFruitToGrow(), ItemTransforms.TransformType.FIXED, true, pMatrixStack, pBuffer,
+                    pCombinedLight, pCombinedOverlay, model);
+
+            pMatrixStack.popPose();
+
+            pMatrixStack.pushPose();
+
+            pMatrixStack.translate(0.05, 0.6, 0.5);
+            pMatrixStack.mulPose(Vector3f.YP.rotationDegrees(90));
+
+            //scale
+            pMatrixStack.scale(scale, scale, scale);
+            itemRenderer.render(pBlockEntity.getFruitToGrow(), ItemTransforms.TransformType.FIXED, true, pMatrixStack, pBuffer,
+                    pCombinedLight, pCombinedOverlay, model);
+
+            pMatrixStack.popPose();
+
+            pMatrixStack.pushPose();
+
+            pMatrixStack.translate(0.95, 0.6, 0.5);
+            pMatrixStack.mulPose(Vector3f.YP.rotationDegrees(90));
+
+            //scale
+            pMatrixStack.scale(scale, scale, scale);
             itemRenderer.render(pBlockEntity.getFruitToGrow(), ItemTransforms.TransformType.FIXED, true, pMatrixStack, pBuffer,
                     pCombinedLight, pCombinedOverlay, model);
 

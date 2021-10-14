@@ -46,9 +46,7 @@ public class ColorEventHandler {
                             BiomeColors.getAverageFoliageColor(blockAndTintGetter, pos) :
                             FoliageColor.getDefaultColor();
             case 1 -> //fruit
-                    //TODO: return color based on planted fruit
-                    //      blockAndTintGetter usually is a clientlevel or wrapper for threaded rendering
-                    blockAndTintGetter != null && pos != null ? 0x720a67 : FoliageColor.getDefaultColor();
+                    0xFFFFFF;
             default -> 0xFFFFFF; //white
         }, BlockRegistry.GRAFTING_HEDGE.get());
 

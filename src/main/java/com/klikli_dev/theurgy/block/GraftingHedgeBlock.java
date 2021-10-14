@@ -83,11 +83,16 @@ public class GraftingHedgeBlock extends BushBlock implements BonemealableBlock, 
 
             //Graft fruit to hedge if there is none
             if(hedge.getFruitToGrow().isEmpty() && TagRegistry.FRUITS.contains(heldItem.getItem())){
+                //move item to hedge
                 ItemStack itemToGraft = heldItem.copy();
                 itemToGraft.setCount(1);
                 hedge.setFruitToGrow(itemToGraft);
+
                 //set hedge as grafted
                 pLevel.setBlock(pPos, pState.setValue(IS_GRAFTED, true), Constants.BlockFlags.BLOCK_UPDATE);
+
+                heldItem.shrink(1);
+                pPlayer.setItemInHand(InteractionHand.MAIN_HAND, heldItem);
                 pPlayer.swing(InteractionHand.MAIN_HAND);
             }
 

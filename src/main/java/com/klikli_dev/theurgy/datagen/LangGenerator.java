@@ -50,19 +50,19 @@ public abstract class LangGenerator extends LanguageProvider {
     }
 
     protected void addTooltip(Supplier<? extends Item> key, String tooltip) {
-        if(tooltip != null)
+        if (tooltip != null)
             this.add(key.get().getDescriptionId() + "." + TheurgyConstants.I18n.TOOLTIP_SUFFIX, tooltip);
     }
 
     protected void addTooltip(Supplier<? extends Item> key, String tooltip, String extendedTooltip) {
         this.addTooltip(key, tooltip);
-        if(tooltip != null)
+        if (tooltip != null)
             this.add(key.get().getDescriptionId() + "." + TheurgyConstants.I18n.TOOLTIP_EXTENDED_SUFFIX, extendedTooltip);
     }
 
     protected void addTooltip(Supplier<? extends Item> key, String tooltip, String extendedTooltip, String usageTooltip) {
         this.addTooltip(key, tooltip, extendedTooltip);
-        if(tooltip != null)
+        if (tooltip != null)
             this.add(key.get().getDescriptionId() + "." + TheurgyConstants.I18n.TOOLTIP_USAGE_SUFFIX, usageTooltip);
     }
 
@@ -83,13 +83,13 @@ public abstract class LangGenerator extends LanguageProvider {
         private void addMisc() {
             this.add("itemGroup.theurgy", "Theurgy");
             this.add(TheurgyConstants.I18n.TOOLTIP_SHOW_EXTENDED, ChatFormatting.GOLD + "[" +
-                            ChatFormatting.LIGHT_PURPLE + "shift " +
-                            ChatFormatting.GRAY + "read more" +
-                            ChatFormatting.GOLD + "]");
+                    ChatFormatting.LIGHT_PURPLE + "shift " +
+                    ChatFormatting.GRAY + "read more" +
+                    ChatFormatting.GOLD + "]");
             this.add(TheurgyConstants.I18n.TOOLTIP_SHOW_USAGE, ChatFormatting.GOLD + "[" +
-                            ChatFormatting.LIGHT_PURPLE + "ctrl-shift " +
-                            ChatFormatting.GRAY + "show usage" +
-                            ChatFormatting.GOLD + "]");
+                    ChatFormatting.LIGHT_PURPLE + "ctrl-shift " +
+                    ChatFormatting.GRAY + "show usage" +
+                    ChatFormatting.GOLD + "]");
         }
 
         private void addItems() {

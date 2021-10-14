@@ -59,10 +59,10 @@ public class ColorEventHandler {
         var blockColors = event.getBlockColors();
         var itemColors = event.getItemColors();
         itemColors.register((stack, tintIndex) -> {
-                            BlockState blockstate = ((BlockItem) stack.getItem()).getBlock().defaultBlockState();
-                            return blockColors.getColor(blockstate, null, null, tintIndex);
-                        }, //oak leaves color
-                        BlockRegistry.GRAFTING_HEDGE.get());
+                    BlockState blockstate = ((BlockItem) stack.getItem()).getBlock().defaultBlockState();
+                    return blockColors.getColor(blockstate, null, null, tintIndex);
+                }, //oak leaves color
+                BlockRegistry.GRAFTING_HEDGE.get());
 
         Theurgy.LOGGER.info("Item color registration complete.");
     }

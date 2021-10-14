@@ -75,7 +75,7 @@ public class Theurgy {
         MinecraftForge.EVENT_BUS.register(this);
     }
 
-    public static ResourceLocation id(String path){
+    public static ResourceLocation id(String path) {
         return new ResourceLocation(MODID, path);
     }
 

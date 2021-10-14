@@ -25,7 +25,6 @@ package com.klikli_dev.theurgy.client.render.blockentity;
 import com.klikli_dev.theurgy.block.GraftingHedgeBlock;
 import com.klikli_dev.theurgy.blockentity.GraftingHedgeBlockEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Quaternion;
 import com.mojang.math.Vector3f;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;

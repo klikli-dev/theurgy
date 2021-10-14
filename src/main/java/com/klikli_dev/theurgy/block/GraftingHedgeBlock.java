@@ -17,16 +17,16 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.BonemealableBlock;
+import net.minecraft.world.level.block.BushBlock;
+import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import net.minecraft.world.level.storage.loot.LootContext;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -37,7 +37,6 @@ import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.items.ItemHandlerHelper;
 
 import javax.annotation.Nullable;
-import java.util.List;
 import java.util.Random;
 
 public class GraftingHedgeBlock extends BushBlock implements BonemealableBlock, EntityBlock {
@@ -52,6 +51,45 @@ public class GraftingHedgeBlock extends BushBlock implements BonemealableBlock, 
     public GraftingHedgeBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(this.getStateDefinition().any().setValue(AGE, 0).setValue(IS_GRAFTED, false));
+    }
+
+    @Override
+    public void onRemove(BlockState state, Level worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
+        BlockEntityUtil.onBlockChangeDropWithNbt(this, state, worldIn, pos, newState);
+        super.onRemove(state, worldIn, pos, newState, isMoving);
+    }
+
+    @Override
+    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
+        BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
+        if (blockEntity instanceof GraftingHedgeBlockEntity hedge) {
+            ItemStack heldItem = pPlayer.getItemInHand(InteractionHand.MAIN_HAND);
+
+            //Graft fruit to hedge if there is none
+            if (hedge.getFruitToGrow().isEmpty() && TagRegistry.FRUITS.contains(heldItem.getItem())) {
+                //move item to hedge
+                ItemStack itemToGraft = heldItem.copy();
+                itemToGraft.setCount(1);
+                hedge.setFruitToGrow(itemToGraft);
+
+                //set hedge as grafted
+                pLevel.setBlock(pPos, pState.setValue(IS_GRAFTED, true), Constants.BlockFlags.BLOCK_UPDATE);
+
+                heldItem.shrink(1);
+                pPlayer.setItemInHand(InteractionHand.MAIN_HAND, heldItem);
+                pPlayer.swing(InteractionHand.MAIN_HAND);
+            }
+
+            //if we have a grafted fruit and it's ripe, harvest
+            if (!hedge.getFruitToGrow().isEmpty() && pState.getValue(AGE) == MAX_AGE) {
+                ItemStack fruit = hedge.getFruitToGrow().copy();
+                ItemHandlerHelper.giveItemToPlayer(pPlayer, fruit);
+                //reset hedge
+                pLevel.setBlock(pPos, pState.setValue(AGE, 0), Constants.BlockFlags.BLOCK_UPDATE);
+                pPlayer.swing(InteractionHand.MAIN_HAND);
+            }
+        }
+        return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
     }
 
     @Override
@@ -75,58 +113,19 @@ public class GraftingHedgeBlock extends BushBlock implements BonemealableBlock, 
         }
     }
 
+    @Nullable
     @Override
-    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
-        BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
-        if (blockEntity instanceof GraftingHedgeBlockEntity hedge) {
-            ItemStack heldItem = pPlayer.getItemInHand(InteractionHand.MAIN_HAND);
-
-            //Graft fruit to hedge if there is none
-            if(hedge.getFruitToGrow().isEmpty() && TagRegistry.FRUITS.contains(heldItem.getItem())){
-                //move item to hedge
-                ItemStack itemToGraft = heldItem.copy();
-                itemToGraft.setCount(1);
-                hedge.setFruitToGrow(itemToGraft);
-
-                //set hedge as grafted
-                pLevel.setBlock(pPos, pState.setValue(IS_GRAFTED, true), Constants.BlockFlags.BLOCK_UPDATE);
-
-                heldItem.shrink(1);
-                pPlayer.setItemInHand(InteractionHand.MAIN_HAND, heldItem);
-                pPlayer.swing(InteractionHand.MAIN_HAND);
-            }
-
-            //if we have a grafted fruit and it's ripe, harvest
-             if(!hedge.getFruitToGrow().isEmpty() && pState.getValue(AGE) == MAX_AGE){
-                ItemStack fruit = hedge.getFruitToGrow().copy();
-                ItemHandlerHelper.giveItemToPlayer(pPlayer, fruit);
-                //reset hedge
-                pLevel.setBlock(pPos, pState.setValue(AGE, 0), Constants.BlockFlags.BLOCK_UPDATE);
-                pPlayer.swing(InteractionHand.MAIN_HAND);
-            }
+    public BlockState getStateForPlacement(BlockPlaceContext pContext) {
+        CompoundTag blockEntityTag = pContext.getItemInHand().getTagElement("BlockEntityTag");
+        if (blockEntityTag != null && blockEntityTag.contains(TheurgyConstants.Nbt.FRUIT_TO_GROW)) {
+            return super.getStateForPlacement(pContext).setValue(IS_GRAFTED, true);
         }
-        return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
+        return super.getStateForPlacement(pContext);
     }
 
     @Override
     public ItemStack getCloneItemStack(BlockGetter worldIn, BlockPos pos, BlockState state) {
         return BlockEntityUtil.getItemWithNbt(this, worldIn, pos);
-    }
-
-    @Override
-    public void onRemove(BlockState state, Level worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
-        BlockEntityUtil.onBlockChangeDropWithNbt(this, state, worldIn, pos, newState);
-        super.onRemove(state, worldIn, pos, newState, isMoving);
-    }
-
-    @Nullable
-    @Override
-    public BlockState getStateForPlacement(BlockPlaceContext pContext) {
-        CompoundTag blockEntityTag = pContext.getItemInHand().getTagElement("BlockEntityTag");
-        if(blockEntityTag != null && blockEntityTag.contains(TheurgyConstants.Nbt.FRUIT_TO_GROW)) {
-            return super.getStateForPlacement(pContext).setValue(IS_GRAFTED, true);
-        }
-        return super.getStateForPlacement(pContext);
     }
 
     @Override

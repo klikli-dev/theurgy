@@ -22,14 +22,11 @@
 
 package com.klikli_dev.theurgy.handlers;
 
-import com.klikli_dev.theurgy.Theurgy;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.IForgeRegistry;
 
-@Mod.EventBusSubscriber(modid = Theurgy.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class RegistryEventHandler {
 
     @SubscribeEvent

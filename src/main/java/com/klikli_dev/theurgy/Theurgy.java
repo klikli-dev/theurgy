@@ -25,12 +25,18 @@ package com.klikli_dev.theurgy;
 import com.klikli_dev.theurgy.config.ClientConfig;
 import com.klikli_dev.theurgy.config.CommonConfig;
 import com.klikli_dev.theurgy.config.ServerConfig;
+import com.klikli_dev.theurgy.datagen.DataGenerators;
+import com.klikli_dev.theurgy.handlers.ClientSetupEventHandler;
+import com.klikli_dev.theurgy.handlers.ColorEventHandler;
+import com.klikli_dev.theurgy.handlers.RegistryEventHandler;
+import com.klikli_dev.theurgy.handlers.TooltipHandler;
 import com.klikli_dev.theurgy.item.TheurgyCreativeModeTab;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -40,6 +46,7 @@ import net.minecraftforge.fml.event.config.ModConfigEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLDedicatedServerSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.loading.FMLEnvironment;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -65,14 +72,23 @@ public class Theurgy {
         BlockRegistry.BLOCKS.register(modEventBus);
         BlockEntityRegistry.BLOCK_ENTITIES.register(modEventBus);
 
-        //TODO: register capabilities
-
-        //register event buses
+        //register event listener methods
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::serverSetup);
         modEventBus.addListener(this::onModConfigEvent);
 
+        //register event listener objects
         MinecraftForge.EVENT_BUS.register(this);
+
+        //register event listener classes
+        modEventBus.register(RegistryEventHandler.class);
+        modEventBus.register(DataGenerators.class);
+
+        if (FMLEnvironment.dist == Dist.CLIENT) {
+            modEventBus.register(ColorEventHandler.class);
+            modEventBus.register(ClientSetupEventHandler.class);
+            MinecraftForge.EVENT_BUS.register(TooltipHandler.class);
+        }
     }
 
     public static ResourceLocation id(String path) {

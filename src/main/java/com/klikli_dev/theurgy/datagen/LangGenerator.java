@@ -72,14 +72,6 @@ public abstract class LangGenerator extends LanguageProvider {
             super(generator, "en_us");
         }
 
-        protected void addTranslations() {
-            this.addMisc();
-            this.addItems();
-            this.addTooltips();
-            this.addAdvancements();
-            this.addPatchouli();
-        }
-
         private void addMisc() {
             this.add("itemGroup.theurgy", "Theurgy");
             this.add(TheurgyConstants.I18n.TOOLTIP_SHOW_EXTENDED, ChatFormatting.GOLD + "[" +
@@ -112,6 +104,14 @@ public abstract class LangGenerator extends LanguageProvider {
 
         private void addPatchouli() {
             //TODO: add Patchouli texts
+        }
+
+        protected void addTranslations() {
+            this.addMisc();
+            this.addItems();
+            this.addTooltips();
+            this.addAdvancements();
+            this.addPatchouli();
         }
     }
 }

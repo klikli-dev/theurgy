@@ -39,12 +39,6 @@ public class ItemModelsGenerator extends ItemModelProvider {
         return item.getRegistryName().getPath();
     }
 
-    @Override
-    protected void registerModels() {
-        this.registerItemGenerated(this.name(ItemRegistry.THEURGY.get()), "grimoire");
-        this.registerBlockItem(this.name(ItemRegistry.GRAFTING_HEDGE.get()));
-    }
-
     private void registerItemGenerated(String name) {
         this.registerItemGenerated(name, name);
     }
@@ -64,5 +58,11 @@ public class ItemModelsGenerator extends ItemModelProvider {
     private void registerBlockItem(String name) {
         this.getBuilder(name)
                 .parent(new ModelFile.UncheckedModelFile(Theurgy.id("block/" + name)));
+    }
+
+    @Override
+    protected void registerModels() {
+        this.registerItemGenerated(this.name(ItemRegistry.THEURGY.get()), "grimoire");
+        this.registerBlockItem(this.name(ItemRegistry.GRAFTING_HEDGE.get()));
     }
 }

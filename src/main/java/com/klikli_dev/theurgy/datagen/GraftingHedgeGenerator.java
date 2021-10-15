@@ -29,7 +29,6 @@ import com.google.gson.JsonObject;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.data.grafting_hedges.GraftingHedgeData;
 import com.klikli_dev.theurgy.data.grafting_hedges.GraftingHedgeManager;
-import com.klikli_dev.theurgy.util.SerializerUtil;
 import com.mojang.serialization.JsonOps;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
@@ -70,13 +69,13 @@ public class GraftingHedgeGenerator implements DataProvider {
     }
 
     private void add(String path, Ingredient itemToGraft, ItemStack itemToGrow) {
-        add(path, itemToGraft, itemToGrow, null);
+        this.add(path, itemToGraft, itemToGrow, null);
     }
 
     private void addForMod(String modId, String path, String itemToGraft, String itemToGrow, int itemToGrowCount) {
         this.addForMod(new ResourceLocation(modId, path),
-                itemIngredient(new ResourceLocation(modId, itemToGraft)),
-                itemStack(new ResourceLocation(modId, itemToGrow), itemToGrowCount), new ModLoadedCondition(modId));
+                this.itemIngredient(new ResourceLocation(modId, itemToGraft)),
+                this.itemStack(new ResourceLocation(modId, itemToGrow), itemToGrowCount), new ModLoadedCondition(modId));
     }
 
     private void addForMod(String modId, String path, JsonObject itemToGraft, JsonObject itemToGrow) {
@@ -103,7 +102,7 @@ public class GraftingHedgeGenerator implements DataProvider {
     }
 
     private JsonObject itemStack(ResourceLocation item, int count) {
-        return itemStack(item, count, null);
+        return this.itemStack(item, count, null);
     }
 
     private JsonObject itemStack(ResourceLocation item, int count, CompoundTag tag) {

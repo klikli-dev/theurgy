@@ -73,7 +73,7 @@ public class GraftingHedgeManager extends SimpleJsonResourceReloadListener {
     }
 
     public boolean isLoaded() {
-        return loaded;
+        return this.loaded;
     }
 
     public void onDatapackSyncPacket() {
@@ -96,7 +96,7 @@ public class GraftingHedgeManager extends SimpleJsonResourceReloadListener {
     protected void apply(Map<ResourceLocation, JsonElement> pObject, ResourceManager pResourceManager, ProfilerFiller pProfiler) {
         this.graftingHedgeData = pObject.entrySet().stream()
                 .filter(entry -> entry.getValue().isJsonObject())
-                .map(entry -> loadGraftingHedgeData(entry.getKey(), entry.getValue().getAsJsonObject()))
+                .map(entry -> this.loadGraftingHedgeData(entry.getKey(), entry.getValue().getAsJsonObject()))
                 .filter(Objects::nonNull)
                 .collect(Collectors.toMap(
                         data -> data.id,

@@ -51,6 +51,10 @@ public class BlockLootTablesGenerator extends LootTableProvider {
         this.generator = generator;
     }
 
+    public void dropNothing(Block block) {
+        this.registerLootTable(block, LootTable.lootTable().withPool(LootPool.lootPool()).build());
+    }
+
     private void addLootTables() {
         //These blocks handle their own drops to keep nbt
         this.dropNothing(BlockRegistry.GRAFTING_HEDGE.get());
@@ -60,30 +64,12 @@ public class BlockLootTablesGenerator extends LootTableProvider {
         this.registerDropping(block, block);
     }
 
-    public void dropNothing(Block block) {
-        this.registerLootTable(block, LootTable.lootTable().withPool(LootPool.lootPool()).build());
-    }
-
     private void registerDropping(Block blockIn, ItemLike drop) {
         this.registerLootTable(blockIn, BlockLoot.createSingleItemTable(drop).build());
     }
 
     private void registerLootTable(Block block, LootTable loot) {
         this.tables.put(block, loot);
-    }
-
-
-    @Override
-    public void run(HashCache cache) {
-        this.addLootTables();
-
-        var namespacedTables = new HashMap<ResourceLocation, LootTable>();
-
-        for (var entry : this.tables.entrySet()) {
-            namespacedTables.put(entry.getKey().getLootTable(), entry.getValue());
-        }
-
-        this.writeLootTables(namespacedTables, cache);
     }
 
     private void writeLootTables(Map<ResourceLocation, LootTable> tables, HashCache cache) {
@@ -98,5 +84,18 @@ public class BlockLootTablesGenerator extends LootTableProvider {
                 Theurgy.LOGGER.error("Couldn't write loot table " + path, e);
             }
         });
+    }
+
+    @Override
+    public void run(HashCache cache) {
+        this.addLootTables();
+
+        var namespacedTables = new HashMap<ResourceLocation, LootTable>();
+
+        for (var entry : this.tables.entrySet()) {
+            namespacedTables.put(entry.getKey().getLootTable(), entry.getValue());
+        }
+
+        this.writeLootTables(namespacedTables, cache);
     }
 }

@@ -29,7 +29,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class SerializerUtil {
-    public static JsonObject serialize(ItemStack itemStack){
+    public static JsonObject serialize(ItemStack itemStack) {
         JsonObject json = new JsonObject();
         json.addProperty("item", ForgeRegistries.ITEMS.getKey(itemStack.getItem()).toString());
         json.addProperty("count", itemStack.getCount());

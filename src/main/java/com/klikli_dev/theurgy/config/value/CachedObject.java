@@ -38,10 +38,6 @@ public class CachedObject<T> implements ICachedValue {
         return new CachedObject<>(config, configValue);
     }
 
-    public void clear() {
-        this.cachedValue = null;
-    }
-
     public T get() {
         if (this.cachedValue == null) {
             this.cachedValue = this.configValue.get();
@@ -52,5 +48,9 @@ public class CachedObject<T> implements ICachedValue {
     public void set(T value) {
         this.configValue.set(value);
         this.cachedValue = value;
+    }
+
+    public void clear() {
+        this.cachedValue = null;
     }
 }

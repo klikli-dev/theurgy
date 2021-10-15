@@ -1,0 +1,13 @@
+{
+  "item_to_graft": {
+    "item": "simplefarming:blueberries"
+  },
+  "item_to_grow": {
+    "item": "simplefarming:blueberries",
+    "count": 1
+  },
+  "condition": {
+    "modid": "simplefarming",
+    "type": "forge:mod_loaded"
+  }
+}

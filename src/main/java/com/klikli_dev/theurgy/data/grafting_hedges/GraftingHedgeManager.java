@@ -31,8 +31,12 @@ import com.klikli_dev.theurgy.TheurgyConstants;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
+import net.minecraft.util.GsonHelper;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.common.crafting.CraftingHelper;
+import net.minecraftforge.common.crafting.conditions.ICondition;
+import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.event.OnDatapackSyncEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
@@ -103,11 +107,16 @@ public class GraftingHedgeManager extends SimpleJsonResourceReloadListener {
     }
 
     private GraftingHedgeData loadGraftingHedgeData(ResourceLocation key, JsonObject value) {
-        GraftingHedgeData data = GraftingHedgeData.fromJson(key, value);
-        if (data.condition != null && !data.condition.test()) {
+        ICondition condition = this.loadCondition(value);
+        if (condition != null && !condition.test()) {
             Theurgy.LOGGER.debug("Skipped loading GraftingHedgeData {} as it did not match the condition.", key);
             return null;
         }
-        return data;
+        return GraftingHedgeData.fromJson(key, value);
+    }
+
+    private ICondition loadCondition(JsonObject value){
+        return value.has("condition") ?
+                CraftingHelper.getCondition(GsonHelper.getAsJsonObject(value, "condition")) : null;
     }
 }

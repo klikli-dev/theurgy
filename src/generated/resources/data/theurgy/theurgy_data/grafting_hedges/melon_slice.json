@@ -1,0 +1,9 @@
+{
+  "item_to_graft": {
+    "item": "minecraft:melon_slice"
+  },
+  "item_to_grow": {
+    "item": "minecraft:melon_slice",
+    "count": 4
+  }
+}

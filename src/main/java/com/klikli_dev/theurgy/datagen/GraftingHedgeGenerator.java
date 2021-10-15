@@ -29,13 +29,13 @@ import com.google.gson.JsonObject;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.data.grafting_hedges.GraftingHedgeData;
 import com.klikli_dev.theurgy.data.grafting_hedges.GraftingHedgeManager;
+import com.klikli_dev.theurgy.util.SerializerUtil;
 import com.mojang.serialization.JsonOps;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.HashCache;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.Tag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -64,21 +64,26 @@ public class GraftingHedgeGenerator implements DataProvider {
 
     private void start() {
         this.add("apple", Ingredient.of(Items.APPLE), new ItemStack(Items.APPLE));
-        this.add("melon_slice", Ingredient.of(Items.MELON_SLICE), new ItemStack(Items.MELON_SLICE));
+        this.add("melon_slice", Ingredient.of(Items.MELON_SLICE), new ItemStack(Items.MELON_SLICE, 4));
         this.add("sweet_berries", Ingredient.of(Items.SWEET_BERRIES), new ItemStack(Items.SWEET_BERRIES));
+        this.addForMod("simplefarming", "simplefarming/blueberries", "blueberries", "blueberries", 1);
     }
 
     private void add(String path, Ingredient itemToGraft, ItemStack itemToGrow) {
         add(path, itemToGraft, itemToGrow, null);
     }
 
-    private void addForMod(String modId, String path,  JsonObject itemToGraft, JsonObject itemToGrow){
-        this.addForMod(path, itemToGraft, itemToGrow, new ModLoadedCondition(modId));
+    private void addForMod(String modId, String path, String itemToGraft, String itemToGrow, int itemToGrowCount) {
+        this.addForMod(new ResourceLocation(modId, path),
+                itemIngredient(new ResourceLocation(modId, itemToGraft)),
+                itemStack(new ResourceLocation(modId, itemToGrow), itemToGrowCount), new ModLoadedCondition(modId));
     }
 
-    private void addForMod(String path, JsonObject itemToGraft, JsonObject itemToGrow, ICondition condition) {
-        ResourceLocation id = Theurgy.id(path);
+    private void addForMod(String modId, String path, JsonObject itemToGraft, JsonObject itemToGrow) {
+        this.addForMod(new ResourceLocation(modId, path), itemToGraft, itemToGrow, new ModLoadedCondition(modId));
+    }
 
+    private void addForMod(ResourceLocation id, JsonObject itemToGraft, JsonObject itemToGrow, ICondition condition) {
         JsonObject json = new JsonObject();
         json.add("item_to_graft", itemToGraft);
         json.add("item_to_grow", itemToGrow);
@@ -90,8 +95,15 @@ public class GraftingHedgeGenerator implements DataProvider {
 
     private void add(String path, Ingredient itemToGraft, ItemStack itemToGrow, ICondition condition) {
         ResourceLocation id = Theurgy.id(path);
-        JsonObject json = new GraftingHedgeData(id, itemToGraft, itemToGrow, condition).toJson();
+        JsonObject json = new GraftingHedgeData(id, itemToGraft, itemToGrow).toJson();
+        if (condition != null) {
+            json.add("condition", CraftingHelper.serialize(condition));
+        }
         this.toSerialize.put(id.getPath(), json);
+    }
+
+    private JsonObject itemStack(ResourceLocation item, int count) {
+        return itemStack(item, count, null);
     }
 
     private JsonObject itemStack(ResourceLocation item, int count, CompoundTag tag) {
@@ -115,7 +127,7 @@ public class GraftingHedgeGenerator implements DataProvider {
         return json;
     }
 
-    private ResourceLocation rl(String loc){
+    private ResourceLocation rl(String loc) {
         return new ResourceLocation(loc);
     }
 
@@ -138,5 +150,4 @@ public class GraftingHedgeGenerator implements DataProvider {
     public String getName() {
         return "Grafting Hedges:" + Theurgy.MODID;
     }
-
 }

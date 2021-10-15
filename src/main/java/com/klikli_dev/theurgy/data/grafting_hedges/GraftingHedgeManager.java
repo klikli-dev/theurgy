@@ -54,8 +54,12 @@ public class GraftingHedgeManager extends SimpleJsonResourceReloadListener {
         //get data from sync packet
     }
 
-    public Optional<GraftingHedgeData> getGraftingHedgeData(ItemStack itemToGraft) {
+    public Optional<GraftingHedgeData> getDataFor(ItemStack itemToGraft) {
         return this.graftingHedgeData.values().stream().filter(data -> data.itemToGraft.test(itemToGraft)).findFirst();
+    }
+
+    public Optional<GraftingHedgeData> byKey(ResourceLocation key) {
+        return Optional.ofNullable(this.graftingHedgeData.get(key));
     }
 
     protected void onLoaded() {

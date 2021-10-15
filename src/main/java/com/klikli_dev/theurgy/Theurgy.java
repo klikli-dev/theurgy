@@ -25,6 +25,7 @@ package com.klikli_dev.theurgy;
 import com.klikli_dev.theurgy.config.ClientConfig;
 import com.klikli_dev.theurgy.config.CommonConfig;
 import com.klikli_dev.theurgy.config.ServerConfig;
+import com.klikli_dev.theurgy.data.grafting_hedges.GraftingHedgeManager;
 import com.klikli_dev.theurgy.datagen.DataGenerators;
 import com.klikli_dev.theurgy.handlers.ClientSetupEventHandler;
 import com.klikli_dev.theurgy.handlers.ColorEventHandler;
@@ -39,6 +40,7 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
@@ -72,13 +74,9 @@ public class Theurgy {
         BlockRegistry.BLOCKS.register(modEventBus);
         BlockEntityRegistry.BLOCK_ENTITIES.register(modEventBus);
 
-        //register event listener methods
-        modEventBus.addListener(this::commonSetup);
-        modEventBus.addListener(this::serverSetup);
-        modEventBus.addListener(this::onModConfigEvent);
-
         //register event listener objects
         MinecraftForge.EVENT_BUS.register(this);
+        MinecraftForge.EVENT_BUS.register(GraftingHedgeManager.get());
 
         //register event listener classes
         modEventBus.register(RegistryEventHandler.class);
@@ -95,6 +93,7 @@ public class Theurgy {
         return new ResourceLocation(MODID, path);
     }
 
+    @SubscribeEvent
     public void onModConfigEvent(final ModConfigEvent event) {
         if (event.getConfig().getSpec() == ClientConfig.get().spec) {
             //Clear the config cache on reload.
@@ -110,11 +109,13 @@ public class Theurgy {
         }
     }
 
+    @SubscribeEvent
     private void commonSetup(final FMLCommonSetupEvent event) {
 
         LOGGER.info("Common setup complete.");
     }
 
+    @SubscribeEvent
     private void serverSetup(final FMLDedicatedServerSetupEvent event) {
         LOGGER.info("Dedicated server setup complete.");
     }

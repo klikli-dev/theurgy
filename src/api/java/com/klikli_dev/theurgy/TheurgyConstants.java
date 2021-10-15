@@ -31,7 +31,7 @@ public class TheurgyConstants {
 
     public static class Nbt {
         public static final String PREFIX = TheurgyAPI.ID + ":";
-        public static final String FRUIT_TO_GROW = PREFIX + "fruit_to_grow";
+        public static final String GRAFTING_HEDGE_DATA = PREFIX + "grafting_hedge_data";
     }
 
     public static class I18n {

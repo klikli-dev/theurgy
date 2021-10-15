@@ -42,6 +42,10 @@ public class GraftingHedgeBlockEntity extends NetworkedBlockEntity {
         super(BlockEntityRegistry.GRAFTING_HEDGE.get(), pWorldPosition, pBlockState);
     }
 
+    public Optional<GraftingHedgeData> getGraftingHedgeData(){
+        return data;
+    }
+
     public boolean hasGraftedFruit() {
         return this.data.isPresent();
     }

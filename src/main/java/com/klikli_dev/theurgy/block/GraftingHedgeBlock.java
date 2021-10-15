@@ -88,7 +88,7 @@ public class GraftingHedgeBlock extends BushBlock implements BonemealableBlock, 
             ItemStack heldItem = pPlayer.getItemInHand(InteractionHand.MAIN_HAND);
 
             //Graft fruit to hedge if there is none
-            if (hedge.getFruitToGrow().isEmpty()) {
+            if (hedge.getGraftingHedgeData().isEmpty()) {
                 GraftingHedgeManager.get().getDataFor(heldItem).ifPresent(data -> {
                     //graft item to hedge
                     hedge.setData(data);

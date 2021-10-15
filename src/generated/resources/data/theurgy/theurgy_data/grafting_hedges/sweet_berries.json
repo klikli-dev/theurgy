@@ -1,0 +1,9 @@
+{
+  "item_to_graft": {
+    "item": "minecraft:sweet_berries"
+  },
+  "item_to_grow": {
+    "item": "minecraft:sweet_berries",
+    "count": 1
+  }
+}

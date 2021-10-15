@@ -1,0 +1,9 @@
+{
+  "item_to_graft": {
+    "item": "minecraft:apple"
+  },
+  "item_to_grow": {
+    "item": "minecraft:apple",
+    "count": 1
+  }
+}

@@ -20,25 +20,21 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.klikli_dev.theurgy;
+package com.klikli_dev.theurgy.util;
 
-public class TheurgyConstants {
+import com.google.gson.JsonObject;
+import com.mojang.serialization.JsonOps;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.registries.ForgeRegistries;
 
-    public static class Data {
-        public static final String THEURGY_DATA_PATH = TheurgyAPI.ID + "_data";
-        public static final String GRAFTING_HEDGES_PATH = THEURGY_DATA_PATH + "/grafting_hedges";
-    }
-
-    public static class Nbt {
-        public static final String PREFIX = TheurgyAPI.ID + ":";
-        public static final String GRAFTING_HEDGE_DATA = PREFIX + "grafting_hedge_data";
-    }
-
-    public static class I18n {
-        public static final String TOOLTIP_SHOW_EXTENDED = "tooltip.theurgy.show_extended";
-        public static final String TOOLTIP_SHOW_USAGE = "tooltip.theurgy.show_usage";
-        public static final String TOOLTIP_SUFFIX = "tooltip";
-        public static final String TOOLTIP_EXTENDED_SUFFIX = "tooltip.extended";
-        public static final String TOOLTIP_USAGE_SUFFIX = "tooltip.usage";
+public class SerializerUtil {
+    public static JsonObject serialize(ItemStack itemStack){
+        JsonObject json = new JsonObject();
+        json.addProperty("item", ForgeRegistries.ITEMS.getKey(itemStack.getItem()).toString());
+        json.addProperty("count", itemStack.getCount());
+        if (itemStack.hasTag())
+            json.add("tag", CompoundTag.CODEC.encodeStart(JsonOps.INSTANCE, itemStack.getTag()).get().orThrow());
+        return json;
     }
 }

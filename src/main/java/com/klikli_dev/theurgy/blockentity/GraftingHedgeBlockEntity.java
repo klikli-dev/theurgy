@@ -23,18 +23,39 @@
 package com.klikli_dev.theurgy.blockentity;
 
 import com.klikli_dev.theurgy.TheurgyConstants;
+import com.klikli_dev.theurgy.data.grafting_hedges.GraftingHedgeData;
+import com.klikli_dev.theurgy.data.grafting_hedges.GraftingHedgeManager;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 
+import java.util.Optional;
+
 public class GraftingHedgeBlockEntity extends NetworkedBlockEntity {
 
-    private ItemStack fruitToGrow = ItemStack.EMPTY;
+    private Optional<GraftingHedgeData> data = Optional.empty();
 
     public GraftingHedgeBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {
         super(BlockEntityRegistry.GRAFTING_HEDGE.get(), pWorldPosition, pBlockState);
+    }
+
+    public Optional<GraftingHedgeData> getGraftingHedgeData(){
+        return data;
+    }
+
+    public boolean hasGraftedFruit() {
+        return this.data.isPresent();
+    }
+
+    public Optional<ItemStack> getFruitToGrow() {
+        return this.data.map(d -> d.itemToGrow);
+    }
+
+    public void setData(GraftingHedgeData data) {
+        this.data = Optional.of(data);
     }
 
     @Override
@@ -49,24 +70,15 @@ public class GraftingHedgeBlockEntity extends NetworkedBlockEntity {
 
     @Override
     public void loadNetwork(CompoundTag compound) {
-        if (compound.contains(TheurgyConstants.Nbt.FRUIT_TO_GROW))
-            this.fruitToGrow = ItemStack.of(compound.getCompound(TheurgyConstants.Nbt.FRUIT_TO_GROW));
+        if (compound.contains(TheurgyConstants.Nbt.GRAFTING_HEDGE_DATA))
+            GraftingHedgeManager.get().byKey(new ResourceLocation(compound.getString(TheurgyConstants.Nbt.GRAFTING_HEDGE_DATA)))
+                    .ifPresent(data -> this.data = Optional.of(data));
         super.loadNetwork(compound);
     }
 
     @Override
     public CompoundTag saveNetwork(CompoundTag compound) {
-        if (!this.fruitToGrow.isEmpty())
-            compound.put(TheurgyConstants.Nbt.FRUIT_TO_GROW, this.fruitToGrow.save(new CompoundTag()));
+        this.data.ifPresent(data -> compound.putString(TheurgyConstants.Nbt.GRAFTING_HEDGE_DATA, data.id.toString()));
         return super.saveNetwork(compound);
-    }
-
-    public ItemStack getFruitToGrow() {
-        return this.fruitToGrow;
-    }
-
-    public void setFruitToGrow(ItemStack fruitToGrow) {
-        this.fruitToGrow = fruitToGrow;
-        this.setNetworkChanged();
     }
 }

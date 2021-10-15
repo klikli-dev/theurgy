@@ -1,9 +1,31 @@
+/*
+ * MIT License
+ *
+ * Copyright 2021 klikli-dev
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
+ * associated documentation files (the "Software"), to deal in the Software without restriction, including
+ * without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+ * of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following
+ * conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all copies or substantial
+ * portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+ * INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
+ * PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+ * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
+ * OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+ * OTHER DEALINGS IN THE SOFTWARE.
+ */
+
 package com.klikli_dev.theurgy.block;
 
 import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.blockentity.GraftingHedgeBlockEntity;
+import com.klikli_dev.theurgy.data.grafting_hedges.GraftingHedgeManager;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
-import com.klikli_dev.theurgy.registry.TagRegistry;
 import com.klikli_dev.theurgy.util.BlockEntityUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -66,27 +88,28 @@ public class GraftingHedgeBlock extends BushBlock implements BonemealableBlock, 
             ItemStack heldItem = pPlayer.getItemInHand(InteractionHand.MAIN_HAND);
 
             //Graft fruit to hedge if there is none
-            if (hedge.getFruitToGrow().isEmpty() && TagRegistry.FRUITS.contains(heldItem.getItem())) {
-                //move item to hedge
-                ItemStack itemToGraft = heldItem.copy();
-                itemToGraft.setCount(1);
-                hedge.setFruitToGrow(itemToGraft);
+            if (hedge.getGraftingHedgeData().isEmpty()) {
+                GraftingHedgeManager.get().getDataFor(heldItem).ifPresent(data -> {
+                    //graft item to hedge
+                    hedge.setData(data);
 
-                //set hedge as grafted
-                pLevel.setBlock(pPos, pState.setValue(IS_GRAFTED, true), Constants.BlockFlags.BLOCK_UPDATE);
+                    //set hedge as grafted
+                    pLevel.setBlock(pPos, pState.setValue(IS_GRAFTED, true), Constants.BlockFlags.BLOCK_UPDATE);
 
-                heldItem.shrink(1);
-                pPlayer.setItemInHand(InteractionHand.MAIN_HAND, heldItem);
-                pPlayer.swing(InteractionHand.MAIN_HAND);
+                    heldItem.shrink(1);
+                    pPlayer.setItemInHand(InteractionHand.MAIN_HAND, heldItem);
+                    pPlayer.swing(InteractionHand.MAIN_HAND);
+                });
             }
 
             //if we have a grafted fruit and it's ripe, harvest
-            if (!hedge.getFruitToGrow().isEmpty() && pState.getValue(AGE) == MAX_AGE) {
-                ItemStack fruit = hedge.getFruitToGrow().copy();
-                ItemHandlerHelper.giveItemToPlayer(pPlayer, fruit);
-                //reset hedge
-                pLevel.setBlock(pPos, pState.setValue(AGE, 0), Constants.BlockFlags.BLOCK_UPDATE);
-                pPlayer.swing(InteractionHand.MAIN_HAND);
+            if (pState.getValue(AGE) == MAX_AGE) {
+                hedge.getFruitToGrow().ifPresent(fruit -> {
+                    ItemHandlerHelper.giveItemToPlayer(pPlayer, fruit.copy());
+                    //reset hedge
+                    pLevel.setBlock(pPos, pState.setValue(AGE, 0), Constants.BlockFlags.BLOCK_UPDATE);
+                    pPlayer.swing(InteractionHand.MAIN_HAND);
+                });
             }
         }
         return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
@@ -117,7 +140,7 @@ public class GraftingHedgeBlock extends BushBlock implements BonemealableBlock, 
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {
         CompoundTag blockEntityTag = pContext.getItemInHand().getTagElement("BlockEntityTag");
-        if (blockEntityTag != null && blockEntityTag.contains(TheurgyConstants.Nbt.FRUIT_TO_GROW)) {
+        if (blockEntityTag != null && blockEntityTag.contains(TheurgyConstants.Nbt.GRAFTING_HEDGE_DATA)) {
             return super.getStateForPlacement(pContext).setValue(IS_GRAFTED, true);
         }
         return super.getStateForPlacement(pContext);

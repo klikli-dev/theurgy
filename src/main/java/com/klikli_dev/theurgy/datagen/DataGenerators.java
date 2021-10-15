@@ -46,6 +46,7 @@ public class DataGenerators {
             generator.addProvider(new BlockLootTablesGenerator(generator));
             generator.addProvider(new AdvancementsGenerator(generator));
             generator.addProvider(new BlockStateGenerator(generator, existingFileHelper));
+            generator.addProvider(new GraftingHedgeGenerator(generator));
         }
     }
 }

@@ -37,11 +37,6 @@ public class BlockStateGenerator extends BlockStateProvider {
         super(gen, Theurgy.MODID, exFileHelper);
     }
 
-    @Override
-    protected void registerStatesAndModels() {
-        this.graftingHedge();
-    }
-
     private void graftingHedge() {
         //The hedge uses a flower-free model before grafted, and when ripe (the latter case uses a tile entity renderer)
         ModelFile.ExistingModelFile graftingHedgeModel = this.models().getExistingFile(this.modLoc("block/grafting_hedge"));
@@ -55,5 +50,10 @@ public class BlockStateGenerator extends BlockStateProvider {
                     this.models().getExistingFile(this.modLoc("block/grafting_hedge_flowered_" + age))
             ).build();
         });
+    }
+
+    @Override
+    protected void registerStatesAndModels() {
+        this.graftingHedge();
     }
 }

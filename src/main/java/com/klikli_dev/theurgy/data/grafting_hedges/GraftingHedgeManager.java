@@ -28,7 +28,11 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.TheurgyConstants;
+import com.klikli_dev.theurgy.network.IMessage;
+import com.klikli_dev.theurgy.network.Networking;
+import com.klikli_dev.theurgy.network.SyncGraftingHedgesMessage;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.GsonHelper;
@@ -36,7 +40,6 @@ import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.common.crafting.conditions.ICondition;
-import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.event.OnDatapackSyncEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
@@ -63,21 +66,31 @@ public class GraftingHedgeManager extends SimpleJsonResourceReloadListener {
         return instance;
     }
 
-    public void getDatapackSyncPacket() {
-        //TODO: get instance of sync packet
+    public IMessage getSyncMessage() {
+        return new SyncGraftingHedgesMessage(this.graftingHedgeData);
     }
 
     @SubscribeEvent
     public void onDatapackSync(OnDatapackSyncEvent event) {
-        //TODO: send sync packet to players
+        IMessage syncMessage = this.getSyncMessage();
+
+        if(event.getPlayer() != null){
+            Networking.sendTo(event.getPlayer(), syncMessage);
+        }
+        else {
+            for(ServerPlayer player : event.getPlayerList().getPlayers()){
+                Networking.sendTo(player, syncMessage);
+            }
+        }
     }
 
     public boolean isLoaded() {
-        return loaded;
+        return this.loaded;
     }
 
-    public void onDatapackSyncPacket() {
-        //get data from sync packet
+    public void onDatapackSyncPacket(SyncGraftingHedgesMessage message) {
+        this.graftingHedgeData = message.graftingHedgeData;
+        this.onLoaded();
     }
 
     public Optional<GraftingHedgeData> getDataFor(ItemStack itemToGraft) {
@@ -92,20 +105,6 @@ public class GraftingHedgeManager extends SimpleJsonResourceReloadListener {
         this.loaded = true;
     }
 
-    @Override
-    protected void apply(Map<ResourceLocation, JsonElement> pObject, ResourceManager pResourceManager, ProfilerFiller pProfiler) {
-        this.graftingHedgeData = pObject.entrySet().stream()
-                .filter(entry -> entry.getValue().isJsonObject())
-                .map(entry -> loadGraftingHedgeData(entry.getKey(), entry.getValue().getAsJsonObject()))
-                .filter(Objects::nonNull)
-                .collect(Collectors.toMap(
-                        data -> data.id,
-                        data -> data)
-                );
-
-        this.onLoaded();
-    }
-
     private GraftingHedgeData loadGraftingHedgeData(ResourceLocation key, JsonObject value) {
         ICondition condition = this.loadCondition(value);
         if (condition != null && !condition.test()) {
@@ -115,8 +114,22 @@ public class GraftingHedgeManager extends SimpleJsonResourceReloadListener {
         return GraftingHedgeData.fromJson(key, value);
     }
 
-    private ICondition loadCondition(JsonObject value){
+    private ICondition loadCondition(JsonObject value) {
         return value.has("condition") ?
                 CraftingHelper.getCondition(GsonHelper.getAsJsonObject(value, "condition")) : null;
+    }
+
+    @Override
+    protected void apply(Map<ResourceLocation, JsonElement> pObject, ResourceManager pResourceManager, ProfilerFiller pProfiler) {
+        this.graftingHedgeData = pObject.entrySet().stream()
+                .filter(entry -> entry.getValue().isJsonObject())
+                .map(entry -> this.loadGraftingHedgeData(entry.getKey(), entry.getValue().getAsJsonObject()))
+                .filter(Objects::nonNull)
+                .collect(Collectors.toMap(
+                        data -> data.id,
+                        data -> data)
+                );
+
+        this.onLoaded();
     }
 }

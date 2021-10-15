@@ -42,8 +42,8 @@ public class GraftingHedgeBlockEntity extends NetworkedBlockEntity {
         super(BlockEntityRegistry.GRAFTING_HEDGE.get(), pWorldPosition, pBlockState);
     }
 
-    public Optional<GraftingHedgeData> getGraftingHedgeData(){
-        return data;
+    public Optional<GraftingHedgeData> getGraftingHedgeData() {
+        return this.data;
     }
 
     public boolean hasGraftedFruit() {
@@ -59,16 +59,6 @@ public class GraftingHedgeBlockEntity extends NetworkedBlockEntity {
     }
 
     @Override
-    public void load(CompoundTag compound) {
-        super.load(compound);
-    }
-
-    @Override
-    public CompoundTag save(CompoundTag compound) {
-        return super.save(compound);
-    }
-
-    @Override
     public void loadNetwork(CompoundTag compound) {
         if (compound.contains(TheurgyConstants.Nbt.GRAFTING_HEDGE_DATA))
             GraftingHedgeManager.get().byKey(new ResourceLocation(compound.getString(TheurgyConstants.Nbt.GRAFTING_HEDGE_DATA)))
@@ -80,5 +70,15 @@ public class GraftingHedgeBlockEntity extends NetworkedBlockEntity {
     public CompoundTag saveNetwork(CompoundTag compound) {
         this.data.ifPresent(data -> compound.putString(TheurgyConstants.Nbt.GRAFTING_HEDGE_DATA, data.id.toString()));
         return super.saveNetwork(compound);
+    }
+
+    @Override
+    public void load(CompoundTag compound) {
+        super.load(compound);
+    }
+
+    @Override
+    public CompoundTag save(CompoundTag compound) {
+        return super.save(compound);
     }
 }

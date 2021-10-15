@@ -36,6 +36,33 @@ public abstract class NetworkedBlockEntity extends BlockEntity {
         super(BlockEntityTypeIn, worldPos, state);
     }
 
+    /**
+     * Reads networked nbt, this is a subset of the entire nbt that is synchronized over network.
+     *
+     * @param compound the compound to read from.
+     */
+    public void loadNetwork(CompoundTag compound) {
+    }
+
+    /**
+     * Writes network nbt, this is a subset of the entire nbt that is synchronized over network.
+     *
+     * @param compound the compound to write to.
+     * @return the compound written to,
+     */
+    public CompoundTag saveNetwork(CompoundTag compound) {
+        return compound;
+    }
+
+    /**
+     * Triggers a network sync.
+     */
+    public void setNetworkChanged() {
+        if (this.level != null) {
+            this.level.sendBlockUpdated(this.worldPosition, this.getBlockState(), this.getBlockState(), 2);
+        }
+    }
+
     @Override
     public void load(CompoundTag compound) {
         this.loadNetwork(compound);
@@ -67,32 +94,5 @@ public abstract class NetworkedBlockEntity extends BlockEntity {
     public void handleUpdateTag(CompoundTag tag) {
         super.load(tag);
         this.loadNetwork(tag);
-    }
-
-    /**
-     * Reads networked nbt, this is a subset of the entire nbt that is synchronized over network.
-     *
-     * @param compound the compound to read from.
-     */
-    public void loadNetwork(CompoundTag compound) {
-    }
-
-    /**
-     * Writes network nbt, this is a subset of the entire nbt that is synchronized over network.
-     *
-     * @param compound the compound to write to.
-     * @return the compound written to,
-     */
-    public CompoundTag saveNetwork(CompoundTag compound) {
-        return compound;
-    }
-
-    /**
-     * Triggers a network sync.
-     */
-    public void setNetworkChanged() {
-        if (this.level != null) {
-            this.level.sendBlockUpdated(this.worldPosition, this.getBlockState(), this.getBlockState(), 2);
-        }
     }
 }

@@ -20,21 +20,26 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.klikli_dev.theurgy.util;
+package com.klikli_dev.theurgy.network;
 
-import com.google.gson.JsonObject;
-import com.mojang.serialization.JsonOps;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraft.client.Minecraft;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Player;
+import net.minecraftforge.fmllegacy.network.NetworkEvent;
 
-public class SerializerUtil {
-    public static JsonObject serialize(ItemStack itemStack) {
-        JsonObject json = new JsonObject();
-        json.addProperty("item", ForgeRegistries.ITEMS.getKey(itemStack.getItem()).toString());
-        json.addProperty("count", itemStack.getCount());
-        if (itemStack.hasTag())
-            json.add("tag", CompoundTag.CODEC.encodeStart(JsonOps.INSTANCE, itemStack.getTag()).get().orThrow());
-        return json;
+public interface IMessage {
+    void encode(FriendlyByteBuf buf);
+
+    void decode(FriendlyByteBuf buf);
+
+    default void onClientReceived(Minecraft minecraft, Player player, NetworkEvent.Context context) {
+
+    }
+
+    default void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player,
+                          NetworkEvent.Context context) {
+
     }
 }

@@ -24,18 +24,12 @@ package com.klikli_dev.theurgy.data.grafting_hedges;
 
 import com.google.gson.JsonObject;
 import com.klikli_dev.theurgy.util.SerializerUtil;
-import com.mojang.serialization.JsonOps;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.common.crafting.CraftingHelper;
-import net.minecraftforge.common.crafting.conditions.ICondition;
-import net.minecraftforge.registries.ForgeRegistries;
-
-import javax.annotation.Nullable;
 
 public class GraftingHedgeData {
     public ResourceLocation id;
@@ -57,17 +51,17 @@ public class GraftingHedgeData {
         return new GraftingHedgeData(id, itemToGraft, itemToGrow);
     }
 
+    public static GraftingHedgeData fromNetwork(ResourceLocation id, FriendlyByteBuf buffer) {
+        Ingredient itemToGraft = Ingredient.fromNetwork(buffer);
+        ItemStack itemToGrow = buffer.readItem();
+        return new GraftingHedgeData(id, itemToGraft, itemToGrow);
+    }
+
     public JsonObject toJson() {
         JsonObject json = new JsonObject();
         json.add("item_to_graft", this.itemToGraft.toJson());
         json.add("item_to_grow", SerializerUtil.serialize(this.itemToGrow));
         return json;
-    }
-
-    public static GraftingHedgeData fromNetwork(ResourceLocation id, FriendlyByteBuf buffer) {
-        Ingredient itemToGraft = Ingredient.fromNetwork(buffer);
-        ItemStack itemToGrow = buffer.readItem();
-        return new GraftingHedgeData(id, itemToGraft, itemToGrow);
     }
 
     public void toNetwork(FriendlyByteBuf buffer) {

@@ -24,6 +24,11 @@ package com.klikli_dev.theurgy;
 
 public class TheurgyConstants {
 
+    public static class Data {
+        public static final String THEURGY_DATA_PATH = TheurgyAPI.ID + "_data";
+        public static final String GRAFTING_HEDGES_PATH = THEURGY_DATA_PATH + "/grafting_hedges";
+    }
+
     public static class Nbt {
         public static final String PREFIX = TheurgyAPI.ID + ":";
         public static final String FRUIT_TO_GROW = PREFIX + "fruit_to_grow";

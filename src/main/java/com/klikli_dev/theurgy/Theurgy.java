@@ -32,6 +32,7 @@ import com.klikli_dev.theurgy.handlers.ColorEventHandler;
 import com.klikli_dev.theurgy.handlers.RegistryEventHandler;
 import com.klikli_dev.theurgy.handlers.TooltipHandler;
 import com.klikli_dev.theurgy.item.TheurgyCreativeModeTab;
+import com.klikli_dev.theurgy.network.Networking;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
@@ -117,7 +118,7 @@ public class Theurgy {
 
     @SubscribeEvent
     public void onCommonSetup(final FMLCommonSetupEvent event) {
-
+        Networking.registerMessages();
         LOGGER.info("Common setup complete.");
     }
 

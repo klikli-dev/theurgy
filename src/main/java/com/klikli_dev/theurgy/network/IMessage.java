@@ -27,37 +27,19 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fmllegacy.network.NetworkEvent;
-
-import java.util.function.Supplier;
 
 public interface IMessage {
     void encode(FriendlyByteBuf buf);
 
     void decode(FriendlyByteBuf buf);
 
-    default void onClientReceived(Minecraft minecraft, Player player, NetworkEvent.Context context){
+    default void onClientReceived(Minecraft minecraft, Player player, NetworkEvent.Context context) {
 
     }
 
     default void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player,
-                          NetworkEvent.Context context){
-        
-    }
+                          NetworkEvent.Context context) {
 
-    default void handle(Supplier<NetworkEvent.Context> ctx) {
-        if (ctx.get().getDirection().getReceptionSide() == LogicalSide.SERVER) {
-            ctx.get().enqueueWork(() -> {
-                MinecraftServer server = ctx.get().getSender().level.getServer();
-                this.onServerReceived(server, ctx.get().getSender(), ctx.get());
-            });
-        } else {
-            ctx.get().enqueueWork(() -> {
-                Minecraft minecraft = Minecraft.getInstance();
-                this.onClientReceived(minecraft, minecraft.player, ctx.get());
-            });
-        }
-        ctx.get().setPacketHandled(true);
     }
 }

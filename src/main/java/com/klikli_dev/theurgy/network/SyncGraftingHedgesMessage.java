@@ -27,15 +27,18 @@ import com.klikli_dev.theurgy.data.grafting_hedges.GraftingHedgeManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.fmllegacy.network.NetworkEvent;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
-public class SyncGraftingHedgesMessage implements IMessage{
+public class SyncGraftingHedgesMessage implements IMessage {
 
-    public Map<ResourceLocation, GraftingHedgeData> graftingHedgeData = Collections.emptyMap();
+    public Map<ResourceLocation, GraftingHedgeData> graftingHedgeData = new HashMap<>();
 
     public SyncGraftingHedgesMessage(Map<ResourceLocation, GraftingHedgeData> graftingHedgeData) {
         this.graftingHedgeData = graftingHedgeData;
@@ -43,11 +46,6 @@ public class SyncGraftingHedgesMessage implements IMessage{
 
     public SyncGraftingHedgesMessage(FriendlyByteBuf buf) {
         this.decode(buf);
-    }
-
-    @Override
-    public void onClientReceived(Minecraft minecraft, Player player, NetworkEvent.Context context) {
-        GraftingHedgeManager.get().onDatapackSyncPacket(this);
     }
 
     @Override
@@ -62,9 +60,19 @@ public class SyncGraftingHedgesMessage implements IMessage{
     @Override
     public void decode(FriendlyByteBuf buf) {
         int count = buf.readVarInt();
-        for(int i = 0; i < count; i++){
+        for (int i = 0; i < count; i++) {
             ResourceLocation id = buf.readResourceLocation();
             this.graftingHedgeData.put(id, GraftingHedgeData.fromNetwork(id, buf));
         }
+    }
+
+    @Override
+    public void onClientReceived(Minecraft minecraft, Player player, NetworkEvent.Context context) {
+        GraftingHedgeManager.get().onDatapackSyncPacket(this);
+    }
+
+    @Override
+    public void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player, NetworkEvent.Context context) {
+
     }
 }

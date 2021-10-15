@@ -52,7 +52,7 @@ public class Networking {
                 SyncGraftingHedgesMessage.class,
                 SyncGraftingHedgesMessage::encode,
                 SyncGraftingHedgesMessage::new,
-                SyncGraftingHedgesMessage::handle);
+                MessageHandler::handle);
     }
 
     public static <T> void sendTo(ServerPlayer player, T message) {

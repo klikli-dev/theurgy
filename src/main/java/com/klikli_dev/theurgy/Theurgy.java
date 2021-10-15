@@ -39,6 +39,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -110,13 +111,18 @@ public class Theurgy {
     }
 
     @SubscribeEvent
-    private void commonSetup(final FMLCommonSetupEvent event) {
+    public void onAddReloadListener(AddReloadListenerEvent event) {
+        event.addListener(GraftingHedgeManager.get());
+    }
+
+    @SubscribeEvent
+    public void onCommonSetup(final FMLCommonSetupEvent event) {
 
         LOGGER.info("Common setup complete.");
     }
 
     @SubscribeEvent
-    private void serverSetup(final FMLDedicatedServerSetupEvent event) {
+    public void onServerSetup(final FMLDedicatedServerSetupEvent event) {
         LOGGER.info("Dedicated server setup complete.");
     }
 }

@@ -22,7 +22,7 @@
 
 package com.klikli_dev.theurgy.block;
 
-import com.klikli_dev.theurgy.TheurgyConstants;
+import com.klikli_dev.theurgy.api.TheurgyConstants;
 import com.klikli_dev.theurgy.blockentity.GraftingHedgeBlockEntity;
 import com.klikli_dev.theurgy.data.grafting_hedges.GraftingHedgeManager;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;

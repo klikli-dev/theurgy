@@ -24,7 +24,8 @@ package com.klikli_dev.theurgy.handlers;
 
 
 import com.klikli_dev.theurgy.Theurgy;
-import com.klikli_dev.theurgy.TheurgyConstants;
+import com.klikli_dev.theurgy.api.TheurgyConstants;
+import com.klikli_dev.theurgy.api.tooltips.IAdditionalTooltipDataProvider;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.item.ItemStack;
@@ -39,40 +40,49 @@ public class TooltipHandler {
 
         //only run for theurgy items
         if (stack.getItem().getRegistryName().getNamespace().equals(Theurgy.MODID)) {
-            String tooltipKey = stack.getDescriptionId() + "." + TheurgyConstants.I18n.TOOLTIP_SUFFIX;
-            String extendedTooltipKey = stack.getDescriptionId() + "." + TheurgyConstants.I18n.TOOLTIP_EXTENDED_SUFFIX;
-            String usageTooltipKey = stack.getDescriptionId() + "." + TheurgyConstants.I18n.TOOLTIP_USAGE_SUFFIX;
+            String tooltipKey = stack.getDescriptionId() + TheurgyConstants.I18n.TOOLTIP_SUFFIX;
+            String extendedTooltipKey = stack.getDescriptionId() + TheurgyConstants.I18n.TOOLTIP_EXTENDED_SUFFIX;
+            String usageTooltipKey = stack.getDescriptionId() + TheurgyConstants.I18n.TOOLTIP_USAGE_SUFFIX;
 
             boolean tooltipExists = net.minecraft.client.resources.language.I18n.exists(tooltipKey);
             boolean extendedTooltipExists = net.minecraft.client.resources.language.I18n.exists(extendedTooltipKey);
             boolean usageTooltipExists = net.minecraft.client.resources.language.I18n.exists(usageTooltipKey);
 
+            TranslatableComponent[] additionalTooltipData = getAdditionalTooltipData(stack);
+
             //first check usage tooltip
             if (Screen.hasShiftDown() && Screen.hasControlDown() && usageTooltipExists) {
-                event.getToolTip().add(new TranslatableComponent(usageTooltipKey));
+                event.getToolTip().add(new TranslatableComponent(usageTooltipKey, (Object[]) additionalTooltipData));
             }
             //then extended tooltip - hint at usage, if available
             else if (Screen.hasShiftDown() && extendedTooltipExists) {
-                event.getToolTip().add(new TranslatableComponent(extendedTooltipKey));
+                event.getToolTip().add(new TranslatableComponent(extendedTooltipKey,  (Object[]) additionalTooltipData));
 
                 if (usageTooltipExists) {
-                    event.getToolTip().add(new TranslatableComponent(TheurgyConstants.I18n.TOOLTIP_SHOW_USAGE));
+                    event.getToolTip().add(new TranslatableComponent(TheurgyConstants.I18n.TOOLTIP_SHOW_USAGE,  (Object[]) additionalTooltipData));
                 }
             }
             //then regular tooltip - hint at extended and usage, if available
             else {
                 //only add the default tooltip if we have one
                 if (tooltipExists) {
-                    event.getToolTip().add(new TranslatableComponent(tooltipKey));
+                    event.getToolTip().add(new TranslatableComponent(tooltipKey,  (Object[]) additionalTooltipData));
                 }
                 //but if we have other tooltips, hint at them
                 if (extendedTooltipExists) {
-                    event.getToolTip().add(new TranslatableComponent(TheurgyConstants.I18n.TOOLTIP_SHOW_EXTENDED));
+                    event.getToolTip().add(new TranslatableComponent(TheurgyConstants.I18n.TOOLTIP_SHOW_EXTENDED,  (Object[]) additionalTooltipData));
                 }
                 if (usageTooltipExists) {
-                    event.getToolTip().add(new TranslatableComponent(TheurgyConstants.I18n.TOOLTIP_SHOW_USAGE));
+                    event.getToolTip().add(new TranslatableComponent(TheurgyConstants.I18n.TOOLTIP_SHOW_USAGE,  (Object[]) additionalTooltipData));
                 }
             }
         }
+    }
+
+    public static TranslatableComponent[] getAdditionalTooltipData(ItemStack stack) {
+        if (stack.getItem() instanceof IAdditionalTooltipDataProvider provider) {
+            return provider.getAdditionalTooltipData(stack);
+        }
+        return new TranslatableComponent[0];
     }
 }

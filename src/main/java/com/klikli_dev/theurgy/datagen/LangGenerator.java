@@ -23,7 +23,7 @@
 package com.klikli_dev.theurgy.datagen;
 
 import com.klikli_dev.theurgy.Theurgy;
-import com.klikli_dev.theurgy.TheurgyConstants;
+import com.klikli_dev.theurgy.api.TheurgyConstants;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import net.minecraft.ChatFormatting;
 import net.minecraft.data.DataGenerator;
@@ -49,21 +49,42 @@ public abstract class LangGenerator extends LanguageProvider {
         this.add(AdvancementsGenerator.descr(name).getKey(), s);
     }
 
+    public void addItemSuffix(Supplier<? extends Item> key, String suffix, String name) {
+        this.add(key.get().getDescriptionId() + suffix, name);
+    }
+
     protected void addTooltip(Supplier<? extends Item> key, String tooltip) {
         if (tooltip != null)
-            this.add(key.get().getDescriptionId() + "." + TheurgyConstants.I18n.TOOLTIP_SUFFIX, tooltip);
+            this.add(key.get().getDescriptionId() + TheurgyConstants.I18n.TOOLTIP_SUFFIX, tooltip);
     }
 
     protected void addTooltip(Supplier<? extends Item> key, String tooltip, String extendedTooltip) {
         this.addTooltip(key, tooltip);
         if (tooltip != null)
-            this.add(key.get().getDescriptionId() + "." + TheurgyConstants.I18n.TOOLTIP_EXTENDED_SUFFIX, extendedTooltip);
+            this.add(key.get().getDescriptionId() + TheurgyConstants.I18n.TOOLTIP_EXTENDED_SUFFIX, extendedTooltip);
     }
 
     protected void addTooltip(Supplier<? extends Item> key, String tooltip, String extendedTooltip, String usageTooltip) {
         this.addTooltip(key, tooltip, extendedTooltip);
         if (tooltip != null)
-            this.add(key.get().getDescriptionId() + "." + TheurgyConstants.I18n.TOOLTIP_USAGE_SUFFIX, usageTooltip);
+            this.add(key.get().getDescriptionId() + TheurgyConstants.I18n.TOOLTIP_USAGE_SUFFIX, usageTooltip);
+    }
+
+    protected void addTooltipSuffix(Supplier<? extends Item> key, String suffix, String tooltip) {
+        if (tooltip != null)
+            this.add(key.get().getDescriptionId() + suffix + TheurgyConstants.I18n.TOOLTIP_SUFFIX, tooltip);
+    }
+
+    protected void addTooltipSuffix(Supplier<? extends Item> key, String suffix, String tooltip, String extendedTooltip) {
+        this.addTooltipSuffix(key, suffix, tooltip);
+        if (tooltip != null)
+            this.add(key.get().getDescriptionId() + suffix + TheurgyConstants.I18n.TOOLTIP_EXTENDED_SUFFIX, extendedTooltip);
+    }
+
+    protected void addTooltipSuffix(Supplier<? extends Item> key, String suffix, String tooltip, String extendedTooltip, String usageTooltip) {
+        this.addTooltipSuffix(key, suffix, tooltip, extendedTooltip);
+        if (tooltip != null)
+            this.add(key.get().getDescriptionId() + suffix + TheurgyConstants.I18n.TOOLTIP_USAGE_SUFFIX, usageTooltip);
     }
 
     public static final class English extends LangGenerator {
@@ -73,7 +94,7 @@ public abstract class LangGenerator extends LanguageProvider {
         }
 
         private void addMisc() {
-            this.add("itemGroup.theurgy", "Theurgy");
+            this.add(TheurgyConstants.I18n.ITEM_GROUP, "Theurgy");
             this.add(TheurgyConstants.I18n.TOOLTIP_SHOW_EXTENDED, ChatFormatting.GOLD + "[" +
                     ChatFormatting.LIGHT_PURPLE + "shift " +
                     ChatFormatting.GRAY + "read more" +
@@ -82,11 +103,17 @@ public abstract class LangGenerator extends LanguageProvider {
                     ChatFormatting.LIGHT_PURPLE + "ctrl-shift " +
                     ChatFormatting.GRAY + "show usage" +
                     ChatFormatting.GOLD + "]");
+
+            this.add(TheurgyConstants.I18n.JEI_GRAFTING_HEDGE_HARVEST_CATEGORY, "Hedge Harvest");
+            this.add(TheurgyConstants.I18n.JEI_GRAFTING_HEDGE_HARVEST_CATEGORY_TOOLTIP, "Right click the hedge to harvest.");
+            this.add(TheurgyConstants.I18n.JEI_GRAFTING_HEDGE_GRAFTING_CATEGORY, "Hedge Grafting");
+            this.add(TheurgyConstants.I18n.JEI_GRAFTING_HEDGE_GRAFTING_CATEGORY_TOOLTIP, "Right click the hedge with a fruit to graft the fruit to it. Henceforth it will grow that kind of fruit.");
         }
 
         private void addItems() {
             this.addItem(ItemRegistry.THEURGY, "Theurgy");
             this.addItem(ItemRegistry.GRAFTING_HEDGE, "Grafting Hedge");
+            this.addItemSuffix(ItemRegistry.GRAFTING_HEDGE, TheurgyConstants.I18n.GRAFTED_SUFFIX, "%s Hedge");
         }
 
         private void addTooltips() {
@@ -95,6 +122,12 @@ public abstract class LangGenerator extends LanguageProvider {
                     "Grafting hedges can grow any type of fruit.",
                     "When ripe the fruit can be seen hanging in the hedge.",
                     "Right-click with a fruit to a hedge to graft it onto the plant. It will then grow that kind of fruit.");
+
+            this.addTooltipSuffix(ItemRegistry.GRAFTING_HEDGE,
+                    TheurgyConstants.I18n.GRAFTED_SUFFIX,
+                    "A grafted hedge that grows %s.",
+                    "When ripe the fruit can be seen hanging in the hedge.",
+                    "Right-click to harvest the fruit when ripe.");
         }
 
         private void addAdvancements() {

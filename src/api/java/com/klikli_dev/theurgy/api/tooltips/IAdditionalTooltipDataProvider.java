@@ -20,26 +20,11 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.klikli_dev.theurgy.registry;
+package com.klikli_dev.theurgy.api.tooltips;
 
-import com.klikli_dev.theurgy.Theurgy;
-import com.klikli_dev.theurgy.item.GraftingHedgeBlockItem;
-import net.minecraft.world.item.Item;
-import net.minecraftforge.fmllegacy.RegistryObject;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.item.ItemStack;
 
-public class ItemRegistry {
-    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Theurgy.MODID);
-
-    public static final RegistryObject<Item> THEURGY =
-            ITEMS.register("theurgy", () -> new Item(new Item.Properties()));
-
-    public static final RegistryObject<Item> GRAFTING_HEDGE = ITEMS.register("grafting_hedge",
-            () -> new GraftingHedgeBlockItem(BlockRegistry.GRAFTING_HEDGE.get(), defaultProperties()));
-
-
-    public static Item.Properties defaultProperties() {
-        return new Item.Properties().tab(Theurgy.CREATIVE_MODE_TAB);
-    }
+public interface IAdditionalTooltipDataProvider {
+    TranslatableComponent[] getAdditionalTooltipData(ItemStack pStack);
 }

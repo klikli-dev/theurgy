@@ -20,9 +20,32 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.klikli_dev.theurgy;
+package com.klikli_dev.theurgy.integration.jei;
 
-public class TheurgyAPI {
-    public static final String ID = "theurgy";
-    public static final String Name = "Theurgy";
+import com.klikli_dev.theurgy.api.TheurgyConstants;
+import mezz.jei.api.ingredients.subtypes.IIngredientSubtypeInterpreter;
+import mezz.jei.api.ingredients.subtypes.UidContext;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.item.ItemStack;
+
+public class GraftingHedgeSubtypeInterpreter implements IIngredientSubtypeInterpreter<ItemStack> {
+    private static final GraftingHedgeSubtypeInterpreter instance = new GraftingHedgeSubtypeInterpreter();
+
+    private GraftingHedgeSubtypeInterpreter() {
+
+    }
+
+    public static GraftingHedgeSubtypeInterpreter get() {
+        return instance;
+    }
+
+    @Override
+    public String apply(ItemStack itemStack, UidContext context) {
+        CompoundTag blockEntityTag = itemStack.getTagElement("BlockEntityTag");
+        if (blockEntityTag != null && blockEntityTag.contains(TheurgyConstants.Nbt.GRAFTING_HEDGE_DATA)) {
+            return blockEntityTag.getString(TheurgyConstants.Nbt.GRAFTING_HEDGE_DATA);
+        }
+
+        return IIngredientSubtypeInterpreter.NONE;
+    }
 }

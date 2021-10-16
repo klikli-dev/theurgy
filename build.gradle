@@ -24,25 +24,24 @@ if (System.getenv('VERSION') != null) {
 group = "com.github.klikli_dev"
 archivesBaseName = "theurgy"
 
+// see https://github.com/mezz/JustEnoughItems/blob/1.17/build.gradle
 sourceSets {
     api {
-        java {
-            srcDir 'src/api/java'
-        }
+        //no resources for api
+        resources.srcDirs = []
     }
     main {
         resources {
             srcDir 'src/generated/resources'
         }
-        compileClasspath += api.output
-        runtimeClasspath += api.output
+        compileClasspath += sourceSets.api.output
+        runtimeClasspath += sourceSets.api.output
     }
 }
 
 configurations {
-    apiCompile.extendsFrom(compile)
     apiImplementation.extendsFrom(implementation)
-    apiCompileOnly.extendsFrom(compileOnly)
+    apiRuntimeOnly.extendsFrom(runtimeOnly)
 }
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(16)
@@ -71,6 +70,7 @@ minecraft {
             mods {
                 theurgy {
                     source sourceSets.main
+                    source sourceSets.api
                 }
             }
         }
@@ -91,6 +91,7 @@ minecraft {
             mods {
                 theurgy {
                     source sourceSets.main
+                    source sourceSets.api
                 }
             }
         }
@@ -114,6 +115,7 @@ minecraft {
             mods {
                 theurgy {
                     source sourceSets.main
+                    source sourceSets.api
                 }
             }
         }
@@ -153,8 +155,8 @@ dependencies {
 
 // Example for how to get properties into the manifest for reading by the runtime..
 jar {
-    from sourceSets.api.output
     from sourceSets.main.output
+    from sourceSets.api.output
 
     manifest {
         attributes([

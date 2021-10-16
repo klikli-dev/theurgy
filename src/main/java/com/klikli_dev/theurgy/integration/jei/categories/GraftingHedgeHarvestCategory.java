@@ -22,7 +22,9 @@
 
 package com.klikli_dev.theurgy.integration.jei.categories;
 
+import com.google.common.collect.ImmutableList;
 import com.klikli_dev.theurgy.Theurgy;
+import com.klikli_dev.theurgy.api.TheurgyConstants;
 import com.klikli_dev.theurgy.data.grafting_hedges.GraftingHedgeData;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -38,31 +40,33 @@ import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
+import java.util.Collections;
+import java.util.List;
+
 public class GraftingHedgeHarvestCategory implements IRecipeCategory<GraftingHedgeData> {
 
-    private final ResourceLocation id = new ResourceLocation(Theurgy.MODID, "grafting_hedge_harvest");
+    public static final ResourceLocation ID = new ResourceLocation(Theurgy.MODID, "grafting_hedge_harvest");
     private final IDrawable background;
     private final Component localizedName;
-    private final IDrawable overlay;
+    private final IDrawable rightArrow;
     private final IDrawable icon;
-    private final ItemStack renderStack = new ItemStack(ItemRegistry.GRAFTING_HEDGE.get());
-    //endregion Fields
+    private final ItemStack hedge;
 
-    //region Initialization
     public GraftingHedgeHarvestCategory(IGuiHelper guiHelper) {
         this.background = guiHelper.createBlankDrawable(168, 46); //64
-        this.localizedName = new TranslatableComponent(Theurgy.MODID + ".jei.spirit_fire");
-        this.overlay = guiHelper.createDrawable(
-                new ResourceLocation(Theurgy.MODID, "textures/gui/jei/spirit_fire.png"), 0, 0, 64, 46);
-        this.icon = guiHelper.createDrawableIngredient(this.renderStack);
-        this.renderStack.getOrCreateTag().putBoolean("RenderFull", true);
-    }
-    //endregion Initialization
+        this.localizedName = new TranslatableComponent(TheurgyConstants.I18n.JEI_GRAFTING_HEDGE_HARVEST_CATEGORY);
+        this.rightArrow = guiHelper
+                .drawableBuilder(Theurgy.id("textures/gui/jei/arrow_right.png"), 0, 0, 32, 32)
+                .setTextureSize(32, 32).build();
+        this.hedge = new ItemStack(ItemRegistry.GRAFTING_HEDGE.get());
+        this.hedge.getOrCreateTag().putBoolean("RenderFull", true);
+        this.icon = guiHelper.createDrawableIngredient(this.hedge);
 
-    //region Overrides
+    }
+
     @Override
     public ResourceLocation getUid() {
-        return id;
+        return ID;
     }
 
     @Override
@@ -87,30 +91,37 @@ public class GraftingHedgeHarvestCategory implements IRecipeCategory<GraftingHed
 
     @Override
     public void setIngredients(GraftingHedgeData recipe, IIngredients ingredients) {
-//        ingredients.setInputIngredients(recipe.getIngredients());
-//        ingredients.setOutput(VanillaTypes.ITEM, recipe.getResultItem());
+        ItemStack specificHedge = new ItemStack(ItemRegistry.GRAFTING_HEDGE.get());
+        specificHedge.getOrCreateTagElement("BlockEntityTag")
+                .putString(TheurgyConstants.Nbt.GRAFTING_HEDGE_DATA, recipe.id.toString());
+
+        ingredients.setInput(VanillaTypes.ITEM, specificHedge);
+        ingredients.setOutput(VanillaTypes.ITEM, recipe.itemToGrow);
     }
 
     @Override
     public void setRecipe(IRecipeLayout recipeLayout, GraftingHedgeData recipe, IIngredients ingredients) {
         int index = 0;
 
-        recipeLayout.getItemStacks().init(index, true, 40, 12);
+        recipeLayout.getItemStacks().init(index, true, 168 / 2 - 40, 12);
         recipeLayout.getItemStacks().set(index, ingredients.getInputs(VanillaTypes.ITEM).get(0));
         index++;
 
-        recipeLayout.getItemStacks().init(index, true, 75, 12);
-        recipeLayout.getItemStacks().set(index, this.renderStack);
-        index++;
-
-        recipeLayout.getItemStacks().init(index, false, 110, 12);
+        recipeLayout.getItemStacks().init(index, false, 168 / 2 + 40 - 12, 12);
         recipeLayout.getItemStacks().set(index, ingredients.getOutputs(VanillaTypes.ITEM).get(0));
     }
 
     @Override
     public void draw(GraftingHedgeData recipe, PoseStack poseStack, double mouseX, double mouseY) {
         RenderSystem.enableBlend();
-        this.overlay.draw(poseStack, 48, 0);
+        this.rightArrow.draw(poseStack, 168 / 2 - 32 / 2, 6);
+        RenderSystem.disableBlend();
     }
-    //endregion Overrides
+
+    @Override
+    public List<Component> getTooltipStrings(GraftingHedgeData recipe, double mouseX, double mouseY) {
+        if (mouseX > 168 / 2.0f - 32 / 2.0f && mouseX < 168 / 2.0f + 32 / 2.0f && mouseY > 6 && mouseY < 6 + 32)
+            return ImmutableList.of(new TranslatableComponent(TheurgyConstants.I18n.JEI_GRAFTING_HEDGE_HARVEST_CATEGORY_TOOLTIP));
+        return Collections.emptyList();
+    }
 }

@@ -12,6 +12,8 @@
   "item.theurgy.theurgy": "Theurgy",
   "item.theurgy.theurgy.tooltip": "Dummy item for easy access to the Theurgy icon.",
   "itemGroup.theurgy": "Theurgy",
+  "jei.theurgycategory.grafting_hedge_harvest": "Hedge Harvest",
+  "jei.theurgycategory.grafting_hedge_harvest.tooltip": "Right click the hedge to harvest.",
   "tooltip.theurgy.show_extended": "\u00A76[\u00A7dshift \u00A77read more\u00A76]",
   "tooltip.theurgy.show_usage": "\u00A76[\u00A7dctrl-shift \u00A77show usage\u00A76]"
 }

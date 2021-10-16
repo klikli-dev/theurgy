@@ -35,11 +35,15 @@ public class TheurgyConstants {
     }
 
     public static class I18n {
-        public static final String TOOLTIP_SHOW_EXTENDED = "tooltip.theurgy.show_extended";
-        public static final String TOOLTIP_SHOW_USAGE = "tooltip.theurgy.show_usage";
+        public static final String ITEM_GROUP = "itemGroup." + TheurgyAPI.ID;
+
+        public static final String TOOLTIP_SHOW_EXTENDED = "tooltip." + TheurgyAPI.ID +".show_extended";
+        public static final String TOOLTIP_SHOW_USAGE = "tooltip." + TheurgyAPI.ID + ".show_usage";
         public static final String TOOLTIP_SUFFIX = ".tooltip";
         public static final String TOOLTIP_EXTENDED_SUFFIX = ".tooltip.extended";
         public static final String TOOLTIP_USAGE_SUFFIX = ".tooltip.usage";
         public static final String GRAFTED_SUFFIX = ".grafted";
+        public static final String JEI_GRAFTING_HEDGE_HARVEST_CATEGORY = "jei." + TheurgyAPI.ID + "category.grafting_hedge_harvest";
+        public static final String JEI_GRAFTING_HEDGE_HARVEST_CATEGORY_TOOLTIP = "jei." + TheurgyAPI.ID + "category.grafting_hedge_harvest.tooltip";
     }
 }

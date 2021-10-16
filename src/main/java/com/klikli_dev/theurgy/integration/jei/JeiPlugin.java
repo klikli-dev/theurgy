@@ -23,6 +23,9 @@
 package com.klikli_dev.theurgy.integration.jei;
 
 import com.klikli_dev.theurgy.Theurgy;
+import com.klikli_dev.theurgy.data.grafting_hedges.GraftingHedgeData;
+import com.klikli_dev.theurgy.data.grafting_hedges.GraftingHedgeManager;
+import com.klikli_dev.theurgy.integration.jei.categories.GraftingHedgeHarvestCategory;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
@@ -30,6 +33,10 @@ import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import mezz.jei.api.registration.ISubtypeRegistration;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+
+import java.util.Collection;
+import java.util.List;
 
 @mezz.jei.api.JeiPlugin
 public class JeiPlugin implements IModPlugin {
@@ -41,12 +48,13 @@ public class JeiPlugin implements IModPlugin {
 
     @Override
     public void registerCategories(IRecipeCategoryRegistration registration) {
-
+        registration.addRecipeCategories(new GraftingHedgeHarvestCategory(registration.getJeiHelpers().getGuiHelper()));
     }
 
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
-
+        Collection<GraftingHedgeData> graftingHedgeData = GraftingHedgeManager.get().getGraftingHedgeData().values();
+        registration.addRecipes(graftingHedgeData, GraftingHedgeHarvestCategory.ID);
     }
 
     @Override

@@ -49,21 +49,42 @@ public abstract class LangGenerator extends LanguageProvider {
         this.add(AdvancementsGenerator.descr(name).getKey(), s);
     }
 
+    public void addItemSuffix(Supplier<? extends Item> key, String suffix, String name) {
+        this.add(key.get().getDescriptionId() + suffix, name);
+    }
+
     protected void addTooltip(Supplier<? extends Item> key, String tooltip) {
         if (tooltip != null)
-            this.add(key.get().getDescriptionId() + "." + TheurgyConstants.I18n.TOOLTIP_SUFFIX, tooltip);
+            this.add(key.get().getDescriptionId() + TheurgyConstants.I18n.TOOLTIP_SUFFIX, tooltip);
     }
 
     protected void addTooltip(Supplier<? extends Item> key, String tooltip, String extendedTooltip) {
         this.addTooltip(key, tooltip);
         if (tooltip != null)
-            this.add(key.get().getDescriptionId() + "." + TheurgyConstants.I18n.TOOLTIP_EXTENDED_SUFFIX, extendedTooltip);
+            this.add(key.get().getDescriptionId() + TheurgyConstants.I18n.TOOLTIP_EXTENDED_SUFFIX, extendedTooltip);
     }
 
     protected void addTooltip(Supplier<? extends Item> key, String tooltip, String extendedTooltip, String usageTooltip) {
         this.addTooltip(key, tooltip, extendedTooltip);
         if (tooltip != null)
-            this.add(key.get().getDescriptionId() + "." + TheurgyConstants.I18n.TOOLTIP_USAGE_SUFFIX, usageTooltip);
+            this.add(key.get().getDescriptionId() + TheurgyConstants.I18n.TOOLTIP_USAGE_SUFFIX, usageTooltip);
+    }
+
+    protected void addTooltipSuffix(Supplier<? extends Item> key, String suffix, String tooltip) {
+        if (tooltip != null)
+            this.add(key.get().getDescriptionId() + suffix + TheurgyConstants.I18n.TOOLTIP_SUFFIX, tooltip);
+    }
+
+    protected void addTooltipSuffix(Supplier<? extends Item> key, String suffix, String tooltip, String extendedTooltip) {
+        this.addTooltipSuffix(key, suffix, tooltip);
+        if (tooltip != null)
+            this.add(key.get().getDescriptionId() + suffix + TheurgyConstants.I18n.TOOLTIP_EXTENDED_SUFFIX, extendedTooltip);
+    }
+
+    protected void addTooltipSuffix(Supplier<? extends Item> key, String suffix, String tooltip, String extendedTooltip, String usageTooltip) {
+        this.addTooltipSuffix(key, suffix, tooltip, extendedTooltip);
+        if (tooltip != null)
+            this.add(key.get().getDescriptionId() + suffix + TheurgyConstants.I18n.TOOLTIP_USAGE_SUFFIX, usageTooltip);
     }
 
     public static final class English extends LangGenerator {

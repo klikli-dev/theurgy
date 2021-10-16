@@ -37,8 +37,9 @@ public class TheurgyConstants {
     public static class I18n {
         public static final String TOOLTIP_SHOW_EXTENDED = "tooltip.theurgy.show_extended";
         public static final String TOOLTIP_SHOW_USAGE = "tooltip.theurgy.show_usage";
-        public static final String TOOLTIP_SUFFIX = "tooltip";
-        public static final String TOOLTIP_EXTENDED_SUFFIX = "tooltip.extended";
-        public static final String TOOLTIP_USAGE_SUFFIX = "tooltip.usage";
+        public static final String TOOLTIP_SUFFIX = ".tooltip";
+        public static final String TOOLTIP_EXTENDED_SUFFIX = ".tooltip.extended";
+        public static final String TOOLTIP_USAGE_SUFFIX = ".tooltip.usage";
+        public static final String GRAFTED_SUFFIX = ".grafted";
     }
 }

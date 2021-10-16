@@ -24,8 +24,8 @@ package com.klikli_dev.theurgy.handlers;
 
 
 import com.klikli_dev.theurgy.Theurgy;
-import com.klikli_dev.theurgy.TheurgyConstants;
-import com.klikli_dev.theurgy.tooltips.IAdditionalTooltipDataProvider;
+import com.klikli_dev.theurgy.api.TheurgyConstants;
+import com.klikli_dev.theurgy.api.tooltips.IAdditionalTooltipDataProvider;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.item.ItemStack;
@@ -52,28 +52,28 @@ public class TooltipHandler {
 
             //first check usage tooltip
             if (Screen.hasShiftDown() && Screen.hasControlDown() && usageTooltipExists) {
-                event.getToolTip().add(new TranslatableComponent(usageTooltipKey, additionalTooltipData));
+                event.getToolTip().add(new TranslatableComponent(usageTooltipKey, (Object[]) additionalTooltipData));
             }
             //then extended tooltip - hint at usage, if available
             else if (Screen.hasShiftDown() && extendedTooltipExists) {
-                event.getToolTip().add(new TranslatableComponent(extendedTooltipKey, additionalTooltipData));
+                event.getToolTip().add(new TranslatableComponent(extendedTooltipKey,  (Object[]) additionalTooltipData));
 
                 if (usageTooltipExists) {
-                    event.getToolTip().add(new TranslatableComponent(TheurgyConstants.I18n.TOOLTIP_SHOW_USAGE, additionalTooltipData));
+                    event.getToolTip().add(new TranslatableComponent(TheurgyConstants.I18n.TOOLTIP_SHOW_USAGE,  (Object[]) additionalTooltipData));
                 }
             }
             //then regular tooltip - hint at extended and usage, if available
             else {
                 //only add the default tooltip if we have one
                 if (tooltipExists) {
-                    event.getToolTip().add(new TranslatableComponent(tooltipKey, additionalTooltipData));
+                    event.getToolTip().add(new TranslatableComponent(tooltipKey,  (Object[]) additionalTooltipData));
                 }
                 //but if we have other tooltips, hint at them
                 if (extendedTooltipExists) {
-                    event.getToolTip().add(new TranslatableComponent(TheurgyConstants.I18n.TOOLTIP_SHOW_EXTENDED, additionalTooltipData));
+                    event.getToolTip().add(new TranslatableComponent(TheurgyConstants.I18n.TOOLTIP_SHOW_EXTENDED,  (Object[]) additionalTooltipData));
                 }
                 if (usageTooltipExists) {
-                    event.getToolTip().add(new TranslatableComponent(TheurgyConstants.I18n.TOOLTIP_SHOW_USAGE, additionalTooltipData));
+                    event.getToolTip().add(new TranslatableComponent(TheurgyConstants.I18n.TOOLTIP_SHOW_USAGE,  (Object[]) additionalTooltipData));
                 }
             }
         }

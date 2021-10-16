@@ -27,7 +27,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.klikli_dev.theurgy.Theurgy;
-import com.klikli_dev.theurgy.TheurgyConstants;
+import com.klikli_dev.theurgy.api.TheurgyConstants;
 import com.klikli_dev.theurgy.network.IMessage;
 import com.klikli_dev.theurgy.network.Networking;
 import com.klikli_dev.theurgy.network.SyncGraftingHedgesMessage;
@@ -74,11 +74,10 @@ public class GraftingHedgeManager extends SimpleJsonResourceReloadListener {
     public void onDatapackSync(OnDatapackSyncEvent event) {
         IMessage syncMessage = this.getSyncMessage();
 
-        if(event.getPlayer() != null){
+        if (event.getPlayer() != null) {
             Networking.sendTo(event.getPlayer(), syncMessage);
-        }
-        else {
-            for(ServerPlayer player : event.getPlayerList().getPlayers()){
+        } else {
+            for (ServerPlayer player : event.getPlayerList().getPlayers()) {
                 Networking.sendTo(player, syncMessage);
             }
         }
@@ -99,6 +98,10 @@ public class GraftingHedgeManager extends SimpleJsonResourceReloadListener {
 
     public Optional<GraftingHedgeData> byKey(ResourceLocation key) {
         return Optional.ofNullable(this.graftingHedgeData.get(key));
+    }
+
+    public Map<ResourceLocation, GraftingHedgeData> getGraftingHedgeData() {
+        return graftingHedgeData;
     }
 
     protected void onLoaded() {

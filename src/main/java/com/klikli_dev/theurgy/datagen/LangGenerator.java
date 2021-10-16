@@ -23,7 +23,7 @@
 package com.klikli_dev.theurgy.datagen;
 
 import com.klikli_dev.theurgy.Theurgy;
-import com.klikli_dev.theurgy.TheurgyConstants;
+import com.klikli_dev.theurgy.api.TheurgyConstants;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import net.minecraft.ChatFormatting;
 import net.minecraft.data.DataGenerator;
@@ -108,6 +108,7 @@ public abstract class LangGenerator extends LanguageProvider {
         private void addItems() {
             this.addItem(ItemRegistry.THEURGY, "Theurgy");
             this.addItem(ItemRegistry.GRAFTING_HEDGE, "Grafting Hedge");
+            this.addItemSuffix(ItemRegistry.GRAFTING_HEDGE, TheurgyConstants.I18n.GRAFTED_SUFFIX, "%s Hedge");
         }
 
         private void addTooltips() {
@@ -116,6 +117,12 @@ public abstract class LangGenerator extends LanguageProvider {
                     "Grafting hedges can grow any type of fruit.",
                     "When ripe the fruit can be seen hanging in the hedge.",
                     "Right-click with a fruit to a hedge to graft it onto the plant. It will then grow that kind of fruit.");
+
+            this.addTooltipSuffix(ItemRegistry.GRAFTING_HEDGE,
+                    TheurgyConstants.I18n.GRAFTED_SUFFIX,
+                    "A grafted hedge that grows %s.",
+                    "When ripe the fruit can be seen hanging in the hedge.",
+                    "Right-click to harvest the fruit when ripe.");
         }
 
         private void addAdvancements() {

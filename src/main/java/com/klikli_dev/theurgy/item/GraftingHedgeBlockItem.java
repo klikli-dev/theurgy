@@ -22,21 +22,18 @@
 
 package com.klikli_dev.theurgy.item;
 
-import com.klikli_dev.theurgy.TheurgyConstants;
+import com.klikli_dev.theurgy.api.TheurgyConstants;
+import com.klikli_dev.theurgy.api.tooltips.IAdditionalTooltipDataProvider;
 import com.klikli_dev.theurgy.data.grafting_hedges.GraftingHedgeManager;
-import com.klikli_dev.theurgy.tooltips.IAdditionalTooltipDataProvider;
+import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-
-import javax.annotation.Nullable;
-import java.util.List;
 
 public class GraftingHedgeBlockItem extends BlockItem implements IAdditionalTooltipDataProvider {
     public GraftingHedgeBlockItem(Block pBlock, Properties pProperties) {
@@ -83,5 +80,24 @@ public class GraftingHedgeBlockItem extends BlockItem implements IAdditionalTool
              return super.getDescriptionId(pStack) + TheurgyConstants.I18n.GRAFTED_SUFFIX;
         }
         return super.getDescriptionId(pStack);
+    }
+
+    @Override
+    public void fillItemCategory(CreativeModeTab pGroup, NonNullList<ItemStack> pItems) {
+        //add the original block
+        super.fillItemCategory(pGroup, pItems);
+
+        if (this.allowdedIn(pGroup)) {
+            //add grafted versions
+            if(GraftingHedgeManager.get().isLoaded()){
+                var data = GraftingHedgeManager.get().getGraftingHedgeData();
+                for(var entry : data.entrySet()){
+                    ItemStack stack = new ItemStack(this);
+                    stack.getOrCreateTagElement("BlockEntityTag")
+                            .putString(TheurgyConstants.Nbt.GRAFTING_HEDGE_DATA, entry.getValue().id.toString());
+                    pItems.add(stack);
+                }
+            }
+        }
     }
 }

@@ -22,14 +22,13 @@
 
 package com.klikli_dev.theurgy.block;
 
-import com.klikli_dev.theurgy.TheurgyConstants;
+import com.klikli_dev.theurgy.api.TheurgyConstants;
 import com.klikli_dev.theurgy.blockentity.GraftingHedgeBlockEntity;
 import com.klikli_dev.theurgy.data.grafting_hedges.GraftingHedgeManager;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.util.BlockEntityUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;

@@ -20,9 +20,11 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.klikli_dev.theurgy;
+package com.klikli_dev.theurgy.api.tooltips;
 
-public class TheurgyAPI {
-    public static final String ID = "theurgy";
-    public static final String Name = "Theurgy";
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.item.ItemStack;
+
+public interface IAdditionalTooltipDataProvider {
+    TranslatableComponent[] getAdditionalTooltipData(ItemStack pStack);
 }

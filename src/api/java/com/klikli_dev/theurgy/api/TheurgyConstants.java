@@ -44,6 +44,8 @@ public class TheurgyConstants {
         public static final String TOOLTIP_USAGE_SUFFIX = ".tooltip.usage";
         public static final String GRAFTED_SUFFIX = ".grafted";
         public static final String JEI_GRAFTING_HEDGE_HARVEST_CATEGORY = "jei." + TheurgyAPI.ID + "category.grafting_hedge_harvest";
-        public static final String JEI_GRAFTING_HEDGE_HARVEST_CATEGORY_TOOLTIP = "jei." + TheurgyAPI.ID + "category.grafting_hedge_harvest.tooltip";
+        public static final String JEI_GRAFTING_HEDGE_HARVEST_CATEGORY_TOOLTIP = JEI_GRAFTING_HEDGE_HARVEST_CATEGORY + ".tooltip";
+        public static final String JEI_GRAFTING_HEDGE_GRAFTING_CATEGORY = "jei." + TheurgyAPI.ID + "category.grafting_hedge_graft";
+        public static final String JEI_GRAFTING_HEDGE_GRAFTING_CATEGORY_TOOLTIP = JEI_GRAFTING_HEDGE_GRAFTING_CATEGORY + ".tooltip";
     }
 }

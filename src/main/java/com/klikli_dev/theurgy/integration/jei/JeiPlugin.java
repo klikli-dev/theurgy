@@ -25,6 +25,7 @@ package com.klikli_dev.theurgy.integration.jei;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.data.grafting_hedges.GraftingHedgeData;
 import com.klikli_dev.theurgy.data.grafting_hedges.GraftingHedgeManager;
+import com.klikli_dev.theurgy.integration.jei.categories.GraftingHedgeGraftingCategory;
 import com.klikli_dev.theurgy.integration.jei.categories.GraftingHedgeHarvestCategory;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import mezz.jei.api.IModPlugin;
@@ -49,12 +50,14 @@ public class JeiPlugin implements IModPlugin {
     @Override
     public void registerCategories(IRecipeCategoryRegistration registration) {
         registration.addRecipeCategories(new GraftingHedgeHarvestCategory(registration.getJeiHelpers().getGuiHelper()));
+        registration.addRecipeCategories(new GraftingHedgeGraftingCategory(registration.getJeiHelpers().getGuiHelper()));
     }
 
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
         Collection<GraftingHedgeData> graftingHedgeData = GraftingHedgeManager.get().getGraftingHedgeData().values();
         registration.addRecipes(graftingHedgeData, GraftingHedgeHarvestCategory.ID);
+        registration.addRecipes(graftingHedgeData, GraftingHedgeGraftingCategory.ID);
     }
 
     @Override

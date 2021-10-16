@@ -39,24 +39,29 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 
 import java.util.Collections;
 import java.util.List;
 
-public class GraftingHedgeHarvestCategory implements IRecipeCategory<GraftingHedgeData> {
+public class GraftingHedgeGraftingCategory implements IRecipeCategory<GraftingHedgeData> {
 
-    public static final ResourceLocation ID = new ResourceLocation(Theurgy.MODID, "grafting_hedge_harvest");
+    public static final ResourceLocation ID = new ResourceLocation(Theurgy.MODID, "grafting_hedge_grat");
     private final IDrawable background;
     private final Component localizedName;
     private final IDrawable rightArrow;
+    private final IDrawable plus;
     private final IDrawable icon;
     private final ItemStack hedge;
 
-    public GraftingHedgeHarvestCategory(IGuiHelper guiHelper) {
+    public GraftingHedgeGraftingCategory(IGuiHelper guiHelper) {
         this.background = guiHelper.createBlankDrawable(168, 46);
-        this.localizedName = new TranslatableComponent(TheurgyConstants.I18n.JEI_GRAFTING_HEDGE_HARVEST_CATEGORY);
+        this.localizedName = new TranslatableComponent(TheurgyConstants.I18n.JEI_GRAFTING_HEDGE_GRAFTING_CATEGORY);
         this.rightArrow = guiHelper
                 .drawableBuilder(Theurgy.id("textures/gui/jei/arrow_right.png"), 0, 0, 32, 32)
+                .setTextureSize(32, 32).build();
+        this.plus = guiHelper
+                .drawableBuilder(Theurgy.id("textures/gui/jei/plus.png"), 0, 0, 32, 32)
                 .setTextureSize(32, 32).build();
         this.hedge = new ItemStack(ItemRegistry.GRAFTING_HEDGE.get());
         this.hedge.getOrCreateTag().putBoolean("RenderFull", true);
@@ -91,37 +96,46 @@ public class GraftingHedgeHarvestCategory implements IRecipeCategory<GraftingHed
 
     @Override
     public void setIngredients(GraftingHedgeData recipe, IIngredients ingredients) {
+        Ingredient graftingHedge = Ingredient.of(new ItemStack(ItemRegistry.GRAFTING_HEDGE.get()));
+        ingredients.setInputIngredients(ImmutableList.of(recipe.itemToGraft, graftingHedge));
+
         ItemStack specificHedge = new ItemStack(ItemRegistry.GRAFTING_HEDGE.get());
         specificHedge.getOrCreateTagElement("BlockEntityTag")
                 .putString(TheurgyConstants.Nbt.GRAFTING_HEDGE_DATA, recipe.id.toString());
 
-        ingredients.setInput(VanillaTypes.ITEM, specificHedge);
-        ingredients.setOutput(VanillaTypes.ITEM, recipe.itemToGrow);
+        ingredients.setOutput(VanillaTypes.ITEM, specificHedge);
     }
 
     @Override
     public void setRecipe(IRecipeLayout recipeLayout, GraftingHedgeData recipe, IIngredients ingredients) {
         int index = 0;
 
-        recipeLayout.getItemStacks().init(index, true, 168 / 2 - 40, 12);
+        recipeLayout.getItemStacks().init(index, true, 15, 12);
+        recipeLayout.getItemStacks().set(index, ingredients.getInputs(VanillaTypes.ITEM).get(1));
+        index++;
+
+        recipeLayout.getItemStacks().init(index, true, 60, 12);
         recipeLayout.getItemStacks().set(index, ingredients.getInputs(VanillaTypes.ITEM).get(0));
         index++;
 
-        recipeLayout.getItemStacks().init(index, false, 168 / 2 + 40 - 12, 12);
+        recipeLayout.getItemStacks().init(index, false, 115, 12);
         recipeLayout.getItemStacks().set(index, ingredients.getOutputs(VanillaTypes.ITEM).get(0));
     }
 
     @Override
     public void draw(GraftingHedgeData recipe, PoseStack poseStack, double mouseX, double mouseY) {
         RenderSystem.enableBlend();
-        this.rightArrow.draw(poseStack, 168 / 2 - 32 / 2, 6);
+        this.plus.draw(poseStack, 30, 6);
+        this.rightArrow.draw(poseStack, 80  , 6);
         RenderSystem.disableBlend();
     }
 
     @Override
     public List<Component> getTooltipStrings(GraftingHedgeData recipe, double mouseX, double mouseY) {
-        if (mouseX > 168 / 2.0f - 32 / 2.0f && mouseX < 168 / 2.0f + 32 / 2.0f && mouseY > 6 && mouseY < 6 + 32)
-            return ImmutableList.of(new TranslatableComponent(TheurgyConstants.I18n.JEI_GRAFTING_HEDGE_HARVEST_CATEGORY_TOOLTIP));
+        if (mouseX > 30 - 32 / 2.0f && mouseX < 30 + 32 && mouseY > 6 && mouseY < 6 + 32 || //over plus
+                mouseX > 80 - 32 / 2.0f && mouseX < 80 + 32 && mouseY > 6 && mouseY < 6 + 32 //over arrow
+        )
+            return ImmutableList.of(new TranslatableComponent(TheurgyConstants.I18n.JEI_GRAFTING_HEDGE_GRAFTING_CATEGORY_TOOLTIP));
         return Collections.emptyList();
     }
 }

@@ -106,6 +106,8 @@ public abstract class LangGenerator extends LanguageProvider {
 
             this.add(TheurgyConstants.I18n.JEI_GRAFTING_HEDGE_HARVEST_CATEGORY, "Hedge Harvest");
             this.add(TheurgyConstants.I18n.JEI_GRAFTING_HEDGE_HARVEST_CATEGORY_TOOLTIP, "Right click the hedge to harvest.");
+            this.add(TheurgyConstants.I18n.JEI_GRAFTING_HEDGE_GRAFTING_CATEGORY, "Hedge Grafting");
+            this.add(TheurgyConstants.I18n.JEI_GRAFTING_HEDGE_GRAFTING_CATEGORY_TOOLTIP, "Right click the hedge with a fruit to graft the fruit to it. Henceforth it will grow that kind of fruit.");
         }
 
         private void addItems() {

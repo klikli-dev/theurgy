@@ -58,7 +58,7 @@ public class GraftingHedgeManager extends SimpleJsonResourceReloadListener {
     private Map<ResourceLocation, GraftingHedgeData> graftingHedgeData = Collections.emptyMap();
     private boolean loaded;
 
-    public GraftingHedgeManager() {
+    private GraftingHedgeManager() {
         super(GSON, FOLDER);
     }
 

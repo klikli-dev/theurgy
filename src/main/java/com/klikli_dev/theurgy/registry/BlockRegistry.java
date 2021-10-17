@@ -24,6 +24,7 @@ package com.klikli_dev.theurgy.registry;
 
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.block.GraftingHedgeBlock;
+import com.klikli_dev.theurgy.block.SteamDistillerBaseBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -41,7 +42,7 @@ public class BlockRegistry {
                     .randomTicks().noCollission().noOcclusion().sound(SoundType.SWEET_BERRY_BUSH).strength(0.2f)));
 
     public static final RegistryObject<Block> STEAM_DISTILLER_BASE = BLOCKS.register("steam_distiller_base",
-            () -> new Block(BlockBehaviour.Properties.of(Material.METAL).noOcclusion().sound(SoundType.METAL).strength(1f)));
+            () -> new SteamDistillerBaseBlock(BlockBehaviour.Properties.of(Material.METAL).noOcclusion().sound(SoundType.METAL).strength(1f)));
 
     public static final RegistryObject<Block> STEAM_DISTILLER_TOP = BLOCKS.register("steam_distiller_top",
             () -> new Block(BlockBehaviour.Properties.of(Material.METAL).noOcclusion().sound(SoundType.METAL).strength(1f)));

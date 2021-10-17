@@ -24,6 +24,7 @@ package com.klikli_dev.theurgy.registry;
 
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.blockentity.GraftingHedgeBlockEntity;
+import com.klikli_dev.theurgy.blockentity.SteamDistillerBaseBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
@@ -36,5 +37,9 @@ public class BlockEntityRegistry {
     public static final RegistryObject<BlockEntityType<GraftingHedgeBlockEntity>> GRAFTING_HEDGE = BLOCK_ENTITIES.register(
             "grafting_hedge", () -> BlockEntityType.Builder.of(GraftingHedgeBlockEntity::new,
                     BlockRegistry.GRAFTING_HEDGE.get()).build(null));
+
+    public static final RegistryObject<BlockEntityType<SteamDistillerBaseBlockEntity>> STEAM_DISTILLER_BASE = BLOCK_ENTITIES.register(
+            "steam_distiller_base", () -> BlockEntityType.Builder.of(SteamDistillerBaseBlockEntity::new,
+                    BlockRegistry.STEAM_DISTILLER_BASE.get()).build(null));
 
 }

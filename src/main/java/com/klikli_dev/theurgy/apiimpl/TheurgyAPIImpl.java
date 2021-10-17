@@ -20,27 +20,14 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.klikli_dev.theurgy.api;
+package com.klikli_dev.theurgy.apiimpl;
 
-import com.klikli_dev.theurgy.api.stub.TheurgyAPIStub;
-import net.minecraftforge.common.util.Lazy;
-import org.apache.logging.log4j.LogManager;
 
-public class TheurgyAPI {
-    public static final String ID = "theurgy";
-    public static final String Name = "Theurgy";
+import com.klikli_dev.theurgy.api.ITheurgyAPI;
 
-    private static final Lazy<ITheurgyAPI> lazyInstance = Lazy.concurrentOf(() -> {
-        try {
-            return (ITheurgyAPI) Class.forName("com.klikli_dev.theurgy.apiimpl.TheurgyAPIImpl").newInstance();
-        } catch (ReflectiveOperationException e) {
-            LogManager.getLogger().warn("Unable to find PatchouliAPIImpl, using a dummy");
-            return TheurgyAPIStub.get();
-        }
-    });
+public class TheurgyAPIImpl implements ITheurgyAPI {
 
-    public static ITheurgyAPI get() {
-        return lazyInstance.get();
+    public boolean isStub() {
+        return true;
     }
-
 }

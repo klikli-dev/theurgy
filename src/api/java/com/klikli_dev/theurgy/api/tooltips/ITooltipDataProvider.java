@@ -25,6 +25,6 @@ package com.klikli_dev.theurgy.api.tooltips;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.item.ItemStack;
 
-public interface IAdditionalTooltipDataProvider {
-    TranslatableComponent[] getAdditionalTooltipData(ItemStack pStack);
+public interface ITooltipDataProvider {
+    TranslatableComponent[] getTooltipData(ItemStack pStack);
 }

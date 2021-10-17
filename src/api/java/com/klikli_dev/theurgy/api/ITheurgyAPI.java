@@ -22,6 +22,20 @@
 
 package com.klikli_dev.theurgy.api;
 
+import com.klikli_dev.theurgy.api.tooltips.ITooltipDataProvider;
+import net.minecraft.world.item.Item;
+
 public interface ITheurgyAPI {
+    /**
+     * False if a real API instance is provided
+     */
     boolean isStub();
+
+    /**
+     * Allows to provide additional @{@link net.minecraft.network.chat.TranslatableComponent} as parameter
+     * to the main tooltip @{@link net.minecraft.network.chat.TranslatableComponent}
+     *
+     * Should be called in @{@link net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent}
+     */
+    void registerTooltipDataProvider(Item item, ITooltipDataProvider provider);
 }

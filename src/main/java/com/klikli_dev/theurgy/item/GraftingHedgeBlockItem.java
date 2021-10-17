@@ -23,7 +23,7 @@
 package com.klikli_dev.theurgy.item;
 
 import com.klikli_dev.theurgy.api.TheurgyConstants;
-import com.klikli_dev.theurgy.api.tooltips.IAdditionalTooltipDataProvider;
+import com.klikli_dev.theurgy.api.tooltips.ITooltipDataProvider;
 import com.klikli_dev.theurgy.data.grafting_hedges.GraftingHedgeManager;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
@@ -35,13 +35,12 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 
-public class GraftingHedgeBlockItem extends BlockItem implements IAdditionalTooltipDataProvider {
+public class GraftingHedgeBlockItem extends BlockItem {
     public GraftingHedgeBlockItem(Block pBlock, Properties pProperties) {
         super(pBlock, pProperties);
     }
 
-    @Override
-    public TranslatableComponent[] getAdditionalTooltipData(ItemStack pStack) {
+    public static TranslatableComponent[] getTooltipData(ItemStack pStack) {
 
         //allow access to name of item to grow, if grafted
         CompoundTag blockEntityTag = pStack.getTagElement("BlockEntityTag");

@@ -25,14 +25,20 @@ package com.klikli_dev.theurgy.handlers;
 
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.api.TheurgyConstants;
-import com.klikli_dev.theurgy.api.tooltips.IAdditionalTooltipDataProvider;
+import com.klikli_dev.theurgy.api.tooltips.ITooltipDataProvider;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class TooltipHandler {
+
+    private static Map<Item, ITooltipDataProvider> tooltipDataProviders = new HashMap<>();
 
     @SubscribeEvent
     public static void onAddInformation(ItemTooltipEvent event) {
@@ -79,9 +85,20 @@ public class TooltipHandler {
         }
     }
 
+    /**
+     * Allows to provide additional @{@link net.minecraft.network.chat.TranslatableComponent} as parameter
+     * to the main tooltip @{@link net.minecraft.network.chat.TranslatableComponent}
+     *
+     * Should be called in @{@link net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent}
+     */
+    public static void registerTooltipDataProvider(Item item, ITooltipDataProvider provider){
+        tooltipDataProviders.put(item, provider);
+    }
+
     public static TranslatableComponent[] getAdditionalTooltipData(ItemStack stack) {
-        if (stack.getItem() instanceof IAdditionalTooltipDataProvider provider) {
-            return provider.getAdditionalTooltipData(stack);
+        ITooltipDataProvider provider = tooltipDataProviders.get(stack.getItem());
+        if (provider != null) {
+            return provider.getTooltipData(stack);
         }
         return new TranslatableComponent[0];
     }

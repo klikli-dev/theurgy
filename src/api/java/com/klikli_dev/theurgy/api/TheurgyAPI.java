@@ -32,7 +32,7 @@ public class TheurgyAPI {
 
     private static final Lazy<ITheurgyAPI> lazyInstance = Lazy.concurrentOf(() -> {
         try {
-            return (ITheurgyAPI) Class.forName("com.klikli_dev.theurgy.apiimpl.TheurgyAPIImpl").newInstance();
+            return (ITheurgyAPI) Class.forName("com.klikli_dev.theurgy.apiimpl.TheurgyAPIImpl").getDeclaredConstructor().newInstance();
         } catch (ReflectiveOperationException e) {
             LogManager.getLogger().warn("Unable to find PatchouliAPIImpl, using a dummy");
             return TheurgyAPIStub.get();

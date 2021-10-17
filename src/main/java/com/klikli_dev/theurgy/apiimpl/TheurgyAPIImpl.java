@@ -22,12 +22,19 @@
 
 package com.klikli_dev.theurgy.apiimpl;
 
-
 import com.klikli_dev.theurgy.api.ITheurgyAPI;
+import com.klikli_dev.theurgy.api.tooltips.ITooltipDataProvider;
+import com.klikli_dev.theurgy.handlers.TooltipHandler;
+import net.minecraft.world.item.Item;
 
 public class TheurgyAPIImpl implements ITheurgyAPI {
 
     public boolean isStub() {
         return true;
+    }
+
+    @Override
+    public void registerTooltipDataProvider(Item item, ITooltipDataProvider provider) {
+        TooltipHandler.registerTooltipDataProvider(item, provider);
     }
 }

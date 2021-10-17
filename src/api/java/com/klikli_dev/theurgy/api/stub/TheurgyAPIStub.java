@@ -24,6 +24,8 @@ package com.klikli_dev.theurgy.api.stub;
 
 
 import com.klikli_dev.theurgy.api.ITheurgyAPI;
+import com.klikli_dev.theurgy.api.tooltips.ITooltipDataProvider;
+import net.minecraft.world.item.Item;
 
 public class TheurgyAPIStub implements ITheurgyAPI {
     private static final TheurgyAPIStub instance = new TheurgyAPIStub();
@@ -38,5 +40,10 @@ public class TheurgyAPIStub implements ITheurgyAPI {
     @Override
     public boolean isStub() {
         return false;
+    }
+
+    @Override
+    public void registerTooltipDataProvider(Item item, ITooltipDataProvider provider) {
+
     }
 }

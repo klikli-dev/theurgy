@@ -23,9 +23,12 @@
 package com.klikli_dev.theurgy.handlers;
 
 import com.klikli_dev.theurgy.Theurgy;
+import com.klikli_dev.theurgy.api.TheurgyAPI;
 import com.klikli_dev.theurgy.client.render.blockentity.GraftingHedgeRenderer;
+import com.klikli_dev.theurgy.item.GraftingHedgeBlockItem;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
+import com.klikli_dev.theurgy.registry.ItemRegistry;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
@@ -55,6 +58,8 @@ public class ClientSetupEventHandler {
             Theurgy.LOGGER.debug("Registered Screen Containers");
         });
 
+        registerTooltipDataProviders(event);
+
         Theurgy.LOGGER.info("Client setup complete.");
     }
 
@@ -66,5 +71,9 @@ public class ClientSetupEventHandler {
 
             Theurgy.LOGGER.debug("Registered Item Properties");
         });
+    }
+
+    public static void registerTooltipDataProviders(FMLClientSetupEvent event){
+        TheurgyAPI.get().registerTooltipDataProvider(ItemRegistry.GRAFTING_HEDGE.get(), GraftingHedgeBlockItem::getTooltipData);
     }
 }

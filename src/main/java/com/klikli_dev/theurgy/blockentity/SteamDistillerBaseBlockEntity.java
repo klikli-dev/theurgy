@@ -22,6 +22,7 @@
 
 package com.klikli_dev.theurgy.blockentity;
 
+import com.klikli_dev.theurgy.menu.SteamDistillerBaseMenu;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -48,7 +49,7 @@ public class SteamDistillerBaseBlockEntity extends NetworkedBlockEntity implemen
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int pContainerId, Inventory pInventory, Player pPlayer) {
-        return null;
+        return new SteamDistillerBaseMenu(pContainerId, pPlayer.getInventory(), this);
     }
 
     @Override

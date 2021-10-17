@@ -37,6 +37,7 @@ import com.klikli_dev.theurgy.network.Networking;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
+import com.klikli_dev.theurgy.registry.MenuRegistry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraftforge.api.distmarker.Dist;
@@ -75,6 +76,7 @@ public class Theurgy {
         ItemRegistry.ITEMS.register(modEventBus);
         BlockRegistry.BLOCKS.register(modEventBus);
         BlockEntityRegistry.BLOCK_ENTITIES.register(modEventBus);
+        MenuRegistry.MENUS.register(modEventBus);
 
         //directly register event handlers, can't register the object and use annotations, because we have events from both buses
         modEventBus.addListener(this::onCommonSetup);

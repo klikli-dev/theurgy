@@ -24,11 +24,14 @@ package com.klikli_dev.theurgy.handlers;
 
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.api.TheurgyAPI;
+import com.klikli_dev.theurgy.client.gui.SteamDistillerBaseScreen;
 import com.klikli_dev.theurgy.client.render.blockentity.GraftingHedgeRenderer;
 import com.klikli_dev.theurgy.item.GraftingHedgeBlockItem;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
+import com.klikli_dev.theurgy.registry.MenuRegistry;
+import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
@@ -54,7 +57,7 @@ public class ClientSetupEventHandler {
         //Not safe to call during parallel load, so register to run threadsafe.
         event.enqueueWork(() -> {
             //Register screen factories
-
+            MenuScreens.register(MenuRegistry.STEAM_DISTILLER_BASE.get(), SteamDistillerBaseScreen::new);
             Theurgy.LOGGER.debug("Registered Screen Containers");
         });
 

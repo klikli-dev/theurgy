@@ -9,6 +9,8 @@
   "block.theurgy.grafting_hedge.tooltip": "Grafting hedges can grow any type of fruit.",
   "block.theurgy.grafting_hedge.tooltip.extended": "When ripe the fruit can be seen hanging in the hedge.",
   "block.theurgy.grafting_hedge.tooltip.usage": "Right-click with a fruit to a hedge to graft it onto the plant. It will then grow that kind of fruit.",
+  "block.theurgy.steam_distiller_base": "Exaltator Base",
+  "block.theurgy.steam_distiller_top": "Exaltator",
   "item.theurgy.theurgy": "Theurgy",
   "item.theurgy.theurgy.tooltip": "Dummy item for easy access to the Theurgy icon.",
   "itemGroup.theurgy": "Theurgy",

@@ -24,6 +24,7 @@ package com.klikli_dev.theurgy.registry;
 
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.item.GraftingHedgeBlockItem;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
@@ -38,6 +39,11 @@ public class ItemRegistry {
     public static final RegistryObject<Item> GRAFTING_HEDGE = ITEMS.register("grafting_hedge",
             () -> new GraftingHedgeBlockItem(BlockRegistry.GRAFTING_HEDGE.get(), defaultProperties()));
 
+    public static final RegistryObject<Item> STEAM_DISTILLER_BASE = ITEMS.register("steam_distiller_base",
+            () -> new BlockItem(BlockRegistry.STEAM_DISTILLER_BASE.get(), defaultProperties()));
+
+    public static final RegistryObject<Item> STEAM_DISTILLER_TOP= ITEMS.register("steam_distiller_top",
+            () -> new BlockItem(BlockRegistry.STEAM_DISTILLER_TOP.get(), defaultProperties()));
 
     public static Item.Properties defaultProperties() {
         return new Item.Properties().tab(Theurgy.CREATIVE_MODE_TAB);

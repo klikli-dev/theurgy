@@ -58,6 +58,8 @@ public class BlockLootTablesGenerator extends LootTableProvider {
     private void addLootTables() {
         //These blocks handle their own drops to keep nbt
         this.dropNothing(BlockRegistry.GRAFTING_HEDGE.get());
+        this.dropSelf(BlockRegistry.STEAM_DISTILLER_BASE.get());
+        this.dropSelf(BlockRegistry.STEAM_DISTILLER_TOP.get());
     }
 
     private void dropSelf(Block block) {

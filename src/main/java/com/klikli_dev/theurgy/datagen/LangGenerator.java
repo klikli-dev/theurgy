@@ -24,6 +24,7 @@ package com.klikli_dev.theurgy.datagen;
 
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.api.TheurgyConstants;
+import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import net.minecraft.ChatFormatting;
 import net.minecraft.data.DataGenerator;
@@ -112,8 +113,12 @@ public abstract class LangGenerator extends LanguageProvider {
 
         private void addItems() {
             this.addItem(ItemRegistry.THEURGY, "Theurgy");
+
             this.addItem(ItemRegistry.GRAFTING_HEDGE, "Grafting Hedge");
             this.addItemSuffix(ItemRegistry.GRAFTING_HEDGE, TheurgyConstants.I18n.GRAFTED_SUFFIX, "%s Hedge");
+
+            this.addItem(ItemRegistry.STEAM_DISTILLER_BASE, "Exaltator Base");
+            this.addItem(ItemRegistry.STEAM_DISTILLER_TOP, "Exaltator");
         }
 
         private void addTooltips() {

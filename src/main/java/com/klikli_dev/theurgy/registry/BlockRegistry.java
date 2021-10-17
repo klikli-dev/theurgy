@@ -37,5 +37,12 @@ public class BlockRegistry {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Theurgy.MODID);
 
     public static final RegistryObject<Block> GRAFTING_HEDGE = BLOCKS.register("grafting_hedge",
-            () -> new GraftingHedgeBlock(BlockBehaviour.Properties.of(Material.PLANT).randomTicks().noCollission().noOcclusion().sound(SoundType.SWEET_BERRY_BUSH).strength(0.2f)));
+            () -> new GraftingHedgeBlock(BlockBehaviour.Properties.of(Material.PLANT)
+                    .randomTicks().noCollission().noOcclusion().sound(SoundType.SWEET_BERRY_BUSH).strength(0.2f)));
+
+    public static final RegistryObject<Block> STEAM_DISTILLER_BASE = BLOCKS.register("steam_distiller_base",
+            () -> new Block(BlockBehaviour.Properties.of(Material.METAL).noOcclusion().sound(SoundType.METAL).strength(1f)));
+
+    public static final RegistryObject<Block> STEAM_DISTILLER_TOP = BLOCKS.register("steam_distiller_top",
+            () -> new Block(BlockBehaviour.Properties.of(Material.METAL).noOcclusion().sound(SoundType.METAL).strength(1f)));
 }

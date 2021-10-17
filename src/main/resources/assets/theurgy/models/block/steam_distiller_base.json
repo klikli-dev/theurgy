@@ -1,0 +1,10 @@
+{
+  "parent": "forge:block/default",
+  "loader": "forge:obj",
+  "model": "theurgy:models/obj/steam_distiller_base.obj",
+  "flip-v": true,
+  "textures": {
+    "texture": "theurgy:block/steam_distiller_base",
+    "particle": "theurgy:block/steam_distiller_base"
+  }
+}

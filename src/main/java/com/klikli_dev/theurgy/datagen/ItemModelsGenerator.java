@@ -64,5 +64,7 @@ public class ItemModelsGenerator extends ItemModelProvider {
     protected void registerModels() {
         this.registerItemGenerated(this.name(ItemRegistry.THEURGY.get()), "grimoire");
         this.registerBlockItem(this.name(ItemRegistry.GRAFTING_HEDGE.get()));
+        this.registerBlockItem(this.name(ItemRegistry.STEAM_DISTILLER_BASE.get()));
+        this.registerBlockItem(this.name(ItemRegistry.STEAM_DISTILLER_TOP.get()));
     }
 }

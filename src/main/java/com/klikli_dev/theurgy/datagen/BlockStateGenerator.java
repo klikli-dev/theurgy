@@ -55,5 +55,7 @@ public class BlockStateGenerator extends BlockStateProvider {
     @Override
     protected void registerStatesAndModels() {
         this.graftingHedge();
+        this.simpleBlock(BlockRegistry.STEAM_DISTILLER_BASE.get(),  this.models().getExistingFile(this.modLoc("block/steam_distiller_base")));
+        this.simpleBlock(BlockRegistry.STEAM_DISTILLER_TOP.get(),  this.models().getExistingFile(this.modLoc("block/steam_distiller_top")));
     }
 }

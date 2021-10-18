@@ -29,11 +29,16 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.ItemStackHandler;
+import net.minecraftforge.items.SlotItemHandler;
 
 public class SteamDistillerBaseMenu extends AbstractContainerMenu {
 
     public SteamDistillerBaseBlockEntity steamDistillerBase;
+    public ItemStackHandler fuelHandler;
     public Inventory playerInventory;
 
     public SteamDistillerBaseMenu(int id, Inventory playerInventory,
@@ -41,6 +46,7 @@ public class SteamDistillerBaseMenu extends AbstractContainerMenu {
         super(MenuRegistry.STEAM_DISTILLER_BASE.get(), id);
         this.playerInventory = playerInventory;
         this.steamDistillerBase = steamDistillerBase;
+        this.fuelHandler = this.steamDistillerBase.fuelHandler;
 
         this.setupBlockEntityInventory();
         this.setupPlayerInventorySlots(playerInventory.player);
@@ -65,27 +71,15 @@ public class SteamDistillerBaseMenu extends AbstractContainerMenu {
     }
 
     protected void setupBlockEntityInventory() {
-        int outputGridTop = 17;
-        int outputGridLeft = 98;
-        int index = 0;
-
-//        IItemHandler outputHandler = this.steamDistillerBase.outputHandler.orElseThrow(ItemHandlerMissingException::new);
-//        IItemHandler inputHandler = this.steamDistillerBase.inputHandler.orElseThrow(ItemHandlerMissingException::new);
-//
-//        for (int i = 0; i < 3; ++i) {
-//            for (int j = 0; j < 3; ++j) {
-//                this.addSlot(
-//                        new OutputSlot(outputHandler, index++, outputGridLeft + j * 18, outputGridTop + i * 18));
-//            }
-//        }
-
-//        this.addSlot(new InputSlot(inputHandler, 0, 26, 35));
+        this.addSlot(new FuelSlot(this.fuelHandler, 0, 80, 42));
     }
 
     @Override
     public ItemStack quickMoveStack(Player playerIn, int index) {
         ItemStack itemstack = ItemStack.EMPTY;
         Slot slot = this.slots.get(index);
+
+        //TODO: implement based on furnace
         if (slot != null && slot.hasItem()) {
             ItemStack itemstack1 = slot.getItem();
             itemstack = itemstack1.copy();
@@ -121,14 +115,18 @@ public class SteamDistillerBaseMenu extends AbstractContainerMenu {
         return player.distanceToSqr(Vec3.atCenterOf(this.steamDistillerBase.getBlockPos())) <= 64.0;
     }
 
-    //    public class InputSlot extends SlotItemHandler {
-//
-//        public InputSlot(IItemHandler itemHandler, int index, int xPosition, int yPosition) {
-//            super(itemHandler, index, xPosition, yPosition);
-//        }
-//
-//        public boolean mayPlace(ItemStack stack) {
-//
-//        }
-//    }
+    protected boolean isFuel(ItemStack pStack) {
+        return net.minecraftforge.common.ForgeHooks.getBurnTime(pStack, RecipeType.SMELTING) > 0;
+    }
+
+    public class FuelSlot extends SlotItemHandler {
+
+        public FuelSlot(IItemHandler itemHandler, int index, int xPosition, int yPosition) {
+            super(itemHandler, index, xPosition, yPosition);
+        }
+
+        public boolean mayPlace(ItemStack stack) {
+            return SteamDistillerBaseMenu.this.isFuel(stack);
+        }
+    }
 }

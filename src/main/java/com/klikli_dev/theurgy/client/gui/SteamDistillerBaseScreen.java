@@ -61,7 +61,8 @@ public class SteamDistillerBaseScreen extends AbstractContainerScreen<SteamDisti
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShaderTexture(0, TEXTURE);
 
-        this.blit(stack, this.leftPos, this.topPos, 0, 0, this.width, this.height);
+        this.blit(stack, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight);
         //TODO: render burn progress
+        //TODO: render fluid slot highlight
     }
 }

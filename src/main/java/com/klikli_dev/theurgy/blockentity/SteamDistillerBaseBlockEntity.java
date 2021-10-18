@@ -25,6 +25,7 @@ package com.klikli_dev.theurgy.blockentity;
 import com.klikli_dev.theurgy.menu.SteamDistillerBaseMenu;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
@@ -33,17 +34,31 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.ItemStackHandler;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class SteamDistillerBaseBlockEntity extends NetworkedBlockEntity implements MenuProvider {
+
+    public ItemStackHandler fuelHandler = new ItemStackHandler(1) {
+        @Override
+        protected void onContentsChanged(int slot) {
+            SteamDistillerBaseBlockEntity.this.setChanged();
+        }
+    };
+    public LazyOptional<ItemStackHandler> lazyFuelHandler = LazyOptional.of(() -> this.fuelHandler);
 
     public SteamDistillerBaseBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {
         super(BlockEntityRegistry.STEAM_DISTILLER_BASE.get(), pWorldPosition, pBlockState);
     }
 
     public void tick() {
-
+        //TODO: Handle fuel
     }
 
     @Nullable
@@ -59,6 +74,7 @@ public class SteamDistillerBaseBlockEntity extends NetworkedBlockEntity implemen
 
     @Override
     public void loadNetwork(CompoundTag compound) {
+        //TODO: save inventory
         super.loadNetwork(compound);
     }
 
@@ -75,5 +91,14 @@ public class SteamDistillerBaseBlockEntity extends NetworkedBlockEntity implemen
     @Override
     public CompoundTag save(CompoundTag compound) {
         return super.save(compound);
+    }
+
+    @Nonnull
+    @Override
+    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
+        if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+            return this.lazyFuelHandler.cast();
+        }
+        return super.getCapability(cap, side);
     }
 }

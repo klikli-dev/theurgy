@@ -23,24 +23,42 @@
 package com.klikli_dev.theurgy.api;
 
 import com.klikli_dev.theurgy.api.stub.TheurgyAPIStub;
+import com.klikli_dev.theurgy.api.tooltips.ITooltipDataProvider;
+import net.minecraft.world.item.Item;
 import net.minecraftforge.common.util.Lazy;
 import org.apache.logging.log4j.LogManager;
 
-public class TheurgyAPI {
-    public static final String ID = "theurgy";
-    public static final String Name = "Theurgy";
+public interface TheurgyAPI {
 
-    private static final Lazy<ITheurgyAPI> lazyInstance = Lazy.concurrentOf(() -> {
-        try {
-            return (ITheurgyAPI) Class.forName("com.klikli_dev.theurgy.apiimpl.TheurgyAPIImpl").getDeclaredConstructor().newInstance();
-        } catch (ReflectiveOperationException e) {
-            LogManager.getLogger().warn("Unable to find PatchouliAPIImpl, using a dummy");
-            return TheurgyAPIStub.get();
-        }
-    });
+    String ID = "theurgy";
+    String Name = "Theurgy";
 
-    public static ITheurgyAPI get() {
-        return lazyInstance.get();
+    static TheurgyAPI get() {
+        return Helper.lazyInstance.get();
+    }
+
+    /**
+     * False if a real API instance is provided
+     */
+    boolean isStub();
+
+    /**
+     * Allows to provide additional @{@link net.minecraft.network.chat.TranslatableComponent} as parameter
+     * to the main tooltip @{@link net.minecraft.network.chat.TranslatableComponent}
+     * <p>
+     * Should be called in @{@link net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent}
+     */
+    void registerTooltipDataProvider(Item item, ITooltipDataProvider provider);
+
+    class Helper {
+        private static final Lazy<TheurgyAPI> lazyInstance = Lazy.concurrentOf(() -> {
+            try {
+                return (TheurgyAPI) Class.forName("com.klikli_dev.theurgy.apiimpl.TheurgyAPIImpl").getDeclaredConstructor().newInstance();
+            } catch (ReflectiveOperationException e) {
+                LogManager.getLogger().warn("Unable to find PatchouliAPIImpl, using a dummy");
+                return TheurgyAPIStub.get();
+            }
+        });
     }
 
 }

@@ -22,12 +22,12 @@
 
 package com.klikli_dev.theurgy.apiimpl;
 
-import com.klikli_dev.theurgy.api.ITheurgyAPI;
+import com.klikli_dev.theurgy.api.TheurgyAPI;
 import com.klikli_dev.theurgy.api.tooltips.ITooltipDataProvider;
 import com.klikli_dev.theurgy.handlers.TooltipHandler;
 import net.minecraft.world.item.Item;
 
-public class TheurgyAPIImpl implements ITheurgyAPI {
+public class TheurgyAPIImpl implements TheurgyAPI {
 
     public boolean isStub() {
         return true;

@@ -23,11 +23,11 @@
 package com.klikli_dev.theurgy.api.stub;
 
 
-import com.klikli_dev.theurgy.api.ITheurgyAPI;
+import com.klikli_dev.theurgy.api.TheurgyAPI;
 import com.klikli_dev.theurgy.api.tooltips.ITooltipDataProvider;
 import net.minecraft.world.item.Item;
 
-public class TheurgyAPIStub implements ITheurgyAPI {
+public class TheurgyAPIStub implements TheurgyAPI {
     private static final TheurgyAPIStub instance = new TheurgyAPIStub();
 
     private TheurgyAPIStub() {

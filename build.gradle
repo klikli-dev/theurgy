@@ -21,7 +21,7 @@ if (System.getenv('VERSION') != null) {
     version = "${mc_version}-${mod_version}"
 }
 
-group = "com.github.klikli_dev"
+group = "com.klikli_dev"
 archivesBaseName = "theurgy"
 
 // see https://github.com/mezz/JustEnoughItems/blob/1.17/build.gradle

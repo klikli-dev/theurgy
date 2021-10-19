@@ -55,7 +55,7 @@ public interface TheurgyAPI {
             try {
                 return (TheurgyAPI) Class.forName("com.klikli_dev.theurgy.apiimpl.TheurgyAPIImpl").getDeclaredConstructor().newInstance();
             } catch (ReflectiveOperationException e) {
-                LogManager.getLogger().warn("Unable to find PatchouliAPIImpl, using a dummy");
+                LogManager.getLogger().warn("Could not find TheurgyAPI, using stub.");
                 return TheurgyAPIStub.get();
             }
         });

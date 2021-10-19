@@ -74,7 +74,7 @@ public class AdvancementsGenerator implements DataProvider {
                 .display(ItemRegistry.THEURGY.get(), title("root"), descr("root"),
                         new ResourceLocation("textures/gui/advancements/backgrounds/stone.png"), FrameType.TASK, true,
                         true, false)
-                .addCriterion("occultism_present",
+                .addCriterion("theurgy_present",
                         new TickTrigger.TriggerInstance(EntityPredicate.Composite.ANY))
                 .build(new ResourceLocation(Theurgy.MODID, Theurgy.MODID + "/root")));
     }

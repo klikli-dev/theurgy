@@ -30,7 +30,7 @@ import net.minecraft.world.item.Item;
 public class TheurgyAPIImpl implements TheurgyAPI {
 
     public boolean isStub() {
-        return true;
+        return false;
     }
 
     @Override

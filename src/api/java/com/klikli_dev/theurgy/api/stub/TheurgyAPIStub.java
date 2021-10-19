@@ -39,7 +39,7 @@ public class TheurgyAPIStub implements TheurgyAPI {
 
     @Override
     public boolean isStub() {
-        return false;
+        return true;
     }
 
     @Override

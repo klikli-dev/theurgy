@@ -29,12 +29,12 @@ public class ClientConfig extends ConfigBase {
 
     private static final ClientConfig instance = new ClientConfig();
 
-    public final CommonConfig.SampleCategory sampleCategory;
+    public final SampleCategory sampleCategory;
     public final ForgeConfigSpec spec;
 
     private ClientConfig() {
         ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
-        this.sampleCategory = new CommonConfig.SampleCategory(this, builder);
+        this.sampleCategory = new SampleCategory(this, builder);
         this.spec = builder.build();
     }
 

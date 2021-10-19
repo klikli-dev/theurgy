@@ -29,12 +29,12 @@ public class ServerConfig extends ConfigBase {
 
     private static final ServerConfig instance = new ServerConfig();
 
-    public final CommonConfig.SampleCategory sampleCategory;
+    public final SampleCategory sampleCategory;
     public final ForgeConfigSpec spec;
 
     private ServerConfig() {
         ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
-        this.sampleCategory = new CommonConfig.SampleCategory(this, builder);
+        this.sampleCategory = new SampleCategory(this, builder);
         this.spec = builder.build();
     }
 

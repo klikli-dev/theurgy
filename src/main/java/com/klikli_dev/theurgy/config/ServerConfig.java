@@ -22,10 +22,10 @@
 
 package com.klikli_dev.theurgy.config;
 
-import com.klikli_dev.theurgy.config.value.CachedBoolean;
 import net.minecraftforge.common.ForgeConfigSpec;
+import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
 
-public class ServerConfig extends ConfigBase {
+public class ServerConfig {
 
     private static final ServerConfig instance = new ServerConfig();
 
@@ -34,7 +34,7 @@ public class ServerConfig extends ConfigBase {
 
     private ServerConfig() {
         ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
-        this.sampleCategory = new SampleCategory(this, builder);
+        this.sampleCategory = new SampleCategory(builder);
         this.spec = builder.build();
     }
 
@@ -42,15 +42,12 @@ public class ServerConfig extends ConfigBase {
         return instance;
     }
 
-    public static class SampleCategory extends ConfigCategoryBase {
-        public final CachedBoolean sampleBoolean;
+    public static class SampleCategory {
+        public final BooleanValue sampleBoolean;
 
-        public SampleCategory(IConfigCache parent, ForgeConfigSpec.Builder builder) {
-            super(parent, builder);
+        public SampleCategory(ForgeConfigSpec.Builder builder) {
             builder.comment("Sample Settings").push("sample");
-            this.sampleBoolean = CachedBoolean.cache(this,
-                    builder.comment("Sample Boolean.")
-                            .define("sampleBoolean", true));
+            this.sampleBoolean = builder.comment("Sample Boolean.").define("sampleBoolean", true);
             builder.pop();
         }
     }

@@ -1,0 +1,44 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: theurgy
+Upstream-Contact: klikli-dev
+Source: https://github.com/klikli-dev/theurgy
+
+Files: src/main/resources/*
+Copyright: 2022 klikli-dev
+License: CC-BY-4.0
+
+Files: src/generated/resources/*
+Copyright: 2022 klikli-dev
+License: CC-BY-4.0
+
+Files: .github/*
+Copyright: 2022 klikli-dev
+License: CC-BY-4.0
+
+Files: .gitattributes
+Copyright: 2022 klikli-dev
+License: MIT
+
+Files: .gitignore
+Copyright: 2022 klikli-dev
+License: MIT
+
+Files: settings.gradle
+Copyright: 2022 klikli-dev
+License: MIT
+
+Files: build.gradle
+Copyright: 2022 klikli-dev
+License: MIT
+
+Files: gradle.properties
+Copyright: 2022 klikli-dev
+License: MIT
+
+Files: gradle/*
+Copyright: 2015 the original author or authors.
+License: Apache-2.0
+
+Files: gradlew*
+Copyright: 2015 the original author or authors.
+License: Apache-2.0

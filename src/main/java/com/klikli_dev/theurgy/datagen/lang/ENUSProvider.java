@@ -21,7 +21,8 @@ public class ENUSProvider extends LanguageProvider {
         this.add(((TranslatableContents)Theurgy.CREATIVE_MODE_TAB.getDisplayName().getContents()).getKey(), "Empty Jar");
 
         this.addItem(ItemRegistry.EMPTY_JAR, "Empty Jar");
-        this.addItem(ItemRegistry.ALCHEMICAL_SULFUR, "Alchemical Sulfur");
+        this.addItem(ItemRegistry.JAR_LABEL, "Jar Label");
+        this.addItem(ItemRegistry.ALCHEMICAL_SULFUR, "Alchemical Sulfur %s");
     }
 
     @Override

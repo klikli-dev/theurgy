@@ -19,6 +19,9 @@ public class ItemRegistry {
     public static final RegistryObject<Item> EMPTY_JAR =
             ITEMS.register("empty_jar", () -> new Item(defaultProperties()));
 
+    public static final RegistryObject<Item> JAR_LABEL =
+            ITEMS.register("jar_label", () -> new Item(new Item.Properties()));
+
     public static final RegistryObject<Item> ALCHEMICAL_SULFUR =
             ITEMS.register("alchemical_sulfur", () -> new AlchemicalSulfurItem(defaultProperties()));
 

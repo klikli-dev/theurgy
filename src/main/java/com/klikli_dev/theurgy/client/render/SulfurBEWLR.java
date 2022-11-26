@@ -6,22 +6,17 @@
 
 package com.klikli_dev.theurgy.client.render;
 
-import com.klikli_dev.theurgy.TheurgyConstants;
+import com.klikli_dev.theurgy.item.AlchemicalSulfurItem;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.mojang.blaze3d.platform.Lighting;
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.resources.model.BakedModel;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraftforge.registries.ForgeRegistries;
 
 public class SulfurBEWLR extends BlockEntityWithoutLevelRenderer {
 
@@ -52,7 +47,7 @@ public class SulfurBEWLR extends BlockEntityWithoutLevelRenderer {
         BakedModel model = itemRenderer.getModel(emptyJarStack, null, null, 0);
 
         var flatLighting = pTransformType == ItemTransforms.TransformType.GUI && !model.usesBlockLight();
-        if(flatLighting)
+        if (flatLighting)
             Lighting.setupForFlatItems();
 
         itemRenderer.render(emptyJarStack, pTransformType, isLeftHand(pTransformType), pPoseStack, pBuffer, pPackedLight, pPackedOverlay, model);
@@ -86,20 +81,14 @@ public class SulfurBEWLR extends BlockEntityWithoutLevelRenderer {
         //note: if we reset to 3d item light here it ignores it above and renders dark .. idk why
 
         pPoseStack.popPose();
-
     }
 
     public void renderContainedItem(ItemStack sulfurStack, ItemTransforms.TransformType pTransformType, PoseStack pPoseStack, MultiBufferSource pBuffer, int pPackedLight, int pPackedOverlay) {
 
         ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
 
-        if(sulfurStack.hasTag() && sulfurStack.getTag().contains(TheurgyConstants.Nbt.SULFUR_SOURCE_ID)){
-            var itemId = new ResourceLocation(sulfurStack.getTag().getString(TheurgyConstants.Nbt.SULFUR_SOURCE_ID));
-            var containedStack = new ItemStack(ForgeRegistries.ITEMS.getValue(itemId));
-
-            if(sulfurStack.getTag().contains(TheurgyConstants.Nbt.SULFUR_SOURCE_NBT))
-                containedStack.setTag(sulfurStack.getTag().getCompound(TheurgyConstants.Nbt.SULFUR_SOURCE_NBT));
-
+        var containedStack = AlchemicalSulfurItem.getSourceStack(sulfurStack);
+        if (!containedStack.isEmpty()) {
             BakedModel containedModel = itemRenderer.getModel(containedStack, null, null, 0);
 
             //not sure why we don't have to apply transform here. Somehow label carries over, because if we do not call label our rendering is off

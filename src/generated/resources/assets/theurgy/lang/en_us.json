@@ -1,5 +1,6 @@
 {
-  "item.theurgy.alchemical_sulfur": "Alchemical Sulfur",
+  "item.theurgy.alchemical_sulfur": "Alchemical Sulfur %s",
   "item.theurgy.empty_jar": "Empty Jar",
+  "item.theurgy.jar_label": "Jar Label",
   "itemGroup.theurgy": "Empty Jar"
 }

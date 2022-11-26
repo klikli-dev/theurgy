@@ -26,4 +26,7 @@ public class TheurgyConstants {
         public static final String SULFUR_SOURCE_NBT = PREFIX + "sulfur.source.nbt";
     }
 
+    public static class I18n{
+
+    }
 }

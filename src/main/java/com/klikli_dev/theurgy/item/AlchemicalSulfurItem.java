@@ -6,22 +6,43 @@
 
 package com.klikli_dev.theurgy.item;
 
+import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.client.render.SulfurBEWLR;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.core.NonNullList;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.ComponentUtils;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.Style;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.minecraftforge.fml.loading.FMLEnvironment;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.function.Consumer;
 
 public class AlchemicalSulfurItem extends Item {
     public AlchemicalSulfurItem(Properties pProperties) {
         super(pProperties);
+    }
+
+    public static ItemStack getSourceStack(ItemStack sulfurStack) {
+        if (sulfurStack.hasTag() && sulfurStack.getTag().contains(TheurgyConstants.Nbt.SULFUR_SOURCE_ID)) {
+            var itemId = new ResourceLocation(sulfurStack.getTag().getString(TheurgyConstants.Nbt.SULFUR_SOURCE_ID));
+            var sourceStack = new ItemStack(ForgeRegistries.ITEMS.getValue(itemId));
+
+            if (sulfurStack.getTag().contains(TheurgyConstants.Nbt.SULFUR_SOURCE_NBT))
+                sourceStack.setTag(sulfurStack.getTag().getCompound(TheurgyConstants.Nbt.SULFUR_SOURCE_NBT));
+            return sourceStack;
+        }
+
+        return ItemStack.EMPTY;
     }
 
     @Override
@@ -32,6 +53,20 @@ public class AlchemicalSulfurItem extends Item {
                 return SulfurBEWLR.get();
             }
         });
+    }
+
+    @Override
+    public Component getName(ItemStack pStack) {
+        var source = getSourceStack(pStack);
+
+        if (!source.isEmpty() && source.getHoverName() instanceof MutableComponent hoverName)
+            return Component.translatable(this.getDescriptionId(), ComponentUtils.wrapInSquareBrackets(
+                    hoverName.withStyle(Style.EMPTY
+                    .withColor(ChatFormatting.GREEN)
+                    .withItalic(true)
+            )));
+
+        return super.getName(pStack);
     }
 
     @Override

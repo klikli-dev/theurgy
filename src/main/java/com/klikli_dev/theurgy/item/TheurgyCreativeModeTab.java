@@ -20,4 +20,5 @@ public class TheurgyCreativeModeTab extends CreativeModeTab {
     public ItemStack makeIcon() {
         return new ItemStack(ItemRegistry.EMPTY_JAR.get());
     }
+    //TODO: return theurgy book icon
 }

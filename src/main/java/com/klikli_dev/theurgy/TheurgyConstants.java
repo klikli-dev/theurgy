@@ -26,7 +26,11 @@ public class TheurgyConstants {
         public static final String SULFUR_SOURCE_NBT = PREFIX + "sulfur.source.nbt";
     }
 
-    public static class I18n{
-
+    public static class I18n {
+        public static final String TOOLTIP_SHOW_EXTENDED = "tooltip." + Theurgy.MODID +".show_extended";
+        public static final String TOOLTIP_SHOW_USAGE = "tooltip." + Theurgy.MODID + ".show_usage";
+        public static final String TOOLTIP_SUFFIX = ".tooltip";
+        public static final String TOOLTIP_EXTENDED_SUFFIX = ".tooltip.extended";
+        public static final String TOOLTIP_USAGE_SUFFIX = ".tooltip.usage";
     }
 }

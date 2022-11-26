@@ -9,9 +9,12 @@ package com.klikli_dev.theurgy.item;
 import com.google.common.collect.ImmutableList;
 import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.client.render.SulfurBEWLR;
+import com.klikli_dev.theurgy.entity.FollowProjectile;
+import com.klikli_dev.theurgy.registry.EntityRegistry;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -19,9 +22,14 @@ import net.minecraft.network.chat.ComponentUtils;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.minecraftforge.fml.loading.FMLEnvironment;
@@ -89,6 +97,23 @@ public class AlchemicalSulfurItem extends Item {
                     ));
 
         return ImmutableList.of();
+    }
+
+    @Override
+    public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
+
+        var from =  new Vec3(pPlayer.getX(), pPlayer.getEyeY() - (double)0.1F, pPlayer.getZ());
+        var look = pPlayer.getLookAngle().normalize();
+        var to = from.add(look.scale(10));
+
+
+        if (pLevel.isLoaded(new BlockPos(to)) && pLevel.isLoaded(new BlockPos(from))) {
+            FollowProjectile aoeProjectile = new FollowProjectile(pLevel, from, to);
+            pLevel.addFreshEntity(aoeProjectile);
+        }
+
+
+        return super.use(pLevel, pPlayer, pUsedHand);
     }
 
     public static class DistHelper {

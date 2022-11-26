@@ -12,6 +12,7 @@ import com.klikli_dev.modonomicon.config.ServerConfig;
 import com.klikli_dev.theurgy.client.ClientSetupEventHandler;
 import com.klikli_dev.theurgy.datagen.DataGenerators;
 import com.klikli_dev.theurgy.item.TheurgyCreativeModeTab;
+import com.klikli_dev.theurgy.registry.EntityDataSerializerRegistry;
 import com.klikli_dev.theurgy.registry.EntityRegistry;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.registry.ParticleRegistry;
@@ -50,6 +51,8 @@ public class Theurgy {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         ItemRegistry.ITEMS.register(modEventBus);
+        EntityRegistry.ENTITIES.register(modEventBus);
+        EntityDataSerializerRegistry.ENTITY_DATA_SERIALIZERS.register(modEventBus);
         ParticleRegistry.PARTICLES.register(modEventBus);
 
         modEventBus.addListener(this::onCommonSetup);
@@ -62,6 +65,7 @@ public class Theurgy {
         if (FMLEnvironment.dist == Dist.CLIENT) {
             modEventBus.addListener(ClientSetupEventHandler::onClientSetup);
             modEventBus.addListener(ParticleRegistry::registerFactories);
+            modEventBus.addListener(ClientSetupEventHandler::onRegisterEntityRenderers);
         }
     }
 

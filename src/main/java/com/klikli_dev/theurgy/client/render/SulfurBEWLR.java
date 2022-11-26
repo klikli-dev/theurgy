@@ -8,19 +8,26 @@ package com.klikli_dev.theurgy.client.render;
 
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
+import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.platform.Lighting;
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Quaternion;
+import com.mojang.math.Vector3f;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.entity.ItemRenderer;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraftforge.client.RenderTypeHelper;
 
 public class SulfurBEWLR extends BlockEntityWithoutLevelRenderer {
 
+    private static ItemStack emptyJarStack = new ItemStack(ItemRegistry.EMPTY_JAR.get());
+    private static ItemStack labelStack = new ItemStack(ItemRegistry.JAR_LABEL.get());
 
     private static final SulfurBEWLR instance = new SulfurBEWLR();
 
@@ -34,34 +41,59 @@ public class SulfurBEWLR extends BlockEntityWithoutLevelRenderer {
 
     @Override
     public void renderByItem(ItemStack pStack, ItemTransforms.TransformType pTransformType, PoseStack pPoseStack, MultiBufferSource pBuffer, int pPackedLight, int pPackedOverlay) {
+
+        pPoseStack.popPose();
+        pPoseStack.pushPose();
+
         ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
-//        BakedModel model = itemRenderer.getModel(pStack, null, null, 0);
-//        itemRenderer.render(pStack, ItemTransforms.TransformType.FIXED, true, pPoseStack, pBuffer,
-//                pPackedLight, pPackedOverlay, model);
-        //BakedModel model = Minecraft.getInstance().getModelManager().getModel(Theurgy.loc("models/item/empty_jar"));
-        BakedModel model = itemRenderer.getModel(new ItemStack(ItemRegistry.EMPTY_JAR.get()), null, null, 0);
-        model = model.applyTransform(pTransformType, pPoseStack, isLeftHand(pTransformType));
-//        poseStack.translate(-.5, -.5, -.5);
 
-        for (var renderPassModel : model.getRenderPasses(pStack, true)) {
-            for (var renderType : renderPassModel.getRenderTypes(pStack, true)) {
-                renderType = RenderTypeHelper.getEntityRenderType(renderType, true);
-                var consumer = pBuffer.getBuffer(renderType);
-                itemRenderer.renderModelLists(model, pStack, pPackedLight, pPackedOverlay, pPoseStack, consumer);
-            }
-        }
+        BakedModel model = itemRenderer.getModel(emptyJarStack, null, null, 0);
 
+        if(pTransformType == ItemTransforms.TransformType.GUI && !model.usesBlockLight())
+            Lighting.setupForFlatItems();
+//            Lighting.setupFor3DItems();
+
+        itemRenderer.render(emptyJarStack, pTransformType, isLeftHand(pTransformType), pPoseStack, pBuffer, pPackedLight, pPackedOverlay, model);
+//
+        if(pTransformType == ItemTransforms.TransformType.GUI && !model.usesBlockLight())
+            Lighting.setupFor3DItems();
+
+        BakedModel labelModel = itemRenderer.getModel(labelStack, null, null, 0);
+
+        pPoseStack.pushPose();
+
+        float pixel = 1f/16f;
+        pPoseStack.translate(0 , 0, pixel * 0.5); //move it before item
+        var scale = 0.7f;
+        pPoseStack.scale(0.7f,0.5f, 1);
+        pPoseStack.translate(0 , -pixel * 3,0); //position it on the item -> center
+        pPoseStack.scale(0.74F, 0.74F, 0.01F); //flatten item
+
+        Lighting.setupForFlatItems(); //always render label flat
+        itemRenderer.render(labelStack,  ItemTransforms.TransformType.GUI, isLeftHand(pTransformType), pPoseStack, pBuffer, pPackedLight, pPackedOverlay, labelModel);
+        Lighting.setupFor3DItems();
+
+        pPoseStack.popPose();
+
+        //TODO: Get item from nbt
         var oreStack = new ItemStack(Items.COPPER_ORE);
         BakedModel oreModel = itemRenderer.getModel(oreStack, null, null, 0);
 
         pPoseStack.pushPose();
-        var scale = 0.3f;
 
-        pPoseStack.translate(0.5 - 0.5 * scale, 0.3, 1);
+        pPoseStack.translate(0 , 0,pixel); //move it before item
+
+        scale = 0.5f;
         pPoseStack.scale(scale,scale,scale);
-        pPoseStack.translate(0.5 ,0, 0);
-        itemRenderer.render(oreStack, ItemTransforms.TransformType.GUI, true, pPoseStack, pBuffer, pPackedLight, pPackedOverlay, oreModel);
+        pPoseStack.translate(0 , -pixel * 3,0); //position it on the item -> center
+        pPoseStack.scale(0.74F, 0.74F, 0.01F); //flatten item
+
+        Lighting.setupForFlatItems(); //always render "labeled" item flat
+        itemRenderer.render(oreStack,  ItemTransforms.TransformType.GUI, isLeftHand(pTransformType), pPoseStack, pBuffer, pPackedLight, pPackedOverlay, oreModel);
+        Lighting.setupFor3DItems();
+
         pPoseStack.popPose();
+
     }
 
     private static boolean isLeftHand(ItemTransforms.TransformType type) {

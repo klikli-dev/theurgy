@@ -34,10 +34,9 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
         this.add(((TranslatableContents)Theurgy.CREATIVE_MODE_TAB.getDisplayName().getContents()).getKey(), "Theurgy");
 
         this.addItem(ItemRegistry.EMPTY_JAR, "Empty Jar");
-        this.addTooltip(ItemRegistry.EMPTY_JAR, "Dummy item for easy access to the Theurgy icon.");
 
         this.addItem(ItemRegistry.JAR_LABEL, "Jar Label");
-        this.addTooltip(ItemRegistry.EMPTY_JAR, "Dummy item for eay render access to Alchemical Sulfur labels.");
+        this.addTooltip(ItemRegistry.JAR_LABEL, "Dummy item for eay render access to Alchemical Sulfur labels.");
 
         this.addItem(ItemRegistry.ALCHEMICAL_SULFUR, "Alchemical Sulfur %s");
         this.addTooltip(ItemRegistry.ALCHEMICAL_SULFUR,

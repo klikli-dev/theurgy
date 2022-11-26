@@ -1,6 +1,11 @@
 {
   "item.theurgy.alchemical_sulfur": "Alchemical Sulfur %s",
+  "item.theurgy.alchemical_sulfur.tooltip": "Alchemical sulfur crafted from %s.",
+  "item.theurgy.alchemical_sulfur.tooltip.extended": "Sulfur represents the \"idea\" or \"soul\" of an object and is the key to replication and transmutation.",
   "item.theurgy.empty_jar": "Empty Jar",
   "item.theurgy.jar_label": "Jar Label",
-  "itemGroup.theurgy": "Empty Jar"
+  "item.theurgy.jar_label.tooltip": "Dummy item for eay render access to Alchemical Sulfur labels.",
+  "itemGroup.theurgy": "Theurgy",
+  "tooltip.theurgy.show_extended": "§6[§dshift §7read more§6]",
+  "tooltip.theurgy.show_usage": "§6[§dctrl-shift §7show usage§6]"
 }

@@ -8,10 +8,12 @@ package com.klikli_dev.theurgy.tooltips;
 
 import com.google.common.collect.ImmutableList;
 import com.klikli_dev.theurgy.TheurgyConstants;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.Style;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
@@ -44,11 +46,11 @@ public class TooltipHandler {
 
             //first check usage tooltip
             if (Screen.hasShiftDown() && Screen.hasControlDown() && usageTooltipExists) {
-                event.getToolTip().add(Component.translatable(usageTooltipKey, additionalTooltipData.toArray()));
+                event.getToolTip().add(Component.translatable(usageTooltipKey, additionalTooltipData.toArray()).withStyle(Style.EMPTY.withColor(ChatFormatting.GRAY)));
             }
             //then extended tooltip - hint at usage, if available
             else if (Screen.hasShiftDown() && extendedTooltipExists) {
-                event.getToolTip().add(Component.translatable(extendedTooltipKey, additionalTooltipData.toArray()));
+                event.getToolTip().add(Component.translatable(extendedTooltipKey, additionalTooltipData.toArray()).withStyle(Style.EMPTY.withColor(ChatFormatting.GRAY)));
 
                 if (usageTooltipExists) {
                     event.getToolTip().add(Component.translatable(TheurgyConstants.I18n.TOOLTIP_SHOW_USAGE, additionalTooltipData.toArray()));
@@ -58,7 +60,7 @@ public class TooltipHandler {
             else {
                 //only add the default tooltip if we have one
                 if (tooltipExists) {
-                    event.getToolTip().add(Component.translatable(tooltipKey, additionalTooltipData.toArray()));
+                    event.getToolTip().add(Component.translatable(tooltipKey, additionalTooltipData.toArray()).withStyle(Style.EMPTY.withColor(ChatFormatting.GRAY)));
                 }
                 //but if we have other tooltips, hint at them
                 if (extendedTooltipExists) {

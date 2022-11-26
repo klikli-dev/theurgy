@@ -6,12 +6,14 @@
 
 package com.klikli_dev.theurgy.item;
 
+import com.google.common.collect.ImmutableList;
 import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.client.render.SulfurBEWLR;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.core.NonNullList;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.ComponentUtils;
 import net.minecraft.network.chat.MutableComponent;
@@ -25,6 +27,7 @@ import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.registries.ForgeRegistries;
 
+import java.util.List;
 import java.util.function.Consumer;
 
 public class AlchemicalSulfurItem extends Item {
@@ -74,6 +77,18 @@ public class AlchemicalSulfurItem extends Item {
         if (FMLEnvironment.dist == Dist.CLIENT) {
             DistHelper.fillItemCategory(this, tab, items);
         }
+    }
+
+    public static List<MutableComponent> getTooltipData(ItemStack sulfurStack) {
+        var source = getSourceStack(sulfurStack);
+
+        if (!source.isEmpty() && source.getHoverName() instanceof MutableComponent hoverName)
+            return ImmutableList.of(hoverName.withStyle(Style.EMPTY
+                            .withColor(ChatFormatting.GREEN)
+                            .withItalic(true)
+                    ));
+
+        return ImmutableList.of();
     }
 
     public static class DistHelper {

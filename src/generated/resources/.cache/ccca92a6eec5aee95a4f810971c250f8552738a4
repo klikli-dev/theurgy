@@ -1,4 +1,14 @@
-// 1.19.2	2022-11-26T14:27:59.1688202	Item Models: theurgy
+// 1.19.2	2022-11-27T12:23:18.5553922	Item Models: theurgy
 e0f7b66a84e6588f01abbbce75b1803ffe5d46e2 assets/theurgy/models/item/alchemical_sulfur.json
+78a8959a0ecf4a7c1cafc26f495217229c08602d assets/theurgy/models/item/divination_rod.json
+f80a69cdd44a03cf44388c01daf7902f640110f4 assets/theurgy/models/item/divination_rod_0.json
+b011f766c831e266ccdddce159a049243527380f assets/theurgy/models/item/divination_rod_1.json
+1f6e7c991521b8b792262dfb8f46094201ed2032 assets/theurgy/models/item/divination_rod_2.json
+9333bd900508e3507465486af23f2ea2039e6238 assets/theurgy/models/item/divination_rod_3.json
+d849cfaaebde24825b20fd8fb84051485cd2a2a7 assets/theurgy/models/item/divination_rod_4.json
+bc8d9557a03b8e167dea936611ffddd22e7fd036 assets/theurgy/models/item/divination_rod_5.json
+03271bbf70c299c36a83049abee3f6ca5dc0bf61 assets/theurgy/models/item/divination_rod_6.json
+5f6650a3e040c2889ca132c4dac74502a04005f6 assets/theurgy/models/item/divination_rod_7.json
+f1afa43638ead8a3000d0489191d92bd028685ab assets/theurgy/models/item/divination_rod_searching.json
 e0d7667ce794b40e193ecf66945c505733faf3f8 assets/theurgy/models/item/empty_jar.json
 94bfa4f4e6caf28d6f20cee65ac10387f5b115e2 assets/theurgy/models/item/jar_label.json

@@ -20,14 +20,23 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
     }
 
     private void addMisc() {
-        this.add(TheurgyConstants.I18n.TOOLTIP_SHOW_EXTENDED, ChatFormatting.GOLD + "[" +
+        this.add(TheurgyConstants.I18n.Tooltip.SHOW_EXTENDED, ChatFormatting.GOLD + "[" +
                 ChatFormatting.LIGHT_PURPLE + "shift " +
                 ChatFormatting.GRAY + "read more" +
                 ChatFormatting.GOLD + "]");
-        this.add(TheurgyConstants.I18n.TOOLTIP_SHOW_USAGE, ChatFormatting.GOLD + "[" +
+        this.add(TheurgyConstants.I18n.Tooltip.SHOW_USAGE, ChatFormatting.GOLD + "[" +
                 ChatFormatting.LIGHT_PURPLE + "ctrl-shift " +
                 ChatFormatting.GRAY + "show usage" +
                 ChatFormatting.GOLD + "]");
+    }
+
+    private void addSubtitles() {
+        this.add(Theurgy.MODID + ".subtitle.tuning_fork", "Using Divination Rod");
+    }
+
+    private void addMessages() {
+        this.add(TheurgyConstants.I18n.Message.DIVINATION_ROD_LINKED, "The divination rod is now attuned to %s.");
+        this.add(TheurgyConstants.I18n.Message.DIVINATION_ROD_NO_LINK, "The divination rod is not attuned to any material.");
     }
 
     private void addItems() {
@@ -47,6 +56,8 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
     @Override
     protected void addTranslations() {
         this.addMisc();
+        this.addSubtitles();
+        this.addMessages();
         this.addItems();
     }
 }

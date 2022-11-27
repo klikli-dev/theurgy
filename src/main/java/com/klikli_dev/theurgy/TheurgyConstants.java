@@ -6,6 +6,8 @@
 
 package com.klikli_dev.theurgy;
 
+import net.minecraft.resources.ResourceLocation;
+
 public class TheurgyConstants {
 
     public static class Nbt {
@@ -24,13 +26,34 @@ public class TheurgyConstants {
          * Should be a CompoundTag.
          */
         public static final String SULFUR_SOURCE_NBT = PREFIX + "sulfur.source.nbt";
+
+        public static final String DIVINATION_DISTANCE = PREFIX + "divination.distance";
+        public static final String DIVINATION_LINKED_BLOCK_ID = PREFIX + "divination.linked_block_id";
+
+    }
+
+    public static class ItemProperty {
+
+        public static final ResourceLocation DIVINATION_DISTANCE = Theurgy.loc("divination_distance");
+
+
     }
 
     public static class I18n {
-        public static final String TOOLTIP_SHOW_EXTENDED = "tooltip." + Theurgy.MODID +".show_extended";
-        public static final String TOOLTIP_SHOW_USAGE = "tooltip." + Theurgy.MODID + ".show_usage";
-        public static final String TOOLTIP_SUFFIX = ".tooltip";
-        public static final String TOOLTIP_EXTENDED_SUFFIX = ".tooltip.extended";
-        public static final String TOOLTIP_USAGE_SUFFIX = ".tooltip.usage";
+
+        public static class Tooltip {
+            public static final String SHOW_EXTENDED = "tooltip." + Theurgy.MODID + ".show_extended";
+            public static final String SHOW_USAGE = "tooltip." + Theurgy.MODID + ".show_usage";
+            public static final String SUFFIX = ".tooltip";
+            public static final String EXTENDED_SUFFIX = ".tooltip.extended";
+            public static final String USAGE_SUFFIX = ".tooltip.usage";
+        }
+
+        public static class Message {
+            private static final String PREFIX = "message." + Theurgy.MODID + ".";
+
+            public static final String DIVINATION_ROD_LINKED = PREFIX + ".divination_rod.linked";
+            public static final String DIVINATION_ROD_NO_LINK = PREFIX + ".divination_rod.no_link";
+        }
     }
 }

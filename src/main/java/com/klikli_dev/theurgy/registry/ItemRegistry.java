@@ -8,6 +8,7 @@ package com.klikli_dev.theurgy.registry;
 
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.item.AlchemicalSulfurItem;
+import com.klikli_dev.theurgy.item.DivinationRodItem;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -24,6 +25,9 @@ public class ItemRegistry {
 
     public static final RegistryObject<Item> ALCHEMICAL_SULFUR =
             ITEMS.register("alchemical_sulfur", () -> new AlchemicalSulfurItem(defaultProperties()));
+
+    public static final RegistryObject<Item> DIVINATION_ROD =
+            ITEMS.register("divination_rod", () -> new DivinationRodItem(defaultProperties()));
 
     public static Item.Properties defaultProperties() {
         return new Item.Properties().tab(Theurgy.CREATIVE_MODE_TAB);

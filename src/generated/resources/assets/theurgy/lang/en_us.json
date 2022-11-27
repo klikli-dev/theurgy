@@ -6,6 +6,9 @@
   "item.theurgy.jar_label": "Jar Label",
   "item.theurgy.jar_label.tooltip": "Dummy item for eay render access to Alchemical Sulfur labels.",
   "itemGroup.theurgy": "Theurgy",
+  "message.theurgy..divination_rod.linked": "The divination rod is now attuned to %s.",
+  "message.theurgy..divination_rod.no_link": "The divination rod is not attuned to any material.",
+  "theurgy.subtitle.tuning_fork": "Using Divination Rod",
   "tooltip.theurgy.show_extended": "§6[§dshift §7read more§6]",
   "tooltip.theurgy.show_usage": "§6[§dctrl-shift §7show usage§6]"
 }

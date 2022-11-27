@@ -34,9 +34,9 @@ public class TooltipHandler {
         var itemId = ForgeRegistries.ITEMS.getKey(stack.getItem());
         //only run for enabled namespaces to easily improve performance
         if (namespacesToListenFor.contains(itemId.getNamespace())) {
-            String tooltipKey = stack.getDescriptionId() + TheurgyConstants.I18n.TOOLTIP_SUFFIX;
-            String extendedTooltipKey = stack.getDescriptionId() + TheurgyConstants.I18n.TOOLTIP_EXTENDED_SUFFIX;
-            String usageTooltipKey = stack.getDescriptionId() + TheurgyConstants.I18n.TOOLTIP_USAGE_SUFFIX;
+            String tooltipKey = stack.getDescriptionId() + TheurgyConstants.I18n.Tooltip.SUFFIX;
+            String extendedTooltipKey = stack.getDescriptionId() + TheurgyConstants.I18n.Tooltip.EXTENDED_SUFFIX;
+            String usageTooltipKey = stack.getDescriptionId() + TheurgyConstants.I18n.Tooltip.USAGE_SUFFIX;
 
             boolean tooltipExists = I18n.exists(tooltipKey);
             boolean extendedTooltipExists = I18n.exists(extendedTooltipKey);
@@ -53,7 +53,7 @@ public class TooltipHandler {
                 event.getToolTip().add(Component.translatable(extendedTooltipKey, additionalTooltipData.toArray()).withStyle(Style.EMPTY.withColor(ChatFormatting.GRAY)));
 
                 if (usageTooltipExists) {
-                    event.getToolTip().add(Component.translatable(TheurgyConstants.I18n.TOOLTIP_SHOW_USAGE, additionalTooltipData.toArray()));
+                    event.getToolTip().add(Component.translatable(TheurgyConstants.I18n.Tooltip.SHOW_USAGE, additionalTooltipData.toArray()));
                 }
             }
             //then regular tooltip - hint at extended and usage, if available
@@ -64,10 +64,10 @@ public class TooltipHandler {
                 }
                 //but if we have other tooltips, hint at them
                 if (extendedTooltipExists) {
-                    event.getToolTip().add(Component.translatable(TheurgyConstants.I18n.TOOLTIP_SHOW_EXTENDED, additionalTooltipData.toArray()));
+                    event.getToolTip().add(Component.translatable(TheurgyConstants.I18n.Tooltip.SHOW_EXTENDED, additionalTooltipData.toArray()));
                 }
                 if (usageTooltipExists) {
-                    event.getToolTip().add(Component.translatable(TheurgyConstants.I18n.TOOLTIP_SHOW_USAGE, additionalTooltipData.toArray()));
+                    event.getToolTip().add(Component.translatable(TheurgyConstants.I18n.Tooltip.SHOW_USAGE, additionalTooltipData.toArray()));
                 }
             }
         }

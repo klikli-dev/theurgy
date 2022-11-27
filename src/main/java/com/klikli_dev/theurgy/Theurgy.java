@@ -9,13 +9,11 @@ package com.klikli_dev.theurgy;
 import com.klikli_dev.modonomicon.config.ClientConfig;
 import com.klikli_dev.modonomicon.config.CommonConfig;
 import com.klikli_dev.modonomicon.config.ServerConfig;
+import com.klikli_dev.modonomicon.network.Networking;
 import com.klikli_dev.theurgy.client.ClientSetupEventHandler;
 import com.klikli_dev.theurgy.datagen.DataGenerators;
 import com.klikli_dev.theurgy.item.TheurgyCreativeModeTab;
-import com.klikli_dev.theurgy.registry.EntityDataSerializerRegistry;
-import com.klikli_dev.theurgy.registry.EntityRegistry;
-import com.klikli_dev.theurgy.registry.ItemRegistry;
-import com.klikli_dev.theurgy.registry.ParticleRegistry;
+import com.klikli_dev.theurgy.registry.*;
 import com.klikli_dev.theurgy.tooltips.TooltipHandler;
 import com.mojang.logging.LogUtils;
 import net.minecraft.resources.ResourceLocation;
@@ -54,6 +52,7 @@ public class Theurgy {
         EntityRegistry.ENTITIES.register(modEventBus);
         EntityDataSerializerRegistry.ENTITY_DATA_SERIALIZERS.register(modEventBus);
         ParticleRegistry.PARTICLES.register(modEventBus);
+        SoundRegistry.SOUNDS.register(modEventBus);
 
         modEventBus.addListener(this::onCommonSetup);
         modEventBus.addListener(this::onServerSetup);
@@ -74,6 +73,8 @@ public class Theurgy {
     }
 
     public void onCommonSetup(FMLCommonSetupEvent event) {
+        Networking.registerMessages();
+
         LOGGER.info("Common setup complete.");
     }
 

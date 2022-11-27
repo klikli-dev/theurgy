@@ -13,6 +13,7 @@ import com.klikli_dev.theurgy.network.Networking;
 import com.klikli_dev.theurgy.network.messages.MessageSetDivinationResult;
 import com.klikli_dev.theurgy.registry.SoundRegistry;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.item.ItemPropertyFunction;
 import net.minecraft.core.BlockPos;
@@ -32,16 +33,18 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Tier;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.TierSortingRegistry;
 import net.minecraftforge.registries.ForgeRegistries;
+import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
 import java.util.function.Supplier;
 
 public class DivinationRodItem extends Item {
@@ -87,10 +90,9 @@ public class DivinationRodItem extends Item {
         if (player.isShiftKeyDown()) {
             BlockState state = level.getBlockState(pos);
             if (!state.isAir()) {
-                //TODO: use allow list tag
                 //TODO: low tier rods are attuned by clicking target block, higher tiers require sulfur and some smart translation logic during crafting
 
-                if(!TierSortingRegistry.isCorrectTierForDrops(this.tier.get(), state)){
+                if (!TierSortingRegistry.isCorrectTierForDrops(this.tier.get(), state)) {
                     if (!level.isClientSide) {
                         player.sendSystemMessage(
                                 Component.translatable(
@@ -100,7 +102,7 @@ public class DivinationRodItem extends Item {
                         );
                     }
                     return InteractionResult.FAIL;
-                } else if(!state.is(this.allowedBlocks)){
+                } else if (!state.is(this.allowedBlocks)) {
                     if (!level.isClientSide) {
                         player.sendSystemMessage(
                                 Component.translatable(
@@ -175,7 +177,7 @@ public class DivinationRodItem extends Item {
 
             if (result != null) {
                 stack.getTag().putLong(TheurgyConstants.Nbt.DIVINATION_POS, result.asLong());
-                this.spawnResultParticle(result,(ClientLevel) level, player);
+                this.spawnResultParticle(result, (ClientLevel) level, player);
             }
         } else {
             stack.hurtAndBreak(1, player, (entity) -> {
@@ -199,12 +201,41 @@ public class DivinationRodItem extends Item {
             ScanManager.get().cancelScan();
 
             //re-use old result
-            if(stack.hasTag() && stack.getTag().contains(TheurgyConstants.Nbt.DIVINATION_POS)) {
+            if (stack.hasTag() && stack.getTag().contains(TheurgyConstants.Nbt.DIVINATION_POS)) {
                 BlockPos result = BlockPos.of(stack.getTag().getLong(TheurgyConstants.Nbt.DIVINATION_POS));
                 this.spawnResultParticle(result, (ClientLevel) level, pLivingEntity);
             }
         }
         super.releaseUsing(stack, level, pLivingEntity, pTimeCharged);
+    }
+
+    @Override
+    public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced) {
+        if (pStack.hasTag()) {
+            var tag = pStack.getTag();
+            if (tag.contains(TheurgyConstants.Nbt.DIVINATION_LINKED_BLOCK_ID)) {
+                var id = new ResourceLocation(pStack.getTag().getString(TheurgyConstants.Nbt.DIVINATION_LINKED_BLOCK_ID));
+                var blockComponent = this.getBlockComponent(ForgeRegistries.BLOCKS.getValue(id).defaultBlockState(), BlockPos.ZERO, pLevel, Minecraft.getInstance().player);
+                pTooltipComponents.add(
+                        Component.translatable(
+                                TheurgyConstants.I18n.Tooltip.DIVINATION_ROD_LINKED_TO,
+                                blockComponent
+                        ).withStyle(ChatFormatting.GRAY));
+
+                if (tag.contains(TheurgyConstants.Nbt.DIVINATION_POS)) {
+                    var pos = BlockPos.of(tag.getLong(TheurgyConstants.Nbt.DIVINATION_POS));
+                    pTooltipComponents.add(Component.translatable(TheurgyConstants.I18n.Tooltip.DIVINATION_ROD_LAST_RESULT,
+                            blockComponent,
+                            ComponentUtils.wrapInSquareBrackets(Component.literal(pos.toShortString())).withStyle(ChatFormatting.GREEN)
+                    ).withStyle(ChatFormatting.GRAY));
+                }
+            } else {
+                pTooltipComponents.add(Component.translatable(TheurgyConstants.I18n.Tooltip.DIVINATION_ROD_NO_LINK));
+            }
+
+        }
+
+        super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced);
     }
 
     /**
@@ -256,7 +287,6 @@ public class DivinationRodItem extends Item {
             FollowProjectile aoeProjectile = new FollowProjectile(level, from, to);
             level.putNonPlayerEntity(aoeProjectile.getId(), aoeProjectile); //client only spawn of entity
         }
-
     }
 
     /**

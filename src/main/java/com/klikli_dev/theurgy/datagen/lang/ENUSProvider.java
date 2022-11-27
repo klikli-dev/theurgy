@@ -25,7 +25,7 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
                 ChatFormatting.GRAY + "read more" +
                 ChatFormatting.GOLD + "]");
         this.add(TheurgyConstants.I18n.Tooltip.SHOW_USAGE, ChatFormatting.GOLD + "[" +
-                ChatFormatting.LIGHT_PURPLE + "ctrl-shift " +
+                ChatFormatting.LIGHT_PURPLE + "ctrl " +
                 ChatFormatting.GRAY + "show usage" +
                 ChatFormatting.GOLD + "]");
     }
@@ -35,9 +35,9 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
     }
 
     private void addMessages() {
-        this.add(TheurgyConstants.I18n.Message.DIVINATION_ROD_LINKED, "§aSuccess§r:The divination rod is now attuned to %s.");
-        this.add(TheurgyConstants.I18n.Message.DIVINATION_ROD_TIER_TOO_LOW, "§4Warning§r: You need a higher tier divination rod to attune to %s.");
-        this.add(TheurgyConstants.I18n.Message.DIVINATION_ROD_BLOCK_NOT_ALLOWED, "§4Warning§r: The divination rod cannot be attuned to this type of block: %s.");
+        this.add(TheurgyConstants.I18n.Message.DIVINATION_ROD_LINKED, ChatFormatting.GREEN +"Success"+ChatFormatting.RESET +": The divination rod is now attuned to %s.");
+        this.add(TheurgyConstants.I18n.Message.DIVINATION_ROD_TIER_TOO_LOW, ChatFormatting.DARK_RED +"Warning"+ChatFormatting.RESET +": You need a higher tier divination rod to attune to %s.");
+        this.add(TheurgyConstants.I18n.Message.DIVINATION_ROD_BLOCK_NOT_ALLOWED, ChatFormatting.DARK_RED +"Warning"+ChatFormatting.RESET +": The divination rod cannot be attuned to this type of block: %s.");
         this.add(TheurgyConstants.I18n.Message.DIVINATION_ROD_NO_LINK, "The divination rod is not attuned to any material.");
     }
 
@@ -55,7 +55,16 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
                 "Sulfur represents the \"idea\" or \"soul\" of an object and is the key to replication and transmutation.");
 
         this.addItem(ItemRegistry.DIVINATION_ROD_T1, "Wooden Divination Rod");
-        //TODO: Tooltip with usage instructions for divination rod, including tier, display mode, linked item ...
+        //tooltip is handled by rod itself
+        this.addExtendedTooltip(ItemRegistry.DIVINATION_ROD_T1,
+                "Divination rods can be attuned to a block and are then used to find other blocks of the same type.",
+                ChatFormatting.GREEN + "Shift-Click"+ChatFormatting.GRAY + " a block to attune the rod to it.\n" +
+                        ChatFormatting.GREEN + "Right-Click and hold"+ChatFormatting.GRAY +" and hold to let the rod search for blocks.\n" +
+                        ChatFormatting.GREEN + "Right-Click"+ChatFormatting.GRAY + " without holding after a successful search to let the rod show the last found block without consuming durability.");
+
+        this.add(TheurgyConstants.I18n.Tooltip.DIVINATION_ROD_NO_LINK, "The divination rod is "+ ChatFormatting.RED +"not attuned"+ ChatFormatting.RESET +" to any material.");
+        this.add(TheurgyConstants.I18n.Tooltip.DIVINATION_ROD_LINKED_TO, "The divination rod is attuned to %s");
+        this.add(TheurgyConstants.I18n.Tooltip.DIVINATION_ROD_LAST_RESULT, "Found %s at %s.");
     }
 
     @Override

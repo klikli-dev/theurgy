@@ -19,7 +19,6 @@ import java.util.List;
  * Based on https://github.com/MightyPirates/Scannable
  */
 public class ScanManager {
-    public static final int SCAN_DURATION_TICKS = 40;
     private static final ScanManager instance = new ScanManager();
     List<BlockPos> results = new ArrayList<>();
     private Scanner scanner;
@@ -29,11 +28,6 @@ public class ScanManager {
         return instance;
     }
 
-    public void beginScan(Player player, Block target, int range) {
-        this.beginScan(player, target, range, SCAN_DURATION_TICKS);
-    }
-
-
     public void beginScan(Player player, Block target, int range, int duration) {
         this.cancelScan();
 
@@ -42,9 +36,11 @@ public class ScanManager {
     }
 
     public void updateScan(Player player, boolean forceFinish) {
-        final int remainingTicks = SCAN_DURATION_TICKS - this.scanningTicks;
+        if(this.scanner == null)
+            return;
 
-        if (remainingTicks <= 0 || this.scanner == null) {
+        final int remainingTicks = this.scanner.totalTicks - this.scanningTicks;
+        if (remainingTicks <= 0) {
             return;
         }
 

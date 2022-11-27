@@ -27,7 +27,7 @@ public class ItemRegistry {
             ITEMS.register("alchemical_sulfur", () -> new AlchemicalSulfurItem(defaultProperties()));
 
     public static final RegistryObject<Item> DIVINATION_ROD =
-            ITEMS.register("divination_rod", () -> new DivinationRodItem(defaultProperties().stacksTo(1)));
+            ITEMS.register("divination_rod", () -> new DivinationRodItem(defaultProperties().stacksTo(1), () -> 40, () -> 96));
 
     public static Item.Properties defaultProperties() {
         return new Item.Properties().tab(Theurgy.CREATIVE_MODE_TAB);

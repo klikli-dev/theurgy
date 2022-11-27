@@ -15,7 +15,6 @@ import com.klikli_dev.theurgy.registry.EntityRegistry;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.tooltips.TooltipHandler;
 import net.minecraft.client.renderer.item.ItemProperties;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
@@ -43,7 +42,7 @@ public class ClientSetupEventHandler {
         //Not safe to call during parallel load, so register to run threadsafe
         event.enqueueWork(() -> {
             ItemProperties.register(ItemRegistry.DIVINATION_ROD.get(),
-                    TheurgyConstants.ItemProperty.DIVINATION_DISTANCE, DivinationRodItem.DIVINATION_DISTANCE);
+                    TheurgyConstants.ItemProperty.DIVINATION_DISTANCE, DivinationRodItem.PropertyFunctions.DIVINATION_DISTANCE);
 
             Theurgy.LOGGER.debug("Registered Item Properties");
         });

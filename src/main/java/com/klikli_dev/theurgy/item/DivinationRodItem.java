@@ -32,20 +32,21 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.registries.ForgeRegistries;
 
+import java.util.function.Supplier;
+
 public class DivinationRodItem extends Item {
 
     public static final float NOT_FOUND = 7.0f;
     public static final float SEARCHING = 8.0f;
 
-    @SuppressWarnings("deprecation")
-    public static ItemPropertyFunction DIVINATION_DISTANCE = (stack, world, entity, i) -> {
-        if (!stack.getOrCreateTag().contains(TheurgyConstants.Nbt.DIVINATION_DISTANCE) || stack.getTag().getFloat(TheurgyConstants.Nbt.DIVINATION_DISTANCE) < 0)
-            return NOT_FOUND;
-        return stack.getTag().getFloat(TheurgyConstants.Nbt.DIVINATION_DISTANCE);
-    };
+    protected Supplier<Integer> scanDurationTicks;
+    protected Supplier<Integer> scanRange;
 
-    public DivinationRodItem(Properties pProperties) {
+    public DivinationRodItem(Properties pProperties, Supplier<Integer> scanDurationTicks, Supplier<Integer> scanRange) {
         super(pProperties);
+
+        this.scanDurationTicks = scanDurationTicks;
+        this.scanRange = scanRange;
     }
 
     @Override
@@ -103,8 +104,7 @@ public class DivinationRodItem extends Item {
 
                 if (level.isClientSide) {
                     var id = new ResourceLocation(stack.getTag().getString(TheurgyConstants.Nbt.DIVINATION_LINKED_BLOCK_ID));
-                    //TODO: tier based range here -> should probably come as supplier via constructor, from a config
-                    ScanManager.get().beginScan(player, ForgeRegistries.BLOCKS.getValue(id), 96);
+                    ScanManager.get().beginScan(player, ForgeRegistries.BLOCKS.getValue(id), this.scanRange.get(), this.scanDurationTicks.get());
                 }
             } else if (!level.isClientSide) {
                 player.sendSystemMessage(Component.translatable(TheurgyConstants.I18n.Message.DIVINATION_ROD_NO_LINK));
@@ -119,7 +119,7 @@ public class DivinationRodItem extends Item {
         if (!(entityLiving instanceof Player player))
             return stack;
 
-        player.getCooldowns().addCooldown(this, 40); //TODO: configurable cooldown?
+        player.getCooldowns().addCooldown(this, this.scanDurationTicks.get());
         stack.getOrCreateTag().putFloat(TheurgyConstants.Nbt.DIVINATION_DISTANCE, NOT_FOUND);
         if (level.isClientSide) {
             BlockPos result = ScanManager.get().finishScan(player);
@@ -130,18 +130,18 @@ public class DivinationRodItem extends Item {
 
             if (result != null) {
                 //Show visualization
-                 final var visualizationRange = 10.0f;
-                    var from =  new Vec3(player.getX(), player.getEyeY() - (double)0.1F, player.getZ());
-                    var resultVec = Vec3.atCenterOf(result);
-                    var dist = resultVec.subtract(from);
-                    var dir = dist.normalize();
-                    var to = dist.length() <= visualizationRange ? resultVec : from.add(dir.scale(visualizationRange));
+                final var visualizationRange = 10.0f;
+                var from = new Vec3(player.getX(), player.getEyeY() - (double) 0.1F, player.getZ());
+                var resultVec = Vec3.atCenterOf(result);
+                var dist = resultVec.subtract(from);
+                var dir = dist.normalize();
+                var to = dist.length() <= visualizationRange ? resultVec : from.add(dir.scale(visualizationRange));
 
 
-                    if (level.isLoaded(new BlockPos(to)) && level.isLoaded(new BlockPos(from))) {
-                        FollowProjectile aoeProjectile = new FollowProjectile(level, from, to);
-                        ((ClientLevel) level).putNonPlayerEntity(aoeProjectile.getId(), aoeProjectile);
-                    }
+                if (level.isLoaded(new BlockPos(to)) && level.isLoaded(new BlockPos(from))) {
+                    FollowProjectile aoeProjectile = new FollowProjectile(level, from, to);
+                    ((ClientLevel) level).putNonPlayerEntity(aoeProjectile.getId(), aoeProjectile);
+                }
             }
 
 
@@ -149,13 +149,10 @@ public class DivinationRodItem extends Item {
         return stack;
     }
 
-
-
     @Override
     public int getUseDuration(ItemStack stack) {
-        return ScanManager.SCAN_DURATION_TICKS;
+        return this.scanDurationTicks.get();
     }
-
 
     @Override
     public void releaseUsing(ItemStack stack, Level level, LivingEntity pLivingEntity, int pTimeCharged) {
@@ -167,7 +164,6 @@ public class DivinationRodItem extends Item {
         }
         super.releaseUsing(stack, level, pLivingEntity, pTimeCharged);
     }
-
 
     /**
      * Calculates the distance parameter representing the actual distance.
@@ -198,5 +194,17 @@ public class DivinationRodItem extends Item {
         if (distance < 65)
             return 5.0f;
         return 6.0f;
+    }
+
+    /**
+     * Inner class to avoid classloading of client only property functions on server
+     */
+    public static class PropertyFunctions {
+        @SuppressWarnings("deprecation")
+        public static ItemPropertyFunction DIVINATION_DISTANCE = (stack, world, entity, i) -> {
+            if (!stack.getOrCreateTag().contains(TheurgyConstants.Nbt.DIVINATION_DISTANCE) || stack.getTag().getFloat(TheurgyConstants.Nbt.DIVINATION_DISTANCE) < 0)
+                return NOT_FOUND;
+            return stack.getTag().getFloat(TheurgyConstants.Nbt.DIVINATION_DISTANCE);
+        };
     }
 }

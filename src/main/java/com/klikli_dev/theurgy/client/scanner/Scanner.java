@@ -20,6 +20,8 @@ import java.util.function.Consumer;
  * Based on https://github.com/MightyPirates/Scannable
  */
 public class Scanner {
+
+    public int totalTicks;
     protected Block target;
 
     protected Player player;
@@ -44,6 +46,7 @@ public class Scanner {
     }
 
     public void initialize(Player player, Vec3 center, float radius, int totalTicks) {
+        this.totalTicks = totalTicks;
         this.player = player;
         this.center = center;
         this.radius = radius;

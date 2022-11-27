@@ -194,14 +194,23 @@ public class DivinationRodItem extends Item {
 
     @Override
     public void releaseUsing(ItemStack stack, Level level, LivingEntity pLivingEntity, int pTimeCharged) {
-        //player interrupted, so we can safely set not found on server
-        stack.getOrCreateTag().putFloat(TheurgyConstants.Nbt.DIVINATION_DISTANCE, NOT_FOUND);
+        if(!stack.getOrCreateTag().contains(TheurgyConstants.Nbt.DIVINATION_POS))
+            //player interrupted, so we can safely set not found on server, if we don't have a previous result
+            stack.getOrCreateTag().putFloat(TheurgyConstants.Nbt.DIVINATION_DISTANCE, NOT_FOUND);
+        else {
+            //otherwise, restore distance from result
+            //nice bonus: will update crystal status on every "display only" use.
+            BlockPos result = BlockPos.of(stack.getTag().getLong(TheurgyConstants.Nbt.DIVINATION_POS));
+            float distance = this.getDistance(pLivingEntity.position(), result);
+            stack.getTag().putFloat(TheurgyConstants.Nbt.DIVINATION_DISTANCE, distance);
+        }
+
 
         if (level.isClientSide) {
             ScanManager.get().cancelScan();
 
             //re-use old result
-            if (stack.hasTag() && stack.getTag().contains(TheurgyConstants.Nbt.DIVINATION_POS)) {
+            if (stack.getTag().contains(TheurgyConstants.Nbt.DIVINATION_POS)) {
                 BlockPos result = BlockPos.of(stack.getTag().getLong(TheurgyConstants.Nbt.DIVINATION_POS));
                 this.spawnResultParticle(result, (ClientLevel) level, pLivingEntity);
             }

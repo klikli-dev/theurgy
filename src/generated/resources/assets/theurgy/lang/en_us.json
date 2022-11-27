@@ -9,6 +9,7 @@
   "itemGroup.theurgy": "Theurgy",
   "message.theurgy..divination_rod.linked": "The divination rod is now attuned to %s.",
   "message.theurgy..divination_rod.no_link": "The divination rod is not attuned to any material.",
+  "message.theurgy..divination_rod.tier_too_low": "You need a higher tier divination rod to attune to %s.",
   "theurgy.subtitle.tuning_fork": "Using Divination Rod",
   "tooltip.theurgy.show_extended": "§6[§dshift §7read more§6]",
   "tooltip.theurgy.show_usage": "§6[§dctrl-shift §7show usage§6]"

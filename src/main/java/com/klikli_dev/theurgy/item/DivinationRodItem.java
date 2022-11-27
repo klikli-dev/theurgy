@@ -12,10 +12,12 @@ import com.klikli_dev.theurgy.entity.FollowProjectile;
 import com.klikli_dev.theurgy.network.Networking;
 import com.klikli_dev.theurgy.network.messages.MessageSetDivinationResult;
 import com.klikli_dev.theurgy.registry.SoundRegistry;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.item.ItemPropertyFunction;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.Component;
+import net.minecraft.core.Direction;
+import net.minecraft.network.chat.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -25,11 +27,14 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.TierSortingRegistry;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.function.Supplier;
@@ -42,9 +47,13 @@ public class DivinationRodItem extends Item {
     protected Supplier<Integer> scanDurationTicks;
     protected Supplier<Integer> scanRange;
 
-    public DivinationRodItem(Properties pProperties, Supplier<Integer> scanDurationTicks, Supplier<Integer> scanRange) {
-        super(pProperties);
+    protected Supplier<Tier> tier;
 
+    public DivinationRodItem(Properties pProperties, Supplier<Tier> tier, Supplier<Integer> scanDurationTicks, Supplier<Integer> scanRange) {
+        super(pProperties);
+        //TODO: supply tier from config
+
+        this.tier = tier;
         this.scanDurationTicks = scanDurationTicks;
         this.scanRange = scanRange;
     }
@@ -54,6 +63,12 @@ public class DivinationRodItem extends Item {
         if (entityLiving.level.isClientSide && entityLiving instanceof Player) {
             ScanManager.get().updateScan((Player) entityLiving, false);
         }
+    }
+
+    protected MutableComponent getBlockComponent(BlockState block, BlockPos pos, Level level, Player player) {
+        var stack = block.getCloneItemStack(BlockHitResult.miss(Vec3.ZERO, Direction.UP, pos), level, pos, player);
+        var displayName = Component.empty().append(stack.getHoverName());
+        return ComponentUtils.wrapInSquareBrackets(displayName).withStyle(ChatFormatting.GREEN).withStyle((style) -> style.withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_ITEM, new HoverEvent.ItemStackInfo(stack))));
     }
 
     @Override
@@ -66,26 +81,41 @@ public class DivinationRodItem extends Item {
         if (player.isShiftKeyDown()) {
             BlockState state = level.getBlockState(pos);
             if (!state.isAir()) {
-                //TODO: low tier rods are attuned by clicking target block, higher tiers require sulfur and some smart translation logic
+                //TODO: use allow list tag
+                //TODO: low tier rods are attuned by clicking target block, higher tiers require sulfur and some smart translation logic during crafting
 
-                Block block = state.getBlock();
-                if (!level.isClientSide) {
-                    stack.getOrCreateTag().putString(
-                            TheurgyConstants.Nbt.DIVINATION_LINKED_BLOCK_ID,
-                            ForgeRegistries.BLOCKS.getKey(block).toString()
-                    );
+                if (TierSortingRegistry.isCorrectTierForDrops(this.tier.get(), state)) {
 
-                    player.sendSystemMessage(
-                            Component.translatable(
-                                    TheurgyConstants.I18n.Message.DIVINATION_ROD_LINKED,
-                                    Component.translatable(block.getDescriptionId())
-                            )
-                    );
+                    if (!level.isClientSide) {
+                        stack.getOrCreateTag().putString(
+                                TheurgyConstants.Nbt.DIVINATION_LINKED_BLOCK_ID,
+                                ForgeRegistries.BLOCKS.getKey(state.getBlock()).toString()
+                        );
+
+                        player.sendSystemMessage(
+                                Component.translatable(
+                                        TheurgyConstants.I18n.Message.DIVINATION_ROD_LINKED,
+                                        this.getBlockComponent(state, pos, level, player)
+                                )
+                        );
+                    }
+
+                    level.playSound(player, player.blockPosition(), SoundRegistry.TUNING_FORK.get(),
+                            SoundSource.PLAYERS,
+                            1, 1);
+
+                    return InteractionResult.SUCCESS;
+                } else {
+                    if (!level.isClientSide) {
+                        player.sendSystemMessage(
+                                Component.translatable(
+                                        TheurgyConstants.I18n.Message.DIVINATION_ROD_TIER_TOO_LOW,
+                                        this.getBlockComponent(state, pos, level, player)
+                                )
+                        );
+                    }
                 }
 
-                level.playSound(player, player.blockPosition(), SoundRegistry.TUNING_FORK.get(),
-                        SoundSource.PLAYERS,
-                        1, 1);
             }
         }
         return InteractionResult.PASS;

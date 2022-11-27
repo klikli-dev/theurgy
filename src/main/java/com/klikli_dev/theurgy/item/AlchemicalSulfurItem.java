@@ -100,24 +100,6 @@ public class AlchemicalSulfurItem extends Item {
         return ImmutableList.of();
     }
 
-    @Override
-    public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
-
-        if(pLevel.isClientSide && pLevel instanceof ClientLevel clientLevel){
-            var from =  new Vec3(pPlayer.getX(), pPlayer.getEyeY() - (double)0.1F, pPlayer.getZ());
-            var look = pPlayer.getLookAngle().normalize();
-            var to = from.add(look.scale(10));
-
-
-            if (pLevel.isLoaded(new BlockPos(to)) && pLevel.isLoaded(new BlockPos(from))) {
-                FollowProjectile aoeProjectile = new FollowProjectile(pLevel, from, to);
-                clientLevel.putNonPlayerEntity(aoeProjectile.getId(), aoeProjectile);
-            }
-        }
-
-        return super.use(pLevel, pPlayer, pUsedHand);
-    }
-
     public static class DistHelper {
         public static void fillItemCategory(AlchemicalSulfurItem item, CreativeModeTab tab, NonNullList<ItemStack> items) {
             var level = Minecraft.getInstance().level;

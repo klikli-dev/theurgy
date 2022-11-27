@@ -53,6 +53,7 @@ public class TheurgyConstants {
             private static final String PREFIX = "message." + Theurgy.MODID + ".";
 
             public static final String DIVINATION_ROD_LINKED = PREFIX + ".divination_rod.linked";
+            public static final String DIVINATION_ROD_TIER_TOO_LOW = PREFIX + ".divination_rod.tier_too_low";
             public static final String DIVINATION_ROD_NO_LINK = PREFIX + ".divination_rod.no_link";
         }
     }

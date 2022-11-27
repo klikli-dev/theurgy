@@ -36,6 +36,7 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
 
     private void addMessages() {
         this.add(TheurgyConstants.I18n.Message.DIVINATION_ROD_LINKED, "The divination rod is now attuned to %s.");
+        this.add(TheurgyConstants.I18n.Message.DIVINATION_ROD_TIER_TOO_LOW, "You need a higher tier divination rod to attune to %s.");
         this.add(TheurgyConstants.I18n.Message.DIVINATION_ROD_NO_LINK, "The divination rod is not attuned to any material.");
     }
 

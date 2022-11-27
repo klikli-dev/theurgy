@@ -13,6 +13,7 @@ import com.klikli_dev.theurgy.entity.FollowProjectile;
 import com.klikli_dev.theurgy.registry.EntityRegistry;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
@@ -102,16 +103,17 @@ public class AlchemicalSulfurItem extends Item {
     @Override
     public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
 
-        var from =  new Vec3(pPlayer.getX(), pPlayer.getEyeY() - (double)0.1F, pPlayer.getZ());
-        var look = pPlayer.getLookAngle().normalize();
-        var to = from.add(look.scale(10));
+        if(pLevel.isClientSide && pLevel instanceof ClientLevel clientLevel){
+            var from =  new Vec3(pPlayer.getX(), pPlayer.getEyeY() - (double)0.1F, pPlayer.getZ());
+            var look = pPlayer.getLookAngle().normalize();
+            var to = from.add(look.scale(10));
 
 
-        if (pLevel.isLoaded(new BlockPos(to)) && pLevel.isLoaded(new BlockPos(from))) {
-            FollowProjectile aoeProjectile = new FollowProjectile(pLevel, from, to);
-            pLevel.addFreshEntity(aoeProjectile);
+            if (pLevel.isLoaded(new BlockPos(to)) && pLevel.isLoaded(new BlockPos(from))) {
+                FollowProjectile aoeProjectile = new FollowProjectile(pLevel, from, to);
+                clientLevel.putNonPlayerEntity(aoeProjectile.getId(), aoeProjectile);
+            }
         }
-
 
         return super.use(pLevel, pPlayer, pUsedHand);
     }

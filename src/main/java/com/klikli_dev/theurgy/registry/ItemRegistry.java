@@ -10,6 +10,7 @@ import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.config.ServerConfig;
 import com.klikli_dev.theurgy.item.AlchemicalSulfurItem;
 import com.klikli_dev.theurgy.item.DivinationRodItem;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Tiers;
 import net.minecraftforge.registries.DeferredRegister;
@@ -32,6 +33,7 @@ public class ItemRegistry {
             ITEMS.register("divination_rod_t1", () -> new DivinationRodItem(
                     defaultProperties().stacksTo(1).defaultDurability(
                     1),
+                    TagRegistry.DIVINATION_ROD_T1_ALLOWED_BLOCKS,
                     () -> ServerConfig.get().divinationRods.tier1.getMiningTier(),
                     ServerConfig.get().divinationRods.tier1.durability,
                     ServerConfig.get().divinationRods.tier1.scanDurationTicks,

@@ -35,14 +35,15 @@ import net.minecraftforge.network.NetworkEvent;
 
 public class MessageSetDivinationResult implements Message {
 
+    public BlockPos pos;
     public byte distance;
-
 
     public MessageSetDivinationResult(FriendlyByteBuf buf) {
         this.decode(buf);
     }
 
-    public MessageSetDivinationResult(float distance) {
+    public MessageSetDivinationResult(BlockPos pos, float distance) {
+        this.pos = pos;
         this.distance = (byte) Math.min(256, distance);
     }
 
@@ -51,18 +52,29 @@ public class MessageSetDivinationResult implements Message {
                                  NetworkEvent.Context context) {
         ItemStack stack = player.getItemInHand(InteractionHand.MAIN_HAND);
         if (stack.getItem() instanceof DivinationRodItem) {
-            stack.getOrCreateTag().putFloat(TheurgyConstants.Nbt.DIVINATION_DISTANCE, this.distance);
+            var tag = stack.getOrCreateTag();
+            tag.putFloat(TheurgyConstants.Nbt.DIVINATION_DISTANCE, this.distance);
+            if(this.pos != null) {
+                tag.putLong(TheurgyConstants.Nbt.DIVINATION_POS, this.pos.asLong());
+            }
             player.inventoryMenu.broadcastChanges();
         }
     }
 
     @Override
     public void encode(FriendlyByteBuf buf) {
+        buf.writeBoolean(this.pos != null);
+        if (this.pos != null) {
+            buf.writeBlockPos(this.pos);
+        }
         buf.writeByte(this.distance);
     }
 
     @Override
     public void decode(FriendlyByteBuf buf) {
+        if (buf.readBoolean()) {
+            this.pos = buf.readBlockPos();
+        }
         this.distance = buf.readByte();
     }
 

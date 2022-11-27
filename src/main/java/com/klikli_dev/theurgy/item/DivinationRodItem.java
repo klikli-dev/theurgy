@@ -23,6 +23,7 @@ import net.minecraft.network.chat.HoverEvent;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
@@ -33,9 +34,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.TierSortingRegistry;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -49,13 +52,13 @@ public class DivinationRodItem extends Item {
     protected Supplier<Integer> scanDurationTicks;
     protected Supplier<Integer> scanRange;
     protected Supplier<Integer> durability;
-
     protected Supplier<Tier> tier;
+    protected TagKey<Block> allowedBlocks;
 
-    public DivinationRodItem(Properties pProperties, Supplier<Tier> tier, Supplier<Integer> durability, Supplier<Integer> scanDurationTicks, Supplier<Integer> scanRange) {
+    public DivinationRodItem(Properties pProperties, TagKey<Block> allowedBlocks, Supplier<Tier> tier, Supplier<Integer> durability, Supplier<Integer> scanDurationTicks, Supplier<Integer> scanRange) {
         super(pProperties);
-        //TODO: supply tier from config
-
+        //TODO: tooltip, maybe also name
+        this.allowedBlocks = allowedBlocks;
         this.tier = tier;
         this.durability = durability;
         this.scanDurationTicks = scanDurationTicks;
@@ -87,8 +90,27 @@ public class DivinationRodItem extends Item {
                 //TODO: use allow list tag
                 //TODO: low tier rods are attuned by clicking target block, higher tiers require sulfur and some smart translation logic during crafting
 
-                if (TierSortingRegistry.isCorrectTierForDrops(this.tier.get(), state)) {
-
+                if(!TierSortingRegistry.isCorrectTierForDrops(this.tier.get(), state)){
+                    if (!level.isClientSide) {
+                        player.sendSystemMessage(
+                                Component.translatable(
+                                        TheurgyConstants.I18n.Message.DIVINATION_ROD_TIER_TOO_LOW,
+                                        this.getBlockComponent(state, pos, level, player)
+                                )
+                        );
+                    }
+                    return InteractionResult.FAIL;
+                } else if(!state.is(this.allowedBlocks)){
+                    if (!level.isClientSide) {
+                        player.sendSystemMessage(
+                                Component.translatable(
+                                        TheurgyConstants.I18n.Message.DIVINATION_ROD_BLOCK_NOT_ALLOWED,
+                                        this.getBlockComponent(state, pos, level, player)
+                                )
+                        );
+                    }
+                    return InteractionResult.FAIL;
+                } else {
                     if (!level.isClientSide) {
                         stack.getOrCreateTag().putString(
                                 TheurgyConstants.Nbt.DIVINATION_LINKED_BLOCK_ID,
@@ -108,17 +130,7 @@ public class DivinationRodItem extends Item {
                             1, 1);
 
                     return InteractionResult.SUCCESS;
-                } else {
-                    if (!level.isClientSide) {
-                        player.sendSystemMessage(
-                                Component.translatable(
-                                        TheurgyConstants.I18n.Message.DIVINATION_ROD_TIER_TOO_LOW,
-                                        this.getBlockComponent(state, pos, level, player)
-                                )
-                        );
-                    }
                 }
-
             }
         }
         return InteractionResult.PASS;
@@ -159,25 +171,13 @@ public class DivinationRodItem extends Item {
             float distance = this.getDistance(player.position(), result);
             stack.getTag().putFloat(TheurgyConstants.Nbt.DIVINATION_DISTANCE, distance);
 
-            Networking.sendToServer(new MessageSetDivinationResult(distance));
+            Networking.sendToServer(new MessageSetDivinationResult(result, distance));
 
             if (result != null) {
-                //Show visualization
-                final var visualizationRange = 10.0f;
-                var from = new Vec3(player.getX(), player.getEyeY() - (double) 0.1F, player.getZ());
-                var resultVec = Vec3.atCenterOf(result);
-                var dist = resultVec.subtract(from);
-                var dir = dist.normalize();
-                var to = dist.length() <= visualizationRange ? resultVec : from.add(dir.scale(visualizationRange));
 
-
-                if (level.isLoaded(new BlockPos(to)) && level.isLoaded(new BlockPos(from))) {
-                    FollowProjectile aoeProjectile = new FollowProjectile(level, from, to);
-                    ((ClientLevel) level).putNonPlayerEntity(aoeProjectile.getId(), aoeProjectile);
-                }
+                stack.getTag().putLong(TheurgyConstants.Nbt.DIVINATION_POS, result.asLong());
+                this.spawnResultParticle(result,(ClientLevel) level, player);
             }
-
-
         }
         return stack;
     }
@@ -194,6 +194,12 @@ public class DivinationRodItem extends Item {
 
         if (level.isClientSide) {
             ScanManager.get().cancelScan();
+
+            //re-use old result
+            if(stack.hasTag() && stack.getTag().contains(TheurgyConstants.Nbt.DIVINATION_POS)) {
+                BlockPos result = BlockPos.of(stack.getTag().getLong(TheurgyConstants.Nbt.DIVINATION_POS));
+                this.spawnResultParticle(result, (ClientLevel) level, pLivingEntity);
+            }
         }
         super.releaseUsing(stack, level, pLivingEntity, pTimeCharged);
     }
@@ -235,13 +241,29 @@ public class DivinationRodItem extends Item {
         return ComponentUtils.wrapInSquareBrackets(displayName).withStyle(ChatFormatting.GREEN).withStyle((style) -> style.withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_ITEM, new HoverEvent.ItemStackInfo(stack))));
     }
 
+    protected void spawnResultParticle(BlockPos result, ClientLevel level, LivingEntity entity) {
+        final var visualizationRange = 10.0f;
+        var from = new Vec3(entity.getX(), entity.getEyeY() - (double) 0.1F, entity.getZ());
+        var resultVec = Vec3.atCenterOf(result);
+        var dist = resultVec.subtract(from);
+        var dir = dist.normalize();
+        var to = dist.length() <= visualizationRange ? resultVec : from.add(dir.scale(visualizationRange));
+
+        if (level.isLoaded(new BlockPos(to)) && level.isLoaded(new BlockPos(from))) {
+            FollowProjectile aoeProjectile = new FollowProjectile(level, from, to);
+            level.putNonPlayerEntity(aoeProjectile.getId(), aoeProjectile); //client only spawn of entity
+        }
+
+    }
+
     /**
      * Inner class to avoid classloading of client only property functions on server
      */
     public static class PropertyFunctions {
         @SuppressWarnings("deprecation")
         public static ItemPropertyFunction DIVINATION_DISTANCE = (stack, world, entity, i) -> {
-            if (!stack.getOrCreateTag().contains(TheurgyConstants.Nbt.DIVINATION_DISTANCE) || stack.getTag().getFloat(TheurgyConstants.Nbt.DIVINATION_DISTANCE) < 0)
+            if (!stack.getOrCreateTag().contains(TheurgyConstants.Nbt.DIVINATION_DISTANCE) ||
+                    stack.getTag().getFloat(TheurgyConstants.Nbt.DIVINATION_DISTANCE) < 0)
                 return NOT_FOUND;
             return stack.getTag().getFloat(TheurgyConstants.Nbt.DIVINATION_DISTANCE);
         };

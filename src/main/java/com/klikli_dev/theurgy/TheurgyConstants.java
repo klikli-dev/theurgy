@@ -28,6 +28,7 @@ public class TheurgyConstants {
         public static final String SULFUR_SOURCE_NBT = PREFIX + "sulfur.source.nbt";
 
         public static final String DIVINATION_DISTANCE = PREFIX + "divination.distance";
+        public static final String DIVINATION_POS = PREFIX + "divination.pos";
         public static final String DIVINATION_LINKED_BLOCK_ID = PREFIX + "divination.linked_block_id";
 
     }
@@ -54,6 +55,7 @@ public class TheurgyConstants {
 
             public static final String DIVINATION_ROD_LINKED = PREFIX + ".divination_rod.linked";
             public static final String DIVINATION_ROD_TIER_TOO_LOW = PREFIX + ".divination_rod.tier_too_low";
+            public static final String DIVINATION_ROD_BLOCK_NOT_ALLOWED = PREFIX + ".divination_rod.block_not_allowed";
             public static final String DIVINATION_ROD_NO_LINK = PREFIX + ".divination_rod.no_link";
         }
     }

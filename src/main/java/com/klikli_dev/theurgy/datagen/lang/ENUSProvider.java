@@ -35,8 +35,9 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
     }
 
     private void addMessages() {
-        this.add(TheurgyConstants.I18n.Message.DIVINATION_ROD_LINKED, "The divination rod is now attuned to %s.");
-        this.add(TheurgyConstants.I18n.Message.DIVINATION_ROD_TIER_TOO_LOW, "You need a higher tier divination rod to attune to %s.");
+        this.add(TheurgyConstants.I18n.Message.DIVINATION_ROD_LINKED, "§aSuccess§r:The divination rod is now attuned to %s.");
+        this.add(TheurgyConstants.I18n.Message.DIVINATION_ROD_TIER_TOO_LOW, "§4Warning§r: You need a higher tier divination rod to attune to %s.");
+        this.add(TheurgyConstants.I18n.Message.DIVINATION_ROD_BLOCK_NOT_ALLOWED, "§4Warning§r: The divination rod cannot be attuned to this type of block: %s.");
         this.add(TheurgyConstants.I18n.Message.DIVINATION_ROD_NO_LINK, "The divination rod is not attuned to any material.");
     }
 
@@ -53,8 +54,8 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
                 "Alchemical sulfur crafted from %s.",
                 "Sulfur represents the \"idea\" or \"soul\" of an object and is the key to replication and transmutation.");
 
-        this.addItem(ItemRegistry.DIVINATION_ROD_T1, "Divination Rod");
-        //TODO: Tooltip with usage instructions for divination rod ->should be created per tier not for this experimental one
+        this.addItem(ItemRegistry.DIVINATION_ROD_T1, "Wooden Divination Rod");
+        //TODO: Tooltip with usage instructions for divination rod, including tier, display mode, linked item ...
     }
 
     @Override

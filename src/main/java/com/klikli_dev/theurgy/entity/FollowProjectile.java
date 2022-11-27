@@ -143,17 +143,18 @@ public class FollowProjectile extends ColoredProjectile {
         this.setPos(posX, posY, posZ);
 
         this.setDeltaMovement(motionX, motionY, motionZ);
-        var speed = 1.3f; //entity speed
+        var speed = 1.0f; //entity speed
         this.setDeltaMovement(this.getDeltaMovement().scale(speed));
 
         if (this.level.isClientSide && this.age > 1) {
+            int particleAge = 50; //increase to make tracing the particle easier
             double deltaX = this.getX() - this.xOld;
             double deltaY = this.getY() - this.yOld;
             double deltaZ = this.getZ() - this.zOld;
             float dist = (float) (Math.sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ) * 8.0f);
             for (double i = 0.0; i <= dist; i++) {
                 double coeff = (i / dist);
-                this.level.addParticle(GlowParticleData.createData(new ParticleColor(this.entityData.get(RED), this.entityData.get(GREEN), this.entityData.get(BLUE))),
+                this.level.addParticle(GlowParticleData.createData(new ParticleColor(this.entityData.get(RED), this.entityData.get(GREEN), this.entityData.get(BLUE)), 0.25f, 0.75f, particleAge),
                         (this.getX() + deltaX * coeff), (this.getY() + deltaY * coeff), (this.getZ() + deltaZ * coeff),
                         0.0125f * (this.random.nextFloat() - 0.5f), 0.0125f * (this.random.nextFloat() - 0.5f), 0.0125f * (this.random.nextFloat() - 0.5f));
 

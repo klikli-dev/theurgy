@@ -149,6 +149,8 @@ public class DivinationRodItem extends Item {
         return stack;
     }
 
+
+
     @Override
     public int getUseDuration(ItemStack stack) {
         return ScanManager.SCAN_DURATION_TICKS;

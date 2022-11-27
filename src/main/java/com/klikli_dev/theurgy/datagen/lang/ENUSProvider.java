@@ -51,6 +51,9 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
         this.addTooltip(ItemRegistry.ALCHEMICAL_SULFUR,
                 "Alchemical sulfur crafted from %s.",
                 "Sulfur represents the \"idea\" or \"soul\" of an object and is the key to replication and transmutation.");
+
+        this.addItem(ItemRegistry.DIVINATION_ROD, "Divination Rod");
+        //TODO: Tooltip with usage instructions for divination rod ->should be created per tier not for this experimental one
     }
 
     @Override

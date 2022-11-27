@@ -6,13 +6,13 @@
 
 package com.klikli_dev.theurgy;
 
-import com.klikli_dev.modonomicon.config.ClientConfig;
-import com.klikli_dev.modonomicon.config.CommonConfig;
-import com.klikli_dev.modonomicon.config.ServerConfig;
-import com.klikli_dev.modonomicon.network.Networking;
 import com.klikli_dev.theurgy.client.ClientSetupEventHandler;
+import com.klikli_dev.theurgy.config.ClientConfig;
+import com.klikli_dev.theurgy.config.CommonConfig;
+import com.klikli_dev.theurgy.config.ServerConfig;
 import com.klikli_dev.theurgy.datagen.DataGenerators;
 import com.klikli_dev.theurgy.item.TheurgyCreativeModeTab;
+import com.klikli_dev.theurgy.network.Networking;
 import com.klikli_dev.theurgy.registry.*;
 import com.klikli_dev.theurgy.tooltips.TooltipHandler;
 import com.mojang.logging.LogUtils;

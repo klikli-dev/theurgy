@@ -30,7 +30,7 @@ public class ScanManager {
     }
 
     public void beginScan(Player player, Block target, int range) {
-        this.beginScan(player, target, SCAN_DURATION_TICKS);
+        this.beginScan(player, target, range, SCAN_DURATION_TICKS);
     }
 
 

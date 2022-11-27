@@ -18,10 +18,7 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.item.ItemPropertyFunction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.ComponentUtils;
-import net.minecraft.network.chat.HoverEvent;
-import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.TagKey;
@@ -60,7 +57,6 @@ public class DivinationRodItem extends Item {
 
     public DivinationRodItem(Properties pProperties, TagKey<Block> allowedBlocks, Supplier<Tier> tier, Supplier<Integer> durability, Supplier<Integer> scanDurationTicks, Supplier<Integer> scanRange) {
         super(pProperties);
-        //TODO: tooltip, maybe also name
         this.allowedBlocks = allowedBlocks;
         this.tier = tier;
         this.durability = durability;
@@ -97,7 +93,7 @@ public class DivinationRodItem extends Item {
                         player.sendSystemMessage(
                                 Component.translatable(
                                         TheurgyConstants.I18n.Message.DIVINATION_ROD_TIER_TOO_LOW,
-                                        this.getBlockComponent(state, pos, level, player)
+                                        this.getBlockDisplayComponent(state.getBlock())
                                 )
                         );
                     }
@@ -107,7 +103,7 @@ public class DivinationRodItem extends Item {
                         player.sendSystemMessage(
                                 Component.translatable(
                                         TheurgyConstants.I18n.Message.DIVINATION_ROD_BLOCK_NOT_ALLOWED,
-                                        this.getBlockComponent(state, pos, level, player)
+                                        this.getBlockDisplayComponent(state.getBlock())
                                 )
                         );
                     }
@@ -122,7 +118,7 @@ public class DivinationRodItem extends Item {
                         player.sendSystemMessage(
                                 Component.translatable(
                                         TheurgyConstants.I18n.Message.DIVINATION_ROD_LINKED,
-                                        this.getBlockComponent(state, pos, level, player)
+                                        this.getBlockDisplayComponent(state.getBlock())
                                 )
                         );
                     }
@@ -151,7 +147,11 @@ public class DivinationRodItem extends Item {
 
                 if (level.isClientSide) {
                     var id = new ResourceLocation(stack.getTag().getString(TheurgyConstants.Nbt.DIVINATION_LINKED_BLOCK_ID));
-                    ScanManager.get().beginScan(player, ForgeRegistries.BLOCKS.getValue(id), this.scanRange.get(), this.scanDurationTicks.get());
+                    var block = ForgeRegistries.BLOCKS.getValue(id);
+                    if(block != null){
+                        ScanManager.get().beginScan(player, block, this.scanRange.get(), this.scanDurationTicks.get());
+                    }
+
                 }
             } else if (!level.isClientSide) {
                 player.sendSystemMessage(Component.translatable(TheurgyConstants.I18n.Message.DIVINATION_ROD_NO_LINK));
@@ -219,25 +219,50 @@ public class DivinationRodItem extends Item {
     }
 
     @Override
+    public Component getName(ItemStack pStack) {
+      if (pStack.hasTag()) {
+            var tag = pStack.getTag();
+            if (tag.contains(TheurgyConstants.Nbt.DIVINATION_LINKED_BLOCK_ID)) {
+                var id = new ResourceLocation(pStack.getTag().getString(TheurgyConstants.Nbt.DIVINATION_LINKED_BLOCK_ID));
+                var block = ForgeRegistries.BLOCKS.getValue(id);
+                if(block != null){
+                    //we''re not using getBlockDisplayComponent because we want custom formatting
+                    var blockComponent = ComponentUtils.wrapInSquareBrackets(
+                                block.getName().withStyle(Style.EMPTY.withColor(ChatFormatting.GREEN).withItalic(true))
+                            )
+                            .withStyle((style) -> style.withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_ITEM, new HoverEvent.ItemStackInfo(new ItemStack(block)))));
+                    return Component.translatable(this.getDescriptionId() + ".linked", blockComponent);
+                }
+            }
+        }
+
+        return super.getName(pStack);
+    }
+
+    @Override
     public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced) {
         if (pStack.hasTag()) {
             var tag = pStack.getTag();
             if (tag.contains(TheurgyConstants.Nbt.DIVINATION_LINKED_BLOCK_ID)) {
                 var id = new ResourceLocation(pStack.getTag().getString(TheurgyConstants.Nbt.DIVINATION_LINKED_BLOCK_ID));
-                var blockComponent = this.getBlockComponent(ForgeRegistries.BLOCKS.getValue(id).defaultBlockState(), BlockPos.ZERO, pLevel, Minecraft.getInstance().player);
-                pTooltipComponents.add(
-                        Component.translatable(
-                                TheurgyConstants.I18n.Tooltip.DIVINATION_ROD_LINKED_TO,
-                                blockComponent
-                        ).withStyle(ChatFormatting.GRAY));
+                var block = ForgeRegistries.BLOCKS.getValue(id);
+                if(block != null) {
+                    var blockComponent = this.getBlockDisplayComponent(block);
+                    pTooltipComponents.add(
+                            Component.translatable(
+                                    TheurgyConstants.I18n.Tooltip.DIVINATION_ROD_LINKED_TO,
+                                    blockComponent
+                            ).withStyle(ChatFormatting.GRAY));
 
-                if (tag.contains(TheurgyConstants.Nbt.DIVINATION_POS)) {
-                    var pos = BlockPos.of(tag.getLong(TheurgyConstants.Nbt.DIVINATION_POS));
-                    pTooltipComponents.add(Component.translatable(TheurgyConstants.I18n.Tooltip.DIVINATION_ROD_LAST_RESULT,
-                            blockComponent,
-                            ComponentUtils.wrapInSquareBrackets(Component.literal(pos.toShortString())).withStyle(ChatFormatting.GREEN)
-                    ).withStyle(ChatFormatting.GRAY));
+                    if (tag.contains(TheurgyConstants.Nbt.DIVINATION_POS)) {
+                        var pos = BlockPos.of(tag.getLong(TheurgyConstants.Nbt.DIVINATION_POS));
+                        pTooltipComponents.add(Component.translatable(TheurgyConstants.I18n.Tooltip.DIVINATION_ROD_LAST_RESULT,
+                                blockComponent,
+                                ComponentUtils.wrapInSquareBrackets(Component.literal(pos.toShortString())).withStyle(ChatFormatting.GREEN)
+                        ).withStyle(ChatFormatting.GRAY));
+                    }
                 }
+
             } else {
                 pTooltipComponents.add(Component.translatable(TheurgyConstants.I18n.Tooltip.DIVINATION_ROD_NO_LINK));
             }
@@ -278,10 +303,11 @@ public class DivinationRodItem extends Item {
         return 6.0f;
     }
 
-    protected MutableComponent getBlockComponent(BlockState block, BlockPos pos, Level level, Player player) {
-        var stack = block.getCloneItemStack(BlockHitResult.miss(Vec3.ZERO, Direction.UP, pos), level, pos, player);
-        var displayName = Component.empty().append(stack.getHoverName());
-        return ComponentUtils.wrapInSquareBrackets(displayName).withStyle(ChatFormatting.GREEN).withStyle((style) -> style.withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_ITEM, new HoverEvent.ItemStackInfo(stack))));
+    protected MutableComponent getBlockDisplayComponent(Block block) {
+        var displayName = block.getName();
+        return ComponentUtils.wrapInSquareBrackets(displayName)
+                .withStyle(ChatFormatting.GREEN)
+                .withStyle((style) -> style.withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_ITEM, new HoverEvent.ItemStackInfo(new ItemStack(block)))));
     }
 
     protected void spawnResultParticle(BlockPos result, ClientLevel level, LivingEntity entity) {

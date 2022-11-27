@@ -55,6 +55,7 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
                 "Sulfur represents the \"idea\" or \"soul\" of an object and is the key to replication and transmutation.");
 
         this.addItem(ItemRegistry.DIVINATION_ROD_T1, "Wooden Divination Rod");
+        this.add(ItemRegistry.DIVINATION_ROD_T1.get().getDescriptionId() + ".linked", "Wooden Divination Rod %s");
         //tooltip is handled by rod itself
         this.addExtendedTooltip(ItemRegistry.DIVINATION_ROD_T1,
                 "Divination rods can be attuned to a block and are then used to find other blocks of the same type.",

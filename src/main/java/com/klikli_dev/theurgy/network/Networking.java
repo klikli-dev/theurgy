@@ -6,10 +6,8 @@
 
 package com.klikli_dev.theurgy.network;
 
-import com.klikli_dev.modonomicon.Modonomicon;
-import com.klikli_dev.modonomicon.network.MessageHandler;
-import com.klikli_dev.modonomicon.network.messages.*;
 import com.klikli_dev.theurgy.Theurgy;
+import com.klikli_dev.theurgy.network.messages.MessageSetDivinationResult;
 import net.minecraft.network.ConnectionProtocol;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.PacketFlow;
@@ -25,6 +23,7 @@ import net.minecraftforge.network.filters.VanillaPacketSplitter;
 import net.minecraftforge.network.simple.SimpleChannel;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class Networking {
     private static final String PROTOCOL_VERSION = "1";
@@ -42,10 +41,10 @@ public class Networking {
 
     public static void registerMessages() {
         INSTANCE.registerMessage(nextID(),
-                SyncBookDataMessage.class,
-                SyncBookDataMessage::encode,
-                SyncBookDataMessage::new,
-                MessageHandler::handle);
+                MessageSetDivinationResult.class,
+                MessageSetDivinationResult::encode,
+                MessageSetDivinationResult::new,
+                MessageHandler::handle, Optional.of(NetworkDirection.PLAY_TO_SERVER));
     }
 
     public static <T> void sendToSplit(ServerPlayer player, T message) {
@@ -59,7 +58,7 @@ public class Networking {
         if(player.connection == null){
             //workaround for https://github.com/klikli-dev/modonomicon/issues/46 / https://github.com/klikli-dev/modonomicon/issues/62
             //we should never get here unless some other mod interferes with networking
-            Modonomicon.LOGGER.warn("Tried to send message of type {} to player without connection. Id: {}, Name: {}.", player.getStringUUID(), player.getName().getString(), message.getClass().getName());
+            Theurgy.LOGGER.warn("Tried to send message of type {} to player without connection. Id: {}, Name: {}.", player.getStringUUID(), player.getName().getString(), message.getClass().getName());
             return;
         }
         INSTANCE.send(PacketDistributor.PLAYER.with(() -> player), message);

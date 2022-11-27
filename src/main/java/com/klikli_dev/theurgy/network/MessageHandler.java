@@ -6,7 +6,6 @@
 
 package com.klikli_dev.theurgy.network;
 
-import com.klikli_dev.modonomicon.network.Message;
 import net.minecraft.client.Minecraft;
 import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.fml.LogicalSide;

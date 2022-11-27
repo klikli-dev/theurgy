@@ -17,7 +17,10 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.item.ItemPropertyFunction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.network.chat.*;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.ComponentUtils;
+import net.minecraft.network.chat.HoverEvent;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -30,7 +33,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
@@ -46,16 +48,23 @@ public class DivinationRodItem extends Item {
 
     protected Supplier<Integer> scanDurationTicks;
     protected Supplier<Integer> scanRange;
+    protected Supplier<Integer> durability;
 
     protected Supplier<Tier> tier;
 
-    public DivinationRodItem(Properties pProperties, Supplier<Tier> tier, Supplier<Integer> scanDurationTicks, Supplier<Integer> scanRange) {
+    public DivinationRodItem(Properties pProperties, Supplier<Tier> tier, Supplier<Integer> durability, Supplier<Integer> scanDurationTicks, Supplier<Integer> scanRange) {
         super(pProperties);
         //TODO: supply tier from config
 
         this.tier = tier;
+        this.durability = durability;
         this.scanDurationTicks = scanDurationTicks;
         this.scanRange = scanRange;
+    }
+
+    @Override
+    public int getMaxDamage(ItemStack stack) {
+        return this.durability.get();
     }
 
     @Override
@@ -63,12 +72,6 @@ public class DivinationRodItem extends Item {
         if (entityLiving.level.isClientSide && entityLiving instanceof Player) {
             ScanManager.get().updateScan((Player) entityLiving, false);
         }
-    }
-
-    protected MutableComponent getBlockComponent(BlockState block, BlockPos pos, Level level, Player player) {
-        var stack = block.getCloneItemStack(BlockHitResult.miss(Vec3.ZERO, Direction.UP, pos), level, pos, player);
-        var displayName = Component.empty().append(stack.getHoverName());
-        return ComponentUtils.wrapInSquareBrackets(displayName).withStyle(ChatFormatting.GREEN).withStyle((style) -> style.withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_ITEM, new HoverEvent.ItemStackInfo(stack))));
     }
 
     @Override
@@ -224,6 +227,12 @@ public class DivinationRodItem extends Item {
         if (distance < 65)
             return 5.0f;
         return 6.0f;
+    }
+
+    protected MutableComponent getBlockComponent(BlockState block, BlockPos pos, Level level, Player player) {
+        var stack = block.getCloneItemStack(BlockHitResult.miss(Vec3.ZERO, Direction.UP, pos), level, pos, player);
+        var displayName = Component.empty().append(stack.getHoverName());
+        return ComponentUtils.wrapInSquareBrackets(displayName).withStyle(ChatFormatting.GREEN).withStyle((style) -> style.withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_ITEM, new HoverEvent.ItemStackInfo(stack))));
     }
 
     /**

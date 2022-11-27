@@ -48,15 +48,15 @@ public class ItemModelsGenerator extends ItemModelProvider {
     }
 
     private void registerDivinationRod(Item divinationRodItem){
-        var variant0 = this.registerItemGenerated(this.name(divinationRodItem) + "_0", "divination_rod/" + this.name(divinationRodItem) + "_0");
-        var variant1 =this.registerItemGenerated(this.name(divinationRodItem) + "_1", "divination_rod/" + this.name(divinationRodItem) + "_1");
-        var variant2 =this.registerItemGenerated(this.name(divinationRodItem) + "_2", "divination_rod/" + this.name(divinationRodItem) + "_2");
-        var variant3 =this.registerItemGenerated(this.name(divinationRodItem) + "_3", "divination_rod/" + this.name(divinationRodItem) + "_3");
-        var variant4 =this.registerItemGenerated(this.name(divinationRodItem) + "_4", "divination_rod/" + this.name(divinationRodItem) + "_4");
-        var variant5 =this.registerItemGenerated(this.name(divinationRodItem) + "_5", "divination_rod/" + this.name(divinationRodItem) + "_5");
-        var variant6 =this.registerItemGenerated(this.name(divinationRodItem) + "_6", "divination_rod/" + this.name(divinationRodItem) + "_6");
-        var variant7 = this.registerItemGenerated(this.name(divinationRodItem) + "_7", "divination_rod/" + this.name(divinationRodItem) + "_7");
-        var searchingVariant = this.registerItemGenerated(this.name(divinationRodItem) + "_searching", "divination_rod/" + this.name(divinationRodItem) + "_searching");
+        var variant0 = this.registerItemGenerated(this.name(divinationRodItem) + "_0", this.name(divinationRodItem)+ "/divination_rod_0");
+        var variant1 =this.registerItemGenerated(this.name(divinationRodItem) + "_1", this.name(divinationRodItem)+ "/divination_rod_1");
+        var variant2 =this.registerItemGenerated(this.name(divinationRodItem) + "_2", this.name(divinationRodItem)+ "/divination_rod_2");
+        var variant3 =this.registerItemGenerated(this.name(divinationRodItem) + "_3", this.name(divinationRodItem)+ "/divination_rod_3");
+        var variant4 =this.registerItemGenerated(this.name(divinationRodItem) + "_4", this.name(divinationRodItem)+ "/divination_rod_4");
+        var variant5 =this.registerItemGenerated(this.name(divinationRodItem) + "_5", this.name(divinationRodItem)+ "/divination_rod_5");
+        var variant6 =this.registerItemGenerated(this.name(divinationRodItem) + "_6", this.name(divinationRodItem)+ "/divination_rod_6");
+        var variant7 = this.registerItemGenerated(this.name(divinationRodItem) + "_7", this.name(divinationRodItem)+ "/divination_rod_7");
+        var searchingVariant = this.registerItemGenerated(this.name(divinationRodItem) + "_searching", this.name(divinationRodItem)+ "/divination_rod_searching");
 
         var name = this.name(divinationRodItem);
         this.getBuilder(name)
@@ -114,6 +114,6 @@ public class ItemModelsGenerator extends ItemModelProvider {
         this.registerItemGenerated(this.name(ItemRegistry.EMPTY_JAR.get()));
         this.registerItemGenerated(this.name(ItemRegistry.JAR_LABEL.get()));
         this.registerItemBuiltinEntity(this.name(ItemRegistry.ALCHEMICAL_SULFUR.get()));
-        this.registerDivinationRod(ItemRegistry.DIVINATION_ROD.get());
+        this.registerDivinationRod(ItemRegistry.DIVINATION_ROD_T1.get());
     }
 }

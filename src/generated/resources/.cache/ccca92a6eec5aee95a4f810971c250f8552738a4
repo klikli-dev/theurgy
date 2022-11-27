@@ -1,14 +1,14 @@
-// 1.19.2	2022-11-27T13:50:19.9380345	Item Models: theurgy
+// 1.19.2	2022-11-27T16:12:53.5676482	Item Models: theurgy
 e0f7b66a84e6588f01abbbce75b1803ffe5d46e2 assets/theurgy/models/item/alchemical_sulfur.json
-f62824f12ec7d2cc1654265d6d7f20f5dc5df209 assets/theurgy/models/item/divination_rod.json
-f80a69cdd44a03cf44388c01daf7902f640110f4 assets/theurgy/models/item/divination_rod_0.json
-b011f766c831e266ccdddce159a049243527380f assets/theurgy/models/item/divination_rod_1.json
-1f6e7c991521b8b792262dfb8f46094201ed2032 assets/theurgy/models/item/divination_rod_2.json
-9333bd900508e3507465486af23f2ea2039e6238 assets/theurgy/models/item/divination_rod_3.json
-d849cfaaebde24825b20fd8fb84051485cd2a2a7 assets/theurgy/models/item/divination_rod_4.json
-bc8d9557a03b8e167dea936611ffddd22e7fd036 assets/theurgy/models/item/divination_rod_5.json
-03271bbf70c299c36a83049abee3f6ca5dc0bf61 assets/theurgy/models/item/divination_rod_6.json
-5f6650a3e040c2889ca132c4dac74502a04005f6 assets/theurgy/models/item/divination_rod_7.json
-f1afa43638ead8a3000d0489191d92bd028685ab assets/theurgy/models/item/divination_rod_searching.json
+14a2ccdc5007ad52d74e22c1018a1a2d767df32f assets/theurgy/models/item/divination_rod_t1.json
+56cbd2e62794dbad75babc62f07448c34813b99c assets/theurgy/models/item/divination_rod_t1_0.json
+561e1235ed07f6cc1bbb5d36e2d85d8d467134cd assets/theurgy/models/item/divination_rod_t1_1.json
+dbdc73496f0e2c1c562173def9afaa3fe6594cab assets/theurgy/models/item/divination_rod_t1_2.json
+d7c53bd9d3ee54dc7063d1ac9c8ccd74b51b8bd0 assets/theurgy/models/item/divination_rod_t1_3.json
+a481fc6d70d3b7d94b0ecbb522f56c67108db698 assets/theurgy/models/item/divination_rod_t1_4.json
+e8c9cb3aa96ac7846ba5e43bceaf664a25824cc6 assets/theurgy/models/item/divination_rod_t1_5.json
+239601888e1fbc066b825a7d71cb663b8c007796 assets/theurgy/models/item/divination_rod_t1_6.json
+7bb03e19874ab49883313120fe439408807569d1 assets/theurgy/models/item/divination_rod_t1_7.json
+81476c0120bc1bb7997b5af3f26f338552674c92 assets/theurgy/models/item/divination_rod_t1_searching.json
 e0d7667ce794b40e193ecf66945c505733faf3f8 assets/theurgy/models/item/empty_jar.json
 94bfa4f4e6caf28d6f20cee65ac10387f5b115e2 assets/theurgy/models/item/jar_label.json

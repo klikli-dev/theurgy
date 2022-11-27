@@ -41,7 +41,7 @@ public class ClientSetupEventHandler {
     public static void registerItemModelProperties(FMLClientSetupEvent event) {
         //Not safe to call during parallel load, so register to run threadsafe
         event.enqueueWork(() -> {
-            ItemProperties.register(ItemRegistry.DIVINATION_ROD.get(),
+            ItemProperties.register(ItemRegistry.DIVINATION_ROD_T1.get(),
                     TheurgyConstants.ItemProperty.DIVINATION_DISTANCE, DivinationRodItem.PropertyFunctions.DIVINATION_DISTANCE);
 
             Theurgy.LOGGER.debug("Registered Item Properties");

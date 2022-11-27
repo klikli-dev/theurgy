@@ -25,6 +25,7 @@ package com.klikli_dev.theurgy.network.messages;
 import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.item.DivinationRodItem;
 import com.klikli_dev.theurgy.network.Message;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
@@ -34,15 +35,15 @@ import net.minecraftforge.network.NetworkEvent;
 
 public class MessageSetDivinationResult implements Message {
 
-    public byte result;
+    public byte distance;
 
 
     public MessageSetDivinationResult(FriendlyByteBuf buf) {
         this.decode(buf);
     }
 
-    public MessageSetDivinationResult(float result) {
-        this.result = (byte) result;
+    public MessageSetDivinationResult(float distance) {
+        this.distance = (byte) Math.min(256, distance);
     }
 
     @Override
@@ -50,19 +51,19 @@ public class MessageSetDivinationResult implements Message {
                                  NetworkEvent.Context context) {
         ItemStack stack = player.getItemInHand(InteractionHand.MAIN_HAND);
         if (stack.getItem() instanceof DivinationRodItem) {
-            stack.getOrCreateTag().putFloat(TheurgyConstants.Nbt.DIVINATION_DISTANCE, this.result);
+            stack.getOrCreateTag().putFloat(TheurgyConstants.Nbt.DIVINATION_DISTANCE, this.distance);
             player.inventoryMenu.broadcastChanges();
         }
     }
 
     @Override
     public void encode(FriendlyByteBuf buf) {
-        buf.writeByte(this.result);
+        buf.writeByte(this.distance);
     }
 
     @Override
     public void decode(FriendlyByteBuf buf) {
-        this.result = buf.readByte();
+        this.distance = buf.readByte();
     }
 
 }

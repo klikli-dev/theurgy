@@ -22,7 +22,7 @@ public class ClientSetupEventHandler {
     public static void onClientSetup(FMLClientSetupEvent event) {
 
         registerTooltipDataProviders(event);
-        registerItemModelProperties(event);
+        registerItemProperties(event);
 
         Theurgy.LOGGER.info("Client setup complete.");
     }
@@ -38,7 +38,7 @@ public class ClientSetupEventHandler {
 
     }
 
-    public static void registerItemModelProperties(FMLClientSetupEvent event) {
+    public static void registerItemProperties(FMLClientSetupEvent event) {
         //Not safe to call during parallel load, so register to run threadsafe
         event.enqueueWork(() -> {
             ItemProperties.register(ItemRegistry.DIVINATION_ROD_T1.get(),

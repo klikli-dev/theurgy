@@ -9,28 +9,18 @@ package com.klikli_dev.theurgy.item;
 import com.google.common.collect.ImmutableList;
 import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.client.render.SulfurBEWLR;
-import com.klikli_dev.theurgy.entity.FollowProjectile;
-import com.klikli_dev.theurgy.registry.EntityRegistry;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.ComponentUtils;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.minecraftforge.fml.loading.FMLEnvironment;
@@ -57,6 +47,18 @@ public class AlchemicalSulfurItem extends Item {
         return ItemStack.EMPTY;
     }
 
+    public static List<MutableComponent> getTooltipData(ItemStack sulfurStack) {
+        var source = getSourceStack(sulfurStack);
+
+        if (!source.isEmpty() && source.getHoverName() instanceof MutableComponent hoverName)
+            return ImmutableList.of(hoverName.withStyle(Style.EMPTY
+                    .withColor(ChatFormatting.GREEN)
+                    .withItalic(true)
+            ));
+
+        return ImmutableList.of();
+    }
+
     @Override
     public void initializeClient(Consumer<IClientItemExtensions> consumer) {
         consumer.accept(new IClientItemExtensions() {
@@ -74,9 +76,9 @@ public class AlchemicalSulfurItem extends Item {
         if (!source.isEmpty() && source.getHoverName() instanceof MutableComponent hoverName)
             return Component.translatable(this.getDescriptionId(), ComponentUtils.wrapInSquareBrackets(
                     hoverName.withStyle(Style.EMPTY
-                    .withColor(ChatFormatting.GREEN)
-                    .withItalic(true)
-            )));
+                            .withColor(ChatFormatting.GREEN)
+                            .withItalic(true)
+                    )));
 
         return super.getName(pStack);
     }
@@ -86,18 +88,6 @@ public class AlchemicalSulfurItem extends Item {
         if (FMLEnvironment.dist == Dist.CLIENT) {
             DistHelper.fillItemCategory(this, tab, items);
         }
-    }
-
-    public static List<MutableComponent> getTooltipData(ItemStack sulfurStack) {
-        var source = getSourceStack(sulfurStack);
-
-        if (!source.isEmpty() && source.getHoverName() instanceof MutableComponent hoverName)
-            return ImmutableList.of(hoverName.withStyle(Style.EMPTY
-                            .withColor(ChatFormatting.GREEN)
-                            .withItalic(true)
-                    ));
-
-        return ImmutableList.of();
     }
 
     public static class DistHelper {

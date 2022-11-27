@@ -174,10 +174,13 @@ public class DivinationRodItem extends Item {
             Networking.sendToServer(new MessageSetDivinationResult(result, distance));
 
             if (result != null) {
-
                 stack.getTag().putLong(TheurgyConstants.Nbt.DIVINATION_POS, result.asLong());
                 this.spawnResultParticle(result,(ClientLevel) level, player);
             }
+        } else {
+            stack.hurtAndBreak(1, player, (entity) -> {
+                entity.broadcastBreakEvent(player.getUsedItemHand());
+            });
         }
         return stack;
     }

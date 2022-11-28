@@ -55,7 +55,7 @@ public class SulfurBEWLR extends BlockEntityWithoutLevelRenderer {
         //note: if we reset to 3d item light here it ignores it above and renders dark .. idk why
 
         this.renderLabel(sulfurStack, pTransformType, pPoseStack, pBuffer, pPackedLight, pPackedOverlay);
-        this.renderContainedItem(sulfurStack, pTransformType, pPoseStack, pBuffer, pPackedLight, pPackedOverlay);
+        //this.renderContainedItem(sulfurStack, pTransformType, pPoseStack, pBuffer, pPackedLight, pPackedOverlay);
     }
 
     public void renderLabel(ItemStack sulfurStack, ItemTransforms.TransformType pTransformType, PoseStack pPoseStack, MultiBufferSource pBuffer, int pPackedLight, int pPackedOverlay) {
@@ -72,9 +72,8 @@ public class SulfurBEWLR extends BlockEntityWithoutLevelRenderer {
         float pixel = 1f / 16f;
         pPoseStack.translate(0, 0, pixel * 0.5); //move it before item
 
-        pPoseStack.scale(0.7f, 0.5f, 1); //make it rectangular instead of square
-        pPoseStack.translate(0, -pixel * 3, 0); //position it on the item -> center
-        pPoseStack.scale(0.74F, 0.74F, 0.01F); //flatten item
+        //pPoseStack.translate(0, -pixel * 3, 0); //position it on the item -> center
+        pPoseStack.scale(1F, 1F, 0.01F); //flatten item
 
         Lighting.setupForFlatItems(); //always render label flat
         itemRenderer.render(labelStack, ItemTransforms.TransformType.GUI, isLeftHand(pTransformType), pPoseStack, pBuffer, pPackedLight, pPackedOverlay, labelModel);
@@ -99,9 +98,9 @@ public class SulfurBEWLR extends BlockEntityWithoutLevelRenderer {
             float pixel = 1f / 16f;
             pPoseStack.translate(0, 0, pixel * 0.6); //move it before label
 
-            var scale = 0.45f;
+            var scale = 0.36f;
             pPoseStack.scale(scale, scale, scale);
-            pPoseStack.translate(0, -pixel * 3.5, 0); //position it on the item -> center
+            pPoseStack.translate(0, -pixel * 3.2, 0); //position it on the item -> center
             pPoseStack.scale(0.74F, 0.74F, 0.01F); //flatten item
 
             Lighting.setupForFlatItems(); //always render "labeled" item flat

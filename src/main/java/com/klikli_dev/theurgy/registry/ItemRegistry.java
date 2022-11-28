@@ -15,15 +15,14 @@ import net.minecraftforge.registries.RegistryObject;
 
 public class ItemRegistry {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Theurgy.MODID);
-
     public static final RegistryObject<Item> EMPTY_JAR =
             ITEMS.register("empty_jar", () -> new Item(defaultProperties()));
-
     public static final RegistryObject<Item> JAR_LABEL =
             ITEMS.register("jar_label", () -> new Item(new Item.Properties()));
-
     public static final RegistryObject<Item> ALCHEMICAL_SULFUR =
             ITEMS.register("alchemical_sulfur", () -> new AlchemicalSulfurItem(defaultProperties()));
+    public static final RegistryObject<Item> SULFER_INGOT =
+            ITEMS.register("sulfer_ingot", () -> new Item(defaultProperties()));
 
     public static Item.Properties defaultProperties() {
         return new Item.Properties().tab(Theurgy.CREATIVE_MODE_TAB);

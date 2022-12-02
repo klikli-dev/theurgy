@@ -50,5 +50,6 @@ public class ItemModelsGenerator extends ItemModelProvider {
         this.registerItemGenerated(this.name(ItemRegistry.EMPTY_JAR.get()));
         this.registerItemGenerated(this.name(ItemRegistry.JAR_LABEL.get()));
         this.registerItemBuiltinEntity(this.name(ItemRegistry.ALCHEMICAL_SULFUR.get()));
+        //this.registerItemGenerated(this.name(ItemRegistry.SULFUR_INGOT.get()));
     }
 }

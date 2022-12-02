@@ -21,8 +21,9 @@ public class ItemRegistry {
             ITEMS.register("jar_label", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> ALCHEMICAL_SULFUR =
             ITEMS.register("alchemical_sulfur", () -> new AlchemicalSulfurItem(defaultProperties()));
-    public static final RegistryObject<Item> SULFER_INGOT =
-            ITEMS.register("sulfer_ingot", () -> new Item(defaultProperties()));
+//
+//    public static final RegistryObject<Item> SULFUR_INGOT =
+//            ITEMS.register("sulfur_ingot", () -> new Item(defaultProperties()));
 
     public static Item.Properties defaultProperties() {
         return new Item.Properties().tab(Theurgy.CREATIVE_MODE_TAB);

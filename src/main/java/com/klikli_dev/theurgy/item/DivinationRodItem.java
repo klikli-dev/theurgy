@@ -14,9 +14,11 @@ import com.klikli_dev.theurgy.network.messages.MessageSetDivinationResult;
 import com.klikli_dev.theurgy.registry.SoundRegistry;
 import com.klikli_dev.theurgy.registry.TagRegistry;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.item.ItemPropertyFunction;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.*;
 import net.minecraft.resources.ResourceLocation;
@@ -27,17 +29,16 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Tier;
-import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.TierSortingRegistry;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.Nullable;
 
@@ -364,6 +365,16 @@ public class DivinationRodItem extends Item {
     }
 
     /**
+     * Inner class to avoid classloading issues on the server
+     */
+    @Override
+    public void fillItemCategory(CreativeModeTab tab, NonNullList<ItemStack> items) {
+        if (FMLEnvironment.dist == Dist.CLIENT) {
+            DistHelper.fillItemCategory(this, tab, items);
+        }
+    }
+
+    /**
      * Inner class to avoid classloading of client only property functions on server
      */
     public static class PropertyFunctions {
@@ -374,5 +385,19 @@ public class DivinationRodItem extends Item {
                 return NOT_FOUND;
             return stack.getTag().getFloat(TheurgyConstants.Nbt.Divination.DISTANCE);
         };
+    }
+
+    public static class DistHelper {
+        public static void fillItemCategory(DivinationRodItem item, CreativeModeTab tab, NonNullList<ItemStack> items) {
+            var level = Minecraft.getInstance().level;
+            if (level != null) {
+                var recipeManager = level.getRecipeManager();
+                recipeManager.getRecipes().forEach((recipe) -> {
+                    if (recipe.getResultItem().getItem() == item) {
+                        items.add(recipe.getResultItem().copy());
+                    }
+                });
+            }
+        }
     }
 }

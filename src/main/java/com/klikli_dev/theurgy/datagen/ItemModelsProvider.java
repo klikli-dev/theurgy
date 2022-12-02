@@ -17,8 +17,8 @@ import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
-public class ItemModelsGenerator extends ItemModelProvider {
-    public ItemModelsGenerator(DataGenerator generator, ExistingFileHelper existingFileHelper) {
+public class ItemModelsProvider extends ItemModelProvider {
+    public ItemModelsProvider(DataGenerator generator, ExistingFileHelper existingFileHelper) {
         super(generator, Theurgy.MODID, existingFileHelper);
     }
 

@@ -90,6 +90,9 @@ public class AlchemicalSulfurItem extends Item {
         }
     }
 
+    /**
+     * Inner class to avoid classloading issues on the server
+     */
     public static class DistHelper {
         public static void fillItemCategory(AlchemicalSulfurItem item, CreativeModeTab tab, NonNullList<ItemStack> items) {
             var level = Minecraft.getInstance().level;

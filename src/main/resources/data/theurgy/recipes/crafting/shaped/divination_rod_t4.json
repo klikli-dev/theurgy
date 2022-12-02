@@ -1,21 +1,29 @@
 {
-  "type": "minecraft:crafting_shaped",
+  "type": "theurgy:divination_rod",
   "key": {
     "G": {
       "tag": "forge:gems/emerald"
     },
     "R": {
       "tag": "forge:rods/wooden"
+    },
+    "S": {
+      "type": "forge:partial_nbt",
+      "item": "theurgy:alchemical_sulfur",
+      "nbt": {
+        "theurgy:sulfur.source.id": "minecraft:diamond"
+      }
     }
   },
   "pattern": [
     "RGR",
-    "R R",
+    "RSR",
     " R "
   ],
   "result": {
-    "item": "theurgy:divination_rod_t1",
+    "item": "theurgy:divination_rod_t4",
     "nbt": {
+      "theurgy:divination.linked_block_id": "minecraft:diamond_ore",
       "theurgy:divination.setting.tier": "minecraft:stone",
       "theurgy:divination.setting.allowed_blocks_tag": "theurgy:divination_rod_t4_allowed_blocks",
       "theurgy:divination.setting.range": 96,

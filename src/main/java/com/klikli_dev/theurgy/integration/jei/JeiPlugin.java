@@ -22,5 +22,6 @@ public class JeiPlugin implements IModPlugin {
     @Override
     public void registerItemSubtypes(ISubtypeRegistration registration) {
         registration.registerSubtypeInterpreter(ItemRegistry.DIVINATION_ROD_T1.get(), DivinationRodSubtypeInterpreter.get());
+        registration.registerSubtypeInterpreter(ItemRegistry.DIVINATION_ROD_T4.get(), DivinationRodSubtypeInterpreter.get());
     }
 }

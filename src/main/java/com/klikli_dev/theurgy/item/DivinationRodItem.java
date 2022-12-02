@@ -156,7 +156,8 @@ public class DivinationRodItem extends Item {
 
         if (!player.isShiftKeyDown()) {
             if (stack.getOrCreateTag().contains(TheurgyConstants.Nbt.Divination.LINKED_BLOCK_ID)) {
-                stack.getTag().putFloat(TheurgyConstants.Nbt.Divination.DISTANCE, SEARCHING);
+                var tag = stack.getTag();
+                tag.putFloat(TheurgyConstants.Nbt.Divination.DISTANCE, SEARCHING);
                 player.startUsingItem(hand);
                 level.playSound(player, player.blockPosition(), SoundRegistry.TUNING_FORK.get(), SoundSource.PLAYERS,
                         1, 1);
@@ -166,8 +167,8 @@ public class DivinationRodItem extends Item {
                     var block = ForgeRegistries.BLOCKS.getValue(id);
                     if (block != null) {
                         ScanManager.get().beginScan(player, block,
-                                stack.getOrCreateTag().getInt(TheurgyConstants.Nbt.Divination.SETTING_RANGE),
-                                stack.getOrCreateTag().getInt(TheurgyConstants.Nbt.Divination.SETTING_DURATION)
+                                tag.getInt(TheurgyConstants.Nbt.Divination.SETTING_RANGE),
+                                tag.getInt(TheurgyConstants.Nbt.Divination.SETTING_DURATION)
                         );
                     }
 

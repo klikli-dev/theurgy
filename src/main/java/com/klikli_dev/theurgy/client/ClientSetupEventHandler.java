@@ -43,6 +43,8 @@ public class ClientSetupEventHandler {
         event.enqueueWork(() -> {
             ItemProperties.register(ItemRegistry.DIVINATION_ROD_T1.get(),
                     TheurgyConstants.ItemProperty.DIVINATION_DISTANCE, DivinationRodItem.PropertyFunctions.DIVINATION_DISTANCE);
+            ItemProperties.register(ItemRegistry.DIVINATION_ROD_T4.get(),
+                    TheurgyConstants.ItemProperty.DIVINATION_DISTANCE, DivinationRodItem.PropertyFunctions.DIVINATION_DISTANCE);
 
             Theurgy.LOGGER.debug("Registered Item Properties");
         });

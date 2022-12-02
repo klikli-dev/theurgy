@@ -15,6 +15,7 @@ import net.minecraft.world.level.block.Block;
 public class TagRegistry {
 
     public static final TagKey<Block> DIVINATION_ROD_T1_ALLOWED_BLOCKS = makeBlockTag( "divination_rod_t1_allowed_blocks");
+    public static final TagKey<Block> DIVINATION_ROD_T4_ALLOWED_BLOCKS = makeBlockTag( "divination_rod_t4_allowed_blocks");
 
     public static TagKey<Block> makeBlockTag(String id) {
         return makeBlockTag(Theurgy.loc(id));

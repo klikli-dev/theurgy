@@ -58,8 +58,13 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
                 "Alchemical sulfur crafted from %s.",
                 "Sulfur represents the \"idea\" or \"soul\" of an object and is the key to replication and transmutation.");
 
-        this.addItem(ItemRegistry.DIVINATION_ROD_T1, "Wooden Divination Rod");
-        this.add(ItemRegistry.DIVINATION_ROD_T1.get().getDescriptionId() + ".linked", "Wooden Divination Rod %s");
+
+        this.add(TheurgyConstants.I18n.Tooltip.DIVINATION_ROD_NO_LINK, "The divination rod is "+ ChatFormatting.RED +"not attuned"+ ChatFormatting.RESET +" to any material.");
+        this.add(TheurgyConstants.I18n.Tooltip.DIVINATION_ROD_LINKED_TO, "The divination rod is attuned to %s");
+        this.add(TheurgyConstants.I18n.Tooltip.DIVINATION_ROD_LAST_RESULT, "Found %s at %s.");
+
+        this.addItem(ItemRegistry.DIVINATION_ROD_T1, "Glass Divination Rod");
+        this.add(ItemRegistry.DIVINATION_ROD_T1.get().getDescriptionId() + ".linked", "Glass Divination Rod %s");
         //tooltip is handled by rod itself
         this.addExtendedTooltip(ItemRegistry.DIVINATION_ROD_T1,
                 "Divination rods can be attuned to a block and are then used to find other blocks of the same type.",
@@ -67,9 +72,13 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
                         ChatFormatting.GREEN + "Right-Click and hold"+ChatFormatting.GRAY +" and hold to let the rod search for blocks.\n" +
                         ChatFormatting.GREEN + "Right-Click"+ChatFormatting.GRAY + " without holding after a successful search to let the rod show the last found block without consuming durability.");
 
-        this.add(TheurgyConstants.I18n.Tooltip.DIVINATION_ROD_NO_LINK, "The divination rod is "+ ChatFormatting.RED +"not attuned"+ ChatFormatting.RESET +" to any material.");
-        this.add(TheurgyConstants.I18n.Tooltip.DIVINATION_ROD_LINKED_TO, "The divination rod is attuned to %s");
-        this.add(TheurgyConstants.I18n.Tooltip.DIVINATION_ROD_LAST_RESULT, "Found %s at %s.");
+        this.addItem(ItemRegistry.DIVINATION_ROD_T4, "Emerald Divination Rod");
+        this.add(ItemRegistry.DIVINATION_ROD_T4.get().getDescriptionId() + ".linked", "Emerald Divination Rod %s");
+        //tooltip is handled by rod itself
+        this.addExtendedTooltip(ItemRegistry.DIVINATION_ROD_T4,
+                "This divination rod type cannot be manually attuned, instead comes pre-attuned after crafting..",
+                ChatFormatting.GREEN + "Right-Click and hold"+ChatFormatting.GRAY +" and hold to let the rod search for blocks.\n" +
+                        ChatFormatting.GREEN + "Right-Click"+ChatFormatting.GRAY + " without holding after a successful search to let the rod show the last found block without consuming durability.");
     }
 
     @Override

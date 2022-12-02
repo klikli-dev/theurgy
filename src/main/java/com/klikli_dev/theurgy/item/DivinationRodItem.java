@@ -43,6 +43,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.Set;
 
 public class DivinationRodItem extends Item {
 
@@ -91,11 +92,11 @@ public class DivinationRodItem extends Item {
 
         if (player.isShiftKeyDown()) {
 
-            if(!stack.getOrCreateTag().getBoolean(TheurgyConstants.Nbt.Divination.SETTING_ALLOW_ATTUNING)){
+            if (!stack.getOrCreateTag().getBoolean(TheurgyConstants.Nbt.Divination.SETTING_ALLOW_ATTUNING)) {
                 if (!level.isClientSide) {
                     player.sendSystemMessage(
                             Component.translatable(TheurgyConstants.I18n.Message.DIVINATION_ROD_ATTUNING_NOT_ALLOWED)
-                            );
+                    );
                 }
                 return InteractionResult.FAIL;
             }
@@ -166,7 +167,16 @@ public class DivinationRodItem extends Item {
                     var id = new ResourceLocation(stack.getTag().getString(TheurgyConstants.Nbt.Divination.LINKED_BLOCK_ID));
                     var block = ForgeRegistries.BLOCKS.getValue(id);
                     if (block != null) {
-                        ScanManager.get().beginScan(player, block,
+                        Block deepslateBlock = null;
+
+                        //also search for deepslate ores
+                        if (id.getPath().contains("_ore") && !id.getPath().contains("deepslate_")) {
+                            var deepslateId = new ResourceLocation(id.getNamespace(), "deepslate_" + id.getPath());
+                            deepslateBlock = ForgeRegistries.BLOCKS.getValue(deepslateId);
+                        }
+
+                        ScanManager.get().beginScan(player,
+                                deepslateBlock != null ? Set.of(block, deepslateBlock) : Set.of(block),
                                 tag.getInt(TheurgyConstants.Nbt.Divination.SETTING_RANGE),
                                 tag.getInt(TheurgyConstants.Nbt.Divination.SETTING_DURATION)
                         );

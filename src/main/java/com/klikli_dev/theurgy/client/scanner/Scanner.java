@@ -14,6 +14,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
+import java.util.Set;
 import java.util.function.Consumer;
 
 /**
@@ -22,7 +23,8 @@ import java.util.function.Consumer;
 public class Scanner {
 
     public int totalTicks;
-    protected Block target;
+
+    protected Set<Block> targets;
 
     protected Player player;
     protected Vec3 center;
@@ -41,8 +43,8 @@ public class Scanner {
 
     private int blocksPerTick;
 
-    public Scanner(Block target) {
-        this.target = target;
+    public Scanner(Set<Block> targets) {
+        this.targets = targets;
     }
 
     public void initialize(Player player, Vec3 center, float radius, int totalTicks) {
@@ -112,6 +114,6 @@ public class Scanner {
     }
 
     public boolean isValidBlock(BlockState state) {
-        return state.getBlock() == this.target;
+        return this.targets.contains(state.getBlock());
     }
 }

@@ -14,6 +14,7 @@ import net.minecraft.world.phys.Vec3;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Based on https://github.com/MightyPirates/Scannable
@@ -28,15 +29,15 @@ public class ScanManager {
         return instance;
     }
 
-    public void beginScan(Player player, Block target, int range, int duration) {
+    public void beginScan(Player player, Set<Block> targets, int range, int duration) {
         this.cancelScan();
 
-        this.scanner = new Scanner(target);
+        this.scanner = new Scanner(targets);
         this.scanner.initialize(player, player.position(), range, duration);
     }
 
     public void updateScan(Player player, boolean forceFinish) {
-        if(this.scanner == null)
+        if (this.scanner == null)
             return;
 
         final int remainingTicks = this.scanner.totalTicks - this.scanningTicks;

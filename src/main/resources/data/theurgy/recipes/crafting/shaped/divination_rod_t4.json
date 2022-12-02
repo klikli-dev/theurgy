@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "key": {
     "G": {
-      "tag": "forge:glass"
+      "tag": "forge:gems/emerald"
     },
     "R": {
       "tag": "forge:rods/wooden"
@@ -17,10 +17,11 @@
     "item": "theurgy:divination_rod_t1",
     "nbt": {
       "theurgy:divination.setting.tier": "minecraft:stone",
-      "theurgy:divination.setting.allowed_blocks_tag": "theurgy:divination_rod_t1_allowed_blocks",
+      "theurgy:divination.setting.allowed_blocks_tag": "theurgy:divination_rod_t4_allowed_blocks",
       "theurgy:divination.setting.range": 96,
       "theurgy:divination.setting.duration": 40,
-      "theurgy:divination.setting.max_damage": 10
+      "theurgy:divination.setting.max_damage": 10,
+      "theurgy:divination.setting.allow_attuning": false
     }
   }
 }

@@ -55,14 +55,16 @@ public class DivinationRodItem extends Item {
     public int defaultRange;
     public int defaultDuration;
     public int defaultDurability;
+    public boolean defaultAllowAttuning;
 
-    public DivinationRodItem(Properties pProperties, Tier defaultTier, TagKey<Block> defaultAllowedBlocksTag, int defaultRange, int defaultDuration, int defaultDurability) {
+    public DivinationRodItem(Properties pProperties, Tier defaultTier, TagKey<Block> defaultAllowedBlocksTag, int defaultRange, int defaultDuration, int defaultDurability, boolean defaultAllowAttuning) {
         super(pProperties);
         this.defaultTier = defaultTier;
         this.defaultAllowedBlocksTag = defaultAllowedBlocksTag;
         this.defaultRange = defaultRange;
         this.defaultDuration = defaultDuration;
         this.defaultDurability = defaultDurability;
+        this.defaultAllowAttuning = defaultAllowAttuning;
     }
 
     @Override
@@ -88,6 +90,16 @@ public class DivinationRodItem extends Item {
         var allowedBlocksTag = this.getAllowedBlocksTag(stack);
 
         if (player.isShiftKeyDown()) {
+
+            if(!stack.getOrCreateTag().getBoolean(TheurgyConstants.Nbt.Divination.SETTING_ALLOW_ATTUNING)){
+                if (!level.isClientSide) {
+                    player.sendSystemMessage(
+                            Component.translatable(TheurgyConstants.I18n.Message.DIVINATION_ROD_ATTUNING_NOT_ALLOWED)
+                            );
+                }
+                return InteractionResult.FAIL;
+            }
+
             BlockState state = level.getBlockState(pos);
             if (!state.isAir()) {
                 //TODO: low tier rods are attuned by clicking target block, higher tiers require sulfur and some smart translation logic during crafting
@@ -265,6 +277,9 @@ public class DivinationRodItem extends Item {
 
         if (!tag.contains(TheurgyConstants.Nbt.Divination.SETTING_DURABILITY))
             tag.putInt(TheurgyConstants.Nbt.Divination.SETTING_DURABILITY, this.defaultDurability);
+
+        if (!tag.contains(TheurgyConstants.Nbt.Divination.SETTING_ALLOW_ATTUNING))
+            tag.putBoolean(TheurgyConstants.Nbt.Divination.SETTING_ALLOW_ATTUNING, this.defaultAllowAttuning);
 
         return super.initCapabilities(stack, nbt);
     }

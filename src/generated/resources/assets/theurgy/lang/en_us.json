@@ -12,6 +12,7 @@
   "item.theurgy.jar_label": "Jar Label",
   "item.theurgy.jar_label.tooltip": "Dummy item for rendering Alchemical Sulfur if source items are shown.",
   "itemGroup.theurgy": "Theurgy",
+  "message.theurgy..divination_rod.attuning_not_allowed": "§4Warning§r: This type of divination rod cannot be manually attuned.",
   "message.theurgy..divination_rod.block_not_allowed": "§4Warning§r: The divination rod cannot be attuned to this type of block: %s.",
   "message.theurgy..divination_rod.linked": "§aSuccess§r: The divination rod is now attuned to %s.",
   "message.theurgy..divination_rod.no_link": "The divination rod is not attuned to any material.",

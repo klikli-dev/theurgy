@@ -39,6 +39,8 @@ public class TheurgyConstants {
             public static final String SETTING_RANGE = PREFIX + "divination.setting.range";
             public static final String SETTING_DURATION = PREFIX + "divination.setting.duration";
             public static final String SETTING_DURABILITY = PREFIX + "divination.setting.max_damage";
+
+            public static final String SETTING_ALLOW_ATTUNING = PREFIX + "divination.setting.allow_attuning";
         }
 
     }
@@ -73,6 +75,7 @@ public class TheurgyConstants {
             public static final String DIVINATION_ROD_TIER_TOO_LOW = PREFIX + ".divination_rod.tier_too_low";
             public static final String DIVINATION_ROD_BLOCK_NOT_ALLOWED = PREFIX + ".divination_rod.block_not_allowed";
             public static final String DIVINATION_ROD_NO_LINK = PREFIX + ".divination_rod.no_link";
+            public static final String DIVINATION_ROD_ATTUNING_NOT_ALLOWED = PREFIX + ".divination_rod.attuning_not_allowed";
         }
     }
 }

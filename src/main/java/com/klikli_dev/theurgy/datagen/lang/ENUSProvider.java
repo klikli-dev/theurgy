@@ -46,8 +46,11 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
 
         this.addItem(ItemRegistry.EMPTY_JAR, "Empty Jar");
 
+        this.addItem(ItemRegistry.EMPTY_JAR_LABELED, "Labeled Empty Jar");
+        this.addTooltip(ItemRegistry.EMPTY_JAR_LABELED, "Dummy item for rendering Alchemical Sulfur if source items are not shown.");
+
         this.addItem(ItemRegistry.JAR_LABEL, "Jar Label");
-        this.addTooltip(ItemRegistry.JAR_LABEL, "Dummy item for eay render access to Alchemical Sulfur labels.");
+        this.addTooltip(ItemRegistry.JAR_LABEL, "Dummy item for rendering Alchemical Sulfur if source items are shown.");
 
         this.addItem(ItemRegistry.ALCHEMICAL_SULFUR, "Alchemical Sulfur %s");
         this.addTooltip(ItemRegistry.ALCHEMICAL_SULFUR,

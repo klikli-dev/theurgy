@@ -6,6 +6,7 @@
 
 package com.klikli_dev.theurgy.client.render;
 
+import com.klikli_dev.theurgy.config.ClientConfig;
 import com.klikli_dev.theurgy.item.AlchemicalSulfurItem;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.mojang.blaze3d.platform.Lighting;
@@ -22,6 +23,7 @@ public class SulfurBEWLR extends BlockEntityWithoutLevelRenderer {
 
     private static final SulfurBEWLR instance = new SulfurBEWLR();
     private static final ItemStack emptyJarStack = new ItemStack(ItemRegistry.EMPTY_JAR.get());
+    private static final ItemStack labeledEmptyJarStack = new ItemStack(ItemRegistry.EMPTY_JAR_LABELED.get());
     private static final ItemStack labelStack = new ItemStack(ItemRegistry.JAR_LABEL.get());
 
     public SulfurBEWLR() {
@@ -39,23 +41,32 @@ public class SulfurBEWLR extends BlockEntityWithoutLevelRenderer {
     @Override
     public void renderByItem(ItemStack sulfurStack, ItemTransforms.TransformType pTransformType, PoseStack pPoseStack, MultiBufferSource pBuffer, int pPackedLight, int pPackedOverlay) {
 
+        var renderSource = ClientConfig.get().rendering.renderSulfurSourceItem.get();
+
+        //if we do not render the source we show a simplified labeled icon with pixels representing fictional text
+        var jarStack = renderSource ? emptyJarStack : labeledEmptyJarStack;
+
         pPoseStack.popPose();
         pPoseStack.pushPose(); //reset pose that we get from the item renderer, it moves by half a block which we don't want
 
         ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
 
-        BakedModel model = itemRenderer.getModel(emptyJarStack, null, null, 0);
+        BakedModel model = itemRenderer.getModel(jarStack, null, null, 0);
 
         var flatLighting = pTransformType == ItemTransforms.TransformType.GUI && !model.usesBlockLight();
         if (flatLighting)
             Lighting.setupForFlatItems();
 
-        itemRenderer.render(emptyJarStack, pTransformType, isLeftHand(pTransformType), pPoseStack, pBuffer, pPackedLight, pPackedOverlay, model);
+        itemRenderer.render(jarStack, pTransformType, isLeftHand(pTransformType), pPoseStack, pBuffer, pPackedLight, pPackedOverlay, model);
 
         //note: if we reset to 3d item light here it ignores it above and renders dark .. idk why
 
-        this.renderLabel(sulfurStack, pTransformType, pPoseStack, pBuffer, pPackedLight, pPackedOverlay);
-        //this.renderContainedItem(sulfurStack, pTransformType, pPoseStack, pBuffer, pPackedLight, pPackedOverlay);
+        //if we render the source we render a text-less clean label and the source item on top of the jar stack
+        if(renderSource){
+            this.renderLabel(sulfurStack, pTransformType, pPoseStack, pBuffer, pPackedLight, pPackedOverlay);
+            this.renderContainedItem(sulfurStack, pTransformType, pPoseStack, pBuffer, pPackedLight, pPackedOverlay);
+        }
+
     }
 
     public void renderLabel(ItemStack sulfurStack, ItemTransforms.TransformType pTransformType, PoseStack pPoseStack, MultiBufferSource pBuffer, int pPackedLight, int pPackedOverlay) {

@@ -37,13 +37,8 @@ public class ItemRegistry {
 
     public static final RegistryObject<Item> DIVINATION_ROD_T1 =
             ITEMS.register("divination_rod_t1", () -> new DivinationRodItem(
-                    defaultProperties().stacksTo(1).defaultDurability(
-                    1),
-                    TagRegistry.DIVINATION_ROD_T1_ALLOWED_BLOCKS,
-                    () -> ServerConfig.get().divinationRods.tier1.getMiningTier(),
-                    ServerConfig.get().divinationRods.tier1.durability,
-                    ServerConfig.get().divinationRods.tier1.scanDurationTicks,
-                    ServerConfig.get().divinationRods.tier1.scanRange));
+                    defaultProperties().stacksTo(1).defaultDurability(1),
+                    Tiers.STONE, TagRegistry.DIVINATION_ROD_T1_ALLOWED_BLOCKS, 96, 40, 10));
 
     public static Item.Properties defaultProperties() {
         return new Item.Properties().tab(Theurgy.CREATIVE_MODE_TAB);

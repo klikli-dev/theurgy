@@ -27,9 +27,19 @@ public class TheurgyConstants {
          */
         public static final String SULFUR_SOURCE_NBT = PREFIX + "sulfur.source.nbt";
 
-        public static final String DIVINATION_DISTANCE = PREFIX + "divination.distance";
-        public static final String DIVINATION_POS = PREFIX + "divination.pos";
-        public static final String DIVINATION_LINKED_BLOCK_ID = PREFIX + "divination.linked_block_id";
+
+        public static class Divination {
+
+            public static final String DISTANCE = PREFIX + "divination.distance";
+            public static final String POS = PREFIX + "divination.pos";
+            public static final String LINKED_BLOCK_ID = PREFIX + "divination.linked_block_id";
+
+            public static final String SETTING_TIER = PREFIX + "divination.setting.tier";
+            public static final String SETTING_ALLOWED_BLOCKS_TAG = PREFIX + "divination.setting.allowed_blocks_tag";
+            public static final String SETTING_RANGE = PREFIX + "divination.setting.range";
+            public static final String SETTING_DURATION = PREFIX + "divination.setting.duration";
+            public static final String SETTING_DURABILITY = PREFIX + "divination.setting.max_damage";
+        }
 
     }
 

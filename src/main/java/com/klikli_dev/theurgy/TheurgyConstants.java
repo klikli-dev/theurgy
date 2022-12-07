@@ -33,6 +33,7 @@ public class TheurgyConstants {
             public static final String DISTANCE = PREFIX + "divination.distance";
             public static final String POS = PREFIX + "divination.pos";
             public static final String LINKED_BLOCK_ID = PREFIX + "divination.linked_block_id";
+            public static final String LINKED_BLOCK_ID_PREVIEW_MODE = PREFIX + "divination.linked_block_id.preview_mode";
 
             public static final String SETTING_TIER = PREFIX + "divination.setting.tier";
             public static final String SETTING_ALLOWED_BLOCKS_TAG = PREFIX + "divination.setting.allowed_blocks_tag";

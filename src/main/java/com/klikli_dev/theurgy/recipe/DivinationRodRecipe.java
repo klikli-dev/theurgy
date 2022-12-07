@@ -19,6 +19,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.ShapedRecipe;
+import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class DivinationRodRecipe extends ShapedRecipe {
@@ -32,28 +33,79 @@ public class DivinationRodRecipe extends ShapedRecipe {
     }
 
     @Override
-    public ItemStack assemble(CraftingContainer pInv) {
-        var result = this.getResultItem().copy();
+    public ItemStack getResultItem() {
 
-        //check pInv for ingredients with sulfur source id, if so, find the appropriate block id based on it and set it on the result item
-        ResourceLocation sourceId = null;
-        for (int i = 0; i < pInv.getContainerSize(); i++) {
-            var stack = pInv.getItem(i);
-            if (stack.hasTag()) {
-                var tag = stack.getTag();
-                if (tag.contains(TheurgyConstants.Nbt.SULFUR_SOURCE_ID)) {
-                    sourceId = new ResourceLocation(tag.getString(TheurgyConstants.Nbt.SULFUR_SOURCE_ID));
-                    break;
+        var result = super.getResultItem();
+
+        var resultTag = result.getOrCreateTag();
+
+        //if we do not have a linked block id in the recipe output, we try to get it from the ingredients.
+        //we check if any ingredient supplies a source id for the linked block id.
+        //this allows JEI/creative menu to show the correct linked block id effects (altered item name, tooltip, etc)
+        if (!resultTag.contains(TheurgyConstants.Nbt.Divination.LINKED_BLOCK_ID)) {
+
+            ResourceLocation sourceId = null;
+            for (var ingredient : this.getIngredients()) {
+                var json = ingredient.toJson();
+                if (json instanceof JsonObject jsonObj && jsonObj.has("nbt")) {
+
+                    var ingredientTag = CraftingHelper.getNBT(jsonObj.get("nbt"));
+                    if (ingredientTag.contains(TheurgyConstants.Nbt.SULFUR_SOURCE_ID)) {
+                        sourceId = new ResourceLocation(ingredientTag.getString(TheurgyConstants.Nbt.SULFUR_SOURCE_ID));
+                        break;
+                    }
                 }
+            }
+
+            if (sourceId != null) {
+                var translated = this.translateToBlock(sourceId);
+                if (translated != null) {
+                    resultTag.putString(TheurgyConstants.Nbt.Divination.LINKED_BLOCK_ID, translated.toString());
+                } else {
+                    resultTag.putString(TheurgyConstants.Nbt.Divination.LINKED_BLOCK_ID, sourceId.toString());
+                }
+                //we also set the preview mode, to allow the assemble() method to override based on the actual input.
+                resultTag.putBoolean(TheurgyConstants.Nbt.Divination.LINKED_BLOCK_ID_PREVIEW_MODE, true);
             }
         }
 
-        if (sourceId != null) {
-            var translated = this.translateToBlock(sourceId);
-            if (translated != null) {
-                result.getOrCreateTag().putString(TheurgyConstants.Nbt.Divination.LINKED_BLOCK_ID, translated.toString());
-            } else {
-                result.getOrCreateTag().putString(TheurgyConstants.Nbt.Divination.LINKED_BLOCK_ID, sourceId.toString());
+        return result;
+    }
+
+    @Override
+    public ItemStack assemble(CraftingContainer pInv) {
+        var result = this.getResultItem().copy();
+
+
+        var resultTag = result.getOrCreateTag();
+
+
+        //if the recipe already has a linked block, we don't need to do the translation stuff.
+        //if that linked block is only a preview (coming from getResultItem(), used mainly for correct display in JEI),
+        // we have to ignore it and translate after all
+        if (!resultTag.contains(TheurgyConstants.Nbt.Divination.LINKED_BLOCK_ID) ||
+                resultTag.getBoolean(TheurgyConstants.Nbt.Divination.LINKED_BLOCK_ID_PREVIEW_MODE)
+        ) {
+            //check pInv for ingredients with sulfur source id, if so, find the appropriate block id based on it and set it on the result item
+            ResourceLocation sourceId = null;
+            for (int i = 0; i < pInv.getContainerSize(); i++) {
+                var stack = pInv.getItem(i);
+                if (stack.hasTag()) {
+                    var tag = stack.getTag();
+                    if (tag.contains(TheurgyConstants.Nbt.SULFUR_SOURCE_ID)) {
+                        sourceId = new ResourceLocation(tag.getString(TheurgyConstants.Nbt.SULFUR_SOURCE_ID));
+                        break;
+                    }
+                }
+            }
+
+            if (sourceId != null) {
+                var translated = this.translateToBlock(sourceId);
+                if (translated != null) {
+                    resultTag.putString(TheurgyConstants.Nbt.Divination.LINKED_BLOCK_ID, translated.toString());
+                } else {
+                    resultTag.putString(TheurgyConstants.Nbt.Divination.LINKED_BLOCK_ID, sourceId.toString());
+                }
             }
         }
 

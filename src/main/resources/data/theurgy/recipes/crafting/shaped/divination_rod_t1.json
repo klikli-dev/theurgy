@@ -18,6 +18,7 @@
     "nbt": {
       "theurgy:divination.setting.tier": "minecraft:stone",
       "theurgy:divination.setting.allowed_blocks_tag": "theurgy:divination_rod_t1_allowed_blocks",
+      "theurgy:divination.setting.disallowed_blocks_tag": "theurgy:divination_rod_t1_disallowed_blocks",
       "theurgy:divination.setting.range": 96,
       "theurgy:divination.setting.duration": 40,
       "theurgy:divination.setting.max_damage": 10

@@ -37,6 +37,7 @@ public class TheurgyConstants {
 
             public static final String SETTING_TIER = PREFIX + "divination.setting.tier";
             public static final String SETTING_ALLOWED_BLOCKS_TAG = PREFIX + "divination.setting.allowed_blocks_tag";
+            public static final String SETTING_DISALLOWED_BLOCKS_TAG = PREFIX + "divination.setting.disallowed_blocks_tag";
             public static final String SETTING_RANGE = PREFIX + "divination.setting.range";
             public static final String SETTING_DURATION = PREFIX + "divination.setting.duration";
             public static final String SETTING_DURABILITY = PREFIX + "divination.setting.max_damage";
@@ -72,11 +73,18 @@ public class TheurgyConstants {
         public static class Message {
             private static final String PREFIX = "message." + Theurgy.MODID + ".";
 
-            public static final String DIVINATION_ROD_LINKED = PREFIX + ".divination_rod.linked";
-            public static final String DIVINATION_ROD_TIER_TOO_LOW = PREFIX + ".divination_rod.tier_too_low";
-            public static final String DIVINATION_ROD_BLOCK_NOT_ALLOWED = PREFIX + ".divination_rod.block_not_allowed";
-            public static final String DIVINATION_ROD_NO_LINK = PREFIX + ".divination_rod.no_link";
-            public static final String DIVINATION_ROD_ATTUNING_NOT_ALLOWED = PREFIX + ".divination_rod.attuning_not_allowed";
+            public static final String DIVINATION_ROD_LINKED = PREFIX + "divination_rod.linked";
+            public static final String DIVINATION_ROD_TIER_TOO_LOW = PREFIX + "divination_rod.tier_too_low";
+            /**
+             * Not in allowed tag
+             */
+            public static final String DIVINATION_ROD_BLOCK_NOT_ALLOWED = PREFIX + "divination_rod.block_not_allowed";
+            /**
+             * In disallowed tag
+             */
+            public static final String DIVINATION_ROD_BLOCK_DISALLOWED = PREFIX + "divination_rod.block_disallowed";
+            public static final String DIVINATION_ROD_NO_LINK = PREFIX + "divination_rod.no_link";
+            public static final String DIVINATION_ROD_ATTUNING_NOT_ALLOWED = PREFIX + "divination_rod.attuning_not_allowed";
         }
     }
 }

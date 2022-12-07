@@ -27,12 +27,13 @@ public class DivinationRodSubtypeInterpreter implements IIngredientSubtypeInterp
         if(tag != null){
             var settingTier = tag.getInt(TheurgyConstants.Nbt.Divination.SETTING_TIER);
             var settingAllowedBlocksTag = tag.getString(TheurgyConstants.Nbt.Divination.SETTING_ALLOWED_BLOCKS_TAG);
+            var settingDisallowedBlocksTag = tag.getString(TheurgyConstants.Nbt.Divination.SETTING_DISALLOWED_BLOCKS_TAG);
             var settingRange = tag.getInt(TheurgyConstants.Nbt.Divination.SETTING_RANGE);
             var settingDuration = tag.getInt(TheurgyConstants.Nbt.Divination.SETTING_DURATION);
             var settingDurability = tag.getInt(TheurgyConstants.Nbt.Divination.SETTING_DURABILITY);
             var settingAllowAttuning = tag.getBoolean(TheurgyConstants.Nbt.Divination.SETTING_ALLOW_ATTUNING);
 
-            return String.format("%s_%s_%s_%s_%s_%s", settingTier, settingAllowedBlocksTag, settingRange, settingDuration, settingDurability, settingAllowAttuning);
+            return String.format("%s_%s_%s_%s_%s_%s_%s", settingTier, settingAllowedBlocksTag, settingDisallowedBlocksTag, settingRange, settingDuration, settingDurability, settingAllowAttuning);
         }
 
         return IIngredientSubtypeInterpreter.NONE;

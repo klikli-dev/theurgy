@@ -52,16 +52,18 @@ public class DivinationRodItem extends Item {
 
     public Tier defaultTier;
     public TagKey<Block> defaultAllowedBlocksTag;
+    public TagKey<Block> defaultDisallowedBlocksTag;
 
     public int defaultRange;
     public int defaultDuration;
     public int defaultDurability;
     public boolean defaultAllowAttuning;
 
-    public DivinationRodItem(Properties pProperties, Tier defaultTier, TagKey<Block> defaultAllowedBlocksTag, int defaultRange, int defaultDuration, int defaultDurability, boolean defaultAllowAttuning) {
+    public DivinationRodItem(Properties pProperties, Tier defaultTier, TagKey<Block> defaultAllowedBlocksTag, TagKey<Block> defaultDisallowedBlocksTag, int defaultRange, int defaultDuration, int defaultDurability, boolean defaultAllowAttuning) {
         super(pProperties);
         this.defaultTier = defaultTier;
         this.defaultAllowedBlocksTag = defaultAllowedBlocksTag;
+        this.defaultDisallowedBlocksTag = defaultDisallowedBlocksTag;
         this.defaultRange = defaultRange;
         this.defaultDuration = defaultDuration;
         this.defaultDurability = defaultDurability;
@@ -89,6 +91,7 @@ public class DivinationRodItem extends Item {
 
         var tier = this.getMiningTier(stack);
         var allowedBlocksTag = this.getAllowedBlocksTag(stack);
+        var disallowedBlocksTag = this.getDisallowedBlocksTag(stack);
 
         if (player.isShiftKeyDown()) {
 
@@ -103,8 +106,6 @@ public class DivinationRodItem extends Item {
 
             BlockState state = level.getBlockState(pos);
             if (!state.isAir()) {
-                //TODO: low tier rods are attuned by clicking target block, higher tiers require sulfur and some smart translation logic during crafting
-
                 if (!TierSortingRegistry.isCorrectTierForDrops(tier, state)) {
                     if (!level.isClientSide) {
                         player.sendSystemMessage(
@@ -120,6 +121,16 @@ public class DivinationRodItem extends Item {
                         player.sendSystemMessage(
                                 Component.translatable(
                                         TheurgyConstants.I18n.Message.DIVINATION_ROD_BLOCK_NOT_ALLOWED,
+                                        this.getBlockDisplayComponent(state.getBlock())
+                                )
+                        );
+                    }
+                    return InteractionResult.FAIL;
+                } else if (state.is(disallowedBlocksTag)) {
+                    if (!level.isClientSide) {
+                        player.sendSystemMessage(
+                                Component.translatable(
+                                        TheurgyConstants.I18n.Message.DIVINATION_ROD_BLOCK_DISALLOWED,
                                         this.getBlockDisplayComponent(state.getBlock())
                                 )
                         );
@@ -280,6 +291,9 @@ public class DivinationRodItem extends Item {
         if (!tag.contains(TheurgyConstants.Nbt.Divination.SETTING_ALLOWED_BLOCKS_TAG))
             tag.putString(TheurgyConstants.Nbt.Divination.SETTING_ALLOWED_BLOCKS_TAG, this.defaultAllowedBlocksTag.location().toString());
 
+        if (!tag.contains(TheurgyConstants.Nbt.Divination.SETTING_DISALLOWED_BLOCKS_TAG))
+            tag.putString(TheurgyConstants.Nbt.Divination.SETTING_DISALLOWED_BLOCKS_TAG, this.defaultDisallowedBlocksTag.location().toString());
+
         if (!tag.contains(TheurgyConstants.Nbt.Divination.SETTING_RANGE))
             tag.putInt(TheurgyConstants.Nbt.Divination.SETTING_RANGE, this.defaultRange);
 
@@ -388,6 +402,11 @@ public class DivinationRodItem extends Item {
     public TagKey<Block> getAllowedBlocksTag(ItemStack stack) {
         var allowedBlocksTag = stack.getOrCreateTag().getString(TheurgyConstants.Nbt.Divination.SETTING_ALLOWED_BLOCKS_TAG);
         return TagRegistry.makeBlockTag(new ResourceLocation(allowedBlocksTag));
+    }
+
+    public TagKey<Block> getDisallowedBlocksTag(ItemStack stack) {
+        var disallowedBlocksTag = stack.getOrCreateTag().getString(TheurgyConstants.Nbt.Divination.SETTING_DISALLOWED_BLOCKS_TAG);
+        return TagRegistry.makeBlockTag(new ResourceLocation(disallowedBlocksTag));
     }
 
     /**

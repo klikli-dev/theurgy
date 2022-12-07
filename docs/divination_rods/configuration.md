@@ -29,6 +29,10 @@ This means it works exactly like tiers for tools such as the pickaxe.
 
 A tag that defines which blocks the divination rod is allowed to attune to and find. Any blocks not matching this tag will be ignored.
 
+* `theurgy:divination.setting.disallowed_blocks_tag` (Tag ResourceLocation)
+
+A tag that defines which blocks the divination rod is **not** allowed to attune to and find. Any blocks matching this tag will be ignored.
+
 * `theurgy:divination.setting.range` (Integer)
 
 The range of the divination rod in blocks. This is the maximum distance the divination rod will scan for blocks. Too high values may cause performance issues on the client while using the rod.
@@ -45,11 +49,11 @@ Suggested Value: `40`
 
 The durability of the divination rod. Only scans will consume durability, just visualising the scan results will not. For balancing reasons this should likely be a low value, such as `10`.
 
-### More info on Tier and Allowed Blocks Tag
+### More info on Tier and Dis/Allowed Blocks Tag
 
-A divination rod can only be attuned to a shift-clicked block, if both the Tier of the rod is sufficient (higher than or equal to block tier) and the block is in the allowed blocks tag. 
+A divination rod can only be attuned to a shift-clicked block, if both the Tier of the rod is sufficient (higher than or equal to block tier) **and** the block is in the allowed blocks tag **and** the block is not in the disallowed blocks tag.
 
-The default theurgy allowed blocks tags look like this:
+The default theurgy **allowed** blocks tags look like this:
 
 ```json 
 {
@@ -71,6 +75,11 @@ Depending on your use case you can make the rod more or less versatile by changi
 The default allowed blocks tags can be found in `/resources/data/theurgy/tags/blocks/` and are named `divination_rod_[t1/t2/t3/t4]_allowed_blocks.json` based on their tier, e.g. `divination_rod_t4_allowed_blocks.json` 
 
 
+The default theurgy **disallowed** blocks tags is empty.
+
+The default disallowed blocks tags can be found in `/resources/data/theurgy/tags/blocks/` and are named `divination_rod_[t1/t2/t3/t4]_disallowed_blocks.json` based on their tier, e.g. `divination_rod_t4_disallowed_blocks.json` 
+
+
 ## Pre-Attuned Divination Rods
 
 See [Crafting Recipes](./crafting_recipes.md) for more information on how to create pre-attuned divination rods.
@@ -79,32 +88,26 @@ See [Crafting Recipes](./crafting_recipes.md) for more information on how to cre
 
 ```json
 {
-  "type": "theurgy:divination_rod",
+  "type": "minecraft:crafting_shaped",
   "key": {
     "G": {
-      "tag": "forge:gems/emerald"
+      "tag": "forge:glass"
     },
     "R": {
       "tag": "forge:rods/wooden"
-    },
-    "S": {
-      "type": "forge:partial_nbt",
-      "item": "theurgy:alchemical_sulfur",
-      "nbt": {
-        "theurgy:sulfur.source.id": "minecraft:diamond"
-      }
     }
   },
   "pattern": [
     "RGR",
-    "RSR",
+    "R R",
     " R "
   ],
   "result": {
-    "item": "theurgy:divination_rod_t4",
+    "item": "theurgy:divination_rod_t1",
     "nbt": {
       "theurgy:divination.setting.tier": "minecraft:stone",
-      "theurgy:divination.setting.allowed_blocks_tag": "theurgy:divination_rod_t4_allowed_blocks",
+      "theurgy:divination.setting.allowed_blocks_tag": "theurgy:divination_rod_t11_allowed_blocks",
+      "theurgy:divination.setting.disallowed_blocks_tag": "theurgy:divination_rod_t1_disallowed_blocks",
       "theurgy:divination.setting.range": 96,
       "theurgy:divination.setting.duration": 40,
       "theurgy:divination.setting.max_damage": 10

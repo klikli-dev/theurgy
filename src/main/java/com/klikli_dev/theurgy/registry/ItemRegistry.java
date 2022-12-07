@@ -27,6 +27,10 @@ public class ItemRegistry {
     public static final RegistryObject<Item> EMPTY_JAR_LABELED =
             ITEMS.register("empty_jar_labeled", () -> new Item(new Item.Properties()));
 
+    //helper item for hermetica rendering
+    public static final RegistryObject<Item> THE_HERMETICA_ICON =
+            ITEMS.register("the_hermetica_icon", () -> new Item(new Item.Properties()));
+
     //helper item for sulfur rendering
     public static final RegistryObject<Item> JAR_LABEL =
             ITEMS.register("jar_label", () -> new Item(new Item.Properties()));

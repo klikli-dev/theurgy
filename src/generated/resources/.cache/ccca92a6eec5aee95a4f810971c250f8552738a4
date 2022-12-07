@@ -1,4 +1,4 @@
-// 1.19.2	2022-12-02T18:09:21.9843341	Item Models: theurgy
+// 1.19.2	2022-12-07T18:57:42.6586386	Item Models: theurgy
 e0f7b66a84e6588f01abbbce75b1803ffe5d46e2 assets/theurgy/models/item/alchemical_sulfur.json
 14a2ccdc5007ad52d74e22c1018a1a2d767df32f assets/theurgy/models/item/divination_rod_t1.json
 56cbd2e62794dbad75babc62f07448c34813b99c assets/theurgy/models/item/divination_rod_t1_0.json
@@ -23,3 +23,4 @@ ea3053a9add02634af5fd7d9aef50801c48b32b2 assets/theurgy/models/item/divination_r
 e0d7667ce794b40e193ecf66945c505733faf3f8 assets/theurgy/models/item/empty_jar.json
 c7428fa39a7d54d5b732ad9dbe9f78ac26eb0f85 assets/theurgy/models/item/empty_jar_labeled.json
 94bfa4f4e6caf28d6f20cee65ac10387f5b115e2 assets/theurgy/models/item/jar_label.json
+0a1c9856bc73b607d7e6089acd1ba1a38198f8ab assets/theurgy/models/item/the_hermetica_icon.json

@@ -6,6 +6,8 @@
 
 package com.klikli_dev.theurgy;
 
+import net.minecraft.resources.ResourceLocation;
+
 public class TheurgyConstants {
 
     public static class Nbt {
@@ -24,13 +26,65 @@ public class TheurgyConstants {
          * Should be a CompoundTag.
          */
         public static final String SULFUR_SOURCE_NBT = PREFIX + "sulfur.source.nbt";
+
+
+        public static class Divination {
+
+            public static final String DISTANCE = PREFIX + "divination.distance";
+            public static final String POS = PREFIX + "divination.pos";
+            public static final String LINKED_BLOCK_ID = PREFIX + "divination.linked_block_id";
+            public static final String LINKED_BLOCK_ID_PREVIEW_MODE = PREFIX + "divination.linked_block_id.preview_mode";
+
+            public static final String SETTING_TIER = PREFIX + "divination.setting.tier";
+            public static final String SETTING_ALLOWED_BLOCKS_TAG = PREFIX + "divination.setting.allowed_blocks_tag";
+            public static final String SETTING_DISALLOWED_BLOCKS_TAG = PREFIX + "divination.setting.disallowed_blocks_tag";
+            public static final String SETTING_RANGE = PREFIX + "divination.setting.range";
+            public static final String SETTING_DURATION = PREFIX + "divination.setting.duration";
+            public static final String SETTING_DURABILITY = PREFIX + "divination.setting.max_damage";
+
+            public static final String SETTING_ALLOW_ATTUNING = PREFIX + "divination.setting.allow_attuning";
+        }
+
+    }
+
+    public static class ItemProperty {
+
+        public static final ResourceLocation DIVINATION_DISTANCE = Theurgy.loc("divination_distance");
+
+
     }
 
     public static class I18n {
-        public static final String TOOLTIP_SHOW_EXTENDED = "tooltip." + Theurgy.MODID +".show_extended";
-        public static final String TOOLTIP_SHOW_USAGE = "tooltip." + Theurgy.MODID + ".show_usage";
-        public static final String TOOLTIP_SUFFIX = ".tooltip";
-        public static final String TOOLTIP_EXTENDED_SUFFIX = ".tooltip.extended";
-        public static final String TOOLTIP_USAGE_SUFFIX = ".tooltip.usage";
+
+        public static class Tooltip {
+
+            private static final String PREFIX = "tooltip." + Theurgy.MODID + ".";
+            public static final String SHOW_EXTENDED = "tooltip." + Theurgy.MODID + ".show_extended";
+            public static final String SHOW_USAGE = "tooltip." + Theurgy.MODID + ".show_usage";
+            public static final String SUFFIX = ".tooltip";
+            public static final String EXTENDED_SUFFIX = ".tooltip.extended";
+            public static final String USAGE_SUFFIX = ".tooltip.usage";
+
+            public static final String DIVINATION_ROD_LINKED_TO = PREFIX + ".divination_rod.linked_to";
+            public static final String DIVINATION_ROD_NO_LINK = PREFIX + ".divination_rod.no_link";
+            public static final String DIVINATION_ROD_LAST_RESULT = PREFIX + ".divination_rod.last_result";
+        }
+
+        public static class Message {
+            private static final String PREFIX = "message." + Theurgy.MODID + ".";
+
+            public static final String DIVINATION_ROD_LINKED = PREFIX + "divination_rod.linked";
+            public static final String DIVINATION_ROD_TIER_TOO_LOW = PREFIX + "divination_rod.tier_too_low";
+            /**
+             * Not in allowed tag
+             */
+            public static final String DIVINATION_ROD_BLOCK_NOT_ALLOWED = PREFIX + "divination_rod.block_not_allowed";
+            /**
+             * In disallowed tag
+             */
+            public static final String DIVINATION_ROD_BLOCK_DISALLOWED = PREFIX + "divination_rod.block_disallowed";
+            public static final String DIVINATION_ROD_NO_LINK = PREFIX + "divination_rod.no_link";
+            public static final String DIVINATION_ROD_ATTUNING_NOT_ALLOWED = PREFIX + "divination_rod.attuning_not_allowed";
+        }
     }
 }

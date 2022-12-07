@@ -30,7 +30,6 @@ public class CommonConfig {
 
     public static class Misc {
 
-
         public Misc(ForgeConfigSpec.Builder builder) {
             builder.comment("Misc Settings").push("misc");
 

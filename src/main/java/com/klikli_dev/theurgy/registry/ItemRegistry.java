@@ -6,6 +6,7 @@
 
 package com.klikli_dev.theurgy.registry;
 
+import com.klikli_dev.modonomicon.item.ModonomiconItem;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.config.ServerConfig;
 import com.klikli_dev.theurgy.item.AlchemicalSulfurItem;

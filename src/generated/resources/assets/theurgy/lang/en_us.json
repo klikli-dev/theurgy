@@ -7,7 +7,10 @@
   "item.theurgy.empty_jar_labeled.tooltip": "Dummy item for rendering Alchemical Sulfur if source items are not shown.",
   "item.theurgy.jar_label": "Jar Label",
   "item.theurgy.jar_label.tooltip": "Dummy item for rendering Alchemical Sulfur if source items are shown.",
+  "item.theurgy.alchemical_salt": "Alchemical Salt",
+
   "itemGroup.theurgy": "Theurgy",
+
   "tooltip.theurgy.show_extended": "§6[§dshift §7read more§6]",
   "tooltip.theurgy.show_usage": "§6[§dctrl-shift §7show usage§6]"
 }

@@ -8,6 +8,7 @@ package com.klikli_dev.theurgy.registry;
 
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.item.AlchemicalSulfurItem;
+import net.minecraft.world.item.BowlFoodItem;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -27,6 +28,9 @@ public class ItemRegistry {
             ITEMS.register("jar_label", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> ALCHEMICAL_SULFUR =
             ITEMS.register("alchemical_sulfur", () -> new AlchemicalSulfurItem(defaultProperties()));
+
+    public static final RegistryObject<Item> ALCHEMICAL_SALT =
+            ITEMS.register("alchemical_salt", () -> new BowlFoodItem(defaultProperties().food(FoodRegistry.ALCHEMICAL_SALT).stacksTo(1)));
 
 //    public static final RegistryObject<Item> SULFUR_INGOT =
 //            ITEMS.register("sulfur_ingot", () -> new Item(defaultProperties()));

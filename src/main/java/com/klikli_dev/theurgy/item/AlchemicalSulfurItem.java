@@ -13,7 +13,6 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.core.NonNullList;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.ComponentUtils;
 import net.minecraft.network.chat.MutableComponent;
@@ -48,6 +47,18 @@ public class AlchemicalSulfurItem extends Item {
         return ItemStack.EMPTY;
     }
 
+    public static List<MutableComponent> getTooltipData(ItemStack sulfurStack) {
+        var source = getSourceStack(sulfurStack);
+
+        if (!source.isEmpty() && source.getHoverName() instanceof MutableComponent hoverName)
+            return ImmutableList.of(hoverName.withStyle(Style.EMPTY
+                    .withColor(ChatFormatting.GREEN)
+                    .withItalic(true)
+            ));
+
+        return ImmutableList.of();
+    }
+
     @Override
     public void initializeClient(Consumer<IClientItemExtensions> consumer) {
         consumer.accept(new IClientItemExtensions() {
@@ -65,9 +76,9 @@ public class AlchemicalSulfurItem extends Item {
         if (!source.isEmpty() && source.getHoverName() instanceof MutableComponent hoverName)
             return Component.translatable(this.getDescriptionId(), ComponentUtils.wrapInSquareBrackets(
                     hoverName.withStyle(Style.EMPTY
-                    .withColor(ChatFormatting.GREEN)
-                    .withItalic(true)
-            )));
+                            .withColor(ChatFormatting.GREEN)
+                            .withItalic(true)
+                    )));
 
         return super.getName(pStack);
     }
@@ -79,18 +90,9 @@ public class AlchemicalSulfurItem extends Item {
         }
     }
 
-    public static List<MutableComponent> getTooltipData(ItemStack sulfurStack) {
-        var source = getSourceStack(sulfurStack);
-
-        if (!source.isEmpty() && source.getHoverName() instanceof MutableComponent hoverName)
-            return ImmutableList.of(hoverName.withStyle(Style.EMPTY
-                            .withColor(ChatFormatting.GREEN)
-                            .withItalic(true)
-                    ));
-
-        return ImmutableList.of();
-    }
-
+    /**
+     * Inner class to avoid classloading issues on the server
+     */
     public static class DistHelper {
         public static void fillItemCategory(AlchemicalSulfurItem item, CreativeModeTab tab, NonNullList<ItemStack> items) {
             var level = Minecraft.getInstance().level;

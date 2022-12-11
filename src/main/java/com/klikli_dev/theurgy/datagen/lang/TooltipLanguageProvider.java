@@ -20,18 +20,30 @@ public interface TooltipLanguageProvider {
 
     default void addTooltip(Supplier<? extends Item> key, String tooltip) {
         if (tooltip != null)
-            this.self().add(key.get().getDescriptionId() + TheurgyConstants.I18n.TOOLTIP_SUFFIX, tooltip);
+            this.self().add(key.get().getDescriptionId() + TheurgyConstants.I18n.Tooltip.SUFFIX, tooltip);
     }
 
     default void addTooltip(Supplier<? extends Item> key, String tooltip, String extendedTooltip) {
         this.addTooltip(key, tooltip);
-        if (tooltip != null)
-            this.self().add(key.get().getDescriptionId() + TheurgyConstants.I18n.TOOLTIP_EXTENDED_SUFFIX, extendedTooltip);
+        if (extendedTooltip != null)
+            this.self().add(key.get().getDescriptionId() + TheurgyConstants.I18n.Tooltip.EXTENDED_SUFFIX, extendedTooltip);
     }
 
     default void addTooltip(Supplier<? extends Item> key, String tooltip, String extendedTooltip, String usageTooltip) {
         this.addTooltip(key, tooltip, extendedTooltip);
-        if (tooltip != null)
-            this.self().add(key.get().getDescriptionId() + TheurgyConstants.I18n.TOOLTIP_USAGE_SUFFIX, usageTooltip);
+        if (usageTooltip != null)
+            this.self().add(key.get().getDescriptionId() + TheurgyConstants.I18n.Tooltip.USAGE_SUFFIX, usageTooltip);
+    }
+
+    default void addExtendedTooltip(Supplier<? extends Item> key, String extendedTooltip) {
+        this.addTooltip(key, null, extendedTooltip);
+    }
+
+    default void addExtendedTooltip(Supplier<? extends Item> key, String extendedTooltip, String usageTooltip) {
+        this.addTooltip(key, null, extendedTooltip, usageTooltip);
+    }
+
+    default void addUsageTooltip(Supplier<? extends Item> key, String usageTooltip) {
+        this.addTooltip(key, null, null, usageTooltip);
     }
 }

@@ -7,9 +7,16 @@
 package com.klikli_dev.theurgy.registry;
 
 import com.klikli_dev.theurgy.Theurgy;
+import com.klikli_dev.theurgy.config.ServerConfig;
 import com.klikli_dev.theurgy.item.AlchemicalSulfurItem;
+
 import net.minecraft.world.item.BowlFoodItem;
+
+import com.klikli_dev.theurgy.item.DivinationRodItem;
+import net.minecraft.tags.TagKey;
+
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Tiers;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -34,6 +41,18 @@ public class ItemRegistry {
 
 //    public static final RegistryObject<Item> SULFUR_INGOT =
 //            ITEMS.register("sulfur_ingot", () -> new Item(defaultProperties()));
+
+    public static final RegistryObject<Item> DIVINATION_ROD_T1 =
+            ITEMS.register("divination_rod_t1", () -> new DivinationRodItem(
+                    defaultProperties().stacksTo(1).defaultDurability(1),
+                    Tiers.STONE, TagRegistry.DIVINATION_ROD_T1_ALLOWED_BLOCKS, TagRegistry.DIVINATION_ROD_T1_DISALLOWED_BLOCKS,
+                    96, 40, 10, true));
+
+    public static final RegistryObject<Item> DIVINATION_ROD_T4 =
+            ITEMS.register("divination_rod_t4", () -> new DivinationRodItem(
+                    defaultProperties().stacksTo(1).defaultDurability(1),
+                    Tiers.STONE, TagRegistry.DIVINATION_ROD_T4_ALLOWED_BLOCKS,  TagRegistry.DIVINATION_ROD_T4_DISALLOWED_BLOCKS,
+                    96, 40, 10, false));
 
     public static Item.Properties defaultProperties() {
         return new Item.Properties().tab(Theurgy.CREATIVE_MODE_TAB);

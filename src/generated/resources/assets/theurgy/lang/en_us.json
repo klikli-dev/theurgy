@@ -2,6 +2,14 @@
   "item.theurgy.alchemical_sulfur": "Alchemical Sulfur %s",
   "item.theurgy.alchemical_sulfur.tooltip": "Alchemical sulfur crafted from %s.",
   "item.theurgy.alchemical_sulfur.tooltip.extended": "Sulfur represents the \"idea\" or \"soul\" of an object and is the key to replication and transmutation.",
+  "item.theurgy.divination_rod_t1": "Glass Divination Rod",
+  "item.theurgy.divination_rod_t1.linked": "Glass Divination Rod %s",
+  "item.theurgy.divination_rod_t1.tooltip.extended": "Divination rods can be attuned to a block and are then used to find other blocks of the same type.",
+  "item.theurgy.divination_rod_t1.tooltip.usage": "§aShift-Click§7 a block to attune the rod to it.\n§aRight-Click and hold§7 and hold to let the rod search for blocks.\n§aRight-Click§7 without holding after a successful search to let the rod show the last found block without consuming durability.",
+  "item.theurgy.divination_rod_t4": "Emerald Divination Rod",
+  "item.theurgy.divination_rod_t4.linked": "Emerald Divination Rod %s",
+  "item.theurgy.divination_rod_t4.tooltip.extended": "This divination rod type cannot be manually attuned, instead comes pre-attuned after crafting..",
+  "item.theurgy.divination_rod_t4.tooltip.usage": "§aRight-Click and hold§7 and hold to let the rod search for blocks.\n§aRight-Click§7 without holding after a successful search to let the rod show the last found block without consuming durability.",
   "item.theurgy.empty_jar": "Empty Jar",
   "item.theurgy.empty_jar_labeled": "Labeled Empty Jar",
   "item.theurgy.empty_jar_labeled.tooltip": "Dummy item for rendering Alchemical Sulfur if source items are not shown.",
@@ -11,6 +19,17 @@
 
   "itemGroup.theurgy": "Theurgy",
 
+  "message.theurgy.divination_rod.attuning_not_allowed": "§4Warning§r: This type of divination rod cannot be manually attuned.",
+  "message.theurgy.divination_rod.block_disallowed": "§4Warning§r: The divination rod cannot be attuned to this type of block: %s.",
+  "message.theurgy.divination_rod.block_not_allowed": "§4Warning§r: The divination rod cannot be attuned to this type of block: %s.",
+  "message.theurgy.divination_rod.linked": "§aSuccess§r: The divination rod is now attuned to %s.",
+  "message.theurgy.divination_rod.no_link": "The divination rod is not attuned to any material.",
+  "message.theurgy.divination_rod.tier_too_low": "§4Warning§r: You need a higher tier divination rod to attune to %s.",
+  "theurgy.subtitle.tuning_fork": "Using Divination Rod",
+  "tooltip.theurgy..divination_rod.last_result": "Found %s at %s.",
+  "tooltip.theurgy..divination_rod.linked_to": "The divination rod is attuned to %s",
+  "tooltip.theurgy..divination_rod.no_link": "The divination rod is §cnot attuned§r to any material.",
+
   "tooltip.theurgy.show_extended": "§6[§dshift §7read more§6]",
-  "tooltip.theurgy.show_usage": "§6[§dctrl-shift §7show usage§6]"
+  "tooltip.theurgy.show_usage": "§6[§dctrl §7show usage§6]"
 }

@@ -12,7 +12,8 @@ import com.klikli_dev.theurgy.config.CommonConfig;
 import com.klikli_dev.theurgy.config.ServerConfig;
 import com.klikli_dev.theurgy.datagen.DataGenerators;
 import com.klikli_dev.theurgy.item.TheurgyCreativeModeTab;
-import com.klikli_dev.theurgy.registry.ItemRegistry;
+import com.klikli_dev.theurgy.network.Networking;
+import com.klikli_dev.theurgy.registry.*;
 import com.klikli_dev.theurgy.tooltips.TooltipHandler;
 import com.mojang.logging.LogUtils;
 import net.minecraft.resources.ResourceLocation;
@@ -48,6 +49,11 @@ public class Theurgy {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         ItemRegistry.ITEMS.register(modEventBus);
+        EntityRegistry.ENTITIES.register(modEventBus);
+        EntityDataSerializerRegistry.ENTITY_DATA_SERIALIZERS.register(modEventBus);
+        ParticleRegistry.PARTICLES.register(modEventBus);
+        SoundRegistry.SOUNDS.register(modEventBus);
+        RecipeRegistry.RECIPE_SERIALIZERS.register(modEventBus);
 
         modEventBus.addListener(this::onCommonSetup);
         modEventBus.addListener(this::onServerSetup);
@@ -58,6 +64,8 @@ public class Theurgy {
 
         if (FMLEnvironment.dist == Dist.CLIENT) {
             modEventBus.addListener(ClientSetupEventHandler::onClientSetup);
+            modEventBus.addListener(ParticleRegistry::registerFactories);
+            modEventBus.addListener(ClientSetupEventHandler::onRegisterEntityRenderers);
         }
     }
 
@@ -66,6 +74,8 @@ public class Theurgy {
     }
 
     public void onCommonSetup(FMLCommonSetupEvent event) {
+        Networking.registerMessages();
+
         LOGGER.info("Common setup complete.");
     }
 

@@ -34,9 +34,9 @@ public class TooltipHandler {
         var itemId = ForgeRegistries.ITEMS.getKey(stack.getItem());
         //only run for enabled namespaces to easily improve performance
         if (namespacesToListenFor.contains(itemId.getNamespace())) {
-            String tooltipKey = stack.getDescriptionId() + TheurgyConstants.I18n.TOOLTIP_SUFFIX;
-            String extendedTooltipKey = stack.getDescriptionId() + TheurgyConstants.I18n.TOOLTIP_EXTENDED_SUFFIX;
-            String usageTooltipKey = stack.getDescriptionId() + TheurgyConstants.I18n.TOOLTIP_USAGE_SUFFIX;
+            String tooltipKey = stack.getDescriptionId() + TheurgyConstants.I18n.Tooltip.SUFFIX;
+            String extendedTooltipKey = stack.getDescriptionId() + TheurgyConstants.I18n.Tooltip.EXTENDED_SUFFIX;
+            String usageTooltipKey = stack.getDescriptionId() + TheurgyConstants.I18n.Tooltip.USAGE_SUFFIX;
 
             boolean tooltipExists = I18n.exists(tooltipKey);
             boolean extendedTooltipExists = I18n.exists(extendedTooltipKey);
@@ -44,30 +44,23 @@ public class TooltipHandler {
 
             var additionalTooltipData = getAdditionalTooltipData(stack);
 
-            //first check usage tooltip
-            if (Screen.hasShiftDown() && Screen.hasControlDown() && usageTooltipExists) {
-                event.getToolTip().add(Component.translatable(usageTooltipKey, additionalTooltipData.toArray()).withStyle(Style.EMPTY.withColor(ChatFormatting.GRAY)));
+            if (tooltipExists) {
+                event.getToolTip().add(Component.translatable(tooltipKey, additionalTooltipData.toArray()).withStyle(Style.EMPTY.withColor(ChatFormatting.GRAY)));
             }
-            //then extended tooltip - hint at usage, if available
-            else if (Screen.hasShiftDown() && extendedTooltipExists) {
-                event.getToolTip().add(Component.translatable(extendedTooltipKey, additionalTooltipData.toArray()).withStyle(Style.EMPTY.withColor(ChatFormatting.GRAY)));
 
-                if (usageTooltipExists) {
-                    event.getToolTip().add(Component.translatable(TheurgyConstants.I18n.TOOLTIP_SHOW_USAGE, additionalTooltipData.toArray()));
+            if (extendedTooltipExists) {
+                if(Screen.hasShiftDown()){
+                    event.getToolTip().add(Component.translatable(extendedTooltipKey, additionalTooltipData.toArray()).withStyle(Style.EMPTY.withColor(ChatFormatting.GRAY)));
+                } else {
+                    event.getToolTip().add(Component.translatable(TheurgyConstants.I18n.Tooltip.SHOW_EXTENDED, additionalTooltipData.toArray()));
                 }
             }
-            //then regular tooltip - hint at extended and usage, if available
-            else {
-                //only add the default tooltip if we have one
-                if (tooltipExists) {
-                    event.getToolTip().add(Component.translatable(tooltipKey, additionalTooltipData.toArray()).withStyle(Style.EMPTY.withColor(ChatFormatting.GRAY)));
-                }
-                //but if we have other tooltips, hint at them
-                if (extendedTooltipExists) {
-                    event.getToolTip().add(Component.translatable(TheurgyConstants.I18n.TOOLTIP_SHOW_EXTENDED, additionalTooltipData.toArray()));
-                }
-                if (usageTooltipExists) {
-                    event.getToolTip().add(Component.translatable(TheurgyConstants.I18n.TOOLTIP_SHOW_USAGE, additionalTooltipData.toArray()));
+
+            if (usageTooltipExists) {
+                if(Screen.hasControlDown()){
+                    event.getToolTip().add(Component.translatable(usageTooltipKey, additionalTooltipData.toArray()).withStyle(Style.EMPTY.withColor(ChatFormatting.GRAY)));
+                } else {
+                    event.getToolTip().add(Component.translatable(TheurgyConstants.I18n.Tooltip.SHOW_USAGE, additionalTooltipData.toArray()));
                 }
             }
         }

@@ -27,6 +27,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
@@ -68,6 +69,24 @@ public class DivinationRodItem extends Item {
         this.defaultDuration = defaultDuration;
         this.defaultDurability = defaultDurability;
         this.defaultAllowAttuning = defaultAllowAttuning;
+    }
+
+    public static void spawnEntityClientSide(Level level, Entity entity) {
+        if (level instanceof ClientLevel clientLevel) {
+            clientLevel.putNonPlayerEntity(entity.getId(), entity); //client only spawn of entity
+        }
+    }
+
+    public static void fillItemCategory(DivinationRodItem item, CreativeModeTab tab, NonNullList<ItemStack> items) {
+        var level = Minecraft.getInstance().level;
+        if (level != null) {
+            var recipeManager = level.getRecipeManager();
+            recipeManager.getRecipes().forEach((recipe) -> {
+                if (recipe.getResultItem().getItem() == item) {
+                    items.add(recipe.getResultItem().copy());
+                }
+            });
+        }
     }
 
     @Override
@@ -218,7 +237,7 @@ public class DivinationRodItem extends Item {
 
             if (result != null) {
                 stack.getTag().putLong(TheurgyConstants.Nbt.Divination.POS, result.asLong());
-                this.spawnResultParticle(result, (ClientLevel) level, player);
+                this.spawnResultParticle(result, level, player);
             }
         } else {
             stack.hurtAndBreak(1, player, (entity) -> {
@@ -253,7 +272,7 @@ public class DivinationRodItem extends Item {
             //re-use old result
             if (stack.getTag().contains(TheurgyConstants.Nbt.Divination.POS)) {
                 BlockPos result = BlockPos.of(stack.getTag().getLong(TheurgyConstants.Nbt.Divination.POS));
-                this.spawnResultParticle(result, (ClientLevel) level, pLivingEntity);
+                this.spawnResultParticle(result, level, pLivingEntity);
             }
         }
         super.releaseUsing(stack, level, pLivingEntity, pTimeCharged);
@@ -380,7 +399,7 @@ public class DivinationRodItem extends Item {
                 .withStyle((style) -> style.withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_ITEM, new HoverEvent.ItemStackInfo(new ItemStack(block)))));
     }
 
-    protected void spawnResultParticle(BlockPos result, ClientLevel level, LivingEntity entity) {
+    protected void spawnResultParticle(BlockPos result, Level level, LivingEntity entity) {
         final var visualizationRange = 10.0f;
         var from = new Vec3(entity.getX(), entity.getEyeY() - (double) 0.1F, entity.getZ());
         var resultVec = Vec3.atCenterOf(result);
@@ -388,9 +407,9 @@ public class DivinationRodItem extends Item {
         var dir = dist.normalize();
         var to = dist.length() <= visualizationRange ? resultVec : from.add(dir.scale(visualizationRange));
 
-        if (level.isLoaded(new BlockPos(to)) && level.isLoaded(new BlockPos(from))) {
+        if (level.isLoaded(new BlockPos(to)) && level.isLoaded(new BlockPos(from)) && level.isClientSide) {
             FollowProjectile aoeProjectile = new FollowProjectile(level, from, to);
-            level.putNonPlayerEntity(aoeProjectile.getId(), aoeProjectile); //client only spawn of entity
+            DistHelper.spawnEntityClientSide(level, aoeProjectile);
         }
     }
 
@@ -420,9 +439,10 @@ public class DivinationRodItem extends Item {
     }
 
     /**
-     * Inner class to avoid classloading of client only property functions on server
+     * Inner class to avoid classloading issues on the server
      */
-    public static class PropertyFunctions {
+    public static class DistHelper {
+
         @SuppressWarnings("deprecation")
         public static ItemPropertyFunction DIVINATION_DISTANCE = (stack, world, entity, i) -> {
             if (!stack.getOrCreateTag().contains(TheurgyConstants.Nbt.Divination.DISTANCE) ||
@@ -430,9 +450,7 @@ public class DivinationRodItem extends Item {
                 return NOT_FOUND;
             return stack.getTag().getFloat(TheurgyConstants.Nbt.Divination.DISTANCE);
         };
-    }
 
-    public static class DistHelper {
         public static void fillItemCategory(DivinationRodItem item, CreativeModeTab tab, NonNullList<ItemStack> items) {
             var level = Minecraft.getInstance().level;
             if (level != null) {
@@ -442,6 +460,12 @@ public class DivinationRodItem extends Item {
                         items.add(recipe.getResultItem().copy());
                     }
                 });
+            }
+        }
+
+        public static void spawnEntityClientSide(Level level, Entity entity) {
+            if (level instanceof ClientLevel clientLevel) {
+                clientLevel.putNonPlayerEntity(entity.getId(), entity); //client only spawn of entity
             }
         }
     }

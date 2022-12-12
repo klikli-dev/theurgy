@@ -17,7 +17,9 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Tiers;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.CreativeModeTabEvent;
+import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -60,9 +62,11 @@ public class ItemRegistry {
                     builder.displayItems((featureFlagSet, output, hasPermission) -> {
                         output.accept(EMPTY_JAR.get());
 
-                        AlchemicalSulfurItem.registerCreativeModeTabs(ALCHEMICAL_SULFUR.get(), output);
-                        DivinationRodItem.registerCreativeModeTabs(DIVINATION_ROD_T1.get(), output);
-                        DivinationRodItem.registerCreativeModeTabs(DIVINATION_ROD_T4.get(), output);
+                        if (FMLEnvironment.dist == Dist.CLIENT) {
+                            AlchemicalSulfurItem.DistHelper.registerCreativeModeTabs(ALCHEMICAL_SULFUR.get(), output);
+                            DivinationRodItem.DistHelper.registerCreativeModeTabs(DIVINATION_ROD_T1.get(), output);
+                            DivinationRodItem.DistHelper.registerCreativeModeTabs(DIVINATION_ROD_T4.get(), output);
+                        }
                     });
 
                 }

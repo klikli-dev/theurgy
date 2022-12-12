@@ -56,18 +56,6 @@ public class AlchemicalSulfurItem extends Item {
         return ImmutableList.of();
     }
 
-    public static void registerCreativeModeTabs(AlchemicalSulfurItem item, CreativeModeTab.Output output) {
-        var level = Minecraft.getInstance().level;
-        if (level != null) {
-            var recipeManager = level.getRecipeManager();
-            recipeManager.getRecipes().forEach((recipe) -> {
-                if (recipe.getResultItem().getItem() == item) {
-                    output.accept(recipe.getResultItem().copy());
-                }
-            });
-        }
-    }
-
     @Override
     public void initializeClient(Consumer<IClientItemExtensions> consumer) {
         consumer.accept(new IClientItemExtensions() {
@@ -90,5 +78,23 @@ public class AlchemicalSulfurItem extends Item {
                     )));
 
         return super.getName(pStack);
+    }
+
+    /**
+     * Inner class to avoid classloading issues on the server
+     */
+    public static class DistHelper {
+
+        public static void registerCreativeModeTabs(AlchemicalSulfurItem item, CreativeModeTab.Output output) {
+            var level = Minecraft.getInstance().level;
+            if (level != null) {
+                var recipeManager = level.getRecipeManager();
+                recipeManager.getRecipes().forEach((recipe) -> {
+                    if (recipe.getResultItem().getItem() == item) {
+                        output.accept(recipe.getResultItem().copy());
+                    }
+                });
+            }
+        }
     }
 }

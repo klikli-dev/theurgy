@@ -67,18 +67,6 @@ public class DivinationRodItem extends Item {
         this.defaultAllowAttuning = defaultAllowAttuning;
     }
 
-    public static void registerCreativeModeTabs(DivinationRodItem item, CreativeModeTab.Output output) {
-        var level = Minecraft.getInstance().level;
-        if (level != null) {
-            var recipeManager = level.getRecipeManager();
-            recipeManager.getRecipes().forEach((recipe) -> {
-                if (recipe.getResultItem().getItem() == item) {
-                    output.accept(recipe.getResultItem().copy());
-                }
-            });
-        }
-    }
-
     @Override
     public int getMaxDamage(ItemStack stack) {
         return stack.getOrCreateTag().getInt(TheurgyConstants.Nbt.Divination.SETTING_DURABILITY);
@@ -418,10 +406,11 @@ public class DivinationRodItem extends Item {
         return TagRegistry.makeBlockTag(new ResourceLocation(disallowedBlocksTag));
     }
 
+
     /**
-     * Inner class to avoid classloading of client only property functions on server
+     * Inner class to avoid classloading issues on the server
      */
-    public static class PropertyFunctions {
+    public static class DistHelper {
         @SuppressWarnings("deprecation")
         public static ItemPropertyFunction DIVINATION_DISTANCE = (stack, world, entity, i) -> {
             if (!stack.getOrCreateTag().contains(TheurgyConstants.Nbt.Divination.DISTANCE) ||
@@ -429,5 +418,17 @@ public class DivinationRodItem extends Item {
                 return NOT_FOUND;
             return stack.getTag().getFloat(TheurgyConstants.Nbt.Divination.DISTANCE);
         };
+
+        public static void registerCreativeModeTabs(DivinationRodItem item, CreativeModeTab.Output output) {
+            var level = Minecraft.getInstance().level;
+            if (level != null) {
+                var recipeManager = level.getRecipeManager();
+                recipeManager.getRecipes().forEach((recipe) -> {
+                    if (recipe.getResultItem().getItem() == item) {
+                        output.accept(recipe.getResultItem().copy());
+                    }
+                });
+            }
+        }
     }
 }

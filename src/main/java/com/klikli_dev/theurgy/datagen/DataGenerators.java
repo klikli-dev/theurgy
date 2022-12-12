@@ -17,6 +17,6 @@ public class DataGenerators {
 
         generator.addProvider(event.includeClient(), new ENUSProvider(generator));
         generator.addProvider(event.includeClient(), new ItemModelsProvider(generator, event.getExistingFileHelper()));
-        generator.addProvider(event.includeClient(), new RecipeProvider(generator));
+        generator.addProvider(event.includeClient(), new RecipeProvider(generator.getPackOutput()));
     }
 }

@@ -8,18 +8,14 @@ package com.klikli_dev.theurgy.registry;
 
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.TheurgyConstants;
-import com.klikli_dev.theurgy.config.ServerConfig;
 import com.klikli_dev.theurgy.item.AlchemicalSulfurItem;
 import com.klikli_dev.theurgy.item.DivinationRodItem;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Tiers;
-import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.CreativeModeTabEvent;
-import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -51,7 +47,7 @@ public class ItemRegistry {
     public static final RegistryObject<DivinationRodItem> DIVINATION_ROD_T4 =
             ITEMS.register("divination_rod_t4", () -> new DivinationRodItem(
                     new Item.Properties().stacksTo(1).defaultDurability(1),
-                    Tiers.STONE, TagRegistry.DIVINATION_ROD_T4_ALLOWED_BLOCKS,  TagRegistry.DIVINATION_ROD_T4_DISALLOWED_BLOCKS,
+                    Tiers.STONE, TagRegistry.DIVINATION_ROD_T4_ALLOWED_BLOCKS, TagRegistry.DIVINATION_ROD_T4_DISALLOWED_BLOCKS,
                     96, 40, 10, false));
 
     public static void onRegisterCreativeModeTabs(CreativeModeTabEvent.Register event) {
@@ -62,11 +58,9 @@ public class ItemRegistry {
                     builder.displayItems((featureFlagSet, output, hasPermission) -> {
                         output.accept(EMPTY_JAR.get());
 
-                        if (FMLEnvironment.dist == Dist.CLIENT) {
-                            AlchemicalSulfurItem.DistHelper.registerCreativeModeTabs(ALCHEMICAL_SULFUR.get(), output);
-                            DivinationRodItem.DistHelper.registerCreativeModeTabs(DIVINATION_ROD_T1.get(), output);
-                            DivinationRodItem.DistHelper.registerCreativeModeTabs(DIVINATION_ROD_T4.get(), output);
-                        }
+                        AlchemicalSulfurItem.DistHelper.registerCreativeModeTabs(ALCHEMICAL_SULFUR.get(), output);
+                        DivinationRodItem.DistHelper.registerCreativeModeTabs(DIVINATION_ROD_T1.get(), output);
+                        DivinationRodItem.DistHelper.registerCreativeModeTabs(DIVINATION_ROD_T4.get(), output);
                     });
 
                 }

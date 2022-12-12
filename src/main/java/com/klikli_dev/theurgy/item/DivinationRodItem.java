@@ -18,7 +18,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.item.ItemPropertyFunction;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.*;
 import net.minecraft.resources.ResourceLocation;
@@ -35,10 +34,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.TierSortingRegistry;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.Nullable;
 
@@ -68,6 +65,18 @@ public class DivinationRodItem extends Item {
         this.defaultDuration = defaultDuration;
         this.defaultDurability = defaultDurability;
         this.defaultAllowAttuning = defaultAllowAttuning;
+    }
+
+    public static void registerCreativeModeTabs(DivinationRodItem item, CreativeModeTab.Output output) {
+        var level = Minecraft.getInstance().level;
+        if (level != null) {
+            var recipeManager = level.getRecipeManager();
+            recipeManager.getRecipes().forEach((recipe) -> {
+                if (recipe.getResultItem().getItem() == item) {
+                    output.accept(recipe.getResultItem().copy());
+                }
+            });
+        }
     }
 
     @Override
@@ -410,16 +419,6 @@ public class DivinationRodItem extends Item {
     }
 
     /**
-     * Inner class to avoid classloading issues on the server
-     */
-    @Override
-    public void fillItemCategory(CreativeModeTab tab, NonNullList<ItemStack> items) {
-        if (FMLEnvironment.dist == Dist.CLIENT) {
-            DistHelper.fillItemCategory(this, tab, items);
-        }
-    }
-
-    /**
      * Inner class to avoid classloading of client only property functions on server
      */
     public static class PropertyFunctions {
@@ -430,19 +429,5 @@ public class DivinationRodItem extends Item {
                 return NOT_FOUND;
             return stack.getTag().getFloat(TheurgyConstants.Nbt.Divination.DISTANCE);
         };
-    }
-
-    public static class DistHelper {
-        public static void fillItemCategory(DivinationRodItem item, CreativeModeTab tab, NonNullList<ItemStack> items) {
-            var level = Minecraft.getInstance().level;
-            if (level != null) {
-                var recipeManager = level.getRecipeManager();
-                recipeManager.getRecipes().forEach((recipe) -> {
-                    if (recipe.getResultItem().getItem() == item) {
-                        items.add(recipe.getResultItem().copy());
-                    }
-                });
-            }
-        }
     }
 }

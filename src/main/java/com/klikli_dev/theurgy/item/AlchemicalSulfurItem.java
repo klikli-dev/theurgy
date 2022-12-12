@@ -12,7 +12,6 @@ import com.klikli_dev.theurgy.client.render.SulfurBEWLR;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
-import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.ComponentUtils;
 import net.minecraft.network.chat.MutableComponent;
@@ -21,9 +20,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
-import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.List;
@@ -59,6 +56,18 @@ public class AlchemicalSulfurItem extends Item {
         return ImmutableList.of();
     }
 
+    public static void registerCreativeModeTabs(AlchemicalSulfurItem item, CreativeModeTab.Output output) {
+        var level = Minecraft.getInstance().level;
+        if (level != null) {
+            var recipeManager = level.getRecipeManager();
+            recipeManager.getRecipes().forEach((recipe) -> {
+                if (recipe.getResultItem().getItem() == item) {
+                    output.accept(recipe.getResultItem().copy());
+                }
+            });
+        }
+    }
+
     @Override
     public void initializeClient(Consumer<IClientItemExtensions> consumer) {
         consumer.accept(new IClientItemExtensions() {
@@ -81,29 +90,5 @@ public class AlchemicalSulfurItem extends Item {
                     )));
 
         return super.getName(pStack);
-    }
-
-    @Override
-    public void fillItemCategory(CreativeModeTab tab, NonNullList<ItemStack> items) {
-        if (FMLEnvironment.dist == Dist.CLIENT) {
-            DistHelper.fillItemCategory(this, tab, items);
-        }
-    }
-
-    /**
-     * Inner class to avoid classloading issues on the server
-     */
-    public static class DistHelper {
-        public static void fillItemCategory(AlchemicalSulfurItem item, CreativeModeTab tab, NonNullList<ItemStack> items) {
-            var level = Minecraft.getInstance().level;
-            if (level != null) {
-                var recipeManager = level.getRecipeManager();
-                recipeManager.getRecipes().forEach((recipe) -> {
-                    if (recipe.getResultItem().getItem() == item) {
-                        items.add(recipe.getResultItem().copy());
-                    }
-                });
-            }
-        }
     }
 }

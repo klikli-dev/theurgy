@@ -8,6 +8,7 @@ package com.klikli_dev.theurgy.registry;
 
 import com.klikli_dev.theurgy.Theurgy;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
@@ -26,6 +27,6 @@ public class TagRegistry {
     }
 
     public static TagKey<Block> makeBlockTag(ResourceLocation id) {
-        return TagKey.create(Registry.BLOCK_REGISTRY, id);
+        return TagKey.create(Registries.BLOCK, id);
     }
 }

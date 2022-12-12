@@ -44,7 +44,7 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
     }
 
     private void addItems() {
-        this.add(((TranslatableContents)Theurgy.CREATIVE_MODE_TAB.getDisplayName().getContents()).getKey(), "Theurgy");
+        this.add(TheurgyConstants.I18n.ITEM_GROUP, "Theurgy");
 
         this.addItem(ItemRegistry.EMPTY_JAR, "Empty Jar");
 

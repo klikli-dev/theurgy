@@ -108,10 +108,16 @@ repositories {
     maven {
         name = "KliKli Dev Repsy Maven"
         url = "https://repo.repsy.io/mvn/klikli-dev/mods"
+        content {
+            includeGroup "com.klikli_dev"
+        }
     }
     maven {
         name = "Progwm16 maven - JEI"
         url = 'https://dvs1.progwml6.com/files/maven'
+        content {
+            includeGroup "mezz.jei"
+        }
     }
 }
 

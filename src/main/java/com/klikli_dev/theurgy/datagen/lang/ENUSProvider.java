@@ -73,13 +73,13 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
                         ChatFormatting.GREEN + "Right-Click and hold"+ChatFormatting.GRAY +" and hold to let the rod search for blocks.\n" +
                         ChatFormatting.GREEN + "Right-Click"+ChatFormatting.GRAY + " without holding after a successful search to let the rod show the last found block without consuming durability.");
 
-        this.addItem(ItemRegistry.DIVINATION_ROD_T4, "Emerald Divination Rod");
-        this.add(ItemRegistry.DIVINATION_ROD_T4.get().getDescriptionId() + ".linked", "Emerald Divination Rod %s");
-        //tooltip is handled by rod itself
-        this.addExtendedTooltip(ItemRegistry.DIVINATION_ROD_T4,
-                "This divination rod type cannot be manually attuned, instead comes pre-attuned after crafting..",
-                ChatFormatting.GREEN + "Right-Click and hold"+ChatFormatting.GRAY +" and hold to let the rod search for blocks.\n" +
-                        ChatFormatting.GREEN + "Right-Click"+ChatFormatting.GRAY + " without holding after a successful search to let the rod show the last found block without consuming durability.");
+//        this.addItem(ItemRegistry.DIVINATION_ROD_T4, "Emerald Divination Rod");
+//        this.add(ItemRegistry.DIVINATION_ROD_T4.get().getDescriptionId() + ".linked", "Emerald Divination Rod %s");
+//        //tooltip is handled by rod itself
+//        this.addExtendedTooltip(ItemRegistry.DIVINATION_ROD_T4,
+//                "This divination rod type cannot be manually attuned, instead comes pre-attuned after crafting..",
+//                ChatFormatting.GREEN + "Right-Click and hold"+ChatFormatting.GRAY +" and hold to let the rod search for blocks.\n" +
+//                        ChatFormatting.GREEN + "Right-Click"+ChatFormatting.GRAY + " without holding after a successful search to let the rod show the last found block without consuming durability.");
     }
 
     @Override

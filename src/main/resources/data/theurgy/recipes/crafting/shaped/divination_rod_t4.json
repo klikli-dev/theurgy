@@ -1,5 +1,6 @@
 {
   "type": "theurgy:divination_rod",
+  "conditions": [ "forge:false" ],
   "key": {
     "G": {
       "tag": "forge:gems/emerald"

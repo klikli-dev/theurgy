@@ -46,11 +46,11 @@ public class ItemRegistry {
                     Tiers.STONE, TagRegistry.DIVINATION_ROD_T1_ALLOWED_BLOCKS, TagRegistry.DIVINATION_ROD_T1_DISALLOWED_BLOCKS,
                     96, 40, 10, true));
 
-    public static final RegistryObject<Item> DIVINATION_ROD_T4 =
-            ITEMS.register("divination_rod_t4", () -> new DivinationRodItem(
-                    defaultProperties().stacksTo(1).defaultDurability(1),
-                    Tiers.STONE, TagRegistry.DIVINATION_ROD_T4_ALLOWED_BLOCKS,  TagRegistry.DIVINATION_ROD_T4_DISALLOWED_BLOCKS,
-                    96, 40, 10, false));
+//    public static final RegistryObject<Item> DIVINATION_ROD_T4 =
+//            ITEMS.register("divination_rod_t4", () -> new DivinationRodItem(
+//                    defaultProperties().stacksTo(1).defaultDurability(1),
+//                    Tiers.STONE, TagRegistry.DIVINATION_ROD_T4_ALLOWED_BLOCKS,  TagRegistry.DIVINATION_ROD_T4_DISALLOWED_BLOCKS,
+//                    96, 40, 10, false));
 
     public static Item.Properties defaultProperties() {
         return new Item.Properties().tab(Theurgy.CREATIVE_MODE_TAB);

@@ -42,6 +42,7 @@ public class TheurgyBookProvider extends BookProvider {
                         gettingStartedCategory.build()
                 )
                 .withGenerateBookItem(true)
+                .withModel(this.modLoc("the_hermetica_icon"))
                 .withAutoAddReadConditions(true)
                 .build();
         return book;

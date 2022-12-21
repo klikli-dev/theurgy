@@ -6,7 +6,7 @@
   "creative_tab": "modonomicon",
   "default_title_color": 0,
   "generate_book_item": true,
-  "model": "modonomicon:modonomicon_purple",
+  "model": "theurgy:the_hermetica_icon",
   "name": "book.theurgy.the_hermetica.name",
   "tooltip": "book.theurgy.the_hermetica.tooltip"
 }

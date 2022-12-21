@@ -11,6 +11,7 @@ archivesBaseName = 'theurgy'
 
 // Mojang ships Java 17 to end users in 1.18+, so your mod should target Java 17.
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+java.withSourcesJar()
 
 println "Java: ${System.getProperty 'java.version'}, JVM: ${System.getProperty 'java.vm.version'} (${System.getProperty 'java.vendor'}), Arch: ${System.getProperty 'os.arch'}"
 minecraft {
@@ -160,6 +161,40 @@ publishing {
     repositories {
         maven {
             url "file://${project.projectDir}/mcmodsrepo"
+        }
+    }
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifact jar
+            artifact sourcesJar
+
+            pom {
+                name = 'Modonomicon'
+                description = 'An open-source magic mod built around classical alchemy to replicate and transmute matter, and create magical artifacts.'
+                url = 'https://github.com/klikli-dev/theurgy'
+                licenses {
+                    license {
+                        name = 'MIT License'
+                        url = 'https://raw.githubusercontent.com/klikli-dev/theurgy/version/1.19/LICENSES/MIT.txt'
+                    }
+                }
+                scm {
+                    connection = 'scm:git:ssh:git@github.com:klikli-dev/theurgy.git'
+                    url = 'https://github.com/klikli-dev/theurgy'
+                }
+            }
+        }
+    }
+    repositories {
+        maven {
+            url "https://repo.repsy.io/mvn/klikli-dev/mods"
+            credentials {
+                username = System.getenv('MAVEN_USER')
+                password = System.getenv('MAVEN_PASS')
+            }
         }
     }
 }

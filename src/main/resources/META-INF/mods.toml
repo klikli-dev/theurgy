@@ -44,3 +44,21 @@ authors="Kli Kli" #optional
 description='''
 An open-source magic mod built around classical alchemy to replicate and transmute matter, and create magical artifacts.
 '''
+
+[[dependencies.theurgy]]
+modId = "modonomicon"
+mandatory = true
+versionRange = "[1.19.2-1.19.0,)"
+side = "BOTH"
+
+[[dependencies.theurgy]]
+modId = "jei"
+mandatory = false
+versionRange = "[1.19-11.5.0.292,)"
+side = "BOTH"
+
+[[dependencies.theurgy]]
+modId = "forge"
+mandatory = true
+versionRange = "[43.2.1,)"
+side = "BOTH"

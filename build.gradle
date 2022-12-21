@@ -5,7 +5,12 @@ plugins {
     id 'org.parchmentmc.librarian.forgegradle' version '1.+'
 }
 
-version = "${mc_version}-${mod_version}"
+if (System.getenv('VERSION') != null) {
+    version = System.getenv('VERSION')
+} else {
+    version = "${mc_version}-${mod_version}"
+}
+
 group = 'com.klikli_dev' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'theurgy'
 
@@ -161,24 +166,12 @@ jar.finalizedBy('reobfJar')
 publishing {
     publications {
         mavenJava(MavenPublication) {
-            artifact jar
-        }
-    }
-    repositories {
-        maven {
-            url "file://${project.projectDir}/mcmodsrepo"
-        }
-    }
-}
-
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
+            artifactId = 'theurgy'
             artifact jar
             artifact sourcesJar
 
             pom {
-                name = 'Modonomicon'
+                name = 'Theurgy'
                 description = 'An open-source magic mod built around classical alchemy to replicate and transmute matter, and create magical artifacts.'
                 url = 'https://github.com/klikli-dev/theurgy'
                 licenses {

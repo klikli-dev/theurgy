@@ -48,7 +48,7 @@ An open-source magic mod built around classical alchemy to replicate and transmu
 [[dependencies.theurgy]]
 modId = "modonomicon"
 mandatory = true
-versionRange = "[1.19.2-1.19.0,)"
+versionRange = "[1.19.2-1.21.0,)"
 side = "BOTH"
 
 [[dependencies.theurgy]]

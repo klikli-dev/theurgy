@@ -54,7 +54,7 @@ side = "BOTH"
 [[dependencies.theurgy]]
 modId = "jei"
 mandatory = false
-versionRange = "[1.19-11.5.0.292,)"
+versionRange = "[1.19-11.4.0.290,)"
 side = "BOTH"
 
 [[dependencies.theurgy]]

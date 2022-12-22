@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "theurgy:item/divination_rod_t4/divination_rod_searching"
-  }
-}

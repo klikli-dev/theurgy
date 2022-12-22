@@ -12,6 +12,7 @@ import com.klikli_dev.theurgy.config.ServerConfig;
 import com.klikli_dev.theurgy.item.AlchemicalSulfurItem;
 import com.klikli_dev.theurgy.item.DivinationRodItem;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Tiers;
 import net.minecraftforge.registries.DeferredRegister;
@@ -51,6 +52,10 @@ public class ItemRegistry {
 //                    defaultProperties().stacksTo(1).defaultDurability(1),
 //                    Tiers.STONE, TagRegistry.DIVINATION_ROD_T4_ALLOWED_BLOCKS,  TagRegistry.DIVINATION_ROD_T4_DISALLOWED_BLOCKS,
 //                    96, 40, 10, false));
+
+
+    public static final RegistryObject<BlockItem> CALCINATION_OVEN =
+            ITEMS.register("calcination_oven", () -> new BlockItem(BlockRegistry.CALCINATION_OVEN.get(), defaultProperties()));
 
     public static Item.Properties defaultProperties() {
         return new Item.Properties().tab(Theurgy.CREATIVE_MODE_TAB);

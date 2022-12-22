@@ -1,4 +1,7 @@
 {
+  "block.theurgy.calcination_oven": "Calcination Oven",
+  "block.theurgy.calcination_oven.tooltip": "A device to extract Alchemical Sulfur from Items.",
+  "block.theurgy.calcination_oven.tooltip.extended": "Sulfur represents the \"idea\" or \"soul\" of an object and is the key to replication and transmutation.",
   "book.theurgy.the_hermetica.getting_started.about_mod.about.text": "Welcome, dear reader, to Theurgy, a mod that explores the ancient and revered art of classical alchemy. As you embark on your journey through the noble art of transformation, you will be equipped with divination rods to make finding resources in the world easier.\n",
   "book.theurgy.the_hermetica.getting_started.about_mod.about.title": "The Art of Alchemy",
   "book.theurgy.the_hermetica.getting_started.about_mod.about2.text": "Through diligent study and practice, you will then learn to use alchemical devices to refine, replicate, and transform resources into new and useful materials. Along the way, you will have the opportunity to craft alchemical devices and equipment to aid you in your endeavors.\n",

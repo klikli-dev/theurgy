@@ -49,6 +49,7 @@ public class Theurgy {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         ItemRegistry.ITEMS.register(modEventBus);
+        BlockRegistry.BLOCKS.register(modEventBus);
         EntityRegistry.ENTITIES.register(modEventBus);
         EntityDataSerializerRegistry.ENTITY_DATA_SERIALIZERS.register(modEventBus);
         ParticleRegistry.PARTICLES.register(modEventBus);

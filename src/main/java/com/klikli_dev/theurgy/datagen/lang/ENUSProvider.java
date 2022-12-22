@@ -70,16 +70,16 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
         this.addExtendedTooltip(ItemRegistry.DIVINATION_ROD_T1,
                 "Divination rods can be attuned to a block and are then used to find other blocks of the same type.",
                 ChatFormatting.GREEN + "Shift-Click"+ChatFormatting.GRAY + " a block to attune the rod to it.\n" +
-                        ChatFormatting.GREEN + "Right-Click and hold"+ChatFormatting.GRAY +" and hold to let the rod search for blocks.\n" +
-                        ChatFormatting.GREEN + "Right-Click"+ChatFormatting.GRAY + " without holding after a successful search to let the rod show the last found block without consuming durability.");
+                        ChatFormatting.GREEN + "Right-Click and hold"+ChatFormatting.GRAY +"to let the rod search for blocks.\n" +
+                        ChatFormatting.GREEN + "Right-Click without holding"+ChatFormatting.GRAY + " after a successful search to let the rod show the last found block without consuming durability.");
 
 //        this.addItem(ItemRegistry.DIVINATION_ROD_T4, "Emerald Divination Rod");
 //        this.add(ItemRegistry.DIVINATION_ROD_T4.get().getDescriptionId() + ".linked", "Emerald Divination Rod %s");
 //        //tooltip is handled by rod itself
 //        this.addExtendedTooltip(ItemRegistry.DIVINATION_ROD_T4,
 //                "This divination rod type cannot be manually attuned, instead comes pre-attuned after crafting..",
-//                ChatFormatting.GREEN + "Right-Click and hold"+ChatFormatting.GRAY +" and hold to let the rod search for blocks.\n" +
-//                        ChatFormatting.GREEN + "Right-Click"+ChatFormatting.GRAY + " without holding after a successful search to let the rod show the last found block without consuming durability.");
+//                ChatFormatting.GREEN + "Right-Click and hold"+ChatFormatting.GRAY +" to let the rod search for blocks.\n" +
+//                        ChatFormatting.GREEN + "Right-Click without holding"+ChatFormatting.GRAY + " after a successful search to let the rod show the last found block without consuming durability.");
     }
 
     @Override

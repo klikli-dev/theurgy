@@ -54,7 +54,8 @@ public class Theurgy {
         EntityDataSerializerRegistry.ENTITY_DATA_SERIALIZERS.register(modEventBus);
         ParticleRegistry.PARTICLES.register(modEventBus);
         SoundRegistry.SOUNDS.register(modEventBus);
-        RecipeRegistry.RECIPE_SERIALIZERS.register(modEventBus);
+        RecipeSerializerRegistry.RECIPE_SERIALIZERS.register(modEventBus);
+        RecipeTypeRegistry.RECIPE_TYPES.register(modEventBus);
 
         modEventBus.addListener(this::onCommonSetup);
         modEventBus.addListener(this::onServerSetup);

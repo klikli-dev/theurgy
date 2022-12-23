@@ -10,7 +10,7 @@ import com.google.gson.JsonObject;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.config.ServerConfig;
-import com.klikli_dev.theurgy.registry.RecipeRegistry;
+import com.klikli_dev.theurgy.registry.RecipeSerializerRegistry;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -29,7 +29,7 @@ public class DivinationRodRecipe extends ShapedRecipe {
     }
 
     public RecipeSerializer<?> getSerializer() {
-        return RecipeRegistry.DIVINATION_ROD.get();
+        return RecipeSerializerRegistry.CALCINATION.get();
     }
 
     @Override

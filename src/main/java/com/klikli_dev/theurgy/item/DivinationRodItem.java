@@ -6,6 +6,7 @@
 
 package com.klikli_dev.theurgy.item;
 
+import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.client.scanner.ScanManager;
 import com.klikli_dev.theurgy.entity.FollowProjectile;
@@ -452,6 +453,9 @@ public class DivinationRodItem extends Item {
         };
 
         public static void fillItemCategory(DivinationRodItem item, CreativeModeTab tab, NonNullList<ItemStack> items) {
+            if(tab != Theurgy.CREATIVE_MODE_TAB && tab != CreativeModeTab.TAB_SEARCH)
+                return;
+
             var level = Minecraft.getInstance().level;
             if (level != null) {
                 var recipeManager = level.getRecipeManager();

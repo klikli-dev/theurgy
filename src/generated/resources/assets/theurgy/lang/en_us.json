@@ -25,7 +25,7 @@
   "book.theurgy.the_hermetica.getting_started.intro.name": "About this Work",
   "book.theurgy.the_hermetica.getting_started.name": "Getting Started",
   "book.theurgy.the_hermetica.name": "The Hermetica",
-  "book.theurgy.the_hermetica.tooltip": "A treatise on the Ancient Art of Alchemy",
+  "book.theurgy.the_hermetica.tooltip": "A treatise on the Ancient Art of Alchemy.\n§o(In-Game Guide for Theurgy)§r",
   "item.theurgy.alchemical_sulfur": "Alchemical Sulfur %s",
   "item.theurgy.alchemical_sulfur.tooltip": "Alchemical sulfur crafted from %s.",
   "item.theurgy.alchemical_sulfur.tooltip.extended": "Sulfur represents the \"idea\" or \"soul\" of an object and is the key to replication and transmutation.",

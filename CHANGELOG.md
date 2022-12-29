@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [beta/v1.19.2-1.1.0] - 2022-12-29
+### :sparkles: New Features
+- [`a5e22c4`](https://github.com/klikli-dev/theurgy/commit/a5e22c4df6440ff141c26d1ed40787ee50624122) - add hint to hermetica tooltip *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`5c68ffa`](https://github.com/klikli-dev/theurgy/commit/5c68ffa0c5ce2847d6537f7e2ac7e9f9dd4f741f) - clean up sulfur render code *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [beta/v1.19.2-1.0.2] - 2022-12-26
 ### :bug: Bug Fixes
 - [`11078ae`](https://github.com/klikli-dev/theurgy/commit/11078aef862923700966c301a94504498fb44c28) - divination rods showing up in all creative tabs *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -53,3 +61,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [beta/v1.19.2-1.0.0]: https://github.com/klikli-dev/theurgy/compare/dummy/v1.19.2-0.0.0...beta/v1.19.2-1.0.0
 [beta/v1.19.2-1.0.1]: https://github.com/klikli-dev/theurgy/compare/beta/v1.19.2-1.0.0...beta/v1.19.2-1.0.1
 [beta/v1.19.2-1.0.2]: https://github.com/klikli-dev/theurgy/compare/beta/v1.19.2-1.0.1...beta/v1.19.2-1.0.2
+[beta/v1.19.2-1.1.0]: https://github.com/klikli-dev/theurgy/compare/beta/v1.19.2-1.0.2...beta/v1.19.2-1.1.0

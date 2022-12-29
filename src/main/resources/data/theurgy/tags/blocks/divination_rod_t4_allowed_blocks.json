@@ -1,6 +1,5 @@
 {
   "replace": false,
-  //T4 does not allow manual attuning so it doesn't really matter
   "values": [
     "#theurgy:divination_rod_t1_allowed_blocks"
   ]

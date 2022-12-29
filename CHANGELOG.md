@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [beta/v1.18.2-1.1.0] - 2022-12-29
+### :sparkles: New Features
+- [`6ca7c35`](https://github.com/klikli-dev/theurgy/commit/6ca7c35b0cda35b498e8446810a8e7e304332b83) - downgrade forge and dependencies to 1.18.2 *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`6a4efae`](https://github.com/klikli-dev/theurgy/commit/6a4efaee0e430613a4bc8c3075bab02ae4078f44) - port mod to 1.18.2 *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`ed1e482`](https://github.com/klikli-dev/theurgy/commit/ed1e48200da7e1e672cdf321948a3132fa6fc940) - add hint to hermetica tooltip *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :bug: Bug Fixes
+- [`23c4e17`](https://github.com/klikli-dev/theurgy/commit/23c4e173bbc3fe65b2d471fc0d9e600cfa11dd8f) - remove json comment, not supported in 1.18.2 *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`8ed0026`](https://github.com/klikli-dev/theurgy/commit/8ed0026010b4241fd9c2e50c59e9cfbc2644b316) - sulfur rendering *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [beta/v1.19.2-1.0.2] - 2022-12-26
 ### :bug: Bug Fixes
 - [`11078ae`](https://github.com/klikli-dev/theurgy/commit/11078aef862923700966c301a94504498fb44c28) - divination rods showing up in all creative tabs *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -53,3 +64,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [beta/v1.19.2-1.0.0]: https://github.com/klikli-dev/theurgy/compare/dummy/v1.19.2-0.0.0...beta/v1.19.2-1.0.0
 [beta/v1.19.2-1.0.1]: https://github.com/klikli-dev/theurgy/compare/beta/v1.19.2-1.0.0...beta/v1.19.2-1.0.1
 [beta/v1.19.2-1.0.2]: https://github.com/klikli-dev/theurgy/compare/beta/v1.19.2-1.0.1...beta/v1.19.2-1.0.2
+[beta/v1.18.2-1.1.0]: https://github.com/klikli-dev/theurgy/compare/dummy/v1.18.2-0.0.0...beta/v1.18.2-1.1.0

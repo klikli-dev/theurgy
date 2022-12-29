@@ -11,6 +11,7 @@ import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.client.model.generators.ItemModelBuilder;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
@@ -19,8 +20,8 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class ItemModelsProvider extends ItemModelProvider {
-    public ItemModelsProvider(DataGenerator generator, ExistingFileHelper existingFileHelper) {
-        super(generator, Theurgy.MODID, existingFileHelper);
+    public ItemModelsProvider(PackOutput packOutput, ExistingFileHelper existingFileHelper) {
+        super(packOutput, Theurgy.MODID, existingFileHelper);
     }
 
     protected String name(Item item) {

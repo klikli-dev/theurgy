@@ -19,6 +19,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.item.ItemPropertyFunction;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.*;
 import net.minecraft.resources.ResourceLocation;
@@ -439,12 +440,6 @@ public class DivinationRodItem extends Item {
                 return NOT_FOUND;
             return stack.getTag().getFloat(TheurgyConstants.Nbt.Divination.DISTANCE);
         };
-
-        public static void spawnEntityClientSide(Level level, Entity entity) {
-            if (level instanceof ClientLevel clientLevel) {
-                clientLevel.putNonPlayerEntity(entity.getId(), entity); //client only spawn of entity
-            }
-        }
 
         public static void registerCreativeModeTabs(DivinationRodItem item, CreativeModeTab.Output output) {
             var level = Minecraft.getInstance().level;

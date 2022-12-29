@@ -11,11 +11,12 @@ import com.klikli_dev.modonomicon.api.datagen.BookProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookModel;
 import com.klikli_dev.theurgy.datagen.book.GettingStartedCategoryProvider;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraftforge.common.data.LanguageProvider;
 
 public class TheurgyBookProvider extends BookProvider {
-    public TheurgyBookProvider(DataGenerator generator, String modid, LanguageProvider lang) {
-        super(generator, modid, lang);
+    public TheurgyBookProvider(PackOutput packOutput, String modid, LanguageProvider lang) {
+        super(packOutput, modid, lang);
     }
 
     @Override

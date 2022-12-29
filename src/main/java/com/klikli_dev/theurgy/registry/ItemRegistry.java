@@ -6,6 +6,7 @@
 
 package com.klikli_dev.theurgy.registry;
 
+import com.klikli_dev.modonomicon.item.ModonomiconItem;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.item.AlchemicalSulfurItem;
@@ -29,6 +30,10 @@ public class ItemRegistry {
     public static final RegistryObject<Item> EMPTY_JAR_LABELED =
             ITEMS.register("empty_jar_labeled", () -> new Item(new Item.Properties()));
 
+    //helper item for hermetica rendering
+    public static final RegistryObject<Item> THE_HERMETICA_ICON =
+            ITEMS.register("the_hermetica_icon", () -> new Item(new Item.Properties()));
+
     //helper item for sulfur rendering
     public static final RegistryObject<Item> JAR_LABEL =
             ITEMS.register("jar_label", () -> new Item(new Item.Properties()));
@@ -42,13 +47,13 @@ public class ItemRegistry {
             ITEMS.register("divination_rod_t1", () -> new DivinationRodItem(
                     new Item.Properties().stacksTo(1).defaultDurability(1),
                     Tiers.STONE, TagRegistry.DIVINATION_ROD_T1_ALLOWED_BLOCKS, TagRegistry.DIVINATION_ROD_T1_DISALLOWED_BLOCKS,
-                    96, 40, 10, true));
+                    96, 40, 3, true));
 
-    public static final RegistryObject<DivinationRodItem> DIVINATION_ROD_T4 =
-            ITEMS.register("divination_rod_t4", () -> new DivinationRodItem(
-                    new Item.Properties().stacksTo(1).defaultDurability(1),
-                    Tiers.STONE, TagRegistry.DIVINATION_ROD_T4_ALLOWED_BLOCKS, TagRegistry.DIVINATION_ROD_T4_DISALLOWED_BLOCKS,
-                    96, 40, 10, false));
+//    public static final RegistryObject<Item> DIVINATION_ROD_T4 =
+//            ITEMS.register("divination_rod_t4", () -> new DivinationRodItem(
+//                    defaultProperties().stacksTo(1).defaultDurability(1),
+//                    Tiers.STONE, TagRegistry.DIVINATION_ROD_T4_ALLOWED_BLOCKS,  TagRegistry.DIVINATION_ROD_T4_DISALLOWED_BLOCKS,
+//                    96, 40, 10, false));
 
     public static void onRegisterCreativeModeTabs(CreativeModeTabEvent.Register event) {
         event.registerCreativeModeTab(new ResourceLocation("occultism:occultism"),

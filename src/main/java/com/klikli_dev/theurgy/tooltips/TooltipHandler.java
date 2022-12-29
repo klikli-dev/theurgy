@@ -78,7 +78,8 @@ public class TooltipHandler {
     }
 
     /**
-     * Register a namespace (= mod id) of items to listen for during tooltip handling
+     * Register a namespace (= mod id) of items to listen for during tooltip handling.
+     * Should be called in @{@link net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent}
      */
     public static void registerNamespaceToListenTo(String namespace) {
         namespacesToListenFor.add(namespace);

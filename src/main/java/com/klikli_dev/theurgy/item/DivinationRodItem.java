@@ -6,6 +6,7 @@
 
 package com.klikli_dev.theurgy.item;
 
+import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.client.scanner.ScanManager;
 import com.klikli_dev.theurgy.entity.FollowProjectile;
@@ -66,6 +67,24 @@ public class DivinationRodItem extends Item {
         this.defaultDuration = defaultDuration;
         this.defaultDurability = defaultDurability;
         this.defaultAllowAttuning = defaultAllowAttuning;
+    }
+
+    public static void spawnEntityClientSide(Level level, Entity entity) {
+        if (level instanceof ClientLevel clientLevel) {
+            clientLevel.putNonPlayerEntity(entity.getId(), entity); //client only spawn of entity
+        }
+    }
+
+    public static void fillItemCategory(DivinationRodItem item, CreativeModeTab tab, NonNullList<ItemStack> items) {
+        var level = Minecraft.getInstance().level;
+        if (level != null) {
+            var recipeManager = level.getRecipeManager();
+            recipeManager.getRecipes().forEach((recipe) -> {
+                if (recipe.getResultItem().getItem() == item) {
+                    items.add(recipe.getResultItem().copy());
+                }
+            });
+        }
     }
 
     @Override
@@ -436,6 +455,12 @@ public class DivinationRodItem extends Item {
                         output.accept(recipe.getResultItem().copy());
                     }
                 });
+            }
+        }
+
+        public static void spawnEntityClientSide(Level level, Entity entity) {
+            if (level instanceof ClientLevel clientLevel) {
+                clientLevel.putNonPlayerEntity(entity.getId(), entity); //client only spawn of entity
             }
         }
     }

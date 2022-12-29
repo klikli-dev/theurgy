@@ -103,7 +103,6 @@ public class ItemModelsProvider extends ItemModelProvider {
                 .predicate(TheurgyConstants.ItemProperty.DIVINATION_DISTANCE, 7.0f)
                 .end()
 
-
                 .override()
                 .model(searchingVariant)
                 .predicate(TheurgyConstants.ItemProperty.DIVINATION_DISTANCE, 8.0f)
@@ -112,12 +111,13 @@ public class ItemModelsProvider extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
+        this.registerItemGenerated(this.name(ItemRegistry.THE_HERMETICA_ICON.get()), "the_hermetica");
         this.registerItemGenerated(this.name(ItemRegistry.EMPTY_JAR.get()));
         this.registerItemGenerated(this.name(ItemRegistry.EMPTY_JAR_LABELED.get()));
         this.registerItemGenerated(this.name(ItemRegistry.JAR_LABEL.get()));
         this.registerItemBuiltinEntity(this.name(ItemRegistry.ALCHEMICAL_SULFUR.get()));
         //this.registerItemGenerated(this.name(ItemRegistry.SULFUR_INGOT.get()));
         this.registerDivinationRod(ItemRegistry.DIVINATION_ROD_T1.get());
-        this.registerDivinationRod(ItemRegistry.DIVINATION_ROD_T4.get());
+//        this.registerDivinationRod(ItemRegistry.DIVINATION_ROD_T4.get());
     }
 }

@@ -50,3 +50,10 @@ modId = "forge"
 mandatory = true
 versionRange = "[1.19.3-44.0.5,)"
 side = "BOTH"
+
+[[dependencies.theurgy]]
+modId = "modonomicon"
+mandatory = true
+versionRange = "[1.19.3-1.21.0,)"
+side = "BOTH"
+

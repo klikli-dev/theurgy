@@ -7,6 +7,7 @@
 package com.klikli_dev.theurgy.item;
 
 import com.google.common.collect.ImmutableList;
+import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.client.render.SulfurBEWLR;
 import net.minecraft.ChatFormatting;

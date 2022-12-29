@@ -5,7 +5,12 @@ plugins {
     id 'org.parchmentmc.librarian.forgegradle' version '1.+'
 }
 
-version = "${mc_version}-${mod_version}"
+if (System.getenv('VERSION') != null) {
+    version = System.getenv('VERSION')
+} else {
+    version = "${mc_version}-${mod_version}"
+}
+
 group = 'com.klikli_dev' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'theurgy'
 
@@ -108,10 +113,16 @@ repositories {
     maven {
         name = "KliKli Dev Repsy Maven"
         url = "https://repo.repsy.io/mvn/klikli-dev/mods"
+        content {
+            includeGroup "com.klikli_dev"
+        }
     }
     maven {
         name = "Progwm16 maven - JEI"
         url = 'https://dvs1.progwml6.com/files/maven'
+        content {
+            includeGroup "mezz.jei"
+        }
     }
 }
 
@@ -156,12 +167,34 @@ jar.finalizedBy('reobfJar')
 publishing {
     publications {
         mavenJava(MavenPublication) {
+            artifactId = 'theurgy'
             artifact jar
+            artifact sourcesJar
+
+            pom {
+                name = 'Theurgy'
+                description = 'An open-source magic mod built around classical alchemy to replicate and transmute matter, and create magical artifacts.'
+                url = 'https://github.com/klikli-dev/theurgy'
+                licenses {
+                    license {
+                        name = 'MIT License'
+                        url = 'https://raw.githubusercontent.com/klikli-dev/theurgy/version/1.19/LICENSES/MIT.txt'
+                    }
+                }
+                scm {
+                    connection = 'scm:git:ssh:git@github.com:klikli-dev/theurgy.git'
+                    url = 'https://github.com/klikli-dev/theurgy'
+                }
+            }
         }
     }
     repositories {
         maven {
-            url "file://${project.projectDir}/mcmodsrepo"
+            url "https://repo.repsy.io/mvn/klikli-dev/mods"
+            credentials {
+                username = System.getenv('MAVEN_USER')
+                password = System.getenv('MAVEN_PASS')
+            }
         }
     }
 }

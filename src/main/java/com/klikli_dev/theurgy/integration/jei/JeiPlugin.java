@@ -7,10 +7,12 @@
 package com.klikli_dev.theurgy.integration.jei;
 
 import com.klikli_dev.theurgy.Theurgy;
+import com.klikli_dev.theurgy.item.DivinationRodItem;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 //import mezz.jei.api.IModPlugin;
 //import mezz.jei.api.registration.ISubtypeRegistration;
 import net.minecraft.resources.ResourceLocation;
+import org.jetbrains.annotations.NotNull;
 
 //TODO: reenable once jei updates
 //@mezz.jei.api.JeiPlugin

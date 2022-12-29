@@ -11,7 +11,7 @@ import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import net.minecraft.ChatFormatting;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.network.chat.contents.TranslatableContents;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraftforge.common.data.LanguageProvider;
 
 public class ENUSProvider extends LanguageProvider implements TooltipLanguageProvider {
@@ -44,7 +44,7 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
     }
 
     private void addItems() {
-        this.add(((TranslatableContents)Theurgy.CREATIVE_MODE_TAB.getDisplayName().getContents()).getKey(), "Theurgy");
+        this.add(((TranslatableComponent)Theurgy.CREATIVE_MODE_TAB.getDisplayName()).getKey(), "Theurgy");
 
         this.addItem(ItemRegistry.EMPTY_JAR, "Empty Jar");
 

@@ -7,7 +7,8 @@
 package com.klikli_dev.theurgy.client.particle;
 
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.util.RandomSource;
+
+import java.util.Random;
 
 /**
  * Modified class of ElementType: https://github.com/Sirttas/ElementalCraft/blob/b91ca42b3d139904d9754d882a595406bad1bd18/src/main/java/sirttas/elementalcraft/ElementType.java
@@ -34,7 +35,7 @@ public class ParticleColor implements Cloneable {
         this((int) r, (int) g, (int) b);
     }
 
-    public static ParticleColor makeRandomColor(int r, int g, int b, RandomSource random) {
+    public static ParticleColor makeRandomColor(int r, int g, int b, Random random) {
         return new ParticleColor(random.nextInt(r), random.nextInt(g), random.nextInt(b));
     }
 
@@ -100,7 +101,7 @@ public class ParticleColor implements Cloneable {
     /**
      * Generates a new color within the max range of the given color.
      */
-    public ParticleColor nextColor(RandomSource random) {
+    public ParticleColor nextColor(Random random) {
         IntWrapper wrapper = this.toWrapper();
         return new ParticleColor(random.nextInt(wrapper.r), random.nextInt(wrapper.g), random.nextInt(wrapper.b));
     }

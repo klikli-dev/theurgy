@@ -76,7 +76,7 @@ public class SulfurBEWLR extends BlockEntityWithoutLevelRenderer {
         BakedModel labelModel = itemRenderer.getModel(labelStack, null, null, 0);
 
         //now apply the transform to the label to make it look right in-world -> because below we render with gui transform which would mess it up
-        labelModel = labelModel.applyTransform(pTransformType, pPoseStack, isLeftHand(pTransformType));
+        labelModel = labelModel.handlePerspective(pTransformType, pPoseStack);
 
         pPoseStack.pushPose();
 

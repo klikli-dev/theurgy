@@ -11,14 +11,18 @@ import com.klikli_dev.theurgy.client.particle.ParticleColor;
 import com.klikli_dev.theurgy.registry.EntityDataSerializerRegistry;
 import com.klikli_dev.theurgy.registry.EntityRegistry;
 import com.klikli_dev.theurgy.registry.ParticleRegistry;
+import com.klikli_dev.theurgy.util.Codecs;
+import com.mojang.serialization.Codec;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializer;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
@@ -27,8 +31,11 @@ import net.minecraftforge.network.PlayMessages;
 
 public class FollowProjectile extends ColoredProjectile {
 
-    public static final EntityDataAccessor<Vec3> to = SynchedEntityData.defineId(FollowProjectile.class, EntityDataSerializerRegistry.VEC3_FLOAT.get());
-    public static final EntityDataAccessor<Vec3> from = SynchedEntityData.defineId(FollowProjectile.class, EntityDataSerializerRegistry.VEC3_FLOAT.get());
+    @SuppressWarnings("unchecked")
+    public static final EntityDataAccessor<Vec3> to = SynchedEntityData.defineId(FollowProjectile.class, (EntityDataSerializer<Vec3>) EntityDataSerializerRegistry.VEC3_FLOAT.get().getSerializer());
+
+    @SuppressWarnings("unchecked")
+    public static final EntityDataAccessor<Vec3> from = SynchedEntityData.defineId(FollowProjectile.class, (EntityDataSerializer<Vec3>)EntityDataSerializerRegistry.VEC3_FLOAT.get().getSerializer());
     public static final EntityDataAccessor<Boolean> SPAWN_TOUCH = SynchedEntityData.defineId(FollowProjectile.class, EntityDataSerializers.BOOLEAN);
     public static final EntityDataAccessor<Integer> DESPAWN = SynchedEntityData.defineId(FollowProjectile.class, EntityDataSerializers.INT);
     int maxAge = 500;
@@ -173,15 +180,15 @@ public class FollowProjectile extends ColoredProjectile {
     @Override
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
-        this.entityData.set(FollowProjectile.from, Vec3.CODEC.parse(NbtOps.INSTANCE, compound.get("from")).result().get());
-        this.entityData.set(FollowProjectile.to, Vec3.CODEC.parse(NbtOps.INSTANCE, compound.get("to")).result().get());
+        this.entityData.set(FollowProjectile.from, Codecs.VEC3.parse(NbtOps.INSTANCE, compound.get("from")).result().get());
+        this.entityData.set(FollowProjectile.to, Codecs.VEC3.parse(NbtOps.INSTANCE, compound.get("to")).result().get());
     }
 
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
-        Vec3.CODEC.encodeStart(NbtOps.INSTANCE, this.entityData.get(FollowProjectile.from)).result().ifPresent((e) -> compound.put("from", e));
-        Vec3.CODEC.encodeStart(NbtOps.INSTANCE, this.entityData.get(FollowProjectile.to)).result().ifPresent((e) -> compound.put("to", e));
+        Codecs.VEC3.encodeStart(NbtOps.INSTANCE, this.entityData.get(FollowProjectile.from)).result().ifPresent((e) -> compound.put("from", e));
+        Codecs.VEC3.encodeStart(NbtOps.INSTANCE, this.entityData.get(FollowProjectile.to)).result().ifPresent((e) -> compound.put("to", e));
     }
 
     @Override

@@ -29,7 +29,7 @@ public class TheurgyBookProvider extends BookProvider {
         helper.book("the_hermetica");
 
         this.lang.add(helper.bookName(), "The Hermetica");
-        this.lang.add(helper.bookTooltip(), "A treatise on the Ancient Art of Alchemy");
+        this.lang.add(helper.bookTooltip(), "A treatise on the Ancient Art of Alchemy.\n§o(In-Game Guide for Theurgy)§r");
 
         int categorySortNum = 1;
         var gettingStartedCategory = new GettingStartedCategoryProvider().make(helper, this.lang).withSortNumber(categorySortNum++);

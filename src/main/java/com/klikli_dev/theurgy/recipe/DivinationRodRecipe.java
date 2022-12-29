@@ -21,6 +21,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.ForgeRegistryEntry;
 
 public class DivinationRodRecipe extends ShapedRecipe {
 
@@ -167,7 +168,7 @@ public class DivinationRodRecipe extends ShapedRecipe {
         return null;
     }
 
-    public static class Serializer implements RecipeSerializer<DivinationRodRecipe> {
+    public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<DivinationRodRecipe> {
 
         public DivinationRodRecipe fromJson(ResourceLocation pRecipeId, JsonObject pJson) {
             var shapedRecipe = RecipeSerializer.SHAPED_RECIPE.fromJson(pRecipeId, pJson);

@@ -11,10 +11,12 @@ import com.klikli_dev.theurgy.client.particle.ColorParticleTypeData;
 import com.klikli_dev.theurgy.client.particle.GlowParticleData;
 import com.klikli_dev.theurgy.client.particle.GlowParticleType;
 import com.klikli_dev.theurgy.client.particle.ParticleColor;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.particle.ParticleEngine;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleType;
-import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
+import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -25,8 +27,9 @@ public class ParticleRegistry {
 
     public static final RegistryObject<ParticleType<ColorParticleTypeData>> GLOW_TYPE = PARTICLES.register(GlowParticleData.NAME, () -> new GlowParticleType());
 
-    public static void registerFactories(RegisterParticleProvidersEvent evt) {
-        evt.register(GLOW_TYPE.get(), GlowParticleData::new);
+    public static void registerFactories(ParticleFactoryRegisterEvent evt) {
+        ParticleEngine manager = Minecraft.getInstance().particleEngine;
+        manager.register(GLOW_TYPE.get(), GlowParticleData::new);
     }
 
     public static void spawnTouch(ClientLevel world, BlockPos loc, ParticleColor particleColor) {

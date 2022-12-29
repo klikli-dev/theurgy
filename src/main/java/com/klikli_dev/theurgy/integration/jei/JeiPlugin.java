@@ -10,6 +10,7 @@ import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.item.DivinationRodItem;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import mezz.jei.api.IModPlugin;
+import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.registration.ISubtypeRegistration;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
@@ -25,7 +26,8 @@ public class JeiPlugin implements IModPlugin {
     public void registerItemSubtypes(@NotNull ISubtypeRegistration registration) {
 
         ItemRegistry.ITEMS.getEntries().stream().filter(item -> item.get() instanceof DivinationRodItem).forEach(item -> {
-            registration.registerSubtypeInterpreter(item.get(), DivinationRodSubtypeInterpreter.get());
+            registration.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK,
+                    item.get(), DivinationRodSubtypeInterpreter.get());
             Theurgy.LOGGER.debug("Registered Divination Rod JEI Subtype Interpreter for: {}", item.getKey());
         });
     }

@@ -15,6 +15,7 @@ import com.klikli_dev.theurgy.network.messages.MessageSetDivinationResult;
 import com.klikli_dev.theurgy.registry.SoundRegistry;
 import com.klikli_dev.theurgy.registry.TagRegistry;
 import net.minecraft.ChatFormatting;
+import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.item.ItemPropertyFunction;
@@ -117,8 +118,9 @@ public class DivinationRodItem extends Item {
 
             if (!stack.getOrCreateTag().getBoolean(TheurgyConstants.Nbt.Divination.SETTING_ALLOW_ATTUNING)) {
                 if (!level.isClientSide) {
-                    player.sendSystemMessage(
-                            Component.translatable(TheurgyConstants.I18n.Message.DIVINATION_ROD_ATTUNING_NOT_ALLOWED)
+                    player.sendMessage(
+                            new TranslatableComponent(TheurgyConstants.I18n.Message.DIVINATION_ROD_ATTUNING_NOT_ALLOWED),
+                            Util.NIL_UUID
                     );
                 }
                 return InteractionResult.FAIL;
@@ -128,31 +130,34 @@ public class DivinationRodItem extends Item {
             if (!state.isAir()) {
                 if (!TierSortingRegistry.isCorrectTierForDrops(tier, state)) {
                     if (!level.isClientSide) {
-                        player.sendSystemMessage(
-                                Component.translatable(
+                        player.sendMessage(
+                                new TranslatableComponent(
                                         TheurgyConstants.I18n.Message.DIVINATION_ROD_TIER_TOO_LOW,
                                         this.getBlockDisplayComponent(state.getBlock())
-                                )
+                                ),
+                                Util.NIL_UUID
                         );
                     }
                     return InteractionResult.FAIL;
                 } else if (!state.is(allowedBlocksTag)) {
                     if (!level.isClientSide) {
-                        player.sendSystemMessage(
-                                Component.translatable(
+                        player.sendMessage(
+                                new TranslatableComponent(
                                         TheurgyConstants.I18n.Message.DIVINATION_ROD_BLOCK_NOT_ALLOWED,
                                         this.getBlockDisplayComponent(state.getBlock())
-                                )
+                                ),
+                                Util.NIL_UUID
                         );
                     }
                     return InteractionResult.FAIL;
                 } else if (state.is(disallowedBlocksTag)) {
                     if (!level.isClientSide) {
-                        player.sendSystemMessage(
-                                Component.translatable(
+                        player.sendMessage(
+                                new TranslatableComponent(
                                         TheurgyConstants.I18n.Message.DIVINATION_ROD_BLOCK_DISALLOWED,
                                         this.getBlockDisplayComponent(state.getBlock())
-                                )
+                                ),
+                                Util.NIL_UUID
                         );
                     }
                     return InteractionResult.FAIL;
@@ -163,11 +168,12 @@ public class DivinationRodItem extends Item {
                                 ForgeRegistries.BLOCKS.getKey(state.getBlock()).toString()
                         );
 
-                        player.sendSystemMessage(
-                                Component.translatable(
+                        player.sendMessage(
+                                new TranslatableComponent(
                                         TheurgyConstants.I18n.Message.DIVINATION_ROD_LINKED,
                                         this.getBlockDisplayComponent(state.getBlock())
-                                )
+                                ),
+                                Util.NIL_UUID
                         );
                     }
 
@@ -215,7 +221,9 @@ public class DivinationRodItem extends Item {
 
                 }
             } else if (!level.isClientSide) {
-                player.sendSystemMessage(Component.translatable(TheurgyConstants.I18n.Message.DIVINATION_ROD_NO_LINK));
+                player.sendMessage(
+                        new TranslatableComponent(TheurgyConstants.I18n.Message.DIVINATION_ROD_NO_LINK),
+                        Util.NIL_UUID);
             }
         }
 
@@ -292,7 +300,7 @@ public class DivinationRodItem extends Item {
                                     block.getName().withStyle(Style.EMPTY.withColor(ChatFormatting.GREEN).withItalic(true))
                             )
                             .withStyle((style) -> style.withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_ITEM, new HoverEvent.ItemStackInfo(new ItemStack(block)))));
-                    return Component.translatable(this.getDescriptionId() + ".linked", blockComponent);
+                    return new TranslatableComponent(this.getDescriptionId() + ".linked", blockComponent);
                 }
             }
         }
@@ -339,22 +347,22 @@ public class DivinationRodItem extends Item {
                 if (block != null) {
                     var blockComponent = this.getBlockDisplayComponent(block);
                     pTooltipComponents.add(
-                            Component.translatable(
+                            new TranslatableComponent(
                                     TheurgyConstants.I18n.Tooltip.DIVINATION_ROD_LINKED_TO,
                                     blockComponent
                             ).withStyle(ChatFormatting.GRAY));
 
                     if (tag.contains(TheurgyConstants.Nbt.Divination.POS)) {
                         var pos = BlockPos.of(tag.getLong(TheurgyConstants.Nbt.Divination.POS));
-                        pTooltipComponents.add(Component.translatable(TheurgyConstants.I18n.Tooltip.DIVINATION_ROD_LAST_RESULT,
+                        pTooltipComponents.add(new TranslatableComponent(TheurgyConstants.I18n.Tooltip.DIVINATION_ROD_LAST_RESULT,
                                 blockComponent,
-                                ComponentUtils.wrapInSquareBrackets(Component.literal(pos.toShortString())).withStyle(ChatFormatting.GREEN)
+                                ComponentUtils.wrapInSquareBrackets(new TextComponent(pos.toShortString())).withStyle(ChatFormatting.GREEN)
                         ).withStyle(ChatFormatting.GRAY));
                     }
                 }
 
             } else {
-                pTooltipComponents.add(Component.translatable(TheurgyConstants.I18n.Tooltip.DIVINATION_ROD_NO_LINK));
+                pTooltipComponents.add(new TranslatableComponent(TheurgyConstants.I18n.Tooltip.DIVINATION_ROD_NO_LINK));
             }
 
         }

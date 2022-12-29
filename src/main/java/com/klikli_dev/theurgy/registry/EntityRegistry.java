@@ -18,7 +18,7 @@ import net.minecraftforge.registries.RegistryObject;
 
 public class EntityRegistry {
 
-    public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES,
+    public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITIES,
             Theurgy.MODID);
 
     public static final RegistryObject<EntityType<FollowProjectile>> FOLLOW_PROJECTILE = register(

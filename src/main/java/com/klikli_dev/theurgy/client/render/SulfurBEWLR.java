@@ -46,8 +46,10 @@ public class SulfurBEWLR extends BlockEntityWithoutLevelRenderer {
         //if we do not render the source we show a simplified labeled icon with pixels representing fictional text
         var jarStack = renderSource ? emptyJarStack : labeledEmptyJarStack;
 
-        pPoseStack.popPose();
-        pPoseStack.pushPose(); //reset pose that we get from the item renderer, it moves by half a block which we don't want
+        //TODO This
+        pPoseStack.translate(0.5D, 0.5D, 0.5D);
+//        pPoseStack.popPose();
+//        pPoseStack.pushPose(); //reset pose that we get from the item renderer, it moves by half a block which we don't want
 
         ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
 
@@ -75,8 +77,11 @@ public class SulfurBEWLR extends BlockEntityWithoutLevelRenderer {
 
         BakedModel labelModel = itemRenderer.getModel(labelStack, null, null, 0);
 
+        pPoseStack.pushPose();
         //now apply the transform to the label to make it look right in-world -> because below we render with gui transform which would mess it up
-        labelModel = labelModel.applyTransform(pTransformType, pPoseStack, isLeftHand(pTransformType));
+        //Equivalent of labelModel.applyTransform(pTransformType, pPoseStack, isLeftHand(pTransformType));
+        //it actually modifies the pose stack, not the model, hence the pushPose above!
+        labelModel.getTransforms().getTransform(pTransformType).apply(isLeftHand(pTransformType), pPoseStack);
 
         pPoseStack.pushPose();
 
@@ -91,6 +96,8 @@ public class SulfurBEWLR extends BlockEntityWithoutLevelRenderer {
         //note: if we reset to 3d item light here it ignores it above and renders dark .. idk why
 
         pPoseStack.popPose();
+
+        pPoseStack.popPose();
     }
 
     public void renderContainedItem(ItemStack sulfurStack, ItemTransforms.TransformType pTransformType, PoseStack pPoseStack, MultiBufferSource pBuffer, int pPackedLight, int pPackedOverlay) {
@@ -100,9 +107,14 @@ public class SulfurBEWLR extends BlockEntityWithoutLevelRenderer {
         var containedStack = AlchemicalSulfurItem.getSourceStack(sulfurStack);
         if (!containedStack.isEmpty()) {
             BakedModel containedModel = itemRenderer.getModel(containedStack, null, null, 0);
+            BakedModel labelModel = itemRenderer.getModel(labelStack, null, null, 0);
 
-            //not sure why we don't have to apply transform here. Somehow label carries over, because if we do not call label our rendering is off
-            //containedModel = containedModel.applyTransform(pTransformType, pPoseStack, isLeftHand(pTransformType));
+            pPoseStack.pushPose();
+
+            //now apply the transform to the contained item to make it look right in-world -> because below we render with gui transform which would mess it up
+            //Equivalent of labelModel.applyTransform(pTransformType, pPoseStack, isLeftHand(pTransformType));
+            //it actually modifies the pose stack, not the model, hence the pushPose above!
+            labelModel.getTransforms().getTransform(pTransformType).apply(isLeftHand(pTransformType), pPoseStack); //reuse the label transform to simulate flat items even if the contained item is 3d
 
             pPoseStack.pushPose();
 
@@ -117,6 +129,8 @@ public class SulfurBEWLR extends BlockEntityWithoutLevelRenderer {
             Lighting.setupForFlatItems(); //always render "labeled" item flat
             itemRenderer.render(containedStack, ItemTransforms.TransformType.GUI, isLeftHand(pTransformType), pPoseStack, pBuffer, pPackedLight, pPackedOverlay, containedModel);
             //note: if we reset to 3d item light here it ignores it above and renders dark .. idk why
+
+            pPoseStack.popPose();
 
             pPoseStack.popPose();
         }

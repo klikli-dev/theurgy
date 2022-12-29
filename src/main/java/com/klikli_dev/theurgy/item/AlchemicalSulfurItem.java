@@ -14,16 +14,13 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.core.NonNullList;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.ComponentUtils;
-import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.Style;
+import net.minecraft.network.chat.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.extensions.common.IClientItemExtensions;
+import net.minecraftforge.client.IItemRenderProperties;
 import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -61,10 +58,11 @@ public class AlchemicalSulfurItem extends Item {
     }
 
     @Override
-    public void initializeClient(Consumer<IClientItemExtensions> consumer) {
-        consumer.accept(new IClientItemExtensions() {
+    public void initializeClient(Consumer<IItemRenderProperties> consumer) {
+        consumer.accept(new IItemRenderProperties() {
+
             @Override
-            public BlockEntityWithoutLevelRenderer getCustomRenderer() {
+            public BlockEntityWithoutLevelRenderer getItemStackRenderer() {
                 return SulfurBEWLR.get();
             }
         });
@@ -75,7 +73,7 @@ public class AlchemicalSulfurItem extends Item {
         var source = getSourceStack(pStack);
 
         if (!source.isEmpty() && source.getHoverName() instanceof MutableComponent hoverName)
-            return Component.translatable(this.getDescriptionId(), ComponentUtils.wrapInSquareBrackets(
+            return new TranslatableComponent(this.getDescriptionId(), ComponentUtils.wrapInSquareBrackets(
                     hoverName.withStyle(Style.EMPTY
                             .withColor(ChatFormatting.GREEN)
                             .withItalic(true)

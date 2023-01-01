@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [beta/v1.19.2-1.1.1] - 2023-01-01
+### :wrench: Chores
+- [`6de5e46`](https://github.com/klikli-dev/theurgy/commit/6de5e46700d39ff128259785bf7ced339fae93af) - update compatibility matrix for curseforge publishing *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`29bfd96`](https://github.com/klikli-dev/theurgy/commit/29bfd96316e3bf8c7e56a79f0289bb72783baca7) - reduce minimim required forge version *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`56678d1`](https://github.com/klikli-dev/theurgy/commit/56678d1aa6cd5f73cd4fdd35940650962254afa1) - update mod version for local builds *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [beta/v1.19.2-1.1.0] - 2022-12-29
 ### :sparkles: New Features
 - [`a5e22c4`](https://github.com/klikli-dev/theurgy/commit/a5e22c4df6440ff141c26d1ed40787ee50624122) - add hint to hermetica tooltip *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -62,3 +69,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [beta/v1.19.2-1.0.1]: https://github.com/klikli-dev/theurgy/compare/beta/v1.19.2-1.0.0...beta/v1.19.2-1.0.1
 [beta/v1.19.2-1.0.2]: https://github.com/klikli-dev/theurgy/compare/beta/v1.19.2-1.0.1...beta/v1.19.2-1.0.2
 [beta/v1.19.2-1.1.0]: https://github.com/klikli-dev/theurgy/compare/beta/v1.19.2-1.0.2...beta/v1.19.2-1.1.0
+[beta/v1.19.2-1.1.1]: https://github.com/klikli-dev/theurgy/compare/beta/v1.19.2-1.1.0...beta/v1.19.2-1.1.1

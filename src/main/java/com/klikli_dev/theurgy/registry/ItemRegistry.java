@@ -56,7 +56,7 @@ public class ItemRegistry {
 //                    96, 40, 10, false));
 
     public static void onRegisterCreativeModeTabs(CreativeModeTabEvent.Register event) {
-        event.registerCreativeModeTab(new ResourceLocation("occultism:occultism"),
+        event.registerCreativeModeTab(new ResourceLocation(Theurgy.MODID + ":" + Theurgy.MODID),
                 (builder) -> {
                     builder.icon(() -> new ItemStack(EMPTY_JAR.get()))
                             .title(Component.translatable(TheurgyConstants.I18n.ITEM_GROUP)).build();

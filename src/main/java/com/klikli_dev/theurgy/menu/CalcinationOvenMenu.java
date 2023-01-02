@@ -131,7 +131,7 @@ public class CalcinationOvenMenu extends AbstractContainerMenu {
     }
 
     public boolean isLit() {
-        return this.data.get(0) > 0;
+        return this.dataAccess.get(0) > 0;
     }
 
     private int addSlotRow(IItemHandler handler, int index, int x, int y, int columns, int dx) {

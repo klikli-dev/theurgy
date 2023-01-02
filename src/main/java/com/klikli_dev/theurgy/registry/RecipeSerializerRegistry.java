@@ -24,5 +24,5 @@ public class RecipeSerializerRegistry {
             DivinationRodRecipe.Serializer::new);
 
     public static final RegistryObject<RecipeSerializer<CalcinationRecipe>> CALCINATION = RECIPE_SERIALIZERS.register("calcination",
-            new SimpleCookingSerializer<>(CalcinationRecipe::new, 200));
+            CalcinationRecipe.Serializer::new);
 }

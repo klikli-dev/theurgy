@@ -29,7 +29,7 @@ public class DivinationRodRecipe extends ShapedRecipe {
     }
 
     public RecipeSerializer<?> getSerializer() {
-        return RecipeSerializerRegistry.CALCINATION.get();
+        return RecipeSerializerRegistry.DIVINATION_ROD.get();
     }
 
     @Override

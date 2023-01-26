@@ -116,7 +116,10 @@ public class ItemModelsProvider extends ItemModelProvider {
         this.registerItemGenerated(this.name(ItemRegistry.JAR_LABEL.get()));
         this.registerItemBuiltinEntity(this.name(ItemRegistry.ALCHEMICAL_SULFUR.get()));
         //this.registerItemGenerated(this.name(ItemRegistry.SULFUR_INGOT.get()));
+
         this.registerDivinationRod(ItemRegistry.DIVINATION_ROD_T1.get());
-//        this.registerDivinationRod(ItemRegistry.DIVINATION_ROD_T4.get());
+        this.registerDivinationRod(ItemRegistry.DIVINATION_ROD_T2.get());
+        this.registerDivinationRod(ItemRegistry.DIVINATION_ROD_T3.get());
+        this.registerDivinationRod(ItemRegistry.DIVINATION_ROD_T4.get());
     }
 }

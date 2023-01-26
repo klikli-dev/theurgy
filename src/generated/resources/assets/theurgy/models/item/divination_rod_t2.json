@@ -1,0 +1,59 @@
+{
+  "parent": "theurgy:item/divination_rod_t2_0",
+  "overrides": [
+    {
+      "model": "theurgy:item/divination_rod_t2_7",
+      "predicate": {
+        "theurgy:divination_distance": 0.0
+      }
+    },
+    {
+      "model": "theurgy:item/divination_rod_t2_6",
+      "predicate": {
+        "theurgy:divination_distance": 1.0
+      }
+    },
+    {
+      "model": "theurgy:item/divination_rod_t2_5",
+      "predicate": {
+        "theurgy:divination_distance": 2.0
+      }
+    },
+    {
+      "model": "theurgy:item/divination_rod_t2_4",
+      "predicate": {
+        "theurgy:divination_distance": 3.0
+      }
+    },
+    {
+      "model": "theurgy:item/divination_rod_t2_3",
+      "predicate": {
+        "theurgy:divination_distance": 4.0
+      }
+    },
+    {
+      "model": "theurgy:item/divination_rod_t2_2",
+      "predicate": {
+        "theurgy:divination_distance": 5.0
+      }
+    },
+    {
+      "model": "theurgy:item/divination_rod_t2_1",
+      "predicate": {
+        "theurgy:divination_distance": 6.0
+      }
+    },
+    {
+      "model": "theurgy:item/divination_rod_t2_0",
+      "predicate": {
+        "theurgy:divination_distance": 7.0
+      }
+    },
+    {
+      "model": "theurgy:item/divination_rod_t2_searching",
+      "predicate": {
+        "theurgy:divination_distance": 8.0
+      }
+    }
+  ]
+}

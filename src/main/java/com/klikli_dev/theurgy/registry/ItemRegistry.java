@@ -6,7 +6,6 @@
 
 package com.klikli_dev.theurgy.registry;
 
-import com.klikli_dev.modonomicon.item.ModonomiconItem;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.item.AlchemicalSulfurItem;
@@ -49,11 +48,24 @@ public class ItemRegistry {
                     Tiers.STONE, TagRegistry.DIVINATION_ROD_T1_ALLOWED_BLOCKS, TagRegistry.DIVINATION_ROD_T1_DISALLOWED_BLOCKS,
                     96, 40, 3, true));
 
-//    public static final RegistryObject<Item> DIVINATION_ROD_T4 =
-//            ITEMS.register("divination_rod_t4", () -> new DivinationRodItem(
-//                    defaultProperties().stacksTo(1).defaultDurability(1),
-//                    Tiers.STONE, TagRegistry.DIVINATION_ROD_T4_ALLOWED_BLOCKS,  TagRegistry.DIVINATION_ROD_T4_DISALLOWED_BLOCKS,
-//                    96, 40, 10, false));
+    public static final RegistryObject<DivinationRodItem> DIVINATION_ROD_T2 =
+            ITEMS.register("divination_rod_t2", () -> new DivinationRodItem(
+                    new Item.Properties().stacksTo(1).defaultDurability(1),
+                    Tiers.IRON, TagRegistry.DIVINATION_ROD_T2_ALLOWED_BLOCKS, TagRegistry.DIVINATION_ROD_T2_DISALLOWED_BLOCKS,
+                    96, 40, 6, true));
+
+    public static final RegistryObject<DivinationRodItem> DIVINATION_ROD_T3 =
+            ITEMS.register("divination_rod_t3", () -> new DivinationRodItem(
+                    new Item.Properties().stacksTo(1).defaultDurability(1),
+                    Tiers.IRON, TagRegistry.DIVINATION_ROD_T3_ALLOWED_BLOCKS, TagRegistry.DIVINATION_ROD_T3_DISALLOWED_BLOCKS,
+                    96, 40, 9, true));
+    public static final RegistryObject<DivinationRodItem> DIVINATION_ROD_T4 =
+
+            ITEMS.register("divination_rod_t4", () -> new DivinationRodItem(
+                    new Item.Properties().stacksTo(1).defaultDurability(1),
+                    Tiers.IRON, TagRegistry.DIVINATION_ROD_T4_ALLOWED_BLOCKS, TagRegistry.DIVINATION_ROD_T4_DISALLOWED_BLOCKS,
+                    96, 40, 12, true));
+    //TODO: in the future, no attuning for higher tier rods
 
     public static void onRegisterCreativeModeTabs(CreativeModeTabEvent.Register event) {
         event.registerCreativeModeTab(new ResourceLocation(Theurgy.MODID + ":" + Theurgy.MODID),
@@ -65,10 +77,13 @@ public class ItemRegistry {
 
                         AlchemicalSulfurItem.DistHelper.registerCreativeModeTabs(ALCHEMICAL_SULFUR.get(), output);
                         DivinationRodItem.DistHelper.registerCreativeModeTabs(DIVINATION_ROD_T1.get(), output);
-//                        DivinationRodItem.DistHelper.registerCreativeModeTabs(DIVINATION_ROD_T4.get(), output);
+                        DivinationRodItem.DistHelper.registerCreativeModeTabs(DIVINATION_ROD_T2.get(), output);
+                        DivinationRodItem.DistHelper.registerCreativeModeTabs(DIVINATION_ROD_T3.get(), output);
+                        DivinationRodItem.DistHelper.registerCreativeModeTabs(DIVINATION_ROD_T4.get(), output);
                     });
 
                 }
         );
+
     }
 }

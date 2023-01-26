@@ -16,10 +16,13 @@ import net.minecraft.world.level.block.Block;
 public class TagRegistry {
 
     public static final TagKey<Block> DIVINATION_ROD_T1_ALLOWED_BLOCKS = makeBlockTag( "divination_rod_t1_allowed_blocks");
+    public static final TagKey<Block> DIVINATION_ROD_T2_ALLOWED_BLOCKS = makeBlockTag( "divination_rod_t2_allowed_blocks");
+    public static final TagKey<Block> DIVINATION_ROD_T3_ALLOWED_BLOCKS = makeBlockTag( "divination_rod_t3_allowed_blocks");
     public static final TagKey<Block> DIVINATION_ROD_T4_ALLOWED_BLOCKS = makeBlockTag( "divination_rod_t4_allowed_blocks");
 
     public static final TagKey<Block> DIVINATION_ROD_T1_DISALLOWED_BLOCKS = makeBlockTag( "divination_rod_t1_disallowed_blocks");
-
+    public static final TagKey<Block> DIVINATION_ROD_T2_DISALLOWED_BLOCKS = makeBlockTag( "divination_rod_t2_disallowed_blocks");
+    public static final TagKey<Block> DIVINATION_ROD_T3_DISALLOWED_BLOCKS = makeBlockTag( "divination_rod_t3_disallowed_blocks");
     public static final TagKey<Block> DIVINATION_ROD_T4_DISALLOWED_BLOCKS = makeBlockTag( "divination_rod_t4_disallowed_blocks");
 
     public static TagKey<Block> makeBlockTag(String id) {

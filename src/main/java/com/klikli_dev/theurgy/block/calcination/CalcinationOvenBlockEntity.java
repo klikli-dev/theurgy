@@ -1,13 +1,20 @@
 package com.klikli_dev.theurgy.block.calcination;
 
+import com.klikli_dev.theurgy.menu.CalcinationOvenMenu;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
 import net.minecraft.world.Container;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.inventory.FurnaceMenu;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -29,7 +36,7 @@ import net.minecraftforge.items.wrapper.RecipeWrapper;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class CalcinationOvenBlockEntity extends BlockEntity {
+public class CalcinationOvenBlockEntity extends BlockEntity implements MenuProvider {
 
     public static final int INPUT_SLOT = 0;
     public static final int FUEL_SLOT = 1;
@@ -290,5 +297,16 @@ public class CalcinationOvenBlockEntity extends BlockEntity {
     @Override
     public void handleUpdateTag(CompoundTag tag) {
         //none, we don't load anything from the update tag
+    }
+
+    @Override
+    public Component getDisplayName() {
+        return Component.translatable();
+    }
+
+    @Nullable
+    @Override
+    public AbstractContainerMenu createMenu(int pContainerId, Inventory pPlayerInventory, Player pPlayer) {
+        return new CalcinationOvenMenu(pContainerId, pPlayerInventory, this.inventory, this.dataAccess);
     }
 }

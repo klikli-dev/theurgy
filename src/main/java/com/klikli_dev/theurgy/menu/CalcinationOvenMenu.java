@@ -112,7 +112,7 @@ public class CalcinationOvenMenu extends AbstractContainerMenu {
     @Override
     public boolean stillValid(Player pPlayer) {
         //TODO: stillValid
-        return false;
+        return true;
     }
 
     public int getCalcinationProgress() {

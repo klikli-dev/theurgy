@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [beta/v1.19.3-1.2.0] - 2023-01-26
+### :sparkles: New Features
+- [`bb14399`](https://github.com/klikli-dev/theurgy/commit/bb143994da9416ca162ec0600fb2bd03abdfed73) - add (temporary) higher tier divination rods *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`6296a63`](https://github.com/klikli-dev/theurgy/commit/6296a63b4b340cf57319b015ed065474c2b0aac9) - update mod version for local builds *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [beta/v1.19.3-1.1.1] - 2023-01-01
 ### :bug: Bug Fixes
 - [`de3018e`](https://github.com/klikli-dev/theurgy/commit/de3018ec800d3e59cc6a036c568e14c1c5f41f44) - Theurgy uses occultism creative mode tab *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -102,3 +110,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [beta/v1.19.2-1.0.2]: https://github.com/klikli-dev/theurgy/compare/beta/v1.19.2-1.0.1...beta/v1.19.2-1.0.2
 [beta/v1.19.3-1.1.0]: https://github.com/klikli-dev/theurgy/compare/dummy/v1.19.3-0.0.0...beta/v1.19.3-1.1.0
 [beta/v1.19.3-1.1.1]: https://github.com/klikli-dev/theurgy/compare/beta/v1.19.3-1.1.0...beta/v1.19.3-1.1.1
+[beta/v1.19.3-1.2.0]: https://github.com/klikli-dev/theurgy/compare/beta/v1.19.3-1.1.1...beta/v1.19.3-1.2.0

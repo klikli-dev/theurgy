@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [beta/v1.18.2-1.3.0] - 2023-02-01
+### :sparkles: New Features
+- [`1001d84`](https://github.com/klikli-dev/theurgy/commit/1001d84fd86278b65e92fb5eb0ec5a57603830f2) - keep divination rod at 0 durability until next full scan *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [beta/v1.18.2-1.2.0] - 2023-01-26
 ### :sparkles: New Features
 - [`e53feb8`](https://github.com/klikli-dev/theurgy/commit/e53feb85d4f544b1e4b696b8beaabef9528fc1b6) - add (temporary) higher tier divination rods *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -77,3 +82,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [beta/v1.18.2-1.1.0]: https://github.com/klikli-dev/theurgy/compare/dummy/v1.18.2-0.0.0...beta/v1.18.2-1.1.0
 [beta/v1.18.2-1.1.1]: https://github.com/klikli-dev/theurgy/compare/beta/v1.18.2-1.1.0...beta/v1.18.2-1.1.1
 [beta/v1.18.2-1.2.0]: https://github.com/klikli-dev/theurgy/compare/beta/v1.18.2-1.1.1...beta/v1.18.2-1.2.0
+[beta/v1.18.2-1.3.0]: https://github.com/klikli-dev/theurgy/compare/beta/v1.18.2-1.2.0...beta/v1.18.2-1.3.0

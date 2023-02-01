@@ -24,6 +24,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.stats.Stats;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -70,24 +71,6 @@ public class DivinationRodItem extends Item {
         this.defaultDuration = defaultDuration;
         this.defaultDurability = defaultDurability;
         this.defaultAllowAttuning = defaultAllowAttuning;
-    }
-
-    public static void spawnEntityClientSide(Level level, Entity entity) {
-        if (level instanceof ClientLevel clientLevel) {
-            clientLevel.putNonPlayerEntity(entity.getId(), entity); //client only spawn of entity
-        }
-    }
-
-    public static void fillItemCategory(DivinationRodItem item, CreativeModeTab tab, NonNullList<ItemStack> items) {
-        var level = Minecraft.getInstance().level;
-        if (level != null) {
-            var recipeManager = level.getRecipeManager();
-            recipeManager.getRecipes().forEach((recipe) -> {
-                if (recipe.getResultItem().getItem() == item) {
-                    items.add(recipe.getResultItem().copy());
-                }
-            });
-        }
     }
 
     @Override
@@ -227,6 +210,16 @@ public class DivinationRodItem extends Item {
         if (!(entityLiving instanceof Player player))
             return stack;
 
+        if(stack.getDamageValue() >= stack.getMaxDamage()){
+            //if in the last usage cycle the item was used up, we now actually break it to avoid over-use
+            player.broadcastBreakEvent(player.getUsedItemHand());
+            var item = stack.getItem();
+            stack.shrink(1);
+            player.awardStat(Stats.ITEM_BROKEN.get(item));
+            stack.setDamageValue(0);
+            return stack;
+        }
+
         player.getCooldowns().addCooldown(this, stack.getOrCreateTag().getInt(TheurgyConstants.Nbt.Divination.SETTING_DURATION));
         stack.getOrCreateTag().putFloat(TheurgyConstants.Nbt.Divination.DISTANCE, NOT_FOUND);
         if (level.isClientSide) {
@@ -241,9 +234,9 @@ public class DivinationRodItem extends Item {
                 this.spawnResultParticle(result, level, player);
             }
         } else {
-            stack.hurtAndBreak(1, player, (entity) -> {
-                entity.broadcastBreakEvent(player.getUsedItemHand());
-            });
+            //only hurt, but do not break -> this allows using the rod without breaking it when we just re-use a saved result.
+            //we break it at the beginning of this method if we are at >= max damage.
+            stack.hurt(1, player.getRandom(), null);
         }
         return stack;
     }

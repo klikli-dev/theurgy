@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [beta/v1.19.3-1.3.0] - 2023-02-01
+### :sparkles: New Features
+- [`bb5084d`](https://github.com/klikli-dev/theurgy/commit/bb5084dd6298fc3649ee27fb644f8a5d37bfc225) - keep divination rod at 0 durability until next full scan *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [beta/v1.19.3-1.2.1] - 2023-02-01
 ### :bug: Bug Fixes
 - [`e3edcac`](https://github.com/klikli-dev/theurgy/commit/e3edcac2e6df9b53579a394ebadd4f488097bb9c) - check for contract violating null item stacks as recipe results *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -117,3 +122,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [beta/v1.19.3-1.1.1]: https://github.com/klikli-dev/theurgy/compare/beta/v1.19.3-1.1.0...beta/v1.19.3-1.1.1
 [beta/v1.19.3-1.2.0]: https://github.com/klikli-dev/theurgy/compare/beta/v1.19.3-1.1.1...beta/v1.19.3-1.2.0
 [beta/v1.19.3-1.2.1]: https://github.com/klikli-dev/theurgy/compare/beta/v1.19.3-1.2.0...beta/v1.19.3-1.2.1
+[beta/v1.19.3-1.3.0]: https://github.com/klikli-dev/theurgy/compare/beta/v1.19.3-1.2.1...beta/v1.19.3-1.3.0

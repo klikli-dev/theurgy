@@ -68,6 +68,9 @@ public class ItemRegistry {
     public static final RegistryObject<BlockItem> CALCINATION_OVEN =
             ITEMS.register("calcination_oven", () -> new BlockItem(BlockRegistry.CALCINATION_OVEN.get(), defaultProperties()));
 
+    public static final RegistryObject<BlockItem> PYROMANTIC_BRAZIER =
+            ITEMS.register("pyromantic_brazier", () -> new BlockItem(BlockRegistry.PYROMANTIC_BRAZIER.get(), defaultProperties()));
+
     public static Item.Properties defaultProperties() {
         return new Item.Properties().tab(Theurgy.CREATIVE_MODE_TAB);
     }

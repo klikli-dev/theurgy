@@ -1,0 +1,6 @@
+{
+  "parent": "theurgy:block/pyromantic_brazier_lit",
+  "textures": {
+    "texture": "theurgy:block/liquefaction_cauldron_lit"
+  }
+}

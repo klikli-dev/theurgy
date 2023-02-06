@@ -25,4 +25,13 @@ public class BlockRegistry {
                     .sound(SoundType.METAL)
                     .strength(2.0f)
                     .lightLevel((state) -> state.getValue(BlockStateProperties.LIT) ? 14 : 0)));
+
+
+    //TODO: Switch block type
+    public static final RegistryObject<CalcinationOvenBlock> PYROMANTIC_BRAZIER =
+            BLOCKS.register("pyromantic_brazier", () -> new CalcinationOvenBlock(BlockBehaviour.Properties.of(Material.METAL)
+                    .noOcclusion()
+                    .sound(SoundType.METAL)
+                    .strength(2.0f)
+                    .lightLevel((state) -> state.getValue(BlockStateProperties.LIT) ? 14 : 0)));
 }

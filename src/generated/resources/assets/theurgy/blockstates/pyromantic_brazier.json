@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "theurgy:block/pyromantic_brazier"
+    },
+    "lit=true": {
+      "model": "theurgy:block/pyromantic_brazier_lit"
+    }
+  }
+}

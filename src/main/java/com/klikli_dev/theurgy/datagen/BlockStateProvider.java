@@ -14,10 +14,14 @@ public class BlockStateProvider extends net.minecraftforge.client.model.generato
 
     @Override
     protected void registerStatesAndModels() {
+        this.registerCalcinationOven();
 
+    }
+
+    protected void registerCalcinationOven() {
         var calcinationOven = this.models().getExistingFile(this.modLoc("calcination_oven"));
-        var calcinationOvenOn = this.models().withExistingParent("calcination_oven_lit", this.modLoc("block/calcination_oven"))
-                .texture("0", this.modLoc("block/calcination_oven_lit"));
+        var calcinationOvenLit = this.models().withExistingParent("calcination_oven_lit", this.modLoc("block/calcination_oven"))
+                .texture("texture", this.modLoc("block/calcination_oven_lit"));
 
         //build blockstate
         this.getVariantBuilder(BlockRegistry.CALCINATION_OVEN.get()) // Get variant builder
@@ -29,7 +33,7 @@ public class BlockStateProvider extends net.minecraftforge.client.model.generato
                 .partialState()
                 .with(BlockStateProperties.LIT, true)
                 .modelForState()//start setting models
-                .modelFile(calcinationOvenOn)
+                .modelFile(calcinationOvenLit)
                 .addModel();
 
         //add item model

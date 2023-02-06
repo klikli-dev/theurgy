@@ -301,7 +301,8 @@ public class CalcinationOvenBlockEntity extends BlockEntity implements MenuProvi
 
     @Override
     public Component getDisplayName() {
-        return Component.translatable();
+        //TODO
+        return Component.translatable("");
     }
 
     @Nullable

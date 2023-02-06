@@ -16,8 +16,8 @@ public class BlockStateProvider extends net.minecraftforge.client.model.generato
     protected void registerStatesAndModels() {
 
         var calcinationOven = this.models().getExistingFile(this.modLoc("calcination_oven"));
-        var calcinationOvenOn = this.models().withExistingParent("calcination_oven_on", this.modLoc("block/calcination_oven"))
-                .texture("0", this.modLoc("block/calcination_oven_on"));
+        var calcinationOvenOn = this.models().withExistingParent("calcination_oven_lit", this.modLoc("block/calcination_oven"))
+                .texture("0", this.modLoc("block/calcination_oven_lit"));
 
         //build blockstate
         this.getVariantBuilder(BlockRegistry.CALCINATION_OVEN.get()) // Get variant builder

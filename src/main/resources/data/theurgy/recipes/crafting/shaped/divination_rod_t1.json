@@ -9,9 +9,9 @@
     }
   },
   "pattern": [
-    "RGR",
-    "R R",
-    " R "
+    " GR",
+    " RG",
+    "R  "
   ],
   "result": {
     "item": "theurgy:divination_rod_t1",

@@ -50,7 +50,7 @@ public class BlockStateProvider extends net.minecraftforge.client.model.generato
 
     protected void registerPyromanticBrazier(){
         var model = this.models().getExistingFile(this.modLoc("pyromantic_brazier"));
-        var modelLit = this.models().withExistingParent("pyromantic_brazier_lit", this.modLoc("block/pyromantic_brazier_lit"))
+        var modelLit = this.models().withExistingParent("pyromantic_brazier_lit", this.modLoc("block/pyromantic_brazier"))
                 .texture("texture", this.modLoc("block/liquefaction_cauldron_lit")); //We use the same texture as the liquefaction cauldron
 
         //build blockstate

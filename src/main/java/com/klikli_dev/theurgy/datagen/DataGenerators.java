@@ -13,7 +13,7 @@ import net.minecraftforge.data.event.GatherDataEvent;
 
 public class DataGenerators {
 
-    public static void gatherData(GatherDataEvent event) {
+    public static void onGatherData(GatherDataEvent event) {
         DataGenerator generator = event.getGenerator();
 
         generator.addProvider(event.includeClient(), new ItemModelProvider(generator, event.getExistingFileHelper()));

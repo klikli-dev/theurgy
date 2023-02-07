@@ -7,11 +7,8 @@
 package com.klikli_dev.theurgy.registry;
 
 import com.klikli_dev.theurgy.Theurgy;
-import com.klikli_dev.theurgy.block.calcination.CalcinationOvenBlock;
-import com.klikli_dev.theurgy.block.calcination.CalcinationOvenBlockEntity;
+import com.klikli_dev.theurgy.block.calcinationoven.CalcinationOvenBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.material.Material;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;

@@ -1,4 +1,4 @@
-package com.klikli_dev.theurgy.block.calcination;
+package com.klikli_dev.theurgy.block.calcinationoven;
 
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;

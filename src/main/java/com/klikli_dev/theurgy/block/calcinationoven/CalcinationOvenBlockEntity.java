@@ -1,4 +1,4 @@
-package com.klikli_dev.theurgy.block.calcination;
+package com.klikli_dev.theurgy.block.calcinationoven;
 
 import com.klikli_dev.theurgy.menu.CalcinationOvenMenu;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
@@ -14,7 +14,6 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
-import net.minecraft.world.inventory.FurnaceMenu;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;

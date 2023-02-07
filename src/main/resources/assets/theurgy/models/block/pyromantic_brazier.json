@@ -3,7 +3,7 @@
 	"parent": "block/block",
 	"texture_size": [128, 128],
 	"textures": {
-		"particle": "theurgy:block/liquefaction_cauldron",
+		"particle": "minecraft:block/copper_block",
 		"texture": "theurgy:block/liquefaction_cauldron"
 	},
 	"elements": [

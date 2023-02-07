@@ -73,8 +73,9 @@ public class BlockStateProvider extends net.minecraftforge.client.model.generato
                 //then slightly move down and reduce scale from 0.625 to 0.5
                 .transform(ItemTransforms.TransformType.GUI)
                 .rotation(30, 225, 0)
-                .translation(0, -2.0f, 0)
+//                .translation(0, -2.0f, 0)
                 .scale(0.5f)
-                .end();
+                .end()
+        ;
     }
 }

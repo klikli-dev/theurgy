@@ -4,7 +4,7 @@
 	"texture_size": [64, 64],
 	"textures": {
 		"texture": "theurgy:block/calcination_oven",
-		"particle": "minecraft:block/copper_block"
+    	"particle": "minecraft:block/copper_block"
 	},
 	"elements": [
 		{
@@ -318,19 +318,6 @@
 				"up": {"uv": [10, 11.5, 9, 10.5], "texture": "#texture"},
 				"down": {"uv": [11.5, 9.5, 10.5, 10.5], "texture": "#texture"}
 			}
-		},
-		{
-			"name": "Collider",
-			"from": [2, 0, 2],
-			"to": [14, 25, 14],
-			"faces": {
-				"north": {"uv": [0, 0, 3, 6.25], "texture": "#texture"},
-				"east": {"uv": [0, 0, 3, 6.25], "texture": "#texture"},
-				"south": {"uv": [0, 0, 3, 6.25], "texture": "#texture"},
-				"west": {"uv": [0, 0, 3, 6.25], "texture": "#texture"},
-				"up": {"uv": [0, 0, 3, 3], "texture": "#texture"},
-				"down": {"uv": [0, 0, 3, 3], "texture": "#texture"}
-			}
 		}
 	],
 	"groups": [
@@ -345,12 +332,6 @@
 			"origin": [8, 8, 8],
 			"color": 0,
 			"children": [18, 19, 20, 21, 22, 23]
-		},
-		{
-			"name": "VoxelShapes",
-			"origin": [0, 0, 0],
-			"color": 0,
-			"children": [24]
 		}
 	]
 }

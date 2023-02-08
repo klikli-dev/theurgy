@@ -77,7 +77,7 @@ public class CalcinationOvenBlock extends Block implements EntityBlock {
                 }
             } else {
                 //we use inventory here because it checks for valid insert item :)
-                var remainder = calcinationOven.inventory.insertItem(0, stackInHand, false);
+                var remainder = calcinationOven.inputInventory.insertItem(0, stackInHand, false);
                 pPlayer.setItemInHand(pHand, remainder);
                 return remainder.getCount() != stackInHand.getCount() ? InteractionResult.SUCCESS : InteractionResult.PASS;
             }

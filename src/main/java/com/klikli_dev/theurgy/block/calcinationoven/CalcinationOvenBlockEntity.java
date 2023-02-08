@@ -44,9 +44,19 @@ public class CalcinationOvenBlockEntity extends BlockEntity {
     public CalcinationOvenBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(BlockEntityRegistry.CALCINATION_OVEN.get(), pPos, pBlockState);
 
-        this.inputInventory = new ItemStackHandler(1);
-        this.outputInventory = new ItemStackHandler(1);
-        this.inventory = new Inventory();
+        this.inputInventory = new ItemStackHandler(1) {
+            @Override
+            public boolean isItemValid(int slot, ItemStack stack) {
+                return CalcinationOvenBlockEntity.this.canProcess(stack) && super.isItemValid(slot, stack);
+            }
+        };
+        this.outputInventory = new ItemStackHandler(1) {
+            @Override
+            public boolean isItemValid(int slot, ItemStack stack) {
+                return false;
+            }
+        };
+        this.inventory = new CombinedInvWrapper(this.inputInventory, this.outputInventory);
 
         this.inventoryCapability = LazyOptional.of(() -> this.inventory);
         this.inputInventoryCapability = LazyOptional.of(() -> this.inputInventory);
@@ -166,12 +176,9 @@ public class CalcinationOvenBlockEntity extends BlockEntity {
     @Override
     public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
         if (cap == ForgeCapabilities.ITEM_HANDLER) {
-            //TODO: make this return handlers per side, but still use our input/output validation
-            //probably just need to move the validation to the input/output inventories
+            if (side == Direction.UP) return this.inputInventoryCapability.cast();
+            if (side == Direction.DOWN) return this.outputInventoryCapability.cast();
             return this.inventoryCapability.cast();
-//            if (side == Direction.UP) return this.inputInventoryCapability.cast();
-//            if (side == Direction.DOWN) return this.outputInventoryCapability.cast();
-//            return this.inventoryCapability.cast();
         }
         return super.getCapability(cap, side);
     }
@@ -203,27 +210,5 @@ public class CalcinationOvenBlockEntity extends BlockEntity {
         RecipeWrapper tempRecipeWrapper = new RecipeWrapper(tempInv);
 
         return this.recipeCachedCheck.getRecipeFor(tempRecipeWrapper, this.level).isPresent();
-    }
-
-    private class Inventory extends CombinedInvWrapper {
-
-        public Inventory() {
-            super(CalcinationOvenBlockEntity.this.inputInventory, CalcinationOvenBlockEntity.this.outputInventory);
-        }
-
-        @Override
-        public boolean isItemValid(int slot, ItemStack stack) {
-            if (CalcinationOvenBlockEntity.this.outputInventory == this.getHandlerFromIndex(this.getIndexForSlot(slot)))
-                return false; //insert into output inventory is never possible
-
-            return CalcinationOvenBlockEntity.this.canProcess(stack) && super.isItemValid(slot, stack);
-        }
-
-        @Override
-        public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
-            if (!this.isItemValid(slot, stack))
-                return stack;
-            return super.insertItem(slot, stack, simulate);
-        }
     }
 }

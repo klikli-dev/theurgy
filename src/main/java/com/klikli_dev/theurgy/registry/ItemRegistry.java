@@ -39,11 +39,8 @@ public class ItemRegistry {
     public static final RegistryObject<Item> ALCHEMICAL_SULFUR =
             ITEMS.register("alchemical_sulfur", () -> new AlchemicalSulfurItem(defaultProperties()));
 
-    public static final RegistryObject<Item> ALCHEMICAL_SALT =
-            ITEMS.register("alchemical_salt", () -> new BowlFoodItem(defaultProperties().food(FoodRegistry.ALCHEMICAL_SALT).stacksTo(1)));
-
-//    public static final RegistryObject<Item> SULFUR_INGOT =
-//            ITEMS.register("sulfur_ingot", () -> new Item(defaultProperties()));
+    public static final RegistryObject<Item> ALCHEMICAL_SALT_ORE =
+            ITEMS.register("alchemical_salt_ore", () -> new Item(defaultProperties().food(FoodRegistry.ALCHEMICAL_SALT)));
 
     public static final RegistryObject<Item> DIVINATION_ROD_T1 =
             ITEMS.register("divination_rod_t1", () -> new DivinationRodItem(

@@ -33,8 +33,11 @@
   "book.theurgy.the_hermetica.getting_started.name": "Getting Started",
   "book.theurgy.the_hermetica.name": "The Hermetica",
   "book.theurgy.the_hermetica.tooltip": "A treatise on the Ancient Art of Alchemy.\n§o(In-Game Guide for Theurgy)§r",
+  "item.theurgy.alchemical_salt_ore": "Alchemical Salt: §a§oOre§r",
+  "item.theurgy.alchemical_salt_ore.tooltip": "Alchemical Salt calcinated from Ore",
+  "item.theurgy.alchemical_salt_ore.tooltip.extended": "Salt represents the \"body\" or \"physical matter\" of an object",
   "item.theurgy.alchemical_sulfur": "Alchemical Sulfur %s",
-  "item.theurgy.alchemical_sulfur.tooltip": "Alchemical sulfur crafted from %s.",
+  "item.theurgy.alchemical_sulfur.tooltip": "Alchemical Sulfur crafted from %s.",
   "item.theurgy.alchemical_sulfur.tooltip.extended": "Sulfur represents the \"idea\" or \"soul\" of an object and is the key to replication and transmutation.",
   "item.theurgy.divination_rod_t1": "Glass Divination Rod",
   "item.theurgy.divination_rod_t1.linked": "Glass Divination Rod %s",
@@ -57,10 +60,7 @@
   "item.theurgy.empty_jar_labeled.tooltip": "Dummy item for rendering Alchemical Sulfur if source items are not shown.",
   "item.theurgy.jar_label": "Jar Label",
   "item.theurgy.jar_label.tooltip": "Dummy item for rendering Alchemical Sulfur if source items are shown.",
-  "item.theurgy.alchemical_salt": "Alchemical Salt",
-
   "itemGroup.theurgy": "Theurgy",
-
   "message.theurgy.divination_rod.attuning_not_allowed": "§4Warning§r: This type of divination rod cannot be manually attuned.",
   "message.theurgy.divination_rod.block_disallowed": "§4Warning§r: The divination rod cannot be attuned to this type of block: %s.",
   "message.theurgy.divination_rod.block_not_allowed": "§4Warning§r: The divination rod cannot be attuned to this type of block: %s.",
@@ -71,7 +71,6 @@
   "tooltip.theurgy..divination_rod.last_result": "Found %s at %s.",
   "tooltip.theurgy..divination_rod.linked_to": "The divination rod is attuned to %s",
   "tooltip.theurgy..divination_rod.no_link": "The divination rod is §cnot attuned§r to any material.",
-
   "tooltip.theurgy.show_extended": "§6[§dshift §7read more§6]",
   "tooltip.theurgy.show_usage": "§6[§dctrl §7show usage§6]"
 }

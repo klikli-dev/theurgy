@@ -1,0 +1,11 @@
+{
+  "type": "theurgy:calcination",
+  "cookingtime": 200,
+  "ingredient": {
+    "tag": "forge:ores"
+  },
+  "result": {
+    "count": 1,
+    "item": "theurgy:alchemical_salt_ore"
+  }
+}

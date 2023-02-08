@@ -7,9 +7,12 @@
 package com.klikli_dev.theurgy.datagen.recipe;
 
 import com.google.gson.JsonObject;
+import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.food.Foods;
+import net.minecraft.world.item.Items;
 
 import java.util.function.BiConsumer;
 
@@ -25,7 +28,7 @@ public class CalcinationRecipeProvider extends JsonRecipeProvider {
                 this.modLoc("alchemical_salt_from_ore"),
                 this.buildCalcinationRecipe(
                         this.makeTagIngredient(this.forgeLoc("ores")),
-                        this.makeResult(this.modLoc("alchemical_salt_ore")), 200));
+                        this.makeResult(ItemRegistry.ALCHEMICAL_SALT_ORE.getId()), 200));
     }
 
     public JsonObject buildCalcinationRecipe(JsonObject ingredient, JsonObject result, int cookingTime) {

@@ -70,8 +70,13 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
 
         this.addItem(ItemRegistry.ALCHEMICAL_SULFUR, "Alchemical Sulfur %s");
         this.addTooltip(ItemRegistry.ALCHEMICAL_SULFUR,
-                "Alchemical sulfur crafted from %s.",
+                "Alchemical Sulfur crafted from %s.",
                 "Sulfur represents the \"idea\" or \"soul\" of an object and is the key to replication and transmutation.");
+
+        this.addItem(ItemRegistry.ALCHEMICAL_SALT_ORE, "Alchemical Salt: " + ChatFormatting.GREEN + ChatFormatting.ITALIC + "Ore" + ChatFormatting.RESET);
+        this.addTooltip(ItemRegistry.ALCHEMICAL_SALT_ORE,
+                "Alchemical Salt calcinated from Ore",
+                "Salt represents the \"body\" or \"physical matter\" of an object");
 
 
         this.add(TheurgyConstants.I18n.Tooltip.DIVINATION_ROD_NO_LINK, "The divination rod is "+ ChatFormatting.RED +"not attuned"+ ChatFormatting.RESET +" to any material.");

@@ -7,12 +7,26 @@
 package com.klikli_dev.theurgy.integration.jei;
 
 import com.klikli_dev.theurgy.Theurgy;
+import com.klikli_dev.theurgy.integration.jei.recipes.CalcinationCategory;
+import com.klikli_dev.theurgy.integration.jei.recipes.JeiRecipeTypes;
 import com.klikli_dev.theurgy.item.DivinationRodItem;
+import com.klikli_dev.theurgy.recipe.CalcinationRecipe;
+import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
+import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import mezz.jei.api.IModPlugin;
+import mezz.jei.api.registration.IRecipeCatalystRegistration;
+import mezz.jei.api.registration.IRecipeCategoryRegistration;
+import mezz.jei.api.registration.IRecipeRegistration;
 import mezz.jei.api.registration.ISubtypeRegistration;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeManager;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
 
 @mezz.jei.api.JeiPlugin
 public class JeiPlugin implements IModPlugin {
@@ -28,5 +42,25 @@ public class JeiPlugin implements IModPlugin {
             registration.registerSubtypeInterpreter(item.get(), DivinationRodSubtypeInterpreter.get());
             Theurgy.LOGGER.debug("Registered Divination Rod JEI Subtype Interpreter for: {}", item.getKey());
         });
+    }
+
+    @Override
+    public void registerCategories(IRecipeCategoryRegistration registration) {
+        registration.addRecipeCategories(new CalcinationCategory(registration.getJeiHelpers().getGuiHelper()));
+    }
+
+    @Override
+    public void registerRecipes(IRecipeRegistration registration) {
+        ClientLevel level = Minecraft.getInstance().level;
+        RecipeManager recipeManager = level.getRecipeManager();
+
+        List<CalcinationRecipe> calcinationRecipes = recipeManager.getAllRecipesFor(RecipeTypeRegistry.CALCINATION.get());
+        registration.addRecipes(JeiRecipeTypes.CALCINATION, calcinationRecipes);
+    }
+
+    @Override
+    public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
+        registration.addRecipeCatalyst(new ItemStack(BlockRegistry.CALCINATION_OVEN.get()),
+                JeiRecipeTypes.CALCINATION);
     }
 }

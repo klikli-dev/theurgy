@@ -31,6 +31,10 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
                 ChatFormatting.GOLD + "]");
     }
 
+    private void addJEI(){
+        this.add(TheurgyConstants.I18n.JEI.CALCINATION_CATEGORY, "Calcination");
+    }
+
     private void addSubtitles() {
         this.add(Theurgy.MODID + ".subtitle.tuning_fork", "Using Divination Rod");
     }
@@ -135,5 +139,6 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
         this.addMessages();
         this.addItems();
         this.addBlocks();
+        this.addJEI();
     }
 }

@@ -19,7 +19,7 @@ import net.minecraftforge.registries.RegistryObject;
 public class RecipeTypeRegistry {
     public static final DeferredRegister<RecipeType<?>> RECIPE_TYPES = DeferredRegister.create(
             ForgeRegistries.RECIPE_TYPES, Theurgy.MODID);
-    public static final RegistryObject<RecipeType<CalcinationRecipe>> CALCINATION =register("calcination");
+    public static final RegistryObject<RecipeType<CalcinationRecipe>> CALCINATION = register("calcination");
 
     static <T extends Recipe<?>> RegistryObject<RecipeType<T>> register(final String id) {
         return RECIPE_TYPES.register(id, () -> new RecipeType<T>() {

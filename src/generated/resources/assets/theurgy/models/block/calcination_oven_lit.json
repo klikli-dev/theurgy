@@ -1,0 +1,6 @@
+{
+  "parent": "theurgy:block/calcination_oven",
+  "textures": {
+    "texture": "theurgy:block/calcination_oven_lit"
+  }
+}

@@ -7,6 +7,7 @@
 package com.klikli_dev.theurgy.item;
 
 import com.google.common.collect.ImmutableList;
+import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.client.render.SulfurBEWLR;
 import net.minecraft.ChatFormatting;
@@ -95,11 +96,14 @@ public class AlchemicalSulfurItem extends Item {
      */
     public static class DistHelper {
         public static void fillItemCategory(AlchemicalSulfurItem item, CreativeModeTab tab, NonNullList<ItemStack> items) {
+            if(tab != Theurgy.CREATIVE_MODE_TAB && tab != CreativeModeTab.TAB_SEARCH)
+                return;
+
             var level = Minecraft.getInstance().level;
             if (level != null) {
                 var recipeManager = level.getRecipeManager();
                 recipeManager.getRecipes().forEach((recipe) -> {
-                    if (recipe.getResultItem().getItem() == item) {
+                    if (recipe.getResultItem() != null && recipe.getResultItem().getItem() == item) {
                         items.add(recipe.getResultItem().copy());
                     }
                 });

@@ -41,12 +41,13 @@ public class ClientSetupEventHandler {
     public static void registerItemProperties(FMLClientSetupEvent event) {
         //Not safe to call during parallel load, so register to run threadsafe
         event.enqueueWork(() -> {
-            ItemProperties.register(ItemRegistry.DIVINATION_ROD_T1.get(),
-                    TheurgyConstants.ItemProperty.DIVINATION_DISTANCE, DivinationRodItem.PropertyFunctions.DIVINATION_DISTANCE);
-            ItemProperties.register(ItemRegistry.DIVINATION_ROD_T4.get(),
-                    TheurgyConstants.ItemProperty.DIVINATION_DISTANCE, DivinationRodItem.PropertyFunctions.DIVINATION_DISTANCE);
+            ItemRegistry.ITEMS.getEntries().stream().filter(item -> item.get() instanceof DivinationRodItem).forEach(item -> {
+                ItemProperties.register(item.get(),
+                        TheurgyConstants.ItemProperty.DIVINATION_DISTANCE, DivinationRodItem.DistHelper.DIVINATION_DISTANCE);
+                Theurgy.LOGGER.debug("Registered Divination Rod Properties for: {}", item.getKey());
+            });
 
-            Theurgy.LOGGER.debug("Registered Item Properties");
+            Theurgy.LOGGER.debug("Finished registering Item Properties.");
         });
     }
 }

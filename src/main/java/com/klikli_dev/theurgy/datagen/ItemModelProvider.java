@@ -13,12 +13,11 @@ import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.client.model.generators.ItemModelBuilder;
-import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
-public class ItemModelsProvider extends ItemModelProvider {
-    public ItemModelsProvider(DataGenerator generator, ExistingFileHelper existingFileHelper) {
+public class ItemModelProvider extends net.minecraftforge.client.model.generators.ItemModelProvider {
+    public ItemModelProvider(DataGenerator generator, ExistingFileHelper existingFileHelper) {
         super(generator, Theurgy.MODID, existingFileHelper);
     }
 
@@ -102,7 +101,6 @@ public class ItemModelsProvider extends ItemModelProvider {
                 .predicate(TheurgyConstants.ItemProperty.DIVINATION_DISTANCE, 7.0f)
                 .end()
 
-
                 .override()
                 .model(searchingVariant)
                 .predicate(TheurgyConstants.ItemProperty.DIVINATION_DISTANCE, 8.0f)
@@ -111,12 +109,16 @@ public class ItemModelsProvider extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
+        this.registerItemGenerated(this.name(ItemRegistry.THE_HERMETICA_ICON.get()), "the_hermetica");
         this.registerItemGenerated(this.name(ItemRegistry.EMPTY_JAR.get()));
         this.registerItemGenerated(this.name(ItemRegistry.EMPTY_JAR_LABELED.get()));
         this.registerItemGenerated(this.name(ItemRegistry.JAR_LABEL.get()));
         this.registerItemBuiltinEntity(this.name(ItemRegistry.ALCHEMICAL_SULFUR.get()));
         //this.registerItemGenerated(this.name(ItemRegistry.SULFUR_INGOT.get()));
+
         this.registerDivinationRod(ItemRegistry.DIVINATION_ROD_T1.get());
+        this.registerDivinationRod(ItemRegistry.DIVINATION_ROD_T2.get());
+        this.registerDivinationRod(ItemRegistry.DIVINATION_ROD_T3.get());
         this.registerDivinationRod(ItemRegistry.DIVINATION_ROD_T4.get());
     }
 }

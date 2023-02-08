@@ -8,6 +8,7 @@ package com.klikli_dev.theurgy.datagen.lang;
 
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.TheurgyConstants;
+import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import net.minecraft.ChatFormatting;
 import net.minecraft.data.DataGenerator;
@@ -43,6 +44,19 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
         this.add(TheurgyConstants.I18n.Message.DIVINATION_ROD_ATTUNING_NOT_ALLOWED, ChatFormatting.DARK_RED +"Warning"+ChatFormatting.RESET +": This type of divination rod cannot be manually attuned.");
     }
 
+    private void addBlocks() {
+        this.addBlock(BlockRegistry.CALCINATION_OVEN, "Calcination Oven");
+        this.addTooltip(BlockRegistry.CALCINATION_OVEN.get()::asItem,
+                "A device to extract Alchemical Sulfur from Items.",
+                "Sulfur represents the \"idea\" or \"soul\" of an object and is the key to replication and transmutation.");
+
+        this.addBlock(BlockRegistry.PYROMANTIC_BRAZIER, "Pyromantic Brazier");
+        this.addTooltip(BlockRegistry.PYROMANTIC_BRAZIER.get()::asItem,
+                "A simple device to heat alchemical apparati.",
+                "Place this below other alchemical apparati to heat them up",
+                "Insert a fuel item by right-clicking the brazier with it, or using a hopper");
+    }
+
     private void addItems() {
         this.add(((TranslatableContents)Theurgy.CREATIVE_MODE_TAB.getDisplayName().getContents()).getKey(), "Theurgy");
 
@@ -70,16 +84,43 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
         this.addExtendedTooltip(ItemRegistry.DIVINATION_ROD_T1,
                 "Divination rods can be attuned to a block and are then used to find other blocks of the same type.",
                 ChatFormatting.GREEN + "Shift-Click"+ChatFormatting.GRAY + " a block to attune the rod to it.\n" +
-                        ChatFormatting.GREEN + "Right-Click and hold"+ChatFormatting.GRAY +" and hold to let the rod search for blocks.\n" +
-                        ChatFormatting.GREEN + "Right-Click"+ChatFormatting.GRAY + " without holding after a successful search to let the rod show the last found block without consuming durability.");
+                        ChatFormatting.GREEN + "Right-Click and hold"+ChatFormatting.GRAY +"to let the rod search for blocks.\n" +
+                        ChatFormatting.GREEN + "Right-Click without holding"+ChatFormatting.GRAY + " after a successful search to let the rod show the last found block without consuming durability.");
 
-        this.addItem(ItemRegistry.DIVINATION_ROD_T4, "Emerald Divination Rod");
-        this.add(ItemRegistry.DIVINATION_ROD_T4.get().getDescriptionId() + ".linked", "Emerald Divination Rod %s");
+        this.addItem(ItemRegistry.DIVINATION_ROD_T2, "Iron Divination Rod");
+        this.add(ItemRegistry.DIVINATION_ROD_T2.get().getDescriptionId() + ".linked", "Iron Divination Rod %s");
+        //tooltip is handled by rod itself
+        this.addExtendedTooltip(ItemRegistry.DIVINATION_ROD_T2,
+                "Divination rods can be attuned to a block and are then used to find other blocks of the same type.",
+                ChatFormatting.GREEN + "Shift-Click"+ChatFormatting.GRAY + " a block to attune the rod to it.\n" +
+                        ChatFormatting.GREEN + "Right-Click and hold"+ChatFormatting.GRAY +"to let the rod search for blocks.\n" +
+                        ChatFormatting.GREEN + "Right-Click without holding"+ChatFormatting.GRAY + " after a successful search to let the rod show the last found block without consuming durability.");
+
+        this.addItem(ItemRegistry.DIVINATION_ROD_T3, "Diamond Divination Rod");
+        this.add(ItemRegistry.DIVINATION_ROD_T3.get().getDescriptionId() + ".linked", "Diamond Divination Rod %s");
+        //tooltip is handled by rod itself
+        this.addExtendedTooltip(ItemRegistry.DIVINATION_ROD_T3,
+                "Divination rods can be attuned to a block and are then used to find other blocks of the same type.",
+                ChatFormatting.GREEN + "Shift-Click"+ChatFormatting.GRAY + " a block to attune the rod to it.\n" +
+                        ChatFormatting.GREEN + "Right-Click and hold"+ChatFormatting.GRAY +"to let the rod search for blocks.\n" +
+                        ChatFormatting.GREEN + "Right-Click without holding"+ChatFormatting.GRAY + " after a successful search to let the rod show the last found block without consuming durability.");
+
+        this.addItem(ItemRegistry.DIVINATION_ROD_T4, "Netherite Divination Rod");
+        this.add(ItemRegistry.DIVINATION_ROD_T4.get().getDescriptionId() + ".linked", "Netherite Divination Rod %s");
         //tooltip is handled by rod itself
         this.addExtendedTooltip(ItemRegistry.DIVINATION_ROD_T4,
-                "This divination rod type cannot be manually attuned, instead comes pre-attuned after crafting..",
-                ChatFormatting.GREEN + "Right-Click and hold"+ChatFormatting.GRAY +" and hold to let the rod search for blocks.\n" +
-                        ChatFormatting.GREEN + "Right-Click"+ChatFormatting.GRAY + " without holding after a successful search to let the rod show the last found block without consuming durability.");
+                "Divination rods can be attuned to a block and are then used to find other blocks of the same type.",
+                ChatFormatting.GREEN + "Shift-Click"+ChatFormatting.GRAY + " a block to attune the rod to it.\n" +
+                        ChatFormatting.GREEN + "Right-Click and hold"+ChatFormatting.GRAY +"to let the rod search for blocks.\n" +
+                        ChatFormatting.GREEN + "Right-Click without holding"+ChatFormatting.GRAY + " after a successful search to let the rod show the last found block without consuming durability.");
+
+//        this.addItem(ItemRegistry.DIVINATION_ROD_T4, "Emerald Divination Rod");
+//        this.add(ItemRegistry.DIVINATION_ROD_T4.get().getDescriptionId() + ".linked", "Emerald Divination Rod %s");
+//        //tooltip is handled by rod itself
+//        this.addExtendedTooltip(ItemRegistry.DIVINATION_ROD_T4,
+//                "This divination rod type cannot be manually attuned, instead comes pre-attuned after crafting..",
+//                ChatFormatting.GREEN + "Right-Click and hold"+ChatFormatting.GRAY +" to let the rod search for blocks.\n" +
+//                        ChatFormatting.GREEN + "Right-Click without holding"+ChatFormatting.GRAY + " after a successful search to let the rod show the last found block without consuming durability.");
     }
 
     @Override
@@ -88,5 +129,6 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
         this.addSubtitles();
         this.addMessages();
         this.addItems();
+        this.addBlocks();
     }
 }

@@ -3,8 +3,7 @@
 	"parent": "block/block",
 	"texture_size": [64, 64],
 	"textures": {
-		"texture": "theurgy:block/calcination_oven",
-    	"particle": "minecraft:block/copper_block"
+		"texture": "theurgy:calcination_oven"
 	},
 	"elements": [
 		{
@@ -34,8 +33,8 @@
 			}
 		},
 		{
-			"from": [3.8, 10.8, 5.05],
-			"to": [5.8, 16.8, 11.05],
+			"from": [3.8, 10.8, 5],
+			"to": [5.8, 16.8, 10.95],
 			"rotation": {"angle": -22.5, "axis": "z", "origin": [4.8, 13.8, 8.05]},
 			"faces": {
 				"north": {"uv": [2, 11, 2.5, 12.5], "texture": "#texture"},
@@ -47,8 +46,8 @@
 			}
 		},
 		{
-			"from": [10.2, 10.9, 5.05],
-			"to": [12.2, 16.9, 11.05],
+			"from": [10.2, 10.9, 4.98],
+			"to": [12.2, 16.9, 10.93],
 			"rotation": {"angle": 22.5, "axis": "z", "origin": [11.2, 13.9, 8.05]},
 			"faces": {
 				"north": {"uv": [4, 11, 4.5, 12.5], "texture": "#texture"},
@@ -177,8 +176,8 @@
 			}
 		},
 		{
-			"from": [5, 10.89344, 3.8088],
-			"to": [11, 16.89344, 5.8088],
+			"from": [5.05, 10.89344, 3.8088],
+			"to": [10.95, 16.89344, 5.8088],
 			"rotation": {"angle": 22.5, "axis": "x", "origin": [8, 13.89344, 4.8088]},
 			"faces": {
 				"north": {"uv": [3, 6.25, 4.5, 7.75], "texture": "#texture"},
@@ -190,8 +189,8 @@
 			}
 		},
 		{
-			"from": [5, 11.2, 9.75],
-			"to": [11, 17.2, 11.75],
+			"from": [5, 11.2, 9.7],
+			"to": [11, 17.2, 11.7],
 			"rotation": {"angle": -22.5, "axis": "x", "origin": [7, 15.2, 11.75]},
 			"faces": {
 				"north": {"uv": [6, 6.25, 7.5, 7.75], "texture": "#texture"},

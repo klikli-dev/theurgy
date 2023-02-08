@@ -20,8 +20,14 @@ public class BlockStateProvider extends net.minecraftforge.client.model.generato
     }
 
     protected void registerCalcinationOven() {
-        var model = this.models().getExistingFile(this.modLoc("calcination_oven"));
+        var model = this.models().withExistingParent("calcination_oven", this.modLoc("block/calcination_oven_template"))
+                //blockbench spits out garbage textures by losing the folder name so we fix them here
+                .texture("texture", this.modLoc("block/calcination_oven"))
+                .texture("particle", this.mcLoc("block/copper_block"));
+
+
         var modelLit = this.models().withExistingParent("calcination_oven_lit", this.modLoc("block/calcination_oven"))
+                //we're based on the normal model so we only have to override the texture that changes - the main texture to lit
                 .texture("texture", this.modLoc("block/calcination_oven_lit"));
 
         //build blockstate

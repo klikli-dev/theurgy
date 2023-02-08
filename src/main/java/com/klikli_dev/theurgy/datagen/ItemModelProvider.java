@@ -27,7 +27,7 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
 
     private ItemModelBuilder registerAlchemicalSalt(String name) {
         return this.getBuilder(name)
-                .parent(new ModelFile.UncheckedModelFile(this.modLoc("alchemical_salt")));
+                .parent(new ModelFile.UncheckedModelFile(this.modLoc("item/alchemical_salt")));
     }
 
     private ItemModelBuilder registerItemGenerated(String name) {

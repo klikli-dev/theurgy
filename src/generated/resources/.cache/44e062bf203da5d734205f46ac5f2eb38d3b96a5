@@ -1,7 +1,8 @@
-// 1.19.2	2023-02-07T20:44:20.520702	Block States: theurgy
+// 1.19.2	2023-02-08T13:16:21.5125431	Block States: theurgy
 093506eb74c322c31c1138696e63413ca97527d9 assets/theurgy/blockstates/calcination_oven.json
 e94d251a012694f4b0bc2925acbc4ee418cacf10 assets/theurgy/blockstates/pyromantic_brazier.json
 523f52c9ed73ddf17d7b413e8bde55e94191e7eb assets/theurgy/models/block/calcination_oven_lit.json
-0c353235e2a704b11c0fdcac8457fc3f26e2e962 assets/theurgy/models/block/pyromantic_brazier_lit.json
+fcc07a5537eb2d240206ec1ee19b29c3469068e6 assets/theurgy/models/block/pyromantic_brazier.json
+77e498ab14f0a49e31afc56e058aae2d3ec641a8 assets/theurgy/models/block/pyromantic_brazier_lit.json
 752ca86208650e5fc23e3c59fda571d1452c87e4 assets/theurgy/models/item/calcination_oven.json
 0040a92c6a948e59b36cb138ba297ede4435095c assets/theurgy/models/item/pyromantic_brazier.json

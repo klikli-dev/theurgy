@@ -7,9 +7,14 @@ import com.klikli_dev.theurgy.registry.CapabilityRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.CampfireBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.CampfireBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.capabilities.Capability;
@@ -47,6 +52,15 @@ public class PyromanticBrazierBlockEntity extends BlockEntity {
 
     public boolean isLit() {
         return this.remainingLitTime > 0;
+    }
+
+    public void tickClient(){
+        RandomSource randomsource = this.level.random;
+        if (randomsource.nextFloat() < 0.11F) {
+            for(int i = 0; i < randomsource.nextInt(2) + 2; ++i) {
+                CampfireBlock.makeParticles(this.level, this.getBlockPos(), false, false);
+            }
+        }
     }
 
     public void tickServer() {

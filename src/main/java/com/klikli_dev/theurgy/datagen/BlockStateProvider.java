@@ -4,6 +4,7 @@ import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
@@ -49,9 +50,16 @@ public class BlockStateProvider extends net.minecraftforge.client.model.generato
     }
 
     protected void registerPyromanticBrazier(){
-        var model = this.models().getExistingFile(this.modLoc("pyromantic_brazier"));
-        var modelLit = this.models().withExistingParent("pyromantic_brazier_lit", this.modLoc("block/pyromantic_brazier"))
-                .texture("texture", this.modLoc("block/liquefaction_cauldron_lit")); //We use the same texture as the liquefaction cauldron
+        var model = this.models().withExistingParent("pyromantic_brazier", this.modLoc("block/pyromantic_brazier_template"))
+                //blockbench spits out garbage textures by losing the folder name so we fix them here
+                .texture("texture", this.modLoc("block/liquefaction_cauldron"))
+                .texture("particle", this.mcLoc("block/copper_block"));
+
+        var modelLit = this.models().withExistingParent("pyromantic_brazier_lit", this.modLoc("block/pyromantic_brazier_lit_template"))
+                .renderType("cutout_mipped") //also blockbench doesnt set render type
+                .texture("texture", this.modLoc("block/liquefaction_cauldron"))
+                .texture("particle", this.mcLoc("block/copper_block"))
+                .texture("fire", this.mcLoc("block/campfire_fire"));
 
         //build blockstate
         this.getVariantBuilder(BlockRegistry.PYROMANTIC_BRAZIER.get()) // Get variant builder

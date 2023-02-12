@@ -38,7 +38,8 @@ public class CalcinationCategory implements IRecipeCategory<CalcinationRecipe> {
         this.staticFlame = guiHelper.createDrawable(Constants.RECIPE_GUI_VANILLA, 82, 114, 14, 14);
         this.animatedFlame = guiHelper.createAnimatedDrawable(this.staticFlame, 300, IDrawableAnimated.StartDirection.TOP, true);
         //TODO: update background to remove fuel slot
-        this.background = guiHelper.createDrawable(Constants.RECIPE_GUI_VANILLA, 0, 114, 82, 54);
+        this.background = guiHelper.drawableBuilder(Constants.RECIPE_GUI_VANILLA, 0, 186, 82, 34)
+                .addPadding(0, 10, 0, 0).build();
         this.regularCookTime = 200;
         this.icon = guiHelper.createDrawableItemStack(new ItemStack(BlockRegistry.CALCINATION_OVEN.get()));
         this.localizedName = Component.translatable(TheurgyConstants.I18n.JEI.CALCINATION_CATEGORY);
@@ -77,9 +78,9 @@ public class CalcinationCategory implements IRecipeCategory<CalcinationRecipe> {
         this.animatedFlame.draw(poseStack, 1, 20);
 
         IDrawableAnimated arrow = this.getArrow(recipe);
-        arrow.draw(poseStack, 24, 18);
 
-        this.drawCookTime(recipe, poseStack, 45);
+        arrow.draw(poseStack, 24, 8);
+        this.drawCookTime(recipe, poseStack, 35);
     }
 
     protected void drawCookTime(CalcinationRecipe recipe, PoseStack poseStack, int y) {
@@ -104,7 +105,7 @@ public class CalcinationCategory implements IRecipeCategory<CalcinationRecipe> {
         builder.addSlot(INPUT, 1, 1)
                 .addIngredients(recipe.getIngredients().get(0));
 
-        builder.addSlot(OUTPUT, 61, 19)
+        builder.addSlot(OUTPUT, 61, 9)
                 .addItemStack(recipe.getResultItem());
     }
 

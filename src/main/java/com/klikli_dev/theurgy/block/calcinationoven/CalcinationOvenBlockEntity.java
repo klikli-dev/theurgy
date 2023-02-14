@@ -6,7 +6,6 @@ import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.util.Mth;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.AbstractCookingRecipe;
@@ -44,18 +43,9 @@ public class CalcinationOvenBlockEntity extends BlockEntity {
     public CalcinationOvenBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(BlockEntityRegistry.CALCINATION_OVEN.get(), pPos, pBlockState);
 
-        this.inputInventory = new ItemStackHandler(1) {
-            @Override
-            public boolean isItemValid(int slot, ItemStack stack) {
-                return CalcinationOvenBlockEntity.this.canProcess(stack) && super.isItemValid(slot, stack);
-            }
-        };
-        this.outputInventory = new ItemStackHandler(1) {
-            @Override
-            public boolean isItemValid(int slot, ItemStack stack) {
-                return false;
-            }
-        };
+        this.inputInventory = new InputInventory();
+        this.outputInventory = new OutputInventory();
+
         this.inventory = new CombinedInvWrapper(this.inputInventory, this.outputInventory);
 
         this.inventoryCapability = LazyOptional.of(() -> this.inventory);
@@ -119,9 +109,6 @@ public class CalcinationOvenBlockEntity extends BlockEntity {
             } else {
                 this.calcinationProgress = 0;
             }
-        } else if (!isHeated && this.calcinationProgress > 0) {
-            //if we are not heated, we slowly lose progress
-            this.calcinationProgress = Mth.clamp(this.calcinationProgress - 2, 0, this.calcinationTotalTime);
         }
     }
 
@@ -210,5 +197,46 @@ public class CalcinationOvenBlockEntity extends BlockEntity {
         RecipeWrapper tempRecipeWrapper = new RecipeWrapper(tempInv);
 
         return this.recipeCachedCheck.getRecipeFor(tempRecipeWrapper, this.level).isPresent();
+    }
+
+    public class InputInventory extends ItemStackHandler {
+
+        public InputInventory() {
+            super(1);
+        }
+
+        @Override
+        public void setStackInSlot(int slot, @NotNull ItemStack newStack) {
+
+            var oldStack = this.getStackInSlot(slot);
+
+            boolean sameItem = !newStack.isEmpty() && newStack.sameItem(oldStack) && ItemStack.tagMatches(newStack, oldStack);
+
+            super.setStackInSlot(slot, newStack);
+
+            if (!sameItem) {
+                CalcinationOvenBlockEntity.this.calcinationTotalTime = CalcinationOvenBlockEntity.this.getTotalCalcinationTime();
+                CalcinationOvenBlockEntity.this.calcinationProgress = 0;
+                CalcinationOvenBlockEntity.this.setChanged();
+            }
+
+        }
+
+        @Override
+        public boolean isItemValid(int slot, ItemStack stack) {
+            return CalcinationOvenBlockEntity.this.canProcess(stack) && super.isItemValid(slot, stack);
+        }
+    }
+
+    public class OutputInventory extends ItemStackHandler {
+
+        public OutputInventory() {
+            super(1);
+        }
+
+        @Override
+        public boolean isItemValid(int slot, ItemStack stack) {
+            return false;
+        }
     }
 }

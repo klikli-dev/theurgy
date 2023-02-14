@@ -11,13 +11,11 @@ import com.klikli_dev.theurgy.config.ClientConfig;
 import com.klikli_dev.theurgy.config.CommonConfig;
 import com.klikli_dev.theurgy.config.ServerConfig;
 import com.klikli_dev.theurgy.datagen.DataGenerators;
-import com.klikli_dev.theurgy.item.TheurgyCreativeModeTab;
 import com.klikli_dev.theurgy.network.Networking;
 import com.klikli_dev.theurgy.registry.*;
 import com.klikli_dev.theurgy.tooltips.TooltipHandler;
 import com.mojang.logging.LogUtils;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -34,8 +32,6 @@ import org.slf4j.Logger;
 public class Theurgy {
     public static final String MODID = "theurgy";
     public static final Logger LOGGER = LogUtils.getLogger();
-
-    public static final CreativeModeTab CREATIVE_MODE_TAB = new TheurgyCreativeModeTab();
 
     public static Theurgy INSTANCE;
 
@@ -62,8 +58,8 @@ public class Theurgy {
         modEventBus.addListener(this::onCommonSetup);
         modEventBus.addListener(this::onServerSetup);
 
-        modEventBus.addListener(CapabilityRegistry::onRegisterCapabilities);
-        modEventBus.addListener(DataGenerators::onGatherData);
+        modEventBus.addListener(DataGenerators::gatherData);
+        modEventBus.addListener(ItemRegistry::onRegisterCreativeModeTabs);
 
         MinecraftForge.EVENT_BUS.addListener(TooltipHandler::onItemTooltipEvent);
 

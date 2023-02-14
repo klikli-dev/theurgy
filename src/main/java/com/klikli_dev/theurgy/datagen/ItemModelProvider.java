@@ -11,18 +11,26 @@ import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.client.model.generators.ItemModelBuilder;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.registries.ForgeRegistries;
 
+<<<<<<< HEAD:src/main/java/com/klikli_dev/theurgy/datagen/ItemModelProvider.java
 public class ItemModelProvider extends net.minecraftforge.client.model.generators.ItemModelProvider {
     public ItemModelProvider(DataGenerator generator, ExistingFileHelper existingFileHelper) {
         super(generator, Theurgy.MODID, existingFileHelper);
+=======
+public class ItemModelsProvider extends ItemModelProvider {
+    public ItemModelsProvider(PackOutput packOutput, ExistingFileHelper existingFileHelper) {
+        super(packOutput, Theurgy.MODID, existingFileHelper);
+>>>>>>> 1.19.3:src/main/java/com/klikli_dev/theurgy/datagen/ItemModelsProvider.java
     }
 
     protected String name(Item item) {
-        return Registry.ITEM.getKey(item).getPath();
+        return ForgeRegistries.ITEMS.getKey(item).getPath();
     }
 
     private ItemModelBuilder registerAlchemicalSalt(String name) {
@@ -119,8 +127,12 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
         this.registerItemGenerated(this.name(ItemRegistry.EMPTY_JAR_LABELED.get()));
         this.registerItemGenerated(this.name(ItemRegistry.JAR_LABEL.get()));
         this.registerItemBuiltinEntity(this.name(ItemRegistry.ALCHEMICAL_SULFUR.get()));
+<<<<<<< HEAD:src/main/java/com/klikli_dev/theurgy/datagen/ItemModelProvider.java
         this.registerItemGenerated("alchemical_salt"); //parent for alchemical salt
         this.registerAlchemicalSalt(this.name(ItemRegistry.ALCHEMICAL_SALT_ORE.get()));
+=======
+        //this.registerItemGenerated(this.name(ItemRegistry.SULFUR_INGOT.get()));
+>>>>>>> 1.19.3:src/main/java/com/klikli_dev/theurgy/datagen/ItemModelsProvider.java
 
         this.registerDivinationRod(ItemRegistry.DIVINATION_ROD_T1.get());
         this.registerDivinationRod(ItemRegistry.DIVINATION_ROD_T2.get());

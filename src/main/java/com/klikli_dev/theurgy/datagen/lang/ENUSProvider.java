@@ -12,12 +12,13 @@ import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import net.minecraft.ChatFormatting;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraftforge.common.data.LanguageProvider;
 
 public class ENUSProvider extends LanguageProvider implements TooltipLanguageProvider {
-    public ENUSProvider(DataGenerator gen) {
-        super(gen, Theurgy.MODID, "en_us");
+    public ENUSProvider(PackOutput packOutput) {
+        super(packOutput, Theurgy.MODID, "en_us");
     }
 
     private void addMisc() {
@@ -62,7 +63,7 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
     }
 
     private void addItems() {
-        this.add(((TranslatableContents)Theurgy.CREATIVE_MODE_TAB.getDisplayName().getContents()).getKey(), "Theurgy");
+        this.add(TheurgyConstants.I18n.ITEM_GROUP, "Theurgy");
 
         this.addItem(ItemRegistry.EMPTY_JAR, "Empty Jar");
 

@@ -38,10 +38,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.TierSortingRegistry;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.Nullable;
 
@@ -422,15 +420,6 @@ public class DivinationRodItem extends Item {
         return TagRegistry.makeBlockTag(new ResourceLocation(disallowedBlocksTag));
     }
 
-    /**
-     * Inner class to avoid classloading issues on the server
-     */
-    @Override
-    public void fillItemCategory(CreativeModeTab tab, NonNullList<ItemStack> items) {
-        if (FMLEnvironment.dist == Dist.CLIENT) {
-            DistHelper.fillItemCategory(this, tab, items);
-        }
-    }
 
     /**
      * Inner class to avoid classloading issues on the server
@@ -445,16 +434,13 @@ public class DivinationRodItem extends Item {
             return stack.getTag().getFloat(TheurgyConstants.Nbt.Divination.DISTANCE);
         };
 
-        public static void fillItemCategory(DivinationRodItem item, CreativeModeTab tab, NonNullList<ItemStack> items) {
-            if(tab != Theurgy.CREATIVE_MODE_TAB && tab != CreativeModeTab.TAB_SEARCH)
-                return;
-
+        public static void registerCreativeModeTabs(DivinationRodItem item, CreativeModeTab.Output output) {
             var level = Minecraft.getInstance().level;
             if (level != null) {
                 var recipeManager = level.getRecipeManager();
                 recipeManager.getRecipes().forEach((recipe) -> {
-                    if (recipe.getResultItem() != null && recipe.getResultItem().getItem() == item) {
-                        items.add(recipe.getResultItem().copy());
+                    if (recipe.getResultItem() != null  && recipe.getResultItem().getItem() == item) {
+                        output.accept(recipe.getResultItem().copy());
                     }
                 });
             }

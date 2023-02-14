@@ -56,6 +56,8 @@ public class TheurgyConstants {
 
     public static class I18n {
 
+        public static final String ITEM_GROUP = "itemGroup." + Theurgy.MODID;
+
         public static class Tooltip {
 
             private static final String PREFIX = "tooltip." + Theurgy.MODID + ".";

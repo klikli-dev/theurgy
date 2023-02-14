@@ -16,6 +16,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.ShapedRecipe;
@@ -25,7 +26,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 public class DivinationRodRecipe extends ShapedRecipe {
 
     public DivinationRodRecipe(ResourceLocation pId, String pGroup, int pWidth, int pHeight, NonNullList<Ingredient> pRecipeItems, ItemStack pResult) {
-        super(pId, pGroup, pWidth, pHeight, pRecipeItems, pResult);
+        super(pId, pGroup, CraftingBookCategory.MISC, pWidth, pHeight, pRecipeItems, pResult);
     }
 
     public RecipeSerializer<?> getSerializer() {

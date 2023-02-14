@@ -21,8 +21,8 @@ public class DataGenerators {
         generator.addProvider(event.includeServer(), new BlockStateProvider(generator, event.getExistingFileHelper()));
         generator.addProvider(event.includeServer(), new CalcinationRecipeProvider(generator));
 
-        var enUSProvider = new ENUSProvider(generator);
-        generator.addProvider(event.includeServer(), new TheurgyBookProvider(generator, Theurgy.MODID, enUSProvider));
+        var enUSProvider = new ENUSProvider(generator.getPackOutput());
+        generator.addProvider(event.includeServer(), new TheurgyBookProvider(generator.getPackOutput(), Theurgy.MODID, enUSProvider));
 
         //Important: Lang provider (in this case enus) needs to be added after the book provider to process the texts added by the book provider
         generator.addProvider(event.includeClient(), enUSProvider);

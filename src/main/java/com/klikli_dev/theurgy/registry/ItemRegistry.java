@@ -9,12 +9,10 @@ package com.klikli_dev.theurgy.registry;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.item.AlchemicalSulfurItem;
-
-import net.minecraft.world.item.BowlFoodItem;
-
 import com.klikli_dev.theurgy.item.DivinationRodItem;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Tiers;
@@ -43,7 +41,7 @@ public class ItemRegistry {
             ITEMS.register("alchemical_sulfur", () -> new AlchemicalSulfurItem(new Item.Properties()));
 
     public static final RegistryObject<Item> ALCHEMICAL_SALT_ORE =
-            ITEMS.register("alchemical_salt_ore", () -> new Item(defaultProperties().food(FoodRegistry.ALCHEMICAL_SALT)));
+            ITEMS.register("alchemical_salt_ore", () -> new Item(new Item.Properties().food(FoodRegistry.ALCHEMICAL_SALT)));
 
     public static final RegistryObject<DivinationRodItem> DIVINATION_ROD_T1 =
             ITEMS.register("divination_rod_t1", () -> new DivinationRodItem(
@@ -70,6 +68,14 @@ public class ItemRegistry {
                     96, 40, 12, true));
     //TODO: in the future, no attuning for higher tier rods
 
+
+    //Blocks
+    public static final RegistryObject<BlockItem> CALCINATION_OVEN =
+            ITEMS.register("calcination_oven", () -> new BlockItem(BlockRegistry.CALCINATION_OVEN.get(), new Item.Properties()));
+
+    public static final RegistryObject<BlockItem> PYROMANTIC_BRAZIER =
+            ITEMS.register("pyromantic_brazier", () -> new BlockItem(BlockRegistry.PYROMANTIC_BRAZIER.get(), new Item.Properties()));
+
     public static void onRegisterCreativeModeTabs(CreativeModeTabEvent.Register event) {
         event.registerCreativeModeTab(new ResourceLocation(Theurgy.MODID + ":" + Theurgy.MODID),
                 (builder) -> {
@@ -83,15 +89,12 @@ public class ItemRegistry {
                         DivinationRodItem.DistHelper.registerCreativeModeTabs(DIVINATION_ROD_T2.get(), output);
                         DivinationRodItem.DistHelper.registerCreativeModeTabs(DIVINATION_ROD_T3.get(), output);
                         DivinationRodItem.DistHelper.registerCreativeModeTabs(DIVINATION_ROD_T4.get(), output);
+
+                        output.accept(CALCINATION_OVEN.get());
+                        output.accept(PYROMANTIC_BRAZIER.get());
                     });
 
                 }
         );
-
-    public static final RegistryObject<BlockItem> CALCINATION_OVEN =
-            ITEMS.register("calcination_oven", () -> new BlockItem(BlockRegistry.CALCINATION_OVEN.get(), defaultProperties()));
-
-    public static final RegistryObject<BlockItem> PYROMANTIC_BRAZIER =
-            ITEMS.register("pyromantic_brazier", () -> new BlockItem(BlockRegistry.PYROMANTIC_BRAZIER.get(), defaultProperties()));
     }
 }

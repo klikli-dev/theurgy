@@ -8,46 +8,38 @@ package com.klikli_dev.theurgy.datagen.recipe;
 
 import com.google.common.collect.Sets;
 import com.google.gson.JsonObject;
-import com.klikli_dev.theurgy.Theurgy;
-import com.mojang.datafixers.util.Pair;
 import net.minecraft.data.CachedOutput;
-import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
+import net.minecraft.data.PackOutput;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
+import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
-import java.util.function.Consumer;
 
 public abstract class JsonRecipeProvider implements DataProvider {
 
-    protected final DataGenerator.PathProvider recipePathProvider;
+    protected final PackOutput.PathProvider recipePathProvider;
     protected String modid;
 
-    public JsonRecipeProvider(DataGenerator pGenerator, String modid) {
-        this(pGenerator, modid, "");
+    public JsonRecipeProvider(PackOutput packOutput, String modid) {
+        this(packOutput, modid, "");
     }
 
     /**
      * Creates a new recipe provider with the given sub path.
      *
-     * @param pGenerator
+     * @param packOutput
      * @param recipeSubPath e.g. "calcination"
      */
-    public JsonRecipeProvider(DataGenerator pGenerator, String modid, String recipeSubPath) {
-        this.recipePathProvider = pGenerator.createPathProvider(DataGenerator.Target.DATA_PACK, "recipes/" + recipeSubPath);
+    public JsonRecipeProvider(PackOutput packOutput, String modid, String recipeSubPath) {
+        this.recipePathProvider = packOutput.createPathProvider(PackOutput.Target.DATA_PACK, "recipes/" + recipeSubPath);
         this.modid = modid;
-    }
-
-    private static void saveRecipe(CachedOutput pOutput, JsonObject pRecipeJson, Path pPath) {
-        try {
-            DataProvider.saveStable(pOutput, pRecipeJson, pPath);
-        } catch (IOException ioexception) {
-            Theurgy.LOGGER.error("Couldn't save recipe {}", pPath, ioexception);
-        }
     }
 
     public ResourceLocation modLoc(String name) {
@@ -91,16 +83,19 @@ public abstract class JsonRecipeProvider implements DataProvider {
         }
         return jsonobject;
     }
+
     @Override
-    public void run(CachedOutput pOutput) throws IOException {
+    public CompletableFuture<?> run(CachedOutput pOutput) {
         Set<ResourceLocation> set = Sets.newHashSet();
+        List<CompletableFuture<?>> futures = new ArrayList<>();
         this.buildRecipes((id, recipe) -> {
             if (!set.add(id)) {
                 throw new IllegalStateException("Duplicate recipe " + id);
             } else {
-                saveRecipe(pOutput, recipe, this.recipePathProvider.json(id));
+                futures.add(DataProvider.saveStable(pOutput, recipe, this.recipePathProvider.json(id)));
             }
         });
+        return CompletableFuture.allOf(futures.toArray(CompletableFuture[]::new));
     }
 
     abstract void buildRecipes(BiConsumer<ResourceLocation, JsonObject> recipeConsumer);

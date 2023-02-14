@@ -17,9 +17,9 @@ public class DataGenerators {
     public static void onGatherData(GatherDataEvent event) {
         DataGenerator generator = event.getGenerator();
 
-        generator.addProvider(event.includeClient(), new ItemModelProvider(generator, event.getExistingFileHelper()));
-        generator.addProvider(event.includeServer(), new BlockStateProvider(generator, event.getExistingFileHelper()));
-        generator.addProvider(event.includeServer(), new CalcinationRecipeProvider(generator));
+        generator.addProvider(event.includeClient(), new ItemModelProvider(generator.getPackOutput(), event.getExistingFileHelper()));
+        generator.addProvider(event.includeServer(), new BlockStateProvider(generator.getPackOutput(), event.getExistingFileHelper()));
+        generator.addProvider(event.includeServer(), new CalcinationRecipeProvider(generator.getPackOutput()));
 
         var enUSProvider = new ENUSProvider(generator.getPackOutput());
         generator.addProvider(event.includeServer(), new TheurgyBookProvider(generator.getPackOutput(), Theurgy.MODID, enUSProvider));

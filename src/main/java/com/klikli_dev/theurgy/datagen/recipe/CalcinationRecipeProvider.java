@@ -10,6 +10,7 @@ import com.google.gson.JsonObject;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.Items;
@@ -18,8 +19,8 @@ import java.util.function.BiConsumer;
 
 public class CalcinationRecipeProvider extends JsonRecipeProvider {
 
-    public CalcinationRecipeProvider(DataGenerator pGenerator) {
-        super(pGenerator, "calcination");
+    public CalcinationRecipeProvider(PackOutput packOutput) {
+        super(packOutput, "calcination");
     }
 
     @Override

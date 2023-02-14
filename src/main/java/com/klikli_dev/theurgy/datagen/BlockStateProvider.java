@@ -3,14 +3,13 @@ package com.klikli_dev.theurgy.datagen;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.data.PackOutput;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
 public class BlockStateProvider extends net.minecraftforge.client.model.generators.BlockStateProvider {
-    public BlockStateProvider(DataGenerator gen, ExistingFileHelper exFileHelper) {
-        super(gen, Theurgy.MODID, exFileHelper);
+    public BlockStateProvider(PackOutput packOutput, ExistingFileHelper exFileHelper) {
+        super(packOutput, Theurgy.MODID, exFileHelper);
     }
 
     @Override
@@ -55,7 +54,7 @@ public class BlockStateProvider extends net.minecraftforge.client.model.generato
                 .end();
     }
 
-    protected void registerPyromanticBrazier(){
+    protected void registerPyromanticBrazier() {
         var model = this.models().withExistingParent("pyromantic_brazier", this.modLoc("block/pyromantic_brazier_template"))
                 //blockbench spits out garbage textures by losing the folder name so we fix them here
                 .texture("texture", this.modLoc("block/liquefaction_cauldron"))

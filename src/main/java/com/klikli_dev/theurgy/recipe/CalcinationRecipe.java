@@ -10,15 +10,12 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.AbstractCookingRecipe;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.ShapedRecipe;
+import net.minecraft.world.item.crafting.*;
 import net.minecraftforge.common.crafting.CraftingHelper;
 
 public class CalcinationRecipe extends AbstractCookingRecipe {
     public CalcinationRecipe(ResourceLocation pId, Ingredient pIngredient, ItemStack pResult, int pCookingTime) {
-        super(RecipeTypeRegistry.CALCINATION.get(), pId, "", pIngredient, pResult, 0, pCookingTime);
+        super(RecipeTypeRegistry.CALCINATION.get(), pId, "", CookingBookCategory.MISC, pIngredient, pResult, 0, pCookingTime);
     }
 
     public ItemStack getToastSymbol() {

@@ -118,8 +118,8 @@ repositories {
         }
     }
     maven {
-        name = "Progwm16 maven - JEI"
-        url = 'https://dvs1.progwml6.com/files/maven'
+        name = "JEI"
+        url = 'https://maven.blamejared.com/'
         content {
             includeGroup "mezz.jei"
         }
@@ -134,6 +134,7 @@ dependencies {
 
     //Jei
     compileOnly fg.deobf("mezz.jei:jei-${jei_mc_version}-common-api:${jei_version}")
+    compileOnly fg.deobf("mezz.jei:jei-${jei_mc_version}-common:${jei_version}") //we're using the vanilla recipe category rendering constants
     compileOnly fg.deobf("mezz.jei:jei-${jei_mc_version}-forge-api:${jei_version}")
     runtimeOnly fg.deobf("mezz.jei:jei-${jei_mc_version}-forge:${jei_version}")
 

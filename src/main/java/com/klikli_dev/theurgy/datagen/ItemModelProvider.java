@@ -14,13 +14,12 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.client.model.generators.ItemModelBuilder;
-import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 
-public class ItemModelsProvider extends ItemModelProvider {
-    public ItemModelsProvider(PackOutput packOutput, ExistingFileHelper existingFileHelper) {
+public class ItemModelProvider extends net.minecraftforge.client.model.generators.ItemModelProvider {
+    public ItemModelProvider(PackOutput packOutput, ExistingFileHelper existingFileHelper) {
         super(packOutput, Theurgy.MODID, existingFileHelper);
     }
 
@@ -28,20 +27,25 @@ public class ItemModelsProvider extends ItemModelProvider {
         return ForgeRegistries.ITEMS.getKey(item).getPath();
     }
 
-    private void registerItemGenerated(String name) {
-        this.registerItemGenerated(name, name);
+    private ItemModelBuilder registerAlchemicalSalt(String name) {
+        return this.getBuilder(name)
+                .parent(new ModelFile.UncheckedModelFile(this.modLoc("item/alchemical_salt")));
+    }
+
+    private ItemModelBuilder registerItemGenerated(String name) {
+        return this.registerItemGenerated(name, name);
     }
 
     private ItemModelBuilder registerItemGenerated(String name, String texture) {
         return this.getBuilder(name)
                 .parent(new ModelFile.UncheckedModelFile("item/generated"))
-                .texture("layer0", Theurgy.loc("item/" + texture));
+                .texture("layer0", this.modLoc("item/" + texture));
     }
 
     private void registerItemHandheld(String name) {
         this.getBuilder(name)
                 .parent(new ModelFile.UncheckedModelFile("item/handheld"))
-                .texture("layer0", Theurgy.loc("item/" + name));
+                .texture("layer0", this.modLoc("item/" + name));
     }
 
     private void registerItemBuiltinEntity(String name) {
@@ -117,7 +121,8 @@ public class ItemModelsProvider extends ItemModelProvider {
         this.registerItemGenerated(this.name(ItemRegistry.EMPTY_JAR_LABELED.get()));
         this.registerItemGenerated(this.name(ItemRegistry.JAR_LABEL.get()));
         this.registerItemBuiltinEntity(this.name(ItemRegistry.ALCHEMICAL_SULFUR.get()));
-        //this.registerItemGenerated(this.name(ItemRegistry.SULFUR_INGOT.get()));
+        this.registerItemGenerated("alchemical_salt"); //parent for alchemical salt
+        this.registerAlchemicalSalt(this.name(ItemRegistry.ALCHEMICAL_SALT_ORE.get()));
 
         this.registerDivinationRod(ItemRegistry.DIVINATION_ROD_T1.get());
         this.registerDivinationRod(ItemRegistry.DIVINATION_ROD_T2.get());

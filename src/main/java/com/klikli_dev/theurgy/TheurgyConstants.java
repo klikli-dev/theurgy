@@ -88,5 +88,10 @@ public class TheurgyConstants {
             public static final String DIVINATION_ROD_NO_LINK = PREFIX + "divination_rod.no_link";
             public static final String DIVINATION_ROD_ATTUNING_NOT_ALLOWED = PREFIX + "divination_rod.attuning_not_allowed";
         }
+
+        public static class JEI {
+            public static final String PREFIX = Theurgy.MODID + ".jei.";
+            public static final String CALCINATION_CATEGORY = PREFIX + "category.calcination";
+        }
     }
 }

@@ -8,6 +8,7 @@ package com.klikli_dev.theurgy.datagen.lang;
 
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.TheurgyConstants;
+import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import net.minecraft.ChatFormatting;
 import net.minecraft.data.DataGenerator;
@@ -31,6 +32,10 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
                 ChatFormatting.GOLD + "]");
     }
 
+    private void addJEI(){
+        this.add(TheurgyConstants.I18n.JEI.CALCINATION_CATEGORY, "Calcination");
+    }
+
     private void addSubtitles() {
         this.add(Theurgy.MODID + ".subtitle.tuning_fork", "Using Divination Rod");
     }
@@ -42,6 +47,19 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
         this.add(TheurgyConstants.I18n.Message.DIVINATION_ROD_BLOCK_DISALLOWED, ChatFormatting.DARK_RED +"Warning"+ChatFormatting.RESET +": The divination rod cannot be attuned to this type of block: %s.");
         this.add(TheurgyConstants.I18n.Message.DIVINATION_ROD_NO_LINK, "The divination rod is not attuned to any material.");
         this.add(TheurgyConstants.I18n.Message.DIVINATION_ROD_ATTUNING_NOT_ALLOWED, ChatFormatting.DARK_RED +"Warning"+ChatFormatting.RESET +": This type of divination rod cannot be manually attuned.");
+    }
+
+    private void addBlocks() {
+        this.addBlock(BlockRegistry.CALCINATION_OVEN, "Calcination Oven");
+        this.addTooltip(BlockRegistry.CALCINATION_OVEN.get()::asItem,
+                "A device to extract Alchemical Sulfur from Items.",
+                "Sulfur represents the \"idea\" or \"soul\" of an object and is the key to replication and transmutation.");
+
+        this.addBlock(BlockRegistry.PYROMANTIC_BRAZIER, "Pyromantic Brazier");
+        this.addTooltip(BlockRegistry.PYROMANTIC_BRAZIER.get()::asItem,
+                "A simple device to heat alchemical apparati.",
+                "Place this below other alchemical apparati to heat them up",
+                "Insert a fuel item by right-clicking the brazier with it, or using a hopper");
     }
 
     private void addItems() {
@@ -57,8 +75,13 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
 
         this.addItem(ItemRegistry.ALCHEMICAL_SULFUR, "Alchemical Sulfur %s");
         this.addTooltip(ItemRegistry.ALCHEMICAL_SULFUR,
-                "Alchemical sulfur crafted from %s.",
+                "Alchemical Sulfur crafted from %s.",
                 "Sulfur represents the \"idea\" or \"soul\" of an object and is the key to replication and transmutation.");
+
+        this.addItem(ItemRegistry.ALCHEMICAL_SALT_ORE, "Alchemical Salt: " + ChatFormatting.GREEN + ChatFormatting.ITALIC + "Ore" + ChatFormatting.RESET);
+        this.addTooltip(ItemRegistry.ALCHEMICAL_SALT_ORE,
+                "Alchemical Salt calcinated from Ore.",
+                "Salt represents the \"body\" or \"physical matter\" of an object.");
 
 
         this.add(TheurgyConstants.I18n.Tooltip.DIVINATION_ROD_NO_LINK, "The divination rod is "+ ChatFormatting.RED +"not attuned"+ ChatFormatting.RESET +" to any material.");
@@ -116,5 +139,7 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
         this.addSubtitles();
         this.addMessages();
         this.addItems();
+        this.addBlocks();
+        this.addJEI();
     }
 }

@@ -45,16 +45,20 @@ public class Theurgy {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         ItemRegistry.ITEMS.register(modEventBus);
+        BlockRegistry.BLOCKS.register(modEventBus);
+        BlockEntityRegistry.BLOCKS.register(modEventBus);
         EntityRegistry.ENTITIES.register(modEventBus);
         EntityDataSerializerRegistry.ENTITY_DATA_SERIALIZERS.register(modEventBus);
         ParticleRegistry.PARTICLES.register(modEventBus);
         SoundRegistry.SOUNDS.register(modEventBus);
-        RecipeRegistry.RECIPE_SERIALIZERS.register(modEventBus);
+        RecipeSerializerRegistry.RECIPE_SERIALIZERS.register(modEventBus);
+        RecipeTypeRegistry.RECIPE_TYPES.register(modEventBus);
+        MenuTypeRegistry.MENU_TYPES.register(modEventBus);
 
         modEventBus.addListener(this::onCommonSetup);
         modEventBus.addListener(this::onServerSetup);
 
-        modEventBus.addListener(DataGenerators::gatherData);
+        modEventBus.addListener(DataGenerators::onGatherData);
         modEventBus.addListener(ItemRegistry::onRegisterCreativeModeTabs);
 
         MinecraftForge.EVENT_BUS.addListener(TooltipHandler::onItemTooltipEvent);

@@ -16,6 +16,43 @@ public class BlockStateProvider extends net.minecraftforge.client.model.generato
     protected void registerStatesAndModels() {
         this.registerCalcinationOven();
         this.registerPyromanticBrazier();
+        this.registerLiquefactionCauldron();
+    }
+
+    protected void registerLiquefactionCauldron() {
+        var model = this.models().withExistingParent("liquefaction_cauldron", this.modLoc("block/liquefaction_cauldron_template"))
+                //blockbench spits out garbage textures by losing the folder name so we fix them here
+                .texture("texture", this.modLoc("block/liquefaction_cauldron"))
+                .texture("particle", this.mcLoc("block/copper_block"));
+
+
+        var modelLit = this.models().withExistingParent("liquefaction_cauldron_lit", this.modLoc("block/liquefaction_cauldron"))
+                //we're based on the normal model so we only have to override the texture that changes - the main texture to lit
+                .texture("texture", this.modLoc("block/liquefaction_cauldron_lit"));
+
+        //build blockstate
+        this.getVariantBuilder(BlockRegistry.LIQUEFACTION_CAULDRON.get()) // Get variant builder
+                .partialState()
+                .with(BlockStateProperties.LIT, false)
+                .modelForState()//start setting models
+                .modelFile(model)
+                .addModel()//finish setting models
+                .partialState()
+                .with(BlockStateProperties.LIT, true)
+                .modelForState()//start setting models
+                .modelFile(modelLit)
+                .addModel();
+
+        //add item model
+        this.itemModels().withExistingParent("liquefaction_cauldron", this.modLoc("block/liquefaction_cauldron"))
+                .transforms()
+                //take defaults from net.minecraft:client:extra/assets/minecraft/models/block/block.json
+                //then slightly move down and reduce scale from 0.625 to 0.5
+                .transform(ItemTransforms.TransformType.GUI)
+                .rotation(30, 225, 0)
+                .translation(0, -2.0f, 0)
+                .scale(0.5f)
+                .end();
     }
 
     protected void registerCalcinationOven() {

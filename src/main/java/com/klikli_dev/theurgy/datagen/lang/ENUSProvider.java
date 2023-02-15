@@ -52,14 +52,21 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
     private void addBlocks() {
         this.addBlock(BlockRegistry.CALCINATION_OVEN, "Calcination Oven");
         this.addTooltip(BlockRegistry.CALCINATION_OVEN.get()::asItem,
-                "A device to extract Alchemical Sulfur from Items.",
-                "Sulfur represents the \"idea\" or \"soul\" of an object and is the key to replication and transmutation.");
+                "A device to extract Alchemical Salt from Items.",
+                "Salt represents the \"body\" or \"physical matter\" of an object.",
+                "Place this on top of a heating device such as a Pyromantic Brazier.\nRight-click with ingredients to place them in the oven for processing.");
 
         this.addBlock(BlockRegistry.PYROMANTIC_BRAZIER, "Pyromantic Brazier");
         this.addTooltip(BlockRegistry.PYROMANTIC_BRAZIER.get()::asItem,
                 "A simple device to heat alchemical apparati.",
                 "Place this below other alchemical apparati to heat them up",
                 "Insert a fuel item by right-clicking the brazier with it, or using a hopper");
+
+        this.addBlock(BlockRegistry.LIQUEFACTION_CAULDRON, "Liquefaction Cauldron");
+        this.addTooltip(BlockRegistry.LIQUEFACTION_CAULDRON.get()::asItem,
+                "A device to extract Alchemical Sulfur from Items using a Solvent.",
+                "Sulfur represents the \"idea\" or \"soul\" of an object and is the key to replication and transmutation.",
+                "Place this on top of a heating device such as a Pyromantic Brazier.\nRight-click with ingredients to add them to the cauldron for processing.");
     }
 
     private void addItems() {

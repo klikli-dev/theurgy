@@ -8,6 +8,7 @@ package com.klikli_dev.theurgy.registry;
 
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.block.calcinationoven.CalcinationOvenBlock;
+import com.klikli_dev.theurgy.block.liquefactioncauldron.LiquefactionCauldronBlock;
 import com.klikli_dev.theurgy.block.pyromanticbrazier.PyromanticBrazierBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
@@ -33,5 +34,12 @@ public class BlockRegistry {
                     .noOcclusion()
                     .sound(SoundType.METAL)
                     .strength(1.0f)
+                    .lightLevel((state) -> state.getValue(BlockStateProperties.LIT) ? 14 : 0)));
+
+    public static final RegistryObject<LiquefactionCauldronBlock> LIQUEFACTION_CAULDRON =
+            BLOCKS.register("liquefaction_cauldron", () -> new LiquefactionCauldronBlock(BlockBehaviour.Properties.of(Material.METAL)
+                    .noOcclusion()
+                    .sound(SoundType.METAL)
+                    .strength(2.0f)
                     .lightLevel((state) -> state.getValue(BlockStateProperties.LIT) ? 14 : 0)));
 }

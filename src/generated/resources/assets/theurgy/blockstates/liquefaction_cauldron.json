@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "theurgy:block/liquefaction_cauldron"
+    },
+    "lit=true": {
+      "model": "theurgy:block/liquefaction_cauldron_lit"
+    }
+  }
+}

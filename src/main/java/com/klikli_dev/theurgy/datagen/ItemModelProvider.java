@@ -128,5 +128,6 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
         this.registerDivinationRod(ItemRegistry.DIVINATION_ROD_T2.get());
         this.registerDivinationRod(ItemRegistry.DIVINATION_ROD_T3.get());
         this.registerDivinationRod(ItemRegistry.DIVINATION_ROD_T4.get());
+
     }
 }

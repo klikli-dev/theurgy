@@ -47,6 +47,8 @@ public class Theurgy {
         ItemRegistry.ITEMS.register(modEventBus);
         BlockRegistry.BLOCKS.register(modEventBus);
         BlockEntityRegistry.BLOCKS.register(modEventBus);
+        FluidTypeRegistry.FLUID_TYPES.register(modEventBus);
+        FluidRegistry.FLUIDS.register(modEventBus);
         EntityRegistry.ENTITIES.register(modEventBus);
         EntityDataSerializerRegistry.ENTITY_DATA_SERIALIZERS.register(modEventBus);
         ParticleRegistry.PARTICLES.register(modEventBus);
@@ -64,9 +66,10 @@ public class Theurgy {
         MinecraftForge.EVENT_BUS.addListener(TooltipHandler::onItemTooltipEvent);
 
         if (FMLEnvironment.dist == Dist.CLIENT) {
-            modEventBus.addListener(ClientSetupEventHandler::onClientSetup);
             modEventBus.addListener(ParticleRegistry::registerFactories);
+            modEventBus.addListener(ClientSetupEventHandler::onClientSetup);
             modEventBus.addListener(ClientSetupEventHandler::onRegisterEntityRenderers);
+            modEventBus.addListener(ClientSetupEventHandler::onRegisterItemColors);
         }
     }
 

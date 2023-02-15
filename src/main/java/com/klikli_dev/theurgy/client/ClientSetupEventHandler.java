@@ -16,6 +16,8 @@ import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.tooltips.TooltipHandler;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraftforge.client.event.EntityRenderersEvent;
+import net.minecraftforge.client.event.RegisterColorHandlersEvent;
+import net.minecraftforge.client.model.DynamicFluidContainerModel;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
 public class ClientSetupEventHandler {
@@ -49,5 +51,9 @@ public class ClientSetupEventHandler {
 
             Theurgy.LOGGER.debug("Finished registering Item Properties.");
         });
+    }
+
+    public static void onRegisterItemColors(RegisterColorHandlersEvent.Item event){
+        event.register(new DynamicFluidContainerModel.Colors(), ItemRegistry.SAL_AMMONIAC_BUCKET.get());
     }
 }

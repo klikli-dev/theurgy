@@ -12,10 +12,7 @@ import com.klikli_dev.theurgy.item.AlchemicalSulfurItem;
 import com.klikli_dev.theurgy.item.DivinationRodItem;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Tiers;
+import net.minecraft.world.item.*;
 import net.minecraftforge.event.CreativeModeTabEvent;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -68,6 +65,8 @@ public class ItemRegistry {
                     96, 40, 12, true));
     //TODO: in the future, no attuning for higher tier rods
 
+    //Buckets
+    public static final RegistryObject<Item> SAL_AMMONIAC_BUCKET =  ITEMS.register("sal_ammoniac_bucket", () -> new BucketItem(FluidRegistry.SAL_AMMONIAC, new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
 
     //Blocks
     public static final RegistryObject<BlockItem> CALCINATION_OVEN =
@@ -92,6 +91,8 @@ public class ItemRegistry {
                         DivinationRodItem.DistHelper.registerCreativeModeTabs(DIVINATION_ROD_T2.get(), output);
                         DivinationRodItem.DistHelper.registerCreativeModeTabs(DIVINATION_ROD_T3.get(), output);
                         DivinationRodItem.DistHelper.registerCreativeModeTabs(DIVINATION_ROD_T4.get(), output);
+
+                        output.accept(SAL_AMMONIAC_BUCKET.get());
 
                         output.accept(CALCINATION_OVEN.get());
                         output.accept(PYROMANTIC_BRAZIER.get());

@@ -49,6 +49,10 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
         this.add(TheurgyConstants.I18n.Message.DIVINATION_ROD_ATTUNING_NOT_ALLOWED, ChatFormatting.DARK_RED +"Warning"+ChatFormatting.RESET +": This type of divination rod cannot be manually attuned.");
     }
 
+    private void addFluids(){
+        this.add("fluid_type.theurgy.sal_ammoniac", "Sal Ammoniac");
+    }
+
     private void addBlocks() {
         this.addBlock(BlockRegistry.CALCINATION_OVEN, "Calcination Oven");
         this.addTooltip(BlockRegistry.CALCINATION_OVEN.get()::asItem,
@@ -138,6 +142,8 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
 //                "This divination rod type cannot be manually attuned, instead comes pre-attuned after crafting..",
 //                ChatFormatting.GREEN + "Right-Click and hold"+ChatFormatting.GRAY +" to let the rod search for blocks.\n" +
 //                        ChatFormatting.GREEN + "Right-Click without holding"+ChatFormatting.GRAY + " after a successful search to let the rod show the last found block without consuming durability.");
+
+        this.addItem(ItemRegistry.SAL_AMMONIAC_BUCKET, "Sal Ammoniac Bucket");
     }
 
     @Override
@@ -147,6 +153,7 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
         this.addMessages();
         this.addItems();
         this.addBlocks();
+        this.addFluids();
         this.addJEI();
     }
 }

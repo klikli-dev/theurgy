@@ -40,6 +40,6 @@ public class BlockRegistry {
             BLOCKS.register("liquefaction_cauldron", () -> new LiquefactionCauldronBlock(BlockBehaviour.Properties.of(Material.METAL)
                     .noOcclusion()
                     .sound(SoundType.METAL)
-                    .strength(2.0f)
+                    .strength(1.0f)
                     .lightLevel((state) -> state.getValue(BlockStateProperties.LIT) ? 14 : 0)));
 }

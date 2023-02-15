@@ -30,5 +30,6 @@ public class BlockLootProvider extends BlockLootSubProvider {
     protected void generate() {
         this.dropSelf(BlockRegistry.PYROMANTIC_BRAZIER.get());
         this.dropSelf(BlockRegistry.CALCINATION_OVEN.get());
+        this.dropSelf(BlockRegistry.LIQUEFACTION_CAULDRON.get());
     }
 }

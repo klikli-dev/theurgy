@@ -19,15 +19,23 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.stream.Stream;
 
 public class CalcinationOvenBlock extends Block implements EntityBlock {
 
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
 
-    private static final VoxelShape SHAPE = Block.box(2, 0, 2, 14, 25, 14);
+    private static final VoxelShape SHAPE = Stream.of(
+            Block.box(0, 0, 0, 16, 8, 16),
+            Block.box(-3, 8, -3, 19, 15, 19),
+            Block.box(3, 15, 3, 13, 29, 13)
+    ).reduce((v1, v2) -> Shapes.join(v1, v2, BooleanOp.OR)).get();
 
     public CalcinationOvenBlock(Properties pProperties) {
         super(pProperties);

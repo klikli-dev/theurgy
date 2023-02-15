@@ -10,12 +10,22 @@ import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.datagen.lang.ENUSProvider;
 import com.klikli_dev.theurgy.datagen.recipe.CalcinationRecipeProvider;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.loot.LootTableProvider;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraftforge.data.event.GatherDataEvent;
+
+import java.util.List;
+import java.util.Set;
 
 public class DataGenerators {
 
     public static void onGatherData(GatherDataEvent event) {
         DataGenerator generator = event.getGenerator();
+
+        generator.addProvider(event.includeServer(),
+                new LootTableProvider(generator.getPackOutput(), Set.of(), List.of(
+                        new LootTableProvider.SubProviderEntry(BlockLootProvider::new, LootContextParamSets.BLOCK)
+                )));
 
         generator.addProvider(event.includeClient(), new ItemModelProvider(generator.getPackOutput(), event.getExistingFileHelper()));
         generator.addProvider(event.includeServer(), new BlockStateProvider(generator.getPackOutput(), event.getExistingFileHelper()));

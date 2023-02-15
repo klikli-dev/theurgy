@@ -25,13 +25,13 @@ public class BlockRegistry {
             BLOCKS.register("calcination_oven", () -> new CalcinationOvenBlock(BlockBehaviour.Properties.of(Material.METAL)
                     .noOcclusion()
                     .sound(SoundType.METAL)
-                    .strength(2.0f)
+                    .strength(1.0f)
                     .lightLevel((state) -> state.getValue(BlockStateProperties.LIT) ? 14 : 0)));
 
     public static final RegistryObject<PyromanticBrazierBlock> PYROMANTIC_BRAZIER =
             BLOCKS.register("pyromantic_brazier", () -> new PyromanticBrazierBlock(BlockBehaviour.Properties.of(Material.METAL)
                     .noOcclusion()
                     .sound(SoundType.METAL)
-                    .strength(2.0f)
+                    .strength(1.0f)
                     .lightLevel((state) -> state.getValue(BlockStateProperties.LIT) ? 14 : 0)));
 }

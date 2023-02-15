@@ -1,11 +1,13 @@
 package com.klikli_dev.theurgy.block.pyromanticbrazier;
 
+import com.klikli_dev.theurgy.block.calcinationoven.CalcinationOvenBlockEntity;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -23,6 +25,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraftforge.items.wrapper.RecipeWrapper;
 import org.jetbrains.annotations.Nullable;
 
 public class PyromanticBrazierBlock extends Block implements EntityBlock {
@@ -75,6 +78,7 @@ public class PyromanticBrazierBlock extends Block implements EntityBlock {
         pBuilder.add(LIT);
     }
 
+    @Override
     public void animateTick(BlockState pState, Level pLevel, BlockPos pPos, RandomSource pRandom) {
         if (pState.getValue(LIT)) {
             if (pRandom.nextInt(10) == 0) {
@@ -88,6 +92,16 @@ public class PyromanticBrazierBlock extends Block implements EntityBlock {
             }
         }
 
+    }
+
+    @Override
+    public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
+        if (!pState.is(pNewState.getBlock())) {
+            if (pLevel.getBlockEntity(pPos) instanceof PyromanticBrazierBlockEntity pyromanticBrazier) {
+                Containers.dropContents(pLevel, pPos, new RecipeWrapper(pyromanticBrazier.inventory));
+            }
+        }
+        super.onRemove(pState, pLevel, pPos, pNewState, pIsMoving);
     }
 
     @Nullable

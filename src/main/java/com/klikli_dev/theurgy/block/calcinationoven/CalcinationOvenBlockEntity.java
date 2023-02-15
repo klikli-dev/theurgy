@@ -30,7 +30,7 @@ public class CalcinationOvenBlockEntity extends BlockEntity {
     public ItemStackHandler inputInventory;
     public ItemStackHandler outputInventory;
 
-    public IItemHandler inventory;
+    public CombinedInvWrapper inventory;
     public LazyOptional<IItemHandler> inventoryCapability;
     public LazyOptional<IItemHandler> inputInventoryCapability;
     public LazyOptional<IItemHandler> outputInventoryCapability;

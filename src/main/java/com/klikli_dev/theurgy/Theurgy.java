@@ -69,6 +69,7 @@ public class Theurgy {
 
         modEventBus.addListener(TheurgyDataGenerators::onGatherData);
         modEventBus.addListener(ItemRegistry::onRegisterCreativeModeTabs);
+        modEventBus.addListener(RecipeSerializerRegistry::onRegisterRecipeSerializers);
 
         MinecraftForge.EVENT_BUS.addListener(TooltipHandler::onItemTooltipEvent);
 

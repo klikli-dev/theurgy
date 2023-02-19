@@ -93,10 +93,8 @@ public class CalcinationOvenBlockEntity extends BlockEntity implements HeatConsu
                 if (this.calcinationProgress == this.calcinationTotalTime) {
                     this.calcinationProgress = 0;
                     this.calcinationTotalTime = this.getTotalCalcinationTime();
-                    if (this.craft(recipe)) {
-                        //TODO: handle experience gain on taking out of items
-                        //this.setRecipeUsed(recipe);
-                    }
+                    this.craft(recipe);
+                    //TODO: advancement?
                 }
             } else {
                 this.calcinationProgress = 0;

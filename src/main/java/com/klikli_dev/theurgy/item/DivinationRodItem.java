@@ -6,20 +6,18 @@
 
 package com.klikli_dev.theurgy.item;
 
-import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.client.scanner.ScanManager;
 import com.klikli_dev.theurgy.entity.FollowProjectile;
 import com.klikli_dev.theurgy.network.Networking;
 import com.klikli_dev.theurgy.network.messages.MessageSetDivinationResult;
 import com.klikli_dev.theurgy.registry.SoundRegistry;
-import com.klikli_dev.theurgy.registry.TagRegistry;
+import com.klikli_dev.theurgy.registry.BlockTagRegistry;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.item.ItemPropertyFunction;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.*;
 import net.minecraft.resources.ResourceLocation;
@@ -412,12 +410,12 @@ public class DivinationRodItem extends Item {
 
     public TagKey<Block> getAllowedBlocksTag(ItemStack stack) {
         var allowedBlocksTag = stack.getOrCreateTag().getString(TheurgyConstants.Nbt.Divination.SETTING_ALLOWED_BLOCKS_TAG);
-        return TagRegistry.makeBlockTag(new ResourceLocation(allowedBlocksTag));
+        return BlockTagRegistry.tag(new ResourceLocation(allowedBlocksTag));
     }
 
     public TagKey<Block> getDisallowedBlocksTag(ItemStack stack) {
         var disallowedBlocksTag = stack.getOrCreateTag().getString(TheurgyConstants.Nbt.Divination.SETTING_DISALLOWED_BLOCKS_TAG);
-        return TagRegistry.makeBlockTag(new ResourceLocation(disallowedBlocksTag));
+        return BlockTagRegistry.tag(new ResourceLocation(disallowedBlocksTag));
     }
 
 

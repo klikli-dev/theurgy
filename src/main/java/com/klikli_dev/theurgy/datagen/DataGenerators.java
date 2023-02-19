@@ -9,6 +9,9 @@ package com.klikli_dev.theurgy.datagen;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.datagen.lang.ENUSProvider;
 import com.klikli_dev.theurgy.datagen.recipe.CalcinationRecipeProvider;
+import com.klikli_dev.theurgy.datagen.tags.TheurgyBlockTagsProvider;
+import com.klikli_dev.theurgy.datagen.tags.TheurgyFluidTagsProvider;
+import com.klikli_dev.theurgy.datagen.tags.TheurgyItemTagsProvider;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
@@ -21,6 +24,11 @@ public class DataGenerators {
 
     public static void onGatherData(GatherDataEvent event) {
         DataGenerator generator = event.getGenerator();
+
+        var blockTagsProvider = new TheurgyBlockTagsProvider(generator.getPackOutput(), event.getLookupProvider(), event.getExistingFileHelper());
+        generator.addProvider(event.includeServer(), blockTagsProvider);
+        generator.addProvider(event.includeServer(), new TheurgyFluidTagsProvider(generator.getPackOutput(), event.getLookupProvider(), event.getExistingFileHelper()));
+        generator.addProvider(event.includeServer(), new TheurgyItemTagsProvider(generator.getPackOutput(), event.getLookupProvider(), blockTagsProvider, event.getExistingFileHelper()));
 
         generator.addProvider(event.includeServer(),
                 new LootTableProvider(generator.getPackOutput(), Set.of(), List.of(

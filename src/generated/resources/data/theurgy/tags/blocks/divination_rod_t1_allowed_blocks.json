@@ -1,10 +1,9 @@
 {
-  "replace": false,
   "values": [
+    "minecraft:sugar_cane",
     "#forge:ores",
     "#forge:sand",
     "#forge:stone",
-    "#minecraft:logs",
-    "minecraft:sugar_cane"
+    "#minecraft:logs"
   ]
 }

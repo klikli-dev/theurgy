@@ -3,6 +3,7 @@ package com.klikli_dev.theurgy.block.liquefactioncauldron;
 import com.klikli_dev.theurgy.block.calcinationoven.CalcinationOvenBlock;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.CapabilityRegistry;
+import com.klikli_dev.theurgy.registry.FluidTagRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -40,11 +41,8 @@ public class LiquefactionCauldronBlockEntity extends BlockEntity {
     public LazyOptional<IItemHandler> outputInventoryCapability;
 
     public RecipeWrapper inputRecipeWrapper;
-
-    protected FluidTank solventTank;
-
     public LazyOptional<IFluidHandler> solventTankCapability;
-
+    protected FluidTank solventTank;
     int liquificationProgress;
     int liquificationTotalTime;
 
@@ -64,8 +62,8 @@ public class LiquefactionCauldronBlockEntity extends BlockEntity {
 
         this.inputRecipeWrapper = new RecipeWrapper(this.inputInventory);
 
-        this.solventTank = new FluidTank(FluidType.BUCKET_VOLUME); //TODO: limit to solvent fluids
-        this.solventTankCapability = LazyOptional.of(() -> solventTank);
+        this.solventTank = new FluidTank(FluidType.BUCKET_VOLUME, (fluidStack -> fluidStack.getFluid().is(FluidTagRegistry.SOLVENT)));
+        this.solventTankCapability = LazyOptional.of(() -> this.solventTank);
 
         this.recipeCachedCheck = RecipeManager.createCheck(RecipeTypeRegistry.CALCINATION.get());
     }
@@ -182,7 +180,7 @@ public class LiquefactionCauldronBlockEntity extends BlockEntity {
         }
 
         if (cap == ForgeCapabilities.FLUID_HANDLER)
-            return solventTankCapability.cast();
+            return this.solventTankCapability.cast();
 
         return super.getCapability(cap, side);
     }
@@ -195,7 +193,7 @@ public class LiquefactionCauldronBlockEntity extends BlockEntity {
         pTag.put("outputInventory", this.outputInventory.serializeNBT());
         pTag.putShort("liquificationProgress", (short) this.liquificationProgress);
         var solventTankTag = new CompoundTag();
-        solventTank.writeToNBT(pTag);
+        this.solventTank.writeToNBT(pTag);
         pTag.put("solventTank", solventTankTag);
     }
 
@@ -210,9 +208,9 @@ public class LiquefactionCauldronBlockEntity extends BlockEntity {
         if (pTag.contains("liquificationProgress"))
             this.liquificationProgress = pTag.getShort("liquificationProgress");
 
-        if (pTag.contains("solventTank")){
+        if (pTag.contains("solventTank")) {
             var solventTankTag = pTag.getCompound("solventTank");
-            solventTank.readFromNBT(solventTankTag);
+            this.solventTank.readFromNBT(solventTankTag);
         }
     }
 

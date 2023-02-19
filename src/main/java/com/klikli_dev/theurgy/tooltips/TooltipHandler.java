@@ -29,6 +29,7 @@ public class TooltipHandler {
     private static final List<String> namespacesToListenFor = new ArrayList<>();
 
     public static void onItemTooltipEvent(ItemTooltipEvent event) {
+        //Note to handle fluid stacks in JEI we'd need RenderTooltipEvent (probably .Pre)
         ItemStack stack = event.getItemStack();
 
         var itemId = ForgeRegistries.ITEMS.getKey(stack.getItem());
@@ -49,7 +50,7 @@ public class TooltipHandler {
             }
 
             if (extendedTooltipExists) {
-                if(Screen.hasShiftDown()){
+                if (Screen.hasShiftDown()) {
                     event.getToolTip().add(Component.translatable(extendedTooltipKey, additionalTooltipData.toArray()).withStyle(Style.EMPTY.withColor(ChatFormatting.GRAY)));
                 } else {
                     event.getToolTip().add(Component.translatable(TheurgyConstants.I18n.Tooltip.SHOW_EXTENDED, additionalTooltipData.toArray()));
@@ -57,7 +58,7 @@ public class TooltipHandler {
             }
 
             if (usageTooltipExists) {
-                if(Screen.hasControlDown()){
+                if (Screen.hasControlDown()) {
                     event.getToolTip().add(Component.translatable(usageTooltipKey, additionalTooltipData.toArray()).withStyle(Style.EMPTY.withColor(ChatFormatting.GRAY)));
                 } else {
                     event.getToolTip().add(Component.translatable(TheurgyConstants.I18n.Tooltip.SHOW_USAGE, additionalTooltipData.toArray()));

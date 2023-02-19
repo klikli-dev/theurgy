@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-package com.klikli_dev.theurgy.datagen;
+package com.klikli_dev.theurgy.datagen.loot;
 
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import net.minecraft.data.loot.BlockLootSubProvider;
@@ -16,7 +16,7 @@ import java.util.Set;
 import java.util.function.BiConsumer;
 
 public class TheurgyBlockLootSubProvider extends BlockLootSubProvider {
-    protected TheurgyBlockLootSubProvider() {
+    public TheurgyBlockLootSubProvider() {
         super(Set.of(), FeatureFlags.REGISTRY.allFlags());
     }
 

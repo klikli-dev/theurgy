@@ -7,7 +7,11 @@
 package com.klikli_dev.theurgy.datagen;
 
 import com.klikli_dev.theurgy.Theurgy;
+import com.klikli_dev.theurgy.datagen.book.TheurgyBookProvider;
 import com.klikli_dev.theurgy.datagen.lang.ENUSProvider;
+import com.klikli_dev.theurgy.datagen.loot.TheurgyBlockLootSubProvider;
+import com.klikli_dev.theurgy.datagen.models.TheurgyBlockStateProvider;
+import com.klikli_dev.theurgy.datagen.models.TheurgyItemModelProvider;
 import com.klikli_dev.theurgy.datagen.recipe.CalcinationRecipeProvider;
 import com.klikli_dev.theurgy.datagen.tags.TheurgyBlockTagsProvider;
 import com.klikli_dev.theurgy.datagen.tags.TheurgyFluidTagsProvider;

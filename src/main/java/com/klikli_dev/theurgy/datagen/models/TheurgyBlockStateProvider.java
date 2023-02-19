@@ -1,4 +1,10 @@
-package com.klikli_dev.theurgy.datagen;
+/*
+ * SPDX-FileCopyrightText: 2023 klikli-dev
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+package com.klikli_dev.theurgy.datagen.models;
 
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.registry.BlockRegistry;

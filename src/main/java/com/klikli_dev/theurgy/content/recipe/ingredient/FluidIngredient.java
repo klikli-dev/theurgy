@@ -27,6 +27,7 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
@@ -37,6 +38,8 @@ public class FluidIngredient extends Ingredient {
 
     @Nullable
     private FluidStack[] fluidStacks;
+
+    private int amount = -1;
 
     protected FluidIngredient(Stream<? extends Value> pValues) {
         super(Stream.empty());
@@ -136,13 +139,13 @@ public class FluidIngredient extends Ingredient {
     protected void invalidate() {
         this.invalidate();
         this.fluidStacks = null;
+        this.amount = -1;
     }
 
     @Override
     public boolean isEmpty() {
         return this.values.length == 0;
     }
-
 
     @Override
     public IntList getStackingIds() {
@@ -160,6 +163,14 @@ public class FluidIngredient extends Ingredient {
         }
 
         return this.fluidStacks;
+    }
+
+    public int getAmount(){
+        if (amount == -1){
+            var fluids = this.getFluids();
+            amount = fluids.length == 0 ? 0 : Arrays.stream(this.getFluids()).max(Comparator.comparingInt(FluidStack::getAmount)).get().getAmount();
+        }
+        return amount;
     }
 
     @Override

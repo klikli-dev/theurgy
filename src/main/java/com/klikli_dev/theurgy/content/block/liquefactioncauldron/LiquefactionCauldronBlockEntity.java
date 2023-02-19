@@ -6,19 +6,23 @@
 
 package com.klikli_dev.theurgy.content.block.liquefactioncauldron;
 
-import com.klikli_dev.theurgy.content.block.calcinationoven.CalcinationOvenBlock;
+import com.klikli_dev.theurgy.content.block.HeatConsumer;
+import com.klikli_dev.theurgy.content.recipe.LiquefactionRecipe;
+import com.klikli_dev.theurgy.content.recipe.RecipeWrapperWithFluid;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
-import com.klikli_dev.theurgy.registry.CapabilityRegistry;
 import com.klikli_dev.theurgy.registry.FluidTagRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
+import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.AbstractCookingRecipe;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeManager;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
@@ -28,16 +32,19 @@ import net.minecraftforge.fluids.FluidType;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.wrapper.CombinedInvWrapper;
-import net.minecraftforge.items.wrapper.RecipeWrapper;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class LiquefactionCauldronBlockEntity extends BlockEntity {
+import java.util.Map;
+import java.util.Optional;
 
-    private static final int CHECK_HEAT_TICK_INTERVAL = 20;
-    private final RecipeManager.CachedCheck<Container, ? extends AbstractCookingRecipe> recipeCachedCheck;
+public class LiquefactionCauldronBlockEntity extends BlockEntity implements HeatConsumer {
+
+    private final CachedCheck<RecipeWrapperWithFluid, ? extends LiquefactionRecipe> recipeCachedCheck;
     public ItemStackHandler inputInventory;
     public ItemStackHandler outputInventory;
 
@@ -46,13 +53,13 @@ public class LiquefactionCauldronBlockEntity extends BlockEntity {
     public LazyOptional<IItemHandler> inputInventoryCapability;
     public LazyOptional<IItemHandler> outputInventoryCapability;
 
-    public RecipeWrapper inputRecipeWrapper;
+    public RecipeWrapperWithFluid inputRecipeWrapper;
     public LazyOptional<IFluidHandler> solventTankCapability;
     protected FluidTank solventTank;
     int liquificationProgress;
     int liquificationTotalTime;
 
-    boolean isHeated;
+    boolean heatedCache;
 
     public LiquefactionCauldronBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(BlockEntityRegistry.LIQUEFACTION_CAULDRON.get(), pPos, pBlockState);
@@ -66,35 +73,71 @@ public class LiquefactionCauldronBlockEntity extends BlockEntity {
         this.inputInventoryCapability = LazyOptional.of(() -> this.inputInventory);
         this.outputInventoryCapability = LazyOptional.of(() -> this.outputInventory);
 
-        this.inputRecipeWrapper = new RecipeWrapper(this.inputInventory);
-
-        this.solventTank = new FluidTank(FluidType.BUCKET_VOLUME, (fluidStack -> fluidStack.getFluid().is(FluidTagRegistry.SOLVENT)));
+        this.solventTank = new FluidTank(FluidType.BUCKET_VOLUME, (fluidStack ->
+                ForgeRegistries.FLUIDS.tags().getTag(FluidTagRegistry.SOLVENT).contains(fluidStack.getFluid())
+        ));
         this.solventTankCapability = LazyOptional.of(() -> this.solventTank);
 
-        this.recipeCachedCheck = RecipeManager.createCheck(RecipeTypeRegistry.CALCINATION.get());
+        this.inputRecipeWrapper = new RecipeWrapperWithFluid(this.inputInventory, this.solventTank);
+
+        this.recipeCachedCheck = this.createCheck(RecipeTypeRegistry.LIQUEFACTION.get());
     }
 
-    public boolean hasHeatProvider() {
-        var blockEntity = this.level.getBlockEntity(this.getBlockPos().below());
-        if (blockEntity == null) {
-            return false;
-        }
+    public static CachedCheck<RecipeWrapperWithFluid, ? extends LiquefactionRecipe> createCheck(final RecipeType<LiquefactionRecipe> type) {
 
-        return blockEntity.getCapability(CapabilityRegistry.HEAT_PROVIDER, Direction.UP).map(provider -> provider.isHot()).orElse(false);
-    }
+        var internal = RecipeManager.createCheck(type);
+        // our custom cached check has an additional method checks only the ingredient, bypassing the fluid check, which we need for checking if an item can be added
+        return new CachedCheck<RecipeWrapperWithFluid, LiquefactionRecipe>() {
 
-    public boolean isHeated() {
-        if (this.level.getGameTime() % CHECK_HEAT_TICK_INTERVAL == 0) {
-            var wasHeated = this.isHeated;
-            this.isHeated = this.hasHeatProvider();
+            @Nullable
+            private ResourceLocation lastRecipe;
 
-            if (wasHeated != this.isHeated) {
-                var newState = this.getBlockState().setValue(CalcinationOvenBlock.LIT, this.isHeated);
-                this.level.setBlock(this.getBlockPos(), newState, 1 | 2);
-                this.setChanged();
+            public Optional<Pair<ResourceLocation, LiquefactionRecipe>> getRecipeFor(ItemStack stack, Level level, @Nullable ResourceLocation lastRecipe) {
+
+                var recipeManager = level.getRecipeManager();
+                Map<ResourceLocation, LiquefactionRecipe> map = recipeManager.byType(type);
+                if (lastRecipe != null) {
+                    var recipe = map.get(lastRecipe);
+                    if (recipe != null && recipe.getIngredient().test(stack)) {
+                        return Optional.of(Pair.of(lastRecipe, recipe));
+                    }
+                }
+
+                return map.entrySet().stream().filter((entry) -> entry.getValue().getIngredient().test(stack)).findFirst().map((entry) -> Pair.of(entry.getKey(), entry.getValue()));
             }
-        }
-        return this.isHeated;
+
+            @Override
+            public Optional<LiquefactionRecipe> getRecipeFor(ItemStack stack, Level level) {
+                var optional = this.getRecipeFor(stack, level, this.lastRecipe);
+                if (optional.isPresent()) {
+                    var pair = optional.get();
+                    this.lastRecipe = pair.getFirst();
+                    return Optional.of(pair.getSecond());
+                } else {
+                    return Optional.empty();
+                }
+            }
+
+            @Override
+            public Optional<LiquefactionRecipe> getRecipeFor(RecipeWrapperWithFluid container, Level level) {
+                var recipe = internal.getRecipeFor(container, level);
+                if (recipe.isPresent()) {
+                    this.lastRecipe = recipe.get().getId();
+                }
+
+                return recipe;
+            }
+        };
+    }
+
+    @Override
+    public boolean getHeatedCache() {
+        return this.heatedCache;
+    }
+
+    @Override
+    public void setHeatedCache(boolean heated) {
+        this.heatedCache = heated;
     }
 
     public void tickServer() {
@@ -103,7 +146,7 @@ public class LiquefactionCauldronBlockEntity extends BlockEntity {
 
         if (hasInput) {
             //only even check for recipe if we have fuel and input or are currently burning to avoid unnecessary lookups
-            Recipe<?> recipe;
+            LiquefactionRecipe recipe;
             if (hasInput) {
                 recipe = this.recipeCachedCheck.getRecipeFor(this.inputRecipeWrapper, this.level).orElse(null);
             } else {
@@ -117,11 +160,9 @@ public class LiquefactionCauldronBlockEntity extends BlockEntity {
                 //if we hit max progress, craft the item and reset progress
                 if (this.liquificationProgress == this.liquificationTotalTime) {
                     this.liquificationProgress = 0;
-                    this.liquificationTotalTime = this.getTotalCalcinationTime();
-                    if (this.craft(recipe)) {
-                        //TODO: handle experience gain on taking out of items
-                        //this.setRecipeUsed(recipe);
-                    }
+                    this.liquificationTotalTime = this.getTotalLiquefactionTime();
+                    this.craft(recipe);
+                    //TODO: advancement?
                 }
             } else {
                 this.liquificationProgress = 0;
@@ -129,14 +170,11 @@ public class LiquefactionCauldronBlockEntity extends BlockEntity {
         }
     }
 
-    private boolean canCraft(@Nullable Recipe<?> pRecipe) {
+    private boolean canCraft(@Nullable LiquefactionRecipe pRecipe) {
         if (pRecipe == null)
             return false;
 
-        if (this.inputInventory.getStackInSlot(0).isEmpty())
-            return false;
-
-        var assembledStack = ((Recipe<Container>) pRecipe).assemble(this.inputRecipeWrapper);
+        var assembledStack = pRecipe.assemble(this.inputRecipeWrapper);
         if (assembledStack.isEmpty()) {
             return false;
         } else {
@@ -155,12 +193,12 @@ public class LiquefactionCauldronBlockEntity extends BlockEntity {
 
     }
 
-    private boolean craft(@Nullable Recipe<?> pRecipe) {
+    private boolean craft(@Nullable LiquefactionRecipe pRecipe) {
         if (!this.canCraft(pRecipe))
             return false;
 
         var inputStack = this.inputInventory.getStackInSlot(0);
-        var assembledStack = ((Recipe<Container>) pRecipe).assemble(this.inputRecipeWrapper);
+        var assembledStack = pRecipe.assemble(this.inputRecipeWrapper);
         var outputStack = this.outputInventory.getStackInSlot(0);
         if (outputStack.isEmpty()) {
             this.inputInventory.setStackInSlot(0, assembledStack.copy());
@@ -169,12 +207,13 @@ public class LiquefactionCauldronBlockEntity extends BlockEntity {
         }
 
         inputStack.shrink(1);
+        this.solventTank.drain(pRecipe.getSolvent().getAmount(), IFluidHandler.FluidAction.EXECUTE);
         return true;
 
     }
 
-    protected int getTotalCalcinationTime() {
-        return this.recipeCachedCheck.getRecipeFor(this.inputRecipeWrapper, this.level).map(AbstractCookingRecipe::getCookingTime).orElse(200);
+    protected int getTotalLiquefactionTime() {
+        return this.recipeCachedCheck.getRecipeFor(this.inputRecipeWrapper, this.level).map(LiquefactionRecipe::getLiquefactionTime).orElse(LiquefactionRecipe.DEFAULT_LIQUEFACTION_TIME);
     }
 
     @Override
@@ -223,9 +262,16 @@ public class LiquefactionCauldronBlockEntity extends BlockEntity {
     private boolean canProcess(ItemStack stack) {
         ItemStackHandler tempInv = new ItemStackHandler(1);
         tempInv.setStackInSlot(0, stack);
-        RecipeWrapper tempRecipeWrapper = new RecipeWrapper(tempInv);
 
-        return this.recipeCachedCheck.getRecipeFor(tempRecipeWrapper, this.level).isPresent();
+        if (ItemHandlerHelper.canItemStacksStack(stack, this.inputInventory.getStackInSlot(0)))
+            return true; //early out if we are already processing this type of item
+
+        //now we use our custom cached check that ignores liquids:
+        return this.recipeCachedCheck.getRecipeFor(stack, this.level).isPresent();
+    }
+
+    public interface CachedCheck<C extends Container, T extends Recipe<C>> extends RecipeManager.CachedCheck<C, T> {
+        Optional<T> getRecipeFor(ItemStack stack, Level level);
     }
 
     public class InputInventory extends ItemStackHandler {
@@ -244,7 +290,7 @@ public class LiquefactionCauldronBlockEntity extends BlockEntity {
             super.setStackInSlot(slot, newStack);
 
             if (!sameItem) {
-                LiquefactionCauldronBlockEntity.this.liquificationTotalTime = LiquefactionCauldronBlockEntity.this.getTotalCalcinationTime();
+                LiquefactionCauldronBlockEntity.this.liquificationTotalTime = LiquefactionCauldronBlockEntity.this.getTotalLiquefactionTime();
                 LiquefactionCauldronBlockEntity.this.liquificationProgress = 0;
                 LiquefactionCauldronBlockEntity.this.setChanged();
             }

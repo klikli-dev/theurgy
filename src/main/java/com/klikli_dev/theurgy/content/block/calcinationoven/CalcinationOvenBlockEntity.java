@@ -6,6 +6,7 @@
 
 package com.klikli_dev.theurgy.content.block.calcinationoven;
 
+import com.klikli_dev.theurgy.content.recipe.CalcinationRecipe;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.CapabilityRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
@@ -14,7 +15,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.AbstractCookingRecipe;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -32,7 +32,7 @@ import org.jetbrains.annotations.Nullable;
 public class CalcinationOvenBlockEntity extends BlockEntity {
 
     private static final int CHECK_HEAT_TICK_INTERVAL = 20;
-    private final RecipeManager.CachedCheck<Container, ? extends AbstractCookingRecipe> recipeCachedCheck;
+    private final RecipeManager.CachedCheck<RecipeWrapper, ? extends CalcinationRecipe> recipeCachedCheck;
     public ItemStackHandler inputInventory;
     public ItemStackHandler outputInventory;
 
@@ -163,7 +163,7 @@ public class CalcinationOvenBlockEntity extends BlockEntity {
     }
 
     protected int getTotalCalcinationTime() {
-        return this.recipeCachedCheck.getRecipeFor(this.inputRecipeWrapper, this.level).map(AbstractCookingRecipe::getCookingTime).orElse(200);
+        return this.recipeCachedCheck.getRecipeFor(this.inputRecipeWrapper, this.level).map(CalcinationRecipe::getCalcinationTime).orElse(CalcinationRecipe.DEFAULT_CALCINATION_TIME);
     }
 
     @Override

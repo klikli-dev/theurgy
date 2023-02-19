@@ -29,12 +29,12 @@ public class CalcinationRecipeProvider extends JsonRecipeProvider {
                         this.makeResult(ItemRegistry.ALCHEMICAL_SALT_ORE.getId()), 200));
     }
 
-    public JsonObject buildCalcinationRecipe(JsonObject ingredient, JsonObject result, int cookingTime) {
+    public JsonObject buildCalcinationRecipe(JsonObject ingredient, JsonObject result, int calcinationTime) {
         var recipe = new JsonObject();
         recipe.addProperty("type", RecipeTypeRegistry.CALCINATION.getId().toString());
         recipe.add("ingredient", ingredient);
         recipe.add("result", result);
-        recipe.addProperty("cookingtime", cookingTime);
+        recipe.addProperty("calcination_time", calcinationTime);
         return recipe;
     }
 

@@ -6,9 +6,9 @@
 
 package com.klikli_dev.theurgy.content.block.calcinationoven;
 
+import com.klikli_dev.theurgy.content.block.HeatConsumer;
 import com.klikli_dev.theurgy.content.recipe.CalcinationRecipe;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
-import com.klikli_dev.theurgy.registry.CapabilityRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -29,9 +29,8 @@ import net.minecraftforge.items.wrapper.RecipeWrapper;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class CalcinationOvenBlockEntity extends BlockEntity {
+public class CalcinationOvenBlockEntity extends BlockEntity implements HeatConsumer {
 
-    private static final int CHECK_HEAT_TICK_INTERVAL = 20;
     private final RecipeManager.CachedCheck<RecipeWrapper, ? extends CalcinationRecipe> recipeCachedCheck;
     public ItemStackHandler inputInventory;
     public ItemStackHandler outputInventory;
@@ -44,7 +43,7 @@ public class CalcinationOvenBlockEntity extends BlockEntity {
     int calcinationProgress;
     int calcinationTotalTime;
 
-    boolean isHeated;
+    boolean heatedCache;
 
     public CalcinationOvenBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(BlockEntityRegistry.CALCINATION_OVEN.get(), pPos, pBlockState);
@@ -63,27 +62,14 @@ public class CalcinationOvenBlockEntity extends BlockEntity {
         this.recipeCachedCheck = RecipeManager.createCheck(RecipeTypeRegistry.CALCINATION.get());
     }
 
-    public boolean hasHeatProvider() {
-        var blockEntity = this.level.getBlockEntity(this.getBlockPos().below());
-        if (blockEntity == null) {
-            return false;
-        }
-
-        return blockEntity.getCapability(CapabilityRegistry.HEAT_PROVIDER, Direction.UP).map(provider -> provider.isHot()).orElse(false);
+    @Override
+    public boolean getHeatedCache() {
+        return this.heatedCache;
     }
 
-    public boolean isHeated() {
-        if (this.level.getGameTime() % CHECK_HEAT_TICK_INTERVAL == 0) {
-            var wasHeated = this.isHeated;
-            this.isHeated = this.hasHeatProvider();
-
-            if (wasHeated != this.isHeated) {
-                var newState = this.getBlockState().setValue(CalcinationOvenBlock.LIT, this.isHeated);
-                this.level.setBlock(this.getBlockPos(), newState, 1 | 2);
-                this.setChanged();
-            }
-        }
-        return this.isHeated;
+    @Override
+    public void setHeatedCache(boolean heated) {
+        this.heatedCache = heated;
     }
 
     public void tickServer() {

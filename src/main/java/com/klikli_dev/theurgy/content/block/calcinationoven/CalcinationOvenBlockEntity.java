@@ -78,7 +78,7 @@ public class CalcinationOvenBlockEntity extends BlockEntity implements HeatConsu
 
         if (hasInput) {
             //only even check for recipe if we have fuel and input or are currently burning to avoid unnecessary lookups
-            Recipe<?> recipe;
+            CalcinationRecipe recipe;
             if (hasInput) {
                 recipe = this.recipeCachedCheck.getRecipeFor(this.inputRecipeWrapper, this.level).orElse(null);
             } else {
@@ -102,14 +102,11 @@ public class CalcinationOvenBlockEntity extends BlockEntity implements HeatConsu
         }
     }
 
-    private boolean canCraft(@Nullable Recipe<?> pRecipe) {
+    private boolean canCraft(@Nullable CalcinationRecipe pRecipe) {
         if (pRecipe == null)
             return false;
 
-        if (this.inputInventory.getStackInSlot(0).isEmpty())
-            return false;
-
-        var assembledStack = ((Recipe<Container>) pRecipe).assemble(this.inputRecipeWrapper);
+        var assembledStack = pRecipe.assemble(this.inputRecipeWrapper);
         if (assembledStack.isEmpty()) {
             return false;
         } else {
@@ -128,12 +125,12 @@ public class CalcinationOvenBlockEntity extends BlockEntity implements HeatConsu
 
     }
 
-    private boolean craft(@Nullable Recipe<?> pRecipe) {
+    private boolean craft(@Nullable CalcinationRecipe pRecipe) {
         if (!this.canCraft(pRecipe))
             return false;
 
         var inputStack = this.inputInventory.getStackInSlot(0);
-        var assembledStack = ((Recipe<Container>) pRecipe).assemble(this.inputRecipeWrapper);
+        var assembledStack = pRecipe.assemble(this.inputRecipeWrapper);
         var outputStack = this.outputInventory.getStackInSlot(0);
         if (outputStack.isEmpty()) {
             this.inputInventory.setStackInSlot(0, assembledStack.copy());

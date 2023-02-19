@@ -118,10 +118,11 @@ repositories {
         }
     }
     maven {
-        name = "JEI"
+        name = "JEI and AlmostUnified"
         url = 'https://maven.blamejared.com/'
         content {
             includeGroup "mezz.jei"
+            includeGroup "com.almostreliable.mods"
         }
     }
 }
@@ -138,6 +139,11 @@ dependencies {
     compileOnly fg.deobf("mezz.jei:jei-${jei_mc_version}-forge-api:${jei_version}")
     runtimeOnly fg.deobf("mezz.jei:jei-${jei_mc_version}-forge:${jei_version}")
 
+    //almostunified
+    compileOnly fg.deobf("com.almostreliable.mods:almostunified-forge:${almostunified_version}")
+    runtimeOnly fg.deobf("com.almostreliable.mods:almostunified-forge:${almostunified_version}")
+
+    //modonomicon
     compileOnly fg.deobf("com.klikli_dev:modonomicon:${modonomicon_mc_version}-${modonomicon_version}") //we build against full jar because we NEED IT ALL
     runtimeOnly fg.deobf("com.klikli_dev:modonomicon:${modonomicon_mc_version}-${modonomicon_version}")
 

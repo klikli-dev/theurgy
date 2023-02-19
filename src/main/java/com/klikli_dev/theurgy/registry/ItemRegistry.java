@@ -8,8 +8,8 @@ package com.klikli_dev.theurgy.registry;
 
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.TheurgyConstants;
-import com.klikli_dev.theurgy.item.AlchemicalSulfurItem;
-import com.klikli_dev.theurgy.item.DivinationRodItem;
+import com.klikli_dev.theurgy.content.item.AlchemicalSulfurItem;
+import com.klikli_dev.theurgy.content.item.DivinationRodItem;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.*;

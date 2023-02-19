@@ -7,10 +7,8 @@
 package com.klikli_dev.theurgy.registry;
 
 import com.klikli_dev.theurgy.Theurgy;
-import com.klikli_dev.theurgy.recipe.CalcinationRecipe;
-import com.klikli_dev.theurgy.recipe.DivinationRodRecipe;
+import com.klikli_dev.theurgy.content.recipe.CalcinationRecipe;
 import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;

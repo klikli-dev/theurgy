@@ -1,7 +1,7 @@
 package com.klikli_dev.theurgy.integration.jei.recipes;
 
 import com.klikli_dev.theurgy.Theurgy;
-import com.klikli_dev.theurgy.recipe.CalcinationRecipe;
+import com.klikli_dev.theurgy.content.recipe.CalcinationRecipe;
 import mezz.jei.api.recipe.RecipeType;
 
 public class JeiRecipeTypes {

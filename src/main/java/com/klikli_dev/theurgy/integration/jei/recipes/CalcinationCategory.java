@@ -4,7 +4,7 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.klikli_dev.theurgy.TheurgyConstants;
-import com.klikli_dev.theurgy.recipe.CalcinationRecipe;
+import com.klikli_dev.theurgy.content.recipe.CalcinationRecipe;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.mojang.blaze3d.vertex.PoseStack;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;

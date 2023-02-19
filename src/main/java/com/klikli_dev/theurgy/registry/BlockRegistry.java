@@ -7,9 +7,9 @@
 package com.klikli_dev.theurgy.registry;
 
 import com.klikli_dev.theurgy.Theurgy;
-import com.klikli_dev.theurgy.block.calcinationoven.CalcinationOvenBlock;
-import com.klikli_dev.theurgy.block.liquefactioncauldron.LiquefactionCauldronBlock;
-import com.klikli_dev.theurgy.block.pyromanticbrazier.PyromanticBrazierBlock;
+import com.klikli_dev.theurgy.content.block.calcinationoven.CalcinationOvenBlock;
+import com.klikli_dev.theurgy.content.block.liquefactioncauldron.LiquefactionCauldronBlock;
+import com.klikli_dev.theurgy.content.block.pyromanticbrazier.PyromanticBrazierBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;

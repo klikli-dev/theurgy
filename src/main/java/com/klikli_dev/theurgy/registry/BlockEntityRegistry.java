@@ -7,9 +7,9 @@
 package com.klikli_dev.theurgy.registry;
 
 import com.klikli_dev.theurgy.Theurgy;
-import com.klikli_dev.theurgy.block.calcinationoven.CalcinationOvenBlockEntity;
-import com.klikli_dev.theurgy.block.liquefactioncauldron.LiquefactionCauldronBlockEntity;
-import com.klikli_dev.theurgy.block.pyromanticbrazier.PyromanticBrazierBlockEntity;
+import com.klikli_dev.theurgy.content.block.calcinationoven.CalcinationOvenBlockEntity;
+import com.klikli_dev.theurgy.content.block.liquefactioncauldron.LiquefactionCauldronBlockEntity;
+import com.klikli_dev.theurgy.content.block.pyromanticbrazier.PyromanticBrazierBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;

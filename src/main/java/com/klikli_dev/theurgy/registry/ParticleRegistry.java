@@ -7,10 +7,10 @@
 package com.klikli_dev.theurgy.registry;
 
 import com.klikli_dev.theurgy.Theurgy;
-import com.klikli_dev.theurgy.client.particle.ColorParticleTypeData;
-import com.klikli_dev.theurgy.client.particle.GlowParticleData;
-import com.klikli_dev.theurgy.client.particle.GlowParticleType;
-import com.klikli_dev.theurgy.client.particle.ParticleColor;
+import com.klikli_dev.theurgy.content.particle.ColorParticleTypeData;
+import com.klikli_dev.theurgy.content.particle.GlowParticleData;
+import com.klikli_dev.theurgy.content.particle.GlowParticleType;
+import com.klikli_dev.theurgy.content.particle.ParticleColor;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleType;

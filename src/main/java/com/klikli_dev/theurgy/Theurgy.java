@@ -6,22 +6,29 @@
 
 package com.klikli_dev.theurgy;
 
-import com.klikli_dev.theurgy.client.ClientSetupEventHandler;
+import com.klikli_dev.theurgy.content.renderer.BlankEntityRenderer;
 import com.klikli_dev.theurgy.config.ClientConfig;
 import com.klikli_dev.theurgy.config.CommonConfig;
 import com.klikli_dev.theurgy.config.ServerConfig;
+import com.klikli_dev.theurgy.content.item.AlchemicalSulfurItem;
+import com.klikli_dev.theurgy.content.item.DivinationRodItem;
 import com.klikli_dev.theurgy.datagen.TheurgyDataGenerators;
 import com.klikli_dev.theurgy.network.Networking;
 import com.klikli_dev.theurgy.registry.*;
 import com.klikli_dev.theurgy.tooltips.TooltipHandler;
 import com.mojang.logging.LogUtils;
+import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.EntityRenderersEvent;
+import net.minecraftforge.client.event.RegisterColorHandlersEvent;
+import net.minecraftforge.client.model.DynamicFluidContainerModel;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLDedicatedServerSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -67,9 +74,9 @@ public class Theurgy {
 
         if (FMLEnvironment.dist == Dist.CLIENT) {
             modEventBus.addListener(ParticleRegistry::registerFactories);
-            modEventBus.addListener(ClientSetupEventHandler::onClientSetup);
-            modEventBus.addListener(ClientSetupEventHandler::onRegisterEntityRenderers);
-            modEventBus.addListener(ClientSetupEventHandler::onRegisterItemColors);
+            modEventBus.addListener(Client::onClientSetup);
+            modEventBus.addListener(Client::onRegisterEntityRenderers);
+            modEventBus.addListener(Client::onRegisterItemColors);
         }
     }
 
@@ -85,5 +92,43 @@ public class Theurgy {
 
     public void onServerSetup(FMLDedicatedServerSetupEvent event) {
         LOGGER.info("Dedicated server setup complete.");
+    }
+
+    public static class Client {
+        public static void onClientSetup(FMLClientSetupEvent event) {
+
+            registerTooltipDataProviders(event);
+            registerItemProperties(event);
+
+            LOGGER.info("Client setup complete.");
+        }
+
+        public static void registerTooltipDataProviders(FMLClientSetupEvent event) {
+            TooltipHandler.registerNamespaceToListenTo(MODID);
+
+            TooltipHandler.registerTooltipDataProvider(ItemRegistry.ALCHEMICAL_SULFUR.get(), AlchemicalSulfurItem::getTooltipData);
+        }
+
+        public static void onRegisterEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
+            event.registerEntityRenderer(EntityRegistry.FOLLOW_PROJECTILE.get(), BlankEntityRenderer::new);
+
+        }
+
+        public static void registerItemProperties(FMLClientSetupEvent event) {
+            //Not safe to call during parallel load, so register to run threadsafe
+            event.enqueueWork(() -> {
+                ItemRegistry.ITEMS.getEntries().stream().filter(item -> item.get() instanceof DivinationRodItem).forEach(item -> {
+                    ItemProperties.register(item.get(),
+                            TheurgyConstants.ItemProperty.DIVINATION_DISTANCE, DivinationRodItem.DistHelper.DIVINATION_DISTANCE);
+                    LOGGER.debug("Registered Divination Rod Properties for: {}", item.getKey());
+                });
+
+                LOGGER.debug("Finished registering Item Properties.");
+            });
+        }
+
+        public static void onRegisterItemColors(RegisterColorHandlersEvent.Item event){
+            event.register(new DynamicFluidContainerModel.Colors(), ItemRegistry.SAL_AMMONIAC_BUCKET.get());
+        }
     }
 }

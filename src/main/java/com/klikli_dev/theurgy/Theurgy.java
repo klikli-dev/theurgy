@@ -10,7 +10,7 @@ import com.klikli_dev.theurgy.client.ClientSetupEventHandler;
 import com.klikli_dev.theurgy.config.ClientConfig;
 import com.klikli_dev.theurgy.config.CommonConfig;
 import com.klikli_dev.theurgy.config.ServerConfig;
-import com.klikli_dev.theurgy.datagen.DataGenerators;
+import com.klikli_dev.theurgy.datagen.TheurgyDataGenerators;
 import com.klikli_dev.theurgy.network.Networking;
 import com.klikli_dev.theurgy.registry.*;
 import com.klikli_dev.theurgy.tooltips.TooltipHandler;
@@ -60,7 +60,7 @@ public class Theurgy {
         modEventBus.addListener(this::onCommonSetup);
         modEventBus.addListener(this::onServerSetup);
 
-        modEventBus.addListener(DataGenerators::onGatherData);
+        modEventBus.addListener(TheurgyDataGenerators::onGatherData);
         modEventBus.addListener(ItemRegistry::onRegisterCreativeModeTabs);
 
         MinecraftForge.EVENT_BUS.addListener(TooltipHandler::onItemTooltipEvent);

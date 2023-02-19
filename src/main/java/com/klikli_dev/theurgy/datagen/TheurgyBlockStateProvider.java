@@ -5,10 +5,11 @@ import com.klikli_dev.theurgy.registry.BlockRegistry;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
-public class BlockStateProvider extends net.minecraftforge.client.model.generators.BlockStateProvider {
-    public BlockStateProvider(PackOutput packOutput, ExistingFileHelper exFileHelper) {
+public class TheurgyBlockStateProvider extends BlockStateProvider {
+    public TheurgyBlockStateProvider(PackOutput packOutput, ExistingFileHelper exFileHelper) {
         super(packOutput, Theurgy.MODID, exFileHelper);
     }
 

@@ -20,7 +20,7 @@ import net.minecraftforge.data.event.GatherDataEvent;
 import java.util.List;
 import java.util.Set;
 
-public class DataGenerators {
+public class TheurgyDataGenerators {
 
     public static void onGatherData(GatherDataEvent event) {
         DataGenerator generator = event.getGenerator();
@@ -32,11 +32,11 @@ public class DataGenerators {
 
         generator.addProvider(event.includeServer(),
                 new LootTableProvider(generator.getPackOutput(), Set.of(), List.of(
-                        new LootTableProvider.SubProviderEntry(BlockLootProvider::new, LootContextParamSets.BLOCK)
+                        new LootTableProvider.SubProviderEntry(TheurgyBlockLootSubProvider::new, LootContextParamSets.BLOCK)
                 )));
 
-        generator.addProvider(event.includeClient(), new ItemModelProvider(generator.getPackOutput(), event.getExistingFileHelper()));
-        generator.addProvider(event.includeServer(), new BlockStateProvider(generator.getPackOutput(), event.getExistingFileHelper()));
+        generator.addProvider(event.includeClient(), new TheurgyItemModelProvider(generator.getPackOutput(), event.getExistingFileHelper()));
+        generator.addProvider(event.includeServer(), new TheurgyBlockStateProvider(generator.getPackOutput(), event.getExistingFileHelper()));
         generator.addProvider(event.includeServer(), new CalcinationRecipeProvider(generator.getPackOutput()));
 
         var enUSProvider = new ENUSProvider(generator.getPackOutput());

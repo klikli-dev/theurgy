@@ -9,11 +9,8 @@ package com.klikli_dev.theurgy.datagen.recipe;
 import com.google.gson.JsonObject;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
-import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.food.Foods;
-import net.minecraft.world.item.Items;
 
 import java.util.function.BiConsumer;
 

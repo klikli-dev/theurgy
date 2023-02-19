@@ -15,8 +15,8 @@ import net.minecraft.world.level.storage.loot.LootTable;
 import java.util.Set;
 import java.util.function.BiConsumer;
 
-public class BlockLootProvider extends BlockLootSubProvider {
-    protected BlockLootProvider() {
+public class TheurgyBlockLootSubProvider extends BlockLootSubProvider {
+    protected TheurgyBlockLootSubProvider() {
         super(Set.of(), FeatureFlags.REGISTRY.allFlags());
     }
 

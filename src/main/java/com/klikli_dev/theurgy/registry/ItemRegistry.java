@@ -92,6 +92,8 @@ public class ItemRegistry {
                         DivinationRodItem.DistHelper.registerCreativeModeTabs(DIVINATION_ROD_T3.get(), output);
                         DivinationRodItem.DistHelper.registerCreativeModeTabs(DIVINATION_ROD_T4.get(), output);
 
+                        output.accept(ALCHEMICAL_SALT_ORE.get());
+
                         output.accept(SAL_AMMONIAC_BUCKET.get());
 
                         output.accept(CALCINATION_OVEN.get());

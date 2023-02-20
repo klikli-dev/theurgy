@@ -34,7 +34,11 @@ public class RecipeSerializerRegistry {
             LiquefactionRecipe.Serializer::new);
 
     public static void onRegisterRecipeSerializers(RegisterEvent event){
-        CraftingHelper.register(FluidTagEmptyCondition.Serializer.INSTANCE);
-        CraftingHelper.register(Theurgy.loc("fluid"), FluidIngredient.Serializer.INSTANCE);
+        //restrict to one event type otherwise it is called multiple times
+        if (event.getRegistryKey().equals(ForgeRegistries.Keys.RECIPE_SERIALIZERS)) {
+            // the actual recipe serializers are registered by the deferred register, but we register related serializers that do not have a Registry here
+            CraftingHelper.register(FluidTagEmptyCondition.Serializer.INSTANCE);
+            CraftingHelper.register(Theurgy.loc("fluid"), FluidIngredient.Serializer.INSTANCE);
+        }
     }
 }

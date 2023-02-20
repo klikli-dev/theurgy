@@ -37,7 +37,6 @@ public class CalcinationCategory implements IRecipeCategory<CalcinationRecipe> {
     public CalcinationCategory(IGuiHelper guiHelper) {
         this.staticFlame = guiHelper.createDrawable(Constants.RECIPE_GUI_VANILLA, 82, 114, 14, 14);
         this.animatedFlame = guiHelper.createAnimatedDrawable(this.staticFlame, 300, IDrawableAnimated.StartDirection.TOP, true);
-        //TODO: update background to remove fuel slot
         this.background = guiHelper.drawableBuilder(Constants.RECIPE_GUI_VANILLA, 0, 186, 82, 34)
                 .addPadding(0, 10, 0, 0).build();
         this.regularCookTime = 200;
@@ -56,7 +55,7 @@ public class CalcinationCategory implements IRecipeCategory<CalcinationRecipe> {
 
 
     protected IDrawableAnimated getArrow(CalcinationRecipe recipe) {
-        int cookTime = recipe.getCookingTime();
+        int cookTime = recipe.getCalcinationTime();
         if (cookTime <= 0) {
             cookTime = this.regularCookTime;
         }
@@ -84,7 +83,7 @@ public class CalcinationCategory implements IRecipeCategory<CalcinationRecipe> {
     }
 
     protected void drawCookTime(CalcinationRecipe recipe, PoseStack poseStack, int y) {
-        int cookTime = recipe.getCookingTime();
+        int cookTime = recipe.getCalcinationTime();
         if (cookTime > 0) {
             int cookTimeSeconds = cookTime / 20;
             Component timeString = Component.translatable("gui.jei.category.smelting.time.seconds", cookTimeSeconds);

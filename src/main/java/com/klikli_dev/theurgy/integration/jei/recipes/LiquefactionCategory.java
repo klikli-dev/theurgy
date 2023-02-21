@@ -4,20 +4,20 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.klikli_dev.theurgy.TheurgyConstants;
-import com.klikli_dev.theurgy.content.recipe.CalcinationRecipe;
+import com.klikli_dev.theurgy.content.gui.GuiTextures;
 import com.klikli_dev.theurgy.content.recipe.LiquefactionRecipe;
+import com.klikli_dev.theurgy.integration.jei.JeiDrawables;
+import com.klikli_dev.theurgy.integration.jei.JeiRecipeTypes;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.mojang.blaze3d.vertex.PoseStack;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.drawable.IDrawableAnimated;
-import mezz.jei.api.gui.drawable.IDrawableStatic;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
-import mezz.jei.common.Constants;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.network.chat.Component;
@@ -27,42 +27,39 @@ import static mezz.jei.api.recipe.RecipeIngredientRole.INPUT;
 import static mezz.jei.api.recipe.RecipeIngredientRole.OUTPUT;
 
 public class LiquefactionCategory implements IRecipeCategory<LiquefactionRecipe> {
-    protected final IDrawableStatic staticFlame;
-    protected final IDrawableAnimated animatedFlame;
+    private final IDrawableAnimated animatedFire;
     private final IDrawable background;
-    private final int regularCookTime;
     private final IDrawable icon;
     private final Component localizedName;
-    private final LoadingCache<Integer, IDrawableAnimated> cachedArrows;
+    private final LoadingCache<Integer, IDrawableAnimated> cachedAnimatedArrow;
 
     public LiquefactionCategory(IGuiHelper guiHelper) {
-        this.staticFlame = guiHelper.createDrawable(Constants.RECIPE_GUI_VANILLA, 82, 114, 14, 14);
-        this.animatedFlame = guiHelper.createAnimatedDrawable(this.staticFlame, 300, IDrawableAnimated.StartDirection.TOP, true);
-        this.background = guiHelper.drawableBuilder(Constants.RECIPE_GUI_VANILLA, 0, 186, 82, 34)
-                .addPadding(0, 10, 0, 0).build();
-        this.regularCookTime = 200;
-        this.icon = guiHelper.createDrawableItemStack(new ItemStack(BlockRegistry.CALCINATION_OVEN.get()));
+        this.background = guiHelper.createBlankDrawable(82, 34);
+
+        this.animatedFire = JeiDrawables.asAnimatedDrawable(guiHelper, GuiTextures.JEI_FIRE_FULL, 300, IDrawableAnimated.StartDirection.TOP, true);
+
+        this.icon = guiHelper.createDrawableItemStack(new ItemStack(BlockRegistry.LIQUEFACTION_CAULDRON.get()));
         this.localizedName = Component.translatable(TheurgyConstants.I18n.JEI.CALCINATION_CATEGORY);
-        this.cachedArrows = CacheBuilder.newBuilder()
+
+        //We need different animations for different cook times, hence the cache
+        this.cachedAnimatedArrow = CacheBuilder.newBuilder()
                 .maximumSize(25)
                 .build(new CacheLoader<>() {
                     @Override
                     public IDrawableAnimated load(Integer cookTime) {
-                        return guiHelper.drawableBuilder(Constants.RECIPE_GUI_VANILLA, 82, 128, 24, 17)
-                                .buildAnimated(cookTime, IDrawableAnimated.StartDirection.LEFT, false);
+                        return JeiDrawables.asAnimatedDrawable(guiHelper, GuiTextures.JEI_ARROW_RIGHT_FULL, cookTime, IDrawableAnimated.StartDirection.LEFT, false);
                     }
                 });
-
         //TODO: Fluid!
     }
 
 
-    protected IDrawableAnimated getArrow(LiquefactionRecipe recipe) {
+    protected IDrawableAnimated getAnimatedArrow(LiquefactionRecipe recipe) {
         int cookTime = recipe.getLiquefactionTime();
         if (cookTime <= 0) {
-            cookTime = this.regularCookTime;
+            cookTime = LiquefactionRecipe.DEFAULT_LIQUEFACTION_TIME;
         }
-        return this.cachedArrows.getUnchecked(cookTime);
+        return this.cachedAnimatedArrow.getUnchecked(cookTime);
     }
 
     @Override
@@ -77,12 +74,13 @@ public class LiquefactionCategory implements IRecipeCategory<LiquefactionRecipe>
 
     @Override
     public void draw(LiquefactionRecipe recipe, IRecipeSlotsView recipeSlotsView, PoseStack poseStack, double mouseX, double mouseY) {
-        this.animatedFlame.draw(poseStack, 1, 20);
+        GuiTextures.JEI_FIRE_EMPTY.render(poseStack, 1, 20);
+        this.animatedFire.draw(poseStack, 1, 20);
 
-        IDrawableAnimated arrow = this.getArrow(recipe);
+        GuiTextures.JEI_ARROW_RIGHT_EMPTY.render(poseStack, 24, 8);
+        this.getAnimatedArrow(recipe).draw(poseStack, 24, 8);
 
-        arrow.draw(poseStack, 24, 8);
-        this.drawCookTime(recipe, poseStack, 35);
+        this.drawCookTime(recipe, poseStack, 27);
     }
 
     protected void drawCookTime(LiquefactionRecipe recipe, PoseStack poseStack, int y) {
@@ -105,9 +103,11 @@ public class LiquefactionCategory implements IRecipeCategory<LiquefactionRecipe>
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, LiquefactionRecipe recipe, IFocusGroup focuses) {
         builder.addSlot(INPUT, 1, 1)
+                .setBackground(JeiDrawables.INPUT_SLOT, -1, -1)
                 .addIngredients(recipe.getIngredients().get(0));
 
         builder.addSlot(OUTPUT, 61, 9)
+                .setBackground(JeiDrawables.OUTPUT_SLOT, -5, -5)
                 .addItemStack(recipe.getResultItem());
     }
 

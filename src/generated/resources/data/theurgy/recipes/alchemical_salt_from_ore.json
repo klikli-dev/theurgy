@@ -1,6 +1,6 @@
 {
   "type": "theurgy:calcination",
-  "cookingtime": 200,
+  "calcination_time": 200,
   "ingredient": {
     "tag": "forge:ores"
   },

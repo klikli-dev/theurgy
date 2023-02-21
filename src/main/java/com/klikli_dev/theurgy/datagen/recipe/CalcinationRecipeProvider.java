@@ -7,6 +7,7 @@
 package com.klikli_dev.theurgy.datagen.recipe;
 
 import com.google.gson.JsonObject;
+import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import net.minecraft.data.PackOutput;
@@ -17,7 +18,7 @@ import java.util.function.BiConsumer;
 public class CalcinationRecipeProvider extends JsonRecipeProvider {
 
     public CalcinationRecipeProvider(PackOutput packOutput) {
-        super(packOutput, "calcination");
+        super(packOutput, Theurgy.MODID);
     }
 
     @Override

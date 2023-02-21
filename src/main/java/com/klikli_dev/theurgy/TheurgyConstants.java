@@ -92,6 +92,8 @@ public class TheurgyConstants {
         public static class JEI {
             public static final String PREFIX = Theurgy.MODID + ".jei.";
             public static final String CALCINATION_CATEGORY = PREFIX + "category.calcination";
+            public static final String LIQUEFACTION_CATEGORY = PREFIX + "category.liquefaction";
         }
     }
+
 }

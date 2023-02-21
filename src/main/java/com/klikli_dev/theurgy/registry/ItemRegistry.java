@@ -55,13 +55,13 @@ public class ItemRegistry {
     public static final RegistryObject<DivinationRodItem> DIVINATION_ROD_T3 =
             ITEMS.register("divination_rod_t3", () -> new DivinationRodItem(
                     new Item.Properties().stacksTo(1).defaultDurability(1),
-                    Tiers.IRON, BlockTagRegistry.DIVINATION_ROD_T3_ALLOWED_BLOCKS, BlockTagRegistry.DIVINATION_ROD_T3_DISALLOWED_BLOCKS,
+                    Tiers.DIAMOND, BlockTagRegistry.DIVINATION_ROD_T3_ALLOWED_BLOCKS, BlockTagRegistry.DIVINATION_ROD_T3_DISALLOWED_BLOCKS,
                     96, 40, 9, true));
     public static final RegistryObject<DivinationRodItem> DIVINATION_ROD_T4 =
 
             ITEMS.register("divination_rod_t4", () -> new DivinationRodItem(
                     new Item.Properties().stacksTo(1).defaultDurability(1),
-                    Tiers.IRON, BlockTagRegistry.DIVINATION_ROD_T4_ALLOWED_BLOCKS, BlockTagRegistry.DIVINATION_ROD_T4_DISALLOWED_BLOCKS,
+                    Tiers.NETHERITE, BlockTagRegistry.DIVINATION_ROD_T4_ALLOWED_BLOCKS, BlockTagRegistry.DIVINATION_ROD_T4_DISALLOWED_BLOCKS,
                     96, 40, 12, true));
     //TODO: in the future, no attuning for higher tier rods
 

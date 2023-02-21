@@ -8,18 +8,19 @@ package com.klikli_dev.theurgy.datagen.recipe;
 
 import com.google.gson.JsonObject;
 import com.klikli_dev.theurgy.Theurgy;
+import com.klikli_dev.theurgy.registry.FluidRegistry;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import net.minecraft.data.PackOutput;
-import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Items;
 
 import java.util.function.BiConsumer;
 
 public class LiqueficationRecipeProvider extends JsonRecipeProvider {
 
     public LiqueficationRecipeProvider(PackOutput packOutput) {
-        super(packOutput,  Theurgy.MODID);
+        super(packOutput, Theurgy.MODID);
     }
 
     @Override
@@ -30,8 +31,8 @@ public class LiqueficationRecipeProvider extends JsonRecipeProvider {
         recipeConsumer.accept(
                 this.modLoc("alchemical_salt_from_ore"),
                 this.buildLiquificationRecipe(
-                        this.makeTagIngredient(this.forgeLoc("ores")),
-                        this.makeFluidIngredient(this.modLoc("sal_ammoniac"), 10),
+                        this.makeItemIngredient(this.locFor(Items.OAK_LOG)),
+                        this.makeFluidIngredient(FluidRegistry.SAL_AMMONIAC.getId(), 10),
                         this.makeResult(ItemRegistry.ALCHEMICAL_SULFUR.getId(), 1, sulfurHelper), 200));
     }
 

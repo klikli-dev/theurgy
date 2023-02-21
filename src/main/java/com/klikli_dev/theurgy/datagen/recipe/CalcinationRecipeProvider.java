@@ -12,6 +12,7 @@ import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.common.Tags;
 
 import java.util.function.BiConsumer;
 
@@ -26,7 +27,7 @@ public class CalcinationRecipeProvider extends JsonRecipeProvider {
         recipeConsumer.accept(
                 this.modLoc("alchemical_salt_from_ore"),
                 this.buildCalcinationRecipe(
-                        this.makeTagIngredient(this.forgeLoc("ores")),
+                        this.makeTagIngredient(Tags.Items.ORES.location()),
                         this.makeResult(ItemRegistry.ALCHEMICAL_SALT_ORE.getId()), 200));
     }
 

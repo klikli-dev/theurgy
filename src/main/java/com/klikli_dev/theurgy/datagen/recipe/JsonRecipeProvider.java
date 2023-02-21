@@ -9,13 +9,14 @@ package com.klikli_dev.theurgy.datagen.recipe;
 import com.google.common.collect.Sets;
 import com.google.gson.JsonObject;
 import com.mojang.serialization.JsonOps;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.structures.NbtToSnbt;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.ItemLike;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +44,10 @@ public abstract class JsonRecipeProvider implements DataProvider {
         this.modid = modid;
     }
 
+    public ResourceLocation locFor(ItemLike itemLike) {
+        return BuiltInRegistries.ITEM.getKey(itemLike.asItem());
+    }
+
     public ResourceLocation modLoc(String name) {
         return new ResourceLocation(this.modid, name);
     }
@@ -55,7 +60,7 @@ public abstract class JsonRecipeProvider implements DataProvider {
         return new ResourceLocation("forge", name);
     }
 
-    public JsonObject makeFluidIngredient(ResourceLocation fluid, int amount){
+    public JsonObject makeFluidIngredient(ResourceLocation fluid, int amount) {
         JsonObject jsonobject = new JsonObject();
         jsonobject.addProperty("fluid", fluid.toString());
         jsonobject.addProperty("amount", amount);
@@ -90,7 +95,7 @@ public abstract class JsonRecipeProvider implements DataProvider {
     }
 
     public JsonObject makeResult(ResourceLocation item, int count, CompoundTag nbt) {
-       return this.makeResult(item, count, nbt == null ? null : (JsonObject) NbtOps.INSTANCE.convertTo(JsonOps.INSTANCE, nbt));
+        return this.makeResult(item, count, nbt == null ? null : (JsonObject) NbtOps.INSTANCE.convertTo(JsonOps.INSTANCE, nbt));
     }
 
     public JsonObject makeResult(ResourceLocation item, int count, JsonObject nbt) {

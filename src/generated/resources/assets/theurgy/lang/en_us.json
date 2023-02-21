@@ -76,6 +76,7 @@
   "message.theurgy.divination_rod.tier_too_low": "§4Warning§r: You need a higher tier divination rod to attune to %s.",
   "theurgy.jei.category.calcination": "Calcination",
   "theurgy.jei.category.liquefaction": "Liquefaction",
+  "theurgy.misc.unit.millibuckets": "%smB",
   "theurgy.subtitle.tuning_fork": "Using Divination Rod",
   "tooltip.theurgy..divination_rod.last_result": "Found %s at %s.",
   "tooltip.theurgy..divination_rod.linked_to": "The divination rod is attuned to %s",

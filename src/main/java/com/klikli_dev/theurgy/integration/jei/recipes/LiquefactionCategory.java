@@ -10,18 +10,28 @@ import com.klikli_dev.theurgy.integration.jei.JeiDrawables;
 import com.klikli_dev.theurgy.integration.jei.JeiRecipeTypes;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.mojang.blaze3d.vertex.PoseStack;
+import mezz.jei.api.forge.ForgeTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.drawable.IDrawableAnimated;
+import mezz.jei.api.gui.ingredient.IRecipeSlotTooltipCallback;
+import mezz.jei.api.gui.ingredient.IRecipeSlotView;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
+import mezz.jei.api.ingredients.IIngredientType;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.fluids.FluidStack;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 import static mezz.jei.api.recipe.RecipeIngredientRole.INPUT;
 import static mezz.jei.api.recipe.RecipeIngredientRole.OUTPUT;
@@ -34,12 +44,12 @@ public class LiquefactionCategory implements IRecipeCategory<LiquefactionRecipe>
     private final LoadingCache<Integer, IDrawableAnimated> cachedAnimatedArrow;
 
     public LiquefactionCategory(IGuiHelper guiHelper) {
-        this.background = guiHelper.createBlankDrawable(82, 34);
+        this.background = guiHelper.createBlankDrawable(102, 43);
 
         this.animatedFire = JeiDrawables.asAnimatedDrawable(guiHelper, GuiTextures.JEI_FIRE_FULL, 300, IDrawableAnimated.StartDirection.TOP, true);
 
         this.icon = guiHelper.createDrawableItemStack(new ItemStack(BlockRegistry.LIQUEFACTION_CAULDRON.get()));
-        this.localizedName = Component.translatable(TheurgyConstants.I18n.JEI.CALCINATION_CATEGORY);
+        this.localizedName = Component.translatable(TheurgyConstants.I18n.JEI.LIQUEFACTION_CATEGORY);
 
         //We need different animations for different cook times, hence the cache
         this.cachedAnimatedArrow = CacheBuilder.newBuilder()
@@ -50,7 +60,6 @@ public class LiquefactionCategory implements IRecipeCategory<LiquefactionRecipe>
                         return JeiDrawables.asAnimatedDrawable(guiHelper, GuiTextures.JEI_ARROW_RIGHT_FULL, cookTime, IDrawableAnimated.StartDirection.LEFT, false);
                     }
                 });
-        //TODO: Fluid!
     }
 
 
@@ -74,13 +83,13 @@ public class LiquefactionCategory implements IRecipeCategory<LiquefactionRecipe>
 
     @Override
     public void draw(LiquefactionRecipe recipe, IRecipeSlotsView recipeSlotsView, PoseStack poseStack, double mouseX, double mouseY) {
-        GuiTextures.JEI_FIRE_EMPTY.render(poseStack, 1, 20);
-        this.animatedFire.draw(poseStack, 1, 20);
+        GuiTextures.JEI_FIRE_EMPTY.render(poseStack, 12, 20);
+        this.animatedFire.draw(poseStack, 12, 20);
 
-        GuiTextures.JEI_ARROW_RIGHT_EMPTY.render(poseStack, 24, 8);
-        this.getAnimatedArrow(recipe).draw(poseStack, 24, 8);
+        GuiTextures.JEI_ARROW_RIGHT_EMPTY.render(poseStack, 45, 8);
+        this.getAnimatedArrow(recipe).draw(poseStack, 45, 8);
 
-        this.drawCookTime(recipe, poseStack, 27);
+        this.drawCookTime(recipe, poseStack, 34);
     }
 
     protected void drawCookTime(LiquefactionRecipe recipe, PoseStack poseStack, int y) {
@@ -104,9 +113,13 @@ public class LiquefactionCategory implements IRecipeCategory<LiquefactionRecipe>
     public void setRecipe(IRecipeLayoutBuilder builder, LiquefactionRecipe recipe, IFocusGroup focuses) {
         builder.addSlot(INPUT, 1, 1)
                 .setBackground(JeiDrawables.INPUT_SLOT, -1, -1)
-                .addIngredients(recipe.getIngredients().get(0));
+                .addIngredients(ForgeTypes.FLUID_STACK, List.of(recipe.getSolvent().getFluids()))
+                .addTooltipCallback(addFluidTooltip(recipe.getSolvent().getAmount()));
 
-        builder.addSlot(OUTPUT, 61, 9)
+        builder.addSlot(INPUT, 19, 1)
+                .setBackground(JeiDrawables.INPUT_SLOT, -1, -1)
+                .addIngredients(recipe.getIngredients().get(0));
+        builder.addSlot(OUTPUT, 81, 9)
                 .setBackground(JeiDrawables.OUTPUT_SLOT, -5, -5)
                 .addItemStack(recipe.getResultItem());
     }
@@ -115,4 +128,25 @@ public class LiquefactionCategory implements IRecipeCategory<LiquefactionRecipe>
     public RecipeType<LiquefactionRecipe> getRecipeType() {
         return JeiRecipeTypes.LIQUEFACTION;
     }
+
+    public static IRecipeSlotTooltipCallback addFluidTooltip(int overrideAmount) {
+        return (view, tooltip) -> {
+            var displayed = view.getDisplayedIngredient(ForgeTypes.FLUID_STACK);
+            if (displayed.isEmpty())
+                return;
+
+            var fluidStack = displayed.get();
+
+            var amount = overrideAmount == -1 ? fluidStack.getAmount() : overrideAmount;
+            var text = Component.translatable(TheurgyConstants.I18n.Misc.UNIT_MILLIBUCKETS, amount).withStyle(ChatFormatting.GOLD);
+            if (tooltip.isEmpty())
+                tooltip.add(0, text);
+            else {
+                List<Component> siblings = tooltip.get(0).getSiblings();
+                siblings.add(Component.literal(" "));
+                siblings.add(text);
+            }
+        };
+    }
+
 }

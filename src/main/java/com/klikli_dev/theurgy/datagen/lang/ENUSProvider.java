@@ -30,6 +30,8 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
                 ChatFormatting.LIGHT_PURPLE + "ctrl " +
                 ChatFormatting.GRAY + "show usage" +
                 ChatFormatting.GOLD + "]");
+
+        this.add(TheurgyConstants.I18n.Misc.UNIT_MILLIBUCKETS, "%smB");
     }
 
     private void addJEI(){

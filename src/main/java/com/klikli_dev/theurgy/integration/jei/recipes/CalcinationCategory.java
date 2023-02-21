@@ -34,7 +34,7 @@ public class CalcinationCategory implements IRecipeCategory<CalcinationRecipe> {
     private final LoadingCache<Integer, IDrawableAnimated> cachedAnimatedArrow;
 
     public CalcinationCategory(IGuiHelper guiHelper) {
-        this.background = guiHelper.createBlankDrawable(82, 34);
+        this.background = guiHelper.createBlankDrawable(82, 43);
 
         this.animatedFire = JeiDrawables.asAnimatedDrawable(guiHelper, GuiTextures.JEI_FIRE_FULL, 300, IDrawableAnimated.StartDirection.TOP, true);
 
@@ -78,7 +78,7 @@ public class CalcinationCategory implements IRecipeCategory<CalcinationRecipe> {
         GuiTextures.JEI_ARROW_RIGHT_EMPTY.render(poseStack, 24, 8);
         this.getAnimatedArrow(recipe).draw(poseStack, 24, 8);
 
-        this.drawCookTime(recipe, poseStack, 27);
+        this.drawCookTime(recipe, poseStack, 34);
     }
 
     protected void drawCookTime(CalcinationRecipe recipe, PoseStack poseStack, int y) {

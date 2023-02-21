@@ -19,13 +19,13 @@ import java.util.function.BiConsumer;
 public class CalcinationRecipeProvider extends JsonRecipeProvider {
 
     public CalcinationRecipeProvider(PackOutput packOutput) {
-        super(packOutput, Theurgy.MODID);
+        super(packOutput, Theurgy.MODID, "calcination");
     }
 
     @Override
     void buildRecipes(BiConsumer<ResourceLocation, JsonObject> recipeConsumer) {
         recipeConsumer.accept(
-                this.modLoc("alchemical_salt_from_ore"),
+                this.modLoc("ore"),
                 this.buildCalcinationRecipe(
                         this.makeTagIngredient(Tags.Items.ORES.location()),
                         this.makeResult(ItemRegistry.ALCHEMICAL_SALT_ORE.getId()), 200));

@@ -8,6 +8,7 @@ package com.klikli_dev.theurgy.datagen.recipe;
 
 import com.google.gson.JsonObject;
 import com.klikli_dev.theurgy.Theurgy;
+import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.registry.FluidRegistry;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
@@ -20,16 +21,17 @@ import java.util.function.BiConsumer;
 public class LiqueficationRecipeProvider extends JsonRecipeProvider {
 
     public LiqueficationRecipeProvider(PackOutput packOutput) {
-        super(packOutput, Theurgy.MODID);
+        super(packOutput, Theurgy.MODID, "liquefaction");
     }
 
     @Override
     void buildRecipes(BiConsumer<ResourceLocation, JsonObject> recipeConsumer) {
         var sulfurHelper = new JsonObject();
-        sulfurHelper.addProperty("theurgy:sulfur.source.id", "minecraft:oak_log");
+        sulfurHelper.addProperty(TheurgyConstants.Nbt.SULFUR_SOURCE_ID, this.locFor(Items.OAK_LOG).toString());
 
+        //TODO: provide proper output item
         recipeConsumer.accept(
-                this.modLoc("alchemical_salt_from_ore"),
+                this.modLoc("oak_log"),
                 this.buildLiquificationRecipe(
                         this.makeItemIngredient(this.locFor(Items.OAK_LOG)),
                         this.makeFluidIngredient(FluidRegistry.SAL_AMMONIAC.getId(), 10),

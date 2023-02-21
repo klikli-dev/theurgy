@@ -8,9 +8,7 @@ package com.klikli_dev.theurgy.integration.jei;
 
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.integration.jei.recipes.CalcinationCategory;
-import com.klikli_dev.theurgy.integration.jei.recipes.JeiRecipeTypes;
 import com.klikli_dev.theurgy.content.item.DivinationRodItem;
-import com.klikli_dev.theurgy.content.recipe.CalcinationRecipe;
 import com.klikli_dev.theurgy.integration.jei.recipes.LiquefactionCategory;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
@@ -21,13 +19,9 @@ import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import mezz.jei.api.registration.ISubtypeRegistration;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.RecipeManager;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.List;
 
 @mezz.jei.api.JeiPlugin
 public class JeiPlugin implements IModPlugin {

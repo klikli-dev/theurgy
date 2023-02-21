@@ -11,6 +11,7 @@ import com.klikli_dev.theurgy.integration.jei.recipes.CalcinationCategory;
 import com.klikli_dev.theurgy.integration.jei.recipes.JeiRecipeTypes;
 import com.klikli_dev.theurgy.content.item.DivinationRodItem;
 import com.klikli_dev.theurgy.content.recipe.CalcinationRecipe;
+import com.klikli_dev.theurgy.integration.jei.recipes.LiquefactionCategory;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
@@ -47,20 +48,27 @@ public class JeiPlugin implements IModPlugin {
     @Override
     public void registerCategories(IRecipeCategoryRegistration registration) {
         registration.addRecipeCategories(new CalcinationCategory(registration.getJeiHelpers().getGuiHelper()));
+        registration.addRecipeCategories(new LiquefactionCategory(registration.getJeiHelpers().getGuiHelper()));
     }
 
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
-        ClientLevel level = Minecraft.getInstance().level;
-        RecipeManager recipeManager = level.getRecipeManager();
+        var level = Minecraft.getInstance().level;
+        var recipeManager = level.getRecipeManager();
 
-        List<CalcinationRecipe> calcinationRecipes = recipeManager.getAllRecipesFor(RecipeTypeRegistry.CALCINATION.get());
+        var calcinationRecipes = recipeManager.getAllRecipesFor(RecipeTypeRegistry.CALCINATION.get());
         registration.addRecipes(JeiRecipeTypes.CALCINATION, calcinationRecipes);
+
+        var liquefactionRecipes = recipeManager.getAllRecipesFor(RecipeTypeRegistry.LIQUEFACTION.get());
+        registration.addRecipes(JeiRecipeTypes.LIQUEFACTION, liquefactionRecipes);
     }
 
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
         registration.addRecipeCatalyst(new ItemStack(BlockRegistry.CALCINATION_OVEN.get()),
                 JeiRecipeTypes.CALCINATION);
+
+        registration.addRecipeCatalyst(new ItemStack(BlockRegistry.LIQUEFACTION_CAULDRON.get()),
+                JeiRecipeTypes.LIQUEFACTION);
     }
 }

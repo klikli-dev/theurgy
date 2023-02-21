@@ -8,10 +8,13 @@ package com.klikli_dev.theurgy.datagen.recipe;
 
 import com.google.common.collect.Sets;
 import com.google.gson.JsonObject;
+import com.mojang.serialization.JsonOps;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
+import net.minecraft.data.structures.NbtToSnbt;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.resources.ResourceLocation;
 
 import java.util.ArrayList;
@@ -52,6 +55,20 @@ public abstract class JsonRecipeProvider implements DataProvider {
         return new ResourceLocation("forge", name);
     }
 
+    public JsonObject makeFluidIngredient(ResourceLocation fluid, int amount){
+        JsonObject jsonobject = new JsonObject();
+        jsonobject.addProperty("fluid", fluid.toString());
+        jsonobject.addProperty("amount", amount);
+        return jsonobject;
+    }
+
+    public JsonObject makeFluidTagIngredient(ResourceLocation tag, int amount) {
+        JsonObject jsonobject = new JsonObject();
+        jsonobject.addProperty("tag", tag.toString());
+        jsonobject.addProperty("amount", amount);
+        return jsonobject;
+    }
+
     public JsonObject makeTagIngredient(ResourceLocation tag) {
         JsonObject jsonobject = new JsonObject();
         jsonobject.addProperty("tag", tag.toString());
@@ -69,15 +86,19 @@ public abstract class JsonRecipeProvider implements DataProvider {
     }
 
     public JsonObject makeResult(ResourceLocation item, int count) {
-        return this.makeResult(item, count, null);
+        return this.makeResult(item, count, (JsonObject) null);
     }
 
     public JsonObject makeResult(ResourceLocation item, int count, CompoundTag nbt) {
+       return this.makeResult(item, count, nbt == null ? null : (JsonObject) NbtOps.INSTANCE.convertTo(JsonOps.INSTANCE, nbt));
+    }
+
+    public JsonObject makeResult(ResourceLocation item, int count, JsonObject nbt) {
         JsonObject jsonobject = new JsonObject();
         jsonobject.addProperty("item", item.toString());
         jsonobject.addProperty("count", count);
         if (nbt != null) {
-            jsonobject.addProperty("nbt", nbt.toString());
+            jsonobject.add("nbt", nbt);
         }
         return jsonobject;
     }

@@ -4,6 +4,6 @@
   "textures": {
     "fire": "minecraft:block/campfire_fire",
     "particle": "minecraft:block/copper_block",
-    "texture": "theurgy:block/liquefaction_cauldron"
+    "texture": "theurgy:block/pyromantic_brazier_lit"
   }
 }

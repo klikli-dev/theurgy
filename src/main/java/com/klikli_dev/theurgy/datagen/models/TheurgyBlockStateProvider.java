@@ -33,9 +33,8 @@ public class TheurgyBlockStateProvider extends BlockStateProvider {
                 .texture("particle", this.mcLoc("block/copper_block"));
 
 
-        var modelLit = this.models().withExistingParent("liquefaction_cauldron_lit", this.modLoc("block/liquefaction_cauldron"))
-                //we're based on the normal model so we only have to override the texture that changes - the main texture to lit
-                .texture("texture", this.modLoc("block/liquefaction_cauldron_lit"));
+        //currently the lit version is identical, but we might want to change it later
+        var modelLit = this.models().withExistingParent("liquefaction_cauldron_lit", this.modLoc("block/liquefaction_cauldron"));
 
         //build blockstate
         this.getVariantBuilder(BlockRegistry.LIQUEFACTION_CAULDRON.get()) // Get variant builder
@@ -101,12 +100,12 @@ public class TheurgyBlockStateProvider extends BlockStateProvider {
     protected void registerPyromanticBrazier() {
         var model = this.models().withExistingParent("pyromantic_brazier", this.modLoc("block/pyromantic_brazier_template"))
                 //blockbench spits out garbage textures by losing the folder name so we fix them here
-                .texture("texture", this.modLoc("block/liquefaction_cauldron"))
+                .texture("texture", this.modLoc("block/pyromantic_brazier"))
                 .texture("particle", this.mcLoc("block/copper_block"));
 
         var modelLit = this.models().withExistingParent("pyromantic_brazier_lit", this.modLoc("block/pyromantic_brazier_lit_template"))
                 .renderType("cutout_mipped") //also blockbench doesnt set render type
-                .texture("texture", this.modLoc("block/liquefaction_cauldron"))
+                .texture("texture", this.modLoc("block/pyromantic_brazier_lit"))
                 .texture("particle", this.mcLoc("block/copper_block"))
                 .texture("fire", this.mcLoc("block/campfire_fire"));
 

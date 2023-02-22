@@ -1,6 +1,3 @@
 {
-  "parent": "theurgy:block/liquefaction_cauldron",
-  "textures": {
-    "texture": "theurgy:block/liquefaction_cauldron_lit"
-  }
+  "parent": "theurgy:block/liquefaction_cauldron"
 }

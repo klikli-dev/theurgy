@@ -35,7 +35,7 @@ public class LiquefactionCauldronBlock extends Block implements EntityBlock {
 
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
 
-    private static final VoxelShape SHAPE = Block.box(0, 0, 0, 16, 27, 16);
+    private static final VoxelShape SHAPE = Block.box(0, 0, 0, 17, 21, 16);
 
     public LiquefactionCauldronBlock(Properties pProperties) {
         super(pProperties);

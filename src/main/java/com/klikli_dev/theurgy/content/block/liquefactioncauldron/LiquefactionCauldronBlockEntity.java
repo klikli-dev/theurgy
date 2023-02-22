@@ -17,9 +17,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
@@ -44,7 +42,7 @@ import java.util.Optional;
 
 public class LiquefactionCauldronBlockEntity extends BlockEntity implements HeatConsumer {
 
-    private final CachedCheck<RecipeWrapperWithFluid, ? extends LiquefactionRecipe> recipeCachedCheck;
+    private final CachedCheck recipeCachedCheck;
     public ItemStackHandler inputInventory;
     public ItemStackHandler outputInventory;
 
@@ -55,7 +53,7 @@ public class LiquefactionCauldronBlockEntity extends BlockEntity implements Heat
 
     public RecipeWrapperWithFluid inputRecipeWrapper;
     public LazyOptional<IFluidHandler> solventTankCapability;
-    protected FluidTank solventTank;
+    public FluidTank solventTank;
     int liquificationProgress;
     int liquificationTotalTime;
 
@@ -80,54 +78,7 @@ public class LiquefactionCauldronBlockEntity extends BlockEntity implements Heat
 
         this.inputRecipeWrapper = new RecipeWrapperWithFluid(this.inputInventory, this.solventTank);
 
-        this.recipeCachedCheck = createCheck(RecipeTypeRegistry.LIQUEFACTION.get());
-    }
-
-    public static CachedCheck<RecipeWrapperWithFluid, ? extends LiquefactionRecipe> createCheck(final RecipeType<LiquefactionRecipe> type) {
-
-        var internal = RecipeManager.createCheck(type);
-        // our custom cached check has an additional method checks only the ingredient, bypassing the fluid check, which we need for checking if an item can be added
-        return new CachedCheck<RecipeWrapperWithFluid, LiquefactionRecipe>() {
-
-            @Nullable
-            private ResourceLocation lastRecipe;
-
-            public Optional<Pair<ResourceLocation, LiquefactionRecipe>> getRecipeFor(ItemStack stack, Level level, @Nullable ResourceLocation lastRecipe) {
-
-                var recipeManager = level.getRecipeManager();
-                Map<ResourceLocation, LiquefactionRecipe> map = recipeManager.byType(type);
-                if (lastRecipe != null) {
-                    var recipe = map.get(lastRecipe);
-                    if (recipe != null && recipe.getIngredient().test(stack)) {
-                        return Optional.of(Pair.of(lastRecipe, recipe));
-                    }
-                }
-
-                return map.entrySet().stream().filter((entry) -> entry.getValue().getIngredient().test(stack)).findFirst().map((entry) -> Pair.of(entry.getKey(), entry.getValue()));
-            }
-
-            @Override
-            public Optional<LiquefactionRecipe> getRecipeFor(ItemStack stack, Level level) {
-                var optional = this.getRecipeFor(stack, level, this.lastRecipe);
-                if (optional.isPresent()) {
-                    var pair = optional.get();
-                    this.lastRecipe = pair.getFirst();
-                    return Optional.of(pair.getSecond());
-                } else {
-                    return Optional.empty();
-                }
-            }
-
-            @Override
-            public Optional<LiquefactionRecipe> getRecipeFor(RecipeWrapperWithFluid container, Level level) {
-                var recipe = internal.getRecipeFor(container, level);
-                if (recipe.isPresent()) {
-                    this.lastRecipe = recipe.get().getId();
-                }
-
-                return recipe;
-            }
-        };
+        this.recipeCachedCheck = new CachedCheck(RecipeTypeRegistry.LIQUEFACTION.get());
     }
 
     @Override
@@ -270,8 +221,55 @@ public class LiquefactionCauldronBlockEntity extends BlockEntity implements Heat
         return this.recipeCachedCheck.getRecipeFor(stack, this.level).isPresent();
     }
 
-    public interface CachedCheck<C extends Container, T extends Recipe<C>> extends RecipeManager.CachedCheck<C, T> {
-        Optional<T> getRecipeFor(ItemStack stack, Level level);
+    /**
+     * A custom cached check that ignores liquids
+     */
+    private static class CachedCheck implements RecipeManager.CachedCheck<RecipeWrapperWithFluid, LiquefactionRecipe> {
+
+        private final RecipeType<LiquefactionRecipe> type;
+        private final RecipeManager.CachedCheck<RecipeWrapperWithFluid, LiquefactionRecipe> internal;
+        @Nullable
+        private ResourceLocation lastRecipe;
+
+        public CachedCheck(RecipeType<LiquefactionRecipe> type) {
+            this.type = type;
+            this.internal = RecipeManager.createCheck(type);
+        }
+
+        public Optional<Pair<ResourceLocation, LiquefactionRecipe>> getRecipeFor(ItemStack stack, Level level, @Nullable ResourceLocation lastRecipe) {
+
+            var recipeManager = level.getRecipeManager();
+            Map<ResourceLocation, LiquefactionRecipe> map = recipeManager.byType(this.type);
+            if (lastRecipe != null) {
+                var recipe = map.get(lastRecipe);
+                if (recipe != null && recipe.getIngredient().test(stack)) {
+                    return Optional.of(Pair.of(lastRecipe, recipe));
+                }
+            }
+
+            return map.entrySet().stream().filter((entry) -> entry.getValue().getIngredient().test(stack)).findFirst().map((entry) -> Pair.of(entry.getKey(), entry.getValue()));
+        }
+
+        public Optional<LiquefactionRecipe> getRecipeFor(ItemStack stack, Level level) {
+            var optional = this.getRecipeFor(stack, level, this.lastRecipe);
+            if (optional.isPresent()) {
+                var pair = optional.get();
+                this.lastRecipe = pair.getFirst();
+                return Optional.of(pair.getSecond());
+            } else {
+                return Optional.empty();
+            }
+        }
+
+        @Override
+        public Optional<LiquefactionRecipe> getRecipeFor(RecipeWrapperWithFluid container, Level level) {
+            var recipe = this.internal.getRecipeFor(container, level);
+            if (recipe.isPresent()) {
+                this.lastRecipe = recipe.get().getId();
+            }
+
+            return recipe;
+        }
     }
 
     public class InputInventory extends ItemStackHandler {

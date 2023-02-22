@@ -80,7 +80,6 @@ public class LiquefactionCauldronBlock extends Block implements EntityBlock {
                         Integer.MAX_VALUE, true);
                 if (!transferredFluid.isEmpty()) {
                     pPlayer.setItemInHand(pHand, itemFluidHandler.getContainer()); //always set to container to handle e.g. empty bucket correctly
-                    blockEntity.setChanged();
                     return InteractionResult.SUCCESS;
                 }
 
@@ -89,7 +88,6 @@ public class LiquefactionCauldronBlock extends Block implements EntityBlock {
                         Integer.MAX_VALUE, true);
                 if (!transferredFluid.isEmpty()) {
                     pPlayer.setItemInHand(pHand, itemFluidHandler.getContainer());
-                    blockEntity.setChanged();
                     return InteractionResult.SUCCESS;
                 }
             }
@@ -102,13 +100,11 @@ public class LiquefactionCauldronBlock extends Block implements EntityBlock {
                     //with empty hand first try take output
                     pPlayer.getInventory().placeItemBackInInventory(outputStack);
                     blockEntity.outputInventory.setStackInSlot(0, ItemStack.EMPTY);
-                    blockEntity.setChanged();
                     return InteractionResult.SUCCESS;
                 } else if (!inputStack.isEmpty()) {
                     //if no output, try take input
                     pPlayer.getInventory().placeItemBackInInventory(inputStack);
                     blockEntity.inputInventory.setStackInSlot(0, ItemStack.EMPTY);
-                    blockEntity.setChanged();
                     return InteractionResult.SUCCESS;
                 }
             } else {
@@ -116,7 +112,6 @@ public class LiquefactionCauldronBlock extends Block implements EntityBlock {
                 var remainder = blockEntity.inputInventory.insertItem(0, stackInHand, false);
                 pPlayer.setItemInHand(pHand, remainder);
                 if (remainder.getCount() != stackInHand.getCount()) {
-                    blockEntity.setChanged();
                     return InteractionResult.SUCCESS;
                 }
                 return InteractionResult.PASS;

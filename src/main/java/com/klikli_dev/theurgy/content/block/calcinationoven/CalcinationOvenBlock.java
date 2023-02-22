@@ -6,11 +6,13 @@
 
 package com.klikli_dev.theurgy.content.block.calcinationoven;
 
+import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -73,29 +75,34 @@ public class CalcinationOvenBlock extends Block implements EntityBlock {
             return InteractionResult.SUCCESS;
         }
 
-        var blockEntity = pLevel.getBlockEntity(pPos);
-        if (blockEntity instanceof CalcinationOvenBlockEntity calcinationOven) {
-            //if we click with an empty hand, first take out output, if no output is available, then input
-            //if we click with an item in hand, try to insert
+        if (pLevel.getBlockEntity(pPos) instanceof CalcinationOvenBlockEntity blockEntity) {
 
             ItemStack stackInHand = pPlayer.getItemInHand(pHand);
-            var outputStack = calcinationOven.outputInventory.getStackInSlot(0);
-            var inputStack = calcinationOven.inputInventory.getStackInSlot(0);
+            var outputStack = blockEntity.outputInventory.getStackInSlot(0);
+            var inputStack = blockEntity.inputInventory.getStackInSlot(0);
             if (stackInHand.isEmpty()) {
                 if (!outputStack.isEmpty()) {
+                    //with empty hand first try take output
                     pPlayer.getInventory().placeItemBackInInventory(outputStack);
-                    calcinationOven.outputInventory.setStackInSlot(0, ItemStack.EMPTY);
+                    blockEntity.outputInventory.setStackInSlot(0, ItemStack.EMPTY);
+                    blockEntity.setChanged();
                     return InteractionResult.SUCCESS;
                 } else if (!inputStack.isEmpty()) {
+                    //if no output, try take input
                     pPlayer.getInventory().placeItemBackInInventory(inputStack);
-                    calcinationOven.inputInventory.setStackInSlot(0, ItemStack.EMPTY);
+                    blockEntity.inputInventory.setStackInSlot(0, ItemStack.EMPTY);
+                    blockEntity.setChanged();
                     return InteractionResult.SUCCESS;
                 }
             } else {
-                //we use inventory here because it checks for valid insert item :)
-                var remainder = calcinationOven.inputInventory.insertItem(0, stackInHand, false);
+                //if we have an item in hand, try to insert
+                var remainder = blockEntity.inputInventory.insertItem(0, stackInHand, false);
                 pPlayer.setItemInHand(pHand, remainder);
-                return remainder.getCount() != stackInHand.getCount() ? InteractionResult.SUCCESS : InteractionResult.PASS;
+                if (remainder.getCount() != stackInHand.getCount()) {
+                    blockEntity.setChanged();
+                    return InteractionResult.SUCCESS;
+                }
+                return InteractionResult.PASS;
             }
         }
 
@@ -105,17 +112,31 @@ public class CalcinationOvenBlock extends Block implements EntityBlock {
     @Override
     public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
         if (!pState.is(pNewState.getBlock())) {
-            if (pLevel.getBlockEntity(pPos) instanceof CalcinationOvenBlockEntity calcinationOven) {
-                Containers.dropContents(pLevel, pPos, new RecipeWrapper(calcinationOven.inventory));
+            if (pLevel.getBlockEntity(pPos) instanceof CalcinationOvenBlockEntity blockEntity) {
+                Containers.dropContents(pLevel, pPos, new RecipeWrapper(blockEntity.inventory));
             }
         }
         super.onRemove(pState, pLevel, pPos, pNewState, pIsMoving);
+    }
+
+    @Override
+    public void entityInside(BlockState pState, Level pLevel, BlockPos pPos, Entity pEntity) {
+        super.entityInside(pState, pLevel, pPos, pEntity);
+
+        Theurgy.LOGGER.debug("entityInside!");
     }
 
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
         return BlockEntityRegistry.CALCINATION_OVEN.get().create(pPos, pState);
+    }
+
+    @Override
+    public void fallOn(Level pLevel, BlockState pState, BlockPos pPos, Entity pEntity, float pFallDistance) {
+        super.fallOn(pLevel, pState, pPos, pEntity, pFallDistance);
+
+        Theurgy.LOGGER.debug("fallOn!");
     }
 
     @Nullable

@@ -47,24 +47,28 @@ public class PyromanticBrazierBlock extends Block implements EntityBlock {
             return InteractionResult.SUCCESS;
         }
 
-        var blockEntity = pLevel.getBlockEntity(pPos);
-        if (blockEntity instanceof PyromanticBrazierBlockEntity brazier) {
-            var stack = brazier.inventory.getStackInSlot(0);
+        if (pLevel.getBlockEntity(pPos) instanceof PyromanticBrazierBlockEntity blockEntity) {
+            var inputStack = blockEntity.inventory.getStackInSlot(0);
             var stackInHand = pPlayer.getItemInHand(pHand);
-            var brazierHasNonFuel = !stack.isEmpty() && brazier.getBurnDuration(stack) == 0;
+            var brazierHasNonFuel = !inputStack.isEmpty() && blockEntity.getBurnDuration(inputStack) == 0;
 
             if (stackInHand.isEmpty() || brazierHasNonFuel) {
                 //Click with empty hand -> remove fuel from block entity
                 //Click with any hand but non fuel item in block entity, remove it -> clean out empty buckets etc
-                if (!stack.isEmpty()) {
-                    pPlayer.getInventory().placeItemBackInInventory(stack);
-                    brazier.inventory.setStackInSlot(0, ItemStack.EMPTY);
+                if (!inputStack.isEmpty()) {
+                    pPlayer.getInventory().placeItemBackInInventory(inputStack);
+                    blockEntity.inventory.setStackInSlot(0, ItemStack.EMPTY);
+                    blockEntity.setChanged();
                     return InteractionResult.SUCCESS;
                 }
             } else {
-                var remainder = brazier.inventory.insertItem(0, stackInHand, false);
+                var remainder = blockEntity.inventory.insertItem(0, stackInHand, false);
                 pPlayer.setItemInHand(pHand, remainder);
-                return remainder.getCount() != stackInHand.getCount() ? InteractionResult.SUCCESS : InteractionResult.PASS;
+                if (remainder.getCount() != stackInHand.getCount()) {
+                    blockEntity.setChanged();
+                    return InteractionResult.SUCCESS;
+                }
+                return InteractionResult.PASS;
             }
         }
 
@@ -101,8 +105,8 @@ public class PyromanticBrazierBlock extends Block implements EntityBlock {
     @Override
     public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
         if (!pState.is(pNewState.getBlock())) {
-            if (pLevel.getBlockEntity(pPos) instanceof PyromanticBrazierBlockEntity pyromanticBrazier) {
-                Containers.dropContents(pLevel, pPos, new RecipeWrapper(pyromanticBrazier.inventory));
+            if (pLevel.getBlockEntity(pPos) instanceof PyromanticBrazierBlockEntity blockEntity) {
+                Containers.dropContents(pLevel, pPos, new RecipeWrapper(blockEntity.inventory));
             }
         }
         super.onRemove(pState, pLevel, pPos, pNewState, pIsMoving);

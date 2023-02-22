@@ -39,10 +39,10 @@ public class PyromanticBrazierBlockEntity extends BlockEntity {
     public PyromanticBrazierBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(BlockEntityRegistry.PYROMANTIC_BRAZIER.get(), pPos, pBlockState);
 
-        this.inventory = new BrazierItemStackHandler();
+        this.inventory = new Inventory();
         this.inventoryCapability = LazyOptional.of(() -> this.inventory);
 
-        this.heatProviderCapability = LazyOptional.of(() -> () -> getBlockState().getValue(PyromanticBrazierBlock.LIT));
+        this.heatProviderCapability = LazyOptional.of(() -> () -> this.getBlockState().getValue(PyromanticBrazierBlock.LIT));
     }
 
     protected int getBurnDuration(ItemStack pFuel) {
@@ -57,10 +57,10 @@ public class PyromanticBrazierBlockEntity extends BlockEntity {
         return this.remainingLitTime > 0;
     }
 
-    public void tickClient(){
+    public void tickClient() {
         RandomSource randomsource = this.level.random;
         if (randomsource.nextFloat() < 0.11F) {
-            for(int i = 0; i < randomsource.nextInt(2) + 2; ++i) {
+            for (int i = 0; i < randomsource.nextInt(2) + 2; ++i) {
                 CampfireBlock.makeParticles(this.level, this.getBlockPos(), false, false);
             }
         }
@@ -132,21 +132,26 @@ public class PyromanticBrazierBlockEntity extends BlockEntity {
     public void load(CompoundTag pTag) {
         super.load(pTag);
 
-        if(pTag.contains("inventory"))
+        if (pTag.contains("inventory"))
             this.inventory.deserializeNBT(pTag.getCompound("inventory"));
 
-        if(pTag.contains("remainingLitTime"))
+        if (pTag.contains("remainingLitTime"))
             this.remainingLitTime = pTag.getShort("remainingLitTime");
     }
 
-    private class BrazierItemStackHandler extends ItemStackHandler {
-        public BrazierItemStackHandler() {
+    private class Inventory extends ItemStackHandler {
+        public Inventory() {
             super(1);
         }
 
         @Override
         public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-            return getBurnDuration(stack) > 0;
+            return PyromanticBrazierBlockEntity.this.getBurnDuration(stack) > 0;
+        }
+
+        @Override
+        protected void onContentsChanged(int slot) {
+            PyromanticBrazierBlockEntity.this.setChanged();
         }
     }
 }

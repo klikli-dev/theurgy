@@ -13,9 +13,7 @@ import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -204,7 +202,6 @@ public class CalcinationOvenBlockEntity extends BlockEntity implements HeatConsu
             if (!sameItem) {
                 CalcinationOvenBlockEntity.this.calcinationTotalTime = CalcinationOvenBlockEntity.this.getTotalCalcinationTime();
                 CalcinationOvenBlockEntity.this.calcinationProgress = 0;
-                CalcinationOvenBlockEntity.this.setChanged();
             }
 
         }
@@ -212,6 +209,11 @@ public class CalcinationOvenBlockEntity extends BlockEntity implements HeatConsu
         @Override
         public boolean isItemValid(int slot, ItemStack stack) {
             return CalcinationOvenBlockEntity.this.canProcess(stack) && super.isItemValid(slot, stack);
+        }
+
+        @Override
+        protected void onContentsChanged(int slot) {
+            CalcinationOvenBlockEntity.this.setChanged();
         }
     }
 
@@ -224,6 +226,11 @@ public class CalcinationOvenBlockEntity extends BlockEntity implements HeatConsu
         @Override
         public boolean isItemValid(int slot, ItemStack stack) {
             return false;
+        }
+
+        @Override
+        protected void onContentsChanged(int slot) {
+            CalcinationOvenBlockEntity.this.setChanged();
         }
     }
 }

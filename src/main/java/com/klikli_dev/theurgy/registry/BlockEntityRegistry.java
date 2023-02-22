@@ -7,8 +7,9 @@
 package com.klikli_dev.theurgy.registry;
 
 import com.klikli_dev.theurgy.Theurgy;
-import com.klikli_dev.theurgy.block.calcinationoven.CalcinationOvenBlockEntity;
-import com.klikli_dev.theurgy.block.pyromanticbrazier.PyromanticBrazierBlockEntity;
+import com.klikli_dev.theurgy.content.block.calcinationoven.CalcinationOvenBlockEntity;
+import com.klikli_dev.theurgy.content.block.liquefactioncauldron.LiquefactionCauldronBlockEntity;
+import com.klikli_dev.theurgy.content.block.pyromanticbrazier.PyromanticBrazierBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -24,4 +25,8 @@ public class BlockEntityRegistry {
     public static final RegistryObject<BlockEntityType<PyromanticBrazierBlockEntity>> PYROMANTIC_BRAZIER =
             BLOCKS.register("pyromantic_brazier", () ->
                     BlockEntityType.Builder.of(PyromanticBrazierBlockEntity::new, BlockRegistry.PYROMANTIC_BRAZIER.get()).build(null));
+
+    public static final RegistryObject<BlockEntityType<LiquefactionCauldronBlockEntity>> LIQUEFACTION_CAULDRON =
+            BLOCKS.register("liquefaction_cauldron", () ->
+                    BlockEntityType.Builder.of(LiquefactionCauldronBlockEntity::new, BlockRegistry.LIQUEFACTION_CAULDRON.get()).build(null));
 }

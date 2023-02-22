@@ -1,0 +1,7 @@
+{
+  "parent": "theurgy:block/liquefaction_cauldron_template",
+  "textures": {
+    "particle": "minecraft:block/copper_block",
+    "texture": "theurgy:block/liquefaction_cauldron"
+  }
+}

@@ -7,10 +7,9 @@
 package com.klikli_dev.theurgy.registry;
 
 import com.klikli_dev.theurgy.Theurgy;
-import com.klikli_dev.theurgy.recipe.CalcinationRecipe;
-import com.klikli_dev.theurgy.recipe.DivinationRodRecipe;
+import com.klikli_dev.theurgy.content.recipe.CalcinationRecipe;
+import com.klikli_dev.theurgy.content.recipe.LiquefactionRecipe;
 import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -20,6 +19,7 @@ public class RecipeTypeRegistry {
     public static final DeferredRegister<RecipeType<?>> RECIPE_TYPES = DeferredRegister.create(
             ForgeRegistries.RECIPE_TYPES, Theurgy.MODID);
     public static final RegistryObject<RecipeType<CalcinationRecipe>> CALCINATION = register("calcination");
+    public static final RegistryObject<RecipeType<LiquefactionRecipe>> LIQUEFACTION = register("liquefaction");
 
     static <T extends Recipe<?>> RegistryObject<RecipeType<T>> register(final String id) {
         return RECIPE_TYPES.register(id, () -> new RecipeType<T>() {

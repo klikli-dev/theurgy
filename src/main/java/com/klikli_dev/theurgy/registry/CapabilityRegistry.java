@@ -1,6 +1,6 @@
 package com.klikli_dev.theurgy.registry;
 
-import com.klikli_dev.theurgy.capability.HeatProvider;
+import com.klikli_dev.theurgy.content.capability.HeatProvider;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.capabilities.CapabilityToken;

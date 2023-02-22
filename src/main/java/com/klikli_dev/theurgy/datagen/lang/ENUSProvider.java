@@ -30,10 +30,13 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
                 ChatFormatting.LIGHT_PURPLE + "ctrl " +
                 ChatFormatting.GRAY + "show usage" +
                 ChatFormatting.GOLD + "]");
+
+        this.add(TheurgyConstants.I18n.Misc.UNIT_MILLIBUCKETS, "%smB");
     }
 
     private void addJEI(){
         this.add(TheurgyConstants.I18n.JEI.CALCINATION_CATEGORY, "Calcination");
+        this.add(TheurgyConstants.I18n.JEI.LIQUEFACTION_CATEGORY, "Liquefaction");
     }
 
     private void addSubtitles() {
@@ -49,17 +52,28 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
         this.add(TheurgyConstants.I18n.Message.DIVINATION_ROD_ATTUNING_NOT_ALLOWED, ChatFormatting.DARK_RED +"Warning"+ChatFormatting.RESET +": This type of divination rod cannot be manually attuned.");
     }
 
+    private void addFluids(){
+        this.add("fluid_type.theurgy.sal_ammoniac", "Sal Ammoniac");
+    }
+
     private void addBlocks() {
         this.addBlock(BlockRegistry.CALCINATION_OVEN, "Calcination Oven");
         this.addTooltip(BlockRegistry.CALCINATION_OVEN.get()::asItem,
-                "A device to extract Alchemical Sulfur from Items.",
-                "Sulfur represents the \"idea\" or \"soul\" of an object and is the key to replication and transmutation.");
+                "A device to extract Alchemical Salt from Items.",
+                "Salt represents the \"body\" or \"physical matter\" of an object.",
+                "Place this on top of a heating device such as a Pyromantic Brazier.\nRight-click with ingredients to place them in the oven for processing.");
 
         this.addBlock(BlockRegistry.PYROMANTIC_BRAZIER, "Pyromantic Brazier");
         this.addTooltip(BlockRegistry.PYROMANTIC_BRAZIER.get()::asItem,
                 "A simple device to heat alchemical apparati.",
                 "Place this below other alchemical apparati to heat them up",
                 "Insert a fuel item by right-clicking the brazier with it, or using a hopper");
+
+        this.addBlock(BlockRegistry.LIQUEFACTION_CAULDRON, "Liquefaction Cauldron");
+        this.addTooltip(BlockRegistry.LIQUEFACTION_CAULDRON.get()::asItem,
+                "A device to extract Alchemical Sulfur from Items using a Solvent.",
+                "Sulfur represents the \"idea\" or \"soul\" of an object and is the key to replication and transmutation.",
+                "Place this on top of a heating device such as a Pyromantic Brazier.\nRight-click with ingredients to add them to the cauldron for processing.");
     }
 
     private void addItems() {
@@ -131,6 +145,8 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
 //                "This divination rod type cannot be manually attuned, instead comes pre-attuned after crafting..",
 //                ChatFormatting.GREEN + "Right-Click and hold"+ChatFormatting.GRAY +" to let the rod search for blocks.\n" +
 //                        ChatFormatting.GREEN + "Right-Click without holding"+ChatFormatting.GRAY + " after a successful search to let the rod show the last found block without consuming durability.");
+
+        this.addItem(ItemRegistry.SAL_AMMONIAC_BUCKET, "Sal Ammoniac Bucket");
     }
 
     @Override
@@ -140,6 +156,7 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
         this.addMessages();
         this.addItems();
         this.addBlocks();
+        this.addFluids();
         this.addJEI();
     }
 }

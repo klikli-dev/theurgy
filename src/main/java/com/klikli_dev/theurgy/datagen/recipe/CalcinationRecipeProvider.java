@@ -7,37 +7,36 @@
 package com.klikli_dev.theurgy.datagen.recipe;
 
 import com.google.gson.JsonObject;
+import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
-import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.food.Foods;
-import net.minecraft.world.item.Items;
+import net.minecraftforge.common.Tags;
 
 import java.util.function.BiConsumer;
 
 public class CalcinationRecipeProvider extends JsonRecipeProvider {
 
     public CalcinationRecipeProvider(PackOutput packOutput) {
-        super(packOutput, "calcination");
+        super(packOutput, Theurgy.MODID, "calcination");
     }
 
     @Override
     void buildRecipes(BiConsumer<ResourceLocation, JsonObject> recipeConsumer) {
         recipeConsumer.accept(
-                this.modLoc("alchemical_salt_from_ore"),
+                this.modLoc("ore"),
                 this.buildCalcinationRecipe(
-                        this.makeTagIngredient(this.forgeLoc("ores")),
+                        this.makeTagIngredient(Tags.Items.ORES.location()),
                         this.makeResult(ItemRegistry.ALCHEMICAL_SALT_ORE.getId()), 200));
     }
 
-    public JsonObject buildCalcinationRecipe(JsonObject ingredient, JsonObject result, int cookingTime) {
+    public JsonObject buildCalcinationRecipe(JsonObject ingredient, JsonObject result, int calcinationTime) {
         var recipe = new JsonObject();
         recipe.addProperty("type", RecipeTypeRegistry.CALCINATION.getId().toString());
         recipe.add("ingredient", ingredient);
         recipe.add("result", result);
-        recipe.addProperty("cookingtime", cookingTime);
+        recipe.addProperty("calcination_time", calcinationTime);
         return recipe;
     }
 

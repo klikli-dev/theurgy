@@ -7,8 +7,7 @@
 package com.klikli_dev.theurgy.registry;
 
 import com.klikli_dev.theurgy.Theurgy;
-import com.klikli_dev.theurgy.entity.FollowProjectile;
-import net.minecraft.network.syncher.EntityDataSerializer;
+import com.klikli_dev.theurgy.content.entity.FollowProjectile;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;

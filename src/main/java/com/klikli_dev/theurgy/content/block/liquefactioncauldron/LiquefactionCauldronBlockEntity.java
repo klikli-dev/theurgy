@@ -80,7 +80,7 @@ public class LiquefactionCauldronBlockEntity extends BlockEntity implements Heat
 
         this.inputRecipeWrapper = new RecipeWrapperWithFluid(this.inputInventory, this.solventTank);
 
-        this.recipeCachedCheck = this.createCheck(RecipeTypeRegistry.LIQUEFACTION.get());
+        this.recipeCachedCheck = createCheck(RecipeTypeRegistry.LIQUEFACTION.get());
     }
 
     public static CachedCheck<RecipeWrapperWithFluid, ? extends LiquefactionRecipe> createCheck(final RecipeType<LiquefactionRecipe> type) {
@@ -238,7 +238,7 @@ public class LiquefactionCauldronBlockEntity extends BlockEntity implements Heat
         pTag.put("outputInventory", this.outputInventory.serializeNBT());
         pTag.putShort("liquificationProgress", (short) this.liquificationProgress);
         var solventTankTag = new CompoundTag();
-        this.solventTank.writeToNBT(pTag);
+        this.solventTank.writeToNBT(solventTankTag);
         pTag.put("solventTank", solventTankTag);
     }
 

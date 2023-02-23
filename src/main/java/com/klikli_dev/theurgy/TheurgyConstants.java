@@ -58,6 +58,10 @@ public class TheurgyConstants {
 
         public static final String ITEM_GROUP = "itemGroup." + Theurgy.MODID;
 
+        public static class Item {
+            public static final String ALCHEMICAL_SULFUR_UNKNOWN_SOURCE = Theurgy.MODID + ".alchemical_sulfur.unknown_source";
+        }
+
         public static class Tooltip {
 
             private static final String PREFIX = "tooltip." + Theurgy.MODID + ".";

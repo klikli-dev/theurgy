@@ -34,9 +34,6 @@ public class ItemRegistry {
     //helper item for sulfur rendering
     public static final RegistryObject<Item> JAR_LABEL =
             ITEMS.register("jar_label", () -> new Item(new Item.Properties()));
-    public static final RegistryObject<AlchemicalSulfurItem> ALCHEMICAL_SULFUR =
-            ITEMS.register("alchemical_sulfur", () -> new AlchemicalSulfurItem(new Item.Properties()));
-
     public static final RegistryObject<Item> ALCHEMICAL_SALT_ORE =
             ITEMS.register("alchemical_salt_ore", () -> new Item(new Item.Properties().food(FoodRegistry.ALCHEMICAL_SALT)));
 
@@ -86,7 +83,6 @@ public class ItemRegistry {
                     builder.displayItems((featureFlagSet, output, hasPermission) -> {
                         output.accept(EMPTY_JAR.get());
 
-                        AlchemicalSulfurItem.DistHelper.registerCreativeModeTabs(ALCHEMICAL_SULFUR.get(), output);
                         DivinationRodItem.DistHelper.registerCreativeModeTabs(DIVINATION_ROD_T1.get(), output);
                         DivinationRodItem.DistHelper.registerCreativeModeTabs(DIVINATION_ROD_T2.get(), output);
                         DivinationRodItem.DistHelper.registerCreativeModeTabs(DIVINATION_ROD_T3.get(), output);

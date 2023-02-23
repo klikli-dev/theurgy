@@ -1,6 +1,7 @@
-// 1.19.3	2023-02-21T18:04:07.9881053	Books: theurgy
+// 1.19.3	2023-02-23T17:32:52.5263532	Books: theurgy
 b2293b37d1b21df11577a722ebc1afca20617477 data/theurgy/modonomicon/books/the_hermetica/book.json
 3cc6bc5ae9a4a1c221e74249ae1a59bfdb630c6e data/theurgy/modonomicon/books/the_hermetica/categories/getting_started.json
-28ae6dbc76158bf163aa0d3ca564f6158642ef69 data/theurgy/modonomicon/books/the_hermetica/entries/getting_started/about_mod.json
-a0e4e1feea258fbe6056fe84085269f292cf4941 data/theurgy/modonomicon/books/the_hermetica/entries/getting_started/divination_rod.json
+48b3da589182a4ed12f49b12abe08e4c948a744c data/theurgy/modonomicon/books/the_hermetica/entries/getting_started/about_mod.json
+6363a1c9b9f4772950d1a3c0f75a8fa5346b24af data/theurgy/modonomicon/books/the_hermetica/entries/getting_started/apparatus_how_to.json
+18c55d191c21c11592ff7e80c4f7d98ab1fbfab9 data/theurgy/modonomicon/books/the_hermetica/entries/getting_started/divination_rod.json
 40b96909739d7276b24a3549b02d3c78f5008ef1 data/theurgy/modonomicon/books/the_hermetica/entries/getting_started/intro.json

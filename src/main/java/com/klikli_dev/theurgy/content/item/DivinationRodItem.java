@@ -7,17 +7,19 @@
 package com.klikli_dev.theurgy.content.item;
 
 import com.klikli_dev.theurgy.TheurgyConstants;
-import com.klikli_dev.theurgy.scanner.ScanManager;
 import com.klikli_dev.theurgy.content.entity.FollowProjectile;
 import com.klikli_dev.theurgy.network.Networking;
 import com.klikli_dev.theurgy.network.messages.MessageSetDivinationResult;
-import com.klikli_dev.theurgy.registry.SoundRegistry;
 import com.klikli_dev.theurgy.registry.BlockTagRegistry;
+import com.klikli_dev.theurgy.registry.SoundRegistry;
+import com.klikli_dev.theurgy.scanner.ScanManager;
+import com.klikli_dev.theurgy.util.TagUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.item.ItemPropertyFunction;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.*;
 import net.minecraft.resources.ResourceLocation;
@@ -43,6 +45,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class DivinationRodItem extends Item {
 
@@ -67,6 +70,64 @@ public class DivinationRodItem extends Item {
         this.defaultDuration = defaultDuration;
         this.defaultDurability = defaultDurability;
         this.defaultAllowAttuning = defaultAllowAttuning;
+    }
+
+    public static String getLinkedBlockId(ItemStack divinationRod) {
+        return divinationRod.getOrCreateTag().getString(TheurgyConstants.Nbt.Divination.LINKED_BLOCK_ID);
+    }
+
+    public static boolean hasLinkedBlock(ItemStack divinationRod) {
+        return divinationRod.hasTag() && divinationRod.getTag().contains(TheurgyConstants.Nbt.Divination.LINKED_BLOCK_ID);
+    }
+
+    public static ItemStack getLinkedBlockStack(ItemStack divinationRod) {
+        if (hasLinkedBlock(divinationRod)) {
+
+            var targetId = getLinkedBlockId(divinationRod);
+            ItemStack targetStack;
+
+            if (targetId.startsWith("#")) {
+                var tagId = new ResourceLocation(targetId.substring(1));
+                var tag = TagKey.create(Registries.ITEM, tagId);
+                targetStack = TagUtil.getItemStackForTag(tag);
+            } else {
+                var itemId = new ResourceLocation(targetId);
+                targetStack = new ItemStack(ForgeRegistries.ITEMS.getValue(itemId));
+            }
+
+            return targetStack;
+        }
+
+        return ItemStack.EMPTY;
+    }
+
+    private static void scanLinkedBlock(Player player, String id, int range, int duration) {
+        var targetId = new ResourceLocation(id);
+        var block = ForgeRegistries.BLOCKS.getValue(targetId);
+        if (block != null) {
+            Block deepslateBlock = null;
+
+            //also search for deepslate ores
+            if (targetId.getPath().contains("_ore") && !targetId.getPath().contains("deepslate_")) {
+                var deepslateId = new ResourceLocation(targetId.getNamespace(), "deepslate_" + targetId.getPath());
+                deepslateBlock = ForgeRegistries.BLOCKS.getValue(deepslateId);
+            }
+
+            ScanManager.get().beginScan(player,
+                    deepslateBlock != null ? Set.of(block, deepslateBlock) : Set.of(block),
+                    range, duration
+            );
+        }
+    }
+
+    private static void scanLinkedTag(Player player, String id, int range, int duration) {
+        var targetId = new ResourceLocation(id.substring(1)); //skip the #
+        var tagKey = TagKey.create(Registries.BLOCK, targetId);
+        var blocks = ForgeRegistries.BLOCKS.tags().getTag(tagKey).stream().collect(Collectors.toSet());
+
+        if (!blocks.isEmpty()) {
+            ScanManager.get().beginScan(player, blocks, range, duration);
+        }
     }
 
     @Override
@@ -166,7 +227,7 @@ public class DivinationRodItem extends Item {
         var stack = player.getItemInHand(hand);
 
         if (!player.isShiftKeyDown()) {
-            if (stack.getOrCreateTag().contains(TheurgyConstants.Nbt.Divination.LINKED_BLOCK_ID)) {
+            if (hasLinkedBlock(stack)) {
                 var tag = stack.getTag();
                 tag.putFloat(TheurgyConstants.Nbt.Divination.DISTANCE, SEARCHING);
                 player.startUsingItem(hand);
@@ -174,24 +235,17 @@ public class DivinationRodItem extends Item {
                         1, 1);
 
                 if (level.isClientSide) {
-                    var id = new ResourceLocation(stack.getTag().getString(TheurgyConstants.Nbt.Divination.LINKED_BLOCK_ID));
-                    var block = ForgeRegistries.BLOCKS.getValue(id);
-                    if (block != null) {
-                        Block deepslateBlock = null;
+                    var targetId = getLinkedBlockId(stack);
 
-                        //also search for deepslate ores
-                        if (id.getPath().contains("_ore") && !id.getPath().contains("deepslate_")) {
-                            var deepslateId = new ResourceLocation(id.getNamespace(), "deepslate_" + id.getPath());
-                            deepslateBlock = ForgeRegistries.BLOCKS.getValue(deepslateId);
-                        }
-
-                        ScanManager.get().beginScan(player,
-                                deepslateBlock != null ? Set.of(block, deepslateBlock) : Set.of(block),
+                    if (targetId.startsWith("#")) {
+                        scanLinkedTag(player, targetId,
                                 tag.getInt(TheurgyConstants.Nbt.Divination.SETTING_RANGE),
-                                tag.getInt(TheurgyConstants.Nbt.Divination.SETTING_DURATION)
-                        );
+                                tag.getInt(TheurgyConstants.Nbt.Divination.SETTING_DURATION));
+                    } else {
+                        scanLinkedBlock(player, targetId,
+                                tag.getInt(TheurgyConstants.Nbt.Divination.SETTING_RANGE),
+                                tag.getInt(TheurgyConstants.Nbt.Divination.SETTING_DURATION));
                     }
-
                 }
             } else if (!level.isClientSide) {
                 player.sendSystemMessage(Component.translatable(TheurgyConstants.I18n.Message.DIVINATION_ROD_NO_LINK));
@@ -206,7 +260,7 @@ public class DivinationRodItem extends Item {
         if (!(entityLiving instanceof Player player))
             return stack;
 
-        if(stack.getDamageValue() >= stack.getMaxDamage()){
+        if (stack.getDamageValue() >= stack.getMaxDamage()) {
             //if in the last usage cycle the item was used up, we now actually break it to avoid over-use
             player.broadcastBreakEvent(player.getUsedItemHand());
             var item = stack.getItem();
@@ -270,19 +324,14 @@ public class DivinationRodItem extends Item {
 
     @Override
     public Component getName(ItemStack pStack) {
-        if (pStack.hasTag()) {
-            var tag = pStack.getTag();
-            if (tag.contains(TheurgyConstants.Nbt.Divination.LINKED_BLOCK_ID)) {
-                var id = new ResourceLocation(pStack.getTag().getString(TheurgyConstants.Nbt.Divination.LINKED_BLOCK_ID));
-                var block = ForgeRegistries.BLOCKS.getValue(id);
-                if (block != null) {
-                    //we''re not using getBlockDisplayComponent because we want custom formatting
-                    var blockComponent = ComponentUtils.wrapInSquareBrackets(
-                                    block.getName().withStyle(Style.EMPTY.withColor(ChatFormatting.GREEN).withItalic(true))
-                            )
-                            .withStyle((style) -> style.withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_ITEM, new HoverEvent.ItemStackInfo(new ItemStack(block)))));
-                    return Component.translatable(this.getDescriptionId() + ".linked", blockComponent);
-                }
+        if (hasLinkedBlock(pStack)) {
+            var stack = getLinkedBlockStack(pStack);
+            if (!stack.isEmpty()) {
+                var blockComponent = ComponentUtils.wrapInSquareBrackets(
+                                Component.empty().append(stack.getDisplayName()).withStyle(Style.EMPTY.withColor(ChatFormatting.GREEN).withItalic(true))
+                        )
+                        .withStyle((style) -> style.withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_ITEM, new HoverEvent.ItemStackInfo(stack))));
+                return Component.translatable(this.getDescriptionId() + ".linked", blockComponent);
             }
         }
 
@@ -320,32 +369,27 @@ public class DivinationRodItem extends Item {
 
     @Override
     public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced) {
-        if (pStack.hasTag()) {
-            var tag = pStack.getTag();
-            if (tag.contains(TheurgyConstants.Nbt.Divination.LINKED_BLOCK_ID)) {
-                var id = new ResourceLocation(pStack.getTag().getString(TheurgyConstants.Nbt.Divination.LINKED_BLOCK_ID));
-                var block = ForgeRegistries.BLOCKS.getValue(id);
-                if (block != null) {
-                    var blockComponent = this.getBlockDisplayComponent(block);
-                    pTooltipComponents.add(
-                            Component.translatable(
-                                    TheurgyConstants.I18n.Tooltip.DIVINATION_ROD_LINKED_TO,
-                                    blockComponent
-                            ).withStyle(ChatFormatting.GRAY));
-
-                    if (tag.contains(TheurgyConstants.Nbt.Divination.POS)) {
-                        var pos = BlockPos.of(tag.getLong(TheurgyConstants.Nbt.Divination.POS));
-                        pTooltipComponents.add(Component.translatable(TheurgyConstants.I18n.Tooltip.DIVINATION_ROD_LAST_RESULT,
-                                blockComponent,
-                                ComponentUtils.wrapInSquareBrackets(Component.literal(pos.toShortString())).withStyle(ChatFormatting.GREEN)
+        if (hasLinkedBlock(pStack)) {
+            var stack = getLinkedBlockStack(pStack);
+            if (!stack.isEmpty()) {
+                var blockComponent = this.getBlockDisplayComponent(stack);
+                pTooltipComponents.add(
+                        Component.translatable(
+                                TheurgyConstants.I18n.Tooltip.DIVINATION_ROD_LINKED_TO,
+                                blockComponent
                         ).withStyle(ChatFormatting.GRAY));
-                    }
-                }
 
-            } else {
-                pTooltipComponents.add(Component.translatable(TheurgyConstants.I18n.Tooltip.DIVINATION_ROD_NO_LINK));
+                if (pStack.getTag().contains(TheurgyConstants.Nbt.Divination.POS)) {
+                    var pos = BlockPos.of(pStack.getTag().getLong(TheurgyConstants.Nbt.Divination.POS));
+                    pTooltipComponents.add(Component.translatable(TheurgyConstants.I18n.Tooltip.DIVINATION_ROD_LAST_RESULT,
+                            blockComponent,
+                            ComponentUtils.wrapInSquareBrackets(Component.literal(pos.toShortString())).withStyle(ChatFormatting.GREEN)
+                    ).withStyle(ChatFormatting.GRAY));
+                }
             }
 
+        } else {
+            pTooltipComponents.add(Component.translatable(TheurgyConstants.I18n.Tooltip.DIVINATION_ROD_NO_LINK));
         }
 
         super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced);
@@ -383,10 +427,14 @@ public class DivinationRodItem extends Item {
     }
 
     protected MutableComponent getBlockDisplayComponent(Block block) {
-        var displayName = block.getName();
+        return this.getBlockDisplayComponent(new ItemStack(block));
+    }
+
+    protected MutableComponent getBlockDisplayComponent(ItemStack stack) {
+        var displayName = stack.getDisplayName();
         return ComponentUtils.wrapInSquareBrackets(displayName)
                 .withStyle(ChatFormatting.GREEN)
-                .withStyle((style) -> style.withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_ITEM, new HoverEvent.ItemStackInfo(new ItemStack(block)))));
+                .withStyle((style) -> style.withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_ITEM, new HoverEvent.ItemStackInfo(stack))));
     }
 
     protected void spawnResultParticle(BlockPos result, Level level, LivingEntity entity) {
@@ -437,7 +485,7 @@ public class DivinationRodItem extends Item {
             if (level != null) {
                 var recipeManager = level.getRecipeManager();
                 recipeManager.getRecipes().forEach((recipe) -> {
-                    if (recipe.getResultItem() != null  && recipe.getResultItem().getItem() == item) {
+                    if (recipe.getResultItem() != null && recipe.getResultItem().getItem() == item) {
                         output.accept(recipe.getResultItem().copy());
                     }
                 });

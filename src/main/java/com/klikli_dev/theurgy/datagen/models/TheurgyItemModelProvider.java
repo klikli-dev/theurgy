@@ -55,15 +55,17 @@ public class TheurgyItemModelProvider extends net.minecraftforge.client.model.ge
     }
 
     private void registerDivinationRod(Item divinationRodItem){
-        var variant0 = this.registerItemGenerated(this.name(divinationRodItem) + "_0", this.name(divinationRodItem)+ "/divination_rod_0");
-        var variant1 =this.registerItemGenerated(this.name(divinationRodItem) + "_1", this.name(divinationRodItem)+ "/divination_rod_1");
-        var variant2 =this.registerItemGenerated(this.name(divinationRodItem) + "_2", this.name(divinationRodItem)+ "/divination_rod_2");
-        var variant3 =this.registerItemGenerated(this.name(divinationRodItem) + "_3", this.name(divinationRodItem)+ "/divination_rod_3");
-        var variant4 =this.registerItemGenerated(this.name(divinationRodItem) + "_4", this.name(divinationRodItem)+ "/divination_rod_4");
-        var variant5 =this.registerItemGenerated(this.name(divinationRodItem) + "_5", this.name(divinationRodItem)+ "/divination_rod_5");
-        var variant6 =this.registerItemGenerated(this.name(divinationRodItem) + "_6", this.name(divinationRodItem)+ "/divination_rod_6");
-        var variant7 = this.registerItemGenerated(this.name(divinationRodItem) + "_7", this.name(divinationRodItem)+ "/divination_rod_7");
-        var searchingVariant = this.registerItemGenerated(this.name(divinationRodItem) + "_searching", this.name(divinationRodItem)+ "/divination_rod_searching");
+
+        //somehow we have to prefix "item/" if we append "/0" instead of "_=". Probably something in the item builder or resource location logic it a "/" is present. Anyhow, this moves the variants into a subfolder
+        var variant0 = this.registerItemGenerated("item/" + this.name(divinationRodItem) + "/0", this.name(divinationRodItem)+ "/divination_rod_0");
+        var variant1 =this.registerItemGenerated("item/" + this.name(divinationRodItem) + "/1", this.name(divinationRodItem)+ "/divination_rod_1");
+        var variant2 =this.registerItemGenerated("item/" + this.name(divinationRodItem) + "/2", this.name(divinationRodItem)+ "/divination_rod_2");
+        var variant3 =this.registerItemGenerated("item/" + this.name(divinationRodItem) + "/3", this.name(divinationRodItem)+ "/divination_rod_3");
+        var variant4 =this.registerItemGenerated("item/" + this.name(divinationRodItem) + "/4", this.name(divinationRodItem)+ "/divination_rod_4");
+        var variant5 =this.registerItemGenerated("item/" + this.name(divinationRodItem) + "/5", this.name(divinationRodItem)+ "/divination_rod_5");
+        var variant6 =this.registerItemGenerated("item/" + this.name(divinationRodItem) + "/6", this.name(divinationRodItem)+ "/divination_rod_6");
+        var variant7 = this.registerItemGenerated("item/" + this.name(divinationRodItem) + "/7", this.name(divinationRodItem)+ "/divination_rod_7");
+        var searchingVariant = this.registerItemGenerated("item/" + this.name(divinationRodItem) + "/searching", this.name(divinationRodItem)+ "/divination_rod_searching");
 
         var name = this.name(divinationRodItem);
         this.getBuilder(name)

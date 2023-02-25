@@ -82,7 +82,6 @@ public class DivinationRodItem extends Item {
 
     public static ItemStack getLinkedBlockStack(ItemStack divinationRod) {
         if (hasLinkedBlock(divinationRod)) {
-
             var targetId = getLinkedBlockId(divinationRod);
             ItemStack targetStack;
 
@@ -328,7 +327,14 @@ public class DivinationRodItem extends Item {
             var stack = getLinkedBlockStack(pStack);
             if (!stack.isEmpty()) {
                 var blockComponent = ComponentUtils.wrapInSquareBrackets(
-                                Component.empty().append(stack.getDisplayName()).withStyle(Style.EMPTY.withColor(ChatFormatting.GREEN).withItalic(true))
+                                Component.empty().append(stack.getHoverName()).withStyle(Style.EMPTY.withColor(ChatFormatting.GREEN).withItalic(true))
+                        )
+                        .withStyle((style) -> style.withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_ITEM, new HoverEvent.ItemStackInfo(stack))));
+                return Component.translatable(this.getDescriptionId() + ".linked", blockComponent);
+            } else {
+                //in case the block is not found, we indicate something went wrong
+                var blockComponent = ComponentUtils.wrapInSquareBrackets(
+                                Component.translatable(TheurgyConstants.I18n.Item.DIVINATION_ROD_UNKNOWN_LINKED_BLOCK).withStyle(Style.EMPTY.withColor(ChatFormatting.RED).withItalic(true))
                         )
                         .withStyle((style) -> style.withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_ITEM, new HoverEvent.ItemStackInfo(stack))));
                 return Component.translatable(this.getDescriptionId() + ".linked", blockComponent);
@@ -383,7 +389,7 @@ public class DivinationRodItem extends Item {
                     var pos = BlockPos.of(pStack.getTag().getLong(TheurgyConstants.Nbt.Divination.POS));
                     pTooltipComponents.add(Component.translatable(TheurgyConstants.I18n.Tooltip.DIVINATION_ROD_LAST_RESULT,
                             blockComponent,
-                            ComponentUtils.wrapInSquareBrackets(Component.literal(pos.toShortString())).withStyle(ChatFormatting.GREEN)
+                            ComponentUtils.wrapInSquareBrackets(Component.literal(pos.toShortString()).withStyle(ChatFormatting.GREEN))
                     ).withStyle(ChatFormatting.GRAY));
                 }
             }
@@ -431,7 +437,7 @@ public class DivinationRodItem extends Item {
     }
 
     protected MutableComponent getBlockDisplayComponent(ItemStack stack) {
-        var displayName = stack.getDisplayName();
+        var displayName = stack.getHoverName();
         return ComponentUtils.wrapInSquareBrackets(displayName)
                 .withStyle(ChatFormatting.GREEN)
                 .withStyle((style) -> style.withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_ITEM, new HoverEvent.ItemStackInfo(stack))));

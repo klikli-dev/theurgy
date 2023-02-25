@@ -32,7 +32,6 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
                 ChatFormatting.GOLD + "]");
 
         this.add(TheurgyConstants.I18n.Misc.UNIT_MILLIBUCKETS, "%smB");
-        this.add(TheurgyConstants.I18n.Item.ALCHEMICAL_SULFUR_UNKNOWN_SOURCE, "Unknown Source");
     }
 
     private void addJEI(){
@@ -88,10 +87,12 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
         this.addItem(ItemRegistry.JAR_LABEL, "Jar Label");
         this.addTooltip(ItemRegistry.JAR_LABEL, "Dummy item for rendering Alchemical Sulfur if source items are shown.");
 
-        this.addItem(ItemRegistry.ALCHEMICAL_SULFUR, "Alchemical Sulfur %s");
-        this.addTooltip(ItemRegistry.ALCHEMICAL_SULFUR,
-                "Alchemical Sulfur crafted from %s.",
-                "Sulfur represents the \"idea\" or \"soul\" of an object and is the key to replication and transmutation.");
+        //TODO: alchemical sulfur lang
+//        this.addItem(ItemRegistry.ALCHEMICAL_SULFUR, "Alchemical Sulfur %s");
+//        this.addTooltip(ItemRegistry.ALCHEMICAL_SULFUR,
+//                "Alchemical Sulfur crafted from %s.",
+//                "Sulfur represents the \"idea\" or \"soul\" of an object and is the key to replication and transmutation.");
+        this.add(TheurgyConstants.I18n.Item.ALCHEMICAL_SULFUR_UNKNOWN_SOURCE, "Unknown Source");
 
         this.addItem(ItemRegistry.ALCHEMICAL_SALT_ORE, "Alchemical Salt: " + ChatFormatting.GREEN + ChatFormatting.ITALIC + "Ore" + ChatFormatting.RESET);
         this.addTooltip(ItemRegistry.ALCHEMICAL_SALT_ORE,
@@ -102,6 +103,8 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
         this.add(TheurgyConstants.I18n.Tooltip.DIVINATION_ROD_NO_LINK, "The divination rod is "+ ChatFormatting.RED +"not attuned"+ ChatFormatting.RESET +" to any material.");
         this.add(TheurgyConstants.I18n.Tooltip.DIVINATION_ROD_LINKED_TO, "The divination rod is attuned to %s");
         this.add(TheurgyConstants.I18n.Tooltip.DIVINATION_ROD_LAST_RESULT, "Found %s at %s.");
+
+        this.add(TheurgyConstants.I18n.Item.DIVINATION_ROD_UNKNOWN_LINKED_BLOCK, "Unknown Block (something went wrong)");
 
         this.addItem(ItemRegistry.DIVINATION_ROD_T1, "Glass Divination Rod");
         this.add(ItemRegistry.DIVINATION_ROD_T1.get().getDescriptionId() + ".linked", "Glass Divination Rod %s");

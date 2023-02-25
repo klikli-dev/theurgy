@@ -29,14 +29,15 @@ public class LiqueficationRecipeProvider extends JsonRecipeProvider {
         var sulfurHelper = new JsonObject();
         sulfurHelper.addProperty(TheurgyConstants.Nbt.SULFUR_SOURCE_ID, this.locFor(Items.OAK_LOG).toString());
 
+        //TODO: alchemical sulfur recipes
         //TODO: provide proper output item
-        recipeConsumer.accept(
-                this.modLoc("oak_log"),
-                this.buildLiquificationRecipe(
-                        this.makeItemIngredient(this.locFor(Items.OAK_LOG)),
-                        this.makeFluidIngredient(FluidRegistry.SAL_AMMONIAC.getId(), 10),
-                        this.makeResult(ItemRegistry.ALCHEMICAL_SULFUR.getId(), 1, sulfurHelper), 200));
-    }
+//        recipeConsumer.accept(
+//                this.modLoc("oak_log"),
+//                this.buildLiquificationRecipe(
+//                        this.makeItemIngredient(this.locFor(Items.OAK_LOG)),
+//                        this.makeFluidIngredient(FluidRegistry.SAL_AMMONIAC.getId(), 10),
+//                        this.makeResult(ItemRegistry.ALCHEMICAL_SULFUR.getId(), 1, sulfurHelper), 200));
+   }
 
     public JsonObject buildLiquificationRecipe(JsonObject ingredient, JsonObject solvent, JsonObject result, int liquefactionTime) {
         var recipe = new JsonObject();

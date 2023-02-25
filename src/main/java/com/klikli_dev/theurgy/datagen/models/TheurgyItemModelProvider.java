@@ -118,7 +118,8 @@ public class TheurgyItemModelProvider extends net.minecraftforge.client.model.ge
         this.registerItemGenerated(this.name(ItemRegistry.EMPTY_JAR.get()));
         this.registerItemGenerated(this.name(ItemRegistry.EMPTY_JAR_LABELED.get()));
         this.registerItemGenerated(this.name(ItemRegistry.JAR_LABEL.get()));
-        this.registerItemBuiltinEntity(this.name(ItemRegistry.ALCHEMICAL_SULFUR.get()));
+        //alchemical sulfur models
+        //this.registerItemBuiltinEntity(this.name(ItemRegistry.ALCHEMICAL_SULFUR.get()));
         this.registerItemGenerated("alchemical_salt"); //parent for alchemical salt
         this.registerAlchemicalSalt(this.name(ItemRegistry.ALCHEMICAL_SALT_ORE.get()));
 

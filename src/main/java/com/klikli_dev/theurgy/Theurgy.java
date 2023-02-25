@@ -34,6 +34,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLDedicatedServerSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLEnvironment;
+import net.minecraftforge.registries.RegistryObject;
 import org.slf4j.Logger;
 
 @Mod(Theurgy.MODID)
@@ -53,6 +54,7 @@ public class Theurgy {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         ItemRegistry.ITEMS.register(modEventBus);
+        SulfurRegistry.SULFURS.register(modEventBus);
         BlockRegistry.BLOCKS.register(modEventBus);
         BlockEntityRegistry.BLOCKS.register(modEventBus);
         FluidTypeRegistry.FLUID_TYPES.register(modEventBus);
@@ -70,6 +72,7 @@ public class Theurgy {
 
         modEventBus.addListener(TheurgyDataGenerators::onGatherData);
         modEventBus.addListener(ItemRegistry::onRegisterCreativeModeTabs);
+        modEventBus.addListener(SulfurRegistry::onBuildCreativeModTabs);
         modEventBus.addListener(RecipeSerializerRegistry::onRegisterRecipeSerializers);
 
         MinecraftForge.EVENT_BUS.addListener(TooltipHandler::onItemTooltipEvent);
@@ -109,6 +112,12 @@ public class Theurgy {
             TooltipHandler.registerNamespaceToListenTo(MODID);
 
             //TooltipHandler.registerTooltipDataProvider(ItemRegistry.ALCHEMICAL_SULFUR.get(), AlchemicalSulfurItem::getTooltipData);
+
+            SulfurRegistry.SULFURS.getEntries().stream().map(RegistryObject::get).map(AlchemicalSulfurItem.class::cast).forEach(sulfur -> {
+                if (sulfur.provideAutomaticTooltipData) {
+                    TooltipHandler.registerTooltipDataProvider(sulfur, AlchemicalSulfurItem::getTooltipData);
+                }
+            });
         }
 
         public static void onRegisterEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {

@@ -20,6 +20,8 @@ import net.minecraftforge.registries.RegistryObject;
 
 public class ItemRegistry {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Theurgy.MODID);
+
+    public static CreativeModeTab THEURGY_TAB;
     public static final RegistryObject<Item> EMPTY_JAR =
             ITEMS.register("empty_jar", () -> new Item(new Item.Properties()));
 
@@ -76,7 +78,7 @@ public class ItemRegistry {
             ITEMS.register("liquefaction_cauldron", () -> new BlockItem(BlockRegistry.LIQUEFACTION_CAULDRON.get(), new Item.Properties()));
 
     public static void onRegisterCreativeModeTabs(CreativeModeTabEvent.Register event) {
-        event.registerCreativeModeTab(new ResourceLocation(Theurgy.MODID + ":" + Theurgy.MODID),
+        THEURGY_TAB= event.registerCreativeModeTab(new ResourceLocation(Theurgy.MODID + ":" + Theurgy.MODID),
                 (builder) -> {
                     builder.icon(() -> new ItemStack(EMPTY_JAR.get()))
                             .title(Component.translatable(TheurgyConstants.I18n.ITEM_GROUP)).build();

@@ -378,7 +378,11 @@ public class DivinationRodItem extends Item {
         if (hasLinkedBlock(pStack)) {
             var stack = getLinkedBlockStack(pStack);
             if (!stack.isEmpty()) {
-                var blockComponent = this.getBlockDisplayComponent(stack);
+                var blockComponent = Component.empty().append(stack.getHoverName())
+                        .withStyle(ChatFormatting.GREEN)
+                        .withStyle((style) -> style.withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_ITEM, new HoverEvent.ItemStackInfo(stack))));
+
+                        this.getBlockDisplayComponent(stack);
                 pTooltipComponents.add(
                         Component.translatable(
                                 TheurgyConstants.I18n.Tooltip.DIVINATION_ROD_LINKED_TO,

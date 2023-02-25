@@ -9,24 +9,17 @@
     },
     "R": {
       "tag": "forge:rods/wooden"
-    },
-    "S": {
-      "type": "forge:partial_nbt",
-      "item": "theurgy:alchemical_sulfur",
-      "nbt": {
-        "theurgy:sulfur.source.id": "minecraft:diamond"
-      }
     }
   },
   "pattern": [
     "RGR",
-    "RSR",
+    "RRR",
     " R "
   ],
   "result": {
     "item": "theurgy:divination_rod_t4",
     "nbt": {
-      "theurgy:divination.linked_block_id": "minecraft:diamond_ore",
+      "theurgy:divination.linked_block_id": "#forge:ores/diamond",
       "theurgy:divination.setting.tier": "minecraft:stone",
       "theurgy:divination.setting.allowed_blocks_tag": "theurgy:divination_rod_t4_allowed_blocks",
       "theurgy:divination.setting.disallowed_blocks_tag": "theurgy:divination_rod_t4_disallowed_blocks",

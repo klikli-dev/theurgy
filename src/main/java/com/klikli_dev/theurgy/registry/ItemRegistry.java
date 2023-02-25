@@ -20,6 +20,8 @@ import net.minecraftforge.registries.RegistryObject;
 
 public class ItemRegistry {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Theurgy.MODID);
+
+    public static CreativeModeTab THEURGY_TAB;
     public static final RegistryObject<Item> EMPTY_JAR =
             ITEMS.register("empty_jar", () -> new Item(new Item.Properties()));
 
@@ -34,9 +36,6 @@ public class ItemRegistry {
     //helper item for sulfur rendering
     public static final RegistryObject<Item> JAR_LABEL =
             ITEMS.register("jar_label", () -> new Item(new Item.Properties()));
-    public static final RegistryObject<AlchemicalSulfurItem> ALCHEMICAL_SULFUR =
-            ITEMS.register("alchemical_sulfur", () -> new AlchemicalSulfurItem(new Item.Properties()));
-
     public static final RegistryObject<Item> ALCHEMICAL_SALT_ORE =
             ITEMS.register("alchemical_salt_ore", () -> new Item(new Item.Properties().food(FoodRegistry.ALCHEMICAL_SALT)));
 
@@ -79,14 +78,13 @@ public class ItemRegistry {
             ITEMS.register("liquefaction_cauldron", () -> new BlockItem(BlockRegistry.LIQUEFACTION_CAULDRON.get(), new Item.Properties()));
 
     public static void onRegisterCreativeModeTabs(CreativeModeTabEvent.Register event) {
-        event.registerCreativeModeTab(new ResourceLocation(Theurgy.MODID + ":" + Theurgy.MODID),
+        THEURGY_TAB= event.registerCreativeModeTab(new ResourceLocation(Theurgy.MODID + ":" + Theurgy.MODID),
                 (builder) -> {
                     builder.icon(() -> new ItemStack(EMPTY_JAR.get()))
                             .title(Component.translatable(TheurgyConstants.I18n.ITEM_GROUP)).build();
                     builder.displayItems((featureFlagSet, output, hasPermission) -> {
                         output.accept(EMPTY_JAR.get());
 
-                        AlchemicalSulfurItem.DistHelper.registerCreativeModeTabs(ALCHEMICAL_SULFUR.get(), output);
                         DivinationRodItem.DistHelper.registerCreativeModeTabs(DIVINATION_ROD_T1.get(), output);
                         DivinationRodItem.DistHelper.registerCreativeModeTabs(DIVINATION_ROD_T2.get(), output);
                         DivinationRodItem.DistHelper.registerCreativeModeTabs(DIVINATION_ROD_T3.get(), output);

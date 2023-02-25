@@ -9,14 +9,19 @@ package com.klikli_dev.theurgy.datagen.recipe;
 import com.google.common.collect.Sets;
 import com.google.gson.JsonObject;
 import com.mojang.serialization.JsonOps;
+import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.material.Fluid;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +51,14 @@ public abstract class JsonRecipeProvider implements DataProvider {
 
     public ResourceLocation locFor(ItemLike itemLike) {
         return BuiltInRegistries.ITEM.getKey(itemLike.asItem());
+    }
+
+    public ResourceLocation locFor(Fluid fluid) {
+        return BuiltInRegistries.FLUID.getKey(fluid);
+    }
+
+    public TagKey<Item> tag(ResourceLocation tag) {
+        return TagKey.create(Registries.ITEM, tag);
     }
 
     public ResourceLocation modLoc(String name) {

@@ -32,28 +32,34 @@ public class AlchemicalSulfurItem extends Item {
     /**
      * if true, will use TheurgyConstants.Nbt.SULFUR_SOURCE_ID to render the item icon dynamically.
      */
-    private boolean useAutomaticIconRendering;
+    public boolean useAutomaticIconRendering;
     /**
      * if true, will use TheurgyConstants.Nbt.SULFUR_SOURCE_ID to provide a parameter to the item name component that can be accessed with %s in the language file.
      */
-    private boolean useAutomaticNameRendering;
+    public boolean useAutomaticNameRendering;
     /**
      * if true, will use TheurgyConstants.Nbt.SULFUR_SOURCE_ID to provide a parameter to the item tooltip component that can be accessed with %s in the language file.
      */
-    private boolean provideAutomaticTooltipData;
+    public boolean provideAutomaticTooltipData;
 
     /**
      * If true will convert the tag to a description id and use it as source name, instead of the source stack procured for the tag.
      * This is mainly intended for sulfurs that actually represent a tag (such as "all logs").
      * It should not be used for sulfurs that represent a specific item where we use the tag to handle mod compat (e.g. "silver ingot").
      */
-    private boolean overrideTagSourceName;
+    public boolean overrideTagSourceName;
+
+    /**
+     * If true the LiquefactionRecipe used to craft this item will automatically generate a source id based on the ingredient, if no source id is provided in the recipe result nbt.
+     */
+    public boolean autoGenerateSourceIdInRecipe;
 
     public AlchemicalSulfurItem(Properties pProperties) {
         super(pProperties);
         this.useAutomaticIconRendering = true;
         this.useAutomaticNameRendering = true;
         this.provideAutomaticTooltipData = true;
+        this.autoGenerateSourceIdInRecipe = true;
         this.overrideTagSourceName = false;
     }
 
@@ -136,6 +142,11 @@ public class AlchemicalSulfurItem extends Item {
         return this;
     }
 
+    public AlchemicalSulfurItem autoGenerateSourceIdInRecipe(boolean value) {
+        this.autoGenerateSourceIdInRecipe = value;
+        return this;
+    }
+
     public MutableComponent getSourceName(ItemStack pStack) {
         var source = getSourceStack(pStack);
 
@@ -167,7 +178,7 @@ public class AlchemicalSulfurItem extends Item {
     @Override
     public Component getName(ItemStack pStack) {
         if (this.useAutomaticNameRendering) {
-            return Component.translatable(this.getDescriptionId(), ComponentUtils.wrapInSquareBrackets(
+            return Component.translatable(this.getDescriptionId(pStack), ComponentUtils.wrapInSquareBrackets(
                     this.getSourceName(pStack)
             ));
         }

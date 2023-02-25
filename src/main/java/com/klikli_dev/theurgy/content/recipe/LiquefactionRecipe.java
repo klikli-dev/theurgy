@@ -7,6 +7,8 @@
 package com.klikli_dev.theurgy.content.recipe;
 
 import com.google.gson.JsonObject;
+import com.klikli_dev.theurgy.TheurgyConstants;
+import com.klikli_dev.theurgy.content.item.AlchemicalSulfurItem;
 import com.klikli_dev.theurgy.content.recipe.ingredient.FluidIngredient;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.RecipeSerializerRegistry;
@@ -22,6 +24,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.crafting.CraftingHelper;
+import net.minecraftforge.registries.ForgeRegistries;
 
 public class LiquefactionRecipe implements Recipe<RecipeWrapperWithFluid> {
 
@@ -110,7 +113,32 @@ public class LiquefactionRecipe implements Recipe<RecipeWrapperWithFluid> {
 
             int liquefactionTime = GsonHelper.getAsInt(pJson, "liquefaction_time", DEFAULT_LIQUEFACTION_TIME);
 
+            result = fixSourceIdIfNecessary(result, ingredient);
+
             return new LiquefactionRecipe(pRecipeId, ingredient, solvent, result, liquefactionTime);
+        }
+
+        public ItemStack fixSourceIdIfNecessary(ItemStack resultItem, Ingredient ingredient) {
+            if (resultItem.getItem() instanceof AlchemicalSulfurItem sulfur
+                    && sulfur.autoGenerateSourceIdInRecipe
+                    && AlchemicalSulfurItem.getSourceStack(resultItem).isEmpty()) {
+
+                var modified = resultItem.copy();
+
+                if(ingredient.values.length > 0){
+                    if(ingredient.values[0] instanceof Ingredient.TagValue tagValue){
+                        modified.getOrCreateTag().putString("#" + TheurgyConstants.Nbt.SULFUR_SOURCE_ID, tagValue.tag.location().toString());
+                        return modified;
+                    } else if(ingredient.values[0] instanceof Ingredient.ItemValue itemValue){
+                        modified.getOrCreateTag().putString(TheurgyConstants.Nbt.SULFUR_SOURCE_ID,
+                                ForgeRegistries.ITEMS.getKey(itemValue.getItems().stream().findFirst().get().getItem()).toString());
+                        return modified;
+                    }
+                }
+
+                throw new IllegalArgumentException("AlchemicalSulfurItem " + resultItem + " is configured to generate source id in recipe, but Ingredient.values[0] is not a tag or item value so we don't know how to get the source.");
+            }
+            return resultItem;
         }
 
         public LiquefactionRecipe fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {

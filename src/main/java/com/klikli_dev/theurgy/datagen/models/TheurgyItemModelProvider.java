@@ -8,13 +8,16 @@ package com.klikli_dev.theurgy.datagen.models;
 
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.TheurgyConstants;
+import com.klikli_dev.theurgy.content.item.AlchemicalSulfurItem;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
+import com.klikli_dev.theurgy.registry.SulfurRegistry;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.client.model.generators.ItemModelBuilder;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 
 public class TheurgyItemModelProvider extends net.minecraftforge.client.model.generators.ItemModelProvider {
     public TheurgyItemModelProvider(PackOutput packOutput, ExistingFileHelper existingFileHelper) {
@@ -112,14 +115,26 @@ public class TheurgyItemModelProvider extends net.minecraftforge.client.model.ge
                 .end();
     }
 
+    protected void registerSulfurs(){
+        //alchemical sulfur models
+
+        SulfurRegistry.SULFURS.getEntries().stream().map(RegistryObject::get).map(AlchemicalSulfurItem.class::cast).forEach(sulfur -> {
+            if (sulfur.useAutomaticIconRendering) {
+                this.registerItemBuiltinEntity(this.name(sulfur));
+            }
+        });
+    }
+
     @Override
     protected void registerModels() {
         this.registerItemGenerated(this.name(ItemRegistry.THE_HERMETICA_ICON.get()), "the_hermetica");
+
+        this.registerSulfurs();
+
         this.registerItemGenerated(this.name(ItemRegistry.EMPTY_JAR.get()));
         this.registerItemGenerated(this.name(ItemRegistry.EMPTY_JAR_LABELED.get()));
         this.registerItemGenerated(this.name(ItemRegistry.JAR_LABEL.get()));
-        //alchemical sulfur models
-        //this.registerItemBuiltinEntity(this.name(ItemRegistry.ALCHEMICAL_SULFUR.get()));
+
         this.registerItemGenerated("alchemical_salt"); //parent for alchemical salt
         this.registerAlchemicalSalt(this.name(ItemRegistry.ALCHEMICAL_SALT_ORE.get()));
 

@@ -30,7 +30,12 @@ import java.util.function.Consumer;
 
 public class AlchemicalSulfurItem extends Item {
     /**
-     * if true, will use TheurgyConstants.Nbt.SULFUR_SOURCE_ID to render the item icon dynamically.
+     * if true, an item model based on builtin/entity will be generated for this item.
+     * This will cause SulfurBEWLR to be used to render the item dynamically based on TheurgyConstants.Nbt.SULFUR_SOURCE_ID, instead of a json model.
+     *
+     * Note: this variable cannot be used to conditionally register an IClientItemExtensions,
+     * because the registration happens in the Item constructor, before this variable is set.
+     * However, it is also not necessary, because the render behaviour is governed by the item model anyway.
      */
     public boolean useAutomaticIconRendering;
     /**
@@ -166,7 +171,6 @@ public class AlchemicalSulfurItem extends Item {
 
     @Override
     public void initializeClient(Consumer<IClientItemExtensions> consumer) {
-        if (this.useAutomaticIconRendering)
             consumer.accept(new IClientItemExtensions() {
                 @Override
                 public BlockEntityWithoutLevelRenderer getCustomRenderer() {

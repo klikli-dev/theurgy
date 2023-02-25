@@ -1,0 +1,18 @@
+{
+  "type": "theurgy:liquefaction",
+  "ingredient": {
+    "tag": "minecraft:logs"
+  },
+  "liquefaction_time": 200,
+  "result": {
+    "count": 1,
+    "item": "theurgy:alchemical_sulfur_logs",
+    "nbt": {
+      "theurgy:sulfur.source.id": "#minecraft:logs"
+    }
+  },
+  "solvent": {
+    "amount": 10,
+    "fluid": "theurgy:sal_ammoniac"
+  }
+}

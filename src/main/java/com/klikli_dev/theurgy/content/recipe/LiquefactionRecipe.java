@@ -127,7 +127,7 @@ public class LiquefactionRecipe implements Recipe<RecipeWrapperWithFluid> {
 
                 if(ingredient.values.length > 0){
                     if(ingredient.values[0] instanceof Ingredient.TagValue tagValue){
-                        modified.getOrCreateTag().putString("#" + TheurgyConstants.Nbt.SULFUR_SOURCE_ID, tagValue.tag.location().toString());
+                        modified.getOrCreateTag().putString(TheurgyConstants.Nbt.SULFUR_SOURCE_ID, "#" + tagValue.tag.location());
                         return modified;
                     } else if(ingredient.values[0] instanceof Ingredient.ItemValue itemValue){
                         modified.getOrCreateTag().putString(TheurgyConstants.Nbt.SULFUR_SOURCE_ID,

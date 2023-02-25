@@ -111,8 +111,6 @@ public class Theurgy {
         public static void registerTooltipDataProviders(FMLClientSetupEvent event) {
             TooltipHandler.registerNamespaceToListenTo(MODID);
 
-            //TooltipHandler.registerTooltipDataProvider(ItemRegistry.ALCHEMICAL_SULFUR.get(), AlchemicalSulfurItem::getTooltipData);
-
             SulfurRegistry.SULFURS.getEntries().stream().map(RegistryObject::get).map(AlchemicalSulfurItem.class::cast).forEach(sulfur -> {
                 if (sulfur.provideAutomaticTooltipData) {
                     TooltipHandler.registerTooltipDataProvider(sulfur, AlchemicalSulfurItem::getTooltipData);

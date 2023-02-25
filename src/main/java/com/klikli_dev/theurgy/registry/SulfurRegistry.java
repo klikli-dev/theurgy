@@ -21,11 +21,16 @@ public class SulfurRegistry {
     public static final DeferredRegister<Item> SULFURS = DeferredRegister.create(ForgeRegistries.ITEMS, Theurgy.MODID);
 
     public static final RegistryObject<AlchemicalSulfurItem> LOGS =
-            register("logs", () -> new AlchemicalSulfurItem(new Item.Properties()));
+            register("logs", () -> new AlchemicalSulfurItem(new Item.Properties()).overrideTagSourceName(true));
+
+    //Crops
+
+    public static final RegistryObject<AlchemicalSulfurItem> WHEAT =
+            register("wheat", () -> new AlchemicalSulfurItem(new Item.Properties()));
 
 
     public static <T extends Item> RegistryObject<T> register(String name, Supplier<T> sup) {
-        return SULFURS.register("alchemical_sulfur" + name, sup);
+        return SULFURS.register("alchemical_sulfur_" + name, sup);
     }
 
     /**

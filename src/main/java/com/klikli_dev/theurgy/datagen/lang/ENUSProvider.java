@@ -13,7 +13,9 @@ import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.registry.SulfurRegistry;
 import net.minecraft.ChatFormatting;
+import net.minecraft.Util;
 import net.minecraft.data.PackOutput;
+import net.minecraft.tags.ItemTags;
 import net.minecraftforge.common.data.LanguageProvider;
 import net.minecraftforge.registries.RegistryObject;
 
@@ -80,6 +82,7 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
     private void addSulfurs() {
         this.add(TheurgyConstants.I18n.Item.ALCHEMICAL_SULFUR_UNKNOWN_SOURCE, "Unknown Source");
 
+        //Automatic sulfur name rendering
         SulfurRegistry.SULFURS.getEntries().stream().map(RegistryObject::get).map(AlchemicalSulfurItem.class::cast).forEach(sulfur -> {
             if (sulfur.useAutomaticNameRendering) {
                 this.addItem(() -> sulfur, "Alchemical Sulfur %s");
@@ -90,6 +93,9 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
                         "Sulfur represents the \"idea\" or \"soul\" of an object and is the key to replication and transmutation.");
             }
         });
+
+        //Tag Names for Sulfurs with overrideTagSourceName
+        this.add(Util.makeDescriptionId("tag", ItemTags.LOGS.location()), "Logs");
 
         //Note: It was considered to try and warn here if a sulfur has overrideTagSourceName set to true, but no override lang key set.
         //      This is not possible, however, as the tag source comes from item nbt that is not available at this point.

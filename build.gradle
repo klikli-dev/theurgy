@@ -141,6 +141,13 @@ repositories {
             includeGroup "com.almostreliable.mods"
         }
     }
+    maven {
+        name = 'GeckoLib'
+        url = 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'
+        content {
+            includeGroup "software.bernie.geckolib"
+        }
+    }
 }
 
 dependencies {
@@ -158,6 +165,9 @@ dependencies {
     //almostunified
     compileOnly fg.deobf("com.almostreliable.mods:almostunified-forge:${almostunified_version}")
     runtimeOnly fg.deobf("com.almostreliable.mods:almostunified-forge:${almostunified_version}")
+
+    //Geckolib
+    implementation fg.deobf("software.bernie.geckolib:geckolib-forge-${geckolib_mc_version}:${geckolib_version}")
 
     //modonomicon
     implementation fg.deobf("com.klikli_dev:modonomicon:${modonomicon_mc_version}-${modonomicon_version}") //we build against full jar because we NEED IT ALL

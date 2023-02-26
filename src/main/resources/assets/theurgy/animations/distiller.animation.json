@@ -1,0 +1,59 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.model.float": {
+			"animation_length": 1.5,
+			"bones": {
+				"top": {
+					"position": {
+						"0.0": {
+							"vector": [0, -10, 0]
+						},
+						"1.5": {
+							"vector": [0, 4, 0],
+							"easing": "easeInOutBack"
+						}
+					}
+				}
+			}
+		},
+		"animation.model.land": {
+			"animation_length": 1.5,
+			"bones": {
+				"top": {
+					"position": {
+						"0.0": {
+							"vector": [0, 4, 0]
+						},
+						"1.5": {
+							"vector": [0, -10, 0],
+							"easing": "easeInOutBack"
+						}
+					}
+				}
+			}
+		},
+		"animation.model.hover": {
+			"loop": true,
+			"animation_length": 2,
+			"bones": {
+				"top": {
+					"position": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"1.0": {
+							"vector": [0, 2, 0],
+							"easing": "easeInOutCubic"
+						},
+						"2.0": {
+							"vector": [0, 0, 0],
+							"easing": "easeInOutCubic"
+						}
+					}
+				}
+			}
+		}
+	},
+	"geckolib_format_version": 2
+}

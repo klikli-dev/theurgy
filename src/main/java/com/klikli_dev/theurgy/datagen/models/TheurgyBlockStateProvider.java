@@ -12,6 +12,7 @@ import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
+import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
 public class TheurgyBlockStateProvider extends BlockStateProvider {
@@ -24,6 +25,9 @@ public class TheurgyBlockStateProvider extends BlockStateProvider {
         this.registerCalcinationOven();
         this.registerPyromanticBrazier();
         this.registerLiquefactionCauldron();
+
+        //no blockstate for distiller -> its a geckolib model, but we need an item model that refers to a dynamic renderer
+        this.itemModels().withExistingParent("distiller", "builtin/entity");
     }
 
     protected void registerLiquefactionCauldron() {

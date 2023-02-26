@@ -77,6 +77,9 @@ public class ItemRegistry {
     public static final RegistryObject<BlockItem> LIQUEFACTION_CAULDRON =
             ITEMS.register("liquefaction_cauldron", () -> new BlockItem(BlockRegistry.LIQUEFACTION_CAULDRON.get(), new Item.Properties()));
 
+    public static final RegistryObject<BlockItem> DISTILLER =
+            ITEMS.register("distiller", () -> new BlockItem(BlockRegistry.DISTILLER.get(), new Item.Properties()));
+
     public static void onRegisterCreativeModeTabs(CreativeModeTabEvent.Register event) {
         THEURGY_TAB= event.registerCreativeModeTab(new ResourceLocation(Theurgy.MODID + ":" + Theurgy.MODID),
                 (builder) -> {
@@ -97,6 +100,7 @@ public class ItemRegistry {
                         output.accept(CALCINATION_OVEN.get());
                         output.accept(PYROMANTIC_BRAZIER.get());
                         output.accept(LIQUEFACTION_CAULDRON.get());
+                        output.accept(DISTILLER.get());
                     });
 
                 }

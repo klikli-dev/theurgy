@@ -62,3 +62,10 @@ modId = "almostunified"
 mandatory = false
 versionRange="[0.3.4,)"
 side = "BOTH"
+
+[[dependencies.theurgy]]
+modId = "geckolib"
+mandatory = true
+versionRange = "[1.19.3-4.0.4,)"
+side = "BOTH"
+

@@ -1,4 +1,5 @@
-// 1.19.3	2023-02-15T14:25:01.5299712	Loot Tables
+// 1.19.3	2023-02-28T11:54:39.526033	Loot Tables
 3f5dee12472fe33ed26705ca4be67fc5199f2f08 data/theurgy/loot_tables/blocks/calcination_oven.json
+9990d0c46d98d11109cebd800382a5de1a684077 data/theurgy/loot_tables/blocks/distiller.json
 76c99f6c3c18c087f5858cb16888cc425ac1241b data/theurgy/loot_tables/blocks/liquefaction_cauldron.json
 5c729d17bd1fdff40919b2eee2143903be5f31dc data/theurgy/loot_tables/blocks/pyromantic_brazier.json

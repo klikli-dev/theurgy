@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "theurgy:block/distiller"
+    },
+    "lit=true": {
+      "model": "theurgy:block/distiller"
+    }
+  }
+}

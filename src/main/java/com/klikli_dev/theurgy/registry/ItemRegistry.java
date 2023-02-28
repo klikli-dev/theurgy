@@ -9,6 +9,7 @@ package com.klikli_dev.theurgy.registry;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.content.item.AlchemicalSulfurItem;
+import com.klikli_dev.theurgy.content.item.DistillerBlockItem;
 import com.klikli_dev.theurgy.content.item.DivinationRodItem;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -78,7 +79,7 @@ public class ItemRegistry {
             ITEMS.register("liquefaction_cauldron", () -> new BlockItem(BlockRegistry.LIQUEFACTION_CAULDRON.get(), new Item.Properties()));
 
     public static final RegistryObject<BlockItem> DISTILLER =
-            ITEMS.register("distiller", () -> new BlockItem(BlockRegistry.DISTILLER.get(), new Item.Properties()));
+            ITEMS.register("distiller", () -> new DistillerBlockItem(BlockRegistry.DISTILLER.get(), new Item.Properties()));
 
     public static void onRegisterCreativeModeTabs(CreativeModeTabEvent.Register event) {
         THEURGY_TAB= event.registerCreativeModeTab(new ResourceLocation(Theurgy.MODID + ":" + Theurgy.MODID),

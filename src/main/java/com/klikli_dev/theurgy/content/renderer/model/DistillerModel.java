@@ -7,23 +7,23 @@
 package com.klikli_dev.theurgy.content.renderer.model;
 
 import com.klikli_dev.theurgy.Theurgy;
-import com.klikli_dev.theurgy.content.block.distiller.DistillerBlockEntity;
 import net.minecraft.resources.ResourceLocation;
+import software.bernie.geckolib.core.animatable.GeoAnimatable;
 import software.bernie.geckolib.model.GeoModel;
 
-public class DistillerModel extends GeoModel<DistillerBlockEntity> {
+public class DistillerModel extends GeoModel {
     @Override
-    public ResourceLocation getModelResource(DistillerBlockEntity animatable) {
+    public ResourceLocation getModelResource(GeoAnimatable animatable) {
         return Theurgy.loc("geo/distiller.geo.json");
     }
 
     @Override
-    public ResourceLocation getTextureResource(DistillerBlockEntity animatable) {
+    public ResourceLocation getTextureResource(GeoAnimatable animatable) {
         return Theurgy.loc("textures/block/distiller.png");
     }
 
     @Override
-    public ResourceLocation getAnimationResource(DistillerBlockEntity animatable) {
+    public ResourceLocation getAnimationResource(GeoAnimatable animatable) {
         return Theurgy.loc("animations/distiller.animation.json");
     }
 }

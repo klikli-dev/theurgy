@@ -25,9 +25,30 @@ public class TheurgyBlockStateProvider extends BlockStateProvider {
         this.registerCalcinationOven();
         this.registerPyromanticBrazier();
         this.registerLiquefactionCauldron();
+        this.registerDistiller();
+    }
 
-        //no blockstate for distiller -> its a geckolib model, but we need an item model that refers to a dynamic renderer
-        this.itemModels().withExistingParent("distiller", "builtin/entity");
+    protected void registerDistiller() {
+
+        //distiller is rendered by geckolib, so we just give a model with a particle texture (manually created, not datagenned in this case).
+        //we then use it for both the lit and unlit blockstate
+        var model = this.models().getExistingFile(this.modLoc("block/distiller"));
+
+        //build blockstate
+        this.getVariantBuilder(BlockRegistry.DISTILLER.get()) // Get variant builder
+                .partialState()
+                .with(BlockStateProperties.LIT, false)
+                .modelForState()//start setting models
+                .modelFile(model)
+                .addModel()//finish setting models
+                .partialState()
+                .with(BlockStateProperties.LIT, true)
+                .modelForState()//start setting models
+                .modelFile(model)
+                .addModel();
+
+        //distiller needs an item model that allows geckolib to render
+        this.itemModels().getBuilder("distiller").parent(new ModelFile.UncheckedModelFile("builtin/entity"));
     }
 
     protected void registerLiquefactionCauldron() {

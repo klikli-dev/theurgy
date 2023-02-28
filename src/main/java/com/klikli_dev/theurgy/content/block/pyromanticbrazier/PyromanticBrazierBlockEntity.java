@@ -58,12 +58,12 @@ public class PyromanticBrazierBlockEntity extends BlockEntity {
     }
 
     public void tickClient() {
-        RandomSource randomsource = this.level.random;
-        if (randomsource.nextFloat() < 0.11F) {
-            for (int i = 0; i < randomsource.nextInt(2) + 2; ++i) {
-                CampfireBlock.makeParticles(this.level, this.getBlockPos(), false, false);
-            }
-        }
+//        RandomSource randomsource = this.level.random;
+//        if (randomsource.nextFloat() < 0.11F) {
+//            for (int i = 0; i < randomsource.nextInt(2) + 2; ++i) {
+//                CampfireBlock.makeParticles(this.level, this.getBlockPos(), false, false);
+//            }
+//        }
     }
 
     public void tickServer() {

@@ -23,23 +23,24 @@ public class ItemRegistry {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Theurgy.MODID);
 
     public static CreativeModeTab THEURGY_TAB;
+
+    //Helper items for rendering
     public static final RegistryObject<Item> EMPTY_JAR =
             ITEMS.register("empty_jar", () -> new Item(new Item.Properties()));
 
-    //helper item for sulfur rendering
     public static final RegistryObject<Item> EMPTY_JAR_LABELED =
             ITEMS.register("empty_jar_labeled", () -> new Item(new Item.Properties()));
 
-    //helper item for hermetica rendering
+    public static final RegistryObject<Item> JAR_LABEL =
+            ITEMS.register("jar_label", () -> new Item(new Item.Properties()));
+
     public static final RegistryObject<Item> THE_HERMETICA_ICON =
             ITEMS.register("the_hermetica_icon", () -> new Item(new Item.Properties()));
 
-    //helper item for sulfur rendering
-    public static final RegistryObject<Item> JAR_LABEL =
-            ITEMS.register("jar_label", () -> new Item(new Item.Properties()));
-    public static final RegistryObject<Item> ALCHEMICAL_SALT_ORE =
-            ITEMS.register("alchemical_salt_ore", () -> new Item(new Item.Properties().food(FoodRegistry.ALCHEMICAL_SALT)));
 
+
+
+    //Divination rods
     public static final RegistryObject<DivinationRodItem> DIVINATION_ROD_T1 =
             ITEMS.register("divination_rod_t1", () -> new DivinationRodItem(
                     new Item.Properties().stacksTo(1).defaultDurability(1),
@@ -68,6 +69,14 @@ public class ItemRegistry {
     //Buckets
     public static final RegistryObject<Item> SAL_AMMONIAC_BUCKET =  ITEMS.register("sal_ammoniac_bucket", () -> new BucketItem(FluidRegistry.SAL_AMMONIAC, new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
 
+    //Ingredients
+
+    public static final RegistryObject<Item> ALCHEMICAL_SALT_ORE =
+            ITEMS.register("alchemical_salt_ore", () -> new Item(new Item.Properties().food(FoodRegistry.ALCHEMICAL_SALT)));
+
+    public static final RegistryObject<Item> MERCURY_SHARD =
+            ITEMS.register("mercury_shard", () -> new Item(new Item.Properties()));
+
     //Blocks
     public static final RegistryObject<BlockItem> CALCINATION_OVEN =
             ITEMS.register("calcination_oven", () -> new BlockItem(BlockRegistry.CALCINATION_OVEN.get(), new Item.Properties()));
@@ -87,16 +96,15 @@ public class ItemRegistry {
                     builder.icon(() -> new ItemStack(EMPTY_JAR.get()))
                             .title(Component.translatable(TheurgyConstants.I18n.ITEM_GROUP)).build();
                     builder.displayItems((featureFlagSet, output, hasPermission) -> {
-                        output.accept(EMPTY_JAR.get());
-
                         DivinationRodItem.DistHelper.registerCreativeModeTabs(DIVINATION_ROD_T1.get(), output);
                         DivinationRodItem.DistHelper.registerCreativeModeTabs(DIVINATION_ROD_T2.get(), output);
                         DivinationRodItem.DistHelper.registerCreativeModeTabs(DIVINATION_ROD_T3.get(), output);
                         DivinationRodItem.DistHelper.registerCreativeModeTabs(DIVINATION_ROD_T4.get(), output);
 
-                        output.accept(ALCHEMICAL_SALT_ORE.get());
-
                         output.accept(SAL_AMMONIAC_BUCKET.get());
+
+                        output.accept(ALCHEMICAL_SALT_ORE.get());
+                        output.accept(MERCURY_SHARD.get());
 
                         output.accept(CALCINATION_OVEN.get());
                         output.accept(PYROMANTIC_BRAZIER.get());

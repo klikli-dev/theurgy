@@ -26,12 +26,12 @@ public class CalcinationRecipeProvider extends JsonRecipeProvider {
     void buildRecipes(BiConsumer<ResourceLocation, JsonObject> recipeConsumer) {
         recipeConsumer.accept(
                 this.modLoc("ore"),
-                this.buildCalcinationRecipe(
+                this.makeRecipeJson(
                         this.makeTagIngredient(Tags.Items.ORES.location()),
                         this.makeResult(ItemRegistry.ALCHEMICAL_SALT_ORE.getId()), 200));
     }
 
-    public JsonObject buildCalcinationRecipe(JsonObject ingredient, JsonObject result, int calcinationTime) {
+    public JsonObject makeRecipeJson(JsonObject ingredient, JsonObject result, int calcinationTime) {
         var recipe = new JsonObject();
         recipe.addProperty("type", RecipeTypeRegistry.CALCINATION.getId().toString());
         recipe.add("ingredient", ingredient);

@@ -8,6 +8,7 @@ package com.klikli_dev.theurgy.registry;
 
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.content.recipe.CalcinationRecipe;
+import com.klikli_dev.theurgy.content.recipe.DistillationRecipe;
 import com.klikli_dev.theurgy.content.recipe.LiquefactionRecipe;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -20,6 +21,7 @@ public class RecipeTypeRegistry {
             ForgeRegistries.RECIPE_TYPES, Theurgy.MODID);
     public static final RegistryObject<RecipeType<CalcinationRecipe>> CALCINATION = register("calcination");
     public static final RegistryObject<RecipeType<LiquefactionRecipe>> LIQUEFACTION = register("liquefaction");
+    public static final RegistryObject<RecipeType<DistillationRecipe>> DISTILLATION = register("distillation");
 
     static <T extends Recipe<?>> RegistryObject<RecipeType<T>> register(final String id) {
         return RECIPE_TYPES.register(id, () -> new RecipeType<T>() {

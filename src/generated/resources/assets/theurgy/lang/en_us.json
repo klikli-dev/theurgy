@@ -88,6 +88,8 @@
   "item.theurgy.empty_jar_labeled.tooltip": "Dummy item for rendering Alchemical Sulfur if source items are not shown.",
   "item.theurgy.jar_label": "Jar Label",
   "item.theurgy.jar_label.tooltip": "Dummy item for rendering Alchemical Sulfur if source items are shown.",
+  "item.theurgy.mercury_shard": "Mercury Shard",
+  "item.theurgy.mercury_shard.tooltip.extended": "Mercury shards are small pieces of Mercury in crystalline form. Their main uses are as ingredient in Digestion processes and as an energy source.",
   "item.theurgy.sal_ammoniac_bucket": "Sal Ammoniac Bucket",
   "itemGroup.theurgy": "Theurgy",
   "message.theurgy.divination_rod.attuning_not_allowed": "§4Warning§r: This type of divination rod cannot be manually attuned.",

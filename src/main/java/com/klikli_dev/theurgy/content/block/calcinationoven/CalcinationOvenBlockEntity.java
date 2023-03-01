@@ -38,8 +38,8 @@ public class CalcinationOvenBlockEntity extends BlockEntity implements HeatConsu
     public LazyOptional<IItemHandler> inputInventoryCapability;
     public LazyOptional<IItemHandler> outputInventoryCapability;
     public RecipeWrapper inputRecipeWrapper;
-    int calcinationProgress;
-    int calcinationTotalTime;
+    int progress;
+    int totalTime;
 
     boolean heatedCache;
 
@@ -85,17 +85,17 @@ public class CalcinationOvenBlockEntity extends BlockEntity implements HeatConsu
 
             //if we are lit and have a recipe, update progress
             if (isHeated && this.canCraft(recipe)) {
-                ++this.calcinationProgress;
+                ++this.progress;
 
                 //if we hit max progress, craft the item and reset progress
-                if (this.calcinationProgress == this.calcinationTotalTime) {
-                    this.calcinationProgress = 0;
-                    this.calcinationTotalTime = this.getTotalCalcinationTime();
+                if (this.progress == this.totalTime) {
+                    this.progress = 0;
+                    this.totalTime = this.getTotalTime();
                     this.craft(recipe);
                     //TODO: advancement?
                 }
             } else {
-                this.calcinationProgress = 0;
+                this.progress = 0;
             }
         }
     }
@@ -131,7 +131,7 @@ public class CalcinationOvenBlockEntity extends BlockEntity implements HeatConsu
         var assembledStack = pRecipe.assemble(this.inputRecipeWrapper);
         var outputStack = this.outputInventory.getStackInSlot(0);
         if (outputStack.isEmpty()) {
-            this.inputInventory.setStackInSlot(0, assembledStack.copy());
+            this.outputInventory.setStackInSlot(0, assembledStack.copy());
         } else if (outputStack.is(assembledStack.getItem())) {
             outputStack.grow(assembledStack.getCount());
         }
@@ -141,7 +141,7 @@ public class CalcinationOvenBlockEntity extends BlockEntity implements HeatConsu
 
     }
 
-    protected int getTotalCalcinationTime() {
+    protected int getTotalTime() {
         return this.recipeCachedCheck.getRecipeFor(this.inputRecipeWrapper, this.level).map(CalcinationRecipe::getCalcinationTime).orElse(CalcinationRecipe.DEFAULT_CALCINATION_TIME);
     }
 
@@ -161,7 +161,7 @@ public class CalcinationOvenBlockEntity extends BlockEntity implements HeatConsu
 
         pTag.put("inputInventory", this.inputInventory.serializeNBT());
         pTag.put("outputInventory", this.outputInventory.serializeNBT());
-        pTag.putShort("calcinationProgress", (short) this.calcinationProgress);
+        pTag.putShort("progress", (short) this.progress);
     }
 
     @Override
@@ -172,8 +172,8 @@ public class CalcinationOvenBlockEntity extends BlockEntity implements HeatConsu
             this.inputInventory.deserializeNBT(pTag.getCompound("inputInventory"));
         if (pTag.contains("outputInventory"))
             this.outputInventory.deserializeNBT(pTag.getCompound("outputInventory"));
-        if (pTag.contains("calcinationProgress"))
-            this.calcinationProgress = pTag.getShort("calcinationProgress");
+        if (pTag.contains("progress"))
+            this.progress = pTag.getShort("progress");
     }
 
     private boolean canProcess(ItemStack stack) {
@@ -200,8 +200,8 @@ public class CalcinationOvenBlockEntity extends BlockEntity implements HeatConsu
             super.setStackInSlot(slot, newStack);
 
             if (!sameItem) {
-                CalcinationOvenBlockEntity.this.calcinationTotalTime = CalcinationOvenBlockEntity.this.getTotalCalcinationTime();
-                CalcinationOvenBlockEntity.this.calcinationProgress = 0;
+                CalcinationOvenBlockEntity.this.totalTime = CalcinationOvenBlockEntity.this.getTotalTime();
+                CalcinationOvenBlockEntity.this.progress = 0;
             }
 
         }

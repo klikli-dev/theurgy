@@ -57,8 +57,8 @@ public class LiquefactionCauldronBlockEntity extends BlockEntity implements Heat
     public RecipeWrapperWithFluid inputRecipeWrapper;
     public LazyOptional<IFluidHandler> solventTankCapability;
     public FluidTank solventTank;
-    int liquefactionProgress;
-    int liquificationTotalTime;
+    int progress;
+    int totalTime;
 
     boolean heatedCache;
 
@@ -144,17 +144,17 @@ public class LiquefactionCauldronBlockEntity extends BlockEntity implements Heat
 
             //if we are lit and have a recipe, update progress
             if (isHeated && this.canCraft(recipe)) {
-                ++this.liquefactionProgress;
+                ++this.progress;
 
                 //if we hit max progress, craft the item and reset progress
-                if (this.liquefactionProgress == this.liquificationTotalTime) {
-                    this.liquefactionProgress = 0;
-                    this.liquificationTotalTime = this.getTotalLiquefactionTime();
+                if (this.progress == this.totalTime) {
+                    this.progress = 0;
+                    this.totalTime = this.getTotalTime();
                     this.craft(recipe);
                     //TODO: advancement?
                 }
             } else {
-                this.liquefactionProgress = 0;
+                this.progress = 0;
             }
         }
     }
@@ -187,7 +187,7 @@ public class LiquefactionCauldronBlockEntity extends BlockEntity implements Heat
         var assembledStack = pRecipe.assemble(this.inputRecipeWrapper);
         var outputStack = this.outputInventory.getStackInSlot(0);
         if (outputStack.isEmpty()) {
-            this.inputInventory.setStackInSlot(0, assembledStack.copy());
+            this.outputInventory.setStackInSlot(0, assembledStack.copy());
         } else if (outputStack.is(assembledStack.getItem())) {
             outputStack.grow(assembledStack.getCount());
         }
@@ -198,7 +198,7 @@ public class LiquefactionCauldronBlockEntity extends BlockEntity implements Heat
 
     }
 
-    protected int getTotalLiquefactionTime() {
+    protected int getTotalTime() {
         return this.recipeCachedCheck.getRecipeFor(this.inputRecipeWrapper, this.level).map(LiquefactionRecipe::getLiquefactionTime).orElse(LiquefactionRecipe.DEFAULT_LIQUEFACTION_TIME);
     }
 
@@ -221,7 +221,7 @@ public class LiquefactionCauldronBlockEntity extends BlockEntity implements Heat
 
         pTag.put("inputInventory", this.inputInventory.serializeNBT());
         pTag.put("outputInventory", this.outputInventory.serializeNBT());
-        pTag.putShort("liquefactionProgress", (short) this.liquefactionProgress);
+        pTag.putShort("progress", (short) this.progress);
         var solventTankTag = new CompoundTag();
         this.solventTank.writeToNBT(solventTankTag);
         pTag.put("solventTank", solventTankTag);
@@ -233,7 +233,7 @@ public class LiquefactionCauldronBlockEntity extends BlockEntity implements Heat
 
         if (pTag.contains("inputInventory")) this.inputInventory.deserializeNBT(pTag.getCompound("inputInventory"));
         if (pTag.contains("outputInventory")) this.outputInventory.deserializeNBT(pTag.getCompound("outputInventory"));
-        if (pTag.contains("liquefactionProgress")) this.liquefactionProgress = pTag.getShort("liquefactionProgress");
+        if (pTag.contains("progress")) this.progress = pTag.getShort("progress");
 
         if (pTag.contains("solventTank")) {
             var solventTankTag = pTag.getCompound("solventTank");
@@ -319,8 +319,8 @@ public class LiquefactionCauldronBlockEntity extends BlockEntity implements Heat
             super.setStackInSlot(slot, newStack);
 
             if (!sameItem) {
-                LiquefactionCauldronBlockEntity.this.liquificationTotalTime = LiquefactionCauldronBlockEntity.this.getTotalLiquefactionTime();
-                LiquefactionCauldronBlockEntity.this.liquefactionProgress = 0;
+                LiquefactionCauldronBlockEntity.this.totalTime = LiquefactionCauldronBlockEntity.this.getTotalTime();
+                LiquefactionCauldronBlockEntity.this.progress = 0;
                 LiquefactionCauldronBlockEntity.this.setChanged();
             }
 

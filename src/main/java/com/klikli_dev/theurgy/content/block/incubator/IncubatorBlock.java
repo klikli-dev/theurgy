@@ -6,25 +6,35 @@
 
 package com.klikli_dev.theurgy.content.block.incubator;
 
+import com.klikli_dev.theurgy.content.block.calcinationoven.CalcinationOvenBlockEntity;
+import com.klikli_dev.theurgy.content.block.distiller.DistillerBlockEntity;
+import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.BlockTagRegistry;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.Containers;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.PipeBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraftforge.items.wrapper.RecipeWrapper;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
 
-public class IncubatorBlock extends Block {
-
+public class IncubatorBlock extends Block implements EntityBlock {
     public static final BooleanProperty NORTH = PipeBlock.NORTH;
     public static final BooleanProperty EAST = PipeBlock.EAST;
     public static final BooleanProperty SOUTH = PipeBlock.SOUTH;
@@ -44,6 +54,16 @@ public class IncubatorBlock extends Block {
     }
 
     @Override
+    public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
+        if (!pState.is(pNewState.getBlock())) {
+            if (pLevel.getBlockEntity(pPos) instanceof IncubatorBlockEntity blockEntity) {
+                Containers.dropContents(pLevel, pPos, new RecipeWrapper(blockEntity.outputInventory));
+            }
+        }
+        super.onRemove(pState, pLevel, pPos, pNewState, pIsMoving);
+    }
+
+    @Override
     @SuppressWarnings("deprecation")
     public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
         return SHAPE;
@@ -52,10 +72,6 @@ public class IncubatorBlock extends Block {
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
         pBuilder.add(NORTH, EAST, WEST, SOUTH);
-    }
-
-    public boolean isVessel(BlockState pState) {
-        return pState.is(BlockTagRegistry.INCUBATOR_VESSELS);
     }
 
     @Override
@@ -75,10 +91,36 @@ public class IncubatorBlock extends Block {
 
     @Override
     public BlockState updateShape(BlockState pState, Direction pFacing, BlockState pFacingState, LevelAccessor pLevel, BlockPos pCurrentPos, BlockPos pFacingPos) {
-        //TODO: notify BE to update vessel list
-        //      that vessel list update should also happen in onLoad of the BE, because onPlace of the block is before BE spawns
+
+        if(pLevel.getBlockEntity(pCurrentPos) instanceof IncubatorBlockEntity incubatorBlockEntity){
+            incubatorBlockEntity.validateMultiblock();
+        }
+
         return pFacing.getAxis().getPlane() == Direction.Plane.HORIZONTAL ?
                 pState.setValue(PROPERTY_BY_DIRECTION.get(pFacing), this.isVessel(pFacingState)) :
                 super.updateShape(pState, pFacing, pFacingState, pLevel, pCurrentPos, pFacingPos);
+    }
+
+    @Nullable
+    @Override
+    public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
+        return BlockEntityRegistry.INCUBATOR.get().create(pPos, pState);
+    }
+
+    @Nullable
+    @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
+        if (pLevel.isClientSide()) {
+            return null;
+        }
+        return (lvl, pos, blockState, t) -> {
+            if (t instanceof IncubatorBlockEntity blockEntity) {
+                blockEntity.tickServer();
+            }
+        };
+    }
+
+    public boolean isVessel(BlockState pState) {
+        return pState.is(BlockTagRegistry.INCUBATOR_VESSELS);
     }
 }

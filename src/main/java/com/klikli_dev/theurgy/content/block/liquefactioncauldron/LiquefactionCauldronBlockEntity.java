@@ -135,12 +135,7 @@ public class LiquefactionCauldronBlockEntity extends BlockEntity implements Heat
 
         if (hasInput) {
             //only even check for recipe if we have fuel and input or are currently burning to avoid unnecessary lookups
-            LiquefactionRecipe recipe;
-            if (hasInput) {
-                recipe = this.recipeCachedCheck.getRecipeFor(this.inputRecipeWrapper, this.level).orElse(null);
-            } else {
-                recipe = null;
-            }
+            var recipe = this.recipeCachedCheck.getRecipeFor(this.inputRecipeWrapper, this.level).orElse(null);
 
             //if we are lit and have a recipe, update progress
             if (isHeated && this.canCraft(recipe)) {

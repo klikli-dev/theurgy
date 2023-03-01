@@ -15,6 +15,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.common.Tags;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.function.BiConsumer;
 
@@ -26,7 +27,11 @@ public class DistillationRecipeProvider extends JsonRecipeProvider {
 
     @Override
     void buildRecipes(BiConsumer<ResourceLocation, JsonObject> recipeConsumer) {
+        makeMercuryShardRecipe(1, Tags.Items.STONE, 200, recipeConsumer);
+    }
 
+    public void makeMercuryShardRecipe(int resultAmount, TagKey<Item> ingredient, int distillationTime, BiConsumer<ResourceLocation, JsonObject> recipeConsumer) {
+        this.makeMercuryShardRecipe(ingredient.location().getPath().replace("/", "."), resultAmount, ingredient, distillationTime, recipeConsumer);
     }
 
     public void makeMercuryShardRecipe(String recipeName, int resultAmount, TagKey<Item> ingredient, int distillationTime, BiConsumer<ResourceLocation, JsonObject> recipeConsumer) {
@@ -37,6 +42,11 @@ public class DistillationRecipeProvider extends JsonRecipeProvider {
                         this.makeTagIngredient(ingredient.location()),
                         this.makeResult(this.locFor(ItemRegistry.MERCURY_SHARD.get()), resultAmount), distillationTime));
 
+    }
+
+    public void makeMercuryShardRecipe(int resultAmount, Item ingredient, int distillationTime, BiConsumer<ResourceLocation, JsonObject> recipeConsumer) {
+
+        this.makeMercuryShardRecipe(ForgeRegistries.ITEMS.getKey(ingredient).getPath(), resultAmount, ingredient, distillationTime, recipeConsumer);
     }
 
     public void makeMercuryShardRecipe(String recipeName, int resultAmount, Item ingredient, int distillationTime, BiConsumer<ResourceLocation, JsonObject> recipeConsumer) {

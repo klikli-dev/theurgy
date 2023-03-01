@@ -1,0 +1,11 @@
+{
+  "type": "theurgy:distillation",
+  "distillation_time": 200,
+  "ingredient": {
+    "tag": "forge:stone"
+  },
+  "result": {
+    "count": 1,
+    "item": "theurgy:mercury_shard"
+  }
+}

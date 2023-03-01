@@ -100,6 +100,7 @@
   "message.theurgy.divination_rod.tier_too_low": "§4Warning§r: You need a higher tier divination rod to attune to %s.",
   "tag.minecraft.logs": "Logs",
   "theurgy.jei.category.calcination": "Calcination",
+  "theurgy.jei.category.distillation": "Distillation",
   "theurgy.jei.category.liquefaction": "Liquefaction",
   "theurgy.misc.unit.millibuckets": "%smB",
   "theurgy.subtitle.tuning_fork": "Using Divination Rod",

@@ -6,6 +6,7 @@
 
 package com.klikli_dev.theurgy.content.block.liquefactioncauldron;
 
+import com.klikli_dev.theurgy.content.block.UsableAlchemicalDeviceBlock;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.Containers;
@@ -32,7 +33,7 @@ import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.items.wrapper.RecipeWrapper;
 import org.jetbrains.annotations.Nullable;
 
-public class LiquefactionCauldronBlock extends Block implements EntityBlock {
+public class LiquefactionCauldronBlock extends Block implements EntityBlock, UsableAlchemicalDeviceBlock {
 
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
 
@@ -66,56 +67,12 @@ public class LiquefactionCauldronBlock extends Block implements EntityBlock {
             return InteractionResult.SUCCESS;
         }
 
-        if (pLevel.getBlockEntity(pPos) instanceof LiquefactionCauldronBlockEntity blockEntity) {
+        if(this.useFluidHandler(pState, pLevel, pPos, pPlayer, pHand, pHit) == InteractionResult.SUCCESS){
+            return InteractionResult.SUCCESS;
+        }
 
-            ItemStack stackInHand = pPlayer.getItemInHand(pHand);
-
-            //first attempt fluid transfer
-            var itemFluidHandlerCap = FluidUtil.getFluidHandler(stackInHand);
-            if (itemFluidHandlerCap.isPresent()) {
-                var itemFluidHandler = itemFluidHandlerCap.orElse(null); //ok here because we checked for presence
-
-                //first we try to insert
-                var transferredFluid = FluidUtil.tryFluidTransfer(blockEntity.solventTank, itemFluidHandler,
-                        Integer.MAX_VALUE, true);
-                if (!transferredFluid.isEmpty()) {
-                    pPlayer.setItemInHand(pHand, itemFluidHandler.getContainer()); //always set to container to handle e.g. empty bucket correctly
-                    return InteractionResult.SUCCESS;
-                }
-
-                //if that fails, try to extract
-                transferredFluid = FluidUtil.tryFluidTransfer(itemFluidHandler, blockEntity.solventTank,
-                        Integer.MAX_VALUE, true);
-                if (!transferredFluid.isEmpty()) {
-                    pPlayer.setItemInHand(pHand, itemFluidHandler.getContainer());
-                    return InteractionResult.SUCCESS;
-                }
-            }
-
-            //only if that fails try item transfer
-            var outputStack = blockEntity.outputInventory.getStackInSlot(0);
-            var inputStack = blockEntity.inputInventory.getStackInSlot(0);
-            if (stackInHand.isEmpty()) {
-                if (!outputStack.isEmpty()) {
-                    //with empty hand first try take output
-                    pPlayer.getInventory().placeItemBackInInventory(outputStack);
-                    blockEntity.outputInventory.setStackInSlot(0, ItemStack.EMPTY);
-                    return InteractionResult.SUCCESS;
-                } else if (!inputStack.isEmpty()) {
-                    //if no output, try take input
-                    pPlayer.getInventory().placeItemBackInInventory(inputStack);
-                    blockEntity.inputInventory.setStackInSlot(0, ItemStack.EMPTY);
-                    return InteractionResult.SUCCESS;
-                }
-            } else {
-                //if we have an item in hand, try to insert
-                var remainder = blockEntity.inputInventory.insertItem(0, stackInHand, false);
-                pPlayer.setItemInHand(pHand, remainder);
-                if (remainder.getCount() != stackInHand.getCount()) {
-                    return InteractionResult.SUCCESS;
-                }
-                return InteractionResult.PASS;
-            }
+        if(this.useItemHandler(pState, pLevel, pPos, pPlayer, pHand, pHit) == InteractionResult.SUCCESS){
+            return InteractionResult.SUCCESS;
         }
 
         return InteractionResult.PASS;

@@ -7,6 +7,7 @@
 package com.klikli_dev.theurgy.content.block.calcinationoven;
 
 import com.klikli_dev.theurgy.Theurgy;
+import com.klikli_dev.theurgy.content.block.UsableAlchemicalDeviceBlock;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.Containers;
@@ -37,7 +38,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.stream.Stream;
 
-public class CalcinationOvenBlock extends Block implements EntityBlock {
+public class CalcinationOvenBlock extends Block implements EntityBlock, UsableAlchemicalDeviceBlock {
 
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
 
@@ -75,32 +76,8 @@ public class CalcinationOvenBlock extends Block implements EntityBlock {
             return InteractionResult.SUCCESS;
         }
 
-        if (pLevel.getBlockEntity(pPos) instanceof CalcinationOvenBlockEntity blockEntity) {
-
-            ItemStack stackInHand = pPlayer.getItemInHand(pHand);
-            var outputStack = blockEntity.outputInventory.getStackInSlot(0);
-            var inputStack = blockEntity.inputInventory.getStackInSlot(0);
-            if (stackInHand.isEmpty()) {
-                if (!outputStack.isEmpty()) {
-                    //with empty hand first try take output
-                    pPlayer.getInventory().placeItemBackInInventory(outputStack);
-                    blockEntity.outputInventory.setStackInSlot(0, ItemStack.EMPTY);
-                    return InteractionResult.SUCCESS;
-                } else if (!inputStack.isEmpty()) {
-                    //if no output, try take input
-                    pPlayer.getInventory().placeItemBackInInventory(inputStack);
-                    blockEntity.inputInventory.setStackInSlot(0, ItemStack.EMPTY);
-                    return InteractionResult.SUCCESS;
-                }
-            } else {
-                //if we have an item in hand, try to insert
-                var remainder = blockEntity.inputInventory.insertItem(0, stackInHand, false);
-                pPlayer.setItemInHand(pHand, remainder);
-                if (remainder.getCount() != stackInHand.getCount()) {
-                    return InteractionResult.SUCCESS;
-                }
-                return InteractionResult.PASS;
-            }
+        if(this.useItemHandler(pState, pLevel, pPos, pPlayer, pHand, pHit) == InteractionResult.SUCCESS){
+            return InteractionResult.SUCCESS;
         }
 
         return InteractionResult.PASS;

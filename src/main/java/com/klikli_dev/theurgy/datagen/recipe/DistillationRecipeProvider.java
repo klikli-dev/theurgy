@@ -27,42 +27,45 @@ public class DistillationRecipeProvider extends JsonRecipeProvider {
 
     @Override
     void buildRecipes(BiConsumer<ResourceLocation, JsonObject> recipeConsumer) {
-        makeMercuryShardRecipe(1, Tags.Items.STONE, 200, recipeConsumer);
+        this.makeMercuryShardRecipe(1, Tags.Items.STONE, 10, 200, recipeConsumer);
     }
 
-    public void makeMercuryShardRecipe(int resultAmount, TagKey<Item> ingredient, int distillationTime, BiConsumer<ResourceLocation, JsonObject> recipeConsumer) {
-        this.makeMercuryShardRecipe(ingredient.location().getPath().replace("/", "."), resultAmount, ingredient, distillationTime, recipeConsumer);
+    public void makeMercuryShardRecipe(int resultCount, TagKey<Item> ingredient, int ingredientCount, int distillationTime, BiConsumer<ResourceLocation, JsonObject> recipeConsumer) {
+        this.makeMercuryShardRecipe(ingredient.location().getPath().replace("/", "."), resultCount, ingredient, ingredientCount, distillationTime, recipeConsumer);
     }
 
-    public void makeMercuryShardRecipe(String recipeName, int resultAmount, TagKey<Item> ingredient, int distillationTime, BiConsumer<ResourceLocation, JsonObject> recipeConsumer) {
+    public void makeMercuryShardRecipe(String recipeName, int resultCount, TagKey<Item> ingredient, int ingredientCount, int distillationTime, BiConsumer<ResourceLocation, JsonObject> recipeConsumer) {
 
         recipeConsumer.accept(
                 this.modLoc(recipeName),
                 this.makeRecipeJson(
                         this.makeTagIngredient(ingredient.location()),
-                        this.makeResult(this.locFor(ItemRegistry.MERCURY_SHARD.get()), resultAmount), distillationTime));
+                        ingredientCount,
+                        this.makeResult(this.locFor(ItemRegistry.MERCURY_SHARD.get()), resultCount), distillationTime));
 
     }
 
-    public void makeMercuryShardRecipe(int resultAmount, Item ingredient, int distillationTime, BiConsumer<ResourceLocation, JsonObject> recipeConsumer) {
+    public void makeMercuryShardRecipe(int resultCount, Item ingredient, int ingredientCount, int distillationTime, BiConsumer<ResourceLocation, JsonObject> recipeConsumer) {
 
-        this.makeMercuryShardRecipe(ForgeRegistries.ITEMS.getKey(ingredient).getPath(), resultAmount, ingredient, distillationTime, recipeConsumer);
+        this.makeMercuryShardRecipe(ForgeRegistries.ITEMS.getKey(ingredient).getPath(), resultCount, ingredient, ingredientCount, distillationTime, recipeConsumer);
     }
 
-    public void makeMercuryShardRecipe(String recipeName, int resultAmount, Item ingredient, int distillationTime, BiConsumer<ResourceLocation, JsonObject> recipeConsumer) {
+    public void makeMercuryShardRecipe(String recipeName, int resultCount, Item ingredient, int ingredientCount, int distillationTime, BiConsumer<ResourceLocation, JsonObject> recipeConsumer) {
 
         recipeConsumer.accept(
                 this.modLoc(recipeName),
                 this.makeRecipeJson(
                         this.makeItemIngredient(this.locFor(ingredient)),
-                        this.makeResult(this.locFor(ItemRegistry.MERCURY_SHARD.get()), resultAmount), distillationTime));
+                        ingredientCount,
+                        this.makeResult(this.locFor(ItemRegistry.MERCURY_SHARD.get()), resultCount), distillationTime));
 
     }
 
-    public JsonObject makeRecipeJson(JsonObject ingredient, JsonObject result, int distillationTime) {
+    public JsonObject makeRecipeJson(JsonObject ingredient, int ingredientCount, JsonObject result, int distillationTime) {
         var recipe = new JsonObject();
         recipe.addProperty("type", RecipeTypeRegistry.DISTILLATION.getId().toString());
         recipe.add("ingredient", ingredient);
+        recipe.addProperty("ingredient_count", ingredientCount);
         recipe.add("result", result);
         recipe.addProperty("distillation_time", distillationTime);
         return recipe;

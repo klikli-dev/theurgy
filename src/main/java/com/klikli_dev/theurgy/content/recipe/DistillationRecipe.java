@@ -28,12 +28,14 @@ public class DistillationRecipe implements Recipe<RecipeWrapper> {
     public static final int DEFAULT_DISTILLATION_TIME = 200;
     protected final ResourceLocation id;
     protected final Ingredient ingredient;
+    protected final int ingredientCount;
     protected final ItemStack result;
     protected final int distillationTime;
 
-    public DistillationRecipe(ResourceLocation pId, Ingredient pIngredient, ItemStack pResult, int distillationTime) {
+    public DistillationRecipe(ResourceLocation pId, Ingredient pIngredient, int ingredientCount, ItemStack pResult, int distillationTime) {
         this.id = pId;
         this.ingredient = pIngredient;
+        this.ingredientCount = ingredientCount;
         this.result = pResult;
         this.distillationTime = distillationTime;
     }
@@ -50,7 +52,8 @@ public class DistillationRecipe implements Recipe<RecipeWrapper> {
 
     @Override
     public boolean matches(RecipeWrapper pContainer, Level pLevel) {
-        return this.ingredient.test(pContainer.getItem(0));
+        var stack = pContainer.getItem(0);
+        return this.ingredient.test(stack) && stack.getCount() >= this.ingredientCount;
     }
 
     @Override
@@ -75,6 +78,14 @@ public class DistillationRecipe implements Recipe<RecipeWrapper> {
         return nonnulllist;
     }
 
+    public Ingredient getIngredient() {
+        return this.ingredient;
+    }
+
+    public int getIngredientCount() {
+        return this.ingredientCount;
+    }
+
     public ItemStack getToastSymbol() {
         return new ItemStack(BlockRegistry.DISTILLER.get());
     }
@@ -92,22 +103,24 @@ public class DistillationRecipe implements Recipe<RecipeWrapper> {
         public DistillationRecipe fromJson(ResourceLocation pRecipeId, JsonObject pJson) {
             var ingredientElement = GsonHelper.isArrayNode(pJson, "ingredient") ? GsonHelper.getAsJsonArray(pJson, "ingredient") : GsonHelper.getAsJsonObject(pJson, "ingredient");
             var ingredient = Ingredient.fromJson(ingredientElement);
-
+            var ingredientCount = GsonHelper.getAsInt(pJson, "ingredient_count", 1);
             var result = CraftingHelper.getItemStack(GsonHelper.getAsJsonObject(pJson, "result"), true, true);
 
             var distillationTime = GsonHelper.getAsInt(pJson, "distillation_time", DEFAULT_DISTILLATION_TIME);
-            return new DistillationRecipe(pRecipeId, ingredient, result, distillationTime);
+            return new DistillationRecipe(pRecipeId, ingredient, ingredientCount, result, distillationTime);
         }
 
         public DistillationRecipe fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
             var ingredient = Ingredient.fromNetwork(pBuffer);
+            var ingredientCount = pBuffer.readVarInt();
             var result = pBuffer.readItem();
             var distillationTime = pBuffer.readVarInt();
-            return new DistillationRecipe(pRecipeId, ingredient, result, distillationTime);
+            return new DistillationRecipe(pRecipeId, ingredient, ingredientCount, result, distillationTime);
         }
 
         public void toNetwork(FriendlyByteBuf pBuffer, DistillationRecipe pRecipe) {
             pRecipe.ingredient.toNetwork(pBuffer);
+            pBuffer.writeVarInt(pRecipe.ingredientCount);
             pBuffer.writeItem(pRecipe.result);
             pBuffer.writeVarInt(pRecipe.distillationTime);
         }

@@ -4,6 +4,7 @@
   "ingredient": {
     "tag": "forge:stone"
   },
+  "ingredient_count": 10,
   "result": {
     "count": 1,
     "item": "theurgy:mercury_shard"

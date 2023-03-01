@@ -120,7 +120,7 @@ public class DistillerBlockEntity extends BlockEntity implements GeoBlockEntity,
                 ++this.progress;
 
                 //if we hit max progress, craft the item and reset progress
-                if (this.progress == this.totalTime) {
+                if (this.progress >= this.totalTime) {
                     this.progress = 0;
                     this.totalTime = this.getTotalTime();
                     this.craft(recipe);

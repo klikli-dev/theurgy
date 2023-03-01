@@ -56,6 +56,7 @@ public class Theurgy {
 
         ItemRegistry.ITEMS.register(modEventBus);
         SulfurRegistry.SULFURS.register(modEventBus);
+        SaltRegistry.SALTS.register(modEventBus);
         BlockRegistry.BLOCKS.register(modEventBus);
         BlockEntityRegistry.BLOCKS.register(modEventBus);
         FluidTypeRegistry.FLUID_TYPES.register(modEventBus);
@@ -74,6 +75,7 @@ public class Theurgy {
         modEventBus.addListener(TheurgyDataGenerators::onGatherData);
         modEventBus.addListener(ItemRegistry::onRegisterCreativeModeTabs);
         modEventBus.addListener(SulfurRegistry::onBuildCreativeModTabs);
+        modEventBus.addListener(SaltRegistry::onBuildCreativeModTabs);
         modEventBus.addListener(RecipeSerializerRegistry::onRegisterRecipeSerializers);
 
         MinecraftForge.EVENT_BUS.addListener(TooltipHandler::onItemTooltipEvent);

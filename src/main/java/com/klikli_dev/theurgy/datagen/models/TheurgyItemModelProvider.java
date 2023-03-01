@@ -10,6 +10,7 @@ import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.content.item.AlchemicalSulfurItem;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
+import com.klikli_dev.theurgy.registry.SaltRegistry;
 import com.klikli_dev.theurgy.registry.SulfurRegistry;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.Item;
@@ -127,18 +128,25 @@ public class TheurgyItemModelProvider extends net.minecraftforge.client.model.ge
         });
     }
 
+    protected void registerSalts(){
+        this.registerItemGenerated("alchemical_salt"); //parent for alchemical salt
+
+        //alchemical salt models
+        SaltRegistry.SALTS.getEntries().stream().map(RegistryObject::get).forEach(salt -> {
+            this.registerAlchemicalSalt(this.name(salt));
+        });
+    }
+
     @Override
     protected void registerModels() {
         this.registerItemGenerated(this.name(ItemRegistry.THE_HERMETICA_ICON.get()), "the_hermetica");
 
         this.registerSulfurs();
+        this.registerSalts();
 
         this.registerItemGenerated(this.name(ItemRegistry.EMPTY_JAR.get()));
         this.registerItemGenerated(this.name(ItemRegistry.EMPTY_JAR_LABELED.get()));
         this.registerItemGenerated(this.name(ItemRegistry.JAR_LABEL.get()));
-
-        this.registerItemGenerated("alchemical_salt"); //parent for alchemical salt
-        this.registerAlchemicalSalt(this.name(ItemRegistry.ALCHEMICAL_SALT_ORE.get()));
 
         this.registerItemGenerated(this.name(ItemRegistry.MERCURY_SHARD.get()));
         this.registerItemGenerated(this.name(ItemRegistry.MERCURY_CRYSTAL.get()));

@@ -10,6 +10,7 @@ import com.google.gson.JsonObject;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
+import com.klikli_dev.theurgy.registry.SaltRegistry;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.Tags;
@@ -28,7 +29,7 @@ public class CalcinationRecipeProvider extends JsonRecipeProvider {
                 this.modLoc("ore"),
                 this.makeRecipeJson(
                         this.makeTagIngredient(Tags.Items.ORES.location()),
-                        this.makeResult(ItemRegistry.ALCHEMICAL_SALT_ORE.getId()), 200));
+                        this.makeResult(SaltRegistry.ALCHEMICAL_SALT_ORE.getId()), 200));
     }
 
     public JsonObject makeRecipeJson(JsonObject ingredient, JsonObject result, int calcinationTime) {

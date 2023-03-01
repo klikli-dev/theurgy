@@ -38,8 +38,6 @@ public class ItemRegistry {
             ITEMS.register("the_hermetica_icon", () -> new Item(new Item.Properties()));
 
 
-
-
     //Divination rods
     public static final RegistryObject<DivinationRodItem> DIVINATION_ROD_T1 =
             ITEMS.register("divination_rod_t1", () -> new DivinationRodItem(
@@ -70,9 +68,6 @@ public class ItemRegistry {
     public static final RegistryObject<Item> SAL_AMMONIAC_BUCKET =  ITEMS.register("sal_ammoniac_bucket", () -> new BucketItem(FluidRegistry.SAL_AMMONIAC, new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
 
     //Ingredients
-
-    public static final RegistryObject<Item> ALCHEMICAL_SALT_ORE =
-            ITEMS.register("alchemical_salt_ore", () -> new Item(new Item.Properties().food(FoodRegistry.ALCHEMICAL_SALT)));
 
     public static final RegistryObject<Item> MERCURY_SHARD =
             ITEMS.register("mercury_shard", () -> new Item(new Item.Properties()));
@@ -119,7 +114,6 @@ public class ItemRegistry {
 
                         output.accept(SAL_AMMONIAC_BUCKET.get());
 
-                        output.accept(ALCHEMICAL_SALT_ORE.get());
                         output.accept(MERCURY_SHARD.get());
                         output.accept(MERCURY_CRYSTAL.get());
 

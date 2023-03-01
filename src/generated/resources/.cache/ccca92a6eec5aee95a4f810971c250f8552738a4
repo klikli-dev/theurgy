@@ -1,4 +1,4 @@
-// 1.19.3	2023-02-28T12:40:45.9352309	Item Models: theurgy
+// 1.19.3	2023-03-01T13:13:03.0433017	Item Models: theurgy
 a402a05d887ec6d271a9350944338d29e1233318 assets/theurgy/models/item/alchemical_salt.json
 9fd173e362b6644716da98ba0d15809f85879e78 assets/theurgy/models/item/alchemical_salt_ore.json
 e0f7b66a84e6588f01abbbce75b1803ffe5d46e2 assets/theurgy/models/item/alchemical_sulfur_logs.json
@@ -46,5 +46,6 @@ ea3053a9add02634af5fd7d9aef50801c48b32b2 assets/theurgy/models/item/divination_r
 e0d7667ce794b40e193ecf66945c505733faf3f8 assets/theurgy/models/item/empty_jar.json
 c7428fa39a7d54d5b732ad9dbe9f78ac26eb0f85 assets/theurgy/models/item/empty_jar_labeled.json
 94bfa4f4e6caf28d6f20cee65ac10387f5b115e2 assets/theurgy/models/item/jar_label.json
+dba6c70f6dc6e3efa9e5ca587d452b81421cabe2 assets/theurgy/models/item/mercury_crystal.json
 022666f33be76a64adeafdb25b8955238da6ad02 assets/theurgy/models/item/mercury_shard.json
 0a1c9856bc73b607d7e6089acd1ba1a38198f8ab assets/theurgy/models/item/the_hermetica_icon.json

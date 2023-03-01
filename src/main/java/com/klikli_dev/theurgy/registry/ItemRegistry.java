@@ -77,6 +77,9 @@ public class ItemRegistry {
     public static final RegistryObject<Item> MERCURY_SHARD =
             ITEMS.register("mercury_shard", () -> new Item(new Item.Properties()));
 
+    public static final RegistryObject<Item> MERCURY_CRYSTAL=
+            ITEMS.register("mercury_crystal", () -> new Item(new Item.Properties()));
+
     //Blocks
     public static final RegistryObject<BlockItem> CALCINATION_OVEN =
             ITEMS.register("calcination_oven", () -> new BlockItem(BlockRegistry.CALCINATION_OVEN.get(), new Item.Properties()));
@@ -105,6 +108,7 @@ public class ItemRegistry {
 
                         output.accept(ALCHEMICAL_SALT_ORE.get());
                         output.accept(MERCURY_SHARD.get());
+                        output.accept(MERCURY_CRYSTAL.get());
 
                         output.accept(CALCINATION_OVEN.get());
                         output.accept(PYROMANTIC_BRAZIER.get());

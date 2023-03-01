@@ -190,6 +190,10 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
         this.addItem(ItemRegistry.MERCURY_SHARD, "Mercury Shard");
         this.addExtendedTooltip(ItemRegistry.MERCURY_SHARD,
                 "Mercury shards are small pieces of Mercury in crystalline form. Their main uses are as ingredient in Digestion processes and as an energy source.");
+
+        this.addItem(ItemRegistry.MERCURY_CRYSTAL, "Mercury Crystal");
+        this.addExtendedTooltip(ItemRegistry.MERCURY_CRYSTAL,
+                "Mercury crystals are large pieces of Mercury in crystalline form. Their main uses are as ingredient in Digestion processes and as an energy source.");
     }
 
     @Override

@@ -49,7 +49,7 @@ public class PyromanticBrazierBlockEntity extends BlockEntity {
         if (pFuel.isEmpty()) {
             return 0;
         } else {
-            return ForgeHooks.getBurnTime(pFuel, RecipeTypeRegistry.CALCINATION.get());
+            return ForgeHooks.getBurnTime(pFuel, RecipeTypeRegistry.PYROMANTIC_BRAZIER.get());
         }
     }
 

@@ -49,7 +49,7 @@ public class PyromanticBrazierBlockEntity extends BlockEntity {
         if (pFuel.isEmpty()) {
             return 0;
         } else {
-            return ForgeHooks.getBurnTime(pFuel, RecipeTypeRegistry.CALCINATION.get());
+            return ForgeHooks.getBurnTime(pFuel, RecipeTypeRegistry.PYROMANTIC_BRAZIER.get());
         }
     }
 
@@ -58,12 +58,12 @@ public class PyromanticBrazierBlockEntity extends BlockEntity {
     }
 
     public void tickClient() {
-        RandomSource randomsource = this.level.random;
-        if (randomsource.nextFloat() < 0.11F) {
-            for (int i = 0; i < randomsource.nextInt(2) + 2; ++i) {
-                CampfireBlock.makeParticles(this.level, this.getBlockPos(), false, false);
-            }
-        }
+//        RandomSource randomsource = this.level.random;
+//        if (randomsource.nextFloat() < 0.11F) {
+//            for (int i = 0; i < randomsource.nextInt(2) + 2; ++i) {
+//                CampfireBlock.makeParticles(this.level, this.getBlockPos(), false, false);
+//            }
+//        }
     }
 
     public void tickServer() {

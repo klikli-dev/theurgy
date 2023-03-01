@@ -12,6 +12,7 @@ import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
+import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
 public class TheurgyBlockStateProvider extends BlockStateProvider {
@@ -24,6 +25,30 @@ public class TheurgyBlockStateProvider extends BlockStateProvider {
         this.registerCalcinationOven();
         this.registerPyromanticBrazier();
         this.registerLiquefactionCauldron();
+        this.registerDistiller();
+    }
+
+    protected void registerDistiller() {
+
+        //distiller is rendered by geckolib, so we just give a model with a particle texture (manually created, not datagenned in this case).
+        //we then use it for both the lit and unlit blockstate
+        var model = this.models().getExistingFile(this.modLoc("block/distiller"));
+
+        //build blockstate
+        this.getVariantBuilder(BlockRegistry.DISTILLER.get()) // Get variant builder
+                .partialState()
+                .with(BlockStateProperties.LIT, false)
+                .modelForState()//start setting models
+                .modelFile(model)
+                .addModel()//finish setting models
+                .partialState()
+                .with(BlockStateProperties.LIT, true)
+                .modelForState()//start setting models
+                .modelFile(model)
+                .addModel();
+
+        //distiller needs an item model that allows geckolib to render
+        this.itemModels().getBuilder("distiller").parent(new ModelFile.UncheckedModelFile("builtin/entity"));
     }
 
     protected void registerLiquefactionCauldron() {

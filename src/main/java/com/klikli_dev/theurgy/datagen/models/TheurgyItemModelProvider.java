@@ -140,6 +140,9 @@ public class TheurgyItemModelProvider extends net.minecraftforge.client.model.ge
         this.registerItemGenerated("alchemical_salt"); //parent for alchemical salt
         this.registerAlchemicalSalt(this.name(ItemRegistry.ALCHEMICAL_SALT_ORE.get()));
 
+        this.registerItemGenerated(this.name(ItemRegistry.MERCURY_SHARD.get()));
+        this.registerItemGenerated(this.name(ItemRegistry.MERCURY_CRYSTAL.get()));
+
         this.registerDivinationRod(ItemRegistry.DIVINATION_ROD_T1.get());
         this.registerDivinationRod(ItemRegistry.DIVINATION_ROD_T2.get());
         this.registerDivinationRod(ItemRegistry.DIVINATION_ROD_T3.get());

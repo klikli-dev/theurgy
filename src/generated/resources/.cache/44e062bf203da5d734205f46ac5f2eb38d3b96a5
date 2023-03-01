@@ -1,5 +1,6 @@
-// 1.19.3	2023-02-22T16:27:25.8012182	Block States: theurgy
+// 1.19.3	2023-02-28T10:38:44.9444775	Block States: theurgy
 093506eb74c322c31c1138696e63413ca97527d9 assets/theurgy/blockstates/calcination_oven.json
+b9438da17aeb32616cba751a30ea22e99553308e assets/theurgy/blockstates/distiller.json
 819b4f110b9752058a0de178cbf8a0bd4ec7ee8b assets/theurgy/blockstates/liquefaction_cauldron.json
 e94d251a012694f4b0bc2925acbc4ee418cacf10 assets/theurgy/blockstates/pyromantic_brazier.json
 47f6066ab94dc74ce43e0c4a2967d34af577519c assets/theurgy/models/block/calcination_oven.json
@@ -9,5 +10,6 @@ e94d251a012694f4b0bc2925acbc4ee418cacf10 assets/theurgy/blockstates/pyromantic_b
 80c7b87e37cb0c75857081673b0088c6c3f75c8f assets/theurgy/models/block/pyromantic_brazier.json
 90588f4755497f3c8df737fd06b92d33ff4d0542 assets/theurgy/models/block/pyromantic_brazier_lit.json
 752ca86208650e5fc23e3c59fda571d1452c87e4 assets/theurgy/models/item/calcination_oven.json
+e0f7b66a84e6588f01abbbce75b1803ffe5d46e2 assets/theurgy/models/item/distiller.json
 7b88ef4495c9e28d9ded347a5a2c3502f2a73116 assets/theurgy/models/item/liquefaction_cauldron.json
 0040a92c6a948e59b36cb138ba297ede4435095c assets/theurgy/models/item/pyromantic_brazier.json

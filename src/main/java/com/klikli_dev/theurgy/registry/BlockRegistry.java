@@ -8,6 +8,7 @@ package com.klikli_dev.theurgy.registry;
 
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.content.block.calcinationoven.CalcinationOvenBlock;
+import com.klikli_dev.theurgy.content.block.distiller.DistillerBlock;
 import com.klikli_dev.theurgy.content.block.liquefactioncauldron.LiquefactionCauldronBlock;
 import com.klikli_dev.theurgy.content.block.pyromanticbrazier.PyromanticBrazierBlock;
 import net.minecraft.world.level.block.Block;
@@ -38,6 +39,13 @@ public class BlockRegistry {
 
     public static final RegistryObject<LiquefactionCauldronBlock> LIQUEFACTION_CAULDRON =
             BLOCKS.register("liquefaction_cauldron", () -> new LiquefactionCauldronBlock(BlockBehaviour.Properties.of(Material.METAL)
+                    .noOcclusion()
+                    .sound(SoundType.METAL)
+                    .strength(1.0f)
+                    .lightLevel((state) -> state.getValue(BlockStateProperties.LIT) ? 14 : 0)));
+
+    public static final RegistryObject<DistillerBlock> DISTILLER =
+            BLOCKS.register("distiller", () -> new DistillerBlock(BlockBehaviour.Properties.of(Material.METAL)
                     .noOcclusion()
                     .sound(SoundType.METAL)
                     .strength(1.0f)

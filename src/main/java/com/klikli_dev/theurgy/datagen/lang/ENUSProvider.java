@@ -40,6 +40,7 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
     private void addJEI() {
         this.add(TheurgyConstants.I18n.JEI.CALCINATION_CATEGORY, "Calcination");
         this.add(TheurgyConstants.I18n.JEI.LIQUEFACTION_CATEGORY, "Liquefaction");
+        this.add(TheurgyConstants.I18n.JEI.DISTILLATION_CATEGORY, "Distillation");
     }
 
     private void addSubtitles() {
@@ -77,6 +78,12 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
                 "A device to extract Alchemical Sulfur from Items using a Solvent.",
                 "Sulfur represents the \"idea\" or \"soul\" of an object and is the key to replication and transmutation.",
                 "Place this on top of a heating device such as a Pyromantic Brazier.\nRight-click with ingredients to add them to the cauldron for processing.");
+
+        this.addBlock(BlockRegistry.DISTILLER, "Mercury Distiller");
+        this.addTooltip(BlockRegistry.DISTILLER.get()::asItem,
+                "A device to extract Alchemical Mercury from Items.",
+                "Mercury represents the \"energy\" of an object. It has applications both as an energy source and as a catalyst.",
+                "Place this on top of a heating device such as a Pyromantic Brazier.\nRight-click with ingredients to add them to the distiller for processing.");
     }
 
     private void addSulfurs() {
@@ -179,6 +186,14 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
 
 
         this.addItem(ItemRegistry.SAL_AMMONIAC_BUCKET, "Sal Ammoniac Bucket");
+
+        this.addItem(ItemRegistry.MERCURY_SHARD, "Mercury Shard");
+        this.addExtendedTooltip(ItemRegistry.MERCURY_SHARD,
+                "Mercury shards are small pieces of Mercury in crystalline form. Their main uses are as ingredient in Digestion processes and as an energy source.");
+
+        this.addItem(ItemRegistry.MERCURY_CRYSTAL, "Mercury Crystal");
+        this.addExtendedTooltip(ItemRegistry.MERCURY_CRYSTAL,
+                "Mercury crystals are large pieces of Mercury in crystalline form. Their main uses are as ingredient in Digestion processes and as an energy source.");
     }
 
     @Override

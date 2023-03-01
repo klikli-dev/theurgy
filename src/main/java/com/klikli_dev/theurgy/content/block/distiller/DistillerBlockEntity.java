@@ -4,21 +4,16 @@
  * SPDX-License-Identifier: MIT
  */
 
-package com.klikli_dev.theurgy.content.block.liquefactioncauldron;
+package com.klikli_dev.theurgy.content.block.distiller;
 
 import com.klikli_dev.theurgy.content.block.HeatConsumer;
-import com.klikli_dev.theurgy.content.recipe.LiquefactionRecipe;
-import com.klikli_dev.theurgy.content.recipe.RecipeWrapperWithFluid;
+import com.klikli_dev.theurgy.content.recipe.DistillationRecipe;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
-import com.klikli_dev.theurgy.registry.FluidTagRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
-import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeManager;
@@ -26,24 +21,41 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.fluids.FluidType;
-import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.fluids.capability.templates.FluidTank;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.wrapper.CombinedInvWrapper;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.items.wrapper.RecipeWrapper;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import software.bernie.geckolib.animatable.GeoBlockEntity;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.AnimationState;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
-import java.util.Map;
 import java.util.Optional;
 
-public class LiquefactionCauldronBlockEntity extends BlockEntity implements HeatConsumer {
+public class DistillerBlockEntity extends BlockEntity implements GeoBlockEntity, HeatConsumer {
+
+    private static final RawAnimation START_AND_ON_ANIM = RawAnimation.begin()
+            .thenPlay("animation.distiller.start")
+            .thenLoop("animation.distiller.on");
+    private static final RawAnimation STOP_AND_OFF_ANIM = RawAnimation.begin()
+            .thenPlay("animation.distiller.stop")
+            .thenLoop("animation.distiller.off");
+    private static final RawAnimation OFF_ANIM = RawAnimation.begin()
+            .thenLoop("animation.distiller.off");
+    private static final RawAnimation ON_ANIM = RawAnimation.begin()
+            .thenLoop("animation.distiller.on");
+    private final AnimatableInstanceCache animatableInstanceCache = GeckoLibUtil.createInstanceCache(this);
 
     private final CachedCheck recipeCachedCheck;
     public ItemStackHandler inputInventory;
@@ -53,17 +65,18 @@ public class LiquefactionCauldronBlockEntity extends BlockEntity implements Heat
     public LazyOptional<IItemHandler> inventoryCapability;
     public LazyOptional<IItemHandler> inputInventoryCapability;
     public LazyOptional<IItemHandler> outputInventoryCapability;
-
-    public RecipeWrapperWithFluid inputRecipeWrapper;
-    public LazyOptional<IFluidHandler> solventTankCapability;
-    public FluidTank solventTank;
+    public RecipeWrapper inputRecipeWrapper;
     int progress;
     int totalTime;
 
     boolean heatedCache;
+    /**
+     * Client-side we only use the blockstate to determine our animation state.
+     */
+    boolean wasLitLastTick;
 
-    public LiquefactionCauldronBlockEntity(BlockPos pPos, BlockState pBlockState) {
-        super(BlockEntityRegistry.LIQUEFACTION_CAULDRON.get(), pPos, pBlockState);
+    public DistillerBlockEntity(BlockPos pPos, BlockState pBlockState) {
+        super(BlockEntityRegistry.DISTILLER.get(), pPos, pBlockState);
 
         this.inputInventory = new InputInventory();
         this.outputInventory = new OutputInventory();
@@ -74,18 +87,9 @@ public class LiquefactionCauldronBlockEntity extends BlockEntity implements Heat
         this.inputInventoryCapability = LazyOptional.of(() -> this.inputInventory);
         this.outputInventoryCapability = LazyOptional.of(() -> this.outputInventory);
 
-        this.solventTank = new FluidTank(FluidType.BUCKET_VOLUME, (fluidStack -> ForgeRegistries.FLUIDS.tags().getTag(FluidTagRegistry.SOLVENT).contains(fluidStack.getFluid()))) {
-            @Override
-            protected void onContentsChanged() {
-                LiquefactionCauldronBlockEntity.this.setChanged();
-                LiquefactionCauldronBlockEntity.this.sendUpdatePacket();
-            }
-        };
-        this.solventTankCapability = LazyOptional.of(() -> this.solventTank);
+        this.inputRecipeWrapper = new RecipeWrapper(this.inputInventory);
 
-        this.inputRecipeWrapper = new RecipeWrapperWithFluid(this.inputInventory, this.solventTank);
-
-        this.recipeCachedCheck = new CachedCheck(RecipeTypeRegistry.LIQUEFACTION.get());
+        this.recipeCachedCheck = new CachedCheck(RecipeTypeRegistry.DISTILLATION.get());
     }
 
     @Override
@@ -98,44 +102,13 @@ public class LiquefactionCauldronBlockEntity extends BlockEntity implements Heat
         this.heatedCache = heated;
     }
 
-    @Override
-    public CompoundTag getUpdateTag() {
-        var tag = new CompoundTag();
-
-        //we only sync liquid on update tag
-        var solventTankTag = new CompoundTag();
-        this.solventTank.writeToNBT(solventTankTag);
-        tag.put("solventTank", solventTankTag);
-
-        return tag;
-    }
-
-    @Nullable
-    @Override
-    public Packet<ClientGamePacketListener> getUpdatePacket() {
-        return ClientboundBlockEntityDataPacket.create(this);
-    }
-
-    public void sendUpdatePacket() {
-        if (this.level != null && !this.level.isClientSide)
-            this.level.sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), 2 | 4 | 16);
-    }
-
-    @Override
-    public void handleUpdateTag(CompoundTag tag) {
-        if (tag.contains("solventTank")) {
-            var solventTankTag = tag.getCompound("solventTank");
-            this.solventTank.readFromNBT(solventTankTag);
-        }
-    }
-
     public void tickServer() {
         boolean isHeated = this.isHeated();
         boolean hasInput = !this.inputInventory.getStackInSlot(0).isEmpty();
 
         if (hasInput) {
             //only even check for recipe if we have fuel and input or are currently burning to avoid unnecessary lookups
-            LiquefactionRecipe recipe;
+            DistillationRecipe recipe;
             if (hasInput) {
                 recipe = this.recipeCachedCheck.getRecipeFor(this.inputRecipeWrapper, this.level).orElse(null);
             } else {
@@ -159,29 +132,19 @@ public class LiquefactionCauldronBlockEntity extends BlockEntity implements Heat
         }
     }
 
-    private boolean canCraft(@Nullable LiquefactionRecipe pRecipe) {
-        if (pRecipe == null) return false;
-
-        var assembledStack = pRecipe.assemble(this.inputRecipeWrapper);
-        if (assembledStack.isEmpty()) {
-            return false;
-        } else {
-            var outputStack = this.outputInventory.getStackInSlot(0);
-            if (outputStack.isEmpty()) {
-                return true;
-            } else if (!outputStack.sameItem(assembledStack)) {
-                return false;
-            } else if (outputStack.getCount() + assembledStack.getCount() <= this.outputInventory.getSlotLimit(0) && outputStack.getCount() + assembledStack.getCount() <= outputStack.getMaxStackSize()) {
-                return true;
-            } else {
-                return outputStack.getCount() + assembledStack.getCount() <= assembledStack.getMaxStackSize();
-            }
+    @Override
+    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
+        if (cap == ForgeCapabilities.ITEM_HANDLER) {
+            if (side == Direction.UP) return this.inputInventoryCapability.cast();
+            if (side == Direction.DOWN) return this.outputInventoryCapability.cast();
+            return this.inventoryCapability.cast();
         }
-
+        return super.getCapability(cap, side);
     }
 
-    private boolean craft(@Nullable LiquefactionRecipe pRecipe) {
-        if (!this.canCraft(pRecipe)) return false;
+    private boolean craft(@Nullable DistillationRecipe pRecipe) {
+        if (!this.canCraft(pRecipe))
+            return false;
 
         var inputStack = this.inputInventory.getStackInSlot(0);
         var assembledStack = pRecipe.assemble(this.inputRecipeWrapper);
@@ -192,27 +155,36 @@ public class LiquefactionCauldronBlockEntity extends BlockEntity implements Heat
             outputStack.grow(assembledStack.getCount());
         }
 
-        inputStack.shrink(1);
-        this.solventTank.drain(pRecipe.getSolvent().getAmount(), IFluidHandler.FluidAction.EXECUTE);
+        inputStack.shrink(pRecipe.getIngredientCount());
         return true;
 
     }
 
-    protected int getTotalTime() {
-        return this.recipeCachedCheck.getRecipeFor(this.inputRecipeWrapper, this.level).map(LiquefactionRecipe::getLiquefactionTime).orElse(LiquefactionRecipe.DEFAULT_LIQUEFACTION_TIME);
-    }
+    private boolean canCraft(@Nullable DistillationRecipe pRecipe) {
+        if (pRecipe == null)
+            return false;
 
-    @Override
-    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        if (cap == ForgeCapabilities.ITEM_HANDLER) {
-            if (side == Direction.UP) return this.inputInventoryCapability.cast();
-            if (side == Direction.DOWN) return this.outputInventoryCapability.cast();
-            return this.inventoryCapability.cast();
+        var assembledStack = pRecipe.assemble(this.inputRecipeWrapper);
+        if (assembledStack.isEmpty()) {
+            return false;
+        } else {
+            var outputStack = this.outputInventory.getStackInSlot(0);
+            if (outputStack.isEmpty()) {
+                return true;
+            } else if (!outputStack.sameItem(assembledStack)) {
+                return false;
+            } else if (outputStack.getCount() + assembledStack.getCount() <= this.outputInventory.getSlotLimit(0)
+                    && outputStack.getCount() + assembledStack.getCount() <= outputStack.getMaxStackSize()) {
+                return true;
+            } else {
+                return outputStack.getCount() + assembledStack.getCount() <= assembledStack.getMaxStackSize();
+            }
         }
 
-        if (cap == ForgeCapabilities.FLUID_HANDLER) return this.solventTankCapability.cast();
+    }
 
-        return super.getCapability(cap, side);
+    protected int getTotalTime() {
+        return this.recipeCachedCheck.getRecipeFor(this.inputRecipeWrapper, this.level).map(DistillationRecipe::getDistillationTime).orElse(DistillationRecipe.DEFAULT_DISTILLATION_TIME);
     }
 
     @Override
@@ -222,23 +194,55 @@ public class LiquefactionCauldronBlockEntity extends BlockEntity implements Heat
         pTag.put("inputInventory", this.inputInventory.serializeNBT());
         pTag.put("outputInventory", this.outputInventory.serializeNBT());
         pTag.putShort("progress", (short) this.progress);
-        var solventTankTag = new CompoundTag();
-        this.solventTank.writeToNBT(solventTankTag);
-        pTag.put("solventTank", solventTankTag);
     }
 
     @Override
     public void load(CompoundTag pTag) {
         super.load(pTag);
 
-        if (pTag.contains("inputInventory")) this.inputInventory.deserializeNBT(pTag.getCompound("inputInventory"));
-        if (pTag.contains("outputInventory")) this.outputInventory.deserializeNBT(pTag.getCompound("outputInventory"));
-        if (pTag.contains("progress")) this.progress = pTag.getShort("progress");
+        if (pTag.contains("inputInventory"))
+            this.inputInventory.deserializeNBT(pTag.getCompound("inputInventory"));
+        if (pTag.contains("outputInventory"))
+            this.outputInventory.deserializeNBT(pTag.getCompound("outputInventory"));
+        if (pTag.contains("progress"))
+            this.progress = pTag.getShort("progress");
+    }
 
-        if (pTag.contains("solventTank")) {
-            var solventTankTag = pTag.getCompound("solventTank");
-            this.solventTank.readFromNBT(solventTankTag);
+    private <E extends GeoBlockEntity> PlayState animationHandler(AnimationState<E> event) {
+
+        var blockState = this.getBlockState();
+        var isLit = blockState.getValue(BlockStateProperties.LIT);
+
+        if (this.wasLitLastTick && !isLit && event.getController().getAnimationState() != AnimationController.State.TRANSITIONING) {
+            event.getController().setAnimation(STOP_AND_OFF_ANIM);
         }
+
+        if (!this.wasLitLastTick && isLit && event.getController().getAnimationState() != AnimationController.State.TRANSITIONING) {
+            event.getController().setAnimation(START_AND_ON_ANIM);
+        }
+
+        if (!this.wasLitLastTick && !isLit && event.getController().getAnimationState() != AnimationController.State.RUNNING) {
+            event.getController().setAnimation(OFF_ANIM);
+        }
+
+        if (this.wasLitLastTick && isLit && event.getController().getAnimationState() != AnimationController.State.RUNNING) {
+            event.getController().setAnimation(ON_ANIM);
+        }
+
+
+        this.wasLitLastTick = isLit;
+
+        return PlayState.CONTINUE;
+    }
+
+    @Override
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
+        controllerRegistrar.add(new AnimationController<GeoBlockEntity>(this, "controller", 0, this::animationHandler));
+    }
+
+    @Override
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return this.animatableInstanceCache;
     }
 
     private boolean canProcess(ItemStack stack) {
@@ -255,25 +259,25 @@ public class LiquefactionCauldronBlockEntity extends BlockEntity implements Heat
     /**
      * A custom cached check
      */
-    private static class CachedCheck implements RecipeManager.CachedCheck<RecipeWrapperWithFluid, LiquefactionRecipe> {
+    private static class CachedCheck implements RecipeManager.CachedCheck<RecipeWrapper, DistillationRecipe> {
 
-        private final RecipeType<LiquefactionRecipe> type;
-        private final RecipeManager.CachedCheck<RecipeWrapperWithFluid, LiquefactionRecipe> internal;
+        private final RecipeType<DistillationRecipe> type;
+        private final RecipeManager.CachedCheck<RecipeWrapper, DistillationRecipe> internal;
         @Nullable
         private ResourceLocation lastRecipe;
 
-        public CachedCheck(RecipeType<LiquefactionRecipe> type) {
+        public CachedCheck(RecipeType<DistillationRecipe> type) {
             this.type = type;
             this.internal = RecipeManager.createCheck(type);
         }
 
-        private Optional<Pair<ResourceLocation, LiquefactionRecipe>> getRecipeFor(ItemStack stack, Level level, @Nullable ResourceLocation lastRecipe) {
+        private Optional<Pair<ResourceLocation, DistillationRecipe>> getRecipeFor(ItemStack stack, Level level, @Nullable ResourceLocation lastRecipe) {
 
             var recipeManager = level.getRecipeManager();
             var map = recipeManager.byType(this.type);
             if (lastRecipe != null) {
                 var recipe = map.get(lastRecipe);
-                //test only the ingredient without the (separate) solvent fluid ingredient check that the recipe.matches() would.
+                //test only the ingredient without the (separate) ingredient count check that the recipe.matches() would.
                 if (recipe != null && recipe.getIngredient().test(stack)) {
                     return Optional.of(Pair.of(lastRecipe, recipe));
                 }
@@ -283,9 +287,9 @@ public class LiquefactionCauldronBlockEntity extends BlockEntity implements Heat
         }
 
         /**
-         * This only checks ingredients, not fluids
+         * This checks only the ingredient, not the ingredient count
          */
-        public Optional<LiquefactionRecipe> getRecipeFor(ItemStack stack, Level level) {
+        public Optional<DistillationRecipe> getRecipeFor(ItemStack stack, Level level) {
             var optional = this.getRecipeFor(stack, level, this.lastRecipe);
             if (optional.isPresent()) {
                 var pair = optional.get();
@@ -297,10 +301,10 @@ public class LiquefactionCauldronBlockEntity extends BlockEntity implements Heat
         }
 
         /**
-         * This checks full recipe validity: ingredients + fluids
+         * This checks full recipe validity: ingredients + ingredient count
          */
         @Override
-        public Optional<LiquefactionRecipe> getRecipeFor(RecipeWrapperWithFluid container, Level level) {
+        public Optional<DistillationRecipe> getRecipeFor(RecipeWrapper container, Level level) {
             var recipe = this.internal.getRecipeFor(container, level);
             if (recipe.isPresent()) {
                 this.lastRecipe = recipe.get().getId();
@@ -326,21 +330,20 @@ public class LiquefactionCauldronBlockEntity extends BlockEntity implements Heat
             super.setStackInSlot(slot, newStack);
 
             if (!sameItem) {
-                LiquefactionCauldronBlockEntity.this.totalTime = LiquefactionCauldronBlockEntity.this.getTotalTime();
-                LiquefactionCauldronBlockEntity.this.progress = 0;
-                LiquefactionCauldronBlockEntity.this.setChanged();
+                DistillerBlockEntity.this.totalTime = DistillerBlockEntity.this.getTotalTime();
+                DistillerBlockEntity.this.progress = 0;
             }
 
         }
 
         @Override
         public boolean isItemValid(int slot, ItemStack stack) {
-            return LiquefactionCauldronBlockEntity.this.canProcess(stack) && super.isItemValid(slot, stack);
+            return DistillerBlockEntity.this.canProcess(stack) && super.isItemValid(slot, stack);
         }
 
         @Override
         protected void onContentsChanged(int slot) {
-            LiquefactionCauldronBlockEntity.this.setChanged();
+            DistillerBlockEntity.this.setChanged();
         }
     }
 
@@ -357,7 +360,7 @@ public class LiquefactionCauldronBlockEntity extends BlockEntity implements Heat
 
         @Override
         protected void onContentsChanged(int slot) {
-            LiquefactionCauldronBlockEntity.this.setChanged();
+            DistillerBlockEntity.this.setChanged();
         }
     }
 }

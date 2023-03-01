@@ -37,8 +37,10 @@ public interface HeatConsumer {
             this.setHeatedCache(isHeated);
 
             if (wasHeated != isHeated) {
-                var newState = this.self().getBlockState().setValue(BlockStateProperties.LIT, isHeated);
-                this.self().getLevel().setBlock(this.self().getBlockPos(), newState, 1 | 2);
+                if(this.self().getBlockState().hasProperty(BlockStateProperties.LIT)){
+                    var newState = this.self().getBlockState().setValue(BlockStateProperties.LIT, isHeated);
+                    this.self().getLevel().setBlock(this.self().getBlockPos(), newState, 1 | 2);
+                }
                 this.self().setChanged();
             }
         }

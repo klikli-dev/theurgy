@@ -27,8 +27,7 @@ public class BlockRegistry {
             BLOCKS.register("calcination_oven", () -> new CalcinationOvenBlock(BlockBehaviour.Properties.of(Material.METAL)
                     .noOcclusion()
                     .sound(SoundType.METAL)
-                    .strength(1.0f)
-                    .lightLevel((state) -> state.getValue(BlockStateProperties.LIT) ? 14 : 0)));
+                    .strength(1.0f)));
 
     public static final RegistryObject<PyromanticBrazierBlock> PYROMANTIC_BRAZIER =
             BLOCKS.register("pyromantic_brazier", () -> new PyromanticBrazierBlock(BlockBehaviour.Properties.of(Material.METAL)
@@ -41,13 +40,12 @@ public class BlockRegistry {
             BLOCKS.register("liquefaction_cauldron", () -> new LiquefactionCauldronBlock(BlockBehaviour.Properties.of(Material.METAL)
                     .noOcclusion()
                     .sound(SoundType.METAL)
-                    .strength(1.0f)
-                    .lightLevel((state) -> state.getValue(BlockStateProperties.LIT) ? 14 : 0)));
+                    .strength(1.0f)));
 
     public static final RegistryObject<DistillerBlock> DISTILLER =
             BLOCKS.register("distiller", () -> new DistillerBlock(BlockBehaviour.Properties.of(Material.METAL)
                     .noOcclusion()
                     .sound(SoundType.METAL)
-                    .strength(1.0f)
-                    .lightLevel((state) -> state.getValue(BlockStateProperties.LIT) ? 14 : 0)));
+                    .strength(1.0f)));
+
 }

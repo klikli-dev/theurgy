@@ -10,11 +10,15 @@ import com.klikli_dev.theurgy.content.block.HeatConsumer;
 import com.klikli_dev.theurgy.content.recipe.DistillationRecipe;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
+import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeManager;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -22,6 +26,7 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.wrapper.CombinedInvWrapper;
 import net.minecraftforge.items.wrapper.RecipeWrapper;
@@ -35,6 +40,8 @@ import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
+
+import java.util.Optional;
 
 public class DistillerBlockEntity extends BlockEntity implements GeoBlockEntity, HeatConsumer {
 
@@ -50,7 +57,7 @@ public class DistillerBlockEntity extends BlockEntity implements GeoBlockEntity,
             .thenLoop("animation.distiller.on");
     private final AnimatableInstanceCache animatableInstanceCache = GeckoLibUtil.createInstanceCache(this);
 
-    private final RecipeManager.CachedCheck<RecipeWrapper, ? extends DistillationRecipe> recipeCachedCheck;
+    private final CachedCheck recipeCachedCheck;
     public ItemStackHandler inputInventory;
     public ItemStackHandler outputInventory;
 
@@ -82,7 +89,7 @@ public class DistillerBlockEntity extends BlockEntity implements GeoBlockEntity,
 
         this.inputRecipeWrapper = new RecipeWrapper(this.inputInventory);
 
-        this.recipeCachedCheck = RecipeManager.createCheck(RecipeTypeRegistry.DISTILLATION.get());
+        this.recipeCachedCheck = new CachedCheck(RecipeTypeRegistry.DISTILLATION.get());
     }
 
     @Override
@@ -241,9 +248,70 @@ public class DistillerBlockEntity extends BlockEntity implements GeoBlockEntity,
     private boolean canProcess(ItemStack stack) {
         ItemStackHandler tempInv = new ItemStackHandler(1);
         tempInv.setStackInSlot(0, stack);
-        RecipeWrapper tempRecipeWrapper = new RecipeWrapper(tempInv);
 
-        return this.recipeCachedCheck.getRecipeFor(tempRecipeWrapper, this.level).isPresent();
+        if (ItemHandlerHelper.canItemStacksStack(stack, this.inputInventory.getStackInSlot(0)))
+            return true; //early out if we are already processing this type of item
+
+        //now we use our custom cached check that ignores liquids:
+        return this.recipeCachedCheck.getRecipeFor(stack, this.level).isPresent();
+    }
+
+    /**
+     * A custom cached check
+     */
+    private static class CachedCheck implements RecipeManager.CachedCheck<RecipeWrapper, DistillationRecipe> {
+
+        private final RecipeType<DistillationRecipe> type;
+        private final RecipeManager.CachedCheck<RecipeWrapper, DistillationRecipe> internal;
+        @Nullable
+        private ResourceLocation lastRecipe;
+
+        public CachedCheck(RecipeType<DistillationRecipe> type) {
+            this.type = type;
+            this.internal = RecipeManager.createCheck(type);
+        }
+
+        private Optional<Pair<ResourceLocation, DistillationRecipe>> getRecipeFor(ItemStack stack, Level level, @Nullable ResourceLocation lastRecipe) {
+
+            var recipeManager = level.getRecipeManager();
+            var map = recipeManager.byType(this.type);
+            if (lastRecipe != null) {
+                var recipe = map.get(lastRecipe);
+                //test only the ingredient without the (separate) ingredient count check that the recipe.matches() would.
+                if (recipe != null && recipe.getIngredient().test(stack)) {
+                    return Optional.of(Pair.of(lastRecipe, recipe));
+                }
+            }
+
+            return map.entrySet().stream().filter((entry) -> entry.getValue().getIngredient().test(stack)).findFirst().map((entry) -> Pair.of(entry.getKey(), entry.getValue()));
+        }
+
+        /**
+         * This checks only the ingredient, not the ingredient count
+         */
+        public Optional<DistillationRecipe> getRecipeFor(ItemStack stack, Level level) {
+            var optional = this.getRecipeFor(stack, level, this.lastRecipe);
+            if (optional.isPresent()) {
+                var pair = optional.get();
+                this.lastRecipe = pair.getFirst();
+                return Optional.of(pair.getSecond());
+            } else {
+                return Optional.empty();
+            }
+        }
+
+        /**
+         * This checks full recipe validity: ingredients + ingredient count
+         */
+        @Override
+        public Optional<DistillationRecipe> getRecipeFor(RecipeWrapper container, Level level) {
+            var recipe = this.internal.getRecipeFor(container, level);
+            if (recipe.isPresent()) {
+                this.lastRecipe = recipe.get().getId();
+            }
+
+            return recipe;
+        }
     }
 
     public class InputInventory extends ItemStackHandler {

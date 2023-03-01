@@ -7,6 +7,7 @@
 package com.klikli_dev.theurgy.datagen.tags;
 
 import com.klikli_dev.theurgy.Theurgy;
+import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.BlockTagRegistry;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
@@ -46,5 +47,10 @@ public class TheurgyBlockTagsProvider extends BlockTagsProvider {
         this.tag(BlockTagRegistry.DIVINATION_ROD_T4_ALLOWED_BLOCKS)
                 .addTag(BlockTagRegistry.DIVINATION_ROD_T3_ALLOWED_BLOCKS);
         this.tag(BlockTagRegistry.DIVINATION_ROD_T4_DISALLOWED_BLOCKS);
+
+        this.tag(BlockTagRegistry.INCUBATOR_VESSELS)
+                .add(BlockRegistry.INCUBATOR_MERCURY_VESSEL.get())
+                .add(BlockRegistry.INCUBATOR_SALT_VESSEL.get())
+                .add(BlockRegistry.INCUBATOR_SULFUR_VESSEL.get());
     }
 }

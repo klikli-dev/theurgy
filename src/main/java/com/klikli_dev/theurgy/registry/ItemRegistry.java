@@ -93,6 +93,19 @@ public class ItemRegistry {
     public static final RegistryObject<BlockItem> DISTILLER =
             ITEMS.register("distiller", () -> new DistillerBlockItem(BlockRegistry.DISTILLER.get(), new Item.Properties()));
 
+    public static final RegistryObject<BlockItem> INCUBATOR =
+            ITEMS.register("incubator", () -> new DistillerBlockItem(BlockRegistry.INCUBATOR.get(), new Item.Properties()));
+
+    public static final RegistryObject<BlockItem> INCUBATOR_MERCURY_VESSEL =
+            ITEMS.register("incubator_mercury_vessel", () -> new DistillerBlockItem(BlockRegistry.INCUBATOR_MERCURY_VESSEL.get(), new Item.Properties()));
+
+    public static final RegistryObject<BlockItem> INCUBATOR_SALT_VESSEL =
+            ITEMS.register("incubator_salt_vessel", () -> new DistillerBlockItem(BlockRegistry.INCUBATOR_SALT_VESSEL.get(), new Item.Properties()));
+
+    public static final RegistryObject<BlockItem> INCUBATOR_SULFUR_VESSEL =
+            ITEMS.register("incubator_sulfur_vessel", () -> new DistillerBlockItem(BlockRegistry.INCUBATOR_SULFUR_VESSEL.get(), new Item.Properties()));
+
+
     public static void onRegisterCreativeModeTabs(CreativeModeTabEvent.Register event) {
         THEURGY_TAB= event.registerCreativeModeTab(new ResourceLocation(Theurgy.MODID + ":" + Theurgy.MODID),
                 (builder) -> {
@@ -114,6 +127,10 @@ public class ItemRegistry {
                         output.accept(PYROMANTIC_BRAZIER.get());
                         output.accept(LIQUEFACTION_CAULDRON.get());
                         output.accept(DISTILLER.get());
+                        output.accept(INCUBATOR.get());
+                        output.accept(INCUBATOR_MERCURY_VESSEL.get());
+                        output.accept(INCUBATOR_SALT_VESSEL.get());
+                        output.accept(INCUBATOR_SULFUR_VESSEL.get());
                     });
 
                 }

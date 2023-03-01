@@ -24,6 +24,11 @@ public class BlockTagRegistry {
     public static final TagKey<Block> DIVINATION_ROD_T3_DISALLOWED_BLOCKS = tag( "divination_rod_t3_disallowed_blocks");
     public static final TagKey<Block> DIVINATION_ROD_T4_DISALLOWED_BLOCKS = tag( "divination_rod_t4_disallowed_blocks");
 
+
+    public static final TagKey<Block> INCUBATOR_VESSELS = tag( "incubator_vessels");
+
+
+
     public static TagKey<Block> tag(String id) {
         return tag(Theurgy.loc(id));
     }

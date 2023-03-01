@@ -84,6 +84,28 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
                 "A device to extract Alchemical Mercury from Items.",
                 "Mercury represents the \"energy\" of an object. It has applications both as an energy source and as a catalyst.",
                 "Place this on top of a heating device such as a Pyromantic Brazier.\nRight-click with ingredients to add them to the distiller for processing.");
+
+        this.addBlock(BlockRegistry.INCUBATOR, "Incubator");
+        this.addTooltip(BlockRegistry.INCUBATOR.get()::asItem,
+                "A device to recombine Alchemical Sulfur, Salt and Mercury into items.",
+                null,
+                "Place this on top of a heating device such as a Pyromantic Brazier.\nNeeds Incubator Vessels for all three ingredient types adjacent horizontally to the incubator.");
+
+        this.addBlock(BlockRegistry.INCUBATOR_MERCURY_VESSEL, "Incubator Mercury Vessel");
+        this.addTooltip(BlockRegistry.INCUBATOR_MERCURY_VESSEL.get()::asItem,
+                "A vessel to hold Mercury for the Incubator.",
+                null,
+                "Place horizontally next to the incubator.\nRight-click with Alchemical Mercury to fill the vessel to allow the Incubator to process it.");
+        this.addBlock(BlockRegistry.INCUBATOR_SALT_VESSEL, "Incubator Salt Vessel");
+        this.addTooltip(BlockRegistry.INCUBATOR_SALT_VESSEL.get()::asItem,
+                "A vessel to hold Salt for the Incubator.",
+                null,
+                "Place horizontally next to the incubator.\nRight-click with Alchemical Salt to fill the vessel to allow the Incubator to process it.");
+        this.addBlock(BlockRegistry.INCUBATOR_SULFUR_VESSEL, "Incubator Sulfur Vessel");
+        this.addTooltip(BlockRegistry.INCUBATOR_SULFUR_VESSEL.get()::asItem,
+                "A vessel to hold Sulfur for the Incubator.",
+                null,
+                "Place horizontally next to the incubator.\nRight-click with Alchemical Sulfur to fill the vessel to allow the Incubator to process it.");
     }
 
     private void addSulfurs() {

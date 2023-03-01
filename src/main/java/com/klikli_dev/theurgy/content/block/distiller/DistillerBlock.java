@@ -6,11 +6,14 @@
 
 package com.klikli_dev.theurgy.content.block.distiller;
 
+import com.klikli_dev.theurgy.content.block.calcinationoven.CalcinationOvenBlockEntity;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -24,6 +27,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraftforge.items.wrapper.RecipeWrapper;
 import org.jetbrains.annotations.Nullable;
 
 public class DistillerBlock extends Block implements EntityBlock {
@@ -57,17 +61,44 @@ public class DistillerBlock extends Block implements EntityBlock {
             return InteractionResult.SUCCESS;
         }
 
+        if (pLevel.getBlockEntity(pPos) instanceof DistillerBlockEntity blockEntity) {
+
+            ItemStack stackInHand = pPlayer.getItemInHand(pHand);
+            var outputStack = blockEntity.outputInventory.getStackInSlot(0);
+            var inputStack = blockEntity.inputInventory.getStackInSlot(0);
+            if (stackInHand.isEmpty()) {
+                if (!outputStack.isEmpty()) {
+                    //with empty hand first try take output
+                    pPlayer.getInventory().placeItemBackInInventory(outputStack);
+                    blockEntity.outputInventory.setStackInSlot(0, ItemStack.EMPTY);
+                    return InteractionResult.SUCCESS;
+                } else if (!inputStack.isEmpty()) {
+                    //if no output, try take input
+                    pPlayer.getInventory().placeItemBackInInventory(inputStack);
+                    blockEntity.inputInventory.setStackInSlot(0, ItemStack.EMPTY);
+                    return InteractionResult.SUCCESS;
+                }
+            } else {
+                //if we have an item in hand, try to insert
+                var remainder = blockEntity.inputInventory.insertItem(0, stackInHand, false);
+                pPlayer.setItemInHand(pHand, remainder);
+                if (remainder.getCount() != stackInHand.getCount()) {
+                    return InteractionResult.SUCCESS;
+                }
+                return InteractionResult.PASS;
+            }
+        }
 
         return InteractionResult.PASS;
     }
 
     @Override
     public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
-//        if (!pState.is(pNewState.getBlock())) {
-//            if (pLevel.getBlockEntity(pPos) instanceof DistillerBlockEntity blockEntity) {
-//                Containers.dropContents(pLevel, pPos, new RecipeWrapper(blockEntity.inventory));
-//            }
-//        }
+        if (!pState.is(pNewState.getBlock())) {
+            if (pLevel.getBlockEntity(pPos) instanceof DistillerBlockEntity blockEntity) {
+                Containers.dropContents(pLevel, pPos, new RecipeWrapper(blockEntity.inventory));
+            }
+        }
         super.onRemove(pState, pLevel, pPos, pNewState, pIsMoving);
     }
 

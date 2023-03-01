@@ -253,7 +253,7 @@ public class LiquefactionCauldronBlockEntity extends BlockEntity implements Heat
     }
 
     /**
-     * A custom cached check that ignores liquids
+     * A custom cached check
      */
     private static class CachedCheck implements RecipeManager.CachedCheck<RecipeWrapperWithFluid, LiquefactionRecipe> {
 
@@ -267,12 +267,13 @@ public class LiquefactionCauldronBlockEntity extends BlockEntity implements Heat
             this.internal = RecipeManager.createCheck(type);
         }
 
-        public Optional<Pair<ResourceLocation, LiquefactionRecipe>> getRecipeFor(ItemStack stack, Level level, @Nullable ResourceLocation lastRecipe) {
+        private Optional<Pair<ResourceLocation, LiquefactionRecipe>> getRecipeFor(ItemStack stack, Level level, @Nullable ResourceLocation lastRecipe) {
 
             var recipeManager = level.getRecipeManager();
-            Map<ResourceLocation, LiquefactionRecipe> map = recipeManager.byType(this.type);
+            var map = recipeManager.byType(this.type);
             if (lastRecipe != null) {
                 var recipe = map.get(lastRecipe);
+                //test only the ingredient without the (separate) solvent fluid ingredient check that the recipe.matches() would.
                 if (recipe != null && recipe.getIngredient().test(stack)) {
                     return Optional.of(Pair.of(lastRecipe, recipe));
                 }
@@ -281,6 +282,9 @@ public class LiquefactionCauldronBlockEntity extends BlockEntity implements Heat
             return map.entrySet().stream().filter((entry) -> entry.getValue().getIngredient().test(stack)).findFirst().map((entry) -> Pair.of(entry.getKey(), entry.getValue()));
         }
 
+        /**
+         * This only checks ingredients, not fluids
+         */
         public Optional<LiquefactionRecipe> getRecipeFor(ItemStack stack, Level level) {
             var optional = this.getRecipeFor(stack, level, this.lastRecipe);
             if (optional.isPresent()) {
@@ -292,6 +296,9 @@ public class LiquefactionCauldronBlockEntity extends BlockEntity implements Heat
             }
         }
 
+        /**
+         * This checks full recipe validity: ingredients + fluids
+         */
         @Override
         public Optional<LiquefactionRecipe> getRecipeFor(RecipeWrapperWithFluid container, Level level) {
             var recipe = this.internal.getRecipeFor(container, level);

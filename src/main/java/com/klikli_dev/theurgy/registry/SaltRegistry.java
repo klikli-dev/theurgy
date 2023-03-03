@@ -19,8 +19,11 @@ import java.util.function.Supplier;
 public class SaltRegistry {
     public static final DeferredRegister<Item> SALTS = DeferredRegister.create(ForgeRegistries.ITEMS, Theurgy.MODID);
 
-    public static final RegistryObject<Item> ALCHEMICAL_SALT_ORE =
+    public static final RegistryObject<Item> ORE =
             register("ore", () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> CROPS =
+            register("crops", () -> new Item(new Item.Properties()));
 
     public static <T extends Item> RegistryObject<T> register(String name, Supplier<T> sup) {
         return SALTS.register("alchemical_salt_" + name, sup);

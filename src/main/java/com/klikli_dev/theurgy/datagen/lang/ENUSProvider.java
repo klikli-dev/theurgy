@@ -132,8 +132,8 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
     }
 
     private void addSalts() {
-        this.addItem(SaltRegistry.ALCHEMICAL_SALT_ORE, "Alchemical Salt: " + ChatFormatting.GREEN + ChatFormatting.ITALIC + "Ore" + ChatFormatting.RESET);
-        this.addTooltip(SaltRegistry.ALCHEMICAL_SALT_ORE,
+        this.addItem(SaltRegistry.ORE, "Alchemical Salt: " + ChatFormatting.GREEN + ChatFormatting.ITALIC + "Ore" + ChatFormatting.RESET);
+        this.addTooltip(SaltRegistry.ORE,
                 "Alchemical Salt calcinated from Ore.",
                 "Salt represents the \"body\" or \"physical matter\" of an object.");
 

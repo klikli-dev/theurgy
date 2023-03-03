@@ -9,6 +9,7 @@ package com.klikli_dev.theurgy.datagen.recipe;
 import com.google.gson.JsonObject;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.TheurgyConstants;
+import com.klikli_dev.theurgy.content.recipe.DistillationRecipe;
 import com.klikli_dev.theurgy.content.recipe.LiquefactionRecipe;
 import com.klikli_dev.theurgy.registry.FluidRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
@@ -24,75 +25,74 @@ import java.util.function.BiConsumer;
 
 public class LiqueficationRecipeProvider extends JsonRecipeProvider {
 
+    public static final int TIME = LiquefactionRecipe.DEFAULT_LIQUEFACTION_TIME;
+
     public LiqueficationRecipeProvider(PackOutput packOutput) {
         super(packOutput, Theurgy.MODID, "liquefaction");
     }
 
     @Override
     void buildRecipes(BiConsumer<ResourceLocation, JsonObject> recipeConsumer) {
-        var sulfurHelper = new JsonObject();
-        sulfurHelper.addProperty(TheurgyConstants.Nbt.SULFUR_SOURCE_ID, this.locFor(Items.OAK_LOG).toString());
-
         var salAmmoniac = FluidRegistry.SAL_AMMONIAC.get();
 
 
         //Vanilla
         //Sulfurs with overrideTagSourceName
-        this.makeRecipe("logs", ItemTags.LOGS, salAmmoniac, 10, recipeConsumer);
+        this.makeRecipe("logs", ItemTags.LOGS, salAmmoniac, 10);
 
         //Crops
-        this.makeRecipe("wheat", Items.WHEAT, salAmmoniac, 10, recipeConsumer);
+        this.makeRecipe("wheat", Items.WHEAT, salAmmoniac, 10);
 
         //Metals
 
         //Other Mods
     }
 
-    public void makeRecipe(String sulfurName, Item ingredient, Fluid solvent, int solventAmount, BiConsumer<ResourceLocation, JsonObject> recipeConsumer) {
-        this.makeRecipe(sulfurName, 1, ingredient, solvent, solventAmount, LiquefactionRecipe.DEFAULT_LIQUEFACTION_TIME, recipeConsumer);
+    public void makeRecipe(String sulfurName, Item ingredient, Fluid solvent, int solventAmount) {
+        this.makeRecipe(sulfurName, 1, ingredient, solvent, solventAmount, TIME);
     }
 
-    public void makeRecipe(String sulfurName, Item ingredient, Fluid solvent, int solventAmount, int liquefactionTime, BiConsumer<ResourceLocation, JsonObject> recipeConsumer) {
-        this.makeRecipe(sulfurName, 1, ingredient, solvent, solventAmount, liquefactionTime, recipeConsumer);
+    public void makeRecipe(String sulfurName, Item ingredient, Fluid solvent, int solventAmount, int liquefactionTime) {
+        this.makeRecipe(sulfurName, 1, ingredient, solvent, solventAmount, liquefactionTime);
     }
 
-    public void makeRecipe(String sulfurName, int resultCount, Item ingredient, Fluid solvent, int solventAmount, BiConsumer<ResourceLocation, JsonObject> recipeConsumer) {
-        this.makeRecipe(sulfurName, resultCount, ingredient, solvent, solventAmount, LiquefactionRecipe.DEFAULT_LIQUEFACTION_TIME, recipeConsumer);
+    public void makeRecipe(String sulfurName, int resultCount, Item ingredient, Fluid solvent, int solventAmount) {
+        this.makeRecipe(sulfurName, resultCount, ingredient, solvent, solventAmount, TIME);
     }
 
-    public void makeRecipe(String sulfurName, int resultCount, Item ingredient, Fluid solvent, int solventAmount, int liquefactionTime, BiConsumer<ResourceLocation, JsonObject> recipeConsumer) {
+    public void makeRecipe(String sulfurName, int resultCount, Item ingredient, Fluid solvent, int solventAmount, int liquefactionTime) {
 
         var nbt = this.makeSulfurNbt(ingredient);
-        recipeConsumer.accept(
+        this.recipeConsumer.accept(
                 this.modLoc(sulfurName),
                 this.makeRecipeJson(
                         this.makeItemIngredient(this.locFor(ingredient)),
                         this.makeFluidIngredient(this.locFor(solvent), solventAmount),
-                        this.makeResult(this.modLoc("alchemical_sulfur_" + sulfurName), resultCount, nbt), liquefactionTime));
+                        this.makeItemResult(this.modLoc("alchemical_sulfur_" + sulfurName), resultCount, nbt), liquefactionTime));
 
     }
 
-    public void makeRecipe(String sulfurName, TagKey<Item> ingredient, Fluid solvent, int solventAmount, BiConsumer<ResourceLocation, JsonObject> recipeConsumer) {
-        this.makeRecipe(sulfurName, 1, ingredient, solvent, solventAmount, LiquefactionRecipe.DEFAULT_LIQUEFACTION_TIME, recipeConsumer);
+    public void makeRecipe(String sulfurName, TagKey<Item> ingredient, Fluid solvent, int solventAmount) {
+        this.makeRecipe(sulfurName, 1, ingredient, solvent, solventAmount, LiquefactionRecipe.DEFAULT_LIQUEFACTION_TIME);
     }
 
-    public void makeRecipe(String sulfurName, TagKey<Item> ingredient, Fluid solvent, int solventAmount, int liquefactionTime, BiConsumer<ResourceLocation, JsonObject> recipeConsumer) {
-        this.makeRecipe(sulfurName, 1, ingredient, solvent, solventAmount, liquefactionTime, recipeConsumer);
+    public void makeRecipe(String sulfurName, TagKey<Item> ingredient, Fluid solvent, int solventAmount, int liquefactionTime) {
+        this.makeRecipe(sulfurName, 1, ingredient, solvent, solventAmount, liquefactionTime);
     }
 
-    public void makeRecipe(String sulfurName, int resultCount, TagKey<Item> ingredient, Fluid solvent, int solventAmount, BiConsumer<ResourceLocation, JsonObject> recipeConsumer) {
-        this.makeRecipe(sulfurName, resultCount, ingredient, solvent, solventAmount, LiquefactionRecipe.DEFAULT_LIQUEFACTION_TIME, recipeConsumer);
+    public void makeRecipe(String sulfurName, int resultCount, TagKey<Item> ingredient, Fluid solvent, int solventAmount) {
+        this.makeRecipe(sulfurName, resultCount, ingredient, solvent, solventAmount, LiquefactionRecipe.DEFAULT_LIQUEFACTION_TIME);
     }
 
-    public void makeRecipe(String sulfurName, int resultCount, TagKey<Item> ingredient, Fluid solvent, int solventAmount, int liquefactionTime, BiConsumer<ResourceLocation, JsonObject> recipeConsumer) {
+    public void makeRecipe(String sulfurName, int resultCount, TagKey<Item> ingredient, Fluid solvent, int solventAmount, int liquefactionTime) {
 
         var nbt = this.makeSulfurNbt(ingredient);
-        recipeConsumer.accept(
+        this.recipeConsumer.accept(
                 this.modLoc(sulfurName),
                 this.makeRecipeJson(
                         this.makeTagIngredient(ingredient.location()),
                         this.makeFluidIngredient(this.locFor(solvent), solventAmount),
-                        this.makeResult(this.modLoc("alchemical_sulfur_" + sulfurName), resultCount, nbt), liquefactionTime));
+                        this.makeItemResult(this.modLoc("alchemical_sulfur_" + sulfurName), resultCount, nbt), liquefactionTime));
 
     }
 

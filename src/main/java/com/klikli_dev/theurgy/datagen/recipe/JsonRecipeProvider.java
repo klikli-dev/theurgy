@@ -9,7 +9,6 @@ package com.klikli_dev.theurgy.datagen.recipe;
 import com.google.common.collect.Sets;
 import com.google.gson.JsonObject;
 import com.mojang.serialization.JsonOps;
-import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.CachedOutput;
@@ -22,6 +21,8 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.material.Fluid;
+import net.minecraftforge.registries.ForgeRegistries;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +34,8 @@ public abstract class JsonRecipeProvider implements DataProvider {
 
     protected final PackOutput.PathProvider recipePathProvider;
     protected String modid;
+
+    protected BiConsumer<ResourceLocation, JsonObject> recipeConsumer;
 
     public JsonRecipeProvider(PackOutput packOutput, String modid) {
         this(packOutput, modid, "");
@@ -47,6 +50,18 @@ public abstract class JsonRecipeProvider implements DataProvider {
     public JsonRecipeProvider(PackOutput packOutput, String modid, String recipeSubPath) {
         this.recipePathProvider = packOutput.createPathProvider(PackOutput.Target.DATA_PACK, "recipes/" + recipeSubPath);
         this.modid = modid;
+    }
+
+    protected String name(Item item) {
+        return ForgeRegistries.ITEMS.getKey(item).getPath();
+    }
+
+    protected String name(TagKey<Item> tag) {
+        return tag.location().getPath().replace('/', '.');
+    }
+
+    public ResourceLocation locFor(TagKey<Item> tag) {
+        return tag.location();
     }
 
     public ResourceLocation locFor(ItemLike itemLike) {
@@ -99,21 +114,43 @@ public abstract class JsonRecipeProvider implements DataProvider {
         return jsonobject;
     }
 
-    public JsonObject makeResult(ResourceLocation item) {
-        return this.makeResult(item, 1);
+    public JsonObject makeItemResult(ResourceLocation item) {
+        return this.makeItemResult(item, 1);
     }
 
-    public JsonObject makeResult(ResourceLocation item, int count) {
-        return this.makeResult(item, count, (JsonObject) null);
+    public JsonObject makeItemResult(ResourceLocation item, int count) {
+        return this.makeItemResult(item, count, (JsonObject) null);
     }
 
-    public JsonObject makeResult(ResourceLocation item, int count, CompoundTag nbt) {
-        return this.makeResult(item, count, nbt == null ? null : (JsonObject) NbtOps.INSTANCE.convertTo(JsonOps.INSTANCE, nbt));
+    public JsonObject makeItemResult(ResourceLocation item, int count, @Nullable CompoundTag nbt) {
+        return this.makeItemResult(item, count, nbt == null ? null : (JsonObject) NbtOps.INSTANCE.convertTo(JsonOps.INSTANCE, nbt));
     }
 
-    public JsonObject makeResult(ResourceLocation item, int count, JsonObject nbt) {
+    public JsonObject makeItemResult(ResourceLocation item, int count, @Nullable JsonObject nbt) {
         JsonObject jsonobject = new JsonObject();
         jsonobject.addProperty("item", item.toString());
+        jsonobject.addProperty("count", count);
+        if (nbt != null) {
+            jsonobject.add("nbt", nbt);
+        }
+        return jsonobject;
+    }
+
+    public JsonObject makeTagResult(ResourceLocation item) {
+        return this.makeTagResult(item, 1);
+    }
+
+    public JsonObject makeTagResult(ResourceLocation item, int count) {
+        return this.makeTagResult(item, count, (JsonObject) null);
+    }
+
+    public JsonObject makeTagResult(ResourceLocation tag, int count, @Nullable CompoundTag nbt) {
+        return this.makeTagResult(tag, count, nbt == null ? null : (JsonObject) NbtOps.INSTANCE.convertTo(JsonOps.INSTANCE, nbt));
+    }
+
+    public JsonObject makeTagResult(ResourceLocation tag, int count, @Nullable JsonObject nbt){
+        JsonObject jsonobject = new JsonObject();
+        jsonobject.addProperty("tag", tag.toString());
         jsonobject.addProperty("count", count);
         if (nbt != null) {
             jsonobject.add("nbt", nbt);
@@ -125,13 +162,14 @@ public abstract class JsonRecipeProvider implements DataProvider {
     public CompletableFuture<?> run(CachedOutput pOutput) {
         Set<ResourceLocation> set = Sets.newHashSet();
         List<CompletableFuture<?>> futures = new ArrayList<>();
-        this.buildRecipes((id, recipe) -> {
+        this.recipeConsumer = (id, recipe) -> {
             if (!set.add(id)) {
                 throw new IllegalStateException("Duplicate recipe " + id);
             } else {
                 futures.add(DataProvider.saveStable(pOutput, recipe, this.recipePathProvider.json(id)));
             }
-        });
+        };
+        this.buildRecipes(this.recipeConsumer);
         return CompletableFuture.allOf(futures.toArray(CompletableFuture[]::new));
     }
 

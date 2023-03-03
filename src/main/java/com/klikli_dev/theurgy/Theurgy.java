@@ -6,6 +6,7 @@
 
 package com.klikli_dev.theurgy;
 
+import com.klikli_dev.theurgy.content.item.AlchemicalSaltItem;
 import com.klikli_dev.theurgy.content.renderer.BlankEntityRenderer;
 import com.klikli_dev.theurgy.config.ClientConfig;
 import com.klikli_dev.theurgy.config.CommonConfig;
@@ -118,6 +119,10 @@ public class Theurgy {
                 if (sulfur.provideAutomaticTooltipData) {
                     TooltipHandler.registerTooltipDataProvider(sulfur, AlchemicalSulfurItem::getTooltipData);
                 }
+            });
+
+            SaltRegistry.SALTS.getEntries().stream().map(RegistryObject::get).map(AlchemicalSaltItem.class::cast).forEach(salt -> {
+                    TooltipHandler.registerTooltipDataProvider(salt, AlchemicalSaltItem::getTooltipData);
             });
         }
 

@@ -7,6 +7,7 @@
 package com.klikli_dev.theurgy.registry;
 
 import com.klikli_dev.theurgy.Theurgy;
+import com.klikli_dev.theurgy.content.item.AlchemicalSaltItem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.event.CreativeModeTabEvent;
@@ -19,11 +20,15 @@ import java.util.function.Supplier;
 public class SaltRegistry {
     public static final DeferredRegister<Item> SALTS = DeferredRegister.create(ForgeRegistries.ITEMS, Theurgy.MODID);
 
-    public static final RegistryObject<Item> ORE =
-            register("ore", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<AlchemicalSaltItem> ORES =
+            register("ore");
 
-    public static final RegistryObject<Item> CROPS =
-            register("crops", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<AlchemicalSaltItem> CROPS =
+            register("crops");
+
+    public static <T extends Item> RegistryObject<AlchemicalSaltItem> register(String name) {
+        return register(name, () -> new AlchemicalSaltItem(new Item.Properties()));
+    }
 
     public static <T extends Item> RegistryObject<T> register(String name, Supplier<T> sup) {
         return SALTS.register("alchemical_salt_" + name, sup);

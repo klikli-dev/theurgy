@@ -8,6 +8,7 @@ package com.klikli_dev.theurgy.datagen.lang;
 
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.TheurgyConstants;
+import com.klikli_dev.theurgy.content.item.AlchemicalSaltItem;
 import com.klikli_dev.theurgy.content.item.AlchemicalSulfurItem;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
@@ -17,8 +18,11 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
 import net.minecraft.data.PackOutput;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.Item;
 import net.minecraftforge.common.data.LanguageProvider;
 import net.minecraftforge.registries.RegistryObject;
+
+import java.util.function.Supplier;
 
 public class ENUSProvider extends LanguageProvider implements TooltipLanguageProvider {
     public ENUSProvider(PackOutput packOutput) {
@@ -117,7 +121,7 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
             if (sulfur.useAutomaticNameRendering) {
                 this.addItem(() -> sulfur, "Alchemical Sulfur %s");
             }
-            if(sulfur.provideAutomaticTooltipData){
+            if (sulfur.provideAutomaticTooltipData) {
                 this.addTooltip(() -> sulfur,
                         "Alchemical Sulfur crafted from %s.",
                         "Sulfur represents the \"idea\" or \"soul\" of an object and is the key to replication and transmutation.");
@@ -132,11 +136,24 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
     }
 
     private void addSalts() {
-        this.addItem(SaltRegistry.ORE, "Alchemical Salt: " + ChatFormatting.GREEN + ChatFormatting.ITALIC + "Ore" + ChatFormatting.RESET);
-        this.addTooltip(SaltRegistry.ORE,
-                "Alchemical Salt calcinated from Ore.",
-                "Salt represents the \"body\" or \"physical matter\" of an object.");
+        //Salt source names used in automatic name rendering
+        this.addSaltSource(SaltRegistry.ORES, "Ores");
+        this.addSaltSource(SaltRegistry.CROPS, "Crops");
 
+        //Automatic salt name rendering
+        SaltRegistry.SALTS.getEntries().stream().map(RegistryObject::get).map(AlchemicalSaltItem.class::cast).forEach(salt -> {
+
+            this.addItem(() -> salt, "Alchemical Salt %s");
+
+            this.addTooltip(() -> salt,
+                    "Alchemical Salt calcinated from %s.",
+                    "Salt represents the \"body\" or \"physical matter\" of an object.");
+        });
+
+    }
+
+    public void addSaltSource(Supplier<? extends Item> key, String name) {
+        this.add(key.get().getDescriptionId() + TheurgyConstants.I18n.Item.ALCHEMICAL_SALT_SOURCE_SUFFIX, name);
     }
 
     private void addDivinationRods() {

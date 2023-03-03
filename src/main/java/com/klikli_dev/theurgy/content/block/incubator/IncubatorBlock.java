@@ -6,14 +6,16 @@
 
 package com.klikli_dev.theurgy.content.block.incubator;
 
-import com.klikli_dev.theurgy.content.block.calcinationoven.CalcinationOvenBlockEntity;
-import com.klikli_dev.theurgy.content.block.distiller.DistillerBlockEntity;
+import com.klikli_dev.theurgy.content.block.OneSlotAlchemicalDeviceBlock;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.BlockTagRegistry;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.Containers;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -27,6 +29,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.items.wrapper.RecipeWrapper;
@@ -34,7 +37,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
 
-public class IncubatorBlock extends Block implements EntityBlock {
+public class IncubatorBlock extends Block implements EntityBlock, OneSlotAlchemicalDeviceBlock {
     public static final BooleanProperty NORTH = PipeBlock.NORTH;
     public static final BooleanProperty EAST = PipeBlock.EAST;
     public static final BooleanProperty SOUTH = PipeBlock.SOUTH;
@@ -92,13 +95,26 @@ public class IncubatorBlock extends Block implements EntityBlock {
     @Override
     public BlockState updateShape(BlockState pState, Direction pFacing, BlockState pFacingState, LevelAccessor pLevel, BlockPos pCurrentPos, BlockPos pFacingPos) {
 
-        if(pLevel.getBlockEntity(pCurrentPos) instanceof IncubatorBlockEntity incubatorBlockEntity){
+        if (pLevel.getBlockEntity(pCurrentPos) instanceof IncubatorBlockEntity incubatorBlockEntity) {
             incubatorBlockEntity.validateMultiblock();
         }
 
         return pFacing.getAxis().getPlane() == Direction.Plane.HORIZONTAL ?
                 pState.setValue(PROPERTY_BY_DIRECTION.get(pFacing), this.isVessel(pFacingState)) :
                 super.updateShape(pState, pFacing, pFacingState, pLevel, pCurrentPos, pFacingPos);
+    }
+
+    @Override
+    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
+        if (pLevel.isClientSide()) {
+            return InteractionResult.SUCCESS;
+        }
+
+        if (this.useItemHandler(pState, pLevel, pPos, pPlayer, pHand, pHit) == InteractionResult.SUCCESS) {
+            return InteractionResult.SUCCESS;
+        }
+
+        return InteractionResult.PASS;
     }
 
     @Nullable

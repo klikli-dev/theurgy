@@ -9,14 +9,18 @@ package com.klikli_dev.theurgy.content.block.incubator;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.ItemTagRegistry;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public class IncubatorSulfurVesselBlockEntity extends BlockEntity {
 
@@ -45,6 +49,14 @@ public class IncubatorSulfurVesselBlockEntity extends BlockEntity {
 
         if (pTag.contains("inputInventory"))
             this.inputInventory.deserializeNBT(pTag.getCompound("inputInventory"));
+    }
+
+    @Override
+    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
+        if (cap == ForgeCapabilities.ITEM_HANDLER) {
+            return this.inputInventoryCapability.cast();
+        }
+        return super.getCapability(cap, side);
     }
 
     public void setIncubator(IncubatorBlockEntity incubator) {

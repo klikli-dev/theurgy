@@ -76,6 +76,10 @@ public class IncubationRecipe implements Recipe<IncubatorRecipeWrapper> {
         return this.result.getStack();
     }
 
+    public RecipeResult getResult() {
+        return this.result;
+    }
+
     @Override
     public NonNullList<Ingredient> getIngredients() {
         NonNullList<Ingredient> nonnulllist = NonNullList.create();

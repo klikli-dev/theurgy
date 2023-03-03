@@ -102,6 +102,7 @@ public class TheurgyConstants {
             public static final String CALCINATION_CATEGORY = PREFIX + "category.calcination";
             public static final String LIQUEFACTION_CATEGORY = PREFIX + "category.liquefaction";
             public static final String DISTILLATION_CATEGORY = PREFIX + "category.distillation";
+            public static final String INCUBATION_CATEGORY = PREFIX + "category.incubation";
         }
 
         public static class Misc {

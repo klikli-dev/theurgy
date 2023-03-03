@@ -8,6 +8,7 @@ package com.klikli_dev.theurgy.content.recipe;
 
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * A tag result for recipes that use tags as output.
@@ -17,6 +18,9 @@ public class ItemRecipeResult extends RecipeResult {
     public static byte TYPE = 0;
 
     private final ItemStack stack;
+
+    @Nullable
+    private ItemStack[] cachedStacks;
 
     public ItemRecipeResult(ItemStack stack) {
         this.stack = stack;
@@ -29,6 +33,14 @@ public class ItemRecipeResult extends RecipeResult {
     @Override
     public ItemStack getStack() {
         return this.stack;
+    }
+
+    @Override
+    public ItemStack[] getStacks() {
+        if (this.cachedStacks == null) {
+            this.cachedStacks = new ItemStack[]{this.stack};
+        }
+        return cachedStacks;
     }
 
     @Override

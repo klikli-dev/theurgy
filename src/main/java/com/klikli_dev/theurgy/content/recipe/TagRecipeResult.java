@@ -6,11 +6,11 @@
 
 package com.klikli_dev.theurgy.content.recipe;
 
-import com.google.gson.JsonParseException;
 import com.klikli_dev.theurgy.util.TagUtil;
 import com.mojang.serialization.Codec;
-import com.mojang.serialization.JsonOps;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.core.HolderSet;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
@@ -19,17 +19,15 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraftforge.common.crafting.CraftingHelper;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
+import java.util.stream.Stream;
 
 /**
  * A tag result for recipes that use tags as output.
  */
 public class TagRecipeResult extends RecipeResult {
-
-    public static byte TYPE = 1;
 
     public static final Codec<TagRecipeResult> CODEC = RecordCodecBuilder.create((builder) -> {
         return builder.group(
@@ -41,7 +39,7 @@ public class TagRecipeResult extends RecipeResult {
                     return Optional.ofNullable(getter.nbt);
                 })).apply(builder, TagRecipeResult::new);
     });
-
+    public static byte TYPE = 1;
     private final TagKey<Item> tag;
     private final int count;
     @Nullable
@@ -49,6 +47,9 @@ public class TagRecipeResult extends RecipeResult {
 
     @Nullable
     protected ItemStack cachedOutputStack;
+
+    @Nullable
+    private ItemStack[] cachedStacks;
 
     public TagRecipeResult(TagKey<Item> tag, int count) {
         this(tag, count, (CompoundTag) null);
@@ -62,6 +63,13 @@ public class TagRecipeResult extends RecipeResult {
         this.tag = tag;
         this.count = count;
         this.nbt = nbt;
+    }
+
+    public static TagRecipeResult fromNetwork(FriendlyByteBuf pBuffer) {
+        var tag = TagKey.create(Registries.ITEM, pBuffer.readResourceLocation());
+        var count = pBuffer.readVarInt();
+        var nbt = pBuffer.readBoolean() ? pBuffer.readNbt() : null;
+        return new TagRecipeResult(tag, count, nbt);
     }
 
     public TagKey<Item> getTag() {
@@ -98,6 +106,15 @@ public class TagRecipeResult extends RecipeResult {
     }
 
     @Override
+    public ItemStack[] getStacks() {
+        if (this.cachedStacks == null) {
+            //get all items in tag
+            this.cachedStacks = BuiltInRegistries.ITEM.getTag(this.tag).map(HolderSet.ListBacked::stream).orElse(Stream.empty()).map(ItemStack::new).toArray(ItemStack[]::new);
+        }
+        return this.cachedStacks;
+    }
+
+    @Override
     public byte getType() {
         return TYPE;
     }
@@ -112,12 +129,5 @@ public class TagRecipeResult extends RecipeResult {
         if (this.nbt != null) {
             pBuffer.writeNbt(this.nbt);
         }
-    }
-
-    public static TagRecipeResult fromNetwork(FriendlyByteBuf pBuffer) {
-        var tag = TagKey.create(Registries.ITEM, pBuffer.readResourceLocation());
-        var count = pBuffer.readVarInt();
-        var nbt = pBuffer.readBoolean() ? pBuffer.readNbt() : null;
-        return new TagRecipeResult(tag, count, nbt);
     }
 }

@@ -13,6 +13,8 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.crafting.CraftingHelper;
 
+import java.util.Collection;
+
 public abstract class RecipeResult {
     public static RecipeResult fromJson(JsonObject json) {
         if (json.has("item")) {
@@ -35,7 +37,15 @@ public abstract class RecipeResult {
         }
     }
 
+    /**
+     * Get the preferred item stack this result represents.
+     */
     public abstract ItemStack getStack();
+
+    /**
+     * Get all item stacks this result represents.
+     */
+    public abstract ItemStack[] getStacks();
 
     public abstract byte getType();
 

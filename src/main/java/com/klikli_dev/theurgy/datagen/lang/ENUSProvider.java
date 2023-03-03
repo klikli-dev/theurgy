@@ -46,6 +46,7 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
         this.add(TheurgyConstants.I18n.JEI.CALCINATION_CATEGORY, "Calcination");
         this.add(TheurgyConstants.I18n.JEI.LIQUEFACTION_CATEGORY, "Liquefaction");
         this.add(TheurgyConstants.I18n.JEI.DISTILLATION_CATEGORY, "Distillation");
+        this.add(TheurgyConstants.I18n.JEI.INCUBATION_CATEGORY, "Incubation");
     }
 
     private void addSubtitles() {

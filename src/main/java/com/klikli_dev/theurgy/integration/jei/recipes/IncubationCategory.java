@@ -6,9 +6,11 @@ import com.google.common.cache.LoadingCache;
 import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.content.gui.GuiTextures;
 import com.klikli_dev.theurgy.content.recipe.IncubationRecipe;
+import com.klikli_dev.theurgy.content.recipe.LiquefactionRecipe;
 import com.klikli_dev.theurgy.integration.jei.JeiDrawables;
 import com.klikli_dev.theurgy.integration.jei.JeiRecipeTypes;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
+import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import com.mojang.blaze3d.vertex.PoseStack;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -24,7 +26,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.Arrays;
-import java.util.List;
+import java.util.stream.Collectors;
 
 import static mezz.jei.api.recipe.RecipeIngredientRole.INPUT;
 import static mezz.jei.api.recipe.RecipeIngredientRole.OUTPUT;
@@ -42,7 +44,7 @@ public class IncubationCategory implements IRecipeCategory<IncubationRecipe> {
         this.animatedFire = JeiDrawables.asAnimatedDrawable(guiHelper, GuiTextures.JEI_FIRE_FULL, 300, IDrawableAnimated.StartDirection.TOP, true);
 
         this.icon = guiHelper.createDrawableItemStack(new ItemStack(BlockRegistry.INCUBATOR.get()));
-        this.localizedName = Component.translatable(TheurgyConstants.I18n.JEI.DISTILLATION_CATEGORY);
+        this.localizedName = Component.translatable(TheurgyConstants.I18n.JEI.INCUBATION_CATEGORY);
 
         //We need different animations for different cook times, hence the cache
         this.cachedAnimatedArrow = CacheBuilder.newBuilder()
@@ -101,15 +103,36 @@ public class IncubationCategory implements IRecipeCategory<IncubationRecipe> {
         return this.localizedName;
     }
 
+
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, IncubationRecipe recipe, IFocusGroup focuses) {
         builder.addSlot(INPUT, 1, 1)
                 .setBackground(JeiDrawables.INPUT_SLOT, -1, -1)
                 .addIngredients(recipe.getMercury());
 
+        //sulfurs in the recipe are in most cases specified only via the item id (as one sulfur = one item), but for rendering we need the nbt, so we get it from the corresponding recipe.
+        var recipeManager = Minecraft.getInstance().level.getRecipeManager();
+        var liquefactionRecipes = recipeManager.getAllRecipesFor(RecipeTypeRegistry.LIQUEFACTION.get()).stream().filter(r -> r.getResultItem() != null).collect(Collectors.toList());
+
+        var sulfurIngredients = Arrays.stream(recipe.getSulfur().getItems()).map(sulfur -> {
+            if (sulfur.hasTag())
+                return sulfur;
+
+            var sulfurItem = sulfur.getItem();
+            var sulfurWithNbt = liquefactionRecipes.stream()
+                    .filter(r -> r.getResultItem().getItem() == sulfurItem).map(LiquefactionRecipe::getResultItem).findFirst();
+
+            if (sulfurWithNbt.isPresent()) {
+                sulfur = sulfur.copy();
+                sulfur.setTag(sulfurWithNbt.get().getTag());
+            }
+
+            return sulfur;
+        }).toList();
+
         builder.addSlot(INPUT, 1, 21)
                 .setBackground(JeiDrawables.INPUT_SLOT, -1, -1)
-                .addIngredients(recipe.getSulfur());
+                .addItemStacks(sulfurIngredients);
 
         builder.addSlot(INPUT, 1, 42)
                 .setBackground(JeiDrawables.INPUT_SLOT, -1, -1)

@@ -7,11 +7,15 @@
 package com.klikli_dev.theurgy.content.block.incubator;
 
 import com.klikli_dev.theurgy.content.block.HeatConsumer;
+import com.klikli_dev.theurgy.content.recipe.IncubationRecipe;
+import com.klikli_dev.theurgy.content.recipe.IncubatorRecipeWrapper;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
+import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
@@ -23,12 +27,16 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class IncubatorBlockEntity extends BlockEntity implements HeatConsumer {
+
+    private final RecipeManager.CachedCheck<IncubatorRecipeWrapper, ? extends IncubationRecipe> recipeCachedCheck;
     public IncubatorMercuryVesselBlockEntity mercuryVessel;
     public IncubatorSulfurVesselBlockEntity sulfurVessel;
     public IncubatorSaltVesselBlockEntity saltVessel;
 
     public ItemStackHandler outputInventory;
     public LazyOptional<IItemHandler> outputInventoryCapability;
+
+    public IncubatorRecipeWrapper recipeWrapper;
 
     public boolean isValidMultiblock;
 
@@ -41,6 +49,8 @@ public class IncubatorBlockEntity extends BlockEntity implements HeatConsumer {
 
         this.outputInventory = new OutputInventory();
         this.outputInventoryCapability = LazyOptional.of(() -> this.outputInventory);
+
+        this.recipeCachedCheck = RecipeManager.createCheck(RecipeTypeRegistry.INCUBATION.get());
     }
 
     @Override
@@ -54,7 +64,84 @@ public class IncubatorBlockEntity extends BlockEntity implements HeatConsumer {
     }
 
     public void tickServer() {
+        boolean isHeated = this.isHeated();
 
+        if (!this.isValidMultiblock) {
+            return;
+        }
+
+        boolean hasInput = !this.mercuryVessel.inputInventory.getStackInSlot(0).isEmpty()
+                && !this.saltVessel.inputInventory.getStackInSlot(0).isEmpty()
+                && !this.sulfurVessel.inputInventory.getStackInSlot(0).isEmpty();
+
+
+        if (hasInput) {
+            //only even check for recipe if we have input to avoid unnecessary lookups
+            var recipe = this.recipeCachedCheck.getRecipeFor(this.recipeWrapper, this.level).orElse(null);
+
+            //if we are lit and have a recipe, update progress
+            if (isHeated && this.canCraft(recipe)) {
+                ++this.progress;
+
+                //if we hit max progress, craft the item and reset progress
+                if (this.progress >= this.totalTime) {
+                    this.progress = 0;
+                    this.totalTime = this.getTotalTime();
+                    this.craft(recipe);
+                    //TODO: advancement?
+                }
+            } else {
+                this.progress = 0;
+            }
+        }
+    }
+
+    private boolean canCraft(@Nullable IncubationRecipe pRecipe) {
+        if (pRecipe == null)
+            return false;
+
+        var assembledStack = pRecipe.assemble(this.recipeWrapper);
+        if (assembledStack.isEmpty()) {
+            return false;
+        } else {
+            var outputStack = this.outputInventory.getStackInSlot(0);
+            if (outputStack.isEmpty()) {
+                return true;
+            } else if (!outputStack.sameItem(assembledStack)) {
+                return false;
+            } else if (outputStack.getCount() + assembledStack.getCount() <= this.outputInventory.getSlotLimit(0)
+                    && outputStack.getCount() + assembledStack.getCount() <= outputStack.getMaxStackSize()) {
+                return true;
+            } else {
+                return outputStack.getCount() + assembledStack.getCount() <= assembledStack.getMaxStackSize();
+            }
+        }
+    }
+
+    private boolean craft(@Nullable IncubationRecipe pRecipe) {
+        if (!this.canCraft(pRecipe))
+            return false;
+
+        var inputMercury = this.mercuryVessel.inputInventory.getStackInSlot(0);
+        var inputSalt = this.saltVessel.inputInventory.getStackInSlot(0);
+        var inputSulfur = this.sulfurVessel.inputInventory.getStackInSlot(0);
+        var assembledStack = pRecipe.assemble(this.recipeWrapper);
+        var outputStack = this.outputInventory.getStackInSlot(0);
+        if (outputStack.isEmpty()) {
+            this.outputInventory.setStackInSlot(0, assembledStack.copy());
+        } else if (outputStack.is(assembledStack.getItem())) {
+            outputStack.grow(assembledStack.getCount());
+        }
+
+        inputMercury.shrink(1);
+        inputSalt.shrink(1);
+        inputSulfur.shrink(1);
+
+        return true;
+    }
+
+    protected int getTotalTime() {
+        return this.recipeCachedCheck.getRecipeFor(this.recipeWrapper, this.level).map(IncubationRecipe::getIncubationTime).orElse(IncubationRecipe.DEFAULT_INCUBATION_TIME);
     }
 
     @Override
@@ -107,6 +194,7 @@ public class IncubatorBlockEntity extends BlockEntity implements HeatConsumer {
         var oldMercuryVessel = this.mercuryVessel;
         var oldSaltVessel = this.saltVessel;
         var oldSulfurVessel = this.sulfurVessel;
+        var wasValidMultiblock = this.isValidMultiblock;
 
         this.mercuryVessel = null;
         this.saltVessel = null;
@@ -118,16 +206,30 @@ public class IncubatorBlockEntity extends BlockEntity implements HeatConsumer {
         });
 
         this.isValidMultiblock = this.mercuryVessel != null && this.sulfurVessel != null && this.saltVessel != null;
+        if (wasValidMultiblock != this.isValidMultiblock) {
+            if (this.isValidMultiblock) {
+                this.onAssembleMultiblock();
+            } else {
+                this.onDisassembleMultiblock();
+            }
+        }
 
         if (oldMercuryVessel != this.mercuryVessel || oldSaltVessel != this.saltVessel || oldSulfurVessel != this.sulfurVessel) {
             this.onVesselItemChanged();
         }
     }
 
+    public void onAssembleMultiblock() {
+        this.recipeWrapper = new IncubatorRecipeWrapper(this.mercuryVessel.inputInventory, this.saltVessel.inputInventory, this.sulfurVessel.inputInventory);
+    }
+
+    public void onDisassembleMultiblock() {
+        this.recipeWrapper = null;
+    }
+
     public void onVesselItemChanged() {
-        //TODO
-//        this.totalTime = this.getTotalTime();
-//        this.progress = 0;
+        this.totalTime = this.getTotalTime();
+        this.progress = 0;
     }
 
     @Override

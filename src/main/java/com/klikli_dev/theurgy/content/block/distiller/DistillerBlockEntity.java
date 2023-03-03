@@ -107,7 +107,7 @@ public class DistillerBlockEntity extends BlockEntity implements GeoBlockEntity,
         boolean hasInput = !this.inputInventory.getStackInSlot(0).isEmpty();
 
         if (hasInput) {
-            //only even check for recipe if we have fuel and input or are currently burning to avoid unnecessary lookups
+            //only even check for recipe if we have input to avoid unnecessary lookups
             var recipe = this.recipeCachedCheck.getRecipeFor(this.inputRecipeWrapper, this.level).orElse(null);
 
             //if we are lit and have a recipe, update progress

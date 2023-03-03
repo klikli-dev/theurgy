@@ -106,7 +106,7 @@ public class DistillationCategory implements IRecipeCategory<DistillationRecipe>
     public void setRecipe(IRecipeLayoutBuilder builder, DistillationRecipe recipe, IFocusGroup focuses) {
         builder.addSlot(INPUT, 1, 1)
                 .setBackground(JeiDrawables.INPUT_SLOT, -1, -1)
-                .addIngredients(VanillaTypes.ITEM_STACK, Arrays.stream(recipe.getIngredient().getItems()).map(i -> i.copyWithCount(recipe.getIngredientCount())).collect(Collectors.toList()));
+                .addIngredients(VanillaTypes.ITEM_STACK, Arrays.stream(recipe.getIngredient().getItems()).map(i -> i.copyWithCount(recipe.getIngredientCount())).toList());
 
         builder.addSlot(OUTPUT, 61, 9)
                 .setBackground(JeiDrawables.OUTPUT_SLOT, -5, -5)

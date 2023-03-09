@@ -13,6 +13,6 @@ Player documentation is found in-game in the guidebook "Hermetica".
 
 :::tip
 
-If you run into any issues or have any questions, join our Discord: **https://invite.gg/klikli**
+If you run into any issues or have any questions, join our Discord: **https://dsc.gg/klikli**
 
 :::

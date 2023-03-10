@@ -8,16 +8,21 @@ package com.klikli_dev.theurgy.datagen.lang;
 
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.TheurgyConstants;
+import com.klikli_dev.theurgy.content.item.AlchemicalSaltItem;
 import com.klikli_dev.theurgy.content.item.AlchemicalSulfurItem;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
+import com.klikli_dev.theurgy.registry.SaltRegistry;
 import com.klikli_dev.theurgy.registry.SulfurRegistry;
 import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
 import net.minecraft.data.PackOutput;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.Item;
 import net.minecraftforge.common.data.LanguageProvider;
 import net.minecraftforge.registries.RegistryObject;
+
+import java.util.function.Supplier;
 
 public class ENUSProvider extends LanguageProvider implements TooltipLanguageProvider {
     public ENUSProvider(PackOutput packOutput) {
@@ -41,6 +46,7 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
         this.add(TheurgyConstants.I18n.JEI.CALCINATION_CATEGORY, "Calcination");
         this.add(TheurgyConstants.I18n.JEI.LIQUEFACTION_CATEGORY, "Liquefaction");
         this.add(TheurgyConstants.I18n.JEI.DISTILLATION_CATEGORY, "Distillation");
+        this.add(TheurgyConstants.I18n.JEI.INCUBATION_CATEGORY, "Incubation");
     }
 
     private void addSubtitles() {
@@ -84,6 +90,28 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
                 "A device to extract Alchemical Mercury from Items.",
                 "Mercury represents the \"energy\" of an object. It has applications both as an energy source and as a catalyst.",
                 "Place this on top of a heating device such as a Pyromantic Brazier.\nRight-click with ingredients to add them to the distiller for processing.");
+
+        this.addBlock(BlockRegistry.INCUBATOR, "Incubator");
+        this.addTooltip(BlockRegistry.INCUBATOR.get()::asItem,
+                "A device to recombine Alchemical Sulfur, Salt and Mercury into items.",
+                null,
+                "Place this on top of a heating device such as a Pyromantic Brazier.\nNeeds Incubator Vessels for all three ingredient types adjacent horizontally to the incubator.");
+
+        this.addBlock(BlockRegistry.INCUBATOR_MERCURY_VESSEL, "Incubator Mercury Vessel");
+        this.addTooltip(BlockRegistry.INCUBATOR_MERCURY_VESSEL.get()::asItem,
+                "A vessel to hold Mercury for the Incubator.",
+                null,
+                "Place horizontally next to the incubator.\nRight-click with Alchemical Mercury to fill the vessel to allow the Incubator to process it.");
+        this.addBlock(BlockRegistry.INCUBATOR_SALT_VESSEL, "Incubator Salt Vessel");
+        this.addTooltip(BlockRegistry.INCUBATOR_SALT_VESSEL.get()::asItem,
+                "A vessel to hold Salt for the Incubator.",
+                null,
+                "Place horizontally next to the incubator.\nRight-click with Alchemical Salt to fill the vessel to allow the Incubator to process it.");
+        this.addBlock(BlockRegistry.INCUBATOR_SULFUR_VESSEL, "Incubator Sulfur Vessel");
+        this.addTooltip(BlockRegistry.INCUBATOR_SULFUR_VESSEL.get()::asItem,
+                "A vessel to hold Sulfur for the Incubator.",
+                null,
+                "Place horizontally next to the incubator.\nRight-click with Alchemical Sulfur to fill the vessel to allow the Incubator to process it.");
     }
 
     private void addSulfurs() {
@@ -94,7 +122,7 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
             if (sulfur.useAutomaticNameRendering) {
                 this.addItem(() -> sulfur, "Alchemical Sulfur %s");
             }
-            if(sulfur.provideAutomaticTooltipData){
+            if (sulfur.provideAutomaticTooltipData) {
                 this.addTooltip(() -> sulfur,
                         "Alchemical Sulfur crafted from %s.",
                         "Sulfur represents the \"idea\" or \"soul\" of an object and is the key to replication and transmutation.");
@@ -109,11 +137,24 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
     }
 
     private void addSalts() {
-        this.addItem(ItemRegistry.ALCHEMICAL_SALT_ORE, "Alchemical Salt: " + ChatFormatting.GREEN + ChatFormatting.ITALIC + "Ore" + ChatFormatting.RESET);
-        this.addTooltip(ItemRegistry.ALCHEMICAL_SALT_ORE,
-                "Alchemical Salt calcinated from Ore.",
-                "Salt represents the \"body\" or \"physical matter\" of an object.");
+        //Salt source names used in automatic name rendering
+        this.addSaltSource(SaltRegistry.ORES, "Ores");
+        this.addSaltSource(SaltRegistry.CROPS, "Crops");
 
+        //Automatic salt name rendering
+        SaltRegistry.SALTS.getEntries().stream().map(RegistryObject::get).map(AlchemicalSaltItem.class::cast).forEach(salt -> {
+
+            this.addItem(() -> salt, "Alchemical Salt %s");
+
+            this.addTooltip(() -> salt,
+                    "Alchemical Salt calcinated from %s.",
+                    "Salt represents the \"body\" or \"physical matter\" of an object.");
+        });
+
+    }
+
+    public void addSaltSource(Supplier<? extends Item> key, String name) {
+        this.add(key.get().getDescriptionId() + TheurgyConstants.I18n.Item.ALCHEMICAL_SALT_SOURCE_SUFFIX, name);
     }
 
     private void addDivinationRods() {

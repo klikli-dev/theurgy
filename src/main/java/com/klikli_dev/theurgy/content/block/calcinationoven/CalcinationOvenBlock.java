@@ -6,16 +6,13 @@
 
 package com.klikli_dev.theurgy.content.block.calcinationoven;
 
-import com.klikli_dev.theurgy.Theurgy;
-import com.klikli_dev.theurgy.content.block.UsableAlchemicalDeviceBlock;
+import com.klikli_dev.theurgy.content.block.TwoSlotAlchemicalDeviceBlock;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -38,7 +35,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.stream.Stream;
 
-public class CalcinationOvenBlock extends Block implements EntityBlock, UsableAlchemicalDeviceBlock {
+public class CalcinationOvenBlock extends Block implements EntityBlock, TwoSlotAlchemicalDeviceBlock {
 
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
 

@@ -9,6 +9,7 @@ package com.klikli_dev.theurgy.registry;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.content.block.calcinationoven.CalcinationOvenBlockEntity;
 import com.klikli_dev.theurgy.content.block.distiller.DistillerBlockEntity;
+import com.klikli_dev.theurgy.content.block.incubator.*;
 import com.klikli_dev.theurgy.content.block.liquefactioncauldron.LiquefactionCauldronBlockEntity;
 import com.klikli_dev.theurgy.content.block.pyromanticbrazier.PyromanticBrazierBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -34,4 +35,20 @@ public class BlockEntityRegistry {
     public static final RegistryObject<BlockEntityType<DistillerBlockEntity>> DISTILLER =
             BLOCKS.register("distiller", () ->
                     BlockEntityType.Builder.of(DistillerBlockEntity::new, BlockRegistry.DISTILLER.get()).build(null));
+
+    public static final RegistryObject<BlockEntityType<IncubatorBlockEntity>> INCUBATOR =
+            BLOCKS.register("incubator", () ->
+                    BlockEntityType.Builder.of(IncubatorBlockEntity::new, BlockRegistry.INCUBATOR.get()).build(null));
+
+    public static final RegistryObject<BlockEntityType<IncubatorMercuryVesselBlockEntity>> INCUBATOR_MERCURY_VESSEL =
+            BLOCKS.register("incubator_mercury_vessel", () ->
+                    BlockEntityType.Builder.of(IncubatorMercuryVesselBlockEntity::new, BlockRegistry.INCUBATOR_MERCURY_VESSEL.get()).build(null));
+
+    public static final RegistryObject<BlockEntityType<IncubatorSaltVesselBlockEntity>> INCUBATOR_SALT_VESSEL =
+            BLOCKS.register("incubator_salt_vessel", () ->
+                    BlockEntityType.Builder.of(IncubatorSaltVesselBlockEntity::new, BlockRegistry.INCUBATOR_SALT_VESSEL.get()).build(null));
+
+    public static final RegistryObject<BlockEntityType<IncubatorSulfurVesselBlockEntity>> INCUBATOR_SULFUR_VESSEL =
+            BLOCKS.register("incubator_sulfur_vessel", () ->
+                    BlockEntityType.Builder.of(IncubatorSulfurVesselBlockEntity::new, BlockRegistry.INCUBATOR_SULFUR_VESSEL.get()).build(null));
 }

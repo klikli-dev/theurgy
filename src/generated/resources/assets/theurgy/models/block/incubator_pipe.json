@@ -1,0 +1,7 @@
+{
+  "parent": "theurgy:block/incubator_pipe_template",
+  "textures": {
+    "particle": "minecraft:block/copper_block",
+    "texture": "theurgy:block/incubator_pipe"
+  }
+}

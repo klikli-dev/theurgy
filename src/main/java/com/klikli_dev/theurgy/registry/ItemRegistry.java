@@ -38,8 +38,6 @@ public class ItemRegistry {
             ITEMS.register("the_hermetica_icon", () -> new Item(new Item.Properties()));
 
 
-
-
     //Divination rods
     public static final RegistryObject<DivinationRodItem> DIVINATION_ROD_T1 =
             ITEMS.register("divination_rod_t1", () -> new DivinationRodItem(
@@ -71,9 +69,6 @@ public class ItemRegistry {
 
     //Ingredients
 
-    public static final RegistryObject<Item> ALCHEMICAL_SALT_ORE =
-            ITEMS.register("alchemical_salt_ore", () -> new Item(new Item.Properties().food(FoodRegistry.ALCHEMICAL_SALT)));
-
     public static final RegistryObject<Item> MERCURY_SHARD =
             ITEMS.register("mercury_shard", () -> new Item(new Item.Properties()));
 
@@ -93,6 +88,19 @@ public class ItemRegistry {
     public static final RegistryObject<BlockItem> DISTILLER =
             ITEMS.register("distiller", () -> new DistillerBlockItem(BlockRegistry.DISTILLER.get(), new Item.Properties()));
 
+    public static final RegistryObject<BlockItem> INCUBATOR =
+            ITEMS.register("incubator", () -> new DistillerBlockItem(BlockRegistry.INCUBATOR.get(), new Item.Properties()));
+
+    public static final RegistryObject<BlockItem> INCUBATOR_MERCURY_VESSEL =
+            ITEMS.register("incubator_mercury_vessel", () -> new DistillerBlockItem(BlockRegistry.INCUBATOR_MERCURY_VESSEL.get(), new Item.Properties()));
+
+    public static final RegistryObject<BlockItem> INCUBATOR_SALT_VESSEL =
+            ITEMS.register("incubator_salt_vessel", () -> new DistillerBlockItem(BlockRegistry.INCUBATOR_SALT_VESSEL.get(), new Item.Properties()));
+
+    public static final RegistryObject<BlockItem> INCUBATOR_SULFUR_VESSEL =
+            ITEMS.register("incubator_sulfur_vessel", () -> new DistillerBlockItem(BlockRegistry.INCUBATOR_SULFUR_VESSEL.get(), new Item.Properties()));
+
+
     public static void onRegisterCreativeModeTabs(CreativeModeTabEvent.Register event) {
         THEURGY_TAB= event.registerCreativeModeTab(new ResourceLocation(Theurgy.MODID + ":" + Theurgy.MODID),
                 (builder) -> {
@@ -106,7 +114,6 @@ public class ItemRegistry {
 
                         output.accept(SAL_AMMONIAC_BUCKET.get());
 
-                        output.accept(ALCHEMICAL_SALT_ORE.get());
                         output.accept(MERCURY_SHARD.get());
                         output.accept(MERCURY_CRYSTAL.get());
 
@@ -114,6 +121,10 @@ public class ItemRegistry {
                         output.accept(PYROMANTIC_BRAZIER.get());
                         output.accept(LIQUEFACTION_CAULDRON.get());
                         output.accept(DISTILLER.get());
+                        output.accept(INCUBATOR.get());
+                        output.accept(INCUBATOR_MERCURY_VESSEL.get());
+                        output.accept(INCUBATOR_SALT_VESSEL.get());
+                        output.accept(INCUBATOR_SULFUR_VESSEL.get());
                     });
 
                 }

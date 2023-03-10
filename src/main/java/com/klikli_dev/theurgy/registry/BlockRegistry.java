@@ -9,6 +9,10 @@ package com.klikli_dev.theurgy.registry;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.content.block.calcinationoven.CalcinationOvenBlock;
 import com.klikli_dev.theurgy.content.block.distiller.DistillerBlock;
+import com.klikli_dev.theurgy.content.block.incubator.IncubatorBlock;
+import com.klikli_dev.theurgy.content.block.incubator.IncubatorMercuryVesselBlock;
+import com.klikli_dev.theurgy.content.block.incubator.IncubatorSaltVesselBlock;
+import com.klikli_dev.theurgy.content.block.incubator.IncubatorSulfurVesselBlock;
 import com.klikli_dev.theurgy.content.block.liquefactioncauldron.LiquefactionCauldronBlock;
 import com.klikli_dev.theurgy.content.block.pyromanticbrazier.PyromanticBrazierBlock;
 import net.minecraft.world.level.block.Block;
@@ -27,8 +31,7 @@ public class BlockRegistry {
             BLOCKS.register("calcination_oven", () -> new CalcinationOvenBlock(BlockBehaviour.Properties.of(Material.METAL)
                     .noOcclusion()
                     .sound(SoundType.METAL)
-                    .strength(1.0f)
-                    .lightLevel((state) -> state.getValue(BlockStateProperties.LIT) ? 14 : 0)));
+                    .strength(1.0f)));
 
     public static final RegistryObject<PyromanticBrazierBlock> PYROMANTIC_BRAZIER =
             BLOCKS.register("pyromantic_brazier", () -> new PyromanticBrazierBlock(BlockBehaviour.Properties.of(Material.METAL)
@@ -41,13 +44,35 @@ public class BlockRegistry {
             BLOCKS.register("liquefaction_cauldron", () -> new LiquefactionCauldronBlock(BlockBehaviour.Properties.of(Material.METAL)
                     .noOcclusion()
                     .sound(SoundType.METAL)
-                    .strength(1.0f)
-                    .lightLevel((state) -> state.getValue(BlockStateProperties.LIT) ? 14 : 0)));
+                    .strength(1.0f)));
 
     public static final RegistryObject<DistillerBlock> DISTILLER =
             BLOCKS.register("distiller", () -> new DistillerBlock(BlockBehaviour.Properties.of(Material.METAL)
                     .noOcclusion()
                     .sound(SoundType.METAL)
-                    .strength(1.0f)
-                    .lightLevel((state) -> state.getValue(BlockStateProperties.LIT) ? 14 : 0)));
+                    .strength(1.0f)));
+
+    public static final RegistryObject<IncubatorBlock> INCUBATOR =
+            BLOCKS.register("incubator", () -> new IncubatorBlock(BlockBehaviour.Properties.of(Material.METAL)
+                    .noOcclusion()
+                    .sound(SoundType.METAL)
+                    .strength(1.0f)));
+
+    public static final RegistryObject<IncubatorMercuryVesselBlock> INCUBATOR_MERCURY_VESSEL =
+            BLOCKS.register("incubator_mercury_vessel", () -> new IncubatorMercuryVesselBlock(BlockBehaviour.Properties.of(Material.METAL)
+                    .noOcclusion()
+                    .sound(SoundType.METAL)
+                    .strength(1.0f)));
+
+    public static final RegistryObject<IncubatorSaltVesselBlock> INCUBATOR_SALT_VESSEL =
+            BLOCKS.register("incubator_salt_vessel", () -> new IncubatorSaltVesselBlock(BlockBehaviour.Properties.of(Material.METAL)
+                    .noOcclusion()
+                    .sound(SoundType.METAL)
+                    .strength(1.0f)));
+
+    public static final RegistryObject<IncubatorSulfurVesselBlock> INCUBATOR_SULFUR_VESSEL =
+            BLOCKS.register("incubator_sulfur_vessel", () -> new IncubatorSulfurVesselBlock(BlockBehaviour.Properties.of(Material.METAL)
+                    .noOcclusion()
+                    .sound(SoundType.METAL)
+                    .strength(1.0f)));
 }

@@ -63,6 +63,7 @@ public class TheurgyConstants {
             private static final String PREFIX = "item." + Theurgy.MODID + ".";
             public static final String ALCHEMICAL_SULFUR_UNKNOWN_SOURCE = PREFIX + "alchemical_sulfur.unknown_source";
             public static final String DIVINATION_ROD_UNKNOWN_LINKED_BLOCK = PREFIX + "divination_rod.unknown_linked_block";
+            public static final String ALCHEMICAL_SALT_SOURCE_SUFFIX = ".source";
         }
 
         public static class Tooltip {
@@ -101,6 +102,7 @@ public class TheurgyConstants {
             public static final String CALCINATION_CATEGORY = PREFIX + "category.calcination";
             public static final String LIQUEFACTION_CATEGORY = PREFIX + "category.liquefaction";
             public static final String DISTILLATION_CATEGORY = PREFIX + "category.distillation";
+            public static final String INCUBATION_CATEGORY = PREFIX + "category.incubation";
         }
 
         public static class Misc {

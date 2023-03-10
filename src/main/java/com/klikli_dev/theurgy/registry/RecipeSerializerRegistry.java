@@ -7,10 +7,7 @@
 package com.klikli_dev.theurgy.registry;
 
 import com.klikli_dev.theurgy.Theurgy;
-import com.klikli_dev.theurgy.content.recipe.CalcinationRecipe;
-import com.klikli_dev.theurgy.content.recipe.DistillationRecipe;
-import com.klikli_dev.theurgy.content.recipe.DivinationRodRecipe;
-import com.klikli_dev.theurgy.content.recipe.LiquefactionRecipe;
+import com.klikli_dev.theurgy.content.recipe.*;
 import com.klikli_dev.theurgy.content.recipe.ingredient.FluidIngredient;
 import com.klikli_dev.theurgy.content.recipe.ingredient.FluidTagEmptyCondition;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -36,6 +33,9 @@ public class RecipeSerializerRegistry {
 
     public static final RegistryObject<RecipeSerializer<DistillationRecipe>> DISTILLATION = RECIPE_SERIALIZERS.register("distillation",
             DistillationRecipe.Serializer::new);
+
+    public static final RegistryObject<RecipeSerializer<IncubationRecipe>> INCUBATION = RECIPE_SERIALIZERS.register("incubation",
+            IncubationRecipe.Serializer::new);
 
     public static void onRegisterRecipeSerializers(RegisterEvent event){
         //restrict to one event type otherwise it is called multiple times

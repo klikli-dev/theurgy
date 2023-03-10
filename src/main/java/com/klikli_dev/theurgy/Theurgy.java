@@ -6,6 +6,7 @@
 
 package com.klikli_dev.theurgy;
 
+import com.klikli_dev.theurgy.content.item.AlchemicalSaltItem;
 import com.klikli_dev.theurgy.content.renderer.BlankEntityRenderer;
 import com.klikli_dev.theurgy.config.ClientConfig;
 import com.klikli_dev.theurgy.config.CommonConfig;
@@ -56,6 +57,7 @@ public class Theurgy {
 
         ItemRegistry.ITEMS.register(modEventBus);
         SulfurRegistry.SULFURS.register(modEventBus);
+        SaltRegistry.SALTS.register(modEventBus);
         BlockRegistry.BLOCKS.register(modEventBus);
         BlockEntityRegistry.BLOCKS.register(modEventBus);
         FluidTypeRegistry.FLUID_TYPES.register(modEventBus);
@@ -74,6 +76,7 @@ public class Theurgy {
         modEventBus.addListener(TheurgyDataGenerators::onGatherData);
         modEventBus.addListener(ItemRegistry::onRegisterCreativeModeTabs);
         modEventBus.addListener(SulfurRegistry::onBuildCreativeModTabs);
+        modEventBus.addListener(SaltRegistry::onBuildCreativeModTabs);
         modEventBus.addListener(RecipeSerializerRegistry::onRegisterRecipeSerializers);
 
         MinecraftForge.EVENT_BUS.addListener(TooltipHandler::onItemTooltipEvent);
@@ -116,6 +119,10 @@ public class Theurgy {
                 if (sulfur.provideAutomaticTooltipData) {
                     TooltipHandler.registerTooltipDataProvider(sulfur, AlchemicalSulfurItem::getTooltipData);
                 }
+            });
+
+            SaltRegistry.SALTS.getEntries().stream().map(RegistryObject::get).map(AlchemicalSaltItem.class::cast).forEach(salt -> {
+                    TooltipHandler.registerTooltipDataProvider(salt, AlchemicalSaltItem::getTooltipData);
             });
         }
 

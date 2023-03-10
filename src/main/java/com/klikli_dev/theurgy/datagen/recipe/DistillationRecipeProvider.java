@@ -8,6 +8,7 @@ package com.klikli_dev.theurgy.datagen.recipe;
 
 import com.google.gson.JsonObject;
 import com.klikli_dev.theurgy.Theurgy;
+import com.klikli_dev.theurgy.content.recipe.DistillationRecipe;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import net.minecraft.data.PackOutput;
@@ -21,43 +22,51 @@ import java.util.function.BiConsumer;
 
 public class DistillationRecipeProvider extends JsonRecipeProvider {
 
+    public static final int TIME = DistillationRecipe.DEFAULT_DISTILLATION_TIME;
+
     public DistillationRecipeProvider(PackOutput packOutput) {
         super(packOutput, Theurgy.MODID, "distillation");
     }
 
     @Override
     void buildRecipes(BiConsumer<ResourceLocation, JsonObject> recipeConsumer) {
-        this.makeMercuryShardRecipe(1, Tags.Items.STONE, 10, 200, recipeConsumer);
+        this.makeMercuryShardRecipe(1, Tags.Items.STONE, 10);
     }
 
-    public void makeMercuryShardRecipe(int resultCount, TagKey<Item> ingredient, int ingredientCount, int distillationTime, BiConsumer<ResourceLocation, JsonObject> recipeConsumer) {
-        this.makeMercuryShardRecipe(ingredient.location().getPath().replace("/", "."), resultCount, ingredient, ingredientCount, distillationTime, recipeConsumer);
+    public void makeMercuryShardRecipe(int resultCount, TagKey<Item> ingredient, int ingredientCount) {
+        this.makeMercuryShardRecipe(resultCount, ingredient, ingredientCount, TIME);
     }
 
-    public void makeMercuryShardRecipe(String recipeName, int resultCount, TagKey<Item> ingredient, int ingredientCount, int distillationTime, BiConsumer<ResourceLocation, JsonObject> recipeConsumer) {
+    public void makeMercuryShardRecipe(int resultCount, TagKey<Item> ingredient, int ingredientCount, int distillationTime) {
+        this.makeMercuryShardRecipe(ingredient.location().getPath().replace("/", "."), resultCount, ingredient, ingredientCount, distillationTime);
+    }
 
-        recipeConsumer.accept(
+    public void makeMercuryShardRecipe(String recipeName, int resultCount, TagKey<Item> ingredient, int ingredientCount, int distillationTime) {
+
+        this.recipeConsumer.accept(
                 this.modLoc(recipeName),
                 this.makeRecipeJson(
                         this.makeTagIngredient(ingredient.location()),
                         ingredientCount,
-                        this.makeResult(this.locFor(ItemRegistry.MERCURY_SHARD.get()), resultCount), distillationTime));
+                        this.makeItemResult(this.locFor(ItemRegistry.MERCURY_SHARD.get()), resultCount), distillationTime));
 
     }
 
-    public void makeMercuryShardRecipe(int resultCount, Item ingredient, int ingredientCount, int distillationTime, BiConsumer<ResourceLocation, JsonObject> recipeConsumer) {
-
-        this.makeMercuryShardRecipe(ForgeRegistries.ITEMS.getKey(ingredient).getPath(), resultCount, ingredient, ingredientCount, distillationTime, recipeConsumer);
+    public void makeMercuryShardRecipe(int resultCount, Item ingredient, int ingredientCount) {
+        this.makeMercuryShardRecipe(resultCount, ingredient, ingredientCount, TIME);
     }
 
-    public void makeMercuryShardRecipe(String recipeName, int resultCount, Item ingredient, int ingredientCount, int distillationTime, BiConsumer<ResourceLocation, JsonObject> recipeConsumer) {
+    public void makeMercuryShardRecipe(int resultCount, Item ingredient, int ingredientCount, int distillationTime) {
+        this.makeMercuryShardRecipe(ForgeRegistries.ITEMS.getKey(ingredient).getPath(), resultCount, ingredient, ingredientCount, distillationTime);
+    }
 
-        recipeConsumer.accept(
+    public void makeMercuryShardRecipe(String recipeName, int resultCount, Item ingredient, int ingredientCount, int distillationTime) {
+        this.recipeConsumer.accept(
                 this.modLoc(recipeName),
                 this.makeRecipeJson(
                         this.makeItemIngredient(this.locFor(ingredient)),
                         ingredientCount,
-                        this.makeResult(this.locFor(ItemRegistry.MERCURY_SHARD.get()), resultCount), distillationTime));
+                        this.makeItemResult(this.locFor(ItemRegistry.MERCURY_SHARD.get()), resultCount), distillationTime));
 
     }
 

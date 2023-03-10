@@ -13,6 +13,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ModelFile;
+import net.minecraftforge.client.model.generators.MultiPartBlockStateBuilder;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
 public class TheurgyBlockStateProvider extends BlockStateProvider {
@@ -26,6 +27,8 @@ public class TheurgyBlockStateProvider extends BlockStateProvider {
         this.registerPyromanticBrazier();
         this.registerLiquefactionCauldron();
         this.registerDistiller();
+        this.registerIncubator();
+        this.registerIncubatorVessels();
     }
 
     protected void registerDistiller() {
@@ -49,6 +52,44 @@ public class TheurgyBlockStateProvider extends BlockStateProvider {
 
         //distiller needs an item model that allows geckolib to render
         this.itemModels().getBuilder("distiller").parent(new ModelFile.UncheckedModelFile("builtin/entity"));
+    }
+
+    protected void registerIncubator() {
+        var incubator = this.models().withExistingParent("incubator", this.modLoc("block/incubator_template"))
+                //blockbench spits out garbage textures by losing the folder name so we fix them here
+                .texture("texture", this.modLoc("block/incubator"))
+                .texture("particle", this.mcLoc("block/copper_block"));
+
+        var incubatorPipe = this.models().withExistingParent("incubator_pipe", this.modLoc("block/incubator_pipe_template"))
+                //blockbench spits out garbage textures by losing the folder name so we fix them here
+                .texture("texture", this.modLoc("block/incubator_pipe"))
+                .texture("particle", this.mcLoc("block/copper_block"));
+
+        //build blockstate
+        MultiPartBlockStateBuilder incubatorBuilder = this.getMultipartBuilder(BlockRegistry.INCUBATOR.get())
+                .part().modelFile(incubator).addModel().end();
+        this.fourWayMultipart(incubatorBuilder, incubatorPipe);
+
+
+        //add item model
+        this.itemModels().withExistingParent("incubator", this.modLoc("block/incubator"));
+    }
+
+    protected void registerIncubatorVessels() {
+        var incubatorVessel = this.models().withExistingParent("incubator_vessel", this.modLoc("block/incubator_vessel_template"))
+                //blockbench spits out garbage textures by losing the folder name so we fix them here
+                .texture("texture", this.modLoc("block/incubator_vessel"))
+                .texture("particle", this.mcLoc("block/copper_block"));
+
+        //build blockstate
+        this.simpleBlock(BlockRegistry.INCUBATOR_MERCURY_VESSEL.get(), incubatorVessel);
+        this.simpleBlock(BlockRegistry.INCUBATOR_SALT_VESSEL.get(), incubatorVessel);
+        this.simpleBlock(BlockRegistry.INCUBATOR_SULFUR_VESSEL.get(), incubatorVessel);
+
+        //add item model
+        this.itemModels().withExistingParent("incubator_mercury_vessel", this.modLoc("block/incubator_vessel"));
+        this.itemModels().withExistingParent("incubator_salt_vessel", this.modLoc("block/incubator_vessel"));
+        this.itemModels().withExistingParent("incubator_sulfur_vessel", this.modLoc("block/incubator_vessel"));
     }
 
     protected void registerLiquefactionCauldron() {

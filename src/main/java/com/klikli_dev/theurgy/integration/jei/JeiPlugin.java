@@ -10,6 +10,7 @@ import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.integration.jei.recipes.CalcinationCategory;
 import com.klikli_dev.theurgy.content.item.DivinationRodItem;
 import com.klikli_dev.theurgy.integration.jei.recipes.DistillationCategory;
+import com.klikli_dev.theurgy.integration.jei.recipes.IncubationCategory;
 import com.klikli_dev.theurgy.integration.jei.recipes.LiquefactionCategory;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
@@ -45,6 +46,7 @@ public class JeiPlugin implements IModPlugin {
         registration.addRecipeCategories(new CalcinationCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new LiquefactionCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new DistillationCategory(registration.getJeiHelpers().getGuiHelper()));
+        registration.addRecipeCategories(new IncubationCategory(registration.getJeiHelpers().getGuiHelper()));
     }
 
     @Override
@@ -60,6 +62,9 @@ public class JeiPlugin implements IModPlugin {
 
         var distillationRecipes = recipeManager.getAllRecipesFor(RecipeTypeRegistry.DISTILLATION.get());
         registration.addRecipes(JeiRecipeTypes.DISTILLATION, distillationRecipes);
+
+        var incubationRecipes = recipeManager.getAllRecipesFor(RecipeTypeRegistry.INCUBATION.get());
+        registration.addRecipes(JeiRecipeTypes.INCUBATION, incubationRecipes);
     }
 
     @Override
@@ -72,5 +77,8 @@ public class JeiPlugin implements IModPlugin {
 
         registration.addRecipeCatalyst(new ItemStack(BlockRegistry.DISTILLER.get()),
                 JeiRecipeTypes.DISTILLATION);
+
+        registration.addRecipeCatalyst(new ItemStack(BlockRegistry.INCUBATOR.get()),
+                JeiRecipeTypes.INCUBATION);
     }
 }

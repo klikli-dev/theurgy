@@ -34,13 +34,15 @@ public class TheurgyBookProvider extends BookProvider {
 
         int categorySortNum = 1;
         var gettingStartedCategory = new GettingStartedCategoryProvider().make(helper, this.lang).withSortNumber(categorySortNum++);
+        var spagyricsCategory = new SpagyricsCategoryProvider().make(helper, this.lang).withSortNumber(categorySortNum++);
 
         var book = BookModel.builder()
                 .withId(this.modLoc("the_hermetica"))
                 .withName(helper.bookName())
                 .withTooltip(helper.bookTooltip())
                 .withCategories(
-                        gettingStartedCategory.build()
+                        gettingStartedCategory.build(),
+                        spagyricsCategory.build()
                 )
                 .withGenerateBookItem(true)
                 .withModel(this.modLoc("the_hermetica_icon"))

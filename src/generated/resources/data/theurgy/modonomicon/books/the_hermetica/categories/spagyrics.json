@@ -1,0 +1,8 @@
+{
+  "background": "modonomicon:textures/gui/dark_slate_seamless.png",
+  "entry_textures": "modonomicon:textures/gui/entry_textures.png",
+  "icon": "theurgy:calcination_oven",
+  "name": "book.theurgy.the_hermetica.spagyrics.name",
+  "show_category_button": true,
+  "sort_number": 2
+}

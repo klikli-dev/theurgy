@@ -31,9 +31,9 @@ public class GettingStartedCategoryProvider {
         entryHelper.setMap(
                 "__________________________________",
                 "__________________________________",
-                "____________u_____________________",
+                "____________u_____š_______________",
                 "__________________________________",
-                "__________i___d___________________",
+                "__________i___d___s_______________",
                 "__________________________________",
                 "__________a_______________________",
                 "__________________________________",
@@ -46,11 +46,16 @@ public class GettingStartedCategoryProvider {
 
         var divinationRodEntry = this.makeDivinationRodEntry(helper, lang, entryHelper, 'd');
         divinationRodEntry.withParent(introEntry);
+        //TODO: higer tier div rod entries explaining how they work
 
         var apparatusHowToEntry = this.makeApparatusHowToEntry(helper, lang, entryHelper, 'u');
         apparatusHowToEntry.withParent(introEntry);
 
-        //TODO: higer tier div rod entries explaining how they work
+        var spagyricsEntry = this.makeSpagyricsEntry(helper, lang, entryHelper, 's');
+        spagyricsEntry.withParent(divinationRodEntry);
+
+        var spagyricsLinkEntry = this.makeSpagyricsLinkEntry(helper, lang, entryHelper, 'š');
+        spagyricsLinkEntry.withParent(spagyricsEntry);
 
         return BookCategoryModel.builder()
                 .withId(Theurgy.loc((helper.category)))
@@ -60,7 +65,9 @@ public class GettingStartedCategoryProvider {
                         introEntry.build(),
                         aboutModEntry.build(),
                         divinationRodEntry.build(),
-                        apparatusHowToEntry.build()
+                        apparatusHowToEntry.build(),
+                        spagyricsEntry.build(),
+                        spagyricsLinkEntry.build()
                 );
     }
 
@@ -101,7 +108,7 @@ public class GettingStartedCategoryProvider {
                 .withDescription(helper.entryDescription())
                 .withIcon(ItemRegistry.THE_HERMETICA_ICON.get())
                 .withLocation(entryHelper.get(icon))
-                .withEntryBackground(0, 1)
+                .withEntryBackground(EntryBackground.CATEGORY_START)
                 .withPages(
                         intro,
                         help
@@ -174,7 +181,7 @@ public class GettingStartedCategoryProvider {
                 .withDescription(helper.entryDescription())
                 .withIcon(Items.NETHER_STAR)
                 .withLocation(entryHelper.get(icon))
-                .withEntryBackground(0, 0)
+                .withEntryBackground(EntryBackground.DEFAULT)
                 .withPages(
                         about,
                         about2,
@@ -250,7 +257,7 @@ public class GettingStartedCategoryProvider {
                 .withDescription(helper.entryDescription())
                 .withIcon(ItemRegistry.DIVINATION_ROD_T1.get())
                 .withLocation(entryHelper.get(icon))
-                .withEntryBackground(0, 0)
+                .withEntryBackground(EntryBackground.DEFAULT)
                 .withPages(
                         intro,
                         intro2,
@@ -353,9 +360,9 @@ public class GettingStartedCategoryProvider {
                 .withId(Theurgy.loc(helper.category + "/" + helper.entry))
                 .withName(helper.entryName())
                 .withDescription(helper.entryDescription())
-                .withIcon(BlockRegistry.CALCINATION_OVEN.get())
+                .withIcon(BlockRegistry.PYROMANTIC_BRAZIER.get())
                 .withLocation(entryHelper.get(icon))
-                .withEntryBackground(0, 0)
+                .withEntryBackground(EntryBackground.DEFAULT)
                 .withPages(
                         intro,
                         intro2,
@@ -364,5 +371,62 @@ public class GettingStartedCategoryProvider {
                         fluidInteraction,
                         automaticInteraction
                         );
+    }
+
+    private BookEntryModel.Builder makeSpagyricsEntry(BookLangHelper helper, LanguageProvider lang, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("spagyrics");
+        lang.add(helper.entryName(), "Spagyrics");
+        lang.add(helper.entryDescription(), "Mastery over Matter");
+
+        helper.page("intro");
+        var intro = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+        lang.add(helper.pageTitle(), "Spagyrics");
+        lang.add(helper.pageText(),
+                """
+                        While divination rods are a useful tool to obtain *more* materials, they rely on the natural abundance of such materials.
+                        \\
+                        \\
+                        Spagyrics pursue the goal of *creating* materials out of other, possibly more abundant, materials.""");
+
+        helper.page("intro2");
+        var intro2 = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+        lang.add(helper.pageTitle(), "Learn More");
+        lang.add(helper.pageText(),
+                """
+                       Open the Spagyrics Category to learn more about the various required alchemical processes.
+                       """);
+
+        return BookEntryModel.builder()
+                .withId(Theurgy.loc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withDescription(helper.entryDescription())
+                .withIcon(BlockRegistry.CALCINATION_OVEN.get())
+                .withLocation(entryHelper.get(icon))
+                .withEntryBackground(EntryBackground.DEFAULT)
+                .withPages(
+                        intro,
+                        intro2
+                );
+    }
+
+    private BookEntryModel.Builder makeSpagyricsLinkEntry(BookLangHelper helper, LanguageProvider lang, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("spagyrics_link");
+        lang.add(helper.entryName(), "Spagyrics");
+        lang.add(helper.entryDescription(), "View the Spagyrics Category");
+
+        return BookEntryModel.builder()
+                .withId(Theurgy.loc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withDescription(helper.entryDescription())
+                .withIcon(BlockRegistry.CALCINATION_OVEN.get())
+                .withLocation(entryHelper.get(icon))
+                .withCategoryToOpen(Theurgy.loc(SpagyricsCategoryProvider.CATEGORY_ID))
+                .withEntryBackground(EntryBackground.LINK_TO_CATEGORY);
     }
 }

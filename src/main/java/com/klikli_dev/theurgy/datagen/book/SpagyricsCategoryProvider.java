@@ -11,6 +11,7 @@ import com.klikli_dev.modonomicon.api.datagen.BookLangHelper;
 import com.klikli_dev.modonomicon.api.datagen.EntryLocationHelper;
 import com.klikli_dev.modonomicon.api.datagen.book.BookCategoryModel;
 import com.klikli_dev.modonomicon.api.datagen.book.BookEntryModel;
+import com.klikli_dev.modonomicon.api.datagen.book.page.BookCraftingRecipePageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
@@ -35,11 +36,11 @@ public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
         entryHelper.setMap(
                 "__________________________________",
                 "__________________________________",
+                "________________c_________________",
                 "__________________________________",
+                "__________i_p_b___l_r_____________",
                 "__________________________________",
-                "__________i_p_____________________",
-                "__________________________________",
-                "__________________________________",
+                "________________d_________________",
                 "__________________________________",
                 "__________________________________"
         );
@@ -48,13 +49,35 @@ public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
         var principlesEntry = this.makePrinciplesEntry(helper, entryHelper, 'p');
         principlesEntry.withParent(introEntry);
 
+        var pyromanticBrazierEntry = this.makePyromanticBrazierEntry(helper, entryHelper, 'b');
+        pyromanticBrazierEntry.withParent(principlesEntry);
+
+        var calcinationOvenEntry = this.makeCalcinationOvenEntry(helper, entryHelper, 'c');
+        calcinationOvenEntry.withParent(pyromanticBrazierEntry);
+
+        var liquefactionCauldronEntry = this.makeLiquefactionCauldronEntry(helper, entryHelper, 'l');
+        liquefactionCauldronEntry.withParent(pyromanticBrazierEntry);
+
+        var distillerEntry = this.makeDistillerEntry(helper, entryHelper, 'd');
+        distillerEntry.withParent(pyromanticBrazierEntry);
+
+        var incubatorEntry = this.makeIncubatorEntry(helper, entryHelper, 'r');
+        incubatorEntry.withParent(calcinationOvenEntry);
+        incubatorEntry.withParent(liquefactionCauldronEntry);
+        incubatorEntry.withParent(distillerEntry);
+
         return BookCategoryModel.builder()
                 .withId(Theurgy.loc((helper.category)))
                 .withName(helper.categoryName())
                 .withIcon(ItemRegistry.CALCINATION_OVEN.get())
                 .withEntries(
                         introEntry.build(),
-                        principlesEntry.build()
+                        principlesEntry.build(),
+                        pyromanticBrazierEntry.build(),
+                        calcinationOvenEntry.build(),
+                        liquefactionCauldronEntry.build(),
+                        distillerEntry.build(),
+                        incubatorEntry.build()
                 );
     }
 
@@ -165,6 +188,169 @@ public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
                         salt,
                         sulfur,
                         mercury
+                );
+    }
+
+    private BookEntryModel.Builder makePyromanticBrazierEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("pyromantic_brazier");
+        this.add(helper.entryName(), "Pyromantic Brazier");
+        this.add(helper.entryDescription(), "Heating your Alchemical Devices");
+
+        helper.page("intro");
+        var intro = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+        this.add(helper.pageTitle(), "Pyromantic Brazier");
+        this.add(helper.pageText(),
+                """
+                        The Pyromantic Brazier is a simple heating apparatus that can be used to power Alchemical Devices. It is powered by burning furnace fuel, such as wood, coal, or charcoal.
+                        """);
+
+
+        helper.page("usage");
+        var usage = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+        this.add(helper.pageTitle(), "Usage");
+        this.add(helper.pageText(),
+                """
+                        Place the brazier below the Alchemical Device you want to power, then insert a fuel item by right-clicking the brazier with it.
+                        \\
+                        \\
+                        Alternatively a hopper can be used to insert fuel items.
+                        """);
+
+        helper.page("recipe");
+        var recipe = BookCraftingRecipePageModel.builder()
+                .withRecipeId1(Theurgy.loc("pyromantic_brazier"))
+                .build();
+        //no text
+
+        return BookEntryModel.builder()
+                .withId(Theurgy.loc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withDescription(helper.entryDescription())
+                .withIcon(ItemRegistry.PYROMANTIC_BRAZIER.get())
+                .withLocation(entryHelper.get(icon))
+                .withEntryBackground(EntryBackground.DEFAULT)
+                .withPages(
+                        intro,
+                        usage,
+                        recipe
+                );
+    }
+
+    private BookEntryModel.Builder makeCalcinationOvenEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("calcination_oven");
+        this.add(helper.entryName(), "Calcination Oven");
+        this.add(helper.entryDescription(), "Making Salt");
+
+        helper.page("intro");
+        var intro = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+        this.add(helper.pageTitle(), "Calcination Oven");
+        this.add(helper.pageText(),
+                """
+                        """);
+
+        return BookEntryModel.builder()
+                .withId(Theurgy.loc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withDescription(helper.entryDescription())
+                .withIcon(ItemRegistry.CALCINATION_OVEN.get())
+                .withLocation(entryHelper.get(icon))
+                .withEntryBackground(EntryBackground.DEFAULT)
+                .withPages(
+                        intro
+                );
+    }
+
+    private BookEntryModel.Builder makeLiquefactionCauldronEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("liquefaction_cauldron");
+        this.add(helper.entryName(), "Liquefaction Cauldron");
+        this.add(helper.entryDescription(), "Making Sulfur");
+
+        helper.page("intro");
+        var intro = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+        this.add(helper.pageTitle(), "Liquefaction Cauldron");
+        this.add(helper.pageText(),
+                """
+                        """);
+
+        return BookEntryModel.builder()
+                .withId(Theurgy.loc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withDescription(helper.entryDescription())
+                .withIcon(ItemRegistry.LIQUEFACTION_CAULDRON.get())
+                .withLocation(entryHelper.get(icon))
+                .withEntryBackground(EntryBackground.DEFAULT)
+                .withPages(
+                        intro
+                );
+    }
+
+    private BookEntryModel.Builder makeDistillerEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("distiller");
+        this.add(helper.entryName(), "Distiller");
+        this.add(helper.entryDescription(), "Making Mercury");
+
+        helper.page("intro");
+        var intro = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+        this.add(helper.pageTitle(), "Distiller");
+        this.add(helper.pageText(),
+                """
+                        """);
+
+        return BookEntryModel.builder()
+                .withId(Theurgy.loc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withDescription(helper.entryDescription())
+                .withIcon(ItemRegistry.DISTILLER.get())
+                .withLocation(entryHelper.get(icon))
+                .withEntryBackground(EntryBackground.DEFAULT)
+                .withPages(
+                        intro
+                );
+    }
+
+    private BookEntryModel.Builder makeIncubatorEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("incubator");
+        this.add(helper.entryName(), "Incubator");
+        this.add(helper.entryDescription(), "Making Matter");
+
+        helper.page("intro");
+        var intro = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+        this.add(helper.pageTitle(), "Incubator");
+        this.add(helper.pageText(),
+                """
+                        """);
+
+        //intro page
+        //multiblock page
+        //block recipe pages
+
+        return BookEntryModel.builder()
+                .withId(Theurgy.loc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withDescription(helper.entryDescription())
+                .withIcon(ItemRegistry.INCUBATOR.get())
+                .withLocation(entryHelper.get(icon))
+                .withEntryBackground(EntryBackground.DEFAULT)
+                .withPages(
+                        intro
                 );
     }
 

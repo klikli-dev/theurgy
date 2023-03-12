@@ -1,0 +1,41 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "theurgy:spagyrics",
+  "description": "book.theurgy.the_hermetica.spagyrics.incubator.description",
+  "hide_while_locked": false,
+  "icon": "theurgy:incubator",
+  "name": "book.theurgy.the_hermetica.spagyrics.incubator.name",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.spagyrics.incubator.intro.text",
+      "title": "book.theurgy.the_hermetica.spagyrics.incubator.intro.title",
+      "use_markdown_in_title": false
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "theurgy:spagyrics/calcination_oven",
+      "line_enabled": true,
+      "line_reversed": false
+    },
+    {
+      "draw_arrow": true,
+      "entry": "theurgy:spagyrics/liquefaction_cauldron",
+      "line_enabled": true,
+      "line_reversed": false
+    },
+    {
+      "draw_arrow": true,
+      "entry": "theurgy:spagyrics/distiller",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "x": 3,
+  "y": 0
+}

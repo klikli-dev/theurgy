@@ -1,0 +1,45 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "theurgy:spagyrics",
+  "description": "book.theurgy.the_hermetica.spagyrics.pyromantic_brazier.description",
+  "hide_while_locked": false,
+  "icon": "theurgy:pyromantic_brazier",
+  "name": "book.theurgy.the_hermetica.spagyrics.pyromantic_brazier.name",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.spagyrics.pyromantic_brazier.intro.text",
+      "title": "book.theurgy.the_hermetica.spagyrics.pyromantic_brazier.intro.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.spagyrics.pyromantic_brazier.usage.text",
+      "title": "book.theurgy.the_hermetica.spagyrics.pyromantic_brazier.usage.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:crafting_recipe",
+      "anchor": "",
+      "recipe_id_1": "theurgy:pyromantic_brazier",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "theurgy:spagyrics/principles",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "x": -3,
+  "y": 0
+}

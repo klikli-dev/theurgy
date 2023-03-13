@@ -23,11 +23,12 @@ import net.minecraftforge.common.data.LanguageProvider;
 
 public class GettingStartedCategoryProvider implements MacroLangCategoryProvider {
 
+    public static final String CATEGORY_ID = "getting_started";
     private LanguageProvider lang;
 
     public BookCategoryModel.Builder make(BookLangHelper helper, LanguageProvider lang) {
         this.setLanguageProvider(lang);
-        helper.category("getting_started");
+        helper.category(CATEGORY_ID);
         this.add(helper.categoryName(), "Getting Started");
 
         var entryHelper = ModonomiconAPI.get().getEntryLocationHelper();

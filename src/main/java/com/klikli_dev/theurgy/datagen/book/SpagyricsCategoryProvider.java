@@ -204,7 +204,7 @@ public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
         this.add(helper.pageTitle(), "Pyromantic Brazier");
         this.add(helper.pageText(),
                 """
-                        The Pyromantic Brazier is a simple heating apparatus that can be used to power Alchemical Devices. It is powered by burning furnace fuel, such as wood, coal, or charcoal.
+                        The Pyromantic Brazier is a simple heating apparatus that can be used to power other Alchemical Devices. It is powered by burning furnace fuel, such as wood, coal, or charcoal.
                         """);
 
 
@@ -220,7 +220,12 @@ public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
                         \\
                         \\
                         Alternatively a hopper can be used to insert fuel items.
-                        """);
+                        \\
+                        \\
+                        See also {0}.
+                        """,
+                this.entryLink("Alchemical Apparatus", GettingStartedCategoryProvider.CATEGORY_ID, "apparatus_how_to")
+        );
 
         helper.page("recipe");
         var recipe = BookCraftingRecipePageModel.builder()

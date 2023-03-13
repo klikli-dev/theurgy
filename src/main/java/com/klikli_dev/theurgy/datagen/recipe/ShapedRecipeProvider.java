@@ -139,7 +139,12 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
         }
 
         public RecipeBuilder define(char key, JsonObject ingredient) {
-            this.recipe.getAsJsonObject("key").add(String.valueOf(key), ingredient);
+            var keyString = String.valueOf(key);
+            var keys = this.recipe.getAsJsonObject("key");
+            if(keys.has(keyString))
+                throw new IllegalArgumentException("Key " + keyString + " already defined");
+
+            keys.add(keyString, ingredient);
             return this;
         }
 

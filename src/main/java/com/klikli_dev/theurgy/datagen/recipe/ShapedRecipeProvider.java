@@ -54,7 +54,7 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
                 .define('G', Tags.Items.GLASS)
                 .define('R', Tags.Items.RODS_WOODEN)
                 .define('A', Tags.Items.GEMS_AMETHYST)
-                .define('G', Tags.Items.NUGGETS_GOLD)
+                .define('M', Tags.Items.NUGGETS_GOLD)
         );
 
         this.makeRecipe("divination_rod_t3", new RecipeBuilder(

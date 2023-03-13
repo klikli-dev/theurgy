@@ -6,6 +6,7 @@
 
 package com.klikli_dev.theurgy.datagen.book;
 
+import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,4 +31,14 @@ public interface MacroCategoryProvider {
         return input;
     }
 
+    default String format(String pattern, Object... arguments){
+        return MessageFormat.format(pattern, arguments);
+    }
+
+    default String entryLink(String category, String entry){
+        return this.entryLink("", category, entry);
+    }
+    default String entryLink(String text, String category, String entry){
+        return this.format("[{0}](entry://{1}/{2})", text, category, entry);
+    }
 }

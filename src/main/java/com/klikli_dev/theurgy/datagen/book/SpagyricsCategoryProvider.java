@@ -12,6 +12,7 @@ import com.klikli_dev.modonomicon.api.datagen.EntryLocationHelper;
 import com.klikli_dev.modonomicon.api.datagen.book.BookCategoryModel;
 import com.klikli_dev.modonomicon.api.datagen.book.BookEntryModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookCraftingRecipePageModel;
+import com.klikli_dev.modonomicon.api.datagen.book.page.BookMultiblockPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
@@ -229,7 +230,7 @@ public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
 
         helper.page("recipe");
         var recipe = BookCraftingRecipePageModel.builder()
-                .withRecipeId1(Theurgy.loc("pyromantic_brazier"))
+                .withRecipeId1(Theurgy.loc("shaped/pyromantic_brazier"))
                 .build();
         //no text
 
@@ -260,7 +261,39 @@ public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
         this.add(helper.pageTitle(), "Calcination Oven");
         this.add(helper.pageText(),
                 """
+                        Calcination is the process whereby Alchemical Salt is extracted from matter. The Calcination Oven is a simple device that can be used to perform this process by applying consistent high heat to the target object.
                         """);
+
+        //multiblock page
+        helper.page("multiblock");
+        var multiblock = BookMultiblockPageModel.builder()
+                .withMultiblockId(Theurgy.loc("placement/calcination_oven"))
+                .build();
+
+        helper.page("usage");
+        var usage = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+        this.add(helper.pageTitle(), "Usage");
+        this.add(helper.pageText(),
+                """
+                        Place the oven on top of a Pyromantic Brazier, then insert the item to calcinate by right-clicking the oven with it.
+                        \\
+                        \\
+                        Alternatively a hopper can be used to insert items to process
+                        \\
+                        \\
+                        See also {0}.
+                        """,
+                this.entryLink("Alchemical Apparatus", GettingStartedCategoryProvider.CATEGORY_ID, "apparatus_how_to")
+        );
+
+        helper.page("recipe");
+        var recipe = BookCraftingRecipePageModel.builder()
+                .withRecipeId1(Theurgy.loc("shaped/calcination_oven"))
+                .build();
+        //no text
 
         return BookEntryModel.builder()
                 .withId(Theurgy.loc(helper.category + "/" + helper.entry))
@@ -270,7 +303,10 @@ public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
                 .withLocation(entryHelper.get(icon))
                 .withEntryBackground(EntryBackground.DEFAULT)
                 .withPages(
-                        intro
+                        intro,
+                        multiblock,
+                        usage,
+                        recipe
                 );
     }
 
@@ -288,6 +324,16 @@ public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
         this.add(helper.pageText(),
                 """
                         """);
+
+        //intro page
+        //multiblock page
+        //usage page
+
+        helper.page("recipe");
+        var recipe = BookCraftingRecipePageModel.builder()
+                .withRecipeId1(Theurgy.loc("shaped/liquefaction_cauldron"))
+                .build();
+        //no text
 
         return BookEntryModel.builder()
                 .withId(Theurgy.loc(helper.category + "/" + helper.entry))
@@ -315,6 +361,15 @@ public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
         this.add(helper.pageText(),
                 """
                         """);
+
+        //intro page
+        //multiblock page
+        //usage page
+        helper.page("recipe");
+        var recipe = BookCraftingRecipePageModel.builder()
+                .withRecipeId1(Theurgy.loc("shaped/distiller"))
+                .build();
+        //no text
 
         return BookEntryModel.builder()
                 .withId(Theurgy.loc(helper.category + "/" + helper.entry))
@@ -345,7 +400,32 @@ public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
 
         //intro page
         //multiblock page
+        //usage page
         //block recipe pages
+
+        helper.page("recipe_incubator");
+        var recipeIncubator = BookCraftingRecipePageModel.builder()
+                .withRecipeId1(Theurgy.loc("shaped/incubator"))
+                .build();
+        //no text
+
+        helper.page("recipe_mercury_vessel");
+        var recipeMercuryVessel = BookCraftingRecipePageModel.builder()
+                .withRecipeId1(Theurgy.loc("shaped/incubator_mercury_vessel"))
+                .build();
+        //no text
+
+        helper.page("recipe_salt_vessel");
+        var recipeSaltVessel = BookCraftingRecipePageModel.builder()
+                .withRecipeId1(Theurgy.loc("shaped/incubator_salt_vessel"))
+                .build();
+        //no text
+
+        helper.page("recipe_sulfur_vessel");
+        var recipeSulfurVessel = BookCraftingRecipePageModel.builder()
+                .withRecipeId1(Theurgy.loc("shaped/incubator_sulfur_vessel"))
+                .build();
+        //no text
 
         return BookEntryModel.builder()
                 .withId(Theurgy.loc(helper.category + "/" + helper.entry))

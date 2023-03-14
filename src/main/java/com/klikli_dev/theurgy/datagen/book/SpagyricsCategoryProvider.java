@@ -264,7 +264,6 @@ public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
                         Calcination is the process whereby Alchemical Salt is extracted from matter. The Calcination Oven is a simple device that can be used to perform this process by applying consistent high heat to the target object.
                         """);
 
-        //multiblock page
         helper.page("multiblock");
         var multiblock = BookMultiblockPageModel.builder()
                 .withMultiblockId(Theurgy.loc("placement/calcination_oven"))
@@ -323,16 +322,53 @@ public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
         this.add(helper.pageTitle(), "Liquefaction Cauldron");
         this.add(helper.pageText(),
                 """
+                        Liquefaction allows the extract ion of Alchemical Sulfur from matter. In the Liquefaction Cauldron a Solvent, usually a type of acid, is used to dissolve the target object, then the resulting solution is heated to evaporate the solvent and leave behind the Sulfur.
                         """);
 
-        //intro page
-        //multiblock page
+        helper.page("solvents");
+        var solvents = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+        this.add(helper.pageTitle(), "Solvents");
+        this.add(helper.pageText(),
+                """
+                        Different solvents can be used to dissolve different materials. The following solvents are available:
+                        - Sal Ammoniac
+                        - Alkahest (not yet implemented)
+                        
+                        \\
+                        \\
+                        See also {0}
+                        """,
+                this.entryLinkDummy("Solvents", SpagyricsCategoryProvider.CATEGORY_ID, "solvents")
+                );
+        //TODO: Link to solvents entry once available
+        //TODO: Update entry once alkahest is available
+
         helper.page("multiblock");
         var multiblock = BookMultiblockPageModel.builder()
                 .withMultiblockId(Theurgy.loc("placement/liquefaction_cauldron"))
                 .build();
 
-        //usage page
+        helper.page("usage");
+        var usage = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+        this.add(helper.pageTitle(), "Usage");
+        this.add(helper.pageText(),
+                """
+                        Place the cauldron on top of a Pyromantic Brazier, and fill it with a Solvent by right-clicking with a solvent-filled bucket.
+                        \\
+                        \\
+                        Then insert the item to liquefy by right-clicking the cauldron with it.
+                        \\
+                        \\
+                        See also {0}.
+                        """,
+                this.entryLink("Alchemical Apparatus", GettingStartedCategoryProvider.CATEGORY_ID, "apparatus_how_to")
+        );
 
         helper.page("recipe");
         var recipe = BookCraftingRecipePageModel.builder()
@@ -349,7 +385,10 @@ public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
                 .withEntryBackground(EntryBackground.DEFAULT)
                 .withPages(
                         intro,
-                        multiblock
+                        solvents,
+                        multiblock,
+                        usage,
+                        recipe
                 );
     }
 

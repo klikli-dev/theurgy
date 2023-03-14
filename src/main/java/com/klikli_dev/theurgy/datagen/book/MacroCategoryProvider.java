@@ -35,10 +35,15 @@ public interface MacroCategoryProvider {
         return MessageFormat.format(pattern, arguments);
     }
 
-    default String entryLink(String category, String entry){
-        return this.entryLink("", category, entry);
-    }
     default String entryLink(String text, String category, String entry){
         return this.format("[{0}](entry://{1}/{2})", text, category, entry);
+    }
+
+    /**
+     * Dummy entry link for use in the book provider, as the linked entry is not available at that point.
+     * Replace with identical call to entryLink once the entry is available.
+     */
+    default String entryLinkDummy(String text, String category, String entry){
+        return this.format("[{0}]()", text, category, entry);
     }
 }

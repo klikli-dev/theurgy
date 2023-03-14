@@ -313,7 +313,8 @@ public class GettingStartedCategoryProvider implements MacroLangCategoryProvider
                         To interact with an apparatus, approach it and right-click on it.
                         \\
                         \\
-                        If you have an empty hand, the it will first try to take the contents of its output slot and place them in your inventory.
+                        **Taking Output Items**\\
+                        If you have an empty hand, the machine will first try to take the contents of its output slot and place them in your inventory.
                                     """);
 
         helper.page("manual_interaction2");
@@ -322,9 +323,11 @@ public class GettingStartedCategoryProvider implements MacroLangCategoryProvider
                 .build();
         this.add(helper.pageText(),
                 """
+                        **Taking Input Items**\\
                         If there are no output items, it will instead try to place the contents of its input slot into your inventory, effectively emptying it.
                         \\
                         \\
+                        **Inserting Items**\\
                         If you have an item in your hand, the apparatus will automatically try to insert it into the input slot.
                                     """);
 

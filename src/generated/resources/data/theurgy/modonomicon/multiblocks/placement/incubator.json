@@ -1,0 +1,57 @@
+{
+  "type": "modonomicon:dense",
+  "mapping": {
+    "*": {
+      "type": "modonomicon:display",
+      "display": "minecraft:basalt"
+    },
+    "+": {
+      "type": "modonomicon:display",
+      "display": "minecraft:stone"
+    },
+    "0": {
+      "type": "modonomicon:block",
+      "block": "theurgy:incubator",
+      "display": "theurgy:incubator[north=true,east=false,south=true,west=true]"
+    },
+    "M": {
+      "type": "modonomicon:block",
+      "block": "theurgy:incubator_mercury_vessel"
+    },
+    "S": {
+      "type": "modonomicon:block",
+      "block": "theurgy:incubator_salt_vessel"
+    },
+    "b": {
+      "type": "modonomicon:block",
+      "block": "theurgy:pyromantic_brazier"
+    },
+    "s": {
+      "type": "modonomicon:block",
+      "block": "theurgy:incubator_sulfur_vessel"
+    }
+  },
+  "pattern": [
+    [
+      "_____",
+      "__M__",
+      "_S0s_",
+      "_____",
+      "_____"
+    ],
+    [
+      "_____",
+      "_____",
+      "__b__",
+      "_____",
+      "_____"
+    ],
+    [
+      "*+*+*",
+      "+*+*+",
+      "*+*+*",
+      "+*+*+",
+      "*+*+*"
+    ]
+  ]
+}

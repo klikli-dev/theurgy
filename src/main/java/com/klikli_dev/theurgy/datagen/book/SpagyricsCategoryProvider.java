@@ -327,6 +327,11 @@ public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
 
         //intro page
         //multiblock page
+        helper.page("multiblock");
+        var multiblock = BookMultiblockPageModel.builder()
+                .withMultiblockId(Theurgy.loc("placement/liquefaction_cauldron"))
+                .build();
+
         //usage page
 
         helper.page("recipe");
@@ -343,7 +348,8 @@ public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
                 .withLocation(entryHelper.get(icon))
                 .withEntryBackground(EntryBackground.DEFAULT)
                 .withPages(
-                        intro
+                        intro,
+                        multiblock
                 );
     }
 
@@ -364,6 +370,11 @@ public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
 
         //intro page
         //multiblock page
+        helper.page("multiblock");
+        var multiblock = BookMultiblockPageModel.builder()
+                .withMultiblockId(Theurgy.loc("placement/distiller"))
+                .build();
+
         //usage page
         helper.page("recipe");
         var recipe = BookCraftingRecipePageModel.builder()
@@ -379,7 +390,8 @@ public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
                 .withLocation(entryHelper.get(icon))
                 .withEntryBackground(EntryBackground.DEFAULT)
                 .withPages(
-                        intro
+                        intro,
+                        multiblock
                 );
     }
 
@@ -400,6 +412,11 @@ public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
 
         //intro page
         //multiblock page
+        helper.page("multiblock");
+        var multiblock = BookMultiblockPageModel.builder()
+                .withMultiblockId(Theurgy.loc("placement/incubator"))
+                .build();
+
         //usage page
         //block recipe pages
 
@@ -435,7 +452,8 @@ public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
                 .withLocation(entryHelper.get(icon))
                 .withEntryBackground(EntryBackground.DEFAULT)
                 .withPages(
-                        intro
+                        intro,
+                        multiblock
                 );
     }
 

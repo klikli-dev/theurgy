@@ -14,6 +14,14 @@
       "text": "book.theurgy.the_hermetica.spagyrics.distiller.intro.text",
       "title": "book.theurgy.the_hermetica.spagyrics.distiller.intro.title",
       "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:multiblock",
+      "anchor": "",
+      "multiblock_id": "theurgy:placement/distiller",
+      "multiblock_name": "",
+      "show_visualize_button": true,
+      "text": ""
     }
   ],
   "parents": [

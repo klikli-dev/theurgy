@@ -12,6 +12,7 @@ import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.config.ServerConfig;
 import com.klikli_dev.theurgy.registry.RecipeRegistry;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
@@ -34,9 +35,9 @@ public class DivinationRodRecipe extends ShapedRecipe {
     }
 
     @Override
-    public ItemStack getResultItem() {
+    public ItemStack getResultItem(RegistryAccess registryAccess) {
 
-        var result = super.getResultItem();
+        var result = super.getResultItem(registryAccess);
 
         var resultTag = result.getOrCreateTag();
 
@@ -74,8 +75,8 @@ public class DivinationRodRecipe extends ShapedRecipe {
     }
 
     @Override
-    public ItemStack assemble(CraftingContainer pInv) {
-        var result = this.getResultItem().copy();
+    public ItemStack assemble(CraftingContainer pInv, RegistryAccess registryAccess) {
+        var result = this.getResultItem(registryAccess).copy();
 
 
         var resultTag = result.getOrCreateTag();
@@ -110,7 +111,7 @@ public class DivinationRodRecipe extends ShapedRecipe {
             }
         }
 
-        return super.assemble(pInv);
+        return super.assemble(pInv, registryAccess);
     }
 
     public ResourceLocation translateToBlock(ResourceLocation sourceId) {
@@ -173,13 +174,15 @@ public class DivinationRodRecipe extends ShapedRecipe {
         public DivinationRodRecipe fromJson(ResourceLocation pRecipeId, JsonObject pJson) {
             var shapedRecipe = RecipeSerializer.SHAPED_RECIPE.fromJson(pRecipeId, pJson);
 
-            return new DivinationRodRecipe(pRecipeId, shapedRecipe.getGroup(), shapedRecipe.getWidth(), shapedRecipe.getHeight(), shapedRecipe.getIngredients(), shapedRecipe.getResultItem());
+            //we can pass null here because shapeless recipe does not use the registryacess
+            return new DivinationRodRecipe(pRecipeId, shapedRecipe.getGroup(), shapedRecipe.getWidth(), shapedRecipe.getHeight(), shapedRecipe.getIngredients(), shapedRecipe.getResultItem(null));
         }
 
         public DivinationRodRecipe fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
             var shapedRecipe = RecipeSerializer.SHAPED_RECIPE.fromNetwork(pRecipeId, pBuffer);
 
-            return new DivinationRodRecipe(pRecipeId, shapedRecipe.getGroup(), shapedRecipe.getWidth(), shapedRecipe.getHeight(), shapedRecipe.getIngredients(), shapedRecipe.getResultItem());
+            //we can pass null here because shapeless recipe does not use the registryacess
+            return new DivinationRodRecipe(pRecipeId, shapedRecipe.getGroup(), shapedRecipe.getWidth(), shapedRecipe.getHeight(), shapedRecipe.getIngredients(), shapedRecipe.getResultItem(null));
         }
 
         public void toNetwork(FriendlyByteBuf pBuffer, DivinationRodRecipe pRecipe) {

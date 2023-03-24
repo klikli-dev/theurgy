@@ -14,9 +14,9 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 
 public class SulfurBEWLR extends BlockEntityWithoutLevelRenderer {
@@ -34,12 +34,12 @@ public class SulfurBEWLR extends BlockEntityWithoutLevelRenderer {
         return instance;
     }
 
-    private static boolean isLeftHand(ItemTransforms.TransformType type) {
-        return type == ItemTransforms.TransformType.FIRST_PERSON_LEFT_HAND || type == ItemTransforms.TransformType.THIRD_PERSON_LEFT_HAND;
+    private static boolean isLeftHand(ItemDisplayContext displayContext) {
+        return displayContext == ItemDisplayContext.FIRST_PERSON_LEFT_HAND || displayContext == ItemDisplayContext.THIRD_PERSON_LEFT_HAND;
     }
 
     @Override
-    public void renderByItem(ItemStack sulfurStack, ItemTransforms.TransformType pTransformType, PoseStack pPoseStack, MultiBufferSource pBuffer, int pPackedLight, int pPackedOverlay) {
+    public void renderByItem(ItemStack sulfurStack, ItemDisplayContext displayContext, PoseStack pPoseStack, MultiBufferSource pBuffer, int pPackedLight, int pPackedOverlay) {
 
         var renderSource = ClientConfig.get().rendering.renderSulfurSourceItem.get();
 
@@ -53,23 +53,23 @@ public class SulfurBEWLR extends BlockEntityWithoutLevelRenderer {
 
         BakedModel model = itemRenderer.getModel(jarStack, null, null, 0);
 
-        var flatLighting = pTransformType == ItemTransforms.TransformType.GUI && !model.usesBlockLight();
+        var flatLighting = displayContext == ItemDisplayContext.GUI && !model.usesBlockLight();
         if (flatLighting)
             Lighting.setupForFlatItems();
 
-        itemRenderer.render(jarStack, pTransformType, isLeftHand(pTransformType), pPoseStack, pBuffer, pPackedLight, pPackedOverlay, model);
+        itemRenderer.render(jarStack, displayContext, isLeftHand(displayContext), pPoseStack, pBuffer, pPackedLight, pPackedOverlay, model);
 
         //note: if we reset to 3d item light here it ignores it above and renders dark .. idk why
 
         //if we render the source we render a text-less clean label and the source item on top of the jar stack
-        if(renderSource){
-            this.renderLabel(sulfurStack, pTransformType, pPoseStack, pBuffer, pPackedLight, pPackedOverlay);
-            this.renderContainedItem(sulfurStack, pTransformType, pPoseStack, pBuffer, pPackedLight, pPackedOverlay);
+        if (renderSource) {
+            this.renderLabel(sulfurStack, displayContext, pPoseStack, pBuffer, pPackedLight, pPackedOverlay);
+            this.renderContainedItem(sulfurStack, displayContext, pPoseStack, pBuffer, pPackedLight, pPackedOverlay);
         }
 
     }
 
-    public void renderLabel(ItemStack sulfurStack, ItemTransforms.TransformType pTransformType, PoseStack pPoseStack, MultiBufferSource pBuffer, int pPackedLight, int pPackedOverlay) {
+    public void renderLabel(ItemStack sulfurStack, ItemDisplayContext displayContext, PoseStack pPoseStack, MultiBufferSource pBuffer, int pPackedLight, int pPackedOverlay) {
 
         ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
 
@@ -79,7 +79,7 @@ public class SulfurBEWLR extends BlockEntityWithoutLevelRenderer {
 
         //now apply the transform to the label to make it look right in-world -> because below we render with gui transform which would mess it up
         //despite this returning a model (self in fact) it actually modifies the pose stack, hence the pushPose above!
-        labelModel.applyTransform(pTransformType, pPoseStack, isLeftHand(pTransformType));
+        labelModel.applyTransform(displayContext, pPoseStack, isLeftHand(displayContext));
 
         pPoseStack.pushPose();
 
@@ -90,7 +90,7 @@ public class SulfurBEWLR extends BlockEntityWithoutLevelRenderer {
         pPoseStack.scale(1F, 1F, 0.01F); //flatten item
 
         Lighting.setupForFlatItems(); //always render label flat
-        itemRenderer.render(labelStack, ItemTransforms.TransformType.GUI, isLeftHand(pTransformType), pPoseStack, pBuffer, pPackedLight, pPackedOverlay, labelModel);
+        itemRenderer.render(labelStack, ItemDisplayContext.GUI, isLeftHand(displayContext), pPoseStack, pBuffer, pPackedLight, pPackedOverlay, labelModel);
         //note: if we reset to 3d item light here it ignores it above and renders dark .. idk why
 
         pPoseStack.popPose();
@@ -98,7 +98,7 @@ public class SulfurBEWLR extends BlockEntityWithoutLevelRenderer {
         pPoseStack.popPose();
     }
 
-    public void renderContainedItem(ItemStack sulfurStack, ItemTransforms.TransformType pTransformType, PoseStack pPoseStack, MultiBufferSource pBuffer, int pPackedLight, int pPackedOverlay) {
+    public void renderContainedItem(ItemStack sulfurStack, ItemDisplayContext displayContext, PoseStack pPoseStack, MultiBufferSource pBuffer, int pPackedLight, int pPackedOverlay) {
 
         ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
 
@@ -112,7 +112,7 @@ public class SulfurBEWLR extends BlockEntityWithoutLevelRenderer {
 
             //now apply the transform to the contained item to make it look right in-world -> because below we render with gui transform which would mess it up
             //despite this returning a model (self in fact) it actually modifies the pose stack, hence the pushPose above!
-            labelModel.applyTransform(pTransformType, pPoseStack, isLeftHand(pTransformType)); //reuse the label transform to simulate flat items even if the contained item is 3d
+            labelModel.applyTransform(displayContext, pPoseStack, isLeftHand(displayContext)); //reuse the label transform to simulate flat items even if the contained item is 3d
 
             pPoseStack.pushPose();
 
@@ -125,7 +125,7 @@ public class SulfurBEWLR extends BlockEntityWithoutLevelRenderer {
             pPoseStack.scale(0.74F, 0.74F, 0.01F); //flatten item
 
             Lighting.setupForFlatItems(); //always render "labeled" item flat
-            itemRenderer.render(containedStack, ItemTransforms.TransformType.GUI, isLeftHand(pTransformType), pPoseStack, pBuffer, pPackedLight, pPackedOverlay, containedModel);
+            itemRenderer.render(containedStack, ItemDisplayContext.GUI, isLeftHand(displayContext), pPoseStack, pBuffer, pPackedLight, pPackedOverlay, containedModel);
             //note: if we reset to 3d item light here it ignores it above and renders dark .. idk why
 
             pPoseStack.popPose();

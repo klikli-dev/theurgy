@@ -157,14 +157,16 @@ dependencies {
     minecraft "net.minecraftforge:forge:${forge_version}"
 
     //Jei
-    compileOnly fg.deobf("mezz.jei:jei-${jei_mc_version}-common-api:${jei_version}")
-    compileOnly fg.deobf("mezz.jei:jei-${jei_mc_version}-common:${jei_version}") //we're using the vanilla recipe category rendering constants
-    compileOnly fg.deobf("mezz.jei:jei-${jei_mc_version}-forge-api:${jei_version}")
-    runtimeOnly fg.deobf("mezz.jei:jei-${jei_mc_version}-forge:${jei_version}")
+    //TODO: enable once updated
+//    compileOnly fg.deobf("mezz.jei:jei-${jei_mc_version}-common-api:${jei_version}")
+//    compileOnly fg.deobf("mezz.jei:jei-${jei_mc_version}-common:${jei_version}") //we're using the vanilla recipe category rendering constants
+//    compileOnly fg.deobf("mezz.jei:jei-${jei_mc_version}-forge-api:${jei_version}")
+//    runtimeOnly fg.deobf("mezz.jei:jei-${jei_mc_version}-forge:${jei_version}")
 
     //almostunified
-    compileOnly fg.deobf("com.almostreliable.mods:almostunified-forge:${almostunified_version}")
-    runtimeOnly fg.deobf("com.almostreliable.mods:almostunified-forge:${almostunified_version}")
+    //TODO: enable once updated
+//    compileOnly fg.deobf("com.almostreliable.mods:almostunified-forge:${almostunified_version}")
+//    runtimeOnly fg.deobf("com.almostreliable.mods:almostunified-forge:${almostunified_version}")
 
     //Geckolib
     implementation fg.deobf("software.bernie.geckolib:geckolib-forge-${geckolib_mc_version}:${geckolib_version}")

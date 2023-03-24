@@ -157,7 +157,7 @@ public class LiquefactionCauldronBlockEntity extends BlockEntity implements Heat
     private boolean canCraft(@Nullable LiquefactionRecipe pRecipe) {
         if (pRecipe == null) return false;
 
-        var assembledStack = pRecipe.assemble(this.inputRecipeWrapper);
+        var assembledStack = pRecipe.assemble(this.inputRecipeWrapper, this.getLevel().registryAccess());
         if (assembledStack.isEmpty()) {
             return false;
         } else {
@@ -179,7 +179,7 @@ public class LiquefactionCauldronBlockEntity extends BlockEntity implements Heat
         if (!this.canCraft(pRecipe)) return false;
 
         var inputStack = this.inputInventory.getStackInSlot(0);
-        var assembledStack = pRecipe.assemble(this.inputRecipeWrapper);
+        var assembledStack = pRecipe.assemble(this.inputRecipeWrapper, this.getLevel().registryAccess());
         var outputStack = this.outputInventory.getStackInSlot(0);
         if (outputStack.isEmpty()) {
             this.outputInventory.setStackInSlot(0, assembledStack.copy());

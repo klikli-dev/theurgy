@@ -100,7 +100,7 @@ public class IncubatorBlockEntity extends BlockEntity implements HeatConsumer {
         if (pRecipe == null)
             return false;
 
-        var assembledStack = pRecipe.assemble(this.recipeWrapper);
+        var assembledStack = pRecipe.assemble(this.recipeWrapper, this.getLevel().registryAccess());
         if (assembledStack.isEmpty()) {
             return false;
         } else {
@@ -125,7 +125,7 @@ public class IncubatorBlockEntity extends BlockEntity implements HeatConsumer {
         var inputMercury = this.mercuryVessel.inputInventory.getStackInSlot(0);
         var inputSalt = this.saltVessel.inputInventory.getStackInSlot(0);
         var inputSulfur = this.sulfurVessel.inputInventory.getStackInSlot(0);
-        var assembledStack = pRecipe.assemble(this.recipeWrapper);
+        var assembledStack = pRecipe.assemble(this.recipeWrapper, this.getLevel().registryAccess());
         var outputStack = this.outputInventory.getStackInSlot(0);
         if (outputStack.isEmpty()) {
             this.outputInventory.setStackInSlot(0, assembledStack.copy());

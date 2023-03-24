@@ -31,9 +31,10 @@ public class TheurgyDataGenerators {
         DataGenerator generator = event.getGenerator();
 
         var blockTagsProvider = new TheurgyBlockTagsProvider(generator.getPackOutput(), event.getLookupProvider(), event.getExistingFileHelper());
+
         generator.addProvider(event.includeServer(), blockTagsProvider);
         generator.addProvider(event.includeServer(), new TheurgyFluidTagsProvider(generator.getPackOutput(), event.getLookupProvider(), event.getExistingFileHelper()));
-        generator.addProvider(event.includeServer(), new TheurgyItemTagsProvider(generator.getPackOutput(), event.getLookupProvider(), blockTagsProvider, event.getExistingFileHelper()));
+        generator.addProvider(event.includeServer(), new TheurgyItemTagsProvider(generator.getPackOutput(), event.getLookupProvider(), blockTagsProvider.contentsGetter(), event.getExistingFileHelper()));
 
         generator.addProvider(event.includeServer(),
                 new LootTableProvider(generator.getPackOutput(), Set.of(), List.of(

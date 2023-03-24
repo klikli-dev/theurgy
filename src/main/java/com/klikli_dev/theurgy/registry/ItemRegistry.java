@@ -72,7 +72,7 @@ public class ItemRegistry {
                 (builder) -> {
                     builder.icon(() -> new ItemStack(EMPTY_JAR.get()))
                             .title(Component.translatable(TheurgyConstants.I18n.ITEM_GROUP)).build();
-                    builder.displayItems((featureFlagSet, output, hasPermission) -> {
+                    builder.displayItems((params, output) -> {
                         output.accept(EMPTY_JAR.get());
 
                         AlchemicalSulfurItem.DistHelper.registerCreativeModeTabs(ALCHEMICAL_SULFUR.get(), output);

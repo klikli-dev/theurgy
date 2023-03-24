@@ -22,7 +22,7 @@ import net.minecraftforge.common.data.LanguageProvider;
 
 public class GettingStartedCategoryProvider {
 
-    public BookCategoryModel.Builder make(BookLangHelper helper, LanguageProvider lang) {
+    public BookCategoryModel make(BookLangHelper helper, LanguageProvider lang) {
         helper.category("getting_started");
         lang.add(helper.categoryName(), "Getting Started");
 
@@ -48,9 +48,10 @@ public class GettingStartedCategoryProvider {
 
         //TODO: higer tier div rod entries explaining how they work
 
-        return BookCategoryModel.builder()
-                .withId(Theurgy.loc((helper.category)))
-                .withName(helper.categoryName())
+        return BookCategoryModel.create(
+                        Theurgy.loc(helper.category),
+                        helper.categoryName()
+                )
                 .withIcon(ItemRegistry.THE_HERMETICA_ICON.get())
                 .withEntries(
                         introEntry.build(),
@@ -201,8 +202,8 @@ public class GettingStartedCategoryProvider {
                 .build();
         lang.add(helper.pageText(),
                 """
-                     The most basic tier of divination rods, brittle and limited in it's application, but powerful nonetheless.
-                        """);
+                        The most basic tier of divination rods, brittle and limited in it's application, but powerful nonetheless.
+                           """);
 
         helper.page("supported_blocks");
         var supported_blocks = BookTextPageModel.builder()

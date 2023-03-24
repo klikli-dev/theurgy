@@ -91,8 +91,8 @@ public class AlchemicalSulfurItem extends Item {
             if (level != null) {
                 var recipeManager = level.getRecipeManager();
                 recipeManager.getRecipes().forEach((recipe) -> {
-                    if (recipe.getResultItem() != null && recipe.getResultItem().getItem() == item) {
-                        output.accept(recipe.getResultItem().copy());
+                    if (recipe.getResultItem(level.registryAccess()) != null && recipe.getResultItem(level.registryAccess()).getItem() == item) {
+                        output.accept(recipe.getResultItem(level.registryAccess()).copy());
                     }
                 });
             }

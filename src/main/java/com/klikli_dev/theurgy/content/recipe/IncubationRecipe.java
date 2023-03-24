@@ -11,6 +11,7 @@ import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.RecipeSerializerRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
@@ -62,7 +63,7 @@ public class IncubationRecipe implements Recipe<IncubatorRecipeWrapper> {
     }
 
     @Override
-    public ItemStack assemble(IncubatorRecipeWrapper pInv) {
+    public ItemStack assemble(IncubatorRecipeWrapper pInv, RegistryAccess registryAccess) {
         return this.result.getStack().copy();
     }
 
@@ -72,7 +73,7 @@ public class IncubationRecipe implements Recipe<IncubatorRecipeWrapper> {
     }
 
     @Override
-    public ItemStack getResultItem() {
+    public ItemStack getResultItem(RegistryAccess registryAccess) {
         return this.result.getStack();
     }
 

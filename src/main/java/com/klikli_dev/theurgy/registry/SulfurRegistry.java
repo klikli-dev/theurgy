@@ -59,8 +59,8 @@ public class SulfurRegistry {
                     .map(AlchemicalSulfurItem.class::cast)
                     .forEach(sulfur -> {
                         liquefactionRecipes.stream()
-                                .filter(recipe -> recipe.getResultItem() != null && recipe.getResultItem().getItem() == sulfur)
-                                .forEach(recipe -> event.accept(recipe.getResultItem().copy()));
+                                .filter(recipe -> recipe.getResultItem(level.registryAccess()) != null && recipe.getResultItem(level.registryAccess()).getItem() == sulfur)
+                                .forEach(recipe -> event.accept(recipe.getResultItem(level.registryAccess()).copy()));
                     });
         }
     }

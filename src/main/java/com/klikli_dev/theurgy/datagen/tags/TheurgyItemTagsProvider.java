@@ -22,7 +22,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.concurrent.CompletableFuture;
 
 public class TheurgyItemTagsProvider extends ItemTagsProvider {
-    public TheurgyItemTagsProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, TagsProvider<Block> blockTagsProvider, @Nullable ExistingFileHelper existingFileHelper) {
+    public TheurgyItemTagsProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, CompletableFuture<TagLookup<Block>> blockTagsProvider, @Nullable ExistingFileHelper existingFileHelper) {
         super(output, lookupProvider, blockTagsProvider, Theurgy.MODID, existingFileHelper);
     }
 

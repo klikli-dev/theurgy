@@ -10,6 +10,7 @@ import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.data.PackOutput;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ModelFile;
@@ -120,7 +121,7 @@ public class TheurgyBlockStateProvider extends BlockStateProvider {
                 .transforms()
                 //take defaults from net.minecraft:client:extra/assets/minecraft/models/block/block.json
                 //then slightly move down and reduce scale from 0.625 to 0.5
-                .transform(ItemTransforms.TransformType.GUI)
+                .transform(ItemDisplayContext.GUI)
                 .rotation(30, 225, 0)
                 .translation(0, -2.0f, 0)
                 .scale(0.5f)
@@ -156,7 +157,7 @@ public class TheurgyBlockStateProvider extends BlockStateProvider {
                 .transforms()
                 //take defaults from net.minecraft:client:extra/assets/minecraft/models/block/block.json
                 //then slightly move down and reduce scale from 0.625 to 0.5
-                .transform(ItemTransforms.TransformType.GUI)
+                .transform(ItemDisplayContext.GUI)
                 .rotation(30, 225, 0)
                 .translation(0, -2.0f, 0)
                 .scale(0.5f)
@@ -193,7 +194,7 @@ public class TheurgyBlockStateProvider extends BlockStateProvider {
                 .transforms()
                 //take defaults from net.minecraft:client:extra/assets/minecraft/models/block/block.json
                 //then slightly move down and reduce scale from 0.625 to 0.5
-                .transform(ItemTransforms.TransformType.GUI)
+                .transform(ItemDisplayContext.GUI)
                 .rotation(30, 225, 0)
 //                .translation(0, -2.0f, 0)
                 .scale(0.5f)

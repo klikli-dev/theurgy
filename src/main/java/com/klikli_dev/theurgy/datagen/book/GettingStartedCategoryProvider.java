@@ -26,7 +26,7 @@ public class GettingStartedCategoryProvider implements MacroLangCategoryProvider
     public static final String CATEGORY_ID = "getting_started";
     private LanguageProvider lang;
 
-    public BookCategoryModel.Builder make(BookLangHelper helper, LanguageProvider lang) {
+    public BookCategoryModel make(BookLangHelper helper, LanguageProvider lang) {
         this.lang = lang;
         helper.category(CATEGORY_ID);
         this.add(helper.categoryName(), "Getting Started");
@@ -61,9 +61,10 @@ public class GettingStartedCategoryProvider implements MacroLangCategoryProvider
         var spagyricsLinkEntry = this.makeSpagyricsLinkEntry(helper, entryHelper, 'š');
         spagyricsLinkEntry.withParent(spagyricsEntry);
 
-        return BookCategoryModel.builder()
-                .withId(Theurgy.loc((helper.category)))
-                .withName(helper.categoryName())
+        return BookCategoryModel.create(
+                        Theurgy.loc((helper.category)),
+                        helper.categoryName()
+                )
                 .withIcon(ItemRegistry.THE_HERMETICA_ICON.get())
                 .withEntries(
                         introEntry.build(),
@@ -377,7 +378,7 @@ public class GettingStartedCategoryProvider implements MacroLangCategoryProvider
                         manualInteraction2,
                         fluidInteraction,
                         automaticInteraction
-                        );
+                );
     }
 
     private BookEntryModel.Builder makeSpagyricsEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
@@ -406,8 +407,8 @@ public class GettingStartedCategoryProvider implements MacroLangCategoryProvider
         this.add(helper.pageTitle(), "Learn More");
         this.add(helper.pageText(),
                 """
-                       Open the Spagyrics Category to learn more about the various required alchemical processes.
-                       """);
+                        Open the Spagyrics Category to learn more about the various required alchemical processes.
+                        """);
 
         return BookEntryModel.builder()
                 .withId(Theurgy.loc(helper.category + "/" + helper.entry))

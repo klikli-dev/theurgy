@@ -106,7 +106,7 @@ public class ItemRegistry {
                 (builder) -> {
                     builder.icon(() -> new ItemStack(EMPTY_JAR.get()))
                             .title(Component.translatable(TheurgyConstants.I18n.ITEM_GROUP)).build();
-                    builder.displayItems((featureFlagSet, output, hasPermission) -> {
+                    builder.displayItems((params, output) -> {
                         DivinationRodItem.DistHelper.registerCreativeModeTabs(DIVINATION_ROD_T1.get(), output);
                         DivinationRodItem.DistHelper.registerCreativeModeTabs(DIVINATION_ROD_T2.get(), output);
                         DivinationRodItem.DistHelper.registerCreativeModeTabs(DIVINATION_ROD_T3.get(), output);

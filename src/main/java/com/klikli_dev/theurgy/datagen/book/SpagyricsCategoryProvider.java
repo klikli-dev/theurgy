@@ -27,7 +27,7 @@ public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
         this.registerDefaultMacros();
     }
 
-    public BookCategoryModel.Builder make(BookLangHelper helper, LanguageProvider lang) {
+    public BookCategoryModel make(BookLangHelper helper, LanguageProvider lang) {
         this.lang = lang;
 
         helper.category(CATEGORY_ID);
@@ -67,9 +67,10 @@ public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
         incubatorEntry.withParent(liquefactionCauldronEntry);
         incubatorEntry.withParent(distillerEntry);
 
-        return BookCategoryModel.builder()
-                .withId(Theurgy.loc((helper.category)))
-                .withName(helper.categoryName())
+        return BookCategoryModel.create(
+                        Theurgy.loc(helper.category),
+                        helper.categoryName()
+                )
                 .withIcon(ItemRegistry.CALCINATION_OVEN.get())
                 .withEntries(
                         introEntry.build(),
@@ -336,13 +337,13 @@ public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
                         Different solvents can be used to dissolve different materials. The following solvents are available:
                         - Sal Ammoniac
                         - Alkahest (not yet implemented)
-                        
+                                                
                         \\
                         \\
                         See also {0}
                         """,
                 this.entryLinkDummy("Solvents", SpagyricsCategoryProvider.CATEGORY_ID, "solvents")
-                );
+        );
         //TODO: Link to solvents entry once available
         //TODO: Update entry once alkahest is available
 

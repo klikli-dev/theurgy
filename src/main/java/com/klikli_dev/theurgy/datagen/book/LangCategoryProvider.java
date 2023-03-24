@@ -15,9 +15,6 @@ public interface LangCategoryProvider {
 
     LanguageProvider getLanguageProvider();
 
-    void setLanguageProvider(LanguageProvider languageProvider);
-
-
     default void add(String key, String value) {
       this.getLanguageProvider().add(key, value);
     }

@@ -27,7 +27,7 @@ public class GettingStartedCategoryProvider implements MacroLangCategoryProvider
     private LanguageProvider lang;
 
     public BookCategoryModel.Builder make(BookLangHelper helper, LanguageProvider lang) {
-        this.setLanguageProvider(lang);
+        this.lang = lang;
         helper.category(CATEGORY_ID);
         this.add(helper.categoryName(), "Getting Started");
 
@@ -440,10 +440,5 @@ public class GettingStartedCategoryProvider implements MacroLangCategoryProvider
     @Override
     public LanguageProvider getLanguageProvider() {
         return this.lang;
-    }
-
-    @Override
-    public void setLanguageProvider(LanguageProvider languageProvider) {
-        this.lang = languageProvider;
     }
 }

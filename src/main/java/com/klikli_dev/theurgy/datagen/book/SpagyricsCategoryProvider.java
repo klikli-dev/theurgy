@@ -28,7 +28,7 @@ public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
     }
 
     public BookCategoryModel.Builder make(BookLangHelper helper, LanguageProvider lang) {
-        this.setLanguageProvider(lang);
+        this.lang = lang;
 
         helper.category(CATEGORY_ID);
         this.add(helper.categoryName(), "Spagyrics");
@@ -499,10 +499,5 @@ public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
     @Override
     public LanguageProvider getLanguageProvider() {
         return this.lang;
-    }
-
-    @Override
-    public void setLanguageProvider(LanguageProvider languageProvider) {
-        this.lang = languageProvider;
     }
 }

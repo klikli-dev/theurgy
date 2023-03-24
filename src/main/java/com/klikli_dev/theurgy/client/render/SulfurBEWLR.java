@@ -107,9 +107,6 @@ public class SulfurBEWLR extends BlockEntityWithoutLevelRenderer {
             BakedModel containedModel = itemRenderer.getModel(containedStack, null, null, 0);
             BakedModel labelModel = itemRenderer.getModel(labelStack, null, null, 0);
             pPoseStack.pushPose();
-            //TODO this
-            //not sure why we don't have to apply transform here. Somehow label carries over, because if we do not call label our rendering is off
-
             //now apply the transform to the contained item to make it look right in-world -> because below we render with gui transform which would mess it up
             //despite this returning a model (self in fact) it actually modifies the pose stack, hence the pushPose above!
             labelModel.applyTransform(displayContext, pPoseStack, isLeftHand(displayContext)); //reuse the label transform to simulate flat items even if the contained item is 3d

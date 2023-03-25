@@ -22,6 +22,46 @@
       "multiblock_name": "",
       "show_visualize_button": true,
       "text": ""
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.spagyrics.incubator.usage.text",
+      "title": "book.theurgy.the_hermetica.spagyrics.incubator.usage.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:crafting_recipe",
+      "anchor": "",
+      "recipe_id_1": "theurgy:shaped/incubator",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    },
+    {
+      "type": "modonomicon:crafting_recipe",
+      "anchor": "",
+      "recipe_id_1": "theurgy:shaped/incubator_mercury_vessel",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    },
+    {
+      "type": "modonomicon:crafting_recipe",
+      "anchor": "",
+      "recipe_id_1": "theurgy:shaped/incubator_salt_vessel",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    },
+    {
+      "type": "modonomicon:crafting_recipe",
+      "anchor": "",
+      "recipe_id_1": "theurgy:shaped/incubator_sulfur_vessel",
+      "text": "",
+      "title1": "",
+      "title2": ""
     }
   ],
   "parents": [

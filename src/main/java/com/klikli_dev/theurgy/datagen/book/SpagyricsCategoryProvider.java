@@ -262,7 +262,7 @@ public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
         this.add(helper.pageTitle(), "Calcination Oven");
         this.add(helper.pageText(),
                 """
-                        Calcination is the process whereby Alchemical Salt is extracted from matter. The Calcination Oven is a simple device that can be used to perform this process by applying consistent high heat to the target object.
+                        Calcination is the process whereby [#]($PURPLE)Alchemical Salt[#]() is extracted from matter. The Calcination Oven is a simple device that can be used to perform this process by applying consistent high heat to the target object.
                         """);
 
         helper.page("multiblock");
@@ -278,10 +278,10 @@ public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
         this.add(helper.pageTitle(), "Usage");
         this.add(helper.pageText(),
                 """
-                        Place the oven on top of a Pyromantic Brazier, then insert the item to calcinate by right-clicking the oven with it.
+                        Place the Oven on top of a Pyromantic Brazier, then insert the item to calcinate by right-clicking the oven with it.
                         \\
                         \\
-                        Alternatively a hopper can be used to insert items to process
+                        Alternatively a hopper can be used to insert items to process.
                         \\
                         \\
                         See also {0}.
@@ -323,7 +323,7 @@ public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
         this.add(helper.pageTitle(), "Liquefaction Cauldron");
         this.add(helper.pageText(),
                 """
-                        Liquefaction allows the extract ion of Alchemical Sulfur from matter. In the Liquefaction Cauldron a Solvent, usually a type of acid, is used to dissolve the target object, then the resulting solution is heated to evaporate the solvent and leave behind the Sulfur.
+                        Liquefaction allows the extraction of [#]($PURPLE)Alchemical Sulfur[#]() from matter. In the Liquefaction Cauldron a Solvent, usually a type of acid, is used to dissolve the target object, then the resulting solution is heated to evaporate the solvent and leave behind the Sulfur.
                         """);
 
         helper.page("solvents");
@@ -360,7 +360,7 @@ public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
         this.add(helper.pageTitle(), "Usage");
         this.add(helper.pageText(),
                 """
-                        Place the cauldron on top of a Pyromantic Brazier, and fill it with a Solvent by right-clicking with a solvent-filled bucket.
+                        Place the Cauldron on top of a Pyromantic Brazier, and fill it with a Solvent by right-clicking with a solvent-filled bucket.
                         \\
                         \\
                         Then insert the item to liquefy by right-clicking the cauldron with it.
@@ -406,16 +406,35 @@ public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
         this.add(helper.pageTitle(), "Distiller");
         this.add(helper.pageText(),
                 """
+                        Distillation allows to obtain purified [#]($PURPLE)Alchemical Mercury[#]() from matter. To this end the object is heated until it dissolves into a gaseous form and the resulting vapour is condensed into crystals. The Mercury obtained this way is stable and can be used in alchemical recipes.
                         """);
+        //TODO: link to mercury energy stuff
+        //TODO: Link to matter teleportation u sing mercury
 
-        //intro page
-        //multiblock page
         helper.page("multiblock");
         var multiblock = BookMultiblockPageModel.builder()
                 .withMultiblockId(Theurgy.loc("placement/distiller"))
                 .build();
 
-        //usage page
+        helper.page("usage");
+        var usage = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+        this.add(helper.pageTitle(), "Usage");
+        this.add(helper.pageText(),
+                """
+                        Place the Distiller on top of a Pyromantic Brazier, then insert the item to distill by right-clicking the oven with it.
+                        \\
+                        \\
+                        Alternatively a hopper can be used to insert items to process.
+                        \\
+                        \\
+                        See also {0}.
+                        """,
+                this.entryLink("Alchemical Apparatus", GettingStartedCategoryProvider.CATEGORY_ID, "apparatus_how_to")
+        );
+
         helper.page("recipe");
         var recipe = BookCraftingRecipePageModel.builder()
                 .withRecipeId1(Theurgy.loc("shaped/distiller"))
@@ -431,7 +450,9 @@ public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
                 .withEntryBackground(EntryBackground.DEFAULT)
                 .withPages(
                         intro,
-                        multiblock
+                        multiblock,
+                        usage,
+                        recipe
                 );
     }
 
@@ -448,17 +469,31 @@ public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
         this.add(helper.pageTitle(), "Incubator");
         this.add(helper.pageText(),
                 """
+                        Incubation is the process of *recombination* of the Principles of Matter into actual objects.\\
+                        The Incubator has one vessel for each of the Principles, and a central chamber where the recombination takes place.
                         """);
 
-        //intro page
-        //multiblock page
         helper.page("multiblock");
         var multiblock = BookMultiblockPageModel.builder()
                 .withMultiblockId(Theurgy.loc("placement/incubator"))
                 .build();
 
-        //usage page
-        //block recipe pages
+        helper.page("usage");
+        var usage = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+        this.add(helper.pageTitle(), "Usage");
+        this.add(helper.pageText(),
+                """
+                        Place the Incubator on top of a Pyromantic Brazier and one of each of the three vessels next to it. Insert the items to process by right-clicking the vessels with them.
+                        \\
+                        \\
+                        Alternatively a hopper can be used to insert items to process.\\
+                        See also {0}.
+                        """,
+                this.entryLink("Alchemical Apparatus", GettingStartedCategoryProvider.CATEGORY_ID, "apparatus_how_to")
+        );
 
         helper.page("recipe_incubator");
         var recipeIncubator = BookCraftingRecipePageModel.builder()
@@ -493,7 +528,12 @@ public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
                 .withEntryBackground(EntryBackground.DEFAULT)
                 .withPages(
                         intro,
-                        multiblock
+                        multiblock,
+                        usage,
+                        recipeIncubator,
+                        recipeMercuryVessel,
+                        recipeSaltVessel,
+                        recipeSulfurVessel
                 );
     }
 

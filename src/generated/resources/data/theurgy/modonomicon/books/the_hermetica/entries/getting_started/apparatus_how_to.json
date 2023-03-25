@@ -4,7 +4,7 @@
   "category": "theurgy:getting_started",
   "description": "book.theurgy.the_hermetica.getting_started.apparatus_how_to.description",
   "hide_while_locked": false,
-  "icon": "theurgy:calcination_oven",
+  "icon": "theurgy:pyromantic_brazier",
   "name": "book.theurgy.the_hermetica.getting_started.apparatus_how_to.name",
   "pages": [
     {

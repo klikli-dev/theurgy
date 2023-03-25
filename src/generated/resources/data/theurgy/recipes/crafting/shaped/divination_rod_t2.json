@@ -1,17 +1,17 @@
 {
   "type": "minecraft:crafting_shaped",
   "key": {
+    "A": {
+      "tag": "forge:gems/amethyst"
+    },
     "G": {
       "tag": "forge:glass"
-    },
-    "R": {
-      "tag": "forge:rods/wooden"
     },
     "M": {
       "tag": "forge:nuggets/gold"
     },
-    "A": {
-      "tag": "forge:gems/amethyst"
+    "R": {
+      "tag": "forge:rods/wooden"
     }
   },
   "pattern": [
@@ -20,14 +20,15 @@
     "R  "
   ],
   "result": {
+    "count": 1,
     "item": "theurgy:divination_rod_t2",
     "nbt": {
-      "theurgy:divination.setting.tier": "minecraft:iron",
       "theurgy:divination.setting.allowed_blocks_tag": "theurgy:divination_rod_t2_allowed_blocks",
       "theurgy:divination.setting.disallowed_blocks_tag": "theurgy:divination_rod_t2_disallowed_blocks",
-      "theurgy:divination.setting.range": 96,
       "theurgy:divination.setting.duration": 40,
-      "theurgy:divination.setting.max_damage": 6
+      "theurgy:divination.setting.max_damage": 6,
+      "theurgy:divination.setting.range": 96,
+      "theurgy:divination.setting.tier": "minecraft:iron"
     }
   }
 }

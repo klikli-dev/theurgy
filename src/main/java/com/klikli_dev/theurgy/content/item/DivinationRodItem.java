@@ -455,7 +455,7 @@ public class DivinationRodItem extends Item {
         var dir = dist.normalize();
         var to = dist.length() <= visualizationRange ? resultVec : from.add(dir.scale(visualizationRange));
 
-        if (level.isLoaded(new BlockPos(to)) && level.isLoaded(new BlockPos(from)) && level.isClientSide) {
+        if (level.isLoaded(BlockPos.containing(to)) && level.isLoaded(BlockPos.containing(from)) && level.isClientSide) {
             FollowProjectile aoeProjectile = new FollowProjectile(level, from, to);
             DistHelper.spawnEntityClientSide(level, aoeProjectile);
         }
@@ -495,8 +495,8 @@ public class DivinationRodItem extends Item {
             if (level != null) {
                 var recipeManager = level.getRecipeManager();
                 recipeManager.getRecipes().forEach((recipe) -> {
-                    if (recipe.getResultItem() != null && recipe.getResultItem().getItem() == item) {
-                        output.accept(recipe.getResultItem().copy());
+                    if (recipe.getResultItem(level.registryAccess()) != null && recipe.getResultItem(level.registryAccess()).getItem() == item) {
+                        output.accept(recipe.getResultItem(level.registryAccess()).copy());
                     }
                 });
             }

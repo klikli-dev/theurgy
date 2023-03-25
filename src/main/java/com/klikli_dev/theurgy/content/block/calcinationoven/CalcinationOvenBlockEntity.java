@@ -99,7 +99,7 @@ public class CalcinationOvenBlockEntity extends BlockEntity implements HeatConsu
         if (pRecipe == null)
             return false;
 
-        var assembledStack = pRecipe.assemble(this.inputRecipeWrapper);
+        var assembledStack = pRecipe.assemble(this.inputRecipeWrapper, this.getLevel().registryAccess());
         if (assembledStack.isEmpty()) {
             return false;
         } else {
@@ -123,7 +123,7 @@ public class CalcinationOvenBlockEntity extends BlockEntity implements HeatConsu
             return false;
 
         var inputStack = this.inputInventory.getStackInSlot(0);
-        var assembledStack = pRecipe.assemble(this.inputRecipeWrapper);
+        var assembledStack = pRecipe.assemble(this.inputRecipeWrapper, this.getLevel().registryAccess());
         var outputStack = this.outputInventory.getStackInSlot(0);
         if (outputStack.isEmpty()) {
             this.outputInventory.setStackInSlot(0, assembledStack.copy());

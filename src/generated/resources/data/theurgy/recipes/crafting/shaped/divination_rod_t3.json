@@ -1,14 +1,14 @@
 {
   "type": "minecraft:crafting_shaped",
   "key": {
-    "G": {
-      "tag": "forge:glass"
+    "A": {
+      "tag": "forge:gems/amethyst"
     },
     "D": {
       "tag": "forge:gems/diamond"
     },
-    "A": {
-      "tag": "forge:gems/amethyst"
+    "G": {
+      "tag": "forge:glass"
     },
     "Q": {
       "tag": "forge:gems/quartz"
@@ -20,14 +20,15 @@
     "A  "
   ],
   "result": {
+    "count": 1,
     "item": "theurgy:divination_rod_t3",
     "nbt": {
-      "theurgy:divination.setting.tier": "minecraft:diamond",
       "theurgy:divination.setting.allowed_blocks_tag": "theurgy:divination_rod_t3_allowed_blocks",
       "theurgy:divination.setting.disallowed_blocks_tag": "theurgy:divination_rod_t3_disallowed_blocks",
-      "theurgy:divination.setting.range": 96,
       "theurgy:divination.setting.duration": 40,
-      "theurgy:divination.setting.max_damage": 9
+      "theurgy:divination.setting.max_damage": 9,
+      "theurgy:divination.setting.range": 96,
+      "theurgy:divination.setting.tier": "minecraft:diamond"
     }
   }
 }

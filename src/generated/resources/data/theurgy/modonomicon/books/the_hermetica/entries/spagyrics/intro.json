@@ -1,0 +1,29 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 1,
+  "category": "theurgy:spagyrics",
+  "description": "book.theurgy.the_hermetica.spagyrics.intro.description",
+  "hide_while_locked": false,
+  "icon": "theurgy:calcination_oven",
+  "name": "book.theurgy.the_hermetica.spagyrics.intro.name",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.spagyrics.intro.intro.text",
+      "title": "book.theurgy.the_hermetica.spagyrics.intro.intro.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.spagyrics.intro.intro2.text",
+      "title": "book.theurgy.the_hermetica.spagyrics.intro.intro2.title",
+      "use_markdown_in_title": false
+    }
+  ],
+  "x": -7,
+  "y": 0
+}

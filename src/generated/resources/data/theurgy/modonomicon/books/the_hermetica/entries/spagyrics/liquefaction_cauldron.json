@@ -1,0 +1,61 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "theurgy:spagyrics",
+  "description": "book.theurgy.the_hermetica.spagyrics.liquefaction_cauldron.description",
+  "hide_while_locked": false,
+  "icon": "theurgy:liquefaction_cauldron",
+  "name": "book.theurgy.the_hermetica.spagyrics.liquefaction_cauldron.name",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.spagyrics.liquefaction_cauldron.intro.text",
+      "title": "book.theurgy.the_hermetica.spagyrics.liquefaction_cauldron.intro.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.spagyrics.liquefaction_cauldron.solvents.text",
+      "title": "book.theurgy.the_hermetica.spagyrics.liquefaction_cauldron.solvents.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:multiblock",
+      "anchor": "",
+      "multiblock_id": "theurgy:placement/liquefaction_cauldron",
+      "multiblock_name": "",
+      "show_visualize_button": true,
+      "text": ""
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.spagyrics.liquefaction_cauldron.usage.text",
+      "title": "book.theurgy.the_hermetica.spagyrics.liquefaction_cauldron.usage.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:crafting_recipe",
+      "anchor": "",
+      "recipe_id_1": "theurgy:shaped/liquefaction_cauldron",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "theurgy:spagyrics/pyromantic_brazier",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "x": 1,
+  "y": 0
+}

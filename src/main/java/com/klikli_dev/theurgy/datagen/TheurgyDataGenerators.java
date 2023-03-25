@@ -12,10 +12,8 @@ import com.klikli_dev.theurgy.datagen.lang.ENUSProvider;
 import com.klikli_dev.theurgy.datagen.loot.TheurgyBlockLootSubProvider;
 import com.klikli_dev.theurgy.datagen.models.TheurgyBlockStateProvider;
 import com.klikli_dev.theurgy.datagen.models.TheurgyItemModelProvider;
-import com.klikli_dev.theurgy.datagen.recipe.CalcinationRecipeProvider;
-import com.klikli_dev.theurgy.datagen.recipe.DistillationRecipeProvider;
-import com.klikli_dev.theurgy.datagen.recipe.IncubationRecipeProvider;
-import com.klikli_dev.theurgy.datagen.recipe.LiqueficationRecipeProvider;
+import com.klikli_dev.theurgy.datagen.multiblock.TheurgyMultiblockProvider;
+import com.klikli_dev.theurgy.datagen.recipe.*;
 import com.klikli_dev.theurgy.datagen.tags.TheurgyBlockTagsProvider;
 import com.klikli_dev.theurgy.datagen.tags.TheurgyFluidTagsProvider;
 import com.klikli_dev.theurgy.datagen.tags.TheurgyItemTagsProvider;
@@ -33,9 +31,10 @@ public class TheurgyDataGenerators {
         DataGenerator generator = event.getGenerator();
 
         var blockTagsProvider = new TheurgyBlockTagsProvider(generator.getPackOutput(), event.getLookupProvider(), event.getExistingFileHelper());
+
         generator.addProvider(event.includeServer(), blockTagsProvider);
         generator.addProvider(event.includeServer(), new TheurgyFluidTagsProvider(generator.getPackOutput(), event.getLookupProvider(), event.getExistingFileHelper()));
-        generator.addProvider(event.includeServer(), new TheurgyItemTagsProvider(generator.getPackOutput(), event.getLookupProvider(), blockTagsProvider, event.getExistingFileHelper()));
+        generator.addProvider(event.includeServer(), new TheurgyItemTagsProvider(generator.getPackOutput(), event.getLookupProvider(), blockTagsProvider.contentsGetter(), event.getExistingFileHelper()));
 
         generator.addProvider(event.includeServer(),
                 new LootTableProvider(generator.getPackOutput(), Set.of(), List.of(
@@ -44,13 +43,17 @@ public class TheurgyDataGenerators {
 
         generator.addProvider(event.includeClient(), new TheurgyItemModelProvider(generator.getPackOutput(), event.getExistingFileHelper()));
         generator.addProvider(event.includeServer(), new TheurgyBlockStateProvider(generator.getPackOutput(), event.getExistingFileHelper()));
+        generator.addProvider(event.includeServer(), new ShapedRecipeProvider(generator.getPackOutput()));
+        generator.addProvider(event.includeServer(), new ShapelessRecipeProvider(generator.getPackOutput()));
         generator.addProvider(event.includeServer(), new CalcinationRecipeProvider(generator.getPackOutput()));
         generator.addProvider(event.includeServer(), new LiqueficationRecipeProvider(generator.getPackOutput()));
         generator.addProvider(event.includeServer(), new DistillationRecipeProvider(generator.getPackOutput()));
         generator.addProvider(event.includeServer(), new IncubationRecipeProvider(generator.getPackOutput()));
 
+        generator.addProvider(event.includeServer(), new TheurgyMultiblockProvider(generator.getPackOutput()));
+
         var enUSProvider = new ENUSProvider(generator.getPackOutput());
-        generator.addProvider(event.includeServer(), new TheurgyBookProvider(generator.getPackOutput(), Theurgy.MODID, enUSProvider));
+        generator.addProvider(event.includeServer(), new TheurgyBookProvider(generator.getPackOutput(), enUSProvider));
 
         //Important: Lang provider (in this case enus) needs to be added after the book provider to process the texts added by the book provider
         generator.addProvider(event.includeClient(), enUSProvider);

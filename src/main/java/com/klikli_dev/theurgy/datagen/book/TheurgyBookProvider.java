@@ -9,14 +9,13 @@ package com.klikli_dev.theurgy.datagen.book;
 import com.klikli_dev.modonomicon.api.ModonomiconAPI;
 import com.klikli_dev.modonomicon.api.datagen.BookProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookModel;
-import com.klikli_dev.theurgy.datagen.book.GettingStartedCategoryProvider;
-import net.minecraft.data.DataGenerator;
+import com.klikli_dev.theurgy.Theurgy;
 import net.minecraft.data.PackOutput;
 import net.minecraftforge.common.data.LanguageProvider;
 
 public class TheurgyBookProvider extends BookProvider {
-    public TheurgyBookProvider(PackOutput packOutput, String modid, LanguageProvider lang) {
-        super(packOutput, modid, lang);
+    public TheurgyBookProvider(PackOutput packOutput, LanguageProvider lang) {
+        super(packOutput, Theurgy.MODID, lang);
     }
 
     @Override
@@ -34,18 +33,20 @@ public class TheurgyBookProvider extends BookProvider {
 
         int categorySortNum = 1;
         var gettingStartedCategory = new GettingStartedCategoryProvider().make(helper, this.lang).withSortNumber(categorySortNum++);
+        var spagyricsCategory = new SpagyricsCategoryProvider().make(helper, this.lang).withSortNumber(categorySortNum++);
 
-        var book = BookModel.builder()
-                .withId(this.modLoc("the_hermetica"))
-                .withName(helper.bookName())
+        var book = BookModel.create(
+                        this.modLoc("the_hermetica"),
+                        helper.bookName()
+                )
                 .withTooltip(helper.bookTooltip())
                 .withCategories(
-                        gettingStartedCategory.build()
+                        gettingStartedCategory,
+                        spagyricsCategory
                 )
                 .withGenerateBookItem(true)
                 .withModel(this.modLoc("the_hermetica_icon"))
-                .withAutoAddReadConditions(true)
-                .build();
+                .withAutoAddReadConditions(true);
         return book;
     }
 }

@@ -1,4 +1,9 @@
-// 1.19.4	2023-03-24T13:46:55.4293223	Tags for minecraft:item mod id theurgy
+// 1.19.4	2023-04-13T13:48:43.6084929	Tags for minecraft:item mod id theurgy
+7a78325a639e879280cccf4d15f364e02da86003 data/forge/tags/items/gems.json
+9a414088a384ea8077655b79eb53ac263aaae5e3 data/forge/tags/items/gems/sal_ammoniac.json
+04abd356cb9b230f4d1adcf90db05571e8a17d05 data/forge/tags/items/ores/sal_ammoniac.json
+9148832ee4e83df2b37e23918707fd8046f26ff7 data/forge/tags/items/ores_in_ground/deepslate.json
+f8295983ffdb0c42c6c8b12788a5b63c1eb43f72 data/forge/tags/items/ores_in_ground/stone.json
 c1ae367d1f7b1391996652acb8c12cfbe63abfc8 data/theurgy/tags/items/alchemical_mercuries.json
 a1b8babe0bed2e39fc334b221d96ac630836b7c0 data/theurgy/tags/items/alchemical_salts.json
 1a18d5092c4332886b0ef4ecee23e7d930676867 data/theurgy/tags/items/alchemical_sulfurs.json

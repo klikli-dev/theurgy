@@ -16,14 +16,6 @@
       "use_markdown_in_title": false
     },
     {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.spagyrics.liquefaction_cauldron.solvents.text",
-      "title": "book.theurgy.the_hermetica.spagyrics.liquefaction_cauldron.solvents.title",
-      "use_markdown_in_title": false
-    },
-    {
       "type": "modonomicon:multiblock",
       "anchor": "",
       "multiblock_id": "theurgy:placement/liquefaction_cauldron",
@@ -51,11 +43,11 @@
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "theurgy:spagyrics/pyromantic_brazier",
+      "entry": "theurgy:spagyrics/solvents",
       "line_enabled": true,
       "line_reversed": false
     }
   ],
-  "x": 1,
+  "x": 3,
   "y": 0
 }

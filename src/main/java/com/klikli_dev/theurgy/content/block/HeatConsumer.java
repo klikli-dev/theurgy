@@ -6,7 +6,6 @@
 
 package com.klikli_dev.theurgy.content.block;
 
-import com.klikli_dev.theurgy.content.block.calcinationoven.CalcinationOvenBlock;
 import com.klikli_dev.theurgy.registry.CapabilityRegistry;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -37,7 +36,7 @@ public interface HeatConsumer {
             this.setHeatedCache(isHeated);
 
             if (wasHeated != isHeated) {
-                if(this.self().getBlockState().hasProperty(BlockStateProperties.LIT)){
+                if (this.self().getBlockState().hasProperty(BlockStateProperties.LIT)) {
                     var newState = this.self().getBlockState().setValue(BlockStateProperties.LIT, isHeated);
                     this.self().getLevel().setBlock(this.self().getBlockPos(), newState, 1 | 2);
                 }

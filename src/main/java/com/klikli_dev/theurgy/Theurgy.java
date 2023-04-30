@@ -16,6 +16,8 @@ import com.klikli_dev.theurgy.content.item.DivinationRodItem;
 import com.klikli_dev.theurgy.content.renderer.DistillerRenderer;
 import com.klikli_dev.theurgy.content.renderer.LiquefactionCauldronRenderer;
 import com.klikli_dev.theurgy.datagen.TheurgyDataGenerators;
+import com.klikli_dev.theurgy.integration.modonomicon.PageLoaders;
+import com.klikli_dev.theurgy.integration.modonomicon.PageRenderers;
 import com.klikli_dev.theurgy.network.Networking;
 import com.klikli_dev.theurgy.registry.*;
 import com.klikli_dev.theurgy.tooltips.TooltipHandler;
@@ -96,6 +98,8 @@ public class Theurgy {
     public void onCommonSetup(FMLCommonSetupEvent event) {
         Networking.registerMessages();
 
+        PageLoaders.onCommonSetup(event);
+
         LOGGER.info("Common setup complete.");
     }
 
@@ -108,6 +112,8 @@ public class Theurgy {
 
             registerTooltipDataProviders(event);
             registerItemProperties(event);
+
+            PageRenderers.onClientSetup(event);
 
             LOGGER.info("Client setup complete.");
         }

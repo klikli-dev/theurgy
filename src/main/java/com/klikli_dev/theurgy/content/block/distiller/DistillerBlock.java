@@ -60,7 +60,7 @@ public class DistillerBlock extends Block implements EntityBlock, TwoSlotAlchemi
             return InteractionResult.SUCCESS;
         }
 
-        if(this.useItemHandler(pState, pLevel, pPos, pPlayer, pHand, pHit) == InteractionResult.SUCCESS){
+        if (this.useItemHandler(pState, pLevel, pPos, pPlayer, pHand, pHit) == InteractionResult.SUCCESS) {
             return InteractionResult.SUCCESS;
         }
 

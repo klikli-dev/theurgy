@@ -7,15 +7,13 @@
 package com.klikli_dev.theurgy.datagen.tags;
 
 import com.klikli_dev.theurgy.Theurgy;
-import com.klikli_dev.theurgy.registry.ItemRegistry;
-import com.klikli_dev.theurgy.registry.ItemTagRegistry;
-import com.klikli_dev.theurgy.registry.SaltRegistry;
-import com.klikli_dev.theurgy.registry.SulfurRegistry;
+import com.klikli_dev.theurgy.registry.*;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.data.tags.TagsProvider;
 import net.minecraft.world.level.block.Block;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.Nullable;
 
@@ -28,6 +26,13 @@ public class TheurgyItemTagsProvider extends ItemTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider pProvider) {
+        this.copy(BlockTagRegistry.SAL_AMMONIAC_ORES, ItemTagRegistry.SAL_AMMONIAC_ORES);
+        this.copy(Tags.Blocks.ORES_IN_GROUND_STONE, Tags.Items.ORES_IN_GROUND_STONE);
+        this.copy(Tags.Blocks.ORES_IN_GROUND_DEEPSLATE, Tags.Items.ORES_IN_GROUND_DEEPSLATE);
+
+        this.tag(ItemTagRegistry.SAL_AMMONIAC_GEMS)
+                .add(ItemRegistry.SAL_AMMONIAC_CRYSTAL.get());
+        this.tag(Tags.Items.GEMS).addTag(ItemTagRegistry.SAL_AMMONIAC_GEMS);
 
         var mercuryTag = this.tag(ItemTagRegistry.ALCHEMICAL_MERCURIES);
         ItemRegistry.ITEMS.getEntries().forEach(item -> {

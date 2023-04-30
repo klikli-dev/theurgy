@@ -65,5 +65,14 @@ public class TheurgyMultiblockProvider extends MultiblockProvider {
                         .block('s', BlockRegistry.INCUBATOR_SULFUR_VESSEL)
                         .build()
         );
+
+        this.add(this.modLoc("placement/sal_ammoniac_accumulator"),
+                new DenseMultiblockBuilder()
+                        .layer("0")
+                        .layer("b")
+                        .block('b', BlockRegistry.SAL_AMMONIAC_TANK)
+                        .block('0', BlockRegistry.SAL_AMMONIAC_ACCUMULATOR)
+                        .build()
+        );
     }
 }

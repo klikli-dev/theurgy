@@ -141,18 +141,13 @@ public class DistillerBlockEntity extends BlockEntity implements GeoBlockEntity,
         if (!this.canCraft(pRecipe))
             return false;
 
-        var inputStack = this.inputInventory.getStackInSlot(0);
         var assembledStack = pRecipe.assemble(this.inputRecipeWrapper, this.getLevel().registryAccess());
-        var outputStack = this.outputInventory.getStackInSlot(0);
-        if (outputStack.isEmpty()) {
-            this.outputInventory.setStackInSlot(0, assembledStack.copy());
-        } else if (outputStack.is(assembledStack.getItem())) {
-            outputStack.grow(assembledStack.getCount());
-        }
 
-        inputStack.shrink(pRecipe.getIngredientCount());
+        // Safely insert the assembledStack into the outputInventory and update the input stack.
+        ItemHandlerHelper.insertItemStacked(this.outputInventory, assembledStack, false);
+        this.inputInventory.extractItem(0, 1, false);
+
         return true;
-
     }
 
     private boolean canCraft(@Nullable DistillationRecipe pRecipe) {
@@ -163,17 +158,8 @@ public class DistillerBlockEntity extends BlockEntity implements GeoBlockEntity,
         if (assembledStack.isEmpty()) {
             return false;
         } else {
-            var outputStack = this.outputInventory.getStackInSlot(0);
-            if (outputStack.isEmpty()) {
-                return true;
-            } else if (!outputStack.sameItem(assembledStack)) {
-                return false;
-            } else if (outputStack.getCount() + assembledStack.getCount() <= this.outputInventory.getSlotLimit(0)
-                    && outputStack.getCount() + assembledStack.getCount() <= outputStack.getMaxStackSize()) {
-                return true;
-            } else {
-                return outputStack.getCount() + assembledStack.getCount() <= assembledStack.getMaxStackSize();
-            }
+            var remainingStack = ItemHandlerHelper.insertItemStacked(this.outputInventory, assembledStack, true);
+            return remainingStack.isEmpty(); //only allow crafting if we have room for the full output
         }
 
     }
@@ -241,9 +227,6 @@ public class DistillerBlockEntity extends BlockEntity implements GeoBlockEntity,
     }
 
     private boolean canProcess(ItemStack stack) {
-        ItemStackHandler tempInv = new ItemStackHandler(1);
-        tempInv.setStackInSlot(0, stack);
-
         if (ItemHandlerHelper.canItemStacksStack(stack, this.inputInventory.getStackInSlot(0)))
             return true; //early out if we are already processing this type of item
 

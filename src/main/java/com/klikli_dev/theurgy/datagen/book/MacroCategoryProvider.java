@@ -6,6 +6,10 @@
 
 package com.klikli_dev.theurgy.datagen.book;
 
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.world.level.ItemLike;
+import net.minecraftforge.registries.ForgeRegistries;
+
 import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.Map;
@@ -37,6 +41,15 @@ public interface MacroCategoryProvider {
 
     default String entryLink(String text, String category, String entry){
         return this.format("[{0}](entry://{1}/{2})", text, category, entry);
+    }
+
+    default String itemLink(ItemLike item){
+        return this.itemLink("", item);
+    }
+
+    default String itemLink(String text, ItemLike item){
+        var rl = ForgeRegistries.ITEMS.getKey(item.asItem());
+        return this.format("[{0}](item://{1})", text, rl);
     }
 
     /**

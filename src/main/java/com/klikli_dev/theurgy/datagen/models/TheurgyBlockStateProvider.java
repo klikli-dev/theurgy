@@ -30,6 +30,37 @@ public class TheurgyBlockStateProvider extends BlockStateProvider {
         this.registerDistiller();
         this.registerIncubator();
         this.registerIncubatorVessels();
+        this.registerSalAmmoniacAccumulator();
+        this.registerSalAmmoniacTank();
+
+        this.simpleBlockWithItem(BlockRegistry.SAL_AMMONIAC_ORE.get(), this.cubeAll(BlockRegistry.SAL_AMMONIAC_ORE.get()));
+        this.simpleBlockWithItem(BlockRegistry.DEEPSLATE_SAL_AMMONIAC_ORE.get(), this.cubeAll(BlockRegistry.DEEPSLATE_SAL_AMMONIAC_ORE.get()));
+    }
+
+    protected void registerSalAmmoniacAccumulator() {
+        var model = this.models().withExistingParent("sal_ammoniac_accumulator", this.modLoc("block/sal_ammoniac_accumulator_template"))
+                //blockbench spits out garbage textures by losing the folder name so we fix them here
+                .texture("texture", this.modLoc("block/sal_ammoniac_accumulator"))
+                .texture("particle", this.mcLoc("block/copper_block"));
+
+        //build blockstate
+        this.simpleBlock(BlockRegistry.SAL_AMMONIAC_ACCUMULATOR.get(), model);
+
+        //add item model
+        this.itemModels().withExistingParent("sal_ammoniac_accumulator", this.modLoc("block/sal_ammoniac_accumulator"));
+    }
+
+    protected void registerSalAmmoniacTank() {
+        var model = this.models().withExistingParent("sal_ammoniac_tank", this.modLoc("block/sal_ammoniac_tank_template"))
+                //blockbench spits out garbage textures by losing the folder name so we fix them here
+                .texture("texture", this.modLoc("block/sal_ammoniac_tank"))
+                .texture("particle", this.mcLoc("block/copper_block"));
+
+        //build blockstate
+        this.simpleBlock(BlockRegistry.SAL_AMMONIAC_TANK.get(), model);
+
+        //add item model
+        this.itemModels().withExistingParent("sal_ammoniac_tank", this.modLoc("block/sal_ammoniac_tank"));
     }
 
     protected void registerDistiller() {

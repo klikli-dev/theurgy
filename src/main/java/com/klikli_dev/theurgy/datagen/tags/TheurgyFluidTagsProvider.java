@@ -24,6 +24,7 @@ public class TheurgyFluidTagsProvider extends FluidTagsProvider {
     }
 
     protected void addTags(HolderLookup.Provider pProvider) {
-        this.tag(FluidTagRegistry.SOLVENT).add(FluidRegistry.SAL_AMMONIAC.get(), FluidRegistry.SAL_AMMONIAC_FLOWING.get());
+        this.tag(FluidTagRegistry.SAL_AMMONIAC).add(FluidRegistry.SAL_AMMONIAC.get(), FluidRegistry.SAL_AMMONIAC_FLOWING.get());
+        this.tag(FluidTagRegistry.SOLVENT).addTag(FluidTagRegistry.SAL_AMMONIAC);
     }
 }

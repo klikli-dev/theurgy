@@ -73,7 +73,7 @@ public class CalcinationOvenBlock extends Block implements EntityBlock, TwoSlotA
             return InteractionResult.SUCCESS;
         }
 
-        if(this.useItemHandler(pState, pLevel, pPos, pPlayer, pHand, pHit) == InteractionResult.SUCCESS){
+        if (this.useItemHandler(pState, pLevel, pPos, pPlayer, pHand, pHit) == InteractionResult.SUCCESS) {
             return InteractionResult.SUCCESS;
         }
 

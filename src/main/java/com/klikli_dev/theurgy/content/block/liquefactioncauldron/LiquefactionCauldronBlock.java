@@ -66,11 +66,11 @@ public class LiquefactionCauldronBlock extends Block implements EntityBlock, Two
             return InteractionResult.SUCCESS;
         }
 
-        if(this.useFluidHandler(pState, pLevel, pPos, pPlayer, pHand, pHit) == InteractionResult.SUCCESS){
+        if (this.useFluidHandler(pState, pLevel, pPos, pPlayer, pHand, pHit) == InteractionResult.SUCCESS) {
             return InteractionResult.SUCCESS;
         }
 
-        if(this.useItemHandler(pState, pLevel, pPos, pPlayer, pHand, pHit) == InteractionResult.SUCCESS){
+        if (this.useItemHandler(pState, pLevel, pPos, pPlayer, pHand, pHit) == InteractionResult.SUCCESS) {
             return InteractionResult.SUCCESS;
         }
 

@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: 2022 klikli-dev
+ * SPDX-FileCopyrightText: 2023 klikli-dev
  *
  * SPDX-License-Identifier: MIT
  */
@@ -75,7 +75,15 @@ public class ItemRegistry {
     public static final RegistryObject<Item> MERCURY_CRYSTAL=
             ITEMS.register("mercury_crystal", () -> new Item(new Item.Properties()));
 
+    public static final RegistryObject<Item> SAL_AMMONIAC_CRYSTAL =
+            ITEMS.register("sal_ammoniac_crystal", () -> new Item(new Item.Properties()));
+
     //Blocks
+    public static final RegistryObject<Item> SAL_AMMONIAC_ORE =
+            ITEMS.register("sal_ammoniac_ore", () -> new BlockItem(BlockRegistry.SAL_AMMONIAC_ORE.get(), new Item.Properties()));
+    public static final RegistryObject<Item> DEEPSLATE_SAL_AMMONIAC_ORE =
+            ITEMS.register("deepslate_sal_ammoniac_ore", () -> new BlockItem(BlockRegistry.DEEPSLATE_SAL_AMMONIAC_ORE.get(), new Item.Properties()));
+
     public static final RegistryObject<BlockItem> CALCINATION_OVEN =
             ITEMS.register("calcination_oven", () -> new BlockItem(BlockRegistry.CALCINATION_OVEN.get(), new Item.Properties()));
 
@@ -100,6 +108,12 @@ public class ItemRegistry {
     public static final RegistryObject<BlockItem> INCUBATOR_SULFUR_VESSEL =
             ITEMS.register("incubator_sulfur_vessel", () -> new DistillerBlockItem(BlockRegistry.INCUBATOR_SULFUR_VESSEL.get(), new Item.Properties()));
 
+    public static final RegistryObject<BlockItem> SAL_AMMONIAC_ACCUMULATOR =
+            ITEMS.register("sal_ammoniac_accumulator", () -> new BlockItem(BlockRegistry.SAL_AMMONIAC_ACCUMULATOR.get(), new Item.Properties()));
+
+    public static final RegistryObject<BlockItem> SAL_AMMONIAC_TANK =
+            ITEMS.register("sal_ammoniac_tank", () -> new BlockItem(BlockRegistry.SAL_AMMONIAC_TANK.get(), new Item.Properties()));
+
 
     public static void onRegisterCreativeModeTabs(CreativeModeTabEvent.Register event) {
         THEURGY_TAB= event.registerCreativeModeTab(new ResourceLocation(Theurgy.MODID + ":" + Theurgy.MODID),
@@ -117,6 +131,10 @@ public class ItemRegistry {
                         output.accept(MERCURY_SHARD.get());
                         output.accept(MERCURY_CRYSTAL.get());
 
+                        output.accept(SAL_AMMONIAC_CRYSTAL.get());
+                        output.accept(SAL_AMMONIAC_ORE.get());
+                        output.accept(DEEPSLATE_SAL_AMMONIAC_ORE.get());
+
                         output.accept(CALCINATION_OVEN.get());
                         output.accept(PYROMANTIC_BRAZIER.get());
                         output.accept(LIQUEFACTION_CAULDRON.get());
@@ -125,6 +143,9 @@ public class ItemRegistry {
                         output.accept(INCUBATOR_MERCURY_VESSEL.get());
                         output.accept(INCUBATOR_SALT_VESSEL.get());
                         output.accept(INCUBATOR_SULFUR_VESSEL.get());
+
+                        output.accept(SAL_AMMONIAC_ACCUMULATOR.get());
+                        output.accept(SAL_AMMONIAC_TANK.get());
                     });
 
                 }

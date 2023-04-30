@@ -52,5 +52,15 @@ public class TheurgyBlockTagsProvider extends BlockTagsProvider {
                 .add(BlockRegistry.INCUBATOR_MERCURY_VESSEL.get())
                 .add(BlockRegistry.INCUBATOR_SALT_VESSEL.get())
                 .add(BlockRegistry.INCUBATOR_SULFUR_VESSEL.get());
+
+        this.tag(BlockTagRegistry.SAL_AMMONIAC_ORES)
+                .add(BlockRegistry.SAL_AMMONIAC_ORE.get())
+                .add(BlockRegistry.DEEPSLATE_SAL_AMMONIAC_ORE.get());
+
+        this.tag(Tags.Blocks.ORES).addTag(BlockTagRegistry.SAL_AMMONIAC_ORES);
+        this.tag(Tags.Blocks.ORES_IN_GROUND_STONE).add(BlockRegistry.SAL_AMMONIAC_ORE.get());
+        this.tag(Tags.Blocks.ORES_IN_GROUND_DEEPSLATE).add(BlockRegistry.DEEPSLATE_SAL_AMMONIAC_ORE.get());
+        this.tag(BlockTags.MINEABLE_WITH_PICKAXE).addTag(BlockTagRegistry.SAL_AMMONIAC_ORES);
+        this.tag(BlockTags.NEEDS_STONE_TOOL).addTag(BlockTagRegistry.SAL_AMMONIAC_ORES);
     }
 }

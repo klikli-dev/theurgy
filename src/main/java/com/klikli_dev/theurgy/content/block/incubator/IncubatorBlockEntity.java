@@ -22,6 +22,7 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -37,7 +38,7 @@ public class IncubatorBlockEntity extends BlockEntity implements HeatConsumer {
     public LazyOptional<IItemHandler> outputInventoryCapability;
 
     public IncubatorRecipeWrapper recipeWrapper;
-
+    protected boolean checkValidMultiblockOnNextQuery;
     public boolean isValidMultiblock;
 
     private boolean heatedCache;
@@ -51,6 +52,7 @@ public class IncubatorBlockEntity extends BlockEntity implements HeatConsumer {
         this.outputInventoryCapability = LazyOptional.of(() -> this.outputInventory);
 
         this.recipeCachedCheck = RecipeManager.createCheck(RecipeTypeRegistry.INCUBATION.get());
+        this.checkValidMultiblockOnNextQuery = true;
     }
 
     @Override
@@ -66,7 +68,7 @@ public class IncubatorBlockEntity extends BlockEntity implements HeatConsumer {
     public void tickServer() {
         boolean isHeated = this.isHeated();
 
-        if (!this.isValidMultiblock) {
+        if (!this.isValidMultiblock()) {
             return;
         }
 
@@ -104,17 +106,8 @@ public class IncubatorBlockEntity extends BlockEntity implements HeatConsumer {
         if (assembledStack.isEmpty()) {
             return false;
         } else {
-            var outputStack = this.outputInventory.getStackInSlot(0);
-            if (outputStack.isEmpty()) {
-                return true;
-            } else if (!outputStack.sameItem(assembledStack)) {
-                return false;
-            } else if (outputStack.getCount() + assembledStack.getCount() <= this.outputInventory.getSlotLimit(0)
-                    && outputStack.getCount() + assembledStack.getCount() <= outputStack.getMaxStackSize()) {
-                return true;
-            } else {
-                return outputStack.getCount() + assembledStack.getCount() <= assembledStack.getMaxStackSize();
-            }
+            var remainingStack = ItemHandlerHelper.insertItemStacked(this.outputInventory, assembledStack, true);
+            return remainingStack.isEmpty(); //only allow crafting if we have room for the full output
         }
     }
 
@@ -122,20 +115,14 @@ public class IncubatorBlockEntity extends BlockEntity implements HeatConsumer {
         if (!this.canCraft(pRecipe))
             return false;
 
-        var inputMercury = this.mercuryVessel.inputInventory.getStackInSlot(0);
-        var inputSalt = this.saltVessel.inputInventory.getStackInSlot(0);
-        var inputSulfur = this.sulfurVessel.inputInventory.getStackInSlot(0);
         var assembledStack = pRecipe.assemble(this.recipeWrapper, this.getLevel().registryAccess());
-        var outputStack = this.outputInventory.getStackInSlot(0);
-        if (outputStack.isEmpty()) {
-            this.outputInventory.setStackInSlot(0, assembledStack.copy());
-        } else if (outputStack.is(assembledStack.getItem())) {
-            outputStack.grow(assembledStack.getCount());
-        }
 
-        inputMercury.shrink(1);
-        inputSalt.shrink(1);
-        inputSulfur.shrink(1);
+        // Safely insert the assembledStack into the outputInventory and update the input stack.
+        ItemHandlerHelper.insertItemStacked(this.outputInventory, assembledStack, false);
+
+        this.mercuryVessel.inputInventory.extractItem(0, 1, false);
+        this.saltVessel.inputInventory.extractItem(0, 1, false);
+        this.sulfurVessel.inputInventory.extractItem(0, 1, false);
 
         return true;
     }
@@ -182,12 +169,6 @@ public class IncubatorBlockEntity extends BlockEntity implements HeatConsumer {
             this.saltVessel = salt;
             salt.setIncubator(this);
         }
-    }
-
-    @Override
-    public void onLoad() {
-        super.onLoad();
-        this.validateMultiblock();
     }
 
     public void validateMultiblock() {
@@ -247,6 +228,14 @@ public class IncubatorBlockEntity extends BlockEntity implements HeatConsumer {
             this.saltVessel = null;
         }
         super.setRemoved();
+    }
+
+    public boolean isValidMultiblock(){
+        if(this.checkValidMultiblockOnNextQuery){
+            this.checkValidMultiblockOnNextQuery = false;
+            this.validateMultiblock();
+        }
+        return this.isValidMultiblock;
     }
 
     public class OutputInventory extends ItemStackHandler {

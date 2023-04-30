@@ -19,7 +19,9 @@ import net.minecraft.Util;
 import net.minecraft.data.PackOutput;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.common.data.LanguageProvider;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 import java.util.function.Supplier;
@@ -47,6 +49,7 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
         this.add(TheurgyConstants.I18n.JEI.LIQUEFACTION_CATEGORY, "Liquefaction");
         this.add(TheurgyConstants.I18n.JEI.DISTILLATION_CATEGORY, "Distillation");
         this.add(TheurgyConstants.I18n.JEI.INCUBATION_CATEGORY, "Incubation");
+        this.add(TheurgyConstants.I18n.JEI.ACCUMULATION_CATEGORY, "Accumulation");
     }
 
     private void addSubtitles() {
@@ -112,6 +115,26 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
                 "A vessel to hold Sulfur for the Incubator.",
                 null,
                 "Place horizontally next to the incubator.\nRight-click with Alchemical Sulfur to fill the vessel to allow the Incubator to process it.");
+
+        this.addBlock(BlockRegistry.SAL_AMMONIAC_ACCUMULATOR, "Sal Ammoniac Accumulator");
+        this.addTooltip(BlockRegistry.SAL_AMMONIAC_ACCUMULATOR.get()::asItem,
+                "A simple device to increase the concentration of residual Sal Ammoniac in water by evaporation.",
+                "The resulting concentrated Sal Ammoniac fluid is a solvent that can be used in Liquefaction Cauldrons.",
+                "Place this on top of a Sal Ammoniac Tank.\nRight-click with water buckets to fill the accumulator.\nThe water will be consumed to fill the Sal Ammoniac Tank.\n You can additionally add Sal Ammoniac Crystals to speed up the process");
+
+        this.addBlock(BlockRegistry.SAL_AMMONIAC_TANK, "Sal Ammoniac Tank");
+        this.addTooltip(BlockRegistry.SAL_AMMONIAC_TANK.get()::asItem,
+                "A tank to store concentrated Sal Ammoniac fluid.",
+                "Sal Ammoniac is a solvent that can be used in Liquefaction Cauldrons.",
+                "Place this below a filled Sal Ammoniac Accumulator.\nThe Tank will slowly be filled with Sal Ammoniac.");
+
+        this.addBlock(BlockRegistry.SAL_AMMONIAC_ORE, "Sal Ammoniac Ore");
+        this.addExtendedTooltip(BlockRegistry.SAL_AMMONIAC_ORE.get()::asItem,
+                "Ore that yields Sal Ammoniac Crystals for use in a Sal Ammoniac Accumulator.");
+
+        this.addBlock(BlockRegistry.DEEPSLATE_SAL_AMMONIAC_ORE, "Deepslate Sal Ammoniac Ore");
+        this.addExtendedTooltip(BlockRegistry.DEEPSLATE_SAL_AMMONIAC_ORE.get()::asItem,
+                "Ore that yields Sal Ammoniac Crystals for use in a Sal Ammoniac Accumulator.");
     }
 
     private void addSulfurs() {
@@ -155,6 +178,11 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
 
     public void addSaltSource(Supplier<? extends Item> key, String name) {
         this.add(key.get().getDescriptionId() + TheurgyConstants.I18n.Item.ALCHEMICAL_SALT_SOURCE_SUFFIX, name);
+    }
+
+
+    public void addIngredientInfo(Supplier<Item> ingredient, String info) {
+        this.add("jei." + Theurgy.MODID + ".ingredient." + ForgeRegistries.ITEMS.getKey(ingredient.get()).getPath() + ".description", info);
     }
 
     private void addDivinationRods() {
@@ -235,6 +263,10 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
         this.addItem(ItemRegistry.MERCURY_CRYSTAL, "Mercury Crystal");
         this.addExtendedTooltip(ItemRegistry.MERCURY_CRYSTAL,
                 "Mercury crystals are large pieces of Mercury in crystalline form. Their main uses are as ingredient in Digestion processes and as an energy source.");
+
+        this.addItem(ItemRegistry.SAL_AMMONIAC_CRYSTAL, "Sal Ammoniac Crystal");
+        this.addExtendedTooltip(ItemRegistry.SAL_AMMONIAC_CRYSTAL,
+                "Can be used in a Sal Ammoniac Accumulator to rapidly create Sal Ammoniac to be used as a solvent.");
     }
 
     @Override

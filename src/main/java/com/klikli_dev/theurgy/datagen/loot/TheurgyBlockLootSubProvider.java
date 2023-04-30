@@ -7,9 +7,12 @@
 package com.klikli_dev.theurgy.datagen.loot;
 
 import com.klikli_dev.theurgy.registry.BlockRegistry;
+import com.klikli_dev.theurgy.registry.ItemRegistry;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.flag.FeatureFlags;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.storage.loot.LootTable;
 
 import java.util.Set;
@@ -36,5 +39,14 @@ public class TheurgyBlockLootSubProvider extends BlockLootSubProvider {
         this.dropSelf(BlockRegistry.INCUBATOR_MERCURY_VESSEL.get());
         this.dropSelf(BlockRegistry.INCUBATOR_SULFUR_VESSEL.get());
         this.dropSelf(BlockRegistry.INCUBATOR_SALT_VESSEL.get());
+        this.dropSelf(BlockRegistry.SAL_AMMONIAC_ACCUMULATOR.get());
+        this.dropSelf(BlockRegistry.SAL_AMMONIAC_TANK.get());
+
+        this.add(BlockRegistry.SAL_AMMONIAC_ORE.get(), (block) -> {
+            return this.createOreDrop(block, ItemRegistry.SAL_AMMONIAC_CRYSTAL.get());
+        });
+        this.add(BlockRegistry.DEEPSLATE_SAL_AMMONIAC_ORE.get(), (block) -> {
+            return this.createOreDrop(block, ItemRegistry.SAL_AMMONIAC_CRYSTAL.get());
+        });
     }
 }

@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: 2022 klikli-dev
+ * SPDX-FileCopyrightText: 2023 klikli-dev
  *
  * SPDX-License-Identifier: MIT
  */
@@ -20,8 +20,16 @@ public class ItemTagRegistry {
     public static final TagKey<Item> ALCHEMICAL_MERCURIES = tag( "alchemical_mercuries");
 
 
+    public static final TagKey<Item> SAL_AMMONIAC_GEMS = forgeTag( "gems/sal_ammoniac");
+    public static final TagKey<Item> SAL_AMMONIAC_ORES = forgeTag( "ores/sal_ammoniac");
+
+
     public static TagKey<Item> tag(String id) {
         return tag(Theurgy.loc(id));
+    }
+
+    public static TagKey<Item> forgeTag(String id) {
+        return tag(new ResourceLocation("forge", id));
     }
 
     public static TagKey<Item> tag(ResourceLocation id) {

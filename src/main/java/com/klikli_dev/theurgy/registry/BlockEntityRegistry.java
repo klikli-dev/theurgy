@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: 2022 klikli-dev
+ * SPDX-FileCopyrightText: 2023 klikli-dev
  *
  * SPDX-License-Identifier: MIT
  */
@@ -9,9 +9,14 @@ package com.klikli_dev.theurgy.registry;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.content.block.calcinationoven.CalcinationOvenBlockEntity;
 import com.klikli_dev.theurgy.content.block.distiller.DistillerBlockEntity;
-import com.klikli_dev.theurgy.content.block.incubator.*;
+import com.klikli_dev.theurgy.content.block.incubator.IncubatorBlockEntity;
+import com.klikli_dev.theurgy.content.block.incubator.IncubatorMercuryVesselBlockEntity;
+import com.klikli_dev.theurgy.content.block.incubator.IncubatorSaltVesselBlockEntity;
+import com.klikli_dev.theurgy.content.block.incubator.IncubatorSulfurVesselBlockEntity;
 import com.klikli_dev.theurgy.content.block.liquefactioncauldron.LiquefactionCauldronBlockEntity;
 import com.klikli_dev.theurgy.content.block.pyromanticbrazier.PyromanticBrazierBlockEntity;
+import com.klikli_dev.theurgy.content.block.salammoniacaccumulator.SalAmmoniacAccumulatorBlockEntity;
+import com.klikli_dev.theurgy.content.block.salammoniactank.SalAmmoniacTankBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -51,4 +56,12 @@ public class BlockEntityRegistry {
     public static final RegistryObject<BlockEntityType<IncubatorSulfurVesselBlockEntity>> INCUBATOR_SULFUR_VESSEL =
             BLOCKS.register("incubator_sulfur_vessel", () ->
                     BlockEntityType.Builder.of(IncubatorSulfurVesselBlockEntity::new, BlockRegistry.INCUBATOR_SULFUR_VESSEL.get()).build(null));
+
+    public static final RegistryObject<BlockEntityType<SalAmmoniacTankBlockEntity>> SAL_AMMONIAC_TANK =
+            BLOCKS.register("sal_ammoniac_tank", () ->
+                    BlockEntityType.Builder.of(SalAmmoniacTankBlockEntity::new, BlockRegistry.SAL_AMMONIAC_TANK.get()).build(null));
+
+    public static final RegistryObject<BlockEntityType<SalAmmoniacAccumulatorBlockEntity>> SAL_AMMONIAC_ACCUMULATOR =
+            BLOCKS.register("sal_ammoniac_accumulator", () ->
+                    BlockEntityType.Builder.of(SalAmmoniacAccumulatorBlockEntity::new, BlockRegistry.SAL_AMMONIAC_ACCUMULATOR.get()).build(null));
 }

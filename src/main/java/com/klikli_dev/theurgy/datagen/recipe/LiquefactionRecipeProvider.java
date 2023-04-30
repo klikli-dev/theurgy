@@ -9,7 +9,6 @@ package com.klikli_dev.theurgy.datagen.recipe;
 import com.google.gson.JsonObject;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.TheurgyConstants;
-import com.klikli_dev.theurgy.content.recipe.DistillationRecipe;
 import com.klikli_dev.theurgy.content.recipe.LiquefactionRecipe;
 import com.klikli_dev.theurgy.registry.FluidRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
@@ -23,11 +22,11 @@ import net.minecraft.world.level.material.Fluid;
 
 import java.util.function.BiConsumer;
 
-public class LiqueficationRecipeProvider extends JsonRecipeProvider {
+public class LiquefactionRecipeProvider extends JsonRecipeProvider {
 
     public static final int TIME = LiquefactionRecipe.DEFAULT_LIQUEFACTION_TIME;
 
-    public LiqueficationRecipeProvider(PackOutput packOutput) {
+    public LiquefactionRecipeProvider(PackOutput packOutput) {
         super(packOutput, Theurgy.MODID, "liquefaction");
     }
 

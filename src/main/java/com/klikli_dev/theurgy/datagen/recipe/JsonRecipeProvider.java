@@ -21,6 +21,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.material.Fluid;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.Nullable;
 
@@ -156,6 +157,12 @@ public abstract class JsonRecipeProvider implements DataProvider {
             jsonobject.add("nbt", nbt);
         }
         return jsonobject;
+    }
+
+    public JsonObject makeFluidResult(FluidStack fluidStack) {
+        return FluidStack.CODEC.encodeStart(JsonOps.INSTANCE, fluidStack).getOrThrow(false, (s -> {
+            throw new IllegalStateException("Failed to encode fluid stack: " + s);
+        })).getAsJsonObject();
     }
 
     @Override

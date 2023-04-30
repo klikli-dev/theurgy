@@ -1,6 +1,5 @@
 {
   "values": [
-    "theurgy:sal_ammoniac",
-    "theurgy:sal_ammoniac_flowing"
+    "#theurgy:sal_ammoniac"
   ]
 }

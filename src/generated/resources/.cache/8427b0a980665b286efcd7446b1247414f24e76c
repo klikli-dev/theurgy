@@ -1,2 +1,3 @@
-// 1.19.4	2023-03-24T13:46:55.425813	Tags for minecraft:fluid mod id theurgy
-c5e02d06f56acf2f6153655b74e7d7f22d5750a6 data/theurgy/tags/fluids/solvent.json
+// 1.19.4	2023-04-13T13:48:43.6044918	Tags for minecraft:fluid mod id theurgy
+c5e02d06f56acf2f6153655b74e7d7f22d5750a6 data/theurgy/tags/fluids/sal_ammoniac.json
+a36da82105fb95e08c30643937a39170fdde549f data/theurgy/tags/fluids/solvent.json

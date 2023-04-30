@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: 2022 klikli-dev
+ * SPDX-FileCopyrightText: 2023 klikli-dev
  *
  * SPDX-License-Identifier: MIT
  */
@@ -26,11 +26,14 @@ public class BlockTagRegistry {
 
 
     public static final TagKey<Block> INCUBATOR_VESSELS = tag( "incubator_vessels");
-
+    public static final TagKey<Block> SAL_AMMONIAC_ORES = forgeTag( "ores/sal_ammoniac");
 
 
     public static TagKey<Block> tag(String id) {
         return tag(Theurgy.loc(id));
+    }
+    public static TagKey<Block> forgeTag(String id) {
+        return tag(new ResourceLocation("forge", id));
     }
 
     public static TagKey<Block> tag(ResourceLocation id) {

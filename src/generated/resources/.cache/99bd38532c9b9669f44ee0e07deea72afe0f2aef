@@ -1,4 +1,10 @@
-// 1.19.4	2023-03-24T13:46:55.4293223	Tags for minecraft:block mod id theurgy
+// 1.19.4	2023-04-13T13:48:43.6084929	Tags for minecraft:block mod id theurgy
+0fcdb0064991d93ee3af5633b952de0970a4b669 data/forge/tags/blocks/ores.json
+04abd356cb9b230f4d1adcf90db05571e8a17d05 data/forge/tags/blocks/ores/sal_ammoniac.json
+9148832ee4e83df2b37e23918707fd8046f26ff7 data/forge/tags/blocks/ores_in_ground/deepslate.json
+f8295983ffdb0c42c6c8b12788a5b63c1eb43f72 data/forge/tags/blocks/ores_in_ground/stone.json
+0fcdb0064991d93ee3af5633b952de0970a4b669 data/minecraft/tags/blocks/mineable/pickaxe.json
+0fcdb0064991d93ee3af5633b952de0970a4b669 data/minecraft/tags/blocks/needs_stone_tool.json
 46c2e1f6b178d2493d40b314ee3cfb58b98a12a6 data/theurgy/tags/blocks/divination_rod_t1_allowed_blocks.json
 35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/theurgy/tags/blocks/divination_rod_t1_disallowed_blocks.json
 2b89c3efd8f8c9fa27b1e5ede259f7655e262f58 data/theurgy/tags/blocks/divination_rod_t2_allowed_blocks.json

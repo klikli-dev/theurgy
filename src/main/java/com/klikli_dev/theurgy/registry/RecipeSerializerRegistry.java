@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: 2022 klikli-dev
+ * SPDX-FileCopyrightText: 2023 klikli-dev
  *
  * SPDX-License-Identifier: MIT
  */
@@ -36,6 +36,9 @@ public class RecipeSerializerRegistry {
 
     public static final RegistryObject<RecipeSerializer<IncubationRecipe>> INCUBATION = RECIPE_SERIALIZERS.register("incubation",
             IncubationRecipe.Serializer::new);
+
+    public static final RegistryObject<RecipeSerializer<AccumulationRecipe>> ACCUMULATION = RECIPE_SERIALIZERS.register("accumulation",
+            AccumulationRecipe.Serializer::new);
 
     public static void onRegisterRecipeSerializers(RegisterEvent event){
         //restrict to one event type otherwise it is called multiple times

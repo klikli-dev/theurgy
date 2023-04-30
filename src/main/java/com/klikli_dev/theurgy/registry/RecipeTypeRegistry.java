@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: 2022 klikli-dev
+ * SPDX-FileCopyrightText: 2023 klikli-dev
  *
  * SPDX-License-Identifier: MIT
  */
@@ -7,10 +7,7 @@
 package com.klikli_dev.theurgy.registry;
 
 import com.klikli_dev.theurgy.Theurgy;
-import com.klikli_dev.theurgy.content.recipe.CalcinationRecipe;
-import com.klikli_dev.theurgy.content.recipe.DistillationRecipe;
-import com.klikli_dev.theurgy.content.recipe.IncubationRecipe;
-import com.klikli_dev.theurgy.content.recipe.LiquefactionRecipe;
+import com.klikli_dev.theurgy.content.recipe.*;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraftforge.registries.DeferredRegister;
@@ -25,6 +22,7 @@ public class RecipeTypeRegistry {
     public static final RegistryObject<RecipeType<DistillationRecipe>> DISTILLATION = register("distillation");
     public static final RegistryObject<RecipeType<DistillationRecipe>> PYROMANTIC_BRAZIER = register("pyromantic_brazier");
     public static final RegistryObject<RecipeType<IncubationRecipe>> INCUBATION = register("incubation");
+    public static final RegistryObject<RecipeType<AccumulationRecipe>> ACCUMULATION = register("accumulation");
 
     static <T extends Recipe<?>> RegistryObject<RecipeType<T>> register(final String id) {
         return RECIPE_TYPES.register(id, () -> new RecipeType<T>() {

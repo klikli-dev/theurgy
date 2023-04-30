@@ -50,7 +50,7 @@ public class GettingStartedCategoryProvider implements MacroLangCategoryProvider
 
         var divinationRodEntry = this.makeDivinationRodEntry(helper, entryHelper, 'd');
         divinationRodEntry.withParent(introEntry);
-        //TODO: higer tier div rod entries explaining how they work
+        //TODO: higher tier div rod entries explaining how they work
 
         var apparatusHowToEntry = this.makeApparatusHowToEntry(helper, entryHelper, 'u');
         apparatusHowToEntry.withParent(introEntry);
@@ -239,8 +239,12 @@ public class GettingStartedCategoryProvider implements MacroLangCategoryProvider
         this.add(helper.pageTitle(), "Attunable Materials");
         this.add(helper.pageText(),
                 """
-                        Rods can be attuned to a wide variety of useful blocks, including various types of ores and wood. Basic divination rods will be sufficient to locate common ores such as [iron](item://minecraft:iron_ore) or [coal](item://minecraft:coal_ore), but more rare and precious materials such as [diamonds](item://minecraft:diamond_ore) will require a higher tier rod to detect.
-                         """);
+                        Rods can be attuned to a wide variety of useful blocks, including various types of ores and wood. Basic divination rods will be sufficient to locate common ores such as {0} or {1}, but more rare and precious materials such as {2} will require a higher tier rod to detect.
+                         """,
+                this.itemLink("iron", Items.IRON_ORE),
+                this.itemLink("coal", Items.COAL_ORE),
+                this.itemLink("diamonds", Items.DIAMOND_ORE)
+        );
 
         helper.page("usage");
         var usage = BookTextPageModel.builder()
@@ -252,7 +256,7 @@ public class GettingStartedCategoryProvider implements MacroLangCategoryProvider
                 """
                         - **Shift-Click** a block to attune the rod to it.
                         - **Right-Click and hold** to let the rod search for blocks.
-                        - **"Right-Click without holding**: after a successful search to let the rod show the last found block without consuming durability.
+                        - **Right-Click without holding**: after a successful search to let the rod show the last found block without consuming durability.
                         """);
 
 

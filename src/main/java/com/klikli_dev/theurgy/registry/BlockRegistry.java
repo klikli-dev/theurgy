@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: 2022 klikli-dev
+ * SPDX-FileCopyrightText: 2023 klikli-dev
  *
  * SPDX-License-Identifier: MIT
  */
@@ -15,11 +15,16 @@ import com.klikli_dev.theurgy.content.block.incubator.IncubatorSaltVesselBlock;
 import com.klikli_dev.theurgy.content.block.incubator.IncubatorSulfurVesselBlock;
 import com.klikli_dev.theurgy.content.block.liquefactioncauldron.LiquefactionCauldronBlock;
 import com.klikli_dev.theurgy.content.block.pyromanticbrazier.PyromanticBrazierBlock;
+import com.klikli_dev.theurgy.content.block.salammoniacaccumulator.SalAmmoniacAccumulatorBlock;
+import com.klikli_dev.theurgy.content.block.salammoniactank.SalAmmoniacTankBlock;
+import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.DropExperienceBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.MaterialColor;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -75,4 +80,24 @@ public class BlockRegistry {
                     .noOcclusion()
                     .sound(SoundType.METAL)
                     .strength(1.0f)));
+
+    public static final RegistryObject<SalAmmoniacAccumulatorBlock> SAL_AMMONIAC_ACCUMULATOR =
+            BLOCKS.register("sal_ammoniac_accumulator", () -> new SalAmmoniacAccumulatorBlock(BlockBehaviour.Properties.of(Material.METAL)
+                    .noOcclusion()
+                    .sound(SoundType.METAL)
+                    .strength(1.0f)));
+
+    public static final RegistryObject<SalAmmoniacTankBlock> SAL_AMMONIAC_TANK =
+            BLOCKS.register("sal_ammoniac_tank", () -> new SalAmmoniacTankBlock(BlockBehaviour.Properties.of(Material.METAL)
+                    .noOcclusion()
+                    .sound(SoundType.METAL)
+                    .strength(1.0f)));
+
+    public static final RegistryObject<Block> SAL_AMMONIAC_ORE = BLOCKS.register("sal_ammoniac_ore", () ->
+            new DropExperienceBlock(BlockBehaviour.Properties.of(Material.STONE).requiresCorrectToolForDrops().strength(3.0F, 3.0F), UniformInt.of(2, 5)));
+
+    public static final RegistryObject<Block> DEEPSLATE_SAL_AMMONIAC_ORE = BLOCKS.register("deepslate_sal_ammoniac_ore", () ->
+            new DropExperienceBlock(BlockBehaviour.Properties.copy(SAL_AMMONIAC_ORE.get()).color(MaterialColor.DEEPSLATE).strength(4.5f, 3.0f).sound(SoundType.DEEPSLATE), UniformInt.of(2, 5)));
+
+
 }

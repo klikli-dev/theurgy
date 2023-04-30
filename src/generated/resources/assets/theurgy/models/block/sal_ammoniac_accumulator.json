@@ -1,0 +1,7 @@
+{
+  "parent": "theurgy:block/sal_ammoniac_accumulator_template",
+  "textures": {
+    "particle": "minecraft:block/copper_block",
+    "texture": "theurgy:block/sal_ammoniac_accumulator"
+  }
+}

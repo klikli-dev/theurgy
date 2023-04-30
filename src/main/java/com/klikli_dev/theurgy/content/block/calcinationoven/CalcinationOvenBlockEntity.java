@@ -21,6 +21,7 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.wrapper.CombinedInvWrapper;
 import net.minecraftforge.items.wrapper.RecipeWrapper;
@@ -103,37 +104,22 @@ public class CalcinationOvenBlockEntity extends BlockEntity implements HeatConsu
         if (assembledStack.isEmpty()) {
             return false;
         } else {
-            var outputStack = this.outputInventory.getStackInSlot(0);
-            if (outputStack.isEmpty()) {
-                return true;
-            } else if (!outputStack.sameItem(assembledStack)) {
-                return false;
-            } else if (outputStack.getCount() + assembledStack.getCount() <= this.outputInventory.getSlotLimit(0)
-                    && outputStack.getCount() + assembledStack.getCount() <= outputStack.getMaxStackSize()) {
-                return true;
-            } else {
-                return outputStack.getCount() + assembledStack.getCount() <= assembledStack.getMaxStackSize();
-            }
+            var remainingStack = ItemHandlerHelper.insertItemStacked(this.outputInventory, assembledStack, true);
+            return remainingStack.isEmpty(); //only allow crafting if we have room for the full output
         }
-
     }
 
     private boolean craft(@Nullable CalcinationRecipe pRecipe) {
         if (!this.canCraft(pRecipe))
             return false;
 
-        var inputStack = this.inputInventory.getStackInSlot(0);
         var assembledStack = pRecipe.assemble(this.inputRecipeWrapper, this.getLevel().registryAccess());
-        var outputStack = this.outputInventory.getStackInSlot(0);
-        if (outputStack.isEmpty()) {
-            this.outputInventory.setStackInSlot(0, assembledStack.copy());
-        } else if (outputStack.is(assembledStack.getItem())) {
-            outputStack.grow(assembledStack.getCount());
-        }
 
-        inputStack.shrink(1);
+        // Safely insert the assembledStack into the outputInventory and update the input stack.
+        ItemHandlerHelper.insertItemStacked(this.outputInventory, assembledStack, false);
+        this.inputInventory.extractItem(0, 1, false);
+
         return true;
-
     }
 
     protected int getTotalTime() {

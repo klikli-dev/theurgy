@@ -17,13 +17,20 @@ import com.klikli_dev.theurgy.datagen.recipe.*;
 import com.klikli_dev.theurgy.datagen.tags.TheurgyBlockTagsProvider;
 import com.klikli_dev.theurgy.datagen.tags.TheurgyFluidTagsProvider;
 import com.klikli_dev.theurgy.datagen.tags.TheurgyItemTagsProvider;
+import com.klikli_dev.theurgy.datagen.worldgen.BiomeModifiers;
+import com.klikli_dev.theurgy.datagen.worldgen.TheurgyRegistries;
+import net.minecraft.Util;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.DataProvider;
 import net.minecraft.data.loot.LootTableProvider;
+import net.minecraft.data.registries.RegistriesDatapackGenerator;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraftforge.common.data.DatapackBuiltinEntriesProvider;
 import net.minecraftforge.data.event.GatherDataEvent;
 
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.CompletableFuture;
 
 public class TheurgyDataGenerators {
 
@@ -46,9 +53,10 @@ public class TheurgyDataGenerators {
         generator.addProvider(event.includeServer(), new ShapedRecipeProvider(generator.getPackOutput()));
         generator.addProvider(event.includeServer(), new ShapelessRecipeProvider(generator.getPackOutput()));
         generator.addProvider(event.includeServer(), new CalcinationRecipeProvider(generator.getPackOutput()));
-        generator.addProvider(event.includeServer(), new LiqueficationRecipeProvider(generator.getPackOutput()));
+        generator.addProvider(event.includeServer(), new LiquefactionRecipeProvider(generator.getPackOutput()));
         generator.addProvider(event.includeServer(), new DistillationRecipeProvider(generator.getPackOutput()));
         generator.addProvider(event.includeServer(), new IncubationRecipeProvider(generator.getPackOutput()));
+        generator.addProvider(event.includeServer(), new AccumulationRecipeProvider(generator.getPackOutput()));
 
         generator.addProvider(event.includeServer(), new TheurgyMultiblockProvider(generator.getPackOutput()));
 
@@ -57,5 +65,10 @@ public class TheurgyDataGenerators {
 
         //Important: Lang provider (in this case enus) needs to be added after the book provider to process the texts added by the book provider
         generator.addProvider(event.includeClient(), enUSProvider);
+
+        event.getGenerator().addProvider(event.includeServer(),
+                (DataProvider.Factory<DatapackBuiltinEntriesProvider>) output ->
+                        new DatapackBuiltinEntriesProvider(output, event.getLookupProvider(), TheurgyRegistries.BUILDER, Set.of(Theurgy.MODID)));
+
     }
 }

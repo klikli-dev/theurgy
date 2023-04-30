@@ -13,9 +13,12 @@ import com.klikli_dev.modonomicon.api.datagen.book.BookCategoryModel;
 import com.klikli_dev.modonomicon.api.datagen.book.BookEntryModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookCraftingRecipePageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookMultiblockPageModel;
+import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.klikli_dev.theurgy.Theurgy;
+import com.klikli_dev.theurgy.integration.modonomicon.page.BookAccumulationRecipePageModel;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.common.data.LanguageProvider;
 
 public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
@@ -39,7 +42,7 @@ public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
                 "__________________________________",
                 "________________c_________________",
                 "__________________________________",
-                "__________i_p_b___l_r_____________",
+                "__________i_p_b___s_l_r___________",
                 "__________________________________",
                 "________________d_________________",
                 "__________________________________",
@@ -56,8 +59,11 @@ public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
         var calcinationOvenEntry = this.makeCalcinationOvenEntry(helper, entryHelper, 'c');
         calcinationOvenEntry.withParent(pyromanticBrazierEntry);
 
+        var solventEntry = this.makeSolventsEntry(helper, entryHelper, 's');
+        solventEntry.withParent(pyromanticBrazierEntry);
+
         var liquefactionCauldronEntry = this.makeLiquefactionCauldronEntry(helper, entryHelper, 'l');
-        liquefactionCauldronEntry.withParent(pyromanticBrazierEntry);
+        liquefactionCauldronEntry.withParent(solventEntry);
 
         var distillerEntry = this.makeDistillerEntry(helper, entryHelper, 'd');
         distillerEntry.withParent(pyromanticBrazierEntry);
@@ -77,6 +83,7 @@ public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
                         principlesEntry.build(),
                         pyromanticBrazierEntry.build(),
                         calcinationOvenEntry.build(),
+                        solventEntry.build(),
                         liquefactionCauldronEntry.build(),
                         distillerEntry.build(),
                         incubatorEntry.build()
@@ -206,8 +213,10 @@ public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
         this.add(helper.pageTitle(), "Pyromantic Brazier");
         this.add(helper.pageText(),
                 """
-                        The Pyromantic Brazier is a simple heating apparatus that can be used to power other Alchemical Devices. It is powered by burning furnace fuel, such as wood, coal, or charcoal.
-                        """);
+                        The {0} is a simple heating apparatus that can be used to power other Alchemical Devices. It is powered by burning furnace fuel, such as wood, coal, or charcoal.
+                        """,
+                this.itemLink(ItemRegistry.PYROMANTIC_BRAZIER.get())
+        );
 
 
         helper.page("usage");
@@ -218,14 +227,15 @@ public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
         this.add(helper.pageTitle(), "Usage");
         this.add(helper.pageText(),
                 """
-                        Place the brazier below the Alchemical Device you want to power, then insert a fuel item by right-clicking the brazier with it.
+                        Place the {0} below the Alchemical Device you want to power, then insert a fuel item by right-clicking the brazier with it.
                         \\
                         \\
                         Alternatively a hopper can be used to insert fuel items.
                         \\
                         \\
-                        See also {0}.
+                        See also {1}.
                         """,
+                this.itemLink(ItemRegistry.PYROMANTIC_BRAZIER.get()),
                 this.entryLink("Alchemical Apparatus", GettingStartedCategoryProvider.CATEGORY_ID, "apparatus_how_to")
         );
 
@@ -262,8 +272,10 @@ public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
         this.add(helper.pageTitle(), "Calcination Oven");
         this.add(helper.pageText(),
                 """
-                        Calcination is the process whereby [#]($PURPLE)Alchemical Salt[#]() is extracted from matter. The Calcination Oven is a simple device that can be used to perform this process by applying consistent high heat to the target object.
-                        """);
+                        Calcination is the process whereby [#]($PURPLE)Alchemical Salt[#]() is extracted from matter. The {0} is a simple device that can be used to perform this process by applying consistent high heat to the target object.
+                        """,
+                this.itemLink(ItemRegistry.CALCINATION_OVEN.get())
+        );
 
         helper.page("multiblock");
         var multiblock = BookMultiblockPageModel.builder()
@@ -278,14 +290,16 @@ public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
         this.add(helper.pageTitle(), "Usage");
         this.add(helper.pageText(),
                 """
-                        Place the Oven on top of a Pyromantic Brazier, then insert the item to calcinate by right-clicking the oven with it.
+                        Place the {0} on top of a {1}, then insert the item to calcinate by right-clicking the oven with it.
                         \\
                         \\
                         Alternatively a hopper can be used to insert items to process.
                         \\
                         \\
-                        See also {0}.
+                        See also {2}.
                         """,
+                this.itemLink(ItemRegistry.CALCINATION_OVEN.get()),
+                this.itemLink(ItemRegistry.PYROMANTIC_BRAZIER.get()),
                 this.entryLink("Alchemical Apparatus", GettingStartedCategoryProvider.CATEGORY_ID, "apparatus_how_to")
         );
 
@@ -310,6 +324,117 @@ public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
                 );
     }
 
+    private BookEntryModel.Builder makeSolventsEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
+        helper.entry("solvents");
+        this.add(helper.entryName(), "Solvents");
+        this.add(helper.entryDescription(), "Solving all your problems?");
+
+        helper.page("intro");
+        var intro = BookSpotlightPageModel.builder()
+                .withItem(Ingredient.of(ItemRegistry.SAL_AMMONIAC_BUCKET.get()))
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+        this.add(helper.pageTitle(), "Solvents");
+        this.add(helper.pageText(),
+                """
+                        Solvents are required for the process of Liquefaction, by which [#]($PURPLE)Alchemical Sulfur[#]() is extracted from matter. Usually they are a type of acid. The following solvents are available:
+                        - Sal Ammoniac
+                        - Alkahest *(not yet implemented)*
+                        """);
+        //TODO: Update entry once alkahest is available
+
+        helper.page("crafting");
+        var crafting = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+        this.add(helper.pageTitle(), "Crafting");
+        this.add(helper.pageText(),
+                """
+                        Sal Ammoniac is crafted in a {0}. It has two modes of operation: It can increase the concentration of naturally occuring Sal Ammoniac in water to a usable level via evaporation, which is a rather slow and inefficient process, or it can enrich water with {1} to produce a usable solvent much quicker.
+                        """,
+                this.itemLink(ItemRegistry.SAL_AMMONIAC_ACCUMULATOR.get()),
+                this.itemLink("Sal Ammoniac Crystals", ItemRegistry.SAL_AMMONIAC_CRYSTAL.get())
+        );
+
+        helper.page("multiblock");
+        var multiblock = BookMultiblockPageModel.builder()
+                .withMultiblockId(Theurgy.loc("placement/sal_ammoniac_accumulator"))
+                .build();
+
+        helper.page("usage");
+        var usage = BookTextPageModel.builder()
+                .withTitle(helper.pageTitle())
+                .withText(helper.pageText())
+                .build();
+        this.add(helper.pageTitle(), "Usage");
+        this.add(helper.pageText(),
+                """
+                        Place the {0} on top of a {1}, and fill it with a Water by right-clicking with a water bucket.
+                        \\
+                        \\
+                        Optionally insert a {2} by right-clicking the cauldron with it to speed up the process.
+                        \\
+                        \\
+                        See also {3}.
+                        """,
+                this.itemLink(ItemRegistry.SAL_AMMONIAC_ACCUMULATOR.get()),
+                this.itemLink(ItemRegistry.SAL_AMMONIAC_TANK.get()),
+                this.itemLink(ItemRegistry.SAL_AMMONIAC_CRYSTAL.get()),
+                this.entryLink("Alchemical Apparatus", GettingStartedCategoryProvider.CATEGORY_ID, "apparatus_how_to")
+        );
+
+        helper.page("recipe1");
+        var recipe1 = BookCraftingRecipePageModel.builder()
+                .withRecipeId1(Theurgy.loc("shaped/sal_ammoniac_accumulator"))
+                .build();
+        //no text
+
+        helper.page("recipe2");
+        var recipe2 = BookCraftingRecipePageModel.builder()
+                .withRecipeId1(Theurgy.loc("shaped/sal_ammoniac_tank"))
+                .build();
+        //no text
+
+        helper.page("sal_ammoniac_crystal");
+        var crystal = BookSpotlightPageModel.builder()
+                .withItem(Ingredient.of(ItemRegistry.SAL_AMMONIAC_CRYSTAL.get()))
+                .withText(helper.pageText())
+                .build();
+        this.add(helper.pageText(),
+                """
+                        The crystals can be obtained by mining {0}.
+                        """,
+                this.itemLink(ItemRegistry.SAL_AMMONIAC_ORE.get())
+        );
+
+        helper.page("sal_ammoniac_fluid_recipe");
+        var salAmmoniacFluidRecipe = BookAccumulationRecipePageModel.builder()
+                .withRecipeId1(Theurgy.loc("accumulation/sal_ammoniac_from_water"))
+                .withRecipeId2(Theurgy.loc("accumulation/sal_ammoniac_from_water_and_sal_ammoniac_crystal"))
+                .build();
+        //no text
+
+        return BookEntryModel.builder()
+                .withId(Theurgy.loc(helper.category + "/" + helper.entry))
+                .withName(helper.entryName())
+                .withDescription(helper.entryDescription())
+                .withIcon(ItemRegistry.SAL_AMMONIAC_TANK.get())
+                .withLocation(entryHelper.get(icon))
+                .withEntryBackground(EntryBackground.DEFAULT)
+                .withPages(
+                        intro,
+                        crafting,
+                        multiblock,
+                        usage,
+                        recipe1,
+                        recipe2,
+                        crystal,
+                        salAmmoniacFluidRecipe
+                );
+    }
+
     private BookEntryModel.Builder makeLiquefactionCauldronEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
         helper.entry("liquefaction_cauldron");
         this.add(helper.entryName(), "Liquefaction Cauldron");
@@ -323,29 +448,10 @@ public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
         this.add(helper.pageTitle(), "Liquefaction Cauldron");
         this.add(helper.pageText(),
                 """
-                        Liquefaction allows the extraction of [#]($PURPLE)Alchemical Sulfur[#]() from matter. In the Liquefaction Cauldron a Solvent, usually a type of acid, is used to dissolve the target object, then the resulting solution is heated to evaporate the solvent and leave behind the Sulfur.
-                        """);
-
-        helper.page("solvents");
-        var solvents = BookTextPageModel.builder()
-                .withTitle(helper.pageTitle())
-                .withText(helper.pageText())
-                .build();
-        this.add(helper.pageTitle(), "Solvents");
-        this.add(helper.pageText(),
-                """
-                        Different solvents can be used to dissolve different materials. The following solvents are available:
-                        - Sal Ammoniac
-                        - Alkahest (not yet implemented)
-                                                
-                        \\
-                        \\
-                        See also {0}
+                        Liquefaction allows the extraction of [#]($PURPLE)Alchemical Sulfur[#]() from matter. In the {0} a [#]($PURPLE)Solvent[#](), usually a type of acid, is used to dissolve the target object, then the resulting solution is heated to evaporate the solvent and leave behind the Sulfur.
                         """,
-                this.entryLinkDummy("Solvents", SpagyricsCategoryProvider.CATEGORY_ID, "solvents")
+                this.itemLink(ItemRegistry.LIQUEFACTION_CAULDRON.get())
         );
-        //TODO: Link to solvents entry once available
-        //TODO: Update entry once alkahest is available
 
         helper.page("multiblock");
         var multiblock = BookMultiblockPageModel.builder()
@@ -360,14 +466,16 @@ public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
         this.add(helper.pageTitle(), "Usage");
         this.add(helper.pageText(),
                 """
-                        Place the Cauldron on top of a Pyromantic Brazier, and fill it with a Solvent by right-clicking with a solvent-filled bucket.
+                        Place the {0} on top of a {1}, and fill it with a Solvent by right-clicking with a solvent-filled bucket.
                         \\
                         \\
                         Then insert the item to liquefy by right-clicking the cauldron with it.
                         \\
                         \\
-                        See also {0}.
+                        See also {2}.
                         """,
+                this.itemLink(ItemRegistry.LIQUEFACTION_CAULDRON.get()),
+                this.itemLink(ItemRegistry.PYROMANTIC_BRAZIER.get()),
                 this.entryLink("Alchemical Apparatus", GettingStartedCategoryProvider.CATEGORY_ID, "apparatus_how_to")
         );
 
@@ -386,7 +494,6 @@ public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
                 .withEntryBackground(EntryBackground.DEFAULT)
                 .withPages(
                         intro,
-                        solvents,
                         multiblock,
                         usage,
                         recipe
@@ -424,14 +531,16 @@ public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
         this.add(helper.pageTitle(), "Usage");
         this.add(helper.pageText(),
                 """
-                        Place the Distiller on top of a Pyromantic Brazier, then insert the item to distill by right-clicking the oven with it.
+                        Place the {0} on top of a {1}, then insert the item to distill by right-clicking the Distiller with it.
                         \\
                         \\
                         Alternatively a hopper can be used to insert items to process.
                         \\
                         \\
-                        See also {0}.
+                        See also {2}.
                         """,
+                this.itemLink(ItemRegistry.DISTILLER.get()),
+                this.itemLink(ItemRegistry.PYROMANTIC_BRAZIER.get()),
                 this.entryLink("Alchemical Apparatus", GettingStartedCategoryProvider.CATEGORY_ID, "apparatus_how_to")
         );
 
@@ -486,12 +595,14 @@ public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
         this.add(helper.pageTitle(), "Usage");
         this.add(helper.pageText(),
                 """
-                        Place the Incubator on top of a Pyromantic Brazier and one of each of the three vessels next to it. Insert the items to process by right-clicking the vessels with them.
+                        Place the {0} on top of a {1} and one of each of the three vessels next to it. Insert the items to process by right-clicking the vessels with them.
                         \\
                         \\
                         Alternatively a hopper can be used to insert items to process.\\
-                        See also {0}.
+                        See also {2}.
                         """,
+                this.itemLink(ItemRegistry.INCUBATOR.get()),
+                this.itemLink(ItemRegistry.PYROMANTIC_BRAZIER.get()),
                 this.entryLink("Alchemical Apparatus", GettingStartedCategoryProvider.CATEGORY_ID, "apparatus_how_to")
         );
 

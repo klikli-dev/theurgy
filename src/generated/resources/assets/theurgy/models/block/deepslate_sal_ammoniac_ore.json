@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "theurgy:block/deepslate_sal_ammoniac_ore"
+  }
+}

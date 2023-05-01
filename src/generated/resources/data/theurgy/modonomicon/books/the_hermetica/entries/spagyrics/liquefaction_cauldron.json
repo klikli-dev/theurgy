@@ -38,6 +38,14 @@
       "text": "",
       "title1": "",
       "title2": ""
+    },
+    {
+      "type": "theurgy:liquefaction_recipe",
+      "anchor": "",
+      "recipe_id_1": "theurgy:liquefaction/wheat",
+      "text": "",
+      "title1": "book.theurgy.the_hermetica.spagyrics.liquefaction_cauldron.sample_recipe.title",
+      "title2": ""
     }
   ],
   "parents": [

@@ -17,6 +17,9 @@ import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.integration.modonomicon.page.accumulation.BookAccumulationRecipePageModel;
+import com.klikli_dev.theurgy.integration.modonomicon.page.calcination.BookCalcinationRecipePageModel;
+import com.klikli_dev.theurgy.integration.modonomicon.page.distillation.BookDistillationRecipePage;
+import com.klikli_dev.theurgy.integration.modonomicon.page.distillation.BookDistillationRecipePageModel;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.common.data.LanguageProvider;
@@ -561,6 +564,14 @@ public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
                 .build();
         //no text
 
+//        helper.page("sample_recipe");
+//        var sampleRecipe = BookDistillationRecipePageModel.builder()
+//                .withTitle1(helper.pageTitle())
+//                .withRecipeId1(Theurgy.loc("distillation/stone"))
+//                .build();
+//        this.add(helper.pageTitle(), "Sample Recipe");
+//        //no text
+
         return BookEntryModel.builder()
                 .withId(Theurgy.loc(helper.category + "/" + helper.entry))
                 .withName(helper.entryName())
@@ -573,6 +584,7 @@ public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
                         multiblock,
                         usage,
                         recipe
+//                        sampleRecipe
                 );
     }
 

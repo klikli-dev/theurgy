@@ -38,6 +38,14 @@
       "text": "",
       "title1": "",
       "title2": ""
+    },
+    {
+      "type": "theurgy:distillation_recipe",
+      "anchor": "",
+      "recipe_id_1": "theurgy:distillation/stone",
+      "text": "",
+      "title1": "book.theurgy.the_hermetica.spagyrics.distiller.sample_recipe.title",
+      "title2": ""
     }
   ],
   "parents": [

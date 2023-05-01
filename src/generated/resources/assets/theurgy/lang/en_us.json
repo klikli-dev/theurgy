@@ -140,6 +140,7 @@
   "book.theurgy.the_hermetica.spagyrics.solvents.intro.title": "Solvents",
   "book.theurgy.the_hermetica.spagyrics.solvents.name": "Solvents",
   "book.theurgy.the_hermetica.spagyrics.solvents.sal_ammoniac_crystal.text": "The crystals can be obtained by mining [](item://theurgy:sal_ammoniac_ore).\n",
+  "book.theurgy.the_hermetica.spagyrics.solvents.sal_ammoniac_fluid_recipe.title.2": "... using Crystal",
   "book.theurgy.the_hermetica.spagyrics.solvents.usage.text": "Place the [](item://theurgy:sal_ammoniac_accumulator) on top of a [](item://theurgy:sal_ammoniac_tank), and fill it with a Water by right-clicking with a water bucket.\n\\\n\\\nOptionally insert a [](item://theurgy:sal_ammoniac_crystal) by right-clicking the cauldron with it to speed up the process.\n\\\n\\\nSee also [Alchemical Apparatus](entry://getting_started/apparatus_how_to).\n",
   "book.theurgy.the_hermetica.spagyrics.solvents.usage.title": "Usage",
   "book.theurgy.the_hermetica.tooltip": "A treatise on the Ancient Art of Alchemy.\n§o(In-Game Guide for Theurgy)§r",

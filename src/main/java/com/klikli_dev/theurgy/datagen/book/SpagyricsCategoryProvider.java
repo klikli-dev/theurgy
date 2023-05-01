@@ -16,7 +16,13 @@ import com.klikli_dev.modonomicon.api.datagen.book.page.BookMultiblockPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.klikli_dev.theurgy.Theurgy;
-import com.klikli_dev.theurgy.integration.modonomicon.page.BookAccumulationRecipePageModel;
+import com.klikli_dev.theurgy.integration.modonomicon.page.accumulation.BookAccumulationRecipePageModel;
+import com.klikli_dev.theurgy.integration.modonomicon.page.calcination.BookCalcinationRecipePageModel;
+import com.klikli_dev.theurgy.integration.modonomicon.page.distillation.BookDistillationRecipePage;
+import com.klikli_dev.theurgy.integration.modonomicon.page.distillation.BookDistillationRecipePageModel;
+import com.klikli_dev.theurgy.integration.modonomicon.page.incubation.BookIncubationRecipePage;
+import com.klikli_dev.theurgy.integration.modonomicon.page.incubation.BookIncubationRecipePageModel;
+import com.klikli_dev.theurgy.integration.modonomicon.page.liquefaction.BookLiquefactionRecipePageModel;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.common.data.LanguageProvider;
@@ -309,6 +315,14 @@ public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
                 .build();
         //no text
 
+//        helper.page("recipe_ore");
+//        var recipeOre = BookCalcinationRecipePageModel.builder()
+//                .withTitle1(helper.pageTitle())
+//                .withRecipeId1(Theurgy.loc("calcination/ore"))
+//                .build();
+//        this.add(helper.pageTitle(), "Sample Recipe");
+        //no text
+
         return BookEntryModel.builder()
                 .withId(Theurgy.loc(helper.category + "/" + helper.entry))
                 .withName(helper.entryName())
@@ -321,6 +335,7 @@ public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
                         multiblock,
                         usage,
                         recipe
+//                        recipeOre
                 );
     }
 
@@ -413,7 +428,9 @@ public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
         var salAmmoniacFluidRecipe = BookAccumulationRecipePageModel.builder()
                 .withRecipeId1(Theurgy.loc("accumulation/sal_ammoniac_from_water"))
                 .withRecipeId2(Theurgy.loc("accumulation/sal_ammoniac_from_water_and_sal_ammoniac_crystal"))
+                .withTitle2(helper.pageTitle() + ".2")
                 .build();
+        this.add(helper.pageTitle() + ".2", "... using Crystal");
         //no text
 
         return BookEntryModel.builder()
@@ -485,6 +502,14 @@ public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
                 .build();
         //no text
 
+//        helper.page("sample_recipe");
+//        var sampleRecipe = BookLiquefactionRecipePageModel.builder()
+//                .withTitle1(helper.pageTitle())
+//                .withRecipeId1(Theurgy.loc("liquefaction/wheat"))
+//                .build();
+//        this.add(helper.pageTitle(), "Sample Recipe");
+//        //no text
+
         return BookEntryModel.builder()
                 .withId(Theurgy.loc(helper.category + "/" + helper.entry))
                 .withName(helper.entryName())
@@ -497,6 +522,7 @@ public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
                         multiblock,
                         usage,
                         recipe
+//                        sampleRecipe
                 );
     }
 
@@ -550,6 +576,14 @@ public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
                 .build();
         //no text
 
+//        helper.page("sample_recipe");
+//        var sampleRecipe = BookDistillationRecipePageModel.builder()
+//                .withTitle1(helper.pageTitle())
+//                .withRecipeId1(Theurgy.loc("distillation/stone"))
+//                .build();
+//        this.add(helper.pageTitle(), "Sample Recipe");
+//        //no text
+
         return BookEntryModel.builder()
                 .withId(Theurgy.loc(helper.category + "/" + helper.entry))
                 .withName(helper.entryName())
@@ -562,6 +596,7 @@ public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
                         multiblock,
                         usage,
                         recipe
+//                        sampleRecipe
                 );
     }
 
@@ -630,6 +665,14 @@ public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
                 .build();
         //no text
 
+//        helper.page("sample_recipe");
+//        var sampleRecipe = BookIncubationRecipePageModel.builder()
+//                .withTitle1(helper.pageTitle())
+//                .withRecipeId1(Theurgy.loc("incubation/wheat"))
+//                .build();
+//        this.add(helper.pageTitle(), "Sample Recipe");
+//        //no text
+
         return BookEntryModel.builder()
                 .withId(Theurgy.loc(helper.category + "/" + helper.entry))
                 .withName(helper.entryName())
@@ -645,6 +688,7 @@ public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
                         recipeMercuryVessel,
                         recipeSaltVessel,
                         recipeSulfurVessel
+//                        sampleRecipe
                 );
     }
 

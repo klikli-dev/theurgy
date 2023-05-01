@@ -19,7 +19,6 @@ import net.minecraft.Util;
 import net.minecraft.data.PackOutput;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.common.data.LanguageProvider;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -161,7 +160,7 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
 
     private void addSalts() {
         //Salt source names used in automatic name rendering
-        this.addSaltSource(SaltRegistry.ORES, "Ores");
+        this.addSaltSource(SaltRegistry.ORE, "Ores");
         this.addSaltSource(SaltRegistry.CROPS, "Crops");
 
         //Automatic salt name rendering

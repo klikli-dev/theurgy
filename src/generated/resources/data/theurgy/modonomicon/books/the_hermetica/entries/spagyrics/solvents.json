@@ -66,13 +66,13 @@
       "title": ""
     },
     {
-      "type": "theurgy:spirit_fire_recipe",
+      "type": "theurgy:accumulation_recipe",
       "anchor": "",
       "recipe_id_1": "theurgy:accumulation/sal_ammoniac_from_water",
       "recipe_id_2": "theurgy:accumulation/sal_ammoniac_from_water_and_sal_ammoniac_crystal",
       "text": "",
       "title1": "",
-      "title2": ""
+      "title2": "book.theurgy.the_hermetica.spagyrics.solvents.sal_ammoniac_fluid_recipe.title.2"
     }
   ],
   "parents": [

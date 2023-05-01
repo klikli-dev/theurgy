@@ -1,10 +1,10 @@
 /*
- * SPDX-FileCopyrightText: 2022 klikli-dev
+ * SPDX-FileCopyrightText: 2023 klikli-dev
  *
  * SPDX-License-Identifier: MIT
  */
 
-package com.klikli_dev.theurgy.integration.modonomicon.page;
+package com.klikli_dev.theurgy.integration.modonomicon.page.accumulation;
 
 import com.klikli_dev.modonomicon.book.page.BookRecipePage;
 import com.klikli_dev.modonomicon.client.gui.book.BookContentScreen;
@@ -44,7 +44,7 @@ public class BookAccumulationRecipePageRenderer extends BookRecipePageRenderer<A
 
         if (recipe.hasSolute()) {
             GuiTextures.MODONOMICON_SLOT.render(poseStack, recipeX, recipeY + 24); //render the item input slot
-            this.parentScreen.renderIngredient(poseStack, recipeX + 2, recipeY + 24 + 2, mouseX, mouseY, recipe.getSolute());
+            this.parentScreen.renderIngredient(poseStack, recipeX + 3, recipeY + 24 + 3, mouseX, mouseY, recipe.getSolute());
         }
 
         GuiTextures.MODONOMICON_SLOT.render(poseStack, recipeX + 61, recipeY); //render the fluid output slot

@@ -42,7 +42,7 @@ public class BookLiquefactionRecipePageRenderer extends BookRecipePageRenderer<L
         this.parentScreen.renderFluidStacks(poseStack, recipeX + 2, recipeY + 2, mouseX, mouseY, recipe.getSolvent().getFluids(), FluidType.BUCKET_VOLUME);
 
         GuiTextures.MODONOMICON_SLOT.render(poseStack, recipeX, recipeY + 24); //render the item input slot
-        this.parentScreen.renderIngredient(poseStack, recipeX + 3 + 3, recipeY + 24 + +3, mouseX, mouseY, recipe.getIngredients().get(0));
+        this.parentScreen.renderIngredient(poseStack, recipeX + 3, recipeY + 24 + +3, mouseX, mouseY, recipe.getIngredients().get(0));
 
         GuiTextures.MODONOMICON_SLOT.render(poseStack, recipeX + 61, recipeY); //render the output slot
         this.parentScreen.renderItemStack(poseStack, recipeX + 61 + 3, recipeY + 3, mouseX, mouseY, recipe.getResultItem(this.parentScreen.getMinecraft().level.registryAccess()));

@@ -1,4 +1,4 @@
-// 1.19.4	2023-05-01T15:25:56.5809047	Books: theurgy
+// 1.19.4	2023-05-01T16:30:21.2493852	Books: theurgy
 ead61475fc866f8eb903a6d99236808a0383fd5a data/theurgy/modonomicon/books/the_hermetica/book.json
 3a4b111882abf1b08df5ba3159faf2cab89f3c3e data/theurgy/modonomicon/books/the_hermetica/categories/getting_started.json
 65fb211d7f08ae00a968bbeb4d78714a6b89f368 data/theurgy/modonomicon/books/the_hermetica/categories/spagyrics.json
@@ -12,7 +12,7 @@ ead61475fc866f8eb903a6d99236808a0383fd5a data/theurgy/modonomicon/books/the_herm
 c029788424db10eff13b4237a32eb3e26d5b8e6f data/theurgy/modonomicon/books/the_hermetica/entries/spagyrics/distiller.json
 1daf73b51582bfece3bb90dde46f3eed8f6eaa0d data/theurgy/modonomicon/books/the_hermetica/entries/spagyrics/incubator.json
 583a601b3829afee551c1cf53eb72a37db7176d2 data/theurgy/modonomicon/books/the_hermetica/entries/spagyrics/intro.json
-dc837248856de6dc57142af29769e69e516b28e8 data/theurgy/modonomicon/books/the_hermetica/entries/spagyrics/liquefaction_cauldron.json
+bb862e52f9da53c94a17a423564c82dd1f3b2e26 data/theurgy/modonomicon/books/the_hermetica/entries/spagyrics/liquefaction_cauldron.json
 331cba56f57b89d6ecbf894b01af825e50e108d9 data/theurgy/modonomicon/books/the_hermetica/entries/spagyrics/principles.json
 27c5f6a34ea7d910cb1318b288f11050b1e91ad6 data/theurgy/modonomicon/books/the_hermetica/entries/spagyrics/pyromantic_brazier.json
 e0040900d1ee4a54bddeed3fbf9ec1f5f03edaf3 data/theurgy/modonomicon/books/the_hermetica/entries/spagyrics/solvents.json

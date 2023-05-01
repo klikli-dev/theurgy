@@ -11,6 +11,8 @@ import com.klikli_dev.theurgy.integration.modonomicon.page.calcination.BookCalci
 import com.klikli_dev.theurgy.integration.modonomicon.page.calcination.BookCalcinationRecipePageRenderer;
 import com.klikli_dev.theurgy.integration.modonomicon.page.distillation.BookDistillationRecipePage;
 import com.klikli_dev.theurgy.integration.modonomicon.page.distillation.BookDistillationRecipePageRenderer;
+import com.klikli_dev.theurgy.integration.modonomicon.page.incubation.BookIncubationRecipePage;
+import com.klikli_dev.theurgy.integration.modonomicon.page.incubation.BookIncubationRecipePageRenderer;
 import com.klikli_dev.theurgy.integration.modonomicon.page.liquefaction.BookLiquefactionRecipePage;
 import com.klikli_dev.theurgy.integration.modonomicon.page.liquefaction.BookLiquefactionRecipePageRenderer;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -29,6 +31,10 @@ public class PageRenderers {
         PageRendererRegistry.registerPageRenderer(
                 TheurgyModonomiconConstants.Page.DISTILLATION_RECIPE,
                 p -> new BookDistillationRecipePageRenderer((BookDistillationRecipePage) p));
+
+        PageRendererRegistry.registerPageRenderer(
+                TheurgyModonomiconConstants.Page.INCUBATION_RECIPE,
+                p -> new BookIncubationRecipePageRenderer((BookIncubationRecipePage) p));
 
         PageRendererRegistry.registerPageRenderer(
                 TheurgyModonomiconConstants.Page.LIQUEFACTION_RECIPE,

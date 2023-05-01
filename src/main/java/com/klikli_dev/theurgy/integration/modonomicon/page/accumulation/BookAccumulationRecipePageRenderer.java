@@ -1,19 +1,21 @@
 /*
- * SPDX-FileCopyrightText: 2022 klikli-dev
+ * SPDX-FileCopyrightText: 2023 klikli-dev
  *
  * SPDX-License-Identifier: MIT
  */
 
-package com.klikli_dev.theurgy.integration.modonomicon.page;
+package com.klikli_dev.theurgy.integration.modonomicon.page.accumulation;
 
+import com.klikli_dev.modonomicon.book.page.BookRecipePage;
 import com.klikli_dev.modonomicon.client.gui.book.BookContentScreen;
 import com.klikli_dev.modonomicon.client.render.page.BookRecipePageRenderer;
 import com.klikli_dev.theurgy.content.gui.GuiTextures;
-import com.klikli_dev.theurgy.content.recipe.CalcinationRecipe;
+import com.klikli_dev.theurgy.content.recipe.AccumulationRecipe;
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraftforge.fluids.FluidType;
 
-public class BookCalcinationRecipePageRenderer extends BookRecipePageRenderer<CalcinationRecipe, BookCalcinationRecipePage> {
-    public BookCalcinationRecipePageRenderer(BookCalcinationRecipePage page) {
+public class BookAccumulationRecipePageRenderer extends BookRecipePageRenderer<AccumulationRecipe, BookRecipePage<AccumulationRecipe>> {
+    public BookAccumulationRecipePageRenderer(BookAccumulationRecipePage page) {
         super(page);
     }
 
@@ -23,7 +25,7 @@ public class BookCalcinationRecipePageRenderer extends BookRecipePageRenderer<Ca
     }
 
     @Override
-    protected void drawRecipe(PoseStack poseStack, CalcinationRecipe recipe, int recipeX, int recipeY, int mouseX, int mouseY, boolean second) {
+    protected void drawRecipe(PoseStack poseStack, AccumulationRecipe recipe, int recipeX, int recipeY, int mouseX, int mouseY, boolean second) {
         recipeY += 10;
 
         if (!second) {
@@ -38,10 +40,15 @@ public class BookCalcinationRecipePageRenderer extends BookRecipePageRenderer<Ca
         }
 
         GuiTextures.MODONOMICON_SLOT.render(poseStack, recipeX, recipeY); //render the fluid input slot
-        this.parentScreen.renderIngredient(poseStack, recipeX + 3, recipeY + 3, mouseX, mouseY, recipe.getIngredients().get(0));
+        this.parentScreen.renderFluidStacks(poseStack, recipeX + 2, recipeY + 2, mouseX, mouseY, recipe.getEvaporant().getFluids(), FluidType.BUCKET_VOLUME);
+
+        if (recipe.hasSolute()) {
+            GuiTextures.MODONOMICON_SLOT.render(poseStack, recipeX, recipeY + 24); //render the item input slot
+            this.parentScreen.renderIngredient(poseStack, recipeX + 3, recipeY + 24 + 3, mouseX, mouseY, recipe.getSolute());
+        }
 
         GuiTextures.MODONOMICON_SLOT.render(poseStack, recipeX + 61, recipeY); //render the fluid output slot
-        this.parentScreen.renderItemStack(poseStack, recipeX + 61 + 3, recipeY + 3, mouseX, mouseY, recipe.getResultItem(this.parentScreen.getMinecraft().level.registryAccess()));
+        this.parentScreen.renderFluidStack(poseStack, recipeX + 61 + 2, recipeY + 2, mouseX, mouseY, recipe.getResult(), FluidType.BUCKET_VOLUME);
 
         GuiTextures.MODONOMICON_ARROW_RIGHT.render(poseStack, recipeX + 40, recipeY + 7); //render the arrow
         this.parentScreen.renderItemStack(poseStack, recipeX + 36, recipeY + 20, mouseX, mouseY, recipe.getToastSymbol());

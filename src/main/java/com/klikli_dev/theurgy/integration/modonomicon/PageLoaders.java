@@ -5,8 +5,8 @@
 package com.klikli_dev.theurgy.integration.modonomicon;
 
 import com.klikli_dev.modonomicon.data.LoaderRegistry;
-import com.klikli_dev.theurgy.integration.modonomicon.page.BookAccumulationRecipePage;
-import com.klikli_dev.theurgy.integration.modonomicon.page.BookCalcinationRecipePage;
+import com.klikli_dev.theurgy.integration.modonomicon.page.accumulation.BookAccumulationRecipePage;
+import com.klikli_dev.theurgy.integration.modonomicon.page.calcination.BookCalcinationRecipePage;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 
 public class PageLoaders {

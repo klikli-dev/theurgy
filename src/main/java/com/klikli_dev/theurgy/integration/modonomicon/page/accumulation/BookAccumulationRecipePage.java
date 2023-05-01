@@ -1,10 +1,10 @@
 /*
- * SPDX-FileCopyrightText: 2022 klikli-dev
+ * SPDX-FileCopyrightText: 2023 klikli-dev
  *
  * SPDX-License-Identifier: MIT
  */
 
-package com.klikli_dev.theurgy.integration.modonomicon.page;
+package com.klikli_dev.theurgy.integration.modonomicon.page.accumulation;
 
 import com.google.gson.JsonObject;
 import com.klikli_dev.modonomicon.book.BookEntry;

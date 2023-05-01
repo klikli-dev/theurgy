@@ -5,10 +5,10 @@
 package com.klikli_dev.theurgy.integration.modonomicon;
 
 import com.klikli_dev.modonomicon.client.render.page.PageRendererRegistry;
-import com.klikli_dev.theurgy.integration.modonomicon.page.BookAccumulationRecipePage;
-import com.klikli_dev.theurgy.integration.modonomicon.page.BookAccumulationRecipePageRenderer;
-import com.klikli_dev.theurgy.integration.modonomicon.page.BookCalcinationRecipePage;
-import com.klikli_dev.theurgy.integration.modonomicon.page.BookCalcinationRecipePageRenderer;
+import com.klikli_dev.theurgy.integration.modonomicon.page.accumulation.BookAccumulationRecipePage;
+import com.klikli_dev.theurgy.integration.modonomicon.page.accumulation.BookAccumulationRecipePageRenderer;
+import com.klikli_dev.theurgy.integration.modonomicon.page.calcination.BookCalcinationRecipePage;
+import com.klikli_dev.theurgy.integration.modonomicon.page.calcination.BookCalcinationRecipePageRenderer;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
 public class PageRenderers {

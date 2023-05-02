@@ -34,7 +34,7 @@
     {
       "type": "modonomicon:crafting_recipe",
       "anchor": "",
-      "recipe_id_1": "theurgy:shaped/calcination_oven",
+      "recipe_id_1": "theurgy:crafting/shaped/calcination_oven",
       "text": "",
       "title1": "",
       "title2": ""

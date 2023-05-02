@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "C": {
+      "tag": "forge:ingots/copper"
+    },
+    "I": {
+      "tag": "forge:ingots/iron"
+    }
+  },
+  "pattern": [
+    "ICI",
+    "ICI",
+    "ICI"
+  ],
+  "result": {
+    "count": 1,
+    "item": "theurgy:sal_ammoniac_tank"
+  }
+}

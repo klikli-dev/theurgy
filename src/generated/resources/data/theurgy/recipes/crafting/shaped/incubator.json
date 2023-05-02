@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "C": {
+      "tag": "forge:ingots/copper"
+    }
+  },
+  "pattern": [
+    "C C",
+    "C C",
+    "CCC"
+  ],
+  "result": {
+    "count": 1,
+    "item": "theurgy:incubator"
+  }
+}

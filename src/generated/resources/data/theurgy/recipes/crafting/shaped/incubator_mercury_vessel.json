@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "C": {
+      "tag": "forge:storage_blocks/copper"
+    },
+    "I": {
+      "tag": "forge:ingots/iron"
+    },
+    "M": {
+      "tag": "theurgy:alchemical_mercuries"
+    }
+  },
+  "pattern": [
+    "IMI",
+    " C ",
+    "III"
+  ],
+  "result": {
+    "count": 1,
+    "item": "theurgy:incubator_mercury_vessel"
+  }
+}

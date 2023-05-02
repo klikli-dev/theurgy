@@ -12,11 +12,13 @@ import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.content.item.DivinationRodItem;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
+import com.klikli_dev.theurgy.registry.ItemTagRegistry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
@@ -78,6 +80,103 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
                 .define('M', Tags.Items.ORES_NETHERITE_SCRAP)
                 .define('A', Tags.Items.GEMS_AMETHYST)
         );
+
+        this.makeRecipe(ItemRegistry.PYROMANTIC_BRAZIER.get(), new RecipeBuilder(
+                ItemRegistry.PYROMANTIC_BRAZIER.get(), 1)
+                .pattern("CCC")
+                .pattern("CSC")
+                .pattern("SSS")
+                .define('C', Tags.Items.INGOTS_COPPER)
+                .define('S', Tags.Items.STONE)
+        );
+
+
+        this.makeRecipe(ItemRegistry.CALCINATION_OVEN.get(), new RecipeBuilder(
+                ItemRegistry.CALCINATION_OVEN.get(), 1)
+                .pattern(" I ")
+                .pattern("ICI")
+                .pattern(" I ")
+                .define('C', Tags.Items.STORAGE_BLOCKS_COPPER)
+                .define('I', Tags.Items.INGOTS_IRON)
+        );
+
+
+        this.makeRecipe(ItemRegistry.DISTILLER.get(), new RecipeBuilder(
+                ItemRegistry.DISTILLER.get(), 1)
+                .pattern(" I ")
+                .pattern("ICI")
+                .pattern("III")
+                .define('C', Tags.Items.STORAGE_BLOCKS_COPPER)
+                .define('I', Tags.Items.INGOTS_IRON)
+        );
+
+        this.makeRecipe(ItemRegistry.LIQUEFACTION_CAULDRON.get(), new RecipeBuilder(
+                ItemRegistry.LIQUEFACTION_CAULDRON.get(), 1)
+                .pattern("CCC")
+                .pattern("IBI")
+                .pattern("SSS")
+                .define('C', Tags.Items.INGOTS_COPPER)
+                .define('I', Tags.Items.INGOTS_IRON)
+                .define('B', Items.CAULDRON)
+                .define('S', Tags.Items.STONE)
+        );
+
+        this.makeRecipe(ItemRegistry.SAL_AMMONIAC_ACCUMULATOR.get(), new RecipeBuilder(
+                ItemRegistry.SAL_AMMONIAC_ACCUMULATOR.get(), 1)
+                .pattern("ICI")
+                .pattern("SIS")
+                .pattern("S S")
+                .define('C', Tags.Items.STORAGE_BLOCKS_COPPER)
+                .define('I', Tags.Items.INGOTS_IRON)
+                .define('S', Tags.Items.STONE)
+        );
+
+        this.makeRecipe(ItemRegistry.SAL_AMMONIAC_TANK.get(), new RecipeBuilder(
+                ItemRegistry.SAL_AMMONIAC_TANK.get(), 1)
+                .pattern("ICI")
+                .pattern("ICI")
+                .pattern("ICI")
+                .define('C', Tags.Items.INGOTS_COPPER)
+                .define('I', Tags.Items.INGOTS_IRON)
+        );
+
+        this.makeRecipe(ItemRegistry.INCUBATOR.get(), new RecipeBuilder(
+                ItemRegistry.INCUBATOR.get(), 1)
+                .pattern("C C")
+                .pattern("C C")
+                .pattern("CCC")
+                .define('C', Tags.Items.INGOTS_COPPER)
+        );
+
+        this.makeRecipe(ItemRegistry.INCUBATOR_MERCURY_VESSEL.get(), new RecipeBuilder(
+                ItemRegistry.INCUBATOR_MERCURY_VESSEL.get(), 1)
+                .pattern("IMI")
+                .pattern(" C ")
+                .pattern("III")
+                .define('C', Tags.Items.STORAGE_BLOCKS_COPPER)
+                .define('I', Tags.Items.INGOTS_IRON)
+                .define('M', ItemTagRegistry.ALCHEMICAL_MERCURIES)
+        );
+
+        this.makeRecipe(ItemRegistry.INCUBATOR_SALT_VESSEL.get(), new RecipeBuilder(
+                ItemRegistry.INCUBATOR_SALT_VESSEL.get(), 1)
+                .pattern("ISI")
+                .pattern(" C ")
+                .pattern("III")
+                .define('C', Tags.Items.STORAGE_BLOCKS_COPPER)
+                .define('I', Tags.Items.INGOTS_IRON)
+                .define('S', ItemTagRegistry.ALCHEMICAL_SALTS)
+        );
+
+        this.makeRecipe(ItemRegistry.INCUBATOR_SULFUR_VESSEL.get(), new RecipeBuilder(
+                ItemRegistry.INCUBATOR_SULFUR_VESSEL.get(), 1)
+                .pattern("ISI")
+                .pattern(" C ")
+                .pattern("III")
+                .define('C', Tags.Items.STORAGE_BLOCKS_COPPER)
+                .define('I', Tags.Items.INGOTS_IRON)
+                .define('S', ItemTagRegistry.ALCHEMICAL_SULFURS)
+        );
     }
 
     public JsonObject makeDivinationRodSettings(DivinationRodItem rodItem) {
@@ -95,6 +194,10 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
         settings.addProperty(TheurgyConstants.Nbt.Divination.SETTING_DURABILITY, defaultDurability);
 
         return settings;
+    }
+
+    public void makeRecipe(ItemLike result, RecipeBuilder recipe) {
+        this.makeRecipe(this.name(result.asItem()), recipe);
     }
 
     public void makeRecipe(String name, RecipeBuilder recipe) {
@@ -141,7 +244,7 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
         public RecipeBuilder define(char key, JsonObject ingredient) {
             var keyString = String.valueOf(key);
             var keys = this.recipe.getAsJsonObject("key");
-            if(keys.has(keyString))
+            if (keys.has(keyString))
                 throw new IllegalArgumentException("Key " + keyString + " already defined");
 
             keys.add(keyString, ingredient);
@@ -156,6 +259,5 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
         public JsonObject build() {
             return this.recipe;
         }
-
     }
 }

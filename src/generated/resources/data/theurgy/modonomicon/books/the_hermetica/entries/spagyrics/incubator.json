@@ -34,7 +34,7 @@
     {
       "type": "modonomicon:crafting_recipe",
       "anchor": "",
-      "recipe_id_1": "theurgy:shaped/incubator",
+      "recipe_id_1": "theurgy:crafting/shaped/incubator",
       "text": "",
       "title1": "",
       "title2": ""
@@ -42,7 +42,7 @@
     {
       "type": "modonomicon:crafting_recipe",
       "anchor": "",
-      "recipe_id_1": "theurgy:shaped/incubator_mercury_vessel",
+      "recipe_id_1": "theurgy:crafting/shaped/incubator_mercury_vessel",
       "text": "",
       "title1": "",
       "title2": ""
@@ -50,7 +50,7 @@
     {
       "type": "modonomicon:crafting_recipe",
       "anchor": "",
-      "recipe_id_1": "theurgy:shaped/incubator_salt_vessel",
+      "recipe_id_1": "theurgy:crafting/shaped/incubator_salt_vessel",
       "text": "",
       "title1": "",
       "title2": ""
@@ -58,7 +58,7 @@
     {
       "type": "modonomicon:crafting_recipe",
       "anchor": "",
-      "recipe_id_1": "theurgy:shaped/incubator_sulfur_vessel",
+      "recipe_id_1": "theurgy:crafting/shaped/incubator_sulfur_vessel",
       "text": "",
       "title1": "",
       "title2": ""

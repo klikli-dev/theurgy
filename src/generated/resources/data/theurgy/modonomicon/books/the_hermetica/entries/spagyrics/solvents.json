@@ -43,7 +43,7 @@
     {
       "type": "modonomicon:crafting_recipe",
       "anchor": "",
-      "recipe_id_1": "theurgy:shaped/sal_ammoniac_accumulator",
+      "recipe_id_1": "theurgy:crafting/shaped/sal_ammoniac_accumulator",
       "text": "",
       "title1": "",
       "title2": ""
@@ -51,7 +51,7 @@
     {
       "type": "modonomicon:crafting_recipe",
       "anchor": "",
-      "recipe_id_1": "theurgy:shaped/sal_ammoniac_tank",
+      "recipe_id_1": "theurgy:crafting/shaped/sal_ammoniac_tank",
       "text": "",
       "title1": "",
       "title2": ""

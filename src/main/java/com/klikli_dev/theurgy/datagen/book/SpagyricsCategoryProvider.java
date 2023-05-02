@@ -247,7 +247,7 @@ public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
 
         helper.page("recipe");
         var recipe = BookCraftingRecipePageModel.builder()
-                .withRecipeId1(Theurgy.loc("shaped/pyromantic_brazier"))
+                .withRecipeId1(Theurgy.loc("crafting/shaped/pyromantic_brazier"))
                 .build();
         //no text
 
@@ -311,7 +311,7 @@ public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
 
         helper.page("recipe");
         var recipe = BookCraftingRecipePageModel.builder()
-                .withRecipeId1(Theurgy.loc("shaped/calcination_oven"))
+                .withRecipeId1(Theurgy.loc("crafting/shaped/calcination_oven"))
                 .build();
         //no text
 
@@ -402,13 +402,13 @@ public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
 
         helper.page("recipe1");
         var recipe1 = BookCraftingRecipePageModel.builder()
-                .withRecipeId1(Theurgy.loc("shaped/sal_ammoniac_accumulator"))
+                .withRecipeId1(Theurgy.loc("crafting/shaped/sal_ammoniac_accumulator"))
                 .build();
         //no text
 
         helper.page("recipe2");
         var recipe2 = BookCraftingRecipePageModel.builder()
-                .withRecipeId1(Theurgy.loc("shaped/sal_ammoniac_tank"))
+                .withRecipeId1(Theurgy.loc("crafting/shaped/sal_ammoniac_tank"))
                 .build();
         //no text
 
@@ -498,7 +498,7 @@ public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
 
         helper.page("recipe");
         var recipe = BookCraftingRecipePageModel.builder()
-                .withRecipeId1(Theurgy.loc("shaped/liquefaction_cauldron"))
+                .withRecipeId1(Theurgy.loc("crafting/shaped/liquefaction_cauldron"))
                 .build();
         //no text
 
@@ -572,7 +572,7 @@ public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
 
         helper.page("recipe");
         var recipe = BookCraftingRecipePageModel.builder()
-                .withRecipeId1(Theurgy.loc("shaped/distiller"))
+                .withRecipeId1(Theurgy.loc("crafting/shaped/distiller"))
                 .build();
         //no text
 
@@ -643,25 +643,25 @@ public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
 
         helper.page("recipe_incubator");
         var recipeIncubator = BookCraftingRecipePageModel.builder()
-                .withRecipeId1(Theurgy.loc("shaped/incubator"))
+                .withRecipeId1(Theurgy.loc("crafting/shaped/incubator"))
                 .build();
         //no text
 
         helper.page("recipe_mercury_vessel");
         var recipeMercuryVessel = BookCraftingRecipePageModel.builder()
-                .withRecipeId1(Theurgy.loc("shaped/incubator_mercury_vessel"))
+                .withRecipeId1(Theurgy.loc("crafting/shaped/incubator_mercury_vessel"))
                 .build();
         //no text
 
         helper.page("recipe_salt_vessel");
         var recipeSaltVessel = BookCraftingRecipePageModel.builder()
-                .withRecipeId1(Theurgy.loc("shaped/incubator_salt_vessel"))
+                .withRecipeId1(Theurgy.loc("crafting/shaped/incubator_salt_vessel"))
                 .build();
         //no text
 
         helper.page("recipe_sulfur_vessel");
         var recipeSulfurVessel = BookCraftingRecipePageModel.builder()
-                .withRecipeId1(Theurgy.loc("shaped/incubator_sulfur_vessel"))
+                .withRecipeId1(Theurgy.loc("crafting/shaped/incubator_sulfur_vessel"))
                 .build();
         //no text
 

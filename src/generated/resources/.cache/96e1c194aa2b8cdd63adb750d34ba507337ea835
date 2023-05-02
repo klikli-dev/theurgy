@@ -1,5 +1,15 @@
-// 1.19.4	2023-04-13T13:48:43.6034917	Shaped Crafting Recipes
+// 1.19.4	2023-05-02T10:36:00.1671421	Shaped Crafting Recipes
+10238f21b147011c777703fc0ade32f5708fd6ad data/theurgy/recipes/crafting/shaped/calcination_oven.json
+6a7516fc2ef20dd0f00eef151afe455f64038667 data/theurgy/recipes/crafting/shaped/distiller.json
 4d4b219cbc23e4a862a51b321264ee14b3956036 data/theurgy/recipes/crafting/shaped/divination_rod_t1.json
 b58aac033a520ae6cb7848dc1b768cc2804fd767 data/theurgy/recipes/crafting/shaped/divination_rod_t2.json
 2e7c1d865d95b7aa8428ce95f2008276e214967a data/theurgy/recipes/crafting/shaped/divination_rod_t3.json
 075697acbb54c20df1d40319149e843013ed8d50 data/theurgy/recipes/crafting/shaped/divination_rod_t4.json
+53157227040db9af0acf2ba9bea95adf97edb1e6 data/theurgy/recipes/crafting/shaped/incubator.json
+f3315e54c0b90fc93badfc240637751c13e49a17 data/theurgy/recipes/crafting/shaped/incubator_mercury_vessel.json
+048ead5e5114d534bff2e457d5fa1fda968b2cd9 data/theurgy/recipes/crafting/shaped/incubator_salt_vessel.json
+2c3b98e6699561363807e5a939769ef8a69b38b4 data/theurgy/recipes/crafting/shaped/incubator_sulfur_vessel.json
+02972fe4520e57e7c9bed4e3cb4382c2290b133c data/theurgy/recipes/crafting/shaped/liquefaction_cauldron.json
+3c4bb4a4dd344b7d4cf2117d22125b0f47492423 data/theurgy/recipes/crafting/shaped/pyromantic_brazier.json
+f227545084d653722a0d993c1b8ea7fb73447f12 data/theurgy/recipes/crafting/shaped/sal_ammoniac_accumulator.json
+f4eb29902db6175c46873d5715293c2b926fe6c5 data/theurgy/recipes/crafting/shaped/sal_ammoniac_tank.json

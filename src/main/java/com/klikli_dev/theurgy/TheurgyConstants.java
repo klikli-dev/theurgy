@@ -70,7 +70,9 @@ public class TheurgyConstants {
 
             private static final String PREFIX = "tooltip." + Theurgy.MODID + ".";
             public static final String SHOW_EXTENDED = "tooltip." + Theurgy.MODID + ".show_extended";
+            public static final String EXTENDED_HEADING = "tooltip." + Theurgy.MODID + ".extended_heading";
             public static final String SHOW_USAGE = "tooltip." + Theurgy.MODID + ".show_usage";
+            public static final String USAGE_HEADING = "tooltip." + Theurgy.MODID + ".usage_heading";
             public static final String SUFFIX = ".tooltip";
             public static final String EXTENDED_SUFFIX = ".tooltip.extended";
             public static final String USAGE_SUFFIX = ".tooltip.usage";

@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-package com.klikli_dev.theurgy.content.recipe;
+package com.klikli_dev.theurgy.content.recipe.wrapper;
 
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.wrapper.CombinedInvWrapper;

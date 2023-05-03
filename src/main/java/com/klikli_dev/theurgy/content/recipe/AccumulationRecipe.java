@@ -9,6 +9,7 @@ package com.klikli_dev.theurgy.content.recipe;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.klikli_dev.theurgy.content.recipe.ingredient.FluidIngredient;
+import com.klikli_dev.theurgy.content.recipe.wrapper.RecipeWrapperWithFluid;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.registry.RecipeSerializerRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;

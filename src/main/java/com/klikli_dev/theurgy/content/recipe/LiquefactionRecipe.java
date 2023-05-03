@@ -10,6 +10,7 @@ import com.google.gson.JsonObject;
 import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.content.item.AlchemicalSulfurItem;
 import com.klikli_dev.theurgy.content.recipe.ingredient.FluidIngredient;
+import com.klikli_dev.theurgy.content.recipe.wrapper.RecipeWrapperWithFluid;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.RecipeSerializerRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;

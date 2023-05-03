@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-package com.klikli_dev.theurgy.content.recipe;
+package com.klikli_dev.theurgy.content.recipe.result;
 
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.item.ItemStack;

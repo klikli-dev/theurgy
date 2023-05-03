@@ -8,7 +8,7 @@ package com.klikli_dev.theurgy.content.block.liquefactioncauldron;
 
 import com.klikli_dev.theurgy.content.block.HeatConsumer;
 import com.klikli_dev.theurgy.content.recipe.LiquefactionRecipe;
-import com.klikli_dev.theurgy.content.recipe.RecipeWrapperWithFluid;
+import com.klikli_dev.theurgy.content.recipe.wrapper.RecipeWrapperWithFluid;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.FluidTagRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;

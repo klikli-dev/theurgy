@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-package com.klikli_dev.theurgy.content.recipe;
+package com.klikli_dev.theurgy.content.recipe.result;
 
 import com.klikli_dev.theurgy.util.TagUtil;
 import com.mojang.serialization.Codec;

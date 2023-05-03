@@ -7,6 +7,8 @@
 package com.klikli_dev.theurgy.content.recipe;
 
 import com.google.gson.JsonObject;
+import com.klikli_dev.theurgy.content.recipe.result.RecipeResult;
+import com.klikli_dev.theurgy.content.recipe.wrapper.IncubatorRecipeWrapper;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.RecipeSerializerRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
@@ -21,8 +23,6 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.common.crafting.CraftingHelper;
-import net.minecraftforge.items.wrapper.RecipeWrapper;
 
 public class IncubationRecipe implements Recipe<IncubatorRecipeWrapper> {
 

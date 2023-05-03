@@ -7,7 +7,7 @@
 package com.klikli_dev.theurgy.content.block.salammoniacaccumulator;
 
 import com.klikli_dev.theurgy.content.recipe.AccumulationRecipe;
-import com.klikli_dev.theurgy.content.recipe.RecipeWrapperWithFluid;
+import com.klikli_dev.theurgy.content.recipe.wrapper.RecipeWrapperWithFluid;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import com.mojang.datafixers.util.Pair;

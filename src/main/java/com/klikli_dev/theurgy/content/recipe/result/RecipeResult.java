@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-package com.klikli_dev.theurgy.content.recipe;
+package com.klikli_dev.theurgy.content.recipe.result;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
@@ -12,8 +12,6 @@ import com.mojang.serialization.JsonOps;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.crafting.CraftingHelper;
-
-import java.util.Collection;
 
 public abstract class RecipeResult {
     public static RecipeResult fromJson(JsonObject json) {

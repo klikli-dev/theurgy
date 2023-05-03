@@ -135,9 +135,9 @@ public class DivinationRodItem extends Item {
     }
 
     @Override
-    public void onUsingTick(ItemStack stack, LivingEntity entityLiving, int count) {
-        if (entityLiving.level.isClientSide && entityLiving instanceof Player) {
-            ScanManager.get().updateScan((Player) entityLiving, false);
+    public void onUseTick(Level pLevel, LivingEntity pLivingEntity, ItemStack pStack, int pRemainingUseDuration) {
+        if (pLivingEntity.level.isClientSide && pLivingEntity instanceof Player player) {
+            ScanManager.get().updateScan(player, false);
         }
     }
 
@@ -382,7 +382,7 @@ public class DivinationRodItem extends Item {
                         .withStyle(ChatFormatting.GREEN)
                         .withStyle((style) -> style.withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_ITEM, new HoverEvent.ItemStackInfo(stack))));
 
-                        this.getBlockDisplayComponent(stack);
+                this.getBlockDisplayComponent(stack);
                 pTooltipComponents.add(
                         Component.translatable(
                                 TheurgyConstants.I18n.Tooltip.DIVINATION_ROD_LINKED_TO,

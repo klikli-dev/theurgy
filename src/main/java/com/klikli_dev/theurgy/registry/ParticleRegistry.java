@@ -26,7 +26,7 @@ public class ParticleRegistry {
     public static final RegistryObject<ParticleType<ColorParticleTypeData>> GLOW_TYPE = PARTICLES.register(GlowParticleData.NAME, () -> new GlowParticleType());
 
     public static void registerFactories(RegisterParticleProvidersEvent evt) {
-        evt.register(GLOW_TYPE.get(), GlowParticleData::new);
+        evt.registerSpriteSet(GLOW_TYPE.get(), GlowParticleData::new);
     }
 
     public static void spawnTouch(ClientLevel world, BlockPos loc, ParticleColor particleColor) {

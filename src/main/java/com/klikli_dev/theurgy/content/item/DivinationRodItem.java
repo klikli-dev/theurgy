@@ -259,6 +259,7 @@ public class DivinationRodItem extends Item {
         if (!(entityLiving instanceof Player player))
             return stack;
 
+
         if (stack.getDamageValue() >= stack.getMaxDamage()) {
             //if in the last usage cycle the item was used up, we now actually break it to avoid over-use
             player.broadcastBreakEvent(player.getUsedItemHand());
@@ -283,9 +284,11 @@ public class DivinationRodItem extends Item {
                 this.spawnResultParticle(result, level, player);
             }
         } else {
-            //only hurt, but do not break -> this allows using the rod without breaking it when we just re-use a saved result.
-            //we break it at the beginning of this method if we are at >= max damage.
-            stack.hurt(1, player.getRandom(), null);
+            //no damage for players in creative mode
+            if (!player.getAbilities().instabuild)
+                //only hurt, but do not break -> this allows using the rod without breaking it when we just re-use a saved result.
+                //we break it at the beginning of this method if we are at >= max damage.
+                stack.hurt(1, player.getRandom(), null);
         }
         return stack;
     }

@@ -9,6 +9,7 @@ package com.klikli_dev.theurgy.registry;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.item.AlchemicalSulfurItem;
+import com.klikli_dev.theurgy.item.CalcinationOvenItem;
 import com.klikli_dev.theurgy.item.DivinationRodItem;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -41,6 +42,8 @@ public class ItemRegistry {
 
 //    public static final RegistryObject<Item> SULFUR_INGOT =
 //            ITEMS.register("sulfur_ingot", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<CalcinationOvenItem> CALCINATION_OVEN_ITEM =
+        ITEMS.register("calcination_oven", () -> new CalcinationOvenItem(BlockRegistry.CALCINATION_OVEN.get(), new Item.Properties()));
 
     public static final RegistryObject<DivinationRodItem> DIVINATION_ROD_T1 =
             ITEMS.register("divination_rod_t1", () -> new DivinationRodItem(

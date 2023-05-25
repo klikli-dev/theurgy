@@ -1,0 +1,27 @@
+{
+  "type": "theurgy:liquefaction",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:ores/fluorite"
+      }
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:ores/fluorite"
+  },
+  "liquefaction_time": 200,
+  "result": {
+    "count": 6,
+    "item": "theurgy:alchemical_sulfur_fluorite",
+    "nbt": {
+      "theurgy:sulfur.source.id": "#forge:ores/fluorite"
+    }
+  },
+  "solvent": {
+    "amount": 10,
+    "fluid": "theurgy:sal_ammoniac"
+  }
+}

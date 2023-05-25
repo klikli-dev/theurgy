@@ -29,14 +29,20 @@ public class CalcinationRecipe implements Recipe<RecipeWrapper> {
     public static final int DEFAULT_CALCINATION_TIME = 200;
     protected final ResourceLocation id;
     protected final Ingredient ingredient;
+    protected final int ingredientCount;
     protected final ItemStack result;
     protected final int calcinationTime;
 
-    public CalcinationRecipe(ResourceLocation pId, Ingredient pIngredient, ItemStack pResult, int calcinationTime) {
+    public CalcinationRecipe(ResourceLocation pId, Ingredient pIngredient, int ingredientCount, ItemStack pResult, int calcinationTime) {
         this.id = pId;
         this.ingredient = pIngredient;
+        this.ingredientCount = ingredientCount;
         this.result = pResult;
         this.calcinationTime = calcinationTime;
+    }
+
+    public int getIngredientCount() {
+        return this.ingredientCount;
     }
 
     @Override
@@ -51,7 +57,8 @@ public class CalcinationRecipe implements Recipe<RecipeWrapper> {
 
     @Override
     public boolean matches(RecipeWrapper pContainer, Level pLevel) {
-        return this.ingredient.test(pContainer.getItem(0));
+        var stack = pContainer.getItem(0);
+        return this.ingredient.test(stack) && stack.getCount() >= this.ingredientCount;
     }
 
     @Override
@@ -93,22 +100,24 @@ public class CalcinationRecipe implements Recipe<RecipeWrapper> {
         public CalcinationRecipe fromJson(ResourceLocation pRecipeId, JsonObject pJson) {
             var ingredientElement = GsonHelper.isArrayNode(pJson, "ingredient") ? GsonHelper.getAsJsonArray(pJson, "ingredient") : GsonHelper.getAsJsonObject(pJson, "ingredient");
             var ingredient = Ingredient.fromJson(ingredientElement);
-
+            var ingredientCount = GsonHelper.getAsInt(pJson, "ingredient_count", 1);
             var result = CraftingHelper.getItemStack(GsonHelper.getAsJsonObject(pJson, "result"), true, true);
 
             var calcinationTime = GsonHelper.getAsInt(pJson, "calcination_time", DEFAULT_CALCINATION_TIME);
-            return new CalcinationRecipe(pRecipeId, ingredient, result, calcinationTime);
+            return new CalcinationRecipe(pRecipeId, ingredient, ingredientCount, result, calcinationTime);
         }
 
         public CalcinationRecipe fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
             var ingredient = Ingredient.fromNetwork(pBuffer);
+            var ingredientCount = pBuffer.readVarInt();
             var result = pBuffer.readItem();
             var calcinationTime = pBuffer.readVarInt();
-            return new CalcinationRecipe(pRecipeId, ingredient, result, calcinationTime);
+            return new CalcinationRecipe(pRecipeId, ingredient, ingredientCount, result, calcinationTime);
         }
 
         public void toNetwork(FriendlyByteBuf pBuffer, CalcinationRecipe pRecipe) {
             pRecipe.ingredient.toNetwork(pBuffer);
+            pBuffer.writeVarInt(pRecipe.ingredientCount);
             pBuffer.writeItem(pRecipe.result);
             pBuffer.writeVarInt(pRecipe.calcinationTime);
         }

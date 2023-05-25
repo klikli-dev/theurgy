@@ -1,3 +1,15 @@
-// 1.19.4	2023-04-13T13:48:43.6064925	Calcination Recipes
-1dca8dd075aef114b8a1f3a7fc08251db2f3bec4 data/theurgy/recipes/calcination/crops.json
-f15e2eff9b276524f38941e2aae2c2b35dd44c42 data/theurgy/recipes/calcination/ore.json
+// 1.19.4	2023-05-07T12:16:11.7335078	Calcination Recipes
+77aaf59ed4e959adc3d5ff35577b9c1af13ffde0 data/theurgy/recipes/calcination/crops.json
+91ce7283a5d8bf210f825e1c7f3899c840caa238 data/theurgy/recipes/calcination/mineral.json
+2c2a45ef208781a281ba2aa635752a2f7471e871 data/theurgy/recipes/calcination/mineral_from_gems.json
+a5cbe077c2033e01d36194645de8d0bf1f6f2fe0 data/theurgy/recipes/calcination/mineral_from_ingots.json
+318a5ed36db7c407466c1e9742dc61e4f8765a96 data/theurgy/recipes/calcination/mineral_from_ores.json
+e86404797d860ec34b10f879af93c72c918f391d data/theurgy/recipes/calcination/mineral_from_raw_materials.json
+ba195891125b128d161451e25dbb074953885711 data/theurgy/recipes/calcination/strata_from_clay.json
+cca77a84bbe10e2025dbb21013c98da6622b1a6f data/theurgy/recipes/calcination/strata_from_clay_ball.json
+b2f66c8002d24f641587f9807d9f0c99b5db0a47 data/theurgy/recipes/calcination/strata_from_cobblestone.json
+6b1de9114f62125e92b14b80c789afc47db95a2d data/theurgy/recipes/calcination/strata_from_dirt.json
+e867a7fc92a15c664a74efd17f663b1e1a97590f data/theurgy/recipes/calcination/strata_from_gravel.json
+40b9c77832ad8a7da93f8d58899b67d7daadae40 data/theurgy/recipes/calcination/strata_from_sand.json
+d8c4c5d9875cf9c50d24fcbcf19c0c735dbd6fe4 data/theurgy/recipes/calcination/strata_from_sandstone.json
+ca4f676293c126a473b34a97b7d2cd69167c4d28 data/theurgy/recipes/calcination/strata_from_stone.json

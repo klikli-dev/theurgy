@@ -117,7 +117,7 @@ public class CalcinationOvenBlockEntity extends BlockEntity implements HeatConsu
 
         // Safely insert the assembledStack into the outputInventory and update the input stack.
         ItemHandlerHelper.insertItemStacked(this.outputInventory, assembledStack, false);
-        this.inputInventory.extractItem(0, 1, false);
+        this.inputInventory.extractItem(0, pRecipe.getIngredientCount(), false);
 
         return true;
     }

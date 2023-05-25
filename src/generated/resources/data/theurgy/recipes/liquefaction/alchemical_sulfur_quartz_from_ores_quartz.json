@@ -1,0 +1,27 @@
+{
+  "type": "theurgy:liquefaction",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:ores/quartz"
+      }
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:ores/quartz"
+  },
+  "liquefaction_time": 200,
+  "result": {
+    "count": 8,
+    "item": "theurgy:alchemical_sulfur_quartz",
+    "nbt": {
+      "theurgy:sulfur.source.id": "#forge:ores/quartz"
+    }
+  },
+  "solvent": {
+    "amount": 10,
+    "fluid": "theurgy:sal_ammoniac"
+  }
+}

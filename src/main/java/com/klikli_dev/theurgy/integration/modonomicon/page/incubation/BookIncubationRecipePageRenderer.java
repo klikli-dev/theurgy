@@ -92,7 +92,7 @@ public class BookIncubationRecipePageRenderer extends BookRecipePageRenderer<Inc
         GuiTextures.MODONOMICON_SLOT.render(poseStack, recipeX, recipeY + 24); //render the sulfur input slot
         var sulfurs = this.renderableSulfurIngredients.get(recipe);
         if (sulfurs != null && sulfurs.length > 0) {
-            this.renderItemStacks(poseStack, recipeX + 3, recipeY + 24 + 3, mouseX, mouseY, sulfurs);
+            this.parentScreen.renderItemStacks(poseStack, recipeX + 3, recipeY + 24 + 3, mouseX, mouseY, List.of(sulfurs));
         }
 
 
@@ -102,11 +102,5 @@ public class BookIncubationRecipePageRenderer extends BookRecipePageRenderer<Inc
 
         GuiTextures.MODONOMICON_ARROW_RIGHT.render(poseStack, recipeX + 40 + 16, recipeY + 7); //render the arrow
         this.parentScreen.renderItemStack(poseStack, recipeX + 36 + 16, recipeY + 24, mouseX, mouseY, recipe.getToastSymbol());
-    }
-
-    protected void renderItemStacks(PoseStack poseStack, int x, int y, int mouseX, int mouseY, ItemStack[] stacks) {
-        if (stacks.length > 0) {
-            this.parentScreen.renderItemStack(poseStack, x, y, mouseX, mouseY, stacks[(this.parentScreen.ticksInBook / 20) % stacks.length]);
-        }
     }
 }

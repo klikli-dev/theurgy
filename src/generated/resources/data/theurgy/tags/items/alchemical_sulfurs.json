@@ -1,6 +1,37 @@
 {
   "values": [
     "theurgy:alchemical_sulfur_logs",
-    "theurgy:alchemical_sulfur_wheat"
+    "theurgy:alchemical_sulfur_wheat",
+    "theurgy:alchemical_sulfur_iron",
+    "theurgy:alchemical_sulfur_copper",
+    "theurgy:alchemical_sulfur_silver",
+    "theurgy:alchemical_sulfur_gold",
+    "theurgy:alchemical_sulfur_netherite",
+    "theurgy:alchemical_sulfur_uranium",
+    "theurgy:alchemical_sulfur_azure_silver",
+    "theurgy:alchemical_sulfur_zinc",
+    "theurgy:alchemical_sulfur_osmium",
+    "theurgy:alchemical_sulfur_nickel",
+    "theurgy:alchemical_sulfur_lead",
+    "theurgy:alchemical_sulfur_allthemodium",
+    "theurgy:alchemical_sulfur_unobtainium",
+    "theurgy:alchemical_sulfur_iridium",
+    "theurgy:alchemical_sulfur_tin",
+    "theurgy:alchemical_sulfur_cinnabar",
+    "theurgy:alchemical_sulfur_crimson_iron",
+    "theurgy:alchemical_sulfur_platinum",
+    "theurgy:alchemical_sulfur_vibranium",
+    "theurgy:alchemical_sulfur_diamond",
+    "theurgy:alchemical_sulfur_emerald",
+    "theurgy:alchemical_sulfur_lapis",
+    "theurgy:alchemical_sulfur_quartz",
+    "theurgy:alchemical_sulfur_ruby",
+    "theurgy:alchemical_sulfur_apatite",
+    "theurgy:alchemical_sulfur_peridot",
+    "theurgy:alchemical_sulfur_fluorite",
+    "theurgy:alchemical_sulfur_sapphire",
+    "theurgy:alchemical_sulfur_redstone",
+    "theurgy:alchemical_sulfur_coal",
+    "theurgy:alchemical_sulfur_sulfur"
   ]
 }

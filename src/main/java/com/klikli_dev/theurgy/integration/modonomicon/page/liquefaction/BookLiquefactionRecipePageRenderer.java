@@ -13,6 +13,9 @@ import com.klikli_dev.theurgy.content.recipe.LiquefactionRecipe;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraftforge.fluids.FluidType;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class BookLiquefactionRecipePageRenderer extends BookRecipePageRenderer<LiquefactionRecipe, BookLiquefactionRecipePage> {
     public BookLiquefactionRecipePageRenderer(BookLiquefactionRecipePage page) {
         super(page);
@@ -39,7 +42,7 @@ public class BookLiquefactionRecipePageRenderer extends BookRecipePageRenderer<L
         }
 
         GuiTextures.MODONOMICON_SLOT.render(poseStack, recipeX, recipeY); //render the fluid input slot
-        this.parentScreen.renderFluidStacks(poseStack, recipeX + 2, recipeY + 2, mouseX, mouseY, recipe.getSolvent().getFluids(), FluidType.BUCKET_VOLUME);
+        this.parentScreen.renderFluidStacks(poseStack, recipeX + 2, recipeY + 2, mouseX, mouseY, List.of(recipe.getSolvent().getFluids()), FluidType.BUCKET_VOLUME);
 
         GuiTextures.MODONOMICON_SLOT.render(poseStack, recipeX, recipeY + 24); //render the item input slot
         this.parentScreen.renderIngredient(poseStack, recipeX + 3, recipeY + 24 + +3, mouseX, mouseY, recipe.getIngredients().get(0));

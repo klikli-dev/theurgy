@@ -14,6 +14,9 @@ import com.klikli_dev.theurgy.content.recipe.AccumulationRecipe;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraftforge.fluids.FluidType;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class BookAccumulationRecipePageRenderer extends BookRecipePageRenderer<AccumulationRecipe, BookRecipePage<AccumulationRecipe>> {
     public BookAccumulationRecipePageRenderer(BookAccumulationRecipePage page) {
         super(page);
@@ -40,7 +43,7 @@ public class BookAccumulationRecipePageRenderer extends BookRecipePageRenderer<A
         }
 
         GuiTextures.MODONOMICON_SLOT.render(poseStack, recipeX, recipeY); //render the fluid input slot
-        this.parentScreen.renderFluidStacks(poseStack, recipeX + 2, recipeY + 2, mouseX, mouseY, recipe.getEvaporant().getFluids(), FluidType.BUCKET_VOLUME);
+        this.parentScreen.renderFluidStacks(poseStack, recipeX + 2, recipeY + 2, mouseX, mouseY, List.of(recipe.getEvaporant().getFluids()), FluidType.BUCKET_VOLUME);
 
         if (recipe.hasSolute()) {
             GuiTextures.MODONOMICON_SLOT.render(poseStack, recipeX, recipeY + 24); //render the item input slot

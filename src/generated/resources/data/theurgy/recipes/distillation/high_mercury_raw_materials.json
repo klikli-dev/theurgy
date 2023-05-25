@@ -1,0 +1,21 @@
+{
+  "type": "theurgy:distillation",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "theurgy:high_mercury_raw_materials"
+      }
+    }
+  ],
+  "distillation_time": 200,
+  "ingredient": {
+    "tag": "theurgy:high_mercury_raw_materials"
+  },
+  "ingredient_count": 1,
+  "result": {
+    "count": 10,
+    "item": "theurgy:mercury_shard"
+  }
+}

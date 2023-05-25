@@ -1,0 +1,27 @@
+{
+  "type": "theurgy:liquefaction",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:ingots/allthemodium"
+      }
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:ingots/allthemodium"
+  },
+  "liquefaction_time": 200,
+  "result": {
+    "count": 1,
+    "item": "theurgy:alchemical_sulfur_allthemodium",
+    "nbt": {
+      "theurgy:sulfur.source.id": "#forge:ingots/allthemodium"
+    }
+  },
+  "solvent": {
+    "amount": 100,
+    "fluid": "theurgy:sal_ammoniac"
+  }
+}

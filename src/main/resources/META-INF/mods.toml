@@ -54,7 +54,7 @@ side = "BOTH"
 [[dependencies.theurgy]]
 modId = "modonomicon"
 mandatory = true
-versionRange = "[1.19.4-1.31.4,)"
+versionRange = "[1.19.4-1.32.1,)"
 side = "BOTH"
 
 [[dependencies.theurgy]]

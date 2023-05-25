@@ -11,6 +11,8 @@ import com.klikli_dev.modonomicon.client.render.page.BookRecipePageRenderer;
 import com.klikli_dev.theurgy.content.gui.GuiTextures;
 import com.klikli_dev.theurgy.content.recipe.CalcinationRecipe;
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 
 public class BookCalcinationRecipePageRenderer extends BookRecipePageRenderer<CalcinationRecipe, BookCalcinationRecipePage> {
     public BookCalcinationRecipePageRenderer(BookCalcinationRecipePage page) {
@@ -38,7 +40,7 @@ public class BookCalcinationRecipePageRenderer extends BookRecipePageRenderer<Ca
         }
 
         GuiTextures.MODONOMICON_SLOT.render(poseStack, recipeX, recipeY); //render the input slot
-        this.parentScreen.renderIngredient(poseStack, recipeX + 3, recipeY + 3, mouseX, mouseY, recipe.getIngredients().get(0));
+        this.parentScreen.renderIngredient(poseStack, recipeX + 3, recipeY + 3, mouseX, mouseY, recipe.getIngredients().get(0), recipe.getIngredientCount());
 
         GuiTextures.MODONOMICON_SLOT.render(poseStack, recipeX + 61, recipeY); //render the output slot
         this.parentScreen.renderItemStack(poseStack, recipeX + 61 + 3, recipeY + 3, mouseX, mouseY, recipe.getResultItem(this.parentScreen.getMinecraft().level.registryAccess()));

@@ -9,6 +9,8 @@ package com.klikli_dev.theurgy.content.item;
 import com.google.common.collect.ImmutableList;
 import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.content.renderer.SulfurBEWLR;
+import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
+import com.klikli_dev.theurgy.util.LevelUtil;
 import com.klikli_dev.theurgy.util.TagUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
@@ -22,8 +24,10 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.server.ServerLifecycleHooks;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -32,7 +36,7 @@ public class AlchemicalSulfurItem extends Item {
     /**
      * if true, an item model based on builtin/entity will be generated for this item.
      * This will cause SulfurBEWLR to be used to render the item dynamically based on TheurgyConstants.Nbt.SULFUR_SOURCE_ID, instead of a json model.
-     *
+     * <p>
      * Note: this variable cannot be used to conditionally register an IClientItemExtensions,
      * because the registration happens in the Item constructor, before this variable is set.
      * However, it is also not necessary, because the render behaviour is governed by the item model anyway.
@@ -69,6 +73,23 @@ public class AlchemicalSulfurItem extends Item {
     }
 
     public static String getSourceItemId(ItemStack sulfurStack) {
+        if(!sulfurStack.hasTag()){
+            var level = LevelUtil.getLevelWithoutContext();
+            var recipeManager = level == null ? null : level.getRecipeManager();
+            var registryAccess = level == null ? null : level.registryAccess();
+
+            if (recipeManager != null) {
+                var liquefactionRecipes = recipeManager.getAllRecipesFor(RecipeTypeRegistry.LIQUEFACTION.get()).stream().filter(r -> r.getResultItem(registryAccess) != null).toList();
+
+                var sulfurWithNbt = liquefactionRecipes.stream()
+                        .filter(recipe -> recipe.getResultItem(registryAccess) != null && recipe.getResultItem(registryAccess).getItem() == sulfurStack.getItem()).findFirst().map(recipe -> recipe.getResultItem(registryAccess));
+
+                if (sulfurWithNbt.isPresent() && sulfurWithNbt.get().hasTag()) {
+                    sulfurStack.setTag(sulfurWithNbt.get().getTag());
+                }
+            }
+        }
+
         if (sulfurStack.hasTag() && sulfurStack.getTag().contains(TheurgyConstants.Nbt.SULFUR_SOURCE_ID)) {
             return sulfurStack.getTag().getString(TheurgyConstants.Nbt.SULFUR_SOURCE_ID);
         }
@@ -82,9 +103,10 @@ public class AlchemicalSulfurItem extends Item {
      * Due to this only being used for automatic rendering and naming purposes, the source might be a different item for some reason, and in many cases could be empty.
      */
     public static ItemStack getSourceStack(ItemStack sulfurStack) {
-        if (sulfurStack.hasTag() && sulfurStack.getTag().contains(TheurgyConstants.Nbt.SULFUR_SOURCE_ID)) {
+        var itemSourceId = getSourceItemId(sulfurStack); //we call this first, because it might find the source for us
 
-            var itemSourceId = sulfurStack.getTag().getString(TheurgyConstants.Nbt.SULFUR_SOURCE_ID);
+        //but then we do our normal checks
+        if (sulfurStack.hasTag() && sulfurStack.getTag().contains(TheurgyConstants.Nbt.SULFUR_SOURCE_ID)) {
             ItemStack sourceStack;
 
             if (itemSourceId.startsWith("#")) {
@@ -119,7 +141,7 @@ public class AlchemicalSulfurItem extends Item {
         );
     }
 
-    public AlchemicalSulfurItem noAuto(){
+    public AlchemicalSulfurItem noAuto() {
         this.useAutomaticIconRendering = false;
         this.useAutomaticNameRendering = false;
         this.provideAutomaticTooltipData = false;
@@ -171,12 +193,12 @@ public class AlchemicalSulfurItem extends Item {
 
     @Override
     public void initializeClient(Consumer<IClientItemExtensions> consumer) {
-            consumer.accept(new IClientItemExtensions() {
-                @Override
-                public BlockEntityWithoutLevelRenderer getCustomRenderer() {
-                    return SulfurBEWLR.get();
-                }
-            });
+        consumer.accept(new IClientItemExtensions() {
+            @Override
+            public BlockEntityWithoutLevelRenderer getCustomRenderer() {
+                return SulfurBEWLR.get();
+            }
+        });
     }
 
     @Override

@@ -40,20 +40,12 @@ public class BookDistillationRecipePageRenderer extends BookRecipePageRenderer<D
         }
 
         GuiTextures.MODONOMICON_SLOT.render(poseStack, recipeX, recipeY); //render the input slot
-        this.renderIngredient(poseStack, recipeX + 3, recipeY + 3, mouseX, mouseY, recipe.getIngredients().get(0), recipe.getIngredientCount());
+        this.parentScreen.renderIngredient(poseStack, recipeX + 3, recipeY + 3, mouseX, mouseY, recipe.getIngredients().get(0), recipe.getIngredientCount());
 
         GuiTextures.MODONOMICON_SLOT.render(poseStack, recipeX + 61, recipeY); //render the output slot
         this.parentScreen.renderItemStack(poseStack, recipeX + 61 + 3, recipeY + 3, mouseX, mouseY, recipe.getResultItem(this.parentScreen.getMinecraft().level.registryAccess()));
 
         GuiTextures.MODONOMICON_ARROW_RIGHT.render(poseStack, recipeX + 40, recipeY + 7); //render the arrow
         this.parentScreen.renderItemStack(poseStack, recipeX + 36, recipeY + 20, mouseX, mouseY, recipe.getToastSymbol());
-    }
-
-    public void renderIngredient(PoseStack poseStack, int x, int y, int mouseX, int mouseY, Ingredient ingr, int count) {
-        ItemStack[] stacks = ingr.getItems();
-        if (stacks.length > 0) {
-            var stack = stacks[(this.parentScreen.ticksInBook / 20) % stacks.length].copyWithCount(count);
-            this.parentScreen.renderItemStack(poseStack, x, y, mouseX, mouseY, stack);
-        }
     }
 }

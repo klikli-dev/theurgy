@@ -1,0 +1,20 @@
+{
+  "values": [
+    {
+      "id": "#theurgy:alchemical_sulfurs/gems/abundant",
+      "required": false
+    },
+    {
+      "id": "#theurgy:alchemical_sulfurs/gems/common",
+      "required": false
+    },
+    {
+      "id": "#theurgy:alchemical_sulfurs/gems/rare",
+      "required": false
+    },
+    {
+      "id": "#theurgy:alchemical_sulfurs/gems/precious",
+      "required": false
+    }
+  ]
+}

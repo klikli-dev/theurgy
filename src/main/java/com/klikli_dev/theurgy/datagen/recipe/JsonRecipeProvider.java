@@ -58,7 +58,7 @@ public abstract class JsonRecipeProvider implements DataProvider {
     }
 
     protected String name(TagKey<Item> tag) {
-        return tag.location().getPath().replace('/', '.');
+        return tag.location().getPath().replace('/', '_');
     }
 
     public ResourceLocation locFor(TagKey<Item> tag) {
@@ -71,6 +71,10 @@ public abstract class JsonRecipeProvider implements DataProvider {
 
     public ResourceLocation locFor(Fluid fluid) {
         return BuiltInRegistries.FLUID.getKey(fluid);
+    }
+
+    public TagKey<Item> tag(String tag) {
+        return this.tag(new ResourceLocation(tag));
     }
 
     public TagKey<Item> tag(ResourceLocation tag) {
@@ -149,7 +153,7 @@ public abstract class JsonRecipeProvider implements DataProvider {
         return this.makeTagResult(tag, count, nbt == null ? null : (JsonObject) NbtOps.INSTANCE.convertTo(JsonOps.INSTANCE, nbt));
     }
 
-    public JsonObject makeTagResult(ResourceLocation tag, int count, @Nullable JsonObject nbt){
+    public JsonObject makeTagResult(ResourceLocation tag, int count, @Nullable JsonObject nbt) {
         JsonObject jsonobject = new JsonObject();
         jsonobject.addProperty("tag", tag.toString());
         jsonobject.addProperty("count", count);
@@ -163,6 +167,16 @@ public abstract class JsonRecipeProvider implements DataProvider {
         return FluidStack.CODEC.encodeStart(JsonOps.INSTANCE, fluidStack).getOrThrow(false, (s -> {
             throw new IllegalStateException("Failed to encode fluid stack: " + s);
         })).getAsJsonObject();
+    }
+
+    public JsonObject makeTagNotEmptyCondition(String tag) {
+        var condition = new JsonObject();
+        condition.addProperty("type", "forge:not");
+        var value = new JsonObject();
+        value.addProperty("type", "forge:tag_empty");
+        value.addProperty("tag", tag);
+        condition.add("value", value);
+        return condition;
     }
 
     @Override

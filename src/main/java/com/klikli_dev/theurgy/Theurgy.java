@@ -6,13 +6,14 @@
 
 package com.klikli_dev.theurgy;
 
-import com.klikli_dev.theurgy.content.item.AlchemicalSaltItem;
-import com.klikli_dev.theurgy.content.renderer.BlankEntityRenderer;
+import com.klikli_dev.modonomicon.client.render.page.PageRendererRegistry;
 import com.klikli_dev.theurgy.config.ClientConfig;
 import com.klikli_dev.theurgy.config.CommonConfig;
 import com.klikli_dev.theurgy.config.ServerConfig;
+import com.klikli_dev.theurgy.content.item.AlchemicalSaltItem;
 import com.klikli_dev.theurgy.content.item.AlchemicalSulfurItem;
 import com.klikli_dev.theurgy.content.item.DivinationRodItem;
+import com.klikli_dev.theurgy.content.renderer.BlankEntityRenderer;
 import com.klikli_dev.theurgy.content.renderer.DistillerRenderer;
 import com.klikli_dev.theurgy.content.renderer.LiquefactionCauldronRenderer;
 import com.klikli_dev.theurgy.datagen.TheurgyDataGenerators;
@@ -22,10 +23,13 @@ import com.klikli_dev.theurgy.network.Networking;
 import com.klikli_dev.theurgy.registry.*;
 import com.klikli_dev.theurgy.tooltips.TooltipHandler;
 import com.mojang.logging.LogUtils;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
+import net.minecraftforge.client.event.RecipesUpdatedEvent;
 import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.client.model.DynamicFluidContainerModel;
 import net.minecraftforge.common.MinecraftForge;
@@ -88,6 +92,7 @@ public class Theurgy {
             modEventBus.addListener(Client::onClientSetup);
             modEventBus.addListener(Client::onRegisterEntityRenderers);
             modEventBus.addListener(Client::onRegisterItemColors);
+            MinecraftForge.EVENT_BUS.addListener(Client::onRecipesUpdated);
         }
     }
 
@@ -118,6 +123,18 @@ public class Theurgy {
             LOGGER.info("Client setup complete.");
         }
 
+        public static void onRecipesUpdated(RecipesUpdatedEvent event) {
+            //now disable rendering of sulfurs that have no recipe -> otherwise we see "no source" sulfurs in tag recipes
+            //See also JeiPlugin.registerRecipes
+            var registryAccess = Minecraft.getInstance().level.registryAccess();
+            var liquefactionRecipes = event.getRecipeManager().getAllRecipesFor(RecipeTypeRegistry.LIQUEFACTION.get());
+
+            SulfurRegistry.SULFURS.getEntries().stream()
+                    .map(RegistryObject::get)
+                    .map(AlchemicalSulfurItem.class::cast)
+                    .filter(sulfur -> liquefactionRecipes.stream().noneMatch(r -> r.getResultItem(registryAccess) != null && r.getResultItem(registryAccess).getItem() == sulfur)).map(ItemStack::new).forEach(PageRendererRegistry::registerItemStackNotToRender);
+        }
+
         public static void registerTooltipDataProviders(FMLClientSetupEvent event) {
             TooltipHandler.registerNamespaceToListenTo(MODID);
 
@@ -128,7 +145,7 @@ public class Theurgy {
             });
 
             SaltRegistry.SALTS.getEntries().stream().map(RegistryObject::get).map(AlchemicalSaltItem.class::cast).forEach(salt -> {
-                    TooltipHandler.registerTooltipDataProvider(salt, AlchemicalSaltItem::getTooltipData);
+                TooltipHandler.registerTooltipDataProvider(salt, AlchemicalSaltItem::getTooltipData);
             });
         }
 
@@ -152,7 +169,7 @@ public class Theurgy {
             });
         }
 
-        public static void onRegisterItemColors(RegisterColorHandlersEvent.Item event){
+        public static void onRegisterItemColors(RegisterColorHandlersEvent.Item event) {
             event.register(new DynamicFluidContainerModel.Colors(), ItemRegistry.SAL_AMMONIAC_BUCKET.get());
         }
     }

@@ -207,6 +207,7 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
             if (sulfur.provideAutomaticTooltipData) {
                 this.addTooltip(() -> sulfur,
                         "Alchemical Sulfur crafted from %s.",
+                        null,
                         "Sulfur represents the \"idea\" or \"soul\" of an object and is the key to replication and transmutation.");
             }
         });
@@ -220,8 +221,11 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
 
     private void addSalts() {
         //Salt source names used in automatic name rendering
-        this.addSaltSource(SaltRegistry.ORE, "Ores");
+        this.addSaltSource(SaltRegistry.MINERAL, "Minerals");
         this.addSaltSource(SaltRegistry.CROPS, "Crops");
+        this.addSaltSource(SaltRegistry.STRATA, "Strata");
+        this.addExtendedTooltip(SaltRegistry.STRATA.get()::asItem,
+                "Salt extracted from the strata, that is, sedimentary rock, soil, clay and so on.");
 
         //Automatic salt name rendering
         SaltRegistry.SALTS.getEntries().stream().map(RegistryObject::get).map(AlchemicalSaltItem.class::cast).forEach(salt -> {
@@ -230,6 +234,7 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
 
             this.addTooltip(() -> salt,
                     "Alchemical Salt calcinated from %s.",
+                    null,
                     "Salt represents the \"body\" or \"physical matter\" of an object.");
         });
 

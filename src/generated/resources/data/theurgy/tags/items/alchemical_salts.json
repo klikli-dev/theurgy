@@ -1,6 +1,7 @@
 {
   "values": [
-    "theurgy:alchemical_salt_ore",
+    "theurgy:alchemical_salt_strata",
+    "theurgy:alchemical_salt_mineral",
     "theurgy:alchemical_salt_crops"
   ]
 }

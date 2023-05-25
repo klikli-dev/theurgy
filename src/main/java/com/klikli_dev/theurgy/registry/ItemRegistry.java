@@ -8,8 +8,8 @@ package com.klikli_dev.theurgy.registry;
 
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.TheurgyConstants;
-import com.klikli_dev.theurgy.content.item.AlchemicalSulfurItem;
-import com.klikli_dev.theurgy.content.item.DistillerBlockItem;
+import com.klikli_dev.theurgy.content.block.calcinationoven.CalcinationOvenBlockItem;
+import com.klikli_dev.theurgy.content.block.distiller.DistillerBlockItem;
 import com.klikli_dev.theurgy.content.item.DivinationRodItem;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -85,7 +85,7 @@ public class ItemRegistry {
             ITEMS.register("deepslate_sal_ammoniac_ore", () -> new BlockItem(BlockRegistry.DEEPSLATE_SAL_AMMONIAC_ORE.get(), new Item.Properties()));
 
     public static final RegistryObject<BlockItem> CALCINATION_OVEN =
-            ITEMS.register("calcination_oven", () -> new BlockItem(BlockRegistry.CALCINATION_OVEN.get(), new Item.Properties()));
+            ITEMS.register("calcination_oven", () -> new CalcinationOvenBlockItem(BlockRegistry.CALCINATION_OVEN.get(), new Item.Properties()));
 
     public static final RegistryObject<BlockItem> PYROMANTIC_BRAZIER =
             ITEMS.register("pyromantic_brazier", () -> new BlockItem(BlockRegistry.PYROMANTIC_BRAZIER.get(), new Item.Properties()));
@@ -97,16 +97,16 @@ public class ItemRegistry {
             ITEMS.register("distiller", () -> new DistillerBlockItem(BlockRegistry.DISTILLER.get(), new Item.Properties()));
 
     public static final RegistryObject<BlockItem> INCUBATOR =
-            ITEMS.register("incubator", () -> new DistillerBlockItem(BlockRegistry.INCUBATOR.get(), new Item.Properties()));
+            ITEMS.register("incubator", () -> new BlockItem(BlockRegistry.INCUBATOR.get(), new Item.Properties()));
 
     public static final RegistryObject<BlockItem> INCUBATOR_MERCURY_VESSEL =
-            ITEMS.register("incubator_mercury_vessel", () -> new DistillerBlockItem(BlockRegistry.INCUBATOR_MERCURY_VESSEL.get(), new Item.Properties()));
+            ITEMS.register("incubator_mercury_vessel", () -> new BlockItem(BlockRegistry.INCUBATOR_MERCURY_VESSEL.get(), new Item.Properties()));
 
     public static final RegistryObject<BlockItem> INCUBATOR_SALT_VESSEL =
-            ITEMS.register("incubator_salt_vessel", () -> new DistillerBlockItem(BlockRegistry.INCUBATOR_SALT_VESSEL.get(), new Item.Properties()));
+            ITEMS.register("incubator_salt_vessel", () -> new BlockItem(BlockRegistry.INCUBATOR_SALT_VESSEL.get(), new Item.Properties()));
 
     public static final RegistryObject<BlockItem> INCUBATOR_SULFUR_VESSEL =
-            ITEMS.register("incubator_sulfur_vessel", () -> new DistillerBlockItem(BlockRegistry.INCUBATOR_SULFUR_VESSEL.get(), new Item.Properties()));
+            ITEMS.register("incubator_sulfur_vessel", () -> new BlockItem(BlockRegistry.INCUBATOR_SULFUR_VESSEL.get(), new Item.Properties()));
 
     public static final RegistryObject<BlockItem> SAL_AMMONIAC_ACCUMULATOR =
             ITEMS.register("sal_ammoniac_accumulator", () -> new BlockItem(BlockRegistry.SAL_AMMONIAC_ACCUMULATOR.get(), new Item.Properties()));

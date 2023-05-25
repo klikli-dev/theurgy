@@ -4,7 +4,7 @@
       "model": "theurgy:block/calcination_oven"
     },
     "lit=true": {
-      "model": "theurgy:block/calcination_oven_lit"
+      "model": "theurgy:block/calcination_oven"
     }
   }
 }

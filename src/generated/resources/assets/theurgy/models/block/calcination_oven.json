@@ -1,7 +1,5 @@
 {
-  "parent": "theurgy:block/calcination_oven_template",
   "textures": {
-    "particle": "minecraft:block/copper_block",
-    "texture": "theurgy:block/calcination_oven"
+    "particle": "minecraft:block/copper_block"
   }
 }

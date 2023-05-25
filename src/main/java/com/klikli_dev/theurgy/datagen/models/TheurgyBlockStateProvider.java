@@ -8,11 +8,11 @@ package com.klikli_dev.theurgy.datagen.models;
 
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
+import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.client.model.generators.MultiPartBlockStateBuilder;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -65,22 +65,14 @@ public class TheurgyBlockStateProvider extends BlockStateProvider {
 
     protected void registerDistiller() {
 
-        //distiller is rendered by geckolib, so we just give a model with a particle texture (manually created, not datagenned in this case).
+        //distiller is rendered by geckolib, so we just give a model with a particle texture
         //we then use it for both the lit and unlit blockstate
-        var model = this.models().getExistingFile(this.modLoc("block/distiller"));
+        var model = this.models().getBuilder("distiller").texture("particle", "minecraft:block/copper_block");
 
         //build blockstate
-        this.getVariantBuilder(BlockRegistry.DISTILLER.get()) // Get variant builder
-                .partialState()
-                .with(BlockStateProperties.LIT, false)
-                .modelForState()//start setting models
+        this.getVariantBuilder(BlockRegistry.DISTILLER.get()).forAllStates(s -> ConfiguredModel.builder()
                 .modelFile(model)
-                .addModel()//finish setting models
-                .partialState()
-                .with(BlockStateProperties.LIT, true)
-                .modelForState()//start setting models
-                .modelFile(model)
-                .addModel();
+                .build());
 
         //distiller needs an item model that allows geckolib to render
         this.itemModels().getBuilder("distiller").parent(new ModelFile.UncheckedModelFile("builtin/entity"));
@@ -160,39 +152,17 @@ public class TheurgyBlockStateProvider extends BlockStateProvider {
     }
 
     protected void registerCalcinationOven() {
-        var model = this.models().withExistingParent("calcination_oven", this.modLoc("block/calcination_oven_template"))
-                //blockbench spits out garbage textures by losing the folder name so we fix them here
-                .texture("texture", this.modLoc("block/calcination_oven"))
-                .texture("particle", this.mcLoc("block/copper_block"));
-
-
-        var modelLit = this.models().withExistingParent("calcination_oven_lit", this.modLoc("block/calcination_oven"))
-                //we're based on the normal model so we only have to override the texture that changes - the main texture to lit
-                .texture("texture", this.modLoc("block/calcination_oven_lit"));
+        //calcination oven is rendered by geckolib, so we just give a model with a particle texture
+        //we then use it for both the lit and unlit blockstate
+        var model = this.models().getBuilder("calcination_oven").texture("particle", "minecraft:block/copper_block");
 
         //build blockstate
-        this.getVariantBuilder(BlockRegistry.CALCINATION_OVEN.get()) // Get variant builder
-                .partialState()
-                .with(BlockStateProperties.LIT, false)
-                .modelForState()//start setting models
+        this.getVariantBuilder(BlockRegistry.CALCINATION_OVEN.get()).forAllStates(s -> ConfiguredModel.builder()
                 .modelFile(model)
-                .addModel()//finish setting models
-                .partialState()
-                .with(BlockStateProperties.LIT, true)
-                .modelForState()//start setting models
-                .modelFile(modelLit)
-                .addModel();
+                .build());
 
-        //add item model
-        this.itemModels().withExistingParent("calcination_oven", this.modLoc("block/calcination_oven"))
-                .transforms()
-                //take defaults from net.minecraft:client:extra/assets/minecraft/models/block/block.json
-                //then slightly move down and reduce scale from 0.625 to 0.5
-                .transform(ItemDisplayContext.GUI)
-                .rotation(30, 225, 0)
-                .translation(0, -2.0f, 0)
-                .scale(0.5f)
-                .end();
+        //calcination oven needs an item model that allows geckolib to render
+        this.itemModels().getBuilder("calcination_oven").parent(new ModelFile.UncheckedModelFile("builtin/entity"));
     }
 
     protected void registerPyromanticBrazier() {

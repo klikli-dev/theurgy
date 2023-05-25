@@ -4,9 +4,9 @@
  * SPDX-License-Identifier: MIT
  */
 
-package com.klikli_dev.theurgy.content.item;
+package com.klikli_dev.theurgy.content.block.calcinationoven;
 
-import com.klikli_dev.theurgy.content.renderer.DistillerBEWLR;
+import com.klikli_dev.theurgy.content.renderer.CalcinationOvenBEWLR;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.block.Block;
@@ -18,11 +18,11 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.function.Consumer;
 
-public class DistillerBlockItem extends BlockItem implements GeoItem {
+public class CalcinationOvenBlockItem extends BlockItem implements GeoItem {
 
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
-    public DistillerBlockItem(Block pBlock, Properties pProperties) {
+    public CalcinationOvenBlockItem(Block pBlock, Properties pProperties) {
         super(pBlock, pProperties);
     }
 
@@ -32,7 +32,7 @@ public class DistillerBlockItem extends BlockItem implements GeoItem {
         consumer.accept(new IClientItemExtensions() {
             @Override
             public BlockEntityWithoutLevelRenderer getCustomRenderer() {
-                return DistillerBEWLR.get();
+                return CalcinationOvenBEWLR.get();
             }
         });
     }

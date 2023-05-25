@@ -17,6 +17,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
@@ -27,9 +28,32 @@ import net.minecraftforge.items.wrapper.CombinedInvWrapper;
 import net.minecraftforge.items.wrapper.RecipeWrapper;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import software.bernie.geckolib.animatable.GeoBlockEntity;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.AnimationState;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class CalcinationOvenBlockEntity extends BlockEntity implements HeatConsumer {
+public class CalcinationOvenBlockEntity extends BlockEntity implements GeoBlockEntity, HeatConsumer {
 
+    private static final RawAnimation START_AND_ON_ANIM = RawAnimation.begin()
+            .thenPlay("animation.calcination_oven.start")
+            .thenLoop("animation.calcination_oven.on");
+    private static final RawAnimation STOP_AND_OFF_ANIM = RawAnimation.begin()
+            .thenPlay("animation.calcination_oven.stop")
+            .thenLoop("animation.calcination_oven.off");
+    private static final RawAnimation OFF_ANIM = RawAnimation.begin()
+            .thenLoop("animation.calcination_oven.off");
+    private static final RawAnimation ON_ANIM = RawAnimation.begin()
+            .thenLoop("animation.calcination_oven.on");
+
+    private static final RawAnimation PLACE_AND_OFF_ANIM = RawAnimation.begin()
+            .thenPlay("animation.calcination_oven.place")
+            .thenLoop("animation.calcination_oven.off");
+    private final AnimatableInstanceCache animatableInstanceCache = GeckoLibUtil.createInstanceCache(this);
     private final RecipeManager.CachedCheck<RecipeWrapper, ? extends CalcinationRecipe> recipeCachedCheck;
     public ItemStackHandler inputInventory;
     public ItemStackHandler outputInventory;
@@ -43,6 +67,11 @@ public class CalcinationOvenBlockEntity extends BlockEntity implements HeatConsu
     int totalTime;
 
     boolean heatedCache;
+
+    /**
+     * Client-side we only use the blockstate to determine our animation state.
+     */
+    boolean wasLitLastTick;
 
     public CalcinationOvenBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(BlockEntityRegistry.CALCINATION_OVEN.get(), pPos, pBlockState);
@@ -156,6 +185,39 @@ public class CalcinationOvenBlockEntity extends BlockEntity implements HeatConsu
         if (pTag.contains("progress"))
             this.progress = pTag.getShort("progress");
     }
+
+    private <E extends GeoBlockEntity> PlayState animationHandler(AnimationState<E> event) {
+
+        var blockState = this.getBlockState();
+        var isLit = blockState.getValue(BlockStateProperties.LIT);
+
+        if (!this.wasLitLastTick && !isLit && event.getController().getAnimationState() == AnimationController.State.STOPPED) {
+            event.getController().setAnimation(PLACE_AND_OFF_ANIM);
+        } else if (this.wasLitLastTick && !isLit && event.getController().getAnimationState() != AnimationController.State.TRANSITIONING) {
+            event.getController().setAnimation(STOP_AND_OFF_ANIM);
+        } else if (!this.wasLitLastTick && isLit && event.getController().getAnimationState() != AnimationController.State.TRANSITIONING) {
+            event.getController().setAnimation(START_AND_ON_ANIM);
+        } else if (!this.wasLitLastTick && !isLit && event.getController().getAnimationState() != AnimationController.State.RUNNING) {
+            event.getController().setAnimation(OFF_ANIM);
+        } else if (this.wasLitLastTick && isLit && event.getController().getAnimationState() != AnimationController.State.RUNNING) {
+            event.getController().setAnimation(ON_ANIM);
+        }
+
+        this.wasLitLastTick = isLit;
+
+        return PlayState.CONTINUE;
+    }
+
+    @Override
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
+        controllerRegistrar.add(new AnimationController<GeoBlockEntity>(this, "controller", 0, this::animationHandler));
+    }
+
+    @Override
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return this.animatableInstanceCache;
+    }
+
 
     private boolean canProcess(ItemStack stack) {
         ItemStackHandler tempInv = new ItemStackHandler(1);

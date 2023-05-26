@@ -53,7 +53,7 @@ public class TheurgyItemTagsProvider extends ItemTagsProvider {
         });
 
 
-        //add the tier tags into the mai tag
+        //add the tier tags into the material tag
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS)
                 .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_ABUNDANT.location())
                 .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_COMMON.location())

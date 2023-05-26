@@ -64,6 +64,8 @@ public class IncubationRecipeProvider extends JsonRecipeProvider {
         this.makeRecipe(this.tag("forge:gems/emerald"), ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.EMERALD.get());
         this.makeRecipe(this.tag("forge:gems/lapis"), ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.LAPIS.get());
         this.makeRecipe(this.tag("forge:gems/quartz"), ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.QUARTZ.get());
+        this.makeRecipe(this.tag("forge:gems/amethyst"), ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.AMETHYST.get());
+        this.makeRecipe(this.tag("forge:gems/prismarine"), ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.PRISMARINE.get());
         this.makeRecipe(this.tag("forge:gems/ruby"), ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.RUBY.get());
         this.makeRecipe(this.tag("forge:gems/apatite"), ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.APATITE.get());
         this.makeRecipe(this.tag("forge:gems/peridot"), ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.PERIDOT.get());

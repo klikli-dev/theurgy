@@ -56,6 +56,8 @@ public class SulfurRegistry {
     public static final RegistryObject<AlchemicalSulfurItem> EMERALD = registerWithSourceNameOverride("emerald");
     public static final RegistryObject<AlchemicalSulfurItem> LAPIS = registerWithSourceNameOverride("lapis");
     public static final RegistryObject<AlchemicalSulfurItem> QUARTZ = registerWithSourceNameOverride("quartz");
+    public static final RegistryObject<AlchemicalSulfurItem> AMETHYST = registerWithSourceNameOverride("amethyst");
+    public static final RegistryObject<AlchemicalSulfurItem> PRISMARINE = registerWithSourceNameOverride("prismarine");
     public static final RegistryObject<AlchemicalSulfurItem> RUBY = registerWithSourceNameOverride("ruby");
     public static final RegistryObject<AlchemicalSulfurItem> APATITE = registerWithSourceNameOverride("apatite");
     public static final RegistryObject<AlchemicalSulfurItem> PERIDOT = registerWithSourceNameOverride("peridot");

@@ -245,6 +245,8 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
         this.addSulfurSource(SulfurRegistry.EMERALD, "Emerald");
         this.addSulfurSource(SulfurRegistry.LAPIS, "Lapis");
         this.addSulfurSource(SulfurRegistry.QUARTZ, "Quartz");
+        this.addSulfurSource(SulfurRegistry.AMETHYST, "Amethyst");
+        this.addSulfurSource(SulfurRegistry.PRISMARINE, "Prismarine");
         this.addSulfurSource(SulfurRegistry.RUBY, "Ruby");
         this.addSulfurSource(SulfurRegistry.APATITE, "Apatite");
         this.addSulfurSource(SulfurRegistry.PERIDOT, "Peridot");

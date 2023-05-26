@@ -1,4 +1,4 @@
-// 1.19.4	2023-05-26T15:49:46.6277691	Tags for minecraft:item mod id theurgy
+// 1.19.4	2023-05-26T16:12:10.5827569	Tags for minecraft:item mod id theurgy
 7a78325a639e879280cccf4d15f364e02da86003 data/forge/tags/items/gems.json
 9a414088a384ea8077655b79eb53ac263aaae5e3 data/forge/tags/items/gems/sal_ammoniac.json
 04abd356cb9b230f4d1adcf90db05571e8a17d05 data/forge/tags/items/ores/sal_ammoniac.json
@@ -8,10 +8,20 @@ c1ae367d1f7b1391996652acb8c12cfbe63abfc8 data/theurgy/tags/items/alchemical_merc
 07760e14b03fd0089485f8825e5961fedbd2ab80 data/theurgy/tags/items/alchemical_salts.json
 abb734555cc8dfd235e49b95da9138778843382d data/theurgy/tags/items/alchemical_sulfurs.json
 266413752c11313070378f2d5cc88f57a4a87cbd data/theurgy/tags/items/alchemical_sulfurs/gems.json
+f6fb4e50a176e7fc2c1d91655d0ba1417751fe3e data/theurgy/tags/items/alchemical_sulfurs/gems/abundant.json
+1744f55d3aa4e665ad91f91136b4efc9df851779 data/theurgy/tags/items/alchemical_sulfurs/gems/common.json
+9dfadee6a62915083364c85f35e3e02edd9cc85e data/theurgy/tags/items/alchemical_sulfurs/gems/precious.json
+da0a721f168248128254577d7aeb8ebcd9d9c473 data/theurgy/tags/items/alchemical_sulfurs/gems/rare.json
 3fbcd6156c7403e016aedcf8bbef778ce64e75d2 data/theurgy/tags/items/alchemical_sulfurs/metals.json
 90b2123e0734b83147c7faf3a7772e3b0a20788b data/theurgy/tags/items/alchemical_sulfurs/metals/abundant.json
 d83463626204ada454a14f6956bedf9e647be1ec data/theurgy/tags/items/alchemical_sulfurs/metals/common.json
+36f96d4379ff19623fd154c9a8afcf831e799c29 data/theurgy/tags/items/alchemical_sulfurs/metals/precious.json
+3fae5e025887ac81bc3af216a6f53572f05b4ad8 data/theurgy/tags/items/alchemical_sulfurs/metals/rare.json
 75c922d072696062be2074a5680b2557f1641cef data/theurgy/tags/items/alchemical_sulfurs/other_minerals.json
+142ff74a3b72e964ea337b1cf4eee9e8689ed8a9 data/theurgy/tags/items/alchemical_sulfurs/other_minerals/abundant.json
+a1f5db5c4c9d4b747e83dd3f796c8698304575bf data/theurgy/tags/items/alchemical_sulfurs/other_minerals/common.json
+35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/theurgy/tags/items/alchemical_sulfurs/other_minerals/precious.json
+35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/theurgy/tags/items/alchemical_sulfurs/other_minerals/rare.json
 b119b915f2e2b16c4a5750a50453a2cfddf7235f data/theurgy/tags/items/high_mercury_ores.json
 ca75039df5ed6330ee575eb55689e8f23a1e7a99 data/theurgy/tags/items/high_mercury_raw_materials.json
 f844cd452a39f1295f45a4cb9585a1510a719986 data/theurgy/tags/items/low_mercury_ores.json

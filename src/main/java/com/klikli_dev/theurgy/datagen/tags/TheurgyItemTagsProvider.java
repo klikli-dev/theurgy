@@ -72,7 +72,6 @@ public class TheurgyItemTagsProvider extends ItemTagsProvider {
                 .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_RARE.location())
                 .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_PRECIOUS.location());
 
-        //TODO: Fill the tier tags
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_ABUNDANT)
                 .add(SulfurRegistry.COPPER.get())
         ;
@@ -87,6 +86,63 @@ public class TheurgyItemTagsProvider extends ItemTagsProvider {
                 .add(SulfurRegistry.OSMIUM.get())
         ;
 
+        this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_RARE)
+                .add(SulfurRegistry.CRIMSON_IRON.get())
+                .add(SulfurRegistry.SILVER.get())
+                .add(SulfurRegistry.GOLD.get())
+                .add(SulfurRegistry.URANIUM.get())
+                .add(SulfurRegistry.AZURE_SILVER.get())
+                .add(SulfurRegistry.IRIDIUM.get())
+                .add(SulfurRegistry.PLATINUM.get())
+        ;
+
+        this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_PRECIOUS)
+                .add(SulfurRegistry.NETHERITE.get())
+                .add(SulfurRegistry.ALLTHEMODIUM.get())
+                .add(SulfurRegistry.UNOBTAINIUM.get())
+                .add(SulfurRegistry.VIBRANIUM.get())
+        ;
+
+
+        this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_ABUNDANT)
+                .add(SulfurRegistry.APATITE.get())
+                .add(SulfurRegistry.FLUORITE.get())
+        ;
+
+        this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_COMMON)
+                .add(SulfurRegistry.QUARTZ.get())
+                .add(SulfurRegistry.LAPIS.get())
+        ;
+
+        this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_RARE)
+                .add(SulfurRegistry.PRISMARINE.get())
+                .add(SulfurRegistry.AMETHYST.get())
+                .add(SulfurRegistry.PERIDOT.get())
+                .add(SulfurRegistry.RUBY.get())
+                .add(SulfurRegistry.SAPPHIRE.get())
+        ;
+
+        this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_PRECIOUS)
+                .add(SulfurRegistry.DIAMOND.get())
+                .add(SulfurRegistry.EMERALD.get())
+        ;
+
+        this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_ABUNDANT)
+                .add(SulfurRegistry.COAL.get())
+        ;
+
+        this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_COMMON)
+                .add(SulfurRegistry.REDSTONE.get())
+                .add(SulfurRegistry.SULFUR.get())
+        ;
+
+        this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_RARE)
+
+        ;
+
+        this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_PRECIOUS)
+
+        ;
 
         this.tag(ItemTagRegistry.LOW_MERCURY_ORES)
                 .addTag(Tags.Items.ORES_IRON)

@@ -20,52 +20,64 @@ import java.util.function.Supplier;
 public class SulfurRegistry {
     public static final DeferredRegister<Item> SULFURS = DeferredRegister.create(ForgeRegistries.ITEMS, Theurgy.MODID);
 
-    public static final RegistryObject<AlchemicalSulfurItem> LOGS = register("logs", () -> new AlchemicalSulfurItem(new Item.Properties()).overrideTagSourceName(true));
+    public static final RegistryObject<AlchemicalSulfurItem> LOGS = registerWithTagSourceNameOverride("logs");
 
     //Crops
-    public static final RegistryObject<AlchemicalSulfurItem> WHEAT = register("wheat", () -> new AlchemicalSulfurItem(new Item.Properties()));
+    public static final RegistryObject<AlchemicalSulfurItem> WHEAT = registerDefault("wheat");
 
 
     //Common Metals
-    public static final RegistryObject<AlchemicalSulfurItem> IRON = register("iron", () -> new AlchemicalSulfurItem(new Item.Properties()));
-    public static final RegistryObject<AlchemicalSulfurItem> COPPER = register("copper", () -> new AlchemicalSulfurItem(new Item.Properties()));
+    public static final RegistryObject<AlchemicalSulfurItem> IRON = registerWithSourceNameOverride("iron");
+    public static final RegistryObject<AlchemicalSulfurItem> COPPER = registerWithSourceNameOverride("copper");
 
-    public static final RegistryObject<AlchemicalSulfurItem> SILVER = register("silver", () -> new AlchemicalSulfurItem(new Item.Properties()));
+    public static final RegistryObject<AlchemicalSulfurItem> SILVER = registerWithSourceNameOverride("silver");
 
-    public static final RegistryObject<AlchemicalSulfurItem> GOLD = register("gold", () -> new AlchemicalSulfurItem(new Item.Properties()));
+    public static final RegistryObject<AlchemicalSulfurItem> GOLD = registerWithSourceNameOverride("gold");
 
-    public static final RegistryObject<AlchemicalSulfurItem> NETHERITE = register("netherite", () -> new AlchemicalSulfurItem(new Item.Properties()));
-    public static final RegistryObject<AlchemicalSulfurItem> URANIUM = register("uranium", () -> new AlchemicalSulfurItem(new Item.Properties()));
-    public static final RegistryObject<AlchemicalSulfurItem> AZURE_SILVER = register("azure_silver", () -> new AlchemicalSulfurItem(new Item.Properties()));
-    public static final RegistryObject<AlchemicalSulfurItem> ZINC = register("zinc", () -> new AlchemicalSulfurItem(new Item.Properties()));
-    public static final RegistryObject<AlchemicalSulfurItem> OSMIUM = register("osmium", () -> new AlchemicalSulfurItem(new Item.Properties()));
-    public static final RegistryObject<AlchemicalSulfurItem> NICKEL = register("nickel", () -> new AlchemicalSulfurItem(new Item.Properties()));
-    public static final RegistryObject<AlchemicalSulfurItem> LEAD = register("lead", () -> new AlchemicalSulfurItem(new Item.Properties()));
-    public static final RegistryObject<AlchemicalSulfurItem> ALLTHEMODIUM = register("allthemodium", () -> new AlchemicalSulfurItem(new Item.Properties()));
-    public static final RegistryObject<AlchemicalSulfurItem> UNOBTAINIUM = register("unobtainium", () -> new AlchemicalSulfurItem(new Item.Properties()));
-    public static final RegistryObject<AlchemicalSulfurItem> IRIDIUM = register("iridium", () -> new AlchemicalSulfurItem(new Item.Properties()));
-    public static final RegistryObject<AlchemicalSulfurItem> TIN = register("tin", () -> new AlchemicalSulfurItem(new Item.Properties()));
-    public static final RegistryObject<AlchemicalSulfurItem> CINNABAR = register("cinnabar", () -> new AlchemicalSulfurItem(new Item.Properties()));
-    public static final RegistryObject<AlchemicalSulfurItem> CRIMSON_IRON = register("crimson_iron", () -> new AlchemicalSulfurItem(new Item.Properties()));
-    public static final RegistryObject<AlchemicalSulfurItem> PLATINUM = register("platinum", () -> new AlchemicalSulfurItem(new Item.Properties()));
-    public static final RegistryObject<AlchemicalSulfurItem> VIBRANIUM = register("vibranium", () -> new AlchemicalSulfurItem(new Item.Properties()));
+    public static final RegistryObject<AlchemicalSulfurItem> NETHERITE = registerWithSourceNameOverride("netherite");
+    public static final RegistryObject<AlchemicalSulfurItem> URANIUM = registerWithSourceNameOverride("uranium");
+    public static final RegistryObject<AlchemicalSulfurItem> AZURE_SILVER = registerWithSourceNameOverride("azure_silver");
+    public static final RegistryObject<AlchemicalSulfurItem> ZINC = registerWithSourceNameOverride("zinc");
+    public static final RegistryObject<AlchemicalSulfurItem> OSMIUM = registerWithSourceNameOverride("osmium");
+    public static final RegistryObject<AlchemicalSulfurItem> NICKEL = registerWithSourceNameOverride("nickel");
+    public static final RegistryObject<AlchemicalSulfurItem> LEAD = registerWithSourceNameOverride("lead");
+    public static final RegistryObject<AlchemicalSulfurItem> ALLTHEMODIUM = registerWithSourceNameOverride("allthemodium");
+    public static final RegistryObject<AlchemicalSulfurItem> UNOBTAINIUM = registerWithSourceNameOverride("unobtainium");
+    public static final RegistryObject<AlchemicalSulfurItem> IRIDIUM = registerWithSourceNameOverride("iridium");
+    public static final RegistryObject<AlchemicalSulfurItem> TIN = registerWithSourceNameOverride("tin");
+    public static final RegistryObject<AlchemicalSulfurItem> CINNABAR = registerWithSourceNameOverride("cinnabar");
+    public static final RegistryObject<AlchemicalSulfurItem> CRIMSON_IRON = registerWithSourceNameOverride("crimson_iron");
+    public static final RegistryObject<AlchemicalSulfurItem> PLATINUM = registerWithSourceNameOverride("platinum");
+    public static final RegistryObject<AlchemicalSulfurItem> VIBRANIUM = registerWithSourceNameOverride("vibranium");
 
     //Common Gems
 
-    public static final RegistryObject<AlchemicalSulfurItem> DIAMOND = register("diamond", () -> new AlchemicalSulfurItem(new Item.Properties()));
-    public static final RegistryObject<AlchemicalSulfurItem> EMERALD = register("emerald", () -> new AlchemicalSulfurItem(new Item.Properties()));
-    public static final RegistryObject<AlchemicalSulfurItem> LAPIS = register("lapis", () -> new AlchemicalSulfurItem(new Item.Properties()));
-    public static final RegistryObject<AlchemicalSulfurItem> QUARTZ = register("quartz", () -> new AlchemicalSulfurItem(new Item.Properties()));
-    public static final RegistryObject<AlchemicalSulfurItem> RUBY = register("ruby", () -> new AlchemicalSulfurItem(new Item.Properties()));
-    public static final RegistryObject<AlchemicalSulfurItem> APATITE = register("apatite", () -> new AlchemicalSulfurItem(new Item.Properties()));
-    public static final RegistryObject<AlchemicalSulfurItem> PERIDOT = register("peridot", () -> new AlchemicalSulfurItem(new Item.Properties()));
-    public static final RegistryObject<AlchemicalSulfurItem> FLUORITE = register("fluorite", () -> new AlchemicalSulfurItem(new Item.Properties()));
-    public static final RegistryObject<AlchemicalSulfurItem> SAPPHIRE = register("sapphire", () -> new AlchemicalSulfurItem(new Item.Properties()));
+    public static final RegistryObject<AlchemicalSulfurItem> DIAMOND = registerWithSourceNameOverride("diamond");
+    public static final RegistryObject<AlchemicalSulfurItem> EMERALD = registerWithSourceNameOverride("emerald");
+    public static final RegistryObject<AlchemicalSulfurItem> LAPIS = registerWithSourceNameOverride("lapis");
+    public static final RegistryObject<AlchemicalSulfurItem> QUARTZ = registerWithSourceNameOverride("quartz");
+    public static final RegistryObject<AlchemicalSulfurItem> RUBY = registerWithSourceNameOverride("ruby");
+    public static final RegistryObject<AlchemicalSulfurItem> APATITE = registerWithSourceNameOverride("apatite");
+    public static final RegistryObject<AlchemicalSulfurItem> PERIDOT = registerWithSourceNameOverride("peridot");
+    public static final RegistryObject<AlchemicalSulfurItem> FLUORITE = registerWithSourceNameOverride("fluorite");
+    public static final RegistryObject<AlchemicalSulfurItem> SAPPHIRE = registerWithSourceNameOverride("sapphire");
 
     //Other Common Minerals
-    public static final RegistryObject<AlchemicalSulfurItem> REDSTONE = register("redstone", () -> new AlchemicalSulfurItem(new Item.Properties()));
-    public static final RegistryObject<AlchemicalSulfurItem> COAL = register("coal", () -> new AlchemicalSulfurItem(new Item.Properties()));
-    public static final RegistryObject<AlchemicalSulfurItem> SULFUR = register("sulfur", () -> new AlchemicalSulfurItem(new Item.Properties()));
+    public static final RegistryObject<AlchemicalSulfurItem> REDSTONE = registerWithSourceNameOverride("redstone");
+    public static final RegistryObject<AlchemicalSulfurItem> COAL = registerDefault("coal");
+    public static final RegistryObject<AlchemicalSulfurItem> SULFUR = registerWithSourceNameOverride("sulfur");
+
+
+    public static RegistryObject<AlchemicalSulfurItem> registerWithTagSourceNameOverride(String name) {
+        return register(name, () -> new AlchemicalSulfurItem(new Item.Properties()).overrideTagSourceName(true));
+    }
+    public static RegistryObject<AlchemicalSulfurItem> registerWithSourceNameOverride(String name) {
+        return register(name, () -> new AlchemicalSulfurItem(new Item.Properties()).overrideSourceName(true));
+    }
+
+    public static RegistryObject<AlchemicalSulfurItem> registerDefault(String name) {
+        return register(name, () -> new AlchemicalSulfurItem(new Item.Properties()));
+    }
 
     public static <T extends Item> RegistryObject<T> register(String name, Supplier<T> sup) {
         return SULFURS.register("alchemical_sulfur_" + name, sup);

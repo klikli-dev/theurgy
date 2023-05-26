@@ -54,9 +54,15 @@ public class AlchemicalSulfurItem extends Item {
     /**
      * If true will convert the tag to a description id and use it as source name, instead of the source stack procured for the tag.
      * This is mainly intended for sulfurs that actually represent a tag (such as "all logs").
-     * It should not be used for sulfurs that represent a specific item where we use the tag to handle mod compat (e.g. "silver ingot").
+     * It should not be used for sulfurs that represent a specific item where we use the tag to handle mod compat (e.g. "Tingleberry").
      */
     public boolean overrideTagSourceName;
+
+    /**
+     * If true will use the source name from the lang file, instead of the source stack.
+     * Additionally, this will cause overrideTagSourceName to be ignored.
+     */
+    public boolean overrideSourceName;
 
     /**
      * If true the LiquefactionRecipe used to craft this item will automatically generate a source id based on the ingredient, if no source id is provided in the recipe result nbt.
@@ -70,6 +76,7 @@ public class AlchemicalSulfurItem extends Item {
         this.provideAutomaticTooltipData = true;
         this.autoGenerateSourceIdInRecipe = true;
         this.overrideTagSourceName = false;
+        this.overrideSourceName = false;
     }
 
     public static String getSourceItemId(ItemStack sulfurStack) {
@@ -169,12 +176,22 @@ public class AlchemicalSulfurItem extends Item {
         return this;
     }
 
+    public AlchemicalSulfurItem overrideSourceName(boolean value) {
+        this.overrideSourceName = value;
+        this.autoGenerateSourceIdInRecipe = !value;
+        return this;
+    }
+
     public AlchemicalSulfurItem autoGenerateSourceIdInRecipe(boolean value) {
         this.autoGenerateSourceIdInRecipe = value;
         return this;
     }
 
     public MutableComponent getSourceName(ItemStack pStack) {
+        if(this.overrideSourceName){
+            return formatSourceName(Component.translatable(pStack.getDescriptionId() + TheurgyConstants.I18n.Item.ALCHEMICAL_SULFUR_SOURCE_SUFFIX));
+        }
+
         var source = getSourceStack(pStack);
 
         if (!source.isEmpty()) {

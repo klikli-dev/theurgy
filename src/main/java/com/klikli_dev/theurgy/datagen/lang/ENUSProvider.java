@@ -214,9 +214,42 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
 
         //Tag Names for Sulfurs with overrideTagSourceName
         this.add(Util.makeDescriptionId("tag", ItemTags.LOGS.location()), "Logs");
-
         //Note: It was considered to try and warn here if a sulfur has overrideTagSourceName set to true, but no override lang key set.
         //      This is not possible, however, as the tag source comes from item nbt that is not available at this point.
+
+
+        //Names for Sulfurs with overrideSourceName
+        this.addSulfurSource(SulfurRegistry.IRON, "Iron");
+        this.addSulfurSource(SulfurRegistry.COPPER, "Copper");
+        this.addSulfurSource(SulfurRegistry.SILVER, "Silver");
+        this.addSulfurSource(SulfurRegistry.GOLD, "Gold");
+        this.addSulfurSource(SulfurRegistry.NETHERITE, "Netherite");
+        this.addSulfurSource(SulfurRegistry.URANIUM, "Uranium");
+        this.addSulfurSource(SulfurRegistry.AZURE_SILVER, "Azure Silver");
+        this.addSulfurSource(SulfurRegistry.ZINC, "Zinc");
+        this.addSulfurSource(SulfurRegistry.OSMIUM, "Osmium");
+        this.addSulfurSource(SulfurRegistry.NICKEL, "Nickel");
+        this.addSulfurSource(SulfurRegistry.LEAD, "Lead");
+        this.addSulfurSource(SulfurRegistry.ALLTHEMODIUM, "Allthemodium");
+        this.addSulfurSource(SulfurRegistry.UNOBTAINIUM, "Unobtainium");
+        this.addSulfurSource(SulfurRegistry.IRIDIUM, "Iridium");
+        this.addSulfurSource(SulfurRegistry.TIN, "Tin");
+        this.addSulfurSource(SulfurRegistry.CINNABAR, "Cinnabar");
+        this.addSulfurSource(SulfurRegistry.CRIMSON_IRON, "Crimson Iron");
+        this.addSulfurSource(SulfurRegistry.PLATINUM, "Platinum");
+        this.addSulfurSource(SulfurRegistry.VIBRANIUM, "Vibranium");
+        this.addSulfurSource(SulfurRegistry.DIAMOND, "Diamond");
+        this.addSulfurSource(SulfurRegistry.EMERALD, "Emerald");
+        this.addSulfurSource(SulfurRegistry.LAPIS, "Lapis");
+        this.addSulfurSource(SulfurRegistry.QUARTZ, "Quartz");
+        this.addSulfurSource(SulfurRegistry.RUBY, "Ruby");
+        this.addSulfurSource(SulfurRegistry.APATITE, "Apatite");
+        this.addSulfurSource(SulfurRegistry.PERIDOT, "Peridot");
+        this.addSulfurSource(SulfurRegistry.FLUORITE, "Fluorite");
+        this.addSulfurSource(SulfurRegistry.SAPPHIRE, "Sapphire");
+        this.addSulfurSource(SulfurRegistry.REDSTONE, "Redstone");
+        this.addSulfurSource(SulfurRegistry.COAL, "Coal");
+        this.addSulfurSource(SulfurRegistry.SULFUR, "Sulfur");
     }
 
     private void addSalts() {
@@ -242,6 +275,10 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
 
     public void addSaltSource(Supplier<? extends Item> key, String name) {
         this.add(key.get().getDescriptionId() + TheurgyConstants.I18n.Item.ALCHEMICAL_SALT_SOURCE_SUFFIX, name);
+    }
+
+    public void addSulfurSource(Supplier<? extends Item> key, String name) {
+        this.add(key.get().getDescriptionId() + TheurgyConstants.I18n.Item.ALCHEMICAL_SULFUR_SOURCE_SUFFIX, name);
     }
 
 

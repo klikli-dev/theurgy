@@ -77,7 +77,7 @@ public class LiquefactionRecipeProvider extends JsonRecipeProvider {
         this.makeRecipe(SulfurRegistry.FLUORITE.get(), 6, this.tag("forge:ores/fluorite"), salAmmoniac, 10);
         this.makeRecipe(SulfurRegistry.SAPPHIRE.get(), 6, this.tag("forge:ores/sapphire"), salAmmoniac, 15);
 
-        //Other Common Ores
+        //Other Common Mineral Ores
         this.makeRecipe(SulfurRegistry.REDSTONE.get(), 9, Tags.Items.ORES_REDSTONE, salAmmoniac, 10);
         this.makeRecipe(SulfurRegistry.COAL.get(), 4, Tags.Items.ORES_COAL, salAmmoniac, 10);
         this.makeRecipe(SulfurRegistry.SULFUR.get(), 6, this.tag("forge:ores/sulfur"), salAmmoniac, 10);
@@ -122,6 +122,13 @@ public class LiquefactionRecipeProvider extends JsonRecipeProvider {
         this.makeRecipe(SulfurRegistry.CRIMSON_IRON.get(), 1, this.tag("forge:ingots/crimson_iron"), salAmmoniac, 20);
         this.makeRecipe(SulfurRegistry.PLATINUM.get(), 1, this.tag("forge:ingots/platinum"), salAmmoniac, 20);
         this.makeRecipe(SulfurRegistry.VIBRANIUM.get(), 1, this.tag("forge:ingots/vibranium"), salAmmoniac, 20);
+
+        //Common Gems Sulfurs
+
+        //Other Common Minerals Sulfurs
+        this.makeRecipe(SulfurRegistry.REDSTONE.get(), 1, Tags.Items.DUSTS_REDSTONE, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.COAL.get(), 1, ItemTags.COALS, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.SULFUR.get(), 1, this.tag("forge:gems/sulfur"), salAmmoniac, 10);
     }
 
 

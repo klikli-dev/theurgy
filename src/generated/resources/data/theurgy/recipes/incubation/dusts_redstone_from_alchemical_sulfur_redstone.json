@@ -5,7 +5,7 @@
       "type": "forge:not",
       "value": {
         "type": "forge:tag_empty",
-        "tag": "forge:gems/redstone"
+        "tag": "forge:dusts/redstone"
       }
     }
   ],
@@ -15,7 +15,7 @@
   },
   "result": {
     "count": 1,
-    "tag": "forge:gems/redstone"
+    "tag": "forge:dusts/redstone"
   },
   "salt": {
     "item": "theurgy:alchemical_salt_mineral"

@@ -5,7 +5,7 @@
       "type": "forge:not",
       "value": {
         "type": "forge:tag_empty",
-        "tag": "forge:gems/coal"
+        "tag": "minecraft:coals"
       }
     }
   ],
@@ -15,7 +15,7 @@
   },
   "result": {
     "count": 1,
-    "tag": "forge:gems/coal"
+    "tag": "minecraft:coals"
   },
   "salt": {
     "item": "theurgy:alchemical_salt_mineral"

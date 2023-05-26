@@ -219,6 +219,7 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
 
 
         //Names for Sulfurs with overrideSourceName
+        //Common Metals
         this.addSulfurSource(SulfurRegistry.IRON, "Iron");
         this.addSulfurSource(SulfurRegistry.COPPER, "Copper");
         this.addSulfurSource(SulfurRegistry.SILVER, "Silver");
@@ -238,6 +239,8 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
         this.addSulfurSource(SulfurRegistry.CRIMSON_IRON, "Crimson Iron");
         this.addSulfurSource(SulfurRegistry.PLATINUM, "Platinum");
         this.addSulfurSource(SulfurRegistry.VIBRANIUM, "Vibranium");
+
+        //Common Gems
         this.addSulfurSource(SulfurRegistry.DIAMOND, "Diamond");
         this.addSulfurSource(SulfurRegistry.EMERALD, "Emerald");
         this.addSulfurSource(SulfurRegistry.LAPIS, "Lapis");
@@ -247,6 +250,8 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
         this.addSulfurSource(SulfurRegistry.PERIDOT, "Peridot");
         this.addSulfurSource(SulfurRegistry.FLUORITE, "Fluorite");
         this.addSulfurSource(SulfurRegistry.SAPPHIRE, "Sapphire");
+
+        //Other Common Minerals
         this.addSulfurSource(SulfurRegistry.REDSTONE, "Redstone");
         this.addSulfurSource(SulfurRegistry.COAL, "Coal");
         this.addSulfurSource(SulfurRegistry.SULFUR, "Sulfur");

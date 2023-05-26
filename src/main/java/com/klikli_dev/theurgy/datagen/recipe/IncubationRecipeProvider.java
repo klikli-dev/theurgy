@@ -18,6 +18,7 @@ import com.klikli_dev.theurgy.registry.SaltRegistry;
 import com.klikli_dev.theurgy.registry.SulfurRegistry;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -70,8 +71,8 @@ public class IncubationRecipeProvider extends JsonRecipeProvider {
         this.makeRecipe(this.tag("forge:gems/sapphire"), ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.SAPPHIRE.get());
 
         //other common minerals from sulfur
-        this.makeRecipe(this.tag("forge:gems/redstone"), ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.REDSTONE.get());
-        this.makeRecipe(this.tag("forge:gems/coal"), ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.COAL.get());
+        this.makeRecipe(Tags.Items.DUSTS_REDSTONE, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.REDSTONE.get());
+        this.makeRecipe(ItemTags.COALS, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.COAL.get());
         this.makeRecipe(this.tag("forge:gems/sulfur"), ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.SULFUR.get());
     }
 

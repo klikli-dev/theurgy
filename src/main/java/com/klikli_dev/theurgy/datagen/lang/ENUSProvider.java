@@ -252,6 +252,7 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
         this.addSulfurSource(SulfurRegistry.PERIDOT, "Peridot");
         this.addSulfurSource(SulfurRegistry.FLUORITE, "Fluorite");
         this.addSulfurSource(SulfurRegistry.SAPPHIRE, "Sapphire");
+        this.addSulfurSource(SulfurRegistry.SAL_AMMONIAC, "Sal Ammoniac");
 
         //Other Common Minerals
         this.addSulfurSource(SulfurRegistry.REDSTONE, "Redstone");
@@ -376,7 +377,11 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
 
         this.addItem(ItemRegistry.SAL_AMMONIAC_CRYSTAL, "Sal Ammoniac Crystal");
         this.addExtendedTooltip(ItemRegistry.SAL_AMMONIAC_CRYSTAL,
-                "Can be used in a Sal Ammoniac Accumulator to rapidly create Sal Ammoniac to be used as a solvent.");
+                """
+                        Obtained by mining Sal Ammoniac Ore.
+                        Can be used in a Sal Ammoniac Accumulator to rapidly create Sal Ammoniac to be used as a solvent.
+                        """);
+        this.addIngredientInfo(ItemRegistry.SAL_AMMONIAC_CRYSTAL, "Obtained by mining Sal Ammoniac Ore.");
     }
 
     @Override

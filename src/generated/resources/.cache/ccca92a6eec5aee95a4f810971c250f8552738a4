@@ -1,4 +1,4 @@
-// 1.19.4	2023-05-26T15:49:46.6267693	Item Models: theurgy
+// 1.19.4	2023-05-31T16:47:57.8287587	Item Models: theurgy
 a402a05d887ec6d271a9350944338d29e1233318 assets/theurgy/models/item/alchemical_salt.json
 9fd173e362b6644716da98ba0d15809f85879e78 assets/theurgy/models/item/alchemical_salt_crops.json
 9fd173e362b6644716da98ba0d15809f85879e78 assets/theurgy/models/item/alchemical_salt_mineral.json
@@ -29,6 +29,7 @@ e0f7b66a84e6588f01abbbce75b1803ffe5d46e2 assets/theurgy/models/item/alchemical_s
 e0f7b66a84e6588f01abbbce75b1803ffe5d46e2 assets/theurgy/models/item/alchemical_sulfur_quartz.json
 e0f7b66a84e6588f01abbbce75b1803ffe5d46e2 assets/theurgy/models/item/alchemical_sulfur_redstone.json
 e0f7b66a84e6588f01abbbce75b1803ffe5d46e2 assets/theurgy/models/item/alchemical_sulfur_ruby.json
+e0f7b66a84e6588f01abbbce75b1803ffe5d46e2 assets/theurgy/models/item/alchemical_sulfur_sal_ammoniac.json
 e0f7b66a84e6588f01abbbce75b1803ffe5d46e2 assets/theurgy/models/item/alchemical_sulfur_sapphire.json
 e0f7b66a84e6588f01abbbce75b1803ffe5d46e2 assets/theurgy/models/item/alchemical_sulfur_silver.json
 e0f7b66a84e6588f01abbbce75b1803ffe5d46e2 assets/theurgy/models/item/alchemical_sulfur_sulfur.json

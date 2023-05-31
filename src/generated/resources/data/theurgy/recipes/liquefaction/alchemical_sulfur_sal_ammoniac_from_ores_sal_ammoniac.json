@@ -1,0 +1,27 @@
+{
+  "type": "theurgy:liquefaction",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:ores/sal_ammoniac"
+      }
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:ores/sal_ammoniac"
+  },
+  "liquefaction_time": 200,
+  "result": {
+    "count": 4,
+    "item": "theurgy:alchemical_sulfur_sal_ammoniac",
+    "nbt": {
+      "theurgy:sulfur.source.id": "#forge:ores/sal_ammoniac"
+    }
+  },
+  "solvent": {
+    "amount": 15,
+    "fluid": "theurgy:sal_ammoniac"
+  }
+}

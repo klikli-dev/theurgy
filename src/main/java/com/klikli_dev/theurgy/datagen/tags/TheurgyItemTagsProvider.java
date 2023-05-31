@@ -107,6 +107,7 @@ public class TheurgyItemTagsProvider extends ItemTagsProvider {
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_ABUNDANT)
                 .add(SulfurRegistry.APATITE.get())
                 .add(SulfurRegistry.FLUORITE.get())
+                .add(SulfurRegistry.SAL_AMMONIAC.get())
         ;
 
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_COMMON)

@@ -20,7 +20,6 @@ import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import mezz.jei.api.registration.ISubtypeRegistration;
-import mezz.jei.api.runtime.IJeiRuntime;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -29,8 +28,6 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.stream.Collectors;
 
 @mezz.jei.api.JeiPlugin
 public class JeiPlugin implements IModPlugin {
@@ -78,11 +75,14 @@ public class JeiPlugin implements IModPlugin {
 
         //now remove sulfurs that have no recipe -> otherwise we see "no source" sulfurs in tag recipes
         //See also Theurgy.Client#onRecipesUpdated
-        var sulfursWithoutRecipe =  SulfurRegistry.SULFURS.getEntries().stream()
+        var sulfursWithoutRecipe = SulfurRegistry.SULFURS.getEntries().stream()
                 .map(RegistryObject::get)
                 .map(AlchemicalSulfurItem.class::cast)
                 .filter(sulfur -> liquefactionRecipes.stream().noneMatch(r -> r.getResultItem(level.registryAccess()) != null && r.getResultItem(level.registryAccess()).getItem() == sulfur)).map(ItemStack::new).toList();
         registration.getIngredientManager().removeIngredientsAtRuntime(VanillaTypes.ITEM_STACK, sulfursWithoutRecipe);
+
+
+        this.registerIngredientInfo(registration, ItemRegistry.SAL_AMMONIAC_CRYSTAL.get());
     }
 
     public void registerIngredientInfo(IRecipeRegistration registration, ItemLike ingredient) {

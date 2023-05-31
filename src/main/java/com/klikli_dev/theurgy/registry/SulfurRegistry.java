@@ -64,6 +64,8 @@ public class SulfurRegistry {
     public static final RegistryObject<AlchemicalSulfurItem> FLUORITE = registerWithSourceNameOverride("fluorite");
     public static final RegistryObject<AlchemicalSulfurItem> SAPPHIRE = registerWithSourceNameOverride("sapphire");
 
+    public static final RegistryObject<AlchemicalSulfurItem> SAL_AMMONIAC = registerWithSourceNameOverride("sal_ammoniac");
+
     //Other Common Minerals
     public static final RegistryObject<AlchemicalSulfurItem> REDSTONE = registerWithSourceNameOverride("redstone");
     public static final RegistryObject<AlchemicalSulfurItem> COAL = registerDefault("coal");

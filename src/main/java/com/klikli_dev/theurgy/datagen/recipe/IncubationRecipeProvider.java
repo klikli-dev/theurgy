@@ -71,6 +71,7 @@ public class IncubationRecipeProvider extends JsonRecipeProvider {
         this.makeRecipe(this.tag("forge:gems/peridot"), ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.PERIDOT.get());
         this.makeRecipe(this.tag("forge:gems/fluorite"), ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.FLUORITE.get());
         this.makeRecipe(this.tag("forge:gems/sapphire"), ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.SAPPHIRE.get());
+        this.makeRecipe(this.tag("forge:gems/sal_ammoniac"), ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.SAL_AMMONIAC.get());
 
         //other common minerals from sulfur
         this.makeRecipe(Tags.Items.DUSTS_REDSTONE, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.REDSTONE.get());

@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [beta/v1.19.2-1.3.3] - 2023-06-01
+### :sparkles: New Features
+- [`4c589ca`](https://github.com/klikli-dev/theurgy/commit/4c589caef3e18bcf0c7875167bd48210ce12d469) - allow divination rods to find blocks in same tag *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :bug: Bug Fixes
+- [`4e0089e`](https://github.com/klikli-dev/theurgy/commit/4e0089e795cbbc9b1ac672973cda3b4ec26d4373) - Adjust div rod default tiers to match recipes *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`b9c1f7f`](https://github.com/klikli-dev/theurgy/commit/b9c1f7fa3e3c371de58cede0be72650ad6c63220) - update to new jei maven *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [beta/v1.19.2-1.3.0] - 2023-02-01
 ### :sparkles: New Features
 - [`9899475`](https://github.com/klikli-dev/theurgy/commit/9899475a00956cead0a657a350323a195ff76474) - keep divination rod at 0 durability until next full scan *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -88,3 +99,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [beta/v1.19.2-1.2.0]: https://github.com/klikli-dev/theurgy/compare/beta/v1.19.2-1.1.1...beta/v1.19.2-1.2.0
 [beta/v1.19.2-1.2.1]: https://github.com/klikli-dev/theurgy/compare/beta/v1.19.2-1.2.0...beta/v1.19.2-1.2.1
 [beta/v1.19.2-1.3.0]: https://github.com/klikli-dev/theurgy/compare/beta/v1.19.2-1.2.1...beta/v1.19.2-1.3.0
+[beta/v1.19.2-1.3.3]: https://github.com/klikli-dev/theurgy/compare/beta/v1.19.2-1.3.0...beta/v1.19.2-1.3.3

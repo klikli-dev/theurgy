@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [beta/v1.19.4-1.3.3] - 2023-06-01
+### :sparkles: New Features
+- [`57cb822`](https://github.com/klikli-dev/theurgy/commit/57cb8220152af50a1a8bbcf95347840b5e294c17) - re-enable jei *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`7bd0c62`](https://github.com/klikli-dev/theurgy/commit/7bd0c62a1d5279f696510e8961dbfc06252cc7d0) - allow divination rods to find blocks in same tag *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [beta/v1.19.4-1.3.2] - 2023-05-01
 ### :sparkles: New Features
 - [`6a299a8`](https://github.com/klikli-dev/theurgy/commit/6a299a8a8d336f115d69b43e2a4f852caeaad589) - Update ru_ru.json *(PR [#103](https://github.com/klikli-dev/theurgy/pull/103) by [@Heimdallr-1](https://github.com/Heimdallr-1))*
@@ -149,3 +155,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [beta/v1.19.4-1.3.0]: https://github.com/klikli-dev/theurgy/compare/beta/v1.19.4-.0.0.0...beta/v1.19.4-1.3.0
 [beta/v1.19.4-1.3.1]: https://github.com/klikli-dev/theurgy/compare/beta/v1.19.4-1.3.0...beta/v1.19.4-1.3.1
 [beta/v1.19.4-1.3.2]: https://github.com/klikli-dev/theurgy/compare/beta/v1.19.4-1.3.1...beta/v1.19.4-1.3.2
+[beta/v1.19.4-1.3.3]: https://github.com/klikli-dev/theurgy/compare/beta/v1.19.4-1.3.2...beta/v1.19.4-1.3.3

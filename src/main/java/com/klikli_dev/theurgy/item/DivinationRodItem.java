@@ -6,7 +6,6 @@
 
 package com.klikli_dev.theurgy.item;
 
-import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.client.scanner.ScanManager;
 import com.klikli_dev.theurgy.entity.FollowProjectile;
@@ -19,7 +18,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.item.ItemPropertyFunction;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.NonNullList;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.*;
 import net.minecraft.resources.ResourceLocation;
@@ -36,6 +35,7 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.TierSortingRegistry;
@@ -45,6 +45,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class DivinationRodItem extends Item {
 
@@ -69,6 +70,44 @@ public class DivinationRodItem extends Item {
         this.defaultDuration = defaultDuration;
         this.defaultDurability = defaultDurability;
         this.defaultAllowAttuning = defaultAllowAttuning;
+    }
+
+    public static Set<Block> getScanTargetsForId(ResourceLocation linkedBlockId) {
+        //First: try to get a tag for the given block.
+        var tagKey = TagKey.create(Registries.BLOCK, getOreTagFromBlockId(linkedBlockId));
+        var tag = ForgeRegistries.BLOCKS.tags().getTag(tagKey);
+
+        if (!tag.isEmpty())
+            return tag.stream().collect(Collectors.toSet());
+
+        //If no fitting tag succeeds, try to get block + deepslate variant
+        var block = ForgeRegistries.BLOCKS.getValue(linkedBlockId);
+        if (block != null) {
+            Block deepslateBlock = null;
+
+            //also search for deepslate ores
+            if (linkedBlockId.getPath().contains("_ore") && !linkedBlockId.getPath().contains("deepslate_")) {
+                var deepslateId = new ResourceLocation(linkedBlockId.getNamespace(), "deepslate_" + linkedBlockId.getPath());
+                deepslateBlock = ForgeRegistries.BLOCKS.getValue(deepslateId);
+            }
+
+            //finally, only add deepslate variant, if it is not air
+            return deepslateBlock != null && deepslateBlock != Blocks.AIR ? Set.of(block, deepslateBlock) : Set.of(block);
+        }
+
+        return Set.of();
+    }
+
+    public static ResourceLocation getOreTagFromBlockId(ResourceLocation blockId) {
+        var path = blockId.getPath();
+
+        String oreName = path
+                .replace("_ore", "")
+                .replace("ore_", "")
+                .replace("_deepslate", "")
+                .replace("deepslate_", "");
+
+        return new ResourceLocation("forge:ores/" + oreName);
     }
 
     @Override
@@ -177,23 +216,13 @@ public class DivinationRodItem extends Item {
 
                 if (level.isClientSide) {
                     var id = new ResourceLocation(stack.getTag().getString(TheurgyConstants.Nbt.Divination.LINKED_BLOCK_ID));
-                    var block = ForgeRegistries.BLOCKS.getValue(id);
-                    if (block != null) {
-                        Block deepslateBlock = null;
 
-                        //also search for deepslate ores
-                        if (id.getPath().contains("_ore") && !id.getPath().contains("deepslate_")) {
-                            var deepslateId = new ResourceLocation(id.getNamespace(), "deepslate_" + id.getPath());
-                            deepslateBlock = ForgeRegistries.BLOCKS.getValue(deepslateId);
-                        }
-
-                        ScanManager.get().beginScan(player,
-                                deepslateBlock != null ? Set.of(block, deepslateBlock) : Set.of(block),
-                                tag.getInt(TheurgyConstants.Nbt.Divination.SETTING_RANGE),
-                                tag.getInt(TheurgyConstants.Nbt.Divination.SETTING_DURATION)
-                        );
-                    }
-
+                    var blocks = getScanTargetsForId(id);
+                    ScanManager.get().beginScan(player,
+                            blocks,
+                            tag.getInt(TheurgyConstants.Nbt.Divination.SETTING_RANGE),
+                            tag.getInt(TheurgyConstants.Nbt.Divination.SETTING_DURATION)
+                    );
                 }
             } else if (!level.isClientSide) {
                 player.sendSystemMessage(Component.translatable(TheurgyConstants.I18n.Message.DIVINATION_ROD_NO_LINK));
@@ -208,7 +237,7 @@ public class DivinationRodItem extends Item {
         if (!(entityLiving instanceof Player player))
             return stack;
 
-        if(stack.getDamageValue() >= stack.getMaxDamage()){
+        if (stack.getDamageValue() >= stack.getMaxDamage()) {
             //if in the last usage cycle the item was used up, we now actually break it to avoid over-use
             player.broadcastBreakEvent(player.getUsedItemHand());
             var item = stack.getItem();
@@ -439,7 +468,7 @@ public class DivinationRodItem extends Item {
             if (level != null) {
                 var recipeManager = level.getRecipeManager();
                 recipeManager.getRecipes().forEach((recipe) -> {
-                    if (recipe.getResultItem(level.registryAccess()) != null  && recipe.getResultItem(level.registryAccess()).getItem() == item) {
+                    if (recipe.getResultItem(level.registryAccess()) != null && recipe.getResultItem(level.registryAccess()).getItem() == item) {
                         output.accept(recipe.getResultItem(level.registryAccess()).copy());
                     }
                 });

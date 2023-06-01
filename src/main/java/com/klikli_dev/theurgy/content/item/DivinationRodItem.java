@@ -36,6 +36,7 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.TierSortingRegistry;
@@ -102,21 +103,9 @@ public class DivinationRodItem extends Item {
 
     private static void scanLinkedBlock(Player player, String id, int range, int duration) {
         var targetId = new ResourceLocation(id);
-        var block = ForgeRegistries.BLOCKS.getValue(targetId);
-        if (block != null) {
-            Block deepslateBlock = null;
 
-            //also search for deepslate ores
-            if (targetId.getPath().contains("_ore") && !targetId.getPath().contains("deepslate_")) {
-                var deepslateId = new ResourceLocation(targetId.getNamespace(), "deepslate_" + targetId.getPath());
-                deepslateBlock = ForgeRegistries.BLOCKS.getValue(deepslateId);
-            }
-
-            ScanManager.get().beginScan(player,
-                    deepslateBlock != null ? Set.of(block, deepslateBlock) : Set.of(block),
-                    range, duration
-            );
-        }
+        var blocks = getScanTargetsForId(targetId);
+        ScanManager.get().beginScan(player, blocks, range, duration);
     }
 
     private static void scanLinkedTag(Player player, String id, int range, int duration) {
@@ -127,6 +116,44 @@ public class DivinationRodItem extends Item {
         if (!blocks.isEmpty()) {
             ScanManager.get().beginScan(player, blocks, range, duration);
         }
+    }
+
+    public static Set<Block> getScanTargetsForId(ResourceLocation linkedBlockId) {
+        //First: try to get a tag for the given block.
+        var tagKey = TagKey.create(Registries.BLOCK, getOreTagFromBlockId(linkedBlockId));
+        var tag = ForgeRegistries.BLOCKS.tags().getTag(tagKey);
+
+        if (!tag.isEmpty())
+            return tag.stream().collect(Collectors.toSet());
+
+        //If no fitting tag succeeds, try to get block + deepslate variant
+        var block = ForgeRegistries.BLOCKS.getValue(linkedBlockId);
+        if (block != null) {
+            Block deepslateBlock = null;
+
+            //also search for deepslate ores
+            if (linkedBlockId.getPath().contains("_ore") && !linkedBlockId.getPath().contains("deepslate_")) {
+                var deepslateId = new ResourceLocation(linkedBlockId.getNamespace(), "deepslate_" + linkedBlockId.getPath());
+                deepslateBlock = ForgeRegistries.BLOCKS.getValue(deepslateId);
+            }
+
+            //finally, only add deepslate variant, if it is not air
+            return deepslateBlock != null && deepslateBlock != Blocks.AIR ? Set.of(block, deepslateBlock) : Set.of(block);
+        }
+
+        return Set.of();
+    }
+
+    public static ResourceLocation getOreTagFromBlockId(ResourceLocation blockId) {
+        var path = blockId.getPath();
+
+        String oreName = path
+                .replace("_ore", "")
+                .replace("ore_", "")
+                .replace("_deepslate", "")
+                .replace("deepslate_", "");
+
+        return new ResourceLocation("forge:ores/" + oreName);
     }
 
     @Override

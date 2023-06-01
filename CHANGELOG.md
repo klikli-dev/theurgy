@@ -4,6 +4,35 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [beta/v1.19.4-1.3.3] - 2023-06-01
+### :sparkles: New Features
+- [`57cb822`](https://github.com/klikli-dev/theurgy/commit/57cb8220152af50a1a8bbcf95347840b5e294c17) - re-enable jei *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`7bd0c62`](https://github.com/klikli-dev/theurgy/commit/7bd0c62a1d5279f696510e8961dbfc06252cc7d0) - allow divination rods to find blocks in same tag *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
+## [beta/v1.19.4-1.3.2] - 2023-05-01
+### :sparkles: New Features
+- [`6a299a8`](https://github.com/klikli-dev/theurgy/commit/6a299a8a8d336f115d69b43e2a4f852caeaad589) - Update ru_ru.json *(PR [#103](https://github.com/klikli-dev/theurgy/pull/103) by [@Heimdallr-1](https://github.com/Heimdallr-1))*
+
+
+## [beta/v1.19.4-1.3.1] - 2023-03-25
+### :sparkles: New Features
+- [`8ebd7ec`](https://github.com/klikli-dev/theurgy/commit/8ebd7ec566c09cfa0443ad04b6520531a0e401bb) - add russian translation *(PR [#98](https://github.com/klikli-dev/theurgy/pull/98) by [@Heimdallr-1](https://github.com/Heimdallr-1))*
+
+### :wrench: Chores
+- [`7ccf013`](https://github.com/klikli-dev/theurgy/commit/7ccf01337034b5d7fff99d61603b1d47d097e0b8) - remove unused comment *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
+## [beta/v1.19.4-1.3.0] - 2023-03-24
+### :sparkles: New Features
+- [`edf865b`](https://github.com/klikli-dev/theurgy/commit/edf865b4e89aa6c7bd3f6b5961e295b0cfbd5828) - update to 1.19.4 *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`c1136a2`](https://github.com/klikli-dev/theurgy/commit/c1136a2c1e0aa412b0a3558ed54441be4ca9aaa9) - update to 1.19.4 *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`26200b0`](https://github.com/klikli-dev/theurgy/commit/26200b04c46f472e991ed915d8e52544ffaea6eb) - update dependency required versions *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`d87d4ae`](https://github.com/klikli-dev/theurgy/commit/d87d4aeafe05257824cb07eac084e908208125af) - update changelog target branch *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [beta/v1.19.3-1.3.0] - 2023-02-01
 ### :sparkles: New Features
 - [`bb5084d`](https://github.com/klikli-dev/theurgy/commit/bb5084dd6298fc3649ee27fb644f8a5d37bfc225) - keep divination rod at 0 durability until next full scan *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -123,3 +152,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [beta/v1.19.3-1.2.0]: https://github.com/klikli-dev/theurgy/compare/beta/v1.19.3-1.1.1...beta/v1.19.3-1.2.0
 [beta/v1.19.3-1.2.1]: https://github.com/klikli-dev/theurgy/compare/beta/v1.19.3-1.2.0...beta/v1.19.3-1.2.1
 [beta/v1.19.3-1.3.0]: https://github.com/klikli-dev/theurgy/compare/beta/v1.19.3-1.2.1...beta/v1.19.3-1.3.0
+[beta/v1.19.4-1.3.0]: https://github.com/klikli-dev/theurgy/compare/beta/v1.19.4-.0.0.0...beta/v1.19.4-1.3.0
+[beta/v1.19.4-1.3.1]: https://github.com/klikli-dev/theurgy/compare/beta/v1.19.4-1.3.0...beta/v1.19.4-1.3.1
+[beta/v1.19.4-1.3.2]: https://github.com/klikli-dev/theurgy/compare/beta/v1.19.4-1.3.1...beta/v1.19.4-1.3.2
+[beta/v1.19.4-1.3.3]: https://github.com/klikli-dev/theurgy/compare/beta/v1.19.4-1.3.2...beta/v1.19.4-1.3.3

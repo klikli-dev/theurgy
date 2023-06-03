@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [beta/v1.18.2-1.3.4] - 2023-06-03
+### :bug: Bug Fixes
+- [`af01902`](https://github.com/klikli-dev/theurgy/commit/af01902d96248983ab83f8dde24cfa0abed47619) - divination rod JEI recipes not showing if IE and NERB are both present *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`c51e4a3`](https://github.com/klikli-dev/theurgy/commit/c51e4a3573b4e7b205885d7855294d17e8d61c82) - increase mod version *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [beta/v1.18.2-1.3.3] - 2023-06-01
 ### :sparkles: New Features
 - [`93e5171`](https://github.com/klikli-dev/theurgy/commit/93e51718a237db8a869aacb2ddf4eb8edbfe3180) - allow divination rods to find blocks in same tag *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -92,3 +100,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [beta/v1.18.2-1.2.0]: https://github.com/klikli-dev/theurgy/compare/beta/v1.18.2-1.1.1...beta/v1.18.2-1.2.0
 [beta/v1.18.2-1.3.0]: https://github.com/klikli-dev/theurgy/compare/beta/v1.18.2-1.2.0...beta/v1.18.2-1.3.0
 [beta/v1.18.2-1.3.3]: https://github.com/klikli-dev/theurgy/compare/beta/v1.18.2-1.3.0...beta/v1.18.2-1.3.3
+[beta/v1.18.2-1.3.4]: https://github.com/klikli-dev/theurgy/compare/beta/v1.18.2-1.3.3...beta/v1.18.2-1.3.4

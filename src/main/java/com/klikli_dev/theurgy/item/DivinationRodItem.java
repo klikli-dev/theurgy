@@ -333,8 +333,10 @@ public class DivinationRodItem extends Item {
     }
 
     @Override
-    public @Nullable ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag nbt) {
-        var tag = stack.getOrCreateTag();
+    public void verifyTagAfterLoad(CompoundTag tag) {
+        //moved from initCapabilities, because that is now lazy loaded.
+        //that lazy load caused: https://github.com/klikli-dev/theurgy/issues/117
+        //Issue explained very well here: https://github.com/BluSunrize/ImmersiveEngineering/issues/5708#issuecomment-1574885125
 
         //fill in any nbt that is not provided by the recipe with default values
         if (!tag.contains(TheurgyConstants.Nbt.Divination.SETTING_TIER))
@@ -358,7 +360,7 @@ public class DivinationRodItem extends Item {
         if (!tag.contains(TheurgyConstants.Nbt.Divination.SETTING_ALLOW_ATTUNING))
             tag.putBoolean(TheurgyConstants.Nbt.Divination.SETTING_ALLOW_ATTUNING, this.defaultAllowAttuning);
 
-        return super.initCapabilities(stack, nbt);
+        super.verifyTagAfterLoad(tag);
     }
 
     @Override

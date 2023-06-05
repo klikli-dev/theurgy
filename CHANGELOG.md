@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [beta/v1.19.4-1.3.5] - 2023-06-05
+### :sparkles: New Features
+- [`637cced`](https://github.com/klikli-dev/theurgy/commit/637cced82cfc522707deec6d67321af7991a163a) - Create zh_cn.json *(PR [#115](https://github.com/klikli-dev/theurgy/pull/115) by [@Zoshsgahdnkc](https://github.com/Zoshsgahdnkc))*
+
+
 ## [beta/v1.19.4-1.3.4] - 2023-06-03
 ### :bug: Bug Fixes
 - [`57bea42`](https://github.com/klikli-dev/theurgy/commit/57bea423ce142f81f9e6d35d7559d942317e214c) - divination rod JEI recipes not showing if IE and NERB are both present *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -165,3 +170,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [beta/v1.19.4-1.3.2]: https://github.com/klikli-dev/theurgy/compare/beta/v1.19.4-1.3.1...beta/v1.19.4-1.3.2
 [beta/v1.19.4-1.3.3]: https://github.com/klikli-dev/theurgy/compare/beta/v1.19.4-1.3.2...beta/v1.19.4-1.3.3
 [beta/v1.19.4-1.3.4]: https://github.com/klikli-dev/theurgy/compare/beta/v1.19.4-1.3.3...beta/v1.19.4-1.3.4
+[beta/v1.19.4-1.3.5]: https://github.com/klikli-dev/theurgy/compare/beta/v1.19.4-1.3.4...beta/v1.19.4-1.3.5

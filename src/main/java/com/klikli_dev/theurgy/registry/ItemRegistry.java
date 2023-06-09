@@ -15,7 +15,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Tiers;
-import net.minecraftforge.event.CreativeModeTabEvent;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -67,23 +66,4 @@ public class ItemRegistry {
                     96, 40, 12, true));
     //TODO: in the future, no attuning for higher tier rods
 
-    public static void onRegisterCreativeModeTabs(CreativeModeTabEvent.Register event) {
-        event.registerCreativeModeTab(new ResourceLocation(Theurgy.MODID + ":" + Theurgy.MODID),
-                (builder) -> {
-                    builder.icon(() -> new ItemStack(EMPTY_JAR.get()))
-                            .title(Component.translatable(TheurgyConstants.I18n.ITEM_GROUP)).build();
-                    builder.displayItems((params, output) -> {
-                        output.accept(EMPTY_JAR.get());
-
-                        AlchemicalSulfurItem.DistHelper.registerCreativeModeTabs(ALCHEMICAL_SULFUR.get(), output);
-                        DivinationRodItem.DistHelper.registerCreativeModeTabs(DIVINATION_ROD_T1.get(), output);
-                        DivinationRodItem.DistHelper.registerCreativeModeTabs(DIVINATION_ROD_T2.get(), output);
-                        DivinationRodItem.DistHelper.registerCreativeModeTabs(DIVINATION_ROD_T3.get(), output);
-                        DivinationRodItem.DistHelper.registerCreativeModeTabs(DIVINATION_ROD_T4.get(), output);
-                    });
-
-                }
-        );
-
-    }
 }

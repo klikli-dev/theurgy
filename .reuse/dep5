@@ -13,27 +13,27 @@ License: CC-BY-4.0
 
 Files: .github/*
 Copyright: 2022 klikli-dev
-License: CC-BY-4.0
+License: CC0-1.0
 
 Files: .gitattributes
 Copyright: 2022 klikli-dev
-License: MIT
+License: CC0-1.0
 
 Files: .gitignore
 Copyright: 2022 klikli-dev
-License: MIT
+License: CC0-1.0
 
 Files: settings.gradle
 Copyright: 2022 klikli-dev
-License: MIT
+License: CC0-1.0
 
 Files: build.gradle
 Copyright: 2022 klikli-dev
-License: MIT
+License: CC0-1.0
 
 Files: gradle.properties
 Copyright: 2022 klikli-dev
-License: MIT
+License: CC0-1.0
 
 Files: gradle/*
 Copyright: 2015 the original author or authors.
@@ -42,3 +42,7 @@ License: Apache-2.0
 Files: gradlew*
 Copyright: 2015 the original author or authors.
 License: Apache-2.0
+
+Files: CHANGELOG.md
+Copyright: 2022 klikli-dev
+License: CC0-1.0

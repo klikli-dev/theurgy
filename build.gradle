@@ -26,7 +26,8 @@ println "Java: ${System.getProperty 'java.version'}, JVM: ${System.getProperty '
 minecraft {
     mappings channel: mapping_channel, version: mapping_version
 
-    accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg') // Currently, this location cannot be changed from the default.
+    accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
+    // Currently, this location cannot be changed from the default.
 
     // Default run configurations.
     // These can be tweaked, removed, or duplicated as needed.
@@ -138,11 +139,13 @@ dependencies {
 
     //Jei
     compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
-    compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}-common:${jei_version}") //we're using the vanilla recipe category rendering constants
+    compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}-common:${jei_version}")
+    //we're using the vanilla recipe category rendering constants
     compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge-api:${jei_version}")
     runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
 
-    compileOnly fg.deobf("com.klikli_dev:modonomicon:${minecraft_version}-${modonomicon_version}") //we build against full jar because we NEED IT ALL
+    compileOnly fg.deobf("com.klikli_dev:modonomicon:${minecraft_version}-${modonomicon_version}")
+    //we build against full jar because we NEED IT ALL
     runtimeOnly fg.deobf("com.klikli_dev:modonomicon:${minecraft_version}-${modonomicon_version}")
 
 }
@@ -154,17 +157,19 @@ dependencies {
 // See https://docs.gradle.org/current/dsl/org.gradle.language.jvm.tasks.ProcessResources.html
 def resourceTargets = ['META-INF/mods.toml', 'pack.mcmeta']
 def replaceProperties = [
-        minecraft_version      : minecraft_version,
-        minecraft_version_range: minecraft_version_range,
-        forge_version          : forge_version,
-        forge_version_range    : forge_version_range,
-        loader_version_range   : loader_version_range,
-        mod_id                 : mod_id,
-        mod_name               : mod_name,
-        mod_license            : mod_license,
-        mod_version            : mod_version,
-        mod_authors            : mod_authors,
-        mod_description        : mod_description
+        minecraft_version        : minecraft_version,
+        minecraft_version_range  : minecraft_version_range,
+        forge_version            : forge_version,
+        forge_version_range      : forge_version_range,
+        loader_version_range     : loader_version_range,
+        mod_id                   : mod_id,
+        mod_name                 : mod_name,
+        mod_license              : mod_license,
+        mod_version              : mod_version,
+        mod_authors              : mod_authors,
+        mod_description          : mod_description,
+        jei_version_range        : jei_version_range,
+        modonomicon_version_range: modonomicon_version_range,
 ]
 processResources {
     inputs.properties replaceProperties

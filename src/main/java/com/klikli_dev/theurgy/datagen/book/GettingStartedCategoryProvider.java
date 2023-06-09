@@ -87,7 +87,7 @@ public class GettingStartedCategoryProvider {
                         If the reader finds themselves in trouble of any kind, prompt assistance will be provided at the Council of Alchemists, known also as Kli Kli's Discord Server.
                         \\
                         \\
-                        [To get help, join us at https://invite.gg/klikli](https://invite.gg/klikli)
+                        [To get help, join us at https://dsc.gg/klikli](https://discord.gg/trE4SHRXvb)
                         """);
 
 

@@ -176,14 +176,14 @@ public class DivinationRodRecipe extends ShapedRecipe {
             var shapedRecipe = RecipeSerializer.SHAPED_RECIPE.fromJson(pRecipeId, pJson);
 
             //we can use null here because the shaped recipe does not use the registry access
-            return new DivinationRodRecipe(pRecipeId, shapedRecipe.getGroup(), shapedRecipe.getWidth(), shapedRecipe.getHeight(), shapedRecipe.getIngredients(), shapedRecipe.getResultItem(null));
+            return new DivinationRodRecipe(pRecipeId, shapedRecipe.getGroup(), shapedRecipe.getWidth(), shapedRecipe.getHeight(), shapedRecipe.getIngredients(), shapedRecipe.getResultItem(RegistryAccess.EMPTY));
         }
 
         public DivinationRodRecipe fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
             var shapedRecipe = RecipeSerializer.SHAPED_RECIPE.fromNetwork(pRecipeId, pBuffer);
 
             //we can use null here because the shaped recipe does not use the registry access
-            return new DivinationRodRecipe(pRecipeId, shapedRecipe.getGroup(), shapedRecipe.getWidth(), shapedRecipe.getHeight(), shapedRecipe.getIngredients(), shapedRecipe.getResultItem(null));
+            return new DivinationRodRecipe(pRecipeId, shapedRecipe.getGroup(), shapedRecipe.getWidth(), shapedRecipe.getHeight(), shapedRecipe.getIngredients(), shapedRecipe.getResultItem(RegistryAccess.EMPTY));
         }
 
         public void toNetwork(FriendlyByteBuf pBuffer, DivinationRodRecipe pRecipe) {

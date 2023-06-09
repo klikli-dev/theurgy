@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [beta/v1.20-1.3.5] - 2023-06-09
+### :sparkles: New Features
+- [`ebab77a`](https://github.com/klikli-dev/theurgy/commit/ebab77ac32f0903781f94ec670a7eeadbb4bffd0) - update to 1.20 *(PR [#120](https://github.com/klikli-dev/theurgy/pull/120) by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`c8e52c8`](https://github.com/klikli-dev/theurgy/commit/c8e52c8bc89c9f4a044f9e71af13e1d1c411cd5f) - space *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [beta/v1.19.4-1.3.5] - 2023-06-05
 ### :sparkles: New Features
 - [`637cced`](https://github.com/klikli-dev/theurgy/commit/637cced82cfc522707deec6d67321af7991a163a) - Create zh_cn.json *(PR [#115](https://github.com/klikli-dev/theurgy/pull/115) by [@Zoshsgahdnkc](https://github.com/Zoshsgahdnkc))*
@@ -171,3 +179,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [beta/v1.19.4-1.3.3]: https://github.com/klikli-dev/theurgy/compare/beta/v1.19.4-1.3.2...beta/v1.19.4-1.3.3
 [beta/v1.19.4-1.3.4]: https://github.com/klikli-dev/theurgy/compare/beta/v1.19.4-1.3.3...beta/v1.19.4-1.3.4
 [beta/v1.19.4-1.3.5]: https://github.com/klikli-dev/theurgy/compare/beta/v1.19.4-1.3.4...beta/v1.19.4-1.3.5
+[beta/v1.20-1.3.5]: https://github.com/klikli-dev/theurgy/compare/beta/v1.20-0.0.0...beta/v1.20-1.3.5

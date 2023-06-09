@@ -29,6 +29,7 @@ import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 
@@ -99,22 +100,22 @@ public class AccumulationCategory implements IRecipeCategory<AccumulationRecipe>
     }
 
     @Override
-    public void draw(AccumulationRecipe recipe, IRecipeSlotsView recipeSlotsView, PoseStack poseStack, double mouseX, double mouseY) {
-        GuiTextures.JEI_ARROW_RIGHT_EMPTY.render(poseStack, 24, 2);
-        this.getAnimatedArrow(recipe).draw(poseStack, 24, 2);
+    public void draw(AccumulationRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+        GuiTextures.JEI_ARROW_RIGHT_EMPTY.render(guiGraphics, 24, 2);
+        this.getAnimatedArrow(recipe).draw(guiGraphics, 24, 2);
 
-        this.drawCookTime(recipe, poseStack, 29);
+        this.drawCookTime(recipe, guiGraphics, 29);
     }
 
-    protected void drawCookTime(AccumulationRecipe recipe, PoseStack poseStack, int y) {
+    protected void drawCookTime(AccumulationRecipe recipe, GuiGraphics guiGraphics, int y) {
         int cookTime = recipe.getAccumulationTime();
         if (cookTime > 0) {
             int cookTimeSeconds = cookTime / 20;
             Component timeString = Component.translatable("gui.jei.category.smelting.time.seconds", cookTimeSeconds);
             Minecraft minecraft = Minecraft.getInstance();
-            Font fontRenderer = minecraft.font;
-            int stringWidth = fontRenderer.width(timeString);
-            fontRenderer.draw(poseStack, timeString, this.background.getWidth() - stringWidth, y, 0xFF808080);
+            Font font = minecraft.font;
+            int stringWidth = font.width(timeString);
+            guiGraphics.drawString(font, timeString, this.background.getWidth() - stringWidth, y, 0xFF808080, false);
         }
     }
 

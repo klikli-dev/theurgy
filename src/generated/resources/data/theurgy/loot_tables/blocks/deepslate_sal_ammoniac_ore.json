@@ -45,5 +45,6 @@
       ],
       "rolls": 1.0
     }
-  ]
+  ],
+  "random_sequence": "theurgy:blocks/deepslate_sal_ammoniac_ore"
 }

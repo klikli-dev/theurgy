@@ -11,6 +11,7 @@ import com.klikli_dev.theurgy.content.renderer.model.CalcinationOvenModel;
 import com.klikli_dev.theurgy.content.renderer.model.DistillerModel;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.MultiBufferSource;
 import org.joml.Matrix4f;
 import software.bernie.geckolib.cache.object.BakedGeoModel;

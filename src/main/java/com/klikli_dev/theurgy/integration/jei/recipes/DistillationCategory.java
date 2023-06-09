@@ -27,6 +27,7 @@ import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 
@@ -80,25 +81,25 @@ public class DistillationCategory implements IRecipeCategory<DistillationRecipe>
     }
 
     @Override
-    public void draw(DistillationRecipe recipe, IRecipeSlotsView recipeSlotsView, PoseStack poseStack, double mouseX, double mouseY) {
-        GuiTextures.JEI_FIRE_EMPTY.render(poseStack, 1, 20);
-        this.animatedFire.draw(poseStack, 1, 20);
+    public void draw(DistillationRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+        GuiTextures.JEI_FIRE_EMPTY.render(guiGraphics, 1, 20);
+        this.animatedFire.draw(guiGraphics, 1, 20);
 
-        GuiTextures.JEI_ARROW_RIGHT_EMPTY.render(poseStack, 24, 8);
-        this.getAnimatedArrow(recipe).draw(poseStack, 24, 8);
+        GuiTextures.JEI_ARROW_RIGHT_EMPTY.render(guiGraphics, 24, 8);
+        this.getAnimatedArrow(recipe).draw(guiGraphics, 24, 8);
 
-        this.drawCookTime(recipe, poseStack, 34);
+        this.drawCookTime(recipe, guiGraphics, 34);
     }
 
-    protected void drawCookTime(DistillationRecipe recipe, PoseStack poseStack, int y) {
+    protected void drawCookTime(DistillationRecipe recipe, GuiGraphics guiGraphics, int y) {
         int cookTime = recipe.getDistillationTime();
         if (cookTime > 0) {
             int cookTimeSeconds = cookTime / 20;
             Component timeString = Component.translatable("gui.jei.category.smelting.time.seconds", cookTimeSeconds);
             Minecraft minecraft = Minecraft.getInstance();
-            Font fontRenderer = minecraft.font;
-            int stringWidth = fontRenderer.width(timeString);
-            fontRenderer.draw(poseStack, timeString, this.background.getWidth() - stringWidth, y, 0xFF808080);
+            Font font = minecraft.font;
+            int stringWidth = font.width(timeString);
+            guiGraphics.drawString(font, timeString, this.background.getWidth() - stringWidth, y, 0xFF808080, false);
         }
     }
 

@@ -16,5 +16,6 @@
       ],
       "rolls": 1.0
     }
-  ]
+  ],
+  "random_sequence": "theurgy:blocks/incubator_salt_vessel"
 }

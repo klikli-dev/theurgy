@@ -238,7 +238,7 @@ public class CalcinationOvenBlockEntity extends BlockEntity implements GeoBlockE
 
             var oldStack = this.getStackInSlot(slot);
 
-            boolean sameItem = !newStack.isEmpty() && newStack.sameItem(oldStack) && ItemStack.tagMatches(newStack, oldStack);
+            boolean sameItem = !newStack.isEmpty() && ItemStack.isSameItemSameTags(newStack, oldStack);
 
             super.setStackInSlot(slot, newStack);
 

@@ -48,7 +48,7 @@ side = "BOTH"
 [[dependencies.theurgy]]
 modId = "almostunified"
 mandatory = false
-versionRange = "${almostunified_version_range}"
+versionRange = "${almost_unified_version_range}"
 side = "BOTH"
 
 [[dependencies.theurgy]]

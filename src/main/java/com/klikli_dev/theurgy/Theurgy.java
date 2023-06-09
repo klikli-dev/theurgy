@@ -63,6 +63,7 @@ public class Theurgy {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         ItemRegistry.ITEMS.register(modEventBus);
+        CreativeModeTabRegistry.CREATIVE_MODE_TABS.register(modEventBus);
         SulfurRegistry.SULFURS.register(modEventBus);
         SaltRegistry.SALTS.register(modEventBus);
         BlockRegistry.BLOCKS.register(modEventBus);
@@ -81,7 +82,6 @@ public class Theurgy {
         modEventBus.addListener(this::onServerSetup);
 
         modEventBus.addListener(TheurgyDataGenerators::onGatherData);
-        modEventBus.addListener(ItemRegistry::onRegisterCreativeModeTabs);
         modEventBus.addListener(SulfurRegistry::onBuildCreativeModTabs);
         modEventBus.addListener(SaltRegistry::onBuildCreativeModTabs);
         modEventBus.addListener(RecipeSerializerRegistry::onRegisterRecipeSerializers);

@@ -9,7 +9,7 @@ package com.klikli_dev.theurgy.content.gui;
 import com.klikli_dev.theurgy.Theurgy;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
 
 /**
@@ -53,20 +53,10 @@ public enum GuiTextures {
         this.y = y;
     }
 
-    public void bind() {
-        RenderSystem.setShaderTexture(0, this.location);
+    public void render(GuiGraphics guiGraphics, int x, int y) {
         RenderSystem.enableBlend();
-    }
-
-    public void render(PoseStack ms, int x, int y) {
-        this.bind();
         //seems tex width and height are switched here, but that is just a misnomer in the mapping.
         //I think pre 1.19.4 it was actually switched, but now when providing the size corresponding to the mapping name it is distorted - so we switch it back.
-        GuiComponent.blit(ms, x, y, 0, this.x, this.y, this.width, this.height, this.textureWidth, this.textureHeight);
-    }
-
-    public void render(PoseStack ms, int x, int y, GuiComponent component) {
-        this.bind();
-        GuiComponent.blit(ms, x, y, this.x, this.y, this.width, this.height);
+        guiGraphics.blit(this.location, x, y, 0, this.x, this.y, this.width, this.height, this.textureWidth, this.textureHeight);
     }
 }

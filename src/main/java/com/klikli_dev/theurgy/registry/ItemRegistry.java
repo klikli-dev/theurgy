@@ -14,7 +14,6 @@ import com.klikli_dev.theurgy.content.item.DivinationRodItem;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.*;
-import net.minecraftforge.event.CreativeModeTabEvent;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -113,42 +112,4 @@ public class ItemRegistry {
 
     public static final RegistryObject<BlockItem> SAL_AMMONIAC_TANK =
             ITEMS.register("sal_ammoniac_tank", () -> new BlockItem(BlockRegistry.SAL_AMMONIAC_TANK.get(), new Item.Properties()));
-
-
-    public static void onRegisterCreativeModeTabs(CreativeModeTabEvent.Register event) {
-        THEURGY_TAB= event.registerCreativeModeTab(new ResourceLocation(Theurgy.MODID + ":" + Theurgy.MODID),
-                (builder) -> {
-                    builder.icon(() -> new ItemStack(EMPTY_JAR.get()))
-                            .title(Component.translatable(TheurgyConstants.I18n.ITEM_GROUP)).build();
-                    builder.displayItems((params, output) -> {
-                        DivinationRodItem.DistHelper.registerCreativeModeTabs(DIVINATION_ROD_T1.get(), output);
-                        DivinationRodItem.DistHelper.registerCreativeModeTabs(DIVINATION_ROD_T2.get(), output);
-                        DivinationRodItem.DistHelper.registerCreativeModeTabs(DIVINATION_ROD_T3.get(), output);
-                        DivinationRodItem.DistHelper.registerCreativeModeTabs(DIVINATION_ROD_T4.get(), output);
-
-                        output.accept(SAL_AMMONIAC_BUCKET.get());
-
-                        output.accept(MERCURY_SHARD.get());
-                        output.accept(MERCURY_CRYSTAL.get());
-
-                        output.accept(SAL_AMMONIAC_CRYSTAL.get());
-                        output.accept(SAL_AMMONIAC_ORE.get());
-                        output.accept(DEEPSLATE_SAL_AMMONIAC_ORE.get());
-
-                        output.accept(CALCINATION_OVEN.get());
-                        output.accept(PYROMANTIC_BRAZIER.get());
-                        output.accept(LIQUEFACTION_CAULDRON.get());
-                        output.accept(DISTILLER.get());
-                        output.accept(INCUBATOR.get());
-                        output.accept(INCUBATOR_MERCURY_VESSEL.get());
-                        output.accept(INCUBATOR_SALT_VESSEL.get());
-                        output.accept(INCUBATOR_SULFUR_VESSEL.get());
-
-                        output.accept(SAL_AMMONIAC_ACCUMULATOR.get());
-                        output.accept(SAL_AMMONIAC_TANK.get());
-                    });
-
-                }
-        );
-    }
 }

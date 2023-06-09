@@ -117,7 +117,7 @@ public class DivinationRodItem extends Item {
 
     @Override
     public void onUsingTick(ItemStack stack, LivingEntity entityLiving, int count) {
-        if (entityLiving.level.isClientSide && entityLiving instanceof Player) {
+        if (entityLiving.level().isClientSide && entityLiving instanceof Player) {
             ScanManager.get().updateScan((Player) entityLiving, false);
         }
     }

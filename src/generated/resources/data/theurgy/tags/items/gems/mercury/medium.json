@@ -1,0 +1,23 @@
+{
+  "values": [
+    "#forge:gems/amethyst",
+    "#forge:gems/prismarine",
+    "#forge:gems/sal_ammoniac",
+    {
+      "id": "#forge:gems/ruby",
+      "required": false
+    },
+    {
+      "id": "#forge:gems/peridot",
+      "required": false
+    },
+    {
+      "id": "#forge:gems/fluorite",
+      "required": false
+    },
+    {
+      "id": "#forge:gems/sapphire",
+      "required": false
+    }
+  ]
+}

@@ -34,7 +34,11 @@ public class DistillationRecipeProvider extends JsonRecipeProvider {
     @Override
     void buildRecipes(BiConsumer<ResourceLocation, JsonObject> recipeConsumer) {
         this.makeMercuryShardRecipe(1, Tags.Items.STONE, 10);
+        this.makeMercuryShardRecipe(1, Tags.Items.COBBLESTONE, 10);
+        this.makeMercuryShardRecipe(1, Tags.Items.GRAVEL, 15);
         this.makeMercuryShardRecipe(1, ItemTags.DIRT, 25);
+        this.makeMercuryShardRecipe(1, ItemTags.SAND, 15);
+        this.makeMercuryShardRecipe(1, Tags.Items.GLASS, 10);
 
         this.makeMercuryShardRecipe(5, ItemTagRegistry.LOW_MERCURY_ORES, 1);
         this.makeMercuryShardRecipe(25, ItemTagRegistry.MEDIUM_MERCURY_ORES, 1);
@@ -43,6 +47,18 @@ public class DistillationRecipeProvider extends JsonRecipeProvider {
         this.makeMercuryShardRecipe(1, ItemTagRegistry.LOW_MERCURY_RAW_MATERIALS, 1);
         this.makeMercuryShardRecipe(5, ItemTagRegistry.MEDIUM_MERCURY_RAW_MATERIALS, 1);
         this.makeMercuryShardRecipe(10, ItemTagRegistry.HIGH_MERCURY_RAW_MATERIALS, 1);
+
+        this.makeMercuryShardRecipe(1, ItemTagRegistry.LOW_MERCURY_METALS, 1);
+        this.makeMercuryShardRecipe(5, ItemTagRegistry.MEDIUM_MERCURY_METALS, 1);
+        this.makeMercuryShardRecipe(10, ItemTagRegistry.HIGH_MERCURY_METALS, 1);
+
+        this.makeMercuryShardRecipe(1, ItemTagRegistry.LOW_MERCURY_GEMS, 1);
+        this.makeMercuryShardRecipe(5, ItemTagRegistry.MEDIUM_MERCURY_GEMS, 1);
+        this.makeMercuryShardRecipe(10, ItemTagRegistry.HIGH_MERCURY_GEMS, 1);
+
+        this.makeMercuryShardRecipe(1, ItemTagRegistry.LOW_MERCURY_OTHER_MINERALS, 1);
+        this.makeMercuryShardRecipe(5, ItemTagRegistry.MEDIUM_MERCURY_OTHER_MINERALS, 1);
+        this.makeMercuryShardRecipe(10, ItemTagRegistry.HIGH_MERCURY_OTHER_MINERALS, 1);
     }
 
     public void makeMercuryShardRecipe(int resultCount, TagKey<Item> ingredient, int ingredientCount) {

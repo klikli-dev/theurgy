@@ -5,17 +5,17 @@
       "type": "forge:not",
       "value": {
         "type": "forge:tag_empty",
-        "tag": "theurgy:high_mercury_ores"
+        "tag": "theurgy:ores/mercury/medium"
       }
     }
   ],
   "distillation_time": 200,
   "ingredient": {
-    "tag": "theurgy:high_mercury_ores"
+    "tag": "theurgy:ores/mercury/medium"
   },
   "ingredient_count": 1,
   "result": {
-    "count": 50,
+    "count": 25,
     "item": "theurgy:mercury_shard"
   }
 }

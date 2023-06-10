@@ -1,4 +1,4 @@
-// 1.20	2023-06-09T14:52:10.1604374	Tags for minecraft:item mod id theurgy
+// 1.20	2023-06-10T12:04:19.5779816	Tags for minecraft:item mod id theurgy
 7a78325a639e879280cccf4d15f364e02da86003 data/forge/tags/items/gems.json
 9a414088a384ea8077655b79eb53ac263aaae5e3 data/forge/tags/items/gems/sal_ammoniac.json
 04abd356cb9b230f4d1adcf90db05571e8a17d05 data/forge/tags/items/ores/sal_ammoniac.json
@@ -22,9 +22,18 @@ d83463626204ada454a14f6956bedf9e647be1ec data/theurgy/tags/items/alchemical_sulf
 a1f5db5c4c9d4b747e83dd3f796c8698304575bf data/theurgy/tags/items/alchemical_sulfurs/other_minerals/common.json
 35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/theurgy/tags/items/alchemical_sulfurs/other_minerals/precious.json
 35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/theurgy/tags/items/alchemical_sulfurs/other_minerals/rare.json
-b119b915f2e2b16c4a5750a50453a2cfddf7235f data/theurgy/tags/items/high_mercury_ores.json
-ca75039df5ed6330ee575eb55689e8f23a1e7a99 data/theurgy/tags/items/high_mercury_raw_materials.json
-f844cd452a39f1295f45a4cb9585a1510a719986 data/theurgy/tags/items/low_mercury_ores.json
-ba40677f5ca89c0a487417a60d1bb1fc6e20b837 data/theurgy/tags/items/low_mercury_raw_materials.json
-201dcad9991b37cbbe3388aafec4048eebaae020 data/theurgy/tags/items/medium_mercury_ores.json
-6c46417f3830c1411e097320c5d40fcee9cf28a7 data/theurgy/tags/items/medium_mercury_raw_materials.json
+c2e9d4fba333d2af3dbe84b5773c1c1c5e055dc4 data/theurgy/tags/items/gems/mercury/high.json
+959c361f3fbee6edb10161ff4ebc2850ef625547 data/theurgy/tags/items/gems/mercury/low.json
+e85a6add1492e3a02b8a37a6308fc632e930180f data/theurgy/tags/items/gems/mercury/medium.json
+dd248dce97f06027745077215c44f2840b3d6685 data/theurgy/tags/items/metals/mercury/high.json
+1ec36d4d19b4be396697dc03365e232bf0e42c97 data/theurgy/tags/items/metals/mercury/low.json
+67412e7cf25103161049bc0ac62570357f558191 data/theurgy/tags/items/metals/mercury/medium.json
+b119b915f2e2b16c4a5750a50453a2cfddf7235f data/theurgy/tags/items/ores/mercury/high.json
+f844cd452a39f1295f45a4cb9585a1510a719986 data/theurgy/tags/items/ores/mercury/low.json
+201dcad9991b37cbbe3388aafec4048eebaae020 data/theurgy/tags/items/ores/mercury/medium.json
+35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/theurgy/tags/items/other_minerals/mercury/high.json
+cddb5c3b26d739614cdd25038f449762a5af9732 data/theurgy/tags/items/other_minerals/mercury/low.json
+60a5194a30db746b92cf1af2a2eeeca4af7ba1ff data/theurgy/tags/items/other_minerals/mercury/medium.json
+ca75039df5ed6330ee575eb55689e8f23a1e7a99 data/theurgy/tags/items/raw_materials/mercury/high.json
+ba40677f5ca89c0a487417a60d1bb1fc6e20b837 data/theurgy/tags/items/raw_materials/mercury/low.json
+6c46417f3830c1411e097320c5d40fcee9cf28a7 data/theurgy/tags/items/raw_materials/mercury/medium.json

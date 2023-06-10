@@ -5,17 +5,17 @@
       "type": "forge:not",
       "value": {
         "type": "forge:tag_empty",
-        "tag": "theurgy:low_mercury_raw_materials"
+        "tag": "theurgy:metals/mercury/high"
       }
     }
   ],
   "distillation_time": 200,
   "ingredient": {
-    "tag": "theurgy:low_mercury_raw_materials"
+    "tag": "theurgy:metals/mercury/high"
   },
   "ingredient_count": 1,
   "result": {
-    "count": 1,
+    "count": 10,
     "item": "theurgy:mercury_shard"
   }
 }

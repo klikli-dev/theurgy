@@ -12,6 +12,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.Tags;
@@ -211,6 +212,68 @@ public class TheurgyItemTagsProvider extends ItemTagsProvider {
                 .addOptionalTag(this.rl("forge:raw_materials/allthemodium"))
                 .addOptionalTag(this.rl("forge:raw_materials/unobtainium"))
                 .addOptionalTag(this.rl("forge:raw_materials/vibranium"))
+        ;
+
+        this.tag(ItemTagRegistry.LOW_MERCURY_METALS)
+                .addTag(Tags.Items.INGOTS_IRON)
+                .addTag(Tags.Items.INGOTS_COPPER)
+                .addOptionalTag(this.rl("forge:ingots/zinc"))
+                .addOptionalTag(this.rl("forge:ingots/osmium"))
+                .addOptionalTag(this.rl("forge:ingots/nickel"))
+                .addOptionalTag(this.rl("forge:ingots/lead"))
+                .addOptionalTag(this.rl("forge:ingots/tin"))
+                .addOptionalTag(this.rl("forge:ingots/cinnabar"))
+        ;
+
+        this.tag(ItemTagRegistry.MEDIUM_MERCURY_METALS)
+                .addTag(Tags.Items.INGOTS_GOLD)
+                .addOptionalTag(this.rl("forge:ingots/uranium"))
+                .addOptionalTag(this.rl("forge:ingots/silver"))
+                .addOptionalTag(this.rl("forge:ingots/azure_silver"))
+                .addOptionalTag(this.rl("forge:ingots/iridium"))
+                .addOptionalTag(this.rl("forge:ingots/crimson_iron"))
+                .addOptionalTag(this.rl("forge:ingots/platinum"))
+        ;
+
+        this.tag(ItemTagRegistry.HIGH_MERCURY_METALS)
+                .addTag(Tags.Items.INGOTS_NETHERITE)
+                .addOptionalTag(this.rl("forge:ingots/allthemodium"))
+                .addOptionalTag(this.rl("forge:ingots/unobtainium"))
+                .addOptionalTag(this.rl("forge:ingots/vibranium"))
+        ;
+
+        this.tag(ItemTagRegistry.LOW_MERCURY_GEMS)
+                .addTag(Tags.Items.GEMS_LAPIS)
+                .addTag(Tags.Items.GEMS_QUARTZ)
+                .addOptionalTag(this.rl("forge:gems/cinnabar"))
+                .addOptionalTag(this.rl("forge:gems/apatite"))
+        ;
+
+        this.tag(ItemTagRegistry.MEDIUM_MERCURY_GEMS)
+                .addTag(Tags.Items.GEMS_AMETHYST)
+                .addTag(Tags.Items.GEMS_PRISMARINE)
+                .addTag(ItemTagRegistry.SAL_AMMONIAC_GEMS)
+                .addOptionalTag(this.rl("forge:gems/ruby"))
+                .addOptionalTag(this.rl("forge:gems/peridot"))
+                .addOptionalTag(this.rl("forge:gems/fluorite"))
+                .addOptionalTag(this.rl("forge:gems/sapphire"))
+        ;
+
+        this.tag(ItemTagRegistry.HIGH_MERCURY_GEMS)
+                .addTag(Tags.Items.GEMS_DIAMOND)
+                .addTag(Tags.Items.GEMS_EMERALD)
+        ;
+
+        this.tag(ItemTagRegistry.LOW_MERCURY_OTHER_MINERALS)
+                .addTag(ItemTags.COALS)
+                .addTag(Tags.Items.DUSTS_REDSTONE)
+        ;
+
+        this.tag(ItemTagRegistry.MEDIUM_MERCURY_OTHER_MINERALS)
+                .addOptionalTag(this.rl("forge:gems/sulfur"))
+        ;
+
+        this.tag(ItemTagRegistry.HIGH_MERCURY_OTHER_MINERALS)
         ;
 
     }

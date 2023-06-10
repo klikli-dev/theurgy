@@ -1,9 +1,22 @@
-// 1.20	2023-06-09T14:52:10.1624367	Distillation Recipes
+// 1.20	2023-06-10T12:01:54.2368559	Distillation Recipes
+499ed207efcd2d1fe0c7710b63e3c72f9b4c81c1 data/theurgy/recipes/distillation/cobblestone.json
 2feadfa3198bfe21b22c4697dd53b37acec155f7 data/theurgy/recipes/distillation/dirt.json
-fa91f18eb5b9c16dce5a771a3087d1d6cb7c195d data/theurgy/recipes/distillation/high_mercury_ores.json
-8f19ab86ed483c2080284c25866b91a3567e130a data/theurgy/recipes/distillation/high_mercury_raw_materials.json
-b36d9e80303a66f18d26c19f617dcacd2a62a5b7 data/theurgy/recipes/distillation/low_mercury_ores.json
-0a1e2a8a39c514dfab55e6e35553c778e0ac3a1f data/theurgy/recipes/distillation/low_mercury_raw_materials.json
-e971dfcfae5dee352e2d43b4ba8f136f83d8c3d5 data/theurgy/recipes/distillation/medium_mercury_ores.json
-728101f9851af0be44691dbb1d7d3f76f9aa899a data/theurgy/recipes/distillation/medium_mercury_raw_materials.json
+084ab6367d63cbf3f9c7eb19ad91bd7d09a30bc6 data/theurgy/recipes/distillation/gems.mercury.high.json
+5c0caa8c22b7a037a9d3936fc3a9a105818f0c47 data/theurgy/recipes/distillation/gems.mercury.low.json
+06add491268b4974cc6fd1cc11f7df8ee4f83abb data/theurgy/recipes/distillation/gems.mercury.medium.json
+7d48b7129e64fac6ba5ff3001d57a90676e33823 data/theurgy/recipes/distillation/glass.json
+8083dbd15548ec3b0dff3b95adb2537941baf4b7 data/theurgy/recipes/distillation/gravel.json
+d45054ef35ceb6918ee72ef1d897236c56a30cd7 data/theurgy/recipes/distillation/metals.mercury.high.json
+330264a9b0197df93c8ee69fb01e45ee3fd23286 data/theurgy/recipes/distillation/metals.mercury.low.json
+e4b290ce5b9adbe5eeaaadd9d03597a58546d32a data/theurgy/recipes/distillation/metals.mercury.medium.json
+0074ad539289b8438f5b90beebd4f6b9085eb69f data/theurgy/recipes/distillation/ores.mercury.high.json
+42fd60143150cabb2b9bf3cfe2696551dfdd3487 data/theurgy/recipes/distillation/ores.mercury.low.json
+cd44e5f64533b28df907b1e52ff5e89fba8fd64d data/theurgy/recipes/distillation/ores.mercury.medium.json
+3e331c65ca126aa42c52a0a6ea1d58b28678d45e data/theurgy/recipes/distillation/other_minerals.mercury.high.json
+2bb2bb9c1360a75dc1fc15a41ad02d0abb561a7b data/theurgy/recipes/distillation/other_minerals.mercury.low.json
+1c15f07f3632794ebe00509eca99eba9dce7f6ba data/theurgy/recipes/distillation/other_minerals.mercury.medium.json
+884b6836b82fb85c513f0ac98c72e14c30f17de3 data/theurgy/recipes/distillation/raw_materials.mercury.high.json
+24625b7331a6a98173e80399929ae27664931a9f data/theurgy/recipes/distillation/raw_materials.mercury.low.json
+4a9f05e6bc1fb69640070a28e265262676847cab data/theurgy/recipes/distillation/raw_materials.mercury.medium.json
+98c926ea86b5e6a347f2437ea1cbdb394d17dd36 data/theurgy/recipes/distillation/sand.json
 7febef30c6f5c924599eda0d52c3a39a602b8529 data/theurgy/recipes/distillation/stone.json

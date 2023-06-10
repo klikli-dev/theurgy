@@ -5,13 +5,13 @@
       "type": "forge:not",
       "value": {
         "type": "forge:tag_empty",
-        "tag": "theurgy:low_mercury_ores"
+        "tag": "theurgy:ores/mercury/low"
       }
     }
   ],
   "distillation_time": 200,
   "ingredient": {
-    "tag": "theurgy:low_mercury_ores"
+    "tag": "theurgy:ores/mercury/low"
   },
   "ingredient_count": 1,
   "result": {

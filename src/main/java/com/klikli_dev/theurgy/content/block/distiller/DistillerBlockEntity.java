@@ -331,10 +331,12 @@ public class DistillerBlockEntity extends BlockEntity implements GeoBlockEntity,
             super(1);
         }
 
-        @Override
-        public boolean isItemValid(int slot, ItemStack stack) {
-            return false;
-        }
+        //We are using ItemStackHandler to insert results into the output inv, so we can't block here!
+        //Consequence is that pipes can pipe in ..
+//        @Override
+//        public boolean isItemValid(int slot, ItemStack stack) {
+//            return false;
+//        }
 
         @Override
         protected void onContentsChanged(int slot) {

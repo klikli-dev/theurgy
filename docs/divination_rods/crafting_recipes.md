@@ -20,11 +20,11 @@ The following NBT settings can be set on the result item of the recipe (see also
 }
 ```
 
-* `theurgy:divination.setting.allow_attuning` (Boolean)
+### `theurgy:divination.setting.allow_attuning` (Boolean)
 
 Setting this to `false` is what disables manual attuning. See below for usage.
 
-* `theurgy:divination.linked_block_id` (Block ResourceLocation)
+### `theurgy:divination.linked_block_id` (Block ResourceLocation)
 
 Set this to the block ID of the block you want the divination rod to find. 
 E.g.: `minecraft:iron_ore` or even `minecraft:dirt`.

@@ -18,34 +18,34 @@ The configuration of how exaclty a divination rod behaves is done in the divinat
 }
 ```
 
-* `theurgy:divination.setting.tier` (Tier ResourceLocation)
+### `theurgy:divination.setting.tier` (Tier ResourceLocation)
 
 The tier of the divination rod. This uses the forge tier system, which is an expanded version of the minecraft tier system.  
 
 The tier determines which blocks the rod can attune to and find: only if the block is in the same tier or lower than the rod, it can be attuned. 
 This means it works exactly like tiers for tools such as the pickaxe. 
 
-* `theurgy:divination.setting.allowed_blocks_tag` (Tag ResourceLocation)
+### `theurgy:divination.setting.allowed_blocks_tag` (Tag ResourceLocation)
 
 A tag that defines which blocks the divination rod is allowed to attune to and find. Any blocks not matching this tag will be ignored.
 
-* `theurgy:divination.setting.disallowed_blocks_tag` (Tag ResourceLocation)
+### `theurgy:divination.setting.disallowed_blocks_tag` (Tag ResourceLocation)
 
 A tag that defines which blocks the divination rod is **not** allowed to attune to and find. Any blocks matching this tag will be ignored.
 
-* `theurgy:divination.setting.range` (Integer)
+### `theurgy:divination.setting.range` (Integer)
 
 The range of the divination rod in blocks. This is the maximum distance the divination rod will scan for blocks. Too high values may cause performance issues on the client while using the rod.
 
 Suggested Value: `96`
 
-* `theurgy:divination.setting.duration` (Integer)
+### `theurgy:divination.setting.duration` (Integer)
 
 The duration of the divination "charging" effect in ticks. This is the time the divination rod has to scan for blocks (client-side). Too low values may cause performance issues on the client while using the rod.
 
 Suggested Value: `40`
 
-* `theurgy:divination.setting.max_damage` (Integer)
+### `theurgy:divination.setting.max_damage` (Integer)
 
 The durability of the divination rod. Only scans will consume durability, just visualising the scan results will not. For balancing reasons this should likely be a low value, such as `10`.
 

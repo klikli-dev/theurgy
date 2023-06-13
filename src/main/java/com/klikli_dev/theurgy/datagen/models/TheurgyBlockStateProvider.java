@@ -152,7 +152,7 @@ public class TheurgyBlockStateProvider extends BlockStateProvider {
     }
 
     protected void registerCalcinationOven() {
-        //calcination oven is rendered by geckolib, so we just give a model with a particle texture
+        //calcination oven is rendered by geckolib, so we just give an empty model with a particle texture
         //we then use it for both the lit and unlit blockstate
         var model = this.models().getBuilder("calcination_oven").texture("particle", "minecraft:block/copper_block");
 

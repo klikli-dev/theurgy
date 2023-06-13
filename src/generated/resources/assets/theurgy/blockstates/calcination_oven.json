@@ -1,9 +1,15 @@
 {
   "variants": {
-    "lit=false": {
+    "half=lower,lit=false": {
       "model": "theurgy:block/calcination_oven"
     },
-    "lit=true": {
+    "half=lower,lit=true": {
+      "model": "theurgy:block/calcination_oven"
+    },
+    "half=upper,lit=false": {
+      "model": "theurgy:block/calcination_oven"
+    },
+    "half=upper,lit=true": {
       "model": "theurgy:block/calcination_oven"
     }
   }

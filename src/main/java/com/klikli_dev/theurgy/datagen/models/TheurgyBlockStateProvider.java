@@ -7,10 +7,13 @@
 package com.klikli_dev.theurgy.datagen.models;
 
 import com.klikli_dev.theurgy.Theurgy;
+import com.klikli_dev.theurgy.content.block.incubator.IncubatorBlock;
 import com.klikli_dev.theurgy.content.block.liquefactioncauldron.LiquefactionCauldronBlock;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
+import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.ItemDisplayContext;
+import net.minecraft.world.level.block.PipeBlock;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
@@ -81,24 +84,54 @@ public class TheurgyBlockStateProvider extends BlockStateProvider {
     }
 
     protected void registerIncubator() {
-        var incubator = this.models().withExistingParent("incubator", this.modLoc("block/incubator_template"))
+        var lowerHalfModel = this.models().withExistingParent("incubator_lower", this.modLoc("block/incubator_template"))
                 //blockbench spits out garbage textures by losing the folder name so we fix them here
                 .texture("texture", this.modLoc("block/incubator"))
                 .texture("particle", this.mcLoc("block/copper_block"));
 
-        var incubatorPipe = this.models().withExistingParent("incubator_pipe", this.modLoc("block/incubator_pipe_template"))
+        //we use an empty upper half model that just shows the particle texture
+        var upperHalfModel = this.models().getBuilder("incubator_upper").texture("particle", "minecraft:block/copper_block");
+
+        var pipeModel = this.models().withExistingParent("incubator_pipe", this.modLoc("block/incubator_pipe_template"))
                 //blockbench spits out garbage textures by losing the folder name so we fix them here
                 .texture("texture", this.modLoc("block/incubator_pipe"))
                 .texture("particle", this.mcLoc("block/copper_block"));
 
         //build blockstate
-        MultiPartBlockStateBuilder incubatorBuilder = this.getMultipartBuilder(BlockRegistry.INCUBATOR.get())
-                .part().modelFile(incubator).addModel().end();
-        this.fourWayMultipart(incubatorBuilder, incubatorPipe);
+        MultiPartBlockStateBuilder incubatorBuilder = this.getMultipartBuilder(BlockRegistry.INCUBATOR.get());
 
+        //start with the main model, which only shows on the lower half
+        incubatorBuilder.part().modelFile(lowerHalfModel)
+                .addModel()
+                .condition(IncubatorBlock.HALF, DoubleBlockHalf.LOWER)
+                .end();
+
+        //now do the upper half model, which only shows on the upper half and is actually empty
+        incubatorBuilder.part().modelFile(upperHalfModel)
+                .addModel()
+                .condition(IncubatorBlock.HALF, DoubleBlockHalf.UPPER)
+                .end();
+
+        //finally do the pipe models, copied and adjusted from fourWayMultipart to only show on the lower half
+        PipeBlock.PROPERTY_BY_DIRECTION.entrySet().forEach(e -> {
+            Direction dir = e.getKey();
+            if (dir.getAxis().isHorizontal()) {
+                incubatorBuilder.part().modelFile(pipeModel).rotationY((((int) dir.toYRot()) + 180) % 360).uvLock(true).addModel()
+                        .condition(e.getValue(), true)
+                        .condition(IncubatorBlock.HALF, DoubleBlockHalf.LOWER);
+            }
+        });
 
         //add item model
-        this.itemModels().withExistingParent("incubator", this.modLoc("block/incubator"));
+        this.itemModels().withExistingParent("incubator", lowerHalfModel.getLocation())
+                .transforms()
+                //take defaults from net.minecraft:client:extra/assets/minecraft/models/block/block.json
+                //then slightly move down and reduce scale from 0.625 to 0.5
+                .transform(ItemDisplayContext.GUI)
+                .rotation(30, 225, 0)
+                .translation(0, -2.0f, 0)
+                .scale(0.35f)
+                .end();
     }
 
     protected void registerIncubatorVessels() {

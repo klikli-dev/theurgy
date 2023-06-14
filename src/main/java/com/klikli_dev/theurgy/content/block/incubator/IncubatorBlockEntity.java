@@ -128,7 +128,8 @@ public class IncubatorBlockEntity extends BlockEntity implements HeatConsumer {
     }
 
     protected int getTotalTime() {
-        return this.recipeCachedCheck.getRecipeFor(this.recipeWrapper, this.level).map(IncubationRecipe::getIncubationTime).orElse(IncubationRecipe.DEFAULT_INCUBATION_TIME);
+        return this.recipeWrapper == null ? IncubationRecipe.DEFAULT_INCUBATION_TIME :
+                this.recipeCachedCheck.getRecipeFor(this.recipeWrapper, this.level).map(IncubationRecipe::getIncubationTime).orElse(IncubationRecipe.DEFAULT_INCUBATION_TIME);
     }
 
     @Override

@@ -14,8 +14,8 @@ import net.minecraft.data.PackOutput;
 import net.minecraftforge.common.data.LanguageProvider;
 
 public class TheurgyBookProvider extends BookProvider {
-    public TheurgyBookProvider(PackOutput packOutput, String modid, LanguageProvider lang) {
-        super(packOutput, modid, lang);
+    public TheurgyBookProvider(PackOutput packOutput, String modid, LanguageProvider lang, LanguageProvider... translations) {
+        super(packOutput, modid, lang, translations);
     }
 
     @Override
@@ -28,8 +28,8 @@ public class TheurgyBookProvider extends BookProvider {
         var helper = ModonomiconAPI.get().getLangHelper(this.modid);
         helper.book("the_hermetica");
 
-        this.lang.add(helper.bookName(), "The Hermetica");
-        this.lang.add(helper.bookTooltip(), "A treatise on the Ancient Art of Alchemy.\n§o(In-Game Guide for Theurgy)§r");
+        this.lang().add(helper.bookName(), "The Hermetica");
+        this.lang().add(helper.bookTooltip(), "A treatise on the Ancient Art of Alchemy.\n§o(In-Game Guide for Theurgy)§r");
 
         int categorySortNum = 1;
         var gettingStartedCategory = new GettingStartedCategoryProvider().make(helper, this.lang).withSortNumber(categorySortNum++);

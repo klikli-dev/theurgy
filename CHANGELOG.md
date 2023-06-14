@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [beta/v1.20.1-1.3.5] - 2023-06-14
+### :sparkles: New Features
+- [`608d86e`](https://github.com/klikli-dev/theurgy/commit/608d86e793cb2e043c61b442960cf14ee7fd8213) - update to 1.20.1 *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :bug: Bug Fixes
+- [`fc7908b`](https://github.com/klikli-dev/theurgy/commit/fc7908b84435388d238798d085fe6a257c77650e) - use Empty Registry access instead of null *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`aedd327`](https://github.com/klikli-dev/theurgy/commit/aedd3275781a3df110f8a88a3a57d09728c71690) - re-establish reuse compliance *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [beta/v1.20-1.3.5] - 2023-06-09
 ### :sparkles: New Features
 - [`ebab77a`](https://github.com/klikli-dev/theurgy/commit/ebab77ac32f0903781f94ec670a7eeadbb4bffd0) - update to 1.20 *(PR [#120](https://github.com/klikli-dev/theurgy/pull/120) by [@klikli-dev](https://github.com/klikli-dev))*
@@ -180,3 +191,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [beta/v1.19.4-1.3.4]: https://github.com/klikli-dev/theurgy/compare/beta/v1.19.4-1.3.3...beta/v1.19.4-1.3.4
 [beta/v1.19.4-1.3.5]: https://github.com/klikli-dev/theurgy/compare/beta/v1.19.4-1.3.4...beta/v1.19.4-1.3.5
 [beta/v1.20-1.3.5]: https://github.com/klikli-dev/theurgy/compare/beta/v1.20-0.0.0...beta/v1.20-1.3.5
+[beta/v1.20.1-1.3.5]: https://github.com/klikli-dev/theurgy/compare/beta/v1.20.1-0.0.0...beta/v1.20.1-1.3.5

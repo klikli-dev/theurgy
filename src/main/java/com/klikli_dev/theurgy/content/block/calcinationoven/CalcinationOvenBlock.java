@@ -42,7 +42,7 @@ public class CalcinationOvenBlock extends Block implements EntityBlock, TwoSlotA
 
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
     public static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
-    protected static final VoxelShape TOP = Block.box(0, 0, 0, 16, 8, 16);
+    protected static final VoxelShape TOP = Block.box(0, 0, 0, 16, 5, 16);
     protected static final VoxelShape BOTTOM = Shapes.block();
 
     public CalcinationOvenBlock(Properties pProperties) {
@@ -93,7 +93,6 @@ public class CalcinationOvenBlock extends Block implements EntityBlock, TwoSlotA
         if (!pLevel.isClientSide && pPlayer.isCreative()) {
             DoublePlantBlock.preventCreativeDropFromBottomPart(pLevel, pPos, pState, pPlayer);
         }
-        //TODO: call for both halves? or just effects for other half?
 
         super.playerWillDestroy(pLevel, pPos, pState, pPlayer);
     }
@@ -162,7 +161,7 @@ public class CalcinationOvenBlock extends Block implements EntityBlock, TwoSlotA
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
-        if (pLevel.isClientSide() || pState.getValue(HALF) == DoubleBlockHalf.LOWER) {
+        if (pLevel.isClientSide() || pState.getValue(HALF) == DoubleBlockHalf.UPPER) {
             return null;
         }
         return (lvl, pos, blockState, t) -> {

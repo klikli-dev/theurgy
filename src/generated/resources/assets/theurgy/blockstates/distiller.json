@@ -1,9 +1,15 @@
 {
   "variants": {
-    "lit=false": {
+    "half=lower,lit=false": {
       "model": "theurgy:block/distiller"
     },
-    "lit=true": {
+    "half=lower,lit=true": {
+      "model": "theurgy:block/distiller"
+    },
+    "half=upper,lit=false": {
+      "model": "theurgy:block/distiller"
+    },
+    "half=upper,lit=true": {
       "model": "theurgy:block/distiller"
     }
   }

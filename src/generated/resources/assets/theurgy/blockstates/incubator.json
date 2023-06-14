@@ -2,7 +2,18 @@
   "multipart": [
     {
       "apply": {
-        "model": "theurgy:block/incubator"
+        "model": "theurgy:block/incubator_lower"
+      },
+      "when": {
+        "half": "lower"
+      }
+    },
+    {
+      "apply": {
+        "model": "theurgy:block/incubator_upper"
+      },
+      "when": {
+        "half": "upper"
       }
     },
     {
@@ -11,6 +22,7 @@
         "uvlock": true
       },
       "when": {
+        "half": "lower",
         "north": "true"
       }
     },
@@ -21,6 +33,7 @@
         "y": 180
       },
       "when": {
+        "half": "lower",
         "south": "true"
       }
     },
@@ -31,6 +44,7 @@
         "y": 270
       },
       "when": {
+        "half": "lower",
         "west": "true"
       }
     },
@@ -41,7 +55,8 @@
         "y": 90
       },
       "when": {
-        "east": "true"
+        "east": "true",
+        "half": "lower"
       }
     }
   ]

@@ -16,6 +16,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.stream.Stream;
@@ -26,11 +27,7 @@ public class TagUtil {
     public static Item getItemForTag(TagKey<Item> tag) {
         var item = AlmostUnifiedIntegration.getPreferredItemForTag(tag);
 
-        return item != null ? item : BuiltInRegistries.ITEM.getTag(tag)
-                .map(HolderSet.ListBacked::stream)
-                .flatMap(Stream::findFirst)
-                .map(Holder::value)
-                .orElse(null);
+        return item != null ? item : ForgeRegistries.ITEMS.tags().getTag(tag).stream().findFirst().orElse(null);
     }
 
     public static ItemStack getItemStackForTag(TagKey<Item> tag) {

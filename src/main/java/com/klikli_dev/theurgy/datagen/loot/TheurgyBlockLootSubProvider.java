@@ -12,7 +12,11 @@ import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.DoorBlock;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.storage.loot.LootTable;
 
 import java.util.Set;
@@ -32,10 +36,10 @@ public class TheurgyBlockLootSubProvider extends BlockLootSubProvider {
     @Override
     protected void generate() {
         this.dropSelf(BlockRegistry.PYROMANTIC_BRAZIER.get());
-        this.dropSelf(BlockRegistry.CALCINATION_OVEN.get());
-        this.dropSelf(BlockRegistry.LIQUEFACTION_CAULDRON.get());
-        this.dropSelf(BlockRegistry.DISTILLER.get());
-        this.dropSelf(BlockRegistry.INCUBATOR.get());
+        this.dropDoubleBlockOnce(BlockRegistry.CALCINATION_OVEN.get());
+        this.dropDoubleBlockOnce(BlockRegistry.LIQUEFACTION_CAULDRON.get());
+        this.dropDoubleBlockOnce(BlockRegistry.DISTILLER.get());
+        this.dropDoubleBlockOnce(BlockRegistry.INCUBATOR.get());
         this.dropSelf(BlockRegistry.INCUBATOR_MERCURY_VESSEL.get());
         this.dropSelf(BlockRegistry.INCUBATOR_SULFUR_VESSEL.get());
         this.dropSelf(BlockRegistry.INCUBATOR_SALT_VESSEL.get());
@@ -49,4 +53,9 @@ public class TheurgyBlockLootSubProvider extends BlockLootSubProvider {
             return this.createOreDrop(block, ItemRegistry.SAL_AMMONIAC_CRYSTAL.get());
         });
     }
+
+    protected void dropDoubleBlockOnce(Block pBlock) {
+        this.add(pBlock, this.createSinglePropConditionTable(pBlock, BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.LOWER));
+    }
+
 }

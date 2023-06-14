@@ -1,3 +1,22 @@
 {
-  "parent": "theurgy:block/incubator"
+  "parent": "theurgy:block/incubator_lower",
+  "display": {
+    "gui": {
+      "rotation": [
+        30,
+        225,
+        0
+      ],
+      "scale": [
+        0.35,
+        0.35,
+        0.35
+      ],
+      "translation": [
+        0,
+        -2,
+        0
+      ]
+    }
+  }
 }

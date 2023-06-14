@@ -178,17 +178,13 @@ dependencies {
     runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
 
     //almostunified
-    //TODO: enable once updated
-//    compileOnly fg.deobf("com.almostreliable.mods:almostunified-forge:${almostunified_version}")
-//    runtimeOnly fg.deobf("com.almostreliable.mods:almostunified-forge:${almostunified_version}")
+    implementation fg.deobf("com.almostreliable.mods:almostunified-forge:${minecraft_version}-${almost_unified_version}")
 
     //Geckolib
     implementation fg.deobf("software.bernie.geckolib:geckolib-forge-${geckolib_minecraft_version}:${geckolib_version}")
 
     //modonomicon
     implementation fg.deobf("com.klikli_dev:modonomicon:${minecraft_version}-${modonomicon_version}")
-    //we build against full jar because we NEED IT ALL
-
 }
 
 

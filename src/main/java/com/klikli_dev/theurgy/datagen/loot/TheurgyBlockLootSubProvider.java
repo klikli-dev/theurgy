@@ -37,7 +37,7 @@ public class TheurgyBlockLootSubProvider extends BlockLootSubProvider {
     protected void generate() {
         this.dropSelf(BlockRegistry.PYROMANTIC_BRAZIER.get());
         this.dropDoubleBlockOnce(BlockRegistry.CALCINATION_OVEN.get());
-        this.dropSelf(BlockRegistry.LIQUEFACTION_CAULDRON.get());
+        this.dropDoubleBlockOnce(BlockRegistry.LIQUEFACTION_CAULDRON.get());
         this.dropDoubleBlockOnce(BlockRegistry.DISTILLER.get());
         this.dropSelf(BlockRegistry.INCUBATOR.get());
         this.dropSelf(BlockRegistry.INCUBATOR_MERCURY_VESSEL.get());

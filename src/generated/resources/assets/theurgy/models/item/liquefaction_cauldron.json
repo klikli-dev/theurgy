@@ -1,5 +1,5 @@
 {
-  "parent": "theurgy:block/liquefaction_cauldron",
+  "parent": "theurgy:block/liquefaction_cauldron_lower",
   "display": {
     "gui": {
       "rotation": [

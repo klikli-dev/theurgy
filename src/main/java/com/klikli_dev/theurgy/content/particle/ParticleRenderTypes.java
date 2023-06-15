@@ -22,6 +22,7 @@ import net.minecraft.client.renderer.texture.TextureManager;
 public class ParticleRenderTypes {
     static final ParticleRenderType EMBER_RENDER = new ParticleRenderType() {
         @Override
+        @SuppressWarnings("deprecation")
         public void begin(BufferBuilder buffer, TextureManager textureManager) {
             Minecraft.getInstance().gameRenderer.lightTexture().turnOnLightLayer();
             RenderSystem.enableBlend();
@@ -46,6 +47,7 @@ public class ParticleRenderTypes {
 
     static final ParticleRenderType EMBER_RENDER_NO_MASK = new ParticleRenderType() {
         @Override
+        @SuppressWarnings("deprecation")
         public void begin(BufferBuilder buffer, TextureManager textureManager) {
             RenderSystem.disableDepthTest();
             RenderSystem.enableBlend();

@@ -67,12 +67,14 @@ public class IncubatorBlock extends Block implements EntityBlock {
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
         return pState.getValue(HALF) == DoubleBlockHalf.LOWER ? BOTTOM : TOP;
     }
 
 
     @Override
+    @SuppressWarnings("deprecation")
     public BlockState updateShape(BlockState pState, Direction pFacing, BlockState pFacingState, LevelAccessor pLevel, BlockPos pCurrentPos, BlockPos pFacingPos) {
 
         if (pLevel.getBlockEntity(pCurrentPos) instanceof IncubatorBlockEntity incubatorBlockEntity) {
@@ -143,6 +145,7 @@ public class IncubatorBlock extends Block implements EntityBlock {
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) {
         BlockPos below = pPos.below();
         BlockState belowState = pLevel.getBlockState(below);
@@ -150,6 +153,7 @@ public class IncubatorBlock extends Block implements EntityBlock {
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         if (pLevel.isClientSide()) {
             return InteractionResult.SUCCESS;
@@ -166,6 +170,7 @@ public class IncubatorBlock extends Block implements EntityBlock {
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
         if (!pState.is(pNewState.getBlock())) {
             if (pState.getValue(HALF) == DoubleBlockHalf.LOWER && pLevel.getBlockEntity(pPos) instanceof IncubatorBlockEntity blockEntity) {

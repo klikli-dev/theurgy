@@ -29,6 +29,7 @@ import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.common.crafting.IIngredientSerializer;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
 import java.util.*;
@@ -146,9 +147,7 @@ public class FluidIngredient extends Ingredient {
 
     public static Fluid fluidFromJson(JsonObject pItemObject) {
         String s = GsonHelper.getAsString(pItemObject, "fluid");
-        var fluid = BuiltInRegistries.FLUID.getOptional(new ResourceLocation(s)).orElseThrow(() -> {
-            return new JsonSyntaxException("Unknown fluid '" + s + "'");
-        });
+        var fluid = ForgeRegistries.FLUIDS.getValue(new ResourceLocation(s));
         if (fluid == Fluids.EMPTY) {
             throw new JsonSyntaxException("Invalid fluid: " + s);
         } else {
@@ -256,7 +255,7 @@ public class FluidIngredient extends Ingredient {
         @Override
         public JsonObject serialize() {
             JsonObject jsonobject = new JsonObject();
-            jsonobject.addProperty("fluid", BuiltInRegistries.FLUID.getKey(this.fluid.getFluid()).toString());
+            jsonobject.addProperty("fluid", ForgeRegistries.FLUIDS.getKey(this.fluid.getFluid()).toString());
             jsonobject.addProperty("amount", this.fluid.getAmount());
             return jsonobject;
         }
@@ -276,9 +275,7 @@ public class FluidIngredient extends Ingredient {
         public Collection<FluidStack> getFluids() {
             var list = new ArrayList<FluidStack>();
 
-            for (Holder<Fluid> holder : BuiltInRegistries.FLUID.getTagOrEmpty(this.tag)) {
-                list.add(new FluidStack(holder.get(), this.amount));
-            }
+            ForgeRegistries.FLUIDS.tags().getTag(this.tag).stream().forEach(fluid -> list.add(new FluidStack(fluid, this.amount)));
 
             //Note: Item stacks here add a barrier with custom hover name, we just leave the list empty, should be OK.
             return list;

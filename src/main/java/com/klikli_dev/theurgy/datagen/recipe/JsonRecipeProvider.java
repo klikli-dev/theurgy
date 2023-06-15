@@ -66,11 +66,11 @@ public abstract class JsonRecipeProvider implements DataProvider {
     }
 
     public ResourceLocation locFor(ItemLike itemLike) {
-        return BuiltInRegistries.ITEM.getKey(itemLike.asItem());
+        return ForgeRegistries.ITEMS.getKey(itemLike.asItem());
     }
 
     public ResourceLocation locFor(Fluid fluid) {
-        return BuiltInRegistries.FLUID.getKey(fluid);
+        return ForgeRegistries.FLUIDS.getKey(fluid);
     }
 
     public TagKey<Item> tag(String tag) {

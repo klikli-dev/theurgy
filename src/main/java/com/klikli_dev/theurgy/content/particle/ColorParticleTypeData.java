@@ -33,6 +33,8 @@ public class ColorParticleTypeData implements ParticleOptions {
                     Codec.INT.fieldOf("age").forGetter(d -> d.age)
             )
             .apply(instance, ColorParticleTypeData::new));
+
+    @SuppressWarnings("deprecation")
     static final Deserializer<ColorParticleTypeData> DESERIALIZER = new Deserializer<>() {
         @Override
         public ColorParticleTypeData fromCommand(ParticleType<ColorParticleTypeData> type, StringReader reader) throws CommandSyntaxException {

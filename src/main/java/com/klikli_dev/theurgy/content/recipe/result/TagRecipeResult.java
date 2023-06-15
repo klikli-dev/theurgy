@@ -19,6 +19,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
@@ -55,7 +56,7 @@ public class TagRecipeResult extends RecipeResult {
         this(tag, count, (CompoundTag) null);
     }
 
-    public TagRecipeResult(TagKey<Item> tag, int count, Optional<CompoundTag> nbt) {
+    public TagRecipeResult(TagKey<Item> tag, int count, @SuppressWarnings("OptionalUsedAsFieldOrParameterType") Optional<CompoundTag> nbt) {
         this(tag, count, nbt.orElse(null));
     }
 
@@ -109,7 +110,7 @@ public class TagRecipeResult extends RecipeResult {
     public ItemStack[] getStacks() {
         if (this.cachedStacks == null) {
             //get all items in tag
-            this.cachedStacks = BuiltInRegistries.ITEM.getTag(this.tag).map(HolderSet.ListBacked::stream).orElse(Stream.empty()).map(ItemStack::new).toArray(ItemStack[]::new);
+            this.cachedStacks = ForgeRegistries.ITEMS.tags().getTag(this.tag).stream().map(ItemStack::new).toArray(ItemStack[]::new);
         }
         return this.cachedStacks;
     }

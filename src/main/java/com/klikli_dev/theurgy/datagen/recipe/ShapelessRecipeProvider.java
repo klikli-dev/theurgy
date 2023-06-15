@@ -19,6 +19,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.common.Tags;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.function.BiConsumer;
@@ -69,7 +70,8 @@ public class ShapelessRecipeProvider extends JsonRecipeProvider {
 
         public RecipeBuilder(JsonObject result) {
             this.recipe = new JsonObject();
-            this.recipe.addProperty("type", BuiltInRegistries.RECIPE_SERIALIZER.getKey(RecipeSerializer.SHAPELESS_RECIPE).toString());
+            this.recipe.addProperty("type",
+                    ForgeRegistries.RECIPE_SERIALIZERS.getKey(RecipeSerializer.SHAPELESS_RECIPE).toString());
             this.recipe.add("result", result);
             this.recipe.add("ingredients", new JsonArray());
         }

@@ -155,13 +155,13 @@ public class AccumulationRecipe implements Recipe<RecipeWrapperWithFluid> {
         }
 
         public AccumulationRecipe fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
-            var recipe = pBuffer.readWithCodec(NbtOps.INSTANCE, CODEC);
+            var recipe = pBuffer.readJsonWithCodec(CODEC);
             recipe.id = pRecipeId;
             return recipe;
         }
 
         public void toNetwork(FriendlyByteBuf pBuffer, AccumulationRecipe pRecipe) {
-            pBuffer.writeWithCodec(NbtOps.INSTANCE, CODEC, pRecipe);
+            pBuffer.writeJsonWithCodec(CODEC, pRecipe);
         }
     }
 }

@@ -25,6 +25,7 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.TierSortingRegistry;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.function.BiConsumer;
@@ -227,7 +228,8 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
 
         public RecipeBuilder(JsonObject result) {
             this.recipe = new JsonObject();
-            this.recipe.addProperty("type", BuiltInRegistries.RECIPE_SERIALIZER.getKey(RecipeSerializer.SHAPED_RECIPE).toString());
+            this.recipe.addProperty("type",
+                    ForgeRegistries.RECIPE_SERIALIZERS.getKey(RecipeSerializer.SHAPED_RECIPE).toString());
             this.recipe.add("result", result);
             this.recipe.add("key", new JsonObject());
             this.recipe.add("pattern", new JsonArray());

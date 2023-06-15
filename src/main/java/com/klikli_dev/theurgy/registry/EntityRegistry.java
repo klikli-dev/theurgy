@@ -20,15 +20,15 @@ public class EntityRegistry {
     public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES,
             Theurgy.MODID);
 
-    public static final RegistryObject<EntityType<FollowProjectile>> FOLLOW_PROJECTILE = register(
+    static <T extends Entity> RegistryObject<EntityType<T>> register(String name, EntityType.Builder<T> builder) {
+        return ENTITIES.register(name, () -> builder.build(Theurgy.MODID + ":" + name));
+    }    public static final RegistryObject<EntityType<FollowProjectile>> FOLLOW_PROJECTILE = register(
             "follow_projectile",
             EntityType.Builder.<FollowProjectile>of(FollowProjectile::new, MobCategory.MISC)
                     .sized(0.5f, 0.5f).noSave().fireImmune()
                     .setTrackingRange(10)
                     .setShouldReceiveVelocityUpdates(true).setCustomClientFactory(FollowProjectile::new));
 
-    static <T extends Entity> RegistryObject<EntityType<T>> register(String name, EntityType.Builder<T> builder) {
-        return ENTITIES.register(name, () -> builder.build(Theurgy.MODID + ":" + name));
-    }
+
 
 }

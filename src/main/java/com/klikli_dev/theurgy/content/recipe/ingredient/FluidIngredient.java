@@ -13,12 +13,8 @@ import com.mojang.serialization.DataResult;
 import com.mojang.serialization.DynamicOps;
 import com.mojang.serialization.JsonOps;
 import com.mojang.serialization.codecs.PrimitiveCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.ints.IntList;
-import net.minecraft.core.Holder;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -32,18 +28,22 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Comparator;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
 public class FluidIngredient extends Ingredient {
 
+    public static final FluidIngredient EMPTY = new FluidIngredient(Stream.empty());
     public static final Codec<FluidIngredient> CODEC = new PrimitiveCodec<>() {
         @Override
         public <T> DataResult<FluidIngredient> read(DynamicOps<T> ops, T input) {
             try {
                 return DataResult.success(FluidIngredient.fromJson(ops.convertTo(JsonOps.INSTANCE, input)));
-            } catch(JsonParseException e) {
+            } catch (JsonParseException e) {
                 return DataResult.error(() -> "Failed to parse Ingredient: " + e.getMessage());
             }
         }
@@ -53,9 +53,6 @@ public class FluidIngredient extends Ingredient {
             return JsonOps.INSTANCE.convertTo(ops, value.toJson());
         }
     };
-
-
-    public static final FluidIngredient EMPTY = new FluidIngredient(Stream.empty());
     private final Value[] values;
 
     @Nullable
@@ -106,8 +103,7 @@ public class FluidIngredient extends Ingredient {
                     throw new JsonSyntaxException("Fluid array cannot be empty, at least one item must be defined");
                 } else {
                     return fromFluidValues(StreamSupport.stream(jsonarray.spliterator(), false).map((p_151264_) -> {
-                        return fluidValueFromJson(GsonHelper.convertToJsonObject(p_151264_, "" +
-                                "fluid"));
+                        return fluidValueFromJson(GsonHelper.convertToJsonObject(p_151264_, "fluid"));
                     }));
                 }
             } else {
@@ -185,12 +181,12 @@ public class FluidIngredient extends Ingredient {
         return this.fluidStacks;
     }
 
-    public int getAmount(){
-        if (amount == -1){
+    public int getAmount() {
+        if (this.amount == -1) {
             var fluids = this.getFluids();
-            amount = fluids.length == 0 ? 0 : Arrays.stream(this.getFluids()).max(Comparator.comparingInt(FluidStack::getAmount)).get().getAmount();
+            this.amount = fluids.length == 0 ? 0 : Arrays.stream(this.getFluids()).max(Comparator.comparingInt(FluidStack::getAmount)).get().getAmount();
         }
-        return amount;
+        return this.amount;
     }
 
     @Override

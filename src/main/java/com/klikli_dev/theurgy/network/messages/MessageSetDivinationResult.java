@@ -38,7 +38,7 @@ public class MessageSetDivinationResult implements Message {
         if (stack.getItem() instanceof DivinationRodItem) {
             var tag = stack.getOrCreateTag();
             tag.putFloat(TheurgyConstants.Nbt.Divination.DISTANCE, this.distance);
-            if(this.pos != null) {
+            if (this.pos != null) {
                 tag.putLong(TheurgyConstants.Nbt.Divination.POS, this.pos.asLong());
             }
             player.inventoryMenu.broadcastChanges();

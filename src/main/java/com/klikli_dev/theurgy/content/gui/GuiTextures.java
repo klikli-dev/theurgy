@@ -8,7 +8,6 @@ package com.klikli_dev.theurgy.content.gui;
 
 import com.klikli_dev.theurgy.Theurgy;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
 

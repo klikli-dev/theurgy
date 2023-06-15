@@ -13,8 +13,8 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.material.Fluid;
 
 public class FluidTagRegistry {
-    public static final TagKey<Fluid> SOLVENT = tag( "solvent");
-    public static final TagKey<Fluid> SAL_AMMONIAC = tag( "sal_ammoniac");
+    public static final TagKey<Fluid> SOLVENT = tag("solvent");
+    public static final TagKey<Fluid> SAL_AMMONIAC = tag("sal_ammoniac");
 
     public static TagKey<Fluid> tag(String id) {
         return tag(Theurgy.loc(id));

@@ -24,7 +24,7 @@ public class DivinationRodSubtypeInterpreter implements IIngredientSubtypeInterp
     public String apply(ItemStack ingredient, UidContext context) {
         var tag = ingredient.getTag();
 
-        if(tag != null){
+        if (tag != null) {
             var settingTier = tag.getInt(TheurgyConstants.Nbt.Divination.SETTING_TIER);
             var settingAllowedBlocksTag = tag.getString(TheurgyConstants.Nbt.Divination.SETTING_ALLOWED_BLOCKS_TAG);
             var settingDisallowedBlocksTag = tag.getString(TheurgyConstants.Nbt.Divination.SETTING_DISALLOWED_BLOCKS_TAG);

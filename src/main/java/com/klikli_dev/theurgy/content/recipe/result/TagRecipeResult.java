@@ -9,8 +9,6 @@ package com.klikli_dev.theurgy.content.recipe.result;
 import com.klikli_dev.theurgy.util.TagUtil;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.core.HolderSet;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
@@ -23,7 +21,6 @@ import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
-import java.util.stream.Stream;
 
 /**
  * A tag result for recipes that use tags as output.

@@ -40,7 +40,7 @@ public class ItemRecipeResult extends RecipeResult {
         if (this.cachedStacks == null) {
             this.cachedStacks = new ItemStack[]{this.stack};
         }
-        return cachedStacks;
+        return this.cachedStacks;
     }
 
     @Override

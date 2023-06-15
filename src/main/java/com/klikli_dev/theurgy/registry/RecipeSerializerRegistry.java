@@ -12,7 +12,6 @@ import com.klikli_dev.theurgy.content.recipe.ingredient.FluidIngredient;
 import com.klikli_dev.theurgy.content.recipe.ingredient.FluidTagEmptyCondition;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraftforge.common.crafting.CraftingHelper;
-import net.minecraftforge.common.crafting.conditions.TagEmptyCondition;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegisterEvent;
@@ -40,7 +39,7 @@ public class RecipeSerializerRegistry {
     public static final RegistryObject<RecipeSerializer<AccumulationRecipe>> ACCUMULATION = RECIPE_SERIALIZERS.register("accumulation",
             AccumulationRecipe.Serializer::new);
 
-    public static void onRegisterRecipeSerializers(RegisterEvent event){
+    public static void onRegisterRecipeSerializers(RegisterEvent event) {
         //restrict to one event type otherwise it is called multiple times
         if (event.getRegistryKey().equals(ForgeRegistries.Keys.RECIPE_SERIALIZERS)) {
             // the actual recipe serializers are registered by the deferred register, but we register related serializers that do not have a Registry here

@@ -24,10 +24,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.server.ServerLifecycleHooks;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -80,7 +78,7 @@ public class AlchemicalSulfurItem extends Item {
     }
 
     public static String getSourceItemId(ItemStack sulfurStack) {
-        if(!sulfurStack.hasTag()){
+        if (!sulfurStack.hasTag()) {
             var level = LevelUtil.getLevelWithoutContext();
             var recipeManager = level == null ? null : level.getRecipeManager();
             var registryAccess = level == null ? null : level.registryAccess();
@@ -188,7 +186,7 @@ public class AlchemicalSulfurItem extends Item {
     }
 
     public MutableComponent getSourceName(ItemStack pStack) {
-        if(this.overrideSourceName){
+        if (this.overrideSourceName) {
             return formatSourceName(Component.translatable(pStack.getDescriptionId() + TheurgyConstants.I18n.Item.ALCHEMICAL_SULFUR_SOURCE_SUFFIX));
         }
 

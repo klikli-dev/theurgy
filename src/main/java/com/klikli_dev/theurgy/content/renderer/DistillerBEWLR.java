@@ -13,7 +13,6 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.model.ItemTransform;
 import net.minecraft.world.item.ItemDisplayContext;
-import net.minecraft.world.item.ItemStack;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 import software.bernie.geckolib.cache.object.BakedGeoModel;
@@ -22,12 +21,12 @@ import software.bernie.geckolib.renderer.GeoItemRenderer;
 public class DistillerBEWLR extends GeoItemRenderer<DistillerBlockItem> {
 
     private static final DistillerBEWLR instance = new DistillerBEWLR();
-    private ItemTransform transform;
+    private final ItemTransform transform;
 
     public DistillerBEWLR() {
         super(new DistillerModel());
         this.withScale(0.35f);
-        this.transform = new ItemTransform(new Vector3f(30, 255, 0), new Vector3f(0, 0, 0), new Vector3f(1,1,1));
+        this.transform = new ItemTransform(new Vector3f(30, 255, 0), new Vector3f(0, 0, 0), new Vector3f(1, 1, 1));
     }
 
     public static DistillerBEWLR get() {
@@ -52,7 +51,7 @@ public class DistillerBEWLR extends GeoItemRenderer<DistillerBlockItem> {
 
         poseStack.translate(0.5f, 0.51f, 0.5f);
 
-        if(this.renderPerspective == ItemDisplayContext.GUI) {
+        if (this.renderPerspective == ItemDisplayContext.GUI) {
             this.transform.apply(false, poseStack);
         }
     }

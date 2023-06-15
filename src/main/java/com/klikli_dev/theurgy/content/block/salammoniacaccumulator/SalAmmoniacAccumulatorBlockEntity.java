@@ -154,8 +154,8 @@ public class SalAmmoniacAccumulatorBlockEntity extends BlockEntity {
         this.hasOutputTank = blockEntity != null && blockEntity.getCapability(ForgeCapabilities.FLUID_HANDLER).isPresent();
     }
 
-    public boolean hasOutputTank(){
-        if(this.checkOutputTankOnNextQuery){
+    public boolean hasOutputTank() {
+        if (this.checkOutputTankOnNextQuery) {
             this.checkOutputTankOnNextQuery = false;
             this.validateOutputTank();
         }

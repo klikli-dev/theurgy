@@ -115,7 +115,7 @@ public class LiquefactionRecipe implements Recipe<RecipeWrapperWithFluid> {
 
             int liquefactionTime = GsonHelper.getAsInt(pJson, "liquefaction_time", DEFAULT_LIQUEFACTION_TIME);
 
-            result = fixSourceIdIfNecessary(result, ingredient);
+            result = this.fixSourceIdIfNecessary(result, ingredient);
 
             return new LiquefactionRecipe(pRecipeId, ingredient, solvent, result, liquefactionTime);
         }
@@ -127,11 +127,11 @@ public class LiquefactionRecipe implements Recipe<RecipeWrapperWithFluid> {
 
                 var modified = resultItem.copy();
 
-                if(ingredient.values.length > 0){
-                    if(ingredient.values[0] instanceof Ingredient.TagValue tagValue){
+                if (ingredient.values.length > 0) {
+                    if (ingredient.values[0] instanceof Ingredient.TagValue tagValue) {
                         modified.getOrCreateTag().putString(TheurgyConstants.Nbt.SULFUR_SOURCE_ID, "#" + tagValue.tag.location());
                         return modified;
-                    } else if(ingredient.values[0] instanceof Ingredient.ItemValue itemValue){
+                    } else if (ingredient.values[0] instanceof Ingredient.ItemValue itemValue) {
                         modified.getOrCreateTag().putString(TheurgyConstants.Nbt.SULFUR_SOURCE_ID,
                                 ForgeRegistries.ITEMS.getKey(itemValue.getItems().stream().findFirst().get().getItem()).toString());
                         return modified;

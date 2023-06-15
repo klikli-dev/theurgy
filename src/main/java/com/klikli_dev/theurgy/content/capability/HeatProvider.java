@@ -6,6 +6,6 @@
 
 package com.klikli_dev.theurgy.content.capability;
 
-public interface HeatProvider{
+public interface HeatProvider {
     boolean isHot();
 }

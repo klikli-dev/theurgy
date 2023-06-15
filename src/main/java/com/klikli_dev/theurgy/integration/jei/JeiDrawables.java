@@ -7,7 +7,6 @@
 package com.klikli_dev.theurgy.integration.jei;
 
 import com.klikli_dev.theurgy.content.gui.GuiTextures;
-import com.mojang.blaze3d.vertex.PoseStack;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.drawable.IDrawableAnimated;
 import mezz.jei.api.gui.drawable.IDrawableStatic;

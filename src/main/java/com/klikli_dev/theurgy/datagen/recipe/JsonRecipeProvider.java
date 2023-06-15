@@ -9,7 +9,6 @@ package com.klikli_dev.theurgy.datagen.recipe;
 import com.google.common.collect.Sets;
 import com.google.gson.JsonObject;
 import com.mojang.serialization.JsonOps;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;

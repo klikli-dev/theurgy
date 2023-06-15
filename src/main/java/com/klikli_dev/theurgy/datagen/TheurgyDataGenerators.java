@@ -17,20 +17,16 @@ import com.klikli_dev.theurgy.datagen.recipe.*;
 import com.klikli_dev.theurgy.datagen.tags.TheurgyBlockTagsProvider;
 import com.klikli_dev.theurgy.datagen.tags.TheurgyFluidTagsProvider;
 import com.klikli_dev.theurgy.datagen.tags.TheurgyItemTagsProvider;
-import com.klikli_dev.theurgy.datagen.worldgen.BiomeModifiers;
 import com.klikli_dev.theurgy.datagen.worldgen.TheurgyRegistries;
-import net.minecraft.Util;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.loot.LootTableProvider;
-import net.minecraft.data.registries.RegistriesDatapackGenerator;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraftforge.common.data.DatapackBuiltinEntriesProvider;
 import net.minecraftforge.data.event.GatherDataEvent;
 
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.CompletableFuture;
 
 public class TheurgyDataGenerators {
 

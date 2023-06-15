@@ -11,24 +11,37 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.resources.model.AtlasSet;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
-import net.minecraft.util.Mth;
 import net.minecraft.world.inventory.InventoryMenu;
-import net.minecraft.world.level.material.Fluids;
-import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.client.extensions.common.IClientFluidTypeExtensions;
-import net.minecraftforge.fluids.FluidType;
 
 public class LiquefactionCauldronRenderer implements BlockEntityRenderer<LiquefactionCauldronBlockEntity> {
 
     public LiquefactionCauldronRenderer(BlockEntityRendererProvider.Context pContext) {
+    }
+
+    private static void putVertex(VertexConsumer builder, PoseStack ms, float x, float y, float z, int color, float u,
+                                  float v, Direction face, int light) {
+
+        Vec3i normal = face.getNormal();
+        PoseStack.Pose peek = ms.last();
+        int a = color >> 24 & 0xff;
+        int r = color >> 16 & 0xff;
+        int g = color >> 8 & 0xff;
+        int b = color & 0xff;
+
+        builder.vertex(peek.pose(), x, y, z)
+                .color(r, g, b, a)
+                .uv(u, v)
+                .overlayCoords(OverlayTexture.NO_OVERLAY)
+                .uv2(light)
+                .normal(peek.normal(), normal.getX(), normal.getY(), normal.getZ())
+                .endVertex();
     }
 
     @Override
@@ -36,7 +49,7 @@ public class LiquefactionCauldronRenderer implements BlockEntityRenderer<Liquefa
      * Based on com.simibubi.create.content.contraptions.fluids.tank.FluidTankR
      */
     public void render(LiquefactionCauldronBlockEntity pBlockEntity, float pPartialTick, PoseStack pPoseStack, MultiBufferSource pBufferSource, int pPackedLight, int pPackedOverlay) {
-        if(pBlockEntity.solventTank.isEmpty())
+        if (pBlockEntity.solventTank.isEmpty())
             return;
 
         var fluidStack = pBlockEntity.solventTank.getFluid();
@@ -61,9 +74,9 @@ public class LiquefactionCauldronRenderer implements BlockEntityRenderer<Liquefa
         pPoseStack.pushPose();
 
         var min = 0.25f;
-        var max = 1-min;
+        var max = 1 - min;
 
-        var builder =  pBufferSource.getBuffer(RenderTypes.getFluid());
+        var builder = pBufferSource.getBuffer(RenderTypes.getFluid());
 
         putVertex(builder, pPoseStack, min, fluidHeight, min, color,
                 fluidTexture.getU(2), fluidTexture.getV(2), Direction.UP, fluidLight);
@@ -78,24 +91,5 @@ public class LiquefactionCauldronRenderer implements BlockEntityRenderer<Liquefa
                 fluidTexture.getU(2), fluidTexture.getV(14), Direction.UP, fluidLight);
 
         pPoseStack.popPose();
-    }
-
-    private static void putVertex(VertexConsumer builder, PoseStack ms, float x, float y, float z, int color, float u,
-                                  float v, Direction face, int light) {
-
-        Vec3i normal = face.getNormal();
-        PoseStack.Pose peek = ms.last();
-        int a = color >> 24 & 0xff;
-        int r = color >> 16 & 0xff;
-        int g = color >> 8 & 0xff;
-        int b = color & 0xff;
-
-        builder.vertex(peek.pose(), x, y, z)
-                .color(r, g, b, a)
-                .uv(u, v)
-                .overlayCoords(OverlayTexture.NO_OVERLAY)
-                .uv2(light)
-                .normal(peek.normal(), normal.getX(), normal.getY(), normal.getZ())
-                .endVertex();
     }
 }

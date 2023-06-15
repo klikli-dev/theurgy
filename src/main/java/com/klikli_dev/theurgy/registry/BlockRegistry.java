@@ -18,7 +18,6 @@ import com.klikli_dev.theurgy.content.block.pyromanticbrazier.PyromanticBrazierB
 import com.klikli_dev.theurgy.content.block.salammoniacaccumulator.SalAmmoniacAccumulatorBlock;
 import com.klikli_dev.theurgy.content.block.salammoniactank.SalAmmoniacTankBlock;
 import net.minecraft.util.valueproviders.UniformInt;
-import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DropExperienceBlock;
 import net.minecraft.world.level.block.SoundType;

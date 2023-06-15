@@ -10,7 +10,6 @@ import com.google.gson.JsonObject;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.content.recipe.AccumulationRecipe;
 import com.klikli_dev.theurgy.registry.FluidRegistry;
-import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.registry.ItemTagRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import net.minecraft.data.PackOutput;
@@ -24,7 +23,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.function.BiConsumer;
 
-public class  AccumulationRecipeProvider extends JsonRecipeProvider {
+public class AccumulationRecipeProvider extends JsonRecipeProvider {
 
     public static final int TIME = AccumulationRecipe.DEFAULT_ACCUMULATION_TIME;
 

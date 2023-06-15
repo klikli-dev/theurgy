@@ -44,6 +44,6 @@ public class DistillerBlockItem extends BlockItem implements GeoItem {
 
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {
-        return cache;
+        return this.cache;
     }
 }

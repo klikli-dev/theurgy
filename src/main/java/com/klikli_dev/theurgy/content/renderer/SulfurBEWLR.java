@@ -14,7 +14,6 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.world.item.ItemDisplayContext;
@@ -63,7 +62,7 @@ public class SulfurBEWLR extends BlockEntityWithoutLevelRenderer {
         //note: if we reset to 3d item light here it ignores it above and renders dark .. idk why
 
         //if we render the source we render a text-less clean label and the source item on top of the jar stack
-        if(renderSource){
+        if (renderSource) {
             this.renderLabel(sulfurStack, displayContext, pPoseStack, pBuffer, pPackedLight, pPackedOverlay);
             this.renderContainedItem(sulfurStack, displayContext, pPoseStack, pBuffer, pPackedLight, pPackedOverlay);
         }

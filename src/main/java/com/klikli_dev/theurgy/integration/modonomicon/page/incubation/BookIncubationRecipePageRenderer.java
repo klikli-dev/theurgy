@@ -12,7 +12,6 @@ import com.klikli_dev.theurgy.content.gui.GuiTextures;
 import com.klikli_dev.theurgy.content.recipe.IncubationRecipe;
 import com.klikli_dev.theurgy.content.recipe.LiquefactionRecipe;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.world.item.ItemStack;
@@ -95,7 +94,6 @@ public class BookIncubationRecipePageRenderer extends BookRecipePageRenderer<Inc
         if (sulfurs != null && sulfurs.length > 0) {
             this.parentScreen.renderItemStacks(guiGraphics, recipeX + 3, recipeY + 24 + 3, mouseX, mouseY, List.of(sulfurs));
         }
-
 
 
         GuiTextures.MODONOMICON_SLOT.render(guiGraphics, recipeX + 61 + 14, recipeY); //render the output slot

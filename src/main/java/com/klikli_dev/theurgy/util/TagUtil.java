@@ -7,19 +7,11 @@
 package com.klikli_dev.theurgy.util;
 
 import com.klikli_dev.theurgy.integration.almostunified.AlmostUnifiedIntegration;
-import net.minecraft.Util;
-import net.minecraft.client.resources.language.I18n;
-import net.minecraft.core.Holder;
-import net.minecraft.core.HolderSet;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.stream.Stream;
 
 public class TagUtil {
 

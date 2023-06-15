@@ -8,10 +8,8 @@ package com.klikli_dev.theurgy.content.renderer;
 
 import com.klikli_dev.theurgy.content.block.calcinationoven.CalcinationOvenBlockItem;
 import com.klikli_dev.theurgy.content.renderer.model.CalcinationOvenModel;
-import com.klikli_dev.theurgy.content.renderer.model.DistillerModel;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.model.ItemTransform;
 import net.minecraft.world.item.ItemDisplayContext;
@@ -24,12 +22,12 @@ public class CalcinationOvenBEWLR extends GeoItemRenderer<CalcinationOvenBlockIt
 
     private static final CalcinationOvenBEWLR instance = new CalcinationOvenBEWLR();
 
-    private ItemTransform transform;
+    private final ItemTransform transform;
 
     public CalcinationOvenBEWLR() {
         super(new CalcinationOvenModel());
         this.withScale(0.5f);
-        this.transform = new ItemTransform(new Vector3f(30, 255, 0), new Vector3f(0, 0, 0), new Vector3f(1,1,1));
+        this.transform = new ItemTransform(new Vector3f(30, 255, 0), new Vector3f(0, 0, 0), new Vector3f(1, 1, 1));
     }
 
     public static CalcinationOvenBEWLR get() {
@@ -53,7 +51,7 @@ public class CalcinationOvenBEWLR extends GeoItemRenderer<CalcinationOvenBlockIt
 
         poseStack.translate(0.5f, 0.51f, 0.5f);
 
-        if(this.renderPerspective == ItemDisplayContext.GUI) {
+        if (this.renderPerspective == ItemDisplayContext.GUI) {
             this.transform.apply(false, poseStack);
         }
     }

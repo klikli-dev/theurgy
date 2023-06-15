@@ -10,10 +10,7 @@ import com.klikli_dev.modonomicon.client.gui.book.BookContentScreen;
 import com.klikli_dev.modonomicon.client.render.page.BookRecipePageRenderer;
 import com.klikli_dev.theurgy.content.gui.GuiTextures;
 import com.klikli_dev.theurgy.content.recipe.CalcinationRecipe;
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
 
 public class BookCalcinationRecipePageRenderer extends BookRecipePageRenderer<CalcinationRecipe, BookCalcinationRecipePage> {
     public BookCalcinationRecipePageRenderer(BookCalcinationRecipePage page) {

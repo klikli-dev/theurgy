@@ -6,7 +6,6 @@
 
 package com.klikli_dev.theurgy.tooltips;
 
-import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableList;
 import com.klikli_dev.theurgy.TheurgyConstants;
 import net.minecraft.ChatFormatting;
@@ -65,12 +64,12 @@ public class TooltipHandler {
 
             if (usageTooltipExists) {
                 if (Screen.hasControlDown()) {
-                    if(!extendedTooltipExists || Screen.hasShiftDown())
+                    if (!extendedTooltipExists || Screen.hasShiftDown())
                         event.getToolTip().add(Component.literal(" "));
                     event.getToolTip().add(Component.translatable(TheurgyConstants.I18n.Tooltip.USAGE_HEADING, additionalTooltipData.toArray()));
                     event.getToolTip().add(Component.translatable(usageTooltipKey, additionalTooltipData.toArray()).withStyle(Style.EMPTY.withColor(ChatFormatting.GRAY)));
                 } else {
-                    if(!extendedTooltipExists || Screen.hasShiftDown())
+                    if (!extendedTooltipExists || Screen.hasShiftDown())
                         event.getToolTip().add(Component.literal(" "));
                     event.getToolTip().add(Component.translatable(TheurgyConstants.I18n.Tooltip.SHOW_USAGE, additionalTooltipData.toArray()));
                 }

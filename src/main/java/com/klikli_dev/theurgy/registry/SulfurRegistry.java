@@ -75,6 +75,7 @@ public class SulfurRegistry {
     public static RegistryObject<AlchemicalSulfurItem> registerWithTagSourceNameOverride(String name) {
         return register(name, () -> new AlchemicalSulfurItem(new Item.Properties()).overrideTagSourceName(true));
     }
+
     public static RegistryObject<AlchemicalSulfurItem> registerWithSourceNameOverride(String name) {
         return register(name, () -> new AlchemicalSulfurItem(new Item.Properties()).overrideSourceName(true));
     }

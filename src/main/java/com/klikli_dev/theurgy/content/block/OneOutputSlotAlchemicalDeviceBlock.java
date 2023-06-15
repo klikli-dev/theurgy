@@ -16,13 +16,13 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 
-public interface OneSlotAlchemicalDeviceBlock {
+public interface OneOutputSlotAlchemicalDeviceBlock {
 
     int SLOT = 0;
 
 
     /**
-     * Default interaction for blocks that have a block entity with an in/output inventory with one slot.
+     * Default interaction for blocks that have a block entity with an output inventory with one slot.
      */
     default InteractionResult useItemHandler(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         var blockEntity = pLevel.getBlockEntity(pPos);
@@ -46,12 +46,7 @@ public interface OneSlotAlchemicalDeviceBlock {
                 return InteractionResult.SUCCESS;
             }
         } else {
-            //if we have an item in hand, try to insert
-            var remainder = blockItemHandler.insertItem(SLOT, stackInHand, false);
-            pPlayer.setItemInHand(pHand, remainder);
-            if (remainder.getCount() != stackInHand.getCount()) {
-                return InteractionResult.SUCCESS;
-            }
+            // no insertion for this block
         }
 
         return InteractionResult.PASS;

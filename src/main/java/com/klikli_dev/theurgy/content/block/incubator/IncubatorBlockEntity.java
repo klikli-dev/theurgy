@@ -14,7 +14,6 @@ import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -38,9 +37,8 @@ public class IncubatorBlockEntity extends BlockEntity implements HeatConsumer {
     public LazyOptional<IItemHandler> outputInventoryCapability;
 
     public IncubatorRecipeWrapper recipeWrapper;
-    protected boolean checkValidMultiblockOnNextQuery;
     public boolean isValidMultiblock;
-
+    protected boolean checkValidMultiblockOnNextQuery;
     private boolean heatedCache;
     private int progress;
     private int totalTime;
@@ -128,8 +126,9 @@ public class IncubatorBlockEntity extends BlockEntity implements HeatConsumer {
     }
 
     protected int getTotalTime() {
-        return this.recipeWrapper == null ? IncubationRecipe.DEFAULT_INCUBATION_TIME :
-                this.recipeCachedCheck.getRecipeFor(this.recipeWrapper, this.level).map(IncubationRecipe::getIncubationTime).orElse(IncubationRecipe.DEFAULT_INCUBATION_TIME);
+        if (this.recipeWrapper == null)
+            return IncubationRecipe.DEFAULT_INCUBATION_TIME;
+        return this.recipeCachedCheck.getRecipeFor(this.recipeWrapper, this.level).map(IncubationRecipe::getIncubationTime).orElse(IncubationRecipe.DEFAULT_INCUBATION_TIME);
     }
 
     @Override
@@ -231,8 +230,8 @@ public class IncubatorBlockEntity extends BlockEntity implements HeatConsumer {
         super.setRemoved();
     }
 
-    public boolean isValidMultiblock(){
-        if(this.checkValidMultiblockOnNextQuery){
+    public boolean isValidMultiblock() {
+        if (this.checkValidMultiblockOnNextQuery) {
             this.checkValidMultiblockOnNextQuery = false;
             this.validateMultiblock();
         }

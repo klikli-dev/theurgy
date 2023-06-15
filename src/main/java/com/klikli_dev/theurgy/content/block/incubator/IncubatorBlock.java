@@ -6,6 +6,7 @@
 
 package com.klikli_dev.theurgy.content.block.incubator;
 
+import com.klikli_dev.theurgy.content.block.OneOutputSlotAlchemicalDeviceBlock;
 import com.klikli_dev.theurgy.content.block.OneSlotAlchemicalDeviceBlock;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.BlockTagRegistry;
@@ -42,7 +43,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
 
-public class IncubatorBlock extends Block implements EntityBlock, OneSlotAlchemicalDeviceBlock {
+public class IncubatorBlock extends Block implements EntityBlock, OneOutputSlotAlchemicalDeviceBlock {
     public static final BooleanProperty NORTH = PipeBlock.NORTH;
     public static final BooleanProperty EAST = PipeBlock.EAST;
     public static final BooleanProperty SOUTH = PipeBlock.SOUTH;

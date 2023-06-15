@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-package com.klikli_dev.theurgy.content.block;
+package com.klikli_dev.theurgy.content.block.itemhandlers;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
@@ -16,15 +16,16 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 
-public interface OneOutputSlotAlchemicalDeviceBlock {
+public class OneSlotBlockItemHandler implements BlockItemHandler {
 
-    int SLOT = 0;
+    public static final int SLOT = 0;
 
 
     /**
-     * Default interaction for blocks that have a block entity with an output inventory with one slot.
+     * Default interaction for blocks that have a block entity with an in/output inventory with one slot.
      */
-    default InteractionResult useItemHandler(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
+    @Override
+    public InteractionResult useItemHandler(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         var blockEntity = pLevel.getBlockEntity(pPos);
 
         if (blockEntity == null)
@@ -46,7 +47,12 @@ public interface OneOutputSlotAlchemicalDeviceBlock {
                 return InteractionResult.SUCCESS;
             }
         } else {
-            // no insertion for this block
+            //if we have an item in hand, try to insert
+            var remainder = blockItemHandler.insertItem(SLOT, stackInHand, false);
+            pPlayer.setItemInHand(pHand, remainder);
+            if (remainder.getCount() != stackInHand.getCount()) {
+                return InteractionResult.SUCCESS;
+            }
         }
 
         return InteractionResult.PASS;

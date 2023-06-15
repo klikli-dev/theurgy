@@ -6,8 +6,10 @@
 
 package com.klikli_dev.theurgy.content.block.salammoniacaccumulator;
 
-import com.klikli_dev.theurgy.content.block.OneSlotAlchemicalDeviceBlock;
-import com.klikli_dev.theurgy.content.block.OneTankAlchemicalDeviceBlock;
+import com.klikli_dev.theurgy.content.block.itemhandlers.BlockFluidHandler;
+import com.klikli_dev.theurgy.content.block.itemhandlers.BlockItemHandler;
+import com.klikli_dev.theurgy.content.block.itemhandlers.OneSlotBlockItemHandler;
+import com.klikli_dev.theurgy.content.block.itemhandlers.OneTankBlockFluidHandler;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -27,9 +29,14 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.items.wrapper.RecipeWrapper;
 import org.jetbrains.annotations.Nullable;
 
-public class SalAmmoniacAccumulatorBlock extends Block implements EntityBlock, OneSlotAlchemicalDeviceBlock, OneTankAlchemicalDeviceBlock {
+public class SalAmmoniacAccumulatorBlock extends Block implements EntityBlock {
+    protected BlockItemHandler blockItemHandler;
+    protected BlockFluidHandler blockFluidHandler;
+
     public SalAmmoniacAccumulatorBlock(Properties pProperties) {
         super(pProperties);
+        this.blockItemHandler = new OneSlotBlockItemHandler();
+        this.blockFluidHandler = new OneTankBlockFluidHandler();
     }
 
     @Override
@@ -38,11 +45,11 @@ public class SalAmmoniacAccumulatorBlock extends Block implements EntityBlock, O
             return InteractionResult.SUCCESS;
         }
 
-        if (this.useFluidHandler(pState, pLevel, pPos, pPlayer, pHand, pHit) == InteractionResult.SUCCESS) {
+        if (this.blockFluidHandler.useFluidHandler(pState, pLevel, pPos, pPlayer, pHand, pHit) == InteractionResult.SUCCESS) {
             return InteractionResult.SUCCESS;
         }
 
-        if (this.useItemHandler(pState, pLevel, pPos, pPlayer, pHand, pHit) == InteractionResult.SUCCESS) {
+        if (this.blockItemHandler.useItemHandler(pState, pLevel, pPos, pPlayer, pHand, pHit) == InteractionResult.SUCCESS) {
             return InteractionResult.SUCCESS;
         }
 

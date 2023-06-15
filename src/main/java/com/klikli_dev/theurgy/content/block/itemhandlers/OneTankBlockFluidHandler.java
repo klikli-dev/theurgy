@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-package com.klikli_dev.theurgy.content.block;
+package com.klikli_dev.theurgy.content.block.itemhandlers;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
@@ -19,12 +19,13 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 
-public interface OneTankAlchemicalDeviceBlock {
+public class OneTankBlockFluidHandler implements BlockFluidHandler {
 
     /**
      * Default interaction for blocks have a block entity with a fluid handler.
      */
-    default InteractionResult useFluidHandler(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
+    @Override
+    public InteractionResult useFluidHandler(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         var blockEntity = pLevel.getBlockEntity(pPos);
 
         if (blockEntity == null)

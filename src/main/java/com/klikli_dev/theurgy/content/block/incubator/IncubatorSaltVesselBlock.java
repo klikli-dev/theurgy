@@ -6,7 +6,8 @@
 
 package com.klikli_dev.theurgy.content.block.incubator;
 
-import com.klikli_dev.theurgy.content.block.OneSlotAlchemicalDeviceBlock;
+import com.klikli_dev.theurgy.content.block.itemhandlers.BlockItemHandler;
+import com.klikli_dev.theurgy.content.block.itemhandlers.OneSlotBlockItemHandler;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.Containers;
@@ -25,12 +26,15 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.items.wrapper.RecipeWrapper;
 import org.jetbrains.annotations.Nullable;
 
-public class IncubatorSaltVesselBlock extends Block implements EntityBlock, OneSlotAlchemicalDeviceBlock {
+public class IncubatorSaltVesselBlock extends Block implements EntityBlock {
 
     private static final VoxelShape SHAPE = Block.box(3, 0, 3, 13, 14, 13);
 
+    protected BlockItemHandler blockItemHandler;
+
     public IncubatorSaltVesselBlock(Properties pProperties) {
         super(pProperties);
+        this.blockItemHandler = new OneSlotBlockItemHandler();
     }
 
     @Override
@@ -49,7 +53,7 @@ public class IncubatorSaltVesselBlock extends Block implements EntityBlock, OneS
             return InteractionResult.SUCCESS;
         }
 
-        if (this.useItemHandler(pState, pLevel, pPos, pPlayer, pHand, pHit) == InteractionResult.SUCCESS) {
+        if (this.blockItemHandler.useItemHandler(pState, pLevel, pPos, pPlayer, pHand, pHit) == InteractionResult.SUCCESS) {
             return InteractionResult.SUCCESS;
         }
 

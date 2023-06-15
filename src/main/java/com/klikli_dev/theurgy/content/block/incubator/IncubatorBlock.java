@@ -6,8 +6,8 @@
 
 package com.klikli_dev.theurgy.content.block.incubator;
 
-import com.klikli_dev.theurgy.content.block.OneOutputSlotAlchemicalDeviceBlock;
-import com.klikli_dev.theurgy.content.block.OneSlotAlchemicalDeviceBlock;
+import com.klikli_dev.theurgy.content.block.itemhandlers.BlockItemHandler;
+import com.klikli_dev.theurgy.content.block.itemhandlers.OneOutputSlotBlockItemHandler;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.BlockTagRegistry;
 import net.minecraft.Util;
@@ -43,7 +43,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
 
-public class IncubatorBlock extends Block implements EntityBlock, OneOutputSlotAlchemicalDeviceBlock {
+public class IncubatorBlock extends Block implements EntityBlock {
     public static final BooleanProperty NORTH = PipeBlock.NORTH;
     public static final BooleanProperty EAST = PipeBlock.EAST;
     public static final BooleanProperty SOUTH = PipeBlock.SOUTH;
@@ -53,9 +53,11 @@ public class IncubatorBlock extends Block implements EntityBlock, OneOutputSlotA
     protected static final VoxelShape TOP = Shapes.block();
     protected static final VoxelShape BOTTOM = Shapes.block();
 
+    protected BlockItemHandler blockItemHandler;
+
     public IncubatorBlock(Properties pProperties) {
         super(pProperties);
-
+        this.blockItemHandler = new OneOutputSlotBlockItemHandler();
         this.registerDefaultState(this.stateDefinition.any()
                 .setValue(HALF, DoubleBlockHalf.LOWER)
                 .setValue(NORTH, false)
@@ -156,7 +158,7 @@ public class IncubatorBlock extends Block implements EntityBlock, OneOutputSlotA
         //handle top block
         pPos = pState.getValue(HALF) == DoubleBlockHalf.UPPER ? pPos.below() : pPos;
 
-        if (this.useItemHandler(pState, pLevel, pPos, pPlayer, pHand, pHit) == InteractionResult.SUCCESS) {
+        if (this.blockItemHandler.useItemHandler(pState, pLevel, pPos, pPlayer, pHand, pHit) == InteractionResult.SUCCESS) {
             return InteractionResult.SUCCESS;
         }
 

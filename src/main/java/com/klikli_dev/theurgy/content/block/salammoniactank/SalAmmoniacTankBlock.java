@@ -6,7 +6,8 @@
 
 package com.klikli_dev.theurgy.content.block.salammoniactank;
 
-import com.klikli_dev.theurgy.content.block.OneTankAlchemicalDeviceBlock;
+import com.klikli_dev.theurgy.content.block.itemhandlers.BlockFluidHandler;
+import com.klikli_dev.theurgy.content.block.itemhandlers.OneTankBlockFluidHandler;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
@@ -20,9 +21,13 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
-public class SalAmmoniacTankBlock extends Block implements EntityBlock, OneTankAlchemicalDeviceBlock {
+public class SalAmmoniacTankBlock extends Block implements EntityBlock {
+
+    protected BlockFluidHandler blockFluidHandler;
+
     public SalAmmoniacTankBlock(Properties pProperties) {
         super(pProperties);
+        this.blockFluidHandler = new OneTankBlockFluidHandler();
     }
 
     @Override
@@ -31,7 +36,7 @@ public class SalAmmoniacTankBlock extends Block implements EntityBlock, OneTankA
             return InteractionResult.SUCCESS;
         }
 
-        if (this.useFluidHandler(pState, pLevel, pPos, pPlayer, pHand, pHit) == InteractionResult.SUCCESS) {
+        if (this.blockFluidHandler.useFluidHandler(pState, pLevel, pPos, pPlayer, pHand, pHit) == InteractionResult.SUCCESS) {
             return InteractionResult.SUCCESS;
         }
 

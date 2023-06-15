@@ -6,7 +6,8 @@
 
 package com.klikli_dev.theurgy.content.block.calcinationoven;
 
-import com.klikli_dev.theurgy.content.block.TwoSlotAlchemicalDeviceBlock;
+import com.klikli_dev.theurgy.content.block.itemhandlers.BlockItemHandler;
+import com.klikli_dev.theurgy.content.block.itemhandlers.TwoSlotBlockItemHandler;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -38,15 +39,18 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.items.wrapper.RecipeWrapper;
 import org.jetbrains.annotations.Nullable;
 
-public class CalcinationOvenBlock extends Block implements EntityBlock, TwoSlotAlchemicalDeviceBlock {
+public class CalcinationOvenBlock extends Block implements EntityBlock {
 
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
     public static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
     protected static final VoxelShape TOP = Block.box(0, 0, 0, 16, 5, 16);
     protected static final VoxelShape BOTTOM = Shapes.block();
 
+    protected BlockItemHandler blockItemHandler;
+
     public CalcinationOvenBlock(Properties pProperties) {
         super(pProperties);
+        this.blockItemHandler = new TwoSlotBlockItemHandler();
         this.registerDefaultState(this.stateDefinition.any().setValue(LIT, Boolean.FALSE).setValue(HALF, DoubleBlockHalf.LOWER));
     }
 
@@ -130,7 +134,7 @@ public class CalcinationOvenBlock extends Block implements EntityBlock, TwoSlotA
         //handle top block
         pPos = pState.getValue(HALF) == DoubleBlockHalf.UPPER ? pPos.below() : pPos;
 
-        if (this.useItemHandler(pState, pLevel, pPos, pPlayer, pHand, pHit) == InteractionResult.SUCCESS) {
+        if (this.blockItemHandler.useItemHandler(pState, pLevel, pPos, pPlayer, pHand, pHit) == InteractionResult.SUCCESS) {
             return InteractionResult.SUCCESS;
         }
 

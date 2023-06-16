@@ -6,9 +6,8 @@
 
 package com.klikli_dev.theurgy.datagen.book;
 
-import com.klikli_dev.modonomicon.api.ModonomiconAPI;
-import com.klikli_dev.modonomicon.api.datagen.BookLangHelper;
-import com.klikli_dev.modonomicon.api.datagen.EntryLocationHelper;
+import com.klikli_dev.modonomicon.api.datagen.BookProvider;
+import com.klikli_dev.modonomicon.api.datagen.CategoryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookCategoryModel;
 import com.klikli_dev.modonomicon.api.datagen.book.BookEntryModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookCraftingRecipePageModel;
@@ -19,25 +18,18 @@ import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.integration.modonomicon.page.accumulation.BookAccumulationRecipePageModel;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraftforge.common.data.LanguageProvider;
 
-public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
+public class SpagyricsCategoryProvider extends CategoryProvider {
 
     public static final String CATEGORY_ID = "spagyrics";
-    private LanguageProvider lang;
 
-    public SpagyricsCategoryProvider() {
-        this.registerDefaultMacros();
+    public SpagyricsCategoryProvider(BookProvider parent) {
+        super(parent, CATEGORY_ID);
     }
 
-    public BookCategoryModel make(BookLangHelper helper, LanguageProvider lang) {
-        this.lang = lang;
-
-        helper.category(CATEGORY_ID);
-        this.add(helper.categoryName(), "Spagyrics");
-
-        var entryHelper = ModonomiconAPI.get().getEntryLocationHelper();
-        entryHelper.setMap(
+    @Override
+    protected String[] generateEntryMap() {
+        return new String[]{
                 "__________________________________",
                 "__________________________________",
                 "________________c_________________",
@@ -47,35 +39,41 @@ public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
                 "________________d_________________",
                 "__________________________________",
                 "__________________________________"
-        );
+        };
+    }
 
-        var introEntry = this.makeIntroEntry(helper, entryHelper, 'i');
-        var principlesEntry = this.makePrinciplesEntry(helper, entryHelper, 'p');
+    @Override
+    protected BookCategoryModel generateCategory() {
+        this.add(this.context().categoryName(), "Spagyrics");
+
+
+        var introEntry = this.makeIntroEntry('i');
+        var principlesEntry = this.makePrinciplesEntry('p');
         principlesEntry.withParent(introEntry);
 
-        var pyromanticBrazierEntry = this.makePyromanticBrazierEntry(helper, entryHelper, 'b');
+        var pyromanticBrazierEntry = this.makePyromanticBrazierEntry('b');
         pyromanticBrazierEntry.withParent(principlesEntry);
 
-        var calcinationOvenEntry = this.makeCalcinationOvenEntry(helper, entryHelper, 'c');
+        var calcinationOvenEntry = this.makeCalcinationOvenEntry('c');
         calcinationOvenEntry.withParent(pyromanticBrazierEntry);
 
-        var solventEntry = this.makeSolventsEntry(helper, entryHelper, 's');
+        var solventEntry = this.makeSolventsEntry('s');
         solventEntry.withParent(pyromanticBrazierEntry);
 
-        var liquefactionCauldronEntry = this.makeLiquefactionCauldronEntry(helper, entryHelper, 'l');
+        var liquefactionCauldronEntry = this.makeLiquefactionCauldronEntry('l');
         liquefactionCauldronEntry.withParent(solventEntry);
 
-        var distillerEntry = this.makeDistillerEntry(helper, entryHelper, 'd');
+        var distillerEntry = this.makeDistillerEntry('d');
         distillerEntry.withParent(pyromanticBrazierEntry);
 
-        var incubatorEntry = this.makeIncubatorEntry(helper, entryHelper, 'r');
+        var incubatorEntry = this.makeIncubatorEntry('r');
         incubatorEntry.withParent(calcinationOvenEntry);
         incubatorEntry.withParent(liquefactionCauldronEntry);
         incubatorEntry.withParent(distillerEntry);
 
         return BookCategoryModel.create(
-                        Theurgy.loc(helper.category),
-                        helper.categoryName()
+                        Theurgy.loc(this.context().categoryId()),
+                        this.context().categoryName()
                 )
                 .withIcon(ItemRegistry.CALCINATION_OVEN.get())
                 .withEntries(
@@ -90,39 +88,40 @@ public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeIntroEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
-        helper.entry("intro");
-        this.add(helper.entryName(), "Spagyrics");
-        this.add(helper.entryDescription(), "Power over the Three Principles");
 
-        helper.page("intro");
+    private BookEntryModel.Builder makeIntroEntry(char icon) {
+        this.context().entry("intro");
+        this.add(this.context().entryName(), "Spagyrics");
+        this.add(this.context().entryDescription(), "Power over the Three Principles");
+
+        this.context().page("intro");
         var intro = BookTextPageModel.builder()
-                .withTitle(helper.pageTitle())
-                .withText(helper.pageText())
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
                 .build();
-        this.add(helper.pageTitle(), "Spagyrics");
-        this.add(helper.pageText(),
+        this.add(this.context().pageTitle(), "Spagyrics");
+        this.add(this.context().pageText(),
                 """
                         Spagyrics is derived from Greek for "to separate and reunite". As such, it is the process of separating, purifying and recombining the *three principles*, or "elements", of matter: Alchemical **Salt**, **Sulfur** and **Mercury**.
                         """);
 
-        helper.page("intro2");
+        this.context().page("intro2");
         var intro2 = BookTextPageModel.builder()
-                .withTitle(helper.pageTitle())
-                .withText(helper.pageText())
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
                 .build();
-        this.add(helper.pageTitle(), "Benefits");
-        this.add(helper.pageText(),
+        this.add(this.context().pageTitle(), "Benefits");
+        this.add(this.context().pageText(),
                 """
                         The inquisitive mind may ask: "Why would one want to do that?". The answer lies in the promise of total control over all aspects of matter, including the ability to create any type of matter from any other type.
                         """);
 
         return BookEntryModel.builder()
-                .withId(Theurgy.loc(helper.category + "/" + helper.entry))
-                .withName(helper.entryName())
-                .withDescription(helper.entryDescription())
+                .withId(Theurgy.loc(this.context().categoryId() + "/" + this.context().entryId()))
+                .withName(this.context().entryName())
+                .withDescription(this.context().entryDescription())
                 .withIcon(ItemRegistry.CALCINATION_OVEN.get())
-                .withLocation(entryHelper.get(icon))
+                .withLocation(this.entryMap().get(icon))
                 .withEntryBackground(EntryBackground.CATEGORY_START)
                 .withPages(
                         intro,
@@ -130,18 +129,18 @@ public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
                 );
     }
 
-    private BookEntryModel.Builder makePrinciplesEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
-        helper.entry("principles");
-        this.add(helper.entryName(), "The Three Principles");
-        this.add(helper.entryDescription(), "An Introduction to Alchemical Elements");
+    private BookEntryModel.Builder makePrinciplesEntry(char icon) {
+        this.context().entry("principles");
+        this.add(this.context().entryName(), "The Three Principles");
+        this.add(this.context().entryDescription(), "An Introduction to Alchemical Elements");
 
-        helper.page("intro");
+        this.context().page("intro");
         var intro = BookTextPageModel.builder()
-                .withTitle(helper.pageTitle())
-                .withText(helper.pageText())
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
                 .build();
-        this.add(helper.pageTitle(), "The Three Principles");
-        this.add(helper.pageText(),
+        this.add(this.context().pageTitle(), "The Three Principles");
+        this.add(this.context().pageText(),
                 """
                         The [#]($PURPLE)Principles[#](), or Essentials, are the three basic elements all things are made of.
                         \\
@@ -149,24 +148,24 @@ public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
                         Despite the name, they are unrelated to the common materials often associated with these words, such as table salt, metallic mercury and the mineral sulfur.
                         """);
 
-        helper.page("salt");
+        this.context().page("salt");
         var salt = BookTextPageModel.builder()
-                .withTitle(helper.pageTitle())
-                .withText(helper.pageText())
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
                 .build();
-        this.add(helper.pageTitle(), "Alchemical Salt");
-        this.add(helper.pageText(),
+        this.add(this.context().pageTitle(), "Alchemical Salt");
+        this.add(this.context().pageText(),
                 """
                         [#]($PURPLE)Alchemical Salt[#]() is the principle representing the **Body** of a thing. It provides the matrix wherein Sulfur and Mercury can act. As such it is associated with materiality, stability and manifestation in the physical world.
                         """);
 
-        helper.page("sulfur");
+        this.context().page("sulfur");
         var sulfur = BookTextPageModel.builder()
-                .withTitle(helper.pageTitle())
-                .withText(helper.pageText())
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
                 .build();
-        this.add(helper.pageTitle(), "Alchemical Sulfur");
-        this.add(helper.pageText(),
+        this.add(this.context().pageTitle(), "Alchemical Sulfur");
+        this.add(this.context().pageText(),
                 """
                         [#]($PURPLE)Alchemical Sulfur[#]() is the **Soul** of a thing. It represents the unique properties of a piece of matter, such as how it will look, feel, and how it interacts with other things.
                         \\
@@ -174,23 +173,23 @@ public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
                         Transforming the Sulfur of one thing is the underlying idea of *transmutation*.
                         """);
 
-        helper.page("mercury");
+        this.context().page("mercury");
         var mercury = BookTextPageModel.builder()
-                .withTitle(helper.pageTitle())
-                .withText(helper.pageText())
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
                 .build();
-        this.add(helper.pageTitle(), "Alchemical Mercury");
-        this.add(helper.pageText(),
+        this.add(this.context().pageTitle(), "Alchemical Mercury");
+        this.add(this.context().pageText(),
                 """
                         [#]($PURPLE)Alchemical Mercury[#]() is the **Energy** or Life Force of a thing. It is the most elusive of the three principles, and enables the other two principles to function.
                         """);
 
         return BookEntryModel.builder()
-                .withId(Theurgy.loc(helper.category + "/" + helper.entry))
-                .withName(helper.entryName())
-                .withDescription(helper.entryDescription())
+                .withId(Theurgy.loc(this.context().categoryId() + "/" + this.context().entryId()))
+                .withName(this.context().entryName())
+                .withDescription(this.context().entryDescription())
                 .withIcon(ItemRegistry.MERCURY_CRYSTAL.get())
-                .withLocation(entryHelper.get(icon))
+                .withLocation(this.entryMap().get(icon))
                 .withEntryBackground(EntryBackground.DEFAULT)
                 .withPages(
                         intro,
@@ -200,18 +199,18 @@ public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
                 );
     }
 
-    private BookEntryModel.Builder makePyromanticBrazierEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
-        helper.entry("pyromantic_brazier");
-        this.add(helper.entryName(), "Pyromantic Brazier");
-        this.add(helper.entryDescription(), "Heating your Alchemical Devices");
+    private BookEntryModel.Builder makePyromanticBrazierEntry(char icon) {
+        this.context().entry("pyromantic_brazier");
+        this.add(this.context().entryName(), "Pyromantic Brazier");
+        this.add(this.context().entryDescription(), "Heating your Alchemical Devices");
 
-        helper.page("intro");
+        this.context().page("intro");
         var intro = BookTextPageModel.builder()
-                .withTitle(helper.pageTitle())
-                .withText(helper.pageText())
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
                 .build();
-        this.add(helper.pageTitle(), "Pyromantic Brazier");
-        this.add(helper.pageText(),
+        this.add(this.context().pageTitle(), "Pyromantic Brazier");
+        this.add(this.context().pageText(),
                 """
                         The {0} is a simple heating apparatus that can be used to power other Alchemical Devices. It is powered by burning furnace fuel, such as wood, coal, or charcoal.
                         """,
@@ -219,13 +218,13 @@ public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
         );
 
 
-        helper.page("usage");
+        this.context().page("usage");
         var usage = BookTextPageModel.builder()
-                .withTitle(helper.pageTitle())
-                .withText(helper.pageText())
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
                 .build();
-        this.add(helper.pageTitle(), "Usage");
-        this.add(helper.pageText(),
+        this.add(this.context().pageTitle(), "Usage");
+        this.add(this.context().pageText(),
                 """
                         Place the {0} below the Alchemical Device you want to power, then insert a fuel item by right-clicking the brazier with it.
                         \\
@@ -236,21 +235,21 @@ public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
                         See also {1}.
                         """,
                 this.itemLink(ItemRegistry.PYROMANTIC_BRAZIER.get()),
-                this.entryLink("Alchemical Apparatus", GettingStartedCategoryProvider.CATEGORY_ID, "apparatus_how_to")
+                this.entryLink("Alchemical Apparatus", this.categoryId, "apparatus_how_to")
         );
 
-        helper.page("recipe");
+        this.context().page("recipe");
         var recipe = BookCraftingRecipePageModel.builder()
                 .withRecipeId1(Theurgy.loc("crafting/shaped/pyromantic_brazier"))
                 .build();
         //no text
 
         return BookEntryModel.builder()
-                .withId(Theurgy.loc(helper.category + "/" + helper.entry))
-                .withName(helper.entryName())
-                .withDescription(helper.entryDescription())
+                .withId(Theurgy.loc(this.context().categoryId() + "/" + this.context().entryId()))
+                .withName(this.context().entryName())
+                .withDescription(this.context().entryDescription())
                 .withIcon(ItemRegistry.PYROMANTIC_BRAZIER.get())
-                .withLocation(entryHelper.get(icon))
+                .withLocation(this.entryMap().get(icon))
                 .withEntryBackground(EntryBackground.DEFAULT)
                 .withPages(
                         intro,
@@ -259,36 +258,36 @@ public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeCalcinationOvenEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
-        helper.entry("calcination_oven");
-        this.add(helper.entryName(), "Calcination Oven");
-        this.add(helper.entryDescription(), "Making Salt");
+    private BookEntryModel.Builder makeCalcinationOvenEntry(char icon) {
+        this.context().entry("calcination_oven");
+        this.add(this.context().entryName(), "Calcination Oven");
+        this.add(this.context().entryDescription(), "Making Salt");
 
-        helper.page("intro");
+        this.context().page("intro");
         var intro = BookTextPageModel.builder()
-                .withTitle(helper.pageTitle())
-                .withText(helper.pageText())
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
                 .build();
-        this.add(helper.pageTitle(), "Calcination Oven");
-        this.add(helper.pageText(),
+        this.add(this.context().pageTitle(), "Calcination Oven");
+        this.add(this.context().pageText(),
                 """
                         Calcination is the process whereby [#]($PURPLE)Alchemical Salt[#]() is extracted from matter. The {0} is a simple device that can be used to perform this process by applying consistent high heat to the target object.
                         """,
                 this.itemLink(ItemRegistry.CALCINATION_OVEN.get())
         );
 
-        helper.page("multiblock");
+        this.context().page("multiblock");
         var multiblock = BookMultiblockPageModel.builder()
                 .withMultiblockId(Theurgy.loc("placement/calcination_oven"))
                 .build();
 
-        helper.page("usage");
+        this.context().page("usage");
         var usage = BookTextPageModel.builder()
-                .withTitle(helper.pageTitle())
-                .withText(helper.pageText())
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
                 .build();
-        this.add(helper.pageTitle(), "Usage");
-        this.add(helper.pageText(),
+        this.add(this.context().pageTitle(), "Usage");
+        this.add(this.context().pageText(),
                 """
                         Place the {0} on top of a {1}, then insert the item to calcinate by right-clicking the oven with it.
                         \\
@@ -300,29 +299,29 @@ public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
                         """,
                 this.itemLink(ItemRegistry.CALCINATION_OVEN.get()),
                 this.itemLink(ItemRegistry.PYROMANTIC_BRAZIER.get()),
-                this.entryLink("Alchemical Apparatus", GettingStartedCategoryProvider.CATEGORY_ID, "apparatus_how_to")
+                this.entryLink("Alchemical Apparatus", this.categoryId, "apparatus_how_to")
         );
 
-        helper.page("recipe");
+        this.context().page("recipe");
         var recipe = BookCraftingRecipePageModel.builder()
                 .withRecipeId1(Theurgy.loc("crafting/shaped/calcination_oven"))
                 .build();
         //no text
 
-//        helper.page("recipe_ore");
+//        this.context().page("recipe_ore");
 //        var recipeOre = BookCalcinationRecipePageModel.builder()
-//                .withTitle1(helper.pageTitle())
+//                .withTitle1(this.context().pageTitle())
 //                .withRecipeId1(Theurgy.loc("calcination/ore"))
 //                .build();
-//        this.add(helper.pageTitle(), "Sample Recipe");
+//        this.add(this.context().pageTitle(), "Sample Recipe");
         //no text
 
         return BookEntryModel.builder()
-                .withId(Theurgy.loc(helper.category + "/" + helper.entry))
-                .withName(helper.entryName())
-                .withDescription(helper.entryDescription())
+                .withId(Theurgy.loc(this.context().categoryId() + "/" + this.context().entryId()))
+                .withName(this.context().entryName())
+                .withDescription(this.context().entryDescription())
                 .withIcon(ItemRegistry.CALCINATION_OVEN.get())
-                .withLocation(entryHelper.get(icon))
+                .withLocation(this.entryMap().get(icon))
                 .withEntryBackground(EntryBackground.DEFAULT)
                 .withPages(
                         intro,
@@ -333,19 +332,19 @@ public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeSolventsEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
-        helper.entry("solvents");
-        this.add(helper.entryName(), "Solvents");
-        this.add(helper.entryDescription(), "Solving all your problems?");
+    private BookEntryModel.Builder makeSolventsEntry(char icon) {
+        this.context().entry("solvents");
+        this.add(this.context().entryName(), "Solvents");
+        this.add(this.context().entryDescription(), "Solving all your problems?");
 
-        helper.page("intro");
+        this.context().page("intro");
         var intro = BookSpotlightPageModel.builder()
                 .withItem(Ingredient.of(ItemRegistry.SAL_AMMONIAC_BUCKET.get()))
-                .withTitle(helper.pageTitle())
-                .withText(helper.pageText())
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
                 .build();
-        this.add(helper.pageTitle(), "Solvents");
-        this.add(helper.pageText(),
+        this.add(this.context().pageTitle(), "Solvents");
+        this.add(this.context().pageText(),
                 """
                         Solvents are required for the process of Liquefaction, by which [#]($PURPLE)Alchemical Sulfur[#]() is extracted from matter. Usually they are a type of acid. The following solvents are available:
                         - Sal Ammoniac
@@ -353,13 +352,13 @@ public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
                         """);
         //TODO: Update entry once alkahest is available
 
-        helper.page("crafting");
+        this.context().page("crafting");
         var crafting = BookTextPageModel.builder()
-                .withTitle(helper.pageTitle())
-                .withText(helper.pageText())
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
                 .build();
-        this.add(helper.pageTitle(), "Crafting");
-        this.add(helper.pageText(),
+        this.add(this.context().pageTitle(), "Crafting");
+        this.add(this.context().pageText(),
                 """
                         Sal Ammoniac is crafted in a {0}. It has two modes of operation: It can increase the concentration of naturally occuring Sal Ammoniac in water to a usable level via evaporation, which is a rather slow and inefficient process, or it can enrich water with {1} to produce a usable solvent much quicker.
                         """,
@@ -367,18 +366,18 @@ public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
                 this.itemLink("Sal Ammoniac Crystals", ItemRegistry.SAL_AMMONIAC_CRYSTAL.get())
         );
 
-        helper.page("multiblock");
+        this.context().page("multiblock");
         var multiblock = BookMultiblockPageModel.builder()
                 .withMultiblockId(Theurgy.loc("placement/sal_ammoniac_accumulator"))
                 .build();
 
-        helper.page("usage");
+        this.context().page("usage");
         var usage = BookTextPageModel.builder()
-                .withTitle(helper.pageTitle())
-                .withText(helper.pageText())
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
                 .build();
-        this.add(helper.pageTitle(), "Usage");
-        this.add(helper.pageText(),
+        this.add(this.context().pageTitle(), "Usage");
+        this.add(this.context().pageText(),
                 """
                         Place the {0} on top of a {1}, and fill it with a Water by right-clicking with a water bucket.
                         \\
@@ -394,45 +393,45 @@ public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
                 this.entryLink("Alchemical Apparatus", GettingStartedCategoryProvider.CATEGORY_ID, "apparatus_how_to")
         );
 
-        helper.page("recipe1");
+        this.context().page("recipe1");
         var recipe1 = BookCraftingRecipePageModel.builder()
                 .withRecipeId1(Theurgy.loc("crafting/shaped/sal_ammoniac_accumulator"))
                 .build();
         //no text
 
-        helper.page("recipe2");
+        this.context().page("recipe2");
         var recipe2 = BookCraftingRecipePageModel.builder()
                 .withRecipeId1(Theurgy.loc("crafting/shaped/sal_ammoniac_tank"))
                 .build();
         //no text
 
-        helper.page("sal_ammoniac_crystal");
+        this.context().page("sal_ammoniac_crystal");
         var crystal = BookSpotlightPageModel.builder()
                 .withItem(Ingredient.of(ItemRegistry.SAL_AMMONIAC_CRYSTAL.get()))
-                .withText(helper.pageText())
+                .withText(this.context().pageText())
                 .build();
-        this.add(helper.pageText(),
+        this.add(this.context().pageText(),
                 """
                         The crystals can be obtained by mining {0}.
                         """,
                 this.itemLink(ItemRegistry.SAL_AMMONIAC_ORE.get())
         );
 
-        helper.page("sal_ammoniac_fluid_recipe");
+        this.context().page("sal_ammoniac_fluid_recipe");
         var salAmmoniacFluidRecipe = BookAccumulationRecipePageModel.builder()
                 .withRecipeId1(Theurgy.loc("accumulation/sal_ammoniac_from_water"))
                 .withRecipeId2(Theurgy.loc("accumulation/sal_ammoniac_from_water_and_sal_ammoniac_crystal"))
-                .withTitle2(helper.pageTitle() + ".2")
+                .withTitle2(this.context().pageTitle() + ".2")
                 .build();
-        this.add(helper.pageTitle() + ".2", "... using Crystal");
+        this.add(this.context().pageTitle() + ".2", "... using Crystal");
         //no text
 
         return BookEntryModel.builder()
-                .withId(Theurgy.loc(helper.category + "/" + helper.entry))
-                .withName(helper.entryName())
-                .withDescription(helper.entryDescription())
+                .withId(Theurgy.loc(this.context().categoryId() + "/" + this.context().entryId()))
+                .withName(this.context().entryName())
+                .withDescription(this.context().entryDescription())
                 .withIcon(ItemRegistry.SAL_AMMONIAC_TANK.get())
-                .withLocation(entryHelper.get(icon))
+                .withLocation(this.entryMap().get(icon))
                 .withEntryBackground(EntryBackground.DEFAULT)
                 .withPages(
                         intro,
@@ -446,36 +445,36 @@ public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeLiquefactionCauldronEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
-        helper.entry("liquefaction_cauldron");
-        this.add(helper.entryName(), "Liquefaction Cauldron");
-        this.add(helper.entryDescription(), "Making Sulfur");
+    private BookEntryModel.Builder makeLiquefactionCauldronEntry(char icon) {
+        this.context().entry("liquefaction_cauldron");
+        this.add(this.context().entryName(), "Liquefaction Cauldron");
+        this.add(this.context().entryDescription(), "Making Sulfur");
 
-        helper.page("intro");
+        this.context().page("intro");
         var intro = BookTextPageModel.builder()
-                .withTitle(helper.pageTitle())
-                .withText(helper.pageText())
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
                 .build();
-        this.add(helper.pageTitle(), "Liquefaction Cauldron");
-        this.add(helper.pageText(),
+        this.add(this.context().pageTitle(), "Liquefaction Cauldron");
+        this.add(this.context().pageText(),
                 """
                         Liquefaction allows the extraction of [#]($PURPLE)Alchemical Sulfur[#]() from matter. In the {0} a [#]($PURPLE)Solvent[#](), usually a type of acid, is used to dissolve the target object, then the resulting solution is heated to evaporate the solvent and leave behind the Sulfur.
                         """,
                 this.itemLink(ItemRegistry.LIQUEFACTION_CAULDRON.get())
         );
 
-        helper.page("multiblock");
+        this.context().page("multiblock");
         var multiblock = BookMultiblockPageModel.builder()
                 .withMultiblockId(Theurgy.loc("placement/liquefaction_cauldron"))
                 .build();
 
-        helper.page("usage");
+        this.context().page("usage");
         var usage = BookTextPageModel.builder()
-                .withTitle(helper.pageTitle())
-                .withText(helper.pageText())
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
                 .build();
-        this.add(helper.pageTitle(), "Usage");
-        this.add(helper.pageText(),
+        this.add(this.context().pageTitle(), "Usage");
+        this.add(this.context().pageText(),
                 """
                         Place the {0} on top of a {1}, and fill it with a Solvent by right-clicking with a solvent-filled bucket.
                         \\
@@ -490,26 +489,26 @@ public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
                 this.entryLink("Alchemical Apparatus", GettingStartedCategoryProvider.CATEGORY_ID, "apparatus_how_to")
         );
 
-        helper.page("recipe");
+        this.context().page("recipe");
         var recipe = BookCraftingRecipePageModel.builder()
                 .withRecipeId1(Theurgy.loc("crafting/shaped/liquefaction_cauldron"))
                 .build();
         //no text
 
-//        helper.page("sample_recipe");
+//        this.context().page("sample_recipe");
 //        var sampleRecipe = BookLiquefactionRecipePageModel.builder()
-//                .withTitle1(helper.pageTitle())
+//                .withTitle1(this.context().pageTitle())
 //                .withRecipeId1(Theurgy.loc("liquefaction/wheat"))
 //                .build();
-//        this.add(helper.pageTitle(), "Sample Recipe");
+//        this.add(this.context().pageTitle(), "Sample Recipe");
 //        //no text
 
         return BookEntryModel.builder()
-                .withId(Theurgy.loc(helper.category + "/" + helper.entry))
-                .withName(helper.entryName())
-                .withDescription(helper.entryDescription())
+                .withId(Theurgy.loc(this.context().categoryId() + "/" + this.context().entryId()))
+                .withName(this.context().entryName())
+                .withDescription(this.context().entryDescription())
                 .withIcon(ItemRegistry.LIQUEFACTION_CAULDRON.get())
-                .withLocation(entryHelper.get(icon))
+                .withLocation(this.entryMap().get(icon))
                 .withEntryBackground(EntryBackground.DEFAULT)
                 .withPages(
                         intro,
@@ -520,36 +519,36 @@ public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeDistillerEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
-        helper.entry("distiller");
-        this.add(helper.entryName(), "Distiller");
-        this.add(helper.entryDescription(), "Making Mercury");
+    private BookEntryModel.Builder makeDistillerEntry(char icon) {
+        this.context().entry("distiller");
+        this.add(this.context().entryName(), "Distiller");
+        this.add(this.context().entryDescription(), "Making Mercury");
 
-        helper.page("intro");
+        this.context().page("intro");
         var intro = BookTextPageModel.builder()
-                .withTitle(helper.pageTitle())
-                .withText(helper.pageText())
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
                 .build();
-        this.add(helper.pageTitle(), "Distiller");
-        this.add(helper.pageText(),
+        this.add(this.context().pageTitle(), "Distiller");
+        this.add(this.context().pageText(),
                 """
                         Distillation allows to obtain purified [#]($PURPLE)Alchemical Mercury[#]() from matter. To this end the object is heated until it dissolves into a gaseous form and the resulting vapour is condensed into crystals. The Mercury obtained this way is stable and can be used in alchemical recipes.
                         """);
         //TODO: link to mercury energy stuff
         //TODO: Link to matter teleportation u sing mercury
 
-        helper.page("multiblock");
+        this.context().page("multiblock");
         var multiblock = BookMultiblockPageModel.builder()
                 .withMultiblockId(Theurgy.loc("placement/distiller"))
                 .build();
 
-        helper.page("usage");
+        this.context().page("usage");
         var usage = BookTextPageModel.builder()
-                .withTitle(helper.pageTitle())
-                .withText(helper.pageText())
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
                 .build();
-        this.add(helper.pageTitle(), "Usage");
-        this.add(helper.pageText(),
+        this.add(this.context().pageTitle(), "Usage");
+        this.add(this.context().pageText(),
                 """
                         Place the {0} on top of a {1}, then insert the item to distill by right-clicking the Distiller with it.
                         \\
@@ -564,26 +563,26 @@ public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
                 this.entryLink("Alchemical Apparatus", GettingStartedCategoryProvider.CATEGORY_ID, "apparatus_how_to")
         );
 
-        helper.page("recipe");
+        this.context().page("recipe");
         var recipe = BookCraftingRecipePageModel.builder()
                 .withRecipeId1(Theurgy.loc("crafting/shaped/distiller"))
                 .build();
         //no text
 
-//        helper.page("sample_recipe");
+//        this.context().page("sample_recipe");
 //        var sampleRecipe = BookDistillationRecipePageModel.builder()
-//                .withTitle1(helper.pageTitle())
+//                .withTitle1(this.context().pageTitle())
 //                .withRecipeId1(Theurgy.loc("distillation/stone"))
 //                .build();
-//        this.add(helper.pageTitle(), "Sample Recipe");
+//        this.add(this.context().pageTitle(), "Sample Recipe");
 //        //no text
 
         return BookEntryModel.builder()
-                .withId(Theurgy.loc(helper.category + "/" + helper.entry))
-                .withName(helper.entryName())
-                .withDescription(helper.entryDescription())
+                .withId(Theurgy.loc(this.context().categoryId() + "/" + this.context().entryId()))
+                .withName(this.context().entryName())
+                .withDescription(this.context().entryDescription())
                 .withIcon(ItemRegistry.DISTILLER.get())
-                .withLocation(entryHelper.get(icon))
+                .withLocation(this.entryMap().get(icon))
                 .withEntryBackground(EntryBackground.DEFAULT)
                 .withPages(
                         intro,
@@ -594,35 +593,35 @@ public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeIncubatorEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
-        helper.entry("incubator");
-        this.add(helper.entryName(), "Incubator");
-        this.add(helper.entryDescription(), "Making Matter");
+    private BookEntryModel.Builder makeIncubatorEntry(char icon) {
+        this.context().entry("incubator");
+        this.add(this.context().entryName(), "Incubator");
+        this.add(this.context().entryDescription(), "Making Matter");
 
-        helper.page("intro");
+        this.context().page("intro");
         var intro = BookTextPageModel.builder()
-                .withTitle(helper.pageTitle())
-                .withText(helper.pageText())
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
                 .build();
-        this.add(helper.pageTitle(), "Incubator");
-        this.add(helper.pageText(),
+        this.add(this.context().pageTitle(), "Incubator");
+        this.add(this.context().pageText(),
                 """
                         Incubation is the process of *recombination* of the Principles of Matter into actual objects.\\
                         The Incubator has one vessel for each of the Principles, and a central chamber where the recombination takes place.
                         """);
 
-        helper.page("multiblock");
+        this.context().page("multiblock");
         var multiblock = BookMultiblockPageModel.builder()
                 .withMultiblockId(Theurgy.loc("placement/incubator"))
                 .build();
 
-        helper.page("usage");
+        this.context().page("usage");
         var usage = BookTextPageModel.builder()
-                .withTitle(helper.pageTitle())
-                .withText(helper.pageText())
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
                 .build();
-        this.add(helper.pageTitle(), "Usage");
-        this.add(helper.pageText(),
+        this.add(this.context().pageTitle(), "Usage");
+        this.add(this.context().pageText(),
                 """
                         Place the {0} on top of a {1} and one of each of the three vessels next to it. Insert the items to process by right-clicking the vessels with them.
                         \\
@@ -635,44 +634,44 @@ public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
                 this.entryLink("Alchemical Apparatus", GettingStartedCategoryProvider.CATEGORY_ID, "apparatus_how_to")
         );
 
-        helper.page("recipe_incubator");
+        this.context().page("recipe_incubator");
         var recipeIncubator = BookCraftingRecipePageModel.builder()
                 .withRecipeId1(Theurgy.loc("crafting/shaped/incubator"))
                 .build();
         //no text
 
-        helper.page("recipe_mercury_vessel");
+        this.context().page("recipe_mercury_vessel");
         var recipeMercuryVessel = BookCraftingRecipePageModel.builder()
                 .withRecipeId1(Theurgy.loc("crafting/shaped/incubator_mercury_vessel"))
                 .build();
         //no text
 
-        helper.page("recipe_salt_vessel");
+        this.context().page("recipe_salt_vessel");
         var recipeSaltVessel = BookCraftingRecipePageModel.builder()
                 .withRecipeId1(Theurgy.loc("crafting/shaped/incubator_salt_vessel"))
                 .build();
         //no text
 
-        helper.page("recipe_sulfur_vessel");
+        this.context().page("recipe_sulfur_vessel");
         var recipeSulfurVessel = BookCraftingRecipePageModel.builder()
                 .withRecipeId1(Theurgy.loc("crafting/shaped/incubator_sulfur_vessel"))
                 .build();
         //no text
 
-//        helper.page("sample_recipe");
+//        this.context().page("sample_recipe");
 //        var sampleRecipe = BookIncubationRecipePageModel.builder()
-//                .withTitle1(helper.pageTitle())
+//                .withTitle1(this.context().pageTitle())
 //                .withRecipeId1(Theurgy.loc("incubation/wheat"))
 //                .build();
-//        this.add(helper.pageTitle(), "Sample Recipe");
+//        this.add(this.context().pageTitle(), "Sample Recipe");
 //        //no text
 
         return BookEntryModel.builder()
-                .withId(Theurgy.loc(helper.category + "/" + helper.entry))
-                .withName(helper.entryName())
-                .withDescription(helper.entryDescription())
+                .withId(Theurgy.loc(this.context().categoryId() + "/" + this.context().entryId()))
+                .withName(this.context().entryName())
+                .withDescription(this.context().entryDescription())
                 .withIcon(ItemRegistry.INCUBATOR.get())
-                .withLocation(entryHelper.get(icon))
+                .withLocation(this.entryMap().get(icon))
                 .withEntryBackground(EntryBackground.DEFAULT)
                 .withPages(
                         intro,
@@ -684,10 +683,5 @@ public class SpagyricsCategoryProvider implements MacroLangCategoryProvider {
                         recipeSulfurVessel
 //                        sampleRecipe
                 );
-    }
-
-    @Override
-    public LanguageProvider getLanguageProvider() {
-        return this.lang;
     }
 }

@@ -6,9 +6,8 @@
 
 package com.klikli_dev.theurgy.datagen.book;
 
-import com.klikli_dev.modonomicon.api.ModonomiconAPI;
-import com.klikli_dev.modonomicon.api.datagen.BookLangHelper;
-import com.klikli_dev.modonomicon.api.datagen.EntryLocationHelper;
+import com.klikli_dev.modonomicon.api.datagen.BookProvider;
+import com.klikli_dev.modonomicon.api.datagen.CategoryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookCategoryModel;
 import com.klikli_dev.modonomicon.api.datagen.book.BookEntryModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookCraftingRecipePageModel;
@@ -19,20 +18,18 @@ import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraftforge.common.data.LanguageProvider;
 
-public class GettingStartedCategoryProvider implements MacroLangCategoryProvider {
+public class GettingStartedCategoryProvider extends CategoryProvider {
 
     public static final String CATEGORY_ID = "getting_started";
-    private LanguageProvider lang;
 
-    public BookCategoryModel make(BookLangHelper helper, LanguageProvider lang) {
-        this.lang = lang;
-        helper.category(CATEGORY_ID);
-        this.add(helper.categoryName(), "Getting Started");
+    public GettingStartedCategoryProvider(BookProvider parent) {
+        super(parent, CATEGORY_ID);
+    }
 
-        var entryHelper = ModonomiconAPI.get().getEntryLocationHelper();
-        entryHelper.setMap(
+    @Override
+    protected String[] generateEntryMap() {
+        return new String[]{
                 "__________________________________",
                 "__________________________________",
                 "____________u_____š_______________",
@@ -42,28 +39,33 @@ public class GettingStartedCategoryProvider implements MacroLangCategoryProvider
                 "__________a_______________________",
                 "__________________________________",
                 "__________________________________"
-        );
+        };
+    }
 
-        var introEntry = this.makeIntroEntry(helper, entryHelper, 'i');
-        var aboutModEntry = this.makeAboutModEntry(helper, entryHelper, 'a');
+    @Override
+    protected BookCategoryModel generateCategory() {
+        this.add(this.context().categoryName(), "Getting Started");
+
+        var introEntry = this.makeIntroEntry('i');
+        var aboutModEntry = this.makeAboutModEntry('a');
         aboutModEntry.withParent(introEntry);
 
-        var divinationRodEntry = this.makeDivinationRodEntry(helper, entryHelper, 'd');
+        var divinationRodEntry = this.makeDivinationRodEntry('d');
         divinationRodEntry.withParent(introEntry);
         //TODO: higher tier div rod entries explaining how they work
 
-        var apparatusHowToEntry = this.makeApparatusHowToEntry(helper, entryHelper, 'u');
+        var apparatusHowToEntry = this.makeApparatusHowToEntry('u');
         apparatusHowToEntry.withParent(introEntry);
 
-        var spagyricsEntry = this.makeSpagyricsEntry(helper, entryHelper, 's');
+        var spagyricsEntry = this.makeSpagyricsEntry('s');
         spagyricsEntry.withParent(divinationRodEntry);
 
-        var spagyricsLinkEntry = this.makeSpagyricsLinkEntry(helper, entryHelper, 'š');
+        var spagyricsLinkEntry = this.makeSpagyricsLinkEntry('š');
         spagyricsLinkEntry.withParent(spagyricsEntry);
 
         return BookCategoryModel.create(
-                        Theurgy.loc((helper.category)),
-                        helper.categoryName()
+                        Theurgy.loc((this.context().categoryId())),
+                        this.context().categoryName()
                 )
                 .withIcon(ItemRegistry.THE_HERMETICA_ICON.get())
                 .withEntries(
@@ -76,29 +78,29 @@ public class GettingStartedCategoryProvider implements MacroLangCategoryProvider
                 );
     }
 
-    private BookEntryModel.Builder makeIntroEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
-        helper.entry("intro");
-        this.add(helper.entryName(), "About this Work");
-        this.add(helper.entryDescription(), "About using The Hermetica");
+    private BookEntryModel.Builder makeIntroEntry(char icon) {
+        this.context().entry("intro");
+        this.add(this.context().entryName(), "About this Work");
+        this.add(this.context().entryDescription(), "About using The Hermetica");
 
-        helper.page("intro");
+        this.context().page("intro");
         var intro = BookTextPageModel.builder()
-                .withTitle(helper.pageTitle())
-                .withText(helper.pageText())
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
                 .build();
-        this.add(helper.pageTitle(), "About this Work");
-        this.add(helper.pageText(),
+        this.add(this.context().pageTitle(), "About this Work");
+        this.add(this.context().pageText(),
                 """
                         The following pages will lead the novice alchemist on their journey through the noble art of the transformation of matter and mind. This humble author will share their experiences, thoughts and research notes to guide the valued reader in as safe a manner as the subject matter allows.
                         """);
 
-        helper.page("help");
+        this.context().page("help");
         var help = BookTextPageModel.builder()
-                .withTitle(helper.pageTitle())
-                .withText(helper.pageText())
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
                 .build();
-        this.add(helper.pageTitle(), "Seeking Counsel");
-        this.add(helper.pageText(),
+        this.add(this.context().pageTitle(), "Seeking Counsel");
+        this.add(this.context().pageText(),
                 """
                         If the reader finds themselves in trouble of any kind, prompt assistance will be provided at the Council of Alchemists, known also as Kli Kli's Discord Server.
                         \\
@@ -108,11 +110,11 @@ public class GettingStartedCategoryProvider implements MacroLangCategoryProvider
 
 
         return BookEntryModel.builder()
-                .withId(Theurgy.loc(helper.category + "/" + helper.entry))
-                .withName(helper.entryName())
-                .withDescription(helper.entryDescription())
+                .withId(Theurgy.loc(this.context().categoryId() + "/" + this.context().entryId()))
+                .withName(this.context().entryName())
+                .withDescription(this.context().entryDescription())
                 .withIcon(ItemRegistry.THE_HERMETICA_ICON.get())
-                .withLocation(entryHelper.get(icon))
+                .withLocation(this.entryMap().get(icon))
                 .withEntryBackground(EntryBackground.CATEGORY_START)
                 .withPages(
                         intro,
@@ -120,46 +122,46 @@ public class GettingStartedCategoryProvider implements MacroLangCategoryProvider
                 );
     }
 
-    private BookEntryModel.Builder makeAboutModEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
-        helper.entry("about_mod");
-        this.add(helper.entryName(), "The Art of Alchemy");
-        this.add(helper.entryDescription(), "About this Mod");
+    private BookEntryModel.Builder makeAboutModEntry(char icon) {
+        this.context().entry("about_mod");
+        this.add(this.context().entryName(), "The Art of Alchemy");
+        this.add(this.context().entryDescription(), "About this Mod");
 
-        helper.page("about");
+        this.context().page("about");
         var about = BookTextPageModel.builder()
-                .withTitle(helper.pageTitle())
-                .withText(helper.pageText())
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
                 .build();
-        this.add(helper.pageTitle(), "The Art of Alchemy");
-        this.add(helper.pageText(),
+        this.add(this.context().pageTitle(), "The Art of Alchemy");
+        this.add(this.context().pageText(),
                 """
                         Welcome, dear reader, to Theurgy, a mod that explores the ancient and revered art of classical alchemy. As you embark on your journey through the noble art of transformation, you will be equipped with divination rods to make finding resources in the world easier.
                         """);
-        helper.page("about2");
+        this.context().page("about2");
         var about2 = BookTextPageModel.builder()
-                .withText(helper.pageText())
+                .withText(this.context().pageText())
                 .build();
-        this.add(helper.pageText(),
+        this.add(this.context().pageText(),
                 """
                         Through diligent study and practice, you will then learn to use alchemical devices to refine, replicate, and transform resources into new and useful materials. Along the way, you will have the opportunity to craft alchemical devices and equipment to aid you in your endeavors.
                         """);
 
-        helper.page("about3");
+        this.context().page("about3");
         var about3 = BookTextPageModel.builder()
-                .withText(helper.pageText())
+                .withText(this.context().pageText())
                 .build();
-        this.add(helper.pageText(),
+        this.add(this.context().pageText(),
                 """
                         As a final note, alchemists are guided by reason and logic, not superstition or magic. Our experiments are based on careful observation, meticulous record-keeping, and rigorous testing. We do not claim to possess supernatural powers, but rather seek to harness the natural forces of the world around us to achieve our goals.
                         """);
 
-        helper.page("features");
+        this.context().page("features");
         var features = BookTextPageModel.builder()
-                .withTitle(helper.pageTitle())
-                .withText(helper.pageText())
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
                 .build();
-        this.add(helper.pageTitle(), "Features");
-        this.add(helper.pageText(),
+        this.add(this.context().pageTitle(), "Features");
+        this.add(this.context().pageText(),
                 """
                         - Divination rods to find ores
                         - Future: Ore refining (= more ingots per ore)
@@ -167,13 +169,13 @@ public class GettingStartedCategoryProvider implements MacroLangCategoryProvider
                         - Future: Item transformation (create new items from other items)
                         """);
 
-        helper.page("features2");
+        this.context().page("features2");
         var features2 = BookTextPageModel.builder()
-                .withTitle(helper.pageTitle())
-                .withText(helper.pageText())
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
                 .build();
-        this.add(helper.pageTitle(), "More Features");
-        this.add(helper.pageText(),
+        this.add(this.context().pageTitle(), "More Features");
+        this.add(this.context().pageText(),
                 """
                         - Future: Weapons and Equipment
                         - Future: Devices to assist in common tasks
@@ -181,11 +183,11 @@ public class GettingStartedCategoryProvider implements MacroLangCategoryProvider
 
 
         return BookEntryModel.builder()
-                .withId(Theurgy.loc(helper.category + "/" + helper.entry))
-                .withName(helper.entryName())
-                .withDescription(helper.entryDescription())
+                .withId(Theurgy.loc(this.context().categoryId() + "/" + this.context().entryId()))
+                .withName(this.context().entryName())
+                .withDescription(this.context().entryDescription())
                 .withIcon(Items.NETHER_STAR)
-                .withLocation(entryHelper.get(icon))
+                .withLocation(this.entryMap().get(icon))
                 .withEntryBackground(EntryBackground.DEFAULT)
                 .withPages(
                         about,
@@ -196,48 +198,48 @@ public class GettingStartedCategoryProvider implements MacroLangCategoryProvider
                 );
     }
 
-    private BookEntryModel.Builder makeDivinationRodEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
-        helper.entry("divination_rod");
-        this.add(helper.entryName(), "Divination Rods");
-        this.add(helper.entryDescription(), "An Introduction to Ore-Finding");
+    private BookEntryModel.Builder makeDivinationRodEntry(char icon) {
+        this.context().entry("divination_rod");
+        this.add(this.context().entryName(), "Divination Rods");
+        this.add(this.context().entryDescription(), "An Introduction to Ore-Finding");
 
-        helper.page("intro");
+        this.context().page("intro");
         var intro = BookSpotlightPageModel.builder()
                 .withItem(Ingredient.of(ItemRegistry.DIVINATION_ROD_T1.get()))
-                .withText(helper.pageText())
+                .withText(this.context().pageText())
                 .build();
 
-        this.add(helper.pageText(),
+        this.add(this.context().pageText(),
                 """
                         As a novice alchemist, it is important to familiarize yourself with the various tools and techniques at your disposal. One such tool is the divination rod, a valuable instrument used to locate hidden ores in the world.
                              """);
 
-        helper.page("intro2");
+        this.context().page("intro2");
         var intro2 = BookTextPageModel.builder()
-                .withText(helper.pageText())
+                .withText(this.context().pageText())
                 .build();
-        this.add(helper.pageText(),
+        this.add(this.context().pageText(),
                 """
                          By attuning your senses and your rod to the elemental energies present in the earth, you can detect the presence of ore deposits and guide yourself to their location. With practice, the use of divination rods can greatly aid you in your quest for the resources necessary for your alchemical pursuits.
                         """);
 
-        helper.page("recipe");
+        this.context().page("recipe");
         var recipe = BookCraftingRecipePageModel.builder()
                 .withRecipeId1(Theurgy.loc("crafting/shaped/divination_rod_t1"))
-                .withText(helper.pageText())
+                .withText(this.context().pageText())
                 .build();
-        this.add(helper.pageText(),
+        this.add(this.context().pageText(),
                 """
                         The most basic tier of divination rods, brittle and limited in it's application, but powerful nonetheless.
                            """);
 
-        helper.page("supported_blocks");
+        this.context().page("supported_blocks");
         var supported_blocks = BookTextPageModel.builder()
-                .withTitle(helper.pageTitle())
-                .withText(helper.pageText())
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
                 .build();
-        this.add(helper.pageTitle(), "Attunable Materials");
-        this.add(helper.pageText(),
+        this.add(this.context().pageTitle(), "Attunable Materials");
+        this.add(this.context().pageText(),
                 """
                         Rods can be attuned to a wide variety of useful blocks, including various types of ores and wood. Basic divination rods will be sufficient to locate common ores such as {0} or {1}, but more rare and precious materials such as {2} will require a higher tier rod to detect.
                          """,
@@ -246,13 +248,13 @@ public class GettingStartedCategoryProvider implements MacroLangCategoryProvider
                 this.itemLink("diamonds", Items.DIAMOND_ORE)
         );
 
-        helper.page("usage");
+        this.context().page("usage");
         var usage = BookTextPageModel.builder()
-                .withTitle(helper.pageTitle())
-                .withText(helper.pageText())
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
                 .build();
-        this.add(helper.pageTitle(), "Usage");
-        this.add(helper.pageText(),
+        this.add(this.context().pageTitle(), "Usage");
+        this.add(this.context().pageText(),
                 """
                         - **Shift-Click** a block to attune the rod to it.
                         - **Right-Click and hold** to let the rod search for blocks.
@@ -261,11 +263,11 @@ public class GettingStartedCategoryProvider implements MacroLangCategoryProvider
 
 
         return BookEntryModel.builder()
-                .withId(Theurgy.loc(helper.category + "/" + helper.entry))
-                .withName(helper.entryName())
-                .withDescription(helper.entryDescription())
+                .withId(Theurgy.loc(this.context().categoryId() + "/" + this.context().entryId()))
+                .withName(this.context().entryName())
+                .withDescription(this.context().entryDescription())
                 .withIcon(ItemRegistry.DIVINATION_ROD_T1.get())
-                .withLocation(entryHelper.get(icon))
+                .withLocation(this.entryMap().get(icon))
                 .withEntryBackground(EntryBackground.DEFAULT)
                 .withPages(
                         intro,
@@ -276,18 +278,18 @@ public class GettingStartedCategoryProvider implements MacroLangCategoryProvider
                 );
     }
 
-    private BookEntryModel.Builder makeApparatusHowToEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
-        helper.entry("apparatus_how_to");
-        this.add(helper.entryName(), "Alchemical Apparatus");
-        this.add(helper.entryDescription(), "How to interact with the tools of the trade");
+    private BookEntryModel.Builder makeApparatusHowToEntry(char icon) {
+        this.context().entry("apparatus_how_to");
+        this.add(this.context().entryName(), "Alchemical Apparatus");
+        this.add(this.context().entryDescription(), "How to interact with the tools of the trade");
 
-        helper.page("intro");
+        this.context().page("intro");
         var intro = BookTextPageModel.builder()
-                .withTitle(helper.pageTitle())
-                .withText(helper.pageText())
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
                 .build();
-        this.add(helper.pageTitle(), "Alchemical Apparatus");
-        this.add(helper.pageText(),
+        this.add(this.context().pageTitle(), "Alchemical Apparatus");
+        this.add(this.context().pageText(),
                 """
                         Alchemist use a variety of tools and devices to aid them in their work. These devices are collectively referred to as apparatus.
                         \\
@@ -295,11 +297,11 @@ public class GettingStartedCategoryProvider implements MacroLangCategoryProvider
                         It is important to understand that each apparatus should only have one specific function, such as generating heat or melting items.
                                  """);
 
-        helper.page("intro2");
+        this.context().page("intro2");
         var intro2 = BookTextPageModel.builder()
-                .withText(helper.pageText())
+                .withText(this.context().pageText())
                 .build();
-        this.add(helper.pageText(),
+        this.add(this.context().pageText(),
                 """
                         By adhering to this principle, we can create a modular system that allows for greater flexibility and efficiency in our work.
                         \\
@@ -307,13 +309,13 @@ public class GettingStartedCategoryProvider implements MacroLangCategoryProvider
                         Further, all apparatus follow a standardized interaction pattern that makes it easier to use them both for manual interactions and for automation.
                                  """);
 
-        helper.page("manual_interaction");
+        this.context().page("manual_interaction");
         var manualInteraction = BookTextPageModel.builder()
-                .withTitle(helper.pageTitle())
-                .withText(helper.pageText())
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
                 .build();
-        this.add(helper.pageTitle(), "Manual Interaction");
-        this.add(helper.pageText(),
+        this.add(this.context().pageTitle(), "Manual Interaction");
+        this.add(this.context().pageText(),
                 """
                         To interact with an apparatus, approach it and right-click on it.
                         \\
@@ -322,11 +324,11 @@ public class GettingStartedCategoryProvider implements MacroLangCategoryProvider
                         If you have an empty hand, the machine will first try to take the contents of its output slot and place them in your inventory.
                                     """);
 
-        helper.page("manual_interaction2");
+        this.context().page("manual_interaction2");
         var manualInteraction2 = BookTextPageModel.builder()
-                .withText(helper.pageText())
+                .withText(this.context().pageText())
                 .build();
-        this.add(helper.pageText(),
+        this.add(this.context().pageText(),
                 """
                         **Taking Input Items**\\
                         If there are no output items, it will instead try to place the contents of its input slot into your inventory, effectively emptying it.
@@ -336,13 +338,13 @@ public class GettingStartedCategoryProvider implements MacroLangCategoryProvider
                         If you have an item in your hand, the apparatus will automatically try to insert it into the input slot.
                                     """);
 
-        helper.page("fluid_interaction");
+        this.context().page("fluid_interaction");
         var fluidInteraction = BookTextPageModel.builder()
-                .withTitle(helper.pageTitle())
-                .withText(helper.pageText())
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
                 .build();
-        this.add(helper.pageTitle(), "Fluids");
-        this.add(helper.pageText(),
+        this.add(this.context().pageTitle(), "Fluids");
+        this.add(this.context().pageText(),
                 """
                         If you click on an apparatus with a filled fluid container in your hand, it will try to empty the container into the device.
                         \\
@@ -350,14 +352,14 @@ public class GettingStartedCategoryProvider implements MacroLangCategoryProvider
                         If you click on an apparatus with an empty fluid container in your hand, it will instead try to fill the container from the device.
                                     """);
 
-        helper.page("automatic_interaction");
+        this.context().page("automatic_interaction");
         var automaticInteraction = BookTextPageModel.builder()
-                .withTitle(helper.pageTitle())
-                .withText(helper.pageText())
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
                 .build();
 
-        this.add(helper.pageTitle(), "Automatic Interaction");
-        this.add(helper.pageText(),
+        this.add(this.context().pageTitle(), "Automatic Interaction");
+        this.add(this.context().pageText(),
                 """
                         Automatic interactions also use a standardized pattern.
                         \\
@@ -369,11 +371,11 @@ public class GettingStartedCategoryProvider implements MacroLangCategoryProvider
 
 
         return BookEntryModel.builder()
-                .withId(Theurgy.loc(helper.category + "/" + helper.entry))
-                .withName(helper.entryName())
-                .withDescription(helper.entryDescription())
+                .withId(Theurgy.loc(this.context().categoryId() + "/" + this.context().entryId()))
+                .withName(this.context().entryName())
+                .withDescription(this.context().entryDescription())
                 .withIcon(BlockRegistry.PYROMANTIC_BRAZIER.get())
-                .withLocation(entryHelper.get(icon))
+                .withLocation(this.entryMap().get(icon))
                 .withEntryBackground(EntryBackground.DEFAULT)
                 .withPages(
                         intro,
@@ -385,41 +387,41 @@ public class GettingStartedCategoryProvider implements MacroLangCategoryProvider
                 );
     }
 
-    private BookEntryModel.Builder makeSpagyricsEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
-        helper.entry("spagyrics");
-        this.add(helper.entryName(), "Spagyrics");
-        this.add(helper.entryDescription(), "Mastery over Matter");
+    private BookEntryModel.Builder makeSpagyricsEntry(char icon) {
+        this.context().entry("spagyrics");
+        this.add(this.context().entryName(), "Spagyrics");
+        this.add(this.context().entryDescription(), "Mastery over Matter");
 
-        helper.page("intro");
+        this.context().page("intro");
         var intro = BookTextPageModel.builder()
-                .withTitle(helper.pageTitle())
-                .withText(helper.pageText())
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
                 .build();
-        this.add(helper.pageTitle(), "Spagyrics");
-        this.add(helper.pageText(),
+        this.add(this.context().pageTitle(), "Spagyrics");
+        this.add(this.context().pageText(),
                 """
                         While divination rods are a useful tool to obtain *more* materials, they rely on the natural abundance of such materials.
                         \\
                         \\
                         Spagyrics pursue the goal of *creating* materials out of other, possibly more abundant, materials.""");
 
-        helper.page("intro2");
+        this.context().page("intro2");
         var intro2 = BookTextPageModel.builder()
-                .withTitle(helper.pageTitle())
-                .withText(helper.pageText())
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
                 .build();
-        this.add(helper.pageTitle(), "Learn More");
-        this.add(helper.pageText(),
+        this.add(this.context().pageTitle(), "Learn More");
+        this.add(this.context().pageText(),
                 """
                         Open the Spagyrics Category to learn more about the various required alchemical processes.
                         """);
 
         return BookEntryModel.builder()
-                .withId(Theurgy.loc(helper.category + "/" + helper.entry))
-                .withName(helper.entryName())
-                .withDescription(helper.entryDescription())
+                .withId(Theurgy.loc(this.context().categoryId() + "/" + this.context().entryId()))
+                .withName(this.context().entryName())
+                .withDescription(this.context().entryDescription())
                 .withIcon(BlockRegistry.CALCINATION_OVEN.get())
-                .withLocation(entryHelper.get(icon))
+                .withLocation(this.entryMap().get(icon))
                 .withEntryBackground(EntryBackground.DEFAULT)
                 .withPages(
                         intro,
@@ -427,23 +429,20 @@ public class GettingStartedCategoryProvider implements MacroLangCategoryProvider
                 );
     }
 
-    private BookEntryModel.Builder makeSpagyricsLinkEntry(BookLangHelper helper, EntryLocationHelper entryHelper, char icon) {
-        helper.entry("spagyrics_link");
-        this.add(helper.entryName(), "Spagyrics");
-        this.add(helper.entryDescription(), "View the Spagyrics Category");
+    private BookEntryModel.Builder makeSpagyricsLinkEntry(char icon) {
+        this.context().entry("spagyrics_link");
+        this.add(this.context().entryName(), "Spagyrics");
+        this.add(this.context().entryDescription(), "View the Spagyrics Category");
 
         return BookEntryModel.builder()
-                .withId(Theurgy.loc(helper.category + "/" + helper.entry))
-                .withName(helper.entryName())
-                .withDescription(helper.entryDescription())
+                .withId(Theurgy.loc(this.context().categoryId() + "/" + this.context().entryId()))
+                .withName(this.context().entryName())
+                .withDescription(this.context().entryDescription())
                 .withIcon(BlockRegistry.CALCINATION_OVEN.get())
-                .withLocation(entryHelper.get(icon))
+                .withLocation(this.entryMap().get(icon))
                 .withCategoryToOpen(Theurgy.loc(SpagyricsCategoryProvider.CATEGORY_ID))
                 .withEntryBackground(EntryBackground.LINK_TO_CATEGORY);
     }
 
-    @Override
-    public LanguageProvider getLanguageProvider() {
-        return this.lang;
-    }
+
 }

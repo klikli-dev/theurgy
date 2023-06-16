@@ -226,7 +226,7 @@ public class CalcinationOvenBlockEntity extends BlockEntity implements GeoBlockE
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-        controllerRegistrar.add(new AnimationController<GeoBlockEntity>(this, "controller", 0, this::animationHandler));
+        controllerRegistrar.add(new AnimationController<GeoBlockEntity>(this, "controller", 10, this::animationHandler));
     }
 
     @Override

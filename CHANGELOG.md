@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [beta/v1.20.1-1.3.7] - 2023-06-16
+### :sparkles: New Features
+- [`b54651e`](https://github.com/klikli-dev/theurgy/commit/b54651eea7d1ca33d9387abb122986ff3d553062) - update to latest modonomicon lang api features *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [beta/v1.20.1-1.3.6] - 2023-06-14
 ### :sparkles: New Features
 - [`645a924`](https://github.com/klikli-dev/theurgy/commit/645a924db2cbf616f16a766bbd51d78e29ae1eab) - update modonomicon to use new translation stuff *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -201,3 +206,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [beta/v1.20-1.3.5]: https://github.com/klikli-dev/theurgy/compare/beta/v1.20-0.0.0...beta/v1.20-1.3.5
 [beta/v1.20.1-1.3.5]: https://github.com/klikli-dev/theurgy/compare/beta/v1.20.1-0.0.0...beta/v1.20.1-1.3.5
 [beta/v1.20.1-1.3.6]: https://github.com/klikli-dev/theurgy/compare/beta/v1.20.1-1.3.5...beta/v1.20.1-1.3.6
+[beta/v1.20.1-1.3.7]: https://github.com/klikli-dev/theurgy/compare/beta/v1.20.1-1.3.6...beta/v1.20.1-1.3.7

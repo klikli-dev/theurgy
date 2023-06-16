@@ -64,10 +64,10 @@ public class LiquefactionCauldronBlockEntity extends BlockEntity implements Heat
     public RecipeWrapperWithFluid inputRecipeWrapper;
     public LazyOptional<IFluidHandler> solventTankCapability;
     public FluidTank solventTank;
-    int progress;
-    int totalTime;
+    private int progress;
+    private int totalTime;
 
-    boolean heatedCache;
+    private boolean heatedCache;
 
     public LiquefactionCauldronBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(BlockEntityRegistry.LIQUEFACTION_CAULDRON.get(), pPos, pBlockState);

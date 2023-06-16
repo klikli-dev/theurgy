@@ -74,14 +74,14 @@ public class DistillerBlockEntity extends BlockEntity implements GeoBlockEntity,
     public LazyOptional<IItemHandler> inputInventoryCapability;
     public LazyOptional<IItemHandler> outputInventoryCapability;
     public RecipeWrapper inputRecipeWrapper;
-    int progress;
-    int totalTime;
+    private int progress;
+    private int totalTime;
 
-    boolean heatedCache;
+    private boolean heatedCache;
     /**
      * Client-side we only use the blockstate to determine our animation state.
      */
-    boolean wasLitLastTick;
+    private boolean wasLitLastTick;
 
     public DistillerBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(BlockEntityRegistry.DISTILLER.get(), pPos, pBlockState);

@@ -32,7 +32,7 @@ public class PyromanticBrazierBlockEntity extends BlockEntity {
     public LazyOptional<IItemHandler> inventoryCapability;
     public LazyOptional<HeatProvider> heatProviderCapability;
 
-    int remainingLitTime;
+    private int remainingLitTime;
 
     public PyromanticBrazierBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(BlockEntityRegistry.PYROMANTIC_BRAZIER.get(), pPos, pBlockState);

@@ -48,10 +48,10 @@ public class SalAmmoniacAccumulatorBlockEntity extends BlockEntity {
 
     public RecipeWrapperWithFluid recipeWrapper;
 
-    protected boolean checkOutputTankOnNextQuery;
-    protected boolean hasOutputTank;
-    protected int progress;
-    protected int totalTime;
+    private boolean checkOutputTankOnNextQuery;
+    private boolean hasOutputTank;
+    private int progress;
+    private int totalTime;
 
     public SalAmmoniacAccumulatorBlockEntity(BlockPos pPos, BlockState pState) {
         super(BlockEntityRegistry.SAL_AMMONIAC_ACCUMULATOR.get(), pPos, pState);

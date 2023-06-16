@@ -10,6 +10,7 @@ import com.klikli_dev.theurgy.content.block.HeatConsumer;
 import com.klikli_dev.theurgy.content.recipe.DistillationRecipe;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
+import com.klikli_dev.theurgy.util.wrapper.PreventInsertWrapper;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -59,7 +60,14 @@ public class DistillerBlockEntity extends BlockEntity implements GeoBlockEntity,
 
     private final CachedCheck recipeCachedCheck;
     public ItemStackHandler inputInventory;
+    /**
+     * The underlying outputInventory which allows inserting too - we use this when crafting.
+     */
     public ItemStackHandler outputInventory;
+    /**
+     * A wrapper that only allows taking from the outputInventory - this is what we show to the outside.
+     */
+    public PreventInsertWrapper outputInventoryTakeOnlyWrapper;
 
     public CombinedInvWrapper inventory;
     public LazyOptional<IItemHandler> inventoryCapability;
@@ -80,12 +88,18 @@ public class DistillerBlockEntity extends BlockEntity implements GeoBlockEntity,
 
         this.inputInventory = new InputInventory();
         this.outputInventory = new OutputInventory();
+        this.outputInventoryTakeOnlyWrapper = new PreventInsertWrapper(this.outputInventory) {
+            @Override
+            public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+                return false;
+            }
+        };
 
-        this.inventory = new CombinedInvWrapper(this.inputInventory, this.outputInventory);
+        this.inventory = new CombinedInvWrapper(this.inputInventory, this.outputInventoryTakeOnlyWrapper);
 
         this.inventoryCapability = LazyOptional.of(() -> this.inventory);
         this.inputInventoryCapability = LazyOptional.of(() -> this.inputInventory);
-        this.outputInventoryCapability = LazyOptional.of(() -> this.outputInventory);
+        this.outputInventoryCapability = LazyOptional.of(() -> this.outputInventoryTakeOnlyWrapper);
 
         this.inputRecipeWrapper = new RecipeWrapper(this.inputInventory);
 

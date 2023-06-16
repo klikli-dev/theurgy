@@ -11,9 +11,11 @@ import com.klikli_dev.theurgy.content.recipe.IncubationRecipe;
 import com.klikli_dev.theurgy.content.recipe.wrapper.IncubatorRecipeWrapper;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
+import com.klikli_dev.theurgy.util.wrapper.PreventInsertWrapper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -33,7 +35,14 @@ public class IncubatorBlockEntity extends BlockEntity implements HeatConsumer {
     public IncubatorSulfurVesselBlockEntity sulfurVessel;
     public IncubatorSaltVesselBlockEntity saltVessel;
 
+    /**
+     * The underlying outputInventory which allows inserting too - we use this when crafting.
+     */
     public ItemStackHandler outputInventory;
+    /**
+     * A wrapper that only allows taking from the outputInventory - this is what we show to the outside.
+     */
+    public PreventInsertWrapper outputInventoryTakeOnlyWrapper;
     public LazyOptional<IItemHandler> outputInventoryCapability;
 
     public IncubatorRecipeWrapper recipeWrapper;
@@ -47,7 +56,14 @@ public class IncubatorBlockEntity extends BlockEntity implements HeatConsumer {
         super(BlockEntityRegistry.INCUBATOR.get(), pPos, pBlockState);
 
         this.outputInventory = new OutputInventory();
-        this.outputInventoryCapability = LazyOptional.of(() -> this.outputInventory);
+        this.outputInventoryTakeOnlyWrapper = new PreventInsertWrapper(this.outputInventory) {
+            @Override
+            public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+                return false;
+            }
+        };
+
+        this.outputInventoryCapability = LazyOptional.of(() -> this.outputInventoryTakeOnlyWrapper);
 
         this.recipeCachedCheck = RecipeManager.createCheck(RecipeTypeRegistry.INCUBATION.get());
         this.checkValidMultiblockOnNextQuery = true;

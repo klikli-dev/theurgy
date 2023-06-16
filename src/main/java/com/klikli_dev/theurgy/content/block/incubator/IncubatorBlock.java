@@ -7,7 +7,7 @@
 package com.klikli_dev.theurgy.content.block.incubator;
 
 import com.klikli_dev.theurgy.content.block.itemhandlers.BlockItemHandler;
-import com.klikli_dev.theurgy.content.block.itemhandlers.OneOutputSlotBlockItemHandler;
+import com.klikli_dev.theurgy.content.block.itemhandlers.OneSlotBlockItemHandler;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.BlockTagRegistry;
 import net.minecraft.Util;
@@ -57,7 +57,7 @@ public class IncubatorBlock extends Block implements EntityBlock {
 
     public IncubatorBlock(Properties pProperties) {
         super(pProperties);
-        this.blockItemHandler = new OneOutputSlotBlockItemHandler();
+        this.blockItemHandler = new OneSlotBlockItemHandler();
         this.registerDefaultState(this.stateDefinition.any()
                 .setValue(HALF, DoubleBlockHalf.LOWER)
                 .setValue(NORTH, false)

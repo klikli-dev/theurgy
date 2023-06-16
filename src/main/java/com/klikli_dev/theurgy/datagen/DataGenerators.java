@@ -20,7 +20,8 @@ public class DataGenerators {
         generator.addProvider(event.includeClient(), new RecipeProvider(generator.getPackOutput()));
 
         var enUSProvider = new ENUSProvider(generator.getPackOutput());
-        generator.addProvider(event.includeServer(), new TheurgyBookProvider(generator.getPackOutput(), Theurgy.MODID, enUSProvider));
+
+        generator.addProvider(event.includeServer(), new TheurgyBookProvider(generator.getPackOutput(), enUSProvider));
 
         //Important: Lang provider (in this case enus) needs to be added after the book provider to process the texts added by the book provider
         generator.addProvider(event.includeClient(), enUSProvider);

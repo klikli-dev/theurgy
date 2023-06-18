@@ -6,8 +6,8 @@
 
 package com.klikli_dev.theurgy.content.block.incubator;
 
-import com.klikli_dev.theurgy.content.block.itemhandlers.BlockItemHandler;
-import com.klikli_dev.theurgy.content.block.itemhandlers.OneSlotBlockItemHandler;
+import com.klikli_dev.theurgy.content.block.itemhandler.BlockItemHandler;
+import com.klikli_dev.theurgy.content.block.itemhandler.OneSlotBlockItemHandler;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.Containers;

@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-package com.klikli_dev.theurgy.content.block.itemhandlers;
+package com.klikli_dev.theurgy.content.block.itemhandler;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;

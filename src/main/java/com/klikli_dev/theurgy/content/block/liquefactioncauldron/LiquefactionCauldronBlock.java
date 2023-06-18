@@ -6,10 +6,10 @@
 
 package com.klikli_dev.theurgy.content.block.liquefactioncauldron;
 
-import com.klikli_dev.theurgy.content.block.itemhandlers.BlockFluidHandler;
-import com.klikli_dev.theurgy.content.block.itemhandlers.BlockItemHandler;
-import com.klikli_dev.theurgy.content.block.itemhandlers.OneTankBlockFluidHandler;
-import com.klikli_dev.theurgy.content.block.itemhandlers.TwoSlotBlockItemHandler;
+import com.klikli_dev.theurgy.content.block.itemhandler.BlockFluidHandler;
+import com.klikli_dev.theurgy.content.block.itemhandler.BlockItemHandler;
+import com.klikli_dev.theurgy.content.block.itemhandler.OneTankBlockFluidHandler;
+import com.klikli_dev.theurgy.content.block.itemhandler.TwoSlotBlockItemHandler;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

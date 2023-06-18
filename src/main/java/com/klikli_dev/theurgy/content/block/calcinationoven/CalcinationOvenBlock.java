@@ -6,8 +6,8 @@
 
 package com.klikli_dev.theurgy.content.block.calcinationoven;
 
-import com.klikli_dev.theurgy.content.block.itemhandlers.BlockItemHandler;
-import com.klikli_dev.theurgy.content.block.itemhandlers.TwoSlotBlockItemHandler;
+import com.klikli_dev.theurgy.content.block.itemhandler.BlockItemHandler;
+import com.klikli_dev.theurgy.content.block.itemhandler.TwoSlotBlockItemHandler;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

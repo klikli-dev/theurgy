@@ -6,8 +6,8 @@
 
 package com.klikli_dev.theurgy.content.block.salammoniactank;
 
-import com.klikli_dev.theurgy.content.block.itemhandlers.BlockFluidHandler;
-import com.klikli_dev.theurgy.content.block.itemhandlers.OneTankBlockFluidHandler;
+import com.klikli_dev.theurgy.content.block.itemhandler.BlockFluidHandler;
+import com.klikli_dev.theurgy.content.block.itemhandler.OneTankBlockFluidHandler;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;

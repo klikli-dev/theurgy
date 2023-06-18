@@ -87,7 +87,7 @@ public class CalcinationOvenBlockEntity extends BlockEntity implements GeoBlockE
     /**
      * Client-side we only use the blockstate to determine our animation state.
      */
-    private boolean wasLitLastTick;
+    private boolean wasRunningLastTick;
 
     public CalcinationOvenBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(BlockEntityRegistry.CALCINATION_OVEN.get(), pPos, pBlockState);
@@ -290,19 +290,19 @@ public class CalcinationOvenBlockEntity extends BlockEntity implements GeoBlockE
         var isRunning = this.isRunning;
 //        var isLit = blockState.getValue(BlockStateProperties.LIT);
 
-        if (!this.wasLitLastTick && !isRunning && event.getController().getAnimationState() == AnimationController.State.STOPPED) {
+        if (!this.wasRunningLastTick && !isRunning && event.getController().getAnimationState() == AnimationController.State.STOPPED) {
             event.getController().setAnimation(PLACE_AND_OFF_ANIM);
-        } else if (this.wasLitLastTick && !isRunning && event.getController().getAnimationState() != AnimationController.State.TRANSITIONING) {
+        } else if (this.wasRunningLastTick && !isRunning && event.getController().getAnimationState() != AnimationController.State.TRANSITIONING) {
             event.getController().setAnimation(STOP_AND_OFF_ANIM);
-        } else if (!this.wasLitLastTick && isRunning && event.getController().getAnimationState() != AnimationController.State.TRANSITIONING) {
+        } else if (!this.wasRunningLastTick && isRunning && event.getController().getAnimationState() != AnimationController.State.TRANSITIONING) {
             event.getController().setAnimation(START_AND_ON_ANIM);
-        } else if (!this.wasLitLastTick && !isRunning && event.getController().getAnimationState() != AnimationController.State.RUNNING) {
+        } else if (!this.wasRunningLastTick && !isRunning && event.getController().getAnimationState() != AnimationController.State.RUNNING) {
             event.getController().setAnimation(OFF_ANIM);
-        } else if (this.wasLitLastTick && isRunning && event.getController().getAnimationState() != AnimationController.State.RUNNING) {
+        } else if (this.wasRunningLastTick && isRunning && event.getController().getAnimationState() != AnimationController.State.RUNNING) {
             event.getController().setAnimation(ON_ANIM);
         }
 
-        this.wasLitLastTick = isRunning;
+        this.wasRunningLastTick = isRunning;
 
         return PlayState.CONTINUE;
     }

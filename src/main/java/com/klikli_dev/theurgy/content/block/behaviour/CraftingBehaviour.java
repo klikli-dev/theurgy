@@ -19,19 +19,19 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Supplier;
 
-public abstract class CraftingBehaviour<W extends RecipeWrapper, R extends Recipe<W>> {
+public abstract class CraftingBehaviour<W extends RecipeWrapper, R extends Recipe<W>, C extends RecipeManager.CachedCheck<W, R>> {
     protected BlockEntity blockEntity;
     protected Supplier<W> recipeWrapperSupplier;
     protected Supplier<IItemHandlerModifiable> inputInventorySupplier;
     protected Supplier<IItemHandlerModifiable> outputInventorySupplier;
-    protected RecipeManager.CachedCheck<W, R> recipeCachedCheck;
+    protected C recipeCachedCheck;
 
     protected int progress;
     protected int totalTime;
     protected boolean isProcessing;
 
 
-    public CraftingBehaviour(BlockEntity blockEntity, Supplier<W> recipeWrapper, Supplier<IItemHandlerModifiable> inputInventorySupplier, Supplier<IItemHandlerModifiable> outputInventorySupplier, RecipeManager.CachedCheck<W, R> recipeCachedCheck) {
+    public CraftingBehaviour(BlockEntity blockEntity, Supplier<W> recipeWrapper, Supplier<IItemHandlerModifiable> inputInventorySupplier, Supplier<IItemHandlerModifiable> outputInventorySupplier, C recipeCachedCheck) {
         this.blockEntity = blockEntity;
         this.recipeWrapperSupplier = recipeWrapper;
         this.inputInventorySupplier = inputInventorySupplier;

@@ -63,10 +63,12 @@ public class CalcinationOvenBlockEntity extends BlockEntity implements GeoBlockE
      * A wrapper that only allows taking from the outputInventory - this is what we show to the outside.
      */
     public PreventInsertWrapper outputInventoryTakeOnlyWrapper;
+
     public CombinedInvWrapper inventory;
     public LazyOptional<IItemHandler> inventoryCapability;
     public LazyOptional<IItemHandler> inputInventoryCapability;
     public LazyOptional<IItemHandler> outputInventoryCapability;
+
     private boolean heatedCache;
 
     /**

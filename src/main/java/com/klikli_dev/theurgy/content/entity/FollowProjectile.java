@@ -6,7 +6,7 @@
 
 package com.klikli_dev.theurgy.content.entity;
 
-import com.klikli_dev.theurgy.content.particle.GlowParticleData;
+import com.klikli_dev.theurgy.content.particle.glow.GlowParticleProvider;
 import com.klikli_dev.theurgy.content.particle.ParticleColor;
 import com.klikli_dev.theurgy.registry.EntityDataSerializerRegistry;
 import com.klikli_dev.theurgy.registry.EntityRegistry;
@@ -154,7 +154,7 @@ public class FollowProjectile extends ColoredProjectile {
             float dist = (float) (Math.sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ) * 8.0f);
             for (double i = 0.0; i <= dist; i++) {
                 double coeff = (i / dist);
-                this.level().addParticle(GlowParticleData.createData(new ParticleColor(this.entityData.get(RED), this.entityData.get(GREEN), this.entityData.get(BLUE)), 0.25f, 0.75f, particleAge),
+                this.level().addParticle(GlowParticleProvider.createOptions(new ParticleColor(this.entityData.get(RED), this.entityData.get(GREEN), this.entityData.get(BLUE)), 0.25f, 0.75f, particleAge),
                         (this.getX() + deltaX * coeff), (this.getY() + deltaY * coeff), (this.getZ() + deltaZ * coeff),
                         0.0125f * (this.random.nextFloat() - 0.5f), 0.0125f * (this.random.nextFloat() - 0.5f), 0.0125f * (this.random.nextFloat() - 0.5f));
 

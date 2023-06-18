@@ -132,7 +132,7 @@ public class ParticleColor implements Cloneable {
             this.b = (int) (color.getBlue() * 255.0);
         }
 
-        public ParticleColor toParticleColor() {
+        public ParticleColor toColorParticle() {
             return new ParticleColor(this.r, this.g, this.b);
         }
 

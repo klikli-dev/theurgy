@@ -5,9 +5,10 @@
  */
 
 
-package com.klikli_dev.theurgy.content.particle;
+package com.klikli_dev.theurgy.content.particle.glow;
 
 
+import com.klikli_dev.theurgy.content.particle.ParticleRenderTypes;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.ParticleRenderType;
 import net.minecraft.client.particle.SpriteSet;
@@ -18,7 +19,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import java.util.Random;
 
 @OnlyIn(Dist.CLIENT)
-public class ParticleGlow extends TextureSheetParticle {
+public class GlowParticle extends TextureSheetParticle {
     public float colorR = 0;
     public float colorG = 0;
     public float colorB = 0;
@@ -27,7 +28,7 @@ public class ParticleGlow extends TextureSheetParticle {
 
     public boolean disableDepthTest;
 
-    public ParticleGlow(ClientLevel worldIn, double x, double y, double z, double vx, double vy, double vz, float r, float g, float b, float a, float scale, int lifetime, SpriteSet sprite, boolean disableDepthTest) {
+    public GlowParticle(ClientLevel worldIn, double x, double y, double z, double vx, double vy, double vz, float r, float g, float b, float a, float scale, int lifetime, SpriteSet sprite, boolean disableDepthTest) {
         super(worldIn, x, y, z, 0, 0, 0);
         this.hasPhysics = false;
 

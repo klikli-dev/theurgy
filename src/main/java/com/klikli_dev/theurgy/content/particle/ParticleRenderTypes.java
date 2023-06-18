@@ -20,7 +20,7 @@ import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.renderer.texture.TextureManager;
 
 public class ParticleRenderTypes {
-    static final ParticleRenderType EMBER_RENDER = new ParticleRenderType() {
+    public static final ParticleRenderType EMBER_RENDER = new ParticleRenderType() {
         @Override
         @SuppressWarnings("deprecation")
         public void begin(BufferBuilder buffer, TextureManager textureManager) {
@@ -45,7 +45,7 @@ public class ParticleRenderTypes {
         }
     };
 
-    static final ParticleRenderType EMBER_RENDER_NO_MASK = new ParticleRenderType() {
+    public static final ParticleRenderType EMBER_RENDER_NO_MASK = new ParticleRenderType() {
         @Override
         @SuppressWarnings("deprecation")
         public void begin(BufferBuilder buffer, TextureManager textureManager) {

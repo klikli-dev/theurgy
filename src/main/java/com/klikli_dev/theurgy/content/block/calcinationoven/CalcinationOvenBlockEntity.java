@@ -8,7 +8,7 @@ package com.klikli_dev.theurgy.content.block.calcinationoven;
 
 import com.klikli_dev.theurgy.content.block.HeatConsumer;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
-import com.klikli_dev.theurgy.util.wrapper.PreventInsertWrapper;
+import com.klikli_dev.theurgy.content.block.itemhandler.PreventInsertWrapper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;

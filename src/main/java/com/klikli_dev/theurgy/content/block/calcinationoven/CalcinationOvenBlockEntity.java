@@ -14,11 +14,15 @@ import com.klikli_dev.theurgy.util.wrapper.PreventInsertWrapper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.Connection;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeManager;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
@@ -78,6 +82,8 @@ public class CalcinationOvenBlockEntity extends BlockEntity implements GeoBlockE
 
     private boolean heatedCache;
 
+    private boolean isRunning;
+
     /**
      * Client-side we only use the blockstate to determine our animation state.
      */
@@ -107,6 +113,40 @@ public class CalcinationOvenBlockEntity extends BlockEntity implements GeoBlockE
     }
 
     @Override
+    public CompoundTag getUpdateTag() {
+        var tag = new CompoundTag();
+        this.writeNetwork(tag);
+        return tag;
+    }
+
+    @Override
+    public void handleUpdateTag(CompoundTag tag) {
+        this.readNetwork(tag);
+    }
+
+    @Nullable
+    @Override
+    public Packet<ClientGamePacketListener> getUpdatePacket() {
+        return ClientboundBlockEntityDataPacket.create(this);
+    }
+
+    @Override
+    public void onDataPacket(Connection connection, ClientboundBlockEntityDataPacket packet) {
+        var tag = packet.getTag();
+        if (tag != null) {
+            this.readNetwork(tag);
+        }
+    }
+
+    public void readNetwork(CompoundTag tag) {
+        this.isRunning = tag.contains("isRunning") && tag.getBoolean("isRunning");
+    }
+
+    public void writeNetwork(CompoundTag tag) {
+        tag.putBoolean("isRunning", this.isRunning);
+    }
+
+    @Override
     public boolean getHeatedCache() {
         return this.heatedCache;
     }
@@ -120,25 +160,67 @@ public class CalcinationOvenBlockEntity extends BlockEntity implements GeoBlockE
         boolean isHeated = this.isHeated();
         boolean hasInput = !this.inputInventory.getStackInSlot(0).isEmpty();
 
+        this.tickCrafting(isHeated, hasInput);
+    }
+
+    protected void tickCrafting(boolean isHeated, boolean hasInput){
         if (hasInput) {
             //only even check for recipe if we have input to avoid unnecessary lookups
             var recipe = this.recipeCachedCheck.getRecipeFor(this.inputRecipeWrapper, this.level).orElse(null);
 
             //if we are lit and have a recipe, update progress
             if (isHeated && this.canCraft(recipe)) {
-                ++this.progress;
+                this.tryStartRunning();
 
-                //if we hit max progress, craft the item and reset progress
-                if (this.progress >= this.totalTime) {
-                    this.progress = 0;
-                    this.totalTime = this.getTotalTime();
-                    this.craft(recipe);
-                    //TODO: advancement?
-                }
+                this.progress++;
+
+                this.tryFinishCrafting(recipe);
             } else {
-                this.progress = 0;
+                this.stopRunning();
             }
+        } else {
+            this.stopRunning();
         }
+    }
+
+    protected void tryFinishCrafting(CalcinationRecipe pRecipe){
+        //if we hit max progress, craft the item and reset progress
+        if (this.progress >= this.totalTime) {
+            this.progress = 0;
+            this.totalTime = this.getTotalTime();
+
+            this.craft(pRecipe);
+
+            //currently we do not set isRunning to false here, because if we have more input we do not interrupt the client side visuals. If we do not have more input, we set it to false in the next tick anyway.
+            this.sendBlockUpdated();
+        }
+    }
+
+    protected void tryStartRunning(){
+        //if we are not running, start running
+        if (this.progress == 0) {
+            this.isRunning = true;
+            this.sendBlockUpdated();
+        }
+
+        //we don't have to worry about total time here, as it is set when an item is put into the inventory.
+    }
+
+    protected void stopRunning(){
+        //only do state updates if we actually changed something
+        if (this.progress != 0 || this.isRunning) {
+            this.isRunning = false;
+            this.progress = 0;
+            this.sendBlockUpdated();
+            this.setChanged();
+        }
+
+        //we don't have to worry about total time here, as it is set when an item is put into the inventory.
+    }
+
+    protected void sendBlockUpdated() {
+        if (this.level != null && !this.level.isClientSide)
+            this.level.sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), Block.UPDATE_CLIENTS | Block.UPDATE_INVISIBLE);
     }
 
     private boolean canCraft(@Nullable CalcinationRecipe pRecipe) {
@@ -205,21 +287,22 @@ public class CalcinationOvenBlockEntity extends BlockEntity implements GeoBlockE
     private <E extends GeoBlockEntity> PlayState animationHandler(AnimationState<E> event) {
 
         var blockState = this.getBlockState();
-        var isLit = blockState.getValue(BlockStateProperties.LIT);
+        var isRunning = this.isRunning;
+//        var isLit = blockState.getValue(BlockStateProperties.LIT);
 
-        if (!this.wasLitLastTick && !isLit && event.getController().getAnimationState() == AnimationController.State.STOPPED) {
+        if (!this.wasLitLastTick && !isRunning && event.getController().getAnimationState() == AnimationController.State.STOPPED) {
             event.getController().setAnimation(PLACE_AND_OFF_ANIM);
-        } else if (this.wasLitLastTick && !isLit && event.getController().getAnimationState() != AnimationController.State.TRANSITIONING) {
+        } else if (this.wasLitLastTick && !isRunning && event.getController().getAnimationState() != AnimationController.State.TRANSITIONING) {
             event.getController().setAnimation(STOP_AND_OFF_ANIM);
-        } else if (!this.wasLitLastTick && isLit && event.getController().getAnimationState() != AnimationController.State.TRANSITIONING) {
+        } else if (!this.wasLitLastTick && isRunning && event.getController().getAnimationState() != AnimationController.State.TRANSITIONING) {
             event.getController().setAnimation(START_AND_ON_ANIM);
-        } else if (!this.wasLitLastTick && !isLit && event.getController().getAnimationState() != AnimationController.State.RUNNING) {
+        } else if (!this.wasLitLastTick && !isRunning && event.getController().getAnimationState() != AnimationController.State.RUNNING) {
             event.getController().setAnimation(OFF_ANIM);
-        } else if (this.wasLitLastTick && isLit && event.getController().getAnimationState() != AnimationController.State.RUNNING) {
+        } else if (this.wasLitLastTick && isRunning && event.getController().getAnimationState() != AnimationController.State.RUNNING) {
             event.getController().setAnimation(ON_ANIM);
         }
 
-        this.wasLitLastTick = isLit;
+        this.wasLitLastTick = isRunning;
 
         return PlayState.CONTINUE;
     }
@@ -233,7 +316,6 @@ public class CalcinationOvenBlockEntity extends BlockEntity implements GeoBlockE
     public AnimatableInstanceCache getAnimatableInstanceCache() {
         return this.animatableInstanceCache;
     }
-
 
     private boolean canProcess(ItemStack stack) {
         ItemStackHandler tempInv = new ItemStackHandler(1);

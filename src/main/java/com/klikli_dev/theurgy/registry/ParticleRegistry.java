@@ -7,6 +7,10 @@
 package com.klikli_dev.theurgy.registry;
 
 import com.klikli_dev.theurgy.Theurgy;
+import com.klikli_dev.theurgy.content.particle.coloredbubble.ColoredBubbleParticle;
+import com.klikli_dev.theurgy.content.particle.coloredbubble.ColoredBubbleParticleOptions;
+import com.klikli_dev.theurgy.content.particle.coloredbubble.ColoredBubbleParticleProvider;
+import com.klikli_dev.theurgy.content.particle.coloredbubble.ColoredBubbleParticleType;
 import com.klikli_dev.theurgy.content.particle.glow.GlowParticleOptions;
 import com.klikli_dev.theurgy.content.particle.glow.GlowParticleProvider;
 import com.klikli_dev.theurgy.content.particle.glow.GlowParticleType;
@@ -25,8 +29,11 @@ public class ParticleRegistry {
 
     public static final RegistryObject<ParticleType<GlowParticleOptions>> GLOW_TYPE = PARTICLES.register("glow", GlowParticleType::new);
 
+    public static final RegistryObject<ParticleType<ColoredBubbleParticleOptions>> COLORED_BUBBLE_TYPE = PARTICLES.register("colored_bubble", ColoredBubbleParticleType::new);
+
     public static void registerFactories(RegisterParticleProvidersEvent evt) {
         evt.registerSpriteSet(GLOW_TYPE.get(), GlowParticleProvider::new);
+        evt.registerSpriteSet(COLORED_BUBBLE_TYPE.get(), ColoredBubbleParticleProvider::new);
     }
 
     public static void spawnTouch(ClientLevel world, BlockPos loc, ParticleColor particleColor) {

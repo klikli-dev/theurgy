@@ -176,8 +176,15 @@ public class LiquefactionCauldronBlock extends Block implements EntityBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
-        if (pLevel.isClientSide() || pState.getValue(HALF) == DoubleBlockHalf.UPPER) {
+        if (pState.getValue(HALF) == DoubleBlockHalf.UPPER) {
             return null;
+        }
+        if(pLevel.isClientSide()){
+            return (lvl, pos, blockState, t) -> {
+                if (t instanceof LiquefactionCauldronBlockEntity blockEntity) {
+                    blockEntity.tickClient();
+                }
+            };
         }
         return (lvl, pos, blockState, t) -> {
             if (t instanceof LiquefactionCauldronBlockEntity blockEntity) {

@@ -7,6 +7,9 @@
 package com.klikli_dev.theurgy.content.block.liquefactioncauldron;
 
 import com.klikli_dev.theurgy.content.block.HeatConsumer;
+import com.klikli_dev.theurgy.content.particle.ParticleColor;
+import com.klikli_dev.theurgy.content.particle.coloredbubble.ColoredBubbleParticleProvider;
+import com.klikli_dev.theurgy.content.particle.glow.GlowParticleProvider;
 import com.klikli_dev.theurgy.content.recipe.LiquefactionRecipe;
 import com.klikli_dev.theurgy.content.recipe.wrapper.RecipeWrapperWithFluid;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
@@ -14,19 +17,24 @@ import com.klikli_dev.theurgy.registry.FluidTagRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import com.klikli_dev.theurgy.content.block.itemhandler.PreventInsertWrapper;
 import com.mojang.datafixers.util.Pair;
+import net.minecraft.client.particle.BubbleParticle;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
@@ -163,6 +171,26 @@ public class LiquefactionCauldronBlockEntity extends BlockEntity implements Heat
                 }
             } else {
                 this.progress = 0;
+            }
+        }
+    }
+
+    public void tickClient(){
+
+        var blockState = this.getBlockState();
+        var isLit = blockState.getValue(BlockStateProperties.LIT);
+
+        if(isLit){
+            if(this.getLevel().getGameTime() % 2 == 0){ // only spawn particles every 2 ticks
+                this.getLevel().addParticle(
+                        ColoredBubbleParticleProvider.createOptions(new ParticleColor(255, 0, 255)),
+                        this.getBlockPos().getX() + 0.33 + 0.33 * this.getLevel().getRandom().nextFloat(),
+
+                        this.getBlockPos().getY() + 1.1,
+                        this.getBlockPos().getZ() + 0.33 + 0.33 * this.getLevel().getRandom().nextFloat(),
+                        0.0D, 0.015D, 0.0D
+
+                );
             }
         }
     }

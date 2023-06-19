@@ -7,30 +7,31 @@
 package com.klikli_dev.theurgy.content.block.incubator;
 
 import com.klikli_dev.theurgy.content.block.HeatConsumer;
-import com.klikli_dev.theurgy.content.recipe.IncubationRecipe;
+import com.klikli_dev.theurgy.content.block.itemhandler.PreventInsertWrapper;
 import com.klikli_dev.theurgy.content.recipe.wrapper.IncubatorRecipeWrapper;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
-import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
-import com.klikli_dev.theurgy.content.block.itemhandler.PreventInsertWrapper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.Connection;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class IncubatorBlockEntity extends BlockEntity implements HeatConsumer {
 
-    private final RecipeManager.CachedCheck<IncubatorRecipeWrapper, ? extends IncubationRecipe> recipeCachedCheck;
+    private final IncubatorCraftingBehaviour craftingBehaviour;
+
     public IncubatorMercuryVesselBlockEntity mercuryVessel;
     public IncubatorSulfurVesselBlockEntity sulfurVessel;
     public IncubatorSaltVesselBlockEntity saltVessel;
@@ -49,8 +50,6 @@ public class IncubatorBlockEntity extends BlockEntity implements HeatConsumer {
     public boolean isValidMultiblock;
     protected boolean checkValidMultiblockOnNextQuery;
     private boolean heatedCache;
-    private int progress;
-    private int totalTime;
 
     public IncubatorBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(BlockEntityRegistry.INCUBATOR.get(), pPos, pBlockState);
@@ -64,9 +63,43 @@ public class IncubatorBlockEntity extends BlockEntity implements HeatConsumer {
         };
 
         this.outputInventoryCapability = LazyOptional.of(() -> this.outputInventoryTakeOnlyWrapper);
-
-        this.recipeCachedCheck = RecipeManager.createCheck(RecipeTypeRegistry.INCUBATION.get());
         this.checkValidMultiblockOnNextQuery = true;
+
+        this.craftingBehaviour = new IncubatorCraftingBehaviour(this, () -> this.recipeWrapper, () -> null, () -> this.outputInventory);
+    }
+
+    @Override
+    public CompoundTag getUpdateTag() {
+        var tag = new CompoundTag();
+        this.writeNetwork(tag);
+        return tag;
+    }
+
+    @Override
+    public void handleUpdateTag(CompoundTag tag) {
+        this.readNetwork(tag);
+    }
+
+    @Nullable
+    @Override
+    public Packet<ClientGamePacketListener> getUpdatePacket() {
+        return ClientboundBlockEntityDataPacket.create(this);
+    }
+
+    @Override
+    public void onDataPacket(Connection connection, ClientboundBlockEntityDataPacket packet) {
+        var tag = packet.getTag();
+        if (tag != null) {
+            this.readNetwork(tag);
+        }
+    }
+
+    public void readNetwork(CompoundTag tag) {
+        this.craftingBehaviour.readNetwork(tag);
+    }
+
+    public void writeNetwork(CompoundTag tag) {
+        this.craftingBehaviour.writeNetwork(tag);
     }
 
     @Override
@@ -82,70 +115,14 @@ public class IncubatorBlockEntity extends BlockEntity implements HeatConsumer {
     public void tickServer() {
         boolean isHeated = this.isHeated();
 
-        if (!this.isValidMultiblock()) {
-            return;
-        }
-
-        boolean hasInput = !this.mercuryVessel.inputInventory.getStackInSlot(0).isEmpty()
+        boolean hasInput = this.isValidMultiblock()
+                && !this.mercuryVessel.inputInventory.getStackInSlot(0).isEmpty()
                 && !this.saltVessel.inputInventory.getStackInSlot(0).isEmpty()
                 && !this.sulfurVessel.inputInventory.getStackInSlot(0).isEmpty();
 
-
-        if (hasInput) {
-            //only even check for recipe if we have input to avoid unnecessary lookups
-            var recipe = this.recipeCachedCheck.getRecipeFor(this.recipeWrapper, this.level).orElse(null);
-
-            //if we are lit and have a recipe, update progress
-            if (isHeated && this.canCraft(recipe)) {
-                ++this.progress;
-
-                //if we hit max progress, craft the item and reset progress
-                if (this.progress >= this.totalTime) {
-                    this.progress = 0;
-                    this.totalTime = this.getTotalTime();
-                    this.craft(recipe);
-                    //TODO: advancement?
-                }
-            } else {
-                this.progress = 0;
-            }
-        }
+        this.craftingBehaviour.tickServer(isHeated, hasInput);
     }
 
-    private boolean canCraft(@Nullable IncubationRecipe pRecipe) {
-        if (pRecipe == null)
-            return false;
-
-        var assembledStack = pRecipe.assemble(this.recipeWrapper, this.getLevel().registryAccess());
-        if (assembledStack.isEmpty()) {
-            return false;
-        } else {
-            var remainingStack = ItemHandlerHelper.insertItemStacked(this.outputInventory, assembledStack, true);
-            return remainingStack.isEmpty(); //only allow crafting if we have room for the full output
-        }
-    }
-
-    private boolean craft(@Nullable IncubationRecipe pRecipe) {
-        if (!this.canCraft(pRecipe))
-            return false;
-
-        var assembledStack = pRecipe.assemble(this.recipeWrapper, this.getLevel().registryAccess());
-
-        // Safely insert the assembledStack into the outputInventory and update the input stack.
-        ItemHandlerHelper.insertItemStacked(this.outputInventory, assembledStack, false);
-
-        this.mercuryVessel.inputInventory.extractItem(0, 1, false);
-        this.saltVessel.inputInventory.extractItem(0, 1, false);
-        this.sulfurVessel.inputInventory.extractItem(0, 1, false);
-
-        return true;
-    }
-
-    protected int getTotalTime() {
-        if (this.recipeWrapper == null)
-            return IncubationRecipe.DEFAULT_INCUBATION_TIME;
-        return this.recipeCachedCheck.getRecipeFor(this.recipeWrapper, this.level).map(IncubationRecipe::getIncubationTime).orElse(IncubationRecipe.DEFAULT_INCUBATION_TIME);
-    }
 
     @Override
     public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
@@ -160,7 +137,8 @@ public class IncubatorBlockEntity extends BlockEntity implements HeatConsumer {
         super.saveAdditional(pTag);
 
         pTag.put("outputInventory", this.outputInventory.serializeNBT());
-        pTag.putShort("progress", (short) this.progress);
+
+        this.craftingBehaviour.saveAdditional(pTag);
     }
 
     @Override
@@ -169,8 +147,8 @@ public class IncubatorBlockEntity extends BlockEntity implements HeatConsumer {
 
         if (pTag.contains("outputInventory"))
             this.outputInventory.deserializeNBT(pTag.getCompound("outputInventory"));
-        if (pTag.contains("progress"))
-            this.progress = pTag.getShort("progress");
+
+        this.craftingBehaviour.load(pTag);
     }
 
     private void checkForVessel(BlockPos pos) {
@@ -225,8 +203,7 @@ public class IncubatorBlockEntity extends BlockEntity implements HeatConsumer {
     }
 
     public void onVesselItemChanged() {
-        this.totalTime = this.getTotalTime();
-        this.progress = 0;
+        this.craftingBehaviour.onInputItemChanged(ItemStack.EMPTY, ItemStack.EMPTY);
     }
 
     @Override
@@ -259,13 +236,6 @@ public class IncubatorBlockEntity extends BlockEntity implements HeatConsumer {
         public OutputInventory() {
             super(1);
         }
-
-        //We are using ItemStackHandler to insert results into the output inv, so we can't block here!
-        //Consequence is that pipes can pipe in ..
-//        @Override
-//        public boolean isItemValid(int slot, ItemStack stack) {
-//            return false;
-//        }
 
         @Override
         protected void onContentsChanged(int slot) {

@@ -14,6 +14,9 @@ import net.minecraft.world.item.Item;
 
 public class ItemTagRegistry {
 
+    //complementary tag to Tags.Items.ORES, Tags.Items.RAW_MATERIALS, Tags.Items.INGOTS and Tags.Items.GEMS
+    public static final TagKey<Item> OTHER_MINERALS = tag("other_minerals");
+
     public static final TagKey<Item> ALCHEMICAL_SULFURS = tag("alchemical_sulfurs");
     public static final TagKey<Item> ALCHEMICAL_SULFURS_METALS = tag("alchemical_sulfurs/metals");
     public static final TagKey<Item> ALCHEMICAL_SULFURS_METALS_ABUNDANT = tag("alchemical_sulfurs/metals/abundant");

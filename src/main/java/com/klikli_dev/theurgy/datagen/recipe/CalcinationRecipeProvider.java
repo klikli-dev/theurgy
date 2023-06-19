@@ -10,6 +10,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.content.recipe.CalcinationRecipe;
+import com.klikli_dev.theurgy.registry.ItemTagRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import com.klikli_dev.theurgy.registry.SaltRegistry;
 import net.minecraft.data.PackOutput;
@@ -44,6 +45,7 @@ public class CalcinationRecipeProvider extends JsonRecipeProvider {
         this.makeRecipe(SaltRegistry.MINERAL.get(), "from_raw_materials", Tags.Items.RAW_MATERIALS);
         this.makeRecipe(SaltRegistry.MINERAL.get(), "from_ingots", 2, Tags.Items.INGOTS);
         this.makeRecipe(SaltRegistry.MINERAL.get(), "from_gems", 2, Tags.Items.GEMS);
+        this.makeRecipe(SaltRegistry.MINERAL.get(), "from_other_minerals", 2, ItemTagRegistry.OTHER_MINERALS);
         this.makeRecipe(SaltRegistry.CROPS.get(), "", Tags.Items.CROPS);
         this.makeRecipe(SaltRegistry.MINERAL.get(), "", 1, SaltRegistry.STRATA.get(), 20, TIME);
     }

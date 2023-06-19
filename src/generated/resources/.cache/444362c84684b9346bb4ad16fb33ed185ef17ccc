@@ -1,9 +1,10 @@
-// 1.20.1	2023-06-14T18:13:30.5395594	Calcination Recipes
+// 1.20.1	2023-06-19T13:35:19.3019162	Calcination Recipes
 77aaf59ed4e959adc3d5ff35577b9c1af13ffde0 data/theurgy/recipes/calcination/crops.json
 91ce7283a5d8bf210f825e1c7f3899c840caa238 data/theurgy/recipes/calcination/mineral.json
 2c2a45ef208781a281ba2aa635752a2f7471e871 data/theurgy/recipes/calcination/mineral_from_gems.json
 a5cbe077c2033e01d36194645de8d0bf1f6f2fe0 data/theurgy/recipes/calcination/mineral_from_ingots.json
 318a5ed36db7c407466c1e9742dc61e4f8765a96 data/theurgy/recipes/calcination/mineral_from_ores.json
+9d67c0f1d86b52ffaae734811734ac70a7ba4370 data/theurgy/recipes/calcination/mineral_from_other_minerals.json
 e86404797d860ec34b10f879af93c72c918f391d data/theurgy/recipes/calcination/mineral_from_raw_materials.json
 ba195891125b128d161451e25dbb074953885711 data/theurgy/recipes/calcination/strata_from_clay.json
 cca77a84bbe10e2025dbb21013c98da6622b1a6f data/theurgy/recipes/calcination/strata_from_clay_ball.json

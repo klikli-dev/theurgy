@@ -1,4 +1,4 @@
-// 1.20.1	2023-06-14T18:13:30.5415613	Tags for minecraft:item mod id theurgy
+// 1.20.1	2023-06-19T13:35:19.3039205	Tags for minecraft:item mod id theurgy
 7a78325a639e879280cccf4d15f364e02da86003 data/forge/tags/items/gems.json
 9a414088a384ea8077655b79eb53ac263aaae5e3 data/forge/tags/items/gems/sal_ammoniac.json
 04abd356cb9b230f4d1adcf90db05571e8a17d05 data/forge/tags/items/ores/sal_ammoniac.json
@@ -31,6 +31,7 @@ dd248dce97f06027745077215c44f2840b3d6685 data/theurgy/tags/items/metals/mercury/
 b119b915f2e2b16c4a5750a50453a2cfddf7235f data/theurgy/tags/items/ores/mercury/high.json
 f844cd452a39f1295f45a4cb9585a1510a719986 data/theurgy/tags/items/ores/mercury/low.json
 201dcad9991b37cbbe3388aafec4048eebaae020 data/theurgy/tags/items/ores/mercury/medium.json
+cddb5c3b26d739614cdd25038f449762a5af9732 data/theurgy/tags/items/other_minerals.json
 35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/theurgy/tags/items/other_minerals/mercury/high.json
 cddb5c3b26d739614cdd25038f449762a5af9732 data/theurgy/tags/items/other_minerals/mercury/low.json
 60a5194a30db746b92cf1af2a2eeeca4af7ba1ff data/theurgy/tags/items/other_minerals/mercury/medium.json

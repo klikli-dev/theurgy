@@ -6,20 +6,20 @@
 
 package com.klikli_dev.theurgy.content.recipe.wrapper;
 
-import net.minecraftforge.fluids.capability.templates.FluidTank;
+import net.minecraftforge.fluids.IFluidTank;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.wrapper.RecipeWrapper;
 
 public class RecipeWrapperWithFluid extends RecipeWrapper {
 
-    private final FluidTank tank;
+    private final IFluidTank tank;
 
-    public RecipeWrapperWithFluid(IItemHandlerModifiable inv, FluidTank tank) {
+    public RecipeWrapperWithFluid(IItemHandlerModifiable inv, IFluidTank tank) {
         super(inv);
         this.tank = tank;
     }
 
-    public FluidTank getTank() {
+    public IFluidTank getTank() {
         return this.tank;
     }
 }

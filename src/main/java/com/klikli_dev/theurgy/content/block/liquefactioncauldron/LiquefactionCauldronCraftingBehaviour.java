@@ -13,7 +13,6 @@ import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.util.Lazy;
-import net.minecraftforge.fluids.IFluidTank;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemHandlerHelper;
@@ -23,9 +22,9 @@ import java.util.function.Supplier;
 
 public class LiquefactionCauldronCraftingBehaviour extends CraftingBehaviour<RecipeWrapperWithFluid, LiquefactionRecipe, LiquefactionCauldronCachedCheck> {
 
-    protected Supplier<IFluidTank> solventTankSupplier;
+    protected Supplier<IFluidHandler> solventTankSupplier;
 
-    public LiquefactionCauldronCraftingBehaviour(BlockEntity blockEntity, Supplier<IItemHandlerModifiable> inputInventorySupplier, Supplier<IItemHandlerModifiable> outputInventorySupplier, Supplier<IFluidTank> solventTankSupplier) {
+    public LiquefactionCauldronCraftingBehaviour(BlockEntity blockEntity, Supplier<IItemHandlerModifiable> inputInventorySupplier, Supplier<IItemHandlerModifiable> outputInventorySupplier, Supplier<IFluidHandler> solventTankSupplier) {
         super(blockEntity,
                 Lazy.of(() -> new RecipeWrapperWithFluid(inputInventorySupplier.get(), solventTankSupplier.get())),
                 inputInventorySupplier,
@@ -33,6 +32,15 @@ public class LiquefactionCauldronCraftingBehaviour extends CraftingBehaviour<Rec
                 new LiquefactionCauldronCachedCheck(RecipeTypeRegistry.LIQUEFACTION.get()));
 
         this.solventTankSupplier = solventTankSupplier;
+    }
+
+    @Override
+    public boolean canProcess(ItemStack stack) {
+        if (ItemHandlerHelper.canItemStacksStack(stack, this.inputInventorySupplier.get().getStackInSlot(0)))
+            return true; //early out if we are already processing this type of item
+
+
+        return this.recipeCachedCheck.getRecipeFor(stack, this.blockEntity.getLevel()).isPresent();
     }
 
     @Override
@@ -48,15 +56,6 @@ public class LiquefactionCauldronCraftingBehaviour extends CraftingBehaviour<Rec
     @Override
     protected int getDefaultCraftingTime() {
         return LiquefactionRecipe.DEFAULT_LIQUEFACTION_TIME;
-    }
-
-    @Override
-    protected boolean canProcess(ItemStack stack) {
-        if (ItemHandlerHelper.canItemStacksStack(stack, this.inputInventorySupplier.get().getStackInSlot(0)))
-            return true; //early out if we are already processing this type of item
-
-
-        return this.recipeCachedCheck.getRecipeFor(stack, this.blockEntity.getLevel()).isPresent();
     }
 
     @Override

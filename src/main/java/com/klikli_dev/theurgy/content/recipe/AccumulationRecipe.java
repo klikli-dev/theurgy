@@ -77,7 +77,7 @@ public class AccumulationRecipe implements Recipe<RecipeWrapperWithFluid> {
 
     @Override
     public boolean matches(RecipeWrapperWithFluid pContainer, Level pLevel) {
-        boolean evaporantMatches = this.evaporant.test(pContainer.getTank().getFluid());
+        boolean evaporantMatches = this.evaporant.test(pContainer.getTank().getFluidInTank(0));
         boolean soluteMatches =
                 pContainer.getItem(0).isEmpty() && !this.hasSolute() || //if recipe requires no solute and container does not have one we're ok
                         this.hasSolute() && this.solute.test(pContainer.getItem(0)); // if recipe requires solute we check if the container has it

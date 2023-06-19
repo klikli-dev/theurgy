@@ -57,7 +57,7 @@ public class LiquefactionRecipe implements Recipe<RecipeWrapperWithFluid> {
 
     @Override
     public boolean matches(RecipeWrapperWithFluid pContainer, Level pLevel) {
-        return this.ingredient.test(pContainer.getItem(0)) && this.solvent.test(pContainer.getTank().getFluid());
+        return this.ingredient.test(pContainer.getItem(0)) && this.solvent.test(pContainer.getTank().getFluidInTank(0));
     }
 
     @Override

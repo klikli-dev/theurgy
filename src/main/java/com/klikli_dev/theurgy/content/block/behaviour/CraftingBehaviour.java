@@ -85,6 +85,8 @@ public abstract class CraftingBehaviour<W extends RecipeWrapper, R extends Recip
         this.progress = 0;
     }
 
+    public abstract boolean canProcess(ItemStack stack);
+
     /**
      * If progress has reached 100%, craft the item and reset progress.
      */
@@ -170,5 +172,4 @@ public abstract class CraftingBehaviour<W extends RecipeWrapper, R extends Recip
 
     protected abstract int getDefaultCraftingTime();
 
-    protected abstract boolean canProcess(ItemStack stack);
 }

@@ -41,7 +41,6 @@ import java.util.function.Predicate;
 
 public class LiquefactionCauldronBlockEntity extends BlockEntity implements HeatConsumer {
 
-
     private final LiquefactionCauldronCraftingBehaviour craftingBehaviour;
 
     public ItemStackHandler inputInventory;

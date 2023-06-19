@@ -30,6 +30,18 @@ public class CalcinationCraftingBehaviour extends CraftingBehaviour<RecipeWrappe
     }
 
     @Override
+    public boolean canProcess(ItemStack stack) {
+        if (ItemHandlerHelper.canItemStacksStack(stack, this.inputInventorySupplier.get().getStackInSlot(0)))
+            return true; //early out if we are already processing this type of item
+
+        ItemStackHandler tempInv = new ItemStackHandler(1);
+        tempInv.setStackInSlot(0, stack);
+        RecipeWrapper tempRecipeWrapper = new RecipeWrapper(tempInv);
+
+        return this.recipeCachedCheck.getRecipeFor(tempRecipeWrapper, this.blockEntity.getLevel()).isPresent();
+    }
+
+    @Override
     protected int getIngredientCount(CalcinationRecipe recipe) {
         return recipe.getIngredientCount();
     }
@@ -42,17 +54,5 @@ public class CalcinationCraftingBehaviour extends CraftingBehaviour<RecipeWrappe
     @Override
     protected int getDefaultCraftingTime() {
         return CalcinationRecipe.DEFAULT_CALCINATION_TIME;
-    }
-
-    @Override
-    protected boolean canProcess(ItemStack stack) {
-        if (ItemHandlerHelper.canItemStacksStack(stack, this.inputInventorySupplier.get().getStackInSlot(0)))
-            return true; //early out if we are already processing this type of item
-
-        ItemStackHandler tempInv = new ItemStackHandler(1);
-        tempInv.setStackInSlot(0, stack);
-        RecipeWrapper tempRecipeWrapper = new RecipeWrapper(tempInv);
-
-        return this.recipeCachedCheck.getRecipeFor(tempRecipeWrapper, this.blockEntity.getLevel()).isPresent();
     }
 }

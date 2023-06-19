@@ -28,6 +28,15 @@ public class DistillerCraftingBehaviour extends CraftingBehaviour<RecipeWrapper,
     }
 
     @Override
+    public boolean canProcess(ItemStack stack) {
+        if (ItemHandlerHelper.canItemStacksStack(stack, this.inputInventorySupplier.get().getStackInSlot(0)))
+            return true; //early out if we are already processing this type of item
+
+
+        return this.recipeCachedCheck.getRecipeFor(stack, this.blockEntity.getLevel()).isPresent();
+    }
+
+    @Override
     protected int getIngredientCount(DistillationRecipe recipe) {
         return recipe.getIngredientCount();
     }
@@ -40,14 +49,5 @@ public class DistillerCraftingBehaviour extends CraftingBehaviour<RecipeWrapper,
     @Override
     protected int getDefaultCraftingTime() {
         return DistillationRecipe.DEFAULT_DISTILLATION_TIME;
-    }
-
-    @Override
-    protected boolean canProcess(ItemStack stack) {
-        if (ItemHandlerHelper.canItemStacksStack(stack, this.inputInventorySupplier.get().getStackInSlot(0)))
-            return true; //early out if we are already processing this type of item
-
-
-        return this.recipeCachedCheck.getRecipeFor(stack, this.blockEntity.getLevel()).isPresent();
     }
 }

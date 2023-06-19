@@ -13,10 +13,7 @@ import com.klikli_dev.theurgy.config.ServerConfig;
 import com.klikli_dev.theurgy.content.item.AlchemicalSaltItem;
 import com.klikli_dev.theurgy.content.item.AlchemicalSulfurItem;
 import com.klikli_dev.theurgy.content.item.DivinationRodItem;
-import com.klikli_dev.theurgy.content.renderer.BlankEntityRenderer;
-import com.klikli_dev.theurgy.content.renderer.CalcinationOvenRenderer;
-import com.klikli_dev.theurgy.content.renderer.DistillerRenderer;
-import com.klikli_dev.theurgy.content.renderer.LiquefactionCauldronRenderer;
+import com.klikli_dev.theurgy.content.renderer.*;
 import com.klikli_dev.theurgy.datagen.TheurgyDataGenerators;
 import com.klikli_dev.theurgy.integration.modonomicon.PageLoaders;
 import com.klikli_dev.theurgy.integration.modonomicon.PageRenderers;
@@ -155,6 +152,7 @@ public class Theurgy {
             event.registerBlockEntityRenderer(BlockEntityRegistry.LIQUEFACTION_CAULDRON.get(), LiquefactionCauldronRenderer::new);
             event.registerBlockEntityRenderer(BlockEntityRegistry.DISTILLER.get(), DistillerRenderer::new);
             event.registerBlockEntityRenderer(BlockEntityRegistry.CALCINATION_OVEN.get(), CalcinationOvenRenderer::new);
+            event.registerBlockEntityRenderer(BlockEntityRegistry.SAL_AMMONIAC_ACCUMULATOR.get(), SalAmmoniacAccumulatorRenderer::new);
         }
 
 

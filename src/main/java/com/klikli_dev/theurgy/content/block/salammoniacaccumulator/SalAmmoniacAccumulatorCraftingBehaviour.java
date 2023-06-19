@@ -82,7 +82,12 @@ public class SalAmmoniacAccumulatorCraftingBehaviour extends CraftingBehaviour<R
             var tank = this.outputTankSupplier.get();
             int fluidAccepted = tank.fill(assembledStack, IFluidHandler.FluidAction.SIMULATE);
 
-            return fluidAccepted == assembledStack.getAmount(); // only allow if we have space for the entire fluid
+            //initially we only allowed if we had space for the entire fluid
+            //however this leads to a bug: if we first run on water and get a partially full tank,
+            //and then add a sal ammoniac crystal that wants to add a full bucket -> stops running.
+            //considering the low value of crystals it is OK to discard a partial fluid stack here.
+            //return fluidAccepted == assembledStack.getAmount();
+            return fluidAccepted > 0;
         }
     }
 

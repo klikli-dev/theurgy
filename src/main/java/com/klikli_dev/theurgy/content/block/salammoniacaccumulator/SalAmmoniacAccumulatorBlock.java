@@ -10,6 +10,7 @@ import com.klikli_dev.theurgy.content.block.itemhandler.BlockFluidHandler;
 import com.klikli_dev.theurgy.content.block.itemhandler.BlockItemHandler;
 import com.klikli_dev.theurgy.content.block.itemhandler.OneSlotBlockItemHandler;
 import com.klikli_dev.theurgy.content.block.itemhandler.OneTankBlockFluidHandler;
+import com.klikli_dev.theurgy.content.block.liquefactioncauldron.LiquefactionCauldronBlockEntity;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -25,6 +26,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.items.wrapper.RecipeWrapper;
 import org.jetbrains.annotations.Nullable;
@@ -88,8 +90,13 @@ public class SalAmmoniacAccumulatorBlock extends Block implements EntityBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
+
         if (pLevel.isClientSide()) {
-            return null;
+            return (lvl, pos, blockState, t) -> {
+                if (t instanceof SalAmmoniacAccumulatorBlockEntity blockEntity) {
+                    blockEntity.tickClient();
+                }
+            };
         }
         return (lvl, pos, blockState, t) -> {
             if (t instanceof SalAmmoniacAccumulatorBlockEntity blockEntity) {

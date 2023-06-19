@@ -6,7 +6,12 @@
 
 package com.klikli_dev.theurgy.content.block.salammoniacaccumulator;
 
+import com.klikli_dev.theurgy.content.particle.ParticleColor;
+import com.klikli_dev.theurgy.content.particle.coloredbubble.ColoredBubbleParticleProvider;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
+import com.klikli_dev.theurgy.registry.ItemTagRegistry;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -14,10 +19,12 @@ import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
@@ -53,7 +60,7 @@ public class SalAmmoniacAccumulatorBlockEntity extends BlockEntity {
 
         this.craftingBehaviour = new SalAmmoniacAccumulatorCraftingBehaviour(this, () -> this.inventory, () -> this.inventory, () -> this.waterTank, () -> this.getOutputTank());
 
-        this.waterTank = new WaterTank(FluidType.BUCKET_VOLUME, this.craftingBehaviour::canProcess);
+        this.waterTank = new WaterTank(FluidType.BUCKET_VOLUME * 10, this.craftingBehaviour::canProcess);
         this.waterTankCapability = LazyOptional.of(() -> this.waterTank);
 
         this.checkOutputTankOnNextQuery = true;
@@ -90,11 +97,16 @@ public class SalAmmoniacAccumulatorBlockEntity extends BlockEntity {
             this.waterTank.readFromNBT(tag.getCompound("waterTank"));
         }
 
+        if (tag.contains("inventory")) {
+            this.inventory.deserializeNBT(tag.getCompound("inventory"));
+        }
+
         this.craftingBehaviour.readNetwork(tag);
     }
 
     public void writeNetwork(CompoundTag tag) {
         tag.put("waterTank", this.waterTank.writeToNBT(new CompoundTag()));
+        tag.put("inventory", this.inventory.serializeNBT());
 
         this.craftingBehaviour.writeNetwork(tag);
     }
@@ -112,6 +124,37 @@ public class SalAmmoniacAccumulatorBlockEntity extends BlockEntity {
         boolean hasInput = !this.waterTank.isEmpty();
 
         this.craftingBehaviour.tickServer(true, hasInput); //does not need heat
+    }
+
+    public void tickClient() {
+        var isProcessing = this.craftingBehaviour.isProcessing();
+        if (isProcessing) {
+            if (this.getLevel().getGameTime() % 2 == 0) { // only spawn particles every 2 ticks
+
+                var fluidStack = this.waterTank.getFluid();
+                var fluidClientExtension = IClientFluidTypeExtensions.of(fluidStack.getFluid());
+                int waterColor = fluidClientExtension.getTintColor(fluidStack);
+
+                var particleColor = this.inventory.getStackInSlot(0).is(ItemTagRegistry.SAL_AMMONIAC_GEMS) ?
+                        new ParticleColor(255, 192, 128) : ParticleColor.fromInt(waterColor);
+
+                var fluidHeight = fluidStack.getAmount() / (float) this.waterTank.getCapacity();
+
+                //move fluid plane between bottom and top of the model
+                fluidHeight += 0.5f;
+                fluidHeight *= 0.60f;
+
+                this.getLevel().addParticle(
+                        ColoredBubbleParticleProvider.createOptions(particleColor),
+                        this.getBlockPos().getX() + 0.33 + 0.33 * this.getLevel().getRandom().nextFloat(),
+
+                        this.getBlockPos().getY() + fluidHeight,
+                        this.getBlockPos().getZ() + 0.33 + 0.33 * this.getLevel().getRandom().nextFloat(),
+                        0.0D, 0.015D, 0.0D
+
+                );
+            }
+        }
     }
 
     public IFluidHandler getOutputTank() {
@@ -164,6 +207,8 @@ public class SalAmmoniacAccumulatorBlockEntity extends BlockEntity {
         if (pTag.contains("waterTank")) {
             this.waterTank.readFromNBT(pTag.getCompound("waterTank"));
         }
+
+        this.craftingBehaviour.load(pTag);
     }
 
     public class WaterTank extends FluidTank {
@@ -208,6 +253,7 @@ public class SalAmmoniacAccumulatorBlockEntity extends BlockEntity {
         @Override
         protected void onContentsChanged(int slot) {
             SalAmmoniacAccumulatorBlockEntity.this.setChanged();
+            SalAmmoniacAccumulatorBlockEntity.this.sendBlockUpdated();
         }
     }
 

@@ -38,6 +38,16 @@
       "text": "",
       "title1": "",
       "title2": ""
+    },
+    {
+      "type": "modonomicon:image",
+      "anchor": "",
+      "border": true,
+      "images": [
+        "theurgy:textures/gui/book/distiller_working.png"
+      ],
+      "text": "book.theurgy.the_hermetica.spagyrics.distiller.working.text",
+      "title": "book.theurgy.the_hermetica.spagyrics.distiller.working.title"
     }
   ],
   "parents": [

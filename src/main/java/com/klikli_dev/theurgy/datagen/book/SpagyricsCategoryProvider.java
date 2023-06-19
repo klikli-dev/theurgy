@@ -10,10 +10,7 @@ import com.klikli_dev.modonomicon.api.datagen.BookProvider;
 import com.klikli_dev.modonomicon.api.datagen.CategoryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookCategoryModel;
 import com.klikli_dev.modonomicon.api.datagen.book.BookEntryModel;
-import com.klikli_dev.modonomicon.api.datagen.book.page.BookCraftingRecipePageModel;
-import com.klikli_dev.modonomicon.api.datagen.book.page.BookMultiblockPageModel;
-import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel;
-import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
+import com.klikli_dev.modonomicon.api.datagen.book.page.*;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.integration.modonomicon.page.accumulation.BookAccumulationRecipePageModel;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
@@ -316,6 +313,20 @@ public class SpagyricsCategoryProvider extends CategoryProvider {
 //        this.add(this.context().pageTitle(), "Sample Recipe");
         //no text
 
+        this.context().page("working");
+        var working = BookImagePageModel.builder()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
+                .withImages(this.modLoc("textures/gui/book/calcination_oven_working.png"))
+                .build();
+        this.add(this.context().pageTitle(), "Working Correctly");
+        this.add(this.context().pageText(),
+                """
+                        If the {0} is working properly, it will show the orange rings moving slightly.
+                        """,
+                this.itemLink(ItemRegistry.CALCINATION_OVEN.get())
+        );
+
         return BookEntryModel.builder()
                 .withId(Theurgy.loc(this.context().categoryId() + "/" + this.context().entryId()))
                 .withName(this.context().entryName())
@@ -327,8 +338,9 @@ public class SpagyricsCategoryProvider extends CategoryProvider {
                         intro,
                         multiblock,
                         usage,
-                        recipe
+                        recipe,
 //                        recipeOre
+working
                 );
     }
 
@@ -405,6 +417,20 @@ public class SpagyricsCategoryProvider extends CategoryProvider {
                 .build();
         //no text
 
+        this.context().page("working");
+        var working = BookImagePageModel.builder()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
+                .withImages(this.modLoc("textures/gui/book/256.png")) //TODO: Hermetica: add real image
+                .build();
+        this.add(this.context().pageTitle(), "Working Correctly");
+        this.add(this.context().pageText(),
+                """
+                        If the {0} is working properly, it will show bubbles.
+                        """,
+                this.itemLink(ItemRegistry.SAL_AMMONIAC_ACCUMULATOR.get())
+        );
+
         this.context().page("sal_ammoniac_crystal");
         var crystal = BookSpotlightPageModel.builder()
                 .withItem(Ingredient.of(ItemRegistry.SAL_AMMONIAC_CRYSTAL.get()))
@@ -440,6 +466,7 @@ public class SpagyricsCategoryProvider extends CategoryProvider {
                         usage,
                         recipe1,
                         recipe2,
+                        working,
                         crystal,
                         salAmmoniacFluidRecipe
                 );
@@ -503,6 +530,20 @@ public class SpagyricsCategoryProvider extends CategoryProvider {
 //        this.add(this.context().pageTitle(), "Sample Recipe");
 //        //no text
 
+        this.context().page("working");
+        var working = BookImagePageModel.builder()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
+                .withImages(this.modLoc("textures/gui/book/liquefaction_cauldron_working.png"))
+                .build();
+        this.add(this.context().pageTitle(), "Working Correctly");
+        this.add(this.context().pageText(),
+                """
+                        If the {0} is working properly, it will show bubbles.
+                        """,
+                this.itemLink(ItemRegistry.LIQUEFACTION_CAULDRON.get())
+        );
+
         return BookEntryModel.builder()
                 .withId(Theurgy.loc(this.context().categoryId() + "/" + this.context().entryId()))
                 .withName(this.context().entryName())
@@ -514,8 +555,9 @@ public class SpagyricsCategoryProvider extends CategoryProvider {
                         intro,
                         multiblock,
                         usage,
-                        recipe
+                        recipe,
 //                        sampleRecipe
+                        working
                 );
     }
 
@@ -577,6 +619,20 @@ public class SpagyricsCategoryProvider extends CategoryProvider {
 //        this.add(this.context().pageTitle(), "Sample Recipe");
 //        //no text
 
+        this.context().page("working");
+        var working = BookImagePageModel.builder()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
+                .withImages(this.modLoc("textures/gui/book/distiller_working.png"))
+                .build();
+        this.add(this.context().pageTitle(), "Working Correctly");
+        this.add(this.context().pageText(),
+                """
+                        If the {0} is working properly, it will float with a bobbing motion.
+                        """,
+                this.itemLink(ItemRegistry.DISTILLER.get())
+        );
+
         return BookEntryModel.builder()
                 .withId(Theurgy.loc(this.context().categoryId() + "/" + this.context().entryId()))
                 .withName(this.context().entryName())
@@ -588,8 +644,9 @@ public class SpagyricsCategoryProvider extends CategoryProvider {
                         intro,
                         multiblock,
                         usage,
-                        recipe
+                        recipe,
 //                        sampleRecipe
+                        working
                 );
     }
 
@@ -666,6 +723,20 @@ public class SpagyricsCategoryProvider extends CategoryProvider {
 //        this.add(this.context().pageTitle(), "Sample Recipe");
 //        //no text
 
+        this.context().page("working");
+        var working = BookImagePageModel.builder()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
+                .withImages(this.modLoc("textures/gui/book/256.png")) //TODO: Hermetica: add real image
+                .build();
+        this.add(this.context().pageTitle(), "Working Correctly");
+        this.add(this.context().pageText(),
+                """
+                        If the {0} is working properly, it will show smoke.
+                        """,
+                this.itemLink(ItemRegistry.INCUBATOR.get())
+        );
+
         return BookEntryModel.builder()
                 .withId(Theurgy.loc(this.context().categoryId() + "/" + this.context().entryId()))
                 .withName(this.context().entryName())
@@ -680,8 +751,9 @@ public class SpagyricsCategoryProvider extends CategoryProvider {
                         recipeIncubator,
                         recipeMercuryVessel,
                         recipeSaltVessel,
-                        recipeSulfurVessel
+                        recipeSulfurVessel,
 //                        sampleRecipe
+                        working
                 );
     }
 }

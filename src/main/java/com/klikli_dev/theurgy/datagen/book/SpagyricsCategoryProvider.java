@@ -235,7 +235,7 @@ public class SpagyricsCategoryProvider extends CategoryProvider {
                         See also {1}.
                         """,
                 this.itemLink(ItemRegistry.PYROMANTIC_BRAZIER.get()),
-                this.entryLink("Alchemical Apparatus", this.categoryId, "apparatus_how_to")
+                this.entryLink("Alchemical Apparatus", GettingStartedCategoryProvider.CATEGORY_ID, "apparatus_how_to")
         );
 
         this.context().page("recipe");
@@ -299,7 +299,7 @@ public class SpagyricsCategoryProvider extends CategoryProvider {
                         """,
                 this.itemLink(ItemRegistry.CALCINATION_OVEN.get()),
                 this.itemLink(ItemRegistry.PYROMANTIC_BRAZIER.get()),
-                this.entryLink("Alchemical Apparatus", this.categoryId, "apparatus_how_to")
+                this.entryLink("Alchemical Apparatus", GettingStartedCategoryProvider.CATEGORY_ID, "apparatus_how_to")
         );
 
         this.context().page("recipe");

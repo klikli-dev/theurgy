@@ -8,16 +8,21 @@ package com.klikli_dev.theurgy.content.block.incubator;
 
 import com.klikli_dev.theurgy.content.block.HeatConsumer;
 import com.klikli_dev.theurgy.content.block.itemhandler.PreventInsertWrapper;
+import com.klikli_dev.theurgy.content.particle.ParticleColor;
+import com.klikli_dev.theurgy.content.particle.coloredbubble.ColoredBubbleParticleProvider;
 import com.klikli_dev.theurgy.content.recipe.wrapper.IncubatorRecipeWrapper;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.CampfireBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
@@ -121,6 +126,23 @@ public class IncubatorBlockEntity extends BlockEntity implements HeatConsumer {
                 && !this.sulfurVessel.inputInventory.getStackInSlot(0).isEmpty();
 
         this.craftingBehaviour.tickServer(isHeated, hasInput);
+    }
+
+    public void tickClient() {
+        var isProcessing = this.craftingBehaviour.isProcessing();
+        if (isProcessing) {
+            var random = this.getLevel().getRandom();
+            if (random.nextFloat() < 0.11F) {
+                for(int i = 0; i < random.nextInt(2) + 2; ++i) {
+                    this.getLevel().addParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE,
+                            this.getBlockPos().getX() + 0.5 + random.nextFloat() / 3.0 * (random.nextBoolean() ? 1 : -1),
+                            this.getBlockPos().getY() + 2 + random.nextFloat(),
+                            this.getBlockPos().getZ() + 0.5 + random.nextFloat() / 3.0 * (random.nextBoolean() ? 1 : -1),
+                            0, 0.07, 0
+                    );
+                }
+            }
+        }
     }
 
 

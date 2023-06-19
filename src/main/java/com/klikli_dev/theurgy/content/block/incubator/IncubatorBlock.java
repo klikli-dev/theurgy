@@ -8,6 +8,7 @@ package com.klikli_dev.theurgy.content.block.incubator;
 
 import com.klikli_dev.theurgy.content.block.itemhandler.BlockItemHandler;
 import com.klikli_dev.theurgy.content.block.itemhandler.OneSlotBlockItemHandler;
+import com.klikli_dev.theurgy.content.block.liquefactioncauldron.LiquefactionCauldronBlockEntity;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.BlockTagRegistry;
 import net.minecraft.Util;
@@ -194,9 +195,17 @@ public class IncubatorBlock extends Block implements EntityBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
-        if (pLevel.isClientSide() || pState.getValue(HALF) == DoubleBlockHalf.UPPER) {
+        if (pState.getValue(HALF) == DoubleBlockHalf.UPPER) {
             return null;
         }
+        if(pLevel.isClientSide()){
+            return (lvl, pos, blockState, t) -> {
+                if (t instanceof IncubatorBlockEntity blockEntity) {
+                    blockEntity.tickClient();
+                }
+            };
+        }
+
         return (lvl, pos, blockState, t) -> {
             if (t instanceof IncubatorBlockEntity blockEntity) {
                 blockEntity.tickServer();

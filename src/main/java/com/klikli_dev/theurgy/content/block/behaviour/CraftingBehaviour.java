@@ -60,13 +60,18 @@ public abstract class CraftingBehaviour<W extends RecipeWrapper, R extends Recip
             this.progress = pTag.getShort("progress");
     }
 
-    public void tickServer(boolean isHeated, boolean hasInput) {
+    /**
+     * Advances the crafting process by one tick.
+     * @param canProcess indicates if "fuel" is available (energy, or usually: heat). If false, will stop processing and reset progress.
+     * @param hasInput indicates if input ingredients are available. If false, will stop processing and reset progress.
+     */
+    public void tickServer(boolean canProcess, boolean hasInput) {
         if (hasInput) {
             //only even check for recipe if we have input to avoid unnecessary lookups
             var recipe = this.recipeCachedCheck.getRecipeFor(this.recipeWrapperSupplier.get(), this.blockEntity.getLevel()).orElse(null);
 
             //if we are lit and have a recipe, update progress
-            if (isHeated && this.canCraft(recipe)) {
+            if (canProcess && this.canCraft(recipe)) {
                 this.tryStartProcessing();
 
                 this.progress++;

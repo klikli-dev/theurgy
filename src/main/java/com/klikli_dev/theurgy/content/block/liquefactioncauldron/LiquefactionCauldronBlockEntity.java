@@ -6,7 +6,7 @@
 
 package com.klikli_dev.theurgy.content.block.liquefactioncauldron;
 
-import com.klikli_dev.theurgy.content.block.HeatConsumer;
+import com.klikli_dev.theurgy.content.block.behaviour.HeatedBehaviour;
 import com.klikli_dev.theurgy.content.block.itemhandler.PreventInsertWrapper;
 import com.klikli_dev.theurgy.content.particle.ParticleColor;
 import com.klikli_dev.theurgy.content.particle.coloredbubble.ColoredBubbleParticleProvider;
@@ -39,9 +39,10 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Predicate;
 
-public class LiquefactionCauldronBlockEntity extends BlockEntity implements HeatConsumer {
+public class LiquefactionCauldronBlockEntity extends BlockEntity {
 
     private final LiquefactionCauldronCraftingBehaviour craftingBehaviour;
+    private final HeatedBehaviour heatedBehaviour;
 
     public ItemStackHandler inputInventory;
     /**
@@ -80,6 +81,7 @@ public class LiquefactionCauldronBlockEntity extends BlockEntity implements Heat
         this.solventTankCapability = LazyOptional.of(() -> this.solventTank);
 
         this.craftingBehaviour = new LiquefactionCauldronCraftingBehaviour(this, () -> this.inputInventory, () -> this.outputInventory, () -> this.solventTank);
+        this.heatedBehaviour = new HeatedBehaviour(this);
     }
 
     @Override
@@ -122,24 +124,13 @@ public class LiquefactionCauldronBlockEntity extends BlockEntity implements Heat
         this.craftingBehaviour.writeNetwork(tag);
     }
 
-    @Override
-    public boolean getHeatedCache() {
-        return this.heatedCache;
-    }
-
-    @Override
-    public void setHeatedCache(boolean heated) {
-        this.heatedCache = heated;
-    }
-
-
     public void sendBlockUpdated() {
         if (this.level != null && !this.level.isClientSide)
             this.level.sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), Block.UPDATE_CLIENTS);
     }
 
     public void tickServer() {
-        boolean isHeated = this.isHeated();
+        boolean isHeated = this.heatedBehaviour.isHeated();
         boolean hasInput = !this.inputInventory.getStackInSlot(0).isEmpty();
 
         this.craftingBehaviour.tickServer(isHeated, hasInput);

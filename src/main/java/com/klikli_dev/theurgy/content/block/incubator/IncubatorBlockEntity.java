@@ -6,23 +6,19 @@
 
 package com.klikli_dev.theurgy.content.block.incubator;
 
-import com.klikli_dev.theurgy.content.block.HeatConsumer;
+import com.klikli_dev.theurgy.content.block.behaviour.HeatedBehaviour;
 import com.klikli_dev.theurgy.content.block.itemhandler.PreventInsertWrapper;
-import com.klikli_dev.theurgy.content.particle.ParticleColor;
-import com.klikli_dev.theurgy.content.particle.coloredbubble.ColoredBubbleParticleProvider;
 import com.klikli_dev.theurgy.content.recipe.wrapper.IncubatorRecipeWrapper;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.CampfireBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
@@ -33,9 +29,10 @@ import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class IncubatorBlockEntity extends BlockEntity implements HeatConsumer {
+public class IncubatorBlockEntity extends BlockEntity {
 
     private final IncubatorCraftingBehaviour craftingBehaviour;
+    private final HeatedBehaviour heatedBehaviour;
 
     public IncubatorMercuryVesselBlockEntity mercuryVessel;
     public IncubatorSulfurVesselBlockEntity sulfurVessel;
@@ -60,17 +57,12 @@ public class IncubatorBlockEntity extends BlockEntity implements HeatConsumer {
         super(BlockEntityRegistry.INCUBATOR.get(), pPos, pBlockState);
 
         this.outputInventory = new OutputInventory();
-        this.outputInventoryTakeOnlyWrapper = new PreventInsertWrapper(this.outputInventory) {
-            @Override
-            public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-                return false;
-            }
-        };
-
+        this.outputInventoryTakeOnlyWrapper = new PreventInsertWrapper(this.outputInventory);
         this.outputInventoryCapability = LazyOptional.of(() -> this.outputInventoryTakeOnlyWrapper);
         this.checkValidMultiblockOnNextQuery = true;
 
         this.craftingBehaviour = new IncubatorCraftingBehaviour(this, () -> this.recipeWrapper, () -> null, () -> this.outputInventory);
+        this.heatedBehaviour = new HeatedBehaviour(this);
     }
 
     @Override
@@ -107,18 +99,8 @@ public class IncubatorBlockEntity extends BlockEntity implements HeatConsumer {
         this.craftingBehaviour.writeNetwork(tag);
     }
 
-    @Override
-    public boolean getHeatedCache() {
-        return this.heatedCache;
-    }
-
-    @Override
-    public void setHeatedCache(boolean heated) {
-        this.heatedCache = heated;
-    }
-
     public void tickServer() {
-        boolean isHeated = this.isHeated();
+        boolean isHeated = this.heatedBehaviour.isHeated();
 
         boolean hasInput = this.isValidMultiblock()
                 && !this.mercuryVessel.inputInventory.getStackInSlot(0).isEmpty()
@@ -133,7 +115,7 @@ public class IncubatorBlockEntity extends BlockEntity implements HeatConsumer {
         if (isProcessing) {
             var random = this.getLevel().getRandom();
             if (random.nextFloat() < 0.11F) {
-                for(int i = 0; i < random.nextInt(2) + 2; ++i) {
+                for (int i = 0; i < random.nextInt(2) + 2; ++i) {
                     this.getLevel().addParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE,
                             this.getBlockPos().getX() + 0.5 + random.nextFloat() / 3.0 * (random.nextBoolean() ? 1 : -1),
                             this.getBlockPos().getY() + 2 + random.nextFloat(),

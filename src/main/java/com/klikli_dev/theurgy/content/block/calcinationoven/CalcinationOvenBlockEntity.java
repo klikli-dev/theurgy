@@ -6,9 +6,9 @@
 
 package com.klikli_dev.theurgy.content.block.calcinationoven;
 
-import com.klikli_dev.theurgy.content.block.HeatConsumer;
-import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
+import com.klikli_dev.theurgy.content.block.behaviour.HeatedBehaviour;
 import com.klikli_dev.theurgy.content.block.itemhandler.PreventInsertWrapper;
+import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -36,7 +36,7 @@ import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class CalcinationOvenBlockEntity extends BlockEntity implements GeoBlockEntity, HeatConsumer {
+public class CalcinationOvenBlockEntity extends BlockEntity implements GeoBlockEntity {
 
     private static final RawAnimation START_AND_ON_ANIM = RawAnimation.begin()
             .thenPlay("animation.calcination_oven.start")
@@ -54,6 +54,8 @@ public class CalcinationOvenBlockEntity extends BlockEntity implements GeoBlockE
             .thenLoop("animation.calcination_oven.off");
     private final AnimatableInstanceCache animatableInstanceCache = GeckoLibUtil.createInstanceCache(this);
     private final CalcinationCraftingBehaviour craftingBehaviour;
+    private final HeatedBehaviour heatedBehaviour;
+
     public ItemStackHandler inputInventory;
     /**
      * The underlying outputInventory which allows inserting too - we use this when crafting.
@@ -68,8 +70,6 @@ public class CalcinationOvenBlockEntity extends BlockEntity implements GeoBlockE
     public LazyOptional<IItemHandler> inventoryCapability;
     public LazyOptional<IItemHandler> inputInventoryCapability;
     public LazyOptional<IItemHandler> outputInventoryCapability;
-
-    private boolean heatedCache;
 
     /**
      * Client-side we only use the blockstate to determine our animation state.
@@ -91,6 +91,7 @@ public class CalcinationOvenBlockEntity extends BlockEntity implements GeoBlockE
         this.outputInventoryCapability = LazyOptional.of(() -> this.outputInventoryTakeOnlyWrapper);
 
         this.craftingBehaviour = new CalcinationCraftingBehaviour(this, () -> this.inputInventory, () -> this.outputInventory);
+        this.heatedBehaviour = new HeatedBehaviour(this);
     }
 
     @Override
@@ -127,18 +128,8 @@ public class CalcinationOvenBlockEntity extends BlockEntity implements GeoBlockE
         this.craftingBehaviour.writeNetwork(tag);
     }
 
-    @Override
-    public boolean getHeatedCache() {
-        return this.heatedCache;
-    }
-
-    @Override
-    public void setHeatedCache(boolean heated) {
-        this.heatedCache = heated;
-    }
-
     public void tickServer() {
-        boolean isHeated = this.isHeated();
+        boolean isHeated = this.heatedBehaviour.isHeated();
         boolean hasInput = !this.inputInventory.getStackInSlot(0).isEmpty();
 
         this.craftingBehaviour.tickServer(isHeated, hasInput);

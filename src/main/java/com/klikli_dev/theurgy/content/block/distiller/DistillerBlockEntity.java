@@ -6,7 +6,7 @@
 
 package com.klikli_dev.theurgy.content.block.distiller;
 
-import com.klikli_dev.theurgy.content.block.HeatConsumer;
+import com.klikli_dev.theurgy.content.block.behaviour.HeatedBehaviour;
 import com.klikli_dev.theurgy.content.block.itemhandler.PreventInsertWrapper;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
@@ -36,7 +36,7 @@ import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class DistillerBlockEntity extends BlockEntity implements GeoBlockEntity, HeatConsumer {
+public class DistillerBlockEntity extends BlockEntity implements GeoBlockEntity {
 
     private static final RawAnimation START_AND_ON_ANIM = RawAnimation.begin()
             .thenPlay("animation.distiller.start")
@@ -51,6 +51,7 @@ public class DistillerBlockEntity extends BlockEntity implements GeoBlockEntity,
     private final AnimatableInstanceCache animatableInstanceCache = GeckoLibUtil.createInstanceCache(this);
 
     private final DistillerCraftingBehaviour craftingBehaviour;
+    private final HeatedBehaviour heatedBehaviour;
 
     public ItemStackHandler inputInventory;
     /**
@@ -87,6 +88,7 @@ public class DistillerBlockEntity extends BlockEntity implements GeoBlockEntity,
         this.outputInventoryCapability = LazyOptional.of(() -> this.outputInventoryTakeOnlyWrapper);
 
         this.craftingBehaviour = new DistillerCraftingBehaviour(this, () -> this.inputInventory, () -> this.outputInventory);
+        this.heatedBehaviour = new HeatedBehaviour(this);
     }
 
     @Override
@@ -123,18 +125,8 @@ public class DistillerBlockEntity extends BlockEntity implements GeoBlockEntity,
         this.craftingBehaviour.writeNetwork(tag);
     }
 
-    @Override
-    public boolean getHeatedCache() {
-        return this.heatedCache;
-    }
-
-    @Override
-    public void setHeatedCache(boolean heated) {
-        this.heatedCache = heated;
-    }
-
     public void tickServer() {
-        boolean isHeated = this.isHeated();
+        boolean isHeated = this.heatedBehaviour.isHeated();
         boolean hasInput = !this.inputInventory.getStackInSlot(0).isEmpty();
 
         this.craftingBehaviour.tickServer(isHeated, hasInput);

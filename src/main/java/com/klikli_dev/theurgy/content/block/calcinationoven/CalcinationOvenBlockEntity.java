@@ -31,30 +31,8 @@ import software.bernie.geckolib.animatable.GeoBlockEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.core.animation.RawAnimation;
-import software.bernie.geckolib.core.object.PlayState;
-import software.bernie.geckolib.util.GeckoLibUtil;
 
 public class CalcinationOvenBlockEntity extends BlockEntity implements GeoBlockEntity {
-
-    private static final RawAnimation START_AND_ON_ANIM = RawAnimation.begin()
-            .thenPlay("animation.calcination_oven.start")
-            .thenLoop("animation.calcination_oven.on");
-    private static final RawAnimation STOP_AND_OFF_ANIM = RawAnimation.begin()
-            .thenPlay("animation.calcination_oven.stop")
-            .thenLoop("animation.calcination_oven.off");
-    private static final RawAnimation OFF_ANIM = RawAnimation.begin()
-            .thenLoop("animation.calcination_oven.off");
-    private static final RawAnimation ON_ANIM = RawAnimation.begin()
-            .thenLoop("animation.calcination_oven.on");
-
-    private static final RawAnimation PLACE_AND_OFF_ANIM = RawAnimation.begin()
-            .thenPlay("animation.calcination_oven.place")
-            .thenLoop("animation.calcination_oven.off");
-    private final AnimatableInstanceCache animatableInstanceCache = GeckoLibUtil.createInstanceCache(this);
-    private final CalcinationCraftingBehaviour craftingBehaviour;
-    private final HeatedBehaviour heatedBehaviour;
 
     public ItemStackHandler inputInventory;
     /**
@@ -65,16 +43,14 @@ public class CalcinationOvenBlockEntity extends BlockEntity implements GeoBlockE
      * A wrapper that only allows taking from the outputInventory - this is what we show to the outside.
      */
     public PreventInsertWrapper outputInventoryTakeOnlyWrapper;
-
     public CombinedInvWrapper inventory;
     public LazyOptional<IItemHandler> inventoryCapability;
     public LazyOptional<IItemHandler> inputInventoryCapability;
     public LazyOptional<IItemHandler> outputInventoryCapability;
 
-    /**
-     * Client-side we only use the blockstate to determine our animation state.
-     */
-    private boolean wasProcessingLastTick;
+    protected CalcinationCraftingBehaviour craftingBehaviour;
+    protected HeatedBehaviour heatedBehaviour;
+    protected CalcinationOvenAnimationBehaviour animationBehaviour;
 
 
     public CalcinationOvenBlockEntity(BlockPos pPos, BlockState pBlockState) {
@@ -92,6 +68,7 @@ public class CalcinationOvenBlockEntity extends BlockEntity implements GeoBlockE
 
         this.craftingBehaviour = new CalcinationCraftingBehaviour(this, () -> this.inputInventory, () -> this.outputInventory);
         this.heatedBehaviour = new HeatedBehaviour(this);
+        this.animationBehaviour = new CalcinationOvenAnimationBehaviour(this);
     }
 
     @Override
@@ -167,36 +144,16 @@ public class CalcinationOvenBlockEntity extends BlockEntity implements GeoBlockE
         this.craftingBehaviour.load(pTag);
     }
 
-    private <E extends GeoBlockEntity> PlayState animationHandler(AnimationState<E> event) {
-
-        var isProcessing = this.craftingBehaviour.isProcessing();
-
-        if (!this.wasProcessingLastTick && !isProcessing && event.getController().getAnimationState() == AnimationController.State.STOPPED) {
-            event.getController().setAnimation(PLACE_AND_OFF_ANIM);
-        } else if (this.wasProcessingLastTick && !isProcessing && event.getController().getAnimationState() != AnimationController.State.TRANSITIONING) {
-            event.getController().setAnimation(STOP_AND_OFF_ANIM);
-        } else if (!this.wasProcessingLastTick && isProcessing && event.getController().getAnimationState() != AnimationController.State.TRANSITIONING) {
-            event.getController().setAnimation(START_AND_ON_ANIM);
-        } else if (!this.wasProcessingLastTick && !isProcessing && event.getController().getAnimationState() != AnimationController.State.RUNNING) {
-            event.getController().setAnimation(OFF_ANIM);
-        } else if (this.wasProcessingLastTick && isProcessing && event.getController().getAnimationState() != AnimationController.State.RUNNING) {
-            event.getController().setAnimation(ON_ANIM);
-        }
-
-        this.wasProcessingLastTick = isProcessing;
-
-        return PlayState.CONTINUE;
-    }
-
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-        controllerRegistrar.add(new AnimationController<GeoBlockEntity>(this, "controller", 10, this::animationHandler));
+        controllerRegistrar.add(new AnimationController<GeoBlockEntity>(this, "controller", 10, this.animationBehaviour::animationHandler));
     }
 
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {
-        return this.animatableInstanceCache;
+        return this.animationBehaviour.getAnimatableInstanceCache();
     }
+
 
     public class InputInventory extends ItemStackHandler {
 

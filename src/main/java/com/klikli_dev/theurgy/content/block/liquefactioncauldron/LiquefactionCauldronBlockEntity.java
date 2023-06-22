@@ -6,6 +6,7 @@
 
 package com.klikli_dev.theurgy.content.block.liquefactioncauldron;
 
+import com.klikli_dev.theurgy.content.block.behaviour.CraftingBehaviour;
 import com.klikli_dev.theurgy.content.block.behaviour.HeatedBehaviour;
 import com.klikli_dev.theurgy.content.block.itemhandler.PreventInsertWrapper;
 import com.klikli_dev.theurgy.content.particle.ParticleColor;
@@ -41,9 +42,6 @@ import java.util.function.Predicate;
 
 public class LiquefactionCauldronBlockEntity extends BlockEntity {
 
-    private final LiquefactionCauldronCraftingBehaviour craftingBehaviour;
-    private final HeatedBehaviour heatedBehaviour;
-
     public ItemStackHandler inputInventory;
     /**
      * The underlying outputInventory which allows inserting too - we use this when crafting.
@@ -62,7 +60,9 @@ public class LiquefactionCauldronBlockEntity extends BlockEntity {
     public FluidTank solventTank;
     public LazyOptional<IFluidHandler> solventTankCapability;
 
-    private boolean heatedCache;
+    protected CraftingBehaviour<?, ?, ?> craftingBehaviour;
+    protected HeatedBehaviour heatedBehaviour;
+
 
     public LiquefactionCauldronBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(BlockEntityRegistry.LIQUEFACTION_CAULDRON.get(), pPos, pBlockState);

@@ -6,6 +6,7 @@
 
 package com.klikli_dev.theurgy.content.block.incubator;
 
+import com.klikli_dev.theurgy.content.block.behaviour.CraftingBehaviour;
 import com.klikli_dev.theurgy.content.block.behaviour.HeatedBehaviour;
 import com.klikli_dev.theurgy.content.block.itemhandler.PreventInsertWrapper;
 import com.klikli_dev.theurgy.content.recipe.wrapper.IncubatorRecipeWrapper;
@@ -30,10 +31,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class IncubatorBlockEntity extends BlockEntity {
-
-    private final IncubatorCraftingBehaviour craftingBehaviour;
-    private final HeatedBehaviour heatedBehaviour;
-
     public IncubatorMercuryVesselBlockEntity mercuryVessel;
     public IncubatorSulfurVesselBlockEntity sulfurVessel;
     public IncubatorSaltVesselBlockEntity saltVessel;
@@ -50,8 +47,10 @@ public class IncubatorBlockEntity extends BlockEntity {
 
     public IncubatorRecipeWrapper recipeWrapper;
     public boolean isValidMultiblock;
+
+    protected CraftingBehaviour<?, ?, ?> craftingBehaviour;
+    protected HeatedBehaviour heatedBehaviour;
     protected boolean checkValidMultiblockOnNextQuery;
-    private boolean heatedCache;
 
     public IncubatorBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(BlockEntityRegistry.INCUBATOR.get(), pPos, pBlockState);

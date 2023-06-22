@@ -10,8 +10,6 @@ import com.klikli_dev.theurgy.content.particle.ParticleColor;
 import com.klikli_dev.theurgy.content.particle.coloredbubble.ColoredBubbleParticleProvider;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.ItemTagRegistry;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -19,7 +17,6 @@ import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
-import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -41,13 +38,13 @@ import java.util.function.Predicate;
 
 public class SalAmmoniacAccumulatorBlockEntity extends BlockEntity {
 
-    private final SalAmmoniacAccumulatorCraftingBehaviour craftingBehaviour;
-
     public ItemStackHandler inventory;
     public LazyOptional<IItemHandler> inventoryCapability;
 
     public FluidTank waterTank;
     public LazyOptional<IFluidHandler> waterTankCapability;
+
+    protected SalAmmoniacAccumulatorCraftingBehaviour craftingBehaviour;
 
     private boolean checkOutputTankOnNextQuery;
     private boolean hasOutputTank;

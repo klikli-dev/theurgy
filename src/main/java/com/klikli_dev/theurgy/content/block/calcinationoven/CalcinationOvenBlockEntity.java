@@ -6,6 +6,8 @@
 
 package com.klikli_dev.theurgy.content.block.calcinationoven;
 
+import com.klikli_dev.theurgy.content.block.behaviour.AnimationBehaviour;
+import com.klikli_dev.theurgy.content.block.behaviour.CraftingBehaviour;
 import com.klikli_dev.theurgy.content.block.behaviour.HeatedBehaviour;
 import com.klikli_dev.theurgy.content.block.itemhandler.PreventInsertWrapper;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
@@ -48,9 +50,9 @@ public class CalcinationOvenBlockEntity extends BlockEntity implements GeoBlockE
     public LazyOptional<IItemHandler> inputInventoryCapability;
     public LazyOptional<IItemHandler> outputInventoryCapability;
 
-    protected CalcinationCraftingBehaviour craftingBehaviour;
+    protected CraftingBehaviour<?, ?, ?> craftingBehaviour;
     protected HeatedBehaviour heatedBehaviour;
-    protected CalcinationOvenAnimationBehaviour animationBehaviour;
+    protected AnimationBehaviour<?> animationBehaviour;
 
 
     public CalcinationOvenBlockEntity(BlockPos pPos, BlockState pBlockState) {

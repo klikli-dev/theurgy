@@ -145,6 +145,30 @@ public class TheurgyItemTagsProvider extends ItemTagsProvider {
 
         ;
 
+        this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_ABUNDANT)
+                .addTag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_ABUNDANT)
+                .addTag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_ABUNDANT)
+                .addTag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_ABUNDANT)
+        ;
+
+        this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_COMMON)
+                .addTag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_COMMON)
+                .addTag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_COMMON)
+                .addTag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_COMMON)
+        ;
+
+        this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_RARE)
+                .addTag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_RARE)
+                .addTag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_RARE)
+                .addTag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_RARE)
+        ;
+
+        this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_PRECIOUS)
+                .addTag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_PRECIOUS)
+                .addTag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_PRECIOUS)
+                .addTag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_PRECIOUS)
+        ;
+
         this.tag(ItemTagRegistry.LOW_MERCURY_ORES)
                 .addTag(Tags.Items.ORES_IRON)
                 .addTag(Tags.Items.ORES_COPPER)

@@ -34,6 +34,11 @@ public class ItemTagRegistry {
     public static final TagKey<Item> ALCHEMICAL_SULFURS_OTHER_MINERALS_RARE = tag("alchemical_sulfurs/other_minerals/rare");
     public static final TagKey<Item> ALCHEMICAL_SULFURS_OTHER_MINERALS_PRECIOUS = tag("alchemical_sulfurs/other_minerals/precious");
 
+    public static final TagKey<Item> ALCHEMICAL_SULFURS_ABUNDANT = tag("alchemical_sulfurs/abundant");
+    public static final TagKey<Item> ALCHEMICAL_SULFURS_COMMON = tag("alchemical_sulfurs/common");
+    public static final TagKey<Item> ALCHEMICAL_SULFURS_RARE = tag("alchemical_sulfurs/rare");
+    public static final TagKey<Item> ALCHEMICAL_SULFURS_PRECIOUS = tag("alchemical_sulfurs/precious");
+
     public static final TagKey<Item> ALCHEMICAL_SALTS = tag("alchemical_salts");
     public static final TagKey<Item> ALCHEMICAL_MERCURIES = tag("alchemical_mercuries");
 

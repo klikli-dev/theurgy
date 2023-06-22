@@ -1,0 +1,31 @@
+{
+  "type": "theurgy:divination_rod",
+  "key": {
+    "G": {
+      "tag": "forge:glass"
+    },
+    "R": {
+      "tag": "forge:rods/wooden"
+    },
+    "S": {
+      "tag": "theurgy:alchemical_sulfurs/common"
+    }
+  },
+  "pattern": [
+    " GS",
+    " RG",
+    "R  "
+  ],
+  "result": {
+    "count": 1,
+    "item": "theurgy:sulfur_attuned_divination_rod_common",
+    "nbt": {
+      "theurgy:divination.setting.allowed_blocks_tag": "theurgy:divination_rod_t1_allowed_blocks",
+      "theurgy:divination.setting.disallowed_blocks_tag": "theurgy:divination_rod_t1_disallowed_blocks",
+      "theurgy:divination.setting.duration": 40,
+      "theurgy:divination.setting.max_damage": 12,
+      "theurgy:divination.setting.range": 96,
+      "theurgy:divination.setting.tier": "minecraft:stone"
+    }
+  }
+}

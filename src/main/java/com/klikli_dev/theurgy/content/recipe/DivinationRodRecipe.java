@@ -46,14 +46,14 @@ public class DivinationRodRecipe extends ShapedRecipe {
         //this allows JEI/creative menu to show the correct linked block id effects (altered item name, tooltip, etc)
         if (!resultTag.contains(TheurgyConstants.Nbt.Divination.LINKED_BLOCK_ID)) {
 
-            ResourceLocation sourceId = null;
+            String sourceId = null;
             for (var ingredient : this.getIngredients()) {
                 var json = ingredient.toJson();
                 if (json instanceof JsonObject jsonObj && jsonObj.has("nbt")) {
 
                     var ingredientTag = CraftingHelper.getNBT(jsonObj.get("nbt"));
                     if (ingredientTag.contains(TheurgyConstants.Nbt.SULFUR_SOURCE_ID)) {
-                        sourceId = new ResourceLocation(ingredientTag.getString(TheurgyConstants.Nbt.SULFUR_SOURCE_ID));
+                        sourceId =ingredientTag.getString(TheurgyConstants.Nbt.SULFUR_SOURCE_ID);
                         break;
                     }
                 }
@@ -62,9 +62,9 @@ public class DivinationRodRecipe extends ShapedRecipe {
             if (sourceId != null) {
                 var translated = this.translateToBlock(sourceId);
                 if (translated != null) {
-                    resultTag.putString(TheurgyConstants.Nbt.Divination.LINKED_BLOCK_ID, translated.toString());
+                    resultTag.putString(TheurgyConstants.Nbt.Divination.LINKED_BLOCK_ID, translated);
                 } else {
-                    resultTag.putString(TheurgyConstants.Nbt.Divination.LINKED_BLOCK_ID, sourceId.toString());
+                    resultTag.putString(TheurgyConstants.Nbt.Divination.LINKED_BLOCK_ID, sourceId);
                 }
                 //we also set the preview mode, to allow the assemble() method to override based on the actual input.
                 resultTag.putBoolean(TheurgyConstants.Nbt.Divination.LINKED_BLOCK_ID_PREVIEW_MODE, true);
@@ -78,9 +78,7 @@ public class DivinationRodRecipe extends ShapedRecipe {
     public ItemStack assemble(CraftingContainer pInv, RegistryAccess registryAccess) {
         var result = this.getResultItem(registryAccess).copy();
 
-
         var resultTag = result.getOrCreateTag();
-
 
         //if the recipe already has a linked block, we don't need to do the translation stuff.
         //if that linked block is only a preview (coming from getResultItem(), used mainly for correct display in JEI),
@@ -88,14 +86,16 @@ public class DivinationRodRecipe extends ShapedRecipe {
         if (!resultTag.contains(TheurgyConstants.Nbt.Divination.LINKED_BLOCK_ID) ||
                 resultTag.getBoolean(TheurgyConstants.Nbt.Divination.LINKED_BLOCK_ID_PREVIEW_MODE)
         ) {
+            //TODO: handle tag sources
+
             //check pInv for ingredients with sulfur source id, if so, find the appropriate block id based on it and set it on the result item
-            ResourceLocation sourceId = null;
+            String sourceId = null;
             for (int i = 0; i < pInv.getContainerSize(); i++) {
                 var stack = pInv.getItem(i);
                 if (stack.hasTag()) {
                     var tag = stack.getTag();
                     if (tag.contains(TheurgyConstants.Nbt.SULFUR_SOURCE_ID)) {
-                        sourceId = new ResourceLocation(tag.getString(TheurgyConstants.Nbt.SULFUR_SOURCE_ID));
+                        sourceId = tag.getString(TheurgyConstants.Nbt.SULFUR_SOURCE_ID);
                         break;
                     }
                 }
@@ -104,21 +104,21 @@ public class DivinationRodRecipe extends ShapedRecipe {
             if (sourceId != null) {
                 var translated = this.translateToBlock(sourceId);
                 if (translated != null) {
-                    resultTag.putString(TheurgyConstants.Nbt.Divination.LINKED_BLOCK_ID, translated.toString());
+                    resultTag.putString(TheurgyConstants.Nbt.Divination.LINKED_BLOCK_ID, translated);
                 } else {
-                    resultTag.putString(TheurgyConstants.Nbt.Divination.LINKED_BLOCK_ID, sourceId.toString());
+                    resultTag.putString(TheurgyConstants.Nbt.Divination.LINKED_BLOCK_ID, sourceId);
                 }
             }
         }
 
-        return super.assemble(pInv, registryAccess);
+        return result;
     }
 
-    public ResourceLocation translateToBlock(ResourceLocation sourceId) {
+    public String translateToBlock(String sourceId) {
         //first we check if we have a manual override mapping
-        var mapped = ServerConfig.get().recipes.sulfurSourceToBlockMapping.get().get(sourceId.toString());
+        var mapped = ServerConfig.get().recipes.sulfurSourceToBlockMapping.get().get(sourceId);
         if (mapped != null)
-            return new ResourceLocation(mapped);
+            return mapped;
 
         //if not we use generic logic to translate ingot, storage block, nugget, raw, ore, dust to (ore)block.
         //even though likely not all of these will be used to create sulfur its good to handle them.
@@ -132,7 +132,8 @@ public class DivinationRodRecipe extends ShapedRecipe {
         //iron_dust
         //iron_block
 
-        var path = sourceId.getPath();
+        var namespace = sourceId.split(":")[0];
+        var path = sourceId.split(":")[1];
         var translatedPath = path;
         if (path.contains("raw_")) {
             translatedPath = path.replace("raw_", "");
@@ -152,16 +153,21 @@ public class DivinationRodRecipe extends ShapedRecipe {
         }
 
         translatedPath = translatedPath + "_ore";
-        var translated = new ResourceLocation(sourceId.getNamespace(), translatedPath);
+        var translated = namespace + ":" + translatedPath;
 
-        if (ForgeRegistries.BLOCKS.containsKey(translated)) {
+        if (translated.startsWith("#")) {
             return translated;
         }
 
-        if (!ForgeRegistries.BLOCKS.containsKey(translated)) {
-            var fallback = ForgeRegistries.BLOCKS.getKeys().stream().filter(x -> x.getPath().equals(translated.getPath())).findFirst();
+        var translatedRL = new ResourceLocation(translated);
+        if (ForgeRegistries.BLOCKS.containsKey(translatedRL)) {
+            return translated;
+        }
+
+        if (!ForgeRegistries.BLOCKS.containsKey(translatedRL)) {
+            var fallback = ForgeRegistries.BLOCKS.getKeys().stream().filter(x -> x.getPath().equals(translatedRL.getPath())).findFirst();
             if (fallback.isPresent()) {
-                return fallback.get();
+                return fallback.get().toString();
             }
         }
 

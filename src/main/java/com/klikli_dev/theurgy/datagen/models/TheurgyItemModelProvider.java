@@ -157,6 +157,7 @@ public class TheurgyItemModelProvider extends net.minecraftforge.client.model.ge
         this.registerDivinationRod(ItemRegistry.DIVINATION_ROD_T2.get());
         this.registerDivinationRod(ItemRegistry.DIVINATION_ROD_T3.get());
         this.registerDivinationRod(ItemRegistry.DIVINATION_ROD_T4.get());
-
+        this.registerDivinationRod(ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_ABUNDANT.get());
+        this.registerDivinationRod(ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_COMMON.get());
     }
 }

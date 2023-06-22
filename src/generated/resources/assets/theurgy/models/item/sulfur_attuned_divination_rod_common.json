@@ -1,0 +1,59 @@
+{
+  "parent": "theurgy:item/sulfur_attuned_divination_rod_common/0",
+  "overrides": [
+    {
+      "model": "theurgy:item/sulfur_attuned_divination_rod_common/7",
+      "predicate": {
+        "theurgy:divination_distance": 0.0
+      }
+    },
+    {
+      "model": "theurgy:item/sulfur_attuned_divination_rod_common/6",
+      "predicate": {
+        "theurgy:divination_distance": 1.0
+      }
+    },
+    {
+      "model": "theurgy:item/sulfur_attuned_divination_rod_common/5",
+      "predicate": {
+        "theurgy:divination_distance": 2.0
+      }
+    },
+    {
+      "model": "theurgy:item/sulfur_attuned_divination_rod_common/4",
+      "predicate": {
+        "theurgy:divination_distance": 3.0
+      }
+    },
+    {
+      "model": "theurgy:item/sulfur_attuned_divination_rod_common/3",
+      "predicate": {
+        "theurgy:divination_distance": 4.0
+      }
+    },
+    {
+      "model": "theurgy:item/sulfur_attuned_divination_rod_common/2",
+      "predicate": {
+        "theurgy:divination_distance": 5.0
+      }
+    },
+    {
+      "model": "theurgy:item/sulfur_attuned_divination_rod_common/1",
+      "predicate": {
+        "theurgy:divination_distance": 6.0
+      }
+    },
+    {
+      "model": "theurgy:item/sulfur_attuned_divination_rod_common/0",
+      "predicate": {
+        "theurgy:divination_distance": 7.0
+      }
+    },
+    {
+      "model": "theurgy:item/sulfur_attuned_divination_rod_common/searching",
+      "predicate": {
+        "theurgy:divination_distance": 8.0
+      }
+    }
+  ]
+}

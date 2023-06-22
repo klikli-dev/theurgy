@@ -1,4 +1,4 @@
-// 1.20.1	2023-06-19T13:35:19.3039205	Tags for minecraft:item mod id theurgy
+// 1.20.1	2023-06-22T16:36:15.6407947	Tags for minecraft:item mod id theurgy
 7a78325a639e879280cccf4d15f364e02da86003 data/forge/tags/items/gems.json
 9a414088a384ea8077655b79eb53ac263aaae5e3 data/forge/tags/items/gems/sal_ammoniac.json
 04abd356cb9b230f4d1adcf90db05571e8a17d05 data/forge/tags/items/ores/sal_ammoniac.json
@@ -7,6 +7,8 @@ f8295983ffdb0c42c6c8b12788a5b63c1eb43f72 data/forge/tags/items/ores_in_ground/st
 c1ae367d1f7b1391996652acb8c12cfbe63abfc8 data/theurgy/tags/items/alchemical_mercuries.json
 07760e14b03fd0089485f8825e5961fedbd2ab80 data/theurgy/tags/items/alchemical_salts.json
 7e640bba62ec6219c3e3def2845f665fdb1e9cba data/theurgy/tags/items/alchemical_sulfurs.json
+34afd6e0275950da142439ac05cd7455f47850e4 data/theurgy/tags/items/alchemical_sulfurs/abundant.json
+4356e96ae4efb2a5a21bcc7e7d0ac4e68ae4f0a3 data/theurgy/tags/items/alchemical_sulfurs/common.json
 266413752c11313070378f2d5cc88f57a4a87cbd data/theurgy/tags/items/alchemical_sulfurs/gems.json
 99734639ab59a8484a1f580b87d9d464df9930cc data/theurgy/tags/items/alchemical_sulfurs/gems/abundant.json
 1744f55d3aa4e665ad91f91136b4efc9df851779 data/theurgy/tags/items/alchemical_sulfurs/gems/common.json
@@ -22,6 +24,8 @@ d83463626204ada454a14f6956bedf9e647be1ec data/theurgy/tags/items/alchemical_sulf
 a1f5db5c4c9d4b747e83dd3f796c8698304575bf data/theurgy/tags/items/alchemical_sulfurs/other_minerals/common.json
 35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/theurgy/tags/items/alchemical_sulfurs/other_minerals/precious.json
 35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/theurgy/tags/items/alchemical_sulfurs/other_minerals/rare.json
+a60fef1f5fe3c9aab793de4942e301732c51df6a data/theurgy/tags/items/alchemical_sulfurs/precious.json
+214fcce95acb2086d5fd0fd4247b8445aaf55efd data/theurgy/tags/items/alchemical_sulfurs/rare.json
 c2e9d4fba333d2af3dbe84b5773c1c1c5e055dc4 data/theurgy/tags/items/gems/mercury/high.json
 959c361f3fbee6edb10161ff4ebc2850ef625547 data/theurgy/tags/items/gems/mercury/low.json
 e85a6add1492e3a02b8a37a6308fc632e930180f data/theurgy/tags/items/gems/mercury/medium.json

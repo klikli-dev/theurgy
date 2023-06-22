@@ -1,4 +1,4 @@
-// 1.20.1	2023-06-14T18:13:30.5365533	Shaped Crafting Recipes
+// 1.20.1	2023-06-22T17:33:51.3180199	Shaped Crafting Recipes
 10238f21b147011c777703fc0ade32f5708fd6ad data/theurgy/recipes/crafting/shaped/calcination_oven.json
 6a7516fc2ef20dd0f00eef151afe455f64038667 data/theurgy/recipes/crafting/shaped/distiller.json
 4d4b219cbc23e4a862a51b321264ee14b3956036 data/theurgy/recipes/crafting/shaped/divination_rod_t1.json
@@ -13,3 +13,5 @@ f3315e54c0b90fc93badfc240637751c13e49a17 data/theurgy/recipes/crafting/shaped/in
 3c4bb4a4dd344b7d4cf2117d22125b0f47492423 data/theurgy/recipes/crafting/shaped/pyromantic_brazier.json
 f227545084d653722a0d993c1b8ea7fb73447f12 data/theurgy/recipes/crafting/shaped/sal_ammoniac_accumulator.json
 f4eb29902db6175c46873d5715293c2b926fe6c5 data/theurgy/recipes/crafting/shaped/sal_ammoniac_tank.json
+350744753f37febf00104d5f596c5a42d65c305f data/theurgy/recipes/crafting/shaped/sulfur_attuned_divination_rod_abundant.json
+ccaf5cccd10a0d333a00e3800ef863ef5307b04f data/theurgy/recipes/crafting/shaped/sulfur_attuned_divination_rod_common.json

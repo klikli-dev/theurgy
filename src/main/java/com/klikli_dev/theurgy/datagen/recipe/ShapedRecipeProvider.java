@@ -48,6 +48,25 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
                 .define('R', Tags.Items.RODS_WOODEN)
         );
 
+        this.makeRecipe("sulfur_attuned_divination_rod_abundant", new RecipeBuilder(
+                ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_ABUNDANT.get(), 1, this.makeDivinationRodSettings(ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_ABUNDANT.get()), "theurgy:divination_rod")
+                .pattern(" GS")
+                .pattern(" RG")
+                .pattern("R  ")
+                .define('G', Tags.Items.GLASS)
+                .define('R', Tags.Items.RODS_WOODEN)
+                .define('S', ItemTagRegistry.ALCHEMICAL_SULFURS_ABUNDANT)
+        );
+        this.makeRecipe("sulfur_attuned_divination_rod_common", new RecipeBuilder(
+                ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_COMMON.get(), 1, this.makeDivinationRodSettings(ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_COMMON.get()), "theurgy:divination_rod")
+                .pattern(" GS")
+                .pattern(" RG")
+                .pattern("R  ")
+                .define('G', Tags.Items.GLASS)
+                .define('R', Tags.Items.RODS_WOODEN)
+                .define('S', ItemTagRegistry.ALCHEMICAL_SULFURS_COMMON)
+        );
+
         this.makeRecipe("divination_rod_t2", new RecipeBuilder(
                 ItemRegistry.DIVINATION_ROD_T2.get(), 1, this.makeDivinationRodSettings(ItemRegistry.DIVINATION_ROD_T2.get()))
                 .pattern(" GM")
@@ -211,7 +230,7 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
 
     private class RecipeBuilder {
 
-        JsonObject recipe;
+        private JsonObject recipe;
 
         public RecipeBuilder(ItemLike result) {
             this(result, 1);
@@ -222,13 +241,16 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
         }
 
         public RecipeBuilder(ItemLike result, int count, @Nullable JsonObject nbt) {
-            this(ShapedRecipeProvider.this.makeItemResult(ShapedRecipeProvider.this.locFor(result), count, nbt));
+            this(result, count, nbt, ForgeRegistries.RECIPE_SERIALIZERS.getKey(RecipeSerializer.SHAPED_RECIPE).toString());
         }
 
-        public RecipeBuilder(JsonObject result) {
+        public RecipeBuilder(ItemLike result, int count, @Nullable JsonObject nbt, String recipeType) {
+            this(ShapedRecipeProvider.this.makeItemResult(ShapedRecipeProvider.this.locFor(result), count, nbt), recipeType);
+        }
+
+        public RecipeBuilder(JsonObject result, String recipeType) {
             this.recipe = new JsonObject();
-            this.recipe.addProperty("type",
-                    ForgeRegistries.RECIPE_SERIALIZERS.getKey(RecipeSerializer.SHAPED_RECIPE).toString());
+            this.recipe.addProperty("type", recipeType);
             this.recipe.add("result", result);
             this.recipe.add("key", new JsonObject());
             this.recipe.add("pattern", new JsonArray());

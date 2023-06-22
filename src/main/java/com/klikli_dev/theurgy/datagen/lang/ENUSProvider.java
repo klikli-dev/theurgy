@@ -340,13 +340,19 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
                 "Divination rods can be attuned to a block and are then used to find other blocks of the same type.",
                 divinationRodUsage);
 
-//        this.addItem(ItemRegistry.DIVINATION_ROD_T4, "Emerald Divination Rod");
-//        this.add(ItemRegistry.DIVINATION_ROD_T4.get().getDescriptionId() + ".linked", "Emerald Divination Rod %s");
-//        //tooltip is handled by rod itself
-//        this.addExtendedTooltip(ItemRegistry.DIVINATION_ROD_T4,
-//                "This divination rod type cannot be manually attuned, instead comes pre-attuned after crafting..",
-//                divinationRodUsage);
+        this.addItem(ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_ABUNDANT, "Divination Rod: Abundant Materials");
+        this.add(ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_ABUNDANT.get().getDescriptionId() + ".linked", "Divination Rod: Abundant Materials %s");
+        //tooltip is handled by rod itself
+        this.addExtendedTooltip(ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_ABUNDANT,
+                "This type of divination rod is crafted pre-attuned to find blocks of the a specific type.",
+                divinationRodUsage);
 
+        this.addItem(ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_COMMON, "Divination Rod: Common Materials");
+        this.add(ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_COMMON.get().getDescriptionId() + ".linked", "Divination Rod: Common Materials %s");
+        //tooltip is handled by rod itself
+        this.addExtendedTooltip(ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_COMMON,
+                "This type of divination rod is crafted pre-attuned to find blocks of the a specific type.",
+                divinationRodUsage);
     }
 
     private void addItems() {

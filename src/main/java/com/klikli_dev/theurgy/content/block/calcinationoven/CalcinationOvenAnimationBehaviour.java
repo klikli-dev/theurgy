@@ -30,8 +30,6 @@ public class CalcinationOvenAnimationBehaviour extends AnimationBehaviour<Calcin
             .thenPlay("animation.calcination_oven.place")
             .thenLoop("animation.calcination_oven.off");
     
-    private boolean wasProcessingLastTick;
-
     public CalcinationOvenAnimationBehaviour(CalcinationOvenBlockEntity blockEntity) {
         super(blockEntity);
     }

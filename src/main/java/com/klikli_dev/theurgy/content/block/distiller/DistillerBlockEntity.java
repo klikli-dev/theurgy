@@ -6,6 +6,8 @@
 
 package com.klikli_dev.theurgy.content.block.distiller;
 
+import com.klikli_dev.theurgy.content.block.behaviour.AnimationBehaviour;
+import com.klikli_dev.theurgy.content.block.behaviour.CraftingBehaviour;
 import com.klikli_dev.theurgy.content.block.behaviour.HeatedBehaviour;
 import com.klikli_dev.theurgy.content.block.itemhandler.PreventInsertWrapper;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
@@ -31,27 +33,8 @@ import software.bernie.geckolib.animatable.GeoBlockEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.core.animation.RawAnimation;
-import software.bernie.geckolib.core.object.PlayState;
-import software.bernie.geckolib.util.GeckoLibUtil;
 
 public class DistillerBlockEntity extends BlockEntity implements GeoBlockEntity {
-
-    private static final RawAnimation START_AND_ON_ANIM = RawAnimation.begin()
-            .thenPlay("animation.distiller.start")
-            .thenLoop("animation.distiller.on");
-    private static final RawAnimation STOP_AND_OFF_ANIM = RawAnimation.begin()
-            .thenPlay("animation.distiller.stop")
-            .thenLoop("animation.distiller.off");
-    private static final RawAnimation OFF_ANIM = RawAnimation.begin()
-            .thenLoop("animation.distiller.off");
-    private static final RawAnimation ON_ANIM = RawAnimation.begin()
-            .thenLoop("animation.distiller.on");
-    private final AnimatableInstanceCache animatableInstanceCache = GeckoLibUtil.createInstanceCache(this);
-
-    private final DistillerCraftingBehaviour craftingBehaviour;
-    private final HeatedBehaviour heatedBehaviour;
 
     public ItemStackHandler inputInventory;
     /**
@@ -68,11 +51,9 @@ public class DistillerBlockEntity extends BlockEntity implements GeoBlockEntity 
     public LazyOptional<IItemHandler> inputInventoryCapability;
     public LazyOptional<IItemHandler> outputInventoryCapability;
 
-    private boolean heatedCache;
-    /**
-     * Client-side we only use the blockstate to determine our animation state.
-     */
-    private boolean wasProcessingLastTick;
+    protected CraftingBehaviour<?, ?, ?> craftingBehaviour;
+    protected HeatedBehaviour heatedBehaviour;
+    protected AnimationBehaviour<?> animationBehaviour;
 
     public DistillerBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(BlockEntityRegistry.DISTILLER.get(), pPos, pBlockState);
@@ -89,6 +70,7 @@ public class DistillerBlockEntity extends BlockEntity implements GeoBlockEntity 
 
         this.craftingBehaviour = new DistillerCraftingBehaviour(this, () -> this.inputInventory, () -> this.outputInventory);
         this.heatedBehaviour = new HeatedBehaviour(this);
+        this.animationBehaviour = new DistillerAnimationBehaviour(this);
     }
 
     @Override
@@ -164,40 +146,15 @@ public class DistillerBlockEntity extends BlockEntity implements GeoBlockEntity 
         this.craftingBehaviour.load(pTag);
     }
 
-    private <E extends GeoBlockEntity> PlayState animationHandler(AnimationState<E> event) {
-
-        var isProcessing = this.craftingBehaviour.isProcessing();
-
-        if (this.wasProcessingLastTick && !isProcessing && event.getController().getAnimationState() != AnimationController.State.TRANSITIONING) {
-            event.getController().setAnimation(STOP_AND_OFF_ANIM);
-        }
-
-        if (!this.wasProcessingLastTick && isProcessing && event.getController().getAnimationState() != AnimationController.State.TRANSITIONING) {
-            event.getController().setAnimation(START_AND_ON_ANIM);
-        }
-
-        if (!this.wasProcessingLastTick && !isProcessing && event.getController().getAnimationState() != AnimationController.State.RUNNING) {
-            event.getController().setAnimation(OFF_ANIM);
-        }
-
-        if (this.wasProcessingLastTick && isProcessing && event.getController().getAnimationState() != AnimationController.State.RUNNING) {
-            event.getController().setAnimation(ON_ANIM);
-        }
-
-
-        this.wasProcessingLastTick = isProcessing;
-
-        return PlayState.CONTINUE;
-    }
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-        controllerRegistrar.add(new AnimationController<GeoBlockEntity>(this, "controller", 0, this::animationHandler));
+        controllerRegistrar.add(new AnimationController<GeoBlockEntity>(this, "controller", 0, this.animationBehaviour::animationHandler));
     }
 
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {
-        return this.animatableInstanceCache;
+        return this.animationBehaviour.getAnimatableInstanceCache();
     }
 
     public class InputInventory extends ItemStackHandler {

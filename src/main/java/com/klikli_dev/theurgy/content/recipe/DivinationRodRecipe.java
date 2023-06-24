@@ -13,8 +13,10 @@ import com.klikli_dev.theurgy.config.ServerConfig;
 import com.klikli_dev.theurgy.registry.RecipeSerializerRegistry;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
@@ -102,7 +104,7 @@ public class DivinationRodRecipe extends ShapedRecipe {
             }
 
             if (sourceId != null) {
-                var translated = this.translateToBlock(sourceId);
+                var translated = sourceId.startsWith("#") ? this.translateTagToBlock(sourceId) : this.translateToBlock(sourceId);
                 if (translated != null) {
                     resultTag.putString(TheurgyConstants.Nbt.Divination.LINKED_BLOCK_ID, translated);
                 } else {
@@ -112,6 +114,54 @@ public class DivinationRodRecipe extends ShapedRecipe {
         }
 
         return result;
+    }
+
+    public String translateTagToBlock(String sourceTag) {
+        //first we check if we have a manual override mapping
+        var mapped = ServerConfig.get().recipes.sulfurSourceToBlockMapping.get().get(sourceTag);
+        if (mapped != null)
+            return mapped;
+
+        //if not we use generic logic to translate ingot, storage block, nugget, raw, ore, dust to (ore)block.
+        //even though likely not all of these will be used to create sulfur its good to handle them.
+
+        //examples:
+        //target is forge:ores/iron
+        //forge:ingots/iron
+        //forge:nuggets/iron
+        //forge:raw_materials/iron
+        //forge:dusts/iron
+        //forge:storage_blocks/iron
+        //forge:gems/iron
+
+        //special handling for coal items as they are none of the above
+        if(sourceTag.equals("#minecraft:coals"))
+            return "#forge:ores/coal";
+
+        var parts = sourceTag.split(":");
+        var namespace = parts[0];
+        var path = parts[1];
+        var translatedPath = path;
+        if (path.contains("ingots/")) {
+            translatedPath = path.replace("ingots/", "ores/");
+        } else if (path.contains("nuggets/")) {
+            translatedPath = path.replace("nuggets/", "ores/");
+        } else if (path.contains("raw_materials/")) {
+            translatedPath = path.replace("raw_materials/", "ores/");
+        } else if (path.contains("dusts/")) {
+            translatedPath = path.replace("dusts/", "ores/");
+        } else if (path.contains("storage_blocks/")) {
+            translatedPath = translatedPath.replace("storage_blocks/", "ores/");
+        } else if (path.contains("gems/")) {
+            translatedPath = translatedPath.replace("gems/", "ores/");
+        }
+
+        var translatedTag = new ResourceLocation(namespace.substring(1) + ":" + translatedPath);
+        if(ForgeRegistries.BLOCKS.tags().getTag(TagKey.create(Registries.BLOCK, translatedTag)).isBound())
+            return "#" + translatedTag;
+
+        Theurgy.LOGGER.warn("Could not find an appropriate block tag for sulfur source ttag: " + sourceTag + ", tried tag: #" + translatedTag);
+        return null;
     }
 
     public String translateToBlock(String sourceId) {
@@ -131,9 +181,9 @@ public class DivinationRodRecipe extends ShapedRecipe {
         //deepslate_iron_ore
         //iron_dust
         //iron_block
-
-        var namespace = sourceId.split(":")[0];
-        var path = sourceId.split(":")[1];
+        var parts = sourceId.split(":");
+        var namespace = parts[0];
+        var path = parts[1];
         var translatedPath = path;
         if (path.contains("raw_")) {
             translatedPath = path.replace("raw_", "");
@@ -153,15 +203,9 @@ public class DivinationRodRecipe extends ShapedRecipe {
         }
 
         translatedPath = translatedPath + "_ore";
-        var translated = namespace + ":" + translatedPath;
-
-        if (translated.startsWith("#")) {
-            return translated;
-        }
-
-        var translatedRL = new ResourceLocation(translated);
+        var translatedRL = new ResourceLocation(namespace + ":" + translatedPath);
         if (ForgeRegistries.BLOCKS.containsKey(translatedRL)) {
-            return translated;
+            return translatedRL.toString();
         }
 
         if (!ForgeRegistries.BLOCKS.containsKey(translatedRL)) {

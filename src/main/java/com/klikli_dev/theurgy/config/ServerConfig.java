@@ -37,14 +37,15 @@ public class ServerConfig {
                 .map(s -> s.split(":"))
                 .collect(Collectors.toMap(s -> s[0], s -> s[1])));
 
+
         public Recipes(ForgeConfigSpec.Builder builder) {
             builder.comment("Recipe Settings").push("recipes");
 
             this.sulfurSourceToBlockMappingList = builder
                     .comment(
                             "A mapping of sulfur source to origin block. The key is the sulfur source, the value is the block.",
-                            "This is used by divination rod recipes to determine which (ore-)block to scan for, if e.g. a raw metal or ingot is used to craft the sulfur used in the rod.",
-                            "Format is: [\"source=block\", \"source=block\", ...]"
+                            "This is used by divination rod recipes to determine which (ore-)block to scan for, if e.g. a raw metal or ingot is used to craft the sulfur used in the rod. This also works for tags, prefixed with #.",
+                            "Format is: [\"source=block\", \"#sourcetag=#blocktag\", ...]"
                     )
                     .defineList("sulfurSourceToBlockMapping", List.of(), e -> ((String) e).contains("="));
 

@@ -42,6 +42,10 @@ public class JeiPlugin implements IModPlugin {
             registration.registerSubtypeInterpreter(item.get(), DivinationRodSubtypeInterpreter.get());
             Theurgy.LOGGER.debug("Registered Divination Rod JEI Subtype Interpreter for: {}", item.getKey());
         });
+
+        SulfurRegistry.SULFURS.getEntries().stream().forEach(sulfur -> {
+            registration.useNbtForSubtypes(sulfur.get());
+        });
     }
 
     @Override

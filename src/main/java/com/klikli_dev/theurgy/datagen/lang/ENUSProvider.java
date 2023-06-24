@@ -312,6 +312,16 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
                 this.green("Right-Click without holding")
         );
 
+        var sulfurAttunedDivinationRodUsage = this.f("""
+                        {0} the rod with a type of Alchemical Sulfur to attune the rod to it.
+                        {1} to let the rod search for blocks.
+                        {2} after a successful search to let the rod show the last found block without consuming durability.
+                        """,
+                this.green("Craft"),
+                this.green("Right-Click and hold"),
+                this.green("Right-Click without holding")
+        );
+
         this.addItem(ItemRegistry.DIVINATION_ROD_T1, "Glass Divination Rod");
         this.add(ItemRegistry.DIVINATION_ROD_T1.get().getDescriptionId() + ".linked", "Glass Divination Rod %s");
         //tooltip is handled by rod itself
@@ -342,17 +352,31 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
 
         this.addItem(ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_ABUNDANT, "Divination Rod: Abundant Materials");
         this.add(ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_ABUNDANT.get().getDescriptionId() + ".linked", "Divination Rod: Abundant Materials %s");
-        //tooltip is handled by rod itself
-        this.addExtendedTooltip(ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_ABUNDANT,
+        this.addTooltip(ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_ABUNDANT,
+                "A divination rod attuned to find abundant materials by crafting it with an abundant alchemical sulfur.",
                 "This type of divination rod is crafted pre-attuned to find blocks of the a specific type.",
-                divinationRodUsage);
+                sulfurAttunedDivinationRodUsage);
 
         this.addItem(ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_COMMON, "Divination Rod: Common Materials");
         this.add(ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_COMMON.get().getDescriptionId() + ".linked", "Divination Rod: Common Materials %s");
-        //tooltip is handled by rod itself
-        this.addExtendedTooltip(ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_COMMON,
+        this.addTooltip(ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_COMMON,
+                "A divination rod attuned to find common materials by crafting it with a common alchemical sulfur.",
                 "This type of divination rod is crafted pre-attuned to find blocks of the a specific type.",
-                divinationRodUsage);
+                sulfurAttunedDivinationRodUsage);
+
+        this.addItem(ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_RARE, "Divination Rod: Rare Materials");
+        this.add(ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_RARE.get().getDescriptionId() + ".linked", "Divination Rod: Rare Materials %s");
+        this.addTooltip(ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_RARE,
+                "A divination rod attuned to find rare materials by crafting it with a rare alchemical sulfur.",
+                "This type of divination rod is crafted pre-attuned to find blocks of the a specific type.",
+                sulfurAttunedDivinationRodUsage);
+
+        this.addItem(ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_PRECIOUS, "Divination Rod: Precious Materials");
+        this.add(ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_PRECIOUS.get().getDescriptionId() + ".linked", "Divination Rod: Precious Materials %s");
+        this.addTooltip(ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_PRECIOUS,
+                "A divination rod attuned to find precious materials by crafting it with a precious alchemical sulfur.",
+                "This type of divination rod is crafted pre-attuned to find blocks of the a specific type.",
+                sulfurAttunedDivinationRodUsage);
     }
 
     private void addItems() {

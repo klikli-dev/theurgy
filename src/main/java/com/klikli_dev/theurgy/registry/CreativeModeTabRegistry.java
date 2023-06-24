@@ -30,6 +30,8 @@ public class CreativeModeTabRegistry {
                 DivinationRodItem.DistHelper.registerCreativeModeTabs(ItemRegistry.DIVINATION_ROD_T4.get(), output);
                 DivinationRodItem.DistHelper.registerCreativeModeTabs(ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_ABUNDANT.get(), output);
                 DivinationRodItem.DistHelper.registerCreativeModeTabs(ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_COMMON.get(), output);
+                DivinationRodItem.DistHelper.registerCreativeModeTabs(ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_RARE.get(), output);
+                DivinationRodItem.DistHelper.registerCreativeModeTabs(ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_PRECIOUS.get(), output);
 
                 output.accept(ItemRegistry.SAL_AMMONIAC_BUCKET.get());
 

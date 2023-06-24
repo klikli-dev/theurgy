@@ -62,6 +62,18 @@ public class ItemRegistry {
                     Tiers.STONE, BlockTagRegistry.DIVINATION_ROD_T1_ALLOWED_BLOCKS, BlockTagRegistry.DIVINATION_ROD_T1_DISALLOWED_BLOCKS,
                     96, 40, 12, false));
 
+    public static final RegistryObject<DivinationRodItem> SULFUR_ATTUNED_DIVINATION_ROD_RARE =
+            ITEMS.register("sulfur_attuned_divination_rod_rare", () -> new DivinationRodItem(
+                    new Item.Properties().stacksTo(1).defaultDurability(1),
+                    Tiers.STONE, BlockTagRegistry.DIVINATION_ROD_T2_ALLOWED_BLOCKS, BlockTagRegistry.DIVINATION_ROD_T2_DISALLOWED_BLOCKS,
+                    96, 40, 12, false));
+
+    public static final RegistryObject<DivinationRodItem> SULFUR_ATTUNED_DIVINATION_ROD_PRECIOUS =
+            ITEMS.register("sulfur_attuned_divination_rod_precious", () -> new DivinationRodItem(
+                    new Item.Properties().stacksTo(1).defaultDurability(1),
+                    Tiers.STONE, BlockTagRegistry.DIVINATION_ROD_T3_ALLOWED_BLOCKS, BlockTagRegistry.DIVINATION_ROD_T3_DISALLOWED_BLOCKS,
+                    96, 40, 12, false));
+
     //Buckets
     public static final RegistryObject<Item> SAL_AMMONIAC_BUCKET = ITEMS.register("sal_ammoniac_bucket", () -> new BucketItem(FluidRegistry.SAL_AMMONIAC, new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
     //TODO: in the future, no attuning for higher tier rods
@@ -98,5 +110,4 @@ public class ItemRegistry {
             ITEMS.register("sal_ammoniac_accumulator", () -> new BlockItem(BlockRegistry.SAL_AMMONIAC_ACCUMULATOR.get(), new Item.Properties()));
     public static final RegistryObject<BlockItem> SAL_AMMONIAC_TANK =
             ITEMS.register("sal_ammoniac_tank", () -> new BlockItem(BlockRegistry.SAL_AMMONIAC_TANK.get(), new Item.Properties()));
-    public static CreativeModeTab THEURGY_TAB;
 }

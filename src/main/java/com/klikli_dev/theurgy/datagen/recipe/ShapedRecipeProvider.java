@@ -77,6 +77,16 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
                 .define('A', Tags.Items.GEMS_AMETHYST)
                 .define('M', Tags.Items.NUGGETS_GOLD)
         );
+        this.makeRecipe("sulfur_attuned_divination_rod_rare", new RecipeBuilder(
+                ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_RARE.get(), 1, this.makeDivinationRodSettings(ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_RARE.get()))
+                .pattern(" GS")
+                .pattern(" AG")
+                .pattern("R  ")
+                .define('G', Tags.Items.GLASS)
+                .define('R', Tags.Items.RODS_WOODEN)
+                .define('A', Tags.Items.GEMS_AMETHYST)
+                .define('S', ItemTagRegistry.ALCHEMICAL_SULFURS_RARE)
+        );
 
         this.makeRecipe("divination_rod_t3", new RecipeBuilder(
                 ItemRegistry.DIVINATION_ROD_T3.get(), 1, this.makeDivinationRodSettings(ItemRegistry.DIVINATION_ROD_T3.get()))
@@ -87,6 +97,16 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
                 .define('Q', Tags.Items.GEMS_QUARTZ)
                 .define('D', Tags.Items.GEMS_DIAMOND)
                 .define('A', Tags.Items.GEMS_AMETHYST)
+        );
+        this.makeRecipe("sulfur_attuned_divination_rod_precious", new RecipeBuilder(
+                ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_PRECIOUS.get(), 1, this.makeDivinationRodSettings(ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_PRECIOUS.get()))
+                .pattern(" GS")
+                .pattern(" DG")
+                .pattern("A  ")
+                .define('G', Tags.Items.GLASS)
+                .define('D', Tags.Items.GEMS_DIAMOND)
+                .define('A', Tags.Items.GEMS_AMETHYST)
+                .define('S', ItemTagRegistry.ALCHEMICAL_SULFURS_PRECIOUS)
         );
 
         this.makeRecipe("divination_rod_t4", new RecipeBuilder(
@@ -230,7 +250,7 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
 
     private class RecipeBuilder {
 
-        private JsonObject recipe;
+        private final JsonObject recipe;
 
         public RecipeBuilder(ItemLike result) {
             this(result, 1);

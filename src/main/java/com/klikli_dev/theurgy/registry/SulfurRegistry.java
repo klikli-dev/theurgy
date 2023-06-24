@@ -94,7 +94,7 @@ public class SulfurRegistry {
      * Other sulfurs are registered, but should not be shown to players, as the related items are from mods that are not loaded
      */
     public static void onBuildCreativeModTabs(BuildCreativeModeTabContentsEvent event) {
-        if (event.getTab() == ItemRegistry.THEURGY_TAB) {
+        if (event.getTab() == CreativeModeTabRegistry.THEURGY.get()) {
             //event will only be called client side, but other SulfurRegistry calls can come from the server, so we need to guard against dist
             DistHelper.onBuildCreativeModTabs(event);
         }

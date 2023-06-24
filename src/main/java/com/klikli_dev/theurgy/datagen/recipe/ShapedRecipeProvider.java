@@ -11,6 +11,7 @@ import com.google.gson.JsonObject;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.content.item.DivinationRodItem;
+import com.klikli_dev.theurgy.registry.BlockTagRegistry;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.registry.ItemTagRegistry;
 import net.minecraft.data.PackOutput;
@@ -19,6 +20,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Tier;
+import net.minecraft.world.item.Tiers;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
@@ -37,13 +39,24 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
 
     @Override
     void buildRecipes(BiConsumer<ResourceLocation, JsonObject> recipeConsumer) {
-
         //Divination Rods
         this.makeRecipe("divination_rod_t1", new RecipeBuilder(
                 ItemRegistry.DIVINATION_ROD_T1.get(), 1, this.makeDivinationRodSettings(ItemRegistry.DIVINATION_ROD_T1.get()))
                 .pattern(" GR")
                 .pattern(" RG")
                 .pattern("R  ")
+                .define('G', Tags.Items.GLASS)
+                .define('R', Tags.Items.RODS_WOODEN)
+        );
+
+        var amethystDivinationRodSettings = this.makeDivinationRodSettings(ItemRegistry.AMETHYST_DIVINATION_ROD.get());
+        amethystDivinationRodSettings.addProperty(TheurgyConstants.Nbt.Divination.LINKED_BLOCK_ID, "minecraft:budding_amethyst");
+        this.makeRecipe("amethyst_divination_rod", new RecipeBuilder(
+                ItemRegistry.AMETHYST_DIVINATION_ROD.get(), 1, amethystDivinationRodSettings)
+                .pattern(" GP")
+                .pattern(" RG")
+                .pattern("R  ")
+                .define('P', Tags.Items.DYES_PURPLE)
                 .define('G', Tags.Items.GLASS)
                 .define('R', Tags.Items.RODS_WOODEN)
         );

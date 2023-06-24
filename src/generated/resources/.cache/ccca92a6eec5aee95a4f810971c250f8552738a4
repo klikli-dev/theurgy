@@ -1,4 +1,4 @@
-// 1.20.1	2023-06-24T17:06:36.1903523	Item Models: theurgy
+// 1.20.1	2023-06-24T17:38:47.4549394	Item Models: theurgy
 a402a05d887ec6d271a9350944338d29e1233318 assets/theurgy/models/item/alchemical_salt.json
 9fd173e362b6644716da98ba0d15809f85879e78 assets/theurgy/models/item/alchemical_salt_crops.json
 9fd173e362b6644716da98ba0d15809f85879e78 assets/theurgy/models/item/alchemical_salt_mineral.json
@@ -39,6 +39,16 @@ e0f7b66a84e6588f01abbbce75b1803ffe5d46e2 assets/theurgy/models/item/alchemical_s
 e0f7b66a84e6588f01abbbce75b1803ffe5d46e2 assets/theurgy/models/item/alchemical_sulfur_vibranium.json
 e0f7b66a84e6588f01abbbce75b1803ffe5d46e2 assets/theurgy/models/item/alchemical_sulfur_wheat.json
 e0f7b66a84e6588f01abbbce75b1803ffe5d46e2 assets/theurgy/models/item/alchemical_sulfur_zinc.json
+f3e1291d9c55815770b5ac20d5ab61f08fcde8dc assets/theurgy/models/item/amethyst_divination_rod.json
+81eabccfd42aa89df84bc6983a7acc805f6b10dd assets/theurgy/models/item/amethyst_divination_rod/0.json
+3a8901bdc3e51a215197adcd0eb9a1f419eb8982 assets/theurgy/models/item/amethyst_divination_rod/1.json
+910eafa0fa0d5c2051ad1b1375baeafae570b3f8 assets/theurgy/models/item/amethyst_divination_rod/2.json
+5ba98234727fd2ef3e49de1ec73d1cc43023bc92 assets/theurgy/models/item/amethyst_divination_rod/3.json
+fba86b4d10abdba96978b1812ddde54605971db2 assets/theurgy/models/item/amethyst_divination_rod/4.json
+9450dfe940992946522440d64ce8595317c655b4 assets/theurgy/models/item/amethyst_divination_rod/5.json
+68dd998da8da3176b9d5b006faa94224fa6066eb assets/theurgy/models/item/amethyst_divination_rod/6.json
+2aba39038b1fa44bc0a7c915a8b164049c97dd82 assets/theurgy/models/item/amethyst_divination_rod/7.json
+423f81275242e10e1e3690abb05b6ed04086f9bb assets/theurgy/models/item/amethyst_divination_rod/searching.json
 a544904dc7c08099dacc58898f0b16a21fca8e35 assets/theurgy/models/item/divination_rod_t1.json
 56cbd2e62794dbad75babc62f07448c34813b99c assets/theurgy/models/item/divination_rod_t1/0.json
 561e1235ed07f6cc1bbb5d36e2d85d8d467134cd assets/theurgy/models/item/divination_rod_t1/1.json

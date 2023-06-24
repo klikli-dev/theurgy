@@ -322,6 +322,16 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
                 this.green("Right-Click without holding")
         );
 
+        var amethystDivinationRodUsage = this.f("""
+                        {0} the rod, it is automatically attuned to Amethyst.
+                        {1} to let the rod search for blocks.
+                        {2} after a successful search to let the rod show the last found block without consuming durability.
+                        """,
+                this.green("Craft"),
+                this.green("Right-Click and hold"),
+                this.green("Right-Click without holding")
+        );
+
         this.addItem(ItemRegistry.DIVINATION_ROD_T1, "Glass Divination Rod");
         this.add(ItemRegistry.DIVINATION_ROD_T1.get().getDescriptionId() + ".linked", "Glass Divination Rod %s");
         //tooltip is handled by rod itself
@@ -377,6 +387,13 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
                 "A divination rod attuned to find precious materials by crafting it with a precious alchemical sulfur.",
                 "This type of divination rod is crafted pre-attuned to find blocks of the a specific type.",
                 sulfurAttunedDivinationRodUsage);
+
+        this.addItem(ItemRegistry.AMETHYST_DIVINATION_ROD, "Divination Rod: Amethyst");
+        this.add(ItemRegistry.AMETHYST_DIVINATION_ROD.get().getDescriptionId() + ".linked", "Divination Rod: %s");
+        this.addTooltip(ItemRegistry.AMETHYST_DIVINATION_ROD,
+                "A divination rod attuned to find amethyst.",
+                "This type of divination rod is crafted pre-attuned to find amethysts.",
+                amethystDivinationRodUsage);
     }
 
     private void addItems() {

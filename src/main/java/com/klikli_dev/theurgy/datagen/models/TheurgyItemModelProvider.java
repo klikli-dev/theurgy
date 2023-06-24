@@ -161,5 +161,6 @@ public class TheurgyItemModelProvider extends net.minecraftforge.client.model.ge
         this.registerDivinationRod(ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_COMMON.get());
         this.registerDivinationRod(ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_RARE.get());
         this.registerDivinationRod(ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_PRECIOUS.get());
+        this.registerDivinationRod(ItemRegistry.AMETHYST_DIVINATION_ROD.get());
     }
 }

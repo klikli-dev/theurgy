@@ -74,6 +74,12 @@ public class ItemRegistry {
                     Tiers.STONE, BlockTagRegistry.DIVINATION_ROD_T3_ALLOWED_BLOCKS, BlockTagRegistry.DIVINATION_ROD_T3_DISALLOWED_BLOCKS,
                     96, 40, 12, false));
 
+    public static final RegistryObject<DivinationRodItem> AMETHYST_DIVINATION_ROD =
+            ITEMS.register("amethyst_divination_rod", () -> new DivinationRodItem(
+                    new Item.Properties().stacksTo(1).defaultDurability(1),
+                    Tiers.STONE, BlockTagRegistry.DIVINATION_ROD_T1_ALLOWED_BLOCKS, BlockTagRegistry.DIVINATION_ROD_T1_DISALLOWED_BLOCKS,
+                    96, 40, 12, false));
+
     //Buckets
     public static final RegistryObject<Item> SAL_AMMONIAC_BUCKET = ITEMS.register("sal_ammoniac_bucket", () -> new BucketItem(FluidRegistry.SAL_AMMONIAC, new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
     //TODO: in the future, no attuning for higher tier rods

@@ -72,6 +72,7 @@ public class SpagyricsCategoryProvider extends CategoryProvider {
                         Theurgy.loc(this.context().categoryId()),
                         this.context().categoryName()
                 )
+                .withBackground(Theurgy.loc("textures/gui/book/bg_nightsky2.png"))
                 .withIcon(ItemRegistry.CALCINATION_OVEN.get())
                 .withEntries(
                         introEntry.build(),

@@ -59,11 +59,11 @@
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "theurgy:getting_started/intro",
+      "entry": "theurgy:getting_started/spagyrics",
       "line_enabled": true,
       "line_reversed": false
     }
   ],
-  "x": -5,
-  "y": -2
+  "x": -3,
+  "y": 5
 }

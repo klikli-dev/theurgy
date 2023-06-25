@@ -1,0 +1,44 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "theurgy:getting_started",
+  "description": "book.theurgy.the_hermetica.getting_started.amethyst_divination_rod.description",
+  "hide_while_locked": false,
+  "icon": "theurgy:amethyst_divination_rod",
+  "name": "book.theurgy.the_hermetica.getting_started.amethyst_divination_rod.name",
+  "pages": [
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "item": {
+        "item": "theurgy:amethyst_divination_rod"
+      },
+      "text": "book.theurgy.the_hermetica.getting_started.amethyst_divination_rod.intro.text",
+      "title": ""
+    },
+    {
+      "type": "modonomicon:crafting_recipe",
+      "anchor": "",
+      "recipe_id_1": "theurgy:crafting/shaped/amethyst_divination_rod",
+      "text": "book.theurgy.the_hermetica.getting_started.amethyst_divination_rod.recipe.text",
+      "title1": "",
+      "title2": ""
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "theurgy:getting_started/t1_divination_rod",
+      "line_enabled": true,
+      "line_reversed": false
+    },
+    {
+      "draw_arrow": true,
+      "entry": "theurgy:getting_started/abundant_and_common_sulfur_attuned_divination_rod",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "x": 3,
+  "y": -3
+}

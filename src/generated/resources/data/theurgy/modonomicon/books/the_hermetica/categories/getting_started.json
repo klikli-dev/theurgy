@@ -1,5 +1,5 @@
 {
-  "background": "modonomicon:textures/gui/dark_slate_seamless.png",
+  "background": "theurgy:textures/gui/book/bg_nightsky.png",
   "background_height": 512,
   "background_parallax_layers": [],
   "background_width": 512,

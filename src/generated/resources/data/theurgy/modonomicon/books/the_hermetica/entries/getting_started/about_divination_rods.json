@@ -1,0 +1,62 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "theurgy:getting_started",
+  "description": "book.theurgy.the_hermetica.getting_started.about_divination_rods.description",
+  "hide_while_locked": false,
+  "icon": "theurgy:divination_rod_t1",
+  "name": "book.theurgy.the_hermetica.getting_started.about_divination_rods.name",
+  "pages": [
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "item": {
+        "item": "theurgy:divination_rod_t1"
+      },
+      "text": "book.theurgy.the_hermetica.getting_started.about_divination_rods.intro.text",
+      "title": "book.theurgy.the_hermetica.getting_started.about_divination_rods.intro.title"
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.getting_started.about_divination_rods.intro2.text",
+      "title": "book.theurgy.the_hermetica.getting_started.about_divination_rods.intro2.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.getting_started.about_divination_rods.sulfur_attuned_rods.text",
+      "title": "book.theurgy.the_hermetica.getting_started.about_divination_rods.sulfur_attuned_rods.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.getting_started.about_divination_rods.usage.text",
+      "title": "book.theurgy.the_hermetica.getting_started.about_divination_rods.usage.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.getting_started.about_divination_rods.usage2.text",
+      "title": "book.theurgy.the_hermetica.getting_started.about_divination_rods.usage2.title",
+      "use_markdown_in_title": false
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "theurgy:getting_started/about_mod",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "x": -1,
+  "y": -3
+}

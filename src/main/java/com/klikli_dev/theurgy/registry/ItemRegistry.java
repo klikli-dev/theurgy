@@ -31,54 +31,54 @@ public class ItemRegistry {
             ITEMS.register("divination_rod_t1", () -> new DivinationRodItem(
                     new Item.Properties().stacksTo(1).defaultDurability(1),
                     Tiers.STONE, BlockTagRegistry.DIVINATION_ROD_T1_ALLOWED_BLOCKS, BlockTagRegistry.DIVINATION_ROD_T1_DISALLOWED_BLOCKS,
-                    96, 40, 3, true));
+                    96, 40, 8, true));
 
     public static final RegistryObject<DivinationRodItem> DIVINATION_ROD_T2 =
             ITEMS.register("divination_rod_t2", () -> new DivinationRodItem(
                     new Item.Properties().stacksTo(1).defaultDurability(1),
                     Tiers.IRON, BlockTagRegistry.DIVINATION_ROD_T2_ALLOWED_BLOCKS, BlockTagRegistry.DIVINATION_ROD_T2_DISALLOWED_BLOCKS,
-                    96, 40, 6, true));
+                    96, 40, 16, true));
     public static final RegistryObject<DivinationRodItem> DIVINATION_ROD_T3 =
             ITEMS.register("divination_rod_t3", () -> new DivinationRodItem(
                     new Item.Properties().stacksTo(1).defaultDurability(1),
                     Tiers.DIAMOND, BlockTagRegistry.DIVINATION_ROD_T3_ALLOWED_BLOCKS, BlockTagRegistry.DIVINATION_ROD_T3_DISALLOWED_BLOCKS,
-                    96, 40, 9, true));
+                    96, 40, 32, true));
     public static final RegistryObject<DivinationRodItem> DIVINATION_ROD_T4 =
 
             ITEMS.register("divination_rod_t4", () -> new DivinationRodItem(
                     new Item.Properties().stacksTo(1).defaultDurability(1),
                     Tiers.NETHERITE, BlockTagRegistry.DIVINATION_ROD_T4_ALLOWED_BLOCKS, BlockTagRegistry.DIVINATION_ROD_T4_DISALLOWED_BLOCKS,
-                    96, 40, 12, true));
+                    96, 40, 128, true));
 
     public static final RegistryObject<DivinationRodItem> SULFUR_ATTUNED_DIVINATION_ROD_ABUNDANT =
             ITEMS.register("sulfur_attuned_divination_rod_abundant", () -> new DivinationRodItem(
                     new Item.Properties().stacksTo(1).defaultDurability(1),
                     Tiers.STONE, BlockTagRegistry.DIVINATION_ROD_T1_ALLOWED_BLOCKS, BlockTagRegistry.DIVINATION_ROD_T1_DISALLOWED_BLOCKS,
-                    96, 40, 12, false));
+                    96, 40, 16, false));
 
     public static final RegistryObject<DivinationRodItem> SULFUR_ATTUNED_DIVINATION_ROD_COMMON =
             ITEMS.register("sulfur_attuned_divination_rod_common", () -> new DivinationRodItem(
                     new Item.Properties().stacksTo(1).defaultDurability(1),
                     Tiers.STONE, BlockTagRegistry.DIVINATION_ROD_T1_ALLOWED_BLOCKS, BlockTagRegistry.DIVINATION_ROD_T1_DISALLOWED_BLOCKS,
-                    96, 40, 12, false));
+                    96, 40, 16, false));
 
     public static final RegistryObject<DivinationRodItem> SULFUR_ATTUNED_DIVINATION_ROD_RARE =
             ITEMS.register("sulfur_attuned_divination_rod_rare", () -> new DivinationRodItem(
                     new Item.Properties().stacksTo(1).defaultDurability(1),
                     Tiers.STONE, BlockTagRegistry.DIVINATION_ROD_T2_ALLOWED_BLOCKS, BlockTagRegistry.DIVINATION_ROD_T2_DISALLOWED_BLOCKS,
-                    96, 40, 12, false));
+                    96, 40, 32, false));
 
     public static final RegistryObject<DivinationRodItem> SULFUR_ATTUNED_DIVINATION_ROD_PRECIOUS =
             ITEMS.register("sulfur_attuned_divination_rod_precious", () -> new DivinationRodItem(
                     new Item.Properties().stacksTo(1).defaultDurability(1),
                     Tiers.STONE, BlockTagRegistry.DIVINATION_ROD_T3_ALLOWED_BLOCKS, BlockTagRegistry.DIVINATION_ROD_T3_DISALLOWED_BLOCKS,
-                    96, 40, 12, false));
+                    96, 40, 32, false));
 
     public static final RegistryObject<DivinationRodItem> AMETHYST_DIVINATION_ROD =
             ITEMS.register("amethyst_divination_rod", () -> new DivinationRodItem(
                     new Item.Properties().stacksTo(1).defaultDurability(1),
                     Tiers.STONE, BlockTagRegistry.DIVINATION_ROD_T1_ALLOWED_BLOCKS, BlockTagRegistry.DIVINATION_ROD_T1_DISALLOWED_BLOCKS,
-                    96, 40, 12, false));
+                    96, 40, 16, false));
 
     //Buckets
     public static final RegistryObject<Item> SAL_AMMONIAC_BUCKET = ITEMS.register("sal_ammoniac_bucket", () -> new BucketItem(FluidRegistry.SAL_AMMONIAC, new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));

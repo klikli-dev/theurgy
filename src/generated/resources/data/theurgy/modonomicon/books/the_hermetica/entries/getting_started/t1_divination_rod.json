@@ -1,0 +1,46 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "theurgy:getting_started",
+  "description": "book.theurgy.the_hermetica.getting_started.t1_divination_rod.description",
+  "hide_while_locked": false,
+  "icon": "theurgy:divination_rod_t1",
+  "name": "book.theurgy.the_hermetica.getting_started.t1_divination_rod.name",
+  "pages": [
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "item": {
+        "item": "theurgy:divination_rod_t1"
+      },
+      "text": "book.theurgy.the_hermetica.getting_started.t1_divination_rod.intro.text",
+      "title": ""
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.getting_started.t1_divination_rod.supported_blocks.text",
+      "title": "book.theurgy.the_hermetica.getting_started.t1_divination_rod.supported_blocks.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:crafting_recipe",
+      "anchor": "",
+      "recipe_id_1": "theurgy:crafting/shaped/divination_rod_t1",
+      "text": "book.theurgy.the_hermetica.getting_started.t1_divination_rod.recipe.text",
+      "title1": "",
+      "title2": ""
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "theurgy:getting_started/about_divination_rods",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "x": 1,
+  "y": -5
+}

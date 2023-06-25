@@ -1,0 +1,14 @@
+{
+  "criteria": {
+    "theurgy_present": {
+      "conditions": {},
+      "trigger": "minecraft:tick"
+    }
+  },
+  "requirements": [
+    [
+      "theurgy_present"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

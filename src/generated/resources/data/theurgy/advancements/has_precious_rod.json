@@ -1,0 +1,23 @@
+{
+  "parent": "theurgy:book_root",
+  "criteria": {
+    "has_precious_rod": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "theurgy:sulfur_attuned_divination_rod_rare"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_precious_rod"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

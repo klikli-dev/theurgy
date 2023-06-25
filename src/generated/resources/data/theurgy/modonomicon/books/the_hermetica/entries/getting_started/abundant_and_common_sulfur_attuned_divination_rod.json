@@ -2,6 +2,19 @@
   "background_u_index": 0,
   "background_v_index": 0,
   "category": "theurgy:getting_started",
+  "condition": {
+    "type": "modonomicon:and",
+    "children": [
+      {
+        "type": "modonomicon:entry_read",
+        "entry_id": "theurgy:getting_started/about_divination_rods"
+      },
+      {
+        "type": "modonomicon:advancement",
+        "advancement_id": "theurgy:has_liquefaction_cauldron"
+      }
+    ]
+  },
   "description": "book.theurgy.the_hermetica.getting_started.abundant_and_common_sulfur_attuned_divination_rod.description",
   "hide_while_locked": false,
   "icon": "theurgy:sulfur_attuned_divination_rod_abundant",

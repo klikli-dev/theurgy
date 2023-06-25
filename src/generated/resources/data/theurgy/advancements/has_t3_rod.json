@@ -1,0 +1,23 @@
+{
+  "parent": "theurgy:book_root",
+  "criteria": {
+    "has_t3_rod": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "theurgy:divination_rod_t3"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_t3_rod"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

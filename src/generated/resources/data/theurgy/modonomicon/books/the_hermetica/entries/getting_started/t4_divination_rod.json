@@ -2,6 +2,19 @@
   "background_u_index": 0,
   "background_v_index": 0,
   "category": "theurgy:getting_started",
+  "condition": {
+    "type": "modonomicon:and",
+    "children": [
+      {
+        "type": "modonomicon:entry_read",
+        "entry_id": "theurgy:getting_started/t3_divination_rod"
+      },
+      {
+        "type": "modonomicon:advancement",
+        "advancement_id": "theurgy:has_t3_rod"
+      }
+    ]
+  },
   "description": "book.theurgy.the_hermetica.getting_started.t4_divination_rod.description",
   "hide_while_locked": false,
   "icon": "theurgy:divination_rod_t4",

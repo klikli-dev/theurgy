@@ -6,7 +6,6 @@
 
 package com.klikli_dev.theurgy.datagen.book;
 
-import com.klikli_dev.modonomicon.api.datagen.BookProvider;
 import com.klikli_dev.modonomicon.api.datagen.CategoryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookCategoryModel;
 import com.klikli_dev.modonomicon.api.datagen.book.BookEntryModel;
@@ -18,14 +17,17 @@ import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
-import org.checkerframework.checker.units.qual.A;
 
 public class GettingStartedCategoryProvider extends CategoryProvider {
 
     public static final String CATEGORY_ID = "getting_started";
 
-    public GettingStartedCategoryProvider(BookProvider parent) {
+    public GettingStartedCategoryProvider(TheurgyBookProvider parent) {
         super(parent, CATEGORY_ID);
+    }
+
+    public TheurgyBookProvider parent() {
+        return (TheurgyBookProvider) this.parent;
     }
 
     @Override
@@ -68,20 +70,74 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
         var apparatusHowToEntry = this.makeApparatusHowToEntry('u');
         var spagyricsLinkEntry = this.makeSpagyricsLinkEntry('š');
 
-
+        //links and conditions
         aboutModEntry.withParent(introEntry);
+
         aboutDivinationRods.withParent(aboutModEntry);
+
         t1DivinationRod.withParent(aboutDivinationRods);
+
         abundantAndCommonSulfurAttunedDivinationRod.withParent(aboutDivinationRods);
         abundantAndCommonSulfurAttunedDivinationRod.withParent(spagyricsLinkEntry);
+        abundantAndCommonSulfurAttunedDivinationRod.withCondition(
+                this.parent().and(
+                        this.parent().entryReadCondition(aboutDivinationRods),
+                        this.parent().advancementCondition(this.modLoc("has_liquefaction_cauldron"))
+                )
+        );
+
         amethystDivinationRod.withParent(t1DivinationRod);
         amethystDivinationRod.withParent(abundantAndCommonSulfurAttunedDivinationRod);
-        t2DivinationRod.withParent(amethystDivinationRod);
-        t3DivinationRod.withParent(t2DivinationRod);
-        t4DivinationRod.withParent(t3DivinationRod);
-        rareSulfurAttunedDivinationRod.withParent(amethystDivinationRod);
-        preciousSulfurAttunedDivinationRod.withParent(rareSulfurAttunedDivinationRod);
+        amethystDivinationRod.withCondition(
+                this.parent().and(
+                        this.parent().or(
+                                this.parent().entryReadCondition(t1DivinationRod),
+                                this.parent().entryReadCondition(abundantAndCommonSulfurAttunedDivinationRod)
+                        ),
+                        this.parent().advancementCondition(this.modLoc("has_basic_rod")
+                        )
+                )
+        );
 
+        t2DivinationRod.withParent(amethystDivinationRod);
+        t2DivinationRod.withCondition(
+                this.parent().and(
+                        this.parent().entryReadCondition(amethystDivinationRod),
+                        this.parent().advancementCondition(this.modLoc("has_amethyst_rod"))
+                )
+        );
+
+        t3DivinationRod.withParent(t2DivinationRod);
+        t3DivinationRod.withCondition(
+                this.parent().and(
+                        this.parent().entryReadCondition(t2DivinationRod),
+                        this.parent().advancementCondition(this.modLoc("has_t2_rod"))
+                )
+        );
+
+        t4DivinationRod.withParent(t3DivinationRod);
+        t4DivinationRod.withCondition(
+                this.parent().and(
+                        this.parent().entryReadCondition(t3DivinationRod),
+                        this.parent().advancementCondition(this.modLoc("has_t3_rod"))
+                )
+        );
+
+        rareSulfurAttunedDivinationRod.withParent(amethystDivinationRod);
+        rareSulfurAttunedDivinationRod.withCondition(
+                this.parent().and(
+                        this.parent().entryReadCondition(amethystDivinationRod),
+                        this.parent().advancementCondition(this.modLoc("has_amethyst_rod"))
+                )
+        );
+
+        preciousSulfurAttunedDivinationRod.withParent(rareSulfurAttunedDivinationRod);
+        preciousSulfurAttunedDivinationRod.withCondition(
+                this.parent().and(
+                        this.parent().entryReadCondition(rareSulfurAttunedDivinationRod),
+                        this.parent().advancementCondition(this.modLoc("has_rare_rod"))
+                )
+        );
 
         spagyricsEntry.withParent(aboutModEntry);
         apparatusHowToEntry.withParent(spagyricsEntry);
@@ -497,7 +553,7 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
                         An improved attunable divination rod to locate higher tier ores, such as {0}.
                                  """,
                 this.itemLink("gold", Items.GOLD_ORE)
-                );
+        );
 
         this.context().page("recipe");
         var recipe = BookCraftingRecipePageModel.builder()

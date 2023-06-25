@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-package com.klikli_dev.theurgy.datagen.models;
+package com.klikli_dev.theurgy.datagen.model;
 
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.TheurgyConstants;

@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-package com.klikli_dev.theurgy.datagen.tags;
+package com.klikli_dev.theurgy.datagen.tag;
 
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.registry.*;

@@ -41,6 +41,11 @@ public class CalcinationRecipe implements Recipe<RecipeWrapper> {
         this.calcinationTime = calcinationTime;
     }
 
+    @Override
+    public boolean isSpecial() {
+        return true;
+    }
+
     public int getIngredientCount() {
         return this.ingredientCount;
     }
@@ -83,10 +88,12 @@ public class CalcinationRecipe implements Recipe<RecipeWrapper> {
         return nonnulllist;
     }
 
+    @Override
     public ItemStack getToastSymbol() {
         return new ItemStack(BlockRegistry.CALCINATION_OVEN.get());
     }
 
+    @Override
     public RecipeSerializer<?> getSerializer() {
         return RecipeSerializerRegistry.CALCINATION.get();
     }
@@ -97,6 +104,7 @@ public class CalcinationRecipe implements Recipe<RecipeWrapper> {
 
     public static class Serializer implements RecipeSerializer<CalcinationRecipe> {
 
+        @Override
         public CalcinationRecipe fromJson(ResourceLocation pRecipeId, JsonObject pJson) {
             var ingredientElement = GsonHelper.isArrayNode(pJson, "ingredient") ? GsonHelper.getAsJsonArray(pJson, "ingredient") : GsonHelper.getAsJsonObject(pJson, "ingredient");
             var ingredient = Ingredient.fromJson(ingredientElement);
@@ -107,6 +115,7 @@ public class CalcinationRecipe implements Recipe<RecipeWrapper> {
             return new CalcinationRecipe(pRecipeId, ingredient, ingredientCount, result, calcinationTime);
         }
 
+        @Override
         public CalcinationRecipe fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
             var ingredient = Ingredient.fromNetwork(pBuffer);
             var ingredientCount = pBuffer.readVarInt();
@@ -115,6 +124,7 @@ public class CalcinationRecipe implements Recipe<RecipeWrapper> {
             return new CalcinationRecipe(pRecipeId, ingredient, ingredientCount, result, calcinationTime);
         }
 
+        @Override
         public void toNetwork(FriendlyByteBuf pBuffer, CalcinationRecipe pRecipe) {
             pRecipe.ingredient.toNetwork(pBuffer);
             pBuffer.writeVarInt(pRecipe.ingredientCount);

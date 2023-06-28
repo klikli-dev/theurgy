@@ -46,6 +46,11 @@ public class LiquefactionRecipe implements Recipe<RecipeWrapperWithFluid> {
     }
 
     @Override
+    public boolean isSpecial() {
+        return true;
+    }
+
+    @Override
     public ResourceLocation getId() {
         return this.id;
     }
@@ -82,10 +87,12 @@ public class LiquefactionRecipe implements Recipe<RecipeWrapperWithFluid> {
         return nonnulllist;
     }
 
+    @Override
     public ItemStack getToastSymbol() {
         return new ItemStack(BlockRegistry.LIQUEFACTION_CAULDRON.get());
     }
 
+    @Override
     public RecipeSerializer<?> getSerializer() {
         return RecipeSerializerRegistry.LIQUEFACTION.get();
     }
@@ -104,6 +111,7 @@ public class LiquefactionRecipe implements Recipe<RecipeWrapperWithFluid> {
 
     public static class Serializer implements RecipeSerializer<LiquefactionRecipe> {
 
+        @Override
         public LiquefactionRecipe fromJson(ResourceLocation pRecipeId, JsonObject pJson) {
             var ingredientElement = GsonHelper.isArrayNode(pJson, "ingredient") ? GsonHelper.getAsJsonArray(pJson, "ingredient") : GsonHelper.getAsJsonObject(pJson, "ingredient");
             var ingredient = Ingredient.fromJson(ingredientElement);
@@ -143,6 +151,7 @@ public class LiquefactionRecipe implements Recipe<RecipeWrapperWithFluid> {
             return resultItem;
         }
 
+        @Override
         public LiquefactionRecipe fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
             var ingredient = Ingredient.fromNetwork(pBuffer);
             var solvent = FluidIngredient.fromNetwork(pBuffer);
@@ -151,6 +160,7 @@ public class LiquefactionRecipe implements Recipe<RecipeWrapperWithFluid> {
             return new LiquefactionRecipe(pRecipeId, ingredient, solvent, result, liquefactionTime);
         }
 
+        @Override
         public void toNetwork(FriendlyByteBuf pBuffer, LiquefactionRecipe pRecipe) {
             pRecipe.ingredient.toNetwork(pBuffer);
             pRecipe.solvent.toNetwork(pBuffer); //Ingredient.toNetwork(pBuffer); should suffice here as it redirects to the serializer registry anyway

@@ -66,6 +66,11 @@ public class AccumulationRecipe implements Recipe<RecipeWrapperWithFluid> {
     }
 
     @Override
+    public boolean isSpecial() {
+        return true;
+    }
+
+    @Override
     public ResourceLocation getId() {
         return this.id;
     }
@@ -114,10 +119,12 @@ public class AccumulationRecipe implements Recipe<RecipeWrapperWithFluid> {
         return nonnulllist;
     }
 
+    @Override
     public ItemStack getToastSymbol() {
         return new ItemStack(ItemRegistry.SAL_AMMONIAC_ACCUMULATOR.get());
     }
 
+    @Override
     public RecipeSerializer<?> getSerializer() {
         return RecipeSerializerRegistry.ACCUMULATION.get();
     }
@@ -145,6 +152,7 @@ public class AccumulationRecipe implements Recipe<RecipeWrapperWithFluid> {
 
     public static class Serializer implements RecipeSerializer<AccumulationRecipe> {
 
+        @Override
         public AccumulationRecipe fromJson(ResourceLocation pRecipeId, JsonObject pJson) {
             var recipe = CODEC.parse(JsonOps.INSTANCE, pJson).getOrThrow(false, s -> {
                 throw new JsonParseException(s);
@@ -153,12 +161,14 @@ public class AccumulationRecipe implements Recipe<RecipeWrapperWithFluid> {
             return recipe;
         }
 
+        @Override
         public AccumulationRecipe fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
             var recipe = pBuffer.readJsonWithCodec(CODEC);
             recipe.id = pRecipeId;
             return recipe;
         }
 
+        @Override
         public void toNetwork(FriendlyByteBuf pBuffer, AccumulationRecipe pRecipe) {
             pBuffer.writeJsonWithCodec(CODEC, pRecipe);
         }

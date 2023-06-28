@@ -46,6 +46,11 @@ public class IncubationRecipe implements Recipe<IncubatorRecipeWrapper> {
     }
 
     @Override
+    public boolean isSpecial() {
+        return true;
+    }
+
+    @Override
     public ResourceLocation getId() {
         return this.id;
     }
@@ -90,10 +95,12 @@ public class IncubationRecipe implements Recipe<IncubatorRecipeWrapper> {
         return nonnulllist;
     }
 
+    @Override
     public ItemStack getToastSymbol() {
         return new ItemStack(BlockRegistry.INCUBATOR.get());
     }
 
+    @Override
     public RecipeSerializer<?> getSerializer() {
         return RecipeSerializerRegistry.INCUBATION.get();
     }
@@ -116,6 +123,7 @@ public class IncubationRecipe implements Recipe<IncubatorRecipeWrapper> {
 
     public static class Serializer implements RecipeSerializer<IncubationRecipe> {
 
+        @Override
         public IncubationRecipe fromJson(ResourceLocation pRecipeId, JsonObject pJson) {
             var mercuryElement = GsonHelper.isArrayNode(pJson, "mercury") ?
                     GsonHelper.getAsJsonArray(pJson, "mercury") : GsonHelper.getAsJsonObject(pJson, "mercury");
@@ -135,6 +143,7 @@ public class IncubationRecipe implements Recipe<IncubatorRecipeWrapper> {
             return new IncubationRecipe(pRecipeId, mercury, salt, sulfur, result, incubationTime);
         }
 
+        @Override
         public IncubationRecipe fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
             var mercury = Ingredient.fromNetwork(pBuffer);
             var salt = Ingredient.fromNetwork(pBuffer);
@@ -144,6 +153,7 @@ public class IncubationRecipe implements Recipe<IncubatorRecipeWrapper> {
             return new IncubationRecipe(pRecipeId, mercury, salt, sulfur, result, incubationTime);
         }
 
+        @Override
         public void toNetwork(FriendlyByteBuf pBuffer, IncubationRecipe pRecipe) {
             pRecipe.mercury.toNetwork(pBuffer);
             pRecipe.salt.toNetwork(pBuffer);

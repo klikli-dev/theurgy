@@ -42,6 +42,11 @@ public class DistillationRecipe implements Recipe<RecipeWrapper> {
     }
 
     @Override
+    public boolean isSpecial() {
+        return true;
+    }
+
+    @Override
     public ResourceLocation getId() {
         return this.id;
     }
@@ -87,10 +92,12 @@ public class DistillationRecipe implements Recipe<RecipeWrapper> {
         return this.ingredientCount;
     }
 
+    @Override
     public ItemStack getToastSymbol() {
         return new ItemStack(BlockRegistry.DISTILLER.get());
     }
 
+    @Override
     public RecipeSerializer<?> getSerializer() {
         return RecipeSerializerRegistry.DISTILLATION.get();
     }
@@ -101,6 +108,7 @@ public class DistillationRecipe implements Recipe<RecipeWrapper> {
 
     public static class Serializer implements RecipeSerializer<DistillationRecipe> {
 
+        @Override
         public DistillationRecipe fromJson(ResourceLocation pRecipeId, JsonObject pJson) {
             var ingredientElement = GsonHelper.isArrayNode(pJson, "ingredient") ? GsonHelper.getAsJsonArray(pJson, "ingredient") : GsonHelper.getAsJsonObject(pJson, "ingredient");
             var ingredient = Ingredient.fromJson(ingredientElement);
@@ -111,6 +119,7 @@ public class DistillationRecipe implements Recipe<RecipeWrapper> {
             return new DistillationRecipe(pRecipeId, ingredient, ingredientCount, result, distillationTime);
         }
 
+        @Override
         public DistillationRecipe fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
             var ingredient = Ingredient.fromNetwork(pBuffer);
             var ingredientCount = pBuffer.readVarInt();
@@ -119,6 +128,7 @@ public class DistillationRecipe implements Recipe<RecipeWrapper> {
             return new DistillationRecipe(pRecipeId, ingredient, ingredientCount, result, distillationTime);
         }
 
+        @Override
         public void toNetwork(FriendlyByteBuf pBuffer, DistillationRecipe pRecipe) {
             pRecipe.ingredient.toNetwork(pBuffer);
             pBuffer.writeVarInt(pRecipe.ingredientCount);

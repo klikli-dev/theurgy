@@ -32,6 +32,12 @@ public class DivinationRodRecipe extends ShapedRecipe {
         super(pId, pGroup, CraftingBookCategory.MISC, pWidth, pHeight, pRecipeItems, pResult);
     }
 
+    @Override
+    public boolean isSpecial() {
+        return true;
+    }
+
+    @Override
     public RecipeSerializer<?> getSerializer() {
         return RecipeSerializerRegistry.DIVINATION_ROD.get();
     }
@@ -221,6 +227,7 @@ public class DivinationRodRecipe extends ShapedRecipe {
 
     public static class Serializer implements RecipeSerializer<DivinationRodRecipe> {
 
+        @Override
         public DivinationRodRecipe fromJson(ResourceLocation pRecipeId, JsonObject pJson) {
             var shapedRecipe = RecipeSerializer.SHAPED_RECIPE.fromJson(pRecipeId, pJson);
 
@@ -228,6 +235,7 @@ public class DivinationRodRecipe extends ShapedRecipe {
             return new DivinationRodRecipe(pRecipeId, shapedRecipe.getGroup(), shapedRecipe.getWidth(), shapedRecipe.getHeight(), shapedRecipe.getIngredients(), shapedRecipe.getResultItem(RegistryAccess.EMPTY));
         }
 
+        @Override
         public DivinationRodRecipe fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
             var shapedRecipe = RecipeSerializer.SHAPED_RECIPE.fromNetwork(pRecipeId, pBuffer);
 
@@ -235,6 +243,7 @@ public class DivinationRodRecipe extends ShapedRecipe {
             return new DivinationRodRecipe(pRecipeId, shapedRecipe.getGroup(), shapedRecipe.getWidth(), shapedRecipe.getHeight(), shapedRecipe.getIngredients(), shapedRecipe.getResultItem(RegistryAccess.EMPTY));
         }
 
+        @Override
         public void toNetwork(FriendlyByteBuf pBuffer, DivinationRodRecipe pRecipe) {
             RecipeSerializer.SHAPED_RECIPE.toNetwork(pBuffer, pRecipe);
         }

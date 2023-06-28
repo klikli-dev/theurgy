@@ -10,8 +10,7 @@ import com.klikli_dev.modonomicon.api.datagen.CategoryEntryMap;
 import com.klikli_dev.modonomicon.api.datagen.CategoryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookCategoryModel;
 import com.klikli_dev.modonomicon.api.datagen.book.BookEntryModel;
-import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel;
-import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
+import com.klikli_dev.modonomicon.api.datagen.book.page.*;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.registry.SaltRegistry;
@@ -176,4 +175,125 @@ public class OreRefiningEntryProvider extends CategoryProvider {
                 );
     }
 
+    public BookEntryModel.Builder makeNeededApparatusEntry(char icon) {
+        this.context().entry("needed_apparatus");
+        this.add(this.context().entryName(), "Required Apparatus");
+        this.add(this.context().entryDescription(), "Tools for Refinement");
+
+        this.context().page("intro");
+        var intro = BookTextPageModel.builder()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
+                .build();
+        this.add(this.context().pageTitle(), "Required Apparatus");
+        this.add(this.context().pageText(),
+                """
+                        Ore Refining needs all of the Spagyrics Apparatus to extract all the needed materials and recombine them.
+                        Review the full {0} Category on how to craft and use them.
+                        """,
+                this.categoryLink("Spagyrics", SpagyricsCategoryProvider.CATEGORY_ID)
+        );
+
+        this.context().page("pyromantic_brazier");
+        var pyromantic_brazier = BookSpotlightPageModel.builder()
+                .withItem(Ingredient.of(ItemRegistry.PYROMANTIC_BRAZIER.get()))
+                .withText(this.context().pageText())
+                .build();
+        this.add(this.context().pageText(),
+                """
+                        You will need 4 of these to power the other Apparatus.
+                        """
+        );
+
+        this.context().page("calcination_oven");
+        var calcination_oven = BookSpotlightPageModel.builder()
+                .withItem(Ingredient.of(ItemRegistry.CALCINATION_OVEN.get()))
+                .withText(this.context().pageText())
+                .build();
+        this.add(this.context().pageText(),
+                """
+                        The Calcination Oven will allow you to create the {0}.
+                        """,
+                this.itemLink("Mineral Salt", SaltRegistry.MINERAL.get())
+        );
+
+        this.context().page("sal_ammoniac_accumulator");
+        var sal_ammoniac_accumulator = BookSpotlightPageModel.builder()
+                .withItem(Ingredient.of(ItemRegistry.SAL_AMMONIAC_ACCUMULATOR.get()))
+                .withText(this.context().pageText())
+                .build();
+        this.add(this.context().pageText(),
+                """
+                        The Sal Ammoniac Accumulator will fill the Sal Ammoniac Tank with solvent.
+                        """
+        );
+
+        this.context().page("sal_ammoniac_tank");
+        var sal_ammoniac_tank = BookSpotlightPageModel.builder()
+                .withItem(Ingredient.of(ItemRegistry.SAL_AMMONIAC_TANK.get()))
+                .withText(this.context().pageText())
+                .build();
+        this.add(this.context().pageText(),
+                """
+                        The Sal Ammoniac Tank stores the solvent - Sal Ammoniac - for use in the Liquefaction Cauldron.
+                        """
+        );
+
+        this.context().page("liquefaction_cauldron");
+        var liquefaction_cauldron = BookSpotlightPageModel.builder()
+                .withItem(Ingredient.of(ItemRegistry.LIQUEFACTION_CAULDRON.get()))
+                .withText(this.context().pageText())
+                .build();
+        this.add(this.context().pageText(),
+                """
+                        The Liquefaction Cauldron uses Sal Ammoniac to extract Alchemical Sulfur.
+                        """
+        );
+
+        this.context().page("distiller");
+        var distiller = BookSpotlightPageModel.builder()
+                .withItem(Ingredient.of(ItemRegistry.DISTILLER.get()))
+                .withText(this.context().pageText())
+                .build();
+        this.add(this.context().pageText(),
+                """
+                        The Distiller creates {0}.
+                        """,
+                this.itemLink("Mercury Shards", ItemRegistry.MERCURY_SHARD.get())
+        );
+
+        this.context().page("incubator");
+        var incubator = BookSpotlightPageModel.builder()
+                .withItem(Ingredient.of(ItemRegistry.INCUBATOR.get()))
+                .withText(this.context().pageText())
+                .build();
+        this.add(this.context().pageText(),
+                """
+                        Finally, the incubator recombines the Salt, Sulfur, and Mercury into the refined item, Iron Ingots in our case.
+                        It needs one each of {0}, {1}, {2} to hold the input materials.
+                        """,
+                this.itemLink("Salt Vessel", ItemRegistry.INCUBATOR_SALT_VESSEL.get()),
+                this.itemLink("Mercury Vessel", ItemRegistry.INCUBATOR_MERCURY_VESSEL.get()),
+                this.itemLink("Sulfur Vessel", ItemRegistry.INCUBATOR_SULFUR_VESSEL.get())
+        );
+
+
+        return BookEntryModel.builder()
+                .withId(Theurgy.loc(this.context().categoryId() + "/" + this.context().entryId()))
+                .withName(this.context().entryName())
+                .withDescription(this.context().entryDescription())
+                .withIcon(ItemRegistry.DISTILLER.get())
+                .withLocation(this.entryMap().get(icon))
+                .withEntryBackground(EntryBackground.DEFAULT)
+                .withPages(
+                        intro,
+                        pyromantic_brazier,
+                        calcination_oven,
+                        sal_ammoniac_accumulator,
+                        sal_ammoniac_tank,
+                        liquefaction_cauldron,
+                        distiller,
+                        incubator
+                );
+    }
 }

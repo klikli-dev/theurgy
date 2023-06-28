@@ -41,7 +41,7 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
                 "______________________ɖ_ᶑ_________",
                 "__________________đ_______________",
                 "__________________________________",
-                "__________i_a___________ö_________",
+                "__________i_a___________ő_ö_______",
                 "__________________________________",
                 "______________s_š___o_ó___ô_õ_____",
                 "__________________________________",
@@ -74,8 +74,10 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
         var spagyricsLinkEntry = this.makeSpagyricsLinkEntry('š');
 
         var aboutOreRefining = ore.makeAboutOreRefiningEntry('o');
-        //ó -> machines to build (spotlight entries with links)?
+        var neededApparatusEntry = ore.makeNeededApparatusEntry('ó');
+        //ő -> obtain solvent
         //ö -> obtain sulfur -> explain that here the duplication happens
+        //      explain filling the cauldron, etc
         //ô -> obtain salt -> explain that here we use other ore as source
         //ò -> obtain mercury -> explain that here we use any material as source
         //õ -> incubation -> maybe different bg?
@@ -154,6 +156,7 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
         spagyricsLinkEntry.withParent(spagyricsEntry);
 
         aboutOreRefining.withParent(spagyricsLinkEntry);
+        neededApparatusEntry.withParent(aboutOreRefining);
 
         //TODO: Conditions
         //  amethyst entry should NOT depend on spagyrics -> hence not on abundant sulfur rod
@@ -180,7 +183,8 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
                         apparatusHowToEntry.build(),
                         spagyricsEntry.build(),
                         spagyricsLinkEntry.build(),
-                        aboutOreRefining.build()
+                        aboutOreRefining.build(),
+                        neededApparatusEntry.build()
                 );
     }
 

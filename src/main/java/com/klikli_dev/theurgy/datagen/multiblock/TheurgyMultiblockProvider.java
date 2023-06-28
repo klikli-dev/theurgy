@@ -19,6 +19,13 @@ public class TheurgyMultiblockProvider extends MultiblockProvider {
 
     @Override
     public void buildMultiblocks() {
+        this.add(this.modLoc("placement/pyromantic_brazier"),
+                new DenseMultiblockBuilder()
+                        .layer("0")
+                        .block('0', BlockRegistry.PYROMANTIC_BRAZIER)
+                        .build()
+        );
+
         this.add(this.modLoc("placement/calcination_oven"),
                 new DenseMultiblockBuilder()
                         .layer("0")

@@ -89,7 +89,7 @@ public class DivinationRodEntryProvider extends CategoryProvider {
                         \\
                         \\
                         Research {0} (specifically, *Liquefaction*) to continue on this path.
-                            """, this.entryLink("Spagyrics", this.categoryId(), "spagyrics"));
+                            """, this.entryLink("Spagyrics", GettingStartedCategoryProvider.CATEGORY_ID, "spagyrics"));
 
 
         this.context().page("usage");

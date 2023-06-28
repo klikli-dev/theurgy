@@ -41,11 +41,11 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
                 "______________________ɖ_ᶑ_________",
                 "__________________đ_______________",
                 "__________________________________",
-                "__________i_a_____________________",
+                "__________i_a_________ö___________",
                 "__________________________________",
-                "______________s_š_________________",
+                "______________s_š_o_ó___ô_õ_______",
                 "__________________________________",
-                "______________u___________________"
+                "______________u_______ò___________"
         };
     }
 
@@ -54,6 +54,8 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
         this.add(this.context().categoryName(), "Getting Started");
 
         var rods = new DivinationRodEntryProvider(this.parent(), this.entryMap());
+        var ore = new OreRefiningEntryProvider(this.parent(), this.entryMap());
+
         var introEntry = this.makeIntroEntry('i');
         var aboutModEntry = this.makeAboutModEntry('a');
 
@@ -70,6 +72,13 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
         var spagyricsEntry = this.makeSpagyricsEntry('s');
         var apparatusHowToEntry = this.makeApparatusHowToEntry('u');
         var spagyricsLinkEntry = this.makeSpagyricsLinkEntry('š');
+
+        var aboutOreRefining = ore.makeAboutOreRefiningEntry('o');
+        //ó -> machines to build (spotlight entries with links)?
+        //ö -> obtain sulfur -> explain that here the duplication happens
+        //ô -> obtain salt -> explain that here we use other ore as source
+        //ò -> obtain mercury -> explain that here we use any material as source
+        //õ -> incubation -> maybe different bg?
 
         //links and conditions
         aboutModEntry.withParent(introEntry);
@@ -144,6 +153,8 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
         apparatusHowToEntry.withParent(spagyricsEntry);
         spagyricsLinkEntry.withParent(spagyricsEntry);
 
+        aboutOreRefining.withParent(spagyricsLinkEntry);
+
         //TODO: Conditions
         //  amethyst entry should NOT depend on spagyrics -> hence not on abundant sulfur rod
 
@@ -168,7 +179,8 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
                         preciousSulfurAttunedDivinationRod.build(),
                         apparatusHowToEntry.build(),
                         spagyricsEntry.build(),
-                        spagyricsLinkEntry.build()
+                        spagyricsLinkEntry.build(),
+                        aboutOreRefining.build()
                 );
     }
 

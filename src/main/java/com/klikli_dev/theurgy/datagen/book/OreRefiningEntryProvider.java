@@ -1,0 +1,169 @@
+/*
+ * SPDX-FileCopyrightText: 2023 klikli-dev
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+package com.klikli_dev.theurgy.datagen.book;
+
+import com.klikli_dev.modonomicon.api.datagen.CategoryEntryMap;
+import com.klikli_dev.modonomicon.api.datagen.CategoryProvider;
+import com.klikli_dev.modonomicon.api.datagen.book.BookCategoryModel;
+import com.klikli_dev.modonomicon.api.datagen.book.BookEntryModel;
+import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel;
+import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
+import com.klikli_dev.theurgy.Theurgy;
+import com.klikli_dev.theurgy.registry.ItemRegistry;
+import com.klikli_dev.theurgy.registry.SaltRegistry;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
+
+/**
+ * A dummy provider to separate the generation of ore refining entries from the rest of the getting started category
+ */
+public class OreRefiningEntryProvider extends CategoryProvider {
+
+    public OreRefiningEntryProvider(TheurgyBookProvider parent, CategoryEntryMap entryMap) {
+        super(parent, "dummy");
+        this.entryMap = entryMap;
+    }
+
+    public TheurgyBookProvider parent() {
+        return (TheurgyBookProvider) this.parent;
+    }
+
+    @Override
+    protected String[] generateEntryMap() {
+        throw new UnsupportedOperationException("This is a dummy provider to help generate entries, it should not be used to generate a Category.");
+    }
+
+    @Override
+    protected BookCategoryModel generateCategory() {
+        throw new UnsupportedOperationException("This is a dummy provider to help generate entries, it should not be used to generate a Category.");
+    }
+
+    public BookEntryModel.Builder makeAboutOreRefiningEntry(char icon) {
+        this.context().entry("about_ore_refining");
+        this.add(this.context().entryName(), "Ore Refining");
+        this.add(this.context().entryDescription(), "Triple your ore yield - at a cost!");
+
+        this.context().page("intro");
+        var intro = BookSpotlightPageModel.builder()
+                .withItem(Ingredient.of(Items.IRON_ORE))
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
+                .build();
+
+        this.add(this.context().pageTitle(), "Ore Duplication");
+        this.add(this.context().pageText(),
+                """
+                    In the following pages and entries we will attempt to create three iron ingots out of just one iron ore using alchemical processes.
+                        """
+        );
+
+        this.context().page("intro2");
+        var intro2 = BookTextPageModel.builder()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
+                .build();
+
+        this.add(this.context().pageTitle(), "Spagyrics for Refining");
+        this.add(this.context().pageText(),
+                """
+                        A first an obvious application of Spagyrics is the refining of ores. The process of smelting ores in a furnace is wasteful, as it only yields a single ingot per ore, losing a lot of the precious raw materials in the process. Alchemists can extract even the last iota of value from ores, but the process is somewhat more complex.
+                        """);
+
+        this.context().page("overview");
+        var overview = BookTextPageModel.builder()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
+                .build();
+        this.add(this.context().pageTitle(), "The Process");
+        this.add(this.context().pageText(),
+                """
+                        To refine an Ore you first need to {0} it, which will yield multiple Ore Sulfur. Additionally you need to obtain multiple {1} to provide a body for this multiplied Sulfur, and some {2} to provide the mercury for the soul of the resulting refined ingots.
+                        \\
+                        \\
+                        Fear not, this process will be explained in detail in the following entries.
+                            """,
+                this.entryLink("liquefy", SpagyricsCategoryProvider.CATEGORY_ID, "liquefaction_cauldron"),
+                this.itemLink(SaltRegistry.MINERAL.get()),
+                this.itemLink(ItemRegistry.MERCURY_SHARD.get())
+        );
+
+        this.context().page("cost");
+        var cost = BookTextPageModel.builder()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
+                .build();
+        this.add(this.context().pageTitle(), "The Cost");
+        this.add(this.context().pageText(),
+                """
+                        To bring it to a point, the cost of significantly increasing ore yield with Spagyrics is having to obtain high amounts of {0} which is mainly sourced from ... Metals. The first and obvious solution to this chicken-and-egg problem is to {1} abundant metals, such as {2}, and use the salt to {3} more valuable materials such as {4} or even {5} as output.
+                            """,
+                this.itemLink("Mineral Salt", SaltRegistry.MINERAL.get()),
+                this.entryLink("calcinate", SpagyricsCategoryProvider.CATEGORY_ID, "calcination_oven"),
+                this.itemLink(Items.RAW_COPPER),
+                this.entryLink("incubate", SpagyricsCategoryProvider.CATEGORY_ID, "incubator"),
+                this.itemLink(Items.IRON_INGOT),
+                this.itemLink(Items.DIAMOND)
+        );
+
+        this.context().page("silver_lining");
+        var silverLining = BookTextPageModel.builder()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
+                .build();
+        this.add(this.context().pageTitle(), "The Silver Lining");
+        this.add(this.context().pageText(),
+                """
+                        As luck would have it another option to obtain {0} is to calcinate it from {1}, which is in turn obtained by calcinating Sand, Cobblestone, etc. This is a somewhat lossy process as it requires a lot of {1}, but it does have the upside of giving those abundant materials a use.
+                            """,
+                this.itemLink("Mineral Salt", SaltRegistry.MINERAL.get()),
+                this.itemLink("Strata Salt", SaltRegistry.STRATA.get())
+        );
+
+        this.context().page("soul");
+        var soul = BookTextPageModel.builder()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
+                .build();
+        this.add(this.context().pageTitle(), "The Soul");
+        this.add(this.context().pageText(),
+                """
+                        Obtaining {0} is usually not much of an issue as a wide variety of materials can be {1} to obtain in.
+                            """,
+                this.itemLink(ItemRegistry.MERCURY_SHARD.get()),
+                this.entryLink("distilled", SpagyricsCategoryProvider.CATEGORY_ID, "distiller")
+        );
+
+        this.context().page("next");
+        var next = BookTextPageModel.builder()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
+                .build();
+        this.add(this.context().pageTitle(), "Further Reading");
+        this.add(this.context().pageText(),
+                """
+                        The next entries will guide you through the process of obtaining all the materials and creating your iron ingots.
+                        """);
+
+        return BookEntryModel.builder()
+                .withId(Theurgy.loc(this.context().categoryId() + "/" + this.context().entryId()))
+                .withName(this.context().entryName())
+                .withDescription(this.context().entryDescription())
+                .withIcon(Items.IRON_ORE)
+                .withLocation(this.entryMap().get(icon))
+                .withEntryBackground(EntryBackground.DEFAULT)
+                .withPages(
+                        intro,
+                        intro2,
+                        overview,
+                        cost,
+                        silverLining,
+                        soul,
+                        next
+                );
+    }
+
+}

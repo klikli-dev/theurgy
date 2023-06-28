@@ -70,7 +70,7 @@ public class OreRefiningEntryProvider extends CategoryProvider {
         this.add(this.context().pageTitle(), "Spagyrics for Refining");
         this.add(this.context().pageText(),
                 """
-                        A first an obvious application of Spagyrics is the refining of ores. The process of smelting ores in a furnace is wasteful, as it only yields a single ingot per ore, losing a lot of the precious raw materials in the process. Alchemists can extract even the last iota of value from ores, but the process is somewhat more complex.
+                        The easiest application of Spagyrics is the refining of ores. The process of smelting ores in a furnace is wasteful, as it only yields a single ingot per ore, losing a lot of the precious raw materials in the process. Alchemists can extract even the last iota of value from ores, but the process is somewhat more complex.
                         """);
 
         this.context().page("overview");
@@ -81,14 +81,11 @@ public class OreRefiningEntryProvider extends CategoryProvider {
         this.add(this.context().pageTitle(), "The Process");
         this.add(this.context().pageText(),
                 """
-                        To refine an Ore you first need to {0} it, which will yield multiple Ore Sulfur. Additionally you need to obtain multiple {1} to provide a body for this multiplied Sulfur, and some {2} to provide the mercury for the soul of the resulting refined ingots.
-                        \\
-                        \\
-                        Fear not, this process will be explained in detail in the following entries.
+                        To refine an Ore you first need to {0} it, which will yield multiple Ore Sulfur. Additionally you need to obtain multiple heaps of {1} to provide a body for this multiplied Sulfur, and some {2} to provide the mercury for the soul of the resulting refined ingots.
                             """,
                 this.entryLink("liquefy", SpagyricsCategoryProvider.CATEGORY_ID, "liquefaction_cauldron"),
-                this.itemLink(SaltRegistry.MINERAL.get()),
-                this.itemLink(ItemRegistry.MERCURY_SHARD.get())
+                this.itemLink("Mineral Salt", SaltRegistry.MINERAL.get()),
+                this.itemLink("Mercury Shards", ItemRegistry.MERCURY_SHARD.get())
         );
 
         this.context().page("cost");
@@ -99,9 +96,21 @@ public class OreRefiningEntryProvider extends CategoryProvider {
         this.add(this.context().pageTitle(), "The Cost");
         this.add(this.context().pageText(),
                 """
-                        To bring it to a point, the cost of significantly increasing ore yield with Spagyrics is having to obtain high amounts of {0} which is mainly sourced from ... Metals. The first and obvious solution to this chicken-and-egg problem is to {1} abundant metals, such as {2}, and use the salt to {3} more valuable materials such as {4} or even {5} as output.
+                        To bring it to a point, the cost of significantly increasing ore yield with Spagyrics is having to obtain high amounts of {0} which is mainly sourced from ... Metals.
                             """,
-                this.itemLink("Mineral Salt", SaltRegistry.MINERAL.get()),
+                this.itemLink("Mineral Salt", SaltRegistry.MINERAL.get())
+        );
+
+        this.context().page("cost2");
+        var cost2 = BookTextPageModel.builder()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
+                .build();
+        this.add(this.context().pageTitle(), "The Cost");
+        this.add(this.context().pageText(),
+                """
+                        The first and obvious solution to this chicken-and-egg problem is to {0} abundant metals, such as {1}, and use the salt to {2} more valuable materials such as {3} or even {4} as output.
+                            """,
                 this.entryLink("calcinate", SpagyricsCategoryProvider.CATEGORY_ID, "calcination_oven"),
                 this.itemLink(Items.RAW_COPPER),
                 this.entryLink("incubate", SpagyricsCategoryProvider.CATEGORY_ID, "incubator"),
@@ -160,6 +169,7 @@ public class OreRefiningEntryProvider extends CategoryProvider {
                         intro2,
                         overview,
                         cost,
+                        cost2,
                         silverLining,
                         soul,
                         next

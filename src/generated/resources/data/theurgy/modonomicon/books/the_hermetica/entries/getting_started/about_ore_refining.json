@@ -44,6 +44,14 @@
       "type": "modonomicon:text",
       "anchor": "",
       "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.getting_started.about_ore_refining.cost2.text",
+      "title": "book.theurgy.the_hermetica.getting_started.about_ore_refining.cost2.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.getting_started.about_ore_refining.silver_lining.text",
       "title": "book.theurgy.the_hermetica.getting_started.about_ore_refining.silver_lining.title",
       "use_markdown_in_title": false
@@ -73,6 +81,6 @@
       "line_reversed": false
     }
   ],
-  "x": 1,
+  "x": 3,
   "y": 3
 }

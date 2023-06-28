@@ -3,6 +3,10 @@
   "background_height": 512,
   "background_parallax_layers": [],
   "background_width": 512,
+  "condition": {
+    "type": "modonomicon:entry_read",
+    "entry_id": "theurgy:getting_started/spagyrics"
+  },
   "entry_textures": "modonomicon:textures/gui/entry_textures.png",
   "icon": "theurgy:calcination_oven",
   "name": "book.theurgy.the_hermetica.spagyrics.name",

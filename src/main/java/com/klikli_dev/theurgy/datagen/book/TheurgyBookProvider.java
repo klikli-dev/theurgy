@@ -33,6 +33,7 @@ public class TheurgyBookProvider extends BookProvider {
         int categorySortNum = 1;
         var gettingStartedCategory = new GettingStartedCategoryProvider(this).generate().withSortNumber(categorySortNum++);
         var spagyricsCategory = new SpagyricsCategoryProvider(this).generate().withSortNumber(categorySortNum++);
+        spagyricsCategory.withCondition(this.entryReadCondition(this.modLoc(GettingStartedCategoryProvider.CATEGORY_ID + "/spagyrics")));
 
         var book = BookModel.create(
                         this.modLoc(this.context.bookId()),

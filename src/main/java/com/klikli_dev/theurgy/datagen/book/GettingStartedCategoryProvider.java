@@ -79,72 +79,72 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
 
         abundantAndCommonSulfurAttunedDivinationRod.withParent(aboutDivinationRods);
         abundantAndCommonSulfurAttunedDivinationRod.withParent(spagyricsLinkEntry);
-        abundantAndCommonSulfurAttunedDivinationRod.withCondition(
-                this.parent().and(
-                        this.parent().entryReadCondition(aboutDivinationRods),
-                        this.parent().advancementCondition(this.modLoc("has_liquefaction_cauldron"))
-                )
-        );
+//        abundantAndCommonSulfurAttunedDivinationRod.withCondition(
+//                this.parent().and(
+//                        this.parent().entryReadCondition(aboutDivinationRods),
+//                        this.parent().advancementCondition(this.modLoc("has_liquefaction_cauldron"))
+//                )
+//        );
 
         amethystDivinationRod.withParent(t1DivinationRod);
         amethystDivinationRod.withParent(abundantAndCommonSulfurAttunedDivinationRod);
-        amethystDivinationRod.withCondition(
-                this.parent().and(
-                        this.parent().or(
-                                this.parent().entryReadCondition(t1DivinationRod),
-                                this.parent().entryReadCondition(abundantAndCommonSulfurAttunedDivinationRod)
-                        ),
-                        this.parent().advancementCondition(this.modLoc("has_basic_rod")
-                        )
-                )
-        );
+//        amethystDivinationRod.withCondition(
+//                this.parent().and(
+//                        this.parent().or(
+//                                this.parent().entryReadCondition(t1DivinationRod),
+//                                this.parent().entryReadCondition(abundantAndCommonSulfurAttunedDivinationRod)
+//                        ),
+//                        this.parent().advancementCondition(this.modLoc("has_basic_rod")
+//                        )
+//                )
+//        );
 
         t2DivinationRod.withParent(amethystDivinationRod);
-        t2DivinationRod.withCondition(
-                this.parent().and(
-                        this.parent().entryReadCondition(amethystDivinationRod),
-                        this.parent().advancementCondition(this.modLoc("has_amethyst_rod"))
-                )
-        );
+//        t2DivinationRod.withCondition(
+//                this.parent().and(
+//                        this.parent().entryReadCondition(amethystDivinationRod),
+//                        this.parent().advancementCondition(this.modLoc("has_amethyst_rod"))
+//                )
+//        );
 
         t3DivinationRod.withParent(t2DivinationRod);
-        t3DivinationRod.withCondition(
-                this.parent().and(
-                        this.parent().entryReadCondition(t2DivinationRod),
-                        this.parent().advancementCondition(this.modLoc("has_t2_rod"))
-                )
-        );
+//        t3DivinationRod.withCondition(
+//                this.parent().and(
+//                        this.parent().entryReadCondition(t2DivinationRod),
+//                        this.parent().advancementCondition(this.modLoc("has_t2_rod"))
+//                )
+//        );
 
         t4DivinationRod.withParent(t3DivinationRod);
-        t4DivinationRod.withCondition(
-                this.parent().and(
-                        this.parent().entryReadCondition(t3DivinationRod),
-                        this.parent().advancementCondition(this.modLoc("has_t3_rod"))
-                )
-        );
+//        t4DivinationRod.withCondition(
+//                this.parent().and(
+//                        this.parent().entryReadCondition(t3DivinationRod),
+//                        this.parent().advancementCondition(this.modLoc("has_t3_rod"))
+//                )
+//        );
 
         rareSulfurAttunedDivinationRod.withParent(amethystDivinationRod);
-        rareSulfurAttunedDivinationRod.withCondition(
-                this.parent().and(
-                        this.parent().entryReadCondition(amethystDivinationRod),
-                        this.parent().advancementCondition(this.modLoc("has_amethyst_rod"))
-                )
-        );
+//        rareSulfurAttunedDivinationRod.withCondition(
+//                this.parent().and(
+//                        this.parent().entryReadCondition(amethystDivinationRod),
+//                        this.parent().advancementCondition(this.modLoc("has_amethyst_rod"))
+//                )
+//        );
 
         preciousSulfurAttunedDivinationRod.withParent(rareSulfurAttunedDivinationRod);
-        preciousSulfurAttunedDivinationRod.withCondition(
-                this.parent().and(
-                        this.parent().entryReadCondition(rareSulfurAttunedDivinationRod),
-                        this.parent().advancementCondition(this.modLoc("has_rare_rod"))
-                )
-        );
+//        preciousSulfurAttunedDivinationRod.withCondition(
+//                this.parent().and(
+//                        this.parent().entryReadCondition(rareSulfurAttunedDivinationRod),
+//                        this.parent().advancementCondition(this.modLoc("has_rare_rod"))
+//                )
+//        );
 
         spagyricsEntry.withParent(aboutModEntry);
         apparatusHowToEntry.withParent(spagyricsEntry);
         spagyricsLinkEntry.withParent(spagyricsEntry);
 
         //TODO: Conditions
-        //  amethyst entry should NOT depend on spagyrisc -> hence not on abundant sulfur rod
+        //  amethyst entry should NOT depend on spagyrics -> hence not on abundant sulfur rod
 
 
         return BookCategoryModel.create(

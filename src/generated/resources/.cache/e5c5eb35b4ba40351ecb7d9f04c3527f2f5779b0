@@ -1,9 +1,9 @@
-// 1.20.1	2023-06-25T17:57:56.0629482	Advancements
+// 1.20.1	2023-06-28T15:33:23.3001267	Advancements
 937fa471962f64dac1efd805c942b2172ef4937a data/theurgy/advancements/book_root.json
 0046a0dd636a914b2d9d1c9831c2866f7245794c data/theurgy/advancements/has_amethyst_rod.json
 c534c04fdc358c4412be48e89e8f2d1e15cb907c data/theurgy/advancements/has_basic_rod.json
 3891fcd0d2c8da027e5ecc9d9ded8a7059b5563b data/theurgy/advancements/has_liquefaction_cauldron.json
-6c6aacc48abb582e89b2927e07c4a2e37b19be51 data/theurgy/advancements/has_precious_rod.json
+3549612ad667a7504dcb799158dcb2149064cb24 data/theurgy/advancements/has_precious_rod.json
 b3758ee9365c2b1525d0a65b76e0bfec10982cc6 data/theurgy/advancements/has_rare_rod.json
 1b85c5132a1984461f5113bd46ada0e4178bd69c data/theurgy/advancements/has_t2_rod.json
 3e6614a518285c8c8f3ac83293a18c48164f45b8 data/theurgy/advancements/has_t3_rod.json

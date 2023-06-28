@@ -2,28 +2,6 @@
   "background_u_index": 0,
   "background_v_index": 0,
   "category": "theurgy:getting_started",
-  "condition": {
-    "type": "modonomicon:and",
-    "children": [
-      {
-        "type": "modonomicon:or",
-        "children": [
-          {
-            "type": "modonomicon:entry_read",
-            "entry_id": "theurgy:getting_started/t1_divination_rod"
-          },
-          {
-            "type": "modonomicon:entry_read",
-            "entry_id": "theurgy:getting_started/abundant_and_common_sulfur_attuned_divination_rod"
-          }
-        ]
-      },
-      {
-        "type": "modonomicon:advancement",
-        "advancement_id": "theurgy:has_basic_rod"
-      }
-    ]
-  },
   "description": "book.theurgy.the_hermetica.getting_started.amethyst_divination_rod.description",
   "hide_while_locked": false,
   "icon": "theurgy:amethyst_divination_rod",

@@ -36,7 +36,7 @@ public class TheurgyBookProvider extends BookProvider {
         spagyricsCategory.withCondition(this.entryReadCondition(this.modLoc(GettingStartedCategoryProvider.CATEGORY_ID + "/spagyrics")));
 
         var book = BookModel.create(
-                        this.modLoc(this.context.bookId()),
+                        this.modLoc(this.context().bookId()),
                         this.context().bookName()
                 )
                 .withTooltip(this.context().bookTooltip())

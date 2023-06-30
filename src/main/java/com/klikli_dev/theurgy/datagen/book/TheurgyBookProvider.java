@@ -33,7 +33,7 @@ public class TheurgyBookProvider extends BookProvider {
         int categorySortNum = 1;
         var gettingStartedCategory = new GettingStartedCategoryProvider(this).generate().withSortNumber(categorySortNum++);
         var spagyricsCategory = new SpagyricsCategoryProvider(this).generate().withSortNumber(categorySortNum++);
-        spagyricsCategory.withCondition(this.entryReadCondition(this.modLoc(GettingStartedCategoryProvider.CATEGORY_ID + "/spagyrics")));
+        spagyricsCategory.withCondition(this.condition().entryRead(this.modLoc(GettingStartedCategoryProvider.CATEGORY_ID + "/spagyrics")));
 
         var book = BookModel.create(
                         this.modLoc(this.context().bookId()),
@@ -48,25 +48,5 @@ public class TheurgyBookProvider extends BookProvider {
                 .withModel(this.modLoc("the_hermetica_icon"))
                 .withAutoAddReadConditions(true);
         return book;
-    }
-
-    public BookAdvancementConditionModel advancementCondition(ResourceLocation advancementId) {
-        return BookAdvancementConditionModel.builder().withAdvancementId(advancementId).build();
-    }
-
-    public BookEntryReadConditionModel entryReadCondition(ResourceLocation entryId) {
-        return BookEntryReadConditionModel.builder().withEntry(entryId).build();
-    }
-
-    public BookEntryReadConditionModel entryReadCondition(BookEntryModel.Builder entry) {
-        return BookEntryReadConditionModel.builder().withEntry(entry.getId()).build();
-    }
-
-    public BookAndConditionModel and(BookConditionModel... children) {
-        return BookAndConditionModel.builder().withChildren(children).build();
-    }
-
-    public BookOrConditionModel or(BookConditionModel... children) {
-        return BookOrConditionModel.builder().withChildren(children).build();
     }
 }

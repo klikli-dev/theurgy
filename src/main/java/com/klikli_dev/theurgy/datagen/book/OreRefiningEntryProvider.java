@@ -10,7 +10,8 @@ import com.klikli_dev.modonomicon.api.datagen.CategoryEntryMap;
 import com.klikli_dev.modonomicon.api.datagen.CategoryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookCategoryModel;
 import com.klikli_dev.modonomicon.api.datagen.book.BookEntryModel;
-import com.klikli_dev.modonomicon.api.datagen.book.page.*;
+import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel;
+import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.registry.SaltRegistry;
@@ -56,8 +57,8 @@ public class OreRefiningEntryProvider extends CategoryProvider {
         this.add(this.context().pageTitle(), "Ore Duplication");
         this.add(this.context().pageText(),
                 """
-                    In the following pages and entries we will attempt to create three iron ingots out of just one iron ore using alchemical processes.
-                        """
+                        In the following pages and entries we will attempt to create three iron ingots out of just one iron ore using alchemical processes.
+                            """
         );
 
         this.context().page("intro2");
@@ -285,8 +286,8 @@ public class OreRefiningEntryProvider extends CategoryProvider {
         this.add(this.context().pageTitle(), "Next Steps");
         this.add(this.context().pageText(),
                 """
-                       Place all the apparatus, those that need heating on pyromantic braziers. Prepare some Coal to heat the braziers, then open the next entry.
-                        """
+                        Place all the apparatus, those that need heating on pyromantic braziers. Prepare some Coal to heat the braziers, then open the next entry.
+                         """
         );
 
         return BookEntryModel.builder()
@@ -322,8 +323,8 @@ public class OreRefiningEntryProvider extends CategoryProvider {
 
         this.add(this.context().pageText(),
                 """
-                    There are two ways of obtaining Sal Ammoniac, both use the Accumulator Apparatus. The first, slower, option is to simply place water in the accumulator, and let it slowly concentrate the inherently contained Sal Ammoniac. The second, faster, option is to additionally add a {0} to speed up the process significantly.
-                        """,
+                        There are two ways of obtaining Sal Ammoniac, both use the Accumulator Apparatus. The first, slower, option is to simply place water in the accumulator, and let it slowly concentrate the inherently contained Sal Ammoniac. The second, faster, option is to additionally add a {0} to speed up the process significantly.
+                            """,
                 this.itemLink(ItemRegistry.SAL_AMMONIAC_CRYSTAL.get())
         );
 
@@ -370,19 +371,12 @@ public class OreRefiningEntryProvider extends CategoryProvider {
                 this.itemLink(ItemRegistry.SAL_AMMONIAC_BUCKET.get())
         );
 
-        return BookEntryModel.builder()
-                .withId(Theurgy.loc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
-                .withDescription(this.context().entryDescription())
-                .withIcon(ItemRegistry.SAL_AMMONIAC_BUCKET.get())
-                .withLocation(this.entryMap().get(location))
-                .withEntryBackground(EntryBackground.DEFAULT)
-                .withPages(
-                        intro,
-                        step1,
-                        step2,
-                        step3
-                );
+        return this.entry(location, ItemRegistry.SAL_AMMONIAC_BUCKET.get()).withPages(
+                intro,
+                step1,
+                step2,
+                step3
+        );
     }
 
 }

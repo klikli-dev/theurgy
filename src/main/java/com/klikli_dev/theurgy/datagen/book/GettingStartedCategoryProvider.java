@@ -9,14 +9,11 @@ package com.klikli_dev.theurgy.datagen.book;
 import com.klikli_dev.modonomicon.api.datagen.CategoryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookCategoryModel;
 import com.klikli_dev.modonomicon.api.datagen.book.BookEntryModel;
-import com.klikli_dev.modonomicon.api.datagen.book.page.BookCraftingRecipePageModel;
-import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.Ingredient;
 
 public class GettingStartedCategoryProvider extends CategoryProvider {
 
@@ -56,25 +53,26 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
         var rods = new DivinationRodEntryProvider(this.parent(), this.entryMap());
         var ore = new OreRefiningEntryProvider(this.parent(), this.entryMap());
 
-        var introEntry = this.makeIntroEntry('i');
-        var aboutModEntry = this.makeAboutModEntry('a');
+        var introEntry = this.introEntry('i');
+        var aboutModEntry = this.aboutModEntry('a');
 
-        var aboutDivinationRods = rods.makeAboutDivinationRodsEntry('d');
-        var t1DivinationRod = rods.makeT1DivinationRodEntry('ḍ');
-        var abundantAndCommonSulfurAttunedDivinationRod = rods.makeAbundantAndCommonSulfurAttunedDivinationRodEntry('đ');
-        var amethystDivinationRod = rods.makeAmethystDivinationRodEntry('ḋ');
-        var t2DivinationRod = rods.makeT2DivinationRodEntry('ď');
-        var t3DivinationRod = rods.makeT3DivinationRodEntry('ḑ');
-        var t4DivinationRod = rods.makeT4DivinationRodEntry('ḓ');
-        var rareSulfurAttunedDivinationRod = rods.makeRareSulfurAttunedDivinationRodEntry('ɖ');
-        var preciousSulfurAttunedDivinationRod = rods.makePreciousSulfurAttunedDivinationRodEntry('ᶑ');
+        var aboutDivinationRods = rods.aboutDivinationRods('d');
+        var t1DivinationRod = rods.t1DivinationRodEntry('ḍ');
+        var abundantAndCommonSulfurAttunedDivinationRod = rods.abundantAndCommonSulfurAttunedDivinationRodEntry('đ');
+        var amethystDivinationRod = rods.amethystDivinationRodEntry('ḋ');
+        var t2DivinationRod = rods.t2DivinationRodEntry('ď');
+        var t3DivinationRod = rods.t3DivinationRodEntry('ḑ');
+        var t4DivinationRod = rods.t4DivinationRodEntry('ḓ');
+        var rareSulfurAttunedDivinationRod = rods.rareSulfurAttunedDivinationRodEntry('ɖ');
+        var preciousSulfurAttunedDivinationRod = rods.preciousSulfurAttunedDivinationRodEntry('ᶑ');
 
-        var spagyricsEntry = this.makeSpagyricsEntry('s');
-        var apparatusHowToEntry = this.makeApparatusHowToEntry('u');
-        var spagyricsLinkEntry = this.makeSpagyricsLinkEntry('š');
+        var spagyrics = this.spagyricsEntry('s');
+        var apparatusHowTo = this.apparatusHowToEntry('u');
+        var spagyricsLink = this.spagyricsLinkEntry('š');
 
-        var aboutOreRefining = ore.makeAboutOreRefiningEntry('o');
-        var neededApparatusEntry = ore.makeNeededApparatusEntry('ó');
+        var aboutOreRefining = ore.aboutOreRefiningEntry('o');
+        var neededApparatus = ore.neededApparatusEntry('ó');
+        var createSolvent = ore.createSolventEntry('ő');
         //ő -> obtain solvent
         //ö -> obtain sulfur -> explain that here the duplication happens
         //      explain filling the cauldron, etc
@@ -90,7 +88,7 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
         t1DivinationRod.withParent(aboutDivinationRods);
 
         abundantAndCommonSulfurAttunedDivinationRod.withParent(aboutDivinationRods);
-        abundantAndCommonSulfurAttunedDivinationRod.withParent(spagyricsLinkEntry);
+        abundantAndCommonSulfurAttunedDivinationRod.withParent(spagyricsLink);
 //        abundantAndCommonSulfurAttunedDivinationRod.withCondition(
 //                this.parent().and(
 //                        this.parent().entryReadCondition(aboutDivinationRods),
@@ -151,12 +149,12 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
 //                )
 //        );
 
-        spagyricsEntry.withParent(aboutModEntry);
-        apparatusHowToEntry.withParent(spagyricsEntry);
-        spagyricsLinkEntry.withParent(spagyricsEntry);
+        spagyrics.withParent(aboutModEntry);
+        apparatusHowTo.withParent(spagyrics);
+        spagyricsLink.withParent(spagyrics);
 
-        aboutOreRefining.withParent(spagyricsLinkEntry);
-        neededApparatusEntry.withParent(aboutOreRefining);
+        aboutOreRefining.withParent(spagyricsLink);
+        neededApparatus.withParent(aboutOreRefining);
 
         //TODO: Conditions
         //  amethyst entry should NOT depend on spagyrics -> hence not on abundant sulfur rod
@@ -180,15 +178,15 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
                         t4DivinationRod.build(),
                         rareSulfurAttunedDivinationRod.build(),
                         preciousSulfurAttunedDivinationRod.build(),
-                        apparatusHowToEntry.build(),
-                        spagyricsEntry.build(),
-                        spagyricsLinkEntry.build(),
+                        apparatusHowTo.build(),
+                        spagyrics.build(),
+                        spagyricsLink.build(),
                         aboutOreRefining.build(),
-                        neededApparatusEntry.build()
+                        neededApparatus.build()
                 );
     }
 
-    private BookEntryModel.Builder makeIntroEntry(char icon) {
+    private BookEntryModel.Builder introEntry(char location) {
         this.context().entry("intro");
         this.add(this.context().entryName(), "About this Work");
         this.add(this.context().entryDescription(), "About using The Hermetica");
@@ -224,7 +222,7 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
                 .withName(this.context().entryName())
                 .withDescription(this.context().entryDescription())
                 .withIcon(ItemRegistry.THE_HERMETICA_ICON.get())
-                .withLocation(this.entryMap().get(icon))
+                .withLocation(this.entryMap().get(location))
                 .withEntryBackground(EntryBackground.CATEGORY_START)
                 .withPages(
                         intro,
@@ -232,7 +230,7 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeAboutModEntry(char icon) {
+    private BookEntryModel.Builder aboutModEntry(char location) {
         this.context().entry("about_mod");
         this.add(this.context().entryName(), "The Art of Alchemy");
         this.add(this.context().entryDescription(), "About this Mod");
@@ -297,7 +295,7 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
                 .withName(this.context().entryName())
                 .withDescription(this.context().entryDescription())
                 .withIcon(Items.NETHER_STAR)
-                .withLocation(this.entryMap().get(icon))
+                .withLocation(this.entryMap().get(location))
                 .withEntryBackground(EntryBackground.DEFAULT)
                 .withPages(
                         about,
@@ -309,7 +307,7 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
     }
 
 
-    private BookEntryModel.Builder makeApparatusHowToEntry(char icon) {
+    private BookEntryModel.Builder apparatusHowToEntry(char location) {
         this.context().entry("apparatus_how_to");
         this.add(this.context().entryName(), "Alchemical Apparatus");
         this.add(this.context().entryDescription(), "How to interact with the tools of the trade");
@@ -406,7 +404,7 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
                 .withName(this.context().entryName())
                 .withDescription(this.context().entryDescription())
                 .withIcon(BlockRegistry.PYROMANTIC_BRAZIER.get())
-                .withLocation(this.entryMap().get(icon))
+                .withLocation(this.entryMap().get(location))
                 .withEntryBackground(EntryBackground.DEFAULT)
                 .withPages(
                         intro,
@@ -418,7 +416,7 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeSpagyricsEntry(char icon) {
+    private BookEntryModel.Builder spagyricsEntry(char location) {
         this.context().entry("spagyrics");
         this.add(this.context().entryName(), "Spagyrics");
         this.add(this.context().entryDescription(), "Mastery over Matter");
@@ -452,7 +450,7 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
                 .withName(this.context().entryName())
                 .withDescription(this.context().entryDescription())
                 .withIcon(BlockRegistry.CALCINATION_OVEN.get())
-                .withLocation(this.entryMap().get(icon))
+                .withLocation(this.entryMap().get(location))
                 .withEntryBackground(EntryBackground.DEFAULT)
                 .withPages(
                         intro,
@@ -460,7 +458,7 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeSpagyricsLinkEntry(char icon) {
+    private BookEntryModel.Builder spagyricsLinkEntry(char location) {
         this.context().entry("spagyrics_link");
         this.add(this.context().entryName(), "Spagyrics");
         this.add(this.context().entryDescription(), "View the Spagyrics Category");
@@ -470,7 +468,7 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
                 .withName(this.context().entryName())
                 .withDescription(this.context().entryDescription())
                 .withIcon(BlockRegistry.CALCINATION_OVEN.get())
-                .withLocation(this.entryMap().get(icon))
+                .withLocation(this.entryMap().get(location))
                 .withCategoryToOpen(Theurgy.loc(SpagyricsCategoryProvider.CATEGORY_ID))
                 .withEntryBackground(EntryBackground.LINK_TO_CATEGORY);
     }

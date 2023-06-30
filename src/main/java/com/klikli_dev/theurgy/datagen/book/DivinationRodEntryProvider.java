@@ -45,7 +45,7 @@ public class DivinationRodEntryProvider extends CategoryProvider {
         throw new UnsupportedOperationException("This is a dummy provider to help generate entries, it should not be used to generate a Category.");
     }
 
-    public BookEntryModel.Builder makeAboutDivinationRodsEntry(char icon) {
+    public BookEntryModel.Builder aboutDivinationRods(char location) {
         this.context().entry("about_divination_rods");
         this.add(this.context().entryName(), "About Divination Rods");
         this.add(this.context().entryDescription(), "An Introduction to Ore-Finding");
@@ -122,7 +122,7 @@ public class DivinationRodEntryProvider extends CategoryProvider {
                 .withName(this.context().entryName())
                 .withDescription(this.context().entryDescription())
                 .withIcon(ItemRegistry.DIVINATION_ROD_T1.get())
-                .withLocation(this.entryMap().get(icon))
+                .withLocation(this.entryMap().get(location))
                 .withEntryBackground(EntryBackground.DEFAULT)
                 .withPages(
                         intro,
@@ -133,7 +133,7 @@ public class DivinationRodEntryProvider extends CategoryProvider {
                 );
     }
 
-    public BookEntryModel.Builder makeT1DivinationRodEntry(char icon) {
+    public BookEntryModel.Builder t1DivinationRodEntry(char location) {
         this.context().entry("t1_divination_rod");
         this.add(this.context().entryName(), "The Glass Divination Rod");
         this.add(this.context().entryDescription(), "A basic attunable rod for locating abundant and common ores.");
@@ -180,7 +180,7 @@ public class DivinationRodEntryProvider extends CategoryProvider {
                 .withName(this.context().entryName())
                 .withDescription(this.context().entryDescription())
                 .withIcon(ItemRegistry.DIVINATION_ROD_T1.get())
-                .withLocation(this.entryMap().get(icon))
+                .withLocation(this.entryMap().get(location))
                 .withEntryBackground(EntryBackground.DEFAULT)
                 .withPages(
                         intro,
@@ -189,7 +189,7 @@ public class DivinationRodEntryProvider extends CategoryProvider {
                 );
     }
 
-    public BookEntryModel.Builder makeAbundantAndCommonSulfurAttunedDivinationRodEntry(char icon) {
+    public BookEntryModel.Builder abundantAndCommonSulfurAttunedDivinationRodEntry(char location) {
         this.context().entry("abundant_and_common_sulfur_attuned_divination_rod");
         this.add(this.context().entryName(), "Basic Sulfur-Attuned Divination Rods");
         this.add(this.context().entryDescription(), "Pre-attuned rods for locating abundant and common ores.");
@@ -242,7 +242,7 @@ public class DivinationRodEntryProvider extends CategoryProvider {
                 .withName(this.context().entryName())
                 .withDescription(this.context().entryDescription())
                 .withIcon(ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_ABUNDANT.get())
-                .withLocation(this.entryMap().get(icon))
+                .withLocation(this.entryMap().get(location))
                 .withEntryBackground(EntryBackground.DEFAULT)
                 .withPages(
                         intro,
@@ -252,7 +252,7 @@ public class DivinationRodEntryProvider extends CategoryProvider {
                 );
     }
 
-    public BookEntryModel.Builder makeAmethystDivinationRodEntry(char icon) {
+    public BookEntryModel.Builder amethystDivinationRodEntry(char location) {
         this.context().entry("amethyst_divination_rod");
         this.add(this.context().entryName(), "Amethyst Divination Rod");
         this.add(this.context().entryDescription(), "A pre-attuned rod to find budding amethyst blocks.");
@@ -283,7 +283,7 @@ public class DivinationRodEntryProvider extends CategoryProvider {
                 .withName(this.context().entryName())
                 .withDescription(this.context().entryDescription())
                 .withIcon(ItemRegistry.AMETHYST_DIVINATION_ROD.get())
-                .withLocation(this.entryMap().get(icon))
+                .withLocation(this.entryMap().get(location))
                 .withEntryBackground(EntryBackground.DEFAULT)
                 .withPages(
                         intro,
@@ -291,7 +291,7 @@ public class DivinationRodEntryProvider extends CategoryProvider {
                 );
     }
 
-    public BookEntryModel.Builder makeT2DivinationRodEntry(char icon) {
+    public BookEntryModel.Builder t2DivinationRodEntry(char location) {
         this.context().entry("t2_divination_rod");
         this.add(this.context().entryName(), "The Iron Divination Rod");
         this.add(this.context().entryDescription(), "An improved attunable rod for locating rare ores.");
@@ -324,7 +324,7 @@ public class DivinationRodEntryProvider extends CategoryProvider {
                 .withName(this.context().entryName())
                 .withDescription(this.context().entryDescription())
                 .withIcon(ItemRegistry.DIVINATION_ROD_T2.get())
-                .withLocation(this.entryMap().get(icon))
+                .withLocation(this.entryMap().get(location))
                 .withEntryBackground(EntryBackground.DEFAULT)
                 .withPages(
                         intro,
@@ -332,7 +332,7 @@ public class DivinationRodEntryProvider extends CategoryProvider {
                 );
     }
 
-    public BookEntryModel.Builder makeT3DivinationRodEntry(char icon) {
+    public BookEntryModel.Builder t3DivinationRodEntry(char location) {
         this.context().entry("t3_divination_rod");
         this.add(this.context().entryName(), "The Diamond Divination Rod");
         this.add(this.context().entryDescription(), "A superior-grade attunable rod for locating precious ores.");
@@ -365,7 +365,7 @@ public class DivinationRodEntryProvider extends CategoryProvider {
                 .withName(this.context().entryName())
                 .withDescription(this.context().entryDescription())
                 .withIcon(ItemRegistry.DIVINATION_ROD_T3.get())
-                .withLocation(this.entryMap().get(icon))
+                .withLocation(this.entryMap().get(location))
                 .withEntryBackground(EntryBackground.DEFAULT)
                 .withPages(
                         intro,
@@ -373,7 +373,7 @@ public class DivinationRodEntryProvider extends CategoryProvider {
                 );
     }
 
-    public BookEntryModel.Builder makeT4DivinationRodEntry(char icon) {
+    public BookEntryModel.Builder t4DivinationRodEntry(char location) {
         this.context().entry("t4_divination_rod");
         this.add(this.context().entryName(), "The Netherite Divination Rod");
         this.add(this.context().entryDescription(), "A very high durability attunable rod for locating precious ores.");
@@ -406,7 +406,7 @@ public class DivinationRodEntryProvider extends CategoryProvider {
                 .withName(this.context().entryName())
                 .withDescription(this.context().entryDescription())
                 .withIcon(ItemRegistry.DIVINATION_ROD_T4.get())
-                .withLocation(this.entryMap().get(icon))
+                .withLocation(this.entryMap().get(location))
                 .withEntryBackground(EntryBackground.DEFAULT)
                 .withPages(
                         intro,
@@ -414,7 +414,7 @@ public class DivinationRodEntryProvider extends CategoryProvider {
                 );
     }
 
-    public BookEntryModel.Builder makeRareSulfurAttunedDivinationRodEntry(char icon) {
+    public BookEntryModel.Builder rareSulfurAttunedDivinationRodEntry(char location) {
         this.context().entry("rare_sulfur_attuned_divination_rod");
         this.add(this.context().entryName(), "Sulfur-Attuned Divination Rods for Rare Materials");
         this.add(this.context().entryDescription(), "An improved design of Sulfur-Attuned Divination rods, allowing to locate rare ores.");
@@ -447,7 +447,7 @@ public class DivinationRodEntryProvider extends CategoryProvider {
                 .withName(this.context().entryName())
                 .withDescription(this.context().entryDescription())
                 .withIcon(ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_RARE.get())
-                .withLocation(this.entryMap().get(icon))
+                .withLocation(this.entryMap().get(location))
                 .withEntryBackground(EntryBackground.DEFAULT)
                 .withPages(
                         intro,
@@ -455,7 +455,7 @@ public class DivinationRodEntryProvider extends CategoryProvider {
                 );
     }
 
-    public BookEntryModel.Builder makePreciousSulfurAttunedDivinationRodEntry(char icon) {
+    public BookEntryModel.Builder preciousSulfurAttunedDivinationRodEntry(char location) {
         this.context().entry("precious_sulfur_attuned_divination_rod");
         this.add(this.context().entryName(), "Sulfur-Attuned Divination Rods for Precious Materials");
         this.add(this.context().entryDescription(), "An intricately crafted Sulfur-Attuned Divination rod, allowing to locate precious ores.");
@@ -488,7 +488,7 @@ public class DivinationRodEntryProvider extends CategoryProvider {
                 .withName(this.context().entryName())
                 .withDescription(this.context().entryDescription())
                 .withIcon(ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_PRECIOUS.get())
-                .withLocation(this.entryMap().get(icon))
+                .withLocation(this.entryMap().get(location))
                 .withEntryBackground(EntryBackground.DEFAULT)
                 .withPages(
                         intro,

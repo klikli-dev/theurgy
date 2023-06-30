@@ -87,7 +87,7 @@ public class SpagyricsCategoryProvider extends CategoryProvider {
     }
 
 
-    private BookEntryModel.Builder makeIntroEntry(char icon) {
+    private BookEntryModel.Builder makeIntroEntry(char location) {
         this.context().entry("intro");
         this.add(this.context().entryName(), "Spagyrics");
         this.add(this.context().entryDescription(), "Power over the Three Principles");
@@ -119,7 +119,7 @@ public class SpagyricsCategoryProvider extends CategoryProvider {
                 .withName(this.context().entryName())
                 .withDescription(this.context().entryDescription())
                 .withIcon(ItemRegistry.CALCINATION_OVEN.get())
-                .withLocation(this.entryMap().get(icon))
+                .withLocation(this.entryMap().get(location))
                 .withEntryBackground(EntryBackground.CATEGORY_START)
                 .withPages(
                         intro,
@@ -127,7 +127,7 @@ public class SpagyricsCategoryProvider extends CategoryProvider {
                 );
     }
 
-    private BookEntryModel.Builder makePrinciplesEntry(char icon) {
+    private BookEntryModel.Builder makePrinciplesEntry(char location) {
         this.context().entry("principles");
         this.add(this.context().entryName(), "The Three Principles");
         this.add(this.context().entryDescription(), "An Introduction to Alchemical Elements");
@@ -187,7 +187,7 @@ public class SpagyricsCategoryProvider extends CategoryProvider {
                 .withName(this.context().entryName())
                 .withDescription(this.context().entryDescription())
                 .withIcon(ItemRegistry.MERCURY_CRYSTAL.get())
-                .withLocation(this.entryMap().get(icon))
+                .withLocation(this.entryMap().get(location))
                 .withEntryBackground(EntryBackground.DEFAULT)
                 .withPages(
                         intro,
@@ -197,7 +197,7 @@ public class SpagyricsCategoryProvider extends CategoryProvider {
                 );
     }
 
-    private BookEntryModel.Builder makePyromanticBrazierEntry(char icon) {
+    private BookEntryModel.Builder makePyromanticBrazierEntry(char location) {
         this.context().entry("pyromantic_brazier");
         this.add(this.context().entryName(), "Pyromantic Brazier");
         this.add(this.context().entryDescription(), "Heating your Alchemical Devices");
@@ -247,7 +247,7 @@ public class SpagyricsCategoryProvider extends CategoryProvider {
                 .withName(this.context().entryName())
                 .withDescription(this.context().entryDescription())
                 .withIcon(ItemRegistry.PYROMANTIC_BRAZIER.get())
-                .withLocation(this.entryMap().get(icon))
+                .withLocation(this.entryMap().get(location))
                 .withEntryBackground(EntryBackground.DEFAULT)
                 .withPages(
                         intro,
@@ -256,7 +256,7 @@ public class SpagyricsCategoryProvider extends CategoryProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeCalcinationOvenEntry(char icon) {
+    private BookEntryModel.Builder makeCalcinationOvenEntry(char location) {
         this.context().entry("calcination_oven");
         this.add(this.context().entryName(), "Calcination Oven");
         this.add(this.context().entryDescription(), "Making Salt");
@@ -333,7 +333,7 @@ public class SpagyricsCategoryProvider extends CategoryProvider {
                 .withName(this.context().entryName())
                 .withDescription(this.context().entryDescription())
                 .withIcon(ItemRegistry.CALCINATION_OVEN.get())
-                .withLocation(this.entryMap().get(icon))
+                .withLocation(this.entryMap().get(location))
                 .withEntryBackground(EntryBackground.DEFAULT)
                 .withPages(
                         intro,
@@ -345,7 +345,7 @@ working
                 );
     }
 
-    private BookEntryModel.Builder makeSolventsEntry(char icon) {
+    private BookEntryModel.Builder makeSolventsEntry(char location) {
         this.context().entry("solvents");
         this.add(this.context().entryName(), "Solvents");
         this.add(this.context().entryDescription(), "Solving all your problems?");
@@ -458,7 +458,7 @@ working
                 .withName(this.context().entryName())
                 .withDescription(this.context().entryDescription())
                 .withIcon(ItemRegistry.SAL_AMMONIAC_TANK.get())
-                .withLocation(this.entryMap().get(icon))
+                .withLocation(this.entryMap().get(location))
                 .withEntryBackground(EntryBackground.DEFAULT)
                 .withPages(
                         intro,
@@ -473,7 +473,7 @@ working
                 );
     }
 
-    private BookEntryModel.Builder makeLiquefactionCauldronEntry(char icon) {
+    private BookEntryModel.Builder makeLiquefactionCauldronEntry(char location) {
         this.context().entry("liquefaction_cauldron");
         this.add(this.context().entryName(), "Liquefaction Cauldron");
         this.add(this.context().entryDescription(), "Making Sulfur");
@@ -550,7 +550,7 @@ working
                 .withName(this.context().entryName())
                 .withDescription(this.context().entryDescription())
                 .withIcon(ItemRegistry.LIQUEFACTION_CAULDRON.get())
-                .withLocation(this.entryMap().get(icon))
+                .withLocation(this.entryMap().get(location))
                 .withEntryBackground(EntryBackground.DEFAULT)
                 .withPages(
                         intro,
@@ -562,7 +562,7 @@ working
                 );
     }
 
-    private BookEntryModel.Builder makeDistillerEntry(char icon) {
+    private BookEntryModel.Builder makeDistillerEntry(char location) {
         this.context().entry("distiller");
         this.add(this.context().entryName(), "Distiller");
         this.add(this.context().entryDescription(), "Making Mercury");
@@ -639,7 +639,7 @@ working
                 .withName(this.context().entryName())
                 .withDescription(this.context().entryDescription())
                 .withIcon(ItemRegistry.DISTILLER.get())
-                .withLocation(this.entryMap().get(icon))
+                .withLocation(this.entryMap().get(location))
                 .withEntryBackground(EntryBackground.DEFAULT)
                 .withPages(
                         intro,
@@ -651,7 +651,7 @@ working
                 );
     }
 
-    private BookEntryModel.Builder makeIncubatorEntry(char icon) {
+    private BookEntryModel.Builder makeIncubatorEntry(char location) {
         this.context().entry("incubator");
         this.add(this.context().entryName(), "Incubator");
         this.add(this.context().entryDescription(), "Making Matter");
@@ -743,7 +743,7 @@ working
                 .withName(this.context().entryName())
                 .withDescription(this.context().entryDescription())
                 .withIcon(ItemRegistry.INCUBATOR.get())
-                .withLocation(this.entryMap().get(icon))
+                .withLocation(this.entryMap().get(location))
                 .withEntryBackground(EntryBackground.DEFAULT)
                 .withPages(
                         intro,

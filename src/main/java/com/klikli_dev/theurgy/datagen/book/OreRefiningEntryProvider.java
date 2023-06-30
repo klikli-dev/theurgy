@@ -41,7 +41,7 @@ public class OreRefiningEntryProvider extends CategoryProvider {
         throw new UnsupportedOperationException("This is a dummy provider to help generate entries, it should not be used to generate a Category.");
     }
 
-    public BookEntryModel.Builder makeAboutOreRefiningEntry(char icon) {
+    public BookEntryModel.Builder aboutOreRefiningEntry(char location) {
         this.context().entry("about_ore_refining");
         this.add(this.context().entryName(), "Ore Refining");
         this.add(this.context().entryDescription(), "Triple your ore yield - at a cost!");
@@ -161,7 +161,7 @@ public class OreRefiningEntryProvider extends CategoryProvider {
                 .withName(this.context().entryName())
                 .withDescription(this.context().entryDescription())
                 .withIcon(Items.IRON_ORE)
-                .withLocation(this.entryMap().get(icon))
+                .withLocation(this.entryMap().get(location))
                 .withEntryBackground(EntryBackground.DEFAULT)
                 .withPages(
                         intro,
@@ -175,7 +175,7 @@ public class OreRefiningEntryProvider extends CategoryProvider {
                 );
     }
 
-    public BookEntryModel.Builder makeNeededApparatusEntry(char icon) {
+    public BookEntryModel.Builder neededApparatusEntry(char location) {
         this.context().entry("needed_apparatus");
         this.add(this.context().entryName(), "Required Apparatus");
         this.add(this.context().entryDescription(), "Tools for Refinement");
@@ -277,13 +277,24 @@ public class OreRefiningEntryProvider extends CategoryProvider {
                 this.itemLink("Sulfur Vessel", ItemRegistry.INCUBATOR_SULFUR_VESSEL.get())
         );
 
+        this.context().page("next_steps");
+        var next_steps = BookTextPageModel.builder()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
+                .build();
+        this.add(this.context().pageTitle(), "Next Steps");
+        this.add(this.context().pageText(),
+                """
+                       Place all the apparatus, those that need heating on pyromantic braziers. Prepare some Coal to heat the braziers, then open the next entry.
+                        """
+        );
 
         return BookEntryModel.builder()
                 .withId(Theurgy.loc(this.context().categoryId() + "/" + this.context().entryId()))
                 .withName(this.context().entryName())
                 .withDescription(this.context().entryDescription())
                 .withIcon(ItemRegistry.DISTILLER.get())
-                .withLocation(this.entryMap().get(icon))
+                .withLocation(this.entryMap().get(location))
                 .withEntryBackground(EntryBackground.DEFAULT)
                 .withPages(
                         intro,
@@ -293,7 +304,85 @@ public class OreRefiningEntryProvider extends CategoryProvider {
                         sal_ammoniac_tank,
                         liquefaction_cauldron,
                         distiller,
-                        incubator
+                        incubator,
+                        next_steps
                 );
     }
+
+    public BookEntryModel.Builder createSolventEntry(char location) {
+        this.context().entry("create_solvent");
+        this.add(this.context().entryName(), "Accumulating Solvent");
+        this.add(this.context().entryDescription(), "Obtaining Sal Ammoniac - they key to Sulfur Extraction");
+
+        this.context().page("intro");
+        var intro = BookSpotlightPageModel.builder()
+                .withItem(Ingredient.of(ItemRegistry.SAL_AMMONIAC_BUCKET.get()))
+                .withText(this.context().pageText())
+                .build();
+
+        this.add(this.context().pageText(),
+                """
+                    There are two ways of obtaining Sal Ammoniac, both use the Accumulator Apparatus. The first, slower, option is to simply place water in the accumulator, and let it slowly concentrate the inherently contained Sal Ammoniac. The second, faster, option is to additionally add a {0} to speed up the process significantly.
+                        """,
+                this.itemLink(ItemRegistry.SAL_AMMONIAC_CRYSTAL.get())
+        );
+
+        this.context().page("step1");
+        var step1 = BookTextPageModel.builder()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
+                .build();
+
+        this.add(this.context().pageTitle(), "Filling the Accumulator");
+        this.add(this.context().pageText(),
+                """
+                        {0} on a solvent tank, right-click the accumulator with water buckets (up to 10) to fill it.
+                        """,
+                this.entryLink("After placing the accumulator", SpagyricsCategoryProvider.CATEGORY_ID, "solvents")
+        );
+
+        this.context().page("step2");
+        var step2 = BookTextPageModel.builder()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
+                .build();
+
+        this.add(this.context().pageTitle(), "Adding Crystals");
+        this.add(this.context().pageText(),
+                """
+                        Optionally you can now right-click it with a {0} (obtained by mining). You will get Sal Ammoniac regardless, but the crystal will speed up the process significantly.
+                        """,
+                this.itemLink(ItemRegistry.SAL_AMMONIAC_CRYSTAL.get())
+        );
+
+
+        this.context().page("step3");
+        var step3 = BookTextPageModel.builder()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
+                .build();
+
+        this.add(this.context().pageTitle(), "Obtaining the Sal Ammoniac");
+        this.add(this.context().pageText(),
+                """
+                        Once the tank has filled up sufficiently, you can right-click it with an empty bucket to obtain a {0}.
+                        """,
+                this.itemLink(ItemRegistry.SAL_AMMONIAC_BUCKET.get())
+        );
+
+        return BookEntryModel.builder()
+                .withId(Theurgy.loc(this.context().categoryId() + "/" + this.context().entryId()))
+                .withName(this.context().entryName())
+                .withDescription(this.context().entryDescription())
+                .withIcon(ItemRegistry.SAL_AMMONIAC_BUCKET.get())
+                .withLocation(this.entryMap().get(location))
+                .withEntryBackground(EntryBackground.DEFAULT)
+                .withPages(
+                        intro,
+                        step1,
+                        step2,
+                        step3
+                );
+    }
+
 }

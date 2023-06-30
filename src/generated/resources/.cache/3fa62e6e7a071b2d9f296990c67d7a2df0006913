@@ -1,4 +1,4 @@
-// 1.20.1	2023-06-28T18:41:54.679354	Books: theurgy
+// 1.20.1	2023-06-30T12:40:02.3367805	Books: theurgy
 ead61475fc866f8eb903a6d99236808a0383fd5a data/theurgy/modonomicon/books/the_hermetica/book.json
 6397585a0c454daf7ca44fdfcd96a0fe11081905 data/theurgy/modonomicon/books/the_hermetica/categories/getting_started.json
 1629a778e477590cb0efd667e8b859d3b665c84c data/theurgy/modonomicon/books/the_hermetica/categories/spagyrics.json
@@ -9,7 +9,7 @@ f93531b8ed5951cf0cc730321045b436d9f9a7b2 data/theurgy/modonomicon/books/the_herm
 6ea2baa437e4b966e76cb7ba36edf7e0466a2e06 data/theurgy/modonomicon/books/the_hermetica/entries/getting_started/amethyst_divination_rod.json
 29077029775d026fad0c79b57320ec8b42877600 data/theurgy/modonomicon/books/the_hermetica/entries/getting_started/apparatus_how_to.json
 e12436dfc3cebdeaef7d4881f36adec2f77c93e7 data/theurgy/modonomicon/books/the_hermetica/entries/getting_started/intro.json
-1859f15b3e4671f99d96bb0886fef76b42fb7f19 data/theurgy/modonomicon/books/the_hermetica/entries/getting_started/needed_apparatus.json
+c954d5a48200ef468d779a25abc6e06d5839c42b data/theurgy/modonomicon/books/the_hermetica/entries/getting_started/needed_apparatus.json
 28e0f6620e5c9679a3440a315d588a92110c4ab8 data/theurgy/modonomicon/books/the_hermetica/entries/getting_started/precious_sulfur_attuned_divination_rod.json
 80e03ad70c4c628c0910c7b63ae7fa7b3e4795d9 data/theurgy/modonomicon/books/the_hermetica/entries/getting_started/rare_sulfur_attuned_divination_rod.json
 b57cfb886c90c850b98f3ad4da495632ddceffef data/theurgy/modonomicon/books/the_hermetica/entries/getting_started/spagyrics.json

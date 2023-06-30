@@ -77,6 +77,14 @@
       },
       "text": "book.theurgy.the_hermetica.getting_started.needed_apparatus.incubator.text",
       "title": ""
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.getting_started.needed_apparatus.next_steps.text",
+      "title": "book.theurgy.the_hermetica.getting_started.needed_apparatus.next_steps.title",
+      "use_markdown_in_title": false
     }
   ],
   "parents": [

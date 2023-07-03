@@ -7,12 +7,9 @@
 package com.klikli_dev.theurgy.datagen.book;
 
 import com.klikli_dev.modonomicon.api.datagen.BookProvider;
-import com.klikli_dev.modonomicon.api.datagen.book.BookEntryModel;
 import com.klikli_dev.modonomicon.api.datagen.book.BookModel;
-import com.klikli_dev.modonomicon.api.datagen.book.condition.*;
 import com.klikli_dev.theurgy.Theurgy;
 import net.minecraft.data.PackOutput;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.data.LanguageProvider;
 
 public class TheurgyBookProvider extends BookProvider {

@@ -29,7 +29,6 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
 
     @Override
     protected String[] generateEntryMap() {
-
         return new String[]{
                 "__________________________________",
                 "__________________ḍ___ď_ḑ_ḓ_______",
@@ -47,33 +46,31 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
     }
 
     @Override
-    protected BookCategoryModel generateCategory() {
-        this.add(this.context().categoryName(), "Getting Started");
-
+    protected void generateEntries() {
         var rods = new DivinationRodEntryProvider(this.parent(), this.entryMap());
         var ore = new OreRefiningEntryProvider(this.parent(), this.entryMap());
 
-        var introEntry = this.introEntry('i');
-        var aboutModEntry = this.aboutModEntry('a');
+        var introEntry = this.add(this.introEntry('i'));
+        var aboutModEntry = this.add(this.aboutModEntry('a'));
 
-        var aboutDivinationRods = rods.aboutDivinationRods('d');
-        var t1DivinationRod = rods.t1DivinationRodEntry('ḍ');
-        var abundantAndCommonSulfurAttunedDivinationRod = rods.abundantAndCommonSulfurAttunedDivinationRodEntry('đ');
-        var amethystDivinationRod = rods.amethystDivinationRodEntry('ḋ');
-        var t2DivinationRod = rods.t2DivinationRodEntry('ď');
-        var t3DivinationRod = rods.t3DivinationRodEntry('ḑ');
-        var t4DivinationRod = rods.t4DivinationRodEntry('ḓ');
-        var rareSulfurAttunedDivinationRod = rods.rareSulfurAttunedDivinationRodEntry('ɖ');
-        var preciousSulfurAttunedDivinationRod = rods.preciousSulfurAttunedDivinationRodEntry('ᶑ');
+        var aboutDivinationRods = this.add(rods.aboutDivinationRods('d'));
+        var t1DivinationRod = this.add(rods.t1DivinationRodEntry('ḍ'));
+        var abundantAndCommonSulfurAttunedDivinationRod = this.add(rods.abundantAndCommonSulfurAttunedDivinationRodEntry('đ'));
 
-        var spagyrics = this.spagyricsEntry('s');
-        var apparatusHowTo = this.apparatusHowToEntry('u');
-        var spagyricsLink = this.spagyricsLinkEntry('š');
+        var amethystDivinationRod = this.add(rods.amethystDivinationRodEntry('ḋ'));
+        var t2DivinationRod = this.add(rods.t2DivinationRodEntry('ď'));
+        var t3DivinationRod = this.add(rods.t3DivinationRodEntry('ḑ'));
+        var t4DivinationRod = this.add(rods.t4DivinationRodEntry('ḓ'));
+        var rareSulfurAttunedDivinationRod = this.add(rods.rareSulfurAttunedDivinationRodEntry('ɖ'));
+        var preciousSulfurAttunedDivinationRod = this.add(rods.preciousSulfurAttunedDivinationRodEntry('ᶑ'));
 
-        var aboutOreRefining = ore.aboutOreRefiningEntry('o');
-        var neededApparatus = ore.neededApparatusEntry('ó');
-        var createSolvent = ore.createSolventEntry('ő');
-        //ő -> obtain solvent
+        var spagyrics = this.add(this.spagyricsEntry('s'));
+        var apparatusHowTo = this.add(this.apparatusHowToEntry('u'));
+        var spagyricsLink = this.add(this.spagyricsLinkEntry('š'));
+
+        var aboutOreRefining = this.add(ore.aboutOreRefiningEntry('o'));
+        var neededApparatus = this.add(ore.neededApparatusEntry('ó'));
+        var createSolvent = this.add(ore.createSolventEntry('ő'));
         //ö -> obtain sulfur -> explain that here the duplication happens
         //      explain filling the cauldron, etc
         //ô -> obtain salt -> explain that here we use other ore as source
@@ -158,319 +155,200 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
 
         //TODO: Conditions
         //  amethyst entry should NOT depend on spagyrics -> hence not on abundant sulfur rod
-
-
-        return BookCategoryModel.create(
-                        Theurgy.loc((this.context().categoryId())),
-                        this.context().categoryName()
-                )
-                .withIcon(ItemRegistry.THE_HERMETICA_ICON.get())
-                .withBackground(Theurgy.loc("textures/gui/book/bg_nightsky.png"))
-                .withEntries(
-                        introEntry.build(),
-                        aboutModEntry.build(),
-                        aboutDivinationRods.build(),
-                        t1DivinationRod.build(),
-                        abundantAndCommonSulfurAttunedDivinationRod.build(),
-                        amethystDivinationRod.build(),
-                        t2DivinationRod.build(),
-                        t3DivinationRod.build(),
-                        t4DivinationRod.build(),
-                        rareSulfurAttunedDivinationRod.build(),
-                        preciousSulfurAttunedDivinationRod.build(),
-                        apparatusHowTo.build(),
-                        spagyrics.build(),
-                        spagyricsLink.build(),
-                        aboutOreRefining.build(),
-                        neededApparatus.build()
-                );
     }
 
-    private BookEntryModel.Builder introEntry(char location) {
+    @Override
+    protected BookCategoryModel generateCategory() {
+        this.add(this.context().categoryName(), "Getting Started");
+
+        return BookCategoryModel.create(Theurgy.loc((this.context().categoryId())), this.context().categoryName()).withIcon(ItemRegistry.THE_HERMETICA_ICON.get()).withBackground(Theurgy.loc("textures/gui/book/bg_nightsky.png"));
+    }
+
+    private BookEntryModel introEntry(char location) {
         this.context().entry("intro");
         this.add(this.context().entryName(), "About this Work");
         this.add(this.context().entryDescription(), "About using The Hermetica");
 
         this.context().page("intro");
-        var intro = BookTextPageModel.builder()
-                .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+        var intro = BookTextPageModel.builder().withTitle(this.context().pageTitle()).withText(this.context().pageText()).build();
         this.add(this.context().pageTitle(), "About this Work");
-        this.add(this.context().pageText(),
-                """
-                        The following pages will lead the novice alchemist on their journey through the noble art of the transformation of matter and mind. This humble author will share their experiences, thoughts and research notes to guide the valued reader in as safe a manner as the subject matter allows.
-                        """);
+        this.add(this.context().pageText(), """
+                The following pages will lead the novice alchemist on their journey through the noble art of the transformation of matter and mind. This humble author will share their experiences, thoughts and research notes to guide the valued reader in as safe a manner as the subject matter allows.
+                """);
 
         this.context().page("help");
-        var help = BookTextPageModel.builder()
-                .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+        var help = BookTextPageModel.builder().withTitle(this.context().pageTitle()).withText(this.context().pageText()).build();
         this.add(this.context().pageTitle(), "Seeking Counsel");
-        this.add(this.context().pageText(),
-                """
-                        If the reader finds themselves in trouble of any kind, prompt assistance will be provided at the Council of Alchemists, known also as Kli Kli's Discord Server.
-                        \\
-                        \\
-                        [To get help, join us at https://invite.gg/klikli](https://invite.gg/klikli)
-                        """);
+        this.add(this.context().pageText(), """
+                If the reader finds themselves in trouble of any kind, prompt assistance will be provided at the Council of Alchemists, known also as Kli Kli's Discord Server.
+                \\
+                \\
+                [To get help, join us at https://invite.gg/klikli](https://invite.gg/klikli)
+                """);
 
 
-        return BookEntryModel.builder()
-                .withId(Theurgy.loc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
-                .withDescription(this.context().entryDescription())
-                .withIcon(ItemRegistry.THE_HERMETICA_ICON.get())
-                .withLocation(this.entryMap().get(location))
-                .withEntryBackground(EntryBackground.CATEGORY_START)
-                .withPages(
-                        intro,
-                        help
-                );
+        return this.entry(location).withIcon(ItemRegistry.THE_HERMETICA_ICON.get())
+
+                .withEntryBackground(EntryBackground.CATEGORY_START).withPages(intro, help);
     }
 
-    private BookEntryModel.Builder aboutModEntry(char location) {
+    private BookEntryModel aboutModEntry(char location) {
         this.context().entry("about_mod");
         this.add(this.context().entryName(), "The Art of Alchemy");
         this.add(this.context().entryDescription(), "About this Mod");
 
         this.context().page("about");
-        var about = BookTextPageModel.builder()
-                .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+        var about = BookTextPageModel.builder().withTitle(this.context().pageTitle()).withText(this.context().pageText()).build();
         this.add(this.context().pageTitle(), "The Art of Alchemy");
-        this.add(this.context().pageText(),
-                """
-                        Welcome, dear reader, to Theurgy, a mod that explores the ancient and revered art of classical alchemy. As you embark on your journey through the noble art of transformation, you will be equipped with divination rods to make finding resources in the world easier.
-                        """);
+        this.add(this.context().pageText(), """
+                Welcome, dear reader, to Theurgy, a mod that explores the ancient and revered art of classical alchemy. As you embark on your journey through the noble art of transformation, you will be equipped with divination rods to make finding resources in the world easier.
+                """);
         this.context().page("about2");
-        var about2 = BookTextPageModel.builder()
-                .withText(this.context().pageText())
-                .build();
-        this.add(this.context().pageText(),
-                """
-                        Through diligent study and practice, you will then learn to use alchemical devices to refine, replicate, and transform resources into new and useful materials. Along the way, you will have the opportunity to craft alchemical devices and equipment to aid you in your endeavors.
-                        """);
+        var about2 = BookTextPageModel.builder().withText(this.context().pageText()).build();
+        this.add(this.context().pageText(), """
+                Through diligent study and practice, you will then learn to use alchemical devices to refine, replicate, and transform resources into new and useful materials. Along the way, you will have the opportunity to craft alchemical devices and equipment to aid you in your endeavors.
+                """);
 
         this.context().page("about3");
-        var about3 = BookTextPageModel.builder()
-                .withText(this.context().pageText())
-                .build();
-        this.add(this.context().pageText(),
-                """
-                        As a final note, alchemists are guided by reason and logic, not superstition or magic. Our experiments are based on careful observation, meticulous record-keeping, and rigorous testing. We do not claim to possess supernatural powers, but rather seek to harness the natural forces of the world around us to achieve our goals.
-                        """);
+        var about3 = BookTextPageModel.builder().withText(this.context().pageText()).build();
+        this.add(this.context().pageText(), """
+                As a final note, alchemists are guided by reason and logic, not superstition or magic. Our experiments are based on careful observation, meticulous record-keeping, and rigorous testing. We do not claim to possess supernatural powers, but rather seek to harness the natural forces of the world around us to achieve our goals.
+                """);
 
         this.context().page("features");
-        var features = BookTextPageModel.builder()
-                .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+        var features = BookTextPageModel.builder().withTitle(this.context().pageTitle()).withText(this.context().pageText()).build();
         this.add(this.context().pageTitle(), "Features");
-        this.add(this.context().pageText(),
-                """
-                        - Divination rods to find ores
-                        - Future: Ore refining (= more ingots per ore)
-                        - Future: Item replication (create duplicates of items you have)
-                        - Future: Item transformation (create new items from other items)
-                        """);
+        this.add(this.context().pageText(), """
+                - Divination rods to find ores
+                - Future: Ore refining (= more ingots per ore)
+                - Future: Item replication (create duplicates of items you have)
+                - Future: Item transformation (create new items from other items)
+                """);
 
         this.context().page("features2");
-        var features2 = BookTextPageModel.builder()
-                .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+        var features2 = BookTextPageModel.builder().withTitle(this.context().pageTitle()).withText(this.context().pageText()).build();
         this.add(this.context().pageTitle(), "More Features");
-        this.add(this.context().pageText(),
-                """
-                        - Future: Weapons and Equipment
-                        - Future: Devices to assist in common tasks
-                        """);
+        this.add(this.context().pageText(), """
+                - Future: Weapons and Equipment
+                - Future: Devices to assist in common tasks
+                """);
 
 
-        return BookEntryModel.builder()
-                .withId(Theurgy.loc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
-                .withDescription(this.context().entryDescription())
-                .withIcon(Items.NETHER_STAR)
-                .withLocation(this.entryMap().get(location))
-                .withEntryBackground(EntryBackground.DEFAULT)
-                .withPages(
-                        about,
-                        about2,
-                        about3,
-                        features,
-                        features2
-                );
+        return this.entry(location).withIcon(Items.NETHER_STAR)
+
+                .withEntryBackground(EntryBackground.DEFAULT).withPages(about, about2, about3, features, features2);
     }
 
 
-    private BookEntryModel.Builder apparatusHowToEntry(char location) {
+    private BookEntryModel apparatusHowToEntry(char location) {
         this.context().entry("apparatus_how_to");
         this.add(this.context().entryName(), "Alchemical Apparatus");
         this.add(this.context().entryDescription(), "How to interact with the tools of the trade");
 
         this.context().page("intro");
-        var intro = BookTextPageModel.builder()
-                .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+        var intro = BookTextPageModel.builder().withTitle(this.context().pageTitle()).withText(this.context().pageText()).build();
         this.add(this.context().pageTitle(), "Alchemical Apparatus");
-        this.add(this.context().pageText(),
-                """
-                        Alchemist use a variety of tools and devices to aid them in their work. These devices are collectively referred to as apparatus.
-                        \\
-                        \\
-                        It is important to understand that each apparatus should only have one specific function, such as generating heat or melting items.
-                                 """);
+        this.add(this.context().pageText(), """
+                Alchemist use a variety of tools and devices to aid them in their work. These devices are collectively referred to as apparatus.
+                \\
+                \\
+                It is important to understand that each apparatus should only have one specific function, such as generating heat or melting items.
+                         """);
 
         this.context().page("intro2");
-        var intro2 = BookTextPageModel.builder()
-                .withText(this.context().pageText())
-                .build();
-        this.add(this.context().pageText(),
-                """
-                        By adhering to this principle, we can create a modular system that allows for greater flexibility and efficiency in our work.
-                        \\
-                        \\
-                        Further, all apparatus follow a standardized interaction pattern that makes it easier to use them both for manual interactions and for automation.
-                                 """);
+        var intro2 = BookTextPageModel.builder().withText(this.context().pageText()).build();
+        this.add(this.context().pageText(), """
+                By adhering to this principle, we can create a modular system that allows for greater flexibility and efficiency in our work.
+                \\
+                \\
+                Further, all apparatus follow a standardized interaction pattern that makes it easier to use them both for manual interactions and for automation.
+                         """);
 
         this.context().page("manual_interaction");
-        var manualInteraction = BookTextPageModel.builder()
-                .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+        var manualInteraction = BookTextPageModel.builder().withTitle(this.context().pageTitle()).withText(this.context().pageText()).build();
         this.add(this.context().pageTitle(), "Manual Interaction");
-        this.add(this.context().pageText(),
-                """
-                        To interact with an apparatus, approach it and right-click on it.
-                        \\
-                        \\
-                        **Taking Output Items**\\
-                        If you have an empty hand, the machine will first try to take the contents of its output slot and place them in your inventory.
-                                    """);
+        this.add(this.context().pageText(), """
+                To interact with an apparatus, approach it and right-click on it.
+                \\
+                \\
+                **Taking Output Items**\\
+                If you have an empty hand, the machine will first try to take the contents of its output slot and place them in your inventory.
+                            """);
 
         this.context().page("manual_interaction2");
-        var manualInteraction2 = BookTextPageModel.builder()
-                .withText(this.context().pageText())
-                .build();
-        this.add(this.context().pageText(),
-                """
-                        **Taking Input Items**\\
-                        If there are no output items, it will instead try to place the contents of its input slot into your inventory, effectively emptying it.
-                        \\
-                        \\
-                        **Inserting Items**\\
-                        If you have an item in your hand, the apparatus will automatically try to insert it into the input slot.
-                                    """);
+        var manualInteraction2 = BookTextPageModel.builder().withText(this.context().pageText()).build();
+        this.add(this.context().pageText(), """
+                **Taking Input Items**\\
+                If there are no output items, it will instead try to place the contents of its input slot into your inventory, effectively emptying it.
+                \\
+                \\
+                **Inserting Items**\\
+                If you have an item in your hand, the apparatus will automatically try to insert it into the input slot.
+                            """);
 
         this.context().page("fluid_interaction");
-        var fluidInteraction = BookTextPageModel.builder()
-                .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+        var fluidInteraction = BookTextPageModel.builder().withTitle(this.context().pageTitle()).withText(this.context().pageText()).build();
         this.add(this.context().pageTitle(), "Fluids");
-        this.add(this.context().pageText(),
-                """
-                        If you click on an apparatus with a filled fluid container in your hand, it will try to empty the container into the device.
-                        \\
-                        \\
-                        If you click on an apparatus with an empty fluid container in your hand, it will instead try to fill the container from the device.
-                                    """);
+        this.add(this.context().pageText(), """
+                If you click on an apparatus with a filled fluid container in your hand, it will try to empty the container into the device.
+                \\
+                \\
+                If you click on an apparatus with an empty fluid container in your hand, it will instead try to fill the container from the device.
+                            """);
 
         this.context().page("automatic_interaction");
-        var automaticInteraction = BookTextPageModel.builder()
-                .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+        var automaticInteraction = BookTextPageModel.builder().withTitle(this.context().pageTitle()).withText(this.context().pageText()).build();
 
         this.add(this.context().pageTitle(), "Automatic Interaction");
-        this.add(this.context().pageText(),
-                """
-                        Automatic interactions also use a standardized pattern.
-                        \\
-                        \\
-                        **Input** slots can be accessed from the **top**, while **output** slots are available at the **bottom**.\\
-                        \\
-                        A **combined inventory** can be found at the horizontal **sides**.
-                                  """);
+        this.add(this.context().pageText(), """
+                Automatic interactions also use a standardized pattern.
+                \\
+                \\
+                **Input** slots can be accessed from the **top**, while **output** slots are available at the **bottom**.\\
+                \\
+                A **combined inventory** can be found at the horizontal **sides**.
+                          """);
 
 
-        return BookEntryModel.builder()
-                .withId(Theurgy.loc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
-                .withDescription(this.context().entryDescription())
-                .withIcon(BlockRegistry.PYROMANTIC_BRAZIER.get())
-                .withLocation(this.entryMap().get(location))
-                .withEntryBackground(EntryBackground.DEFAULT)
-                .withPages(
-                        intro,
-                        intro2,
-                        manualInteraction,
-                        manualInteraction2,
-                        fluidInteraction,
-                        automaticInteraction
-                );
+        return this.entry(location).withIcon(BlockRegistry.PYROMANTIC_BRAZIER.get())
+
+                .withEntryBackground(EntryBackground.DEFAULT).withPages(intro, intro2, manualInteraction, manualInteraction2, fluidInteraction, automaticInteraction);
     }
 
-    private BookEntryModel.Builder spagyricsEntry(char location) {
+    private BookEntryModel spagyricsEntry(char location) {
         this.context().entry("spagyrics");
         this.add(this.context().entryName(), "Spagyrics");
         this.add(this.context().entryDescription(), "Mastery over Matter");
 
         this.context().page("intro");
-        var intro = BookTextPageModel.builder()
-                .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+        var intro = BookTextPageModel.builder().withTitle(this.context().pageTitle()).withText(this.context().pageText()).build();
         this.add(this.context().pageTitle(), "Spagyrics");
-        this.add(this.context().pageText(),
-                """
-                        While divination rods are a useful tool to obtain *more* materials, they rely on the natural abundance of such materials.
-                        \\
-                        \\
-                        Spagyrics pursue the goal of *creating* materials out of other, possibly more abundant, materials.""");
+        this.add(this.context().pageText(), """
+                While divination rods are a useful tool to obtain *more* materials, they rely on the natural abundance of such materials.
+                \\
+                \\
+                Spagyrics pursue the goal of *creating* materials out of other, possibly more abundant, materials.""");
 
         this.context().page("intro2");
-        var intro2 = BookTextPageModel.builder()
-                .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+        var intro2 = BookTextPageModel.builder().withTitle(this.context().pageTitle()).withText(this.context().pageText()).build();
         this.add(this.context().pageTitle(), "Learn More");
-        this.add(this.context().pageText(),
-                """
-                        Open the Spagyrics Category to learn more about the various required alchemical processes.
-                        """);
+        this.add(this.context().pageText(), """
+                Open the Spagyrics Category to learn more about the various required alchemical processes.
+                """);
 
-        return BookEntryModel.builder()
-                .withId(Theurgy.loc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
-                .withDescription(this.context().entryDescription())
-                .withIcon(BlockRegistry.CALCINATION_OVEN.get())
-                .withLocation(this.entryMap().get(location))
-                .withEntryBackground(EntryBackground.DEFAULT)
-                .withPages(
-                        intro,
-                        intro2
-                );
+        return this.entry(location).withIcon(BlockRegistry.CALCINATION_OVEN.get())
+
+                .withEntryBackground(EntryBackground.DEFAULT).withPages(intro, intro2);
     }
 
-    private BookEntryModel.Builder spagyricsLinkEntry(char location) {
+    private BookEntryModel spagyricsLinkEntry(char location) {
         this.context().entry("spagyrics_link");
         this.add(this.context().entryName(), "Spagyrics");
         this.add(this.context().entryDescription(), "View the Spagyrics Category");
 
-        return BookEntryModel.builder()
-                .withId(Theurgy.loc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
-                .withDescription(this.context().entryDescription())
-                .withIcon(BlockRegistry.CALCINATION_OVEN.get())
-                .withLocation(this.entryMap().get(location))
-                .withCategoryToOpen(Theurgy.loc(SpagyricsCategoryProvider.CATEGORY_ID))
-                .withEntryBackground(EntryBackground.LINK_TO_CATEGORY);
+        return this.entry(location).withIcon(BlockRegistry.CALCINATION_OVEN.get())
+
+                .withCategoryToOpen(Theurgy.loc(SpagyricsCategoryProvider.CATEGORY_ID)).withEntryBackground(EntryBackground.LINK_TO_CATEGORY);
     }
 
 

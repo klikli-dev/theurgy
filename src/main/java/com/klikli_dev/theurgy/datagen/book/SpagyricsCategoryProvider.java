@@ -40,54 +40,47 @@ public class SpagyricsCategoryProvider extends CategoryProvider {
     }
 
     @Override
-    protected BookCategoryModel generateCategory() {
-        this.add(this.context().categoryName(), "Spagyrics");
+    protected void generateEntries() {
 
-
-        var introEntry = this.makeIntroEntry('i');
-        var principlesEntry = this.makePrinciplesEntry('p');
+        var introEntry = this.add(this.makeIntroEntry('i'));
+        var principlesEntry = this.add(this.makePrinciplesEntry('p'));
         principlesEntry.withParent(introEntry);
 
-        var pyromanticBrazierEntry = this.makePyromanticBrazierEntry('b');
+        var pyromanticBrazierEntry = this.add(this.makePyromanticBrazierEntry('b'));
         pyromanticBrazierEntry.withParent(principlesEntry);
 
-        var calcinationOvenEntry = this.makeCalcinationOvenEntry('c');
+        var calcinationOvenEntry = this.add(this.makeCalcinationOvenEntry('c'));
         calcinationOvenEntry.withParent(pyromanticBrazierEntry);
 
-        var solventEntry = this.makeSolventsEntry('s');
+        var solventEntry = this.add(this.makeSolventsEntry('s'));
         solventEntry.withParent(pyromanticBrazierEntry);
 
-        var liquefactionCauldronEntry = this.makeLiquefactionCauldronEntry('l');
+        var liquefactionCauldronEntry = this.add(this.makeLiquefactionCauldronEntry('l'));
         liquefactionCauldronEntry.withParent(solventEntry);
 
-        var distillerEntry = this.makeDistillerEntry('d');
+        var distillerEntry = this.add(this.makeDistillerEntry('d'));
         distillerEntry.withParent(pyromanticBrazierEntry);
 
-        var incubatorEntry = this.makeIncubatorEntry('r');
+        var incubatorEntry = this.add(this.makeIncubatorEntry('r'));
         incubatorEntry.withParent(calcinationOvenEntry);
         incubatorEntry.withParent(liquefactionCauldronEntry);
         incubatorEntry.withParent(distillerEntry);
+    }
+
+    @Override
+    protected BookCategoryModel generateCategory() {
+        this.add(this.context().categoryName(), "Spagyrics");
 
         return BookCategoryModel.create(
                         Theurgy.loc(this.context().categoryId()),
                         this.context().categoryName()
                 )
                 .withBackground(Theurgy.loc("textures/gui/book/bg_nightsky2.png"))
-                .withIcon(ItemRegistry.CALCINATION_OVEN.get())
-                .withEntries(
-                        introEntry.build(),
-                        principlesEntry.build(),
-                        pyromanticBrazierEntry.build(),
-                        calcinationOvenEntry.build(),
-                        solventEntry.build(),
-                        liquefactionCauldronEntry.build(),
-                        distillerEntry.build(),
-                        incubatorEntry.build()
-                );
+                .withIcon(ItemRegistry.CALCINATION_OVEN.get());
     }
 
 
-    private BookEntryModel.Builder makeIntroEntry(char location) {
+    private BookEntryModel makeIntroEntry(char location) {
         this.context().entry("intro");
         this.add(this.context().entryName(), "Spagyrics");
         this.add(this.context().entryDescription(), "Power over the Three Principles");
@@ -114,12 +107,8 @@ public class SpagyricsCategoryProvider extends CategoryProvider {
                         The inquisitive mind may ask: "Why would one want to do that?". The answer lies in the promise of total control over all aspects of matter, including the ability to create any type of matter from any other type.
                         """);
 
-        return BookEntryModel.builder()
-                .withId(Theurgy.loc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
-                .withDescription(this.context().entryDescription())
+        return this.entry(location)
                 .withIcon(ItemRegistry.CALCINATION_OVEN.get())
-                .withLocation(this.entryMap().get(location))
                 .withEntryBackground(EntryBackground.CATEGORY_START)
                 .withPages(
                         intro,
@@ -127,7 +116,7 @@ public class SpagyricsCategoryProvider extends CategoryProvider {
                 );
     }
 
-    private BookEntryModel.Builder makePrinciplesEntry(char location) {
+    private BookEntryModel makePrinciplesEntry(char location) {
         this.context().entry("principles");
         this.add(this.context().entryName(), "The Three Principles");
         this.add(this.context().entryDescription(), "An Introduction to Alchemical Elements");
@@ -182,12 +171,8 @@ public class SpagyricsCategoryProvider extends CategoryProvider {
                         [#]($PURPLE)Alchemical Mercury[#]() is the **Energy** or Life Force of a thing. It is the most elusive of the three principles, and enables the other two principles to function.
                         """);
 
-        return BookEntryModel.builder()
-                .withId(Theurgy.loc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
-                .withDescription(this.context().entryDescription())
+        return this.entry(location)
                 .withIcon(ItemRegistry.MERCURY_CRYSTAL.get())
-                .withLocation(this.entryMap().get(location))
                 .withEntryBackground(EntryBackground.DEFAULT)
                 .withPages(
                         intro,
@@ -197,7 +182,7 @@ public class SpagyricsCategoryProvider extends CategoryProvider {
                 );
     }
 
-    private BookEntryModel.Builder makePyromanticBrazierEntry(char location) {
+    private BookEntryModel makePyromanticBrazierEntry(char location) {
         this.context().entry("pyromantic_brazier");
         this.add(this.context().entryName(), "Pyromantic Brazier");
         this.add(this.context().entryDescription(), "Heating your Alchemical Devices");
@@ -242,12 +227,8 @@ public class SpagyricsCategoryProvider extends CategoryProvider {
                 .build();
         //no text
 
-        return BookEntryModel.builder()
-                .withId(Theurgy.loc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
-                .withDescription(this.context().entryDescription())
+        return this.entry(location)
                 .withIcon(ItemRegistry.PYROMANTIC_BRAZIER.get())
-                .withLocation(this.entryMap().get(location))
                 .withEntryBackground(EntryBackground.DEFAULT)
                 .withPages(
                         intro,
@@ -256,7 +237,7 @@ public class SpagyricsCategoryProvider extends CategoryProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeCalcinationOvenEntry(char location) {
+    private BookEntryModel makeCalcinationOvenEntry(char location) {
         this.context().entry("calcination_oven");
         this.add(this.context().entryName(), "Calcination Oven");
         this.add(this.context().entryDescription(), "Making Salt");
@@ -328,12 +309,8 @@ public class SpagyricsCategoryProvider extends CategoryProvider {
                 this.itemLink(ItemRegistry.CALCINATION_OVEN.get())
         );
 
-        return BookEntryModel.builder()
-                .withId(Theurgy.loc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
-                .withDescription(this.context().entryDescription())
+        return this.entry(location)
                 .withIcon(ItemRegistry.CALCINATION_OVEN.get())
-                .withLocation(this.entryMap().get(location))
                 .withEntryBackground(EntryBackground.DEFAULT)
                 .withPages(
                         intro,
@@ -341,11 +318,11 @@ public class SpagyricsCategoryProvider extends CategoryProvider {
                         usage,
                         recipe,
 //                        recipeOre
-working
+                        working
                 );
     }
 
-    private BookEntryModel.Builder makeSolventsEntry(char location) {
+    private BookEntryModel makeSolventsEntry(char location) {
         this.context().entry("solvents");
         this.add(this.context().entryName(), "Solvents");
         this.add(this.context().entryDescription(), "Solving all your problems?");
@@ -453,12 +430,8 @@ working
         this.add(this.context().pageTitle() + ".2", "... using Crystal");
         //no text
 
-        return BookEntryModel.builder()
-                .withId(Theurgy.loc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
-                .withDescription(this.context().entryDescription())
+        return this.entry(location)
                 .withIcon(ItemRegistry.SAL_AMMONIAC_TANK.get())
-                .withLocation(this.entryMap().get(location))
                 .withEntryBackground(EntryBackground.DEFAULT)
                 .withPages(
                         intro,
@@ -473,7 +446,7 @@ working
                 );
     }
 
-    private BookEntryModel.Builder makeLiquefactionCauldronEntry(char location) {
+    private BookEntryModel makeLiquefactionCauldronEntry(char location) {
         this.context().entry("liquefaction_cauldron");
         this.add(this.context().entryName(), "Liquefaction Cauldron");
         this.add(this.context().entryDescription(), "Making Sulfur");
@@ -545,12 +518,8 @@ working
                 this.itemLink(ItemRegistry.LIQUEFACTION_CAULDRON.get())
         );
 
-        return BookEntryModel.builder()
-                .withId(Theurgy.loc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
-                .withDescription(this.context().entryDescription())
+        return this.entry(location)
                 .withIcon(ItemRegistry.LIQUEFACTION_CAULDRON.get())
-                .withLocation(this.entryMap().get(location))
                 .withEntryBackground(EntryBackground.DEFAULT)
                 .withPages(
                         intro,
@@ -562,7 +531,7 @@ working
                 );
     }
 
-    private BookEntryModel.Builder makeDistillerEntry(char location) {
+    private BookEntryModel makeDistillerEntry(char location) {
         this.context().entry("distiller");
         this.add(this.context().entryName(), "Distiller");
         this.add(this.context().entryDescription(), "Making Mercury");
@@ -634,12 +603,8 @@ working
                 this.itemLink(ItemRegistry.DISTILLER.get())
         );
 
-        return BookEntryModel.builder()
-                .withId(Theurgy.loc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
-                .withDescription(this.context().entryDescription())
+        return this.entry(location)
                 .withIcon(ItemRegistry.DISTILLER.get())
-                .withLocation(this.entryMap().get(location))
                 .withEntryBackground(EntryBackground.DEFAULT)
                 .withPages(
                         intro,
@@ -651,7 +616,7 @@ working
                 );
     }
 
-    private BookEntryModel.Builder makeIncubatorEntry(char location) {
+    private BookEntryModel makeIncubatorEntry(char location) {
         this.context().entry("incubator");
         this.add(this.context().entryName(), "Incubator");
         this.add(this.context().entryDescription(), "Making Matter");
@@ -738,12 +703,8 @@ working
                 this.itemLink(ItemRegistry.INCUBATOR.get())
         );
 
-        return BookEntryModel.builder()
-                .withId(Theurgy.loc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
-                .withDescription(this.context().entryDescription())
+        return this.entry(location)
                 .withIcon(ItemRegistry.INCUBATOR.get())
-                .withLocation(this.entryMap().get(location))
                 .withEntryBackground(EntryBackground.DEFAULT)
                 .withPages(
                         intro,

@@ -12,7 +12,6 @@ import com.klikli_dev.modonomicon.api.datagen.book.BookCategoryModel;
 import com.klikli_dev.modonomicon.api.datagen.book.BookEntryModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
-import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.registry.SaltRegistry;
 import net.minecraft.world.item.Items;
@@ -38,11 +37,16 @@ public class OreRefiningEntryProvider extends CategoryProvider {
     }
 
     @Override
+    protected void generateEntries() {
+        throw new UnsupportedOperationException("This is a dummy provider to help generate entries, it should not be used to generate a Category.");
+    }
+
+    @Override
     protected BookCategoryModel generateCategory() {
         throw new UnsupportedOperationException("This is a dummy provider to help generate entries, it should not be used to generate a Category.");
     }
 
-    public BookEntryModel.Builder aboutOreRefiningEntry(char location) {
+    public BookEntryModel aboutOreRefiningEntry(char location) {
         this.context().entry("about_ore_refining");
         this.add(this.context().entryName(), "Ore Refining");
         this.add(this.context().entryDescription(), "Triple your ore yield - at a cost!");
@@ -157,12 +161,8 @@ public class OreRefiningEntryProvider extends CategoryProvider {
                         The next entries will guide you through the process of obtaining all the materials and creating your iron ingots.
                         """);
 
-        return BookEntryModel.builder()
-                .withId(Theurgy.loc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
-                .withDescription(this.context().entryDescription())
+        return this.entry(location)
                 .withIcon(Items.IRON_ORE)
-                .withLocation(this.entryMap().get(location))
                 .withEntryBackground(EntryBackground.DEFAULT)
                 .withPages(
                         intro,
@@ -176,7 +176,7 @@ public class OreRefiningEntryProvider extends CategoryProvider {
                 );
     }
 
-    public BookEntryModel.Builder neededApparatusEntry(char location) {
+    public BookEntryModel neededApparatusEntry(char location) {
         this.context().entry("needed_apparatus");
         this.add(this.context().entryName(), "Required Apparatus");
         this.add(this.context().entryDescription(), "Tools for Refinement");
@@ -290,12 +290,8 @@ public class OreRefiningEntryProvider extends CategoryProvider {
                          """
         );
 
-        return BookEntryModel.builder()
-                .withId(Theurgy.loc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
-                .withDescription(this.context().entryDescription())
+        return this.entry(location)
                 .withIcon(ItemRegistry.DISTILLER.get())
-                .withLocation(this.entryMap().get(location))
                 .withEntryBackground(EntryBackground.DEFAULT)
                 .withPages(
                         intro,
@@ -310,7 +306,7 @@ public class OreRefiningEntryProvider extends CategoryProvider {
                 );
     }
 
-    public BookEntryModel.Builder createSolventEntry(char location) {
+    public BookEntryModel createSolventEntry(char location) {
         this.context().entry("create_solvent");
         this.add(this.context().entryName(), "Accumulating Solvent");
         this.add(this.context().entryDescription(), "Obtaining Sal Ammoniac - they key to Sulfur Extraction");
@@ -371,12 +367,13 @@ public class OreRefiningEntryProvider extends CategoryProvider {
                 this.itemLink(ItemRegistry.SAL_AMMONIAC_BUCKET.get())
         );
 
-        return this.entry(location, ItemRegistry.SAL_AMMONIAC_BUCKET.get()).withPages(
-                intro,
-                step1,
-                step2,
-                step3
-        );
+        return this.entry(location, ItemRegistry.SAL_AMMONIAC_BUCKET.get())
+                .withPages(
+                        intro,
+                        step1,
+                        step2,
+                        step3
+                );
     }
 
 }

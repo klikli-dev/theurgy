@@ -1,0 +1,54 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "theurgy:getting_started",
+  "description": "book.theurgy.the_hermetica.getting_started.create_mercury.description",
+  "hide_while_locked": false,
+  "icon": "theurgy:mercury_shard",
+  "name": "book.theurgy.the_hermetica.getting_started.create_mercury.name",
+  "pages": [
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "item": {
+        "item": "theurgy:mercury_shard"
+      },
+      "text": "book.theurgy.the_hermetica.getting_started.create_mercury.intro.text",
+      "title": ""
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.getting_started.create_mercury.step1.text",
+      "title": "book.theurgy.the_hermetica.getting_started.create_mercury.step1.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.getting_started.create_mercury.step2.text",
+      "title": "book.theurgy.the_hermetica.getting_started.create_mercury.step2.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.getting_started.create_mercury.step3.text",
+      "title": "book.theurgy.the_hermetica.getting_started.create_mercury.step3.title",
+      "use_markdown_in_title": false
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "theurgy:getting_started/needed_apparatus",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "x": 7,
+  "y": 5
+}

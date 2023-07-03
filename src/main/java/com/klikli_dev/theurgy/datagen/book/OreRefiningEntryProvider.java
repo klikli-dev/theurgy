@@ -544,4 +544,77 @@ public class OreRefiningEntryProvider extends CategoryProvider {
                         step3
                 );
     }
+
+    public BookEntryModel createMercuryEntry(char location) {
+        this.context().entry("create_mercury");
+        this.add(this.context().entryName(), "Extracting Mercury");
+        this.add(this.context().entryDescription(), "Obtaining Mercury - the \"Spirit\"");
+
+        this.context().page("intro");
+        var intro = BookSpotlightPageModel.builder()
+                .withItem(Ingredient.of(ItemRegistry.MERCURY_SHARD.get()))
+                .withText(this.context().pageText())
+                .build();
+
+        this.add(this.context().pageText(),
+                """
+                        Mercury is the spirit, or energy, contained within matter. Like Salt, it is needed to create items from Alchemical Sulfur. Almost all items yield Mercury, but the more valuable and the more refined the item, the more mercury they will yield.
+                        """
+        );
+
+        this.context().page("step1");
+        var step1 = BookTextPageModel.builder()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
+                .build();
+
+        this.add(this.context().pageTitle(), "Distilling Mercury");
+        this.add(this.context().pageText(),
+                """
+                        Right-click the {0} with any mercury-yielding item, such as Crops, Food, Ores, Raw Metals, but also Stone, Sand, Glass, ...\\
+                        For low-value items you may need to add multiple items at once to obtain even one {1}.
+                         """,
+                this.itemLink(ItemRegistry.DISTILLER.get()),
+                this.itemLink(ItemRegistry.MERCURY_SHARD.get())
+        );
+
+        this.context().page("step2");
+        var step2 = BookTextPageModel.builder()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
+                .build();
+
+        this.add(this.context().pageTitle(), "Providing Heat");
+        this.add(this.context().pageText(),
+                """
+                        Now add fuel, such as Coal, to the {0} below the {1} to heat it up.
+                        """,
+                this.itemLink(ItemRegistry.PYROMANTIC_BRAZIER.get()),
+                this.itemLink(ItemRegistry.DISTILLER.get())
+        );
+
+        this.context().page("step3");
+        var step3 = BookTextPageModel.builder()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
+                .build();
+
+        this.add(this.context().pageTitle(), "Obtaining the Mercury");
+        this.add(this.context().pageText(),
+                """
+                        After a while some mercury shards will have been created, you can right-click the {0} with an empty hand to obtain {1}.
+                        """,
+                this.itemLink(ItemRegistry.DISTILLER.get()),
+                this.itemLink(ItemRegistry.MERCURY_SHARD.get())
+        );
+
+
+        return this.entry(location, ItemRegistry.MERCURY_SHARD.get())
+                .withPages(
+                        intro,
+                        step1,
+                        step2,
+                        step3
+                );
+    }
 }

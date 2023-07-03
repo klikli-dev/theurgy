@@ -73,7 +73,7 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
         var createSolvent = this.add(ore.createSolventEntry('ő'));
         var createSulfur = this.add(ore.createSulfurEntry('ö'));
         var createSalt = this.add(ore.createSaltEntry('ô'));
-        //ò -> obtain mercury -> explain that here we use any material as source
+        var createMercury = this.add(ore.createMercuryEntry('ò'));
         //õ -> incubation -> maybe different bg?
 
         //links and conditions
@@ -154,6 +154,7 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
         createSolvent.withParent(neededApparatus);
         createSulfur.withParent(createSolvent);
         createSalt.withParent(neededApparatus);
+        createMercury.withParent(neededApparatus);
 
         //TODO: Conditions
         //  amethyst entry should NOT depend on spagyrics -> hence not on abundant sulfur rod

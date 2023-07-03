@@ -5,15 +5,15 @@
       "type": "forge:not",
       "value": {
         "type": "forge:tag_empty",
-        "tag": "forge:sand"
+        "tag": "minecraft:leaves"
       }
     }
   ],
   "distillation_time": 200,
   "ingredient": {
-    "tag": "forge:sand"
+    "tag": "minecraft:leaves"
   },
-  "ingredient_count": 15,
+  "ingredient_count": 5,
   "result": {
     "count": 1,
     "item": "theurgy:mercury_shard"

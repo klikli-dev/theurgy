@@ -71,9 +71,8 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
         var aboutOreRefining = this.add(ore.aboutOreRefiningEntry('o'));
         var neededApparatus = this.add(ore.neededApparatusEntry('ó'));
         var createSolvent = this.add(ore.createSolventEntry('ő'));
-        //ö -> obtain sulfur -> explain that here the duplication happens
-        //      explain filling the cauldron, etc
-        //ô -> obtain salt -> explain that here we use other ore as source
+        var createSulfur = this.add(ore.createSulfurEntry('ö'));
+        var createSalt = this.add(ore.createSaltEntry('ô'));
         //ò -> obtain mercury -> explain that here we use any material as source
         //õ -> incubation -> maybe different bg?
 
@@ -152,6 +151,9 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
 
         aboutOreRefining.withParent(spagyricsLink);
         neededApparatus.withParent(aboutOreRefining);
+        createSolvent.withParent(neededApparatus);
+        createSulfur.withParent(createSolvent);
+        createSalt.withParent(neededApparatus);
 
         //TODO: Conditions
         //  amethyst entry should NOT depend on spagyrics -> hence not on abundant sulfur rod

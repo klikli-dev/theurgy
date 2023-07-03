@@ -1,0 +1,54 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "theurgy:getting_started",
+  "description": "book.theurgy.the_hermetica.getting_started.create_salt.description",
+  "hide_while_locked": false,
+  "icon": "theurgy:alchemical_salt_mineral",
+  "name": "book.theurgy.the_hermetica.getting_started.create_salt.name",
+  "pages": [
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "item": {
+        "item": "theurgy:alchemical_salt_mineral"
+      },
+      "text": "book.theurgy.the_hermetica.getting_started.create_salt.intro.text",
+      "title": ""
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.getting_started.create_salt.step1.text",
+      "title": "book.theurgy.the_hermetica.getting_started.create_salt.step1.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.getting_started.create_salt.step2.text",
+      "title": "book.theurgy.the_hermetica.getting_started.create_salt.step2.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.getting_started.create_salt.step3.text",
+      "title": "book.theurgy.the_hermetica.getting_started.create_salt.step3.title",
+      "use_markdown_in_title": false
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "theurgy:getting_started/needed_apparatus",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "x": 9,
+  "y": 3
+}

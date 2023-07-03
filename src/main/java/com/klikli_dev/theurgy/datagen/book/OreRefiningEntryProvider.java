@@ -14,6 +14,7 @@ import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.registry.SaltRegistry;
+import com.klikli_dev.theurgy.registry.SulfurRegistry;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 
@@ -53,7 +54,7 @@ public class OreRefiningEntryProvider extends CategoryProvider {
 
         this.context().page("intro");
         var intro = BookSpotlightPageModel.builder()
-                .withItem(Ingredient.of(Items.IRON_ORE))
+                .withItem(Ingredient.of(Items.RAW_IRON))
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
                 .build();
@@ -74,7 +75,7 @@ public class OreRefiningEntryProvider extends CategoryProvider {
         this.add(this.context().pageTitle(), "Spagyrics for Refining");
         this.add(this.context().pageText(),
                 """
-                        The easiest application of Spagyrics is the refining of ores. The process of smelting ores in a furnace is wasteful, as it only yields a single ingot per ore, losing a lot of the precious raw materials in the process. Alchemists can extract even the last iota of value from ores, but the process is somewhat more complex.
+                        The easiest application of Spagyrics is the refining of ores and raw metals. The process of smelting ores in a furnace is wasteful, as it only yields a single ingot per ore, losing a lot of the precious raw materials in the process. Alchemists can extract even the last iota of value from ores, but the process is somewhat more complex.
                         """);
 
         this.context().page("overview");
@@ -85,7 +86,7 @@ public class OreRefiningEntryProvider extends CategoryProvider {
         this.add(this.context().pageTitle(), "The Process");
         this.add(this.context().pageText(),
                 """
-                        To refine an Ore you first need to {0} it, which will yield multiple Ore Sulfur. Additionally you need to obtain multiple heaps of {1} to provide a body for this multiplied Sulfur, and some {2} to provide the mercury for the soul of the resulting refined ingots.
+                        To refine an Ore or Raw Metal you first need to {0} it, which will yield multiple Ore Sulfur. Additionally you need to obtain multiple heaps of {1} to provide a body for this multiplied Sulfur, and some {2} to provide the mercury for the soul of the resulting refined ingots.
                             """,
                 this.entryLink("liquefy", SpagyricsCategoryProvider.CATEGORY_ID, "liquefaction_cauldron"),
                 this.itemLink("Mineral Salt", SaltRegistry.MINERAL.get()),
@@ -162,7 +163,7 @@ public class OreRefiningEntryProvider extends CategoryProvider {
                         """);
 
         return this.entry(location)
-                .withIcon(Items.IRON_ORE)
+                .withIcon(Items.RAW_IRON)
                 .withEntryBackground(EntryBackground.DEFAULT)
                 .withPages(
                         intro,
@@ -333,9 +334,10 @@ public class OreRefiningEntryProvider extends CategoryProvider {
         this.add(this.context().pageTitle(), "Filling the Accumulator");
         this.add(this.context().pageText(),
                 """
-                        {0} on a solvent tank, right-click the accumulator with water buckets (up to 10) to fill it.
+                        After placing the {0} on a {1}, right-click the {0} with water buckets (up to 10) to fill it.
                         """,
-                this.entryLink("After placing the accumulator", SpagyricsCategoryProvider.CATEGORY_ID, "solvents")
+                this.itemLink(ItemRegistry.SAL_AMMONIAC_ACCUMULATOR.get()),
+                this.itemLink(ItemRegistry.SAL_AMMONIAC_TANK.get())
         );
 
         this.context().page("step2");
@@ -347,8 +349,9 @@ public class OreRefiningEntryProvider extends CategoryProvider {
         this.add(this.context().pageTitle(), "Adding Crystals");
         this.add(this.context().pageText(),
                 """
-                        Optionally you can now right-click it with a {0} (obtained by mining). You will get Sal Ammoniac regardless, but the crystal will speed up the process significantly.
+                        Optionally you can now right-click the {0} with a {1} (obtained by mining). You will get Sal Ammoniac regardless, but the crystal will speed up the process significantly.
                         """,
+                this.itemLink(ItemRegistry.SAL_AMMONIAC_ACCUMULATOR.get()),
                 this.itemLink(ItemRegistry.SAL_AMMONIAC_CRYSTAL.get())
         );
 
@@ -362,8 +365,9 @@ public class OreRefiningEntryProvider extends CategoryProvider {
         this.add(this.context().pageTitle(), "Obtaining the Sal Ammoniac");
         this.add(this.context().pageText(),
                 """
-                        Once the tank has filled up sufficiently, you can right-click it with an empty bucket to obtain a {0}.
+                        Once the {0} has filled up sufficiently, you can right-click it with an empty bucket to obtain a {1}.
                         """,
+                this.itemLink(ItemRegistry.SAL_AMMONIAC_TANK.get()),
                 this.itemLink(ItemRegistry.SAL_AMMONIAC_BUCKET.get())
         );
 
@@ -376,4 +380,168 @@ public class OreRefiningEntryProvider extends CategoryProvider {
                 );
     }
 
+    public BookEntryModel createSulfurEntry(char location) {
+        this.context().entry("create_sulfur");
+        this.add(this.context().entryName(), "Extracting Sulfur");
+        this.add(this.context().entryDescription(), "Obtaining Sulfur - the \"Soul\"");
+
+        this.context().page("intro");
+        var intro = BookSpotlightPageModel.builder()
+                .withItem(Ingredient.of(SulfurRegistry.IRON.get()))
+                .withText(this.context().pageText())
+                .build();
+
+        this.add(this.context().pageText(),
+                """
+                        Sulfur extraction is the part of ore purification that leads to [#]($PURPLE)multiplication[#](). One Ore or Raw Metal yields multiple sulfurs, which then each can be refined into an ingot.
+                                 """
+        );
+
+        this.context().page("step1");
+        var step1 = BookTextPageModel.builder()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
+                .build();
+
+        this.add(this.context().pageTitle(), "Filling the Liquefaction Cauldron");
+        this.add(this.context().pageText(),
+                """
+                        Right-click the {0} with a {1} to fill it.
+                        """,
+                this.itemLink(ItemRegistry.LIQUEFACTION_CAULDRON.get()),
+                this.itemLink(ItemRegistry.SAL_AMMONIAC_BUCKET.get())
+        );
+
+        this.context().page("step2");
+        var step2 = BookTextPageModel.builder()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
+                .build();
+
+        this.add(this.context().pageTitle(), "Adding Raw Materials");
+        this.add(this.context().pageText(),
+                """
+                        Now right-click the {0} with the item you want to extract sulfur from, such as {1}. The item will be placed inside.
+                        """,
+                this.itemLink(ItemRegistry.LIQUEFACTION_CAULDRON.get()),
+                this.itemLink(Items.RAW_IRON)
+        );
+
+        this.context().page("step3");
+        var step3 = BookTextPageModel.builder()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
+                .build();
+
+        this.add(this.context().pageTitle(), "Providing Heat");
+        this.add(this.context().pageText(),
+                """
+                        Now add fuel, such as Coal, to the {0} below the {1} to heat it up.
+                        """,
+                this.itemLink(ItemRegistry.PYROMANTIC_BRAZIER.get()),
+                this.itemLink(ItemRegistry.LIQUEFACTION_CAULDRON.get())
+        );
+
+        this.context().page("step4");
+        var step4 = BookTextPageModel.builder()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
+                .build();
+
+        this.add(this.context().pageTitle(), "Obtaining the Sulfur");
+        this.add(this.context().pageText(),
+                """
+                        After a while some sulfur will have been extracted, you can right-click the {0} with an empty hand to obtain {1}.
+                        """,
+                this.itemLink(ItemRegistry.LIQUEFACTION_CAULDRON.get()),
+                this.itemLink("Alchemical Sulfur", SulfurRegistry.IRON.get())
+        );
+
+
+        return this.entry(location, SulfurRegistry.IRON.get())
+                .withPages(
+                        intro,
+                        step1,
+                        step2,
+                        step3,
+                        step4
+                );
+    }
+
+    public BookEntryModel createSaltEntry(char location) {
+        this.context().entry("create_salt");
+        this.add(this.context().entryName(), "Extracting Salt");
+        this.add(this.context().entryDescription(), "Obtaining Salt - the \"Body\"");
+
+        this.context().page("intro");
+        var intro = BookSpotlightPageModel.builder()
+                .withItem(Ingredient.of(SaltRegistry.MINERAL.get()))
+                .withText(this.context().pageText())
+                .build();
+
+        this.add(this.context().pageText(),
+                """
+                        Salt is needed in order to create items from Alchemical Sulfur. The type of salt needs to match the type of sulfur - for our project that involves {0} we need {1}, which covers all types of ores and metals.
+                        """,
+                this.itemLink("Iron Sulfur", SulfurRegistry.IRON.get()),
+                this.itemLink("Mineral Salt", SaltRegistry.MINERAL.get())
+        );
+
+        this.context().page("step1");
+        var step1 = BookTextPageModel.builder()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
+                .build();
+
+        this.add(this.context().pageTitle(), "Calcinating Minerals");
+        this.add(this.context().pageText(),
+                """
+                        Right-click the {0} with any Mineral such as Ores, Raw Metals or Ingots to calcinate it.
+                        One option is to use a Stack of {1}, which in turn is calcinated from Stone, Sand, Gravel, Dirt, etc.
+                        Another great source is {2}, as it is renewable.
+                        """,
+                this.itemLink(ItemRegistry.CALCINATION_OVEN.get()),
+                this.itemLink("Strata Salt", SaltRegistry.STRATA.get()),
+                this.itemLink(Items.CHARCOAL)
+        );
+
+        this.context().page("step2");
+        var step2 = BookTextPageModel.builder()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
+                .build();
+
+        this.add(this.context().pageTitle(), "Providing Heat");
+        this.add(this.context().pageText(),
+                """
+                        Now add fuel, such as Coal, to the {0} below the {1} to heat it up.
+                        """,
+                this.itemLink(ItemRegistry.PYROMANTIC_BRAZIER.get()),
+                this.itemLink(ItemRegistry.CALCINATION_OVEN.get())
+        );
+
+        this.context().page("step3");
+        var step3 = BookTextPageModel.builder()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
+                .build();
+
+        this.add(this.context().pageTitle(), "Obtaining the Salt");
+        this.add(this.context().pageText(),
+                """
+                        After a while some salt will have been created, you can right-click the {0} with an empty hand to obtain {1}.
+                        """,
+                this.itemLink(ItemRegistry.CALCINATION_OVEN.get()),
+                this.itemLink("Mineral Salt", SaltRegistry.MINERAL.get())
+        );
+
+
+        return this.entry(location, SaltRegistry.MINERAL.get())
+                .withPages(
+                        intro,
+                        step1,
+                        step2,
+                        step3
+                );
+    }
 }

@@ -227,7 +227,7 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
         this.add(this.context().pageTitle(), "Features");
         this.add(this.context().pageText(), """
                 - Divination rods to find ores
-                - Future: Ore refining (= more ingots per ore)
+                - Ore refining (= more ingots per ore/raw metal)
                 - Future: Item replication (create duplicates of items you have)
                 - Future: Item transformation (create new items from other items)
                 """);
@@ -236,6 +236,7 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
         var features2 = BookTextPageModel.builder().withTitle(this.context().pageTitle()).withText(this.context().pageText()).build();
         this.add(this.context().pageTitle(), "More Features");
         this.add(this.context().pageText(), """
+                - Future: Item Transportation
                 - Future: Weapons and Equipment
                 - Future: Devices to assist in common tasks
                 """);

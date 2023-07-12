@@ -13,7 +13,9 @@ import com.klikli_dev.modonomicon.api.datagen.book.BookEntryModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.*;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.integration.modonomicon.page.accumulation.BookAccumulationRecipePageModel;
+import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 
 public class SpagyricsCategoryProvider extends CategoryProvider {
@@ -31,7 +33,7 @@ public class SpagyricsCategoryProvider extends CategoryProvider {
                 "__________________________________",
                 "________________c_________________",
                 "__________________________________",
-                "__________i_p_b___s_l_r___________",
+                "__________i_p_b___s_l_r_o_________",
                 "__________________________________",
                 "________________d_________________",
                 "__________________________________",
@@ -65,6 +67,9 @@ public class SpagyricsCategoryProvider extends CategoryProvider {
         incubatorEntry.withParent(calcinationOvenEntry);
         incubatorEntry.withParent(liquefactionCauldronEntry);
         incubatorEntry.withParent(distillerEntry);
+
+        var oreRefiningLinkEntry = this.add(this.makeOreRefiningLinkEntry('o'));
+        oreRefiningLinkEntry.withParent(incubatorEntry);
     }
 
     @Override
@@ -717,5 +722,15 @@ public class SpagyricsCategoryProvider extends CategoryProvider {
 //                        sampleRecipe
                         working
                 );
+    }
+
+    private BookEntryModel makeOreRefiningLinkEntry(char location) {
+        this.context().entry("about_ore_refining_link");
+        this.add(this.context().entryName(), "Ore Refining");
+        this.add(this.context().entryDescription(), "Return to the Getting Started Category to learn about Ore Refining");
+
+        return this.entry(location).withIcon(Items.RAW_IRON)
+                .withCategoryToOpen(Theurgy.loc(GettingStartedCategoryProvider.CATEGORY_ID))
+                .withEntryBackground(EntryBackground.LINK_TO_CATEGORY);
     }
 }

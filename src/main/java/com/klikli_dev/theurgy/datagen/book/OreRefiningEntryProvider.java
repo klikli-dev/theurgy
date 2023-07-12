@@ -617,4 +617,80 @@ public class OreRefiningEntryProvider extends CategoryProvider {
                         step3
                 );
     }
+
+    public BookEntryModel incubationEntry(char location) {
+        this.context().entry("incubation");
+        this.add(this.context().entryName(), "Incubating Iron");
+        this.add(this.context().entryDescription(), "Creating Iron Ingots from Sulfur, Salt and Mercury");
+
+        this.context().page("intro");
+        var intro = BookTextPageModel.builder()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
+                .build();
+        this.add(this.context().pageTitle(), "Incubating Iron");
+        this.add(this.context().pageText(),
+                """
+                        The final step is to recombine the three principles into usable Iron Ingots.
+                        """
+        );
+
+        this.context().page("step1");
+        var step1 = BookTextPageModel.builder()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
+                .build();
+
+        this.add(this.context().pageTitle(), "Filling the Vessels");
+        this.add(this.context().pageText(),
+                """
+                        Right-click the {0}, {1} and {2} with the Sulfur, Salt and Mercury you obtained earlier respectively to fill them.
+                         """,
+                this.itemLink(ItemRegistry.INCUBATOR_SULFUR_VESSEL.get()),
+                this.itemLink(ItemRegistry.INCUBATOR_SALT_VESSEL.get()),
+                this.itemLink(ItemRegistry.INCUBATOR_MERCURY_VESSEL.get())
+        );
+
+        this.context().page("step2");
+        var step2 = BookTextPageModel.builder()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
+                .build();
+
+        this.add(this.context().pageTitle(), "Providing Heat");
+        this.add(this.context().pageText(),
+                """
+                        Now add fuel, such as Coal, to the {0} below the {1} to heat it up.
+                        """,
+                this.itemLink(ItemRegistry.PYROMANTIC_BRAZIER.get()),
+                this.itemLink(ItemRegistry.INCUBATOR.get())
+        );
+
+        this.context().page("step3");
+        var step3 = BookTextPageModel.builder()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
+                .build();
+
+        this.add(this.context().pageTitle(), "Obtaining the Incubated Item");
+        this.add(this.context().pageText(),
+                """
+                        After a while the input items will have been consumed and incubated into the result, you can right-click the {0} with an empty hand to obtain 3x {1}.
+                        \\
+                        \\
+                        **Congratulations, you created 3 Ingots from one Raw Metal!**
+                        """,
+                this.itemLink(ItemRegistry.INCUBATOR.get()),
+                this.itemLink(Items.IRON_INGOT)
+        );
+
+
+        return this.entry(location, Items.IRON_INGOT)
+                .withPages(
+                        intro,
+                        step1,
+                        step2,
+                        step3
+                );
+    }
 }

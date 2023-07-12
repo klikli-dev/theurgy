@@ -74,7 +74,7 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
         var createSulfur = this.add(ore.createSulfurEntry('ö'));
         var createSalt = this.add(ore.createSaltEntry('ô'));
         var createMercury = this.add(ore.createMercuryEntry('ò'));
-        //õ -> incubation -> maybe different bg?
+        var incubation = this.add(ore.incubationEntry('õ'));
 
         //links and conditions
         aboutModEntry.withParent(introEntry);
@@ -155,6 +155,10 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
         createSulfur.withParent(createSolvent);
         createSalt.withParent(neededApparatus);
         createMercury.withParent(neededApparatus);
+        incubation
+                .withParent(createMercury)
+                .withParent(createSalt)
+                .withParent(createSulfur);
 
         //TODO: Conditions
         //  amethyst entry should NOT depend on spagyrics -> hence not on abundant sulfur rod
@@ -350,8 +354,8 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
         this.add(this.context().entryDescription(), "View the Spagyrics Category");
 
         return this.entry(location).withIcon(BlockRegistry.CALCINATION_OVEN.get())
-
-                .withCategoryToOpen(Theurgy.loc(SpagyricsCategoryProvider.CATEGORY_ID)).withEntryBackground(EntryBackground.LINK_TO_CATEGORY);
+                .withCategoryToOpen(Theurgy.loc(SpagyricsCategoryProvider.CATEGORY_ID))
+                .withEntryBackground(EntryBackground.LINK_TO_CATEGORY);
     }
 
 

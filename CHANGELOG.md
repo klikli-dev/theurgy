@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [beta/v1.19.2-1.3.6] - 2023-07-13
+### :sparkles: New Features
+- [`eaf389e`](https://github.com/klikli-dev/theurgy/commit/eaf389e52ef8bce6d6e5953917b2e9e6f62f0680) - Include Modrinth uploads *(PR [#129](https://github.com/klikli-dev/theurgy/pull/129) by [@ColonelGerdauf](https://github.com/ColonelGerdauf))*
+
+
 ## [beta/v1.19.2-1.3.5] - 2023-06-05
 ### :sparkles: New Features
 - [`99c458a`](https://github.com/klikli-dev/theurgy/commit/99c458a2fbccb6b207f92335ca9bbe0745e05b76) - Create zh_cn.json *(PR [#115](https://github.com/klikli-dev/theurgy/pull/115) by [@Zoshsgahdnkc](https://github.com/Zoshsgahdnkc))*
@@ -115,3 +120,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [beta/v1.19.2-1.3.3]: https://github.com/klikli-dev/theurgy/compare/beta/v1.19.2-1.3.0...beta/v1.19.2-1.3.3
 [beta/v1.19.2-1.3.4]: https://github.com/klikli-dev/theurgy/compare/beta/v1.19.2-1.3.3...beta/v1.19.2-1.3.4
 [beta/v1.19.2-1.3.5]: https://github.com/klikli-dev/theurgy/compare/beta/v1.19.2-1.3.4...beta/v1.19.2-1.3.5
+[beta/v1.19.2-1.3.6]: https://github.com/klikli-dev/theurgy/compare/beta/v1.19.2-1.3.5...beta/v1.19.2-1.3.6

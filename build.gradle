@@ -254,8 +254,8 @@ publishing {
                 url = 'https://github.com/klikli-dev/theurgy'
                 licenses {
                     license {
-                        name = 'MIT License'
-                        url = 'https://raw.githubusercontent.com/klikli-dev/theurgy/version/1.19/LICENSES/MIT.txt'
+                        name = 'MIT AND CC-BY-4.0'
+                        url = 'https://github.com/klikli-dev/theurgy#licensing'
                     }
                 }
                 scm {

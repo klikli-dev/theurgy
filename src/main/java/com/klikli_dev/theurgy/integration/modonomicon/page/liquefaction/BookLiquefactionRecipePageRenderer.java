@@ -8,11 +8,14 @@ package com.klikli_dev.theurgy.integration.modonomicon.page.liquefaction;
 
 import com.klikli_dev.modonomicon.client.gui.book.BookContentScreen;
 import com.klikli_dev.modonomicon.client.render.page.BookRecipePageRenderer;
+import com.klikli_dev.modonomicon.fluid.FluidHolder;
+import com.klikli_dev.modonomicon.fluid.ForgeFluidHolder;
 import com.klikli_dev.theurgy.content.gui.GuiTextures;
 import com.klikli_dev.theurgy.content.recipe.LiquefactionRecipe;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraftforge.fluids.FluidType;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class BookLiquefactionRecipePageRenderer extends BookRecipePageRenderer<LiquefactionRecipe, BookLiquefactionRecipePage> {
@@ -41,7 +44,7 @@ public class BookLiquefactionRecipePageRenderer extends BookRecipePageRenderer<L
         }
 
         GuiTextures.MODONOMICON_SLOT.render(guiGraphics, recipeX, recipeY); //render the fluid input slot
-        this.parentScreen.renderFluidStacks(guiGraphics, recipeX + 2, recipeY + 2, mouseX, mouseY, List.of(recipe.getSolvent().getFluids()), FluidType.BUCKET_VOLUME);
+        this.parentScreen.renderFluidStacks(guiGraphics, recipeX + 2, recipeY + 2, mouseX, mouseY, Arrays.stream(recipe.getSolvent().getFluids()).map(f -> (FluidHolder) new ForgeFluidHolder(f)).toList(), FluidType.BUCKET_VOLUME);
 
         GuiTextures.MODONOMICON_SLOT.render(guiGraphics, recipeX, recipeY + 24); //render the item input slot
         this.parentScreen.renderIngredient(guiGraphics, recipeX + 3, recipeY + 24 + +3, mouseX, mouseY, recipe.getIngredients().get(0));

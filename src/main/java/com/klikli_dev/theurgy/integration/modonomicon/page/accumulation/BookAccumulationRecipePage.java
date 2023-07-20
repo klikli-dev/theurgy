@@ -19,6 +19,7 @@ import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
 public class BookAccumulationRecipePage extends BookRecipePage<AccumulationRecipe> {
     public BookAccumulationRecipePage(BookTextHolder title1, ResourceLocation recipeId1, BookTextHolder title2, ResourceLocation recipeId2, BookTextHolder text, String anchor) {
@@ -43,7 +44,7 @@ public class BookAccumulationRecipePage extends BookRecipePage<AccumulationRecip
     }
 
     @Override
-    public void build(BookEntry parentEntry, int pageNum) {
+    public void build(Level level, BookEntry parentEntry, int pageNum) {
         //copy from parents parent as we won't be calling super.
         this.parentEntry = parentEntry;
         this.pageNumber = pageNum;
@@ -51,8 +52,8 @@ public class BookAccumulationRecipePage extends BookRecipePage<AccumulationRecip
 
         //copy from parent so we can use the fluid name as title, instead of the non existent recipe output.
 
-        this.recipe1 = this.loadRecipe(parentEntry, this.recipeId1);
-        this.recipe2 = this.loadRecipe(parentEntry, this.recipeId2);
+        this.recipe1 = this.loadRecipe(level, parentEntry, this.recipeId1);
+        this.recipe2 = this.loadRecipe(level, parentEntry, this.recipeId2);
 
         if (this.recipe1 == null && this.recipe2 != null) {
             this.recipe1 = this.recipe2;
@@ -84,7 +85,7 @@ public class BookAccumulationRecipePage extends BookRecipePage<AccumulationRecip
     }
 
     @Override
-    protected ItemStack getRecipeOutput(AccumulationRecipe recipe) {
+    protected ItemStack getRecipeOutput(Level level, AccumulationRecipe recipe) {
         return ItemStack.EMPTY;
     }
 

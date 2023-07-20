@@ -698,7 +698,7 @@ public class SpagyricsCategoryProvider extends CategoryProvider {
         var working = BookImagePageModel.builder()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
-                .withImages(this.modLoc("textures/gui/book/256.png")) //TODO: Hermetica: add real image
+                .withImages(this.modLoc("textures/gui/book/incubator_working.png"))
                 .build();
         this.add(this.context().pageTitle(), "Working Correctly");
         this.add(this.context().pageText(),

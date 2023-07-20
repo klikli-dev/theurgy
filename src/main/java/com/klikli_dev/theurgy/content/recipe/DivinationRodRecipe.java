@@ -61,7 +61,7 @@ public class DivinationRodRecipe extends ShapedRecipe {
 
                     var ingredientTag = CraftingHelper.getNBT(jsonObj.get("nbt"));
                     if (ingredientTag.contains(TheurgyConstants.Nbt.SULFUR_SOURCE_ID)) {
-                        sourceId =ingredientTag.getString(TheurgyConstants.Nbt.SULFUR_SOURCE_ID);
+                        sourceId = ingredientTag.getString(TheurgyConstants.Nbt.SULFUR_SOURCE_ID);
                         break;
                     }
                 }
@@ -94,7 +94,6 @@ public class DivinationRodRecipe extends ShapedRecipe {
         if (!resultTag.contains(TheurgyConstants.Nbt.Divination.LINKED_BLOCK_ID) ||
                 resultTag.getBoolean(TheurgyConstants.Nbt.Divination.LINKED_BLOCK_ID_PREVIEW_MODE)
         ) {
-            //TODO: handle tag sources
 
             //check pInv for ingredients with sulfur source id, if so, find the appropriate block id based on it and set it on the result item
             String sourceId = null;
@@ -141,7 +140,7 @@ public class DivinationRodRecipe extends ShapedRecipe {
         //forge:gems/iron
 
         //special handling for coal items as they are none of the above
-        if(sourceTag.equals("#minecraft:coals"))
+        if (sourceTag.equals("#minecraft:coals"))
             return "#forge:ores/coal";
 
         var parts = sourceTag.split(":");
@@ -163,7 +162,7 @@ public class DivinationRodRecipe extends ShapedRecipe {
         }
 
         var translatedTag = new ResourceLocation(namespace.substring(1) + ":" + translatedPath);
-        if(ForgeRegistries.BLOCKS.tags().getTag(TagKey.create(Registries.BLOCK, translatedTag)).isBound())
+        if (ForgeRegistries.BLOCKS.tags().getTag(TagKey.create(Registries.BLOCK, translatedTag)).isBound())
             return "#" + translatedTag;
 
         Theurgy.LOGGER.warn("Could not find an appropriate block tag for sulfur source ttag: " + sourceTag + ", tried tag: #" + translatedTag);

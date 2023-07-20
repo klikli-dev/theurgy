@@ -37,8 +37,6 @@ public class CalcinationOvenBEWLR extends GeoItemRenderer<CalcinationOvenBlockIt
     @Override
     public void preRender(PoseStack poseStack, CalcinationOvenBlockItem animatable, BakedGeoModel model, MultiBufferSource bufferSource, VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, float red, float green, float blue,
                           float alpha) {
-        this.withScale(0.5f);
-
         //copied from parent, but fixed to also center the model when scaling
         this.itemRenderTranslations = new Matrix4f(poseStack.last().pose());
 

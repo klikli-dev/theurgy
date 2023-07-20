@@ -86,7 +86,7 @@ public class TheurgyBlockStateProvider extends BlockStateProvider {
     protected void registerIncubator() {
         var lowerHalfModel = this.models().withExistingParent("incubator_lower", this.modLoc("block/incubator_template"))
                 //blockbench spits out garbage textures by losing the folder name so we fix them here
-                .texture("texture", this.modLoc("block/incubator"))
+                .texture("texture", this.modLoc("block/incubator_gold"))
                 .texture("particle", this.mcLoc("block/copper_block"));
 
         //we use an empty upper half model that just shows the particle texture
@@ -135,20 +135,19 @@ public class TheurgyBlockStateProvider extends BlockStateProvider {
     }
 
     protected void registerIncubatorVessels() {
-        var incubatorVessel = this.models().withExistingParent("incubator_vessel", this.modLoc("block/incubator_vessel_template"))
-                //blockbench spits out garbage textures by losing the folder name so we fix them here
-                .texture("texture", this.modLoc("block/incubator_vessel"))
-                .texture("particle", this.mcLoc("block/copper_block"));
+
+        //vessels are rendered by geckolib, so we just give a model with a particle texture
+        var incubatorVessel = this.models().getBuilder("incubator_vessel").texture("particle", "minecraft:block/copper_block");
 
         //build blockstate
         this.simpleBlock(BlockRegistry.INCUBATOR_MERCURY_VESSEL.get(), incubatorVessel);
         this.simpleBlock(BlockRegistry.INCUBATOR_SALT_VESSEL.get(), incubatorVessel);
         this.simpleBlock(BlockRegistry.INCUBATOR_SULFUR_VESSEL.get(), incubatorVessel);
 
-        //add item model
-        this.itemModels().withExistingParent("incubator_mercury_vessel", this.modLoc("block/incubator_vessel"));
-        this.itemModels().withExistingParent("incubator_salt_vessel", this.modLoc("block/incubator_vessel"));
-        this.itemModels().withExistingParent("incubator_sulfur_vessel", this.modLoc("block/incubator_vessel"));
+        //vessels need item models that allow geckolib to render
+        this.itemModels().getBuilder("incubator_mercury_vessel").parent(new ModelFile.UncheckedModelFile("builtin/entity"));
+        this.itemModels().getBuilder("incubator_salt_vessel").parent(new ModelFile.UncheckedModelFile("builtin/entity"));
+        this.itemModels().getBuilder("incubator_sulfur_vessel").parent(new ModelFile.UncheckedModelFile("builtin/entity"));
     }
 
     protected void registerLiquefactionCauldron() {

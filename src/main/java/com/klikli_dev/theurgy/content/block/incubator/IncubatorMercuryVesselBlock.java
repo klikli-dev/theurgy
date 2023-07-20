@@ -18,8 +18,10 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -27,9 +29,6 @@ import net.minecraftforge.items.wrapper.RecipeWrapper;
 import org.jetbrains.annotations.Nullable;
 
 public class IncubatorMercuryVesselBlock extends Block implements EntityBlock {
-
-    private static final VoxelShape SHAPE = Block.box(3, 0, 3, 13, 14, 13);
-
     protected BlockItemHandler blockItemHandler;
 
     public IncubatorMercuryVesselBlock(Properties pProperties) {
@@ -50,8 +49,9 @@ public class IncubatorMercuryVesselBlock extends Block implements EntityBlock {
 
     @Override
     @SuppressWarnings("deprecation")
-    public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
-        return SHAPE;
+    public RenderShape getRenderShape(BlockState pState) {
+        //Why model for the top? because then we get the particle texture from destroying it.
+        return RenderShape.ENTITYBLOCK_ANIMATED;
     }
 
     @Nullable

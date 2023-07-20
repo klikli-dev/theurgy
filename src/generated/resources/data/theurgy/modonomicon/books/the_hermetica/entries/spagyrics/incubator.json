@@ -68,7 +68,7 @@
       "anchor": "",
       "border": true,
       "images": [
-        "theurgy:textures/gui/book/256.png"
+        "theurgy:textures/gui/book/incubator_working.png"
       ],
       "text": "book.theurgy.the_hermetica.spagyrics.incubator.working.text",
       "title": "book.theurgy.the_hermetica.spagyrics.incubator.working.title"

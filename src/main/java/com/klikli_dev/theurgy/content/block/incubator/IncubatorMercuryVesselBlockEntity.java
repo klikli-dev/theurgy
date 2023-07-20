@@ -21,13 +21,16 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import software.bernie.geckolib.animatable.GeoBlockEntity;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class IncubatorMercuryVesselBlockEntity extends BlockEntity {
+public class IncubatorMercuryVesselBlockEntity extends BlockEntity implements GeoBlockEntity {
 
+    protected final AnimatableInstanceCache animatableInstanceCache = GeckoLibUtil.createInstanceCache(this);
     public IncubatorBlockEntity incubator;
-
     public ItemStackHandler inputInventory;
-
     public LazyOptional<IItemHandler> inputInventoryCapability;
 
     public IncubatorMercuryVesselBlockEntity(BlockPos pPos, BlockState pBlockState) {
@@ -61,6 +64,16 @@ public class IncubatorMercuryVesselBlockEntity extends BlockEntity {
 
     public void setIncubator(IncubatorBlockEntity incubator) {
         this.incubator = incubator;
+    }
+
+    @Override
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
+
+    }
+
+    @Override
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return this.animatableInstanceCache;
     }
 
     public class InputInventory extends ItemStackHandler {

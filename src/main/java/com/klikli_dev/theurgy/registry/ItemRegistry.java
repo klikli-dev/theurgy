@@ -9,6 +9,9 @@ package com.klikli_dev.theurgy.registry;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.content.block.calcinationoven.CalcinationOvenBlockItem;
 import com.klikli_dev.theurgy.content.block.distiller.DistillerBlockItem;
+import com.klikli_dev.theurgy.content.block.incubator.IncubatorMercuryVesselBlockItem;
+import com.klikli_dev.theurgy.content.block.incubator.IncubatorSaltVesselBlockItem;
+import com.klikli_dev.theurgy.content.block.incubator.IncubatorSulfurVesselBlockItem;
 import com.klikli_dev.theurgy.content.item.DivinationRodItem;
 import net.minecraft.world.item.*;
 import net.minecraftforge.registries.DeferredRegister;
@@ -82,7 +85,7 @@ public class ItemRegistry {
 
     //Buckets
     public static final RegistryObject<Item> SAL_AMMONIAC_BUCKET = ITEMS.register("sal_ammoniac_bucket", () -> new BucketItem(FluidRegistry.SAL_AMMONIAC, new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
-    //TODO: in the future, no attuning for higher tier rods
+
     public static final RegistryObject<Item> MERCURY_SHARD =
             ITEMS.register("mercury_shard", () -> new Item(new Item.Properties()));
 
@@ -107,11 +110,11 @@ public class ItemRegistry {
     public static final RegistryObject<BlockItem> INCUBATOR =
             ITEMS.register("incubator", () -> new BlockItem(BlockRegistry.INCUBATOR.get(), new Item.Properties()));
     public static final RegistryObject<BlockItem> INCUBATOR_MERCURY_VESSEL =
-            ITEMS.register("incubator_mercury_vessel", () -> new BlockItem(BlockRegistry.INCUBATOR_MERCURY_VESSEL.get(), new Item.Properties()));
+            ITEMS.register("incubator_mercury_vessel", () -> new IncubatorMercuryVesselBlockItem(BlockRegistry.INCUBATOR_MERCURY_VESSEL.get(), new Item.Properties()));
     public static final RegistryObject<BlockItem> INCUBATOR_SALT_VESSEL =
-            ITEMS.register("incubator_salt_vessel", () -> new BlockItem(BlockRegistry.INCUBATOR_SALT_VESSEL.get(), new Item.Properties()));
+            ITEMS.register("incubator_salt_vessel", () -> new IncubatorSaltVesselBlockItem(BlockRegistry.INCUBATOR_SALT_VESSEL.get(), new Item.Properties()));
     public static final RegistryObject<BlockItem> INCUBATOR_SULFUR_VESSEL =
-            ITEMS.register("incubator_sulfur_vessel", () -> new BlockItem(BlockRegistry.INCUBATOR_SULFUR_VESSEL.get(), new Item.Properties()));
+            ITEMS.register("incubator_sulfur_vessel", () -> new IncubatorSulfurVesselBlockItem(BlockRegistry.INCUBATOR_SULFUR_VESSEL.get(), new Item.Properties()));
     public static final RegistryObject<BlockItem> SAL_AMMONIAC_ACCUMULATOR =
             ITEMS.register("sal_ammoniac_accumulator", () -> new BlockItem(BlockRegistry.SAL_AMMONIAC_ACCUMULATOR.get(), new Item.Properties()));
     public static final RegistryObject<BlockItem> SAL_AMMONIAC_TANK =

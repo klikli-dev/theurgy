@@ -2,6 +2,6 @@
   "parent": "theurgy:block/incubator_template",
   "textures": {
     "particle": "minecraft:block/copper_block",
-    "texture": "theurgy:block/incubator"
+    "texture": "theurgy:block/incubator_gold"
   }
 }

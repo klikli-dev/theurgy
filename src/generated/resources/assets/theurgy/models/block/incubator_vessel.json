@@ -1,7 +1,5 @@
 {
-  "parent": "theurgy:block/incubator_vessel_template",
   "textures": {
-    "particle": "minecraft:block/copper_block",
-    "texture": "theurgy:block/incubator_vessel"
+    "particle": "minecraft:block/copper_block"
   }
 }

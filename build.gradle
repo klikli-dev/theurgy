@@ -145,10 +145,9 @@ dependencies {
     compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge-api:${jei_version}")
     runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
 
-    compileOnly fg.deobf("com.klikli_dev:modonomicon:${minecraft_version}-${modonomicon_version}")
-    //we build against full jar because we NEED IT ALL
-    runtimeOnly fg.deobf("com.klikli_dev:modonomicon:${minecraft_version}-${modonomicon_version}")
-
+    //modonomicon
+    compileOnly fg.deobf("com.klikli_dev:modonomicon-${minecraft_version}-common:${modonomicon_version}")
+    implementation fg.deobf("com.klikli_dev:modonomicon-${minecraft_version}-forge:${modonomicon_version}")
 }
 
 

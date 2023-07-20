@@ -40,31 +40,29 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
     }
 
     @Override
-    protected BookCategoryModel generateCategory() {
-        this.add(this.context().categoryName(), "Getting Started");
-
-        var introEntry = this.makeIntroEntry('i');
-        var aboutModEntry = this.makeAboutModEntry('a');
+    protected void generateEntries() {
+        var introEntry = this.add(this.makeIntroEntry('i'));
+        var aboutModEntry = this.add(this.makeAboutModEntry('a'));
         aboutModEntry.withParent(introEntry);
 
-        var divinationRodEntry = this.makeDivinationRodEntry('d');
+        var divinationRodEntry = this.add(this.makeDivinationRodEntry('d'));
         divinationRodEntry.withParent(introEntry);
         //TODO: higher tier div rod entries explaining how they work
+    }
+
+    @Override
+    protected BookCategoryModel generateCategory() {
+        this.add(this.context().categoryName(), "Getting Started");
 
         return BookCategoryModel.create(
                         Theurgy.loc((this.context().categoryId())),
                         this.context().categoryName()
                 )
-                .withIcon(ItemRegistry.THE_HERMETICA_ICON.get())
-                .withEntries(
-                        introEntry.build(),
-                        aboutModEntry.build(),
-                        divinationRodEntry.build()
-                );
+                .withIcon(ItemRegistry.THE_HERMETICA_ICON.get());
     }
 
 
-    private BookEntryModel.Builder makeIntroEntry(char icon) {
+    private BookEntryModel makeIntroEntry(char icon) {
         this.context().entry("intro");
         this.add(this.context().entryName(), "About this Work");
         this.add(this.context().entryDescription(), "About using The Hermetica");
@@ -95,9 +93,7 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
                         """);
 
 
-        return BookEntryModel.builder()
-                .withId(Theurgy.loc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(Theurgy.loc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withDescription(this.context().entryDescription())
                 .withIcon(ItemRegistry.THE_HERMETICA_ICON.get())
                 .withLocation(this.entryMap().get(icon))
@@ -108,7 +104,7 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeAboutModEntry(char icon) {
+    private BookEntryModel makeAboutModEntry(char icon) {
         this.context().entry("about_mod");
         this.add(this.context().entryName(), "The Art of Alchemy");
         this.add(this.context().entryDescription(), "About this Mod");
@@ -159,9 +155,7 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
                         """);
 
 
-        return BookEntryModel.builder()
-                .withId(Theurgy.loc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(Theurgy.loc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withDescription(this.context().entryDescription())
                 .withIcon(Items.NETHER_STAR)
                 .withLocation(this.entryMap().get(icon))
@@ -174,7 +168,7 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
                 );
     }
 
-    private BookEntryModel.Builder makeDivinationRodEntry(char icon) {
+    private BookEntryModel makeDivinationRodEntry(char icon) {
         this.context().entry("divination_rod");
         this.add(this.context().entryName(), "Divination Rods");
         this.add(this.context().entryDescription(), "An Introduction to Ore-Finding");
@@ -234,9 +228,7 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
                         """);
 
 
-        return BookEntryModel.builder()
-                .withId(Theurgy.loc(this.context().categoryId() + "/" + this.context().entryId()))
-                .withName(this.context().entryName())
+        return BookEntryModel.create(Theurgy.loc(this.context().categoryId() + "/" + this.context().entryId()), this.context().entryName())
                 .withDescription(this.context().entryDescription())
                 .withIcon(ItemRegistry.DIVINATION_ROD_T1.get())
                 .withLocation(this.entryMap().get(icon))

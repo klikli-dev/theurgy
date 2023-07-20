@@ -16,6 +16,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
@@ -28,6 +29,13 @@ public class SalAmmoniacTankBlock extends Block implements EntityBlock {
     public SalAmmoniacTankBlock(Properties pProperties) {
         super(pProperties);
         this.blockFluidHandler = new OneTankBlockFluidHandler();
+    }
+
+    @Override
+    @SuppressWarnings("deprecation")
+    public RenderShape getRenderShape(BlockState pState) {
+        //Why model for the top? because then we get the particle texture from destroying it.
+        return RenderShape.ENTITYBLOCK_ANIMATED;
     }
 
     @Override
@@ -58,6 +66,6 @@ public class SalAmmoniacTankBlock extends Block implements EntityBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
-        return BlockEntityRegistry.LIQUEFACTION_CAULDRON.get().create(pPos, pState);
+        return BlockEntityRegistry.SAL_AMMONIAC_TANK.get().create(pPos, pState);
     }
 }

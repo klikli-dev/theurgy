@@ -12,6 +12,7 @@ import com.klikli_dev.theurgy.content.block.distiller.DistillerBlockItem;
 import com.klikli_dev.theurgy.content.block.incubator.IncubatorMercuryVesselBlockItem;
 import com.klikli_dev.theurgy.content.block.incubator.IncubatorSaltVesselBlockItem;
 import com.klikli_dev.theurgy.content.block.incubator.IncubatorSulfurVesselBlockItem;
+import com.klikli_dev.theurgy.content.block.salammoniactank.SalAmmoniacTankBlockItem;
 import com.klikli_dev.theurgy.content.item.DivinationRodItem;
 import net.minecraft.world.item.*;
 import net.minecraftforge.registries.DeferredRegister;
@@ -118,5 +119,5 @@ public class ItemRegistry {
     public static final RegistryObject<BlockItem> SAL_AMMONIAC_ACCUMULATOR =
             ITEMS.register("sal_ammoniac_accumulator", () -> new BlockItem(BlockRegistry.SAL_AMMONIAC_ACCUMULATOR.get(), new Item.Properties()));
     public static final RegistryObject<BlockItem> SAL_AMMONIAC_TANK =
-            ITEMS.register("sal_ammoniac_tank", () -> new BlockItem(BlockRegistry.SAL_AMMONIAC_TANK.get(), new Item.Properties()));
+            ITEMS.register("sal_ammoniac_tank", () -> new SalAmmoniacTankBlockItem(BlockRegistry.SAL_AMMONIAC_TANK.get(), new Item.Properties()));
 }

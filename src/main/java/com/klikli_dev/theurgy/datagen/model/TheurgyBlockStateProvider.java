@@ -56,16 +56,16 @@ public class TheurgyBlockStateProvider extends BlockStateProvider {
     }
 
     protected void registerSalAmmoniacTank() {
-        var model = this.models().withExistingParent("sal_ammoniac_tank", this.modLoc("block/sal_ammoniac_tank_template"))
-                //blockbench spits out garbage textures by losing the folder name so we fix them here
-                .texture("texture", this.modLoc("block/sal_ammoniac_tank"))
-                .texture("particle", this.mcLoc("block/copper_block"));
+
+        //tank is rendered by geckolib, so we just give a model with a particle texture
+        //we then use it for both the lit and unlit blockstate
+        var model = this.models().getBuilder("sal_ammoniac_tank").texture("particle", "minecraft:block/copper_block");
 
         //build blockstate
         this.simpleBlock(BlockRegistry.SAL_AMMONIAC_TANK.get(), model);
 
-        //add item model
-        this.itemModels().withExistingParent("sal_ammoniac_tank", this.modLoc("block/sal_ammoniac_tank"));
+        //distiller needs an item model that allows geckolib to render
+        this.itemModels().getBuilder("sal_ammoniac_tank").parent(new ModelFile.UncheckedModelFile("builtin/entity"));
     }
 
     protected void registerDistiller() {

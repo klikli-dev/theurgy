@@ -22,8 +22,14 @@ import net.minecraftforge.fluids.capability.templates.FluidTank;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import software.bernie.geckolib.animatable.GeoBlockEntity;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class SalAmmoniacTankBlockEntity extends BlockEntity {
+public class SalAmmoniacTankBlockEntity extends BlockEntity implements GeoBlockEntity {
+
+    protected final AnimatableInstanceCache animatableInstanceCache = GeckoLibUtil.createInstanceCache(this);
 
     public FluidTank tank;
     public LazyOptional<IFluidHandler> tankCapability;
@@ -59,5 +65,15 @@ public class SalAmmoniacTankBlockEntity extends BlockEntity {
             var tankTag = pTag.getCompound("tank");
             this.tank.readFromNBT(tankTag);
         }
+    }
+
+    @Override
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
+
+    }
+
+    @Override
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return this.animatableInstanceCache;
     }
 }

@@ -1,7 +1,5 @@
 {
-  "parent": "theurgy:block/sal_ammoniac_tank_template",
   "textures": {
-    "particle": "minecraft:block/copper_block",
-    "texture": "theurgy:block/sal_ammoniac_tank"
+    "particle": "minecraft:block/copper_block"
   }
 }

@@ -1,5 +1,6 @@
 {
   "parent": "theurgy:block/pyromantic_brazier_template",
+  "ambientocclusion": false,
   "textures": {
     "particle": "minecraft:block/copper_block",
     "texture": "theurgy:block/pyromantic_brazier"

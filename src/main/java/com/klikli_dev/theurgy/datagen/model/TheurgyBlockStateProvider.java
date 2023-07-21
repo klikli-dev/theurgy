@@ -44,6 +44,7 @@ public class TheurgyBlockStateProvider extends BlockStateProvider {
 
     protected void registerSalAmmoniacAccumulator() {
         var model = this.models().withExistingParent("sal_ammoniac_accumulator", this.modLoc("block/sal_ammoniac_accumulator_template"))
+                .ao(false)
                 //blockbench spits out garbage textures by losing the folder name so we fix them here
                 .texture("texture", this.modLoc("block/sal_ammoniac_accumulator"))
                 .texture("particle", this.mcLoc("block/copper_block"));
@@ -85,14 +86,18 @@ public class TheurgyBlockStateProvider extends BlockStateProvider {
 
     protected void registerIncubator() {
         var lowerHalfModel = this.models().withExistingParent("incubator_lower", this.modLoc("block/incubator_template"))
+                .ao(false)
                 //blockbench spits out garbage textures by losing the folder name so we fix them here
                 .texture("texture", this.modLoc("block/incubator_gold"))
                 .texture("particle", this.mcLoc("block/copper_block"));
 
         //we use an empty upper half model that just shows the particle texture
-        var upperHalfModel = this.models().getBuilder("incubator_upper").texture("particle", "minecraft:block/copper_block");
+        var upperHalfModel = this.models().getBuilder("incubator_upper")
+                .ao(false)
+                .texture("particle", "minecraft:block/copper_block");
 
         var pipeModel = this.models().withExistingParent("incubator_pipe", this.modLoc("block/incubator_pipe_template"))
+                .ao(false)
                 //blockbench spits out garbage textures by losing the folder name so we fix them here
                 .texture("texture", this.modLoc("block/incubator_pipe"))
                 .texture("particle", this.mcLoc("block/copper_block"));
@@ -152,6 +157,7 @@ public class TheurgyBlockStateProvider extends BlockStateProvider {
 
     protected void registerLiquefactionCauldron() {
         var lowerHalfModel = this.models().withExistingParent("liquefaction_cauldron_lower", this.modLoc("block/liquefaction_cauldron_template"))
+                .ao(false)
                 //blockbench spits out garbage textures by losing the folder name so we fix them here
                 .texture("texture", this.modLoc("block/liquefaction_cauldron"))
                 .texture("particle", this.mcLoc("block/copper_block"));
@@ -197,6 +203,7 @@ public class TheurgyBlockStateProvider extends BlockStateProvider {
 
     protected void registerPyromanticBrazier() {
         var model = this.models().withExistingParent("pyromantic_brazier", this.modLoc("block/pyromantic_brazier_template"))
+                .ao(false)
                 //blockbench spits out garbage textures by losing the folder name so we fix them here
                 .texture("texture", this.modLoc("block/pyromantic_brazier"))
                 .texture("particle", this.mcLoc("block/copper_block"));

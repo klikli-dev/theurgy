@@ -36,6 +36,7 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -43,6 +44,7 @@ import net.minecraftforge.items.wrapper.RecipeWrapper;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
+import java.util.stream.Stream;
 
 public class IncubatorBlock extends Block implements EntityBlock {
     public static final BooleanProperty NORTH = PipeBlock.NORTH;
@@ -51,8 +53,18 @@ public class IncubatorBlock extends Block implements EntityBlock {
     public static final BooleanProperty WEST = PipeBlock.WEST;
     public static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
     protected static final Map<Direction, BooleanProperty> PROPERTY_BY_DIRECTION = PipeBlock.PROPERTY_BY_DIRECTION.entrySet().stream().filter((entry) -> entry.getKey().getAxis().isHorizontal()).collect(Util.toMap());
-    protected static final VoxelShape TOP = Shapes.block();
-    protected static final VoxelShape BOTTOM = Shapes.block();
+
+    //-16 because we exported it from a two block high blockbench model and this is the upper half
+    protected static final VoxelShape TOP = Shapes.or(
+                    Block.box(0, 28 - 16, 0, 16, 30-16, 16),
+                    Block.box(1, 16 - 16, 1, 15, 28 - 16, 15)
+            );
+
+    protected static final VoxelShape BOTTOM =  Shapes.or(
+            Block.box(0, 0, 0, 16, 4, 16),
+            Block.box(2, 4, 2, 14, 10, 14),
+            Block.box(1, 10, 1, 15, 16, 15)
+    );
 
     protected BlockItemHandler blockItemHandler;
 
@@ -70,9 +82,29 @@ public class IncubatorBlock extends Block implements EntityBlock {
     @Override
     @SuppressWarnings("deprecation")
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
+        var TOP = Shapes.or(
+                Block.box(0, 28 - 16, 0, 16, 30-16, 16),
+                Block.box(1, 16 - 16, 1, 15, 28 - 16, 15)
+        );
+
+        var BOTTOM =  Shapes.or(
+                Block.box(0, 0, 0, 16, 4, 16),
+                Block.box(2, 4, 2, 14, 10, 14),
+                Block.box(1, 10, 1, 15, 16, 15)
+        );
+
         return pState.getValue(HALF) == DoubleBlockHalf.LOWER ? BOTTOM : TOP;
     }
 
+    @Override
+    public boolean useShapeForLightOcclusion(BlockState pState) {
+        return true;
+    }
+
+    @Override
+    public RenderShape getRenderShape(BlockState pState) {
+        return pState.getValue(HALF) == DoubleBlockHalf.LOWER ? RenderShape.MODEL : RenderShape.INVISIBLE;
+    }
 
     @Override
     @SuppressWarnings("deprecation")

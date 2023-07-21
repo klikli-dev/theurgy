@@ -82,30 +82,9 @@ public class IncubatorBlock extends Block implements EntityBlock {
     @Override
     @SuppressWarnings("deprecation")
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
-        var TOP = Shapes.or(
-                Block.box(0, 28 - 16, 0, 16, 30-16, 16),
-                Block.box(1, 16 - 16, 1, 15, 28 - 16, 15)
-        );
-
-        var BOTTOM =  Shapes.or(
-                Block.box(0, 0, 0, 16, 4, 16),
-                Block.box(2, 4, 2, 14, 10, 14),
-                Block.box(1, 10, 1, 15, 16, 15)
-        );
-
         return pState.getValue(HALF) == DoubleBlockHalf.LOWER ? BOTTOM : TOP;
     }
-
-    @Override
-    public boolean useShapeForLightOcclusion(BlockState pState) {
-        return true;
-    }
-
-    @Override
-    public RenderShape getRenderShape(BlockState pState) {
-        return pState.getValue(HALF) == DoubleBlockHalf.LOWER ? RenderShape.MODEL : RenderShape.INVISIBLE;
-    }
-
+    
     @Override
     @SuppressWarnings("deprecation")
     public BlockState updateShape(BlockState pState, Direction pFacing, BlockState pFacingState, LevelAccessor pLevel, BlockPos pCurrentPos, BlockPos pFacingPos) {

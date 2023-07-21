@@ -9,11 +9,14 @@
     },
     "S": {
       "tag": "theurgy:alchemical_salts"
+    },
+    "c": {
+      "tag": "forge:ingots/copper"
     }
   },
   "pattern": [
     "ISI",
-    " C ",
+    "cCc",
     "III"
   ],
   "result": {

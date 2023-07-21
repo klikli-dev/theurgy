@@ -16,6 +16,7 @@ import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.registry.ItemTagRegistry;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -187,43 +188,49 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
                 ItemRegistry.SAL_AMMONIAC_TANK.get(), 1)
                 .pattern("ICI")
                 .pattern("ICI")
-                .pattern("ICI")
+                .pattern("RCR")
+                .define('R', Tags.Items.RODS_WOODEN)
                 .define('C', Tags.Items.INGOTS_COPPER)
                 .define('I', Tags.Items.INGOTS_IRON)
         );
 
         this.makeRecipe(ItemRegistry.INCUBATOR.get(), new RecipeBuilder(
                 ItemRegistry.INCUBATOR.get(), 1)
-                .pattern("C C")
-                .pattern("C C")
-                .pattern("CCC")
+                .pattern("PSP")
+                .pattern("GGG")
+                .pattern("SCS")
+                .define('P', ItemTags.PLANKS)
                 .define('C', Tags.Items.INGOTS_COPPER)
+                .define('G', Tags.Items.INGOTS_GOLD)
+                .define('S', Tags.Items.STONE)
         );
 
         this.makeRecipe(ItemRegistry.INCUBATOR_MERCURY_VESSEL.get(), new RecipeBuilder(
                 ItemRegistry.INCUBATOR_MERCURY_VESSEL.get(), 1)
                 .pattern("IMI")
-                .pattern(" C ")
+                .pattern("GCG")
                 .pattern("III")
                 .define('C', Tags.Items.STORAGE_BLOCKS_COPPER)
                 .define('I', Tags.Items.INGOTS_IRON)
+                .define('G', Tags.Items.INGOTS_GOLD)
                 .define('M', ItemTagRegistry.ALCHEMICAL_MERCURIES)
         );
 
         this.makeRecipe(ItemRegistry.INCUBATOR_SALT_VESSEL.get(), new RecipeBuilder(
                 ItemRegistry.INCUBATOR_SALT_VESSEL.get(), 1)
                 .pattern("ISI")
-                .pattern(" C ")
+                .pattern("cCc")
                 .pattern("III")
                 .define('C', Tags.Items.STORAGE_BLOCKS_COPPER)
                 .define('I', Tags.Items.INGOTS_IRON)
+                .define('c', Tags.Items.INGOTS_COPPER)
                 .define('S', ItemTagRegistry.ALCHEMICAL_SALTS)
         );
 
         this.makeRecipe(ItemRegistry.INCUBATOR_SULFUR_VESSEL.get(), new RecipeBuilder(
                 ItemRegistry.INCUBATOR_SULFUR_VESSEL.get(), 1)
                 .pattern("ISI")
-                .pattern(" C ")
+                .pattern("ICI")
                 .pattern("III")
                 .define('C', Tags.Items.STORAGE_BLOCKS_COPPER)
                 .define('I', Tags.Items.INGOTS_IRON)

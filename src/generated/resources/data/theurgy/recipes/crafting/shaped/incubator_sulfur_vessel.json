@@ -13,7 +13,7 @@
   },
   "pattern": [
     "ISI",
-    " C ",
+    "ICI",
     "III"
   ],
   "result": {

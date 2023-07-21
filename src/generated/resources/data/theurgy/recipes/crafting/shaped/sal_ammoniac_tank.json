@@ -6,12 +6,15 @@
     },
     "I": {
       "tag": "forge:ingots/iron"
+    },
+    "R": {
+      "tag": "forge:rods/wooden"
     }
   },
   "pattern": [
     "ICI",
     "ICI",
-    "ICI"
+    "RCR"
   ],
   "result": {
     "count": 1,

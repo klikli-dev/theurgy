@@ -3,12 +3,21 @@
   "key": {
     "C": {
       "tag": "forge:ingots/copper"
+    },
+    "G": {
+      "tag": "forge:ingots/gold"
+    },
+    "P": {
+      "tag": "minecraft:planks"
+    },
+    "S": {
+      "tag": "forge:stone"
     }
   },
   "pattern": [
-    "C C",
-    "C C",
-    "CCC"
+    "PSP",
+    "GGG",
+    "SCS"
   ],
   "result": {
     "count": 1,

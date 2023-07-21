@@ -4,6 +4,9 @@
     "C": {
       "tag": "forge:storage_blocks/copper"
     },
+    "G": {
+      "tag": "forge:ingots/gold"
+    },
     "I": {
       "tag": "forge:ingots/iron"
     },
@@ -13,7 +16,7 @@
   },
   "pattern": [
     "IMI",
-    " C ",
+    "GCG",
     "III"
   ],
   "result": {

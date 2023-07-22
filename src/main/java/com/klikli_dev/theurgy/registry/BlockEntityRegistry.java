@@ -7,16 +7,16 @@
 package com.klikli_dev.theurgy.registry;
 
 import com.klikli_dev.theurgy.Theurgy;
-import com.klikli_dev.theurgy.content.block.calcinationoven.CalcinationOvenBlockEntity;
-import com.klikli_dev.theurgy.content.block.distiller.DistillerBlockEntity;
-import com.klikli_dev.theurgy.content.block.incubator.IncubatorBlockEntity;
-import com.klikli_dev.theurgy.content.block.incubator.IncubatorMercuryVesselBlockEntity;
-import com.klikli_dev.theurgy.content.block.incubator.IncubatorSaltVesselBlockEntity;
-import com.klikli_dev.theurgy.content.block.incubator.IncubatorSulfurVesselBlockEntity;
-import com.klikli_dev.theurgy.content.block.liquefactioncauldron.LiquefactionCauldronBlockEntity;
-import com.klikli_dev.theurgy.content.block.pyromanticbrazier.PyromanticBrazierBlockEntity;
-import com.klikli_dev.theurgy.content.block.salammoniacaccumulator.SalAmmoniacAccumulatorBlockEntity;
-import com.klikli_dev.theurgy.content.block.salammoniactank.SalAmmoniacTankBlockEntity;
+import com.klikli_dev.theurgy.content.apparatus.calcinationoven.CalcinationOvenBlockEntity;
+import com.klikli_dev.theurgy.content.apparatus.distiller.DistillerBlockEntity;
+import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorBlockEntity;
+import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorMercuryVesselBlockEntity;
+import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorSaltVesselBlockEntity;
+import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorSulfurVesselBlockEntity;
+import com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron.LiquefactionCauldronBlockEntity;
+import com.klikli_dev.theurgy.content.apparatus.pyromanticbrazier.PyromanticBrazierBlockEntity;
+import com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator.SalAmmoniacAccumulatorBlockEntity;
+import com.klikli_dev.theurgy.content.apparatus.salammoniactank.SalAmmoniacTankBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;

@@ -7,12 +7,12 @@
 package com.klikli_dev.theurgy.registry;
 
 import com.klikli_dev.theurgy.Theurgy;
-import com.klikli_dev.theurgy.content.block.calcinationoven.CalcinationOvenBlockItem;
-import com.klikli_dev.theurgy.content.block.distiller.DistillerBlockItem;
-import com.klikli_dev.theurgy.content.block.incubator.IncubatorMercuryVesselBlockItem;
-import com.klikli_dev.theurgy.content.block.incubator.IncubatorSaltVesselBlockItem;
-import com.klikli_dev.theurgy.content.block.incubator.IncubatorSulfurVesselBlockItem;
-import com.klikli_dev.theurgy.content.block.salammoniactank.SalAmmoniacTankBlockItem;
+import com.klikli_dev.theurgy.content.apparatus.calcinationoven.CalcinationOvenBlockItem;
+import com.klikli_dev.theurgy.content.apparatus.distiller.DistillerBlockItem;
+import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorMercuryVesselBlockItem;
+import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorSaltVesselBlockItem;
+import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorSulfurVesselBlockItem;
+import com.klikli_dev.theurgy.content.apparatus.salammoniactank.SalAmmoniacTankBlockItem;
 import com.klikli_dev.theurgy.content.item.DivinationRodItem;
 import net.minecraft.world.item.*;
 import net.minecraftforge.registries.DeferredRegister;

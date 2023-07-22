@@ -7,16 +7,16 @@
 package com.klikli_dev.theurgy.registry;
 
 import com.klikli_dev.theurgy.Theurgy;
-import com.klikli_dev.theurgy.content.block.calcinationoven.CalcinationOvenBlock;
-import com.klikli_dev.theurgy.content.block.distiller.DistillerBlock;
-import com.klikli_dev.theurgy.content.block.incubator.IncubatorBlock;
-import com.klikli_dev.theurgy.content.block.incubator.IncubatorMercuryVesselBlock;
-import com.klikli_dev.theurgy.content.block.incubator.IncubatorSaltVesselBlock;
-import com.klikli_dev.theurgy.content.block.incubator.IncubatorSulfurVesselBlock;
-import com.klikli_dev.theurgy.content.block.liquefactioncauldron.LiquefactionCauldronBlock;
-import com.klikli_dev.theurgy.content.block.pyromanticbrazier.PyromanticBrazierBlock;
-import com.klikli_dev.theurgy.content.block.salammoniacaccumulator.SalAmmoniacAccumulatorBlock;
-import com.klikli_dev.theurgy.content.block.salammoniactank.SalAmmoniacTankBlock;
+import com.klikli_dev.theurgy.content.apparatus.calcinationoven.CalcinationOvenBlock;
+import com.klikli_dev.theurgy.content.apparatus.distiller.DistillerBlock;
+import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorBlock;
+import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorMercuryVesselBlock;
+import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorSaltVesselBlock;
+import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorSulfurVesselBlock;
+import com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron.LiquefactionCauldronBlock;
+import com.klikli_dev.theurgy.content.apparatus.pyromanticbrazier.PyromanticBrazierBlock;
+import com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator.SalAmmoniacAccumulatorBlock;
+import com.klikli_dev.theurgy.content.apparatus.salammoniactank.SalAmmoniacTankBlock;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DropExperienceBlock;

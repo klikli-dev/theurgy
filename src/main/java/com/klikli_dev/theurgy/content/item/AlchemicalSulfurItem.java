@@ -8,7 +8,7 @@ package com.klikli_dev.theurgy.content.item;
 
 import com.google.common.collect.ImmutableList;
 import com.klikli_dev.theurgy.TheurgyConstants;
-import com.klikli_dev.theurgy.content.renderer.SulfurBEWLR;
+import com.klikli_dev.theurgy.content.item.render.AlchemicalSulfurBEWLR;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import com.klikli_dev.theurgy.util.LevelUtil;
 import com.klikli_dev.theurgy.util.TagUtil;
@@ -211,7 +211,7 @@ public class AlchemicalSulfurItem extends Item {
         consumer.accept(new IClientItemExtensions() {
             @Override
             public BlockEntityWithoutLevelRenderer getCustomRenderer() {
-                return SulfurBEWLR.get();
+                return AlchemicalSulfurBEWLR.get();
             }
         });
     }

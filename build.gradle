@@ -136,8 +136,7 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
     maven {
-        name = "KliKli Dev Repsy Maven"
-        url = "https://repo.repsy.io/mvn/klikli-dev/mods"
+        url "https://dl.cloudsmith.io/public/klikli-dev/mods/maven/"
         content {
             includeGroup "com.klikli_dev"
         }

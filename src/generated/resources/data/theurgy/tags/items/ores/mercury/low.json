@@ -1,0 +1,42 @@
+{
+  "values": [
+    "#forge:ores/iron",
+    "#forge:ores/copper",
+    "#forge:ores/lapis",
+    "#forge:ores/quartz",
+    "#forge:ores/redstone",
+    "#forge:ores/coal",
+    {
+      "id": "#forge:ores/zinc",
+      "required": false
+    },
+    {
+      "id": "#forge:ores/osmium",
+      "required": false
+    },
+    {
+      "id": "#forge:ores/nickel",
+      "required": false
+    },
+    {
+      "id": "#forge:ores/lead",
+      "required": false
+    },
+    {
+      "id": "#forge:ores/tin",
+      "required": false
+    },
+    {
+      "id": "#forge:ores/cinnabar",
+      "required": false
+    },
+    {
+      "id": "#forge:ores/apatite",
+      "required": false
+    },
+    {
+      "id": "#forge:ores/sulfur",
+      "required": false
+    }
+  ]
+}

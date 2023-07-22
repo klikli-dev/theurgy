@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "C": {
+      "tag": "forge:storage_blocks/copper"
+    },
+    "I": {
+      "tag": "forge:ingots/iron"
+    },
+    "S": {
+      "tag": "theurgy:alchemical_salts"
+    },
+    "c": {
+      "tag": "forge:ingots/copper"
+    }
+  },
+  "pattern": [
+    "ISI",
+    "cCc",
+    "III"
+  ],
+  "result": {
+    "count": 1,
+    "item": "theurgy:incubator_salt_vessel"
+  }
+}

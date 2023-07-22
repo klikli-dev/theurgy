@@ -1,0 +1,14 @@
+{
+  "values": [
+    "#forge:gems/lapis",
+    "#forge:gems/quartz",
+    {
+      "id": "#forge:gems/cinnabar",
+      "required": false
+    },
+    {
+      "id": "#forge:gems/apatite",
+      "required": false
+    }
+  ]
+}

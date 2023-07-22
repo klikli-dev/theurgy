@@ -1,0 +1,27 @@
+{
+  "type": "theurgy:liquefaction",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:raw_materials/nickel"
+      }
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:raw_materials/nickel"
+  },
+  "liquefaction_time": 200,
+  "result": {
+    "count": 2,
+    "item": "theurgy:alchemical_sulfur_nickel",
+    "nbt": {
+      "theurgy:sulfur.source.id": "#forge:raw_materials/nickel"
+    }
+  },
+  "solvent": {
+    "amount": 10,
+    "fluid": "theurgy:sal_ammoniac"
+  }
+}

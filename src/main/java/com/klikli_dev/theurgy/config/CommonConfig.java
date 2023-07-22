@@ -8,8 +8,6 @@ package com.klikli_dev.theurgy.config;
 
 import net.minecraftforge.common.ForgeConfigSpec;
 
-import java.util.List;
-
 public class CommonConfig {
 
     private static final CommonConfig instance = new CommonConfig();

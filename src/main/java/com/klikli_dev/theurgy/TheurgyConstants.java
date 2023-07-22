@@ -58,15 +58,25 @@ public class TheurgyConstants {
 
         public static final String ITEM_GROUP = "itemGroup." + Theurgy.MODID;
 
+        public static class Item {
+
+            public static final String ALCHEMICAL_SULFUR_SOURCE_SUFFIX = ".source";
+            public static final String ALCHEMICAL_SALT_SOURCE_SUFFIX = ".source";
+            private static final String PREFIX = "item." + Theurgy.MODID + ".";
+            public static final String ALCHEMICAL_SULFUR_UNKNOWN_SOURCE = PREFIX + "alchemical_sulfur.unknown_source";
+            public static final String DIVINATION_ROD_UNKNOWN_LINKED_BLOCK = PREFIX + "divination_rod.unknown_linked_block";
+        }
+
         public static class Tooltip {
 
-            private static final String PREFIX = "tooltip." + Theurgy.MODID + ".";
             public static final String SHOW_EXTENDED = "tooltip." + Theurgy.MODID + ".show_extended";
+            public static final String EXTENDED_HEADING = "tooltip." + Theurgy.MODID + ".extended_heading";
             public static final String SHOW_USAGE = "tooltip." + Theurgy.MODID + ".show_usage";
+            public static final String USAGE_HEADING = "tooltip." + Theurgy.MODID + ".usage_heading";
             public static final String SUFFIX = ".tooltip";
             public static final String EXTENDED_SUFFIX = ".tooltip.extended";
             public static final String USAGE_SUFFIX = ".tooltip.usage";
-
+            private static final String PREFIX = "tooltip." + Theurgy.MODID + ".";
             public static final String DIVINATION_ROD_LINKED_TO = PREFIX + ".divination_rod.linked_to";
             public static final String DIVINATION_ROD_NO_LINK = PREFIX + ".divination_rod.no_link";
             public static final String DIVINATION_ROD_LAST_RESULT = PREFIX + ".divination_rod.last_result";
@@ -88,5 +98,21 @@ public class TheurgyConstants {
             public static final String DIVINATION_ROD_NO_LINK = PREFIX + "divination_rod.no_link";
             public static final String DIVINATION_ROD_ATTUNING_NOT_ALLOWED = PREFIX + "divination_rod.attuning_not_allowed";
         }
+
+        public static class JEI {
+            public static final String PREFIX = Theurgy.MODID + ".jei.";
+            public static final String CALCINATION_CATEGORY = PREFIX + "category.calcination";
+            public static final String LIQUEFACTION_CATEGORY = PREFIX + "category.liquefaction";
+            public static final String DISTILLATION_CATEGORY = PREFIX + "category.distillation";
+            public static final String INCUBATION_CATEGORY = PREFIX + "category.incubation";
+            public static final String ACCUMULATION_CATEGORY = PREFIX + "category.accumulation";
+        }
+
+        public static class Misc {
+            public static final String PREFIX = Theurgy.MODID + ".misc.";
+
+            public static final String UNIT_MILLIBUCKETS = PREFIX + "unit.millibuckets";
+        }
     }
+
 }

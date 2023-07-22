@@ -1,0 +1,27 @@
+{
+  "type": "theurgy:liquefaction",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:ores/iron"
+      }
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:ores/iron"
+  },
+  "liquefaction_time": 200,
+  "result": {
+    "count": 3,
+    "item": "theurgy:alchemical_sulfur_iron",
+    "nbt": {
+      "theurgy:sulfur.source.id": "#forge:ores/iron"
+    }
+  },
+  "solvent": {
+    "amount": 10,
+    "fluid": "theurgy:sal_ammoniac"
+  }
+}

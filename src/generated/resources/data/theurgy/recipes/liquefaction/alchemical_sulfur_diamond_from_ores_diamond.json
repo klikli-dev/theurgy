@@ -1,0 +1,27 @@
+{
+  "type": "theurgy:liquefaction",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:ores/diamond"
+      }
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:ores/diamond"
+  },
+  "liquefaction_time": 200,
+  "result": {
+    "count": 4,
+    "item": "theurgy:alchemical_sulfur_diamond",
+    "nbt": {
+      "theurgy:sulfur.source.id": "#forge:ores/diamond"
+    }
+  },
+  "solvent": {
+    "amount": 100,
+    "fluid": "theurgy:sal_ammoniac"
+  }
+}

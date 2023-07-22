@@ -1,0 +1,23 @@
+{
+  "parent": "theurgy:book_root",
+  "criteria": {
+    "has_liquefaction_cauldron": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "theurgy:liquefaction_cauldron"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_liquefaction_cauldron"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

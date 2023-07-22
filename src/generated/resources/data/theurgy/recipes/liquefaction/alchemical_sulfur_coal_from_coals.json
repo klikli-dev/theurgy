@@ -1,0 +1,27 @@
+{
+  "type": "theurgy:liquefaction",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "minecraft:coals"
+      }
+    }
+  ],
+  "ingredient": {
+    "tag": "minecraft:coals"
+  },
+  "liquefaction_time": 200,
+  "result": {
+    "count": 1,
+    "item": "theurgy:alchemical_sulfur_coal",
+    "nbt": {
+      "theurgy:sulfur.source.id": "#minecraft:coals"
+    }
+  },
+  "solvent": {
+    "amount": 10,
+    "fluid": "theurgy:sal_ammoniac"
+  }
+}

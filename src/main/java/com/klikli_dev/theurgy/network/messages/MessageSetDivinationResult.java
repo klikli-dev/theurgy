@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: 2022 klikli-dev
+ * SPDX-FileCopyrightText: 2023 klikli-dev
  *
  * SPDX-License-Identifier: MIT
  */
@@ -7,7 +7,7 @@
 package com.klikli_dev.theurgy.network.messages;
 
 import com.klikli_dev.theurgy.TheurgyConstants;
-import com.klikli_dev.theurgy.item.DivinationRodItem;
+import com.klikli_dev.theurgy.content.item.DivinationRodItem;
 import com.klikli_dev.theurgy.network.Message;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
@@ -38,7 +38,7 @@ public class MessageSetDivinationResult implements Message {
         if (stack.getItem() instanceof DivinationRodItem) {
             var tag = stack.getOrCreateTag();
             tag.putFloat(TheurgyConstants.Nbt.Divination.DISTANCE, this.distance);
-            if(this.pos != null) {
+            if (this.pos != null) {
                 tag.putLong(TheurgyConstants.Nbt.Divination.POS, this.pos.asLong());
             }
             player.inventoryMenu.broadcastChanges();

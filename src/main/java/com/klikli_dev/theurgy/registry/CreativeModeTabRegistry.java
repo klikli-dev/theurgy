@@ -8,8 +8,7 @@ package com.klikli_dev.theurgy.registry;
 
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.TheurgyConstants;
-import com.klikli_dev.theurgy.item.AlchemicalSulfurItem;
-import com.klikli_dev.theurgy.item.DivinationRodItem;
+import com.klikli_dev.theurgy.content.item.DivinationRodItem;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
@@ -25,11 +24,36 @@ public class CreativeModeTabRegistry {
             .icon(() -> ItemRegistry.EMPTY_JAR.get().getDefaultInstance())
             .title(Component.translatable(TheurgyConstants.I18n.ITEM_GROUP))
             .displayItems((parameters, output) -> {
-                AlchemicalSulfurItem.DistHelper.registerCreativeModeTabs(ItemRegistry.ALCHEMICAL_SULFUR.get(), output);
                 DivinationRodItem.DistHelper.registerCreativeModeTabs(ItemRegistry.DIVINATION_ROD_T1.get(), output);
                 DivinationRodItem.DistHelper.registerCreativeModeTabs(ItemRegistry.DIVINATION_ROD_T2.get(), output);
                 DivinationRodItem.DistHelper.registerCreativeModeTabs(ItemRegistry.DIVINATION_ROD_T3.get(), output);
                 DivinationRodItem.DistHelper.registerCreativeModeTabs(ItemRegistry.DIVINATION_ROD_T4.get(), output);
+                DivinationRodItem.DistHelper.registerCreativeModeTabs(ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_ABUNDANT.get(), output);
+                DivinationRodItem.DistHelper.registerCreativeModeTabs(ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_COMMON.get(), output);
+                DivinationRodItem.DistHelper.registerCreativeModeTabs(ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_RARE.get(), output);
+                DivinationRodItem.DistHelper.registerCreativeModeTabs(ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_PRECIOUS.get(), output);
+                DivinationRodItem.DistHelper.registerCreativeModeTabs(ItemRegistry.AMETHYST_DIVINATION_ROD.get(), output);
+
+                output.accept(ItemRegistry.SAL_AMMONIAC_BUCKET.get());
+
+                output.accept(ItemRegistry.MERCURY_SHARD.get());
+                output.accept(ItemRegistry.MERCURY_CRYSTAL.get());
+
+                output.accept(ItemRegistry.SAL_AMMONIAC_CRYSTAL.get());
+                output.accept(ItemRegistry.SAL_AMMONIAC_ORE.get());
+                output.accept(ItemRegistry.DEEPSLATE_SAL_AMMONIAC_ORE.get());
+
+                output.accept(ItemRegistry.CALCINATION_OVEN.get());
+                output.accept(ItemRegistry.PYROMANTIC_BRAZIER.get());
+                output.accept(ItemRegistry.LIQUEFACTION_CAULDRON.get());
+                output.accept(ItemRegistry.DISTILLER.get());
+                output.accept(ItemRegistry.INCUBATOR.get());
+                output.accept(ItemRegistry.INCUBATOR_MERCURY_VESSEL.get());
+                output.accept(ItemRegistry.INCUBATOR_SALT_VESSEL.get());
+                output.accept(ItemRegistry.INCUBATOR_SULFUR_VESSEL.get());
+
+                output.accept(ItemRegistry.SAL_AMMONIAC_ACCUMULATOR.get());
+                output.accept(ItemRegistry.SAL_AMMONIAC_TANK.get());
             }).build());
 
 }

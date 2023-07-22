@@ -1,0 +1,8 @@
+{
+  "parent": "theurgy:block/incubator_template",
+  "ambientocclusion": false,
+  "textures": {
+    "particle": "minecraft:block/copper_block",
+    "texture": "theurgy:block/incubator_gold"
+  }
+}

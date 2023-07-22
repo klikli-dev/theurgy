@@ -1,0 +1,21 @@
+{
+  "type": "theurgy:distillation",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "minecraft:logs"
+      }
+    }
+  ],
+  "distillation_time": 200,
+  "ingredient": {
+    "tag": "minecraft:logs"
+  },
+  "ingredient_count": 2,
+  "result": {
+    "count": 1,
+    "item": "theurgy:mercury_shard"
+  }
+}

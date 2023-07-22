@@ -1,0 +1,27 @@
+{
+  "type": "theurgy:liquefaction",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:ores/peridot"
+      }
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:ores/peridot"
+  },
+  "liquefaction_time": 200,
+  "result": {
+    "count": 6,
+    "item": "theurgy:alchemical_sulfur_peridot",
+    "nbt": {
+      "theurgy:sulfur.source.id": "#forge:ores/peridot"
+    }
+  },
+  "solvent": {
+    "amount": 15,
+    "fluid": "theurgy:sal_ammoniac"
+  }
+}

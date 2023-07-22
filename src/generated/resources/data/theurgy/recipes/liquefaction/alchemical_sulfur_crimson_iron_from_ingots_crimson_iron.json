@@ -1,0 +1,27 @@
+{
+  "type": "theurgy:liquefaction",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:ingots/crimson_iron"
+      }
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:ingots/crimson_iron"
+  },
+  "liquefaction_time": 200,
+  "result": {
+    "count": 1,
+    "item": "theurgy:alchemical_sulfur_crimson_iron",
+    "nbt": {
+      "theurgy:sulfur.source.id": "#forge:ingots/crimson_iron"
+    }
+  },
+  "solvent": {
+    "amount": 20,
+    "fluid": "theurgy:sal_ammoniac"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "values": [
+    "#forge:ingots/iron",
+    "#forge:ingots/copper",
+    {
+      "id": "#forge:ingots/zinc",
+      "required": false
+    },
+    {
+      "id": "#forge:ingots/osmium",
+      "required": false
+    },
+    {
+      "id": "#forge:ingots/nickel",
+      "required": false
+    },
+    {
+      "id": "#forge:ingots/lead",
+      "required": false
+    },
+    {
+      "id": "#forge:ingots/tin",
+      "required": false
+    },
+    {
+      "id": "#forge:ingots/cinnabar",
+      "required": false
+    }
+  ]
+}

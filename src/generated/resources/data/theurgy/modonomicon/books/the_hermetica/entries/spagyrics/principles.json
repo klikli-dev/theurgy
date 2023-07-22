@@ -1,0 +1,53 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "theurgy:spagyrics",
+  "description": "book.theurgy.the_hermetica.spagyrics.principles.description",
+  "hide_while_locked": false,
+  "icon": "theurgy:mercury_crystal",
+  "name": "book.theurgy.the_hermetica.spagyrics.principles.name",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.spagyrics.principles.intro.text",
+      "title": "book.theurgy.the_hermetica.spagyrics.principles.intro.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.spagyrics.principles.salt.text",
+      "title": "book.theurgy.the_hermetica.spagyrics.principles.salt.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.spagyrics.principles.sulfur.text",
+      "title": "book.theurgy.the_hermetica.spagyrics.principles.sulfur.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.spagyrics.principles.mercury.text",
+      "title": "book.theurgy.the_hermetica.spagyrics.principles.mercury.title",
+      "use_markdown_in_title": false
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "theurgy:spagyrics/intro",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "x": -5,
+  "y": 0
+}

@@ -1,0 +1,30 @@
+{
+  "values": [
+    "#forge:raw_materials/iron",
+    "#forge:raw_materials/copper",
+    {
+      "id": "#forge:raw_materials/zinc",
+      "required": false
+    },
+    {
+      "id": "#forge:raw_materials/osmium",
+      "required": false
+    },
+    {
+      "id": "#forge:raw_materials/nickel",
+      "required": false
+    },
+    {
+      "id": "#forge:raw_materials/lead",
+      "required": false
+    },
+    {
+      "id": "#forge:raw_materials/tin",
+      "required": false
+    },
+    {
+      "id": "#forge:raw_materials/cinnabar",
+      "required": false
+    }
+  ]
+}

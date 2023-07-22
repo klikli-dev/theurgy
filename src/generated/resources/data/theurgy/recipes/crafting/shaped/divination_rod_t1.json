@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "G": {
+      "tag": "forge:glass"
+    },
+    "R": {
+      "tag": "forge:rods/wooden"
+    }
+  },
+  "pattern": [
+    " GR",
+    " RG",
+    "R  "
+  ],
+  "result": {
+    "count": 1,
+    "item": "theurgy:divination_rod_t1",
+    "nbt": {
+      "theurgy:divination.setting.allowed_blocks_tag": "theurgy:divination_rod_t1_allowed_blocks",
+      "theurgy:divination.setting.disallowed_blocks_tag": "theurgy:divination_rod_t1_disallowed_blocks",
+      "theurgy:divination.setting.duration": 40,
+      "theurgy:divination.setting.max_damage": 8,
+      "theurgy:divination.setting.range": 96,
+      "theurgy:divination.setting.tier": "minecraft:stone"
+    }
+  }
+}

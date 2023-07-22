@@ -1,0 +1,29 @@
+{
+  "values": [
+    "#forge:ingots/gold",
+    {
+      "id": "#forge:ingots/uranium",
+      "required": false
+    },
+    {
+      "id": "#forge:ingots/silver",
+      "required": false
+    },
+    {
+      "id": "#forge:ingots/azure_silver",
+      "required": false
+    },
+    {
+      "id": "#forge:ingots/iridium",
+      "required": false
+    },
+    {
+      "id": "#forge:ingots/crimson_iron",
+      "required": false
+    },
+    {
+      "id": "#forge:ingots/platinum",
+      "required": false
+    }
+  ]
+}

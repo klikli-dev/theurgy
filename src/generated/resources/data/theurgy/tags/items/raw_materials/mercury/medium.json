@@ -1,0 +1,29 @@
+{
+  "values": [
+    "#forge:raw_materials/gold",
+    {
+      "id": "#forge:raw_materials/uranium",
+      "required": false
+    },
+    {
+      "id": "#forge:raw_materials/silver",
+      "required": false
+    },
+    {
+      "id": "#forge:raw_materials/azure_silver",
+      "required": false
+    },
+    {
+      "id": "#forge:raw_materials/iridium",
+      "required": false
+    },
+    {
+      "id": "#forge:raw_materials/crimson_iron",
+      "required": false
+    },
+    {
+      "id": "#forge:raw_materials/platinum",
+      "required": false
+    }
+  ]
+}

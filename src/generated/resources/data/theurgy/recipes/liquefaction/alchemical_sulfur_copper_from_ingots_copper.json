@@ -1,0 +1,27 @@
+{
+  "type": "theurgy:liquefaction",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:ingots/copper"
+      }
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:ingots/copper"
+  },
+  "liquefaction_time": 200,
+  "result": {
+    "count": 1,
+    "item": "theurgy:alchemical_sulfur_copper",
+    "nbt": {
+      "theurgy:sulfur.source.id": "#forge:ingots/copper"
+    }
+  },
+  "solvent": {
+    "amount": 10,
+    "fluid": "theurgy:sal_ammoniac"
+  }
+}

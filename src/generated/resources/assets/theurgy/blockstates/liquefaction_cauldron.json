@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "half=lower,lit=false": {
+      "model": "theurgy:block/liquefaction_cauldron_lower"
+    },
+    "half=lower,lit=true": {
+      "model": "theurgy:block/liquefaction_cauldron_lower"
+    },
+    "half=upper,lit=false": {
+      "model": "theurgy:block/liquefaction_cauldron_upper"
+    },
+    "half=upper,lit=true": {
+      "model": "theurgy:block/liquefaction_cauldron_upper"
+    }
+  }
+}

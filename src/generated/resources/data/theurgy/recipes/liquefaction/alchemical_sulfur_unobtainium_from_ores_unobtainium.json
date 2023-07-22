@@ -1,0 +1,27 @@
+{
+  "type": "theurgy:liquefaction",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:ores/unobtainium"
+      }
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:ores/unobtainium"
+  },
+  "liquefaction_time": 200,
+  "result": {
+    "count": 3,
+    "item": "theurgy:alchemical_sulfur_unobtainium",
+    "nbt": {
+      "theurgy:sulfur.source.id": "#forge:ores/unobtainium"
+    }
+  },
+  "solvent": {
+    "amount": 100,
+    "fluid": "theurgy:sal_ammoniac"
+  }
+}

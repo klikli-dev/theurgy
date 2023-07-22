@@ -29,6 +29,7 @@ public class TooltipHandler {
     private static final List<String> namespacesToListenFor = new ArrayList<>();
 
     public static void onItemTooltipEvent(ItemTooltipEvent event) {
+        //Note to handle fluid stacks in JEI we'd need RenderTooltipEvent (probably .Pre)
         ItemStack stack = event.getItemStack();
 
         var itemId = ForgeRegistries.ITEMS.getKey(stack.getItem());
@@ -48,18 +49,28 @@ public class TooltipHandler {
                 event.getToolTip().add(Component.translatable(tooltipKey, additionalTooltipData.toArray()).withStyle(Style.EMPTY.withColor(ChatFormatting.GRAY)));
             }
 
+            //The (conditional) literal " "'s are a hack to add newlines between the additional tooltips headings/"show ..." hints and the text.
+            //These newlines are conditional because e.g. they should not appear if there are just two "show ..." hints after each other
             if (extendedTooltipExists) {
-                if(Screen.hasShiftDown()){
+                if (Screen.hasShiftDown()) {
+                    event.getToolTip().add(Component.literal(" "));
+                    event.getToolTip().add(Component.translatable(TheurgyConstants.I18n.Tooltip.EXTENDED_HEADING, additionalTooltipData.toArray()));
                     event.getToolTip().add(Component.translatable(extendedTooltipKey, additionalTooltipData.toArray()).withStyle(Style.EMPTY.withColor(ChatFormatting.GRAY)));
                 } else {
+                    event.getToolTip().add(Component.literal(" "));
                     event.getToolTip().add(Component.translatable(TheurgyConstants.I18n.Tooltip.SHOW_EXTENDED, additionalTooltipData.toArray()));
                 }
             }
 
             if (usageTooltipExists) {
-                if(Screen.hasControlDown()){
+                if (Screen.hasControlDown()) {
+                    if (!extendedTooltipExists || Screen.hasShiftDown())
+                        event.getToolTip().add(Component.literal(" "));
+                    event.getToolTip().add(Component.translatable(TheurgyConstants.I18n.Tooltip.USAGE_HEADING, additionalTooltipData.toArray()));
                     event.getToolTip().add(Component.translatable(usageTooltipKey, additionalTooltipData.toArray()).withStyle(Style.EMPTY.withColor(ChatFormatting.GRAY)));
                 } else {
+                    if (!extendedTooltipExists || Screen.hasShiftDown())
+                        event.getToolTip().add(Component.literal(" "));
                     event.getToolTip().add(Component.translatable(TheurgyConstants.I18n.Tooltip.SHOW_USAGE, additionalTooltipData.toArray()));
                 }
             }

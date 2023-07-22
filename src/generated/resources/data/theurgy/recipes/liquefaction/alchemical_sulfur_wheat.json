@@ -1,0 +1,18 @@
+{
+  "type": "theurgy:liquefaction",
+  "ingredient": {
+    "item": "minecraft:wheat"
+  },
+  "liquefaction_time": 200,
+  "result": {
+    "count": 1,
+    "item": "theurgy:alchemical_sulfur_wheat",
+    "nbt": {
+      "theurgy:sulfur.source.id": "minecraft:wheat"
+    }
+  },
+  "solvent": {
+    "amount": 10,
+    "fluid": "theurgy:sal_ammoniac"
+  }
+}

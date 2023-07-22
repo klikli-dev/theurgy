@@ -46,6 +46,18 @@ versionRange = "${modonomicon_version_range}"
 side = "BOTH"
 
 [[dependencies.theurgy]]
+modId = "almostunified"
+mandatory = false
+versionRange = "${almost_unified_version_range}"
+side = "BOTH"
+
+[[dependencies.theurgy]]
+modId = "geckolib"
+mandatory = true
+versionRange = "${geckolib_version_range}"
+side = "BOTH"
+
+[[dependencies.theurgy]]
 modId = "jei"
 mandatory = false
 versionRange = "${jei_version_range}"

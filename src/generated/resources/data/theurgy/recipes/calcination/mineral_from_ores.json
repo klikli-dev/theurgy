@@ -1,0 +1,21 @@
+{
+  "type": "theurgy:calcination",
+  "calcination_time": 200,
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:ores"
+      }
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:ores"
+  },
+  "ingredient_count": 1,
+  "result": {
+    "count": 1,
+    "item": "theurgy:alchemical_salt_mineral"
+  }
+}

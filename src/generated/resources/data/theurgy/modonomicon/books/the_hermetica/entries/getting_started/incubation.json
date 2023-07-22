@@ -1,0 +1,65 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "theurgy:getting_started",
+  "description": "book.theurgy.the_hermetica.getting_started.incubation.description",
+  "hide_while_locked": false,
+  "icon": "minecraft:iron_ingot",
+  "name": "book.theurgy.the_hermetica.getting_started.incubation.name",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.getting_started.incubation.intro.text",
+      "title": "book.theurgy.the_hermetica.getting_started.incubation.intro.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.getting_started.incubation.step1.text",
+      "title": "book.theurgy.the_hermetica.getting_started.incubation.step1.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.getting_started.incubation.step2.text",
+      "title": "book.theurgy.the_hermetica.getting_started.incubation.step2.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.getting_started.incubation.step3.text",
+      "title": "book.theurgy.the_hermetica.getting_started.incubation.step3.title",
+      "use_markdown_in_title": false
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "theurgy:getting_started/create_mercury",
+      "line_enabled": true,
+      "line_reversed": false
+    },
+    {
+      "draw_arrow": true,
+      "entry": "theurgy:getting_started/create_salt",
+      "line_enabled": true,
+      "line_reversed": false
+    },
+    {
+      "draw_arrow": true,
+      "entry": "theurgy:getting_started/create_sulfur",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "x": 11,
+  "y": 3
+}

@@ -1,0 +1,22 @@
+{
+  "parent": "theurgy:block/liquefaction_cauldron_lower",
+  "display": {
+    "gui": {
+      "rotation": [
+        30,
+        225,
+        0
+      ],
+      "scale": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "translation": [
+        0,
+        -2,
+        0
+      ]
+    }
+  }
+}

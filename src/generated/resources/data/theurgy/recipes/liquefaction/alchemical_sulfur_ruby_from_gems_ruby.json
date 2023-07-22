@@ -1,0 +1,27 @@
+{
+  "type": "theurgy:liquefaction",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:gems/ruby"
+      }
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:gems/ruby"
+  },
+  "liquefaction_time": 200,
+  "result": {
+    "count": 1,
+    "item": "theurgy:alchemical_sulfur_ruby",
+    "nbt": {
+      "theurgy:sulfur.source.id": "#forge:gems/ruby"
+    }
+  },
+  "solvent": {
+    "amount": 15,
+    "fluid": "theurgy:sal_ammoniac"
+  }
+}

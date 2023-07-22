@@ -1,0 +1,27 @@
+{
+  "type": "theurgy:liquefaction",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:ores/sapphire"
+      }
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:ores/sapphire"
+  },
+  "liquefaction_time": 200,
+  "result": {
+    "count": 6,
+    "item": "theurgy:alchemical_sulfur_sapphire",
+    "nbt": {
+      "theurgy:sulfur.source.id": "#forge:ores/sapphire"
+    }
+  },
+  "solvent": {
+    "amount": 15,
+    "fluid": "theurgy:sal_ammoniac"
+  }
+}

@@ -1,0 +1,98 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "theurgy:spagyrics",
+  "description": "book.theurgy.the_hermetica.spagyrics.solvents.description",
+  "hide_while_locked": false,
+  "icon": "theurgy:sal_ammoniac_tank",
+  "name": "book.theurgy.the_hermetica.spagyrics.solvents.name",
+  "pages": [
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "item": {
+        "item": "theurgy:sal_ammoniac_bucket"
+      },
+      "text": "book.theurgy.the_hermetica.spagyrics.solvents.intro.text",
+      "title": "book.theurgy.the_hermetica.spagyrics.solvents.intro.title"
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.spagyrics.solvents.crafting.text",
+      "title": "book.theurgy.the_hermetica.spagyrics.solvents.crafting.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:multiblock",
+      "anchor": "",
+      "multiblock_id": "theurgy:placement/sal_ammoniac_accumulator",
+      "multiblock_name": "",
+      "show_visualize_button": true,
+      "text": ""
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.spagyrics.solvents.usage.text",
+      "title": "book.theurgy.the_hermetica.spagyrics.solvents.usage.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:crafting_recipe",
+      "anchor": "",
+      "recipe_id_1": "theurgy:crafting/shaped/sal_ammoniac_accumulator",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    },
+    {
+      "type": "modonomicon:crafting_recipe",
+      "anchor": "",
+      "recipe_id_1": "theurgy:crafting/shaped/sal_ammoniac_tank",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    },
+    {
+      "type": "modonomicon:image",
+      "anchor": "",
+      "border": true,
+      "images": [
+        "theurgy:textures/gui/book/256.png"
+      ],
+      "text": "book.theurgy.the_hermetica.spagyrics.solvents.working.text",
+      "title": "book.theurgy.the_hermetica.spagyrics.solvents.working.title"
+    },
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "item": {
+        "item": "theurgy:sal_ammoniac_crystal"
+      },
+      "text": "book.theurgy.the_hermetica.spagyrics.solvents.sal_ammoniac_crystal.text",
+      "title": ""
+    },
+    {
+      "type": "theurgy:accumulation_recipe",
+      "anchor": "",
+      "recipe_id_1": "theurgy:accumulation/sal_ammoniac_from_water",
+      "recipe_id_2": "theurgy:accumulation/sal_ammoniac_from_water_and_sal_ammoniac_crystal",
+      "text": "",
+      "title1": "",
+      "title2": "book.theurgy.the_hermetica.spagyrics.solvents.sal_ammoniac_fluid_recipe.title.2"
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "theurgy:spagyrics/pyromantic_brazier",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "x": 1,
+  "y": 0
+}

@@ -1,0 +1,63 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "theurgy:block/incubator_lower"
+      },
+      "when": {
+        "half": "lower"
+      }
+    },
+    {
+      "apply": {
+        "model": "theurgy:block/incubator_upper"
+      },
+      "when": {
+        "half": "upper"
+      }
+    },
+    {
+      "apply": {
+        "model": "theurgy:block/incubator_pipe",
+        "uvlock": true
+      },
+      "when": {
+        "half": "lower",
+        "north": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "theurgy:block/incubator_pipe",
+        "uvlock": true,
+        "y": 180
+      },
+      "when": {
+        "half": "lower",
+        "south": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "theurgy:block/incubator_pipe",
+        "uvlock": true,
+        "y": 270
+      },
+      "when": {
+        "half": "lower",
+        "west": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "theurgy:block/incubator_pipe",
+        "uvlock": true,
+        "y": 90
+      },
+      "when": {
+        "east": "true",
+        "half": "lower"
+      }
+    }
+  ]
+}

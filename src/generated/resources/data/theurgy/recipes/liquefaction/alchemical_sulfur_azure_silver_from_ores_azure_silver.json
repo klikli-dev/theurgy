@@ -1,0 +1,27 @@
+{
+  "type": "theurgy:liquefaction",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:ores/azure_silver"
+      }
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:ores/azure_silver"
+  },
+  "liquefaction_time": 200,
+  "result": {
+    "count": 3,
+    "item": "theurgy:alchemical_sulfur_azure_silver",
+    "nbt": {
+      "theurgy:sulfur.source.id": "#forge:ores/azure_silver"
+    }
+  },
+  "solvent": {
+    "amount": 10,
+    "fluid": "theurgy:sal_ammoniac"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "C": {
+      "tag": "forge:ingots/copper"
+    },
+    "G": {
+      "tag": "forge:ingots/gold"
+    },
+    "P": {
+      "tag": "minecraft:planks"
+    },
+    "S": {
+      "tag": "forge:stone"
+    }
+  },
+  "pattern": [
+    "PSP",
+    "GGG",
+    "SCS"
+  ],
+  "result": {
+    "count": 1,
+    "item": "theurgy:incubator"
+  }
+}

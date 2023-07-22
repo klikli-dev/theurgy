@@ -1,0 +1,26 @@
+{
+  "type": "theurgy:incubation",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:ingots/lead"
+      }
+    }
+  ],
+  "incubation_time": 200,
+  "mercury": {
+    "item": "theurgy:mercury_shard"
+  },
+  "result": {
+    "count": 1,
+    "tag": "forge:ingots/lead"
+  },
+  "salt": {
+    "item": "theurgy:alchemical_salt_mineral"
+  },
+  "sulfur": {
+    "item": "theurgy:alchemical_sulfur_lead"
+  }
+}

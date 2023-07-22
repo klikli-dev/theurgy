@@ -1,0 +1,27 @@
+{
+  "type": "theurgy:liquefaction",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:ingots/vibranium"
+      }
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:ingots/vibranium"
+  },
+  "liquefaction_time": 200,
+  "result": {
+    "count": 1,
+    "item": "theurgy:alchemical_sulfur_vibranium",
+    "nbt": {
+      "theurgy:sulfur.source.id": "#forge:ingots/vibranium"
+    }
+  },
+  "solvent": {
+    "amount": 20,
+    "fluid": "theurgy:sal_ammoniac"
+  }
+}

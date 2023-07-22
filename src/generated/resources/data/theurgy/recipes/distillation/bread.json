@@ -1,0 +1,12 @@
+{
+  "type": "theurgy:distillation",
+  "distillation_time": 200,
+  "ingredient": {
+    "item": "minecraft:bread"
+  },
+  "ingredient_count": 1,
+  "result": {
+    "count": 1,
+    "item": "theurgy:mercury_shard"
+  }
+}

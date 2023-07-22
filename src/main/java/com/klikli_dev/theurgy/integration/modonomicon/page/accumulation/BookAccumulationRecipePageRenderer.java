@@ -17,7 +17,6 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraftforge.fluids.FluidType;
 
 import java.util.Arrays;
-import java.util.List;
 
 public class BookAccumulationRecipePageRenderer extends BookRecipePageRenderer<AccumulationRecipe, BookRecipePage<AccumulationRecipe>> {
     public BookAccumulationRecipePageRenderer(BookAccumulationRecipePage page) {

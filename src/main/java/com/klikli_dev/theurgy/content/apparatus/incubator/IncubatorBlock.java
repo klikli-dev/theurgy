@@ -53,11 +53,11 @@ public class IncubatorBlock extends Block implements EntityBlock {
 
     //-16 because we exported it from a two block high blockbench model and this is the upper half
     protected static final VoxelShape TOP = Shapes.or(
-                    Block.box(0, 28 - 16, 0, 16, 30-16, 16),
-                    Block.box(1, 16 - 16, 1, 15, 28 - 16, 15)
-            );
+            Block.box(0, 28 - 16, 0, 16, 30 - 16, 16),
+            Block.box(1, 0, 1, 15, 28 - 16, 15)
+    );
 
-    protected static final VoxelShape BOTTOM =  Shapes.or(
+    protected static final VoxelShape BOTTOM = Shapes.or(
             Block.box(0, 0, 0, 16, 4, 16),
             Block.box(2, 4, 2, 14, 10, 14),
             Block.box(1, 10, 1, 15, 16, 15)
@@ -206,7 +206,7 @@ public class IncubatorBlock extends Block implements EntityBlock {
         if (pState.getValue(HALF) == DoubleBlockHalf.UPPER) {
             return null;
         }
-        if(pLevel.isClientSide()){
+        if (pLevel.isClientSide()) {
             return (lvl, pos, blockState, t) -> {
                 if (t instanceof IncubatorBlockEntity blockEntity) {
                     blockEntity.tickClient();

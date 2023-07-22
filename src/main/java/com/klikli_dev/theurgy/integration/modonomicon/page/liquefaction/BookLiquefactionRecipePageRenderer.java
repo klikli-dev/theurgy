@@ -16,7 +16,6 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraftforge.fluids.FluidType;
 
 import java.util.Arrays;
-import java.util.List;
 
 public class BookLiquefactionRecipePageRenderer extends BookRecipePageRenderer<LiquefactionRecipe, BookLiquefactionRecipePage> {
     public BookLiquefactionRecipePageRenderer(BookLiquefactionRecipePage page) {

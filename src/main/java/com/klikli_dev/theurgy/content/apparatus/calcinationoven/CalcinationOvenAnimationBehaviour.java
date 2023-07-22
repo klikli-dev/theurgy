@@ -29,7 +29,7 @@ public class CalcinationOvenAnimationBehaviour extends AnimationBehaviour<Calcin
     private static final RawAnimation PLACE_AND_OFF_ANIM = RawAnimation.begin()
             .thenPlay("animation.calcination_oven.place")
             .thenLoop("animation.calcination_oven.off");
-    
+
     public CalcinationOvenAnimationBehaviour(CalcinationOvenBlockEntity blockEntity) {
         super(blockEntity);
     }

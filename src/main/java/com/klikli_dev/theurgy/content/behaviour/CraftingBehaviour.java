@@ -62,8 +62,9 @@ public abstract class CraftingBehaviour<W extends RecipeWrapper, R extends Recip
 
     /**
      * Advances the crafting process by one tick.
+     *
      * @param canProcess indicates if "fuel" is available (energy, or usually: heat). If false, will stop processing and reset progress.
-     * @param hasInput indicates if input ingredients are available. If false, will stop processing and reset progress.
+     * @param hasInput   indicates if input ingredients are available. If false, will stop processing and reset progress.
      */
     public void tickServer(boolean canProcess, boolean hasInput) {
         if (hasInput) {

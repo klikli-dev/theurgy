@@ -6,7 +6,6 @@
 
 package com.klikli_dev.theurgy.content.recipe.wrapper;
 
-import net.minecraftforge.fluids.IFluidTank;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.wrapper.RecipeWrapper;

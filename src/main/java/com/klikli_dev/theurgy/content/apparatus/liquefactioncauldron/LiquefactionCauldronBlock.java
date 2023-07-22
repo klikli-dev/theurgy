@@ -179,7 +179,7 @@ public class LiquefactionCauldronBlock extends Block implements EntityBlock {
         if (pState.getValue(HALF) == DoubleBlockHalf.UPPER) {
             return null;
         }
-        if(pLevel.isClientSide()){
+        if (pLevel.isClientSide()) {
             return (lvl, pos, blockState, t) -> {
                 if (t instanceof LiquefactionCauldronBlockEntity blockEntity) {
                     blockEntity.tickClient();

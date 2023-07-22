@@ -65,7 +65,7 @@ public class SalAmmoniacAccumulatorRenderer implements BlockEntityRenderer<SalAm
 
         int color = fluidClientExtension.getTintColor(fluidStack);
 
-        if(pBlockEntity.inventory.getStackInSlot(0).is(ItemTagRegistry.SAL_AMMONIAC_GEMS))
+        if (pBlockEntity.inventory.getStackInSlot(0).is(ItemTagRegistry.SAL_AMMONIAC_GEMS))
             color = 0xFFC080FF;
 
         int blockLightIn = (pPackedLight >> 4) & 0xF;

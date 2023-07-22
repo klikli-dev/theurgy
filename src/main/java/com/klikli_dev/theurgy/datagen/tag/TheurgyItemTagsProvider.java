@@ -302,7 +302,7 @@ public class TheurgyItemTagsProvider extends ItemTagsProvider {
         this.tag(ItemTagRegistry.OTHER_MINERALS)
                 .addTag(ItemTags.COALS)
                 .addTag(Tags.Items.DUSTS_REDSTONE)
-                //.addOptionalTag(this.rl("forge:gems/sulfur")) sulfur is classified as a gem, so its handled in the Tags.Items.GEMS
+        //.addOptionalTag(this.rl("forge:gems/sulfur")) sulfur is classified as a gem, so its handled in the Tags.Items.GEMS
         ;
 
     }

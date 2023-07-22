@@ -4,6 +4,64 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [beta/v1.20.1-1.3.9] - 2023-07-22
+### :sparkles: New Features
+- [`a194764`](https://github.com/klikli-dev/theurgy/commit/a19476437b60c83787b50bb88b7147341c431d5c) - switch to cloudsmith maven *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
+## [beta/v1.20.1-1.3.8] - 2023-07-20
+### :sparkles: New Features
+- [`3b40dad`](https://github.com/klikli-dev/theurgy/commit/3b40dadab839e9254396d34eee69388bc59856c6) - update to latest modonomicon *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`28eb07e`](https://github.com/klikli-dev/theurgy/commit/28eb07e270e5cb8f4713eea38187345c6f4f7760) - switch to new publish plugin that supports modrinth *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
+## [beta/v1.20.1-1.3.7] - 2023-06-16
+### :sparkles: New Features
+- [`b54651e`](https://github.com/klikli-dev/theurgy/commit/b54651eea7d1ca33d9387abb122986ff3d553062) - update to latest modonomicon lang api features *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
+## [beta/v1.20.1-1.3.6] - 2023-06-14
+### :sparkles: New Features
+- [`645a924`](https://github.com/klikli-dev/theurgy/commit/645a924db2cbf616f16a766bbd51d78e29ae1eab) - update modonomicon to use new translation stuff *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`db9b38f`](https://github.com/klikli-dev/theurgy/commit/db9b38f73dc9509719defad647b8d73e075e4c39) - fix cf metadata *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
+## [beta/v1.20.1-1.3.5] - 2023-06-14
+### :sparkles: New Features
+- [`608d86e`](https://github.com/klikli-dev/theurgy/commit/608d86e793cb2e043c61b442960cf14ee7fd8213) - update to 1.20.1 *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :bug: Bug Fixes
+- [`fc7908b`](https://github.com/klikli-dev/theurgy/commit/fc7908b84435388d238798d085fe6a257c77650e) - use Empty Registry access instead of null *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`aedd327`](https://github.com/klikli-dev/theurgy/commit/aedd3275781a3df110f8a88a3a57d09728c71690) - re-establish reuse compliance *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
+## [beta/v1.20-1.3.5] - 2023-06-09
+### :sparkles: New Features
+- [`ebab77a`](https://github.com/klikli-dev/theurgy/commit/ebab77ac32f0903781f94ec670a7eeadbb4bffd0) - update to 1.20 *(PR [#120](https://github.com/klikli-dev/theurgy/pull/120) by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`c8e52c8`](https://github.com/klikli-dev/theurgy/commit/c8e52c8bc89c9f4a044f9e71af13e1d1c411cd5f) - space *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
+## [beta/v1.19.4-1.3.5] - 2023-06-05
+### :sparkles: New Features
+- [`637cced`](https://github.com/klikli-dev/theurgy/commit/637cced82cfc522707deec6d67321af7991a163a) - Create zh_cn.json *(PR [#115](https://github.com/klikli-dev/theurgy/pull/115) by [@Zoshsgahdnkc](https://github.com/Zoshsgahdnkc))*
+
+
+## [beta/v1.19.4-1.3.4] - 2023-06-03
+### :bug: Bug Fixes
+- [`57bea42`](https://github.com/klikli-dev/theurgy/commit/57bea423ce142f81f9e6d35d7559d942317e214c) - divination rod JEI recipes not showing if IE and NERB are both present *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`9186166`](https://github.com/klikli-dev/theurgy/commit/9186166c500b0e7fe4d372b4b5c9810a099e1e79) - increase mod version *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [beta/v1.19.4-1.3.3] - 2023-06-01
 ### :sparkles: New Features
 - [`57cb822`](https://github.com/klikli-dev/theurgy/commit/57cb8220152af50a1a8bbcf95347840b5e294c17) - re-enable jei *(commit by [@klikli-dev](https://github.com/klikli-dev))*

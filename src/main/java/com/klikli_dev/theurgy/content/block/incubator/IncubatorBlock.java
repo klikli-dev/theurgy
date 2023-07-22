@@ -84,7 +84,7 @@ public class IncubatorBlock extends Block implements EntityBlock {
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
         return pState.getValue(HALF) == DoubleBlockHalf.LOWER ? BOTTOM : TOP;
     }
-    
+
     @Override
     @SuppressWarnings("deprecation")
     public BlockState updateShape(BlockState pState, Direction pFacing, BlockState pFacingState, LevelAccessor pLevel, BlockPos pCurrentPos, BlockPos pFacingPos) {

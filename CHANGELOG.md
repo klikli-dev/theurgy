@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [alpha/v1.20.1-1.4.2] - 2023-07-23
+### :sparkles: New Features
+- [`11dd51b`](https://github.com/klikli-dev/theurgy/commit/11dd51b5a195da9e66ee99fd8392304d381b2414) - Tier 1 Apparatus (Ore Refining) *(PR [#132](https://github.com/klikli-dev/theurgy/pull/132) by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :bug: Bug Fixes
+- [`05bd0e1`](https://github.com/klikli-dev/theurgy/commit/05bd0e1406a158cd114d0cbe9ffb23ed33665370) - add missing source jar to mod platform publish *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [beta/v1.20.1-1.3.9] - 2023-07-22
 ### :sparkles: New Features
 - [`a194764`](https://github.com/klikli-dev/theurgy/commit/a19476437b60c83787b50bb88b7147341c431d5c) - switch to cloudsmith maven *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -214,3 +222,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [beta/v1.19.4-1.3.1]: https://github.com/klikli-dev/theurgy/compare/beta/v1.19.4-1.3.0...beta/v1.19.4-1.3.1
 [beta/v1.19.4-1.3.2]: https://github.com/klikli-dev/theurgy/compare/beta/v1.19.4-1.3.1...beta/v1.19.4-1.3.2
 [beta/v1.19.4-1.3.3]: https://github.com/klikli-dev/theurgy/compare/beta/v1.19.4-1.3.2...beta/v1.19.4-1.3.3
+[alpha/v1.20.1-1.4.2]: https://github.com/klikli-dev/theurgy/compare/beta/v1.20.1-1.3.10...alpha/v1.20.1-1.4.2

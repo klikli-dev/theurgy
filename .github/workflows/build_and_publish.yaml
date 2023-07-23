@@ -95,6 +95,7 @@ jobs:
 
           files: |
             build/libs/theurgy-${{ steps.get_mc_version.outputs.result }}-${{ steps.get_version.outputs.result }}.jar
+            build/libs/theurgy-${{ steps.get_mc_version.outputs.result }}-${{ steps.get_version.outputs.result }}-sources.jar
 
           name: theurgy-${{ steps.get_mc_version.outputs.result }}-${{ steps.get_version.outputs.result }}.jar
           version: ${{ steps.get_mc_version.outputs.result }}-${{ steps.get_version.outputs.result }}

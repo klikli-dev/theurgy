@@ -42,11 +42,6 @@ public class DistillationRecipe implements Recipe<RecipeWrapper> {
     }
 
     @Override
-    public boolean isSpecial() {
-        return true;
-    }
-
-    @Override
     public ResourceLocation getId() {
         return this.id;
     }

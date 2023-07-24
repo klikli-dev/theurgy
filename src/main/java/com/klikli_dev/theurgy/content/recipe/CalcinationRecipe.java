@@ -41,11 +41,6 @@ public class CalcinationRecipe implements Recipe<RecipeWrapper> {
         this.calcinationTime = calcinationTime;
     }
 
-    @Override
-    public boolean isSpecial() {
-        return true;
-    }
-
     public int getIngredientCount() {
         return this.ingredientCount;
     }

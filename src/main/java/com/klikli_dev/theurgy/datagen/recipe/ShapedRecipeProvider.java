@@ -90,7 +90,7 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
                 .define('M', Tags.Items.NUGGETS_GOLD)
         );
         this.makeRecipe("sulfur_attuned_divination_rod_rare", new RecipeBuilder(
-                ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_RARE.get(), 1, this.makeDivinationRodSettings(ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_RARE.get()))
+                ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_RARE.get(), 1, this.makeDivinationRodSettings(ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_RARE.get()), "theurgy:divination_rod")
                 .pattern(" GS")
                 .pattern(" AG")
                 .pattern("R  ")
@@ -111,7 +111,7 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
                 .define('A', Tags.Items.GEMS_AMETHYST)
         );
         this.makeRecipe("sulfur_attuned_divination_rod_precious", new RecipeBuilder(
-                ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_PRECIOUS.get(), 1, this.makeDivinationRodSettings(ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_PRECIOUS.get()))
+                ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_PRECIOUS.get(), 1, this.makeDivinationRodSettings(ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_PRECIOUS.get()), "theurgy:divination_rod")
                 .pattern(" GS")
                 .pattern(" DG")
                 .pattern("A  ")

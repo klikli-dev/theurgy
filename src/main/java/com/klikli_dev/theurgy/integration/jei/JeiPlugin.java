@@ -44,7 +44,7 @@ public class JeiPlugin implements IModPlugin {
         });
 
         SulfurRegistry.SULFURS.getEntries().stream().forEach(sulfur -> {
-            registration.useNbtForSubtypes(sulfur.get());
+            registration.registerSubtypeInterpreter(sulfur.get(), AlchemicalSulfurSubtypeInterpreter.get());
         });
     }
 

@@ -46,11 +46,6 @@ public class LiquefactionRecipe implements Recipe<RecipeWrapperWithFluid> {
     }
 
     @Override
-    public boolean isSpecial() {
-        return true;
-    }
-
-    @Override
     public ResourceLocation getId() {
         return this.id;
     }

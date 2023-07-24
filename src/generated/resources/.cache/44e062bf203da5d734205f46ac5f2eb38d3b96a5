@@ -1,4 +1,4 @@
-// 1.20.1	2023-07-21T14:14:36.0585203	Block States: theurgy
+// 1.20.1	2023-07-24T12:49:04.6993967	Block States: theurgy
 ef875fc2604f4f19d7604536c66d3d2c26163879 assets/theurgy/blockstates/calcination_oven.json
 92ebf87f417e3426f30d3e42eeafd933e446eb23 assets/theurgy/blockstates/deepslate_sal_ammoniac_ore.json
 efc838dc92770522219889024bec42cc52fb93bd assets/theurgy/blockstates/distiller.json
@@ -28,7 +28,7 @@ c79ce877fb80454b4c5ea666bcc5584c881e8c11 assets/theurgy/models/block/sal_ammonia
 e0f7b66a84e6588f01abbbce75b1803ffe5d46e2 assets/theurgy/models/item/calcination_oven.json
 aff0eca2c86c1736edbfdc778cb40693db3bbd55 assets/theurgy/models/item/deepslate_sal_ammoniac_ore.json
 e0f7b66a84e6588f01abbbce75b1803ffe5d46e2 assets/theurgy/models/item/distiller.json
-4a721dcf1ec96ada832e645a961eba0f754d15d5 assets/theurgy/models/item/incubator.json
+cfcbe624706b49234c4db8a5c1aa85b2b2117ab7 assets/theurgy/models/item/incubator.json
 e0f7b66a84e6588f01abbbce75b1803ffe5d46e2 assets/theurgy/models/item/incubator_mercury_vessel.json
 e0f7b66a84e6588f01abbbce75b1803ffe5d46e2 assets/theurgy/models/item/incubator_salt_vessel.json
 e0f7b66a84e6588f01abbbce75b1803ffe5d46e2 assets/theurgy/models/item/incubator_sulfur_vessel.json

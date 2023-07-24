@@ -7,16 +7,13 @@
     "C": {
       "tag": "forge:ingots/copper"
     },
-    "I": {
-      "tag": "forge:ingots/iron"
-    },
     "S": {
       "tag": "forge:stone"
     }
   },
   "pattern": [
     "CCC",
-    "IBI",
+    "CBC",
     "SSS"
   ],
   "result": {

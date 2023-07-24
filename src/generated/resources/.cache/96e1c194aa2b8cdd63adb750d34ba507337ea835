@@ -1,16 +1,16 @@
-// 1.20.1	2023-07-24T16:14:32.5029505	Shaped Crafting Recipes
+// 1.20.1	2023-07-24T17:31:44.0537625	Shaped Crafting Recipes
 10616b9ecf4903d076f75f2b754a415125413d44 data/theurgy/recipes/crafting/shaped/amethyst_divination_rod.json
 10238f21b147011c777703fc0ade32f5708fd6ad data/theurgy/recipes/crafting/shaped/calcination_oven.json
-6a7516fc2ef20dd0f00eef151afe455f64038667 data/theurgy/recipes/crafting/shaped/distiller.json
+072f07fe72f4d544af641d052c894b0dfcb5a1b1 data/theurgy/recipes/crafting/shaped/distiller.json
 23cc9ffeb1383e5fead6a158948b62eb5b3a2f97 data/theurgy/recipes/crafting/shaped/divination_rod_t1.json
 b147e20c9fc286b8571f45aebd2cc845d12b80bd data/theurgy/recipes/crafting/shaped/divination_rod_t2.json
 daad93aefa89912ae4a624f64b96e6106f5b32ed data/theurgy/recipes/crafting/shaped/divination_rod_t3.json
 3f469caf98fa40c1dd36a6d73485cb32db5915b4 data/theurgy/recipes/crafting/shaped/divination_rod_t4.json
 8141e9f1a1eccfcb5b4c476751830b2600a2cd80 data/theurgy/recipes/crafting/shaped/incubator.json
-98cd8062185f5ac689b3648ceada3e936ecdafc2 data/theurgy/recipes/crafting/shaped/incubator_mercury_vessel.json
-6c291f8d512ac8c2438964c5d84644a5a348f090 data/theurgy/recipes/crafting/shaped/incubator_salt_vessel.json
-3cdba94c6ace0476e53fb22cb4825e022430a8d8 data/theurgy/recipes/crafting/shaped/incubator_sulfur_vessel.json
-02972fe4520e57e7c9bed4e3cb4382c2290b133c data/theurgy/recipes/crafting/shaped/liquefaction_cauldron.json
+99dffd10149edf29f4e38f3714b7182906c069f4 data/theurgy/recipes/crafting/shaped/incubator_mercury_vessel.json
+55f6a8722640f08990360138a09768da6da1a072 data/theurgy/recipes/crafting/shaped/incubator_salt_vessel.json
+777c88aba57bfe5607a6b2f3bdcfdc59e901e806 data/theurgy/recipes/crafting/shaped/incubator_sulfur_vessel.json
+07f4c6dc7399b08687ef579a23091daaaeb481f7 data/theurgy/recipes/crafting/shaped/liquefaction_cauldron.json
 3c4bb4a4dd344b7d4cf2117d22125b0f47492423 data/theurgy/recipes/crafting/shaped/pyromantic_brazier.json
 f227545084d653722a0d993c1b8ea7fb73447f12 data/theurgy/recipes/crafting/shaped/sal_ammoniac_accumulator.json
 a29b1881ae565d790b09ee568780627b7854e0fe data/theurgy/recipes/crafting/shaped/sal_ammoniac_tank.json

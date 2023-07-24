@@ -6,12 +6,15 @@
     },
     "I": {
       "tag": "forge:ingots/iron"
+    },
+    "S": {
+      "tag": "forge:stone"
     }
   },
   "pattern": [
     " I ",
     "ICI",
-    "III"
+    "SSS"
   ],
   "result": {
     "count": 1,

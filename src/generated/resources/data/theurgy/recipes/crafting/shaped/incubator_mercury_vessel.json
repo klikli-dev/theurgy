@@ -1,23 +1,20 @@
 {
   "type": "minecraft:crafting_shaped",
   "key": {
-    "C": {
-      "tag": "forge:storage_blocks/copper"
-    },
-    "G": {
-      "tag": "forge:ingots/gold"
-    },
-    "I": {
-      "tag": "forge:ingots/iron"
-    },
     "M": {
       "tag": "theurgy:alchemical_mercuries"
+    },
+    "S": {
+      "tag": "forge:stone"
+    },
+    "c": {
+      "tag": "forge:ingots/copper"
     }
   },
   "pattern": [
-    "IMI",
-    "GCG",
-    "III"
+    "cMc",
+    "c c",
+    "SSS"
   ],
   "result": {
     "count": 1,

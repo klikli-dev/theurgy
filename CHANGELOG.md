@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [alpha/v1.20.1-1.4.3] - 2023-07-24
+### :bug: Bug Fixes
+- [`44e4e6b`](https://github.com/klikli-dev/theurgy/commit/44e4e6b29cf302e840fd4d72ce0b2a9f64dc1b36) - incubator item model scale *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [alpha/v1.20.1-1.4.2] - 2023-07-23
 ### :sparkles: New Features
 - [`11dd51b`](https://github.com/klikli-dev/theurgy/commit/11dd51b5a195da9e66ee99fd8392304d381b2414) - Tier 1 Apparatus (Ore Refining) *(PR [#132](https://github.com/klikli-dev/theurgy/pull/132) by [@klikli-dev](https://github.com/klikli-dev))*
@@ -223,3 +228,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [beta/v1.19.4-1.3.2]: https://github.com/klikli-dev/theurgy/compare/beta/v1.19.4-1.3.1...beta/v1.19.4-1.3.2
 [beta/v1.19.4-1.3.3]: https://github.com/klikli-dev/theurgy/compare/beta/v1.19.4-1.3.2...beta/v1.19.4-1.3.3
 [alpha/v1.20.1-1.4.2]: https://github.com/klikli-dev/theurgy/compare/beta/v1.20.1-1.3.10...alpha/v1.20.1-1.4.2
+[alpha/v1.20.1-1.4.3]: https://github.com/klikli-dev/theurgy/compare/alpha/v1.20.1-1.4.2...alpha/v1.20.1-1.4.3

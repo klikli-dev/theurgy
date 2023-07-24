@@ -168,7 +168,8 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
     protected BookCategoryModel generateCategory() {
         this.add(this.context().categoryName(), "Getting Started");
 
-        return BookCategoryModel.create(Theurgy.loc((this.context().categoryId())), this.context().categoryName()).withIcon(ItemRegistry.THE_HERMETICA_ICON.get()).withBackground(Theurgy.loc("textures/gui/book/bg_nightsky.png"));
+        return BookCategoryModel.create(Theurgy.loc((this.context().categoryId())), this.context().categoryName())
+                .withIcon(ItemRegistry.THE_HERMETICA_ICON.get()).withBackground(Theurgy.loc("textures/gui/book/bg_nightsky.png"));
     }
 
     private BookEntryModel introEntry(char location) {

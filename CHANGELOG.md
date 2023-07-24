@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [alpha/v1.20.1-1.4.6] - 2023-07-24
+### :sparkles: New Features
+- [`9e625e6`](https://github.com/klikli-dev/theurgy/commit/9e625e639c03434eae866d106bc083dd6e046f1a) - rebalance machine recipes *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [alpha/v1.20.1-1.4.5] - 2023-07-24
 ### :bug: Bug Fixes
 - [`6069e28`](https://github.com/klikli-dev/theurgy/commit/6069e280eb8f354c8c44fb2c1160c1f8605eee73) - sulfur attuned divination rods not working properly *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -246,3 +251,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [alpha/v1.20.1-1.4.3]: https://github.com/klikli-dev/theurgy/compare/alpha/v1.20.1-1.4.2...alpha/v1.20.1-1.4.3
 [alpha/v1.20.1-1.4.4]: https://github.com/klikli-dev/theurgy/compare/alpha/v1.20.1-1.4.3...alpha/v1.20.1-1.4.4
 [alpha/v1.20.1-1.4.5]: https://github.com/klikli-dev/theurgy/compare/alpha/v1.20.1-1.4.4...alpha/v1.20.1-1.4.5
+[alpha/v1.20.1-1.4.6]: https://github.com/klikli-dev/theurgy/compare/alpha/v1.20.1-1.4.5...alpha/v1.20.1-1.4.6

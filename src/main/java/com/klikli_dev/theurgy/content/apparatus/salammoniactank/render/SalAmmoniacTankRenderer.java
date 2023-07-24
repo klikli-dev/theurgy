@@ -36,10 +36,10 @@ public class SalAmmoniacTankRenderer extends GeoBlockRenderer<SalAmmoniacTankBlo
 
         var fluidHeight = fluidStack.getAmount() / (float) pBlockEntity.tank.getCapacity();
 
-        float blockHeight = 15 / 16f;
+        float blockHeight = 15 / 16f - 2 / 128f;
         float blockWidth = 1;
         float capHeight = 1 / 4f;
-        float tankHullWidth = 2 / 16f + 1 / 128f;
+        float tankHullWidth = 2 / 16f + 2 / 128f;
         float minPuddleHeight = 1 / 16f;
         float totalHeight = blockHeight - 2 * capHeight - minPuddleHeight;
 

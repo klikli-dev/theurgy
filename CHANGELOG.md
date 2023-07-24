@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [alpha/v1.20.1-1.4.4] - 2023-07-24
+### :bug: Bug Fixes
+- [`ab211c1`](https://github.com/klikli-dev/theurgy/commit/ab211c15522a601d2acf61b781f4a62b9e815983) - tank bottom z fighting *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`6bc2d79`](https://github.com/klikli-dev/theurgy/commit/6bc2d79db54dc288c78e1f5e0816561c6280eac9) - cauldron z fighting *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`c5fab6e`](https://github.com/klikli-dev/theurgy/commit/c5fab6ef068e23c69eff8e3ee6ae7fc14685b9c3) - slightly reduce size of tank content rendering *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`492e846`](https://github.com/klikli-dev/theurgy/commit/492e84699e0a9ebb127f9f519192dae12184356c) - update mod version *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [alpha/v1.20.1-1.4.3] - 2023-07-24
 ### :bug: Bug Fixes
 - [`44e4e6b`](https://github.com/klikli-dev/theurgy/commit/44e4e6b29cf302e840fd4d72ce0b2a9f64dc1b36) - incubator item model scale *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -229,3 +239,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [beta/v1.19.4-1.3.3]: https://github.com/klikli-dev/theurgy/compare/beta/v1.19.4-1.3.2...beta/v1.19.4-1.3.3
 [alpha/v1.20.1-1.4.2]: https://github.com/klikli-dev/theurgy/compare/beta/v1.20.1-1.3.10...alpha/v1.20.1-1.4.2
 [alpha/v1.20.1-1.4.3]: https://github.com/klikli-dev/theurgy/compare/alpha/v1.20.1-1.4.2...alpha/v1.20.1-1.4.3
+[alpha/v1.20.1-1.4.4]: https://github.com/klikli-dev/theurgy/compare/alpha/v1.20.1-1.4.3...alpha/v1.20.1-1.4.4

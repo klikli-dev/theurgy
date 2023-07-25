@@ -45,7 +45,7 @@ public class SalAmmoniacTankBlockEntity extends BlockEntity implements GeoBlockE
     public SalAmmoniacTankBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(BlockEntityRegistry.SAL_AMMONIAC_TANK.get(), pPos, pBlockState);
 
-        this.tank = new Tank(FluidType.BUCKET_VOLUME, (fluidStack -> ForgeRegistries.FLUIDS.tags().getTag(FluidTagRegistry.SAL_AMMONIAC).contains(fluidStack.getFluid())));
+        this.tank = new Tank(FluidType.BUCKET_VOLUME * 2, (fluidStack -> ForgeRegistries.FLUIDS.tags().getTag(FluidTagRegistry.SAL_AMMONIAC).contains(fluidStack.getFluid())));
         this.tankCapability = LazyOptional.of(() -> this.tank);
     }
 

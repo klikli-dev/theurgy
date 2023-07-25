@@ -77,7 +77,7 @@ public class LiquefactionCauldronBlockEntity extends BlockEntity {
         this.inputInventoryCapability = LazyOptional.of(() -> this.inputInventory);
         this.outputInventoryCapability = LazyOptional.of(() -> this.outputInventoryTakeOnlyWrapper);
 
-        this.solventTank = new SolventTank(FluidType.BUCKET_VOLUME, (fluidStack -> ForgeRegistries.FLUIDS.tags().getTag(FluidTagRegistry.SOLVENT).contains(fluidStack.getFluid())));
+        this.solventTank = new SolventTank(FluidType.BUCKET_VOLUME * 2, (fluidStack -> ForgeRegistries.FLUIDS.tags().getTag(FluidTagRegistry.SOLVENT).contains(fluidStack.getFluid())));
 
         this.solventTankCapability = LazyOptional.of(() -> this.solventTank);
 

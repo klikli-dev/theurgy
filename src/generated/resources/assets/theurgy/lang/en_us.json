@@ -150,7 +150,7 @@
   "book.theurgy.the_hermetica.getting_started.incubation.step1.title": "Filling the Vessels",
   "book.theurgy.the_hermetica.getting_started.incubation.step2.text": "Now add fuel, such as Coal, to the [](item://theurgy:pyromantic_brazier) below the [](item://theurgy:incubator) to heat it up.\n",
   "book.theurgy.the_hermetica.getting_started.incubation.step2.title": "Providing Heat",
-  "book.theurgy.the_hermetica.getting_started.incubation.step3.text": "After a while the input items will have been consumed and incubated into the result, you can right-click the [](item://theurgy:incubator) with an empty hand to obtain 3x [](item://minecraft:iron_ingot).\n\\\n\\\n**Congratulations, you created 3 Ingots from one Raw Metal!**\n",
+  "book.theurgy.the_hermetica.getting_started.incubation.step3.text": "After a while the input items will have been consumed and incubated into the result, you can right-click the [](item://theurgy:incubator) with an empty hand to obtain 3x [](item://minecraft:iron_ingot).\n\\\n\\\n**Congratulations, you created 2 Ingots from 1 Raw Metal!**\n",
   "book.theurgy.the_hermetica.getting_started.incubation.step3.title": "Obtaining the Incubated Item",
   "book.theurgy.the_hermetica.getting_started.intro.description": "About using The Hermetica",
   "book.theurgy.the_hermetica.getting_started.intro.help.text": "If the reader finds themselves in trouble of any kind, prompt assistance will be provided at the Council of Alchemists, known also as Kli Kli's Discord Server.\n\\\n\\\n[To get help, join us at https://invite.gg/klikli](https://invite.gg/klikli)\n",

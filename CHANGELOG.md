@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [alpha/v1.20.1-1.4.9] - 2023-07-25
+### :bug: Bug Fixes
+- [`ad96354`](https://github.com/klikli-dev/theurgy/commit/ad9635493e5b69488823ed884954d246dd5fc9db) - first operation is instant craft *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [alpha/v1.20.1-1.4.8] - 2023-07-25
 ### :bug: Bug Fixes
 - [`613230b`](https://github.com/klikli-dev/theurgy/commit/613230b8eeb535c30efe396bc237cde90419c532) - sulfur vessel uses copper block instead of copper ingot *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -264,3 +269,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [alpha/v1.20.1-1.4.6]: https://github.com/klikli-dev/theurgy/compare/alpha/v1.20.1-1.4.5...alpha/v1.20.1-1.4.6
 [alpha/v1.20.1-1.4.7]: https://github.com/klikli-dev/theurgy/compare/alpha/v1.20.1-1.4.6...alpha/v1.20.1-1.4.7
 [alpha/v1.20.1-1.4.8]: https://github.com/klikli-dev/theurgy/compare/alpha/v1.20.1-1.4.7...alpha/v1.20.1-1.4.8
+[alpha/v1.20.1-1.4.9]: https://github.com/klikli-dev/theurgy/compare/alpha/v1.20.1-1.4.8...alpha/v1.20.1-1.4.9

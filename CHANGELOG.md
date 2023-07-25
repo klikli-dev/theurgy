@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [alpha/v1.20.1-1.4.11] - 2023-07-25
+### :bug: Bug Fixes
+- [`e0b4273`](https://github.com/klikli-dev/theurgy/commit/e0b42734b73b6947532a50c94763e62506439423) - hermetica shows wrong multiplier for ore refining *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [alpha/v1.20.1-1.4.10] - 2023-07-25
 ### :sparkles: New Features
 - [`4351158`](https://github.com/klikli-dev/theurgy/commit/4351158867c7c3cfcb258eef06900a1cfe739937) - empty hand + shift click empties fluid tanks *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -281,3 +286,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [alpha/v1.20.1-1.4.8]: https://github.com/klikli-dev/theurgy/compare/alpha/v1.20.1-1.4.7...alpha/v1.20.1-1.4.8
 [alpha/v1.20.1-1.4.9]: https://github.com/klikli-dev/theurgy/compare/alpha/v1.20.1-1.4.8...alpha/v1.20.1-1.4.9
 [alpha/v1.20.1-1.4.10]: https://github.com/klikli-dev/theurgy/compare/alpha/v1.20.1-1.4.9...alpha/v1.20.1-1.4.10
+[alpha/v1.20.1-1.4.11]: https://github.com/klikli-dev/theurgy/compare/alpha/v1.20.1-1.4.10...alpha/v1.20.1-1.4.11

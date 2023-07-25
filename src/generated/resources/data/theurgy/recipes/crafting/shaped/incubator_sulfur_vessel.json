@@ -5,7 +5,7 @@
       "tag": "forge:stone"
     },
     "c": {
-      "tag": "forge:storage_blocks/copper"
+      "tag": "forge:ingots/copper"
     },
     "s": {
       "tag": "theurgy:alchemical_sulfurs"

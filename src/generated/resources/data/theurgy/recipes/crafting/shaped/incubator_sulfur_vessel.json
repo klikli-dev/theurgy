@@ -1,11 +1,11 @@
 {
   "type": "minecraft:crafting_shaped",
   "key": {
-    "C": {
-      "tag": "forge:storage_blocks/copper"
-    },
     "S": {
       "tag": "forge:stone"
+    },
+    "c": {
+      "tag": "forge:storage_blocks/copper"
     },
     "s": {
       "tag": "theurgy:alchemical_sulfurs"

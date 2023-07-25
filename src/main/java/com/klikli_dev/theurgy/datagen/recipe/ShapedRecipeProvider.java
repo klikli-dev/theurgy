@@ -228,7 +228,7 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
                 .pattern("csc")
                 .pattern("c c")
                 .pattern("SSS")
-                .define('C', Tags.Items.STORAGE_BLOCKS_COPPER)
+                .define('c', Tags.Items.STORAGE_BLOCKS_COPPER)
                 .define('s', ItemTagRegistry.ALCHEMICAL_SULFURS)
                 .define('S', Tags.Items.STONE)
         );

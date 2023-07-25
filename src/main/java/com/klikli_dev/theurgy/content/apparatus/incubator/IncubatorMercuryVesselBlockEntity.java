@@ -6,6 +6,7 @@
 
 package com.klikli_dev.theurgy.content.apparatus.incubator;
 
+import com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron.LiquefactionCauldronBlockEntity;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.ItemTagRegistry;
 import net.minecraft.core.BlockPos;
@@ -84,7 +85,6 @@ public class IncubatorMercuryVesselBlockEntity extends BlockEntity implements Ge
 
         @Override
         public void setStackInSlot(int slot, @NotNull ItemStack newStack) {
-
             var oldStack = this.getStackInSlot(slot);
 
             boolean sameItem = !newStack.isEmpty() && ItemStack.isSameItemSameTags(newStack, oldStack);
@@ -95,6 +95,22 @@ public class IncubatorMercuryVesselBlockEntity extends BlockEntity implements Ge
                 if (IncubatorMercuryVesselBlockEntity.this.incubator != null)
                     IncubatorMercuryVesselBlockEntity.this.incubator.onVesselItemChanged();
             }
+        }
+
+        @Override
+        public @NotNull ItemStack insertItem(int slot, @NotNull ItemStack newStack, boolean simulate) {
+            if (!simulate) {
+                var oldStack = this.getStackInSlot(slot);
+                var result = super.insertItem(slot, newStack, simulate);
+
+                if (result != newStack) {
+                    if (IncubatorMercuryVesselBlockEntity.this.incubator != null)
+                        IncubatorMercuryVesselBlockEntity.this.incubator.craftingBehaviour.onInputItemChanged(oldStack, newStack);
+                }
+
+                return result;
+            }
+            return super.insertItem(slot, newStack, simulate);
         }
 
         @Override

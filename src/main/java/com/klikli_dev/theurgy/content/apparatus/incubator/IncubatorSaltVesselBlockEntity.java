@@ -87,7 +87,6 @@ public class IncubatorSaltVesselBlockEntity extends BlockEntity implements GeoBl
 
         @Override
         public void setStackInSlot(int slot, @NotNull ItemStack newStack) {
-
             var oldStack = this.getStackInSlot(slot);
 
             boolean sameItem = !newStack.isEmpty() && ItemStack.isSameItemSameTags(newStack, oldStack);
@@ -98,6 +97,22 @@ public class IncubatorSaltVesselBlockEntity extends BlockEntity implements GeoBl
                 if (IncubatorSaltVesselBlockEntity.this.incubator != null)
                     IncubatorSaltVesselBlockEntity.this.incubator.onVesselItemChanged();
             }
+        }
+
+        @Override
+        public @NotNull ItemStack insertItem(int slot, @NotNull ItemStack newStack, boolean simulate) {
+            if (!simulate) {
+                var oldStack = this.getStackInSlot(slot);
+                var result = super.insertItem(slot, newStack, simulate);
+
+                if (result != newStack) {
+                    if (IncubatorSaltVesselBlockEntity.this.incubator != null)
+                        IncubatorSaltVesselBlockEntity.this.incubator.craftingBehaviour.onInputItemChanged(oldStack, newStack);
+                }
+
+                return result;
+            }
+            return super.insertItem(slot, newStack, simulate);
         }
 
         @Override

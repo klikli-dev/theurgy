@@ -179,6 +179,21 @@ public class DistillerBlockEntity extends BlockEntity implements GeoBlockEntity 
         }
 
         @Override
+        public @NotNull ItemStack insertItem(int slot, @NotNull ItemStack newStack, boolean simulate) {
+            if (!simulate) {
+                var oldStack = this.getStackInSlot(slot);
+                var result = super.insertItem(slot, newStack, simulate);
+
+                if (result != newStack) {
+                    DistillerBlockEntity.this.craftingBehaviour.onInputItemChanged(oldStack, newStack);
+                }
+
+                return result;
+            }
+            return super.insertItem(slot, newStack, simulate);
+        }
+
+        @Override
         public boolean isItemValid(int slot, ItemStack stack) {
             return DistillerBlockEntity.this.craftingBehaviour.canProcess(stack) && super.isItemValid(slot, stack);
         }

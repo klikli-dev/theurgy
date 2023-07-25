@@ -6,6 +6,7 @@
 
 package com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator;
 
+import com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron.LiquefactionCauldronBlockEntity;
 import com.klikli_dev.theurgy.content.particle.ParticleColor;
 import com.klikli_dev.theurgy.content.particle.coloredbubble.ColoredBubbleParticleProvider;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
@@ -240,6 +241,21 @@ public class SalAmmoniacAccumulatorBlockEntity extends BlockEntity {
             if (!sameItem) {
                 SalAmmoniacAccumulatorBlockEntity.this.craftingBehaviour.onInputItemChanged(oldStack, newStack);
             }
+        }
+
+        @Override
+        public @NotNull ItemStack insertItem(int slot, @NotNull ItemStack newStack, boolean simulate) {
+            if (!simulate) {
+                var oldStack = this.getStackInSlot(slot);
+                var result = super.insertItem(slot, newStack, simulate);
+
+                if (result != newStack) {
+                    SalAmmoniacAccumulatorBlockEntity.this.craftingBehaviour.onInputItemChanged(oldStack, newStack);
+                }
+
+                return result;
+            }
+            return super.insertItem(slot, newStack, simulate);
         }
 
         @Override

@@ -101,6 +101,22 @@ public class IncubatorSulfurVesselBlockEntity extends BlockEntity implements Geo
         }
 
         @Override
+        public @NotNull ItemStack insertItem(int slot, @NotNull ItemStack newStack, boolean simulate) {
+            if (!simulate) {
+                var oldStack = this.getStackInSlot(slot);
+                var result = super.insertItem(slot, newStack, simulate);
+
+                if (result != newStack) {
+                    if (IncubatorSulfurVesselBlockEntity.this.incubator != null)
+                        IncubatorSulfurVesselBlockEntity.this.incubator.craftingBehaviour.onInputItemChanged(oldStack, newStack);
+                }
+
+                return result;
+            }
+            return super.insertItem(slot, newStack, simulate);
+        }
+
+        @Override
         public boolean isItemValid(int slot, ItemStack stack) {
             return stack.is(ItemTagRegistry.ALCHEMICAL_SULFURS) && super.isItemValid(slot, stack);
         }

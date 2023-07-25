@@ -305,6 +305,16 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
                 If you click on an apparatus with an empty fluid container in your hand, it will instead try to fill the container from the device.
                             """);
 
+        this.context().page("emptying_fluids");
+        var emptyingFluids = BookTextPageModel.builder().withTitle(this.context().pageTitle()).withText(this.context().pageText()).build();
+        this.add(this.context().pageTitle(), "Emptying Fluids");
+        this.add(this.context().pageText(), """
+                Crouch and Right-Click on an apparatus to empty all fluids from it.
+                \\
+                \\
+                This is particularly useful if small amounts of fluid are left but you want to add a full bucket
+                            """);
+
         this.context().page("automatic_interaction");
         var automaticInteraction = BookTextPageModel.builder().withTitle(this.context().pageTitle()).withText(this.context().pageText()).build();
 
@@ -320,8 +330,8 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
 
 
         return this.entry(location).withIcon(BlockRegistry.PYROMANTIC_BRAZIER.get())
-
-                .withEntryBackground(EntryBackground.DEFAULT).withPages(intro, intro2, manualInteraction, manualInteraction2, fluidInteraction, automaticInteraction);
+                .withEntryBackground(EntryBackground.DEFAULT)
+                .withPages(intro, intro2, manualInteraction, manualInteraction2, fluidInteraction, emptyingFluids, automaticInteraction);
     }
 
     private BookEntryModel spagyricsEntry(char location) {

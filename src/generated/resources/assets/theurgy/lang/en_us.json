@@ -93,6 +93,8 @@
   "book.theurgy.the_hermetica.getting_started.apparatus_how_to.automatic_interaction.text": "Automatic interactions also use a standardized pattern.\n\\\n\\\n**Input** slots can be accessed from the **top**, while **output** slots are available at the **bottom**.\\\n\\\nA **combined inventory** can be found at the horizontal **sides**.\n",
   "book.theurgy.the_hermetica.getting_started.apparatus_how_to.automatic_interaction.title": "Automatic Interaction",
   "book.theurgy.the_hermetica.getting_started.apparatus_how_to.description": "How to interact with the tools of the trade",
+  "book.theurgy.the_hermetica.getting_started.apparatus_how_to.emptying_fluids.text": "Crouch and Right-Click on an apparatus to empty all fluids from it.\n\\\n\\\nThis is particularly useful if small amounts of fluid are left but you want to add a full bucket\n",
+  "book.theurgy.the_hermetica.getting_started.apparatus_how_to.emptying_fluids.title": "Emptying Fluids",
   "book.theurgy.the_hermetica.getting_started.apparatus_how_to.fluid_interaction.text": "If you click on an apparatus with a filled fluid container in your hand, it will try to empty the container into the device.\n\\\n\\\nIf you click on an apparatus with an empty fluid container in your hand, it will instead try to fill the container from the device.\n",
   "book.theurgy.the_hermetica.getting_started.apparatus_how_to.fluid_interaction.title": "Fluids",
   "book.theurgy.the_hermetica.getting_started.apparatus_how_to.intro.text": "Alchemist use a variety of tools and devices to aid them in their work. These devices are collectively referred to as apparatus.\n\\\n\\\nIt is important to understand that each apparatus should only have one specific function, such as generating heat or melting items.\n",

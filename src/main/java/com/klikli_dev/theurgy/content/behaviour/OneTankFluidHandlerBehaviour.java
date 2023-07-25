@@ -37,10 +37,20 @@ public class OneTankFluidHandlerBehaviour implements FluidHandlerBehaviour {
         var blockFluidHandlerCap = blockEntity.getCapability(ForgeCapabilities.FLUID_HANDLER);
         var itemFluidHandlerCap = FluidUtil.getFluidHandler(fillStack);
 
-        if (!blockFluidHandlerCap.isPresent() || !itemFluidHandlerCap.isPresent())
+        //a block without fluid handler is of no interest
+        if (!blockFluidHandlerCap.isPresent())
             return InteractionResult.PASS;
-
         var blockFluidHandler = blockFluidHandlerCap.orElse(null);
+
+        if(stackInHand.isEmpty() && pPlayer.isShiftKeyDown()){
+            //sneaking with empty hand means we're trying to void the liquid
+            blockFluidHandler.drain(Integer.MAX_VALUE, IFluidHandlerItem.FluidAction.EXECUTE);
+            return InteractionResult.SUCCESS;
+        }
+
+        //if our item does not have a fluid handler we cannot interact further
+        if (!itemFluidHandlerCap.isPresent())
+            return InteractionResult.PASS;
         var itemFluidHandler = itemFluidHandlerCap.orElse(null);
 
         //first we try to insert

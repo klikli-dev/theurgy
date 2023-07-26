@@ -50,10 +50,7 @@ public class TheurgyBlockStateProvider extends BlockStateProvider {
                 .texture("particle", this.mcLoc("block/copper_block"));
 
         //build blockstate
-        this.simpleBlock(BlockRegistry.SAL_AMMONIAC_ACCUMULATOR.get(), model);
-
-        //add item model
-        this.itemModels().withExistingParent("sal_ammoniac_accumulator", this.modLoc("block/sal_ammoniac_accumulator"));
+        this.simpleBlockWithItem(BlockRegistry.SAL_AMMONIAC_ACCUMULATOR.get(), model);
     }
 
     protected void registerSalAmmoniacTank() {

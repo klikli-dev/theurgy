@@ -31,8 +31,11 @@ import com.klikli_dev.theurgy.tooltips.TooltipHandler;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.item.ItemProperties;
+import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.BlockAndTintGetter;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.RecipesUpdatedEvent;
@@ -50,6 +53,8 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.registries.RegistryObject;
 import org.slf4j.Logger;
+
+import javax.annotation.Nullable;
 
 @Mod(Theurgy.MODID)
 public class Theurgy {
@@ -98,6 +103,7 @@ public class Theurgy {
             modEventBus.addListener(Client::onClientSetup);
             modEventBus.addListener(Client::onRegisterEntityRenderers);
             modEventBus.addListener(Client::onRegisterItemColors);
+            modEventBus.addListener(Client::onRegisterBlockColors);
             MinecraftForge.EVENT_BUS.addListener(Client::onRecipesUpdated);
         }
     }
@@ -183,6 +189,13 @@ public class Theurgy {
 
         public static void onRegisterItemColors(RegisterColorHandlersEvent.Item event) {
             event.register(new DynamicFluidContainerModel.Colors(), ItemRegistry.SAL_AMMONIAC_BUCKET.get());
+        }
+
+        public static void onRegisterBlockColors(RegisterColorHandlersEvent.Block event) {
+            event.register((pState, pLevel, pPos, pTintIndex) -> {
+                //TODO: return based on fill level
+                return 0x0000FF;
+            }, BlockRegistry.MERCURY_CATALYST.get());
         }
     }
 }

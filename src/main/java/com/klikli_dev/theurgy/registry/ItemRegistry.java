@@ -120,4 +120,6 @@ public class ItemRegistry {
             ITEMS.register("sal_ammoniac_accumulator", () -> new BlockItem(BlockRegistry.SAL_AMMONIAC_ACCUMULATOR.get(), new Item.Properties()));
     public static final RegistryObject<BlockItem> SAL_AMMONIAC_TANK =
             ITEMS.register("sal_ammoniac_tank", () -> new SalAmmoniacTankBlockItem(BlockRegistry.SAL_AMMONIAC_TANK.get(), new Item.Properties()));
+    public static final RegistryObject<BlockItem> MERCURY_CATALYST =
+            ITEMS.register("mercury_catalyst", () -> new BlockItem(BlockRegistry.MERCURY_CATALYST.get(), new Item.Properties()));
 }

@@ -102,6 +102,13 @@ public class BlockRegistry {
                     .sound(SoundType.METAL)
                     .strength(1.0f)));
 
+    public static final RegistryObject<Block> MERCURY_CATALYST =
+            BLOCKS.register("mercury_catalyst", () -> new Block(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.METAL)
+                    .noOcclusion()
+                    .sound(SoundType.METAL)
+                    .strength(1.0f)));
+
     public static final RegistryObject<Block> SAL_AMMONIAC_ORE = BLOCKS.register("sal_ammoniac_ore", () ->
             new DropExperienceBlock(BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(3.0F, 3.0F), UniformInt.of(2, 5)));
 

@@ -187,6 +187,16 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
                         The Tank will slowly be filled with Sal Ammoniac.
                         """);
 
+        this.addBlock(BlockRegistry.MERCURY_CATALYST, "Mercury Catalyst");
+        this.addTooltip(BlockRegistry.MERCURY_CATALYST.get()::asItem,
+                "Converts mercury from it's crystal form into it's flux form.",
+                "Mercury in flux form is pure energy and may be used as an energy source for certain processes.",
+                this.f("""
+                                {0} with mercury shards to add them to the catalyst.
+                                They will be slowly consumed to fill the internal energy storage of the catalyst with mercury flux.
+                                """,
+                        this.green("Right-Click")));
+
         this.addBlock(BlockRegistry.SAL_AMMONIAC_ORE, "Sal Ammoniac Ore");
         this.addExtendedTooltip(BlockRegistry.SAL_AMMONIAC_ORE.get()::asItem,
                 "Ore that yields Sal Ammoniac Crystals for use in a Sal Ammoniac Accumulator.");

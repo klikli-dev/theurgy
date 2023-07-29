@@ -8,6 +8,7 @@ package com.klikli_dev.theurgy.content.apparatus.mercurycatalyst;
 
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.content.behaviour.ItemHandlerBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.OneSlotItemHandlerBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.TwoSlotItemHandlerBehaviour;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
@@ -41,7 +42,7 @@ public class MercuryCatalystBlock extends Block implements EntityBlock {
     public MercuryCatalystBlock(Properties pProperties) {
         super(pProperties);
 
-        this.itemHandlerBehaviour = new TwoSlotItemHandlerBehaviour();
+        this.itemHandlerBehaviour = new OneSlotItemHandlerBehaviour();
     }
 
     @Override

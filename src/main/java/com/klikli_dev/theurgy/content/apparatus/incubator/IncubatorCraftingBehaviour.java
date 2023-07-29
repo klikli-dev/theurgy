@@ -34,10 +34,7 @@ public class IncubatorCraftingBehaviour extends CraftingBehaviour<IncubatorRecip
     }
 
     @Override
-    protected boolean craft(@Nullable IncubationRecipe pRecipe) {
-        if (!this.canCraft(pRecipe))
-            return false;
-
+    protected boolean craft(IncubationRecipe pRecipe) {
         var recipeWrapper = this.recipeWrapperSupplier.get();
         var assembledStack = pRecipe.assemble(recipeWrapper, this.blockEntity.getLevel().registryAccess());
 

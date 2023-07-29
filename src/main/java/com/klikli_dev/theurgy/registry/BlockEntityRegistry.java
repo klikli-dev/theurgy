@@ -14,6 +14,7 @@ import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorMercuryVessel
 import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorSaltVesselBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorSulfurVesselBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron.LiquefactionCauldronBlockEntity;
+import com.klikli_dev.theurgy.content.apparatus.mercurycatalyst.MercuryCatalystBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.pyromanticbrazier.PyromanticBrazierBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator.SalAmmoniacAccumulatorBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.salammoniactank.SalAmmoniacTankBlockEntity;
@@ -64,4 +65,8 @@ public class BlockEntityRegistry {
     public static final RegistryObject<BlockEntityType<SalAmmoniacAccumulatorBlockEntity>> SAL_AMMONIAC_ACCUMULATOR =
             BLOCKS.register("sal_ammoniac_accumulator", () ->
                     BlockEntityType.Builder.of(SalAmmoniacAccumulatorBlockEntity::new, BlockRegistry.SAL_AMMONIAC_ACCUMULATOR.get()).build(null));
+
+    public static final RegistryObject<BlockEntityType<MercuryCatalystBlockEntity>> MERCURY_CATALYST =
+            BLOCKS.register("mercury_catalyst", () ->
+                    BlockEntityType.Builder.of(MercuryCatalystBlockEntity::new, BlockRegistry.MERCURY_CATALYST.get()).build(null));
 }

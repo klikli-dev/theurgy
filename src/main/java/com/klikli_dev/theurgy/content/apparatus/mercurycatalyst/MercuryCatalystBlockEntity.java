@@ -88,6 +88,7 @@ public class MercuryCatalystBlockEntity extends BlockEntity {
         if (tag.contains("mercuryFluxStorage")) {
             //get instead of getCompound here because the storage serializes as int tag
             this.mercuryFluxStorage.deserializeNBT(tag.get("mercuryFluxStorage"));
+            this.level.sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), Block.UPDATE_IMMEDIATE);
         }
     }
 

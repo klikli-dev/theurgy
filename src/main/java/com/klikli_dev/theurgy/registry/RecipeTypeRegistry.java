@@ -23,6 +23,7 @@ public class RecipeTypeRegistry {
     public static final RegistryObject<RecipeType<DistillationRecipe>> PYROMANTIC_BRAZIER = register("pyromantic_brazier");
     public static final RegistryObject<RecipeType<IncubationRecipe>> INCUBATION = register("incubation");
     public static final RegistryObject<RecipeType<AccumulationRecipe>> ACCUMULATION = register("accumulation");
+    public static final RegistryObject<RecipeType<AccumulationRecipe>> CATALYSATION = register("catalysation");
 
     static <T extends Recipe<?>> RegistryObject<RecipeType<T>> register(final String id) {
         return RECIPE_TYPES.register(id, () -> new RecipeType<T>() {

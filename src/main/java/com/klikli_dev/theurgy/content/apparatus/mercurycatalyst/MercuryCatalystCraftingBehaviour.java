@@ -47,7 +47,7 @@ public class MercuryCatalystCraftingBehaviour extends CraftingBehaviour<RecipeWr
         if (ItemHandlerHelper.canItemStacksStack(stack, this.inputInventorySupplier.get().getStackInSlot(0)))
             return true; //early out if we are already processing this type of item
 
-        var tempInv = new ItemStackHandler(NonNullList.of(stack));
+        var tempInv = new ItemStackHandler(NonNullList.of(ItemStack.EMPTY, stack));
         var tempRecipeWrapper = new RecipeWrapper(tempInv);
 
         return this.recipeCachedCheck.getRecipeFor(tempRecipeWrapper, this.blockEntity.getLevel()).isPresent();

@@ -1,4 +1,4 @@
-// 1.20.1	2023-07-26T15:00:29.8122232	Block States: theurgy
+// 1.20.1	2023-07-29T19:34:30.2441945	Block States: theurgy
 ef875fc2604f4f19d7604536c66d3d2c26163879 assets/theurgy/blockstates/calcination_oven.json
 92ebf87f417e3426f30d3e42eeafd933e446eb23 assets/theurgy/blockstates/deepslate_sal_ammoniac_ore.json
 efc838dc92770522219889024bec42cc52fb93bd assets/theurgy/blockstates/distiller.json
@@ -21,7 +21,7 @@ ca16a8ebdf82f8f110050978885ae52f50c774e8 assets/theurgy/models/block/incubator_u
 c79ce877fb80454b4c5ea666bcc5584c881e8c11 assets/theurgy/models/block/incubator_vessel.json
 1144aa12cc110991e79d9c636180b33178a26f2f assets/theurgy/models/block/liquefaction_cauldron_lower.json
 c79ce877fb80454b4c5ea666bcc5584c881e8c11 assets/theurgy/models/block/liquefaction_cauldron_upper.json
-9d3b99c8ddbd5bcd22df64d96ece09807614dcb0 assets/theurgy/models/block/mercury_catalyst.json
+b409c8a9f0cf680d9b409e9d9dcef1a73e9c0948 assets/theurgy/models/block/mercury_catalyst.json
 52afb4cf68605f9a482f6332b02f523a81b74168 assets/theurgy/models/block/pyromantic_brazier.json
 90588f4755497f3c8df737fd06b92d33ff4d0542 assets/theurgy/models/block/pyromantic_brazier_lit.json
 3d636dd41003fc736ccdcfb3599acc337df2fcd3 assets/theurgy/models/block/sal_ammoniac_accumulator.json

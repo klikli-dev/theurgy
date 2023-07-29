@@ -92,6 +92,8 @@ public class MercuryCatalystBlock extends Block implements EntityBlock {
     }
 
     public static int getBlockColor(BlockState pState, BlockAndTintGetter pLevel, BlockPos pPos, int pTintIndex){
+        //tint index 0 is default and thus used by particles
+        //our model has 1
         if(pTintIndex != 0 && pLevel != null && pPos != null && pLevel.getBlockEntity(pPos) instanceof MercuryCatalystBlockEntity blockEntity){
             var fillLevel = blockEntity.mercuryFluxStorage.getEnergyStored() / (float)  blockEntity.mercuryFluxStorage.getMaxEnergyStored();
 

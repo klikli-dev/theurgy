@@ -3,7 +3,7 @@
   "ambientocclusion": false,
   "render_type": "minecraft:translucent",
   "textures": {
-    "particle": "minecraft:block/copper_block",
+    "particle": "minecraft:block/iron_block",
     "texture": "theurgy:block/mercury_catalyst"
   }
 }

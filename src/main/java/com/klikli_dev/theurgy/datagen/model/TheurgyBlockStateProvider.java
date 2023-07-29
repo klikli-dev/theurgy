@@ -75,7 +75,7 @@ public class TheurgyBlockStateProvider extends BlockStateProvider {
                 .renderType(new ResourceLocation("minecraft", "translucent"))
                 //blockbench spits out garbage textures by losing the folder name so we fix them here
                 .texture("texture", this.modLoc("block/mercury_catalyst"))
-                .texture("particle", this.mcLoc("block/copper_block"));
+                .texture("particle", this.mcLoc("block/iron_block"));
 
         //build blockstate
         this.simpleBlockWithItem(BlockRegistry.MERCURY_CATALYST.get(), model);

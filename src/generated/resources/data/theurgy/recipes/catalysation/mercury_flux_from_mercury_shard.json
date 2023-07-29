@@ -1,4 +1,5 @@
 {
+  "type": "theurgy:catalysation",
   "ingredient": {
     "item": "theurgy:mercury_shard"
   },

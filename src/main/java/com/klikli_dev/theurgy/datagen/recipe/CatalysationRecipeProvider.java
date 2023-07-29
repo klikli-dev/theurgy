@@ -10,6 +10,7 @@ import com.google.gson.JsonObject;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.content.recipe.CatalysationRecipe;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
+import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import com.mojang.serialization.JsonOps;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
@@ -40,8 +41,10 @@ public class CatalysationRecipeProvider extends JsonRecipeProvider {
     public JsonObject makeRecipeJson(Ingredient ingredient, int totalMercuryFlux, int mercuryFluxPerTick) {
         var recipe = new CatalysationRecipe(ingredient, totalMercuryFlux, mercuryFluxPerTick);
 
-        return CatalysationRecipe.CODEC.encodeStart(JsonOps.INSTANCE, recipe)
+        var json = CatalysationRecipe.CODEC.encodeStart(JsonOps.INSTANCE, recipe)
                 .resultOrPartial(Theurgy.LOGGER::error).get().getAsJsonObject();
+        json.addProperty("type", "theurgy:catalysation");
+        return json;
     }
 
     @Override

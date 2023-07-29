@@ -11,11 +11,15 @@ import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.CapabilityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -31,6 +35,9 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class MercuryCatalystBlockEntity extends BlockEntity {
+
+    public static final int CAPACITY = 1000;
+
     public ItemStackHandler inventory;
     public EnergyStorage mercuryFluxStorage;
 
@@ -45,7 +52,7 @@ public class MercuryCatalystBlockEntity extends BlockEntity {
         this.inventory = new Inventory();
         this.inventoryCapability = LazyOptional.of(() -> this.inventory);
 
-        this.mercuryFluxStorage = new MercuryFluxStorage(1000);
+        this.mercuryFluxStorage = new MercuryFluxStorage(CAPACITY);
         this.mercuryFluxStorageCapability = LazyOptional.of(() -> this.mercuryFluxStorage);
 
         this.craftingBehaviour = new MercuryCatalystCraftingBehaviour(this, () -> this.inventory, () -> this.inventory, () -> this.mercuryFluxStorage);
@@ -79,7 +86,8 @@ public class MercuryCatalystBlockEntity extends BlockEntity {
 
     public void readNetwork(CompoundTag tag) {
         if (tag.contains("mercuryFluxStorage")) {
-            this.mercuryFluxStorage.deserializeNBT(tag.getCompound("mercuryFluxStorage"));
+            //get instead of getCompound here because the storage serializes as int tag
+            this.mercuryFluxStorage.deserializeNBT(tag.get("mercuryFluxStorage"));
         }
     }
 
@@ -96,8 +104,6 @@ public class MercuryCatalystBlockEntity extends BlockEntity {
         boolean hasInput = !this.inventory.getStackInSlot(0).isEmpty();
 
         this.craftingBehaviour.tickServer(true, hasInput);
-
-        //TODO: in order to not cause performance issues, we should only force a net update after certain interval changes on the mercury flux, not at every 1.
     }
 
     @Override
@@ -127,7 +133,22 @@ public class MercuryCatalystBlockEntity extends BlockEntity {
             this.inventory.deserializeNBT(pTag.getCompound("inventory"));
 
         if (pTag.contains("mercuryFluxStorage"))
-            this.mercuryFluxStorage.deserializeNBT(pTag.getCompound("mercuryFluxStorage"));
+            //get instead of getCompound here because the storage serializes as int tag
+            this.mercuryFluxStorage.deserializeNBT(pTag.get("mercuryFluxStorage"));
+
+        //if this is a block entity placed from a dropped block, we need to load the loot table dynamic content
+        if (pTag.contains("Items", Tag.TAG_LIST)) {
+            //copied from ContainerHelper.loadAllItems(pTag, this.itemStacks); and adjusted for our itemstackhandler
+            ListTag listtag = pTag.getList("Items", Tag.TAG_COMPOUND);
+
+            for(int i = 0; i < listtag.size(); ++i) {
+                CompoundTag compoundtag = listtag.getCompound(i);
+                int j = compoundtag.getByte("Slot") & 255;
+                if (j >= 0 && j < this.inventory.getSlots()) {
+                    this.inventory.setStackInSlot(j, ItemStack.of(compoundtag));
+                }
+            }
+        }
     }
 
     private class Inventory extends ItemStackHandler {

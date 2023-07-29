@@ -19,7 +19,7 @@ import java.util.function.BiConsumer;
 
 public class CatalysationRecipeProvider extends JsonRecipeProvider {
 
-    public static final int TIME = CatalysationRecipe.DEFAULT_CATALYSATION_TIME;
+    public static final int PER_TICK = CatalysationRecipe.DEFAULT_MERCURY_FLUX_PER_TICK;
 
     public CatalysationRecipeProvider(PackOutput packOutput) {
         super(packOutput, Theurgy.MODID, "catalysation");
@@ -27,18 +27,18 @@ public class CatalysationRecipeProvider extends JsonRecipeProvider {
 
     @Override
     void buildRecipes(BiConsumer<ResourceLocation, JsonObject> recipeConsumer) {
-        this.makeRecipe("mercury_flux_from_mercury_shard", Ingredient.of(ItemRegistry.MERCURY_SHARD.get()), 250, TIME);
+        this.makeRecipe("mercury_flux_from_mercury_shard", Ingredient.of(ItemRegistry.MERCURY_SHARD.get()), 250, PER_TICK);
     }
 
-    public void makeRecipe(String name, Ingredient ingredient, int mercuryFlux, int catalysationTime) {
+    public void makeRecipe(String name, Ingredient ingredient, int totalMercuryFlux, int mercuryFluxPerTick) {
         this.recipeConsumer.accept(
                 this.modLoc(name),
                 this.makeRecipeJson(
-                        ingredient, mercuryFlux, catalysationTime));
+                        ingredient, totalMercuryFlux, mercuryFluxPerTick));
     }
 
-    public JsonObject makeRecipeJson(Ingredient ingredient, int mercuryFlux, int catalysationTime) {
-        var recipe = new CatalysationRecipe(ingredient, mercuryFlux, catalysationTime);
+    public JsonObject makeRecipeJson(Ingredient ingredient, int totalMercuryFlux, int mercuryFluxPerTick) {
+        var recipe = new CatalysationRecipe(ingredient, totalMercuryFlux, mercuryFluxPerTick);
 
         return CatalysationRecipe.CODEC.encodeStart(JsonOps.INSTANCE, recipe)
                 .resultOrPartial(Theurgy.LOGGER::error).get().getAsJsonObject();

@@ -2,5 +2,6 @@
   "ingredient": {
     "item": "theurgy:mercury_shard"
   },
-  "mercuryFlux": 250
+  "mercuryFluxPerTick": 2,
+  "totalMercuryFlux": 250
 }

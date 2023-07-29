@@ -88,7 +88,14 @@ public class MercuryCatalystBlockEntity extends BlockEntity {
     }
 
     public void tickServer() {
+        //TODO: mercury flux generation should work as follows:
+        //  1. consume mercury from inventory and save its equivalent target flux
+        //  2. over time make that flux available to the mercury flux storage
+        //      we should define how much flux is converted per tick, instead of a catalysation total time
+        //  3. once all the saved mercury is in the storage, restart at 1
+        //the crafting behaviour should do that for us <3
 
+        //TODO: in order to not cause performance issues, we should only force a net update after certain interval changes on the mercury flux, not at every 1.
     }
 
     @Override

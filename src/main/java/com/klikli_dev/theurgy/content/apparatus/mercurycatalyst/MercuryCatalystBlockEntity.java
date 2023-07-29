@@ -6,6 +6,7 @@
 
 package com.klikli_dev.theurgy.content.apparatus.mercurycatalyst;
 
+import com.klikli_dev.theurgy.content.behaviour.CraftingBehaviour;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.CapabilityRegistry;
 import net.minecraft.core.BlockPos;
@@ -36,6 +37,8 @@ public class MercuryCatalystBlockEntity extends BlockEntity {
     public LazyOptional<IItemHandler> inventoryCapability;
     public LazyOptional<IEnergyStorage> mercuryFluxStorageCapability;
 
+    protected CraftingBehaviour<?, ?, ?> craftingBehaviour;
+
     public MercuryCatalystBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(BlockEntityRegistry.MERCURY_CATALYST.get(), pPos, pBlockState);
 
@@ -44,6 +47,8 @@ public class MercuryCatalystBlockEntity extends BlockEntity {
 
         this.mercuryFluxStorage = new MercuryFluxStorage(1000);
         this.mercuryFluxStorageCapability = LazyOptional.of(() -> this.mercuryFluxStorage);
+
+        this.craftingBehaviour = new MercuryCatalystCraftingBehaviour(this, () -> this.inventory, () -> this.inventory, () -> this.mercuryFluxStorage);
     }
 
     @Override
@@ -88,12 +93,9 @@ public class MercuryCatalystBlockEntity extends BlockEntity {
     }
 
     public void tickServer() {
-        //TODO: mercury flux generation should work as follows:
-        //  1. consume mercury from inventory and save its equivalent target flux
-        //  2. over time make that flux available to the mercury flux storage
-        //      we should define how much flux is converted per tick, instead of a catalysation total time
-        //  3. once all the saved mercury is in the storage, restart at 1
-        //the crafting behaviour should do that for us <3
+        boolean hasInput = !this.inventory.getStackInSlot(0).isEmpty();
+
+        this.craftingBehaviour.tickServer(true, hasInput);
 
         //TODO: in order to not cause performance issues, we should only force a net update after certain interval changes on the mercury flux, not at every 1.
     }
@@ -134,9 +136,36 @@ public class MercuryCatalystBlockEntity extends BlockEntity {
         }
 
         @Override
-        public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-            //TODO: only allow mercury
-            return true;
+        public void setStackInSlot(int slot, @NotNull ItemStack newStack) {
+            var oldStack = this.getStackInSlot(slot);
+
+            boolean sameItem = !newStack.isEmpty() && ItemStack.isSameItemSameTags(newStack, oldStack);
+
+            super.setStackInSlot(slot, newStack);
+
+            if (!sameItem) {
+                MercuryCatalystBlockEntity.this.craftingBehaviour.onInputItemChanged(oldStack, newStack);
+            }
+        }
+
+        @Override
+        public @NotNull ItemStack insertItem(int slot, @NotNull ItemStack newStack, boolean simulate) {
+            if (!simulate) {
+                var oldStack = this.getStackInSlot(slot);
+                var result = super.insertItem(slot, newStack, simulate);
+
+                if (result != newStack) {
+                    MercuryCatalystBlockEntity.this.craftingBehaviour.onInputItemChanged(oldStack, newStack);
+                }
+
+                return result;
+            }
+            return super.insertItem(slot, newStack, simulate);
+        }
+
+        @Override
+        public boolean isItemValid(int slot, ItemStack stack) {
+            return MercuryCatalystBlockEntity.this.craftingBehaviour.canProcess(stack) && super.isItemValid(slot, stack);
         }
 
         @Override
@@ -146,6 +175,10 @@ public class MercuryCatalystBlockEntity extends BlockEntity {
     }
 
     private class MercuryFluxStorage extends EnergyStorage {
+
+        public static final int UPDATE_THRESHOLD = 100;
+        private int lastUpdateLevel;
+
         public MercuryFluxStorage(int capacity) {
             super(capacity);
         }
@@ -156,7 +189,7 @@ public class MercuryCatalystBlockEntity extends BlockEntity {
 
             if (received > 0) {
                 MercuryCatalystBlockEntity.this.setChanged();
-                MercuryCatalystBlockEntity.this.sendBlockUpdated();
+                this.trySendBlockUpdated();
             }
 
             return received;
@@ -168,10 +201,18 @@ public class MercuryCatalystBlockEntity extends BlockEntity {
 
             if (extracted > 0) {
                 MercuryCatalystBlockEntity.this.setChanged();
-                MercuryCatalystBlockEntity.this.sendBlockUpdated();
+                this.trySendBlockUpdated();
             }
 
             return extracted;
+        }
+
+        public void trySendBlockUpdated() {
+            var currentLevel = this.getEnergyStored();
+            if (Math.abs(this.lastUpdateLevel - currentLevel) > UPDATE_THRESHOLD) {
+                this.lastUpdateLevel = currentLevel;
+                MercuryCatalystBlockEntity.this.sendBlockUpdated();
+            }
         }
     }
 }

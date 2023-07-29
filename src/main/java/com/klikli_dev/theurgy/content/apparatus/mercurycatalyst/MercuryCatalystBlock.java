@@ -6,6 +6,8 @@
 
 package com.klikli_dev.theurgy.content.apparatus.mercurycatalyst;
 
+import com.klikli_dev.theurgy.content.behaviour.ItemHandlerBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.TwoSlotItemHandlerBehaviour;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
@@ -23,8 +25,12 @@ import org.jetbrains.annotations.Nullable;
 
 public class MercuryCatalystBlock extends Block implements EntityBlock {
 
+    protected ItemHandlerBehaviour itemHandlerBehaviour;
+
     public MercuryCatalystBlock(Properties pProperties) {
         super(pProperties);
+
+        this.itemHandlerBehaviour = new TwoSlotItemHandlerBehaviour();
     }
 
     @Override
@@ -34,7 +40,10 @@ public class MercuryCatalystBlock extends Block implements EntityBlock {
             return InteractionResult.SUCCESS;
         }
 
-        //TODO: Interact with inventory
+        if (this.itemHandlerBehaviour.useItemHandler(pState, pLevel, pPos, pPlayer, pHand, pHit) == InteractionResult.SUCCESS) {
+            return InteractionResult.SUCCESS;
+        }
+
         //TODO: separate method, drop self with nbt
 
         return InteractionResult.PASS;

@@ -92,17 +92,15 @@ public abstract class JsonRecipeProvider implements DataProvider {
         return new ResourceLocation("forge", name);
     }
 
-    public JsonObject makeFluidIngredient(ResourceLocation fluid, int amount) {
+    public JsonObject makeFluidIngredient(ResourceLocation fluid) {
         JsonObject jsonobject = new JsonObject();
         jsonobject.addProperty("fluid", fluid.toString());
-        jsonobject.addProperty("amount", amount);
         return jsonobject;
     }
 
-    public JsonObject makeFluidTagIngredient(ResourceLocation tag, int amount) {
+    public JsonObject makeFluidTagIngredient(ResourceLocation tag) {
         JsonObject jsonobject = new JsonObject();
         jsonobject.addProperty("tag", tag.toString());
-        jsonobject.addProperty("amount", amount);
         return jsonobject;
     }
 

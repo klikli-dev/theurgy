@@ -43,7 +43,8 @@ public class AccumulationRecipeProvider extends JsonRecipeProvider {
         this.recipeConsumer.accept(
                 this.modLoc(name),
                 this.makeRecipeJson(
-                        this.makeFluidTagIngredient(evaporant.location(), evaporantAmount),
+                        this.makeFluidTagIngredient(evaporant.location()),
+                        evaporantAmount,
                         solute != null ? this.makeItemIngredient(this.locFor(solute)) : null,
                         this.makeFluidResult(new FluidStack(result, resultAmount)), accumulationTime));
     }
@@ -52,20 +53,22 @@ public class AccumulationRecipeProvider extends JsonRecipeProvider {
         this.recipeConsumer.accept(
                 this.modLoc(name),
                 this.makeRecipeJson(
-                        this.makeFluidTagIngredient(evaporant.location(), evaporantAmount),
+                        this.makeFluidTagIngredient(evaporant.location()),
+                        evaporantAmount,
                         solute != null ? this.makeTagIngredient(solute.location()) : null,
                         this.makeFluidResult(new FluidStack(result, resultAmount)), accumulationTime));
     }
 
-    public JsonObject makeRecipeJson(JsonObject evaporant, @Nullable JsonObject solute, JsonObject result, int accumulationTime) {
+    public JsonObject makeRecipeJson(JsonObject evaporant, int evaporantAmount, @Nullable JsonObject solute, JsonObject result, int accumulationTime) {
 
         var recipe = new JsonObject();
         recipe.addProperty("type", RecipeTypeRegistry.ACCUMULATION.getId().toString());
         recipe.add("evaporant", evaporant);
+        recipe.addProperty("evaporantAmount", evaporantAmount);
         if (solute != null)
             recipe.add("solute", solute);
         recipe.add("result", result);
-        recipe.addProperty("accumulation_time", accumulationTime);
+        recipe.addProperty("accumulationTime", accumulationTime);
         return recipe;
     }
 

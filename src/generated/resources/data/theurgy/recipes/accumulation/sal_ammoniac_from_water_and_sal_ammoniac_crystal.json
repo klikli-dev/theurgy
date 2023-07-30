@@ -1,10 +1,10 @@
 {
   "type": "theurgy:accumulation",
-  "accumulation_time": 200,
+  "accumulationTime": 200,
   "evaporant": {
-    "amount": 1000,
     "tag": "minecraft:water"
   },
+  "evaporantAmount": 1000,
   "result": {
     "Amount": 1000,
     "FluidName": "theurgy:sal_ammoniac"

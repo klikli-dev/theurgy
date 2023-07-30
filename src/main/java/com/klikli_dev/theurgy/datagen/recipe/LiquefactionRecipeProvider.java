@@ -164,7 +164,8 @@ public class LiquefactionRecipeProvider extends JsonRecipeProvider {
                 this.modLoc(this.name(sulfur)),
                 this.makeRecipeJson(
                         this.makeItemIngredient(this.locFor(ingredient)),
-                        this.makeFluidIngredient(this.locFor(solvent), solventAmount),
+                        this.makeFluidIngredient(this.locFor(solvent)),
+                        solventAmount,
                         this.makeItemResult(this.locFor(sulfur), resultCount, nbt), liquefactionTime));
 
     }
@@ -187,7 +188,8 @@ public class LiquefactionRecipeProvider extends JsonRecipeProvider {
         var nbt = this.makeSulfurNbt(ingredient);
         var recipe = this.makeRecipeJson(
                 this.makeTagIngredient(ingredient.location()),
-                this.makeFluidIngredient(this.locFor(solvent), solventAmount),
+                this.makeFluidIngredient(this.locFor(solvent)),
+                solventAmount,
                 this.makeItemResult(this.locFor(sulfur), resultCount, nbt), liquefactionTime);
 
         var conditions = new JsonArray();
@@ -214,10 +216,11 @@ public class LiquefactionRecipeProvider extends JsonRecipeProvider {
         return nbt;
     }
 
-    public JsonObject makeRecipeJson(JsonObject ingredient, JsonObject solvent, JsonObject result, int liquefactionTime) {
+    public JsonObject makeRecipeJson(JsonObject ingredient, JsonObject solvent, int solventAmount, JsonObject result, int liquefactionTime) {
         var recipe = new JsonObject();
         recipe.addProperty("type", RecipeTypeRegistry.LIQUEFACTION.getId().toString());
         recipe.add("solvent", solvent);
+        recipe.addProperty("solvent_amount", solventAmount);
         recipe.add("ingredient", ingredient);
         recipe.add("result", result);
         recipe.addProperty("liquefaction_time", liquefactionTime);

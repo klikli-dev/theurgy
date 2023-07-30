@@ -13,6 +13,7 @@ import com.klikli_dev.theurgy.network.messages.MessageSetDivinationResult;
 import com.klikli_dev.theurgy.registry.BlockTagRegistry;
 import com.klikli_dev.theurgy.registry.SoundRegistry;
 import com.klikli_dev.theurgy.scanner.ScanManager;
+import com.klikli_dev.theurgy.util.LevelUtil;
 import com.klikli_dev.theurgy.util.TagUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -507,6 +508,17 @@ public class DivinationRodItem extends Item {
         return BlockTagRegistry.tag(new ResourceLocation(disallowedBlocksTag));
     }
 
+    public static void registerCreativeModeTabs(DivinationRodItem item, CreativeModeTab.Output output) {
+        var level = LevelUtil.getLevelWithoutContext();
+        if (level != null) {
+            var recipeManager = level.getRecipeManager();
+            recipeManager.getRecipes().forEach((recipe) -> {
+                if (recipe.getResultItem(level.registryAccess()) != null && recipe.getResultItem(level.registryAccess()).getItem() == item) {
+                    output.accept(recipe.getResultItem(level.registryAccess()).copy());
+                }
+            });
+        }
+    }
 
     /**
      * Inner class to avoid classloading issues on the server
@@ -520,18 +532,6 @@ public class DivinationRodItem extends Item {
                 return NOT_FOUND;
             return stack.getTag().getFloat(TheurgyConstants.Nbt.Divination.DISTANCE);
         };
-
-        public static void registerCreativeModeTabs(DivinationRodItem item, CreativeModeTab.Output output) {
-            var level = Minecraft.getInstance().level;
-            if (level != null) {
-                var recipeManager = level.getRecipeManager();
-                recipeManager.getRecipes().forEach((recipe) -> {
-                    if (recipe.getResultItem(level.registryAccess()) != null && recipe.getResultItem(level.registryAccess()).getItem() == item) {
-                        output.accept(recipe.getResultItem(level.registryAccess()).copy());
-                    }
-                });
-            }
-        }
 
         public static void spawnEntityClientSide(Level level, Entity entity) {
             if (level instanceof ClientLevel clientLevel) {

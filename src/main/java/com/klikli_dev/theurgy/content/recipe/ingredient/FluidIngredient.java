@@ -31,7 +31,6 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Comparator;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
@@ -58,8 +57,6 @@ public class FluidIngredient extends Ingredient {
     @Nullable
     private FluidStack[] fluidStacks;
 
-    private int amount = -1;
-
     protected FluidIngredient(Stream<? extends Value> pValues) {
         super(Stream.empty());
 
@@ -70,8 +67,8 @@ public class FluidIngredient extends Ingredient {
         return EMPTY;
     }
 
-    public static FluidIngredient ofFluid(int amount, Fluid... pItems) {
-        return ofFluid(Arrays.stream(pItems).map(f -> new FluidStack(f, amount)));
+    public static FluidIngredient ofFluid(Fluid... pFluids) {
+        return ofFluid(Arrays.stream(pFluids).map(f -> new FluidStack(f, 1)));
     }
 
     public static FluidIngredient ofFluid(FluidStack... pStacks) {
@@ -84,8 +81,8 @@ public class FluidIngredient extends Ingredient {
         }).map(FluidValue::new));
     }
 
-    public static FluidIngredient ofFluid(TagKey<Fluid> pTag, int amount) {
-        return fromFluidValues(Stream.of(new TagValue(pTag, amount)));
+    public static FluidIngredient ofFluid(TagKey<Fluid> pTag) {
+        return fromFluidValues(Stream.of(new TagValue(pTag)));
     }
 
     public static FluidIngredient fromFluidValues(Stream<? extends Value> pStream) {
@@ -116,26 +113,21 @@ public class FluidIngredient extends Ingredient {
 
     public static FluidIngredient fromNetwork(FriendlyByteBuf pBuffer) {
         var size = pBuffer.readVarInt();
-        if (size == -1)
-            throw new UnsupportedOperationException("FluidIngredients should never be serialized with size -1!");
+        if (size == -1) //indicates non vanilla ingredient, so we should hit that every time
+            return (FluidIngredient) net.minecraftforge.common.crafting.CraftingHelper.getIngredient(pBuffer.readResourceLocation(), pBuffer);
         return fromFluidValues(Stream.generate(() -> new FluidValue(pBuffer.readFluidStack())).limit(size));
     }
 
     public static FluidIngredient.Value fluidValueFromJson(JsonObject pJson) {
-        if (!pJson.has("amount")) {
-            throw new JsonParseException("A fluid ingredient entry must have an amount");
-        }
-        var amount = GsonHelper.getAsInt(pJson, "amount");
-
         if (pJson.has("fluid") && pJson.has("tag")) {
             throw new JsonParseException("A fluid ingredient entry is either a tag or a fluid, not both");
         } else if (pJson.has("fluid")) {
             var fluid = fluidFromJson(pJson);
-            return new FluidValue(new FluidStack(fluid, amount));
+            return new FluidValue(new FluidStack(fluid, 1));
         } else if (pJson.has("tag")) {
             ResourceLocation resourcelocation = new ResourceLocation(GsonHelper.getAsString(pJson, "tag"));
             TagKey<Fluid> tagkey = TagKey.create(Registries.FLUID, resourcelocation);
-            return new TagValue(tagkey, amount);
+            return new TagValue(tagkey);
         } else {
             throw new JsonParseException("A fluid ingredient entry needs either a tag or a fluid");
         }
@@ -153,9 +145,8 @@ public class FluidIngredient extends Ingredient {
 
     @Override
     protected void invalidate() {
-        this.invalidate();
+        super.invalidate();
         this.fluidStacks = null;
-        this.amount = -1;
     }
 
     @Override
@@ -179,14 +170,6 @@ public class FluidIngredient extends Ingredient {
         }
 
         return this.fluidStacks;
-    }
-
-    public int getAmount() {
-        if (this.amount == -1) {
-            var fluids = this.getFluids();
-            this.amount = fluids.length == 0 ? 0 : Arrays.stream(this.getFluids()).max(Comparator.comparingInt(FluidStack::getAmount)).get().getAmount();
-        }
-        return this.amount;
     }
 
     @Override
@@ -216,8 +199,8 @@ public class FluidIngredient extends Ingredient {
             return fluidStack.isEmpty();
         } else {
             for (var fluid : this.getFluids()) {
-                //Fluid ingredients need to test for amounts too, hence the containsFluid
-                if (fluidStack.containsFluid(fluid)) {
+                //does not test for amount (just like ingredient)
+                if (fluidStack.isFluidEqual(fluid)) {
                     return true;
                 }
             }
@@ -252,7 +235,6 @@ public class FluidIngredient extends Ingredient {
         public JsonObject serialize() {
             JsonObject jsonobject = new JsonObject();
             jsonobject.addProperty("fluid", ForgeRegistries.FLUIDS.getKey(this.fluid.getFluid()).toString());
-            jsonobject.addProperty("amount", this.fluid.getAmount());
             return jsonobject;
         }
     }
@@ -260,18 +242,15 @@ public class FluidIngredient extends Ingredient {
     public static class TagValue implements Value {
         private final TagKey<Fluid> tag;
 
-        private final int amount;
-
-        public TagValue(TagKey<Fluid> pTag, int amount) {
+        public TagValue(TagKey<Fluid> pTag) {
             this.tag = pTag;
-            this.amount = amount;
         }
 
         @Override
         public Collection<FluidStack> getFluids() {
             var list = new ArrayList<FluidStack>();
 
-            ForgeRegistries.FLUIDS.tags().getTag(this.tag).stream().forEach(fluid -> list.add(new FluidStack(fluid, this.amount)));
+            ForgeRegistries.FLUIDS.tags().getTag(this.tag).stream().forEach(fluid -> list.add(new FluidStack(fluid, 1)));
 
             //Note: Item stacks here add a barrier with custom hover name, we just leave the list empty, should be OK.
             return list;
@@ -281,7 +260,6 @@ public class FluidIngredient extends Ingredient {
         public JsonObject serialize() {
             JsonObject jsonobject = new JsonObject();
             jsonobject.addProperty("tag", this.tag.location().toString());
-            jsonobject.addProperty("amount", this.amount);
             return jsonobject;
         }
     }

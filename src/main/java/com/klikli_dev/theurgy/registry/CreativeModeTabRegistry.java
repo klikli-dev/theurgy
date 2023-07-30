@@ -24,15 +24,15 @@ public class CreativeModeTabRegistry {
             .icon(() -> ItemRegistry.EMPTY_JAR.get().getDefaultInstance())
             .title(Component.translatable(TheurgyConstants.I18n.ITEM_GROUP))
             .displayItems((parameters, output) -> {
-                DivinationRodItem.DistHelper.registerCreativeModeTabs(ItemRegistry.DIVINATION_ROD_T1.get(), output);
-                DivinationRodItem.DistHelper.registerCreativeModeTabs(ItemRegistry.DIVINATION_ROD_T2.get(), output);
-                DivinationRodItem.DistHelper.registerCreativeModeTabs(ItemRegistry.DIVINATION_ROD_T3.get(), output);
-                DivinationRodItem.DistHelper.registerCreativeModeTabs(ItemRegistry.DIVINATION_ROD_T4.get(), output);
-                DivinationRodItem.DistHelper.registerCreativeModeTabs(ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_ABUNDANT.get(), output);
-                DivinationRodItem.DistHelper.registerCreativeModeTabs(ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_COMMON.get(), output);
-                DivinationRodItem.DistHelper.registerCreativeModeTabs(ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_RARE.get(), output);
-                DivinationRodItem.DistHelper.registerCreativeModeTabs(ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_PRECIOUS.get(), output);
-                DivinationRodItem.DistHelper.registerCreativeModeTabs(ItemRegistry.AMETHYST_DIVINATION_ROD.get(), output);
+                DivinationRodItem.registerCreativeModeTabs(ItemRegistry.DIVINATION_ROD_T1.get(), output);
+                DivinationRodItem.registerCreativeModeTabs(ItemRegistry.DIVINATION_ROD_T2.get(), output);
+                DivinationRodItem.registerCreativeModeTabs(ItemRegistry.DIVINATION_ROD_T3.get(), output);
+                DivinationRodItem.registerCreativeModeTabs(ItemRegistry.DIVINATION_ROD_T4.get(), output);
+                DivinationRodItem.registerCreativeModeTabs(ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_ABUNDANT.get(), output);
+                DivinationRodItem.registerCreativeModeTabs(ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_COMMON.get(), output);
+                DivinationRodItem.registerCreativeModeTabs(ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_RARE.get(), output);
+                DivinationRodItem.registerCreativeModeTabs(ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_PRECIOUS.get(), output);
+                DivinationRodItem.registerCreativeModeTabs(ItemRegistry.AMETHYST_DIVINATION_ROD.get(), output);
 
                 output.accept(ItemRegistry.SAL_AMMONIAC_BUCKET.get());
 

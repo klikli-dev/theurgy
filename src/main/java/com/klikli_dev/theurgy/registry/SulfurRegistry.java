@@ -8,7 +8,7 @@ package com.klikli_dev.theurgy.registry;
 
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.content.item.AlchemicalSulfurItem;
-import net.minecraft.client.Minecraft;
+import com.klikli_dev.theurgy.util.LevelUtil;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.registries.DeferredRegister;
@@ -95,14 +95,7 @@ public class SulfurRegistry {
      */
     public static void onBuildCreativeModTabs(BuildCreativeModeTabContentsEvent event) {
         if (event.getTab() == CreativeModeTabRegistry.THEURGY.get()) {
-            //event will only be called client side, but other SulfurRegistry calls can come from the server, so we need to guard against dist
-            DistHelper.onBuildCreativeModTabs(event);
-        }
-    }
-
-    public static class DistHelper {
-        public static void onBuildCreativeModTabs(BuildCreativeModeTabContentsEvent event) {
-            var level = Minecraft.getInstance().level;
+            var level = LevelUtil.getLevelWithoutContext();
             if (level == null) {
                 return;
             }
@@ -115,5 +108,4 @@ public class SulfurRegistry {
             });
         }
     }
-
 }

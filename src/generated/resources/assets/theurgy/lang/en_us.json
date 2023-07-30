@@ -281,6 +281,7 @@
   "book.theurgy.the_hermetica.spagyrics.solvents.working.text": "If the [](item://theurgy:sal_ammoniac_accumulator) is working properly, it will show bubbles.\n",
   "book.theurgy.the_hermetica.spagyrics.solvents.working.title": "Working Correctly",
   "book.theurgy.the_hermetica.tooltip": "A treatise on the Ancient Art of Alchemy.\n§o(In-Game Guide for Theurgy)§r",
+  "config.jade.plugin_theurgy.mercury_flux": "Theurgy Mercury Flux",
   "fluid_type.theurgy.sal_ammoniac": "Sal Ammoniac",
   "item.theurgy.alchemical_salt_crops": "Alchemical Salt %s",
   "item.theurgy.alchemical_salt_crops.source": "Crops",

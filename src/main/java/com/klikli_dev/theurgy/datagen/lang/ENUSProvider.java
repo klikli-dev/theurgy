@@ -63,12 +63,14 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
         this.add(TheurgyConstants.I18n.Misc.UNIT_MILLIBUCKETS, "%smB");
     }
 
-    private void addJEI() {
+    private void addIntegrations() {
         this.add(TheurgyConstants.I18n.JEI.CALCINATION_CATEGORY, "Calcination");
         this.add(TheurgyConstants.I18n.JEI.LIQUEFACTION_CATEGORY, "Liquefaction");
         this.add(TheurgyConstants.I18n.JEI.DISTILLATION_CATEGORY, "Distillation");
         this.add(TheurgyConstants.I18n.JEI.INCUBATION_CATEGORY, "Incubation");
         this.add(TheurgyConstants.I18n.JEI.ACCUMULATION_CATEGORY, "Accumulation");
+
+        this.add("config.jade.plugin_theurgy.mercury_flux", "Theurgy Mercury Flux");
     }
 
     private void addSubtitles() {
@@ -449,6 +451,6 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
         this.addItems();
         this.addBlocks();
         this.addFluids();
-        this.addJEI();
+        this.addIntegrations();
     }
 }

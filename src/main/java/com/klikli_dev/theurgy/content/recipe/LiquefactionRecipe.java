@@ -34,13 +34,15 @@ public class LiquefactionRecipe implements Recipe<RecipeWrapperWithFluid> {
     protected final ResourceLocation id;
     protected final Ingredient ingredient;
     protected final FluidIngredient solvent;
+    protected final int solventAmount;
     protected final ItemStack result;
     protected final int liquefactionTime;
 
-    public LiquefactionRecipe(ResourceLocation pId, Ingredient pIngredient, FluidIngredient pSolvent, ItemStack pResult, int liquefactionTime) {
+    public LiquefactionRecipe(ResourceLocation pId, Ingredient pIngredient, FluidIngredient pSolvent, int solventAmount, ItemStack pResult, int liquefactionTime) {
         this.id = pId;
         this.ingredient = pIngredient;
         this.solvent = pSolvent;
+        this.solventAmount = solventAmount;
         this.result = pResult;
         this.liquefactionTime = liquefactionTime;
     }
@@ -57,7 +59,8 @@ public class LiquefactionRecipe implements Recipe<RecipeWrapperWithFluid> {
 
     @Override
     public boolean matches(RecipeWrapperWithFluid pContainer, Level pLevel) {
-        return this.ingredient.test(pContainer.getItem(0)) && this.solvent.test(pContainer.getTank().getFluidInTank(0));
+        var fluid = pContainer.getTank().getFluidInTank(0);
+        return this.ingredient.test(pContainer.getItem(0)) && this.solvent.test(fluid) && fluid.getAmount() >= this.solventAmount;
     }
 
     @Override
@@ -100,6 +103,10 @@ public class LiquefactionRecipe implements Recipe<RecipeWrapperWithFluid> {
         return this.solvent;
     }
 
+    public int getSolventAmount() {
+        return this.solventAmount;
+    }
+
     public Ingredient getIngredient() {
         return this.ingredient;
     }
@@ -114,13 +121,15 @@ public class LiquefactionRecipe implements Recipe<RecipeWrapperWithFluid> {
             var solventElement = GsonHelper.isArrayNode(pJson, "solvent") ? GsonHelper.getAsJsonArray(pJson, "solvent") : GsonHelper.getAsJsonObject(pJson, "solvent");
             var solvent = FluidIngredient.fromJson(solventElement);
 
+            var solventAmount = GsonHelper.getAsInt(pJson, "solvent_amount");
+
             ItemStack result = CraftingHelper.getItemStack(GsonHelper.getAsJsonObject(pJson, "result"), true, true);
 
             int liquefactionTime = GsonHelper.getAsInt(pJson, "liquefaction_time", DEFAULT_LIQUEFACTION_TIME);
 
             result = this.fixSourceIdIfNecessary(result, ingredient);
 
-            return new LiquefactionRecipe(pRecipeId, ingredient, solvent, result, liquefactionTime);
+            return new LiquefactionRecipe(pRecipeId, ingredient, solvent, solventAmount, result, liquefactionTime);
         }
 
         public ItemStack fixSourceIdIfNecessary(ItemStack resultItem, Ingredient ingredient) {
@@ -150,15 +159,17 @@ public class LiquefactionRecipe implements Recipe<RecipeWrapperWithFluid> {
         public LiquefactionRecipe fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
             var ingredient = Ingredient.fromNetwork(pBuffer);
             var solvent = FluidIngredient.fromNetwork(pBuffer);
+            var solventAmount = pBuffer.readVarInt();
             var result = pBuffer.readItem();
             var liquefactionTime = pBuffer.readVarInt();
-            return new LiquefactionRecipe(pRecipeId, ingredient, solvent, result, liquefactionTime);
+            return new LiquefactionRecipe(pRecipeId, ingredient, solvent, solventAmount, result, liquefactionTime);
         }
 
         @Override
         public void toNetwork(FriendlyByteBuf pBuffer, LiquefactionRecipe pRecipe) {
             pRecipe.ingredient.toNetwork(pBuffer);
-            pRecipe.solvent.toNetwork(pBuffer); //Ingredient.toNetwork(pBuffer); should suffice here as it redirects to the serializer registry anyway
+            pRecipe.solvent.toNetwork(pBuffer);
+            pBuffer.writeVarInt(pRecipe.solventAmount);
             pBuffer.writeItem(pRecipe.result);
             pBuffer.writeVarInt(pRecipe.liquefactionTime);
         }

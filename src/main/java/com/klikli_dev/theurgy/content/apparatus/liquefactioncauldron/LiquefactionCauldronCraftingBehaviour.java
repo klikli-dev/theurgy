@@ -64,7 +64,7 @@ public class LiquefactionCauldronCraftingBehaviour extends CraftingBehaviour<Rec
             return false;
 
         //then drain the solvent
-        this.solventTankSupplier.get().drain(pRecipe.getSolvent().getAmount(), IFluidHandler.FluidAction.EXECUTE);
+        this.solventTankSupplier.get().drain(pRecipe.getSolventAmount(), IFluidHandler.FluidAction.EXECUTE);
 
         return true;
     }

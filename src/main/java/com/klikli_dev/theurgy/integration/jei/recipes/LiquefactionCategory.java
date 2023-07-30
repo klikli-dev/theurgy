@@ -135,7 +135,7 @@ public class LiquefactionCategory implements IRecipeCategory<LiquefactionRecipe>
         builder.addSlot(INPUT, 1, 1)
                 .setBackground(JeiDrawables.INPUT_SLOT, -1, -1)
                 .addIngredients(ForgeTypes.FLUID_STACK, List.of(recipe.getSolvent().getFluids()))
-                .addTooltipCallback(addFluidTooltip(recipe.getSolvent().getAmount()));
+                .addTooltipCallback(addFluidTooltip(recipe.getSolventAmount()));
 
         builder.addSlot(INPUT, 19, 1)
                 .setBackground(JeiDrawables.INPUT_SLOT, -1, -1)

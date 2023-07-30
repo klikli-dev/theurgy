@@ -128,7 +128,7 @@ public class AccumulationCategory implements IRecipeCategory<AccumulationRecipe>
         builder.addSlot(INPUT, 1, 1)
                 .setBackground(JeiDrawables.INPUT_SLOT, -1, -1)
                 .addIngredients(ForgeTypes.FLUID_STACK, List.of(recipe.getEvaporant().getFluids()))
-                .addTooltipCallback(addFluidTooltip(recipe.getEvaporant().getAmount()));
+                .addTooltipCallback(addFluidTooltip(recipe.getEvaporantAmount()));
 
         if (recipe.hasSolute()) {
             builder.addSlot(INPUT, 1, 21)

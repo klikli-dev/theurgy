@@ -37,15 +37,17 @@ public class AccumulationRecipe implements Recipe<RecipeWrapperWithFluid> {
 
     public static final Codec<AccumulationRecipe> CODEC = RecordCodecBuilder.create(instance -> instance.group(
                     FluidIngredient.CODEC.fieldOf("evaporant").forGetter((r) -> r.evaporant),
+                    Codec.INT.fieldOf("evaporantAmount").forGetter((r) -> r.evaporantAmount),
                     TheurgyExtraCodecs.INGREDIENT.optionalFieldOf("solute").forGetter(r -> Optional.ofNullable(r.solute)),
                     FluidStack.CODEC.fieldOf("result").forGetter(r -> r.result),
-                    Codec.INT.optionalFieldOf("accumulation_time", DEFAULT_ACCUMULATION_TIME).forGetter(r -> r.accumulationTime)
-            ).apply(instance, (evaporant, solute, result, accumulation_time) -> new AccumulationRecipe(evaporant, solute.orElse(null), result, accumulation_time))
+                    Codec.INT.optionalFieldOf("accumulationTime", DEFAULT_ACCUMULATION_TIME).forGetter(r -> r.accumulationTime)
+            ).apply(instance, (evaporant, evaporantAmount, solute, result, accumulation_time) -> new AccumulationRecipe(evaporant, evaporantAmount, solute.orElse(null), result, accumulation_time))
     );
     /**
      * The fluid to evaporate to obtain the result.
      */
     protected final FluidIngredient evaporant;
+    protected final int evaporantAmount;
     /**
      * The (optional) item to dissolve in the evaporant to obtain the result.
      */
@@ -58,8 +60,9 @@ public class AccumulationRecipe implements Recipe<RecipeWrapperWithFluid> {
     protected final int accumulationTime;
     protected ResourceLocation id;
 
-    public AccumulationRecipe(FluidIngredient evaporant, @Nullable Ingredient solute, FluidStack result, int pAccumulationTime) {
+    public AccumulationRecipe(FluidIngredient evaporant, int evaporantAmount, @Nullable Ingredient solute, FluidStack result, int pAccumulationTime) {
         this.evaporant = evaporant;
+        this.evaporantAmount = evaporantAmount;
         this.solute = solute;
         this.result = result;
         this.accumulationTime = pAccumulationTime;
@@ -77,7 +80,8 @@ public class AccumulationRecipe implements Recipe<RecipeWrapperWithFluid> {
 
     @Override
     public boolean matches(RecipeWrapperWithFluid pContainer, Level pLevel) {
-        boolean evaporantMatches = this.evaporant.test(pContainer.getTank().getFluidInTank(0));
+        var fluid = pContainer.getTank().getFluidInTank(0);
+        boolean evaporantMatches = this.evaporant.test(fluid) && fluid.getAmount() >= this.evaporantAmount;
         boolean soluteMatches =
                 pContainer.getItem(0).isEmpty() && !this.hasSolute() || //if recipe requires no solute and container does not have one we're ok
                         this.hasSolute() && this.solute.test(pContainer.getItem(0)); // if recipe requires solute we check if the container has it
@@ -130,6 +134,10 @@ public class AccumulationRecipe implements Recipe<RecipeWrapperWithFluid> {
 
     public FluidIngredient getEvaporant() {
         return this.evaporant;
+    }
+
+    public int getEvaporantAmount() {
+        return this.evaporantAmount;
     }
 
     @Nullable

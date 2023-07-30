@@ -21,7 +21,7 @@
     }
   },
   "solvent": {
-    "amount": 100,
     "fluid": "theurgy:sal_ammoniac"
-  }
+  },
+  "solvent_amount": 100
 }

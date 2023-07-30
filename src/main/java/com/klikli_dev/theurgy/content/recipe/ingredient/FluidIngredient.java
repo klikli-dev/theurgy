@@ -113,8 +113,8 @@ public class FluidIngredient extends Ingredient {
 
     public static FluidIngredient fromNetwork(FriendlyByteBuf pBuffer) {
         var size = pBuffer.readVarInt();
-        if (size == -1)
-            throw new UnsupportedOperationException("FluidIngredients should never be serialized with size -1!");
+        if (size == -1) //indicates non vanilla ingredient, so we should hit that every time
+            return (FluidIngredient) net.minecraftforge.common.crafting.CraftingHelper.getIngredient(pBuffer.readResourceLocation(), pBuffer);
         return fromFluidValues(Stream.generate(() -> new FluidValue(pBuffer.readFluidStack())).limit(size));
     }
 

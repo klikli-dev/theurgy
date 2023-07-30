@@ -47,4 +47,11 @@ public class ItemRecipeResult extends RecipeResult {
     public byte getType() {
         return TYPE;
     }
+
+    @Override
+    public void toNetwork(FriendlyByteBuf pBuffer) {
+        super.toNetwork(pBuffer); //write type
+
+        pBuffer.writeItemStack(this.stack, false);
+    }
 }

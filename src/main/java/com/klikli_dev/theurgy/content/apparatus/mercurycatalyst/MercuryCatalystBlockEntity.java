@@ -7,11 +7,12 @@
 package com.klikli_dev.theurgy.content.apparatus.mercurycatalyst;
 
 import com.klikli_dev.theurgy.content.behaviour.CraftingBehaviour;
+import com.klikli_dev.theurgy.content.capability.DefaultMercuryFluxStorage;
+import com.klikli_dev.theurgy.content.capability.MercuryFluxStorage;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.CapabilityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
@@ -19,7 +20,6 @@ import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
-import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -28,7 +28,6 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.EnergyStorage;
-import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
@@ -39,10 +38,10 @@ public class MercuryCatalystBlockEntity extends BlockEntity {
     public static final int CAPACITY = 1000;
 
     public ItemStackHandler inventory;
-    public EnergyStorage mercuryFluxStorage;
+    public DefaultMercuryFluxStorage mercuryFluxStorage;
 
     public LazyOptional<IItemHandler> inventoryCapability;
-    public LazyOptional<IEnergyStorage> mercuryFluxStorageCapability;
+    public LazyOptional<MercuryFluxStorage> mercuryFluxStorageCapability;
 
     protected CraftingBehaviour<?, ?, ?> craftingBehaviour;
 
@@ -52,7 +51,7 @@ public class MercuryCatalystBlockEntity extends BlockEntity {
         this.inventory = new Inventory();
         this.inventoryCapability = LazyOptional.of(() -> this.inventory);
 
-        this.mercuryFluxStorage = new MercuryFluxStorage(CAPACITY);
+        this.mercuryFluxStorage = new MercuryCatalystMercuryFluxStorage(CAPACITY);
         this.mercuryFluxStorageCapability = LazyOptional.of(() -> this.mercuryFluxStorage);
 
         this.craftingBehaviour = new MercuryCatalystCraftingBehaviour(this, () -> this.inventory, () -> this.inventory, () -> this.mercuryFluxStorage);
@@ -196,12 +195,12 @@ public class MercuryCatalystBlockEntity extends BlockEntity {
         }
     }
 
-    private class MercuryFluxStorage extends EnergyStorage {
+    private class MercuryCatalystMercuryFluxStorage extends DefaultMercuryFluxStorage {
 
         public static final int UPDATE_THRESHOLD = 100;
         private int lastUpdateLevel;
 
-        public MercuryFluxStorage(int capacity) {
+        public MercuryCatalystMercuryFluxStorage(int capacity) {
             super(capacity);
         }
 

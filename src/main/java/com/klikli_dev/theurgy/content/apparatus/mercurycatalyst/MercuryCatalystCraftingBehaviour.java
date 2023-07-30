@@ -7,6 +7,7 @@
 package com.klikli_dev.theurgy.content.apparatus.mercurycatalyst;
 
 import com.klikli_dev.theurgy.content.behaviour.CraftingBehaviour;
+import com.klikli_dev.theurgy.content.capability.MercuryFluxStorage;
 import com.klikli_dev.theurgy.content.recipe.CatalysationRecipe;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import net.minecraft.core.NonNullList;
@@ -26,13 +27,13 @@ import java.util.function.Supplier;
 
 public class MercuryCatalystCraftingBehaviour extends CraftingBehaviour<RecipeWrapper, CatalysationRecipe, RecipeManager.CachedCheck<RecipeWrapper, CatalysationRecipe>> {
 
-    private final Supplier<IEnergyStorage> mercuryFluxStorageSupplier;
+    private final Supplier<MercuryFluxStorage> mercuryFluxStorageSupplier;
 
     protected int mercuryFluxToConvert;
     protected int currentMercuryFluxPerTick;
 
 
-    public MercuryCatalystCraftingBehaviour(BlockEntity blockEntity, Supplier<IItemHandlerModifiable> inputInventorySupplier, Supplier<IItemHandlerModifiable> outputInventorySupplier, Supplier<IEnergyStorage> mercuryFluxStorageSupplier) {
+    public MercuryCatalystCraftingBehaviour(BlockEntity blockEntity, Supplier<IItemHandlerModifiable> inputInventorySupplier, Supplier<IItemHandlerModifiable> outputInventorySupplier, Supplier<MercuryFluxStorage> mercuryFluxStorageSupplier) {
         super(blockEntity,
                 Lazy.of(() -> new RecipeWrapper(inputInventorySupplier.get())),
                 inputInventorySupplier,

@@ -7,6 +7,7 @@
 package com.klikli_dev.theurgy.registry;
 
 import com.klikli_dev.theurgy.content.capability.HeatProvider;
+import com.klikli_dev.theurgy.content.capability.MercuryFluxStorage;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.capabilities.CapabilityToken;
@@ -20,11 +21,12 @@ public class CapabilityRegistry {
     public static Capability<HeatProvider> HEAT_PROVIDER = CapabilityManager.get(new CapabilityToken<>() {
     });
 
-    public static final Capability<IEnergyStorage> MERCURY_FLUX = get(new CapabilityToken<>(){});
+    public static final Capability<MercuryFluxStorage> MERCURY_FLUX = get(new CapabilityToken<>(){});
 
 
     public static void onRegisterCapabilities(final RegisterCapabilitiesEvent event) {
         event.register(HeatProvider.class);
+        event.register(MercuryFluxStorage.class);
     }
 
 }

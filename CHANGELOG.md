@@ -4,6 +4,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [beta/v1.20.1-1.5.0] - 2023-07-30
+### :sparkles: New Features
+- [`525be5d`](https://github.com/klikli-dev/theurgy/commit/525be5d95a4b0ac9af1ae02982822ad23bd84d7f) - add neoforge to mod platform list *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :bug: Bug Fixes
+- [`a048f3f`](https://github.com/klikli-dev/theurgy/commit/a048f3fb27c38b2a9a7a57a7d537d4935d1953b5) - fluid ingredient deserialization *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`bae0b20`](https://github.com/klikli-dev/theurgy/commit/bae0b20edb38f115ef9707f76f285bf28ef51bfb) - item recipe result had no serializer override *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`a67f33e`](https://github.com/klikli-dev/theurgy/commit/a67f33ef97c1a6b3eb8db9ef976c882604ffa585) - support server side creative tab loading *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`e2964a1`](https://github.com/klikli-dev/theurgy/commit/e2964a1c1f8d3fd1905087b60ab598113d8bf2bc) - refactor fluid ingredient to not contain amount *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [alpha/v1.20.1-1.4.11] - 2023-07-25
 ### :bug: Bug Fixes
 - [`e0b4273`](https://github.com/klikli-dev/theurgy/commit/e0b42734b73b6947532a50c94763e62506439423) - hermetica shows wrong multiplier for ore refining *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -287,3 +300,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [alpha/v1.20.1-1.4.9]: https://github.com/klikli-dev/theurgy/compare/alpha/v1.20.1-1.4.8...alpha/v1.20.1-1.4.9
 [alpha/v1.20.1-1.4.10]: https://github.com/klikli-dev/theurgy/compare/alpha/v1.20.1-1.4.9...alpha/v1.20.1-1.4.10
 [alpha/v1.20.1-1.4.11]: https://github.com/klikli-dev/theurgy/compare/alpha/v1.20.1-1.4.10...alpha/v1.20.1-1.4.11
+[beta/v1.20.1-1.5.0]: https://github.com/klikli-dev/theurgy/compare/alpha/v1.20.1-1.4.11...beta/v1.20.1-1.5.0

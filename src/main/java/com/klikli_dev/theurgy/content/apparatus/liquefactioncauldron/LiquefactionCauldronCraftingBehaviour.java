@@ -59,7 +59,7 @@ public class LiquefactionCauldronCraftingBehaviour extends CraftingBehaviour<Rec
     }
 
     @Override
-    protected boolean craft(@Nullable LiquefactionRecipe pRecipe) {
+    protected boolean craft(LiquefactionRecipe pRecipe) {
         if (!super.craft(pRecipe)) //check validity and consume item ingredients
             return false;
 

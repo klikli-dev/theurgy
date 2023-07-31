@@ -1,0 +1,8 @@
+{
+  "type": "theurgy:catalysation",
+  "ingredient": {
+    "item": "theurgy:mercury_shard"
+  },
+  "mercuryFluxPerTick": 2,
+  "totalMercuryFlux": 250
+}

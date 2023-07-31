@@ -1,0 +1,54 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:copy_nbt",
+              "ops": [
+                {
+                  "op": "replace",
+                  "source": "mercuryFluxStorage",
+                  "target": "BlockEntityTag.mercuryFluxStorage"
+                },
+                {
+                  "op": "replace",
+                  "source": "mercuryFluxToConvert",
+                  "target": "BlockEntityTag.mercuryFluxToConvert"
+                },
+                {
+                  "op": "replace",
+                  "source": "currentMercuryFluxPerTick",
+                  "target": "BlockEntityTag.currentMercuryFluxPerTick"
+                }
+              ],
+              "source": "block_entity"
+            },
+            {
+              "type": "theurgy:mercury_catalyst",
+              "entries": [
+                {
+                  "type": "minecraft:dynamic",
+                  "name": "theurgy:contents"
+                }
+              ],
+              "function": "minecraft:set_contents"
+            }
+          ],
+          "name": "theurgy:mercury_catalyst"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "theurgy:blocks/mercury_catalyst"
+}

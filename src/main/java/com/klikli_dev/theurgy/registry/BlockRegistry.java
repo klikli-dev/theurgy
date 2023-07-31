@@ -14,6 +14,7 @@ import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorMercuryVessel
 import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorSaltVesselBlock;
 import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorSulfurVesselBlock;
 import com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron.LiquefactionCauldronBlock;
+import com.klikli_dev.theurgy.content.apparatus.mercurycatalyst.MercuryCatalystBlock;
 import com.klikli_dev.theurgy.content.apparatus.pyromanticbrazier.PyromanticBrazierBlock;
 import com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator.SalAmmoniacAccumulatorBlock;
 import com.klikli_dev.theurgy.content.apparatus.salammoniactank.SalAmmoniacTankBlock;
@@ -97,6 +98,13 @@ public class BlockRegistry {
 
     public static final RegistryObject<SalAmmoniacTankBlock> SAL_AMMONIAC_TANK =
             BLOCKS.register("sal_ammoniac_tank", () -> new SalAmmoniacTankBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.METAL)
+                    .noOcclusion()
+                    .sound(SoundType.METAL)
+                    .strength(1.0f)));
+
+    public static final RegistryObject<MercuryCatalystBlock> MERCURY_CATALYST =
+            BLOCKS.register("mercury_catalyst", () -> new MercuryCatalystBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.METAL)
                     .noOcclusion()
                     .sound(SoundType.METAL)

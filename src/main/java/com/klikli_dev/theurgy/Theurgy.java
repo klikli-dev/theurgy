@@ -16,6 +16,7 @@ import com.klikli_dev.theurgy.content.apparatus.incubator.render.IncubatorMercur
 import com.klikli_dev.theurgy.content.apparatus.incubator.render.IncubatorSaltVesselRenderer;
 import com.klikli_dev.theurgy.content.apparatus.incubator.render.IncubatorSulfurVesselRenderer;
 import com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron.render.LiquefactionCauldronRenderer;
+import com.klikli_dev.theurgy.content.apparatus.mercurycatalyst.MercuryCatalystBlock;
 import com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator.render.SalAmmoniacAccumulatorRenderer;
 import com.klikli_dev.theurgy.content.apparatus.salammoniactank.render.SalAmmoniacTankRenderer;
 import com.klikli_dev.theurgy.content.item.AlchemicalSaltItem;
@@ -89,6 +90,7 @@ public class Theurgy {
         modEventBus.addListener(TheurgyDataGenerators::onGatherData);
         modEventBus.addListener(SulfurRegistry::onBuildCreativeModTabs);
         modEventBus.addListener(SaltRegistry::onBuildCreativeModTabs);
+        modEventBus.addListener(CapabilityRegistry::onRegisterCapabilities);
         modEventBus.addListener(RecipeSerializerRegistry::onRegisterRecipeSerializers);
 
         MinecraftForge.EVENT_BUS.addListener(TooltipHandler::onItemTooltipEvent);
@@ -98,6 +100,7 @@ public class Theurgy {
             modEventBus.addListener(Client::onClientSetup);
             modEventBus.addListener(Client::onRegisterEntityRenderers);
             modEventBus.addListener(Client::onRegisterItemColors);
+            modEventBus.addListener(Client::onRegisterBlockColors);
             MinecraftForge.EVENT_BUS.addListener(Client::onRecipesUpdated);
         }
     }
@@ -183,6 +186,11 @@ public class Theurgy {
 
         public static void onRegisterItemColors(RegisterColorHandlersEvent.Item event) {
             event.register(new DynamicFluidContainerModel.Colors(), ItemRegistry.SAL_AMMONIAC_BUCKET.get());
+            event.register(MercuryCatalystBlock::getItemColor, ItemRegistry.MERCURY_CATALYST.get());
+        }
+
+        public static void onRegisterBlockColors(RegisterColorHandlersEvent.Block event) {
+            event.register(MercuryCatalystBlock::getBlockColor, BlockRegistry.MERCURY_CATALYST.get());
         }
     }
 }

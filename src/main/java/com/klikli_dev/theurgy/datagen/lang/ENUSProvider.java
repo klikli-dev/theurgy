@@ -63,12 +63,14 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
         this.add(TheurgyConstants.I18n.Misc.UNIT_MILLIBUCKETS, "%smB");
     }
 
-    private void addJEI() {
+    private void addIntegrations() {
         this.add(TheurgyConstants.I18n.JEI.CALCINATION_CATEGORY, "Calcination");
         this.add(TheurgyConstants.I18n.JEI.LIQUEFACTION_CATEGORY, "Liquefaction");
         this.add(TheurgyConstants.I18n.JEI.DISTILLATION_CATEGORY, "Distillation");
         this.add(TheurgyConstants.I18n.JEI.INCUBATION_CATEGORY, "Incubation");
         this.add(TheurgyConstants.I18n.JEI.ACCUMULATION_CATEGORY, "Accumulation");
+
+        this.add("config.jade.plugin_theurgy.mercury_flux", "Theurgy Mercury Flux");
     }
 
     private void addSubtitles() {
@@ -186,6 +188,16 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
                         Place this below a filled Sal Ammoniac Accumulator.
                         The Tank will slowly be filled with Sal Ammoniac.
                         """);
+
+        this.addBlock(BlockRegistry.MERCURY_CATALYST, "Mercury Catalyst");
+        this.addTooltip(BlockRegistry.MERCURY_CATALYST.get()::asItem,
+                "Converts mercury from it's crystal form into it's flux form.",
+                "Mercury in flux form is pure energy and may be used as an energy source for certain processes.",
+                this.f("""
+                                {0} with mercury shards to add them to the catalyst.
+                                They will be slowly consumed to fill the internal energy storage of the catalyst with mercury flux.
+                                """,
+                        this.green("Right-Click")));
 
         this.addBlock(BlockRegistry.SAL_AMMONIAC_ORE, "Sal Ammoniac Ore");
         this.addExtendedTooltip(BlockRegistry.SAL_AMMONIAC_ORE.get()::asItem,
@@ -439,6 +451,6 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
         this.addItems();
         this.addBlocks();
         this.addFluids();
-        this.addJEI();
+        this.addIntegrations();
     }
 }

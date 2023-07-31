@@ -232,6 +232,18 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
                 .define('s', ItemTagRegistry.ALCHEMICAL_SULFURS)
                 .define('S', Tags.Items.STONE)
         );
+
+
+        this.makeRecipe(ItemRegistry.MERCURY_CATALYST.get(), new RecipeBuilder(
+                ItemRegistry.MERCURY_CATALYST.get(), 1)
+                .pattern("imi")
+                .pattern("gQg")
+                .pattern("igi")
+                .define('Q', Tags.Items.STORAGE_BLOCKS_QUARTZ)
+                .define('g', Tags.Items.INGOTS_GOLD)
+                .define('i', Tags.Items.INGOTS_IRON)
+                .define('m', ItemTagRegistry.ALCHEMICAL_MERCURIES)
+        );
     }
 
     public JsonObject makeDivinationRodSettings(DivinationRodItem rodItem) {

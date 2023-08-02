@@ -110,6 +110,13 @@ public class BlockRegistry {
                     .sound(SoundType.METAL)
                     .strength(1.0f)));
 
+    public static final RegistryObject<Block> CALORIC_FLUX_EMITTER =
+            BLOCKS.register("caloric_flux_emitter", () -> new Block(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.METAL)
+                    .noOcclusion()
+                    .sound(SoundType.METAL)
+                    .strength(1.0f)));
+
     public static final RegistryObject<Block> SAL_AMMONIAC_ORE = BLOCKS.register("sal_ammoniac_ore", () ->
             new DropExperienceBlock(BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(3.0F, 3.0F), UniformInt.of(2, 5)));
 

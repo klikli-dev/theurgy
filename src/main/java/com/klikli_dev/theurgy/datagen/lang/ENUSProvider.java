@@ -199,6 +199,17 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
                                 """,
                         this.green("Right-Click")));
 
+        this.addBlock(BlockRegistry.CALORIC_FLUX_EMITTER, "Caloric Flux Emitter");
+        this.addTooltip(BlockRegistry.CALORIC_FLUX_EMITTER.get()::asItem,
+                "Remotely heats an Apparatus by emitting Caloric Flux at it.",
+                "Caloric Flux is energy in the form of raw heat, and as such a derivative of Mercury Flux.",
+                this.f("""
+                                {0} an apparatus block to set it as the target for the emitter.
+                                Then place the emitter on a Mercury Flux source, such as a Mercury Catalyst.
+                                It will "shoot" Caloric Flux at the apparatus, heating it up.
+                                """,
+                        this.green("Sneak-Right-Click")));
+
         this.addBlock(BlockRegistry.SAL_AMMONIAC_ORE, "Sal Ammoniac Ore");
         this.addExtendedTooltip(BlockRegistry.SAL_AMMONIAC_ORE.get()::asItem,
                 "Ore that yields Sal Ammoniac Crystals for use in a Sal Ammoniac Accumulator.");

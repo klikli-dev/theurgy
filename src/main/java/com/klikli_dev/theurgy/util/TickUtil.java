@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2023 klikli-dev
+//
+// SPDX-License-Identifier: MIT
+
 package com.klikli_dev.theurgy.util;
 
 import net.minecraft.client.Minecraft;

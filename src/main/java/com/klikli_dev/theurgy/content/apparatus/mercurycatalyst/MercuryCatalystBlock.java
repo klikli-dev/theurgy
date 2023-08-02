@@ -60,6 +60,8 @@ public class MercuryCatalystBlock extends Block implements EntityBlock {
     }
 
 
+    @Override
+    @SuppressWarnings("deprecation")
     public List<ItemStack> getDrops(BlockState pState, LootParams.Builder pParams) {
         if (pParams.getOptionalParameter(LootContextParams.BLOCK_ENTITY) instanceof MercuryCatalystBlockEntity blockEntity) {
             pParams = pParams.withDynamicDrop(CONTENTS, (pOutput) -> {

@@ -61,6 +61,14 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
         this.add(TheurgyConstants.I18n.Misc.UNIT_MILLIBUCKETS, "%smB");
     }
 
+    private void addBehaviours(){
+        this.add(TheurgyConstants.I18n.Behaviour.SELECTION_MODE, "%1$s %2$s"); //First is the mode message text, the second the block name
+        this.add(TheurgyConstants.I18n.Behaviour.SELECTION_MODE_CALORIC_FLUX_EMITTER, "Send caloric flux to");
+        this.add(TheurgyConstants.I18n.Behaviour.SELECTION_OUTSIDE_RANGE, "%1$s selected blocks removed for being out of range.");
+        this.add(TheurgyConstants.I18n.Behaviour.SELECTION_SUMMARY_CALORIC_FLUX_EMITTER, "Caloric Flux Emitter targets %1$s.");
+        this.add(TheurgyConstants.I18n.Behaviour.SELECTION_SUMMARY_CALORIC_FLUX_EMITTER_NO_SELECTION, "Caloric Flux Emitter has no target.");
+    }
+
     private void addIntegrations() {
         this.add(TheurgyConstants.I18n.JEI.CALCINATION_CATEGORY, "Calcination");
         this.add(TheurgyConstants.I18n.JEI.LIQUEFACTION_CATEGORY, "Liquefaction");
@@ -461,5 +469,6 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
         this.addBlocks();
         this.addFluids();
         this.addIntegrations();
+        this.addBehaviours();
     }
 }

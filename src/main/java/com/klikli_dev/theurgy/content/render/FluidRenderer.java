@@ -29,7 +29,7 @@ import net.minecraftforge.fluids.FluidType;
 public class FluidRenderer {
 
     public static VertexConsumer getFluidBuilder(MultiBufferSource buffer) {
-        return buffer.getBuffer(RenderTypes.getFluid());
+        return buffer.getBuffer(RenderTypes.fluid());
     }
 
     public static void renderFluidBox(FluidStack fluidStack, float xMin, float yMin, float zMin, float xMax, float yMax,

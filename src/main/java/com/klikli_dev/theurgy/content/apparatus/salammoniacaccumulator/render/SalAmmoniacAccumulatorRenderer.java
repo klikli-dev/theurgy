@@ -83,7 +83,7 @@ public class SalAmmoniacAccumulatorRenderer implements BlockEntityRenderer<SalAm
         var min = 0.25f;
         var max = 1 - min;
 
-        var builder = pBufferSource.getBuffer(RenderTypes.getFluid());
+        var builder = pBufferSource.getBuffer(RenderTypes.fluid());
 
         putVertex(builder, pPoseStack, min, fluidHeight, min, color,
                 fluidTexture.getU(2), fluidTexture.getV(2), Direction.UP, fluidLight);

@@ -27,7 +27,7 @@ public class RenderTypes extends RenderStateShard {
         super(pName, pSetupState, pClearState);
     }
 
-    public static RenderType getFluid() {
+    public static RenderType fluid() {
         return FLUID;
     }
 }

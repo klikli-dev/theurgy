@@ -65,6 +65,12 @@ public class IncubatorSulfurVesselBlockEntity extends BlockEntity implements Geo
         return super.getCapability(cap, side);
     }
 
+    @Override
+    public void invalidateCaps() {
+        super.invalidateCaps();
+        this.inputInventoryCapability.invalidate();
+    }
+
     public void setIncubator(IncubatorBlockEntity incubator) {
         this.incubator = incubator;
     }

@@ -125,6 +125,14 @@ public class DistillerBlockEntity extends BlockEntity implements GeoBlockEntity 
     }
 
     @Override
+    public void invalidateCaps() {
+        super.invalidateCaps();
+        this.inventoryCapability.invalidate();
+        this.inputInventoryCapability.invalidate();
+        this.outputInventoryCapability.invalidate();
+    }
+
+    @Override
     protected void saveAdditional(CompoundTag pTag) {
         super.saveAdditional(pTag);
 

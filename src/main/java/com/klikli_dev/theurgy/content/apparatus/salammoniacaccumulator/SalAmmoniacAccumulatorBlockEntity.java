@@ -187,6 +187,12 @@ public class SalAmmoniacAccumulatorBlockEntity extends BlockEntity {
     }
 
     @Override
+    public void invalidateCaps() {
+        super.invalidateCaps();
+        this.inventoryCapability.invalidate();
+        this.waterTankCapability.invalidate();
+    }
+    @Override
     protected void saveAdditional(CompoundTag pTag) {
         super.saveAdditional(pTag);
 

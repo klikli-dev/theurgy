@@ -168,6 +168,15 @@ public class LiquefactionCauldronBlockEntity extends BlockEntity {
     }
 
     @Override
+    public void invalidateCaps() {
+        super.invalidateCaps();
+        this.inventoryCapability.invalidate();
+        this.inputInventoryCapability.invalidate();
+        this.outputInventoryCapability.invalidate();
+        this.solventTankCapability.invalidate();
+    }
+
+    @Override
     protected void saveAdditional(CompoundTag pTag) {
         super.saveAdditional(pTag);
 

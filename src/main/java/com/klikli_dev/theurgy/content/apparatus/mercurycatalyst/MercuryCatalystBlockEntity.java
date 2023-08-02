@@ -117,6 +117,14 @@ public class MercuryCatalystBlockEntity extends BlockEntity {
         return super.getCapability(cap, side);
     }
 
+
+    @Override
+    public void invalidateCaps() {
+        super.invalidateCaps();
+        this.inventoryCapability.invalidate();
+        this.mercuryFluxStorageCapability.invalidate();
+    }
+
     @Override
     protected void saveAdditional(CompoundTag pTag) {
         super.saveAdditional(pTag);

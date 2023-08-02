@@ -119,6 +119,13 @@ public class PyromanticBrazierBlockEntity extends BlockEntity {
     }
 
     @Override
+    public void invalidateCaps() {
+        super.invalidateCaps();
+        this.inventoryCapability.invalidate();
+        this.heatProviderCapability.invalidate();
+    }
+
+    @Override
     protected void saveAdditional(CompoundTag pTag) {
         super.saveAdditional(pTag);
 

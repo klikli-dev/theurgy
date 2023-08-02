@@ -98,6 +98,11 @@ public class SalAmmoniacTankBlockEntity extends BlockEntity implements GeoBlockE
     }
 
     @Override
+    public void invalidateCaps() {
+        super.invalidateCaps();
+        this.tankCapability.invalidate();
+    }
+    @Override
     protected void saveAdditional(CompoundTag pTag) {
         super.saveAdditional(pTag);
         pTag.put("tank", this.tank.writeToNBT(new CompoundTag()));

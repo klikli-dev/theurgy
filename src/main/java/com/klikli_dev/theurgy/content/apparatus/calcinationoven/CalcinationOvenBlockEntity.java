@@ -126,6 +126,13 @@ public class CalcinationOvenBlockEntity extends BlockEntity implements GeoBlockE
     }
 
     @Override
+    public void invalidateCaps() {
+        super.invalidateCaps();
+        this.inventoryCapability.invalidate();
+        this.inputInventoryCapability.invalidate();
+        this.outputInventoryCapability.invalidate();
+    }
+    @Override
     protected void saveAdditional(CompoundTag pTag) {
         super.saveAdditional(pTag);
 

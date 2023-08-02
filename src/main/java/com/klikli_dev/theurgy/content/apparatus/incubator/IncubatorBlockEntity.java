@@ -136,6 +136,12 @@ public class IncubatorBlockEntity extends BlockEntity {
     }
 
     @Override
+    public void invalidateCaps() {
+        super.invalidateCaps();
+        this.outputInventoryCapability.invalidate();
+    }
+
+    @Override
     protected void saveAdditional(CompoundTag pTag) {
         super.saveAdditional(pTag);
 

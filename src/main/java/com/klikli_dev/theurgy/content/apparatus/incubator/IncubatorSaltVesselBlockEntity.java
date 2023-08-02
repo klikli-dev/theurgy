@@ -65,6 +65,12 @@ public class IncubatorSaltVesselBlockEntity extends BlockEntity implements GeoBl
         return super.getCapability(cap, side);
     }
 
+    @Override
+    public void invalidateCaps() {
+        super.invalidateCaps();
+        this.inputInventoryCapability.invalidate();
+    }
+
     public void setIncubator(IncubatorBlockEntity incubator) {
         this.incubator = incubator;
     }

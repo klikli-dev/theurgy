@@ -5,8 +5,11 @@
 package com.klikli_dev.theurgy.network;
 
 import com.klikli_dev.theurgy.Theurgy;
+import com.klikli_dev.theurgy.network.messages.MessageCaloricFluxEmitterSelection;
+import com.klikli_dev.theurgy.network.messages.MessageRequestCaloricFluxEmitterSelection;
 import com.klikli_dev.theurgy.network.messages.MessageSetDivinationResult;
 import net.minecraft.network.ConnectionProtocol;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.PacketFlow;
 import net.minecraft.resources.ResourceKey;
@@ -22,6 +25,7 @@ import net.minecraftforge.network.simple.SimpleChannel;
 
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.function.Function;
 
 public class Networking {
     private static final String PROTOCOL_VERSION = "1";
@@ -38,11 +42,28 @@ public class Networking {
     }
 
     public static void registerMessages() {
+        register(MessageSetDivinationResult.class, NetworkDirection.PLAY_TO_SERVER);
+        register(MessageCaloricFluxEmitterSelection.class, NetworkDirection.PLAY_TO_SERVER);
+
+        register(MessageRequestCaloricFluxEmitterSelection.class, NetworkDirection.PLAY_TO_CLIENT);
+    }
+
+    public static <T extends Message> void register(Class<T> clazz, NetworkDirection networkDirection){
+       register(clazz, buf -> {
+           try {
+               return clazz.getConstructor(FriendlyByteBuf.class).newInstance(buf);
+           } catch (Exception e) {
+               throw new RuntimeException(e);
+           }
+       }, networkDirection);
+    }
+
+    public static <T extends Message> void register(Class<T> clazz, Function<FriendlyByteBuf, T> decoder, NetworkDirection networkDirection){
         INSTANCE.registerMessage(nextID(),
-                MessageSetDivinationResult.class,
-                MessageSetDivinationResult::encode,
-                MessageSetDivinationResult::new,
-                MessageHandler::handle, Optional.of(NetworkDirection.PLAY_TO_SERVER));
+                clazz,
+                T::encode,
+                decoder,
+                MessageHandler::handle, Optional.of(networkDirection));
     }
 
     public static <T> void sendToSplit(ServerPlayer player, T message) {

@@ -148,6 +148,7 @@ public class Theurgy {
             }
 
             Outliner.get().tick();
+            //TODO: tick caloric flux emitter behaviour
         }
 
         public static void onRenderLevelStage(RenderLevelStageEvent event) {

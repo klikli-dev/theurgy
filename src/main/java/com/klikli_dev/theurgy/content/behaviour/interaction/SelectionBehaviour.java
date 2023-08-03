@@ -69,7 +69,7 @@ public abstract class SelectionBehaviour<T extends SelectedPoint> {
         return this.remove(pos) != null;
     }
 
-    protected void onPlace(BlockPos pos) {
+    public void onPlace(BlockPos pos) {
 
         int removed = 0;
         for (var iterator = this.selectedPoints.iterator(); iterator.hasNext(); ) {

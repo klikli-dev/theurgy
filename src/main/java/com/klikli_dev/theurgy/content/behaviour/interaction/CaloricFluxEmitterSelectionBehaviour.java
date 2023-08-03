@@ -1,6 +1,8 @@
 package com.klikli_dev.theurgy.content.behaviour.interaction;
 
 import com.klikli_dev.theurgy.TheurgyConstants;
+import com.klikli_dev.theurgy.network.Networking;
+import com.klikli_dev.theurgy.network.messages.MessageCaloricFluxEmitterSelection;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -24,7 +26,7 @@ public class CaloricFluxEmitterSelectionBehaviour extends SelectionBehaviour<Cal
 
     @Override
     protected void sendPlacementPacket(BlockPos pos) {
-
+        Networking.sendToServer(new MessageCaloricFluxEmitterSelection(pos, this.selectedPoints));
     }
 
     @Override

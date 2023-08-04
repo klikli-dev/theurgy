@@ -177,7 +177,7 @@ public abstract class SelectionBehaviour<T extends SelectedPoint> {
 
     protected abstract int getBlockRange();
 
-    protected abstract boolean canCreate(Level level, BlockPos pos, BlockState state);
+    public abstract boolean canCreate(Level level, BlockPos pos, BlockState state);
     protected abstract T create(Level level, BlockPos pos, BlockState state);
 
     /**

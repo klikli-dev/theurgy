@@ -1,6 +1,7 @@
 package com.klikli_dev.theurgy.network.messages;
 
 import com.klikli_dev.theurgy.network.Message;
+import com.klikli_dev.theurgy.registry.BlockRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
@@ -31,7 +32,6 @@ public class MessageRequestCaloricFluxEmitterSelection implements Message {
 
     @Override
     public void onClientReceived(Minecraft minecraft, Player player, NetworkEvent.Context context) {
-        //TODO: access behaviour from block instance
-        // behaviour.onPlace(this.blockPos);
+        BlockRegistry.CALORIC_FLUX_EMITTER.get().getSelectionBehaviour().onPlace(this.blockPos);
     }
 }

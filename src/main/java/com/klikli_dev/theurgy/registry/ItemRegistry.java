@@ -6,6 +6,7 @@ package com.klikli_dev.theurgy.registry;
 
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.content.apparatus.calcinationoven.CalcinationOvenBlockItem;
+import com.klikli_dev.theurgy.content.apparatus.caloricfluxemitter.CaloricFluxEmitterBlockItem;
 import com.klikli_dev.theurgy.content.apparatus.distiller.DistillerBlockItem;
 import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorMercuryVesselBlockItem;
 import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorSaltVesselBlockItem;
@@ -120,6 +121,6 @@ public class ItemRegistry {
             ITEMS.register("sal_ammoniac_tank", () -> new SalAmmoniacTankBlockItem(BlockRegistry.SAL_AMMONIAC_TANK.get(), new Item.Properties()));
     public static final RegistryObject<BlockItem> MERCURY_CATALYST =
             ITEMS.register("mercury_catalyst", () -> new BlockItem(BlockRegistry.MERCURY_CATALYST.get(), new Item.Properties()));
-    public static final RegistryObject<BlockItem> CALORIC_FLUX_EMITTER =
-            ITEMS.register("caloric_flux_emitter", () -> new BlockItem(BlockRegistry.CALORIC_FLUX_EMITTER.get(), new Item.Properties()));
+    public static final RegistryObject<CaloricFluxEmitterBlockItem> CALORIC_FLUX_EMITTER =
+            ITEMS.register("caloric_flux_emitter", () -> new CaloricFluxEmitterBlockItem(BlockRegistry.CALORIC_FLUX_EMITTER.get(), new Item.Properties()));
 }

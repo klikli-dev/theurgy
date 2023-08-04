@@ -35,6 +35,7 @@ import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
@@ -45,6 +46,7 @@ import net.minecraftforge.client.event.RenderLevelStageEvent;
 import net.minecraftforge.client.model.DynamicFluidContainerModel;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -109,6 +111,8 @@ public class Theurgy {
             MinecraftForge.EVENT_BUS.addListener(Client::onRenderLevelStage);
             MinecraftForge.EVENT_BUS.addListener(Client::onClientTick);
             MinecraftForge.EVENT_BUS.addListener(Client::onRecipesUpdated);
+            MinecraftForge.EVENT_BUS.addListener(Client::onRightClick);
+            MinecraftForge.EVENT_BUS.addListener(Client::onLeftClick);
         }
     }
 
@@ -148,7 +152,7 @@ public class Theurgy {
             }
 
             Outliner.get().tick();
-            //TODO: tick caloric flux emitter behaviour
+            BlockRegistry.CALORIC_FLUX_EMITTER.get().getSelectionBehaviour().tick();
         }
 
         public static void onRenderLevelStage(RenderLevelStageEvent event) {
@@ -229,6 +233,22 @@ public class Theurgy {
 
         public static void onRegisterBlockColors(RegisterColorHandlersEvent.Block event) {
             event.register(MercuryCatalystBlock::getBlockColor, BlockRegistry.MERCURY_CATALYST.get());
+        }
+
+        public static void onRightClick(PlayerInteractEvent.RightClickBlock event) {
+            if (BlockRegistry.CALORIC_FLUX_EMITTER.get().getSelectionBehaviour().onRightClickBlock(event.getLevel(), event.getEntity(), event.getHand(), event.getPos(), event.getFace())) {
+                event.setCanceled(true);
+                event.setCancellationResult(InteractionResult.SUCCESS);
+                return;
+            }
+        }
+
+        public static void onLeftClick(PlayerInteractEvent.LeftClickBlock event) {
+            if (BlockRegistry.CALORIC_FLUX_EMITTER.get().getSelectionBehaviour().onLeftClickBlock(event.getLevel(), event.getEntity(), event.getHand(), event.getPos(), event.getFace())) {
+                event.setCanceled(true);
+                event.setCancellationResult(InteractionResult.SUCCESS);
+                return;
+            }
         }
     }
 }

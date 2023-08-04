@@ -90,7 +90,7 @@ public class AABBOutline extends Outline {
 	protected void renderBoxFace(PoseStack.Pose pose,  MultiBufferSource.BufferSource buffer, boolean cull, Direction highlightedFace, Vector3f minPos, Vector3f maxPos, Direction face, Vector4f color, int lightmap) {
 		boolean highlighted = face == highlightedFace;
 
-		// TODO: Presumably, the other texture should be used, but this was not noticed before so fixing it may lead to suboptimal visuals.
+		// Presumably, the other texture should be used, but this was not noticed before so fixing it may lead to suboptimal visuals.
 //		Optional<AllSpecialTextures> optionalFaceTexture = highlighted ? params.hightlightedFaceTexture : params.faceTexture;
 		var optionalFaceTexture = params.faceTexture;
 		if (!optionalFaceTexture.isPresent())

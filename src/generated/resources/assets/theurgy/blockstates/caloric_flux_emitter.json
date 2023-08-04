@@ -1,7 +1,30 @@
 {
   "variants": {
-    "": {
+    "facing=down": {
+      "model": "theurgy:block/caloric_flux_emitter",
+      "x": 180
+    },
+    "facing=east": {
+      "model": "theurgy:block/caloric_flux_emitter",
+      "x": 90,
+      "y": 90
+    },
+    "facing=north": {
+      "model": "theurgy:block/caloric_flux_emitter",
+      "x": 90
+    },
+    "facing=south": {
+      "model": "theurgy:block/caloric_flux_emitter",
+      "x": 90,
+      "y": 180
+    },
+    "facing=up": {
       "model": "theurgy:block/caloric_flux_emitter"
+    },
+    "facing=west": {
+      "model": "theurgy:block/caloric_flux_emitter",
+      "x": 90,
+      "y": 270
     }
   }
 }

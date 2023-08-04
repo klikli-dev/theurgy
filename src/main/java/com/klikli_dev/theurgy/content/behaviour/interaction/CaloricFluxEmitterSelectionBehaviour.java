@@ -36,7 +36,7 @@ public class CaloricFluxEmitterSelectionBehaviour extends SelectionBehaviour<Cal
 
     @Override
     public boolean canCreate(Level level, BlockPos pos, BlockState state) {
-        return true; //TODO: only heat receivers
+        return false; //TODO: only heat receivers
     }
 
     @Override

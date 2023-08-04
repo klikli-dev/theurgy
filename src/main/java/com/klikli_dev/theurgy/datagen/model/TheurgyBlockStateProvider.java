@@ -54,7 +54,8 @@ public class TheurgyBlockStateProvider extends BlockStateProvider {
                 .texture("particle", this.modLoc("block/emitter_socket"));
 
         //build blockstate
-        this.simpleBlockWithItem(BlockRegistry.CALORIC_FLUX_EMITTER.get(), model);
+        this.directionalBlock(BlockRegistry.CALORIC_FLUX_EMITTER.get(), model);
+        this.simpleBlockItem(BlockRegistry.CALORIC_FLUX_EMITTER.get(), model);
     }
 
     protected void registerSalAmmoniacAccumulator() {

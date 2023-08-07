@@ -6,6 +6,7 @@ package com.klikli_dev.theurgy.registry;
 
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.content.apparatus.calcinationoven.CalcinationOvenBlockEntity;
+import com.klikli_dev.theurgy.content.apparatus.caloricfluxemitter.CaloricFluxEmitterBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.distiller.DistillerBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorMercuryVesselBlockEntity;
@@ -67,4 +68,8 @@ public class BlockEntityRegistry {
     public static final RegistryObject<BlockEntityType<MercuryCatalystBlockEntity>> MERCURY_CATALYST =
             BLOCKS.register("mercury_catalyst", () ->
                     BlockEntityType.Builder.of(MercuryCatalystBlockEntity::new, BlockRegistry.MERCURY_CATALYST.get()).build(null));
+
+    public static final RegistryObject<BlockEntityType<CaloricFluxEmitterBlockEntity>> CALORIC_FLUX_EMITTER =
+            BLOCKS.register("caloric_flux_emitter", () ->
+                    BlockEntityType.Builder.of(CaloricFluxEmitterBlockEntity::new, BlockRegistry.CALORIC_FLUX_EMITTER.get()).build(null));
 }

@@ -486,7 +486,7 @@ public class DivinationRodItem extends Item {
         var to = dist.length() <= visualizationRange ? resultVec : from.add(dir.scale(visualizationRange));
 
         if (level.isLoaded(BlockPos.containing(to)) && level.isLoaded(BlockPos.containing(from)) && level.isClientSide) {
-            FollowProjectile aoeProjectile = new FollowProjectile(level, from, to);
+            FollowProjectile aoeProjectile = new FollowProjectile(level, from, to, 255, 25, 180, 0.25f);
             DistHelper.spawnEntityClientSide(level, aoeProjectile);
         }
     }

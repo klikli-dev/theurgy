@@ -1,6 +1,7 @@
 package com.klikli_dev.theurgy.network.messages;
 
-import com.klikli_dev.theurgy.content.behaviour.interaction.CaloricFluxEmitterSelectedPoint;
+import com.klikli_dev.theurgy.content.apparatus.caloricfluxemitter.CaloricFluxEmitterBlockEntity;
+import com.klikli_dev.theurgy.content.apparatus.caloricfluxemitter.CaloricFluxEmitterSelectedPoint;
 import com.klikli_dev.theurgy.network.Message;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
@@ -48,9 +49,7 @@ public class MessageCaloricFluxEmitterSelection implements Message {
         this.selectedPoints.forEach(point -> point.setLevel(level));
 
         BlockEntity blockEntity = level.getBlockEntity(this.blockPos);
-
-
-        //TODO: Set selection point list on block entity
-        //TODO: Set block entity dirty
+        if (blockEntity instanceof CaloricFluxEmitterBlockEntity caloricFluxEmitterBlockEntity)
+            caloricFluxEmitterBlockEntity.setSelectedPoints(this.selectedPoints);
     }
 }

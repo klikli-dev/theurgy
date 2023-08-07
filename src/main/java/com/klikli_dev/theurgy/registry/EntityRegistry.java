@@ -25,9 +25,12 @@ public class EntityRegistry {
     public static final RegistryObject<EntityType<FollowProjectile>> FOLLOW_PROJECTILE = register(
             "follow_projectile",
             EntityType.Builder.<FollowProjectile>of(FollowProjectile::new, MobCategory.MISC)
-                    .sized(0.5f, 0.5f).noSave().fireImmune()
+                    .sized(0.5f, 0.5f)
+                    .noSave()
+                    .fireImmune()
                     .setTrackingRange(10)
-                    .setShouldReceiveVelocityUpdates(true).setCustomClientFactory(FollowProjectile::new));
+                    .setShouldReceiveVelocityUpdates(true)
+                    .setCustomClientFactory(FollowProjectile::new));
 
 
 }

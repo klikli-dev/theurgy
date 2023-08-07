@@ -33,10 +33,10 @@ import org.jetbrains.annotations.Nullable;
 
 public class MercuryCatalystBlockEntity extends BlockEntity {
 
-    public static final int CAPACITY = 1000;
+    public static final int CAPACITY = 10000;
 
     public ItemStackHandler inventory;
-    public DefaultMercuryFluxStorage mercuryFluxStorage;
+    public MercuryCatalystMercuryFluxStorage mercuryFluxStorage;
 
     public LazyOptional<IItemHandler> inventoryCapability;
     public LazyOptional<MercuryFluxStorage> mercuryFluxStorageCapability;
@@ -201,7 +201,7 @@ public class MercuryCatalystBlockEntity extends BlockEntity {
         }
     }
 
-    private class MercuryCatalystMercuryFluxStorage extends DefaultMercuryFluxStorage {
+    public class MercuryCatalystMercuryFluxStorage extends DefaultMercuryFluxStorage {
 
         public static final int UPDATE_THRESHOLD = 100;
         private int lastUpdateLevel;

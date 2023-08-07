@@ -1,6 +1,7 @@
-package com.klikli_dev.theurgy.content.behaviour.interaction;
+package com.klikli_dev.theurgy.content.apparatus.caloricfluxemitter;
 
 import com.klikli_dev.theurgy.TheurgyConstants;
+import com.klikli_dev.theurgy.content.behaviour.interaction.SelectedPoint;
 import com.klikli_dev.theurgy.content.render.Color;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;

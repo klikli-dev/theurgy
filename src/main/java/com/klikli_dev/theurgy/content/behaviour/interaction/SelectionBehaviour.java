@@ -154,7 +154,7 @@ public abstract class SelectionBehaviour<T extends SelectedPoint> {
         return null;
     }
 
-    protected boolean isValid(SelectedPoint point){
+    public boolean isValid(SelectedPoint point){
         point.refreshBlockStateCache();
         return this.canCreate(point.getLevel(), point.getBlockPos(), point.getBlockState());
     }
@@ -175,7 +175,7 @@ public abstract class SelectionBehaviour<T extends SelectedPoint> {
 
     protected abstract void sendPlacementPacket(BlockPos pos);
 
-    protected abstract int getBlockRange();
+    public abstract int getBlockRange();
 
     public abstract boolean canCreate(Level level, BlockPos pos, BlockState state);
     protected abstract T create(Level level, BlockPos pos, BlockState state);

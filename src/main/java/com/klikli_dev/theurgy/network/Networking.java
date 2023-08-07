@@ -8,6 +8,7 @@ import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.network.messages.MessageCaloricFluxEmitterSelection;
 import com.klikli_dev.theurgy.network.messages.MessageRequestCaloricFluxEmitterSelection;
 import com.klikli_dev.theurgy.network.messages.MessageSetDivinationResult;
+import com.klikli_dev.theurgy.network.messages.MessageShowCaloricFlux;
 import net.minecraft.network.ConnectionProtocol;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.protocol.Packet;
@@ -17,6 +18,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.PacketDistributor;
@@ -46,6 +48,7 @@ public class Networking {
         register(MessageCaloricFluxEmitterSelection.class, NetworkDirection.PLAY_TO_SERVER);
 
         register(MessageRequestCaloricFluxEmitterSelection.class, NetworkDirection.PLAY_TO_CLIENT);
+        register(MessageShowCaloricFlux.class, NetworkDirection.PLAY_TO_CLIENT);
     }
 
     public static <T extends Message> void register(Class<T> clazz, NetworkDirection networkDirection){
@@ -85,6 +88,10 @@ public class Networking {
 
     public static <T> void sendToTracking(Entity entity, T message) {
         INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(() -> entity), message);
+    }
+
+    public static <T> void sendToTracking(LevelChunk chunk, T message) {
+        INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> chunk), message);
     }
 
     public static <T> void sendToDimension(ResourceKey<Level> dimensionKey, T message) {

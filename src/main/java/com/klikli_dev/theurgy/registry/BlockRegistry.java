@@ -17,7 +17,7 @@ import com.klikli_dev.theurgy.content.apparatus.mercurycatalyst.MercuryCatalystB
 import com.klikli_dev.theurgy.content.apparatus.pyromanticbrazier.PyromanticBrazierBlock;
 import com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator.SalAmmoniacAccumulatorBlock;
 import com.klikli_dev.theurgy.content.apparatus.salammoniactank.SalAmmoniacTankBlock;
-import com.klikli_dev.theurgy.content.behaviour.interaction.CaloricFluxEmitterSelectionBehaviour;
+import com.klikli_dev.theurgy.content.apparatus.caloricfluxemitter.CaloricFluxEmitterSelectionBehaviour;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DropExperienceBlock;

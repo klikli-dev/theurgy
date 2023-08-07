@@ -2,16 +2,17 @@ package com.klikli_dev.theurgy.content.apparatus.caloricfluxemitter;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
-import com.klikli_dev.theurgy.content.behaviour.interaction.CaloricFluxEmitterSelectedPoint;
 import com.klikli_dev.theurgy.content.behaviour.interaction.SelectionBehaviour;
+import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.DirectionalBlock;
-import net.minecraft.world.level.block.Mirror;
-import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -21,7 +22,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
 
-public class CaloricFluxEmitterBlock extends DirectionalBlock {
+public class CaloricFluxEmitterBlock extends DirectionalBlock implements EntityBlock {
 
     private static final int SHAPE_LENGTH = 4;
     private static final Map<Direction, VoxelShape> SHAPES = Maps.newEnumMap(
@@ -46,8 +47,10 @@ public class CaloricFluxEmitterBlock extends DirectionalBlock {
         return this.selectionBehaviour;
     }
 
+    @SuppressWarnings("deprecation")
     @Override
-    public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
+
+    public @NotNull VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
         return SHAPES.get(pState.getValue(FACING));
     }
 
@@ -77,4 +80,22 @@ public class CaloricFluxEmitterBlock extends DirectionalBlock {
         pBuilder.add(FACING);
     }
 
+    @Nullable
+    @Override
+    public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
+       return BlockEntityRegistry.CALORIC_FLUX_EMITTER.get().create(pPos, pState);
+    }
+
+    @Nullable
+    @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
+        if (pLevel.isClientSide()) {
+            return null;
+        }
+        return (lvl, pos, blockState, t) -> {
+            if (t instanceof CaloricFluxEmitterBlockEntity blockEntity) {
+                blockEntity.tickServer();
+            }
+        };
+    }
 }

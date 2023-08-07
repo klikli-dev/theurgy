@@ -1,8 +1,10 @@
-package com.klikli_dev.theurgy.content.behaviour.interaction;
+package com.klikli_dev.theurgy.content.apparatus.caloricfluxemitter;
 
 import com.klikli_dev.theurgy.TheurgyConstants;
+import com.klikli_dev.theurgy.content.behaviour.interaction.SelectionBehaviour;
 import com.klikli_dev.theurgy.network.Networking;
 import com.klikli_dev.theurgy.network.messages.MessageCaloricFluxEmitterSelection;
+import com.klikli_dev.theurgy.registry.CapabilityRegistry;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -30,13 +32,17 @@ public class CaloricFluxEmitterSelectionBehaviour extends SelectionBehaviour<Cal
     }
 
     @Override
-    protected int getBlockRange() {
+    public int getBlockRange() {
         return 5;
     }
 
     @Override
     public boolean canCreate(Level level, BlockPos pos, BlockState state) {
-        return false; //TODO: only heat receivers
+        if(!level.isLoaded(pos))
+            return false;
+
+        var blockEntity = level.getBlockEntity(pos);
+        return blockEntity != null && blockEntity.getCapability(CapabilityRegistry.HEAT_RECEIVER).isPresent();
     }
 
     @Override

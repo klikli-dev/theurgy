@@ -167,20 +167,6 @@ public class MercuryCatalystBlockEntity extends BlockEntity {
         if (pTag.contains("mercuryFluxStorage"))
             //get instead of getCompound here because the storage serializes as int tag
             this.mercuryFluxStorage.deserializeNBT(pTag.get("mercuryFluxStorage"));
-
-        //if this is a block entity placed from a dropped block, we need to load the loot table dynamic content
-        if (pTag.contains("Items", Tag.TAG_LIST)) {
-            //copied from ContainerHelper.loadAllItems(pTag, this.itemStacks); and adjusted for our itemstackhandler
-            ListTag listtag = pTag.getList("Items", Tag.TAG_COMPOUND);
-
-            for (int i = 0; i < listtag.size(); ++i) {
-                CompoundTag compoundtag = listtag.getCompound(i);
-                int j = compoundtag.getByte("Slot") & 255;
-                if (j >= 0 && j < this.inventory.getSlots()) {
-                    this.inventory.setStackInSlot(j, ItemStack.of(compoundtag));
-                }
-            }
-        }
     }
 
     private class Inventory extends ItemStackHandler {

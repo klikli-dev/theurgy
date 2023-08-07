@@ -97,7 +97,7 @@ public class FollowProjectile extends ColoredProjectile {
             this.remove(RemovalReason.DISCARDED);
             return;
         }
-        Vec3 vec3d2 = this.getDeltaMovement();
+        Vec3 deltaMovement = this.getDeltaMovement();
         Vec3 dest = this.entityData.get(FollowProjectile.TO);
 
         if (Math.sqrt(this.position().distanceToSqr(dest)) < 1 || this.age > 1000 ||
@@ -111,9 +111,9 @@ public class FollowProjectile extends ColoredProjectile {
         double posX = this.getX();
         double posY = this.getY();
         double posZ = this.getZ();
-        double motionX = this.getDeltaMovement().x;
-        double motionY = this.getDeltaMovement().y;
-        double motionZ = this.getDeltaMovement().z;
+        double motionX = deltaMovement.x;
+        double motionY = deltaMovement.y;
+        double motionZ = deltaMovement.z;
 
         if (dest.x() != 0 || dest.y() != 0 || dest.z() != 0) {
             double targetX = dest.x();// + 0.5; we needed this when we used blockpos

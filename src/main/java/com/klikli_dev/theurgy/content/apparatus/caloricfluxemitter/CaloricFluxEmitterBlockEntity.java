@@ -7,9 +7,12 @@ import com.klikli_dev.theurgy.network.messages.MessageShowCaloricFlux;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.CapabilityRegistry;
+import io.netty.handler.codec.EncoderException;
+import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
@@ -42,6 +45,11 @@ public class CaloricFluxEmitterBlockEntity extends BlockEntity {
         this.selectedPoints = new ArrayList<>();
     }
 
+    @Override
+    public void onLoad() {
+        this.selectedPoints.forEach(point -> point.setLevel(this.getLevel()));
+    }
+
     public void tickServer() {
         if (this.getLevel().getGameTime() % TICK_INTERVAL != 0)
             return; //slow tick
@@ -51,8 +59,6 @@ public class CaloricFluxEmitterBlockEntity extends BlockEntity {
 
         var selectedPoint = this.selectedPoints.get(0); //we only have one target point
         if (!this.getSelectionBehaviour().isValid(selectedPoint)) {
-            this.selectedPoints.remove(0);
-            this.setChanged();
             return;
         }
 
@@ -90,6 +96,7 @@ public class CaloricFluxEmitterBlockEntity extends BlockEntity {
         super.saveAdditional(pTag);
 
         pTag.put("mercuryFluxStorage", this.mercuryFluxStorage.serializeNBT());
+        pTag.put("selectedPoints", Util.getOrThrow(CaloricFluxEmitterSelectedPoint.LIST_CODEC.encodeStart(NbtOps.INSTANCE, this.selectedPoints), (e) -> new EncoderException("Failed to encode: " + e + " " + this.selectedPoints)));
     }
 
     @Override
@@ -99,6 +106,10 @@ public class CaloricFluxEmitterBlockEntity extends BlockEntity {
         if (pTag.contains("mercuryFluxStorage"))
             //get instead of getCompound here because the storage serializes as int tag
             this.mercuryFluxStorage.deserializeNBT(pTag.get("mercuryFluxStorage"));
+
+        if (pTag.contains("selectedPoints")){
+            this.selectedPoints = Util.getOrThrow(CaloricFluxEmitterSelectedPoint.LIST_CODEC.parse(NbtOps.INSTANCE, pTag.get("selectedPoints")), (e) -> new EncoderException("Failed to decode: " + e + " " + pTag.get("selectedPoints")));
+        }
     }
 
     public SelectionBehaviour<CaloricFluxEmitterSelectedPoint> getSelectionBehaviour() {

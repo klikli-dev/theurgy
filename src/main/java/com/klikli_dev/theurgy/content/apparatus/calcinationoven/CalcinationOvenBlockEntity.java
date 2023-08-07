@@ -4,12 +4,14 @@
 
 package com.klikli_dev.theurgy.content.apparatus.calcinationoven;
 
-import com.klikli_dev.theurgy.content.apparatus.distiller.DistillerBlockEntity;
 import com.klikli_dev.theurgy.content.behaviour.AnimationBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.CraftingBehaviour;
-import com.klikli_dev.theurgy.content.behaviour.HeatedBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.HeatConsumerBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.PreventInsertWrapper;
+import com.klikli_dev.theurgy.content.capability.DefaultHeatReceiver;
+import com.klikli_dev.theurgy.content.capability.HeatReceiver;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
+import com.klikli_dev.theurgy.registry.CapabilityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -36,6 +38,8 @@ import software.bernie.geckolib.core.animation.AnimationController;
 public class CalcinationOvenBlockEntity extends BlockEntity implements GeoBlockEntity {
 
     public ItemStackHandler inputInventory;
+    public LazyOptional<IItemHandler> inputInventoryCapability;
+
     /**
      * The underlying outputInventory which allows inserting too - we use this when crafting.
      */
@@ -44,13 +48,17 @@ public class CalcinationOvenBlockEntity extends BlockEntity implements GeoBlockE
      * A wrapper that only allows taking from the outputInventory - this is what we show to the outside.
      */
     public PreventInsertWrapper outputInventoryTakeOnlyWrapper;
-    public CombinedInvWrapper inventory;
-    public LazyOptional<IItemHandler> inventoryCapability;
-    public LazyOptional<IItemHandler> inputInventoryCapability;
     public LazyOptional<IItemHandler> outputInventoryCapability;
 
+    public CombinedInvWrapper inventory;
+    public LazyOptional<IItemHandler> inventoryCapability;
+
+    public DefaultHeatReceiver heatReceiver;
+    public LazyOptional<HeatReceiver> heatReceiverCapability;
+
+
     protected CraftingBehaviour<?, ?, ?> craftingBehaviour;
-    protected HeatedBehaviour heatedBehaviour;
+    protected HeatConsumerBehaviour heatConsumerBehaviour;
     protected AnimationBehaviour<?> animationBehaviour;
 
 
@@ -58,17 +66,20 @@ public class CalcinationOvenBlockEntity extends BlockEntity implements GeoBlockE
         super(BlockEntityRegistry.CALCINATION_OVEN.get(), pPos, pBlockState);
 
         this.inputInventory = new InputInventory();
+        this.inputInventoryCapability = LazyOptional.of(() -> this.inputInventory);
+
         this.outputInventory = new OutputInventory();
         this.outputInventoryTakeOnlyWrapper = new PreventInsertWrapper(this.outputInventory);
-
-        this.inventory = new CombinedInvWrapper(this.inputInventory, this.outputInventoryTakeOnlyWrapper);
-
-        this.inventoryCapability = LazyOptional.of(() -> this.inventory);
-        this.inputInventoryCapability = LazyOptional.of(() -> this.inputInventory);
         this.outputInventoryCapability = LazyOptional.of(() -> this.outputInventoryTakeOnlyWrapper);
 
+        this.inventory = new CombinedInvWrapper(this.inputInventory, this.outputInventoryTakeOnlyWrapper);
+        this.inventoryCapability = LazyOptional.of(() -> this.inventory);
+
+        this.heatReceiver = new DefaultHeatReceiver();
+        this.heatReceiverCapability = LazyOptional.of(() -> this.heatReceiver);
+
         this.craftingBehaviour = new CalcinationCraftingBehaviour(this, () -> this.inputInventory, () -> this.outputInventory);
-        this.heatedBehaviour = new HeatedBehaviour(this);
+        this.heatConsumerBehaviour = new HeatConsumerBehaviour(this);
         this.animationBehaviour = new CalcinationOvenAnimationBehaviour(this);
     }
 
@@ -107,7 +118,7 @@ public class CalcinationOvenBlockEntity extends BlockEntity implements GeoBlockE
     }
 
     public void tickServer() {
-        boolean isHeated = this.heatedBehaviour.isHeated();
+        boolean isHeated = this.heatConsumerBehaviour.isHeated();
         boolean hasInput = !this.inputInventory.getStackInSlot(0).isEmpty();
 
         this.craftingBehaviour.tickServer(isHeated, hasInput);
@@ -120,6 +131,10 @@ public class CalcinationOvenBlockEntity extends BlockEntity implements GeoBlockE
             if (side == Direction.DOWN) return this.outputInventoryCapability.cast();
             return this.inventoryCapability.cast();
         }
+
+        if (cap == CapabilityRegistry.HEAT_RECEIVER) {
+            return this.heatReceiverCapability.cast();
+        }
         return super.getCapability(cap, side);
     }
 
@@ -129,13 +144,16 @@ public class CalcinationOvenBlockEntity extends BlockEntity implements GeoBlockE
         this.inventoryCapability.invalidate();
         this.inputInventoryCapability.invalidate();
         this.outputInventoryCapability.invalidate();
+        this.heatReceiverCapability.invalidate();
     }
+
     @Override
     protected void saveAdditional(CompoundTag pTag) {
         super.saveAdditional(pTag);
 
         pTag.put("inputInventory", this.inputInventory.serializeNBT());
         pTag.put("outputInventory", this.outputInventory.serializeNBT());
+        pTag.put("heatReceiver", this.heatReceiver.serializeNBT());
 
         this.craftingBehaviour.saveAdditional(pTag);
     }
@@ -148,6 +166,8 @@ public class CalcinationOvenBlockEntity extends BlockEntity implements GeoBlockE
             this.inputInventory.deserializeNBT(pTag.getCompound("inputInventory"));
         if (pTag.contains("outputInventory"))
             this.outputInventory.deserializeNBT(pTag.getCompound("outputInventory"));
+        if (pTag.contains("heatReceiver"))
+            this.heatReceiver.deserializeNBT(pTag.get("heatReceiver"));
 
         this.craftingBehaviour.load(pTag);
     }

@@ -9,13 +9,13 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
-public class HeatedBehaviour {
+public class HeatConsumerBehaviour {
 
     private final BlockEntity blockEntity;
     int CHECK_HEAT_TICK_INTERVAL = 20;
     private boolean heatedCache;
 
-    public HeatedBehaviour(BlockEntity blockEntity) {
+    public HeatConsumerBehaviour(BlockEntity blockEntity) {
         this.blockEntity = blockEntity;
     }
 
@@ -33,6 +33,15 @@ public class HeatedBehaviour {
             var wasHeated = this.heatedCache;
 
             var isHeated = this.hasHeatProvider();
+
+            //if not heated from below, check if we get heat via our receiver capability
+            if(!isHeated){
+                var heatReceiver = this.blockEntity.getCapability(CapabilityRegistry.HEAT_RECEIVER).orElse(null);
+                if(heatReceiver != null){
+                    isHeated = heatReceiver.getIsHotUntil() > this.blockEntity.getLevel().getGameTime();
+                }
+            }
+
             this.heatedCache = isHeated;
 
             if (wasHeated != isHeated) {

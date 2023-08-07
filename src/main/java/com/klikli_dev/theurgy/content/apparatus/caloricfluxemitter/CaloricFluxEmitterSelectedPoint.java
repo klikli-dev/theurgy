@@ -45,6 +45,6 @@ public class CaloricFluxEmitterSelectedPoint extends SelectedPoint<CaloricFluxEm
 
     @Override
     public Codec<CaloricFluxEmitterSelectedPoint> codec() {
-        return null;
+        return CODEC;
     }
 }

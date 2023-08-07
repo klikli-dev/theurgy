@@ -4,13 +4,15 @@
 
 package com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron;
 
-import com.klikli_dev.theurgy.content.apparatus.distiller.DistillerBlockEntity;
 import com.klikli_dev.theurgy.content.behaviour.CraftingBehaviour;
-import com.klikli_dev.theurgy.content.behaviour.HeatedBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.HeatConsumerBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.PreventInsertWrapper;
+import com.klikli_dev.theurgy.content.capability.DefaultHeatReceiver;
+import com.klikli_dev.theurgy.content.capability.HeatReceiver;
 import com.klikli_dev.theurgy.content.particle.ParticleColor;
 import com.klikli_dev.theurgy.content.particle.coloredbubble.ColoredBubbleParticleProvider;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
+import com.klikli_dev.theurgy.registry.CapabilityRegistry;
 import com.klikli_dev.theurgy.registry.FluidTagRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -59,8 +61,12 @@ public class LiquefactionCauldronBlockEntity extends BlockEntity {
     public FluidTank solventTank;
     public LazyOptional<IFluidHandler> solventTankCapability;
 
+    public DefaultHeatReceiver heatReceiver;
+    public LazyOptional<HeatReceiver> heatReceiverCapability;
+
+
     protected CraftingBehaviour<?, ?, ?> craftingBehaviour;
-    protected HeatedBehaviour heatedBehaviour;
+    protected HeatConsumerBehaviour heatConsumerBehaviour;
 
 
     public LiquefactionCauldronBlockEntity(BlockPos pPos, BlockState pBlockState) {
@@ -79,8 +85,11 @@ public class LiquefactionCauldronBlockEntity extends BlockEntity {
 
         this.solventTankCapability = LazyOptional.of(() -> this.solventTank);
 
+        this.heatReceiver = new DefaultHeatReceiver();
+        this.heatReceiverCapability = LazyOptional.of(() -> this.heatReceiver);
+
         this.craftingBehaviour = new LiquefactionCauldronCraftingBehaviour(this, () -> this.inputInventory, () -> this.outputInventory, () -> this.solventTank);
-        this.heatedBehaviour = new HeatedBehaviour(this);
+        this.heatConsumerBehaviour = new HeatConsumerBehaviour(this);
     }
 
     @Override
@@ -129,7 +138,7 @@ public class LiquefactionCauldronBlockEntity extends BlockEntity {
     }
 
     public void tickServer() {
-        boolean isHeated = this.heatedBehaviour.isHeated();
+        boolean isHeated = this.heatConsumerBehaviour.isHeated();
         boolean hasInput = !this.inputInventory.getStackInSlot(0).isEmpty();
 
         this.craftingBehaviour.tickServer(isHeated, hasInput);
@@ -162,6 +171,10 @@ public class LiquefactionCauldronBlockEntity extends BlockEntity {
 
         if (cap == ForgeCapabilities.FLUID_HANDLER) return this.solventTankCapability.cast();
 
+        if (cap == CapabilityRegistry.HEAT_RECEIVER) {
+            return this.heatReceiverCapability.cast();
+        }
+
         return super.getCapability(cap, side);
     }
 
@@ -172,6 +185,7 @@ public class LiquefactionCauldronBlockEntity extends BlockEntity {
         this.inputInventoryCapability.invalidate();
         this.outputInventoryCapability.invalidate();
         this.solventTankCapability.invalidate();
+        this.heatReceiverCapability.invalidate();
     }
 
     @Override
@@ -181,6 +195,7 @@ public class LiquefactionCauldronBlockEntity extends BlockEntity {
         pTag.put("inputInventory", this.inputInventory.serializeNBT());
         pTag.put("outputInventory", this.outputInventory.serializeNBT());
         pTag.put("solventTank", this.solventTank.writeToNBT(new CompoundTag()));
+        pTag.put("heatReceiver", this.heatReceiver.serializeNBT());
 
         this.craftingBehaviour.saveAdditional(pTag);
     }
@@ -195,6 +210,9 @@ public class LiquefactionCauldronBlockEntity extends BlockEntity {
         if (pTag.contains("solventTank")) {
             this.solventTank.readFromNBT(pTag.getCompound("solventTank"));
         }
+
+        if (pTag.contains("heatReceiver"))
+            this.heatReceiver.deserializeNBT(pTag.get("heatReceiver"));
 
         this.craftingBehaviour.load(pTag);
     }

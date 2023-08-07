@@ -5,10 +5,13 @@
 package com.klikli_dev.theurgy.content.apparatus.incubator;
 
 import com.klikli_dev.theurgy.content.behaviour.CraftingBehaviour;
-import com.klikli_dev.theurgy.content.behaviour.HeatedBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.HeatConsumerBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.PreventInsertWrapper;
+import com.klikli_dev.theurgy.content.capability.DefaultHeatReceiver;
+import com.klikli_dev.theurgy.content.capability.HeatReceiver;
 import com.klikli_dev.theurgy.content.recipe.wrapper.IncubatorRecipeWrapper;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
+import com.klikli_dev.theurgy.registry.CapabilityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -44,10 +47,14 @@ public class IncubatorBlockEntity extends BlockEntity {
     public LazyOptional<IItemHandler> outputInventoryCapability;
 
     public IncubatorRecipeWrapper recipeWrapper;
+
+    public DefaultHeatReceiver heatReceiver;
+    public LazyOptional<HeatReceiver> heatReceiverCapability;
+
     public boolean isValidMultiblock;
 
     protected CraftingBehaviour<?, ?, ?> craftingBehaviour;
-    protected HeatedBehaviour heatedBehaviour;
+    protected HeatConsumerBehaviour heatConsumerBehaviour;
     protected boolean checkValidMultiblockOnNextQuery;
 
     public IncubatorBlockEntity(BlockPos pPos, BlockState pBlockState) {
@@ -58,8 +65,11 @@ public class IncubatorBlockEntity extends BlockEntity {
         this.outputInventoryCapability = LazyOptional.of(() -> this.outputInventoryTakeOnlyWrapper);
         this.checkValidMultiblockOnNextQuery = true;
 
+        this.heatReceiver = new DefaultHeatReceiver();
+        this.heatReceiverCapability = LazyOptional.of(() -> this.heatReceiver);
+
         this.craftingBehaviour = new IncubatorCraftingBehaviour(this, () -> this.recipeWrapper, () -> null, () -> this.outputInventory);
-        this.heatedBehaviour = new HeatedBehaviour(this);
+        this.heatConsumerBehaviour = new HeatConsumerBehaviour(this);
     }
 
     @Override
@@ -97,7 +107,7 @@ public class IncubatorBlockEntity extends BlockEntity {
     }
 
     public void tickServer() {
-        boolean isHeated = this.heatedBehaviour.isHeated();
+        boolean isHeated = this.heatConsumerBehaviour.isHeated();
 
         boolean hasInput = this.isValidMultiblock()
                 && !this.mercuryVessel.inputInventory.getStackInSlot(0).isEmpty()
@@ -130,6 +140,9 @@ public class IncubatorBlockEntity extends BlockEntity {
         if (cap == ForgeCapabilities.ITEM_HANDLER) {
             return this.outputInventoryCapability.cast();
         }
+        if (cap == CapabilityRegistry.HEAT_RECEIVER) {
+            return this.heatReceiverCapability.cast();
+        }
         return super.getCapability(cap, side);
     }
 
@@ -137,6 +150,7 @@ public class IncubatorBlockEntity extends BlockEntity {
     public void invalidateCaps() {
         super.invalidateCaps();
         this.outputInventoryCapability.invalidate();
+        this.heatReceiverCapability.invalidate();
     }
 
     @Override
@@ -144,6 +158,7 @@ public class IncubatorBlockEntity extends BlockEntity {
         super.saveAdditional(pTag);
 
         pTag.put("outputInventory", this.outputInventory.serializeNBT());
+        pTag.put("heatReceiver", this.heatReceiver.serializeNBT());
 
         this.craftingBehaviour.saveAdditional(pTag);
     }
@@ -154,6 +169,9 @@ public class IncubatorBlockEntity extends BlockEntity {
 
         if (pTag.contains("outputInventory"))
             this.outputInventory.deserializeNBT(pTag.getCompound("outputInventory"));
+
+        if (pTag.contains("heatReceiver"))
+            this.heatReceiver.deserializeNBT(pTag.get("heatReceiver"));
 
         this.craftingBehaviour.load(pTag);
     }

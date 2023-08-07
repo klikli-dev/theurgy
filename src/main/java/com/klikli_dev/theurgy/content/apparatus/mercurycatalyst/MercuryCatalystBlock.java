@@ -32,9 +32,6 @@ import java.util.List;
 
 public class MercuryCatalystBlock extends Block implements EntityBlock {
 
-    public static final ResourceLocation CONTENTS = Theurgy.loc("contents");
-
-
     protected ItemHandlerBehaviour itemHandlerBehaviour;
 
     public MercuryCatalystBlock(Properties pProperties) {
@@ -55,21 +52,6 @@ public class MercuryCatalystBlock extends Block implements EntityBlock {
         }
 
         return InteractionResult.PASS;
-    }
-
-
-    @Override
-    @SuppressWarnings("deprecation")
-    public List<ItemStack> getDrops(BlockState pState, LootParams.Builder pParams) {
-        if (pParams.getOptionalParameter(LootContextParams.BLOCK_ENTITY) instanceof MercuryCatalystBlockEntity blockEntity) {
-            pParams = pParams.withDynamicDrop(CONTENTS, (pOutput) -> {
-                for (int i = 0; i < blockEntity.inventory.getSlots(); ++i) {
-                    pOutput.accept(blockEntity.inventory.getStackInSlot(i));
-                }
-            });
-        }
-
-        return super.getDrops(pState, pParams);
     }
 
     @Nullable

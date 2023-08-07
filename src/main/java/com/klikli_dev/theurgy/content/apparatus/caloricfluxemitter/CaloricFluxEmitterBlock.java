@@ -2,10 +2,14 @@ package com.klikli_dev.theurgy.content.apparatus.caloricfluxemitter;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
+import com.klikli_dev.theurgy.Theurgy;
+import com.klikli_dev.theurgy.content.apparatus.mercurycatalyst.MercuryCatalystBlockEntity;
 import com.klikli_dev.theurgy.content.behaviour.interaction.SelectionBehaviour;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -15,15 +19,17 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.storage.loot.LootParams;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
 import java.util.Map;
 
 public class CaloricFluxEmitterBlock extends DirectionalBlock implements EntityBlock {
-
     private static final int SHAPE_LENGTH = 4;
     private static final Map<Direction, VoxelShape> SHAPES = Maps.newEnumMap(
             ImmutableMap.<Direction, VoxelShape>builder()

@@ -25,7 +25,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.energy.EnergyStorage;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
@@ -34,6 +33,9 @@ import org.jetbrains.annotations.Nullable;
 public class MercuryCatalystBlockEntity extends BlockEntity {
 
     public static final int CAPACITY = 10000;
+
+    public static final int PUSH_TICK_INTERVAL = 20;
+    public static final int PUSH_RATE_PER_TICK = 2;
 
     public ItemStackHandler inventory;
     public MercuryCatalystMercuryFluxStorage mercuryFluxStorage;
@@ -102,6 +104,30 @@ public class MercuryCatalystBlockEntity extends BlockEntity {
         boolean hasInput = !this.inventory.getStackInSlot(0).isEmpty();
 
         this.craftingBehaviour.tickServer(true, hasInput);
+
+        if (this.getLevel().getGameTime() % PUSH_TICK_INTERVAL == 0) {
+            this.pushMercuryFlux();
+        }
+    }
+
+    protected void pushMercuryFlux() {
+        var directions = Direction.allShuffled(this.getLevel().getRandom());
+        for (var direction : directions) {
+            if (this.mercuryFluxStorage.getEnergyStored() <= 0)
+                break;
+
+            var blockEntity = this.getLevel().getBlockEntity(this.getBlockPos().relative(direction));
+            if (blockEntity == null)
+                continue;
+
+            var fluxStorage = blockEntity.getCapability(CapabilityRegistry.MERCURY_FLUX).orElse(null);
+            if (fluxStorage == null)
+                continue;
+
+            var energy = this.mercuryFluxStorage.extractEnergy(PUSH_RATE_PER_TICK * PUSH_TICK_INTERVAL, true);
+            var received = fluxStorage.receiveEnergy(energy, false);
+            this.mercuryFluxStorage.extractEnergy(received, false);
+        }
     }
 
     @Override
@@ -147,7 +173,7 @@ public class MercuryCatalystBlockEntity extends BlockEntity {
             //copied from ContainerHelper.loadAllItems(pTag, this.itemStacks); and adjusted for our itemstackhandler
             ListTag listtag = pTag.getList("Items", Tag.TAG_COMPOUND);
 
-            for(int i = 0; i < listtag.size(); ++i) {
+            for (int i = 0; i < listtag.size(); ++i) {
                 CompoundTag compoundtag = listtag.getCompound(i);
                 int j = compoundtag.getByte("Slot") & 255;
                 if (j >= 0 && j < this.inventory.getSlots()) {

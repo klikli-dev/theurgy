@@ -13,6 +13,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
@@ -55,7 +56,6 @@ public class CaloricFluxEmitterBlock extends DirectionalBlock implements EntityB
 
     @SuppressWarnings("deprecation")
     @Override
-
     public @NotNull VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
         return SHAPES.get(pState.getValue(FACING));
     }
@@ -67,6 +67,25 @@ public class CaloricFluxEmitterBlock extends DirectionalBlock implements EntityB
         BlockState blockstate = pContext.getLevel().getBlockState(pContext.getClickedPos().relative(direction.getOpposite()));
         return blockstate.is(this) && blockstate.getValue(FACING) == direction ?
                 this.defaultBlockState().setValue(FACING, direction.getOpposite()) : this.defaultBlockState().setValue(FACING, direction);
+    }
+
+
+    @SuppressWarnings("deprecation")
+    @Override
+    public void neighborChanged(BlockState pState, Level pLevel, BlockPos pPos, Block pBlock, BlockPos pFromPos, boolean pIsMoving) {
+        super.neighborChanged(pState, pLevel, pPos, pBlock, pFromPos, pIsMoving);
+
+        if(!this.canSurvive(pState, pLevel, pPos)) {
+            pLevel.destroyBlock(pPos, true);
+        }
+    }
+
+    @SuppressWarnings("deprecation")
+    @Override
+    public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) {
+        var facing = pState.getValue(FACING);
+        var facingNeighborState = pLevel.getBlockState(pPos.relative(facing.getOpposite()));
+        return facingNeighborState.isFaceSturdy(pLevel, pPos, facing);
     }
 
     @SuppressWarnings("deprecation")

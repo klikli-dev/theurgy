@@ -37,9 +37,10 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
                 "__________________________________",
                 "__________i_a___________ő_ö_______",
                 "__________________________________",
-                "______________s_š___o_ó___ô_õ_____",
+                "____________u_s_š___o_ó___ô_õ_____",
                 "__________________________________",
-                "______________u_________ò_________"
+                "______________m_ḿ_______ò_________",
+                "__________________________________"
         };
     }
 
@@ -73,6 +74,10 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
         var createSalt = this.add(ore.createSaltEntry('ô'));
         var createMercury = this.add(ore.createMercuryEntry('ò'));
         var incubation = this.add(ore.incubationEntry('õ'));
+
+        //TODO: one entry to talk about mercury flux, then one entry to link to the category
+        var mercuryFlux = this.add(this.mercuryFluxEntry('m'));
+        var mercuryFluxLink = this.add(this.mercuryFluxLinkEntry('ḿ'));
 
         //links and conditions
         aboutModEntry.withParent(introEntry);
@@ -157,6 +162,9 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
                 .withParent(createMercury)
                 .withParent(createSalt)
                 .withParent(createSulfur);
+
+        mercuryFlux.withParent(spagyrics);
+        mercuryFluxLink.withParent(mercuryFlux);
 
         //TODO: Conditions
         //  amethyst entry should NOT depend on spagyrics -> hence not on abundant sulfur rod
@@ -350,8 +358,10 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
         var intro2 = BookTextPageModel.builder().withTitle(this.context().pageTitle()).withText(this.context().pageText()).build();
         this.add(this.context().pageTitle(), "Learn More");
         this.add(this.context().pageText(), """
-                Open the Spagyrics Category to learn more about the various required alchemical processes.
-                """);
+                Open the {0} to learn more about the various required alchemical processes.
+                """,
+                this.categoryLink("Spagyrics Category", SpagyricsCategoryProvider.CATEGORY_ID)
+        );
 
         return this.entry(location).withIcon(BlockRegistry.CALCINATION_OVEN.get())
 
@@ -368,5 +378,40 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
                 .withEntryBackground(EntryBackground.LINK_TO_CATEGORY);
     }
 
+    private BookEntryModel mercuryFluxEntry(char location) {
+        this.context().entry("mercury_flux");
+        this.add(this.context().entryName(), "Mercury Flux");
+        this.add(this.context().entryDescription(), "Mastery over Energy");
 
+        this.context().page("intro");
+        var intro = BookTextPageModel.builder().withTitle(this.context().pageTitle()).withText(this.context().pageText()).build();
+        this.add(this.context().pageTitle(), "Mercury Flux");
+        this.add(this.context().pageText(), """
+                Mercury Flux is the raw energy form of Mercury.
+                \\
+                \\
+                Mercury Flux Manipulation is the art of controlling this energy to perform and automate various tasks.""");
+
+        this.context().page("intro2");
+        var intro2 = BookTextPageModel.builder().withTitle(this.context().pageTitle()).withText(this.context().pageText()).build();
+        this.add(this.context().pageTitle(), "Learn More");
+        this.add(this.context().pageText(), """
+                Open the {0} to learn more about how to obtain and use Mercury Flux.
+                """,
+                this.categoryLink("Mercury Flux Category", MercuryFluxCategoryProvider.CATEGORY_ID)
+                );
+
+        return this.entry(location).withIcon(ItemRegistry.MERCURY_SHARD.get())
+                .withEntryBackground(EntryBackground.DEFAULT).withPages(intro, intro2);
+    }
+
+    private BookEntryModel mercuryFluxLinkEntry(char location) {
+        this.context().entry("mercury_flux_link");
+        this.add(this.context().entryName(), "Mercury Flux");
+        this.add(this.context().entryDescription(), "View the Mercury Flux Category");
+
+        return this.entry(location).withIcon(ItemRegistry.MERCURY_SHARD.get())
+                .withCategoryToOpen(Theurgy.loc(MercuryFluxCategoryProvider.CATEGORY_ID))
+                .withEntryBackground(EntryBackground.LINK_TO_CATEGORY);
+    }
 }

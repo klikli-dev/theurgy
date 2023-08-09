@@ -25,6 +25,8 @@ import java.util.List;
 
 public class CaloricFluxEmitterBlockEntity extends BlockEntity {
     public static final int CAPACITY = 1000;
+    //Coal burns for 200t. One coal = 1 mercury shard = 800 mercury flux.
+    //we use 100 MF to power for 120t, so we are much more efficient than a brazier.
     public static final int FLUX_PER_HEAT = 100;
     public static final int HEAT_TARGET_FOR_TICKS = 20 * 6;
     public static final int TICK_INTERVAL = 20;

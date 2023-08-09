@@ -26,7 +26,11 @@ public class CatalysationRecipeProvider extends JsonRecipeProvider {
 
     @Override
     void buildRecipes(BiConsumer<ResourceLocation, JsonObject> recipeConsumer) {
-        this.makeRecipe("mercury_flux_from_mercury_shard", Ingredient.of(ItemRegistry.MERCURY_SHARD.get()), 250, PER_TICK);
+        //one coal = one mercury shard
+        //one coal burns 200t in a furnace/generator and usually yields 40 FE / t = 8000FE
+        //that means we should make one shard give mercury flux equivalent to 8000 FE
+        //let's assume a conversion factor of 1:10 and give 800
+        this.makeRecipe("mercury_flux_from_mercury_shard", Ingredient.of(ItemRegistry.MERCURY_SHARD.get()), 800, PER_TICK);
     }
 
     public void makeRecipe(String name, Ingredient ingredient, int totalMercuryFlux, int mercuryFluxPerTick) {

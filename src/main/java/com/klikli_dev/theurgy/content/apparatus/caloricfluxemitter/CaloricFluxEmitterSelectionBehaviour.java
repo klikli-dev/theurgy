@@ -34,7 +34,7 @@ public class CaloricFluxEmitterSelectionBehaviour extends SelectionBehaviour<Cal
 
     @Override
     public int getBlockRange() {
-        return 5;
+        return 8;
     }
 
     @Override

@@ -160,7 +160,7 @@ public class MercuryFluxCategoryProvider extends CategoryProvider {
         this.add(this.context().pageText(),
                 """
                         Right-click the target block with the {0} until it is highlighted. Then place the Emitter onto a Mercury Flux source, such as a {1}.\\
-                        The maximum range is 5 blocks.\\
+                        The maximum range is **8** blocks.\\
                         As long as mercury flux is provided to it, the emitter will send caloric flux to the target block and keep it heated.
                         """,
                 this.itemLink(ItemRegistry.CALORIC_FLUX_EMITTER.get()),

@@ -62,3 +62,9 @@ modId = "jei"
 mandatory = false
 versionRange = "${jei_version_range}"
 side = "BOTH"
+
+[[dependencies.theurgy]]
+modId = "jade"
+mandatory = false
+versionRange = "${jade_version_range}"
+side = "BOTH"

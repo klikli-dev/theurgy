@@ -1,19 +1,19 @@
-/*
- * SPDX-FileCopyrightText: 2023 klikli-dev
- *
- * SPDX-License-Identifier: MIT
- */
+// SPDX-FileCopyrightText: 2023 klikli-dev
+//
+// SPDX-License-Identifier: MIT
 
 package com.klikli_dev.theurgy.registry;
 
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.content.apparatus.calcinationoven.CalcinationOvenBlockEntity;
+import com.klikli_dev.theurgy.content.apparatus.caloricfluxemitter.CaloricFluxEmitterBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.distiller.DistillerBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorMercuryVesselBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorSaltVesselBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorSulfurVesselBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron.LiquefactionCauldronBlockEntity;
+import com.klikli_dev.theurgy.content.apparatus.mercurycatalyst.MercuryCatalystBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.pyromanticbrazier.PyromanticBrazierBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator.SalAmmoniacAccumulatorBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.salammoniactank.SalAmmoniacTankBlockEntity;
@@ -64,4 +64,12 @@ public class BlockEntityRegistry {
     public static final RegistryObject<BlockEntityType<SalAmmoniacAccumulatorBlockEntity>> SAL_AMMONIAC_ACCUMULATOR =
             BLOCKS.register("sal_ammoniac_accumulator", () ->
                     BlockEntityType.Builder.of(SalAmmoniacAccumulatorBlockEntity::new, BlockRegistry.SAL_AMMONIAC_ACCUMULATOR.get()).build(null));
+
+    public static final RegistryObject<BlockEntityType<MercuryCatalystBlockEntity>> MERCURY_CATALYST =
+            BLOCKS.register("mercury_catalyst", () ->
+                    BlockEntityType.Builder.of(MercuryCatalystBlockEntity::new, BlockRegistry.MERCURY_CATALYST.get()).build(null));
+
+    public static final RegistryObject<BlockEntityType<CaloricFluxEmitterBlockEntity>> CALORIC_FLUX_EMITTER =
+            BLOCKS.register("caloric_flux_emitter", () ->
+                    BlockEntityType.Builder.of(CaloricFluxEmitterBlockEntity::new, BlockRegistry.CALORIC_FLUX_EMITTER.get()).build(null));
 }

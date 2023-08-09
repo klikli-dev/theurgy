@@ -1,8 +1,6 @@
-/*
- * SPDX-FileCopyrightText: 2023 klikli-dev
- *
- * SPDX-License-Identifier: MIT
- */
+// SPDX-FileCopyrightText: 2023 klikli-dev
+//
+// SPDX-License-Identifier: MIT
 
 package com.klikli_dev.theurgy.datagen.model;
 
@@ -10,8 +8,10 @@ import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorBlock;
 import com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron.LiquefactionCauldronBlock;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.level.block.PipeBlock;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -37,9 +37,25 @@ public class TheurgyBlockStateProvider extends BlockStateProvider {
         this.registerIncubatorVessels();
         this.registerSalAmmoniacAccumulator();
         this.registerSalAmmoniacTank();
+        this.registerMercuryCatalyst();
+        this.registerCaloricFluxEmitter();
 
         this.simpleBlockWithItem(BlockRegistry.SAL_AMMONIAC_ORE.get(), this.cubeAll(BlockRegistry.SAL_AMMONIAC_ORE.get()));
         this.simpleBlockWithItem(BlockRegistry.DEEPSLATE_SAL_AMMONIAC_ORE.get(), this.cubeAll(BlockRegistry.DEEPSLATE_SAL_AMMONIAC_ORE.get()));
+    }
+
+    protected void registerCaloricFluxEmitter() {
+        var model = this.models().withExistingParent("caloric_flux_emitter", this.modLoc("block/caloric_flux_emitter_template"))
+                .ao(false)
+                .renderType(new ResourceLocation("minecraft", "translucent"))
+                //blockbench spits out garbage textures by losing the folder name so we fix them here
+                .texture("emitter", this.modLoc("block/caloric_flux_emitter"))
+                .texture("socket", this.modLoc("block/emitter_socket"))
+                .texture("particle", this.modLoc("block/emitter_socket"));
+
+        //build blockstate
+        this.directionalBlock(BlockRegistry.CALORIC_FLUX_EMITTER.get(), model);
+        this.simpleBlockItem(BlockRegistry.CALORIC_FLUX_EMITTER.get(), model);
     }
 
     protected void registerSalAmmoniacAccumulator() {
@@ -50,10 +66,7 @@ public class TheurgyBlockStateProvider extends BlockStateProvider {
                 .texture("particle", this.mcLoc("block/copper_block"));
 
         //build blockstate
-        this.simpleBlock(BlockRegistry.SAL_AMMONIAC_ACCUMULATOR.get(), model);
-
-        //add item model
-        this.itemModels().withExistingParent("sal_ammoniac_accumulator", this.modLoc("block/sal_ammoniac_accumulator"));
+        this.simpleBlockWithItem(BlockRegistry.SAL_AMMONIAC_ACCUMULATOR.get(), model);
     }
 
     protected void registerSalAmmoniacTank() {
@@ -67,6 +80,18 @@ public class TheurgyBlockStateProvider extends BlockStateProvider {
 
         //distiller needs an item model that allows geckolib to render
         this.itemModels().getBuilder("sal_ammoniac_tank").parent(new ModelFile.UncheckedModelFile("builtin/entity"));
+    }
+
+    protected void registerMercuryCatalyst() {
+        var model = this.models().withExistingParent("mercury_catalyst", this.modLoc("block/mercury_catalyst_template"))
+                .ao(false)
+                .renderType(new ResourceLocation("minecraft", "translucent"))
+                //blockbench spits out garbage textures by losing the folder name so we fix them here
+                .texture("texture", this.modLoc("block/mercury_catalyst"))
+                .texture("particle", this.mcLoc("block/iron_block"));
+
+        //build blockstate
+        this.simpleBlockWithItem(BlockRegistry.MERCURY_CATALYST.get(), model);
     }
 
     protected void registerDistiller() {

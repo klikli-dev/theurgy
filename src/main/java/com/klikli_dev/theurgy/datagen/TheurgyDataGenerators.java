@@ -1,8 +1,6 @@
-/*
- * SPDX-FileCopyrightText: 2022 klikli-dev
- *
- * SPDX-License-Identifier: MIT
- */
+// SPDX-FileCopyrightText: 2022 klikli-dev
+//
+// SPDX-License-Identifier: MIT
 
 package com.klikli_dev.theurgy.datagen;
 
@@ -61,6 +59,7 @@ public class TheurgyDataGenerators {
         generator.addProvider(event.includeServer(), new DistillationRecipeProvider(generator.getPackOutput()));
         generator.addProvider(event.includeServer(), new IncubationRecipeProvider(generator.getPackOutput()));
         generator.addProvider(event.includeServer(), new AccumulationRecipeProvider(generator.getPackOutput()));
+        generator.addProvider(event.includeServer(), new CatalysationRecipeProvider(generator.getPackOutput()));
 
         generator.addProvider(event.includeServer(), new TheurgyMultiblockProvider(generator.getPackOutput()));
 

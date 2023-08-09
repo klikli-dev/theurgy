@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "Q": {
+      "tag": "forge:storage_blocks/quartz"
+    },
+    "g": {
+      "tag": "forge:ingots/gold"
+    },
+    "i": {
+      "tag": "forge:ingots/iron"
+    },
+    "m": {
+      "tag": "theurgy:alchemical_mercuries"
+    }
+  },
+  "pattern": [
+    "imi",
+    "gQg",
+    "igi"
+  ],
+  "result": {
+    "count": 1,
+    "item": "theurgy:mercury_catalyst"
+  }
+}

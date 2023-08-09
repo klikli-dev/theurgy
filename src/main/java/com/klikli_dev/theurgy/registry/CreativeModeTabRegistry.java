@@ -1,8 +1,6 @@
-/*
- * SPDX-FileCopyrightText: 2023 klikli-dev
- *
- * SPDX-License-Identifier: MIT
- */
+// SPDX-FileCopyrightText: 2023 klikli-dev
+//
+// SPDX-License-Identifier: MIT
 
 package com.klikli_dev.theurgy.registry;
 
@@ -54,6 +52,9 @@ public class CreativeModeTabRegistry {
 
                 output.accept(ItemRegistry.SAL_AMMONIAC_ACCUMULATOR.get());
                 output.accept(ItemRegistry.SAL_AMMONIAC_TANK.get());
+
+                output.accept(ItemRegistry.MERCURY_CATALYST.get());
+                output.accept(ItemRegistry.CALORIC_FLUX_EMITTER.get());
             }).build());
 
 }

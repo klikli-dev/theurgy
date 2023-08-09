@@ -1,8 +1,6 @@
-/*
- * SPDX-FileCopyrightText: 2022 klikli-dev
- *
- * SPDX-License-Identifier: MIT
- */
+// SPDX-FileCopyrightText: 2022 klikli-dev
+//
+// SPDX-License-Identifier: MIT
 
 package com.klikli_dev.theurgy.datagen.lang;
 
@@ -63,12 +61,22 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
         this.add(TheurgyConstants.I18n.Misc.UNIT_MILLIBUCKETS, "%smB");
     }
 
-    private void addJEI() {
+    private void addBehaviours(){
+        this.add(TheurgyConstants.I18n.Behaviour.SELECTION_MODE, "%1$s %2$s"); //First is the mode message text, the second the block name
+        this.add(TheurgyConstants.I18n.Behaviour.SELECTION_MODE_CALORIC_FLUX_EMITTER, "Send caloric flux to");
+        this.add(TheurgyConstants.I18n.Behaviour.SELECTION_OUTSIDE_RANGE, "%1$s selected blocks removed for being out of range.");
+        this.add(TheurgyConstants.I18n.Behaviour.SELECTION_SUMMARY_CALORIC_FLUX_EMITTER, "Caloric Flux Emitter targets %1$s.");
+        this.add(TheurgyConstants.I18n.Behaviour.SELECTION_SUMMARY_CALORIC_FLUX_EMITTER_NO_SELECTION, "Caloric Flux Emitter has no target.");
+    }
+
+    private void addIntegrations() {
         this.add(TheurgyConstants.I18n.JEI.CALCINATION_CATEGORY, "Calcination");
         this.add(TheurgyConstants.I18n.JEI.LIQUEFACTION_CATEGORY, "Liquefaction");
         this.add(TheurgyConstants.I18n.JEI.DISTILLATION_CATEGORY, "Distillation");
         this.add(TheurgyConstants.I18n.JEI.INCUBATION_CATEGORY, "Incubation");
         this.add(TheurgyConstants.I18n.JEI.ACCUMULATION_CATEGORY, "Accumulation");
+
+        this.add("config.jade.plugin_theurgy.mercury_flux", "Theurgy Mercury Flux");
     }
 
     private void addSubtitles() {
@@ -186,6 +194,27 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
                         Place this below a filled Sal Ammoniac Accumulator.
                         The Tank will slowly be filled with Sal Ammoniac.
                         """);
+
+        this.addBlock(BlockRegistry.MERCURY_CATALYST, "Mercury Catalyst");
+        this.addTooltip(BlockRegistry.MERCURY_CATALYST.get()::asItem,
+                "Converts mercury from it's crystal form into it's flux form.",
+                "Mercury in flux form is pure energy and may be used as an energy source for certain processes.",
+                this.f("""
+                                {0} with mercury shards to add them to the catalyst.
+                                They will be slowly consumed to fill the internal energy storage of the catalyst with mercury flux.
+                                """,
+                        this.green("Right-Click")));
+
+        this.addBlock(BlockRegistry.CALORIC_FLUX_EMITTER, "Caloric Flux Emitter");
+        this.addTooltip(BlockRegistry.CALORIC_FLUX_EMITTER.get()::asItem,
+                "Remotely heats an Apparatus by emitting Caloric Flux at it.",
+                "Caloric Flux is energy in the form of raw heat, and as such a derivative of Mercury Flux.",
+                this.f("""
+                                {0} an apparatus block to set it as the target for the emitter.
+                                Then place the emitter on a Mercury Flux source, such as a Mercury Catalyst.
+                                It will "shoot" Caloric Flux at the apparatus, heating it up.
+                                """,
+                        this.green("Sneak-Right-Click")));
 
         this.addBlock(BlockRegistry.SAL_AMMONIAC_ORE, "Sal Ammoniac Ore");
         this.addExtendedTooltip(BlockRegistry.SAL_AMMONIAC_ORE.get()::asItem,
@@ -439,6 +468,7 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
         this.addItems();
         this.addBlocks();
         this.addFluids();
-        this.addJEI();
+        this.addIntegrations();
+        this.addBehaviours();
     }
 }

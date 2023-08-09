@@ -1,8 +1,6 @@
-/*
- * SPDX-FileCopyrightText: 2023 klikli-dev
- *
- * SPDX-License-Identifier: MIT
- */
+// SPDX-FileCopyrightText: 2023 klikli-dev
+//
+// SPDX-License-Identifier: MIT
 
 package com.klikli_dev.theurgy.content.behaviour;
 
@@ -142,10 +140,7 @@ public abstract class CraftingBehaviour<W extends RecipeWrapper, R extends Recip
         }
     }
 
-    protected boolean craft(@Nullable R pRecipe) {
-        if (!this.canCraft(pRecipe))
-            return false;
-
+    protected boolean craft(R pRecipe) {
         var assembledStack = pRecipe.assemble(this.recipeWrapperSupplier.get(), this.blockEntity.getLevel().registryAccess());
 
         // Safely insert the assembledStack into the outputInventory and update the input stack.

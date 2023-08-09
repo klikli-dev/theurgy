@@ -1,8 +1,6 @@
-/*
- * SPDX-FileCopyrightText: 2023 klikli-dev
- *
- * SPDX-License-Identifier: MIT
- */
+// SPDX-FileCopyrightText: 2023 klikli-dev
+//
+// SPDX-License-Identifier: MIT
 
 package com.klikli_dev.theurgy.registry;
 
@@ -38,6 +36,9 @@ public class RecipeSerializerRegistry {
 
     public static final RegistryObject<RecipeSerializer<AccumulationRecipe>> ACCUMULATION = RECIPE_SERIALIZERS.register("accumulation",
             AccumulationRecipe.Serializer::new);
+
+    public static final RegistryObject<RecipeSerializer<CatalysationRecipe>> CATALYSATION = RECIPE_SERIALIZERS.register("catalysation",
+            CatalysationRecipe.Serializer::new);
 
     public static void onRegisterRecipeSerializers(RegisterEvent event) {
         //restrict to one event type otherwise it is called multiple times

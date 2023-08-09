@@ -1,0 +1,10 @@
+{
+  "parent": "theurgy:block/caloric_flux_emitter_template",
+  "ambientocclusion": false,
+  "render_type": "minecraft:translucent",
+  "textures": {
+    "emitter": "theurgy:block/caloric_flux_emitter",
+    "particle": "theurgy:block/emitter_socket",
+    "socket": "theurgy:block/emitter_socket"
+  }
+}

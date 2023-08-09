@@ -1,16 +1,17 @@
-/*
- * SPDX-FileCopyrightText: 2023 klikli-dev
- *
- * SPDX-License-Identifier: MIT
- */
+// SPDX-FileCopyrightText: 2023 klikli-dev
+//
+// SPDX-License-Identifier: MIT
 
 package com.klikli_dev.theurgy.content.apparatus.distiller;
 
 import com.klikli_dev.theurgy.content.behaviour.AnimationBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.CraftingBehaviour;
-import com.klikli_dev.theurgy.content.behaviour.HeatedBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.HeatConsumerBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.PreventInsertWrapper;
+import com.klikli_dev.theurgy.content.capability.DefaultHeatReceiver;
+import com.klikli_dev.theurgy.content.capability.HeatReceiver;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
+import com.klikli_dev.theurgy.registry.CapabilityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -51,8 +52,11 @@ public class DistillerBlockEntity extends BlockEntity implements GeoBlockEntity 
     public LazyOptional<IItemHandler> inputInventoryCapability;
     public LazyOptional<IItemHandler> outputInventoryCapability;
 
+    public DefaultHeatReceiver heatReceiver;
+    public LazyOptional<HeatReceiver> heatReceiverCapability;
+
     protected CraftingBehaviour<?, ?, ?> craftingBehaviour;
-    protected HeatedBehaviour heatedBehaviour;
+    protected HeatConsumerBehaviour heatConsumerBehaviour;
     protected AnimationBehaviour<?> animationBehaviour;
 
     public DistillerBlockEntity(BlockPos pPos, BlockState pBlockState) {
@@ -68,8 +72,11 @@ public class DistillerBlockEntity extends BlockEntity implements GeoBlockEntity 
         this.inputInventoryCapability = LazyOptional.of(() -> this.inputInventory);
         this.outputInventoryCapability = LazyOptional.of(() -> this.outputInventoryTakeOnlyWrapper);
 
+        this.heatReceiver = new DefaultHeatReceiver();
+        this.heatReceiverCapability = LazyOptional.of(() -> this.heatReceiver);
+
         this.craftingBehaviour = new DistillerCraftingBehaviour(this, () -> this.inputInventory, () -> this.outputInventory);
-        this.heatedBehaviour = new HeatedBehaviour(this);
+        this.heatConsumerBehaviour = new HeatConsumerBehaviour(this);
         this.animationBehaviour = new DistillerAnimationBehaviour(this);
     }
 
@@ -108,7 +115,7 @@ public class DistillerBlockEntity extends BlockEntity implements GeoBlockEntity 
     }
 
     public void tickServer() {
-        boolean isHeated = this.heatedBehaviour.isHeated();
+        boolean isHeated = this.heatConsumerBehaviour.isHeated();
         boolean hasInput = !this.inputInventory.getStackInSlot(0).isEmpty();
 
         this.craftingBehaviour.tickServer(isHeated, hasInput);
@@ -121,7 +128,19 @@ public class DistillerBlockEntity extends BlockEntity implements GeoBlockEntity 
             if (side == Direction.DOWN) return this.outputInventoryCapability.cast();
             return this.inventoryCapability.cast();
         }
+        if (cap == CapabilityRegistry.HEAT_RECEIVER) {
+            return this.heatReceiverCapability.cast();
+        }
         return super.getCapability(cap, side);
+    }
+
+    @Override
+    public void invalidateCaps() {
+        super.invalidateCaps();
+        this.inventoryCapability.invalidate();
+        this.inputInventoryCapability.invalidate();
+        this.outputInventoryCapability.invalidate();
+        this.heatReceiverCapability.invalidate();
     }
 
     @Override
@@ -130,6 +149,7 @@ public class DistillerBlockEntity extends BlockEntity implements GeoBlockEntity 
 
         pTag.put("inputInventory", this.inputInventory.serializeNBT());
         pTag.put("outputInventory", this.outputInventory.serializeNBT());
+        pTag.put("heatReceiver", this.heatReceiver.serializeNBT());
 
         this.craftingBehaviour.saveAdditional(pTag);
     }
@@ -142,6 +162,8 @@ public class DistillerBlockEntity extends BlockEntity implements GeoBlockEntity 
             this.inputInventory.deserializeNBT(pTag.getCompound("inputInventory"));
         if (pTag.contains("outputInventory"))
             this.outputInventory.deserializeNBT(pTag.getCompound("outputInventory"));
+        if (pTag.contains("heatReceiver"))
+            this.heatReceiver.deserializeNBT(pTag.get("heatReceiver"));
 
         this.craftingBehaviour.load(pTag);
     }

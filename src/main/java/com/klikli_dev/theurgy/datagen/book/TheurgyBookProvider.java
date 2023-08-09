@@ -1,8 +1,6 @@
-/*
- * SPDX-FileCopyrightText: 2023 klikli-dev
- *
- * SPDX-License-Identifier: MIT
- */
+// SPDX-FileCopyrightText: 2023 klikli-dev
+//
+// SPDX-License-Identifier: MIT
 
 package com.klikli_dev.theurgy.datagen.book;
 
@@ -32,6 +30,9 @@ public class TheurgyBookProvider extends BookProvider {
         var spagyricsCategory = new SpagyricsCategoryProvider(this).generate().withSortNumber(categorySortNum++);
         spagyricsCategory.withCondition(this.condition().entryRead(this.modLoc(GettingStartedCategoryProvider.CATEGORY_ID + "/spagyrics")));
 
+        var mercuryFluxCategory = new MercuryFluxCategoryProvider(this).generate().withSortNumber(categorySortNum++);
+        mercuryFluxCategory.withCondition(this.condition().entryRead(this.modLoc(GettingStartedCategoryProvider.CATEGORY_ID + "/mercury_flux")));
+
         var book = BookModel.create(
                         this.modLoc(this.context().bookId()),
                         this.context().bookName()
@@ -39,7 +40,8 @@ public class TheurgyBookProvider extends BookProvider {
                 .withTooltip(this.context().bookTooltip())
                 .withCategories(
                         gettingStartedCategory,
-                        spagyricsCategory
+                        spagyricsCategory,
+                        mercuryFluxCategory
                 )
                 .withGenerateBookItem(true)
                 .withModel(this.modLoc("the_hermetica_icon"))

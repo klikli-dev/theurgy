@@ -1,22 +1,23 @@
-/*
- * SPDX-FileCopyrightText: 2023 klikli-dev
- *
- * SPDX-License-Identifier: MIT
- */
+// SPDX-FileCopyrightText: 2023 klikli-dev
+//
+// SPDX-License-Identifier: MIT
 
 package com.klikli_dev.theurgy.registry;
 
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.content.apparatus.calcinationoven.CalcinationOvenBlock;
+import com.klikli_dev.theurgy.content.apparatus.caloricfluxemitter.CaloricFluxEmitterBlock;
 import com.klikli_dev.theurgy.content.apparatus.distiller.DistillerBlock;
 import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorBlock;
 import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorMercuryVesselBlock;
 import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorSaltVesselBlock;
 import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorSulfurVesselBlock;
 import com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron.LiquefactionCauldronBlock;
+import com.klikli_dev.theurgy.content.apparatus.mercurycatalyst.MercuryCatalystBlock;
 import com.klikli_dev.theurgy.content.apparatus.pyromanticbrazier.PyromanticBrazierBlock;
 import com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator.SalAmmoniacAccumulatorBlock;
 import com.klikli_dev.theurgy.content.apparatus.salammoniactank.SalAmmoniacTankBlock;
+import com.klikli_dev.theurgy.content.apparatus.caloricfluxemitter.CaloricFluxEmitterSelectionBehaviour;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DropExperienceBlock;
@@ -101,6 +102,22 @@ public class BlockRegistry {
                     .noOcclusion()
                     .sound(SoundType.METAL)
                     .strength(1.0f)));
+
+    public static final RegistryObject<MercuryCatalystBlock> MERCURY_CATALYST =
+            BLOCKS.register("mercury_catalyst", () -> new MercuryCatalystBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.METAL)
+                    .noOcclusion()
+                    .sound(SoundType.METAL)
+                    .strength(1.0f)));
+
+    public static final RegistryObject<CaloricFluxEmitterBlock> CALORIC_FLUX_EMITTER =
+            BLOCKS.register("caloric_flux_emitter", () -> new CaloricFluxEmitterBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.METAL)
+                    .noOcclusion()
+                    .sound(SoundType.METAL)
+                    .strength(1.0f),
+                    new CaloricFluxEmitterSelectionBehaviour())
+            );
 
     public static final RegistryObject<Block> SAL_AMMONIAC_ORE = BLOCKS.register("sal_ammoniac_ore", () ->
             new DropExperienceBlock(BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(3.0F, 3.0F), UniformInt.of(2, 5)));

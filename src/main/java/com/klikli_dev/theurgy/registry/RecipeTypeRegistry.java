@@ -1,8 +1,6 @@
-/*
- * SPDX-FileCopyrightText: 2023 klikli-dev
- *
- * SPDX-License-Identifier: MIT
- */
+// SPDX-FileCopyrightText: 2023 klikli-dev
+//
+// SPDX-License-Identifier: MIT
 
 package com.klikli_dev.theurgy.registry;
 
@@ -23,6 +21,7 @@ public class RecipeTypeRegistry {
     public static final RegistryObject<RecipeType<DistillationRecipe>> PYROMANTIC_BRAZIER = register("pyromantic_brazier");
     public static final RegistryObject<RecipeType<IncubationRecipe>> INCUBATION = register("incubation");
     public static final RegistryObject<RecipeType<AccumulationRecipe>> ACCUMULATION = register("accumulation");
+    public static final RegistryObject<RecipeType<CatalysationRecipe>> CATALYSATION = register("catalysation");
 
     static <T extends Recipe<?>> RegistryObject<RecipeType<T>> register(final String id) {
         return RECIPE_TYPES.register(id, () -> new RecipeType<T>() {

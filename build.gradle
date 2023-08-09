@@ -162,6 +162,13 @@ repositories {
             includeGroup "curse.maven"
         }
     }
+    maven {
+        name = "Modrinth"
+        url = "https://api.modrinth.com/maven"
+        content {
+            includeGroup "maven.modrinth"
+        }
+    }
 }
 
 dependencies {
@@ -187,8 +194,8 @@ dependencies {
     compileOnly fg.deobf("com.klikli_dev:modonomicon-${minecraft_version}-common:${modonomicon_version}")
     implementation fg.deobf("com.klikli_dev:modonomicon-${minecraft_version}-forge:${modonomicon_version}")
 
-    //helper: Jade (Hwyla)
-    runtimeOnly fg.deobf("curse.maven:jade-324717:4654448")
+    //Jade (Hwyla/Waila)
+    implementation fg.deobf("maven.modrinth:jade:${jade_version}")
 }
 
 processResources {

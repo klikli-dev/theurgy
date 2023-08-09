@@ -1,8 +1,6 @@
-/*
- * SPDX-FileCopyrightText: 2023 klikli-dev
- *
- * SPDX-License-Identifier: MIT
- */
+// SPDX-FileCopyrightText: 2023 klikli-dev
+//
+// SPDX-License-Identifier: MIT
 
 package com.klikli_dev.theurgy.content.item;
 
@@ -13,6 +11,7 @@ import com.klikli_dev.theurgy.network.messages.MessageSetDivinationResult;
 import com.klikli_dev.theurgy.registry.BlockTagRegistry;
 import com.klikli_dev.theurgy.registry.SoundRegistry;
 import com.klikli_dev.theurgy.scanner.ScanManager;
+import com.klikli_dev.theurgy.util.EntityUtil;
 import com.klikli_dev.theurgy.util.LevelUtil;
 import com.klikli_dev.theurgy.util.TagUtil;
 import net.minecraft.ChatFormatting;
@@ -488,8 +487,8 @@ public class DivinationRodItem extends Item {
         var to = dist.length() <= visualizationRange ? resultVec : from.add(dir.scale(visualizationRange));
 
         if (level.isLoaded(BlockPos.containing(to)) && level.isLoaded(BlockPos.containing(from)) && level.isClientSide) {
-            FollowProjectile aoeProjectile = new FollowProjectile(level, from, to);
-            DistHelper.spawnEntityClientSide(level, aoeProjectile);
+            FollowProjectile aoeProjectile = new FollowProjectile(level, from, to, 255, 25, 180, 0.25f);
+            EntityUtil.spawnEntityClientSide(level, aoeProjectile);
         }
     }
 
@@ -524,7 +523,6 @@ public class DivinationRodItem extends Item {
      * Inner class to avoid classloading issues on the server
      */
     public static class DistHelper {
-
         @SuppressWarnings("deprecation")
         public static ItemPropertyFunction DIVINATION_DISTANCE = (stack, world, entity, i) -> {
             if (!stack.getOrCreateTag().contains(TheurgyConstants.Nbt.Divination.DISTANCE) ||
@@ -532,11 +530,5 @@ public class DivinationRodItem extends Item {
                 return NOT_FOUND;
             return stack.getTag().getFloat(TheurgyConstants.Nbt.Divination.DISTANCE);
         };
-
-        public static void spawnEntityClientSide(Level level, Entity entity) {
-            if (level instanceof ClientLevel clientLevel) {
-                clientLevel.putNonPlayerEntity(entity.getId(), entity); //client only spawn of entity
-            }
-        }
     }
 }

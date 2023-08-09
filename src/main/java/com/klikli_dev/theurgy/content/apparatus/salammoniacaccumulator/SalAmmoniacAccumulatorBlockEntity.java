@@ -1,8 +1,6 @@
-/*
- * SPDX-FileCopyrightText: 2023 klikli-dev
- *
- * SPDX-License-Identifier: MIT
- */
+// SPDX-FileCopyrightText: 2023 klikli-dev
+//
+// SPDX-License-Identifier: MIT
 
 package com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator;
 
@@ -186,6 +184,12 @@ public class SalAmmoniacAccumulatorBlockEntity extends BlockEntity {
         return super.getCapability(cap, side);
     }
 
+    @Override
+    public void invalidateCaps() {
+        super.invalidateCaps();
+        this.inventoryCapability.invalidate();
+        this.waterTankCapability.invalidate();
+    }
     @Override
     protected void saveAdditional(CompoundTag pTag) {
         super.saveAdditional(pTag);

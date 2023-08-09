@@ -1,34 +1,26 @@
-/*
- * SPDX-FileCopyrightText: 2023 klikli-dev
- *
- * SPDX-License-Identifier: MIT
- */
+// SPDX-FileCopyrightText: 2023 klikli-dev
+//
+// SPDX-License-Identifier: MIT
 
 package com.klikli_dev.theurgy.datagen.loot;
 
-import com.klikli_dev.theurgy.content.apparatus.mercurycatalyst.MercuryCatalystBlock;
-import com.klikli_dev.theurgy.content.apparatus.mercurycatalyst.MercuryCatalystBlockEntity;
-import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
+import com.mojang.datafixers.util.Pair;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.ShulkerBoxBlock;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
-import net.minecraft.world.level.storage.loot.entries.DynamicLoot;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
-import net.minecraft.world.level.storage.loot.functions.CopyNameFunction;
 import net.minecraft.world.level.storage.loot.functions.CopyNbtFunction;
-import net.minecraft.world.level.storage.loot.functions.SetContainerContents;
 import net.minecraft.world.level.storage.loot.providers.nbt.ContextNbtProvider;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 
+import java.util.Arrays;
 import java.util.Set;
 import java.util.function.BiConsumer;
 
@@ -55,7 +47,15 @@ public class TheurgyBlockLootSubProvider extends BlockLootSubProvider {
         this.dropSelf(BlockRegistry.INCUBATOR_SALT_VESSEL.get());
         this.dropSelf(BlockRegistry.SAL_AMMONIAC_ACCUMULATOR.get());
         this.dropSelf(BlockRegistry.SAL_AMMONIAC_TANK.get());
-        this.dropMercuryCatalyst(BlockRegistry.MERCURY_CATALYST.get());
+        this.dropSelfWithNbt(BlockRegistry.MERCURY_CATALYST.get(),
+                "mercuryFluxStorage",
+                "mercuryFluxToConvert",
+                "currentMercuryFluxPerTick",
+                "inventory"
+        );
+        this.dropSelfWithNbt(BlockRegistry.CALORIC_FLUX_EMITTER.get(),
+                "mercuryFluxStorage"
+        );
 
         this.add(BlockRegistry.SAL_AMMONIAC_ORE.get(), (block) -> {
             return this.createOreDrop(block, ItemRegistry.SAL_AMMONIAC_CRYSTAL.get());
@@ -70,39 +70,42 @@ public class TheurgyBlockLootSubProvider extends BlockLootSubProvider {
     }
 
 
-    protected void dropMercuryCatalyst(Block pBlock) {
-        this.add(pBlock, this.createMercuryCatalystDrop(pBlock));
+    @SuppressWarnings("unchecked")
+    protected final void dropSelfWithNbt(Block pBlock, String... sourcePaths) {
+        this.dropSelfWithNbt(pBlock, Arrays.stream(sourcePaths).map(s -> Pair.of(s, "BlockEntityTag." + s)).toArray(Pair[]::new));
     }
 
-    protected LootTable.Builder createMercuryCatalystDrop(Block pBlock) {
-        //this is copied from the shulker box with following modifications:
-        // we have no custom name, so the copyName function is removed:   .apply(CopyNameFunction.copyName(CopyNameFunction.NameSource.BLOCK_ENTITY))
-        // we have no lock, so the copyData function for the lock is removed:   .copy("Lock", "BlockEntityTag.Lock")
-        // we have no loot table, so the copyData function for the loot table and loot table seed are removed:
-        //      .copy("LootTable", "BlockEntityTag.LootTable")
-        //      .copy("LootTableSeed", "BlockEntityTag.LootTableSeed")
-        // the container contents are set to the mercury catalyst contents: .withEntry(DynamicLoot.dynamicEntry(MercuryCatalystBlock.CONTENTS))
-        // we have a bunch of other data that needs to be copied, so we add the tags to the copyData function
+    @SafeVarargs
+    protected final void dropSelfWithNbt(Block pBlock, Pair<String, String>... sourceTargetPathPairs) {
+        this.add(pBlock, this.createSelfWithNbtDrop(pBlock, this.copyData(sourceTargetPathPairs)));
+    }
 
+    protected void dropSelfWithNbt(Block pBlock, CopyNbtFunction.Builder data) {
+        this.add(pBlock, this.createSelfWithNbtDrop(pBlock, data));
+    }
+
+    protected LootTable.Builder createSelfWithNbtDrop(Block pBlock, CopyNbtFunction.Builder data) {
         return LootTable.lootTable()
                 .withPool(
                         this.applyExplosionCondition(pBlock,
                                 LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).add(
                                         LootItem.lootTableItem(pBlock)
                                                 .apply(
-                                                        CopyNbtFunction.copyData(ContextNbtProvider.BLOCK_ENTITY)
-                                                                .copy("mercuryFluxStorage", "BlockEntityTag.mercuryFluxStorage")
-                                                                .copy("mercuryFluxToConvert", "BlockEntityTag.mercuryFluxToConvert")
-                                                                .copy("currentMercuryFluxPerTick", "BlockEntityTag.currentMercuryFluxPerTick")
-                                                )
-                                                .apply(
-                                                        SetContainerContents
-                                                        .setContents(BlockEntityRegistry.MERCURY_CATALYST.get())
-                                                        .withEntry(DynamicLoot.dynamicEntry(MercuryCatalystBlock.CONTENTS))
+                                                        data
                                                 )
                                 )
                         )
                 );
     }
 
+    protected CopyNbtFunction.Builder copyData(Pair<String, String>... sourceTargetPathPairs) {
+        var builder = CopyNbtFunction.copyData(ContextNbtProvider.BLOCK_ENTITY);
+        for (var pair : sourceTargetPathPairs) {
+            builder.copy(pair.getFirst(), pair.getSecond());
+        }
+        return builder;
+    }
 }
+
+
+

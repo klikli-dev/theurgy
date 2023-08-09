@@ -1,8 +1,6 @@
-/*
- * SPDX-FileCopyrightText: 2022 klikli-dev
- *
- * SPDX-License-Identifier: MIT
- */
+// SPDX-FileCopyrightText: 2022 klikli-dev
+//
+// SPDX-License-Identifier: MIT
 
 package com.klikli_dev.theurgy;
 
@@ -112,6 +110,15 @@ public class TheurgyConstants {
             public static final String PREFIX = Theurgy.MODID + ".misc.";
 
             public static final String UNIT_MILLIBUCKETS = PREFIX + "unit.millibuckets";
+        }
+
+        public static class Behaviour{
+            public static final String PREFIX = Theurgy.MODID + ".behaviour.";
+            public static final String SELECTION_MODE = PREFIX + "selection.mode";
+            public static final String SELECTION_MODE_CALORIC_FLUX_EMITTER = PREFIX + "selection.mode.caloric_flux_emitter";
+            public static final String SELECTION_OUTSIDE_RANGE = PREFIX + "selection.outside_range";
+            public static final String SELECTION_SUMMARY_CALORIC_FLUX_EMITTER = PREFIX + "selection.summary.caloric_flux_emitter";
+            public static final String SELECTION_SUMMARY_CALORIC_FLUX_EMITTER_NO_SELECTION = PREFIX + "selection.summary.caloric_flux_emitter.no_selection";
         }
     }
 

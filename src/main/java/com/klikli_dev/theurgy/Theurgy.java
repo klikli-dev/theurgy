@@ -1,8 +1,6 @@
-/*
- * SPDX-FileCopyrightText: 2022 klikli-dev
- *
- * SPDX-License-Identifier: MIT
- */
+// SPDX-FileCopyrightText: 2022 klikli-dev
+//
+// SPDX-License-Identifier: MIT
 
 package com.klikli_dev.theurgy;
 
@@ -23,23 +21,32 @@ import com.klikli_dev.theurgy.content.item.AlchemicalSaltItem;
 import com.klikli_dev.theurgy.content.item.AlchemicalSulfurItem;
 import com.klikli_dev.theurgy.content.item.DivinationRodItem;
 import com.klikli_dev.theurgy.content.render.BlankEntityRenderer;
+import com.klikli_dev.theurgy.content.render.outliner.Outliner;
 import com.klikli_dev.theurgy.datagen.TheurgyDataGenerators;
 import com.klikli_dev.theurgy.integration.modonomicon.PageLoaders;
 import com.klikli_dev.theurgy.integration.modonomicon.PageRenderers;
 import com.klikli_dev.theurgy.network.Networking;
 import com.klikli_dev.theurgy.registry.*;
 import com.klikli_dev.theurgy.tooltips.TooltipHandler;
+import com.klikli_dev.theurgy.util.TickUtil;
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.RecipesUpdatedEvent;
 import net.minecraftforge.client.event.RegisterColorHandlersEvent;
+import net.minecraftforge.client.event.RenderLevelStageEvent;
 import net.minecraftforge.client.model.DynamicFluidContainerModel;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -101,7 +108,11 @@ public class Theurgy {
             modEventBus.addListener(Client::onRegisterEntityRenderers);
             modEventBus.addListener(Client::onRegisterItemColors);
             modEventBus.addListener(Client::onRegisterBlockColors);
+            MinecraftForge.EVENT_BUS.addListener(Client::onRenderLevelStage);
+            MinecraftForge.EVENT_BUS.addListener(Client::onClientTick);
             MinecraftForge.EVENT_BUS.addListener(Client::onRecipesUpdated);
+            MinecraftForge.EVENT_BUS.addListener(Client::onRightClick);
+            MinecraftForge.EVENT_BUS.addListener(Client::onLeftClick);
         }
     }
 
@@ -130,6 +141,37 @@ public class Theurgy {
             PageRenderers.onClientSetup(event);
 
             LOGGER.info("Client setup complete.");
+        }
+
+        public static void onClientTick(TickEvent.ClientTickEvent event) {
+            if (Minecraft.getInstance().level == null || Minecraft.getInstance().player == null)
+                return;
+
+            if (event.phase == TickEvent.Phase.START) {
+                return;
+            }
+
+            Outliner.get().tick();
+            BlockRegistry.CALORIC_FLUX_EMITTER.get().getSelectionBehaviour().tick();
+        }
+
+        public static void onRenderLevelStage(RenderLevelStageEvent event) {
+            if (event.getStage() != RenderLevelStageEvent.Stage.AFTER_PARTICLES)
+                return;
+
+            PoseStack ms = event.getPoseStack();
+            ms.pushPose();
+
+            var buffer = Minecraft.getInstance().renderBuffers().bufferSource();
+            float partialTicks = TickUtil.getPartialTicks();
+            Vec3 camera = Minecraft.getInstance().gameRenderer.getMainCamera()
+                    .getPosition();
+
+            Outliner.get().render(ms, buffer, camera, partialTicks);
+
+            buffer.endBatch();
+            RenderSystem.enableCull();
+            ms.popPose();
         }
 
         public static void onRecipesUpdated(RecipesUpdatedEvent event) {
@@ -191,6 +233,22 @@ public class Theurgy {
 
         public static void onRegisterBlockColors(RegisterColorHandlersEvent.Block event) {
             event.register(MercuryCatalystBlock::getBlockColor, BlockRegistry.MERCURY_CATALYST.get());
+        }
+
+        public static void onRightClick(PlayerInteractEvent.RightClickBlock event) {
+            if (BlockRegistry.CALORIC_FLUX_EMITTER.get().getSelectionBehaviour().onRightClickBlock(event.getLevel(), event.getEntity(), event.getHand(), event.getPos(), event.getFace())) {
+                event.setCanceled(true);
+                event.setCancellationResult(InteractionResult.SUCCESS);
+                return;
+            }
+        }
+
+        public static void onLeftClick(PlayerInteractEvent.LeftClickBlock event) {
+            if (BlockRegistry.CALORIC_FLUX_EMITTER.get().getSelectionBehaviour().onLeftClickBlock(event.getLevel(), event.getEntity(), event.getHand(), event.getPos(), event.getFace())) {
+                event.setCanceled(true);
+                event.setCancellationResult(InteractionResult.SUCCESS);
+                return;
+            }
         }
     }
 }

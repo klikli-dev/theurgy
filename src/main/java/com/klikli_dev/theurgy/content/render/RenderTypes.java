@@ -1,8 +1,6 @@
-/*
- * SPDX-FileCopyrightText: 2023 klikli-dev
- *
- * SPDX-License-Identifier: MIT
- */
+// SPDX-FileCopyrightText: 2023 klikli-dev
+//
+// SPDX-License-Identifier: MIT
 
 package com.klikli_dev.theurgy.content.render;
 
@@ -11,6 +9,7 @@ import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import net.minecraft.client.renderer.RenderStateShard;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.resources.ResourceLocation;
 
 public class RenderTypes extends RenderStateShard {
     private static final RenderType FLUID = RenderType.create(Theurgy.loc("fluid").toString(),
@@ -22,12 +21,39 @@ public class RenderTypes extends RenderStateShard {
                     .setOverlayState(OVERLAY)
                     .createCompositeState(true));
 
+    private static final RenderType OUTLINE_SOLID =
+            RenderType.create(Theurgy.loc("outline_solid").toString(), DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, false,
+                    false, RenderType.CompositeState.builder()
+                            .setShaderState(RENDERTYPE_ENTITY_SOLID_SHADER)
+                            .setTextureState(new RenderStateShard.TextureStateShard(Theurgy.loc("textures/misc/blank.png"), false, false))
+                            .setCullState(CULL)
+                            .setLightmapState(LIGHTMAP)
+                            .setOverlayState(OVERLAY)
+                            .createCompositeState(false));
+
     //unneeded
     private RenderTypes(String pName, Runnable pSetupState, Runnable pClearState) {
         super(pName, pSetupState, pClearState);
     }
 
-    public static RenderType getFluid() {
+    public static RenderType outlineSolid() {
+        return OUTLINE_SOLID;
+    }
+
+    public static RenderType outlineTranslucent(ResourceLocation texture, boolean cull) {
+        return RenderType.create(Theurgy.loc("outline_translucent" + (cull ? "_cull" : "")).toString(),
+                DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, false, true, RenderType.CompositeState.builder()
+                        .setShaderState(cull ? RENDERTYPE_ENTITY_TRANSLUCENT_CULL_SHADER : RENDERTYPE_ENTITY_TRANSLUCENT_SHADER)
+                        .setTextureState(new RenderStateShard.TextureStateShard(texture, false, false))
+                        .setTransparencyState(TRANSLUCENT_TRANSPARENCY)
+                        .setCullState(cull ? CULL : NO_CULL)
+                        .setLightmapState(LIGHTMAP)
+                        .setOverlayState(OVERLAY)
+                        .setWriteMaskState(COLOR_WRITE)
+                        .createCompositeState(false));
+    }
+
+    public static RenderType fluid() {
         return FLUID;
     }
 }

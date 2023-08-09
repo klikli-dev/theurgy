@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2023 klikli-dev
+//
+// SPDX-License-Identifier: MIT
+
 package com.klikli_dev.theurgy.integration.jade;
 
 import net.minecraft.world.level.block.entity.BlockEntity;

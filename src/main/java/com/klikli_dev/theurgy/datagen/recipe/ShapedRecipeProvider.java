@@ -1,8 +1,6 @@
-/*
- * SPDX-FileCopyrightText: 2023 klikli-dev
- *
- * SPDX-License-Identifier: MIT
- */
+// SPDX-FileCopyrightText: 2023 klikli-dev
+//
+// SPDX-License-Identifier: MIT
 
 package com.klikli_dev.theurgy.datagen.recipe;
 
@@ -242,6 +240,28 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
                 .define('Q', Tags.Items.STORAGE_BLOCKS_QUARTZ)
                 .define('g', Tags.Items.INGOTS_GOLD)
                 .define('i', Tags.Items.INGOTS_IRON)
+                .define('m', ItemTagRegistry.ALCHEMICAL_MERCURIES)
+        );
+
+        this.makeRecipe(this.name(ItemRegistry.CALORIC_FLUX_EMITTER.get()) + "_from_campfire", new RecipeBuilder(
+                ItemRegistry.CALORIC_FLUX_EMITTER.get(), 1)
+                .pattern(" h ")
+                .pattern("gmg")
+                .pattern("sss")
+                .define('h', Items.CAMPFIRE)
+                .define('g', Tags.Items.INGOTS_GOLD)
+                .define('s', Tags.Items.STONE)
+                .define('m', ItemTagRegistry.ALCHEMICAL_MERCURIES)
+        );
+
+        this.makeRecipe(this.name(ItemRegistry.CALORIC_FLUX_EMITTER.get()) + "_from_lava_bucket", new RecipeBuilder(
+                ItemRegistry.CALORIC_FLUX_EMITTER.get(), 1)
+                .pattern(" h ")
+                .pattern("gmg")
+                .pattern("sss")
+                .define('h', Items.LAVA_BUCKET)
+                .define('g', Tags.Items.INGOTS_GOLD)
+                .define('s', Tags.Items.STONE)
                 .define('m', ItemTagRegistry.ALCHEMICAL_MERCURIES)
         );
     }

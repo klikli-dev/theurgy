@@ -29,19 +29,14 @@
                   "op": "replace",
                   "source": "currentMercuryFluxPerTick",
                   "target": "BlockEntityTag.currentMercuryFluxPerTick"
+                },
+                {
+                  "op": "replace",
+                  "source": "inventory",
+                  "target": "BlockEntityTag.inventory"
                 }
               ],
               "source": "block_entity"
-            },
-            {
-              "type": "theurgy:mercury_catalyst",
-              "entries": [
-                {
-                  "type": "minecraft:dynamic",
-                  "name": "theurgy:contents"
-                }
-              ],
-              "function": "minecraft:set_contents"
             }
           ],
           "name": "theurgy:mercury_catalyst"

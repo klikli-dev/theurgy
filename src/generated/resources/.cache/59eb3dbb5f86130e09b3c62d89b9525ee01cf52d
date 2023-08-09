@@ -1,5 +1,6 @@
-// 1.20.1	2023-07-29T17:40:31.1654566	Loot Tables
+// 1.20.1	2023-08-07T15:01:24.4606016	Loot Tables
 72c4014c4a8e846f945380a01c02fc8516e774d7 data/theurgy/loot_tables/blocks/calcination_oven.json
+b78ed93c8a746109ac27cbaf07f1d4979078ac50 data/theurgy/loot_tables/blocks/caloric_flux_emitter.json
 fd1d6c22b80bf3f1357dd9e23231ce1758e3799f data/theurgy/loot_tables/blocks/deepslate_sal_ammoniac_ore.json
 03da56ccdb1e9f132dc38e079668c8ab7689d708 data/theurgy/loot_tables/blocks/distiller.json
 6c720dcf480aec782d85abcd5adaf5e0aed3af95 data/theurgy/loot_tables/blocks/incubator.json
@@ -7,7 +8,7 @@ affc4e07fa5ea6f2710ba2f12a1ed95ff1f9a400 data/theurgy/loot_tables/blocks/incubat
 5bb357c4c5616c30a5985da942447ae5108e4f8a data/theurgy/loot_tables/blocks/incubator_salt_vessel.json
 83df72953dd0ffbd8bb793f6c3003f011fe7b31c data/theurgy/loot_tables/blocks/incubator_sulfur_vessel.json
 76df8364f6cb252e8cae7ad4f8586d87686843f4 data/theurgy/loot_tables/blocks/liquefaction_cauldron.json
-f8a01aa12e5c067e9719c43e94306131d10bf47c data/theurgy/loot_tables/blocks/mercury_catalyst.json
+3a8dda04dd5948b409faf4291422b07de8491cad data/theurgy/loot_tables/blocks/mercury_catalyst.json
 548d06109872a2a9d7f8fbd451414f671be41c36 data/theurgy/loot_tables/blocks/pyromantic_brazier.json
 1e9e39c1ec35fd04a371c081e9e0dc8e1f246cb1 data/theurgy/loot_tables/blocks/sal_ammoniac_accumulator.json
 30f8dbf50bc546bce7c73245555a0393ae17d798 data/theurgy/loot_tables/blocks/sal_ammoniac_ore.json

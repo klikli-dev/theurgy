@@ -1,5 +1,6 @@
-// 1.20.1	2023-07-29T19:34:30.2441945	Block States: theurgy
+// 1.20.1	2023-08-04T14:44:08.3581096	Block States: theurgy
 ef875fc2604f4f19d7604536c66d3d2c26163879 assets/theurgy/blockstates/calcination_oven.json
+35782a4ebfe09e4f246b30170c9cec57e31cdcee assets/theurgy/blockstates/caloric_flux_emitter.json
 92ebf87f417e3426f30d3e42eeafd933e446eb23 assets/theurgy/blockstates/deepslate_sal_ammoniac_ore.json
 efc838dc92770522219889024bec42cc52fb93bd assets/theurgy/blockstates/distiller.json
 79abbe84f5fcb3cb7db64f4c0f8f13c4e3f58674 assets/theurgy/blockstates/incubator.json
@@ -13,6 +14,7 @@ e25b9fd36f56996169e155aa79e3e84f839dd1b4 assets/theurgy/blockstates/sal_ammoniac
 07484732b0d8c8ceed31f3e1c6dba80b2bf3af1d assets/theurgy/blockstates/sal_ammoniac_ore.json
 7e9441f84cb260a4530af62c538ba22adef2b090 assets/theurgy/blockstates/sal_ammoniac_tank.json
 c79ce877fb80454b4c5ea666bcc5584c881e8c11 assets/theurgy/models/block/calcination_oven.json
+2b285cc81032cea171bbc30f58552e787fdb6ba4 assets/theurgy/models/block/caloric_flux_emitter.json
 1b2abf8ea6c69bedb184fdd7d9e799622de293bd assets/theurgy/models/block/deepslate_sal_ammoniac_ore.json
 c79ce877fb80454b4c5ea666bcc5584c881e8c11 assets/theurgy/models/block/distiller.json
 744bb5bfa023c4a5f75f323cf41ceb96fc8e6512 assets/theurgy/models/block/incubator_lower.json
@@ -28,6 +30,7 @@ b409c8a9f0cf680d9b409e9d9dcef1a73e9c0948 assets/theurgy/models/block/mercury_cat
 1d93f7f921865f74ffbb18817595c1c1316d322d assets/theurgy/models/block/sal_ammoniac_ore.json
 c79ce877fb80454b4c5ea666bcc5584c881e8c11 assets/theurgy/models/block/sal_ammoniac_tank.json
 e0f7b66a84e6588f01abbbce75b1803ffe5d46e2 assets/theurgy/models/item/calcination_oven.json
+69da8f122a932b3619528d7a18fa0da06ffca6de assets/theurgy/models/item/caloric_flux_emitter.json
 aff0eca2c86c1736edbfdc778cb40693db3bbd55 assets/theurgy/models/item/deepslate_sal_ammoniac_ore.json
 e0f7b66a84e6588f01abbbce75b1803ffe5d46e2 assets/theurgy/models/item/distiller.json
 cfcbe624706b49234c4db8a5c1aa85b2b2117ab7 assets/theurgy/models/item/incubator.json

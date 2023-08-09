@@ -1,8 +1,6 @@
-/*
- * SPDX-FileCopyrightText: 2023 klikli-dev
- *
- * SPDX-License-Identifier: MIT
- */
+// SPDX-FileCopyrightText: 2023 klikli-dev
+//
+// SPDX-License-Identifier: MIT
 
 package com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator.render;
 
@@ -83,7 +81,7 @@ public class SalAmmoniacAccumulatorRenderer implements BlockEntityRenderer<SalAm
         var min = 0.25f;
         var max = 1 - min;
 
-        var builder = pBufferSource.getBuffer(RenderTypes.getFluid());
+        var builder = pBufferSource.getBuffer(RenderTypes.fluid());
 
         putVertex(builder, pPoseStack, min, fluidHeight, min, color,
                 fluidTexture.getU(2), fluidTexture.getV(2), Direction.UP, fluidLight);

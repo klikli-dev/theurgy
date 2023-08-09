@@ -1,8 +1,6 @@
-/*
- * SPDX-FileCopyrightText: 2023 klikli-dev
- *
- * SPDX-License-Identifier: MIT
- */
+// SPDX-FileCopyrightText: 2023 klikli-dev
+//
+// SPDX-License-Identifier: MIT
 
 package com.klikli_dev.theurgy.content.apparatus.incubator;
 
@@ -61,6 +59,12 @@ public class IncubatorMercuryVesselBlockEntity extends BlockEntity implements Ge
             return this.inputInventoryCapability.cast();
         }
         return super.getCapability(cap, side);
+    }
+
+    @Override
+    public void invalidateCaps() {
+        super.invalidateCaps();
+        this.inputInventoryCapability.invalidate();
     }
 
     public void setIncubator(IncubatorBlockEntity incubator) {

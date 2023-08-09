@@ -1,8 +1,6 @@
-/*
- * SPDX-FileCopyrightText: 2023 klikli-dev
- *
- * SPDX-License-Identifier: MIT
- */
+// SPDX-FileCopyrightText: 2023 klikli-dev
+//
+// SPDX-License-Identifier: MIT
 
 package com.klikli_dev.theurgy.content.apparatus.incubator;
 
@@ -63,6 +61,12 @@ public class IncubatorSaltVesselBlockEntity extends BlockEntity implements GeoBl
             return this.inputInventoryCapability.cast();
         }
         return super.getCapability(cap, side);
+    }
+
+    @Override
+    public void invalidateCaps() {
+        super.invalidateCaps();
+        this.inputInventoryCapability.invalidate();
     }
 
     public void setIncubator(IncubatorBlockEntity incubator) {

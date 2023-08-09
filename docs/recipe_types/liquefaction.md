@@ -26,6 +26,13 @@ sidebar_position: 40
       * if missing, the recipe loader will attempt to infer the source item from the `ingredient` property.
 
 
+:::tip
+
+If you want to add a new sulfur for your modpack you can use the item id `theurgy:alchemical_sulfur_generic` (see below)
+
+:::
+
+
 ## Example Recipe
 
 ```json
@@ -48,3 +55,37 @@ sidebar_position: 40
   }
 }
 ```
+
+Same example using the generic sulfur: 
+```json
+{
+  "type": "theurgy:liquefaction",
+  "ingredient": {
+    "tag": "minecraft:logs"
+  },
+  "liquefaction_time": 200,
+  "result": {
+    "count": 1,
+    "item": "theurgy:alchemical_sulfur_generic",
+    "nbt": {
+      "theurgy:sulfur.source.id": "#minecraft:logs"
+    }
+  },
+  "solvent": {
+    "amount": 10,
+    "fluid": "theurgy:sal_ammoniac"
+  }
+}
+```
+
+## Generic Sulfur
+
+Theurgy provides a generic sulfur item that can be used to provide (unlimited) sulfurs for items not handled by theurgy by default.
+In order to make sure the item is displayed correctly it needs a tag as ingredient and as sulfur source id. If no tag exists you should create one for that purpose.
+
+*In the game, "under the hood" hidden from players there will be just one item "Generic Sulfur", but in the creative menu and in JEI the players will see multiple sulfurs, one per recipe that is provided for the generic sulfur, differentiated based on the sulfur source id NBT.*
+
+Additionally you need to specify a translation for the tag, this translation will be displayed as part of the item name.
+E.g. `minecraft:logs` will be translated by placing `"tag.minecraft.logs": "Logs"` in the lang file, and `forge:ingots/iron` would be `"tag.forge.ingots.iron": "Iron Ingots"`
+That means, you prepend `tag.` and then place the ID of the tag, but replace `:` and `/` with `.`  
+

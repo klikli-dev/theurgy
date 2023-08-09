@@ -7,11 +7,11 @@
     "h": {
       "item": "minecraft:lava_bucket"
     },
-    "i": {
-      "tag": "forge:stone"
-    },
     "m": {
       "tag": "theurgy:alchemical_mercuries"
+    },
+    "s": {
+      "tag": "forge:stone"
     }
   },
   "pattern": [

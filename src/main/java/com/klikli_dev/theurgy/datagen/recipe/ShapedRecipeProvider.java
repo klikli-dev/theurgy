@@ -250,7 +250,7 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
                 .pattern("sss")
                 .define('h', Items.CAMPFIRE)
                 .define('g', Tags.Items.INGOTS_GOLD)
-                .define('i', Tags.Items.STONE)
+                .define('s', Tags.Items.STONE)
                 .define('m', ItemTagRegistry.ALCHEMICAL_MERCURIES)
         );
 
@@ -261,7 +261,7 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
                 .pattern("sss")
                 .define('h', Items.LAVA_BUCKET)
                 .define('g', Tags.Items.INGOTS_GOLD)
-                .define('i', Tags.Items.STONE)
+                .define('s', Tags.Items.STONE)
                 .define('m', ItemTagRegistry.ALCHEMICAL_MERCURIES)
         );
     }

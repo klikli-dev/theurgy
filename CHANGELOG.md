@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.6.0] - 2023-08-09
+### :sparkles: New Features
+- [`56f0b1a`](https://github.com/klikli-dev/theurgy/commit/56f0b1adaafe4ee45b5efb9e9b0b801b172494a5) - add mercury catalyst *(PR [#142](https://github.com/klikli-dev/theurgy/pull/142) by [@klikli-dev](https://github.com/klikli-dev))*
+- [`423f418`](https://github.com/klikli-dev/theurgy/commit/423f4182cfa2f061a31d441e8c0686f91afd8e9b) - add caloric flux emitter *(PR [#145](https://github.com/klikli-dev/theurgy/pull/145) by [@klikli-dev](https://github.com/klikli-dev))*
+- [`964b24d`](https://github.com/klikli-dev/theurgy/commit/964b24db36ea158de8d15c71c1563aa43898c879) - add generic sulfur for use in modpacks *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`4ac8522`](https://github.com/klikli-dev/theurgy/commit/4ac85226efd999c1a55a14e01db70914ebda3fed) - make caloric flux emitter more efficient than brazier *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`c07cc3d`](https://github.com/klikli-dev/theurgy/commit/c07cc3d04738e04597df32bb042d81e93f3a573d) - increase catalyst capacity *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`734c08e`](https://github.com/klikli-dev/theurgy/commit/734c08e8c9dcc92e32091ccf444d7842b6d6828b) - increase caloric flux emitter range *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [beta/v1.20.1-1.5.0] - 2023-07-30
 ### :sparkles: New Features
 - [`525be5d`](https://github.com/klikli-dev/theurgy/commit/525be5d95a4b0ac9af1ae02982822ad23bd84d7f) - add neoforge to mod platform list *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -301,3 +311,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [alpha/v1.20.1-1.4.10]: https://github.com/klikli-dev/theurgy/compare/alpha/v1.20.1-1.4.9...alpha/v1.20.1-1.4.10
 [alpha/v1.20.1-1.4.11]: https://github.com/klikli-dev/theurgy/compare/alpha/v1.20.1-1.4.10...alpha/v1.20.1-1.4.11
 [beta/v1.20.1-1.5.0]: https://github.com/klikli-dev/theurgy/compare/alpha/v1.20.1-1.4.11...beta/v1.20.1-1.5.0
+[release/v1.20.1-1.6.0]: https://github.com/klikli-dev/theurgy/compare/beta/v1.20.1-1.5.0...release/v1.20.1-1.6.0

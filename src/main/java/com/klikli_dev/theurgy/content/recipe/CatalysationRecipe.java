@@ -26,7 +26,7 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.items.wrapper.RecipeWrapper;
 
 public class CatalysationRecipe implements Recipe<RecipeWrapper> {
-    public static final int DEFAULT_MERCURY_FLUX_PER_TICK = 2;
+    public static final int DEFAULT_MERCURY_FLUX_PER_TICK = 20;
 
     public static final Codec<CatalysationRecipe> CODEC = RecordCodecBuilder.create(instance -> instance.group(
                     TheurgyExtraCodecs.INGREDIENT.fieldOf("ingredient").forGetter(r -> r.ingredient),

@@ -12,7 +12,7 @@
   "ingredient": {
     "tag": "forge:ores/sapphire"
   },
-  "liquefaction_time": 200,
+  "liquefaction_time": 100,
   "result": {
     "count": 6,
     "item": "theurgy:alchemical_sulfur_sapphire",

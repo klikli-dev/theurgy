@@ -24,7 +24,7 @@ import net.minecraft.world.level.Level;
 
 public class IncubationRecipe implements Recipe<IncubatorRecipeWrapper> {
 
-    public static final int DEFAULT_INCUBATION_TIME = 200;
+    public static final int DEFAULT_INCUBATION_TIME = 100;
 
     protected final ResourceLocation id;
     protected final Ingredient mercury;

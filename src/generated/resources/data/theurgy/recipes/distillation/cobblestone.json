@@ -9,7 +9,7 @@
       }
     }
   ],
-  "distillation_time": 200,
+  "distillation_time": 100,
   "ingredient": {
     "tag": "forge:cobblestone"
   },

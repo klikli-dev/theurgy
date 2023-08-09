@@ -1,6 +1,6 @@
 {
   "type": "theurgy:accumulation",
-  "accumulationTime": 200,
+  "accumulationTime": 100,
   "evaporant": {
     "tag": "minecraft:water"
   },

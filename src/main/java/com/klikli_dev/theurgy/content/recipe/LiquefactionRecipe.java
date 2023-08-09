@@ -28,7 +28,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public class LiquefactionRecipe implements Recipe<RecipeWrapperWithFluid> {
 
-    public static final int DEFAULT_LIQUEFACTION_TIME = 200;
+    public static final int DEFAULT_LIQUEFACTION_TIME = 100;
     protected final ResourceLocation id;
     protected final Ingredient ingredient;
     protected final FluidIngredient solvent;

@@ -24,7 +24,7 @@ import net.minecraftforge.items.wrapper.RecipeWrapper;
 
 public class DistillationRecipe implements Recipe<RecipeWrapper> {
 
-    public static final int DEFAULT_DISTILLATION_TIME = 200;
+    public static final int DEFAULT_DISTILLATION_TIME = 100;
     protected final ResourceLocation id;
     protected final Ingredient ingredient;
     protected final int ingredientCount;

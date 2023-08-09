@@ -31,7 +31,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Optional;
 
 public class AccumulationRecipe implements Recipe<RecipeWrapperWithFluid> {
-    public static final int DEFAULT_ACCUMULATION_TIME = 200;
+    public static final int DEFAULT_ACCUMULATION_TIME = 100;
 
     public static final Codec<AccumulationRecipe> CODEC = RecordCodecBuilder.create(instance -> instance.group(
                     FluidIngredient.CODEC.fieldOf("evaporant").forGetter((r) -> r.evaporant),

@@ -9,7 +9,7 @@
       }
     }
   ],
-  "incubation_time": 200,
+  "incubation_time": 100,
   "mercury": {
     "item": "theurgy:mercury_shard"
   },

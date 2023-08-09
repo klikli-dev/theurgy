@@ -12,7 +12,7 @@
   "ingredient": {
     "tag": "forge:ingots/uranium"
   },
-  "liquefaction_time": 200,
+  "liquefaction_time": 100,
   "result": {
     "count": 1,
     "item": "theurgy:alchemical_sulfur_uranium",

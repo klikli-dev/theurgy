@@ -12,7 +12,7 @@
   "ingredient": {
     "tag": "forge:raw_materials/unobtainium"
   },
-  "liquefaction_time": 200,
+  "liquefaction_time": 100,
   "result": {
     "count": 2,
     "item": "theurgy:alchemical_sulfur_unobtainium",

@@ -24,7 +24,7 @@ import net.minecraftforge.items.wrapper.RecipeWrapper;
 
 public class CalcinationRecipe implements Recipe<RecipeWrapper> {
 
-    public static final int DEFAULT_CALCINATION_TIME = 200;
+    public static final int DEFAULT_CALCINATION_TIME = 100;
     protected final ResourceLocation id;
     protected final Ingredient ingredient;
     protected final int ingredientCount;

@@ -169,7 +169,8 @@ public class MercuryFluxCategoryProvider extends CategoryProvider {
 
         this.context().page("recipe");
         var recipe = BookCraftingRecipePageModel.builder()
-                .withRecipeId1(Theurgy.loc("crafting/shaped/caloric_flux_emitter"))
+                .withRecipeId1(Theurgy.loc("crafting/shaped/caloric_flux_emitter_from_campfire"))
+                .withRecipeId2(Theurgy.loc("crafting/shaped/caloric_flux_emitter_from_lava_bucket"))
                 .build();
 
         return this.entry(location)

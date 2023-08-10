@@ -57,6 +57,8 @@ public class TheurgyBlockLootSubProvider extends BlockLootSubProvider {
                 "mercuryFluxStorage"
         );
 
+        this.dropSelf(BlockRegistry.SULFURIC_FLUX_EMITTER.get());
+
         this.add(BlockRegistry.SAL_AMMONIAC_ORE.get(), (block) -> {
             return this.createOreDrop(block, ItemRegistry.SAL_AMMONIAC_CRYSTAL.get());
         });

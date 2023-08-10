@@ -11,6 +11,7 @@ import com.klikli_dev.theurgy.content.apparatus.distiller.DistillerBlockItem;
 import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorMercuryVesselBlockItem;
 import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorSaltVesselBlockItem;
 import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorSulfurVesselBlockItem;
+import com.klikli_dev.theurgy.content.apparatus.reformationarray.SulfuricFluxEmitterBlockItem;
 import com.klikli_dev.theurgy.content.apparatus.salammoniactank.SalAmmoniacTankBlockItem;
 import com.klikli_dev.theurgy.content.item.DivinationRodItem;
 import net.minecraft.world.item.*;
@@ -123,4 +124,6 @@ public class ItemRegistry {
             ITEMS.register("mercury_catalyst", () -> new BlockItem(BlockRegistry.MERCURY_CATALYST.get(), new Item.Properties()));
     public static final RegistryObject<CaloricFluxEmitterBlockItem> CALORIC_FLUX_EMITTER =
             ITEMS.register("caloric_flux_emitter", () -> new CaloricFluxEmitterBlockItem(BlockRegistry.CALORIC_FLUX_EMITTER.get(), new Item.Properties()));
+    public static final RegistryObject<SulfuricFluxEmitterBlockItem> SULFURIC_FLUX_EMITTER =
+            ITEMS.register("sulfuric_flux_emitter", () -> new SulfuricFluxEmitterBlockItem(BlockRegistry.SULFURIC_FLUX_EMITTER.get(), new Item.Properties()));
 }

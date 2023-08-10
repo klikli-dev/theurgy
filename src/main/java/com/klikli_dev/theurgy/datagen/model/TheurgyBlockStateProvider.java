@@ -39,6 +39,7 @@ public class TheurgyBlockStateProvider extends BlockStateProvider {
         this.registerSalAmmoniacTank();
         this.registerMercuryCatalyst();
         this.registerCaloricFluxEmitter();
+        this.registerSulfuricFluxEmitter();
 
         this.simpleBlockWithItem(BlockRegistry.SAL_AMMONIAC_ORE.get(), this.cubeAll(BlockRegistry.SAL_AMMONIAC_ORE.get()));
         this.simpleBlockWithItem(BlockRegistry.DEEPSLATE_SAL_AMMONIAC_ORE.get(), this.cubeAll(BlockRegistry.DEEPSLATE_SAL_AMMONIAC_ORE.get()));
@@ -56,6 +57,21 @@ public class TheurgyBlockStateProvider extends BlockStateProvider {
         //build blockstate
         this.directionalBlock(BlockRegistry.CALORIC_FLUX_EMITTER.get(), model);
         this.simpleBlockItem(BlockRegistry.CALORIC_FLUX_EMITTER.get(), model);
+    }
+
+    protected void registerSulfuricFluxEmitter() {
+        //we re-use the caloric flux emitter model
+        var model = this.models().withExistingParent("sulfuric_flux_emitter", this.modLoc("block/caloric_flux_emitter_template"))
+                .ao(false)
+                .renderType(new ResourceLocation("minecraft", "translucent"))
+                //blockbench spits out garbage textures by losing the folder name so we fix them here
+                .texture("emitter", this.modLoc("block/sulfuric_flux_emitter"))
+                .texture("socket", this.modLoc("block/emitter_socket"))
+                .texture("particle", this.modLoc("block/emitter_socket"));
+
+        //build blockstate
+        this.directionalBlock(BlockRegistry.SULFURIC_FLUX_EMITTER.get(), model);
+        this.simpleBlockItem(BlockRegistry.SULFURIC_FLUX_EMITTER.get(), model);
     }
 
     protected void registerSalAmmoniacAccumulator() {

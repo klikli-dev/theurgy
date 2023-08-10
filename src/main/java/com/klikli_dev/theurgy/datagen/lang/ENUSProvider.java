@@ -216,6 +216,14 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
                                 """,
                         this.green("Sneak-Right-Click")));
 
+        this.addBlock(BlockRegistry.SULFURIC_FLUX_EMITTER, "Sulfuric Flux Emitter");
+        this.addTooltip(BlockRegistry.SULFURIC_FLUX_EMITTER.get()::asItem,
+                "Used to power a sulfur reformation array to replicate Alchemical Sulfur.",
+                "Sulfuric Flux allows to transfer, merge and manipulate Alchemical Sulfur.",
+                this.f("""
+                                TODO
+                                """));
+
         this.addBlock(BlockRegistry.SAL_AMMONIAC_ORE, "Sal Ammoniac Ore");
         this.addExtendedTooltip(BlockRegistry.SAL_AMMONIAC_ORE.get()::asItem,
                 "Ore that yields Sal Ammoniac Crystals for use in a Sal Ammoniac Accumulator.");

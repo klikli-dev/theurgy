@@ -59,4 +59,5 @@ Copyright 2022 klikli-dev
 
 Code is licensed under the MIT license, view [LICENSES/MIT](./LICENSES/MIT.txt).   
 Assets are licensed under the CC-BY-SA-4.0 license, view [LICENSES/CC-BY-SA-4.0](./LICENSES/CC-BY-4.0.txt).   
-Third party software and assets may be distributed under a different license, see [THIRD_PARTY_NOTICES.md](./THIRD_PARTY_NOTICES.md).   
+
+There are third party code and assets in this project which may be under different licenses and copyrights. We follow the [REUSE Standard for Software Licensing](https://reuse.software/), so you can look up the license terms for each file, or use the [REUSE tool](https://github.com/fsfe/reuse-tool) to generate an SPDX report.

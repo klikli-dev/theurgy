@@ -8,7 +8,6 @@ import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorBlock;
 import com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron.LiquefactionCauldronBlock;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
@@ -41,8 +40,45 @@ public class TheurgyBlockStateProvider extends BlockStateProvider {
         this.registerCaloricFluxEmitter();
         this.registerSulfuricFluxEmitter();
 
+        this.registerReformationSourcePedestal();
+        this.registerReformationTargetPedestal();
+        this.registerReformationResultPedestal();
+
         this.simpleBlockWithItem(BlockRegistry.SAL_AMMONIAC_ORE.get(), this.cubeAll(BlockRegistry.SAL_AMMONIAC_ORE.get()));
         this.simpleBlockWithItem(BlockRegistry.DEEPSLATE_SAL_AMMONIAC_ORE.get(), this.cubeAll(BlockRegistry.DEEPSLATE_SAL_AMMONIAC_ORE.get()));
+    }
+
+    protected void registerReformationSourcePedestal() {
+        var model = this.models().withExistingParent("reformation_source_pedestal", this.modLoc("block/reformation_source_pedestal_template"))
+                .ao(false)
+                //blockbench spits out garbage textures by losing the folder name so we fix them here
+                .texture("texture", this.modLoc("block/reformation_source_pedestal"))
+                .texture("particle", this.mcLoc("block/copper_block"));
+
+        //build blockstate
+        this.simpleBlockWithItem(BlockRegistry.REFORMATION_SOURCE_PEDESTAL.get(), model);
+    }
+
+    protected void registerReformationTargetPedestal() {
+        var model = this.models().withExistingParent("reformation_target_pedestal", this.modLoc("block/reformation_target_pedestal_template"))
+                .ao(false)
+                //blockbench spits out garbage textures by losing the folder name so we fix them here
+                .texture("texture", this.modLoc("block/reformation_target_pedestal"))
+                .texture("particle", this.mcLoc("block/copper_block"));
+
+        //build blockstate
+        this.simpleBlockWithItem(BlockRegistry.REFORMATION_TARGET_PEDESTAL.get(), model);
+    }
+
+    protected void registerReformationResultPedestal() {
+        var model = this.models().withExistingParent("reformation_result_pedestal", this.modLoc("block/reformation_result_pedestal_template"))
+                .ao(false)
+                //blockbench spits out garbage textures by losing the folder name so we fix them here
+                .texture("texture", this.modLoc("block/reformation_result_pedestal"))
+                .texture("particle", this.mcLoc("block/copper_block"));
+
+        //build blockstate
+        this.simpleBlockWithItem(BlockRegistry.REFORMATION_RESULT_PEDESTAL.get(), model);
     }
 
     protected void registerCaloricFluxEmitter() {

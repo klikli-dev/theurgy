@@ -57,6 +57,9 @@ public class CreativeModeTabRegistry {
                 output.accept(ItemRegistry.CALORIC_FLUX_EMITTER.get());
 
                 output.accept(ItemRegistry.SULFURIC_FLUX_EMITTER.get());
+                output.accept(ItemRegistry.REFORMATION_SOURCE_PEDESTAL.get());
+                output.accept(ItemRegistry.REFORMATION_TARGET_PEDESTAL.get());
+                output.accept(ItemRegistry.REFORMATION_RESULT_PEDESTAL.get());
             }).build());
 
 }

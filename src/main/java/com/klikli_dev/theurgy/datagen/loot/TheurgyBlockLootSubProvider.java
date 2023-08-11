@@ -58,6 +58,9 @@ public class TheurgyBlockLootSubProvider extends BlockLootSubProvider {
         );
 
         this.dropSelf(BlockRegistry.SULFURIC_FLUX_EMITTER.get());
+        this.dropSelf(BlockRegistry.REFORMATION_SOURCE_PEDESTAL.get());
+        this.dropSelf(BlockRegistry.REFORMATION_TARGET_PEDESTAL.get());
+        this.dropSelf(BlockRegistry.REFORMATION_RESULT_PEDESTAL.get());
 
         this.add(BlockRegistry.SAL_AMMONIAC_ORE.get(), (block) -> {
             return this.createOreDrop(block, ItemRegistry.SAL_AMMONIAC_CRYSTAL.get());

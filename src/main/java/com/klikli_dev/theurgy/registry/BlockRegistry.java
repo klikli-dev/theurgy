@@ -15,6 +15,9 @@ import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorSulfurVesselB
 import com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron.LiquefactionCauldronBlock;
 import com.klikli_dev.theurgy.content.apparatus.mercurycatalyst.MercuryCatalystBlock;
 import com.klikli_dev.theurgy.content.apparatus.pyromanticbrazier.PyromanticBrazierBlock;
+import com.klikli_dev.theurgy.content.apparatus.reformationarray.ReformationResultPedestalBlock;
+import com.klikli_dev.theurgy.content.apparatus.reformationarray.ReformationSourcePedestalBlock;
+import com.klikli_dev.theurgy.content.apparatus.reformationarray.ReformationTargetPedestalBlock;
 import com.klikli_dev.theurgy.content.apparatus.reformationarray.SulfuricFluxEmitterBlock;
 import com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator.SalAmmoniacAccumulatorBlock;
 import com.klikli_dev.theurgy.content.apparatus.salammoniactank.SalAmmoniacTankBlock;
@@ -122,6 +125,30 @@ public class BlockRegistry {
 
     public static final RegistryObject<SulfuricFluxEmitterBlock> SULFURIC_FLUX_EMITTER =
             BLOCKS.register("sulfuric_flux_emitter", () -> new SulfuricFluxEmitterBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.METAL)
+                    .noOcclusion()
+                    .sound(SoundType.METAL)
+                    .strength(1.0f))
+            );
+
+    public static final RegistryObject<ReformationSourcePedestalBlock> REFORMATION_SOURCE_PEDESTAL =
+            BLOCKS.register("reformation_source_pedestal", () -> new ReformationSourcePedestalBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.METAL)
+                    .noOcclusion()
+                    .sound(SoundType.METAL)
+                    .strength(1.0f))
+            );
+
+    public static final RegistryObject<ReformationTargetPedestalBlock> REFORMATION_TARGET_PEDESTAL =
+            BLOCKS.register("reformation_target_pedestal", () -> new ReformationTargetPedestalBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.METAL)
+                    .noOcclusion()
+                    .sound(SoundType.METAL)
+                    .strength(1.0f))
+            );
+
+    public static final RegistryObject<ReformationResultPedestalBlock> REFORMATION_RESULT_PEDESTAL =
+            BLOCKS.register("reformation_result_pedestal", () -> new ReformationResultPedestalBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.METAL)
                     .noOcclusion()
                     .sound(SoundType.METAL)

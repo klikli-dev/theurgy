@@ -224,6 +224,19 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
                                 TODO
                                 """));
 
+
+        this.addBlock(BlockRegistry.REFORMATION_SOURCE_PEDESTAL, "Reformation Source Pedestal");
+        this.addTooltip(BlockRegistry.REFORMATION_SOURCE_PEDESTAL.get()::asItem,
+                "Holds the source Alchemical Sulfur to be reformed into the target Alchemical Sulfur.");
+
+        this.addBlock(BlockRegistry.REFORMATION_TARGET_PEDESTAL, "Reformation Target Pedestal");
+        this.addTooltip(BlockRegistry.REFORMATION_TARGET_PEDESTAL.get()::asItem,
+                "Holds the target Alchemical Sulfur that the source Alchemical Sulfur should be reformed into.");
+
+        this.addBlock(BlockRegistry.REFORMATION_RESULT_PEDESTAL, "Reformation Result Pedestal");
+        this.addTooltip(BlockRegistry.REFORMATION_RESULT_PEDESTAL.get()::asItem,
+                "The reformation result will appear in this pedestal.");
+
         this.addBlock(BlockRegistry.SAL_AMMONIAC_ORE, "Sal Ammoniac Ore");
         this.addExtendedTooltip(BlockRegistry.SAL_AMMONIAC_ORE.get()::asItem,
                 "Ore that yields Sal Ammoniac Crystals for use in a Sal Ammoniac Accumulator.");

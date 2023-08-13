@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.6.2] - 2023-08-13
+### :bug: Bug Fixes
+- [`4438740`](https://github.com/klikli-dev/theurgy/commit/44387404fa207f0240d5e9df6227dc51c40b8ad3) - netherite recipe yields more than intended *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.1-1.6.1] - 2023-08-09
 ### :sparkles: New Features
 - [`228091d`](https://github.com/klikli-dev/theurgy/commit/228091d96cccc2c51847e43b75a42b5c40d1f2bb) - reduce apparatus processing time *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -319,3 +324,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [beta/v1.20.1-1.5.0]: https://github.com/klikli-dev/theurgy/compare/alpha/v1.20.1-1.4.11...beta/v1.20.1-1.5.0
 [release/v1.20.1-1.6.0]: https://github.com/klikli-dev/theurgy/compare/beta/v1.20.1-1.5.0...release/v1.20.1-1.6.0
 [release/v1.20.1-1.6.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.6.0...release/v1.20.1-1.6.1
+[release/v1.20.1-1.6.2]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.6.1...release/v1.20.1-1.6.2

@@ -47,7 +47,8 @@ public class LiquefactionRecipeProvider extends JsonRecipeProvider {
         this.makeRecipe(SulfurRegistry.IRON.get(), 3, Tags.Items.ORES_IRON, salAmmoniac, 10);
         this.makeRecipe(SulfurRegistry.COPPER.get(), 3, Tags.Items.ORES_COPPER, salAmmoniac, 10);
         this.makeRecipe(SulfurRegistry.GOLD.get(), 3, Tags.Items.ORES_GOLD, salAmmoniac, 15);
-        this.makeRecipe(SulfurRegistry.NETHERITE.get(), 3, Tags.Items.ORES_NETHERITE_SCRAP, salAmmoniac, 100);
+        //netherite has a custom recipe in vanilla, 4 scraps per ingot, so we only do 1 sulfur here to avoid insane duplication rates
+        this.makeRecipe(SulfurRegistry.NETHERITE.get(), 1, Tags.Items.ORES_NETHERITE_SCRAP, salAmmoniac, 100);
         this.makeRecipe(SulfurRegistry.URANIUM.get(), 3, this.tag("forge:ores/uranium"), salAmmoniac, 10);
         this.makeRecipe(SulfurRegistry.SILVER.get(), 3, this.tag("forge:ores/silver"), salAmmoniac, 10);
         this.makeRecipe(SulfurRegistry.AZURE_SILVER.get(), 3, this.tag("forge:ores/azure_silver"), salAmmoniac, 10);

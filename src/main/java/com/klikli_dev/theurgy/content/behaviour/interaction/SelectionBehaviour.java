@@ -4,7 +4,6 @@ import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.content.render.outliner.Outliner;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -69,7 +68,7 @@ public abstract class SelectionBehaviour<T extends SelectedPoint> {
         return this.remove(pos) != null;
     }
 
-    public void onPlace(BlockPos pos) {
+    public void onPlace(BlockPos pos, Player player) {
 
         int removed = 0;
         for (var iterator = this.selectedPoints.iterator(); iterator.hasNext(); ) {
@@ -80,7 +79,6 @@ public abstract class SelectionBehaviour<T extends SelectedPoint> {
             removed++;
         }
 
-        LocalPlayer player = Minecraft.getInstance().player;
         if (removed > 0) {
             player.displayClientMessage(this.getOutsideRangeMessage(removed), true);
         } else {
@@ -93,12 +91,7 @@ public abstract class SelectionBehaviour<T extends SelectedPoint> {
         this.currentItem = null;
     }
 
-    public void tick() {
-        Player player = Minecraft.getInstance().player;
-
-        if (player == null)
-            return;
-
+    public void tick(Player player) {
         ItemStack heldItem = player.getMainHandItem();
         if (!this.isSelectionItem(heldItem)) {
             this.currentItem = null;
@@ -154,7 +147,7 @@ public abstract class SelectionBehaviour<T extends SelectedPoint> {
         return null;
     }
 
-    public boolean isValid(SelectedPoint point){
+    public boolean isValid(T point){
         point.refreshBlockStateCache();
         return this.canCreate(point.getLevel(), point.getBlockPos(), point.getBlockState());
     }

@@ -32,6 +32,6 @@ public class MessageRequestCaloricFluxEmitterSelection implements Message {
 
     @Override
     public void onClientReceived(Minecraft minecraft, Player player, NetworkEvent.Context context) {
-        BlockRegistry.CALORIC_FLUX_EMITTER.get().getSelectionBehaviour().onPlace(this.blockPos);
+        BlockRegistry.CALORIC_FLUX_EMITTER.get().getSelectionBehaviour().onPlace(this.blockPos, player);
     }
 }

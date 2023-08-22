@@ -40,7 +40,6 @@ public class CaloricFluxEmitterBlockEntity extends BlockEntity {
     public CaloricFluxEmitterBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(BlockEntityRegistry.CALORIC_FLUX_EMITTER.get(), pPos, pBlockState);
 
-
         this.mercuryFluxStorage = new MercuryFluxStorage(CAPACITY);
         this.mercuryFluxStorageCapability = LazyOptional.of(() -> this.mercuryFluxStorage);
 

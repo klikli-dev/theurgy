@@ -152,7 +152,7 @@ public class Theurgy {
             }
 
             Outliner.get().tick();
-            BlockRegistry.CALORIC_FLUX_EMITTER.get().getSelectionBehaviour().tick();
+            BlockRegistry.CALORIC_FLUX_EMITTER.get().getSelectionBehaviour().tick(Minecraft.getInstance().player);
         }
 
         public static void onRenderLevelStage(RenderLevelStageEvent event) {

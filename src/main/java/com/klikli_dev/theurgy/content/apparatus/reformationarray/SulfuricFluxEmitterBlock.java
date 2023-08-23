@@ -2,16 +2,17 @@ package com.klikli_dev.theurgy.content.apparatus.reformationarray;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
+import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.DirectionalBlock;
-import net.minecraft.world.level.block.Mirror;
-import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -21,7 +22,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
 
-public class SulfuricFluxEmitterBlock extends DirectionalBlock {
+public class SulfuricFluxEmitterBlock extends DirectionalBlock implements EntityBlock {
 
     private static final int SHAPE_LENGTH = 4;
     private static final Map<Direction, VoxelShape> SHAPES = Maps.newEnumMap(
@@ -61,7 +62,7 @@ public class SulfuricFluxEmitterBlock extends DirectionalBlock {
     public void neighborChanged(BlockState pState, Level pLevel, BlockPos pPos, Block pBlock, BlockPos pFromPos, boolean pIsMoving) {
         super.neighborChanged(pState, pLevel, pPos, pBlock, pFromPos, pIsMoving);
 
-        if(!this.canSurvive(pState, pLevel, pPos)) {
+        if (!this.canSurvive(pState, pLevel, pPos)) {
             pLevel.destroyBlock(pPos, true);
         }
     }
@@ -89,5 +90,24 @@ public class SulfuricFluxEmitterBlock extends DirectionalBlock {
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
         pBuilder.add(FACING);
+    }
+
+    @Nullable
+    @Override
+    public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
+        return BlockEntityRegistry.SULFURIC_FLUX_EMITTER.get().create(pPos, pState);
+    }
+
+    @Nullable
+    @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
+        if (pLevel.isClientSide()) {
+            return null;
+        }
+        return (lvl, pos, blockState, t) -> {
+            if (t instanceof SulfuricFluxEmitterBlockEntity blockEntity) {
+                blockEntity.tickServer();
+            }
+        };
     }
 }

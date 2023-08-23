@@ -15,6 +15,10 @@ import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorSulfurVesselB
 import com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron.LiquefactionCauldronBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.mercurycatalyst.MercuryCatalystBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.pyromanticbrazier.PyromanticBrazierBlockEntity;
+import com.klikli_dev.theurgy.content.apparatus.reformationarray.ReformationResultPedestalBlockEntity;
+import com.klikli_dev.theurgy.content.apparatus.reformationarray.ReformationSourcePedestalBlockEntity;
+import com.klikli_dev.theurgy.content.apparatus.reformationarray.ReformationTargetPedestalBlockEntity;
+import com.klikli_dev.theurgy.content.apparatus.reformationarray.SulfuricFluxEmitterBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator.SalAmmoniacAccumulatorBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.salammoniactank.SalAmmoniacTankBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -72,4 +76,21 @@ public class BlockEntityRegistry {
     public static final RegistryObject<BlockEntityType<CaloricFluxEmitterBlockEntity>> CALORIC_FLUX_EMITTER =
             BLOCKS.register("caloric_flux_emitter", () ->
                     BlockEntityType.Builder.of(CaloricFluxEmitterBlockEntity::new, BlockRegistry.CALORIC_FLUX_EMITTER.get()).build(null));
+
+    public static final RegistryObject<BlockEntityType<ReformationSourcePedestalBlockEntity>> REFORMATION_SOURCE_PEDESTAL =
+            BLOCKS.register("reformation_source_pedestal", () ->
+                    BlockEntityType.Builder.of(ReformationSourcePedestalBlockEntity::new, BlockRegistry.REFORMATION_SOURCE_PEDESTAL.get()).build(null));
+
+    public static final RegistryObject<BlockEntityType<ReformationTargetPedestalBlockEntity>> REFORMATION_TARGET_PEDESTAL =
+            BLOCKS.register("reformation_target_pedestal", () ->
+                    BlockEntityType.Builder.of(ReformationTargetPedestalBlockEntity::new, BlockRegistry.REFORMATION_TARGET_PEDESTAL.get()).build(null));
+
+    public static final RegistryObject<BlockEntityType<ReformationResultPedestalBlockEntity>> REFORMATION_RESULT_PEDESTAL =
+            BLOCKS.register("reformation_result_pedestal", () ->
+                    BlockEntityType.Builder.of(ReformationResultPedestalBlockEntity::new, BlockRegistry.REFORMATION_RESULT_PEDESTAL.get()).build(null));
+
+    public static final RegistryObject<BlockEntityType<SulfuricFluxEmitterBlockEntity>> SULFURIC_FLUX_EMITTER =
+            BLOCKS.register("sulfuric_flux_emitter", () ->
+                    BlockEntityType.Builder.of(SulfuricFluxEmitterBlockEntity::new, BlockRegistry.SULFURIC_FLUX_EMITTER.get()).build(null));
+
 }

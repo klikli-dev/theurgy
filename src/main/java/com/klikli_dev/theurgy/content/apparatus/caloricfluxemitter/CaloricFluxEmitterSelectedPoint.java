@@ -44,8 +44,10 @@ public class CaloricFluxEmitterSelectedPoint extends SelectedPoint<CaloricFluxEm
     }
 
     @Override
-    public void cycleMode() {
+    public boolean cycleMode() {
         //has no mode
+        //but double-selecting removes the point
+        return false;
     }
 
     @Override

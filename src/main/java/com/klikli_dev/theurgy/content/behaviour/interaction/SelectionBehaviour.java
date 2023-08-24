@@ -49,8 +49,13 @@ public abstract class SelectionBehaviour<T extends SelectedPoint> {
             selected = point;
             this.add(point);
         } else {
-            //if it is already selected, cycle the mode
-            selected.cycleMode();
+            //if it is already selected, cycle the mode and if needed remove
+            if(!selected.cycleMode()){
+                this.remove(pos);
+
+                //skip message, but return true to have calling code cancel the click event.
+                return true;
+            }
         }
 
         //show the current mode + target block to player

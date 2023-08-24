@@ -2,7 +2,6 @@ package com.klikli_dev.theurgy.content.apparatus.reformationarray;
 
 import com.klikli_dev.theurgy.content.behaviour.ItemHandlerBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.OneSlotItemHandlerBehaviour;
-import com.klikli_dev.theurgy.content.behaviour.TwoSlotItemHandlerBehaviour;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
@@ -19,6 +18,7 @@ import org.jetbrains.annotations.Nullable;
 public class ReformationResultPedestalBlock extends Block implements EntityBlock {
 
     private final ItemHandlerBehaviour itemHandlerBehaviour;
+
     public ReformationResultPedestalBlock(Properties pProperties) {
         super(pProperties);
 

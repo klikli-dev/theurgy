@@ -2,6 +2,8 @@ package com.klikli_dev.theurgy.content.apparatus.reformationarray;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
+import com.klikli_dev.theurgy.content.apparatus.caloricfluxemitter.CaloricFluxEmitterSelectedPoint;
+import com.klikli_dev.theurgy.content.behaviour.interaction.SelectionBehaviour;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -36,10 +38,20 @@ public class SulfuricFluxEmitterBlock extends DirectionalBlock implements Entity
                     .build()
     );
 
-    public SulfuricFluxEmitterBlock(Properties pProperties) {
+    protected SelectionBehaviour<SulfuricFluxEmitterSelectedPoint> selectionBehaviour;
+
+    public SulfuricFluxEmitterBlock(Properties pProperties, SelectionBehaviour<SulfuricFluxEmitterSelectedPoint> selectionBehaviour) {
         super(pProperties);
+
+        this.selectionBehaviour = selectionBehaviour;
+
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.UP));
     }
+
+    public SelectionBehaviour<SulfuricFluxEmitterSelectedPoint> getSelectionBehaviour() {
+        return this.selectionBehaviour;
+    }
+
 
     @SuppressWarnings("deprecation")
     @Override

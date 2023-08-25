@@ -43,6 +43,7 @@ public class Networking {
     public static void registerMessages() {
         register(MessageSetDivinationResult.class, NetworkDirection.PLAY_TO_SERVER);
         register(MessageCaloricFluxEmitterSelection.class, NetworkDirection.PLAY_TO_SERVER);
+        register(MessageSulfuricFluxEmitterSelection.class, NetworkDirection.PLAY_TO_SERVER);
 
         register(MessageRequestCaloricFluxEmitterSelection.class, NetworkDirection.PLAY_TO_CLIENT);
         register(MessageRequestSulfuricFluxEmitterSelection.class, NetworkDirection.PLAY_TO_CLIENT);

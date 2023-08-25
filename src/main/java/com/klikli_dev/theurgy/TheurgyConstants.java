@@ -119,6 +119,9 @@ public class TheurgyConstants {
             public static final String SELECTION_OUTSIDE_RANGE = PREFIX + "selection.outside_range";
             public static final String SELECTION_SUMMARY_CALORIC_FLUX_EMITTER = PREFIX + "selection.summary.caloric_flux_emitter";
             public static final String SELECTION_SUMMARY_CALORIC_FLUX_EMITTER_NO_SELECTION = PREFIX + "selection.summary.caloric_flux_emitter.no_selection";
+
+            public static final String SELECTION_SUMMARY_SULFURIC_FLUX_EMITTER = PREFIX + "selection.summary.sulfuric_flux_emitter";
+            public static final String SELECTION_SUMMARY_SULFURIC_FLUX_EMITTER_NO_SELECTION = PREFIX + "selection.summary.sulfuric_flux_emitter.no_selection";
         }
     }
 

@@ -1,12 +1,10 @@
 package com.klikli_dev.theurgy.content.apparatus.reformationarray;
 
 import com.klikli_dev.theurgy.TheurgyConstants;
-import com.klikli_dev.theurgy.content.apparatus.caloricfluxemitter.CaloricFluxEmitterSelectedPoint;
 import com.klikli_dev.theurgy.content.behaviour.interaction.SelectionBehaviour;
 import com.klikli_dev.theurgy.network.Networking;
-import com.klikli_dev.theurgy.network.messages.MessageCaloricFluxEmitterSelection;
+import com.klikli_dev.theurgy.network.messages.MessageSulfuricFluxEmitterSelection;
 import com.klikli_dev.theurgy.registry.BlockTagRegistry;
-import com.klikli_dev.theurgy.registry.CapabilityRegistry;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -21,16 +19,28 @@ public class SulfuricFluxEmitterSelectionBehaviour extends SelectionBehaviour<Su
     @Override
     protected void displaySummary(BlockPos pos, Player player) {
         if (this.selectedPoints.isEmpty()) {
-            player.displayClientMessage(Component.translatable(TheurgyConstants.I18n.Behaviour.SELECTION_SUMMARY_CALORIC_FLUX_EMITTER_NO_SELECTION).withStyle(ChatFormatting.RED), true);
+            player.displayClientMessage(Component.translatable(TheurgyConstants.I18n.Behaviour.SELECTION_SUMMARY_SULFURIC_FLUX_EMITTER_NO_SELECTION).withStyle(ChatFormatting.RED), true);
         } else {
-            //TODO: summarize - show count per type
-//            player.displayClientMessage(Component.translatable(TheurgyConstants.I18n.Behaviour.SELECTION_SUMMARY_CALORIC_FLUX_EMITTER, state.getBlock().getName()).withStyle(ChatFormatting.WHITE), true);
+            var sources = this.selectedPoints.stream().filter(s -> s.getType() == SulfuricFluxEmitterSelectedPoint.Type.SOURCE).count();
+            var targets = this.selectedPoints.stream().filter(s -> s.getType() == SulfuricFluxEmitterSelectedPoint.Type.TARGET).count();
+            var results = this.selectedPoints.stream().filter(s -> s.getType() == SulfuricFluxEmitterSelectedPoint.Type.RESULT).count();
+
+            player.displayClientMessage(Component.translatable(
+                    TheurgyConstants.I18n.Behaviour.SELECTION_SUMMARY_SULFURIC_FLUX_EMITTER,
+                    Component.literal(String.valueOf(sources)).withStyle(ChatFormatting.GREEN),
+                    Component.literal(String.valueOf(targets)).withStyle(ChatFormatting.DARK_PURPLE),
+                    Component.literal(String.valueOf(results)).withStyle(ChatFormatting.BLUE)
+            ).withStyle(ChatFormatting.WHITE), true);
         }
     }
 
     @Override
     protected void sendPlacementPacket(BlockPos pos) {
-        //TODO: send to server
+        var sources = this.selectedPoints.stream().filter(s -> s.getType() == SulfuricFluxEmitterSelectedPoint.Type.SOURCE).toList();
+        var target = this.selectedPoints.stream().filter(s -> s.getType() == SulfuricFluxEmitterSelectedPoint.Type.TARGET).findFirst().orElse(null);
+        var result = this.selectedPoints.stream().filter(s -> s.getType() == SulfuricFluxEmitterSelectedPoint.Type.RESULT).findFirst().orElse(null);
+
+        Networking.sendToServer(new MessageSulfuricFluxEmitterSelection(pos, sources, target, result));
     }
 
     @Override
@@ -40,7 +50,7 @@ public class SulfuricFluxEmitterSelectionBehaviour extends SelectionBehaviour<Su
 
     @Override
     public boolean canCreate(Level level, BlockPos pos, BlockState state) {
-        if(!level.isLoaded(pos))
+        if (!level.isLoaded(pos))
             return false;
 
         return state.is(BlockTagRegistry.REFORMATION_PEDESTALS);
@@ -59,7 +69,7 @@ public class SulfuricFluxEmitterSelectionBehaviour extends SelectionBehaviour<Su
     }
 
     private void makeSpaceForNewSelection(SulfuricFluxEmitterSelectedPoint.Type type) {
-        if(type == SulfuricFluxEmitterSelectedPoint.Type.SOURCE) {
+        if (type == SulfuricFluxEmitterSelectedPoint.Type.SOURCE) {
             //we can have unlimited source pedestals
         } else if (type == SulfuricFluxEmitterSelectedPoint.Type.TARGET) {
             //we can have only one target pedestal
@@ -71,10 +81,10 @@ public class SulfuricFluxEmitterSelectionBehaviour extends SelectionBehaviour<Su
     }
 
     private SulfuricFluxEmitterSelectedPoint.Type getType(BlockState state) {
-        if(state.is(BlockTagRegistry.REFORMATION_SOURCE_PEDESTALS))
+        if (state.is(BlockTagRegistry.REFORMATION_SOURCE_PEDESTALS))
             return SulfuricFluxEmitterSelectedPoint.Type.SOURCE;
 
-        if(state.is(BlockTagRegistry.REFORMATION_TARGET_PEDESTALS))
+        if (state.is(BlockTagRegistry.REFORMATION_TARGET_PEDESTALS))
             return SulfuricFluxEmitterSelectedPoint.Type.TARGET;
 
         return SulfuricFluxEmitterSelectedPoint.Type.RESULT;

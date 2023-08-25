@@ -67,6 +67,9 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
         this.add(TheurgyConstants.I18n.Behaviour.SELECTION_OUTSIDE_RANGE, "%1$s selected blocks removed for being out of range.");
         this.add(TheurgyConstants.I18n.Behaviour.SELECTION_SUMMARY_CALORIC_FLUX_EMITTER, "Caloric Flux Emitter targets %1$s.");
         this.add(TheurgyConstants.I18n.Behaviour.SELECTION_SUMMARY_CALORIC_FLUX_EMITTER_NO_SELECTION, "Caloric Flux Emitter has no target.");
+
+        this.add(TheurgyConstants.I18n.Behaviour.SELECTION_SUMMARY_SULFURIC_FLUX_EMITTER, "Sulfuric Flux Emitter is linked to %1$s source, %2$s target and %3$s result pedestals.");
+        this.add(TheurgyConstants.I18n.Behaviour.SELECTION_SUMMARY_SULFURIC_FLUX_EMITTER_NO_SELECTION, "Sulfuric Flux Emitter has no linked pedestals.");
     }
 
     private void addIntegrations() {

@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.6.4] - 2023-08-30
+### :bug: Bug Fixes
+- [`e334f90`](https://github.com/klikli-dev/theurgy/commit/e334f90e8a6947300db98336349cd1364857d5b1) - crash attempting to load client level on server *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.1-1.6.3] - 2023-08-22
 ### :bug: Bug Fixes
 - [`c747e94`](https://github.com/klikli-dev/theurgy/commit/c747e9495db442bf860cdfc1a8197908fe7941fd) - Crash due to loading client side classes on server *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -331,3 +336,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.6.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.6.0...release/v1.20.1-1.6.1
 [release/v1.20.1-1.6.2]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.6.1...release/v1.20.1-1.6.2
 [release/v1.20.1-1.6.3]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.6.2...release/v1.20.1-1.6.3
+[release/v1.20.1-1.6.4]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.6.3...release/v1.20.1-1.6.4

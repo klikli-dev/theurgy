@@ -1,9 +1,6 @@
 package com.klikli_dev.theurgy.network.messages;
 
-import com.klikli_dev.theurgy.content.apparatus.caloricfluxemitter.CaloricFluxEmitterBlockEntity;
-import com.klikli_dev.theurgy.content.apparatus.caloricfluxemitter.CaloricFluxEmitterSelectedPoint;
 import com.klikli_dev.theurgy.content.entity.FollowProjectile;
-import com.klikli_dev.theurgy.content.item.DivinationRodItem;
 import com.klikli_dev.theurgy.content.render.Color;
 import com.klikli_dev.theurgy.network.Message;
 import com.klikli_dev.theurgy.util.EntityUtil;
@@ -11,15 +8,9 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkEvent;
-
-import java.util.List;
 
 public class MessageShowCaloricFlux implements Message {
 
@@ -56,7 +47,7 @@ public class MessageShowCaloricFlux implements Message {
 
     @Override
     public void onClientReceived(Minecraft minecraft, Player player, NetworkEvent.Context context) {
-        var level = minecraft.level;
+        var level = player.level();
         var normal = Vec3.atLowerCornerOf(this.emitterDirection.getNormal());
         var from = Vec3.atCenterOf(this.from).subtract(normal.scale(0.5));
         var to = Vec3.atCenterOf(this.to);

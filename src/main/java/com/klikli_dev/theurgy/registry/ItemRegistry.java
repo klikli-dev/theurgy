@@ -11,6 +11,7 @@ import com.klikli_dev.theurgy.content.apparatus.distiller.DistillerBlockItem;
 import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorMercuryVesselBlockItem;
 import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorSaltVesselBlockItem;
 import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorSulfurVesselBlockItem;
+import com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator.SalAmmoniacAccumulatorBlockItem;
 import com.klikli_dev.theurgy.content.apparatus.salammoniactank.SalAmmoniacTankBlockItem;
 import com.klikli_dev.theurgy.content.item.DivinationRodItem;
 import net.minecraft.world.item.*;
@@ -116,7 +117,7 @@ public class ItemRegistry {
     public static final RegistryObject<BlockItem> INCUBATOR_SULFUR_VESSEL =
             ITEMS.register("incubator_sulfur_vessel", () -> new IncubatorSulfurVesselBlockItem(BlockRegistry.INCUBATOR_SULFUR_VESSEL.get(), new Item.Properties()));
     public static final RegistryObject<BlockItem> SAL_AMMONIAC_ACCUMULATOR =
-            ITEMS.register("sal_ammoniac_accumulator", () -> new BlockItem(BlockRegistry.SAL_AMMONIAC_ACCUMULATOR.get(), new Item.Properties()));
+            ITEMS.register("sal_ammoniac_accumulator", () -> new SalAmmoniacAccumulatorBlockItem(BlockRegistry.SAL_AMMONIAC_ACCUMULATOR.get(), new Item.Properties()));
     public static final RegistryObject<BlockItem> SAL_AMMONIAC_TANK =
             ITEMS.register("sal_ammoniac_tank", () -> new SalAmmoniacTankBlockItem(BlockRegistry.SAL_AMMONIAC_TANK.get(), new Item.Properties()));
     public static final RegistryObject<BlockItem> MERCURY_CATALYST =

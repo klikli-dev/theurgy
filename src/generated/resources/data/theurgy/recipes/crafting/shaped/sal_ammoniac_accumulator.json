@@ -1,20 +1,20 @@
 {
   "type": "minecraft:crafting_shaped",
   "key": {
-    "C": {
-      "tag": "forge:storage_blocks/copper"
-    },
     "I": {
       "tag": "forge:ingots/iron"
+    },
+    "R": {
+      "tag": "forge:rods/wooden"
     },
     "S": {
       "tag": "forge:stone"
     }
   },
   "pattern": [
-    "ICI",
-    "SIS",
-    "S S"
+    "SSS",
+    "III",
+    "R R"
   ],
   "result": {
     "count": 1,

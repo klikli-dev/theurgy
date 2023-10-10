@@ -61,7 +61,7 @@
       "anchor": "",
       "border": true,
       "images": [
-        "theurgy:textures/gui/book/256.png"
+        "theurgy:textures/gui/book/sal_ammoniac_accumulator_working.png"
       ],
       "text": "book.theurgy.the_hermetica.spagyrics.solvents.working.text",
       "title": "book.theurgy.the_hermetica.spagyrics.solvents.working.title"

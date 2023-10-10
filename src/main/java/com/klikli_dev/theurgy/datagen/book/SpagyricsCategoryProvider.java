@@ -352,7 +352,7 @@ public class SpagyricsCategoryProvider extends CategoryProvider {
         this.add(this.context().pageTitle(), "Crafting");
         this.add(this.context().pageText(),
                 """
-                        Sal Ammoniac is crafted in a {0}. It has two modes of operation: It can increase the concentration of naturally occuring Sal Ammoniac in water to a usable level via evaporation, which is a rather slow and inefficient process, or it can enrich water with {1} to produce a usable solvent much quicker.
+                        Sal Ammoniac is crafted in a {0}. It has two modes of operation: It can increase the concentration of naturally occurring Sal Ammoniac in water to a usable level via evaporation, which is a rather slow and inefficient process, or it can enrich water with {1} to produce a usable solvent much quicker.
                         """,
                 this.itemLink(ItemRegistry.SAL_AMMONIAC_ACCUMULATOR.get()),
                 this.itemLink("Sal Ammoniac Crystals", ItemRegistry.SAL_AMMONIAC_CRYSTAL.get())
@@ -401,12 +401,12 @@ public class SpagyricsCategoryProvider extends CategoryProvider {
         var working = BookImagePageModel.builder()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
-                .withImages(this.modLoc("textures/gui/book/256.png")) //TODO: Hermetica: add real image
+                .withImages(this.modLoc("textures/gui/book/sal_ammoniac_accumulator_working.png"))
                 .build();
         this.add(this.context().pageTitle(), "Working Correctly");
         this.add(this.context().pageText(),
                 """
-                        If the {0} is working properly, it will show bubbles.
+                        If working properly, it will show blue or yellow (if using Sal Ammoniac Crystals) bubbles.
                         """,
                 this.itemLink(ItemRegistry.SAL_AMMONIAC_ACCUMULATOR.get())
         );

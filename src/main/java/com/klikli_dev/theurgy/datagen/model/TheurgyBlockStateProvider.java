@@ -111,14 +111,15 @@ public class TheurgyBlockStateProvider extends BlockStateProvider {
     }
 
     protected void registerSalAmmoniacAccumulator() {
-        var model = this.models().withExistingParent("sal_ammoniac_accumulator", this.modLoc("block/sal_ammoniac_accumulator_template"))
-                .ao(false)
-                //blockbench spits out garbage textures by losing the folder name so we fix them here
-                .texture("texture", this.modLoc("block/sal_ammoniac_accumulator"))
-                .texture("particle", this.mcLoc("block/copper_block"));
+        //accumulator is rendered by geckolib, so we just give a model with a particle texture
+        //we then use it for both the lit and unlit blockstate
+        var model = this.models().getBuilder("sal_ammoniac_accumulator").texture("particle", "minecraft:block/copper_block");
 
         //build blockstate
-        this.simpleBlockWithItem(BlockRegistry.SAL_AMMONIAC_ACCUMULATOR.get(), model);
+        this.simpleBlock(BlockRegistry.SAL_AMMONIAC_ACCUMULATOR.get(), model);
+
+        //needs an item model that allows geckolib to render
+        this.itemModels().getBuilder("sal_ammoniac_accumulator").parent(new ModelFile.UncheckedModelFile("builtin/entity"));
     }
 
     protected void registerSalAmmoniacTank() {

@@ -1,4 +1,4 @@
-// 1.20.1	2023-08-09T10:41:17.2384965	Books: theurgy
+// 1.20.1	2023-10-10T14:25:54.1601208	Books: theurgy
 ead61475fc866f8eb903a6d99236808a0383fd5a data/theurgy/modonomicon/books/the_hermetica/book.json
 6397585a0c454daf7ca44fdfcd96a0fe11081905 data/theurgy/modonomicon/books/the_hermetica/categories/getting_started.json
 d4d2dff97b589c74c8cfed44677e9cf1707a99fd data/theurgy/modonomicon/books/the_hermetica/categories/mercury_flux.json
@@ -37,4 +37,4 @@ c5f51b786bfc5c7a7803362acde27cfba40b1107 data/theurgy/modonomicon/books/the_herm
 d3b133f22a814c94248deec0e585fc9c43228179 data/theurgy/modonomicon/books/the_hermetica/entries/spagyrics/liquefaction_cauldron.json
 331cba56f57b89d6ecbf894b01af825e50e108d9 data/theurgy/modonomicon/books/the_hermetica/entries/spagyrics/principles.json
 385ca34ac424c982fe951a36bbf2063af212639b data/theurgy/modonomicon/books/the_hermetica/entries/spagyrics/pyromantic_brazier.json
-8a14684d4563cf8f4ba7212e7f5b19fcc8e2db48 data/theurgy/modonomicon/books/the_hermetica/entries/spagyrics/solvents.json
+b0c8a709513a45788fa9bed6ad1347cdb7c17ba3 data/theurgy/modonomicon/books/the_hermetica/entries/spagyrics/solvents.json

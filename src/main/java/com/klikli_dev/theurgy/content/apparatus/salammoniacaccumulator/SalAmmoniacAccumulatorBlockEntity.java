@@ -32,10 +32,16 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import software.bernie.geckolib.animatable.GeoBlockEntity;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.function.Predicate;
 
-public class SalAmmoniacAccumulatorBlockEntity extends BlockEntity {
+public class SalAmmoniacAccumulatorBlockEntity extends BlockEntity implements GeoBlockEntity {
+
+    protected final AnimatableInstanceCache animatableInstanceCache = GeckoLibUtil.createInstanceCache(this);
 
     public ItemStackHandler inventory;
     public LazyOptional<IItemHandler> inventoryCapability;
@@ -54,7 +60,7 @@ public class SalAmmoniacAccumulatorBlockEntity extends BlockEntity {
         this.inventory = new Inventory();
         this.inventoryCapability = LazyOptional.of(() -> this.inventory);
 
-        this.craftingBehaviour = new SalAmmoniacAccumulatorCraftingBehaviour(this, () -> this.inventory, () -> this.inventory, () -> this.waterTank, () -> this.getOutputTank());
+        this.craftingBehaviour = new SalAmmoniacAccumulatorCraftingBehaviour(this, () -> this.inventory, () -> this.inventory, () -> this.waterTank, this::getOutputTank);
 
         this.waterTank = new WaterTank(FluidType.BUCKET_VOLUME * 10, this.craftingBehaviour::canProcess);
         this.waterTankCapability = LazyOptional.of(() -> this.waterTank);
@@ -137,7 +143,7 @@ public class SalAmmoniacAccumulatorBlockEntity extends BlockEntity {
                 var fluidHeight = fluidStack.getAmount() / (float) this.waterTank.getCapacity();
 
                 //move fluid plane between bottom and top of the model
-                fluidHeight += 0.5f;
+                fluidHeight += 0.3f;
                 fluidHeight *= 0.60f;
 
                 this.getLevel().addParticle(
@@ -211,6 +217,16 @@ public class SalAmmoniacAccumulatorBlockEntity extends BlockEntity {
         }
 
         this.craftingBehaviour.load(pTag);
+    }
+
+    @Override
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
+
+    }
+
+    @Override
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return this.animatableInstanceCache;
     }
 
     public class WaterTank extends FluidTank {

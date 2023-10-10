@@ -172,10 +172,10 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
 
         this.makeRecipe(ItemRegistry.SAL_AMMONIAC_ACCUMULATOR.get(), new RecipeBuilder(
                 ItemRegistry.SAL_AMMONIAC_ACCUMULATOR.get(), 1)
-                .pattern("ICI")
-                .pattern("SIS")
-                .pattern("S S")
-                .define('C', Tags.Items.STORAGE_BLOCKS_COPPER)
+                .pattern("SSS")
+                .pattern("III")
+                .pattern("R R")
+                .define('R', Tags.Items.RODS_WOODEN)
                 .define('I', Tags.Items.INGOTS_IRON)
                 .define('S', Tags.Items.STONE)
         );

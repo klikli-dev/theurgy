@@ -21,14 +21,11 @@ public class SalAmmoniacAccumulatorRenderer extends GeoBlockRenderer<SalAmmoniac
         super(new SalAmmoniacAccumulatorModel());
     }
 
-
     /**
      * See com.simibubi.create.content.fluids.tank.FluidTankRenderer
      */
     @Override
-    public void actuallyRender(PoseStack poseStack, SalAmmoniacAccumulatorBlockEntity pBlockEntity, BakedGeoModel model, RenderType renderType, MultiBufferSource bufferSource, VertexConsumer buffer, boolean isReRender, float partialTick, int pPackedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-        super.actuallyRender(poseStack, pBlockEntity, model, renderType, bufferSource, buffer, isReRender, partialTick, pPackedLight, packedOverlay, red, green, blue, alpha);
-
+    public void postRender(PoseStack poseStack, SalAmmoniacAccumulatorBlockEntity pBlockEntity, BakedGeoModel model, MultiBufferSource bufferSource, VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
         if (pBlockEntity.waterTank.isEmpty())
             return;
 
@@ -57,8 +54,9 @@ public class SalAmmoniacAccumulatorRenderer extends GeoBlockRenderer<SalAmmoniac
         float zMax = zMin + blockWidth - 2 * tankHullWidth;
 
         poseStack.pushPose();
+        poseStack.translate(-0.5f, 0, -0.5f);
         poseStack.translate(0, clampedLevel - totalHeight, 0);
-        FluidRenderer.renderFluidBox(fluidStack, xMin, yMin, zMin, xMax, yMax, zMax, bufferSource, poseStack, pPackedLight, false);
+        FluidRenderer.renderFluidBox(fluidStack, xMin, yMin, zMin, xMax, yMax, zMax, bufferSource, poseStack, packedLight, false);
         poseStack.popPose();
     }
 }

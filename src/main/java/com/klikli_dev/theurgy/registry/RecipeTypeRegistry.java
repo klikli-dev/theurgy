@@ -22,6 +22,7 @@ public class RecipeTypeRegistry {
     public static final RegistryObject<RecipeType<IncubationRecipe>> INCUBATION = register("incubation");
     public static final RegistryObject<RecipeType<AccumulationRecipe>> ACCUMULATION = register("accumulation");
     public static final RegistryObject<RecipeType<CatalysationRecipe>> CATALYSATION = register("catalysation");
+    public static final RegistryObject<RecipeType<ReformationRecipe>> REFORMATION = register("reformation");
 
     static <T extends Recipe<?>> RegistryObject<RecipeType<T>> register(final String id) {
         return RECIPE_TYPES.register(id, () -> new RecipeType<T>() {

@@ -51,7 +51,10 @@ public class SulfuricFluxEmitterBlockEntity extends BlockEntity {
     }
 
     public void tickServer() {
-
+        //TODO: before starting, check if all pedestals are available
+        //TODO: before creating result, check if all pedestals are available
+        //TODO: if a pedestal is destroyed it should deregister itself? -> probably not because it does not know
+        //      or we do it like incubator and DO store a reference?
     }
 
     @Override

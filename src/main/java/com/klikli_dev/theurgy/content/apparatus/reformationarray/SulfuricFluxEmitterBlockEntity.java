@@ -1,7 +1,9 @@
 package com.klikli_dev.theurgy.content.apparatus.reformationarray;
 
+import com.klikli_dev.theurgy.content.behaviour.CraftingBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.interaction.SelectionBehaviour;
 import com.klikli_dev.theurgy.content.capability.DefaultMercuryFluxStorage;
+import com.klikli_dev.theurgy.content.recipe.wrapper.ReformationArrayRecipeWrapper;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.CapabilityRegistry;
@@ -14,7 +16,9 @@ import net.minecraft.nbt.NbtOps;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.items.IItemHandlerModifiable;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -27,10 +31,13 @@ public class SulfuricFluxEmitterBlockEntity extends BlockEntity {
     public MercuryFluxStorage mercuryFluxStorage;
 
     public LazyOptional<MercuryFluxStorage> mercuryFluxStorageCapability;
-
+    public boolean isValidMultiblock;
     protected List<SulfuricFluxEmitterSelectedPoint> sourcePedestals;
     protected SulfuricFluxEmitterSelectedPoint targetPedestal;
     protected SulfuricFluxEmitterSelectedPoint resultPedestal;
+    protected CraftingBehaviour<?, ?, ?> craftingBehaviour;
+    protected boolean checkValidMultiblockOnNextQuery;
+    private ReformationArrayRecipeWrapper recipeWrapper;
 
     public SulfuricFluxEmitterBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(BlockEntityRegistry.SULFURIC_FLUX_EMITTER.get(), pPos, pBlockState);
@@ -38,7 +45,100 @@ public class SulfuricFluxEmitterBlockEntity extends BlockEntity {
         this.mercuryFluxStorage = new MercuryFluxStorage(CAPACITY);
         this.mercuryFluxStorageCapability = LazyOptional.of(() -> this.mercuryFluxStorage);
 
+        this.checkValidMultiblockOnNextQuery = true;
+
         this.sourcePedestals = new ArrayList<>();
+
+        this.craftingBehaviour = new ReformationArrayCraftingBehaviour(this, () -> this.recipeWrapper, () -> null, this::getOutputInventory);
+    }
+
+    public void removeResultPedestal(ReformationResultPedestalBlockEntity pedestal) {
+        this.resultPedestal = null;
+        this.isValidMultiblock = false;
+        this.onDisassembleMultiblock();
+    }
+
+    public void removeTargetPedestal(ReformationTargetPedestalBlockEntity pedestal) {
+        this.targetPedestal = null;
+        this.isValidMultiblock = false;
+        this.onDisassembleMultiblock();
+    }
+
+    public void removeSourcePedestal(ReformationSourcePedestalBlockEntity pedestal) {
+        this.sourcePedestals.removeIf(p -> p.getBlockPos().equals(pedestal.getBlockPos()));
+        if (this.sourcePedestals.isEmpty()) {
+            this.isValidMultiblock = false;
+            this.onDisassembleMultiblock();
+        }
+    }
+
+    public boolean isValidMultiblock() {
+        if (this.checkValidMultiblockOnNextQuery) {
+            this.checkValidMultiblockOnNextQuery = false;
+            this.validateMultiblock();
+        }
+        return this.isValidMultiblock;
+    }
+
+    public void validateMultiblock() {
+        var wasValidMultiblock = this.isValidMultiblock;
+
+        if (this.targetPedestal != null) {
+            var targetPedestalBlockEntity = (ReformationTargetPedestalBlockEntity) this.level.getBlockEntity(this.targetPedestal.getBlockPos());
+            if (targetPedestalBlockEntity == null) {
+                this.targetPedestal = null;
+                this.isValidMultiblock = false;
+            }
+        }
+        if (this.resultPedestal != null) {
+            var resultPedestalBlockEntity = (ReformationResultPedestalBlockEntity) this.level.getBlockEntity(this.resultPedestal.getBlockPos());
+            if (resultPedestalBlockEntity == null) {
+                this.resultPedestal = null;
+                this.isValidMultiblock = false;
+            }
+        }
+
+        var sourcesToRemove = new ArrayList<SulfuricFluxEmitterSelectedPoint>();
+        for (var sourcePedestal : this.sourcePedestals) {
+            var sourcePedestalBlockEntity = (ReformationSourcePedestalBlockEntity) this.level.getBlockEntity(sourcePedestal.getBlockPos());
+            if (sourcePedestalBlockEntity == null) {
+                sourcesToRemove.add(sourcePedestal);
+            }
+        }
+        this.sourcePedestals.removeAll(sourcesToRemove);
+        if (this.sourcePedestals.isEmpty())
+            this.isValidMultiblock = false;
+
+        if (wasValidMultiblock != this.isValidMultiblock) {
+            if (this.isValidMultiblock) {
+                this.onAssembleMultiblock();
+            } else {
+                this.onDisassembleMultiblock();
+            }
+        }
+    }
+
+    public void onAssembleMultiblock() {
+        var targetPedestalBlockEntity = (ReformationTargetPedestalBlockEntity) this.level.getBlockEntity(this.targetPedestal.getBlockPos());
+
+        var sourceInventories = this.sourcePedestals.stream()
+                .map(p -> this.level.getBlockEntity(p.getBlockPos()))
+                .map(e -> (ReformationSourcePedestalBlockEntity) e)
+                .map(e -> e.inputInventory)
+                .map(e -> (IItemHandlerModifiable) e)
+                .toList();
+
+        this.recipeWrapper = new ReformationArrayRecipeWrapper(sourceInventories, targetPedestalBlockEntity.inputInventory);
+    }
+
+    public void onDisassembleMultiblock() {
+        this.recipeWrapper = null;
+    }
+
+    public IItemHandlerModifiable getOutputInventory() {
+        var pos = this.resultPedestal.getBlockPos();
+        var blockEntity = this.level.getBlockEntity(pos);
+        return (IItemHandlerModifiable) blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).cast().resolve().get();
     }
 
     @Override

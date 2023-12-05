@@ -16,16 +16,34 @@ import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.lang.ref.WeakReference;
+
 public class ReformationSourcePedestalBlockEntity extends BlockEntity {
 
     public ItemStackHandler inputInventory;
     public LazyOptional<IItemHandler> inputInventoryCapability;
+
+    public WeakReference<SulfuricFluxEmitterBlockEntity> sulfuricFluxEmitter;
 
     public ReformationSourcePedestalBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(BlockEntityRegistry.REFORMATION_SOURCE_PEDESTAL.get(), pPos, pBlockState);
 
         this.inputInventory = new InputInventory();
         this.inputInventoryCapability = LazyOptional.of(() -> this.inputInventory);
+    }
+
+    public void setSulfuricFluxEmitter(SulfuricFluxEmitterBlockEntity sulfuricFluxEmitter) {
+        this.sulfuricFluxEmitter = new WeakReference<>(sulfuricFluxEmitter);
+    }
+
+    @Override
+    public void setRemoved() {
+        if (this.sulfuricFluxEmitter.get() != null) {
+            this.sulfuricFluxEmitter.get().removeSourcePedestal(this);
+            this.sulfuricFluxEmitter = null;
+        }
+
+        super.setRemoved();
     }
 
     @Override

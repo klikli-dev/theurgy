@@ -47,6 +47,22 @@ public class ReformationRecipe implements Recipe<ReformationArrayRecipeWrapper> 
         this.reformationTime = reformationTime;
     }
 
+    public List<IngedientWithCount> getSources() {
+        return this.sources;
+    }
+
+    public Ingredient getTarget() {
+        return this.target;
+    }
+
+    public ItemStack getResult() {
+        return this.result;
+    }
+
+    public int getReformationTime() {
+        return this.reformationTime;
+    }
+
     @Override
     public boolean matches(ReformationArrayRecipeWrapper pContainer, Level pLevel) {
 

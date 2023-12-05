@@ -37,6 +37,8 @@ public class SulfuricFluxEmitterBlockEntity extends BlockEntity {
     protected SulfuricFluxEmitterSelectedPoint resultPedestal;
     protected CraftingBehaviour<?, ?, ?> craftingBehaviour;
     protected boolean checkValidMultiblockOnNextQuery;
+    protected boolean hasSourceItems;
+    protected boolean hasTargetItem;
     private ReformationArrayRecipeWrapper recipeWrapper;
 
     public SulfuricFluxEmitterBlockEntity(BlockPos pPos, BlockState pBlockState) {
@@ -61,6 +63,7 @@ public class SulfuricFluxEmitterBlockEntity extends BlockEntity {
     public void removeTargetPedestal(ReformationTargetPedestalBlockEntity pedestal) {
         this.targetPedestal = null;
         this.isValidMultiblock = false;
+        this.hasTargetItem = false;
         this.onDisassembleMultiblock();
     }
 
@@ -68,6 +71,7 @@ public class SulfuricFluxEmitterBlockEntity extends BlockEntity {
         this.sourcePedestals.removeIf(p -> p.getBlockPos().equals(pedestal.getBlockPos()));
         if (this.sourcePedestals.isEmpty()) {
             this.isValidMultiblock = false;
+            this.hasSourceItems = false;
             this.onDisassembleMultiblock();
         }
     }
@@ -151,10 +155,12 @@ public class SulfuricFluxEmitterBlockEntity extends BlockEntity {
     }
 
     public void tickServer() {
-        //TODO: before starting, check if all pedestals are available
-        //TODO: before creating result, check if all pedestals are available
-        //TODO: if a pedestal is destroyed it should deregister itself? -> probably not because it does not know
-        //      or we do it like incubator and DO store a reference?
+        //TODO: further, we should probably pause checks if that source + target do not produce a valid recipe
+        //      we only re-check if one of the pedestal input changes.
+        boolean hasInput = this.isValidMultiblock() && this.hasSourceItems && this.hasTargetItem;
+        this.craftingBehaviour.tickServer(true, hasInput);
+
+        //TODO: mercury flux needs to be part of the recipe, and consumed
     }
 
     @Override
@@ -221,6 +227,17 @@ public class SulfuricFluxEmitterBlockEntity extends BlockEntity {
         this.resultPedestal = resultPedestal == null ? null : resultPedestal.getBlockPos().closerThan(this.getBlockPos(), range) ? resultPedestal : null;
 
         this.setChanged();
+    }
+
+    public void onTargetPedestalContentChange(ReformationTargetPedestalBlockEntity pedestal){
+        this.hasTargetItem = !pedestal.inputInventory.getStackInSlot(0).isEmpty();
+    }
+
+    public void onSourcePedestalContentChange(ReformationSourcePedestalBlockEntity pedestal){
+        this.hasSourceItems = this.sourcePedestals.stream().map(p -> this.level.getBlockEntity(p.getBlockPos()))
+                .filter(e -> e instanceof ReformationSourcePedestalBlockEntity)
+                .map(e -> (ReformationSourcePedestalBlockEntity) e)
+                .anyMatch(p -> !p.inputInventory.getStackInSlot(0).isEmpty());
     }
 
     public class MercuryFluxStorage extends DefaultMercuryFluxStorage {

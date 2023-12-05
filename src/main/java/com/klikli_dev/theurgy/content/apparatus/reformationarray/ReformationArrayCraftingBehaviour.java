@@ -6,6 +6,7 @@ package com.klikli_dev.theurgy.content.apparatus.reformationarray;
 
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.content.behaviour.CraftingBehaviour;
+import com.klikli_dev.theurgy.content.capability.MercuryFluxStorage;
 import com.klikli_dev.theurgy.content.recipe.ReformationRecipe;
 import com.klikli_dev.theurgy.content.recipe.wrapper.ReformationArrayRecipeWrapper;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
@@ -18,12 +19,17 @@ import net.minecraftforge.items.ItemHandlerHelper;
 import java.util.function.Supplier;
 
 public class ReformationArrayCraftingBehaviour extends CraftingBehaviour<ReformationArrayRecipeWrapper, ReformationRecipe, RecipeManager.CachedCheck<ReformationArrayRecipeWrapper, ReformationRecipe>> {
-    public ReformationArrayCraftingBehaviour(BlockEntity blockEntity, Supplier<ReformationArrayRecipeWrapper> recipeWrapperSupplier, Supplier<IItemHandlerModifiable> inputInventorySupplier, Supplier<IItemHandlerModifiable> outputInventorySupplier) {
+
+    protected final Supplier<MercuryFluxStorage> mercuryFluxStorageSupplier;
+
+    public ReformationArrayCraftingBehaviour(BlockEntity blockEntity, Supplier<ReformationArrayRecipeWrapper> recipeWrapperSupplier, Supplier<IItemHandlerModifiable> inputInventorySupplier, Supplier<IItemHandlerModifiable> outputInventorySupplier, Supplier<MercuryFluxStorage> mercuryFluxStorageSupplier) {
         super(blockEntity,
                 recipeWrapperSupplier,
                 inputInventorySupplier,
                 outputInventorySupplier,
                 RecipeManager.createCheck(RecipeTypeRegistry.REFORMATION.get()));
+
+        this.mercuryFluxStorageSupplier = mercuryFluxStorageSupplier;
     }
 
     @Override
@@ -39,10 +45,10 @@ public class ReformationArrayCraftingBehaviour extends CraftingBehaviour<Reforma
         var recipeWrapper = this.recipeWrapperSupplier.get();
         var assembledStack = pRecipe.assemble(recipeWrapper, this.blockEntity.getLevel().registryAccess());
 
-        // Safely insert the assembledStack into the outputInventory and update the input stack.
-        ItemHandlerHelper.insertItemStacked(this.outputInventorySupplier.get(), assembledStack, false);
-
         //TODO: test taking out item during crafting process
+
+        //consume energy
+        this.mercuryFluxStorageSupplier.get().extractEnergy(pRecipe.getMercuryFlux(), false);
 
         //loop through required sources of recipe and through source inventories and extract
         for (var source : pRecipe.getSources()) {
@@ -62,6 +68,9 @@ public class ReformationArrayCraftingBehaviour extends CraftingBehaviour<Reforma
             if (remaining > 0)
                 Theurgy.LOGGER.error("Could not find enough sources for reformation recipe.");
         }
+
+        // Safely insert the assembledStack into the outputInventory and update the input stack.
+        ItemHandlerHelper.insertItemStacked(this.outputInventorySupplier.get(), assembledStack, false);
 
         return true;
     }

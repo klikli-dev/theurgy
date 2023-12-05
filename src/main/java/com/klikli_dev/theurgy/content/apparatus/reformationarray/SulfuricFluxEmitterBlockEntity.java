@@ -51,7 +51,7 @@ public class SulfuricFluxEmitterBlockEntity extends BlockEntity {
 
         this.sourcePedestals = new ArrayList<>();
 
-        this.craftingBehaviour = new ReformationArrayCraftingBehaviour(this, () -> this.recipeWrapper, () -> null, this::getOutputInventory);
+        this.craftingBehaviour = new ReformationArrayCraftingBehaviour(this, () -> this.recipeWrapper, () -> null, this::getOutputInventory, () -> this.mercuryFluxStorage);
     }
 
     public void removeResultPedestal(ReformationResultPedestalBlockEntity pedestal) {
@@ -132,7 +132,7 @@ public class SulfuricFluxEmitterBlockEntity extends BlockEntity {
                 .map(e -> (IItemHandlerModifiable) e)
                 .toList();
 
-        this.recipeWrapper = new ReformationArrayRecipeWrapper(sourceInventories, targetPedestalBlockEntity.inputInventory);
+        this.recipeWrapper = new ReformationArrayRecipeWrapper(sourceInventories, targetPedestalBlockEntity.inputInventory, this.mercuryFluxStorage);
     }
 
     public void onDisassembleMultiblock() {
@@ -160,7 +160,8 @@ public class SulfuricFluxEmitterBlockEntity extends BlockEntity {
         boolean hasInput = this.isValidMultiblock() && this.hasSourceItems && this.hasTargetItem;
         this.craftingBehaviour.tickServer(true, hasInput);
 
-        //TODO: mercury flux needs to be part of the recipe, and consumed
+        //TODO: visuals!
+        //      use isCrafting boolean, only switch it if we stop crafting
     }
 
     @Override

@@ -31,19 +31,22 @@ public class ReformationRecipe implements Recipe<ReformationArrayRecipeWrapper> 
                     IngedientWithCount.CODEC.listOf().fieldOf("sources").forGetter(r -> r.sources),
                     TheurgyExtraCodecs.INGREDIENT.fieldOf("target").forGetter(r -> r.target),
                     ItemStack.CODEC.fieldOf("result").forGetter(r -> r.result),
+                    Codec.INT.fieldOf("mercuryFlux").forGetter(r -> r.mercuryFlux),
                     Codec.INT.optionalFieldOf("reformationTime", DEFAULT_REFORMATION_TIME).forGetter(r -> r.reformationTime)
             ).apply(instance, ReformationRecipe::new)
     );
     protected final List<IngedientWithCount> sources;
     protected final Ingredient target;
     protected final ItemStack result;
+    protected final int mercuryFlux;
     protected final int reformationTime;
     protected ResourceLocation id;
 
-    public ReformationRecipe(List<IngedientWithCount> sources, Ingredient target, ItemStack result, int reformationTime) {
+    public ReformationRecipe(List<IngedientWithCount> sources, Ingredient target, ItemStack result, int mercuryFlux, int reformationTime) {
         this.sources = sources;
         this.target = target;
         this.result = result;
+        this.mercuryFlux = mercuryFlux;
         this.reformationTime = reformationTime;
     }
 
@@ -59,12 +62,20 @@ public class ReformationRecipe implements Recipe<ReformationArrayRecipeWrapper> 
         return this.result;
     }
 
+    public int getMercuryFlux() {
+        return this.mercuryFlux;
+    }
+
     public int getReformationTime() {
         return this.reformationTime;
     }
 
     @Override
     public boolean matches(ReformationArrayRecipeWrapper pContainer, Level pLevel) {
+
+        //if we do not have enough flux, exit early
+        if (pContainer.getMercuryFluxStorage().getEnergyStored() < this.mercuryFlux)
+            return false;
 
         //if the target does not match we can exit early.
         if (this.target.test(pContainer.getTargetPedestalInv().getStackInSlot(0)))

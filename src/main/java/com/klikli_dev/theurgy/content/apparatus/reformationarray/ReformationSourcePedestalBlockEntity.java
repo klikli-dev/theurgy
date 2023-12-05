@@ -38,9 +38,9 @@ public class ReformationSourcePedestalBlockEntity extends BlockEntity {
 
     @Override
     public void setRemoved() {
-        if (this.sulfuricFluxEmitter.get() != null) {
+        if (this.sulfuricFluxEmitter != null && this.sulfuricFluxEmitter.get() != null) {
             this.sulfuricFluxEmitter.get().removeSourcePedestal(this);
-            this.sulfuricFluxEmitter = null;
+            this.sulfuricFluxEmitter.clear();
         }
 
         super.setRemoved();

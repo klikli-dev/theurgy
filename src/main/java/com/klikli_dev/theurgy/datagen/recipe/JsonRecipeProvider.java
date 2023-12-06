@@ -108,11 +108,24 @@ public abstract class JsonRecipeProvider implements DataProvider {
         return jsonobject;
     }
 
+    public JsonObject makeTagIngredient(ResourceLocation tag, int count) {
+        var jsonobject = this.makeTagIngredient(tag);
+        jsonobject.addProperty("count", count);
+        return jsonobject;
+    }
+
     public JsonObject makeItemIngredient(ResourceLocation item) {
         JsonObject jsonobject = new JsonObject();
         jsonobject.addProperty("item", item.toString());
         return jsonobject;
     }
+
+    public JsonObject makeItemIngredient(ResourceLocation item, int count) {
+        var jsonobject = this.makeItemIngredient(item);
+        jsonobject.addProperty("count", count);
+        return jsonobject;
+    }
+
 
     public JsonObject makeItemResult(ResourceLocation item) {
         return this.makeItemResult(item, 1);
@@ -132,6 +145,28 @@ public abstract class JsonRecipeProvider implements DataProvider {
         jsonobject.addProperty("count", count);
         if (nbt != null) {
             jsonobject.add("nbt", nbt);
+        }
+        return jsonobject;
+    }
+
+    public JsonObject makeItemStackCodecResult(ResourceLocation item) {
+        return this.makeItemStackCodecResult(item, 1);
+    }
+
+    public JsonObject makeItemStackCodecResult(ResourceLocation item, int count) {
+        return this.makeItemStackCodecResult(item, count, (JsonObject) null);
+    }
+
+    public JsonObject makeItemStackCodecResult(ResourceLocation item, int count, @Nullable CompoundTag nbt) {
+        return this.makeItemStackCodecResult(item, count, nbt == null ? null : (JsonObject) NbtOps.INSTANCE.convertTo(JsonOps.INSTANCE, nbt));
+    }
+
+    public JsonObject makeItemStackCodecResult(ResourceLocation item, int count, @Nullable JsonObject nbt) {
+        JsonObject jsonobject = new JsonObject();
+        jsonobject.addProperty("id", item.toString());
+        jsonobject.addProperty("Count", count);
+        if (nbt != null) {
+            jsonobject.add("tag", nbt);
         }
         return jsonobject;
     }

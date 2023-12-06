@@ -60,6 +60,7 @@ public class TheurgyDataGenerators {
         generator.addProvider(event.includeServer(), new IncubationRecipeProvider(generator.getPackOutput()));
         generator.addProvider(event.includeServer(), new AccumulationRecipeProvider(generator.getPackOutput()));
         generator.addProvider(event.includeServer(), new CatalysationRecipeProvider(generator.getPackOutput()));
+        generator.addProvider(event.includeServer(), new ReformationRecipeProvider(generator.getPackOutput()));
 
         generator.addProvider(event.includeServer(), new TheurgyMultiblockProvider(generator.getPackOutput()));
 

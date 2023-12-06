@@ -31,8 +31,8 @@ public class ReformationRecipe implements Recipe<ReformationArrayRecipeWrapper> 
                     IngedientWithCount.CODEC.listOf().fieldOf("sources").forGetter(r -> r.sources),
                     TheurgyExtraCodecs.INGREDIENT.fieldOf("target").forGetter(r -> r.target),
                     ItemStack.CODEC.fieldOf("result").forGetter(r -> r.result),
-                    Codec.INT.fieldOf("mercuryFlux").forGetter(r -> r.mercuryFlux),
-                    Codec.INT.optionalFieldOf("reformationTime", DEFAULT_REFORMATION_TIME).forGetter(r -> r.reformationTime)
+                    Codec.INT.fieldOf("mercury_flux").forGetter(r -> r.mercuryFlux),
+                    Codec.INT.optionalFieldOf("reformation_time", DEFAULT_REFORMATION_TIME).forGetter(r -> r.reformationTime)
             ).apply(instance, ReformationRecipe::new)
     );
     protected final List<IngedientWithCount> sources;
@@ -140,7 +140,7 @@ public class ReformationRecipe implements Recipe<ReformationArrayRecipeWrapper> 
 
     public record IngedientWithCount(Ingredient ingredient, int count) {
         public static final Codec<IngedientWithCount> CODEC = Codec.pair(
-                Codec.INT.optionalFieldOf("amount", 1).codec(),
+                Codec.INT.optionalFieldOf("count", 1).codec(),
                 TheurgyExtraCodecs.INGREDIENT
         ).xmap(s -> new IngedientWithCount(s.getSecond(), s.getFirst()), s -> Pair.of(s.count, s.ingredient));
     }

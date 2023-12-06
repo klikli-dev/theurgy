@@ -109,7 +109,8 @@ public class SulfuricFluxEmitterBlockEntity extends BlockEntity {
                 sourcesToRemove.add(sourcePedestal);
             }
         }
-        this.sourcePedestals.removeAll(sourcesToRemove);
+        if(!sourcesToRemove.isEmpty())
+            this.sourcePedestals.removeAll(sourcesToRemove);
         if (this.sourcePedestals.isEmpty())
             this.isValidMultiblock = false;
 

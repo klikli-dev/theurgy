@@ -95,13 +95,18 @@ public class SulfuricFluxEmitterBlockEntity extends BlockEntity {
                 this.targetPedestal = null;
                 this.isValidMultiblock = false;
             }
+        } else{
+            this.isValidMultiblock = false;
         }
+
         if (this.resultPedestal != null) {
             var resultPedestalBlockEntity = (ReformationResultPedestalBlockEntity) this.level.getBlockEntity(this.resultPedestal.getBlockPos());
             if (resultPedestalBlockEntity == null) {
                 this.resultPedestal = null;
                 this.isValidMultiblock = false;
             }
+        } else{
+            this.isValidMultiblock = false;
         }
 
         var sourcesToRemove = new ArrayList<SulfuricFluxEmitterSelectedPoint>();
@@ -137,6 +142,7 @@ public class SulfuricFluxEmitterBlockEntity extends BlockEntity {
                 .map(p -> this.level.getBlockEntity(p.getBlockPos()))
                 .map(e -> (ReformationSourcePedestalBlockEntity) e)
                 .peek(e -> e.setSulfuricFluxEmitter(this))
+                .peek(this::onSourcePedestalContentChange)
                 .map(e -> e.inputInventory)
                 .map(e -> (IItemHandlerModifiable) e)
                 .toList();

@@ -88,10 +88,10 @@ public class ReformationTargetPedestalBlockEntity extends BlockEntity {
         @Override
         protected void onContentsChanged(int slot) {
             ReformationTargetPedestalBlockEntity.this.setChanged();
-            var emitter = ReformationTargetPedestalBlockEntity.this.sulfuricFluxEmitter.get();
+            var emitter = ReformationTargetPedestalBlockEntity.this.sulfuricFluxEmitter;
 
-            if(emitter != null)
-                emitter.onTargetPedestalContentChange(ReformationTargetPedestalBlockEntity.this);
+            if(emitter != null && emitter.get() != null)
+                emitter.get().onTargetPedestalContentChange(ReformationTargetPedestalBlockEntity.this);
         }
     }
 }

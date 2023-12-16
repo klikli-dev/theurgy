@@ -78,7 +78,7 @@ public class ReformationRecipe implements Recipe<ReformationArrayRecipeWrapper> 
             return false;
 
         //if the target does not match we can exit early.
-        if (this.target.test(pContainer.getTargetPedestalInv().getStackInSlot(0)))
+        if (!this.target.test(pContainer.getTargetPedestalInv().getStackInSlot(0)))
             return false;
 
         //For the sources the tricky part is that the amount of source pedestals does not need to match the amount of sources in the recipe.

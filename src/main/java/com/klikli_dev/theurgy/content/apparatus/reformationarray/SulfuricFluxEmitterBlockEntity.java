@@ -87,6 +87,8 @@ public class SulfuricFluxEmitterBlockEntity extends BlockEntity {
     public void validateMultiblock() {
         var wasValidMultiblock = this.isValidMultiblock;
 
+        this.isValidMultiblock = true; //set to true, then set to false if any of the checks fail
+
         if (this.targetPedestal != null) {
             var targetPedestalBlockEntity = (ReformationTargetPedestalBlockEntity) this.level.getBlockEntity(this.targetPedestal.getBlockPos());
             if (targetPedestalBlockEntity == null) {
@@ -109,7 +111,7 @@ public class SulfuricFluxEmitterBlockEntity extends BlockEntity {
                 sourcesToRemove.add(sourcePedestal);
             }
         }
-        if(!sourcesToRemove.isEmpty())
+        if (!sourcesToRemove.isEmpty())
             this.sourcePedestals.removeAll(sourcesToRemove);
         if (this.sourcePedestals.isEmpty())
             this.isValidMultiblock = false;
@@ -125,13 +127,20 @@ public class SulfuricFluxEmitterBlockEntity extends BlockEntity {
 
     public void onAssembleMultiblock() {
         var targetPedestalBlockEntity = (ReformationTargetPedestalBlockEntity) this.level.getBlockEntity(this.targetPedestal.getBlockPos());
+        targetPedestalBlockEntity.setSulfuricFluxEmitter(this);
+
+        var resultPedestalBlockEntity = (ReformationResultPedestalBlockEntity) this.level.getBlockEntity(this.resultPedestal.getBlockPos());
+        resultPedestalBlockEntity.setSulfuricFluxEmitter(this);
+
 
         var sourceInventories = this.sourcePedestals.stream()
                 .map(p -> this.level.getBlockEntity(p.getBlockPos()))
                 .map(e -> (ReformationSourcePedestalBlockEntity) e)
+                .peek(e -> e.setSulfuricFluxEmitter(this))
                 .map(e -> e.inputInventory)
                 .map(e -> (IItemHandlerModifiable) e)
                 .toList();
+
 
         this.recipeWrapper = new ReformationArrayRecipeWrapper(sourceInventories, targetPedestalBlockEntity.inputInventory, this.mercuryFluxStorage);
     }
@@ -143,7 +152,10 @@ public class SulfuricFluxEmitterBlockEntity extends BlockEntity {
     public IItemHandlerModifiable getOutputInventory() {
         var pos = this.resultPedestal.getBlockPos();
         var blockEntity = this.level.getBlockEntity(pos);
-        return (IItemHandlerModifiable) blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).cast().resolve().get();
+        if(blockEntity instanceof ReformationResultPedestalBlockEntity pedestal){
+            return pedestal.outputInventory;
+        }
+        return null;
     }
 
     @Override
@@ -231,11 +243,11 @@ public class SulfuricFluxEmitterBlockEntity extends BlockEntity {
         this.setChanged();
     }
 
-    public void onTargetPedestalContentChange(ReformationTargetPedestalBlockEntity pedestal){
+    public void onTargetPedestalContentChange(ReformationTargetPedestalBlockEntity pedestal) {
         this.hasTargetItem = !pedestal.inputInventory.getStackInSlot(0).isEmpty();
     }
 
-    public void onSourcePedestalContentChange(ReformationSourcePedestalBlockEntity pedestal){
+    public void onSourcePedestalContentChange(ReformationSourcePedestalBlockEntity pedestal) {
         this.hasSourceItems = this.sourcePedestals.stream().map(p -> this.level.getBlockEntity(p.getBlockPos()))
                 .filter(e -> e instanceof ReformationSourcePedestalBlockEntity)
                 .map(e -> (ReformationSourcePedestalBlockEntity) e)

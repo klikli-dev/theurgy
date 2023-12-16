@@ -235,7 +235,8 @@ public class SulfuricFluxEmitterBlockEntity extends BlockEntity {
             this.mercuryFluxStorage.deserializeNBT(pTag.get("mercuryFluxStorage"));
 
         if (pTag.contains("sourcePedestals")) {
-            this.sourcePedestals = Util.getOrThrow(SulfuricFluxEmitterSelectedPoint.LIST_CODEC.parse(NbtOps.INSTANCE, pTag.get("sourcePedestals")), (e) -> new EncoderException("Failed to decode: " + e + " " + pTag.get("sourcePedestals")));
+            this.sourcePedestals.clear();
+            this.sourcePedestals.addAll(Util.getOrThrow(SulfuricFluxEmitterSelectedPoint.LIST_CODEC.parse(NbtOps.INSTANCE, pTag.get("sourcePedestals")), (e) -> new EncoderException("Failed to decode: " + e + " " + pTag.get("sourcePedestals"))));
         }
 
         if (pTag.contains("targetPedestal")) {
@@ -290,7 +291,7 @@ public class SulfuricFluxEmitterBlockEntity extends BlockEntity {
     public void setSelectedPoints(List<SulfuricFluxEmitterSelectedPoint> sourcePedestals, SulfuricFluxEmitterSelectedPoint targetPedestal, SulfuricFluxEmitterSelectedPoint resultPedestal) {
         var range = this.getSelectionBehaviour().getBlockRange();
 
-        this.sourcePedestals = sourcePedestals;
+        this.sourcePedestals.addAll(sourcePedestals);
         this.sourcePedestals.removeIf(p -> !p.getBlockPos().closerThan(this.getBlockPos(), range));
 
         this.targetPedestal = targetPedestal == null ? null : targetPedestal.getBlockPos().closerThan(this.getBlockPos(), range) ? targetPedestal : null;

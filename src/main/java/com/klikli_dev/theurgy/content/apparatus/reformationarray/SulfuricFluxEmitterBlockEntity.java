@@ -1,13 +1,17 @@
 package com.klikli_dev.theurgy.content.apparatus.reformationarray;
 
 import com.klikli_dev.theurgy.Theurgy;
+import com.klikli_dev.theurgy.content.apparatus.caloricfluxemitter.CaloricFluxEmitterBlock;
 import com.klikli_dev.theurgy.content.behaviour.CraftingBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.interaction.SelectionBehaviour;
 import com.klikli_dev.theurgy.content.capability.DefaultMercuryFluxStorage;
+import com.klikli_dev.theurgy.content.entity.FollowProjectile;
 import com.klikli_dev.theurgy.content.recipe.wrapper.ReformationArrayRecipeWrapper;
+import com.klikli_dev.theurgy.content.render.Color;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.CapabilityRegistry;
+import com.klikli_dev.theurgy.util.EntityUtil;
 import io.netty.handler.codec.EncoderException;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
@@ -20,6 +24,8 @@ import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandlerModifiable;
@@ -183,14 +189,53 @@ public class SulfuricFluxEmitterBlockEntity extends BlockEntity {
         //      we only re-check if one of the pedestal input changes.
         boolean hasInput = this.isValidMultiblock() && this.hasSourceItems && this.hasTargetItem;
         this.craftingBehaviour.tickServer(true, hasInput);
-
-        //TODO: visuals!
-        //      use isCrafting boolean, only switch it if we stop crafting
     }
 
     public void tickClient() {
+
+        //TODO: most likely spawning a particle here will error in a server+client env so we need to load this behind a classguard
         if (this.craftingBehaviour.isProcessing()) {
-            Theurgy.LOGGER.debug("Processing");
+            if(this.level.getGameTime() % 40 == 0) {
+                //TODO: show particles flying from emitter to target to source to result
+                //TODO: consider allowing particle to go closer than 1 block. will need a safeguard in case the particle passes the target within one tick.
+                //      to that end we should measure the distance from source to target and from source to particle, and if particle has ever been closer than 1 AND distance to target is less than distance to particle, we stop the particle.
+                var normal = Vec3.atLowerCornerOf(this.getBlockState().getValue(BlockStateProperties.FACING).getNormal());
+                var from = Vec3.atCenterOf(this.getBlockPos()).subtract(normal.scale(0.5));
+                var to = Vec3.atCenterOf(this.targetPedestal.getBlockPos()).add(0, 0.7, 0);
+
+                if (level.isLoaded(BlockPos.containing(to)) && level.isLoaded(BlockPos.containing(from)) && level.isClientSide) {
+                    FollowProjectile projectile = new FollowProjectile(level, from, to, new Color(0xffffff, false), 0.1f, (p) -> {
+                        for(var sourcePedestal :  this.sourcePedestals) {
+                            //TODO: only sources with content! maybe pre-filter before sending to client
+                            var sfrom = Vec3.atCenterOf(this.targetPedestal.getBlockPos()).add(0, 0.7, 0);
+                            var sto = Vec3.atCenterOf(sourcePedestal.getBlockPos()).add(0, 0.7, 0);
+                            var snormal = sto.subtract(sfrom).normalize();
+
+                            if (level.isLoaded(BlockPos.containing(sto)) && level.isLoaded(BlockPos.containing(sfrom)) && level.isClientSide) {
+                                FollowProjectile sprojectile = new FollowProjectile(level, sfrom, sto, new Color(0x0000FF, false), 0.1f,
+                                        (p2) -> {
+                                                var tfrom = sto;
+                                                var tto = Vec3.atCenterOf(this.resultPedestal.getBlockPos()).add(0, 0.7, 0);
+                                                var tnormal = tto.subtract(tfrom).normalize();
+
+                                                if (level.isLoaded(BlockPos.containing(tto)) && level.isLoaded(BlockPos.containing(tfrom)) && level.isClientSide) {
+                                                    FollowProjectile tprojectile = new FollowProjectile(level, tfrom, tto, new Color(0x008000, false), 0.1f);
+                                                    tprojectile.setDeltaMovement(tnormal.scale(0.1f));
+
+                                                    EntityUtil.spawnEntityClientSide(level, tprojectile);
+                                                }
+                                        });
+                                sprojectile.setDeltaMovement(snormal.scale(0.3f));
+
+                                EntityUtil.spawnEntityClientSide(level, sprojectile);
+                            }
+                        }
+                    });
+                    projectile.setDeltaMovement(normal.scale(0.3f));
+
+                    EntityUtil.spawnEntityClientSide(level, projectile);
+                }
+            }
         }
     }
 
@@ -276,12 +321,34 @@ public class SulfuricFluxEmitterBlockEntity extends BlockEntity {
         }
     }
 
-    public void readNetwork(CompoundTag tag) {
-        this.craftingBehaviour.readNetwork(tag);
+    public void readNetwork(CompoundTag pTag) {
+
+        if (pTag.contains("sourcePedestals")) {
+            this.sourcePedestals.clear();
+            this.sourcePedestals.addAll(Util.getOrThrow(SulfuricFluxEmitterSelectedPoint.LIST_CODEC.parse(NbtOps.INSTANCE, pTag.get("sourcePedestals")), (e) -> new EncoderException("Failed to decode: " + e + " " + pTag.get("sourcePedestals"))));
+        }
+
+        if (pTag.contains("targetPedestal")) {
+            this.targetPedestal = Util.getOrThrow(SulfuricFluxEmitterSelectedPoint.CODEC.parse(NbtOps.INSTANCE, pTag.get("targetPedestal")), (e) -> new EncoderException("Failed to decode: " + e + " " + pTag.get("targetPedestal")));
+        }
+
+        if (pTag.contains("resultPedestal")) {
+            this.resultPedestal = Util.getOrThrow(SulfuricFluxEmitterSelectedPoint.CODEC.parse(NbtOps.INSTANCE, pTag.get("resultPedestal")), (e) -> new EncoderException("Failed to decode: " + e + " " + pTag.get("resultPedestal")));
+        }
+
+        this.craftingBehaviour.readNetwork(pTag);
     }
 
-    public void writeNetwork(CompoundTag tag) {
-        this.craftingBehaviour.writeNetwork(tag);
+    public void writeNetwork(CompoundTag pTag) {
+        pTag.put("sourcePedestals", Util.getOrThrow(SulfuricFluxEmitterSelectedPoint.LIST_CODEC.encodeStart(NbtOps.INSTANCE, this.sourcePedestals), (e) -> new EncoderException("Failed to encode: " + e + " " + this.sourcePedestals)));
+
+        if (this.targetPedestal != null)
+            pTag.put("targetPedestal", Util.getOrThrow(SulfuricFluxEmitterSelectedPoint.CODEC.encodeStart(NbtOps.INSTANCE, this.targetPedestal), (e) -> new EncoderException("Failed to encode: " + e + " " + this.targetPedestal)));
+
+        if (this.resultPedestal != null)
+            pTag.put("resultPedestal", Util.getOrThrow(SulfuricFluxEmitterSelectedPoint.CODEC.encodeStart(NbtOps.INSTANCE, this.resultPedestal), (e) -> new EncoderException("Failed to encode: " + e + " " + this.resultPedestal)));
+
+        this.craftingBehaviour.writeNetwork(pTag);
     }
 
     public SelectionBehaviour<SulfuricFluxEmitterSelectedPoint> getSelectionBehaviour() {

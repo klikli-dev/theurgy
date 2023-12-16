@@ -110,7 +110,11 @@ public class ReformationRecipe implements Recipe<ReformationArrayRecipeWrapper> 
 
     @Override
     public ItemStack assemble(ReformationArrayRecipeWrapper pContainer, RegistryAccess pRegistryAccess) {
-        return this.result.copy();
+        var result = this.result.copy();
+        var targetItem = pContainer.getTargetPedestalInv().getStackInSlot(0);
+        if(targetItem.hasTag())
+            result.setTag(targetItem.getTag().copy());
+        return result;
     }
 
     @Override

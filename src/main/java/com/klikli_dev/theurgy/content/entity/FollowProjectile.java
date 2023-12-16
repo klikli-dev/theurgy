@@ -24,6 +24,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.PlayMessages;
 
+import java.util.function.Consumer;
+import java.util.function.Supplier;
+
 public class FollowProjectile extends ColoredProjectile {
 
     public static final EntityDataAccessor<Vec3> TO = SynchedEntityData.defineId(FollowProjectile.class, EntityDataSerializerRegistry.VEC3_FLOAT.get());
@@ -31,10 +34,12 @@ public class FollowProjectile extends ColoredProjectile {
     public static final EntityDataAccessor<Float> SIZE = SynchedEntityData.defineId(FollowProjectile.class, EntityDataSerializers.FLOAT);
     public static final EntityDataAccessor<Boolean> SPAWN_TOUCH = SynchedEntityData.defineId(FollowProjectile.class, EntityDataSerializers.BOOLEAN);
     public static final EntityDataAccessor<Integer> DESPAWN = SynchedEntityData.defineId(FollowProjectile.class, EntityDataSerializers.INT);
-    int maxAge = 500;
+    private int maxAge = 500;
     private int age;
 
-    public FollowProjectile(Level level, Vec3 from, Vec3 to, int r, int g, int b, float size) {
+    private Consumer<FollowProjectile> onArrival;
+
+    public FollowProjectile(Level level, Vec3 from, Vec3 to, int r, int g, int b, float size, Consumer<FollowProjectile> onArrival){
         this(EntityRegistry.FOLLOW_PROJECTILE.get(), level);
         this.entityData.set(FollowProjectile.TO, to);
         this.entityData.set(FollowProjectile.FROM, from);
@@ -46,15 +51,24 @@ public class FollowProjectile extends ColoredProjectile {
         this.entityData.set(SIZE, size);
 
         double distance = from.distanceTo(to);
+        this.onArrival = onArrival;
         this.setDespawnDistance((int) (distance + 10));
     }
 
+    public FollowProjectile(Level level, Vec3 from, Vec3 to, int r, int g, int b, float size){
+        this(level, from, to, r, g, b, size, (p) -> {});
+    }
+
+    public FollowProjectile(Level level, Vec3 from, Vec3 to, Color color, float size, Consumer<FollowProjectile> onArrival) {
+        this(level, from, to, color.getRed(), color.getGreen(), color.getBlue(), size, onArrival);
+    }
+
     public FollowProjectile(Level level, Vec3 from, Vec3 to, Color color, float size) {
-        this(level, from, to, color.getRed(), color.getGreen(), color.getBlue(), size);
+        this(level, from, to, color, size, (p) -> {});
     }
 
     public FollowProjectile(Level worldIn, BlockPos from, BlockPos to, int r, int g, int b, float size) {
-        this(worldIn, new Vec3(from.getX(), from.getY(), from.getZ()), new Vec3(to.getX(), to.getY(), to.getZ()), r, g, b, size);
+        this(worldIn, new Vec3(from.getX(), from.getY(), from.getZ()), new Vec3(to.getX(), to.getY(), to.getZ()), r, g, b, size, (p) -> {});
     }
 
     public FollowProjectile(Level worldIn, BlockPos from, BlockPos to, Color color, float size) {
@@ -105,6 +119,7 @@ public class FollowProjectile extends ColoredProjectile {
             if (this.level().isClientSide && this.entityData.get(SPAWN_TOUCH)) {
                 ParticleRegistry.spawnTouch((ClientLevel) this.level(), this.getOnPos(), new ParticleColor(this.entityData.get(RED), this.entityData.get(GREEN), this.entityData.get(BLUE)));
             }
+            this.onArrival.accept(this);
             this.remove(RemovalReason.DISCARDED);
             return;
         }

@@ -133,6 +133,7 @@ public class SulfuricFluxEmitterBlockEntity extends BlockEntity {
     public void onAssembleMultiblock() {
         var targetPedestalBlockEntity = (ReformationTargetPedestalBlockEntity) this.level.getBlockEntity(this.targetPedestal.getBlockPos());
         targetPedestalBlockEntity.setSulfuricFluxEmitter(this);
+        this.onTargetPedestalContentChange(targetPedestalBlockEntity);
 
         var resultPedestalBlockEntity = (ReformationResultPedestalBlockEntity) this.level.getBlockEntity(this.resultPedestal.getBlockPos());
         resultPedestalBlockEntity.setSulfuricFluxEmitter(this);
@@ -245,6 +246,8 @@ public class SulfuricFluxEmitterBlockEntity extends BlockEntity {
 
         this.targetPedestal = targetPedestal == null ? null : targetPedestal.getBlockPos().closerThan(this.getBlockPos(), range) ? targetPedestal : null;
         this.resultPedestal = resultPedestal == null ? null : resultPedestal.getBlockPos().closerThan(this.getBlockPos(), range) ? resultPedestal : null;
+
+        this.checkValidMultiblockOnNextQuery = true;
 
         this.setChanged();
     }

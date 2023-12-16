@@ -1,5 +1,6 @@
 package com.klikli_dev.theurgy.content.apparatus.reformationarray;
 
+import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.content.behaviour.CraftingBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.interaction.SelectionBehaviour;
 import com.klikli_dev.theurgy.content.capability.DefaultMercuryFluxStorage;
@@ -13,10 +14,13 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
+import net.minecraft.network.Connection;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import org.jetbrains.annotations.NotNull;
@@ -95,7 +99,7 @@ public class SulfuricFluxEmitterBlockEntity extends BlockEntity {
                 this.targetPedestal = null;
                 this.isValidMultiblock = false;
             }
-        } else{
+        } else {
             this.isValidMultiblock = false;
         }
 
@@ -105,7 +109,7 @@ public class SulfuricFluxEmitterBlockEntity extends BlockEntity {
                 this.resultPedestal = null;
                 this.isValidMultiblock = false;
             }
-        } else{
+        } else {
             this.isValidMultiblock = false;
         }
 
@@ -159,7 +163,7 @@ public class SulfuricFluxEmitterBlockEntity extends BlockEntity {
     public IItemHandlerModifiable getOutputInventory() {
         var pos = this.resultPedestal.getBlockPos();
         var blockEntity = this.level.getBlockEntity(pos);
-        if(blockEntity instanceof ReformationResultPedestalBlockEntity pedestal){
+        if (blockEntity instanceof ReformationResultPedestalBlockEntity pedestal) {
             return pedestal.outputInventory;
         }
         return null;
@@ -182,6 +186,12 @@ public class SulfuricFluxEmitterBlockEntity extends BlockEntity {
 
         //TODO: visuals!
         //      use isCrafting boolean, only switch it if we stop crafting
+    }
+
+    public void tickClient() {
+        if (this.craftingBehaviour.isProcessing()) {
+            Theurgy.LOGGER.debug("Processing");
+        }
     }
 
     @Override
@@ -211,6 +221,9 @@ public class SulfuricFluxEmitterBlockEntity extends BlockEntity {
 
         if (this.resultPedestal != null)
             pTag.put("resultPedestal", Util.getOrThrow(SulfuricFluxEmitterSelectedPoint.CODEC.encodeStart(NbtOps.INSTANCE, this.resultPedestal), (e) -> new EncoderException("Failed to encode: " + e + " " + this.resultPedestal)));
+
+        this.craftingBehaviour.saveAdditional(pTag);
+
     }
 
     @Override
@@ -232,6 +245,42 @@ public class SulfuricFluxEmitterBlockEntity extends BlockEntity {
         if (pTag.contains("resultPedestal")) {
             this.resultPedestal = Util.getOrThrow(SulfuricFluxEmitterSelectedPoint.CODEC.parse(NbtOps.INSTANCE, pTag.get("resultPedestal")), (e) -> new EncoderException("Failed to decode: " + e + " " + pTag.get("resultPedestal")));
         }
+
+        this.craftingBehaviour.load(pTag);
+    }
+
+    @Override
+    public CompoundTag getUpdateTag() {
+        var tag = new CompoundTag();
+        this.writeNetwork(tag);
+        return tag;
+    }
+
+    @Override
+    public void handleUpdateTag(CompoundTag tag) {
+        this.readNetwork(tag);
+    }
+
+    @Nullable
+    @Override
+    public Packet<ClientGamePacketListener> getUpdatePacket() {
+        return ClientboundBlockEntityDataPacket.create(this);
+    }
+
+    @Override
+    public void onDataPacket(Connection connection, ClientboundBlockEntityDataPacket packet) {
+        var tag = packet.getTag();
+        if (tag != null) {
+            this.readNetwork(tag);
+        }
+    }
+
+    public void readNetwork(CompoundTag tag) {
+        this.craftingBehaviour.readNetwork(tag);
+    }
+
+    public void writeNetwork(CompoundTag tag) {
+        this.craftingBehaviour.writeNetwork(tag);
     }
 
     public SelectionBehaviour<SulfuricFluxEmitterSelectedPoint> getSelectionBehaviour() {

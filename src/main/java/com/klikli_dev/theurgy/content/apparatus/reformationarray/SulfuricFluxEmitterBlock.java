@@ -2,7 +2,6 @@ package com.klikli_dev.theurgy.content.apparatus.reformationarray;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
-import com.klikli_dev.theurgy.content.apparatus.caloricfluxemitter.CaloricFluxEmitterSelectedPoint;
 import com.klikli_dev.theurgy.content.behaviour.interaction.SelectionBehaviour;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
@@ -114,7 +113,11 @@ public class SulfuricFluxEmitterBlock extends DirectionalBlock implements Entity
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
         if (pLevel.isClientSide()) {
-            return null;
+            return (lvl, pos, blockState, t) -> {
+                if (t instanceof SulfuricFluxEmitterBlockEntity blockEntity) {
+                    blockEntity.tickClient();
+                }
+            };
         }
         return (lvl, pos, blockState, t) -> {
             if (t instanceof SulfuricFluxEmitterBlockEntity blockEntity) {

@@ -66,24 +66,32 @@ public class SulfuricFluxEmitterBlockEntity extends BlockEntity {
     }
 
     public void removeResultPedestal(ReformationResultPedestalBlockEntity pedestal) {
-        this.resultPedestal = null;
         this.isValidMultiblock = false;
         this.onDisassembleMultiblock();
     }
 
     public void removeTargetPedestal(ReformationTargetPedestalBlockEntity pedestal) {
-        this.targetPedestal = null;
         this.isValidMultiblock = false;
         this.hasTargetItem = false;
         this.onDisassembleMultiblock();
     }
 
     public void removeSourcePedestal(ReformationSourcePedestalBlockEntity pedestal) {
-        this.sourcePedestals.removeIf(p -> p.getBlockPos().equals(pedestal.getBlockPos()));
-        if (this.sourcePedestals.isEmpty()) {
+        //check if any valid source pedestals remain.
+        var hasRemainingPedestals = this.sourcePedestals.stream()
+                .filter(p -> !p.getBlockPos().equals(pedestal.getBlockPos())) //skip the one that is being removed
+                .map(p -> this.level.getBlockEntity(p.getBlockPos()))
+                .anyMatch(e -> e instanceof ReformationSourcePedestalBlockEntity);
+
+        //if not, we don't have a valid multiblock anymore
+        if(!hasRemainingPedestals){
             this.isValidMultiblock = false;
             this.hasSourceItems = false;
             this.onDisassembleMultiblock();
+        }
+        else {
+            //force update of source pedestals with contents
+            this.onSourcePedestalContentChange(null);
         }
     }
 
@@ -103,7 +111,6 @@ public class SulfuricFluxEmitterBlockEntity extends BlockEntity {
         if (this.targetPedestal != null) {
             var targetPedestalBlockEntity = (ReformationTargetPedestalBlockEntity) this.level.getBlockEntity(this.targetPedestal.getBlockPos());
             if (targetPedestalBlockEntity == null) {
-                this.targetPedestal = null;
                 this.isValidMultiblock = false;
             }
         } else {
@@ -113,25 +120,22 @@ public class SulfuricFluxEmitterBlockEntity extends BlockEntity {
         if (this.resultPedestal != null) {
             var resultPedestalBlockEntity = (ReformationResultPedestalBlockEntity) this.level.getBlockEntity(this.resultPedestal.getBlockPos());
             if (resultPedestalBlockEntity == null) {
-                this.resultPedestal = null;
                 this.isValidMultiblock = false;
             }
         } else {
             this.isValidMultiblock = false;
         }
 
-        var sourcesToRemove = new ArrayList<SulfuricFluxEmitterSelectedPoint>();
+        var hasSourcePedestals = false;
         for (var sourcePedestal : this.sourcePedestals) {
             var sourcePedestalBlockEntity = (ReformationSourcePedestalBlockEntity) this.level.getBlockEntity(sourcePedestal.getBlockPos());
-            if (sourcePedestalBlockEntity == null) {
-                sourcesToRemove.add(sourcePedestal);
+            if (sourcePedestalBlockEntity != null) {
+                hasSourcePedestals = true;
             }
         }
-        if (!sourcesToRemove.isEmpty())
-            this.sourcePedestals.removeAll(sourcesToRemove);
 
         this.sourcePedestalsWithContents.clear();
-        if (this.sourcePedestals.isEmpty())
+        if (!hasSourcePedestals)
             this.isValidMultiblock = false;
         else {
             //now force rebuilding the source pedestals with contents
@@ -155,15 +159,16 @@ public class SulfuricFluxEmitterBlockEntity extends BlockEntity {
         var resultPedestalBlockEntity = (ReformationResultPedestalBlockEntity) this.level.getBlockEntity(this.resultPedestal.getBlockPos());
         resultPedestalBlockEntity.setSulfuricFluxEmitter(this);
 
-
         var sourceInventories = this.sourcePedestals.stream()
                 .map(p -> this.level.getBlockEntity(p.getBlockPos()))
+                .filter(e -> e instanceof ReformationSourcePedestalBlockEntity) //filter out potentially (currently) null ones
                 .map(e -> (ReformationSourcePedestalBlockEntity) e)
                 .peek(e -> e.setSulfuricFluxEmitter(this))
-                .peek(this::onSourcePedestalContentChange)
                 .map(e -> e.inputInventory)
                 .map(e -> (IItemHandlerModifiable) e)
                 .toList();
+
+        this.onSourcePedestalContentChange(null); //only call it once as we don't need to call it on each
 
 
         this.recipeWrapper = new ReformationArrayRecipeWrapper(sourceInventories, targetPedestalBlockEntity.inputInventory, this.mercuryFluxStorage);
@@ -323,6 +328,7 @@ public class SulfuricFluxEmitterBlockEntity extends BlockEntity {
     public void setSelectedPoints(List<SulfuricFluxEmitterSelectedPoint> sourcePedestals, SulfuricFluxEmitterSelectedPoint targetPedestal, SulfuricFluxEmitterSelectedPoint resultPedestal) {
         var range = this.getSelectionBehaviour().getBlockRange();
 
+        this.sourcePedestals.clear();
         this.sourcePedestals.addAll(sourcePedestals);
         this.sourcePedestals.removeIf(p -> !p.getBlockPos().closerThan(this.getBlockPos(), range));
 

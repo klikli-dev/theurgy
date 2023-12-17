@@ -110,6 +110,7 @@ public class FollowProjectile extends ColoredProjectile {
         this.entityData.define(SIZE, 0.0f);
         this.entityData.define(SPAWN_TOUCH, this.defaultsBurst());
         this.entityData.define(DESPAWN_DISTANCE, 10);
+        this.entityData.define(ARRIVAL_DISTANCE, 1.0f);
     }
 
     public boolean defaultsBurst() {

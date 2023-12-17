@@ -308,7 +308,7 @@ public class SulfuricFluxEmitterBlockEntity extends BlockEntity {
     }
 
     public void writeNetwork(CompoundTag pTag) {
-        pTag.put("sourcePedestalsWithContents", Util.getOrThrow(SulfuricFluxEmitterSelectedPoint.LIST_CODEC.encodeStart(NbtOps.INSTANCE, this.sourcePedestalsWithContents), (e) -> new EncoderException("Failed to encode: " + e + " " + this.sourcePedestals)));
+        pTag.put("sourcePedestalsWithContents", Util.getOrThrow(SulfuricFluxEmitterSelectedPoint.LIST_CODEC.encodeStart(NbtOps.INSTANCE, this.sourcePedestalsWithContents), (e) -> new EncoderException("Failed to encode: " + e + " " + this.sourcePedestalsWithContents)));
 
         if (this.targetPedestal != null)
             pTag.put("targetPedestal", Util.getOrThrow(SulfuricFluxEmitterSelectedPoint.CODEC.encodeStart(NbtOps.INSTANCE, this.targetPedestal), (e) -> new EncoderException("Failed to encode: " + e + " " + this.targetPedestal)));
@@ -348,7 +348,7 @@ public class SulfuricFluxEmitterBlockEntity extends BlockEntity {
                 .map(p -> new Pair<>(p.getFirst(), (ReformationSourcePedestalBlockEntity) p.getSecond()))
                 .filter(p -> !p.getSecond().inputInventory.getStackInSlot(0).isEmpty())
                 .peek(p -> this.sourcePedestalsWithContents.add(p.getFirst()))
-                .findAny().isPresent();
+                .count() > 0; //need to count to force the stream to run on all elements. findAny() would only run on one.
         this.setChanged();
     }
 

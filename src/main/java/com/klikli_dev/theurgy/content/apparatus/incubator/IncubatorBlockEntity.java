@@ -215,7 +215,7 @@ public class IncubatorBlockEntity extends BlockEntity {
         }
 
         if (oldMercuryVessel != this.mercuryVessel || oldSaltVessel != this.saltVessel || oldSulfurVessel != this.sulfurVessel) {
-            this.onVesselItemChanged();
+            this.craftingBehaviour.onInputItemChanged(ItemStack.EMPTY, ItemStack.EMPTY);
         }
     }
 
@@ -225,10 +225,6 @@ public class IncubatorBlockEntity extends BlockEntity {
 
     public void onDisassembleMultiblock() {
         this.recipeWrapper = null;
-    }
-
-    public void onVesselItemChanged() {
-        this.craftingBehaviour.onInputItemChanged(ItemStack.EMPTY, ItemStack.EMPTY);
     }
 
     @Override

@@ -4,10 +4,7 @@
 
 package com.klikli_dev.theurgy.content.apparatus.calcinationoven;
 
-import com.klikli_dev.theurgy.content.behaviour.AnimationBehaviour;
-import com.klikli_dev.theurgy.content.behaviour.CraftingBehaviour;
-import com.klikli_dev.theurgy.content.behaviour.HeatConsumerBehaviour;
-import com.klikli_dev.theurgy.content.behaviour.PreventInsertWrapper;
+import com.klikli_dev.theurgy.content.behaviour.*;
 import com.klikli_dev.theurgy.content.capability.DefaultHeatReceiver;
 import com.klikli_dev.theurgy.content.capability.HeatReceiver;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
@@ -183,38 +180,32 @@ public class CalcinationOvenBlockEntity extends BlockEntity implements GeoBlockE
     }
 
 
-    public class InputInventory extends ItemStackHandler {
+    public class InputInventory extends MonitoredItemStackHandler {
 
         public InputInventory() {
             super(1);
         }
 
+
         @Override
-        public void setStackInSlot(int slot, @NotNull ItemStack newStack) {
-            var oldStack = this.getStackInSlot(slot);
+        protected void onSetStackInSlot(int slot, ItemStack oldStack, ItemStack newStack, boolean isSameItem) {
+          if(!isSameItem){
+              CalcinationOvenBlockEntity.this.craftingBehaviour.onInputItemChanged(oldStack, newStack);
+          }
+        }
 
-            boolean sameItem = !newStack.isEmpty() && ItemStack.isSameItemSameTags(newStack, oldStack);
-
-            super.setStackInSlot(slot, newStack);
-
-            if (!sameItem) {
+        @Override
+        protected void onInsertItem(int slot, ItemStack oldStack, ItemStack newStack, ItemStack toInsert, ItemStack remaining) {
+            if (remaining != newStack) {
                 CalcinationOvenBlockEntity.this.craftingBehaviour.onInputItemChanged(oldStack, newStack);
             }
         }
 
         @Override
-        public @NotNull ItemStack insertItem(int slot, @NotNull ItemStack newStack, boolean simulate) {
-            if (!simulate) {
-                var oldStack = this.getStackInSlot(slot);
-                var result = super.insertItem(slot, newStack, simulate);
-
-                if (result != newStack) {
-                    CalcinationOvenBlockEntity.this.craftingBehaviour.onInputItemChanged(oldStack, newStack);
-                }
-
-                return result;
+        protected void onExtractItem(int slot, ItemStack oldStack, ItemStack newStack, ItemStack extracted) {
+            if(newStack.isEmpty()){
+                CalcinationOvenBlockEntity.this.craftingBehaviour.onInputItemChanged(oldStack, newStack);
             }
-            return super.insertItem(slot, newStack, simulate);
         }
 
         @Override

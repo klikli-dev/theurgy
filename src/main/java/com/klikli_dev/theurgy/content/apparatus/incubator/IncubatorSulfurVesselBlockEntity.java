@@ -4,6 +4,7 @@
 
 package com.klikli_dev.theurgy.content.apparatus.incubator;
 
+import com.klikli_dev.theurgy.content.behaviour.MonitoredItemStackHandler;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.ItemTagRegistry;
 import net.minecraft.core.BlockPos;
@@ -83,41 +84,35 @@ public class IncubatorSulfurVesselBlockEntity extends BlockEntity implements Geo
         return this.animatableInstanceCache;
     }
 
-    public class InputInventory extends ItemStackHandler {
+    public class InputInventory extends MonitoredItemStackHandler {
 
         public InputInventory() {
             super(1);
         }
 
         @Override
-        public void setStackInSlot(int slot, @NotNull ItemStack newStack) {
-
-            var oldStack = this.getStackInSlot(slot);
-
-            boolean sameItem = !newStack.isEmpty() && ItemStack.isSameItemSameTags(newStack, oldStack);
-
-            super.setStackInSlot(slot, newStack);
-
-            if (!sameItem) {
+        protected void onSetStackInSlot(int slot, ItemStack oldStack, ItemStack newStack, boolean isSameItem) {
+            if (!isSameItem) {
                 if (IncubatorSulfurVesselBlockEntity.this.incubator != null)
-                    IncubatorSulfurVesselBlockEntity.this.incubator.onVesselItemChanged();
+                    IncubatorSulfurVesselBlockEntity.this.incubator.craftingBehaviour.onInputItemChanged(oldStack, newStack);
             }
         }
 
         @Override
-        public @NotNull ItemStack insertItem(int slot, @NotNull ItemStack newStack, boolean simulate) {
-            if (!simulate) {
-                var oldStack = this.getStackInSlot(slot);
-                var result = super.insertItem(slot, newStack, simulate);
+        protected void onInsertItem(int slot, ItemStack oldStack, ItemStack newStack, ItemStack toInsert, ItemStack remaining) {
+            if (remaining != newStack) {
+                if (IncubatorSulfurVesselBlockEntity.this.incubator != null)
+                    IncubatorSulfurVesselBlockEntity.this.incubator.craftingBehaviour.onInputItemChanged(oldStack, newStack);
 
-                if (result != newStack) {
-                    if (IncubatorSulfurVesselBlockEntity.this.incubator != null)
-                        IncubatorSulfurVesselBlockEntity.this.incubator.craftingBehaviour.onInputItemChanged(oldStack, newStack);
-                }
-
-                return result;
             }
-            return super.insertItem(slot, newStack, simulate);
+        }
+
+        @Override
+        protected void onExtractItem(int slot, ItemStack oldStack, ItemStack newStack, ItemStack extracted) {
+            if (newStack.isEmpty()) {
+                if (IncubatorSulfurVesselBlockEntity.this.incubator != null)
+                    IncubatorSulfurVesselBlockEntity.this.incubator.craftingBehaviour.onInputItemChanged(oldStack, newStack);
+            }
         }
 
         @Override

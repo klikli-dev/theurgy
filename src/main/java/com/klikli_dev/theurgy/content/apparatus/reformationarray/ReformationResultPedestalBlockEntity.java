@@ -5,7 +5,6 @@ import com.klikli_dev.theurgy.content.behaviour.PreventInsertWrapper;
 import com.klikli_dev.theurgy.content.particle.ParticleColor;
 import com.klikli_dev.theurgy.content.particle.glow.GlowParticleProvider;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
-import com.klikli_dev.theurgy.util.BlockEntityUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -14,6 +13,7 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
@@ -54,14 +54,14 @@ public class ReformationResultPedestalBlockEntity extends BlockEntity {
         this.sulfuricFluxEmitter = new WeakReference<>(sulfuricFluxEmitter);
     }
 
-    public void tickClient(){
-        if(this.showParticles && this.level.getRandom().nextFloat() < 0.07f){
+    public void tickClient() {
+        if (this.showParticles && this.level.getRandom().nextFloat() < 0.07f) {
             var pos = this.getBlockPos();
             this.level.addParticle(GlowParticleProvider.createOptions(
                     ParticleColor.fromInt(0x008000),
                     0.5f,
                     0.75f,
-                    200), pos.getX() + 0.5f, pos.getY() + 1.0f, pos.getZ()+ 0.5f, 0, 0, 0);
+                    200), pos.getX() + 0.5f, pos.getY() + 1.0f, pos.getZ() + 0.5f, 0, 0, 0);
         }
     }
 
@@ -142,6 +142,11 @@ public class ReformationResultPedestalBlockEntity extends BlockEntity {
         pTag.putBoolean("showParticles", this.showParticles);
     }
 
+    public void sendBlockUpdated() {
+        if (this.level != null && !this.level.isClientSide)
+            this.level.sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), Block.UPDATE_CLIENTS);
+    }
+
     /**
      * Notification behaviour:
      * if the inventory becomes empty or non-empty or item type changes, do a network update
@@ -156,21 +161,21 @@ public class ReformationResultPedestalBlockEntity extends BlockEntity {
         @Override
         protected void onSetStackInSlot(int slot, ItemStack oldStack, ItemStack newStack, boolean isSameItem) {
             if (!isSameItem) {
-                BlockEntityUtil.sendBlockUpdated(ReformationResultPedestalBlockEntity.this);
+                ReformationResultPedestalBlockEntity.this.sendBlockUpdated();
             }
         }
 
         @Override
         protected void onInsertItem(int slot, ItemStack oldStack, ItemStack newStack, ItemStack toInsert, ItemStack remaining) {
             if (oldStack.isEmpty() && !newStack.isEmpty()) {
-                BlockEntityUtil.sendBlockUpdated(ReformationResultPedestalBlockEntity.this);
+                ReformationResultPedestalBlockEntity.this.sendBlockUpdated();
             }
         }
 
         @Override
         protected void onExtractItem(int slot, ItemStack oldStack, ItemStack newStack, ItemStack extracted) {
             if (newStack.isEmpty()) {
-                BlockEntityUtil.sendBlockUpdated(ReformationResultPedestalBlockEntity.this);
+                ReformationResultPedestalBlockEntity.this.sendBlockUpdated();
             }
         }
 

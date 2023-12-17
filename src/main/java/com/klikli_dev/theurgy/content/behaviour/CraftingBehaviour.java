@@ -4,7 +4,6 @@
 
 package com.klikli_dev.theurgy.content.behaviour;
 
-import com.klikli_dev.theurgy.util.BlockEntityUtil;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
@@ -160,7 +159,7 @@ public abstract class CraftingBehaviour<W extends RecipeWrapper, R extends Recip
 
     protected void sendBlockUpdated() {
         if (this.blockEntity.getLevel() != null && !this.blockEntity.getLevel().isClientSide)
-            BlockEntityUtil.sendBlockUpdated(this.blockEntity);
+            this.blockEntity.getLevel().sendBlockUpdated(this.blockEntity.getBlockPos(), this.blockEntity.getBlockState(), this.blockEntity.getBlockState(), Block.UPDATE_CLIENTS);
     }
 
     protected abstract int getIngredientCount(R recipe);

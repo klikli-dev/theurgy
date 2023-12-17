@@ -25,12 +25,24 @@ public class SulfuricFluxEmitterSelectionBehaviour extends SelectionBehaviour<Su
             var targets = this.selectedPoints.stream().filter(s -> s.getType() == SulfuricFluxEmitterSelectedPoint.Type.TARGET).count();
             var results = this.selectedPoints.stream().filter(s -> s.getType() == SulfuricFluxEmitterSelectedPoint.Type.RESULT).count();
 
-            player.displayClientMessage(Component.translatable(
-                    TheurgyConstants.I18n.Behaviour.SELECTION_SUMMARY_SULFURIC_FLUX_EMITTER,
-                    Component.literal(String.valueOf(sources)).withStyle(ChatFormatting.GREEN),
-                    Component.literal(String.valueOf(targets)).withStyle(ChatFormatting.DARK_PURPLE),
-                    Component.literal(String.valueOf(results)).withStyle(ChatFormatting.BLUE)
-            ).withStyle(ChatFormatting.WHITE), true);
+            if(targets == 0){
+                player.displayClientMessage(Component.translatable(TheurgyConstants.I18n.Behaviour.SELECTION_SUMMARY_SULFURIC_FLUX_EMITTER_NO_TARGET).withStyle(ChatFormatting.RED), true);
+            }
+            if(sources == 0){
+                player.displayClientMessage(Component.translatable(TheurgyConstants.I18n.Behaviour.SELECTION_SUMMARY_SULFURIC_FLUX_EMITTER_NO_SOURCES).withStyle(ChatFormatting.RED), true);
+            }
+            if(results == 0){
+                player.displayClientMessage(Component.translatable(TheurgyConstants.I18n.Behaviour.SELECTION_SUMMARY_SULFURIC_FLUX_EMITTER_NO_RESULT).withStyle(ChatFormatting.RED), true);
+            }
+
+            if(sources > 0 && targets > 0 && results > 0){
+                player.displayClientMessage(Component.translatable(
+                        TheurgyConstants.I18n.Behaviour.SELECTION_SUMMARY_SULFURIC_FLUX_EMITTER,
+                        Component.literal(String.valueOf(sources)).withStyle(ChatFormatting.GREEN),
+                        Component.literal(String.valueOf(targets)).withStyle(ChatFormatting.DARK_PURPLE),
+                        Component.literal(String.valueOf(results)).withStyle(ChatFormatting.BLUE)
+                ).withStyle(ChatFormatting.WHITE), true);
+            }
         }
     }
 

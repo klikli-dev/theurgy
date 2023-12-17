@@ -120,8 +120,12 @@ public class TheurgyConstants {
             public static final String SELECTION_SUMMARY_CALORIC_FLUX_EMITTER = PREFIX + "selection.summary.caloric_flux_emitter";
             public static final String SELECTION_SUMMARY_CALORIC_FLUX_EMITTER_NO_SELECTION = PREFIX + "selection.summary.caloric_flux_emitter.no_selection";
 
+            public static final String SELECTION_MODE_SULFURIC_FLUX_EMITTER = PREFIX + "selection.mode.sulfuric_flux_emitter";
             public static final String SELECTION_SUMMARY_SULFURIC_FLUX_EMITTER = PREFIX + "selection.summary.sulfuric_flux_emitter";
             public static final String SELECTION_SUMMARY_SULFURIC_FLUX_EMITTER_NO_SELECTION = PREFIX + "selection.summary.sulfuric_flux_emitter.no_selection";
+            public static final String SELECTION_SUMMARY_SULFURIC_FLUX_EMITTER_NO_TARGET = PREFIX + "selection.summary.sulfuric_flux_emitter.no_target";
+            public static final String SELECTION_SUMMARY_SULFURIC_FLUX_EMITTER_NO_SOURCES = PREFIX + "selection.summary.sulfuric_flux_emitter.no_sources";
+            public static final String SELECTION_SUMMARY_SULFURIC_FLUX_EMITTER_NO_RESULT = PREFIX + "selection.summary.sulfuric_flux_emitter.no_result";
         }
     }
 

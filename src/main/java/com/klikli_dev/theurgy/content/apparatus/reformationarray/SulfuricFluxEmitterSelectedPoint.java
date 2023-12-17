@@ -47,7 +47,7 @@ public class SulfuricFluxEmitterSelectedPoint extends SelectedPoint<SulfuricFlux
 
     @Override
     public Component getModeMessage() {
-        return Component.translatable(TheurgyConstants.I18n.Behaviour.SELECTION_MODE_CALORIC_FLUX_EMITTER);
+        return Component.translatable(TheurgyConstants.I18n.Behaviour.SELECTION_MODE_SULFURIC_FLUX_EMITTER);
     }
 
     @Override

@@ -63,9 +63,9 @@ public class SulfuricFluxEmitterSelectedPoint extends SelectedPoint<SulfuricFlux
     }
 
     public enum Type implements StringRepresentable {
-        SOURCE("SOURCE", new Color(0x32a832, false)),
-        TARGET("TARGET", new Color(0xa832a4, false)),
-        RESULT("RESULT", new Color(0x4c32a8, false));
+        SOURCE("SOURCE", new Color(0xFF00FF, false)),
+        TARGET("TARGET", new Color(0x0000FF, false)),
+        RESULT("RESULT", new Color(0x008000, false));
 
         private final String name;
         private final Color color;

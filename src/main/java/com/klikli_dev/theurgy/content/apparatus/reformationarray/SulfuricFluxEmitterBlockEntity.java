@@ -1,30 +1,40 @@
 package com.klikli_dev.theurgy.content.apparatus.reformationarray;
 
+import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.content.behaviour.CraftingBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.interaction.SelectionBehaviour;
 import com.klikli_dev.theurgy.content.capability.DefaultMercuryFluxStorage;
 import com.klikli_dev.theurgy.content.entity.FollowProjectile;
 import com.klikli_dev.theurgy.content.recipe.wrapper.ReformationArrayRecipeWrapper;
 import com.klikli_dev.theurgy.content.render.Color;
+import com.klikli_dev.theurgy.content.render.outliner.Outliner;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.CapabilityRegistry;
 import com.klikli_dev.theurgy.util.EntityUtil;
 import com.mojang.datafixers.util.Pair;
 import io.netty.handler.codec.EncoderException;
+import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.Connection;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandlerModifiable;
@@ -84,12 +94,11 @@ public class SulfuricFluxEmitterBlockEntity extends BlockEntity {
                 .anyMatch(e -> e instanceof ReformationSourcePedestalBlockEntity);
 
         //if not, we don't have a valid multiblock anymore
-        if(!hasRemainingPedestals){
+        if (!hasRemainingPedestals) {
             this.isValidMultiblock = false;
             this.hasSourceItems = false;
             this.onDisassembleMultiblock();
-        }
-        else {
+        } else {
             //force update of source pedestals with contents
             this.onSourcePedestalContentChange(null);
         }
@@ -187,15 +196,6 @@ public class SulfuricFluxEmitterBlockEntity extends BlockEntity {
         return null;
     }
 
-    @Override
-    public void onLoad() {
-        if (this.targetPedestal != null)
-            this.targetPedestal.setLevel(this.level);
-        if (this.resultPedestal != null)
-            this.resultPedestal.setLevel(this.level);
-        this.sourcePedestals.forEach(point -> point.setLevel(this.getLevel()));
-    }
-
     public void tickServer() {
         boolean hasInput = this.isValidMultiblock() && this.hasSourceItems && this.hasTargetItem;
         this.craftingBehaviour.tickServer(true, hasInput);
@@ -207,6 +207,92 @@ public class SulfuricFluxEmitterBlockEntity extends BlockEntity {
                 DistHelper.sendTargetProjectile(this);
             }
         }
+    }
+
+    public InteractionResult use(Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
+        if (this.level.isClientSide()) {
+
+            //TODO: should be serverside, and send packet to client side. Packet should include the pedestals
+            if (this.targetPedestal != null) {
+                BlockPos pos = this.targetPedestal.getBlockPos();
+                VoxelShape shape = Shapes.block();
+
+                Outliner.get().showAABB(this.targetPedestal, shape.bounds()
+                                .move(pos), 20 * 5)
+                        .colored(this.targetPedestal.getColor().getRGB())
+                        .lineWidth(1 / 16f);
+            }
+            if (this.resultPedestal != null) {
+                BlockPos pos = this.resultPedestal.getBlockPos();
+                VoxelShape shape = Shapes.block();
+
+                Outliner.get().showAABB(this.resultPedestal, shape.bounds()
+                                .move(pos), 20 * 5)
+                        .colored(this.resultPedestal.getColor().getRGB())
+                        .lineWidth(1 / 16f);
+            }
+            //TODO: that should be the full list of pedestals, however on client side they are currently not available
+            for (var sourcePedestal : this.sourcePedestalsWithContents) {
+                BlockPos pos = sourcePedestal.getBlockPos();
+                VoxelShape shape = Shapes.block();
+
+                Outliner.get().showAABB(sourcePedestal, shape.bounds()
+                                .move(pos), 20 * 5)
+                        .colored(sourcePedestal.getColor().getRGB())
+                        .lineWidth(1 / 16f);
+            }
+
+            if (this.sourcePedestalsWithContents.isEmpty() && this.targetPedestal == null && this.resultPedestal == null) {
+                pPlayer.displayClientMessage(Component.translatable(TheurgyConstants.I18n.Behaviour.SELECTION_SUMMARY_SULFURIC_FLUX_EMITTER_NO_SELECTION).withStyle(ChatFormatting.RED), true);
+            } else {
+
+                //TODO: the message needs to actually check if the pedestals are still valid
+
+                var hasTarget = this.targetPedestal != null && this.level.getBlockEntity(this.targetPedestal.getBlockPos()) instanceof ReformationTargetPedestalBlockEntity;
+                var hasResult = this.resultPedestal != null && this.level.getBlockEntity(this.resultPedestal.getBlockPos()) instanceof ReformationResultPedestalBlockEntity;
+
+                var sources = this.sourcePedestalsWithContents.stream()
+                        .map(p -> this.level.getBlockEntity(p.getBlockPos()))
+                        .filter(e -> e instanceof ReformationSourcePedestalBlockEntity)
+                        .count();
+
+                if(!hasTarget){
+                    pPlayer.displayClientMessage(Component.translatable(TheurgyConstants.I18n.Behaviour.SELECTION_SUMMARY_SULFURIC_FLUX_EMITTER_NO_TARGET).withStyle(ChatFormatting.RED), true);
+                }
+                if(sources <= 0){
+                    pPlayer.displayClientMessage(Component.translatable(TheurgyConstants.I18n.Behaviour.SELECTION_SUMMARY_SULFURIC_FLUX_EMITTER_NO_SOURCES).withStyle(ChatFormatting.RED), true);
+                }
+                if(!hasResult){
+                    pPlayer.displayClientMessage(Component.translatable(TheurgyConstants.I18n.Behaviour.SELECTION_SUMMARY_SULFURIC_FLUX_EMITTER_NO_RESULT).withStyle(ChatFormatting.RED), true);
+                }
+
+                if(hasTarget && sources > 0 && hasResult){
+                    pPlayer.displayClientMessage(Component.translatable(
+                            TheurgyConstants.I18n.Behaviour.SELECTION_SUMMARY_SULFURIC_FLUX_EMITTER,
+                            Component.literal(String.valueOf(sources)).withStyle(ChatFormatting.DARK_PURPLE),
+                            Component.literal(String.valueOf(1)).withStyle(ChatFormatting.BLUE),
+                            Component.literal(String.valueOf(1)).withStyle(ChatFormatting.GREEN)
+                    ).withStyle(ChatFormatting.WHITE), true);
+                }
+            }
+
+            return InteractionResult.SUCCESS;
+        }
+
+        //allows players to tell the system to re-check
+        //this is mainly useful if they removed a pedestal and want it to be recognized it again after rebuilding it
+        this.checkValidMultiblockOnNextQuery = true;
+
+        return InteractionResult.PASS;
+    }
+
+    @Override
+    public void onLoad() {
+        if (this.targetPedestal != null)
+            this.targetPedestal.setLevel(this.level);
+        if (this.resultPedestal != null)
+            this.resultPedestal.setLevel(this.level);
+        this.sourcePedestals.forEach(point -> point.setLevel(this.getLevel()));
     }
 
     @Override

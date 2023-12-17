@@ -38,9 +38,9 @@ public class SulfuricFluxEmitterSelectionBehaviour extends SelectionBehaviour<Su
             if(sources > 0 && targets > 0 && results > 0){
                 player.displayClientMessage(Component.translatable(
                         TheurgyConstants.I18n.Behaviour.SELECTION_SUMMARY_SULFURIC_FLUX_EMITTER,
-                        Component.literal(String.valueOf(sources)).withStyle(ChatFormatting.GREEN),
-                        Component.literal(String.valueOf(targets)).withStyle(ChatFormatting.DARK_PURPLE),
-                        Component.literal(String.valueOf(results)).withStyle(ChatFormatting.BLUE)
+                        Component.literal(String.valueOf(sources)).withStyle(ChatFormatting.DARK_PURPLE),
+                        Component.literal(String.valueOf(targets)).withStyle(ChatFormatting.BLUE),
+                        Component.literal(String.valueOf(results)).withStyle(ChatFormatting.GREEN)
                 ).withStyle(ChatFormatting.WHITE), true);
             }
         }

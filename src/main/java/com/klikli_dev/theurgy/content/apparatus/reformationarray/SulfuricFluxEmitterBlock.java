@@ -6,6 +6,10 @@ import com.klikli_dev.theurgy.content.behaviour.interaction.SelectionBehaviour;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.Containers;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -16,8 +20,10 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraftforge.items.wrapper.RecipeWrapper;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -49,6 +55,16 @@ public class SulfuricFluxEmitterBlock extends DirectionalBlock implements Entity
 
     public SelectionBehaviour<SulfuricFluxEmitterSelectedPoint> getSelectionBehaviour() {
         return this.selectionBehaviour;
+    }
+
+    @Override
+    @SuppressWarnings("deprecation")
+    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
+        if (pLevel.getBlockEntity(pPos) instanceof SulfuricFluxEmitterBlockEntity blockEntity) {
+            return blockEntity.use(pPlayer, pHand, pHit);
+        }
+
+        return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
     }
 
 

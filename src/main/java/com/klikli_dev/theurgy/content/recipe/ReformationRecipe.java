@@ -110,6 +110,7 @@ public class ReformationRecipe implements Recipe<ReformationArrayRecipeWrapper> 
 
     @Override
     public ItemStack assemble(ReformationArrayRecipeWrapper pContainer, RegistryAccess pRegistryAccess) {
+        //TODO: the tag copy should be an option in the recipe json
         var result = this.result.copy();
         var targetItem = pContainer.getTargetPedestalInv().getStackInSlot(0);
         if(targetItem.hasTag())

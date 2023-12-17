@@ -20,9 +20,9 @@ import net.minecraft.world.phys.Vec3;
 import javax.annotation.Nullable;
 
 public abstract class ColoredProjectile extends Projectile {
-    public static final EntityDataAccessor<Integer> RED = SynchedEntityData.defineId(ColoredProjectile.class, EntityDataSerializers.INT);
-    public static final EntityDataAccessor<Integer> GREEN = SynchedEntityData.defineId(ColoredProjectile.class, EntityDataSerializers.INT);
-    public static final EntityDataAccessor<Integer> BLUE = SynchedEntityData.defineId(ColoredProjectile.class, EntityDataSerializers.INT);
+
+    public static final EntityDataAccessor<Integer> COLOR = SynchedEntityData.defineId(ColoredProjectile.class, EntityDataSerializers.INT);
+    public static final EntityDataAccessor<Integer> FINAL_COLOR = SynchedEntityData.defineId(ColoredProjectile.class, EntityDataSerializers.INT);
 
     public ColoredProjectile(EntityType<? extends ColoredProjectile> type, Level worldIn) {
         super(type, worldIn);
@@ -38,42 +38,38 @@ public abstract class ColoredProjectile extends Projectile {
         this.setOwner(shooter);
     }
 
-    public ParticleColor getParticleColor() {
-        return new ParticleColor(this.entityData.get(RED), this.entityData.get(GREEN), this.entityData.get(BLUE));
+    public void color(int color) {
+        this.entityData.set(COLOR, color);
+    }
+    public void finalColor(int color) {
+        this.entityData.set(FINAL_COLOR, color);
     }
 
-    public ParticleColor.IntWrapper getParticleColorWrapper() {
-        return new ParticleColor.IntWrapper(this.entityData.get(RED), this.entityData.get(GREEN), this.entityData.get(BLUE));
+    public int color() {
+        return this.entityData.get(COLOR);
     }
-
-    public void setColor(ParticleColor colors) {
-        ParticleColor.IntWrapper wrapper = colors.toWrapper();
-        this.entityData.set(RED, wrapper.r);
-        this.entityData.set(GREEN, wrapper.g);
-        this.entityData.set(BLUE, wrapper.b);
+    public int finalColor() {
+        return this.entityData.get(FINAL_COLOR);
     }
 
     @Override
     public void load(CompoundTag compound) {
         super.load(compound);
-        this.entityData.set(RED, compound.getInt("red"));
-        this.entityData.set(GREEN, compound.getInt("green"));
-        this.entityData.set(BLUE, compound.getInt("blue"));
+        this.entityData.set(COLOR, compound.getInt("color"));
+        this.entityData.set(FINAL_COLOR, compound.getInt("final_color"));
     }
 
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
-        compound.putInt("red", this.entityData.get(RED));
-        compound.putInt("green", this.entityData.get(GREEN));
-        compound.putInt("blue", this.entityData.get(BLUE));
+        compound.putInt("color", this.entityData.get(COLOR));
+        compound.putInt("final_color", this.entityData.get(FINAL_COLOR));
     }
 
     @Override
     protected void defineSynchedData() {
-        this.entityData.define(RED, 255);
-        this.entityData.define(GREEN, 25);
-        this.entityData.define(BLUE, 180);
+        this.entityData.define(COLOR, new ParticleColor(255, 25, 180).getColor());
+        this.entityData.define(FINAL_COLOR, new ParticleColor(255, 25, 180).getColor());
     }
 
 

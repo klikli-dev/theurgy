@@ -23,6 +23,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.PlayMessages;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -39,15 +40,14 @@ public class FollowProjectile extends ColoredProjectile {
 
     private Consumer<FollowProjectile> onArrival;
 
-    public FollowProjectile(Level level, Vec3 from, Vec3 to, int r, int g, int b, float size, Consumer<FollowProjectile> onArrival){
+    public FollowProjectile(Level level, Vec3 from, Vec3 to, Color color, @Nullable Color finalColor, float size, Consumer<FollowProjectile> onArrival){
         this(EntityRegistry.FOLLOW_PROJECTILE.get(), level);
         this.entityData.set(FollowProjectile.TO, to);
         this.entityData.set(FollowProjectile.FROM, from);
 
         this.setPos(from.x, from.y, from.z); // no +0.5 as we are already providing vec3s
-        this.entityData.set(RED, Math.min(r, 255));
-        this.entityData.set(GREEN, Math.min(g, 255));
-        this.entityData.set(BLUE, Math.min(b, 255));
+        this.entityData.set(COLOR,color.getRGB());
+        this.entityData.set(FINAL_COLOR, finalColor == null ? color.getRGB() : finalColor.getRGB());
         this.entityData.set(SIZE, size);
 
         double distance = from.distanceTo(to);
@@ -56,23 +56,19 @@ public class FollowProjectile extends ColoredProjectile {
     }
 
     public FollowProjectile(Level level, Vec3 from, Vec3 to, int r, int g, int b, float size){
-        this(level, from, to, r, g, b, size, (p) -> {});
+        this(level, from, to, new Color(r, g, b), new Color(r,g,b), size, (p) -> {});
     }
 
     public FollowProjectile(Level level, Vec3 from, Vec3 to, Color color, float size, Consumer<FollowProjectile> onArrival) {
-        this(level, from, to, color.getRed(), color.getGreen(), color.getBlue(), size, onArrival);
+        this(level, from, to, color, color, size, onArrival);
     }
 
     public FollowProjectile(Level level, Vec3 from, Vec3 to, Color color, float size) {
         this(level, from, to, color, size, (p) -> {});
     }
 
-    public FollowProjectile(Level worldIn, BlockPos from, BlockPos to, int r, int g, int b, float size) {
-        this(worldIn, new Vec3(from.getX(), from.getY(), from.getZ()), new Vec3(to.getX(), to.getY(), to.getZ()), r, g, b, size, (p) -> {});
-    }
-
-    public FollowProjectile(Level worldIn, BlockPos from, BlockPos to, Color color, float size) {
-        this(worldIn, from, to, color.getRed(), color.getGreen(), color.getBlue(), size);
+    public FollowProjectile(Level level, Vec3 from, Vec3 to, Color color, Color finalColor, float size) {
+        this(level, from, to, color, finalColor, size, (p) -> {});
     }
 
 
@@ -112,17 +108,23 @@ public class FollowProjectile extends ColoredProjectile {
             return;
         }
         Vec3 deltaMovement = this.getDeltaMovement();
-        Vec3 dest = this.entityData.get(FollowProjectile.TO);
+        Vec3 to = this.entityData.get(FollowProjectile.TO);
+        Vec3 from = this.entityData.get(FollowProjectile.FROM);
+        var totalDist = from.distanceTo(to);
+        var coveredDist = this.position().distanceTo(from);
 
-        if (Math.sqrt(this.position().distanceToSqr(dest)) < 1 || this.age > 1000 ||
-                Math.sqrt(this.position().distanceToSqr(dest)) > this.entityData.get(DESPAWN)) {
+        //handle arrival
+        if (Math.sqrt(this.position().distanceToSqr(to)) < 1 || this.age > 1000 ||
+                Math.sqrt(this.position().distanceToSqr(to)) > this.entityData.get(DESPAWN)) {
             if (this.level().isClientSide && this.entityData.get(SPAWN_TOUCH)) {
-                ParticleRegistry.spawnTouch((ClientLevel) this.level(), this.getOnPos(), new ParticleColor(this.entityData.get(RED), this.entityData.get(GREEN), this.entityData.get(BLUE)));
+                //no interpolation here as we are at the end
+                ParticleRegistry.spawnTouch((ClientLevel) this.level(), this.getOnPos(), ParticleColor.fromInt(this.finalColor()));
             }
             this.onArrival.accept(this);
             this.remove(RemovalReason.DISCARDED);
             return;
         }
+
         double posX = this.getX();
         double posY = this.getY();
         double posZ = this.getZ();
@@ -130,10 +132,10 @@ public class FollowProjectile extends ColoredProjectile {
         double motionY = deltaMovement.y;
         double motionZ = deltaMovement.z;
 
-        if (dest.x() != 0 || dest.y() != 0 || dest.z() != 0) {
-            double targetX = dest.x();// + 0.5; we needed this when we used blockpos
-            double targetY = dest.y();// + 0.5;
-            double targetZ = dest.z();// + 0.5;
+        if (to.x() != 0 || to.y() != 0 || to.z() != 0) {
+            double targetX = to.x();// + 0.5; we needed this when we used blockpos
+            double targetY = to.y();// + 0.5;
+            double targetZ = to.z();// + 0.5;
             Vec3 targetVector = new Vec3(targetX - posX, targetY - posY, targetZ - posZ);
             double length = targetVector.length();
             targetVector = targetVector.scale(0.3 / length);
@@ -162,14 +164,19 @@ public class FollowProjectile extends ColoredProjectile {
             double deltaY = this.getY() - this.yOld;
             double deltaZ = this.getZ() - this.zOld;
             float dist = (float) (Math.sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ) * 8.0f);
+
+            var startColor = this.color();
+            var endColor = this.finalColor();
+            //TODO: the problem we have is that the distance to target increases before it decreases again
+            //interpolate based on distance
+            var currentColor = startColor == endColor ? endColor : Color.mixColors(startColor, endColor, (float) (coveredDist / totalDist));
+
             for (double i = 0.0; i <= dist; i++) {
                 double coeff = (i / dist);
-                this.level().addParticle(GlowParticleProvider.createOptions(new ParticleColor(this.entityData.get(RED), this.entityData.get(GREEN), this.entityData.get(BLUE)),  this.entityData.get(SIZE), 0.75f, particleAge),
+                this.level().addParticle(GlowParticleProvider.createOptions(ParticleColor.fromInt(currentColor),  this.entityData.get(SIZE), 0.75f, particleAge),
                         (this.getX() + deltaX * coeff), (this.getY() + deltaY * coeff), (this.getZ() + deltaZ * coeff),
                         0.0125f * (this.random.nextFloat() - 0.5f), 0.0125f * (this.random.nextFloat() - 0.5f), 0.0125f * (this.random.nextFloat() - 0.5f));
-
             }
-
         }
     }
 

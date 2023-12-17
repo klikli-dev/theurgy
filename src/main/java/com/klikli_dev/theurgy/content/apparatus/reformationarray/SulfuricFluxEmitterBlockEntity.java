@@ -210,14 +210,14 @@ public class SulfuricFluxEmitterBlockEntity extends BlockEntity {
                             var snormal = p.to().subtract(p.from()).normalize();
 
                             if (level.isLoaded(BlockPos.containing(sto)) && level.isLoaded(BlockPos.containing(sfrom)) && level.isClientSide) {
-                                FollowProjectile sprojectile = new FollowProjectile(level, sfrom, sto, new Color(0x0000FF, false), 0.1f,
+                                FollowProjectile sprojectile = new FollowProjectile(level, sfrom, sto, new Color(0xffffff, false), new Color(0x0000FF, false), 0.1f,
                                         (p2) -> {
                                                 var tfrom = p2.position();
                                                 var tto = Vec3.atCenterOf(this.resultPedestal.getBlockPos()).add(0, 0.7, 0);
                                                 var tnormal = p2.to().subtract(p2.from()).normalize();
 
                                                 if (level.isLoaded(BlockPos.containing(tto)) && level.isLoaded(BlockPos.containing(tfrom)) && level.isClientSide) {
-                                                    FollowProjectile tprojectile = new FollowProjectile(level, tfrom, tto, new Color(0x008000, false), 0.1f);
+                                                    FollowProjectile tprojectile = new FollowProjectile(level, tfrom, tto, new Color(0x0000FF, false), new Color(0x008000, false), 0.1f);
                                                     tprojectile.setDeltaMovement(tnormal.scale(0.3f));
 
                                                     EntityUtil.spawnEntityClientSide(level, tprojectile);

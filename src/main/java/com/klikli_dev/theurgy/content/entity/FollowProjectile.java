@@ -11,7 +11,6 @@ import com.klikli_dev.theurgy.registry.EntityDataSerializerRegistry;
 import com.klikli_dev.theurgy.registry.EntityRegistry;
 import com.klikli_dev.theurgy.registry.ParticleRegistry;
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.protocol.Packet;
@@ -26,7 +25,6 @@ import net.minecraftforge.network.PlayMessages;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Consumer;
-import java.util.function.Supplier;
 
 public class FollowProjectile extends ColoredProjectile {
 
@@ -34,13 +32,14 @@ public class FollowProjectile extends ColoredProjectile {
     public static final EntityDataAccessor<Vec3> FROM = SynchedEntityData.defineId(FollowProjectile.class, EntityDataSerializerRegistry.VEC3_FLOAT.get());
     public static final EntityDataAccessor<Float> SIZE = SynchedEntityData.defineId(FollowProjectile.class, EntityDataSerializers.FLOAT);
     public static final EntityDataAccessor<Boolean> SPAWN_TOUCH = SynchedEntityData.defineId(FollowProjectile.class, EntityDataSerializers.BOOLEAN);
-    public static final EntityDataAccessor<Integer> DESPAWN = SynchedEntityData.defineId(FollowProjectile.class, EntityDataSerializers.INT);
+    public static final EntityDataAccessor<Integer> DESPAWN_DISTANCE = SynchedEntityData.defineId(FollowProjectile.class, EntityDataSerializers.INT);
+    public static final EntityDataAccessor<Float> ARRIVAL_DISTANCE = SynchedEntityData.defineId(FollowProjectile.class, EntityDataSerializers.FLOAT);
     private int maxAge = 500;
     private int age;
 
     private Consumer<FollowProjectile> onArrival;
 
-    public FollowProjectile(Level level, Vec3 from, Vec3 to, Color color, @Nullable Color finalColor, float size, Consumer<FollowProjectile> onArrival){
+    public FollowProjectile(Level level, Vec3 from, Vec3 to, Color color, @Nullable Color finalColor, float size, float arrivalDistance, Consumer<FollowProjectile> onArrival){
         this(EntityRegistry.FOLLOW_PROJECTILE.get(), level);
         this.entityData.set(FollowProjectile.TO, to);
         this.entityData.set(FollowProjectile.FROM, from);
@@ -49,28 +48,47 @@ public class FollowProjectile extends ColoredProjectile {
         this.entityData.set(COLOR,color.getRGB());
         this.entityData.set(FINAL_COLOR, finalColor == null ? color.getRGB() : finalColor.getRGB());
         this.entityData.set(SIZE, size);
+        this.entityData.set(ARRIVAL_DISTANCE, arrivalDistance);
 
         double distance = from.distanceTo(to);
         this.onArrival = onArrival;
         this.setDespawnDistance((int) (distance + 10));
     }
 
+    public FollowProjectile(Level level, Vec3 from, Vec3 to, Color color, @Nullable Color finalColor, float size, Consumer<FollowProjectile> onArrival){
+        this(level, from, to, color, finalColor, size, 1.0f, onArrival);
+    }
+
     public FollowProjectile(Level level, Vec3 from, Vec3 to, int r, int g, int b, float size){
-        this(level, from, to, new Color(r, g, b), new Color(r,g,b), size, (p) -> {});
+        this(level, from, to, new Color(r, g, b), new Color(r,g,b), size, 1.0f, (p) -> {});
+    }
+    public FollowProjectile(Level level, Vec3 from, Vec3 to, int r, int g, int b, float size, float arrivalDistance){
+        this(level, from, to, new Color(r, g, b), new Color(r,g,b), size, arrivalDistance, (p) -> {});
     }
 
     public FollowProjectile(Level level, Vec3 from, Vec3 to, Color color, float size, Consumer<FollowProjectile> onArrival) {
-        this(level, from, to, color, color, size, onArrival);
+        this(level, from, to, color, color, size, 1.0f, onArrival);
+    }
+
+    public FollowProjectile(Level level, Vec3 from, Vec3 to, Color color, float size, float arrivalDistance, Consumer<FollowProjectile> onArrival) {
+        this(level, from, to, color, color, size, arrivalDistance, onArrival);
     }
 
     public FollowProjectile(Level level, Vec3 from, Vec3 to, Color color, float size) {
         this(level, from, to, color, size, (p) -> {});
     }
 
-    public FollowProjectile(Level level, Vec3 from, Vec3 to, Color color, Color finalColor, float size) {
-        this(level, from, to, color, finalColor, size, (p) -> {});
+    public FollowProjectile(Level level, Vec3 from, Vec3 to, Color color, float size, float arrivalDistance) {
+        this(level, from, to, color, size, arrivalDistance, (p) -> {});
     }
 
+    public FollowProjectile(Level level, Vec3 from, Vec3 to, Color color, Color finalColor, float size) {
+        this(level, from, to, color, finalColor, size, 1.0f, (p) -> {});
+    }
+
+    public FollowProjectile(Level level, Vec3 from, Vec3 to, Color color, Color finalColor, float size, float arrivalDistance) {
+        this(level, from, to, color, finalColor, size, arrivalDistance, (p) -> {});
+    }
 
     public FollowProjectile(EntityType<? extends FollowProjectile> entityType, Level world) {
         super(entityType, world);
@@ -82,7 +100,7 @@ public class FollowProjectile extends ColoredProjectile {
 
 
     public void setDespawnDistance(int distance) {
-        this.getEntityData().set(DESPAWN, distance);
+        this.getEntityData().set(DESPAWN_DISTANCE, distance);
     }
 
     protected void defineSynchedData() {
@@ -91,7 +109,7 @@ public class FollowProjectile extends ColoredProjectile {
         this.entityData.define(FROM, new Vec3(0, 0, 0));
         this.entityData.define(SIZE, 0.0f);
         this.entityData.define(SPAWN_TOUCH, this.defaultsBurst());
-        this.entityData.define(DESPAWN, 10);
+        this.entityData.define(DESPAWN_DISTANCE, 10);
     }
 
     public boolean defaultsBurst() {
@@ -113,9 +131,22 @@ public class FollowProjectile extends ColoredProjectile {
         var totalDist = from.distanceTo(to);
         var coveredDist = this.position().distanceTo(from);
 
+        double posX = this.getX();
+        double posY = this.getY();
+        double posZ = this.getZ();
+        double motionX = deltaMovement.x;
+        double motionY = deltaMovement.y;
+        double motionZ = deltaMovement.z;
+
+        double maxMotion = Math.max(Math.abs(motionX), Math.max(Math.abs(motionY), Math.abs(motionZ)));
+        double arrivalDistance = this.entityData.get(ARRIVAL_DISTANCE);
+
         //handle arrival
-        if (Math.sqrt(this.position().distanceToSqr(to)) < 1 || this.age > 1000 ||
-                Math.sqrt(this.position().distanceToSqr(to)) > this.entityData.get(DESPAWN)) {
+        if (Math.sqrt(this.position().distanceToSqr(to)) < arrivalDistance
+                //now also check for cases where our motion brings us beyond the arrival distance
+                || (maxMotion >= arrivalDistance && maxMotion + Math.sqrt(this.position().distanceToSqr(to)) < arrivalDistance)
+                || this.age > 1000 ||
+                Math.sqrt(this.position().distanceToSqr(to)) > this.entityData.get(DESPAWN_DISTANCE)) {
             if (this.level().isClientSide && this.entityData.get(SPAWN_TOUCH)) {
                 //no interpolation here as we are at the end
                 ParticleRegistry.spawnTouch((ClientLevel) this.level(), this.getOnPos(), ParticleColor.fromInt(this.finalColor()));
@@ -124,13 +155,6 @@ public class FollowProjectile extends ColoredProjectile {
             this.remove(RemovalReason.DISCARDED);
             return;
         }
-
-        double posX = this.getX();
-        double posY = this.getY();
-        double posZ = this.getZ();
-        double motionX = deltaMovement.x;
-        double motionY = deltaMovement.y;
-        double motionZ = deltaMovement.z;
 
         if (to.x() != 0 || to.y() != 0 || to.z() != 0) {
             double targetX = to.x();// + 0.5; we needed this when we used blockpos

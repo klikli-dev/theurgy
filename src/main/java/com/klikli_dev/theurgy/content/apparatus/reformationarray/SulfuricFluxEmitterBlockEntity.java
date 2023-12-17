@@ -355,15 +355,12 @@ public class SulfuricFluxEmitterBlockEntity extends BlockEntity {
     public static class DistHelper {
 
         static void sendTargetProjectile(SulfuricFluxEmitterBlockEntity emitter) {
-            //TODO: consider allowing particle to go closer than 1 block. will need a safeguard in case the particle passes the target within one tick.
-            //      to that end we should measure the distance from source to target and from source to particle, and if particle has ever been closer than 1 AND distance to target is less than distance to particle, we stop the particle.
-
             var normal = Vec3.atLowerCornerOf(emitter.getBlockState().getValue(BlockStateProperties.FACING).getNormal());
             var from = Vec3.atCenterOf(emitter.getBlockPos()).subtract(normal.scale(0.5));
             var to = Vec3.atCenterOf(emitter.targetPedestal.getBlockPos()).add(0, 0.7, 0);
 
             if (emitter.level.isLoaded(BlockPos.containing(to)) && emitter.level.isLoaded(BlockPos.containing(from)) && emitter.level.isClientSide) {
-                FollowProjectile projectile = new FollowProjectile(emitter.level, from, to, new Color(0xffffff, false), 0.1f, (targetProjectile) -> {
+                FollowProjectile projectile = new FollowProjectile(emitter.level, from, to, new Color(0xffffff, false), 0.1f, 0.3f, (targetProjectile) -> {
                     DistHelper.sendSourceProjectiles(targetProjectile, emitter);
                 });
                 projectile.setDeltaMovement(normal.scale(0.3f));
@@ -379,7 +376,7 @@ public class SulfuricFluxEmitterBlockEntity extends BlockEntity {
                 var normal = targetProjectile.to().subtract(targetProjectile.from()).normalize();
 
                 if (emitter.level.isLoaded(BlockPos.containing(to)) && emitter.level.isLoaded(BlockPos.containing(from))) {
-                    FollowProjectile projectile = new FollowProjectile(emitter.level, from, to, new Color(0xffffff, false), new Color(0x0000FF, false), 0.1f,
+                    FollowProjectile projectile = new FollowProjectile(emitter.level, from, to, new Color(0xffffff, false), new Color(0x0000FF, false), 0.1f, 0.3f,
                             (sourceProjectile) -> {
                                 DistHelper.sendResultProjectile(sourceProjectile, emitter);
                             });
@@ -398,7 +395,7 @@ public class SulfuricFluxEmitterBlockEntity extends BlockEntity {
             var normal = sourceProjectile.to().subtract(sourceProjectile.from()).normalize();
 
             if (emitter.level.isLoaded(BlockPos.containing(to)) && emitter.level.isLoaded(BlockPos.containing(from))) {
-                FollowProjectile tprojectile = new FollowProjectile(emitter.level, from, to, new Color(0x0000FF, false), new Color(0x008000, false), 0.1f);
+                FollowProjectile tprojectile = new FollowProjectile(emitter.level, from, to, new Color(0x0000FF, false), new Color(0x008000, false), 0.1f, 0.3f);
 
                 //the scale is "force" with which the projectile starts moving in the direction of the normal
                 tprojectile.setDeltaMovement(normal.scale(0.3f));

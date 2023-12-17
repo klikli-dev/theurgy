@@ -192,8 +192,6 @@ public class SulfuricFluxEmitterBlockEntity extends BlockEntity {
     }
 
     public void tickServer() {
-        //TODO: further, we should probably pause checks if that source + target do not produce a valid recipe
-        //      we only re-check if one of the pedestal input changes.
         boolean hasInput = this.isValidMultiblock() && this.hasSourceItems && this.hasTargetItem;
         this.craftingBehaviour.tickServer(true, hasInput);
     }

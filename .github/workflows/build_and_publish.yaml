@@ -114,3 +114,4 @@ jobs:
             forge(required)
             modonomicon(required)
             jei(optional)
+            jade(optional)

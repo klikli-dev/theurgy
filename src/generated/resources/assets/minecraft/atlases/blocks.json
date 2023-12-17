@@ -1,0 +1,8 @@
+{
+  "sources": [
+    {
+      "type": "minecraft:single",
+      "resource": "theurgy:particle/particle_glow"
+    }
+  ]
+}

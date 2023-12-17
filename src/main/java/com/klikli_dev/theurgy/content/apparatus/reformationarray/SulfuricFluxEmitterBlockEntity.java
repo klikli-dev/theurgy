@@ -197,8 +197,6 @@ public class SulfuricFluxEmitterBlockEntity extends BlockEntity {
         if (this.craftingBehaviour.isProcessing()) {
             if(this.level.getGameTime() % 40 == 0) {
                 //TODO: show particles flying from emitter to target to source to result
-                //TODO: consider allowing particle to go closer than 1 block. will need a safeguard in case the particle passes the target within one tick.
-                //      to that end we should measure the distance from source to target and from source to particle, and if particle has ever been closer than 1 AND distance to target is less than distance to particle, we stop the particle.
                 var normal = Vec3.atLowerCornerOf(this.getBlockState().getValue(BlockStateProperties.FACING).getNormal());
                 var from = Vec3.atCenterOf(this.getBlockPos()).subtract(normal.scale(0.5));
                 var to = Vec3.atCenterOf(this.targetPedestal.getBlockPos()).add(0, 0.7, 0);
@@ -207,20 +205,20 @@ public class SulfuricFluxEmitterBlockEntity extends BlockEntity {
                     FollowProjectile projectile = new FollowProjectile(level, from, to, new Color(0xffffff, false), 0.1f, (p) -> {
                         for(var sourcePedestal :  this.sourcePedestals) {
                             //TODO: only sources with content! maybe pre-filter before sending to client
-                            var sfrom = Vec3.atCenterOf(this.targetPedestal.getBlockPos()).add(0, 0.7, 0);
+                            var sfrom = p.position();
                             var sto = Vec3.atCenterOf(sourcePedestal.getBlockPos()).add(0, 0.7, 0);
-                            var snormal = sto.subtract(sfrom).normalize();
+                            var snormal = p.to().subtract(p.from()).normalize();
 
                             if (level.isLoaded(BlockPos.containing(sto)) && level.isLoaded(BlockPos.containing(sfrom)) && level.isClientSide) {
                                 FollowProjectile sprojectile = new FollowProjectile(level, sfrom, sto, new Color(0x0000FF, false), 0.1f,
                                         (p2) -> {
-                                                var tfrom = sto;
+                                                var tfrom = p2.position();
                                                 var tto = Vec3.atCenterOf(this.resultPedestal.getBlockPos()).add(0, 0.7, 0);
-                                                var tnormal = tto.subtract(tfrom).normalize();
+                                                var tnormal = p2.to().subtract(p2.from()).normalize();
 
                                                 if (level.isLoaded(BlockPos.containing(tto)) && level.isLoaded(BlockPos.containing(tfrom)) && level.isClientSide) {
                                                     FollowProjectile tprojectile = new FollowProjectile(level, tfrom, tto, new Color(0x008000, false), 0.1f);
-                                                    tprojectile.setDeltaMovement(tnormal.scale(0.1f));
+                                                    tprojectile.setDeltaMovement(tnormal.scale(0.3f));
 
                                                     EntityUtil.spawnEntityClientSide(level, tprojectile);
                                                 }

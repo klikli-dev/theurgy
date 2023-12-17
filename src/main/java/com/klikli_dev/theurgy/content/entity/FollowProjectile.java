@@ -209,5 +209,12 @@ public class FollowProjectile extends ColoredProjectile {
         return true;
     }
 
+    public Vec3 to(){
+        return this.entityData.get(FollowProjectile.TO);
+    }
+
+    public Vec3 from(){
+        return this.entityData.get(FollowProjectile.FROM);
+    }
 
 }

@@ -45,8 +45,6 @@ public class ReformationArrayCraftingBehaviour extends CraftingBehaviour<Reforma
         var recipeWrapper = this.recipeWrapperSupplier.get();
         var assembledStack = pRecipe.assemble(recipeWrapper, this.blockEntity.getLevel().registryAccess());
 
-        //TODO: test taking out item during crafting process
-
         //consume energy
         this.mercuryFluxStorageSupplier.get().extractEnergy(pRecipe.getMercuryFlux(), false);
 

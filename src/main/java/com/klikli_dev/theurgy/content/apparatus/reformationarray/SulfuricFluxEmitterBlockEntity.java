@@ -354,10 +354,10 @@ public class SulfuricFluxEmitterBlockEntity extends BlockEntity {
         static void sendTargetProjectile(SulfuricFluxEmitterBlockEntity emitter) {
             var normal = Vec3.atLowerCornerOf(emitter.getBlockState().getValue(BlockStateProperties.FACING).getNormal());
             var from = Vec3.atCenterOf(emitter.getBlockPos()).subtract(normal.scale(0.5));
-            var to = Vec3.atCenterOf(emitter.targetPedestal.getBlockPos()).add(0, 0.7, 0);
+            var to = Vec3.atCenterOf(emitter.targetPedestal.getBlockPos()).add(0, 0.5, 0);
 
             if (emitter.level.isLoaded(BlockPos.containing(to)) && emitter.level.isLoaded(BlockPos.containing(from)) && emitter.level.isClientSide) {
-                FollowProjectile projectile = new FollowProjectile(emitter.level, from, to, new Color(0xffffff, false), 0.1f, 0.3f, (targetProjectile) -> {
+                FollowProjectile projectile = new FollowProjectile(emitter.level, from, to, new Color(0xffffff, false), new Color(0x0000ff, false), 0.1f, 0.3f, (targetProjectile) -> {
                     DistHelper.sendSourceProjectiles(targetProjectile, emitter);
                 });
                 projectile.setDeltaMovement(normal.scale(0.3f));
@@ -373,7 +373,7 @@ public class SulfuricFluxEmitterBlockEntity extends BlockEntity {
                 var normal = targetProjectile.to().subtract(targetProjectile.from()).normalize();
 
                 if (emitter.level.isLoaded(BlockPos.containing(to)) && emitter.level.isLoaded(BlockPos.containing(from))) {
-                    FollowProjectile projectile = new FollowProjectile(emitter.level, from, to, new Color(0xffffff, false), new Color(0x0000FF, false), 0.1f, 0.3f,
+                    FollowProjectile projectile = new FollowProjectile(emitter.level, from, to, new Color(0x0000ff, false), new Color(0xFF00FF, false), 0.1f, 0.3f,
                             (sourceProjectile) -> {
                                 DistHelper.sendResultProjectile(sourceProjectile, emitter);
                             });
@@ -392,7 +392,7 @@ public class SulfuricFluxEmitterBlockEntity extends BlockEntity {
             var normal = sourceProjectile.to().subtract(sourceProjectile.from()).normalize();
 
             if (emitter.level.isLoaded(BlockPos.containing(to)) && emitter.level.isLoaded(BlockPos.containing(from))) {
-                FollowProjectile projectile = new FollowProjectile(emitter.level, from, to, new Color(0x0000FF, false), new Color(0x008000, false), 0.1f, 1f);
+                FollowProjectile projectile = new FollowProjectile(emitter.level, from, to, new Color(0xAA08AA, false), new Color(0x00FF00, false), 0.1f, 1f);
 
                 //the scale is "force" with which the projectile starts moving in the direction of the normal
                 projectile.setDeltaMovement(normal.scale(0.3f));

@@ -1,7 +1,5 @@
 package com.klikli_dev.theurgy.content.apparatus.reformationarray;
 
-import com.klikli_dev.theurgy.Theurgy;
-import com.klikli_dev.theurgy.content.apparatus.caloricfluxemitter.CaloricFluxEmitterBlock;
 import com.klikli_dev.theurgy.content.behaviour.CraftingBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.interaction.SelectionBehaviour;
 import com.klikli_dev.theurgy.content.capability.DefaultMercuryFluxStorage;
@@ -12,6 +10,7 @@ import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.CapabilityRegistry;
 import com.klikli_dev.theurgy.util.EntityUtil;
+import com.mojang.datafixers.util.Pair;
 import io.netty.handler.codec.EncoderException;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
@@ -43,6 +42,7 @@ public class SulfuricFluxEmitterBlockEntity extends BlockEntity {
     public LazyOptional<MercuryFluxStorage> mercuryFluxStorageCapability;
     public boolean isValidMultiblock;
     protected List<SulfuricFluxEmitterSelectedPoint> sourcePedestals;
+    protected List<SulfuricFluxEmitterSelectedPoint> sourcePedestalsWithContents;
     protected SulfuricFluxEmitterSelectedPoint targetPedestal;
     protected SulfuricFluxEmitterSelectedPoint resultPedestal;
     protected CraftingBehaviour<?, ?, ?> craftingBehaviour;
@@ -60,6 +60,7 @@ public class SulfuricFluxEmitterBlockEntity extends BlockEntity {
         this.checkValidMultiblockOnNextQuery = true;
 
         this.sourcePedestals = new ArrayList<>();
+        this.sourcePedestalsWithContents = new ArrayList<>();
 
         this.craftingBehaviour = new ReformationArrayCraftingBehaviour(this, () -> this.recipeWrapper, () -> null, this::getOutputInventory, () -> this.mercuryFluxStorage);
     }
@@ -128,8 +129,14 @@ public class SulfuricFluxEmitterBlockEntity extends BlockEntity {
         }
         if (!sourcesToRemove.isEmpty())
             this.sourcePedestals.removeAll(sourcesToRemove);
+
+        this.sourcePedestalsWithContents.clear();
         if (this.sourcePedestals.isEmpty())
             this.isValidMultiblock = false;
+        else {
+            //now force rebuilding the source pedestals with contents
+            this.onSourcePedestalContentChange(null);
+        }
 
         if (wasValidMultiblock != this.isValidMultiblock) {
             if (this.isValidMultiblock) {
@@ -193,46 +200,9 @@ public class SulfuricFluxEmitterBlockEntity extends BlockEntity {
 
     public void tickClient() {
 
-        //TODO: most likely spawning a particle here will error in a server+client env so we need to load this behind a classguard
         if (this.craftingBehaviour.isProcessing()) {
-            if(this.level.getGameTime() % 40 == 0) {
-                //TODO: show particles flying from emitter to target to source to result
-                var normal = Vec3.atLowerCornerOf(this.getBlockState().getValue(BlockStateProperties.FACING).getNormal());
-                var from = Vec3.atCenterOf(this.getBlockPos()).subtract(normal.scale(0.5));
-                var to = Vec3.atCenterOf(this.targetPedestal.getBlockPos()).add(0, 0.7, 0);
-
-                if (level.isLoaded(BlockPos.containing(to)) && level.isLoaded(BlockPos.containing(from)) && level.isClientSide) {
-                    FollowProjectile projectile = new FollowProjectile(level, from, to, new Color(0xffffff, false), 0.1f, (p) -> {
-                        for(var sourcePedestal :  this.sourcePedestals) {
-                            //TODO: only sources with content! maybe pre-filter before sending to client
-                            var sfrom = p.position();
-                            var sto = Vec3.atCenterOf(sourcePedestal.getBlockPos()).add(0, 0.7, 0);
-                            var snormal = p.to().subtract(p.from()).normalize();
-
-                            if (level.isLoaded(BlockPos.containing(sto)) && level.isLoaded(BlockPos.containing(sfrom)) && level.isClientSide) {
-                                FollowProjectile sprojectile = new FollowProjectile(level, sfrom, sto, new Color(0xffffff, false), new Color(0x0000FF, false), 0.1f,
-                                        (p2) -> {
-                                                var tfrom = p2.position();
-                                                var tto = Vec3.atCenterOf(this.resultPedestal.getBlockPos()).add(0, 0.7, 0);
-                                                var tnormal = p2.to().subtract(p2.from()).normalize();
-
-                                                if (level.isLoaded(BlockPos.containing(tto)) && level.isLoaded(BlockPos.containing(tfrom)) && level.isClientSide) {
-                                                    FollowProjectile tprojectile = new FollowProjectile(level, tfrom, tto, new Color(0x0000FF, false), new Color(0x008000, false), 0.1f);
-                                                    tprojectile.setDeltaMovement(tnormal.scale(0.3f));
-
-                                                    EntityUtil.spawnEntityClientSide(level, tprojectile);
-                                                }
-                                        });
-                                sprojectile.setDeltaMovement(snormal.scale(0.3f));
-
-                                EntityUtil.spawnEntityClientSide(level, sprojectile);
-                            }
-                        }
-                    });
-                    projectile.setDeltaMovement(normal.scale(0.3f));
-
-                    EntityUtil.spawnEntityClientSide(level, projectile);
-                }
+            if (this.level.getGameTime() % 40 == 0) {
+                DistHelper.sendTargetProjectile(this);
             }
         }
     }
@@ -321,9 +291,9 @@ public class SulfuricFluxEmitterBlockEntity extends BlockEntity {
 
     public void readNetwork(CompoundTag pTag) {
 
-        if (pTag.contains("sourcePedestals")) {
-            this.sourcePedestals.clear();
-            this.sourcePedestals.addAll(Util.getOrThrow(SulfuricFluxEmitterSelectedPoint.LIST_CODEC.parse(NbtOps.INSTANCE, pTag.get("sourcePedestals")), (e) -> new EncoderException("Failed to decode: " + e + " " + pTag.get("sourcePedestals"))));
+        if (pTag.contains("sourcePedestalsWithContents")) {
+            this.sourcePedestalsWithContents.clear();
+            this.sourcePedestalsWithContents.addAll(Util.getOrThrow(SulfuricFluxEmitterSelectedPoint.LIST_CODEC.parse(NbtOps.INSTANCE, pTag.get("sourcePedestalsWithContents")), (e) -> new EncoderException("Failed to decode: " + e + " " + pTag.get("sourcePedestalsWithContents"))));
         }
 
         if (pTag.contains("targetPedestal")) {
@@ -338,7 +308,7 @@ public class SulfuricFluxEmitterBlockEntity extends BlockEntity {
     }
 
     public void writeNetwork(CompoundTag pTag) {
-        pTag.put("sourcePedestals", Util.getOrThrow(SulfuricFluxEmitterSelectedPoint.LIST_CODEC.encodeStart(NbtOps.INSTANCE, this.sourcePedestals), (e) -> new EncoderException("Failed to encode: " + e + " " + this.sourcePedestals)));
+        pTag.put("sourcePedestalsWithContents", Util.getOrThrow(SulfuricFluxEmitterSelectedPoint.LIST_CODEC.encodeStart(NbtOps.INSTANCE, this.sourcePedestalsWithContents), (e) -> new EncoderException("Failed to encode: " + e + " " + this.sourcePedestals)));
 
         if (this.targetPedestal != null)
             pTag.put("targetPedestal", Util.getOrThrow(SulfuricFluxEmitterSelectedPoint.CODEC.encodeStart(NbtOps.INSTANCE, this.targetPedestal), (e) -> new EncoderException("Failed to encode: " + e + " " + this.targetPedestal)));
@@ -372,10 +342,70 @@ public class SulfuricFluxEmitterBlockEntity extends BlockEntity {
     }
 
     public void onSourcePedestalContentChange(ReformationSourcePedestalBlockEntity pedestal) {
-        this.hasSourceItems = this.sourcePedestals.stream().map(p -> this.level.getBlockEntity(p.getBlockPos()))
-                .filter(e -> e instanceof ReformationSourcePedestalBlockEntity)
-                .map(e -> (ReformationSourcePedestalBlockEntity) e)
-                .anyMatch(p -> !p.inputInventory.getStackInSlot(0).isEmpty());
+        this.sourcePedestalsWithContents.clear();
+        this.hasSourceItems = this.sourcePedestals.stream().map(p -> new Pair<>(p, this.level.getBlockEntity(p.getBlockPos())))
+                .filter(p -> p.getSecond() instanceof ReformationSourcePedestalBlockEntity)
+                .map(p -> new Pair<>(p.getFirst(), (ReformationSourcePedestalBlockEntity) p.getSecond()))
+                .filter(p -> !p.getSecond().inputInventory.getStackInSlot(0).isEmpty())
+                .peek(p -> this.sourcePedestalsWithContents.add(p.getFirst()))
+                .findAny().isPresent();
+        this.setChanged();
+    }
+
+    public static class DistHelper {
+
+        static void sendTargetProjectile(SulfuricFluxEmitterBlockEntity emitter) {
+            //TODO: consider allowing particle to go closer than 1 block. will need a safeguard in case the particle passes the target within one tick.
+            //      to that end we should measure the distance from source to target and from source to particle, and if particle has ever been closer than 1 AND distance to target is less than distance to particle, we stop the particle.
+
+            var normal = Vec3.atLowerCornerOf(emitter.getBlockState().getValue(BlockStateProperties.FACING).getNormal());
+            var from = Vec3.atCenterOf(emitter.getBlockPos()).subtract(normal.scale(0.5));
+            var to = Vec3.atCenterOf(emitter.targetPedestal.getBlockPos()).add(0, 0.7, 0);
+
+            if (emitter.level.isLoaded(BlockPos.containing(to)) && emitter.level.isLoaded(BlockPos.containing(from)) && emitter.level.isClientSide) {
+                FollowProjectile projectile = new FollowProjectile(emitter.level, from, to, new Color(0xffffff, false), 0.1f, (targetProjectile) -> {
+                    DistHelper.sendSourceProjectiles(targetProjectile, emitter);
+                });
+                projectile.setDeltaMovement(normal.scale(0.3f));
+
+                EntityUtil.spawnEntityClientSide(emitter.level, projectile);
+            }
+        }
+
+        static void sendSourceProjectiles(FollowProjectile targetProjectile, SulfuricFluxEmitterBlockEntity emitter) {
+            for (var sourcePedestal : emitter.sourcePedestalsWithContents) {
+                var from = targetProjectile.position();
+                var to = Vec3.atCenterOf(sourcePedestal.getBlockPos()).add(0, 0.7, 0);
+                var normal = targetProjectile.to().subtract(targetProjectile.from()).normalize();
+
+                if (emitter.level.isLoaded(BlockPos.containing(to)) && emitter.level.isLoaded(BlockPos.containing(from))) {
+                    FollowProjectile projectile = new FollowProjectile(emitter.level, from, to, new Color(0xffffff, false), new Color(0x0000FF, false), 0.1f,
+                            (sourceProjectile) -> {
+                                DistHelper.sendResultProjectile(sourceProjectile, emitter);
+                            });
+
+                    //the scale is "force" with which the projectile starts moving in the direction of the normal
+                    projectile.setDeltaMovement(normal.scale(0.3f));
+
+                    EntityUtil.spawnEntityClientSide(emitter.level, projectile);
+                }
+            }
+        }
+
+        static void sendResultProjectile(FollowProjectile sourceProjectile, SulfuricFluxEmitterBlockEntity emitter) {
+            var from = sourceProjectile.position();
+            var to = Vec3.atCenterOf(emitter.resultPedestal.getBlockPos()).add(0, 0.7, 0);
+            var normal = sourceProjectile.to().subtract(sourceProjectile.from()).normalize();
+
+            if (emitter.level.isLoaded(BlockPos.containing(to)) && emitter.level.isLoaded(BlockPos.containing(from))) {
+                FollowProjectile tprojectile = new FollowProjectile(emitter.level, from, to, new Color(0x0000FF, false), new Color(0x008000, false), 0.1f);
+
+                //the scale is "force" with which the projectile starts moving in the direction of the normal
+                tprojectile.setDeltaMovement(normal.scale(0.3f));
+
+                EntityUtil.spawnEntityClientSide(emitter.level, tprojectile);
+            }
+        }
     }
 
     public class MercuryFluxStorage extends DefaultMercuryFluxStorage {

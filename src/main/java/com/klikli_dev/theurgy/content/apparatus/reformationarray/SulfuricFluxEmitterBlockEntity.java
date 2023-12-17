@@ -199,7 +199,6 @@ public class SulfuricFluxEmitterBlockEntity extends BlockEntity {
     }
 
     public void tickClient() {
-
         if (this.craftingBehaviour.isProcessing()) {
             if (this.level.getGameTime() % 40 == 0) {
                 DistHelper.sendTargetProjectile(this);

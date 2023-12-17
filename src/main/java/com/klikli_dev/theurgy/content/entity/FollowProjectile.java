@@ -191,7 +191,6 @@ public class FollowProjectile extends ColoredProjectile {
 
             var startColor = this.color();
             var endColor = this.finalColor();
-            //TODO: the problem we have is that the distance to target increases before it decreases again
             //interpolate based on distance
             var currentColor = startColor == endColor ? endColor : Color.mixColors(startColor, endColor, (float) (coveredDist / totalDist));
 

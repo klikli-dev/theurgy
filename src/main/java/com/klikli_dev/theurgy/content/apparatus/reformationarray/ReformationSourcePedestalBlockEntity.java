@@ -144,7 +144,8 @@ public class ReformationSourcePedestalBlockEntity extends BlockEntity {
         }
 
         protected SulfuricFluxEmitterBlockEntity emitter() {
-            return ReformationSourcePedestalBlockEntity.this.sulfuricFluxEmitter != null ? ReformationSourcePedestalBlockEntity.this.sulfuricFluxEmitter.get() : null;
+            var emitter = ReformationSourcePedestalBlockEntity.this.sulfuricFluxEmitter;
+            return emitter != null ? emitter.get() : null;
         }
 
         @Override

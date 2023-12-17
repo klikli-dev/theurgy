@@ -11,6 +11,19 @@
       "entries": [
         {
           "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:copy_nbt",
+              "ops": [
+                {
+                  "op": "replace",
+                  "source": "mercuryFluxStorage",
+                  "target": "BlockEntityTag.mercuryFluxStorage"
+                }
+              ],
+              "source": "block_entity"
+            }
+          ],
           "name": "theurgy:sulfuric_flux_emitter"
         }
       ],

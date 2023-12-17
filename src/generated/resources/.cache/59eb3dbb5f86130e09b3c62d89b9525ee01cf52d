@@ -1,4 +1,4 @@
-// 1.20.1	2023-08-11T11:51:01.1179525	Loot Tables
+// 1.20.1	2023-12-17T17:21:16.0977721	Loot Tables
 72c4014c4a8e846f945380a01c02fc8516e774d7 data/theurgy/loot_tables/blocks/calcination_oven.json
 b78ed93c8a746109ac27cbaf07f1d4979078ac50 data/theurgy/loot_tables/blocks/caloric_flux_emitter.json
 fd1d6c22b80bf3f1357dd9e23231ce1758e3799f data/theurgy/loot_tables/blocks/deepslate_sal_ammoniac_ore.json
@@ -16,4 +16,4 @@ b9102f2059d2e55c87ca052896537377c88935a6 data/theurgy/loot_tables/blocks/reforma
 1e9e39c1ec35fd04a371c081e9e0dc8e1f246cb1 data/theurgy/loot_tables/blocks/sal_ammoniac_accumulator.json
 30f8dbf50bc546bce7c73245555a0393ae17d798 data/theurgy/loot_tables/blocks/sal_ammoniac_ore.json
 58718450c1d42ff9ef53e693e753fc0c820c79b9 data/theurgy/loot_tables/blocks/sal_ammoniac_tank.json
-5598a2fef1de2f3c794cb5c58fe36e094903e7ef data/theurgy/loot_tables/blocks/sulfuric_flux_emitter.json
+c1445f3d0519d8cc54945ddcaf95d22b8d6f85e9 data/theurgy/loot_tables/blocks/sulfuric_flux_emitter.json

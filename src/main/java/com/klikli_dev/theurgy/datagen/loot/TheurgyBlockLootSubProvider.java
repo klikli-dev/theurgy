@@ -57,7 +57,9 @@ public class TheurgyBlockLootSubProvider extends BlockLootSubProvider {
                 "mercuryFluxStorage"
         );
 
-        this.dropSelf(BlockRegistry.SULFURIC_FLUX_EMITTER.get());
+        this.dropSelfWithNbt(BlockRegistry.SULFURIC_FLUX_EMITTER.get(),
+                "mercuryFluxStorage"
+        );
         this.dropSelf(BlockRegistry.REFORMATION_SOURCE_PEDESTAL.get());
         this.dropSelf(BlockRegistry.REFORMATION_TARGET_PEDESTAL.get());
         this.dropSelf(BlockRegistry.REFORMATION_RESULT_PEDESTAL.get());

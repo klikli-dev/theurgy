@@ -65,15 +65,12 @@ public class ReformationTargetPedestalBlock extends Block implements EntityBlock
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
+
         if (pLevel.isClientSide()) {
             return (lvl, pos, blockState, t) -> {
-//                if(lvl.getGameTime() % 40 == 0)
-                if(lvl.getRandom().nextFloat() < 0.07f)
-                lvl.addParticle(GlowParticleProvider.createOptions(
-                        ParticleColor.fromInt(0x0000FF),
-                                0.5f,
-                                0.75f,
-                                200), pos.getX() + 0.5f, pos.getY() + 1, pos.getZ()+ 0.5f, 0, 0, 0);
+                if (t instanceof ReformationTargetPedestalBlockEntity blockEntity) {
+                    blockEntity.tickClient();
+                }
             };
         }
         return null;

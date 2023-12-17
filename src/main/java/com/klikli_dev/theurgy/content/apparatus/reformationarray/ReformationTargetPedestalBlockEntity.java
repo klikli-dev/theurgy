@@ -1,5 +1,7 @@
 package com.klikli_dev.theurgy.content.apparatus.reformationarray;
 
+import com.klikli_dev.theurgy.content.particle.ParticleColor;
+import com.klikli_dev.theurgy.content.particle.glow.GlowParticleProvider;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.ItemTagRegistry;
 import net.minecraft.core.BlockPos;
@@ -34,6 +36,17 @@ public class ReformationTargetPedestalBlockEntity extends BlockEntity {
 
     public void setSulfuricFluxEmitter(SulfuricFluxEmitterBlockEntity sulfuricFluxEmitter) {
         this.sulfuricFluxEmitter = new WeakReference<>(sulfuricFluxEmitter);
+    }
+
+    public void tickClient(){
+        if(!this.inputInventory.getStackInSlot(0).isEmpty() && this.level.getRandom().nextFloat() < 0.07f){
+            var pos = this.getBlockPos();
+            this.level.addParticle(GlowParticleProvider.createOptions(
+                    ParticleColor.fromInt(0x0000FF),
+                    0.5f,
+                    0.75f,
+                    200), pos.getX() + 0.5f, pos.getY() + 1.0f, pos.getZ()+ 0.5f, 0, 0, 0);
+        }
     }
 
     @Override

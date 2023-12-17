@@ -15,7 +15,6 @@ import com.klikli_dev.theurgy.content.apparatus.incubator.render.IncubatorSaltVe
 import com.klikli_dev.theurgy.content.apparatus.incubator.render.IncubatorSulfurVesselRenderer;
 import com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron.render.LiquefactionCauldronRenderer;
 import com.klikli_dev.theurgy.content.apparatus.mercurycatalyst.MercuryCatalystBlock;
-import com.klikli_dev.theurgy.content.apparatus.reformationarray.render.ReformationTargetPedestalRenderer;
 import com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator.render.SalAmmoniacAccumulatorRenderer;
 import com.klikli_dev.theurgy.content.apparatus.salammoniactank.render.SalAmmoniacTankRenderer;
 import com.klikli_dev.theurgy.content.item.AlchemicalSaltItem;
@@ -225,7 +224,6 @@ public class Theurgy {
             event.registerBlockEntityRenderer(BlockEntityRegistry.INCUBATOR_SULFUR_VESSEL.get(), IncubatorSulfurVesselRenderer::new);
             event.registerBlockEntityRenderer(BlockEntityRegistry.INCUBATOR_SALT_VESSEL.get(), IncubatorSaltVesselRenderer::new);
             event.registerBlockEntityRenderer(BlockEntityRegistry.SAL_AMMONIAC_TANK.get(), SalAmmoniacTankRenderer::new);
-            event.registerBlockEntityRenderer(BlockEntityRegistry.REFORMATION_TARGET_PEDESTAL.get(), ReformationTargetPedestalRenderer::new);
         }
 
         public static void registerItemProperties(FMLClientSetupEvent event) {
@@ -260,7 +258,6 @@ public class Theurgy {
             if (BlockRegistry.SULFURIC_FLUX_EMITTER.get().getSelectionBehaviour().onRightClickBlock(event.getLevel(), event.getEntity(), event.getHand(), event.getPos(), event.getFace())) {
                 event.setCanceled(true);
                 event.setCancellationResult(InteractionResult.SUCCESS);
-                return;
             }
         }
 
@@ -274,7 +271,6 @@ public class Theurgy {
             if (BlockRegistry.SULFURIC_FLUX_EMITTER.get().getSelectionBehaviour().onLeftClickBlock(event.getLevel(), event.getEntity(), event.getHand(), event.getPos(), event.getFace())) {
                 event.setCanceled(true);
                 event.setCancellationResult(InteractionResult.SUCCESS);
-                return;
             }
         }
     }

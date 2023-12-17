@@ -394,7 +394,7 @@ public class SulfuricFluxEmitterBlockEntity extends BlockEntity {
             var normal = sourceProjectile.to().subtract(sourceProjectile.from()).normalize();
 
             if (emitter.level.isLoaded(BlockPos.containing(to)) && emitter.level.isLoaded(BlockPos.containing(from))) {
-                FollowProjectile tprojectile = new FollowProjectile(emitter.level, from, to, new Color(0x0000FF, false), new Color(0x008000, false), 0.1f, 0.3f);
+                FollowProjectile tprojectile = new FollowProjectile(emitter.level, from, to, new Color(0x0000FF, false), new Color(0x008000, false), 0.1f, 1f);
 
                 //the scale is "force" with which the projectile starts moving in the direction of the normal
                 tprojectile.setDeltaMovement(normal.scale(0.3f));

@@ -15,12 +15,14 @@ import com.klikli_dev.theurgy.content.apparatus.incubator.render.IncubatorSaltVe
 import com.klikli_dev.theurgy.content.apparatus.incubator.render.IncubatorSulfurVesselRenderer;
 import com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron.render.LiquefactionCauldronRenderer;
 import com.klikli_dev.theurgy.content.apparatus.mercurycatalyst.MercuryCatalystBlock;
+import com.klikli_dev.theurgy.content.apparatus.reformationarray.render.ReformationTargetPedestalRenderer;
 import com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator.render.SalAmmoniacAccumulatorRenderer;
 import com.klikli_dev.theurgy.content.apparatus.salammoniactank.render.SalAmmoniacTankRenderer;
 import com.klikli_dev.theurgy.content.item.AlchemicalSaltItem;
 import com.klikli_dev.theurgy.content.item.AlchemicalSulfurItem;
 import com.klikli_dev.theurgy.content.item.DivinationRodItem;
 import com.klikli_dev.theurgy.content.render.BlankEntityRenderer;
+import com.klikli_dev.theurgy.content.render.ClientTicks;
 import com.klikli_dev.theurgy.content.render.outliner.Outliner;
 import com.klikli_dev.theurgy.datagen.TheurgyDataGenerators;
 import com.klikli_dev.theurgy.integration.modonomicon.PageLoaders;
@@ -28,7 +30,6 @@ import com.klikli_dev.theurgy.integration.modonomicon.PageRenderers;
 import com.klikli_dev.theurgy.network.Networking;
 import com.klikli_dev.theurgy.registry.*;
 import com.klikli_dev.theurgy.tooltips.TooltipHandler;
-import com.klikli_dev.theurgy.util.TickUtil;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.logging.LogUtils;
@@ -140,6 +141,19 @@ public class Theurgy {
 
             PageRenderers.onClientSetup(event);
 
+            MinecraftForge.EVENT_BUS.addListener((TickEvent.ClientTickEvent e) -> {
+                if (e.phase == TickEvent.Phase.END) {
+                    ClientTicks.endClientTick(Minecraft.getInstance());
+                }
+            });
+            MinecraftForge.EVENT_BUS.addListener((TickEvent.RenderTickEvent e) -> {
+                if (e.phase == TickEvent.Phase.START) {
+                    ClientTicks.renderTickStart(e.renderTickTime);
+                } else {
+                    ClientTicks.renderTickEnd();
+                }
+            });
+
             LOGGER.info("Client setup complete.");
         }
 
@@ -164,7 +178,7 @@ public class Theurgy {
             ms.pushPose();
 
             var buffer = Minecraft.getInstance().renderBuffers().bufferSource();
-            float partialTicks = TickUtil.getPartialTicks();
+            float partialTicks = ClientTicks.getPartialTicksHandlePause();
             Vec3 camera = Minecraft.getInstance().gameRenderer.getMainCamera()
                     .getPosition();
 
@@ -211,8 +225,8 @@ public class Theurgy {
             event.registerBlockEntityRenderer(BlockEntityRegistry.INCUBATOR_SULFUR_VESSEL.get(), IncubatorSulfurVesselRenderer::new);
             event.registerBlockEntityRenderer(BlockEntityRegistry.INCUBATOR_SALT_VESSEL.get(), IncubatorSaltVesselRenderer::new);
             event.registerBlockEntityRenderer(BlockEntityRegistry.SAL_AMMONIAC_TANK.get(), SalAmmoniacTankRenderer::new);
+            event.registerBlockEntityRenderer(BlockEntityRegistry.REFORMATION_TARGET_PEDESTAL.get(), ReformationTargetPedestalRenderer::new);
         }
-
 
         public static void registerItemProperties(FMLClientSetupEvent event) {
             //Not safe to call during parallel load, so register to run threadsafe

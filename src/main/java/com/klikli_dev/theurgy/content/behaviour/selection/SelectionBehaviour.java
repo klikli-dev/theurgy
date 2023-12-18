@@ -1,9 +1,8 @@
-package com.klikli_dev.theurgy.content.behaviour.interaction;
+package com.klikli_dev.theurgy.content.behaviour.selection;
 
 import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.content.render.outliner.Outliner;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;

@@ -1,6 +1,6 @@
 package com.klikli_dev.theurgy.content.apparatus.reformationarray;
 
-import com.klikli_dev.theurgy.content.behaviour.interaction.SelectionBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.selection.SelectionBehaviour;
 import com.klikli_dev.theurgy.network.Networking;
 import com.klikli_dev.theurgy.network.messages.MessageRequestSulfuricFluxEmitterSelection;
 import com.klikli_dev.theurgy.registry.BlockRegistry;

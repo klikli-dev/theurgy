@@ -2,7 +2,7 @@ package com.klikli_dev.theurgy.content.apparatus.reformationarray;
 
 import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.content.behaviour.CraftingBehaviour;
-import com.klikli_dev.theurgy.content.behaviour.interaction.SelectionBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.selection.SelectionBehaviour;
 import com.klikli_dev.theurgy.content.capability.DefaultMercuryFluxStorage;
 import com.klikli_dev.theurgy.content.entity.FollowProjectile;
 import com.klikli_dev.theurgy.content.recipe.wrapper.ReformationArrayRecipeWrapper;

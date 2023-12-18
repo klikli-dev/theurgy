@@ -1,4 +1,4 @@
-package com.klikli_dev.theurgy.content.behaviour.interaction;
+package com.klikli_dev.theurgy.content.behaviour.selection;
 
 import com.klikli_dev.theurgy.content.render.Color;
 import com.mojang.serialization.Codec;

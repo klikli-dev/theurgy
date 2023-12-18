@@ -16,6 +16,8 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemHandlerHelper;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.function.Supplier;
 
 public class ReformationArrayCraftingBehaviour extends CraftingBehaviour<ReformationArrayRecipeWrapper, ReformationRecipe, RecipeManager.CachedCheck<ReformationArrayRecipeWrapper, ReformationRecipe>> {
@@ -48,23 +50,24 @@ public class ReformationArrayCraftingBehaviour extends CraftingBehaviour<Reforma
         //consume energy
         this.mercuryFluxStorageSupplier.get().extractEnergy(pRecipe.getMercuryFlux(), false);
 
-        //loop through required sources of recipe and through source inventories and extract
+        // Loop through required sources of recipe and through source inventories and extract
+        Set<IItemHandlerModifiable> usedInventories = new HashSet<>();
         for (var source : pRecipe.getSources()) {
-            var remaining = source.count();
             for (var sourceInventory : recipeWrapper.getSourcePedestalInvs()) {
+                // Skip this source inventory if it has already been used
+                if (usedInventories.contains(sourceInventory)) {
+                    continue;
+                }
+
                 var sourceStack = sourceInventory.getStackInSlot(0);
-                if (source.ingredient().test(sourceStack)) {
-                    var delta = Math.min(remaining, sourceStack.getCount());
-                    sourceInventory.extractItem(0, delta, false);
-                    remaining -= delta;
+                if (source.test(sourceStack)) {
+                    // Add this source inventory to the set of used inventories
+                    usedInventories.add(sourceInventory);
+
+                    sourceInventory.extractItem(0, 1, false);
                     break;
                 }
-                if (remaining <= 0)
-                    break;
             }
-
-            if (remaining > 0)
-                Theurgy.LOGGER.error("Could not find enough sources for reformation recipe.");
         }
 
         // Safely insert the assembledStack into the outputInventory and update the input stack.

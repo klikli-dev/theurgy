@@ -28,21 +28,21 @@ public class ReformationRecipe implements Recipe<ReformationArrayRecipeWrapper> 
     public static final int DEFAULT_REFORMATION_TIME = 100;
 
     public static final Codec<ReformationRecipe> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-                    IngedientWithCount.CODEC.listOf().fieldOf("sources").forGetter(r -> r.sources),
+                    TheurgyExtraCodecs.INGREDIENT.listOf().fieldOf("sources").forGetter(r -> r.sources),
                     TheurgyExtraCodecs.INGREDIENT.fieldOf("target").forGetter(r -> r.target),
                     ItemStack.CODEC.fieldOf("result").forGetter(r -> r.result),
                     Codec.INT.fieldOf("mercury_flux").forGetter(r -> r.mercuryFlux),
                     Codec.INT.optionalFieldOf("reformation_time", DEFAULT_REFORMATION_TIME).forGetter(r -> r.reformationTime)
             ).apply(instance, ReformationRecipe::new)
     );
-    protected final List<IngedientWithCount> sources;
+    protected final List<Ingredient> sources;
     protected final Ingredient target;
     protected final ItemStack result;
     protected final int mercuryFlux;
     protected final int reformationTime;
     protected ResourceLocation id;
 
-    public ReformationRecipe(List<IngedientWithCount> sources, Ingredient target, ItemStack result, int mercuryFlux, int reformationTime) {
+    public ReformationRecipe(List<Ingredient> sources, Ingredient target, ItemStack result, int mercuryFlux, int reformationTime) {
         this.sources = sources;
         this.target = target;
         this.result = result;
@@ -50,7 +50,7 @@ public class ReformationRecipe implements Recipe<ReformationArrayRecipeWrapper> 
         this.reformationTime = reformationTime;
     }
 
-    public List<IngedientWithCount> getSources() {
+    public List<Ingredient> getSources() {
         return this.sources;
     }
 
@@ -87,22 +87,21 @@ public class ReformationRecipe implements Recipe<ReformationArrayRecipeWrapper> 
 
         var remainingSources = new ArrayList<>(this.sources);
         var pedestalsToCheck = pContainer.getSourcePedestalInvs().stream().map(p -> p.getStackInSlot(0).copy()).toList();
+
+        //go through all sources to check if they are matched
         for (var source : remainingSources) {
-
-            var remainingCount = source.count;
-
+            var found = false;
+            //it is a n (pedestals) to n (required sources) problem, so we need to check all pedestals for each source
             for (var sourceInputStack : pedestalsToCheck) {
-                if (source.ingredient.test(sourceInputStack)) {
-                    var delta = Math.min(sourceInputStack.getCount(), remainingCount);
-                    remainingCount -= delta;
-                    sourceInputStack.shrink(delta);
-
-                    if (remainingCount == 0)
-                        break;
+                if (source.test(sourceInputStack)) {
+                    //we also need to prevent double-checking a pedestal
+                    //so we make this (copied!) stack empty
+                    sourceInputStack.setCount(0);
+                    break;
                 }
             }
 
-            if (remainingCount > 0)
+            if (!found)
                 return false;
         }
         return true;
@@ -110,8 +109,8 @@ public class ReformationRecipe implements Recipe<ReformationArrayRecipeWrapper> 
 
     @Override
     public ItemStack assemble(ReformationArrayRecipeWrapper pContainer, RegistryAccess pRegistryAccess) {
-        //TODO: the tag copy should be an option in the recipe json
         var result = this.result.copy();
+        //TODO: the tag copy should be an option in the recipe json
         var targetItem = pContainer.getTargetPedestalInv().getStackInSlot(0);
         if(targetItem.hasTag())
             result.setTag(targetItem.getTag().copy());

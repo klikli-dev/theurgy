@@ -48,6 +48,7 @@ public class Networking {
         register(MessageRequestCaloricFluxEmitterSelection.class, NetworkDirection.PLAY_TO_CLIENT);
         register(MessageRequestSulfuricFluxEmitterSelection.class, NetworkDirection.PLAY_TO_CLIENT);
         register(MessageShowCaloricFlux.class, NetworkDirection.PLAY_TO_CLIENT);
+        register(MessageShowSulfuricFluxEmitterStatus.class, NetworkDirection.PLAY_TO_CLIENT);
     }
 
     public static <T extends Message> void register(Class<T> clazz, NetworkDirection networkDirection){

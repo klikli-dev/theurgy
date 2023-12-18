@@ -209,83 +209,6 @@ public class SulfuricFluxEmitterBlockEntity extends BlockEntity {
         }
     }
 
-    public InteractionResult use(Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
-        if (this.level.isClientSide()) {
-
-            //TODO: should be serverside, and send packet to client side. Packet should include the pedestals
-            if (this.targetPedestal != null) {
-                BlockPos pos = this.targetPedestal.getBlockPos();
-                VoxelShape shape = Shapes.block();
-
-                Outliner.get().showAABB(this.targetPedestal, shape.bounds()
-                                .move(pos), 20 * 5)
-                        .colored(this.targetPedestal.getColor().getRGB())
-                        .lineWidth(1 / 16f);
-            }
-            if (this.resultPedestal != null) {
-                BlockPos pos = this.resultPedestal.getBlockPos();
-                VoxelShape shape = Shapes.block();
-
-                Outliner.get().showAABB(this.resultPedestal, shape.bounds()
-                                .move(pos), 20 * 5)
-                        .colored(this.resultPedestal.getColor().getRGB())
-                        .lineWidth(1 / 16f);
-            }
-            //TODO: that should be the full list of pedestals, however on client side they are currently not available
-            for (var sourcePedestal : this.sourcePedestalsWithContents) {
-                BlockPos pos = sourcePedestal.getBlockPos();
-                VoxelShape shape = Shapes.block();
-
-                Outliner.get().showAABB(sourcePedestal, shape.bounds()
-                                .move(pos), 20 * 5)
-                        .colored(sourcePedestal.getColor().getRGB())
-                        .lineWidth(1 / 16f);
-            }
-
-            if (this.sourcePedestalsWithContents.isEmpty() && this.targetPedestal == null && this.resultPedestal == null) {
-                pPlayer.displayClientMessage(Component.translatable(TheurgyConstants.I18n.Behaviour.SELECTION_SUMMARY_SULFURIC_FLUX_EMITTER_NO_SELECTION).withStyle(ChatFormatting.RED), true);
-            } else {
-
-                //TODO: the message needs to actually check if the pedestals are still valid
-
-                var hasTarget = this.targetPedestal != null && this.level.getBlockEntity(this.targetPedestal.getBlockPos()) instanceof ReformationTargetPedestalBlockEntity;
-                var hasResult = this.resultPedestal != null && this.level.getBlockEntity(this.resultPedestal.getBlockPos()) instanceof ReformationResultPedestalBlockEntity;
-
-                var sources = this.sourcePedestalsWithContents.stream()
-                        .map(p -> this.level.getBlockEntity(p.getBlockPos()))
-                        .filter(e -> e instanceof ReformationSourcePedestalBlockEntity)
-                        .count();
-
-                if(!hasTarget){
-                    pPlayer.displayClientMessage(Component.translatable(TheurgyConstants.I18n.Behaviour.SELECTION_SUMMARY_SULFURIC_FLUX_EMITTER_NO_TARGET).withStyle(ChatFormatting.RED), true);
-                }
-                if(sources <= 0){
-                    pPlayer.displayClientMessage(Component.translatable(TheurgyConstants.I18n.Behaviour.SELECTION_SUMMARY_SULFURIC_FLUX_EMITTER_NO_SOURCES).withStyle(ChatFormatting.RED), true);
-                }
-                if(!hasResult){
-                    pPlayer.displayClientMessage(Component.translatable(TheurgyConstants.I18n.Behaviour.SELECTION_SUMMARY_SULFURIC_FLUX_EMITTER_NO_RESULT).withStyle(ChatFormatting.RED), true);
-                }
-
-                if(hasTarget && sources > 0 && hasResult){
-                    pPlayer.displayClientMessage(Component.translatable(
-                            TheurgyConstants.I18n.Behaviour.SELECTION_SUMMARY_SULFURIC_FLUX_EMITTER,
-                            Component.literal(String.valueOf(sources)).withStyle(ChatFormatting.DARK_PURPLE),
-                            Component.literal(String.valueOf(1)).withStyle(ChatFormatting.BLUE),
-                            Component.literal(String.valueOf(1)).withStyle(ChatFormatting.GREEN)
-                    ).withStyle(ChatFormatting.WHITE), true);
-                }
-            }
-
-            return InteractionResult.SUCCESS;
-        }
-
-        //allows players to tell the system to re-check
-        //this is mainly useful if they removed a pedestal and want it to be recognized it again after rebuilding it
-        this.checkValidMultiblockOnNextQuery = true;
-
-        return InteractionResult.PASS;
-    }
-
     @Override
     public void onLoad() {
         if (this.targetPedestal != null)
@@ -424,6 +347,17 @@ public class SulfuricFluxEmitterBlockEntity extends BlockEntity {
         this.checkValidMultiblockOnNextQuery = true;
 
         this.setChanged();
+    }
+
+    /**
+     * client-side variant that does no checks
+     */
+    public void setSelectedPointsClient(List<SulfuricFluxEmitterSelectedPoint> sourcePedestals, SulfuricFluxEmitterSelectedPoint targetPedestal, SulfuricFluxEmitterSelectedPoint resultPedestal) {
+        this.sourcePedestals.clear();
+        this.sourcePedestals.addAll(sourcePedestals);
+
+        this.targetPedestal = targetPedestal;
+        this.resultPedestal = resultPedestal;
     }
 
     public void onTargetPedestalContentChange(ReformationTargetPedestalBlockEntity pedestal) {

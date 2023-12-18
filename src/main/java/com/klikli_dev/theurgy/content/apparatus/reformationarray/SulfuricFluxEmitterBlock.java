@@ -43,7 +43,7 @@ public class SulfuricFluxEmitterBlock extends DirectionalBlock implements Entity
     );
 
     protected SelectionBehaviour<SulfuricFluxEmitterSelectedPoint> selectionBehaviour;
-    protected InteractionBehaviour interactionBehaviour;
+    protected SulfuricFluxEmitterInteractionBehaviour interactionBehaviour;
 
     public SulfuricFluxEmitterBlock(Properties pProperties, SelectionBehaviour<SulfuricFluxEmitterSelectedPoint> selectionBehaviour) {
         super(pProperties);
@@ -58,7 +58,7 @@ public class SulfuricFluxEmitterBlock extends DirectionalBlock implements Entity
         return this.selectionBehaviour;
     }
 
-    public InteractionBehaviour interactionBehaviour() {
+    public SulfuricFluxEmitterInteractionBehaviour interactionBehaviour() {
         return this.interactionBehaviour;
     }
 

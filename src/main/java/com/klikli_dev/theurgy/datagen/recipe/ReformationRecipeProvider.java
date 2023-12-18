@@ -7,10 +7,12 @@ package com.klikli_dev.theurgy.datagen.recipe;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.klikli_dev.theurgy.Theurgy;
+import com.klikli_dev.theurgy.content.item.AlchemicalSulfurItem;
 import com.klikli_dev.theurgy.content.recipe.ReformationRecipe;
 import com.klikli_dev.theurgy.datagen.SulfurMappings;
 import com.klikli_dev.theurgy.registry.ItemTagRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
+import com.mojang.datafixers.util.Pair;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -24,183 +26,126 @@ import java.util.function.BiConsumer;
 public class ReformationRecipeProvider extends JsonRecipeProvider {
 
     public static final int TIME = ReformationRecipe.DEFAULT_REFORMATION_TIME;
+    private final Map<List<AlchemicalSulfurItem>, Integer> fluxPerTier = Map.of(
+            SulfurMappings.ABUNDANT, 50,
+            SulfurMappings.COMMON, 100,
+            SulfurMappings.RARE, 150,
+            SulfurMappings.PRECIOUS, 200
+    );
+
 
     public ReformationRecipeProvider(PackOutput packOutput) {
         super(packOutput, Theurgy.MODID, "reformation");
     }
 
-    @Override
-    void buildRecipes(BiConsumer<ResourceLocation, JsonObject> recipeConsumer) {
-        SulfurMappings.METALS_ABUNDANT.forEach((sulfur) -> {
-            this.makeRecipe(sulfur, ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_ABUNDANT, 50);
-        });
-        //2 other minerals for 1 metal
-        SulfurMappings.METALS_ABUNDANT.forEach((sulfur) -> {
-            this.makeRecipe(sulfur, Collections.nCopies(2, ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_ABUNDANT), 50);
-        });
-        //1 gem for 2 metal
-        SulfurMappings.METALS_ABUNDANT.forEach((sulfur) -> {
-            this.makeRecipe(sulfur, 2, ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_ABUNDANT, 50);
-        });
+    private int getFlux(AlchemicalSulfurItem sulfur) {
+        return this.fluxPerTier.keySet().stream().filter(s -> s.contains(sulfur)).findFirst().map(this.fluxPerTier::get).orElse(-1);
+    }
 
-        SulfurMappings.METALS_COMMON.forEach((sulfur) -> {
-            this.makeRecipe(sulfur, ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_COMMON, 100);
-        });
-        //2 other minerals for 1 metal
-        SulfurMappings.METALS_COMMON.forEach((sulfur) -> {
-            this.makeRecipe(sulfur, Collections.nCopies(2, ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_COMMON), 100);
-        });
-        //1 gem for 2 metal
-        SulfurMappings.METALS_COMMON.forEach((sulfur) -> {
-            this.makeRecipe(sulfur, 2, ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_COMMON, 100);
-        });
-
-        SulfurMappings.METALS_RARE.forEach((sulfur) -> {
-            this.makeRecipe(sulfur, ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_RARE, 150);
-        });
-        //2 other minerals for 1 metal
-        SulfurMappings.METALS_RARE.forEach((sulfur) -> {
-            this.makeRecipe(sulfur, Collections.nCopies(2, ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_RARE), 150);
-        });
-        //1 gem for 2 metal
-        SulfurMappings.METALS_RARE.forEach((sulfur) -> {
-            this.makeRecipe(sulfur, 2, ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_RARE, 150);
-        });
-
-        SulfurMappings.METALS_PRECIOUS.forEach((sulfur) -> {
-            this.makeRecipe(sulfur, ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_PRECIOUS, 200);
-        });
-        //2 other minerals for 1 metal
-        SulfurMappings.METALS_PRECIOUS.forEach((sulfur) -> {
-            this.makeRecipe(sulfur, Collections.nCopies(2, ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_PRECIOUS), 200);
-        });
-        //1 gem for 2 metal
-        SulfurMappings.METALS_PRECIOUS.forEach((sulfur) -> {
-            this.makeRecipe(sulfur, 2, ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_PRECIOUS, 200);
-        });
-
-        var fluxPerTier = Map.of(
-                SulfurMappings.ABUNDANT, 50,
-                SulfurMappings.COMMON, 100,
-                SulfurMappings.RARE, 150,
-                SulfurMappings.PRECIOUS, 200
-        );
-
-        var gemsFromGems = Map.of(
-                SulfurMappings.GEMS_ABUNDANT, ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_ABUNDANT,
-                SulfurMappings.GEMS_COMMON, ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_COMMON,
-                SulfurMappings.GEMS_RARE, ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_RARE,
-                SulfurMappings.GEMS_PRECIOUS, ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_PRECIOUS
-        );
-        gemsFromGems.forEach((sulfurs, tag) -> {
-            sulfurs.forEach((sulfur) -> {
-                fluxPerTier.keySet().stream().filter(s -> s.contains(sulfur)).findFirst().map(fluxPerTier::get).ifPresent(flux -> {
-                    this.makeRecipe(sulfur, tag, flux);
-                });
+    private void makeXtoXRecipes(List<Pair<List<AlchemicalSulfurItem>, TagKey<Item>>> sulfurToTag) {
+        sulfurToTag.forEach((entry) -> {
+            entry.getFirst().forEach((sulfur) -> {
+                this.makeRecipe(sulfur, entry.getSecond(), this.getFlux(sulfur));
             });
         });
+    }
 
-        SulfurMappings.GEMS_ABUNDANT.forEach((sulfur) -> {
-            this.makeRecipe(sulfur, ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_ABUNDANT, 50);
+    /**
+     * Convert N of the tag to 1 sulfur
+     */
+    private void makeNYtoXRecipes(int n, List<Pair<List<AlchemicalSulfurItem>, TagKey<Item>>> sulfurToTag) {
+        sulfurToTag.forEach((entry) -> {
+            entry.getFirst().forEach((sulfur) -> {
+                this.makeRecipe(sulfur, Collections.nCopies(n, entry.getSecond()), this.getFlux(sulfur));
+            });
         });
-        //4 other minerals for 1 gem
-        SulfurMappings.GEMS_ABUNDANT.forEach((sulfur) -> {
-            this.makeRecipe(sulfur, Collections.nCopies(4, ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_ABUNDANT), 50);
-        });
-        //2 metals for 1 gem
-        SulfurMappings.GEMS_ABUNDANT.forEach((sulfur) -> {
-            this.makeRecipe(sulfur, Collections.nCopies(2, ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_ABUNDANT), 50);
-        });
+    }
 
-        SulfurMappings.GEMS_COMMON.forEach((sulfur) -> {
-            this.makeRecipe(sulfur, ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_COMMON, 100);
+    /**
+     * Convert 1 of the tag to N sulfur
+     */
+    private void makeYtoNXRecipes(int n, List<Pair<List<AlchemicalSulfurItem>, TagKey<Item>>> sulfurToTag) {
+        sulfurToTag.forEach((entry) -> {
+            entry.getFirst().forEach((sulfur) -> {
+                this.makeRecipe(sulfur, n, entry.getSecond(), this.getFlux(sulfur));
+            });
         });
-        //4 other minerals for 1 gem
-        SulfurMappings.GEMS_COMMON.forEach((sulfur) -> {
-            this.makeRecipe(sulfur, Collections.nCopies(4, ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_COMMON), 100);
-        });
-        //2 metals for 1 gem
-        SulfurMappings.GEMS_COMMON.forEach((sulfur) -> {
-            this.makeRecipe(sulfur, Collections.nCopies(2, ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_COMMON), 100);
-        });
+    }
 
-        SulfurMappings.GEMS_RARE.forEach((sulfur) -> {
-            this.makeRecipe(sulfur, ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_RARE, 150);
-        });
-        //4 other minerals for 1 gem
-        SulfurMappings.GEMS_RARE.forEach((sulfur) -> {
-            this.makeRecipe(sulfur, Collections.nCopies(4, ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_RARE), 150);
-        });
-        //2 metals for 1 gem
-        SulfurMappings.GEMS_RARE.forEach((sulfur) -> {
-            this.makeRecipe(sulfur, Collections.nCopies(2, ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_RARE), 150);
-        });
+    @Override
+    void buildRecipes(BiConsumer<ResourceLocation, JsonObject> recipeConsumer) {
 
-        SulfurMappings.GEMS_PRECIOUS.forEach((sulfur) -> {
-            this.makeRecipe(sulfur, ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_PRECIOUS, 200);
-        });
-        //4 other minerals for 1 gem
-        SulfurMappings.GEMS_PRECIOUS.forEach((sulfur) -> {
-            this.makeRecipe(sulfur, Collections.nCopies(4, ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_PRECIOUS), 200);
-        });
-        //2 metals for 1 gem
-        SulfurMappings.GEMS_PRECIOUS.forEach((sulfur) -> {
-            this.makeRecipe(sulfur, Collections.nCopies(2, ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_PRECIOUS), 200);
-        });
+        var metalsFromMetals = List.of(
+                Pair.of(SulfurMappings.METALS_ABUNDANT, ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_ABUNDANT),
+                Pair.of(SulfurMappings.METALS_COMMON, ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_COMMON),
+                Pair.of(SulfurMappings.METALS_RARE, ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_RARE),
+                Pair.of(SulfurMappings.METALS_PRECIOUS, ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_PRECIOUS)
+        );
+        this.makeXtoXRecipes(metalsFromMetals);
 
-        SulfurMappings.OTHER_MINERALS_ABUNDANT.forEach((sulfur) -> {
-            this.makeRecipe(sulfur, ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_ABUNDANT, 50);
-        });
-        //1 metal for 2 other minerals
-        SulfurMappings.OTHER_MINERALS_ABUNDANT.forEach((sulfur) -> {
-            this.makeRecipe(sulfur, 2, ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_ABUNDANT, 50);
-        });
-        //1 gem for 4 other minerals
-        SulfurMappings.OTHER_MINERALS_ABUNDANT.forEach((sulfur) -> {
-            this.makeRecipe(sulfur, 4, ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_ABUNDANT, 50);
-        });
+        var metalsFromOtherMinerals = List.of(
+                Pair.of(SulfurMappings.METALS_ABUNDANT, ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_ABUNDANT),
+                Pair.of(SulfurMappings.METALS_COMMON, ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_COMMON),
+                Pair.of(SulfurMappings.METALS_RARE, ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_RARE),
+                Pair.of(SulfurMappings.METALS_PRECIOUS, ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_PRECIOUS)
+        );
+        this.makeNYtoXRecipes(2, metalsFromOtherMinerals);
 
-        SulfurMappings.OTHER_MINERALS_COMMON.forEach((sulfur) -> {
-            this.makeRecipe(sulfur, ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_COMMON, 100);
-        });
+        var metalsFromGems = List.of(
+                Pair.of(SulfurMappings.METALS_ABUNDANT, ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_ABUNDANT),
+                Pair.of(SulfurMappings.METALS_COMMON, ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_COMMON),
+                Pair.of(SulfurMappings.METALS_RARE, ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_RARE),
+                Pair.of(SulfurMappings.METALS_PRECIOUS, ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_PRECIOUS)
+        );
+        this.makeYtoNXRecipes(2, metalsFromGems);
 
-        //1 metal for 2 other minerals
-        SulfurMappings.OTHER_MINERALS_COMMON.forEach((sulfur) -> {
-            this.makeRecipe(sulfur, 2, ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_COMMON, 100);
-        });
+        var gemsFromGems = List.of(
+                Pair.of(SulfurMappings.GEMS_ABUNDANT, ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_ABUNDANT),
+                Pair.of(SulfurMappings.GEMS_COMMON, ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_COMMON),
+                Pair.of(SulfurMappings.GEMS_RARE, ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_RARE),
+                Pair.of(SulfurMappings.GEMS_PRECIOUS, ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_PRECIOUS)
+        );
+        this.makeXtoXRecipes(gemsFromGems);
 
-        //1 gem for 4 other minerals
-        SulfurMappings.OTHER_MINERALS_COMMON.forEach((sulfur) -> {
-            this.makeRecipe(sulfur, 4, ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_COMMON, 100);
-        });
+        var gemsFromMetals = List.of(
+                Pair.of(SulfurMappings.GEMS_ABUNDANT, ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_ABUNDANT),
+                Pair.of(SulfurMappings.GEMS_COMMON, ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_COMMON),
+                Pair.of(SulfurMappings.GEMS_RARE, ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_RARE),
+                Pair.of(SulfurMappings.GEMS_PRECIOUS, ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_PRECIOUS)
+        );
+        this.makeNYtoXRecipes(2, gemsFromMetals);
 
-        SulfurMappings.OTHER_MINERALS_RARE.forEach((sulfur) -> {
-            this.makeRecipe(sulfur, ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_RARE, 150);
-        });
+        var gemsFromOtherMinerals = List.of(
+                Pair.of(SulfurMappings.GEMS_ABUNDANT, ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_ABUNDANT),
+                Pair.of(SulfurMappings.GEMS_COMMON, ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_COMMON),
+                Pair.of(SulfurMappings.GEMS_RARE, ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_RARE),
+                Pair.of(SulfurMappings.GEMS_PRECIOUS, ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_PRECIOUS)
+        );
+        this.makeNYtoXRecipes(4, gemsFromOtherMinerals);
 
-        //1 metal for 2 other minerals
-        SulfurMappings.OTHER_MINERALS_RARE.forEach((sulfur) -> {
-            this.makeRecipe(sulfur, 2, ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_RARE, 150);
-        });
+        var otherMineralsFromOtherMinerals = List.of(
+                Pair.of(SulfurMappings.OTHER_MINERALS_ABUNDANT, ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_ABUNDANT),
+                Pair.of(SulfurMappings.OTHER_MINERALS_COMMON, ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_COMMON),
+                Pair.of(SulfurMappings.OTHER_MINERALS_RARE, ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_RARE),
+                Pair.of(SulfurMappings.OTHER_MINERALS_PRECIOUS, ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_PRECIOUS)
+        );
+        this.makeXtoXRecipes(otherMineralsFromOtherMinerals);
 
-        //1 gem for 4 other minerals
-        SulfurMappings.OTHER_MINERALS_RARE.forEach((sulfur) -> {
-            this.makeRecipe(sulfur, 4, ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_RARE, 150);
-        });
+        var otherMineralsFromMetals = List.of(
+                Pair.of(SulfurMappings.OTHER_MINERALS_ABUNDANT, ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_ABUNDANT),
+                Pair.of(SulfurMappings.OTHER_MINERALS_COMMON, ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_COMMON),
+                Pair.of(SulfurMappings.OTHER_MINERALS_RARE, ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_RARE),
+                Pair.of(SulfurMappings.OTHER_MINERALS_PRECIOUS, ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_PRECIOUS)
+        );
+        this.makeYtoNXRecipes(2, otherMineralsFromMetals);
 
-        SulfurMappings.OTHER_MINERALS_PRECIOUS.forEach((sulfur) -> {
-            this.makeRecipe(sulfur, ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_PRECIOUS, 200);
-        });
-
-        //1 metal for 2 other minerals
-        SulfurMappings.OTHER_MINERALS_PRECIOUS.forEach((sulfur) -> {
-            this.makeRecipe(sulfur, 2, ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_PRECIOUS, 200);
-        });
-
-        //1 gem for 4 other minerals
-        SulfurMappings.OTHER_MINERALS_PRECIOUS.forEach((sulfur) -> {
-            this.makeRecipe(sulfur, 4, ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_PRECIOUS, 200);
-        });
+        var otherMineralsFromGems = List.of(
+                Pair.of(SulfurMappings.OTHER_MINERALS_ABUNDANT, ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_ABUNDANT),
+                Pair.of(SulfurMappings.OTHER_MINERALS_COMMON, ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_COMMON),
+                Pair.of(SulfurMappings.OTHER_MINERALS_RARE, ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_RARE),
+                Pair.of(SulfurMappings.OTHER_MINERALS_PRECIOUS, ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_PRECIOUS)
+        );
+        this.makeYtoNXRecipes(4, otherMineralsFromGems);
     }
 
     public void makeRecipe(Item result, TagKey<Item> source, int mercuryFlux) {

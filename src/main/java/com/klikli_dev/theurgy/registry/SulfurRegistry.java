@@ -6,13 +6,20 @@ package com.klikli_dev.theurgy.registry;
 
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.content.item.AlchemicalSulfurItem;
+import com.klikli_dev.theurgy.content.recipe.LiquefactionRecipe;
 import com.klikli_dev.theurgy.util.LevelUtil;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 import java.util.function.Supplier;
 
 public class SulfurRegistry {
@@ -104,8 +111,31 @@ public class SulfurRegistry {
             var liquefactionRecipes = recipeManager.getAllRecipesFor(RecipeTypeRegistry.LIQUEFACTION.get());
 
             SULFURS.getEntries().stream().map(RegistryObject::get).map(AlchemicalSulfurItem.class::cast).forEach(sulfur -> {
-                liquefactionRecipes.stream().filter(recipe -> recipe.getResultItem(level.registryAccess()) != null && recipe.getResultItem(level.registryAccess()).getItem() == sulfur).forEach(recipe -> event.accept(recipe.getResultItem(level.registryAccess()).copyWithCount(1)));
+                var preferred = getPreferredSulfurVariant(sulfur, liquefactionRecipes, level);
+                preferred.ifPresent(itemStack -> event.accept(itemStack.copyWithCount(1)));
             });
         }
+    }
+
+    /**
+     * We want sulfurs to display with the most recognizable source items: ingots, gems, dusts.
+     * This method selects these sulfurs, and otherwise gets the first matching one.
+     */
+    public static Optional<ItemStack> getPreferredSulfurVariant(AlchemicalSulfurItem sulfur, List<LiquefactionRecipe> liquefactionRecipes, Level level){
+        var matchingRecipes = liquefactionRecipes.stream()
+                .filter(recipe -> recipe.getResultItem(level.registryAccess()) != null && recipe.getResultItem(level.registryAccess()).getItem() == sulfur).toList();
+
+        //prefer ingot/gems
+        var sulfurWithNbt = matchingRecipes.stream().filter(r -> Arrays.stream(r.getIngredient().getItems()).anyMatch(i -> i.is(Tags.Items.INGOTS) || i.is(Tags.Items.GEMS))).findFirst().map(r -> r.getResultItem(level.registryAccess()));
+
+        //second choice: dusts (e.g redstone, glowstone)
+        if (sulfurWithNbt.isEmpty())
+            sulfurWithNbt = matchingRecipes.stream().filter(r -> Arrays.stream(r.getIngredient().getItems()).anyMatch(i -> i.is(Tags.Items.DUSTS))).findFirst().map(r -> r.getResultItem(level.registryAccess()));
+
+        //but fall back to any other
+        if (sulfurWithNbt.isEmpty())
+            sulfurWithNbt = matchingRecipes.stream().findFirst().map(r -> r.getResultItem(level.registryAccess()));
+
+        return sulfurWithNbt;
     }
 }

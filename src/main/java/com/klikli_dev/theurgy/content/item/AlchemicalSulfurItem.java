@@ -8,6 +8,7 @@ import com.google.common.collect.ImmutableList;
 import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.content.item.render.AlchemicalSulfurBEWLR;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
+import com.klikli_dev.theurgy.registry.SulfurRegistry;
 import com.klikli_dev.theurgy.util.LevelUtil;
 import com.klikli_dev.theurgy.util.TagUtil;
 import net.minecraft.ChatFormatting;
@@ -81,14 +82,12 @@ public class AlchemicalSulfurItem extends Item {
             var recipeManager = level == null ? null : level.getRecipeManager();
             var registryAccess = level == null ? null : level.registryAccess();
 
-            if (recipeManager != null) {
+            if (recipeManager != null && sulfurStack.getItem() instanceof AlchemicalSulfurItem sulfur) {
                 var liquefactionRecipes = recipeManager.getAllRecipesFor(RecipeTypeRegistry.LIQUEFACTION.get()).stream().filter(r -> r.getResultItem(registryAccess) != null).toList();
 
-                var sulfurWithNbt = liquefactionRecipes.stream()
-                        .filter(recipe -> recipe.getResultItem(registryAccess) != null && recipe.getResultItem(registryAccess).getItem() == sulfurStack.getItem()).findFirst().map(recipe -> recipe.getResultItem(registryAccess));
-
-                if (sulfurWithNbt.isPresent() && sulfurWithNbt.get().hasTag()) {
-                    sulfurStack.setTag(sulfurWithNbt.get().getTag());
+                var preferred = SulfurRegistry.getPreferredSulfurVariant(sulfur, liquefactionRecipes, level);
+                if (preferred.isPresent() && preferred.get().hasTag()) {
+                    sulfurStack.setTag(preferred.get().getTag());
                 }
             }
         }

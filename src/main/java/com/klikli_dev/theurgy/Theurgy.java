@@ -165,8 +165,8 @@ public class Theurgy {
             }
 
             Outliner.get().tick();
-            BlockRegistry.CALORIC_FLUX_EMITTER.get().getSelectionBehaviour().tick(Minecraft.getInstance().player);
-            BlockRegistry.SULFURIC_FLUX_EMITTER.get().getSelectionBehaviour().tick(Minecraft.getInstance().player);
+            BlockRegistry.CALORIC_FLUX_EMITTER.get().selectionBehaviour().tick(Minecraft.getInstance().player);
+            BlockRegistry.SULFURIC_FLUX_EMITTER.get().selectionBehaviour().tick(Minecraft.getInstance().player);
         }
 
         public static void onRenderLevelStage(RenderLevelStageEvent event) {
@@ -249,26 +249,26 @@ public class Theurgy {
         }
 
         public static void onRightClick(PlayerInteractEvent.RightClickBlock event) {
-            if (BlockRegistry.CALORIC_FLUX_EMITTER.get().getSelectionBehaviour().onRightClickBlock(event.getLevel(), event.getEntity(), event.getHand(), event.getPos(), event.getFace())) {
+            if (BlockRegistry.CALORIC_FLUX_EMITTER.get().selectionBehaviour().onRightClickBlock(event.getLevel(), event.getEntity(), event.getHand(), event.getPos(), event.getFace())) {
                 event.setCanceled(true);
                 event.setCancellationResult(InteractionResult.SUCCESS);
                 return;
             }
 
-            if (BlockRegistry.SULFURIC_FLUX_EMITTER.get().getSelectionBehaviour().onRightClickBlock(event.getLevel(), event.getEntity(), event.getHand(), event.getPos(), event.getFace())) {
+            if (BlockRegistry.SULFURIC_FLUX_EMITTER.get().selectionBehaviour().onRightClickBlock(event.getLevel(), event.getEntity(), event.getHand(), event.getPos(), event.getFace())) {
                 event.setCanceled(true);
                 event.setCancellationResult(InteractionResult.SUCCESS);
             }
         }
 
         public static void onLeftClick(PlayerInteractEvent.LeftClickBlock event) {
-            if (BlockRegistry.CALORIC_FLUX_EMITTER.get().getSelectionBehaviour().onLeftClickBlock(event.getLevel(), event.getEntity(), event.getHand(), event.getPos(), event.getFace())) {
+            if (BlockRegistry.CALORIC_FLUX_EMITTER.get().selectionBehaviour().onLeftClickBlock(event.getLevel(), event.getEntity(), event.getHand(), event.getPos(), event.getFace())) {
                 event.setCanceled(true);
                 event.setCancellationResult(InteractionResult.SUCCESS);
                 return;
             }
 
-            if (BlockRegistry.SULFURIC_FLUX_EMITTER.get().getSelectionBehaviour().onLeftClickBlock(event.getLevel(), event.getEntity(), event.getHand(), event.getPos(), event.getFace())) {
+            if (BlockRegistry.SULFURIC_FLUX_EMITTER.get().selectionBehaviour().onLeftClickBlock(event.getLevel(), event.getEntity(), event.getHand(), event.getPos(), event.getFace())) {
                 event.setCanceled(true);
                 event.setCancellationResult(InteractionResult.SUCCESS);
             }

@@ -32,6 +32,6 @@ public class MessageRequestSulfuricFluxEmitterSelection implements Message {
 
     @Override
     public void onClientReceived(Minecraft minecraft, Player player, NetworkEvent.Context context) {
-        BlockRegistry.SULFURIC_FLUX_EMITTER.get().getSelectionBehaviour().onPlace(this.blockPos, player);
+        BlockRegistry.SULFURIC_FLUX_EMITTER.get().selectionBehaviour().onPlace(this.blockPos, player);
     }
 }

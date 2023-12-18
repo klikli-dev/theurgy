@@ -8,7 +8,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
 
 public class SulfuricFluxEmitterInteractionBehaviour implements InteractionBehaviour {
     @Override
@@ -19,13 +18,15 @@ public class SulfuricFluxEmitterInteractionBehaviour implements InteractionBehav
         if (!(blockEntity instanceof SulfuricFluxEmitterBlockEntity sulfuricFluxEmitter))
             return InteractionResult.PASS;
 
+        if(pLevel.isClientSide)
+            return InteractionResult.SUCCESS;
 
+        //TODO send packet
 
+        //allows players to tell the system to re-check
+        //this is mainly useful if they removed a pedestal and want it to be recognized it again after rebuilding it
+        sulfuricFluxEmitter.checkValidMultiblockOnNextQuery = true;
 
-        var blockItemHandlerCap = blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER);
-        if (!blockItemHandlerCap.isPresent())
-            return InteractionResult.PASS;
-
-        return null;
+        return InteractionResult.SUCCESS;
     }
 }

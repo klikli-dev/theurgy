@@ -408,7 +408,7 @@ public class SulfuricFluxEmitterBlockEntity extends BlockEntity {
     }
 
     public SelectionBehaviour<SulfuricFluxEmitterSelectedPoint> getSelectionBehaviour() {
-        return BlockRegistry.SULFURIC_FLUX_EMITTER.get().getSelectionBehaviour();
+        return BlockRegistry.SULFURIC_FLUX_EMITTER.get().selectionBehaviour();
     }
 
     public void setSelectedPoints(List<SulfuricFluxEmitterSelectedPoint> sourcePedestals, SulfuricFluxEmitterSelectedPoint targetPedestal, SulfuricFluxEmitterSelectedPoint resultPedestal) {

@@ -54,8 +54,12 @@ public class SulfuricFluxEmitterBlock extends DirectionalBlock implements Entity
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.UP));
     }
 
-    public SelectionBehaviour<SulfuricFluxEmitterSelectedPoint> getSelectionBehaviour() {
+    public SelectionBehaviour<SulfuricFluxEmitterSelectedPoint> selectionBehaviour() {
         return this.selectionBehaviour;
+    }
+
+    public InteractionBehaviour interactionBehaviour() {
+        return this.interactionBehaviour;
     }
 
     @Override

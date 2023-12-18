@@ -43,6 +43,6 @@ public class SulfuricFluxEmitterBlockItem extends BlockItem {
     }
 
     public SelectionBehaviour<SulfuricFluxEmitterSelectedPoint> getSelectionBehaviour() {
-        return BlockRegistry.SULFURIC_FLUX_EMITTER.get().getSelectionBehaviour();
+        return BlockRegistry.SULFURIC_FLUX_EMITTER.get().selectionBehaviour();
     }
 }

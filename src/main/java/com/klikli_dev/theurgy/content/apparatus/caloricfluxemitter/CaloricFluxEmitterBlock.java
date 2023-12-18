@@ -43,7 +43,7 @@ public class CaloricFluxEmitterBlock extends DirectionalBlock implements EntityB
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.UP));
     }
 
-    public SelectionBehaviour<CaloricFluxEmitterSelectedPoint> getSelectionBehaviour() {
+    public SelectionBehaviour<CaloricFluxEmitterSelectedPoint> selectionBehaviour() {
         return this.selectionBehaviour;
     }
 

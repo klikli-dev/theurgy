@@ -43,6 +43,6 @@ public class CaloricFluxEmitterBlockItem extends BlockItem {
     }
 
     public SelectionBehaviour<CaloricFluxEmitterSelectedPoint> getSelectionBehaviour() {
-        return BlockRegistry.CALORIC_FLUX_EMITTER.get().getSelectionBehaviour();
+        return BlockRegistry.CALORIC_FLUX_EMITTER.get().selectionBehaviour();
     }
 }

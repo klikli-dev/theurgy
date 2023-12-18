@@ -560,6 +560,7 @@
   "theurgy.jei.category.liquefaction": "Liquefaction",
   "theurgy.jei.category.reformation": "Reformation",
   "theurgy.jei.misc.mercury_flux": "Mercury Flux: %s",
+  "theurgy.jei.misc.source_pedestal_count": "%sx",
   "theurgy.misc.unit.millibuckets": "%smB",
   "theurgy.subtitle.tuning_fork": "Using Divination Rod",
   "tooltip.theurgy..divination_rod.last_result": "Found %s at %s.",

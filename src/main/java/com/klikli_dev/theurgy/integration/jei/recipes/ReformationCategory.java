@@ -82,14 +82,16 @@ public class ReformationCategory implements IRecipeCategory<ReformationRecipe> {
     @Override
     public void draw(ReformationRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
 
-        GuiTextures.JEI_ARROW_RIGHT_EMPTY.render(guiGraphics, 90, 19);
-        this.getAnimatedArrow(recipe).draw(guiGraphics, 90, 19);
-
         GuiTextures.JEI_ARROW_RIGHT_EMPTY.render(guiGraphics, 19, 19);
 
-        this.drawCookTime(recipe, guiGraphics, 57);
-        this.drawFlux(recipe, guiGraphics, 77);
-        this.drawSourcePedestalCount(recipe, guiGraphics, 57);
+        GuiTextures.JEI_ARROW_RIGHT_EMPTY.render(guiGraphics, 130, 19);
+        this.getAnimatedArrow(recipe).draw(guiGraphics, 130, 19);
+
+        GuiTextures.JEI_ARROW_RIGHT_EMPTY.render(guiGraphics, 65, 19);
+
+        this.drawCookTime(recipe, guiGraphics, 37);
+        this.drawFlux(recipe, guiGraphics, 90);
+        this.drawSourcePedestalCount(recipe, guiGraphics, 78);
     }
 
     protected void drawCookTime(ReformationRecipe recipe, GuiGraphics guiGraphics, int y) {
@@ -100,7 +102,7 @@ public class ReformationCategory implements IRecipeCategory<ReformationRecipe> {
             Minecraft minecraft = Minecraft.getInstance();
             Font font = minecraft.font;
             int stringWidth = font.width(timeString);
-            guiGraphics.drawString(font, timeString, this.background.getWidth() - stringWidth, y, 0xFF808080, false);
+            guiGraphics.drawString(font, timeString, 140 - stringWidth / 2, y, 0xFF808080, false);
         }
     }
 
@@ -118,7 +120,7 @@ public class ReformationCategory implements IRecipeCategory<ReformationRecipe> {
         Minecraft minecraft = Minecraft.getInstance();
         Font font = minecraft.font;
         int stringWidth = font.width(timeString);
-        guiGraphics.drawString(font, timeString, 58 - stringWidth, y, 0xFF808080, false);
+        guiGraphics.drawString(font, timeString, 95 - stringWidth, y, 0xFF808080, false);
     }
 
     @Override
@@ -136,41 +138,42 @@ public class ReformationCategory implements IRecipeCategory<ReformationRecipe> {
         //TODO: draw source pedestal + up to six slots
         //TODO: draw result pedestal + result sulfur
 
-        builder.addSlot(RecipeIngredientRole.CATALYST, 1, 17)
+        builder.addSlot(RecipeIngredientRole.CATALYST, 1, 15)
                 .addItemStack(new ItemStack(ItemRegistry.SULFURIC_FLUX_EMITTER.get()));
 
 
-        builder.addSlot(RecipeIngredientRole.CATALYST, 19, 19)
+        builder.addSlot(RecipeIngredientRole.CATALYST, 45, 19)
                 .setBackground(JeiDrawables.INPUT_SLOT, -1, -1)
                 .addIngredients(recipe.getTarget());
-        builder.addSlot(RecipeIngredientRole.CATALYST, 19, 35)
+        builder.addSlot(RecipeIngredientRole.CATALYST, 45, 35)
                 .addItemStack(new ItemStack(ItemRegistry.REFORMATION_TARGET_PEDESTAL.get()));
 
         //6 source slots, 2 columns, 3 rows
-        int sourceSlotX = 50;
-        int sourceSlotY = 37; // Start from the bottom
+        int sourceSlotX = 90;
+        int startY = 55;
+        int sourceSlotY = startY; // Start from the bottom
 
-        for (int i = 0; i < 6; i++) {
-            var slot = builder.addSlot(RecipeIngredientRole.CATALYST, sourceSlotX, sourceSlotY).setBackground(JeiDrawables.INPUT_SLOT, -1, -1);
+        for (int i = 0; i < 8; i++) {
+            var slot = builder.addSlot(INPUT, sourceSlotX, sourceSlotY).setBackground(JeiDrawables.INPUT_SLOT, -1, -1);
 
             if(i < recipe.getSources().size())
                 slot.addIngredients(recipe.getSources().get(i));
 
             sourceSlotY -= 18; // Move upwards
-         if (i % 3 == 2) {
-                sourceSlotY = 37; // Reset to the bottom
+            if (i % 4 == 3) {
+                sourceSlotY = startY; // Reset to the bottom
                 sourceSlotX += 18; // Move to the right
             }
         }
 
-        builder.addSlot(RecipeIngredientRole.CATALYST, 59, 55)
+        builder.addSlot(RecipeIngredientRole.CATALYST, 90 + 9, startY + 18)
                 .addItemStack(new ItemStack(ItemRegistry.REFORMATION_SOURCE_PEDESTAL.get()));
 
 
-        builder.addSlot(RecipeIngredientRole.CATALYST, 135, 17)
-                .setBackground(JeiDrawables.OUTPUT_SLOT, -4, -4)
-                .addIngredients(recipe.getTarget());
-        builder.addSlot(RecipeIngredientRole.CATALYST, 135, 41)
+        builder.addSlot(OUTPUT, 160, 19)
+                .setBackground(JeiDrawables.OUTPUT_SLOT, -5, -5)
+                .addItemStack(recipe.getResult());
+        builder.addSlot(RecipeIngredientRole.CATALYST, 160, 42)
                 .addItemStack(new ItemStack(ItemRegistry.REFORMATION_RESULT_PEDESTAL.get()));
     }
 

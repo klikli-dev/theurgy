@@ -6,8 +6,8 @@ package com.klikli_dev.theurgy.datagen.recipe;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.klikli_dev.modonomicon.registry.ItemRegistry;
 import com.klikli_dev.theurgy.Theurgy;
+import com.klikli_dev.theurgy.registry.ItemRegistry;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -33,11 +33,15 @@ public class ShapelessRecipeProvider extends JsonRecipeProvider {
         var hermeticaNbt = new JsonObject();
         hermeticaNbt.addProperty("modonomicon:book_id", "theurgy:the_hermetica");
         this.makeRecipe("the_hermetica",
-                new RecipeBuilder(ItemRegistry.MODONOMICON.get(), 1, hermeticaNbt)
+                new RecipeBuilder(com.klikli_dev.modonomicon.registry.ItemRegistry.MODONOMICON.get(), 1, hermeticaNbt)
                         .requires(Items.BOOK)
                         .requires(Tags.Items.SAND, 2)
         );
 
+        this.makeRecipe("sal_ammoniac_crystal_from_sal_ammoniac_bucket",
+                new RecipeBuilder(ItemRegistry.SAL_AMMONIAC_CRYSTAL.get(), 1)
+                        .requires(ItemRegistry.SAL_AMMONIAC_BUCKET.get())
+        );
     }
 
     public void makeRecipe(String name, RecipeBuilder recipe) {

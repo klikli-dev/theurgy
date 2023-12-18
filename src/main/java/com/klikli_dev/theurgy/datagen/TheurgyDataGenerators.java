@@ -54,6 +54,7 @@ public class TheurgyDataGenerators {
         generator.addProvider(event.includeServer(), new TheurgyBlockStateProvider(generator.getPackOutput(), event.getExistingFileHelper()));
         generator.addProvider(event.includeServer(), new ShapedRecipeProvider(generator.getPackOutput()));
         generator.addProvider(event.includeServer(), new ShapelessRecipeProvider(generator.getPackOutput()));
+        generator.addProvider(event.includeServer(), new SmeltingRecipeProvider(generator.getPackOutput()));
         generator.addProvider(event.includeServer(), new CalcinationRecipeProvider(generator.getPackOutput()));
         generator.addProvider(event.includeServer(), new LiquefactionRecipeProvider(generator.getPackOutput()));
         generator.addProvider(event.includeServer(), new DistillationRecipeProvider(generator.getPackOutput()));

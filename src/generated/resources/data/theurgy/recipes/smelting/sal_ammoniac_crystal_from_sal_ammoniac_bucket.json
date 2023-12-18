@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smelting",
+  "cookingtime": 200,
+  "experience": 0.7,
+  "ingredient": {
+    "item": "theurgy:sal_ammoniac_bucket"
+  },
+  "result": {
+    "count": 1,
+    "item": "theurgy:sal_ammoniac_crystal"
+  }
+}

@@ -264,6 +264,18 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
                 .define('s', Tags.Items.STONE)
                 .define('m', ItemTagRegistry.ALCHEMICAL_MERCURIES)
         );
+
+        this.makeRecipe(this.name(ItemRegistry.SULFURIC_FLUX_EMITTER.get()), new RecipeBuilder(
+                ItemRegistry.SULFURIC_FLUX_EMITTER.get(), 1)
+                .pattern(" a ")
+                .pattern("gSg")
+                .pattern("sss")
+                .define('a', ItemTagRegistry.SAL_AMMONIAC_GEMS)
+                .define('g', Tags.Items.INGOTS_GOLD)
+                .define('s', Tags.Items.STONE)
+                .define('S', ItemTagRegistry.ALCHEMICAL_SULFURS)
+        );
+
     }
 
     public JsonObject makeDivinationRodSettings(DivinationRodItem rodItem) {

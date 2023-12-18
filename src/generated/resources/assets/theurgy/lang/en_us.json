@@ -558,6 +558,8 @@
   "theurgy.jei.category.distillation": "Distillation",
   "theurgy.jei.category.incubation": "Incubation",
   "theurgy.jei.category.liquefaction": "Liquefaction",
+  "theurgy.jei.category.reformation": "Reformation",
+  "theurgy.jei.misc.mercury_flux": "Mercury Flux: %s",
   "theurgy.misc.unit.millibuckets": "%smB",
   "theurgy.subtitle.tuning_fork": "Using Divination Rod",
   "tooltip.theurgy..divination_rod.last_result": "Found %s at %s.",

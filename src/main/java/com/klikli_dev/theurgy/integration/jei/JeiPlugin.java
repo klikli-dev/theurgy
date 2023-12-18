@@ -27,6 +27,8 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.stream.Collectors;
+
 @mezz.jei.api.JeiPlugin
 public class JeiPlugin implements IModPlugin {
     @Override
@@ -53,6 +55,7 @@ public class JeiPlugin implements IModPlugin {
         registration.addRecipeCategories(new DistillationCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new IncubationCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new AccumulationCategory(registration.getJeiHelpers().getGuiHelper()));
+        registration.addRecipeCategories(new ReformationCategory(registration.getJeiHelpers().getGuiHelper()));
     }
 
     @Override
@@ -83,6 +86,10 @@ public class JeiPlugin implements IModPlugin {
                 .filter(sulfur -> liquefactionRecipes.stream().noneMatch(r -> r.getResultItem(level.registryAccess()) != null && r.getResultItem(level.registryAccess()).getItem() == sulfur)).map(ItemStack::new).toList();
         registration.getIngredientManager().removeIngredientsAtRuntime(VanillaTypes.ITEM_STACK, sulfursWithoutRecipe);
 
+        var reformationRecipes = recipeManager.getAllRecipesFor(RecipeTypeRegistry.REFORMATION.get()).stream().filter(r -> r.getResultItem(level.registryAccess()) != null).filter( r -> !sulfursWithoutRecipe.contains(r.getResultItem(level.registryAccess()))).toList();
+
+        registration.addRecipes(JeiRecipeTypes.REFORMATION, reformationRecipes);
+
 
         this.registerIngredientInfo(registration, ItemRegistry.SAL_AMMONIAC_CRYSTAL.get());
     }
@@ -108,6 +115,18 @@ public class JeiPlugin implements IModPlugin {
 
         registration.addRecipeCatalyst(new ItemStack(BlockRegistry.SAL_AMMONIAC_ACCUMULATOR.get()),
                 JeiRecipeTypes.ACCUMULATION);
-    }
 
+        registration.addRecipeCatalyst(new ItemStack(BlockRegistry.SULFURIC_FLUX_EMITTER.get()),
+                JeiRecipeTypes.REFORMATION);
+
+        registration.addRecipeCatalyst(new ItemStack(BlockRegistry.REFORMATION_TARGET_PEDESTAL.get()),
+                JeiRecipeTypes.REFORMATION);
+
+        registration.addRecipeCatalyst(new ItemStack(BlockRegistry.REFORMATION_SOURCE_PEDESTAL.get()),
+                JeiRecipeTypes.REFORMATION);
+
+
+        registration.addRecipeCatalyst(new ItemStack(BlockRegistry.REFORMATION_RESULT_PEDESTAL.get()),
+                JeiRecipeTypes.REFORMATION);
+    }
 }

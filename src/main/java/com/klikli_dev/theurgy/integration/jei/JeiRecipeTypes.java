@@ -14,4 +14,5 @@ public class JeiRecipeTypes {
     public static final RecipeType<DistillationRecipe> DISTILLATION = RecipeType.create(Theurgy.MODID, "distillation", DistillationRecipe.class);
     public static final RecipeType<IncubationRecipe> INCUBATION = RecipeType.create(Theurgy.MODID, "incubation", IncubationRecipe.class);
     public static final RecipeType<AccumulationRecipe> ACCUMULATION = RecipeType.create(Theurgy.MODID, "accumulation", AccumulationRecipe.class);
+    public static final RecipeType<ReformationRecipe> REFORMATION = RecipeType.create(Theurgy.MODID, "reformation", ReformationRecipe.class);
 }

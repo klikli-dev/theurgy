@@ -1,5 +1,5 @@
 {
-  "parent": "theurgy:block/caloric_flux_emitter_template",
+  "parent": "theurgy:block/sulfuric_flux_emitter_template",
   "ambientocclusion": false,
   "render_type": "minecraft:translucent",
   "textures": {

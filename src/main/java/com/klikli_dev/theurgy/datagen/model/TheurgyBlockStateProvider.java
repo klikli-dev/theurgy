@@ -97,7 +97,7 @@ public class TheurgyBlockStateProvider extends BlockStateProvider {
 
     protected void registerSulfuricFluxEmitter() {
         //we re-use the caloric flux emitter model
-        var model = this.models().withExistingParent("sulfuric_flux_emitter", this.modLoc("block/caloric_flux_emitter_template"))
+        var model = this.models().withExistingParent("sulfuric_flux_emitter", this.modLoc("block/sulfuric_flux_emitter_template"))
                 .ao(false)
                 .renderType(new ResourceLocation("minecraft", "translucent"))
                 //blockbench spits out garbage textures by losing the folder name so we fix them here

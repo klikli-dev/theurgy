@@ -75,6 +75,8 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
     @Override
     void buildRecipes(BiConsumer<ResourceLocation, JsonObject> recipeConsumer) {
 
+        //TODO: special recipe for netherite?
+
         var metalsFromMetals = List.of(
                 Pair.of(SulfurMappings.METALS_ABUNDANT, ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_ABUNDANT),
                 Pair.of(SulfurMappings.METALS_COMMON, ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_COMMON),
@@ -179,6 +181,7 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
         }
         recipe.add("conditions", conditions);
 
+        //TODO: instead of the consumer, use a cache here that we can overwrite and then feed to the consumer
         this.recipeConsumer.accept(
                 this.modLoc(recipeName),
                 recipe

@@ -88,7 +88,6 @@ public class JeiPlugin implements IModPlugin {
 
         //filter reformation recipes to exclude those that are for sulfurs without recipe
         var reformationRecipes = recipeManager.getAllRecipesFor(RecipeTypeRegistry.REFORMATION.get()).stream().filter(r -> r.getResultItem(level.registryAccess()) != null).filter( r -> sulfursWithoutRecipe.stream().noneMatch(s -> s.getItem() == r.getResultItem(level.registryAccess()).getItem())).toList();
-
         registration.addRecipes(JeiRecipeTypes.REFORMATION, reformationRecipes);
 
 
@@ -125,7 +124,6 @@ public class JeiPlugin implements IModPlugin {
 
         registration.addRecipeCatalyst(new ItemStack(BlockRegistry.REFORMATION_SOURCE_PEDESTAL.get()),
                 JeiRecipeTypes.REFORMATION);
-
 
         registration.addRecipeCatalyst(new ItemStack(BlockRegistry.REFORMATION_RESULT_PEDESTAL.get()),
                 JeiRecipeTypes.REFORMATION);

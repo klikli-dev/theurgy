@@ -9,14 +9,11 @@ import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.content.gui.GuiTextures;
-import com.klikli_dev.theurgy.content.recipe.IncubationRecipe;
 import com.klikli_dev.theurgy.content.recipe.ReformationRecipe;
 import com.klikli_dev.theurgy.integration.jei.JeiDrawables;
 import com.klikli_dev.theurgy.integration.jei.JeiRecipeTypes;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
-import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
-import com.klikli_dev.theurgy.registry.SulfurRegistry;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.drawable.IDrawableAnimated;
@@ -31,9 +28,6 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
-
-import java.util.Arrays;
-import java.util.stream.Collectors;
 
 import static mezz.jei.api.recipe.RecipeIngredientRole.INPUT;
 import static mezz.jei.api.recipe.RecipeIngredientRole.OUTPUT;
@@ -108,7 +102,7 @@ public class ReformationCategory implements IRecipeCategory<ReformationRecipe> {
 
     protected void drawFlux(ReformationRecipe recipe, GuiGraphics guiGraphics, int y) {
         int flux = recipe.getMercuryFlux();
-        Component timeString =  Component.translatable(TheurgyConstants.I18n.JEI.MERCURY_FLUX, flux);
+        Component timeString = Component.translatable(TheurgyConstants.I18n.JEI.MERCURY_FLUX, flux);
         Minecraft minecraft = Minecraft.getInstance();
         Font font = minecraft.font;
         guiGraphics.drawString(font, timeString, 1, y, 0xFF808080, false);
@@ -116,7 +110,7 @@ public class ReformationCategory implements IRecipeCategory<ReformationRecipe> {
 
     protected void drawSourcePedestalCount(ReformationRecipe recipe, GuiGraphics guiGraphics, int y) {
         int count = recipe.getSources().size();
-        Component timeString =  Component.translatable(TheurgyConstants.I18n.JEI.SOURCE_PEDESTAL_COUNT, count);
+        Component timeString = Component.translatable(TheurgyConstants.I18n.JEI.SOURCE_PEDESTAL_COUNT, count);
         Minecraft minecraft = Minecraft.getInstance();
         Font font = minecraft.font;
         int stringWidth = font.width(timeString);
@@ -132,12 +126,8 @@ public class ReformationCategory implements IRecipeCategory<ReformationRecipe> {
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, ReformationRecipe recipe, IFocusGroup focuses) {
 
-        //TODO: draw the emitter
-        //TODO: draw the required flux
-        //TODO: draw target pedestal + target sulfur
-        //TODO: draw source pedestal + up to six slots
-        //TODO: draw result pedestal + result sulfur
-
+        //TODO: fix recipe lookup not working with "r" and "u"
+        
         builder.addSlot(RecipeIngredientRole.CATALYST, 1, 15)
                 .addItemStack(new ItemStack(ItemRegistry.SULFURIC_FLUX_EMITTER.get()));
 
@@ -148,7 +138,7 @@ public class ReformationCategory implements IRecipeCategory<ReformationRecipe> {
         builder.addSlot(RecipeIngredientRole.CATALYST, 45, 35)
                 .addItemStack(new ItemStack(ItemRegistry.REFORMATION_TARGET_PEDESTAL.get()));
 
-        //6 source slots, 2 columns, 3 rows
+        //8 source slots, 2 columns, 4 rows
         int sourceSlotX = 90;
         int startY = 55;
         int sourceSlotY = startY; // Start from the bottom
@@ -156,7 +146,7 @@ public class ReformationCategory implements IRecipeCategory<ReformationRecipe> {
         for (int i = 0; i < 8; i++) {
             var slot = builder.addSlot(INPUT, sourceSlotX, sourceSlotY).setBackground(JeiDrawables.INPUT_SLOT, -1, -1);
 
-            if(i < recipe.getSources().size())
+            if (i < recipe.getSources().size())
                 slot.addIngredients(recipe.getSources().get(i));
 
             sourceSlotY -= 18; // Move upwards
@@ -172,9 +162,12 @@ public class ReformationCategory implements IRecipeCategory<ReformationRecipe> {
 
         builder.addSlot(OUTPUT, 160, 19)
                 .setBackground(JeiDrawables.OUTPUT_SLOT, -5, -5)
-                .addItemStack(recipe.getResult());
+                .addItemStack(recipe.getResultItem(Minecraft.getInstance().level.registryAccess()));
         builder.addSlot(RecipeIngredientRole.CATALYST, 160, 42)
                 .addItemStack(new ItemStack(ItemRegistry.REFORMATION_RESULT_PEDESTAL.get()));
+
+        builder.addInvisibleIngredients(OUTPUT).addItemStack(recipe.getResultItem(Minecraft.getInstance().level.registryAccess()));
+        recipe.getSources().forEach(s -> builder.addInvisibleIngredients(INPUT).addIngredients(s));
     }
 
     @Override

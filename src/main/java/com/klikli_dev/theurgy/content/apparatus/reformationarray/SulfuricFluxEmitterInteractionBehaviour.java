@@ -50,27 +50,31 @@ public class SulfuricFluxEmitterInteractionBehaviour implements InteractionBehav
         if (!(blockEntity instanceof SulfuricFluxEmitterBlockEntity sulfuricFluxEmitter))
             return;
 
-        this.showOutlines(sulfuricFluxEmitter);
+        this.showOutlines(level, sulfuricFluxEmitter);
         this.showStatusMessage(level, player, sulfuricFluxEmitter);
     }
 
-    private void showOutlines(SulfuricFluxEmitterBlockEntity sulfuricFluxEmitter){
+    private void showOutlines(Level level, SulfuricFluxEmitterBlockEntity sulfuricFluxEmitter){
         if (sulfuricFluxEmitter.targetPedestal != null) {
             BlockPos pos = sulfuricFluxEmitter.targetPedestal.getBlockPos();
             VoxelShape shape = Shapes.block();
 
+            var isValid = level.getBlockEntity(sulfuricFluxEmitter.targetPedestal.getBlockPos()) instanceof ReformationTargetPedestalBlockEntity;
+
             Outliner.get().showAABB(sulfuricFluxEmitter.targetPedestal, shape.bounds()
                             .move(pos), 20 * 5)
-                    .colored(sulfuricFluxEmitter.targetPedestal.getColor().getRGB())
+                    .colored(isValid ? sulfuricFluxEmitter.targetPedestal.getColor().getRGB() : 0xFF0000)
                     .lineWidth(1 / 16f);
         }
         if (sulfuricFluxEmitter.resultPedestal != null) {
             BlockPos pos = sulfuricFluxEmitter.resultPedestal.getBlockPos();
             VoxelShape shape = Shapes.block();
 
+            var isValid = level.getBlockEntity(sulfuricFluxEmitter.resultPedestal.getBlockPos()) instanceof ReformationResultPedestalBlockEntity;
+
             Outliner.get().showAABB(sulfuricFluxEmitter.resultPedestal, shape.bounds()
                             .move(pos), 20 * 5)
-                    .colored(sulfuricFluxEmitter.resultPedestal.getColor().getRGB())
+                    .colored(isValid ? sulfuricFluxEmitter.resultPedestal.getColor().getRGB() : 0xFF0000)
                     .lineWidth(1 / 16f);
         }
 
@@ -78,9 +82,11 @@ public class SulfuricFluxEmitterInteractionBehaviour implements InteractionBehav
             BlockPos pos = sourcePedestal.getBlockPos();
             VoxelShape shape = Shapes.block();
 
+            var isValid = level.getBlockEntity(sourcePedestal.getBlockPos()) instanceof ReformationSourcePedestalBlockEntity;
+
             Outliner.get().showAABB(sourcePedestal, shape.bounds()
                             .move(pos), 20 * 5)
-                    .colored(sourcePedestal.getColor().getRGB())
+                    .colored(isValid ? sourcePedestal.getColor().getRGB() : 0xFF0000)
                     .lineWidth(1 / 16f);
         }
     }

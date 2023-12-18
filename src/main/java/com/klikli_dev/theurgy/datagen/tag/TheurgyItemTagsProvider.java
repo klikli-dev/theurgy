@@ -5,6 +5,7 @@
 package com.klikli_dev.theurgy.datagen.tag;
 
 import com.klikli_dev.theurgy.Theurgy;
+import com.klikli_dev.theurgy.datagen.SulfurMappings;
 import com.klikli_dev.theurgy.registry.*;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
@@ -70,78 +71,66 @@ public class TheurgyItemTagsProvider extends ItemTagsProvider {
                 .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_RARE.location())
                 .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_PRECIOUS.location());
 
-        this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_ABUNDANT)
-                .add(SulfurRegistry.COPPER.get())
-        ;
 
-        this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_COMMON)
-                .add(SulfurRegistry.IRON.get())
-                .add(SulfurRegistry.TIN.get())
-                .add(SulfurRegistry.ZINC.get())
-                .add(SulfurRegistry.LEAD.get())
-                .add(SulfurRegistry.NICKEL.get())
-                .add(SulfurRegistry.CINNABAR.get())
-                .add(SulfurRegistry.OSMIUM.get())
-        ;
+        this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_ABUNDANT);
+        SulfurMappings.METALS_ABUNDANT.forEach(sulfur -> {
+            this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_ABUNDANT).add(sulfur);
+        });
 
-        this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_RARE)
-                .add(SulfurRegistry.CRIMSON_IRON.get())
-                .add(SulfurRegistry.SILVER.get())
-                .add(SulfurRegistry.GOLD.get())
-                .add(SulfurRegistry.URANIUM.get())
-                .add(SulfurRegistry.AZURE_SILVER.get())
-                .add(SulfurRegistry.IRIDIUM.get())
-                .add(SulfurRegistry.PLATINUM.get())
-        ;
+        this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_COMMON);
+        SulfurMappings.METALS_COMMON.forEach(sulfur -> {
+            this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_COMMON).add(sulfur);
+        });
 
-        this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_PRECIOUS)
-                .add(SulfurRegistry.NETHERITE.get())
-                .add(SulfurRegistry.ALLTHEMODIUM.get())
-                .add(SulfurRegistry.UNOBTAINIUM.get())
-                .add(SulfurRegistry.VIBRANIUM.get())
-        ;
+        this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_RARE);
+        SulfurMappings.METALS_RARE.forEach(sulfur -> {
+            this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_RARE).add(sulfur);
+        });
 
+        this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_PRECIOUS);
+        SulfurMappings.METALS_PRECIOUS.forEach(sulfur -> {
+            this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_PRECIOUS).add(sulfur);
+        });
 
-        this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_ABUNDANT)
-                .add(SulfurRegistry.APATITE.get())
-                .add(SulfurRegistry.FLUORITE.get())
-                .add(SulfurRegistry.SAL_AMMONIAC.get())
-        ;
+        this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_ABUNDANT);
+        SulfurMappings.GEMS_ABUNDANT.forEach(sulfur -> {
+            this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_ABUNDANT).add(sulfur);
+        });
 
-        this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_COMMON)
-                .add(SulfurRegistry.QUARTZ.get())
-                .add(SulfurRegistry.LAPIS.get())
-        ;
+        this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_COMMON);
+        SulfurMappings.GEMS_COMMON.forEach(sulfur -> {
+            this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_COMMON).add(sulfur);
+        });
 
-        this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_RARE)
-                .add(SulfurRegistry.PRISMARINE.get())
-                .add(SulfurRegistry.AMETHYST.get())
-                .add(SulfurRegistry.PERIDOT.get())
-                .add(SulfurRegistry.RUBY.get())
-                .add(SulfurRegistry.SAPPHIRE.get())
-        ;
+        this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_RARE);
+        SulfurMappings.GEMS_RARE.forEach(sulfur -> {
+            this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_RARE).add(sulfur);
+        });
 
-        this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_PRECIOUS)
-                .add(SulfurRegistry.DIAMOND.get())
-                .add(SulfurRegistry.EMERALD.get())
-        ;
+        this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_PRECIOUS);
+        SulfurMappings.GEMS_PRECIOUS.forEach(sulfur -> {
+            this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_PRECIOUS).add(sulfur);
+        });
 
-        this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_ABUNDANT)
-                .add(SulfurRegistry.COAL.get())
-        ;
+        this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_ABUNDANT);
+        SulfurMappings.OTHER_MINERALS_ABUNDANT.forEach(sulfur -> {
+            this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_ABUNDANT).add(sulfur);
+        });
 
-        this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_COMMON)
-                .add(SulfurRegistry.REDSTONE.get())
-                .add(SulfurRegistry.SULFUR.get())
-        ;
+        this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_COMMON);
+        SulfurMappings.OTHER_MINERALS_COMMON.forEach(sulfur -> {
+            this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_COMMON).add(sulfur);
+        });
 
-        this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_RARE)
+        this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_RARE);
+        SulfurMappings.OTHER_MINERALS_RARE.forEach(sulfur -> {
+            this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_RARE).add(sulfur);
+        });
 
-        ;
-
-        this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_PRECIOUS)
-
-        ;
+        this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_PRECIOUS);
+        SulfurMappings.OTHER_MINERALS_PRECIOUS.forEach(sulfur -> {
+            this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_PRECIOUS).add(sulfur);
+        });
 
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_ABUNDANT)
                 .addTag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_ABUNDANT)

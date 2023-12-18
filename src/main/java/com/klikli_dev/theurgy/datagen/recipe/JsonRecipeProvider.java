@@ -58,6 +58,10 @@ public abstract class JsonRecipeProvider implements DataProvider {
         return tag.location().getPath().replace('/', '_');
     }
 
+    protected String name(List<TagKey<Item>> tags) {
+        return tags.stream().distinct().map(this::name).reduce("", (a, b) -> a + "_and_" + b).replaceFirst("_and_", "");
+    }
+
     public ResourceLocation locFor(TagKey<Item> tag) {
         return tag.location();
     }

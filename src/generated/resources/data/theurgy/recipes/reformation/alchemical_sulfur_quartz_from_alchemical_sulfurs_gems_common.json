@@ -1,0 +1,26 @@
+{
+  "type": "theurgy:reformation",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "theurgy:alchemical_sulfurs/gems/common"
+      }
+    }
+  ],
+  "mercury_flux": 100,
+  "reformation_time": 100,
+  "result": {
+    "Count": 1,
+    "id": "theurgy:alchemical_sulfur_quartz"
+  },
+  "sources": [
+    {
+      "tag": "theurgy:alchemical_sulfurs/gems/common"
+    }
+  ],
+  "target": {
+    "item": "theurgy:alchemical_sulfur_quartz"
+  }
+}

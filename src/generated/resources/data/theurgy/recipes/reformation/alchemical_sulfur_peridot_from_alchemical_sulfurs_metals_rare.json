@@ -1,0 +1,56 @@
+{
+  "type": "theurgy:reformation",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "theurgy:alchemical_sulfurs/metals/rare"
+      }
+    },
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "theurgy:alchemical_sulfurs/metals/rare"
+      }
+    },
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "theurgy:alchemical_sulfurs/metals/rare"
+      }
+    },
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "theurgy:alchemical_sulfurs/metals/rare"
+      }
+    }
+  ],
+  "mercury_flux": 150,
+  "reformation_time": 100,
+  "result": {
+    "Count": 1,
+    "id": "theurgy:alchemical_sulfur_peridot"
+  },
+  "sources": [
+    {
+      "tag": "theurgy:alchemical_sulfurs/metals/rare"
+    },
+    {
+      "tag": "theurgy:alchemical_sulfurs/metals/rare"
+    },
+    {
+      "tag": "theurgy:alchemical_sulfurs/metals/rare"
+    },
+    {
+      "tag": "theurgy:alchemical_sulfurs/metals/rare"
+    }
+  ],
+  "target": {
+    "item": "theurgy:alchemical_sulfur_peridot"
+  }
+}

@@ -86,7 +86,8 @@ public class JeiPlugin implements IModPlugin {
                 .filter(sulfur -> liquefactionRecipes.stream().noneMatch(r -> r.getResultItem(level.registryAccess()) != null && r.getResultItem(level.registryAccess()).getItem() == sulfur)).map(ItemStack::new).toList();
         registration.getIngredientManager().removeIngredientsAtRuntime(VanillaTypes.ITEM_STACK, sulfursWithoutRecipe);
 
-        var reformationRecipes = recipeManager.getAllRecipesFor(RecipeTypeRegistry.REFORMATION.get()).stream().filter(r -> r.getResultItem(level.registryAccess()) != null).filter( r -> !sulfursWithoutRecipe.contains(r.getResultItem(level.registryAccess()))).toList();
+        //filter reformation recipes to exclude those that are for sulfurs without recipe
+        var reformationRecipes = recipeManager.getAllRecipesFor(RecipeTypeRegistry.REFORMATION.get()).stream().filter(r -> r.getResultItem(level.registryAccess()) != null).filter( r -> sulfursWithoutRecipe.stream().noneMatch(s -> s.getItem() == r.getResultItem(level.registryAccess()).getItem())).toList();
 
         registration.addRecipes(JeiRecipeTypes.REFORMATION, reformationRecipes);
 

@@ -2,7 +2,9 @@ package com.klikli_dev.theurgy.content.recipe;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
+import com.klikli_dev.theurgy.content.item.AlchemicalSulfurItem;
 import com.klikli_dev.theurgy.content.recipe.wrapper.ReformationArrayRecipeWrapper;
+import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.RecipeSerializerRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import com.klikli_dev.theurgy.util.TheurgyExtraCodecs;
@@ -10,6 +12,7 @@ import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.JsonOps;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -129,8 +132,20 @@ public class ReformationRecipe implements Recipe<ReformationArrayRecipeWrapper> 
     }
 
     @Override
+    public NonNullList<Ingredient> getIngredients() {
+        NonNullList<Ingredient> nonnulllist = NonNullList.create();
+        nonnulllist.addAll(this.sources);
+        return nonnulllist;
+    }
+
+    @Override
     public ResourceLocation getId() {
         return this.id;
+    }
+
+    @Override
+    public ItemStack getToastSymbol() {
+        return new ItemStack(BlockRegistry.REFORMATION_RESULT_PEDESTAL.get());
     }
 
     @Override
@@ -157,6 +172,7 @@ public class ReformationRecipe implements Recipe<ReformationArrayRecipeWrapper> 
             var recipe = CODEC.parse(JsonOps.INSTANCE, pJson).getOrThrow(false, s -> {
                 throw new JsonParseException(s);
             });
+
             recipe.id = pRecipeId;
             return recipe;
         }

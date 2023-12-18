@@ -125,9 +125,6 @@ public class ReformationCategory implements IRecipeCategory<ReformationRecipe> {
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, ReformationRecipe recipe, IFocusGroup focuses) {
-
-        //TODO: fix recipe lookup not working with "r" and "u"
-        
         builder.addSlot(RecipeIngredientRole.CATALYST, 1, 15)
                 .addItemStack(new ItemStack(ItemRegistry.SULFURIC_FLUX_EMITTER.get()));
 
@@ -165,9 +162,6 @@ public class ReformationCategory implements IRecipeCategory<ReformationRecipe> {
                 .addItemStack(recipe.getResultItem(Minecraft.getInstance().level.registryAccess()));
         builder.addSlot(RecipeIngredientRole.CATALYST, 160, 42)
                 .addItemStack(new ItemStack(ItemRegistry.REFORMATION_RESULT_PEDESTAL.get()));
-
-        builder.addInvisibleIngredients(OUTPUT).addItemStack(recipe.getResultItem(Minecraft.getInstance().level.registryAccess()));
-        recipe.getSources().forEach(s -> builder.addInvisibleIngredients(INPUT).addIngredients(s));
     }
 
     @Override

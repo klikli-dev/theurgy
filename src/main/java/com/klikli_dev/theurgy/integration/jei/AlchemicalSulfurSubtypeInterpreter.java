@@ -4,6 +4,7 @@
 
 package com.klikli_dev.theurgy.integration.jei;
 
+import com.klikli_dev.theurgy.registry.SulfurRegistry;
 import mezz.jei.api.ingredients.subtypes.IIngredientSubtypeInterpreter;
 import mezz.jei.api.ingredients.subtypes.UidContext;
 import net.minecraft.nbt.CompoundTag;
@@ -21,12 +22,12 @@ public class AlchemicalSulfurSubtypeInterpreter implements IIngredientSubtypeInt
     @Override
     public String apply(ItemStack ingredient, UidContext context) {
         CompoundTag nbtTagCompound = ingredient.getTag();
-        if (nbtTagCompound == null || nbtTagCompound.isEmpty()) {
+
+        //we only use nbt on the generic sulfur which uses nbt to distinguish its type
+        if (ingredient.getItem() != SulfurRegistry.GENERIC.get() || nbtTagCompound == null || nbtTagCompound.isEmpty()) {
             return IIngredientSubtypeInterpreter.NONE;
         }
 
-        //sulfurs represent all minerals, so they should not differentiate the source
-        //this is important, otherwise JEI will not allow certain sulfurs in the recipe while the actual crafting does allow it
         return nbtTagCompound.toString()
                 .replace("#forge:ores", "#theurgy:minerals")
                 .replace("#forge:ingots", "#theurgy:minerals")

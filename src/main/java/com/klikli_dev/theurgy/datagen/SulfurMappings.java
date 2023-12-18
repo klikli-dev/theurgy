@@ -1,7 +1,6 @@
 package com.klikli_dev.theurgy.datagen;
 
 import com.klikli_dev.theurgy.content.item.AlchemicalSulfurItem;
-import com.klikli_dev.theurgy.registry.ItemTagRegistry;
 import com.klikli_dev.theurgy.registry.SulfurRegistry;
 
 import java.util.List;
@@ -53,7 +52,7 @@ public class SulfurMappings {
             SulfurRegistry.OSMIUM.get()
     );
 
-    public static final List<AlchemicalSulfurItem> METALS_RARE= List.of(
+    public static final List<AlchemicalSulfurItem> METALS_RARE = List.of(
             SulfurRegistry.CRIMSON_IRON.get(),
             SulfurRegistry.SILVER.get(),
             SulfurRegistry.GOLD.get(),

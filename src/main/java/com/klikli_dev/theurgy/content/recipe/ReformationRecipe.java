@@ -97,6 +97,7 @@ public class ReformationRecipe implements Recipe<ReformationArrayRecipeWrapper> 
                     //we also need to prevent double-checking a pedestal
                     //so we make this (copied!) stack empty
                     sourceInputStack.setCount(0);
+                    found = true;
                     break;
                 }
             }

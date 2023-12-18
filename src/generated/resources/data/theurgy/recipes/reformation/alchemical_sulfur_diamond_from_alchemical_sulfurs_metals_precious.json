@@ -14,20 +14,6 @@
         "type": "forge:tag_empty",
         "tag": "theurgy:alchemical_sulfurs/metals/precious"
       }
-    },
-    {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "theurgy:alchemical_sulfurs/metals/precious"
-      }
-    },
-    {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "theurgy:alchemical_sulfurs/metals/precious"
-      }
     }
   ],
   "mercury_flux": 200,
@@ -37,12 +23,6 @@
     "id": "theurgy:alchemical_sulfur_diamond"
   },
   "sources": [
-    {
-      "tag": "theurgy:alchemical_sulfurs/metals/precious"
-    },
-    {
-      "tag": "theurgy:alchemical_sulfurs/metals/precious"
-    },
     {
       "tag": "theurgy:alchemical_sulfurs/metals/precious"
     },

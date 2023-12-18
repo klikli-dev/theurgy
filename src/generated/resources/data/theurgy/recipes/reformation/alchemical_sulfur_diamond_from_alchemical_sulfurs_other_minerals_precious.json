@@ -28,34 +28,6 @@
         "type": "forge:tag_empty",
         "tag": "theurgy:alchemical_sulfurs/other_minerals/precious"
       }
-    },
-    {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "theurgy:alchemical_sulfurs/other_minerals/precious"
-      }
-    },
-    {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "theurgy:alchemical_sulfurs/other_minerals/precious"
-      }
-    },
-    {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "theurgy:alchemical_sulfurs/other_minerals/precious"
-      }
-    },
-    {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "theurgy:alchemical_sulfurs/other_minerals/precious"
-      }
     }
   ],
   "mercury_flux": 200,
@@ -65,18 +37,6 @@
     "id": "theurgy:alchemical_sulfur_diamond"
   },
   "sources": [
-    {
-      "tag": "theurgy:alchemical_sulfurs/other_minerals/precious"
-    },
-    {
-      "tag": "theurgy:alchemical_sulfurs/other_minerals/precious"
-    },
-    {
-      "tag": "theurgy:alchemical_sulfurs/other_minerals/precious"
-    },
-    {
-      "tag": "theurgy:alchemical_sulfurs/other_minerals/precious"
-    },
     {
       "tag": "theurgy:alchemical_sulfurs/other_minerals/precious"
     },

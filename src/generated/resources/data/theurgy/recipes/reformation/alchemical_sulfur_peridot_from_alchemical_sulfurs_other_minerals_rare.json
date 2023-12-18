@@ -28,34 +28,6 @@
         "type": "forge:tag_empty",
         "tag": "theurgy:alchemical_sulfurs/other_minerals/rare"
       }
-    },
-    {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "theurgy:alchemical_sulfurs/other_minerals/rare"
-      }
-    },
-    {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "theurgy:alchemical_sulfurs/other_minerals/rare"
-      }
-    },
-    {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "theurgy:alchemical_sulfurs/other_minerals/rare"
-      }
-    },
-    {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "theurgy:alchemical_sulfurs/other_minerals/rare"
-      }
     }
   ],
   "mercury_flux": 150,
@@ -65,18 +37,6 @@
     "id": "theurgy:alchemical_sulfur_peridot"
   },
   "sources": [
-    {
-      "tag": "theurgy:alchemical_sulfurs/other_minerals/rare"
-    },
-    {
-      "tag": "theurgy:alchemical_sulfurs/other_minerals/rare"
-    },
-    {
-      "tag": "theurgy:alchemical_sulfurs/other_minerals/rare"
-    },
-    {
-      "tag": "theurgy:alchemical_sulfurs/other_minerals/rare"
-    },
     {
       "tag": "theurgy:alchemical_sulfurs/other_minerals/rare"
     },

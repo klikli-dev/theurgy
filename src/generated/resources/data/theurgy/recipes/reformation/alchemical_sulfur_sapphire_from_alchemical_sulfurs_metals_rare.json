@@ -14,20 +14,6 @@
         "type": "forge:tag_empty",
         "tag": "theurgy:alchemical_sulfurs/metals/rare"
       }
-    },
-    {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "theurgy:alchemical_sulfurs/metals/rare"
-      }
-    },
-    {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "theurgy:alchemical_sulfurs/metals/rare"
-      }
     }
   ],
   "mercury_flux": 150,
@@ -37,12 +23,6 @@
     "id": "theurgy:alchemical_sulfur_sapphire"
   },
   "sources": [
-    {
-      "tag": "theurgy:alchemical_sulfurs/metals/rare"
-    },
-    {
-      "tag": "theurgy:alchemical_sulfurs/metals/rare"
-    },
     {
       "tag": "theurgy:alchemical_sulfurs/metals/rare"
     },

@@ -14,20 +14,6 @@
         "type": "forge:tag_empty",
         "tag": "theurgy:alchemical_sulfurs/metals/abundant"
       }
-    },
-    {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "theurgy:alchemical_sulfurs/metals/abundant"
-      }
-    },
-    {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "theurgy:alchemical_sulfurs/metals/abundant"
-      }
     }
   ],
   "mercury_flux": 50,
@@ -37,12 +23,6 @@
     "id": "theurgy:alchemical_sulfur_sal_ammoniac"
   },
   "sources": [
-    {
-      "tag": "theurgy:alchemical_sulfurs/metals/abundant"
-    },
-    {
-      "tag": "theurgy:alchemical_sulfurs/metals/abundant"
-    },
     {
       "tag": "theurgy:alchemical_sulfurs/metals/abundant"
     },

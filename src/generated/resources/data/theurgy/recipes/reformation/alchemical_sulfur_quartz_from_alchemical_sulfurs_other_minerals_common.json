@@ -28,34 +28,6 @@
         "type": "forge:tag_empty",
         "tag": "theurgy:alchemical_sulfurs/other_minerals/common"
       }
-    },
-    {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "theurgy:alchemical_sulfurs/other_minerals/common"
-      }
-    },
-    {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "theurgy:alchemical_sulfurs/other_minerals/common"
-      }
-    },
-    {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "theurgy:alchemical_sulfurs/other_minerals/common"
-      }
-    },
-    {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "theurgy:alchemical_sulfurs/other_minerals/common"
-      }
     }
   ],
   "mercury_flux": 100,
@@ -65,18 +37,6 @@
     "id": "theurgy:alchemical_sulfur_quartz"
   },
   "sources": [
-    {
-      "tag": "theurgy:alchemical_sulfurs/other_minerals/common"
-    },
-    {
-      "tag": "theurgy:alchemical_sulfurs/other_minerals/common"
-    },
-    {
-      "tag": "theurgy:alchemical_sulfurs/other_minerals/common"
-    },
-    {
-      "tag": "theurgy:alchemical_sulfurs/other_minerals/common"
-    },
     {
       "tag": "theurgy:alchemical_sulfurs/other_minerals/common"
     },

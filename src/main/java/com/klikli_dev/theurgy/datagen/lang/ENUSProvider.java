@@ -4,6 +4,7 @@
 
 package com.klikli_dev.theurgy.datagen.lang;
 
+import com.klikli_dev.modonomicon.api.datagen.AbstractModonomiconLanguageProvider;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.content.item.AlchemicalSaltItem;
@@ -24,7 +25,7 @@ import net.minecraftforge.registries.RegistryObject;
 import java.text.MessageFormat;
 import java.util.function.Supplier;
 
-public class ENUSProvider extends LanguageProvider implements TooltipLanguageProvider {
+public class ENUSProvider extends AbstractModonomiconLanguageProvider implements TooltipLanguageProvider {
     public ENUSProvider(PackOutput packOutput) {
         super(packOutput, Theurgy.MODID, "en_us");
     }

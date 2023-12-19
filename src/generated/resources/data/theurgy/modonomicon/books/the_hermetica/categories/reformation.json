@@ -4,7 +4,9 @@
   "background_parallax_layers": [],
   "background_width": 512,
   "entry_textures": "modonomicon:textures/gui/entry_textures.png",
-  "icon": "theurgy:reformation_result_pedestal",
+  "icon": {
+    "item": "theurgy:reformation_result_pedestal"
+  },
   "name": "book.theurgy.the_hermetica.reformation.name",
   "show_category_button": true,
   "sort_number": 4

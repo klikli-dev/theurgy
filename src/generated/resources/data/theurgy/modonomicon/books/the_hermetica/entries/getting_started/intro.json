@@ -4,7 +4,9 @@
   "category": "theurgy:getting_started",
   "description": "book.theurgy.the_hermetica.getting_started.intro.description",
   "hide_while_locked": false,
-  "icon": "theurgy:the_hermetica_icon",
+  "icon": {
+    "item": "theurgy:the_hermetica_icon"
+  },
   "name": "book.theurgy.the_hermetica.getting_started.intro.name",
   "pages": [
     {

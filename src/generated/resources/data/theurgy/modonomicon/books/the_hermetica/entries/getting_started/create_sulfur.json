@@ -4,7 +4,9 @@
   "category": "theurgy:getting_started",
   "description": "book.theurgy.the_hermetica.getting_started.create_sulfur.description",
   "hide_while_locked": false,
-  "icon": "theurgy:alchemical_sulfur_iron",
+  "icon": {
+    "item": "theurgy:alchemical_sulfur_iron"
+  },
   "name": "book.theurgy.the_hermetica.getting_started.create_sulfur.name",
   "pages": [
     {

@@ -4,7 +4,9 @@
   "category": "theurgy:reformation",
   "description": "book.theurgy.the_hermetica.reformation.intro.description",
   "hide_while_locked": false,
-  "icon": "theurgy:reformation_result_pedestal",
+  "icon": {
+    "item": "theurgy:reformation_result_pedestal"
+  },
   "name": "book.theurgy.the_hermetica.reformation.intro.name",
   "pages": [
     {

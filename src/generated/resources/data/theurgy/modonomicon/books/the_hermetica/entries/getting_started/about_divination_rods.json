@@ -4,7 +4,9 @@
   "category": "theurgy:getting_started",
   "description": "book.theurgy.the_hermetica.getting_started.about_divination_rods.description",
   "hide_while_locked": false,
-  "icon": "theurgy:divination_rod_t1",
+  "icon": {
+    "item": "theurgy:divination_rod_t1"
+  },
   "name": "book.theurgy.the_hermetica.getting_started.about_divination_rods.name",
   "pages": [
     {

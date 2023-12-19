@@ -4,7 +4,9 @@
   "category": "theurgy:spagyrics",
   "description": "book.theurgy.the_hermetica.spagyrics.pyromantic_brazier.description",
   "hide_while_locked": false,
-  "icon": "theurgy:pyromantic_brazier",
+  "icon": {
+    "item": "theurgy:pyromantic_brazier"
+  },
   "name": "book.theurgy.the_hermetica.spagyrics.pyromantic_brazier.name",
   "pages": [
     {

@@ -8,7 +8,9 @@
     "entry_id": "theurgy:getting_started/mercury_flux"
   },
   "entry_textures": "modonomicon:textures/gui/entry_textures.png",
-  "icon": "theurgy:mercury_shard",
+  "icon": {
+    "item": "theurgy:mercury_shard"
+  },
   "name": "book.theurgy.the_hermetica.mercury_flux.name",
   "show_category_button": true,
   "sort_number": 3

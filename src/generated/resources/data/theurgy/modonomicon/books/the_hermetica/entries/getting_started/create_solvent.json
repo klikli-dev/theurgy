@@ -4,7 +4,9 @@
   "category": "theurgy:getting_started",
   "description": "book.theurgy.the_hermetica.getting_started.create_solvent.description",
   "hide_while_locked": false,
-  "icon": "theurgy:sal_ammoniac_bucket",
+  "icon": {
+    "item": "theurgy:sal_ammoniac_bucket"
+  },
   "name": "book.theurgy.the_hermetica.getting_started.create_solvent.name",
   "pages": [
     {

@@ -4,7 +4,9 @@
   "category": "theurgy:getting_started",
   "description": "book.theurgy.the_hermetica.getting_started.create_salt.description",
   "hide_while_locked": false,
-  "icon": "theurgy:alchemical_salt_mineral",
+  "icon": {
+    "item": "theurgy:alchemical_salt_mineral"
+  },
   "name": "book.theurgy.the_hermetica.getting_started.create_salt.name",
   "pages": [
     {

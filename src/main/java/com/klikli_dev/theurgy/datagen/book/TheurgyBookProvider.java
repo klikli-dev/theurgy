@@ -5,14 +5,15 @@
 package com.klikli_dev.theurgy.datagen.book;
 
 import com.klikli_dev.modonomicon.api.datagen.BookProvider;
+import com.klikli_dev.modonomicon.api.datagen.ModonomiconLanguageProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookModel;
 import com.klikli_dev.theurgy.Theurgy;
 import net.minecraft.data.PackOutput;
 import net.minecraftforge.common.data.LanguageProvider;
 
 public class TheurgyBookProvider extends BookProvider {
-    public TheurgyBookProvider(PackOutput packOutput, LanguageProvider lang, LanguageProvider... translations) {
-        super("the_hermetica", packOutput, Theurgy.MODID, lang, translations);
+    public TheurgyBookProvider(PackOutput packOutput, ModonomiconLanguageProvider lang) {
+        super("the_hermetica", packOutput, Theurgy.MODID, lang);
     }
 
     @Override

@@ -4,7 +4,9 @@
   "category": "theurgy:getting_started",
   "description": "book.theurgy.the_hermetica.getting_started.incubation.description",
   "hide_while_locked": false,
-  "icon": "minecraft:iron_ingot",
+  "icon": {
+    "item": "minecraft:iron_ingot"
+  },
   "name": "book.theurgy.the_hermetica.getting_started.incubation.name",
   "pages": [
     {

@@ -4,7 +4,9 @@
   "category": "theurgy:spagyrics",
   "description": "book.theurgy.the_hermetica.spagyrics.liquefaction_cauldron.description",
   "hide_while_locked": false,
-  "icon": "theurgy:liquefaction_cauldron",
+  "icon": {
+    "item": "theurgy:liquefaction_cauldron"
+  },
   "name": "book.theurgy.the_hermetica.spagyrics.liquefaction_cauldron.name",
   "pages": [
     {

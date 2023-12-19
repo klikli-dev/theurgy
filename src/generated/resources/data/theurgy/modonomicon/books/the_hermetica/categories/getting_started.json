@@ -4,7 +4,9 @@
   "background_parallax_layers": [],
   "background_width": 512,
   "entry_textures": "modonomicon:textures/gui/entry_textures.png",
-  "icon": "theurgy:the_hermetica_icon",
+  "icon": {
+    "item": "theurgy:the_hermetica_icon"
+  },
   "name": "book.theurgy.the_hermetica.getting_started.name",
   "show_category_button": true,
   "sort_number": 1

@@ -4,7 +4,9 @@
   "category": "theurgy:getting_started",
   "description": "book.theurgy.the_hermetica.getting_started.needed_apparatus.description",
   "hide_while_locked": false,
-  "icon": "theurgy:distiller",
+  "icon": {
+    "item": "theurgy:distiller"
+  },
   "name": "book.theurgy.the_hermetica.getting_started.needed_apparatus.name",
   "pages": [
     {

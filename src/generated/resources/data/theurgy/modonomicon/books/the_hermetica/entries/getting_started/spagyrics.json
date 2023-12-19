@@ -4,7 +4,9 @@
   "category": "theurgy:getting_started",
   "description": "book.theurgy.the_hermetica.getting_started.spagyrics.description",
   "hide_while_locked": false,
-  "icon": "theurgy:calcination_oven",
+  "icon": {
+    "item": "theurgy:calcination_oven"
+  },
   "name": "book.theurgy.the_hermetica.getting_started.spagyrics.name",
   "pages": [
     {

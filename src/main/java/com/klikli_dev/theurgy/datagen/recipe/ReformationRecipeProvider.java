@@ -12,15 +12,14 @@ import com.klikli_dev.theurgy.content.recipe.ReformationRecipe;
 import com.klikli_dev.theurgy.datagen.SulfurMappings;
 import com.klikli_dev.theurgy.registry.ItemTagRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
+import com.klikli_dev.theurgy.registry.SulfurRegistry;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.BiConsumer;
 
 public class ReformationRecipeProvider extends JsonRecipeProvider {
@@ -32,7 +31,8 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
             SulfurMappings.RARE, 150,
             SulfurMappings.PRECIOUS, 200
     );
-
+    private final Map<ResourceLocation, JsonObject> recipeCache = new HashMap<>();
+    private Set<AlchemicalSulfurItem> noAutomaticRecipesFor = Set.of();
 
     public ReformationRecipeProvider(PackOutput packOutput) {
         super(packOutput, Theurgy.MODID, "reformation");
@@ -44,9 +44,10 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
 
     private void makeXtoXRecipes(List<Pair<List<AlchemicalSulfurItem>, TagKey<Item>>> sulfurToTag) {
         sulfurToTag.forEach((entry) -> {
-            entry.getFirst().forEach((sulfur) -> {
-                this.makeRecipe(sulfur, entry.getSecond(), this.getFlux(sulfur));
-            });
+            entry.getFirst().stream().filter(s -> !this.noAutomaticRecipesFor.contains(s))
+                    .forEach((sulfur) -> {
+                        this.makeRecipe(sulfur, entry.getSecond(), this.getFlux(sulfur));
+                    });
         });
     }
 
@@ -55,9 +56,10 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
      */
     private void makeNYtoXRecipes(int n, List<Pair<List<AlchemicalSulfurItem>, TagKey<Item>>> sulfurToTag) {
         sulfurToTag.forEach((entry) -> {
-            entry.getFirst().forEach((sulfur) -> {
-                this.makeRecipe(sulfur, Collections.nCopies(n, entry.getSecond()), this.getFlux(sulfur));
-            });
+            entry.getFirst().stream().filter(s -> !this.noAutomaticRecipesFor.contains(s))
+                    .forEach((sulfur) -> {
+                        this.makeRecipe(sulfur, Collections.nCopies(n, entry.getSecond()), this.getFlux(sulfur));
+                    });
         });
     }
 
@@ -66,17 +68,14 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
      */
     private void makeYtoNXRecipes(int n, List<Pair<List<AlchemicalSulfurItem>, TagKey<Item>>> sulfurToTag) {
         sulfurToTag.forEach((entry) -> {
-            entry.getFirst().forEach((sulfur) -> {
-                this.makeRecipe(sulfur, n, entry.getSecond(), this.getFlux(sulfur));
-            });
+            entry.getFirst().stream().filter(s -> !this.noAutomaticRecipesFor.contains(s))
+                    .forEach((sulfur) -> {
+                        this.makeRecipe(sulfur, n, entry.getSecond(), this.getFlux(sulfur));
+                    });
         });
     }
 
-    @Override
-    void buildRecipes(BiConsumer<ResourceLocation, JsonObject> recipeConsumer) {
-
-        //TODO: special recipe for netherite?
-
+    private void metals() {
         var metalsFromMetals = List.of(
                 Pair.of(SulfurMappings.METALS_ABUNDANT, ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_ABUNDANT),
                 Pair.of(SulfurMappings.METALS_COMMON, ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_COMMON),
@@ -100,7 +99,9 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
                 Pair.of(SulfurMappings.METALS_PRECIOUS, ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_PRECIOUS)
         );
         this.makeYtoNXRecipes(2, metalsFromGems);
+    }
 
+    private void gems() {
         var gemsFromGems = List.of(
                 Pair.of(SulfurMappings.GEMS_ABUNDANT, ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_ABUNDANT),
                 Pair.of(SulfurMappings.GEMS_COMMON, ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_COMMON),
@@ -124,7 +125,9 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
                 Pair.of(SulfurMappings.GEMS_PRECIOUS, ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_PRECIOUS)
         );
         this.makeNYtoXRecipes(4, gemsFromOtherMinerals);
+    }
 
+    private void otherMinerals() {
         var otherMineralsFromOtherMinerals = List.of(
                 Pair.of(SulfurMappings.OTHER_MINERALS_ABUNDANT, ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_ABUNDANT),
                 Pair.of(SulfurMappings.OTHER_MINERALS_COMMON, ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_COMMON),
@@ -148,6 +151,24 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
                 Pair.of(SulfurMappings.OTHER_MINERALS_PRECIOUS, ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_PRECIOUS)
         );
         this.makeYtoNXRecipes(4, otherMineralsFromGems);
+    }
+
+    @Override
+    void buildRecipes(BiConsumer<ResourceLocation, JsonObject> recipeConsumer) {
+
+        //Set up materials that should not get the automatic conversion rates
+        this.noAutomaticRecipesFor = Set.of(
+                SulfurRegistry.ALLTHEMODIUM.get(),
+                SulfurRegistry.UNOBTAINIUM.get(),
+                SulfurRegistry.VIBRANIUM.get()
+        );
+
+        this.metals();
+        this.gems();
+        this.otherMinerals();
+
+        //now flush cache.
+        this.recipeCache.forEach(recipeConsumer);
     }
 
     public void makeRecipe(Item result, TagKey<Item> source, int mercuryFlux) {
@@ -181,11 +202,7 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
         }
         recipe.add("conditions", conditions);
 
-        //TODO: instead of the consumer, use a cache here that we can overwrite and then feed to the consumer
-        this.recipeConsumer.accept(
-                this.modLoc(recipeName),
-                recipe
-        );
+        this.recipeCache.put(this.modLoc(recipeName), recipe);
     }
 
     public void makeRecipe(Item result, Item source, int mercuryFlux) {
@@ -201,7 +218,7 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
     }
 
     public void makeRecipe(String recipeName, Item result, Item source, int sourceCount, int mercuryFlux, int reformationTime) {
-        this.recipeConsumer.accept(
+        this.recipeCache.put(
                 this.modLoc(recipeName),
                 this.makeRecipeJson(
                         List.of(this.makeItemIngredient(this.locFor(source), sourceCount)),

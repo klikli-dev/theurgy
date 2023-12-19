@@ -676,7 +676,7 @@ public class OreRefiningEntryProvider extends CategoryProvider {
                         After a while the input items will have been consumed and incubated into the result, you can right-click the {0} with an empty hand to obtain 3x {1}.
                         \\
                         \\
-                        **Congratulations, you created 2 Ingots from 1 Raw Metal!**
+                        **Congratulations, you created 3 Ingots from 1 Raw Metal!**
                         """,
                 this.itemLink(ItemRegistry.INCUBATOR.get()),
                 this.itemLink(Items.IRON_INGOT)

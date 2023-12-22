@@ -16,14 +16,6 @@
       "text": "book.theurgy.the_hermetica.reformation.intro.intro.text",
       "title": "book.theurgy.the_hermetica.reformation.intro.intro.title",
       "use_markdown_in_title": false
-    },
-    {
-      "type": "modonomicon:multiblock",
-      "anchor": "",
-      "multiblock_id": "theurgy:placement/reformation_array",
-      "multiblock_name": "",
-      "show_visualize_button": true,
-      "text": ""
     }
   ],
   "x": -7,

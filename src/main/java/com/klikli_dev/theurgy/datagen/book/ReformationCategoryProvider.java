@@ -29,9 +29,9 @@ public class ReformationCategoryProvider extends CategoryProvider {
         return new String[]{
                 "__________________________________",
                 "__________________________________",
-                "____________ć_____________________",
                 "__________________________________",
-                "__________i_c_____________________",
+                "__________________________________",
+                "__________i_r_s___________________",
                 "__________________________________",
                 "__________________________________",
                 "__________________________________",
@@ -42,12 +42,16 @@ public class ReformationCategoryProvider extends CategoryProvider {
     @Override
     protected void generateEntries() {
         var intro = this.add(this.intro('i'));
+        var reformationArray = this.add(this.reformationArray('r'));
+        var sulfuricFluxEmitter = this.add(this.sulfuricFluxEmitter('s'));
 
+        reformationArray.addParent(this.parent(intro));
+        sulfuricFluxEmitter.addParent(this.parent(reformationArray));
         //TODO: link from flux page to here
-        //TODO: link from getting started to here
+        //TODO: link from getting started to here -> use three ingots icon
         //TODO: one entry per apparatus
         //TODO: then a few entries to show the process (based on iron, for example)
-        //TODO: use an icon that indicates duplication of eg ingots
+        //TODO: use an icon that indicates duplication of eg ingots -> use three ingots icon
     }
 
     @Override
@@ -76,20 +80,97 @@ public class ReformationCategoryProvider extends CategoryProvider {
         this.add(this.context().pageTitle(), "Reformation");
         this.add(this.context().pageText(),
                 """
-                        TODO
+                        Reformation is the process of replicating matter. However, matter cannot be created from nothing, so the process requires a source of matter to be converted into the desired matter. Furthermore, matter in its complete form consisting of Soul, Spirit and Body resists change. Therefore, the process of reformation requires the matter to be broken down into its components first, and only the Soul - the Sulfur - is malleable and may be transformed.
                         """
         );
 
-        var test = BookMultiblockPageModel.builder()
-                .withMultiblockId(Theurgy.loc("placement/reformation_array"))
-                .build();
+        //TODO: at "therefore, the process ..." nees new page
+
+
 
         return this.entry(location)
                 .withIcon(ItemRegistry.REFORMATION_RESULT_PEDESTAL.get())
                 .withEntryBackground(EntryBackground.CATEGORY_START)
                 .withPages(
+                        intro
+                );
+    }
+
+    private BookEntryModel reformationArray(char location) {
+        this.context().entry("reformation_array");
+        this.add(this.context().entryName(), "Reformation Array");
+        this.add(this.context().entryDescription(), "Conversion of Sulfur");
+
+        this.context().page("about");
+        var about = BookTextPageModel.builder()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
+                .build();
+        this.add(this.context().pageTitle(), "Reformation Array");
+        this.add(this.context().pageText(),
+                """
+                        Talk about the reformation array here woo
+                        """
+        );
+
+        var placement = BookMultiblockPageModel.builder()
+                .withMultiblockId(Theurgy.loc("placement/reformation_array"))
+                .build();
+
+
+        return this.entry(location)
+                .withIcon(Theurgy.loc("textures/gui/book/convert_sulfur.png"), 64, 64)
+                .withEntryBackground(EntryBackground.DEFAULT)
+                .withPages(
+                        about,
+                        placement
+                );
+    }
+
+    private BookEntryModel sulfuricFluxEmitter(char location) {
+        this.context().entry("sulfuric_flux_emitter");
+        this.add(this.context().entryName(), "Sulfuric Flux Emitter");
+        this.add(this.context().entryDescription(), "Flux that can transform Sulfur");
+
+        this.context().page("intro");
+        var intro = BookSpotlightPageModel.builder()
+                .withItem(Ingredient.of(ItemRegistry.SULFURIC_FLUX_EMITTER.get()))
+                .withText(this.context().pageText())
+                .build();
+        this.add(this.context().pageText(),
+                """
+                    TODO
+                        """
+        );
+
+        this.context().page("usage");
+        var usage = BookTextPageModel.builder()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
+                .build();
+        this.add(this.context().pageTitle(), "Usage");
+        this.add(this.context().pageText(),
+                """
+                        Right-click the target block with the {0} until it is highlighted. Then place the Emitter onto a Mercury Flux source, such as a {1}.\\
+                        The maximum range is **8** blocks.\\
+                        As long as mercury flux is provided to it, the emitter will send caloric flux to the target block and keep it heated.
+                        """,
+                this.itemLink(ItemRegistry.SULFURIC_FLUX_EMITTER.get()),
+                this.itemLink(ItemRegistry.MERCURY_CATALYST.get())
+        );
+
+        this.context().page("recipe");
+        var recipe = BookCraftingRecipePageModel.builder()
+                .withRecipeId1(Theurgy.loc("crafting/shaped/sulfuric_flux_emitter"))
+                .build();
+
+        return this.entry(location)
+                .withIcon(ItemRegistry.SULFURIC_FLUX_EMITTER.get())
+                .withEntryBackground(EntryBackground.DEFAULT)
+                .withPages(
                         intro,
-                        test
+                        usage,
+                        recipe
                 );
     }
 

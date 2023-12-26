@@ -104,7 +104,6 @@ jobs:
             forge
             neoforge
           game-versions: |
-            1.20
             ${{ steps.get_mc_version.outputs.result }}
           changelog: |-
             ${{ steps.changelog.outputs.changes }}
@@ -113,5 +112,6 @@ jobs:
           dependencies: |
             forge(required)
             modonomicon(required)
+            geckolib(required)
             jei(optional)
             jade(optional)

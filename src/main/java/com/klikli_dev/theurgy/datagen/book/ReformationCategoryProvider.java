@@ -80,19 +80,58 @@ public class ReformationCategoryProvider extends CategoryProvider {
         this.add(this.context().pageTitle(), "Reformation");
         this.add(this.context().pageText(),
                 """
-                        Reformation is the process of replicating matter. However, matter cannot be created from nothing, so the process requires a source of matter to be converted into the desired matter. Furthermore, matter in its complete form consisting of Soul, Spirit and Body resists change. Therefore, the process of reformation requires the matter to be broken down into its components first, and only the Soul - the Sulfur - is malleable and may be transformed.
+                        Reformation is the process of replicating matter. However, matter cannot be created from nothing, so the process requires a source of matter to be converted into the desired matter. Furthermore, matter in its complete form consisting of Soul, Spirit and Body resists change.
                         """
         );
 
-        //TODO: at "therefore, the process ..." nees new page
+        this.context().page("process");
+        var process = BookTextPageModel.builder()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
+                .build();
+        this.add(this.context().pageTitle(), "Process");
+        this.add(this.context().pageText(),
+                """
+                        Therefore, the process of reformation requires the matter to be broken down into its components first, and only the Soul - the Sulfur - is malleable and may be transformed.
+                        """
 
+        );
+
+        this.context().page("theory");
+        var theory = BookTextPageModel.builder()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
+                .build();
+        this.add(this.context().pageTitle(), "Theoretical Underpinnings");
+        this.add(this.context().pageText(),
+                """
+                        This Reformation of one sulfur into the other can be achieved by the application of Sulfuric Flux. This is a type of flux that has been infused with the essence of one type of Sulfur, allowing it to transform other Sulfur it gets in contact with into the same type.
+                        """
+
+        );
+
+        this.context().page("reassembly");
+        var reassembly = BookTextPageModel.builder()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
+                .build();
+        this.add(this.context().pageTitle(), "Reassembly");
+        this.add(this.context().pageText(),
+                """
+                        Once the desired Sulfur has been produced, {0} can be used to reassemble the matter into the desired form.
+                        """,
+                this.categoryLink("Spagyrics", SpagyricsCategoryProvider.CATEGORY_ID)
+        );
 
 
         return this.entry(location)
                 .withIcon(ItemRegistry.REFORMATION_RESULT_PEDESTAL.get())
                 .withEntryBackground(EntryBackground.CATEGORY_START)
                 .withPages(
-                        intro
+                        intro,
+                        process,
+                        theory,
+                        reassembly
                 );
     }
 

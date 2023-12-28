@@ -1,4 +1,4 @@
-// 1.20.1	2023-12-22T16:38:02.8035295	Books: theurgy
+// 1.20.1	2023-12-28T16:02:58.0814406	Books: theurgy
 ead61475fc866f8eb903a6d99236808a0383fd5a data/theurgy/modonomicon/books/the_hermetica/book.json
 f8d69cb91187d2b3fe517c93941f1e546a1c7253 data/theurgy/modonomicon/books/the_hermetica/categories/getting_started.json
 ad7690cb03eaa3405872898e42aa1ac7d5a2cdd4 data/theurgy/modonomicon/books/the_hermetica/categories/mercury_flux.json
@@ -30,7 +30,7 @@ a6b4b67c5739a1930220cae51a296f5b15394de4 data/theurgy/modonomicon/books/the_herm
 55569e7d145b7347abee34a282ecc03c0d3150bf data/theurgy/modonomicon/books/the_hermetica/entries/mercury_flux/caloric_flux_emitter.json
 ce08f0c3541286bee7ca91fcc4783fa136820fe1 data/theurgy/modonomicon/books/the_hermetica/entries/mercury_flux/intro.json
 10771aba9f3fe842a92969bd4d86173e5ee431f0 data/theurgy/modonomicon/books/the_hermetica/entries/mercury_flux/mercury_catalyst.json
-4762969fb5e927d00afa43f1e5b0ff455c8b7041 data/theurgy/modonomicon/books/the_hermetica/entries/reformation/intro.json
+6c3a498f93f1098b523807b93505b5c6368cc69e data/theurgy/modonomicon/books/the_hermetica/entries/reformation/intro.json
 9e8365bf19c80f457ac9f9a8479a8350e0f35e06 data/theurgy/modonomicon/books/the_hermetica/entries/reformation/reformation_array.json
 1123f1510d699aebd52f9e89571cf4cc96d81df8 data/theurgy/modonomicon/books/the_hermetica/entries/reformation/sulfuric_flux_emitter.json
 a550d41bf7cb3fd640dd333555b446abc4ce4b05 data/theurgy/modonomicon/books/the_hermetica/entries/spagyrics/about_ore_refining_link.json

@@ -16,6 +16,30 @@
       "text": "book.theurgy.the_hermetica.reformation.intro.intro.text",
       "title": "book.theurgy.the_hermetica.reformation.intro.intro.title",
       "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.reformation.intro.process.text",
+      "title": "book.theurgy.the_hermetica.reformation.intro.process.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.reformation.intro.theory.text",
+      "title": "book.theurgy.the_hermetica.reformation.intro.theory.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.reformation.intro.reassembly.text",
+      "title": "book.theurgy.the_hermetica.reformation.intro.reassembly.title",
+      "use_markdown_in_title": false
     }
   ],
   "x": -7,

@@ -105,7 +105,7 @@ public class ReformationCategoryProvider extends CategoryProvider {
         this.add(this.context().pageTitle(), "Theoretical Underpinnings");
         this.add(this.context().pageText(),
                 """
-                        This Reformation of one sulfur into the other can be achieved by the application of Sulfuric Flux. This is a type of flux that has been infused with the essence of one type of Sulfur, allowing it to transform other Sulfur it gets in contact with into the same type.
+                        This Reformation of one sulfur into the other can be achieved by the application of Sulfuric Flux. This is a type of Mercury flux that has been infused with the essence of one type of Sulfur, allowing it to transform other Sulfur it gets in contact with into the same type.
                         """
 
         );
@@ -140,30 +140,78 @@ public class ReformationCategoryProvider extends CategoryProvider {
         this.add(this.context().entryName(), "Reformation Array");
         this.add(this.context().entryDescription(), "Conversion of Sulfur");
 
-        this.context().page("about");
-        var about = BookTextPageModel.builder()
+        this.page("about", () -> BookTextPageModel.builder()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
-                .build();
+                .build());
         this.add(this.context().pageTitle(), "Reformation Array");
         this.add(this.context().pageText(),
                 """
-                        Talk about the reformation array here woo
+                        The reformation array provides the necessary framework for to attune Sulfuric Flux to a target sulfur and use it to transform source sulfur into that target type of sulfur.
                         """
         );
 
-        var placement = BookMultiblockPageModel.builder()
-                .withMultiblockId(Theurgy.loc("placement/reformation_array"))
-                .build();
+        this.page("structure", () -> BookTextPageModel.builder()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
+                .build());
+        this.add(this.context().pageTitle(), "Structure");
+        this.add(this.context().pageText(),
+                """
+                        The array has no fixed structure, you simply need to place a {0}, at least one {1}, and a {2} within a few blocks of each other.
+                        """,
+                this.itemLink(ItemRegistry.REFORMATION_TARGET_PEDESTAL.get()),
+                this.itemLink(ItemRegistry.REFORMATION_SOURCE_PEDESTAL.get()),
+                this.itemLink(ItemRegistry.REFORMATION_RESULT_PEDESTAL.get()),
+                this.itemLink(ItemRegistry.SULFURIC_FLUX_EMITTER.get()),
+                this.itemLink(ItemRegistry.MERCURY_CATALYST.get())
+        );
 
+        this.page("structure2", () -> BookTextPageModel.builder()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
+                .build());
+        this.add(this.context().pageTitle(), "Structure");
+        this.add(this.context().pageText(),
+                """
+                        To set up the array, right-click each of the pedestals with the {3} to link it. Finally place the {3} near the pedestals and supply it with mercury flux, e.g. by attaching it to a {4}.
+                        """,
+                this.itemLink(ItemRegistry.REFORMATION_TARGET_PEDESTAL.get()),
+                this.itemLink(ItemRegistry.REFORMATION_SOURCE_PEDESTAL.get()),
+                this.itemLink(ItemRegistry.REFORMATION_RESULT_PEDESTAL.get()),
+                this.itemLink(ItemRegistry.SULFURIC_FLUX_EMITTER.get()),
+                this.itemLink(ItemRegistry.MERCURY_CATALYST.get())
+        );
+
+        this.page("functions", () -> BookTextPageModel.builder()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
+                .build());
+        this.add(this.context().pageTitle(), "Functions");
+        this.add(this.context().pageText(),
+                """
+                        - {0} will hold the sulfur you want to create more of.
+                        - {1} will hold the input sulfur you want to use up. Multiple may be required.
+                        - {2} will be filled with the created sulfur.
+                        """,
+                this.itemLink(ItemRegistry.REFORMATION_TARGET_PEDESTAL.get()),
+                this.itemLink(ItemRegistry.REFORMATION_SOURCE_PEDESTAL.get()),
+                this.itemLink(ItemRegistry.REFORMATION_RESULT_PEDESTAL.get())
+        );
+
+        this.page("placement", () -> BookMultiblockPageModel.builder()
+                .withMultiblockId(Theurgy.loc("placement/reformation_array"))
+                .withText(this.context().pageText())
+                .build());
+        this.add(this.context().pageText(),
+                """
+                        An example setup for a Reformation Array. Note that other placements are possible.
+                        """
+        );
 
         return this.entry(location)
                 .withIcon(Theurgy.loc("textures/gui/book/convert_sulfur.png"), 64, 64)
-                .withEntryBackground(EntryBackground.DEFAULT)
-                .withPages(
-                        about,
-                        placement
-                );
+                .withEntryBackground(EntryBackground.DEFAULT);
     }
 
     private BookEntryModel sulfuricFluxEmitter(char location) {
@@ -171,46 +219,82 @@ public class ReformationCategoryProvider extends CategoryProvider {
         this.add(this.context().entryName(), "Sulfuric Flux Emitter");
         this.add(this.context().entryDescription(), "Flux that can transform Sulfur");
 
-        this.context().page("intro");
-        var intro = BookSpotlightPageModel.builder()
+        this.page("intro", () -> BookSpotlightPageModel.builder()
                 .withItem(Ingredient.of(ItemRegistry.SULFURIC_FLUX_EMITTER.get()))
                 .withText(this.context().pageText())
-                .build();
+                .build());
         this.add(this.context().pageText(),
                 """
-                    TODO
-                        """
+                        This devices converts raw mercury flux into [#]($PURPLE)Sulfuric Flux[#](), a type of energy that can carry information. It can be used to transform Sulfur into other types of Sulfur by linking it to a Reformation Array.
+                        """,
+                this.itemLink(ItemRegistry.REFORMATION_TARGET_PEDESTAL.get()),
+                this.itemLink(ItemRegistry.REFORMATION_SOURCE_PEDESTAL.get()),
+                this.itemLink(ItemRegistry.REFORMATION_RESULT_PEDESTAL.get())
         );
 
-        this.context().page("usage");
-        var usage = BookTextPageModel.builder()
+        this.page("targets", () -> BookTextPageModel.builder()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
-                .build();
+                .build());
+        this.add(this.context().pageTitle(), "Target Blocks");
+        this.add(this.context().pageText(),
+                """
+                        Valid target blocks that will form a Reformation Array are {0},  {1}, and {2}.
+                        """,
+                this.itemLink(ItemRegistry.REFORMATION_TARGET_PEDESTAL.get()),
+                this.itemLink(ItemRegistry.REFORMATION_SOURCE_PEDESTAL.get()),
+                this.itemLink(ItemRegistry.REFORMATION_RESULT_PEDESTAL.get())
+        );
+
+
+        this.page("usage", () -> BookTextPageModel.builder()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
+                .build());
         this.add(this.context().pageTitle(), "Usage");
         this.add(this.context().pageText(),
                 """
-                        Right-click the target block with the {0} until it is highlighted. Then place the Emitter onto a Mercury Flux source, such as a {1}.\\
-                        The maximum range is **8** blocks.\\
-                        As long as mercury flux is provided to it, the emitter will send caloric flux to the target block and keep it heated.
+                        Right-click the target blocks (the pedestals) with the {0} so they get highlighted.\\
+                        Then place the Emitter onto a Mercury Flux source, such as a {1}.\\
+                        The maximum range is **8** blocks.
                         """,
                 this.itemLink(ItemRegistry.SULFURIC_FLUX_EMITTER.get()),
                 this.itemLink(ItemRegistry.MERCURY_CATALYST.get())
         );
 
-        this.context().page("recipe");
-        var recipe = BookCraftingRecipePageModel.builder()
+        this.page("usage2", () -> BookTextPageModel.builder()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
+                .build());
+        this.add(this.context().pageTitle(), "Usage");
+        this.add(this.context().pageText(),
+                """
+                        If a valid reformation array is linked to the emitter, and a valid recipe is present in the pedestals, the emitter will start emitting sulfuric flux and transform the sulfur.
+                        """,
+                this.itemLink(ItemRegistry.SULFURIC_FLUX_EMITTER.get()),
+                this.itemLink(ItemRegistry.MERCURY_CATALYST.get())
+        );
+
+        this.page("usage3", () -> BookTextPageModel.builder()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
+                .build());
+        this.add(this.context().pageTitle(), "Checking Validity");
+        this.add(this.context().pageText(),
+                """
+                        Right-click the placed {0} to check if it is linked to a valid reformation array.\\
+                        If it is not, destroy it, link it to the pedestals again, and place it.
+                        """,
+                this.itemLink(ItemRegistry.SULFURIC_FLUX_EMITTER.get())
+        );
+
+        this.page("recipe", () -> BookCraftingRecipePageModel.builder()
                 .withRecipeId1(Theurgy.loc("crafting/shaped/sulfuric_flux_emitter"))
-                .build();
+                .build());
 
         return this.entry(location)
                 .withIcon(ItemRegistry.SULFURIC_FLUX_EMITTER.get())
-                .withEntryBackground(EntryBackground.DEFAULT)
-                .withPages(
-                        intro,
-                        usage,
-                        recipe
-                );
+                .withEntryBackground(EntryBackground.DEFAULT);
     }
 
 }

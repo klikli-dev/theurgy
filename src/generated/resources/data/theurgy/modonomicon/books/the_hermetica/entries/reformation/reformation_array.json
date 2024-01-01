@@ -20,12 +20,36 @@
       "use_markdown_in_title": false
     },
     {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.reformation.reformation_array.structure.text",
+      "title": "book.theurgy.the_hermetica.reformation.reformation_array.structure.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.reformation.reformation_array.structure2.text",
+      "title": "book.theurgy.the_hermetica.reformation.reformation_array.structure2.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.reformation.reformation_array.functions.text",
+      "title": "book.theurgy.the_hermetica.reformation.reformation_array.functions.title",
+      "use_markdown_in_title": false
+    },
+    {
       "type": "modonomicon:multiblock",
       "anchor": "",
       "multiblock_id": "theurgy:placement/reformation_array",
       "multiblock_name": "",
       "show_visualize_button": true,
-      "text": ""
+      "text": "book.theurgy.the_hermetica.reformation.reformation_array.placement.text"
     }
   ],
   "parents": [

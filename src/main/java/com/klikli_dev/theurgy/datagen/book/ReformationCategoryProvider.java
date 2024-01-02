@@ -15,6 +15,7 @@ import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import net.minecraft.world.item.crafting.Ingredient;
+import org.checkerframework.common.returnsreceiver.qual.This;
 
 public class ReformationCategoryProvider extends CategoryProvider {
 
@@ -29,11 +30,11 @@ public class ReformationCategoryProvider extends CategoryProvider {
         return new String[]{
                 "__________________________________",
                 "__________________________________",
+                "________________s_________________",
                 "__________________________________",
+                "__________i_r_e___o_p_____________",
                 "__________________________________",
-                "__________i_r_s___________________",
-                "__________________________________",
-                "__________________________________",
+                "________________t_________________",
                 "__________________________________",
                 "__________________________________"
         };
@@ -43,15 +44,131 @@ public class ReformationCategoryProvider extends CategoryProvider {
     protected void generateEntries() {
         var intro = this.add(this.intro('i'));
         var reformationArray = this.add(this.reformationArray('r'));
-        var sulfuricFluxEmitter = this.add(this.sulfuricFluxEmitter('s'));
+        var sulfuricFluxEmitter = this.add(this.sulfuricFluxEmitter('e'));
+        var sourcePedestal = this.add(this.sourcePedestal('s'));
+        var targetPedestal = this.add(this.targetPedestal('t'));
+//        var resultPedestal = this.add(this.resultPedestal('o'));
+//        var process = this.add(this.process('p'));
 
         reformationArray.addParent(this.parent(intro));
         sulfuricFluxEmitter.addParent(this.parent(reformationArray));
+        sourcePedestal.addParent(this.parent(sulfuricFluxEmitter));
+        targetPedestal.addParent(this.parent(sulfuricFluxEmitter));
         //TODO: link from flux page to here
         //TODO: link from getting started to here -> use three ingots icon
         //TODO: one entry per apparatus
         //TODO: then a few entries to show the process (based on iron, for example)
         //TODO: use an icon that indicates duplication of eg ingots -> use three ingots icon
+
+        //TODO: entry that explains step by step what to do after the other entries explained each single part
+    }
+
+    private BookEntryModel targetPedestal(char location) {
+        this.context().entry("target_pedestal");
+        this.add(this.context().entryName(), "Reformation Target Pedestal");
+        this.add(this.context().entryDescription(), "Holds target Sulfur to be replicated");
+
+        this.page("intro", () -> BookSpotlightPageModel.builder()
+                .withItem(Ingredient.of(ItemRegistry.REFORMATION_TARGET_PEDESTAL.get()))
+                .withText(this.context().pageText())
+                .build());
+        this.add(this.context().pageText(),
+                """
+                        Reformation requires a target sulfur that the source will be transformed into, effectively replicating the target. This type of pedestal holds these target sulfurs that will survive the process and in fact will be multiplied.
+                        """
+        );
+
+        this.page("structure", () -> BookTextPageModel.builder()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
+                .build());
+        this.add(this.context().pageTitle(), "Structure");
+        this.add(this.context().pageText(),
+                """
+                        Reformation recipes have only one target sulfur. Correspondingly, your reformation array needs only one target pedestal. Additional pedestals will not be linked to the array.
+                        """
+        );
+
+        this.page("usage", () -> BookTextPageModel.builder()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
+                .build());
+        this.add(this.context().pageTitle(), "Usage");
+        this.add(this.context().pageText(),
+                """
+                        Place the pedestal on the ground.\\
+                        Then right-click it with the sulfur you want more of.
+                        """
+        );
+
+
+        this.page("recipe", () -> BookCraftingRecipePageModel.builder()
+                .withRecipeId1(Theurgy.loc("crafting/shaped/reformation_target_pedestal"))
+                .build());
+
+        return this.entry(location)
+                .withIcon(ItemRegistry.REFORMATION_TARGET_PEDESTAL.get())
+                .withEntryBackground(EntryBackground.DEFAULT);
+    }
+
+    private BookEntryModel sourcePedestal(char location) {
+        this.context().entry("source_pedestal");
+        this.add(this.context().entryName(), "Reformation Source Pedestal");
+        this.add(this.context().entryDescription(), "Holds Sulfur to be Transformed");
+
+        this.page("intro", () -> BookSpotlightPageModel.builder()
+                .withItem(Ingredient.of(ItemRegistry.REFORMATION_SOURCE_PEDESTAL.get()))
+                .withText(this.context().pageText())
+                .build());
+        this.add(this.context().pageText(),
+                """
+                        Reformation requires a source of sulfur that will be transformed, or "converted", into another type of sulfur. This type of pedestal holds these source sulfurs that will be destroyed in the process.
+                        """
+        );
+
+        this.page("structure", () -> BookTextPageModel.builder()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
+                .build());
+        this.add(this.context().pageTitle(), "Structure");
+        this.add(this.context().pageText(),
+                """
+                        Reformation recipes require one or more source sulfurs. Correspondingly, your reformation array needs at least one source pedestal, but if the recipe requires more sources, you need to place more.
+                        """
+        );
+
+        this.page("sulfur_consumption", () -> BookTextPageModel.builder()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
+                .build());
+        this.add(this.context().pageTitle(), "Sulfur consumption");
+        this.add(this.context().pageText(),
+                """
+                        If a reformation recipe requires more than one sulfur - even if it is the same type - you need one pedestal per sulfur. Each crafting process will take a maximum of one sulfur from each source pedestal.
+                        """
+        );
+
+
+        this.page("usage", () -> BookTextPageModel.builder()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
+                .build());
+        this.add(this.context().pageTitle(), "Usage");
+        this.add(this.context().pageText(),
+                """
+                        Place the pedestal on the ground.\\
+                        Then right-click it with the sulfur you want to use as a source.
+                        """
+        );
+
+
+        this.page("recipe", () -> BookCraftingRecipePageModel.builder()
+                .withRecipeId1(Theurgy.loc("crafting/shaped/reformation_source_pedestal"))
+                .build());
+
+        return this.entry(location)
+                .withIcon(ItemRegistry.REFORMATION_SOURCE_PEDESTAL.get())
+                .withEntryBackground(EntryBackground.DEFAULT);
     }
 
     @Override
@@ -217,7 +334,7 @@ public class ReformationCategoryProvider extends CategoryProvider {
     private BookEntryModel sulfuricFluxEmitter(char location) {
         this.context().entry("sulfuric_flux_emitter");
         this.add(this.context().entryName(), "Sulfuric Flux Emitter");
-        this.add(this.context().entryDescription(), "Flux that can transform Sulfur");
+        this.add(this.context().entryDescription(), "Mercury Flux that can transform Sulfur");
 
         this.page("intro", () -> BookSpotlightPageModel.builder()
                 .withItem(Ingredient.of(ItemRegistry.SULFURIC_FLUX_EMITTER.get()))
@@ -269,7 +386,8 @@ public class ReformationCategoryProvider extends CategoryProvider {
         this.add(this.context().pageTitle(), "Usage");
         this.add(this.context().pageText(),
                 """
-                        If a valid reformation array is linked to the emitter, and a valid recipe is present in the pedestals, the emitter will start emitting sulfuric flux and transform the sulfur.
+                        The emitter is the central controlling element of the reformation array.\\
+                        If a valid array is linked to the emitter, and a valid recipe is present in the pedestals, the emitter will start emitting sulfuric flux and transform the sulfur.
                         """,
                 this.itemLink(ItemRegistry.SULFURIC_FLUX_EMITTER.get()),
                 this.itemLink(ItemRegistry.MERCURY_CATALYST.get())

@@ -47,13 +47,15 @@ public class ReformationCategoryProvider extends CategoryProvider {
         var sulfuricFluxEmitter = this.add(this.sulfuricFluxEmitter('e'));
         var sourcePedestal = this.add(this.sourcePedestal('s'));
         var targetPedestal = this.add(this.targetPedestal('t'));
-//        var resultPedestal = this.add(this.resultPedestal('o'));
+        var resultPedestal = this.add(this.resultPedestal('o'));
 //        var process = this.add(this.process('p'));
 
         reformationArray.addParent(this.parent(intro));
         sulfuricFluxEmitter.addParent(this.parent(reformationArray));
         sourcePedestal.addParent(this.parent(sulfuricFluxEmitter));
         targetPedestal.addParent(this.parent(sulfuricFluxEmitter));
+        resultPedestal.addParent(this.parent(targetPedestal));
+        resultPedestal.addParent(this.parent(sourcePedestal));
         //TODO: link from flux page to here
         //TODO: link from getting started to here -> use three ingots icon
         //TODO: one entry per apparatus
@@ -61,6 +63,66 @@ public class ReformationCategoryProvider extends CategoryProvider {
         //TODO: use an icon that indicates duplication of eg ingots -> use three ingots icon
 
         //TODO: entry that explains step by step what to do after the other entries explained each single part
+    }
+
+    private BookEntryModel resultPedestal(char location) {
+        this.context().entry("result_pedestal");
+        this.add(this.context().entryName(), "Reformation Result Pedestal");
+        this.add(this.context().entryDescription(), "Holds the transformed resulting Sulfur");
+
+        this.page("intro", () -> BookSpotlightPageModel.builder()
+                .withItem(Ingredient.of(ItemRegistry.REFORMATION_RESULT_PEDESTAL.get()))
+                .withText(this.context().pageText())
+                .build());
+        this.add(this.context().pageText(),
+                """
+                        This pedestal will be filled with the Sulfur resulting from the reformation process.
+                        """
+        );
+
+        this.page("structure", () -> BookTextPageModel.builder()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
+                .build());
+        this.add(this.context().pageTitle(), "Structure");
+        this.add(this.context().pageText(),
+                """
+                        Reformation recipes have only one output. Correspondingly, your reformation array needs only one result pedestal. Additional pedestals will not be linked to the array.
+                        """
+        );
+
+
+        this.page("usage", () -> BookTextPageModel.builder()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
+                .build());
+        this.add(this.context().pageTitle(), "Usage");
+        this.add(this.context().pageText(),
+                """
+                        Place the pedestal on the ground.\\
+                        After the reformation is complete, the pedestal will be filled with the resulting sulfur.\\
+                        Right-click the pedestal with an empty hand to retrieve the sulfur.
+                        """
+        );
+
+        this.page("visuals", () -> BookTextPageModel.builder()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
+                .build());
+        this.add(this.context().pageTitle(), "Visuals");
+        this.add(this.context().pageText(),
+                """
+                        A glowing orb will show above the pedestal if it contains sulfur.
+                        """
+        );
+
+        this.page("recipe", () -> BookCraftingRecipePageModel.builder()
+                .withRecipeId1(Theurgy.loc("crafting/shaped/reformation_result_pedestal"))
+                .build());
+
+        return this.entry(location)
+                .withIcon(ItemRegistry.REFORMATION_RESULT_PEDESTAL.get())
+                .withEntryBackground(EntryBackground.DEFAULT);
     }
 
     private BookEntryModel targetPedestal(char location) {
@@ -323,6 +385,17 @@ public class ReformationCategoryProvider extends CategoryProvider {
         this.add(this.context().pageText(),
                 """
                         An example setup for a Reformation Array. Note that other placements are possible.
+                        """
+        );
+
+        this.page("visuals", () -> BookTextPageModel.builder()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
+                .build());
+        this.add(this.context().pageTitle(), "Visuals");
+        this.add(this.context().pageText(),
+                """
+                        A glowing orb will show above the pedestal if it contains sulfur.
                         """
         );
 

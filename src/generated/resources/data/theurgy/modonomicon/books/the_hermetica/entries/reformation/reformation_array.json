@@ -50,6 +50,14 @@
       "multiblock_name": "",
       "show_visualize_button": true,
       "text": "book.theurgy.the_hermetica.reformation.reformation_array.placement.text"
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.reformation.reformation_array.visuals.text",
+      "title": "book.theurgy.the_hermetica.reformation.reformation_array.visuals.title",
+      "use_markdown_in_title": false
     }
   ],
   "parents": [

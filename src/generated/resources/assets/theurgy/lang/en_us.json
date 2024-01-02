@@ -277,7 +277,7 @@
   "book.theurgy.the_hermetica.reformation.replication.crafting.text": "As soon as all ingredients are in place, the sulfuric flux emitter will start the reformation process, as long as it is supplied with mercury flux.\\\nGlowing flux flying between the pedestals will indicate the process is running.\\\nOnce complete, a glowing orb will appear over the result pedestal.\n",
   "book.theurgy.the_hermetica.reformation.replication.crafting.title": "Et voilà: Reformation",
   "book.theurgy.the_hermetica.reformation.replication.description": "Putting it all together",
-  "book.theurgy.the_hermetica.reformation.replication.incubation.text": "To reassemble the [](item://theurgy:alchemical_sulfur_iron) into [](item://minecraft:iron_ingot), you now need to incubate the sulfur.\\\nSee [Incubator](entry://spagyrics/incubator) and [Incubating Iron](entry://getting_started/incubation) on how to accomplish that.\n",
+  "book.theurgy.the_hermetica.reformation.replication.incubation.text": "To reassemble the [Alchemical Sulfur: Iron](item://theurgy:alchemical_sulfur_iron) into [](item://minecraft:iron_ingot), you now need to incubate the sulfur.\\\nSee [Incubator](entry://spagyrics/incubator) and [Incubating Iron](entry://getting_started/incubation) on how to accomplish that.\n",
   "book.theurgy.the_hermetica.reformation.replication.incubation.title": "Incubating Ingots",
   "book.theurgy.the_hermetica.reformation.replication.intro.text": "In the following pages we will go through the steps necessary to create more iron ingots from a single one.\n",
   "book.theurgy.the_hermetica.reformation.replication.intro.title": "Replicating Iron",

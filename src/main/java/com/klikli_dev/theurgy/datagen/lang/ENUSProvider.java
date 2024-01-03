@@ -18,7 +18,6 @@ import net.minecraft.Util;
 import net.minecraft.data.PackOutput;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Item;
-import net.minecraftforge.common.data.LanguageProvider;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
@@ -62,7 +61,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.add(TheurgyConstants.I18n.Misc.UNIT_MILLIBUCKETS, "%smB");
     }
 
-    private void addBehaviours(){
+    private void addBehaviours() {
         this.add(TheurgyConstants.I18n.Behaviour.SELECTION_MODE, "%1$s %2$s"); //First is the mode message text, the second the block name
         this.add(TheurgyConstants.I18n.Behaviour.SELECTION_MODE_CALORIC_FLUX_EMITTER, "Send caloric flux to");
         this.add(TheurgyConstants.I18n.Behaviour.SELECTION_OUTSIDE_RANGE, "%1$s selected blocks removed for being out of range.");
@@ -232,8 +231,12 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
                 "Used to power a sulfur reformation array to replicate Alchemical Sulfur.",
                 "Sulfuric Flux allows to transfer, merge and manipulate Alchemical Sulfur.",
                 this.f("""
-                                TODO
-                                """));
+                                 {0} on Source, Target and Reformation pedestals to set them as the targets for the emitter to form a reformation array.
+                                Then place the emitter on a Mercury Flux source, such as a Mercury Catalyst.
+                                View The Hermetica for more information.
+                                """,
+                        this.green("Right-Click"))
+        );
 
 
         this.addBlock(BlockRegistry.REFORMATION_SOURCE_PEDESTAL, "Reformation Source Pedestal");

@@ -37,7 +37,7 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
                 "__________________________________",
                 "__________i_a___________ő_ö_______",
                 "__________________________________",
-                "____________u_s_š___o_ó___ô_õ_____",
+                "____________u_s_š___o_ó___ô_õ_r___",
                 "__________________________________",
                 "______________m_ḿ_______ò_________",
                 "__________________________________"
@@ -74,6 +74,7 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
         var createSalt = this.add(ore.createSaltEntry('ô'));
         var createMercury = this.add(ore.createMercuryEntry('ò'));
         var incubation = this.add(ore.incubationEntry('õ'));
+        var reformation = this.add(this.reformation('r'));
 
         //TODO: one entry to talk about mercury flux, then one entry to link to the category
         var mercuryFlux = this.add(this.mercuryFluxEntry('m'));
@@ -162,6 +163,7 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
                 .withParent(createMercury)
                 .withParent(createSalt)
                 .withParent(createSulfur);
+        reformation.withParent(incubation);
 
         mercuryFlux.withParent(spagyrics);
         mercuryFluxLink.withParent(mercuryFlux);
@@ -358,8 +360,8 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
         var intro2 = BookTextPageModel.builder().withTitle(this.context().pageTitle()).withText(this.context().pageText()).build();
         this.add(this.context().pageTitle(), "Learn More");
         this.add(this.context().pageText(), """
-                Open the {0} to learn more about the various required alchemical processes.
-                """,
+                        Open the {0} to learn more about the various required alchemical processes.
+                        """,
                 this.categoryLink("Spagyrics Category", SpagyricsCategoryProvider.CATEGORY_ID)
         );
 
@@ -396,10 +398,10 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
         var intro2 = BookTextPageModel.builder().withTitle(this.context().pageTitle()).withText(this.context().pageText()).build();
         this.add(this.context().pageTitle(), "Learn More");
         this.add(this.context().pageText(), """
-                Open the {0} to learn more about how to obtain and use Mercury Flux.
-                """,
+                        Open the {0} to learn more about how to obtain and use Mercury Flux.
+                        """,
                 this.categoryLink("Mercury Flux Category", MercuryFluxCategoryProvider.CATEGORY_ID)
-                );
+        );
 
         return this.entry(location).withIcon(ItemRegistry.MERCURY_SHARD.get())
                 .withEntryBackground(EntryBackground.DEFAULT).withPages(intro, intro2);
@@ -413,5 +415,32 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
         return this.entry(location).withIcon(ItemRegistry.MERCURY_SHARD.get())
                 .withCategoryToOpen(Theurgy.loc(MercuryFluxCategoryProvider.CATEGORY_ID))
                 .withEntryBackground(EntryBackground.LINK_TO_CATEGORY);
+    }
+
+    private BookEntryModel reformation(char location) {
+        this.context().entry("reformation");
+        this.add(this.context().entryName(), "Reformation");
+        this.add(this.context().entryDescription(), "Further Duplication of Matter");
+
+        this.page("intro", () -> BookTextPageModel.builder()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
+                .build()
+        );
+        this.add(this.context().pageTitle(), "Reformation");
+        this.add(this.context().pageText(),
+                """
+                        To further duplicate matter, we can use the process of Reformation to convert one material into another.
+                        \\
+                        \\
+                        See the Category for {0} on how to achieve that.
+                        """,
+                this.categoryLink("Reformation", ReformationCategoryProvider.CATEGORY_ID)
+        );
+
+
+        return this.entry(location)
+                .withIcon(this.modLoc("textures/gui/book/three_iron_ingots.png"), 32, 32)
+                .withEntryBackground(EntryBackground.DEFAULT);
     }
 }

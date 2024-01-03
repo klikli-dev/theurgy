@@ -31,11 +31,11 @@ public class TheurgyBookProvider extends BookProvider {
         var spagyricsCategory = new SpagyricsCategoryProvider(this).generate().withSortNumber(categorySortNum++);
         spagyricsCategory.withCondition(this.condition().entryRead(this.modLoc(GettingStartedCategoryProvider.CATEGORY_ID + "/spagyrics")));
 
+        var reformationCategory = new ReformationCategoryProvider(this).generate().withSortNumber(categorySortNum++);
+
         var mercuryFluxCategory = new MercuryFluxCategoryProvider(this).generate().withSortNumber(categorySortNum++);
         mercuryFluxCategory.withCondition(this.condition().entryRead(this.modLoc(GettingStartedCategoryProvider.CATEGORY_ID + "/mercury_flux")));
 
-
-        var reformationCategory = new ReformationCategoryProvider(this).generate().withSortNumber(categorySortNum++);
         //TODO: entry read condition
 
         var book = BookModel.create(
@@ -46,8 +46,8 @@ public class TheurgyBookProvider extends BookProvider {
                 .withCategories(
                         gettingStartedCategory,
                         spagyricsCategory,
-                        mercuryFluxCategory,
-                        reformationCategory
+                        reformationCategory,
+                        mercuryFluxCategory
                 )
                 .withGenerateBookItem(true)
                 .withModel(this.modLoc("the_hermetica_icon"))

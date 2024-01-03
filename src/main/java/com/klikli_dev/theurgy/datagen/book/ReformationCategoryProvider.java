@@ -58,10 +58,6 @@ public class ReformationCategoryProvider extends CategoryProvider {
         resultPedestal.addParent(this.parent(targetPedestal));
         resultPedestal.addParent(this.parent(sourcePedestal));
         replication.addParent(this.parent(resultPedestal));
-        //TODO: link from flux page to here
-        //TODO: link from getting started to here -> use three ingots icon
-        //TODO: flux page should have a sulfur flux entry (+ link)
-        //TODO: flux cat should be below reformation
     }
 
     private BookEntryModel replication(char location) {

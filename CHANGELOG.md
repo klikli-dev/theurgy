@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.8.0] - 2024-01-03
+### :sparkles: New Features
+- [`60646ca`](https://github.com/klikli-dev/theurgy/commit/60646cabaf6957e76f43a41e7d245075330466f4) - Reformation *(PR [#157](https://github.com/klikli-dev/theurgy/pull/157) by [@klikli-dev](https://github.com/klikli-dev))*
+  - :arrow_lower_right: *addresses issue [#137](undefined) opened by [@klikli-dev](https://github.com/klikli-dev)*
+
+
 ## [release/v1.20.1-1.7.1] - 2023-10-28
 ### :bug: Bug Fixes
 - [`0f795c6`](https://github.com/klikli-dev/theurgy/commit/0f795c69b49a97af71c04a51239d9a733f7b9428) - possible fix for accumulator/tank contents rendering with a .5 block offset *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -352,3 +358,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.6.4]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.6.3...release/v1.20.1-1.6.4
 [release/v1.20.1-1.7.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.6.4...release/v1.20.1-1.7.0
 [release/v1.20.1-1.7.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.7.0...release/v1.20.1-1.7.1
+[release/v1.20.1-1.8.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.7.1...release/v1.20.1-1.8.0

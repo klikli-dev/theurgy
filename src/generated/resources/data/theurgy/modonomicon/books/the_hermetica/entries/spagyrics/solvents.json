@@ -4,7 +4,9 @@
   "category": "theurgy:spagyrics",
   "description": "book.theurgy.the_hermetica.spagyrics.solvents.description",
   "hide_while_locked": false,
-  "icon": "theurgy:sal_ammoniac_tank",
+  "icon": {
+    "item": "theurgy:sal_ammoniac_tank"
+  },
   "name": "book.theurgy.the_hermetica.spagyrics.solvents.name",
   "pages": [
     {

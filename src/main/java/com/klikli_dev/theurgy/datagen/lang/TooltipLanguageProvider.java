@@ -11,26 +11,23 @@ import net.minecraftforge.common.data.LanguageProvider;
 import java.util.function.Supplier;
 
 public interface TooltipLanguageProvider {
-
-    private LanguageProvider self() {
-        return (LanguageProvider) this;
-    }
+    void add(String key, String value);
 
     default void addTooltip(Supplier<? extends Item> key, String tooltip) {
         if (tooltip != null)
-            this.self().add(key.get().getDescriptionId() + TheurgyConstants.I18n.Tooltip.SUFFIX, tooltip);
+            this.add(key.get().getDescriptionId() + TheurgyConstants.I18n.Tooltip.SUFFIX, tooltip);
     }
 
     default void addTooltip(Supplier<? extends Item> key, String tooltip, String extendedTooltip) {
         this.addTooltip(key, tooltip);
         if (extendedTooltip != null)
-            this.self().add(key.get().getDescriptionId() + TheurgyConstants.I18n.Tooltip.EXTENDED_SUFFIX, extendedTooltip);
+            this.add(key.get().getDescriptionId() + TheurgyConstants.I18n.Tooltip.EXTENDED_SUFFIX, extendedTooltip);
     }
 
     default void addTooltip(Supplier<? extends Item> key, String tooltip, String extendedTooltip, String usageTooltip) {
         this.addTooltip(key, tooltip, extendedTooltip);
         if (usageTooltip != null)
-            this.self().add(key.get().getDescriptionId() + TheurgyConstants.I18n.Tooltip.USAGE_SUFFIX, usageTooltip);
+            this.add(key.get().getDescriptionId() + TheurgyConstants.I18n.Tooltip.USAGE_SUFFIX, usageTooltip);
     }
 
     default void addExtendedTooltip(Supplier<? extends Item> key, String extendedTooltip) {

@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "S": {
+      "tag": "theurgy:alchemical_sulfurs"
+    },
+    "g": {
+      "tag": "forge:ingots/gold"
+    },
+    "s": {
+      "item": "minecraft:blackstone"
+    }
+  },
+  "pattern": [
+    "ggg",
+    "gSg",
+    "sss"
+  ],
+  "result": {
+    "count": 1,
+    "item": "theurgy:reformation_result_pedestal"
+  }
+}

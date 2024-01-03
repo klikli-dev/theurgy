@@ -4,7 +4,9 @@
   "category": "theurgy:spagyrics",
   "description": "book.theurgy.the_hermetica.spagyrics.principles.description",
   "hide_while_locked": false,
-  "icon": "theurgy:mercury_crystal",
+  "icon": {
+    "item": "theurgy:mercury_crystal"
+  },
   "name": "book.theurgy.the_hermetica.spagyrics.principles.name",
   "pages": [
     {

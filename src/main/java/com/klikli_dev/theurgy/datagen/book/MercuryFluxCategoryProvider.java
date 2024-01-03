@@ -30,7 +30,7 @@ public class MercuryFluxCategoryProvider extends CategoryProvider {
                 "__________________________________",
                 "__________i_c_____________________",
                 "__________________________________",
-                "__________________________________",
+                "____________s_____________________",
                 "__________________________________",
                 "__________________________________"
         };
@@ -41,9 +41,11 @@ public class MercuryFluxCategoryProvider extends CategoryProvider {
         var intro = this.add(this.intro('i'));
         var mercuryCatalyst = this.add(this.mercuryCatalyst('c'));
         var caloricFluxEmitter = this.add(this.caloricFluxEmitter('ć'));
+        var sulfuricFluxEmitter = this.add(this.sulfuricFluxEmitter('s'));
 
         mercuryCatalyst.addParent(this.parent(intro));
         caloricFluxEmitter.addParent(this.parent(mercuryCatalyst));
+        sulfuricFluxEmitter.addParent(this.parent(mercuryCatalyst));
     }
 
     @Override
@@ -181,5 +183,27 @@ public class MercuryFluxCategoryProvider extends CategoryProvider {
                         usage,
                         recipe
                 );
+    }
+
+    private BookEntryModel sulfuricFluxEmitter(char location) {
+        this.context().entry("sulfuric_flux_emitter");
+        this.add(this.context().entryName(), "Sulfuric Flux Emitter");
+        this.add(this.context().entryDescription(), "Transporting Sulfuric Information");
+
+        this.page("intro", () -> BookSpotlightPageModel.builder()
+                .withItem(Ingredient.of(ItemRegistry.SULFURIC_FLUX_EMITTER.get()))
+                .withText(this.context().pageText())
+                .build());
+        this.add(this.context().pageText(),
+                """
+                        This devices converts raw mercury flux into [#]($PURPLE)Sulfuric Flux[#](), which allows to transport the information inherent in sulfur over a distance. It can be used to convert one type of matter into another.\\
+                        See {0} for more information.
+                        """,
+                this.categoryLink("Reformation", ReformationCategoryProvider.CATEGORY_ID)
+        );
+
+        return this.entry(location)
+                .withIcon(ItemRegistry.SULFURIC_FLUX_EMITTER.get())
+                .withEntryBackground(EntryBackground.DEFAULT);
     }
 }

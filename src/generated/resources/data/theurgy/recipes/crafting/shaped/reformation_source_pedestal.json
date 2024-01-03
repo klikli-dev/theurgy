@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "S": {
+      "tag": "theurgy:alchemical_sulfurs"
+    },
+    "i": {
+      "tag": "forge:ingots/iron"
+    },
+    "s": {
+      "item": "minecraft:blackstone"
+    }
+  },
+  "pattern": [
+    "sSs",
+    "iii",
+    "sss"
+  ],
+  "result": {
+    "count": 1,
+    "item": "theurgy:reformation_source_pedestal"
+  }
+}

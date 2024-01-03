@@ -5,10 +5,7 @@
 package com.klikli_dev.theurgy.network;
 
 import com.klikli_dev.theurgy.Theurgy;
-import com.klikli_dev.theurgy.network.messages.MessageCaloricFluxEmitterSelection;
-import com.klikli_dev.theurgy.network.messages.MessageRequestCaloricFluxEmitterSelection;
-import com.klikli_dev.theurgy.network.messages.MessageSetDivinationResult;
-import com.klikli_dev.theurgy.network.messages.MessageShowCaloricFlux;
+import com.klikli_dev.theurgy.network.messages.*;
 import net.minecraft.network.ConnectionProtocol;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.protocol.Packet;
@@ -46,9 +43,12 @@ public class Networking {
     public static void registerMessages() {
         register(MessageSetDivinationResult.class, NetworkDirection.PLAY_TO_SERVER);
         register(MessageCaloricFluxEmitterSelection.class, NetworkDirection.PLAY_TO_SERVER);
+        register(MessageSulfuricFluxEmitterSelection.class, NetworkDirection.PLAY_TO_SERVER);
 
         register(MessageRequestCaloricFluxEmitterSelection.class, NetworkDirection.PLAY_TO_CLIENT);
+        register(MessageRequestSulfuricFluxEmitterSelection.class, NetworkDirection.PLAY_TO_CLIENT);
         register(MessageShowCaloricFlux.class, NetworkDirection.PLAY_TO_CLIENT);
+        register(MessageShowSulfuricFluxEmitterStatus.class, NetworkDirection.PLAY_TO_CLIENT);
     }
 
     public static <T extends Message> void register(Class<T> clazz, NetworkDirection networkDirection){

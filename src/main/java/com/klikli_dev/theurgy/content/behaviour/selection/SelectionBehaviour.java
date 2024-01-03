@@ -1,9 +1,8 @@
-package com.klikli_dev.theurgy.content.behaviour.interaction;
+package com.klikli_dev.theurgy.content.behaviour.selection;
 
 import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.content.render.outliner.Outliner;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -49,8 +48,13 @@ public abstract class SelectionBehaviour<T extends SelectedPoint> {
             selected = point;
             this.add(point);
         } else {
-            //if it is already selected, cycle the mode
-            selected.cycleMode();
+            //if it is already selected, cycle the mode and if needed remove
+            if(!selected.cycleMode()){
+                this.remove(pos);
+
+                //skip message, but return true to have calling code cancel the click event.
+                return true;
+            }
         }
 
         //show the current mode + target block to player

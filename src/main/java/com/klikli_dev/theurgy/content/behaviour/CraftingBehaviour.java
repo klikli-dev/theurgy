@@ -159,12 +159,7 @@ public abstract class CraftingBehaviour<W extends RecipeWrapper, R extends Recip
 
     protected void sendBlockUpdated() {
         if (this.blockEntity.getLevel() != null && !this.blockEntity.getLevel().isClientSide)
-            this.blockEntity.getLevel().sendBlockUpdated(
-                    this.blockEntity.getBlockPos(),
-                    this.blockEntity.getBlockState(),
-                    this.blockEntity.getBlockState(),
-                    Block.UPDATE_CLIENTS
-            );
+            this.blockEntity.getLevel().sendBlockUpdated(this.blockEntity.getBlockPos(), this.blockEntity.getBlockState(), this.blockEntity.getBlockState(), Block.UPDATE_CLIENTS);
     }
 
     protected abstract int getIngredientCount(R recipe);

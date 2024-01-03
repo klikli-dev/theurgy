@@ -1,6 +1,6 @@
 package com.klikli_dev.theurgy.content.apparatus.caloricfluxemitter;
 
-import com.klikli_dev.theurgy.content.behaviour.interaction.SelectionBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.selection.SelectionBehaviour;
 import com.klikli_dev.theurgy.network.Networking;
 import com.klikli_dev.theurgy.network.messages.MessageRequestCaloricFluxEmitterSelection;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
@@ -43,6 +43,6 @@ public class CaloricFluxEmitterBlockItem extends BlockItem {
     }
 
     public SelectionBehaviour<CaloricFluxEmitterSelectedPoint> getSelectionBehaviour() {
-        return BlockRegistry.CALORIC_FLUX_EMITTER.get().getSelectionBehaviour();
+        return BlockRegistry.CALORIC_FLUX_EMITTER.get().selectionBehaviour();
     }
 }

@@ -318,7 +318,33 @@ public class OreRefiningEntryProvider extends CategoryProvider {
 
         this.add(this.context().pageText(),
                 """
-                        There are two ways of obtaining Sal Ammoniac, both use the Accumulator Apparatus. The first, slower, option is to simply place water in the accumulator, and let it slowly concentrate the inherently contained Sal Ammoniac. The second, faster, option is to additionally add a {0} to speed up the process significantly.
+                        There are two ways of obtaining Sal Ammoniac, both use the Accumulator Apparatus. The first, slower, option is to simply place water in the accumulator, and let it slowly concentrate the inherently contained Sal Ammoniac.
+                            """,
+                this.itemLink(ItemRegistry.SAL_AMMONIAC_CRYSTAL.get())
+        );
+
+        this.context().page("intro2");
+        var intro2 = BookTextPageModel.builder()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
+                .build();
+        this.add(this.context().pageTitle(), "Speeding it up");
+        this.add(this.context().pageText(),
+                """
+                        The second, faster, option is to additionally add a {0} to speed up the process significantly. Now the crystal merely needs to dissolve in the water.
+                            """,
+                this.itemLink(ItemRegistry.SAL_AMMONIAC_CRYSTAL.get())
+        );
+
+        this.context().page("reverse");
+        var reverse = BookTextPageModel.builder()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
+                .build();
+        this.add(this.context().pageTitle(), "Reversing the process");
+        this.add(this.context().pageText(),
+                """
+                        You can reverse this by filling the fluid Sal Ammoniac in a bucket and then crafting the bucket with no other item. You will receive a {0} and an empty bucket.
                             """,
                 this.itemLink(ItemRegistry.SAL_AMMONIAC_CRYSTAL.get())
         );
@@ -372,6 +398,8 @@ public class OreRefiningEntryProvider extends CategoryProvider {
         return this.entry(location, ItemRegistry.SAL_AMMONIAC_BUCKET.get())
                 .withPages(
                         intro,
+                        intro2,
+                        reverse,
                         step1,
                         step2,
                         step3
@@ -676,7 +704,7 @@ public class OreRefiningEntryProvider extends CategoryProvider {
                         After a while the input items will have been consumed and incubated into the result, you can right-click the {0} with an empty hand to obtain 3x {1}.
                         \\
                         \\
-                        **Congratulations, you created 2 Ingots from 1 Raw Metal!**
+                        **Congratulations, you created 3 Ingots from 1 Raw Metal!**
                         """,
                 this.itemLink(ItemRegistry.INCUBATOR.get()),
                 this.itemLink(Items.IRON_INGOT)

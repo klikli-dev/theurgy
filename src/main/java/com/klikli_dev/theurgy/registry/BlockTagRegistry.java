@@ -24,6 +24,12 @@ public class BlockTagRegistry {
 
 
     public static final TagKey<Block> INCUBATOR_VESSELS = tag("incubator_vessels");
+
+    public static final TagKey<Block> REFORMATION_SOURCE_PEDESTALS = tag("reformation_source_pedestals");
+    public static final TagKey<Block> REFORMATION_TARGET_PEDESTALS = tag("reformation_target_pedestals");
+    public static final TagKey<Block> REFORMATION_RESULT_PEDESTALS = tag("reformation_result_pedestals");
+    public static final TagKey<Block> REFORMATION_PEDESTALS = tag("reformation_pedestals");
+
     public static final TagKey<Block> SAL_AMMONIAC_ORES = forgeTag("ores/sal_ammoniac");
 
 

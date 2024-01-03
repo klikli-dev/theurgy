@@ -4,7 +4,9 @@
   "category": "theurgy:spagyrics",
   "description": "book.theurgy.the_hermetica.spagyrics.incubator.description",
   "hide_while_locked": false,
-  "icon": "theurgy:incubator",
+  "icon": {
+    "item": "theurgy:incubator"
+  },
   "name": "book.theurgy.the_hermetica.spagyrics.incubator.name",
   "pages": [
     {

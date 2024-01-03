@@ -4,7 +4,9 @@
   "category": "theurgy:getting_started",
   "description": "book.theurgy.the_hermetica.getting_started.about_ore_refining.description",
   "hide_while_locked": false,
-  "icon": "minecraft:raw_iron",
+  "icon": {
+    "item": "minecraft:raw_iron"
+  },
   "name": "book.theurgy.the_hermetica.getting_started.about_ore_refining.name",
   "pages": [
     {

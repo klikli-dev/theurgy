@@ -1,4 +1,4 @@
-// 1.20.1	2023-10-10T14:33:00.2626773	Shaped Crafting Recipes
+// 1.20.1	2023-12-18T13:27:06.4464984	Shaped Crafting Recipes
 10616b9ecf4903d076f75f2b754a415125413d44 data/theurgy/recipes/crafting/shaped/amethyst_divination_rod.json
 10238f21b147011c777703fc0ade32f5708fd6ad data/theurgy/recipes/crafting/shaped/calcination_oven.json
 e31f43d1025bbbbe3ab7dbc9892e44cba7fdc0ab data/theurgy/recipes/crafting/shaped/caloric_flux_emitter_from_campfire.json
@@ -15,8 +15,12 @@ f2f5b3c943abc56b299522e13e48d9dd45cc608f data/theurgy/recipes/crafting/shaped/in
 07f4c6dc7399b08687ef579a23091daaaeb481f7 data/theurgy/recipes/crafting/shaped/liquefaction_cauldron.json
 fcb5ee591de6878bb39c43b57dc8357c2e8eff09 data/theurgy/recipes/crafting/shaped/mercury_catalyst.json
 3c4bb4a4dd344b7d4cf2117d22125b0f47492423 data/theurgy/recipes/crafting/shaped/pyromantic_brazier.json
+f96af8d81404ab21a77a0e3ce5aa9bf966e7ee5d data/theurgy/recipes/crafting/shaped/reformation_result_pedestal.json
+70c0e2db5e175d83a46382786612fc13a71bc635 data/theurgy/recipes/crafting/shaped/reformation_source_pedestal.json
+ed951a3a8f9d5188c399ebb428f029a73470c87b data/theurgy/recipes/crafting/shaped/reformation_target_pedestal.json
 d936646ef1c9e9a146bf63b3676cc3e338c4f253 data/theurgy/recipes/crafting/shaped/sal_ammoniac_accumulator.json
 a29b1881ae565d790b09ee568780627b7854e0fe data/theurgy/recipes/crafting/shaped/sal_ammoniac_tank.json
+f4812283601b1a4ecb2429835e9be2d50a8a4a45 data/theurgy/recipes/crafting/shaped/sulfuric_flux_emitter.json
 447b0ae8e48b94342498e573e74f31835a60a98f data/theurgy/recipes/crafting/shaped/sulfur_attuned_divination_rod_abundant.json
 6300e5cdd6946b5b3c4e9b746ffe89201eb8e76b data/theurgy/recipes/crafting/shaped/sulfur_attuned_divination_rod_common.json
 d3b87c7161f73e481604a2948dff55ec783e4b97 data/theurgy/recipes/crafting/shaped/sulfur_attuned_divination_rod_precious.json

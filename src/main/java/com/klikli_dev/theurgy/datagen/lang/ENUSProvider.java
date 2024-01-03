@@ -4,6 +4,7 @@
 
 package com.klikli_dev.theurgy.datagen.lang;
 
+import com.klikli_dev.modonomicon.api.datagen.AbstractModonomiconLanguageProvider;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.content.item.AlchemicalSaltItem;
@@ -17,14 +18,13 @@ import net.minecraft.Util;
 import net.minecraft.data.PackOutput;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Item;
-import net.minecraftforge.common.data.LanguageProvider;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 import java.text.MessageFormat;
 import java.util.function.Supplier;
 
-public class ENUSProvider extends LanguageProvider implements TooltipLanguageProvider {
+public class ENUSProvider extends AbstractModonomiconLanguageProvider implements TooltipLanguageProvider {
     public ENUSProvider(PackOutput packOutput) {
         super(packOutput, Theurgy.MODID, "en_us");
     }
@@ -61,12 +61,19 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
         this.add(TheurgyConstants.I18n.Misc.UNIT_MILLIBUCKETS, "%smB");
     }
 
-    private void addBehaviours(){
+    private void addBehaviours() {
         this.add(TheurgyConstants.I18n.Behaviour.SELECTION_MODE, "%1$s %2$s"); //First is the mode message text, the second the block name
         this.add(TheurgyConstants.I18n.Behaviour.SELECTION_MODE_CALORIC_FLUX_EMITTER, "Send caloric flux to");
         this.add(TheurgyConstants.I18n.Behaviour.SELECTION_OUTSIDE_RANGE, "%1$s selected blocks removed for being out of range.");
         this.add(TheurgyConstants.I18n.Behaviour.SELECTION_SUMMARY_CALORIC_FLUX_EMITTER, "Caloric Flux Emitter targets %1$s.");
         this.add(TheurgyConstants.I18n.Behaviour.SELECTION_SUMMARY_CALORIC_FLUX_EMITTER_NO_SELECTION, "Caloric Flux Emitter has no target.");
+
+        this.add(TheurgyConstants.I18n.Behaviour.SELECTION_MODE_SULFURIC_FLUX_EMITTER, "Add to reformation array: ");
+        this.add(TheurgyConstants.I18n.Behaviour.SELECTION_SUMMARY_SULFURIC_FLUX_EMITTER, "Sulfuric Flux Emitter is linked to %1$s source, %2$s target and %3$s result pedestals.");
+        this.add(TheurgyConstants.I18n.Behaviour.SELECTION_SUMMARY_SULFURIC_FLUX_EMITTER_NO_SELECTION, "Sulfuric Flux Emitter has no linked pedestals.");
+        this.add(TheurgyConstants.I18n.Behaviour.SELECTION_SUMMARY_SULFURIC_FLUX_EMITTER_NO_TARGET, "Sulfuric Flux Emitter has no linked target pedestal.");
+        this.add(TheurgyConstants.I18n.Behaviour.SELECTION_SUMMARY_SULFURIC_FLUX_EMITTER_NO_SOURCES, "Sulfuric Flux Emitter has no linked source pedestals.");
+        this.add(TheurgyConstants.I18n.Behaviour.SELECTION_SUMMARY_SULFURIC_FLUX_EMITTER_NO_RESULT, "Sulfuric Flux Emitter has no linked result pedestal.");
     }
 
     private void addIntegrations() {
@@ -75,6 +82,9 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
         this.add(TheurgyConstants.I18n.JEI.DISTILLATION_CATEGORY, "Distillation");
         this.add(TheurgyConstants.I18n.JEI.INCUBATION_CATEGORY, "Incubation");
         this.add(TheurgyConstants.I18n.JEI.ACCUMULATION_CATEGORY, "Accumulation");
+        this.add(TheurgyConstants.I18n.JEI.REFORMATION_CATEGORY, "Reformation");
+        this.add(TheurgyConstants.I18n.JEI.MERCURY_FLUX, "Mercury Flux: %s");
+        this.add(TheurgyConstants.I18n.JEI.SOURCE_PEDESTAL_COUNT, "%sx");
 
         this.add("config.jade.plugin_theurgy.mercury_flux", "Theurgy Mercury Flux");
     }
@@ -215,6 +225,31 @@ public class ENUSProvider extends LanguageProvider implements TooltipLanguagePro
                                 It will "shoot" Caloric Flux at the apparatus, heating it up.
                                 """,
                         this.green("Sneak-Right-Click")));
+
+        this.addBlock(BlockRegistry.SULFURIC_FLUX_EMITTER, "Sulfuric Flux Emitter");
+        this.addTooltip(BlockRegistry.SULFURIC_FLUX_EMITTER.get()::asItem,
+                "Used to power a sulfur reformation array to replicate Alchemical Sulfur.",
+                "Sulfuric Flux allows to transfer, merge and manipulate Alchemical Sulfur.",
+                this.f("""
+                                 {0} on Source, Target and Reformation pedestals to set them as the targets for the emitter to form a reformation array.
+                                Then place the emitter on a Mercury Flux source, such as a Mercury Catalyst.
+                                View The Hermetica for more information.
+                                """,
+                        this.green("Right-Click"))
+        );
+
+
+        this.addBlock(BlockRegistry.REFORMATION_SOURCE_PEDESTAL, "Reformation Source Pedestal");
+        this.addTooltip(BlockRegistry.REFORMATION_SOURCE_PEDESTAL.get()::asItem,
+                "Holds the source Alchemical Sulfur to be reformed into the target Alchemical Sulfur.");
+
+        this.addBlock(BlockRegistry.REFORMATION_TARGET_PEDESTAL, "Reformation Target Pedestal");
+        this.addTooltip(BlockRegistry.REFORMATION_TARGET_PEDESTAL.get()::asItem,
+                "Holds the target Alchemical Sulfur that the source Alchemical Sulfur should be reformed into.");
+
+        this.addBlock(BlockRegistry.REFORMATION_RESULT_PEDESTAL, "Reformation Result Pedestal");
+        this.addTooltip(BlockRegistry.REFORMATION_RESULT_PEDESTAL.get()::asItem,
+                "The reformation result will appear in this pedestal.");
 
         this.addBlock(BlockRegistry.SAL_AMMONIAC_ORE, "Sal Ammoniac Ore");
         this.addExtendedTooltip(BlockRegistry.SAL_AMMONIAC_ORE.get()::asItem,

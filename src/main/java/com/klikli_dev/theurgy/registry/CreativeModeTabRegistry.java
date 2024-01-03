@@ -55,6 +55,11 @@ public class CreativeModeTabRegistry {
 
                 output.accept(ItemRegistry.MERCURY_CATALYST.get());
                 output.accept(ItemRegistry.CALORIC_FLUX_EMITTER.get());
+
+                output.accept(ItemRegistry.SULFURIC_FLUX_EMITTER.get());
+                output.accept(ItemRegistry.REFORMATION_SOURCE_PEDESTAL.get());
+                output.accept(ItemRegistry.REFORMATION_TARGET_PEDESTAL.get());
+                output.accept(ItemRegistry.REFORMATION_RESULT_PEDESTAL.get());
             }).build());
 
 }

@@ -4,7 +4,9 @@
   "category": "theurgy:getting_started",
   "description": "book.theurgy.the_hermetica.getting_started.mercury_flux.description",
   "hide_while_locked": false,
-  "icon": "theurgy:mercury_shard",
+  "icon": {
+    "item": "theurgy:mercury_shard"
+  },
   "name": "book.theurgy.the_hermetica.getting_started.mercury_flux.name",
   "pages": [
     {

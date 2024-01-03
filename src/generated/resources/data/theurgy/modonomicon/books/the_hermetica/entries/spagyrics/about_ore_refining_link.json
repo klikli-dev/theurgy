@@ -5,7 +5,9 @@
   "category_to_open": "theurgy:getting_started",
   "description": "book.theurgy.the_hermetica.spagyrics.about_ore_refining_link.description",
   "hide_while_locked": false,
-  "icon": "minecraft:raw_iron",
+  "icon": {
+    "item": "minecraft:raw_iron"
+  },
   "name": "book.theurgy.the_hermetica.spagyrics.about_ore_refining_link.name",
   "parents": [
     {

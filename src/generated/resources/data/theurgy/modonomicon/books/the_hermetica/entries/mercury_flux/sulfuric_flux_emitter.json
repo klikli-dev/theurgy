@@ -1,0 +1,32 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "theurgy:mercury_flux",
+  "description": "book.theurgy.the_hermetica.mercury_flux.sulfuric_flux_emitter.description",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "theurgy:sulfuric_flux_emitter"
+  },
+  "name": "book.theurgy.the_hermetica.mercury_flux.sulfuric_flux_emitter.name",
+  "pages": [
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "item": {
+        "item": "theurgy:sulfuric_flux_emitter"
+      },
+      "text": "book.theurgy.the_hermetica.mercury_flux.sulfuric_flux_emitter.intro.text",
+      "title": ""
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "theurgy:mercury_flux/mercury_catalyst",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "x": -5,
+  "y": 2
+}

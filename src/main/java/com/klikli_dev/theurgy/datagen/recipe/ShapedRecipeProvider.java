@@ -264,6 +264,48 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
                 .define('s', Tags.Items.STONE)
                 .define('m', ItemTagRegistry.ALCHEMICAL_MERCURIES)
         );
+
+        this.makeRecipe(this.name(ItemRegistry.SULFURIC_FLUX_EMITTER.get()), new RecipeBuilder(
+                ItemRegistry.SULFURIC_FLUX_EMITTER.get(), 1)
+                .pattern(" a ")
+                .pattern("gSg")
+                .pattern("sss")
+                .define('a', ItemTagRegistry.SAL_AMMONIAC_GEMS)
+                .define('g', Tags.Items.INGOTS_GOLD)
+                .define('s', Tags.Items.STONE)
+                .define('S', ItemTagRegistry.ALCHEMICAL_SULFURS)
+        );
+
+        this.makeRecipe(this.name(ItemRegistry.REFORMATION_TARGET_PEDESTAL.get()), new RecipeBuilder(
+                ItemRegistry.REFORMATION_TARGET_PEDESTAL.get(), 1)
+                .pattern("cSc")
+                .pattern("cdc")
+                .pattern("sss")
+                .define('S', ItemTagRegistry.ALCHEMICAL_SULFURS)
+                .define('c', Tags.Items.INGOTS_COPPER)
+                .define('s', Items.BLACKSTONE)
+                .define('d', Tags.Items.GEMS_DIAMOND)
+        );
+
+        this.makeRecipe(this.name(ItemRegistry.REFORMATION_SOURCE_PEDESTAL.get()), new RecipeBuilder(
+                ItemRegistry.REFORMATION_SOURCE_PEDESTAL.get(), 1)
+                .pattern("sSs")
+                .pattern("iii")
+                .pattern("sss")
+                .define('S', ItemTagRegistry.ALCHEMICAL_SULFURS)
+                .define('i', Tags.Items.INGOTS_IRON)
+                .define('s', Items.BLACKSTONE)
+        );
+
+        this.makeRecipe(this.name(ItemRegistry.REFORMATION_RESULT_PEDESTAL.get()), new RecipeBuilder(
+                ItemRegistry.REFORMATION_RESULT_PEDESTAL.get(), 1)
+                .pattern("ggg")
+                .pattern("gSg")
+                .pattern("sss")
+                .define('S', ItemTagRegistry.ALCHEMICAL_SULFURS)
+                .define('g', Tags.Items.INGOTS_GOLD)
+                .define('s', Items.BLACKSTONE)
+        );
     }
 
     public JsonObject makeDivinationRodSettings(DivinationRodItem rodItem) {

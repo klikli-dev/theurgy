@@ -4,7 +4,9 @@
   "category": "theurgy:spagyrics",
   "description": "book.theurgy.the_hermetica.spagyrics.calcination_oven.description",
   "hide_while_locked": false,
-  "icon": "theurgy:calcination_oven",
+  "icon": {
+    "item": "theurgy:calcination_oven"
+  },
   "name": "book.theurgy.the_hermetica.spagyrics.calcination_oven.name",
   "pages": [
     {

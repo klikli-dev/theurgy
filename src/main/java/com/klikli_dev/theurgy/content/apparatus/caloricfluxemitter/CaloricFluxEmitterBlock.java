@@ -2,7 +2,7 @@ package com.klikli_dev.theurgy.content.apparatus.caloricfluxemitter;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
-import com.klikli_dev.theurgy.content.behaviour.interaction.SelectionBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.selection.SelectionBehaviour;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -43,7 +43,7 @@ public class CaloricFluxEmitterBlock extends DirectionalBlock implements EntityB
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.UP));
     }
 
-    public SelectionBehaviour<CaloricFluxEmitterSelectedPoint> getSelectionBehaviour() {
+    public SelectionBehaviour<CaloricFluxEmitterSelectedPoint> selectionBehaviour() {
         return this.selectionBehaviour;
     }
 

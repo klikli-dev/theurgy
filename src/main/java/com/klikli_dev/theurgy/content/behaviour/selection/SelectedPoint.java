@@ -1,4 +1,4 @@
-package com.klikli_dev.theurgy.content.behaviour.interaction;
+package com.klikli_dev.theurgy.content.behaviour.selection;
 
 import com.klikli_dev.theurgy.content.render.Color;
 import com.mojang.serialization.Codec;
@@ -48,7 +48,12 @@ public abstract class SelectedPoint<T extends SelectedPoint<T>> {
 
     public abstract Component getModeMessage();
 
-    public abstract void cycleMode();
+    /**
+     * Cycles the mode of the selected point
+     *
+     * @return false if the point should be removed.
+     */
+    public abstract boolean cycleMode();
 
     public abstract Codec<T> codec();
 }

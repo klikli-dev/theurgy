@@ -79,5 +79,22 @@ public class TheurgyMultiblockProvider extends MultiblockProvider {
                         .block('0', BlockRegistry.SAL_AMMONIAC_ACCUMULATOR)
                         .build()
         );
+
+        this.add(this.modLoc("placement/reformation_array"),
+                new DenseMultiblockBuilder()
+                        .layer(
+                                "       s   ",
+                                "           ",
+                                "ce  0     r",
+                                "           ",
+                                "       s   "
+                        )
+                        .block('c', BlockRegistry.MERCURY_CATALYST)
+                        .block('e', BlockRegistry.SULFURIC_FLUX_EMITTER, BlockRegistry.SULFURIC_FLUX_EMITTER, "[facing=south]")
+                        .block('s', BlockRegistry.REFORMATION_SOURCE_PEDESTAL)
+                        .block('r', BlockRegistry.REFORMATION_RESULT_PEDESTAL)
+                        .block('0', BlockRegistry.REFORMATION_TARGET_PEDESTAL)
+                        .build()
+        );
     }
 }

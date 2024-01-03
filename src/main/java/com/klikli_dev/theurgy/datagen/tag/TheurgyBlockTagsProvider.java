@@ -51,6 +51,21 @@ public class TheurgyBlockTagsProvider extends BlockTagsProvider {
                 .add(BlockRegistry.INCUBATOR_SALT_VESSEL.get())
                 .add(BlockRegistry.INCUBATOR_SULFUR_VESSEL.get());
 
+        this.tag(BlockTagRegistry.REFORMATION_SOURCE_PEDESTALS)
+                .add(BlockRegistry.REFORMATION_SOURCE_PEDESTAL.get());
+
+        this.tag(BlockTagRegistry.REFORMATION_TARGET_PEDESTALS)
+                .add(BlockRegistry.REFORMATION_TARGET_PEDESTAL.get());
+
+        this.tag(BlockTagRegistry.REFORMATION_RESULT_PEDESTALS)
+                .add(BlockRegistry.REFORMATION_RESULT_PEDESTAL.get());
+
+        this.tag(BlockTagRegistry.REFORMATION_PEDESTALS)
+                .addTag(BlockTagRegistry.REFORMATION_SOURCE_PEDESTALS)
+                .addTag(BlockTagRegistry.REFORMATION_TARGET_PEDESTALS)
+                .addTag(BlockTagRegistry.REFORMATION_RESULT_PEDESTALS);
+
+
         this.tag(BlockTagRegistry.SAL_AMMONIAC_ORES)
                 .add(BlockRegistry.SAL_AMMONIAC_ORE.get())
                 .add(BlockRegistry.DEEPSLATE_SAL_AMMONIAC_ORE.get());

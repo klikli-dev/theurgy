@@ -7,6 +7,7 @@ package com.klikli_dev.theurgy.registry;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.content.apparatus.calcinationoven.CalcinationOvenBlock;
 import com.klikli_dev.theurgy.content.apparatus.caloricfluxemitter.CaloricFluxEmitterBlock;
+import com.klikli_dev.theurgy.content.apparatus.caloricfluxemitter.CaloricFluxEmitterSelectionBehaviour;
 import com.klikli_dev.theurgy.content.apparatus.distiller.DistillerBlock;
 import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorBlock;
 import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorMercuryVesselBlock;
@@ -15,9 +16,9 @@ import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorSulfurVesselB
 import com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron.LiquefactionCauldronBlock;
 import com.klikli_dev.theurgy.content.apparatus.mercurycatalyst.MercuryCatalystBlock;
 import com.klikli_dev.theurgy.content.apparatus.pyromanticbrazier.PyromanticBrazierBlock;
+import com.klikli_dev.theurgy.content.apparatus.reformationarray.*;
 import com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator.SalAmmoniacAccumulatorBlock;
 import com.klikli_dev.theurgy.content.apparatus.salammoniactank.SalAmmoniacTankBlock;
-import com.klikli_dev.theurgy.content.apparatus.caloricfluxemitter.CaloricFluxEmitterSelectionBehaviour;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DropExperienceBlock;
@@ -117,6 +118,40 @@ public class BlockRegistry {
                     .sound(SoundType.METAL)
                     .strength(1.0f),
                     new CaloricFluxEmitterSelectionBehaviour())
+            );
+
+    public static final RegistryObject<SulfuricFluxEmitterBlock> SULFURIC_FLUX_EMITTER =
+            BLOCKS.register("sulfuric_flux_emitter", () -> new SulfuricFluxEmitterBlock(BlockBehaviour.Properties.of()
+                            .mapColor(MapColor.METAL)
+                            .noOcclusion()
+                            .sound(SoundType.METAL)
+                            .strength(1.0f),
+                            new SulfuricFluxEmitterSelectionBehaviour()
+                    )
+            );
+
+    public static final RegistryObject<ReformationSourcePedestalBlock> REFORMATION_SOURCE_PEDESTAL =
+            BLOCKS.register("reformation_source_pedestal", () -> new ReformationSourcePedestalBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.METAL)
+                    .noOcclusion()
+                    .sound(SoundType.METAL)
+                    .strength(1.0f))
+            );
+
+    public static final RegistryObject<ReformationTargetPedestalBlock> REFORMATION_TARGET_PEDESTAL =
+            BLOCKS.register("reformation_target_pedestal", () -> new ReformationTargetPedestalBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.METAL)
+                    .noOcclusion()
+                    .sound(SoundType.METAL)
+                    .strength(1.0f))
+            );
+
+    public static final RegistryObject<ReformationResultPedestalBlock> REFORMATION_RESULT_PEDESTAL =
+            BLOCKS.register("reformation_result_pedestal", () -> new ReformationResultPedestalBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.METAL)
+                    .noOcclusion()
+                    .sound(SoundType.METAL)
+                    .strength(1.0f))
             );
 
     public static final RegistryObject<Block> SAL_AMMONIAC_ORE = BLOCKS.register("sal_ammoniac_ore", () ->

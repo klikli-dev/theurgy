@@ -1,0 +1,54 @@
+{
+  "type": "modonomicon:dense",
+  "mapping": {
+    "*": {
+      "type": "modonomicon:display",
+      "display": "minecraft:basalt"
+    },
+    "+": {
+      "type": "modonomicon:display",
+      "display": "minecraft:stone"
+    },
+    "0": {
+      "type": "modonomicon:block",
+      "block": "theurgy:reformation_target_pedestal"
+    },
+    "c": {
+      "type": "modonomicon:block",
+      "block": "theurgy:mercury_catalyst"
+    },
+    "e": {
+      "type": "modonomicon:block",
+      "block": "theurgy:sulfuric_flux_emitter",
+      "display": "theurgy:sulfuric_flux_emitter[facing=south]"
+    },
+    "r": {
+      "type": "modonomicon:block",
+      "block": "theurgy:reformation_result_pedestal"
+    },
+    "s": {
+      "type": "modonomicon:block",
+      "block": "theurgy:reformation_source_pedestal"
+    }
+  },
+  "pattern": [
+    [
+      "_____________",
+      "________s____",
+      "_____________",
+      "_ce__0_____r_",
+      "_____________",
+      "________s____",
+      "_____________"
+    ],
+    [
+      "*+*+*+*+*+*+*",
+      "+*+*+*+*+*+*+",
+      "*+*+*+*+*+*+*",
+      "+*+*+*+*+*+*+",
+      "*+*+*+*+*+*+*",
+      "+*+*+*+*+*+*+",
+      "*+*+*+*+*+*+*"
+    ]
+  ]
+}

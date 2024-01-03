@@ -4,8 +4,10 @@
 
 package com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron;
 
+import com.klikli_dev.theurgy.content.apparatus.distiller.DistillerBlockEntity;
 import com.klikli_dev.theurgy.content.behaviour.CraftingBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.HeatConsumerBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.MonitoredItemStackHandler;
 import com.klikli_dev.theurgy.content.behaviour.PreventInsertWrapper;
 import com.klikli_dev.theurgy.content.capability.DefaultHeatReceiver;
 import com.klikli_dev.theurgy.content.capability.HeatReceiver;
@@ -231,38 +233,31 @@ public class LiquefactionCauldronBlockEntity extends BlockEntity {
     }
 
 
-    public class InputInventory extends ItemStackHandler {
+    public class InputInventory extends MonitoredItemStackHandler {
 
         public InputInventory() {
             super(1);
         }
 
         @Override
-        public void setStackInSlot(int slot, @NotNull ItemStack newStack) {
-            var oldStack = this.getStackInSlot(slot);
-
-            boolean sameItem = !newStack.isEmpty() && ItemStack.isSameItemSameTags(newStack, oldStack);
-
-            super.setStackInSlot(slot, newStack);
-
-            if (!sameItem) {
+        protected void onSetStackInSlot(int slot, ItemStack oldStack, ItemStack newStack, boolean isSameItem) {
+            if(!isSameItem){
                 LiquefactionCauldronBlockEntity.this.craftingBehaviour.onInputItemChanged(oldStack, newStack);
             }
         }
 
         @Override
-        public @NotNull ItemStack insertItem(int slot, @NotNull ItemStack newStack, boolean simulate) {
-            if (!simulate) {
-                var oldStack = this.getStackInSlot(slot);
-                var result = super.insertItem(slot, newStack, simulate);
-
-                if (result != newStack) {
-                    LiquefactionCauldronBlockEntity.this.craftingBehaviour.onInputItemChanged(oldStack, newStack);
-                }
-
-                return result;
+        protected void onInsertItem(int slot, ItemStack oldStack, ItemStack newStack, ItemStack toInsert, ItemStack remaining) {
+            if (remaining != newStack) {
+                LiquefactionCauldronBlockEntity.this.craftingBehaviour.onInputItemChanged(oldStack, newStack);
             }
-            return super.insertItem(slot, newStack, simulate);
+        }
+
+        @Override
+        protected void onExtractItem(int slot, ItemStack oldStack, ItemStack newStack, ItemStack extracted) {
+            if(newStack.isEmpty()){
+                LiquefactionCauldronBlockEntity.this.craftingBehaviour.onInputItemChanged(oldStack, newStack);
+            }
         }
 
         @Override

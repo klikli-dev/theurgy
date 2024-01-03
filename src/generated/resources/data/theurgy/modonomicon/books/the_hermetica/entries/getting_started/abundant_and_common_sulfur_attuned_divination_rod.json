@@ -4,7 +4,9 @@
   "category": "theurgy:getting_started",
   "description": "book.theurgy.the_hermetica.getting_started.abundant_and_common_sulfur_attuned_divination_rod.description",
   "hide_while_locked": false,
-  "icon": "theurgy:sulfur_attuned_divination_rod_abundant",
+  "icon": {
+    "item": "theurgy:sulfur_attuned_divination_rod_abundant"
+  },
   "name": "book.theurgy.the_hermetica.getting_started.abundant_and_common_sulfur_attuned_divination_rod.name",
   "pages": [
     {

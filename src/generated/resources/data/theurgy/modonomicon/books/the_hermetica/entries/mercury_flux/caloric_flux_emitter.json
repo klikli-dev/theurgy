@@ -4,7 +4,9 @@
   "category": "theurgy:mercury_flux",
   "description": "book.theurgy.the_hermetica.mercury_flux.caloric_flux_emitter.description",
   "hide_while_locked": false,
-  "icon": "theurgy:caloric_flux_emitter",
+  "icon": {
+    "item": "theurgy:caloric_flux_emitter"
+  },
   "name": "book.theurgy.the_hermetica.mercury_flux.caloric_flux_emitter.name",
   "pages": [
     {

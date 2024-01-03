@@ -60,6 +60,10 @@ public class CreativeModeTabRegistry {
                 output.accept(ItemRegistry.REFORMATION_SOURCE_PEDESTAL.get());
                 output.accept(ItemRegistry.REFORMATION_TARGET_PEDESTAL.get());
                 output.accept(ItemRegistry.REFORMATION_RESULT_PEDESTAL.get());
+
+                output.accept(ItemRegistry.FERMENTATION_VAT.get());
+                output.accept(ItemRegistry.DIGESTION_VAT.get());
+
             }).build());
 
 }

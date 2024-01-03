@@ -251,6 +251,14 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.addTooltip(BlockRegistry.REFORMATION_RESULT_PEDESTAL.get()::asItem,
                 "The reformation result will appear in this pedestal.");
 
+        this.addBlock(BlockRegistry.FERMENTATION_VAT, "Fermentation Vat");
+        this.addTooltip(BlockRegistry.FERMENTATION_VAT.get()::asItem,
+                "A vat for alchemical fermentation, generally required for exaltation.");
+
+        this.addBlock(BlockRegistry.DIGESTION_VAT, "Digestion Vat");
+        this.addTooltip(BlockRegistry.DIGESTION_VAT.get()::asItem,
+                "A vat for alchemical digestion, generally required for exaltation.");
+
         this.addBlock(BlockRegistry.SAL_AMMONIAC_ORE, "Sal Ammoniac Ore");
         this.addExtendedTooltip(BlockRegistry.SAL_AMMONIAC_ORE.get()::asItem,
                 "Ore that yields Sal Ammoniac Crystals for use in a Sal Ammoniac Accumulator.");

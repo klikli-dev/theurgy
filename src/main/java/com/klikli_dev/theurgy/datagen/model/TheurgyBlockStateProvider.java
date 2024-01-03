@@ -8,6 +8,7 @@ import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorBlock;
 import com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron.LiquefactionCauldronBlock;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
+import net.minecraft.client.renderer.block.model.BlockModel;
 import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
@@ -44,8 +45,40 @@ public class TheurgyBlockStateProvider extends BlockStateProvider {
         this.registerReformationTargetPedestal();
         this.registerReformationResultPedestal();
 
+        this.registerFermentationVat();
+        this.registerDigestionVat();
+
         this.simpleBlockWithItem(BlockRegistry.SAL_AMMONIAC_ORE.get(), this.cubeAll(BlockRegistry.SAL_AMMONIAC_ORE.get()));
         this.simpleBlockWithItem(BlockRegistry.DEEPSLATE_SAL_AMMONIAC_ORE.get(), this.cubeAll(BlockRegistry.DEEPSLATE_SAL_AMMONIAC_ORE.get()));
+    }
+
+    protected void registerFermentationVat() {
+        //for now we use a barrel, later we add the appropriate improved textures
+        var model = this.models().withExistingParent("fermentation_vat", this.mcLoc("block/cube_bottom_top"))
+                .texture("bottom", this.mcLoc("block/barrel_bottom"))
+                .texture("side", this.mcLoc("block/barrel_side"))
+                .texture("top", this.mcLoc("block/barrel_top"))
+                .texture("particle", this.mcLoc("block/barrel_top"));
+
+        var modelOpen = this.models().withExistingParent("fermentation_vat", this.mcLoc("block/cube_bottom_top"))
+                .texture("bottom", this.mcLoc("block/barrel_bottom"))
+                .texture("side", this.mcLoc("block/barrel_side"))
+                .texture("top", this.mcLoc("block/barrel_top_open"))
+                .texture("particle", this.mcLoc("block/barrel_top"));
+
+
+        //build blockstate
+        this.directionalBlock(BlockRegistry.FERMENTATION_VAT.get(), (state) -> state.getValue(BlockStateProperties.OPEN) ? modelOpen : model);
+        this.simpleBlockItem(BlockRegistry.FERMENTATION_VAT.get(), model);
+    }
+
+    protected void registerDigestionVat() {
+        //rendered by block entity renderer, so just a particle texture but no actual model
+        var model = this.models().getBuilder("digestion_vat").texture("particle", "minecraft:block/terracotta");
+
+        this.simpleBlock(BlockRegistry.DIGESTION_VAT.get(), model);
+        //needs an item model that allows a BEWLR to render it
+        this.itemModels().getBuilder("digestion_vat").parent(new ModelFile.UncheckedModelFile("builtin/entity")).guiLight(BlockModel.GuiLight.FRONT);
     }
 
     protected void registerReformationSourcePedestal() {

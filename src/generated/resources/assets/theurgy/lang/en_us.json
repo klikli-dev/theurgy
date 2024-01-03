@@ -1,4 +1,6 @@
 {
+  "block.theurgy.alchemical_vat": "Alchemical Vat",
+  "block.theurgy.alchemical_vat.tooltip": "A vat for alchemical fermentation and digestion, generally required for exaltation.",
   "block.theurgy.calcination_oven": "Calcination Oven",
   "block.theurgy.calcination_oven.tooltip": "A device to extract Alchemical Salt from Items.",
   "block.theurgy.calcination_oven.tooltip.extended": "Salt represents the \"body\" or \"physical matter\" of an object.",

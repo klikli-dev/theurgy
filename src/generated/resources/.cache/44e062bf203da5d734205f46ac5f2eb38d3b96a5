@@ -1,4 +1,5 @@
-// 1.20.1	2023-12-18T11:09:52.5362835	Block States: theurgy
+// 1.20.1	2024-01-03T14:19:49.5232059	Block States: theurgy
+5a651cd0170eba880374a74e85b272c32767dbf1 assets/theurgy/blockstates/alchemical_vat.json
 ef875fc2604f4f19d7604536c66d3d2c26163879 assets/theurgy/blockstates/calcination_oven.json
 35782a4ebfe09e4f246b30170c9cec57e31cdcee assets/theurgy/blockstates/caloric_flux_emitter.json
 92ebf87f417e3426f30d3e42eeafd933e446eb23 assets/theurgy/blockstates/deepslate_sal_ammoniac_ore.json
@@ -17,6 +18,8 @@ e25b9fd36f56996169e155aa79e3e84f839dd1b4 assets/theurgy/blockstates/sal_ammoniac
 07484732b0d8c8ceed31f3e1c6dba80b2bf3af1d assets/theurgy/blockstates/sal_ammoniac_ore.json
 7e9441f84cb260a4530af62c538ba22adef2b090 assets/theurgy/blockstates/sal_ammoniac_tank.json
 9a5f36f87855dd55121a65ce37229b2ae22dde29 assets/theurgy/blockstates/sulfuric_flux_emitter.json
+cb3cb40200a0101ede72d552f17f3ee8a4fe86d7 assets/theurgy/models/block/alchemical_vat.json
+c8a4f22315d43a86df32a75c69a6432f356aa175 assets/theurgy/models/block/alchemical_vat_open.json
 c79ce877fb80454b4c5ea666bcc5584c881e8c11 assets/theurgy/models/block/calcination_oven.json
 2b285cc81032cea171bbc30f58552e787fdb6ba4 assets/theurgy/models/block/caloric_flux_emitter.json
 1b2abf8ea6c69bedb184fdd7d9e799622de293bd assets/theurgy/models/block/deepslate_sal_ammoniac_ore.json
@@ -37,6 +40,7 @@ c79ce877fb80454b4c5ea666bcc5584c881e8c11 assets/theurgy/models/block/sal_ammonia
 1d93f7f921865f74ffbb18817595c1c1316d322d assets/theurgy/models/block/sal_ammoniac_ore.json
 c79ce877fb80454b4c5ea666bcc5584c881e8c11 assets/theurgy/models/block/sal_ammoniac_tank.json
 b902fe7394dc01482f79792abc59d752f7bbac4f assets/theurgy/models/block/sulfuric_flux_emitter.json
+cfb8c2b873bc60345914eaf1e242f9671b4314a4 assets/theurgy/models/item/alchemical_vat.json
 e0f7b66a84e6588f01abbbce75b1803ffe5d46e2 assets/theurgy/models/item/calcination_oven.json
 69da8f122a932b3619528d7a18fa0da06ffca6de assets/theurgy/models/item/caloric_flux_emitter.json
 aff0eca2c86c1736edbfdc778cb40693db3bbd55 assets/theurgy/models/item/deepslate_sal_ammoniac_ore.json

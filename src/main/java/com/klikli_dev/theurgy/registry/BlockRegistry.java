@@ -5,6 +5,8 @@
 package com.klikli_dev.theurgy.registry;
 
 import com.klikli_dev.theurgy.Theurgy;
+import com.klikli_dev.theurgy.content.apparatus.digestionvat.DigestionVatBlock;
+import com.klikli_dev.theurgy.content.apparatus.fermentationvat.FermentationVatBlock;
 import com.klikli_dev.theurgy.content.apparatus.calcinationoven.CalcinationOvenBlock;
 import com.klikli_dev.theurgy.content.apparatus.caloricfluxemitter.CaloricFluxEmitterBlock;
 import com.klikli_dev.theurgy.content.apparatus.caloricfluxemitter.CaloricFluxEmitterSelectionBehaviour;
@@ -151,6 +153,20 @@ public class BlockRegistry {
                     .mapColor(MapColor.METAL)
                     .noOcclusion()
                     .sound(SoundType.METAL)
+                    .strength(1.0f))
+            );
+
+    public static final RegistryObject<FermentationVatBlock> FERMENTATION_VAT =
+            BLOCKS.register("fermentation_vat", () -> new FermentationVatBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.METAL)
+                    .sound(SoundType.METAL)
+                    .strength(1.0f))
+            );
+
+    public static final RegistryObject<DigestionVatBlock> DIGESTION_VAT =
+            BLOCKS.register("digestion_vat", () -> new DigestionVatBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.CLAY)
+                    .sound(SoundType.DECORATED_POT)
                     .strength(1.0f))
             );
 

@@ -137,5 +137,9 @@ public class ItemRegistry {
     public static final RegistryObject<BlockItem> REFORMATION_RESULT_PEDESTAL =
             ITEMS.register("reformation_result_pedestal", () -> new BlockItem(BlockRegistry.REFORMATION_RESULT_PEDESTAL.get(), new Item.Properties()));
 
+    public static final RegistryObject<BlockItem> FERMENTATION_VAT =
+            ITEMS.register("fermentation_vat", () -> new BlockItem(BlockRegistry.FERMENTATION_VAT.get(), new Item.Properties()));
 
+    public static final RegistryObject<BlockItem> DIGESTION_VAT =
+            ITEMS.register("digestion_vat", () -> new BlockItem(BlockRegistry.DIGESTION_VAT.get(), new Item.Properties()));
 }

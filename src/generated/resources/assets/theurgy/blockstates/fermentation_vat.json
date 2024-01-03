@@ -1,54 +1,54 @@
 {
   "variants": {
     "facing=down,open=false": {
-      "model": "theurgy:block/alchemical_vat",
+      "model": "theurgy:block/fermentation_vat",
       "x": 180
     },
     "facing=down,open=true": {
-      "model": "theurgy:block/alchemical_vat_open",
+      "model": "theurgy:block/fermentation_vat",
       "x": 180
     },
     "facing=east,open=false": {
-      "model": "theurgy:block/alchemical_vat",
+      "model": "theurgy:block/fermentation_vat",
       "x": 90,
       "y": 90
     },
     "facing=east,open=true": {
-      "model": "theurgy:block/alchemical_vat_open",
+      "model": "theurgy:block/fermentation_vat",
       "x": 90,
       "y": 90
     },
     "facing=north,open=false": {
-      "model": "theurgy:block/alchemical_vat",
+      "model": "theurgy:block/fermentation_vat",
       "x": 90
     },
     "facing=north,open=true": {
-      "model": "theurgy:block/alchemical_vat_open",
+      "model": "theurgy:block/fermentation_vat",
       "x": 90
     },
     "facing=south,open=false": {
-      "model": "theurgy:block/alchemical_vat",
+      "model": "theurgy:block/fermentation_vat",
       "x": 90,
       "y": 180
     },
     "facing=south,open=true": {
-      "model": "theurgy:block/alchemical_vat_open",
+      "model": "theurgy:block/fermentation_vat",
       "x": 90,
       "y": 180
     },
     "facing=up,open=false": {
-      "model": "theurgy:block/alchemical_vat"
+      "model": "theurgy:block/fermentation_vat"
     },
     "facing=up,open=true": {
-      "model": "theurgy:block/alchemical_vat_open"
+      "model": "theurgy:block/fermentation_vat"
     },
     "facing=west,open=false": {
-      "model": "theurgy:block/alchemical_vat",
+      "model": "theurgy:block/fermentation_vat",
       "x": 90,
       "y": 270
     },
     "facing=west,open=true": {
-      "model": "theurgy:block/alchemical_vat_open",
+      "model": "theurgy:block/fermentation_vat",
       "x": 90,
       "y": 270
     }

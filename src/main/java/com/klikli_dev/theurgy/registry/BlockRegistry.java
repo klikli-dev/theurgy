@@ -165,6 +165,7 @@ public class BlockRegistry {
 
     public static final RegistryObject<DigestionVatBlock> DIGESTION_VAT =
             BLOCKS.register("digestion_vat", () -> new DigestionVatBlock(BlockBehaviour.Properties.of()
+                    .noOcclusion()
                     .mapColor(MapColor.CLAY)
                     .sound(SoundType.DECORATED_POT)
                     .strength(1.0f))

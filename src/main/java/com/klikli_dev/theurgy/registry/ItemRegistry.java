@@ -7,6 +7,7 @@ package com.klikli_dev.theurgy.registry;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.content.apparatus.calcinationoven.CalcinationOvenBlockItem;
 import com.klikli_dev.theurgy.content.apparatus.caloricfluxemitter.CaloricFluxEmitterBlockItem;
+import com.klikli_dev.theurgy.content.apparatus.digestionvat.DigestionVatBlockItem;
 import com.klikli_dev.theurgy.content.apparatus.distiller.DistillerBlockItem;
 import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorMercuryVesselBlockItem;
 import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorSaltVesselBlockItem;
@@ -141,5 +142,5 @@ public class ItemRegistry {
             ITEMS.register("fermentation_vat", () -> new BlockItem(BlockRegistry.FERMENTATION_VAT.get(), new Item.Properties()));
 
     public static final RegistryObject<BlockItem> DIGESTION_VAT =
-            ITEMS.register("digestion_vat", () -> new BlockItem(BlockRegistry.DIGESTION_VAT.get(), new Item.Properties()));
+            ITEMS.register("digestion_vat", () -> new DigestionVatBlockItem(BlockRegistry.DIGESTION_VAT.get(), new Item.Properties()));
 }

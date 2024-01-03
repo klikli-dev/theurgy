@@ -77,8 +77,55 @@ public class TheurgyBlockStateProvider extends BlockStateProvider {
         var model = this.models().getBuilder("digestion_vat").texture("particle", "minecraft:block/terracotta");
 
         this.simpleBlock(BlockRegistry.DIGESTION_VAT.get(), model);
+
         //needs an item model that allows a BEWLR to render it
-        this.itemModels().getBuilder("digestion_vat").parent(new ModelFile.UncheckedModelFile("builtin/entity")).guiLight(BlockModel.GuiLight.FRONT);
+        this.itemModels().getBuilder("digestion_vat")
+                .parent(new ModelFile.UncheckedModelFile("builtin/entity"))
+                .guiLight(BlockModel.GuiLight.FRONT)
+                .transforms()
+                .transform(ItemDisplayContext.GUI)
+                .rotation(30, 45, 0)
+                .translation(0, -1, 0)
+                .scale(0.55f)
+                .end()
+                .transform(ItemDisplayContext.GROUND)
+                .rotation(0, 0, 0)
+                .translation(0, 1, 0)
+                .scale(0.25f)
+                .end()
+                .transform(ItemDisplayContext.FIXED)
+                .rotation(0, 180, 0)
+                .translation(0, 0, 0)
+                .scale(0.5f)
+                .end()
+                .transform(ItemDisplayContext.THIRD_PERSON_RIGHT_HAND)
+                .rotation(0, 90, 0)
+                .translation(0, 2, 0.5f)
+                .scale(0.375f)
+                .end()
+                .transform(ItemDisplayContext.FIRST_PERSON_RIGHT_HAND)
+                .rotation(0, 90, 0)
+                .translation(0, 0, 0)
+                .scale(0.375f)
+                .end()
+                .transform(ItemDisplayContext.THIRD_PERSON_LEFT_HAND)
+                .rotation(0, 270, 0)
+                .translation(0, 2, 0.5f)
+                .scale(0.375f)
+                .end()
+                .transform(ItemDisplayContext.FIRST_PERSON_LEFT_HAND)
+                .rotation(0, 270, 0)
+                .translation(0, 0, 0)
+                .scale(0.375f)
+                .end()
+                .transform(ItemDisplayContext.HEAD)
+                .rotation(0, 180, 0)
+                .translation(0, 16, 0)
+                .scale(1.5f)
+                .end()
+        ;
+
+
     }
 
     protected void registerReformationSourcePedestal() {

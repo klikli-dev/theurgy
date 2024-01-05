@@ -1,5 +1,6 @@
 package com.klikli_dev.theurgy.content.apparatus.fermentationvat;
 
+import com.klikli_dev.theurgy.content.apparatus.reformationarray.SulfuricFluxEmitterBlockEntity;
 import com.klikli_dev.theurgy.content.behaviour.*;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
@@ -14,6 +15,8 @@ import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.Mirror;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -31,11 +34,13 @@ public class FermentationVatBlock extends Block implements EntityBlock {
     protected ItemHandlerBehaviour itemHandlerBehaviour;
     protected FluidHandlerBehaviour fluidHandlerBehaviour;
 
+    protected InteractionBehaviour interactionBehaviour;
+
     public FermentationVatBlock(BlockBehaviour.Properties pProperties) {
         super(pProperties);
         this.itemHandlerBehaviour = new DynamicOneOutputSlotItemHandlerBehaviour();
-        //TODO: we need an item handler behaviour that supports one output and multiple input slots
         this.fluidHandlerBehaviour = new OneTankFluidHandlerBehaviour();
+        this.interactionBehaviour = new FermentationVatInteractionBehaviour();
 
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(OPEN, Boolean.valueOf(false)));
     }
@@ -47,6 +52,11 @@ public class FermentationVatBlock extends Block implements EntityBlock {
             return InteractionResult.SUCCESS;
         }
 
+        var interactionResult = this.interactionBehaviour.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
+        if (interactionResult != InteractionResult.PASS) {
+            return interactionResult;
+        }
+
         if (this.fluidHandlerBehaviour.useFluidHandler(pState, pLevel, pPos, pPlayer, pHand, pHit) == InteractionResult.SUCCESS) {
             return InteractionResult.SUCCESS;
         }
@@ -54,37 +64,6 @@ public class FermentationVatBlock extends Block implements EntityBlock {
         if (this.itemHandlerBehaviour.useItemHandler(pState, pLevel, pPos, pPlayer, pHand, pHit) == InteractionResult.SUCCESS) {
             return InteractionResult.SUCCESS;
         }
-
-        //TODO: move that in an interaction handler
-        //interaction with shift and empty hand opens/closes the vat
-        if(pPlayer.isShiftKeyDown() && pPlayer.getMainHandItem().isEmpty()){
-
-            var blockEntity = pLevel.getBlockEntity(pPos);
-            if(!(blockEntity instanceof FermentationVatBlockEntity vat)){
-                return InteractionResult.PASS;
-            }
-
-            var craftingBehaviour = vat.getCraftingBehaviour();
-
-            var isOpen = pState.getValue(OPEN);
-
-            if(isOpen){
-                //we can only close if we have a valid recipe and can craft it
-                var recipe = craftingBehaviour.getRecipe();
-                if(recipe.isPresent() && craftingBehaviour.canCraft(recipe.get())){
-                    pLevel.setBlockAndUpdate(pPos, pState.setValue(OPEN, Boolean.FALSE));
-                    return InteractionResult.SUCCESS;
-                }
-                //TODO: show message that we cannot close because we are missing ingredients
-            } else {
-                //when opening we stop processing (because we want to interrupt the crafting process)
-                //we also set changed so that gets saved.
-                pLevel.setBlockAndUpdate(pPos, pState.setValue(OPEN, Boolean.TRUE));
-                craftingBehaviour.stopProcessing();
-                vat.setChanged();
-            }
-        }
-
 
         return InteractionResult.PASS;
     }
@@ -113,5 +92,18 @@ public class FermentationVatBlock extends Block implements EntityBlock {
     @Override
     public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
         return BlockEntityRegistry.FERMENTATION_VAT.get().create(pPos, pState);
+    }
+
+    @Nullable
+    @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
+        if (pLevel.isClientSide()) {
+            return null;
+        }
+        return (lvl, pos, blockState, t) -> {
+            if (t instanceof FermentationVatBlockEntity blockEntity) {
+                blockEntity.tickServer();
+            }
+        };
     }
 }

@@ -62,7 +62,9 @@ public class FermentationVatBlockEntity extends BlockEntity {
     }
 
     public void tickServer() {
-        //TODO: only allow closing if valid recipe ingredients are present
+        //TODO: isProcessing syncs to client - should we act on that?
+        //      a bubbling sound would be good
+        //      we may be able to just use the closed state clientside to not have to tick the TE -> however, not really a relevant optimization
         boolean isOpen = this.getBlockState().getValue(FermentationVatBlock.OPEN);
         boolean hasInput = this.hasInput();
 

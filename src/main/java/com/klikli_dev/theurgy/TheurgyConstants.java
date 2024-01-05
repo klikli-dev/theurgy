@@ -129,6 +129,8 @@ public class TheurgyConstants {
             public static final String SELECTION_SUMMARY_SULFURIC_FLUX_EMITTER_NO_TARGET = PREFIX + "selection.summary.sulfuric_flux_emitter.no_target";
             public static final String SELECTION_SUMMARY_SULFURIC_FLUX_EMITTER_NO_SOURCES = PREFIX + "selection.summary.sulfuric_flux_emitter.no_sources";
             public static final String SELECTION_SUMMARY_SULFURIC_FLUX_EMITTER_NO_RESULT = PREFIX + "selection.summary.sulfuric_flux_emitter.no_result";
+
+            public static final String INTERACTION_FERMENTATION_VAT_NO_RECIPE = PREFIX + "interaction.fermentation_vat.no_recipe";
         }
     }
 

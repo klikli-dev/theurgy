@@ -15,6 +15,7 @@ import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.wrapper.RecipeWrapper;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Optional;
 import java.util.function.Supplier;
 
 public abstract class CraftingBehaviour<W extends RecipeWrapper, R extends Recipe<W>, C extends RecipeManager.CachedCheck<W, R>> {
@@ -58,6 +59,10 @@ public abstract class CraftingBehaviour<W extends RecipeWrapper, R extends Recip
             this.progress = pTag.getShort("progress");
     }
 
+    public Optional<R> getRecipe() {
+        return this.recipeCachedCheck.getRecipeFor(this.recipeWrapperSupplier.get(), this.blockEntity.getLevel());
+    }
+
     /**
      * Advances the crafting process by one tick.
      *
@@ -67,7 +72,7 @@ public abstract class CraftingBehaviour<W extends RecipeWrapper, R extends Recip
     public void tickServer(boolean canProcess, boolean hasInput) {
         if (hasInput) {
             //only even check for recipe if we have input to avoid unnecessary lookups
-            var recipe = this.recipeCachedCheck.getRecipeFor(this.recipeWrapperSupplier.get(), this.blockEntity.getLevel()).orElse(null);
+            var recipe = this.getRecipe().orElse(null);
 
             //if we are lit and have a recipe, update progress
             if (canProcess && this.canCraft(recipe)) {

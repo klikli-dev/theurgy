@@ -20,7 +20,7 @@ import java.util.Optional;
 /**
  * A custom cached check
  */
-class FermentationCachedCheck implements RecipeManager.CachedCheck<RecipeWrapperWithFluid, FermentationRecipe> {
+public class FermentationCachedCheck implements RecipeManager.CachedCheck<RecipeWrapperWithFluid, FermentationRecipe> {
 
     private final RecipeType<FermentationRecipe> type;
     private final RecipeManager.CachedCheck<RecipeWrapperWithFluid, FermentationRecipe> internal;

@@ -15,6 +15,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemHandlerHelper;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Supplier;
 
@@ -30,6 +31,20 @@ public class FermentationCraftingBehaviour extends CraftingBehaviour<RecipeWrapp
                 new FermentationCachedCheck(RecipeTypeRegistry.FERMENTATION.get()));
 
         this.fluidTankSupplier = fluidTankSupplier;
+    }
+
+    public FermentationCachedCheck getCachedCheck() {
+        return this.recipeCachedCheck;
+    }
+
+    @Override
+    public boolean canCraft(@Nullable FermentationRecipe pRecipe) {
+        return super.canCraft(pRecipe);
+    }
+
+    @Override
+    public void stopProcessing() {
+        super.stopProcessing();
     }
 
     @Override

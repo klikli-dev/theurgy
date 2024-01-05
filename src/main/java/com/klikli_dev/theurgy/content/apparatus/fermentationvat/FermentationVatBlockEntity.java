@@ -13,6 +13,7 @@ import net.minecraftforge.fluids.FluidType;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.wrapper.CombinedInvWrapper;
 
@@ -61,15 +62,29 @@ public class FermentationVatBlockEntity extends BlockEntity {
     }
 
     public void tickServer() {
-
-        //TODO: only craft if closed
-        //TODO: open if nothing is left to craft
         //TODO: only allow closing if valid recipe ingredients are present
-//        boolean hasInput = !this.inputInventory.getStackInSlot(0).isEmpty();
-//
-//        this.craftingBehaviour.tickServer(, hasInput);
+        boolean isOpen = this.getBlockState().getValue(FermentationVatBlock.OPEN);
+        boolean hasInput = this.hasInput();
+
+        this.craftingBehaviour.tickServer(!isOpen, hasInput);
+
+        if(!this.craftingBehaviour.isProcessing() && !isOpen){
+            this.level.setBlockAndUpdate(this.getBlockPos(), this.getBlockState().setValue(FermentationVatBlock.OPEN, true));
+        }
     }
 
+    public boolean hasInput() {
+        for (int i = 0; i < this.inputInventory.getSlots(); i++) {
+            if (!this.inputInventory.getStackInSlot(i).isEmpty()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public FermentationCraftingBehaviour getCraftingBehaviour() {
+        return this.craftingBehaviour;
+    }
 
     public class WaterTank extends FluidTank {
         public WaterTank(int capacity, Predicate<FluidStack> validator) {
@@ -85,7 +100,7 @@ public class FermentationVatBlockEntity extends BlockEntity {
     public class InputInventory extends MonitoredItemStackHandler {
 
         public InputInventory() {
-            super(1);
+            super(3);
         }
 
 
@@ -112,6 +127,13 @@ public class FermentationVatBlockEntity extends BlockEntity {
 
         @Override
         public boolean isItemValid(int slot, ItemStack stack) {
+            //we only allow one item type to fill maximum one slot, so if another slot has the stack, return false.
+            for(int i = 0; i < this.getSlots(); i++){
+                if(i != slot && ItemHandlerHelper.canItemStacksStack(stack,  this.getStackInSlot(i))){
+                    return false;
+                }
+            }
+
             return FermentationVatBlockEntity.this.craftingBehaviour.canProcess(stack) && super.isItemValid(slot, stack);
         }
 

@@ -1,5 +1,7 @@
 package com.klikli_dev.theurgy.content.apparatus.digestionvat;
 
+import com.klikli_dev.theurgy.Theurgy;
+import com.klikli_dev.theurgy.content.render.TheurgyModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
@@ -40,11 +42,11 @@ public class DigestionVatRenderer implements BlockEntityRenderer<DigestionVatBlo
     private final Material baseMaterial = Objects.requireNonNull(Sheets.getDecoratedPotMaterial(DecoratedPotPatterns.BASE));
 
     public DigestionVatRenderer(BlockEntityRendererProvider.Context pContext) {
-        ModelPart modelpart = pContext.bakeLayer(ModelLayers.DECORATED_POT_BASE);
+        ModelPart modelpart = pContext.bakeLayer(TheurgyModelLayers.DIGESTION_VAT_BASE);
         this.neck = modelpart.getChild("neck");
         this.top = modelpart.getChild("top");
         this.bottom = modelpart.getChild("bottom");
-        ModelPart modelpart1 = pContext.bakeLayer(ModelLayers.DECORATED_POT_SIDES);
+        ModelPart modelpart1 = pContext.bakeLayer(TheurgyModelLayers.DIGESTION_VAT_SIDES);
         this.frontSide = modelpart1.getChild("front");
         this.backSide = modelpart1.getChild("back");
         this.leftSide = modelpart1.getChild("left");
@@ -91,6 +93,7 @@ public class DigestionVatRenderer implements BlockEntityRenderer<DigestionVatBlo
         pPoseStack.translate(0.5D, 0.0D, 0.5D);
         pPoseStack.mulPose(Axis.YP.rotationDegrees(180.0F - direction.toYRot()));
         pPoseStack.translate(-0.5D, 0.0D, -0.5D);
+        //TODO: either make our custom vat texture load into an atlas, or load the texture directly like a livingentityrenderer
         VertexConsumer vertexconsumer = this.baseMaterial.buffer(pBuffer, RenderType::entitySolid);
         this.neck.render(pPoseStack, vertexconsumer, pPackedLight, pPackedOverlay);
         this.top.render(pPoseStack, vertexconsumer, pPackedLight, pPackedOverlay);

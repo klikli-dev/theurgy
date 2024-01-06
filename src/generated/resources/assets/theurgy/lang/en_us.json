@@ -326,7 +326,7 @@
   "book.theurgy.the_hermetica.reformation.sulfuric_flux_emitter.name": "Sulfuric Flux Emitter",
   "book.theurgy.the_hermetica.reformation.sulfuric_flux_emitter.targets.text": "Valid target blocks that will form a Reformation Array are [](item://theurgy:reformation_target_pedestal),  [](item://theurgy:reformation_source_pedestal), and [](item://theurgy:reformation_result_pedestal).\n",
   "book.theurgy.the_hermetica.reformation.sulfuric_flux_emitter.targets.title": "Target Blocks",
-  "book.theurgy.the_hermetica.reformation.sulfuric_flux_emitter.usage.text": "Right-click the target blocks (the pedestals) with the [](item://theurgy:sulfuric_flux_emitter) so they get highlighted.\\\nThen place the Emitter onto a Mercury Flux source, such as a [](item://theurgy:mercury_catalyst).\\\nThe maximum range is **8** blocks.\n",
+  "book.theurgy.the_hermetica.reformation.sulfuric_flux_emitter.usage.text": "Right-click the target blocks (the pedestals) with the [](item://theurgy:sulfuric_flux_emitter) so they get highlighted.\\\nThen place the Emitter onto a Mercury Flux source, such as a [](item://theurgy:mercury_catalyst).\\\nThe maximum range is **16** blocks.\n",
   "book.theurgy.the_hermetica.reformation.sulfuric_flux_emitter.usage.title": "Usage",
   "book.theurgy.the_hermetica.reformation.sulfuric_flux_emitter.usage2.text": "The emitter is the central controlling element of the reformation array.\\\nIf a valid array is linked to the emitter, and a valid recipe is present in the pedestals, the emitter will start emitting sulfuric flux and transform the sulfur.\n",
   "book.theurgy.the_hermetica.reformation.sulfuric_flux_emitter.usage2.title": "Usage",

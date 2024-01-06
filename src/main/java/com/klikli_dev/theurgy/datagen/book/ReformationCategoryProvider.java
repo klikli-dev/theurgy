@@ -573,7 +573,7 @@ public class ReformationCategoryProvider extends CategoryProvider {
                 """
                         Right-click the target blocks (the pedestals) with the {0} so they get highlighted.\\
                         Then place the Emitter onto a Mercury Flux source, such as a {1}.\\
-                        The maximum range is **8** blocks.
+                        The maximum range is **16** blocks.
                         """,
                 this.itemLink(ItemRegistry.SULFURIC_FLUX_EMITTER.get()),
                 this.itemLink(ItemRegistry.MERCURY_CATALYST.get())

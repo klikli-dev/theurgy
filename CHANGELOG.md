@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.10.0] - 2024-01-06
+### :sparkles: New Features
+- [`6a93797`](https://github.com/klikli-dev/theurgy/commit/6a93797e4a548247cf62017e60b69d893e09bb3d) - extend sulfuric flux emitter range to 16 blocks *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.1-1.9.1] - 2024-01-06
 ### :bug: Bug Fixes
 - [`8e11a8a`](https://github.com/klikli-dev/theurgy/commit/8e11a8a78fdf753713e79e7a392cc882ee17655d) - make theurgy book appear in theurgy creative tab *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -371,3 +376,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.8.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.7.1...release/v1.20.1-1.8.0
 [release/v1.20.1-1.9.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.8.0...release/v1.20.1-1.9.0
 [release/v1.20.1-1.9.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.9.0...release/v1.20.1-1.9.1
+[release/v1.20.1-1.10.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.9.1...release/v1.20.1-1.10.0

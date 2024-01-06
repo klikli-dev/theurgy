@@ -65,7 +65,7 @@ public class FermentationVatBlockEntity extends BlockEntity implements HasCrafti
         this.inventory = new CombinedInvWrapper(this.inputInventory, this.outputInventoryTakeOnlyWrapper);
         this.inventoryCapability = LazyOptional.of(() -> this.inventory);
 
-        this.craftingBehaviour = new FermentationCraftingBehaviour(this, () -> this.inventory, () -> this.inventory, () -> this.fluidTank);
+        this.craftingBehaviour = new FermentationCraftingBehaviour(this, () -> this.inputInventory, () -> this.outputInventory, () -> this.fluidTank);
 
         this.fluidTank = new WaterTank(FluidType.BUCKET_VOLUME * 10, this.craftingBehaviour::canProcess);
         this.fluidTankCapability = LazyOptional.of(() -> this.fluidTank);

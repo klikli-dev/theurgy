@@ -85,8 +85,6 @@ public class FermentationCraftingBehaviour extends CraftingBehaviour<RecipeWrapp
             }
         }
 
-        this.inputInventorySupplier.get().extractItem(0, this.getIngredientCount(pRecipe), false);
-
         //then drain the fluid
         this.fluidTankSupplier.get().drain(pRecipe.getFluidAmount(), IFluidHandler.FluidAction.EXECUTE);
 

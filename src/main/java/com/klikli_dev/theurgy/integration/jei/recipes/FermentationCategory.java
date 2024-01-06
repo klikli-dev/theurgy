@@ -29,6 +29,7 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.fluids.FluidStack;
 
 import java.util.Arrays;
 import java.util.List;
@@ -146,17 +147,21 @@ public class FermentationCategory implements IRecipeCategory<FermentationRecipe>
 
         builder.addSlot(INPUT, 1 + 18, 1 + 18)
                 .setBackground(JeiDrawables.INPUT_SLOT, -1, -1)
-                .addIngredients(ForgeTypes.FLUID_STACK, Arrays.stream(recipe.getFluid().getFluids())
-                        .map(f -> {
-                            var stack = f.copy();
-                            f.setAmount(recipe.getFluidAmount());
-                            return stack;
-                                }).toList())
+                .addIngredients(ForgeTypes.FLUID_STACK, this.getFluids(recipe))
                 .setFluidRenderer(1000, false, 16, 16)
                 .addTooltipCallback(addFluidTooltip(recipe.getFluidAmount()));
 
         //now add the bucket to the recipe lookup for the output fluid
         builder.addInvisibleIngredients(INPUT).addItemStacks(Arrays.stream(recipe.getFluid().getFluids()).map(f -> new ItemStack(f.getFluid().getBucket())).toList());
+    }
+
+    public List<FluidStack> getFluids(FermentationRecipe recipe) {
+        return Arrays.stream(recipe.getFluid().getFluids())
+                .map(f -> {
+                    var stack = f.copy();
+                    f.setAmount(recipe.getFluidAmount());
+                    return stack;
+                }).toList();
     }
 
     @Override

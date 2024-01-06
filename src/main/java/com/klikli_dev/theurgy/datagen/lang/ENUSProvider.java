@@ -489,7 +489,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.addItem(ItemRegistry.SAL_AMMONIAC_CRYSTAL, "Sal Ammoniac Crystal");
         this.addExtendedTooltip(ItemRegistry.SAL_AMMONIAC_CRYSTAL,
                 """
-                        Obtained by mining Sal Ammoniac Ore.
+                        Obtained by mining Sal Ammoniac Ore, or by crafting a Sal Ammoniac Bucket in a crafting grid.
                         Can be used in a Sal Ammoniac Accumulator to rapidly create Sal Ammoniac to be used as a solvent.
                         """);
         this.addIngredientInfo(ItemRegistry.SAL_AMMONIAC_CRYSTAL, "Obtained by mining Sal Ammoniac Ore.");

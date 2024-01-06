@@ -41,7 +41,7 @@ public class BookLiquefactionRecipePageRenderer extends BookRecipePageRenderer<L
         }
 
         GuiTextures.MODONOMICON_SLOT.render(guiGraphics, recipeX, recipeY); //render the fluid input slot
-        this.parentScreen.renderFluidStacks(guiGraphics, recipeX + 2, recipeY + 2, mouseX, mouseY, Arrays.stream(recipe.getSolvent().getFluids()).map(f -> (FluidHolder) new ForgeFluidHolder(f)).toList(), FluidType.BUCKET_VOLUME);
+        this.parentScreen.renderFluidStacks(guiGraphics, recipeX + 2, recipeY + 2, mouseX, mouseY, Arrays.stream(recipe.getSolvent().getFluids()).map(f -> (FluidHolder) new ForgeFluidHolder(f.getFluid(), recipe.getSolventAmount(), f.getTag())).toList(), FluidType.BUCKET_VOLUME);
 
         GuiTextures.MODONOMICON_SLOT.render(guiGraphics, recipeX, recipeY + 24); //render the item input slot
         this.parentScreen.renderIngredient(guiGraphics, recipeX + 3, recipeY + 24 + +3, mouseX, mouseY, recipe.getIngredients().get(0));

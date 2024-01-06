@@ -8,6 +8,7 @@ import com.klikli_dev.modonomicon.api.datagen.BookProvider;
 import com.klikli_dev.modonomicon.api.datagen.ModonomiconLanguageProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookModel;
 import com.klikli_dev.theurgy.Theurgy;
+import com.klikli_dev.theurgy.registry.CreativeModeTabRegistry;
 import net.minecraft.data.PackOutput;
 import net.minecraftforge.common.data.LanguageProvider;
 
@@ -51,6 +52,7 @@ public class TheurgyBookProvider extends BookProvider {
                 )
                 .withGenerateBookItem(true)
                 .withModel(this.modLoc("the_hermetica_icon"))
+                .withCreativeTab(CreativeModeTabRegistry.THEURGY.getId())
                 .withAutoAddReadConditions(true);
         return book;
     }

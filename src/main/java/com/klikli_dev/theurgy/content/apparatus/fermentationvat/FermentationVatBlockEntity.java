@@ -1,16 +1,20 @@
 package com.klikli_dev.theurgy.content.apparatus.fermentationvat;
 
-import com.klikli_dev.theurgy.content.behaviour.CraftingBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.HasCraftingBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.MonitoredItemStackHandler;
 import com.klikli_dev.theurgy.content.behaviour.PreventInsertWrapper;
 import com.klikli_dev.theurgy.content.recipe.FermentationRecipe;
 import com.klikli_dev.theurgy.content.recipe.wrapper.RecipeWrapperWithFluid;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
+import com.klikli_dev.theurgy.registry.CapabilityRegistry;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidType;
@@ -20,6 +24,8 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.wrapper.CombinedInvWrapper;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Predicate;
 
@@ -41,8 +47,8 @@ public class FermentationVatBlockEntity extends BlockEntity implements HasCrafti
     public CombinedInvWrapper inventory;
     public LazyOptional<IItemHandler> inventoryCapability;
 
-    public FluidTank waterTank;
-    public LazyOptional<IFluidHandler> waterTankCapability;
+    public FluidTank fluidTank;
+    public LazyOptional<IFluidHandler> fluidTankCapability;
 
     public FermentationCraftingBehaviour craftingBehaviour;
 
@@ -59,10 +65,10 @@ public class FermentationVatBlockEntity extends BlockEntity implements HasCrafti
         this.inventory = new CombinedInvWrapper(this.inputInventory, this.outputInventoryTakeOnlyWrapper);
         this.inventoryCapability = LazyOptional.of(() -> this.inventory);
 
-        this.craftingBehaviour = new FermentationCraftingBehaviour(this, () -> this.inventory, () -> this.inventory, () -> this.waterTank);
+        this.craftingBehaviour = new FermentationCraftingBehaviour(this, () -> this.inventory, () -> this.inventory, () -> this.fluidTank);
 
-        this.waterTank = new WaterTank(FluidType.BUCKET_VOLUME * 10, this.craftingBehaviour::canProcess);
-        this.waterTankCapability = LazyOptional.of(() -> this.waterTank);
+        this.fluidTank = new WaterTank(FluidType.BUCKET_VOLUME * 10, this.craftingBehaviour::canProcess);
+        this.fluidTankCapability = LazyOptional.of(() -> this.fluidTank);
     }
 
     public void tickServer() {
@@ -87,6 +93,54 @@ public class FermentationVatBlockEntity extends BlockEntity implements HasCrafti
         }
         return false;
     }
+
+    @Override
+    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
+        if (cap == ForgeCapabilities.ITEM_HANDLER) {
+            if (side == Direction.UP) return this.inputInventoryCapability.cast();
+            if (side == Direction.DOWN) return this.outputInventoryCapability.cast();
+            return this.inventoryCapability.cast();
+        }
+
+        if (cap == ForgeCapabilities.FLUID_HANDLER) return this.fluidTankCapability.cast();
+
+        return super.getCapability(cap, side);
+    }
+
+    @Override
+    public void invalidateCaps() {
+        super.invalidateCaps();
+        this.inventoryCapability.invalidate();
+        this.inputInventoryCapability.invalidate();
+        this.outputInventoryCapability.invalidate();
+        this.fluidTankCapability.invalidate();
+    }
+
+    @Override
+    protected void saveAdditional(CompoundTag pTag) {
+        super.saveAdditional(pTag);
+
+        pTag.put("inputInventory", this.inputInventory.serializeNBT());
+        pTag.put("outputInventory", this.outputInventory.serializeNBT());
+        pTag.put("fluidTank", this.fluidTank.writeToNBT(new CompoundTag()));
+
+        this.craftingBehaviour.saveAdditional(pTag);
+    }
+
+    @Override
+    public void load(CompoundTag pTag) {
+        super.load(pTag);
+
+        if (pTag.contains("inputInventory")) this.inputInventory.deserializeNBT(pTag.getCompound("inputInventory"));
+        if (pTag.contains("outputInventory")) this.outputInventory.deserializeNBT(pTag.getCompound("outputInventory"));
+
+        if (pTag.contains("fluidTank")) {
+            this.fluidTank.readFromNBT(pTag.getCompound("fluidTank"));
+        }
+
+        this.craftingBehaviour.load(pTag);
+    }
+
 
     @Override
     public FermentationCraftingBehaviour craftingBehaviour() {

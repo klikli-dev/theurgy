@@ -18,7 +18,7 @@
   "category_button_x_offset": 0,
   "category_button_y_offset": 0,
   "crafting_texture": "modonomicon:textures/gui/crafting_textures.png",
-  "creative_tab": "modonomicon:modonomicon",
+  "creative_tab": "theurgy:theurgy",
   "default_title_color": 0,
   "frame_texture": "modonomicon:textures/gui/book_frame.png",
   "generate_book_item": true,

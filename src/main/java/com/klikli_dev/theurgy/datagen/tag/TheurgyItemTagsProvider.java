@@ -12,6 +12,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -51,6 +52,8 @@ public class TheurgyItemTagsProvider extends ItemTagsProvider {
             sulfursTag.add(sulfur.get());
         });
 
+        this.tag(ItemTagRegistry.SUGAR)
+                .add(Items.SUGAR);
 
         //add the tier tags into the material tag
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS)

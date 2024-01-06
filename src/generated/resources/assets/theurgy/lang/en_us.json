@@ -641,6 +641,8 @@
   "message.theurgy.divination_rod.no_link": "The divination rod is not attuned to any material.",
   "message.theurgy.divination_rod.tier_too_low": "§4Warning§r§7: You need a higher tier divination rod to attune to %s.",
   "tag.minecraft.logs": "Logs",
+  "theurgy.behaviour.interaction.fermentation_vat.closed": "Cannot add or remove items or fluids from the vat while it is closed. Shift+Click to open.",
+  "theurgy.behaviour.interaction.fermentation_vat.no_recipe": "Cannot close vat, the items in it do not form a valid fermentation recipe.",
   "theurgy.behaviour.selection.mode": "%1$s %2$s",
   "theurgy.behaviour.selection.mode.caloric_flux_emitter": "Send caloric flux to",
   "theurgy.behaviour.selection.mode.sulfuric_flux_emitter": "Add to reformation array: ",

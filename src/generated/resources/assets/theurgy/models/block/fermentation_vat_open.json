@@ -4,6 +4,6 @@
     "bottom": "minecraft:block/barrel_bottom",
     "particle": "minecraft:block/barrel_top",
     "side": "minecraft:block/barrel_side",
-    "top": "minecraft:block/barrel_top"
+    "top": "minecraft:block/barrel_top_open"
   }
 }

@@ -64,6 +64,8 @@ public class ItemTagRegistry {
     public static final TagKey<Item> MEDIUM_MERCURY_OTHER_MINERALS = tag("other_minerals/mercury/medium");
     public static final TagKey<Item> HIGH_MERCURY_OTHER_MINERALS = tag("other_minerals/mercury/high");
 
+    public static final TagKey<Item> SUGAR = forgeTag("sugar");
+
     public static TagKey<Item> tag(String id) {
         return tag(Theurgy.loc(id));
     }

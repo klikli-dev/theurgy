@@ -5,7 +5,7 @@
       "x": 180
     },
     "facing=down,open=true": {
-      "model": "theurgy:block/fermentation_vat",
+      "model": "theurgy:block/fermentation_vat_open",
       "x": 180
     },
     "facing=east,open=false": {
@@ -14,7 +14,7 @@
       "y": 90
     },
     "facing=east,open=true": {
-      "model": "theurgy:block/fermentation_vat",
+      "model": "theurgy:block/fermentation_vat_open",
       "x": 90,
       "y": 90
     },
@@ -23,7 +23,7 @@
       "x": 90
     },
     "facing=north,open=true": {
-      "model": "theurgy:block/fermentation_vat",
+      "model": "theurgy:block/fermentation_vat_open",
       "x": 90
     },
     "facing=south,open=false": {
@@ -32,7 +32,7 @@
       "y": 180
     },
     "facing=south,open=true": {
-      "model": "theurgy:block/fermentation_vat",
+      "model": "theurgy:block/fermentation_vat_open",
       "x": 90,
       "y": 180
     },
@@ -40,7 +40,7 @@
       "model": "theurgy:block/fermentation_vat"
     },
     "facing=up,open=true": {
-      "model": "theurgy:block/fermentation_vat"
+      "model": "theurgy:block/fermentation_vat_open"
     },
     "facing=west,open=false": {
       "model": "theurgy:block/fermentation_vat",
@@ -48,7 +48,7 @@
       "y": 270
     },
     "facing=west,open=true": {
-      "model": "theurgy:block/fermentation_vat",
+      "model": "theurgy:block/fermentation_vat_open",
       "x": 90,
       "y": 270
     }

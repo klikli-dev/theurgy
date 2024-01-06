@@ -29,4 +29,8 @@ public class FermentationVatInteractionBehaviour extends GenericVatInteractionBe
         player.displayClientMessage(Component.translatable(TheurgyConstants.I18n.Behaviour.INTERACTION_FERMENTATION_VAT_NO_RECIPE).withStyle(ChatFormatting.RED), true);
     }
 
+    @Override
+    protected void showClosedMessage(Level level, Player player) {
+        player.displayClientMessage(Component.translatable(TheurgyConstants.I18n.Behaviour.INTERACTION_FERMENTATION_VAT_CLOSED).withStyle(ChatFormatting.RED), true);
+    }
 }

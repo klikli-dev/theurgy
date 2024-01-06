@@ -1,10 +1,10 @@
-// 1.20.1	2024-01-03T18:49:42.6788928	Block States: theurgy
+// 1.20.1	2024-01-06T12:19:09.2887247	Block States: theurgy
 ef875fc2604f4f19d7604536c66d3d2c26163879 assets/theurgy/blockstates/calcination_oven.json
 35782a4ebfe09e4f246b30170c9cec57e31cdcee assets/theurgy/blockstates/caloric_flux_emitter.json
 92ebf87f417e3426f30d3e42eeafd933e446eb23 assets/theurgy/blockstates/deepslate_sal_ammoniac_ore.json
 aa5b831a5365636dbec64150a2508554d45e7c65 assets/theurgy/blockstates/digestion_vat.json
 efc838dc92770522219889024bec42cc52fb93bd assets/theurgy/blockstates/distiller.json
-1a8e182716441d2ab1e753feefcecaf4d8797d3b assets/theurgy/blockstates/fermentation_vat.json
+968e0fff9bbdde1a184fdc2f1b4c9b0a56e917f3 assets/theurgy/blockstates/fermentation_vat.json
 79abbe84f5fcb3cb7db64f4c0f8f13c4e3f58674 assets/theurgy/blockstates/incubator.json
 08bfb53e16229544b84ea69caac5d11239d3c8b0 assets/theurgy/blockstates/incubator_mercury_vessel.json
 08bfb53e16229544b84ea69caac5d11239d3c8b0 assets/theurgy/blockstates/incubator_salt_vessel.json
@@ -24,7 +24,8 @@ c79ce877fb80454b4c5ea666bcc5584c881e8c11 assets/theurgy/models/block/calcination
 1b2abf8ea6c69bedb184fdd7d9e799622de293bd assets/theurgy/models/block/deepslate_sal_ammoniac_ore.json
 aa980e01afb143152bb081c140c87b51ce5054d1 assets/theurgy/models/block/digestion_vat.json
 c79ce877fb80454b4c5ea666bcc5584c881e8c11 assets/theurgy/models/block/distiller.json
-c8a4f22315d43a86df32a75c69a6432f356aa175 assets/theurgy/models/block/fermentation_vat.json
+cb3cb40200a0101ede72d552f17f3ee8a4fe86d7 assets/theurgy/models/block/fermentation_vat.json
+c8a4f22315d43a86df32a75c69a6432f356aa175 assets/theurgy/models/block/fermentation_vat_open.json
 744bb5bfa023c4a5f75f323cf41ceb96fc8e6512 assets/theurgy/models/block/incubator_lower.json
 1f0891d84076af849389e112d5be50136aee8938 assets/theurgy/models/block/incubator_pipe.json
 ca16a8ebdf82f8f110050978885ae52f50c774e8 assets/theurgy/models/block/incubator_upper.json

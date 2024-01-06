@@ -21,8 +21,15 @@ public abstract class GenericVatInteractionBehaviour<R extends Recipe<?>> implem
         @SuppressWarnings("unchecked") HasCraftingBehaviour<?, R, ?> vat = (HasCraftingBehaviour<?, R, ?>) blockEntity;
 
         //interaction with shift and empty hand opens/closes the vat
-        if (!pPlayer.isShiftKeyDown() || !pPlayer.getMainHandItem().isEmpty())
+        if (!pPlayer.isShiftKeyDown() || !pPlayer.getMainHandItem().isEmpty()){
+
+            //if the vat is closed then other interactions are not allowed and we say that, and handle the event to avoid further interaction
+            if(!pState.getValue(BlockStateProperties.OPEN)) {
+                showClosedMessage(pLevel, pPlayer);
+                return InteractionResult.FAIL;
+            }
             return InteractionResult.PASS;
+        }
 
         if (pLevel.isClientSide)
             return InteractionResult.SUCCESS;
@@ -54,4 +61,5 @@ public abstract class GenericVatInteractionBehaviour<R extends Recipe<?>> implem
 
     protected abstract void showNoRecipeMessage(Level level, Player player);
 
+    protected abstract void showClosedMessage(Level level, Player player);
 }

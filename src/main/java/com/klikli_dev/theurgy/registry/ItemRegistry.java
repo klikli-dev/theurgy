@@ -32,6 +32,8 @@ public class ItemRegistry {
             ITEMS.register("jar_label", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> THE_HERMETICA_ICON =
             ITEMS.register("the_hermetica_icon", () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> GEMS_ABUNDANT_ICON = ITEMS.register("gems_abundant_icon", () -> new Item(new Item.Properties()));
     //Divination rods
     public static final RegistryObject<DivinationRodItem> DIVINATION_ROD_T1 =
             ITEMS.register("divination_rod_t1", () -> new DivinationRodItem(

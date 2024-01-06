@@ -29,8 +29,7 @@ public class SulfurRegistry {
 
     public static final RegistryObject<AlchemicalSulfurItem> GENERIC = registerWithTagSourceNameOverride("generic");
 
-    public static final RegistryObject<Item> GEMS_ABUNDANT_ICON = ItemRegistry.ITEMS.register("gems_abundant_icon", () -> new Item(new Item.Properties()));
-    public static final RegistryObject<AlchemicalSulfurItem> GEMS_ABUNDANT = registerGeneric("gems_abundant", GEMS_ABUNDANT_ICON);
+    public static final RegistryObject<AlchemicalSulfurItem> GEMS_ABUNDANT = registerGeneric("gems_abundant", ItemRegistry.GEMS_ABUNDANT_ICON);
 
     public static final RegistryObject<AlchemicalSulfurItem> LOGS = registerWithTagSourceNameOverride("logs");
 

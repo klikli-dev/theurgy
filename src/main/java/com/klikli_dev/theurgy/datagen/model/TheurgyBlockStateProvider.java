@@ -60,7 +60,7 @@ public class TheurgyBlockStateProvider extends BlockStateProvider {
                 .texture("top", this.mcLoc("block/barrel_top"))
                 .texture("particle", this.mcLoc("block/barrel_top"));
 
-        var modelOpen = this.models().withExistingParent("fermentation_vat", this.mcLoc("block/cube_bottom_top"))
+        var modelOpen = this.models().withExistingParent("fermentation_vat_open", this.mcLoc("block/cube_bottom_top"))
                 .texture("bottom", this.mcLoc("block/barrel_bottom"))
                 .texture("side", this.mcLoc("block/barrel_side"))
                 .texture("top", this.mcLoc("block/barrel_top_open"))

@@ -71,6 +71,7 @@ public class FermentationVatBlock extends Block implements EntityBlock {
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public void neighborChanged(BlockState pState, Level pLevel, BlockPos pPos, Block pBlock, BlockPos pFromPos, boolean pIsMoving) {
         //Closed = is processing
         //has signal -> should be processing -> close
@@ -110,11 +111,13 @@ public class FermentationVatBlock extends Block implements EntityBlock {
 
 
     @Override
+    @SuppressWarnings("deprecation")
     public BlockState rotate(BlockState pState, Rotation pRotation) {
         return pState.setValue(FACING, pRotation.rotate(pState.getValue(FACING)));
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public BlockState mirror(BlockState pState, Mirror pMirror) {
         return pState.rotate(pMirror.getRotation(pState.getValue(FACING)));
     }

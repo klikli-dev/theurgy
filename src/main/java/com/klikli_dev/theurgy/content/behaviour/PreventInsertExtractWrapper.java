@@ -11,10 +11,10 @@ import org.jetbrains.annotations.NotNull;
 /**
  * Wrapper for IItemHandlerModifiable that prevents insertion of items.
  */
-public class PreventInsertWrapper implements IItemHandlerModifiable {
+public class PreventInsertExtractWrapper implements IItemHandlerModifiable {
     protected final IItemHandlerModifiable compose;
 
-    public PreventInsertWrapper(IItemHandlerModifiable compose) {
+    public PreventInsertExtractWrapper(IItemHandlerModifiable compose) {
         this.compose = compose;
     }
 
@@ -38,7 +38,7 @@ public class PreventInsertWrapper implements IItemHandlerModifiable {
     @Override
     @NotNull
     public ItemStack extractItem(int slot, int amount, boolean simulate) {
-        return this.compose.extractItem(slot, amount, simulate);
+        return ItemStack.EMPTY;
     }
 
     @Override

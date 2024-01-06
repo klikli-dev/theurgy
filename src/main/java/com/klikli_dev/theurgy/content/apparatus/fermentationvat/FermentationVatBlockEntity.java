@@ -1,12 +1,9 @@
 package com.klikli_dev.theurgy.content.apparatus.fermentationvat;
 
-import com.klikli_dev.theurgy.content.behaviour.HasCraftingBehaviour;
-import com.klikli_dev.theurgy.content.behaviour.MonitoredItemStackHandler;
-import com.klikli_dev.theurgy.content.behaviour.PreventInsertWrapper;
+import com.klikli_dev.theurgy.content.behaviour.*;
 import com.klikli_dev.theurgy.content.recipe.FermentationRecipe;
 import com.klikli_dev.theurgy.content.recipe.wrapper.RecipeWrapperWithFluid;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
-import com.klikli_dev.theurgy.registry.CapabilityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -14,6 +11,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
@@ -34,22 +32,27 @@ public class FermentationVatBlockEntity extends BlockEntity implements HasCrafti
 
     public ItemStackHandler inputInventory;
     public LazyOptional<IItemHandler> inputInventoryCapability;
+    public LazyOptional<IItemHandler> inputInventoryReadOnlyCapability;
 
     /**
      * The underlying outputInventory which allows inserting too - we use this when crafting.
      */
     public ItemStackHandler outputInventory;
     /**
-     * A wrapper that only allows taking from the outputInventory - this is what we show to the outside.
+     * A capability wrapper for the outputInventory that only allows extracting.
      */
-    public PreventInsertWrapper outputInventoryTakeOnlyWrapper;
-    public LazyOptional<IItemHandler> outputInventoryCapability;
+    public LazyOptional<IItemHandler> outputInventoryExtractOnlyCapability;
+    /**
+     * A capability wrapper for the outputInventory that allows neither inserting nor extracting
+     */
+    public LazyOptional<IItemHandler> outputInventoryReadOnlyCapability;
 
     public CombinedInvWrapper inventory;
     public LazyOptional<IItemHandler> inventoryCapability;
-
+    public LazyOptional<IItemHandler> inventoryReadOnlyCapability;
     public FluidTank fluidTank;
     public LazyOptional<IFluidHandler> fluidTankCapability;
+    public LazyOptional<IFluidHandler> fluidTankReadOnlyCapability;
 
     public FermentationCraftingBehaviour craftingBehaviour;
 
@@ -58,18 +61,22 @@ public class FermentationVatBlockEntity extends BlockEntity implements HasCrafti
 
         this.inputInventory = new InputInventory();
         this.inputInventoryCapability = LazyOptional.of(() -> this.inputInventory);
+        this.inputInventoryReadOnlyCapability = LazyOptional.of(() -> new PreventInsertExtractWrapper(this.inputInventory));
 
         this.outputInventory = new OutputInventory();
-        this.outputInventoryTakeOnlyWrapper = new PreventInsertWrapper(this.outputInventory);
-        this.outputInventoryCapability = LazyOptional.of(() -> this.outputInventoryTakeOnlyWrapper);
+        var outputInventoryTakeOnlyWrapper = new PreventInsertWrapper(this.outputInventory);
+        this.outputInventoryExtractOnlyCapability = LazyOptional.of(() -> outputInventoryTakeOnlyWrapper);
+        this.outputInventoryReadOnlyCapability = LazyOptional.of(() -> new PreventInsertExtractWrapper(this.outputInventory));
 
-        this.inventory = new CombinedInvWrapper(this.inputInventory, this.outputInventoryTakeOnlyWrapper);
+        this.inventory = new CombinedInvWrapper(this.inputInventory, outputInventoryTakeOnlyWrapper);
         this.inventoryCapability = LazyOptional.of(() -> this.inventory);
+        this.inventoryReadOnlyCapability = LazyOptional.of(() -> new PreventInsertExtractWrapper(this.inventory));
 
         this.craftingBehaviour = new FermentationCraftingBehaviour(this, () -> this.inputInventory, () -> this.outputInventory, () -> this.fluidTank);
 
         this.fluidTank = new WaterTank(FluidType.BUCKET_VOLUME * 10, this.craftingBehaviour::canProcess);
         this.fluidTankCapability = LazyOptional.of(() -> this.fluidTank);
+        this.fluidTankReadOnlyCapability = LazyOptional.of(() -> new PreventInsertExtractFluidWrapper(this.fluidTank));
     }
 
     public void tickServer() {
@@ -97,13 +104,15 @@ public class FermentationVatBlockEntity extends BlockEntity implements HasCrafti
 
     @Override
     public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
+        var isOpen = this.getBlockState().getValue(BlockStateProperties.OPEN);
+
         if (cap == ForgeCapabilities.ITEM_HANDLER) {
-            if (side == Direction.UP) return this.inputInventoryCapability.cast();
-            if (side == Direction.DOWN) return this.outputInventoryCapability.cast();
-            return this.inventoryCapability.cast();
+            if (side == Direction.UP) return isOpen ? this.inputInventoryCapability.cast() : this.inputInventoryReadOnlyCapability.cast();
+            if (side == Direction.DOWN) return isOpen ?  this.outputInventoryExtractOnlyCapability.cast() : this.outputInventoryReadOnlyCapability.cast();
+            return isOpen ? this.inventoryCapability.cast() : this.inventoryReadOnlyCapability.cast();
         }
 
-        if (cap == ForgeCapabilities.FLUID_HANDLER) return this.fluidTankCapability.cast();
+        if (cap == ForgeCapabilities.FLUID_HANDLER) return isOpen ? this.fluidTankCapability.cast() : this.fluidTankReadOnlyCapability.cast();
 
         return super.getCapability(cap, side);
     }
@@ -112,9 +121,13 @@ public class FermentationVatBlockEntity extends BlockEntity implements HasCrafti
     public void invalidateCaps() {
         super.invalidateCaps();
         this.inventoryCapability.invalidate();
+        this.inventoryReadOnlyCapability.invalidate();
         this.inputInventoryCapability.invalidate();
-        this.outputInventoryCapability.invalidate();
+        this.inputInventoryReadOnlyCapability.invalidate();
+        this.outputInventoryExtractOnlyCapability.invalidate();
+        this.outputInventoryReadOnlyCapability.invalidate();
         this.fluidTankCapability.invalidate();
+        this.fluidTankReadOnlyCapability.invalidate();
     }
 
     @Override

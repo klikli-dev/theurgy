@@ -1,8 +1,7 @@
 package com.klikli_dev.theurgy.content.apparatus.fermentationvat;
 
-import com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron.LiquefactionCauldronBlockEntity;
-import com.klikli_dev.theurgy.content.apparatus.reformationarray.SulfuricFluxEmitterBlockEntity;
 import com.klikli_dev.theurgy.content.behaviour.*;
+import com.klikli_dev.theurgy.content.recipe.FermentationRecipe;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -25,7 +24,6 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
-import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.items.wrapper.RecipeWrapper;
 import org.jetbrains.annotations.Nullable;
@@ -33,6 +31,7 @@ import org.jetbrains.annotations.Nullable;
 public class FermentationVatBlock extends Block implements EntityBlock {
     public static final DirectionProperty FACING = BlockStateProperties.FACING;
     public static final BooleanProperty OPEN = BlockStateProperties.OPEN;
+
 
     protected ItemHandlerBehaviour itemHandlerBehaviour;
     protected FluidHandlerBehaviour fluidHandlerBehaviour;
@@ -70,6 +69,33 @@ public class FermentationVatBlock extends Block implements EntityBlock {
 
         return InteractionResult.PASS;
     }
+
+    @Override
+    public void neighborChanged(BlockState pState, Level pLevel, BlockPos pPos, Block pBlock, BlockPos pFromPos, boolean pIsMoving) {
+        //Closed = is processing
+        //has signal -> should be processing -> close
+
+        boolean hasSignal = pLevel.hasNeighborSignal(pPos);
+        boolean wasOpen = pState.getValue(OPEN);
+        if (hasSignal && wasOpen) {
+
+            var blockEntity = pLevel.getBlockEntity(pPos);
+            if (!(blockEntity instanceof HasCraftingBehaviour<?, ?, ?>))
+                return;
+
+            @SuppressWarnings("unchecked") var vat = (HasCraftingBehaviour<?, FermentationRecipe, ?>) blockEntity;
+
+            var craftingBehaviour = vat.craftingBehaviour();
+
+            var recipe = craftingBehaviour.getRecipe();
+            if (recipe.isPresent() && craftingBehaviour.canCraft(recipe.get())) {
+                pLevel.setBlock(pPos, pState.setValue(OPEN, false), Block.UPDATE_CLIENTS);
+            }
+        } else if (!hasSignal && !wasOpen) {
+            pLevel.setBlock(pPos, pState.setValue(OPEN, true), Block.UPDATE_CLIENTS);
+        }
+    }
+
 
     @Override
     @SuppressWarnings("deprecation")

@@ -11,6 +11,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
@@ -81,7 +82,7 @@ public class FermentationVatBlockEntity extends BlockEntity implements HasCrafti
         this.craftingBehaviour.tickServer(!isOpen, hasInput);
 
         if(!this.craftingBehaviour.isProcessing() && !isOpen){
-            this.level.setBlockAndUpdate(this.getBlockPos(), this.getBlockState().setValue(FermentationVatBlock.OPEN, true));
+            this.level.setBlock(this.getBlockPos(), this.getBlockState().setValue(FermentationVatBlock.OPEN, true), Block.UPDATE_CLIENTS);
         }
     }
 

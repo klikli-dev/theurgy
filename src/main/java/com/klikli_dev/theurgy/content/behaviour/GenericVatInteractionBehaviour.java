@@ -6,6 +6,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.BlockHitResult;
@@ -18,14 +19,14 @@ public abstract class GenericVatInteractionBehaviour<R extends Recipe<?>> implem
 
         if (!(blockEntity instanceof HasCraftingBehaviour<?, ?, ?>))
             return InteractionResult.PASS;
-        @SuppressWarnings("unchecked") HasCraftingBehaviour<?, R, ?> vat = (HasCraftingBehaviour<?, R, ?>) blockEntity;
+        @SuppressWarnings("unchecked") var vat = (HasCraftingBehaviour<?, R, ?>) blockEntity;
 
         //interaction with shift and empty hand opens/closes the vat
-        if (!pPlayer.isShiftKeyDown() || !pPlayer.getMainHandItem().isEmpty()){
+        if (!pPlayer.isShiftKeyDown() || !pPlayer.getMainHandItem().isEmpty()) {
 
             //if the vat is closed then other interactions are not allowed and we say that, and handle the event to avoid further interaction
-            if(!pState.getValue(BlockStateProperties.OPEN)) {
-                showClosedMessage(pLevel, pPlayer);
+            if (!pState.getValue(BlockStateProperties.OPEN)) {
+                this.showClosedMessage(pLevel, pPlayer);
                 return InteractionResult.FAIL;
             }
             return InteractionResult.PASS;
@@ -42,7 +43,7 @@ public abstract class GenericVatInteractionBehaviour<R extends Recipe<?>> implem
             //we can only close if we have a valid recipe and can craft it
             var recipe = craftingBehaviour.getRecipe();
             if (recipe.isPresent() && craftingBehaviour.canCraft(recipe.get())) {
-                pLevel.setBlockAndUpdate(pPos, pState.setValue(BlockStateProperties.OPEN, Boolean.FALSE));
+                pLevel.setBlock(pPos, pState.setValue(BlockStateProperties.OPEN, false), Block.UPDATE_CLIENTS);
             } else {
                 this.showNoRecipeMessage(pLevel, pPlayer);
                 return InteractionResult.FAIL;
@@ -50,7 +51,7 @@ public abstract class GenericVatInteractionBehaviour<R extends Recipe<?>> implem
         } else {
             //when opening we stop processing (because we want to interrupt the crafting process)
             //we also set changed so that gets saved.
-            pLevel.setBlockAndUpdate(pPos, pState.setValue(BlockStateProperties.OPEN, Boolean.TRUE));
+            pLevel.setBlock(pPos, pState.setValue(BlockStateProperties.OPEN, true), Block.UPDATE_CLIENTS);
             craftingBehaviour.stopProcessing();
             blockEntity.setChanged();
         }

@@ -86,6 +86,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.add(TheurgyConstants.I18n.JEI.INCUBATION_CATEGORY, "Incubation");
         this.add(TheurgyConstants.I18n.JEI.ACCUMULATION_CATEGORY, "Accumulation");
         this.add(TheurgyConstants.I18n.JEI.REFORMATION_CATEGORY, "Reformation");
+        this.add(TheurgyConstants.I18n.JEI.FERMENTATION_CATEGORY, "Fermentation");
         this.add(TheurgyConstants.I18n.JEI.MERCURY_FLUX, "Mercury Flux: %s");
         this.add(TheurgyConstants.I18n.JEI.SOURCE_PEDESTAL_COUNT, "%sx");
 

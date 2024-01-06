@@ -1,7 +1,11 @@
 package com.klikli_dev.theurgy.content.apparatus.fermentationvat;
 
+import com.klikli_dev.theurgy.content.behaviour.CraftingBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.HasCraftingBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.MonitoredItemStackHandler;
 import com.klikli_dev.theurgy.content.behaviour.PreventInsertWrapper;
+import com.klikli_dev.theurgy.content.recipe.FermentationRecipe;
+import com.klikli_dev.theurgy.content.recipe.wrapper.RecipeWrapperWithFluid;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemStack;
@@ -19,7 +23,7 @@ import net.minecraftforge.items.wrapper.CombinedInvWrapper;
 
 import java.util.function.Predicate;
 
-public class FermentationVatBlockEntity extends BlockEntity {
+public class FermentationVatBlockEntity extends BlockEntity implements HasCraftingBehaviour<RecipeWrapperWithFluid, FermentationRecipe, FermentationCachedCheck> {
 
     public ItemStackHandler inputInventory;
     public LazyOptional<IItemHandler> inputInventoryCapability;
@@ -84,7 +88,8 @@ public class FermentationVatBlockEntity extends BlockEntity {
         return false;
     }
 
-    public FermentationCraftingBehaviour getCraftingBehaviour() {
+    @Override
+    public FermentationCraftingBehaviour craftingBehaviour() {
         return this.craftingBehaviour;
     }
 

@@ -33,20 +33,6 @@ public class FermentationCraftingBehaviour extends CraftingBehaviour<RecipeWrapp
         this.fluidTankSupplier = fluidTankSupplier;
     }
 
-    public FermentationCachedCheck getCachedCheck() {
-        return this.recipeCachedCheck;
-    }
-
-    @Override
-    public boolean canCraft(@Nullable FermentationRecipe pRecipe) {
-        return super.canCraft(pRecipe);
-    }
-
-    @Override
-    public void stopProcessing() {
-        super.stopProcessing();
-    }
-
     @Override
     public boolean canProcess(ItemStack stack) {
         if (ItemHandlerHelper.canItemStacksStack(stack, this.inputInventorySupplier.get().getStackInSlot(0)))
@@ -82,8 +68,24 @@ public class FermentationCraftingBehaviour extends CraftingBehaviour<RecipeWrapp
 
     @Override
     protected boolean craft(FermentationRecipe pRecipe) {
-        if (!super.craft(pRecipe)) //check validity and consume item ingredients
-            return false;
+        var assembledStack = pRecipe.assemble(this.recipeWrapperSupplier.get(), this.blockEntity.getLevel().registryAccess());
+
+        // Safely insert the assembledStack into the outputInventory and update the input stack.
+        ItemHandlerHelper.insertItemStacked(this.outputInventorySupplier.get(), assembledStack, false);
+
+        //consume the input stacks
+        //the double loop may not be necessary, it may be OK to just take one from each slot (because recipe matches only if exact items match, not if more items are present)
+        //however this costs almost nothing extra and is safer so we do it.
+        for(var ingredient : pRecipe.getIngredients()){
+            for(int i = 0; i < this.inputInventorySupplier.get().getSlots(); i++){
+                if(ingredient.test(this.inputInventorySupplier.get().getStackInSlot(i))){
+                    this.inputInventorySupplier.get().extractItem(i, this.getIngredientCount(pRecipe), false);
+                    break;
+                }
+            }
+        }
+
+        this.inputInventorySupplier.get().extractItem(0, this.getIngredientCount(pRecipe), false);
 
         //then drain the fluid
         this.fluidTankSupplier.get().drain(pRecipe.getFluidAmount(), IFluidHandler.FluidAction.EXECUTE);

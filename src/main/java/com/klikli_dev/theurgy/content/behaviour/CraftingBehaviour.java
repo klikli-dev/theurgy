@@ -120,7 +120,7 @@ public abstract class CraftingBehaviour<W extends RecipeWrapper, R extends Recip
         //we don't have to worry about total time here, as it is set when an item is put into the inventory.
     }
 
-    protected void stopProcessing() {
+    public void stopProcessing() {
         //only do state updates if we actually changed something
         if (this.progress != 0 || this.isProcessing) {
             this.isProcessing = false;
@@ -132,7 +132,7 @@ public abstract class CraftingBehaviour<W extends RecipeWrapper, R extends Recip
         //we don't have to worry about total time here, as it is set when an item is put into the inventory.
     }
 
-    protected boolean canCraft(@Nullable R pRecipe) {
+    public boolean canCraft(@Nullable R pRecipe) {
         if (pRecipe == null)
             return false;
 
@@ -150,6 +150,8 @@ public abstract class CraftingBehaviour<W extends RecipeWrapper, R extends Recip
 
         // Safely insert the assembledStack into the outputInventory and update the input stack.
         ItemHandlerHelper.insertItemStacked(this.outputInventorySupplier.get(), assembledStack, false);
+
+        //consume the input stack
         this.inputInventorySupplier.get().extractItem(0, this.getIngredientCount(pRecipe), false);
 
         return true;

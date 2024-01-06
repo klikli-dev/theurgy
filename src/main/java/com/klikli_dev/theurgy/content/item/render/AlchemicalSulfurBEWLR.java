@@ -8,12 +8,16 @@ import com.klikli_dev.theurgy.config.ClientConfig;
 import com.klikli_dev.theurgy.content.item.AlchemicalSulfurItem;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.mojang.blaze3d.platform.Lighting;
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderStateShard;
 import net.minecraft.client.renderer.entity.ItemRenderer;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 
@@ -121,11 +125,14 @@ public class AlchemicalSulfurBEWLR extends BlockEntityWithoutLevelRenderer {
             pPoseStack.scale(0.74F, 0.74F, 0.01F); //flatten item
 
             Lighting.setupForFlatItems(); //always render "labeled" item flat
-            itemRenderer.render(containedStack, ItemDisplayContext.GUI, isLeftHand(pTransformType), pPoseStack, pBuffer, pPackedLight, pPackedOverlay, containedModel);
+
+            //set graysacle shader color
+            itemRenderer.render(containedStack, ItemDisplayContext.GUI, isLeftHand(pTransformType), pPoseStack, pBuffer, pPackedLight,
+
+                    pPackedOverlay, containedModel);
             //note: if we reset to 3d item light here it ignores it above and renders dark .. idk why
 
             pPoseStack.popPose();
-
             pPoseStack.popPose();
         }
     }

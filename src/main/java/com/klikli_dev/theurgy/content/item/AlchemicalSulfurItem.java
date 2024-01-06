@@ -4,6 +4,7 @@
 
 package com.klikli_dev.theurgy.content.item;
 
+import com.google.common.base.Suppliers;
 import com.google.common.collect.ImmutableList;
 import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.content.item.render.AlchemicalSulfurBEWLR;
@@ -28,6 +29,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 public class AlchemicalSulfurItem extends Item {
     /**
@@ -66,7 +68,13 @@ public class AlchemicalSulfurItem extends Item {
      */
     public boolean autoGenerateSourceIdInRecipe;
 
+    public Supplier<ItemStack> sourceStackSupplier;
+
     public AlchemicalSulfurItem(Properties pProperties) {
+        this(pProperties, Suppliers.memoize(() -> ItemStack.EMPTY));
+    }
+
+    public AlchemicalSulfurItem(Properties pProperties, Supplier<ItemStack> sourceStackSupplier) {
         super(pProperties);
         this.useAutomaticIconRendering = true;
         this.useAutomaticNameRendering = true;
@@ -74,7 +82,9 @@ public class AlchemicalSulfurItem extends Item {
         this.autoGenerateSourceIdInRecipe = true;
         this.overrideTagSourceName = false;
         this.overrideSourceName = false;
+        this.sourceStackSupplier = sourceStackSupplier;
     }
+
 
     public static String getSourceItemId(ItemStack sulfurStack) {
         if (!sulfurStack.hasTag()) {
@@ -99,12 +109,23 @@ public class AlchemicalSulfurItem extends Item {
         return "";
     }
 
+    public ItemStack getSourceStack(){
+        return this.sourceStackSupplier.get();
+    }
+
     /**
      * Get the source item stack from the sulfur stack nbt.
      * The source *should* be the item that was used to create the sulfur.
      * Due to this only being used for automatic rendering and naming purposes, the source might be a different item for some reason, and in many cases could be empty.
      */
     public static ItemStack getSourceStack(ItemStack sulfurStack) {
+
+        if(sulfurStack.getItem() instanceof AlchemicalSulfurItem sulfur){
+            var sourceStack = sulfur.getSourceStack();
+            if(!sourceStack.isEmpty())
+                return sourceStack;
+        }
+
         var itemSourceId = getSourceItemId(sulfurStack); //we call this first, because it might find the source for us
 
         //but then we do our normal checks

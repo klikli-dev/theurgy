@@ -124,6 +124,9 @@ public class TheurgyItemModelProvider extends net.minecraftforge.client.model.ge
                 this.registerItemBuiltinEntity(this.name(sulfur));
             }
         });
+
+        this.registerItemGenerated(this.name(SulfurRegistry.GEMS_ABUNDANT_ICON.get()), "sulfurs/gems_abundant");
+
     }
 
     protected void registerSalts() {

@@ -290,6 +290,10 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         //      This is not possible, however, as the tag source comes from item nbt that is not available at this point.
 
 
+
+        //Names for generic sulfurs
+        this.addSulfurSource(SulfurRegistry.GEMS_ABUNDANT, "Abundant Gems");
+
         //Names for Sulfurs with overrideSourceName
         //Common Metals
         this.addSulfurSource(SulfurRegistry.IRON, "Iron");

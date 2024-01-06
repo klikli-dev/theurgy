@@ -4,6 +4,7 @@
 
 package com.klikli_dev.theurgy.registry;
 
+import com.google.common.base.Suppliers;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.content.item.AlchemicalSulfurItem;
 import com.klikli_dev.theurgy.content.recipe.LiquefactionRecipe;
@@ -20,12 +21,16 @@ import net.minecraftforge.registries.RegistryObject;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.function.Supplier;
 
 public class SulfurRegistry {
     public static final DeferredRegister<Item> SULFURS = DeferredRegister.create(ForgeRegistries.ITEMS, Theurgy.MODID);
 
     public static final RegistryObject<AlchemicalSulfurItem> GENERIC = registerWithTagSourceNameOverride("generic");
+
+    public static final RegistryObject<Item> GEMS_ABUNDANT_ICON = ItemRegistry.ITEMS.register("gems_abundant_icon", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<AlchemicalSulfurItem> GEMS_ABUNDANT = registerGeneric("gems_abundant", GEMS_ABUNDANT_ICON);
 
     public static final RegistryObject<AlchemicalSulfurItem> LOGS = registerWithTagSourceNameOverride("logs");
 
@@ -78,6 +83,13 @@ public class SulfurRegistry {
     public static final RegistryObject<AlchemicalSulfurItem> COAL = registerDefault("coal");
     public static final RegistryObject<AlchemicalSulfurItem> SULFUR = registerWithSourceNameOverride("sulfur");
 
+    /**
+     * Sulfurs in this list will not be exlcuded from jei/modonomicon renderers despite not having a liquefaction recipe
+     */
+    public static final Supplier<Set<AlchemicalSulfurItem>> SULFURS_TO_KEEP_IN_ITEM_LISTS = Suppliers.memoize(() -> Set.of(
+            GEMS_ABUNDANT.get()
+    ));
+
 
     public static RegistryObject<AlchemicalSulfurItem> registerWithTagSourceNameOverride(String name) {
         return register(name, () -> new AlchemicalSulfurItem(new Item.Properties()).overrideTagSourceName(true));
@@ -85,6 +97,10 @@ public class SulfurRegistry {
 
     public static RegistryObject<AlchemicalSulfurItem> registerWithSourceNameOverride(String name) {
         return register(name, () -> new AlchemicalSulfurItem(new Item.Properties()).overrideSourceName(true));
+    }
+
+    public static RegistryObject<AlchemicalSulfurItem> registerGeneric(String name, Supplier<Item> sourceStackSupplier) {
+        return register(name, () -> new AlchemicalSulfurItem(new Item.Properties(), Suppliers.memoize(() -> new ItemStack(sourceStackSupplier.get()))).overrideSourceName(true));
     }
 
     public static RegistryObject<AlchemicalSulfurItem> registerDefault(String name) {
@@ -114,6 +130,8 @@ public class SulfurRegistry {
                 var preferred = getPreferredSulfurVariant(sulfur, liquefactionRecipes, level);
                 preferred.ifPresent(itemStack -> event.accept(itemStack.copyWithCount(1)));
             });
+
+            event.accept(SulfurRegistry.GEMS_ABUNDANT.get());
         }
     }
 
@@ -121,7 +139,7 @@ public class SulfurRegistry {
      * We want sulfurs to display with the most recognizable source items: ingots, gems, dusts.
      * This method selects these sulfurs, and otherwise gets the first matching one.
      */
-    public static Optional<ItemStack> getPreferredSulfurVariant(AlchemicalSulfurItem sulfur, List<LiquefactionRecipe> liquefactionRecipes, Level level){
+    public static Optional<ItemStack> getPreferredSulfurVariant(AlchemicalSulfurItem sulfur, List<LiquefactionRecipe> liquefactionRecipes, Level level) {
         var matchingRecipes = liquefactionRecipes.stream()
                 .filter(recipe -> recipe.getResultItem(level.registryAccess()) != null && recipe.getResultItem(level.registryAccess()).getItem() == sulfur).toList();
 

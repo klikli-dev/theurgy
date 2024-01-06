@@ -200,6 +200,7 @@ public class Theurgy {
             SulfurRegistry.SULFURS.getEntries().stream()
                     .map(RegistryObject::get)
                     .map(AlchemicalSulfurItem.class::cast)
+                    .filter(sulfur -> !SulfurRegistry.SULFURS_TO_KEEP_IN_ITEM_LISTS.get().contains(sulfur))
                     .filter(sulfur -> liquefactionRecipes.stream().noneMatch(r -> r.getResultItem(registryAccess) != null && r.getResultItem(registryAccess).getItem() == sulfur)).map(ItemStack::new).forEach(PageRendererRegistry::registerItemStackNotToRender);
         }
 

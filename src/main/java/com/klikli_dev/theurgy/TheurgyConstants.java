@@ -134,6 +134,9 @@ public class TheurgyConstants {
 
             public static final String INTERACTION_FERMENTATION_VAT_NO_RECIPE = PREFIX + "interaction.fermentation_vat.no_recipe";
             public static final String INTERACTION_FERMENTATION_VAT_CLOSED = PREFIX + "interaction.fermentation_vat.closed";
+
+            public static final String INTERACTION_DIGESTION_VAT_NO_RECIPE = PREFIX + "interaction.digestion_vat.no_recipe";
+            public static final String INTERACTION_DIGESTION_VAT_CLOSED = PREFIX + "interaction.digestion_vat.closed";
         }
     }
 

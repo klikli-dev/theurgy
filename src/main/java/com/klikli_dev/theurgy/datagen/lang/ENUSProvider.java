@@ -78,6 +78,9 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
 
         this.add(TheurgyConstants.I18n.Behaviour.INTERACTION_FERMENTATION_VAT_NO_RECIPE, "Cannot close vat, the items in it do not form a valid fermentation recipe.");
         this.add(TheurgyConstants.I18n.Behaviour.INTERACTION_FERMENTATION_VAT_CLOSED, "Cannot add or remove items or fluids from the vat while it is closed. Shift+Click to open.");
+
+        this.add(TheurgyConstants.I18n.Behaviour.INTERACTION_DIGESTION_VAT_NO_RECIPE, "Cannot close vat, the items in it do not form a valid digestion recipe.");
+        this.add(TheurgyConstants.I18n.Behaviour.INTERACTION_DIGESTION_VAT_CLOSED, "Cannot add or remove items or fluids from the vat while it is closed. Shift+Click to open.");
     }
 
     private void addIntegrations() {

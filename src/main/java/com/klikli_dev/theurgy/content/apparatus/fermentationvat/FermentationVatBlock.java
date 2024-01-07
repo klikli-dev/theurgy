@@ -40,11 +40,12 @@ public class FermentationVatBlock extends Block implements EntityBlock {
 
     public FermentationVatBlock(BlockBehaviour.Properties pProperties) {
         super(pProperties);
+
         this.itemHandlerBehaviour = new DynamicOneOutputSlotItemHandlerBehaviour();
         this.fluidHandlerBehaviour = new OneTankFluidHandlerBehaviour();
         this.interactionBehaviour = new FermentationVatInteractionBehaviour();
 
-        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(OPEN, Boolean.valueOf(false)));
+        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(OPEN, true));
     }
 
     @Override

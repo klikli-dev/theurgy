@@ -16,22 +16,20 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.resources.model.Material;
 import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.entity.DecoratedPotPatterns;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
 import java.util.Objects;
 
 public class DigestionVatRenderer implements BlockEntityRenderer<DigestionVatBlockEntity> {
-    private static final String NECK = "neck";
-    private static final String FRONT = "front";
-    private static final String BACK = "back";
-    private static final String LEFT = "left";
-    private static final String RIGHT = "right";
-    private static final String TOP = "top";
-    private static final String BOTTOM = "bottom";
+    private static final ResourceLocation BASE_OPEN_TEXTURE = Theurgy.loc("textures/entity/digestion_vat/digestion_vat_base_open.png");
+    private static final ResourceLocation BASE_TEXTURE = Theurgy.loc("textures/entity/digestion_vat/digestion_vat_base.png");
+    private static final ResourceLocation SIDE_TEXTURE = Theurgy.loc("textures/entity/digestion_vat/digestion_vat_side.png");
     private final ModelPart neck;
     private final ModelPart frontSide;
     private final ModelPart backSide;
@@ -39,7 +37,6 @@ public class DigestionVatRenderer implements BlockEntityRenderer<DigestionVatBlo
     private final ModelPart rightSide;
     private final ModelPart top;
     private final ModelPart bottom;
-    private final Material baseMaterial = Objects.requireNonNull(Sheets.getDecoratedPotMaterial(DecoratedPotPatterns.BASE));
 
     public DigestionVatRenderer(BlockEntityRendererProvider.Context pContext) {
         ModelPart modelpart = pContext.bakeLayer(TheurgyModelLayers.DIGESTION_VAT_BASE);
@@ -76,16 +73,6 @@ public class DigestionVatRenderer implements BlockEntityRenderer<DigestionVatBlo
         return LayerDefinition.create(meshdefinition, 16, 16);
     }
 
-    @Nullable
-    private static Material getMaterial(Item pItem) {
-        Material material = Sheets.getDecoratedPotMaterial(DecoratedPotPatterns.getResourceKey(pItem));
-        if (material == null) {
-            material = Sheets.getDecoratedPotMaterial(DecoratedPotPatterns.getResourceKey(Items.BRICK));
-        }
-
-        return material;
-    }
-
     @Override
     public void render(DigestionVatBlockEntity pBlockEntity, float pPartialTick, PoseStack pPoseStack, MultiBufferSource pBuffer, int pPackedLight, int pPackedOverlay) {
         pPoseStack.pushPose();
@@ -93,27 +80,24 @@ public class DigestionVatRenderer implements BlockEntityRenderer<DigestionVatBlo
         pPoseStack.translate(0.5D, 0.0D, 0.5D);
         pPoseStack.mulPose(Axis.YP.rotationDegrees(180.0F - direction.toYRot()));
         pPoseStack.translate(-0.5D, 0.0D, -0.5D);
-        //TODO: either make our custom vat texture load into an atlas, or load the texture directly like a livingentityrenderer
-        VertexConsumer vertexconsumer = this.baseMaterial.buffer(pBuffer, RenderType::entitySolid);
+
+        var baseTexture = pBlockEntity.getBlockState().getValue(BlockStateProperties.OPEN) ? BASE_OPEN_TEXTURE : BASE_TEXTURE;
+        var baseRenderType = RenderType.entitySolid(baseTexture);
+//        VertexConsumer vertexconsumer = this.baseMaterial.buffer(pBuffer, RenderType::entitySolid);
+        VertexConsumer vertexconsumer = pBuffer.getBuffer(baseRenderType);
         this.neck.render(pPoseStack, vertexconsumer, pPackedLight, pPackedOverlay);
         this.top.render(pPoseStack, vertexconsumer, pPackedLight, pPackedOverlay);
         this.bottom.render(pPoseStack, vertexconsumer, pPackedLight, pPackedOverlay);
 
-        this.renderSide(this.frontSide, pPoseStack, pBuffer, pPackedLight, pPackedOverlay, null);
-        this.renderSide(this.backSide, pPoseStack, pBuffer, pPackedLight, pPackedOverlay, null);
-        this.renderSide(this.leftSide, pPoseStack, pBuffer, pPackedLight, pPackedOverlay, null);
-        this.renderSide(this.rightSide, pPoseStack, pBuffer, pPackedLight, pPackedOverlay, null);
+        this.renderSide(this.frontSide, pPoseStack, pBuffer, pPackedLight, pPackedOverlay);
+        this.renderSide(this.backSide, pPoseStack, pBuffer, pPackedLight, pPackedOverlay);
+        this.renderSide(this.leftSide, pPoseStack, pBuffer, pPackedLight, pPackedOverlay);
+        this.renderSide(this.rightSide, pPoseStack, pBuffer, pPackedLight, pPackedOverlay);
         pPoseStack.popPose();
     }
 
-    private void renderSide(ModelPart pModelPart, PoseStack pPoseStack, MultiBufferSource pBuffer, int pPackedLight, int pPackedOverlay, @Nullable Material pMaterial) {
-        if (pMaterial == null) {
-            pMaterial = getMaterial(Items.BRICK);
-        }
-
-        if (pMaterial != null) {
-            pModelPart.render(pPoseStack, pMaterial.buffer(pBuffer, RenderType::entitySolid), pPackedLight, pPackedOverlay);
-        }
-
+    private void renderSide(ModelPart pModelPart, PoseStack pPoseStack, MultiBufferSource pBuffer, int pPackedLight, int pPackedOverlay) {
+        var renderType = RenderType.entitySolid(SIDE_TEXTURE);
+            pModelPart.render(pPoseStack, pBuffer.getBuffer(renderType), pPackedLight, pPackedOverlay);
     }
 }

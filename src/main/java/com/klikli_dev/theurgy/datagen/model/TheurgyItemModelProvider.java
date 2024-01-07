@@ -126,6 +126,19 @@ public class TheurgyItemModelProvider extends net.minecraftforge.client.model.ge
         });
 
         this.registerItemGenerated(this.name(ItemRegistry.GEMS_ABUNDANT_ICON.get()), "sulfurs/gems_abundant");
+        this.registerItemGenerated(this.name(ItemRegistry.GEMS_COMMON_ICON.get()), "sulfurs/gems_common");
+        this.registerItemGenerated(this.name(ItemRegistry.GEMS_RARE_ICON.get()), "sulfurs/gems_rare");
+        this.registerItemGenerated(this.name(ItemRegistry.GEMS_PRECIOUS_ICON.get()), "sulfurs/gems_precious");
+
+        this.registerItemGenerated(this.name(ItemRegistry.METALS_ABUNDANT_ICON.get()), "sulfurs/metals_abundant");
+        this.registerItemGenerated(this.name(ItemRegistry.METALS_COMMON_ICON.get()), "sulfurs/metals_common");
+        this.registerItemGenerated(this.name(ItemRegistry.METALS_RARE_ICON.get()), "sulfurs/metals_rare");
+        this.registerItemGenerated(this.name(ItemRegistry.METALS_PRECIOUS_ICON.get()), "sulfurs/metals_precious");
+
+        this.registerItemGenerated(this.name(ItemRegistry.OTHER_MINERALS_ABUNDANT_ICON.get()), "sulfurs/other_minerals_abundant");
+        this.registerItemGenerated(this.name(ItemRegistry.OTHER_MINERALS_COMMON_ICON.get()), "sulfurs/other_minerals_common");
+        this.registerItemGenerated(this.name(ItemRegistry.OTHER_MINERALS_RARE_ICON.get()), "sulfurs/other_minerals_rare");
+        this.registerItemGenerated(this.name(ItemRegistry.OTHER_MINERALS_PRECIOUS_ICON.get()), "sulfurs/other_minerals_precious");
     }
 
     protected void registerSalts() {

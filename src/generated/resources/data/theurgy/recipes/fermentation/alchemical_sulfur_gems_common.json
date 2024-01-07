@@ -5,7 +5,7 @@
       "type": "forge:not",
       "value": {
         "type": "forge:tag_empty",
-        "tag": "theurgy:alchemical_sulfurs/gems/abundant"
+        "tag": "theurgy:alchemical_sulfurs/gems/common"
       }
     },
     {
@@ -19,10 +19,10 @@
   "fluid": {
     "tag": "minecraft:water"
   },
-  "fluidAmount": 125,
+  "fluidAmount": 250,
   "ingredients": [
     {
-      "tag": "theurgy:alchemical_sulfurs/gems/abundant"
+      "tag": "theurgy:alchemical_sulfurs/gems/common"
     },
     {
       "tag": "forge:sugar"
@@ -30,7 +30,7 @@
   ],
   "result": {
     "Count": 1,
-    "id": "theurgy:alchemical_sulfur_gems_abundant"
+    "id": "theurgy:alchemical_sulfur_gems_common"
   },
   "time": 200
 }

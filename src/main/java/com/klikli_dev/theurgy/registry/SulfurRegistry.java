@@ -30,8 +30,21 @@ public class SulfurRegistry {
 
     public static final RegistryObject<AlchemicalSulfurItem> GENERIC = registerWithTagSourceNameOverride("generic", AlchemicalSulfurTier.ABUNDANT);
 
-    //TODO: add the other generic sulfurs (niters) to the below list that preserves them in the creative tab
     public static final RegistryObject<AlchemicalSulfurItem> GEMS_ABUNDANT = registerGeneric("gems_abundant", ItemRegistry.GEMS_ABUNDANT_ICON, AlchemicalSulfurTier.ABUNDANT);
+    public static final RegistryObject<AlchemicalSulfurItem> GEMS_COMMON = registerGeneric("gems_common", ItemRegistry.GEMS_COMMON_ICON, AlchemicalSulfurTier.COMMON);
+    public static final RegistryObject<AlchemicalSulfurItem> GEMS_RARE = registerGeneric("gems_rare", ItemRegistry.GEMS_RARE_ICON, AlchemicalSulfurTier.RARE);
+    public static final RegistryObject<AlchemicalSulfurItem> GEMS_PRECIOUS = registerGeneric("gems_precious", ItemRegistry.GEMS_PRECIOUS_ICON, AlchemicalSulfurTier.PRECIOUS);
+
+    public static final RegistryObject<AlchemicalSulfurItem> METALS_ABUNDANT = registerGeneric("metals_abundant", ItemRegistry.METALS_ABUNDANT_ICON, AlchemicalSulfurTier.ABUNDANT);
+    public static final RegistryObject<AlchemicalSulfurItem> METALS_COMMON = registerGeneric("metals_common", ItemRegistry.METALS_COMMON_ICON, AlchemicalSulfurTier.COMMON);
+    public static final RegistryObject<AlchemicalSulfurItem> METALS_RARE = registerGeneric("metals_rare", ItemRegistry.METALS_RARE_ICON, AlchemicalSulfurTier.RARE);
+    public static final RegistryObject<AlchemicalSulfurItem> METALS_PRECIOUS = registerGeneric("metals_precious", ItemRegistry.METALS_PRECIOUS_ICON, AlchemicalSulfurTier.PRECIOUS);
+
+    public static final RegistryObject<AlchemicalSulfurItem> OTHER_MINERALS_ABUNDANT = registerGeneric("other_minerals_abundant", ItemRegistry.OTHER_MINERALS_ABUNDANT_ICON, AlchemicalSulfurTier.ABUNDANT);
+    public static final RegistryObject<AlchemicalSulfurItem> OTHER_MINERALS_COMMON = registerGeneric("other_minerals_common", ItemRegistry.OTHER_MINERALS_COMMON_ICON, AlchemicalSulfurTier.COMMON);
+    public static final RegistryObject<AlchemicalSulfurItem> OTHER_MINERALS_RARE = registerGeneric("other_minerals_rare", ItemRegistry.OTHER_MINERALS_RARE_ICON, AlchemicalSulfurTier.RARE);
+    public static final RegistryObject<AlchemicalSulfurItem> OTHER_MINERALS_PRECIOUS = registerGeneric("other_minerals_precious", ItemRegistry.OTHER_MINERALS_PRECIOUS_ICON, AlchemicalSulfurTier.PRECIOUS);
+
 
     public static final RegistryObject<AlchemicalSulfurItem> LOGS = registerWithTagSourceNameOverride("logs", AlchemicalSulfurTier.ABUNDANT);
 
@@ -88,9 +101,19 @@ public class SulfurRegistry {
      * Sulfurs in this list will not be exlcuded from jei/modonomicon renderers despite not having a liquefaction recipe
      */
     public static final Supplier<Set<AlchemicalSulfurItem>> SULFURS_TO_KEEP_IN_ITEM_LISTS = Suppliers.memoize(() -> Set.of(
-            GEMS_ABUNDANT.get()
+            GEMS_ABUNDANT.get(),
+            GEMS_COMMON.get(),
+            GEMS_RARE.get(),
+            GEMS_PRECIOUS.get(),
+            METALS_ABUNDANT.get(),
+            METALS_COMMON.get(),
+            METALS_RARE.get(),
+            METALS_PRECIOUS.get(),
+            OTHER_MINERALS_ABUNDANT.get(),
+            OTHER_MINERALS_COMMON.get(),
+            OTHER_MINERALS_RARE.get(),
+            OTHER_MINERALS_PRECIOUS.get()
     ));
-
 
     public static RegistryObject<AlchemicalSulfurItem> registerWithTagSourceNameOverride(String name, AlchemicalSulfurTier tier) {
         return register(name, () -> new AlchemicalSulfurItem(new Item.Properties()).overrideTagSourceName(true).tier(tier));
@@ -133,6 +156,17 @@ public class SulfurRegistry {
             });
 
             event.accept(SulfurRegistry.GEMS_ABUNDANT.get());
+            event.accept(SulfurRegistry.GEMS_COMMON.get());
+            event.accept(SulfurRegistry.GEMS_RARE.get());
+            event.accept(SulfurRegistry.GEMS_PRECIOUS.get());
+            event.accept(SulfurRegistry.METALS_ABUNDANT.get());
+            event.accept(SulfurRegistry.METALS_COMMON.get());
+            event.accept(SulfurRegistry.METALS_RARE.get());
+            event.accept(SulfurRegistry.METALS_PRECIOUS.get());
+            event.accept(SulfurRegistry.OTHER_MINERALS_ABUNDANT.get());
+            event.accept(SulfurRegistry.OTHER_MINERALS_COMMON.get());
+            event.accept(SulfurRegistry.OTHER_MINERALS_RARE.get());
+            event.accept(SulfurRegistry.OTHER_MINERALS_PRECIOUS.get());
         }
     }
 

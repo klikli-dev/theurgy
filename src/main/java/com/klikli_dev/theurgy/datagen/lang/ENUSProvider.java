@@ -317,6 +317,30 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         //Names for generic sulfurs
         this.addSulfurSource(SulfurRegistry.GEMS_ABUNDANT, "Abundant Gems");
         this.addGenericSulfur(SulfurRegistry.GEMS_ABUNDANT.get());
+        this.addSulfurSource(SulfurRegistry.GEMS_COMMON, "Common Gems");
+        this.addGenericSulfur(SulfurRegistry.GEMS_COMMON.get());
+        this.addSulfurSource(SulfurRegistry.GEMS_RARE, "Rare Gems");
+        this.addGenericSulfur(SulfurRegistry.GEMS_RARE.get());
+        this.addSulfurSource(SulfurRegistry.GEMS_PRECIOUS, "Precious Gems");
+        this.addGenericSulfur(SulfurRegistry.GEMS_PRECIOUS.get());
+
+        this.addSulfurSource(SulfurRegistry.METALS_ABUNDANT, "Abundant Metals");
+        this.addGenericSulfur(SulfurRegistry.METALS_ABUNDANT.get());
+        this.addSulfurSource(SulfurRegistry.METALS_COMMON, "Common Metals");
+        this.addGenericSulfur(SulfurRegistry.METALS_COMMON.get());
+        this.addSulfurSource(SulfurRegistry.METALS_RARE, "Rare Metals");
+        this.addGenericSulfur(SulfurRegistry.METALS_RARE.get());
+        this.addSulfurSource(SulfurRegistry.METALS_PRECIOUS, "Precious Metals");
+        this.addGenericSulfur(SulfurRegistry.METALS_PRECIOUS.get());
+
+        this.addSulfurSource(SulfurRegistry.OTHER_MINERALS_ABUNDANT, "Abundant Other Minerals");
+        this.addGenericSulfur(SulfurRegistry.OTHER_MINERALS_ABUNDANT.get());
+        this.addSulfurSource(SulfurRegistry.OTHER_MINERALS_COMMON, "Common Other Minerals");
+        this.addGenericSulfur(SulfurRegistry.OTHER_MINERALS_COMMON.get());
+        this.addSulfurSource(SulfurRegistry.OTHER_MINERALS_RARE, "Rare Other Minerals");
+        this.addGenericSulfur(SulfurRegistry.OTHER_MINERALS_RARE.get());
+        this.addSulfurSource(SulfurRegistry.OTHER_MINERALS_PRECIOUS, "Precious Other Minerals");
+        this.addGenericSulfur(SulfurRegistry.OTHER_MINERALS_PRECIOUS.get());
 
         //Names for Sulfurs with overrideSourceName
         //Common Metals
@@ -531,6 +555,32 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.addItem(ItemRegistry.THE_HERMETICA_ICON, "The Hermetica Icon");
         this.addTooltip(ItemRegistry.THE_HERMETICA_ICON, "Dummy item for rendering.");
 
+        this.addItem(ItemRegistry.GEMS_ABUNDANT_ICON, "Abundant Gems Icon");
+        this.addTooltip(ItemRegistry.GEMS_ABUNDANT_ICON, "Dummy item for rendering.");
+        this.addItem(ItemRegistry.GEMS_COMMON_ICON, "Common Gems Icon");
+        this.addTooltip(ItemRegistry.GEMS_COMMON_ICON, "Dummy item for rendering.");
+        this.addItem(ItemRegistry.GEMS_RARE_ICON, "Rare Gems Icon");
+        this.addTooltip(ItemRegistry.GEMS_RARE_ICON, "Dummy item for rendering.");
+        this.addItem(ItemRegistry.GEMS_PRECIOUS_ICON, "Precious Gems Icon");
+        this.addTooltip(ItemRegistry.GEMS_PRECIOUS_ICON, "Dummy item for rendering.");
+
+        this.addItem(ItemRegistry.METALS_ABUNDANT_ICON, "Abundant Metals Icon");
+        this.addTooltip(ItemRegistry.METALS_ABUNDANT_ICON, "Dummy item for rendering.");
+        this.addItem(ItemRegistry.METALS_COMMON_ICON, "Common Metals Icon");
+        this.addTooltip(ItemRegistry.METALS_COMMON_ICON, "Dummy item for rendering.");
+        this.addItem(ItemRegistry.METALS_RARE_ICON, "Rare Metals Icon");
+        this.addTooltip(ItemRegistry.METALS_RARE_ICON, "Dummy item for rendering.");
+        this.addItem(ItemRegistry.METALS_PRECIOUS_ICON, "Precious Metals Icon");
+        this.addTooltip(ItemRegistry.METALS_PRECIOUS_ICON, "Dummy item for rendering.");
+
+        this.addItem(ItemRegistry.OTHER_MINERALS_ABUNDANT_ICON, "Abundant Other Minerals Icon");
+        this.addTooltip(ItemRegistry.OTHER_MINERALS_ABUNDANT_ICON, "Dummy item for rendering.");
+        this.addItem(ItemRegistry.OTHER_MINERALS_COMMON_ICON, "Common Other Minerals Icon");
+        this.addTooltip(ItemRegistry.OTHER_MINERALS_COMMON_ICON, "Dummy item for rendering.");
+        this.addItem(ItemRegistry.OTHER_MINERALS_RARE_ICON, "Rare Other Minerals Icon");
+        this.addTooltip(ItemRegistry.OTHER_MINERALS_RARE_ICON, "Dummy item for rendering.");
+        this.addItem(ItemRegistry.OTHER_MINERALS_PRECIOUS_ICON, "Precious Other Minerals Icon");
+        this.addTooltip(ItemRegistry.OTHER_MINERALS_PRECIOUS_ICON, "Dummy item for rendering.");
 
         this.addItem(ItemRegistry.SAL_AMMONIAC_BUCKET, "Sal Ammoniac Bucket");
 

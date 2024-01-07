@@ -48,6 +48,19 @@ public class ItemRegistry {
 
 
     public static final RegistryObject<Item> GEMS_ABUNDANT_ICON = ITEMS.register("gems_abundant_icon", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> GEMS_COMMON_ICON = ITEMS.register("gems_common_icon", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> GEMS_RARE_ICON = ITEMS.register("gems_rare_icon", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> GEMS_PRECIOUS_ICON = ITEMS.register("gems_precious_icon", () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> METALS_ABUNDANT_ICON = ITEMS.register("metals_abundant_icon", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> METALS_COMMON_ICON = ITEMS.register("metals_common_icon", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> METALS_RARE_ICON = ITEMS.register("metals_rare_icon", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> METALS_PRECIOUS_ICON = ITEMS.register("metals_precious_icon", () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> OTHER_MINERALS_ABUNDANT_ICON = ITEMS.register("other_minerals_abundant_icon", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> OTHER_MINERALS_COMMON_ICON = ITEMS.register("other_minerals_common_icon", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> OTHER_MINERALS_RARE_ICON = ITEMS.register("other_minerals_rare_icon", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> OTHER_MINERALS_PRECIOUS_ICON = ITEMS.register("other_minerals_precious_icon", () -> new Item(new Item.Properties()));
     //Divination rods
     public static final RegistryObject<DivinationRodItem> DIVINATION_ROD_T1 =
             ITEMS.register("divination_rod_t1", () -> new DivinationRodItem(

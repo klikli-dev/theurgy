@@ -106,7 +106,7 @@ public class TheurgyConstants {
             public static final String ACCUMULATION_CATEGORY = PREFIX + "category.accumulation";
             public static final String REFORMATION_CATEGORY = PREFIX + "category.reformation";
             public static final String FERMENTATION_CATEGORY = PREFIX + "category.fermentation";
-            public static final String DIGESTION_CATEGORY = PREFIX + "category.fermentation";
+            public static final String DIGESTION_CATEGORY = PREFIX + "category.digestion";
             public static final String MERCURY_FLUX = PREFIX + "misc.mercury_flux";
             public static final String SOURCE_PEDESTAL_COUNT = PREFIX + "misc.source_pedestal_count";
         }

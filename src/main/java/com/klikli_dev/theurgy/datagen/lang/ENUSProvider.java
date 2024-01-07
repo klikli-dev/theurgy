@@ -543,9 +543,21 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.addExtendedTooltip(ItemRegistry.SAL_AMMONIAC_CRYSTAL,
                 """
                         Obtained by mining Sal Ammoniac Ore.
+                        """);
+        this.addUsageTooltip(ItemRegistry.SAL_AMMONIAC_CRYSTAL,
+                """
                         Can be used in a Sal Ammoniac Accumulator to rapidly create Sal Ammoniac to be used as a solvent.
                         """);
         this.addIngredientInfo(ItemRegistry.SAL_AMMONIAC_CRYSTAL, "Obtained by mining Sal Ammoniac Ore.");
+
+        this.addItem(ItemRegistry.PURIFIED_GOLD, "Purified Gold");
+        this.addTooltip(ItemRegistry.PURIFIED_GOLD,
+                "Alchemically pure gold.",
+                """
+                        Gold that has been purified by alchemical Digestion. This further improves the property of Gold not to react with other elements, allowing it to be used in alchemical processes without adding impurities to the result.
+                        """,
+                "Acts as a catalysator, enabling various alchemical processes."
+        );
     }
 
     @Override

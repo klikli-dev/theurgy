@@ -103,14 +103,16 @@ public class ItemRegistry {
     //Buckets
     public static final RegistryObject<Item> SAL_AMMONIAC_BUCKET = ITEMS.register("sal_ammoniac_bucket", () -> new BucketItem(FluidRegistry.SAL_AMMONIAC, new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
 
+    //Ingredients
     public static final RegistryObject<Item> MERCURY_SHARD =
             ITEMS.register("mercury_shard", () -> new Item(new Item.Properties()));
-
-    //Ingredients
     public static final RegistryObject<Item> MERCURY_CRYSTAL =
             ITEMS.register("mercury_crystal", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> SAL_AMMONIAC_CRYSTAL =
             ITEMS.register("sal_ammoniac_crystal", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> PURIFIED_GOLD =
+            ITEMS.register("purified_gold", () -> new Item(new Item.Properties()));
+
     //Blocks
     public static final RegistryObject<Item> SAL_AMMONIAC_ORE =
             ITEMS.register("sal_ammoniac_ore", () -> new BlockItem(BlockRegistry.SAL_AMMONIAC_ORE.get(), new Item.Properties()));

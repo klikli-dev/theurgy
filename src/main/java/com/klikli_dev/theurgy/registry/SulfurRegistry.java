@@ -101,7 +101,7 @@ public class SulfurRegistry {
     }
 
     public static RegistryObject<AlchemicalSulfurItem> registerGeneric(String name, Supplier<Item> sourceStackSupplier, AlchemicalSulfurTier tier) {
-        return register(name, () -> new AlchemicalSulfurItem(new Item.Properties(), Suppliers.memoize(() -> new ItemStack(sourceStackSupplier.get()))).overrideSourceName(true).autoTooltip(true, false).autoName(true, false).withJarIcon(Suppliers.memoize(() -> new ItemStack(ItemRegistry.EMPTY_JAR_IRON_BAND_ICON.get()))).tier(tier));
+        return register(name, () -> new AlchemicalSulfurItem(new Item.Properties(), Suppliers.memoize(() -> new ItemStack(sourceStackSupplier.get()))).overrideSourceName(true).autoTooltip(true, false).autoName(true, false).withJarIcon(Suppliers.memoize(() -> new ItemStack(ItemRegistry.EMPTY_CERAMIC_JAR_ICON.get()))).tier(tier));
     }
 
     public static RegistryObject<AlchemicalSulfurItem> registerDefault(String name, AlchemicalSulfurTier tier) {

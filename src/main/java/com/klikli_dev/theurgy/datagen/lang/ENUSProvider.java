@@ -301,7 +301,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
                 this.addTooltip(() -> sulfur,
                         "Alchemical Sulfur crafted from %s %s.",
                         "Sulfur represents the \"idea\" or \"soul\" of an object",
-                        "Sulfur is the central element in Spagyrics processes.");
+                        "Sulfur is the central element used in Spagyrics processes." +
+                                "\n\n" + ChatFormatting.ITALIC + "Hint: Sulfurs crafted from different states of the same material (such as from Ore or Ingots) are interchangeable." + ChatFormatting.RESET);
             }
         });
 
@@ -506,6 +507,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.addTooltip(ItemRegistry.EMPTY_JAR_ICON, "Dummy item for rendering.");
         this.addItem(ItemRegistry.EMPTY_JAR_IRON_BAND_ICON, "Empty Jar with Iron Band Icon");
         this.addTooltip(ItemRegistry.EMPTY_JAR_IRON_BAND_ICON, "Dummy item for rendering.");
+        this.addItem(ItemRegistry.EMPTY_CERAMIC_JAR_ICON, "Empty Ceramic Jar Icon");
+        this.addTooltip(ItemRegistry.EMPTY_CERAMIC_JAR_ICON, "Dummy item for rendering.");
 
         this.addItem(ItemRegistry.EMPTY_JAR_LABELED_ICON, "Labeled Empty Jar Icon");
         this.addTooltip(ItemRegistry.EMPTY_JAR_LABELED_ICON, "Dummy item for rendering.");

@@ -1,4 +1,4 @@
-// 1.20.1	2024-01-07T09:54:19.8473176	Item Models: theurgy
+// 1.20.1	2024-01-07T13:43:53.4621625	Item Models: theurgy
 a402a05d887ec6d271a9350944338d29e1233318 assets/theurgy/models/item/alchemical_salt.json
 9fd173e362b6644716da98ba0d15809f85879e78 assets/theurgy/models/item/alchemical_salt_crops.json
 9fd173e362b6644716da98ba0d15809f85879e78 assets/theurgy/models/item/alchemical_salt_mineral.json
@@ -91,6 +91,7 @@ afed8e3d6ecfd5ae2c9351ab528451080fa44382 assets/theurgy/models/item/divination_r
 46d1626a0c27280cbf141421f5134c2b02e7de7b assets/theurgy/models/item/divination_rod_t4/6.json
 3237ccbf7ab79080fd9769cf3adea5e69c615619 assets/theurgy/models/item/divination_rod_t4/7.json
 ea3053a9add02634af5fd7d9aef50801c48b32b2 assets/theurgy/models/item/divination_rod_t4/searching.json
+9509d4c45c1dbf5364e6fb7f5a79859946d69e98 assets/theurgy/models/item/empty_ceramic_jar_icon.json
 e0d7667ce794b40e193ecf66945c505733faf3f8 assets/theurgy/models/item/empty_jar_icon.json
 6ab59f4b86f40e6ffcfc2eedf7463c369c3bd822 assets/theurgy/models/item/empty_jar_iron_band_icon.json
 c7428fa39a7d54d5b732ad9dbe9f78ac26eb0f85 assets/theurgy/models/item/empty_jar_labeled_icon.json
@@ -102,6 +103,7 @@ f83a199b1494744aff01fc4c082fc35cdd78a476 assets/theurgy/models/item/jar_label_fr
 94bfa4f4e6caf28d6f20cee65ac10387f5b115e2 assets/theurgy/models/item/jar_label_icon.json
 dba6c70f6dc6e3efa9e5ca587d452b81421cabe2 assets/theurgy/models/item/mercury_crystal.json
 022666f33be76a64adeafdb25b8955238da6ad02 assets/theurgy/models/item/mercury_shard.json
+9bd1f3ac4e254266765470a183589432a4a350b4 assets/theurgy/models/item/purified_gold.json
 8409e0681b5a4381d0c9797935b8ff63d0af9fb9 assets/theurgy/models/item/sal_ammoniac_crystal.json
 8cfa468ed4afa56fc4923a5347f7cbfe60795a3b assets/theurgy/models/item/sulfur_attuned_divination_rod_abundant.json
 66a71323a5ad5f6b6d271de59a9ad997b0835c04 assets/theurgy/models/item/sulfur_attuned_divination_rod_abundant/0.json

@@ -7,6 +7,7 @@ package com.klikli_dev.theurgy.datagen.recipe;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.klikli_dev.theurgy.Theurgy;
+import com.klikli_dev.theurgy.content.item.AlchemicalSulfurItem;
 import com.klikli_dev.theurgy.content.recipe.FermentationRecipe;
 import com.klikli_dev.theurgy.registry.*;
 import com.mojang.datafixers.util.Pair;
@@ -29,6 +30,18 @@ public class DigestionRecipeProvider extends JsonRecipeProvider {
         super(packOutput, Theurgy.MODID, "digestion");
     }
 
+
+    public void makeTierConversion(AlchemicalSulfurItem lower, AlchemicalSulfurItem higher, int conversionFactor, int salAmmoniacAmount) {
+        this.makeRecipe(FluidRegistry.SAL_AMMONIAC.get(), salAmmoniacAmount, List.of(
+                Pair.of(lower, conversionFactor),
+                Pair.of(ItemRegistry.PURIFIED_GOLD.get(), 1)
+        ), higher, 1, TIME * 5, "_from_" + lower.tier().name().toLowerCase());
+
+        this.makeRecipe(FluidRegistry.SAL_AMMONIAC.get(), salAmmoniacAmount, List.of(
+                Pair.of(higher, 1),
+                Pair.of(ItemRegistry.PURIFIED_GOLD.get(), 1)
+        ), lower, conversionFactor, TIME * 5, "_from_" + higher.tier().name().toLowerCase());
+    }
     @Override
     void buildRecipes(BiConsumer<ResourceLocation, JsonObject> recipeConsumer) {
         this.makeRecipeWithTags(Fluids.WATER, 1000, List.of(
@@ -36,32 +49,17 @@ public class DigestionRecipeProvider extends JsonRecipeProvider {
                 ItemTagRegistry.ALCHEMICAL_SALTS
         ), ItemRegistry.PURIFIED_GOLD.get(), 10, TIME * 5);
 
-        this.makeRecipe(FluidRegistry.SAL_AMMONIAC.get(), 10, List.of(
-                Pair.of(SulfurRegistry.GEMS_ABUNDANT.get(), 4),
-                Pair.of(ItemRegistry.PURIFIED_GOLD.get(), 1)
-        ), SulfurRegistry.GEMS_COMMON.get(), 1, TIME * 5, "_from_abundant");
-        this.makeRecipe(FluidRegistry.SAL_AMMONIAC.get(), 10, List.of(
-                Pair.of(SulfurRegistry.GEMS_COMMON.get(), 1),
-                Pair.of(ItemRegistry.PURIFIED_GOLD.get(), 1)
-        ), SulfurRegistry.GEMS_ABUNDANT.get(), 4, TIME * 5, "_from_common");
+        this.makeTierConversion(SulfurRegistry.GEMS_ABUNDANT.get(), SulfurRegistry.GEMS_COMMON.get(), 4, 10);
+        this.makeTierConversion(SulfurRegistry.GEMS_COMMON.get(), SulfurRegistry.GEMS_RARE.get(), 4, 15);
+        this.makeTierConversion(SulfurRegistry.GEMS_RARE.get(), SulfurRegistry.GEMS_PRECIOUS.get(), 4, 50);
 
-        this.makeRecipe(FluidRegistry.SAL_AMMONIAC.get(), 15, List.of(
-                Pair.of(SulfurRegistry.GEMS_COMMON.get(), 4),
-                Pair.of(ItemRegistry.PURIFIED_GOLD.get(), 1)
-        ), SulfurRegistry.GEMS_RARE.get(), 1, TIME * 5, "_from_common");
-        this.makeRecipe(FluidRegistry.SAL_AMMONIAC.get(), 15, List.of(
-                Pair.of(SulfurRegistry.GEMS_RARE.get(), 1),
-                Pair.of(ItemRegistry.PURIFIED_GOLD.get(), 1)
-        ), SulfurRegistry.GEMS_COMMON.get(), 4, TIME * 5, "_from_rare");
+        this.makeTierConversion(SulfurRegistry.METALS_ABUNDANT.get(), SulfurRegistry.METALS_COMMON.get(), 4, 10);
+        this.makeTierConversion(SulfurRegistry.METALS_COMMON.get(), SulfurRegistry.METALS_RARE.get(), 4, 15);
+        this.makeTierConversion(SulfurRegistry.METALS_RARE.get(), SulfurRegistry.METALS_PRECIOUS.get(), 4, 50);
 
-        this.makeRecipe(FluidRegistry.SAL_AMMONIAC.get(), 50, List.of(
-                Pair.of(SulfurRegistry.GEMS_RARE.get(), 4),
-                Pair.of(ItemRegistry.PURIFIED_GOLD.get(), 1)
-        ), SulfurRegistry.GEMS_PRECIOUS.get(), 1, TIME * 5, "_from_rare");
-        this.makeRecipe(FluidRegistry.SAL_AMMONIAC.get(), 50, List.of(
-                Pair.of(SulfurRegistry.GEMS_PRECIOUS.get(), 1),
-                Pair.of(ItemRegistry.PURIFIED_GOLD.get(), 1)
-        ), SulfurRegistry.GEMS_RARE.get(), 4, TIME * 5, "_from_precious");
+        this.makeTierConversion(SulfurRegistry.OTHER_MINERALS_ABUNDANT.get(), SulfurRegistry.OTHER_MINERALS_COMMON.get(), 4, 10);
+        this.makeTierConversion(SulfurRegistry.OTHER_MINERALS_COMMON.get(), SulfurRegistry.OTHER_MINERALS_RARE.get(), 4, 15);
+        this.makeTierConversion(SulfurRegistry.OTHER_MINERALS_RARE.get(), SulfurRegistry.OTHER_MINERALS_PRECIOUS.get(), 4, 50);
     }
 
     public void makeRecipe(Fluid fluid, int fluidAmount, List<Pair<Item, Integer>> ingredients, Item result, int resultCount, int time, String postFix) {

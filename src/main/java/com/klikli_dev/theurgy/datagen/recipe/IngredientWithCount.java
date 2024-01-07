@@ -7,10 +7,11 @@ import net.minecraft.world.item.crafting.Ingredient;
 
 public record IngredientWithCount(Ingredient ingredient, int count) {
 
-    private static final Codec<Pair<Ingredient, Integer>> PAIR_CODEC = Codec.pair(
-            TheurgyExtraCodecs.INGREDIENT,
-            Codec.INT.fieldOf("count").codec()
+    //Note: for implementation reasons count has to be above ingredient, otherwise we will get a JSON Null issue thingy
+    private static final Codec<Pair<Integer, Ingredient>> PAIR_CODEC = Codec.pair(
+            Codec.INT.optionalFieldOf("count", 1).codec(),
+            TheurgyExtraCodecs.INGREDIENT
     );
 
-    public static final Codec<IngredientWithCount> CODEC = PAIR_CODEC.xmap(pair -> new IngredientWithCount(pair.getFirst(), pair.getSecond()), iwc -> new Pair<>(iwc.ingredient, iwc.count));
+    public static final Codec<IngredientWithCount> CODEC = PAIR_CODEC.xmap(pair -> new IngredientWithCount(pair.getSecond(), pair.getFirst()), iwc -> new Pair<>(iwc.count, iwc.ingredient));
 }

@@ -1,0 +1,36 @@
+{
+  "type": "theurgy:fermentation",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "theurgy:alchemical_sulfurs/other_minerals/rare"
+      }
+    },
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:crops"
+      }
+    }
+  ],
+  "fluid": {
+    "tag": "minecraft:water"
+  },
+  "fluidAmount": 500,
+  "ingredients": [
+    {
+      "tag": "theurgy:alchemical_sulfurs/other_minerals/rare"
+    },
+    {
+      "tag": "forge:crops"
+    }
+  ],
+  "result": {
+    "Count": 1,
+    "id": "theurgy:alchemical_sulfur_other_minerals_rare"
+  },
+  "time": 200
+}

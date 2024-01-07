@@ -1,2 +1,5 @@
-// 1.20.1	2024-01-07T13:11:30.3557701	Digestion Recipes
-3dcd0d3351baf5de2afef1b813136ce347b5faeb data/theurgy/recipes/digestion/purified_gold.json
+// 1.20.1	2024-01-07T16:43:59.7794259	Digestion Recipes
+da5aae59f3ad479fb8aa5d1b5b51665f0e88a80f data/theurgy/recipes/digestion/alchemical_sulfur_gems_common.json
+4bd2ade8ef0314e721aa029adfb89a7980e910ff data/theurgy/recipes/digestion/alchemical_sulfur_gems_precious.json
+a46418fdbcbdfb5e2589af10228f1443a56aaa87 data/theurgy/recipes/digestion/alchemical_sulfur_gems_rare.json
+8a4804ccd75b1ccd363d91b860b3f19c1b69fcc7 data/theurgy/recipes/digestion/purified_gold.json

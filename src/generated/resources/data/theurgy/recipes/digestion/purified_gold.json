@@ -22,9 +22,11 @@
   "fluidAmount": 1000,
   "ingredients": [
     {
+      "count": 1,
       "tag": "forge:ingots/gold"
     },
     {
+      "count": 1,
       "tag": "theurgy:alchemical_salts"
     }
   ],

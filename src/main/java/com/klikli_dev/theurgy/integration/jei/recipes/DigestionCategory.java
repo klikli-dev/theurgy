@@ -11,11 +11,14 @@ import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.content.gui.GuiTextures;
 import com.klikli_dev.theurgy.content.recipe.DigestionRecipe;
 import com.klikli_dev.theurgy.content.recipe.DigestionRecipe;
+import com.klikli_dev.theurgy.datagen.recipe.IngredientWithCount;
 import com.klikli_dev.theurgy.integration.jei.JeiDrawables;
 import com.klikli_dev.theurgy.integration.jei.JeiRecipeTypes;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
+import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.forge.ForgeTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
+import mezz.jei.api.gui.builder.IRecipeSlotBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.drawable.IDrawableAnimated;
 import mezz.jei.api.gui.ingredient.IRecipeSlotTooltipCallback;
@@ -124,7 +127,16 @@ public class DigestionCategory implements IRecipeCategory<DigestionRecipe> {
         return this.localizedName;
     }
 
-    @Override
+    public void addToSlot(IRecipeSlotBuilder builder, int ingredientIndex, List<IngredientWithCount> ingredients){
+        if(ingredientIndex >= ingredients.size())
+            return;
+
+        var ingredient = ingredients.get(ingredientIndex);
+
+        builder.addIngredients(VanillaTypes.ITEM_STACK, Arrays.stream(ingredient.ingredient().getItems()).map(i -> i.copyWithCount(ingredient.count())).toList());
+    }
+
+                          @Override
     public void setRecipe(IRecipeLayoutBuilder builder, DigestionRecipe recipe, IFocusGroup focuses) {
         var topLeft = builder.addSlot(INPUT, 1, 1)
                 .setBackground(JeiDrawables.INPUT_SLOT, -1, -1);
@@ -133,14 +145,10 @@ public class DigestionCategory implements IRecipeCategory<DigestionRecipe> {
         var bottomLeft = builder.addSlot(INPUT, 1, 1 + 18)
                 .setBackground(JeiDrawables.INPUT_SLOT, -1, -1);
 
-        if (recipe.getIngredients().size() > 0)
-            topLeft.addIngredients(recipe.getIngredients().get(0));
 
-        if (recipe.getIngredients().size() > 1)
-            topRight.addIngredients(recipe.getIngredients().get(1));
-
-        if (recipe.getIngredients().size() > 2)
-            bottomLeft.addIngredients(recipe.getIngredients().get(2));
+        this.addToSlot(topLeft, 0, recipe.getIngredientsWithCount());
+        this.addToSlot(topRight, 1, recipe.getIngredientsWithCount());
+        this.addToSlot(bottomLeft, 2, recipe.getIngredientsWithCount());
 
         builder.addSlot(OUTPUT, 81, 9)
                 .setBackground(JeiDrawables.OUTPUT_SLOT, -5, -5)

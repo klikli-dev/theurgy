@@ -1,0 +1,22 @@
+{
+  "type": "theurgy:digestion",
+  "fluid": {
+    "tag": "theurgy:sal_ammoniac"
+  },
+  "fluidAmount": 50,
+  "ingredients": [
+    {
+      "count": 4,
+      "tag": "theurgy:alchemical_sulfur_gems_rare"
+    },
+    {
+      "count": 1,
+      "tag": "theurgy:purified_gold"
+    }
+  ],
+  "result": {
+    "Count": 1,
+    "id": "theurgy:alchemical_sulfur_gems_precious"
+  },
+  "time": 1000
+}

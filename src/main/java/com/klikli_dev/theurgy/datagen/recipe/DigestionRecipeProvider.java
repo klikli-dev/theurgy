@@ -20,7 +20,6 @@ import net.minecraftforge.common.Tags;
 
 import java.util.List;
 import java.util.function.BiConsumer;
-import java.util.stream.Stream;
 
 public class DigestionRecipeProvider extends JsonRecipeProvider {
 
@@ -38,19 +37,35 @@ public class DigestionRecipeProvider extends JsonRecipeProvider {
         ), ItemRegistry.PURIFIED_GOLD.get(), 10, TIME * 5);
 
         this.makeRecipe(FluidRegistry.SAL_AMMONIAC.get(), 10, List.of(
-            Pair.of(SulfurRegistry.GEMS_ABUNDANT.get(), 4),
+                Pair.of(SulfurRegistry.GEMS_ABUNDANT.get(), 4),
                 Pair.of(ItemRegistry.PURIFIED_GOLD.get(), 1)
-        ), SulfurRegistry.GEMS_COMMON.get(), 1, TIME * 5);
+        ), SulfurRegistry.GEMS_COMMON.get(), 1, TIME * 5, "_from_abundant");
+        this.makeRecipe(FluidRegistry.SAL_AMMONIAC.get(), 10, List.of(
+                Pair.of(SulfurRegistry.GEMS_COMMON.get(), 1),
+                Pair.of(ItemRegistry.PURIFIED_GOLD.get(), 1)
+        ), SulfurRegistry.GEMS_ABUNDANT.get(), 4, TIME * 5, "_from_common");
 
         this.makeRecipe(FluidRegistry.SAL_AMMONIAC.get(), 15, List.of(
-            Pair.of(SulfurRegistry.GEMS_COMMON.get(), 4),
+                Pair.of(SulfurRegistry.GEMS_COMMON.get(), 4),
                 Pair.of(ItemRegistry.PURIFIED_GOLD.get(), 1)
-        ), SulfurRegistry.GEMS_RARE.get(), 1, TIME * 5);
+        ), SulfurRegistry.GEMS_RARE.get(), 1, TIME * 5, "_from_common");
+        this.makeRecipe(FluidRegistry.SAL_AMMONIAC.get(), 15, List.of(
+                Pair.of(SulfurRegistry.GEMS_RARE.get(), 1),
+                Pair.of(ItemRegistry.PURIFIED_GOLD.get(), 1)
+        ), SulfurRegistry.GEMS_COMMON.get(), 4, TIME * 5, "_from_rare");
 
         this.makeRecipe(FluidRegistry.SAL_AMMONIAC.get(), 50, List.of(
-            Pair.of(SulfurRegistry.GEMS_RARE.get(), 4),
+                Pair.of(SulfurRegistry.GEMS_RARE.get(), 4),
                 Pair.of(ItemRegistry.PURIFIED_GOLD.get(), 1)
-        ), SulfurRegistry.GEMS_PRECIOUS.get(), 1, TIME * 5);
+        ), SulfurRegistry.GEMS_PRECIOUS.get(), 1, TIME * 5, "_from_rare");
+        this.makeRecipe(FluidRegistry.SAL_AMMONIAC.get(), 50, List.of(
+                Pair.of(SulfurRegistry.GEMS_PRECIOUS.get(), 1),
+                Pair.of(ItemRegistry.PURIFIED_GOLD.get(), 1)
+        ), SulfurRegistry.GEMS_RARE.get(), 4, TIME * 5, "_from_precious");
+    }
+
+    public void makeRecipe(Fluid fluid, int fluidAmount, List<Pair<Item, Integer>> ingredients, Item result, int resultCount, int time, String postFix) {
+        this.makeRecipe(this.name(result) + postFix, fluid, fluidAmount, ingredients, result, resultCount, time);
     }
 
     public void makeRecipe(Fluid fluid, int fluidAmount, List<Pair<Item, Integer>> ingredients, Item result, int resultCount, int time) {
@@ -61,7 +76,7 @@ public class DigestionRecipeProvider extends JsonRecipeProvider {
         var recipe = this.makeRecipeJson(
                 this.makeFluidTagIngredient(this.locFor(fluid)),
                 fluidAmount,
-                ingredients.stream().map(i -> this.makeTagIngredient(this.locFor(i.getFirst()), i.getSecond())).toList(),
+                ingredients.stream().map(i -> this.makeItemIngredient(this.locFor(i.getFirst()), i.getSecond())).toList(),
                 this.makeItemStackCodecResult(this.locFor(result), resultCount),
                 time);
 

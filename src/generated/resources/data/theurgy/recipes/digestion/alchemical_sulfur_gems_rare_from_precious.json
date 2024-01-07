@@ -3,19 +3,19 @@
   "fluid": {
     "tag": "theurgy:sal_ammoniac"
   },
-  "fluidAmount": 15,
+  "fluidAmount": 50,
   "ingredients": [
     {
-      "count": 4,
-      "tag": "theurgy:alchemical_sulfur_gems_common"
+      "count": 1,
+      "item": "theurgy:alchemical_sulfur_gems_precious"
     },
     {
       "count": 1,
-      "tag": "theurgy:purified_gold"
+      "item": "theurgy:purified_gold"
     }
   ],
   "result": {
-    "Count": 1,
+    "Count": 4,
     "id": "theurgy:alchemical_sulfur_gems_rare"
   },
   "time": 1000

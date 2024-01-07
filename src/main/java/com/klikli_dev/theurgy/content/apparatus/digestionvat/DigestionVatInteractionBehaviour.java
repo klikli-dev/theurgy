@@ -20,7 +20,7 @@ public class DigestionVatInteractionBehaviour extends GenericVatInteractionBehav
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         var blockEntity = pLevel.getBlockEntity(pPos);
 
-        if (!(blockEntity instanceof FermentationVatBlockEntity vat))
+        if (!(blockEntity instanceof DigestionVatBlockEntity vat))
             return InteractionResult.PASS;
 
         return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);

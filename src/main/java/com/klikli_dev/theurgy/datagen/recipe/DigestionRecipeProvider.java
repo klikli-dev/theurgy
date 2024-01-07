@@ -20,7 +20,7 @@ import java.util.function.BiConsumer;
 
 public class DigestionRecipeProvider extends JsonRecipeProvider {
 
-    public static final int TIME = FermentationRecipe.TIME;
+    public static final int TIME = FermentationRecipe.DEFAULT_TIME;
 
     public DigestionRecipeProvider(PackOutput packOutput) {
         super(packOutput, Theurgy.MODID, "digestion");

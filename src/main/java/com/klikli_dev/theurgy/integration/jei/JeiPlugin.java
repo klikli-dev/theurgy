@@ -57,6 +57,7 @@ public class JeiPlugin implements IModPlugin {
         registration.addRecipeCategories(new AccumulationCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new ReformationCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new FermentationCategory(registration.getJeiHelpers().getGuiHelper()));
+        registration.addRecipeCategories(new DigestionCategory(registration.getJeiHelpers().getGuiHelper()));
     }
 
     @Override
@@ -104,6 +105,9 @@ public class JeiPlugin implements IModPlugin {
         var fermentationRecipes = recipeManager.getAllRecipesFor(RecipeTypeRegistry.FERMENTATION.get());
         registration.addRecipes(JeiRecipeTypes.FERMENTATION, fermentationRecipes);
 
+        var digestionRecipes = recipeManager.getAllRecipesFor(RecipeTypeRegistry.DIGESTION.get());
+        registration.addRecipes(JeiRecipeTypes.DIGESTION, digestionRecipes);
+
         this.registerIngredientInfo(registration, ItemRegistry.SAL_AMMONIAC_CRYSTAL.get());
     }
 
@@ -143,5 +147,8 @@ public class JeiPlugin implements IModPlugin {
 
         registration.addRecipeCatalyst(new ItemStack(BlockRegistry.FERMENTATION_VAT.get()),
                 JeiRecipeTypes.FERMENTATION);
+
+        registration.addRecipeCatalyst(new ItemStack(BlockRegistry.DIGESTION_VAT.get()),
+                JeiRecipeTypes.DIGESTION);
     }
 }

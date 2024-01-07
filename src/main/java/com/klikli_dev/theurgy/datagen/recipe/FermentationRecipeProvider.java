@@ -8,7 +8,6 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.content.recipe.FermentationRecipe;
-import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.registry.ItemTagRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import com.klikli_dev.theurgy.registry.SulfurRegistry;
@@ -18,14 +17,13 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraftforge.common.Tags;
 
 import java.util.List;
 import java.util.function.BiConsumer;
 
 public class FermentationRecipeProvider extends JsonRecipeProvider {
 
-    public static final int TIME = FermentationRecipe.TIME;
+    public static final int TIME = FermentationRecipe.DEFAULT_TIME;
 
     public FermentationRecipeProvider(PackOutput packOutput) {
         super(packOutput, Theurgy.MODID, "fermentation");

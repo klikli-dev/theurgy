@@ -31,14 +31,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FermentationRecipe implements Recipe<RecipeWrapperWithFluid> {
-    public static final int TIME = 200;
+    public static final int DEFAULT_TIME = 200;
 
     public static final Codec<FermentationRecipe> CODEC = RecordCodecBuilder.create(instance -> instance.group(
                     FluidIngredient.CODEC.fieldOf("fluid").forGetter((r) -> r.fluid),
                     Codec.INT.fieldOf("fluidAmount").forGetter((r) -> r.fluidAmount),
                     TheurgyExtraCodecs.INGREDIENT.listOf().fieldOf("ingredients").forGetter(r -> r.ingredients),
                     ItemStack.CODEC.fieldOf("result").forGetter(r -> r.result),
-                    Codec.INT.optionalFieldOf("time", TIME).forGetter(r -> r.time)
+                    Codec.INT.optionalFieldOf("time", DEFAULT_TIME).forGetter(r -> r.time)
             ).apply(instance, FermentationRecipe::new)
     );
     protected final FluidIngredient fluid;

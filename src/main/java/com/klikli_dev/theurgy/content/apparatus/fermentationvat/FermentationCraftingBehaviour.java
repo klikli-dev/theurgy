@@ -15,7 +15,6 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemHandlerHelper;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Supplier;
 
@@ -63,7 +62,7 @@ public class FermentationCraftingBehaviour extends CraftingBehaviour<RecipeWrapp
 
     @Override
     protected int getDefaultCraftingTime() {
-        return FermentationRecipe.TIME;
+        return FermentationRecipe.DEFAULT_TIME;
     }
 
     @Override

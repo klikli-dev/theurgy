@@ -9,7 +9,8 @@ import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.content.gui.GuiTextures;
-import com.klikli_dev.theurgy.content.recipe.FermentationRecipe;
+import com.klikli_dev.theurgy.content.recipe.DigestionRecipe;
+import com.klikli_dev.theurgy.content.recipe.DigestionRecipe;
 import com.klikli_dev.theurgy.integration.jei.JeiDrawables;
 import com.klikli_dev.theurgy.integration.jei.JeiRecipeTypes;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
@@ -37,17 +38,17 @@ import java.util.List;
 import static mezz.jei.api.recipe.RecipeIngredientRole.INPUT;
 import static mezz.jei.api.recipe.RecipeIngredientRole.OUTPUT;
 
-public class FermentationCategory implements IRecipeCategory<FermentationRecipe> {
+public class DigestionCategory implements IRecipeCategory<DigestionRecipe> {
     private final IDrawable background;
     private final IDrawable icon;
     private final Component localizedName;
     private final LoadingCache<Integer, IDrawableAnimated> cachedAnimatedArrow;
 
-    public FermentationCategory(IGuiHelper guiHelper) {
+    public DigestionCategory(IGuiHelper guiHelper) {
         this.background = guiHelper.createBlankDrawable(102, 43);
 
-        this.icon = guiHelper.createDrawableItemStack(new ItemStack(BlockRegistry.FERMENTATION_VAT.get()));
-        this.localizedName = Component.translatable(TheurgyConstants.I18n.JEI.FERMENTATION_CATEGORY);
+        this.icon = guiHelper.createDrawableItemStack(new ItemStack(BlockRegistry.DIGESTION_VAT.get()));
+        this.localizedName = Component.translatable(TheurgyConstants.I18n.JEI.DIGESTION_CATEGORY);
 
         //We need different animations for different cook times, hence the cache
         this.cachedAnimatedArrow = CacheBuilder.newBuilder()
@@ -80,10 +81,10 @@ public class FermentationCategory implements IRecipeCategory<FermentationRecipe>
         };
     }
 
-    protected IDrawableAnimated getAnimatedArrow(FermentationRecipe recipe) {
+    protected IDrawableAnimated getAnimatedArrow(DigestionRecipe recipe) {
         int cookTime = recipe.getTime();
         if (cookTime <= 0) {
-            cookTime = FermentationRecipe.DEFAULT_TIME;
+            cookTime = DigestionRecipe.DEFAULT_TIME;
         }
         return this.cachedAnimatedArrow.getUnchecked(cookTime);
     }
@@ -99,14 +100,14 @@ public class FermentationCategory implements IRecipeCategory<FermentationRecipe>
     }
 
     @Override
-    public void draw(FermentationRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+    public void draw(DigestionRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
         GuiTextures.JEI_ARROW_RIGHT_EMPTY.render(guiGraphics, 45, 8);
         this.getAnimatedArrow(recipe).draw(guiGraphics, 45, 8);
 
         this.drawCookTime(recipe, guiGraphics, 34);
     }
 
-    protected void drawCookTime(FermentationRecipe recipe, GuiGraphics guiGraphics, int y) {
+    protected void drawCookTime(DigestionRecipe recipe, GuiGraphics guiGraphics, int y) {
         int cookTime = recipe.getTime();
         if (cookTime > 0) {
             int cookTimeSeconds = cookTime / 20;
@@ -124,7 +125,7 @@ public class FermentationCategory implements IRecipeCategory<FermentationRecipe>
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder builder, FermentationRecipe recipe, IFocusGroup focuses) {
+    public void setRecipe(IRecipeLayoutBuilder builder, DigestionRecipe recipe, IFocusGroup focuses) {
         var topLeft = builder.addSlot(INPUT, 1, 1)
                 .setBackground(JeiDrawables.INPUT_SLOT, -1, -1);
         var topRight = builder.addSlot(INPUT, 1 + 18, 1)
@@ -155,7 +156,7 @@ public class FermentationCategory implements IRecipeCategory<FermentationRecipe>
         builder.addInvisibleIngredients(INPUT).addItemStacks(Arrays.stream(recipe.getFluid().getFluids()).map(f -> new ItemStack(f.getFluid().getBucket())).toList());
     }
 
-    public List<FluidStack> getFluids(FermentationRecipe recipe) {
+    public List<FluidStack> getFluids(DigestionRecipe recipe) {
         return Arrays.stream(recipe.getFluid().getFluids())
                 .map(f -> {
                     var stack = f.copy();
@@ -165,8 +166,8 @@ public class FermentationCategory implements IRecipeCategory<FermentationRecipe>
     }
 
     @Override
-    public RecipeType<FermentationRecipe> getRecipeType() {
-        return JeiRecipeTypes.FERMENTATION;
+    public RecipeType<DigestionRecipe> getRecipeType() {
+        return JeiRecipeTypes.DIGESTION;
     }
 
 }

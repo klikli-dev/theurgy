@@ -19,7 +19,7 @@ public class CreativeModeTabRegistry {
 
     public static final RegistryObject<CreativeModeTab> THEURGY = CREATIVE_MODE_TABS.register(Theurgy.MODID, () -> CreativeModeTab.builder()
             .withTabsBefore(CreativeModeTabs.COMBAT)
-            .icon(() -> ItemRegistry.EMPTY_JAR.get().getDefaultInstance())
+            .icon(() -> ItemRegistry.EMPTY_JAR_ICON.get().getDefaultInstance())
             .title(Component.translatable(TheurgyConstants.I18n.ITEM_GROUP))
             .displayItems((parameters, output) -> {
                 DivinationRodItem.registerCreativeModeTabs(ItemRegistry.DIVINATION_ROD_T1.get(), output);

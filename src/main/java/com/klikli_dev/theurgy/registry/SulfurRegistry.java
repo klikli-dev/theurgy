@@ -7,6 +7,7 @@ package com.klikli_dev.theurgy.registry;
 import com.google.common.base.Suppliers;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.content.item.AlchemicalSulfurItem;
+import com.klikli_dev.theurgy.content.item.AlchemicalSulfurTier;
 import com.klikli_dev.theurgy.content.recipe.LiquefactionRecipe;
 import com.klikli_dev.theurgy.util.LevelUtil;
 import net.minecraft.world.item.Item;
@@ -29,7 +30,8 @@ public class SulfurRegistry {
 
     public static final RegistryObject<AlchemicalSulfurItem> GENERIC = registerWithTagSourceNameOverride("generic");
 
-    public static final RegistryObject<AlchemicalSulfurItem> GEMS_ABUNDANT = registerGeneric("gems_abundant", ItemRegistry.GEMS_ABUNDANT_ICON);
+    //TODO: add the other generic sulfurs (niters) to the below list that preserves them in the creative tab
+    public static final RegistryObject<AlchemicalSulfurItem> GEMS_ABUNDANT = registerGeneric("gems_abundant", ItemRegistry.GEMS_ABUNDANT_ICON, AlchemicalSulfurTier.ABUNDANT);
 
     public static final RegistryObject<AlchemicalSulfurItem> LOGS = registerWithTagSourceNameOverride("logs");
 
@@ -98,8 +100,8 @@ public class SulfurRegistry {
         return register(name, () -> new AlchemicalSulfurItem(new Item.Properties()).overrideSourceName(true));
     }
 
-    public static RegistryObject<AlchemicalSulfurItem> registerGeneric(String name, Supplier<Item> sourceStackSupplier) {
-        return register(name, () -> new AlchemicalSulfurItem(new Item.Properties(), Suppliers.memoize(() -> new ItemStack(sourceStackSupplier.get()))).overrideSourceName(true));
+    public static RegistryObject<AlchemicalSulfurItem> registerGeneric(String name, Supplier<Item> sourceStackSupplier, AlchemicalSulfurTier tier) {
+        return register(name, () -> new AlchemicalSulfurItem(new Item.Properties(), Suppliers.memoize(() -> new ItemStack(sourceStackSupplier.get()))).overrideSourceName(true).autoTooltip(true, false).autoName(true, false).withJarIcon(Suppliers.memoize(() -> new ItemStack(ItemRegistry.EMPTY_JAR_IRON_BAND_ICON.get()))).tier(tier));
     }
 
     public static RegistryObject<AlchemicalSulfurItem> registerDefault(String name) {

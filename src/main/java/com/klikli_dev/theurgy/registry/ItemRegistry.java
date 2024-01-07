@@ -24,14 +24,26 @@ import net.minecraftforge.registries.RegistryObject;
 public class ItemRegistry {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Theurgy.MODID);
     //Helper items for rendering
-    public static final RegistryObject<Item> EMPTY_JAR =
-            ITEMS.register("empty_jar", () -> new Item(new Item.Properties()));
-    public static final RegistryObject<Item> EMPTY_JAR_LABELED =
-            ITEMS.register("empty_jar_labeled", () -> new Item(new Item.Properties()));
-    public static final RegistryObject<Item> JAR_LABEL =
-            ITEMS.register("jar_label", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> EMPTY_JAR_ICON =
+            ITEMS.register("empty_jar_icon", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> EMPTY_JAR_IRON_BAND_ICON =
+            ITEMS.register("empty_jar_iron_band_icon", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> EMPTY_JAR_LABELED_ICON =
+            ITEMS.register("empty_jar_labeled_icon", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> JAR_LABEL_ICON =
+            ITEMS.register("jar_label_icon", () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> JAR_LABEL_FRAME_ABUNDANT_ICON =
+            ITEMS.register("jar_label_frame_abundant_icon", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> JAR_LABEL_FRAME_COMMON_ICON =
+            ITEMS.register("jar_label_frame_common_icon", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> JAR_LABEL_FRAME_RARE_ICON =
+            ITEMS.register("jar_label_frame_rare_icon", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> JAR_LABEL_FRAME_PRECIOUS_ICON =
+            ITEMS.register("jar_label_frame_precious_icon", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> THE_HERMETICA_ICON =
             ITEMS.register("the_hermetica_icon", () -> new Item(new Item.Properties()));
+
 
     public static final RegistryObject<Item> GEMS_ABUNDANT_ICON = ITEMS.register("gems_abundant_icon", () -> new Item(new Item.Properties()));
     //Divination rods

@@ -6,27 +6,32 @@ package com.klikli_dev.theurgy.content.item.render;
 
 import com.klikli_dev.theurgy.config.ClientConfig;
 import com.klikli_dev.theurgy.content.item.AlchemicalSulfurItem;
+import com.klikli_dev.theurgy.content.item.AlchemicalSulfurTier;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.mojang.blaze3d.platform.Lighting;
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderStateShard;
 import net.minecraft.client.renderer.entity.ItemRenderer;
-import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.resources.model.BakedModel;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
+
+import java.util.Map;
 
 public class AlchemicalSulfurBEWLR extends BlockEntityWithoutLevelRenderer {
 
     private static final AlchemicalSulfurBEWLR instance = new AlchemicalSulfurBEWLR();
-    private static final ItemStack emptyJarStack = new ItemStack(ItemRegistry.EMPTY_JAR.get());
-    private static final ItemStack labeledEmptyJarStack = new ItemStack(ItemRegistry.EMPTY_JAR_LABELED.get());
-    private static final ItemStack labelStack = new ItemStack(ItemRegistry.JAR_LABEL.get());
+    private static final ItemStack labeledEmptyJarStack = new ItemStack(ItemRegistry.EMPTY_JAR_LABELED_ICON.get());
+    private static final ItemStack labelStack = new ItemStack(ItemRegistry.JAR_LABEL_ICON.get());
+
+    private static final Map<AlchemicalSulfurTier, ItemStack> tierToIconMap = Map.of(
+            AlchemicalSulfurTier.ABUNDANT, new ItemStack(ItemRegistry.JAR_LABEL_FRAME_ABUNDANT_ICON.get()),
+            AlchemicalSulfurTier.COMMON, new ItemStack(ItemRegistry.JAR_LABEL_FRAME_COMMON_ICON.get()),
+            AlchemicalSulfurTier.RARE, new ItemStack(ItemRegistry.JAR_LABEL_FRAME_RARE_ICON.get()),
+            AlchemicalSulfurTier.PRECIOUS, new ItemStack(ItemRegistry.JAR_LABEL_FRAME_PRECIOUS_ICON.get())
+    );
 
     public AlchemicalSulfurBEWLR() {
         super(null, null);
@@ -46,7 +51,8 @@ public class AlchemicalSulfurBEWLR extends BlockEntityWithoutLevelRenderer {
         var renderSource = ClientConfig.get().rendering.renderSulfurSourceItem.get();
 
         //if we do not render the source we show a simplified labeled icon with pixels representing fictional text
-        var jarStack = renderSource ? emptyJarStack : labeledEmptyJarStack;
+        var jarStack = renderSource ? AlchemicalSulfurItem.getEmptyJarStack(sulfurStack)
+                : labeledEmptyJarStack;
 
         pPoseStack.popPose();
         pPoseStack.pushPose(); //reset pose that we get from the item renderer, it moves by half a block which we don't want
@@ -63,12 +69,45 @@ public class AlchemicalSulfurBEWLR extends BlockEntityWithoutLevelRenderer {
 
         //note: if we reset to 3d item light here it ignores it above and renders dark .. idk why
 
+
+        this.renderLabelFrame(sulfurStack, displayContext, pPoseStack, pBuffer, pPackedLight, pPackedOverlay);
+
         //if we render the source we render a text-less clean label and the source item on top of the jar stack
         if (renderSource) {
             this.renderLabel(sulfurStack, displayContext, pPoseStack, pBuffer, pPackedLight, pPackedOverlay);
             this.renderContainedItem(sulfurStack, displayContext, pPoseStack, pBuffer, pPackedLight, pPackedOverlay);
         }
 
+    }
+
+    public void renderLabelFrame(ItemStack sulfurStack, ItemDisplayContext displayContext, PoseStack pPoseStack, MultiBufferSource pBuffer, int pPackedLight, int pPackedOverlay) {
+
+        ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
+
+        var tierStack = tierToIconMap.get(AlchemicalSulfurItem.getTier(sulfurStack));
+        BakedModel labelModel = itemRenderer.getModel(tierStack, null, null, 0);
+
+        pPoseStack.pushPose();
+
+        //now apply the transform to the label to make it look right in-world -> because below we render with gui transform which would mess it up
+        //despite this returning a model (self in fact) it actually modifies the pose stack, hence the pushPose above!
+        labelModel.applyTransform(displayContext, pPoseStack, isLeftHand(displayContext));
+
+        pPoseStack.pushPose();
+
+        float pixel = 1f / 16f;
+        pPoseStack.translate(0, 0, pixel * 0.5); //move it before item
+
+        //pPoseStack.translate(0, -pixel * 3, 0); //position it on the item -> center
+        pPoseStack.scale(1F, 1F, 0.01F); //flatten item
+
+        Lighting.setupForFlatItems(); //always render label flat
+        itemRenderer.render(tierStack, ItemDisplayContext.GUI, isLeftHand(displayContext), pPoseStack, pBuffer, pPackedLight, pPackedOverlay, labelModel);
+        //note: if we reset to 3d item light here it ignores it above and renders dark .. idk why
+
+        pPoseStack.popPose();
+
+        pPoseStack.popPose();
     }
 
     public void renderLabel(ItemStack sulfurStack, ItemDisplayContext displayContext, PoseStack pPoseStack, MultiBufferSource pBuffer, int pPackedLight, int pPackedOverlay) {

@@ -9,6 +9,7 @@ import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.content.item.AlchemicalSaltItem;
 import com.klikli_dev.theurgy.content.item.AlchemicalSulfurItem;
+import com.klikli_dev.theurgy.content.item.AlchemicalSulfurTier;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.registry.SaltRegistry;
@@ -272,19 +273,31 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
                 "Ore that yields Sal Ammoniac Crystals for use in a Sal Ammoniac Accumulator.");
     }
 
+    private void addGenericSulfur(AlchemicalSulfurItem sulfur) {
+        this.addItem(() -> sulfur, "Alchemical Niter %s");
+        this.addTooltip(() -> sulfur,
+                "Alchemical Niter crafted from Alchemical Sulfur of any %s.",
+                "Niter represents the abstract category and value of an object, thus it is a further abstraction the \"idea\" or \"soul\" represented by Sulfur.",
+                "Niter extraction is a required intermediate step to transform one type of Sulfur into another type.");
+    }
     private void addSulfurs() {
         this.add(TheurgyConstants.I18n.Item.ALCHEMICAL_SULFUR_UNKNOWN_SOURCE, "Unknown Source");
 
+        this.add(AlchemicalSulfurTier.ABUNDANT.descriptionId(), "Abundant");
+        this.add(AlchemicalSulfurTier.COMMON.descriptionId(), "Common");
+        this.add(AlchemicalSulfurTier.RARE.descriptionId(), "Rare");
+        this.add(AlchemicalSulfurTier.PRECIOUS.descriptionId(), "Precious");
+
         //Automatic sulfur name rendering
         SulfurRegistry.SULFURS.getEntries().stream().map(RegistryObject::get).map(AlchemicalSulfurItem.class::cast).forEach(sulfur -> {
-            if (sulfur.useAutomaticNameRendering) {
+            if (sulfur.useAutomaticNameLangGeneration) {
                 this.addItem(() -> sulfur, "Alchemical Sulfur %s");
             }
-            if (sulfur.provideAutomaticTooltipData) {
+            if (sulfur.useAutomaticTooltipLangGeneration) {
                 this.addTooltip(() -> sulfur,
-                        "Alchemical Sulfur crafted from %s.",
-                        null,
-                        "Sulfur represents the \"idea\" or \"soul\" of an object and is the key to replication and transmutation.");
+                        "Alchemical Sulfur crafted from %s %s.",
+                        "Sulfur represents the \"idea\" or \"soul\" of an object",
+                        "Sulfur is the central element in Spagyrics processes.");
             }
         });
 
@@ -295,8 +308,10 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
 
 
 
+
         //Names for generic sulfurs
         this.addSulfurSource(SulfurRegistry.GEMS_ABUNDANT, "Abundant Gems");
+        this.addGenericSulfur(SulfurRegistry.GEMS_ABUNDANT.get());
 
         //Names for Sulfurs with overrideSourceName
         //Common Metals
@@ -483,13 +498,31 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.addSulfurs();
         this.addDivinationRods();
 
-        this.addItem(ItemRegistry.EMPTY_JAR, "Empty Jar");
+        this.addItem(ItemRegistry.EMPTY_JAR_ICON, "Empty Jar Icon");
+        this.addTooltip(ItemRegistry.EMPTY_JAR_ICON, "Dummy item for rendering.");
+        this.addItem(ItemRegistry.EMPTY_JAR_IRON_BAND_ICON, "Empty Jar with Iron Band Icon");
+        this.addTooltip(ItemRegistry.EMPTY_JAR_IRON_BAND_ICON, "Dummy item for rendering.");
 
-        this.addItem(ItemRegistry.EMPTY_JAR_LABELED, "Labeled Empty Jar");
-        this.addTooltip(ItemRegistry.EMPTY_JAR_LABELED, "Dummy item for rendering Alchemical Sulfur if source items are not shown.");
+        this.addItem(ItemRegistry.EMPTY_JAR_LABELED_ICON, "Labeled Empty Jar Icon");
+        this.addTooltip(ItemRegistry.EMPTY_JAR_LABELED_ICON, "Dummy item for rendering.");
 
-        this.addItem(ItemRegistry.JAR_LABEL, "Jar Label");
-        this.addTooltip(ItemRegistry.JAR_LABEL, "Dummy item for rendering Alchemical Sulfur if source items are shown.");
+        this.addItem(ItemRegistry.JAR_LABEL_ICON, "Jar Label Icon");
+        this.addTooltip(ItemRegistry.JAR_LABEL_ICON, "Dummy item for rendering.");
+
+        this.addItem(ItemRegistry.JAR_LABEL_FRAME_ABUNDANT_ICON, "Jar Label Frame Abundant Icon");
+        this.addTooltip(ItemRegistry.JAR_LABEL_FRAME_ABUNDANT_ICON, "Dummy item for rendering.");
+
+        this.addItem(ItemRegistry.JAR_LABEL_FRAME_COMMON_ICON, "Jar Label Frame Common Icon");
+        this.addTooltip(ItemRegistry.JAR_LABEL_FRAME_COMMON_ICON, "Dummy item for rendering.");
+
+        this.addItem(ItemRegistry.JAR_LABEL_FRAME_RARE_ICON, "Jar Label Frame Rare Icon");
+        this.addTooltip(ItemRegistry.JAR_LABEL_FRAME_RARE_ICON, "Dummy item for rendering.");
+
+        this.addItem(ItemRegistry.JAR_LABEL_FRAME_PRECIOUS_ICON, "Jar Label Frame Precious Icon");
+        this.addTooltip(ItemRegistry.JAR_LABEL_FRAME_PRECIOUS_ICON, "Dummy item for rendering.");
+
+        this.addItem(ItemRegistry.THE_HERMETICA_ICON, "The Hermetica Icon");
+        this.addTooltip(ItemRegistry.THE_HERMETICA_ICON, "Dummy item for rendering.");
 
 
         this.addItem(ItemRegistry.SAL_AMMONIAC_BUCKET, "Sal Ammoniac Bucket");

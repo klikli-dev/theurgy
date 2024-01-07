@@ -1,6 +1,5 @@
 package com.klikli_dev.theurgy.content.apparatus.digestionvat;
 
-import com.klikli_dev.theurgy.content.apparatus.fermentationvat.FermentationVatBlock;
 import com.klikli_dev.theurgy.content.behaviour.*;
 import com.klikli_dev.theurgy.content.recipe.DigestionRecipe;
 import com.klikli_dev.theurgy.content.recipe.wrapper.RecipeWrapperWithFluid;
@@ -84,13 +83,13 @@ public class DigestionVatBlockEntity extends BlockEntity implements HasCraftingB
         //TODO: isProcessing syncs to client - should we act on that?
         //      a bubbling sound would be good
         //      we may be able to just use the closed state clientside to not have to tick the TE -> however, not really a relevant optimization
-        boolean isOpen = this.getBlockState().getValue(FermentationVatBlock.OPEN);
+        boolean isOpen = this.getBlockState().getValue(BlockStateProperties.OPEN);
         boolean hasInput = this.hasInput();
 
         this.craftingBehaviour.tickServer(!isOpen, hasInput);
 
         if (!this.craftingBehaviour.isProcessing() && !isOpen) {
-            this.level.setBlock(this.getBlockPos(), this.getBlockState().setValue(FermentationVatBlock.OPEN, true), Block.UPDATE_CLIENTS);
+            this.level.setBlock(this.getBlockPos(), this.getBlockState().setValue(BlockStateProperties.OPEN, true), Block.UPDATE_CLIENTS);
         }
     }
 

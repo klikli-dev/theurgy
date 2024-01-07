@@ -44,7 +44,7 @@ public class RecipeSerializerRegistry {
 
     public static final RegistryObject<RecipeSerializer<?>> FERMENTATION = RECIPE_SERIALIZERS.register("fermentation", FermentationRecipe.Serializer::new);
 
-    public static final RegistryObject<RecipeSerializer<?>> DIGESTION = RECIPE_SERIALIZERS.register("digestion", FermentationRecipe.Serializer::new);
+    public static final RegistryObject<RecipeSerializer<?>> DIGESTION = RECIPE_SERIALIZERS.register("digestion", DigestionRecipe.Serializer::new);
 
 
     public static void onRegisterRecipeSerializers(RegisterEvent event) {

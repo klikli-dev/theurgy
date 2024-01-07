@@ -6,7 +6,7 @@ public enum AlchemicalSulfurTier {
     ABUNDANT(0xcfcfcf),
     COMMON(0x41b335),
     RARE(0x413fa3),
-    PRECIOUS(0x6e2f74);
+    PRECIOUS(0xd20dd4);
 
     public final int color;
     public final String descriptionId;

@@ -55,16 +55,16 @@ public class TheurgyBlockStateProvider extends BlockStateProvider {
     protected void registerFermentationVat() {
         //for now we use a barrel, later we add the appropriate improved textures
         var model = this.models().withExistingParent("fermentation_vat", this.mcLoc("block/cube_bottom_top"))
-                .texture("bottom", this.mcLoc("block/barrel_bottom"))
-                .texture("side", this.mcLoc("block/barrel_side"))
-                .texture("top", this.mcLoc("block/barrel_top"))
-                .texture("particle", this.mcLoc("block/barrel_top"));
+                .texture("bottom", this.modLoc("block/fermentation_vat_bottom"))
+                .texture("side", this.modLoc("block/fermentation_vat_side"))
+                .texture("top", this.modLoc("block/fermentation_vat_top"))
+                .texture("particle", this.modLoc("block/fermentation_vat_top"));
 
         var modelOpen = this.models().withExistingParent("fermentation_vat_open", this.mcLoc("block/cube_bottom_top"))
-                .texture("bottom", this.mcLoc("block/barrel_bottom"))
-                .texture("side", this.mcLoc("block/barrel_side"))
-                .texture("top", this.mcLoc("block/barrel_top_open"))
-                .texture("particle", this.mcLoc("block/barrel_top"));
+                .texture("bottom", this.modLoc("block/fermentation_vat_bottom"))
+                .texture("side", this.modLoc("block/fermentation_vat_side"))
+                .texture("top", this.modLoc("block/fermentation_vat_top_open"))
+                .texture("particle", this.modLoc("block/fermentation_vat_top"));
 
 
         //build blockstate
@@ -74,7 +74,7 @@ public class TheurgyBlockStateProvider extends BlockStateProvider {
 
     protected void registerDigestionVat() {
         //rendered by block entity renderer, so just a particle texture but no actual model
-        var model = this.models().getBuilder("digestion_vat").texture("particle", "minecraft:block/terracotta");
+        var model = this.models().getBuilder("digestion_vat").texture("particle", "minecraft:block/blue_terracotta");
 
         this.simpleBlock(BlockRegistry.DIGESTION_VAT.get(), model);
 

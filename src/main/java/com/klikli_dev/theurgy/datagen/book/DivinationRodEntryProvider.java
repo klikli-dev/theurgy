@@ -6,6 +6,7 @@ package com.klikli_dev.theurgy.datagen.book;
 
 import com.klikli_dev.modonomicon.api.datagen.CategoryEntryMap;
 import com.klikli_dev.modonomicon.api.datagen.CategoryProvider;
+import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
 import com.klikli_dev.modonomicon.api.datagen.book.BookCategoryModel;
 import com.klikli_dev.modonomicon.api.datagen.book.BookEntryModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookCraftingRecipePageModel;

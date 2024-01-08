@@ -5,6 +5,7 @@
 package com.klikli_dev.theurgy.datagen.book;
 
 import com.klikli_dev.modonomicon.api.datagen.CategoryProvider;
+import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
 import com.klikli_dev.modonomicon.api.datagen.book.BookCategoryModel;
 import com.klikli_dev.modonomicon.api.datagen.book.BookEntryModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
@@ -204,7 +205,6 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
 
 
         return this.entry(location).withIcon(ItemRegistry.THE_HERMETICA_ICON.get())
-
                 .withEntryBackground(EntryBackground.CATEGORY_START).withPages(intro, help);
     }
 

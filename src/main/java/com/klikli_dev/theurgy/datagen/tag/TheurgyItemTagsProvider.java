@@ -5,6 +5,8 @@
 package com.klikli_dev.theurgy.datagen.tag;
 
 import com.klikli_dev.theurgy.Theurgy;
+import com.klikli_dev.theurgy.content.item.AlchemicalSulfurItem;
+import com.klikli_dev.theurgy.content.item.AlchemicalSulfurType;
 import com.klikli_dev.theurgy.datagen.SulfurMappings;
 import com.klikli_dev.theurgy.registry.*;
 import net.minecraft.core.HolderLookup;
@@ -49,7 +51,10 @@ public class TheurgyItemTagsProvider extends ItemTagsProvider {
 
         var sulfursTag = this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS);
         SulfurRegistry.SULFURS.getEntries().forEach(sulfur -> {
-            sulfursTag.add(sulfur.get());
+            if(sulfur.get() instanceof AlchemicalSulfurItem alchemicalSulfurItem){
+                if(alchemicalSulfurItem.type() != AlchemicalSulfurType.NITER)
+                    sulfursTag.add(sulfur.get());
+            }
         });
 
         this.tag(ItemTagRegistry.SUGAR)

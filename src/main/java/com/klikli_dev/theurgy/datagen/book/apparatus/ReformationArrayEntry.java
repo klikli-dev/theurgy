@@ -29,7 +29,9 @@ public class ReformationArrayEntry extends EntryProvider {
         this.pageTitle("Reformation Array");
         this.pageText(
                 """
-                        The reformation array provides the necessary framework for to attune Sulfuric Flux to a target sulfur and use it to transform source sulfur into that target type of sulfur.
+                        Reformation is the process of converting sulfurs into other Sulfurs of the same type and tier (such as common gems to common gems).\\
+                        Further, it can be used to convert between different types of Niters of the same tier, and to convert Niters into Sulfurs.
+                        The reformation array provides the necessary framework to perform this process.
                          """
         );
         this.page("structure", () -> BookTextPageModel.builder()
@@ -111,7 +113,7 @@ public class ReformationArrayEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Conversion of Sulfur into other types of Sulfur (= Convert Matter into other Matter!)";
+        return "Conversion of Sulfur into other Sulfurs of the same type";
     }
 
     @Override

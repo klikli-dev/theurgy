@@ -33,6 +33,7 @@ public class ApparatusCategory extends CategoryProvider {
                 "__________________________________",
                 "____________ș___h_________________",
                 "__________________________________",
+                "______________________é___________",
                 "__________________________________"
 
         };
@@ -49,6 +50,12 @@ public class ApparatusCategory extends CategoryProvider {
        this.spagyricsEntries(introEntry);
        this.mercuryFluxEntries(introEntry);
        this.reformationEntries(introEntry);
+         this.exaltationEntries(introEntry);
+    }
+
+    private void exaltationEntries(BookEntryModel parent){
+        var exaltationEntry = new ExaltationEntry(this).generate('é');
+        exaltationEntry.addParent(this.parent(parent));
     }
 
     private void reformationEntries(BookEntryModel parent){

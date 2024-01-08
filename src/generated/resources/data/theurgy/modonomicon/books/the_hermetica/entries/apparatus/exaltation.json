@@ -2,27 +2,29 @@
   "background_u_index": 0,
   "background_v_index": 2,
   "category": "theurgy:apparatus",
-  "description": "book.theurgy.the_hermetica.apparatus.spagyrics.description",
+  "description": "book.theurgy.the_hermetica.apparatus.exaltation.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "theurgy:liquefaction_cauldron"
+    "height": 64,
+    "texture": "theurgy:textures/gui/book/convert_niter.png",
+    "width": 64
   },
-  "name": "book.theurgy.the_hermetica.apparatus.spagyrics.name",
+  "name": "book.theurgy.the_hermetica.apparatus.exaltation.name",
   "pages": [
     {
       "type": "modonomicon:text",
       "anchor": "",
       "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.apparatus.spagyrics.intro.text",
-      "title": "book.theurgy.the_hermetica.apparatus.spagyrics.intro.title",
+      "text": "book.theurgy.the_hermetica.apparatus.exaltation.about.text",
+      "title": "book.theurgy.the_hermetica.apparatus.exaltation.about.title",
       "use_markdown_in_title": false
     },
     {
       "type": "modonomicon:text",
       "anchor": "",
       "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.apparatus.spagyrics.further_reading.text",
-      "title": "book.theurgy.the_hermetica.apparatus.spagyrics.further_reading.title",
+      "text": "book.theurgy.the_hermetica.apparatus.exaltation.structure.text",
+      "title": "book.theurgy.the_hermetica.apparatus.exaltation.structure.title",
       "use_markdown_in_title": false
     }
   ],
@@ -34,6 +36,6 @@
       "line_reversed": false
     }
   ],
-  "x": -1,
-  "y": -4
+  "x": 5,
+  "y": 4
 }

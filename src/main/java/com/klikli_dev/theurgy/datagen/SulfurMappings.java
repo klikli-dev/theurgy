@@ -1,124 +1,164 @@
 package com.klikli_dev.theurgy.datagen;
 
 import com.klikli_dev.theurgy.content.item.AlchemicalSulfurItem;
+import com.klikli_dev.theurgy.content.item.AlchemicalSulfurTier;
+import com.klikli_dev.theurgy.content.item.AlchemicalSulfurType;
 import com.klikli_dev.theurgy.registry.SulfurRegistry;
 
 import java.util.List;
 import java.util.stream.Stream;
 
 public class SulfurMappings {
-    public static final List<AlchemicalSulfurItem> GEMS_ABUNDANT = List.of(
-            SulfurRegistry.APATITE.get(),
-            SulfurRegistry.FLUORITE.get(),
-            SulfurRegistry.SAL_AMMONIAC.get()
-    );
+    private static List<AlchemicalSulfurItem> GEMS_ABUNDANT;
 
-    public static final List<AlchemicalSulfurItem> GEMS_COMMON = List.of(
-            SulfurRegistry.QUARTZ.get(),
-            SulfurRegistry.LAPIS.get()
-    );
+    private static List<AlchemicalSulfurItem> GEMS_COMMON;
 
-    public static final List<AlchemicalSulfurItem> GEMS_RARE = List.of(
-            SulfurRegistry.PRISMARINE.get(),
-            SulfurRegistry.AMETHYST.get(),
-            SulfurRegistry.PERIDOT.get(),
-            SulfurRegistry.RUBY.get(),
-            SulfurRegistry.SAPPHIRE.get()
-    );
+    private static List<AlchemicalSulfurItem> GEMS_RARE;
 
-    public static final List<AlchemicalSulfurItem> GEMS_PRECIOUS = List.of(
-            SulfurRegistry.DIAMOND.get(),
-            SulfurRegistry.EMERALD.get()
-    );
+    private static List<AlchemicalSulfurItem> GEMS_PRECIOUS;
 
-    public static final List<AlchemicalSulfurItem> GEMS = Stream.of(
-            GEMS_ABUNDANT,
-            GEMS_COMMON,
-            GEMS_RARE,
-            GEMS_PRECIOUS
-    ).flatMap(List::stream).toList();
+    private static List<AlchemicalSulfurItem> METALS_ABUNDANT;
 
-    public static final List<AlchemicalSulfurItem> METALS_ABUNDANT = List.of(
-            SulfurRegistry.COPPER.get()
-    );
 
-    public static final List<AlchemicalSulfurItem> METALS_COMMON = List.of(
-            SulfurRegistry.IRON.get(),
-            SulfurRegistry.TIN.get(),
-            SulfurRegistry.ZINC.get(),
-            SulfurRegistry.LEAD.get(),
-            SulfurRegistry.NICKEL.get(),
-            SulfurRegistry.CINNABAR.get(),
-            SulfurRegistry.OSMIUM.get()
-    );
+    private static List<AlchemicalSulfurItem> METALS_COMMON;
 
-    public static final List<AlchemicalSulfurItem> METALS_RARE = List.of(
-            SulfurRegistry.CRIMSON_IRON.get(),
-            SulfurRegistry.SILVER.get(),
-            SulfurRegistry.GOLD.get(),
-            SulfurRegistry.URANIUM.get(),
-            SulfurRegistry.AZURE_SILVER.get(),
-            SulfurRegistry.IRIDIUM.get(),
-            SulfurRegistry.PLATINUM.get()
-    );
 
-    public static final List<AlchemicalSulfurItem> METALS_PRECIOUS = List.of(
-            SulfurRegistry.NETHERITE.get(),
-            SulfurRegistry.ALLTHEMODIUM.get(),
-            SulfurRegistry.UNOBTAINIUM.get(),
-            SulfurRegistry.VIBRANIUM.get()
-    );
+    private static List<AlchemicalSulfurItem> METALS_RARE;
 
-    public static final List<AlchemicalSulfurItem> METALS = Stream.of(
-            METALS_ABUNDANT,
-            METALS_COMMON,
-            METALS_RARE,
-            METALS_PRECIOUS
-    ).flatMap(List::stream).toList();
+    private static List<AlchemicalSulfurItem> METALS_PRECIOUS;
 
-    public static final List<AlchemicalSulfurItem> OTHER_MINERALS_ABUNDANT = List.of(
-            SulfurRegistry.COAL.get()
-    );
+    private static List<AlchemicalSulfurItem> OTHER_MINERALS_ABUNDANT;
+    private static List<AlchemicalSulfurItem> OTHER_MINERALS_COMMON;
 
-    public static final List<AlchemicalSulfurItem> OTHER_MINERALS_COMMON = List.of(
-            SulfurRegistry.REDSTONE.get(),
-            SulfurRegistry.SULFUR.get()
-    );
+    private static List<AlchemicalSulfurItem> OTHER_MINERALS_RARE;
+    private static List<AlchemicalSulfurItem> OTHER_MINERALS_PRECIOUS;
 
-    public static final List<AlchemicalSulfurItem> OTHER_MINERALS_RARE = List.of(
-    );
+    public static List<AlchemicalSulfurItem> gemsAbundant(){
+        if(GEMS_ABUNDANT != null){
+            return GEMS_ABUNDANT;
+        }
 
-    public static final List<AlchemicalSulfurItem> OTHER_MINERALS_PRECIOUS = List.of(
-    );
+        GEMS_ABUNDANT = find(AlchemicalSulfurType.GEMS, AlchemicalSulfurTier.ABUNDANT);
 
-    public static final List<AlchemicalSulfurItem> OTHER_MINERALS = Stream.of(
-            OTHER_MINERALS_ABUNDANT,
-            OTHER_MINERALS_COMMON,
-            OTHER_MINERALS_RARE,
-            OTHER_MINERALS_PRECIOUS
-    ).flatMap(List::stream).toList();
+        return GEMS_ABUNDANT;
+    }
 
-    public static final List<AlchemicalSulfurItem> ABUNDANT = Stream.of(
-            GEMS_ABUNDANT,
-            METALS_ABUNDANT,
-            OTHER_MINERALS_ABUNDANT
-    ).flatMap(List::stream).toList();
+    public static List<AlchemicalSulfurItem> gemsCommon(){
+        if(GEMS_COMMON != null){
+            return GEMS_COMMON;
+        }
 
-    public static final List<AlchemicalSulfurItem> COMMON = Stream.of(
-            GEMS_COMMON,
-            METALS_COMMON,
-            OTHER_MINERALS_COMMON
-    ).flatMap(List::stream).toList();
+        GEMS_COMMON = find(AlchemicalSulfurType.GEMS, AlchemicalSulfurTier.COMMON);
 
-    public static final List<AlchemicalSulfurItem> RARE = Stream.of(
-            GEMS_RARE,
-            METALS_RARE,
-            OTHER_MINERALS_RARE
-    ).flatMap(List::stream).toList();
+        return GEMS_COMMON;
+    }
 
-    public static final List<AlchemicalSulfurItem> PRECIOUS = Stream.of(
-            GEMS_PRECIOUS,
-            METALS_PRECIOUS,
-            OTHER_MINERALS_PRECIOUS
-    ).flatMap(List::stream).toList();
+    public static List<AlchemicalSulfurItem> gemsRare(){
+        if(GEMS_RARE != null){
+            return GEMS_RARE;
+        }
+
+        GEMS_RARE = find(AlchemicalSulfurType.GEMS, AlchemicalSulfurTier.RARE);
+
+        return GEMS_RARE;
+    }
+
+    public static List<AlchemicalSulfurItem> gemsPrecious(){
+        if(GEMS_PRECIOUS != null){
+            return GEMS_PRECIOUS;
+        }
+
+        GEMS_PRECIOUS = find(AlchemicalSulfurType.GEMS, AlchemicalSulfurTier.PRECIOUS);
+
+        return GEMS_PRECIOUS;
+    }
+
+    public static List<AlchemicalSulfurItem> metalsAbundant(){
+        if(METALS_ABUNDANT != null){
+            return METALS_ABUNDANT;
+        }
+
+        METALS_ABUNDANT = find(AlchemicalSulfurType.METALS, AlchemicalSulfurTier.ABUNDANT);
+        return METALS_ABUNDANT;
+    }
+
+    public static List<AlchemicalSulfurItem> metalsCommon(){
+        if(METALS_COMMON != null){
+            return METALS_COMMON;
+        }
+
+        METALS_COMMON = find(AlchemicalSulfurType.METALS, AlchemicalSulfurTier.COMMON);
+
+        return METALS_COMMON;
+    }
+
+    public static List<AlchemicalSulfurItem> metalsRare(){
+        if(METALS_RARE != null){
+            return METALS_RARE;
+        }
+
+        METALS_RARE = find(AlchemicalSulfurType.METALS, AlchemicalSulfurTier.RARE);
+
+        return METALS_RARE;
+    }
+
+    public static List<AlchemicalSulfurItem> metalsPrecious(){
+        if(METALS_PRECIOUS != null){
+            return METALS_PRECIOUS;
+        }
+
+        METALS_PRECIOUS = find(AlchemicalSulfurType.METALS, AlchemicalSulfurTier.PRECIOUS);
+
+        return METALS_PRECIOUS;
+    }
+
+    public static List<AlchemicalSulfurItem> otherMineralsAbundant(){
+        if(OTHER_MINERALS_ABUNDANT != null){
+            return OTHER_MINERALS_ABUNDANT;
+        }
+
+        OTHER_MINERALS_ABUNDANT = find(AlchemicalSulfurType.OTHER_MINERALS, AlchemicalSulfurTier.ABUNDANT);
+
+        return OTHER_MINERALS_ABUNDANT;
+    }
+
+    public static List<AlchemicalSulfurItem> otherMineralsCommon(){
+        if(OTHER_MINERALS_COMMON != null){
+            return OTHER_MINERALS_COMMON;
+        }
+
+        OTHER_MINERALS_COMMON = find(AlchemicalSulfurType.OTHER_MINERALS, AlchemicalSulfurTier.COMMON);
+
+        return OTHER_MINERALS_COMMON;
+    }
+
+    public static List<AlchemicalSulfurItem> otherMineralsRare(){
+        if(OTHER_MINERALS_RARE != null){
+            return OTHER_MINERALS_RARE;
+        }
+
+        OTHER_MINERALS_RARE = find(AlchemicalSulfurType.OTHER_MINERALS, AlchemicalSulfurTier.RARE);
+
+        return OTHER_MINERALS_RARE;
+    }
+
+    public static List<AlchemicalSulfurItem> otherMineralsPrecious(){
+        if(OTHER_MINERALS_PRECIOUS != null){
+            return OTHER_MINERALS_PRECIOUS;
+        }
+
+        OTHER_MINERALS_PRECIOUS = find(AlchemicalSulfurType.OTHER_MINERALS, AlchemicalSulfurTier.PRECIOUS);
+
+        return OTHER_MINERALS_PRECIOUS;
+    }
+
+    private static List<AlchemicalSulfurItem> find(AlchemicalSulfurType type, AlchemicalSulfurTier tier){
+        return SulfurRegistry.SULFURS.getEntries().stream()
+                .map(entry -> entry.get())
+                .filter(entry -> entry instanceof AlchemicalSulfurItem)
+                .map(entry -> (AlchemicalSulfurItem) entry)
+                .filter(entry -> entry.type() == type)
+                .filter(entry -> entry.tier == tier)
+                .toList();
+    }
 }

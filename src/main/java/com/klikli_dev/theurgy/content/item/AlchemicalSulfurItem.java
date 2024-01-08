@@ -81,6 +81,7 @@ public class AlchemicalSulfurItem extends Item {
     public Supplier<ItemStack> emptyJarStackSupplier;
 
     public AlchemicalSulfurTier tier;
+    public AlchemicalSulfurType type;
 
     public AlchemicalSulfurItem(Properties pProperties) {
         this(pProperties, Suppliers.memoize(() -> ItemStack.EMPTY));
@@ -99,6 +100,7 @@ public class AlchemicalSulfurItem extends Item {
         this.sourceStackSupplier = sourceStackSupplier;
         this.emptyJarStackSupplier = Suppliers.memoize(() -> new ItemStack(ItemRegistry.EMPTY_JAR_ICON.get()));
         this.tier = AlchemicalSulfurTier.ABUNDANT;
+        this.type = AlchemicalSulfurType.MISC;
     }
 
     public static String getSourceItemId(ItemStack sulfurStack) {
@@ -208,6 +210,15 @@ public class AlchemicalSulfurItem extends Item {
 
     public AlchemicalSulfurTier tier() {
         return this.tier;
+    }
+
+    public AlchemicalSulfurItem type(AlchemicalSulfurType type) {
+        this.type = type;
+        return this;
+    }
+
+    public AlchemicalSulfurType type() {
+        return this.type;
     }
 
     public ItemStack getSourceStack() {

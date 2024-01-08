@@ -11,6 +11,10 @@ import com.klikli_dev.modonomicon.api.datagen.book.BookCategoryModel;
 import com.klikli_dev.modonomicon.api.datagen.book.BookEntryModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
+import com.klikli_dev.theurgy.datagen.book.apparatus.CalcinationOvenEntry;
+import com.klikli_dev.theurgy.datagen.book.apparatus.DistillerEntry;
+import com.klikli_dev.theurgy.datagen.book.apparatus.IncubatorEntry;
+import com.klikli_dev.theurgy.datagen.book.apparatus.LiquefactionCauldronEntry;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.registry.SaltRegistry;
 import com.klikli_dev.theurgy.registry.SulfurRegistry;
@@ -87,7 +91,7 @@ public class OreRefiningEntryProvider extends CategoryProvider {
                 """
                         To refine an Ore or Raw Metal you first need to {0} it, which will yield multiple Ore Sulfur. Additionally you need to obtain multiple heaps of {1} to provide a body for this multiplied Sulfur, and some {2} to provide the mercury for the soul of the resulting refined ingots.
                             """,
-                this.entryLink("liquefy", SpagyricsCategoryProvider.CATEGORY_ID, "liquefaction_cauldron"),
+                this.entryLink("liquefy", ApparatusCategory.CATEGORY_ID, LiquefactionCauldronEntry.ENTRY_ID),
                 this.itemLink("Mineral Salt", SaltRegistry.MINERAL.get()),
                 this.itemLink("Mercury Shards", ItemRegistry.MERCURY_SHARD.get())
         );
@@ -115,9 +119,9 @@ public class OreRefiningEntryProvider extends CategoryProvider {
                 """
                         The first and obvious solution to this chicken-and-egg problem is to {0} abundant metals, such as {1}, and use the salt to {2} more valuable materials such as {3} or even {4} as output.
                             """,
-                this.entryLink("calcinate", SpagyricsCategoryProvider.CATEGORY_ID, "calcination_oven"),
+                this.entryLink("calcinate", ApparatusCategory.CATEGORY_ID, CalcinationOvenEntry.ENTRY_ID),
                 this.itemLink(Items.RAW_COPPER),
-                this.entryLink("incubate", SpagyricsCategoryProvider.CATEGORY_ID, "incubator"),
+                this.entryLink("incubate", ApparatusCategory.CATEGORY_ID, IncubatorEntry.ENTRY_ID),
                 this.itemLink(Items.IRON_INGOT),
                 this.itemLink(Items.DIAMOND)
         );
@@ -147,7 +151,7 @@ public class OreRefiningEntryProvider extends CategoryProvider {
                         Obtaining {0} is usually not much of an issue as a wide variety of materials can be {1} to obtain in.
                             """,
                 this.itemLink(ItemRegistry.MERCURY_SHARD.get()),
-                this.entryLink("distilled", SpagyricsCategoryProvider.CATEGORY_ID, "distiller")
+                this.entryLink("distilled", ApparatusCategory.CATEGORY_ID, DistillerEntry.ENTRY_ID)
         );
 
         this.context().page("next");

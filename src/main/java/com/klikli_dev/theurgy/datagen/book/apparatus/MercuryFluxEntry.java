@@ -1,7 +1,6 @@
 package com.klikli_dev.theurgy.datagen.book.apparatus;
 
 import com.klikli_dev.modonomicon.api.datagen.CategoryProvider;
-import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
 import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
@@ -9,8 +8,9 @@ import com.klikli_dev.theurgy.datagen.book.SpagyricsCategoryProvider;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.mojang.datafixers.util.Pair;
 
-public class SpagyricsEntry extends EntryProvider {
-    public SpagyricsEntry(CategoryProvider parent) {
+public class MercuryFluxEntry extends EntryProvider {
+    public static final String ENTRY_ID = "mercury_flux";
+    public MercuryFluxEntry(CategoryProvider parent) {
         super(parent);
     }
 
@@ -20,31 +20,22 @@ public class SpagyricsEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
                 .build());
-        this.pageTitle("Spagyrics Apparatus");
+        this.pageTitle("Mercury Flux");
         this.pageText("""
-                Spagyrics Apparatus enable to separate and recombine the three principles of a substance.
-                """);
-
-        this.page("further_reading", () -> BookTextPageModel.builder()
-                .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
-        this.pageTitle("Further Reading");
-        this.pageText("""
-                        See {0}.
-                        """,
-                this.categoryLink("Spagyrics", SpagyricsCategoryProvider.CATEGORY_ID)
+                **Mercury** represents the Energy contained in all matter. The Spagyrics processes for Mercury extraction yield {0}. In this Form it is not immediately useful as an energy source, so it must first be transformed - catalyzed - into [#]($PURPLE)Mercury Flux[#](), which is Mercury in it's natural Form.
+                """,
+                this.itemLink(ItemRegistry.MERCURY_SHARD.get())
         );
     }
 
     @Override
     protected String entryName() {
-        return "Spagyrics Apparatus";
+        return "Mercury Flux";
     }
 
     @Override
     protected String entryDescription() {
-        return "Separating and Recombining the Three Principles";
+        return "Raw Energy Manipulation";
     }
 
     @Override
@@ -54,11 +45,11 @@ public class SpagyricsEntry extends EntryProvider {
 
     @Override
     protected BookIconModel entryIcon() {
-        return BookIconModel.create(ItemRegistry.LIQUEFACTION_CAULDRON.get());
+        return BookIconModel.create(ItemRegistry.MERCURY_SHARD.get());
     }
 
     @Override
     protected String entryId() {
-        return "spagyrics";
+        return ENTRY_ID;
     }
 }

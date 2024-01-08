@@ -13,6 +13,7 @@ import com.klikli_dev.modonomicon.api.datagen.book.page.BookCraftingRecipePageMo
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.klikli_dev.theurgy.Theurgy;
+import com.klikli_dev.theurgy.datagen.book.apparatus.LiquefactionCauldronEntry;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -210,7 +211,7 @@ public class DivinationRodEntryProvider extends CategoryProvider {
         this.add(this.context().pageText(),
                 """
                         To obtain sulfur for crafting this rod you first need to obtain an ore, ingot or gem of the type of material you want the rod to be attuned to. Then, you need to obtain it''s sulfur by melting it down in a {0}.
-                                 """, this.entryLink("Liquefaction Cauldron", "spagyrics", "liquefaction_cauldron"));
+                                 """, this.entryLink("Liquefaction Cauldron", ApparatusCategory.CATEGORY_ID, LiquefactionCauldronEntry.ENTRY_ID));
 
 
         this.context().page("recipe_abundant");

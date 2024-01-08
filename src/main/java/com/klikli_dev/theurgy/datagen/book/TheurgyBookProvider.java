@@ -33,9 +33,6 @@ public class TheurgyBookProvider extends BookProvider {
 
         var reformationCategory = new ReformationCategoryProvider(this).generate().withSortNumber(categorySortNum++);
 
-        var mercuryFluxCategory = new MercuryFluxCategoryProvider(this).generate().withSortNumber(categorySortNum++);
-        mercuryFluxCategory.withCondition(this.condition().entryRead(this.modLoc(GettingStartedCategoryProvider.CATEGORY_ID + "/mercury_flux")));
-
         var apparatusCategory = new ApparatusCategory(this).generate().withSortNumber(categorySortNum++);
 
         //TODO: entry read condition
@@ -49,7 +46,6 @@ public class TheurgyBookProvider extends BookProvider {
                         gettingStartedCategory,
                         spagyricsCategory,
                         reformationCategory,
-                        mercuryFluxCategory,
                         apparatusCategory
                 )
                 .withGenerateBookItem(true)

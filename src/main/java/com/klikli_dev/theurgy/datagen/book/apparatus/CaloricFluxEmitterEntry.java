@@ -8,66 +8,59 @@ import com.klikli_dev.modonomicon.api.datagen.book.page.BookCraftingRecipePageMo
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.klikli_dev.theurgy.Theurgy;
-import com.klikli_dev.theurgy.datagen.book.ApparatusCategory;
-import com.klikli_dev.theurgy.datagen.book.GettingStartedCategoryProvider;
-import com.klikli_dev.theurgy.datagen.book.SpagyricsCategoryProvider;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.world.item.crafting.Ingredient;
 
-public class PyromanticBrazierEntry extends EntryProvider {
-    public PyromanticBrazierEntry(CategoryProvider parent) {
+public class CaloricFluxEmitterEntry extends EntryProvider {
+
+    public static final String ENTRY_ID = "caloric_flux_emitter";
+
+    public CaloricFluxEmitterEntry(CategoryProvider parent) {
         super(parent);
     }
 
     @Override
     protected void generatePages() {
         this.page("intro", () -> BookSpotlightPageModel.builder()
-                .withItem(Ingredient.of(ItemRegistry.PYROMANTIC_BRAZIER.get()))
+                .withItem(Ingredient.of(ItemRegistry.CALORIC_FLUX_EMITTER.get()))
                 .withText(this.context().pageText())
                 .build());
         this.pageText("""
-                A simple heating apparatus that can be used to power other Alchemical Devices. It is powered by burning furnace fuel, such as wood, coal, or charcoal.
-                """);
+                       This devices converts raw mercury flux into [#]($PURPLE)Caloric Flux[#](), or simply: transferable heat. It can be used to power other alchemical apparatuses that would usually need a {0} below them.
+                        """,
+                this.itemLink(ItemRegistry.PYROMANTIC_BRAZIER.get())
+        );
 
         this.page("usage", () -> BookTextPageModel.builder()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
                 .build());
-
         this.pageTitle("Usage");
         this.pageText(
                 """
-                        Place the {0} below the Alchemical Device you want to power, then insert a fuel item by right-clicking the brazier with it.
-                        \\
-                        \\
-                        Alternatively a hopper (or pipes) can be used to insert fuel items.
+                        Right-click the target block with the {0} until it is highlighted. Then place the Emitter onto a Mercury Flux source, such as a {1}.\\
+                        The maximum range is **8** blocks.\\
+                        As long as mercury flux is provided to it, the emitter will send caloric flux to the target block and keep it heated.
                         """,
-                this.itemLink(ItemRegistry.PYROMANTIC_BRAZIER.get())
+                this.itemLink(ItemRegistry.CALORIC_FLUX_EMITTER.get()),
+                this.itemLink(ItemRegistry.MERCURY_CATALYST.get())
         );
 
         this.page("recipe", () -> BookCraftingRecipePageModel.builder()
-                .withRecipeId1(Theurgy.loc("crafting/shaped/pyromantic_brazier"))
+                .withRecipeId1(Theurgy.loc("crafting/shaped/caloric_flux_emitter_from_campfire"))
+                .withRecipeId2(Theurgy.loc("crafting/shaped/caloric_flux_emitter_from_lava_bucket"))
                 .build());
-
-        this.pageTitle("Upgrades");
-        this.pageText(
-                """
-                        To become independent from furnace fuel you can instead use a {0} to power your Alchemical Devices.\\
-                        Another advantage of using Caloric Flux is the ability to transfer heat over long distances.
-                        """,
-                this.entryLink("Caloric Flux Emitter", ApparatusCategory.CATEGORY_ID, CaloricFluxEmitterEntry.ENTRY_ID)
-        );
     }
 
     @Override
     protected String entryName() {
-        return "Pyromantic Brazier";
+        return "Caloric Flux Emitter";
     }
 
     @Override
     protected String entryDescription() {
-        return "Heating your Alchemical Devices";
+        return "Efficiently powering alchemical Apparatus";
     }
 
     @Override
@@ -77,11 +70,11 @@ public class PyromanticBrazierEntry extends EntryProvider {
 
     @Override
     protected BookIconModel entryIcon() {
-        return BookIconModel.create(ItemRegistry.PYROMANTIC_BRAZIER.get());
+        return BookIconModel.create(ItemRegistry.CALORIC_FLUX_EMITTER.get());
     }
 
     @Override
     protected String entryId() {
-        return "pyromantic_brazier";
+        return ENTRY_ID;
     }
 }

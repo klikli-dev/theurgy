@@ -10,6 +10,7 @@ import com.klikli_dev.modonomicon.api.datagen.book.BookCategoryModel;
 import com.klikli_dev.modonomicon.api.datagen.book.BookEntryModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.klikli_dev.theurgy.Theurgy;
+import com.klikli_dev.theurgy.datagen.book.apparatus.MercuryCatalystEntry;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import net.minecraft.world.item.Items;
@@ -79,7 +80,6 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
 
         //TODO: one entry to talk about mercury flux, then one entry to link to the category
         var mercuryFlux = this.add(this.mercuryFluxEntry('m'));
-        var mercuryFluxLink = this.add(this.mercuryFluxLinkEntry('ḿ'));
 
         //links and conditions
         aboutModEntry.withParent(introEntry);
@@ -167,7 +167,6 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
         reformation.withParent(incubation);
 
         mercuryFlux.withParent(spagyrics);
-        mercuryFluxLink.withParent(mercuryFlux);
 
         //TODO: Conditions
         //  amethyst entry should NOT depend on spagyrics -> hence not on abundant sulfur rod
@@ -398,23 +397,16 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
         var intro2 = BookTextPageModel.builder().withTitle(this.context().pageTitle()).withText(this.context().pageText()).build();
         this.add(this.context().pageTitle(), "Learn More");
         this.add(this.context().pageText(), """
-                        Open the {0} to learn more about how to obtain and use Mercury Flux.
+                        Open the {0} to learn more about Apparatus that use Mercury Flux, or go directly to the {1} to learn how to create flux.
                         """,
-                this.categoryLink("Mercury Flux Category", MercuryFluxCategoryProvider.CATEGORY_ID)
+                this.categoryLink("Apparatus Category", ApparatusCategory.CATEGORY_ID),
+                this.entryLink("Mercury Catalyst Entry", ApparatusCategory.CATEGORY_ID, MercuryCatalystEntry.ENTRY_ID)
         );
+
+        //TODO: Create flux manipulation category / entries? -> probably when we are working on logistics
 
         return this.entry(location).withIcon(ItemRegistry.MERCURY_SHARD.get())
                 .withEntryBackground(EntryBackground.DEFAULT).withPages(intro, intro2);
-    }
-
-    private BookEntryModel mercuryFluxLinkEntry(char location) {
-        this.context().entry("mercury_flux_link");
-        this.add(this.context().entryName(), "Mercury Flux");
-        this.add(this.context().entryDescription(), "View the Mercury Flux Category");
-
-        return this.entry(location).withIcon(ItemRegistry.MERCURY_SHARD.get())
-                .withCategoryToOpen(Theurgy.loc(MercuryFluxCategoryProvider.CATEGORY_ID))
-                .withEntryBackground(EntryBackground.LINK_TO_CATEGORY);
     }
 
     private BookEntryModel reformation(char location) {

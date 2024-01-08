@@ -1,0 +1,13 @@
+{
+  "background": "theurgy:textures/gui/book/bg_nightsky2.png",
+  "background_height": 512,
+  "background_parallax_layers": [],
+  "background_width": 512,
+  "entry_textures": "modonomicon:textures/gui/entry_textures.png",
+  "icon": {
+    "item": "theurgy:calcination_oven"
+  },
+  "name": "book.theurgy.the_hermetica.apparatus.name",
+  "show_category_button": true,
+  "sort_number": 5
+}

@@ -1,0 +1,66 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "theurgy:apparatus",
+  "description": "book.theurgy.the_hermetica.apparatus.liquefaction_cauldron.description",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "theurgy:liquefaction_cauldron"
+  },
+  "name": "book.theurgy.the_hermetica.apparatus.liquefaction_cauldron.name",
+  "pages": [
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "item": {
+        "item": "theurgy:liquefaction_cauldron"
+      },
+      "text": "book.theurgy.the_hermetica.apparatus.liquefaction_cauldron.intro.text",
+      "title": ""
+    },
+    {
+      "type": "modonomicon:multiblock",
+      "anchor": "",
+      "multiblock_id": "theurgy:placement/liquefaction_cauldron",
+      "multiblock_name": "",
+      "show_visualize_button": true,
+      "text": ""
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.apparatus.liquefaction_cauldron.usage.text",
+      "title": "book.theurgy.the_hermetica.apparatus.liquefaction_cauldron.usage.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:crafting_recipe",
+      "anchor": "",
+      "recipe_id_1": "theurgy:crafting/shaped/liquefaction_cauldron",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    },
+    {
+      "type": "modonomicon:image",
+      "anchor": "",
+      "border": true,
+      "images": [
+        "theurgy:textures/gui/book/liquefaction_cauldron_working.png"
+      ],
+      "text": "book.theurgy.the_hermetica.apparatus.liquefaction_cauldron.working.text",
+      "title": "book.theurgy.the_hermetica.apparatus.liquefaction_cauldron.working.title"
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "theurgy:apparatus/spagyrics",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "x": -3,
+  "y": -3
+}

@@ -1,0 +1,65 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "theurgy:apparatus",
+  "description": "book.theurgy.the_hermetica.apparatus.how_to.description",
+  "hide_while_locked": false,
+  "icon": {
+    "height": 64,
+    "texture": "theurgy:textures/gui/book/apparatus_howto.png",
+    "width": 64
+  },
+  "name": "book.theurgy.the_hermetica.apparatus.how_to.name",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.apparatus.how_to.basics.text",
+      "title": "book.theurgy.the_hermetica.apparatus.how_to.basics.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.apparatus.how_to.manual_interaction.text",
+      "title": "book.theurgy.the_hermetica.apparatus.how_to.manual_interaction.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.apparatus.how_to.manual_interaction2.text",
+      "title": "book.theurgy.the_hermetica.apparatus.how_to.manual_interaction2.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.apparatus.how_to.fluid_interaction.text",
+      "title": "book.theurgy.the_hermetica.apparatus.how_to.fluid_interaction.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.apparatus.how_to.emptying_fluids.text",
+      "title": "book.theurgy.the_hermetica.apparatus.how_to.emptying_fluids.title",
+      "use_markdown_in_title": false
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "theurgy:apparatus/intro",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "x": -1,
+  "y": 3
+}

@@ -1,9 +1,17 @@
-// 1.20.1	2024-01-06T08:44:49.5163046	Books: theurgy
+// 1.20.1	2024-01-08T14:06:38.4834115	Books: theurgy
 bdd51656305f73d8c05940a488aa4408ba4f2532 data/theurgy/modonomicon/books/the_hermetica/book.json
+8346a627e9a8abbc27d65a7b1a8a12d170b571aa data/theurgy/modonomicon/books/the_hermetica/categories/apparatus.json
 f8d69cb91187d2b3fe517c93941f1e546a1c7253 data/theurgy/modonomicon/books/the_hermetica/categories/getting_started.json
 0bee2b1c3cf848c4501d5f64c6cf0fc0c608bca7 data/theurgy/modonomicon/books/the_hermetica/categories/mercury_flux.json
 55eece90b9484b8adfd13a4489ead73b5fc1f718 data/theurgy/modonomicon/books/the_hermetica/categories/reformation.json
 d920f6465696674c4d0655be5be2e5d410f6e43c data/theurgy/modonomicon/books/the_hermetica/categories/spagyrics.json
+04a9edea30899d481b39b1efe81fa242685b01a6 data/theurgy/modonomicon/books/the_hermetica/entries/apparatus/how_to.json
+3c3a22fe960315f2e3258337544d6d7f674c1770 data/theurgy/modonomicon/books/the_hermetica/entries/apparatus/intro.json
+50b6c63ed603391bd0cbb2b6af229da83890b8a4 data/theurgy/modonomicon/books/the_hermetica/entries/apparatus/liquefaction_cauldron.json
+7e4cfc039fc01b90a988a81da6fe8128cb3768a9 data/theurgy/modonomicon/books/the_hermetica/entries/apparatus/pyromantic_brazier.json
+1099e24f30a507006becc0e6f3e8fe9d628106db data/theurgy/modonomicon/books/the_hermetica/entries/apparatus/sal_ammoniac_accumulator.json
+d23ceead6bed8e54ec8087dc77441eb8ca7078c5 data/theurgy/modonomicon/books/the_hermetica/entries/apparatus/sal_ammoniac_tank.json
+ce98c14af35ab68baa240e0b9ee574a59b4d5787 data/theurgy/modonomicon/books/the_hermetica/entries/apparatus/spagyrics.json
 e6dadbd75d5900fdc985adb8397e12e7105f6caa data/theurgy/modonomicon/books/the_hermetica/entries/getting_started/about_divination_rods.json
 f1008fc2b0e1f3ad6324aa71bb285b4c9a912f04 data/theurgy/modonomicon/books/the_hermetica/entries/getting_started/about_mod.json
 a720684534382f5b8aca4a3be812814d1a647652 data/theurgy/modonomicon/books/the_hermetica/entries/getting_started/about_ore_refining.json

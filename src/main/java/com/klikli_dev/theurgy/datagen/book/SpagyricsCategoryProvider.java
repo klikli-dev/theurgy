@@ -326,6 +326,7 @@ public class SpagyricsCategoryProvider extends CategoryProvider {
     }
 
     private BookEntryModel makeSolventsEntry(char location) {
+        //TODO: this entry, minus crafting of the accumulator and tank will go into the spagyrics category
         this.context().entry("solvents");
         this.add(this.context().entryName(), "Solvents");
         this.add(this.context().entryDescription(), "Solving all your problems?");

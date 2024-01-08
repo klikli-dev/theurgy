@@ -10,7 +10,6 @@ import com.klikli_dev.modonomicon.api.datagen.book.BookModel;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.registry.CreativeModeTabRegistry;
 import net.minecraft.data.PackOutput;
-import net.minecraftforge.common.data.LanguageProvider;
 
 public class TheurgyBookProvider extends BookProvider {
     public TheurgyBookProvider(PackOutput packOutput, ModonomiconLanguageProvider lang) {
@@ -37,6 +36,8 @@ public class TheurgyBookProvider extends BookProvider {
         var mercuryFluxCategory = new MercuryFluxCategoryProvider(this).generate().withSortNumber(categorySortNum++);
         mercuryFluxCategory.withCondition(this.condition().entryRead(this.modLoc(GettingStartedCategoryProvider.CATEGORY_ID + "/mercury_flux")));
 
+        var apparatusCategory = new ApparatusCategory(this).generate().withSortNumber(categorySortNum++);
+
         //TODO: entry read condition
 
         var book = BookModel.create(
@@ -48,7 +49,8 @@ public class TheurgyBookProvider extends BookProvider {
                         gettingStartedCategory,
                         spagyricsCategory,
                         reformationCategory,
-                        mercuryFluxCategory
+                        mercuryFluxCategory,
+                        apparatusCategory
                 )
                 .withGenerateBookItem(true)
                 .withModel(this.modLoc("the_hermetica_icon"))

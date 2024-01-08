@@ -1,13 +1,13 @@
 {
   "background_u_index": 0,
   "background_v_index": 0,
-  "category": "theurgy:reformation",
-  "description": "book.theurgy.the_hermetica.reformation.target_pedestal.description",
+  "category": "theurgy:apparatus",
+  "description": "book.theurgy.the_hermetica.apparatus.target_pedestal.description",
   "hide_while_locked": false,
   "icon": {
     "item": "theurgy:reformation_target_pedestal"
   },
-  "name": "book.theurgy.the_hermetica.reformation.target_pedestal.name",
+  "name": "book.theurgy.the_hermetica.apparatus.target_pedestal.name",
   "pages": [
     {
       "type": "modonomicon:spotlight",
@@ -15,23 +15,23 @@
       "item": {
         "item": "theurgy:reformation_target_pedestal"
       },
-      "text": "book.theurgy.the_hermetica.reformation.target_pedestal.intro.text",
+      "text": "book.theurgy.the_hermetica.apparatus.target_pedestal.intro.text",
       "title": ""
     },
     {
       "type": "modonomicon:text",
       "anchor": "",
       "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.reformation.target_pedestal.structure.text",
-      "title": "book.theurgy.the_hermetica.reformation.target_pedestal.structure.title",
+      "text": "book.theurgy.the_hermetica.apparatus.target_pedestal.structure.text",
+      "title": "book.theurgy.the_hermetica.apparatus.target_pedestal.structure.title",
       "use_markdown_in_title": false
     },
     {
       "type": "modonomicon:text",
       "anchor": "",
       "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.reformation.target_pedestal.usage.text",
-      "title": "book.theurgy.the_hermetica.reformation.target_pedestal.usage.title",
+      "text": "book.theurgy.the_hermetica.apparatus.target_pedestal.usage.text",
+      "title": "book.theurgy.the_hermetica.apparatus.target_pedestal.usage.title",
       "use_markdown_in_title": false
     },
     {
@@ -46,11 +46,11 @@
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "theurgy:reformation/sulfuric_flux_emitter",
+      "entry": "theurgy:apparatus/reformation_array",
       "line_enabled": true,
       "line_reversed": false
     }
   ],
-  "x": -1,
-  "y": 2
+  "x": 5,
+  "y": -5
 }

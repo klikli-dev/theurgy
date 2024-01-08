@@ -87,7 +87,7 @@
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "theurgy:reformation/result_pedestal",
+      "entry": "theurgy:reformation/intro",
       "line_enabled": true,
       "line_reversed": false
     }

@@ -23,11 +23,11 @@ public class ApparatusCategory extends CategoryProvider {
     @Override
     protected String[] generateEntryMap() {
         return new String[]{
-                "______________a_ï_č_______________",
+                "______________a_ï_č___ț___________",
                 "__________________________________",
-                "______________t_ç_d_______________",
+                "______________t_ç_d_ʂ_r_ŕ_________",
                 "__________________________________",
-                "____________ć_l___b_______________",
+                "____________ć_l___b_____ş_________",
                 "__________________________________",
                 "__________m_ì___i_________________",
                 "__________________________________",
@@ -48,6 +48,24 @@ public class ApparatusCategory extends CategoryProvider {
 
        this.spagyricsEntries(introEntry);
        this.mercuryFluxEntries(introEntry);
+       this.reformationEntries(introEntry);
+    }
+
+    private void reformationEntries(BookEntryModel parent){
+        var reformationArrayEntry = new ReformationArrayEntry(this).generate('r');
+        reformationArrayEntry.addParent(this.parent(parent));
+
+        var sulfuricFluxEmitterEntry = new SulfuricFluxEmitterReferenceEntry(this).generate('ş');
+        sulfuricFluxEmitterEntry.addParent(this.parent(reformationArrayEntry));
+
+        var targetPedestalEntry = new TargetPedestalEntry(this).generate('ț');
+        targetPedestalEntry.addParent(this.parent(reformationArrayEntry));
+
+        var sourcePedestalEntry = new SourcePedestalEntry(this).generate('ʂ');
+        sourcePedestalEntry.addParent(this.parent(reformationArrayEntry));
+
+        var resultPedestalEntry = new ResultPedestalEntry(this).generate('ŕ');
+        resultPedestalEntry.addParent(this.parent(reformationArrayEntry));
     }
 
     private void mercuryFluxEntries(BookEntryModel parent){

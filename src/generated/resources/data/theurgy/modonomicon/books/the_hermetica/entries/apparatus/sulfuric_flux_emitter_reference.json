@@ -1,13 +1,13 @@
 {
   "background_u_index": 0,
   "background_v_index": 0,
-  "category": "theurgy:reformation",
-  "description": "book.theurgy.the_hermetica.reformation.sulfuric_flux_emitter.description",
+  "category": "theurgy:apparatus",
+  "description": "book.theurgy.the_hermetica.apparatus.sulfuric_flux_emitter_reference.description",
   "hide_while_locked": false,
   "icon": {
     "item": "theurgy:sulfuric_flux_emitter"
   },
-  "name": "book.theurgy.the_hermetica.reformation.sulfuric_flux_emitter.name",
+  "name": "book.theurgy.the_hermetica.apparatus.sulfuric_flux_emitter_reference.name",
   "pages": [
     {
       "type": "modonomicon:spotlight",
@@ -15,18 +15,18 @@
       "item": {
         "item": "theurgy:sulfuric_flux_emitter"
       },
-      "text": "book.theurgy.the_hermetica.reformation.sulfuric_flux_emitter.intro.text",
+      "text": "book.theurgy.the_hermetica.apparatus.sulfuric_flux_emitter_reference.intro.text",
       "title": ""
     }
   ],
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "theurgy:reformation/reformation_array",
+      "entry": "theurgy:apparatus/reformation_array",
       "line_enabled": true,
       "line_reversed": false
     }
   ],
-  "x": -3,
-  "y": 0
+  "x": 7,
+  "y": -1
 }

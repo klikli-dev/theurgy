@@ -109,6 +109,8 @@ public class TheurgyConstants {
             public static final String DIGESTION_CATEGORY = PREFIX + "category.digestion";
             public static final String MERCURY_FLUX = PREFIX + "misc.mercury_flux";
             public static final String SOURCE_PEDESTAL_COUNT = PREFIX + "misc.source_pedestal_count";
+
+            public static final String TARGET_SULFUR_TOOLTIP = PREFIX + "misc.source_sulfur.tooltip";
         }
 
         public static class Misc {

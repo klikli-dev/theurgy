@@ -94,6 +94,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.add(TheurgyConstants.I18n.JEI.DIGESTION_CATEGORY, "Digestion");
         this.add(TheurgyConstants.I18n.JEI.MERCURY_FLUX, "Mercury Flux: %s");
         this.add(TheurgyConstants.I18n.JEI.SOURCE_PEDESTAL_COUNT, "%sx");
+        this.add(TheurgyConstants.I18n.JEI.TARGET_SULFUR_TOOLTIP, "The Target Sulfur will not be consumed!\nYou can retrieve it after crafting is complete.");
 
         this.add("config.jade.plugin_theurgy.mercury_flux", "Theurgy Mercury Flux");
     }

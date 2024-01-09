@@ -28,8 +28,6 @@ public class TheurgyBookProvider extends BookProvider {
 
         int categorySortNum = 1;
         var gettingStartedCategory = new GettingStartedCategoryProvider(this).generate().withSortNumber(categorySortNum++);
-        var spagyricsCategory = new SpagyricsCategoryProvider(this).generate().withSortNumber(categorySortNum++);
-        spagyricsCategory.withCondition(this.condition().entryRead(this.modLoc(GettingStartedCategoryProvider.CATEGORY_ID + "/spagyrics")));
 
         var reformationCategory = new ReformationCategoryProvider(this).generate().withSortNumber(categorySortNum++);
 
@@ -44,7 +42,6 @@ public class TheurgyBookProvider extends BookProvider {
                 .withTooltip(this.context().bookTooltip())
                 .withCategories(
                         gettingStartedCategory,
-                        spagyricsCategory,
                         reformationCategory,
                         apparatusCategory
                 )

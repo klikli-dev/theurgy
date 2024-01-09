@@ -1,4 +1,4 @@
-package com.klikli_dev.theurgy.datagen.book.apparatus;
+package com.klikli_dev.theurgy.datagen.book.apparatus.spagyrics;
 
 import com.klikli_dev.modonomicon.api.datagen.CategoryProvider;
 import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
@@ -6,33 +6,32 @@ import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.*;
 import com.klikli_dev.theurgy.Theurgy;
-import com.klikli_dev.theurgy.datagen.book.GettingStartedCategoryProvider;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.world.item.crafting.Ingredient;
 
-public class IncubatorEntry extends EntryProvider {
+public class CalcinationOvenEntry extends EntryProvider {
 
-    public static final String ENTRY_ID = "incubator";
+    public static final String ENTRY_ID = "calcination_oven";
 
-    public IncubatorEntry(CategoryProvider parent) {
+    public CalcinationOvenEntry(CategoryProvider parent) {
         super(parent);
     }
 
     @Override
     protected void generatePages() {
         this.page("intro", () -> BookSpotlightPageModel.builder()
-                .withItem(Ingredient.of(ItemRegistry.INCUBATOR.get()))
+                .withItem(Ingredient.of(ItemRegistry.CALCINATION_OVEN.get()))
                 .withText(this.context().pageText())
                 .build());
         this.pageText("""
-                        Incubation is the process of *recombination* of the Principles of Matter into actual objects.\\
-                        The Incubator has one vessel for each of the Principles, and a central chamber where the recombination takes place.
-                        """
+                         Calcination is the process whereby [#]($PURPLE)Alchemical Salt[#]() is extracted from matter. The {0} is a simple device that can be used to perform this process by applying consistent high heat to the target object.
+                        """,
+                this.itemLink(ItemRegistry.CALCINATION_OVEN.get())
         );
 
         this.page("multiblock", () -> BookMultiblockPageModel.builder()
-                .withMultiblockId(Theurgy.loc("placement/incubator"))
+                .withMultiblockId(Theurgy.loc("placement/calcination_oven"))
                 .build());
 
         this.page("usage", () -> BookTextPageModel.builder()
@@ -42,53 +41,41 @@ public class IncubatorEntry extends EntryProvider {
         this.pageTitle("Usage");
         this.pageText(
                 """
-                        Place the {0} on top of a {1} and one of each of the three vessels next to it. Insert the items to process by right-clicking the vessels with them.
+                        Place the {0} on top of a {1}, then insert the item to calcinate by right-clicking the oven with it.
                         \\
                         \\
                         Alternatively a hopper can be used to insert items to process.
                         """,
-                this.itemLink(ItemRegistry.INCUBATOR.get()),
+                this.itemLink(ItemRegistry.CALCINATION_OVEN.get()),
                 this.itemLink(ItemRegistry.PYROMANTIC_BRAZIER.get())
         );
 
-        this.page("recipe_incubator", () -> BookCraftingRecipePageModel.builder()
-                .withRecipeId1(Theurgy.loc("crafting/shaped/incubator"))
-                .build());
-
-        this.page("recipe_mercury_vessel", () -> BookCraftingRecipePageModel.builder()
-                .withRecipeId1(Theurgy.loc("crafting/shaped/incubator_mercury_vessel"))
-                .build());
-
-        this.page("recipe_salt_vessel", () -> BookCraftingRecipePageModel.builder()
-                .withRecipeId1(Theurgy.loc("crafting/shaped/incubator_salt_vessel"))
-                .build());
-
-        this.page("recipe_sulfur_vessel", () -> BookCraftingRecipePageModel.builder()
-                .withRecipeId1(Theurgy.loc("crafting/shaped/incubator_sulfur_vessel"))
+        this.page("recipe", () -> BookCraftingRecipePageModel.builder()
+                .withRecipeId1(Theurgy.loc("crafting/shaped/calcination_oven"))
                 .build());
 
         this.page("working", () -> BookImagePageModel.builder()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
-                .withImages(this.modLoc("textures/gui/book/incubator_working.png"))
+                .withImages(this.modLoc("textures/gui/book/calcination_oven_working.png"))
                 .build());
         this.pageTitle("Working Correctly");
         this.pageText(
                 """
-                        If the {0} is working properly, it will show smoke.
-                        """,
-                this.itemLink(ItemRegistry.INCUBATOR.get())
+                        If the {0} is working properly, it will show the orange rings moving slightly.
+                                      """,
+                this.itemLink(ItemRegistry.CALCINATION_OVEN.get())
         );
     }
 
     @Override
     protected String entryName() {
-        return "Incubator";
+        return "Calcination Oven";
     }
 
     @Override
     protected String entryDescription() {
-        return "Reassembling Matter";
+        return "Extracting Alchemical Salt from Matter";
     }
 
     @Override
@@ -98,7 +85,7 @@ public class IncubatorEntry extends EntryProvider {
 
     @Override
     protected BookIconModel entryIcon() {
-        return BookIconModel.create(ItemRegistry.INCUBATOR.get());
+        return BookIconModel.create(ItemRegistry.CALCINATION_OVEN.get());
     }
 
     @Override

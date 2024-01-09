@@ -1,4 +1,4 @@
-package com.klikli_dev.theurgy.datagen.book.apparatus;
+package com.klikli_dev.theurgy.datagen.book.apparatus.spagyrics;
 
 import com.klikli_dev.modonomicon.api.datagen.CategoryProvider;
 import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
@@ -6,36 +6,33 @@ import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.*;
 import com.klikli_dev.theurgy.Theurgy;
+import com.klikli_dev.theurgy.datagen.book.GettingStartedCategoryProvider;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.world.item.crafting.Ingredient;
 
-public class DistillerEntry extends EntryProvider {
+public class IncubatorEntry extends EntryProvider {
 
-    public static final String ENTRY_ID = "distiller";
+    public static final String ENTRY_ID = "incubator";
 
-    public DistillerEntry(CategoryProvider parent) {
+    public IncubatorEntry(CategoryProvider parent) {
         super(parent);
     }
 
     @Override
     protected void generatePages() {
         this.page("intro", () -> BookSpotlightPageModel.builder()
-                .withItem(Ingredient.of(ItemRegistry.DISTILLER.get()))
+                .withItem(Ingredient.of(ItemRegistry.INCUBATOR.get()))
                 .withText(this.context().pageText())
                 .build());
         this.pageText("""
-                         Distillation allows to obtain purified [#]($PURPLE)Alchemical Mercury[#]() from matter. To this end the object is heated until it dissolves into a gaseous form and the resulting vapour is condensed into crystals. The Mercury obtained this way is stable and can be used in alchemical recipes.
-                        """,
-                this.itemLink(ItemRegistry.CALCINATION_OVEN.get())
+                        Incubation is the process of *recombination* of the Principles of Matter into actual objects.\\
+                        The Incubator has one vessel for each of the Principles, and a central chamber where the recombination takes place.
+                        """
         );
 
-        //TODO: link to mercury energy stuff
-        //TODO: Link to matter teleportation u sing mercury
-
-
         this.page("multiblock", () -> BookMultiblockPageModel.builder()
-                .withMultiblockId(Theurgy.loc("placement/distiller"))
+                .withMultiblockId(Theurgy.loc("placement/incubator"))
                 .build());
 
         this.page("usage", () -> BookTextPageModel.builder()
@@ -45,41 +42,53 @@ public class DistillerEntry extends EntryProvider {
         this.pageTitle("Usage");
         this.pageText(
                 """
-                        Place the {0} on top of a {1}, then insert the item to distill by right-clicking the Distiller with it.
+                        Place the {0} on top of a {1} and one of each of the three vessels next to it. Insert the items to process by right-clicking the vessels with them.
                         \\
                         \\
                         Alternatively a hopper can be used to insert items to process.
                         """,
-                this.itemLink(ItemRegistry.DISTILLER.get()),
+                this.itemLink(ItemRegistry.INCUBATOR.get()),
                 this.itemLink(ItemRegistry.PYROMANTIC_BRAZIER.get())
         );
 
-        this.page("recipe", () -> BookCraftingRecipePageModel.builder()
-                .withRecipeId1(Theurgy.loc("crafting/shaped/distiller"))
+        this.page("recipe_incubator", () -> BookCraftingRecipePageModel.builder()
+                .withRecipeId1(Theurgy.loc("crafting/shaped/incubator"))
+                .build());
+
+        this.page("recipe_mercury_vessel", () -> BookCraftingRecipePageModel.builder()
+                .withRecipeId1(Theurgy.loc("crafting/shaped/incubator_mercury_vessel"))
+                .build());
+
+        this.page("recipe_salt_vessel", () -> BookCraftingRecipePageModel.builder()
+                .withRecipeId1(Theurgy.loc("crafting/shaped/incubator_salt_vessel"))
+                .build());
+
+        this.page("recipe_sulfur_vessel", () -> BookCraftingRecipePageModel.builder()
+                .withRecipeId1(Theurgy.loc("crafting/shaped/incubator_sulfur_vessel"))
                 .build());
 
         this.page("working", () -> BookImagePageModel.builder()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
-                .withImages(this.modLoc("textures/gui/book/distiller_working.png"))
+                .withImages(this.modLoc("textures/gui/book/incubator_working.png"))
                 .build());
         this.pageTitle("Working Correctly");
         this.pageText(
                 """
-                        If the {0} is working properly, it will float with a bobbing motion.
+                        If the {0} is working properly, it will show smoke.
                         """,
-                this.itemLink(ItemRegistry.DISTILLER.get())
+                this.itemLink(ItemRegistry.INCUBATOR.get())
         );
     }
 
     @Override
     protected String entryName() {
-        return "Distiller";
+        return "Incubator";
     }
 
     @Override
     protected String entryDescription() {
-        return "Extracting Alchemical Mercury from Matter";
+        return "Reassembling Matter";
     }
 
     @Override
@@ -89,7 +98,7 @@ public class DistillerEntry extends EntryProvider {
 
     @Override
     protected BookIconModel entryIcon() {
-        return BookIconModel.create(ItemRegistry.DISTILLER.get());
+        return BookIconModel.create(ItemRegistry.INCUBATOR.get());
     }
 
     @Override

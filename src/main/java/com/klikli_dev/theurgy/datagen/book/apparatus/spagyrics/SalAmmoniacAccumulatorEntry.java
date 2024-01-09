@@ -1,4 +1,4 @@
-package com.klikli_dev.theurgy.datagen.book.apparatus;
+package com.klikli_dev.theurgy.datagen.book.apparatus.spagyrics;
 
 import com.klikli_dev.modonomicon.api.datagen.CategoryProvider;
 import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
@@ -10,27 +10,33 @@ import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.world.item.crafting.Ingredient;
 
-public class LiquefactionCauldronEntry extends EntryProvider {
+public class SalAmmoniacAccumulatorEntry extends EntryProvider {
+    public static final String ENTRY_ID = "sal_ammoniac_accumulator";
 
-    public static final String ENTRY_ID = "liquefaction_cauldron";
-
-    public LiquefactionCauldronEntry(CategoryProvider parent) {
+    public SalAmmoniacAccumulatorEntry(CategoryProvider parent) {
         super(parent);
     }
 
     @Override
     protected void generatePages() {
         this.page("intro", () -> BookSpotlightPageModel.builder()
-                .withItem(Ingredient.of(ItemRegistry.LIQUEFACTION_CAULDRON.get()))
+                .withItem(Ingredient.of(ItemRegistry.SAL_AMMONIAC_ACCUMULATOR.get()))
                 .withText(this.context().pageText())
                 .build());
         this.pageText("""
-                 Liquefaction allows the extraction of [#]($PURPLE)Alchemical Sulfur[#]() from matter. In the this cauldron a [#]($PURPLE)Solvent[#](), usually a type of acid, is used to dissolve the target object, then the resulting solution is heated to evaporate the solvent and leave behind the Sulfur.
-                """);
+                The first half of the Sal Ammoniac generation process.
+                \\
+                \\
+                **Needs** to be placed on top of a {0}.
+                """,
+                this.entryLink("Sal Ammoniac Tank", this.parent.categoryId(), SalAmmoniacTankEntry.ENTRY_ID)
+        );
 
         this.page("multiblock", () -> BookMultiblockPageModel.builder()
-                .withMultiblockId(Theurgy.loc("placement/liquefaction_cauldron"))
+                .withMultiblockId(Theurgy.loc("placement/sal_ammoniac_accumulator"))
                 .build());
+
+        //TODO: link to spagyrics solvent entry, mention that the recipes and all is there
 
         this.page("usage", () -> BookTextPageModel.builder()
                 .withTitle(this.context().pageTitle())
@@ -39,42 +45,39 @@ public class LiquefactionCauldronEntry extends EntryProvider {
         this.pageTitle("Usage");
         this.pageText(
                 """
-                        Place the {0} on top of a {1}, and fill it with a Solvent by right-clicking with a solvent-filled bucket.
+                        Place the {0} on top of a {1}, and fill it with water by right-clicking with a water bucket.
                         \\
                         \\
-                        Then insert the item to liquefy by right-clicking the cauldron with it.
+                        Optionally insert a {2} by right-clicking the cauldron with it to speed up the process.
                         """,
-                this.itemLink(ItemRegistry.LIQUEFACTION_CAULDRON.get()),
-                this.itemLink(ItemRegistry.PYROMANTIC_BRAZIER.get())
+                this.itemLink(ItemRegistry.SAL_AMMONIAC_ACCUMULATOR.get()),
+                this.itemLink(ItemRegistry.SAL_AMMONIAC_TANK.get()),
+                this.itemLink(ItemRegistry.SAL_AMMONIAC_CRYSTAL.get())
         );
 
-        this.page("recipe", () -> BookCraftingRecipePageModel.builder()
-                .withRecipeId1(Theurgy.loc("crafting/shaped/liquefaction_cauldron"))
+        this.page("recipe1", () -> BookCraftingRecipePageModel.builder()
+                .withRecipeId1(Theurgy.loc("crafting/shaped/sal_ammoniac_accumulator"))
                 .build());
 
         this.page("working", () -> BookImagePageModel.builder()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
-                .withImages(this.modLoc("textures/gui/book/liquefaction_cauldron_working.png"))
+                .withImages(this.modLoc("textures/gui/book/sal_ammoniac_accumulator_working.png"))
                 .build());
         this.pageTitle("Working Correctly");
-        this.pageText(
-                """
-                        If the {0} is working properly, it will show bubbles.
-                        """,
-                this.itemLink(ItemRegistry.LIQUEFACTION_CAULDRON.get())
-        );
-
+        this.pageText("""
+                If working properly, it will show blue or yellow (if using Sal Ammoniac Crystals) bubbles.
+                """);
     }
 
     @Override
     protected String entryName() {
-        return "Liquefaction Cauldron";
+        return "Sal Ammoniac Accumulator";
     }
 
     @Override
     protected String entryDescription() {
-        return "Extracting ALchemical Sulfur from Matter";
+        return "Creating liquid Sal Ammoniac";
     }
 
     @Override
@@ -84,7 +87,7 @@ public class LiquefactionCauldronEntry extends EntryProvider {
 
     @Override
     protected BookIconModel entryIcon() {
-        return BookIconModel.create(ItemRegistry.LIQUEFACTION_CAULDRON.get());
+        return BookIconModel.create(ItemRegistry.SAL_AMMONIAC_ACCUMULATOR.get());
     }
 
     @Override

@@ -9,18 +9,13 @@ import com.klikli_dev.modonomicon.api.datagen.CategoryProvider;
 import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
 import com.klikli_dev.modonomicon.api.datagen.book.BookCategoryModel;
 import com.klikli_dev.modonomicon.api.datagen.book.BookEntryModel;
-import com.klikli_dev.modonomicon.api.datagen.book.page.BookCraftingRecipePageModel;
-import com.klikli_dev.modonomicon.api.datagen.book.page.BookMultiblockPageModel;
-import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.klikli_dev.theurgy.Theurgy;
-import com.klikli_dev.theurgy.datagen.book.apparatus.IncubatorEntry;
-import com.klikli_dev.theurgy.datagen.book.apparatus.LiquefactionCauldronEntry;
-import com.klikli_dev.theurgy.datagen.book.apparatus.SulfuricFluxEmitterEntry;
+import com.klikli_dev.theurgy.datagen.book.apparatus.spagyrics.IncubatorEntry;
+import com.klikli_dev.theurgy.datagen.book.apparatus.spagyrics.LiquefactionCauldronEntry;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.registry.SulfurRegistry;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.Ingredient;
 
 public class ReformationCategoryProvider extends CategoryProvider {
 
@@ -93,7 +88,8 @@ public class ReformationCategoryProvider extends CategoryProvider {
                         As mentioned before, the reformation processes does not use raw materials, but rather their alchemical sulfur.\\
                         To obtain sulfurs of materials, take a look at {0} and see also {1} .
                         """,
-                this.categoryLink("Spagyrics", SpagyricsCategoryProvider.CATEGORY_ID),
+                "TODO",
+//                this.categoryLink("Spagyrics", SpagyricsCategoryProvider.CATEGORY_ID), //TODO: probably link to the relevant entry in getting started and/or the apparatus entry, probably both
                 this.entryLink("Liquefaction", ApparatusCategory.CATEGORY_ID, LiquefactionCauldronEntry.ENTRY_ID)
 //                this.entryLink("Extracting Sulfur", GettingStartedCategoryProvider.CATEGORY_ID, "create_sulfur")
         );
@@ -253,7 +249,8 @@ public class ReformationCategoryProvider extends CategoryProvider {
                 """
                         Once the desired Sulfur has been produced, {0} can be used to reassemble the matter into the desired form.
                         """,
-                this.categoryLink("Spagyrics", SpagyricsCategoryProvider.CATEGORY_ID)
+"TODO"
+//                this.categoryLink("Spagyrics", SpagyricsCategoryProvider.CATEGORY_ID) //TODO: link to the spagyrics entries ingetting started, likely the last one, and the incubator entry in apparatus
         );
 
 

@@ -1,0 +1,64 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "theurgy:apparatus",
+  "description": "book.theurgy.the_hermetica.apparatus.fermentation_vat.description",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "theurgy:fermentation_vat"
+  },
+  "name": "book.theurgy.the_hermetica.apparatus.fermentation_vat.name",
+  "pages": [
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "item": {
+        "item": "theurgy:fermentation_vat"
+      },
+      "text": "book.theurgy.the_hermetica.apparatus.fermentation_vat.intro.text",
+      "title": ""
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.apparatus.fermentation_vat.uses.text",
+      "title": "book.theurgy.the_hermetica.apparatus.fermentation_vat.uses.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.apparatus.fermentation_vat.process.text",
+      "title": "book.theurgy.the_hermetica.apparatus.fermentation_vat.process.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.apparatus.fermentation_vat.usage.text",
+      "title": "book.theurgy.the_hermetica.apparatus.fermentation_vat.usage.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:crafting_recipe",
+      "anchor": "",
+      "recipe_id_1": "theurgy:crafting/shaped/fermentation_vat",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "theurgy:apparatus/exaltation",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "x": 3,
+  "y": 4
+}

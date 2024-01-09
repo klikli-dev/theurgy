@@ -47,7 +47,7 @@ public class DigestionRecipeProvider extends JsonRecipeProvider {
         this.makeRecipeWithTags(Fluids.WATER, 1000, List.of(
                 Tags.Items.INGOTS_GOLD,
                 ItemTagRegistry.ALCHEMICAL_SALTS
-        ), ItemRegistry.PURIFIED_GOLD.get(), 10, TIME * 5);
+        ), ItemRegistry.PURIFIED_GOLD.get(), 20, TIME * 5);
 
         this.makeTierConversion(SulfurRegistry.GEMS_ABUNDANT.get(), SulfurRegistry.GEMS_COMMON.get(), 4, 10);
         this.makeTierConversion(SulfurRegistry.GEMS_COMMON.get(), SulfurRegistry.GEMS_RARE.get(), 4, 15);

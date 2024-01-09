@@ -2,6 +2,9 @@
   "background_u_index": 0,
   "background_v_index": 2,
   "category": "theurgy:apparatus",
+  "condition": {
+    "type": "modonomicon:true"
+  },
   "description": "book.theurgy.the_hermetica.apparatus.reformation_array.description",
   "hide_while_locked": false,
   "icon": {

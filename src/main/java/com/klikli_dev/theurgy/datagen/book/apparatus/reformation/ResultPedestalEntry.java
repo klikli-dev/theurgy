@@ -1,4 +1,4 @@
-package com.klikli_dev.theurgy.datagen.book.apparatus;
+package com.klikli_dev.theurgy.datagen.book.apparatus.reformation;
 
 import com.klikli_dev.modonomicon.api.datagen.CategoryProvider;
 import com.klikli_dev.modonomicon.api.datagen.EntryBackground;

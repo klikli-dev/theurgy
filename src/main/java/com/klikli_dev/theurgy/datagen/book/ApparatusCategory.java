@@ -8,8 +8,18 @@ import com.klikli_dev.modonomicon.api.datagen.BookProvider;
 import com.klikli_dev.modonomicon.api.datagen.CategoryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookCategoryModel;
 import com.klikli_dev.modonomicon.api.datagen.book.BookEntryModel;
+import com.klikli_dev.modonomicon.api.datagen.book.condition.BookTrueConditionModel;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.datagen.book.apparatus.*;
+import com.klikli_dev.theurgy.datagen.book.apparatus.exaltation.DigestionVatEntry;
+import com.klikli_dev.theurgy.datagen.book.apparatus.exaltation.ExaltationEntry;
+import com.klikli_dev.theurgy.datagen.book.apparatus.exaltation.FermentationVatEntry;
+import com.klikli_dev.theurgy.datagen.book.apparatus.mercuryflux.CaloricFluxEmitterEntry;
+import com.klikli_dev.theurgy.datagen.book.apparatus.mercuryflux.MercuryCatalystEntry;
+import com.klikli_dev.theurgy.datagen.book.apparatus.mercuryflux.MercuryFluxEntry;
+import com.klikli_dev.theurgy.datagen.book.apparatus.mercuryflux.SulfuricFluxEmitterEntry;
+import com.klikli_dev.theurgy.datagen.book.apparatus.reformation.*;
+import com.klikli_dev.theurgy.datagen.book.apparatus.spagyrics.*;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 
 public class ApparatusCategory extends CategoryProvider {
@@ -33,7 +43,7 @@ public class ApparatusCategory extends CategoryProvider {
                 "__________________________________",
                 "____________ș___h_________________",
                 "__________________________________",
-                "______________________é___________",
+                "____________________f_é_ď_________",
                 "__________________________________"
 
         };
@@ -47,20 +57,28 @@ public class ApparatusCategory extends CategoryProvider {
         var howToEntry = new HowToEntry(this).generate('h');
         howToEntry.addParent(this.parent(introEntry));
 
-       this.spagyricsEntries(introEntry);
-       this.mercuryFluxEntries(introEntry);
-       this.reformationEntries(introEntry);
-         this.exaltationEntries(introEntry);
+        this.spagyricsEntries(introEntry);
+        this.mercuryFluxEntries(introEntry);
+        this.reformationEntries(introEntry);
+        this.exaltationEntries(introEntry);
     }
 
-    private void exaltationEntries(BookEntryModel parent){
+    private void exaltationEntries(BookEntryModel parent) {
         var exaltationEntry = new ExaltationEntry(this).generate('é');
         exaltationEntry.addParent(this.parent(parent));
+        exaltationEntry.withCondition(BookTrueConditionModel.builder().build());
+
+        var fermentationVatEntry = new FermentationVatEntry(this).generate('f');
+        fermentationVatEntry.addParent(this.parent(exaltationEntry));
+
+        var digestionVatEntry = new DigestionVatEntry(this).generate('ď');
+        digestionVatEntry.addParent(this.parent(exaltationEntry));
     }
 
-    private void reformationEntries(BookEntryModel parent){
+    private void reformationEntries(BookEntryModel parent) {
         var reformationArrayEntry = new ReformationArrayEntry(this).generate('r');
         reformationArrayEntry.addParent(this.parent(parent));
+        reformationArrayEntry.withCondition(BookTrueConditionModel.builder().build());
 
         var sulfuricFluxEmitterEntry = new SulfuricFluxEmitterReferenceEntry(this).generate('ş');
         sulfuricFluxEmitterEntry.addParent(this.parent(reformationArrayEntry));
@@ -75,9 +93,10 @@ public class ApparatusCategory extends CategoryProvider {
         resultPedestalEntry.addParent(this.parent(reformationArrayEntry));
     }
 
-    private void mercuryFluxEntries(BookEntryModel parent){
+    private void mercuryFluxEntries(BookEntryModel parent) {
         var mercuryFluxEntry = new MercuryFluxEntry(this).generate('ì');
         mercuryFluxEntry.addParent(this.parent(parent));
+        mercuryFluxEntry.withCondition(BookTrueConditionModel.builder().build());
 
         var mercuryCatalystEntry = new MercuryCatalystEntry(this).generate('m');
         mercuryCatalystEntry.addParent(this.parent(mercuryFluxEntry));
@@ -89,9 +108,10 @@ public class ApparatusCategory extends CategoryProvider {
         sulfuricFluxEmitterEntry.addParent(this.parent(mercuryFluxEntry));
     }
 
-    private void spagyricsEntries(BookEntryModel parent){
+    private void spagyricsEntries(BookEntryModel parent) {
         var spagyricsEntry = new SpagyricsEntry(this).generate('ç');
         spagyricsEntry.addParent(this.parent(parent));
+        spagyricsEntry.withCondition(BookTrueConditionModel.builder().build());
 
         var pyromanticBrazierEntry = new PyromanticBrazierEntry(this).generate('b');
         pyromanticBrazierEntry.addParent(this.parent(spagyricsEntry));

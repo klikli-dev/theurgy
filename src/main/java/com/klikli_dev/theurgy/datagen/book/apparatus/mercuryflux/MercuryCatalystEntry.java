@@ -1,4 +1,4 @@
-package com.klikli_dev.theurgy.datagen.book.apparatus;
+package com.klikli_dev.theurgy.datagen.book.apparatus.mercuryflux;
 
 import com.klikli_dev.modonomicon.api.datagen.CategoryProvider;
 import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
@@ -37,7 +37,7 @@ public class MercuryCatalystEntry extends EntryProvider {
         this.pageTitle("Usage");
         this.pageText(
                 """
-                        Place the {0}, then insert {1} by right-clicking the oven with it. The Catalyst will begin to slowly fill up with [#]($PURPLE)Mercury Flux[#]().
+                        Place the {0}, then insert {1} by right-clicking the Catalyst with it. It will begin to slowly fill up with [#]($PURPLE)Mercury Flux[#]().
                         \\
                         \\
                         It's sides will turn more and more blue as it fills up.

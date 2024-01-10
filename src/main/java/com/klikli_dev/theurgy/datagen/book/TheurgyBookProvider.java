@@ -19,6 +19,7 @@ public class TheurgyBookProvider extends BookProvider {
     @Override
     protected void registerDefaultMacros() {
         this.registerDefaultMacro("$PURPLE", "ad03fc");
+        this.registerDefaultMacro("$INPUT", "008080");
     }
 
     @Override

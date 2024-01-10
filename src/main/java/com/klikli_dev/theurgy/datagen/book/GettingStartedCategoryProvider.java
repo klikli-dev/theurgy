@@ -13,6 +13,7 @@ import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.datagen.book.apparatus.mercuryflux.MercuryCatalystEntry;
 import com.klikli_dev.theurgy.datagen.book.gettingstarted.AboutModEntry;
 import com.klikli_dev.theurgy.datagen.book.gettingstarted.IntroEntry;
+import com.klikli_dev.theurgy.datagen.book.gettingstarted.spagyrics.CreateSolventEntry;
 import com.klikli_dev.theurgy.datagen.book.gettingstarted.spagyrics.NeededApparatusEntry;
 import com.klikli_dev.theurgy.datagen.book.gettingstarted.spagyrics.OreRefiningEntry;
 import com.klikli_dev.theurgy.datagen.book.gettingstarted.spagyrics.SpagyricsEntry;
@@ -41,13 +42,15 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
                 "______________________ɖ_ᶑ_________",
                 "__________________đ_______________",
                 "__________________________________",
-                "__________i_a___________ő_ö_______",
+                "__________i_a_____________ö_______",
                 "__________________________________",
                 "______________s___________ô_õ_r___",
                 "__________________________________",
-                "______________o_________ò_________",
+                "______________o___________________",
                 "__________________________________",
-                "______________ó___________________"
+                "______________ó___________________",
+                "____________ő___ò_________________",
+                "__________________________________"
         };
     }
 
@@ -80,7 +83,8 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
         var neededApparatus = new NeededApparatusEntry(this).generate('ó');
         neededApparatus.withParent(oreRefining);
 
-        var createSolvent = this.add(ore.createSolventEntry('ő'));
+        var createSolvent = new CreateSolventEntry(this).generate('ő');
+
         var createSulfur = this.add(ore.createSulfurEntry('ö'));
         var createSalt = this.add(ore.createSaltEntry('ô'));
         var createMercury = this.add(ore.createMercuryEntry('ò'));

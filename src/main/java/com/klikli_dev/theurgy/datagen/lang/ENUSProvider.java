@@ -10,6 +10,7 @@ import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.content.item.AlchemicalSaltItem;
 import com.klikli_dev.theurgy.content.item.AlchemicalSulfurItem;
 import com.klikli_dev.theurgy.content.item.AlchemicalSulfurTier;
+import com.klikli_dev.theurgy.content.item.AlchemicalSulfurType;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.registry.SaltRegistry;
@@ -293,6 +294,13 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.add(AlchemicalSulfurTier.RARE.descriptionId(), "Rare");
         this.add(AlchemicalSulfurTier.PRECIOUS.descriptionId(), "Precious");
 
+        this.add(AlchemicalSulfurType.MISC.descriptionId(), "Misc");
+        this.add(AlchemicalSulfurType.METALS.descriptionId(), "Metals");
+        this.add(AlchemicalSulfurType.GEMS.descriptionId(), "Gems");
+        this.add(AlchemicalSulfurType.OTHER_MINERALS.descriptionId(), "Other Minerals");
+        this.add(AlchemicalSulfurType.NITER.descriptionId(), "Niter");
+
+
         //Automatic sulfur name rendering
         SulfurRegistry.SULFURS.getEntries().stream().map(RegistryObject::get).map(AlchemicalSulfurItem.class::cast).forEach(sulfur -> {
             if (sulfur.useAutomaticNameLangGeneration) {
@@ -300,7 +308,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
             }
             if (sulfur.useAutomaticTooltipLangGeneration) {
                 this.addTooltip(() -> sulfur,
-                        "Alchemical Sulfur crafted from %s %s.",
+                        "Alchemical Sulfur crafted from %s %s %s.",
                         "Sulfur represents the \"idea\" or \"soul\" of an object",
                         "Sulfur is the central element used in Spagyrics processes." +
                                 "\n\n" + ChatFormatting.ITALIC + "Hint: Sulfurs crafted from different states of the same material (such as from Ore or Ingots) are interchangeable." + ChatFormatting.RESET);
@@ -537,6 +545,9 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
 
         this.addItem(ItemRegistry.EMPTY_JAR_LABELED_ICON, "Labeled Empty Jar Icon");
         this.addTooltip(ItemRegistry.EMPTY_JAR_LABELED_ICON, "Dummy item for rendering.");
+
+        this.addItem(ItemRegistry.EMPTY_CERAMIC_JAR_LABELED_ICON, "Labeled Empty Ceramic Jar Icon");
+        this.addTooltip(ItemRegistry.EMPTY_CERAMIC_JAR_LABELED_ICON, "Dummy item for rendering.");
 
         this.addItem(ItemRegistry.JAR_LABEL_ICON, "Jar Label Icon");
         this.addTooltip(ItemRegistry.JAR_LABEL_ICON, "Dummy item for rendering.");

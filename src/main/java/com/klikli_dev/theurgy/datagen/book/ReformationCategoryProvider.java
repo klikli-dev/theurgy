@@ -49,6 +49,19 @@ public class ReformationCategoryProvider extends CategoryProvider {
         replication.addParent(this.parent(intro));
     }
 
+
+    @Override
+    protected BookCategoryModel generateCategory() {
+        this.add(this.context().categoryName(), "Reformation");
+
+        return BookCategoryModel.create(
+                        Theurgy.loc(this.context().categoryId()),
+                        this.context().categoryName()
+                )
+                .withBackground(Theurgy.loc("textures/gui/book/bg_nightsky.png"))
+                .withIcon(ItemRegistry.REFORMATION_RESULT_PEDESTAL.get());
+    }
+
     private BookEntryModel replication(char location) {
         this.context().entry("replication");
         this.add(this.context().entryName(), "Replicating Iron");
@@ -182,18 +195,6 @@ public class ReformationCategoryProvider extends CategoryProvider {
                 .withEntryBackground(EntryBackground.DEFAULT);
     }
 
-
-    @Override
-    protected BookCategoryModel generateCategory() {
-        this.add(this.context().categoryName(), "Reformation");
-
-        return BookCategoryModel.create(
-                        Theurgy.loc(this.context().categoryId()),
-                        this.context().categoryName()
-                )
-                .withBackground(Theurgy.loc("textures/gui/book/bg_nightsky.png"))
-                .withIcon(ItemRegistry.REFORMATION_RESULT_PEDESTAL.get());
-    }
 
 
     private BookEntryModel intro(char location) {

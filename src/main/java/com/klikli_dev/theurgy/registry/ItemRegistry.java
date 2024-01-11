@@ -28,10 +28,14 @@ public class ItemRegistry {
             ITEMS.register("empty_jar_icon", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> EMPTY_JAR_IRON_BAND_ICON =
             ITEMS.register("empty_jar_iron_band_icon", () -> new Item(new Item.Properties()));
-    public static final RegistryObject<Item> EMPTY_CERAMIC_JAR_ICON =
-            ITEMS.register("empty_ceramic_jar_icon", () -> new Item(new Item.Properties()));
+
     public static final RegistryObject<Item> EMPTY_JAR_LABELED_ICON =
             ITEMS.register("empty_jar_labeled_icon", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> EMPTY_CERAMIC_JAR_ICON =
+            ITEMS.register("empty_ceramic_jar_icon", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> EMPTY_CERAMIC_JAR_LABELED_ICON =
+            ITEMS.register("empty_ceramic_jar_labeled_icon", () -> new Item(new Item.Properties()));
+
     public static final RegistryObject<Item> JAR_LABEL_ICON =
             ITEMS.register("jar_label_icon", () -> new Item(new Item.Properties()));
 

@@ -1,0 +1,60 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "theurgy:getting_started",
+  "description": "book.theurgy.the_hermetica.getting_started.strata_recycling.description",
+  "hide_while_locked": false,
+  "icon": {
+    "height": 16,
+    "texture": "theurgy:textures/gui/book/cobble_to_salt.png",
+    "width": 16
+  },
+  "name": "book.theurgy.the_hermetica.getting_started.strata_recycling.name",
+  "pages": [
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "item": {
+        "item": "theurgy:alchemical_salt_mineral"
+      },
+      "text": "book.theurgy.the_hermetica.getting_started.strata_recycling.intro.text",
+      "title": ""
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.getting_started.strata_recycling.solution.text",
+      "title": "book.theurgy.the_hermetica.getting_started.strata_recycling.solution.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.getting_started.strata_recycling.refining.text",
+      "title": "book.theurgy.the_hermetica.getting_started.strata_recycling.refining.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "theurgy:calcination_recipe",
+      "anchor": "",
+      "recipe_id_1": "theurgy:calcination/strata_from_cobblestone",
+      "recipe_id_2": "theurgy:calcination/mineral",
+      "text": "book.theurgy.the_hermetica.getting_started.strata_recycling.recipe1.text",
+      "title1": "",
+      "title2": ""
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "theurgy:getting_started/create_salt",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "x": 1,
+  "y": 7
+}

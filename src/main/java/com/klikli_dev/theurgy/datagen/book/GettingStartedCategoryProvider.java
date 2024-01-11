@@ -13,10 +13,8 @@ import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.datagen.book.apparatus.mercuryflux.MercuryCatalystEntry;
 import com.klikli_dev.theurgy.datagen.book.gettingstarted.AboutModEntry;
 import com.klikli_dev.theurgy.datagen.book.gettingstarted.IntroEntry;
-import com.klikli_dev.theurgy.datagen.book.gettingstarted.spagyrics.CreateSolventEntry;
-import com.klikli_dev.theurgy.datagen.book.gettingstarted.spagyrics.NeededApparatusEntry;
-import com.klikli_dev.theurgy.datagen.book.gettingstarted.spagyrics.OreRefiningEntry;
-import com.klikli_dev.theurgy.datagen.book.gettingstarted.spagyrics.SpagyricsEntry;
+import com.klikli_dev.theurgy.datagen.book.gettingstarted.reformation.AlchemicalNiterEntry;
+import com.klikli_dev.theurgy.datagen.book.gettingstarted.spagyrics.*;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 
@@ -42,25 +40,64 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
                 "______________________ɖ_ᶑ_________",
                 "__________________đ_______________",
                 "__________________________________",
-                "__________i_a_____________ö_______",
+                "__________i_a___________r_________",
                 "__________________________________",
-                "______________s___________ô_õ_r___",
+                "______________s_______n___________",
                 "__________________________________",
                 "______________o___________________",
                 "__________________________________",
                 "______________ó___________________",
-                "____________ő___ò_________________",
-                "__________________________________"
+                "__________________________________",
+                "____________ő_ò___________________",
+                "__________________________________",
+                "____________ö___ô_ơ_______________",
+                "__________________________________",
+                "______________õ___________________"
         };
     }
 
     @Override
     protected void generateEntries() {
         var rods = new DivinationRodEntryProvider(this.parent(), this.entryMap());
-        var ore = new OreRefiningEntryProvider(this.parent(), this.entryMap());
 
         var introEntry = new IntroEntry(this).generate('i');
         var aboutModEntry = new AboutModEntry(this).generate('a');
+        aboutModEntry.withParent(introEntry);
+
+        var spagyrics = new SpagyricsEntry(this).generate('s');
+        spagyrics.withParent(aboutModEntry);
+        var oreRefining = new OreRefiningEntry(this).generate('o');
+        oreRefining.withParent(spagyrics);
+        var neededApparatus = new NeededApparatusEntry(this).generate('ó');
+        neededApparatus.withParent(oreRefining);
+        var createSolvent = new CreateSolventEntry(this).generate('ő');
+        createSolvent.withParent(neededApparatus);
+        var createSulfur = new CreateSulfurEntry(this).generate('ö');
+        createSulfur.withParent(createSolvent);
+        var createSalt = new CreateSaltEntry(this).generate('ô');
+        createSalt.withParent(neededApparatus);
+        var recycleStrata = new StrataRecyclingEntry(this).generate('ơ');
+        recycleStrata.withParent(createSalt);
+        var createMercury = new CreateMercuryEntry(this).generate('ò');
+        createMercury.withParent(neededApparatus);
+        var incubation = new IncubationEntry(this).generate('õ');
+        incubation
+                .withParent(createMercury)
+                .withParent(createSalt)
+                .withParent(createSulfur);
+
+        var reformation = this.add(this.reformation('r'));
+        reformation.withParent(incubation);
+
+        var niter = new AlchemicalNiterEntry(this).generate('n');
+        niter.withParent(spagyrics);
+        niter.withParent(incubation);
+        niter.withCondition(this.condition().entryRead(incubation));
+        niter.showWhenAnyParentUnlocked(true);
+
+        //TODO: entries explaining sulfur vs niter that lead over to reformation etc
+
+        //TODO: add an entry to create a caloric flux emmitter
 
         var aboutDivinationRods = this.add(rods.aboutDivinationRods('d'));
         var t1DivinationRod = this.add(rods.t1DivinationRodEntry('ḍ'));
@@ -73,30 +110,6 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
         var t4DivinationRod = this.add(rods.t4DivinationRodEntry('ḓ'));
         var rareSulfurAttunedDivinationRod = this.add(rods.rareSulfurAttunedDivinationRodEntry('ɖ'));
         var preciousSulfurAttunedDivinationRod = this.add(rods.preciousSulfurAttunedDivinationRodEntry('ᶑ'));
-
-        var spagyrics = new SpagyricsEntry(this).generate('s');
-        spagyrics.withParent(aboutModEntry);
-
-        var oreRefining = new OreRefiningEntry(this).generate('o');
-        oreRefining.withParent(spagyrics);
-
-        var neededApparatus = new NeededApparatusEntry(this).generate('ó');
-        neededApparatus.withParent(oreRefining);
-
-        var createSolvent = new CreateSolventEntry(this).generate('ő');
-
-        var createSulfur = this.add(ore.createSulfurEntry('ö'));
-        var createSalt = this.add(ore.createSaltEntry('ô'));
-        var createMercury = this.add(ore.createMercuryEntry('ò'));
-        var incubation = this.add(ore.incubationEntry('õ'));
-        var reformation = this.add(this.reformation('r'));
-
-        //TODO: add an entry to create a caloric flux emmitter
-
-
-        //links and conditions
-        aboutModEntry.withParent(introEntry);
-
         aboutDivinationRods.withParent(aboutModEntry);
 
         t1DivinationRod.withParent(aboutDivinationRods);
@@ -162,16 +175,6 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
 //                )
 //        );
 
-
-        createSolvent.withParent(neededApparatus);
-        createSulfur.withParent(createSolvent);
-        createSalt.withParent(neededApparatus);
-        createMercury.withParent(neededApparatus);
-        incubation
-                .withParent(createMercury)
-                .withParent(createSalt)
-                .withParent(createSulfur);
-        reformation.withParent(incubation);
 
         //TODO: Conditions
         //  amethyst entry should NOT depend on spagyrics -> hence not on abundant sulfur rod

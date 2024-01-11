@@ -13,6 +13,7 @@ import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import com.klikli_dev.theurgy.registry.SulfurRegistry;
 import com.klikli_dev.theurgy.util.LevelUtil;
 import com.klikli_dev.theurgy.util.TagUtil;
+import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.core.registries.Registries;
@@ -143,6 +144,14 @@ public class AlchemicalSulfurItem extends Item {
         return AlchemicalSulfurTier.ABUNDANT;
     }
 
+    public static AlchemicalSulfurType getType(ItemStack sulfurStack) {
+        if (sulfurStack.getItem() instanceof AlchemicalSulfurItem sulfur) {
+            return sulfur.type;
+        }
+
+        return AlchemicalSulfurType.MISC;
+    }
+
     /**
      * Get the source item stack from the sulfur stack nbt.
      * The source *should* be the item that was used to create the sulfur.
@@ -182,12 +191,19 @@ public class AlchemicalSulfurItem extends Item {
     public static List<MutableComponent> getTooltipData(ItemStack sulfurStack) {
         if (sulfurStack.getItem() instanceof AlchemicalSulfurItem sulfur && sulfur.provideAutomaticTooltipData) {
             var tier = getTier(sulfurStack);
+            var type = getType(sulfurStack);
             return ImmutableList.of(
                     sulfur.getSourceName(sulfurStack),
                     ComponentUtils.wrapInSquareBrackets(
                             Component.translatable(tier.descriptionId())
                                     .withStyle(Style.EMPTY
                                             .withColor(tier.color)
+                                            .withItalic(true))
+                    ),
+                    ComponentUtils.wrapInSquareBrackets(
+                            Component.translatable(type.descriptionId())
+                                    .withStyle(Style.EMPTY
+                                            .withColor(ChatFormatting.DARK_GRAY)
                                             .withItalic(true))
                     )
             );
@@ -316,6 +332,7 @@ public class AlchemicalSulfurItem extends Item {
     public Component getName(ItemStack pStack) {
         if (this.useAutomaticNameRendering) {
             var tier = getTier(pStack);
+            var type = getType(pStack);
             return Component.translatable(this.getDescriptionId(pStack),
                     ComponentUtils.wrapInSquareBrackets(
                             this.getSourceName(pStack)
@@ -324,6 +341,12 @@ public class AlchemicalSulfurItem extends Item {
                             Component.translatable(tier.descriptionId())
                                     .withStyle(Style.EMPTY
                                             .withColor(tier.color)
+                                            .withItalic(true))
+                    ),
+                    ComponentUtils.wrapInSquareBrackets(
+                            Component.translatable(type.descriptionId())
+                                    .withStyle(Style.EMPTY
+                                            .withColor(ChatFormatting.DARK_GRAY)
                                             .withItalic(true))
                     )
             );

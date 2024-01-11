@@ -5,7 +5,9 @@
   "description": "book.theurgy.the_hermetica.getting_started.incubation.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "minecraft:iron_ingot"
+    "height": 16,
+    "texture": "theurgy:textures/gui/book/ingot_x3.png",
+    "width": 16
   },
   "name": "book.theurgy.the_hermetica.getting_started.incubation.name",
   "pages": [
@@ -62,6 +64,7 @@
       "line_reversed": false
     }
   ],
-  "x": 11,
-  "y": 1
+  "show_when_any_parent_unlocked": false,
+  "x": -3,
+  "y": 9
 }

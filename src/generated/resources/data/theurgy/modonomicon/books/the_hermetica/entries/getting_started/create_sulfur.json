@@ -1,6 +1,6 @@
 {
   "background_u_index": 0,
-  "background_v_index": 0,
+  "background_v_index": 1,
   "category": "theurgy:getting_started",
   "description": "book.theurgy.the_hermetica.getting_started.create_sulfur.description",
   "hide_while_locked": false,
@@ -59,6 +59,7 @@
       "line_reversed": false
     }
   ],
-  "x": 9,
-  "y": -1
+  "show_when_any_parent_unlocked": false,
+  "x": -5,
+  "y": 7
 }

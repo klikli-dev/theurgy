@@ -50,7 +50,7 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
                 "___________________________________",
                 "______________ó____________________",
                 "___________________________________",
-                "____________ő_ò____________________",
+                "____________ő_ò_________ť__________",
                 "___________________________________",
                 "____________ö___ô_ơ________________",
                 "___________________________________",
@@ -119,6 +119,11 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
         //TODO: the two other branches should be children of the replication by reformation entry, but should be unlocked by the reformation incubation entry
 
         //TODO: First the cross-type conversion, then the cross-tier
+
+        var convertToOtherType = new ConvertToOtherTypeEntry(this).generate('ť');
+        convertToOtherType.withParent(convertWithinTypeAndTier);
+        convertToOtherType.withCondition(this.condition().entryRead(reformationIncubation));
+        convertToOtherType.hideWhileLocked(true);
 
         var aboutDivinationRods = this.add(rods.aboutDivinationRods('d'));
         var t1DivinationRod = this.add(rods.t1DivinationRodEntry('ḍ'));

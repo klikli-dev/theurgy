@@ -1,0 +1,66 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "theurgy:getting_started",
+  "description": "book.theurgy.the_hermetica.getting_started.convert_within_type_and_tier.description",
+  "hide_while_locked": false,
+  "icon": {
+    "height": 16,
+    "texture": "theurgy:textures/gui/book/convert_items_rare.png",
+    "width": 16
+  },
+  "name": "book.theurgy.the_hermetica.getting_started.convert_within_type_and_tier.name",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.getting_started.convert_within_type_and_tier.intro.text",
+      "title": "book.theurgy.the_hermetica.getting_started.convert_within_type_and_tier.intro.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.getting_started.convert_within_type_and_tier.possibilities.text",
+      "title": "book.theurgy.the_hermetica.getting_started.convert_within_type_and_tier.possibilities.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.getting_started.convert_within_type_and_tier.further_research.text",
+      "title": "book.theurgy.the_hermetica.getting_started.convert_within_type_and_tier.further_research.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.getting_started.convert_within_type_and_tier.theory.text",
+      "title": "book.theurgy.the_hermetica.getting_started.convert_within_type_and_tier.theory.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.getting_started.convert_within_type_and_tier.reassembly.text",
+      "title": "book.theurgy.the_hermetica.getting_started.convert_within_type_and_tier.reassembly.title",
+      "use_markdown_in_title": false
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "theurgy:getting_started/alchemical_niter",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "x": 7,
+  "y": -1
+}

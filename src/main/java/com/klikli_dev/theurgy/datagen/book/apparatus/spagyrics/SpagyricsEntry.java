@@ -14,6 +14,9 @@ import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.mojang.datafixers.util.Pair;
 
 public class SpagyricsEntry extends EntryProvider {
+
+    public static final String ENTRY_ID = "spagyrics";
+
     public SpagyricsEntry(CategoryProvider parent) {
         super(parent);
     }
@@ -64,6 +67,6 @@ public class SpagyricsEntry extends EntryProvider {
 
     @Override
     protected String entryId() {
-        return "spagyrics";
+        return ENTRY_ID;
     }
 }

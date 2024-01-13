@@ -19,7 +19,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 
 public class NeededApparatusEntry extends EntryProvider {
 
-    public static final String ENTRY_ID = "needed_apparatus";
+    public static final String ENTRY_ID = "needed_apparatus_spagyrics";
 
     public NeededApparatusEntry(CategoryProvider parent) {
         super(parent);

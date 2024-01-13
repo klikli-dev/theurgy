@@ -42,11 +42,9 @@ public class ReformationCategoryProvider extends CategoryProvider {
 
     @Override
     protected void generateEntries() {
-        var intro = this.add(this.intro('i'));
         var replication = this.add(this.replication('p'));
 
         //TODO: link to sulfuric flux emitter for crafting
-        replication.addParent(this.parent(intro));
     }
 
 
@@ -194,76 +192,4 @@ public class ReformationCategoryProvider extends CategoryProvider {
                 .withIcon(this.modLoc("textures/gui/book/three_iron_ingots.png"), 32, 32)
                 .withEntryBackground(EntryBackground.DEFAULT);
     }
-
-
-
-    private BookEntryModel intro(char location) {
-        this.context().entry("intro");
-        this.add(this.context().entryName(), "Reformation");
-        this.add(this.context().entryDescription(), "Replication of Matter");
-
-        this.context().page("intro");
-        var intro = BookTextPageModel.builder()
-                .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
-        this.add(this.context().pageTitle(), "Reformation");
-        this.add(this.context().pageText(),
-                """
-                        Reformation is the process of replicating matter. However, matter cannot be created from nothing, so the process requires a source of matter to be converted into the desired matter. Furthermore, matter in its complete form consisting of Soul, Spirit and Body resists change.
-                        """
-        );
-
-        this.context().page("process");
-        var process = BookTextPageModel.builder()
-                .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
-        this.add(this.context().pageTitle(), "Process");
-        this.add(this.context().pageText(),
-                """
-                        Therefore, the process of reformation requires the matter to be broken down into its components first, and only the Soul - the Sulfur - is malleable and may be transformed.
-                        """
-
-        );
-
-        this.context().page("theory");
-        var theory = BookTextPageModel.builder()
-                .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
-        this.add(this.context().pageTitle(), "Theoretical Underpinnings");
-        this.add(this.context().pageText(),
-                """
-                        This Reformation of one sulfur into the other can be achieved by the application of Sulfuric Flux. This is a type of Mercury flux that has been infused with the essence of one type of Sulfur, allowing it to transform other Sulfur it gets in contact with into the same type.
-                        """
-
-        );
-
-        this.context().page("reassembly");
-        var reassembly = BookTextPageModel.builder()
-                .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
-        this.add(this.context().pageTitle(), "Reassembly");
-        this.add(this.context().pageText(),
-                """
-                        Once the desired Sulfur has been produced, {0} can be used to reassemble the matter into the desired form.
-                        """,
-"TODO"
-//                this.categoryLink("Spagyrics", SpagyricsCategoryProvider.CATEGORY_ID) //TODO: link to the spagyrics entries ingetting started, likely the last one, and the incubator entry in apparatus
-        );
-
-
-        return this.entry(location)
-                .withIcon(ItemRegistry.REFORMATION_RESULT_PEDESTAL.get())
-                .withEntryBackground(EntryBackground.CATEGORY_START)
-                .withPages(
-                        intro,
-                        process,
-                        theory,
-                        reassembly
-                );
-    }
-
 }

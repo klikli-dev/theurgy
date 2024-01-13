@@ -14,6 +14,8 @@ import com.klikli_dev.theurgy.datagen.book.apparatus.mercuryflux.MercuryCatalyst
 import com.klikli_dev.theurgy.datagen.book.gettingstarted.AboutModEntry;
 import com.klikli_dev.theurgy.datagen.book.gettingstarted.IntroEntry;
 import com.klikli_dev.theurgy.datagen.book.gettingstarted.reformation.AlchemicalNiterEntry;
+import com.klikli_dev.theurgy.datagen.book.gettingstarted.reformation.ConvertWithinTypeAndTierEntry;
+import com.klikli_dev.theurgy.datagen.book.gettingstarted.reformation.ReformationArrayEntry;
 import com.klikli_dev.theurgy.datagen.book.gettingstarted.spagyrics.*;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
@@ -37,12 +39,12 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
                 "__________________ḍ___ď_ḑ_ḓ_______",
                 "__________________________________",
                 "________________d___ḋ_____________",
-                "______________________ɖ_ᶑ_________",
-                "__________________đ_______________",
                 "__________________________________",
-                "__________i_a___________r_________",
+                "__________________đ___ɖ_ᶑ_________",
                 "__________________________________",
-                "______________s_______n___________",
+                "__________i_a_____________________",
+                "__________________________________",
+                "______________s_______n_r_ȓ_______",
                 "__________________________________",
                 "______________o___________________",
                 "__________________________________",
@@ -86,16 +88,25 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
                 .withParent(createSalt)
                 .withParent(createSulfur);
 
-        var reformation = this.add(this.reformation('r'));
-        reformation.withParent(incubation);
-
         var niter = new AlchemicalNiterEntry(this).generate('n');
         niter.withParent(spagyrics);
         niter.withParent(incubation);
         niter.withCondition(this.condition().entryRead(incubation));
         niter.showWhenAnyParentUnlocked(true);
 
-        //TODO: entries explaining sulfur vs niter that lead over to reformation etc
+
+//        var reformation = this.add(this.reformation('r'));
+//        reformation.withParent(incubation);
+
+        var convertWithinTypeAndTier = new ConvertWithinTypeAndTierEntry(this).generate('r');
+        convertWithinTypeAndTier.withParent(niter);
+        var reformationArray = new ReformationArrayEntry(this).generate('ȓ');
+        reformationArray.withParent(convertWithinTypeAndTier);
+        //from this entry start an explanatory entry chain for reformation
+        //and also make two branches for the other conversion types using fermentation and digestion, but possibly after the reformation chain
+        //TODO: we need a "needed apparatus" entry once again
+
+        //TODO: link to sulfuric flux emitter for crafting
 
         //TODO: add an entry to create a caloric flux emmitter
 

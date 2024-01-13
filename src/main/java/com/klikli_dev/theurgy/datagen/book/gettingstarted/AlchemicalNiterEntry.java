@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: MIT
 
-package com.klikli_dev.theurgy.datagen.book.gettingstarted.reformation;
+package com.klikli_dev.theurgy.datagen.book.gettingstarted;
 
 import com.klikli_dev.modonomicon.api.datagen.CategoryProvider;
 import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
@@ -25,6 +25,7 @@ public class AlchemicalNiterEntry extends EntryProvider {
     protected void generatePages() {
         this.page("intro", () -> BookSpotlightPageModel.builder()
                 .withItem(Ingredient.of(SulfurRegistry.IRON.get()))
+                .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
                 .build()
         );
@@ -53,6 +54,7 @@ public class AlchemicalNiterEntry extends EntryProvider {
 
         this.page("niter", () -> BookSpotlightPageModel.builder()
                 .withItem(Ingredient.of(SulfurRegistry.METALS_COMMON.get()))
+                .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
                 .build()
         );
@@ -62,6 +64,17 @@ public class AlchemicalNiterEntry extends EntryProvider {
                 \\
                 \\
                 Niter represents the "concept" behind a type of matter (such as "common metal" or "precious gem" instead of "iron" or "diamond"), and is much more malleable.
+                """
+        );
+
+        this.page("niter2", () -> BookTextPageModel.builder()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
+                .build()
+        );
+        this.pageTitle("Alchemical Niter");
+        this.pageText("""
+                For instance, Alchemical Niter of Common Gems can be transformed into any Common Gem Sulfur, but also into Common Metal Niter and with the right process even into Rare or Abundant Gem Niter. In short, Alchemical Niter is the key to true mastery over matter. 
                 """
         );
 
@@ -108,7 +121,7 @@ public class AlchemicalNiterEntry extends EntryProvider {
 
     @Override
     protected Pair<Integer, Integer> entryBackground() {
-        return EntryBackground.CATEGORY_START;
+        return EntryBackground.DEFAULT;
     }
 
     @Override

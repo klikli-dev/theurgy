@@ -7,7 +7,7 @@
     "entry_id": "theurgy:getting_started/incubation_after_reformation"
   },
   "description": "book.theurgy.the_hermetica.getting_started.convert_to_other_type.description",
-  "hide_while_locked": false,
+  "hide_while_locked": true,
   "icon": {
     "height": 16,
     "texture": "theurgy:textures/gui/book/convert_types.png",
@@ -45,6 +45,14 @@
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.getting_started.convert_to_other_type.limitations.text",
       "title": "book.theurgy.the_hermetica.getting_started.convert_to_other_type.limitations.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.getting_started.convert_to_other_type.instructions.text",
+      "title": "book.theurgy.the_hermetica.getting_started.convert_to_other_type.instructions.title",
       "use_markdown_in_title": false
     }
   ],

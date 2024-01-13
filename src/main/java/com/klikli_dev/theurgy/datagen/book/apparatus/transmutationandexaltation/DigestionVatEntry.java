@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: MIT
 
-package com.klikli_dev.theurgy.datagen.book.apparatus.exaltation;
+package com.klikli_dev.theurgy.datagen.book.apparatus.transmutationandexaltation;
 
 import com.klikli_dev.modonomicon.api.datagen.CategoryProvider;
 import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
@@ -33,7 +33,7 @@ public class DigestionVatEntry extends EntryProvider {
         this.add(this.context().pageText(),
                 """
                         Digestion vats are required for Alchemical Digestion, whereby Alchemical Niters can be converted into higher or lower tiers.\\
-                        This is required to convert objects of different value into each other, such as Iron into Gold.
+                        This is required to convert objects of different value into each other, such as Iron into Gold - also known as [#]($PURPLE)Exaltation[#]().
                          """
         );
 

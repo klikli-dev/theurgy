@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: MIT
 
-package com.klikli_dev.theurgy.datagen.book.apparatus.exaltation;
+package com.klikli_dev.theurgy.datagen.book.apparatus.transmutationandexaltation;
 
 import com.klikli_dev.modonomicon.api.datagen.CategoryProvider;
 import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
@@ -32,8 +32,7 @@ public class FermentationVatEntry extends EntryProvider {
                 .build());
         this.add(this.context().pageText(),
                 """
-                        Fermentation vats enable a process called Alchemical fermentation. This allows converting Alchemical Sulfur, the "idea" or "soul" of an object, into Alchemical Niter, which represents the overarching "concept" behind the "idea".
-                 
+                        Fermentation vats enable a process called Alchemical fermentation. This allows converting Alchemical Sulfur into Alchemical Niter, enabling [#]($PURPLE)Transmutation[#]().
                         """
         );
 

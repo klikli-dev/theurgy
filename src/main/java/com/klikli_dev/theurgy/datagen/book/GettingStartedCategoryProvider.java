@@ -5,20 +5,15 @@
 package com.klikli_dev.theurgy.datagen.book;
 
 import com.klikli_dev.modonomicon.api.datagen.CategoryProvider;
-import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
 import com.klikli_dev.modonomicon.api.datagen.book.BookCategoryModel;
-import com.klikli_dev.modonomicon.api.datagen.book.BookEntryModel;
-import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.klikli_dev.theurgy.Theurgy;
-import com.klikli_dev.theurgy.datagen.book.gettingstarted.AboutModEntry;
-import com.klikli_dev.theurgy.datagen.book.gettingstarted.CaloricFluxEmitterEntry;
-import com.klikli_dev.theurgy.datagen.book.gettingstarted.IntroEntry;
+import com.klikli_dev.theurgy.datagen.book.gettingstarted.*;
 import com.klikli_dev.theurgy.datagen.book.gettingstarted.reformation.*;
 import com.klikli_dev.theurgy.datagen.book.gettingstarted.spagyrics.*;
 import com.klikli_dev.theurgy.datagen.book.gettingstarted.spagyrics.IncubationEntry;
+import com.klikli_dev.theurgy.datagen.book.gettingstarted.transmutation.ConvertToOtherTypeEntry;
+import com.klikli_dev.theurgy.datagen.book.gettingstarted.transmutation.FermentationVatEntry;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
-
-import java.lang.annotation.Target;
 
 public class GettingStartedCategoryProvider extends CategoryProvider {
 
@@ -44,13 +39,13 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
                 "___________________________________",
                 "__________i_a_________c_____ŕ______",
                 "___________________________________",
-                "______________s_______n_r_ȓ___ŗ_ʀ_ȑ",
+                "______________s_____ṟ_n_r_ȓ___ŗ_ʀ_ȑ",
                 "___________________________________",
                 "______________o_____________ř______",
                 "___________________________________",
                 "______________ó____________________",
                 "___________________________________",
-                "____________ő_ò_________ť__________",
+                "____________ő_ò_________ť_ţ________",
                 "___________________________________",
                 "____________ö___ô_ơ________________",
                 "___________________________________",
@@ -88,11 +83,16 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
                 .withParent(createSalt)
                 .withParent(createSulfur);
 
+        //TODO: entry that talks about the next steps, the types of conversion //ṟ
+
+        var replication = new ReplicationEntry(this).generate('ṟ');
+        replication.withParent(spagyrics);
+        replication.withParent(incubation);
+        replication.withCondition(this.condition().entryRead(incubation));
+        replication.showWhenAnyParentUnlocked(true);
+
         var niter = new AlchemicalNiterEntry(this).generate('n');
-        niter.withParent(spagyrics);
-        niter.withParent(incubation);
-        niter.withCondition(this.condition().entryRead(incubation));
-        niter.showWhenAnyParentUnlocked(true);
+        niter.withParent(replication);
 
         var caloricFlux = new CaloricFluxEmitterEntry(this).generate('c');
         caloricFlux.withParent(niter);
@@ -124,6 +124,9 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
         convertToOtherType.withParent(convertWithinTypeAndTier);
         convertToOtherType.withCondition(this.condition().entryRead(reformationIncubation));
         convertToOtherType.hideWhileLocked(true);
+
+        var fermentationVatEntry = new FermentationVatEntry(this).generate('ţ');
+        fermentationVatEntry.withParent(convertToOtherType);
 
         var aboutDivinationRods = this.add(rods.aboutDivinationRods('d'));
         var t1DivinationRod = this.add(rods.t1DivinationRodEntry('ḍ'));

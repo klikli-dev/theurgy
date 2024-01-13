@@ -46,7 +46,7 @@
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "theurgy:apparatus/exaltation",
+      "entry": "theurgy:apparatus/transmutation_and_exaltation",
       "line_enabled": true,
       "line_reversed": false
     }

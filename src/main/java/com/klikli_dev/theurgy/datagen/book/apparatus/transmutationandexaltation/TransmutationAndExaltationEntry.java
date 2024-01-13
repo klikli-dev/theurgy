@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: MIT
 
-package com.klikli_dev.theurgy.datagen.book.apparatus.exaltation;
+package com.klikli_dev.theurgy.datagen.book.apparatus.transmutationandexaltation;
 
 import com.klikli_dev.modonomicon.api.datagen.CategoryProvider;
 import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
@@ -13,11 +13,11 @@ import com.klikli_dev.theurgy.datagen.book.ApparatusCategory;
 import com.klikli_dev.theurgy.datagen.book.apparatus.reformation.ReformationArrayEntry;
 import com.mojang.datafixers.util.Pair;
 
-public class ExaltationEntry extends EntryProvider {
+public class TransmutationAndExaltationEntry extends EntryProvider {
 
-    public static final String ENTRY_ID = "exaltation";
+    public static final String ENTRY_ID = "transmutation_and_exaltation";
 
-    public ExaltationEntry(CategoryProvider parent) {
+    public TransmutationAndExaltationEntry(CategoryProvider parent) {
         super(parent);
     }
 
@@ -27,24 +27,41 @@ public class ExaltationEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
                 .build());
-        this.pageTitle("Exaltation Apparatus");
+        this.pageTitle("Transmutation and Exaltation Apparatus");
         this.pageText(
                 """
-                       Exaltation is the process of converting sulfurs into different types (such es gems to metals) or tiers (such as common to rare).\\
-                       Exaltation consists of three processes: Fermentation to make Sulfurs more malleable for the other two steps, Digestion to change the tier and Reformation to change the type.
-                         """
+                        [#]($PURPLE)Transmutation[#]() is the process of converting sulfurs into other types (such as gems to metals),
+                        [#]($PURPLE)Exaltation[#]() into different tiers (such as common to rare).
+                          """
         );
-        this.page("structure", () -> BookTextPageModel.builder()
+
+        this.page("transmutation", () -> BookTextPageModel.builder()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
                 .build());
-        this.add(this.context().pageTitle(), "Structure");
+        this.add(this.context().pageTitle(), "Transmutation");
         this.add(this.context().pageText(),
                 """
-                        Reformation is described in the {0}.\\
-                        Fermentation and Digestion both happen in special vats, which are standalone objects that need no particular structure.
+                        Transmutation requires two apparatus: a Fermentation Vat and a Reformation Array.
+                        \\
+                        \\
+                        The vat, is a standalone objects that need no particular structure, the Reformation Array is discussed {0}
                         """,
                 this.entryLink("Reformation Array Entry", ApparatusCategory.CATEGORY_ID, ReformationArrayEntry.ENTRY_ID)
+        );
+
+        this.page("exaltation", () -> BookTextPageModel.builder()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
+                .build());
+        this.add(this.context().pageTitle(), "Exaltation");
+        this.add(this.context().pageText(),
+                """
+                        Exaltation similarly requires two apparatus: a Digestion Vat and a Reformation Array.
+                        \\
+                        \\
+                        The vat again is a standalone object.
+                        """
         );
     }
 

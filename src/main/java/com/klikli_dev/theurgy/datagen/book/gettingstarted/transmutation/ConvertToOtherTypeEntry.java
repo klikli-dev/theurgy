@@ -1,4 +1,4 @@
-package com.klikli_dev.theurgy.datagen.book.gettingstarted.reformation;
+package com.klikli_dev.theurgy.datagen.book.gettingstarted.transmutation;
 
 import com.klikli_dev.modonomicon.api.datagen.CategoryProvider;
 import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
@@ -68,11 +68,24 @@ public class ConvertToOtherTypeEntry extends EntryProvider {
         this.pageText("""
                 While fermentation into niter overcomes the limitation of *type*, the limitation of *tier* (Abundant, Common, Rare, ... ) remains.
                 \\
-                Conversion of Iron into Gold remains out of reach just yet. 
+                Conversion of Iron into Gold remains out of reach just yet.
                 \\
                 \\
                 This process will be tackled after you have succeeded in transmutation.
                 """
+        );
+
+        this.page("instructions", () -> BookTextPageModel.builder()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
+                .build()
+        );
+        this.pageTitle("Instructions");
+        this.pageText("""
+                        The following entries will guide you through the conversion of {0} into {1}, *assuming you already obtained at least one Sulfur of each*.
+                        """,
+                this.itemLink("Alchemical Sulfur: Quartz", SulfurRegistry.QUARTZ.get()),
+                this.itemLink("Alchemical Sulfur: Iron", SulfurRegistry.IRON.get())
         );
     }
 

@@ -11,9 +11,9 @@ import com.klikli_dev.modonomicon.api.datagen.book.BookEntryModel;
 import com.klikli_dev.modonomicon.api.datagen.book.condition.BookTrueConditionModel;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.datagen.book.apparatus.*;
-import com.klikli_dev.theurgy.datagen.book.apparatus.exaltation.DigestionVatEntry;
-import com.klikli_dev.theurgy.datagen.book.apparatus.exaltation.ExaltationEntry;
-import com.klikli_dev.theurgy.datagen.book.apparatus.exaltation.FermentationVatEntry;
+import com.klikli_dev.theurgy.datagen.book.apparatus.transmutationandexaltation.DigestionVatEntry;
+import com.klikli_dev.theurgy.datagen.book.apparatus.transmutationandexaltation.TransmutationAndExaltationEntry;
+import com.klikli_dev.theurgy.datagen.book.apparatus.transmutationandexaltation.FermentationVatEntry;
 import com.klikli_dev.theurgy.datagen.book.apparatus.mercuryflux.CaloricFluxEmitterEntry;
 import com.klikli_dev.theurgy.datagen.book.apparatus.mercuryflux.MercuryCatalystEntry;
 import com.klikli_dev.theurgy.datagen.book.apparatus.mercuryflux.MercuryFluxEntry;
@@ -64,15 +64,15 @@ public class ApparatusCategory extends CategoryProvider {
     }
 
     private void exaltationEntries(BookEntryModel parent) {
-        var exaltationEntry = new ExaltationEntry(this).generate('é');
-        exaltationEntry.addParent(this.parent(parent));
-        exaltationEntry.withCondition(BookTrueConditionModel.builder().build());
+        var transmutationAndExaltation = new TransmutationAndExaltationEntry(this).generate('é');
+        transmutationAndExaltation.addParent(this.parent(parent));
+        transmutationAndExaltation.withCondition(BookTrueConditionModel.builder().build());
 
         var fermentationVatEntry = new FermentationVatEntry(this).generate('f');
-        fermentationVatEntry.addParent(this.parent(exaltationEntry));
+        fermentationVatEntry.addParent(this.parent(transmutationAndExaltation));
 
         var digestionVatEntry = new DigestionVatEntry(this).generate('ď');
-        digestionVatEntry.addParent(this.parent(exaltationEntry));
+        digestionVatEntry.addParent(this.parent(transmutationAndExaltation));
     }
 
     private void reformationEntries(BookEntryModel parent) {

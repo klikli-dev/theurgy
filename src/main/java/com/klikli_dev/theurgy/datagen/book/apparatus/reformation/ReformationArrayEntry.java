@@ -37,6 +37,18 @@ public class ReformationArrayEntry extends EntryProvider {
                         The reformation array provides the necessary framework to perform this process.
                          """
         );
+
+        this.page("about2", () -> BookTextPageModel.builder()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
+                .build());
+        this.pageTitle("Reformation Array");
+        this.pageText(
+                """
+                        The reformation array provides the necessary framework to perform this process.
+                         """
+        );
+
         this.page("structure", () -> BookTextPageModel.builder()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())

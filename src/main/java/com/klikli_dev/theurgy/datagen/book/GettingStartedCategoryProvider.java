@@ -10,15 +10,15 @@ import com.klikli_dev.modonomicon.api.datagen.book.BookCategoryModel;
 import com.klikli_dev.modonomicon.api.datagen.book.BookEntryModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.klikli_dev.theurgy.Theurgy;
-import com.klikli_dev.theurgy.datagen.book.apparatus.mercuryflux.MercuryCatalystEntry;
 import com.klikli_dev.theurgy.datagen.book.gettingstarted.AboutModEntry;
+import com.klikli_dev.theurgy.datagen.book.gettingstarted.CaloricFluxEmitterEntry;
 import com.klikli_dev.theurgy.datagen.book.gettingstarted.IntroEntry;
-import com.klikli_dev.theurgy.datagen.book.gettingstarted.reformation.AlchemicalNiterEntry;
-import com.klikli_dev.theurgy.datagen.book.gettingstarted.reformation.ConvertWithinTypeAndTierEntry;
-import com.klikli_dev.theurgy.datagen.book.gettingstarted.reformation.ReformationArrayEntry;
+import com.klikli_dev.theurgy.datagen.book.gettingstarted.reformation.*;
 import com.klikli_dev.theurgy.datagen.book.gettingstarted.spagyrics.*;
-import com.klikli_dev.theurgy.registry.BlockRegistry;
+import com.klikli_dev.theurgy.datagen.book.gettingstarted.spagyrics.IncubationEntry;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
+
+import java.lang.annotation.Target;
 
 public class GettingStartedCategoryProvider extends CategoryProvider {
 
@@ -35,26 +35,26 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
     @Override
     protected String[] generateEntryMap() {
         return new String[]{
-                "__________________________________",
-                "__________________ḍ___ď_ḑ_ḓ_______",
-                "__________________________________",
-                "________________d___ḋ_____________",
-                "__________________________________",
-                "__________________đ___ɖ_ᶑ_________",
-                "__________________________________",
-                "__________i_a_____________________",
-                "__________________________________",
-                "______________s_______n_r_ȓ_______",
-                "__________________________________",
-                "______________o___________________",
-                "__________________________________",
-                "______________ó___________________",
-                "__________________________________",
-                "____________ő_ò___________________",
-                "__________________________________",
-                "____________ö___ô_ơ_______________",
-                "__________________________________",
-                "______________õ___________________"
+                "___________________________________",
+                "__________________ḍ___ď_ḑ_ḓ________",
+                "___________________________________",
+                "________________d___ḋ______________",
+                "___________________________________",
+                "__________________đ___ɖ_ᶑ__________",
+                "___________________________________",
+                "__________i_a_________c_____ŕ______",
+                "___________________________________",
+                "______________s_______n_r_ȓ___ŗ_ʀ_ȑ",
+                "___________________________________",
+                "______________o_____________ř______",
+                "___________________________________",
+                "______________ó____________________",
+                "___________________________________",
+                "____________ő_ò____________________",
+                "___________________________________",
+                "____________ö___ô_ơ________________",
+                "___________________________________",
+                "______________õ____________________"
         };
     }
 
@@ -94,21 +94,31 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
         niter.withCondition(this.condition().entryRead(incubation));
         niter.showWhenAnyParentUnlocked(true);
 
-
-//        var reformation = this.add(this.reformation('r'));
-//        reformation.withParent(incubation);
+        var caloricFlux = new CaloricFluxEmitterEntry(this).generate('c');
+        caloricFlux.withParent(niter);
 
         var convertWithinTypeAndTier = new ConvertWithinTypeAndTierEntry(this).generate('r');
         convertWithinTypeAndTier.withParent(niter);
         var reformationArray = new ReformationArrayEntry(this).generate('ȓ');
         reformationArray.withParent(convertWithinTypeAndTier);
-        //from this entry start an explanatory entry chain for reformation
-        //and also make two branches for the other conversion types using fermentation and digestion, but possibly after the reformation chain
-        //TODO: we need a "needed apparatus" entry once again
 
-        //TODO: link to sulfuric flux emitter for crafting
+        var source = new SourceEntry(this).generate('ŕ');
+        source.withParent(reformationArray);
+        var target = new TargetEntry(this).generate('ř');
+        target.withParent(reformationArray);
+        var sulfuricFluxEmitter = new SulfuricFluxEmitterEntry(this).generate('ŗ');
+        sulfuricFluxEmitter.withParent(source);
+        sulfuricFluxEmitter.withParent(target);
+        var result = new ResultEntry(this).generate('ʀ');
+        result.withParent(sulfuricFluxEmitter);
+        var reformationIncubation = new com.klikli_dev.theurgy.datagen.book.gettingstarted.reformation.IncubationEntry(this).generate('ȑ');
+        reformationIncubation.withParent(result);
 
-        //TODO: add an entry to create a caloric flux emmitter
+        //TODO: also make two branches for the other conversion types using fermentation and digestion, but possibly after the reformation chain
+
+        //TODO: the two other branches should be children of the replication by reformation entry, but should be unlocked by the reformation incubation entry
+
+        //TODO: First the cross-type conversion, then the cross-tier
 
         var aboutDivinationRods = this.add(rods.aboutDivinationRods('d'));
         var t1DivinationRod = this.add(rods.t1DivinationRodEntry('ḍ'));
@@ -197,32 +207,5 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
 
         return BookCategoryModel.create(Theurgy.loc((this.context().categoryId())), this.context().categoryName())
                 .withIcon(ItemRegistry.THE_HERMETICA_ICON.get()).withBackground(Theurgy.loc("textures/gui/book/bg_nightsky.png"));
-    }
-
-    private BookEntryModel reformation(char location) {
-        this.context().entry("reformation");
-        this.add(this.context().entryName(), "Reformation");
-        this.add(this.context().entryDescription(), "Further Duplication of Matter");
-
-        this.page("intro", () -> BookTextPageModel.builder()
-                .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build()
-        );
-        this.add(this.context().pageTitle(), "Reformation");
-        this.add(this.context().pageText(),
-                """
-                        To further duplicate matter, we can use the process of Reformation to convert one material into another.
-                        \\
-                        \\
-                        See the Category for {0} on how to achieve that.
-                        """,
-                this.categoryLink("Reformation", ReformationCategoryProvider.CATEGORY_ID)
-        );
-
-
-        return this.entry(location)
-                .withIcon(this.modLoc("textures/gui/book/three_iron_ingots.png"), 32, 32)
-                .withEntryBackground(EntryBackground.DEFAULT);
     }
 }

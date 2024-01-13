@@ -23,46 +23,6 @@
       "type": "modonomicon:text",
       "anchor": "",
       "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.reformation.replication.array.text",
-      "title": "book.theurgy.the_hermetica.reformation.replication.array.title",
-      "use_markdown_in_title": false
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.reformation.replication.sulfur.text",
-      "title": "book.theurgy.the_hermetica.reformation.replication.sulfur.title",
-      "use_markdown_in_title": false
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.reformation.replication.source.text",
-      "title": "book.theurgy.the_hermetica.reformation.replication.source.title",
-      "use_markdown_in_title": false
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.reformation.replication.source2.text",
-      "title": "book.theurgy.the_hermetica.reformation.replication.source2.title",
-      "use_markdown_in_title": false
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.reformation.replication.target.text",
-      "title": "book.theurgy.the_hermetica.reformation.replication.target.title",
-      "use_markdown_in_title": false
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.reformation.replication.crafting.text",
       "title": "book.theurgy.the_hermetica.reformation.replication.crafting.title",
       "use_markdown_in_title": false

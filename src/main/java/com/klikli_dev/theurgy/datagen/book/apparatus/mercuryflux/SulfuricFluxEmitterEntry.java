@@ -12,7 +12,8 @@ import com.klikli_dev.modonomicon.api.datagen.book.page.BookCraftingRecipePageMo
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.klikli_dev.theurgy.Theurgy;
-import com.klikli_dev.theurgy.datagen.book.ReformationCategoryProvider;
+import com.klikli_dev.theurgy.datagen.book.GettingStartedCategoryProvider;
+import com.klikli_dev.theurgy.datagen.book.gettingstarted.reformation.ConvertWithinTypeAndTierEntry;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -35,7 +36,7 @@ public class SulfuricFluxEmitterEntry extends EntryProvider {
                          This devices converts raw mercury flux into [#]($PURPLE)Sulfuric Flux[#](), a type of energy that can carry information. It can be used to transform Sulfur into other types of Sulfur by linking it to a Reformation Array.\\
                         See {0} for more information.
                         """,
-                this.categoryLink("Reformation", ReformationCategoryProvider.CATEGORY_ID)
+                this.entryLink("Reformation", GettingStartedCategoryProvider.CATEGORY_ID, ConvertWithinTypeAndTierEntry.ENTRY_ID)
         );
 
         this.page("targets", () -> BookTextPageModel.builder()

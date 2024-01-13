@@ -1,0 +1,41 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "theurgy:getting_started",
+  "description": "book.theurgy.the_hermetica.getting_started.caloric_flux_emitter.description",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "theurgy:caloric_flux_emitter"
+  },
+  "name": "book.theurgy.the_hermetica.getting_started.caloric_flux_emitter.name",
+  "pages": [
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "item": {
+        "item": "theurgy:caloric_flux_emitter"
+      },
+      "text": "book.theurgy.the_hermetica.getting_started.caloric_flux_emitter.intro.text",
+      "title": ""
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.getting_started.caloric_flux_emitter.intro2.text",
+      "title": "book.theurgy.the_hermetica.getting_started.caloric_flux_emitter.intro2.title",
+      "use_markdown_in_title": false
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "theurgy:getting_started/alchemical_niter",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "x": 5,
+  "y": -3
+}

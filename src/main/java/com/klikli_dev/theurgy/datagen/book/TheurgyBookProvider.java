@@ -30,8 +30,6 @@ public class TheurgyBookProvider extends BookProvider {
         int categorySortNum = 1;
         var gettingStartedCategory = new GettingStartedCategoryProvider(this).generate().withSortNumber(categorySortNum++);
 
-        var reformationCategory = new ReformationCategoryProvider(this).generate().withSortNumber(categorySortNum++);
-
         var apparatusCategory = new ApparatusCategory(this).generate().withSortNumber(categorySortNum++);
 
         //TODO: entry read condition
@@ -43,7 +41,6 @@ public class TheurgyBookProvider extends BookProvider {
                 .withTooltip(this.context().bookTooltip())
                 .withCategories(
                         gettingStartedCategory,
-                        reformationCategory,
                         apparatusCategory
                 )
                 .withGenerateBookItem(true)

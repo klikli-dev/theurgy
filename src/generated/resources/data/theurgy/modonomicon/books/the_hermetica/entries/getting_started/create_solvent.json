@@ -70,7 +70,7 @@
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "theurgy:getting_started/needed_apparatus",
+      "entry": "theurgy:getting_started/needed_apparatus_spagyrics",
       "line_enabled": true,
       "line_reversed": false
     }

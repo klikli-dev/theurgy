@@ -8,6 +8,7 @@ import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.klikli_dev.theurgy.datagen.book.ApparatusCategory;
 import com.klikli_dev.theurgy.datagen.book.apparatus.spagyrics.IncubatorEntry;
 import com.klikli_dev.theurgy.datagen.book.apparatus.spagyrics.SpagyricsEntry;
+import com.klikli_dev.theurgy.registry.SulfurRegistry;
 import com.mojang.datafixers.util.Pair;
 
 public class ConvertWithinTypeAndTierEntry extends EntryProvider {
@@ -81,6 +82,32 @@ public class ConvertWithinTypeAndTierEntry extends EntryProvider {
                         """,
                 this.entryLink("Spagyrics", ApparatusCategory.CATEGORY_ID, SpagyricsEntry.ENTRY_ID),
                 this.entryLink("Incubator", ApparatusCategory.CATEGORY_ID, IncubatorEntry.ENTRY_ID)
+        );
+
+        this.page("instructions", () -> BookTextPageModel.builder()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
+                .build()
+        );
+        this.pageTitle("Instructions");
+        this.pageText("""
+                        The following entries will guide you through the conversion of {0} into {1}, *assuming you already obtained at least one Sulfur of each*.
+                        """,
+                this.itemLink("Alchemical Sulfur: Lapis", SulfurRegistry.LAPIS.get()),
+                this.itemLink("Alchemical Sulfur: Quartz", SulfurRegistry.QUARTZ.get())
+        );
+
+        this.page("instructions2", () -> BookTextPageModel.builder()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
+                .build()
+        );
+        this.pageTitle("Instructions");
+        this.pageText("""
+                        The instructions apply equally to all other reformation recipes within the same type and tier, such as {0} to {1}.
+                        """,
+                this.itemLink("Alchemical Sulfur: Diamond", SulfurRegistry.DIAMOND.get()),
+                this.itemLink("Alchemical Sulfur: Emerald", SulfurRegistry.EMERALD.get())
         );
     }
 

@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2024 klikli-dev
+//
+// SPDX-License-Identifier: MIT
+
 package com.klikli_dev.theurgy.datagen.book.apparatus.exaltation;
 
 import com.klikli_dev.modonomicon.api.datagen.CategoryProvider;

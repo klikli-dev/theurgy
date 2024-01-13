@@ -108,7 +108,7 @@ public class AlchemicalNiterEntry extends EntryProvider {
 
     @Override
     protected Pair<Integer, Integer> entryBackground() {
-        return Pair.of(0, 2); //the third type of background which has no shorthand in EntryBackground
+        return EntryBackground.CATEGORY_START;
     }
 
     @Override

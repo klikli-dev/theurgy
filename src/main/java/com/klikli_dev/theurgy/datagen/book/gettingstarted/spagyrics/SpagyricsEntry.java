@@ -110,7 +110,7 @@ public class SpagyricsEntry extends EntryProvider {
 
     @Override
     protected Pair<Integer, Integer> entryBackground() {
-        return EntryBackground.DEFAULT;
+        return EntryBackground.CATEGORY_START;
     }
 
     @Override

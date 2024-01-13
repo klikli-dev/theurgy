@@ -123,7 +123,7 @@ public class ConvertWithinTypeAndTierEntry extends EntryProvider {
 
     @Override
     protected Pair<Integer, Integer> entryBackground() {
-        return EntryBackground.DEFAULT;
+        return Pair.of(0, 2); //the third type of background which has no shorthand in EntryBackground
     }
 
     @Override

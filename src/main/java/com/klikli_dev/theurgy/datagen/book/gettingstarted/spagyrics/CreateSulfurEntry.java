@@ -97,7 +97,7 @@ public class CreateSulfurEntry extends EntryProvider {
 
     @Override
     protected Pair<Integer, Integer> entryBackground() {
-        return EntryBackground.CATEGORY_START;
+        return EntryBackground.DEFAULT;
     }
 
     @Override

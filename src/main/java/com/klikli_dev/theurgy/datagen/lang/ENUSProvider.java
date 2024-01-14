@@ -264,11 +264,31 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
 
         this.addBlock(BlockRegistry.FERMENTATION_VAT, "Fermentation Vat");
         this.addTooltip(BlockRegistry.FERMENTATION_VAT.get()::asItem,
-                "A vat for alchemical fermentation, generally required for exaltation.");
+                "A vat for alchemical fermentation, required for transmutation.",
+                "Fermentation is fundamental the conversion between types of matter (such as between metals and gems).",
+                this.f(
+                        """
+                                {0} with ingredients to place them in the vat for processing.
+                                {1} with an empty hand to close or open the vat to start or stop processing.
+                                """,
+                        this.green("Right-Click"),
+                        this.green("Shift-right-Click")
+                )
+        );
 
         this.addBlock(BlockRegistry.DIGESTION_VAT, "Digestion Vat");
         this.addTooltip(BlockRegistry.DIGESTION_VAT.get()::asItem,
-                "A vat for alchemical digestion, generally required for exaltation.");
+                "A vat for alchemical digestion, required for exaltation.",
+                "Digestion is fundamental the conversion between tiers of matter (such as between common and rare [e.g. iron and gold]).",
+                this.f(
+                        """
+                                {0} with ingredients to place them in the vat for processing.
+                                {1} with an empty hand to close or open the vat to start or stop processing.
+                                """,
+                        this.green("Right-Click"),
+                        this.green("Shift-right-Click")
+                )
+        );
 
         this.addBlock(BlockRegistry.SAL_AMMONIAC_ORE, "Sal Ammoniac Ore");
         this.addExtendedTooltip(BlockRegistry.SAL_AMMONIAC_ORE.get()::asItem,

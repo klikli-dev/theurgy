@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.11.0] - 2024-01-14
+### :sparkles: New Features
+- [`ca704bd`](https://github.com/klikli-dev/theurgy/commit/ca704bdd93d2cdf8b9f5e0d5bfa7ced395c42a1b) - Transmutation and Exaltation (Conversion between Types & Tiers of Materials) *(PR [#161](https://github.com/klikli-dev/theurgy/pull/161) by [@klikli-dev](https://github.com/klikli-dev))*
+  - :arrow_lower_right: *addresses issue [#133](undefined) opened by [@klikli-dev](https://github.com/klikli-dev)*
+- [`973109a`](https://github.com/klikli-dev/theurgy/commit/973109aed06966d8737cf02ea334832ada4e0f54) - on shift, show the item the sulfur was crafted from *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`1f24c5c`](https://github.com/klikli-dev/theurgy/commit/1f24c5cb97c328c75d8903e6bd859c3b6d38a40f) - increase mod version *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.1-1.10.1] - 2024-01-06
 ### :bug: Bug Fixes
 - [`e5ebdc6`](https://github.com/klikli-dev/theurgy/commit/e5ebdc6e1a4b2001b673fbbda7b1ac407505d03c) - jei and modonomicon fluid amount rendering *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -383,3 +393,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.9.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.9.0...release/v1.20.1-1.9.1
 [release/v1.20.1-1.10.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.9.1...release/v1.20.1-1.10.0
 [release/v1.20.1-1.10.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.10.0...release/v1.20.1-1.10.1
+[release/v1.20.1-1.11.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.10.1...release/v1.20.1-1.11.0

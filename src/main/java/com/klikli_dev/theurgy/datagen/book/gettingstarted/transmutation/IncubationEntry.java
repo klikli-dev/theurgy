@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: MIT
 
-package com.klikli_dev.theurgy.datagen.book.gettingstarted.reformation;
+package com.klikli_dev.theurgy.datagen.book.gettingstarted.transmutation;
 
 import com.klikli_dev.modonomicon.api.datagen.CategoryProvider;
 import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
@@ -17,7 +17,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 
 public class IncubationEntry extends EntryProvider {
 
-    public static final String ENTRY_ID = "incubation_after_reformation";
+    public static final String ENTRY_ID = "incubation_after_transmutation";
 
     public IncubationEntry(CategoryProvider parent) {
         super(parent);
@@ -26,14 +26,14 @@ public class IncubationEntry extends EntryProvider {
     @Override
     protected void generatePages() {
         this.page("intro", () -> BookSpotlightPageModel.builder()
-                .withItem(Ingredient.of(Items.QUARTZ))
+                .withItem(Ingredient.of(Items.IRON_INGOT))
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
                 .build());
-        this.pageTitle("Incubating Quartz");
+        this.pageTitle("Incubating Iron");
         this.pageText(
                 """
-                        Finally, with the Quartz Sulfur at hand, we can incubate it into Quartz.
+                        Finally, with the Iron Sulfur at hand, we can incubate it into Iron Ingots.
                         \\
                         \\
                         Simply follow the steps you already know from {0}.
@@ -44,12 +44,12 @@ public class IncubationEntry extends EntryProvider {
 
     @Override
     protected String entryName() {
-        return "Incubating the Quartz";
+        return "Incubating the Iron";
     }
 
     @Override
     protected String entryDescription() {
-        return "Finally creating our Quartz";
+        return "Finally creating our Iron";
     }
 
     @Override
@@ -59,7 +59,7 @@ public class IncubationEntry extends EntryProvider {
 
     @Override
     protected BookIconModel entryIcon() {
-        return BookIconModel.create(Items.QUARTZ);
+        return BookIconModel.create(Items.IRON_INGOT);
     }
 
     @Override

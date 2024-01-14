@@ -10,12 +10,13 @@
   "name": "book.theurgy.the_hermetica.getting_started.incubation_after_reformation.name",
   "pages": [
     {
-      "type": "modonomicon:text",
+      "type": "modonomicon:spotlight",
       "anchor": "",
-      "show_title_separator": true,
+      "item": {
+        "item": "minecraft:quartz"
+      },
       "text": "book.theurgy.the_hermetica.getting_started.incubation_after_reformation.intro.text",
-      "title": "book.theurgy.the_hermetica.getting_started.incubation_after_reformation.intro.title",
-      "use_markdown_in_title": false
+      "title": "book.theurgy.the_hermetica.getting_started.incubation_after_reformation.intro.title"
     }
   ],
   "parents": [

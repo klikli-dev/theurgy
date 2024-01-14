@@ -10,12 +10,10 @@ import com.klikli_dev.modonomicon.api.datagen.book.BookEntryModel;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.datagen.book.gettingstarted.*;
 import com.klikli_dev.theurgy.datagen.book.gettingstarted.reformation.*;
+import com.klikli_dev.theurgy.datagen.book.gettingstarted.reformation.RequiredItemsEntry;
 import com.klikli_dev.theurgy.datagen.book.gettingstarted.spagyrics.IncubationEntry;
 import com.klikli_dev.theurgy.datagen.book.gettingstarted.spagyrics.*;
-import com.klikli_dev.theurgy.datagen.book.gettingstarted.transmutation.ConvertToOtherTypeEntry;
-import com.klikli_dev.theurgy.datagen.book.gettingstarted.transmutation.FermentationEntry;
-import com.klikli_dev.theurgy.datagen.book.gettingstarted.transmutation.FermentationVatEntry;
-import com.klikli_dev.theurgy.datagen.book.gettingstarted.transmutation.NiterToNiterReformationEntry;
+import com.klikli_dev.theurgy.datagen.book.gettingstarted.transmutation.*;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.mojang.datafixers.util.Pair;
 
@@ -49,7 +47,7 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
                 "___________________________________",
                 "______________ó___________ț________",
                 "___________________________________",
-                "____________ő_ò_________ť_ţ_ƭ_ʈ____",
+                "____________ő_ò_________ť_ţ_ƭ_ʈ_ṫ_ṭ",
                 "___________________________________",
                 "____________ö___ô_ơ________________",
                 "___________________________________",
@@ -64,7 +62,6 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
         var aboutModEntry = new AboutModEntry(this).generate('a');
         aboutModEntry.withParent(introEntry);
         this.generateDivinationRodEntries(aboutModEntry);
-
 
         var spagyrics = this.generateSpagyricsEntries(aboutModEntry); //spagyrics, incubation
 
@@ -82,11 +79,11 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
 
         var reformation = this.generateReformationEntries(niter); //convertWithinTypeAndTier, reformationIncubation
 
-        this.generateTransmutationEntries(reformation);
+        var transmutation = this.generateTransmutationEntries(reformation);  //convertToOtherType, reformationIncubation
         //TODO: First the cross-type conversion, then the cross-tier
     }
 
-    protected BookEntryModel generateTransmutationEntries(Pair<BookEntryModel, BookEntryModel> reformation) {
+    protected Pair<BookEntryModel, BookEntryModel> generateTransmutationEntries(Pair<BookEntryModel, BookEntryModel> reformation) {
         var convertToOtherType = new ConvertToOtherTypeEntry(this).generate('ť');
         convertToOtherType.withParent(reformation.getFirst());
         convertToOtherType.withCondition(this.condition().entryRead(reformation.getSecond()));
@@ -104,8 +101,13 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
         var niterToNiterReformation = new NiterToNiterReformationEntry(this).generate('ʈ');
         niterToNiterReformation.withParent(fermentationTransmutation);
 
-        //TODO: return the entry we need as condition for the next branch of the graph
-        return BookEntryModel.create(null, null);
+        var niterToSulfurReformation = new NiterToSulfurReformationEntry(this).generate('ṫ');
+        niterToSulfurReformation.withParent(niterToNiterReformation);
+
+        var incubation = new com.klikli_dev.theurgy.datagen.book.gettingstarted.transmutation.IncubationEntry(this).generate('ṭ');
+        incubation.withParent(niterToSulfurReformation);
+
+        return Pair.of(convertToOtherType, incubation);
     }
 
     protected Pair<BookEntryModel, BookEntryModel> generateReformationEntries(BookEntryModel parent) {

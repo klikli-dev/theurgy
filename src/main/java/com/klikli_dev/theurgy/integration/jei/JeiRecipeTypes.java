@@ -15,4 +15,6 @@ public class JeiRecipeTypes {
     public static final RecipeType<IncubationRecipe> INCUBATION = RecipeType.create(Theurgy.MODID, "incubation", IncubationRecipe.class);
     public static final RecipeType<AccumulationRecipe> ACCUMULATION = RecipeType.create(Theurgy.MODID, "accumulation", AccumulationRecipe.class);
     public static final RecipeType<ReformationRecipe> REFORMATION = RecipeType.create(Theurgy.MODID, "reformation", ReformationRecipe.class);
+    public static final RecipeType<FermentationRecipe> FERMENTATION = RecipeType.create(Theurgy.MODID, "fermentation", FermentationRecipe.class);
+    public static final RecipeType<DigestionRecipe> DIGESTION = RecipeType.create(Theurgy.MODID, "digestion", DigestionRecipe.class);
 }

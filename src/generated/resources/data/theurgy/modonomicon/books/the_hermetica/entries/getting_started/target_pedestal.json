@@ -1,0 +1,32 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "theurgy:getting_started",
+  "description": "book.theurgy.the_hermetica.getting_started.target_pedestal.description",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "theurgy:alchemical_sulfur_quartz"
+  },
+  "name": "book.theurgy.the_hermetica.getting_started.target_pedestal.name",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.getting_started.target_pedestal.target.text",
+      "title": "book.theurgy.the_hermetica.getting_started.target_pedestal.target.title",
+      "use_markdown_in_title": false
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "theurgy:getting_started/reformation_array",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "x": 11,
+  "y": 0
+}

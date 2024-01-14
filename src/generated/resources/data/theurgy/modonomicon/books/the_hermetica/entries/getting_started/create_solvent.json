@@ -16,22 +16,22 @@
         "item": "theurgy:sal_ammoniac_bucket"
       },
       "text": "book.theurgy.the_hermetica.getting_started.create_solvent.intro.text",
-      "title": ""
+      "title": "book.theurgy.the_hermetica.getting_started.create_solvent.intro.title"
     },
     {
       "type": "modonomicon:text",
       "anchor": "",
       "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.getting_started.create_solvent.intro2.text",
-      "title": "book.theurgy.the_hermetica.getting_started.create_solvent.intro2.title",
+      "text": "book.theurgy.the_hermetica.getting_started.create_solvent.obtain.text",
+      "title": "book.theurgy.the_hermetica.getting_started.create_solvent.obtain.title",
       "use_markdown_in_title": false
     },
     {
       "type": "modonomicon:text",
       "anchor": "",
       "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.getting_started.create_solvent.reverse.text",
-      "title": "book.theurgy.the_hermetica.getting_started.create_solvent.reverse.title",
+      "text": "book.theurgy.the_hermetica.getting_started.create_solvent.faster.text",
+      "title": "book.theurgy.the_hermetica.getting_started.create_solvent.faster.title",
       "use_markdown_in_title": false
     },
     {
@@ -57,16 +57,25 @@
       "text": "book.theurgy.the_hermetica.getting_started.create_solvent.step3.text",
       "title": "book.theurgy.the_hermetica.getting_started.create_solvent.step3.title",
       "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:crafting_recipe",
+      "anchor": "",
+      "recipe_id_1": "theurgy:crafting/shapeless/sal_ammoniac_crystal_from_sal_ammoniac_bucket",
+      "text": "book.theurgy.the_hermetica.getting_started.create_solvent.recipe.text",
+      "title1": "",
+      "title2": ""
     }
   ],
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "theurgy:getting_started/needed_apparatus",
+      "entry": "theurgy:getting_started/needed_apparatus_spagyrics",
       "line_enabled": true,
       "line_reversed": false
     }
   ],
-  "x": 7,
-  "y": 1
+  "show_when_any_parent_unlocked": false,
+  "x": -5,
+  "y": 4
 }

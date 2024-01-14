@@ -1,0 +1,91 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "theurgy:apparatus",
+  "description": "book.theurgy.the_hermetica.apparatus.incubator.description",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "theurgy:incubator"
+  },
+  "name": "book.theurgy.the_hermetica.apparatus.incubator.name",
+  "pages": [
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "item": {
+        "item": "theurgy:incubator"
+      },
+      "text": "book.theurgy.the_hermetica.apparatus.incubator.intro.text",
+      "title": ""
+    },
+    {
+      "type": "modonomicon:multiblock",
+      "anchor": "",
+      "multiblock_id": "theurgy:placement/incubator",
+      "multiblock_name": "",
+      "show_visualize_button": true,
+      "text": ""
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.apparatus.incubator.usage.text",
+      "title": "book.theurgy.the_hermetica.apparatus.incubator.usage.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:crafting_recipe",
+      "anchor": "",
+      "recipe_id_1": "theurgy:crafting/shaped/incubator",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    },
+    {
+      "type": "modonomicon:crafting_recipe",
+      "anchor": "",
+      "recipe_id_1": "theurgy:crafting/shaped/incubator_mercury_vessel",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    },
+    {
+      "type": "modonomicon:crafting_recipe",
+      "anchor": "",
+      "recipe_id_1": "theurgy:crafting/shaped/incubator_salt_vessel",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    },
+    {
+      "type": "modonomicon:crafting_recipe",
+      "anchor": "",
+      "recipe_id_1": "theurgy:crafting/shaped/incubator_sulfur_vessel",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    },
+    {
+      "type": "modonomicon:image",
+      "anchor": "",
+      "border": true,
+      "images": [
+        "theurgy:textures/gui/book/incubator_working.png"
+      ],
+      "text": "book.theurgy.the_hermetica.apparatus.incubator.working.text",
+      "title": "book.theurgy.the_hermetica.apparatus.incubator.working.title"
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "theurgy:apparatus/spagyrics",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "x": -1,
+  "y": -6
+}

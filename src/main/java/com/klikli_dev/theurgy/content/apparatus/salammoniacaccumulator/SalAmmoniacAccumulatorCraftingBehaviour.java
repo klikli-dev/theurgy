@@ -69,7 +69,7 @@ public class SalAmmoniacAccumulatorCraftingBehaviour extends CraftingBehaviour<R
     }
 
     @Override
-    protected boolean canCraft(@Nullable AccumulationRecipe pRecipe) {
+    public boolean canCraft(@Nullable AccumulationRecipe pRecipe) {
         if (pRecipe == null) return false;
 
         var assembledStack = pRecipe.assembleFluid(this.recipeWrapperSupplier.get(), this.blockEntity.getLevel().registryAccess());

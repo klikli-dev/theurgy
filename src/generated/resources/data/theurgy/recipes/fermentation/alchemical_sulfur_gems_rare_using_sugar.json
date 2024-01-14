@@ -1,0 +1,36 @@
+{
+  "type": "theurgy:fermentation",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "theurgy:alchemical_sulfurs/gems/rare"
+      }
+    },
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:sugar"
+      }
+    }
+  ],
+  "fluid": {
+    "tag": "minecraft:water"
+  },
+  "fluidAmount": 500,
+  "ingredients": [
+    {
+      "tag": "theurgy:alchemical_sulfurs/gems/rare"
+    },
+    {
+      "tag": "forge:sugar"
+    }
+  ],
+  "result": {
+    "Count": 1,
+    "id": "theurgy:alchemical_sulfur_gems_rare"
+  },
+  "time": 200
+}

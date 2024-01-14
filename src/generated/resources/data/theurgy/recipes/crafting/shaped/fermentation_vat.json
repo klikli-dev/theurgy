@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "C": {
+      "tag": "forge:storage_blocks/copper"
+    },
+    "b": {
+      "tag": "forge:barrels/wooden"
+    },
+    "c": {
+      "tag": "forge:ingots/copper"
+    },
+    "s": {
+      "tag": "theurgy:alchemical_sulfurs"
+    }
+  },
+  "pattern": [
+    "csc",
+    "cbc",
+    "cCc"
+  ],
+  "result": {
+    "count": 1,
+    "item": "theurgy:fermentation_vat"
+  }
+}

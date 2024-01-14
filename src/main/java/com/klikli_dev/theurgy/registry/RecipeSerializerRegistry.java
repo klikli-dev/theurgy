@@ -40,7 +40,12 @@ public class RecipeSerializerRegistry {
     public static final RegistryObject<RecipeSerializer<CatalysationRecipe>> CATALYSATION = RECIPE_SERIALIZERS.register("catalysation",
             CatalysationRecipe.Serializer::new);
 
-    public static final RegistryObject<RecipeSerializer<?>> REFORMATION = RECIPE_SERIALIZERS.register("reformation",ReformationRecipe.Serializer::new);
+    public static final RegistryObject<RecipeSerializer<?>> REFORMATION = RECIPE_SERIALIZERS.register("reformation", ReformationRecipe.Serializer::new);
+
+    public static final RegistryObject<RecipeSerializer<?>> FERMENTATION = RECIPE_SERIALIZERS.register("fermentation", FermentationRecipe.Serializer::new);
+
+    public static final RegistryObject<RecipeSerializer<?>> DIGESTION = RECIPE_SERIALIZERS.register("digestion", DigestionRecipe.Serializer::new);
+
 
     public static void onRegisterRecipeSerializers(RegisterEvent event) {
         //restrict to one event type otherwise it is called multiple times

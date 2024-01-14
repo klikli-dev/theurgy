@@ -9,6 +9,8 @@ import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.content.item.AlchemicalSaltItem;
 import com.klikli_dev.theurgy.content.item.AlchemicalSulfurItem;
+import com.klikli_dev.theurgy.content.item.AlchemicalSulfurTier;
+import com.klikli_dev.theurgy.content.item.AlchemicalSulfurType;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.registry.SaltRegistry;
@@ -74,17 +76,26 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.add(TheurgyConstants.I18n.Behaviour.SELECTION_SUMMARY_SULFURIC_FLUX_EMITTER_NO_TARGET, "Sulfuric Flux Emitter has no linked target pedestal.");
         this.add(TheurgyConstants.I18n.Behaviour.SELECTION_SUMMARY_SULFURIC_FLUX_EMITTER_NO_SOURCES, "Sulfuric Flux Emitter has no linked source pedestals.");
         this.add(TheurgyConstants.I18n.Behaviour.SELECTION_SUMMARY_SULFURIC_FLUX_EMITTER_NO_RESULT, "Sulfuric Flux Emitter has no linked result pedestal.");
+
+        this.add(TheurgyConstants.I18n.Behaviour.INTERACTION_FERMENTATION_VAT_NO_RECIPE, "Cannot close vat, the items in it do not form a valid fermentation recipe.");
+        this.add(TheurgyConstants.I18n.Behaviour.INTERACTION_FERMENTATION_VAT_CLOSED, "Cannot add or remove items or fluids from the vat while it is closed. Shift+Click to open.");
+
+        this.add(TheurgyConstants.I18n.Behaviour.INTERACTION_DIGESTION_VAT_NO_RECIPE, "Cannot close vat, the items in it do not form a valid digestion recipe.");
+        this.add(TheurgyConstants.I18n.Behaviour.INTERACTION_DIGESTION_VAT_CLOSED, "Cannot add or remove items or fluids from the vat while it is closed. Shift+Click to open.");
     }
 
     private void addIntegrations() {
         this.add(TheurgyConstants.I18n.JEI.CALCINATION_CATEGORY, "Calcination");
         this.add(TheurgyConstants.I18n.JEI.LIQUEFACTION_CATEGORY, "Liquefaction");
-        this.add(TheurgyConstants.I18n.JEI.DISTILLATION_CATEGORY, "Distillation");
+        this.add(TheurgyConstants.I18n.JEI.DISTILLATION_CATEGORY, "Alchemical Distillation");
         this.add(TheurgyConstants.I18n.JEI.INCUBATION_CATEGORY, "Incubation");
         this.add(TheurgyConstants.I18n.JEI.ACCUMULATION_CATEGORY, "Accumulation");
         this.add(TheurgyConstants.I18n.JEI.REFORMATION_CATEGORY, "Reformation");
+        this.add(TheurgyConstants.I18n.JEI.FERMENTATION_CATEGORY, "Alchemical Fermentation");
+        this.add(TheurgyConstants.I18n.JEI.DIGESTION_CATEGORY, "Digestion");
         this.add(TheurgyConstants.I18n.JEI.MERCURY_FLUX, "Mercury Flux: %s");
         this.add(TheurgyConstants.I18n.JEI.SOURCE_PEDESTAL_COUNT, "%sx");
+        this.add(TheurgyConstants.I18n.JEI.TARGET_SULFUR_TOOLTIP, "The Target Sulfur will not be consumed!\nYou can retrieve it after crafting is complete.");
 
         this.add("config.jade.plugin_theurgy.mercury_flux", "Theurgy Mercury Flux");
     }
@@ -251,6 +262,34 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.addTooltip(BlockRegistry.REFORMATION_RESULT_PEDESTAL.get()::asItem,
                 "The reformation result will appear in this pedestal.");
 
+        this.addBlock(BlockRegistry.FERMENTATION_VAT, "Fermentation Vat");
+        this.addTooltip(BlockRegistry.FERMENTATION_VAT.get()::asItem,
+                "A vat for alchemical fermentation, required for transmutation.",
+                "Fermentation is fundamental the conversion between types of matter (such as between metals and gems).",
+                this.f(
+                        """
+                                {0} with ingredients to place them in the vat for processing.
+                                {1} with an empty hand to close or open the vat to start or stop processing.
+                                """,
+                        this.green("Right-Click"),
+                        this.green("Shift-right-Click")
+                )
+        );
+
+        this.addBlock(BlockRegistry.DIGESTION_VAT, "Digestion Vat");
+        this.addTooltip(BlockRegistry.DIGESTION_VAT.get()::asItem,
+                "A vat for alchemical digestion, required for exaltation.",
+                "Digestion is fundamental the conversion between tiers of matter (such as between common and rare [e.g. iron and gold]).",
+                this.f(
+                        """
+                                {0} with ingredients to place them in the vat for processing.
+                                {1} with an empty hand to close or open the vat to start or stop processing.
+                                """,
+                        this.green("Right-Click"),
+                        this.green("Shift-right-Click")
+                )
+        );
+
         this.addBlock(BlockRegistry.SAL_AMMONIAC_ORE, "Sal Ammoniac Ore");
         this.addExtendedTooltip(BlockRegistry.SAL_AMMONIAC_ORE.get()::asItem,
                 "Ore that yields Sal Ammoniac Crystals for use in a Sal Ammoniac Accumulator.");
@@ -260,19 +299,39 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
                 "Ore that yields Sal Ammoniac Crystals for use in a Sal Ammoniac Accumulator.");
     }
 
+    private void addGenericSulfur(AlchemicalSulfurItem sulfur) {
+        this.addItem(() -> sulfur, "Alchemical Niter %s");
+        this.addTooltip(() -> sulfur,
+                "Alchemical Niter crafted from Alchemical Sulfur of any %s.",
+                "Niter represents the abstract category and value of an object, thus it is a further abstraction the \"idea\" or \"soul\" represented by Sulfur.",
+                "Niter extraction is a required intermediate step to transform one type of Sulfur into another type.");
+    }
     private void addSulfurs() {
         this.add(TheurgyConstants.I18n.Item.ALCHEMICAL_SULFUR_UNKNOWN_SOURCE, "Unknown Source");
 
+        this.add(AlchemicalSulfurTier.ABUNDANT.descriptionId(), "Abundant");
+        this.add(AlchemicalSulfurTier.COMMON.descriptionId(), "Common");
+        this.add(AlchemicalSulfurTier.RARE.descriptionId(), "Rare");
+        this.add(AlchemicalSulfurTier.PRECIOUS.descriptionId(), "Precious");
+
+        this.add(AlchemicalSulfurType.MISC.descriptionId(), "Misc");
+        this.add(AlchemicalSulfurType.METALS.descriptionId(), "Metals");
+        this.add(AlchemicalSulfurType.GEMS.descriptionId(), "Gems");
+        this.add(AlchemicalSulfurType.OTHER_MINERALS.descriptionId(), "Other Minerals");
+        this.add(AlchemicalSulfurType.NITER.descriptionId(), "Niter");
+
+
         //Automatic sulfur name rendering
         SulfurRegistry.SULFURS.getEntries().stream().map(RegistryObject::get).map(AlchemicalSulfurItem.class::cast).forEach(sulfur -> {
-            if (sulfur.useAutomaticNameRendering) {
+            if (sulfur.useAutomaticNameLangGeneration) {
                 this.addItem(() -> sulfur, "Alchemical Sulfur %s");
             }
-            if (sulfur.provideAutomaticTooltipData) {
+            if (sulfur.useAutomaticTooltipLangGeneration) {
                 this.addTooltip(() -> sulfur,
-                        "Alchemical Sulfur crafted from %s.",
-                        null,
-                        "Sulfur represents the \"idea\" or \"soul\" of an object and is the key to replication and transmutation.");
+                        "Alchemical Sulfur crafted from %s %s %s.",
+                        "Sulfur represents the \"idea\" or \"soul\" of an object",
+                        "Sulfur is the central element used in Spagyrics processes." +
+                                "\n\n" + ChatFormatting.ITALIC + "Hint: Sulfurs crafted from different states of the same material (such as from Ore or Ingots) are interchangeable." + ChatFormatting.RESET);
             }
         });
 
@@ -281,6 +340,36 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         //Note: It was considered to try and warn here if a sulfur has overrideTagSourceName set to true, but no override lang key set.
         //      This is not possible, however, as the tag source comes from item nbt that is not available at this point.
 
+
+
+
+        //Names for generic sulfurs
+        this.addSulfurSource(SulfurRegistry.GEMS_ABUNDANT, "Abundant Gems");
+        this.addGenericSulfur(SulfurRegistry.GEMS_ABUNDANT.get());
+        this.addSulfurSource(SulfurRegistry.GEMS_COMMON, "Common Gems");
+        this.addGenericSulfur(SulfurRegistry.GEMS_COMMON.get());
+        this.addSulfurSource(SulfurRegistry.GEMS_RARE, "Rare Gems");
+        this.addGenericSulfur(SulfurRegistry.GEMS_RARE.get());
+        this.addSulfurSource(SulfurRegistry.GEMS_PRECIOUS, "Precious Gems");
+        this.addGenericSulfur(SulfurRegistry.GEMS_PRECIOUS.get());
+
+        this.addSulfurSource(SulfurRegistry.METALS_ABUNDANT, "Abundant Metals");
+        this.addGenericSulfur(SulfurRegistry.METALS_ABUNDANT.get());
+        this.addSulfurSource(SulfurRegistry.METALS_COMMON, "Common Metals");
+        this.addGenericSulfur(SulfurRegistry.METALS_COMMON.get());
+        this.addSulfurSource(SulfurRegistry.METALS_RARE, "Rare Metals");
+        this.addGenericSulfur(SulfurRegistry.METALS_RARE.get());
+        this.addSulfurSource(SulfurRegistry.METALS_PRECIOUS, "Precious Metals");
+        this.addGenericSulfur(SulfurRegistry.METALS_PRECIOUS.get());
+
+        this.addSulfurSource(SulfurRegistry.OTHER_MINERALS_ABUNDANT, "Abundant Other Minerals");
+        this.addGenericSulfur(SulfurRegistry.OTHER_MINERALS_ABUNDANT.get());
+        this.addSulfurSource(SulfurRegistry.OTHER_MINERALS_COMMON, "Common Other Minerals");
+        this.addGenericSulfur(SulfurRegistry.OTHER_MINERALS_COMMON.get());
+        this.addSulfurSource(SulfurRegistry.OTHER_MINERALS_RARE, "Rare Other Minerals");
+        this.addGenericSulfur(SulfurRegistry.OTHER_MINERALS_RARE.get());
+        this.addSulfurSource(SulfurRegistry.OTHER_MINERALS_PRECIOUS, "Precious Other Minerals");
+        this.addGenericSulfur(SulfurRegistry.OTHER_MINERALS_PRECIOUS.get());
 
         //Names for Sulfurs with overrideSourceName
         //Common Metals
@@ -467,14 +556,63 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.addSulfurs();
         this.addDivinationRods();
 
-        this.addItem(ItemRegistry.EMPTY_JAR, "Empty Jar");
+        this.addItem(ItemRegistry.EMPTY_JAR_ICON, "Empty Jar Icon");
+        this.addTooltip(ItemRegistry.EMPTY_JAR_ICON, "Dummy item for rendering.");
+        this.addItem(ItemRegistry.EMPTY_JAR_IRON_BAND_ICON, "Empty Jar with Iron Band Icon");
+        this.addTooltip(ItemRegistry.EMPTY_JAR_IRON_BAND_ICON, "Dummy item for rendering.");
+        this.addItem(ItemRegistry.EMPTY_CERAMIC_JAR_ICON, "Empty Ceramic Jar Icon");
+        this.addTooltip(ItemRegistry.EMPTY_CERAMIC_JAR_ICON, "Dummy item for rendering.");
 
-        this.addItem(ItemRegistry.EMPTY_JAR_LABELED, "Labeled Empty Jar");
-        this.addTooltip(ItemRegistry.EMPTY_JAR_LABELED, "Dummy item for rendering Alchemical Sulfur if source items are not shown.");
+        this.addItem(ItemRegistry.EMPTY_JAR_LABELED_ICON, "Labeled Empty Jar Icon");
+        this.addTooltip(ItemRegistry.EMPTY_JAR_LABELED_ICON, "Dummy item for rendering.");
 
-        this.addItem(ItemRegistry.JAR_LABEL, "Jar Label");
-        this.addTooltip(ItemRegistry.JAR_LABEL, "Dummy item for rendering Alchemical Sulfur if source items are shown.");
+        this.addItem(ItemRegistry.EMPTY_CERAMIC_JAR_LABELED_ICON, "Labeled Empty Ceramic Jar Icon");
+        this.addTooltip(ItemRegistry.EMPTY_CERAMIC_JAR_LABELED_ICON, "Dummy item for rendering.");
 
+        this.addItem(ItemRegistry.JAR_LABEL_ICON, "Jar Label Icon");
+        this.addTooltip(ItemRegistry.JAR_LABEL_ICON, "Dummy item for rendering.");
+
+        this.addItem(ItemRegistry.JAR_LABEL_FRAME_ABUNDANT_ICON, "Jar Label Frame Abundant Icon");
+        this.addTooltip(ItemRegistry.JAR_LABEL_FRAME_ABUNDANT_ICON, "Dummy item for rendering.");
+
+        this.addItem(ItemRegistry.JAR_LABEL_FRAME_COMMON_ICON, "Jar Label Frame Common Icon");
+        this.addTooltip(ItemRegistry.JAR_LABEL_FRAME_COMMON_ICON, "Dummy item for rendering.");
+
+        this.addItem(ItemRegistry.JAR_LABEL_FRAME_RARE_ICON, "Jar Label Frame Rare Icon");
+        this.addTooltip(ItemRegistry.JAR_LABEL_FRAME_RARE_ICON, "Dummy item for rendering.");
+
+        this.addItem(ItemRegistry.JAR_LABEL_FRAME_PRECIOUS_ICON, "Jar Label Frame Precious Icon");
+        this.addTooltip(ItemRegistry.JAR_LABEL_FRAME_PRECIOUS_ICON, "Dummy item for rendering.");
+
+        this.addItem(ItemRegistry.THE_HERMETICA_ICON, "The Hermetica Icon");
+        this.addTooltip(ItemRegistry.THE_HERMETICA_ICON, "Dummy item for rendering.");
+
+        this.addItem(ItemRegistry.GEMS_ABUNDANT_ICON, "Abundant Gems Icon");
+        this.addTooltip(ItemRegistry.GEMS_ABUNDANT_ICON, "Dummy item for rendering.");
+        this.addItem(ItemRegistry.GEMS_COMMON_ICON, "Common Gems Icon");
+        this.addTooltip(ItemRegistry.GEMS_COMMON_ICON, "Dummy item for rendering.");
+        this.addItem(ItemRegistry.GEMS_RARE_ICON, "Rare Gems Icon");
+        this.addTooltip(ItemRegistry.GEMS_RARE_ICON, "Dummy item for rendering.");
+        this.addItem(ItemRegistry.GEMS_PRECIOUS_ICON, "Precious Gems Icon");
+        this.addTooltip(ItemRegistry.GEMS_PRECIOUS_ICON, "Dummy item for rendering.");
+
+        this.addItem(ItemRegistry.METALS_ABUNDANT_ICON, "Abundant Metals Icon");
+        this.addTooltip(ItemRegistry.METALS_ABUNDANT_ICON, "Dummy item for rendering.");
+        this.addItem(ItemRegistry.METALS_COMMON_ICON, "Common Metals Icon");
+        this.addTooltip(ItemRegistry.METALS_COMMON_ICON, "Dummy item for rendering.");
+        this.addItem(ItemRegistry.METALS_RARE_ICON, "Rare Metals Icon");
+        this.addTooltip(ItemRegistry.METALS_RARE_ICON, "Dummy item for rendering.");
+        this.addItem(ItemRegistry.METALS_PRECIOUS_ICON, "Precious Metals Icon");
+        this.addTooltip(ItemRegistry.METALS_PRECIOUS_ICON, "Dummy item for rendering.");
+
+        this.addItem(ItemRegistry.OTHER_MINERALS_ABUNDANT_ICON, "Abundant Other Minerals Icon");
+        this.addTooltip(ItemRegistry.OTHER_MINERALS_ABUNDANT_ICON, "Dummy item for rendering.");
+        this.addItem(ItemRegistry.OTHER_MINERALS_COMMON_ICON, "Common Other Minerals Icon");
+        this.addTooltip(ItemRegistry.OTHER_MINERALS_COMMON_ICON, "Dummy item for rendering.");
+        this.addItem(ItemRegistry.OTHER_MINERALS_RARE_ICON, "Rare Other Minerals Icon");
+        this.addTooltip(ItemRegistry.OTHER_MINERALS_RARE_ICON, "Dummy item for rendering.");
+        this.addItem(ItemRegistry.OTHER_MINERALS_PRECIOUS_ICON, "Precious Other Minerals Icon");
+        this.addTooltip(ItemRegistry.OTHER_MINERALS_PRECIOUS_ICON, "Dummy item for rendering.");
 
         this.addItem(ItemRegistry.SAL_AMMONIAC_BUCKET, "Sal Ammoniac Bucket");
 
@@ -490,9 +628,21 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.addExtendedTooltip(ItemRegistry.SAL_AMMONIAC_CRYSTAL,
                 """
                         Obtained by mining Sal Ammoniac Ore, or by crafting a Sal Ammoniac Bucket in a crafting grid.
+                        """);
+        this.addUsageTooltip(ItemRegistry.SAL_AMMONIAC_CRYSTAL,
+                """
                         Can be used in a Sal Ammoniac Accumulator to rapidly create Sal Ammoniac to be used as a solvent.
                         """);
         this.addIngredientInfo(ItemRegistry.SAL_AMMONIAC_CRYSTAL, "Obtained by mining Sal Ammoniac Ore.");
+
+        this.addItem(ItemRegistry.PURIFIED_GOLD, "Purified Gold");
+        this.addTooltip(ItemRegistry.PURIFIED_GOLD,
+                "Alchemically pure gold.",
+                """
+                        Gold that has been purified by alchemical Digestion. This further improves the property of Gold not to react with other elements, allowing it to be used in alchemical processes without adding impurities to the result.
+                        """,
+                "Acts as a catalysator, enabling various alchemical processes."
+        );
     }
 
     @Override

@@ -8,6 +8,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.content.item.AlchemicalSulfurItem;
+import com.klikli_dev.theurgy.content.item.AlchemicalSulfurTier;
 import com.klikli_dev.theurgy.content.recipe.ReformationRecipe;
 import com.klikli_dev.theurgy.datagen.SulfurMappings;
 import com.klikli_dev.theurgy.registry.ItemTagRegistry;
@@ -25,11 +26,11 @@ import java.util.function.BiConsumer;
 public class ReformationRecipeProvider extends JsonRecipeProvider {
 
     public static final int TIME = ReformationRecipe.DEFAULT_REFORMATION_TIME;
-    private final Map<List<AlchemicalSulfurItem>, Integer> fluxPerTier = Map.of(
-            SulfurMappings.ABUNDANT, 50,
-            SulfurMappings.COMMON, 100,
-            SulfurMappings.RARE, 150,
-            SulfurMappings.PRECIOUS, 200
+    private final Map<AlchemicalSulfurTier, Integer> fluxPerTier = Map.of(
+            AlchemicalSulfurTier.ABUNDANT, 50,
+            AlchemicalSulfurTier.COMMON, 100,
+            AlchemicalSulfurTier.RARE, 150,
+            AlchemicalSulfurTier.PRECIOUS, 200
     );
     private final Map<ResourceLocation, JsonObject> recipeCache = new HashMap<>();
     private Set<AlchemicalSulfurItem> noAutomaticRecipesFor = Set.of();
@@ -39,14 +40,14 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
     }
 
     private int getFlux(AlchemicalSulfurItem sulfur) {
-        return this.fluxPerTier.keySet().stream().filter(s -> s.contains(sulfur)).findFirst().map(this.fluxPerTier::get).orElse(-1);
+        return this.fluxPerTier.get(sulfur.tier());
     }
 
     private void makeXtoXRecipes(List<Pair<List<AlchemicalSulfurItem>, TagKey<Item>>> sulfurToTag) {
         sulfurToTag.forEach((entry) -> {
             entry.getFirst().stream().filter(s -> !this.noAutomaticRecipesFor.contains(s))
                     .forEach((sulfur) -> {
-                        this.makeRecipe(sulfur, entry.getSecond(), this.getFlux(sulfur));
+                        this.makeTagRecipe(sulfur, entry.getSecond(), this.getFlux(sulfur));
                     });
         });
     }
@@ -58,7 +59,7 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
         sulfurToTag.forEach((entry) -> {
             entry.getFirst().stream().filter(s -> !this.noAutomaticRecipesFor.contains(s))
                     .forEach((sulfur) -> {
-                        this.makeRecipe(sulfur, Collections.nCopies(n, entry.getSecond()), this.getFlux(sulfur));
+                        this.makeTagRecipe(sulfur, Collections.nCopies(n, entry.getSecond()), this.getFlux(sulfur));
                     });
         });
     }
@@ -70,87 +71,105 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
         sulfurToTag.forEach((entry) -> {
             entry.getFirst().stream().filter(s -> !this.noAutomaticRecipesFor.contains(s))
                     .forEach((sulfur) -> {
-                        this.makeRecipe(sulfur, n, entry.getSecond(), this.getFlux(sulfur));
+                        this.makeTagRecipe(sulfur, n, entry.getSecond(), this.getFlux(sulfur));
                     });
         });
     }
 
+    private void makeNiterToSulfurRecipe(AlchemicalSulfurItem source, List<AlchemicalSulfurItem> targets) {
+        targets.stream().filter(t -> !this.noAutomaticRecipesFor.contains(t)).forEach((target) -> {
+            this.makeRecipe(target, source, this.getFlux(target));
+        });
+    }
+
+    private void makeNiterToNiterRecipe(AlchemicalSulfurItem source, int sourceCount, AlchemicalSulfurItem target, int targetCount) {
+        this.makeRecipe(target, targetCount, source, sourceCount, this.getFlux(target));
+    }
+
     private void metals() {
+        //Add conversion from the niter (representing the whole tier) to the single specific sulfurs
+        //This enables conversion between tiers by way of digestion
+        this.makeNiterToSulfurRecipe(SulfurRegistry.METALS_ABUNDANT.get(), SulfurMappings.metalsAbundant());
+        this.makeNiterToSulfurRecipe(SulfurRegistry.METALS_COMMON.get(), SulfurMappings.metalsCommon());
+        this.makeNiterToSulfurRecipe(SulfurRegistry.METALS_RARE.get(), SulfurMappings.metalsRare());
+        this.makeNiterToSulfurRecipe(SulfurRegistry.METALS_PRECIOUS.get(), SulfurMappings.metalsPrecious());
+
+        //Also allow direct conversion between specific sulfurs of the same tier
         var metalsFromMetals = List.of(
-                Pair.of(SulfurMappings.METALS_ABUNDANT, ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_ABUNDANT),
-                Pair.of(SulfurMappings.METALS_COMMON, ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_COMMON),
-                Pair.of(SulfurMappings.METALS_RARE, ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_RARE),
-                Pair.of(SulfurMappings.METALS_PRECIOUS, ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_PRECIOUS)
+                Pair.of(SulfurMappings.metalsAbundant(), ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_ABUNDANT),
+                Pair.of(SulfurMappings.metalsCommon(), ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_COMMON),
+                Pair.of(SulfurMappings.metalsRare(), ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_RARE),
+                Pair.of(SulfurMappings.metalsPrecious(), ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_PRECIOUS)
         );
         this.makeXtoXRecipes(metalsFromMetals);
 
-        var metalsFromOtherMinerals = List.of(
-                Pair.of(SulfurMappings.METALS_ABUNDANT, ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_ABUNDANT),
-                Pair.of(SulfurMappings.METALS_COMMON, ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_COMMON),
-                Pair.of(SulfurMappings.METALS_RARE, ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_RARE),
-                Pair.of(SulfurMappings.METALS_PRECIOUS, ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_PRECIOUS)
-        );
-        this.makeNYtoXRecipes(2, metalsFromOtherMinerals);
-
-        var metalsFromGems = List.of(
-                Pair.of(SulfurMappings.METALS_ABUNDANT, ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_ABUNDANT),
-                Pair.of(SulfurMappings.METALS_COMMON, ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_COMMON),
-                Pair.of(SulfurMappings.METALS_RARE, ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_RARE),
-                Pair.of(SulfurMappings.METALS_PRECIOUS, ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_PRECIOUS)
-        );
-        this.makeYtoNXRecipes(2, metalsFromGems);
+        //Further, allow conversion between types
+        this.makeNiterToNiterRecipe(SulfurRegistry.OTHER_MINERALS_ABUNDANT.get(), 2, SulfurRegistry.METALS_ABUNDANT.get(), 1);
+        this.makeNiterToNiterRecipe(SulfurRegistry.OTHER_MINERALS_COMMON.get(), 2, SulfurRegistry.METALS_COMMON.get(), 1);
+        this.makeNiterToNiterRecipe(SulfurRegistry.OTHER_MINERALS_RARE.get(), 2, SulfurRegistry.METALS_RARE.get(), 1);
+        this.makeNiterToNiterRecipe(SulfurRegistry.OTHER_MINERALS_PRECIOUS.get(), 2, SulfurRegistry.METALS_PRECIOUS.get(), 1);
+        this.makeNiterToNiterRecipe(SulfurRegistry.GEMS_ABUNDANT.get(), 1, SulfurRegistry.METALS_ABUNDANT.get(), 2);
+        this.makeNiterToNiterRecipe(SulfurRegistry.GEMS_COMMON.get(), 1, SulfurRegistry.METALS_COMMON.get(), 2);
+        this.makeNiterToNiterRecipe(SulfurRegistry.GEMS_RARE.get(), 1, SulfurRegistry.METALS_RARE.get(), 2);
+        this.makeNiterToNiterRecipe(SulfurRegistry.GEMS_PRECIOUS.get(), 1, SulfurRegistry.METALS_PRECIOUS.get(), 2);
     }
 
     private void gems() {
+        //Add conversion from the niter (representing the whole tier) to the single specific sulfurs
+        //This enables conversion between tiers by way of digestion
+        this.makeNiterToSulfurRecipe(SulfurRegistry.GEMS_ABUNDANT.get(), SulfurMappings.gemsAbundant());
+        this.makeNiterToSulfurRecipe(SulfurRegistry.GEMS_COMMON.get(), SulfurMappings.gemsCommon());
+        this.makeNiterToSulfurRecipe(SulfurRegistry.GEMS_RARE.get(), SulfurMappings.gemsRare());
+        this.makeNiterToSulfurRecipe(SulfurRegistry.GEMS_PRECIOUS.get(), SulfurMappings.gemsPrecious());
+
+        //Also allow direct conversion between specific sulfurs of the same tier
         var gemsFromGems = List.of(
-                Pair.of(SulfurMappings.GEMS_ABUNDANT, ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_ABUNDANT),
-                Pair.of(SulfurMappings.GEMS_COMMON, ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_COMMON),
-                Pair.of(SulfurMappings.GEMS_RARE, ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_RARE),
-                Pair.of(SulfurMappings.GEMS_PRECIOUS, ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_PRECIOUS)
+                Pair.of(SulfurMappings.gemsAbundant(), ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_ABUNDANT),
+                Pair.of(SulfurMappings.gemsCommon(), ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_COMMON),
+                Pair.of(SulfurMappings.gemsRare(), ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_RARE),
+                Pair.of(SulfurMappings.gemsPrecious(), ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_PRECIOUS)
         );
         this.makeXtoXRecipes(gemsFromGems);
 
-        var gemsFromMetals = List.of(
-                Pair.of(SulfurMappings.GEMS_ABUNDANT, ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_ABUNDANT),
-                Pair.of(SulfurMappings.GEMS_COMMON, ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_COMMON),
-                Pair.of(SulfurMappings.GEMS_RARE, ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_RARE),
-                Pair.of(SulfurMappings.GEMS_PRECIOUS, ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_PRECIOUS)
-        );
-        this.makeNYtoXRecipes(2, gemsFromMetals);
+        //Further, allow conversion between types
+        this.makeNiterToNiterRecipe(SulfurRegistry.METALS_ABUNDANT.get(), 2, SulfurRegistry.GEMS_ABUNDANT.get(), 1);
+        this.makeNiterToNiterRecipe(SulfurRegistry.METALS_COMMON.get(), 2, SulfurRegistry.GEMS_COMMON.get(), 1);
+        this.makeNiterToNiterRecipe(SulfurRegistry.METALS_RARE.get(), 2, SulfurRegistry.GEMS_RARE.get(), 1);
+        this.makeNiterToNiterRecipe(SulfurRegistry.METALS_PRECIOUS.get(), 2, SulfurRegistry.GEMS_PRECIOUS.get(), 1);
 
-        var gemsFromOtherMinerals = List.of(
-                Pair.of(SulfurMappings.GEMS_ABUNDANT, ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_ABUNDANT),
-                Pair.of(SulfurMappings.GEMS_COMMON, ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_COMMON),
-                Pair.of(SulfurMappings.GEMS_RARE, ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_RARE),
-                Pair.of(SulfurMappings.GEMS_PRECIOUS, ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_PRECIOUS)
-        );
-        this.makeNYtoXRecipes(4, gemsFromOtherMinerals);
+        this.makeNiterToNiterRecipe(SulfurRegistry.OTHER_MINERALS_ABUNDANT.get(), 4, SulfurRegistry.GEMS_ABUNDANT.get(), 1);
+        this.makeNiterToNiterRecipe(SulfurRegistry.OTHER_MINERALS_COMMON.get(), 4, SulfurRegistry.GEMS_COMMON.get(), 1);
+        this.makeNiterToNiterRecipe(SulfurRegistry.OTHER_MINERALS_RARE.get(), 4, SulfurRegistry.GEMS_RARE.get(), 1);
+        this.makeNiterToNiterRecipe(SulfurRegistry.OTHER_MINERALS_PRECIOUS.get(), 4, SulfurRegistry.GEMS_PRECIOUS.get(), 1);
     }
 
     private void otherMinerals() {
+        //Add conversion from the niter (representing the whole tier) to the single specific sulfurs
+        //This enables conversion between tiers by way of digestion
+        this.makeNiterToSulfurRecipe(SulfurRegistry.OTHER_MINERALS_ABUNDANT.get(), SulfurMappings.otherMineralsAbundant());
+        this.makeNiterToSulfurRecipe(SulfurRegistry.OTHER_MINERALS_COMMON.get(), SulfurMappings.otherMineralsCommon());
+        this.makeNiterToSulfurRecipe(SulfurRegistry.OTHER_MINERALS_RARE.get(), SulfurMappings.otherMineralsRare());
+        this.makeNiterToSulfurRecipe(SulfurRegistry.OTHER_MINERALS_PRECIOUS.get(), SulfurMappings.otherMineralsPrecious());
+
+        //Also allow direct conversion between specific sulfurs of the same tier
         var otherMineralsFromOtherMinerals = List.of(
-                Pair.of(SulfurMappings.OTHER_MINERALS_ABUNDANT, ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_ABUNDANT),
-                Pair.of(SulfurMappings.OTHER_MINERALS_COMMON, ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_COMMON),
-                Pair.of(SulfurMappings.OTHER_MINERALS_RARE, ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_RARE),
-                Pair.of(SulfurMappings.OTHER_MINERALS_PRECIOUS, ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_PRECIOUS)
+                Pair.of(SulfurMappings.otherMineralsAbundant(), ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_ABUNDANT),
+                Pair.of(SulfurMappings.otherMineralsCommon(), ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_COMMON),
+                Pair.of(SulfurMappings.otherMineralsRare(), ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_RARE),
+                Pair.of(SulfurMappings.otherMineralsPrecious(), ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_PRECIOUS)
         );
         this.makeXtoXRecipes(otherMineralsFromOtherMinerals);
 
-        var otherMineralsFromMetals = List.of(
-                Pair.of(SulfurMappings.OTHER_MINERALS_ABUNDANT, ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_ABUNDANT),
-                Pair.of(SulfurMappings.OTHER_MINERALS_COMMON, ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_COMMON),
-                Pair.of(SulfurMappings.OTHER_MINERALS_RARE, ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_RARE),
-                Pair.of(SulfurMappings.OTHER_MINERALS_PRECIOUS, ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_PRECIOUS)
-        );
-        this.makeYtoNXRecipes(2, otherMineralsFromMetals);
+        //Further, allow conversion between types
+        this.makeNiterToNiterRecipe(SulfurRegistry.METALS_ABUNDANT.get(), 1, SulfurRegistry.OTHER_MINERALS_ABUNDANT.get(), 2);
+        this.makeNiterToNiterRecipe(SulfurRegistry.METALS_COMMON.get(), 1, SulfurRegistry.OTHER_MINERALS_COMMON.get(), 2);
+        this.makeNiterToNiterRecipe(SulfurRegistry.METALS_RARE.get(), 1, SulfurRegistry.OTHER_MINERALS_RARE.get(), 2);
+        this.makeNiterToNiterRecipe(SulfurRegistry.METALS_PRECIOUS.get(), 1, SulfurRegistry.OTHER_MINERALS_PRECIOUS.get(), 2);
 
-        var otherMineralsFromGems = List.of(
-                Pair.of(SulfurMappings.OTHER_MINERALS_ABUNDANT, ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_ABUNDANT),
-                Pair.of(SulfurMappings.OTHER_MINERALS_COMMON, ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_COMMON),
-                Pair.of(SulfurMappings.OTHER_MINERALS_RARE, ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_RARE),
-                Pair.of(SulfurMappings.OTHER_MINERALS_PRECIOUS, ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_PRECIOUS)
-        );
-        this.makeYtoNXRecipes(4, otherMineralsFromGems);
+        this.makeNiterToNiterRecipe(SulfurRegistry.GEMS_ABUNDANT.get(), 1, SulfurRegistry.OTHER_MINERALS_ABUNDANT.get(), 4);
+        this.makeNiterToNiterRecipe(SulfurRegistry.GEMS_COMMON.get(), 1, SulfurRegistry.OTHER_MINERALS_COMMON.get(), 4);
+        this.makeNiterToNiterRecipe(SulfurRegistry.GEMS_RARE.get(), 1, SulfurRegistry.OTHER_MINERALS_RARE.get(), 4);
+        this.makeNiterToNiterRecipe(SulfurRegistry.GEMS_PRECIOUS.get(), 1, SulfurRegistry.OTHER_MINERALS_PRECIOUS.get(), 4);
     }
 
     @Override
@@ -171,24 +190,24 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
         this.recipeCache.forEach(recipeConsumer);
     }
 
-    public void makeRecipe(Item result, TagKey<Item> source, int mercuryFlux) {
-        this.makeRecipe(result, 1, source, mercuryFlux);
+    public void makeTagRecipe(Item result, TagKey<Item> source, int mercuryFlux) {
+        this.makeTagRecipe(result, 1, source, mercuryFlux);
     }
 
-    public void makeRecipe(Item result, int resultCount, TagKey<Item> source, int mercuryFlux) {
-        this.makeRecipe(this.name(result) + "_from_" + this.name(source), result, resultCount, List.of(source), mercuryFlux, TIME);
+    public void makeTagRecipe(Item result, int resultCount, TagKey<Item> source, int mercuryFlux) {
+        this.makeTagRecipe(this.name(result) + "_from_" + this.name(source), result, resultCount, List.of(source), mercuryFlux, TIME);
     }
 
-    public void makeRecipe(Item result, List<TagKey<Item>> sources, int mercuryFlux) {
-        this.makeRecipe(result, 1, sources, mercuryFlux);
+    public void makeTagRecipe(Item result, List<TagKey<Item>> sources, int mercuryFlux) {
+        this.makeTagRecipe(result, 1, sources, mercuryFlux);
     }
 
-    public void makeRecipe(Item result, int resultCount, List<TagKey<Item>> sources, int mercuryFlux) {
-        this.makeRecipe(this.name(result) + "_from_" + this.name(sources), result, resultCount, sources, mercuryFlux, TIME);
+    public void makeTagRecipe(Item result, int resultCount, List<TagKey<Item>> sources, int mercuryFlux) {
+        this.makeTagRecipe(this.name(result) + "_from_" + this.name(sources), result, resultCount, sources, mercuryFlux, TIME);
     }
 
 
-    public void makeRecipe(String recipeName, Item result, int resultCount, List<TagKey<Item>> sources, int mercuryFlux, int reformationTime) {
+    public void makeTagRecipe(String recipeName, Item result, int resultCount, List<TagKey<Item>> sources, int mercuryFlux, int reformationTime) {
         var recipe = this.makeRecipeJson(
                 sources.stream().map(s -> this.makeTagIngredient(this.locFor(s))).toList(),
                 this.makeItemIngredient(this.locFor(result)),
@@ -206,25 +225,21 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
     }
 
     public void makeRecipe(Item result, Item source, int mercuryFlux) {
-        this.makeRecipe(this.name(result) + "_from_" + this.name(source), result, source, 1, mercuryFlux, TIME);
+        this.makeRecipe(result, 1, source, 1, mercuryFlux);
     }
 
-    public void makeRecipe(String recipeName, Item result, Item source, int mercuryFlux) {
-        this.makeRecipe(recipeName, result, source, 1, mercuryFlux, TIME);
+    public void makeRecipe(Item result, int resultCount, Item source, int sourceCount, int mercuryFlux) {
+        this.makeRecipe(this.name(result) + "_from_" + this.name(source), result, resultCount, Collections.nCopies(sourceCount, source).stream().toList(), mercuryFlux, TIME);
     }
 
-    public void makeRecipe(String recipeName, Item result, Item source, int mercuryFlux, int reformationTime) {
-        this.makeRecipe(recipeName, result, source, 1, mercuryFlux, reformationTime);
-    }
-
-    public void makeRecipe(String recipeName, Item result, Item source, int sourceCount, int mercuryFlux, int reformationTime) {
+    public void makeRecipe(String recipeName, Item result, int resultCount, List<Item> sources, int mercuryFlux, int reformationTime) {
         this.recipeCache.put(
                 this.modLoc(recipeName),
                 this.makeRecipeJson(
-                        List.of(this.makeItemIngredient(this.locFor(source), sourceCount)),
+                        sources.stream().map(s -> this.makeItemIngredient(this.locFor(s))).toList(),
                         this.makeItemIngredient(this.locFor(result)),
                         mercuryFlux,
-                        this.makeItemStackCodecResult(this.locFor(result)),
+                        this.makeItemStackCodecResult(this.locFor(result), resultCount),
                         reformationTime));
     }
 

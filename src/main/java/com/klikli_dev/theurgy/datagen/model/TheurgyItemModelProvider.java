@@ -124,6 +124,21 @@ public class TheurgyItemModelProvider extends net.minecraftforge.client.model.ge
                 this.registerItemBuiltinEntity(this.name(sulfur));
             }
         });
+
+        this.registerItemGenerated(this.name(ItemRegistry.GEMS_ABUNDANT_ICON.get()), "sulfurs/gems_abundant");
+        this.registerItemGenerated(this.name(ItemRegistry.GEMS_COMMON_ICON.get()), "sulfurs/gems_common");
+        this.registerItemGenerated(this.name(ItemRegistry.GEMS_RARE_ICON.get()), "sulfurs/gems_rare");
+        this.registerItemGenerated(this.name(ItemRegistry.GEMS_PRECIOUS_ICON.get()), "sulfurs/gems_precious");
+
+        this.registerItemGenerated(this.name(ItemRegistry.METALS_ABUNDANT_ICON.get()), "sulfurs/metals_abundant");
+        this.registerItemGenerated(this.name(ItemRegistry.METALS_COMMON_ICON.get()), "sulfurs/metals_common");
+        this.registerItemGenerated(this.name(ItemRegistry.METALS_RARE_ICON.get()), "sulfurs/metals_rare");
+        this.registerItemGenerated(this.name(ItemRegistry.METALS_PRECIOUS_ICON.get()), "sulfurs/metals_precious");
+
+        this.registerItemGenerated(this.name(ItemRegistry.OTHER_MINERALS_ABUNDANT_ICON.get()), "sulfurs/other_minerals_abundant");
+        this.registerItemGenerated(this.name(ItemRegistry.OTHER_MINERALS_COMMON_ICON.get()), "sulfurs/other_minerals_common");
+        this.registerItemGenerated(this.name(ItemRegistry.OTHER_MINERALS_RARE_ICON.get()), "sulfurs/other_minerals_rare");
+        this.registerItemGenerated(this.name(ItemRegistry.OTHER_MINERALS_PRECIOUS_ICON.get()), "sulfurs/other_minerals_precious");
     }
 
     protected void registerSalts() {
@@ -138,18 +153,24 @@ public class TheurgyItemModelProvider extends net.minecraftforge.client.model.ge
     @Override
     protected void registerModels() {
         this.registerItemGenerated(this.name(ItemRegistry.THE_HERMETICA_ICON.get()), "the_hermetica");
+        this.registerItemGenerated(this.name(ItemRegistry.EMPTY_JAR_ICON.get()), "empty_jar");
+        this.registerItemGenerated(this.name(ItemRegistry.EMPTY_JAR_IRON_BAND_ICON.get()), "empty_jar_iron_band");
+        this.registerItemGenerated(this.name(ItemRegistry.EMPTY_JAR_LABELED_ICON.get()), "empty_jar_labeled");
+        this.registerItemGenerated(this.name(ItemRegistry.EMPTY_CERAMIC_JAR_ICON.get()), "empty_ceramic_jar");
+        this.registerItemGenerated(this.name(ItemRegistry.EMPTY_CERAMIC_JAR_LABELED_ICON.get()), "empty_ceramic_jar_labeled");
+        this.registerItemGenerated(this.name(ItemRegistry.JAR_LABEL_ICON.get()), "jar_label");
+        this.registerItemGenerated(this.name(ItemRegistry.JAR_LABEL_FRAME_ABUNDANT_ICON.get()), "jar_label_frame_abundant");
+        this.registerItemGenerated(this.name(ItemRegistry.JAR_LABEL_FRAME_COMMON_ICON.get()), "jar_label_frame_common");
+        this.registerItemGenerated(this.name(ItemRegistry.JAR_LABEL_FRAME_RARE_ICON.get()), "jar_label_frame_rare");
+        this.registerItemGenerated(this.name(ItemRegistry.JAR_LABEL_FRAME_PRECIOUS_ICON.get()), "jar_label_frame_precious");
 
         this.registerSulfurs();
         this.registerSalts();
 
-        this.registerItemGenerated(this.name(ItemRegistry.EMPTY_JAR.get()));
-        this.registerItemGenerated(this.name(ItemRegistry.EMPTY_JAR_LABELED.get()));
-        this.registerItemGenerated(this.name(ItemRegistry.JAR_LABEL.get()));
-
         this.registerItemGenerated(this.name(ItemRegistry.MERCURY_SHARD.get()));
         this.registerItemGenerated(this.name(ItemRegistry.MERCURY_CRYSTAL.get()));
-
         this.registerItemGenerated(this.name(ItemRegistry.SAL_AMMONIAC_CRYSTAL.get()));
+        this.registerItemGenerated(this.name(ItemRegistry.PURIFIED_GOLD.get()));
 
         this.registerDivinationRod(ItemRegistry.DIVINATION_ROD_T1.get());
         this.registerDivinationRod(ItemRegistry.DIVINATION_ROD_T2.get());

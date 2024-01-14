@@ -5,7 +5,7 @@
   "description": "book.theurgy.the_hermetica.getting_started.about_mod.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "minecraft:nether_star"
+    "item": "theurgy:reformation_result_pedestal"
   },
   "name": "book.theurgy.the_hermetica.getting_started.about_mod.name",
   "pages": [
@@ -22,7 +22,7 @@
       "anchor": "",
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.getting_started.about_mod.about2.text",
-      "title": "",
+      "title": "book.theurgy.the_hermetica.getting_started.about_mod.about2.title",
       "use_markdown_in_title": false
     },
     {
@@ -30,7 +30,7 @@
       "anchor": "",
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.getting_started.about_mod.about3.text",
-      "title": "",
+      "title": "book.theurgy.the_hermetica.getting_started.about_mod.about3.title",
       "use_markdown_in_title": false
     },
     {
@@ -58,6 +58,7 @@
       "line_reversed": false
     }
   ],
+  "show_when_any_parent_unlocked": false,
   "x": -5,
-  "y": 1
+  "y": -4
 }

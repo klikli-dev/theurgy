@@ -1,0 +1,26 @@
+{
+  "type": "theurgy:reformation",
+  "mercury_flux": 150,
+  "reformation_time": 100,
+  "result": {
+    "Count": 1,
+    "id": "theurgy:alchemical_sulfur_gems_rare"
+  },
+  "sources": [
+    {
+      "item": "theurgy:alchemical_sulfur_other_minerals_rare"
+    },
+    {
+      "item": "theurgy:alchemical_sulfur_other_minerals_rare"
+    },
+    {
+      "item": "theurgy:alchemical_sulfur_other_minerals_rare"
+    },
+    {
+      "item": "theurgy:alchemical_sulfur_other_minerals_rare"
+    }
+  ],
+  "target": {
+    "item": "theurgy:alchemical_sulfur_gems_rare"
+  }
+}

@@ -4,9 +4,11 @@
 
 package com.klikli_dev.theurgy.content.item;
 
+import com.google.common.base.Suppliers;
 import com.google.common.collect.ImmutableList;
 import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.content.item.render.AlchemicalSulfurBEWLR;
+import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import com.klikli_dev.theurgy.registry.SulfurRegistry;
 import com.klikli_dev.theurgy.util.LevelUtil;
@@ -28,6 +30,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 public class AlchemicalSulfurItem extends Item {
     /**
@@ -44,9 +47,18 @@ public class AlchemicalSulfurItem extends Item {
      */
     public boolean useAutomaticNameRendering;
     /**
+     * If true, data gen will generate a lang entry for the item name.
+     */
+    public boolean useAutomaticNameLangGeneration;
+    /**
      * if true, will use TheurgyConstants.Nbt.SULFUR_SOURCE_ID to provide a parameter to the item tooltip component that can be accessed with %s in the language file.
      */
     public boolean provideAutomaticTooltipData;
+
+    /**
+     * If true, data gen will generate a lang entry for the item tooltip.
+     */
+    public boolean useAutomaticTooltipLangGeneration;
 
     /**
      * If true will convert the tag to a description id and use it as source name, instead of the source stack procured for the tag.
@@ -66,14 +78,30 @@ public class AlchemicalSulfurItem extends Item {
      */
     public boolean autoGenerateSourceIdInRecipe;
 
+    public Supplier<ItemStack> sourceStackSupplier;
+    public Supplier<ItemStack> emptyJarStackSupplier;
+
+    public AlchemicalSulfurTier tier;
+    public AlchemicalSulfurType type;
+
     public AlchemicalSulfurItem(Properties pProperties) {
+        this(pProperties, Suppliers.memoize(() -> ItemStack.EMPTY));
+    }
+
+    public AlchemicalSulfurItem(Properties pProperties, Supplier<ItemStack> sourceStackSupplier) {
         super(pProperties);
         this.useAutomaticIconRendering = true;
         this.useAutomaticNameRendering = true;
+        this.useAutomaticNameLangGeneration = true;
         this.provideAutomaticTooltipData = true;
+        this.useAutomaticTooltipLangGeneration = true;
         this.autoGenerateSourceIdInRecipe = true;
         this.overrideTagSourceName = false;
         this.overrideSourceName = false;
+        this.sourceStackSupplier = sourceStackSupplier;
+        this.emptyJarStackSupplier = Suppliers.memoize(() -> new ItemStack(ItemRegistry.EMPTY_JAR_ICON.get()));
+        this.tier = AlchemicalSulfurTier.ABUNDANT;
+        this.type = AlchemicalSulfurType.MISC;
     }
 
     public static String getSourceItemId(ItemStack sulfurStack) {
@@ -99,12 +127,44 @@ public class AlchemicalSulfurItem extends Item {
         return "";
     }
 
+    public static ItemStack getEmptyJarStack(ItemStack sulfurStack) {
+
+        if (sulfurStack.getItem() instanceof AlchemicalSulfurItem sulfur) {
+            return sulfur.emptyJarStackSupplier.get();
+        }
+
+        return ItemStack.EMPTY;
+    }
+
+    public static AlchemicalSulfurTier getTier(ItemStack sulfurStack) {
+        if (sulfurStack.getItem() instanceof AlchemicalSulfurItem sulfur) {
+            return sulfur.tier;
+        }
+
+        return AlchemicalSulfurTier.ABUNDANT;
+    }
+
+    public static AlchemicalSulfurType getType(ItemStack sulfurStack) {
+        if (sulfurStack.getItem() instanceof AlchemicalSulfurItem sulfur) {
+            return sulfur.type;
+        }
+
+        return AlchemicalSulfurType.MISC;
+    }
+
     /**
      * Get the source item stack from the sulfur stack nbt.
      * The source *should* be the item that was used to create the sulfur.
      * Due to this only being used for automatic rendering and naming purposes, the source might be a different item for some reason, and in many cases could be empty.
      */
     public static ItemStack getSourceStack(ItemStack sulfurStack) {
+
+        if (sulfurStack.getItem() instanceof AlchemicalSulfurItem sulfur) {
+            var sourceStack = sulfur.getSourceStack();
+            if (!sourceStack.isEmpty())
+                return sourceStack;
+        }
+
         var itemSourceId = getSourceItemId(sulfurStack); //we call this first, because it might find the source for us
 
         //but then we do our normal checks
@@ -130,23 +190,63 @@ public class AlchemicalSulfurItem extends Item {
 
     public static List<MutableComponent> getTooltipData(ItemStack sulfurStack) {
         if (sulfurStack.getItem() instanceof AlchemicalSulfurItem sulfur && sulfur.provideAutomaticTooltipData) {
-            return ImmutableList.of(sulfur.getSourceName(sulfurStack));
+            var tier = getTier(sulfurStack);
+            var type = getType(sulfurStack);
+            return ImmutableList.of(
+                    sulfur.getSourceName(sulfurStack),
+                    ComponentUtils.wrapInSquareBrackets(
+                            Component.translatable(tier.descriptionId())
+                                    .withStyle(Style.EMPTY
+                                            .withColor(tier.color)
+                                            .withItalic(true))
+                    ),
+                    ComponentUtils.wrapInSquareBrackets(
+                            Component.translatable(type.descriptionId())
+                                    .withStyle(Style.EMPTY
+                                            .withColor(ChatFormatting.DARK_GRAY)
+                                            .withItalic(true))
+                    )
+            );
         }
 
         return ImmutableList.of();
     }
 
-    public static MutableComponent formatSourceName(MutableComponent sourceName) {
+    public static MutableComponent formatSourceName(MutableComponent sourceName, AlchemicalSulfurTier tier) {
         return sourceName.withStyle(Style.EMPTY
-                .withColor(ChatFormatting.GREEN)
+                .withColor(tier.color())
                 .withItalic(true)
         );
+    }
+
+    public AlchemicalSulfurItem tier(AlchemicalSulfurTier tier) {
+        this.tier = tier;
+        return this;
+    }
+
+    public AlchemicalSulfurTier tier() {
+        return this.tier;
+    }
+
+    public AlchemicalSulfurItem type(AlchemicalSulfurType type) {
+        this.type = type;
+        return this;
+    }
+
+    public AlchemicalSulfurType type() {
+        return this.type;
+    }
+
+    public ItemStack getSourceStack() {
+        return this.sourceStackSupplier.get();
     }
 
     public AlchemicalSulfurItem noAuto() {
         this.useAutomaticIconRendering = false;
         this.useAutomaticNameRendering = false;
+        this.useAutomaticNameLangGeneration = false;
         this.provideAutomaticTooltipData = false;
+        this.useAutomaticTooltipLangGeneration = false;
         this.overrideTagSourceName = false;
         return this;
     }
@@ -156,13 +256,28 @@ public class AlchemicalSulfurItem extends Item {
         return this;
     }
 
+    public AlchemicalSulfurItem withJarIcon(Supplier<ItemStack> emptyJarStackSupplier) {
+        this.emptyJarStackSupplier = emptyJarStackSupplier;
+        return this;
+    }
+
     public AlchemicalSulfurItem autoName(boolean value) {
-        this.useAutomaticNameRendering = value;
+        return this.autoName(value, value);
+    }
+
+    public AlchemicalSulfurItem autoName(boolean rendering, boolean langGeneration) {
+        this.useAutomaticNameRendering = rendering;
+        this.useAutomaticNameLangGeneration = langGeneration;
         return this;
     }
 
     public AlchemicalSulfurItem autoTooltip(boolean value) {
-        this.provideAutomaticTooltipData = value;
+        return this.autoTooltip(value, value);
+    }
+
+    public AlchemicalSulfurItem autoTooltip(boolean rendering, boolean langGeneration) {
+        this.provideAutomaticTooltipData = rendering;
+        this.useAutomaticTooltipLangGeneration = langGeneration;
         return this;
     }
 
@@ -184,7 +299,7 @@ public class AlchemicalSulfurItem extends Item {
 
     public MutableComponent getSourceName(ItemStack pStack) {
         if (this.overrideSourceName) {
-            return formatSourceName(Component.translatable(pStack.getDescriptionId() + TheurgyConstants.I18n.Item.ALCHEMICAL_SULFUR_SOURCE_SUFFIX));
+            return formatSourceName(Component.translatable(pStack.getDescriptionId() + TheurgyConstants.I18n.Item.ALCHEMICAL_SULFUR_SOURCE_SUFFIX), this.tier);
         }
 
         var source = getSourceStack(pStack);
@@ -193,11 +308,11 @@ public class AlchemicalSulfurItem extends Item {
             var sourceId = getSourceItemId(pStack);
             if (sourceId.startsWith("#") && this.overrideTagSourceName) {
                 var tagId = new ResourceLocation(sourceId.substring(1));
-                return formatSourceName(Component.translatable(Util.makeDescriptionId("tag", tagId)));
+                return formatSourceName(Component.translatable(Util.makeDescriptionId("tag", tagId)), this.tier);
             }
 
             if (source.getHoverName() instanceof MutableComponent hoverName)
-                return formatSourceName(hoverName);
+                return formatSourceName(hoverName, this.tier);
         }
 
         return Component.translatable(TheurgyConstants.I18n.Item.ALCHEMICAL_SULFUR_UNKNOWN_SOURCE);
@@ -216,9 +331,25 @@ public class AlchemicalSulfurItem extends Item {
     @Override
     public Component getName(ItemStack pStack) {
         if (this.useAutomaticNameRendering) {
-            return Component.translatable(this.getDescriptionId(pStack), ComponentUtils.wrapInSquareBrackets(
-                    this.getSourceName(pStack)
-            ));
+            var tier = getTier(pStack);
+            var type = getType(pStack);
+            return Component.translatable(this.getDescriptionId(pStack),
+                    ComponentUtils.wrapInSquareBrackets(
+                            this.getSourceName(pStack)
+                    ),
+                    ComponentUtils.wrapInSquareBrackets(
+                            Component.translatable(tier.descriptionId())
+                                    .withStyle(Style.EMPTY
+                                            .withColor(tier.color)
+                                            .withItalic(true))
+                    ),
+                    ComponentUtils.wrapInSquareBrackets(
+                            Component.translatable(type.descriptionId())
+                                    .withStyle(Style.EMPTY
+                                            .withColor(ChatFormatting.DARK_GRAY)
+                                            .withItalic(true))
+                    )
+            );
         }
         return super.getName(pStack);
     }

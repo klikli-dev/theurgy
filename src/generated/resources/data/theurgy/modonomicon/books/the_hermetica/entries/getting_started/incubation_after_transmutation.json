@@ -1,0 +1,33 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "theurgy:getting_started",
+  "description": "book.theurgy.the_hermetica.getting_started.incubation_after_transmutation.description",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "minecraft:iron_ingot"
+  },
+  "name": "book.theurgy.the_hermetica.getting_started.incubation_after_transmutation.name",
+  "pages": [
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "item": {
+        "item": "minecraft:iron_ingot"
+      },
+      "text": "book.theurgy.the_hermetica.getting_started.incubation_after_transmutation.intro.text",
+      "title": "book.theurgy.the_hermetica.getting_started.incubation_after_transmutation.intro.title"
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "theurgy:getting_started/niter_to_sulfur_reformation",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "x": 17,
+  "y": 4
+}

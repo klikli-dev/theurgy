@@ -1,0 +1,49 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "theurgy:apparatus",
+  "description": "book.theurgy.the_hermetica.apparatus.mercury_catalyst.description",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "theurgy:mercury_catalyst"
+  },
+  "name": "book.theurgy.the_hermetica.apparatus.mercury_catalyst.name",
+  "pages": [
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "item": {
+        "item": "theurgy:mercury_catalyst"
+      },
+      "text": "book.theurgy.the_hermetica.apparatus.mercury_catalyst.intro.text",
+      "title": ""
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.apparatus.mercury_catalyst.usage.text",
+      "title": "book.theurgy.the_hermetica.apparatus.mercury_catalyst.usage.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:crafting_recipe",
+      "anchor": "",
+      "recipe_id_1": "theurgy:crafting/shaped/mercury_catalyst",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "theurgy:apparatus/mercury_flux",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "x": -7,
+  "y": 0
+}

@@ -64,6 +64,9 @@ public class TheurgyBlockLootSubProvider extends BlockLootSubProvider {
         this.dropSelf(BlockRegistry.REFORMATION_TARGET_PEDESTAL.get());
         this.dropSelf(BlockRegistry.REFORMATION_RESULT_PEDESTAL.get());
 
+        this.dropSelf(BlockRegistry.FERMENTATION_VAT.get());
+        this.dropSelf(BlockRegistry.DIGESTION_VAT.get());
+
         this.add(BlockRegistry.SAL_AMMONIAC_ORE.get(), (block) -> {
             return this.createOreDrop(block, ItemRegistry.SAL_AMMONIAC_CRYSTAL.get());
         });

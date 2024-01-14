@@ -105,8 +105,12 @@ public class TheurgyConstants {
             public static final String INCUBATION_CATEGORY = PREFIX + "category.incubation";
             public static final String ACCUMULATION_CATEGORY = PREFIX + "category.accumulation";
             public static final String REFORMATION_CATEGORY = PREFIX + "category.reformation";
+            public static final String FERMENTATION_CATEGORY = PREFIX + "category.fermentation";
+            public static final String DIGESTION_CATEGORY = PREFIX + "category.digestion";
             public static final String MERCURY_FLUX = PREFIX + "misc.mercury_flux";
             public static final String SOURCE_PEDESTAL_COUNT = PREFIX + "misc.source_pedestal_count";
+
+            public static final String TARGET_SULFUR_TOOLTIP = PREFIX + "misc.source_sulfur.tooltip";
         }
 
         public static class Misc {
@@ -129,6 +133,12 @@ public class TheurgyConstants {
             public static final String SELECTION_SUMMARY_SULFURIC_FLUX_EMITTER_NO_TARGET = PREFIX + "selection.summary.sulfuric_flux_emitter.no_target";
             public static final String SELECTION_SUMMARY_SULFURIC_FLUX_EMITTER_NO_SOURCES = PREFIX + "selection.summary.sulfuric_flux_emitter.no_sources";
             public static final String SELECTION_SUMMARY_SULFURIC_FLUX_EMITTER_NO_RESULT = PREFIX + "selection.summary.sulfuric_flux_emitter.no_result";
+
+            public static final String INTERACTION_FERMENTATION_VAT_NO_RECIPE = PREFIX + "interaction.fermentation_vat.no_recipe";
+            public static final String INTERACTION_FERMENTATION_VAT_CLOSED = PREFIX + "interaction.fermentation_vat.closed";
+
+            public static final String INTERACTION_DIGESTION_VAT_NO_RECIPE = PREFIX + "interaction.digestion_vat.no_recipe";
+            public static final String INTERACTION_DIGESTION_VAT_CLOSED = PREFIX + "interaction.digestion_vat.closed";
         }
     }
 

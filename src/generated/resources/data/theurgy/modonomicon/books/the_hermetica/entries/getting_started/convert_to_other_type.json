@@ -1,0 +1,78 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 2,
+  "category": "theurgy:getting_started",
+  "condition": {
+    "type": "modonomicon:entry_read",
+    "entry_id": "theurgy:getting_started/incubation_after_reformation"
+  },
+  "description": "book.theurgy.the_hermetica.getting_started.convert_to_other_type.description",
+  "hide_while_locked": true,
+  "icon": {
+    "height": 16,
+    "texture": "theurgy:textures/gui/book/convert_types.png",
+    "width": 16
+  },
+  "name": "book.theurgy.the_hermetica.getting_started.convert_to_other_type.name",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.getting_started.convert_to_other_type.intro.text",
+      "title": "book.theurgy.the_hermetica.getting_started.convert_to_other_type.intro.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.getting_started.convert_to_other_type.intro2.text",
+      "title": "book.theurgy.the_hermetica.getting_started.convert_to_other_type.intro2.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.getting_started.convert_to_other_type.process.text",
+      "title": "book.theurgy.the_hermetica.getting_started.convert_to_other_type.process.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.getting_started.convert_to_other_type.process2.text",
+      "title": "book.theurgy.the_hermetica.getting_started.convert_to_other_type.process2.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.getting_started.convert_to_other_type.limitations.text",
+      "title": "book.theurgy.the_hermetica.getting_started.convert_to_other_type.limitations.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.getting_started.convert_to_other_type.instructions.text",
+      "title": "book.theurgy.the_hermetica.getting_started.convert_to_other_type.instructions.title",
+      "use_markdown_in_title": false
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "theurgy:getting_started/convert_within_type_and_tier",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "x": 7,
+  "y": 4
+}

@@ -32,10 +32,7 @@ public class PreventInsertWrapper implements IItemHandlerModifiable {
     @Override
     @NotNull
     public ItemStack insertItem(int slot, @NotNull ItemStack stack, boolean simulate) {
-        if (!this.isItemValid(slot, stack))
-            return stack;
-
-        return this.compose.insertItem(slot, stack, simulate);
+        return stack;
     }
 
     @Override

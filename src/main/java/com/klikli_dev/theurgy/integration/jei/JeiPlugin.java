@@ -56,6 +56,8 @@ public class JeiPlugin implements IModPlugin {
         registration.addRecipeCategories(new IncubationCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new AccumulationCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new ReformationCategory(registration.getJeiHelpers().getGuiHelper()));
+        registration.addRecipeCategories(new FermentationCategory(registration.getJeiHelpers().getGuiHelper()));
+        registration.addRecipeCategories(new DigestionCategory(registration.getJeiHelpers().getGuiHelper()));
     }
 
     @Override
@@ -83,13 +85,28 @@ public class JeiPlugin implements IModPlugin {
         var sulfursWithoutRecipe = SulfurRegistry.SULFURS.getEntries().stream()
                 .map(RegistryObject::get)
                 .map(AlchemicalSulfurItem.class::cast)
+                .filter(sulfur -> !SulfurRegistry.keepInItemLists(sulfur))
                 .filter(sulfur -> liquefactionRecipes.stream().noneMatch(r -> r.getResultItem(level.registryAccess()) != null && r.getResultItem(level.registryAccess()).getItem() == sulfur)).map(ItemStack::new).toList();
         registration.getIngredientManager().removeIngredientsAtRuntime(VanillaTypes.ITEM_STACK, sulfursWithoutRecipe);
 
         //filter reformation recipes to exclude those that are for sulfurs without recipe
-        var reformationRecipes = recipeManager.getAllRecipesFor(RecipeTypeRegistry.REFORMATION.get()).stream().filter(r -> r.getResultItem(level.registryAccess()) != null).filter( r -> sulfursWithoutRecipe.stream().noneMatch(s -> s.getItem() == r.getResultItem(level.registryAccess()).getItem())).toList();
+        var reformationRecipes = recipeManager.getAllRecipesFor(RecipeTypeRegistry.REFORMATION.get()).stream()
+                .filter(r -> r.getResultItem(level.registryAccess()) != null)
+                .filter( r -> sulfursWithoutRecipe.stream().noneMatch(s -> s.getItem() == r.getResultItem(level.registryAccess()).getItem()))
+                .toList();
         registration.addRecipes(JeiRecipeTypes.REFORMATION, reformationRecipes);
 
+        //filter fermentation recipes to exclude those that use sulfurs without recipe as input
+//        var fermentationRecipes = recipeManager.getAllRecipesFor(RecipeTypeRegistry.FERMENTATION.get()).stream()
+//                .filter(r -> r.getIngredients().stream().anyMatch(i -> sulfursWithoutRecipe.stream().noneMatch(i)))
+        //that filter is too naive, it would also exclude recipes that use a sulfur tag as input and only one item in that tag is unavailable
+        //IF we even need that filter we instead need to check if ALL items in the tag are unavailable
+//                .toList();
+        var fermentationRecipes = recipeManager.getAllRecipesFor(RecipeTypeRegistry.FERMENTATION.get());
+        registration.addRecipes(JeiRecipeTypes.FERMENTATION, fermentationRecipes);
+
+        var digestionRecipes = recipeManager.getAllRecipesFor(RecipeTypeRegistry.DIGESTION.get());
+        registration.addRecipes(JeiRecipeTypes.DIGESTION, digestionRecipes);
 
         this.registerIngredientInfo(registration, ItemRegistry.SAL_AMMONIAC_CRYSTAL.get());
     }
@@ -127,5 +144,11 @@ public class JeiPlugin implements IModPlugin {
 
         registration.addRecipeCatalyst(new ItemStack(BlockRegistry.REFORMATION_RESULT_PEDESTAL.get()),
                 JeiRecipeTypes.REFORMATION);
+
+        registration.addRecipeCatalyst(new ItemStack(BlockRegistry.FERMENTATION_VAT.get()),
+                JeiRecipeTypes.FERMENTATION);
+
+        registration.addRecipeCatalyst(new ItemStack(BlockRegistry.DIGESTION_VAT.get()),
+                JeiRecipeTypes.DIGESTION);
     }
 }

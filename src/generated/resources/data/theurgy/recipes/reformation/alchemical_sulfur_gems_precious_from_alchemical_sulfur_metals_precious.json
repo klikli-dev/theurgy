@@ -1,0 +1,20 @@
+{
+  "type": "theurgy:reformation",
+  "mercury_flux": 200,
+  "reformation_time": 100,
+  "result": {
+    "Count": 1,
+    "id": "theurgy:alchemical_sulfur_gems_precious"
+  },
+  "sources": [
+    {
+      "item": "theurgy:alchemical_sulfur_metals_precious"
+    },
+    {
+      "item": "theurgy:alchemical_sulfur_metals_precious"
+    }
+  ],
+  "target": {
+    "item": "theurgy:alchemical_sulfur_gems_precious"
+  }
+}

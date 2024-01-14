@@ -1,0 +1,76 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "theurgy:getting_started",
+  "description": "book.theurgy.the_hermetica.getting_started.reformation_array.description",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "theurgy:reformation_result_pedestal"
+  },
+  "name": "book.theurgy.the_hermetica.getting_started.reformation_array.name",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.getting_started.reformation_array.intro.text",
+      "title": "book.theurgy.the_hermetica.getting_started.reformation_array.intro.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "item": {
+        "item": "theurgy:reformation_target_pedestal"
+      },
+      "text": "book.theurgy.the_hermetica.getting_started.reformation_array.target.text",
+      "title": ""
+    },
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "item": {
+        "item": "theurgy:reformation_result_pedestal"
+      },
+      "text": "book.theurgy.the_hermetica.getting_started.reformation_array.result.text",
+      "title": ""
+    },
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "item": {
+        "item": "theurgy:reformation_source_pedestal"
+      },
+      "text": "book.theurgy.the_hermetica.getting_started.reformation_array.source.text",
+      "title": ""
+    },
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "item": {
+        "item": "theurgy:sulfuric_flux_emitter"
+      },
+      "text": "book.theurgy.the_hermetica.getting_started.reformation_array.emitter.text",
+      "title": ""
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.getting_started.reformation_array.next_steps.text",
+      "title": "book.theurgy.the_hermetica.getting_started.reformation_array.next_steps.title",
+      "use_markdown_in_title": false
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "theurgy:getting_started/convert_within_type_and_tier",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "x": 9,
+  "y": -2
+}

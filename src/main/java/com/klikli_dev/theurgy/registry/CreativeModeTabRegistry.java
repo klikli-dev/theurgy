@@ -19,7 +19,7 @@ public class CreativeModeTabRegistry {
 
     public static final RegistryObject<CreativeModeTab> THEURGY = CREATIVE_MODE_TABS.register(Theurgy.MODID, () -> CreativeModeTab.builder()
             .withTabsBefore(CreativeModeTabs.COMBAT)
-            .icon(() -> ItemRegistry.EMPTY_JAR.get().getDefaultInstance())
+            .icon(() -> ItemRegistry.EMPTY_JAR_ICON.get().getDefaultInstance())
             .title(Component.translatable(TheurgyConstants.I18n.ITEM_GROUP))
             .displayItems((parameters, output) -> {
                 DivinationRodItem.registerCreativeModeTabs(ItemRegistry.DIVINATION_ROD_T1.get(), output);
@@ -40,6 +40,7 @@ public class CreativeModeTabRegistry {
                 output.accept(ItemRegistry.SAL_AMMONIAC_CRYSTAL.get());
                 output.accept(ItemRegistry.SAL_AMMONIAC_ORE.get());
                 output.accept(ItemRegistry.DEEPSLATE_SAL_AMMONIAC_ORE.get());
+                output.accept(ItemRegistry.PURIFIED_GOLD.get());
 
                 output.accept(ItemRegistry.CALCINATION_OVEN.get());
                 output.accept(ItemRegistry.PYROMANTIC_BRAZIER.get());
@@ -60,6 +61,10 @@ public class CreativeModeTabRegistry {
                 output.accept(ItemRegistry.REFORMATION_SOURCE_PEDESTAL.get());
                 output.accept(ItemRegistry.REFORMATION_TARGET_PEDESTAL.get());
                 output.accept(ItemRegistry.REFORMATION_RESULT_PEDESTAL.get());
+
+                output.accept(ItemRegistry.FERMENTATION_VAT.get());
+                output.accept(ItemRegistry.DIGESTION_VAT.get());
+
             }).build());
 
 }

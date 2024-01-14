@@ -5,6 +5,8 @@
 package com.klikli_dev.theurgy.registry;
 
 import com.klikli_dev.theurgy.Theurgy;
+import com.klikli_dev.theurgy.content.apparatus.digestionvat.DigestionVatBlock;
+import com.klikli_dev.theurgy.content.apparatus.fermentationvat.FermentationVatBlock;
 import com.klikli_dev.theurgy.content.apparatus.calcinationoven.CalcinationOvenBlock;
 import com.klikli_dev.theurgy.content.apparatus.caloricfluxemitter.CaloricFluxEmitterBlock;
 import com.klikli_dev.theurgy.content.apparatus.caloricfluxemitter.CaloricFluxEmitterSelectionBehaviour;
@@ -37,14 +39,14 @@ public class BlockRegistry {
             BLOCKS.register("calcination_oven", () -> new CalcinationOvenBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.METAL)
                     .noOcclusion()
-                    .sound(SoundType.METAL)
+                    .sound(SoundType.COPPER)
                     .strength(1.0f)));
 
     public static final RegistryObject<PyromanticBrazierBlock> PYROMANTIC_BRAZIER =
             BLOCKS.register("pyromantic_brazier", () -> new PyromanticBrazierBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.METAL)
                     .noOcclusion()
-                    .sound(SoundType.METAL)
+                    .sound(SoundType.COPPER)
                     .strength(1.0f)
                     .lightLevel((state) -> state.getValue(BlockStateProperties.LIT) ? 14 : 0)));
 
@@ -52,56 +54,56 @@ public class BlockRegistry {
             BLOCKS.register("liquefaction_cauldron", () -> new LiquefactionCauldronBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.METAL)
                     .noOcclusion()
-                    .sound(SoundType.METAL)
+                    .sound(SoundType.COPPER)
                     .strength(1.0f)));
 
     public static final RegistryObject<DistillerBlock> DISTILLER =
             BLOCKS.register("distiller", () -> new DistillerBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.METAL)
                     .noOcclusion()
-                    .sound(SoundType.METAL)
+                    .sound(SoundType.COPPER)
                     .strength(1.0f)));
 
     public static final RegistryObject<IncubatorBlock> INCUBATOR =
             BLOCKS.register("incubator", () -> new IncubatorBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.METAL)
                     .noOcclusion()
-                    .sound(SoundType.METAL)
+                    .sound(SoundType.WOOD)
                     .strength(1.0f)));
 
     public static final RegistryObject<IncubatorMercuryVesselBlock> INCUBATOR_MERCURY_VESSEL =
             BLOCKS.register("incubator_mercury_vessel", () -> new IncubatorMercuryVesselBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.METAL)
                     .noOcclusion()
-                    .sound(SoundType.METAL)
+                    .sound(SoundType.WOOD)
                     .strength(1.0f)));
 
     public static final RegistryObject<IncubatorSaltVesselBlock> INCUBATOR_SALT_VESSEL =
             BLOCKS.register("incubator_salt_vessel", () -> new IncubatorSaltVesselBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.METAL)
                     .noOcclusion()
-                    .sound(SoundType.METAL)
+                    .sound(SoundType.WOOD)
                     .strength(1.0f)));
 
     public static final RegistryObject<IncubatorSulfurVesselBlock> INCUBATOR_SULFUR_VESSEL =
             BLOCKS.register("incubator_sulfur_vessel", () -> new IncubatorSulfurVesselBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.METAL)
                     .noOcclusion()
-                    .sound(SoundType.METAL)
+                    .sound(SoundType.WOOD)
                     .strength(1.0f)));
 
     public static final RegistryObject<SalAmmoniacAccumulatorBlock> SAL_AMMONIAC_ACCUMULATOR =
             BLOCKS.register("sal_ammoniac_accumulator", () -> new SalAmmoniacAccumulatorBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.METAL)
                     .noOcclusion()
-                    .sound(SoundType.METAL)
+                    .sound(SoundType.COPPER)
                     .strength(1.0f)));
 
     public static final RegistryObject<SalAmmoniacTankBlock> SAL_AMMONIAC_TANK =
             BLOCKS.register("sal_ammoniac_tank", () -> new SalAmmoniacTankBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.METAL)
                     .noOcclusion()
-                    .sound(SoundType.METAL)
+                    .sound(SoundType.COPPER)
                     .strength(1.0f)));
 
     public static final RegistryObject<MercuryCatalystBlock> MERCURY_CATALYST =
@@ -134,7 +136,7 @@ public class BlockRegistry {
             BLOCKS.register("reformation_source_pedestal", () -> new ReformationSourcePedestalBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.METAL)
                     .noOcclusion()
-                    .sound(SoundType.METAL)
+                    .sound(SoundType.STONE)
                     .strength(1.0f))
             );
 
@@ -142,7 +144,7 @@ public class BlockRegistry {
             BLOCKS.register("reformation_target_pedestal", () -> new ReformationTargetPedestalBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.METAL)
                     .noOcclusion()
-                    .sound(SoundType.METAL)
+                    .sound(SoundType.STONE)
                     .strength(1.0f))
             );
 
@@ -150,7 +152,22 @@ public class BlockRegistry {
             BLOCKS.register("reformation_result_pedestal", () -> new ReformationResultPedestalBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.METAL)
                     .noOcclusion()
+                    .sound(SoundType.STONE)
+                    .strength(1.0f))
+            );
+
+    public static final RegistryObject<FermentationVatBlock> FERMENTATION_VAT =
+            BLOCKS.register("fermentation_vat", () -> new FermentationVatBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.METAL)
                     .sound(SoundType.METAL)
+                    .strength(1.0f))
+            );
+
+    public static final RegistryObject<DigestionVatBlock> DIGESTION_VAT =
+            BLOCKS.register("digestion_vat", () -> new DigestionVatBlock(BlockBehaviour.Properties.of()
+                    .noOcclusion()
+                    .mapColor(MapColor.CLAY)
+                    .sound(SoundType.DECORATED_POT)
                     .strength(1.0f))
             );
 

@@ -1,0 +1,111 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "theurgy:getting_started",
+  "description": "book.theurgy.the_hermetica.getting_started.needed_apparatus_spagyrics.description",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "theurgy:distiller"
+  },
+  "name": "book.theurgy.the_hermetica.getting_started.needed_apparatus_spagyrics.name",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.getting_started.needed_apparatus_spagyrics.intro.text",
+      "title": "book.theurgy.the_hermetica.getting_started.needed_apparatus_spagyrics.intro.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "item": {
+        "item": "theurgy:pyromantic_brazier"
+      },
+      "text": "book.theurgy.the_hermetica.getting_started.needed_apparatus_spagyrics.pyromantic_brazier.text",
+      "title": ""
+    },
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "item": {
+        "item": "theurgy:calcination_oven"
+      },
+      "text": "book.theurgy.the_hermetica.getting_started.needed_apparatus_spagyrics.calcination_oven.text",
+      "title": ""
+    },
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "item": {
+        "item": "theurgy:sal_ammoniac_accumulator"
+      },
+      "text": "book.theurgy.the_hermetica.getting_started.needed_apparatus_spagyrics.sal_ammoniac_accumulator.text",
+      "title": ""
+    },
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "item": {
+        "item": "theurgy:sal_ammoniac_tank"
+      },
+      "text": "book.theurgy.the_hermetica.getting_started.needed_apparatus_spagyrics.sal_ammoniac_tank.text",
+      "title": ""
+    },
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "item": {
+        "item": "theurgy:liquefaction_cauldron"
+      },
+      "text": "book.theurgy.the_hermetica.getting_started.needed_apparatus_spagyrics.liquefaction_cauldron.text",
+      "title": ""
+    },
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "item": {
+        "item": "theurgy:distiller"
+      },
+      "text": "book.theurgy.the_hermetica.getting_started.needed_apparatus_spagyrics.distiller.text",
+      "title": ""
+    },
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "item": {
+        "item": "theurgy:incubator"
+      },
+      "text": "book.theurgy.the_hermetica.getting_started.needed_apparatus_spagyrics.incubator.text",
+      "title": ""
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.getting_started.needed_apparatus_spagyrics.next_steps.text",
+      "title": "book.theurgy.the_hermetica.getting_started.needed_apparatus_spagyrics.next_steps.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.getting_started.needed_apparatus_spagyrics.next_steps2.text",
+      "title": "book.theurgy.the_hermetica.getting_started.needed_apparatus_spagyrics.next_steps2.title",
+      "use_markdown_in_title": false
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "theurgy:getting_started/ore_refining",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "x": -3,
+  "y": 2
+}

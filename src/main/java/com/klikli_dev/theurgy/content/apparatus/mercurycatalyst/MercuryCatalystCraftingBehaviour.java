@@ -83,7 +83,7 @@ public class MercuryCatalystCraftingBehaviour extends CraftingBehaviour<RecipeWr
     }
 
     @Override
-    protected boolean canCraft(@Nullable CatalysationRecipe pRecipe) {
+    public boolean canCraft(@Nullable CatalysationRecipe pRecipe) {
         if (pRecipe == null) return false;
 
         var storage = this.mercuryFluxStorageSupplier.get();

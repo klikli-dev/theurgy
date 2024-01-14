@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "S": {
+      "tag": "forge:sandstone"
+    },
+    "g": {
+      "tag": "forge:ingots/gold"
+    },
+    "p": {
+      "item": "minecraft:decorated_pot"
+    },
+    "s": {
+      "tag": "forge:gems/sal_ammoniac"
+    }
+  },
+  "pattern": [
+    " s ",
+    "gpg",
+    "SSS"
+  ],
+  "result": {
+    "count": 1,
+    "item": "theurgy:digestion_vat"
+  }
+}

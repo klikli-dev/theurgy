@@ -7,6 +7,7 @@ package com.klikli_dev.theurgy.integration.jei.recipes;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
+import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.content.gui.GuiTextures;
 import com.klikli_dev.theurgy.content.recipe.ReformationRecipe;
@@ -14,6 +15,7 @@ import com.klikli_dev.theurgy.integration.jei.JeiDrawables;
 import com.klikli_dev.theurgy.integration.jei.JeiRecipeTypes;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
+import com.mojang.blaze3d.systems.RenderSystem;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.drawable.IDrawableAnimated;
@@ -23,11 +25,15 @@ import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+
+import java.util.List;
 
 import static mezz.jei.api.recipe.RecipeIngredientRole.INPUT;
 import static mezz.jei.api.recipe.RecipeIngredientRole.OUTPUT;
@@ -86,6 +92,14 @@ public class ReformationCategory implements IRecipeCategory<ReformationRecipe> {
         this.drawCookTime(recipe, guiGraphics, 37);
         this.drawFlux(recipe, guiGraphics, 90);
         this.drawSourcePedestalCount(recipe, guiGraphics, 78);
+
+        //the barrier in combination with the tooltip handling in the tooltip method shows the user that target sulfur will not be consumed
+        RenderSystem.enableDepthTest();
+        var barrier = new ItemStack(Items.BARRIER);
+        Font font = Minecraft.getInstance().font;
+        guiGraphics.renderFakeItem(barrier, 45, 1);
+        guiGraphics.renderItemDecorations(font, barrier, 45, 1);
+        RenderSystem.disableBlend();
     }
 
     protected void drawCookTime(ReformationRecipe recipe, GuiGraphics guiGraphics, int y) {
@@ -132,6 +146,7 @@ public class ReformationCategory implements IRecipeCategory<ReformationRecipe> {
         builder.addSlot(RecipeIngredientRole.CATALYST, 45, 19)
                 .setBackground(JeiDrawables.INPUT_SLOT, -1, -1)
                 .addIngredients(recipe.getTarget());
+
         builder.addSlot(RecipeIngredientRole.CATALYST, 45, 35)
                 .addItemStack(new ItemStack(ItemRegistry.REFORMATION_TARGET_PEDESTAL.get()));
 
@@ -167,5 +182,16 @@ public class ReformationCategory implements IRecipeCategory<ReformationRecipe> {
     @Override
     public RecipeType<ReformationRecipe> getRecipeType() {
         return JeiRecipeTypes.REFORMATION;
+    }
+
+    @Override
+    public List<Component> getTooltipStrings(ReformationRecipe recipe, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
+
+        // builder.addSlot(RecipeIngredientRole.RENDER_ONLY, 45, 1)
+        if(mouseX > 45 && mouseX < 45 + 18 && mouseY > 1 && mouseY < 1 + 18) {
+            return List.of(Component.translatable(TheurgyConstants.I18n.JEI.TARGET_SULFUR_TOOLTIP).withStyle(ChatFormatting.ITALIC));
+        }
+
+        return IRecipeCategory.super.getTooltipStrings(recipe, recipeSlotsView, mouseX, mouseY);
     }
 }

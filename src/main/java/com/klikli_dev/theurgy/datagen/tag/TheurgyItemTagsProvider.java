@@ -5,6 +5,8 @@
 package com.klikli_dev.theurgy.datagen.tag;
 
 import com.klikli_dev.theurgy.Theurgy;
+import com.klikli_dev.theurgy.content.item.AlchemicalSulfurItem;
+import com.klikli_dev.theurgy.content.item.AlchemicalSulfurType;
 import com.klikli_dev.theurgy.datagen.SulfurMappings;
 import com.klikli_dev.theurgy.registry.*;
 import net.minecraft.core.HolderLookup;
@@ -12,6 +14,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -48,9 +51,14 @@ public class TheurgyItemTagsProvider extends ItemTagsProvider {
 
         var sulfursTag = this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS);
         SulfurRegistry.SULFURS.getEntries().forEach(sulfur -> {
-            sulfursTag.add(sulfur.get());
+            if(sulfur.get() instanceof AlchemicalSulfurItem alchemicalSulfurItem){
+                if(alchemicalSulfurItem.type() != AlchemicalSulfurType.NITER)
+                    sulfursTag.add(sulfur.get());
+            }
         });
 
+        this.tag(ItemTagRegistry.SUGAR)
+                .add(Items.SUGAR);
 
         //add the tier tags into the material tag
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS)
@@ -73,62 +81,62 @@ public class TheurgyItemTagsProvider extends ItemTagsProvider {
 
 
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_ABUNDANT);
-        SulfurMappings.METALS_ABUNDANT.forEach(sulfur -> {
+        SulfurMappings.metalsAbundant().forEach(sulfur -> {
             this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_ABUNDANT).add(sulfur);
         });
 
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_COMMON);
-        SulfurMappings.METALS_COMMON.forEach(sulfur -> {
+        SulfurMappings.metalsCommon().forEach(sulfur -> {
             this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_COMMON).add(sulfur);
         });
 
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_RARE);
-        SulfurMappings.METALS_RARE.forEach(sulfur -> {
+        SulfurMappings.metalsRare().forEach(sulfur -> {
             this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_RARE).add(sulfur);
         });
 
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_PRECIOUS);
-        SulfurMappings.METALS_PRECIOUS.forEach(sulfur -> {
+        SulfurMappings.metalsPrecious().forEach(sulfur -> {
             this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_PRECIOUS).add(sulfur);
         });
 
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_ABUNDANT);
-        SulfurMappings.GEMS_ABUNDANT.forEach(sulfur -> {
+        SulfurMappings.gemsAbundant().forEach(sulfur -> {
             this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_ABUNDANT).add(sulfur);
         });
 
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_COMMON);
-        SulfurMappings.GEMS_COMMON.forEach(sulfur -> {
+        SulfurMappings.gemsCommon().forEach(sulfur -> {
             this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_COMMON).add(sulfur);
         });
 
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_RARE);
-        SulfurMappings.GEMS_RARE.forEach(sulfur -> {
+        SulfurMappings.gemsRare().forEach(sulfur -> {
             this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_RARE).add(sulfur);
         });
 
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_PRECIOUS);
-        SulfurMappings.GEMS_PRECIOUS.forEach(sulfur -> {
+        SulfurMappings.gemsPrecious().forEach(sulfur -> {
             this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_PRECIOUS).add(sulfur);
         });
 
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_ABUNDANT);
-        SulfurMappings.OTHER_MINERALS_ABUNDANT.forEach(sulfur -> {
+        SulfurMappings.otherMineralsAbundant().forEach(sulfur -> {
             this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_ABUNDANT).add(sulfur);
         });
 
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_COMMON);
-        SulfurMappings.OTHER_MINERALS_COMMON.forEach(sulfur -> {
+        SulfurMappings.otherMineralsCommon().forEach(sulfur -> {
             this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_COMMON).add(sulfur);
         });
 
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_RARE);
-        SulfurMappings.OTHER_MINERALS_RARE.forEach(sulfur -> {
+        SulfurMappings.otherMineralsRare().forEach(sulfur -> {
             this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_RARE).add(sulfur);
         });
 
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_PRECIOUS);
-        SulfurMappings.OTHER_MINERALS_PRECIOUS.forEach(sulfur -> {
+        SulfurMappings.otherMineralsPrecious().forEach(sulfur -> {
             this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_PRECIOUS).add(sulfur);
         });
 

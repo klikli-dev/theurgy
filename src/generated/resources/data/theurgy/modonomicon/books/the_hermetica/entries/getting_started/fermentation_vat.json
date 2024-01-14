@@ -1,0 +1,49 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "theurgy:getting_started",
+  "description": "book.theurgy.the_hermetica.getting_started.fermentation_vat.description",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "theurgy:fermentation_vat"
+  },
+  "name": "book.theurgy.the_hermetica.getting_started.fermentation_vat.name",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.getting_started.fermentation_vat.intro.text",
+      "title": "book.theurgy.the_hermetica.getting_started.fermentation_vat.intro.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.getting_started.fermentation_vat.reformation_array.text",
+      "title": "book.theurgy.the_hermetica.getting_started.fermentation_vat.reformation_array.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "item": {
+        "item": "theurgy:fermentation_vat"
+      },
+      "text": "book.theurgy.the_hermetica.getting_started.fermentation_vat.fermentation_vat.text",
+      "title": ""
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "theurgy:getting_started/convert_to_other_type",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "x": 9,
+  "y": 4
+}

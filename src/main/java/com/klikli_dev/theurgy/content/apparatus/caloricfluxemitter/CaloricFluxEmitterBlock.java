@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2024 klikli-dev
+//
+// SPDX-License-Identifier: MIT
+
 package com.klikli_dev.theurgy.content.apparatus.caloricfluxemitter;
 
 import com.google.common.collect.ImmutableMap;

@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "bottom": "theurgy:block/fermentation_vat_bottom",
+    "particle": "theurgy:block/fermentation_vat_top",
+    "side": "theurgy:block/fermentation_vat_side",
+    "top": "theurgy:block/fermentation_vat_top_open"
+  }
+}

@@ -7,6 +7,7 @@ package com.klikli_dev.theurgy.registry;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.content.apparatus.calcinationoven.CalcinationOvenBlockItem;
 import com.klikli_dev.theurgy.content.apparatus.caloricfluxemitter.CaloricFluxEmitterBlockItem;
+import com.klikli_dev.theurgy.content.apparatus.digestionvat.DigestionVatBlockItem;
 import com.klikli_dev.theurgy.content.apparatus.distiller.DistillerBlockItem;
 import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorMercuryVesselBlockItem;
 import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorSaltVesselBlockItem;
@@ -23,14 +24,47 @@ import net.minecraftforge.registries.RegistryObject;
 public class ItemRegistry {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Theurgy.MODID);
     //Helper items for rendering
-    public static final RegistryObject<Item> EMPTY_JAR =
-            ITEMS.register("empty_jar", () -> new Item(new Item.Properties()));
-    public static final RegistryObject<Item> EMPTY_JAR_LABELED =
-            ITEMS.register("empty_jar_labeled", () -> new Item(new Item.Properties()));
-    public static final RegistryObject<Item> JAR_LABEL =
-            ITEMS.register("jar_label", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> EMPTY_JAR_ICON =
+            ITEMS.register("empty_jar_icon", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> EMPTY_JAR_IRON_BAND_ICON =
+            ITEMS.register("empty_jar_iron_band_icon", () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> EMPTY_JAR_LABELED_ICON =
+            ITEMS.register("empty_jar_labeled_icon", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> EMPTY_CERAMIC_JAR_ICON =
+            ITEMS.register("empty_ceramic_jar_icon", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> EMPTY_CERAMIC_JAR_LABELED_ICON =
+            ITEMS.register("empty_ceramic_jar_labeled_icon", () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> JAR_LABEL_ICON =
+            ITEMS.register("jar_label_icon", () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> JAR_LABEL_FRAME_ABUNDANT_ICON =
+            ITEMS.register("jar_label_frame_abundant_icon", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> JAR_LABEL_FRAME_COMMON_ICON =
+            ITEMS.register("jar_label_frame_common_icon", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> JAR_LABEL_FRAME_RARE_ICON =
+            ITEMS.register("jar_label_frame_rare_icon", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> JAR_LABEL_FRAME_PRECIOUS_ICON =
+            ITEMS.register("jar_label_frame_precious_icon", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> THE_HERMETICA_ICON =
             ITEMS.register("the_hermetica_icon", () -> new Item(new Item.Properties()));
+
+
+    public static final RegistryObject<Item> GEMS_ABUNDANT_ICON = ITEMS.register("gems_abundant_icon", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> GEMS_COMMON_ICON = ITEMS.register("gems_common_icon", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> GEMS_RARE_ICON = ITEMS.register("gems_rare_icon", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> GEMS_PRECIOUS_ICON = ITEMS.register("gems_precious_icon", () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> METALS_ABUNDANT_ICON = ITEMS.register("metals_abundant_icon", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> METALS_COMMON_ICON = ITEMS.register("metals_common_icon", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> METALS_RARE_ICON = ITEMS.register("metals_rare_icon", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> METALS_PRECIOUS_ICON = ITEMS.register("metals_precious_icon", () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> OTHER_MINERALS_ABUNDANT_ICON = ITEMS.register("other_minerals_abundant_icon", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> OTHER_MINERALS_COMMON_ICON = ITEMS.register("other_minerals_common_icon", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> OTHER_MINERALS_RARE_ICON = ITEMS.register("other_minerals_rare_icon", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> OTHER_MINERALS_PRECIOUS_ICON = ITEMS.register("other_minerals_precious_icon", () -> new Item(new Item.Properties()));
     //Divination rods
     public static final RegistryObject<DivinationRodItem> DIVINATION_ROD_T1 =
             ITEMS.register("divination_rod_t1", () -> new DivinationRodItem(
@@ -88,14 +122,16 @@ public class ItemRegistry {
     //Buckets
     public static final RegistryObject<Item> SAL_AMMONIAC_BUCKET = ITEMS.register("sal_ammoniac_bucket", () -> new BucketItem(FluidRegistry.SAL_AMMONIAC, new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
 
+    //Ingredients
     public static final RegistryObject<Item> MERCURY_SHARD =
             ITEMS.register("mercury_shard", () -> new Item(new Item.Properties()));
-
-    //Ingredients
     public static final RegistryObject<Item> MERCURY_CRYSTAL =
             ITEMS.register("mercury_crystal", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> SAL_AMMONIAC_CRYSTAL =
             ITEMS.register("sal_ammoniac_crystal", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> PURIFIED_GOLD =
+            ITEMS.register("purified_gold", () -> new Item(new Item.Properties()));
+
     //Blocks
     public static final RegistryObject<Item> SAL_AMMONIAC_ORE =
             ITEMS.register("sal_ammoniac_ore", () -> new BlockItem(BlockRegistry.SAL_AMMONIAC_ORE.get(), new Item.Properties()));
@@ -137,5 +173,9 @@ public class ItemRegistry {
     public static final RegistryObject<BlockItem> REFORMATION_RESULT_PEDESTAL =
             ITEMS.register("reformation_result_pedestal", () -> new BlockItem(BlockRegistry.REFORMATION_RESULT_PEDESTAL.get(), new Item.Properties()));
 
+    public static final RegistryObject<BlockItem> FERMENTATION_VAT =
+            ITEMS.register("fermentation_vat", () -> new BlockItem(BlockRegistry.FERMENTATION_VAT.get(), new Item.Properties()));
 
+    public static final RegistryObject<BlockItem> DIGESTION_VAT =
+            ITEMS.register("digestion_vat", () -> new DigestionVatBlockItem(BlockRegistry.DIGESTION_VAT.get(), new Item.Properties()));
 }

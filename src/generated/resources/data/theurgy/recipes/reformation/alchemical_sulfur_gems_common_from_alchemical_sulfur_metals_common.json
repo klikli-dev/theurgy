@@ -1,0 +1,20 @@
+{
+  "type": "theurgy:reformation",
+  "mercury_flux": 100,
+  "reformation_time": 100,
+  "result": {
+    "Count": 1,
+    "id": "theurgy:alchemical_sulfur_gems_common"
+  },
+  "sources": [
+    {
+      "item": "theurgy:alchemical_sulfur_metals_common"
+    },
+    {
+      "item": "theurgy:alchemical_sulfur_metals_common"
+    }
+  ],
+  "target": {
+    "item": "theurgy:alchemical_sulfur_gems_common"
+  }
+}

@@ -1,11 +1,11 @@
 {
   "values": [
-    "theurgy:alchemical_sulfur_crimson_iron",
     "theurgy:alchemical_sulfur_silver",
     "theurgy:alchemical_sulfur_gold",
     "theurgy:alchemical_sulfur_uranium",
     "theurgy:alchemical_sulfur_azure_silver",
     "theurgy:alchemical_sulfur_iridium",
+    "theurgy:alchemical_sulfur_crimson_iron",
     "theurgy:alchemical_sulfur_platinum"
   ]
 }

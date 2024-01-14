@@ -1,0 +1,74 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "theurgy:getting_started",
+  "description": "book.theurgy.the_hermetica.getting_started.alchemical_niter.description",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "theurgy:empty_ceramic_jar_labeled_icon"
+  },
+  "name": "book.theurgy.the_hermetica.getting_started.alchemical_niter.name",
+  "pages": [
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "item": {
+        "item": "theurgy:alchemical_sulfur_iron"
+      },
+      "text": "book.theurgy.the_hermetica.getting_started.alchemical_niter.intro.text",
+      "title": "book.theurgy.the_hermetica.getting_started.alchemical_niter.intro.title"
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.getting_started.alchemical_niter.intro2.text",
+      "title": "book.theurgy.the_hermetica.getting_started.alchemical_niter.intro2.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "item": {
+        "item": "theurgy:alchemical_sulfur_metals_common"
+      },
+      "text": "book.theurgy.the_hermetica.getting_started.alchemical_niter.niter.text",
+      "title": "book.theurgy.the_hermetica.getting_started.alchemical_niter.niter.title"
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.getting_started.alchemical_niter.niter2.text",
+      "title": "book.theurgy.the_hermetica.getting_started.alchemical_niter.niter2.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.getting_started.alchemical_niter.processes.text",
+      "title": "book.theurgy.the_hermetica.getting_started.alchemical_niter.processes.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.getting_started.alchemical_niter.reformation.text",
+      "title": "book.theurgy.the_hermetica.getting_started.alchemical_niter.reformation.title",
+      "use_markdown_in_title": false
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "theurgy:getting_started/replication",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "x": 5,
+  "y": -2
+}

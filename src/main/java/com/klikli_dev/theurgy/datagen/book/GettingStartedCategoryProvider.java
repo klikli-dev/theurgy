@@ -7,11 +7,19 @@ package com.klikli_dev.theurgy.datagen.book;
 import com.klikli_dev.modonomicon.api.datagen.CategoryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookCategoryModel;
 import com.klikli_dev.modonomicon.api.datagen.book.BookEntryModel;
-import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.klikli_dev.theurgy.Theurgy;
-import com.klikli_dev.theurgy.registry.BlockRegistry;
+import com.klikli_dev.theurgy.datagen.book.gettingstarted.*;
+import com.klikli_dev.theurgy.datagen.book.gettingstarted.exaltation.ConvertToOtherTierEntry;
+import com.klikli_dev.theurgy.datagen.book.gettingstarted.exaltation.DigestionEntry;
+import com.klikli_dev.theurgy.datagen.book.gettingstarted.exaltation.DigestionVatEntry;
+import com.klikli_dev.theurgy.datagen.book.gettingstarted.exaltation.PurifiedGoldEntry;
+import com.klikli_dev.theurgy.datagen.book.gettingstarted.reformation.*;
+import com.klikli_dev.theurgy.datagen.book.gettingstarted.reformation.RequiredItemsEntry;
+import com.klikli_dev.theurgy.datagen.book.gettingstarted.spagyrics.IncubationEntry;
+import com.klikli_dev.theurgy.datagen.book.gettingstarted.spagyrics.*;
+import com.klikli_dev.theurgy.datagen.book.gettingstarted.transmutation.*;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
-import net.minecraft.world.item.Items;
+import com.mojang.datafixers.util.Pair;
 
 public class GettingStartedCategoryProvider extends CategoryProvider {
 
@@ -28,33 +36,180 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
     @Override
     protected String[] generateEntryMap() {
         return new String[]{
-                "__________________________________",
-                "__________________ḍ___ď_ḑ_ḓ_______",
-                "__________________________________",
-                "________________d___ḋ_____________",
-                "______________________ɖ_ᶑ_________",
-                "__________________đ_______________",
-                "__________________________________",
-                "__________i_a___________ő_ö_______",
-                "__________________________________",
-                "____________u_s_š___o_ó___ô_õ_r___",
-                "__________________________________",
-                "______________m_ḿ_______ò_________",
-                "__________________________________"
+                "___________________________________",
+                "__________________ḍ___ď_ḑ_ḓ________",
+                "___________________________________",
+                "________________d___ḋ______________",
+                "___________________________________",
+                "__________________đ___ɖ_ᶑ__________",
+                "___________________________________",
+                "__________i_a_________c___ṛ_ŕ______",
+                "___________________________________",
+                "______________s_____ṟ_n_r_ȓ___ŗ_ʀ_ȑ",
+                "___________________________________",
+                "______________o_____________ř______",
+                "___________________________________",
+                "______________ó___________ț________",
+                "___________________________________",
+                "____________ő_ò_________ť_ţ_ƭ_ʈ_ṫ_ṭ",
+                "___________________________________",
+                "____________ö___ô_ơ_______ê_ě______",
+                "___________________________________",
+                "______________õ_________é_è_ë_ē_ė_ę",
+                "___________________________________",
+                "________________________ƒ__________"
         };
     }
 
+
     @Override
     protected void generateEntries() {
+        var introEntry = new IntroEntry(this).generate('i');
+        var aboutModEntry = new AboutModEntry(this).generate('a');
+        aboutModEntry.withParent(introEntry);
+        this.generateDivinationRodEntries(aboutModEntry);
+
+        var spagyrics = this.generateSpagyricsEntries(aboutModEntry); //spagyrics, incubation
+
+        var replication = new ReplicationEntry(this).generate('ṟ');
+        replication.withParent(spagyrics.getFirst());
+        replication.withParent(spagyrics.getSecond());
+        replication.withCondition(this.condition().entryRead(spagyrics.getSecond()));
+        replication.showWhenAnyParentUnlocked(true);
+
+        var niter = new AlchemicalNiterEntry(this).generate('n');
+        niter.withParent(replication);
+
+        var caloricFlux = new CaloricFluxEmitterEntry(this).generate('c');
+        caloricFlux.withParent(niter);
+
+        var reformation = this.generateReformationEntries(niter); //convertWithinTypeAndTier, reformationIncubation
+
+        var transmutation = this.generateTransmutationEntries(reformation);  //convertToOtherType, reformationIncubation
+
+        var exaltation = this.generateExaltationEntries(transmutation); //convertToOtherTier, incubation
+
+        var renewableGold = new RenewableGoldEntry(this).generate('ƒ');
+        renewableGold.withParent(exaltation.getFirst());
+        renewableGold.withCondition(this.condition().entryRead(exaltation.getSecond()));
+        renewableGold.hideWhileLocked(true);
+    }
+
+    protected Pair<BookEntryModel, BookEntryModel> generateExaltationEntries(Pair<BookEntryModel, BookEntryModel> transmutation) {
+        var convertToOtherTier = new ConvertToOtherTierEntry(this).generate('é');
+        convertToOtherTier.withParent(transmutation.getFirst());
+        convertToOtherTier.withCondition(this.condition().entryRead(transmutation.getSecond()));
+        convertToOtherTier.hideWhileLocked(true);
+
+        var digestionVat = new DigestionVatEntry(this).generate('è');
+        digestionVat.withParent(convertToOtherTier);
+
+        var requiredItems = new com.klikli_dev.theurgy.datagen.book.gettingstarted.exaltation.RequiredItemsEntry(this).generate('ê');
+        requiredItems.withParent(this.parent(digestionVat));
+
+        var purifiedGold = new PurifiedGoldEntry(this).generate('ě');
+        purifiedGold.withParent(requiredItems);
+
+        var fermentation = new com.klikli_dev.theurgy.datagen.book.gettingstarted.exaltation.FermentationEntry(this).generate('ë');
+        fermentation.withParent(digestionVat);
+
+        var digestion = new DigestionEntry(this).generate('ē');
+        digestion.withParent(fermentation);
+        digestion.withParent(purifiedGold);
+
+        var niterToSulfurReformation = new com.klikli_dev.theurgy.datagen.book.gettingstarted.exaltation.NiterToSulfurReformationEntry(this).generate('ė');
+        niterToSulfurReformation.withParent(digestion);
+
+        var incubation = new com.klikli_dev.theurgy.datagen.book.gettingstarted.exaltation.IncubationEntry(this).generate('ę');
+        incubation.withParent(niterToSulfurReformation);
+
+        return Pair.of(convertToOtherTier, incubation);
+    }
+
+    protected Pair<BookEntryModel, BookEntryModel> generateTransmutationEntries(Pair<BookEntryModel, BookEntryModel> reformation) {
+        var convertToOtherType = new ConvertToOtherTypeEntry(this).generate('ť');
+        convertToOtherType.withParent(reformation.getFirst());
+        convertToOtherType.withCondition(this.condition().entryRead(reformation.getSecond()));
+        convertToOtherType.hideWhileLocked(true);
+
+        var fermentationVatEntry = new FermentationVatEntry(this).generate('ţ');
+        fermentationVatEntry.withParent(convertToOtherType);
+
+        var requiredItemsTransmutation = new com.klikli_dev.theurgy.datagen.book.gettingstarted.transmutation.RequiredItemsEntry(this).generate('ț');
+        requiredItemsTransmutation.withParent(this.parent(fermentationVatEntry).withDrawArrow(false));
+
+        var fermentationTransmutation = new FermentationEntry(this).generate('ƭ');
+        fermentationTransmutation.withParent(fermentationVatEntry);
+
+        var niterToNiterReformation = new NiterToNiterReformationEntry(this).generate('ʈ');
+        niterToNiterReformation.withParent(fermentationTransmutation);
+
+        var niterToSulfurReformation = new NiterToSulfurReformationEntry(this).generate('ṫ');
+        niterToSulfurReformation.withParent(niterToNiterReformation);
+
+        var incubation = new com.klikli_dev.theurgy.datagen.book.gettingstarted.transmutation.IncubationEntry(this).generate('ṭ');
+        incubation.withParent(niterToSulfurReformation);
+
+        return Pair.of(convertToOtherType, incubation);
+    }
+
+    protected Pair<BookEntryModel, BookEntryModel> generateReformationEntries(BookEntryModel parent) {
+        var convertWithinTypeAndTier = new ConvertWithinTypeAndTierEntry(this).generate('r');
+        convertWithinTypeAndTier.withParent(parent);
+        var reformationArray = new ReformationArrayEntry(this).generate('ȓ');
+        reformationArray.withParent(convertWithinTypeAndTier);
+        var requiredItems = new RequiredItemsEntry(this).generate('ṛ');
+        requiredItems.withParent(this.parent(reformationArray).withDrawArrow(false));
+
+        var source = new SourceEntry(this).generate('ŕ');
+        source.withParent(this.parent(reformationArray));
+        var target = new TargetEntry(this).generate('ř');
+        target.withParent(reformationArray);
+        var sulfuricFluxEmitter = new SulfuricFluxEmitterEntry(this).generate('ŗ');
+        sulfuricFluxEmitter.withParent(source);
+        sulfuricFluxEmitter.withParent(target);
+        var result = new ResultEntry(this).generate('ʀ');
+        result.withParent(sulfuricFluxEmitter);
+        var reformationIncubation = new com.klikli_dev.theurgy.datagen.book.gettingstarted.reformation.IncubationEntry(this).generate('ȑ');
+        reformationIncubation.withParent(result);
+
+        return Pair.of(convertWithinTypeAndTier, reformationIncubation);
+    }
+
+    protected Pair<BookEntryModel, BookEntryModel> generateSpagyricsEntries(BookEntryModel parent) {
+        var spagyrics = new SpagyricsEntry(this).generate('s');
+        spagyrics.withParent(parent);
+        var oreRefining = new OreRefiningEntry(this).generate('o');
+        oreRefining.withParent(spagyrics);
+        var neededApparatus = new NeededApparatusEntry(this).generate('ó');
+        neededApparatus.withParent(oreRefining);
+        var createSolvent = new CreateSolventEntry(this).generate('ő');
+        createSolvent.withParent(neededApparatus);
+        var createSulfur = new CreateSulfurEntry(this).generate('ö');
+        createSulfur.withParent(createSolvent);
+        var createSalt = new CreateSaltEntry(this).generate('ô');
+        createSalt.withParent(neededApparatus);
+        var recycleStrata = new StrataRecyclingEntry(this).generate('ơ');
+        recycleStrata.withParent(createSalt);
+        var createMercury = new CreateMercuryEntry(this).generate('ò');
+        createMercury.withParent(neededApparatus);
+        var incubation = new IncubationEntry(this).generate('õ');
+        incubation
+                .withParent(createMercury)
+                .withParent(createSalt)
+                .withParent(createSulfur);
+
+        return Pair.of(spagyrics, incubation);
+    }
+
+    protected void generateDivinationRodEntries(BookEntryModel parent) {
         var rods = new DivinationRodEntryProvider(this.parent(), this.entryMap());
-        var ore = new OreRefiningEntryProvider(this.parent(), this.entryMap());
-
-        var introEntry = this.add(this.introEntry('i'));
-        var aboutModEntry = this.add(this.aboutModEntry('a'));
-
         var aboutDivinationRods = this.add(rods.aboutDivinationRods('d'));
+        aboutDivinationRods.withParent(parent);
+
         var t1DivinationRod = this.add(rods.t1DivinationRodEntry('ḍ'));
         var abundantAndCommonSulfurAttunedDivinationRod = this.add(rods.abundantAndCommonSulfurAttunedDivinationRodEntry('đ'));
+        //TODO: should be child of spagyrics / sulfur
 
         var amethystDivinationRod = this.add(rods.amethystDivinationRodEntry('ḋ'));
         var t2DivinationRod = this.add(rods.t2DivinationRodEntry('ď'));
@@ -63,32 +218,9 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
         var rareSulfurAttunedDivinationRod = this.add(rods.rareSulfurAttunedDivinationRodEntry('ɖ'));
         var preciousSulfurAttunedDivinationRod = this.add(rods.preciousSulfurAttunedDivinationRodEntry('ᶑ'));
 
-        var spagyrics = this.add(this.spagyricsEntry('s'));
-        var apparatusHowTo = this.add(this.apparatusHowToEntry('u'));
-        var spagyricsLink = this.add(this.spagyricsLinkEntry('š'));
-
-        var aboutOreRefining = this.add(ore.aboutOreRefiningEntry('o'));
-        var neededApparatus = this.add(ore.neededApparatusEntry('ó'));
-        var createSolvent = this.add(ore.createSolventEntry('ő'));
-        var createSulfur = this.add(ore.createSulfurEntry('ö'));
-        var createSalt = this.add(ore.createSaltEntry('ô'));
-        var createMercury = this.add(ore.createMercuryEntry('ò'));
-        var incubation = this.add(ore.incubationEntry('õ'));
-        var reformation = this.add(this.reformation('r'));
-
-        //TODO: one entry to talk about mercury flux, then one entry to link to the category
-        var mercuryFlux = this.add(this.mercuryFluxEntry('m'));
-        var mercuryFluxLink = this.add(this.mercuryFluxLinkEntry('ḿ'));
-
-        //links and conditions
-        aboutModEntry.withParent(introEntry);
-
-        aboutDivinationRods.withParent(aboutModEntry);
-
         t1DivinationRod.withParent(aboutDivinationRods);
 
         abundantAndCommonSulfurAttunedDivinationRod.withParent(aboutDivinationRods);
-        abundantAndCommonSulfurAttunedDivinationRod.withParent(spagyricsLink);
 //        abundantAndCommonSulfurAttunedDivinationRod.withCondition(
 //                this.parent().and(
 //                        this.parent().entryReadCondition(aboutDivinationRods),
@@ -149,24 +281,6 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
 //                )
 //        );
 
-        spagyrics.withParent(aboutModEntry);
-        apparatusHowTo.withParent(spagyrics);
-        spagyricsLink.withParent(spagyrics);
-
-        aboutOreRefining.withParent(spagyricsLink);
-        neededApparatus.withParent(aboutOreRefining);
-        createSolvent.withParent(neededApparatus);
-        createSulfur.withParent(createSolvent);
-        createSalt.withParent(neededApparatus);
-        createMercury.withParent(neededApparatus);
-        incubation
-                .withParent(createMercury)
-                .withParent(createSalt)
-                .withParent(createSulfur);
-        reformation.withParent(incubation);
-
-        mercuryFlux.withParent(spagyrics);
-        mercuryFluxLink.withParent(mercuryFlux);
 
         //TODO: Conditions
         //  amethyst entry should NOT depend on spagyrics -> hence not on abundant sulfur rod
@@ -178,269 +292,5 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
 
         return BookCategoryModel.create(Theurgy.loc((this.context().categoryId())), this.context().categoryName())
                 .withIcon(ItemRegistry.THE_HERMETICA_ICON.get()).withBackground(Theurgy.loc("textures/gui/book/bg_nightsky.png"));
-    }
-
-    private BookEntryModel introEntry(char location) {
-        this.context().entry("intro");
-        this.add(this.context().entryName(), "About this Work");
-        this.add(this.context().entryDescription(), "About using The Hermetica");
-
-        this.context().page("intro");
-        var intro = BookTextPageModel.builder().withTitle(this.context().pageTitle()).withText(this.context().pageText()).build();
-        this.add(this.context().pageTitle(), "About this Work");
-        this.add(this.context().pageText(), """
-                The following pages will lead the novice alchemist on their journey through the noble art of the transformation of matter and mind. This humble author will share their experiences, thoughts and research notes to guide the valued reader in as safe a manner as the subject matter allows.
-                """);
-
-        this.context().page("help");
-        var help = BookTextPageModel.builder().withTitle(this.context().pageTitle()).withText(this.context().pageText()).build();
-        this.add(this.context().pageTitle(), "Seeking Counsel");
-        this.add(this.context().pageText(), """
-                If the reader finds themselves in trouble of any kind, prompt assistance will be provided at the Council of Alchemists, known also as Kli Kli's Discord Server.
-                \\
-                \\
-                [To get help, join us at https://invite.gg/klikli](https://invite.gg/klikli)
-                """);
-
-
-        return this.entry(location).withIcon(ItemRegistry.THE_HERMETICA_ICON.get())
-
-                .withEntryBackground(EntryBackground.CATEGORY_START).withPages(intro, help);
-    }
-
-    private BookEntryModel aboutModEntry(char location) {
-        this.context().entry("about_mod");
-        this.add(this.context().entryName(), "The Art of Alchemy");
-        this.add(this.context().entryDescription(), "About this Mod");
-
-        this.context().page("about");
-        var about = BookTextPageModel.builder().withTitle(this.context().pageTitle()).withText(this.context().pageText()).build();
-        this.add(this.context().pageTitle(), "The Art of Alchemy");
-        this.add(this.context().pageText(), """
-                Welcome, dear reader, to Theurgy, a mod that explores the ancient and revered art of classical alchemy. As you embark on your journey through the noble art of transformation, you will be equipped with divination rods to make finding resources in the world easier.
-                """);
-        this.context().page("about2");
-        var about2 = BookTextPageModel.builder().withText(this.context().pageText()).build();
-        this.add(this.context().pageText(), """
-                Through diligent study and practice, you will then learn to use alchemical devices to refine, replicate, and transform resources into new and useful materials. Along the way, you will have the opportunity to craft alchemical devices and equipment to aid you in your endeavors.
-                """);
-
-        this.context().page("about3");
-        var about3 = BookTextPageModel.builder().withText(this.context().pageText()).build();
-        this.add(this.context().pageText(), """
-                As a final note, alchemists are guided by reason and logic, not superstition or magic. Our experiments are based on careful observation, meticulous record-keeping, and rigorous testing. We do not claim to possess supernatural powers, but rather seek to harness the natural forces of the world around us to achieve our goals.
-                """);
-
-        this.context().page("features");
-        var features = BookTextPageModel.builder().withTitle(this.context().pageTitle()).withText(this.context().pageText()).build();
-        this.add(this.context().pageTitle(), "Features");
-        this.add(this.context().pageText(), """
-                - Divination rods to find ores
-                - Ore refining (= more ingots per ore/raw metal)
-                - Future: Item replication (create duplicates of items you have)
-                - Future: Item transformation (create new items from other items)
-                """);
-
-        this.context().page("features2");
-        var features2 = BookTextPageModel.builder().withTitle(this.context().pageTitle()).withText(this.context().pageText()).build();
-        this.add(this.context().pageTitle(), "More Features");
-        this.add(this.context().pageText(), """
-                - Future: Item Transportation
-                - Future: Weapons and Equipment
-                - Future: Devices to assist in common tasks
-                """);
-
-
-        return this.entry(location).withIcon(Items.NETHER_STAR)
-
-                .withEntryBackground(EntryBackground.DEFAULT).withPages(about, about2, about3, features, features2);
-    }
-
-
-    private BookEntryModel apparatusHowToEntry(char location) {
-        this.context().entry("apparatus_how_to");
-        this.add(this.context().entryName(), "Alchemical Apparatus");
-        this.add(this.context().entryDescription(), "How to interact with the tools of the trade");
-
-        this.context().page("intro");
-        var intro = BookTextPageModel.builder().withTitle(this.context().pageTitle()).withText(this.context().pageText()).build();
-        this.add(this.context().pageTitle(), "Alchemical Apparatus");
-        this.add(this.context().pageText(), """
-                Alchemist use a variety of tools and devices to aid them in their work. These devices are collectively referred to as apparatus.
-                \\
-                \\
-                It is important to understand that each apparatus should only have one specific function, such as generating heat or melting items.
-                         """);
-
-        this.context().page("intro2");
-        var intro2 = BookTextPageModel.builder().withText(this.context().pageText()).build();
-        this.add(this.context().pageText(), """
-                By adhering to this principle, we can create a modular system that allows for greater flexibility and efficiency in our work.
-                \\
-                \\
-                Further, all apparatus follow a standardized interaction pattern that makes it easier to use them both for manual interactions and for automation.
-                         """);
-
-        this.context().page("manual_interaction");
-        var manualInteraction = BookTextPageModel.builder().withTitle(this.context().pageTitle()).withText(this.context().pageText()).build();
-        this.add(this.context().pageTitle(), "Manual Interaction");
-        this.add(this.context().pageText(), """
-                To interact with an apparatus, approach it and right-click on it.
-                \\
-                \\
-                **Taking Output Items**\\
-                If you have an empty hand, the machine will first try to take the contents of its output slot and place them in your inventory.
-                            """);
-
-        this.context().page("manual_interaction2");
-        var manualInteraction2 = BookTextPageModel.builder().withText(this.context().pageText()).build();
-        this.add(this.context().pageText(), """
-                **Taking Input Items**\\
-                If there are no output items, it will instead try to place the contents of its input slot into your inventory, effectively emptying it.
-                \\
-                \\
-                **Inserting Items**\\
-                If you have an item in your hand, the apparatus will automatically try to insert it into the input slot.
-                            """);
-
-        this.context().page("fluid_interaction");
-        var fluidInteraction = BookTextPageModel.builder().withTitle(this.context().pageTitle()).withText(this.context().pageText()).build();
-        this.add(this.context().pageTitle(), "Fluids");
-        this.add(this.context().pageText(), """
-                If you click on an apparatus with a filled fluid container in your hand, it will try to empty the container into the device.
-                \\
-                \\
-                If you click on an apparatus with an empty fluid container in your hand, it will instead try to fill the container from the device.
-                            """);
-
-        this.context().page("emptying_fluids");
-        var emptyingFluids = BookTextPageModel.builder().withTitle(this.context().pageTitle()).withText(this.context().pageText()).build();
-        this.add(this.context().pageTitle(), "Emptying Fluids");
-        this.add(this.context().pageText(), """
-                Crouch and Right-Click on an apparatus to empty all fluids from it.
-                \\
-                \\
-                This is particularly useful if small amounts of fluid are left but you want to add a full bucket
-                            """);
-
-        this.context().page("automatic_interaction");
-        var automaticInteraction = BookTextPageModel.builder().withTitle(this.context().pageTitle()).withText(this.context().pageText()).build();
-
-        this.add(this.context().pageTitle(), "Automatic Interaction");
-        this.add(this.context().pageText(), """
-                Automatic interactions also use a standardized pattern.
-                \\
-                \\
-                **Input** slots can be accessed from the **top**, while **output** slots are available at the **bottom**.\\
-                \\
-                A **combined inventory** can be found at the horizontal **sides**.
-                          """);
-
-
-        return this.entry(location).withIcon(BlockRegistry.PYROMANTIC_BRAZIER.get())
-                .withEntryBackground(EntryBackground.DEFAULT)
-                .withPages(intro, intro2, manualInteraction, manualInteraction2, fluidInteraction, emptyingFluids, automaticInteraction);
-    }
-
-    private BookEntryModel spagyricsEntry(char location) {
-        this.context().entry("spagyrics");
-        this.add(this.context().entryName(), "Spagyrics");
-        this.add(this.context().entryDescription(), "Mastery over Matter");
-
-        this.context().page("intro");
-        var intro = BookTextPageModel.builder().withTitle(this.context().pageTitle()).withText(this.context().pageText()).build();
-        this.add(this.context().pageTitle(), "Spagyrics");
-        this.add(this.context().pageText(), """
-                While divination rods are a useful tool to obtain *more* materials, they rely on the natural abundance of such materials.
-                \\
-                \\
-                Spagyrics pursue the goal of *creating* materials out of other, possibly more abundant, materials.""");
-
-        this.context().page("intro2");
-        var intro2 = BookTextPageModel.builder().withTitle(this.context().pageTitle()).withText(this.context().pageText()).build();
-        this.add(this.context().pageTitle(), "Learn More");
-        this.add(this.context().pageText(), """
-                        Open the {0} to learn more about the various required alchemical processes.
-                        """,
-                this.categoryLink("Spagyrics Category", SpagyricsCategoryProvider.CATEGORY_ID)
-        );
-
-        return this.entry(location).withIcon(BlockRegistry.CALCINATION_OVEN.get())
-
-                .withEntryBackground(EntryBackground.DEFAULT).withPages(intro, intro2);
-    }
-
-    private BookEntryModel spagyricsLinkEntry(char location) {
-        this.context().entry("spagyrics_link");
-        this.add(this.context().entryName(), "Spagyrics");
-        this.add(this.context().entryDescription(), "View the Spagyrics Category");
-
-        return this.entry(location).withIcon(BlockRegistry.CALCINATION_OVEN.get())
-                .withCategoryToOpen(Theurgy.loc(SpagyricsCategoryProvider.CATEGORY_ID))
-                .withEntryBackground(EntryBackground.LINK_TO_CATEGORY);
-    }
-
-    private BookEntryModel mercuryFluxEntry(char location) {
-        this.context().entry("mercury_flux");
-        this.add(this.context().entryName(), "Mercury Flux");
-        this.add(this.context().entryDescription(), "Mastery over Energy");
-
-        this.context().page("intro");
-        var intro = BookTextPageModel.builder().withTitle(this.context().pageTitle()).withText(this.context().pageText()).build();
-        this.add(this.context().pageTitle(), "Mercury Flux");
-        this.add(this.context().pageText(), """
-                Mercury Flux is the raw energy form of Mercury.
-                \\
-                \\
-                Mercury Flux Manipulation is the art of controlling this energy to perform and automate various tasks.""");
-
-        this.context().page("intro2");
-        var intro2 = BookTextPageModel.builder().withTitle(this.context().pageTitle()).withText(this.context().pageText()).build();
-        this.add(this.context().pageTitle(), "Learn More");
-        this.add(this.context().pageText(), """
-                        Open the {0} to learn more about how to obtain and use Mercury Flux.
-                        """,
-                this.categoryLink("Mercury Flux Category", MercuryFluxCategoryProvider.CATEGORY_ID)
-        );
-
-        return this.entry(location).withIcon(ItemRegistry.MERCURY_SHARD.get())
-                .withEntryBackground(EntryBackground.DEFAULT).withPages(intro, intro2);
-    }
-
-    private BookEntryModel mercuryFluxLinkEntry(char location) {
-        this.context().entry("mercury_flux_link");
-        this.add(this.context().entryName(), "Mercury Flux");
-        this.add(this.context().entryDescription(), "View the Mercury Flux Category");
-
-        return this.entry(location).withIcon(ItemRegistry.MERCURY_SHARD.get())
-                .withCategoryToOpen(Theurgy.loc(MercuryFluxCategoryProvider.CATEGORY_ID))
-                .withEntryBackground(EntryBackground.LINK_TO_CATEGORY);
-    }
-
-    private BookEntryModel reformation(char location) {
-        this.context().entry("reformation");
-        this.add(this.context().entryName(), "Reformation");
-        this.add(this.context().entryDescription(), "Further Duplication of Matter");
-
-        this.page("intro", () -> BookTextPageModel.builder()
-                .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build()
-        );
-        this.add(this.context().pageTitle(), "Reformation");
-        this.add(this.context().pageText(),
-                """
-                        To further duplicate matter, we can use the process of Reformation to convert one material into another.
-                        \\
-                        \\
-                        See the Category for {0} on how to achieve that.
-                        """,
-                this.categoryLink("Reformation", ReformationCategoryProvider.CATEGORY_ID)
-        );
-
-
-        return this.entry(location)
-                .withIcon(this.modLoc("textures/gui/book/three_iron_ingots.png"), 32, 32)
-                .withEntryBackground(EntryBackground.DEFAULT);
     }
 }

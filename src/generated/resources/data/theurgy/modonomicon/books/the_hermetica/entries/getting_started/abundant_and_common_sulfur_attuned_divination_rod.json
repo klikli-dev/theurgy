@@ -54,14 +54,9 @@
       "entry": "theurgy:getting_started/about_divination_rods",
       "line_enabled": true,
       "line_reversed": false
-    },
-    {
-      "draw_arrow": true,
-      "entry": "theurgy:getting_started/spagyrics_link",
-      "line_enabled": true,
-      "line_reversed": false
     }
   ],
+  "show_when_any_parent_unlocked": false,
   "x": 1,
-  "y": -1
+  "y": -6
 }

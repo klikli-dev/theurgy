@@ -10,7 +10,6 @@ import com.klikli_dev.modonomicon.api.datagen.book.BookModel;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.registry.CreativeModeTabRegistry;
 import net.minecraft.data.PackOutput;
-import net.minecraftforge.common.data.LanguageProvider;
 
 public class TheurgyBookProvider extends BookProvider {
     public TheurgyBookProvider(PackOutput packOutput, ModonomiconLanguageProvider lang) {
@@ -20,6 +19,7 @@ public class TheurgyBookProvider extends BookProvider {
     @Override
     protected void registerDefaultMacros() {
         this.registerDefaultMacro("$PURPLE", "ad03fc");
+        this.registerDefaultMacro("$INPUT", "008080");
     }
 
     @Override
@@ -29,13 +29,8 @@ public class TheurgyBookProvider extends BookProvider {
 
         int categorySortNum = 1;
         var gettingStartedCategory = new GettingStartedCategoryProvider(this).generate().withSortNumber(categorySortNum++);
-        var spagyricsCategory = new SpagyricsCategoryProvider(this).generate().withSortNumber(categorySortNum++);
-        spagyricsCategory.withCondition(this.condition().entryRead(this.modLoc(GettingStartedCategoryProvider.CATEGORY_ID + "/spagyrics")));
 
-        var reformationCategory = new ReformationCategoryProvider(this).generate().withSortNumber(categorySortNum++);
-
-        var mercuryFluxCategory = new MercuryFluxCategoryProvider(this).generate().withSortNumber(categorySortNum++);
-        mercuryFluxCategory.withCondition(this.condition().entryRead(this.modLoc(GettingStartedCategoryProvider.CATEGORY_ID + "/mercury_flux")));
+        var apparatusCategory = new ApparatusCategory(this).generate().withSortNumber(categorySortNum++);
 
         //TODO: entry read condition
 
@@ -46,9 +41,7 @@ public class TheurgyBookProvider extends BookProvider {
                 .withTooltip(this.context().bookTooltip())
                 .withCategories(
                         gettingStartedCategory,
-                        spagyricsCategory,
-                        reformationCategory,
-                        mercuryFluxCategory
+                        apparatusCategory
                 )
                 .withGenerateBookItem(true)
                 .withModel(this.modLoc("the_hermetica_icon"))

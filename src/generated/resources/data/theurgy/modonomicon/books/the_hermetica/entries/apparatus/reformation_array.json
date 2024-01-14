@@ -1,0 +1,85 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 2,
+  "category": "theurgy:apparatus",
+  "condition": {
+    "type": "modonomicon:true"
+  },
+  "description": "book.theurgy.the_hermetica.apparatus.reformation_array.description",
+  "hide_while_locked": false,
+  "icon": {
+    "height": 64,
+    "texture": "theurgy:textures/gui/book/convert_sulfur.png",
+    "width": 64
+  },
+  "name": "book.theurgy.the_hermetica.apparatus.reformation_array.name",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.apparatus.reformation_array.about.text",
+      "title": "book.theurgy.the_hermetica.apparatus.reformation_array.about.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.apparatus.reformation_array.about2.text",
+      "title": "book.theurgy.the_hermetica.apparatus.reformation_array.about2.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.apparatus.reformation_array.structure.text",
+      "title": "book.theurgy.the_hermetica.apparatus.reformation_array.structure.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.apparatus.reformation_array.structure2.text",
+      "title": "book.theurgy.the_hermetica.apparatus.reformation_array.structure2.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.apparatus.reformation_array.functions.text",
+      "title": "book.theurgy.the_hermetica.apparatus.reformation_array.functions.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:multiblock",
+      "anchor": "",
+      "multiblock_id": "theurgy:placement/reformation_array",
+      "multiblock_name": "",
+      "show_visualize_button": true,
+      "text": "book.theurgy.the_hermetica.apparatus.reformation_array.placement.text"
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.apparatus.reformation_array.visuals.text",
+      "title": "book.theurgy.the_hermetica.apparatus.reformation_array.visuals.title",
+      "use_markdown_in_title": false
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "theurgy:apparatus/intro",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "x": 5,
+  "y": -4
+}

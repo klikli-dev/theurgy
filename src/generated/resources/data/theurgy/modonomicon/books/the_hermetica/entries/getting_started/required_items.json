@@ -1,0 +1,50 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "theurgy:getting_started",
+  "description": "book.theurgy.the_hermetica.getting_started.required_items.description",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "minecraft:lapis_lazuli"
+  },
+  "name": "book.theurgy.the_hermetica.getting_started.required_items.name",
+  "pages": [
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "item": {
+        "item": "theurgy:alchemical_sulfur_lapis"
+      },
+      "text": "book.theurgy.the_hermetica.getting_started.required_items.source.text",
+      "title": "book.theurgy.the_hermetica.getting_started.required_items.source.title"
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.getting_started.required_items.source2.text",
+      "title": "book.theurgy.the_hermetica.getting_started.required_items.source2.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "item": {
+        "item": "theurgy:alchemical_sulfur_quartz"
+      },
+      "text": "book.theurgy.the_hermetica.getting_started.required_items.target.text",
+      "title": "book.theurgy.the_hermetica.getting_started.required_items.target.title"
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": false,
+      "entry": "theurgy:getting_started/reformation_array",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "x": 9,
+  "y": -4
+}

@@ -306,6 +306,28 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
                 .define('g', Tags.Items.INGOTS_GOLD)
                 .define('s', Items.BLACKSTONE)
         );
+
+        this.makeRecipe(this.name(ItemRegistry.FERMENTATION_VAT.get()), new RecipeBuilder(
+                ItemRegistry.FERMENTATION_VAT.get(), 1)
+                .pattern("csc")
+                .pattern("cbc")
+                .pattern("cCc")
+                .define('s', ItemTagRegistry.ALCHEMICAL_SULFURS)
+                .define('b', Tags.Items.BARRELS_WOODEN)
+                .define('C', Tags.Items.STORAGE_BLOCKS_COPPER)
+                .define('c', Tags.Items.INGOTS_COPPER)
+        );
+
+        this.makeRecipe(this.name(ItemRegistry.DIGESTION_VAT.get()), new RecipeBuilder(
+                ItemRegistry.DIGESTION_VAT.get(), 1)
+                .pattern(" s ")
+                .pattern("gpg")
+                .pattern("SSS")
+                .define('s', ItemTagRegistry.SAL_AMMONIAC_GEMS)
+                .define('p', Items.DECORATED_POT)
+                .define('g', Tags.Items.INGOTS_GOLD)
+                .define('S', Tags.Items.SANDSTONE)
+        );
     }
 
     public JsonObject makeDivinationRodSettings(DivinationRodItem rodItem) {

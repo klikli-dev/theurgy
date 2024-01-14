@@ -7,7 +7,10 @@ package com.klikli_dev.theurgy.registry;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.content.apparatus.calcinationoven.CalcinationOvenBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.caloricfluxemitter.CaloricFluxEmitterBlockEntity;
+import com.klikli_dev.theurgy.content.apparatus.digestionvat.DigestionVatBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.distiller.DistillerBlockEntity;
+import com.klikli_dev.theurgy.content.apparatus.fermentationvat.FermentationVatBlock;
+import com.klikli_dev.theurgy.content.apparatus.fermentationvat.FermentationVatBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorMercuryVesselBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorSaltVesselBlockEntity;
@@ -92,5 +95,13 @@ public class BlockEntityRegistry {
     public static final RegistryObject<BlockEntityType<SulfuricFluxEmitterBlockEntity>> SULFURIC_FLUX_EMITTER =
             BLOCKS.register("sulfuric_flux_emitter", () ->
                     BlockEntityType.Builder.of(SulfuricFluxEmitterBlockEntity::new, BlockRegistry.SULFURIC_FLUX_EMITTER.get()).build(null));
+
+    public static final RegistryObject<BlockEntityType<FermentationVatBlockEntity>> FERMENTATION_VAT =
+            BLOCKS.register("fermentation_vat", () ->
+                    BlockEntityType.Builder.of(FermentationVatBlockEntity::new, BlockRegistry.FERMENTATION_VAT.get()).build(null));
+
+    public static final RegistryObject<BlockEntityType<DigestionVatBlockEntity>> DIGESTION_VAT =
+            BLOCKS.register("digestion_vat", () ->
+                    BlockEntityType.Builder.of(DigestionVatBlockEntity::new, BlockRegistry.DIGESTION_VAT.get()).build(null));
 
 }

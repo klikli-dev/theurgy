@@ -46,11 +46,12 @@
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "theurgy:getting_started/needed_apparatus",
+      "entry": "theurgy:getting_started/needed_apparatus_spagyrics",
       "line_enabled": true,
       "line_reversed": false
     }
   ],
-  "x": 7,
-  "y": 5
+  "show_when_any_parent_unlocked": false,
+  "x": -3,
+  "y": 4
 }

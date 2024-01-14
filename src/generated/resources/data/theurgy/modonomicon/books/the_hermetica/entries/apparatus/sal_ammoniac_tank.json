@@ -1,0 +1,41 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "theurgy:apparatus",
+  "description": "book.theurgy.the_hermetica.apparatus.sal_ammoniac_tank.description",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "theurgy:sal_ammoniac_tank"
+  },
+  "name": "book.theurgy.the_hermetica.apparatus.sal_ammoniac_tank.name",
+  "pages": [
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "item": {
+        "item": "theurgy:sal_ammoniac_tank"
+      },
+      "text": "book.theurgy.the_hermetica.apparatus.sal_ammoniac_tank.intro.text",
+      "title": ""
+    },
+    {
+      "type": "modonomicon:crafting_recipe",
+      "anchor": "",
+      "recipe_id_1": "theurgy:crafting/shaped/sal_ammoniac_tank",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "theurgy:apparatus/spagyrics",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "x": -3,
+  "y": -4
+}

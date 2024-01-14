@@ -1,8 +1,10 @@
-// 1.20.1	2023-12-17T17:21:16.0977721	Loot Tables
+// 1.20.1	2024-01-06T09:38:44.0298356	Loot Tables
 72c4014c4a8e846f945380a01c02fc8516e774d7 data/theurgy/loot_tables/blocks/calcination_oven.json
 b78ed93c8a746109ac27cbaf07f1d4979078ac50 data/theurgy/loot_tables/blocks/caloric_flux_emitter.json
 fd1d6c22b80bf3f1357dd9e23231ce1758e3799f data/theurgy/loot_tables/blocks/deepslate_sal_ammoniac_ore.json
+235af5d0407b90935306c4e7aefbe06a198e92ed data/theurgy/loot_tables/blocks/digestion_vat.json
 03da56ccdb1e9f132dc38e079668c8ab7689d708 data/theurgy/loot_tables/blocks/distiller.json
+7773b136035a6e945335c00ea9f8e20ca2b06c0d data/theurgy/loot_tables/blocks/fermentation_vat.json
 6c720dcf480aec782d85abcd5adaf5e0aed3af95 data/theurgy/loot_tables/blocks/incubator.json
 affc4e07fa5ea6f2710ba2f12a1ed95ff1f9a400 data/theurgy/loot_tables/blocks/incubator_mercury_vessel.json
 5bb357c4c5616c30a5985da942447ae5108e4f8a data/theurgy/loot_tables/blocks/incubator_salt_vessel.json

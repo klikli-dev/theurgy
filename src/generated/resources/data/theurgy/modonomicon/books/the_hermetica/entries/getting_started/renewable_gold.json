@@ -1,0 +1,65 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "theurgy:getting_started",
+  "condition": {
+    "type": "modonomicon:entry_read",
+    "entry_id": "theurgy:getting_started/incubation_after_exaltation"
+  },
+  "description": "book.theurgy.the_hermetica.getting_started.renewable_gold.description",
+  "hide_while_locked": true,
+  "icon": {
+    "height": 16,
+    "texture": "theurgy:textures/gui/book/renewable_gold.png",
+    "width": 16
+  },
+  "name": "book.theurgy.the_hermetica.getting_started.renewable_gold.name",
+  "pages": [
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "item": {
+        "item": "minecraft:gold_ingot"
+      },
+      "text": "book.theurgy.the_hermetica.getting_started.renewable_gold.intro.text",
+      "title": "book.theurgy.the_hermetica.getting_started.renewable_gold.intro.title"
+    },
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "item": {
+        "item": "minecraft:charcoal"
+      },
+      "text": "book.theurgy.the_hermetica.getting_started.renewable_gold.coal.text",
+      "title": "book.theurgy.the_hermetica.getting_started.renewable_gold.coal.title"
+    },
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "item": {
+        "item": "minecraft:charcoal"
+      },
+      "text": "book.theurgy.the_hermetica.getting_started.renewable_gold.conversion.text",
+      "title": "book.theurgy.the_hermetica.getting_started.renewable_gold.conversion.title"
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.getting_started.renewable_gold.tips.text",
+      "title": "book.theurgy.the_hermetica.getting_started.renewable_gold.tips.title",
+      "use_markdown_in_title": false
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "theurgy:getting_started/convert_to_other_tier",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "x": 7,
+  "y": 10
+}

@@ -9,6 +9,10 @@ import com.klikli_dev.modonomicon.api.datagen.book.BookCategoryModel;
 import com.klikli_dev.modonomicon.api.datagen.book.BookEntryModel;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.datagen.book.gettingstarted.*;
+import com.klikli_dev.theurgy.datagen.book.gettingstarted.exaltation.ConvertToOtherTierEntry;
+import com.klikli_dev.theurgy.datagen.book.gettingstarted.exaltation.DigestionEntry;
+import com.klikli_dev.theurgy.datagen.book.gettingstarted.exaltation.DigestionVatEntry;
+import com.klikli_dev.theurgy.datagen.book.gettingstarted.exaltation.PurifiedGoldEntry;
 import com.klikli_dev.theurgy.datagen.book.gettingstarted.reformation.*;
 import com.klikli_dev.theurgy.datagen.book.gettingstarted.reformation.RequiredItemsEntry;
 import com.klikli_dev.theurgy.datagen.book.gettingstarted.spagyrics.IncubationEntry;
@@ -49,9 +53,11 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
                 "___________________________________",
                 "____________ő_ò_________ť_ţ_ƭ_ʈ_ṫ_ṭ",
                 "___________________________________",
-                "____________ö___ô_ơ________________",
+                "____________ö___ô_ơ_______ê_ě______",
                 "___________________________________",
-                "______________õ____________________"
+                "______________õ_________é_è_ë_ē_ė_ę",
+                "___________________________________",
+                "________________________ƒ__________"
         };
     }
 
@@ -80,7 +86,44 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
         var reformation = this.generateReformationEntries(niter); //convertWithinTypeAndTier, reformationIncubation
 
         var transmutation = this.generateTransmutationEntries(reformation);  //convertToOtherType, reformationIncubation
-        //TODO: First the cross-type conversion, then the cross-tier
+
+        var exaltation = this.generateExaltationEntries(transmutation); //convertToOtherTier, incubation
+
+        var renewableGold = new RenewableGoldEntry(this).generate('ƒ');
+        renewableGold.withParent(exaltation.getFirst());
+        renewableGold.withCondition(this.condition().entryRead(exaltation.getSecond()));
+        renewableGold.hideWhileLocked(true);
+    }
+
+    protected Pair<BookEntryModel, BookEntryModel> generateExaltationEntries(Pair<BookEntryModel, BookEntryModel> transmutation) {
+        var convertToOtherTier = new ConvertToOtherTierEntry(this).generate('é');
+        convertToOtherTier.withParent(transmutation.getFirst());
+        convertToOtherTier.withCondition(this.condition().entryRead(transmutation.getSecond()));
+        convertToOtherTier.hideWhileLocked(true);
+
+        var digestionVat = new DigestionVatEntry(this).generate('è');
+        digestionVat.withParent(convertToOtherTier);
+
+        var requiredItems = new com.klikli_dev.theurgy.datagen.book.gettingstarted.exaltation.RequiredItemsEntry(this).generate('ê');
+        requiredItems.withParent(this.parent(digestionVat));
+
+        var purifiedGold = new PurifiedGoldEntry(this).generate('ě');
+        purifiedGold.withParent(requiredItems);
+
+        var fermentation = new com.klikli_dev.theurgy.datagen.book.gettingstarted.exaltation.FermentationEntry(this).generate('ë');
+        fermentation.withParent(digestionVat);
+
+        var digestion = new DigestionEntry(this).generate('ē');
+        digestion.withParent(fermentation);
+        digestion.withParent(purifiedGold);
+
+        var niterToSulfurReformation = new com.klikli_dev.theurgy.datagen.book.gettingstarted.exaltation.NiterToSulfurReformationEntry(this).generate('ė');
+        niterToSulfurReformation.withParent(digestion);
+
+        var incubation = new com.klikli_dev.theurgy.datagen.book.gettingstarted.exaltation.IncubationEntry(this).generate('ę');
+        incubation.withParent(niterToSulfurReformation);
+
+        return Pair.of(convertToOtherTier, incubation);
     }
 
     protected Pair<BookEntryModel, BookEntryModel> generateTransmutationEntries(Pair<BookEntryModel, BookEntryModel> reformation) {

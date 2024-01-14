@@ -1,0 +1,58 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "theurgy:getting_started",
+  "description": "book.theurgy.the_hermetica.getting_started.purified_gold.description",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "theurgy:purified_gold"
+  },
+  "name": "book.theurgy.the_hermetica.getting_started.purified_gold.name",
+  "pages": [
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "item": {
+        "item": "theurgy:purified_gold"
+      },
+      "text": "book.theurgy.the_hermetica.getting_started.purified_gold.gold.text",
+      "title": "book.theurgy.the_hermetica.getting_started.purified_gold.gold.title"
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.getting_started.purified_gold.purifying.text",
+      "title": "book.theurgy.the_hermetica.getting_started.purified_gold.purifying.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "item": {
+        "item": "theurgy:digestion_vat"
+      },
+      "text": "book.theurgy.the_hermetica.getting_started.purified_gold.digestion.text",
+      "title": "book.theurgy.the_hermetica.getting_started.purified_gold.digestion.title"
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.getting_started.purified_gold.start.text",
+      "title": "book.theurgy.the_hermetica.getting_started.purified_gold.start.title",
+      "use_markdown_in_title": false
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "theurgy:getting_started/required_items_exaltation",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "x": 11,
+  "y": 6
+}

@@ -1,0 +1,78 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 2,
+  "category": "theurgy:getting_started",
+  "condition": {
+    "type": "modonomicon:entry_read",
+    "entry_id": "theurgy:getting_started/incubation_after_transmutation"
+  },
+  "description": "book.theurgy.the_hermetica.getting_started.convert_to_other_tier.description",
+  "hide_while_locked": true,
+  "icon": {
+    "height": 16,
+    "texture": "theurgy:textures/gui/book/convert_tiers.png",
+    "width": 16
+  },
+  "name": "book.theurgy.the_hermetica.getting_started.convert_to_other_tier.name",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.getting_started.convert_to_other_tier.intro.text",
+      "title": "book.theurgy.the_hermetica.getting_started.convert_to_other_tier.intro.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.getting_started.convert_to_other_tier.intro2.text",
+      "title": "book.theurgy.the_hermetica.getting_started.convert_to_other_tier.intro2.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.getting_started.convert_to_other_tier.digestion.text",
+      "title": "book.theurgy.the_hermetica.getting_started.convert_to_other_tier.digestion.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.getting_started.convert_to_other_tier.process.text",
+      "title": "book.theurgy.the_hermetica.getting_started.convert_to_other_tier.process.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.getting_started.convert_to_other_tier.process2.text",
+      "title": "book.theurgy.the_hermetica.getting_started.convert_to_other_tier.process2.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.getting_started.convert_to_other_tier.instructions.text",
+      "title": "book.theurgy.the_hermetica.getting_started.convert_to_other_tier.instructions.title",
+      "use_markdown_in_title": false
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "theurgy:getting_started/convert_to_other_type",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "x": 7,
+  "y": 8
+}

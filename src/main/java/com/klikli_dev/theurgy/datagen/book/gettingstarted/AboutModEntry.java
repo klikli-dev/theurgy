@@ -57,8 +57,7 @@ public class AboutModEntry extends EntryProvider {
         this.pageText("""
                 - Divination rods to find ores
                 - Ore refining (= more ingots per ore/raw metal)
-                - Item replication (create duplicates of items you have)
-                - Future: Item transformation (create new items from other items)
+                - Item transformation (convert items into other items)
                 """);
 
         this.page("features2", () -> BookTextPageModel.builder()

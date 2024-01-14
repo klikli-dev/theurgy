@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: MIT
 
-package com.klikli_dev.theurgy.datagen.book.gettingstarted.transmutation;
+package com.klikli_dev.theurgy.datagen.book.gettingstarted.exaltation;
 
 import com.klikli_dev.modonomicon.api.datagen.CategoryProvider;
 import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
@@ -17,11 +17,11 @@ import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.world.item.crafting.Ingredient;
 
-public class FermentationVatEntry extends EntryProvider {
+public class DigestionVatEntry extends EntryProvider {
 
-    public static final String ENTRY_ID = "fermentation_vat";
+    public static final String ENTRY_ID = "digestion_vat";
 
-    public FermentationVatEntry(CategoryProvider parent) {
+    public DigestionVatEntry(CategoryProvider parent) {
         super(parent);
     }
 
@@ -31,9 +31,9 @@ public class FermentationVatEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
                 .build());
-        this.pageTitle("Transmutation Apparatus");
+        this.pageTitle("Exaltation Apparatus");
         this.pageText("""
-                        As discussed, Transmutation consists of Fermentation and the already known Reformation.
+                        As discussed, Exaltation consists of Digestion and the already known Fermentation and Reformation.
                         \\
                         \\
                         View the {0} Category on how to craft and use the required apparatus.
@@ -47,7 +47,7 @@ public class FermentationVatEntry extends EntryProvider {
                 .build());
         this.pageTitle("Reformation Array");
         this.pageText("""
-                        You need to set up a reformation array, the usage was already discussed in the {0} and following entries.
+                       Once again you need to set up a reformation array, the usage was already discussed in the {0} and following entries.
                         """,
                 this.entryLink("Reformation Array", GettingStartedCategoryProvider.CATEGORY_ID, ReformationArrayEntry.ENTRY_ID)
         );
@@ -57,9 +57,16 @@ public class FermentationVatEntry extends EntryProvider {
                 .withText(this.context().pageText())
                 .build());
         this.pageText("""
-                You further need at least one fermentation vat. Multiple vats can be used to process multiple sulfurs in parallel.
+                You also need at least one fermentation vat. Multiple vats can be used to process multiple sulfurs in parallel.
                 """);
 
+        this.page("digestion_vat", () -> BookSpotlightPageModel.builder()
+                .withItem(Ingredient.of(ItemRegistry.DIGESTION_VAT.get()))
+                .withText(this.context().pageText())
+                .build());
+        this.pageText("""
+                Finally you also need at least one digestion vat. Multiple vats can be used to process multiple niters in parallel.
+                """);
     }
 
     @Override
@@ -69,7 +76,7 @@ public class FermentationVatEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "The apparatus needed for transmutation";
+        return "The apparatus needed for exaltation";
     }
 
     @Override
@@ -79,7 +86,7 @@ public class FermentationVatEntry extends EntryProvider {
 
     @Override
     protected BookIconModel entryIcon() {
-        return BookIconModel.create(ItemRegistry.FERMENTATION_VAT.get());
+        return BookIconModel.create(ItemRegistry.DIGESTION_VAT.get());
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.klikli_dev.theurgy.datagen.book.gettingstarted.transmutation;
+package com.klikli_dev.theurgy.datagen.book.gettingstarted.exaltation;
 
 import com.klikli_dev.modonomicon.api.datagen.CategoryProvider;
 import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
@@ -11,7 +11,7 @@ import com.klikli_dev.theurgy.registry.SulfurRegistry;
 import com.mojang.datafixers.util.Pair;
 
 public class NiterToSulfurReformationEntry extends EntryProvider {
-    public static final String ENTRY_ID = "niter_to_sulfur_reformation";
+    public static final String ENTRY_ID = "niter_to_sulfur_reformation_exaltation";
 
     public NiterToSulfurReformationEntry(CategoryProvider parent) {
         super(parent);
@@ -31,8 +31,8 @@ public class NiterToSulfurReformationEntry extends EntryProvider {
                 \\
                 This again works exactly as already described in the previous entry and in the {2} entries.
                 """,
-                this.itemLink("Alchemical Niter: Common Metals",SulfurRegistry.METALS_COMMON.get()),
-                this.itemLink("Alchemical Sulfur: Iron",SulfurRegistry.IRON.get()),
+                this.itemLink("Alchemical Niter: Rare Metals",SulfurRegistry.METALS_RARE.get()),
+                this.itemLink("Alchemical Sulfur: Gold",SulfurRegistry.GOLD.get()),
                 this.entryLink("Reformation", GettingStartedCategoryProvider.CATEGORY_ID, ConvertWithinTypeAndTierEntry.ENTRY_ID)
         );
 
@@ -43,10 +43,10 @@ public class NiterToSulfurReformationEntry extends EntryProvider {
         );
         this.pageTitle("Instruction Reminder");
         this.pageText("""
-                Simply place the Common Metals Niter as Source and the Iron Sulfur as Target in the Reformation Array, supply Mercury Flux and wait for the process to complete.
+                Simply place the Rare Metals Niter as Source and the Gold Sulfur as Target in the Reformation Array, supply Mercury Flux and wait for the process to complete.
                 \\
                 \\
-                Now repeat this entire process until you have enough Iron Sulfur.
+                Now repeat this entire process until you have enough Gold Sulfur.
                 """
         );
     }
@@ -58,7 +58,7 @@ public class NiterToSulfurReformationEntry extends EntryProvider {
 
     @Override
     protected String entryDescription() {
-        return "Convert Common Metals Niter into Iron Sulfur";
+        return "Convert Rare Metals Niter into Gold Sulfur";
     }
 
     @Override
@@ -68,7 +68,7 @@ public class NiterToSulfurReformationEntry extends EntryProvider {
 
     @Override
     protected BookIconModel entryIcon() {
-        return BookIconModel.create(SulfurRegistry.IRON.get());
+        return BookIconModel.create(SulfurRegistry.GOLD.get());
     }
 
     @Override

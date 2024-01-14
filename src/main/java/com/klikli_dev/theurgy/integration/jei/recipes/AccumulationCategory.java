@@ -29,7 +29,9 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.fluids.FluidStack;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static mezz.jei.api.recipe.RecipeIngredientRole.INPUT;
@@ -125,7 +127,8 @@ public class AccumulationCategory implements IRecipeCategory<AccumulationRecipe>
     public void setRecipe(IRecipeLayoutBuilder builder, AccumulationRecipe recipe, IFocusGroup focuses) {
         builder.addSlot(INPUT, 1, 1)
                 .setBackground(JeiDrawables.INPUT_SLOT, -1, -1)
-                .addIngredients(ForgeTypes.FLUID_STACK, List.of(recipe.getEvaporant().getFluids()))
+                .addIngredients(ForgeTypes.FLUID_STACK, this.getFluids(recipe))
+                .setFluidRenderer(1000, false, 16, 16)
                 .addTooltipCallback(addFluidTooltip(recipe.getEvaporantAmount()));
 
         if (recipe.hasSolute()) {
@@ -141,6 +144,15 @@ public class AccumulationCategory implements IRecipeCategory<AccumulationRecipe>
 
         //now add the bucket to the recipe lookup for the output fluid
         builder.addInvisibleIngredients(OUTPUT).addItemStack(new ItemStack(recipe.getResult().getFluid().getBucket()));
+    }
+
+    public List<FluidStack> getFluids(AccumulationRecipe recipe) {
+        return Arrays.stream(recipe.getEvaporant().getFluids())
+                .map(f -> {
+                    var stack = f.copy();
+                    f.setAmount(recipe.getEvaporantAmount());
+                    return stack;
+                }).toList();
     }
 
     @Override

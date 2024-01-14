@@ -61,7 +61,7 @@ public class SulfuricFluxEmitterSelectionBehaviour extends SelectionBehaviour<Su
 
     @Override
     public int getBlockRange() {
-        return 8;
+        return 16;
     }
 
     @Override

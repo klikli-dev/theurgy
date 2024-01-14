@@ -29,6 +29,7 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.fluids.FluidStack;
 
 import java.util.Arrays;
 import java.util.List;
@@ -132,7 +133,8 @@ public class LiquefactionCategory implements IRecipeCategory<LiquefactionRecipe>
     public void setRecipe(IRecipeLayoutBuilder builder, LiquefactionRecipe recipe, IFocusGroup focuses) {
         builder.addSlot(INPUT, 1, 1)
                 .setBackground(JeiDrawables.INPUT_SLOT, -1, -1)
-                .addIngredients(ForgeTypes.FLUID_STACK, List.of(recipe.getSolvent().getFluids()))
+                .addIngredients(ForgeTypes.FLUID_STACK, this.getFluids(recipe))
+                .setFluidRenderer(1000, false, 16, 16)
                 .addTooltipCallback(addFluidTooltip(recipe.getSolventAmount()));
 
         builder.addSlot(INPUT, 19, 1)
@@ -144,6 +146,15 @@ public class LiquefactionCategory implements IRecipeCategory<LiquefactionRecipe>
 
         //now add the bucket to the recipe lookup for the output fluid
         builder.addInvisibleIngredients(INPUT).addItemStacks(Arrays.stream(recipe.getSolvent().getFluids()).map(f -> new ItemStack(f.getFluid().getBucket())).toList());
+    }
+
+    public List<FluidStack> getFluids(LiquefactionRecipe recipe) {
+        return Arrays.stream(recipe.getSolvent().getFluids())
+                .map(f -> {
+                    var stack = f.copy();
+                    f.setAmount(recipe.getSolventAmount());
+                    return stack;
+                }).toList();
     }
 
     @Override

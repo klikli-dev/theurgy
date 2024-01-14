@@ -27,6 +27,14 @@
       "type": "modonomicon:text",
       "anchor": "",
       "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.getting_started.convert_to_other_type.intro2.text",
+      "title": "book.theurgy.the_hermetica.getting_started.convert_to_other_type.intro2.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.getting_started.convert_to_other_type.process.text",
       "title": "book.theurgy.the_hermetica.getting_started.convert_to_other_type.process.title",
       "use_markdown_in_title": false

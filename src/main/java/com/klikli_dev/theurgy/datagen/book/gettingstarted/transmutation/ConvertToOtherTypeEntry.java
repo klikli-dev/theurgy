@@ -33,6 +33,20 @@ public class ConvertToOtherTypeEntry extends EntryProvider {
                 """
         );
 
+        this.page("intro2", () -> BookTextPageModel.builder()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
+                .build()
+        );
+        this.pageTitle("Transmutation");
+        this.pageText("""
+                Due to inherent differences of the types of matter there is often a loss or gain, depending on the direction of conversion.\\
+                Generally, 2 metals convert into 1 gem and vice versa.
+                Similarly, 2 other minerals convert into 1 metal and vice versa.
+                Consequently 4 other minerals convert into 1 gem and vice versa.
+                """
+        );
+
         this.page("process", () -> BookTextPageModel.builder()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
@@ -83,6 +97,9 @@ public class ConvertToOtherTypeEntry extends EntryProvider {
         this.pageTitle("Instructions");
         this.pageText("""
                         The following entries will guide you through the conversion of {0} into {1}, *assuming you already obtained at least one Sulfur of each*.
+                        \\
+                        \\
+                        The instructions also apply to all other conversions within the same tier.
                         """,
                 this.itemLink("Alchemical Sulfur: Quartz", SulfurRegistry.QUARTZ.get()),
                 this.itemLink("Alchemical Sulfur: Iron", SulfurRegistry.IRON.get())

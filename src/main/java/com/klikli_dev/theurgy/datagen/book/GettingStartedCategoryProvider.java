@@ -6,14 +6,18 @@ package com.klikli_dev.theurgy.datagen.book;
 
 import com.klikli_dev.modonomicon.api.datagen.CategoryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookCategoryModel;
+import com.klikli_dev.modonomicon.api.datagen.book.BookEntryModel;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.datagen.book.gettingstarted.*;
 import com.klikli_dev.theurgy.datagen.book.gettingstarted.reformation.*;
-import com.klikli_dev.theurgy.datagen.book.gettingstarted.spagyrics.*;
 import com.klikli_dev.theurgy.datagen.book.gettingstarted.spagyrics.IncubationEntry;
+import com.klikli_dev.theurgy.datagen.book.gettingstarted.spagyrics.*;
 import com.klikli_dev.theurgy.datagen.book.gettingstarted.transmutation.ConvertToOtherTypeEntry;
+import com.klikli_dev.theurgy.datagen.book.gettingstarted.transmutation.FermentationEntry;
 import com.klikli_dev.theurgy.datagen.book.gettingstarted.transmutation.FermentationVatEntry;
+import com.klikli_dev.theurgy.datagen.book.gettingstarted.transmutation.NiterToNiterReformationEntry;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
+import com.mojang.datafixers.util.Pair;
 
 public class GettingStartedCategoryProvider extends CategoryProvider {
 
@@ -37,15 +41,15 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
                 "___________________________________",
                 "__________________đ___ɖ_ᶑ__________",
                 "___________________________________",
-                "__________i_a_________c_____ŕ______",
+                "__________i_a_________c___ṛ_ŕ______",
                 "___________________________________",
                 "______________s_____ṟ_n_r_ȓ___ŗ_ʀ_ȑ",
                 "___________________________________",
                 "______________o_____________ř______",
                 "___________________________________",
-                "______________ó____________________",
+                "______________ó___________ț________",
                 "___________________________________",
-                "____________ő_ò_________ť_ţ________",
+                "____________ő_ò_________ť_ţ_ƭ_ʈ____",
                 "___________________________________",
                 "____________ö___ô_ơ________________",
                 "___________________________________",
@@ -53,16 +57,83 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
         };
     }
 
+
     @Override
     protected void generateEntries() {
-        var rods = new DivinationRodEntryProvider(this.parent(), this.entryMap());
-
         var introEntry = new IntroEntry(this).generate('i');
         var aboutModEntry = new AboutModEntry(this).generate('a');
         aboutModEntry.withParent(introEntry);
+        this.generateDivinationRodEntries(aboutModEntry);
 
+
+        var spagyrics = this.generateSpagyricsEntries(aboutModEntry); //spagyrics, incubation
+
+        var replication = new ReplicationEntry(this).generate('ṟ');
+        replication.withParent(spagyrics.getFirst());
+        replication.withParent(spagyrics.getSecond());
+        replication.withCondition(this.condition().entryRead(spagyrics.getSecond()));
+        replication.showWhenAnyParentUnlocked(true);
+
+        var niter = new AlchemicalNiterEntry(this).generate('n');
+        niter.withParent(replication);
+
+        var caloricFlux = new CaloricFluxEmitterEntry(this).generate('c');
+        caloricFlux.withParent(niter);
+
+        var reformation = this.generateReformationEntries(niter); //convertWithinTypeAndTier, reformationIncubation
+
+        this.generateTransmutationEntries(reformation);
+        //TODO: First the cross-type conversion, then the cross-tier
+    }
+
+    protected BookEntryModel generateTransmutationEntries(Pair<BookEntryModel, BookEntryModel> reformation) {
+        var convertToOtherType = new ConvertToOtherTypeEntry(this).generate('ť');
+        convertToOtherType.withParent(reformation.getFirst());
+        convertToOtherType.withCondition(this.condition().entryRead(reformation.getSecond()));
+        convertToOtherType.hideWhileLocked(true);
+
+        var fermentationVatEntry = new FermentationVatEntry(this).generate('ţ');
+        fermentationVatEntry.withParent(convertToOtherType);
+
+        var requiredItemsTransmutation = new com.klikli_dev.theurgy.datagen.book.gettingstarted.transmutation.RequiredItemsEntry(this).generate('ț');
+        requiredItemsTransmutation.withParent(this.parent(fermentationVatEntry).withDrawArrow(false));
+
+        var fermentationTransmutation = new FermentationEntry(this).generate('ƭ');
+        fermentationTransmutation.withParent(fermentationVatEntry);
+
+        var niterToNiterReformation = new NiterToNiterReformationEntry(this).generate('ʈ');
+        niterToNiterReformation.withParent(fermentationTransmutation);
+
+        //TODO: return the entry we need as condition for the next branch of the graph
+        return BookEntryModel.create(null, null);
+    }
+
+    protected Pair<BookEntryModel, BookEntryModel> generateReformationEntries(BookEntryModel parent) {
+        var convertWithinTypeAndTier = new ConvertWithinTypeAndTierEntry(this).generate('r');
+        convertWithinTypeAndTier.withParent(parent);
+        var reformationArray = new ReformationArrayEntry(this).generate('ȓ');
+        reformationArray.withParent(convertWithinTypeAndTier);
+        var requiredItems = new RequiredItemsEntry(this).generate('ṛ');
+        requiredItems.withParent(this.parent(reformationArray).withDrawArrow(false));
+
+        var source = new SourceEntry(this).generate('ŕ');
+        source.withParent(this.parent(reformationArray));
+        var target = new TargetEntry(this).generate('ř');
+        target.withParent(reformationArray);
+        var sulfuricFluxEmitter = new SulfuricFluxEmitterEntry(this).generate('ŗ');
+        sulfuricFluxEmitter.withParent(source);
+        sulfuricFluxEmitter.withParent(target);
+        var result = new ResultEntry(this).generate('ʀ');
+        result.withParent(sulfuricFluxEmitter);
+        var reformationIncubation = new com.klikli_dev.theurgy.datagen.book.gettingstarted.reformation.IncubationEntry(this).generate('ȑ');
+        reformationIncubation.withParent(result);
+
+        return Pair.of(convertWithinTypeAndTier, reformationIncubation);
+    }
+
+    protected Pair<BookEntryModel, BookEntryModel> generateSpagyricsEntries(BookEntryModel parent) {
         var spagyrics = new SpagyricsEntry(this).generate('s');
-        spagyrics.withParent(aboutModEntry);
+        spagyrics.withParent(parent);
         var oreRefining = new OreRefiningEntry(this).generate('o');
         oreRefining.withParent(spagyrics);
         var neededApparatus = new NeededApparatusEntry(this).generate('ó');
@@ -83,52 +154,14 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
                 .withParent(createSalt)
                 .withParent(createSulfur);
 
-        //TODO: entry that talks about the next steps, the types of conversion //ṟ
+        return Pair.of(spagyrics, incubation);
+    }
 
-        var replication = new ReplicationEntry(this).generate('ṟ');
-        replication.withParent(spagyrics);
-        replication.withParent(incubation);
-        replication.withCondition(this.condition().entryRead(incubation));
-        replication.showWhenAnyParentUnlocked(true);
-
-        var niter = new AlchemicalNiterEntry(this).generate('n');
-        niter.withParent(replication);
-
-        var caloricFlux = new CaloricFluxEmitterEntry(this).generate('c');
-        caloricFlux.withParent(niter);
-
-        var convertWithinTypeAndTier = new ConvertWithinTypeAndTierEntry(this).generate('r');
-        convertWithinTypeAndTier.withParent(niter);
-        var reformationArray = new ReformationArrayEntry(this).generate('ȓ');
-        reformationArray.withParent(convertWithinTypeAndTier);
-
-        var source = new SourceEntry(this).generate('ŕ');
-        source.withParent(reformationArray);
-        var target = new TargetEntry(this).generate('ř');
-        target.withParent(reformationArray);
-        var sulfuricFluxEmitter = new SulfuricFluxEmitterEntry(this).generate('ŗ');
-        sulfuricFluxEmitter.withParent(source);
-        sulfuricFluxEmitter.withParent(target);
-        var result = new ResultEntry(this).generate('ʀ');
-        result.withParent(sulfuricFluxEmitter);
-        var reformationIncubation = new com.klikli_dev.theurgy.datagen.book.gettingstarted.reformation.IncubationEntry(this).generate('ȑ');
-        reformationIncubation.withParent(result);
-
-        //TODO: also make two branches for the other conversion types using fermentation and digestion, but possibly after the reformation chain
-
-        //TODO: the two other branches should be children of the replication by reformation entry, but should be unlocked by the reformation incubation entry
-
-        //TODO: First the cross-type conversion, then the cross-tier
-
-        var convertToOtherType = new ConvertToOtherTypeEntry(this).generate('ť');
-        convertToOtherType.withParent(convertWithinTypeAndTier);
-        convertToOtherType.withCondition(this.condition().entryRead(reformationIncubation));
-        convertToOtherType.hideWhileLocked(true);
-
-        var fermentationVatEntry = new FermentationVatEntry(this).generate('ţ');
-        fermentationVatEntry.withParent(convertToOtherType);
-
+    protected void generateDivinationRodEntries(BookEntryModel parent) {
+        var rods = new DivinationRodEntryProvider(this.parent(), this.entryMap());
         var aboutDivinationRods = this.add(rods.aboutDivinationRods('d'));
+        aboutDivinationRods.withParent(parent);
+
         var t1DivinationRod = this.add(rods.t1DivinationRodEntry('ḍ'));
         var abundantAndCommonSulfurAttunedDivinationRod = this.add(rods.abundantAndCommonSulfurAttunedDivinationRodEntry('đ'));
         //TODO: should be child of spagyrics / sulfur
@@ -139,7 +172,6 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
         var t4DivinationRod = this.add(rods.t4DivinationRodEntry('ḓ'));
         var rareSulfurAttunedDivinationRod = this.add(rods.rareSulfurAttunedDivinationRodEntry('ɖ'));
         var preciousSulfurAttunedDivinationRod = this.add(rods.preciousSulfurAttunedDivinationRodEntry('ᶑ'));
-        aboutDivinationRods.withParent(aboutModEntry);
 
         t1DivinationRod.withParent(aboutDivinationRods);
 

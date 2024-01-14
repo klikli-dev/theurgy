@@ -4,6 +4,7 @@
 
 package com.klikli_dev.theurgy.content.item.render;
 
+import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.config.ClientConfig;
 import com.klikli_dev.theurgy.content.item.AlchemicalSulfurItem;
 import com.klikli_dev.theurgy.content.item.AlchemicalSulfurTier;
@@ -11,6 +12,7 @@ import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.mojang.blaze3d.platform.Lighting;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.ItemRenderer;
@@ -58,6 +60,12 @@ public class AlchemicalSulfurBEWLR extends BlockEntityWithoutLevelRenderer {
         pPoseStack.pushPose(); //reset pose that we get from the item renderer, it moves by half a block which we don't want
 
         ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
+
+        //if shift is down in gui we just render the contained item in full size
+        if (displayContext == ItemDisplayContext.GUI && Screen.hasShiftDown()) {
+            this.renderContainedItemFull(sulfurStack, displayContext, pPoseStack, pBuffer, pPackedLight, pPackedOverlay);
+            return;
+        }
 
         BakedModel model = itemRenderer.getModel(jarStack, null, null, 0);
 
@@ -173,6 +181,22 @@ public class AlchemicalSulfurBEWLR extends BlockEntityWithoutLevelRenderer {
 
             pPoseStack.popPose();
             pPoseStack.popPose();
+        }
+    }
+
+    public void renderContainedItemFull(ItemStack sulfurStack, ItemDisplayContext pTransformType, PoseStack pPoseStack, MultiBufferSource pBuffer, int pPackedLight, int pPackedOverlay) {
+
+        ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
+
+        var containedStack = AlchemicalSulfurItem.getSourceStack(sulfurStack);
+        if (!containedStack.isEmpty()) {
+            BakedModel model = itemRenderer.getModel(containedStack, null, null, 0);
+
+            var flatLighting = !model.usesBlockLight();
+            if (flatLighting)
+                Lighting.setupForFlatItems();
+
+            itemRenderer.render(containedStack, ItemDisplayContext.GUI, isLeftHand(ItemDisplayContext.GUI), pPoseStack, pBuffer, pPackedLight, pPackedOverlay, model);
         }
     }
 }

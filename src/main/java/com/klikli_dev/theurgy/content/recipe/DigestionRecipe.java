@@ -94,7 +94,7 @@ public class DigestionRecipe implements Recipe<RecipeWrapperWithFluid> {
                 return false;
         }
 
-        return false;
+        return true;
     }
 
     @Override

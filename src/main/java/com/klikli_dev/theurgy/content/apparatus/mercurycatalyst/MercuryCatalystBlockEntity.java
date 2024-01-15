@@ -4,9 +4,8 @@
 
 package com.klikli_dev.theurgy.content.apparatus.mercurycatalyst;
 
-import com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron.LiquefactionCauldronBlockEntity;
 import com.klikli_dev.theurgy.content.behaviour.CraftingBehaviour;
-import com.klikli_dev.theurgy.content.behaviour.MonitoredItemStackHandler;
+import com.klikli_dev.theurgy.content.storage.MonitoredItemStackHandler;
 import com.klikli_dev.theurgy.content.capability.DefaultMercuryFluxStorage;
 import com.klikli_dev.theurgy.content.capability.MercuryFluxStorage;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
@@ -14,8 +13,6 @@ import com.klikli_dev.theurgy.registry.CapabilityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.Tag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;

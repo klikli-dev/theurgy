@@ -4,10 +4,10 @@
 
 package com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator;
 
-import com.klikli_dev.theurgy.content.behaviour.FluidHandlerBehaviour;
-import com.klikli_dev.theurgy.content.behaviour.ItemHandlerBehaviour;
-import com.klikli_dev.theurgy.content.behaviour.OneSlotItemHandlerBehaviour;
-import com.klikli_dev.theurgy.content.behaviour.OneTankFluidHandlerBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.fluidhandler.FluidHandlerBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.itemhandler.ItemHandlerBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.itemhandler.OneSlotItemHandlerBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.fluidhandler.OneTankFluidHandlerBehaviour;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -43,6 +43,7 @@ public class SalAmmoniacAccumulatorBlock extends Block implements EntityBlock {
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
         final VoxelShape SHAPE = Block.box(1, 0, 1, 15, 13, 15);
         return SHAPE;

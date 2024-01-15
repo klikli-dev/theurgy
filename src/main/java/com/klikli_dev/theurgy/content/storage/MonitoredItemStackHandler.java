@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: MIT
 
-package com.klikli_dev.theurgy.content.behaviour;
+package com.klikli_dev.theurgy.content.storage;
 
 import com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron.LiquefactionCauldronBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.reformationarray.ReformationSourcePedestalBlockEntity;

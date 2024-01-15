@@ -4,11 +4,8 @@
 
 package com.klikli_dev.theurgy.content.apparatus.reformationarray;
 
-import com.klikli_dev.theurgy.content.apparatus.pyromanticbrazier.PyromanticBrazierBlockEntity;
-import com.klikli_dev.theurgy.content.behaviour.ItemHandlerBehaviour;
-import com.klikli_dev.theurgy.content.behaviour.OneSlotItemHandlerBehaviour;
-import com.klikli_dev.theurgy.content.particle.ParticleColor;
-import com.klikli_dev.theurgy.content.particle.glow.GlowParticleProvider;
+import com.klikli_dev.theurgy.content.behaviour.itemhandler.ItemHandlerBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.itemhandler.OneSlotItemHandlerBehaviour;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.Containers;

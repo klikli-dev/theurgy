@@ -17,6 +17,7 @@ import net.minecraftforge.items.IItemHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
@@ -30,6 +31,7 @@ public abstract class StorageBehaviour<S extends StorageBehaviour<?>> {
 
     public StorageBehaviour(BlockEntity blockEntity) {
         this.blockEntity = blockEntity;
+        this.capabilities = new ArrayList<>();
     }
 
     protected void onContentsChanged(IItemHandler handler, int slot) {

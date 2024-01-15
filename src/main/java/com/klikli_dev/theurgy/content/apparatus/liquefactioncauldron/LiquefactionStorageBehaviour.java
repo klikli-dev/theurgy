@@ -4,8 +4,8 @@
 
 package com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron;
 
-import com.klikli_dev.theurgy.content.behaviour.MonitoredItemStackHandler;
-import com.klikli_dev.theurgy.content.behaviour.PreventInsertWrapper;
+import com.klikli_dev.theurgy.content.storage.MonitoredItemStackHandler;
+import com.klikli_dev.theurgy.content.storage.PreventInsertWrapper;
 import com.klikli_dev.theurgy.content.behaviour.StorageBehaviour;
 import com.klikli_dev.theurgy.registry.FluidTagRegistry;
 import net.minecraft.core.Direction;
@@ -91,16 +91,12 @@ public class LiquefactionStorageBehaviour extends StorageBehaviour<LiquefactionS
 
     @Override
     public void saveAdditional(CompoundTag pTag) {
-        pTag.put("inputInventory", this.inputInventory.serializeNBT());
-        pTag.put("outputInventory", this.outputInventory.serializeNBT());
-        pTag.put("solventTank", this.solventTank.writeToNBT(new CompoundTag()));
+        this.writeNetwork(pTag);
     }
 
     @Override
     public void load(CompoundTag pTag) {
-        if (pTag.contains("inputInventory")) this.inputInventory.deserializeNBT(pTag.getCompound("inputInventory"));
-        if (pTag.contains("outputInventory")) this.outputInventory.deserializeNBT(pTag.getCompound("outputInventory"));
-        if (pTag.contains("solventTank")) this.solventTank.readFromNBT(pTag.getCompound("solventTank"));
+        this.readNetwork(pTag);
     }
 
     @Override

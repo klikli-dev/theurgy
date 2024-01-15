@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: MIT
 
-package com.klikli_dev.theurgy.content.behaviour;
+package com.klikli_dev.theurgy.content.behaviour.itemhandler;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
@@ -30,6 +30,9 @@ public class DynamicOneOutputSlotItemHandlerBehaviour implements ItemHandlerBeha
      */
     @Override
     public InteractionResult useItemHandler(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
+        if(pHand != InteractionHand.MAIN_HAND)
+            return InteractionResult.PASS;
+
         var blockEntity = pLevel.getBlockEntity(pPos);
 
         if (blockEntity == null)

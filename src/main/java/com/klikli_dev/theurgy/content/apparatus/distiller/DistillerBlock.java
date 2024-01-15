@@ -4,8 +4,8 @@
 
 package com.klikli_dev.theurgy.content.apparatus.distiller;
 
-import com.klikli_dev.theurgy.content.behaviour.ItemHandlerBehaviour;
-import com.klikli_dev.theurgy.content.behaviour.TwoSlotItemHandlerBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.itemhandler.ItemHandlerBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.itemhandler.TwoSlotItemHandlerBehaviour;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

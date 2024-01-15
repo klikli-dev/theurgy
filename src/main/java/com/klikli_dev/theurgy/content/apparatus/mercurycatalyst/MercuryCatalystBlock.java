@@ -4,13 +4,10 @@
 
 package com.klikli_dev.theurgy.content.apparatus.mercurycatalyst;
 
-import com.klikli_dev.theurgy.Theurgy;
-import com.klikli_dev.theurgy.content.behaviour.ItemHandlerBehaviour;
-import com.klikli_dev.theurgy.content.behaviour.OneSlotItemHandlerBehaviour;
-import com.klikli_dev.theurgy.content.behaviour.TwoSlotItemHandlerBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.itemhandler.ItemHandlerBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.itemhandler.OneSlotItemHandlerBehaviour;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -23,12 +20,8 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.storage.loot.LootParams;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.List;
 
 public class MercuryCatalystBlock extends Block implements EntityBlock {
 

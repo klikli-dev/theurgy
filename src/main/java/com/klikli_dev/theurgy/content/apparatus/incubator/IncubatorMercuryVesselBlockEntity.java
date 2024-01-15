@@ -4,7 +4,7 @@
 
 package com.klikli_dev.theurgy.content.apparatus.incubator;
 
-import com.klikli_dev.theurgy.content.behaviour.MonitoredItemStackHandler;
+import com.klikli_dev.theurgy.content.storage.MonitoredItemStackHandler;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.ItemTagRegistry;
 import net.minecraft.core.BlockPos;

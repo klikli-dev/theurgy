@@ -4,8 +4,8 @@
 
 package com.klikli_dev.theurgy.content.apparatus.incubator;
 
-import com.klikli_dev.theurgy.content.behaviour.ItemHandlerBehaviour;
-import com.klikli_dev.theurgy.content.behaviour.OneSlotItemHandlerBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.itemhandler.ItemHandlerBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.itemhandler.OneSlotItemHandlerBehaviour;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.BlockTagRegistry;
 import net.minecraft.Util;

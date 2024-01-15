@@ -4,7 +4,7 @@
 
 package com.klikli_dev.theurgy.content.apparatus.reformationarray;
 
-import com.klikli_dev.theurgy.content.behaviour.MonitoredItemStackHandler;
+import com.klikli_dev.theurgy.content.storage.MonitoredItemStackHandler;
 import com.klikli_dev.theurgy.content.particle.ParticleColor;
 import com.klikli_dev.theurgy.content.particle.glow.GlowParticleProvider;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;

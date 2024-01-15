@@ -5,6 +5,11 @@
 package com.klikli_dev.theurgy.content.apparatus.fermentationvat;
 
 import com.klikli_dev.theurgy.content.behaviour.*;
+import com.klikli_dev.theurgy.content.behaviour.fluidhandler.FluidHandlerBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.fluidhandler.OneTankFluidHandlerBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.interaction.InteractionBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.itemhandler.DynamicOneOutputSlotItemHandlerBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.itemhandler.ItemHandlerBehaviour;
 import com.klikli_dev.theurgy.content.recipe.FermentationRecipe;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;

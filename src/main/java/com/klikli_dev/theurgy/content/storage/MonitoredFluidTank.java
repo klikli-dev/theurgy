@@ -1,4 +1,4 @@
-package com.klikli_dev.theurgy.content.behaviour;
+package com.klikli_dev.theurgy.content.storage;
 
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;

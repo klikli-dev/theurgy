@@ -6,7 +6,7 @@ package com.klikli_dev.theurgy.content.apparatus.incubator;
 
 import com.klikli_dev.theurgy.content.behaviour.CraftingBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.HeatConsumerBehaviour;
-import com.klikli_dev.theurgy.content.behaviour.PreventInsertWrapper;
+import com.klikli_dev.theurgy.content.storage.PreventInsertWrapper;
 import com.klikli_dev.theurgy.content.capability.DefaultHeatReceiver;
 import com.klikli_dev.theurgy.content.capability.HeatReceiver;
 import com.klikli_dev.theurgy.content.recipe.wrapper.IncubatorRecipeWrapper;

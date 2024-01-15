@@ -5,7 +5,7 @@
 package com.klikli_dev.theurgy.content.apparatus.reformationarray;
 
 import com.klikli_dev.theurgy.TheurgyConstants;
-import com.klikli_dev.theurgy.content.behaviour.InteractionBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.interaction.InteractionBehaviour;
 import com.klikli_dev.theurgy.content.render.outliner.Outliner;
 import com.klikli_dev.theurgy.network.Networking;
 import com.klikli_dev.theurgy.network.messages.MessageShowSulfuricFluxEmitterStatus;

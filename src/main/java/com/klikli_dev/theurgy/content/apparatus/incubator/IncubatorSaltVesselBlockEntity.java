@@ -4,13 +4,19 @@
 
 package com.klikli_dev.theurgy.content.apparatus.incubator;
 
+import com.klikli_dev.theurgy.content.apparatus.distiller.DistillationStorageBehaviour;
 import com.klikli_dev.theurgy.content.storage.MonitoredItemStackHandler;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.ItemTagRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.Connection;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
@@ -42,18 +48,58 @@ public class IncubatorSaltVesselBlockEntity extends BlockEntity implements GeoBl
         this.inputInventoryCapability = LazyOptional.of(() -> this.inputInventory);
     }
 
+    public void sendBlockUpdated() {
+        if (this.level != null && !this.level.isClientSide)
+            this.level.sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), Block.UPDATE_CLIENTS);
+    }
+
+    @Override
+    public CompoundTag getUpdateTag() {
+        var tag = new CompoundTag();
+        this.writeNetwork(tag);
+        return tag;
+    }
+
+    @Override
+    public void handleUpdateTag(CompoundTag tag) {
+        this.readNetwork(tag);
+    }
+
+    @Nullable
+    @Override
+    public Packet<ClientGamePacketListener> getUpdatePacket() {
+        return ClientboundBlockEntityDataPacket.create(this);
+    }
+
+    @Override
+    public void onDataPacket(Connection connection, ClientboundBlockEntityDataPacket packet) {
+        var tag = packet.getTag();
+        if (tag != null) {
+            this.readNetwork(tag);
+        }
+    }
+
+    public void readNetwork(CompoundTag pTag) {
+        if (pTag.contains("inputInventory"))
+            this.inputInventory.deserializeNBT(pTag.getCompound("inputInventory"));
+    }
+
+    public void writeNetwork(CompoundTag pTag) {
+        pTag.put("inputInventory", this.inputInventory.serializeNBT());
+    }
+
     @Override
     protected void saveAdditional(CompoundTag pTag) {
         super.saveAdditional(pTag);
-        pTag.put("inputInventory", this.inputInventory.serializeNBT());
+
+        this.writeNetwork(pTag);
     }
 
     @Override
     public void load(CompoundTag pTag) {
         super.load(pTag);
 
-        if (pTag.contains("inputInventory"))
-            this.inputInventory.deserializeNBT(pTag.getCompound("inputInventory"));
+        this.readNetwork(pTag);
     }
 
     @Override
@@ -91,28 +137,11 @@ public class IncubatorSaltVesselBlockEntity extends BlockEntity implements GeoBl
         }
 
         @Override
-        protected void onSetStackInSlot(int slot, ItemStack oldStack, ItemStack newStack, boolean isSameItem) {
-            if (!isSameItem) {
-                if (IncubatorSaltVesselBlockEntity.this.incubator != null)
-                    IncubatorSaltVesselBlockEntity.this.incubator.craftingBehaviour.onInputItemChanged(oldStack, newStack);
-            }
-        }
-
-        @Override
-        protected void onInsertItem(int slot, ItemStack oldStack, ItemStack newStack, ItemStack toInsert, ItemStack remaining) {
-            if (remaining != newStack) {
-                if (IncubatorSaltVesselBlockEntity.this.incubator != null)
-                    IncubatorSaltVesselBlockEntity.this.incubator.craftingBehaviour.onInputItemChanged(oldStack, newStack);
-
-            }
-        }
-
-        @Override
-        protected void onExtractItem(int slot, ItemStack oldStack, ItemStack newStack, ItemStack extracted) {
-            if (newStack.isEmpty()) {
-                if (IncubatorSaltVesselBlockEntity.this.incubator != null)
-                    IncubatorSaltVesselBlockEntity.this.incubator.craftingBehaviour.onInputItemChanged(oldStack, newStack);
-            }
+        protected void onContentTypeChanged(int slot, ItemStack oldStack, ItemStack newStack) {
+            if (IncubatorSaltVesselBlockEntity.this.incubator != null)
+                IncubatorSaltVesselBlockEntity.this.incubator.craftingBehaviour.onInputItemChanged(oldStack, newStack);
+            //we also need to network sync our BE, because if the content type changes then the interaction behaviour client side changes
+            IncubatorSaltVesselBlockEntity.this.sendBlockUpdated();
         }
 
         @Override

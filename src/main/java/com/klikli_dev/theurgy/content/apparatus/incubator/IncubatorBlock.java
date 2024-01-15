@@ -162,9 +162,9 @@ public class IncubatorBlock extends Block implements EntityBlock {
     @Override
     @SuppressWarnings("deprecation")
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
-        if (pLevel.isClientSide()) {
-            return InteractionResult.SUCCESS;
-        }
+        //We do not check for client side because
+        // a) returning success causes https://github.com/klikli-dev/theurgy/issues/158
+        // b) client side BEs are separate objects even in SP, so modification in our behaviours is safe
 
         //handle top block
         pPos = pState.getValue(HALF) == DoubleBlockHalf.UPPER ? pPos.below() : pPos;

@@ -6,10 +6,11 @@ package com.klikli_dev.theurgy.content.apparatus.incubator;
 
 import com.klikli_dev.theurgy.content.behaviour.CraftingBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.HeatConsumerBehaviour;
-import com.klikli_dev.theurgy.content.storage.PreventInsertWrapper;
 import com.klikli_dev.theurgy.content.capability.DefaultHeatReceiver;
 import com.klikli_dev.theurgy.content.capability.HeatReceiver;
 import com.klikli_dev.theurgy.content.recipe.wrapper.IncubatorRecipeWrapper;
+import com.klikli_dev.theurgy.content.storage.MonitoredItemStackHandler;
+import com.klikli_dev.theurgy.content.storage.PreventInsertWrapper;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.CapabilityRegistry;
 import net.minecraft.core.BlockPos;
@@ -21,6 +22,7 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
@@ -72,6 +74,11 @@ public class IncubatorBlockEntity extends BlockEntity {
         this.heatConsumerBehaviour = new HeatConsumerBehaviour(this);
     }
 
+    public void sendBlockUpdated() {
+        if (this.level != null && !this.level.isClientSide)
+            this.level.sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), Block.UPDATE_CLIENTS);
+    }
+
     @Override
     public CompoundTag getUpdateTag() {
         var tag = new CompoundTag();
@@ -98,12 +105,17 @@ public class IncubatorBlockEntity extends BlockEntity {
         }
     }
 
-    public void readNetwork(CompoundTag tag) {
-        this.craftingBehaviour.readNetwork(tag);
+    public void readNetwork(CompoundTag pTag) {
+        if (pTag.contains("outputInventory"))
+            this.outputInventory.deserializeNBT(pTag.getCompound("outputInventory"));
+
+        this.craftingBehaviour.readNetwork(pTag);
     }
 
-    public void writeNetwork(CompoundTag tag) {
-        this.craftingBehaviour.writeNetwork(tag);
+    public void writeNetwork(CompoundTag pTag) {
+        pTag.put("outputInventory", this.outputInventory.serializeNBT());
+
+        this.craftingBehaviour.writeNetwork(pTag);
     }
 
     public void tickServer() {
@@ -134,7 +146,6 @@ public class IncubatorBlockEntity extends BlockEntity {
         }
     }
 
-
     @Override
     public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
         if (cap == ForgeCapabilities.ITEM_HANDLER) {
@@ -157,23 +168,19 @@ public class IncubatorBlockEntity extends BlockEntity {
     protected void saveAdditional(CompoundTag pTag) {
         super.saveAdditional(pTag);
 
-        pTag.put("outputInventory", this.outputInventory.serializeNBT());
         pTag.put("heatReceiver", this.heatReceiver.serializeNBT());
 
-        this.craftingBehaviour.saveAdditional(pTag);
+        this.writeNetwork(pTag);
     }
 
     @Override
     public void load(CompoundTag pTag) {
         super.load(pTag);
 
-        if (pTag.contains("outputInventory"))
-            this.outputInventory.deserializeNBT(pTag.getCompound("outputInventory"));
-
         if (pTag.contains("heatReceiver"))
             this.heatReceiver.deserializeNBT(pTag.get("heatReceiver"));
 
-        this.craftingBehaviour.load(pTag);
+        this.readNetwork(pTag);
     }
 
     private void checkForVessel(BlockPos pos) {
@@ -252,11 +259,18 @@ public class IncubatorBlockEntity extends BlockEntity {
         return this.isValidMultiblock;
     }
 
-    public class OutputInventory extends ItemStackHandler {
+    public class OutputInventory extends MonitoredItemStackHandler {
 
         public OutputInventory() {
             super(1);
         }
+
+        @Override
+        protected void onContentTypeChanged(int slot, ItemStack oldStack, ItemStack newStack) {
+            //we also need to network sync our BE, because if the content type changes then the interaction behaviour client side changes
+            IncubatorBlockEntity.this.sendBlockUpdated();
+        }
+
 
         @Override
         protected void onContentsChanged(int slot) {

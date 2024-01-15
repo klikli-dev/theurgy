@@ -50,6 +50,9 @@ public class NiterToNiterReformationEntry extends EntryProvider {
         this.pageTitle("Instruction Reminder");
         this.pageText("""
                 Simply place the Common Gems Niter as Source and the Common Metals Niter as Target in the Reformation Array, supply Mercury Flux and wait for the process to complete.
+                \\
+                \\
+                *Note: Depending on the Niters involved you may need multiple source Niters to gain one target Niter. Refer to JEI for details.* 
                 """
         );
     }

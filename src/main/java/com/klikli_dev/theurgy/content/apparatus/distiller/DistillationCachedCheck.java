@@ -19,14 +19,14 @@ import java.util.Optional;
 /**
  * A custom cached check
  */
-class DistillerCachedCheck implements RecipeManager.CachedCheck<RecipeWrapper, DistillationRecipe> {
+class DistillationCachedCheck implements RecipeManager.CachedCheck<RecipeWrapper, DistillationRecipe> {
 
     private final RecipeType<DistillationRecipe> type;
     private final RecipeManager.CachedCheck<RecipeWrapper, DistillationRecipe> internal;
     @Nullable
     private ResourceLocation lastRecipe;
 
-    public DistillerCachedCheck(RecipeType<DistillationRecipe> type) {
+    public DistillationCachedCheck(RecipeType<DistillationRecipe> type) {
         this.type = type;
         this.internal = RecipeManager.createCheck(type);
     }

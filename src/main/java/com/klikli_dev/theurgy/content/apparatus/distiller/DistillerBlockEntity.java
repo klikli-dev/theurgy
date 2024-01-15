@@ -36,45 +36,26 @@ import software.bernie.geckolib.core.animation.AnimationController;
 
 public class DistillerBlockEntity extends BlockEntity implements GeoBlockEntity {
 
-    public ItemStackHandler inputInventory;
-    /**
-     * The underlying outputInventory which allows inserting too - we use this when crafting.
-     */
-    public ItemStackHandler outputInventory;
-    /**
-     * A wrapper that only allows taking from the outputInventory - this is what we show to the outside.
-     */
-    public PreventInsertWrapper outputInventoryTakeOnlyWrapper;
-
-    public CombinedInvWrapper inventory;
-    public LazyOptional<IItemHandler> inventoryCapability;
-    public LazyOptional<IItemHandler> inputInventoryCapability;
-    public LazyOptional<IItemHandler> outputInventoryCapability;
 
     public DefaultHeatReceiver heatReceiver;
     public LazyOptional<HeatReceiver> heatReceiverCapability;
 
-    protected CraftingBehaviour<?, ?, ?> craftingBehaviour;
+    protected DistillationStorageBehaviour storageBehaviour;
+
+    protected DistillationCraftingBehaviour craftingBehaviour;
     protected HeatConsumerBehaviour heatConsumerBehaviour;
     protected AnimationBehaviour<?> animationBehaviour;
 
     public DistillerBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(BlockEntityRegistry.DISTILLER.get(), pPos, pBlockState);
 
-        this.inputInventory = new InputInventory();
-        this.outputInventory = new OutputInventory();
-        this.outputInventoryTakeOnlyWrapper = new PreventInsertWrapper(this.outputInventory);
 
-        this.inventory = new CombinedInvWrapper(this.inputInventory, this.outputInventoryTakeOnlyWrapper);
-
-        this.inventoryCapability = LazyOptional.of(() -> this.inventory);
-        this.inputInventoryCapability = LazyOptional.of(() -> this.inputInventory);
-        this.outputInventoryCapability = LazyOptional.of(() -> this.outputInventoryTakeOnlyWrapper);
+        this.storageBehaviour = new DistillationStorageBehaviour(this, () -> this.craftingBehaviour);
 
         this.heatReceiver = new DefaultHeatReceiver();
         this.heatReceiverCapability = LazyOptional.of(() -> this.heatReceiver);
 
-        this.craftingBehaviour = new DistillerCraftingBehaviour(this, () -> this.inputInventory, () -> this.outputInventory);
+        this.craftingBehaviour = new DistillationCraftingBehaviour(this, () -> this.storageBehaviour.inputInventory, () -> this.storageBehaviour.outputInventory);
         this.heatConsumerBehaviour = new HeatConsumerBehaviour(this);
         this.animationBehaviour = new DistillerAnimationBehaviour(this);
     }
@@ -106,27 +87,29 @@ public class DistillerBlockEntity extends BlockEntity implements GeoBlockEntity 
     }
 
     public void readNetwork(CompoundTag tag) {
+        this.storageBehaviour.readNetwork(tag);
         this.craftingBehaviour.readNetwork(tag);
     }
 
     public void writeNetwork(CompoundTag tag) {
+        this.storageBehaviour.writeNetwork(tag);
         this.craftingBehaviour.writeNetwork(tag);
     }
 
     public void tickServer() {
         boolean isHeated = this.heatConsumerBehaviour.isHeated();
-        boolean hasInput = !this.inputInventory.getStackInSlot(0).isEmpty();
+        boolean hasInput = !this.storageBehaviour.inputInventory.getStackInSlot(0).isEmpty();
 
         this.craftingBehaviour.tickServer(isHeated, hasInput);
     }
 
     @Override
     public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        if (cap == ForgeCapabilities.ITEM_HANDLER) {
-            if (side == Direction.UP) return this.inputInventoryCapability.cast();
-            if (side == Direction.DOWN) return this.outputInventoryCapability.cast();
-            return this.inventoryCapability.cast();
-        }
+       var storage = this.storageBehaviour.getCapability(cap, side);
+         if (storage.isPresent()) {
+             return storage;
+         }
+
         if (cap == CapabilityRegistry.HEAT_RECEIVER) {
             return this.heatReceiverCapability.cast();
         }
@@ -136,9 +119,6 @@ public class DistillerBlockEntity extends BlockEntity implements GeoBlockEntity 
     @Override
     public void invalidateCaps() {
         super.invalidateCaps();
-        this.inventoryCapability.invalidate();
-        this.inputInventoryCapability.invalidate();
-        this.outputInventoryCapability.invalidate();
         this.heatReceiverCapability.invalidate();
     }
 
@@ -146,10 +126,9 @@ public class DistillerBlockEntity extends BlockEntity implements GeoBlockEntity 
     protected void saveAdditional(CompoundTag pTag) {
         super.saveAdditional(pTag);
 
-        pTag.put("inputInventory", this.inputInventory.serializeNBT());
-        pTag.put("outputInventory", this.outputInventory.serializeNBT());
         pTag.put("heatReceiver", this.heatReceiver.serializeNBT());
 
+        this.storageBehaviour.saveAdditional(pTag);
         this.craftingBehaviour.saveAdditional(pTag);
     }
 
@@ -157,13 +136,10 @@ public class DistillerBlockEntity extends BlockEntity implements GeoBlockEntity 
     public void load(CompoundTag pTag) {
         super.load(pTag);
 
-        if (pTag.contains("inputInventory"))
-            this.inputInventory.deserializeNBT(pTag.getCompound("inputInventory"));
-        if (pTag.contains("outputInventory"))
-            this.outputInventory.deserializeNBT(pTag.getCompound("outputInventory"));
         if (pTag.contains("heatReceiver"))
             this.heatReceiver.deserializeNBT(pTag.get("heatReceiver"));
 
+        this.storageBehaviour.load(pTag);
         this.craftingBehaviour.load(pTag);
     }
 
@@ -176,55 +152,5 @@ public class DistillerBlockEntity extends BlockEntity implements GeoBlockEntity 
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {
         return this.animationBehaviour.getAnimatableInstanceCache();
-    }
-
-    public class InputInventory extends MonitoredItemStackHandler {
-
-        public InputInventory() {
-            super(1);
-        }
-
-        @Override
-        protected void onSetStackInSlot(int slot, ItemStack oldStack, ItemStack newStack, boolean isSameItem) {
-            if(!isSameItem){
-                DistillerBlockEntity.this.craftingBehaviour.onInputItemChanged(oldStack, newStack);
-            }
-        }
-
-        @Override
-        protected void onInsertItem(int slot, ItemStack oldStack, ItemStack newStack, ItemStack toInsert, ItemStack remaining) {
-            if (remaining != newStack) {
-                DistillerBlockEntity.this.craftingBehaviour.onInputItemChanged(oldStack, newStack);
-            }
-        }
-
-        @Override
-        protected void onExtractItem(int slot, ItemStack oldStack, ItemStack newStack, ItemStack extracted) {
-            if(newStack.isEmpty()){
-                DistillerBlockEntity.this.craftingBehaviour.onInputItemChanged(oldStack, newStack);
-            }
-        }
-
-        @Override
-        public boolean isItemValid(int slot, ItemStack stack) {
-            return DistillerBlockEntity.this.craftingBehaviour.canProcess(stack) && super.isItemValid(slot, stack);
-        }
-
-        @Override
-        protected void onContentsChanged(int slot) {
-            DistillerBlockEntity.this.setChanged();
-        }
-    }
-
-    public class OutputInventory extends ItemStackHandler {
-
-        public OutputInventory() {
-            super(1);
-        }
-
-        @Override
-        protected void onContentsChanged(int slot) {
-            DistillerBlockEntity.this.setChanged();
-        }
     }
 }

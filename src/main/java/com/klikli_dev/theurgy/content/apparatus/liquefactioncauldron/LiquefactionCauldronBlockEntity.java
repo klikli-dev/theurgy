@@ -31,23 +31,21 @@ public class LiquefactionCauldronBlockEntity extends BlockEntity {
     public DefaultHeatReceiver heatReceiver;
     public LazyOptional<HeatReceiver> heatReceiverCapability;
 
-    public LiquefactionCauldronStorageBehaviour storageBehaviour;
+    public LiquefactionStorageBehaviour storageBehaviour;
 
-
-    protected LiquefactionCauldronCraftingBehaviour craftingBehaviour;
+    protected LiquefactionCraftingBehaviour craftingBehaviour;
     protected HeatConsumerBehaviour heatConsumerBehaviour;
-
 
     public LiquefactionCauldronBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(BlockEntityRegistry.LIQUEFACTION_CAULDRON.get(), pPos, pBlockState);
 
 
-        this.storageBehaviour = new LiquefactionCauldronStorageBehaviour(this, () -> this.craftingBehaviour);
+        this.storageBehaviour = new LiquefactionStorageBehaviour(this, () -> this.craftingBehaviour);
 
         this.heatReceiver = new DefaultHeatReceiver();
         this.heatReceiverCapability = LazyOptional.of(() -> this.heatReceiver);
 
-        this.craftingBehaviour = new LiquefactionCauldronCraftingBehaviour(this, () -> this.storageBehaviour.inputInventory, () -> this.storageBehaviour.outputInventory, () -> this.storageBehaviour.solventTank);
+        this.craftingBehaviour = new LiquefactionCraftingBehaviour(this, () -> this.storageBehaviour.inputInventory, () -> this.storageBehaviour.outputInventory, () -> this.storageBehaviour.solventTank);
         this.heatConsumerBehaviour = new HeatConsumerBehaviour(this);
     }
 
@@ -119,7 +117,7 @@ public class LiquefactionCauldronBlockEntity extends BlockEntity {
     @Override
     public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
         var storage = this.storageBehaviour.getCapability(cap, side);
-        if (storage != null)
+        if (storage.isPresent())
             return storage;
 
         if (cap == CapabilityRegistry.HEAT_RECEIVER) {

@@ -19,14 +19,14 @@ import java.util.Optional;
 /**
  * A custom cached check
  */
-class LiquefactionCauldronCachedCheck implements RecipeManager.CachedCheck<RecipeWrapperWithFluid, LiquefactionRecipe> {
+class LiquefactionCachedCheck implements RecipeManager.CachedCheck<RecipeWrapperWithFluid, LiquefactionRecipe> {
 
     private final RecipeType<LiquefactionRecipe> type;
     private final RecipeManager.CachedCheck<RecipeWrapperWithFluid, LiquefactionRecipe> internal;
     @Nullable
     private ResourceLocation lastRecipe;
 
-    public LiquefactionCauldronCachedCheck(RecipeType<LiquefactionRecipe> type) {
+    public LiquefactionCachedCheck(RecipeType<LiquefactionRecipe> type) {
         this.type = type;
         this.internal = RecipeManager.createCheck(type);
     }

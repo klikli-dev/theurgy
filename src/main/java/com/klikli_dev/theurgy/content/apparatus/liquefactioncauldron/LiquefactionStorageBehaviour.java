@@ -29,7 +29,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
-public class LiquefactionCauldronStorageBehaviour extends StorageBehaviour<LiquefactionCauldronStorageBehaviour> {
+public class LiquefactionStorageBehaviour extends StorageBehaviour<LiquefactionStorageBehaviour> {
 
     public ItemStackHandler inputInventory;
     /**
@@ -49,9 +49,9 @@ public class LiquefactionCauldronStorageBehaviour extends StorageBehaviour<Lique
     public FluidTank solventTank;
     public LazyOptional<IFluidHandler> solventTankCapability;
 
-    public Supplier<LiquefactionCauldronCraftingBehaviour> craftingBehaviour;
+    public Supplier<LiquefactionCraftingBehaviour> craftingBehaviour;
 
-    public LiquefactionCauldronStorageBehaviour(BlockEntity blockEntity, Supplier<LiquefactionCauldronCraftingBehaviour> craftingBehaviour) {
+    public LiquefactionStorageBehaviour(BlockEntity blockEntity, Supplier<LiquefactionCraftingBehaviour> craftingBehaviour) {
         super(blockEntity);
 
         this.craftingBehaviour = craftingBehaviour;
@@ -99,7 +99,7 @@ public class LiquefactionCauldronStorageBehaviour extends StorageBehaviour<Lique
     }
 
     @Override
-    public <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
+    public <T> @NotNull LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
         if (cap == ForgeCapabilities.ITEM_HANDLER) {
             if (side == Direction.UP) return this.inputInventoryCapability.cast();
             if (side == Direction.DOWN) return this.outputInventoryCapability.cast();
@@ -108,7 +108,7 @@ public class LiquefactionCauldronStorageBehaviour extends StorageBehaviour<Lique
 
         if (cap == ForgeCapabilities.FLUID_HANDLER) return this.solventTankCapability.cast();
 
-        return null;
+        return LazyOptional.empty();
     }
 
     public class SolventTank extends FluidTank {
@@ -119,8 +119,8 @@ public class LiquefactionCauldronStorageBehaviour extends StorageBehaviour<Lique
 
         @Override
         protected void onContentsChanged() {
-            LiquefactionCauldronStorageBehaviour.this.setChanged();
-            LiquefactionCauldronStorageBehaviour.this.sendBlockUpdated();
+            LiquefactionStorageBehaviour.this.setChanged();
+            LiquefactionStorageBehaviour.this.sendBlockUpdated();
         }
     }
 
@@ -132,20 +132,20 @@ public class LiquefactionCauldronStorageBehaviour extends StorageBehaviour<Lique
 
         @Override
         protected void onContentTypeChanged(int slot, ItemStack oldStack, ItemStack newStack) {
-            LiquefactionCauldronStorageBehaviour.this.craftingBehaviour.get().onInputItemChanged(oldStack, newStack);
+            LiquefactionStorageBehaviour.this.craftingBehaviour.get().onInputItemChanged(oldStack, newStack);
             //we also need to network sync our BE, because if the content type changes then the interaction behaviour client side changes
-            LiquefactionCauldronStorageBehaviour.this.sendBlockUpdated();
+            LiquefactionStorageBehaviour.this.sendBlockUpdated();
         }
 
 
         @Override
         public boolean isItemValid(int slot, ItemStack stack) {
-            return LiquefactionCauldronStorageBehaviour.this.craftingBehaviour.get().canProcess(stack) && super.isItemValid(slot, stack);
+            return LiquefactionStorageBehaviour.this.craftingBehaviour.get().canProcess(stack) && super.isItemValid(slot, stack);
         }
 
         @Override
         protected void onContentsChanged(int slot) {
-            LiquefactionCauldronStorageBehaviour.this.setChanged();
+            LiquefactionStorageBehaviour.this.setChanged();
         }
     }
 
@@ -157,7 +157,7 @@ public class LiquefactionCauldronStorageBehaviour extends StorageBehaviour<Lique
 
         @Override
         protected void onContentsChanged(int slot) {
-            LiquefactionCauldronStorageBehaviour.this.setChanged();
+            LiquefactionStorageBehaviour.this.setChanged();
         }
     }
 }

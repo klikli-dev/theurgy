@@ -14,20 +14,19 @@ import net.minecraftforge.common.util.Lazy;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemHandlerHelper;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Supplier;
 
-public class LiquefactionCauldronCraftingBehaviour extends CraftingBehaviour<RecipeWrapperWithFluid, LiquefactionRecipe, LiquefactionCauldronCachedCheck> {
+public class LiquefactionCraftingBehaviour extends CraftingBehaviour<RecipeWrapperWithFluid, LiquefactionRecipe, LiquefactionCachedCheck> {
 
     protected Supplier<IFluidHandler> solventTankSupplier;
 
-    public LiquefactionCauldronCraftingBehaviour(BlockEntity blockEntity, Supplier<IItemHandlerModifiable> inputInventorySupplier, Supplier<IItemHandlerModifiable> outputInventorySupplier, Supplier<IFluidHandler> solventTankSupplier) {
+    public LiquefactionCraftingBehaviour(BlockEntity blockEntity, Supplier<IItemHandlerModifiable> inputInventorySupplier, Supplier<IItemHandlerModifiable> outputInventorySupplier, Supplier<IFluidHandler> solventTankSupplier) {
         super(blockEntity,
                 Lazy.of(() -> new RecipeWrapperWithFluid(inputInventorySupplier.get(), solventTankSupplier.get())),
                 inputInventorySupplier,
                 outputInventorySupplier,
-                new LiquefactionCauldronCachedCheck(RecipeTypeRegistry.LIQUEFACTION.get()));
+                new LiquefactionCachedCheck(RecipeTypeRegistry.LIQUEFACTION.get()));
 
         this.solventTankSupplier = solventTankSupplier;
     }

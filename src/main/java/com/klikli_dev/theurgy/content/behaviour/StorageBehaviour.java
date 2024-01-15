@@ -74,9 +74,9 @@ public abstract class StorageBehaviour<S extends StorageBehaviour<?>> {
     public abstract void load(CompoundTag pTag);
 
     /**
-     * Unlike the block entity capability methods, this method can return null, which means that the block entity should handle the capability - generally that means it should return super.getCapability();
+     * Returns LazyOptional.empty() if there is no capability for the given query.
      */
-    public abstract <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side);
+    public abstract @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side);
 
     protected void register(LazyOptional<?> capability) {
         this.capabilities.add(capability);

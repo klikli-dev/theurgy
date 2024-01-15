@@ -4,6 +4,7 @@
 
 package com.klikli_dev.theurgy.content.behaviour;
 
+import com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron.LiquefactionCauldronBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.reformationarray.ReformationSourcePedestalBlockEntity;
 import com.klikli_dev.theurgy.registry.ItemTagRegistry;
 import net.minecraft.core.NonNullList;
@@ -28,6 +29,15 @@ public abstract class MonitoredItemStackHandler extends ItemStackHandler {
         super(stacks);
     }
 
+
+    /**
+     * Called when the content type of a slot changes, that means, a different Item, or a change between Empty (Air) and Non-Empty.
+     * Mere changes of stack size do not trigger this.
+     */
+    protected void onContentTypeChanged(int slot, ItemStack oldStack, ItemStack newStack) {
+
+    }
+
     protected void onSetStackInSlot(int slot, ItemStack oldStack, ItemStack newStack, boolean isSameItem) {
 
     }
@@ -49,6 +59,9 @@ public abstract class MonitoredItemStackHandler extends ItemStackHandler {
         super.setStackInSlot(slot, newStack);
 
         this.onSetStackInSlot(slot, oldStack, newStack, sameItem);
+        if(!sameItem){
+            this.onContentTypeChanged(slot, oldStack, newStack);
+        }
     }
 
 
@@ -60,7 +73,9 @@ public abstract class MonitoredItemStackHandler extends ItemStackHandler {
             var newStack = this.getStackInSlot(slot);
 
             this.onInsertItem(slot, oldStack, newStack, stack, remaining);
-
+            if (remaining != newStack) {
+                this.onContentTypeChanged(slot, oldStack, newStack);
+            }
             return remaining;
         }
         return super.insertItem(slot, stack, simulate);
@@ -74,6 +89,9 @@ public abstract class MonitoredItemStackHandler extends ItemStackHandler {
             var newStack = this.getStackInSlot(slot);
 
             this.onExtractItem(slot, oldStack, newStack, extracted);
+            if(newStack.isEmpty()){
+                this.onContentTypeChanged(slot, oldStack, newStack);
+            }
 
             return extracted;
         }

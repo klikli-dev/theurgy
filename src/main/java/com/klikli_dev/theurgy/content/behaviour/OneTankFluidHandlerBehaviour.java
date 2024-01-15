@@ -24,6 +24,9 @@ public class OneTankFluidHandlerBehaviour implements FluidHandlerBehaviour {
      */
     @Override
     public InteractionResult useFluidHandler(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
+        if(pHand != InteractionHand.MAIN_HAND)
+            return InteractionResult.PASS;
+
         var blockEntity = pLevel.getBlockEntity(pPos);
 
         if (blockEntity == null)

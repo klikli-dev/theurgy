@@ -48,10 +48,10 @@ public class LiquefactionCauldronRenderer implements BlockEntityRenderer<Liquefa
      */
     @Override
     public void render(LiquefactionCauldronBlockEntity pBlockEntity, float pPartialTick, PoseStack pPoseStack, MultiBufferSource pBufferSource, int pPackedLight, int pPackedOverlay) {
-        if (pBlockEntity.solventTank.isEmpty())
+        if (pBlockEntity.storageBehaviour.solventTank.isEmpty())
             return;
 
-        var fluidStack = pBlockEntity.solventTank.getFluid();
+        var fluidStack = pBlockEntity.storageBehaviour.solventTank.getFluid();
         var fluid = fluidStack.getFluid();
         var fluidType = fluid.getFluidType();
         var fluidClientExtension = IClientFluidTypeExtensions.of(fluid);
@@ -65,7 +65,7 @@ public class LiquefactionCauldronRenderer implements BlockEntityRenderer<Liquefa
         int luminosity = Math.max(blockLightIn, fluidType.getLightLevel(fluidStack));
         var fluidLight = (pPackedLight & 0xF00000) | luminosity << 4;
 
-        var fluidHeight = fluidStack.getAmount() / (float) pBlockEntity.solventTank.getCapacity();
+        var fluidHeight = fluidStack.getAmount() / (float) pBlockEntity.storageBehaviour.solventTank.getCapacity();
 
         fluidHeight *= 0.875f;
         fluidHeight += 0.25f;

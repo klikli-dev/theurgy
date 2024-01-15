@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: MIT
 
-package com.klikli_dev.theurgy.content.behaviour;
+package com.klikli_dev.theurgy.content.behaviour.interaction;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;

@@ -2,8 +2,9 @@
 //
 // SPDX-License-Identifier: MIT
 
-package com.klikli_dev.theurgy.content.behaviour;
+package com.klikli_dev.theurgy.content.behaviour.interaction;
 
+import com.klikli_dev.theurgy.content.behaviour.HasCraftingBehaviour;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -18,6 +19,8 @@ import net.minecraft.world.phys.BlockHitResult;
 public abstract class GenericVatInteractionBehaviour<R extends Recipe<?>> implements InteractionBehaviour {
     @Override
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
+        if(pHand != InteractionHand.MAIN_HAND)
+            return InteractionResult.PASS;
 
         var blockEntity = pLevel.getBlockEntity(pPos);
 

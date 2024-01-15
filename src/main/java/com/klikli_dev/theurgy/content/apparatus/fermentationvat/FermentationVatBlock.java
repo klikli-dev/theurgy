@@ -5,6 +5,11 @@
 package com.klikli_dev.theurgy.content.apparatus.fermentationvat;
 
 import com.klikli_dev.theurgy.content.behaviour.*;
+import com.klikli_dev.theurgy.content.behaviour.fluidhandler.FluidHandlerBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.fluidhandler.OneTankFluidHandlerBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.interaction.InteractionBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.itemhandler.DynamicOneOutputSlotItemHandlerBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.itemhandler.ItemHandlerBehaviour;
 import com.klikli_dev.theurgy.content.recipe.FermentationRecipe;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
@@ -55,9 +60,9 @@ public class FermentationVatBlock extends Block implements EntityBlock {
     @Override
     @SuppressWarnings("deprecation")
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
-        if (pLevel.isClientSide()) {
-            return InteractionResult.SUCCESS;
-        }
+        //We do not check for client side because
+        // a) returning success causes https://github.com/klikli-dev/theurgy/issues/158
+        // b) client side BEs are separate objects even in SP, so modification in our behaviours is safe
 
         var interactionResult = this.interactionBehaviour.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
         if (interactionResult != InteractionResult.PASS) {
@@ -108,7 +113,7 @@ public class FermentationVatBlock extends Block implements EntityBlock {
     public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
         if (!pState.is(pNewState.getBlock())) {
             if (pLevel.getBlockEntity(pPos) instanceof FermentationVatBlockEntity blockEntity) {
-                Containers.dropContents(pLevel, pPos, new RecipeWrapper(blockEntity.inventory));
+                Containers.dropContents(pLevel, pPos, new RecipeWrapper(blockEntity.storageBehaviour.inventory));
             }
         }
         super.onRemove(pState, pLevel, pPos, pNewState, pIsMoving);

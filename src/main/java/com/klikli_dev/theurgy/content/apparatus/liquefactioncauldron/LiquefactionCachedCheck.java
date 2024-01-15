@@ -2,16 +2,16 @@
 //
 // SPDX-License-Identifier: MIT
 
-package com.klikli_dev.theurgy.content.apparatus.distiller;
+package com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron;
 
-import com.klikli_dev.theurgy.content.recipe.DistillationRecipe;
+import com.klikli_dev.theurgy.content.recipe.LiquefactionRecipe;
+import com.klikli_dev.theurgy.content.recipe.wrapper.RecipeWrapperWithFluid;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.items.wrapper.RecipeWrapper;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
@@ -19,25 +19,25 @@ import java.util.Optional;
 /**
  * A custom cached check
  */
-class DistillerCachedCheck implements RecipeManager.CachedCheck<RecipeWrapper, DistillationRecipe> {
+class LiquefactionCachedCheck implements RecipeManager.CachedCheck<RecipeWrapperWithFluid, LiquefactionRecipe> {
 
-    private final RecipeType<DistillationRecipe> type;
-    private final RecipeManager.CachedCheck<RecipeWrapper, DistillationRecipe> internal;
+    private final RecipeType<LiquefactionRecipe> type;
+    private final RecipeManager.CachedCheck<RecipeWrapperWithFluid, LiquefactionRecipe> internal;
     @Nullable
     private ResourceLocation lastRecipe;
 
-    public DistillerCachedCheck(RecipeType<DistillationRecipe> type) {
+    public LiquefactionCachedCheck(RecipeType<LiquefactionRecipe> type) {
         this.type = type;
         this.internal = RecipeManager.createCheck(type);
     }
 
-    private Optional<Pair<ResourceLocation, DistillationRecipe>> getRecipeFor(ItemStack stack, Level level, @Nullable ResourceLocation lastRecipe) {
+    private Optional<Pair<ResourceLocation, LiquefactionRecipe>> getRecipeFor(ItemStack stack, Level level, @Nullable ResourceLocation lastRecipe) {
 
         var recipeManager = level.getRecipeManager();
         var map = recipeManager.byType(this.type);
         if (lastRecipe != null) {
             var recipe = map.get(lastRecipe);
-            //test only the ingredient without the (separate) ingredient count check that the recipe.matches() would.
+            //test only the ingredient without the (separate) solvent fluid ingredient check that the recipe.matches() would.
             if (recipe != null && recipe.getIngredient().test(stack)) {
                 return Optional.of(Pair.of(lastRecipe, recipe));
             }
@@ -47,9 +47,9 @@ class DistillerCachedCheck implements RecipeManager.CachedCheck<RecipeWrapper, D
     }
 
     /**
-     * This checks only the ingredient, not the ingredient count
+     * This only checks ingredients, not fluids
      */
-    public Optional<DistillationRecipe> getRecipeFor(ItemStack stack, Level level) {
+    public Optional<LiquefactionRecipe> getRecipeFor(ItemStack stack, Level level) {
         var optional = this.getRecipeFor(stack, level, this.lastRecipe);
         if (optional.isPresent()) {
             var pair = optional.get();
@@ -61,10 +61,10 @@ class DistillerCachedCheck implements RecipeManager.CachedCheck<RecipeWrapper, D
     }
 
     /**
-     * This checks full recipe validity: ingredients + ingredient count
+     * This checks full recipe validity: ingredients + fluids
      */
     @Override
-    public Optional<DistillationRecipe> getRecipeFor(RecipeWrapper container, Level level) {
+    public Optional<LiquefactionRecipe> getRecipeFor(RecipeWrapperWithFluid container, Level level) {
         var recipe = this.internal.getRecipeFor(container, level);
         if (recipe.isPresent()) {
             this.lastRecipe = recipe.get().getId();

@@ -16,13 +16,13 @@ import net.minecraftforge.items.wrapper.RecipeWrapper;
 
 import java.util.function.Supplier;
 
-public class DistillerCraftingBehaviour extends CraftingBehaviour<RecipeWrapper, DistillationRecipe, DistillerCachedCheck> {
-    public DistillerCraftingBehaviour(BlockEntity blockEntity, Supplier<IItemHandlerModifiable> inputInventorySupplier, Supplier<IItemHandlerModifiable> outputInventorySupplier) {
+public class DistillationCraftingBehaviour extends CraftingBehaviour<RecipeWrapper, DistillationRecipe, DistillationCachedCheck> {
+    public DistillationCraftingBehaviour(BlockEntity blockEntity, Supplier<IItemHandlerModifiable> inputInventorySupplier, Supplier<IItemHandlerModifiable> outputInventorySupplier) {
         super(blockEntity,
                 Lazy.of(() -> new RecipeWrapper(inputInventorySupplier.get())),
                 inputInventorySupplier,
                 outputInventorySupplier,
-                new DistillerCachedCheck(RecipeTypeRegistry.DISTILLATION.get()));
+                new DistillationCachedCheck(RecipeTypeRegistry.DISTILLATION.get()));
     }
 
     @Override

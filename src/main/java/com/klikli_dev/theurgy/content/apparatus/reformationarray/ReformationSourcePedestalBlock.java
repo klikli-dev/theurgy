@@ -4,11 +4,8 @@
 
 package com.klikli_dev.theurgy.content.apparatus.reformationarray;
 
-import com.klikli_dev.theurgy.content.apparatus.pyromanticbrazier.PyromanticBrazierBlockEntity;
-import com.klikli_dev.theurgy.content.behaviour.ItemHandlerBehaviour;
-import com.klikli_dev.theurgy.content.behaviour.OneSlotItemHandlerBehaviour;
-import com.klikli_dev.theurgy.content.particle.ParticleColor;
-import com.klikli_dev.theurgy.content.particle.glow.GlowParticleProvider;
+import com.klikli_dev.theurgy.content.behaviour.itemhandler.ItemHandlerBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.itemhandler.OneSlotItemHandlerBehaviour;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.Containers;
@@ -38,9 +35,9 @@ public class ReformationSourcePedestalBlock extends Block implements EntityBlock
     @Override
     @SuppressWarnings("deprecation")
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
-        if (pLevel.isClientSide()) {
-            return InteractionResult.SUCCESS;
-        }
+        //We do not check for client side because
+        // a) returning success causes https://github.com/klikli-dev/theurgy/issues/158
+        // b) client side BEs are separate objects even in SP, so modification in our behaviours is safe
 
         if (this.itemHandlerBehaviour.useItemHandler(pState, pLevel, pPos, pPlayer, pHand, pHit) == InteractionResult.SUCCESS) {
             return InteractionResult.SUCCESS;

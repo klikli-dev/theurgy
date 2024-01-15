@@ -4,10 +4,10 @@
 
 package com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron;
 
-import com.klikli_dev.theurgy.content.behaviour.FluidHandlerBehaviour;
-import com.klikli_dev.theurgy.content.behaviour.ItemHandlerBehaviour;
-import com.klikli_dev.theurgy.content.behaviour.OneTankFluidHandlerBehaviour;
-import com.klikli_dev.theurgy.content.behaviour.TwoSlotItemHandlerBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.fluidhandler.FluidHandlerBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.itemhandler.ItemHandlerBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.fluidhandler.OneTankFluidHandlerBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.itemhandler.TwoSlotItemHandlerBehaviour;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -47,7 +47,7 @@ public class LiquefactionCauldronBlock extends Block implements EntityBlock {
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
 
     public static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
-    protected static final VoxelShape TOP = Block.box(0, 0, 0, 16, 6, 16);
+    protected static final VoxelShape TOP = Block.box(1, 0, 1, 15, 6, 15);
     protected static final VoxelShape BOTTOM = Shapes.block();
 
     protected ItemHandlerBehaviour itemHandlerBehaviour;
@@ -131,9 +131,9 @@ public class LiquefactionCauldronBlock extends Block implements EntityBlock {
     @Override
     @SuppressWarnings("deprecation")
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
-        if (pLevel.isClientSide()) {
-            return InteractionResult.SUCCESS;
-        }
+        //We do not check for client side because
+        // a) returning success causes https://github.com/klikli-dev/theurgy/issues/158
+        // b) client side BEs are separate objects even in SP, so modification in our behaviours is safe
 
         //handle top block
         pPos = pState.getValue(HALF) == DoubleBlockHalf.UPPER ? pPos.below() : pPos;
@@ -154,7 +154,7 @@ public class LiquefactionCauldronBlock extends Block implements EntityBlock {
     public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
         if (!pState.is(pNewState.getBlock())) {
             if (pState.getValue(HALF) == DoubleBlockHalf.LOWER && pLevel.getBlockEntity(pPos) instanceof LiquefactionCauldronBlockEntity blockEntity) {
-                Containers.dropContents(pLevel, pPos, new RecipeWrapper(blockEntity.inventory));
+                Containers.dropContents(pLevel, pPos, new RecipeWrapper(blockEntity.storageBehaviour.inventory));
             }
         }
         super.onRemove(pState, pLevel, pPos, pNewState, pIsMoving);

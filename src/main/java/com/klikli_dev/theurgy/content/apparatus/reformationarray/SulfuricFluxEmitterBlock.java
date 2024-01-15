@@ -6,7 +6,6 @@ package com.klikli_dev.theurgy.content.apparatus.reformationarray;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
-import com.klikli_dev.theurgy.content.behaviour.InteractionBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.selection.SelectionBehaviour;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;

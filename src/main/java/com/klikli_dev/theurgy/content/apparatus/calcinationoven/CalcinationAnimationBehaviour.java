@@ -11,7 +11,7 @@ import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 
-public class CalcinationOvenAnimationBehaviour extends AnimationBehaviour<CalcinationOvenBlockEntity> {
+public class CalcinationAnimationBehaviour extends AnimationBehaviour<CalcinationOvenBlockEntity> {
 
     private static final RawAnimation START_AND_ON_ANIM = RawAnimation.begin()
             .thenPlay("animation.calcination_oven.start")
@@ -28,7 +28,7 @@ public class CalcinationOvenAnimationBehaviour extends AnimationBehaviour<Calcin
             .thenPlay("animation.calcination_oven.place")
             .thenLoop("animation.calcination_oven.off");
 
-    public CalcinationOvenAnimationBehaviour(CalcinationOvenBlockEntity blockEntity) {
+    public CalcinationAnimationBehaviour(CalcinationOvenBlockEntity blockEntity) {
         super(blockEntity);
     }
 

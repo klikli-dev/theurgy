@@ -4,18 +4,15 @@
 
 package com.klikli_dev.theurgy.content.apparatus.mercurycatalyst;
 
-import com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron.LiquefactionCauldronBlockEntity;
 import com.klikli_dev.theurgy.content.behaviour.CraftingBehaviour;
-import com.klikli_dev.theurgy.content.behaviour.MonitoredItemStackHandler;
 import com.klikli_dev.theurgy.content.capability.DefaultMercuryFluxStorage;
 import com.klikli_dev.theurgy.content.capability.MercuryFluxStorage;
+import com.klikli_dev.theurgy.content.storage.MonitoredItemStackHandler;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.CapabilityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.Tag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
@@ -89,7 +86,9 @@ public class MercuryCatalystBlockEntity extends BlockEntity {
         if (tag.contains("mercuryFluxStorage")) {
             //get instead of getCompound here because the storage serializes as int tag
             this.mercuryFluxStorage.deserializeNBT(tag.get("mercuryFluxStorage"));
-            this.level.sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), Block.UPDATE_IMMEDIATE);
+            if(this.level != null){
+                this.level.sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), Block.UPDATE_IMMEDIATE);
+            }
         }
     }
 
@@ -177,24 +176,10 @@ public class MercuryCatalystBlockEntity extends BlockEntity {
         }
 
         @Override
-        protected void onSetStackInSlot(int slot, ItemStack oldStack, ItemStack newStack, boolean isSameItem) {
-            if(!isSameItem){
-                MercuryCatalystBlockEntity.this.craftingBehaviour.onInputItemChanged(oldStack, newStack);
-            }
-        }
-
-        @Override
-        protected void onInsertItem(int slot, ItemStack oldStack, ItemStack newStack, ItemStack toInsert, ItemStack remaining) {
-            if (remaining != newStack) {
-                MercuryCatalystBlockEntity.this.craftingBehaviour.onInputItemChanged(oldStack, newStack);
-            }
-        }
-
-        @Override
-        protected void onExtractItem(int slot, ItemStack oldStack, ItemStack newStack, ItemStack extracted) {
-            if(newStack.isEmpty()){
-                MercuryCatalystBlockEntity.this.craftingBehaviour.onInputItemChanged(oldStack, newStack);
-            }
+        protected void onContentTypeChanged(int slot, ItemStack oldStack, ItemStack newStack) {
+            MercuryCatalystBlockEntity.this.craftingBehaviour.onInputItemChanged(oldStack, newStack);
+            //we also need to network sync our BE, because if the content type changes then the interaction behaviour client side changes
+            MercuryCatalystBlockEntity.this.sendBlockUpdated();
         }
 
         @Override

@@ -4,7 +4,8 @@
 
 package com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator;
 
-import com.klikli_dev.theurgy.content.behaviour.MonitoredItemStackHandler;
+import com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron.LiquefactionStorageBehaviour;
+import com.klikli_dev.theurgy.content.storage.MonitoredItemStackHandler;
 import com.klikli_dev.theurgy.content.particle.ParticleColor;
 import com.klikli_dev.theurgy.content.particle.coloredbubble.ColoredBubbleParticleProvider;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
@@ -250,27 +251,10 @@ public class SalAmmoniacAccumulatorBlockEntity extends BlockEntity implements Ge
         }
 
         @Override
-        protected void onSetStackInSlot(int slot, ItemStack oldStack, ItemStack newStack, boolean isSameItem) {
-            if (!isSameItem) {
-                SalAmmoniacAccumulatorBlockEntity.this.craftingBehaviour.onInputItemChanged(oldStack, newStack);
-                SalAmmoniacAccumulatorBlockEntity.this.sendBlockUpdated();
-            }
-        }
-
-        @Override
-        protected void onInsertItem(int slot, ItemStack oldStack, ItemStack newStack, ItemStack toInsert, ItemStack remaining) {
-            if (remaining != newStack) {
-                SalAmmoniacAccumulatorBlockEntity.this.craftingBehaviour.onInputItemChanged(oldStack, newStack);
-                SalAmmoniacAccumulatorBlockEntity.this.sendBlockUpdated();
-            }
-        }
-
-        @Override
-        protected void onExtractItem(int slot, ItemStack oldStack, ItemStack newStack, ItemStack extracted) {
-            if (newStack.isEmpty()) {
-                SalAmmoniacAccumulatorBlockEntity.this.craftingBehaviour.onInputItemChanged(oldStack, newStack);
-                SalAmmoniacAccumulatorBlockEntity.this.sendBlockUpdated();
-            }
+        protected void onContentTypeChanged(int slot, ItemStack oldStack, ItemStack newStack) {
+            SalAmmoniacAccumulatorBlockEntity.this.craftingBehaviour.onInputItemChanged(oldStack, newStack);
+            //we also need to network sync our BE, because if the content type changes then the interaction behaviour client side changes
+            SalAmmoniacAccumulatorBlockEntity.this.sendBlockUpdated();
         }
 
         @Override

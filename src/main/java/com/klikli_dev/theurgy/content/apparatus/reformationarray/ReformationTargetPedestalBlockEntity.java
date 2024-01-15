@@ -4,9 +4,9 @@
 
 package com.klikli_dev.theurgy.content.apparatus.reformationarray;
 
-import com.klikli_dev.theurgy.content.storage.MonitoredItemStackHandler;
 import com.klikli_dev.theurgy.content.particle.ParticleColor;
 import com.klikli_dev.theurgy.content.particle.glow.GlowParticleProvider;
+import com.klikli_dev.theurgy.content.storage.MonitoredItemStackHandler;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.ItemTagRegistry;
 import net.minecraft.core.BlockPos;
@@ -74,15 +74,13 @@ public class ReformationTargetPedestalBlockEntity extends BlockEntity {
     @Override
     protected void saveAdditional(CompoundTag pTag) {
         super.saveAdditional(pTag);
-        pTag.put("inputInventory", this.inputInventory.serializeNBT());
+        this.writeNetwork(pTag);
     }
 
     @Override
     public void load(CompoundTag pTag) {
         super.load(pTag);
-
-        if (pTag.contains("inputInventory"))
-            this.inputInventory.deserializeNBT(pTag.getCompound("inputInventory"));
+        this.readNetwork(pTag);
     }
 
     @Override
@@ -126,14 +124,14 @@ public class ReformationTargetPedestalBlockEntity extends BlockEntity {
     }
 
     public void readNetwork(CompoundTag pTag) {
-        if (pTag.contains("showParticles")) {
-            this.showParticles = pTag.getBoolean("showParticles");
-        }
+        if (pTag.contains("showParticles")) this.showParticles = pTag.getBoolean("showParticles");
+        if (pTag.contains("inputInventory")) this.inputInventory.deserializeNBT(pTag.getCompound("inputInventory"));
     }
 
     public void writeNetwork(CompoundTag pTag) {
         this.showParticles = !this.inputInventory.getStackInSlot(0).isEmpty();
         pTag.putBoolean("showParticles", this.showParticles);
+        pTag.put("inputInventory", this.inputInventory.serializeNBT());
     }
 
     public void sendBlockUpdated() {
@@ -157,31 +155,10 @@ public class ReformationTargetPedestalBlockEntity extends BlockEntity {
             return emitter != null ? emitter.get() : null;
         }
 
-        @Override
-        protected void onSetStackInSlot(int slot, ItemStack oldStack, ItemStack newStack, boolean isSameItem) {
-            if (!isSameItem) {
-                ReformationTargetPedestalBlockEntity.this.sendBlockUpdated();
-                if (this.emitter() != null)
-                    this.emitter().craftingBehaviour.onInputItemChanged(oldStack, newStack);
-            }
-        }
-
-        @Override
-        protected void onInsertItem(int slot, ItemStack oldStack, ItemStack newStack, ItemStack toInsert, ItemStack remaining) {
-            if (oldStack.isEmpty() && !newStack.isEmpty()) {
-                ReformationTargetPedestalBlockEntity.this.sendBlockUpdated();
-                if (this.emitter() != null)
-                    this.emitter().craftingBehaviour.onInputItemChanged(oldStack, newStack);
-            }
-        }
-
-        @Override
-        protected void onExtractItem(int slot, ItemStack oldStack, ItemStack newStack, ItemStack extracted) {
-            if (newStack.isEmpty()) {
-                ReformationTargetPedestalBlockEntity.this.sendBlockUpdated();
-                if (this.emitter() != null)
-                    this.emitter().craftingBehaviour.onInputItemChanged(oldStack, newStack);
-            }
+        protected void onContentTypeChanged(int slot, ItemStack oldStack, ItemStack newStack) {
+            ReformationTargetPedestalBlockEntity.this.sendBlockUpdated();
+            if (this.emitter() != null)
+                this.emitter().craftingBehaviour.onInputItemChanged(oldStack, newStack);
         }
 
         @Override

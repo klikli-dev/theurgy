@@ -15,6 +15,10 @@ import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.Connection;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -38,53 +42,52 @@ import java.util.function.Predicate;
 
 public class FermentationVatBlockEntity extends BlockEntity implements HasCraftingBehaviour<RecipeWrapperWithFluid, FermentationRecipe, FermentationCachedCheck> {
 
-    public ItemStackHandler inputInventory;
-    public LazyOptional<IItemHandler> inputInventoryCapability;
-    public LazyOptional<IItemHandler> inputInventoryReadOnlyCapability;
-
-    /**
-     * The underlying outputInventory which allows inserting too - we use this when crafting.
-     */
-    public ItemStackHandler outputInventory;
-    /**
-     * A capability wrapper for the outputInventory that only allows extracting.
-     */
-    public LazyOptional<IItemHandler> outputInventoryExtractOnlyCapability;
-    /**
-     * A capability wrapper for the outputInventory that allows neither inserting nor extracting
-     */
-    public LazyOptional<IItemHandler> outputInventoryReadOnlyCapability;
-
-    public CombinedInvWrapper inventory;
-    public LazyOptional<IItemHandler> inventoryCapability;
-    public LazyOptional<IItemHandler> inventoryReadOnlyCapability;
-    public FluidTank fluidTank;
-    public LazyOptional<IFluidHandler> fluidTankCapability;
-    public LazyOptional<IFluidHandler> fluidTankReadOnlyCapability;
+    public FermentationStorageBehaviour storageBehaviour;
 
     public FermentationCraftingBehaviour craftingBehaviour;
 
     public FermentationVatBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(BlockEntityRegistry.FERMENTATION_VAT.get(), pPos, pBlockState);
 
-        this.inputInventory = new InputInventory();
-        this.inputInventoryCapability = LazyOptional.of(() -> this.inputInventory);
-        this.inputInventoryReadOnlyCapability = LazyOptional.of(() -> new PreventInsertExtractWrapper(this.inputInventory));
+        this.storageBehaviour = new FermentationStorageBehaviour(this, () -> this.craftingBehaviour);
 
-        this.outputInventory = new OutputInventory();
-        var outputInventoryTakeOnlyWrapper = new PreventInsertWrapper(this.outputInventory);
-        this.outputInventoryExtractOnlyCapability = LazyOptional.of(() -> outputInventoryTakeOnlyWrapper);
-        this.outputInventoryReadOnlyCapability = LazyOptional.of(() -> new PreventInsertExtractWrapper(this.outputInventory));
+        this.craftingBehaviour = new FermentationCraftingBehaviour(this, () -> this.storageBehaviour.inputInventory, () -> this.storageBehaviour.outputInventory, () -> this.storageBehaviour.fluidTank);
+    }
 
-        this.inventory = new CombinedInvWrapper(this.inputInventory, outputInventoryTakeOnlyWrapper);
-        this.inventoryCapability = LazyOptional.of(() -> this.inventory);
-        this.inventoryReadOnlyCapability = LazyOptional.of(() -> new PreventInsertExtractWrapper(this.inventory));
+    @Override
+    public CompoundTag getUpdateTag() {
+        var tag = new CompoundTag();
+        this.writeNetwork(tag);
+        return tag;
+    }
 
-        this.craftingBehaviour = new FermentationCraftingBehaviour(this, () -> this.inputInventory, () -> this.outputInventory, () -> this.fluidTank);
+    @Override
+    public void handleUpdateTag(CompoundTag tag) {
+        this.readNetwork(tag);
+    }
 
-        this.fluidTank = new WaterTank(FluidType.BUCKET_VOLUME * 10, this.craftingBehaviour::canProcess);
-        this.fluidTankCapability = LazyOptional.of(() -> this.fluidTank);
-        this.fluidTankReadOnlyCapability = LazyOptional.of(() -> new PreventInsertExtractFluidWrapper(this.fluidTank));
+    @Nullable
+    @Override
+    public Packet<ClientGamePacketListener> getUpdatePacket() {
+        return ClientboundBlockEntityDataPacket.create(this);
+    }
+
+    @Override
+    public void onDataPacket(Connection connection, ClientboundBlockEntityDataPacket packet) {
+        var tag = packet.getTag();
+        if (tag != null) {
+            this.readNetwork(tag);
+        }
+    }
+
+    public void readNetwork(CompoundTag tag) {
+        this.storageBehaviour.readNetwork(tag);
+        this.craftingBehaviour.readNetwork(tag);
+    }
+
+    public void writeNetwork(CompoundTag tag) {
+        this.storageBehaviour.writeNetwork(tag);
+        this.craftingBehaviour.writeNetwork(tag);
     }
 
     public void tickServer() {
@@ -102,8 +105,8 @@ public class FermentationVatBlockEntity extends BlockEntity implements HasCrafti
     }
 
     public boolean hasInput() {
-        for (int i = 0; i < this.inputInventory.getSlots(); i++) {
-            if (!this.inputInventory.getStackInSlot(i).isEmpty()) {
+        for (int i = 0; i < this.storageBehaviour.inputInventory.getSlots(); i++) {
+            if (!this.storageBehaviour.inputInventory.getStackInSlot(i).isEmpty()) {
                 return true;
             }
         }
@@ -112,40 +115,19 @@ public class FermentationVatBlockEntity extends BlockEntity implements HasCrafti
 
     @Override
     public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        var isOpen = this.getBlockState().getValue(BlockStateProperties.OPEN);
-
-        if (cap == ForgeCapabilities.ITEM_HANDLER) {
-            if (side == Direction.UP) return isOpen ? this.inputInventoryCapability.cast() : this.inputInventoryReadOnlyCapability.cast();
-            if (side == Direction.DOWN) return isOpen ?  this.outputInventoryExtractOnlyCapability.cast() : this.outputInventoryReadOnlyCapability.cast();
-            return isOpen ? this.inventoryCapability.cast() : this.inventoryReadOnlyCapability.cast();
+        var storage = this.storageBehaviour.getCapability(cap, side);
+        if (storage.isPresent()) {
+            return storage;
         }
 
-        if (cap == ForgeCapabilities.FLUID_HANDLER) return isOpen ? this.fluidTankCapability.cast() : this.fluidTankReadOnlyCapability.cast();
-
         return super.getCapability(cap, side);
-    }
-
-    @Override
-    public void invalidateCaps() {
-        super.invalidateCaps();
-        this.inventoryCapability.invalidate();
-        this.inventoryReadOnlyCapability.invalidate();
-        this.inputInventoryCapability.invalidate();
-        this.inputInventoryReadOnlyCapability.invalidate();
-        this.outputInventoryExtractOnlyCapability.invalidate();
-        this.outputInventoryReadOnlyCapability.invalidate();
-        this.fluidTankCapability.invalidate();
-        this.fluidTankReadOnlyCapability.invalidate();
     }
 
     @Override
     protected void saveAdditional(CompoundTag pTag) {
         super.saveAdditional(pTag);
 
-        pTag.put("inputInventory", this.inputInventory.serializeNBT());
-        pTag.put("outputInventory", this.outputInventory.serializeNBT());
-        pTag.put("fluidTank", this.fluidTank.writeToNBT(new CompoundTag()));
-
+        this.storageBehaviour.saveAdditional(pTag);
         this.craftingBehaviour.saveAdditional(pTag);
     }
 
@@ -153,13 +135,7 @@ public class FermentationVatBlockEntity extends BlockEntity implements HasCrafti
     public void load(CompoundTag pTag) {
         super.load(pTag);
 
-        if (pTag.contains("inputInventory")) this.inputInventory.deserializeNBT(pTag.getCompound("inputInventory"));
-        if (pTag.contains("outputInventory")) this.outputInventory.deserializeNBT(pTag.getCompound("outputInventory"));
-
-        if (pTag.contains("fluidTank")) {
-            this.fluidTank.readFromNBT(pTag.getCompound("fluidTank"));
-        }
-
+        this.storageBehaviour.load(pTag);
         this.craftingBehaviour.load(pTag);
     }
 
@@ -167,75 +143,6 @@ public class FermentationVatBlockEntity extends BlockEntity implements HasCrafti
     @Override
     public FermentationCraftingBehaviour craftingBehaviour() {
         return this.craftingBehaviour;
-    }
-
-    public class WaterTank extends FluidTank {
-        public WaterTank(int capacity, Predicate<FluidStack> validator) {
-            super(capacity, validator);
-        }
-
-        @Override
-        protected void onContentsChanged() {
-            FermentationVatBlockEntity.this.setChanged();
-        }
-    }
-
-    public class InputInventory extends MonitoredItemStackHandler {
-
-        public InputInventory() {
-            super(3);
-        }
-
-
-        @Override
-        protected void onSetStackInSlot(int slot, ItemStack oldStack, ItemStack newStack, boolean isSameItem) {
-            if (!isSameItem) {
-                FermentationVatBlockEntity.this.craftingBehaviour.onInputItemChanged(oldStack, newStack);
-            }
-        }
-
-        @Override
-        protected void onInsertItem(int slot, ItemStack oldStack, ItemStack newStack, ItemStack toInsert, ItemStack remaining) {
-            if (remaining != newStack) {
-                FermentationVatBlockEntity.this.craftingBehaviour.onInputItemChanged(oldStack, newStack);
-            }
-        }
-
-        @Override
-        protected void onExtractItem(int slot, ItemStack oldStack, ItemStack newStack, ItemStack extracted) {
-            if (newStack.isEmpty()) {
-                FermentationVatBlockEntity.this.craftingBehaviour.onInputItemChanged(oldStack, newStack);
-            }
-        }
-
-        @Override
-        public boolean isItemValid(int slot, ItemStack stack) {
-            //we only allow one item type to fill maximum one slot, so if another slot has the stack, return false.
-            for(int i = 0; i < this.getSlots(); i++){
-                if(i != slot && ItemHandlerHelper.canItemStacksStack(stack,  this.getStackInSlot(i))){
-                    return false;
-                }
-            }
-
-            return FermentationVatBlockEntity.this.craftingBehaviour.canProcess(stack) && super.isItemValid(slot, stack);
-        }
-
-        @Override
-        protected void onContentsChanged(int slot) {
-            FermentationVatBlockEntity.this.setChanged();
-        }
-    }
-
-    public class OutputInventory extends ItemStackHandler {
-
-        public OutputInventory() {
-            super(1);
-        }
-
-        @Override
-        protected void onContentsChanged(int slot) {
-            FermentationVatBlockEntity.this.setChanged();
-        }
     }
 
 }

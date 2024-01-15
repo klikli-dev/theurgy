@@ -1,8 +1,7 @@
 plugins {
     id 'idea'
     id 'maven-publish'
-    id 'net.minecraftforge.gradle' version '[6.0,6.2)'
-    id 'org.parchmentmc.librarian.forgegradle' version '1.+'
+    id 'net.neoforged.gradle.userdev' version "${neogradle_version}"
 }
 
 if (System.getenv('MOD_VERSION') != null) {
@@ -11,123 +10,38 @@ if (System.getenv('MOD_VERSION') != null) {
 version = mod_version
 
 base {
-    archivesName = mod_id + "-" + minecraft_version
+    archivesName = "${mod_id}-${minecraft_version}-neoforge"
 }
 
 // Mojang ships Java 17 to end users in 1.18+, so your mod should target Java 17.
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 java.withSourcesJar()
 
-println "Java: ${System.getProperty 'java.version'}, JVM: ${System.getProperty 'java.vm.version'} (${System.getProperty 'java.vendor'}), Arch: ${System.getProperty 'os.arch'}"
-minecraft {
-    mappings channel: mapping_channel, version: mapping_version
 
-    accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
-    // Currently, this location cannot be changed from the default.
+if (file('src/main/resources/META-INF/accesstransformer.cfg').exists()) {
+    minecraft.accessTransformers.file file('src/main/resources/META-INF/accesstransformer.cfg')
+}
 
-    // Default run configurations.
-    // These can be tweaked, removed, or duplicated as needed.
-    runs {
-        client {
-            workingDirectory project.file('run')
+runs {
+    configureEach {
+        systemProperty 'forge.logging.markers', 'REGISTRIES'
+        systemProperty 'forge.logging.console.level', 'debug'
+        jvmArguments.addAll('-XX:+AllowEnhancedClassRedefinition', '-XX:+IgnoreUnrecognizedVMOptions')
+        modSource project.sourceSets.main
+    }
 
-            // Recommended logging data for a userdev environment
-            // The markers can be added/remove as needed separated by commas.
-            // "SCAN": For mods scan.
-            // "REGISTRIES": For firing of registry events.
-            // "REGISTRYDUMP": For getting the contents of all registries.
-            property 'forge.logging.markers', 'REGISTRIES'
+    client {
+        systemProperty 'forge.enabledGameTestNamespaces', project.mod_id
+        programArgument "--username=Dev"
+    }
 
-            // Recommended logging level for the console
-            // You can set various levels here.
-            // Please read: https://stackoverflow.com/questions/2031163/when-to-use-the-different-log-levels
-            property 'forge.logging.console.level', 'debug'
+    server {
+        systemProperty 'forge.enabledGameTestNamespaces', project.mod_id
+//        programArgument '--nogui'
+    }
 
-            //Fix for mixin refmap crash (in our case for AU)
-            property 'mixin.env.remapRefMap', 'true'
-            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
-
-            // Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
-            property 'forge.enabledGameTestNamespaces', 'theurgy'
-
-            // enable using JBR to hotswap MOAR
-            // also ignore the option if someone isnt using JBR
-            jvmArgs '-XX:+AllowEnhancedClassRedefinition', '-XX:+IgnoreUnrecognizedVMOptions'
-
-            mods {
-                "${mod_id}" {
-                    source sourceSets.main
-                }
-            }
-        }
-
-        server {
-            workingDirectory project.file('run')
-
-            property 'forge.logging.markers', 'REGISTRIES'
-
-            property 'forge.logging.console.level', 'debug'
-
-            //Fix for mixin refmap crash (in our case for AU)
-            property 'mixin.env.remapRefMap', 'true'
-            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
-
-            property 'forge.enabledGameTestNamespaces', 'theurgy'
-
-            // enable using JBR to hotswap MOAR
-            // also ignore the option if someone isnt using JBR
-            jvmArgs '-XX:+AllowEnhancedClassRedefinition', '-XX:+IgnoreUnrecognizedVMOptions'
-
-            mods {
-                "${mod_id}" {
-                    source sourceSets.main
-                }
-            }
-        }
-
-        // This run config launches GameTestServer and runs all registered gametests, then exits.
-        // By default, the server will crash when no gametests are provided.
-        // The gametest system is also enabled by default for other run configs under the /test command.
-        gameTestServer {
-            workingDirectory project.file('run')
-
-            property 'forge.logging.markers', 'REGISTRIES'
-
-            property 'forge.logging.console.level', 'debug'
-
-            //Fix for mixin refmap crash (in our case for AU)
-            property 'mixin.env.remapRefMap', 'true'
-            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
-
-            property 'forge.enabledGameTestNamespaces', 'theurgy'
-
-            mods {
-                "${mod_id}" {
-                    source sourceSets.main
-                }
-            }
-        }
-
-        data {
-            workingDirectory project.file('run')
-
-            property 'forge.logging.markers', 'REGISTRIES'
-
-            property 'forge.logging.console.level', 'debug'
-
-            //Fix for mixin refmap crash (in our case for AU)
-            property 'mixin.env.remapRefMap', 'true'
-            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
-
-            // Specify the modid for data generation, where to output the resulting resource, and where to look for existing resources.
-            args '--mod', 'theurgy', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
-
-            mods {
-                "${mod_id}" {
-                    source sourceSets.main
-                }
-            }
-        }
+    data {
+        programArguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
     }
 }
 
@@ -172,30 +86,27 @@ repositories {
 }
 
 dependencies {
-    // Specify the version of Minecraft to use. If this is any group other than 'net.minecraft', it is assumed
-    // that the dep is a ForgeGradle 'patcher' dependency, and its patches will be applied.
-    // The userdev artifact is a special name and will get all sorts of transformations applied to it.
-    minecraft "net.minecraftforge:forge:${forge_version}"
+    implementation "net.neoforged:neoforge:${neo_version}"
+    //TODO: enable once available
+//    //Jei
+//    compileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
+//    compileOnly "mezz.jei:jei-${minecraft_version}-common:${jei_version}"
+//    //we're using the vanilla recipe category rendering constants
+//    compileOnly "mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}"
+//    runtimeOnly "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
 
-    //Jei
-    compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
-    compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}-common:${jei_version}")
-    //we're using the vanilla recipe category rendering constants
-    compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge-api:${jei_version}")
-    runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
-
+    //TODO: enable once available
     //almostunified
-    implementation fg.deobf("com.almostreliable.mods:almostunified-forge:${minecraft_version}-${almost_unified_version}")
+//    implementation "com.almostreliable.mods:almostunified-forge:${minecraft_version}-${almost_unified_version}"
 
     //Geckolib
-    implementation fg.deobf("software.bernie.geckolib:geckolib-forge-${geckolib_minecraft_version}:${geckolib_version}")
+    implementation "software.bernie.geckolib:geckolib-neoforge-${geckolib_minecraft_version}:${geckolib_version}"
 
     //modonomicon
-//    compileOnly fg.deobf("com.klikli_dev:modonomicon-${minecraft_version}-common:${modonomicon_version}")
-    implementation fg.deobf("com.klikli_dev:modonomicon-${minecraft_version}-forge:${modonomicon_version}")
+    implementation "com.klikli_dev:modonomicon-${minecraft_version}-neoforge:${modonomicon_version}"
 
     //Jade (Hwyla/Waila)
-    implementation fg.deobf("maven.modrinth:jade:${jade_version}")
+    implementation "maven.modrinth:jade:${jade_version}"
 }
 
 processResources {
@@ -218,8 +129,6 @@ jar {
         ])
     }
 }
-
-jar.finalizedBy('reobfJar')
 
 publishing {
     publications {

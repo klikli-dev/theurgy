@@ -2,9 +2,8 @@
 //
 // SPDX-License-Identifier: MIT
 
-package com.klikli_dev.theurgy.content.apparatus.calcinationoven.render;
+package com.klikli_dev.theurgy.content.apparatus.calcinationoven;
 
-import com.klikli_dev.theurgy.content.apparatus.calcinationoven.CalcinationCraftingBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.MonitoredItemStackHandler;
 import com.klikli_dev.theurgy.content.behaviour.PreventInsertWrapper;
 import com.klikli_dev.theurgy.content.behaviour.StorageBehaviour;
@@ -57,6 +56,10 @@ public class CalcinationStorageBehaviour extends StorageBehaviour<CalcinationSto
 
         this.inventory = new CombinedInvWrapper(this.inputInventory, this.outputInventoryTakeOnlyWrapper);
         this.inventoryCapability = LazyOptional.of(() -> this.inventory);
+
+        this.register(this.inventoryCapability);
+        this.register(this.inputInventoryCapability);
+        this.register(this.outputInventoryCapability);
     }
 
     @Override
@@ -119,10 +122,16 @@ public class CalcinationStorageBehaviour extends StorageBehaviour<CalcinationSto
         }
     }
 
-    public class OutputInventory extends ItemStackHandler {
+    public class OutputInventory extends MonitoredItemStackHandler {
 
         public OutputInventory() {
             super(1);
+        }
+
+        @Override
+        protected void onContentTypeChanged(int slot, ItemStack oldStack, ItemStack newStack) {
+            //we also need to network sync our BE, because if the content type changes then the interaction behaviour client side changes
+            CalcinationStorageBehaviour.this.sendBlockUpdated();
         }
 
         @Override

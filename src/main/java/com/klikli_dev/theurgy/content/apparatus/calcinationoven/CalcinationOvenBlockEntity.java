@@ -4,7 +4,6 @@
 
 package com.klikli_dev.theurgy.content.apparatus.calcinationoven;
 
-import com.klikli_dev.theurgy.content.apparatus.calcinationoven.render.CalcinationStorageBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.AnimationBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.HeatConsumerBehaviour;
 import com.klikli_dev.theurgy.content.capability.DefaultHeatReceiver;

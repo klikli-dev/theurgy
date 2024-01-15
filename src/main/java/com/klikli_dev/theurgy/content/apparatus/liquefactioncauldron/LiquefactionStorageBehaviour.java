@@ -68,6 +68,11 @@ public class LiquefactionStorageBehaviour extends StorageBehaviour<LiquefactionS
         this.solventTank = new SolventTank(FluidType.BUCKET_VOLUME * 2, (fluidStack -> ForgeRegistries.FLUIDS.tags().getTag(FluidTagRegistry.SOLVENT).contains(fluidStack.getFluid())));
 
         this.solventTankCapability = LazyOptional.of(() -> this.solventTank);
+
+        this.register(this.inventoryCapability);
+        this.register(this.inputInventoryCapability);
+        this.register(this.outputInventoryCapability);
+        this.register(this.solventTankCapability);
     }
 
     @Override
@@ -149,10 +154,16 @@ public class LiquefactionStorageBehaviour extends StorageBehaviour<LiquefactionS
         }
     }
 
-    public class OutputInventory extends ItemStackHandler {
+    public class OutputInventory extends MonitoredItemStackHandler {
 
         public OutputInventory() {
             super(1);
+        }
+
+        @Override
+        protected void onContentTypeChanged(int slot, ItemStack oldStack, ItemStack newStack) {
+            //we also need to network sync our BE, because if the content type changes then the interaction behaviour client side changes
+            LiquefactionStorageBehaviour.this.sendBlockUpdated();
         }
 
         @Override

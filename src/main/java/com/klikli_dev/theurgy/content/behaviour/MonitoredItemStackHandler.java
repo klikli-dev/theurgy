@@ -42,7 +42,7 @@ public abstract class MonitoredItemStackHandler extends ItemStackHandler {
 
     }
 
-    protected void onInsertItem(int slot, ItemStack oldStack, ItemStack newStack, ItemStack toInsert, ItemStack remaining) {
+    protected void onInsertItem(int slot, ItemStack oldStack, ItemStack newStack, ItemStack toInsert, ItemStack remainingInSource) {
 
     }
 
@@ -52,7 +52,7 @@ public abstract class MonitoredItemStackHandler extends ItemStackHandler {
 
     @Override
     public void setStackInSlot(int slot, @NotNull ItemStack newStack) {
-        var oldStack = this.getStackInSlot(slot);
+        var oldStack = this.getStackInSlot(slot).copy();
 
         boolean sameItem = !newStack.isEmpty() && ItemStack.isSameItemSameTags(newStack, oldStack);
 
@@ -66,25 +66,25 @@ public abstract class MonitoredItemStackHandler extends ItemStackHandler {
 
 
     @Override
-    public @NotNull ItemStack insertItem(int slot, @NotNull ItemStack stack, boolean simulate) {
+    public @NotNull ItemStack insertItem(int slot, @NotNull ItemStack toInsert, boolean simulate) {
         if (!simulate) {
-            var oldStack = this.getStackInSlot(slot);
-            var remaining = super.insertItem(slot, stack, simulate);
+            var oldStack = this.getStackInSlot(slot).copy();
+            var remaining = super.insertItem(slot, toInsert, simulate);
             var newStack = this.getStackInSlot(slot);
 
-            this.onInsertItem(slot, oldStack, newStack, stack, remaining);
-            if (remaining != newStack) {
+            this.onInsertItem(slot, oldStack, newStack, toInsert, remaining);
+            if (remaining != toInsert) {
                 this.onContentTypeChanged(slot, oldStack, newStack);
             }
             return remaining;
         }
-        return super.insertItem(slot, stack, simulate);
+        return super.insertItem(slot, toInsert, simulate);
     }
 
     @Override
     public @NotNull ItemStack extractItem(int slot, int amount, boolean simulate) {
         if (!simulate) {
-            var oldStack = this.getStackInSlot(slot);
+            var oldStack = this.getStackInSlot(slot).copy();
             var extracted = super.extractItem(slot, amount, simulate);
             var newStack = this.getStackInSlot(slot);
 

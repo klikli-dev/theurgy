@@ -19,6 +19,7 @@ import net.minecraftforge.fluids.FluidType;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.wrapper.CombinedInvWrapper;
 import org.jetbrains.annotations.NotNull;
@@ -151,7 +152,7 @@ public class DigestionStorageBehaviour extends StorageBehaviour<DigestionStorage
     public class InputInventory extends MonitoredItemStackHandler {
 
         public InputInventory() {
-            super(1);
+            super(3);
         }
 
         @Override
@@ -163,6 +164,13 @@ public class DigestionStorageBehaviour extends StorageBehaviour<DigestionStorage
 
         @Override
         public boolean isItemValid(int slot, ItemStack stack) {
+            //we only allow one item type to fill maximum one slot, so if another slot has the stack, return false.
+            for (int i = 0; i < this.getSlots(); i++) {
+                if (i != slot && ItemHandlerHelper.canItemStacksStack(stack, this.getStackInSlot(i))) {
+                    return false;
+                }
+            }
+
             return DigestionStorageBehaviour.this.craftingBehaviour.get().canProcess(stack) && super.isItemValid(slot, stack);
         }
 

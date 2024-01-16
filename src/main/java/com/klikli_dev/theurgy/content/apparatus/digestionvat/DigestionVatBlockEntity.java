@@ -123,6 +123,12 @@ public class DigestionVatBlockEntity extends BlockEntity implements HasCraftingB
     }
 
     @Override
+    public void invalidateCaps() {
+        super.invalidateCaps();
+        this.storageBehaviour.invalidateCaps();
+    }
+
+    @Override
     protected void saveAdditional(CompoundTag pTag) {
         super.saveAdditional(pTag);
 

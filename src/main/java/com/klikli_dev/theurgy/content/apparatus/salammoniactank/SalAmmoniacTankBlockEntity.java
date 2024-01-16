@@ -7,7 +7,6 @@ package com.klikli_dev.theurgy.content.apparatus.salammoniactank;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.FluidTagRegistry;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.Packet;
@@ -16,15 +15,9 @@ import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.common.capabilities.Capabilities;
-import net.neoforged.neoforge.common.capabilities.Capability;
-import net.neoforged.neoforge.common.util.LazyOptional;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.FluidType;
-import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
-import net.neoforged.neoforge.registries.ForgeRegistries;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoBlockEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
@@ -38,13 +31,11 @@ public class SalAmmoniacTankBlockEntity extends BlockEntity implements GeoBlockE
     protected final AnimatableInstanceCache animatableInstanceCache = GeckoLibUtil.createInstanceCache(this);
 
     public FluidTank tank;
-    public LazyOptional<IFluidHandler> tankCapability;
 
     public SalAmmoniacTankBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(BlockEntityRegistry.SAL_AMMONIAC_TANK.get(), pPos, pBlockState);
 
-        this.tank = new Tank(FluidType.BUCKET_VOLUME * 2, (fluidStack -> ForgeRegistries.FLUIDS.tags().getTag(FluidTagRegistry.SAL_AMMONIAC).contains(fluidStack.getFluid())));
-        this.tankCapability = LazyOptional.of(() -> this.tank);
+        this.tank = new Tank(FluidType.BUCKET_VOLUME * 2, (fluidStack -> fluidStack.getFluid().is(FluidTagRegistry.SAL_AMMONIAC)));
     }
 
     @Override
@@ -88,18 +79,6 @@ public class SalAmmoniacTankBlockEntity extends BlockEntity implements GeoBlockE
             this.level.sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), Block.UPDATE_CLIENTS);
     }
 
-    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-
-        if (cap == Capabilities.FLUID_HANDLER) return this.tankCapability.cast();
-
-        return super.getCapability(cap, side);
-    }
-
-    @Override
-    public void invalidateCaps() {
-        super.invalidateCaps();
-        this.tankCapability.invalidate();
-    }
     @Override
     protected void saveAdditional(CompoundTag pTag) {
         super.saveAdditional(pTag);

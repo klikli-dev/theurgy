@@ -8,7 +8,6 @@ import com.klikli_dev.theurgy.content.storage.MonitoredItemStackHandler;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.ItemTagRegistry;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.Packet;
@@ -18,12 +17,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.common.capabilities.Capabilities;
-import net.neoforged.neoforge.common.capabilities.Capability;
-import net.neoforged.neoforge.common.util.LazyOptional;
-import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemStackHandler;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoBlockEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
@@ -39,13 +33,10 @@ public class IncubatorSulfurVesselBlockEntity extends BlockEntity implements Geo
 
     public ItemStackHandler inputInventory;
 
-    public LazyOptional<IItemHandler> inputInventoryCapability;
-
     public IncubatorSulfurVesselBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(BlockEntityRegistry.INCUBATOR_SULFUR_VESSEL.get(), pPos, pBlockState);
 
         this.inputInventory = new InputInventory();
-        this.inputInventoryCapability = LazyOptional.of(() -> this.inputInventory);
     }
 
     public void sendBlockUpdated() {
@@ -100,20 +91,6 @@ public class IncubatorSulfurVesselBlockEntity extends BlockEntity implements Geo
         super.load(pTag);
 
         this.readNetwork(pTag);
-    }
-
-    @Override
-    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        if (cap == Capabilities.ITEM_HANDLER) {
-            return this.inputInventoryCapability.cast();
-        }
-        return super.getCapability(cap, side);
-    }
-
-    @Override
-    public void invalidateCaps() {
-        super.invalidateCaps();
-        this.inputInventoryCapability.invalidate();
     }
 
     public void setIncubator(IncubatorBlockEntity incubator) {

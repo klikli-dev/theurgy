@@ -4,45 +4,30 @@
 
 package com.klikli_dev.theurgy.content.apparatus.reformationarray;
 
-import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.content.behaviour.CraftingBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.selection.SelectionBehaviour;
 import com.klikli_dev.theurgy.content.capability.DefaultMercuryFluxStorage;
 import com.klikli_dev.theurgy.content.entity.FollowProjectile;
 import com.klikli_dev.theurgy.content.recipe.wrapper.ReformationArrayRecipeWrapper;
 import com.klikli_dev.theurgy.content.render.Color;
-import com.klikli_dev.theurgy.content.render.outliner.Outliner;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
-import com.klikli_dev.theurgy.registry.CapabilityRegistry;
 import com.klikli_dev.theurgy.util.EntityUtil;
 import com.mojang.datafixers.util.Pair;
 import io.netty.handler.codec.EncoderException;
-import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.Connection;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
-import net.minecraft.world.phys.shapes.Shapes;
-import net.minecraft.world.phys.shapes.VoxelShape;
-import net.neoforged.neoforge.common.capabilities.Capability;
-import net.neoforged.neoforge.common.util.LazyOptional;
 import net.neoforged.neoforge.items.IItemHandlerModifiable;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -53,7 +38,6 @@ public class SulfuricFluxEmitterBlockEntity extends BlockEntity {
     public static final int CAPACITY = 1000;
     public MercuryFluxStorage mercuryFluxStorage;
 
-    public LazyOptional<MercuryFluxStorage> mercuryFluxStorageCapability;
     public boolean isValidMultiblock;
     protected List<SulfuricFluxEmitterSelectedPoint> sourcePedestals;
     protected List<SulfuricFluxEmitterSelectedPoint> sourcePedestalsWithContents;
@@ -69,7 +53,6 @@ public class SulfuricFluxEmitterBlockEntity extends BlockEntity {
         super(BlockEntityRegistry.SULFURIC_FLUX_EMITTER.get(), pPos, pBlockState);
 
         this.mercuryFluxStorage = new MercuryFluxStorage(CAPACITY);
-        this.mercuryFluxStorageCapability = LazyOptional.of(() -> this.mercuryFluxStorage);
 
         this.checkValidMultiblockOnNextQuery = true;
 
@@ -220,21 +203,6 @@ public class SulfuricFluxEmitterBlockEntity extends BlockEntity {
         if (this.resultPedestal != null)
             this.resultPedestal.setLevel(this.level);
         this.sourcePedestals.forEach(point -> point.setLevel(this.getLevel()));
-    }
-
-    @Override
-    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        if (cap == CapabilityRegistry.MERCURY_FLUX) {
-            return this.mercuryFluxStorageCapability.cast();
-        }
-        return super.getCapability(cap, side);
-    }
-
-    @Override
-    public void invalidateCaps() {
-        super.invalidateCaps();
-
-        this.mercuryFluxStorageCapability.invalidate();
     }
 
     @Override

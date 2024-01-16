@@ -31,7 +31,7 @@ public class MercuryFluxEnergyProvider implements IServerExtensionProvider<Objec
 
     public static List<ViewGroup<CompoundTag>> wrapMercuryFluxStorage(Object target, @Nullable Player player) {
         if (target instanceof CapabilityProvider<?> capProvider) {
-            var storage = (MercuryFluxStorage) capProvider.getCapability(CapabilityRegistry.MERCURY_FLUX).orElse(null);
+            var storage = (MercuryFluxStorage) capProvider.getCapability(CapabilityRegistry.MERCURY_FLUX_HANDLER).orElse(null);
             if (storage != null) {
                 ViewGroup<CompoundTag> group = new ViewGroup(List.of(EnergyView.of(storage.getEnergyStored(), storage.getMaxEnergyStored())));
                 group.getExtraData().putString("Unit", "MF");

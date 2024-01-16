@@ -6,7 +6,6 @@ package com.klikli_dev.theurgy.content.apparatus.mercurycatalyst;
 
 import com.klikli_dev.theurgy.content.behaviour.CraftingBehaviour;
 import com.klikli_dev.theurgy.content.capability.DefaultMercuryFluxStorage;
-import com.klikli_dev.theurgy.content.capability.MercuryFluxStorage;
 import com.klikli_dev.theurgy.content.storage.MonitoredItemStackHandler;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.CapabilityRegistry;
@@ -21,12 +20,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.common.capabilities.Capabilities;
-import net.neoforged.neoforge.common.capabilities.Capability;
-import net.neoforged.neoforge.common.util.LazyOptional;
-import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemStackHandler;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 
@@ -40,19 +34,15 @@ public class MercuryCatalystBlockEntity extends BlockEntity {
     public ItemStackHandler inventory;
     public MercuryCatalystMercuryFluxStorage mercuryFluxStorage;
 
-    public LazyOptional<IItemHandler> inventoryCapability;
-    public LazyOptional<MercuryFluxStorage> mercuryFluxStorageCapability;
-
     protected CraftingBehaviour<?, ?, ?> craftingBehaviour;
 
     public MercuryCatalystBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(BlockEntityRegistry.MERCURY_CATALYST.get(), pPos, pBlockState);
 
         this.inventory = new Inventory();
-        this.inventoryCapability = LazyOptional.of(() -> this.inventory);
 
         this.mercuryFluxStorage = new MercuryCatalystMercuryFluxStorage(CAPACITY);
-        this.mercuryFluxStorageCapability = LazyOptional.of(() -> this.mercuryFluxStorage);
+
 
         this.craftingBehaviour = new MercuryCatalystCraftingBehaviour(this, () -> this.inventory, () -> this.inventory, () -> this.mercuryFluxStorage);
     }
@@ -87,7 +77,7 @@ public class MercuryCatalystBlockEntity extends BlockEntity {
         if (tag.contains("mercuryFluxStorage")) {
             //get instead of getCompound here because the storage serializes as int tag
             this.mercuryFluxStorage.deserializeNBT(tag.get("mercuryFluxStorage"));
-            if(this.level != null){
+            if (this.level != null) {
                 this.level.sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), Block.UPDATE_IMMEDIATE);
             }
         }
@@ -122,7 +112,7 @@ public class MercuryCatalystBlockEntity extends BlockEntity {
             if (blockEntity == null)
                 continue;
 
-            var fluxStorage = blockEntity.getCapability(CapabilityRegistry.MERCURY_FLUX).orElse(null);
+            var fluxStorage = this.level.getCapability(CapabilityRegistry.MERCURY_FLUX_HANDLER, this.getBlockPos().relative(direction), null);
             if (fluxStorage == null)
                 continue;
 
@@ -130,25 +120,6 @@ public class MercuryCatalystBlockEntity extends BlockEntity {
             var received = fluxStorage.receiveEnergy(energy, false);
             this.mercuryFluxStorage.extractEnergy(received, false);
         }
-    }
-
-    @Override
-    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        if (cap == Capabilities.ITEM_HANDLER) {
-            return this.inventoryCapability.cast();
-        }
-        if (cap == CapabilityRegistry.MERCURY_FLUX) {
-            return this.mercuryFluxStorageCapability.cast();
-        }
-        return super.getCapability(cap, side);
-    }
-
-
-    @Override
-    public void invalidateCaps() {
-        super.invalidateCaps();
-        this.inventoryCapability.invalidate();
-        this.mercuryFluxStorageCapability.invalidate();
     }
 
     @Override

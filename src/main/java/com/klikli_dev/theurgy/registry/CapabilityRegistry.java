@@ -47,28 +47,28 @@ public class CapabilityRegistry {
         event.registerBlockEntity(
                 Capabilities.ItemHandler.BLOCK,
                 BlockEntityRegistry.CALCINATION_OVEN.get(),
-                (blockEntity, side) ->
-                        switch (side) {
-                            case UP -> blockEntity.storageBehaviour.inputInventory;
-                            case DOWN -> blockEntity.storageBehaviour.outputInventoryExtractOnlyWrapper;
-                            default -> blockEntity.storageBehaviour.inventory;
-                        }
+                (blockEntity, side) -> {
+                    if (side == Direction.UP) {
+                        return blockEntity.storageBehaviour.inputInventory;
+                    } else if (side == Direction.DOWN) {
+                        return blockEntity.storageBehaviour.outputInventoryExtractOnlyWrapper;
+                    } else {
+                        return blockEntity.storageBehaviour.inventory;
+                    }
+                }
+
         );
         event.registerBlockEntity(
                 HEAT_RECEIVER,
                 BlockEntityRegistry.CALCINATION_OVEN.get(),
-                (blockEntity, side) -> {
-                    return blockEntity.heatReceiver;
-                });
+                (blockEntity, side) -> blockEntity.heatReceiver);
     }
 
     public static void registerCaloricFluxEmitter(@NotNull RegisterCapabilitiesEvent event) {
         event.registerBlockEntity(
                 MERCURY_FLUX_HANDLER,
                 BlockEntityRegistry.CALORIC_FLUX_EMITTER.get(),
-                (blockEntity, side) -> {
-                    return blockEntity.mercuryFluxStorage;
-                });
+                (blockEntity, side) -> blockEntity.mercuryFluxStorage);
     }
 
     public static void registerDigestionVat(RegisterCapabilitiesEvent event) {
@@ -77,14 +77,13 @@ public class CapabilityRegistry {
                 BlockEntityRegistry.DIGESTION_VAT.get(),
                 (blockEntity, side) -> {
                     var isOpen = blockEntity.getBlockState().getValue(BlockStateProperties.OPEN);
-                    return switch (side) {
-                        case UP ->
-                                isOpen ? blockEntity.storageBehaviour.inputInventory : blockEntity.storageBehaviour.inputInventoryReadOnlyWrapper;
-                        case DOWN ->
-                                isOpen ? blockEntity.storageBehaviour.outputInventoryExtractOnlyWrapper : blockEntity.storageBehaviour.outputInventoryReadOnlyWrapper;
-                        default ->
-                                isOpen ? blockEntity.storageBehaviour.inventory : blockEntity.storageBehaviour.inventoryReadOnlyWrapper;
-                    };
+                    if (side == Direction.UP) {
+                        return isOpen ? blockEntity.storageBehaviour.inputInventory : blockEntity.storageBehaviour.inputInventoryReadOnlyWrapper;
+                    } else if (side == Direction.DOWN) {
+                        return isOpen ? blockEntity.storageBehaviour.outputInventoryExtractOnlyWrapper : blockEntity.storageBehaviour.outputInventoryReadOnlyWrapper;
+                    } else {
+                        return isOpen ? blockEntity.storageBehaviour.inventory : blockEntity.storageBehaviour.inventoryReadOnlyWrapper;
+                    }
                 }
         );
 
@@ -102,19 +101,20 @@ public class CapabilityRegistry {
         event.registerBlockEntity(
                 Capabilities.ItemHandler.BLOCK,
                 BlockEntityRegistry.DISTILLER.get(),
-                (blockEntity, side) ->
-                        switch (side) {
-                            case UP -> blockEntity.storageBehaviour.inputInventory;
-                            case DOWN -> blockEntity.storageBehaviour.outputInventoryExtractOnlyWrapper;
-                            default -> blockEntity.storageBehaviour.inventory;
-                        }
+                (blockEntity, side) -> {
+                    if (side == Direction.UP) {
+                        return blockEntity.storageBehaviour.inputInventory;
+                    } else if (side == Direction.DOWN) {
+                        return blockEntity.storageBehaviour.outputInventoryExtractOnlyWrapper;
+                    } else {
+                        return blockEntity.storageBehaviour.inventory;
+                    }
+                }
         );
         event.registerBlockEntity(
                 HEAT_RECEIVER,
                 BlockEntityRegistry.DISTILLER.get(),
-                (blockEntity, side) -> {
-                    return blockEntity.heatReceiver;
-                });
+                (blockEntity, side) -> blockEntity.heatReceiver);
     }
 
     public static void registerFermentationVat(RegisterCapabilitiesEvent event) {
@@ -123,14 +123,13 @@ public class CapabilityRegistry {
                 BlockEntityRegistry.FERMENTATION_VAT.get(),
                 (blockEntity, side) -> {
                     var isOpen = blockEntity.getBlockState().getValue(BlockStateProperties.OPEN);
-                    return switch (side) {
-                        case UP ->
-                                isOpen ? blockEntity.storageBehaviour.inputInventory : blockEntity.storageBehaviour.inputInventoryReadOnlyWrapper;
-                        case DOWN ->
-                                isOpen ? blockEntity.storageBehaviour.outputInventoryExtractOnlyWrapper : blockEntity.storageBehaviour.outputInventoryReadOnlyWrapper;
-                        default ->
-                                isOpen ? blockEntity.storageBehaviour.inventory : blockEntity.storageBehaviour.inventoryReadOnlyWrapper;
-                    };
+                    if (side == Direction.UP) {
+                        return isOpen ? blockEntity.storageBehaviour.inputInventory : blockEntity.storageBehaviour.inputInventoryReadOnlyWrapper;
+                    } else if (side == Direction.DOWN) {
+                        return isOpen ? blockEntity.storageBehaviour.outputInventoryExtractOnlyWrapper : blockEntity.storageBehaviour.outputInventoryReadOnlyWrapper;
+                    } else {
+                        return isOpen ? blockEntity.storageBehaviour.inventory : blockEntity.storageBehaviour.inventoryReadOnlyWrapper;
+                    }
                 }
         );
 
@@ -148,56 +147,47 @@ public class CapabilityRegistry {
         event.registerBlockEntity(
                 Capabilities.ItemHandler.BLOCK,
                 BlockEntityRegistry.INCUBATOR.get(),
-                (blockEntity, side) -> {
-                    return blockEntity.outputInventoryTakeOnlyWrapper;
-                });
+                (blockEntity, side) -> blockEntity.outputInventoryTakeOnlyWrapper);
 
         event.registerBlockEntity(
                 HEAT_RECEIVER,
                 BlockEntityRegistry.INCUBATOR.get(),
-                (blockEntity, side) -> {
-                    return blockEntity.heatReceiver;
-                });
+                (blockEntity, side) -> blockEntity.heatReceiver);
 
         event.registerBlockEntity(
                 Capabilities.ItemHandler.BLOCK,
                 BlockEntityRegistry.INCUBATOR_SULFUR_VESSEL.get(),
-                (blockEntity, side) -> {
-                    return blockEntity.inputInventory;
-                });
+                (blockEntity, side) -> blockEntity.inputInventory);
 
         event.registerBlockEntity(
                 Capabilities.ItemHandler.BLOCK,
                 BlockEntityRegistry.INCUBATOR_SALT_VESSEL.get(),
-                (blockEntity, side) -> {
-                    return blockEntity.inputInventory;
-                });
+                (blockEntity, side) -> blockEntity.inputInventory);
 
         event.registerBlockEntity(
                 Capabilities.ItemHandler.BLOCK,
                 BlockEntityRegistry.INCUBATOR_MERCURY_VESSEL.get(),
-                (blockEntity, side) -> {
-                    return blockEntity.inputInventory;
-                });
+                (blockEntity, side) -> blockEntity.inputInventory);
     }
 
     public static void registerLiquefactionCauldron(RegisterCapabilitiesEvent event) {
         event.registerBlockEntity(
                 HEAT_RECEIVER,
                 BlockEntityRegistry.LIQUEFACTION_CAULDRON.get(),
-                (blockEntity, side) -> {
-                    return blockEntity.heatReceiver;
-                });
+                (blockEntity, side) -> blockEntity.heatReceiver);
 
         event.registerBlockEntity(
                 Capabilities.ItemHandler.BLOCK,
                 BlockEntityRegistry.LIQUEFACTION_CAULDRON.get(),
-                (blockEntity, side) ->
-                        switch (side) {
-                            case UP -> blockEntity.storageBehaviour.inputInventory;
-                            case DOWN -> blockEntity.storageBehaviour.outputInventory;
-                            default -> blockEntity.storageBehaviour.inventory;
-                        }
+                (blockEntity, side) -> {
+                    if (side == Direction.UP) {
+                        return blockEntity.storageBehaviour.inputInventory;
+                    } else if (side == Direction.DOWN) {
+                        return blockEntity.storageBehaviour.outputInventory;
+                    } else {
+                        return blockEntity.storageBehaviour.inventory;
+                    }
+                }
         );
 
         event.registerBlockEntity(
@@ -211,86 +201,64 @@ public class CapabilityRegistry {
         event.registerBlockEntity(
                 MERCURY_FLUX_HANDLER,
                 BlockEntityRegistry.MERCURY_CATALYST.get(),
-                (blockEntity, side) -> {
-                    return blockEntity.mercuryFluxStorage;
-                });
+                (blockEntity, side) -> blockEntity.mercuryFluxStorage);
 
         event.registerBlockEntity(
                 Capabilities.ItemHandler.BLOCK,
                 BlockEntityRegistry.MERCURY_CATALYST.get(),
-                (blockEntity, side) -> {
-                    return blockEntity.inventory;
-                });
+                (blockEntity, side) -> blockEntity.inventory);
     }
 
     public static void registerPyromanticBrazier(RegisterCapabilitiesEvent event) {
         event.registerBlockEntity(
                 Capabilities.ItemHandler.BLOCK,
                 BlockEntityRegistry.PYROMANTIC_BRAZIER.get(),
-                (blockEntity, side) -> {
-                    return blockEntity.inventory;
-                });
+                (blockEntity, side) -> blockEntity.inventory);
         event.registerBlockEntity(
                 HEAT_PROVIDER,
                 BlockEntityRegistry.PYROMANTIC_BRAZIER.get(),
-                (blockEntity, side) -> {
-                    return blockEntity.heatProvider;
-                });
+                (blockEntity, side) -> blockEntity.heatProvider);
     }
 
     public static void registerReformationArray(RegisterCapabilitiesEvent event) {
         event.registerBlockEntity(
                 MERCURY_FLUX_HANDLER,
                 BlockEntityRegistry.SULFURIC_FLUX_EMITTER.get(),
-                (blockEntity, side) -> {
-                    return blockEntity.mercuryFluxStorage;
-                });
+                (blockEntity, side) -> blockEntity.mercuryFluxStorage);
 
         event.registerBlockEntity(
                 Capabilities.ItemHandler.BLOCK,
                 BlockEntityRegistry.REFORMATION_RESULT_PEDESTAL.get(),
-                (blockEntity, side) -> {
-                    return blockEntity.outputInventoryTakeOnlyWrapper;
-                });
+                (blockEntity, side) -> blockEntity.outputInventoryTakeOnlyWrapper);
 
         event.registerBlockEntity(
                 Capabilities.ItemHandler.BLOCK,
                 BlockEntityRegistry.REFORMATION_TARGET_PEDESTAL.get(),
-                (blockEntity, side) -> {
-                    return blockEntity.inputInventory;
-                });
+                (blockEntity, side) -> blockEntity.inputInventory);
 
         event.registerBlockEntity(
                 Capabilities.ItemHandler.BLOCK,
                 BlockEntityRegistry.REFORMATION_SOURCE_PEDESTAL.get(),
-                (blockEntity, side) -> {
-                    return blockEntity.inputInventory;
-                });
+                (blockEntity, side) -> blockEntity.inputInventory);
     }
 
     public static void registerSalAmmoniacAccumulator(RegisterCapabilitiesEvent event) {
         event.registerBlockEntity(
                 Capabilities.ItemHandler.BLOCK,
                 BlockEntityRegistry.SAL_AMMONIAC_ACCUMULATOR.get(),
-                (blockEntity, side) -> {
-                    return blockEntity.inventory;
-                });
+                (blockEntity, side) -> blockEntity.inventory);
 
         event.registerBlockEntity(
                 Capabilities.FluidHandler.BLOCK,
                 BlockEntityRegistry.SAL_AMMONIAC_ACCUMULATOR.get(),
-                (blockEntity, side) -> {
-                    return blockEntity.waterTank;
-                });
+                (blockEntity, side) -> blockEntity.waterTank);
     }
 
     public static void registerSalAmmoniacTank(RegisterCapabilitiesEvent event) {
         event.registerBlockEntity(
                 Capabilities.FluidHandler.BLOCK,
                 BlockEntityRegistry.SAL_AMMONIAC_TANK.get(),
-                (blockEntity, side) -> {
-                    return blockEntity.tank;
-                });
+                (blockEntity, side) -> blockEntity.tank);
     }
 
 }

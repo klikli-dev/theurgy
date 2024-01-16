@@ -20,6 +20,7 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.item.ItemPropertyFunction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
+import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
@@ -93,7 +94,7 @@ public class DivinationRodItem extends Item {
                 targetStack = TagUtil.getItemStackForTag(tag);
             } else {
                 var itemId = new ResourceLocation(targetId);
-                targetStack = new ItemStack(ForgeRegistries.ITEMS.getValue(itemId));
+                targetStack = new ItemStack(BuiltInRegistries.ITEM.get(itemId));
             }
 
             return targetStack;
@@ -124,20 +125,20 @@ public class DivinationRodItem extends Item {
     public static Set<Block> getScanTargetsForId(ResourceLocation linkedBlockId) {
         //First: try to get a tag for the given block.
         var tagKey = TagKey.create(Registries.BLOCK, getOreTagFromBlockId(linkedBlockId));
-        var tag = ForgeRegistries.BLOCKS.tags().getTag(tagKey);
+        var tag = BuiltInRegistries.BLOCK.getTag(tagKey);
 
-        if (!tag.isEmpty())
-            return tag.stream().collect(Collectors.toSet());
+        if (tag.map(HolderSet.ListBacked::size).orElse(0) > 0)
+            return tag.map(t -> t.stream().map(Holder::value).collect(Collectors.toSet())).orElse(Collections.emptySet());
 
         //If no fitting tag succeeds, try to get block + deepslate variant
-        var block = ForgeRegistries.BLOCKS.getValue(linkedBlockId);
+        var block = BuiltInRegistries.BLOCK.get(linkedBlockId);
         if (block != null) {
             Block deepslateBlock = null;
 
             //also search for deepslate ores
             if (linkedBlockId.getPath().contains("_ore") && !linkedBlockId.getPath().contains("deepslate_")) {
                 var deepslateId = new ResourceLocation(linkedBlockId.getNamespace(), "deepslate_" + linkedBlockId.getPath());
-                deepslateBlock = ForgeRegistries.BLOCKS.getValue(deepslateId);
+                deepslateBlock = BuiltInRegistries.BLOCK.get(deepslateId);
             }
 
             //finally, only add deepslate variant, if it is not air
@@ -229,7 +230,7 @@ public class DivinationRodItem extends Item {
                     if (!level.isClientSide) {
                         stack.getOrCreateTag().putString(
                                 TheurgyConstants.Nbt.Divination.LINKED_BLOCK_ID,
-                                ForgeRegistries.BLOCKS.getKey(state.getBlock()).toString()
+                                BuiltInRegistries.BLOCK.getKey(state.getBlock()).toString()
                         );
 
                         player.sendSystemMessage(
@@ -516,8 +517,8 @@ public class DivinationRodItem extends Item {
         if (level != null) {
             var recipeManager = level.getRecipeManager();
             recipeManager.getRecipes().forEach((recipe) -> {
-                if (recipe.getResultItem(level.registryAccess()) != null && recipe.getResultItem(level.registryAccess()).getItem() == item) {
-                    output.accept(recipe.getResultItem(level.registryAccess()).copy());
+                if (recipe.value().getResultItem(level.registryAccess()) != null && recipe.value().getResultItem(level.registryAccess()).getItem() == item) {
+                    output.accept(recipe.value().getResultItem(level.registryAccess()).copy());
                 }
             });
         }

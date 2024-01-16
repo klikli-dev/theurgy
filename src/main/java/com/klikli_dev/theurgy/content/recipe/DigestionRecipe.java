@@ -38,7 +38,7 @@ public class DigestionRecipe implements Recipe<RecipeWrapperWithFluid> {
                     FluidIngredient.CODEC.fieldOf("fluid").forGetter((r) -> r.fluid),
                     Codec.INT.fieldOf("fluidAmount").forGetter((r) -> r.fluidAmount),
                     IngredientWithCount.CODEC.listOf().fieldOf("ingredients").forGetter(r -> r.ingredientsWithCount),
-                    ItemStack.CODEC.fieldOf("result").forGetter(r -> r.result),
+                    ItemStack.ITEM_WITH_COUNT_CODEC.fieldOf("result").forGetter(r -> r.result),
                     Codec.INT.optionalFieldOf("time", DEFAULT_TIME).forGetter(r -> r.time)
             ).apply(instance, DigestionRecipe::new)
     );

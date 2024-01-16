@@ -5,16 +5,12 @@
 package com.klikli_dev.theurgy.integration.jade;
 
 import com.klikli_dev.theurgy.Theurgy;
-import com.klikli_dev.theurgy.content.capability.MercuryFluxStorage;
 import com.klikli_dev.theurgy.registry.CapabilityRegistry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.player.Player;
-import net.neoforged.neoforge.common.capabilities.CapabilityProvider;
 import org.jetbrains.annotations.Nullable;
 import snownee.jade.api.Accessor;
+import snownee.jade.api.BlockAccessor;
 import snownee.jade.api.view.*;
 
 import java.util.List;
@@ -29,9 +25,9 @@ public class MercuryFluxEnergyProvider implements IServerExtensionProvider<Objec
         return instance;
     }
 
-    public static List<ViewGroup<CompoundTag>> wrapMercuryFluxStorage(Object target, @Nullable Player player) {
-        if (target instanceof CapabilityProvider<?> capProvider) {
-            var storage = (MercuryFluxStorage) capProvider.getCapability(CapabilityRegistry.MERCURY_FLUX_HANDLER).orElse(null);
+    public static List<ViewGroup<CompoundTag>> wrapMercuryFluxStorage(Accessor<?> accessor, Object target) {
+        if (accessor instanceof BlockAccessor ba) {
+            var storage = ba.getLevel().getCapability(CapabilityRegistry.MERCURY_FLUX_HANDLER, ba.getPosition(), ba.getBlockState(), ba.getBlockEntity(), null);
             if (storage != null) {
                 ViewGroup<CompoundTag> group = new ViewGroup(List.of(EnergyView.of(storage.getEnergyStored(), storage.getMaxEnergyStored())));
                 group.getExtraData().putString("Unit", "MF");
@@ -51,12 +47,12 @@ public class MercuryFluxEnergyProvider implements IServerExtensionProvider<Objec
     }
 
     @Override
-    public List<ViewGroup<CompoundTag>> getGroups(ServerPlayer player, ServerLevel level, Object target, boolean showDetails) {
-        return wrapMercuryFluxStorage(target, player);
+    public ResourceLocation getUid() {
+        return ID;
     }
 
     @Override
-    public ResourceLocation getUid() {
-        return ID;
+    public @Nullable List<ViewGroup<CompoundTag>> getGroups(Accessor<?> accessor, Object o) {
+        return wrapMercuryFluxStorage(accessor, o);
     }
 }

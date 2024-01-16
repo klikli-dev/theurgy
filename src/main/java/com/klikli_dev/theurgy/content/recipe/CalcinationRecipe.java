@@ -29,7 +29,7 @@ public class CalcinationRecipe implements Recipe<RecipeWrapper> {
     public static final Codec<CalcinationRecipe> CODEC = RecordCodecBuilder.create(instance -> instance.group(
                     Ingredient.CODEC.fieldOf("ingredient").forGetter((r) -> r.ingredient),
                     Codec.INT.fieldOf("ingredientCount").forGetter((r) -> r.ingredientCount),
-                    ItemStack.CODEC.fieldOf("result").forGetter(r -> r.result),
+                    ItemStack.ITEM_WITH_COUNT_CODEC.fieldOf("result").forGetter(r -> r.result),
                     Codec.INT.optionalFieldOf("time", DEFAULT_TIME).forGetter(r -> r.time)
             ).apply(instance, CalcinationRecipe::new)
     );

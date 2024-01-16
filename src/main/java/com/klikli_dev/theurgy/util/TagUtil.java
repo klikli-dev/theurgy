@@ -5,11 +5,12 @@
 package com.klikli_dev.theurgy.util;
 
 import com.klikli_dev.theurgy.integration.almostunified.AlmostUnifiedIntegration;
+import com.klikli_dev.theurgy.integration.almostunified.AlmostUnifiedIntegrationImpl;
+import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.Nullable;
 
 
@@ -17,11 +18,12 @@ public class TagUtil {
 
     @Nullable
     public static Item getItemForTag(TagKey<Item> tag) {
-        var item = AlmostUnifiedIntegration.getPreferredItemForTag(tag);
+        var item = AlmostUnifiedIntegration.get().getPreferredItemForTag(tag);
 
         return item != null ? item :
-                BuiltInRegistries.ITEM.getTag(tag).stream().stream().findFirst().orElse(null).;
-//                ForgeRegistries.ITEMS.tags().getTag(tag).stream().findFirst().orElse(null);
+                BuiltInRegistries.ITEM.getTag(tag)
+                        .flatMap(t -> t.stream().map(Holder::value).findFirst())
+                        .orElse(null);
     }
 
     public static ItemStack getItemStackForTag(TagKey<Item> tag) {

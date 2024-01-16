@@ -4,13 +4,11 @@
 
 package com.klikli_dev.theurgy.content.recipe;
 
-import com.google.gson.JsonObject;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.config.ServerConfig;
 import com.klikli_dev.theurgy.registry.RecipeSerializerRegistry;
 import com.mojang.serialization.Codec;
-import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -19,9 +17,10 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.*;
-import net.neoforged.neoforge.common.crafting.CraftingHelper;
-import net.neoforged.neoforge.registries.ForgeRegistries;
+import net.minecraft.world.item.crafting.CraftingBookCategory;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.ShapedRecipe;
+import net.minecraft.world.item.crafting.ShapedRecipePattern;
 
 
 public class DivinationRodRecipe extends ShapedRecipe {
@@ -45,32 +44,33 @@ public class DivinationRodRecipe extends ShapedRecipe {
         //if we do not have a linked block id in the recipe output, we try to get it from the ingredients.
         //we check if any ingredient supplies a source id for the linked block id.
         //this allows JEI/creative menu to show the correct linked block id effects (altered item name, tooltip, etc)
-        if (!resultTag.contains(TheurgyConstants.Nbt.Divination.LINKED_BLOCK_ID)) {
-
-            String sourceId = null;
-            for (var ingredient : this.getIngredients()) {
-                var json = ingredient.toJson();
-                if (json instanceof JsonObject jsonObj && jsonObj.has("nbt")) {
-
-                    var ingredientTag = CraftingHelper.getNBT(jsonObj.get("nbt"));
-                    if (ingredientTag.contains(TheurgyConstants.Nbt.SULFUR_SOURCE_ID)) {
-                        sourceId = ingredientTag.getString(TheurgyConstants.Nbt.SULFUR_SOURCE_ID);
-                        break;
-                    }
-                }
-            }
-
-            if (sourceId != null) {
-                var translated = this.translateToBlock(sourceId);
-                if (translated != null) {
-                    resultTag.putString(TheurgyConstants.Nbt.Divination.LINKED_BLOCK_ID, translated);
-                } else {
-                    resultTag.putString(TheurgyConstants.Nbt.Divination.LINKED_BLOCK_ID, sourceId);
-                }
-                //we also set the preview mode, to allow the assemble() method to override based on the actual input.
-                resultTag.putBoolean(TheurgyConstants.Nbt.Divination.LINKED_BLOCK_ID_PREVIEW_MODE, true);
-            }
-        }
+        //TODO: As of 1.20.4 we no longer have access to the ingredient json. Test if it is ok to just remove this code.
+//        if (!resultTag.contains(TheurgyConstants.Nbt.Divination.LINKED_BLOCK_ID)) {
+//
+//            String sourceId = null;
+//            for (var ingredient : this.getIngredients()) {
+//                var json = ingredient.toJson();
+//                if (json instanceof JsonObject jsonObj && jsonObj.has("nbt")) {
+//
+//                    var ingredientTag = CraftingHelper.getNBT(jsonObj.get("nbt"));
+//                    if (ingredientTag.contains(TheurgyConstants.Nbt.SULFUR_SOURCE_ID)) {
+//                        sourceId = ingredientTag.getString(TheurgyConstants.Nbt.SULFUR_SOURCE_ID);
+//                        break;
+//                    }
+//                }
+//            }
+//
+//            if (sourceId != null) {
+//                var translated = this.translateToBlock(sourceId);
+//                if (translated != null) {
+//                    resultTag.putString(TheurgyConstants.Nbt.Divination.LINKED_BLOCK_ID, translated);
+//                } else {
+//                    resultTag.putString(TheurgyConstants.Nbt.Divination.LINKED_BLOCK_ID, sourceId);
+//                }
+//                //we also set the preview mode, to allow the assemble() method to override based on the actual input.
+//                resultTag.putBoolean(TheurgyConstants.Nbt.Divination.LINKED_BLOCK_ID_PREVIEW_MODE, true);
+//            }
+//        }
 
         return result;
     }

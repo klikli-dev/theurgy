@@ -32,7 +32,7 @@ public class ReformationRecipe implements Recipe<ReformationArrayRecipeWrapper> 
     public static final Codec<ReformationRecipe> CODEC = RecordCodecBuilder.create(instance -> instance.group(
                     Ingredient.CODEC.listOf().fieldOf("sources").forGetter(r -> r.sources),
                     Ingredient.CODEC.fieldOf("target").forGetter(r -> r.target),
-                    ItemStack.CODEC.fieldOf("result").forGetter(r -> r.result),
+                    ItemStack.ITEM_WITH_COUNT_CODEC.fieldOf("result").forGetter(r -> r.result),
                     Codec.INT.fieldOf("mercury_flux").forGetter(r -> r.mercuryFlux),
                     Codec.INT.optionalFieldOf("time", DEFAULT_TIME).forGetter(r -> r.time)
             ).apply(instance, ReformationRecipe::new)

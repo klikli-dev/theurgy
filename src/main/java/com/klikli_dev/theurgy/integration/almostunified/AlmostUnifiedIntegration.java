@@ -1,33 +1,25 @@
-// SPDX-FileCopyrightText: 2023 klikli-dev
-//
-// SPDX-License-Identifier: MIT
+/*
+ * SPDX-FileCopyrightText: 2022 klikli-dev
+ *
+ * SPDX-License-Identifier: MIT
+ */
 
 package com.klikli_dev.theurgy.integration.almostunified;
 
-import com.almostreliable.unified.api.AlmostUnifiedLookup;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
-import net.neoforged.fml.ModList;
 import org.jetbrains.annotations.Nullable;
 
-public class AlmostUnifiedIntegration {
-    public static boolean isLoaded() {
-        return ModList.get().isLoaded("almostunified");
+public interface AlmostUnifiedIntegration {
+
+    AlmostUnifiedIntegration instance = new AlmostUnifiedIntegrationDummy();
+
+    static AlmostUnifiedIntegration get() {
+        return instance;
     }
 
-    @Nullable
-    public static Item getPreferredItemForTag(TagKey<Item> tag) {
-        if (isLoaded()) {
-            return AlmostUnifiedHelper.getPreferredItemForTag(tag);
-        }
 
-        return null;
-    }
+    boolean isLoaded();
 
-    public static class AlmostUnifiedHelper {
-        @Nullable
-        public static Item getPreferredItemForTag(TagKey<Item> tag) {
-            return AlmostUnifiedLookup.INSTANCE.getPreferredItemForTag(tag);
-        }
-    }
+    @Nullable Item getPreferredItemForTag(TagKey<Item> tag);
 }

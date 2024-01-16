@@ -15,6 +15,17 @@ base {
     archivesName = "${mod_id}-${minecraft_version}-neoforge"
 }
 
+//TODO: re enable source sets once mods are updated
+sourceSets {
+    main {
+        java {
+            exclude '**/integration/jei/**.java'
+            exclude '**/AlmostUnifiedIntegrationImpl.java'
+        }
+    }
+}
+
+
 // Mojang ships Java 17 to end users in 1.18+, so your mod should target Java 17.
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 java.withSourcesJar()

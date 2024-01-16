@@ -19,7 +19,7 @@ import java.util.Optional;
  */
 public class ItemRecipeResult extends RecipeResult {
 
-    public static final Codec<ItemRecipeResult> CODEC = ItemStack.CODEC.xmap(ItemRecipeResult::new, ItemRecipeResult::getStack);
+    public static final Codec<ItemRecipeResult> CODEC = ItemStack.ITEM_WITH_COUNT_CODEC.xmap(ItemRecipeResult::new, ItemRecipeResult::getStack);
 
     public static byte TYPE = 0;
 

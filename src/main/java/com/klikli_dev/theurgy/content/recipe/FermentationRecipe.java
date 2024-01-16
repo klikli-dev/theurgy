@@ -33,7 +33,7 @@ public class FermentationRecipe implements Recipe<RecipeWrapperWithFluid> {
                     FluidIngredient.CODEC.fieldOf("fluid").forGetter((r) -> r.fluid),
                     Codec.INT.fieldOf("fluidAmount").forGetter((r) -> r.fluidAmount),
                     Ingredient.CODEC.listOf().fieldOf("ingredients").forGetter(r -> r.ingredients),
-                    ItemStack.CODEC.fieldOf("result").forGetter(r -> r.result),
+                    ItemStack.ITEM_WITH_COUNT_CODEC.fieldOf("result").forGetter(r -> r.result),
                     Codec.INT.optionalFieldOf("time", DEFAULT_TIME).forGetter(r -> r.time)
             ).apply(instance, FermentationRecipe::new)
     );

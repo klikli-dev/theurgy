@@ -12,6 +12,7 @@ import com.klikli_dev.modonomicon.fluid.ForgeFluidHolder;
 import com.klikli_dev.theurgy.content.gui.GuiTextures;
 import com.klikli_dev.theurgy.content.recipe.AccumulationRecipe;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.neoforged.neoforge.fluids.FluidType;
 import java.util.Arrays;
 
@@ -26,8 +27,10 @@ public class BookAccumulationRecipePageRenderer extends BookRecipePageRenderer<A
     }
 
     @Override
-    protected void drawRecipe(GuiGraphics guiGraphics, AccumulationRecipe recipe, int recipeX, int recipeY, int mouseX, int mouseY, boolean second) {
+    protected void drawRecipe(GuiGraphics guiGraphics, RecipeHolder<AccumulationRecipe> recipeHolder, int recipeX, int recipeY, int mouseX, int mouseY, boolean second) {
         recipeY += 10;
+
+        var recipe = recipeHolder.value();
 
         if (!second) {
             if (!this.page.getTitle1().isEmpty()) {

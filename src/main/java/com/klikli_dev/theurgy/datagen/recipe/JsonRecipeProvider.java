@@ -145,10 +145,10 @@ public abstract class JsonRecipeProvider implements DataProvider {
 
     public JsonObject makeItemResult(ResourceLocation item, int count, @Nullable JsonObject nbt) {
         JsonObject jsonobject = new JsonObject();
-        jsonobject.addProperty("id", item.toString());
-        jsonobject.addProperty("Count", count);
+        jsonobject.addProperty("item", item.toString());
+        jsonobject.addProperty("count", count);
         if (nbt != null) {
-            jsonobject.add("tag", nbt);
+            jsonobject.add("nbt", nbt);
         }
         return jsonobject;
     }

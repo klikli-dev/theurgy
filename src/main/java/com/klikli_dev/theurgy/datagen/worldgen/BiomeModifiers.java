@@ -12,12 +12,12 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.neoforged.neoforge.common.world.BiomeModifier;
-import net.neoforged.neoforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.registries.NeoForgeRegistries;
 
 
 public class BiomeModifiers {
 
-    public static final ResourceKey<BiomeModifier> ADD_SAL_AMMONIAC_ORE = ResourceKey.create(ForgeRegistries.Keys.BIOME_MODIFIERS, Theurgy.loc("add_sal_ammoniac_ore"));
+    public static final ResourceKey<BiomeModifier> ADD_SAL_AMMONIAC_ORE = ResourceKey.create(NeoForgeRegistries.Keys.BIOME_MODIFIERS, Theurgy.loc("add_sal_ammoniac_ore"));
 
 
     public static void bootstrap(BootstapContext<BiomeModifier> context) {

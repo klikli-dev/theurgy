@@ -8,6 +8,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -16,7 +17,6 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
 import net.neoforged.neoforge.common.Tags;
-import net.neoforged.neoforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.function.BiConsumer;
@@ -72,7 +72,7 @@ public class ShapelessRecipeProvider extends JsonRecipeProvider {
         public RecipeBuilder(JsonObject result) {
             this.recipe = new JsonObject();
             this.recipe.addProperty("type",
-                    ForgeRegistries.RECIPE_SERIALIZERS.getKey(RecipeSerializer.SHAPELESS_RECIPE).toString());
+                    BuiltInRegistries.RECIPE_SERIALIZER.getKey(RecipeSerializer.SHAPELESS_RECIPE).toString());
             this.recipe.add("result", result);
             this.recipe.add("ingredients", new JsonArray());
         }

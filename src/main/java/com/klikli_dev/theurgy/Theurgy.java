@@ -57,6 +57,7 @@ import net.neoforged.neoforge.client.model.DynamicFluidContainerModel;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.TickEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
+import net.neoforged.neoforge.registries.DeferredHolder;
 import org.slf4j.Logger;
 
 
@@ -99,7 +100,6 @@ public class Theurgy {
         modEventBus.addListener(SulfurRegistry::onBuildCreativeModTabs);
         modEventBus.addListener(SaltRegistry::onBuildCreativeModTabs);
         modEventBus.addListener(CapabilityRegistry::onRegisterCapabilities);
-        modEventBus.addListener(RecipeSerializerRegistry::onRegisterRecipeSerializers);
 
         NeoForge.EVENT_BUS.addListener(TooltipHandler::onItemTooltipEvent);
 
@@ -195,22 +195,22 @@ public class Theurgy {
             var liquefactionRecipes = event.getRecipeManager().getAllRecipesFor(RecipeTypeRegistry.LIQUEFACTION.get());
 
             SulfurRegistry.SULFURS.getEntries().stream()
-                    .map(RegistryObject::get)
+                    .map(DeferredHolder::get)
                     .map(AlchemicalSulfurItem.class::cast)
                     .filter(sulfur -> !SulfurRegistry.keepInItemLists(sulfur))
-                    .filter(sulfur -> liquefactionRecipes.stream().noneMatch(r -> r.getResultItem(registryAccess) != null && r.getResultItem(registryAccess).getItem() == sulfur)).map(ItemStack::new).forEach(PageRendererRegistry::registerItemStackNotToRender);
+                    .filter(sulfur -> liquefactionRecipes.stream().noneMatch(r -> r.value().getResultItem(registryAccess) != null && r.value().getResultItem(registryAccess).getItem() == sulfur)).map(ItemStack::new).forEach(PageRendererRegistry::registerItemStackNotToRender);
         }
 
         public static void registerTooltipDataProviders(FMLClientSetupEvent event) {
             TooltipHandler.registerNamespaceToListenTo(MODID);
 
-            SulfurRegistry.SULFURS.getEntries().stream().map(RegistryObject::get).map(AlchemicalSulfurItem.class::cast).forEach(sulfur -> {
+            SulfurRegistry.SULFURS.getEntries().stream().map(DeferredHolder::get).map(AlchemicalSulfurItem.class::cast).forEach(sulfur -> {
                 if (sulfur.provideAutomaticTooltipData) {
                     TooltipHandler.registerTooltipDataProvider(sulfur, AlchemicalSulfurItem::getTooltipData);
                 }
             });
 
-            SaltRegistry.SALTS.getEntries().stream().map(RegistryObject::get).map(AlchemicalSaltItem.class::cast).forEach(salt -> {
+            SaltRegistry.SALTS.getEntries().stream().map(DeferredHolder::get).map(AlchemicalSaltItem.class::cast).forEach(salt -> {
                 TooltipHandler.registerTooltipDataProvider(salt, AlchemicalSaltItem::getTooltipData);
             });
         }

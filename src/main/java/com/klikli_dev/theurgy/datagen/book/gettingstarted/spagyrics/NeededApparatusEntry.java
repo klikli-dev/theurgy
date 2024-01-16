@@ -124,11 +124,11 @@ public class NeededApparatusEntry extends EntryProvider {
                 .build());
         this.pageTitle("Next Steps");
         this.pageText("""
-                Craft all the apparatus and place them.
-                \\
-                \\
-                The {0} needs to be placed on top of a {1}.
-                """,
+                        Craft all the apparatus and place them.
+                        \\
+                        \\
+                        The {0} needs to be placed on top of a {1}.
+                        """,
                 this.itemLink(ItemRegistry.SAL_AMMONIAC_ACCUMULATOR.get()),
                 this.itemLink(ItemRegistry.SAL_AMMONIAC_TANK.get())
 
@@ -139,10 +139,10 @@ public class NeededApparatusEntry extends EntryProvider {
                 .build());
         this.pageTitle("Next Steps");
         this.pageText("""
-                Those that need heating need to be placed on the {0}.
-                \\
-                Put some fuel, such as {1}, into the braziers to heat them.
-                """,
+                        Those that need heating need to be placed on the {0}.
+                        \\
+                        Put some fuel, such as {1}, into the braziers to heat them.
+                        """,
                 this.itemLink("Pyromantic Braziers", ItemRegistry.PYROMANTIC_BRAZIER.get()),
                 this.itemLink(Items.COAL)
 

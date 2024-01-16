@@ -42,6 +42,7 @@ public class DigestionRecipeProvider extends JsonRecipeProvider {
                 Pair.of(ItemRegistry.PURIFIED_GOLD.get(), 1)
         ), lower, conversionFactor, TIME * 5, "_from_" + higher.tier().name().toLowerCase());
     }
+
     @Override
     void buildRecipes(BiConsumer<ResourceLocation, JsonObject> recipeConsumer) {
         this.makeRecipeWithTags(Fluids.WATER, 1000, List.of(

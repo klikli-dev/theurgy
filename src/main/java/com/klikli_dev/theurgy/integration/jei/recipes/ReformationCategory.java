@@ -187,7 +187,7 @@ public class ReformationCategory implements IRecipeCategory<ReformationRecipe> {
     public List<Component> getTooltipStrings(ReformationRecipe recipe, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
 
         // builder.addSlot(RecipeIngredientRole.RENDER_ONLY, 45, 1)
-        if(mouseX > 45 && mouseX < 45 + 18 && mouseY > 1 && mouseY < 1 + 18) {
+        if (mouseX > 45 && mouseX < 45 + 18 && mouseY > 1 && mouseY < 1 + 18) {
             return List.of(Component.translatable(TheurgyConstants.I18n.JEI.TARGET_SULFUR_TOOLTIP).withStyle(ChatFormatting.ITALIC));
         }
 

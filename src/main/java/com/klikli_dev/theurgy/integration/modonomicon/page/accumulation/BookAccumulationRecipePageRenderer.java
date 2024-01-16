@@ -14,6 +14,7 @@ import com.klikli_dev.theurgy.content.recipe.AccumulationRecipe;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.neoforged.neoforge.fluids.FluidType;
+
 import java.util.Arrays;
 
 public class BookAccumulationRecipePageRenderer extends BookRecipePageRenderer<AccumulationRecipe, BookRecipePage<AccumulationRecipe>> {

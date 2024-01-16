@@ -51,8 +51,8 @@ public class TheurgyItemTagsProvider extends ItemTagsProvider {
 
         var sulfursTag = this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS);
         SulfurRegistry.SULFURS.getEntries().forEach(sulfur -> {
-            if(sulfur.get() instanceof AlchemicalSulfurItem alchemicalSulfurItem){
-                if(alchemicalSulfurItem.type() != AlchemicalSulfurType.NITER)
+            if (sulfur.get() instanceof AlchemicalSulfurItem alchemicalSulfurItem) {
+                if (alchemicalSulfurItem.type() != AlchemicalSulfurType.NITER)
                     sulfursTag.add(sulfur.get());
             }
         });

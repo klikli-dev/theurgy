@@ -12,7 +12,6 @@ import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.klikli_dev.theurgy.datagen.book.ApparatusCategory;
 import com.klikli_dev.theurgy.datagen.book.apparatus.reformation.ReformationArrayEntry;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
-import com.klikli_dev.theurgy.registry.SulfurRegistry;
 import com.mojang.datafixers.util.Pair;
 
 public class SulfuricFluxEmitterEntry extends EntryProvider {
@@ -44,11 +43,11 @@ public class SulfuricFluxEmitterEntry extends EntryProvider {
         this.add(this.context().pageTitle(), "Visuals");
         this.add(this.context().pageText(),
                 """
-                       If the process is working you will see particles fly from the emitter to the pedestals.
-                       \\
-                       \\
-                       Further, you should see glowing orbs above the target and source pedestals, indicating that sulfur is present.
-                       """
+                        If the process is working you will see particles fly from the emitter to the pedestals.
+                        \\
+                        \\
+                        Further, you should see glowing orbs above the target and source pedestals, indicating that sulfur is present.
+                        """
         );
 
         this.page("problems", () -> BookTextPageModel.builder()
@@ -58,8 +57,8 @@ public class SulfuricFluxEmitterEntry extends EntryProvider {
         this.add(this.context().pageTitle(), "Problem Resolution");
         this.add(this.context().pageText(),
                 """
-                       If that is not the case, double check the recipe in JEI, and visit {0} to review your knowledge of the reformation array setup.           
-                       """,
+                        If that is not the case, double check the recipe in JEI, and visit {0} to review your knowledge of the reformation array setup.           
+                        """,
                 this.entryLink("Reformation Array", ApparatusCategory.CATEGORY_ID, ReformationArrayEntry.ENTRY_ID)
         );
     }

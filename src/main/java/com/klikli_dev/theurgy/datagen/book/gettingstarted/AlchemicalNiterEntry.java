@@ -17,6 +17,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 
 public class AlchemicalNiterEntry extends EntryProvider {
     public static final String ENTRY_ID = "alchemical_niter";
+
     public AlchemicalNiterEntry(CategoryProvider parent) {
         super(parent);
     }

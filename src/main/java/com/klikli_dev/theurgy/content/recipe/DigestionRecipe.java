@@ -4,8 +4,6 @@
 
 package com.klikli_dev.theurgy.content.recipe;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
 import com.klikli_dev.theurgy.content.recipe.ingredient.FluidIngredient;
 import com.klikli_dev.theurgy.content.recipe.wrapper.RecipeWrapperWithFluid;
 import com.klikli_dev.theurgy.datagen.recipe.IngredientWithCount;
@@ -13,7 +11,6 @@ import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.registry.RecipeSerializerRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import com.mojang.serialization.Codec;
-import com.mojang.serialization.JsonOps;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.ints.IntArrayList;
 import it.unimi.dsi.fastutil.ints.IntList;
@@ -21,7 +18,6 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
@@ -72,20 +68,20 @@ public class DigestionRecipe implements Recipe<RecipeWrapperWithFluid> {
             return false;
 
         IntList visited = new IntArrayList();
-        for(var ingredient : this.ingredientsWithCount) {
+        for (var ingredient : this.ingredientsWithCount) {
             var found = false;
-            for(int i = 0; i < pContainer.getContainerSize(); i++) {
-                if(visited.contains(i))
+            for (int i = 0; i < pContainer.getContainerSize(); i++) {
+                if (visited.contains(i))
                     continue;
 
                 var stack = pContainer.getItem(i);
-                if(ingredient.ingredient().test(stack) && stack.getCount() >= ingredient.count()) {
+                if (ingredient.ingredient().test(stack) && stack.getCount() >= ingredient.count()) {
                     found = true;
                     visited.add(i);
                     break;
                 }
             }
-            if(!found)
+            if (!found)
                 return false;
         }
 

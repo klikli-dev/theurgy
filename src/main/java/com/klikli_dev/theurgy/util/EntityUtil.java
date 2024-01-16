@@ -4,9 +4,7 @@
 
 package com.klikli_dev.theurgy.util;
 
-import com.klikli_dev.theurgy.TheurgyConstants;
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.renderer.item.ItemPropertyFunction;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
 

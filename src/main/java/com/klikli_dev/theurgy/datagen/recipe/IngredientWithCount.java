@@ -4,7 +4,6 @@
 
 package com.klikli_dev.theurgy.datagen.recipe;
 
-import com.klikli_dev.theurgy.util.TheurgyExtraCodecs;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import net.minecraft.world.item.crafting.Ingredient;

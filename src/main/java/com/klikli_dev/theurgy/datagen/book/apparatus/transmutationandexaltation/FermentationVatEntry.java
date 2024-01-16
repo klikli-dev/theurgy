@@ -45,8 +45,8 @@ public class FermentationVatEntry extends EntryProvider {
         this.add(this.context().pageTitle(), "Uses");
         this.add(this.context().pageText(),
                 """
-                       Fermentation is required to convert objects into other types of objects, such as gems into metals.
-                        """
+                        Fermentation is required to convert objects into other types of objects, such as gems into metals.
+                         """
         );
 
         this.page("process", () -> BookTextPageModel.builder()

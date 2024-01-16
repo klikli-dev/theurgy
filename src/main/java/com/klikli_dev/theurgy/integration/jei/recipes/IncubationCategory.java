@@ -29,6 +29,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.stream.Collectors;
 
 import static mezz.jei.api.recipe.RecipeIngredientRole.INPUT;
@@ -143,7 +144,7 @@ public class IncubationCategory implements IRecipeCategory<IncubationRecipe> {
 
         builder.addSlot(OUTPUT, 61, 22)
                 .setBackground(JeiDrawables.OUTPUT_SLOT, -5, -5)
-                .addItemStacks(Arrays.asList(recipe.getResult().getStacks()));
+                .addItemStacks(Collections.singletonList(recipe.getResult().getStacks()));
     }
 
     @Override

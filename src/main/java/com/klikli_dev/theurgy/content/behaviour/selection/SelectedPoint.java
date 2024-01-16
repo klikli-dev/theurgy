@@ -27,13 +27,13 @@ public abstract class SelectedPoint<T extends SelectedPoint<T>> {
         this.blockState = blockState;
     }
 
+    public Level getLevel() {
+        return this.level;
+    }
+
     public void setLevel(Level level) {
         this.level = level;
         this.blockState = this.level.getBlockState(this.blockPos);
-    }
-
-    public Level getLevel() {
-        return this.level;
     }
 
     public BlockPos getBlockPos() {

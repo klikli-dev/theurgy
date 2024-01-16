@@ -13,8 +13,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -62,13 +60,13 @@ public class MessageShowSulfuricFluxEmitterStatus implements Message {
         Level level = player.level();
 
         this.sourcePedestals.forEach(point -> point.setLevel(level));
-        if(this.targetPedestal != null)
+        if (this.targetPedestal != null)
             this.targetPedestal.setLevel(level);
-        if(this.resultPedestal != null)
+        if (this.resultPedestal != null)
             this.resultPedestal.setLevel(level);
 
         BlockEntity blockEntity = level.getBlockEntity(this.blockPos);
-        if (blockEntity instanceof SulfuricFluxEmitterBlockEntity sulfuricFluxEmitter){
+        if (blockEntity instanceof SulfuricFluxEmitterBlockEntity sulfuricFluxEmitter) {
             sulfuricFluxEmitter.setSelectedPointsClient(this.sourcePedestals, this.targetPedestal, this.resultPedestal);
         }
 

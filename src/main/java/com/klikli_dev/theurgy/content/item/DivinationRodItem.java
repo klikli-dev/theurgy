@@ -15,8 +15,6 @@ import com.klikli_dev.theurgy.util.EntityUtil;
 import com.klikli_dev.theurgy.util.LevelUtil;
 import com.klikli_dev.theurgy.util.TagUtil;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.item.ItemPropertyFunction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -32,7 +30,6 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
@@ -158,6 +155,18 @@ public class DivinationRodItem extends Item {
                 .replace("deepslate_", "");
 
         return new ResourceLocation("forge:ores/" + oreName);
+    }
+
+    public static void registerCreativeModeTabs(DivinationRodItem item, CreativeModeTab.Output output) {
+        var level = LevelUtil.getLevelWithoutContext();
+        if (level != null) {
+            var recipeManager = level.getRecipeManager();
+            recipeManager.getRecipes().forEach((recipe) -> {
+                if (recipe.value().getResultItem(level.registryAccess()) != null && recipe.value().getResultItem(level.registryAccess()).getItem() == item) {
+                    output.accept(recipe.value().getResultItem(level.registryAccess()).copy());
+                }
+            });
+        }
     }
 
     @Override
@@ -510,18 +519,6 @@ public class DivinationRodItem extends Item {
     public TagKey<Block> getDisallowedBlocksTag(ItemStack stack) {
         var disallowedBlocksTag = stack.getOrCreateTag().getString(TheurgyConstants.Nbt.Divination.SETTING_DISALLOWED_BLOCKS_TAG);
         return BlockTagRegistry.tag(new ResourceLocation(disallowedBlocksTag));
-    }
-
-    public static void registerCreativeModeTabs(DivinationRodItem item, CreativeModeTab.Output output) {
-        var level = LevelUtil.getLevelWithoutContext();
-        if (level != null) {
-            var recipeManager = level.getRecipeManager();
-            recipeManager.getRecipes().forEach((recipe) -> {
-                if (recipe.value().getResultItem(level.registryAccess()) != null && recipe.value().getResultItem(level.registryAccess()).getItem() == item) {
-                    output.accept(recipe.value().getResultItem(level.registryAccess()).copy());
-                }
-            });
-        }
     }
 
     /**

@@ -4,7 +4,6 @@
 
 package com.klikli_dev.theurgy.content.storage;
 
-import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
 import org.jetbrains.annotations.NotNull;
@@ -31,6 +30,7 @@ public class MonitoredFluidTank extends FluidTank {
     protected void onSetFluid(FluidStack oldStack, FluidStack newStack, boolean isSameFluid) {
 
     }
+
     protected void onFill(FluidStack oldStack, FluidStack newStack, FluidStack toInsert, int accepted, int remainingInSource) {
 
     }
@@ -64,7 +64,7 @@ public class MonitoredFluidTank extends FluidTank {
     public @NotNull FluidStack drain(FluidStack resource, FluidAction action) {
         if (action != FluidAction.SIMULATE) {
             var oldStack = this.getFluid().copy();
-            var extracted =  super.drain(resource, action);
+            var extracted = super.drain(resource, action);
             var newStack = this.getFluid();
 
             this.onDrain(oldStack, newStack, extracted);
@@ -82,7 +82,7 @@ public class MonitoredFluidTank extends FluidTank {
     public @NotNull FluidStack drain(int maxDrain, FluidAction action) {
         if (action != FluidAction.SIMULATE) {
             var oldStack = this.getFluid().copy();
-            var extracted =  super.drain(maxDrain, action);
+            var extracted = super.drain(maxDrain, action);
             var newStack = this.getFluid();
 
             this.onDrain(oldStack, newStack, extracted);
@@ -105,7 +105,7 @@ public class MonitoredFluidTank extends FluidTank {
         super.setFluid(newStack);
 
         this.onSetFluid(oldStack, newStack, sameFluid);
-        if(!sameFluid || oldStack.isEmpty() != newStack.isEmpty()){
+        if (!sameFluid || oldStack.isEmpty() != newStack.isEmpty()) {
             this.onContentTypeChanged(oldStack, newStack);
         }
     }

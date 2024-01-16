@@ -13,6 +13,7 @@ import com.klikli_dev.theurgy.content.recipe.LiquefactionRecipe;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.neoforged.neoforge.fluids.FluidType;
+
 import java.util.Arrays;
 
 public class BookLiquefactionRecipePageRenderer extends BookRecipePageRenderer<LiquefactionRecipe, BookLiquefactionRecipePage> {

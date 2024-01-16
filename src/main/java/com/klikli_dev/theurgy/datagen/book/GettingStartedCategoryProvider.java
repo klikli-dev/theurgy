@@ -13,10 +13,10 @@ import com.klikli_dev.theurgy.datagen.book.gettingstarted.exaltation.ConvertToOt
 import com.klikli_dev.theurgy.datagen.book.gettingstarted.exaltation.DigestionEntry;
 import com.klikli_dev.theurgy.datagen.book.gettingstarted.exaltation.DigestionVatEntry;
 import com.klikli_dev.theurgy.datagen.book.gettingstarted.exaltation.PurifiedGoldEntry;
-import com.klikli_dev.theurgy.datagen.book.gettingstarted.reformation.*;
 import com.klikli_dev.theurgy.datagen.book.gettingstarted.reformation.RequiredItemsEntry;
-import com.klikli_dev.theurgy.datagen.book.gettingstarted.spagyrics.*;
+import com.klikli_dev.theurgy.datagen.book.gettingstarted.reformation.*;
 import com.klikli_dev.theurgy.datagen.book.gettingstarted.spagyrics.IncubationEntry;
+import com.klikli_dev.theurgy.datagen.book.gettingstarted.spagyrics.*;
 import com.klikli_dev.theurgy.datagen.book.gettingstarted.transmutation.*;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.mojang.datafixers.util.Pair;

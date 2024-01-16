@@ -53,7 +53,7 @@ public abstract class SelectionBehaviour<T extends SelectedPoint> {
             this.add(point);
         } else {
             //if it is already selected, cycle the mode and if needed remove
-            if(!selected.cycleMode()){
+            if (!selected.cycleMode()) {
                 this.remove(pos);
 
                 //skip message, but return true to have calling code cancel the click event.
@@ -155,7 +155,7 @@ public abstract class SelectionBehaviour<T extends SelectedPoint> {
         return null;
     }
 
-    public boolean isValid(T point){
+    public boolean isValid(T point) {
         point.refreshBlockStateCache();
         return this.canCreate(point.getLevel(), point.getBlockPos(), point.getBlockState());
     }
@@ -179,6 +179,7 @@ public abstract class SelectionBehaviour<T extends SelectedPoint> {
     public abstract int getBlockRange();
 
     public abstract boolean canCreate(Level level, BlockPos pos, BlockState state);
+
     protected abstract T create(Level level, BlockPos pos, BlockState state);
 
     /**

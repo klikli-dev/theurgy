@@ -16,6 +16,7 @@ import net.neoforged.neoforge.items.IItemHandlerModifiable;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import net.neoforged.neoforge.items.wrapper.RecipeWrapper;
+
 import java.util.function.Supplier;
 
 public class CalcinationCraftingBehaviour extends CraftingBehaviour<RecipeWrapper, CalcinationRecipe, RecipeManager.CachedCheck<RecipeWrapper, CalcinationRecipe>> {

@@ -10,7 +10,6 @@ import com.google.common.cache.LoadingCache;
 import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.content.gui.GuiTextures;
 import com.klikli_dev.theurgy.content.recipe.DigestionRecipe;
-import com.klikli_dev.theurgy.content.recipe.DigestionRecipe;
 import com.klikli_dev.theurgy.datagen.recipe.IngredientWithCount;
 import com.klikli_dev.theurgy.integration.jei.JeiDrawables;
 import com.klikli_dev.theurgy.integration.jei.JeiRecipeTypes;
@@ -127,8 +126,8 @@ public class DigestionCategory implements IRecipeCategory<DigestionRecipe> {
         return this.localizedName;
     }
 
-    public void addToSlot(IRecipeSlotBuilder builder, int ingredientIndex, List<IngredientWithCount> ingredients){
-        if(ingredientIndex >= ingredients.size())
+    public void addToSlot(IRecipeSlotBuilder builder, int ingredientIndex, List<IngredientWithCount> ingredients) {
+        if (ingredientIndex >= ingredients.size())
             return;
 
         var ingredient = ingredients.get(ingredientIndex);
@@ -136,7 +135,7 @@ public class DigestionCategory implements IRecipeCategory<DigestionRecipe> {
         builder.addIngredients(VanillaTypes.ITEM_STACK, Arrays.stream(ingredient.ingredient().getItems()).map(i -> i.copyWithCount(ingredient.count())).toList());
     }
 
-                          @Override
+    @Override
     public void setRecipe(IRecipeLayoutBuilder builder, DigestionRecipe recipe, IFocusGroup focuses) {
         var topLeft = builder.addSlot(INPUT, 1, 1)
                 .setBackground(JeiDrawables.INPUT_SLOT, -1, -1);

@@ -11,10 +11,8 @@ import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.klikli_dev.theurgy.datagen.book.GettingStartedCategoryProvider;
-import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.registry.SulfurRegistry;
 import com.mojang.datafixers.util.Pair;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 
 public class FermentationEntry extends EntryProvider {
@@ -33,12 +31,12 @@ public class FermentationEntry extends EntryProvider {
         );
         this.pageTitle("Fermentation");
         this.pageText("""
-                Once again we need niter, this time only from our source Sulfur: {0}.
-                \\
-                \\
-                We do not need a target niter, because we will create the Rare Metals Niter using Digestion and will use Reformation only for the creation of Gold Sulfur.
-                """,
-                this.itemLink("Alchemical Niter: Common Metals",SulfurRegistry.METALS_COMMON.get())
+                        Once again we need niter, this time only from our source Sulfur: {0}.
+                        \\
+                        \\
+                        We do not need a target niter, because we will create the Rare Metals Niter using Digestion and will use Reformation only for the creation of Gold Sulfur.
+                        """,
+                this.itemLink("Alchemical Niter: Common Metals", SulfurRegistry.METALS_COMMON.get())
         );
 
 
@@ -50,8 +48,8 @@ public class FermentationEntry extends EntryProvider {
         );
         this.pageTitle("Alchemical Niter: Common Metals");
         this.pageText("""
-                View {0} to refresh your memory on how to use the Fermentation Vat.
-                """,
+                        View {0} to refresh your memory on how to use the Fermentation Vat.
+                        """,
                 this.entryLink("Fermentation", GettingStartedCategoryProvider.CATEGORY_ID, com.klikli_dev.theurgy.datagen.book.gettingstarted.transmutation.FermentationEntry.ENTRY_ID)
         );
     }

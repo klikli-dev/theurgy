@@ -25,7 +25,7 @@ public interface Message extends CustomPacketPayload {
     }
 
     @Override
-    default void write(FriendlyByteBuf pBuffer){
+    default void write(FriendlyByteBuf pBuffer) {
         this.encode(pBuffer);
     }
 }

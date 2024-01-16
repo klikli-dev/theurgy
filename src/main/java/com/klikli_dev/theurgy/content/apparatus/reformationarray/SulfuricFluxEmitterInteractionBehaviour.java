@@ -32,10 +32,10 @@ public class SulfuricFluxEmitterInteractionBehaviour implements InteractionBehav
         if (!(blockEntity instanceof SulfuricFluxEmitterBlockEntity sulfuricFluxEmitter))
             return InteractionResult.PASS;
 
-        if(pLevel.isClientSide)
+        if (pLevel.isClientSide)
             return InteractionResult.SUCCESS;
 
-        Networking.sendTo((ServerPlayer)pPlayer, new MessageShowSulfuricFluxEmitterStatus(
+        Networking.sendTo((ServerPlayer) pPlayer, new MessageShowSulfuricFluxEmitterStatus(
                 pPos,
                 sulfuricFluxEmitter.sourcePedestals,
                 sulfuricFluxEmitter.targetPedestal,
@@ -59,7 +59,7 @@ public class SulfuricFluxEmitterInteractionBehaviour implements InteractionBehav
         this.showStatusMessage(level, player, sulfuricFluxEmitter);
     }
 
-    private void showOutlines(Level level, SulfuricFluxEmitterBlockEntity sulfuricFluxEmitter){
+    private void showOutlines(Level level, SulfuricFluxEmitterBlockEntity sulfuricFluxEmitter) {
         if (sulfuricFluxEmitter.targetPedestal != null) {
             BlockPos pos = sulfuricFluxEmitter.targetPedestal.getBlockPos();
             VoxelShape shape = Shapes.block();
@@ -96,7 +96,7 @@ public class SulfuricFluxEmitterInteractionBehaviour implements InteractionBehav
         }
     }
 
-    private void showStatusMessage(Level level, Player player, SulfuricFluxEmitterBlockEntity sulfuricFluxEmitter){
+    private void showStatusMessage(Level level, Player player, SulfuricFluxEmitterBlockEntity sulfuricFluxEmitter) {
         if (sulfuricFluxEmitter.sourcePedestalsWithContents.isEmpty() && sulfuricFluxEmitter.targetPedestal == null && sulfuricFluxEmitter.resultPedestal == null) {
             player.displayClientMessage(Component.translatable(TheurgyConstants.I18n.Behaviour.SELECTION_SUMMARY_SULFURIC_FLUX_EMITTER_NO_SELECTION).withStyle(ChatFormatting.RED), true);
         } else {
@@ -109,17 +109,17 @@ public class SulfuricFluxEmitterInteractionBehaviour implements InteractionBehav
                     .filter(e -> e instanceof ReformationSourcePedestalBlockEntity)
                     .count();
 
-            if(!hasTarget){
+            if (!hasTarget) {
                 player.displayClientMessage(Component.translatable(TheurgyConstants.I18n.Behaviour.SELECTION_SUMMARY_SULFURIC_FLUX_EMITTER_NO_TARGET).withStyle(ChatFormatting.RED), true);
             }
-            if(sources <= 0){
+            if (sources <= 0) {
                 player.displayClientMessage(Component.translatable(TheurgyConstants.I18n.Behaviour.SELECTION_SUMMARY_SULFURIC_FLUX_EMITTER_NO_SOURCES).withStyle(ChatFormatting.RED), true);
             }
-            if(!hasResult){
+            if (!hasResult) {
                 player.displayClientMessage(Component.translatable(TheurgyConstants.I18n.Behaviour.SELECTION_SUMMARY_SULFURIC_FLUX_EMITTER_NO_RESULT).withStyle(ChatFormatting.RED), true);
             }
 
-            if(hasTarget && sources > 0 && hasResult){
+            if (hasTarget && sources > 0 && hasResult) {
                 player.displayClientMessage(Component.translatable(
                         TheurgyConstants.I18n.Behaviour.SELECTION_SUMMARY_SULFURIC_FLUX_EMITTER,
                         Component.literal(String.valueOf(sources)).withStyle(ChatFormatting.DARK_PURPLE),

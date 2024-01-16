@@ -12,7 +12,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
-import net.neoforged.neoforge.capabilities.BlockCapability;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.FluidUtil;
@@ -26,7 +25,7 @@ public class OneTankFluidHandlerBehaviour implements FluidHandlerBehaviour {
      */
     @Override
     public InteractionResult useFluidHandler(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
-        if(pHand != InteractionHand.MAIN_HAND)
+        if (pHand != InteractionHand.MAIN_HAND)
             return InteractionResult.PASS;
 
         var stackInHand = pPlayer.getItemInHand(pHand);
@@ -34,10 +33,10 @@ public class OneTankFluidHandlerBehaviour implements FluidHandlerBehaviour {
 
         var blockFluidHandler = pLevel.getCapability(Capabilities.FluidHandler.BLOCK, pPos, null);
         //a block without fluid handler is of no interest
-        if(blockFluidHandler == null)
+        if (blockFluidHandler == null)
             return InteractionResult.PASS;
 
-        if(stackInHand.isEmpty() && pPlayer.isShiftKeyDown()){
+        if (stackInHand.isEmpty() && pPlayer.isShiftKeyDown()) {
             //sneaking with empty hand means we're trying to void the liquid
             blockFluidHandler.drain(Integer.MAX_VALUE, IFluidHandlerItem.FluidAction.EXECUTE);
             return InteractionResult.SUCCESS;

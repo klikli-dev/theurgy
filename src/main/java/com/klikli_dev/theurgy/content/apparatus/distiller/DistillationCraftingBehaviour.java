@@ -14,6 +14,7 @@ import net.neoforged.neoforge.common.util.Lazy;
 import net.neoforged.neoforge.items.IItemHandlerModifiable;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 import net.neoforged.neoforge.items.wrapper.RecipeWrapper;
+
 import java.util.function.Supplier;
 
 public class DistillationCraftingBehaviour extends CraftingBehaviour<RecipeWrapper, DistillationRecipe, DistillationCachedCheck> {

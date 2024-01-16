@@ -8,6 +8,7 @@ import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
+
 import java.util.function.Consumer;
 
 public class DigestionVatBlockItem extends BlockItem {

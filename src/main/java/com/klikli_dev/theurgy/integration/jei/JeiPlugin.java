@@ -27,8 +27,6 @@ import net.neoforged.neoforge.registries.ForgeRegistries;
 import net.neoforged.neoforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.stream.Collectors;
-
 @mezz.jei.api.JeiPlugin
 public class JeiPlugin implements IModPlugin {
     @Override
@@ -92,7 +90,7 @@ public class JeiPlugin implements IModPlugin {
         //filter reformation recipes to exclude those that are for sulfurs without recipe
         var reformationRecipes = recipeManager.getAllRecipesFor(RecipeTypeRegistry.REFORMATION.get()).stream()
                 .filter(r -> r.getResultItem(level.registryAccess()) != null)
-                .filter( r -> sulfursWithoutRecipe.stream().noneMatch(s -> s.getItem() == r.getResultItem(level.registryAccess()).getItem()))
+                .filter(r -> sulfursWithoutRecipe.stream().noneMatch(s -> s.getItem() == r.getResultItem(level.registryAccess()).getItem()))
                 .toList();
         registration.addRecipes(JeiRecipeTypes.REFORMATION, reformationRecipes);
 

@@ -4,12 +4,8 @@
 
 package com.klikli_dev.theurgy.content.storage;
 
-import com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron.LiquefactionCauldronBlockEntity;
-import com.klikli_dev.theurgy.content.apparatus.reformationarray.ReformationSourcePedestalBlockEntity;
-import com.klikli_dev.theurgy.registry.ItemTagRegistry;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 
@@ -60,7 +56,7 @@ public abstract class MonitoredItemStackHandler extends ItemStackHandler {
         super.setStackInSlot(slot, newStack);
 
         this.onSetStackInSlot(slot, oldStack, newStack, sameItem);
-        if(!sameItem){
+        if (!sameItem) {
             this.onContentTypeChanged(slot, oldStack, newStack);
         }
     }
@@ -90,7 +86,7 @@ public abstract class MonitoredItemStackHandler extends ItemStackHandler {
             var newStack = this.getStackInSlot(slot);
 
             this.onExtractItem(slot, oldStack, newStack, extracted);
-            if(newStack.isEmpty()){
+            if (newStack.isEmpty()) {
                 this.onContentTypeChanged(slot, oldStack, newStack);
             }
 

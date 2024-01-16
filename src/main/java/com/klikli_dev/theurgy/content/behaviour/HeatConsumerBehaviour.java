@@ -21,7 +21,7 @@ public class HeatConsumerBehaviour {
     }
 
     boolean hasHeatProvider() {
-        var heatBelow = this.blockEntity.getLevel().getCapability(CapabilityRegistry.HEAT_PROVIDER, this.blockEntity.getBlockPos().below(),  this.blockEntity.getBlockState(), this.blockEntity, Direction.UP);
+        var heatBelow = this.blockEntity.getLevel().getCapability(CapabilityRegistry.HEAT_PROVIDER, this.blockEntity.getBlockPos().below(), this.blockEntity.getBlockState(), this.blockEntity, Direction.UP);
         if (heatBelow != null) {
             return heatBelow.isHot();
         }

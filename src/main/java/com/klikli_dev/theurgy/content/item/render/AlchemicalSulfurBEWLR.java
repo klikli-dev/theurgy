@@ -4,7 +4,6 @@
 
 package com.klikli_dev.theurgy.content.item.render;
 
-import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.config.ClientConfig;
 import com.klikli_dev.theurgy.content.item.AlchemicalSulfurItem;
 import com.klikli_dev.theurgy.content.item.AlchemicalSulfurTier;

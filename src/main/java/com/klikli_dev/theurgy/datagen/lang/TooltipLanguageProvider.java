@@ -6,6 +6,7 @@ package com.klikli_dev.theurgy.datagen.lang;
 
 import com.klikli_dev.theurgy.TheurgyConstants;
 import net.minecraft.world.item.Item;
+
 import java.util.function.Supplier;
 
 public interface TooltipLanguageProvider {

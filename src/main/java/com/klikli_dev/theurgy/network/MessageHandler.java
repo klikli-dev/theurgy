@@ -28,7 +28,7 @@ public class MessageHandler {
 
     public static <T extends CustomPacketPayload> void handleServer(T payload, PlayPayloadContext ctx) {
         MinecraftServer server = ctx.level().get().getServer();
-        if(payload instanceof Message message)
+        if (payload instanceof Message message)
             message.onServerReceived(server, (ServerPlayer) ctx.player().get());
     }
 
@@ -36,7 +36,7 @@ public class MessageHandler {
 
         public static <T extends CustomPacketPayload> void handleClient(T payload, PlayPayloadContext ctx) {
             Minecraft minecraft = Minecraft.getInstance();
-            if(payload instanceof Message message)
+            if (payload instanceof Message message)
                 message.onClientReceived(minecraft, minecraft.player);
         }
     }

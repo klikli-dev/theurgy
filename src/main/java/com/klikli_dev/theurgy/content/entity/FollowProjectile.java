@@ -33,18 +33,18 @@ public class FollowProjectile extends ColoredProjectile {
     public static final EntityDataAccessor<Boolean> SPAWN_TOUCH = SynchedEntityData.defineId(FollowProjectile.class, EntityDataSerializers.BOOLEAN);
     public static final EntityDataAccessor<Integer> DESPAWN_DISTANCE = SynchedEntityData.defineId(FollowProjectile.class, EntityDataSerializers.INT);
     public static final EntityDataAccessor<Float> ARRIVAL_DISTANCE = SynchedEntityData.defineId(FollowProjectile.class, EntityDataSerializers.FLOAT);
-    private int maxAge = 500;
+    private final int maxAge = 500;
     private int age;
 
     private Consumer<FollowProjectile> onArrival;
 
-    public FollowProjectile(Level level, Vec3 from, Vec3 to, Color color, @Nullable Color finalColor, float size, float arrivalDistance, Consumer<FollowProjectile> onArrival){
+    public FollowProjectile(Level level, Vec3 from, Vec3 to, Color color, @Nullable Color finalColor, float size, float arrivalDistance, Consumer<FollowProjectile> onArrival) {
         this(EntityRegistry.FOLLOW_PROJECTILE.get(), level);
         this.entityData.set(FollowProjectile.TO, to);
         this.entityData.set(FollowProjectile.FROM, from);
 
         this.setPos(from.x, from.y, from.z); // no +0.5 as we are already providing vec3s
-        this.entityData.set(COLOR,color.getRGB());
+        this.entityData.set(COLOR, color.getRGB());
         this.entityData.set(FINAL_COLOR, finalColor == null ? color.getRGB() : finalColor.getRGB());
         this.entityData.set(SIZE, size);
         this.entityData.set(ARRIVAL_DISTANCE, arrivalDistance);
@@ -54,15 +54,18 @@ public class FollowProjectile extends ColoredProjectile {
         this.setDespawnDistance((int) (distance + 10));
     }
 
-    public FollowProjectile(Level level, Vec3 from, Vec3 to, Color color, @Nullable Color finalColor, float size, Consumer<FollowProjectile> onArrival){
+    public FollowProjectile(Level level, Vec3 from, Vec3 to, Color color, @Nullable Color finalColor, float size, Consumer<FollowProjectile> onArrival) {
         this(level, from, to, color, finalColor, size, 1.0f, onArrival);
     }
 
-    public FollowProjectile(Level level, Vec3 from, Vec3 to, int r, int g, int b, float size){
-        this(level, from, to, new Color(r, g, b), new Color(r,g,b), size, 1.0f, (p) -> {});
+    public FollowProjectile(Level level, Vec3 from, Vec3 to, int r, int g, int b, float size) {
+        this(level, from, to, new Color(r, g, b), new Color(r, g, b), size, 1.0f, (p) -> {
+        });
     }
-    public FollowProjectile(Level level, Vec3 from, Vec3 to, int r, int g, int b, float size, float arrivalDistance){
-        this(level, from, to, new Color(r, g, b), new Color(r,g,b), size, arrivalDistance, (p) -> {});
+
+    public FollowProjectile(Level level, Vec3 from, Vec3 to, int r, int g, int b, float size, float arrivalDistance) {
+        this(level, from, to, new Color(r, g, b), new Color(r, g, b), size, arrivalDistance, (p) -> {
+        });
     }
 
     public FollowProjectile(Level level, Vec3 from, Vec3 to, Color color, float size, Consumer<FollowProjectile> onArrival) {
@@ -74,19 +77,23 @@ public class FollowProjectile extends ColoredProjectile {
     }
 
     public FollowProjectile(Level level, Vec3 from, Vec3 to, Color color, float size) {
-        this(level, from, to, color, size, (p) -> {});
+        this(level, from, to, color, size, (p) -> {
+        });
     }
 
     public FollowProjectile(Level level, Vec3 from, Vec3 to, Color color, float size, float arrivalDistance) {
-        this(level, from, to, color, size, arrivalDistance, (p) -> {});
+        this(level, from, to, color, size, arrivalDistance, (p) -> {
+        });
     }
 
     public FollowProjectile(Level level, Vec3 from, Vec3 to, Color color, Color finalColor, float size) {
-        this(level, from, to, color, finalColor, size, 1.0f, (p) -> {});
+        this(level, from, to, color, finalColor, size, 1.0f, (p) -> {
+        });
     }
 
     public FollowProjectile(Level level, Vec3 from, Vec3 to, Color color, Color finalColor, float size, float arrivalDistance) {
-        this(level, from, to, color, finalColor, size, arrivalDistance, (p) -> {});
+        this(level, from, to, color, finalColor, size, arrivalDistance, (p) -> {
+        });
     }
 
     public FollowProjectile(EntityType<? extends FollowProjectile> entityType, Level world) {
@@ -191,7 +198,7 @@ public class FollowProjectile extends ColoredProjectile {
 
             for (double i = 0.0; i <= dist; i++) {
                 double coeff = (i / dist);
-                this.level().addParticle(GlowParticleProvider.createOptions(ParticleColor.fromInt(currentColor),  this.entityData.get(SIZE), 0.75f, particleAge),
+                this.level().addParticle(GlowParticleProvider.createOptions(ParticleColor.fromInt(currentColor), this.entityData.get(SIZE), 0.75f, particleAge),
                         (this.getX() + deltaX * coeff), (this.getY() + deltaY * coeff), (this.getZ() + deltaZ * coeff),
                         0.0125f * (this.random.nextFloat() - 0.5f), 0.0125f * (this.random.nextFloat() - 0.5f), 0.0125f * (this.random.nextFloat() - 0.5f));
             }
@@ -234,11 +241,11 @@ public class FollowProjectile extends ColoredProjectile {
         return true;
     }
 
-    public Vec3 to(){
+    public Vec3 to() {
         return this.entityData.get(FollowProjectile.TO);
     }
 
-    public Vec3 from(){
+    public Vec3 from() {
         return this.entityData.get(FollowProjectile.FROM);
     }
 

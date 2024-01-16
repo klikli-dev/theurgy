@@ -35,7 +35,7 @@ public class FermentationRecipeProvider extends JsonRecipeProvider {
         this.makeRecipesForCropTag(ItemTagRegistry.SUGAR);
         this.makeRecipesForCropTag(Tags.Items.CROPS);
     }
-    
+
     public void makeRecipesForCropTag(TagKey<Item> cropTag) {
         this.makeRecipe(Fluids.WATER, 125, List.of(
                 ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_ABUNDANT,
@@ -97,6 +97,7 @@ public class FermentationRecipeProvider extends JsonRecipeProvider {
                 cropTag
         ), SulfurRegistry.OTHER_MINERALS_PRECIOUS.get(), 1, TIME, "_using_" + this.name(cropTag));
     }
+
     public void makeRecipe(Fluid fluid, int fluidAmount, List<TagKey<Item>> ingredients, Item result, int resultCount, int time) {
         this.makeRecipe(this.name(result), fluid, fluidAmount, ingredients, result, resultCount, time);
     }

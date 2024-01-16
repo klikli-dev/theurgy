@@ -13,6 +13,7 @@ import com.mojang.datafixers.util.Pair;
 
 public class MercuryFluxEntry extends EntryProvider {
     public static final String ENTRY_ID = "mercury_flux";
+
     public MercuryFluxEntry(CategoryProvider parent) {
         super(parent);
     }
@@ -25,8 +26,8 @@ public class MercuryFluxEntry extends EntryProvider {
                 .build());
         this.pageTitle("Mercury Flux");
         this.pageText("""
-                **Mercury** represents the Energy contained in all matter. The Spagyrics processes for Mercury extraction yield {0}. In this Form it is not immediately useful as an energy source, so it must first be transformed - catalyzed - into [#]($PURPLE)Mercury Flux[#](), which is Mercury in it's natural Form.
-                """,
+                        **Mercury** represents the Energy contained in all matter. The Spagyrics processes for Mercury extraction yield {0}. In this Form it is not immediately useful as an energy source, so it must first be transformed - catalyzed - into [#]($PURPLE)Mercury Flux[#](), which is Mercury in it's natural Form.
+                        """,
                 this.itemLink(ItemRegistry.MERCURY_SHARD.get())
         );
     }

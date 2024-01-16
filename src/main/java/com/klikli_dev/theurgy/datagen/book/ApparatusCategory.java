@@ -10,16 +10,17 @@ import com.klikli_dev.modonomicon.api.datagen.book.BookCategoryModel;
 import com.klikli_dev.modonomicon.api.datagen.book.BookEntryModel;
 import com.klikli_dev.modonomicon.api.datagen.book.condition.BookTrueConditionModel;
 import com.klikli_dev.theurgy.Theurgy;
-import com.klikli_dev.theurgy.datagen.book.apparatus.*;
-import com.klikli_dev.theurgy.datagen.book.apparatus.transmutationandexaltation.DigestionVatEntry;
-import com.klikli_dev.theurgy.datagen.book.apparatus.transmutationandexaltation.TransmutationAndExaltationEntry;
-import com.klikli_dev.theurgy.datagen.book.apparatus.transmutationandexaltation.FermentationVatEntry;
+import com.klikli_dev.theurgy.datagen.book.apparatus.HowToEntry;
+import com.klikli_dev.theurgy.datagen.book.apparatus.IntroEntry;
 import com.klikli_dev.theurgy.datagen.book.apparatus.mercuryflux.CaloricFluxEmitterEntry;
 import com.klikli_dev.theurgy.datagen.book.apparatus.mercuryflux.MercuryCatalystEntry;
 import com.klikli_dev.theurgy.datagen.book.apparatus.mercuryflux.MercuryFluxEntry;
 import com.klikli_dev.theurgy.datagen.book.apparatus.mercuryflux.SulfuricFluxEmitterEntry;
 import com.klikli_dev.theurgy.datagen.book.apparatus.reformation.*;
 import com.klikli_dev.theurgy.datagen.book.apparatus.spagyrics.*;
+import com.klikli_dev.theurgy.datagen.book.apparatus.transmutationandexaltation.DigestionVatEntry;
+import com.klikli_dev.theurgy.datagen.book.apparatus.transmutationandexaltation.FermentationVatEntry;
+import com.klikli_dev.theurgy.datagen.book.apparatus.transmutationandexaltation.TransmutationAndExaltationEntry;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 
 

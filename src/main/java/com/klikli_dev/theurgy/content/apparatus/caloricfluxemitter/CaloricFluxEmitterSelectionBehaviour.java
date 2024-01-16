@@ -44,7 +44,7 @@ public class CaloricFluxEmitterSelectionBehaviour extends SelectionBehaviour<Cal
 
     @Override
     public boolean canCreate(Level level, BlockPos pos, BlockState state) {
-        if(!level.isLoaded(pos))
+        if (!level.isLoaded(pos))
             return false;
 
         return level.getCapability(CapabilityRegistry.HEAT_RECEIVER, pos, state, null, null) != null;

@@ -17,7 +17,6 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemStack;
 
 
-
 public class MessageSetDivinationResult implements Message {
 
     public static final ResourceLocation ID = Theurgy.loc("set_divination_result");

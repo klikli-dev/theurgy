@@ -62,9 +62,9 @@ public class MessageSulfuricFluxEmitterSelection implements Message {
             return;
 
         this.sourcePedestals.forEach(point -> point.setLevel(level));
-        if(this.targetPedestal != null)
+        if (this.targetPedestal != null)
             this.targetPedestal.setLevel(level);
-        if(this.resultPedestal != null)
+        if (this.resultPedestal != null)
             this.resultPedestal.setLevel(level);
 
         BlockEntity blockEntity = level.getBlockEntity(this.blockPos);

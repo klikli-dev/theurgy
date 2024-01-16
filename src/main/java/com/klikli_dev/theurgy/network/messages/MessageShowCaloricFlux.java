@@ -18,7 +18,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
 
 
-
 public class MessageShowCaloricFlux implements Message {
 
     public static final ResourceLocation ID = Theurgy.loc("show_caloric_flux");

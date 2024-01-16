@@ -8,7 +8,6 @@ import com.google.common.collect.ImmutableList;
 import com.klikli_dev.theurgy.registry.IngredientTypeRegistry;
 import com.klikli_dev.theurgy.util.TheurgyExtraCodecs;
 import com.mojang.datafixers.util.Either;
-import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.codecs.RecordCodecBuilder;

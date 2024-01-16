@@ -4,11 +4,12 @@
 
 package com.klikli_dev.theurgy.config;
 
+import net.neoforged.neoforge.common.ModConfigSpec;
+import net.neoforged.neoforge.common.util.Lazy;
+
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import net.neoforged.neoforge.common.ModConfigSpec;
-import net.neoforged.neoforge.common.util.Lazy;
 
 public class ServerConfig {
 

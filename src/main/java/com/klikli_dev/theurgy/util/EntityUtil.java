@@ -20,7 +20,7 @@ public class EntityUtil {
 
         public static void spawnEntityClientSide(Level level, Entity entity) {
             if (level instanceof ClientLevel clientLevel) {
-                clientLevel.putNonPlayerEntity(entity.getId(), entity); //client only spawn of entity
+                clientLevel.addEntity(entity); //client only spawn of entity
             }
         }
     }

@@ -9,6 +9,7 @@ import com.klikli_dev.theurgy.content.recipe.LiquefactionRecipe;
 import com.klikli_dev.theurgy.content.recipe.wrapper.RecipeWrapperWithFluid;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.common.util.Lazy;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
@@ -40,13 +41,13 @@ public class LiquefactionCraftingBehaviour extends CraftingBehaviour<RecipeWrapp
     }
 
     @Override
-    protected int getIngredientCount(LiquefactionRecipe recipe) {
+    protected int getIngredientCount(RecipeHolder<LiquefactionRecipe> recipe) {
         return 1;
     }
 
     @Override
-    protected int getCraftingTime(LiquefactionRecipe recipe) {
-        return recipe.getTime();
+    protected int getCraftingTime(RecipeHolder<LiquefactionRecipe> recipe) {
+        return recipe.value().getTime();
     }
 
     @Override
@@ -55,12 +56,12 @@ public class LiquefactionCraftingBehaviour extends CraftingBehaviour<RecipeWrapp
     }
 
     @Override
-    protected boolean craft(LiquefactionRecipe pRecipe) {
+    protected boolean craft(RecipeHolder<LiquefactionRecipe> pRecipe) {
         if (!super.craft(pRecipe)) //check validity and consume item ingredients
             return false;
 
         //then drain the solvent
-        this.solventTankSupplier.get().drain(pRecipe.getSolventAmount(), IFluidHandler.FluidAction.EXECUTE);
+        this.solventTankSupplier.get().drain(pRecipe.value().getSolventAmount(), IFluidHandler.FluidAction.EXECUTE);
 
         return true;
     }

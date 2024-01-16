@@ -9,6 +9,7 @@ import com.klikli_dev.theurgy.content.recipe.IncubationRecipe;
 import com.klikli_dev.theurgy.content.recipe.wrapper.IncubatorRecipeWrapper;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.items.IItemHandlerModifiable;
@@ -31,9 +32,9 @@ public class IncubatorCraftingBehaviour extends CraftingBehaviour<IncubatorRecip
     }
 
     @Override
-    protected boolean craft(IncubationRecipe pRecipe) {
+    protected boolean craft(RecipeHolder<IncubationRecipe> pRecipe) {
         var recipeWrapper = this.recipeWrapperSupplier.get();
-        var assembledStack = pRecipe.assemble(recipeWrapper, this.blockEntity.getLevel().registryAccess());
+        var assembledStack = pRecipe.value().assemble(recipeWrapper, this.blockEntity.getLevel().registryAccess());
 
         // Safely insert the assembledStack into the outputInventory and update the input stack.
         ItemHandlerHelper.insertItemStacked(this.outputInventorySupplier.get(), assembledStack, false);
@@ -46,13 +47,13 @@ public class IncubatorCraftingBehaviour extends CraftingBehaviour<IncubatorRecip
     }
 
     @Override
-    protected int getIngredientCount(IncubationRecipe recipe) {
+    protected int getIngredientCount(RecipeHolder<IncubationRecipe> recipe) {
         return 1;
     }
 
     @Override
-    protected int getCraftingTime(IncubationRecipe recipe) {
-        return recipe.getTime();
+    protected int getCraftingTime(RecipeHolder<IncubationRecipe> recipe) {
+        return recipe.value().getTime();
     }
 
     @Override

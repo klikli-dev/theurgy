@@ -47,8 +47,7 @@ public class CaloricFluxEmitterSelectionBehaviour extends SelectionBehaviour<Cal
         if(!level.isLoaded(pos))
             return false;
 
-        var blockEntity = level.getBlockEntity(pos);
-        return blockEntity != null && blockEntity.getCapability(CapabilityRegistry.HEAT_RECEIVER).isPresent();
+        return level.getCapability(CapabilityRegistry.HEAT_RECEIVER, pos, state, null, null) != null;
     }
 
     @Override

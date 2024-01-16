@@ -9,6 +9,7 @@ import com.klikli_dev.theurgy.content.recipe.wrapper.RecipeWrapperWithFluid;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
@@ -31,25 +32,25 @@ class LiquefactionCachedCheck implements RecipeManager.CachedCheck<RecipeWrapper
         this.internal = RecipeManager.createCheck(type);
     }
 
-    private Optional<Pair<ResourceLocation, LiquefactionRecipe>> getRecipeFor(ItemStack stack, Level level, @Nullable ResourceLocation lastRecipe) {
+    private Optional<Pair<ResourceLocation, RecipeHolder<LiquefactionRecipe>>> getRecipeFor(ItemStack stack, Level level, @Nullable ResourceLocation lastRecipe) {
 
         var recipeManager = level.getRecipeManager();
         var map = recipeManager.byType(this.type);
         if (lastRecipe != null) {
             var recipe = map.get(lastRecipe);
             //test only the ingredient without the (separate) solvent fluid ingredient check that the recipe.matches() would.
-            if (recipe != null && recipe.getIngredient().test(stack)) {
+            if (recipe != null && recipe.value().getIngredient().test(stack)) {
                 return Optional.of(Pair.of(lastRecipe, recipe));
             }
         }
 
-        return map.entrySet().stream().filter((entry) -> entry.getValue().getIngredient().test(stack)).findFirst().map((entry) -> Pair.of(entry.getKey(), entry.getValue()));
+        return map.entrySet().stream().filter((entry) -> entry.getValue().value().getIngredient().test(stack)).findFirst().map((entry) -> Pair.of(entry.getKey(), entry.getValue()));
     }
 
     /**
      * This only checks ingredients, not fluids
      */
-    public Optional<LiquefactionRecipe> getRecipeFor(ItemStack stack, Level level) {
+    public Optional<RecipeHolder<LiquefactionRecipe>> getRecipeFor(ItemStack stack, Level level) {
         var optional = this.getRecipeFor(stack, level, this.lastRecipe);
         if (optional.isPresent()) {
             var pair = optional.get();
@@ -64,10 +65,10 @@ class LiquefactionCachedCheck implements RecipeManager.CachedCheck<RecipeWrapper
      * This checks full recipe validity: ingredients + fluids
      */
     @Override
-    public Optional<LiquefactionRecipe> getRecipeFor(RecipeWrapperWithFluid container, Level level) {
+    public Optional<RecipeHolder<LiquefactionRecipe>> getRecipeFor(RecipeWrapperWithFluid container, Level level) {
         var recipe = this.internal.getRecipeFor(container, level);
         if (recipe.isPresent()) {
-            this.lastRecipe = recipe.get().getId();
+            this.lastRecipe = recipe.get().id();
         }
 
         return recipe;

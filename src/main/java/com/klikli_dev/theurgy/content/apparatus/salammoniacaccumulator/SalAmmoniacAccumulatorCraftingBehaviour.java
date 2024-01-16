@@ -9,6 +9,7 @@ import com.klikli_dev.theurgy.content.recipe.AccumulationRecipe;
 import com.klikli_dev.theurgy.content.recipe.wrapper.RecipeWrapperWithFluid;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.common.util.Lazy;
 import net.neoforged.neoforge.fluids.FluidStack;
@@ -54,13 +55,13 @@ public class SalAmmoniacAccumulatorCraftingBehaviour extends CraftingBehaviour<R
     }
 
     @Override
-    protected int getIngredientCount(AccumulationRecipe recipe) {
+    protected int getIngredientCount(RecipeHolder<AccumulationRecipe> recipe) {
         return 1;
     }
 
     @Override
-    protected int getCraftingTime(AccumulationRecipe recipe) {
-        return recipe.getTime();
+    protected int getCraftingTime(RecipeHolder<AccumulationRecipe> recipe) {
+        return recipe.value().getTime();
     }
 
     @Override
@@ -69,10 +70,10 @@ public class SalAmmoniacAccumulatorCraftingBehaviour extends CraftingBehaviour<R
     }
 
     @Override
-    public boolean canCraft(@Nullable AccumulationRecipe pRecipe) {
+    public boolean canCraft(@Nullable RecipeHolder<AccumulationRecipe> pRecipe) {
         if (pRecipe == null) return false;
 
-        var assembledStack = pRecipe.assembleFluid(this.recipeWrapperSupplier.get(), this.blockEntity.getLevel().registryAccess());
+        var assembledStack = pRecipe.value().assembleFluid(this.recipeWrapperSupplier.get(), this.blockEntity.getLevel().registryAccess());
         if (assembledStack.isEmpty()) {
             return false;
         } else {
@@ -95,19 +96,19 @@ public class SalAmmoniacAccumulatorCraftingBehaviour extends CraftingBehaviour<R
     }
 
     @Override
-    protected boolean craft(AccumulationRecipe pRecipe) {
-        var assembledFluid = pRecipe.assembleFluid(this.recipeWrapperSupplier.get(), this.blockEntity.getLevel().registryAccess());
+    protected boolean craft(RecipeHolder<AccumulationRecipe> pRecipe) {
+        var assembledFluid = pRecipe.value().assembleFluid(this.recipeWrapperSupplier.get(), this.blockEntity.getLevel().registryAccess());
         var outputFluidTank = this.outputTankSupplier.get();
 
         outputFluidTank.fill(assembledFluid, IFluidHandler.FluidAction.EXECUTE);
 
         //only consume the solid solute, if the recipe requires it.
         //this avoids accidentally consuming a solute when a "water only" recipe is running while the solute is added.
-        if (pRecipe.hasSolute()) {
+        if (pRecipe.value().hasSolute()) {
             this.inputInventorySupplier.get().extractItem(0, this.getIngredientCount(pRecipe), false);
         }
 
-        this.waterTankSupplier.get().drain(pRecipe.getEvaporantAmount(), IFluidHandler.FluidAction.EXECUTE);
+        this.waterTankSupplier.get().drain(pRecipe.value().getEvaporantAmount(), IFluidHandler.FluidAction.EXECUTE);
 
         return true;
     }

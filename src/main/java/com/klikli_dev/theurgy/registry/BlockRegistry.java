@@ -117,8 +117,7 @@ public class BlockRegistry {
                     .mapColor(MapColor.METAL)
                     .noOcclusion()
                     .sound(SoundType.METAL)
-                    .strength(1.0f),
-                    new CaloricFluxEmitterSelectionBehaviour())
+                    .strength(1.0f))
             );
 
     public static final DeferredBlock<SulfuricFluxEmitterBlock> SULFURIC_FLUX_EMITTER =
@@ -126,8 +125,8 @@ public class BlockRegistry {
                             .mapColor(MapColor.METAL)
                             .noOcclusion()
                             .sound(SoundType.METAL)
-                            .strength(1.0f),
-                            new SulfuricFluxEmitterSelectionBehaviour()
+                            .strength(1.0f)
+
                     )
             );
 

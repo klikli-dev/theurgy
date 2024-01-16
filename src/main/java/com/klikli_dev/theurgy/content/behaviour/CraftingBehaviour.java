@@ -7,6 +7,7 @@ package com.klikli_dev.theurgy.content.behaviour;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -59,7 +60,7 @@ public abstract class CraftingBehaviour<W extends RecipeWrapper, R extends Recip
             this.progress = pTag.getShort("progress");
     }
 
-    public Optional<R> getRecipe() {
+    public Optional<RecipeHolder<R>> getRecipe() {
         return this.recipeCachedCheck.getRecipeFor(this.recipeWrapperSupplier.get(), this.blockEntity.getLevel());
     }
 
@@ -99,7 +100,7 @@ public abstract class CraftingBehaviour<W extends RecipeWrapper, R extends Recip
     /**
      * If progress has reached 100%, craft the item and reset progress.
      */
-    protected void tryFinishProcessing(R pRecipe) {
+    protected void tryFinishProcessing(RecipeHolder<R> pRecipe) {
         if (this.progress >= this.totalTime) {
             this.progress = 0;
             this.totalTime = this.getTotalTime();
@@ -132,11 +133,11 @@ public abstract class CraftingBehaviour<W extends RecipeWrapper, R extends Recip
         //we don't have to worry about total time here, as it is set when an item is put into the inventory.
     }
 
-    public boolean canCraft(@Nullable R pRecipe) {
+    public boolean canCraft(@Nullable RecipeHolder<R> pRecipe) {
         if (pRecipe == null)
             return false;
 
-        var assembledStack = pRecipe.assemble(this.recipeWrapperSupplier.get(), this.blockEntity.getLevel().registryAccess());
+        var assembledStack = pRecipe.value().assemble(this.recipeWrapperSupplier.get(), this.blockEntity.getLevel().registryAccess());
         if (assembledStack.isEmpty()) {
             return false;
         } else {
@@ -145,8 +146,8 @@ public abstract class CraftingBehaviour<W extends RecipeWrapper, R extends Recip
         }
     }
 
-    protected boolean craft(R pRecipe) {
-        var assembledStack = pRecipe.assemble(this.recipeWrapperSupplier.get(), this.blockEntity.getLevel().registryAccess());
+    protected boolean craft(RecipeHolder<R> pRecipe) {
+        var assembledStack = pRecipe.value().assemble(this.recipeWrapperSupplier.get(), this.blockEntity.getLevel().registryAccess());
 
         // Safely insert the assembledStack into the outputInventory and update the input stack.
         ItemHandlerHelper.insertItemStacked(this.outputInventorySupplier.get(), assembledStack, false);
@@ -169,9 +170,9 @@ public abstract class CraftingBehaviour<W extends RecipeWrapper, R extends Recip
             this.blockEntity.getLevel().sendBlockUpdated(this.blockEntity.getBlockPos(), this.blockEntity.getBlockState(), this.blockEntity.getBlockState(), Block.UPDATE_CLIENTS);
     }
 
-    protected abstract int getIngredientCount(R recipe);
+    protected abstract int getIngredientCount(RecipeHolder<R> recipe);
 
-    protected abstract int getCraftingTime(R recipe);
+    protected abstract int getCraftingTime(RecipeHolder<R> recipe);
 
     protected abstract int getDefaultCraftingTime();
 

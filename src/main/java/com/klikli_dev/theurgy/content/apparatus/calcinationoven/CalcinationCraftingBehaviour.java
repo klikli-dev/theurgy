@@ -8,6 +8,7 @@ import com.klikli_dev.theurgy.content.behaviour.CraftingBehaviour;
 import com.klikli_dev.theurgy.content.recipe.CalcinationRecipe;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.common.util.Lazy;
@@ -39,13 +40,13 @@ public class CalcinationCraftingBehaviour extends CraftingBehaviour<RecipeWrappe
     }
 
     @Override
-    protected int getIngredientCount(CalcinationRecipe recipe) {
-        return recipe.getIngredientCount();
+    protected int getIngredientCount(RecipeHolder<CalcinationRecipe> recipe) {
+        return recipe.value().getIngredientCount();
     }
 
     @Override
-    protected int getCraftingTime(CalcinationRecipe recipe) {
-        return recipe.getTime();
+    protected int getCraftingTime(RecipeHolder<CalcinationRecipe> recipe) {
+        return recipe.value().getTime();
     }
 
     @Override

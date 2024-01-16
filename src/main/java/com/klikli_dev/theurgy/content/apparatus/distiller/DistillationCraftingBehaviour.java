@@ -8,6 +8,7 @@ import com.klikli_dev.theurgy.content.behaviour.CraftingBehaviour;
 import com.klikli_dev.theurgy.content.recipe.DistillationRecipe;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.common.util.Lazy;
 import net.neoforged.neoforge.items.IItemHandlerModifiable;
@@ -34,13 +35,13 @@ public class DistillationCraftingBehaviour extends CraftingBehaviour<RecipeWrapp
     }
 
     @Override
-    protected int getIngredientCount(DistillationRecipe recipe) {
-        return recipe.getIngredientCount();
+    protected int getIngredientCount(RecipeHolder<DistillationRecipe> recipe) {
+        return recipe.value().getIngredientCount();
     }
 
     @Override
-    protected int getCraftingTime(DistillationRecipe recipe) {
-        return recipe.getTime();
+    protected int getCraftingTime(RecipeHolder<DistillationRecipe> recipe) {
+        return recipe.value().getTime();
     }
 
     @Override

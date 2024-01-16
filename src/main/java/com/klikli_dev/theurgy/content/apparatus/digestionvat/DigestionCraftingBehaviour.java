@@ -9,6 +9,7 @@ import com.klikli_dev.theurgy.content.recipe.DigestionRecipe;
 import com.klikli_dev.theurgy.content.recipe.wrapper.RecipeWrapperWithFluid;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.common.util.Lazy;
 import net.neoforged.neoforge.fluids.FluidStack;
@@ -51,13 +52,13 @@ public class DigestionCraftingBehaviour extends CraftingBehaviour<RecipeWrapperW
     }
 
     @Override
-    protected int getIngredientCount(DigestionRecipe recipe) {
+    protected int getIngredientCount(RecipeHolder<DigestionRecipe> recipe) {
         return 1;
     }
 
     @Override
-    protected int getCraftingTime(DigestionRecipe recipe) {
-        return recipe.getTime();
+    protected int getCraftingTime(RecipeHolder<DigestionRecipe> recipe) {
+        return recipe.value().getTime();
     }
 
     @Override
@@ -66,8 +67,8 @@ public class DigestionCraftingBehaviour extends CraftingBehaviour<RecipeWrapperW
     }
 
     @Override
-    protected boolean craft(DigestionRecipe pRecipe) {
-        var assembledStack = pRecipe.assemble(this.recipeWrapperSupplier.get(), this.blockEntity.getLevel().registryAccess());
+    protected boolean craft(RecipeHolder<DigestionRecipe> pRecipe) {
+        var assembledStack = pRecipe.value().assemble(this.recipeWrapperSupplier.get(), this.blockEntity.getLevel().registryAccess());
 
         // Safely insert the assembledStack into the outputInventory and update the input stack.
         ItemHandlerHelper.insertItemStacked(this.outputInventorySupplier.get(), assembledStack, false);
@@ -75,7 +76,7 @@ public class DigestionCraftingBehaviour extends CraftingBehaviour<RecipeWrapperW
         //consume the input stacks
         //the double loop may not be necessary, it may be OK to just take one from each slot (because recipe matches only if exact items match, not if more items are present)
         //however this costs almost nothing extra and is safer so we do it.
-        for (var ingredient : pRecipe.getIngredientsWithCount()) {
+        for (var ingredient : pRecipe.value().getIngredientsWithCount()) {
             for (int i = 0; i < this.inputInventorySupplier.get().getSlots(); i++) {
                 if (ingredient.ingredient().test(this.inputInventorySupplier.get().getStackInSlot(i))) {
                     this.inputInventorySupplier.get().extractItem(i, ingredient.count(), false);
@@ -85,7 +86,7 @@ public class DigestionCraftingBehaviour extends CraftingBehaviour<RecipeWrapperW
         }
 
         //then drain the fluid
-        this.fluidTankSupplier.get().drain(pRecipe.getFluidAmount(), IFluidHandler.FluidAction.EXECUTE);
+        this.fluidTankSupplier.get().drain(pRecipe.value().getFluidAmount(), IFluidHandler.FluidAction.EXECUTE);
 
         return true;
     }

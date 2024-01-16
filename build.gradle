@@ -122,6 +122,9 @@ dependencies {
     //Jade (Hwyla/Waila)
     //TODO: enable once available
 //    implementation "maven.modrinth:jade:${jade_version}"
+
+  //TODO: remove once jei is available
+    runtimeOnly "curse.maven:roughly-enough-items-310111:4973489"
 }
 
 processResources {

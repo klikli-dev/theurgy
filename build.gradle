@@ -125,6 +125,8 @@ dependencies {
 
   //TODO: remove once jei is available
     runtimeOnly "curse.maven:roughly-enough-items-310111:4973489"
+    runtimeOnly "curse.maven:cloth-config-348521:4973457"
+    runtimeOnly "curse.maven:architectury-api-419699:5020280"
 }
 
 processResources {

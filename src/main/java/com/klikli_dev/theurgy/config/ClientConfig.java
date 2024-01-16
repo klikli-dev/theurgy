@@ -4,8 +4,8 @@
 
 package com.klikli_dev.theurgy.config;
 
-import net.neoforged.neoforge.common.NeoForgeConfigSpec;
-import net.neoforged.neoforge.common.NeoForgeConfigSpec.BooleanValue;
+import net.neoforged.neoforge.common.ModConfigSpec;
+import net.neoforged.neoforge.common.ModConfigSpec.BooleanValue;
 
 public class ClientConfig {
 
@@ -13,10 +13,10 @@ public class ClientConfig {
 
     public final Rendering rendering;
 
-    public final NeoForgeConfigSpec spec;
+    public final ModConfigSpec spec;
 
     private ClientConfig() {
-        NeoForgeConfigSpec.Builder builder = new NeoForgeConfigSpec.Builder();
+        ModConfigSpec.Builder builder = new ModConfigSpec.Builder();
         this.rendering = new Rendering(builder);
         this.spec = builder.build();
     }
@@ -29,7 +29,7 @@ public class ClientConfig {
 
         public final BooleanValue renderSulfurSourceItem;
 
-        public Rendering(NeoForgeConfigSpec.Builder builder) {
+        public Rendering(ModConfigSpec.Builder builder) {
             builder.comment("Rendering Settings").push("rendering");
 
             this.renderSulfurSourceItem = builder

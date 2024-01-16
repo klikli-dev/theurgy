@@ -48,7 +48,6 @@ import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLDedicatedServerSetupEvent;
-import net.neoforged.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RecipesUpdatedEvent;
@@ -58,7 +57,6 @@ import net.neoforged.neoforge.client.model.DynamicFluidContainerModel;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.TickEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
-import net.neoforged.neoforge.registries.RegistryObject;
 import org.slf4j.Logger;
 
 
@@ -69,14 +67,12 @@ public class Theurgy {
 
     public static Theurgy INSTANCE;
 
-    public Theurgy() {
+    public Theurgy(IEventBus modEventBus) {
         INSTANCE = this;
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, ServerConfig.get().spec);
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, CommonConfig.get().spec);
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ClientConfig.get().spec);
-
-        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         ItemRegistry.ITEMS.register(modEventBus);
         CreativeModeTabRegistry.CREATIVE_MODE_TABS.register(modEventBus);

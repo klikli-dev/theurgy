@@ -7,6 +7,7 @@ package com.klikli_dev.theurgy.datagen.recipe;
 import com.google.common.collect.Sets;
 import com.google.gson.JsonObject;
 import com.mojang.serialization.JsonOps;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
@@ -51,7 +52,7 @@ public abstract class JsonRecipeProvider implements DataProvider {
     }
 
     protected String name(Item item) {
-        return ForgeRegistries.ITEMS.getKey(item).getPath();
+        return BuiltInRegistries.ITEM.getKey(item).getPath();
     }
 
     protected String name(TagKey<Item> tag) {
@@ -67,11 +68,11 @@ public abstract class JsonRecipeProvider implements DataProvider {
     }
 
     public ResourceLocation locFor(ItemLike itemLike) {
-        return ForgeRegistries.ITEMS.getKey(itemLike.asItem());
+        return BuiltInRegistries.ITEM.getKey(itemLike.asItem());
     }
 
     public ResourceLocation locFor(Fluid fluid) {
-        return ForgeRegistries.FLUIDS.getKey(fluid);
+        return BuiltInRegistries.FLUID.getKey(fluid);
     }
 
     public TagKey<Item> tag(String tag) {

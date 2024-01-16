@@ -21,6 +21,7 @@ sourceSets {
         java {
             exclude '**/integration/jei/**/*.java'
             exclude '**/AlmostUnifiedIntegrationImpl.java'
+            exclude '**/jade/**/*.java'
         }
     }
 }
@@ -119,7 +120,8 @@ dependencies {
     implementation "com.klikli_dev:modonomicon-${minecraft_version}-neoforge:${modonomicon_version}"
 
     //Jade (Hwyla/Waila)
-    implementation "maven.modrinth:jade:${jade_version}"
+    //TODO: enable once available
+//    implementation "maven.modrinth:jade:${jade_version}"
 }
 
 processResources {

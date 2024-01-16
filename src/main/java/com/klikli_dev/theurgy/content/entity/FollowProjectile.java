@@ -200,7 +200,7 @@ public class FollowProjectile extends ColoredProjectile {
 
     @Override
     public void setRemoved(RemovalReason reason) {
-        if (reason == RemovalReason.UNLOADED_TO_CHUNK)
+        if (reason == RemovalReason.UNLOADED_TO_CHUNK) //ensure it is destroyed if unloaded
             reason = RemovalReason.DISCARDED;
         super.setRemoved(reason);
     }

@@ -154,8 +154,7 @@ public class FluidIngredient extends Ingredient {
         }
     }
 
-    @Override
-    public void toNetwork(FriendlyByteBuf pBuffer) {
+    public void fluidToNetwork(FriendlyByteBuf pBuffer) {
         if (this.synchronizeWithContents()) {
             pBuffer.writeCollection(Arrays.asList(this.getFluids()), FriendlyByteBuf::writeFluidStack);
         } else {

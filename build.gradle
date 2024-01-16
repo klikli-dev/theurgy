@@ -19,7 +19,7 @@ base {
 sourceSets {
     main {
         java {
-            exclude '**/integration/jei/**.java'
+            exclude '**/integration/jei/**/*.java'
             exclude '**/AlmostUnifiedIntegrationImpl.java'
         }
     }

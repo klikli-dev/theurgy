@@ -5,7 +5,6 @@
 package com.klikli_dev.theurgy.util;
 
 import com.klikli_dev.theurgy.integration.almostunified.AlmostUnifiedIntegration;
-import com.klikli_dev.theurgy.integration.almostunified.AlmostUnifiedIntegrationImpl;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.tags.TagKey;

@@ -15,8 +15,8 @@
     }
   ],
   "result": {
-    "Count": 4,
-    "id": "theurgy:alchemical_sulfur_other_minerals_common"
+    "count": 4,
+    "item": "theurgy:alchemical_sulfur_other_minerals_common"
   },
   "time": 1000
 }

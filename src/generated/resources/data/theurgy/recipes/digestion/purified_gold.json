@@ -31,8 +31,8 @@
     }
   ],
   "result": {
-    "Count": 20,
-    "id": "theurgy:purified_gold"
+    "count": 20,
+    "item": "theurgy:purified_gold"
   },
   "time": 1000
 }

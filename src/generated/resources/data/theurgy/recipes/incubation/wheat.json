@@ -1,6 +1,5 @@
 {
   "type": "theurgy:incubation",
-  "incubation_time": 100,
   "mercury": {
     "item": "theurgy:mercury_shard"
   },
@@ -13,5 +12,6 @@
   },
   "sulfur": {
     "item": "theurgy:alchemical_sulfur_wheat"
-  }
+  },
+  "time": 100
 }

@@ -1,12 +1,12 @@
 {
   "type": "theurgy:calcination",
-  "calcination_time": 100,
   "ingredient": {
     "item": "theurgy:alchemical_salt_strata"
   },
-  "ingredient_count": 20,
+  "ingredientCount": 20,
   "result": {
     "count": 1,
     "item": "theurgy:alchemical_salt_mineral"
-  }
+  },
+  "time": 100
 }

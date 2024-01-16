@@ -9,13 +9,13 @@
       }
     }
   ],
-  "distillation_time": 100,
   "ingredient": {
     "tag": "minecraft:dirt"
   },
-  "ingredient_count": 25,
+  "ingredientCount": 25,
   "result": {
     "count": 1,
     "item": "theurgy:mercury_shard"
-  }
+  },
+  "time": 100
 }

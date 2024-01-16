@@ -1,12 +1,12 @@
 {
   "type": "theurgy:distillation",
-  "distillation_time": 100,
   "ingredient": {
     "item": "minecraft:cooked_porkchop"
   },
-  "ingredient_count": 1,
+  "ingredientCount": 1,
   "result": {
     "count": 1,
     "item": "theurgy:mercury_shard"
-  }
+  },
+  "time": 100
 }

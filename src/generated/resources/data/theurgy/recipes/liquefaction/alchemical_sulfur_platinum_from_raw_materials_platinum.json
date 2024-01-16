@@ -12,7 +12,6 @@
   "ingredient": {
     "tag": "forge:raw_materials/platinum"
   },
-  "liquefaction_time": 100,
   "result": {
     "count": 2,
     "item": "theurgy:alchemical_sulfur_platinum",
@@ -23,5 +22,6 @@
   "solvent": {
     "fluid": "theurgy:sal_ammoniac"
   },
-  "solvent_amount": 20
+  "solvent_amount": 20,
+  "time": 100
 }

@@ -1,6 +1,5 @@
 {
   "type": "theurgy:calcination",
-  "calcination_time": 100,
   "conditions": [
     {
       "type": "forge:not",
@@ -13,9 +12,10 @@
   "ingredient": {
     "tag": "forge:gems"
   },
-  "ingredient_count": 1,
+  "ingredientCount": 1,
   "result": {
     "count": 2,
     "item": "theurgy:alchemical_salt_mineral"
-  }
+  },
+  "time": 100
 }

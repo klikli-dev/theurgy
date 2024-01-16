@@ -71,7 +71,7 @@ public class ItemTagRegistry {
     }
 
     public static TagKey<Item> neoTag(String id) {
-        return tag(new ResourceLocation("neoforge", id));
+        return tag(new ResourceLocation("forge", id));
     }
 
     public static TagKey<Item> tag(ResourceLocation id) {

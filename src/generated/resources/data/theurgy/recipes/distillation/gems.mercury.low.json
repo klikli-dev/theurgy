@@ -9,13 +9,13 @@
       }
     }
   ],
-  "distillation_time": 100,
   "ingredient": {
     "tag": "theurgy:gems/mercury/low"
   },
-  "ingredient_count": 1,
+  "ingredientCount": 1,
   "result": {
     "count": 1,
     "item": "theurgy:mercury_shard"
-  }
+  },
+  "time": 100
 }

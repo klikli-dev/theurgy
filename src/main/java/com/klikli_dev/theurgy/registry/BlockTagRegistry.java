@@ -38,7 +38,7 @@ public class BlockTagRegistry {
     }
 
     public static TagKey<Block> neoTag(String id) {
-        return tag(new ResourceLocation("neoforge", id));
+        return tag(new ResourceLocation("forge", id));
     }
 
     public static TagKey<Block> tag(ResourceLocation id) {

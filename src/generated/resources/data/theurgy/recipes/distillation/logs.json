@@ -9,13 +9,13 @@
       }
     }
   ],
-  "distillation_time": 100,
   "ingredient": {
     "tag": "minecraft:logs"
   },
-  "ingredient_count": 2,
+  "ingredientCount": 2,
   "result": {
     "count": 1,
     "item": "theurgy:mercury_shard"
-  }
+  },
+  "time": 100
 }

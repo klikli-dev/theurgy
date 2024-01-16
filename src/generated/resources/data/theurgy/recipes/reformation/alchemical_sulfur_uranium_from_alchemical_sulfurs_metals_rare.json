@@ -10,10 +10,9 @@
     }
   ],
   "mercury_flux": 150,
-  "reformation_time": 100,
   "result": {
-    "Count": 1,
-    "id": "theurgy:alchemical_sulfur_uranium"
+    "count": 1,
+    "item": "theurgy:alchemical_sulfur_uranium"
   },
   "sources": [
     {
@@ -22,5 +21,6 @@
   ],
   "target": {
     "item": "theurgy:alchemical_sulfur_uranium"
-  }
+  },
+  "time": 100
 }

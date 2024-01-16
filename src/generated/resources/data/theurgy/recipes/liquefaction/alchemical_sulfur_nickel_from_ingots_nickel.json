@@ -12,7 +12,6 @@
   "ingredient": {
     "tag": "forge:ingots/nickel"
   },
-  "liquefaction_time": 100,
   "result": {
     "count": 1,
     "item": "theurgy:alchemical_sulfur_nickel",
@@ -23,5 +22,6 @@
   "solvent": {
     "fluid": "theurgy:sal_ammoniac"
   },
-  "solvent_amount": 10
+  "solvent_amount": 10,
+  "time": 100
 }

@@ -4,19 +4,21 @@
 
 package com.klikli_dev.theurgy.content.recipe.ingredient;
 
-import com.google.gson.JsonObject;
-import com.klikli_dev.theurgy.Theurgy;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
-import net.minecraft.util.GsonHelper;
 import net.minecraft.world.level.material.Fluid;
-import net.neoforged.neoforge.common.crafting.conditions.ICondition;
-import net.neoforged.neoforge.common.crafting.conditions.IConditionSerializer;
+import net.neoforged.neoforge.common.conditions.ICondition;
 
-public class FluidTagEmptyCondition implements ICondition {
-    private static final ResourceLocation NAME = Theurgy.loc("fluid_tag_empty");
-    private final TagKey<Fluid> tag;
+public record FluidTagEmptyCondition(TagKey<Fluid> tag) implements ICondition {
+
+    public static final Codec<FluidTagEmptyCondition> CODEC = RecordCodecBuilder.create(
+            builder -> builder
+                    .group(
+                            ResourceLocation.CODEC.xmap(loc -> TagKey.create(Registries.FLUID, loc), TagKey::location).fieldOf("tag").forGetter(FluidTagEmptyCondition::tag))
+                    .apply(builder, FluidTagEmptyCondition::new));
 
     public FluidTagEmptyCondition(String location) {
         this(new ResourceLocation(location));
@@ -27,12 +29,7 @@ public class FluidTagEmptyCondition implements ICondition {
     }
 
     public FluidTagEmptyCondition(ResourceLocation tag) {
-        this.tag = TagKey.create(Registries.FLUID, tag);
-    }
-
-    @Override
-    public ResourceLocation getID() {
-        return NAME;
+        this(TagKey.create(Registries.FLUID, tag));
     }
 
     @Override
@@ -41,26 +38,12 @@ public class FluidTagEmptyCondition implements ICondition {
     }
 
     @Override
-    public String toString() {
-        return "fluid_tag_empty(\"" + this.tag.location() + "\")";
+    public Codec<? extends ICondition> codec() {
+        return CODEC;
     }
 
-    public static class Serializer implements IConditionSerializer<FluidTagEmptyCondition> {
-        public static final Serializer INSTANCE = new Serializer();
-
-        @Override
-        public void write(JsonObject json, FluidTagEmptyCondition value) {
-            json.addProperty("tag", value.tag.location().toString());
-        }
-
-        @Override
-        public FluidTagEmptyCondition read(JsonObject json) {
-            return new FluidTagEmptyCondition(new ResourceLocation(GsonHelper.getAsString(json, "tag")));
-        }
-
-        @Override
-        public ResourceLocation getID() {
-            return FluidTagEmptyCondition.NAME;
-        }
+    @Override
+    public String toString() {
+        return "fluid_tag_empty(\"" + this.tag.location() + "\")";
     }
 }

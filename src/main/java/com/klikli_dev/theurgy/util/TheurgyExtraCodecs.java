@@ -4,28 +4,10 @@
 
 package com.klikli_dev.theurgy.util;
 
-import com.google.gson.JsonParseException;
 import com.mojang.serialization.Codec;
-import com.mojang.serialization.DataResult;
-import com.mojang.serialization.DynamicOps;
-import com.mojang.serialization.JsonOps;
-import com.mojang.serialization.codecs.PrimitiveCodec;
-import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.neoforged.neoforge.fluids.FluidStack;
 
 public class TheurgyExtraCodecs {
-    public static final Codec<Ingredient> INGREDIENT = new PrimitiveCodec<>() {
-        @Override
-        public <T> DataResult<Ingredient> read(DynamicOps<T> ops, T input) {
-            try {
-                return DataResult.success(Ingredient.fromJson(ops.convertTo(JsonOps.INSTANCE, input)));
-            } catch (JsonParseException e) {
-                return DataResult.error(() -> "Failed to parse Ingredient: " + e.getMessage());
-            }
-        }
-
-        @Override
-        public <T> T write(DynamicOps<T> ops, Ingredient value) {
-            return JsonOps.INSTANCE.convertTo(ops, value.toJson());
-        }
-    };
+    public static final Codec<FluidStack> SINGLE_FLUID_CODEC = BuiltInRegistries.FLUID.byNameCodec().xmap(fluid -> new FluidStack(fluid, 1), FluidStack::getFluid);
 }

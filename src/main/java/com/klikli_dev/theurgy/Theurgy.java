@@ -88,10 +88,12 @@ public class Theurgy {
         SoundRegistry.SOUNDS.register(modEventBus);
         RecipeSerializerRegistry.RECIPE_SERIALIZERS.register(modEventBus);
         RecipeTypeRegistry.RECIPE_TYPES.register(modEventBus);
-        MenuTypeRegistry.MENU_TYPES.register(modEventBus);
+        ConditionRegistry.CONDITION_SERIALIZERS.register(modEventBus);
+        IngredientTypeRegistry.INGREDIENT_TYPES.register(modEventBus);
 
         modEventBus.addListener(this::onCommonSetup);
         modEventBus.addListener(this::onServerSetup);
+        modEventBus.addListener(Networking::register);
 
         modEventBus.addListener(TheurgyDataGenerators::onGatherData);
         modEventBus.addListener(SulfurRegistry::onBuildCreativeModTabs);
@@ -121,8 +123,6 @@ public class Theurgy {
     }
 
     public void onCommonSetup(FMLCommonSetupEvent event) {
-        Networking.registerMessages();
-
         PageLoaders.onCommonSetup(event);
 
         LOGGER.info("Common setup complete.");

@@ -96,7 +96,7 @@ public class FermentationRecipe implements Recipe<RecipeWrapperWithFluid> {
 
         return this.hasOnlySimpleIngredients ?
                 stackedcontents.canCraft(this, null) :
-                net.minecraftforge.common.util.RecipeMatcher.findMatches(inputs, this.ingredients) != null;
+                net.neoforged.neoforge.common.util.RecipeMatcher.findMatches(inputs, this.ingredients) != null;
     }
 
     @Override

@@ -9,7 +9,8 @@ import com.google.gson.JsonParseException;
 import com.mojang.serialization.JsonOps;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.common.crafting.CraftingHelper;
+import net.neoforged.neoforge.common.crafting.CraftingHelper;
+
 
 public abstract class RecipeResult {
     public static RecipeResult fromJson(JsonObject json) {

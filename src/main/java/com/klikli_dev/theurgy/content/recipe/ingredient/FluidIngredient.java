@@ -21,9 +21,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraftforge.common.crafting.IIngredientSerializer;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.common.crafting.IIngredientSerializer;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -112,11 +112,11 @@ public class FluidIngredient extends Ingredient {
     public static FluidIngredient fromNetwork(FriendlyByteBuf pBuffer) {
         var size = pBuffer.readVarInt();
         if (size == -1) //indicates non vanilla ingredient, so we should hit that every time
-            return (FluidIngredient) net.minecraftforge.common.crafting.CraftingHelper.getIngredient(pBuffer.readResourceLocation(), pBuffer);
+            return (FluidIngredient) net.neoforged.neoforge.common.crafting.CraftingHelper.getIngredient(pBuffer.readResourceLocation(), pBuffer);
         return fromFluidValues(Stream.generate(() -> new FluidValue(pBuffer.readFluidStack())).limit(size));
     }
 
-    public static FluidIngredient.Value fluidValueFromJson(JsonObject pJson) {
+    public static Value fluidValueFromJson(JsonObject pJson) {
         if (pJson.has("fluid") && pJson.has("tag")) {
             throw new JsonParseException("A fluid ingredient entry is either a tag or a fluid, not both");
         } else if (pJson.has("fluid")) {

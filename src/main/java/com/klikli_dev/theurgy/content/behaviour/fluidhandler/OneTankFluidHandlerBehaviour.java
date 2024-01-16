@@ -12,10 +12,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidUtil;
-import net.minecraftforge.fluids.capability.IFluidHandlerItem;
+import net.neoforged.neoforge.common.capabilities.Capabilities;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.FluidUtil;
+import net.neoforged.neoforge.fluids.capability.IFluidHandlerItem;
+
 
 public class OneTankFluidHandlerBehaviour implements FluidHandlerBehaviour {
 
@@ -35,7 +36,7 @@ public class OneTankFluidHandlerBehaviour implements FluidHandlerBehaviour {
         var stackInHand = pPlayer.getItemInHand(pHand);
         var fillStack = stackInHand.copyWithCount(1); //necessary to handle stacks of containers, because FluidUtil only can handle one item at a time
 
-        var blockFluidHandlerCap = blockEntity.getCapability(ForgeCapabilities.FLUID_HANDLER);
+        var blockFluidHandlerCap = blockEntity.getCapability(Capabilities.FLUID_HANDLER);
         var itemFluidHandlerCap = FluidUtil.getFluidHandler(fillStack);
 
         //a block without fluid handler is of no interest

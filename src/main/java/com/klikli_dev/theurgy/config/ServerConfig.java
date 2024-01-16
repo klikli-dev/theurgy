@@ -4,21 +4,20 @@
 
 package com.klikli_dev.theurgy.config;
 
-import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.common.util.Lazy;
-
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import net.neoforged.neoforge.common.NeoForgeConfigSpec;
+import net.neoforged.neoforge.common.util.Lazy;
 
 public class ServerConfig {
 
     private static final ServerConfig instance = new ServerConfig();
     public final Recipes recipes;
-    public final ForgeConfigSpec spec;
+    public final NeoForgeConfigSpec spec;
 
     private ServerConfig() {
-        ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
+        NeoForgeConfigSpec.Builder builder = new NeoForgeConfigSpec.Builder();
         this.recipes = new Recipes(builder);
         this.spec = builder.build();
     }
@@ -29,14 +28,14 @@ public class ServerConfig {
 
     public static class Recipes {
 
-        protected ForgeConfigSpec.ConfigValue<List<? extends String>> sulfurSourceToBlockMappingList;
+        protected NeoForgeConfigSpec.ConfigValue<List<? extends String>> sulfurSourceToBlockMappingList;
 
         public final Lazy<Map<String, String>> sulfurSourceToBlockMapping = Lazy.of(() -> this.sulfurSourceToBlockMappingList.get().stream()
                 .map(s -> s.split(":"))
                 .collect(Collectors.toMap(s -> s[0], s -> s[1])));
 
 
-        public Recipes(ForgeConfigSpec.Builder builder) {
+        public Recipes(NeoForgeConfigSpec.Builder builder) {
             builder.comment("Recipe Settings").push("recipes");
 
             this.sulfurSourceToBlockMappingList = builder

@@ -6,9 +6,8 @@ package com.klikli_dev.theurgy.network;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.server.MinecraftServer;
-import net.minecraftforge.fml.LogicalSide;
-import net.minecraftforge.network.NetworkEvent;
-
+import net.neoforged.fml.LogicalSide;
+import net.neoforged.neoforge.network.NetworkEvent;
 import java.util.function.Supplier;
 
 public class MessageHandler {

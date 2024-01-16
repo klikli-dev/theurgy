@@ -19,6 +19,7 @@ import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
+
 public class BookAccumulationRecipePage extends BookRecipePage<AccumulationRecipe> {
     public BookAccumulationRecipePage(BookTextHolder title1, ResourceLocation recipeId1, BookTextHolder title2, ResourceLocation recipeId2, BookTextHolder text, String anchor) {
         super(RecipeTypeRegistry.ACCUMULATION.get(), title1, recipeId1, title2, recipeId2, text, anchor);

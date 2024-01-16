@@ -12,7 +12,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import net.neoforged.neoforge.common.capabilities.Capabilities;
+
 
 public class TwoSlotItemHandlerBehaviour implements ItemHandlerBehaviour {
 
@@ -32,7 +33,7 @@ public class TwoSlotItemHandlerBehaviour implements ItemHandlerBehaviour {
         if (blockEntity == null)
             return InteractionResult.PASS;
 
-        var blockItemHandlerCap = blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER);
+        var blockItemHandlerCap = blockEntity.getCapability(Capabilities.ITEM_HANDLER);
         if (!blockItemHandlerCap.isPresent())
             return InteractionResult.PASS;
 

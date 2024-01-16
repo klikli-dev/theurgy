@@ -6,7 +6,7 @@ package com.klikli_dev.theurgy.content.capability;
 
 import net.minecraft.nbt.IntTag;
 import net.minecraft.nbt.Tag;
-import net.minecraftforge.common.util.INBTSerializable;
+import net.neoforged.neoforge.common.util.INBTSerializable;
 
 /**
  * Copy of EnergyStorage, separate to prevent conversion to/from FE

@@ -15,7 +15,7 @@ import com.klikli_dev.theurgy.integration.modonomicon.page.incubation.BookIncuba
 import com.klikli_dev.theurgy.integration.modonomicon.page.incubation.BookIncubationRecipePageRenderer;
 import com.klikli_dev.theurgy.integration.modonomicon.page.liquefaction.BookLiquefactionRecipePage;
 import com.klikli_dev.theurgy.integration.modonomicon.page.liquefaction.BookLiquefactionRecipePageRenderer;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 
 public class PageRenderers {
 

@@ -21,14 +21,15 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.ForgeHooks;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemStackHandler;
+import net.neoforged.neoforge.common.CommonHooks;
+import net.neoforged.neoforge.common.capabilities.Capabilities;
+import net.neoforged.neoforge.common.capabilities.Capability;
+import net.neoforged.neoforge.common.util.LazyOptional;
+import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
 
 public class PyromanticBrazierBlockEntity extends BlockEntity {
     public ItemStackHandler inventory;
@@ -91,7 +92,7 @@ public class PyromanticBrazierBlockEntity extends BlockEntity {
         if (pFuel.isEmpty()) {
             return 0;
         } else {
-            return ForgeHooks.getBurnTime(pFuel, RecipeTypeRegistry.PYROMANTIC_BRAZIER.get());
+            return CommonHooks.getBurnTime(pFuel, RecipeTypeRegistry.PYROMANTIC_BRAZIER.get());
         }
     }
 
@@ -151,7 +152,7 @@ public class PyromanticBrazierBlockEntity extends BlockEntity {
 
     @Override
     public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        if (cap == ForgeCapabilities.ITEM_HANDLER) {
+        if (cap == Capabilities.ITEM_HANDLER) {
             return this.inventoryCapability.cast();
         }
 

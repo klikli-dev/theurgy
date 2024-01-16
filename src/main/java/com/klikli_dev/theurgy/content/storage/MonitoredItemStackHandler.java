@@ -10,8 +10,9 @@ import com.klikli_dev.theurgy.registry.ItemTagRegistry;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.items.ItemStackHandler;
+import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
+
 
 /**
  * A stack handler that provides additional functionality for monitoring changes.

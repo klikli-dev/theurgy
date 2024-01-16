@@ -12,8 +12,7 @@ import com.klikli_dev.modonomicon.fluid.ForgeFluidHolder;
 import com.klikli_dev.theurgy.content.gui.GuiTextures;
 import com.klikli_dev.theurgy.content.recipe.AccumulationRecipe;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraftforge.fluids.FluidType;
-
+import net.neoforged.neoforge.fluids.FluidType;
 import java.util.Arrays;
 
 public class BookAccumulationRecipePageRenderer extends BookRecipePageRenderer<AccumulationRecipe, BookRecipePage<AccumulationRecipe>> {

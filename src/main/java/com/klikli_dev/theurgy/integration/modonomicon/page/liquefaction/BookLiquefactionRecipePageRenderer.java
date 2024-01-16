@@ -11,8 +11,7 @@ import com.klikli_dev.modonomicon.fluid.ForgeFluidHolder;
 import com.klikli_dev.theurgy.content.gui.GuiTextures;
 import com.klikli_dev.theurgy.content.recipe.LiquefactionRecipe;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraftforge.fluids.FluidType;
-
+import net.neoforged.neoforge.fluids.FluidType;
 import java.util.Arrays;
 
 public class BookLiquefactionRecipePageRenderer extends BookRecipePageRenderer<LiquefactionRecipe, BookLiquefactionRecipePage> {

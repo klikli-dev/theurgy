@@ -15,6 +15,7 @@ import net.minecraft.util.Mth;
 import software.bernie.geckolib.cache.object.BakedGeoModel;
 import software.bernie.geckolib.renderer.GeoBlockRenderer;
 
+
 public class SalAmmoniacAccumulatorRenderer extends GeoBlockRenderer<SalAmmoniacAccumulatorBlockEntity> {
 
     public SalAmmoniacAccumulatorRenderer(BlockEntityRendererProvider.Context pContext) {

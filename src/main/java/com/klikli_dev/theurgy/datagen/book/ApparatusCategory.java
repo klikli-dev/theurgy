@@ -22,6 +22,7 @@ import com.klikli_dev.theurgy.datagen.book.apparatus.reformation.*;
 import com.klikli_dev.theurgy.datagen.book.apparatus.spagyrics.*;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 
+
 public class ApparatusCategory extends CategoryProvider {
 
     public static final String CATEGORY_ID = "apparatus";

@@ -9,6 +9,7 @@ import mezz.jei.api.ingredients.subtypes.IIngredientSubtypeInterpreter;
 import mezz.jei.api.ingredients.subtypes.UidContext;
 import net.minecraft.world.item.ItemStack;
 
+
 public class DivinationRodSubtypeInterpreter implements IIngredientSubtypeInterpreter<ItemStack> {
 
     private static final DivinationRodSubtypeInterpreter instance = new DivinationRodSubtypeInterpreter();

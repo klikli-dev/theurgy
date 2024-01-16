@@ -22,6 +22,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 
+
 public class IncubationRecipe implements Recipe<IncubatorRecipeWrapper> {
 
     public static final int DEFAULT_INCUBATION_TIME = 100;

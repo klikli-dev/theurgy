@@ -11,6 +11,7 @@ import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 
+
 public class CalcinationAnimationBehaviour extends AnimationBehaviour<CalcinationOvenBlockEntity> {
 
     private static final RawAnimation START_AND_ON_ANIM = RawAnimation.begin()

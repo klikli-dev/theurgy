@@ -21,16 +21,16 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.client.extensions.common.IClientFluidTypeExtensions;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidType;
-import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.fluids.capability.templates.FluidTank;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemStackHandler;
+import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
+import net.neoforged.neoforge.common.capabilities.Capabilities;
+import net.neoforged.neoforge.common.capabilities.Capability;
+import net.neoforged.neoforge.common.util.LazyOptional;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.FluidType;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler;
+import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
+import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoBlockEntity;
@@ -163,13 +163,13 @@ public class SalAmmoniacAccumulatorBlockEntity extends BlockEntity implements Ge
     public IFluidHandler getOutputTank() {
         var below = this.getBlockPos().below();
         var blockEntity = this.level.getBlockEntity(below);
-        return blockEntity.getCapability(ForgeCapabilities.FLUID_HANDLER).orElseThrow(() -> new IllegalStateException("No fluid handler capability found on block entity below at location: " + below));
+        return blockEntity.getCapability(Capabilities.FLUID_HANDLER).orElseThrow(() -> new IllegalStateException("No fluid handler capability found on block entity below at location: " + below));
     }
 
     public void validateOutputTank() {
         var below = this.getBlockPos().below();
         var blockEntity = this.level.getBlockEntity(below);
-        this.hasOutputTank = blockEntity != null && blockEntity.getCapability(ForgeCapabilities.FLUID_HANDLER).isPresent();
+        this.hasOutputTank = blockEntity != null && blockEntity.getCapability(Capabilities.FLUID_HANDLER).isPresent();
     }
 
     public boolean hasOutputTank() {
@@ -182,11 +182,11 @@ public class SalAmmoniacAccumulatorBlockEntity extends BlockEntity implements Ge
 
     @Override
     public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        if (cap == ForgeCapabilities.ITEM_HANDLER) {
+        if (cap == Capabilities.ITEM_HANDLER) {
             return this.inventoryCapability.cast();
         }
 
-        if (cap == ForgeCapabilities.FLUID_HANDLER) return this.waterTankCapability.cast();
+        if (cap == Capabilities.FLUID_HANDLER) return this.waterTankCapability.cast();
 
         return super.getCapability(cap, side);
     }

@@ -11,8 +11,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.level.material.Fluid;
-import net.minecraftforge.common.crafting.conditions.ICondition;
-import net.minecraftforge.common.crafting.conditions.IConditionSerializer;
+import net.neoforged.neoforge.common.crafting.conditions.ICondition;
+import net.neoforged.neoforge.common.crafting.conditions.IConditionSerializer;
 
 public class FluidTagEmptyCondition implements ICondition {
     private static final ResourceLocation NAME = Theurgy.loc("fluid_tag_empty");
@@ -46,7 +46,7 @@ public class FluidTagEmptyCondition implements ICondition {
     }
 
     public static class Serializer implements IConditionSerializer<FluidTagEmptyCondition> {
-        public static final FluidTagEmptyCondition.Serializer INSTANCE = new FluidTagEmptyCondition.Serializer();
+        public static final Serializer INSTANCE = new Serializer();
 
         @Override
         public void write(JsonObject json, FluidTagEmptyCondition value) {

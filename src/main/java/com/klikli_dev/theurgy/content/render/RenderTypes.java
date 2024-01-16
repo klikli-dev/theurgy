@@ -30,7 +30,7 @@ public class RenderTypes extends RenderStateShard {
             RenderType.create(Theurgy.loc("outline_solid").toString(), DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, false,
                     false, RenderType.CompositeState.builder()
                             .setShaderState(RENDERTYPE_ENTITY_SOLID_SHADER)
-                            .setTextureState(new RenderStateShard.TextureStateShard(Theurgy.loc("textures/misc/blank.png"), false, false))
+                            .setTextureState(new TextureStateShard(Theurgy.loc("textures/misc/blank.png"), false, false))
                             .setCullState(CULL)
                             .setLightmapState(LIGHTMAP)
                             .setOverlayState(OVERLAY)
@@ -49,7 +49,7 @@ public class RenderTypes extends RenderStateShard {
         return RenderType.create(Theurgy.loc("outline_translucent" + (cull ? "_cull" : "")).toString(),
                 DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, false, true, RenderType.CompositeState.builder()
                         .setShaderState(cull ? RENDERTYPE_ENTITY_TRANSLUCENT_CULL_SHADER : RENDERTYPE_ENTITY_TRANSLUCENT_SHADER)
-                        .setTextureState(new RenderStateShard.TextureStateShard(texture, false, false))
+                        .setTextureState(new TextureStateShard(texture, false, false))
                         .setTransparencyState(TRANSLUCENT_TRANSPARENCY)
                         .setCullState(cull ? CULL : NO_CULL)
                         .setLightmapState(LIGHTMAP)
@@ -62,7 +62,7 @@ public class RenderTypes extends RenderStateShard {
         return FLUID;
     }
 
-    protected static final RenderStateShard.TransparencyStateShard SRC_MINUS_ONE_TRANSPARENCY = new RenderStateShard.TransparencyStateShard(Theurgy.loc("src_minus_one").toString(),
+    protected static final TransparencyStateShard SRC_MINUS_ONE_TRANSPARENCY = new TransparencyStateShard(Theurgy.loc("src_minus_one").toString(),
             () -> {
                 RenderSystem.enableDepthTest();
                 RenderSystem.depthMask(false);
@@ -78,7 +78,7 @@ public class RenderTypes extends RenderStateShard {
     private static final Function<ResourceLocation, RenderType> SRC_MINUS_ONE = Util.memoize(location -> {
         var rendertype = RenderType.CompositeState.builder()
                 .setShaderState(RENDERTYPE_ENTITY_TRANSLUCENT_SHADER)
-                .setTextureState(new RenderStateShard.TextureStateShard(location, false, false))
+                .setTextureState(new TextureStateShard(location, false, false))
                 .setTransparencyState(SRC_MINUS_ONE_TRANSPARENCY)
                 .setCullState(NO_CULL)
                 .setLightmapState(LIGHTMAP)

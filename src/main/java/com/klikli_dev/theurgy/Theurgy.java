@@ -40,26 +40,27 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.EntityRenderersEvent;
-import net.minecraftforge.client.event.RecipesUpdatedEvent;
-import net.minecraftforge.client.event.RegisterColorHandlersEvent;
-import net.minecraftforge.client.event.RenderLevelStageEvent;
-import net.minecraftforge.client.model.DynamicFluidContainerModel;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.ModLoadingContext;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLDedicatedServerSetupEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.fml.loading.FMLEnvironment;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.ModLoadingContext;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.config.ModConfig;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.fml.event.lifecycle.FMLDedicatedServerSetupEvent;
+import net.neoforged.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.neoforged.fml.loading.FMLEnvironment;
+import net.neoforged.neoforge.client.event.EntityRenderersEvent;
+import net.neoforged.neoforge.client.event.RecipesUpdatedEvent;
+import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
+import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
+import net.neoforged.neoforge.client.model.DynamicFluidContainerModel;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.TickEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
+import net.neoforged.neoforge.registries.RegistryObject;
 import org.slf4j.Logger;
+
 
 @Mod(Theurgy.MODID)
 public class Theurgy {
@@ -102,7 +103,7 @@ public class Theurgy {
         modEventBus.addListener(CapabilityRegistry::onRegisterCapabilities);
         modEventBus.addListener(RecipeSerializerRegistry::onRegisterRecipeSerializers);
 
-        MinecraftForge.EVENT_BUS.addListener(TooltipHandler::onItemTooltipEvent);
+        NeoForge.EVENT_BUS.addListener(TooltipHandler::onItemTooltipEvent);
 
         if (FMLEnvironment.dist == Dist.CLIENT) {
             modEventBus.addListener(ParticleRegistry::registerFactories);
@@ -111,11 +112,11 @@ public class Theurgy {
             modEventBus.addListener(Client::onRegisterEntityRenderers);
             modEventBus.addListener(Client::onRegisterItemColors);
             modEventBus.addListener(Client::onRegisterBlockColors);
-            MinecraftForge.EVENT_BUS.addListener(Client::onRenderLevelStage);
-            MinecraftForge.EVENT_BUS.addListener(Client::onClientTick);
-            MinecraftForge.EVENT_BUS.addListener(Client::onRecipesUpdated);
-            MinecraftForge.EVENT_BUS.addListener(Client::onRightClick);
-            MinecraftForge.EVENT_BUS.addListener(Client::onLeftClick);
+            NeoForge.EVENT_BUS.addListener(Client::onRenderLevelStage);
+            NeoForge.EVENT_BUS.addListener(Client::onClientTick);
+            NeoForge.EVENT_BUS.addListener(Client::onRecipesUpdated);
+            NeoForge.EVENT_BUS.addListener(Client::onRightClick);
+            NeoForge.EVENT_BUS.addListener(Client::onLeftClick);
         }
     }
 
@@ -143,12 +144,12 @@ public class Theurgy {
 
             PageRenderers.onClientSetup(event);
 
-            MinecraftForge.EVENT_BUS.addListener((TickEvent.ClientTickEvent e) -> {
+            NeoForge.EVENT_BUS.addListener((TickEvent.ClientTickEvent e) -> {
                 if (e.phase == TickEvent.Phase.END) {
                     ClientTicks.endClientTick(Minecraft.getInstance());
                 }
             });
-            MinecraftForge.EVENT_BUS.addListener((TickEvent.RenderTickEvent e) -> {
+            NeoForge.EVENT_BUS.addListener((TickEvent.RenderTickEvent e) -> {
                 if (e.phase == TickEvent.Phase.START) {
                     ClientTicks.renderTickStart(e.renderTickTime);
                 } else {

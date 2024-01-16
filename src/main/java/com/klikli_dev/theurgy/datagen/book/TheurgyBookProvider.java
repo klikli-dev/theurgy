@@ -11,6 +11,7 @@ import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.registry.CreativeModeTabRegistry;
 import net.minecraft.data.PackOutput;
 
+
 public class TheurgyBookProvider extends BookProvider {
     public TheurgyBookProvider(PackOutput packOutput, ModonomiconLanguageProvider lang) {
         super("the_hermetica", packOutput, Theurgy.MODID, lang);

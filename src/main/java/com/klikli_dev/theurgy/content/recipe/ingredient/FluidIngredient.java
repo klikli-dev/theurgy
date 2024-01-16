@@ -92,7 +92,7 @@ public class FluidIngredient extends Ingredient {
     }
 
     public static FluidIngredient ofFluid(TagKey<Fluid> pTag) {
-        return fromFluidValues(Stream.of(new TagValue(pTag)));
+        return fromFluidValues(Stream.of(new FluidTagValue(pTag)));
     }
 
     public static FluidIngredient fromFluidValues(Stream<? extends Value> pStream) {
@@ -155,7 +155,7 @@ public class FluidIngredient extends Ingredient {
     @Override
     public void toNetwork(FriendlyByteBuf pBuffer) {
         if (this.synchronizeWithContents()) {
-            pBuffer.writeCollection(Arrays.asList(this.getItems()), FriendlyByteBuf::writeItem);
+            pBuffer.writeCollection(Arrays.asList(this.getFluids()), FriendlyByteBuf::writeFluidStack);
         } else {
             pBuffer.writeVarInt(-1);
             pBuffer.writeWithCodec(net.minecraft.nbt.NbtOps.INSTANCE, CODEC, this);
@@ -168,9 +168,9 @@ public class FluidIngredient extends Ingredient {
     }
 
     public interface Value {
-        Codec<FluidIngredient.Value> CODEC = ExtraCodecs.xor(FluidIngredient.FluidValue.CODEC, FluidIngredient.TagValue.CODEC)
+        Codec<FluidIngredient.Value> CODEC = ExtraCodecs.xor(FluidIngredient.FluidValue.CODEC, FluidTagValue.CODEC)
                 .xmap(first -> first.map(l -> l, r -> r), second -> {
-                    if (second instanceof FluidIngredient.TagValue tagvalue) {
+                    if (second instanceof FluidTagValue tagvalue) {
                         return Either.right(tagvalue);
                     } else if (second instanceof FluidIngredient.FluidValue fluidValue) {
                         return Either.left(fluidValue);
@@ -199,24 +199,38 @@ public class FluidIngredient extends Ingredient {
         public Collection<FluidStack> getFluids() {
             return ImmutableList.of(this.fluid);
         }
+
+        @Override
+        public boolean equals(Object pOther) {
+            if (!(pOther instanceof FluidValue fluidValue)) {
+                return false;
+            } else {
+                return this.fluid.isFluidStackIdentical(fluidValue.fluid);
+            }
+        }
     }
 
-    public static class TagValue implements Value {
+    public static class FluidTagValue implements Value {
 
-        static final Codec<FluidIngredient.TagValue> CODEC = RecordCodecBuilder.create(
+        static final Codec<FluidTagValue> CODEC = RecordCodecBuilder.create(
                 instance -> instance.group(
                         TagKey.codec(Registries.FLUID).fieldOf("tag").forGetter(p_301154_ -> p_301154_.tag)
-                ).apply(instance, FluidIngredient.TagValue::new)
+                ).apply(instance, FluidTagValue::new)
         );
         private final TagKey<Fluid> tag;
 
-        public TagValue(TagKey<Fluid> pTag) {
+        public FluidTagValue(TagKey<Fluid> pTag) {
             this.tag = pTag;
         }
 
         @Override
         public Collection<FluidStack> getFluids() {
             return BuiltInRegistries.FLUID.getTags().map(Pair::getSecond).flatMap(t -> t.stream().map(f -> new FluidStack(f, 1))).toList();
+        }
+
+        @Override
+        public boolean equals(Object pOther) {
+            return pOther instanceof FluidTagValue tagValue && tagValue.tag.location().equals(this.tag.location());
         }
     }
 }

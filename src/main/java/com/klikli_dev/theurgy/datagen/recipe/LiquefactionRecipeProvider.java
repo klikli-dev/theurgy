@@ -25,7 +25,7 @@ import java.util.function.BiConsumer;
 
 public class LiquefactionRecipeProvider extends JsonRecipeProvider {
 
-    public static final int TIME = LiquefactionRecipe.DEFAULT_LIQUEFACTION_TIME;
+    public static final int TIME = LiquefactionRecipe.DEFAULT_TIME;
 
     public LiquefactionRecipeProvider(PackOutput packOutput) {
         super(packOutput, Theurgy.MODID, "liquefaction");
@@ -170,7 +170,7 @@ public class LiquefactionRecipeProvider extends JsonRecipeProvider {
     }
 
     public void makeRecipe(Item sulfurName, TagKey<Item> ingredient, Fluid solvent, int solventAmount) {
-        this.makeRecipe(sulfurName, 1, ingredient, solvent, solventAmount, LiquefactionRecipe.DEFAULT_LIQUEFACTION_TIME);
+        this.makeRecipe(sulfurName, 1, ingredient, solvent, solventAmount, LiquefactionRecipe.DEFAULT_TIME);
     }
 
     public void makeRecipe(Item sulfurName, TagKey<Item> ingredient, Fluid solvent, int solventAmount, int liquefactionTime) {
@@ -178,7 +178,7 @@ public class LiquefactionRecipeProvider extends JsonRecipeProvider {
     }
 
     public void makeRecipe(Item sulfur, int resultCount, TagKey<Item> ingredient, Fluid solvent, int solventAmount) {
-        this.makeRecipe(sulfur, resultCount, ingredient, solvent, solventAmount, LiquefactionRecipe.DEFAULT_LIQUEFACTION_TIME);
+        this.makeRecipe(sulfur, resultCount, ingredient, solvent, solventAmount, LiquefactionRecipe.DEFAULT_TIME);
     }
 
     public void makeRecipe(Item sulfur, int resultCount, TagKey<Item> ingredient, Fluid solvent, int solventAmount, int liquefactionTime) {
@@ -222,7 +222,7 @@ public class LiquefactionRecipeProvider extends JsonRecipeProvider {
         recipe.addProperty("solvent_amount", solventAmount);
         recipe.add("ingredient", ingredient);
         recipe.add("result", result);
-        recipe.addProperty("liquefaction_time", liquefactionTime);
+        recipe.addProperty("time", liquefactionTime);
         return recipe;
     }
 

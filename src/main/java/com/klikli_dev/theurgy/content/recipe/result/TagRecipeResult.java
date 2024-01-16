@@ -7,6 +7,7 @@ package com.klikli_dev.theurgy.content.recipe.result;
 import com.klikli_dev.theurgy.util.TagUtil;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
@@ -15,7 +16,6 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
-import net.neoforged.neoforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
@@ -105,7 +105,7 @@ public class TagRecipeResult extends RecipeResult {
     public ItemStack[] getStacks() {
         if (this.cachedStacks == null) {
             //get all items in tag
-            this.cachedStacks = ForgeRegistries.ITEMS.tags().getTag(this.tag).stream().map(ItemStack::new).toArray(ItemStack[]::new);
+            this.cachedStacks = BuiltInRegistries.ITEM.getTag(this.tag).get().stream().map(ItemStack::new).toArray(ItemStack[]::new);
         }
         return this.cachedStacks;
     }

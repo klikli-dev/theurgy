@@ -46,12 +46,12 @@ public class LiquefactionCraftingBehaviour extends CraftingBehaviour<RecipeWrapp
 
     @Override
     protected int getCraftingTime(LiquefactionRecipe recipe) {
-        return recipe.getLiquefactionTime();
+        return recipe.getTime();
     }
 
     @Override
     protected int getDefaultCraftingTime() {
-        return LiquefactionRecipe.DEFAULT_LIQUEFACTION_TIME;
+        return LiquefactionRecipe.DEFAULT_TIME;
     }
 
     @Override

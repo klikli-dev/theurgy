@@ -45,11 +45,11 @@ public class CalcinationCraftingBehaviour extends CraftingBehaviour<RecipeWrappe
 
     @Override
     protected int getCraftingTime(CalcinationRecipe recipe) {
-        return recipe.getCalcinationTime();
+        return recipe.getTime();
     }
 
     @Override
     protected int getDefaultCraftingTime() {
-        return CalcinationRecipe.DEFAULT_CALCINATION_TIME;
+        return CalcinationRecipe.DEFAULT_TIME;
     }
 }

@@ -4,45 +4,47 @@
 
 package com.klikli_dev.theurgy.content.recipe;
 
-import com.google.gson.JsonObject;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.RecipeSerializerRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
-import net.neoforged.neoforge.common.crafting.CraftingHelper;
 import net.neoforged.neoforge.items.wrapper.RecipeWrapper;
 
 
 public class DistillationRecipe implements Recipe<RecipeWrapper> {
 
-    public static final int DEFAULT_DISTILLATION_TIME = 100;
-    protected final ResourceLocation id;
+    public static final int DEFAULT_TIME = 100;
+
+    public static final Codec<DistillationRecipe> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+                    Ingredient.CODEC.fieldOf("ingredient").forGetter((r) -> r.ingredient),
+                    Codec.INT.fieldOf("ingredientCount").forGetter((r) -> r.ingredientCount),
+                    ItemStack.CODEC.fieldOf("result").forGetter(r -> r.result),
+                    Codec.INT.optionalFieldOf("time", DEFAULT_TIME).forGetter(r -> r.time)
+            ).apply(instance, DistillationRecipe::new
+            )
+    );
+
     protected final Ingredient ingredient;
     protected final int ingredientCount;
     protected final ItemStack result;
-    protected final int distillationTime;
+    protected final int time;
 
-    public DistillationRecipe(ResourceLocation pId, Ingredient pIngredient, int ingredientCount, ItemStack pResult, int distillationTime) {
-        this.id = pId;
+    public DistillationRecipe(Ingredient pIngredient, int ingredientCount, ItemStack pResult, int time) {
         this.ingredient = pIngredient;
         this.ingredientCount = ingredientCount;
         this.result = pResult;
-        this.distillationTime = distillationTime;
-    }
-
-    @Override
-    public ResourceLocation getId() {
-        return this.id;
+        this.time = time;
     }
 
     @Override
@@ -96,38 +98,27 @@ public class DistillationRecipe implements Recipe<RecipeWrapper> {
         return RecipeSerializerRegistry.DISTILLATION.get();
     }
 
-    public int getDistillationTime() {
-        return this.distillationTime;
+    public int getTime() {
+        return this.time;
     }
 
     public static class Serializer implements RecipeSerializer<DistillationRecipe> {
 
         @Override
-        public DistillationRecipe fromJson(ResourceLocation pRecipeId, JsonObject pJson) {
-            var ingredientElement = GsonHelper.isArrayNode(pJson, "ingredient") ? GsonHelper.getAsJsonArray(pJson, "ingredient") : GsonHelper.getAsJsonObject(pJson, "ingredient");
-            var ingredient = Ingredient.fromJson(ingredientElement);
-            var ingredientCount = GsonHelper.getAsInt(pJson, "ingredient_count", 1);
-            var result = CraftingHelper.getItemStack(GsonHelper.getAsJsonObject(pJson, "result"), true, true);
-
-            var distillationTime = GsonHelper.getAsInt(pJson, "distillation_time", DEFAULT_DISTILLATION_TIME);
-            return new DistillationRecipe(pRecipeId, ingredient, ingredientCount, result, distillationTime);
+        public Codec<DistillationRecipe> codec() {
+            return CODEC;
         }
 
         @Override
-        public DistillationRecipe fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
-            var ingredient = Ingredient.fromNetwork(pBuffer);
-            var ingredientCount = pBuffer.readVarInt();
-            var result = pBuffer.readItem();
-            var distillationTime = pBuffer.readVarInt();
-            return new DistillationRecipe(pRecipeId, ingredient, ingredientCount, result, distillationTime);
+        public DistillationRecipe fromNetwork(FriendlyByteBuf pBuffer) {
+            //noinspection deprecation
+            return pBuffer.readWithCodecTrusted(NbtOps.INSTANCE, CODEC);
         }
 
         @Override
         public void toNetwork(FriendlyByteBuf pBuffer, DistillationRecipe pRecipe) {
-            pRecipe.ingredient.toNetwork(pBuffer);
-            pBuffer.writeVarInt(pRecipe.ingredientCount);
-            pBuffer.writeItem(pRecipe.result);
-            pBuffer.writeVarInt(pRecipe.distillationTime);
+            //noinspection deprecation
+            pBuffer.writeWithCodec(NbtOps.INSTANCE, CODEC, pRecipe);
         }
     }
 }

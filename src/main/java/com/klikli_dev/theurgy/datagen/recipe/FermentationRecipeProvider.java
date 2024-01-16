@@ -110,7 +110,7 @@ public class FermentationRecipeProvider extends JsonRecipeProvider {
                 this.makeFluidTagIngredient(this.locFor(fluid)),
                 fluidAmount,
                 ingredients.stream().map(i -> this.makeTagIngredient(this.locFor(i))).toList(),
-                this.makeItemStackCodecResult(this.locFor(result), resultCount),
+                this.makeItemResult(this.locFor(result), resultCount),
                 time);
 
         var conditions = new JsonArray();

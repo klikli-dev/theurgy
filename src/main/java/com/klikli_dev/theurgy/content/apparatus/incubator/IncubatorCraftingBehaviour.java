@@ -13,7 +13,6 @@ import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.items.IItemHandlerModifiable;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Supplier;
 
@@ -53,12 +52,12 @@ public class IncubatorCraftingBehaviour extends CraftingBehaviour<IncubatorRecip
 
     @Override
     protected int getCraftingTime(IncubationRecipe recipe) {
-        return recipe.getIncubationTime();
+        return recipe.getTime();
     }
 
     @Override
     protected int getDefaultCraftingTime() {
-        return IncubationRecipe.DEFAULT_INCUBATION_TIME;
+        return IncubationRecipe.DEFAULT_TIME;
     }
 
     @Override

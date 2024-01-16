@@ -20,7 +20,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.material.Fluid;
 import net.neoforged.neoforge.fluids.FluidStack;
-import net.neoforged.neoforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -145,28 +144,6 @@ public abstract class JsonRecipeProvider implements DataProvider {
     }
 
     public JsonObject makeItemResult(ResourceLocation item, int count, @Nullable JsonObject nbt) {
-        JsonObject jsonobject = new JsonObject();
-        jsonobject.addProperty("item", item.toString());
-        jsonobject.addProperty("count", count);
-        if (nbt != null) {
-            jsonobject.add("nbt", nbt);
-        }
-        return jsonobject;
-    }
-
-    public JsonObject makeItemStackCodecResult(ResourceLocation item) {
-        return this.makeItemStackCodecResult(item, 1);
-    }
-
-    public JsonObject makeItemStackCodecResult(ResourceLocation item, int count) {
-        return this.makeItemStackCodecResult(item, count, (JsonObject) null);
-    }
-
-    public JsonObject makeItemStackCodecResult(ResourceLocation item, int count, @Nullable CompoundTag nbt) {
-        return this.makeItemStackCodecResult(item, count, nbt == null ? null : (JsonObject) NbtOps.INSTANCE.convertTo(JsonOps.INSTANCE, nbt));
-    }
-
-    public JsonObject makeItemStackCodecResult(ResourceLocation item, int count, @Nullable JsonObject nbt) {
         JsonObject jsonobject = new JsonObject();
         jsonobject.addProperty("id", item.toString());
         jsonobject.addProperty("Count", count);

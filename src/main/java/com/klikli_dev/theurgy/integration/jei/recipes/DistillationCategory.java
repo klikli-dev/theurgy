@@ -60,9 +60,9 @@ public class DistillationCategory implements IRecipeCategory<DistillationRecipe>
     }
 
     protected IDrawableAnimated getAnimatedArrow(DistillationRecipe recipe) {
-        int cookTime = recipe.getDistillationTime();
+        int cookTime = recipe.getTime();
         if (cookTime <= 0) {
-            cookTime = DistillationRecipe.DEFAULT_DISTILLATION_TIME;
+            cookTime = DistillationRecipe.DEFAULT_TIME;
         }
         return this.cachedAnimatedArrow.getUnchecked(cookTime);
     }
@@ -89,7 +89,7 @@ public class DistillationCategory implements IRecipeCategory<DistillationRecipe>
     }
 
     protected void drawCookTime(DistillationRecipe recipe, GuiGraphics guiGraphics, int y) {
-        int cookTime = recipe.getDistillationTime();
+        int cookTime = recipe.getTime();
         if (cookTime > 0) {
             int cookTimeSeconds = cookTime / 20;
             Component timeString = Component.translatable("gui.jei.category.smelting.time.seconds", cookTimeSeconds);

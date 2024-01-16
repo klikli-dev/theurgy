@@ -75,7 +75,7 @@ public class DigestionRecipeProvider extends JsonRecipeProvider {
                 this.makeFluidTagIngredient(this.locFor(fluid)),
                 fluidAmount,
                 ingredients.stream().map(i -> this.makeItemIngredient(this.locFor(i.getFirst()), i.getSecond())).toList(),
-                this.makeItemStackCodecResult(this.locFor(result), resultCount),
+                this.makeItemResult(this.locFor(result), resultCount),
                 time);
 
         this.recipeConsumer.accept(this.modLoc(name), recipe);
@@ -90,7 +90,7 @@ public class DigestionRecipeProvider extends JsonRecipeProvider {
                 this.makeFluidTagIngredient(this.locFor(fluid)),
                 fluidAmount,
                 ingredients.stream().map(i -> this.makeTagIngredient(this.locFor(i), 1)).toList(),
-                this.makeItemStackCodecResult(this.locFor(result), resultCount),
+                this.makeItemResult(this.locFor(result), resultCount),
                 time);
 
         var conditions = new JsonArray();

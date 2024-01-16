@@ -25,7 +25,7 @@ import java.util.function.BiConsumer;
 
 public class ReformationRecipeProvider extends JsonRecipeProvider {
 
-    public static final int TIME = ReformationRecipe.DEFAULT_REFORMATION_TIME;
+    public static final int TIME = ReformationRecipe.DEFAULT_TIME;
     private final Map<AlchemicalSulfurTier, Integer> fluxPerTier = Map.of(
             AlchemicalSulfurTier.ABUNDANT, 50,
             AlchemicalSulfurTier.COMMON, 100,
@@ -212,7 +212,7 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
                 sources.stream().map(s -> this.makeTagIngredient(this.locFor(s))).toList(),
                 this.makeItemIngredient(this.locFor(result)),
                 mercuryFlux,
-                this.makeItemStackCodecResult(this.locFor(result), resultCount),
+                this.makeItemResult(this.locFor(result), resultCount),
                 reformationTime);
 
         var conditions = new JsonArray();
@@ -239,7 +239,7 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
                         sources.stream().map(s -> this.makeItemIngredient(this.locFor(s))).toList(),
                         this.makeItemIngredient(this.locFor(result)),
                         mercuryFlux,
-                        this.makeItemStackCodecResult(this.locFor(result), resultCount),
+                        this.makeItemResult(this.locFor(result), resultCount),
                         reformationTime));
     }
 
@@ -255,7 +255,7 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
         recipe.add("target", target);
         recipe.addProperty("mercury_flux", mercuryFlux);
         recipe.add("result", result);
-        recipe.addProperty("reformation_time", reformationTime);
+        recipe.addProperty("time", reformationTime);
         return recipe;
     }
 

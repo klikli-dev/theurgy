@@ -61,9 +61,9 @@ public class IncubationCategory implements IRecipeCategory<IncubationRecipe> {
     }
 
     protected IDrawableAnimated getAnimatedArrow(IncubationRecipe recipe) {
-        int cookTime = recipe.getIncubationTime();
+        int cookTime = recipe.getTime();
         if (cookTime <= 0) {
-            cookTime = IncubationRecipe.DEFAULT_INCUBATION_TIME;
+            cookTime = IncubationRecipe.DEFAULT_TIME;
         }
         return this.cachedAnimatedArrow.getUnchecked(cookTime);
     }
@@ -90,7 +90,7 @@ public class IncubationCategory implements IRecipeCategory<IncubationRecipe> {
     }
 
     protected void drawCookTime(IncubationRecipe recipe, GuiGraphics guiGraphics, int y) {
-        int cookTime = recipe.getIncubationTime();
+        int cookTime = recipe.getTime();
         if (cookTime > 0) {
             int cookTimeSeconds = cookTime / 20;
             Component timeString = Component.translatable("gui.jei.category.smelting.time.seconds", cookTimeSeconds);

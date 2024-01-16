@@ -4,24 +4,24 @@
 
 package com.klikli_dev.theurgy.content.recipe.result;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
-import com.mojang.serialization.JsonOps;
+import com.mojang.datafixers.util.Either;
+import com.mojang.serialization.Codec;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.common.crafting.CraftingHelper;
 
 
 public abstract class RecipeResult {
-    public static RecipeResult fromJson(JsonObject json) {
-        if (json.has("item")) {
-            return new ItemRecipeResult(CraftingHelper.getItemStack(json, true, true));
-        } else if (json.has("tag")) {
-            return TagRecipeResult.CODEC.parse(JsonOps.INSTANCE, json).result().get();
-        } else {
-            throw new JsonParseException("RecipeResult must have either an \"tag\" or \"item\" field.");
-        }
-    }
+    public static final Codec<RecipeResult> CODEC = ExtraCodecs.xor(ItemRecipeResult.CODEC, TagRecipeResult.CODEC)
+            .xmap(first -> first.map(l -> l, r -> r), second -> {
+                if (second instanceof TagRecipeResult tag) {
+                    return Either.right(tag);
+                } else if (second instanceof ItemRecipeResult item) {
+                    return Either.left(item);
+                } else {
+                    throw new UnsupportedOperationException("This is neither an ItemRecipeResult nor a TagRecipeResult.");
+                }
+            });
 
     public static RecipeResult fromNetwork(FriendlyByteBuf pBuffer) {
         var type = pBuffer.readByte();

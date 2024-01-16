@@ -40,11 +40,11 @@ public class DistillationCraftingBehaviour extends CraftingBehaviour<RecipeWrapp
 
     @Override
     protected int getCraftingTime(DistillationRecipe recipe) {
-        return recipe.getDistillationTime();
+        return recipe.getTime();
     }
 
     @Override
     protected int getDefaultCraftingTime() {
-        return DistillationRecipe.DEFAULT_DISTILLATION_TIME;
+        return DistillationRecipe.DEFAULT_TIME;
     }
 }

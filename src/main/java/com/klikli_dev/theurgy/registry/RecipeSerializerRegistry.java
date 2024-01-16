@@ -6,14 +6,9 @@ package com.klikli_dev.theurgy.registry;
 
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.content.recipe.*;
-import com.klikli_dev.theurgy.content.recipe.ingredient.FluidIngredient;
-import com.klikli_dev.theurgy.content.recipe.ingredient.FluidTagEmptyCondition;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.neoforged.neoforge.common.crafting.CraftingHelper;
 import net.neoforged.neoforge.registries.DeferredRegister;
-import net.neoforged.neoforge.registries.NeoForgeRegistries;
-import net.neoforged.neoforge.registries.RegisterEvent;
 
 import java.util.function.Supplier;
 

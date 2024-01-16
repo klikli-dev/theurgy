@@ -4,7 +4,6 @@
 
 package com.klikli_dev.theurgy.content.apparatus.reformationarray;
 
-import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.content.behaviour.CraftingBehaviour;
 import com.klikli_dev.theurgy.content.capability.MercuryFluxStorage;
 import com.klikli_dev.theurgy.content.recipe.ReformationRecipe;
@@ -83,12 +82,12 @@ public class ReformationArrayCraftingBehaviour extends CraftingBehaviour<Reforma
 
     @Override
     protected int getCraftingTime(ReformationRecipe recipe) {
-        return recipe.getReformationTime();
+        return recipe.getTime();
     }
 
     @Override
     protected int getDefaultCraftingTime() {
-        return ReformationRecipe.DEFAULT_REFORMATION_TIME;
+        return ReformationRecipe.DEFAULT_TIME;
     }
 
     @Override

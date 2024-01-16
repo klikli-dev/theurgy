@@ -60,12 +60,12 @@ public class SalAmmoniacAccumulatorCraftingBehaviour extends CraftingBehaviour<R
 
     @Override
     protected int getCraftingTime(AccumulationRecipe recipe) {
-        return recipe.getAccumulationTime();
+        return recipe.getTime();
     }
 
     @Override
     protected int getDefaultCraftingTime() {
-        return AccumulationRecipe.DEFAULT_ACCUMULATION_TIME;
+        return AccumulationRecipe.DEFAULT_TIME;
     }
 
     @Override

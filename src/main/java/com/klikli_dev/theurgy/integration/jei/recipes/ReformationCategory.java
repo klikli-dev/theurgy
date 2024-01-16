@@ -7,7 +7,6 @@ package com.klikli_dev.theurgy.integration.jei.recipes;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
-import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.content.gui.GuiTextures;
 import com.klikli_dev.theurgy.content.recipe.ReformationRecipe;
@@ -62,9 +61,9 @@ public class ReformationCategory implements IRecipeCategory<ReformationRecipe> {
     }
 
     protected IDrawableAnimated getAnimatedArrow(ReformationRecipe recipe) {
-        int cookTime = recipe.getReformationTime();
+        int cookTime = recipe.getTime();
         if (cookTime <= 0) {
-            cookTime = ReformationRecipe.DEFAULT_REFORMATION_TIME;
+            cookTime = ReformationRecipe.DEFAULT_TIME;
         }
         return this.cachedAnimatedArrow.getUnchecked(cookTime);
     }
@@ -103,7 +102,7 @@ public class ReformationCategory implements IRecipeCategory<ReformationRecipe> {
     }
 
     protected void drawCookTime(ReformationRecipe recipe, GuiGraphics guiGraphics, int y) {
-        int cookTime = recipe.getReformationTime();
+        int cookTime = recipe.getTime();
         if (cookTime > 0) {
             int cookTimeSeconds = cookTime / 20;
             Component timeString = Component.translatable("gui.jei.category.smelting.time.seconds", cookTimeSeconds);

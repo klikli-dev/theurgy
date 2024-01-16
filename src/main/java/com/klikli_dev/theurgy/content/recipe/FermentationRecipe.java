@@ -4,21 +4,17 @@
 
 package com.klikli_dev.theurgy.content.recipe;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
 import com.klikli_dev.theurgy.content.recipe.ingredient.FluidIngredient;
 import com.klikli_dev.theurgy.content.recipe.wrapper.RecipeWrapperWithFluid;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.registry.RecipeSerializerRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
-import com.klikli_dev.theurgy.util.TheurgyExtraCodecs;
 import com.mojang.serialization.Codec;
-import com.mojang.serialization.JsonOps;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.StackedContents;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -36,7 +32,7 @@ public class FermentationRecipe implements Recipe<RecipeWrapperWithFluid> {
     public static final Codec<FermentationRecipe> CODEC = RecordCodecBuilder.create(instance -> instance.group(
                     FluidIngredient.CODEC.fieldOf("fluid").forGetter((r) -> r.fluid),
                     Codec.INT.fieldOf("fluidAmount").forGetter((r) -> r.fluidAmount),
-                    TheurgyExtraCodecs.INGREDIENT.listOf().fieldOf("ingredients").forGetter(r -> r.ingredients),
+                    Ingredient.CODEC.listOf().fieldOf("ingredients").forGetter(r -> r.ingredients),
                     ItemStack.CODEC.fieldOf("result").forGetter(r -> r.result),
                     Codec.INT.optionalFieldOf("time", DEFAULT_TIME).forGetter(r -> r.time)
             ).apply(instance, FermentationRecipe::new)
@@ -48,7 +44,6 @@ public class FermentationRecipe implements Recipe<RecipeWrapperWithFluid> {
     protected final ItemStack result;
     protected final int time;
     private final boolean hasOnlySimpleIngredients;
-    protected ResourceLocation id;
 
     public FermentationRecipe(FluidIngredient fluid, int fluidAmount, List<Ingredient> ingredients, ItemStack result, int time) {
         this.fluid = fluid;
@@ -57,11 +52,6 @@ public class FermentationRecipe implements Recipe<RecipeWrapperWithFluid> {
         this.hasOnlySimpleIngredients = ingredients.stream().allMatch(Ingredient::isSimple);
         this.result = result;
         this.time = time;
-    }
-
-    @Override
-    public ResourceLocation getId() {
-        return this.id;
     }
 
     @Override
@@ -148,24 +138,20 @@ public class FermentationRecipe implements Recipe<RecipeWrapperWithFluid> {
     public static class Serializer implements RecipeSerializer<FermentationRecipe> {
 
         @Override
-        public FermentationRecipe fromJson(ResourceLocation pRecipeId, JsonObject pJson) {
-            var recipe = CODEC.parse(JsonOps.INSTANCE, pJson).getOrThrow(false, s -> {
-                throw new JsonParseException(s);
-            });
-            recipe.id = pRecipeId;
-            return recipe;
+        public Codec<FermentationRecipe> codec() {
+            return CODEC;
         }
 
         @Override
-        public FermentationRecipe fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
-            var recipe = pBuffer.readJsonWithCodec(CODEC);
-            recipe.id = pRecipeId;
-            return recipe;
+        public FermentationRecipe fromNetwork(FriendlyByteBuf pBuffer) {
+            //noinspection deprecation
+            return pBuffer.readWithCodecTrusted(NbtOps.INSTANCE, CODEC);
         }
 
         @Override
         public void toNetwork(FriendlyByteBuf pBuffer, FermentationRecipe pRecipe) {
-            pBuffer.writeJsonWithCodec(CODEC, pRecipe);
+            //noinspection deprecation
+            pBuffer.writeWithCodec(NbtOps.INSTANCE, CODEC, pRecipe);
         }
     }
 }

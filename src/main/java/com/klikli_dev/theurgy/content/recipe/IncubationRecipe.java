@@ -4,17 +4,17 @@
 
 package com.klikli_dev.theurgy.content.recipe;
 
-import com.google.gson.JsonObject;
 import com.klikli_dev.theurgy.content.recipe.result.RecipeResult;
 import com.klikli_dev.theurgy.content.recipe.wrapper.IncubatorRecipeWrapper;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.RecipeSerializerRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
@@ -25,28 +25,29 @@ import net.minecraft.world.level.Level;
 
 public class IncubationRecipe implements Recipe<IncubatorRecipeWrapper> {
 
-    public static final int DEFAULT_INCUBATION_TIME = 100;
+    public static final int DEFAULT_TIME = 100;
 
-    protected final ResourceLocation id;
+    public static final Codec<IncubationRecipe> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+            Ingredient.CODEC.fieldOf("mercury").forGetter((r) -> r.mercury),
+            Ingredient.CODEC.fieldOf("salt").forGetter((r) -> r.salt),
+            Ingredient.CODEC.fieldOf("sulfur").forGetter((r) -> r.sulfur),
+            RecipeResult.CODEC.fieldOf("result").forGetter(r -> r.result),
+            Codec.INT.optionalFieldOf("time", DEFAULT_TIME).forGetter(r -> r.time)
+    ).apply(instance, IncubationRecipe::new));
+
     protected final Ingredient mercury;
     protected final Ingredient salt;
     protected final Ingredient sulfur;
 
     protected final RecipeResult result;
-    protected final int incubationTime;
+    protected final int time;
 
-    public IncubationRecipe(ResourceLocation pId, Ingredient mercury, Ingredient salt, Ingredient sulfur, RecipeResult pResult, int incubationTime) {
-        this.id = pId;
+    public IncubationRecipe(Ingredient mercury, Ingredient salt, Ingredient sulfur, RecipeResult pResult, int time) {
         this.mercury = mercury;
         this.salt = salt;
         this.sulfur = sulfur;
         this.result = pResult;
-        this.incubationTime = incubationTime;
-    }
-
-    @Override
-    public ResourceLocation getId() {
-        return this.id;
+        this.time = time;
     }
 
     @Override
@@ -99,8 +100,8 @@ public class IncubationRecipe implements Recipe<IncubatorRecipeWrapper> {
         return RecipeSerializerRegistry.INCUBATION.get();
     }
 
-    public int getIncubationTime() {
-        return this.incubationTime;
+    public int getTime() {
+        return this.time;
     }
 
     public Ingredient getMercury() {
@@ -118,42 +119,20 @@ public class IncubationRecipe implements Recipe<IncubatorRecipeWrapper> {
     public static class Serializer implements RecipeSerializer<IncubationRecipe> {
 
         @Override
-        public IncubationRecipe fromJson(ResourceLocation pRecipeId, JsonObject pJson) {
-            var mercuryElement = GsonHelper.isArrayNode(pJson, "mercury") ?
-                    GsonHelper.getAsJsonArray(pJson, "mercury") : GsonHelper.getAsJsonObject(pJson, "mercury");
-            var mercury = Ingredient.fromJson(mercuryElement);
-
-            var saltElement = GsonHelper.isArrayNode(pJson, "salt") ?
-                    GsonHelper.getAsJsonArray(pJson, "salt") : GsonHelper.getAsJsonObject(pJson, "salt");
-            var salt = Ingredient.fromJson(saltElement);
-
-            var sulfurElement = GsonHelper.isArrayNode(pJson, "sulfur") ?
-                    GsonHelper.getAsJsonArray(pJson, "sulfur") : GsonHelper.getAsJsonObject(pJson, "sulfur");
-            var sulfur = Ingredient.fromJson(sulfurElement);
-
-            var result = RecipeResult.fromJson(GsonHelper.getAsJsonObject(pJson, "result"));
-
-            var incubationTime = GsonHelper.getAsInt(pJson, "incubation_time", DEFAULT_INCUBATION_TIME);
-            return new IncubationRecipe(pRecipeId, mercury, salt, sulfur, result, incubationTime);
+        public Codec<IncubationRecipe> codec() {
+            return CODEC;
         }
 
         @Override
-        public IncubationRecipe fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
-            var mercury = Ingredient.fromNetwork(pBuffer);
-            var salt = Ingredient.fromNetwork(pBuffer);
-            var sulfur = Ingredient.fromNetwork(pBuffer);
-            var result = RecipeResult.fromNetwork(pBuffer);
-            var incubationTime = pBuffer.readVarInt();
-            return new IncubationRecipe(pRecipeId, mercury, salt, sulfur, result, incubationTime);
+        public IncubationRecipe fromNetwork(FriendlyByteBuf pBuffer) {
+            //noinspection deprecation
+            return pBuffer.readWithCodecTrusted(NbtOps.INSTANCE, CODEC);
         }
 
         @Override
         public void toNetwork(FriendlyByteBuf pBuffer, IncubationRecipe pRecipe) {
-            pRecipe.mercury.toNetwork(pBuffer);
-            pRecipe.salt.toNetwork(pBuffer);
-            pRecipe.sulfur.toNetwork(pBuffer);
-            pRecipe.result.toNetwork(pBuffer);
-            pBuffer.writeVarInt(pRecipe.incubationTime);
+            //noinspection deprecation
+            pBuffer.writeWithCodec(NbtOps.INSTANCE, CODEC, pRecipe);
         }
     }
 }

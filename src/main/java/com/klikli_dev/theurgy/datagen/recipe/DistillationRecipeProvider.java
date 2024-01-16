@@ -11,6 +11,7 @@ import com.klikli_dev.theurgy.content.recipe.DistillationRecipe;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.registry.ItemTagRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
@@ -18,13 +19,12 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.neoforged.neoforge.common.Tags;
-import net.neoforged.neoforge.registries.ForgeRegistries;
 
 import java.util.function.BiConsumer;
 
 public class DistillationRecipeProvider extends JsonRecipeProvider {
 
-    public static final int TIME = DistillationRecipe.DEFAULT_DISTILLATION_TIME;
+    public static final int TIME = DistillationRecipe.DEFAULT_TIME;
 
     public DistillationRecipeProvider(PackOutput packOutput) {
         super(packOutput, Theurgy.MODID, "distillation");
@@ -116,7 +116,7 @@ public class DistillationRecipeProvider extends JsonRecipeProvider {
     }
 
     public void makeMercuryShardRecipe(int resultCount, Item ingredient, int ingredientCount, int distillationTime) {
-        this.makeMercuryShardRecipe(ForgeRegistries.ITEMS.getKey(ingredient).getPath(), resultCount, ingredient, ingredientCount, distillationTime);
+        this.makeMercuryShardRecipe(BuiltInRegistries.ITEM.getKey(ingredient).getPath(), resultCount, ingredient, ingredientCount, distillationTime);
     }
 
     public void makeMercuryShardRecipe(String recipeName, int resultCount, Item ingredient, int ingredientCount, int distillationTime) {
@@ -133,9 +133,9 @@ public class DistillationRecipeProvider extends JsonRecipeProvider {
         var recipe = new JsonObject();
         recipe.addProperty("type", RecipeTypeRegistry.DISTILLATION.getId().toString());
         recipe.add("ingredient", ingredient);
-        recipe.addProperty("ingredient_count", ingredientCount);
+        recipe.addProperty("ingredientCount", ingredientCount);
         recipe.add("result", result);
-        recipe.addProperty("distillation_time", distillationTime);
+        recipe.addProperty("time", distillationTime);
         return recipe;
     }
 

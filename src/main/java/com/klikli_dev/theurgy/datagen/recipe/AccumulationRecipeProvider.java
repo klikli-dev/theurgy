@@ -23,7 +23,7 @@ import java.util.function.BiConsumer;
 
 public class AccumulationRecipeProvider extends JsonRecipeProvider {
 
-    public static final int TIME = AccumulationRecipe.DEFAULT_ACCUMULATION_TIME;
+    public static final int TIME = AccumulationRecipe.DEFAULT_TIME;
 
     public AccumulationRecipeProvider(PackOutput packOutput) {
         super(packOutput, Theurgy.MODID, "accumulation");
@@ -66,7 +66,7 @@ public class AccumulationRecipeProvider extends JsonRecipeProvider {
         if (solute != null)
             recipe.add("solute", solute);
         recipe.add("result", result);
-        recipe.addProperty("accumulationTime", accumulationTime);
+        recipe.addProperty("time", accumulationTime);
         return recipe;
     }
 

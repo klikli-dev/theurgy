@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.12.1] - 2024-01-16
+### :bug: Bug Fixes
+- [`f625776`](https://github.com/klikli-dev/theurgy/commit/f625776df0ccee5df9dcf4825f2897bde213744a) - caps not invalidated *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`264aeb8`](https://github.com/klikli-dev/theurgy/commit/264aeb88ca3b5d9b2efd64516bf7f062530f249c) - update publish action *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.1-1.11.1] - 2024-01-15
 ### :bug: Bug Fixes
 - [`b7d533b`](https://github.com/klikli-dev/theurgy/commit/b7d533b1adb86807de91120b8e78c442df83c986) - digestion recipe matching *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -400,3 +408,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.10.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.10.0...release/v1.20.1-1.10.1
 [release/v1.20.1-1.11.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.10.1...release/v1.20.1-1.11.0
 [release/v1.20.1-1.11.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.11.0...release/v1.20.1-1.11.1
+[release/v1.20.1-1.12.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.12.0...release/v1.20.1-1.12.1

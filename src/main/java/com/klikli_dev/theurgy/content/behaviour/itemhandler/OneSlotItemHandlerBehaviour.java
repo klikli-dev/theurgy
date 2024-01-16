@@ -12,7 +12,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
-import net.neoforged.neoforge.common.capabilities.Capabilities;
+import net.neoforged.neoforge.capabilities.Capabilities;
 
 
 public class OneSlotItemHandlerBehaviour implements ItemHandlerBehaviour {
@@ -25,19 +25,13 @@ public class OneSlotItemHandlerBehaviour implements ItemHandlerBehaviour {
      */
     @Override
     public InteractionResult useItemHandler(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
-        if(pHand != InteractionHand.MAIN_HAND)
+        if (pHand != InteractionHand.MAIN_HAND)
             return InteractionResult.PASS;
 
-        var blockEntity = pLevel.getBlockEntity(pPos);
-
-        if (blockEntity == null)
+        var blockItemHandler = pLevel.getCapability(Capabilities.ItemHandler.BLOCK, pPos, null);
+        //a block without item handler is of no interest
+        if (blockItemHandler == null)
             return InteractionResult.PASS;
-
-        var blockItemHandlerCap = blockEntity.getCapability(Capabilities.ITEM_HANDLER);
-        if (!blockItemHandlerCap.isPresent())
-            return InteractionResult.PASS;
-
-        var blockItemHandler = blockItemHandlerCap.orElse(null);
 
         ItemStack stackInHand = pPlayer.getItemInHand(pHand);
 

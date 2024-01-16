@@ -105,7 +105,9 @@ public class TagRecipeResult extends RecipeResult {
     public ItemStack[] getStacks() {
         if (this.cachedStacks == null) {
             //get all items in tag
-            this.cachedStacks = BuiltInRegistries.ITEM.getTag(this.tag).get().stream().map(ItemStack::new).toArray(ItemStack[]::new);
+            this.cachedStacks = BuiltInRegistries.ITEM.getTag(this.tag)
+                    .map(tag -> tag.stream().map(ItemStack::new).toArray(ItemStack[]::new))
+                    .orElse(new ItemStack[0]);
         }
         return this.cachedStacks;
     }

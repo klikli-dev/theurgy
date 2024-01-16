@@ -19,6 +19,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.item.ItemPropertyFunction;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.*;
@@ -40,9 +42,9 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.TierSortingRegistry;
-import net.neoforged.neoforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -110,7 +112,9 @@ public class DivinationRodItem extends Item {
     private static void scanLinkedTag(Player player, String id, int range, int duration) {
         var targetId = new ResourceLocation(id.substring(1)); //skip the #
         var tagKey = TagKey.create(Registries.BLOCK, targetId);
-        var blocks = ForgeRegistries.BLOCKS.tags().getTag(tagKey).stream().collect(Collectors.toSet());
+        var blocks = BuiltInRegistries.BLOCK.getTag(tagKey)
+                .map(tag -> tag.stream().map(Holder::value).collect(Collectors.toSet()))
+                .orElse(Collections.emptySet());
 
         if (!blocks.isEmpty()) {
             ScanManager.get().beginScan(player, blocks, range, duration);

@@ -12,17 +12,17 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
-import net.neoforged.neoforge.common.capabilities.Capabilities;
+import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.items.IItemHandler;
 
 
 public class DynamicOneOutputSlotItemHandlerBehaviour implements ItemHandlerBehaviour {
 
-    protected int getOutputSlot(IItemHandler handler){
+    protected int getOutputSlot(IItemHandler handler) {
         return handler.getSlots() - 1;
     }
 
-    protected int getMaxInputSlot(IItemHandler handler){
+    protected int getMaxInputSlot(IItemHandler handler) {
         return handler.getSlots() - 2;
     }
 
@@ -31,21 +31,16 @@ public class DynamicOneOutputSlotItemHandlerBehaviour implements ItemHandlerBeha
      */
     @Override
     public InteractionResult useItemHandler(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
-        if(pHand != InteractionHand.MAIN_HAND)
+        if (pHand != InteractionHand.MAIN_HAND)
             return InteractionResult.PASS;
 
-        var blockEntity = pLevel.getBlockEntity(pPos);
-
-        if (blockEntity == null)
+        var blockItemHandler = pLevel.getCapability(Capabilities.ItemHandler.BLOCK, pPos, null);
+        //a block without item handler is of no interest
+        if (blockItemHandler == null)
             return InteractionResult.PASS;
 
-        var blockItemHandlerCap = blockEntity.getCapability(Capabilities.ITEM_HANDLER);
-        if (!blockItemHandlerCap.isPresent())
-            return InteractionResult.PASS;
-
-        var blockItemHandler = blockItemHandlerCap.orElse(null);
-        var outputSlot = getOutputSlot(blockItemHandler);
-        var maxInputSlot = getMaxInputSlot(blockItemHandler);
+        var outputSlot = this.getOutputSlot(blockItemHandler);
+        var maxInputSlot = this.getMaxInputSlot(blockItemHandler);
 
         ItemStack stackInHand = pPlayer.getItemInHand(pHand);
 
@@ -58,7 +53,7 @@ public class DynamicOneOutputSlotItemHandlerBehaviour implements ItemHandlerBeha
             }
 
             //if no output, try take input
-            for(int inputSlot = 0; inputSlot <= maxInputSlot; inputSlot++){
+            for (int inputSlot = 0; inputSlot <= maxInputSlot; inputSlot++) {
                 extracted = blockItemHandler.extractItem(inputSlot, blockItemHandler.getSlotLimit(inputSlot), false);
                 if (!extracted.isEmpty()) {
                     pPlayer.getInventory().placeItemBackInInventory(extracted);
@@ -66,7 +61,7 @@ public class DynamicOneOutputSlotItemHandlerBehaviour implements ItemHandlerBeha
                 }
             }
         } else {
-            for(int inputSlot = 0; inputSlot <= maxInputSlot; inputSlot++){
+            for (int inputSlot = 0; inputSlot <= maxInputSlot; inputSlot++) {
                 //if we have an item in hand, try to insert
                 var remainder = blockItemHandler.insertItem(inputSlot, stackInHand, false);
                 pPlayer.setItemInHand(pHand, remainder);

@@ -21,7 +21,6 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.network.PlayMessages;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Consumer;
@@ -93,11 +92,6 @@ public class FollowProjectile extends ColoredProjectile {
     public FollowProjectile(EntityType<? extends FollowProjectile> entityType, Level world) {
         super(entityType, world);
     }
-
-    public FollowProjectile(PlayMessages.SpawnEntity packet, Level world) {
-        super(EntityRegistry.FOLLOW_PROJECTILE.get(), world);
-    }
-
 
     public void setDespawnDistance(int distance) {
         this.getEntityData().set(DESPAWN_DISTANCE, distance);

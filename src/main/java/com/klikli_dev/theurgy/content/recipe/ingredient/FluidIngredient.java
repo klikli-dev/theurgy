@@ -26,7 +26,9 @@ import net.neoforged.neoforge.fluids.FluidStack;
 import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class FluidIngredient extends Ingredient {
@@ -225,7 +227,9 @@ public class FluidIngredient extends Ingredient {
 
         @Override
         public Collection<FluidStack> getFluids() {
-            return BuiltInRegistries.FLUID.getTags().map(Pair::getSecond).flatMap(t -> t.stream().map(f -> new FluidStack(f, 1))).toList();
+            return BuiltInRegistries.FLUID.getTag(this.tag)
+                    .map(tag -> tag.stream().map(h -> new FluidStack(h, 1)).collect(Collectors.toList()))
+                    .orElse(Collections.emptyList());
         }
 
         @Override

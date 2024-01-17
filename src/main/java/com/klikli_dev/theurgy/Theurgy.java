@@ -59,6 +59,7 @@ import net.neoforged.neoforge.event.TickEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import org.slf4j.Logger;
+import software.bernie.geckolib.GeckoLib;
 
 
 @Mod(Theurgy.MODID)
@@ -116,6 +117,8 @@ public class Theurgy {
             NeoForge.EVENT_BUS.addListener(Client::onRightClick);
             NeoForge.EVENT_BUS.addListener(Client::onLeftClick);
         }
+
+        GeckoLib.initialize(modEventBus);
     }
 
     public static ResourceLocation loc(String path) {

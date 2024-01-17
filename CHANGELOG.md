@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.4-1.12.3] - 2024-01-17
+### :bug: Bug Fixes
+- [`1af3526`](https://github.com/klikli-dev/theurgy/commit/1af352637f746d67549d22cc015448ea5ef0cceb) - recipe conditions *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`a350a4d`](https://github.com/klikli-dev/theurgy/commit/a350a4dd822d1ba1d7952de12ade7e8aa8be5153) - remove unneeded remapper script *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.4-1.12.2] - 2024-01-17
 ### :bug: Bug Fixes
 - [`852b900`](https://github.com/klikli-dev/theurgy/commit/852b900f8736c505bbc44b73b842c689de5b4af5) - init geckolib *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -418,3 +426,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.4-1.12.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.4-0.0.0...release/v1.20.4-1.12.0
 [release/v1.20.4-1.12.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.4-1.12.0...release/v1.20.4-1.12.1
 [release/v1.20.4-1.12.2]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.4-1.12.1...release/v1.20.4-1.12.2
+[release/v1.20.4-1.12.3]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.4-1.12.2...release/v1.20.4-1.12.3

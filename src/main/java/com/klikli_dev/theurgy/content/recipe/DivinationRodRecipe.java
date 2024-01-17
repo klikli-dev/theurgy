@@ -9,12 +9,15 @@ import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.config.ServerConfig;
 import com.klikli_dev.theurgy.registry.RecipeSerializerRegistry;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
+import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
@@ -219,27 +222,32 @@ public class DivinationRodRecipe extends ShapedRecipe {
 
     public static class Serializer implements RecipeSerializer<DivinationRodRecipe> {
 
-        @Override
-        public DivinationRodRecipe fromNetwork(FriendlyByteBuf pBuffer) {
-            var shapedRecipe = RecipeSerializer.SHAPED_RECIPE.fromNetwork(pBuffer);
-
-            return new DivinationRodRecipe(shapedRecipe.getGroup(), shapedRecipe.pattern, shapedRecipe.getResultItem(RegistryAccess.EMPTY), shapedRecipe.showNotification());
-        }
+        //copied from ShapedRecipe.Serializer because xMapping it somehow causes a json null thingy error
+        public static final Codec<DivinationRodRecipe> CODEC = RecordCodecBuilder.create(
+                p_311728_ -> p_311728_.group(
+                                ExtraCodecs.strictOptionalField(Codec.STRING, "group", "").forGetter(p_311729_ -> p_311729_.getGroup()),
+                                ShapedRecipePattern.MAP_CODEC.forGetter(p_311733_ -> p_311733_.pattern),
+                                ItemStack.ITEM_WITH_COUNT_CODEC.fieldOf("result").forGetter(p_311730_ -> p_311730_.getResultItem(RegistryAccess.EMPTY)),
+                                ExtraCodecs.strictOptionalField(Codec.BOOL, "show_notification", true).forGetter(p_311731_ -> p_311731_.showNotification())
+                        )
+                        .apply(p_311728_, DivinationRodRecipe::new)
+        );
 
         @Override
         public Codec<DivinationRodRecipe> codec() {
-            return ShapedRecipe.Serializer.CODEC.xmap((shapedRecipe) -> {
-                return new DivinationRodRecipe(shapedRecipe.getGroup(),
-                        shapedRecipe.pattern, shapedRecipe.getResultItem(RegistryAccess.EMPTY), shapedRecipe.showNotification());
-            }, (divinationRodRecipe) -> {
-                return divinationRodRecipe;
-            });
+            return CODEC;
         }
 
+        @Override
+        public DivinationRodRecipe fromNetwork(FriendlyByteBuf pBuffer) {
+            //noinspection deprecation
+            return pBuffer.readWithCodecTrusted(NbtOps.INSTANCE, CODEC);
+        }
 
         @Override
         public void toNetwork(FriendlyByteBuf pBuffer, DivinationRodRecipe pRecipe) {
-            RecipeSerializer.SHAPED_RECIPE.toNetwork(pBuffer, pRecipe);
+            //noinspection deprecation
+            pBuffer.writeWithCodec(NbtOps.INSTANCE, CODEC, pRecipe);
         }
     }
 }

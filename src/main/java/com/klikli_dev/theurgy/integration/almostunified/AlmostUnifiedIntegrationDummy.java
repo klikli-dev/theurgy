@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2024 klikli_dev
+//
+// SPDX-License-Identifier: MIT
+
 package com.klikli_dev.theurgy.integration.almostunified;
 
 import net.minecraft.tags.TagKey;

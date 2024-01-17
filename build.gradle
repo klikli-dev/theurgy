@@ -4,8 +4,6 @@ plugins {
     id 'net.neoforged.gradle.userdev' version "${neogradle_version}"
 }
 
-apply from: 'https://gist.githubusercontent.com/Technici4n/facbcdf18ce1a556b76e6027180c32ce/raw/059ab3d504a590461746fc6e3065159f4932a960/classremapper.gradle'
-
 if (System.getenv('MOD_VERSION') != null) {
     mod_version = System.getenv('MOD_VERSION')
 }

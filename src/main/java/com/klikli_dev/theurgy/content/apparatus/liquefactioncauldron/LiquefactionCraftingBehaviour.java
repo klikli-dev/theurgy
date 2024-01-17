@@ -9,11 +9,12 @@ import com.klikli_dev.theurgy.content.recipe.LiquefactionRecipe;
 import com.klikli_dev.theurgy.content.recipe.wrapper.RecipeWrapperWithFluid;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.common.util.Lazy;
-import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.items.IItemHandlerModifiable;
-import net.minecraftforge.items.ItemHandlerHelper;
+import net.neoforged.neoforge.common.util.Lazy;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler;
+import net.neoforged.neoforge.items.IItemHandlerModifiable;
+import net.neoforged.neoforge.items.ItemHandlerHelper;
 
 import java.util.function.Supplier;
 
@@ -41,27 +42,27 @@ public class LiquefactionCraftingBehaviour extends CraftingBehaviour<RecipeWrapp
     }
 
     @Override
-    protected int getIngredientCount(LiquefactionRecipe recipe) {
+    protected int getIngredientCount(RecipeHolder<LiquefactionRecipe> recipe) {
         return 1;
     }
 
     @Override
-    protected int getCraftingTime(LiquefactionRecipe recipe) {
-        return recipe.getLiquefactionTime();
+    protected int getCraftingTime(RecipeHolder<LiquefactionRecipe> recipe) {
+        return recipe.value().getTime();
     }
 
     @Override
     protected int getDefaultCraftingTime() {
-        return LiquefactionRecipe.DEFAULT_LIQUEFACTION_TIME;
+        return LiquefactionRecipe.DEFAULT_TIME;
     }
 
     @Override
-    protected boolean craft(LiquefactionRecipe pRecipe) {
+    protected boolean craft(RecipeHolder<LiquefactionRecipe> pRecipe) {
         if (!super.craft(pRecipe)) //check validity and consume item ingredients
             return false;
 
         //then drain the solvent
-        this.solventTankSupplier.get().drain(pRecipe.getSolventAmount(), IFluidHandler.FluidAction.EXECUTE);
+        this.solventTankSupplier.get().drain(pRecipe.value().getSolventAmount(), IFluidHandler.FluidAction.EXECUTE);
 
         return true;
     }

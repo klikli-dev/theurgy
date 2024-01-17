@@ -4,7 +4,7 @@
 
 package com.klikli_dev.theurgy.config;
 
-import net.minecraftforge.common.ForgeConfigSpec;
+import net.neoforged.neoforge.common.ModConfigSpec;
 
 public class CommonConfig {
 
@@ -12,10 +12,10 @@ public class CommonConfig {
 
     public final Misc misc;
 
-    public final ForgeConfigSpec spec;
+    public final ModConfigSpec spec;
 
     private CommonConfig() {
-        ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
+        ModConfigSpec.Builder builder = new ModConfigSpec.Builder();
         this.misc = new Misc(builder);
         this.spec = builder.build();
     }
@@ -26,7 +26,7 @@ public class CommonConfig {
 
     public static class Misc {
 
-        public Misc(ForgeConfigSpec.Builder builder) {
+        public Misc(ModConfigSpec.Builder builder) {
             builder.comment("Misc Settings").push("misc");
 
             builder.pop();

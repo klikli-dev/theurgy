@@ -17,6 +17,18 @@ import net.minecraft.resources.ResourceLocation;
 import java.util.function.Function;
 
 public class RenderTypes extends RenderStateShard {
+    protected static final TransparencyStateShard SRC_MINUS_ONE_TRANSPARENCY = new TransparencyStateShard(Theurgy.loc("src_minus_one").toString(),
+            () -> {
+                RenderSystem.enableDepthTest();
+                RenderSystem.depthMask(false);
+                RenderSystem.enableBlend();
+                RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE);
+            }, () -> {
+        RenderSystem.disableBlend();
+        RenderSystem.defaultBlendFunc();
+        RenderSystem.disableDepthTest();
+        RenderSystem.depthMask(true);
+    });
     private static final RenderType FLUID = RenderType.create(Theurgy.loc("fluid").toString(),
             DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, false, true, RenderType.CompositeState.builder()
                     .setShaderState(RENDERTYPE_ENTITY_TRANSLUCENT_CULL_SHADER)
@@ -25,16 +37,27 @@ public class RenderTypes extends RenderStateShard {
                     .setLightmapState(LIGHTMAP)
                     .setOverlayState(OVERLAY)
                     .createCompositeState(true));
-
     private static final RenderType OUTLINE_SOLID =
             RenderType.create(Theurgy.loc("outline_solid").toString(), DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, false,
                     false, RenderType.CompositeState.builder()
                             .setShaderState(RENDERTYPE_ENTITY_SOLID_SHADER)
-                            .setTextureState(new RenderStateShard.TextureStateShard(Theurgy.loc("textures/misc/blank.png"), false, false))
+                            .setTextureState(new TextureStateShard(Theurgy.loc("textures/misc/blank.png"), false, false))
                             .setCullState(CULL)
                             .setLightmapState(LIGHTMAP)
                             .setOverlayState(OVERLAY)
                             .createCompositeState(false));
+    private static final Function<ResourceLocation, RenderType> SRC_MINUS_ONE = Util.memoize(location -> {
+        var rendertype = RenderType.CompositeState.builder()
+                .setShaderState(RENDERTYPE_ENTITY_TRANSLUCENT_SHADER)
+                .setTextureState(new TextureStateShard(location, false, false))
+                .setTransparencyState(SRC_MINUS_ONE_TRANSPARENCY)
+                .setCullState(NO_CULL)
+                .setLightmapState(LIGHTMAP)
+                .setOverlayState(OVERLAY)
+                .createCompositeState(false);
+
+        return RenderType.create(Theurgy.loc("src_minus_one").toString(), DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, true, true, rendertype);
+    });
 
     //unneeded
     private RenderTypes(String pName, Runnable pSetupState, Runnable pClearState) {
@@ -49,7 +72,7 @@ public class RenderTypes extends RenderStateShard {
         return RenderType.create(Theurgy.loc("outline_translucent" + (cull ? "_cull" : "")).toString(),
                 DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, false, true, RenderType.CompositeState.builder()
                         .setShaderState(cull ? RENDERTYPE_ENTITY_TRANSLUCENT_CULL_SHADER : RENDERTYPE_ENTITY_TRANSLUCENT_SHADER)
-                        .setTextureState(new RenderStateShard.TextureStateShard(texture, false, false))
+                        .setTextureState(new TextureStateShard(texture, false, false))
                         .setTransparencyState(TRANSLUCENT_TRANSPARENCY)
                         .setCullState(cull ? CULL : NO_CULL)
                         .setLightmapState(LIGHTMAP)
@@ -61,32 +84,6 @@ public class RenderTypes extends RenderStateShard {
     public static RenderType fluid() {
         return FLUID;
     }
-
-    protected static final RenderStateShard.TransparencyStateShard SRC_MINUS_ONE_TRANSPARENCY = new RenderStateShard.TransparencyStateShard(Theurgy.loc("src_minus_one").toString(),
-            () -> {
-                RenderSystem.enableDepthTest();
-                RenderSystem.depthMask(false);
-                RenderSystem.enableBlend();
-                RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE);
-            }, () -> {
-        RenderSystem.disableBlend();
-        RenderSystem.defaultBlendFunc();
-        RenderSystem.disableDepthTest();
-        RenderSystem.depthMask(true);
-    });
-
-    private static final Function<ResourceLocation, RenderType> SRC_MINUS_ONE = Util.memoize(location -> {
-        var rendertype = RenderType.CompositeState.builder()
-                .setShaderState(RENDERTYPE_ENTITY_TRANSLUCENT_SHADER)
-                .setTextureState(new RenderStateShard.TextureStateShard(location, false, false))
-                .setTransparencyState(SRC_MINUS_ONE_TRANSPARENCY)
-                .setCullState(NO_CULL)
-                .setLightmapState(LIGHTMAP)
-                .setOverlayState(OVERLAY)
-                .createCompositeState(false);
-
-        return RenderType.create(Theurgy.loc("src_minus_one").toString(), DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, true, true, rendertype);
-    });
 
     public static RenderType srcMinusOne(ResourceLocation location) {
         return SRC_MINUS_ONE.apply(location);

@@ -15,6 +15,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 
+
 public class BookDistillationRecipePage extends BookProcessingRecipePage<DistillationRecipe> {
     public BookDistillationRecipePage(BookTextHolder title1, ResourceLocation recipeId1, BookTextHolder title2, ResourceLocation recipeId2, BookTextHolder text, String anchor) {
         super(RecipeTypeRegistry.DISTILLATION.get(), title1, recipeId1, title2, recipeId2, text, anchor);

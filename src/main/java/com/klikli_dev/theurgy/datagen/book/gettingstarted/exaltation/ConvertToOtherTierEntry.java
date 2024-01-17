@@ -55,11 +55,11 @@ public class ConvertToOtherTierEntry extends EntryProvider {
         );
         this.pageTitle("Digestion");
         this.pageText("""
-                The core of the Exaltation Process is the Digestion of Niter into other Niter, in a {0}.
-                \\
-                \\
-                Digestion needs a Catalysator in the form of {1}, which will be explained soon.
-                """,
+                        The core of the Exaltation Process is the Digestion of Niter into other Niter, in a {0}.
+                        \\
+                        \\
+                        Digestion needs a Catalysator in the form of {1}, which will be explained soon.
+                        """,
                 this.itemLink(ItemRegistry.DIGESTION_VAT.get()),
                 this.itemLink(ItemRegistry.PURIFIED_GOLD.get())
         );

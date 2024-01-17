@@ -11,10 +11,8 @@ import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.klikli_dev.theurgy.datagen.book.GettingStartedCategoryProvider;
 import com.klikli_dev.theurgy.datagen.book.gettingstarted.reformation.ConvertWithinTypeAndTierEntry;
-import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.registry.SulfurRegistry;
 import com.mojang.datafixers.util.Pair;
-import net.minecraft.world.item.Items;
 
 public class NiterToNiterReformationEntry extends EntryProvider {
     public static final String ENTRY_ID = "niter_to_niter_reformation";
@@ -32,13 +30,13 @@ public class NiterToNiterReformationEntry extends EntryProvider {
         );
         this.pageTitle("Niter Reformation");
         this.pageText("""
-                The {0} can now be converted into {1} via reformation.
-                \\
-                \\
-                This works exactly as already described in the {2} entries.
-                """,
-                this.itemLink("Alchemical Niter: Common Gems",SulfurRegistry.GEMS_COMMON.get()),
-                this.itemLink("Alchemical Niter: Common Metals",SulfurRegistry.METALS_COMMON.get()),
+                        The {0} can now be converted into {1} via reformation.
+                        \\
+                        \\
+                        This works exactly as already described in the {2} entries.
+                        """,
+                this.itemLink("Alchemical Niter: Common Gems", SulfurRegistry.GEMS_COMMON.get()),
+                this.itemLink("Alchemical Niter: Common Metals", SulfurRegistry.METALS_COMMON.get()),
                 this.entryLink("Reformation", GettingStartedCategoryProvider.CATEGORY_ID, ConvertWithinTypeAndTierEntry.ENTRY_ID)
         );
 

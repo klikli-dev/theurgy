@@ -9,26 +9,18 @@ import com.klikli_dev.theurgy.content.render.TheurgyModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
-import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
-import net.minecraft.client.resources.model.Material;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.level.block.entity.DecoratedPotPatterns;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
-import javax.annotation.Nullable;
 import java.util.EnumSet;
-import java.util.Objects;
 
 public class DigestionVatRenderer implements BlockEntityRenderer<DigestionVatBlockEntity> {
     private static final ResourceLocation BASE_OPEN_TEXTURE = Theurgy.loc("textures/entity/digestion_vat/digestion_vat_base_open.png");
@@ -102,6 +94,6 @@ public class DigestionVatRenderer implements BlockEntityRenderer<DigestionVatBlo
 
     private void renderSide(ModelPart pModelPart, PoseStack pPoseStack, MultiBufferSource pBuffer, int pPackedLight, int pPackedOverlay) {
         var renderType = RenderType.entitySolid(SIDE_TEXTURE);
-            pModelPart.render(pPoseStack, pBuffer.getBuffer(renderType), pPackedLight, pPackedOverlay);
+        pModelPart.render(pPoseStack, pBuffer.getBuffer(renderType), pPackedLight, pPackedOverlay);
     }
 }

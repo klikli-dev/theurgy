@@ -4,14 +4,12 @@
 
 package com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator;
 
-import com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron.LiquefactionStorageBehaviour;
-import com.klikli_dev.theurgy.content.storage.MonitoredItemStackHandler;
 import com.klikli_dev.theurgy.content.particle.ParticleColor;
 import com.klikli_dev.theurgy.content.particle.coloredbubble.ColoredBubbleParticleProvider;
+import com.klikli_dev.theurgy.content.storage.MonitoredItemStackHandler;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.ItemTagRegistry;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.Packet;
@@ -21,17 +19,13 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.client.extensions.common.IClientFluidTypeExtensions;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidType;
-import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.fluids.capability.templates.FluidTank;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemStackHandler;
-import org.jetbrains.annotations.NotNull;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.FluidType;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler;
+import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
+import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoBlockEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
@@ -45,10 +39,8 @@ public class SalAmmoniacAccumulatorBlockEntity extends BlockEntity implements Ge
     protected final AnimatableInstanceCache animatableInstanceCache = GeckoLibUtil.createInstanceCache(this);
 
     public ItemStackHandler inventory;
-    public LazyOptional<IItemHandler> inventoryCapability;
 
     public FluidTank waterTank;
-    public LazyOptional<IFluidHandler> waterTankCapability;
 
     protected SalAmmoniacAccumulatorCraftingBehaviour craftingBehaviour;
 
@@ -59,12 +51,10 @@ public class SalAmmoniacAccumulatorBlockEntity extends BlockEntity implements Ge
         super(BlockEntityRegistry.SAL_AMMONIAC_ACCUMULATOR.get(), pPos, pState);
 
         this.inventory = new Inventory();
-        this.inventoryCapability = LazyOptional.of(() -> this.inventory);
 
         this.craftingBehaviour = new SalAmmoniacAccumulatorCraftingBehaviour(this, () -> this.inventory, () -> this.inventory, () -> this.waterTank, this::getOutputTank);
 
         this.waterTank = new WaterTank(FluidType.BUCKET_VOLUME * 10, this.craftingBehaviour::canProcess);
-        this.waterTankCapability = LazyOptional.of(() -> this.waterTank);
 
         this.checkOutputTankOnNextQuery = true;
     }
@@ -162,14 +152,13 @@ public class SalAmmoniacAccumulatorBlockEntity extends BlockEntity implements Ge
 
     public IFluidHandler getOutputTank() {
         var below = this.getBlockPos().below();
-        var blockEntity = this.level.getBlockEntity(below);
-        return blockEntity.getCapability(ForgeCapabilities.FLUID_HANDLER).orElseThrow(() -> new IllegalStateException("No fluid handler capability found on block entity below at location: " + below));
+
+        return this.level.getCapability(Capabilities.FluidHandler.BLOCK, below, null);
     }
 
     public void validateOutputTank() {
         var below = this.getBlockPos().below();
-        var blockEntity = this.level.getBlockEntity(below);
-        this.hasOutputTank = blockEntity != null && blockEntity.getCapability(ForgeCapabilities.FLUID_HANDLER).isPresent();
+        this.hasOutputTank = this.level.getCapability(Capabilities.FluidHandler.BLOCK, below, null) != null;
     }
 
     public boolean hasOutputTank() {
@@ -178,24 +167,6 @@ public class SalAmmoniacAccumulatorBlockEntity extends BlockEntity implements Ge
             this.validateOutputTank();
         }
         return this.hasOutputTank;
-    }
-
-    @Override
-    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        if (cap == ForgeCapabilities.ITEM_HANDLER) {
-            return this.inventoryCapability.cast();
-        }
-
-        if (cap == ForgeCapabilities.FLUID_HANDLER) return this.waterTankCapability.cast();
-
-        return super.getCapability(cap, side);
-    }
-
-    @Override
-    public void invalidateCaps() {
-        super.invalidateCaps();
-        this.inventoryCapability.invalidate();
-        this.waterTankCapability.invalidate();
     }
 
     @Override

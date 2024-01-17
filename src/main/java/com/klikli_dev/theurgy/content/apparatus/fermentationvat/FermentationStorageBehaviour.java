@@ -4,27 +4,20 @@
 
 package com.klikli_dev.theurgy.content.apparatus.fermentationvat;
 
-import com.klikli_dev.theurgy.content.apparatus.digestionvat.DigestionCraftingBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.StorageBehaviour;
 import com.klikli_dev.theurgy.content.storage.*;
-import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidType;
-import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.fluids.capability.templates.FluidTank;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemHandlerHelper;
-import net.minecraftforge.items.ItemStackHandler;
-import net.minecraftforge.items.wrapper.CombinedInvWrapper;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.FluidType;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler;
+import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
+import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.items.IItemHandlerModifiable;
+import net.neoforged.neoforge.items.ItemHandlerHelper;
+import net.neoforged.neoforge.items.ItemStackHandler;
+import net.neoforged.neoforge.items.wrapper.CombinedInvWrapper;
 
 import java.util.function.Predicate;
 import java.util.function.Supplier;
@@ -32,8 +25,7 @@ import java.util.function.Supplier;
 public class FermentationStorageBehaviour extends StorageBehaviour<FermentationStorageBehaviour> {
 
     public ItemStackHandler inputInventory;
-    public LazyOptional<IItemHandler> inputInventoryCapability;
-    public LazyOptional<IItemHandler> inputInventoryReadOnlyCapability;
+    public IItemHandler inputInventoryReadOnlyWrapper;
 
     /**
      * The underlying outputInventory which allows inserting too - we use this when crafting.
@@ -42,18 +34,16 @@ public class FermentationStorageBehaviour extends StorageBehaviour<FermentationS
     /**
      * A capability wrapper for the outputInventory that only allows extracting.
      */
-    public LazyOptional<IItemHandler> outputInventoryExtractOnlyCapability;
+    public IItemHandlerModifiable outputInventoryExtractOnlyWrapper;
     /**
      * A capability wrapper for the outputInventory that allows neither inserting nor extracting
      */
-    public LazyOptional<IItemHandler> outputInventoryReadOnlyCapability;
+    public IItemHandler outputInventoryReadOnlyWrapper;
 
     public CombinedInvWrapper inventory;
-    public LazyOptional<IItemHandler> inventoryCapability;
-    public LazyOptional<IItemHandler> inventoryReadOnlyCapability;
+    public IItemHandler inventoryReadOnlyWrapper;
     public FluidTank fluidTank;
-    public LazyOptional<IFluidHandler> fluidTankCapability;
-    public LazyOptional<IFluidHandler> fluidTankReadOnlyCapability;
+    public IFluidHandler fluidTankReadOnlyWrapper;
 
     public Supplier<FermentationCraftingBehaviour> craftingBehaviour;
 
@@ -63,29 +53,17 @@ public class FermentationStorageBehaviour extends StorageBehaviour<FermentationS
         this.craftingBehaviour = craftingBehaviour;
 
         this.inputInventory = new InputInventory();
-        this.inputInventoryCapability = LazyOptional.of(() -> this.inputInventory);
-        this.inputInventoryReadOnlyCapability = LazyOptional.of(() -> new PreventInsertExtractWrapper(this.inputInventory));
+        this.inputInventoryReadOnlyWrapper = new PreventInsertExtractWrapper(this.inputInventory);
 
         this.outputInventory = new OutputInventory();
-        var outputInventoryTakeOnlyWrapper = new PreventInsertWrapper(this.outputInventory);
-        this.outputInventoryExtractOnlyCapability = LazyOptional.of(() -> outputInventoryTakeOnlyWrapper);
-        this.outputInventoryReadOnlyCapability = LazyOptional.of(() -> new PreventInsertExtractWrapper(this.outputInventory));
+        this.outputInventoryExtractOnlyWrapper = new PreventInsertWrapper(this.outputInventory);
+        this.outputInventoryReadOnlyWrapper = new PreventInsertExtractWrapper(this.outputInventory);
 
-        this.inventory = new CombinedInvWrapper(this.inputInventory, outputInventoryTakeOnlyWrapper);
-        this.inventoryCapability = LazyOptional.of(() -> this.inventory);
-        this.inventoryReadOnlyCapability = LazyOptional.of(() -> new PreventInsertExtractWrapper(this.inventory));
+        this.inventory = new CombinedInvWrapper(this.inputInventory, this.outputInventoryExtractOnlyWrapper);
+        this.inventoryReadOnlyWrapper = new PreventInsertExtractWrapper(this.inventory);
 
         this.fluidTank = new WaterTank(FluidType.BUCKET_VOLUME * 10, f -> this.craftingBehaviour.get().canProcess(f));
-        this.fluidTankCapability = LazyOptional.of(() -> this.fluidTank);
-        this.fluidTankReadOnlyCapability = LazyOptional.of(() -> new PreventInsertExtractFluidWrapper(this.fluidTank));
-
-        this.register(this.inventoryCapability);
-        this.register(this.inputInventoryCapability);
-        this.register(this.inventoryReadOnlyCapability);
-        this.register(this.fluidTankCapability);
-        this.register(this.fluidTankReadOnlyCapability);
-        this.register(this.outputInventoryExtractOnlyCapability);
-        this.register(this.outputInventoryReadOnlyCapability);
+        this.fluidTankReadOnlyWrapper = new PreventInsertExtractFluidWrapper(this.fluidTank);
     }
 
     @Override
@@ -110,25 +88,6 @@ public class FermentationStorageBehaviour extends StorageBehaviour<FermentationS
     @Override
     public void load(CompoundTag pTag) {
         this.readNetwork(pTag);
-    }
-
-    @Override
-    public <T> @NotNull LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-
-        var isOpen = this.blockEntity.getBlockState().getValue(BlockStateProperties.OPEN);
-
-        if (cap == ForgeCapabilities.ITEM_HANDLER) {
-            if (side == Direction.UP)
-                return isOpen ? this.inputInventoryCapability.cast() : this.inputInventoryReadOnlyCapability.cast();
-            if (side == Direction.DOWN)
-                return isOpen ? this.outputInventoryExtractOnlyCapability.cast() : this.outputInventoryReadOnlyCapability.cast();
-            return isOpen ? this.inventoryCapability.cast() : this.inventoryReadOnlyCapability.cast();
-        }
-
-        if (cap == ForgeCapabilities.FLUID_HANDLER)
-            return isOpen ? this.fluidTankCapability.cast() : this.fluidTankReadOnlyCapability.cast();
-
-        return LazyOptional.empty();
     }
 
     public class WaterTank extends MonitoredFluidTank {
@@ -166,8 +125,8 @@ public class FermentationStorageBehaviour extends StorageBehaviour<FermentationS
         @Override
         public boolean isItemValid(int slot, ItemStack stack) {
             //we only allow one item type to fill maximum one slot, so if another slot has the stack, return false.
-            for(int i = 0; i < this.getSlots(); i++){
-                if(i != slot && ItemHandlerHelper.canItemStacksStack(stack,  this.getStackInSlot(i))){
+            for (int i = 0; i < this.getSlots(); i++) {
+                if (i != slot && ItemHandlerHelper.canItemStacksStack(stack, this.getStackInSlot(i))) {
                     return false;
                 }
             }

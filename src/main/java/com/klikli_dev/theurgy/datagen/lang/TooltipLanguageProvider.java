@@ -6,7 +6,6 @@ package com.klikli_dev.theurgy.datagen.lang;
 
 import com.klikli_dev.theurgy.TheurgyConstants;
 import net.minecraft.world.item.Item;
-import net.minecraftforge.common.data.LanguageProvider;
 
 import java.util.function.Supplier;
 

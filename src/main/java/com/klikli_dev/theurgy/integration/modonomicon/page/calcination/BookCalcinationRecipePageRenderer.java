@@ -9,6 +9,7 @@ import com.klikli_dev.modonomicon.client.render.page.BookRecipePageRenderer;
 import com.klikli_dev.theurgy.content.gui.GuiTextures;
 import com.klikli_dev.theurgy.content.recipe.CalcinationRecipe;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.world.item.crafting.RecipeHolder;
 
 public class BookCalcinationRecipePageRenderer extends BookRecipePageRenderer<CalcinationRecipe, BookCalcinationRecipePage> {
     public BookCalcinationRecipePageRenderer(BookCalcinationRecipePage page) {
@@ -21,8 +22,9 @@ public class BookCalcinationRecipePageRenderer extends BookRecipePageRenderer<Ca
     }
 
     @Override
-    protected void drawRecipe(GuiGraphics guiGraphics, CalcinationRecipe recipe, int recipeX, int recipeY, int mouseX, int mouseY, boolean second) {
+    protected void drawRecipe(GuiGraphics guiGraphics, RecipeHolder<CalcinationRecipe> recipeHolder, int recipeX, int recipeY, int mouseX, int mouseY, boolean second) {
         recipeY += 10;
+        var recipe = recipeHolder.value();
 
         if (!second) {
             if (!this.page.getTitle1().isEmpty()) {

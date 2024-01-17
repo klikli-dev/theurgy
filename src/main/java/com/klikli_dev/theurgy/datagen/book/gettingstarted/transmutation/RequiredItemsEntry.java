@@ -34,11 +34,11 @@ public class RequiredItemsEntry extends EntryProvider {
                 .build());
         this.pageTitle("Source Sulfur");
         this.pageText("""
-                       Again we need some sulfur to convert into your desired sulfur. For this demonstration we will use sulfur of Quartz.
-                       \\
-                       \\
-                       It is a good idea to collect a few of these in order to have a steady supply to convert.
-                         """
+                Again we need some sulfur to convert into your desired sulfur. For this demonstration we will use sulfur of Quartz.
+                \\
+                \\
+                It is a good idea to collect a few of these in order to have a steady supply to convert.
+                  """
         );
 
         this.page("source2", () -> BookTextPageModel.builder()
@@ -59,11 +59,11 @@ public class RequiredItemsEntry extends EntryProvider {
                 .build());
         this.pageTitle("Target Sulfur");
         this.pageText("""
-              Now you need *two* sulfur of the target type.
-              \\
-              \\
-              One sulfur that will be converted into Niter for our intermediate reformation and one sulfur for the final reformation of all our Niter into the target sulfur.
-                 """
+                Now you need *two* sulfur of the target type.
+                \\
+                \\
+                One sulfur that will be converted into Niter for our intermediate reformation and one sulfur for the final reformation of all our Niter into the target sulfur.
+                   """
         );
         this.page("target2", () -> BookTextPageModel.builder()
                 .withTitle(this.context().pageTitle())
@@ -71,8 +71,8 @@ public class RequiredItemsEntry extends EntryProvider {
                 .build());
         this.pageTitle("Target Sulfur");
         this.pageText("""
-              For this demonstration we will use sulfur of iron.
-                 """
+                For this demonstration we will use sulfur of iron.
+                   """
         );
     }
 

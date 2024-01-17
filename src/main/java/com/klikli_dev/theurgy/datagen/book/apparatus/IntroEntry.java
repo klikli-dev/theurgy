@@ -38,10 +38,10 @@ public class IntroEntry extends EntryProvider {
                 .build());
         this.pageTitle("Further Reading");
         this.pageText("""
-                To find out how to use the apparatus to achieve specific ends, view the other categories, especially {0}.
-                """,
+                        To find out how to use the apparatus to achieve specific ends, view the other categories, especially {0}.
+                        """,
                 this.categoryLink("Getting Started", GettingStartedCategoryProvider.CATEGORY_ID)
-                );
+        );
     }
 
     @Override

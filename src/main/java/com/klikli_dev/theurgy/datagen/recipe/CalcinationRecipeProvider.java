@@ -17,13 +17,13 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
-import net.minecraftforge.common.Tags;
+import net.neoforged.neoforge.common.Tags;
 
 import java.util.function.BiConsumer;
 
 public class CalcinationRecipeProvider extends JsonRecipeProvider {
 
-    public static final int TIME = CalcinationRecipe.DEFAULT_CALCINATION_TIME;
+    public static final int TIME = CalcinationRecipe.DEFAULT_TIME;
 
     public CalcinationRecipeProvider(PackOutput packOutput) {
         super(packOutput, Theurgy.MODID, "calcination");
@@ -106,9 +106,9 @@ public class CalcinationRecipeProvider extends JsonRecipeProvider {
         var recipe = new JsonObject();
         recipe.addProperty("type", RecipeTypeRegistry.CALCINATION.getId().toString());
         recipe.add("ingredient", ingredient);
-        recipe.addProperty("ingredient_count", ingredientCount);
+        recipe.addProperty("ingredientCount", ingredientCount);
         recipe.add("result", result);
-        recipe.addProperty("calcination_time", calcinationTime);
+        recipe.addProperty("time", calcinationTime);
         return recipe;
     }
 

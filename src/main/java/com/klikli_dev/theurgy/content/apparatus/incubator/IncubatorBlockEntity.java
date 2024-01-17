@@ -7,12 +7,10 @@ package com.klikli_dev.theurgy.content.apparatus.incubator;
 import com.klikli_dev.theurgy.content.behaviour.CraftingBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.HeatConsumerBehaviour;
 import com.klikli_dev.theurgy.content.capability.DefaultHeatReceiver;
-import com.klikli_dev.theurgy.content.capability.HeatReceiver;
 import com.klikli_dev.theurgy.content.recipe.wrapper.IncubatorRecipeWrapper;
 import com.klikli_dev.theurgy.content.storage.MonitoredItemStackHandler;
 import com.klikli_dev.theurgy.content.storage.PreventInsertWrapper;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
-import com.klikli_dev.theurgy.registry.CapabilityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -25,13 +23,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemStackHandler;
-import org.jetbrains.annotations.NotNull;
+import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.Nullable;
+
 
 public class IncubatorBlockEntity extends BlockEntity {
     public IncubatorMercuryVesselBlockEntity mercuryVessel;
@@ -46,12 +40,10 @@ public class IncubatorBlockEntity extends BlockEntity {
      * A wrapper that only allows taking from the outputInventory - this is what we show to the outside.
      */
     public PreventInsertWrapper outputInventoryTakeOnlyWrapper;
-    public LazyOptional<IItemHandler> outputInventoryCapability;
 
     public IncubatorRecipeWrapper recipeWrapper;
 
     public DefaultHeatReceiver heatReceiver;
-    public LazyOptional<HeatReceiver> heatReceiverCapability;
 
     public boolean isValidMultiblock;
 
@@ -64,11 +56,9 @@ public class IncubatorBlockEntity extends BlockEntity {
 
         this.outputInventory = new OutputInventory();
         this.outputInventoryTakeOnlyWrapper = new PreventInsertWrapper(this.outputInventory);
-        this.outputInventoryCapability = LazyOptional.of(() -> this.outputInventoryTakeOnlyWrapper);
         this.checkValidMultiblockOnNextQuery = true;
 
         this.heatReceiver = new DefaultHeatReceiver();
-        this.heatReceiverCapability = LazyOptional.of(() -> this.heatReceiver);
 
         this.craftingBehaviour = new IncubatorCraftingBehaviour(this, () -> this.recipeWrapper, () -> null, () -> this.outputInventory);
         this.heatConsumerBehaviour = new HeatConsumerBehaviour(this);
@@ -144,24 +134,6 @@ public class IncubatorBlockEntity extends BlockEntity {
                 }
             }
         }
-    }
-
-    @Override
-    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        if (cap == ForgeCapabilities.ITEM_HANDLER) {
-            return this.outputInventoryCapability.cast();
-        }
-        if (cap == CapabilityRegistry.HEAT_RECEIVER) {
-            return this.heatReceiverCapability.cast();
-        }
-        return super.getCapability(cap, side);
-    }
-
-    @Override
-    public void invalidateCaps() {
-        super.invalidateCaps();
-        this.outputInventoryCapability.invalidate();
-        this.heatReceiverCapability.invalidate();
     }
 
     @Override

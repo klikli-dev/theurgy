@@ -15,6 +15,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 
+
 public class BookIncubationRecipePage extends BookProcessingRecipePage<IncubationRecipe> {
     public BookIncubationRecipePage(BookTextHolder title1, ResourceLocation recipeId1, BookTextHolder title2, ResourceLocation recipeId2, BookTextHolder text, String anchor) {
         super(RecipeTypeRegistry.INCUBATION.get(), title1, recipeId1, title2, recipeId2, text, anchor);

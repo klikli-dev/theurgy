@@ -10,7 +10,7 @@ import com.klikli_dev.theurgy.integration.modonomicon.page.calcination.BookCalci
 import com.klikli_dev.theurgy.integration.modonomicon.page.distillation.BookDistillationRecipePage;
 import com.klikli_dev.theurgy.integration.modonomicon.page.incubation.BookIncubationRecipePage;
 import com.klikli_dev.theurgy.integration.modonomicon.page.liquefaction.BookLiquefactionRecipePage;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 
 public class PageLoaders {
 

@@ -9,12 +9,13 @@ import com.klikli_dev.theurgy.content.recipe.FermentationRecipe;
 import com.klikli_dev.theurgy.content.recipe.wrapper.RecipeWrapperWithFluid;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.common.util.Lazy;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.items.IItemHandlerModifiable;
-import net.minecraftforge.items.ItemHandlerHelper;
+import net.neoforged.neoforge.common.util.Lazy;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler;
+import net.neoforged.neoforge.items.IItemHandlerModifiable;
+import net.neoforged.neoforge.items.ItemHandlerHelper;
 
 import java.util.function.Supplier;
 
@@ -51,13 +52,13 @@ public class FermentationCraftingBehaviour extends CraftingBehaviour<RecipeWrapp
     }
 
     @Override
-    protected int getIngredientCount(FermentationRecipe recipe) {
+    protected int getIngredientCount(RecipeHolder<FermentationRecipe> recipe) {
         return 1;
     }
 
     @Override
-    protected int getCraftingTime(FermentationRecipe recipe) {
-        return recipe.getTime();
+    protected int getCraftingTime(RecipeHolder<FermentationRecipe> recipe) {
+        return recipe.value().getTime();
     }
 
     @Override
@@ -66,8 +67,8 @@ public class FermentationCraftingBehaviour extends CraftingBehaviour<RecipeWrapp
     }
 
     @Override
-    protected boolean craft(FermentationRecipe pRecipe) {
-        var assembledStack = pRecipe.assemble(this.recipeWrapperSupplier.get(), this.blockEntity.getLevel().registryAccess());
+    protected boolean craft(RecipeHolder<FermentationRecipe> pRecipe) {
+        var assembledStack = pRecipe.value().assemble(this.recipeWrapperSupplier.get(), this.blockEntity.getLevel().registryAccess());
 
         // Safely insert the assembledStack into the outputInventory and update the input stack.
         ItemHandlerHelper.insertItemStacked(this.outputInventorySupplier.get(), assembledStack, false);
@@ -75,9 +76,9 @@ public class FermentationCraftingBehaviour extends CraftingBehaviour<RecipeWrapp
         //consume the input stacks
         //the double loop may not be necessary, it may be OK to just take one from each slot (because recipe matches only if exact items match, not if more items are present)
         //however this costs almost nothing extra and is safer so we do it.
-        for(var ingredient : pRecipe.getIngredients()){
-            for(int i = 0; i < this.inputInventorySupplier.get().getSlots(); i++){
-                if(ingredient.test(this.inputInventorySupplier.get().getStackInSlot(i))){
+        for (var ingredient : pRecipe.value().getIngredients()) {
+            for (int i = 0; i < this.inputInventorySupplier.get().getSlots(); i++) {
+                if (ingredient.test(this.inputInventorySupplier.get().getStackInSlot(i))) {
                     this.inputInventorySupplier.get().extractItem(i, this.getIngredientCount(pRecipe), false);
                     break;
                 }
@@ -85,7 +86,7 @@ public class FermentationCraftingBehaviour extends CraftingBehaviour<RecipeWrapp
         }
 
         //then drain the fluid
-        this.fluidTankSupplier.get().drain(pRecipe.getFluidAmount(), IFluidHandler.FluidAction.EXECUTE);
+        this.fluidTankSupplier.get().drain(pRecipe.value().getFluidAmount(), IFluidHandler.FluidAction.EXECUTE);
 
         return true;
     }

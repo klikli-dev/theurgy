@@ -29,8 +29,8 @@
     }
   ],
   "result": {
-    "Count": 1,
-    "id": "theurgy:alchemical_sulfur_gems_rare"
+    "count": 1,
+    "item": "theurgy:alchemical_sulfur_gems_rare"
   },
   "time": 200
 }

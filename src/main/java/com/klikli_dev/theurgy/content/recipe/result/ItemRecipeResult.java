@@ -4,6 +4,7 @@
 
 package com.klikli_dev.theurgy.content.recipe.result;
 
+import com.mojang.serialization.Codec;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
@@ -12,6 +13,8 @@ import org.jetbrains.annotations.Nullable;
  * A tag result for recipes that use tags as output.
  */
 public class ItemRecipeResult extends RecipeResult {
+
+    public static final Codec<ItemRecipeResult> CODEC = ItemStack.ITEM_WITH_COUNT_CODEC.xmap(ItemRecipeResult::new, ItemRecipeResult::getStack);
 
     public static byte TYPE = 0;
 
@@ -50,6 +53,6 @@ public class ItemRecipeResult extends RecipeResult {
     public void toNetwork(FriendlyByteBuf pBuffer) {
         super.toNetwork(pBuffer); //write type
 
-        pBuffer.writeItemStack(this.stack, false);
+        pBuffer.writeItem(this.stack);
     }
 }

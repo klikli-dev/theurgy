@@ -15,18 +15,19 @@ import com.klikli_dev.theurgy.content.particle.glow.GlowParticleType;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleType;
-import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
+import net.neoforged.neoforge.registries.DeferredRegister;
+
+import java.util.function.Supplier;
 
 public class ParticleRegistry {
 
-    public static final DeferredRegister<ParticleType<?>> PARTICLES = DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, Theurgy.MODID);
+    public static final DeferredRegister<ParticleType<?>> PARTICLES = DeferredRegister.create(BuiltInRegistries.PARTICLE_TYPE, Theurgy.MODID);
 
-    public static final RegistryObject<ParticleType<GlowParticleOptions>> GLOW_TYPE = PARTICLES.register("glow", GlowParticleType::new);
+    public static final Supplier<ParticleType<GlowParticleOptions>> GLOW_TYPE = PARTICLES.register("glow", GlowParticleType::new);
 
-    public static final RegistryObject<ParticleType<ColoredBubbleParticleOptions>> COLORED_BUBBLE_TYPE = PARTICLES.register("colored_bubble", ColoredBubbleParticleType::new);
+    public static final Supplier<ParticleType<ColoredBubbleParticleOptions>> COLORED_BUBBLE_TYPE = PARTICLES.register("colored_bubble", ColoredBubbleParticleType::new);
 
     public static void registerFactories(RegisterParticleProvidersEvent evt) {
         evt.registerSpriteSet(GLOW_TYPE.get(), GlowParticleProvider::new);

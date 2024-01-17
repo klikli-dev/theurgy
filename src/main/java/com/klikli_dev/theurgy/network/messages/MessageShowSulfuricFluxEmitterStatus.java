@@ -4,6 +4,7 @@
 
 package com.klikli_dev.theurgy.network.messages;
 
+import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.content.apparatus.reformationarray.SulfuricFluxEmitterBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.reformationarray.SulfuricFluxEmitterSelectedPoint;
 import com.klikli_dev.theurgy.network.Message;
@@ -11,16 +12,16 @@ import com.klikli_dev.theurgy.registry.BlockRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.network.NetworkEvent;
 
 import java.util.List;
 
 public class MessageShowSulfuricFluxEmitterStatus implements Message {
+
+    public static final ResourceLocation ID = Theurgy.loc("show_sulfuric_flux_emitter_status");
 
     private List<SulfuricFluxEmitterSelectedPoint> sourcePedestals;
     private SulfuricFluxEmitterSelectedPoint targetPedestal;
@@ -55,20 +56,25 @@ public class MessageShowSulfuricFluxEmitterStatus implements Message {
     }
 
     @Override
-    public void onClientReceived(Minecraft minecraft, Player player, NetworkEvent.Context context) {
+    public void onClientReceived(Minecraft minecraft, Player player) {
         Level level = player.level();
 
         this.sourcePedestals.forEach(point -> point.setLevel(level));
-        if(this.targetPedestal != null)
+        if (this.targetPedestal != null)
             this.targetPedestal.setLevel(level);
-        if(this.resultPedestal != null)
+        if (this.resultPedestal != null)
             this.resultPedestal.setLevel(level);
 
         BlockEntity blockEntity = level.getBlockEntity(this.blockPos);
-        if (blockEntity instanceof SulfuricFluxEmitterBlockEntity sulfuricFluxEmitter){
+        if (blockEntity instanceof SulfuricFluxEmitterBlockEntity sulfuricFluxEmitter) {
             sulfuricFluxEmitter.setSelectedPointsClient(this.sourcePedestals, this.targetPedestal, this.resultPedestal);
         }
 
         BlockRegistry.SULFURIC_FLUX_EMITTER.get().interactionBehaviour().showStatus(level, this.blockPos, player);
+    }
+
+    @Override
+    public ResourceLocation id() {
+        return ID;
     }
 }

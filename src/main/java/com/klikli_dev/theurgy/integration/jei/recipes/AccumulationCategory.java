@@ -29,7 +29,7 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.FluidStack;
 
 import java.util.Arrays;
 import java.util.List;
@@ -81,9 +81,9 @@ public class AccumulationCategory implements IRecipeCategory<AccumulationRecipe>
     }
 
     protected IDrawableAnimated getAnimatedArrow(AccumulationRecipe recipe) {
-        int cookTime = recipe.getAccumulationTime();
+        int cookTime = recipe.getTime();
         if (cookTime <= 0) {
-            cookTime = AccumulationRecipe.DEFAULT_ACCUMULATION_TIME;
+            cookTime = AccumulationRecipe.DEFAULT_TIME;
         }
         return this.cachedAnimatedArrow.getUnchecked(cookTime);
     }
@@ -107,7 +107,7 @@ public class AccumulationCategory implements IRecipeCategory<AccumulationRecipe>
     }
 
     protected void drawCookTime(AccumulationRecipe recipe, GuiGraphics guiGraphics, int y) {
-        int cookTime = recipe.getAccumulationTime();
+        int cookTime = recipe.getTime();
         if (cookTime > 0) {
             int cookTimeSeconds = cookTime / 20;
             Component timeString = Component.translatable("gui.jei.category.smelting.time.seconds", cookTimeSeconds);

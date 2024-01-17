@@ -10,21 +10,22 @@ import com.klikli_dev.theurgy.content.item.AlchemicalSulfurItem;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.registry.SaltRegistry;
 import com.klikli_dev.theurgy.registry.SulfurRegistry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.Item;
-import net.minecraftforge.client.model.generators.ItemModelBuilder;
-import net.minecraftforge.client.model.generators.ModelFile;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.client.model.generators.ItemModelBuilder;
+import net.neoforged.neoforge.client.model.generators.ModelFile;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.registries.DeferredHolder;
 
-public class TheurgyItemModelProvider extends net.minecraftforge.client.model.generators.ItemModelProvider {
+
+public class TheurgyItemModelProvider extends net.neoforged.neoforge.client.model.generators.ItemModelProvider {
     public TheurgyItemModelProvider(PackOutput packOutput, ExistingFileHelper existingFileHelper) {
         super(packOutput, Theurgy.MODID, existingFileHelper);
     }
 
     protected String name(Item item) {
-        return ForgeRegistries.ITEMS.getKey(item).getPath();
+        return BuiltInRegistries.ITEM.getKey(item).getPath();
     }
 
     private ItemModelBuilder registerAlchemicalSalt(String name) {
@@ -119,7 +120,7 @@ public class TheurgyItemModelProvider extends net.minecraftforge.client.model.ge
     protected void registerSulfurs() {
         //alchemical sulfur models
 
-        SulfurRegistry.SULFURS.getEntries().stream().map(RegistryObject::get).map(AlchemicalSulfurItem.class::cast).forEach(sulfur -> {
+        SulfurRegistry.SULFURS.getEntries().stream().map(DeferredHolder::get).map(AlchemicalSulfurItem.class::cast).forEach(sulfur -> {
             if (sulfur.useAutomaticIconRendering) {
                 this.registerItemBuiltinEntity(this.name(sulfur));
             }
@@ -145,7 +146,7 @@ public class TheurgyItemModelProvider extends net.minecraftforge.client.model.ge
         this.registerItemGenerated("alchemical_salt"); //parent for alchemical salt
 
         //alchemical salt models
-        SaltRegistry.SALTS.getEntries().stream().map(RegistryObject::get).forEach(salt -> {
+        SaltRegistry.SALTS.getEntries().stream().map(DeferredHolder::get).forEach(salt -> {
             this.registerAlchemicalSalt(this.name(salt));
         });
     }

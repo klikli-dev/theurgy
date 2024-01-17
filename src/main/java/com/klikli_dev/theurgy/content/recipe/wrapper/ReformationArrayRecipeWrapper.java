@@ -5,12 +5,11 @@
 package com.klikli_dev.theurgy.content.recipe.wrapper;
 
 import com.klikli_dev.theurgy.content.capability.MercuryFluxStorage;
-import net.minecraftforge.items.IItemHandlerModifiable;
-import net.minecraftforge.items.wrapper.CombinedInvWrapper;
-import net.minecraftforge.items.wrapper.RecipeWrapper;
+import net.neoforged.neoforge.items.IItemHandlerModifiable;
+import net.neoforged.neoforge.items.wrapper.CombinedInvWrapper;
+import net.neoforged.neoforge.items.wrapper.RecipeWrapper;
 
 import java.util.List;
-import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 public class ReformationArrayRecipeWrapper extends RecipeWrapper {

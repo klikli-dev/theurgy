@@ -20,13 +20,13 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
-import net.minecraftforge.common.Tags;
+import net.neoforged.neoforge.common.Tags;
 
 import java.util.function.BiConsumer;
 
 public class IncubationRecipeProvider extends JsonRecipeProvider {
 
-    public static final int TIME = IncubationRecipe.DEFAULT_INCUBATION_TIME;
+    public static final int TIME = IncubationRecipe.DEFAULT_TIME;
 
     public IncubationRecipeProvider(PackOutput packOutput) {
         super(packOutput, Theurgy.MODID, "incubation");
@@ -145,7 +145,7 @@ public class IncubationRecipeProvider extends JsonRecipeProvider {
         recipe.add("salt", salt);
         recipe.add("sulfur", sulfur);
         recipe.add("result", result);
-        recipe.addProperty("incubation_time", incubationTime);
+        recipe.addProperty("time", incubationTime);
         return recipe;
     }
 

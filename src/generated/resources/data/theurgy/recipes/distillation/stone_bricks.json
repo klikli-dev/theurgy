@@ -9,13 +9,13 @@
       }
     }
   ],
-  "distillation_time": 100,
   "ingredient": {
     "tag": "minecraft:stone_bricks"
   },
-  "ingredient_count": 10,
+  "ingredientCount": 10,
   "result": {
     "count": 1,
     "item": "theurgy:mercury_shard"
-  }
+  },
+  "time": 100
 }

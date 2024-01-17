@@ -60,9 +60,9 @@ public class CalcinationCategory implements IRecipeCategory<CalcinationRecipe> {
     }
 
     protected IDrawableAnimated getAnimatedArrow(CalcinationRecipe recipe) {
-        int cookTime = recipe.getCalcinationTime();
+        int cookTime = recipe.getTime();
         if (cookTime <= 0) {
-            cookTime = CalcinationRecipe.DEFAULT_CALCINATION_TIME;
+            cookTime = CalcinationRecipe.DEFAULT_TIME;
         }
         return this.cachedAnimatedArrow.getUnchecked(cookTime);
     }
@@ -89,7 +89,7 @@ public class CalcinationCategory implements IRecipeCategory<CalcinationRecipe> {
     }
 
     protected void drawCookTime(CalcinationRecipe recipe, GuiGraphics guiGraphics, int y) {
-        int cookTime = recipe.getCalcinationTime();
+        int cookTime = recipe.getTime();
         if (cookTime > 0) {
             int cookTimeSeconds = cookTime / 20;
             Component timeString = Component.translatable("gui.jei.category.smelting.time.seconds", cookTimeSeconds);

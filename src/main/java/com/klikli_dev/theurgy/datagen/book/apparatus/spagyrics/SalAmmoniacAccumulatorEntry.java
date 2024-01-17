@@ -28,11 +28,11 @@ public class SalAmmoniacAccumulatorEntry extends EntryProvider {
                 .withText(this.context().pageText())
                 .build());
         this.pageText("""
-                The first half of the Sal Ammoniac generation process.
-                \\
-                \\
-                **Needs** to be placed on top of a {0}.
-                """,
+                        The first half of the Sal Ammoniac generation process.
+                        \\
+                        \\
+                        **Needs** to be placed on top of a {0}.
+                        """,
                 this.entryLink("Sal Ammoniac Tank", this.parent.categoryId(), SalAmmoniacTankEntry.ENTRY_ID)
         );
 

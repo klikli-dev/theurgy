@@ -18,6 +18,7 @@ import com.klikli_dev.theurgy.registry.ItemRegistry;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 
+
 /**
  * A dummy provider to separate the generation of divination rod entries from the rest of the getting started category
  */

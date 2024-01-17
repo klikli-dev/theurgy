@@ -8,11 +8,12 @@ import com.klikli_dev.theurgy.content.behaviour.CraftingBehaviour;
 import com.klikli_dev.theurgy.content.recipe.DistillationRecipe;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.common.util.Lazy;
-import net.minecraftforge.items.IItemHandlerModifiable;
-import net.minecraftforge.items.ItemHandlerHelper;
-import net.minecraftforge.items.wrapper.RecipeWrapper;
+import net.neoforged.neoforge.common.util.Lazy;
+import net.neoforged.neoforge.items.IItemHandlerModifiable;
+import net.neoforged.neoforge.items.ItemHandlerHelper;
+import net.neoforged.neoforge.items.wrapper.RecipeWrapper;
 
 import java.util.function.Supplier;
 
@@ -35,17 +36,17 @@ public class DistillationCraftingBehaviour extends CraftingBehaviour<RecipeWrapp
     }
 
     @Override
-    protected int getIngredientCount(DistillationRecipe recipe) {
-        return recipe.getIngredientCount();
+    protected int getIngredientCount(RecipeHolder<DistillationRecipe> recipe) {
+        return recipe.value().getIngredientCount();
     }
 
     @Override
-    protected int getCraftingTime(DistillationRecipe recipe) {
-        return recipe.getDistillationTime();
+    protected int getCraftingTime(RecipeHolder<DistillationRecipe> recipe) {
+        return recipe.value().getTime();
     }
 
     @Override
     protected int getDefaultCraftingTime() {
-        return DistillationRecipe.DEFAULT_DISTILLATION_TIME;
+        return DistillationRecipe.DEFAULT_TIME;
     }
 }

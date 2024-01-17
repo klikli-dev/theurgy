@@ -41,6 +41,7 @@ public abstract class ColoredProjectile extends Projectile {
     public void color(int color) {
         this.entityData.set(COLOR, color);
     }
+
     public void finalColor(int color) {
         this.entityData.set(FINAL_COLOR, color);
     }
@@ -48,6 +49,7 @@ public abstract class ColoredProjectile extends Projectile {
     public int color() {
         return this.entityData.get(COLOR);
     }
+
     public int finalColor() {
         return this.entityData.get(FINAL_COLOR);
     }

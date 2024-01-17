@@ -10,13 +10,9 @@ import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
-import com.klikli_dev.theurgy.datagen.book.GettingStartedCategoryProvider;
-import com.klikli_dev.theurgy.datagen.book.gettingstarted.spagyrics.CreateSulfurEntry;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.registry.SaltRegistry;
-import com.klikli_dev.theurgy.registry.SulfurRegistry;
 import com.mojang.datafixers.util.Pair;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 
@@ -63,11 +59,11 @@ public class PurifiedGoldEntry extends EntryProvider {
         );
         this.pageTitle("Digestion of Gold");
         this.pageText("""
-                [#]($INPUT)Right-click[#]() the {0} with the ingredients to place them inside:
-                - {1}
-                - {2}
-                - {3}
-                """,
+                        [#]($INPUT)Right-click[#]() the {0} with the ingredients to place them inside:
+                        - {1}
+                        - {2}
+                        - {3}
+                        """,
                 this.itemLink(ItemRegistry.DIGESTION_VAT.get()),
                 this.itemLink(Items.GOLD_INGOT),
                 this.itemLink("Any Alchemical Salt", SaltRegistry.MINERAL.get()),
@@ -81,14 +77,14 @@ public class PurifiedGoldEntry extends EntryProvider {
         );
         this.pageTitle("Process");
         this.pageText("""
-                [#]($INPUT)Shift-right-click[#]() the {0} with an [#]($INPUT)empty hand[#]() to close the vat and start the digestion.
-                \\
-                \\
-                Once it opens again the process is complete.
-                \\
-                \\
-                [#]($INPUT)Right-click[#]() with an empty hand to retrieve the {1}.
-                """,
+                        [#]($INPUT)Shift-right-click[#]() the {0} with an [#]($INPUT)empty hand[#]() to close the vat and start the digestion.
+                        \\
+                        \\
+                        Once it opens again the process is complete.
+                        \\
+                        \\
+                        [#]($INPUT)Right-click[#]() with an empty hand to retrieve the {1}.
+                        """,
                 this.itemLink(ItemRegistry.DIGESTION_VAT.get()),
                 this.itemLink(ItemRegistry.PURIFIED_GOLD.get())
         );

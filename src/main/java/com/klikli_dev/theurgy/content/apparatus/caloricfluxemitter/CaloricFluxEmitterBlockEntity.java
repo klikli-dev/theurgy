@@ -14,15 +14,10 @@ import com.klikli_dev.theurgy.registry.CapabilityRegistry;
 import io.netty.handler.codec.EncoderException;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.util.LazyOptional;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,15 +32,12 @@ public class CaloricFluxEmitterBlockEntity extends BlockEntity {
 
     public MercuryFluxStorage mercuryFluxStorage;
 
-    public LazyOptional<MercuryFluxStorage> mercuryFluxStorageCapability;
-
     protected List<CaloricFluxEmitterSelectedPoint> selectedPoints;
 
     public CaloricFluxEmitterBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(BlockEntityRegistry.CALORIC_FLUX_EMITTER.get(), pPos, pBlockState);
 
         this.mercuryFluxStorage = new MercuryFluxStorage(CAPACITY);
-        this.mercuryFluxStorageCapability = LazyOptional.of(() -> this.mercuryFluxStorage);
 
         this.selectedPoints = new ArrayList<>();
     }
@@ -68,8 +60,7 @@ public class CaloricFluxEmitterBlockEntity extends BlockEntity {
         }
 
         if (this.mercuryFluxStorage.getEnergyStored() >= FLUX_PER_HEAT) {
-            var blockEntity = this.getLevel().getBlockEntity(selectedPoint.getBlockPos());
-            var heatReceiver = blockEntity.getCapability(CapabilityRegistry.HEAT_RECEIVER).orElse(null);
+            var heatReceiver = this.level.getCapability(CapabilityRegistry.HEAT_RECEIVER, selectedPoint.getBlockPos(), null);
 
             if (heatReceiver.getIsHotUntil() > this.getLevel().getGameTime() + TICK_INTERVAL)
                 return; //target block is still hot until next tick so do nothing
@@ -81,20 +72,6 @@ public class CaloricFluxEmitterBlockEntity extends BlockEntity {
         }
     }
 
-    @Override
-    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        if (cap == CapabilityRegistry.MERCURY_FLUX) {
-            return this.mercuryFluxStorageCapability.cast();
-        }
-        return super.getCapability(cap, side);
-    }
-
-    @Override
-    public void invalidateCaps() {
-        super.invalidateCaps();
-
-        this.mercuryFluxStorageCapability.invalidate();
-    }
 
     @Override
     protected void saveAdditional(CompoundTag pTag) {
@@ -112,7 +89,7 @@ public class CaloricFluxEmitterBlockEntity extends BlockEntity {
             //get instead of getCompound here because the storage serializes as int tag
             this.mercuryFluxStorage.deserializeNBT(pTag.get("mercuryFluxStorage"));
 
-        if (pTag.contains("selectedPoints")){
+        if (pTag.contains("selectedPoints")) {
             this.selectedPoints = Util.getOrThrow(CaloricFluxEmitterSelectedPoint.LIST_CODEC.parse(NbtOps.INSTANCE, pTag.get("selectedPoints")), (e) -> new EncoderException("Failed to decode: " + e + " " + pTag.get("selectedPoints")));
         }
     }

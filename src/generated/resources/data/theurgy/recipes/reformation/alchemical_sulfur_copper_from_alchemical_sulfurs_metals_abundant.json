@@ -10,10 +10,9 @@
     }
   ],
   "mercury_flux": 50,
-  "reformation_time": 100,
   "result": {
-    "Count": 1,
-    "id": "theurgy:alchemical_sulfur_copper"
+    "count": 1,
+    "item": "theurgy:alchemical_sulfur_copper"
   },
   "sources": [
     {
@@ -22,5 +21,6 @@
   ],
   "target": {
     "item": "theurgy:alchemical_sulfur_copper"
-  }
+  },
+  "time": 100
 }

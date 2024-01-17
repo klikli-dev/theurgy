@@ -16,14 +16,14 @@ import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.material.Fluid;
-import net.minecraftforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.FluidStack;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.function.BiConsumer;
 
 public class AccumulationRecipeProvider extends JsonRecipeProvider {
 
-    public static final int TIME = AccumulationRecipe.DEFAULT_ACCUMULATION_TIME;
+    public static final int TIME = AccumulationRecipe.DEFAULT_TIME;
 
     public AccumulationRecipeProvider(PackOutput packOutput) {
         super(packOutput, Theurgy.MODID, "accumulation");
@@ -66,7 +66,7 @@ public class AccumulationRecipeProvider extends JsonRecipeProvider {
         if (solute != null)
             recipe.add("solute", solute);
         recipe.add("result", result);
-        recipe.addProperty("accumulationTime", accumulationTime);
+        recipe.addProperty("time", accumulationTime);
         return recipe;
     }
 

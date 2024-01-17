@@ -16,8 +16,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.common.Tags;
-import net.minecraftforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.common.Tags;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.concurrent.CompletableFuture;
@@ -51,8 +51,8 @@ public class TheurgyItemTagsProvider extends ItemTagsProvider {
 
         var sulfursTag = this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS);
         SulfurRegistry.SULFURS.getEntries().forEach(sulfur -> {
-            if(sulfur.get() instanceof AlchemicalSulfurItem alchemicalSulfurItem){
-                if(alchemicalSulfurItem.type() != AlchemicalSulfurType.NITER)
+            if (sulfur.get() instanceof AlchemicalSulfurItem alchemicalSulfurItem) {
+                if (alchemicalSulfurItem.type() != AlchemicalSulfurType.NITER)
                     sulfursTag.add(sulfur.get());
             }
         });

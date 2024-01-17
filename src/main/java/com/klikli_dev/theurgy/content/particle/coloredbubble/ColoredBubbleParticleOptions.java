@@ -12,8 +12,8 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraftforge.registries.ForgeRegistries;
 
 public class ColoredBubbleParticleOptions implements ParticleOptions {
 
@@ -25,7 +25,7 @@ public class ColoredBubbleParticleOptions implements ParticleOptions {
             .apply(instance, ColoredBubbleParticleOptions::new));
 
     @SuppressWarnings("deprecation")
-    public static final ParticleOptions.Deserializer<ColoredBubbleParticleOptions> DESERIALIZER = new ParticleOptions.Deserializer<>() {
+    public static final Deserializer<ColoredBubbleParticleOptions> DESERIALIZER = new Deserializer<>() {
         @Override
         public ColoredBubbleParticleOptions fromCommand(ParticleType<ColoredBubbleParticleOptions> type, StringReader reader) throws CommandSyntaxException {
             reader.expect(' ');
@@ -62,6 +62,6 @@ public class ColoredBubbleParticleOptions implements ParticleOptions {
 
     @Override
     public String writeToString() {
-        return ForgeRegistries.PARTICLE_TYPES.getKey(this.type) + " " + this.color.serialize();
+        return BuiltInRegistries.PARTICLE_TYPE.getKey(this.type) + " " + this.color.serialize();
     }
 }

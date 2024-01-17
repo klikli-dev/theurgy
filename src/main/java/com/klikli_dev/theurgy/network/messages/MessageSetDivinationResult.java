@@ -4,18 +4,22 @@
 
 package com.klikli_dev.theurgy.network.messages;
 
+import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.content.item.DivinationRodItem;
 import com.klikli_dev.theurgy.network.Message;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.network.NetworkEvent;
+
 
 public class MessageSetDivinationResult implements Message {
+
+    public static final ResourceLocation ID = Theurgy.loc("set_divination_result");
 
     public BlockPos pos;
     public byte distance;
@@ -27,20 +31,6 @@ public class MessageSetDivinationResult implements Message {
     public MessageSetDivinationResult(BlockPos pos, float distance) {
         this.pos = pos;
         this.distance = (byte) Math.min(256, distance);
-    }
-
-    @Override
-    public void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player,
-                                 NetworkEvent.Context context) {
-        ItemStack stack = player.getItemInHand(InteractionHand.MAIN_HAND);
-        if (stack.getItem() instanceof DivinationRodItem) {
-            var tag = stack.getOrCreateTag();
-            tag.putFloat(TheurgyConstants.Nbt.Divination.DISTANCE, this.distance);
-            if (this.pos != null) {
-                tag.putLong(TheurgyConstants.Nbt.Divination.POS, this.pos.asLong());
-            }
-            player.inventoryMenu.broadcastChanges();
-        }
     }
 
     @Override
@@ -60,4 +50,21 @@ public class MessageSetDivinationResult implements Message {
         this.distance = buf.readByte();
     }
 
+    @Override
+    public void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player) {
+        ItemStack stack = player.getItemInHand(InteractionHand.MAIN_HAND);
+        if (stack.getItem() instanceof DivinationRodItem) {
+            var tag = stack.getOrCreateTag();
+            tag.putFloat(TheurgyConstants.Nbt.Divination.DISTANCE, this.distance);
+            if (this.pos != null) {
+                tag.putLong(TheurgyConstants.Nbt.Divination.POS, this.pos.asLong());
+            }
+            player.inventoryMenu.broadcastChanges();
+        }
+    }
+
+    @Override
+    public ResourceLocation id() {
+        return ID;
+    }
 }

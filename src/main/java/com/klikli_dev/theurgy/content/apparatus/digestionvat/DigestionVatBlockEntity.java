@@ -4,7 +4,7 @@
 
 package com.klikli_dev.theurgy.content.apparatus.digestionvat;
 
-import com.klikli_dev.theurgy.content.behaviour.*;
+import com.klikli_dev.theurgy.content.behaviour.HasCraftingBehaviour;
 import com.klikli_dev.theurgy.content.recipe.DigestionRecipe;
 import com.klikli_dev.theurgy.content.recipe.wrapper.RecipeWrapperWithFluid;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
@@ -15,26 +15,11 @@ import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidType;
-import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.fluids.capability.templates.FluidTank;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemHandlerHelper;
-import net.minecraftforge.items.ItemStackHandler;
-import net.minecraftforge.items.wrapper.CombinedInvWrapper;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.function.Predicate;
 
 public class DigestionVatBlockEntity extends BlockEntity implements HasCraftingBehaviour<RecipeWrapperWithFluid, DigestionRecipe, DigestionCachedCheck> {
 
@@ -110,16 +95,6 @@ public class DigestionVatBlockEntity extends BlockEntity implements HasCraftingB
             }
         }
         return false;
-    }
-
-    @Override
-    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        var storage = this.storageBehaviour.getCapability(cap, side);
-        if (storage.isPresent()) {
-            return storage;
-        }
-
-        return super.getCapability(cap, side);
     }
 
     @Override

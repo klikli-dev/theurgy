@@ -4,41 +4,37 @@
 
 package com.klikli_dev.theurgy.content.recipe;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
 import com.klikli_dev.theurgy.content.recipe.ingredient.FluidIngredient;
 import com.klikli_dev.theurgy.content.recipe.wrapper.RecipeWrapperWithFluid;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.registry.RecipeSerializerRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
-import com.klikli_dev.theurgy.util.TheurgyExtraCodecs;
 import com.mojang.serialization.Codec;
-import com.mojang.serialization.JsonOps;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.FluidStack;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
 public class AccumulationRecipe implements Recipe<RecipeWrapperWithFluid> {
-    public static final int DEFAULT_ACCUMULATION_TIME = 100;
+    public static final int DEFAULT_TIME = 100;
 
     public static final Codec<AccumulationRecipe> CODEC = RecordCodecBuilder.create(instance -> instance.group(
                     FluidIngredient.CODEC.fieldOf("evaporant").forGetter((r) -> r.evaporant),
                     Codec.INT.fieldOf("evaporantAmount").forGetter((r) -> r.evaporantAmount),
-                    TheurgyExtraCodecs.INGREDIENT.optionalFieldOf("solute").forGetter(r -> Optional.ofNullable(r.solute)),
+                    Ingredient.CODEC.optionalFieldOf("solute").forGetter(r -> Optional.ofNullable(r.solute)),
                     FluidStack.CODEC.fieldOf("result").forGetter(r -> r.result),
-                    Codec.INT.optionalFieldOf("accumulationTime", DEFAULT_ACCUMULATION_TIME).forGetter(r -> r.accumulationTime)
+                    Codec.INT.optionalFieldOf("time", DEFAULT_TIME).forGetter(r -> r.time)
             ).apply(instance, (evaporant, evaporantAmount, solute, result, accumulation_time) -> new AccumulationRecipe(evaporant, evaporantAmount, solute.orElse(null), result, accumulation_time))
     );
     /**
@@ -55,20 +51,14 @@ public class AccumulationRecipe implements Recipe<RecipeWrapperWithFluid> {
      * The result of the recipe.
      */
     protected final FluidStack result;
-    protected final int accumulationTime;
-    protected ResourceLocation id;
+    protected final int time;
 
-    public AccumulationRecipe(FluidIngredient evaporant, int evaporantAmount, @Nullable Ingredient solute, FluidStack result, int pAccumulationTime) {
+    public AccumulationRecipe(FluidIngredient evaporant, int evaporantAmount, @Nullable Ingredient solute, FluidStack result, int time) {
         this.evaporant = evaporant;
         this.evaporantAmount = evaporantAmount;
         this.solute = solute;
         this.result = result;
-        this.accumulationTime = pAccumulationTime;
-    }
-
-    @Override
-    public ResourceLocation getId() {
-        return this.id;
+        this.time = time;
     }
 
     @Override
@@ -126,8 +116,8 @@ public class AccumulationRecipe implements Recipe<RecipeWrapperWithFluid> {
         return RecipeSerializerRegistry.ACCUMULATION.get();
     }
 
-    public int getAccumulationTime() {
-        return this.accumulationTime;
+    public int getTime() {
+        return this.time;
     }
 
     public FluidIngredient getEvaporant() {
@@ -154,24 +144,20 @@ public class AccumulationRecipe implements Recipe<RecipeWrapperWithFluid> {
     public static class Serializer implements RecipeSerializer<AccumulationRecipe> {
 
         @Override
-        public AccumulationRecipe fromJson(ResourceLocation pRecipeId, JsonObject pJson) {
-            var recipe = CODEC.parse(JsonOps.INSTANCE, pJson).getOrThrow(false, s -> {
-                throw new JsonParseException(s);
-            });
-            recipe.id = pRecipeId;
-            return recipe;
+        public Codec<AccumulationRecipe> codec() {
+            return CODEC;
         }
 
         @Override
-        public AccumulationRecipe fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
-            var recipe = pBuffer.readJsonWithCodec(CODEC);
-            recipe.id = pRecipeId;
-            return recipe;
+        public AccumulationRecipe fromNetwork(FriendlyByteBuf pBuffer) {
+            //noinspection deprecation
+            return pBuffer.readWithCodecTrusted(NbtOps.INSTANCE, CODEC);
         }
 
         @Override
         public void toNetwork(FriendlyByteBuf pBuffer, AccumulationRecipe pRecipe) {
-            pBuffer.writeJsonWithCodec(CODEC, pRecipe);
+            //noinspection deprecation
+            pBuffer.writeWithCodec(NbtOps.INSTANCE, CODEC, pRecipe);
         }
     }
 }

@@ -4,22 +4,17 @@
 
 package com.klikli_dev.theurgy.content.recipe;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
-import com.klikli_dev.theurgy.content.item.AlchemicalSulfurItem;
 import com.klikli_dev.theurgy.content.recipe.wrapper.ReformationArrayRecipeWrapper;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.RecipeSerializerRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
-import com.klikli_dev.theurgy.util.TheurgyExtraCodecs;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
-import com.mojang.serialization.JsonOps;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
@@ -32,29 +27,28 @@ import java.util.List;
 
 public class ReformationRecipe implements Recipe<ReformationArrayRecipeWrapper> {
 
-    public static final int DEFAULT_REFORMATION_TIME = 100;
+    public static final int DEFAULT_TIME = 100;
 
     public static final Codec<ReformationRecipe> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-                    TheurgyExtraCodecs.INGREDIENT.listOf().fieldOf("sources").forGetter(r -> r.sources),
-                    TheurgyExtraCodecs.INGREDIENT.fieldOf("target").forGetter(r -> r.target),
-                    ItemStack.CODEC.fieldOf("result").forGetter(r -> r.result),
+                    Ingredient.CODEC.listOf().fieldOf("sources").forGetter(r -> r.sources),
+                    Ingredient.CODEC.fieldOf("target").forGetter(r -> r.target),
+                    ItemStack.ITEM_WITH_COUNT_CODEC.fieldOf("result").forGetter(r -> r.result),
                     Codec.INT.fieldOf("mercury_flux").forGetter(r -> r.mercuryFlux),
-                    Codec.INT.optionalFieldOf("reformation_time", DEFAULT_REFORMATION_TIME).forGetter(r -> r.reformationTime)
+                    Codec.INT.optionalFieldOf("time", DEFAULT_TIME).forGetter(r -> r.time)
             ).apply(instance, ReformationRecipe::new)
     );
     protected final List<Ingredient> sources;
     protected final Ingredient target;
     protected final ItemStack result;
     protected final int mercuryFlux;
-    protected final int reformationTime;
-    protected ResourceLocation id;
+    protected final int time;
 
-    public ReformationRecipe(List<Ingredient> sources, Ingredient target, ItemStack result, int mercuryFlux, int reformationTime) {
+    public ReformationRecipe(List<Ingredient> sources, Ingredient target, ItemStack result, int mercuryFlux, int time) {
         this.sources = sources;
         this.target = target;
         this.result = result;
         this.mercuryFlux = mercuryFlux;
-        this.reformationTime = reformationTime;
+        this.time = time;
     }
 
     public List<Ingredient> getSources() {
@@ -73,8 +67,8 @@ public class ReformationRecipe implements Recipe<ReformationArrayRecipeWrapper> 
         return this.mercuryFlux;
     }
 
-    public int getReformationTime() {
-        return this.reformationTime;
+    public int getTime() {
+        return this.time;
     }
 
     @Override
@@ -120,7 +114,7 @@ public class ReformationRecipe implements Recipe<ReformationArrayRecipeWrapper> 
         var result = this.result.copy();
         //TODO: the tag copy should be an option in the recipe json
         var targetItem = pContainer.getTargetPedestalInv().getStackInSlot(0);
-        if(targetItem.hasTag())
+        if (targetItem.hasTag())
             result.setTag(targetItem.getTag().copy());
         return result;
     }
@@ -143,11 +137,6 @@ public class ReformationRecipe implements Recipe<ReformationArrayRecipeWrapper> 
     }
 
     @Override
-    public ResourceLocation getId() {
-        return this.id;
-    }
-
-    @Override
     public ItemStack getToastSymbol() {
         return new ItemStack(BlockRegistry.REFORMATION_RESULT_PEDESTAL.get());
     }
@@ -165,32 +154,27 @@ public class ReformationRecipe implements Recipe<ReformationArrayRecipeWrapper> 
     public record IngedientWithCount(Ingredient ingredient, int count) {
         public static final Codec<IngedientWithCount> CODEC = Codec.pair(
                 Codec.INT.optionalFieldOf("count", 1).codec(),
-                TheurgyExtraCodecs.INGREDIENT
+                Ingredient.CODEC
         ).xmap(s -> new IngedientWithCount(s.getSecond(), s.getFirst()), s -> Pair.of(s.count, s.ingredient));
     }
 
     public static class Serializer implements RecipeSerializer<ReformationRecipe> {
 
         @Override
-        public ReformationRecipe fromJson(ResourceLocation pRecipeId, JsonObject pJson) {
-            var recipe = CODEC.parse(JsonOps.INSTANCE, pJson).getOrThrow(false, s -> {
-                throw new JsonParseException(s);
-            });
-
-            recipe.id = pRecipeId;
-            return recipe;
+        public Codec<ReformationRecipe> codec() {
+            return CODEC;
         }
 
         @Override
-        public ReformationRecipe fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
-            var recipe = pBuffer.readJsonWithCodec(CODEC);
-            recipe.id = pRecipeId;
-            return recipe;
+        public ReformationRecipe fromNetwork(FriendlyByteBuf pBuffer) {
+            //noinspection deprecation
+            return pBuffer.readWithCodecTrusted(NbtOps.INSTANCE, CODEC);
         }
 
         @Override
         public void toNetwork(FriendlyByteBuf pBuffer, ReformationRecipe pRecipe) {
-            pBuffer.writeJsonWithCodec(CODEC, pRecipe);
+            //noinspection deprecation
+            pBuffer.writeWithCodec(NbtOps.INSTANCE, CODEC, pRecipe);
         }
     }
 }

@@ -12,7 +12,9 @@ import com.klikli_dev.theurgy.content.recipe.LiquefactionRecipe;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -22,7 +24,7 @@ import java.util.stream.Collectors;
 
 public class BookIncubationRecipePageRenderer extends BookRecipePageRenderer<IncubationRecipe, BookIncubationRecipePage> {
 
-    protected Map<IncubationRecipe, ItemStack[]> renderableSulfurIngredients = new HashMap<>();
+    protected Map<ResourceLocation, ItemStack[]> renderableSulfurIngredients = new HashMap<>();
 
     public BookIncubationRecipePageRenderer(BookIncubationRecipePage page) {
         super(page);
@@ -39,22 +41,22 @@ public class BookIncubationRecipePageRenderer extends BookRecipePageRenderer<Inc
 
         //sulfurs in the recipe are in most cases specified only via the item id (as one sulfur = one item), but for rendering we need the nbt, so we get it from the corresponding recipe.
         var recipeManager = Minecraft.getInstance().level.getRecipeManager();
-        var liquefactionRecipes = recipeManager.getAllRecipesFor(RecipeTypeRegistry.LIQUEFACTION.get()).stream().filter(r -> r.getResultItem(Minecraft.getInstance().level.registryAccess()) != null).collect(Collectors.toList());
+        var liquefactionRecipes = recipeManager.getAllRecipesFor(RecipeTypeRegistry.LIQUEFACTION.get()).stream().filter(r -> r.value().getResultItem(Minecraft.getInstance().level.registryAccess()) != null).collect(Collectors.toList());
 
         if (this.page.getRecipe1() != null)
-            this.renderableSulfurIngredients.put(this.page.getRecipe1(), this.getRenderableSulfurIngredients(liquefactionRecipes, this.page.getRecipe1()));
+            this.renderableSulfurIngredients.put(this.page.getRecipe1().id(), this.getRenderableSulfurIngredients(liquefactionRecipes, this.page.getRecipe1()));
         if (this.page.getRecipe2() != null)
-            this.renderableSulfurIngredients.put(this.page.getRecipe2(), this.getRenderableSulfurIngredients(liquefactionRecipes, this.page.getRecipe2()));
+            this.renderableSulfurIngredients.put(this.page.getRecipe2().id(), this.getRenderableSulfurIngredients(liquefactionRecipes, this.page.getRecipe2()));
     }
 
-    protected ItemStack[] getRenderableSulfurIngredients(List<LiquefactionRecipe> liquefactionRecipes, IncubationRecipe recipe) {
-        return Arrays.stream(recipe.getSulfur().getItems()).map(sulfur -> {
+    protected ItemStack[] getRenderableSulfurIngredients(List<RecipeHolder<LiquefactionRecipe>> liquefactionRecipes, RecipeHolder<IncubationRecipe> recipe) {
+        return Arrays.stream(recipe.value().getSulfur().getItems()).map(sulfur -> {
             if (sulfur.hasTag())
                 return sulfur;
 
             var sulfurItem = sulfur.getItem();
             var sulfurWithNbt = liquefactionRecipes.stream()
-                    .filter(r -> r.getResultItem(Minecraft.getInstance().level.registryAccess()).getItem() == sulfurItem).map(r -> r.getResultItem(Minecraft.getInstance().level.registryAccess())).findFirst();
+                    .filter(r -> r.value().getResultItem(Minecraft.getInstance().level.registryAccess()).getItem() == sulfurItem).map(r -> r.value().getResultItem(Minecraft.getInstance().level.registryAccess())).findFirst();
 
             if (sulfurWithNbt.isPresent()) {
                 sulfur = sulfur.copy();
@@ -66,8 +68,9 @@ public class BookIncubationRecipePageRenderer extends BookRecipePageRenderer<Inc
     }
 
     @Override
-    protected void drawRecipe(GuiGraphics guiGraphics, IncubationRecipe recipe, int recipeX, int recipeY, int mouseX, int mouseY, boolean second) {
+    protected void drawRecipe(GuiGraphics guiGraphics, RecipeHolder<IncubationRecipe> recipeHolder, int recipeX, int recipeY, int mouseX, int mouseY, boolean second) {
         recipeY += 10;
+        var recipe = recipeHolder.value();
 
         if (!second) {
             if (!this.page.getTitle1().isEmpty()) {
@@ -88,7 +91,7 @@ public class BookIncubationRecipePageRenderer extends BookRecipePageRenderer<Inc
         this.parentScreen.renderIngredient(guiGraphics, recipeX + 24 + 3, recipeY + 3, mouseX, mouseY, recipe.getSalt());
 
         GuiTextures.MODONOMICON_SLOT.render(guiGraphics, recipeX, recipeY + 24); //render the sulfur input slot
-        var sulfurs = this.renderableSulfurIngredients.get(recipe);
+        var sulfurs = this.renderableSulfurIngredients.get(recipeHolder.id());
         if (sulfurs != null && sulfurs.length > 0) {
             this.parentScreen.renderItemStacks(guiGraphics, recipeX + 3, recipeY + 24 + 3, mouseX, mouseY, List.of(sulfurs));
         }

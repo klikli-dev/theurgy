@@ -15,8 +15,8 @@
     }
   ],
   "result": {
-    "Count": 1,
-    "id": "theurgy:alchemical_sulfur_metals_common"
+    "count": 1,
+    "item": "theurgy:alchemical_sulfur_metals_common"
   },
   "time": 1000
 }

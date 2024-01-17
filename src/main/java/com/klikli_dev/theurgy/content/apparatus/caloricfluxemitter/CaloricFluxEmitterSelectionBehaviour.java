@@ -18,6 +18,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
+
 public class CaloricFluxEmitterSelectionBehaviour extends SelectionBehaviour<CaloricFluxEmitterSelectedPoint> {
 
     @Override
@@ -43,11 +44,10 @@ public class CaloricFluxEmitterSelectionBehaviour extends SelectionBehaviour<Cal
 
     @Override
     public boolean canCreate(Level level, BlockPos pos, BlockState state) {
-        if(!level.isLoaded(pos))
+        if (!level.isLoaded(pos))
             return false;
 
-        var blockEntity = level.getBlockEntity(pos);
-        return blockEntity != null && blockEntity.getCapability(CapabilityRegistry.HEAT_RECEIVER).isPresent();
+        return level.getCapability(CapabilityRegistry.HEAT_RECEIVER, pos, state, null, null) != null;
     }
 
     @Override

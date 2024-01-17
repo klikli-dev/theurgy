@@ -30,13 +30,13 @@ public class NiterToSulfurReformationEntry extends EntryProvider {
         );
         this.pageTitle("Sulfur Reformation");
         this.pageText("""
-                The {0} can now be converted into {1} via reformation.
-                \\
-                \\
-                This again works exactly as already described in the previous entry and in the {2} entries.
-                """,
-                this.itemLink("Alchemical Niter: Rare Metals",SulfurRegistry.METALS_RARE.get()),
-                this.itemLink("Alchemical Sulfur: Gold",SulfurRegistry.GOLD.get()),
+                        The {0} can now be converted into {1} via reformation.
+                        \\
+                        \\
+                        This again works exactly as already described in the previous entry and in the {2} entries.
+                        """,
+                this.itemLink("Alchemical Niter: Rare Metals", SulfurRegistry.METALS_RARE.get()),
+                this.itemLink("Alchemical Sulfur: Gold", SulfurRegistry.GOLD.get()),
                 this.entryLink("Reformation", GettingStartedCategoryProvider.CATEGORY_ID, ConvertWithinTypeAndTierEntry.ENTRY_ID)
         );
 

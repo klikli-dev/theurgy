@@ -47,8 +47,8 @@ public class DigestionVatEntry extends EntryProvider {
                 .build());
         this.pageTitle("Reformation Array");
         this.pageText("""
-                       Once again you need to set up a reformation array, the usage was already discussed in the {0} and following entries.
-                        """,
+                        Once again you need to set up a reformation array, the usage was already discussed in the {0} and following entries.
+                         """,
                 this.entryLink("Reformation Array", GettingStartedCategoryProvider.CATEGORY_ID, ReformationArrayEntry.ENTRY_ID)
         );
 

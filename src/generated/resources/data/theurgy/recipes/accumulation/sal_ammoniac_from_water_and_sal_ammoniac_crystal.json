@@ -1,6 +1,5 @@
 {
   "type": "theurgy:accumulation",
-  "accumulationTime": 100,
   "evaporant": {
     "tag": "minecraft:water"
   },
@@ -11,5 +10,6 @@
   },
   "solute": {
     "tag": "forge:gems/sal_ammoniac"
-  }
+  },
+  "time": 100
 }

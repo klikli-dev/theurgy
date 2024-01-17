@@ -10,7 +10,6 @@ import com.klikli_dev.theurgy.content.item.AlchemicalSulfurType;
 import com.klikli_dev.theurgy.registry.SulfurRegistry;
 
 import java.util.List;
-import java.util.stream.Stream;
 
 public class SulfurMappings {
     private static List<AlchemicalSulfurItem> GEMS_ABUNDANT;
@@ -37,8 +36,8 @@ public class SulfurMappings {
     private static List<AlchemicalSulfurItem> OTHER_MINERALS_RARE;
     private static List<AlchemicalSulfurItem> OTHER_MINERALS_PRECIOUS;
 
-    public static List<AlchemicalSulfurItem> gemsAbundant(){
-        if(GEMS_ABUNDANT != null){
+    public static List<AlchemicalSulfurItem> gemsAbundant() {
+        if (GEMS_ABUNDANT != null) {
             return GEMS_ABUNDANT;
         }
 
@@ -47,8 +46,8 @@ public class SulfurMappings {
         return GEMS_ABUNDANT;
     }
 
-    public static List<AlchemicalSulfurItem> gemsCommon(){
-        if(GEMS_COMMON != null){
+    public static List<AlchemicalSulfurItem> gemsCommon() {
+        if (GEMS_COMMON != null) {
             return GEMS_COMMON;
         }
 
@@ -57,8 +56,8 @@ public class SulfurMappings {
         return GEMS_COMMON;
     }
 
-    public static List<AlchemicalSulfurItem> gemsRare(){
-        if(GEMS_RARE != null){
+    public static List<AlchemicalSulfurItem> gemsRare() {
+        if (GEMS_RARE != null) {
             return GEMS_RARE;
         }
 
@@ -67,8 +66,8 @@ public class SulfurMappings {
         return GEMS_RARE;
     }
 
-    public static List<AlchemicalSulfurItem> gemsPrecious(){
-        if(GEMS_PRECIOUS != null){
+    public static List<AlchemicalSulfurItem> gemsPrecious() {
+        if (GEMS_PRECIOUS != null) {
             return GEMS_PRECIOUS;
         }
 
@@ -77,8 +76,8 @@ public class SulfurMappings {
         return GEMS_PRECIOUS;
     }
 
-    public static List<AlchemicalSulfurItem> metalsAbundant(){
-        if(METALS_ABUNDANT != null){
+    public static List<AlchemicalSulfurItem> metalsAbundant() {
+        if (METALS_ABUNDANT != null) {
             return METALS_ABUNDANT;
         }
 
@@ -86,8 +85,8 @@ public class SulfurMappings {
         return METALS_ABUNDANT;
     }
 
-    public static List<AlchemicalSulfurItem> metalsCommon(){
-        if(METALS_COMMON != null){
+    public static List<AlchemicalSulfurItem> metalsCommon() {
+        if (METALS_COMMON != null) {
             return METALS_COMMON;
         }
 
@@ -96,8 +95,8 @@ public class SulfurMappings {
         return METALS_COMMON;
     }
 
-    public static List<AlchemicalSulfurItem> metalsRare(){
-        if(METALS_RARE != null){
+    public static List<AlchemicalSulfurItem> metalsRare() {
+        if (METALS_RARE != null) {
             return METALS_RARE;
         }
 
@@ -106,8 +105,8 @@ public class SulfurMappings {
         return METALS_RARE;
     }
 
-    public static List<AlchemicalSulfurItem> metalsPrecious(){
-        if(METALS_PRECIOUS != null){
+    public static List<AlchemicalSulfurItem> metalsPrecious() {
+        if (METALS_PRECIOUS != null) {
             return METALS_PRECIOUS;
         }
 
@@ -116,8 +115,8 @@ public class SulfurMappings {
         return METALS_PRECIOUS;
     }
 
-    public static List<AlchemicalSulfurItem> otherMineralsAbundant(){
-        if(OTHER_MINERALS_ABUNDANT != null){
+    public static List<AlchemicalSulfurItem> otherMineralsAbundant() {
+        if (OTHER_MINERALS_ABUNDANT != null) {
             return OTHER_MINERALS_ABUNDANT;
         }
 
@@ -126,8 +125,8 @@ public class SulfurMappings {
         return OTHER_MINERALS_ABUNDANT;
     }
 
-    public static List<AlchemicalSulfurItem> otherMineralsCommon(){
-        if(OTHER_MINERALS_COMMON != null){
+    public static List<AlchemicalSulfurItem> otherMineralsCommon() {
+        if (OTHER_MINERALS_COMMON != null) {
             return OTHER_MINERALS_COMMON;
         }
 
@@ -136,8 +135,8 @@ public class SulfurMappings {
         return OTHER_MINERALS_COMMON;
     }
 
-    public static List<AlchemicalSulfurItem> otherMineralsRare(){
-        if(OTHER_MINERALS_RARE != null){
+    public static List<AlchemicalSulfurItem> otherMineralsRare() {
+        if (OTHER_MINERALS_RARE != null) {
             return OTHER_MINERALS_RARE;
         }
 
@@ -146,8 +145,8 @@ public class SulfurMappings {
         return OTHER_MINERALS_RARE;
     }
 
-    public static List<AlchemicalSulfurItem> otherMineralsPrecious(){
-        if(OTHER_MINERALS_PRECIOUS != null){
+    public static List<AlchemicalSulfurItem> otherMineralsPrecious() {
+        if (OTHER_MINERALS_PRECIOUS != null) {
             return OTHER_MINERALS_PRECIOUS;
         }
 
@@ -156,7 +155,7 @@ public class SulfurMappings {
         return OTHER_MINERALS_PRECIOUS;
     }
 
-    private static List<AlchemicalSulfurItem> find(AlchemicalSulfurType type, AlchemicalSulfurTier tier){
+    private static List<AlchemicalSulfurItem> find(AlchemicalSulfurType type, AlchemicalSulfurTier tier) {
         return SulfurRegistry.SULFURS.getEntries().stream()
                 .map(entry -> entry.get())
                 .filter(entry -> entry instanceof AlchemicalSulfurItem)

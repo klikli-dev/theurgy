@@ -1,7 +1,6 @@
 {
   "criteria": {
     "theurgy_present": {
-      "conditions": {},
       "trigger": "minecraft:tick"
     }
   },

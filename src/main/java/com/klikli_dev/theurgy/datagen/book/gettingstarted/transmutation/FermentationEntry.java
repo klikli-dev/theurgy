@@ -15,7 +15,6 @@ import com.klikli_dev.theurgy.registry.SulfurRegistry;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
-import org.checkerframework.common.returnsreceiver.qual.This;
 
 public class FermentationEntry extends EntryProvider {
     public static final String ENTRY_ID = "fermentation_transmutation";
@@ -33,10 +32,10 @@ public class FermentationEntry extends EntryProvider {
         );
         this.pageTitle("Fermentation");
         this.pageText("""
-                We need two different Niters: some {0} as source that we want to convert and at least one {1} as conversion target.
-                """,
-                this.itemLink("Alchemical Niter: Common Gems",SulfurRegistry.GEMS_COMMON.get()),
-                this.itemLink("Alchemical Niter: Common Metals",SulfurRegistry.METALS_COMMON.get())
+                        We need two different Niters: some {0} as source that we want to convert and at least one {1} as conversion target.
+                        """,
+                this.itemLink("Alchemical Niter: Common Gems", SulfurRegistry.GEMS_COMMON.get()),
+                this.itemLink("Alchemical Niter: Common Metals", SulfurRegistry.METALS_COMMON.get())
         );
 
         this.page("gems", () -> BookSpotlightPageModel.builder()
@@ -47,15 +46,15 @@ public class FermentationEntry extends EntryProvider {
         );
         this.pageTitle("Alchemical Niter: Common Gems");
         this.pageText("""
-                [#]($INPUT)Right-click[#]() the {0} with the ingredients to place them inside:
-                - {1}
-                - {2}
-                - {3} or any Crops
-                
-                (Check JEI for more recipes)
-                """,
+                        [#]($INPUT)Right-click[#]() the {0} with the ingredients to place them inside:
+                        - {1}
+                        - {2}
+                        - {3} or any Crops
+                                        
+                        (Check JEI for more recipes)
+                        """,
                 this.itemLink(ItemRegistry.FERMENTATION_VAT.get()),
-                this.itemLink("Alchemical Sulfur: Quartz",SulfurRegistry.QUARTZ.get()),
+                this.itemLink("Alchemical Sulfur: Quartz", SulfurRegistry.QUARTZ.get()),
                 this.itemLink(Items.WATER_BUCKET),
                 this.itemLink(Items.SUGAR)
         );
@@ -68,13 +67,13 @@ public class FermentationEntry extends EntryProvider {
         );
         this.pageTitle("Alchemical Niter: Common Metals");
         this.pageText("""
-                [#]($INPUT)Right-click[#]() the {0} with the ingredients to place them inside:
-                - {1}
-                - {2}
-                - {3} or any Crops
+                        [#]($INPUT)Right-click[#]() the {0} with the ingredients to place them inside:
+                        - {1}
+                        - {2}
+                        - {3} or any Crops
 
-                (Check JEI for more recipes)
-                """,
+                        (Check JEI for more recipes)
+                        """,
                 this.itemLink(ItemRegistry.FERMENTATION_VAT.get()),
                 this.itemLink("Alchemical Sulfur: Iron", SulfurRegistry.IRON.get()),
                 this.itemLink(Items.WATER_BUCKET),
@@ -88,16 +87,16 @@ public class FermentationEntry extends EntryProvider {
         );
         this.pageTitle("Process");
         this.pageText("""
-                [#]($INPUT)Shift-right-click[#]() the {0} with an [#]($INPUT)empty hand[#]() to close the vat and start the fermentation.
-                \\
-                \\
-                Once it opens again the process is complete.
-                \\
-                \\
-                [#]($INPUT)Right-click[#]() with an empty hand to retrieve the {1}.
-                """,
+                        [#]($INPUT)Shift-right-click[#]() the {0} with an [#]($INPUT)empty hand[#]() to close the vat and start the fermentation.
+                        \\
+                        \\
+                        Once it opens again the process is complete.
+                        \\
+                        \\
+                        [#]($INPUT)Right-click[#]() with an empty hand to retrieve the {1}.
+                        """,
                 this.itemLink(ItemRegistry.FERMENTATION_VAT.get()),
-                this.itemLink("Alchemical Niter: Common Gems",SulfurRegistry.GEMS_COMMON.get())
+                this.itemLink("Alchemical Niter: Common Gems", SulfurRegistry.GEMS_COMMON.get())
         );
 
 

@@ -13,7 +13,6 @@ import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.registry.SulfurRegistry;
 import com.mojang.datafixers.util.Pair;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 
 public class DigestionEntry extends EntryProvider {
@@ -32,13 +31,13 @@ public class DigestionEntry extends EntryProvider {
         );
         this.pageTitle("Digestion");
         this.pageText("""
-                The key process of Exaltation is the Digestion of lower Niter into higher Niter (or vice versa).
-                \\
-                \\
-                We need 4 {0} to create 1 {1}.
-                """,
-                this.itemLink("Alchemical Niter: Common Metals",SulfurRegistry.METALS_COMMON.get()),
-                this.itemLink("Alchemical Niter: Rare Metals",SulfurRegistry.METALS_RARE.get())
+                        The key process of Exaltation is the Digestion of lower Niter into higher Niter (or vice versa).
+                        \\
+                        \\
+                        We need 4 {0} to create 1 {1}.
+                        """,
+                this.itemLink("Alchemical Niter: Common Metals", SulfurRegistry.METALS_COMMON.get()),
+                this.itemLink("Alchemical Niter: Rare Metals", SulfurRegistry.METALS_RARE.get())
         );
 
         this.page("metals", () -> BookSpotlightPageModel.builder()
@@ -49,15 +48,15 @@ public class DigestionEntry extends EntryProvider {
         );
         this.pageTitle("Alchemical Niter: Rare Metals");
         this.pageText("""
-                [#]($INPUT)Right-click[#]() the {0} with the ingredients to place them inside:
-                - 4x {1}
-                - {2}
-                - {3}
+                        [#]($INPUT)Right-click[#]() the {0} with the ingredients to place them inside:
+                        - 4x {1}
+                        - {2}
+                        - {3}
 
-                (Check JEI for more recipes)
-                """,
+                        (Check JEI for more recipes)
+                        """,
                 this.itemLink(ItemRegistry.DIGESTION_VAT.get()),
-                this.itemLink("Alchemical Niter: Common Metals",SulfurRegistry.METALS_COMMON.get()),
+                this.itemLink("Alchemical Niter: Common Metals", SulfurRegistry.METALS_COMMON.get()),
                 this.itemLink(ItemRegistry.SAL_AMMONIAC_BUCKET.get()),
                 this.itemLink(ItemRegistry.PURIFIED_GOLD.get())
         );
@@ -69,16 +68,16 @@ public class DigestionEntry extends EntryProvider {
         );
         this.pageTitle("Process");
         this.pageText("""
-                [#]($INPUT)Shift-right-click[#]() the {0} with an [#]($INPUT)empty hand[#]() to close the vat and start the digestion.
-                \\
-                \\
-                Once it opens again the process is complete.
-                \\
-                \\
-                [#]($INPUT)Right-click[#]() with an empty hand to retrieve the {1}.
-                """,
+                        [#]($INPUT)Shift-right-click[#]() the {0} with an [#]($INPUT)empty hand[#]() to close the vat and start the digestion.
+                        \\
+                        \\
+                        Once it opens again the process is complete.
+                        \\
+                        \\
+                        [#]($INPUT)Right-click[#]() with an empty hand to retrieve the {1}.
+                        """,
                 this.itemLink(ItemRegistry.DIGESTION_VAT.get()),
-                this.itemLink("Alchemical Niter: Rare Metals",SulfurRegistry.METALS_RARE.get())
+                this.itemLink("Alchemical Niter: Rare Metals", SulfurRegistry.METALS_RARE.get())
         );
 
 

@@ -40,26 +40,26 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.EntityRenderersEvent;
-import net.minecraftforge.client.event.RecipesUpdatedEvent;
-import net.minecraftforge.client.event.RegisterColorHandlersEvent;
-import net.minecraftforge.client.event.RenderLevelStageEvent;
-import net.minecraftforge.client.model.DynamicFluidContainerModel;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.ModLoadingContext;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLDedicatedServerSetupEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.fml.loading.FMLEnvironment;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.ModLoadingContext;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.config.ModConfig;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.fml.event.lifecycle.FMLDedicatedServerSetupEvent;
+import net.neoforged.fml.loading.FMLEnvironment;
+import net.neoforged.neoforge.client.event.EntityRenderersEvent;
+import net.neoforged.neoforge.client.event.RecipesUpdatedEvent;
+import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
+import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
+import net.neoforged.neoforge.client.model.DynamicFluidContainerModel;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.TickEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
+import net.neoforged.neoforge.registries.DeferredHolder;
 import org.slf4j.Logger;
+
 
 @Mod(Theurgy.MODID)
 public class Theurgy {
@@ -68,14 +68,12 @@ public class Theurgy {
 
     public static Theurgy INSTANCE;
 
-    public Theurgy() {
+    public Theurgy(IEventBus modEventBus) {
         INSTANCE = this;
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, ServerConfig.get().spec);
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, CommonConfig.get().spec);
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ClientConfig.get().spec);
-
-        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         ItemRegistry.ITEMS.register(modEventBus);
         CreativeModeTabRegistry.CREATIVE_MODE_TABS.register(modEventBus);
@@ -91,18 +89,19 @@ public class Theurgy {
         SoundRegistry.SOUNDS.register(modEventBus);
         RecipeSerializerRegistry.RECIPE_SERIALIZERS.register(modEventBus);
         RecipeTypeRegistry.RECIPE_TYPES.register(modEventBus);
-        MenuTypeRegistry.MENU_TYPES.register(modEventBus);
+        ConditionRegistry.CONDITION_SERIALIZERS.register(modEventBus);
+        IngredientTypeRegistry.INGREDIENT_TYPES.register(modEventBus);
 
         modEventBus.addListener(this::onCommonSetup);
         modEventBus.addListener(this::onServerSetup);
+        modEventBus.addListener(Networking::register);
 
         modEventBus.addListener(TheurgyDataGenerators::onGatherData);
         modEventBus.addListener(SulfurRegistry::onBuildCreativeModTabs);
         modEventBus.addListener(SaltRegistry::onBuildCreativeModTabs);
         modEventBus.addListener(CapabilityRegistry::onRegisterCapabilities);
-        modEventBus.addListener(RecipeSerializerRegistry::onRegisterRecipeSerializers);
 
-        MinecraftForge.EVENT_BUS.addListener(TooltipHandler::onItemTooltipEvent);
+        NeoForge.EVENT_BUS.addListener(TooltipHandler::onItemTooltipEvent);
 
         if (FMLEnvironment.dist == Dist.CLIENT) {
             modEventBus.addListener(ParticleRegistry::registerFactories);
@@ -111,11 +110,11 @@ public class Theurgy {
             modEventBus.addListener(Client::onRegisterEntityRenderers);
             modEventBus.addListener(Client::onRegisterItemColors);
             modEventBus.addListener(Client::onRegisterBlockColors);
-            MinecraftForge.EVENT_BUS.addListener(Client::onRenderLevelStage);
-            MinecraftForge.EVENT_BUS.addListener(Client::onClientTick);
-            MinecraftForge.EVENT_BUS.addListener(Client::onRecipesUpdated);
-            MinecraftForge.EVENT_BUS.addListener(Client::onRightClick);
-            MinecraftForge.EVENT_BUS.addListener(Client::onLeftClick);
+            NeoForge.EVENT_BUS.addListener(Client::onRenderLevelStage);
+            NeoForge.EVENT_BUS.addListener(Client::onClientTick);
+            NeoForge.EVENT_BUS.addListener(Client::onRecipesUpdated);
+            NeoForge.EVENT_BUS.addListener(Client::onRightClick);
+            NeoForge.EVENT_BUS.addListener(Client::onLeftClick);
         }
     }
 
@@ -124,8 +123,6 @@ public class Theurgy {
     }
 
     public void onCommonSetup(FMLCommonSetupEvent event) {
-        Networking.registerMessages();
-
         PageLoaders.onCommonSetup(event);
 
         LOGGER.info("Common setup complete.");
@@ -143,12 +140,12 @@ public class Theurgy {
 
             PageRenderers.onClientSetup(event);
 
-            MinecraftForge.EVENT_BUS.addListener((TickEvent.ClientTickEvent e) -> {
+            NeoForge.EVENT_BUS.addListener((TickEvent.ClientTickEvent e) -> {
                 if (e.phase == TickEvent.Phase.END) {
                     ClientTicks.endClientTick(Minecraft.getInstance());
                 }
             });
-            MinecraftForge.EVENT_BUS.addListener((TickEvent.RenderTickEvent e) -> {
+            NeoForge.EVENT_BUS.addListener((TickEvent.RenderTickEvent e) -> {
                 if (e.phase == TickEvent.Phase.START) {
                     ClientTicks.renderTickStart(e.renderTickTime);
                 } else {
@@ -198,22 +195,22 @@ public class Theurgy {
             var liquefactionRecipes = event.getRecipeManager().getAllRecipesFor(RecipeTypeRegistry.LIQUEFACTION.get());
 
             SulfurRegistry.SULFURS.getEntries().stream()
-                    .map(RegistryObject::get)
+                    .map(DeferredHolder::get)
                     .map(AlchemicalSulfurItem.class::cast)
                     .filter(sulfur -> !SulfurRegistry.keepInItemLists(sulfur))
-                    .filter(sulfur -> liquefactionRecipes.stream().noneMatch(r -> r.getResultItem(registryAccess) != null && r.getResultItem(registryAccess).getItem() == sulfur)).map(ItemStack::new).forEach(PageRendererRegistry::registerItemStackNotToRender);
+                    .filter(sulfur -> liquefactionRecipes.stream().noneMatch(r -> r.value().getResultItem(registryAccess) != null && r.value().getResultItem(registryAccess).getItem() == sulfur)).map(ItemStack::new).forEach(PageRendererRegistry::registerItemStackNotToRender);
         }
 
         public static void registerTooltipDataProviders(FMLClientSetupEvent event) {
             TooltipHandler.registerNamespaceToListenTo(MODID);
 
-            SulfurRegistry.SULFURS.getEntries().stream().map(RegistryObject::get).map(AlchemicalSulfurItem.class::cast).forEach(sulfur -> {
+            SulfurRegistry.SULFURS.getEntries().stream().map(DeferredHolder::get).map(AlchemicalSulfurItem.class::cast).forEach(sulfur -> {
                 if (sulfur.provideAutomaticTooltipData) {
                     TooltipHandler.registerTooltipDataProvider(sulfur, AlchemicalSulfurItem::getTooltipData);
                 }
             });
 
-            SaltRegistry.SALTS.getEntries().stream().map(RegistryObject::get).map(AlchemicalSaltItem.class::cast).forEach(salt -> {
+            SaltRegistry.SALTS.getEntries().stream().map(DeferredHolder::get).map(AlchemicalSaltItem.class::cast).forEach(salt -> {
                 TooltipHandler.registerTooltipDataProvider(salt, AlchemicalSaltItem::getTooltipData);
             });
         }

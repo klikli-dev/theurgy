@@ -8,10 +8,8 @@ import com.klikli_dev.theurgy.content.apparatus.calcinationoven.CalcinationOvenB
 import com.klikli_dev.theurgy.content.capability.HeatProvider;
 import com.klikli_dev.theurgy.content.storage.MonitoredItemStackHandler;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
-import com.klikli_dev.theurgy.registry.CapabilityRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.Packet;
@@ -21,20 +19,16 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.ForgeHooks;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemStackHandler;
+import net.neoforged.neoforge.common.CommonHooks;
+import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
 
 public class PyromanticBrazierBlockEntity extends BlockEntity {
     public ItemStackHandler inventory;
 
-    public LazyOptional<IItemHandler> inventoryCapability;
-    public LazyOptional<HeatProvider> heatProviderCapability;
+    public HeatProvider heatProvider;
 
     private int remainingLitTime;
 
@@ -42,9 +36,7 @@ public class PyromanticBrazierBlockEntity extends BlockEntity {
         super(BlockEntityRegistry.PYROMANTIC_BRAZIER.get(), pPos, pBlockState);
 
         this.inventory = new Inventory();
-        this.inventoryCapability = LazyOptional.of(() -> this.inventory);
-
-        this.heatProviderCapability = LazyOptional.of(() -> () -> this.getBlockState().getValue(PyromanticBrazierBlock.LIT));
+        this.heatProvider = () -> this.getBlockState().getValue(PyromanticBrazierBlock.LIT);
     }
 
     public void sendBlockUpdated() {
@@ -91,7 +83,7 @@ public class PyromanticBrazierBlockEntity extends BlockEntity {
         if (pFuel.isEmpty()) {
             return 0;
         } else {
-            return ForgeHooks.getBurnTime(pFuel, RecipeTypeRegistry.PYROMANTIC_BRAZIER.get());
+            return CommonHooks.getBurnTime(pFuel, RecipeTypeRegistry.PYROMANTIC_BRAZIER.get());
         }
     }
 
@@ -147,26 +139,6 @@ public class PyromanticBrazierBlockEntity extends BlockEntity {
         if (wasTurnedOnDuringThisTick) {
             this.setChanged();
         }
-    }
-
-    @Override
-    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        if (cap == ForgeCapabilities.ITEM_HANDLER) {
-            return this.inventoryCapability.cast();
-        }
-
-        if (cap == CapabilityRegistry.HEAT_PROVIDER) {
-            return this.heatProviderCapability.cast();
-        }
-
-        return super.getCapability(cap, side);
-    }
-
-    @Override
-    public void invalidateCaps() {
-        super.invalidateCaps();
-        this.inventoryCapability.invalidate();
-        this.heatProviderCapability.invalidate();
     }
 
     @Override

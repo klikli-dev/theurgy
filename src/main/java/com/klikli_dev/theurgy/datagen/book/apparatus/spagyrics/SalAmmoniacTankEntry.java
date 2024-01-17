@@ -17,6 +17,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 
 public class SalAmmoniacTankEntry extends EntryProvider {
     public static final String ENTRY_ID = "sal_ammoniac_tank";
+
     public SalAmmoniacTankEntry(CategoryProvider parent) {
         super(parent);
     }
@@ -28,11 +29,11 @@ public class SalAmmoniacTankEntry extends EntryProvider {
                 .withText(this.context().pageText())
                 .build());
         this.pageText("""
-                The second half of the Sal Ammoniac generation process.
-                \\
-                \\
-                **Needs** to be placed below a {0}.
-                """,
+                        The second half of the Sal Ammoniac generation process.
+                        \\
+                        \\
+                        **Needs** to be placed below a {0}.
+                        """,
                 this.entryLink("Sal Ammoniac Accumulator", this.parent.categoryId(), SalAmmoniacAccumulatorEntry.ENTRY_ID)
         );
 

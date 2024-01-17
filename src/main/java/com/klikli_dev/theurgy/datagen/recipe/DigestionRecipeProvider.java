@@ -17,7 +17,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraftforge.common.Tags;
+import net.neoforged.neoforge.common.Tags;
 
 import java.util.List;
 import java.util.function.BiConsumer;
@@ -42,6 +42,7 @@ public class DigestionRecipeProvider extends JsonRecipeProvider {
                 Pair.of(ItemRegistry.PURIFIED_GOLD.get(), 1)
         ), lower, conversionFactor, TIME * 5, "_from_" + higher.tier().name().toLowerCase());
     }
+
     @Override
     void buildRecipes(BiConsumer<ResourceLocation, JsonObject> recipeConsumer) {
         this.makeRecipeWithTags(Fluids.WATER, 1000, List.of(
@@ -75,7 +76,7 @@ public class DigestionRecipeProvider extends JsonRecipeProvider {
                 this.makeFluidTagIngredient(this.locFor(fluid)),
                 fluidAmount,
                 ingredients.stream().map(i -> this.makeItemIngredient(this.locFor(i.getFirst()), i.getSecond())).toList(),
-                this.makeItemStackCodecResult(this.locFor(result), resultCount),
+                this.makeItemResult(this.locFor(result), resultCount),
                 time);
 
         this.recipeConsumer.accept(this.modLoc(name), recipe);
@@ -90,7 +91,7 @@ public class DigestionRecipeProvider extends JsonRecipeProvider {
                 this.makeFluidTagIngredient(this.locFor(fluid)),
                 fluidAmount,
                 ingredients.stream().map(i -> this.makeTagIngredient(this.locFor(i), 1)).toList(),
-                this.makeItemStackCodecResult(this.locFor(result), resultCount),
+                this.makeItemResult(this.locFor(result), resultCount),
                 time);
 
         var conditions = new JsonArray();

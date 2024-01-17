@@ -17,11 +17,11 @@ import com.klikli_dev.theurgy.registry.SaltRegistry;
 import com.klikli_dev.theurgy.registry.SulfurRegistry;
 import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Item;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.registries.DeferredHolder;
 
 import java.text.MessageFormat;
 import java.util.function.Supplier;
@@ -306,6 +306,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
                 "Niter represents the abstract category and value of an object, thus it is a further abstraction the \"idea\" or \"soul\" represented by Sulfur.",
                 "Niter extraction is a required intermediate step to transform one type of Sulfur into another type.");
     }
+
     private void addSulfurs() {
         this.add(TheurgyConstants.I18n.Item.ALCHEMICAL_SULFUR_UNKNOWN_SOURCE, "Unknown Source");
 
@@ -322,7 +323,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
 
 
         //Automatic sulfur name rendering
-        SulfurRegistry.SULFURS.getEntries().stream().map(RegistryObject::get).map(AlchemicalSulfurItem.class::cast).forEach(sulfur -> {
+        SulfurRegistry.SULFURS.getEntries().stream().map(DeferredHolder::get).map(AlchemicalSulfurItem.class::cast).forEach(sulfur -> {
             if (sulfur.useAutomaticNameLangGeneration) {
                 this.addItem(() -> sulfur, "Alchemical Sulfur %s");
             }
@@ -339,8 +340,6 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.add(Util.makeDescriptionId("tag", ItemTags.LOGS.location()), "Logs");
         //Note: It was considered to try and warn here if a sulfur has overrideTagSourceName set to true, but no override lang key set.
         //      This is not possible, however, as the tag source comes from item nbt that is not available at this point.
-
-
 
 
         //Names for generic sulfurs
@@ -422,7 +421,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
                 "Salt extracted from the strata, that is, sedimentary rock, soil, clay and so on.");
 
         //Automatic salt name rendering
-        SaltRegistry.SALTS.getEntries().stream().map(RegistryObject::get).map(AlchemicalSaltItem.class::cast).forEach(salt -> {
+        SaltRegistry.SALTS.getEntries().stream().map(DeferredHolder::get).map(AlchemicalSaltItem.class::cast).forEach(salt -> {
 
             this.addItem(() -> salt, "Alchemical Salt %s");
 
@@ -444,7 +443,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
 
 
     public void addIngredientInfo(Supplier<Item> ingredient, String info) {
-        this.add("jei." + Theurgy.MODID + ".ingredient." + ForgeRegistries.ITEMS.getKey(ingredient.get()).getPath() + ".description", info);
+        this.add("jei." + Theurgy.MODID + ".ingredient." +
+                BuiltInRegistries.ITEM.getKey(ingredient.get()).getPath() + ".description", info);
     }
 
     private void addDivinationRods() {

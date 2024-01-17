@@ -30,14 +30,14 @@ public class BlockTagRegistry {
     public static final TagKey<Block> REFORMATION_RESULT_PEDESTALS = tag("reformation_result_pedestals");
     public static final TagKey<Block> REFORMATION_PEDESTALS = tag("reformation_pedestals");
 
-    public static final TagKey<Block> SAL_AMMONIAC_ORES = forgeTag("ores/sal_ammoniac");
+    public static final TagKey<Block> SAL_AMMONIAC_ORES = neoTag("ores/sal_ammoniac");
 
 
     public static TagKey<Block> tag(String id) {
         return tag(Theurgy.loc(id));
     }
 
-    public static TagKey<Block> forgeTag(String id) {
+    public static TagKey<Block> neoTag(String id) {
         return tag(new ResourceLocation("forge", id));
     }
 

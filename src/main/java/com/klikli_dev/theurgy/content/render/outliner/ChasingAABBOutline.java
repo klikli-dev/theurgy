@@ -15,38 +15,38 @@ import org.joml.Vector4f;
 
 public class ChasingAABBOutline extends AABBOutline {
 
-	AABB targetBB;
-	AABB prevBB;
+    AABB targetBB;
+    AABB prevBB;
 
-	public ChasingAABBOutline(AABB bb) {
-		super(bb);
-		prevBB = bb.inflate(0);
-		targetBB = bb.inflate(0);
-	}
+    public ChasingAABBOutline(AABB bb) {
+        super(bb);
+        this.prevBB = bb.inflate(0);
+        this.targetBB = bb.inflate(0);
+    }
 
-	public void target(AABB target) {
-		targetBB = target;
-	}
+    private static AABB interpolateBBs(AABB current, AABB target, float pt) {
+        return new AABB(Mth.lerp(pt, current.minX, target.minX), Mth.lerp(pt, current.minY, target.minY),
+                Mth.lerp(pt, current.minZ, target.minZ), Mth.lerp(pt, current.maxX, target.maxX),
+                Mth.lerp(pt, current.maxY, target.maxY), Mth.lerp(pt, current.maxZ, target.maxZ));
+    }
 
-	@Override
-	public void tick() {
-		prevBB = bb;
-		setBounds(interpolateBBs(bb, targetBB, .5f));
-	}
+    public void target(AABB target) {
+        this.targetBB = target;
+    }
 
-	@Override
-	public void render(PoseStack ms, MultiBufferSource.BufferSource buffer, Vec3 camera, float pt) {
-		params.loadColor(colorTemp);
-		Vector4f color = colorTemp;
-		int lightmap = params.lightmap;
-		boolean disableLineNormals = params.disableLineNormals;
-		renderBox(ms, buffer, camera, interpolateBBs(prevBB, bb, pt), color, lightmap, disableLineNormals);
-	}
+    @Override
+    public void tick() {
+        this.prevBB = this.bb;
+        this.setBounds(interpolateBBs(this.bb, this.targetBB, .5f));
+    }
 
-	private static AABB interpolateBBs(AABB current, AABB target, float pt) {
-		return new AABB(Mth.lerp(pt, current.minX, target.minX), Mth.lerp(pt, current.minY, target.minY),
-			Mth.lerp(pt, current.minZ, target.minZ), Mth.lerp(pt, current.maxX, target.maxX),
-			Mth.lerp(pt, current.maxY, target.maxY), Mth.lerp(pt, current.maxZ, target.maxZ));
-	}
+    @Override
+    public void render(PoseStack ms, MultiBufferSource.BufferSource buffer, Vec3 camera, float pt) {
+        this.params.loadColor(this.colorTemp);
+        Vector4f color = this.colorTemp;
+        int lightmap = this.params.lightmap;
+        boolean disableLineNormals = this.params.disableLineNormals;
+        this.renderBox(ms, buffer, camera, interpolateBBs(this.prevBB, this.bb, pt), color, lightmap, disableLineNormals);
+    }
 
 }

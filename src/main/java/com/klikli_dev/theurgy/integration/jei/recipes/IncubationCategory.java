@@ -29,6 +29,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.stream.Collectors;
 
 import static mezz.jei.api.recipe.RecipeIngredientRole.INPUT;
@@ -61,9 +62,9 @@ public class IncubationCategory implements IRecipeCategory<IncubationRecipe> {
     }
 
     protected IDrawableAnimated getAnimatedArrow(IncubationRecipe recipe) {
-        int cookTime = recipe.getIncubationTime();
+        int cookTime = recipe.getTime();
         if (cookTime <= 0) {
-            cookTime = IncubationRecipe.DEFAULT_INCUBATION_TIME;
+            cookTime = IncubationRecipe.DEFAULT_TIME;
         }
         return this.cachedAnimatedArrow.getUnchecked(cookTime);
     }
@@ -90,7 +91,7 @@ public class IncubationCategory implements IRecipeCategory<IncubationRecipe> {
     }
 
     protected void drawCookTime(IncubationRecipe recipe, GuiGraphics guiGraphics, int y) {
-        int cookTime = recipe.getIncubationTime();
+        int cookTime = recipe.getTime();
         if (cookTime > 0) {
             int cookTimeSeconds = cookTime / 20;
             Component timeString = Component.translatable("gui.jei.category.smelting.time.seconds", cookTimeSeconds);
@@ -143,7 +144,7 @@ public class IncubationCategory implements IRecipeCategory<IncubationRecipe> {
 
         builder.addSlot(OUTPUT, 61, 22)
                 .setBackground(JeiDrawables.OUTPUT_SLOT, -5, -5)
-                .addItemStacks(Arrays.asList(recipe.getResult().getStacks()));
+                .addItemStacks(Collections.singletonList(recipe.getResult().getStacks()));
     }
 
     @Override

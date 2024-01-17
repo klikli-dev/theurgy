@@ -8,13 +8,14 @@ import com.klikli_dev.theurgy.content.behaviour.CraftingBehaviour;
 import com.klikli_dev.theurgy.content.recipe.CalcinationRecipe;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.common.util.Lazy;
-import net.minecraftforge.items.IItemHandlerModifiable;
-import net.minecraftforge.items.ItemHandlerHelper;
-import net.minecraftforge.items.ItemStackHandler;
-import net.minecraftforge.items.wrapper.RecipeWrapper;
+import net.neoforged.neoforge.common.util.Lazy;
+import net.neoforged.neoforge.items.IItemHandlerModifiable;
+import net.neoforged.neoforge.items.ItemHandlerHelper;
+import net.neoforged.neoforge.items.ItemStackHandler;
+import net.neoforged.neoforge.items.wrapper.RecipeWrapper;
 
 import java.util.function.Supplier;
 
@@ -40,17 +41,17 @@ public class CalcinationCraftingBehaviour extends CraftingBehaviour<RecipeWrappe
     }
 
     @Override
-    protected int getIngredientCount(CalcinationRecipe recipe) {
-        return recipe.getIngredientCount();
+    protected int getIngredientCount(RecipeHolder<CalcinationRecipe> recipe) {
+        return recipe.value().getIngredientCount();
     }
 
     @Override
-    protected int getCraftingTime(CalcinationRecipe recipe) {
-        return recipe.getCalcinationTime();
+    protected int getCraftingTime(RecipeHolder<CalcinationRecipe> recipe) {
+        return recipe.value().getTime();
     }
 
     @Override
     protected int getDefaultCraftingTime() {
-        return CalcinationRecipe.DEFAULT_CALCINATION_TIME;
+        return CalcinationRecipe.DEFAULT_TIME;
     }
 }

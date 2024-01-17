@@ -29,7 +29,7 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.FluidStack;
 
 import java.util.Arrays;
 import java.util.List;
@@ -84,9 +84,9 @@ public class LiquefactionCategory implements IRecipeCategory<LiquefactionRecipe>
     }
 
     protected IDrawableAnimated getAnimatedArrow(LiquefactionRecipe recipe) {
-        int cookTime = recipe.getLiquefactionTime();
+        int cookTime = recipe.getTime();
         if (cookTime <= 0) {
-            cookTime = LiquefactionRecipe.DEFAULT_LIQUEFACTION_TIME;
+            cookTime = LiquefactionRecipe.DEFAULT_TIME;
         }
         return this.cachedAnimatedArrow.getUnchecked(cookTime);
     }
@@ -113,7 +113,7 @@ public class LiquefactionCategory implements IRecipeCategory<LiquefactionRecipe>
     }
 
     protected void drawCookTime(LiquefactionRecipe recipe, GuiGraphics guiGraphics, int y) {
-        int cookTime = recipe.getLiquefactionTime();
+        int cookTime = recipe.getTime();
         if (cookTime > 0) {
             int cookTimeSeconds = cookTime / 20;
             Component timeString = Component.translatable("gui.jei.category.smelting.time.seconds", cookTimeSeconds);

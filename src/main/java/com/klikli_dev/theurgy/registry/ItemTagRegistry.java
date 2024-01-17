@@ -40,8 +40,8 @@ public class ItemTagRegistry {
     public static final TagKey<Item> ALCHEMICAL_SALTS = tag("alchemical_salts");
     public static final TagKey<Item> ALCHEMICAL_MERCURIES = tag("alchemical_mercuries");
 
-    public static final TagKey<Item> SAL_AMMONIAC_GEMS = forgeTag("gems/sal_ammoniac");
-    public static final TagKey<Item> SAL_AMMONIAC_ORES = forgeTag("ores/sal_ammoniac");
+    public static final TagKey<Item> SAL_AMMONIAC_GEMS = neoTag("gems/sal_ammoniac");
+    public static final TagKey<Item> SAL_AMMONIAC_ORES = neoTag("ores/sal_ammoniac");
 
 
     public static final TagKey<Item> LOW_MERCURY_ORES = tag("ores/mercury/low");
@@ -64,13 +64,13 @@ public class ItemTagRegistry {
     public static final TagKey<Item> MEDIUM_MERCURY_OTHER_MINERALS = tag("other_minerals/mercury/medium");
     public static final TagKey<Item> HIGH_MERCURY_OTHER_MINERALS = tag("other_minerals/mercury/high");
 
-    public static final TagKey<Item> SUGAR = forgeTag("sugar");
+    public static final TagKey<Item> SUGAR = neoTag("sugar");
 
     public static TagKey<Item> tag(String id) {
         return tag(Theurgy.loc(id));
     }
 
-    public static TagKey<Item> forgeTag(String id) {
+    public static TagKey<Item> neoTag(String id) {
         return tag(new ResourceLocation("forge", id));
     }
 

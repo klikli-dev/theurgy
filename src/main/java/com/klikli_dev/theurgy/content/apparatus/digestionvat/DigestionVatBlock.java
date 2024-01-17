@@ -4,7 +4,7 @@
 
 package com.klikli_dev.theurgy.content.apparatus.digestionvat;
 
-import com.klikli_dev.theurgy.content.behaviour.*;
+import com.klikli_dev.theurgy.content.behaviour.HasCraftingBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.fluidhandler.FluidHandlerBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.fluidhandler.OneTankFluidHandlerBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.interaction.InteractionBehaviour;
@@ -35,15 +35,14 @@ import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.items.wrapper.RecipeWrapper;
+import net.neoforged.neoforge.items.wrapper.RecipeWrapper;
 import org.jetbrains.annotations.Nullable;
 
+
 public class DigestionVatBlock extends Block implements EntityBlock {
+    public static final BooleanProperty OPEN = BlockStateProperties.OPEN;
     private static final VoxelShape BOUNDING_BOX = Block.box(1.0D, 0.0D, 1.0D, 15.0D, 16.0D, 15.0D);
     private static final DirectionProperty HORIZONTAL_FACING = BlockStateProperties.HORIZONTAL_FACING;
-
-    public static final BooleanProperty OPEN = BlockStateProperties.OPEN;
-
     protected ItemHandlerBehaviour itemHandlerBehaviour;
     protected FluidHandlerBehaviour fluidHandlerBehaviour;
 

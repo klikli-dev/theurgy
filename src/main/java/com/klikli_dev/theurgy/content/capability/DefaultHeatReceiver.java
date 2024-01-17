@@ -6,7 +6,7 @@ package com.klikli_dev.theurgy.content.capability;
 
 import net.minecraft.nbt.LongTag;
 import net.minecraft.nbt.Tag;
-import net.minecraftforge.common.util.INBTSerializable;
+import net.neoforged.neoforge.common.util.INBTSerializable;
 
 public class DefaultHeatReceiver implements HeatReceiver, INBTSerializable<Tag> {
     protected long isHotUntil;

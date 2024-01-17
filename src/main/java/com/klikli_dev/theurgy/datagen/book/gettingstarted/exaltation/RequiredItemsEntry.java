@@ -90,11 +90,11 @@ public class RequiredItemsEntry extends EntryProvider {
                 .build());
         this.pageTitle("catalyst");
         this.pageText("""
-                Finally we need purified gold as a catalyst for the Digestion process.
-                \\
-                \\
-                The next entry will describe how to obtain it from {0}, {1} and {2}.
-                """,
+                        Finally we need purified gold as a catalyst for the Digestion process.
+                        \\
+                        \\
+                        The next entry will describe how to obtain it from {0}, {1} and {2}.
+                        """,
                 this.itemLink(Items.GOLD_INGOT),
                 this.itemLink("any Alchemical Salt", SaltRegistry.MINERAL.get()),
                 this.itemLink(Items.WATER_BUCKET)

@@ -17,7 +17,9 @@ import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
+
 
 public class BookAccumulationRecipePage extends BookRecipePage<AccumulationRecipe> {
     public BookAccumulationRecipePage(BookTextHolder title1, ResourceLocation recipeId1, BookTextHolder title2, ResourceLocation recipeId2, BookTextHolder text, String anchor) {
@@ -61,7 +63,7 @@ public class BookAccumulationRecipePage extends BookRecipePage<AccumulationRecip
         if (this.title1.isEmpty()) {
             //use recipe title if we don't have a custom one
             this.title1 = new BookTextHolder(((MutableComponent)
-                    this.recipe1.getResult().getDisplayName())
+                    this.recipe1.value().getResult().getDisplayName())
                     .withStyle(Style.EMPTY
                             .withBold(true)
                             .withColor(this.getParentEntry().getBook().getDefaultTitleColor())
@@ -70,7 +72,7 @@ public class BookAccumulationRecipePage extends BookRecipePage<AccumulationRecip
 
         if (this.recipe2 != null && this.title2.isEmpty()) {
             //use recipe title if we don't have a custom one
-            this.title2 = new BookTextHolder(((MutableComponent) this.recipe2.getResult().getDisplayName())
+            this.title2 = new BookTextHolder(((MutableComponent) this.recipe2.value().getResult().getDisplayName())
                     .withStyle(Style.EMPTY
                             .withBold(true)
                             .withColor(this.getParentEntry().getBook().getDefaultTitleColor())
@@ -83,7 +85,7 @@ public class BookAccumulationRecipePage extends BookRecipePage<AccumulationRecip
     }
 
     @Override
-    protected ItemStack getRecipeOutput(Level level, AccumulationRecipe recipe) {
+    protected ItemStack getRecipeOutput(Level level, RecipeHolder<AccumulationRecipe> recipe) {
         return ItemStack.EMPTY;
     }
 

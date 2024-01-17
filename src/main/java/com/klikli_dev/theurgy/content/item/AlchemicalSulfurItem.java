@@ -16,6 +16,7 @@ import com.klikli_dev.theurgy.util.TagUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.ComponentUtils;
@@ -25,8 +26,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.client.extensions.common.IClientItemExtensions;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -111,7 +111,7 @@ public class AlchemicalSulfurItem extends Item {
             var registryAccess = level == null ? null : level.registryAccess();
 
             if (recipeManager != null && sulfurStack.getItem() instanceof AlchemicalSulfurItem sulfur) {
-                var liquefactionRecipes = recipeManager.getAllRecipesFor(RecipeTypeRegistry.LIQUEFACTION.get()).stream().filter(r -> r.getResultItem(registryAccess) != null).toList();
+                var liquefactionRecipes = recipeManager.getAllRecipesFor(RecipeTypeRegistry.LIQUEFACTION.get()).stream().filter(r -> r.value().getResultItem(registryAccess) != null).toList();
 
                 var preferred = SulfurRegistry.getPreferredSulfurVariant(sulfur, liquefactionRecipes, level);
                 if (preferred.isPresent() && preferred.get().hasTag()) {
@@ -177,7 +177,7 @@ public class AlchemicalSulfurItem extends Item {
                 sourceStack = TagUtil.getItemStackForTag(tag);
             } else {
                 var itemId = new ResourceLocation(itemSourceId);
-                sourceStack = new ItemStack(ForgeRegistries.ITEMS.getValue(itemId));
+                sourceStack = new ItemStack(BuiltInRegistries.ITEM.get(itemId));
             }
 
             if (sulfurStack.getTag().contains(TheurgyConstants.Nbt.SULFUR_SOURCE_NBT))

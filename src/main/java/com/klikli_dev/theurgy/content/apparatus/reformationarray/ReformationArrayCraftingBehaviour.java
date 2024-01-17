@@ -4,17 +4,17 @@
 
 package com.klikli_dev.theurgy.content.apparatus.reformationarray;
 
-import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.content.behaviour.CraftingBehaviour;
 import com.klikli_dev.theurgy.content.capability.MercuryFluxStorage;
 import com.klikli_dev.theurgy.content.recipe.ReformationRecipe;
 import com.klikli_dev.theurgy.content.recipe.wrapper.ReformationArrayRecipeWrapper;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.items.IItemHandlerModifiable;
-import net.minecraftforge.items.ItemHandlerHelper;
+import net.neoforged.neoforge.items.IItemHandlerModifiable;
+import net.neoforged.neoforge.items.ItemHandlerHelper;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -43,16 +43,16 @@ public class ReformationArrayCraftingBehaviour extends CraftingBehaviour<Reforma
     }
 
     @Override
-    protected boolean craft(ReformationRecipe pRecipe) {
+    protected boolean craft(RecipeHolder<ReformationRecipe> pRecipe) {
         var recipeWrapper = this.recipeWrapperSupplier.get();
-        var assembledStack = pRecipe.assemble(recipeWrapper, this.blockEntity.getLevel().registryAccess());
+        var assembledStack = pRecipe.value().assemble(recipeWrapper, this.blockEntity.getLevel().registryAccess());
 
         //consume energy
-        this.mercuryFluxStorageSupplier.get().extractEnergy(pRecipe.getMercuryFlux(), false);
+        this.mercuryFluxStorageSupplier.get().extractEnergy(pRecipe.value().getMercuryFlux(), false);
 
         // Loop through required sources of recipe and through source inventories and extract
         Set<IItemHandlerModifiable> usedInventories = new HashSet<>();
-        for (var source : pRecipe.getSources()) {
+        for (var source : pRecipe.value().getSources()) {
             for (var sourceInventory : recipeWrapper.getSourcePedestalInvs()) {
                 // Skip this source inventory if it has already been used
                 if (usedInventories.contains(sourceInventory)) {
@@ -77,18 +77,18 @@ public class ReformationArrayCraftingBehaviour extends CraftingBehaviour<Reforma
     }
 
     @Override
-    protected int getIngredientCount(ReformationRecipe recipe) {
+    protected int getIngredientCount(RecipeHolder<ReformationRecipe> recipe) {
         return 1;
     }
 
     @Override
-    protected int getCraftingTime(ReformationRecipe recipe) {
-        return recipe.getReformationTime();
+    protected int getCraftingTime(RecipeHolder<ReformationRecipe> recipe) {
+        return recipe.value().getTime();
     }
 
     @Override
     protected int getDefaultCraftingTime() {
-        return ReformationRecipe.DEFAULT_REFORMATION_TIME;
+        return ReformationRecipe.DEFAULT_TIME;
     }
 
     @Override

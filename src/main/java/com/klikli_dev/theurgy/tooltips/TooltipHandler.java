@@ -9,13 +9,13 @@ import com.klikli_dev.theurgy.TheurgyConstants;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.resources.language.I18n;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.event.entity.player.ItemTooltipEvent;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,7 +30,7 @@ public class TooltipHandler {
         //Note to handle fluid stacks in JEI we'd need RenderTooltipEvent (probably .Pre)
         ItemStack stack = event.getItemStack();
 
-        var itemId = ForgeRegistries.ITEMS.getKey(stack.getItem());
+        var itemId = BuiltInRegistries.ITEM.getKey(stack.getItem());
         //only run for enabled namespaces to easily improve performance
         if (namespacesToListenFor.contains(itemId.getNamespace())) {
             String tooltipKey = stack.getDescriptionId() + TheurgyConstants.I18n.Tooltip.SUFFIX;
@@ -77,10 +77,10 @@ public class TooltipHandler {
 
 
     /**
-     * Allows to provide additional @{@link net.minecraft.network.chat.MutableComponent}s as parameter
-     * to the main tooltip @{@link net.minecraft.network.chat.MutableComponent}
+     * Allows to provide additional @{@link MutableComponent}s as parameter
+     * to the main tooltip @{@link MutableComponent}
      * <p>
-     * Should be called in @{@link net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent}
+     * Should be called in @{@link net.neoforged.fml.event.lifecycle.FMLClientSetupEvent}
      */
     public static void registerTooltipDataProvider(Item item, TooltipDataProvider provider) {
         tooltipDataProviders.put(item, provider);
@@ -88,7 +88,7 @@ public class TooltipHandler {
 
     /**
      * Register a namespace (= mod id) of items to listen for during tooltip handling.
-     * Should be called in @{@link net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent}
+     * Should be called in @{@link net.neoforged.fml.event.lifecycle.FMLClientSetupEvent}
      */
     public static void registerNamespaceToListenTo(String namespace) {
         namespacesToListenFor.add(namespace);

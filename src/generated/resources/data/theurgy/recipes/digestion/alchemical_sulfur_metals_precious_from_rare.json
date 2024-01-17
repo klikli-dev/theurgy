@@ -15,8 +15,8 @@
     }
   ],
   "result": {
-    "Count": 1,
-    "id": "theurgy:alchemical_sulfur_metals_precious"
+    "count": 1,
+    "item": "theurgy:alchemical_sulfur_metals_precious"
   },
   "time": 1000
 }

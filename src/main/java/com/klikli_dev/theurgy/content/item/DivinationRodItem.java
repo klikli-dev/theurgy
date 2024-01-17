@@ -15,10 +15,11 @@ import com.klikli_dev.theurgy.util.EntityUtil;
 import com.klikli_dev.theurgy.util.LevelUtil;
 import com.klikli_dev.theurgy.util.TagUtil;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.item.ItemPropertyFunction;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
+import net.minecraft.core.HolderSet;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.*;
@@ -29,7 +30,6 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
@@ -39,10 +39,10 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.TierSortingRegistry;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.common.TierSortingRegistry;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -91,7 +91,7 @@ public class DivinationRodItem extends Item {
                 targetStack = TagUtil.getItemStackForTag(tag);
             } else {
                 var itemId = new ResourceLocation(targetId);
-                targetStack = new ItemStack(ForgeRegistries.ITEMS.getValue(itemId));
+                targetStack = new ItemStack(BuiltInRegistries.ITEM.get(itemId));
             }
 
             return targetStack;
@@ -110,7 +110,9 @@ public class DivinationRodItem extends Item {
     private static void scanLinkedTag(Player player, String id, int range, int duration) {
         var targetId = new ResourceLocation(id.substring(1)); //skip the #
         var tagKey = TagKey.create(Registries.BLOCK, targetId);
-        var blocks = ForgeRegistries.BLOCKS.tags().getTag(tagKey).stream().collect(Collectors.toSet());
+        var blocks = BuiltInRegistries.BLOCK.getTag(tagKey)
+                .map(tag -> tag.stream().map(Holder::value).collect(Collectors.toSet()))
+                .orElse(Collections.emptySet());
 
         if (!blocks.isEmpty()) {
             ScanManager.get().beginScan(player, blocks, range, duration);
@@ -120,20 +122,20 @@ public class DivinationRodItem extends Item {
     public static Set<Block> getScanTargetsForId(ResourceLocation linkedBlockId) {
         //First: try to get a tag for the given block.
         var tagKey = TagKey.create(Registries.BLOCK, getOreTagFromBlockId(linkedBlockId));
-        var tag = ForgeRegistries.BLOCKS.tags().getTag(tagKey);
+        var tag = BuiltInRegistries.BLOCK.getTag(tagKey);
 
-        if (!tag.isEmpty())
-            return tag.stream().collect(Collectors.toSet());
+        if (tag.map(HolderSet.ListBacked::size).orElse(0) > 0)
+            return tag.map(t -> t.stream().map(Holder::value).collect(Collectors.toSet())).orElse(Collections.emptySet());
 
         //If no fitting tag succeeds, try to get block + deepslate variant
-        var block = ForgeRegistries.BLOCKS.getValue(linkedBlockId);
+        var block = BuiltInRegistries.BLOCK.get(linkedBlockId);
         if (block != null) {
             Block deepslateBlock = null;
 
             //also search for deepslate ores
             if (linkedBlockId.getPath().contains("_ore") && !linkedBlockId.getPath().contains("deepslate_")) {
                 var deepslateId = new ResourceLocation(linkedBlockId.getNamespace(), "deepslate_" + linkedBlockId.getPath());
-                deepslateBlock = ForgeRegistries.BLOCKS.getValue(deepslateId);
+                deepslateBlock = BuiltInRegistries.BLOCK.get(deepslateId);
             }
 
             //finally, only add deepslate variant, if it is not air
@@ -153,6 +155,18 @@ public class DivinationRodItem extends Item {
                 .replace("deepslate_", "");
 
         return new ResourceLocation("forge:ores/" + oreName);
+    }
+
+    public static void registerCreativeModeTabs(DivinationRodItem item, CreativeModeTab.Output output) {
+        var level = LevelUtil.getLevelWithoutContext();
+        if (level != null) {
+            var recipeManager = level.getRecipeManager();
+            recipeManager.getRecipes().forEach((recipe) -> {
+                if (recipe.value().getResultItem(level.registryAccess()) != null && recipe.value().getResultItem(level.registryAccess()).getItem() == item) {
+                    output.accept(recipe.value().getResultItem(level.registryAccess()).copy());
+                }
+            });
+        }
     }
 
     @Override
@@ -225,7 +239,7 @@ public class DivinationRodItem extends Item {
                     if (!level.isClientSide) {
                         stack.getOrCreateTag().putString(
                                 TheurgyConstants.Nbt.Divination.LINKED_BLOCK_ID,
-                                ForgeRegistries.BLOCKS.getKey(state.getBlock()).toString()
+                                BuiltInRegistries.BLOCK.getKey(state.getBlock()).toString()
                         );
 
                         player.sendSystemMessage(
@@ -505,18 +519,6 @@ public class DivinationRodItem extends Item {
     public TagKey<Block> getDisallowedBlocksTag(ItemStack stack) {
         var disallowedBlocksTag = stack.getOrCreateTag().getString(TheurgyConstants.Nbt.Divination.SETTING_DISALLOWED_BLOCKS_TAG);
         return BlockTagRegistry.tag(new ResourceLocation(disallowedBlocksTag));
-    }
-
-    public static void registerCreativeModeTabs(DivinationRodItem item, CreativeModeTab.Output output) {
-        var level = LevelUtil.getLevelWithoutContext();
-        if (level != null) {
-            var recipeManager = level.getRecipeManager();
-            recipeManager.getRecipes().forEach((recipe) -> {
-                if (recipe.getResultItem(level.registryAccess()) != null && recipe.getResultItem(level.registryAccess()).getItem() == item) {
-                    output.accept(recipe.getResultItem(level.registryAccess()).copy());
-                }
-            });
-        }
     }
 
     /**

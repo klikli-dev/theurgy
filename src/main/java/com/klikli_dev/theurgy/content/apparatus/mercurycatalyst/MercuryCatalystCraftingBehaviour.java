@@ -11,14 +11,14 @@ import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.common.util.Lazy;
-import net.minecraftforge.energy.IEnergyStorage;
-import net.minecraftforge.items.IItemHandlerModifiable;
-import net.minecraftforge.items.ItemHandlerHelper;
-import net.minecraftforge.items.ItemStackHandler;
-import net.minecraftforge.items.wrapper.RecipeWrapper;
+import net.neoforged.neoforge.common.util.Lazy;
+import net.neoforged.neoforge.items.IItemHandlerModifiable;
+import net.neoforged.neoforge.items.ItemHandlerHelper;
+import net.neoforged.neoforge.items.ItemStackHandler;
+import net.neoforged.neoforge.items.wrapper.RecipeWrapper;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Supplier;
@@ -68,12 +68,12 @@ public class MercuryCatalystCraftingBehaviour extends CraftingBehaviour<RecipeWr
     }
 
     @Override
-    protected int getIngredientCount(CatalysationRecipe recipe) {
+    protected int getIngredientCount(RecipeHolder<CatalysationRecipe> recipe) {
         return 1;
     }
 
     @Override
-    protected int getCraftingTime(CatalysationRecipe recipe) {
+    protected int getCraftingTime(RecipeHolder<CatalysationRecipe> recipe) {
         return -1;
     }
 
@@ -83,11 +83,11 @@ public class MercuryCatalystCraftingBehaviour extends CraftingBehaviour<RecipeWr
     }
 
     @Override
-    public boolean canCraft(@Nullable CatalysationRecipe pRecipe) {
+    public boolean canCraft(@Nullable RecipeHolder<CatalysationRecipe> pRecipe) {
         if (pRecipe == null) return false;
 
         var storage = this.mercuryFluxStorageSupplier.get();
-        int fluxAccepted = storage.receiveEnergy(pRecipe.getTotalMercuryFlux(), true);
+        int fluxAccepted = storage.receiveEnergy(pRecipe.value().getTotalMercuryFlux(), true);
 
         return fluxAccepted > 0;
     }
@@ -116,9 +116,9 @@ public class MercuryCatalystCraftingBehaviour extends CraftingBehaviour<RecipeWr
     }
 
     @Override
-    protected boolean craft(@Nullable CatalysationRecipe pRecipe) {
-        this.mercuryFluxToConvert = pRecipe.getTotalMercuryFlux();
-        this.currentMercuryFluxPerTick = pRecipe.getMercuryFluxPerTick();
+    protected boolean craft(@Nullable RecipeHolder<CatalysationRecipe> pRecipe) {
+        this.mercuryFluxToConvert = pRecipe.value().getTotalMercuryFlux();
+        this.currentMercuryFluxPerTick = pRecipe.value().getMercuryFluxPerTick();
 
         this.inputInventorySupplier.get().extractItem(0, this.getIngredientCount(pRecipe), false);
 

@@ -4,6 +4,7 @@
 
 package com.klikli_dev.theurgy.network.messages;
 
+import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.content.entity.FollowProjectile;
 import com.klikli_dev.theurgy.content.render.Color;
 import com.klikli_dev.theurgy.network.Message;
@@ -12,11 +13,14 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.network.NetworkEvent;
+
 
 public class MessageShowCaloricFlux implements Message {
+
+    public static final ResourceLocation ID = Theurgy.loc("show_caloric_flux");
 
     public static final Color COLOR = new Color(0xdb3f07, false);
 
@@ -50,7 +54,7 @@ public class MessageShowCaloricFlux implements Message {
     }
 
     @Override
-    public void onClientReceived(Minecraft minecraft, Player player, NetworkEvent.Context context) {
+    public void onClientReceived(Minecraft minecraft, Player player) {
         var level = player.level();
         var normal = Vec3.atLowerCornerOf(this.emitterDirection.getNormal());
         var from = Vec3.atCenterOf(this.from).subtract(normal.scale(0.5));
@@ -64,4 +68,8 @@ public class MessageShowCaloricFlux implements Message {
         }
     }
 
+    @Override
+    public ResourceLocation id() {
+        return ID;
+    }
 }

@@ -10,10 +10,9 @@
     }
   ],
   "mercury_flux": 100,
-  "reformation_time": 100,
   "result": {
-    "Count": 1,
-    "id": "theurgy:alchemical_sulfur_lapis"
+    "count": 1,
+    "item": "theurgy:alchemical_sulfur_lapis"
   },
   "sources": [
     {
@@ -22,5 +21,6 @@
   ],
   "target": {
     "item": "theurgy:alchemical_sulfur_lapis"
-  }
+  },
+  "time": 100
 }

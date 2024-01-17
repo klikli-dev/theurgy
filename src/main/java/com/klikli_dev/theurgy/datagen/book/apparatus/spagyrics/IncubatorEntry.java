@@ -10,7 +10,6 @@ import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.*;
 import com.klikli_dev.theurgy.Theurgy;
-import com.klikli_dev.theurgy.datagen.book.GettingStartedCategoryProvider;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -30,9 +29,9 @@ public class IncubatorEntry extends EntryProvider {
                 .withText(this.context().pageText())
                 .build());
         this.pageText("""
-                        Incubation is the process of *recombination* of the Principles of Matter into actual objects.\\
-                        The Incubator has one vessel for each of the Principles, and a central chamber where the recombination takes place.
-                        """
+                Incubation is the process of *recombination* of the Principles of Matter into actual objects.\\
+                The Incubator has one vessel for each of the Principles, and a central chamber where the recombination takes place.
+                """
         );
 
         this.page("multiblock", () -> BookMultiblockPageModel.builder()

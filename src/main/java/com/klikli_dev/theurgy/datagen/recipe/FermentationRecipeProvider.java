@@ -17,7 +17,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraftforge.common.Tags;
+import net.neoforged.neoforge.common.Tags;
 
 import java.util.List;
 import java.util.function.BiConsumer;
@@ -35,7 +35,7 @@ public class FermentationRecipeProvider extends JsonRecipeProvider {
         this.makeRecipesForCropTag(ItemTagRegistry.SUGAR);
         this.makeRecipesForCropTag(Tags.Items.CROPS);
     }
-    
+
     public void makeRecipesForCropTag(TagKey<Item> cropTag) {
         this.makeRecipe(Fluids.WATER, 125, List.of(
                 ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_ABUNDANT,
@@ -97,6 +97,7 @@ public class FermentationRecipeProvider extends JsonRecipeProvider {
                 cropTag
         ), SulfurRegistry.OTHER_MINERALS_PRECIOUS.get(), 1, TIME, "_using_" + this.name(cropTag));
     }
+
     public void makeRecipe(Fluid fluid, int fluidAmount, List<TagKey<Item>> ingredients, Item result, int resultCount, int time) {
         this.makeRecipe(this.name(result), fluid, fluidAmount, ingredients, result, resultCount, time);
     }
@@ -110,7 +111,7 @@ public class FermentationRecipeProvider extends JsonRecipeProvider {
                 this.makeFluidTagIngredient(this.locFor(fluid)),
                 fluidAmount,
                 ingredients.stream().map(i -> this.makeTagIngredient(this.locFor(i))).toList(),
-                this.makeItemStackCodecResult(this.locFor(result), resultCount),
+                this.makeItemResult(this.locFor(result), resultCount),
                 time);
 
         var conditions = new JsonArray();

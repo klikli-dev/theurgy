@@ -4,30 +4,15 @@
 
 package com.klikli_dev.theurgy.content.apparatus.distiller;
 
-import com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron.LiquefactionCraftingBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.StorageBehaviour;
 import com.klikli_dev.theurgy.content.storage.MonitoredItemStackHandler;
 import com.klikli_dev.theurgy.content.storage.PreventInsertWrapper;
-import com.klikli_dev.theurgy.registry.FluidTagRegistry;
-import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidType;
-import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.fluids.capability.templates.FluidTank;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemStackHandler;
-import net.minecraftforge.items.wrapper.CombinedInvWrapper;
-import net.minecraftforge.registries.ForgeRegistries;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import net.neoforged.neoforge.items.ItemStackHandler;
+import net.neoforged.neoforge.items.wrapper.CombinedInvWrapper;
 
-import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 public class DistillationStorageBehaviour extends StorageBehaviour<DistillationStorageBehaviour> {
@@ -40,12 +25,9 @@ public class DistillationStorageBehaviour extends StorageBehaviour<DistillationS
     /**
      * A wrapper that only allows taking from the outputInventory - this is what we show to the outside.
      */
-    public PreventInsertWrapper outputInventoryTakeOnlyWrapper;
+    public PreventInsertWrapper outputInventoryExtractOnlyWrapper;
 
     public CombinedInvWrapper inventory;
-    public LazyOptional<IItemHandler> inventoryCapability;
-    public LazyOptional<IItemHandler> inputInventoryCapability;
-    public LazyOptional<IItemHandler> outputInventoryCapability;
 
     public Supplier<DistillationCraftingBehaviour> craftingBehaviour;
 
@@ -56,16 +38,8 @@ public class DistillationStorageBehaviour extends StorageBehaviour<DistillationS
 
         this.inputInventory = new InputInventory();
         this.outputInventory = new OutputInventory();
-        this.outputInventoryTakeOnlyWrapper = new PreventInsertWrapper(this.outputInventory);
-        this.inventory = new CombinedInvWrapper(this.inputInventory, this.outputInventoryTakeOnlyWrapper);
-
-        this.inventoryCapability = LazyOptional.of(() -> this.inventory);
-        this.inputInventoryCapability = LazyOptional.of(() -> this.inputInventory);
-        this.outputInventoryCapability = LazyOptional.of(() -> this.outputInventoryTakeOnlyWrapper);
-
-        this.register(this.inventoryCapability);
-        this.register(this.inputInventoryCapability);
-        this.register(this.outputInventoryCapability);
+        this.outputInventoryExtractOnlyWrapper = new PreventInsertWrapper(this.outputInventory);
+        this.inventory = new CombinedInvWrapper(this.inputInventory, this.outputInventoryExtractOnlyWrapper);
     }
 
     @Override
@@ -88,17 +62,6 @@ public class DistillationStorageBehaviour extends StorageBehaviour<DistillationS
     @Override
     public void load(CompoundTag pTag) {
         this.readNetwork(pTag);
-    }
-
-    @Override
-    public <T> @NotNull LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        if (cap == ForgeCapabilities.ITEM_HANDLER) {
-            if (side == Direction.UP) return this.inputInventoryCapability.cast();
-            if (side == Direction.DOWN) return this.outputInventoryCapability.cast();
-            return this.inventoryCapability.cast();
-        }
-
-        return LazyOptional.empty();
     }
 
     public class InputInventory extends MonitoredItemStackHandler {

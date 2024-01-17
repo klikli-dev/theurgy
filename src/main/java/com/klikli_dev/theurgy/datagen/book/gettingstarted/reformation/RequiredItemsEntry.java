@@ -34,11 +34,11 @@ public class RequiredItemsEntry extends EntryProvider {
                 .build());
         this.pageTitle("Source Sulfur");
         this.pageText("""
-                        First you of course need some sulfur to convert into your desired sulfur. For this demonstration we will use sulfur of lapis lazuli.
-                        \\
-                        \\
-                        It is a good idea to collect a few of these in order to have a steady supply to convert.
-                         """
+                First you of course need some sulfur to convert into your desired sulfur. For this demonstration we will use sulfur of lapis lazuli.
+                \\
+                \\
+                It is a good idea to collect a few of these in order to have a steady supply to convert.
+                 """
         );
 
         this.page("source2", () -> BookTextPageModel.builder()

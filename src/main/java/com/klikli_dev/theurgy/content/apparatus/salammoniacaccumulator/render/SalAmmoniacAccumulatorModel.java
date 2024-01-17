@@ -5,7 +5,6 @@
 package com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator.render;
 
 import com.klikli_dev.theurgy.Theurgy;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;
 import software.bernie.geckolib.model.GeoModel;

@@ -4,28 +4,20 @@
 
 package com.klikli_dev.theurgy.content.apparatus.calcinationoven;
 
+import com.klikli_dev.theurgy.content.behaviour.StorageBehaviour;
 import com.klikli_dev.theurgy.content.storage.MonitoredItemStackHandler;
 import com.klikli_dev.theurgy.content.storage.PreventInsertWrapper;
-import com.klikli_dev.theurgy.content.behaviour.StorageBehaviour;
-import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemStackHandler;
-import net.minecraftforge.items.wrapper.CombinedInvWrapper;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import net.neoforged.neoforge.items.ItemStackHandler;
+import net.neoforged.neoforge.items.wrapper.CombinedInvWrapper;
 
 import java.util.function.Supplier;
 
 public class CalcinationStorageBehaviour extends StorageBehaviour<CalcinationStorageBehaviour> {
 
     public ItemStackHandler inputInventory;
-    public LazyOptional<IItemHandler> inputInventoryCapability;
 
     /**
      * The underlying outputInventory which allows inserting too - we use this when crafting.
@@ -34,11 +26,9 @@ public class CalcinationStorageBehaviour extends StorageBehaviour<CalcinationSto
     /**
      * A wrapper that only allows taking from the outputInventory - this is what we show to the outside.
      */
-    public PreventInsertWrapper outputInventoryTakeOnlyWrapper;
-    public LazyOptional<IItemHandler> outputInventoryCapability;
+    public PreventInsertWrapper outputInventoryExtractOnlyWrapper;
 
     public CombinedInvWrapper inventory;
-    public LazyOptional<IItemHandler> inventoryCapability;
 
     public Supplier<CalcinationCraftingBehaviour> craftingBehaviour;
 
@@ -48,18 +38,11 @@ public class CalcinationStorageBehaviour extends StorageBehaviour<CalcinationSto
         this.craftingBehaviour = craftingBehaviour;
 
         this.inputInventory = new InputInventory();
-        this.inputInventoryCapability = LazyOptional.of(() -> this.inputInventory);
 
         this.outputInventory = new OutputInventory();
-        this.outputInventoryTakeOnlyWrapper = new PreventInsertWrapper(this.outputInventory);
-        this.outputInventoryCapability = LazyOptional.of(() -> this.outputInventoryTakeOnlyWrapper);
+        this.outputInventoryExtractOnlyWrapper = new PreventInsertWrapper(this.outputInventory);
 
-        this.inventory = new CombinedInvWrapper(this.inputInventory, this.outputInventoryTakeOnlyWrapper);
-        this.inventoryCapability = LazyOptional.of(() -> this.inventory);
-
-        this.register(this.inventoryCapability);
-        this.register(this.inputInventoryCapability);
-        this.register(this.outputInventoryCapability);
+        this.inventory = new CombinedInvWrapper(this.inputInventory, this.outputInventoryExtractOnlyWrapper);
     }
 
     @Override
@@ -82,17 +65,6 @@ public class CalcinationStorageBehaviour extends StorageBehaviour<CalcinationSto
     @Override
     public void load(CompoundTag pTag) {
         this.readNetwork(pTag);
-    }
-
-    @Override
-    public <T> @NotNull LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        if (cap == ForgeCapabilities.ITEM_HANDLER) {
-            if (side == Direction.UP) return this.inputInventoryCapability.cast();
-            if (side == Direction.DOWN) return this.outputInventoryCapability.cast();
-            return this.inventoryCapability.cast();
-        }
-
-        return LazyOptional.empty();
     }
 
     public class InputInventory extends MonitoredItemStackHandler {

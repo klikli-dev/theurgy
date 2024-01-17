@@ -9,6 +9,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
+
 public class HeatConsumerBehaviour {
 
     private final BlockEntity blockEntity;
@@ -20,12 +21,11 @@ public class HeatConsumerBehaviour {
     }
 
     boolean hasHeatProvider() {
-        var below = this.blockEntity.getLevel().getBlockEntity(this.blockEntity.getBlockPos().below());
-        if (below == null) {
-            return false;
+        var heatBelow = this.blockEntity.getLevel().getCapability(CapabilityRegistry.HEAT_PROVIDER, this.blockEntity.getBlockPos().below(), this.blockEntity.getBlockState(), this.blockEntity, Direction.UP);
+        if (heatBelow != null) {
+            return heatBelow.isHot();
         }
-
-        return below.getCapability(CapabilityRegistry.HEAT_PROVIDER, Direction.UP).map(provider -> provider.isHot()).orElse(false);
+        return false;
     }
 
     public boolean isHeated() {
@@ -35,9 +35,10 @@ public class HeatConsumerBehaviour {
             var isHeated = this.hasHeatProvider();
 
             //if not heated from below, check if we get heat via our receiver capability
-            if(!isHeated){
-                var heatReceiver = this.blockEntity.getCapability(CapabilityRegistry.HEAT_RECEIVER).orElse(null);
-                if(heatReceiver != null){
+            if (!isHeated) {
+                var heatReceiver = this.blockEntity.getLevel().getCapability(CapabilityRegistry.HEAT_RECEIVER, this.blockEntity.getBlockPos(), this.blockEntity.getBlockState(), this.blockEntity, null);
+
+                if (heatReceiver != null) {
                     isHeated = heatReceiver.getIsHotUntil() > this.blockEntity.getLevel().getGameTime();
                 }
             }

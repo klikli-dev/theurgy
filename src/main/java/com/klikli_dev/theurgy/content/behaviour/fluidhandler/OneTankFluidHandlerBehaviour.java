@@ -12,10 +12,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidUtil;
-import net.minecraftforge.fluids.capability.IFluidHandlerItem;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.FluidUtil;
+import net.neoforged.neoforge.fluids.capability.IFluidHandlerItem;
+
 
 public class OneTankFluidHandlerBehaviour implements FluidHandlerBehaviour {
 
@@ -24,35 +25,28 @@ public class OneTankFluidHandlerBehaviour implements FluidHandlerBehaviour {
      */
     @Override
     public InteractionResult useFluidHandler(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
-        if(pHand != InteractionHand.MAIN_HAND)
-            return InteractionResult.PASS;
-
-        var blockEntity = pLevel.getBlockEntity(pPos);
-
-        if (blockEntity == null)
+        if (pHand != InteractionHand.MAIN_HAND)
             return InteractionResult.PASS;
 
         var stackInHand = pPlayer.getItemInHand(pHand);
         var fillStack = stackInHand.copyWithCount(1); //necessary to handle stacks of containers, because FluidUtil only can handle one item at a time
 
-        var blockFluidHandlerCap = blockEntity.getCapability(ForgeCapabilities.FLUID_HANDLER);
-        var itemFluidHandlerCap = FluidUtil.getFluidHandler(fillStack);
-
+        var blockFluidHandler = pLevel.getCapability(Capabilities.FluidHandler.BLOCK, pPos, null);
         //a block without fluid handler is of no interest
-        if (!blockFluidHandlerCap.isPresent())
+        if (blockFluidHandler == null)
             return InteractionResult.PASS;
-        var blockFluidHandler = blockFluidHandlerCap.orElse(null);
 
-        if(stackInHand.isEmpty() && pPlayer.isShiftKeyDown()){
+        if (stackInHand.isEmpty() && pPlayer.isShiftKeyDown()) {
             //sneaking with empty hand means we're trying to void the liquid
             blockFluidHandler.drain(Integer.MAX_VALUE, IFluidHandlerItem.FluidAction.EXECUTE);
             return InteractionResult.SUCCESS;
         }
 
+        var itemFluidHandler = fillStack.getCapability(Capabilities.FluidHandler.ITEM);
+
         //if our item does not have a fluid handler we cannot interact further
-        if (!itemFluidHandlerCap.isPresent())
+        if (itemFluidHandler == null)
             return InteractionResult.PASS;
-        var itemFluidHandler = itemFluidHandlerCap.orElse(null);
 
         //first we try to insert
         var transferredFluid = FluidUtil.tryFluidTransfer(blockFluidHandler, itemFluidHandler,

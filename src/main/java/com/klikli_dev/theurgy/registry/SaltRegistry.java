@@ -8,32 +8,32 @@ import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.content.item.AlchemicalSaltItem;
 import com.klikli_dev.theurgy.util.LevelUtil;
 import net.minecraft.world.item.Item;
-import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredItem;
+import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.function.Supplier;
 
 public class SaltRegistry {
-    public static final DeferredRegister<Item> SALTS = DeferredRegister.create(ForgeRegistries.ITEMS, Theurgy.MODID);
+    public static final DeferredRegister.Items SALTS = DeferredRegister.createItems(Theurgy.MODID);
 
     /**
      * Geological term for sedimentary, rock, soil, etc. Here means Stone, Dirt, Sand, Gravel, Clay, etc
      */
-    public static final RegistryObject<AlchemicalSaltItem> STRATA =
+    public static final DeferredItem<AlchemicalSaltItem> STRATA =
             register("strata");
-    public static final RegistryObject<AlchemicalSaltItem> MINERAL =
+    public static final DeferredItem<AlchemicalSaltItem> MINERAL =
             register("mineral");
 
-    public static final RegistryObject<AlchemicalSaltItem> CROPS =
+    public static final DeferredItem<AlchemicalSaltItem> CROPS =
             register("crops");
 
-    public static <T extends Item> RegistryObject<AlchemicalSaltItem> register(String name) {
+    public static <T extends Item> DeferredItem<AlchemicalSaltItem> register(String name) {
         return register(name, () -> new AlchemicalSaltItem(new Item.Properties()));
     }
 
-    public static <T extends Item> RegistryObject<T> register(String name, Supplier<T> sup) {
+    public static <T extends Item> DeferredItem<T> register(String name, Supplier<T> sup) {
         return SALTS.register("alchemical_salt_" + name, sup);
     }
 
@@ -52,11 +52,11 @@ public class SaltRegistry {
             var calcinationRecipes = recipeManager.getAllRecipesFor(RecipeTypeRegistry.CALCINATION.get());
 
             SALTS.getEntries().stream()
-                    .map(RegistryObject::get)
+                    .map(DeferredHolder::get)
                     .forEach(sulfur -> {
                         calcinationRecipes.stream()
-                                .filter(recipe -> recipe.getResultItem(level.registryAccess()) != null && recipe.getResultItem(level.registryAccess()).getItem() == sulfur)
-                                .forEach(recipe -> event.accept(recipe.getResultItem(level.registryAccess()).copyWithCount(1)));
+                                .filter(recipe -> recipe.value().getResultItem(level.registryAccess()) != null && recipe.value().getResultItem(level.registryAccess()).getItem() == sulfur)
+                                .forEach(recipe -> event.accept(recipe.value().getResultItem(level.registryAccess()).copyWithCount(1)));
                     });
         }
     }

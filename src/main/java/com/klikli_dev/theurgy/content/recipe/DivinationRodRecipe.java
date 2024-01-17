@@ -4,72 +4,37 @@
 
 package com.klikli_dev.theurgy.content.recipe;
 
-import com.google.gson.JsonObject;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.config.ServerConfig;
 import com.klikli_dev.theurgy.registry.RecipeSerializerRegistry;
-import net.minecraft.core.NonNullList;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
+import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.*;
-import net.minecraftforge.common.crafting.CraftingHelper;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraft.world.item.crafting.CraftingBookCategory;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.ShapedRecipe;
+import net.minecraft.world.item.crafting.ShapedRecipePattern;
+
 
 public class DivinationRodRecipe extends ShapedRecipe {
 
-    public DivinationRodRecipe(ResourceLocation pId, String pGroup, int pWidth, int pHeight, NonNullList<Ingredient> pRecipeItems, ItemStack pResult) {
-        super(pId, pGroup, CraftingBookCategory.MISC, pWidth, pHeight, pRecipeItems, pResult);
+    public DivinationRodRecipe(String pGroup, ShapedRecipePattern pPattern, ItemStack pResult, boolean pShowNotification) {
+        super(pGroup, CraftingBookCategory.MISC, pPattern, pResult, pShowNotification);
     }
 
     @Override
     public RecipeSerializer<?> getSerializer() {
         return RecipeSerializerRegistry.DIVINATION_ROD.get();
-    }
-
-    @Override
-    public ItemStack getResultItem(RegistryAccess registryAccess) {
-
-        var result = super.getResultItem(registryAccess);
-
-        var resultTag = result.getOrCreateTag();
-
-        //if we do not have a linked block id in the recipe output, we try to get it from the ingredients.
-        //we check if any ingredient supplies a source id for the linked block id.
-        //this allows JEI/creative menu to show the correct linked block id effects (altered item name, tooltip, etc)
-        if (!resultTag.contains(TheurgyConstants.Nbt.Divination.LINKED_BLOCK_ID)) {
-
-            String sourceId = null;
-            for (var ingredient : this.getIngredients()) {
-                var json = ingredient.toJson();
-                if (json instanceof JsonObject jsonObj && jsonObj.has("nbt")) {
-
-                    var ingredientTag = CraftingHelper.getNBT(jsonObj.get("nbt"));
-                    if (ingredientTag.contains(TheurgyConstants.Nbt.SULFUR_SOURCE_ID)) {
-                        sourceId = ingredientTag.getString(TheurgyConstants.Nbt.SULFUR_SOURCE_ID);
-                        break;
-                    }
-                }
-            }
-
-            if (sourceId != null) {
-                var translated = this.translateToBlock(sourceId);
-                if (translated != null) {
-                    resultTag.putString(TheurgyConstants.Nbt.Divination.LINKED_BLOCK_ID, translated);
-                } else {
-                    resultTag.putString(TheurgyConstants.Nbt.Divination.LINKED_BLOCK_ID, sourceId);
-                }
-                //we also set the preview mode, to allow the assemble() method to override based on the actual input.
-                resultTag.putBoolean(TheurgyConstants.Nbt.Divination.LINKED_BLOCK_ID_PREVIEW_MODE, true);
-            }
-        }
-
-        return result;
     }
 
     @Override
@@ -152,7 +117,7 @@ public class DivinationRodRecipe extends ShapedRecipe {
         }
 
         var translatedTag = new ResourceLocation(namespace.substring(1) + ":" + translatedPath);
-        if (ForgeRegistries.BLOCKS.tags().getTag(TagKey.create(Registries.BLOCK, translatedTag)).isBound())
+        if (BuiltInRegistries.BLOCK.getTag(TagKey.create(Registries.BLOCK, translatedTag)).isPresent())
             return "#" + translatedTag;
 
         Theurgy.LOGGER.warn("Could not find an appropriate block tag for sulfur source ttag: " + sourceTag + ", tried tag: #" + translatedTag);
@@ -199,12 +164,12 @@ public class DivinationRodRecipe extends ShapedRecipe {
 
         translatedPath = translatedPath + "_ore";
         var translatedRL = new ResourceLocation(namespace + ":" + translatedPath);
-        if (ForgeRegistries.BLOCKS.containsKey(translatedRL)) {
+        if (BuiltInRegistries.BLOCK.containsKey(translatedRL)) {
             return translatedRL.toString();
         }
 
-        if (!ForgeRegistries.BLOCKS.containsKey(translatedRL)) {
-            var fallback = ForgeRegistries.BLOCKS.getKeys().stream().filter(x -> x.getPath().equals(translatedRL.getPath())).findFirst();
+        if (!BuiltInRegistries.BLOCK.containsKey(translatedRL)) {
+            var fallback = BuiltInRegistries.BLOCK.keySet().stream().filter(x -> x.getPath().equals(translatedRL.getPath())).findFirst();
             if (fallback.isPresent()) {
                 return fallback.get().toString();
             }
@@ -216,23 +181,32 @@ public class DivinationRodRecipe extends ShapedRecipe {
 
     public static class Serializer implements RecipeSerializer<DivinationRodRecipe> {
 
-        @Override
-        public DivinationRodRecipe fromJson(ResourceLocation pRecipeId, JsonObject pJson) {
-            var shapedRecipe = RecipeSerializer.SHAPED_RECIPE.fromJson(pRecipeId, pJson);
+        //copied from ShapedRecipe.Serializer because xMapping it somehow causes a json null thingy error
+        public static final Codec<DivinationRodRecipe> CODEC = RecordCodecBuilder.create(
+                p_311728_ -> p_311728_.group(
+                                ExtraCodecs.strictOptionalField(Codec.STRING, "group", "").forGetter(p_311729_ -> p_311729_.getGroup()),
+                                ShapedRecipePattern.MAP_CODEC.forGetter(p_311733_ -> p_311733_.pattern),
+                                ItemStack.ITEM_WITH_COUNT_CODEC.fieldOf("result").forGetter(p_311730_ -> p_311730_.getResultItem(RegistryAccess.EMPTY)),
+                                ExtraCodecs.strictOptionalField(Codec.BOOL, "show_notification", true).forGetter(p_311731_ -> p_311731_.showNotification())
+                        )
+                        .apply(p_311728_, DivinationRodRecipe::new)
+        );
 
-            return new DivinationRodRecipe(pRecipeId, shapedRecipe.getGroup(), shapedRecipe.getWidth(), shapedRecipe.getHeight(), shapedRecipe.getIngredients(), shapedRecipe.getResultItem(RegistryAccess.EMPTY));
+        @Override
+        public Codec<DivinationRodRecipe> codec() {
+            return CODEC;
         }
 
         @Override
-        public DivinationRodRecipe fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
-            var shapedRecipe = RecipeSerializer.SHAPED_RECIPE.fromNetwork(pRecipeId, pBuffer);
-
-            return new DivinationRodRecipe(pRecipeId, shapedRecipe.getGroup(), shapedRecipe.getWidth(), shapedRecipe.getHeight(), shapedRecipe.getIngredients(), shapedRecipe.getResultItem(RegistryAccess.EMPTY));
+        public DivinationRodRecipe fromNetwork(FriendlyByteBuf pBuffer) {
+            //noinspection deprecation
+            return pBuffer.readWithCodecTrusted(NbtOps.INSTANCE, CODEC);
         }
 
         @Override
         public void toNetwork(FriendlyByteBuf pBuffer, DivinationRodRecipe pRecipe) {
-            RecipeSerializer.SHAPED_RECIPE.toNetwork(pBuffer, pRecipe);
+            //noinspection deprecation
+            pBuffer.writeWithCodec(NbtOps.INSTANCE, CODEC, pRecipe);
         }
     }
 }

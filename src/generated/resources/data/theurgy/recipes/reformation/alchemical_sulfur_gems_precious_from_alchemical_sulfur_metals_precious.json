@@ -1,10 +1,9 @@
 {
   "type": "theurgy:reformation",
   "mercury_flux": 200,
-  "reformation_time": 100,
   "result": {
-    "Count": 1,
-    "id": "theurgy:alchemical_sulfur_gems_precious"
+    "count": 1,
+    "item": "theurgy:alchemical_sulfur_gems_precious"
   },
   "sources": [
     {
@@ -16,5 +15,6 @@
   ],
   "target": {
     "item": "theurgy:alchemical_sulfur_gems_precious"
-  }
+  },
+  "time": 100
 }

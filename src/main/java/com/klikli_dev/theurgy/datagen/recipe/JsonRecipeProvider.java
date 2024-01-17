@@ -7,6 +7,7 @@ package com.klikli_dev.theurgy.datagen.recipe;
 import com.google.common.collect.Sets;
 import com.google.gson.JsonObject;
 import com.mojang.serialization.JsonOps;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
@@ -18,8 +19,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.material.Fluid;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.fluids.FluidStack;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -51,7 +51,7 @@ public abstract class JsonRecipeProvider implements DataProvider {
     }
 
     protected String name(Item item) {
-        return ForgeRegistries.ITEMS.getKey(item).getPath();
+        return BuiltInRegistries.ITEM.getKey(item).getPath();
     }
 
     protected String name(TagKey<Item> tag) {
@@ -67,11 +67,11 @@ public abstract class JsonRecipeProvider implements DataProvider {
     }
 
     public ResourceLocation locFor(ItemLike itemLike) {
-        return ForgeRegistries.ITEMS.getKey(itemLike.asItem());
+        return BuiltInRegistries.ITEM.getKey(itemLike.asItem());
     }
 
     public ResourceLocation locFor(Fluid fluid) {
-        return ForgeRegistries.FLUIDS.getKey(fluid);
+        return BuiltInRegistries.FLUID.getKey(fluid);
     }
 
     public TagKey<Item> tag(String tag) {
@@ -149,28 +149,6 @@ public abstract class JsonRecipeProvider implements DataProvider {
         jsonobject.addProperty("count", count);
         if (nbt != null) {
             jsonobject.add("nbt", nbt);
-        }
-        return jsonobject;
-    }
-
-    public JsonObject makeItemStackCodecResult(ResourceLocation item) {
-        return this.makeItemStackCodecResult(item, 1);
-    }
-
-    public JsonObject makeItemStackCodecResult(ResourceLocation item, int count) {
-        return this.makeItemStackCodecResult(item, count, (JsonObject) null);
-    }
-
-    public JsonObject makeItemStackCodecResult(ResourceLocation item, int count, @Nullable CompoundTag nbt) {
-        return this.makeItemStackCodecResult(item, count, nbt == null ? null : (JsonObject) NbtOps.INSTANCE.convertTo(JsonOps.INSTANCE, nbt));
-    }
-
-    public JsonObject makeItemStackCodecResult(ResourceLocation item, int count, @Nullable JsonObject nbt) {
-        JsonObject jsonobject = new JsonObject();
-        jsonobject.addProperty("id", item.toString());
-        jsonobject.addProperty("Count", count);
-        if (nbt != null) {
-            jsonobject.add("tag", nbt);
         }
         return jsonobject;
     }

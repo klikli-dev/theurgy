@@ -8,6 +8,7 @@ import com.klikli_dev.modonomicon.api.datagen.book.page.BookRecipePageModel;
 import com.klikli_dev.theurgy.integration.modonomicon.TheurgyModonomiconConstants;
 import org.jetbrains.annotations.NotNull;
 
+
 public class BookCalcinationRecipePageModel extends BookRecipePageModel {
     protected BookCalcinationRecipePageModel(@NotNull String anchor) {
         super(TheurgyModonomiconConstants.Page.CALCINATION_RECIPE, anchor);

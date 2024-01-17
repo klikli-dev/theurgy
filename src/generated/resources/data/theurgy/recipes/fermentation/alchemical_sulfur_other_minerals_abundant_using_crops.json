@@ -29,8 +29,8 @@
     }
   ],
   "result": {
-    "Count": 1,
-    "id": "theurgy:alchemical_sulfur_other_minerals_abundant"
+    "count": 1,
+    "item": "theurgy:alchemical_sulfur_other_minerals_abundant"
   },
   "time": 200
 }

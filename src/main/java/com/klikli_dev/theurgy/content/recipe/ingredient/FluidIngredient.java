@@ -5,60 +5,73 @@
 package com.klikli_dev.theurgy.content.recipe.ingredient;
 
 import com.google.common.collect.ImmutableList;
-import com.google.gson.*;
+import com.klikli_dev.theurgy.registry.IngredientTypeRegistry;
+import com.klikli_dev.theurgy.util.TheurgyExtraCodecs;
+import com.mojang.datafixers.util.Either;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
-import com.mojang.serialization.DynamicOps;
-import com.mojang.serialization.JsonOps;
-import com.mojang.serialization.codecs.PrimitiveCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.ints.IntList;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
-import net.minecraft.util.GsonHelper;
+import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.material.Fluid;
-import net.minecraft.world.level.material.Fluids;
-import net.minecraftforge.common.crafting.IIngredientSerializer;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.fluids.FluidStack;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import java.util.stream.StreamSupport;
 
 public class FluidIngredient extends Ingredient {
 
+    public static final Codec<FluidIngredient> CODEC = codec(true);
+    public static final Codec<FluidIngredient> CODEC_NONEMPTY = codec(false);
+
     public static final FluidIngredient EMPTY = new FluidIngredient(Stream.empty());
-    public static final Codec<FluidIngredient> CODEC = new PrimitiveCodec<>() {
-        @Override
-        public <T> DataResult<FluidIngredient> read(DynamicOps<T> ops, T input) {
-            try {
-                return DataResult.success(FluidIngredient.fromJson(ops.convertTo(JsonOps.INSTANCE, input)));
-            } catch (JsonParseException e) {
-                return DataResult.error(() -> "Failed to parse Ingredient: " + e.getMessage());
-            }
-        }
-
-        @Override
-        public <T> T write(DynamicOps<T> ops, FluidIngredient value) {
-            return JsonOps.INSTANCE.convertTo(ops, value.toJson());
-        }
-    };
     private final Value[] values;
-
     @Nullable
     private FluidStack[] fluidStacks;
 
     protected FluidIngredient(Stream<? extends Value> pValues) {
-        super(Stream.empty());
+        super(Stream.empty(), IngredientTypeRegistry.FLUID_INGREDIENT);
 
         this.values = pValues.toArray(Value[]::new);
+    }
+
+    protected FluidIngredient(Value[] values) {
+        super(Stream.empty(), IngredientTypeRegistry.FLUID_INGREDIENT);
+        this.values = values;
+    }
+
+    private static Codec<FluidIngredient> codec(boolean pAllowEmpty) {
+        Codec<FluidIngredient.Value[]> codec = Codec.list(FluidIngredient.Value.CODEC)
+                .comapFlatMap(
+                        from -> !pAllowEmpty && from.size() < 1
+                                ? DataResult.error(() -> "Item array cannot be empty, at least one item must be defined")
+                                : DataResult.success(from.toArray(new FluidIngredient.Value[0])),
+                        List::of
+                );
+        return ExtraCodecs.either(codec, FluidIngredient.Value.CODEC)
+                .flatComapMap(
+                        to -> to.map(FluidIngredient::new, value -> new FluidIngredient(new FluidIngredient.Value[]{value})),
+                        from -> {
+                            if (from.values.length == 1) {
+                                return DataResult.success(Either.right(from.values[0]));
+                            } else {
+                                return from.values.length == 0 && !pAllowEmpty
+                                        ? DataResult.error(() -> "Item array cannot be empty, at least one item must be defined")
+                                        : DataResult.success(Either.left(from.values));
+                            }
+                        }
+                );
     }
 
     public static FluidIngredient ofFluid() {
@@ -80,7 +93,7 @@ public class FluidIngredient extends Ingredient {
     }
 
     public static FluidIngredient ofFluid(TagKey<Fluid> pTag) {
-        return fromFluidValues(Stream.of(new TagValue(pTag)));
+        return fromFluidValues(Stream.of(new FluidTagValue(pTag)));
     }
 
     public static FluidIngredient fromFluidValues(Stream<? extends Value> pStream) {
@@ -88,63 +101,12 @@ public class FluidIngredient extends Ingredient {
         return ingredient.isEmpty() ? EMPTY : ingredient;
     }
 
-    public static FluidIngredient fromJson(@Nullable JsonElement pJson) {
-        if (pJson != null && !pJson.isJsonNull()) {
-            if (pJson.isJsonObject()) {
-                return fromFluidValues(Stream.of(fluidValueFromJson(pJson.getAsJsonObject())));
-            } else if (pJson.isJsonArray()) {
-                JsonArray jsonarray = pJson.getAsJsonArray();
-                if (jsonarray.size() == 0) {
-                    throw new JsonSyntaxException("Fluid array cannot be empty, at least one item must be defined");
-                } else {
-                    return fromFluidValues(StreamSupport.stream(jsonarray.spliterator(), false).map((p_151264_) -> {
-                        return fluidValueFromJson(GsonHelper.convertToJsonObject(p_151264_, "fluid"));
-                    }));
-                }
-            } else {
-                throw new JsonSyntaxException("Expected fluid to be object or array of objects");
-            }
-        } else {
-            throw new JsonSyntaxException("Item cannot be null");
-        }
-    }
 
     public static FluidIngredient fromNetwork(FriendlyByteBuf pBuffer) {
         var size = pBuffer.readVarInt();
-        if (size == -1) //indicates non vanilla ingredient, so we should hit that every time
-            return (FluidIngredient) net.minecraftforge.common.crafting.CraftingHelper.getIngredient(pBuffer.readResourceLocation(), pBuffer);
+        if (size == -1) //indicates we are synchronizing with Codec, instead of with contents
+            return pBuffer.readWithCodecTrusted(net.minecraft.nbt.NbtOps.INSTANCE, CODEC);
         return fromFluidValues(Stream.generate(() -> new FluidValue(pBuffer.readFluidStack())).limit(size));
-    }
-
-    public static FluidIngredient.Value fluidValueFromJson(JsonObject pJson) {
-        if (pJson.has("fluid") && pJson.has("tag")) {
-            throw new JsonParseException("A fluid ingredient entry is either a tag or a fluid, not both");
-        } else if (pJson.has("fluid")) {
-            var fluid = fluidFromJson(pJson);
-            return new FluidValue(new FluidStack(fluid, 1));
-        } else if (pJson.has("tag")) {
-            ResourceLocation resourcelocation = new ResourceLocation(GsonHelper.getAsString(pJson, "tag"));
-            TagKey<Fluid> tagkey = TagKey.create(Registries.FLUID, resourcelocation);
-            return new TagValue(tagkey);
-        } else {
-            throw new JsonParseException("A fluid ingredient entry needs either a tag or a fluid");
-        }
-    }
-
-    public static Fluid fluidFromJson(JsonObject pItemObject) {
-        String s = GsonHelper.getAsString(pItemObject, "fluid");
-        var fluid = ForgeRegistries.FLUIDS.getValue(new ResourceLocation(s));
-        if (fluid == Fluids.EMPTY) {
-            throw new JsonSyntaxException("Invalid fluid: " + s);
-        } else {
-            return fluid;
-        }
-    }
-
-    @Override
-    protected void invalidate() {
-        super.invalidate();
-        this.fluidStacks = null;
     }
 
     @Override
@@ -175,21 +137,6 @@ public class FluidIngredient extends Ingredient {
         return false;
     }
 
-    @Override
-    public JsonElement toJson() {
-        if (this.values.length == 1) {
-            return this.values[0].serialize();
-        } else {
-            JsonArray jsonarray = new JsonArray();
-
-            for (Value value : this.values) {
-                jsonarray.add(value.serialize());
-            }
-
-            return jsonarray;
-        }
-    }
-
     public boolean test(FluidStack fluidStack) {
         if (fluidStack == null) {
             return false;
@@ -206,18 +153,42 @@ public class FluidIngredient extends Ingredient {
         }
     }
 
+    public void fluidToNetwork(FriendlyByteBuf pBuffer) {
+        if (this.synchronizeWithContents()) {
+            pBuffer.writeCollection(Arrays.asList(this.getFluids()), FriendlyByteBuf::writeFluidStack);
+        } else {
+            pBuffer.writeVarInt(-1);
+            pBuffer.writeWithCodec(net.minecraft.nbt.NbtOps.INSTANCE, CODEC, this);
+        }
+    }
+
     @Override
-    public IIngredientSerializer<? extends Ingredient> getSerializer() {
-        return Serializer.INSTANCE;
+    public boolean equals(Object pOther) {
+        return pOther instanceof FluidIngredient ingredient && Arrays.equals(this.values, ingredient.values);
     }
 
     public interface Value {
-        Collection<FluidStack> getFluids();
+        Codec<FluidIngredient.Value> CODEC = ExtraCodecs.xor(FluidIngredient.FluidValue.CODEC, FluidTagValue.CODEC)
+                .xmap(first -> first.map(l -> l, r -> r), second -> {
+                    if (second instanceof FluidTagValue tagvalue) {
+                        return Either.right(tagvalue);
+                    } else if (second instanceof FluidIngredient.FluidValue fluidValue) {
+                        return Either.left(fluidValue);
+                    } else {
+                        throw new UnsupportedOperationException("This is neither an fluid value nor a tag value.");
+                    }
+                });
 
-        JsonObject serialize();
+        Collection<FluidStack> getFluids();
     }
 
     public static class FluidValue implements Value {
+
+        public static final Codec<FluidIngredient.FluidValue> CODEC = RecordCodecBuilder.create(
+                instance -> instance.group(
+                        TheurgyExtraCodecs.SINGLE_FLUID_CODEC.fieldOf("fluid").forGetter(value -> value.fluid)
+                ).apply(instance, FluidIngredient.FluidValue::new)
+        );
         private final FluidStack fluid;
 
         public FluidValue(FluidStack fluid) {
@@ -230,59 +201,38 @@ public class FluidIngredient extends Ingredient {
         }
 
         @Override
-        public JsonObject serialize() {
-            JsonObject jsonobject = new JsonObject();
-            jsonobject.addProperty("fluid", ForgeRegistries.FLUIDS.getKey(this.fluid.getFluid()).toString());
-            return jsonobject;
+        public boolean equals(Object pOther) {
+            if (!(pOther instanceof FluidValue fluidValue)) {
+                return false;
+            } else {
+                return this.fluid.isFluidStackIdentical(fluidValue.fluid);
+            }
         }
     }
 
-    public static class TagValue implements Value {
+    public static class FluidTagValue implements Value {
+
+        static final Codec<FluidTagValue> CODEC = RecordCodecBuilder.create(
+                instance -> instance.group(
+                        TagKey.codec(Registries.FLUID).fieldOf("tag").forGetter(p_301154_ -> p_301154_.tag)
+                ).apply(instance, FluidTagValue::new)
+        );
         private final TagKey<Fluid> tag;
 
-        public TagValue(TagKey<Fluid> pTag) {
+        public FluidTagValue(TagKey<Fluid> pTag) {
             this.tag = pTag;
         }
 
         @Override
         public Collection<FluidStack> getFluids() {
-            var list = new ArrayList<FluidStack>();
-
-            ForgeRegistries.FLUIDS.tags().getTag(this.tag).stream().forEach(fluid -> list.add(new FluidStack(fluid, 1)));
-
-            //Note: Item stacks here add a barrier with custom hover name, we just leave the list empty, should be OK.
-            return list;
+            return BuiltInRegistries.FLUID.getTag(this.tag)
+                    .map(tag -> tag.stream().map(h -> new FluidStack(h, 1)).collect(Collectors.toList()))
+                    .orElse(Collections.emptyList());
         }
 
         @Override
-        public JsonObject serialize() {
-            JsonObject jsonobject = new JsonObject();
-            jsonobject.addProperty("tag", this.tag.location().toString());
-            return jsonobject;
-        }
-    }
-
-    public static class Serializer implements IIngredientSerializer<FluidIngredient> {
-
-        public static final Serializer INSTANCE = new Serializer();
-
-        @Override
-        public FluidIngredient parse(FriendlyByteBuf buffer) {
-            return FluidIngredient.fromFluidValues(Stream.generate(() -> new FluidValue(buffer.readFluidStack())).limit(buffer.readVarInt()));
-        }
-
-        @Override
-        public FluidIngredient parse(JsonObject json) {
-            return FluidIngredient.fromFluidValues(Stream.of(FluidIngredient.fluidValueFromJson(json)));
-        }
-
-        @Override
-        public void write(FriendlyByteBuf buffer, FluidIngredient ingredient) {
-            FluidStack[] fluids = ingredient.getFluids();
-            buffer.writeVarInt(fluids.length);
-
-            for (FluidStack stack : fluids)
-                buffer.writeFluidStack(stack);
+        public boolean equals(Object pOther) {
+            return pOther instanceof FluidTagValue tagValue && tagValue.tag.location().equals(this.tag.location());
         }
     }
 }

@@ -4,20 +4,24 @@
 
 package com.klikli_dev.theurgy.network.messages;
 
+import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.content.apparatus.caloricfluxemitter.CaloricFluxEmitterBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.caloricfluxemitter.CaloricFluxEmitterSelectedPoint;
 import com.klikli_dev.theurgy.network.Message;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.network.NetworkEvent;
 
 import java.util.List;
 
 public class MessageCaloricFluxEmitterSelection implements Message {
+
+    public static final ResourceLocation ID = Theurgy.loc("caloric_flux_emitter_selection");
+
 
     private List<CaloricFluxEmitterSelectedPoint> selectedPoints;
     private BlockPos blockPos;
@@ -44,7 +48,7 @@ public class MessageCaloricFluxEmitterSelection implements Message {
     }
 
     @Override
-    public void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player, NetworkEvent.Context context) {
+    public void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player) {
         Level level = player.level();
 
         if (level == null || !level.isLoaded(this.blockPos))
@@ -55,5 +59,10 @@ public class MessageCaloricFluxEmitterSelection implements Message {
         BlockEntity blockEntity = level.getBlockEntity(this.blockPos);
         if (blockEntity instanceof CaloricFluxEmitterBlockEntity caloricFluxEmitterBlockEntity)
             caloricFluxEmitterBlockEntity.setSelectedPoints(this.selectedPoints);
+    }
+
+    @Override
+    public ResourceLocation id() {
+        return ID;
     }
 }

@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.12.2] - 2024-01-17
+### :bug: Bug Fixes
+- [`3c4e515`](https://github.com/klikli-dev/theurgy/commit/3c4e515062195db5584cc9226ce13f541cd7151a) - init geckolib *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.1-1.12.1] - 2024-01-16
 ### :bug: Bug Fixes
 - [`f625776`](https://github.com/klikli-dev/theurgy/commit/f625776df0ccee5df9dcf4825f2897bde213744a) - caps not invalidated *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -409,3 +414,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.11.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.10.1...release/v1.20.1-1.11.0
 [release/v1.20.1-1.11.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.11.0...release/v1.20.1-1.11.1
 [release/v1.20.1-1.12.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.12.0...release/v1.20.1-1.12.1
+[release/v1.20.1-1.12.2]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.12.1...release/v1.20.1-1.12.2

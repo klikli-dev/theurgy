@@ -1,21 +1,21 @@
 {
-  "type": "theurgy:fermentation",
-  "conditions": [
+  "neoforge:conditions": [
     {
-      "type": "forge:not",
+      "type": "neoforge:not",
       "value": {
-        "type": "forge:tag_empty",
+        "type": "neoforge:tag_empty",
         "tag": "theurgy:alchemical_sulfurs/gems/precious"
       }
     },
     {
-      "type": "forge:not",
+      "type": "neoforge:not",
       "value": {
-        "type": "forge:tag_empty",
+        "type": "neoforge:tag_empty",
         "tag": "forge:sugar"
       }
     }
   ],
+  "type": "theurgy:fermentation",
   "fluid": {
     "tag": "minecraft:water"
   },

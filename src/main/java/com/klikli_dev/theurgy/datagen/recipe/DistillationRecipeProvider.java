@@ -102,7 +102,7 @@ public class DistillationRecipeProvider extends JsonRecipeProvider {
 
         var conditions = new JsonArray();
         conditions.add(this.makeTagNotEmptyCondition(ingredient.location().toString()));
-        recipe.add("conditions", conditions);
+        recipe.add("neoforge:conditions", conditions);
 
         this.recipeConsumer.accept(
                 this.modLoc(recipeName),

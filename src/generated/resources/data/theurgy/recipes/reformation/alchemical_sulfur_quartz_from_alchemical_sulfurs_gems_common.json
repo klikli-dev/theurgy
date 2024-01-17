@@ -1,14 +1,14 @@
 {
-  "type": "theurgy:reformation",
-  "conditions": [
+  "neoforge:conditions": [
     {
-      "type": "forge:not",
+      "type": "neoforge:not",
       "value": {
-        "type": "forge:tag_empty",
+        "type": "neoforge:tag_empty",
         "tag": "theurgy:alchemical_sulfurs/gems/common"
       }
     }
   ],
+  "type": "theurgy:reformation",
   "mercury_flux": 100,
   "result": {
     "count": 1,

@@ -25,6 +25,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 public class SulfurRegistry {
     public static final DeferredRegister.Items SULFURS = DeferredRegister.createItems(Theurgy.MODID);
@@ -140,7 +141,13 @@ public class SulfurRegistry {
             var recipeManager = level.getRecipeManager();
             var liquefactionRecipes = recipeManager.getAllRecipesFor(RecipeTypeRegistry.LIQUEFACTION.get());
 
-            SULFURS.getEntries().stream().map(DeferredHolder::get).map(AlchemicalSulfurItem.class::cast).forEach(sulfur -> {
+            var sulfursWithoutRecipe = SulfurRegistry.SULFURS.getEntries().stream()
+                    .map(DeferredHolder::get)
+                    .map(AlchemicalSulfurItem.class::cast)
+                    .filter(sulfur -> !SulfurRegistry.keepInItemLists(sulfur))
+                    .filter(sulfur -> liquefactionRecipes.stream().noneMatch(r -> r.value().getResultItem(level.registryAccess()) != null && r.value().getResultItem(level.registryAccess()).getItem() == sulfur)).collect(Collectors.toSet());
+
+            SULFURS.getEntries().stream().map(DeferredHolder::get).map(AlchemicalSulfurItem.class::cast).filter(i -> !sulfursWithoutRecipe.contains(i)).forEach(sulfur -> {
                 var preferred = getPreferredSulfurVariant(sulfur, liquefactionRecipes, level);
                 preferred.ifPresent(itemStack -> event.accept(itemStack.copyWithCount(1)));
             });

@@ -118,7 +118,7 @@ public class FermentationRecipeProvider extends JsonRecipeProvider {
         for (var ingredient : ingredients) {
             conditions.add(this.makeTagNotEmptyCondition(ingredient.location().toString()));
         }
-        recipe.add("conditions", conditions);
+        recipe.add("neoforge:conditions", conditions);
 
         this.recipeConsumer.accept(this.modLoc(name), recipe);
     }

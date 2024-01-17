@@ -219,7 +219,7 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
         for (var source : sources) {
             conditions.add(this.makeTagNotEmptyCondition(source.location().toString()));
         }
-        recipe.add("conditions", conditions);
+        recipe.add("neoforge:conditions", conditions);
 
         this.recipeCache.put(this.modLoc(recipeName), recipe);
     }

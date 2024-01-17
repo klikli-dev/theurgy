@@ -1,21 +1,21 @@
 {
-  "type": "theurgy:digestion",
-  "conditions": [
+  "neoforge:conditions": [
     {
-      "type": "forge:not",
+      "type": "neoforge:not",
       "value": {
-        "type": "forge:tag_empty",
+        "type": "neoforge:tag_empty",
         "tag": "forge:ingots/gold"
       }
     },
     {
-      "type": "forge:not",
+      "type": "neoforge:not",
       "value": {
-        "type": "forge:tag_empty",
+        "type": "neoforge:tag_empty",
         "tag": "theurgy:alchemical_salts"
       }
     }
   ],
+  "type": "theurgy:digestion",
   "fluid": {
     "tag": "minecraft:water"
   },

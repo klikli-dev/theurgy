@@ -183,9 +183,9 @@ public abstract class JsonRecipeProvider implements DataProvider {
 
     public JsonObject makeTagNotEmptyCondition(String tag) {
         var condition = new JsonObject();
-        condition.addProperty("type", "forge:not");
+        condition.addProperty("type", "neoforge:not");
         var value = new JsonObject();
-        value.addProperty("type", "forge:tag_empty");
+        value.addProperty("type", "neoforge:tag_empty");
         value.addProperty("tag", tag);
         condition.add("value", value);
         return condition;

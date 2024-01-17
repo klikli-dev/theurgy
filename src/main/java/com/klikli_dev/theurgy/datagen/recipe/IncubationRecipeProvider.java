@@ -103,7 +103,7 @@ public class IncubationRecipeProvider extends JsonRecipeProvider {
 
         var conditions = new JsonArray();
         conditions.add(this.makeTagNotEmptyCondition(result.location().toString()));
-        recipe.add("conditions", conditions);
+        recipe.add("neoforge:conditions", conditions);
 
         this.recipeConsumer.accept(
                 this.modLoc(recipeName),

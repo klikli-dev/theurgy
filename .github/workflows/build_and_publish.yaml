@@ -72,11 +72,11 @@ jobs:
         with:
           allowUpdates: true
           draft: false
-          name: theurgy-${{ steps.get_mc_version.outputs.result }}-${{ steps.get_version.outputs.result }}-${{ steps.get_release_type.outputs.result }}
+          name: theurgy-${{ steps.get_mc_version.outputs.result }}-${{ steps.get_version.outputs.result }}-neoforge-${{ steps.get_release_type.outputs.result }}
           body: ${{ steps.changelog.outputs.changes }}
           token: ${{ github.token }}
           tag: ${{ github.ref }}
-          artifacts: ./build/libs/theurgy-${{ steps.get_mc_version.outputs.result }}-${{ steps.get_version.outputs.result }}.jar
+          artifacts: ./build/libs/theurgy-${{ steps.get_mc_version.outputs.result }}-neoforge-${{ steps.get_version.outputs.result }}.jar
           artifactContentType: application/java-archive
       - name: Commit CHANGELOG.md
         uses: stefanzweifel/git-auto-commit-action@v4
@@ -94,11 +94,11 @@ jobs:
           curseforge-token: ${{ secrets.CURSEFORGE_API_KEY }}
 
           files: |
-            build/libs/theurgy-${{ steps.get_mc_version.outputs.result }}-${{ steps.get_version.outputs.result }}.jar
-            build/libs/theurgy-${{ steps.get_mc_version.outputs.result }}-${{ steps.get_version.outputs.result }}-sources.jar
+            build/libs/theurgy-${{ steps.get_mc_version.outputs.result }}-neoforge-${{ steps.get_version.outputs.result }}.jar
+            build/libs/theurgy-${{ steps.get_mc_version.outputs.result }}-neoforge-${{ steps.get_version.outputs.result }}-sources.jar
 
-          name: theurgy-${{ steps.get_mc_version.outputs.result }}-${{ steps.get_version.outputs.result }}.jar
-          version: ${{ steps.get_mc_version.outputs.result }}-${{ steps.get_version.outputs.result }}
+          name: theurgy-${{ steps.get_mc_version.outputs.result }}-neoforge-${{ steps.get_version.outputs.result }}.jar
+          version: ${{ steps.get_mc_version.outputs.result }}-neoforge-${{ steps.get_version.outputs.result }}
           version-type: ${{ steps.get_release_type.outputs.result }}
           loaders: |
             neoforge

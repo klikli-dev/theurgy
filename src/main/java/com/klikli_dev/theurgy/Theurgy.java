@@ -60,6 +60,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.registries.RegistryObject;
 import org.slf4j.Logger;
+import software.bernie.geckolib.GeckoLib;
 
 @Mod(Theurgy.MODID)
 public class Theurgy {
@@ -117,6 +118,8 @@ public class Theurgy {
             MinecraftForge.EVENT_BUS.addListener(Client::onRightClick);
             MinecraftForge.EVENT_BUS.addListener(Client::onLeftClick);
         }
+
+        GeckoLib.initialize();
     }
 
     public static ResourceLocation loc(String path) {

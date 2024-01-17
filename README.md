@@ -37,7 +37,7 @@ dependencies {
  
     ...
     
-    implementation "com.klikli_dev:theurgy-${minecraft_version}:${theurgy_version}"
+    implementation "com.klikli_dev:theurgy-${minecraft_version}-neoforge:${theurgy_version}"
     
     ...
     

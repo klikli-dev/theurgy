@@ -36,7 +36,7 @@ public class DivinationRodRecipe extends ShapedRecipe {
     public RecipeSerializer<?> getSerializer() {
         return RecipeSerializerRegistry.DIVINATION_ROD.get();
     }
-    
+
     @Override
     public ItemStack assemble(CraftingContainer pInv, RegistryAccess registryAccess) {
         var result = this.getResultItem(registryAccess).copy();

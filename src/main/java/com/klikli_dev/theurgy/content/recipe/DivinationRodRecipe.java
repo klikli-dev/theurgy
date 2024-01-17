@@ -36,48 +36,7 @@ public class DivinationRodRecipe extends ShapedRecipe {
     public RecipeSerializer<?> getSerializer() {
         return RecipeSerializerRegistry.DIVINATION_ROD.get();
     }
-
-    @Override
-    public ItemStack getResultItem(RegistryAccess registryAccess) {
-
-        var result = super.getResultItem(registryAccess);
-
-        var resultTag = result.getOrCreateTag();
-
-        //if we do not have a linked block id in the recipe output, we try to get it from the ingredients.
-        //we check if any ingredient supplies a source id for the linked block id.
-        //this allows JEI/creative menu to show the correct linked block id effects (altered item name, tooltip, etc)
-        //TODO: As of 1.20.4 we no longer have access to the ingredient json. Test if it is ok to just remove this code.
-//        if (!resultTag.contains(TheurgyConstants.Nbt.Divination.LINKED_BLOCK_ID)) {
-//
-//            String sourceId = null;
-//            for (var ingredient : this.getIngredients()) {
-//                var json = ingredient.toJson();
-//                if (json instanceof JsonObject jsonObj && jsonObj.has("nbt")) {
-//
-//                    var ingredientTag = CraftingHelper.getNBT(jsonObj.get("nbt"));
-//                    if (ingredientTag.contains(TheurgyConstants.Nbt.SULFUR_SOURCE_ID)) {
-//                        sourceId = ingredientTag.getString(TheurgyConstants.Nbt.SULFUR_SOURCE_ID);
-//                        break;
-//                    }
-//                }
-//            }
-//
-//            if (sourceId != null) {
-//                var translated = this.translateToBlock(sourceId);
-//                if (translated != null) {
-//                    resultTag.putString(TheurgyConstants.Nbt.Divination.LINKED_BLOCK_ID, translated);
-//                } else {
-//                    resultTag.putString(TheurgyConstants.Nbt.Divination.LINKED_BLOCK_ID, sourceId);
-//                }
-//                //we also set the preview mode, to allow the assemble() method to override based on the actual input.
-//                resultTag.putBoolean(TheurgyConstants.Nbt.Divination.LINKED_BLOCK_ID_PREVIEW_MODE, true);
-//            }
-//        }
-
-        return result;
-    }
-
+    
     @Override
     public ItemStack assemble(CraftingContainer pInv, RegistryAccess registryAccess) {
         var result = this.getResultItem(registryAccess).copy();

@@ -43,6 +43,7 @@ public class FluidRenderer {
         Fluid fluid = fluidStack.getFluid();
         IClientFluidTypeExtensions clientFluid = IClientFluidTypeExtensions.of(fluid);
         FluidType fluidAttributes = fluid.getFluidType();
+
         TextureAtlasSprite fluidTexture = Minecraft.getInstance()
                 .getTextureAtlas(InventoryMenu.BLOCK_ATLAS)
                 .apply(clientFluid.getStillTexture(fluidStack));
@@ -125,6 +126,13 @@ public class FluidRenderer {
                 }
                 v1 = Mth.lerp(shrink, v1, centerV);
                 v2 = Mth.lerp(shrink, v2, centerV);
+
+                //Hack: the UV calculation doesn't work on 1.20.4, so we just use the full texture for now
+                //TODO: fix this for 1.20.4
+                u1 = texture.getU0();
+                u2 = texture.getU1();
+                v1 = texture.getV0();
+                v2 = texture.getV1();
 
                 if (horizontal) {
                     if (x) {

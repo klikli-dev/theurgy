@@ -10,6 +10,7 @@ import com.google.common.cache.LoadingCache;
 import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.content.gui.GuiTextures;
 import com.klikli_dev.theurgy.content.recipe.DistillationRecipe;
+import com.klikli_dev.theurgy.content.recipe.DistillationRecipe;
 import com.klikli_dev.theurgy.integration.jei.JeiDrawables;
 import com.klikli_dev.theurgy.integration.jei.JeiRecipeTypes;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
@@ -27,13 +28,14 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 
 import java.util.Arrays;
 
 import static mezz.jei.api.recipe.RecipeIngredientRole.INPUT;
 import static mezz.jei.api.recipe.RecipeIngredientRole.OUTPUT;
 
-public class DistillationCategory implements IRecipeCategory<DistillationRecipe> {
+public class DistillationCategory implements IRecipeCategory<RecipeHolder<DistillationRecipe>> {
     private final IDrawableAnimated animatedFire;
     private final IDrawable background;
     private final IDrawable icon;
@@ -59,8 +61,8 @@ public class DistillationCategory implements IRecipeCategory<DistillationRecipe>
                 });
     }
 
-    protected IDrawableAnimated getAnimatedArrow(DistillationRecipe recipe) {
-        int cookTime = recipe.getTime();
+    protected IDrawableAnimated getAnimatedArrow(RecipeHolder<DistillationRecipe> recipe) {
+        int cookTime = recipe.value().getTime();
         if (cookTime <= 0) {
             cookTime = DistillationRecipe.DEFAULT_TIME;
         }
@@ -78,7 +80,7 @@ public class DistillationCategory implements IRecipeCategory<DistillationRecipe>
     }
 
     @Override
-    public void draw(DistillationRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+    public void draw(RecipeHolder<DistillationRecipe> recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
         GuiTextures.JEI_FIRE_EMPTY.render(guiGraphics, 1, 20);
         this.animatedFire.draw(guiGraphics, 1, 20);
 
@@ -88,8 +90,8 @@ public class DistillationCategory implements IRecipeCategory<DistillationRecipe>
         this.drawCookTime(recipe, guiGraphics, 34);
     }
 
-    protected void drawCookTime(DistillationRecipe recipe, GuiGraphics guiGraphics, int y) {
-        int cookTime = recipe.getTime();
+    protected void drawCookTime(RecipeHolder<DistillationRecipe> recipe, GuiGraphics guiGraphics, int y) {
+        int cookTime = recipe.value().getTime();
         if (cookTime > 0) {
             int cookTimeSeconds = cookTime / 20;
             Component timeString = Component.translatable("gui.jei.category.smelting.time.seconds", cookTimeSeconds);
@@ -106,18 +108,18 @@ public class DistillationCategory implements IRecipeCategory<DistillationRecipe>
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder builder, DistillationRecipe recipe, IFocusGroup focuses) {
+    public void setRecipe(IRecipeLayoutBuilder builder, RecipeHolder<DistillationRecipe> recipe, IFocusGroup focuses) {
         builder.addSlot(INPUT, 1, 1)
                 .setBackground(JeiDrawables.INPUT_SLOT, -1, -1)
-                .addIngredients(VanillaTypes.ITEM_STACK, Arrays.stream(recipe.getIngredient().getItems()).map(i -> i.copyWithCount(recipe.getIngredientCount())).toList());
+                .addIngredients(VanillaTypes.ITEM_STACK, Arrays.stream(recipe.value().getIngredient().getItems()).map(i -> i.copyWithCount(recipe.value().getIngredientCount())).toList());
 
         builder.addSlot(OUTPUT, 61, 9)
                 .setBackground(JeiDrawables.OUTPUT_SLOT, -5, -5)
-                .addItemStack(recipe.getResultItem(Minecraft.getInstance().level.registryAccess()));
+                .addItemStack(recipe.value().getResultItem(Minecraft.getInstance().level.registryAccess()));
     }
 
     @Override
-    public RecipeType<DistillationRecipe> getRecipeType() {
+    public RecipeType<RecipeHolder<DistillationRecipe>> getRecipeType() {
         return JeiRecipeTypes.DISTILLATION;
     }
 }

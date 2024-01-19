@@ -17,7 +17,6 @@ base {
 sourceSets {
     main {
         java {
-            exclude '**/integration/jei/**/*.java'
             exclude '**/AlmostUnifiedIntegrationImpl.java'
             exclude '**/jade/**/*.java'
         }
@@ -99,13 +98,12 @@ repositories {
 
 dependencies {
     implementation "net.neoforged:neoforge:${neo_version}"
-    //TODO: enable once available
-//    //Jei
-//    compileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
-//    compileOnly "mezz.jei:jei-${minecraft_version}-common:${jei_version}"
-//    //we're using the vanilla recipe category rendering constants
-//    compileOnly "mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}"
-//    runtimeOnly "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
+    //Jei
+    compileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
+    compileOnly "mezz.jei:jei-${minecraft_version}-common:${jei_version}"
+    //we're using the vanilla recipe category rendering constants
+    compileOnly "mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}"
+    runtimeOnly "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
 
     //TODO: enable once available
     //almostunified
@@ -120,11 +118,6 @@ dependencies {
     //Jade (Hwyla/Waila)
     //TODO: enable once available
 //    implementation "maven.modrinth:jade:${jade_version}"
-
-  //TODO: remove once jei is available
-    runtimeOnly "curse.maven:roughly-enough-items-310111:4973489"
-    runtimeOnly "curse.maven:cloth-config-348521:4973457"
-    runtimeOnly "curse.maven:architectury-api-419699:5020280"
 }
 
 processResources {

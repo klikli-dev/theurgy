@@ -27,13 +27,14 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 
 import java.util.Arrays;
 
 import static mezz.jei.api.recipe.RecipeIngredientRole.INPUT;
 import static mezz.jei.api.recipe.RecipeIngredientRole.OUTPUT;
 
-public class CalcinationCategory implements IRecipeCategory<CalcinationRecipe> {
+public class CalcinationCategory implements IRecipeCategory<RecipeHolder<CalcinationRecipe>> {
     private final IDrawableAnimated animatedFire;
     private final IDrawable background;
     private final IDrawable icon;
@@ -59,8 +60,8 @@ public class CalcinationCategory implements IRecipeCategory<CalcinationRecipe> {
                 });
     }
 
-    protected IDrawableAnimated getAnimatedArrow(CalcinationRecipe recipe) {
-        int cookTime = recipe.getTime();
+    protected IDrawableAnimated getAnimatedArrow(RecipeHolder<CalcinationRecipe> recipe) {
+        int cookTime = recipe.value().getTime();
         if (cookTime <= 0) {
             cookTime = CalcinationRecipe.DEFAULT_TIME;
         }
@@ -78,7 +79,7 @@ public class CalcinationCategory implements IRecipeCategory<CalcinationRecipe> {
     }
 
     @Override
-    public void draw(CalcinationRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+    public void draw(RecipeHolder<CalcinationRecipe> recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
         GuiTextures.JEI_FIRE_EMPTY.render(guiGraphics, 1, 20);
         this.animatedFire.draw(guiGraphics, 1, 20);
 
@@ -88,8 +89,8 @@ public class CalcinationCategory implements IRecipeCategory<CalcinationRecipe> {
         this.drawCookTime(recipe, guiGraphics, 34);
     }
 
-    protected void drawCookTime(CalcinationRecipe recipe, GuiGraphics guiGraphics, int y) {
-        int cookTime = recipe.getTime();
+    protected void drawCookTime(RecipeHolder<CalcinationRecipe> recipe, GuiGraphics guiGraphics, int y) {
+        int cookTime = recipe.value().getTime();
         if (cookTime > 0) {
             int cookTimeSeconds = cookTime / 20;
             Component timeString = Component.translatable("gui.jei.category.smelting.time.seconds", cookTimeSeconds);
@@ -106,18 +107,18 @@ public class CalcinationCategory implements IRecipeCategory<CalcinationRecipe> {
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder builder, CalcinationRecipe recipe, IFocusGroup focuses) {
+    public void setRecipe(IRecipeLayoutBuilder builder, RecipeHolder<CalcinationRecipe> recipe, IFocusGroup focuses) {
         builder.addSlot(INPUT, 1, 1)
                 .setBackground(JeiDrawables.INPUT_SLOT, -1, -1)
-                .addIngredients(VanillaTypes.ITEM_STACK, Arrays.stream(recipe.getIngredients().get(0).getItems()).map(i -> i.copyWithCount(recipe.getIngredientCount())).toList());
+                .addIngredients(VanillaTypes.ITEM_STACK, Arrays.stream(recipe.value().getIngredients().get(0).getItems()).map(i -> i.copyWithCount(recipe.value().getIngredientCount())).toList());
 
         builder.addSlot(OUTPUT, 61, 9)
                 .setBackground(JeiDrawables.OUTPUT_SLOT, -5, -5)
-                .addItemStack(recipe.getResultItem(Minecraft.getInstance().level.registryAccess()));
+                .addItemStack(recipe.value().getResultItem(Minecraft.getInstance().level.registryAccess()));
     }
 
     @Override
-    public RecipeType<CalcinationRecipe> getRecipeType() {
+    public RecipeType<RecipeHolder<CalcinationRecipe>> getRecipeType() {
         return JeiRecipeTypes.CALCINATION;
     }
 }

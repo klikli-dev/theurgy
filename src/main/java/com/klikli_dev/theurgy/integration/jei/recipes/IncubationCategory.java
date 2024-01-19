@@ -27,7 +27,9 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.stream.Collectors;
@@ -35,7 +37,7 @@ import java.util.stream.Collectors;
 import static mezz.jei.api.recipe.RecipeIngredientRole.INPUT;
 import static mezz.jei.api.recipe.RecipeIngredientRole.OUTPUT;
 
-public class IncubationCategory implements IRecipeCategory<IncubationRecipe> {
+public class IncubationCategory implements IRecipeCategory<RecipeHolder<IncubationRecipe>> {
     private final IDrawableAnimated animatedFire;
     private final IDrawable background;
     private final IDrawable icon;
@@ -61,8 +63,8 @@ public class IncubationCategory implements IRecipeCategory<IncubationRecipe> {
                 });
     }
 
-    protected IDrawableAnimated getAnimatedArrow(IncubationRecipe recipe) {
-        int cookTime = recipe.getTime();
+    protected IDrawableAnimated getAnimatedArrow(RecipeHolder<IncubationRecipe> recipe) {
+        int cookTime = recipe.value().getTime();
         if (cookTime <= 0) {
             cookTime = IncubationRecipe.DEFAULT_TIME;
         }
@@ -80,7 +82,7 @@ public class IncubationCategory implements IRecipeCategory<IncubationRecipe> {
     }
 
     @Override
-    public void draw(IncubationRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+    public void draw(RecipeHolder<IncubationRecipe> recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
         GuiTextures.JEI_FIRE_EMPTY.render(guiGraphics, 28, 44);
         this.animatedFire.draw(guiGraphics, 28, 44);
 
@@ -90,8 +92,8 @@ public class IncubationCategory implements IRecipeCategory<IncubationRecipe> {
         this.drawCookTime(recipe, guiGraphics, 47);
     }
 
-    protected void drawCookTime(IncubationRecipe recipe, GuiGraphics guiGraphics, int y) {
-        int cookTime = recipe.getTime();
+    protected void drawCookTime(RecipeHolder<IncubationRecipe> recipe, GuiGraphics guiGraphics, int y) {
+        int cookTime = recipe.value().getTime();
         if (cookTime > 0) {
             int cookTimeSeconds = cookTime / 20;
             Component timeString = Component.translatable("gui.jei.category.smelting.time.seconds", cookTimeSeconds);
@@ -109,22 +111,22 @@ public class IncubationCategory implements IRecipeCategory<IncubationRecipe> {
 
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder builder, IncubationRecipe recipe, IFocusGroup focuses) {
+    public void setRecipe(IRecipeLayoutBuilder builder, RecipeHolder<IncubationRecipe> recipe, IFocusGroup focuses) {
         builder.addSlot(INPUT, 1, 1)
                 .setBackground(JeiDrawables.INPUT_SLOT, -1, -1)
-                .addIngredients(recipe.getMercury());
+                .addIngredients(recipe.value().getMercury());
 
         //sulfurs in the recipe are in most cases specified only via the item id (as one sulfur = one item), but for rendering we need the nbt, so we get it from the corresponding recipe.
         var recipeManager = Minecraft.getInstance().level.getRecipeManager();
-        var liquefactionRecipes = recipeManager.getAllRecipesFor(RecipeTypeRegistry.LIQUEFACTION.get()).stream().filter(r -> r.getResultItem(Minecraft.getInstance().level.registryAccess()) != null).collect(Collectors.toList());
+        var liquefactionRecipes = recipeManager.getAllRecipesFor(RecipeTypeRegistry.LIQUEFACTION.get()).stream().filter(r -> r.value().getResultItem(Minecraft.getInstance().level.registryAccess()) != null).collect(Collectors.toList());
 
-        var sulfurIngredients = Arrays.stream(recipe.getSulfur().getItems()).map(sulfur -> {
+        var sulfurIngredients = Arrays.stream(recipe.value().getSulfur().getItems()).map(sulfur -> {
             if (sulfur.hasTag())
                 return sulfur;
 
             var sulfurItem = sulfur.getItem();
             var sulfurWithNbt = liquefactionRecipes.stream()
-                    .filter(r -> r.getResultItem(Minecraft.getInstance().level.registryAccess()).getItem() == sulfurItem).map(r -> r.getResultItem(Minecraft.getInstance().level.registryAccess())).findFirst();
+                    .filter(r -> r.value().getResultItem(Minecraft.getInstance().level.registryAccess()).getItem() == sulfurItem).map(r -> r.value().getResultItem(Minecraft.getInstance().level.registryAccess())).findFirst();
 
             if (sulfurWithNbt.isPresent()) {
                 sulfur = sulfur.copy();
@@ -140,15 +142,15 @@ public class IncubationCategory implements IRecipeCategory<IncubationRecipe> {
 
         builder.addSlot(INPUT, 1, 42)
                 .setBackground(JeiDrawables.INPUT_SLOT, -1, -1)
-                .addIngredients(recipe.getSalt());
+                .addIngredients(recipe.value().getSalt());
 
         builder.addSlot(OUTPUT, 61, 22)
                 .setBackground(JeiDrawables.OUTPUT_SLOT, -5, -5)
-                .addItemStacks(Collections.singletonList(recipe.getResult().getStacks()));
+                .addItemStacks(Arrays.asList(recipe.value().getResult().getStacks()));
     }
 
     @Override
-    public RecipeType<IncubationRecipe> getRecipeType() {
+    public RecipeType<RecipeHolder<IncubationRecipe>> getRecipeType() {
         return JeiRecipeTypes.INCUBATION;
     }
 }

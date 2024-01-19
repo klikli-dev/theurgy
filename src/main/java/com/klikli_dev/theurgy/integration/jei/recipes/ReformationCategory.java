@@ -31,13 +31,14 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.RecipeHolder;
 
 import java.util.List;
 
 import static mezz.jei.api.recipe.RecipeIngredientRole.INPUT;
 import static mezz.jei.api.recipe.RecipeIngredientRole.OUTPUT;
 
-public class ReformationCategory implements IRecipeCategory<ReformationRecipe> {
+public class ReformationCategory implements IRecipeCategory<RecipeHolder<ReformationRecipe>> {
     private final IDrawable background;
     private final IDrawable icon;
     private final Component localizedName;
@@ -60,8 +61,8 @@ public class ReformationCategory implements IRecipeCategory<ReformationRecipe> {
                 });
     }
 
-    protected IDrawableAnimated getAnimatedArrow(ReformationRecipe recipe) {
-        int cookTime = recipe.getTime();
+    protected IDrawableAnimated getAnimatedArrow(RecipeHolder<ReformationRecipe> recipe) {
+        int cookTime = recipe.value().getTime();
         if (cookTime <= 0) {
             cookTime = ReformationRecipe.DEFAULT_TIME;
         }
@@ -79,7 +80,7 @@ public class ReformationCategory implements IRecipeCategory<ReformationRecipe> {
     }
 
     @Override
-    public void draw(ReformationRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+    public void draw(RecipeHolder<ReformationRecipe> recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
 
         GuiTextures.JEI_ARROW_RIGHT_EMPTY.render(guiGraphics, 19, 19);
 
@@ -101,8 +102,8 @@ public class ReformationCategory implements IRecipeCategory<ReformationRecipe> {
         RenderSystem.disableBlend();
     }
 
-    protected void drawCookTime(ReformationRecipe recipe, GuiGraphics guiGraphics, int y) {
-        int cookTime = recipe.getTime();
+    protected void drawCookTime(RecipeHolder<ReformationRecipe> recipe, GuiGraphics guiGraphics, int y) {
+        int cookTime = recipe.value().getTime();
         if (cookTime > 0) {
             int cookTimeSeconds = cookTime / 20;
             Component timeString = Component.translatable("gui.jei.category.smelting.time.seconds", cookTimeSeconds);
@@ -113,16 +114,16 @@ public class ReformationCategory implements IRecipeCategory<ReformationRecipe> {
         }
     }
 
-    protected void drawFlux(ReformationRecipe recipe, GuiGraphics guiGraphics, int y) {
-        int flux = recipe.getMercuryFlux();
+    protected void drawFlux(RecipeHolder<ReformationRecipe> recipe, GuiGraphics guiGraphics, int y) {
+        int flux = recipe.value().getMercuryFlux();
         Component timeString = Component.translatable(TheurgyConstants.I18n.JEI.MERCURY_FLUX, flux);
         Minecraft minecraft = Minecraft.getInstance();
         Font font = minecraft.font;
         guiGraphics.drawString(font, timeString, 1, y, 0xFF808080, false);
     }
 
-    protected void drawSourcePedestalCount(ReformationRecipe recipe, GuiGraphics guiGraphics, int y) {
-        int count = recipe.getSources().size();
+    protected void drawSourcePedestalCount(RecipeHolder<ReformationRecipe> recipe, GuiGraphics guiGraphics, int y) {
+        int count = recipe.value().getSources().size();
         Component timeString = Component.translatable(TheurgyConstants.I18n.JEI.SOURCE_PEDESTAL_COUNT, count);
         Minecraft minecraft = Minecraft.getInstance();
         Font font = minecraft.font;
@@ -137,14 +138,14 @@ public class ReformationCategory implements IRecipeCategory<ReformationRecipe> {
 
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder builder, ReformationRecipe recipe, IFocusGroup focuses) {
+    public void setRecipe(IRecipeLayoutBuilder builder, RecipeHolder<ReformationRecipe> recipe, IFocusGroup focuses) {
         builder.addSlot(RecipeIngredientRole.CATALYST, 1, 15)
                 .addItemStack(new ItemStack(ItemRegistry.SULFURIC_FLUX_EMITTER.get()));
 
 
         builder.addSlot(RecipeIngredientRole.CATALYST, 45, 19)
                 .setBackground(JeiDrawables.INPUT_SLOT, -1, -1)
-                .addIngredients(recipe.getTarget());
+                .addIngredients(recipe.value().getTarget());
 
         builder.addSlot(RecipeIngredientRole.CATALYST, 45, 35)
                 .addItemStack(new ItemStack(ItemRegistry.REFORMATION_TARGET_PEDESTAL.get()));
@@ -157,8 +158,8 @@ public class ReformationCategory implements IRecipeCategory<ReformationRecipe> {
         for (int i = 0; i < 8; i++) {
             var slot = builder.addSlot(INPUT, sourceSlotX, sourceSlotY).setBackground(JeiDrawables.INPUT_SLOT, -1, -1);
 
-            if (i < recipe.getSources().size())
-                slot.addIngredients(recipe.getSources().get(i));
+            if (i < recipe.value().getSources().size())
+                slot.addIngredients(recipe.value().getSources().get(i));
 
             sourceSlotY -= 18; // Move upwards
             if (i % 4 == 3) {
@@ -173,18 +174,18 @@ public class ReformationCategory implements IRecipeCategory<ReformationRecipe> {
 
         builder.addSlot(OUTPUT, 160, 19)
                 .setBackground(JeiDrawables.OUTPUT_SLOT, -5, -5)
-                .addItemStack(recipe.getResultItem(Minecraft.getInstance().level.registryAccess()));
+                .addItemStack(recipe.value().getResultItem(Minecraft.getInstance().level.registryAccess()));
         builder.addSlot(RecipeIngredientRole.CATALYST, 160, 42)
                 .addItemStack(new ItemStack(ItemRegistry.REFORMATION_RESULT_PEDESTAL.get()));
     }
 
     @Override
-    public RecipeType<ReformationRecipe> getRecipeType() {
+    public RecipeType<RecipeHolder<ReformationRecipe>> getRecipeType() {
         return JeiRecipeTypes.REFORMATION;
     }
 
     @Override
-    public List<Component> getTooltipStrings(ReformationRecipe recipe, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
+    public List<Component> getTooltipStrings(RecipeHolder<ReformationRecipe> recipe, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
 
         // builder.addSlot(RecipeIngredientRole.RENDER_ONLY, 45, 1)
         if (mouseX > 45 && mouseX < 45 + 18 && mouseY > 1 && mouseY < 1 + 18) {

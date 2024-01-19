@@ -15,7 +15,6 @@ import com.klikli_dev.theurgy.integration.jei.JeiDrawables;
 import com.klikli_dev.theurgy.integration.jei.JeiRecipeTypes;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import mezz.jei.api.constants.VanillaTypes;
-import mezz.jei.api.forge.ForgeTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.builder.IRecipeSlotBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -23,6 +22,7 @@ import mezz.jei.api.gui.drawable.IDrawableAnimated;
 import mezz.jei.api.gui.ingredient.IRecipeSlotTooltipCallback;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
+import mezz.jei.api.neoforge.NeoForgeTypes;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
@@ -32,6 +32,7 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.neoforged.neoforge.fluids.FluidStack;
 
 import java.util.Arrays;
@@ -40,7 +41,7 @@ import java.util.List;
 import static mezz.jei.api.recipe.RecipeIngredientRole.INPUT;
 import static mezz.jei.api.recipe.RecipeIngredientRole.OUTPUT;
 
-public class DigestionCategory implements IRecipeCategory<DigestionRecipe> {
+public class DigestionCategory implements IRecipeCategory<RecipeHolder<DigestionRecipe>> {
     private final IDrawable background;
     private final IDrawable icon;
     private final Component localizedName;
@@ -65,7 +66,7 @@ public class DigestionCategory implements IRecipeCategory<DigestionRecipe> {
 
     public static IRecipeSlotTooltipCallback addFluidTooltip(int overrideAmount) {
         return (view, tooltip) -> {
-            var displayed = view.getDisplayedIngredient(ForgeTypes.FLUID_STACK);
+            var displayed = view.getDisplayedIngredient(NeoForgeTypes.FLUID_STACK);
             if (displayed.isEmpty())
                 return;
 
@@ -83,8 +84,8 @@ public class DigestionCategory implements IRecipeCategory<DigestionRecipe> {
         };
     }
 
-    protected IDrawableAnimated getAnimatedArrow(DigestionRecipe recipe) {
-        int cookTime = recipe.getTime();
+    protected IDrawableAnimated getAnimatedArrow(RecipeHolder<DigestionRecipe> recipe) {
+        int cookTime = recipe.value().getTime();
         if (cookTime <= 0) {
             cookTime = DigestionRecipe.DEFAULT_TIME;
         }
@@ -102,15 +103,15 @@ public class DigestionCategory implements IRecipeCategory<DigestionRecipe> {
     }
 
     @Override
-    public void draw(DigestionRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+    public void draw(RecipeHolder<DigestionRecipe> recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
         GuiTextures.JEI_ARROW_RIGHT_EMPTY.render(guiGraphics, 45, 8);
         this.getAnimatedArrow(recipe).draw(guiGraphics, 45, 8);
 
         this.drawCookTime(recipe, guiGraphics, 34);
     }
 
-    protected void drawCookTime(DigestionRecipe recipe, GuiGraphics guiGraphics, int y) {
-        int cookTime = recipe.getTime();
+    protected void drawCookTime(RecipeHolder<DigestionRecipe> recipe, GuiGraphics guiGraphics, int y) {
+        int cookTime = recipe.value().getTime();
         if (cookTime > 0) {
             int cookTimeSeconds = cookTime / 20;
             Component timeString = Component.translatable("gui.jei.category.smelting.time.seconds", cookTimeSeconds);
@@ -136,7 +137,7 @@ public class DigestionCategory implements IRecipeCategory<DigestionRecipe> {
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder builder, DigestionRecipe recipe, IFocusGroup focuses) {
+    public void setRecipe(IRecipeLayoutBuilder builder, RecipeHolder<DigestionRecipe> recipe, IFocusGroup focuses) {
         var topLeft = builder.addSlot(INPUT, 1, 1)
                 .setBackground(JeiDrawables.INPUT_SLOT, -1, -1);
         var topRight = builder.addSlot(INPUT, 1 + 18, 1)
@@ -145,35 +146,35 @@ public class DigestionCategory implements IRecipeCategory<DigestionRecipe> {
                 .setBackground(JeiDrawables.INPUT_SLOT, -1, -1);
 
 
-        this.addToSlot(topLeft, 0, recipe.getIngredientsWithCount());
-        this.addToSlot(topRight, 1, recipe.getIngredientsWithCount());
-        this.addToSlot(bottomLeft, 2, recipe.getIngredientsWithCount());
+        this.addToSlot(topLeft, 0, recipe.value().getIngredientsWithCount());
+        this.addToSlot(topRight, 1, recipe.value().getIngredientsWithCount());
+        this.addToSlot(bottomLeft, 2, recipe.value().getIngredientsWithCount());
 
         builder.addSlot(OUTPUT, 81, 9)
                 .setBackground(JeiDrawables.OUTPUT_SLOT, -5, -5)
-                .addItemStack(recipe.getResultItem(Minecraft.getInstance().level.registryAccess()));
+                .addItemStack(recipe.value().getResultItem(Minecraft.getInstance().level.registryAccess()));
 
         builder.addSlot(INPUT, 1 + 18, 1 + 18)
                 .setBackground(JeiDrawables.INPUT_SLOT, -1, -1)
-                .addIngredients(ForgeTypes.FLUID_STACK, this.getFluids(recipe))
+                .addIngredients(NeoForgeTypes.FLUID_STACK, this.getFluids(recipe))
                 .setFluidRenderer(1000, false, 16, 16)
-                .addTooltipCallback(addFluidTooltip(recipe.getFluidAmount()));
+                .addTooltipCallback(addFluidTooltip(recipe.value().getFluidAmount()));
 
         //now add the bucket to the recipe lookup for the output fluid
-        builder.addInvisibleIngredients(INPUT).addItemStacks(Arrays.stream(recipe.getFluid().getFluids()).map(f -> new ItemStack(f.getFluid().getBucket())).toList());
+        builder.addInvisibleIngredients(INPUT).addItemStacks(Arrays.stream(recipe.value().getFluid().getFluids()).map(f -> new ItemStack(f.getFluid().getBucket())).toList());
     }
 
-    public List<FluidStack> getFluids(DigestionRecipe recipe) {
-        return Arrays.stream(recipe.getFluid().getFluids())
+    public List<FluidStack> getFluids(RecipeHolder<DigestionRecipe> recipe) {
+        return Arrays.stream(recipe.value().getFluid().getFluids())
                 .map(f -> {
                     var stack = f.copy();
-                    f.setAmount(recipe.getFluidAmount());
+                    f.setAmount(recipe.value().getFluidAmount());
                     return stack;
                 }).toList();
     }
 
     @Override
-    public RecipeType<DigestionRecipe> getRecipeType() {
+    public RecipeType<RecipeHolder<DigestionRecipe>> getRecipeType() {
         return JeiRecipeTypes.DIGESTION;
     }
 

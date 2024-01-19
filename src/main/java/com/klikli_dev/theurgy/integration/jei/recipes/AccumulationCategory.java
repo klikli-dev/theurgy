@@ -13,13 +13,13 @@ import com.klikli_dev.theurgy.content.recipe.AccumulationRecipe;
 import com.klikli_dev.theurgy.integration.jei.JeiDrawables;
 import com.klikli_dev.theurgy.integration.jei.JeiRecipeTypes;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
-import mezz.jei.api.forge.ForgeTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.drawable.IDrawableAnimated;
 import mezz.jei.api.gui.ingredient.IRecipeSlotTooltipCallback;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
+import mezz.jei.api.neoforge.NeoForgeTypes;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
@@ -29,6 +29,7 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.neoforged.neoforge.fluids.FluidStack;
 
 import java.util.Arrays;
@@ -37,7 +38,7 @@ import java.util.List;
 import static mezz.jei.api.recipe.RecipeIngredientRole.INPUT;
 import static mezz.jei.api.recipe.RecipeIngredientRole.OUTPUT;
 
-public class AccumulationCategory implements IRecipeCategory<AccumulationRecipe> {
+public class AccumulationCategory implements IRecipeCategory<RecipeHolder<AccumulationRecipe>> {
     private final IDrawable background;
     private final IDrawable icon;
     private final Component localizedName;
@@ -62,7 +63,7 @@ public class AccumulationCategory implements IRecipeCategory<AccumulationRecipe>
 
     public static IRecipeSlotTooltipCallback addFluidTooltip(int overrideAmount) {
         return (view, tooltip) -> {
-            var displayed = view.getDisplayedIngredient(ForgeTypes.FLUID_STACK);
+            var displayed = view.getDisplayedIngredient(NeoForgeTypes.FLUID_STACK);
             if (displayed.isEmpty())
                 return;
 
@@ -80,8 +81,8 @@ public class AccumulationCategory implements IRecipeCategory<AccumulationRecipe>
         };
     }
 
-    protected IDrawableAnimated getAnimatedArrow(AccumulationRecipe recipe) {
-        int cookTime = recipe.getTime();
+    protected IDrawableAnimated getAnimatedArrow(RecipeHolder<AccumulationRecipe> recipe) {
+        int cookTime = recipe.value().getTime();
         if (cookTime <= 0) {
             cookTime = AccumulationRecipe.DEFAULT_TIME;
         }
@@ -99,15 +100,15 @@ public class AccumulationCategory implements IRecipeCategory<AccumulationRecipe>
     }
 
     @Override
-    public void draw(AccumulationRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+    public void draw(RecipeHolder<AccumulationRecipe> recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
         GuiTextures.JEI_ARROW_RIGHT_EMPTY.render(guiGraphics, 24, 2);
         this.getAnimatedArrow(recipe).draw(guiGraphics, 24, 2);
 
         this.drawCookTime(recipe, guiGraphics, 29);
     }
 
-    protected void drawCookTime(AccumulationRecipe recipe, GuiGraphics guiGraphics, int y) {
-        int cookTime = recipe.getTime();
+    protected void drawCookTime(RecipeHolder<AccumulationRecipe> recipe, GuiGraphics guiGraphics, int y) {
+        int cookTime = recipe.value().getTime();
         if (cookTime > 0) {
             int cookTimeSeconds = cookTime / 20;
             Component timeString = Component.translatable("gui.jei.category.smelting.time.seconds", cookTimeSeconds);
@@ -124,39 +125,39 @@ public class AccumulationCategory implements IRecipeCategory<AccumulationRecipe>
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder builder, AccumulationRecipe recipe, IFocusGroup focuses) {
+    public void setRecipe(IRecipeLayoutBuilder builder, RecipeHolder<AccumulationRecipe> recipe, IFocusGroup focuses) {
         builder.addSlot(INPUT, 1, 1)
                 .setBackground(JeiDrawables.INPUT_SLOT, -1, -1)
-                .addIngredients(ForgeTypes.FLUID_STACK, this.getFluids(recipe))
+                .addIngredients(NeoForgeTypes.FLUID_STACK, this.getFluids(recipe))
                 .setFluidRenderer(1000, false, 16, 16)
-                .addTooltipCallback(addFluidTooltip(recipe.getEvaporantAmount()));
+                .addTooltipCallback(addFluidTooltip(recipe.value().getEvaporantAmount()));
 
-        if (recipe.hasSolute()) {
+        if (recipe.value().hasSolute()) {
             builder.addSlot(INPUT, 1, 21)
                     .setBackground(JeiDrawables.INPUT_SLOT, -1, -1)
-                    .addIngredients(recipe.getSolute());
+                    .addIngredients(recipe.value().getSolute());
         }
 
         builder.addSlot(OUTPUT, 56, 1)
                 .setBackground(JeiDrawables.INPUT_SLOT, -1, -1)
-                .addFluidStack(recipe.getResult().getFluid(), recipe.getResult().getAmount())
-                .addTooltipCallback(addFluidTooltip(recipe.getResult().getAmount()));
+                .addFluidStack(recipe.value().getResult().getFluid(), recipe.value().getResult().getAmount())
+                .addTooltipCallback(addFluidTooltip(recipe.value().getResult().getAmount()));
 
         //now add the bucket to the recipe lookup for the output fluid
-        builder.addInvisibleIngredients(OUTPUT).addItemStack(new ItemStack(recipe.getResult().getFluid().getBucket()));
+        builder.addInvisibleIngredients(OUTPUT).addItemStack(new ItemStack(recipe.value().getResult().getFluid().getBucket()));
     }
 
-    public List<FluidStack> getFluids(AccumulationRecipe recipe) {
-        return Arrays.stream(recipe.getEvaporant().getFluids())
+    public List<FluidStack> getFluids(RecipeHolder<AccumulationRecipe> recipe) {
+        return Arrays.stream(recipe.value().getEvaporant().getFluids())
                 .map(f -> {
                     var stack = f.copy();
-                    f.setAmount(recipe.getEvaporantAmount());
+                    f.setAmount(recipe.value().getEvaporantAmount());
                     return stack;
                 }).toList();
     }
 
     @Override
-    public RecipeType<AccumulationRecipe> getRecipeType() {
+    public RecipeType<RecipeHolder<AccumulationRecipe>> getRecipeType() {
         return JeiRecipeTypes.ACCUMULATION;
     }
 

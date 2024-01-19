@@ -13,13 +13,13 @@ import com.klikli_dev.theurgy.content.recipe.LiquefactionRecipe;
 import com.klikli_dev.theurgy.integration.jei.JeiDrawables;
 import com.klikli_dev.theurgy.integration.jei.JeiRecipeTypes;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
-import mezz.jei.api.forge.ForgeTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.drawable.IDrawableAnimated;
 import mezz.jei.api.gui.ingredient.IRecipeSlotTooltipCallback;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
+import mezz.jei.api.neoforge.NeoForgeTypes;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
@@ -29,6 +29,7 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.neoforged.neoforge.fluids.FluidStack;
 
 import java.util.Arrays;
@@ -37,7 +38,7 @@ import java.util.List;
 import static mezz.jei.api.recipe.RecipeIngredientRole.INPUT;
 import static mezz.jei.api.recipe.RecipeIngredientRole.OUTPUT;
 
-public class LiquefactionCategory implements IRecipeCategory<LiquefactionRecipe> {
+public class LiquefactionCategory implements IRecipeCategory<RecipeHolder<LiquefactionRecipe>> {
     private final IDrawableAnimated animatedFire;
     private final IDrawable background;
     private final IDrawable icon;
@@ -65,7 +66,7 @@ public class LiquefactionCategory implements IRecipeCategory<LiquefactionRecipe>
 
     public static IRecipeSlotTooltipCallback addFluidTooltip(int overrideAmount) {
         return (view, tooltip) -> {
-            var displayed = view.getDisplayedIngredient(ForgeTypes.FLUID_STACK);
+            var displayed = view.getDisplayedIngredient(NeoForgeTypes.FLUID_STACK);
             if (displayed.isEmpty())
                 return;
 
@@ -83,8 +84,8 @@ public class LiquefactionCategory implements IRecipeCategory<LiquefactionRecipe>
         };
     }
 
-    protected IDrawableAnimated getAnimatedArrow(LiquefactionRecipe recipe) {
-        int cookTime = recipe.getTime();
+    protected IDrawableAnimated getAnimatedArrow(RecipeHolder<LiquefactionRecipe> recipe) {
+        int cookTime = recipe.value().getTime();
         if (cookTime <= 0) {
             cookTime = LiquefactionRecipe.DEFAULT_TIME;
         }
@@ -102,7 +103,7 @@ public class LiquefactionCategory implements IRecipeCategory<LiquefactionRecipe>
     }
 
     @Override
-    public void draw(LiquefactionRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+    public void draw(RecipeHolder<LiquefactionRecipe> recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
         GuiTextures.JEI_FIRE_EMPTY.render(guiGraphics, 12, 20);
         this.animatedFire.draw(guiGraphics, 12, 20);
 
@@ -112,8 +113,8 @@ public class LiquefactionCategory implements IRecipeCategory<LiquefactionRecipe>
         this.drawCookTime(recipe, guiGraphics, 34);
     }
 
-    protected void drawCookTime(LiquefactionRecipe recipe, GuiGraphics guiGraphics, int y) {
-        int cookTime = recipe.getTime();
+    protected void drawCookTime(RecipeHolder<LiquefactionRecipe> recipe, GuiGraphics guiGraphics, int y) {
+        int cookTime = recipe.value().getTime();
         if (cookTime > 0) {
             int cookTimeSeconds = cookTime / 20;
             Component timeString = Component.translatable("gui.jei.category.smelting.time.seconds", cookTimeSeconds);
@@ -130,35 +131,35 @@ public class LiquefactionCategory implements IRecipeCategory<LiquefactionRecipe>
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder builder, LiquefactionRecipe recipe, IFocusGroup focuses) {
+    public void setRecipe(IRecipeLayoutBuilder builder, RecipeHolder<LiquefactionRecipe> recipe, IFocusGroup focuses) {
         builder.addSlot(INPUT, 1, 1)
                 .setBackground(JeiDrawables.INPUT_SLOT, -1, -1)
-                .addIngredients(ForgeTypes.FLUID_STACK, this.getFluids(recipe))
+                .addIngredients(NeoForgeTypes.FLUID_STACK, this.getFluids(recipe))
                 .setFluidRenderer(1000, false, 16, 16)
-                .addTooltipCallback(addFluidTooltip(recipe.getSolventAmount()));
+                .addTooltipCallback(addFluidTooltip(recipe.value().getSolventAmount()));
 
         builder.addSlot(INPUT, 19, 1)
                 .setBackground(JeiDrawables.INPUT_SLOT, -1, -1)
-                .addIngredients(recipe.getIngredients().get(0));
+                .addIngredients(recipe.value().getIngredients().get(0));
         builder.addSlot(OUTPUT, 81, 9)
                 .setBackground(JeiDrawables.OUTPUT_SLOT, -5, -5)
-                .addItemStack(recipe.getResultItem(Minecraft.getInstance().level.registryAccess()));
+                .addItemStack(recipe.value().getResultItem(Minecraft.getInstance().level.registryAccess()));
 
         //now add the bucket to the recipe lookup for the output fluid
-        builder.addInvisibleIngredients(INPUT).addItemStacks(Arrays.stream(recipe.getSolvent().getFluids()).map(f -> new ItemStack(f.getFluid().getBucket())).toList());
+        builder.addInvisibleIngredients(INPUT).addItemStacks(Arrays.stream(recipe.value().getSolvent().getFluids()).map(f -> new ItemStack(f.getFluid().getBucket())).toList());
     }
 
-    public List<FluidStack> getFluids(LiquefactionRecipe recipe) {
-        return Arrays.stream(recipe.getSolvent().getFluids())
+    public List<FluidStack> getFluids(RecipeHolder<LiquefactionRecipe> recipe) {
+        return Arrays.stream(recipe.value().getSolvent().getFluids())
                 .map(f -> {
                     var stack = f.copy();
-                    f.setAmount(recipe.getSolventAmount());
+                    f.setAmount(recipe.value().getSolventAmount());
                     return stack;
                 }).toList();
     }
 
     @Override
-    public RecipeType<LiquefactionRecipe> getRecipeType() {
+    public RecipeType<RecipeHolder<LiquefactionRecipe>> getRecipeType() {
         return JeiRecipeTypes.LIQUEFACTION;
     }
 

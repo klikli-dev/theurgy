@@ -23,10 +23,9 @@ public class NiterToNiterReformationEntry extends EntryProvider {
 
     @Override
     protected void generatePages() {
-        this.page("intro", () -> BookTextPageModel.builder()
+        this.page("intro", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
-                .build()
         );
         this.pageTitle("Niter Reformation");
         this.pageText("""
@@ -40,10 +39,9 @@ public class NiterToNiterReformationEntry extends EntryProvider {
                 this.entryLink("Reformation", GettingStartedCategoryProvider.CATEGORY_ID, ConvertWithinTypeAndTierEntry.ENTRY_ID)
         );
 
-        this.page("instructions", () -> BookTextPageModel.builder()
+        this.page("instructions", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
-                .build()
         );
         this.pageTitle("Instruction Reminder");
         this.pageText("""

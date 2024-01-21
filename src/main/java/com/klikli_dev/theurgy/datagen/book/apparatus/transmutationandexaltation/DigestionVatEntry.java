@@ -26,10 +26,9 @@ public class DigestionVatEntry extends EntryProvider {
 
     @Override
     protected void generatePages() {
-        this.page("intro", () -> BookSpotlightPageModel.builder()
+        this.page("intro", () -> BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(ItemRegistry.DIGESTION_VAT.get()))
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.add(this.context().pageText(),
                 """
                         Digestion vats are required for Alchemical Digestion, whereby Alchemical Niters can be converted into higher or lower tiers.\\
@@ -40,10 +39,9 @@ public class DigestionVatEntry extends EntryProvider {
         //TODO: create an entry about pure gold in the category/entry/graph that discusses exaltation
         //TODO: link to the page that talks about the digestion process
 
-        this.page("process", () -> BookTextPageModel.builder()
+        this.page("process", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.add(this.context().pageTitle(), "Process");
         this.add(this.context().pageText(),
                 """
@@ -53,10 +51,9 @@ public class DigestionVatEntry extends EntryProvider {
                         """
         );
 
-        this.page("usage", () -> BookTextPageModel.builder()
+        this.page("usage", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.add(this.context().pageTitle(), "Usage");
         this.add(this.context().pageText(),
                 """
@@ -68,9 +65,8 @@ public class DigestionVatEntry extends EntryProvider {
                 this.itemLink(ItemRegistry.PURIFIED_GOLD.get())
         );
 
-        this.page("recipe", () -> BookCraftingRecipePageModel.builder()
-                .withRecipeId1(Theurgy.loc("crafting/shaped/digestion_vat"))
-                .build());
+        this.page("recipe", () -> BookCraftingRecipePageModel.create()
+                .withRecipeId1(Theurgy.loc("crafting/shaped/digestion_vat")));
 
     }
 

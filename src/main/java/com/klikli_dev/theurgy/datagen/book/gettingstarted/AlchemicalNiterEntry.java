@@ -24,11 +24,10 @@ public class AlchemicalNiterEntry extends EntryProvider {
 
     @Override
     protected void generatePages() {
-        this.page("intro", () -> BookSpotlightPageModel.builder()
+        this.page("intro", () -> BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(SulfurRegistry.IRON.get()))
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
-                .build()
         );
         this.pageTitle("Alchemical Sulfur");
         this.pageText("""
@@ -39,10 +38,9 @@ public class AlchemicalNiterEntry extends EntryProvider {
                 """
         );
 
-        this.page("intro2", () -> BookTextPageModel.builder()
+        this.page("intro2", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
-                .build()
         );
         this.pageTitle("Transformation");
         this.pageText("""
@@ -53,11 +51,10 @@ public class AlchemicalNiterEntry extends EntryProvider {
                 """
         );
 
-        this.page("niter", () -> BookSpotlightPageModel.builder()
+        this.page("niter", () -> BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(SulfurRegistry.METALS_COMMON.get()))
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
-                .build()
         );
         this.pageTitle("Alchemical Niter");
         this.pageText("""
@@ -68,10 +65,9 @@ public class AlchemicalNiterEntry extends EntryProvider {
                 """
         );
 
-        this.page("niter2", () -> BookTextPageModel.builder()
+        this.page("niter2", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
-                .build()
         );
         this.pageTitle("Alchemical Niter");
         this.pageText("""
@@ -79,10 +75,9 @@ public class AlchemicalNiterEntry extends EntryProvider {
                 """
         );
 
-        this.page("processes", () -> BookTextPageModel.builder()
+        this.page("processes", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
-                .build()
         );
         this.pageTitle("Transformation Processes");
         this.pageText("""
@@ -94,10 +89,9 @@ public class AlchemicalNiterEntry extends EntryProvider {
         );
 
         //TODO: that should probably be a separate entry, either part of the 3 "paths", or a line of info-only entries
-        this.page("reformation", () -> BookTextPageModel.builder()
+        this.page("reformation", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
-                .build()
         );
         this.pageTitle("Reformation");
         this.pageText("""

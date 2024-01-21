@@ -24,11 +24,10 @@ public class IncubationEntry extends EntryProvider {
 
     @Override
     protected void generatePages() {
-        this.page("intro", () -> BookSpotlightPageModel.builder()
+        this.page("intro", () -> BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(Items.GOLD_INGOT))
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageTitle("Incubating Gold");
         this.pageText(
                 """
@@ -40,11 +39,10 @@ public class IncubationEntry extends EntryProvider {
                 this.entryLink("Incubation", GettingStartedCategoryProvider.CATEGORY_ID, com.klikli_dev.theurgy.datagen.book.gettingstarted.spagyrics.IncubationEntry.ENTRY_ID)
         );
 
-        this.page("outro", () -> BookSpotlightPageModel.builder()
+        this.page("outro", () -> BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(Items.GOLD_INGOT))
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
 
         this.pageTitle("The Magnum Opus");
         this.pageText(

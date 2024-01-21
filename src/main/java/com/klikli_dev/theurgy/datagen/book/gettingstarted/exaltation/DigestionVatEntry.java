@@ -27,10 +27,9 @@ public class DigestionVatEntry extends EntryProvider {
 
     @Override
     protected void generatePages() {
-        this.page("intro", () -> BookTextPageModel.builder()
+        this.page("intro", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageTitle("Exaltation Apparatus");
         this.pageText("""
                         As discussed, Exaltation consists of Digestion and the already known Fermentation and Reformation.
@@ -41,10 +40,9 @@ public class DigestionVatEntry extends EntryProvider {
                 this.entryLink("Apparatus", ApparatusCategory.CATEGORY_ID, com.klikli_dev.theurgy.datagen.book.apparatus.transmutationandexaltation.TransmutationAndExaltationEntry.ENTRY_ID)
         );
 
-        this.page("reformation_array", () -> BookTextPageModel.builder()
+        this.page("reformation_array", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageTitle("Reformation Array");
         this.pageText("""
                         Once again you need to set up a reformation array, the usage was already discussed in the {0} and following entries.
@@ -52,18 +50,16 @@ public class DigestionVatEntry extends EntryProvider {
                 this.entryLink("Reformation Array", GettingStartedCategoryProvider.CATEGORY_ID, ReformationArrayEntry.ENTRY_ID)
         );
 
-        this.page("fermentation_vat", () -> BookSpotlightPageModel.builder()
+        this.page("fermentation_vat", () -> BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(ItemRegistry.FERMENTATION_VAT.get()))
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageText("""
                 You also need at least one fermentation vat. Multiple vats can be used to process multiple sulfurs in parallel.
                 """);
 
-        this.page("digestion_vat", () -> BookSpotlightPageModel.builder()
+        this.page("digestion_vat", () -> BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(ItemRegistry.DIGESTION_VAT.get()))
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageText("""
                 Finally you also need at least one digestion vat. Multiple vats can be used to process multiple niters in parallel.
                 """);

@@ -24,10 +24,9 @@ public class SulfuricFluxEmitterEntry extends EntryProvider {
 
     @Override
     protected void generatePages() {
-        this.page("target", () -> BookTextPageModel.builder()
+        this.page("target", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.add(this.context().pageTitle(), "Supplying Sulfuric Flux");
         this.add(this.context().pageText(),
                 """
@@ -36,10 +35,9 @@ public class SulfuricFluxEmitterEntry extends EntryProvider {
                         """
         );
 
-        this.page("visuals", () -> BookTextPageModel.builder()
+        this.page("visuals", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.add(this.context().pageTitle(), "Visuals");
         this.add(this.context().pageText(),
                 """
@@ -50,10 +48,9 @@ public class SulfuricFluxEmitterEntry extends EntryProvider {
                         """
         );
 
-        this.page("problems", () -> BookTextPageModel.builder()
+        this.page("problems", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.add(this.context().pageTitle(), "Problem Resolution");
         this.add(this.context().pageText(),
                 """

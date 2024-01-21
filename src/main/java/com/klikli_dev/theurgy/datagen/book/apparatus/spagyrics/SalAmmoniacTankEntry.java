@@ -24,10 +24,9 @@ public class SalAmmoniacTankEntry extends EntryProvider {
 
     @Override
     protected void generatePages() {
-        this.page("intro", () -> BookSpotlightPageModel.builder()
+        this.page("intro", () -> BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(ItemRegistry.SAL_AMMONIAC_TANK.get()))
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageText("""
                         The second half of the Sal Ammoniac generation process.
                         \\
@@ -37,9 +36,8 @@ public class SalAmmoniacTankEntry extends EntryProvider {
                 this.entryLink("Sal Ammoniac Accumulator", this.parent.categoryId(), SalAmmoniacAccumulatorEntry.ENTRY_ID)
         );
 
-        this.page("recipe2", () -> BookCraftingRecipePageModel.builder()
-                .withRecipeId1(Theurgy.loc("crafting/shaped/sal_ammoniac_tank"))
-                .build());
+        this.page("recipe2", () -> BookCraftingRecipePageModel.create()
+                .withRecipeId1(Theurgy.loc("crafting/shaped/sal_ammoniac_tank")));
     }
 
     @Override

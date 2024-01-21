@@ -24,10 +24,10 @@ public class RenewableGoldEntry extends EntryProvider {
 
     @Override
     protected void generatePages() {
-        this.page("intro", () -> BookSpotlightPageModel.builder()
+        this.page("intro", () -> BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(Items.GOLD_INGOT))
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText()).build());
+                .withText(this.context().pageText()));
         this.pageTitle("Renewable Riches");
         this.pageText("""
                 The idea of the Goose that Lays the Golden Eggs is as familiar as it is ridiculous, as is the notion of Gold growing on Trees.
@@ -36,11 +36,10 @@ public class RenewableGoldEntry extends EntryProvider {
                 Yet our discoveries have opened a path to just such a possibility...
                 """);
 
-        this.page("coal", () -> BookSpotlightPageModel.builder()
+        this.page("coal", () -> BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(Items.CHARCOAL))
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageTitle("Charcoal as Mineral");
         this.pageText("""
                 Charcoal is considered a mineral ("other minerals") in Alchemy. It is obviously renewable.
@@ -49,11 +48,10 @@ public class RenewableGoldEntry extends EntryProvider {
                 Coal Sulfur can be obtained from Charcoal.
                 """);
 
-        this.page("conversion", () -> BookSpotlightPageModel.builder()
+        this.page("conversion", () -> BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(Items.CHARCOAL))
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageTitle("Conversion of Coal");
         this.pageText("""
                 When applying our knowlege from the previous experiments, we realize we can convert Charcoal into Gold, or even Diamonds.
@@ -62,10 +60,9 @@ public class RenewableGoldEntry extends EntryProvider {
                 All we need to do is apply the same steps as before to convert between types and tiers as needed.
                 """);
 
-        this.page("tips", () -> BookTextPageModel.builder()
+        this.page("tips", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageTitle("Recipes");
         this.pageText("""
                 (View JEI for help with the recipes)

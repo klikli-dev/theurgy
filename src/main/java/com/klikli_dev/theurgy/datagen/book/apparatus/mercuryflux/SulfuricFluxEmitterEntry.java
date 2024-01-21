@@ -28,10 +28,9 @@ public class SulfuricFluxEmitterEntry extends EntryProvider {
 
     @Override
     protected void generatePages() {
-        this.page("intro", () -> BookSpotlightPageModel.builder()
+        this.page("intro", () -> BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(ItemRegistry.SULFURIC_FLUX_EMITTER.get()))
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageText("""
                          This devices converts raw mercury flux into [#]($PURPLE)Sulfuric Flux[#](), a type of energy that can carry information. It can be used to transform Sulfur into other types of Sulfur by linking it to a Reformation Array.\\
                         See {0} for more information.
@@ -39,10 +38,9 @@ public class SulfuricFluxEmitterEntry extends EntryProvider {
                 this.entryLink("Reformation", GettingStartedCategoryProvider.CATEGORY_ID, ConvertWithinTypeAndTierEntry.ENTRY_ID)
         );
 
-        this.page("targets", () -> BookTextPageModel.builder()
+        this.page("targets", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.add(this.context().pageTitle(), "Target Blocks");
         this.add(this.context().pageText(),
                 """
@@ -54,10 +52,9 @@ public class SulfuricFluxEmitterEntry extends EntryProvider {
         );
 
 
-        this.page("usage", () -> BookTextPageModel.builder()
+        this.page("usage", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.add(this.context().pageTitle(), "Usage");
         this.add(this.context().pageText(),
                 """
@@ -69,10 +66,9 @@ public class SulfuricFluxEmitterEntry extends EntryProvider {
                 this.itemLink(ItemRegistry.MERCURY_CATALYST.get())
         );
 
-        this.page("usage2", () -> BookTextPageModel.builder()
+        this.page("usage2", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.add(this.context().pageTitle(), "Usage");
         this.add(this.context().pageText(),
                 """
@@ -83,10 +79,9 @@ public class SulfuricFluxEmitterEntry extends EntryProvider {
                 this.itemLink(ItemRegistry.MERCURY_CATALYST.get())
         );
 
-        this.page("usage3", () -> BookTextPageModel.builder()
+        this.page("usage3", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.add(this.context().pageTitle(), "Checking Validity");
         this.add(this.context().pageText(),
                 """
@@ -96,9 +91,8 @@ public class SulfuricFluxEmitterEntry extends EntryProvider {
                 this.itemLink(ItemRegistry.SULFURIC_FLUX_EMITTER.get())
         );
 
-        this.page("recipe", () -> BookCraftingRecipePageModel.builder()
-                .withRecipeId1(Theurgy.loc("crafting/shaped/sulfuric_flux_emitter"))
-                .build());
+        this.page("recipe", () -> BookCraftingRecipePageModel.create()
+                .withRecipeId1(Theurgy.loc("crafting/shaped/sulfuric_flux_emitter")));
     }
 
     @Override

@@ -25,10 +25,9 @@ public class SulfuricFluxEmitterReferenceEntry extends EntryProvider {
 
     @Override
     protected void generatePages() {
-        this.page("intro", () -> BookSpotlightPageModel.builder()
+        this.page("intro", () -> BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(ItemRegistry.SULFURIC_FLUX_EMITTER.get()))
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageText("""
                         See the {0} in the "Mercury Flux" part of this category.
                         """,

@@ -6,36 +6,16 @@ package com.klikli_dev.theurgy.integration.modonomicon.page.distillation;
 
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookRecipePageModel;
 import com.klikli_dev.theurgy.integration.modonomicon.TheurgyModonomiconConstants;
+import com.klikli_dev.theurgy.integration.modonomicon.page.calcination.BookCalcinationRecipePageModel;
 import org.jetbrains.annotations.NotNull;
 
 
-public class BookDistillationRecipePageModel extends BookRecipePageModel {
-    protected BookDistillationRecipePageModel(@NotNull String anchor) {
-        super(TheurgyModonomiconConstants.Page.DISTILLATION_RECIPE, anchor);
+public class BookDistillationRecipePageModel extends BookRecipePageModel<BookDistillationRecipePageModel> {
+    protected BookDistillationRecipePageModel() {
+        super(TheurgyModonomiconConstants.Page.DISTILLATION_RECIPE);
     }
 
-    public static Builder builder() {
-        return new Builder();
-    }
-
-    public static class Builder extends BookRecipePageModel.Builder<Builder> {
-        protected Builder() {
-            super();
-        }
-
-        public BookDistillationRecipePageModel build() {
-            var model = new BookDistillationRecipePageModel(this.anchor);
-            model.title1 = this.title1;
-            model.recipeId1 = this.recipeId1;
-            model.title2 = this.title2;
-            model.recipeId2 = this.recipeId2;
-            model.text = this.text;
-            return model;
-        }
-
-        @Override
-        public Builder getThis() {
-            return this;
-        }
+    public static BookDistillationRecipePageModel create() {
+        return new BookDistillationRecipePageModel();
     }
 }

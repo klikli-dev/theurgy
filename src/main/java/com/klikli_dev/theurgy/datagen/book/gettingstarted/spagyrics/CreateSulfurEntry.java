@@ -26,20 +26,18 @@ public class CreateSulfurEntry extends EntryProvider {
 
     @Override
     protected void generatePages() {
-        this.page("intro", () -> BookSpotlightPageModel.builder()
+        this.page("intro", () -> BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(SulfurRegistry.IRON.get()))
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageTitle("Solvents");
         this.pageText("""
                 Sulfur extraction is the part of ore purification that leads to [#]($PURPLE)multiplication[#](). One Ore or Raw Metal yields multiple sulfurs, which then each can be refined into an ingot.
                     """
         );
 
-        this.page("step1", () -> BookTextPageModel.builder()
+        this.page("step1", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageTitle("Filling the Liquefaction Cauldron");
         this.pageText("""
                         [#]($INPUT)Right-click[#]() the {0} with a {1} to fill it.
@@ -48,10 +46,9 @@ public class CreateSulfurEntry extends EntryProvider {
                 this.itemLink(ItemRegistry.SAL_AMMONIAC_BUCKET.get())
         );
 
-        this.page("step2", () -> BookTextPageModel.builder()
+        this.page("step2", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageTitle("Adding Raw Materials");
         this.pageText("""
                         Now [#]($INPUT)right-click[#]() the {0} with the item you want to extract sulfur from, such as {1}. The item will be placed inside.
@@ -60,10 +57,9 @@ public class CreateSulfurEntry extends EntryProvider {
                 this.itemLink(Items.RAW_IRON)
         );
 
-        this.page("step3", () -> BookTextPageModel.builder()
+        this.page("step3", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageTitle("Providing Heat");
         this.pageText("""
                         Now add fuel, such as Coal, to the {0} below the Cauldron to heat it up.
@@ -72,10 +68,9 @@ public class CreateSulfurEntry extends EntryProvider {
                 this.itemLink(ItemRegistry.LIQUEFACTION_CAULDRON.get())
         );
 
-        this.page("step4", () -> BookTextPageModel.builder()
+        this.page("step4", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageTitle("Extracting the Sulfur");
         this.pageText("""
                         After a while some sulfur will have been extracted, you can [#]($INPUT)right-click[#]() the {0} with an empty hand to obtain {1}.

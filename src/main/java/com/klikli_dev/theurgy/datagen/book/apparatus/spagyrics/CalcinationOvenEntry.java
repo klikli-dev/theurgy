@@ -24,24 +24,21 @@ public class CalcinationOvenEntry extends EntryProvider {
 
     @Override
     protected void generatePages() {
-        this.page("intro", () -> BookSpotlightPageModel.builder()
+        this.page("intro", () -> BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(ItemRegistry.CALCINATION_OVEN.get()))
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageText("""
                          Calcination is the process whereby [#]($PURPLE)Alchemical Salt[#]() is extracted from matter. The {0} is a simple device that can be used to perform this process by applying consistent high heat to the target object.
                         """,
                 this.itemLink(ItemRegistry.CALCINATION_OVEN.get())
         );
 
-        this.page("multiblock", () -> BookMultiblockPageModel.builder()
-                .withMultiblockId(Theurgy.loc("placement/calcination_oven"))
-                .build());
+        this.page("multiblock", () -> BookMultiblockPageModel.create()
+                .withMultiblockId(Theurgy.loc("placement/calcination_oven")));
 
-        this.page("usage", () -> BookTextPageModel.builder()
+        this.page("usage", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageTitle("Usage");
         this.pageText(
                 """
@@ -54,15 +51,13 @@ public class CalcinationOvenEntry extends EntryProvider {
                 this.itemLink(ItemRegistry.PYROMANTIC_BRAZIER.get())
         );
 
-        this.page("recipe", () -> BookCraftingRecipePageModel.builder()
-                .withRecipeId1(Theurgy.loc("crafting/shaped/calcination_oven"))
-                .build());
+        this.page("recipe", () -> BookCraftingRecipePageModel.create()
+                .withRecipeId1(Theurgy.loc("crafting/shaped/calcination_oven")));
 
-        this.page("working", () -> BookImagePageModel.builder()
+        this.page("working", () -> BookImagePageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
-                .withImages(this.modLoc("textures/gui/book/calcination_oven_working.png"))
-                .build());
+                .withImages(this.modLoc("textures/gui/book/calcination_oven_working.png")));
         this.pageTitle("Working Correctly");
         this.pageText(
                 """

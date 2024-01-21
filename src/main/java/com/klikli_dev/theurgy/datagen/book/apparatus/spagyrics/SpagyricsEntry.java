@@ -22,19 +22,17 @@ public class SpagyricsEntry extends EntryProvider {
 
     @Override
     protected void generatePages() {
-        this.page("intro", () -> BookTextPageModel.builder()
+        this.page("intro", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageTitle("Spagyrics Apparatus");
         this.pageText("""
                 Spagyrics Apparatus enable to separate and recombine the three principles of a substance.
                 """);
 
-        this.page("further_reading", () -> BookTextPageModel.builder()
+        this.page("further_reading", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageTitle("Further Reading");
         this.pageText("""
                         For more information on how to use these contraptions, see also {0} in {1}.

@@ -22,10 +22,9 @@ public class TargetEntry extends EntryProvider {
 
     @Override
     protected void generatePages() {
-        this.page("target", () -> BookTextPageModel.builder()
+        this.page("target", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.add(this.context().pageTitle(), "The Target");
         this.add(this.context().pageText(),
                 """

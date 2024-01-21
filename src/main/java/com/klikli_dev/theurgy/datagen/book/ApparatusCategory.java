@@ -68,7 +68,7 @@ public class ApparatusCategory extends CategoryProvider {
     private void exaltationEntries(BookEntryModel parent) {
         var transmutationAndExaltation = new TransmutationAndExaltationEntry(this).generate('é');
         transmutationAndExaltation.addParent(this.parent(parent));
-        transmutationAndExaltation.withCondition(BookTrueConditionModel.builder().build());
+        transmutationAndExaltation.withCondition(BookTrueConditionModel.create());
 
         var fermentationVatEntry = new FermentationVatEntry(this).generate('f');
         fermentationVatEntry.addParent(this.parent(transmutationAndExaltation));
@@ -80,7 +80,7 @@ public class ApparatusCategory extends CategoryProvider {
     private void reformationEntries(BookEntryModel parent) {
         var reformationArrayEntry = new ReformationArrayEntry(this).generate('r');
         reformationArrayEntry.addParent(this.parent(parent));
-        reformationArrayEntry.withCondition(BookTrueConditionModel.builder().build());
+        reformationArrayEntry.withCondition(BookTrueConditionModel.create());
 
         var sulfuricFluxEmitterEntry = new SulfuricFluxEmitterReferenceEntry(this).generate('ş');
         sulfuricFluxEmitterEntry.addParent(this.parent(reformationArrayEntry));
@@ -98,7 +98,7 @@ public class ApparatusCategory extends CategoryProvider {
     private void mercuryFluxEntries(BookEntryModel parent) {
         var mercuryFluxEntry = new MercuryFluxEntry(this).generate('ì');
         mercuryFluxEntry.addParent(this.parent(parent));
-        mercuryFluxEntry.withCondition(BookTrueConditionModel.builder().build());
+        mercuryFluxEntry.withCondition(BookTrueConditionModel.create());
 
         var mercuryCatalystEntry = new MercuryCatalystEntry(this).generate('m');
         mercuryCatalystEntry.addParent(this.parent(mercuryFluxEntry));
@@ -113,7 +113,7 @@ public class ApparatusCategory extends CategoryProvider {
     private void spagyricsEntries(BookEntryModel parent) {
         var spagyricsEntry = new SpagyricsEntry(this).generate('ç');
         spagyricsEntry.addParent(this.parent(parent));
-        spagyricsEntry.withCondition(BookTrueConditionModel.builder().build());
+        spagyricsEntry.withCondition(BookTrueConditionModel.create());
 
         var pyromanticBrazierEntry = new PyromanticBrazierEntry(this).generate('b');
         pyromanticBrazierEntry.addParent(this.parent(spagyricsEntry));

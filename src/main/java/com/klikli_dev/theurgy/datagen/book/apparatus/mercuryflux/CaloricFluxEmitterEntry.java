@@ -26,20 +26,18 @@ public class CaloricFluxEmitterEntry extends EntryProvider {
 
     @Override
     protected void generatePages() {
-        this.page("intro", () -> BookSpotlightPageModel.builder()
+        this.page("intro", () -> BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(ItemRegistry.CALORIC_FLUX_EMITTER.get()))
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageText("""
                         This devices converts raw mercury flux into [#]($PURPLE)Caloric Flux[#](), or simply: transferable heat. It can be used to power other alchemical apparatuses that would usually need a {0} below them.
                          """,
                 this.itemLink(ItemRegistry.PYROMANTIC_BRAZIER.get())
         );
 
-        this.page("usage", () -> BookTextPageModel.builder()
+        this.page("usage", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageTitle("Usage");
         this.pageText(
                 """
@@ -51,10 +49,9 @@ public class CaloricFluxEmitterEntry extends EntryProvider {
                 this.itemLink(ItemRegistry.MERCURY_CATALYST.get())
         );
 
-        this.page("recipe", () -> BookCraftingRecipePageModel.builder()
+        this.page("recipe", () -> BookCraftingRecipePageModel.create()
                 .withRecipeId1(Theurgy.loc("crafting/shaped/caloric_flux_emitter_from_campfire"))
-                .withRecipeId2(Theurgy.loc("crafting/shaped/caloric_flux_emitter_from_lava_bucket"))
-                .build());
+                .withRecipeId2(Theurgy.loc("crafting/shaped/caloric_flux_emitter_from_lava_bucket")));
     }
 
     @Override

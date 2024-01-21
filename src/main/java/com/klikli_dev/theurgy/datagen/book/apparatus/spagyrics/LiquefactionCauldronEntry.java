@@ -24,22 +24,19 @@ public class LiquefactionCauldronEntry extends EntryProvider {
 
     @Override
     protected void generatePages() {
-        this.page("intro", () -> BookSpotlightPageModel.builder()
+        this.page("intro", () -> BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(ItemRegistry.LIQUEFACTION_CAULDRON.get()))
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageText("""
                  Liquefaction allows the extraction of [#]($PURPLE)Alchemical Sulfur[#]() from matter. In the this cauldron a [#]($PURPLE)Solvent[#](), usually a type of acid, is used to dissolve the target object, then the resulting solution is heated to evaporate the solvent and leave behind the Sulfur.
                 """);
 
-        this.page("multiblock", () -> BookMultiblockPageModel.builder()
-                .withMultiblockId(Theurgy.loc("placement/liquefaction_cauldron"))
-                .build());
+        this.page("multiblock", () -> BookMultiblockPageModel.create()
+                .withMultiblockId(Theurgy.loc("placement/liquefaction_cauldron")));
 
-        this.page("usage", () -> BookTextPageModel.builder()
+        this.page("usage", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageTitle("Usage");
         this.pageText(
                 """
@@ -52,15 +49,13 @@ public class LiquefactionCauldronEntry extends EntryProvider {
                 this.itemLink(ItemRegistry.PYROMANTIC_BRAZIER.get())
         );
 
-        this.page("recipe", () -> BookCraftingRecipePageModel.builder()
-                .withRecipeId1(Theurgy.loc("crafting/shaped/liquefaction_cauldron"))
-                .build());
+        this.page("recipe", () -> BookCraftingRecipePageModel.create()
+                .withRecipeId1(Theurgy.loc("crafting/shaped/liquefaction_cauldron")));
 
-        this.page("working", () -> BookImagePageModel.builder()
+        this.page("working", () -> BookImagePageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
-                .withImages(this.modLoc("textures/gui/book/liquefaction_cauldron_working.png"))
-                .build());
+                .withImages(this.modLoc("textures/gui/book/liquefaction_cauldron_working.png")));
         this.pageTitle("Working Correctly");
         this.pageText(
                 """

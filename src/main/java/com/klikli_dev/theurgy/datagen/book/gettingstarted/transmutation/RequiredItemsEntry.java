@@ -27,11 +27,10 @@ public class RequiredItemsEntry extends EntryProvider {
 
     @Override
     protected void generatePages() {
-        this.page("source", () -> BookSpotlightPageModel.builder()
+        this.page("source", () -> BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(SulfurRegistry.QUARTZ.get()))
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageTitle("Source Sulfur");
         this.pageText("""
                 Again we need some sulfur to convert into your desired sulfur. For this demonstration we will use sulfur of Quartz.
@@ -41,10 +40,9 @@ public class RequiredItemsEntry extends EntryProvider {
                   """
         );
 
-        this.page("source2", () -> BookTextPageModel.builder()
+        this.page("source2", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageTitle("Source Sulfur");
         this.pageText("""
                         View {0} to refresh how to obtain sulfur from an item, or use the Quartz Sulfur you obtained in the Reformation experiment.
@@ -52,11 +50,10 @@ public class RequiredItemsEntry extends EntryProvider {
                 this.entryLink("Extracting Sulfur", GettingStartedCategoryProvider.CATEGORY_ID, CreateSulfurEntry.ENTRY_ID)
         );
 
-        this.page("target", () -> BookSpotlightPageModel.builder()
+        this.page("target", () -> BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(SulfurRegistry.IRON.get()))
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageTitle("Target Sulfur");
         this.pageText("""
                 Now you need *two* sulfur of the target type.
@@ -65,10 +62,9 @@ public class RequiredItemsEntry extends EntryProvider {
                 One sulfur that will be converted into Niter for our intermediate reformation and one sulfur for the final reformation of all our Niter into the target sulfur.
                    """
         );
-        this.page("target2", () -> BookTextPageModel.builder()
+        this.page("target2", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageTitle("Target Sulfur");
         this.pageText("""
                 For this demonstration we will use sulfur of iron.

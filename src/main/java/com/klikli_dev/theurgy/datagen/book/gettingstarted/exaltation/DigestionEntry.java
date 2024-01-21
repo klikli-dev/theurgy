@@ -24,10 +24,9 @@ public class DigestionEntry extends EntryProvider {
 
     @Override
     protected void generatePages() {
-        this.page("intro", () -> BookTextPageModel.builder()
+        this.page("intro", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
-                .build()
         );
         this.pageTitle("Digestion");
         this.pageText("""
@@ -40,11 +39,10 @@ public class DigestionEntry extends EntryProvider {
                 this.itemLink("Alchemical Niter: Rare Metals", SulfurRegistry.METALS_RARE.get())
         );
 
-        this.page("metals", () -> BookSpotlightPageModel.builder()
+        this.page("metals", () -> BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(SulfurRegistry.METALS_RARE.get()))
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
-                .build()
         );
         this.pageTitle("Alchemical Niter: Rare Metals");
         this.pageText("""
@@ -61,10 +59,9 @@ public class DigestionEntry extends EntryProvider {
                 this.itemLink(ItemRegistry.PURIFIED_GOLD.get())
         );
 
-        this.page("start", () -> BookTextPageModel.builder()
+        this.page("start", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
-                .build()
         );
         this.pageTitle("Process");
         this.pageText("""
@@ -81,10 +78,9 @@ public class DigestionEntry extends EntryProvider {
         );
 
 
-        this.page("bulk", () -> BookTextPageModel.builder()
+        this.page("bulk", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
-                .build()
         );
         this.pageTitle("Bulk Processing");
         this.pageText("""
@@ -95,10 +91,9 @@ public class DigestionEntry extends EntryProvider {
                 """
         );
 
-        this.page("bulk2", () -> BookTextPageModel.builder()
+        this.page("bulk2", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
-                .build()
         );
         this.pageTitle("Bulk Processing");
         this.pageText("""

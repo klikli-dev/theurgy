@@ -24,10 +24,9 @@ public class FermentationEntry extends EntryProvider {
 
     @Override
     protected void generatePages() {
-        this.page("intro", () -> BookTextPageModel.builder()
+        this.page("intro", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
-                .build()
         );
         this.pageTitle("Fermentation");
         this.pageText("""
@@ -40,11 +39,10 @@ public class FermentationEntry extends EntryProvider {
         );
 
 
-        this.page("metals", () -> BookSpotlightPageModel.builder()
+        this.page("metals", () -> BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(SulfurRegistry.METALS_COMMON.get()))
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
-                .build()
         );
         this.pageTitle("Alchemical Niter: Common Metals");
         this.pageText("""

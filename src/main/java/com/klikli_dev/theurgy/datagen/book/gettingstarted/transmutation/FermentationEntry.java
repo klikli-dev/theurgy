@@ -25,10 +25,9 @@ public class FermentationEntry extends EntryProvider {
 
     @Override
     protected void generatePages() {
-        this.page("intro", () -> BookTextPageModel.builder()
+        this.page("intro", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
-                .build()
         );
         this.pageTitle("Fermentation");
         this.pageText("""
@@ -38,11 +37,10 @@ public class FermentationEntry extends EntryProvider {
                 this.itemLink("Alchemical Niter: Common Metals", SulfurRegistry.METALS_COMMON.get())
         );
 
-        this.page("gems", () -> BookSpotlightPageModel.builder()
+        this.page("gems", () -> BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(SulfurRegistry.GEMS_COMMON.get()))
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
-                .build()
         );
         this.pageTitle("Alchemical Niter: Common Gems");
         this.pageText("""
@@ -59,11 +57,10 @@ public class FermentationEntry extends EntryProvider {
                 this.itemLink(Items.SUGAR)
         );
 
-        this.page("metals", () -> BookSpotlightPageModel.builder()
+        this.page("metals", () -> BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(SulfurRegistry.METALS_COMMON.get()))
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
-                .build()
         );
         this.pageTitle("Alchemical Niter: Common Metals");
         this.pageText("""
@@ -80,10 +77,9 @@ public class FermentationEntry extends EntryProvider {
                 this.itemLink(Items.SUGAR)
         );
 
-        this.page("start", () -> BookTextPageModel.builder()
+        this.page("start", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
-                .build()
         );
         this.pageTitle("Process");
         this.pageText("""
@@ -100,10 +96,9 @@ public class FermentationEntry extends EntryProvider {
         );
 
 
-        this.page("bulk", () -> BookTextPageModel.builder()
+        this.page("bulk", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
-                .build()
         );
         this.pageTitle("Bulk Processing");
         this.pageText("""
@@ -114,10 +109,9 @@ public class FermentationEntry extends EntryProvider {
                 """
         );
 
-        this.page("bulk2", () -> BookTextPageModel.builder()
+        this.page("bulk2", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
-                .build()
         );
         this.pageTitle("Bulk Processing");
         this.pageText("""

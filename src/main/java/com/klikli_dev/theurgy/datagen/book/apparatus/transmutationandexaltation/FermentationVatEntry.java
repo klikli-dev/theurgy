@@ -26,10 +26,9 @@ public class FermentationVatEntry extends EntryProvider {
 
     @Override
     protected void generatePages() {
-        this.page("intro", () -> BookSpotlightPageModel.builder()
+        this.page("intro", () -> BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(ItemRegistry.FERMENTATION_VAT.get()))
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.add(this.context().pageText(),
                 """
                         Fermentation vats enable a process called Alchemical fermentation. This allows converting Alchemical Sulfur into Alchemical Niter, enabling [#]($PURPLE)Transmutation[#]().
@@ -38,10 +37,9 @@ public class FermentationVatEntry extends EntryProvider {
 
         //TODO: link to the page that talks about the fermentation process
 
-        this.page("uses", () -> BookTextPageModel.builder()
+        this.page("uses", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.add(this.context().pageTitle(), "Uses");
         this.add(this.context().pageText(),
                 """
@@ -49,10 +47,9 @@ public class FermentationVatEntry extends EntryProvider {
                          """
         );
 
-        this.page("process", () -> BookTextPageModel.builder()
+        this.page("process", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.add(this.context().pageTitle(), "Process");
         this.add(this.context().pageText(),
                 """
@@ -62,10 +59,9 @@ public class FermentationVatEntry extends EntryProvider {
                         """
         );
 
-        this.page("usage", () -> BookTextPageModel.builder()
+        this.page("usage", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.add(this.context().pageTitle(), "Usage");
         this.add(this.context().pageText(),
                 """
@@ -77,9 +73,8 @@ public class FermentationVatEntry extends EntryProvider {
         );
 
 
-        this.page("recipe", () -> BookCraftingRecipePageModel.builder()
-                .withRecipeId1(Theurgy.loc("crafting/shaped/fermentation_vat"))
-                .build());
+        this.page("recipe", () -> BookCraftingRecipePageModel.create()
+                .withRecipeId1(Theurgy.loc("crafting/shaped/fermentation_vat")));
 
     }
 

@@ -25,10 +25,9 @@ public class ReformationArrayEntry extends EntryProvider {
 
     @Override
     protected void generatePages() {
-        this.page("about", () -> BookTextPageModel.builder()
+        this.page("about", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageTitle("Reformation Array");
         this.pageText(
                 """
@@ -38,10 +37,9 @@ public class ReformationArrayEntry extends EntryProvider {
                          """
         );
 
-        this.page("about2", () -> BookTextPageModel.builder()
+        this.page("about2", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageTitle("Reformation Array");
         this.pageText(
                 """
@@ -49,10 +47,9 @@ public class ReformationArrayEntry extends EntryProvider {
                          """
         );
 
-        this.page("structure", () -> BookTextPageModel.builder()
+        this.page("structure", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.add(this.context().pageTitle(), "Structure");
         this.add(this.context().pageText(),
                 """
@@ -65,10 +62,9 @@ public class ReformationArrayEntry extends EntryProvider {
                 this.itemLink(ItemRegistry.MERCURY_CATALYST.get())
         );
 
-        this.page("structure2", () -> BookTextPageModel.builder()
+        this.page("structure2", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.add(this.context().pageTitle(), "Structure");
         this.add(this.context().pageText(),
                 """
@@ -82,10 +78,9 @@ public class ReformationArrayEntry extends EntryProvider {
                 this.itemLink(ItemRegistry.MERCURY_CATALYST.get())
         );
 
-        this.page("functions", () -> BookTextPageModel.builder()
+        this.page("functions", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.add(this.context().pageTitle(), "Functions");
         this.add(this.context().pageText(),
                 """
@@ -98,20 +93,18 @@ public class ReformationArrayEntry extends EntryProvider {
                 this.itemLink(ItemRegistry.REFORMATION_RESULT_PEDESTAL.get())
         );
 
-        this.page("placement", () -> BookMultiblockPageModel.builder()
+        this.page("placement", () -> BookMultiblockPageModel.create()
                 .withMultiblockId(Theurgy.loc("placement/reformation_array"))
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.add(this.context().pageText(),
                 """
                         An example setup for a Reformation Array. Note that other placements are possible.
                         """
         );
 
-        this.page("visuals", () -> BookTextPageModel.builder()
+        this.page("visuals", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.add(this.context().pageTitle(), "Visuals");
         this.add(this.context().pageText(),
                 """

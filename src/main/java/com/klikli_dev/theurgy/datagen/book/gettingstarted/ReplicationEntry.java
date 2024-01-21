@@ -21,10 +21,9 @@ public class ReplicationEntry extends EntryProvider {
 
     @Override
     protected void generatePages() {
-        this.page("intro", () -> BookTextPageModel.builder()
+        this.page("intro", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
-                .build()
         );
         this.pageTitle("True Alchemy");
         this.pageText("""
@@ -35,10 +34,9 @@ public class ReplicationEntry extends EntryProvider {
                 """
         );
 
-        this.page("intro2", () -> BookTextPageModel.builder()
+        this.page("intro2", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
-                .build()
         );
         this.pageTitle("Transformation");
         this.pageText("""
@@ -49,10 +47,9 @@ public class ReplicationEntry extends EntryProvider {
                 """
         );
 
-        this.page("intro3", () -> BookTextPageModel.builder()
+        this.page("intro3", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
-                .build()
         );
         this.pageTitle("Transformation");
         this.pageText("""

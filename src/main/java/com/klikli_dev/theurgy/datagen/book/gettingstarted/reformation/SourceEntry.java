@@ -22,20 +22,18 @@ public class SourceEntry extends EntryProvider {
 
     @Override
     protected void generatePages() {
-        this.page("source", () -> BookTextPageModel.builder()
+        this.page("source", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageTitle("The Source");
         this.pageText("""
                  Generally only materials of the same type and similar value can be converted into each other. Depending on the mods you are using the materials available one each "value level" will vary. Use JEI or REI to look up recipes for your desired *target* sulfur to find which *source* sulfurs are available.
                 """);
 
 
-        this.page("source2", () -> BookTextPageModel.builder()
+        this.page("source2", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageTitle("The Source");
         this.pageText("""
                         It should always be possible to convert 1x {0} into 1x {1}, so place (= [#]($INPUT)right-click[#]()) at least one {0} into one of your source pedestals.\\

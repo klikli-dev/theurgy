@@ -27,10 +27,9 @@ public class StrataRecyclingEntry extends EntryProvider {
 
     @Override
     protected void generatePages() {
-        this.page("intro", () -> BookSpotlightPageModel.builder()
+        this.page("intro", () -> BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(SaltRegistry.MINERAL.get()))
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageTitle("Expensive Salt");
         this.pageText(
                 """
@@ -38,10 +37,9 @@ public class StrataRecyclingEntry extends EntryProvider {
                         """
         );
 
-        this.page("solution", () -> BookTextPageModel.builder()
+        this.page("solution", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageTitle("Recycling Strata");
         this.pageText(
                 """
@@ -56,10 +54,9 @@ public class StrataRecyclingEntry extends EntryProvider {
                 this.itemLink(Items.CLAY)
         );
 
-        this.page("refining", () -> BookTextPageModel.builder()
+        this.page("refining", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageTitle("Refining Strata Salt");
         this.pageText(
                 """
@@ -71,11 +68,10 @@ public class StrataRecyclingEntry extends EntryProvider {
                 this.itemLink("Alchemical Salt - Minerals", SaltRegistry.MINERAL.get())
         );
 
-        this.page("recipe1", () -> BookCalcinationRecipePageModel.builder()
+        this.page("recipe1", () -> BookCalcinationRecipePageModel.create()
                 .withRecipeId1("theurgy:calcination/strata_from_cobblestone")
                 .withRecipeId2("theurgy:calcination/mineral")
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageText(
                 """
                         Sample extraction from Cobblestone.

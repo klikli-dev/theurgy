@@ -21,10 +21,9 @@ public class ConvertToOtherTierEntry extends EntryProvider {
 
     @Override
     protected void generatePages() {
-        this.page("intro", () -> BookTextPageModel.builder()
+        this.page("intro", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
-                .build()
         );
         this.pageTitle("Exaltation");
         this.pageText("""
@@ -35,10 +34,9 @@ public class ConvertToOtherTierEntry extends EntryProvider {
                 """
         );
 
-        this.page("intro2", () -> BookTextPageModel.builder()
+        this.page("intro2", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
-                .build()
         );
         this.pageTitle("Exaltation");
         this.pageText("""
@@ -48,10 +46,9 @@ public class ConvertToOtherTierEntry extends EntryProvider {
                 """
         );
 
-        this.page("digestion", () -> BookTextPageModel.builder()
+        this.page("digestion", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
-                .build()
         );
         this.pageTitle("Digestion");
         this.pageText("""
@@ -64,10 +61,9 @@ public class ConvertToOtherTierEntry extends EntryProvider {
                 this.itemLink(ItemRegistry.PURIFIED_GOLD.get())
         );
 
-        this.page("process", () -> BookTextPageModel.builder()
+        this.page("process", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
-                .build()
         );
         this.pageTitle("Process");
         this.pageText("""
@@ -79,10 +75,9 @@ public class ConvertToOtherTierEntry extends EntryProvider {
                 """
         );
 
-        this.page("process2", () -> BookTextPageModel.builder()
+        this.page("process2", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
-                .build()
         );
         this.pageTitle("Process");
         this.pageText("""
@@ -93,10 +88,9 @@ public class ConvertToOtherTierEntry extends EntryProvider {
                 """
         );
 
-        this.page("instructions", () -> BookTextPageModel.builder()
+        this.page("instructions", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
-                .build()
         );
         this.pageTitle("Instructions");
         this.pageText("""

@@ -27,10 +27,9 @@ public class NeededApparatusEntry extends EntryProvider {
 
     @Override
     protected void generatePages() {
-        this.page("intro", () -> BookTextPageModel.builder()
+        this.page("intro", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageTitle("Required Apparatus");
         this.pageText("""
                 Ore Refining needs all of the Spagyrics Apparatus to extract the needed materials and recombine them.\\
@@ -40,17 +39,15 @@ public class NeededApparatusEntry extends EntryProvider {
                 View the {0} Category on how to craft and use them.
                  """, this.categoryLink("Apparatus", ApparatusCategory.CATEGORY_ID));
 
-        this.page("pyromantic_brazier", () -> BookSpotlightPageModel.builder()
+        this.page("pyromantic_brazier", () -> BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(ItemRegistry.PYROMANTIC_BRAZIER.get()))
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageTitle("Pyromantic Brazier");
         this.pageText("You will need 4 of these to power the other Apparatus.");
 
-        this.page("calcination_oven", () -> BookSpotlightPageModel.builder()
+        this.page("calcination_oven", () -> BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(ItemRegistry.CALCINATION_OVEN.get()))
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageText(
                 """
                         The Calcination Oven will allow you to create the {0}.
@@ -58,30 +55,27 @@ public class NeededApparatusEntry extends EntryProvider {
                 this.itemLink("Mineral Salt", SaltRegistry.MINERAL.get())
         );
 
-        this.page("sal_ammoniac_accumulator", () -> BookSpotlightPageModel.builder()
+        this.page("sal_ammoniac_accumulator", () -> BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(ItemRegistry.SAL_AMMONIAC_ACCUMULATOR.get()))
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageText(
                 """
                         The Sal Ammoniac Accumulator will fill the Sal Ammoniac Tank with solvent.
                         """
         );
 
-        this.page("sal_ammoniac_tank", () -> BookSpotlightPageModel.builder()
+        this.page("sal_ammoniac_tank", () -> BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(ItemRegistry.SAL_AMMONIAC_TANK.get()))
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageText(
                 """
                         The Sal Ammoniac Tank stores the solvent - Sal Ammoniac - for use in the Liquefaction Cauldron.
                         """
         );
 
-        this.page("liquefaction_cauldron", () -> BookSpotlightPageModel.builder()
+        this.page("liquefaction_cauldron", () -> BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(ItemRegistry.LIQUEFACTION_CAULDRON.get()))
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
 
         this.pageText(
                 """
@@ -90,10 +84,9 @@ public class NeededApparatusEntry extends EntryProvider {
         );
 
 
-        this.page("distiller", () -> BookSpotlightPageModel.builder()
+        this.page("distiller", () -> BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(ItemRegistry.DISTILLER.get()))
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
 
         this.pageText(
                 """
@@ -102,10 +95,9 @@ public class NeededApparatusEntry extends EntryProvider {
                 this.itemLink("Mercury Shards", ItemRegistry.MERCURY_SHARD.get())
         );
 
-        this.page("incubator", () -> BookSpotlightPageModel.builder()
+        this.page("incubator", () -> BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(ItemRegistry.INCUBATOR.get()))
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
 
         this.pageText(
                 """
@@ -118,10 +110,9 @@ public class NeededApparatusEntry extends EntryProvider {
                 this.itemLink("Iron Ingots", Items.IRON_INGOT)
         );
 
-        this.page("next_steps", () -> BookTextPageModel.builder()
+        this.page("next_steps", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageTitle("Next Steps");
         this.pageText("""
                         Craft all the apparatus and place them.
@@ -133,10 +124,9 @@ public class NeededApparatusEntry extends EntryProvider {
                 this.itemLink(ItemRegistry.SAL_AMMONIAC_TANK.get())
 
         );
-        this.page("next_steps2", () -> BookTextPageModel.builder()
+        this.page("next_steps2", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageTitle("Next Steps");
         this.pageText("""
                         Those that need heating need to be placed on the {0}.

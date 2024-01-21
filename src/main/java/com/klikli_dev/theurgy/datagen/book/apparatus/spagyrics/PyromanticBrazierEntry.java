@@ -25,18 +25,16 @@ public class PyromanticBrazierEntry extends EntryProvider {
 
     @Override
     protected void generatePages() {
-        this.page("intro", () -> BookSpotlightPageModel.builder()
+        this.page("intro", () -> BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(ItemRegistry.PYROMANTIC_BRAZIER.get()))
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageText("""
                 A simple heating apparatus that can be used to power other Alchemical Devices. It is powered by burning furnace fuel, such as wood, coal, or charcoal.
                 """);
 
-        this.page("usage", () -> BookTextPageModel.builder()
+        this.page("usage", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
 
         this.pageTitle("Usage");
         this.pageText(
@@ -49,9 +47,8 @@ public class PyromanticBrazierEntry extends EntryProvider {
                 this.itemLink(ItemRegistry.PYROMANTIC_BRAZIER.get())
         );
 
-        this.page("recipe", () -> BookCraftingRecipePageModel.builder()
-                .withRecipeId1(Theurgy.loc("crafting/shaped/pyromantic_brazier"))
-                .build());
+        this.page("recipe", () -> BookCraftingRecipePageModel.create()
+                .withRecipeId1(Theurgy.loc("crafting/shaped/pyromantic_brazier")));
 
         this.pageTitle("Upgrades");
         this.pageText(

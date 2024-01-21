@@ -24,10 +24,9 @@ public class IncubationEntry extends EntryProvider {
 
     @Override
     protected void generatePages() {
-        this.page("intro", () -> BookTextPageModel.builder()
+        this.page("intro", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageTitle("Incubating Iron");
         this.pageText(
                 """
@@ -35,10 +34,9 @@ public class IncubationEntry extends EntryProvider {
                         """
         );
 
-        this.page("step1", () -> BookTextPageModel.builder()
+        this.page("step1", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageTitle("Filling the Vessels");
         this.pageText(
                 """
@@ -49,10 +47,9 @@ public class IncubationEntry extends EntryProvider {
                 this.itemLink(ItemRegistry.INCUBATOR_MERCURY_VESSEL.get())
         );
 
-        this.page("step2", () -> BookTextPageModel.builder()
+        this.page("step2", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageTitle("Providing Heat");
         this.pageText(
                 """
@@ -61,10 +58,9 @@ public class IncubationEntry extends EntryProvider {
                 this.itemLink(ItemRegistry.PYROMANTIC_BRAZIER.get())
         );
 
-        this.page("step3", () -> BookTextPageModel.builder()
+        this.page("step3", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageTitle("Obtaining the Incubated Item");
         this.pageText(
                 """

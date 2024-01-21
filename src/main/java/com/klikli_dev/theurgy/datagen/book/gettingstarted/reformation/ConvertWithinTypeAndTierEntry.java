@@ -23,10 +23,9 @@ public class ConvertWithinTypeAndTierEntry extends EntryProvider {
 
     @Override
     protected void generatePages() {
-        this.page("intro", () -> BookTextPageModel.builder()
+        this.page("intro", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
-                .build()
         );
         this.pageTitle("Reformation");
         this.pageText("""
@@ -37,10 +36,9 @@ public class ConvertWithinTypeAndTierEntry extends EntryProvider {
                 """
         );
 
-        this.page("possibilities", () -> BookTextPageModel.builder()
+        this.page("possibilities", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
-                .build()
         );
         this.pageTitle("Overcoming Limitations");
         this.pageText("""
@@ -51,10 +49,9 @@ public class ConvertWithinTypeAndTierEntry extends EntryProvider {
                 """
         );
 
-        this.page("further_research", () -> BookTextPageModel.builder()
+        this.page("further_research", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
-                .build()
         );
         this.pageTitle("Further Research");
         this.pageText("""
@@ -62,10 +59,9 @@ public class ConvertWithinTypeAndTierEntry extends EntryProvider {
                 """
         );
 
-        this.page("theory", () -> BookTextPageModel.builder()
+        this.page("theory", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
-                .build()
         );
         this.pageTitle("Theoretical Underpinnings");
         this.pageText("""
@@ -73,10 +69,9 @@ public class ConvertWithinTypeAndTierEntry extends EntryProvider {
                 """
         );
 
-        this.page("reassembly", () -> BookTextPageModel.builder()
+        this.page("reassembly", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
-                .build()
         );
 
         this.pageTitle("Reassembly");
@@ -87,10 +82,9 @@ public class ConvertWithinTypeAndTierEntry extends EntryProvider {
                 this.entryLink("Incubator", ApparatusCategory.CATEGORY_ID, IncubatorEntry.ENTRY_ID)
         );
 
-        this.page("instructions", () -> BookTextPageModel.builder()
+        this.page("instructions", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
-                .build()
         );
         this.pageTitle("Instructions");
         this.pageText("""
@@ -100,10 +94,9 @@ public class ConvertWithinTypeAndTierEntry extends EntryProvider {
                 this.itemLink("Alchemical Sulfur: Quartz", SulfurRegistry.QUARTZ.get())
         );
 
-        this.page("instructions2", () -> BookTextPageModel.builder()
+        this.page("instructions2", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
-                .build()
         );
         this.pageTitle("Instructions");
         this.pageText("""

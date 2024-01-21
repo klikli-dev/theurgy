@@ -22,10 +22,9 @@ public class ResultEntry extends EntryProvider {
 
     @Override
     protected void generatePages() {
-        this.page("result", () -> BookTextPageModel.builder()
+        this.page("result", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.add(this.context().pageTitle(), "The Result");
         this.add(this.context().pageText(),
                 """
@@ -38,10 +37,9 @@ public class ResultEntry extends EntryProvider {
                 this.itemLink("Alchemical Sulfur: Quartz", SulfurRegistry.QUARTZ.get())
         );
 
-        this.page("result2", () -> BookTextPageModel.builder()
+        this.page("result2", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.add(this.context().pageTitle(), "The Result");
         this.add(this.context().pageText(),
                 """
@@ -55,10 +53,9 @@ public class ResultEntry extends EntryProvider {
         );
 
 
-        this.page("repeat", () -> BookTextPageModel.builder()
+        this.page("repeat", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.add(this.context().pageTitle(), "Crafting more");
         this.add(this.context().pageText(),
                 """

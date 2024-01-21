@@ -25,10 +25,9 @@ public class ReformationArrayEntry extends EntryProvider {
 
     @Override
     protected void generatePages() {
-        this.page("intro", () -> BookTextPageModel.builder()
+        this.page("intro", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageTitle("Reformation Array");
         this.pageText("""
                         Reformation is performed in a so-called "Reformation Array", a complex combination of apparatus that guide Sulfuric Flux to transform Sulfur.
@@ -39,26 +38,23 @@ public class ReformationArrayEntry extends EntryProvider {
                 this.entryLink("Apparatus", ApparatusCategory.CATEGORY_ID, com.klikli_dev.theurgy.datagen.book.apparatus.reformation.ReformationArrayEntry.ENTRY_ID)
         );
 
-        this.page("target", () -> BookSpotlightPageModel.builder()
+        this.page("target", () -> BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(ItemRegistry.REFORMATION_TARGET_PEDESTAL.get()))
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageText("""
                 You need one target pedestal, which will hold the sulfur you want to create more of.
                 """);
 
-        this.page("result", () -> BookSpotlightPageModel.builder()
+        this.page("result", () -> BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(ItemRegistry.REFORMATION_RESULT_PEDESTAL.get()))
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageText("""
                 Further, you need one result pedestal, in which the output sulfur will end up.
                 """);
 
-        this.page("source", () -> BookSpotlightPageModel.builder()
+        this.page("source", () -> BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(ItemRegistry.REFORMATION_SOURCE_PEDESTAL.get()))
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageText("""
                 Then you need at least one source pedestal, which will hold the sulfur that will be consumed to be converted.
                 \\
@@ -66,18 +62,16 @@ public class ReformationArrayEntry extends EntryProvider {
                 It is recommended to have at least 2 or more such pedestals, as some future recipes require more than one sulfur to be consumed.
                 """);
 
-        this.page("emitter", () -> BookSpotlightPageModel.builder()
+        this.page("emitter", () -> BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(ItemRegistry.SULFURIC_FLUX_EMITTER.get()))
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageText("""
                 Finally, you need a sulfuric flux emitter that will drive the actual conversion.
                 """);
 
-        this.page("next_steps", () -> BookTextPageModel.builder()
+        this.page("next_steps", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageTitle("Next Steps");
         this.pageText("""
                         Craft all the apparatus and place and link them as described in {0}.\\

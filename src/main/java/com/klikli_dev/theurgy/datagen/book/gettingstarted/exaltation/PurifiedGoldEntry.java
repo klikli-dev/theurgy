@@ -26,20 +26,18 @@ public class PurifiedGoldEntry extends EntryProvider {
 
     @Override
     protected void generatePages() {
-        this.page("gold", () -> BookSpotlightPageModel.builder()
+        this.page("gold", () -> BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(ItemRegistry.PURIFIED_GOLD.get()))
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageText("""
                 Purified Gold acts as a catalyst for Niter Digestion, making the already malleable Niter even more so. This allows Niter to be processed into a different tier by combining or splitting it.
                   """
         );
 
-        this.page("purifying", () -> BookTextPageModel.builder()
+        this.page("purifying", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageTitle("Purifying Gold");
         this.pageText("""
                         Purification is achieved - somewhat counterintuitively - by Digestion. However, luckily, it does not need {0} as catalyst.
@@ -51,11 +49,10 @@ public class PurifiedGoldEntry extends EntryProvider {
                 this.itemLink("Alchemical Salt", SaltRegistry.MINERAL.get())
         );
 
-        this.page("digestion", () -> BookSpotlightPageModel.builder()
+        this.page("digestion", () -> BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(ItemRegistry.DIGESTION_VAT.get()))
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
-                .build()
         );
         this.pageTitle("Digestion of Gold");
         this.pageText("""
@@ -70,10 +67,9 @@ public class PurifiedGoldEntry extends EntryProvider {
                 this.itemLink(Items.WATER_BUCKET)
         );
 
-        this.page("start", () -> BookTextPageModel.builder()
+        this.page("start", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
-                .build()
         );
         this.pageTitle("Process");
         this.pageText("""

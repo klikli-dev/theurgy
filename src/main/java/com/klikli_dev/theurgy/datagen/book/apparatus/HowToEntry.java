@@ -18,10 +18,9 @@ public class HowToEntry extends EntryProvider {
 
     @Override
     protected void generatePages() {
-        this.page("basics", () -> BookTextPageModel.builder()
+        this.page("basics", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageTitle("Basic Concepts");
         this.pageText("""
                 Generally, each apparatus only has one specific function, such as generating heat, or performing a specific processing operation.
@@ -30,10 +29,9 @@ public class HowToEntry extends EntryProvider {
                 Further, all apparatus follow a standardized interaction pattern that makes it easier to use them both for manual interactions and for automation.
                 """);
 
-        this.page("manual_interaction", () -> BookTextPageModel.builder()
+        this.page("manual_interaction", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageTitle("Manual Interaction");
         this.pageText("""
                 To interact with an apparatus, approach it and right-click on it.
@@ -44,10 +42,9 @@ public class HowToEntry extends EntryProvider {
                 """);
 
 
-        this.page("manual_interaction2", () -> BookTextPageModel.builder()
+        this.page("manual_interaction2", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageTitle("Manual Interaction");
         this.pageText("""
                 **Taking Input Items**\\
@@ -58,10 +55,9 @@ public class HowToEntry extends EntryProvider {
                 If you have an item in your hand, the apparatus will automatically try to insert it into the input slot.
                 """);
 
-        this.page("fluid_interaction", () -> BookTextPageModel.builder()
+        this.page("fluid_interaction", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageTitle("Fluids");
         this.pageText("""
                 If you click on an apparatus with a filled fluid container in your hand, it will try to empty the container into the device.
@@ -70,10 +66,9 @@ public class HowToEntry extends EntryProvider {
                 If you click on an apparatus with an empty fluid container in your hand, it will instead try to fill the container from the device.
                 """);
 
-        this.page("emptying_fluids", () -> BookTextPageModel.builder()
+        this.page("emptying_fluids", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageTitle("Emptying Fluids");
         this.pageText("""
                 Crouch and Right-Click on an apparatus to empty all fluids from it.

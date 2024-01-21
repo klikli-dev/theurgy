@@ -22,10 +22,9 @@ public class IntroEntry extends EntryProvider {
 
     @Override
     protected void generatePages() {
-        this.page("intro", () -> BookTextPageModel.builder()
+        this.page("intro", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageTitle("About this Work");
         this.pageText(
                 """
@@ -33,10 +32,9 @@ public class IntroEntry extends EntryProvider {
                         """
         );
 
-        this.page("help", () -> BookTextPageModel.builder()
+        this.page("help", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageTitle("Seeking Counsel");
         this.pageText(
                 """

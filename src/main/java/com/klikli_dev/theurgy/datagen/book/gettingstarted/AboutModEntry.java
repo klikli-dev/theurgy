@@ -22,36 +22,33 @@ public class AboutModEntry extends EntryProvider {
 
     @Override
     protected void generatePages() {
-        this.page("about", () -> BookTextPageModel.builder()
+        this.page("about", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText()).build());
+                .withText(this.context().pageText()));
         this.pageTitle("The Art of Alchemy");
         this.pageText("""
                 Welcome, dear reader, to Theurgy, a mod that explores the ancient and revered art of classical alchemy. As you embark on your journey through the noble art of transformation, you will be equipped with divination rods to make finding resources in the world easier.
                 """);
 
-        this.page("about2", () -> BookTextPageModel.builder()
+        this.page("about2", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageTitle("The Art of Alchemy");
         this.pageText("""
                 Through diligent study and practice, you will then learn to use alchemical devices to refine, replicate, and transform resources into new and useful materials. Along the way, you will have the opportunity to craft alchemical devices and equipment to aid you in your endeavors.
                 """);
 
-        this.page("about3", () -> BookTextPageModel.builder()
+        this.page("about3", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageTitle("The Art of Alchemy");
         this.pageText("""
                 As a final note, alchemists are guided by reason and logic, not superstition or magic. Our experiments are based on careful observation, meticulous record-keeping, and rigorous testing. We do not claim to possess supernatural powers, but rather seek to harness the natural forces of the world around us to achieve our goals.
                 """);
 
-        this.page("features", () -> BookTextPageModel.builder()
+        this.page("features", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageTitle("Features");
         this.pageText("""
                 - Divination rods to find ores
@@ -59,10 +56,9 @@ public class AboutModEntry extends EntryProvider {
                 - Item transformation (convert items into other items)
                 """);
 
-        this.page("features2", () -> BookTextPageModel.builder()
+        this.page("features2", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageTitle("Features");
         this.pageText("""
                 - Future: Item Transportation

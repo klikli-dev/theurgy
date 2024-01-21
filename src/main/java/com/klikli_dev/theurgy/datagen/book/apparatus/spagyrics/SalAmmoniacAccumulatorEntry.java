@@ -23,10 +23,9 @@ public class SalAmmoniacAccumulatorEntry extends EntryProvider {
 
     @Override
     protected void generatePages() {
-        this.page("intro", () -> BookSpotlightPageModel.builder()
+        this.page("intro", () -> BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(ItemRegistry.SAL_AMMONIAC_ACCUMULATOR.get()))
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageText("""
                         The first half of the Sal Ammoniac generation process.
                         \\
@@ -36,16 +35,14 @@ public class SalAmmoniacAccumulatorEntry extends EntryProvider {
                 this.entryLink("Sal Ammoniac Tank", this.parent.categoryId(), SalAmmoniacTankEntry.ENTRY_ID)
         );
 
-        this.page("multiblock", () -> BookMultiblockPageModel.builder()
-                .withMultiblockId(Theurgy.loc("placement/sal_ammoniac_accumulator"))
-                .build());
+        this.page("multiblock", () -> BookMultiblockPageModel.create()
+                .withMultiblockId(Theurgy.loc("placement/sal_ammoniac_accumulator")));
 
         //TODO: link to spagyrics solvent entry, mention that the recipes and all is there
 
-        this.page("usage", () -> BookTextPageModel.builder()
+        this.page("usage", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageTitle("Usage");
         this.pageText(
                 """
@@ -59,15 +56,13 @@ public class SalAmmoniacAccumulatorEntry extends EntryProvider {
                 this.itemLink(ItemRegistry.SAL_AMMONIAC_CRYSTAL.get())
         );
 
-        this.page("recipe1", () -> BookCraftingRecipePageModel.builder()
-                .withRecipeId1(Theurgy.loc("crafting/shaped/sal_ammoniac_accumulator"))
-                .build());
+        this.page("recipe1", () -> BookCraftingRecipePageModel.create()
+                .withRecipeId1(Theurgy.loc("crafting/shaped/sal_ammoniac_accumulator")));
 
-        this.page("working", () -> BookImagePageModel.builder()
+        this.page("working", () -> BookImagePageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
-                .withImages(this.modLoc("textures/gui/book/sal_ammoniac_accumulator_working.png"))
-                .build());
+                .withImages(this.modLoc("textures/gui/book/sal_ammoniac_accumulator_working.png")));
         this.pageTitle("Working Correctly");
         this.pageText("""
                 If working properly, it will show blue or yellow (if using Sal Ammoniac Crystals) bubbles.

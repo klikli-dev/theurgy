@@ -26,20 +26,18 @@ public class MercuryCatalystEntry extends EntryProvider {
 
     @Override
     protected void generatePages() {
-        this.page("intro", () -> BookSpotlightPageModel.builder()
+        this.page("intro", () -> BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(ItemRegistry.MERCURY_CATALYST.get()))
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageText("""
                         This apparatus slowly converts {0} into [#]($PURPLE)Mercury Flux[#](), which can be used as a source of Energy. It is the first step towards using the Energy contained in matter.
                         """,
                 this.itemLink(ItemRegistry.MERCURY_SHARD.get())
         );
 
-        this.page("usage", () -> BookTextPageModel.builder()
+        this.page("usage", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageTitle("Usage");
         this.pageText(
                 """
@@ -52,9 +50,8 @@ public class MercuryCatalystEntry extends EntryProvider {
                 this.itemLink(ItemRegistry.MERCURY_SHARD.get())
         );
 
-        this.page("recipe", () -> BookCraftingRecipePageModel.builder()
-                .withRecipeId1(Theurgy.loc("crafting/shaped/mercury_catalyst"))
-                .build());
+        this.page("recipe", () -> BookCraftingRecipePageModel.create()
+                .withRecipeId1(Theurgy.loc("crafting/shaped/mercury_catalyst")));
     }
 
     @Override

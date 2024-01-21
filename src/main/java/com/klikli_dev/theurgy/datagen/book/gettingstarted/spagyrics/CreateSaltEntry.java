@@ -27,10 +27,9 @@ public class CreateSaltEntry extends EntryProvider {
 
     @Override
     protected void generatePages() {
-        this.page("intro", () -> BookSpotlightPageModel.builder()
+        this.page("intro", () -> BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(SaltRegistry.MINERAL.get()))
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageTitle("Extracting Salt");
         this.pageText(
                 """
@@ -40,10 +39,9 @@ public class CreateSaltEntry extends EntryProvider {
                 this.itemLink("Mineral Salt", SaltRegistry.MINERAL.get())
         );
 
-        this.page("step1", () -> BookTextPageModel.builder()
+        this.page("step1", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageTitle("Calcinating Minerals");
         this.pageText(
                 """
@@ -58,10 +56,9 @@ public class CreateSaltEntry extends EntryProvider {
         );
 
 
-        this.page("step2", () -> BookTextPageModel.builder()
+        this.page("step2", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageTitle("Providing Heat");
         this.pageText(
                 """
@@ -71,10 +68,9 @@ public class CreateSaltEntry extends EntryProvider {
                 this.itemLink(ItemRegistry.CALCINATION_OVEN.get())
         );
 
-        this.page("step3", () -> BookTextPageModel.builder()
+        this.page("step3", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageTitle("Obtaining the Salt");
         this.pageText(
                 """

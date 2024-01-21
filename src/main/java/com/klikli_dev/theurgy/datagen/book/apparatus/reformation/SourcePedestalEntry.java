@@ -26,10 +26,9 @@ public class SourcePedestalEntry extends EntryProvider {
 
     @Override
     protected void generatePages() {
-        this.page("intro", () -> BookSpotlightPageModel.builder()
+        this.page("intro", () -> BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(ItemRegistry.REFORMATION_SOURCE_PEDESTAL.get()))
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.add(this.context().pageText(),
                 """
                         Reformation requires a source of sulfur that will be transformed, or "converted", into another type of sulfur.
@@ -38,10 +37,9 @@ public class SourcePedestalEntry extends EntryProvider {
                         """
         );
 
-        this.page("structure", () -> BookTextPageModel.builder()
+        this.page("structure", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.add(this.context().pageTitle(), "Structure");
         this.add(this.context().pageText(),
                 """
@@ -49,10 +47,9 @@ public class SourcePedestalEntry extends EntryProvider {
                         """
         );
 
-        this.page("sulfur_consumption", () -> BookTextPageModel.builder()
+        this.page("sulfur_consumption", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.add(this.context().pageTitle(), "Sulfur consumption");
         this.add(this.context().pageText(),
                 """
@@ -61,10 +58,9 @@ public class SourcePedestalEntry extends EntryProvider {
         );
 
 
-        this.page("usage", () -> BookTextPageModel.builder()
+        this.page("usage", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.add(this.context().pageTitle(), "Usage");
         this.add(this.context().pageText(),
                 """
@@ -74,9 +70,8 @@ public class SourcePedestalEntry extends EntryProvider {
         );
 
 
-        this.page("recipe", () -> BookCraftingRecipePageModel.builder()
-                .withRecipeId1(Theurgy.loc("crafting/shaped/reformation_source_pedestal"))
-                .build());
+        this.page("recipe", () -> BookCraftingRecipePageModel.create()
+                .withRecipeId1(Theurgy.loc("crafting/shaped/reformation_source_pedestal")));
 
     }
 

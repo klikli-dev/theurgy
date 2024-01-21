@@ -20,10 +20,9 @@ public class MercuryFluxEntry extends EntryProvider {
 
     @Override
     protected void generatePages() {
-        this.page("intro", () -> BookTextPageModel.builder()
+        this.page("intro", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageTitle("Mercury Flux");
         this.pageText("""
                         **Mercury** represents the Energy contained in all matter. The Spagyrics processes for Mercury extraction yield {0}. In this Form it is not immediately useful as an energy source, so it must first be transformed - catalyzed - into [#]($PURPLE)Mercury Flux[#](), which is Mercury in it's natural Form.

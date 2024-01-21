@@ -24,10 +24,9 @@ public class CreateMercuryEntry extends EntryProvider {
 
     @Override
     protected void generatePages() {
-        this.page("intro", () -> BookSpotlightPageModel.builder()
+        this.page("intro", () -> BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(ItemRegistry.MERCURY_SHARD.get()))
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageTitle("Extracting Mercury");
         this.pageText(
                 """
@@ -35,10 +34,9 @@ public class CreateMercuryEntry extends EntryProvider {
                         """
         );
 
-        this.page("step1", () -> BookTextPageModel.builder()
+        this.page("step1", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageTitle("Distilling Mercury");
         this.pageText(
                 """
@@ -49,10 +47,9 @@ public class CreateMercuryEntry extends EntryProvider {
                 this.itemLink(ItemRegistry.MERCURY_SHARD.get())
         );
 
-        this.page("step2", () -> BookTextPageModel.builder()
+        this.page("step2", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageTitle("Providing Heat");
         this.pageText(
                 """
@@ -62,10 +59,9 @@ public class CreateMercuryEntry extends EntryProvider {
                 this.itemLink(ItemRegistry.DISTILLER.get())
         );
 
-        this.page("step3", () -> BookTextPageModel.builder()
+        this.page("step3", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageTitle("Obtaining the Mercury");
         this.pageText(
                 """

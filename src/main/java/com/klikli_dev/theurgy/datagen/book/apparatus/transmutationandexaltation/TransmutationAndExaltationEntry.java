@@ -23,10 +23,9 @@ public class TransmutationAndExaltationEntry extends EntryProvider {
 
     @Override
     protected void generatePages() {
-        this.page("about", () -> BookTextPageModel.builder()
+        this.page("about", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageTitle("Transmutation and Exaltation Apparatus");
         this.pageText(
                 """
@@ -35,10 +34,9 @@ public class TransmutationAndExaltationEntry extends EntryProvider {
                           """
         );
 
-        this.page("transmutation", () -> BookTextPageModel.builder()
+        this.page("transmutation", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.add(this.context().pageTitle(), "Transmutation");
         this.add(this.context().pageText(),
                 """
@@ -50,10 +48,9 @@ public class TransmutationAndExaltationEntry extends EntryProvider {
                 this.entryLink("Reformation Array Entry", ApparatusCategory.CATEGORY_ID, ReformationArrayEntry.ENTRY_ID)
         );
 
-        this.page("exaltation", () -> BookTextPageModel.builder()
+        this.page("exaltation", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.add(this.context().pageTitle(), "Exaltation");
         this.add(this.context().pageText(),
                 """

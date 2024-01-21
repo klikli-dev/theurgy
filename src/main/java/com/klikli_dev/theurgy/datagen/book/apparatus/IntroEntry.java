@@ -20,10 +20,9 @@ public class IntroEntry extends EntryProvider {
 
     @Override
     protected void generatePages() {
-        this.page("intro", () -> BookTextPageModel.builder()
+        this.page("intro", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageTitle("Alchemical Apparatus");
         this.pageText("""
                 Alchemists use a variety of tools and devices to aid them in their work. These devices are collectively referred to as apparatus.
@@ -32,10 +31,9 @@ public class IntroEntry extends EntryProvider {
                 The Apparatus category contains crafting and basic usage instructions for each apparatus.
                 """);
 
-        this.page("further_reading", () -> BookTextPageModel.builder()
+        this.page("further_reading", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageTitle("Further Reading");
         this.pageText("""
                         To find out how to use the apparatus to achieve specific ends, view the other categories, especially {0}.

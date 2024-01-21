@@ -57,11 +57,10 @@ public class DivinationRodEntryProvider extends CategoryProvider {
         this.add(this.context().entryDescription(), "An Introduction to Ore-Finding");
 
         this.context().page("intro");
-        var intro = BookSpotlightPageModel.builder()
+        var intro = BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(ItemRegistry.DIVINATION_ROD_T1.get()))
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.add(this.context().pageTitle(), "About Divination Rods");
         this.add(this.context().pageText(),
@@ -70,10 +69,9 @@ public class DivinationRodEntryProvider extends CategoryProvider {
                                  """);
 
         this.context().page("intro2");
-        var intro2 = BookTextPageModel.builder()
+        var intro2 = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.add(this.context().pageTitle(), "Rod Attunement");
         this.add(this.context().pageText(),
                 """
@@ -84,10 +82,9 @@ public class DivinationRodEntryProvider extends CategoryProvider {
                             """);
 
         this.context().page("sulfur_attuned_rods");
-        var sulfurAttunedRods = BookTextPageModel.builder()
+        var sulfurAttunedRods = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.add(this.context().pageTitle(), "Pre-Attuned Rods");
         this.add(this.context().pageText(),
                 """
@@ -99,10 +96,9 @@ public class DivinationRodEntryProvider extends CategoryProvider {
 
 
         this.context().page("usage");
-        var usage = BookTextPageModel.builder()
+        var usage = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.add(this.context().pageTitle(), "Usage");
         this.add(this.context().pageText(),
                 """
@@ -112,10 +108,9 @@ public class DivinationRodEntryProvider extends CategoryProvider {
                         """);
 
         this.context().page("usage2");
-        var usage2 = BookTextPageModel.builder()
+        var usage2 = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.add(this.context().pageTitle(), "Usage");
         this.add(this.context().pageText(),
                 """
@@ -141,10 +136,9 @@ public class DivinationRodEntryProvider extends CategoryProvider {
         this.add(this.context().entryDescription(), "A basic attunable rod for locating abundant and common ores.");
 
         this.context().page("intro");
-        var intro = BookSpotlightPageModel.builder()
+        var intro = BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(ItemRegistry.DIVINATION_ROD_T1.get()))
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.add(this.context().pageText(),
                 """
@@ -152,10 +146,9 @@ public class DivinationRodEntryProvider extends CategoryProvider {
                                  """);
 
         this.context().page("supported_blocks");
-        var supportedBlocks = BookTextPageModel.builder()
+        var supportedBlocks = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.add(this.context().pageTitle(), "Attunable Materials");
         this.add(this.context().pageText(),
                 """
@@ -168,10 +161,9 @@ public class DivinationRodEntryProvider extends CategoryProvider {
         );
 
         this.context().page("recipe");
-        var recipe = BookCraftingRecipePageModel.builder()
+        var recipe = BookCraftingRecipePageModel.create()
                 .withRecipeId1(Theurgy.loc("crafting/shaped/divination_rod_t1"))
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.add(this.context().pageText(),
                 """
                         The most basic tier of divination rods, brittle and limited in it's application, but powerful nonetheless.
@@ -193,10 +185,9 @@ public class DivinationRodEntryProvider extends CategoryProvider {
         this.add(this.context().entryDescription(), "Pre-attuned rods for locating abundant and common ores.");
 
         this.context().page("intro");
-        var intro = BookSpotlightPageModel.builder()
+        var intro = BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_ABUNDANT.get(), ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_COMMON.get()))
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.add(this.context().pageText(),
                 """
@@ -204,10 +195,9 @@ public class DivinationRodEntryProvider extends CategoryProvider {
                                  """);
 
         this.context().page("sulfur");
-        var sulfur = BookTextPageModel.builder()
+        var sulfur = BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.add(this.context().pageTitle(), "Sulfur");
         this.add(this.context().pageText(),
                 """
@@ -216,20 +206,18 @@ public class DivinationRodEntryProvider extends CategoryProvider {
 
 
         this.context().page("recipe_abundant");
-        var recipe_abundant = BookCraftingRecipePageModel.builder()
+        var recipe_abundant = BookCraftingRecipePageModel.create()
                 .withRecipeId1(Theurgy.loc("crafting/shaped/sulfur_attuned_divination_rod_abundant"))
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.add(this.context().pageText(),
                 """
                         A rod pre-attuned to abundant ores, such as {0} or {1}.
                                """, this.itemLink("copper", Items.COPPER_ORE), this.itemLink("coal", Items.COAL_ORE));
 
         this.context().page("recipe_common");
-        var recipe_common = BookCraftingRecipePageModel.builder()
+        var recipe_common = BookCraftingRecipePageModel.create()
                 .withRecipeId1(Theurgy.loc("crafting/shaped/sulfur_attuned_divination_rod_common"))
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.add(this.context().pageText(),
                 """
                         A rod pre-attuned to common ores, such as {0} or {1}.
@@ -252,10 +240,9 @@ public class DivinationRodEntryProvider extends CategoryProvider {
         this.add(this.context().entryDescription(), "A pre-attuned rod to find budding amethyst blocks.");
 
         this.context().page("intro");
-        var intro = BookSpotlightPageModel.builder()
+        var intro = BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(ItemRegistry.AMETHYST_DIVINATION_ROD.get()))
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.add(this.context().pageText(),
                 """
@@ -263,10 +250,9 @@ public class DivinationRodEntryProvider extends CategoryProvider {
                         """, this.itemLink("amethyst shards", Items.AMETHYST_SHARD));
 
         this.context().page("recipe");
-        var recipe = BookCraftingRecipePageModel.builder()
+        var recipe = BookCraftingRecipePageModel.create()
                 .withRecipeId1(Theurgy.loc("crafting/shaped/amethyst_divination_rod"))
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.add(this.context().pageText(),
                 """
                         A pre-attuned rod that only finds {0}.
@@ -287,10 +273,9 @@ public class DivinationRodEntryProvider extends CategoryProvider {
         this.add(this.context().entryDescription(), "An improved attunable rod for locating rare ores.");
 
         this.context().page("intro");
-        var intro = BookSpotlightPageModel.builder()
+        var intro = BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(ItemRegistry.DIVINATION_ROD_T2.get()))
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.add(this.context().pageText(),
                 """
@@ -300,10 +285,9 @@ public class DivinationRodEntryProvider extends CategoryProvider {
         );
 
         this.context().page("recipe");
-        var recipe = BookCraftingRecipePageModel.builder()
+        var recipe = BookCraftingRecipePageModel.create()
                 .withRecipeId1(Theurgy.loc("crafting/shaped/divination_rod_t2"))
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.add(this.context().pageText(),
                 """
                         An improved attunable divination rod, more durable and broader in it's application.
@@ -324,10 +308,9 @@ public class DivinationRodEntryProvider extends CategoryProvider {
         this.add(this.context().entryDescription(), "A superior-grade attunable rod for locating precious ores.");
 
         this.context().page("intro");
-        var intro = BookSpotlightPageModel.builder()
+        var intro = BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(ItemRegistry.DIVINATION_ROD_T3.get()))
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.add(this.context().pageText(),
                 """
@@ -337,10 +320,9 @@ public class DivinationRodEntryProvider extends CategoryProvider {
         );
 
         this.context().page("recipe");
-        var recipe = BookCraftingRecipePageModel.builder()
+        var recipe = BookCraftingRecipePageModel.create()
                 .withRecipeId1(Theurgy.loc("crafting/shaped/divination_rod_t3"))
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.add(this.context().pageText(),
                 """
                         A further improved attunable divination rod, much more durable and able to detect most ores.
@@ -361,10 +343,9 @@ public class DivinationRodEntryProvider extends CategoryProvider {
         this.add(this.context().entryDescription(), "A very high durability attunable rod for locating precious ores.");
 
         this.context().page("intro");
-        var intro = BookSpotlightPageModel.builder()
+        var intro = BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(ItemRegistry.DIVINATION_ROD_T4.get()))
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.add(this.context().pageText(),
                 """
@@ -374,10 +355,9 @@ public class DivinationRodEntryProvider extends CategoryProvider {
         );
 
         this.context().page("recipe");
-        var recipe = BookCraftingRecipePageModel.builder()
+        var recipe = BookCraftingRecipePageModel.create()
                 .withRecipeId1(Theurgy.loc("crafting/shaped/divination_rod_t4"))
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.add(this.context().pageText(),
                 """
                         The highest tier attunable divination rod, incredibly durable and able to detect all ores.
@@ -398,10 +378,9 @@ public class DivinationRodEntryProvider extends CategoryProvider {
         this.add(this.context().entryDescription(), "An improved design of Sulfur-Attuned Divination rods, allowing to locate rare ores.");
 
         this.context().page("intro");
-        var intro = BookSpotlightPageModel.builder()
+        var intro = BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_RARE.get()))
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.add(this.context().pageText(),
                 """
@@ -411,10 +390,9 @@ public class DivinationRodEntryProvider extends CategoryProvider {
         );
 
         this.context().page("recipe");
-        var recipe = BookCraftingRecipePageModel.builder()
+        var recipe = BookCraftingRecipePageModel.create()
                 .withRecipeId1(Theurgy.loc("crafting/shaped/sulfur_attuned_divination_rod_rare"))
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.add(this.context().pageText(),
                 """
                         A rod pre-attuned to rare ores, such as {0}.
@@ -435,10 +413,9 @@ public class DivinationRodEntryProvider extends CategoryProvider {
         this.add(this.context().entryDescription(), "An intricately crafted Sulfur-Attuned Divination rod, allowing to locate precious ores.");
 
         this.context().page("intro");
-        var intro = BookSpotlightPageModel.builder()
+        var intro = BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_PRECIOUS.get()))
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
 
         this.add(this.context().pageText(),
                 """
@@ -448,10 +425,9 @@ public class DivinationRodEntryProvider extends CategoryProvider {
         );
 
         this.context().page("recipe");
-        var recipe = BookCraftingRecipePageModel.builder()
+        var recipe = BookCraftingRecipePageModel.create()
                 .withRecipeId1(Theurgy.loc("crafting/shaped/sulfur_attuned_divination_rod_precious"))
-                .withText(this.context().pageText())
-                .build();
+                .withText(this.context().pageText());
         this.add(this.context().pageText(),
                 """
                         A rod pre-attuned to precious ores, such as {0}.

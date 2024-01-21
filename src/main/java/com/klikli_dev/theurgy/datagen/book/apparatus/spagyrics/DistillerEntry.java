@@ -24,10 +24,9 @@ public class DistillerEntry extends EntryProvider {
 
     @Override
     protected void generatePages() {
-        this.page("intro", () -> BookSpotlightPageModel.builder()
+        this.page("intro", () -> BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(ItemRegistry.DISTILLER.get()))
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageText("""
                          Distillation allows to obtain purified [#]($PURPLE)Alchemical Mercury[#]() from matter. To this end the object is heated until it dissolves into a gaseous form and the resulting vapour is condensed into crystals. The Mercury obtained this way is stable and can be used in alchemical recipes.
                         """,
@@ -38,14 +37,12 @@ public class DistillerEntry extends EntryProvider {
         //TODO: Link to matter teleportation u sing mercury
 
 
-        this.page("multiblock", () -> BookMultiblockPageModel.builder()
-                .withMultiblockId(Theurgy.loc("placement/distiller"))
-                .build());
+        this.page("multiblock", () -> BookMultiblockPageModel.create()
+                .withMultiblockId(Theurgy.loc("placement/distiller")));
 
-        this.page("usage", () -> BookTextPageModel.builder()
+        this.page("usage", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-                .build());
+                .withText(this.context().pageText()));
         this.pageTitle("Usage");
         this.pageText(
                 """
@@ -58,15 +55,13 @@ public class DistillerEntry extends EntryProvider {
                 this.itemLink(ItemRegistry.PYROMANTIC_BRAZIER.get())
         );
 
-        this.page("recipe", () -> BookCraftingRecipePageModel.builder()
-                .withRecipeId1(Theurgy.loc("crafting/shaped/distiller"))
-                .build());
+        this.page("recipe", () -> BookCraftingRecipePageModel.create()
+                .withRecipeId1(Theurgy.loc("crafting/shaped/distiller")));
 
-        this.page("working", () -> BookImagePageModel.builder()
+        this.page("working", () -> BookImagePageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
-                .withImages(this.modLoc("textures/gui/book/distiller_working.png"))
-                .build());
+                .withImages(this.modLoc("textures/gui/book/distiller_working.png")));
         this.pageTitle("Working Correctly");
         this.pageText(
                 """

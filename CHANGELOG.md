@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.4-1.14.0] - 2024-01-21
+### :wrench: Chores
+- [`d71f809`](https://github.com/klikli-dev/theurgy/commit/d71f8097c98b617131437770fc2a9f7f17733d81) - update to latest modonomicon *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.4-1.13.0] - 2024-01-19
 ### :sparkles: New Features
 - [`ca823ca`](https://github.com/klikli-dev/theurgy/commit/ca823cab7aa5a561818891514ca3d31bb5e59cec) - enable jei integration *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -433,3 +438,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.4-1.12.2]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.4-1.12.1...release/v1.20.4-1.12.2
 [release/v1.20.4-1.12.3]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.4-1.12.2...release/v1.20.4-1.12.3
 [release/v1.20.4-1.13.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.4-1.12.3...release/v1.20.4-1.13.0
+[release/v1.20.4-1.14.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.4-1.13.0...release/v1.20.4-1.14.0

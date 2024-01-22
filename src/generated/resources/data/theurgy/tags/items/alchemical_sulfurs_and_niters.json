@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "#theurgy:alchemical_sulfurs",
+      "required": false
+    },
+    {
+      "id": "#theurgy:alchemical_niters",
+      "required": false
+    }
+  ]
+}

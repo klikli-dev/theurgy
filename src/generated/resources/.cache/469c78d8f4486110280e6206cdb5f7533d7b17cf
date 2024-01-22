@@ -1,4 +1,4 @@
-// 1.20.4	2024-01-16T15:45:43.5209656	Tags for minecraft:item mod id theurgy
+// 1.20.4	2024-01-22T15:25:03.2820635	Tags for minecraft:item mod id theurgy
 7a78325a639e879280cccf4d15f364e02da86003 data/forge/tags/items/gems.json
 9a414088a384ea8077655b79eb53ac263aaae5e3 data/forge/tags/items/gems/sal_ammoniac.json
 04abd356cb9b230f4d1adcf90db05571e8a17d05 data/forge/tags/items/ores/sal_ammoniac.json
@@ -6,6 +6,7 @@
 f8295983ffdb0c42c6c8b12788a5b63c1eb43f72 data/forge/tags/items/ores_in_ground/stone.json
 e801bdef0719e27dd7decd88269ada7c5740348e data/forge/tags/items/sugar.json
 c1ae367d1f7b1391996652acb8c12cfbe63abfc8 data/theurgy/tags/items/alchemical_mercuries.json
+6b2cc4608ef32324e28685c927a71faff559feb3 data/theurgy/tags/items/alchemical_niters.json
 07760e14b03fd0089485f8825e5961fedbd2ab80 data/theurgy/tags/items/alchemical_salts.json
 d5a5bd4c35eb69220e7e4ec0e991474a2f4442b4 data/theurgy/tags/items/alchemical_sulfurs.json
 34afd6e0275950da142439ac05cd7455f47850e4 data/theurgy/tags/items/alchemical_sulfurs/abundant.json
@@ -27,6 +28,7 @@ a1f5db5c4c9d4b747e83dd3f796c8698304575bf data/theurgy/tags/items/alchemical_sulf
 35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/theurgy/tags/items/alchemical_sulfurs/other_minerals/rare.json
 a60fef1f5fe3c9aab793de4942e301732c51df6a data/theurgy/tags/items/alchemical_sulfurs/precious.json
 214fcce95acb2086d5fd0fd4247b8445aaf55efd data/theurgy/tags/items/alchemical_sulfurs/rare.json
+3bd13300b62d36e233ff4d34de69f118e502d263 data/theurgy/tags/items/alchemical_sulfurs_and_niters.json
 c2e9d4fba333d2af3dbe84b5773c1c1c5e055dc4 data/theurgy/tags/items/gems/mercury/high.json
 959c361f3fbee6edb10161ff4ebc2850ef625547 data/theurgy/tags/items/gems/mercury/low.json
 e85a6add1492e3a02b8a37a6308fc632e930180f data/theurgy/tags/items/gems/mercury/medium.json

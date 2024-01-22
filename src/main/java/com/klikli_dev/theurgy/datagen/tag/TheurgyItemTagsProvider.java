@@ -57,6 +57,18 @@ public class TheurgyItemTagsProvider extends ItemTagsProvider {
             }
         });
 
+        var nitersTag = this.tag(ItemTagRegistry.ALCHEMICAL_NITERS);
+        SulfurRegistry.SULFURS.getEntries().forEach(sulfur -> {
+            if(sulfur.get() instanceof AlchemicalSulfurItem alchemicalSulfurItem){
+                if(alchemicalSulfurItem.type() == AlchemicalSulfurType.NITER)
+                    nitersTag.add(sulfur.get());
+            }
+        });
+
+        this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_AND_NITERS)
+                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS.location())
+                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_NITERS.location());
+
         this.tag(ItemTagRegistry.SUGAR)
                 .add(Items.SUGAR);
 

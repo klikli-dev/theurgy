@@ -167,7 +167,7 @@ public class ReformationSourcePedestalBlockEntity extends BlockEntity {
 
         @Override
         public boolean isItemValid(int slot, ItemStack stack) {
-            return stack.is(ItemTagRegistry.ALCHEMICAL_SULFURS) && super.isItemValid(slot, stack);
+            return stack.is(ItemTagRegistry.ALCHEMICAL_SULFURS_AND_NITERS) && super.isItemValid(slot, stack);
         }
 
         @Override

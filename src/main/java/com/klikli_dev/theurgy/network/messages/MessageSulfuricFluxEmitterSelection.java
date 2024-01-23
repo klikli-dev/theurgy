@@ -16,6 +16,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MessageSulfuricFluxEmitterSelection implements Message {
@@ -29,7 +30,7 @@ public class MessageSulfuricFluxEmitterSelection implements Message {
 
     public MessageSulfuricFluxEmitterSelection(BlockPos blockPos, List<SulfuricFluxEmitterSelectedPoint> sourcePedestals, SulfuricFluxEmitterSelectedPoint targetPedestal, SulfuricFluxEmitterSelectedPoint resultPedestal) {
         this.blockPos = blockPos;
-        this.sourcePedestals = sourcePedestals;
+        this.sourcePedestals = new ArrayList<>(sourcePedestals);
         this.targetPedestal = targetPedestal;
         this.resultPedestal = resultPedestal;
     }

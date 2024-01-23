@@ -134,6 +134,8 @@ public class TheurgyConstants {
             public static final String SELECTION_SUMMARY_SULFURIC_FLUX_EMITTER_NO_SOURCES = PREFIX + "selection.summary.sulfuric_flux_emitter.no_sources";
             public static final String SELECTION_SUMMARY_SULFURIC_FLUX_EMITTER_NO_RESULT = PREFIX + "selection.summary.sulfuric_flux_emitter.no_result";
 
+            public static final String SELECTION_MODE_LOGISTICS_NODE = PREFIX + "selection.mode.logistics_node";
+
             public static final String INTERACTION_FERMENTATION_VAT_NO_RECIPE = PREFIX + "interaction.fermentation_vat.no_recipe";
             public static final String INTERACTION_FERMENTATION_VAT_CLOSED = PREFIX + "interaction.fermentation_vat.closed";
 

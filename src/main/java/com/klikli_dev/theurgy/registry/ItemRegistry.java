@@ -12,6 +12,7 @@ import com.klikli_dev.theurgy.content.apparatus.distiller.DistillerBlockItem;
 import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorMercuryVesselBlockItem;
 import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorSaltVesselBlockItem;
 import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorSulfurVesselBlockItem;
+import com.klikli_dev.theurgy.content.apparatus.logisticsnode.LogisticsNodeBlockItem;
 import com.klikli_dev.theurgy.content.apparatus.reformationarray.SulfuricFluxEmitterBlockItem;
 import com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator.SalAmmoniacAccumulatorBlockItem;
 import com.klikli_dev.theurgy.content.apparatus.salammoniactank.SalAmmoniacTankBlockItem;
@@ -181,4 +182,7 @@ public class ItemRegistry {
 
     public static final DeferredItem<BlockItem> DIGESTION_VAT =
             ITEMS.register("digestion_vat", () -> new DigestionVatBlockItem(BlockRegistry.DIGESTION_VAT.get(), new Item.Properties()));
+
+    public static final DeferredItem<BlockItem> LOGISTICS_NODE =
+            ITEMS.register(BlockRegistry.LOGISTICS_NODE.getId().getPath(), () -> new LogisticsNodeBlockItem(BlockRegistry.LOGISTICS_NODE.get(), new Item.Properties()));
 }

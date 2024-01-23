@@ -21,6 +21,7 @@ import com.klikli_dev.theurgy.content.apparatus.salammoniactank.render.SalAmmoni
 import com.klikli_dev.theurgy.content.item.AlchemicalSaltItem;
 import com.klikli_dev.theurgy.content.item.AlchemicalSulfurItem;
 import com.klikli_dev.theurgy.content.item.DivinationRodItem;
+import com.klikli_dev.theurgy.content.logistics.Logistics;
 import com.klikli_dev.theurgy.content.render.BlankEntityRenderer;
 import com.klikli_dev.theurgy.content.render.ClientTicks;
 import com.klikli_dev.theurgy.content.render.TheurgyModelLayers;
@@ -103,6 +104,7 @@ public class Theurgy {
         modEventBus.addListener(CapabilityRegistry::onRegisterCapabilities);
 
         NeoForge.EVENT_BUS.addListener(TooltipHandler::onItemTooltipEvent);
+        NeoForge.EVENT_BUS.addListener(Logistics.get()::onLevelUnload);
 
         if (FMLEnvironment.dist == Dist.CLIENT) {
             modEventBus.addListener(ParticleRegistry::registerFactories);
@@ -170,6 +172,7 @@ public class Theurgy {
             Outliner.get().tick();
             BlockRegistry.CALORIC_FLUX_EMITTER.get().selectionBehaviour().tick(Minecraft.getInstance().player);
             BlockRegistry.SULFURIC_FLUX_EMITTER.get().selectionBehaviour().tick(Minecraft.getInstance().player);
+            BlockRegistry.LOGISTICS_NODE.get().selectionBehaviour().tick(Minecraft.getInstance().player);
         }
 
         public static void onRenderLevelStage(RenderLevelStageEvent event) {
@@ -269,6 +272,11 @@ public class Theurgy {
                 event.setCanceled(true);
                 event.setCancellationResult(InteractionResult.SUCCESS);
             }
+
+            if (BlockRegistry.LOGISTICS_NODE.get().selectionBehaviour().onRightClickBlock(event.getLevel(), event.getEntity(), event.getHand(), event.getPos(), event.getFace())) {
+                event.setCanceled(true);
+                event.setCancellationResult(InteractionResult.SUCCESS);
+            }
         }
 
         public static void onLeftClick(PlayerInteractEvent.LeftClickBlock event) {
@@ -279,6 +287,11 @@ public class Theurgy {
             }
 
             if (BlockRegistry.SULFURIC_FLUX_EMITTER.get().selectionBehaviour().onLeftClickBlock(event.getLevel(), event.getEntity(), event.getHand(), event.getPos(), event.getFace())) {
+                event.setCanceled(true);
+                event.setCancellationResult(InteractionResult.SUCCESS);
+            }
+
+            if (BlockRegistry.LOGISTICS_NODE.get().selectionBehaviour().onLeftClickBlock(event.getLevel(), event.getEntity(), event.getHand(), event.getPos(), event.getFace())) {
                 event.setCanceled(true);
                 event.setCancellationResult(InteractionResult.SUCCESS);
             }

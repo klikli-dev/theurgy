@@ -16,6 +16,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MessageCaloricFluxEmitterSelection implements Message {
@@ -28,7 +29,7 @@ public class MessageCaloricFluxEmitterSelection implements Message {
 
     public MessageCaloricFluxEmitterSelection(BlockPos blockPos, List<CaloricFluxEmitterSelectedPoint> selectedPoints) {
         this.blockPos = blockPos;
-        this.selectedPoints = selectedPoints;
+        this.selectedPoints = new ArrayList<>(selectedPoints);
     }
 
     public MessageCaloricFluxEmitterSelection(FriendlyByteBuf buf) {

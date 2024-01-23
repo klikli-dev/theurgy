@@ -30,6 +30,9 @@ public class LogisticsNodeBlock extends Block {
         if(!pPlayer.getItemInHand(pHand).isEmpty())
             return InteractionResult.PASS;
 
+        //TODO: selection behaviour should be an interface -> somehow automate tick/right/left click events
+        //      e.g. lazily make list of fitting blocks and cache it
+
         if(!pLevel.isClientSide){
             //TODO: needs to send packet that does outlining
             //maybe a generic one?

@@ -15,6 +15,7 @@ import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorMercuryVessel
 import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorSaltVesselBlock;
 import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorSulfurVesselBlock;
 import com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron.LiquefactionCauldronBlock;
+import com.klikli_dev.theurgy.content.apparatus.logisticsconnector.LogisticsConnectorBlock;
 import com.klikli_dev.theurgy.content.apparatus.logisticsnode.LogisticsNodeBlock;
 import com.klikli_dev.theurgy.content.apparatus.mercurycatalyst.MercuryCatalystBlock;
 import com.klikli_dev.theurgy.content.apparatus.pyromanticbrazier.PyromanticBrazierBlock;
@@ -175,6 +176,14 @@ public class BlockRegistry {
     public static final DeferredBlock<LogisticsNodeBlock> LOGISTICS_NODE =
             BLOCKS.register("logistics_node", () -> new LogisticsNodeBlock(BlockBehaviour.Properties.of()
                     .strength(0.1f))
+            );
+
+    public static final DeferredBlock<LogisticsConnectorBlock> LOGISTICS_ITEM_CONNECTOR =
+            BLOCKS.register("logistics_item_connector", () -> new LogisticsConnectorBlock(BlockBehaviour.Properties.of()
+                    .strength(0.1f)
+                    .noOcclusion()
+                    .forceSolidOff()
+                    )
             );
 
     public static final DeferredBlock<Block> SAL_AMMONIAC_ORE =

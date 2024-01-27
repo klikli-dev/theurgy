@@ -297,6 +297,19 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.addBlock(BlockRegistry.DEEPSLATE_SAL_AMMONIAC_ORE, "Deepslate Sal Ammoniac Ore");
         this.addExtendedTooltip(BlockRegistry.DEEPSLATE_SAL_AMMONIAC_ORE.get()::asItem,
                 "Ore that yields Sal Ammoniac Crystals for use in a Sal Ammoniac Accumulator.");
+
+        this.addBlock(BlockRegistry.LOGISTICS_ITEM_CONNECTOR, "Mercurial Item Connector");
+        this.addTooltip(BlockRegistry.LOGISTICS_ITEM_CONNECTOR.get()::asItem,
+                "Allows connecting a block to a Mercurial Logistics Network.",
+                "Can be used to insert or extract items from a block.",
+                this.f(
+                        """
+                                {0} the target block with the connector to place it.
+                                Then {0} the connector with a cable to connect it to the network.
+                                """,
+                        this.green("Right-Click")
+                )
+        );
     }
 
     private void addGenericSulfur(AlchemicalSulfurItem sulfur) {

@@ -38,8 +38,7 @@ public class DigestionRecipeProvider extends JsonRecipeProvider {
         ), higher, 1, TIME * 5, "_from_" + lower.tier().name().toLowerCase());
 
         this.makeRecipe(FluidRegistry.SAL_AMMONIAC.get(), salAmmoniacAmount, List.of(
-                Pair.of(higher, 1),
-                Pair.of(ItemRegistry.PURIFIED_GOLD.get(), 1)
+                Pair.of(higher, 1)
         ), lower, conversionFactor, TIME * 5, "_from_" + higher.tier().name().toLowerCase());
     }
     @Override

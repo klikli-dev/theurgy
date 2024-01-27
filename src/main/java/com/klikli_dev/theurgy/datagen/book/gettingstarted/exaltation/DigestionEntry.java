@@ -52,8 +52,10 @@ public class DigestionEntry extends EntryProvider {
                 [#]($INPUT)Right-click[#]() the {0} with the ingredients to place them inside:
                 - 4x {1}
                 - {2}
-                - {3}
-
+                - {3} 
+                
+                _Gold is not needed for "downgrade", only for "upgrade"._
+                \\
                 (Check JEI for more recipes)
                 """,
                 this.itemLink(ItemRegistry.DIGESTION_VAT.get()),

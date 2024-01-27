@@ -88,7 +88,7 @@ public class RequiredItemsEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
                 .build());
-        this.pageTitle("catalyst");
+        this.pageTitle("Catalyst");
         this.pageText("""
                 Finally we need purified gold as a catalyst for the Digestion process.
                 \\

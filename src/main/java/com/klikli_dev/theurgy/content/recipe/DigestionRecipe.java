@@ -77,9 +77,11 @@ public class DigestionRecipe implements Recipe<RecipeWrapperWithFluid> {
             return false;
 
         IntList visited = new IntArrayList();
+        //first check for each ingredient if we have it in the container
         for(var ingredient : this.ingredientsWithCount) {
             var found = false;
             for(int i = 0; i < pContainer.getContainerSize(); i++) {
+                //skip already visited slots to not "double dip"
                 if(visited.contains(i))
                     continue;
 
@@ -91,6 +93,16 @@ public class DigestionRecipe implements Recipe<RecipeWrapperWithFluid> {
                 }
             }
             if(!found)
+                return false;
+        }
+
+        //Now make sure that we have no additional ingredients
+        for(int i = 0; i < pContainer.getContainerSize(); i++) {
+            if(visited.contains(i))
+                continue;
+
+            var stack = pContainer.getItem(i);
+            if(!stack.isEmpty())
                 return false;
         }
 

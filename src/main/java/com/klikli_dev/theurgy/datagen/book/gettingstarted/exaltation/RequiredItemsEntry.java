@@ -82,8 +82,9 @@ public class RequiredItemsEntry extends EntryProvider {
         this.page("catalyst", () -> BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(ItemRegistry.PURIFIED_GOLD.get()))
                 .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText()));
-        this.pageTitle("catalyst");
+                .withText(this.context().pageText())
+        );
+        this.pageTitle("Catalyst");
         this.pageText("""
                         Finally we need purified gold as a catalyst for the Digestion process.
                         \\

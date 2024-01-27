@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.15.0] - 2024-01-27
+### :sparkles: New Features
+- [`d750b97`](https://github.com/klikli-dev/theurgy/commit/d750b9757b4eef98f3e1034a5d893d36e5a1ffaa) - [ImgBot] Optimize images *(PR [#165](https://github.com/klikli-dev/theurgy/pull/165) by [@imgbot[bot]](https://github.com/apps/imgbot))*
+- [`34d6ab0`](https://github.com/klikli-dev/theurgy/commit/34d6ab05a0f8ed8a498897a69c146d35353a390e) - change downgrade digestion recipes to not need purified gold *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.1-1.14.1] - 2024-01-24
 ### :bug: Bug Fixes
 - [`e72d89b`](https://github.com/klikli-dev/theurgy/commit/e72d89bdf1b8e66cae40c293ff98998dfc936c5f) - cannot place niters in reformation array *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -421,3 +427,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.12.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.12.0...release/v1.20.1-1.12.1
 [release/v1.20.1-1.12.2]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.12.1...release/v1.20.1-1.12.2
 [release/v1.20.1-1.14.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.12.2...release/v1.20.1-1.14.1
+[release/v1.20.1-1.15.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.14.1...release/v1.20.1-1.15.0

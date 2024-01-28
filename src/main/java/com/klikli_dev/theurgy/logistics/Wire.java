@@ -1,6 +1,7 @@
 package com.klikli_dev.theurgy.logistics;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.phys.Vec3;
 
 public record Wire(BlockPos start, BlockPos end, double tautness) {
 
@@ -28,10 +29,10 @@ public record Wire(BlockPos start, BlockPos end, double tautness) {
      * @param t The position along the wire. 0.0 represents the start of the wire, 1.0 represents the end of the wire.
      * @return The point on the wire at the given position.
      */
-    public BlockPos getPointAt(double t) {
-        int x = (int) (this.start.getX() + t * (this.end.getX() - this.start.getX()));
-        int y = (int) (this.start.getY() + t * (this.end.getY() - this.start.getY()) - this.tautness * Math.pow(t, 2) * (this.end.getY() - this.start.getY()));
-        int z = (int) (this.start.getZ() + t * (this.end.getZ() - this.start.getZ()));
-        return new BlockPos(x, y, z);
+    public Vec3 getPointAt(double t) {
+        var x =  (this.start.getX() + t * (this.end.getX() - this.start.getX()));
+        var y =  (this.start.getY() + t * (this.end.getY() - this.start.getY()) - this.tautness * Math.pow(t, 2) * (this.end.getY() - this.start.getY()));
+        var z =  (this.start.getZ() + t * (this.end.getZ() - this.start.getZ()));
+        return new Vec3(x, y, z);
     }
 }

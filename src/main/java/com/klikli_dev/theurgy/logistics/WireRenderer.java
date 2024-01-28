@@ -9,6 +9,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
 
 import java.util.Set;
@@ -54,21 +55,33 @@ public class WireRenderer {
         double tautness = wire.tautness();
 
         poseStack.pushPose();
-        poseStack.translate(start.getX() + 0.5, start.getY()+ 0.5, start.getZ()+ 0.5); //this moved the line  almost into position
+//        poseStack.translate(start.getX() + 0.5, start.getY()+ 0.5, start.getZ()+ 0.5); //this moved the line  almost into position
+        //TODO: this is only needed if we don't get the info from the wire
         float dx = end.getX() - start.getX();
-        float dy = end.getY() - start.getY() - (float)tautness;
+        float dy = end.getY() - start.getY() - (float)tautness; //this is crap :D
         float dz = end.getZ() - start.getZ();
 
         VertexConsumer vertexConsumer = buffer.getBuffer(RenderType.lineStrip());
         PoseStack.Pose pose = poseStack.last();
 
         for(int i = 0; i <= 16; ++i) {
-            float tStart = (float)i / 16.0F;
-            float tEnd = (float)(i + 1) / 16.0F;
-            stringVertex(dx, dy, dz, vertexConsumer, pose, tStart, tEnd);
+            //this version looks good, but renders to the bottom left corner.
+            //tautness needs to be negative currently, otherwise wire arches up
+            var tStart = wire.getPointAt((float)i / 16.0F);
+            var tEnd = wire.getPointAt((float)(i + 1) / 16.0F);
+            stringVertex(tStart, tEnd, vertexConsumer, pose);
+
+//            float tStart = (float)i / 16.0F;
+//            float tEnd = (float)(i + 1) / 16.0F;
+//            stringVertex(dx, dy, dz, vertexConsumer, pose, tStart, tEnd);
         }
 
         poseStack.popPose();
+    }
+
+    private static void stringVertex(Vec3 start, Vec3 end, VertexConsumer vertexConsumer, PoseStack.Pose pose) {
+        var normal = end.subtract(start).normalize();
+        vertexConsumer.vertex(pose.pose(), (float)start.x, (float)start.y, (float)start.z).color(0, 0, 0, 255).normal(pose.normal(), (float)normal.x, (float)normal.y, (float)normal.z).endVertex();
     }
 
     private static void stringVertex(float dx, float dy, float dz, VertexConsumer vertexConsumer, PoseStack.Pose pose, float tStart, float tEnd) {

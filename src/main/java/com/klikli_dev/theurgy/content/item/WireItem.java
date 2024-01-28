@@ -45,7 +45,7 @@ public class WireItem extends Item {
         if(wireEndPoint.pos().equals(pos))
             return InteractionResult.FAIL; //can't connect to self
 
-        if(wireEndPoint.pos().distSqr(pos) > 32) //TODO: implement max wire range properly
+        if(wireEndPoint.pos().distManhattan(pos) > 32) //TODO: implement max wire range properly
             return InteractionResult.FAIL; //can't connect to points too far away
 
         //TODO: add to graph

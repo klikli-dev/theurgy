@@ -135,7 +135,7 @@ public class Wires extends SavedData {
                 this.add(section, connection);
             }
 
-            WireRenderer.get().wires.add(new Wire(connection.from(), connection.to(), 0.5f));
+            WireRenderer.get().wires.add(new Wire(connection.from(), connection.to(), -0.5f));
         } else {
             this.wireConnections.add(connection);
         }

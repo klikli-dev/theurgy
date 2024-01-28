@@ -1,4 +1,4 @@
-// 1.20.4	2024-01-16T15:38:38.1702175	Item Models: theurgy
+// 1.20.4	2024-01-27T19:24:48.7633379	Item Models: theurgy
 a402a05d887ec6d271a9350944338d29e1233318 assets/theurgy/models/item/alchemical_salt.json
 9fd173e362b6644716da98ba0d15809f85879e78 assets/theurgy/models/item/alchemical_salt_crops.json
 9fd173e362b6644716da98ba0d15809f85879e78 assets/theurgy/models/item/alchemical_salt_mineral.json
@@ -62,6 +62,7 @@ fba86b4d10abdba96978b1812ddde54605971db2 assets/theurgy/models/item/amethyst_div
 68dd998da8da3176b9d5b006faa94224fa6066eb assets/theurgy/models/item/amethyst_divination_rod/6.json
 2aba39038b1fa44bc0a7c915a8b164049c97dd82 assets/theurgy/models/item/amethyst_divination_rod/7.json
 423f81275242e10e1e3690abb05b6ed04086f9bb assets/theurgy/models/item/amethyst_divination_rod/searching.json
+33873ebca7a89182e367495bbf766215c7fea8f8 assets/theurgy/models/item/copper_wire.json
 a544904dc7c08099dacc58898f0b16a21fca8e35 assets/theurgy/models/item/divination_rod_t1.json
 56cbd2e62794dbad75babc62f07448c34813b99c assets/theurgy/models/item/divination_rod_t1/0.json
 561e1235ed07f6cc1bbb5d36e2d85d8d467134cd assets/theurgy/models/item/divination_rod_t1/1.json

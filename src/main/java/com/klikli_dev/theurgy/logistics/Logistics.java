@@ -1,4 +1,4 @@
-package com.klikli_dev.theurgy.content.logistics;
+package com.klikli_dev.theurgy.logistics;
 
 import com.google.common.graph.GraphBuilder;
 import com.google.common.graph.MutableGraph;
@@ -16,52 +16,56 @@ import java.util.List;
 @SuppressWarnings("UnstableApiUsage")
 public class Logistics {
     private static final Logistics instance = new Logistics();
-    private final MutableGraph<BlockPos> graph;
-    private final Traverser<BlockPos> traverser;
-    public LogisticsSavedData savedData;
+    private LogisticsSavedData savedData;
 
     public Logistics() {
-        this.graph = GraphBuilder.undirected().allowsSelfLoops(false).build();
-        this.traverser = Traverser.forGraph(this.graph);
     }
+
 
     public static Logistics get() {
         return instance;
     }
 
+    public MutableGraph<BlockPos> graph() {
+        return this.savedData().graph();
+    }
+
     public Iterable<BlockPos> getConnected(BlockPos start) {
-        if(this.graph.nodes().contains(start))
-            return this.traverser.breadthFirst(start);
+        var traverser = Traverser.forGraph(this.graph());
+        if(this.graph().nodes().contains(start))
+            return traverser.breadthFirst(start);
 
         return List.of();
     }
 
     public void add(BlockPos a, BlockPos b) {
-        this.graph.putEdge(a, b);
+        this.graph().putEdge(a, b);
     }
 
     public void remove(BlockPos a, BlockPos b) {
-        this.graph.removeEdge(a, b);
+        this.graph().removeEdge(a, b);
     }
 
     public void remove(BlockPos destroyedBlock) {
-        this.graph.removeNode(destroyedBlock);
+        this.graph().removeNode(destroyedBlock);
     }
 
     /**
      * Gets the current server instance.
      * Uses ServerLifecycleHooks.getCurrentServer(), which should be safe in this context for both client and server.
      */
-    public MinecraftServer server() {
+    private MinecraftServer server() {
         return ServerLifecycleHooks.getCurrentServer();
     }
 
     private LogisticsSavedData savedData() {
-        if (this.savedData == null) {
+        if (this.savedData == null && this.server() != null) {
             this.savedData = this.server().overworld().getDataStorage().computeIfAbsent(
                     new SavedData.Factory<>(LogisticsSavedData::new, LogisticsSavedData::load, DataFixTypes.LEVEL),
                     LogisticsSavedData.ID
             );
+        } else if (this.savedData == null) {
+            this.savedData = new LogisticsSavedData(); //handle client side access gracefully
         }
 
         return this.savedData;

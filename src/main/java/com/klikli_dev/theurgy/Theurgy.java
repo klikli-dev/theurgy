@@ -21,7 +21,7 @@ import com.klikli_dev.theurgy.content.apparatus.salammoniactank.render.SalAmmoni
 import com.klikli_dev.theurgy.content.item.AlchemicalSaltItem;
 import com.klikli_dev.theurgy.content.item.AlchemicalSulfurItem;
 import com.klikli_dev.theurgy.content.item.DivinationRodItem;
-import com.klikli_dev.theurgy.content.logistics.Logistics;
+import com.klikli_dev.theurgy.logistics.Logistics;
 import com.klikli_dev.theurgy.content.render.BlankEntityRenderer;
 import com.klikli_dev.theurgy.content.render.ClientTicks;
 import com.klikli_dev.theurgy.content.render.TheurgyModelLayers;
@@ -29,6 +29,8 @@ import com.klikli_dev.theurgy.content.render.outliner.Outliner;
 import com.klikli_dev.theurgy.datagen.TheurgyDataGenerators;
 import com.klikli_dev.theurgy.integration.modonomicon.PageLoaders;
 import com.klikli_dev.theurgy.integration.modonomicon.PageRenderers;
+import com.klikli_dev.theurgy.logistics.WireRenderer;
+import com.klikli_dev.theurgy.logistics.Wires;
 import com.klikli_dev.theurgy.network.Networking;
 import com.klikli_dev.theurgy.registry.*;
 import com.klikli_dev.theurgy.tooltips.TooltipHandler;
@@ -105,6 +107,7 @@ public class Theurgy {
 
         NeoForge.EVENT_BUS.addListener(TooltipHandler::onItemTooltipEvent);
         NeoForge.EVENT_BUS.addListener(Logistics.get()::onLevelUnload);
+        NeoForge.EVENT_BUS.addListener(Wires::onLevelUnload);
 
         if (FMLEnvironment.dist == Dist.CLIENT) {
             modEventBus.addListener(ParticleRegistry::registerFactories);
@@ -192,6 +195,8 @@ public class Theurgy {
             buffer.endBatch();
             RenderSystem.enableCull();
             ms.popPose();
+
+            WireRenderer.get().onRenderLevelStage(event);
         }
 
         public static void onRecipesUpdated(RecipesUpdatedEvent event) {

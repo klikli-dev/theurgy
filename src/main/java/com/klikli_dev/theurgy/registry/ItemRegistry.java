@@ -17,6 +17,7 @@ import com.klikli_dev.theurgy.content.apparatus.reformationarray.SulfuricFluxEmi
 import com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator.SalAmmoniacAccumulatorBlockItem;
 import com.klikli_dev.theurgy.content.apparatus.salammoniactank.SalAmmoniacTankBlockItem;
 import com.klikli_dev.theurgy.content.item.DivinationRodItem;
+import com.klikli_dev.theurgy.content.item.WireItem;
 import net.minecraft.world.item.*;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -119,6 +120,10 @@ public class ItemRegistry {
                     new Item.Properties().stacksTo(1).defaultDurability(1),
                     Tiers.STONE, BlockTagRegistry.DIVINATION_ROD_T1_ALLOWED_BLOCKS, BlockTagRegistry.DIVINATION_ROD_T1_DISALLOWED_BLOCKS,
                     96, 40, 16, false));
+
+    //Other Tools
+    public static final DeferredItem<Item> COPPER_WIRE =
+            ITEMS.register("copper_wire", () -> new WireItem(new Item.Properties()));
 
     //Buckets
     public static final DeferredItem<Item> SAL_AMMONIAC_BUCKET =

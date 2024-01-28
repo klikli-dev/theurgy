@@ -5,10 +5,8 @@
 package com.klikli_dev.theurgy.network.messages;
 
 import com.klikli_dev.theurgy.Theurgy;
-import com.klikli_dev.theurgy.content.apparatus.caloricfluxemitter.CaloricFluxEmitterBlockEntity;
-import com.klikli_dev.theurgy.content.apparatus.caloricfluxemitter.CaloricFluxEmitterSelectedPoint;
 import com.klikli_dev.theurgy.content.apparatus.logisticsnode.LogisticsNodeSelectedPoint;
-import com.klikli_dev.theurgy.content.logistics.Logistics;
+import com.klikli_dev.theurgy.logistics.Logistics;
 import com.klikli_dev.theurgy.network.Message;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
@@ -16,7 +14,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntity;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,6 +1,6 @@
 package com.klikli_dev.theurgy.content.apparatus.logisticsnode;
 
-import com.klikli_dev.theurgy.content.logistics.Logistics;
+import com.klikli_dev.theurgy.logistics.Logistics;
 import com.klikli_dev.theurgy.content.render.outliner.Outliner;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;

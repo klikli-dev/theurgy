@@ -182,5 +182,7 @@ public class TheurgyItemModelProvider extends net.neoforged.neoforge.client.mode
         this.registerDivinationRod(ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_RARE.get());
         this.registerDivinationRod(ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_PRECIOUS.get());
         this.registerDivinationRod(ItemRegistry.AMETHYST_DIVINATION_ROD.get());
+
+        this.registerItemGenerated(this.name(ItemRegistry.COPPER_WIRE.get()));
     }
 }

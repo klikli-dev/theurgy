@@ -1,9 +1,9 @@
-// 1.20.4	2024-01-21T08:36:42.314088	Books: theurgy
+// 1.20.4	2024-01-29T10:24:54.8769931	Books: theurgy
 945f222b9db8c0781d05b5a13138c18620a0edc3 data/theurgy/modonomicon/books/the_hermetica/book.json
 f44f61550bc8611d61016c6476b88448c0fe9f00 data/theurgy/modonomicon/books/the_hermetica/categories/apparatus.json
 49226efd8791cdb701bf00d7af65fff59b8c6df6 data/theurgy/modonomicon/books/the_hermetica/categories/getting_started.json
 1ed94d5ea5ec162931bc3f2d3ab7f53538649c35 data/theurgy/modonomicon/books/the_hermetica/entries/apparatus/calcination_oven.json
-b5da837625577ec5594a17f064852d1cbb5b0bb1 data/theurgy/modonomicon/books/the_hermetica/entries/apparatus/caloric_flux_emitter.json
+2f59e88b9b435092031224a05c90299f3992dc04 data/theurgy/modonomicon/books/the_hermetica/entries/apparatus/caloric_flux_emitter.json
 682a5c691e10f6473336416cc18d1de384b72cdf data/theurgy/modonomicon/books/the_hermetica/entries/apparatus/digestion_vat.json
 c6fe308150d65ff1b3b425a5d53896ccd13512f7 data/theurgy/modonomicon/books/the_hermetica/entries/apparatus/distiller.json
 4b8335bf55ef3327003dbbab63b04e5261c8b1a7 data/theurgy/modonomicon/books/the_hermetica/entries/apparatus/fermentation_vat.json
@@ -11,7 +11,7 @@ c6fe308150d65ff1b3b425a5d53896ccd13512f7 data/theurgy/modonomicon/books/the_herm
 bdc02955ce9e92d1cf9653c17eab3bdb735f8cc1 data/theurgy/modonomicon/books/the_hermetica/entries/apparatus/incubator.json
 e8ae6458c06a97d4af9ba06b61d7a1fbff6ec55c data/theurgy/modonomicon/books/the_hermetica/entries/apparatus/intro.json
 e6d2cb3e87278172be31ced360585a0a60d6469a data/theurgy/modonomicon/books/the_hermetica/entries/apparatus/liquefaction_cauldron.json
-50d3e3934abca7b63ec248cb2388bd61608ab550 data/theurgy/modonomicon/books/the_hermetica/entries/apparatus/mercury_catalyst.json
+1379d3e06ffe00c07ca88b66727af8ee03568976 data/theurgy/modonomicon/books/the_hermetica/entries/apparatus/mercury_catalyst.json
 6030e1795985c3c00c23355a7c959f3ef902c62f data/theurgy/modonomicon/books/the_hermetica/entries/apparatus/mercury_flux.json
 11eab5bee6905778c93c363dac2b9b222091f13b data/theurgy/modonomicon/books/the_hermetica/entries/apparatus/pyromantic_brazier.json
 0c53e8692e28132185f384964c77f6bdf95ab549 data/theurgy/modonomicon/books/the_hermetica/entries/apparatus/reformation_array.json

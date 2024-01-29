@@ -50,30 +50,17 @@ public class WireRenderer {
     }
 
     public void renderWire(Wire wire, PoseStack poseStack, MultiBufferSource buffer, int packedLight) {
-        BlockPos start = wire.start();
-        BlockPos end = wire.end();
-        double tautness = wire.tautness();
-
         poseStack.pushPose();
-//        poseStack.translate(start.getX() + 0.5, start.getY()+ 0.5, start.getZ()+ 0.5); //this moved the line  almost into position
-        //TODO: this is only needed if we don't get the info from the wire
-        float dx = end.getX() - start.getX();
-        float dy = end.getY() - start.getY() - (float)tautness; //this is crap :D
-        float dz = end.getZ() - start.getZ();
 
         VertexConsumer vertexConsumer = buffer.getBuffer(RenderType.lineStrip());
         PoseStack.Pose pose = poseStack.last();
 
         for(int i = 0; i <= 16; ++i) {
-            //this version looks good, but renders to the bottom left corner.
-            //tautness needs to be negative currently, otherwise wire arches up
             var tStart = wire.getPointAt((float)i / 16.0F);
             var tEnd = wire.getPointAt((float)(i + 1) / 16.0F);
+            tStart = tStart.add(0.5, 0.5, 0.5); //move to center of block
+            tEnd = tEnd.add(0.5, 0.5, 0.5);
             stringVertex(tStart, tEnd, vertexConsumer, pose);
-
-//            float tStart = (float)i / 16.0F;
-//            float tEnd = (float)(i + 1) / 16.0F;
-//            stringVertex(dx, dy, dz, vertexConsumer, pose, tStart, tEnd);
         }
 
         poseStack.popPose();
@@ -81,20 +68,10 @@ public class WireRenderer {
 
     private static void stringVertex(Vec3 start, Vec3 end, VertexConsumer vertexConsumer, PoseStack.Pose pose) {
         var normal = end.subtract(start).normalize();
-        vertexConsumer.vertex(pose.pose(), (float)start.x, (float)start.y, (float)start.z).color(0, 0, 0, 255).normal(pose.normal(), (float)normal.x, (float)normal.y, (float)normal.z).endVertex();
-    }
-
-    private static void stringVertex(float dx, float dy, float dz, VertexConsumer vertexConsumer, PoseStack.Pose pose, float tStart, float tEnd) {
-        float x = dx * tStart;
-        float y = dy * (tStart * tStart + tStart) * 0.5F + 0.25F;
-        float z = dz * tStart;
-        float dx1 = dx * tEnd - x;
-        float dy1 = dy * (tEnd * tEnd + tEnd) * 0.5F + 0.25F - y;
-        float dz1 = dz * tEnd - z;
-        float length = Mth.sqrt(dx1 * dx1 + dy1 * dy1 + dz1 * dz1);
-        dx1 /= length;
-        dy1 /= length;
-        dz1 /= length;
-        vertexConsumer.vertex(pose.pose(), x, y, z).color(0, 0, 0, 255).normal(pose.normal(), dx1, dy1, dz1).endVertex();
+        vertexConsumer
+                .vertex(pose.pose(), (float)start.x, (float)start.y, (float)start.z)
+                .color(0, 0, 0, 255)
+                .normal(pose.normal(), (float)normal.x, (float)normal.y, (float)normal.z)
+                .endVertex();
     }
 }

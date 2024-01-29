@@ -74,4 +74,7 @@ public class WireRenderer {
                 .normal(pose.normal(), (float)normal.x, (float)normal.y, (float)normal.z)
                 .endVertex();
     }
+
+    //TODO: cache the vertices for each wire and look up in a cache.
+    //TODO: clear cache if related wire is no longer rendered
 }

@@ -31,7 +31,7 @@ public record Wire(BlockPos start, BlockPos end, double tautness) {
      */
     public Vec3 getPointAt(double t) {
         var x =  (this.start.getX() + t * (this.end.getX() - this.start.getX()));
-        var y =  (this.start.getY() + t * (this.end.getY() - this.start.getY()) - this.tautness * Math.pow(t, 2) * (this.end.getY() - this.start.getY()));
+        var y =  (this.start.getY() + t * (this.end.getY() - this.start.getY()) + this.tautness * Math.pow(t, 2) * (this.end.getY() - this.start.getY()));
         var z =  (this.start.getZ() + t * (this.end.getZ() - this.start.getZ()));
         return new Vec3(x, y, z);
     }

@@ -48,8 +48,8 @@ public record Wire(BlockPos start, BlockPos end, double tautness) {
         // Adjust the tautness factor to avoid division by zero and other potential issues
         double adjustedTautness = this.tautness == 0 ? 0.0001 : this.tautness;
 
-        // Calculate the y coordinate using the adjusted catenary formula
-        var y = this.start.getY() + verticalPosition - adjustedTautness * Math.cosh(horizontalPosition / adjustedTautness);
+        // Calculate the y coordinate using the quadratic formula
+        var y = this.start.getY() + verticalPosition - adjustedTautness * (horizontalPosition * horizontalPosition + horizontalPosition) * 0.5F + 0.25F;
 
         return new Vec3(x, y, z);
     }

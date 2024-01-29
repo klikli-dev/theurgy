@@ -38,15 +38,22 @@ public class WireItem extends Item {
     }
 
     protected InteractionResult connectWire(UseOnContext pContext, WireEndPoint wireEndPoint) {
-        if(wireEndPoint.level() != pContext.getLevel().dimension())
+        if (wireEndPoint.level() != pContext.getLevel().dimension())
             return InteractionResult.FAIL; //can't do cables across dimensions
 
         var pos = pContext.getClickedPos();
-        if(wireEndPoint.pos().equals(pos))
+        if (wireEndPoint.pos().equals(pos))
             return InteractionResult.FAIL; //can't connect to self
 
-        if(wireEndPoint.pos().distManhattan(pos) > 32) //TODO: implement max wire range properly
+        if (wireEndPoint.pos().distManhattan(pos) > 32) //TODO: implement max wire range properly
             return InteractionResult.FAIL; //can't connect to points too far away
+
+        var stack = pContext.getItemInHand();
+        WireEndPoint.removeFrom(stack);
+
+        if (!pContext.getPlayer().getAbilities().instabuild) {
+            stack.shrink(1);
+        }
 
         //TODO: add to graph
         //TODO: leaf node calculation on graph

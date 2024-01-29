@@ -20,6 +20,12 @@ public record WireEndPoint(BlockPos pos, ResourceKey<Level> level) {
         return load(stack.getOrCreateTag().getCompound("wirePoint"));
     }
 
+    public static void removeFrom(ItemStack stack) {
+        if (!stack.hasTag() || !stack.getOrCreateTag().contains("wirePoint"))
+            return;
+        stack.getOrCreateTag().remove("wirePoint");
+    }
+
     public void save(ItemStack stack) {
         CompoundTag tag = stack.getOrCreateTag();
         tag.put("wirePoint", this.save(new CompoundTag()));

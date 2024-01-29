@@ -4,6 +4,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.4-1.15.0] - 2024-01-27
+### :sparkles: New Features
+- [`a4965ad`](https://github.com/klikli-dev/theurgy/commit/a4965ad61b94e0593070d3e47fe3931097599a93) - [ImgBot] Optimize images *(PR [#165](https://github.com/klikli-dev/theurgy/pull/165) by [@imgbot[bot]](https://github.com/apps/imgbot))*
+- [`92f19c1`](https://github.com/klikli-dev/theurgy/commit/92f19c1410328d4a981aec439b83c4269d505513) - change downgrade digestion recipes to not need purified gold *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :bug: Bug Fixes
+- [`71e6cc8`](https://github.com/klikli-dev/theurgy/commit/71e6cc88aa10cc45babec364fc135504ae0336aa) - cannot place niters in reformation array *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`3b1f0a1`](https://github.com/klikli-dev/theurgy/commit/3b1f0a1b3383a465f938a764e75d3551120a4d64) - selection messages in SP do not work *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`56c8574`](https://github.com/klikli-dev/theurgy/commit/56c8574a53e7bd9ce9a3404f392395547b64d61f) - update to latest neo *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.4-1.14.0] - 2024-01-21
 ### :wrench: Chores
 - [`d71f809`](https://github.com/klikli-dev/theurgy/commit/d71f8097c98b617131437770fc2a9f7f17733d81) - update to latest modonomicon *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -439,3 +452,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.4-1.12.3]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.4-1.12.2...release/v1.20.4-1.12.3
 [release/v1.20.4-1.13.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.4-1.12.3...release/v1.20.4-1.13.0
 [release/v1.20.4-1.14.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.4-1.13.0...release/v1.20.4-1.14.0
+[release/v1.20.4-1.15.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.4-1.14.0...release/v1.20.4-1.15.0

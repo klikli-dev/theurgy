@@ -83,10 +83,11 @@ public class WireRenderer {
 
     private static void stringVertex(float x, float y, float z, VertexConsumer consumer, PoseStack.Pose pose, float p_174124_, float p_174125_) {
         float f = x * p_174124_;
-        float f1 = y * (p_174124_ * p_174124_ + p_174124_) * 0.5F + 0.25F;
+        float sag = -0.5F; // Adjust this value to increase or decrease the amount of sag
+        float f1 = y * (p_174124_ * p_174124_ + p_174124_) * 0.5F + 0.25F - sag * Math.abs(p_174124_ - 0.5F);
         float f2 = z * p_174124_;
         float f3 = x * p_174125_ - f;
-        float f4 = y * (p_174125_ * p_174125_ + p_174125_) * 0.5F + 0.25F - f1;
+        float f4 = y * (p_174125_ * p_174125_ + p_174125_) * 0.5F + 0.25F - sag * Math.abs(p_174125_ - 0.5F) - f1;
         float f5 = z * p_174125_ - f2;
         float f6 = (float) Math.sqrt(f3 * f3 + f4 * f4 + f5 * f5);
         f3 /= f6;

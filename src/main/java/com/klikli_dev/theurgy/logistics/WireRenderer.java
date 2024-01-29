@@ -43,10 +43,56 @@ public class WireRenderer {
         //this caused the wire to stabilize - render in the same spto always - but in the wrong spot (in the sky)
 
         for(var wire : this.wires) {
-            this.renderWire(wire, poseStack, buffer, 0xFFFFFF);
+//            this.renderWire(wire, poseStack, buffer, 0xFFFFFF);
+            this.render(wire, poseStack, buffer);
         }
 
         poseStack.popPose();
+    }
+
+    public void render(Wire wire, PoseStack poseStack, MultiBufferSource buffer) {
+
+        Vec3 start = wire.start().getCenter();
+        Vec3 end = wire.end().getCenter();
+
+        //if start y > end y, switch start and end:
+        if(start.y > end.y) {
+            var temp = start;
+            start = end;
+            end = temp;
+        }
+
+        Vec3 delta = end.subtract(start);
+
+        poseStack.pushPose();
+        poseStack.translate(start.x, start.y, start.z);
+
+        VertexConsumer vertexConsumer = buffer.getBuffer(RenderType.lineStrip());
+        PoseStack.Pose pose = poseStack.last();
+
+        for (int i = 0; i <= 16; ++i) {
+            stringVertex((float)delta.x, (float)delta.y, (float)delta.z, vertexConsumer, pose, fraction(i, 16), fraction(i + 1, 16));
+        }
+
+        poseStack.popPose();
+    }
+
+    private static float fraction(int numerator, int denominator) {
+        return (float) numerator / (float) denominator;
+    }
+
+    private static void stringVertex(float x, float y, float z, VertexConsumer consumer, PoseStack.Pose pose, float p_174124_, float p_174125_) {
+        float f = x * p_174124_;
+        float f1 = y * (p_174124_ * p_174124_ + p_174124_) * 0.5F + 0.25F;
+        float f2 = z * p_174124_;
+        float f3 = x * p_174125_ - f;
+        float f4 = y * (p_174125_ * p_174125_ + p_174125_) * 0.5F + 0.25F - f1;
+        float f5 = z * p_174125_ - f2;
+        float f6 = (float) Math.sqrt(f3 * f3 + f4 * f4 + f5 * f5);
+        f3 /= f6;
+        f4 /= f6;
+        f5 /= f6;
+        consumer.vertex(pose.pose(), f, f1, f2).color(0, 0, 0, 255).normal(pose.normal(), f3, f4, f5).endVertex();
     }
 
     public void renderWire(Wire wire, PoseStack poseStack, MultiBufferSource buffer, int packedLight) {

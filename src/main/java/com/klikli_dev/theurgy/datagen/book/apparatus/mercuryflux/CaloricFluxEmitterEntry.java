@@ -51,6 +51,23 @@ public class CaloricFluxEmitterEntry extends EntryProvider {
                 this.itemLink(ItemRegistry.MERCURY_CATALYST.get())
         );
 
+        this.page("redstone", () -> BookTextPageModel.builder()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
+                .build());
+        this.pageTitle("Redstone");
+        this.pageText(
+                """
+                        By default the block is enabled.
+                        \\
+                        \\
+                        You can disable it with an active redstone signal.
+                        \\
+                        \\
+                        When disabled, the emitter will not send caloric flux to the target block.
+                        """
+        );
+
         this.page("recipe", () -> BookCraftingRecipePageModel.builder()
                 .withRecipeId1(Theurgy.loc("crafting/shaped/caloric_flux_emitter_from_campfire"))
                 .withRecipeId2(Theurgy.loc("crafting/shaped/caloric_flux_emitter_from_lava_bucket"))

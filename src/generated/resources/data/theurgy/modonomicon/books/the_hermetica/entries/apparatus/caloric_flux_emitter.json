@@ -27,6 +27,14 @@
       "use_markdown_in_title": false
     },
     {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.apparatus.caloric_flux_emitter.redstone.text",
+      "title": "book.theurgy.the_hermetica.apparatus.caloric_flux_emitter.redstone.title",
+      "use_markdown_in_title": false
+    },
+    {
       "type": "modonomicon:crafting_recipe",
       "anchor": "",
       "recipe_id_1": "theurgy:crafting/shaped/caloric_flux_emitter_from_campfire",

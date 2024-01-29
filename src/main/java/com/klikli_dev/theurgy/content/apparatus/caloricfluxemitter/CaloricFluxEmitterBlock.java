@@ -20,6 +20,8 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
@@ -28,6 +30,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Map;
 
 public class CaloricFluxEmitterBlock extends DirectionalBlock implements EntityBlock {
+
+    public static final BooleanProperty ENABLED = BlockStateProperties.ENABLED;
     private static final int SHAPE_LENGTH = 4;
     private static final Map<Direction, VoxelShape> SHAPES = Maps.newEnumMap(
             ImmutableMap.<Direction, VoxelShape>builder()
@@ -44,7 +48,7 @@ public class CaloricFluxEmitterBlock extends DirectionalBlock implements EntityB
     public CaloricFluxEmitterBlock(Properties pProperties, SelectionBehaviour<CaloricFluxEmitterSelectedPoint> selectionBehaviour) {
         super(pProperties);
         this.selectionBehaviour = selectionBehaviour;
-        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.UP));
+        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.UP).setValue(ENABLED, true));
     }
 
     public SelectionBehaviour<CaloricFluxEmitterSelectedPoint> selectionBehaviour() {
@@ -61,9 +65,12 @@ public class CaloricFluxEmitterBlock extends DirectionalBlock implements EntityB
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {
         Direction direction = pContext.getClickedFace();
-        BlockState blockstate = pContext.getLevel().getBlockState(pContext.getClickedPos().relative(direction.getOpposite()));
-        return blockstate.is(this) && blockstate.getValue(FACING) == direction ?
-                this.defaultBlockState().setValue(FACING, direction.getOpposite()) : this.defaultBlockState().setValue(FACING, direction);
+        BlockState oppositeState = pContext.getLevel().getBlockState(pContext.getClickedPos().relative(direction.getOpposite()));
+
+        var placementState = this.defaultBlockState().setValue(ENABLED, true);
+
+        return oppositeState.is(this) && oppositeState.getValue(FACING) == direction ?
+                placementState.setValue(FACING, direction.getOpposite()) : placementState.setValue(FACING, direction);
     }
 
 
@@ -71,6 +78,7 @@ public class CaloricFluxEmitterBlock extends DirectionalBlock implements EntityB
     @Override
     public void neighborChanged(BlockState pState, Level pLevel, BlockPos pPos, Block pBlock, BlockPos pFromPos, boolean pIsMoving) {
         super.neighborChanged(pState, pLevel, pPos, pBlock, pFromPos, pIsMoving);
+        this.checkPoweredState(pLevel, pPos, pState, Block.UPDATE_INVISIBLE);
 
         if (!this.canSurvive(pState, pLevel, pPos)) {
             pLevel.destroyBlock(pPos, true);
@@ -87,6 +95,22 @@ public class CaloricFluxEmitterBlock extends DirectionalBlock implements EntityB
 
     @SuppressWarnings("deprecation")
     @Override
+    public void onPlace(BlockState pState, Level pLevel, BlockPos pPos, BlockState pOldState, boolean pIsMoving) {
+        if (!pOldState.is(pState.getBlock())) {
+            this.checkPoweredState(pLevel, pPos, pState, Block.UPDATE_CLIENTS);
+        }
+    }
+
+    private void checkPoweredState(Level pLevel, BlockPos pPos, BlockState pState, int pFlags) {
+        boolean enabled = !pLevel.hasNeighborSignal(pPos);
+        if (enabled != pState.getValue(ENABLED)) {
+            pLevel.setBlock(pPos, pState.setValue(ENABLED, enabled), pFlags);
+        }
+
+    }
+
+    @SuppressWarnings("deprecation")
+    @Override
     public @NotNull BlockState rotate(BlockState state, Rotation rot) {
         return state.setValue(FACING, rot.rotate(state.getValue(FACING)));
     }
@@ -99,7 +123,7 @@ public class CaloricFluxEmitterBlock extends DirectionalBlock implements EntityB
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
-        pBuilder.add(FACING);
+        pBuilder.add(FACING, ENABLED);
     }
 
     @Nullable

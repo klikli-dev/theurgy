@@ -19,6 +19,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import org.jetbrains.annotations.NotNull;
@@ -58,6 +59,9 @@ public class CaloricFluxEmitterBlockEntity extends BlockEntity {
     public void tickServer() {
         if (this.getLevel().getGameTime() % TICK_INTERVAL != 0)
             return; //slow tick
+
+        if(!this.getBlockState().getValue(BlockStateProperties.ENABLED))
+            return; //disabled with active redstone
 
         if (this.selectedPoints.isEmpty())
             return;

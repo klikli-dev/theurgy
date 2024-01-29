@@ -50,6 +50,23 @@ public class MercuryCatalystEntry extends EntryProvider {
                 this.itemLink(ItemRegistry.MERCURY_SHARD.get())
         );
 
+        this.page("redstone", () -> BookTextPageModel.builder()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
+                .build());
+        this.pageTitle("Redstone");
+        this.pageText(
+                """
+                        By default the block is enabled.
+                        \\
+                        \\
+                        You can disable it with an active redstone signal.
+                        \\
+                        \\
+                        When disabled, the catalyst will **still** convert mercury shards into mercury flux, but it will not output it to neighboring blocks.
+                        """
+        );
+
         this.page("recipe", () -> BookCraftingRecipePageModel.builder()
                 .withRecipeId1(Theurgy.loc("crafting/shaped/mercury_catalyst"))
                 .build());

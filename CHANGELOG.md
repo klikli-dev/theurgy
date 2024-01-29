@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.4-1.16.0] - 2024-01-29
+### :sparkles: New Features
+- [`4b285ca`](https://github.com/klikli-dev/theurgy/commit/4b285ca3a148ddf73e199424dfb6952e058d380c) - add redstone interaction to catalyst and caloric emitter *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`06a3b91`](https://github.com/klikli-dev/theurgy/commit/06a3b9147dc3ea423dbc1ff585fa845dc237dc5b) - update to latest neogradle *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.4-1.15.0] - 2024-01-27
 ### :sparkles: New Features
 - [`a4965ad`](https://github.com/klikli-dev/theurgy/commit/a4965ad61b94e0593070d3e47fe3931097599a93) - [ImgBot] Optimize images *(PR [#165](https://github.com/klikli-dev/theurgy/pull/165) by [@imgbot[bot]](https://github.com/apps/imgbot))*
@@ -453,3 +461,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.4-1.13.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.4-1.12.3...release/v1.20.4-1.13.0
 [release/v1.20.4-1.14.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.4-1.13.0...release/v1.20.4-1.14.0
 [release/v1.20.4-1.15.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.4-1.14.0...release/v1.20.4-1.15.0
+[release/v1.20.4-1.16.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.4-1.15.0...release/v1.20.4-1.16.0

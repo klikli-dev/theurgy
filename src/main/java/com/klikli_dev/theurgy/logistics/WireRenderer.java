@@ -1,3 +1,9 @@
+// SPDX-FileCopyrightText: 2020 Commoble
+//
+// SPDX-License-Identifier: MIT
+
+//See upstream https://github.com/Commoble/morered/blob/HEAD/src/main/java/commoble/morered/client/BundledCablePostRenderer.java
+
 package com.klikli_dev.theurgy.logistics;
 
 import com.mojang.blaze3d.vertex.PoseStack;

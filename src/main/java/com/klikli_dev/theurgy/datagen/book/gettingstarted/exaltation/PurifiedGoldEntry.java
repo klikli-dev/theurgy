@@ -28,8 +28,8 @@ public class PurifiedGoldEntry extends EntryProvider {
     protected void generatePages() {
         this.page("gold", () -> BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(ItemRegistry.PURIFIED_GOLD.get()))
-                .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText()));
+                .withText(this.context().pageText())
+        );
         this.pageText("""
                 Purified Gold acts as a catalyst for Niter Digestion, making the already malleable Niter even more so. This allows Niter to be processed into a higher tier by combining it. The reverse process does not need a catalyst.
                   """

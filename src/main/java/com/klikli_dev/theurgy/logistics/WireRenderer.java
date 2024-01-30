@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: MIT
 
-//See upstream https://github.com/Commoble/morered/blob/HEAD/src/main/java/commoble/morered/client/BundledCablePostRenderer.java
+//See upstream https://github.com/Commoble/morered/blob/HEAD/src/main/java/commoble/morered/client/WirePostRenderer.java
 
 package com.klikli_dev.theurgy.logistics;
 
@@ -13,10 +13,9 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
-import net.minecraft.core.BlockPos;
-import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
+import org.joml.Matrix4f;
 
 import java.util.Set;
 
@@ -32,7 +31,7 @@ public class WireRenderer {
 
     public void onRenderLevelStage(RenderLevelStageEvent event) {
         var level = Minecraft.getInstance().level;
-        var buffer = Minecraft.getInstance().renderBuffers().bufferSource();
+        var bufferSource = Minecraft.getInstance().renderBuffers().bufferSource();
         var poseStack = event.getPoseStack();
 
         //TODO: the Wires class takes care of which wires visible client side, so we just render all
@@ -48,9 +47,14 @@ public class WireRenderer {
         poseStack.translate(-renderPosX, -renderPosY, -renderPosZ);
         //this caused the wire to stabilize - render in the same spto always - but in the wrong spot (in the sky)
 
+        var buffer = bufferSource.getBuffer(RenderType.lineStrip());
         for(var wire : this.wires) {
 //            this.renderWire(wire, poseStack, buffer, 0xFFFFFF);
-            this.render(wire, poseStack, buffer);
+            poseStack.pushPose();
+            poseStack.translate(wire.start().getX(), wire.start().getY(), wire.start().getZ());
+            this.renderConnection(buffer, poseStack, wire.start().getCenter(), wire.end().getCenter());
+            poseStack.popPose();
+//            this.render(wire, poseStack, buffer);
         }
 
         poseStack.popPose();
@@ -126,6 +130,60 @@ public class WireRenderer {
                 .color(0, 0, 0, 255)
                 .normal(pose.normal(), (float)normal.x, (float)normal.y, (float)normal.z)
                 .endVertex();
+    }
+
+    private void renderConnection(VertexConsumer vertexBuilder, PoseStack poseStack,  Vec3 startPos, Vec3 endPos) {
+        poseStack.pushPose();
+
+        boolean translateSwap = false;
+        if (startPos.y() > endPos.y()) {
+            Vec3 swap = startPos;
+            startPos = endPos;
+            endPos = swap;
+            translateSwap = true;
+        }
+
+        poseStack.translate(0.5D, 0.5D, 0.5D);
+
+        double startX = startPos.x();
+        double startY = startPos.y();
+        double startZ = startPos.z();
+
+        double endX = endPos.x();
+        double endY = endPos.y();
+        double endZ = endPos.z();
+        float dx = (float) (endX - startX);
+        float dy = (float) (endY - startY);
+        float dz = (float) (endZ - startZ);
+        if (translateSwap) {
+            poseStack.translate(-dx, -dy, -dz);
+        }
+        Matrix4f fourMatrix = poseStack.last().pose();
+
+//        if (startY <= endY) {
+            Vec3[] pointList = WireSlackHelper.getInterpolatedDifferences(endPos.subtract(startPos));
+            int points = pointList.length;
+            int lines = points - 1;
+
+            poseStack.pushPose();
+            for (int line = 0; line < lines; line++) {
+                //TODO: fix: wire end point connects to start of next one
+                Vec3 firstPoint = pointList[line];
+                Vec3 secondPoint = pointList[line + 1];
+                vertexBuilder.vertex(fourMatrix, (float) firstPoint.x(), (float) firstPoint.y(), (float) firstPoint.z())
+                        .color(0, 0, 0, 255)
+                        .normal(poseStack.last().normal(), (float) firstPoint.x(), (float) firstPoint.y(), (float) firstPoint.z())
+                        .endVertex();
+
+                vertexBuilder.vertex(fourMatrix, (float) secondPoint.x(), (float) secondPoint.y(), (float) secondPoint.z())
+                        .color(0, 0, 0, 255)
+                        .normal(poseStack.last().normal(), (float) secondPoint.x(), (float) secondPoint.y(), (float) secondPoint.z())
+                        .endVertex();
+            }
+            poseStack.popPose();
+//        }
+
+        poseStack.popPose();
     }
 
     //TODO: cache the vertices for each wire and look up in a cache.

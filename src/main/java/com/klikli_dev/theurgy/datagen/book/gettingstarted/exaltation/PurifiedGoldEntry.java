@@ -32,7 +32,6 @@ public class PurifiedGoldEntry extends EntryProvider {
     protected void generatePages() {
         this.page("gold", () -> BookSpotlightPageModel.builder()
                 .withItem(Ingredient.of(ItemRegistry.PURIFIED_GOLD.get()))
-                .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
                 .build());
         this.pageText("""

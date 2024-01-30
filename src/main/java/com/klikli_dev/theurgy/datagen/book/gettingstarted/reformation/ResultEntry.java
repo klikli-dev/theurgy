@@ -34,7 +34,6 @@ public class ResultEntry extends EntryProvider {
                         \\
                         [#]($INPUT)Right-click[#]() on the pedestal to retrieve the {0}.
                         """,
-                this.itemLink("Alchemical Sulfur: Lapis", SulfurRegistry.LAPIS.get()),
                 this.itemLink("Alchemical Sulfur: Quartz", SulfurRegistry.QUARTZ.get())
         );
 
@@ -45,7 +44,7 @@ public class ResultEntry extends EntryProvider {
         this.add(this.context().pageTitle(), "The Result");
         this.add(this.context().pageText(),
                 """
-                        Also [#]($INPUT)right-click[#]() on the target pedestal to retrieve the original {0}.
+                        Also [#]($INPUT)right-click[#]() on the target pedestal to retrieve the original {1}.
                         \\
                         \\
                         You now doubled your desired Sulfur, by consuming one {0} and creating one extra {1}.

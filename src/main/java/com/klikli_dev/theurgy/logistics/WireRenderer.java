@@ -45,8 +45,8 @@ public class WireRenderer {
         var buffer = bufferSource.getBuffer(RenderType.lines());
         for (var wire : this.wires) {
             poseStack.pushPose();
-            poseStack.translate(wire.start().getX(), wire.start().getY(), wire.start().getZ());
-            this.renderWire(buffer, poseStack, wire.start().getCenter(), wire.end().getCenter());
+            poseStack.translate(wire.from().getX(), wire.from().getY(), wire.from().getZ());
+            this.renderWire(buffer, poseStack, wire.to().getCenter(), wire.to().getCenter());
             poseStack.popPose();
         }
         poseStack.popPose();

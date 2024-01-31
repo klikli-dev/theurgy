@@ -40,7 +40,6 @@ public class WireRenderer {
 
         poseStack.pushPose();
         poseStack.translate(-renderPosX, -renderPosY, -renderPosZ);
-        //this caused the wire to stabilize - render in the same spto always - but in the wrong spot (in the sky)
 
         //we use lines() to avoid all the wires getting connected as it would happen with linestrip
         var buffer = bufferSource.getBuffer(RenderType.lines());

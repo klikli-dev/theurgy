@@ -1,4 +1,5 @@
 // SPDX-FileCopyrightText: 2020 Commoble
+// SPDX-FileCopyrightText: 2024 klikli-dev
 //
 // SPDX-License-Identifier: MIT
 
@@ -22,16 +23,7 @@ public class WireSlackHelper {
         for (int point = 0; point < points; point++) {
             double startLerp = getFractionalLerp(point, points - 1);
             double startYLerp = getYLerp(startLerp, dy);
-//            list[point] = new Vec3(startLerp * dx, startYLerp * dy, startLerp * dz);
-
-            // Use a sine function for the sag factor
-//            double sagFactor = sag * Math.sin(Math.PI * startLerp);
-//
-//            // Subtract the sag factor from the y-coordinate calculation
-//            double y = dy != 0 ? (startYLerp - sagFactor) * dy : -sagFactor;
-//
-//            list[point] = new Vec3(startLerp * dx, y, startLerp * dz);
-
+//            list[point] = new Vec3(startLerp * dx, startYLerp * dy, startLerp * dz); //Original, this leads to a straight line if start and end are the same height
             double sagFactor = sag * (1 - (4 * Math.pow(startLerp - 0.5, 2)));
 
             // Subtract the sag factor from the y-coordinate calculation

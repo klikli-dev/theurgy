@@ -7,8 +7,8 @@
 	},
 	"elements": [
 		{
-			"from": [7, -5, 7],
-			"to": [9, 7, 9],
+			"from": [7, -4, 7],
+			"to": [9, 8, 9],
 			"faces": {
 				"north": {"uv": [2, 2, 4, 14], "texture": "#texture"},
 				"east": {"uv": [0, 2, 2, 14], "texture": "#texture"},

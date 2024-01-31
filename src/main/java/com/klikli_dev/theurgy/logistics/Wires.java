@@ -36,14 +36,8 @@ public class Wires extends SavedData {
     private static WeakReference<Wires> cachedClientWires = new WeakReference<>(null);
 
     /**
-     * Maps sections to the connections contained in them.
-     * Client only - not needed on server.
-     */
-    private final Map<SectionPos, List<Wire>> sectionToWireConnectionsView = new Object2ObjectOpenHashMap<>();
-
-    /**
      * Store all wire connections.
-     * Server only - not needed on client.
+     * Server only - if we modify this on the logical client we get into trouble because this is a singleton - we'd remove them permanently
      */
     private final Set<Wire> wires = new ObjectOpenHashSet<>();
 
@@ -113,30 +107,20 @@ public class Wires extends SavedData {
 
     public void addWire(Wire wire) {
         if (this.isClient) {
-            //TODO: a wire can cross more than 2 sections.
-            //      -> we need to add all sections not just the start and end point
-
-            var from = SectionPos.of(wire.from());
-            var to = SectionPos.of(wire.to());
-
-            this.add(from, wire);
-            this.add(to, wire);
-
-            //a wire can cross more than the start/end section it is in, so we need to add all sections it crosses
-            var points = WireSlackHelper.getInterpolatedPoints(wire.from().getCenter(), wire.to().getCenter());
-            for( int i = 0; i < points.length; i++){
-                this.add(SectionPos.of(points[i]), wire);
-            }
-
-            //finally add it to the renderer
+            //we just add it to the renderer's set.
             WireRenderer.get().wires.add(wire);
         } else {
             this.wires.add(wire);
         }
     }
 
-    private void add(SectionPos pos, Wire connection) {
-        this.sectionToWireConnectionsView.computeIfAbsent(pos, $ -> new ArrayList<>()).add(connection);
+    public void removeWire(Wire wire) {
+        if (this.isClient) {
+            //we just add it to the renderer's set.
+            WireRenderer.get().wires.remove(wire);
+        } else {
+            this.wires.remove(wire);
+        }
     }
 
     @Override

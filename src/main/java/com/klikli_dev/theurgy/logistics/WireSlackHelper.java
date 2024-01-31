@@ -36,12 +36,12 @@ public class WireSlackHelper {
         return list;
     }
 
-    public static Vec3[] getInterpolatedPoints(Vec3 lower, Vec3 upper) {
-        Vec3 diff = upper.subtract(lower);
+    public static Vec3[] getInterpolatedPoints(Vec3 a, Vec3 b) {
+        Vec3 diff = b.subtract(a);
         Vec3[] diffs = getInterpolatedDifferences(diff);
         Vec3[] points = new Vec3[diffs.length];
         for (int i = 0; i < points.length; i++) {
-            points[i] = lower.add(diffs[i]);
+            points[i] = a.add(diffs[i]);
         }
         return points;
     }

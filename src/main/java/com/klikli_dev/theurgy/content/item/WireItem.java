@@ -1,7 +1,7 @@
 package com.klikli_dev.theurgy.content.item;
 
 import com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector.LogisticsItemConnectorBlock;
-import com.klikli_dev.theurgy.logistics.WireConnection;
+import com.klikli_dev.theurgy.logistics.Wire;
 import com.klikli_dev.theurgy.logistics.WireEndPoint;
 import com.klikli_dev.theurgy.logistics.Wires;
 import net.minecraft.world.InteractionResult;
@@ -59,7 +59,7 @@ public class WireItem extends Item {
         //TODO: leaf node calculation on graph
         //TODO: add to wire renderer
 
-        Wires.get(pContext.getLevel()).addWireConnection(new WireConnection(wireEndPoint.pos(), pos));
+        Wires.get(pContext.getLevel()).addWire(new Wire(wireEndPoint.pos(), pos));
 
         return InteractionResult.SUCCESS;
     }

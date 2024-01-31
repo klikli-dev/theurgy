@@ -5,7 +5,6 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.SectionPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
@@ -16,7 +15,6 @@ import net.minecraft.world.level.saveddata.SavedData;
 import net.neoforged.neoforge.event.level.LevelEvent;
 
 import java.lang.ref.WeakReference;
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -26,7 +24,7 @@ public class Wires extends SavedData {
 
     public static final String ID = "theurgy:wires";
     public static final Codec<Wires> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-            Codecs.set(WireConnection.CODEC).fieldOf("wireConnections").forGetter(wires -> wires.wireConnections),
+            Codecs.set(Wire.CODEC).fieldOf("wireConnections").forGetter(wires -> wires.wires),
             Codec.BOOL.fieldOf("isClient").forGetter(wires -> wires.isClient)
     ).apply(instance, Wires::new));
     private static final String NBT_TAG = "theurgy:wires";
@@ -41,13 +39,13 @@ public class Wires extends SavedData {
      * Maps sections to the connections contained in them.
      * Client only - not needed on server.
      */
-    private final Map<SectionPos, List<WireConnection>> sectionToWireConnectionsView = new Object2ObjectOpenHashMap<>();
+    private final Map<SectionPos, List<Wire>> sectionToWireConnectionsView = new Object2ObjectOpenHashMap<>();
 
     /**
      * Store all wire connections.
      * Server only - not needed on client.
      */
-    private final Set<WireConnection> wireConnections = new ObjectOpenHashSet<>();
+    private final Set<Wire> wires = new ObjectOpenHashSet<>();
 
     private final boolean isClient;
 
@@ -55,9 +53,9 @@ public class Wires extends SavedData {
         this.isClient = isClient;
     }
 
-    public Wires(Set<WireConnection> wireConnections, boolean isClient) {
+    public Wires(Set<Wire> wires, boolean isClient) {
         this(isClient);
-        this.wireConnections.addAll(wireConnections);
+        this.wires.addAll(wires);
     }
 
     public static Wires get(Level level) {
@@ -113,35 +111,31 @@ public class Wires extends SavedData {
         return CODEC.parse(NbtOps.INSTANCE, pCompoundTag.get(NBT_TAG)).result().orElseThrow();
     }
 
-    public void addWireConnection(WireConnection connection) {
+    public void addWire(Wire wire) {
         if (this.isClient) {
             //TODO: a wire can cross more than 2 sections.
             //      -> we need to add all sections not just the start and end point
 
-            var from = SectionPos.of(connection.from());
-            var to = SectionPos.of(connection.to());
+            var from = SectionPos.of(wire.from());
+            var to = SectionPos.of(wire.to());
 
-            var sections = new ArrayList<SectionPos>();
-            sections.add(from);
-            sections.add(to);
+            this.add(from, wire);
+            this.add(to, wire);
 
-            var wire = new Wire(connection.from(), connection.to(), 0.5f);
-            for( int i = 0; i < 16; i++){
-                var blockPos = wire.getPointAt(i / 16f);
-                sections.add(SectionPos.of(blockPos));
+            //a wire can cross more than the start/end section it is in, so we need to add all sections it crosses
+            var points = WireSlackHelper.getInterpolatedPoints(wire.from().getCenter(), wire.to().getCenter());
+            for( int i = 0; i < points.length; i++){
+                this.add(SectionPos.of(points[i]), wire);
             }
 
-            for (var section : sections) {
-                this.add(section, connection);
-            }
-
-            WireRenderer.get().wires.add(new Wire(connection.from(), connection.to(), -0.5f));
+            //finally add it to the renderer
+            WireRenderer.get().wires.add(wire);
         } else {
-            this.wireConnections.add(connection);
+            this.wires.add(wire);
         }
     }
 
-    private void add(SectionPos pos, WireConnection connection) {
+    private void add(SectionPos pos, Wire connection) {
         this.sectionToWireConnectionsView.computeIfAbsent(pos, $ -> new ArrayList<>()).add(connection);
     }
 

@@ -1,6 +1,7 @@
 package com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector;
 
 import com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron.LiquefactionCauldronBlockEntity;
+import com.klikli_dev.theurgy.logistics.Wires;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
@@ -29,6 +30,13 @@ public class LogisticsItemConnectorBlock extends DirectionalBlock implements Ent
     @Override
     protected MapCodec<? extends DirectionalBlock> codec() {
         return CODEC;
+    }
+
+    @Override
+    public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pMovedByPiston) {
+        super.onRemove(pState, pLevel, pPos, pNewState, pMovedByPiston);
+
+        Wires.get(pLevel).removeWiresFor(pPos);
     }
 
     @Override

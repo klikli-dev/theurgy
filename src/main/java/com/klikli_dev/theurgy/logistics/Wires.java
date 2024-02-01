@@ -55,7 +55,7 @@ public class Wires extends SavedData {
     /**
      * Maps the wire start and end point to the wire.
      */
-    private final SetMultimap<BlockPos, Wire> connectorsToWire = HashMultimap.create();
+    private final SetMultimap<BlockPos, Wire> blockPosToWire = HashMultimap.create();
 
     private final boolean isClient;
 
@@ -69,24 +69,37 @@ public class Wires extends SavedData {
         if(!isClient){
             this.wires.addAll(wires);
 
-            //restore chunkToWires and wiresToChunk and connectorsToWire
+            //restore chunkToWires and wiresToChunk and blockPosToWire
             this.wires.forEach(wire -> {
                 this.calculateChunkPosForWire(wire).forEach(chunkPos -> {
                     this.chunkToWires.put(chunkPos, wire);
                     this.wiresToChunk.put(wire, chunkPos);
                 });
 
-                this.connectorsToWire.put(wire.from(), wire);
-                this.connectorsToWire.put(wire.to(), wire);
+                this.blockPosToWire.put(wire.from(), wire);
+                this.blockPosToWire.put(wire.to(), wire);
             });
         }
 
     }
 
+    /**
+     * Gets all wires connected to the given block pos
+     */
+    public Set<Wire> getWires(BlockPos pos){
+        return this.blockPosToWire.get(pos);
+    }
+
+    /**
+     * Gets all wires in a chunk
+     */
     public Set<Wire> getWires(ChunkPos chunk){
         return this.chunkToWires.get(chunk);
     }
 
+    /**
+     * Gets all chunks a wire is in
+     */
     public Set<ChunkPos> getChunks(Wire wire){
         return this.wiresToChunk.get(wire);
     }
@@ -165,8 +178,8 @@ public class Wires extends SavedData {
                 this.wiresToChunk.put(wire, chunkPos);
             });
 
-            this.connectorsToWire.put(wire.from(), wire);
-            this.connectorsToWire.put(wire.to(), wire);
+            this.blockPosToWire.put(wire.from(), wire);
+            this.blockPosToWire.put(wire.to(), wire);
 
             //needs to be called last because it relies on the new state
             WireSync.get().sendAddWireToWatchingPlayers(cachedServerLevel.get(), wire);
@@ -174,6 +187,10 @@ public class Wires extends SavedData {
         this.setDirty();
     }
 
+    public void removeWiresFor(BlockPos pos){
+        var wires = this.getWires(pos);
+        wires.forEach(this::removeWire);
+    }
 
     public void removeWire(Wire wire) {
         if (this.isClient) {
@@ -184,8 +201,8 @@ public class Wires extends SavedData {
             WireSync.get().sendRemoveWireToWatchingPlayers(cachedServerLevel.get(), wire);
 
             this.wires.remove(wire);
-            this.connectorsToWire.remove(wire.from(), wire);
-            this.connectorsToWire.remove(wire.to(), wire);
+            this.blockPosToWire.remove(wire.from(), wire);
+            this.blockPosToWire.remove(wire.to(), wire);
 
             Set<ChunkPos> chunks = this.wiresToChunk.get(wire);
             for (ChunkPos chunkPos : chunks) {

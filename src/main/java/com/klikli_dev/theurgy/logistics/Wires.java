@@ -1,24 +1,25 @@
 package com.klikli_dev.theurgy.logistics;
 
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.SetMultimap;
 import com.klikli_dev.modonomicon.util.Codecs;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import net.minecraft.core.SectionPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.datafix.DataFixTypes;
+import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.saveddata.SavedData;
 import net.neoforged.neoforge.event.level.LevelEvent;
 
 import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.Arrays;
 import java.util.Set;
+import java.util.stream.Stream;
 
 public class Wires extends SavedData {
 
@@ -41,6 +42,15 @@ public class Wires extends SavedData {
      */
     private final Set<Wire> wires = new ObjectOpenHashSet<>();
 
+    /**
+     * Store all wires per chunk to access for e.g. players watching a chunk.
+     */
+    private final SetMultimap<ChunkPos, Wire> chunkToWires = HashMultimap.create();
+    /**
+     * Also store reverse map, mainly to make removal from chunkToWires easier.
+     */
+    private final SetMultimap<Wire, ChunkPos> wiresToChunk = HashMultimap.create();
+
     private final boolean isClient;
 
     public Wires(boolean isClient) {
@@ -50,6 +60,21 @@ public class Wires extends SavedData {
     public Wires(Set<Wire> wires, boolean isClient) {
         this(isClient);
         this.wires.addAll(wires);
+        //restore chunkToWires and wiresToChunk
+        this.wires.forEach(wire -> {
+            this.calculateChunkPosForWire(wire).forEach(chunkPos -> {
+                this.chunkToWires.put(chunkPos, wire);
+                this.wiresToChunk.put(wire, chunkPos);
+            });
+        });
+    }
+
+    public Set<Wire> getWires(ChunkPos chunk){
+        return this.chunkToWires.get(chunk);
+    }
+
+    public Set<ChunkPos> getChunks(Wire wire){
+        return this.wiresToChunk.get(wire);
     }
 
     public static Wires get(Level level) {
@@ -105,14 +130,29 @@ public class Wires extends SavedData {
         return CODEC.parse(NbtOps.INSTANCE, pCompoundTag.get(NBT_TAG)).result().orElseThrow();
     }
 
+    Stream<ChunkPos> calculateChunkPosForWire(Wire wire) {
+        return Arrays.stream(WireSlackHelper.getInterpolatedPoints(wire.from().getCenter(), wire.to().getCenter())).map(pos -> new ChunkPos(
+                SectionPos.blockToSectionCoord(pos.x()),
+                SectionPos.blockToSectionCoord(pos.z())
+        ));
+    }
+
     public void addWire(Wire wire) {
         if (this.isClient) {
             //we just add it to the renderer's set.
             WireRenderer.get().wires.add(wire);
         } else {
+            //add to our complete view of wires
             this.wires.add(wire);
+
+            //then add to our per-chunk view
+            this.calculateChunkPosForWire(wire).forEach(chunkPos -> {
+                this.chunkToWires.put(chunkPos, wire);
+                this.wiresToChunk.put(wire, chunkPos);
+            });
         }
     }
+
 
     public void removeWire(Wire wire) {
         if (this.isClient) {
@@ -120,6 +160,11 @@ public class Wires extends SavedData {
             WireRenderer.get().wires.remove(wire);
         } else {
             this.wires.remove(wire);
+            Set<ChunkPos> chunks = this.wiresToChunk.get(wire);
+            for (ChunkPos chunkPos : chunks) {
+                this.chunkToWires.remove(chunkPos, wire);
+            }
+            this.wiresToChunk.removeAll(wire);
         }
     }
 

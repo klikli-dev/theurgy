@@ -59,6 +59,8 @@ public class WireItem extends Item {
         //TODO: leaf node calculation on graph
         //TODO: add to wire renderer
 
+        //TODO: only add the wire on server side? -> server will sync to client
+        //      however, adding on client too should not cause harm as we use sets everywhere and would speed up local rendering
         Wires.get(pContext.getLevel()).addWire(new Wire(wireEndPoint.pos(), pos));
 
         return InteractionResult.SUCCESS;

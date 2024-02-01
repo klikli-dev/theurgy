@@ -30,6 +30,7 @@ import com.klikli_dev.theurgy.datagen.TheurgyDataGenerators;
 import com.klikli_dev.theurgy.integration.modonomicon.PageLoaders;
 import com.klikli_dev.theurgy.integration.modonomicon.PageRenderers;
 import com.klikli_dev.theurgy.logistics.WireRenderer;
+import com.klikli_dev.theurgy.logistics.WireSync;
 import com.klikli_dev.theurgy.logistics.Wires;
 import com.klikli_dev.theurgy.network.Networking;
 import com.klikli_dev.theurgy.registry.*;
@@ -104,6 +105,9 @@ public class Theurgy {
         modEventBus.addListener(SulfurRegistry::onBuildCreativeModTabs);
         modEventBus.addListener(SaltRegistry::onBuildCreativeModTabs);
         modEventBus.addListener(CapabilityRegistry::onRegisterCapabilities);
+
+        modEventBus.addListener(WireSync.get()::onChunkWatch);
+        modEventBus.addListener(WireSync.get()::onChunkUnWatch);
 
         NeoForge.EVENT_BUS.addListener(TooltipHandler::onItemTooltipEvent);
         NeoForge.EVENT_BUS.addListener(Logistics.get()::onLevelUnload);

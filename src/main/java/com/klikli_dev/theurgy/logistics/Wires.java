@@ -6,6 +6,7 @@ import com.klikli_dev.modonomicon.util.Codecs;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.SectionPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
@@ -51,6 +52,11 @@ public class Wires extends SavedData {
      */
     private final SetMultimap<Wire, ChunkPos> wiresToChunk = HashMultimap.create();
 
+    /**
+     * Maps the wire start and end point to the wire.
+     */
+    private final SetMultimap<BlockPos, Wire> connectorsToWire = HashMultimap.create();
+
     private final boolean isClient;
 
     public Wires(boolean isClient) {
@@ -59,14 +65,22 @@ public class Wires extends SavedData {
 
     public Wires(Set<Wire> wires, boolean isClient) {
         this(isClient);
-        this.wires.addAll(wires);
-        //restore chunkToWires and wiresToChunk
-        this.wires.forEach(wire -> {
-            this.calculateChunkPosForWire(wire).forEach(chunkPos -> {
-                this.chunkToWires.put(chunkPos, wire);
-                this.wiresToChunk.put(wire, chunkPos);
+
+        if(!isClient){
+            this.wires.addAll(wires);
+
+            //restore chunkToWires and wiresToChunk and connectorsToWire
+            this.wires.forEach(wire -> {
+                this.calculateChunkPosForWire(wire).forEach(chunkPos -> {
+                    this.chunkToWires.put(chunkPos, wire);
+                    this.wiresToChunk.put(wire, chunkPos);
+                });
+
+                this.connectorsToWire.put(wire.from(), wire);
+                this.connectorsToWire.put(wire.to(), wire);
             });
-        });
+        }
+
     }
 
     public Set<Wire> getWires(ChunkPos chunk){
@@ -151,6 +165,9 @@ public class Wires extends SavedData {
                 this.wiresToChunk.put(wire, chunkPos);
             });
 
+            this.connectorsToWire.put(wire.from(), wire);
+            this.connectorsToWire.put(wire.to(), wire);
+
             //needs to be called last because it relies on the new state
             WireSync.get().sendAddWireToWatchingPlayers(cachedServerLevel.get(), wire);
         }
@@ -167,6 +184,9 @@ public class Wires extends SavedData {
             WireSync.get().sendRemoveWireToWatchingPlayers(cachedServerLevel.get(), wire);
 
             this.wires.remove(wire);
+            this.connectorsToWire.remove(wire.from(), wire);
+            this.connectorsToWire.remove(wire.to(), wire);
+
             Set<ChunkPos> chunks = this.wiresToChunk.get(wire);
             for (ChunkPos chunkPos : chunks) {
                 this.chunkToWires.remove(chunkPos, wire);

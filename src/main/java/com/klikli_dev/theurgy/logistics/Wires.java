@@ -150,7 +150,11 @@ public class Wires extends SavedData {
                 this.chunkToWires.put(chunkPos, wire);
                 this.wiresToChunk.put(wire, chunkPos);
             });
+
+            //needs to be called last because it relies on the new state
+            WireSync.get().sendAddWireToWatchingPlayers(cachedServerLevel.get(), wire);
         }
+        this.setDirty();
     }
 
 
@@ -159,6 +163,9 @@ public class Wires extends SavedData {
             //we just add it to the renderer's set.
             WireRenderer.get().wires.remove(wire);
         } else {
+            //needs to be called first because it relies on the old state
+            WireSync.get().sendRemoveWireToWatchingPlayers(cachedServerLevel.get(), wire);
+
             this.wires.remove(wire);
             Set<ChunkPos> chunks = this.wiresToChunk.get(wire);
             for (ChunkPos chunkPos : chunks) {
@@ -166,6 +173,7 @@ public class Wires extends SavedData {
             }
             this.wiresToChunk.removeAll(wire);
         }
+        this.setDirty();
     }
 
     @Override

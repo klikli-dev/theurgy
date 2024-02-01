@@ -106,12 +106,11 @@ public class Theurgy {
         modEventBus.addListener(SaltRegistry::onBuildCreativeModTabs);
         modEventBus.addListener(CapabilityRegistry::onRegisterCapabilities);
 
-        modEventBus.addListener(WireSync.get()::onChunkWatch);
-        modEventBus.addListener(WireSync.get()::onChunkUnWatch);
-
         NeoForge.EVENT_BUS.addListener(TooltipHandler::onItemTooltipEvent);
         NeoForge.EVENT_BUS.addListener(Logistics.get()::onLevelUnload);
         NeoForge.EVENT_BUS.addListener(Wires::onLevelUnload);
+        NeoForge.EVENT_BUS.addListener(WireSync.get()::onChunkWatch);
+        NeoForge.EVENT_BUS.addListener(WireSync.get()::onChunkUnWatch);
 
         if (FMLEnvironment.dist == Dist.CLIENT) {
             modEventBus.addListener(ParticleRegistry::registerFactories);

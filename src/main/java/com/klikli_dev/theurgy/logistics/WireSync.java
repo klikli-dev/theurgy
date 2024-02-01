@@ -6,6 +6,7 @@ import com.klikli_dev.theurgy.network.Networking;
 import com.klikli_dev.theurgy.network.messages.MessageAddWires;
 import com.klikli_dev.theurgy.network.messages.MessageRemoveWires;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.ChunkPos;
 import net.neoforged.neoforge.event.level.ChunkWatchEvent;
@@ -30,8 +31,43 @@ public class WireSync {
         return instance;
     }
 
-    //TODO: send updates to wires to all watching players
-    
+
+    /**
+     * Needs to be called BEFORE the wire has been removed from the serverside wire multimaps
+     */
+    public void sendRemoveWireToWatchingPlayers(ServerLevel level, Wire wire) {
+        var players = this.getWatchingPlayers(level, wire);
+        var message = new MessageRemoveWires(Set.of(wire));
+
+        for (var playerUUID : players) {
+            var player = level.getServer().getPlayerList().getPlayer(playerUUID); //this uses a map and is faster than level.getPlayerByUUID
+            Networking.sendTo(player, message);
+        }
+    }
+
+    /**
+     * Needs to be called AFTER the wire has been added to the serverside wire multimaps
+     */
+    public void sendAddWireToWatchingPlayers(ServerLevel level, Wire wire) {
+        var players = this.getWatchingPlayers(level, wire);
+        var message = new MessageAddWires(Set.of(wire));
+
+        for (var playerUUID : players) {
+            var player = level.getServer().getPlayerList().getPlayer(playerUUID); //this uses a map and is faster than level.getPlayerByUUID
+            Networking.sendTo(player, message);
+        }
+    }
+
+
+    private Set<UUID> getWatchingPlayers(ServerLevel level, Wire wire) {
+        Set<UUID> players = new ObjectOpenHashSet<>();
+        var chunks = Wires.get(level).getChunks(wire); //get all chunks the wire intersects with
+        for (var chunk : chunks) {
+            var playersInChunk = this.watchedChunkToPlayers.get(chunk); //then get the players watching each chunk
+            players.addAll(playersInChunk);
+        }
+        return players;
+    }
 
     private void sendAddWiresInChunk(ServerPlayer player, ChunkPos chunkPos) {
         var wires = Wires.get(player.level());
@@ -74,7 +110,7 @@ public class WireSync {
     }
 
     public void onChunkWatch(ChunkWatchEvent.Watch event) {
-        //TODO: probably save to do this async
+        //TODO: probably safe to do this async
 
         this.playerToWatchedChunk.put(event.getPlayer().getUUID(), event.getPos());
         this.watchedChunkToPlayers.put(event.getPos(), event.getPlayer().getUUID());
@@ -83,7 +119,7 @@ public class WireSync {
     }
 
     public void onChunkUnWatch(ChunkWatchEvent.UnWatch event) {
-        //TODO: probably save to do this async
+        //TODO: probably safe to do this async
 
         this.playerToWatchedChunk.remove(event.getPlayer().getUUID(), event.getPos());
         this.watchedChunkToPlayers.remove(event.getPos(), event.getPlayer().getUUID());

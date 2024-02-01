@@ -23,7 +23,7 @@ import java.util.stream.Stream;
 
 public class Wires extends SavedData {
 
-    public static final String ID = "theurgy:wires";
+    public static final String ID = "theurgy.wires";
     public static final Codec<Wires> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Codecs.set(Wire.CODEC).fieldOf("wireConnections").forGetter(wires -> wires.wires),
             Codec.BOOL.fieldOf("isClient").forGetter(wires -> wires.isClient)

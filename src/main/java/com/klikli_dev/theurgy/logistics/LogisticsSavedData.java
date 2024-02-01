@@ -10,7 +10,7 @@ import net.minecraft.world.level.saveddata.SavedData;
 
 @SuppressWarnings("UnstableApiUsage")
 public class LogisticsSavedData extends SavedData {
-    public static final String ID = "theurgy:logistics";
+    public static final String ID = "theurgy.logistics";
     public static final Codec<LogisticsSavedData> CODEC = Codec.unit(LogisticsSavedData::new);
     private static final String NBT_TAG = "theurgy:logistics";
 

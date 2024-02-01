@@ -44,6 +44,6 @@ public class MessageRemoveWires implements Message {
 
     @Override
     public void onClientReceived(Minecraft minecraft, Player player) {
-        this.wires.forEach(Wires.get(minecraft.level)::removeWire);
+        this.wires.forEach(Wires.get(player.level())::removeWire);
     }
 }

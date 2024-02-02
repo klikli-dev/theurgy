@@ -107,7 +107,7 @@ public class Theurgy {
         modEventBus.addListener(CapabilityRegistry::onRegisterCapabilities);
 
         NeoForge.EVENT_BUS.addListener(TooltipHandler::onItemTooltipEvent);
-        NeoForge.EVENT_BUS.addListener(Logistics.get()::onLevelUnload);
+        NeoForge.EVENT_BUS.addListener(Logistics::onLevelUnload);
         NeoForge.EVENT_BUS.addListener(Wires::onLevelUnload);
         NeoForge.EVENT_BUS.addListener(WireSync.get()::onChunkWatch);
         NeoForge.EVENT_BUS.addListener(WireSync.get()::onChunkUnWatch);

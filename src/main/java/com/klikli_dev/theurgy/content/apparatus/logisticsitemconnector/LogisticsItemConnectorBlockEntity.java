@@ -11,6 +11,5 @@ public class LogisticsItemConnectorBlockEntity extends BlockEntity {
     }
 
     public void tickServer(){
-
     }
 }

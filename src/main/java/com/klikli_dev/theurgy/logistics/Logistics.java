@@ -7,6 +7,7 @@ import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.util.TheurgyExtraCodecs;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
@@ -17,6 +18,7 @@ import net.neoforged.neoforge.event.level.LevelEvent;
 import net.neoforged.neoforge.server.ServerLifecycleHooks;
 
 import java.util.List;
+import java.util.Map;
 import java.util.function.Supplier;
 
 @SuppressWarnings("UnstableApiUsage")
@@ -30,6 +32,7 @@ public class Logistics extends SavedData {
     private static final String NBT_TAG = "theurgy:logistics";
     private static Logistics cachedLogistics;
     private final MutableGraph<BlockPos> graph;
+    private final Map<BlockPos, LogisticsNetwork> blockPosToNetwork = new Object2ObjectOpenHashMap<>();
 
 
     public Logistics() {
@@ -47,6 +50,7 @@ public class Logistics extends SavedData {
     public static Logistics get() {
         if (cachedLogistics == null) {
             var server = ServerLifecycleHooks.getCurrentServer();
+            server.overworld().dimension()
             if (server != null) {
                 var logistics = server.overworld().getDataStorage().computeIfAbsent(
                         new SavedData.Factory<>(Logistics::new, Logistics::load, DataFixTypes.LEVEL),
@@ -73,7 +77,7 @@ public class Logistics extends SavedData {
         }
     }
 
-    public <T, C> void  onCapabilityInvalidated(BlockPos pos, LogisticsInserterNode<T, C> leafNode){
+    public <T, C> void onCapabilityInvalidated(BlockPos pos, LogisticsInserterNode<T, C> leafNode) {
         //TODO: notify the extractor nodes and call onTargetRemovedFromGraph
     }
 
@@ -99,14 +103,72 @@ public class Logistics extends SavedData {
         this.graph().addNode(node);
     }
 
-    public void add(BlockPos a, BlockPos b) {
-        //TODO: detect network merges
-        //TODO: detect network creations
+    /**
+     * Adds a leaf node to the graph.
+     * @param node the position of the leaf node
+     * @param leafNode the leaf node
+     * @param connectedTo the position of the node this leaf node is connected to.
+     *                    If the node is not connected to any other node yet then this should not be called yet.
+     */
+    public void addLeafNode(BlockPos node, LogisticsLeafNode<?, ?> leafNode, BlockPos connectedTo) {
+        var network = this.add(node, connectedTo);
+        this.blockPosToNetwork.put(node, network);
+        //TODO: dang - logistics networks should be able to cross dimensions. So we need to store the level
+        network.addLeafNode(node, leafNode);
+    }
+
+    public LogisticsNetwork add(BlockPos a, BlockPos b) {
         this.graph().putEdge(a, b);
+
+        LogisticsNetwork network;
+        var netA = this.blockPosToNetwork.get(a);
+        var netB = this.blockPosToNetwork.get(b);
+        if (netA == null && netB == null) {
+            //create network
+            network = new LogisticsNetwork();
+        } else if (netA == null) {
+            //add to network B
+            network = netB;
+        } else if (netB == null) {
+            //add to network A
+            network = netA;
+        } else if (netA != netB) {
+            //merge networks
+            network = this.merge(netA, netB);
+        } else {
+            //already in the same network .. so we just choose A
+            network = netA;
+        }
+
+        network.addNode(a);
+        network.addNode(b);
+
+        this.blockPosToNetwork.put(a, network);
+        this.blockPosToNetwork.put(b, network);
+
+        return network;
+    }
+
+    private LogisticsNetwork merge(LogisticsNetwork a, LogisticsNetwork b) {
+        //create new network that combines the old two
+        var result = new LogisticsNetwork();
+        result.merge(a);
+        result.merge(b);
+
+        //add new network to mapping
+        result.nodes().forEach(pos -> this.blockPosToNetwork.put(pos, result));
+
+        //remove old networks from mapping
+        a.nodes().forEach(pos -> this.blockPosToNetwork.remove(pos, result));
+        b.nodes().forEach(pos -> this.blockPosToNetwork.remove(pos, result));
+
+        return result;
     }
 
     public void remove(BlockPos a, BlockPos b) {
         //TODO: detect network splits
+        //      here we must rely on the graph and just rebuild both fully
+        //TODO: might be safe to do async? But game could further modify state ... so probably not
         this.graph().removeEdge(a, b);
     }
 

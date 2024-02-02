@@ -3,6 +3,7 @@ package com.klikli_dev.theurgy.content.apparatus.logisticsnode;
 import com.klikli_dev.theurgy.logistics.Logistics;
 import com.klikli_dev.theurgy.content.render.outliner.Outliner;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.GlobalPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -38,13 +39,15 @@ public class LogisticsNodeBlock extends Block {
             //maybe a generic one?
 
             //TODO: if block is not present connected will throw exception, we should instead return empty
-            var connected = Logistics.get().getConnected(pPos);
+            var connected = Logistics.get().getConnected(GlobalPos.of(pLevel.dimension(), pPos));
             var shape = Shapes.block();
             for(var block : connected){
-                Outliner.get().showAABB(block, shape.bounds()
-                                .move(block), 20 * 5)
-                        .colored(0x00FF00)
-                        .lineWidth(1 / 16f);
+                if(block.dimension().equals(pLevel.dimension())){
+                    Outliner.get().showAABB(block, shape.bounds()
+                                    .move(block.pos()), 20 * 5)
+                            .colored(0x00FF00)
+                            .lineWidth(1 / 16f);
+                }
             }
 
         }
@@ -57,7 +60,7 @@ public class LogisticsNodeBlock extends Block {
         super.onRemove(pState, pLevel, pPos, pNewState, pMovedByPiston);
 
         if(!pLevel.isClientSide){
-            Logistics.get().remove(pPos);
+            Logistics.get().remove(GlobalPos.of(pLevel.dimension(), pPos));
         }
     }
 }

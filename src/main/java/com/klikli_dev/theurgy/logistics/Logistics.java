@@ -9,6 +9,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.GlobalPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.util.datafix.DataFixTypes;
@@ -24,22 +25,22 @@ import java.util.function.Supplier;
 @SuppressWarnings("UnstableApiUsage")
 public class Logistics extends SavedData {
 
-    public static final Supplier<MutableGraph<BlockPos>> GRAPH_SUPPLIER = () -> GraphBuilder.undirected().allowsSelfLoops(false).build();
+    public static final Supplier<MutableGraph<GlobalPos>> GRAPH_SUPPLIER = () -> GraphBuilder.undirected().allowsSelfLoops(false).build();
     public static final String ID = "theurgy.logistics";
     public static final Codec<Logistics> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-            TheurgyExtraCodecs.graph(BlockPos.CODEC, GRAPH_SUPPLIER).fieldOf("graph").forGetter(Logistics::graph)
+            TheurgyExtraCodecs.graph(GlobalPos.CODEC, GRAPH_SUPPLIER).fieldOf("graph").forGetter(Logistics::graph)
     ).apply(instance, Logistics::new));
     private static final String NBT_TAG = "theurgy:logistics";
     private static Logistics cachedLogistics;
-    private final MutableGraph<BlockPos> graph;
-    private final Map<BlockPos, LogisticsNetwork> blockPosToNetwork = new Object2ObjectOpenHashMap<>();
+    private final MutableGraph<GlobalPos> graph;
+    private final Map<GlobalPos, LogisticsNetwork> blockPosToNetwork = new Object2ObjectOpenHashMap<>();
 
 
     public Logistics() {
         this(GRAPH_SUPPLIER.get());
     }
 
-    public Logistics(MutableGraph<BlockPos> graph) {
+    public Logistics(MutableGraph<GlobalPos> graph) {
         this.graph = graph;
     }
 
@@ -50,7 +51,7 @@ public class Logistics extends SavedData {
     public static Logistics get() {
         if (cachedLogistics == null) {
             var server = ServerLifecycleHooks.getCurrentServer();
-            server.overworld().dimension()
+
             if (server != null) {
                 var logistics = server.overworld().getDataStorage().computeIfAbsent(
                         new SavedData.Factory<>(Logistics::new, Logistics::load, DataFixTypes.LEVEL),
@@ -77,11 +78,11 @@ public class Logistics extends SavedData {
         }
     }
 
-    public <T, C> void onCapabilityInvalidated(BlockPos pos, LogisticsInserterNode<T, C> leafNode) {
+    public <T, C> void onCapabilityInvalidated(GlobalPos pos, LogisticsInserterNode<T, C> leafNode) {
         //TODO: notify the extractor nodes and call onTargetRemovedFromGraph
     }
 
-    public MutableGraph<BlockPos> graph() {
+    public MutableGraph<GlobalPos> graph() {
         return this.graph;
     }
 
@@ -91,7 +92,7 @@ public class Logistics extends SavedData {
         return pCompoundTag;
     }
 
-    public Iterable<BlockPos> getConnected(BlockPos start) {
+    public Iterable<GlobalPos> getConnected(GlobalPos start) {
         var traverser = Traverser.forGraph(this.graph());
         if (this.graph().nodes().contains(start))
             return traverser.breadthFirst(start);
@@ -99,7 +100,7 @@ public class Logistics extends SavedData {
         return List.of();
     }
 
-    public void add(BlockPos node) {
+    public void add(GlobalPos node) {
         this.graph().addNode(node);
     }
 
@@ -110,14 +111,13 @@ public class Logistics extends SavedData {
      * @param connectedTo the position of the node this leaf node is connected to.
      *                    If the node is not connected to any other node yet then this should not be called yet.
      */
-    public void addLeafNode(BlockPos node, LogisticsLeafNode<?, ?> leafNode, BlockPos connectedTo) {
+    public void addLeafNode(GlobalPos node, LogisticsLeafNode<?, ?> leafNode, GlobalPos connectedTo) {
         var network = this.add(node, connectedTo);
         this.blockPosToNetwork.put(node, network);
-        //TODO: dang - logistics networks should be able to cross dimensions. So we need to store the level
         network.addLeafNode(node, leafNode);
     }
 
-    public LogisticsNetwork add(BlockPos a, BlockPos b) {
+    public LogisticsNetwork add(GlobalPos a, GlobalPos b) {
         this.graph().putEdge(a, b);
 
         LogisticsNetwork network;
@@ -165,14 +165,15 @@ public class Logistics extends SavedData {
         return result;
     }
 
-    public void remove(BlockPos a, BlockPos b) {
+    public void remove(GlobalPos a, GlobalPos b) {
         //TODO: detect network splits
         //      here we must rely on the graph and just rebuild both fully
         //TODO: might be safe to do async? But game could further modify state ... so probably not
         this.graph().removeEdge(a, b);
     }
 
-    public void remove(BlockPos destroyedBlock) {
+    public void remove(GlobalPos destroyedBlock) {
         this.graph().removeNode(destroyedBlock);
+        //TODO: update the network, detect network splits
     }
 }

@@ -27,8 +27,6 @@ public interface LogisticsLeafNode<T, C> {
 
     Level level();
 
-    ServerLevel serverLevel();
-
     /**
      * Gets the capability type of this node.
      */

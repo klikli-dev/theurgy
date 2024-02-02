@@ -5,6 +5,7 @@ import com.google.common.collect.HashMultimap;
 import com.google.common.collect.SetMultimap;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.GlobalPos;
 import net.neoforged.neoforge.capabilities.BlockCapability;
 
 import java.util.Set;
@@ -18,34 +19,37 @@ import java.util.Set;
  */
 public class LogisticsNetwork {
     //TODO: handle frequency changes
-    private final Set<BlockPos> nodes = new ObjectOpenHashSet<>();
-    private final Set<BlockPos> leafNodes = new ObjectOpenHashSet<>();
-    private final SetMultimap<Key, BlockPos> keyToLeafNodes = HashMultimap.create();
+    private final Set<GlobalPos> nodes = new ObjectOpenHashSet<>();
+    private final Set<GlobalPos> leafNodes = new ObjectOpenHashSet<>();
+    private final SetMultimap<Key, GlobalPos> keyToLeafNodes = HashMultimap.create();
 
-    public Set<BlockPos> nodes() {
+    public Set<GlobalPos> nodes() {
         return this.nodes;
     }
 
-    public Set<BlockPos> getLeafNodes(Key key) {
+    public Set<GlobalPos> getLeafNodes(Key key) {
         return this.keyToLeafNodes.get(key);
     }
 
-    public Set<BlockPos> getLeafNodes(BlockCapability<?, ?> capability, int frequency) {
+    public Set<GlobalPos> getLeafNodes(BlockCapability<?, ?> capability, int frequency) {
         return this.getLeafNodes(new Key(capability, frequency));
     }
 
-    public void addNode(BlockPos pos) {
+    public void addNode(GlobalPos pos) {
         this.nodes.add(pos);
     }
 
-    public void addLeafNode(BlockPos pos, LogisticsLeafNode<?, ?> leafNode) {
+    public void addLeafNode(GlobalPos pos, LogisticsLeafNode<?, ?> leafNode) {
         this.leafNodes.add(pos);
         this.keyToLeafNodes.put(new Key(leafNode.capabilityType(), leafNode.frequency()), pos);
     }
 
-    public void onFrequencyChange(BlockPos pos, BlockCapability<?, ?> capability, int oldFrequency, int newFrequency) {
+    public void onFrequencyChange(GlobalPos pos, BlockCapability<?, ?> capability, int oldFrequency, int newFrequency) {
         var oldKey = new Key(capability, oldFrequency);
         var newKey = new Key(capability, newFrequency);
+
+        //TODO: need to notify the other nodes of the frequency change so they can update their cache
+        //      specifically we can just directly call the add/remove leaf node methods
 
         this.keyToLeafNodes.remove(oldKey, pos);
         this.keyToLeafNodes.put(newKey, pos);

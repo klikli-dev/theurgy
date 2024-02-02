@@ -73,6 +73,10 @@ public class Logistics extends SavedData {
         }
     }
 
+    public <T, C> void  onCapabilityInvalidated(BlockPos pos, LogisticsInserterNode<T, C> leafNode){
+        //TODO: notify the extractor nodes and call onTargetRemovedFromGraph
+    }
+
     public MutableGraph<BlockPos> graph() {
         return this.graph;
     }
@@ -96,10 +100,13 @@ public class Logistics extends SavedData {
     }
 
     public void add(BlockPos a, BlockPos b) {
+        //TODO: detect network merges
+        //TODO: detect network creations
         this.graph().putEdge(a, b);
     }
 
     public void remove(BlockPos a, BlockPos b) {
+        //TODO: detect network splits
         this.graph().removeEdge(a, b);
     }
 

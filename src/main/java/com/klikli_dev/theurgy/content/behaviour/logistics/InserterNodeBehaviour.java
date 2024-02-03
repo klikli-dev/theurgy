@@ -32,6 +32,7 @@ public abstract class InserterNodeBehaviour<T, C> extends LeafNodeBehaviour<T, C
     public void onLoad() {
         //targets are filled via load(tag) on the parent, the NBT in turn is provided by the BlockItem.
         this.targetCapabilities = this.buildTargetCapabilities(this.targets());
+
         super.onLoad();
     }
 
@@ -44,7 +45,7 @@ public abstract class InserterNodeBehaviour<T, C> extends LeafNodeBehaviour<T, C
 
     protected abstract C getTargetContext(BlockPos targetPos);
 
-    public List<BlockCapabilityCache<T, C>> targetCapabilities(){
+    public List<BlockCapabilityCache<T, C>> targetCapabilities() {
         return this.targetCapabilities;
     }
 

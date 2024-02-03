@@ -181,7 +181,7 @@ public class BlockRegistry {
             );
 
     public static final DeferredBlock<LogisticsItemInserterBlock> LOGISTICS_ITEM_INSERTER =
-            BLOCKS.register("logistics_item_connector", () -> new LogisticsItemInserterBlock(BlockBehaviour.Properties.of()
+            BLOCKS.register("logistics_item_inserter", () -> new LogisticsItemInserterBlock(BlockBehaviour.Properties.of()
                     .strength(0.1f)
                     .noOcclusion()
                     .forceSolidOff()

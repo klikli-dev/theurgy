@@ -27,7 +27,7 @@ public class LogisticsNodeBlock extends Block {
 
     @Override
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
-
+        //TODO: this whole block probably should not exist and be only for debug :)
         if(!pPlayer.getItemInHand(pHand).isEmpty())
             return InteractionResult.PASS;
 
@@ -38,7 +38,6 @@ public class LogisticsNodeBlock extends Block {
             //TODO: needs to send packet that does outlining
             //maybe a generic one?
 
-            //TODO: if block is not present connected will throw exception, we should instead return empty
             var connected = Logistics.get().getNetwork(GlobalPos.of(pLevel.dimension(), pPos));
             var shape = Shapes.block();
             for(var block : connected.nodes()){

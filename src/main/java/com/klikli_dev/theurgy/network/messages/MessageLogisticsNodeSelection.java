@@ -53,7 +53,8 @@ public class MessageLogisticsNodeSelection implements Message {
         if (level == null || !level.isLoaded(this.blockPos))
             return;
 
-        this.selectedPoints.forEach(point -> Logistics.get().add(this.blockPos, point.getBlockPos()));
+        //TODO: probably just remove the whole logistics node thingy, but for now this is just commented out
+//        this.selectedPoints.forEach(point -> Logistics.get().add(this.blockPos, point.getBlockPos()));
     }
 
     @Override

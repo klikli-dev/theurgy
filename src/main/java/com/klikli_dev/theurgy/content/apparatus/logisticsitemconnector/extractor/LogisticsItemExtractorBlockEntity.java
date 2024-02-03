@@ -26,7 +26,10 @@ public class LogisticsItemExtractorBlockEntity extends LogisticsItemConnectorBlo
     @Override
     public void onChunkUnloaded() {
         super.onChunkUnloaded();
-        this.leafNode().onChunkUnload();
+
+        if(!this.level.isClientSide){
+            this.leafNode().onChunkUnload();
+        }
     }
 
     @Override

@@ -22,7 +22,9 @@ public abstract class LogisticsItemConnectorBlockEntity extends BlockEntity impl
     @Override
     public void onLoad() {
         super.onLoad();
-        this.leafNodeBehaviour.onLoad();
+        if(!this.level.isClientSide){
+            this.leafNode().onLoad();
+        }
     }
 
     @Override

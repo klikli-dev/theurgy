@@ -46,6 +46,13 @@ public class LogisticsNetwork {
         var pos = leafNode.globalPos();
         this.leafNodes.add(pos);
         this.keyToLeafNodes.put(new Key(leafNode.capabilityType(), leafNode.frequency()), pos);
+
+        if (leafNode.mode() == LeafNodeMode.INSERT) {
+            this.onLoadInsertNode(leafNode.asInserter());
+        }
+        if (leafNode.mode() == LeafNodeMode.EXTRACT) {
+            this.onLoadExtractNode(leafNode.asExtractor());
+        }
     }
 
     public <T, C> void onFrequencyChange(LeafNodeBehaviour<T, C> leafNode, BlockCapability<T, C> capability, int oldFrequency, int newFrequency) {
@@ -198,7 +205,7 @@ public class LogisticsNetwork {
 
     /**
      * Forces all nodes to rebuild their caches.
-     */ 
+     */
     public void rebuildCaches(){
         Logistics.get().enableLeafNodeCache();
         //first unload all to unlink them

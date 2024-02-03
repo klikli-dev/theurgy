@@ -12,6 +12,7 @@ import com.klikli_dev.theurgy.util.TheurgyExtraCodecs;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
@@ -25,6 +26,7 @@ import net.neoforged.neoforge.server.ServerLifecycleHooks;
 import java.lang.ref.WeakReference;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.Supplier;
 
 @SuppressWarnings("UnstableApiUsage")
@@ -38,9 +40,17 @@ public class Logistics extends SavedData {
     private static final String NBT_TAG = "theurgy:logistics";
     private static Logistics cachedLogistics;
     private final MutableGraph<GlobalPos> graph;
+    private final Set<GlobalPos> graphNodes = new ObjectOpenHashSet<>();
     private final Map<GlobalPos, LogisticsNetwork> blockPosToNetwork = new Object2ObjectOpenHashMap<>();
     protected Map<GlobalPos, WeakReference<LeafNodeBehaviour<?, ?>>> cachedLeafNodes = new Object2ObjectOpenHashMap<>();
     protected boolean useLeafNodeCache = false;
+    private boolean useAutomaticNetworkCacheRebuild = true;
+
+    //TODO: can we somehow handle offline modifications? eg worldedit
+    //      check if node exists on chunk load and kick out all GlobalPos that no longer represent a node block
+    //      that does not handle if a DIFFERENT node was placed which may cause issues with our capability key system
+    //      -> or we can just require admins that do that to do it live? :)
+    //      the kicking of non-nodes might make sense though
 
     public Logistics() {
         this(GRAPH_SUPPLIER.get());
@@ -48,6 +58,34 @@ public class Logistics extends SavedData {
 
     public Logistics(MutableGraph<GlobalPos> graph) {
         this.graph = graph;
+        this.rebuildGraph();
+    }
+
+    public void rebuildGraph(){
+        this.graphNodes.clear();
+        this.blockPosToNetwork.clear();
+        for(var node : this.graph.nodes()){
+            //skip nodes we already handled
+            if(this.graphNodes.contains(node)){
+                continue;
+            }
+
+            //now get all nodes connected to this one and create a network for them
+            var connected = this.getConnected(node);
+            var network = new LogisticsNetwork();
+
+            //add the root node
+            network.addNode(node);
+            this.blockPosToNetwork.put(node, network);
+            this.graphNodes.add(node);
+
+            //now add all other nodes
+            connected.forEach(c -> {
+                network.addNode(c);
+                this.blockPosToNetwork.put(c, network);
+                this.graphNodes.add(c); //this ensures we don't unnecessarily double-check
+            });
+        }
     }
 
     public static Logistics load(CompoundTag pCompoundTag) {
@@ -97,6 +135,14 @@ public class Logistics extends SavedData {
         this.cachedLeafNodes.clear();
     }
 
+    public void disableAutomaticNetworkCacheRebuild() {
+        this.useAutomaticNetworkCacheRebuild = false;
+    }
+
+    public void enableAutomaticNetworkCacheRebuild() {
+        this.useAutomaticNetworkCacheRebuild = true;
+    }
+
     /**
      * Gets the leaf node at the given position if it is in the desired mode ( or null ).
      * Call enableLeafNodeCache() before calling this to enable caching if you plan to access a lot of nodes in short periods of time.
@@ -120,9 +166,9 @@ public class Logistics extends SavedData {
         LeafNodeBehaviour<?, ?> result = null;
         if (this.useLeafNodeCache) {
             var weakRef = this.cachedLeafNodes.get(pos);
-            if (weakRef != null){
+            if (weakRef != null) {
                 result = weakRef.get();
-                if(result == null){ //clean up cache if needed.
+                if (result == null) { //clean up cache if needed.
                     this.cachedLeafNodes.remove(pos);
                 }
             }
@@ -156,6 +202,10 @@ public class Logistics extends SavedData {
         return this.graph;
     }
 
+    public Set<GlobalPos> graphNodes() {
+        return this.graphNodes;
+    }
+
     @Override
     public CompoundTag save(CompoundTag pCompoundTag) {
         pCompoundTag.put(NBT_TAG, CODEC.encodeStart(NbtOps.INSTANCE, this).result().orElseThrow());
@@ -164,55 +214,70 @@ public class Logistics extends SavedData {
 
     public Iterable<GlobalPos> getConnected(GlobalPos start) {
         var traverser = Traverser.forGraph(this.graph());
-        if (this.graph().nodes().contains(start))
+        if (this.graphNodes().contains(start))
             return traverser.breadthFirst(start);
 
         return List.of();
     }
 
-    public void add(GlobalPos node) {
-        this.graph().addNode(node);
-    }
-
-    public void removeLeafNode(LeafNodeBehaviour<?, ?> leafNode) {
+    public void removeLeafNode(LeafNodeBehaviour<?, ?> leafNode, boolean permanently) {
+        //TODO: need to know if it was destroyed or unloaded
         //TODO: Implement
 
         //TODO: if a leaf node is unloaded we remove it as a leaf node, but leaf the "normal" node behind.
         //      this way it stays known to the network and can re-add itself when loaded
         //      otherwise we would have the problem that a leaf node would have to know which network it is in to register correctly
+        //TODO: only if it was destroyed = permanently removed we remove the normal node too
     }
 
     /**
      * Adds a leaf node to the graph.
+     * Will call onLoadInsertNode or onLoadExtractNode methods on the network for you.
+     * Will also create a network if none exists yet, as leaf nodes need a network to be in.
      *
-     * @param leafNode    the leaf node
-     * @param connectedTo the position of the node this leaf node is connected to.
-     *                    If the node is not connected to any other node yet then this should not be called yet.
+     * @param leafNode the leaf node
      */
-    public void addLeafNode(LeafNodeBehaviour<?, ?> leafNode, GlobalPos connectedTo) {
-        //TODO: we should not need a connectedTo
-        //      in most cases the node is first added solo, and then a connection added later
-
-        //TODO: a network merge should cause logistics networks to rebuild cache.
-        //      we can just flush cache and rebuild for all nodes
-        //      we can slightly improve performance by just calling the "add" functionality on the respective other half of the network
-        //      but that is probably not worth it .. we can just leave a comment behind as a potential future improvement
-        //      rebuildCaches only on the new merged network -> contains all nodes anyway
-
-
-        //TODO: can we somehow handle offline modifications? eg worldedit
-        //      check if node exists on chunk load and kick out all GlobalPos that no longer represent a node block
-        //      that does not handle if a DIFFERENT node was placed which may cause issues with our capability key system
-        //      -> or we can just require admins that do that to do it live? :)
-        //      the kicking of non-nodes might make sense though
+    public void add(LeafNodeBehaviour<?, ?> leafNode) {
         var pos = leafNode.globalPos();
-        var network = this.add(pos, connectedTo);
-        this.blockPosToNetwork.put(pos, network);
-        network.addLeafNode(leafNode);
+        this.add(pos);
+        var network = this.blockPosToNetwork.get(pos);
+        if (network != null) {
+            network.addLeafNode(leafNode);
+        }
     }
 
+    /**
+     * Adds a single node to the graph.
+     * Needs to be called both for internal nodes and leaf nodes.
+     * The latter will automatically call it from its respective add() method.
+     * Will re-create existing networks if the node was already present on a previous load.
+     */
+    public LogisticsNetwork add(GlobalPos node) {
+        var isNew = this.graphNodes().add(node);
+        if (isNew) {
+            //if new we just add it, there will be no network
+            this.graph().addNode(node);
+            return null;
+        } else {
+            //if not new it was previously added and may have been connected before, so we query the graph.
+            //this causes network re-creation after a world load.
+            var neighbors = this.graph().adjacentNodes(node);
+            for (GlobalPos neighbor : neighbors) {
+                this.add(node, neighbor);
+            }
+        }
+        return this.blockPosToNetwork.get(node);
+    }
+
+    /**
+     * Adds an edge/connection to the network.
+     * This will add the nodes if they are not present yet.
+     * Will create a network if none exists yet and handles merging.
+     */
     public LogisticsNetwork add(GlobalPos a, GlobalPos b) {
         this.graph().putEdge(a, b);
+        this.graphNodes().add(a);
+        this.graphNodes().add(b);
 
         LogisticsNetwork network;
         var netA = this.blockPosToNetwork.get(a);
@@ -222,13 +287,20 @@ public class Logistics extends SavedData {
             network = new LogisticsNetwork();
         } else if (netA == null) {
             //add to network B
+            //this one and the next if elegantly avoid a merge if a single node is connected to a network
+            //a single node does not create a network.
             network = netB;
         } else if (netB == null) {
             //add to network A
             network = netA;
         } else if (netA != netB) {
             //merge networks
-            network = this.merge(netA, netB);
+            if(netA.nodes().size() == 1) //in case netB is also 1 that is fine.
+                network = this.mergeSingle(netB, netA);
+            else if(netB.nodes().size() == 1)
+                network = this.mergeSingle(netA, netB);
+            else
+                network = this.merge(netA, netB);
         } else {
             //already in the same network .. so we just choose A
             network = netA;
@@ -250,13 +322,24 @@ public class Logistics extends SavedData {
         result.merge(b);
 
         //add new network to mapping
+        //this also replaces the old network as each node is overwritten
         result.nodes().forEach(pos -> this.blockPosToNetwork.put(pos, result));
 
-        //remove old networks from mapping
-        a.nodes().forEach(pos -> this.blockPosToNetwork.remove(pos, result));
-        b.nodes().forEach(pos -> this.blockPosToNetwork.remove(pos, result));
+        if (this.useAutomaticNetworkCacheRebuild) {
+            result.rebuildCaches(); //just rebuild cache on the new network as that will reset all nodes anyway
+        }
 
         return result;
+    }
+
+    /**
+     * Merges a network with only one node into a larger network.
+     * This means it will never perform a cache rebuild.
+     * Instead, in the case of a leaf being the added one it being added to the network will fire the necessary event.
+     */
+    private LogisticsNetwork mergeSingle(LogisticsNetwork network, LogisticsNetwork singleNodeNetwork) {
+        network.merge(singleNodeNetwork);
+        return network;
     }
 
     public void remove(GlobalPos a, GlobalPos b) {
@@ -271,6 +354,7 @@ public class Logistics extends SavedData {
 
     public void remove(GlobalPos destroyedBlock) {
         this.graph().removeNode(destroyedBlock);
+        this.graphNodes.remove(destroyedBlock);
         //TODO: update the network, detect network splits
 
         //TODO: logistics networks also need to re-notify all their nodes to update the cache.

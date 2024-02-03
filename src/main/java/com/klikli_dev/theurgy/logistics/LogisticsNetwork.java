@@ -3,14 +3,15 @@ package com.klikli_dev.theurgy.logistics;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.SetMultimap;
-import com.klikli_dev.theurgy.content.behaviour.logistics.ExtractorNodeBehaviour;
-import com.klikli_dev.theurgy.content.behaviour.logistics.InserterNodeBehaviour;
-import com.klikli_dev.theurgy.content.behaviour.logistics.LeafNodeBehaviour;
-import com.klikli_dev.theurgy.content.behaviour.logistics.LeafNodeMode;
+import com.klikli_dev.theurgy.content.behaviour.logistics.*;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import net.minecraft.core.GlobalPos;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.capabilities.BlockCapability;
 
+import java.lang.ref.WeakReference;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -193,6 +194,40 @@ public class LogisticsNetwork {
         this.nodes.addAll(other.nodes);
         this.leafNodes.addAll(other.leafNodes);
         this.keyToLeafNodes.putAll(other.keyToLeafNodes);
+    }
+
+    /**
+     * Forces all nodes to rebuild their caches.
+     */ 
+    public void rebuildCaches(){
+        Logistics.get().enableLeafNodeCache();
+        //first unload all to unlink them
+        for(var leafNode : this.leafNodes){
+            var node = Logistics.get().getLeafNode(leafNode);
+            if(node != null){
+                if(node.mode() == LeafNodeMode.EXTRACT){
+                    this.onUnloadExtractNode(node.asExtractor());
+                }
+                if(node.mode() == LeafNodeMode.INSERT){
+                    //no need to call unload here as it just notifies the extractors, which we reset anyay
+                    //this.onUnloadInsertNode(node.asInserter());
+                }
+            }
+        }
+        //then load all to link them
+        for(var leafNode : this.leafNodes){
+            var node = Logistics.get().getLeafNode(leafNode);
+            if(node != null){
+                if(node.mode() == LeafNodeMode.EXTRACT){
+                    //now there is no need to call load here, as the load insert will notify the extractors
+                    //this.onLoadExtractNode(node.asExtractor());
+                }
+                if(node.mode() == LeafNodeMode.INSERT){
+                    this.onLoadInsertNode(node.asInserter());
+                }
+            }
+        }
+        Logistics.get().disableLeafNodeCache();
     }
 
     public record Key(BlockCapability<?, ?> capability, int frequency) {

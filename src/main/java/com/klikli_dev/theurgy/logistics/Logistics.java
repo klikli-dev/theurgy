@@ -22,6 +22,7 @@ import net.minecraft.world.level.saveddata.SavedData;
 import net.neoforged.neoforge.event.level.LevelEvent;
 import net.neoforged.neoforge.server.ServerLifecycleHooks;
 
+import java.lang.ref.WeakReference;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
@@ -38,7 +39,8 @@ public class Logistics extends SavedData {
     private static Logistics cachedLogistics;
     private final MutableGraph<GlobalPos> graph;
     private final Map<GlobalPos, LogisticsNetwork> blockPosToNetwork = new Object2ObjectOpenHashMap<>();
-
+    protected Map<GlobalPos, WeakReference<LeafNodeBehaviour<?, ?>>> cachedLeafNodes = new Object2ObjectOpenHashMap<>();
+    protected boolean useLeafNodeCache = false;
 
     public Logistics() {
         this(GRAPH_SUPPLIER.get());
@@ -86,6 +88,19 @@ public class Logistics extends SavedData {
         }
     }
 
+    public void enableLeafNodeCache() {
+        this.useLeafNodeCache = true;
+    }
+
+    public void disableLeafNodeCache() {
+        this.useLeafNodeCache = false;
+        this.cachedLeafNodes.clear();
+    }
+
+    /**
+     * Gets the leaf node at the given position if it is in the desired mode ( or null ).
+     * Call enableLeafNodeCache() before calling this to enable caching if you plan to access a lot of nodes in short periods of time.
+     */
     public LeafNodeBehaviour<?, ?> getLeafNode(GlobalPos pos, LeafNodeMode mode) {
         var node = this.getLeafNode(pos);
         if (node != null && node.mode() == mode) {
@@ -94,18 +109,43 @@ public class Logistics extends SavedData {
         return null;
     }
 
+
+    /**
+     * Gets the leaf node at the given position ( or null ).
+     * Call enableLeafNodeCache() before calling this to enable caching if you plan to access a lot of nodes in short periods of time.
+     */
     public LeafNodeBehaviour<?, ?> getLeafNode(GlobalPos pos) {
-        var level = server().getLevel(pos.dimension());
-        if (level == null) {
-            return null;
+
+        //first check leaf node cache
+        LeafNodeBehaviour<?, ?> result = null;
+        if (this.useLeafNodeCache) {
+            var weakRef = this.cachedLeafNodes.get(pos);
+            if (weakRef != null){
+                result = weakRef.get();
+                if(result == null){ //clean up cache if needed.
+                    this.cachedLeafNodes.remove(pos);
+                }
+            }
         }
 
-        var blockEntity = level.getBlockEntity(pos.pos());
-        if (blockEntity instanceof HasLeafNodeBehaviour<?, ?> hasLeafNode) {
-            return hasLeafNode.leafNode();
+        //if not in cache, query world and store.
+        if (result == null) {
+            var level = server().getLevel(pos.dimension());
+            if (level == null) {
+                return null;
+            }
+
+            var blockEntity = level.getBlockEntity(pos.pos());
+            if (blockEntity instanceof HasLeafNodeBehaviour<?, ?> hasLeafNode) {
+                result = hasLeafNode.leafNode();
+            }
+
+            if (result != null && this.useLeafNodeCache) {
+                this.cachedLeafNodes.put(pos, new WeakReference<>(result));
+            }
         }
 
-        return null;
+        return result;
     }
 
     public <T, C> void onCapabilityInvalidated(GlobalPos pos, InserterNodeBehaviour<T, C> leafNode) {
@@ -157,6 +197,7 @@ public class Logistics extends SavedData {
         //      we can just flush cache and rebuild for all nodes
         //      we can slightly improve performance by just calling the "add" functionality on the respective other half of the network
         //      but that is probably not worth it .. we can just leave a comment behind as a potential future improvement
+        //      rebuildCaches only on the new merged network -> contains all nodes anyway
 
 
         //TODO: can we somehow handle offline modifications? eg worldedit
@@ -224,6 +265,7 @@ public class Logistics extends SavedData {
 
         //TODO: logistics networks also need to re-notify all their nodes to update the cache.
         //      as long as both new networks reset and rebuild fully that is probably pretty easy.
+        //      rebuildCaches on both!
         this.graph().removeEdge(a, b);
     }
 
@@ -233,5 +275,6 @@ public class Logistics extends SavedData {
 
         //TODO: logistics networks also need to re-notify all their nodes to update the cache.
         //      as long as both new networks reset and rebuild fully that is probably pretty easy.
+        //      rebuildCaches on both!
     }
 }

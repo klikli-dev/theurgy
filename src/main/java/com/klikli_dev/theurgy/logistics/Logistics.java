@@ -20,7 +20,6 @@ import net.minecraft.world.level.saveddata.SavedData;
 import net.neoforged.neoforge.capabilities.BlockCapability;
 import net.neoforged.neoforge.event.level.LevelEvent;
 import net.neoforged.neoforge.server.ServerLifecycleHooks;
-import org.checkerframework.checker.units.qual.C;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -147,7 +146,6 @@ public class Logistics extends SavedData {
         return this.getLeafNode(pos, (BlockCapability<?, ?>) null);
     }
 
-
     /**
      * Gets the leaf node at the given position if it is in the desired mode ( or null ).
      * Call enableLeafNodeCache() before calling this to enable caching if you plan to access a lot of nodes in short periods of time.
@@ -168,7 +166,7 @@ public class Logistics extends SavedData {
             var weakRef = this.cachedLeafNodes.get(pos);
             if (weakRef != null) {
                 var temp = weakRef.get();
-                if(temp != null && (capability == null || temp.capabilityType().equals(capability))){
+                if (temp != null && (capability == null || temp.capabilityType().equals(capability))) {
                     //noinspection unchecked -> we know it is the right type because we check!
                     result = (LeafNodeBehaviour<T, C>) temp;
                 }

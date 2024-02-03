@@ -33,9 +33,6 @@ import java.util.function.Supplier;
 
 @SuppressWarnings("UnstableApiUsage")
 public class Logistics extends SavedData {
-
-    //TODO: reorder members
-
     public static final Supplier<MutableGraph<GlobalPos>> GRAPH_SUPPLIER = () -> GraphBuilder.undirected().allowsSelfLoops(false).build();
     public static final String ID = "theurgy.logistics";
     public static final Codec<Logistics> CODEC = RecordCodecBuilder.create(instance -> instance.group(
@@ -43,11 +40,20 @@ public class Logistics extends SavedData {
     ).apply(instance, Logistics::new));
     private static final String NBT_TAG = "theurgy:logistics";
     private static Logistics cachedLogistics;
+
     private final MutableGraph<GlobalPos> graph;
     private final Set<GlobalPos> graphNodes = new ObjectOpenHashSet<>();
     private final Map<GlobalPos, LogisticsNetwork> blockPosToNetwork = new Object2ObjectOpenHashMap<>();
-    protected Map<GlobalPos, WeakReference<LeafNodeBehaviour<?, ?>>> cachedLeafNodes = new Object2ObjectOpenHashMap<>();
-    protected boolean useLeafNodeCache = false;
+    private final Map<GlobalPos, WeakReference<LeafNodeBehaviour<?, ?>>> cachedLeafNodes = new Object2ObjectOpenHashMap<>();
+    /**
+     * If true, leaf node lookups will be cached. This is useful if you access a lot of nodes in a short period of time.
+     */
+    private boolean useLeafNodeCache = false;
+
+    /**
+     * If true, the network's leaf node caches will be rebuilt automatically after a network change.
+     * This should be true in most cases, but can be disabled if you want to handle it manually, e.g. for bulk operations.
+     */
     private boolean useAutomaticNetworkCacheRebuild = true;
 
     //TODO: can we somehow handle offline modifications? eg worldedit
@@ -69,7 +75,7 @@ public class Logistics extends SavedData {
         return CODEC.parse(NbtOps.INSTANCE, pCompoundTag.get(NBT_TAG)).result().orElseThrow();
     }
 
-    public static MinecraftServer server() {
+    private static MinecraftServer server() {
         return ServerLifecycleHooks.getCurrentServer();
     }
 
@@ -103,22 +109,6 @@ public class Logistics extends SavedData {
         }
     }
 
-    public void rebuildGraph() {
-        this.graphNodes.clear();
-        this.blockPosToNetwork.clear();
-        for (var node : this.graph.nodes()) {
-            //skip nodes we already handled
-            if (this.graphNodes.contains(node)) {
-                continue;
-            }
-
-            //now get all nodes connected to this one and create a network for them
-            var connected = this.getConnected(node);
-
-            this.buildNetwork(node, connected, this.graphNodes::add);
-            //last param: we add both the root node and the connected nodes to graphNodes to ensure we don't do unnecessary double-checks
-        }
-    }
 
     public void enableLeafNodeCache() {
         this.useLeafNodeCache = true;
@@ -135,6 +125,10 @@ public class Logistics extends SavedData {
 
     public void enableAutomaticNetworkCacheRebuild() {
         this.useAutomaticNetworkCacheRebuild = true;
+    }
+
+    public LogisticsNetwork getNetwork(GlobalPos pos) {
+        return this.blockPosToNetwork.get(pos);
     }
 
     /**
@@ -188,36 +182,31 @@ public class Logistics extends SavedData {
         return result;
     }
 
-    public <T, C> void onCapabilityInvalidated(GlobalPos targetPos, InserterNodeBehaviour<T, C> leafNode) {
-        var network = this.blockPosToNetwork.get(targetPos);
+    /**
+     * Adds a leaf node to the graph.
+     * Will call onLoadInsertNode or onLoadExtractNode methods on the network for you.
+     * Will also create a network if none exists yet, as leaf nodes need a network to be in.
+     *
+     * @param leafNode the leaf node
+     */
+    public LogisticsNetwork add(LeafNodeBehaviour<?, ?> leafNode) {
+        var pos = leafNode.globalPos();
+        this.add(pos);
+        var network = this.blockPosToNetwork.get(pos);
         if (network != null) {
-            network.onCapabilityInvalidated(targetPos, leafNode);
+            network.addLeafNode(leafNode);
         }
+        return network;
     }
 
-    public MutableGraph<GlobalPos> graph() {
-        return this.graph;
-    }
 
-    public Set<GlobalPos> graphNodes() {
-        return this.graphNodes;
-    }
-
-    @Override
-    public CompoundTag save(CompoundTag pCompoundTag) {
-        pCompoundTag.put(NBT_TAG, CODEC.encodeStart(NbtOps.INSTANCE, this).result().orElseThrow());
-        return pCompoundTag;
-    }
-
-    public Iterable<GlobalPos> getConnected(GlobalPos start) {
-        var traverser = Traverser.forGraph(this.graph());
-        if (this.graphNodes().contains(start))
-            return traverser.breadthFirst(start);
-
-        return List.of();
-    }
-
-    public void removeLeafNode(LeafNodeBehaviour<?, ?> leafNode, boolean permanently) {
+    /**
+     * Removes a leaf node from the graph.
+     *
+     * @param leafNode    the leaf node
+     * @param permanently true if the block was destroyed, false if it was just unloaded.
+     */
+    public void remove(LeafNodeBehaviour<?, ?> leafNode, boolean permanently) {
         //if a leaf node is unloaded we remove it as a leaf node, but leave the "normal" node behind.
         //this way it stays known to the network and can re-add itself when loaded
         //otherwise we would have the problem that a leaf node would have to know which network it is in to register correctly
@@ -231,22 +220,6 @@ public class Logistics extends SavedData {
 
         if (permanently) {
             this.remove(leafNode.globalPos());
-        }
-    }
-
-    /**
-     * Adds a leaf node to the graph.
-     * Will call onLoadInsertNode or onLoadExtractNode methods on the network for you.
-     * Will also create a network if none exists yet, as leaf nodes need a network to be in.
-     *
-     * @param leafNode the leaf node
-     */
-    public void add(LeafNodeBehaviour<?, ?> leafNode) {
-        var pos = leafNode.globalPos();
-        this.add(pos);
-        var network = this.blockPosToNetwork.get(pos);
-        if (network != null) {
-            network.addLeafNode(leafNode);
         }
     }
 
@@ -271,6 +244,46 @@ public class Logistics extends SavedData {
             }
         }
         return this.blockPosToNetwork.get(node);
+    }
+
+    /**
+     * Remove the given node. Naturally also removes the connections to it.
+     * If this was the last connection between two or more parts of a network it will be split.
+     */
+    public void remove(GlobalPos destroyedBlock) {
+        //This is a bit trickier than just removing an edge, because it can theoretically create multiple networks.
+
+        //first query the neighbors, because after removal we can't
+        var neighbors = this.graph().adjacentNodes(destroyedBlock);
+        this.graph().removeNode(destroyedBlock);
+        this.graphNodes().remove(destroyedBlock);
+
+        var oldNetwork = this.blockPosToNetwork.get(destroyedBlock);
+        if (oldNetwork != null) {
+            oldNetwork.removeNode(destroyedBlock);
+            this.blockPosToNetwork.remove(destroyedBlock);
+        }
+
+        //now we need to detect the splits, and avoid unecessary iterations.
+        List<LogisticsNetwork> splitNetworks = new ArrayList<>();
+
+        for (GlobalPos neighbor : neighbors) {
+            boolean isNeighborInSplitNetwork = splitNetworks.stream()
+                    .anyMatch(network -> network.nodes().contains(neighbor));
+
+            if (!isNeighborInSplitNetwork) {
+                var newNetwork = this.buildNetwork(neighbor, this.getConnected(neighbor), (node) -> {
+                });
+                splitNetworks.add(newNetwork);
+            }
+        }
+
+        // Logistics networks also need to re-notify all their nodes to update the cache.
+        // As long as all new networks reset and rebuild fully that is probably pretty easy.
+        // Rebuild caches on all!
+        if (this.useAutomaticNetworkCacheRebuild) {
+            splitNetworks.forEach(LogisticsNetwork::rebuildCaches);
+        }
     }
 
     /**
@@ -319,6 +332,88 @@ public class Logistics extends SavedData {
         return network;
     }
 
+    /**
+     * Remove the connection between two nodes.
+     * If this was the last connection between two parts of a network it will be split into two.
+     * This does NOT remove the nodes.
+     */
+    public void remove(GlobalPos a, GlobalPos b) {
+        this.graph().removeEdge(a, b);
+
+        var connectedA = new ObjectOpenHashSet<GlobalPos>();
+        this.getConnected(a).forEach(connectedA::add);
+        if (connectedA.contains(b)) {
+            //no split
+            return;
+        }
+
+        //split detected
+
+        var networkA = this.buildNetwork(a, connectedA, (node) -> {
+        });
+        var networkB = this.buildNetwork(b, this.getConnected(b), (node) -> {
+        }); //no need to build a set as we only iterate once
+
+        //now rebuild the leaf node caches
+        if (this.useAutomaticNetworkCacheRebuild) {
+            networkA.rebuildCaches();
+            networkB.rebuildCaches();
+        }
+    }
+
+    /**
+     * Call this from a leaf node, if one of the capabilities it targets is invalidated.
+     */
+    public <T, C> void onCapabilityInvalidated(GlobalPos targetPos, InserterNodeBehaviour<T, C> leafNode) {
+        var network = this.blockPosToNetwork.get(targetPos);
+        if (network != null) {
+            network.onCapabilityInvalidated(targetPos, leafNode);
+        }
+    }
+
+    @Override
+    public CompoundTag save(CompoundTag pCompoundTag) {
+        pCompoundTag.put(NBT_TAG, CODEC.encodeStart(NbtOps.INSTANCE, this).result().orElseThrow());
+        return pCompoundTag;
+    }
+
+    private MutableGraph<GlobalPos> graph() {
+        return this.graph;
+    }
+
+    private Set<GlobalPos> graphNodes() {
+        return this.graphNodes;
+    }
+
+    private Iterable<GlobalPos> getConnected(GlobalPos start) {
+        var traverser = Traverser.forGraph(this.graph());
+        if (this.graphNodes().contains(start))
+            return traverser.breadthFirst(start);
+
+        return List.of();
+    }
+
+    /**
+     * Rebuilds the entire graph, re-creating networks.
+     * It does not rebuild the leaf node caches.
+     */
+    private void rebuildGraph() {
+        this.graphNodes.clear();
+        this.blockPosToNetwork.clear();
+        for (var node : this.graph.nodes()) {
+            //skip nodes we already handled
+            if (this.graphNodes.contains(node)) {
+                continue;
+            }
+
+            //now get all nodes connected to this one and create a network for them
+            var connected = this.getConnected(node);
+
+            this.buildNetwork(node, connected, this.graphNodes::add);
+            //last param: we add both the root node and the connected nodes to graphNodes to ensure we don't do unnecessary double-checks
+        }
+    }
+
     private LogisticsNetwork merge(LogisticsNetwork a, LogisticsNetwork b) {
         //create new network that combines the old two
         var result = new LogisticsNetwork();
@@ -347,72 +442,6 @@ public class Logistics extends SavedData {
     }
 
     /**
-     * Remove the connection between two nodes.
-     * If this was the last connection between two parts of a network it will be split into two.
-     * This does NOT remove the nodes.
-     */
-    public void remove(GlobalPos a, GlobalPos b) {
-        this.graph().removeEdge(a, b);
-
-        var connectedA = new ObjectOpenHashSet<GlobalPos>();
-        this.getConnected(a).forEach(connectedA::add);
-        if (connectedA.contains(b)) {
-            //no split
-            return;
-        }
-
-        //split detected
-
-        var networkA = this.buildNetwork(a, connectedA, (node) -> {});
-        var networkB = this.buildNetwork(b, this.getConnected(b), (node) -> {}); //no need to build a set as we only iterate once
-
-        //now rebuild the leaf node caches
-        if(this.useAutomaticNetworkCacheRebuild){
-            networkA.rebuildCaches();
-            networkB.rebuildCaches();
-        }
-    }
-
-    /**
-     * Remove the given node. Naturally also removes the connections to it.
-     * If this was the last connection between two or more parts of a network it will be split.
-     */
-    public void remove(GlobalPos destroyedBlock) {
-        //This is a bit trickier than just removing an edge, because it can theoretically create multiple networks.
-
-        //first query the neighbors, because after removal we can't
-        var neighbors = this.graph().adjacentNodes(destroyedBlock);
-        this.graph().removeNode(destroyedBlock);
-        this.graphNodes().remove(destroyedBlock);
-
-        var oldNetwork = this.blockPosToNetwork.get(destroyedBlock);
-        if (oldNetwork != null) {
-            oldNetwork.removeNode(destroyedBlock);
-            this.blockPosToNetwork.remove(destroyedBlock);
-        }
-
-        //now we need to detect the splits, and avoid unecessary iterations.
-        List<LogisticsNetwork> splitNetworks = new ArrayList<>();
-
-        for (GlobalPos neighbor : neighbors) {
-            boolean isNeighborInSplitNetwork = splitNetworks.stream()
-                    .anyMatch(network -> network.nodes().contains(neighbor));
-
-            if (!isNeighborInSplitNetwork) {
-                var newNetwork = this.buildNetwork(neighbor, this.getConnected(neighbor), (node) -> {});
-                splitNetworks.add(newNetwork);
-            }
-        }
-
-        // Logistics networks also need to re-notify all their nodes to update the cache.
-        // As long as all new networks reset and rebuild fully that is probably pretty easy.
-        // Rebuild caches on all!
-        if (this.useAutomaticNetworkCacheRebuild) {
-            splitNetworks.forEach(LogisticsNetwork::rebuildCaches);
-        }
-    }
-
-    /**
      * Builds a logistics network from a root node and it's connected nodes.
      *
      * @param rootNode    the root node. This has no special meaning, it is just the first one we query.
@@ -420,7 +449,7 @@ public class Logistics extends SavedData {
      * @param onNodeAdded a callback that is called for each node that is added to the network.
      *                    This can be used to ensure nodes are not handled twice, e.g. in a full graph rebuild.
      */
-    protected LogisticsNetwork buildNetwork(GlobalPos rootNode, Iterable<GlobalPos> connected, Consumer<GlobalPos> onNodeAdded) {
+    private LogisticsNetwork buildNetwork(GlobalPos rootNode, Iterable<GlobalPos> connected, Consumer<GlobalPos> onNodeAdded) {
         var network = new LogisticsNetwork();
 
         //add the root node
@@ -437,4 +466,5 @@ public class Logistics extends SavedData {
 
         return network;
     }
+
 }

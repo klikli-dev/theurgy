@@ -39,9 +39,9 @@ public class LogisticsNodeBlock extends Block {
             //maybe a generic one?
 
             //TODO: if block is not present connected will throw exception, we should instead return empty
-            var connected = Logistics.get().getConnected(GlobalPos.of(pLevel.dimension(), pPos));
+            var connected = Logistics.get().getNetwork(GlobalPos.of(pLevel.dimension(), pPos));
             var shape = Shapes.block();
-            for(var block : connected){
+            for(var block : connected.nodes()){
                 if(block.dimension().equals(pLevel.dimension())){
                     Outliner.get().showAABB(block, shape.bounds()
                                     .move(block.pos()), 20 * 5)

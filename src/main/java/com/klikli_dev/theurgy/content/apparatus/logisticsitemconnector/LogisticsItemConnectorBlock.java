@@ -91,11 +91,17 @@ public abstract class LogisticsItemConnectorBlock extends DirectionalBlock imple
         }
     }
 
+    //TODO destroy self on neighbor destroy
+
     @Override
     public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pMovedByPiston) {
         super.onRemove(pState, pLevel, pPos, pNewState, pMovedByPiston);
 
         Wires.get(pLevel).removeWiresFor(pPos);
+
+        if(!pLevel.isClientSide && pLevel.getBlockEntity(pPos) instanceof LogisticsItemConnectorBlockEntity blockEntity){
+            blockEntity.leafNode().onDestroyed();
+        }
     }
 
     @Override

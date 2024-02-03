@@ -37,12 +37,16 @@ public abstract class InserterNodeBehaviour<T, C> extends LeafNodeBehaviour<T, C
         //targets are filled via load(tag) on the parent, the NBT in turn is provided by the BlockItem.
         this.targetCapabilities = this.buildTargetCapabilities(this.targets());
 
+        //TODO: listen for chunk loads to handle targets in other chunks
+
         super.onLoad();
     }
 
     public List<BlockCapabilityCache<T, C>> buildTargetCapabilities(List<BlockPos> targets) {
         var serverLevel = (ServerLevel) this.level();
         return targets.stream().map(target -> BlockCapabilityCache.create(this.capabilityType(), serverLevel, target, this.getTargetContext(target), () -> true, () -> {
+            //TODO: instead of () -> true we should make sure to only listen to the invalidator if the node is still valid
+            //handles chunk unloads and destruction of the target
             Logistics.get().onCapabilityInvalidated(GlobalPos.of(serverLevel.dimension(), target), this);
         })).toList();
     }

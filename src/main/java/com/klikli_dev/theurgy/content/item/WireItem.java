@@ -5,9 +5,12 @@
 package com.klikli_dev.theurgy.content.item;
 
 import com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector.LogisticsItemConnectorBlock;
+import com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector.LogisticsItemConnectorBlockEntity;
+import com.klikli_dev.theurgy.logistics.Logistics;
 import com.klikli_dev.theurgy.logistics.Wire;
 import com.klikli_dev.theurgy.logistics.WireEndPoint;
 import com.klikli_dev.theurgy.logistics.Wires;
+import net.minecraft.core.GlobalPos;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.context.UseOnContext;
@@ -59,13 +62,23 @@ public class WireItem extends Item {
             stack.shrink(1);
         }
 
-        //TODO: add to graph
-        //TODO: leaf node calculation on graph
-        //TODO: add to wire renderer
+        var level = pContext.getLevel();
 
-        //TODO: only add the wire on server side? -> server will sync to client
-        //      however, adding on client too should not cause harm as we use sets everywhere and would speed up local rendering
-        Wires.get(pContext.getLevel()).addWire(new Wire(wireEndPoint.pos(), pos));
+        Wires.get(level).addWire(new Wire(wireEndPoint.pos(), pos));
+
+        if (!level.isClientSide) {
+            var posA = GlobalPos.of(level.dimension(), pos);
+            var posB = GlobalPos.of(wireEndPoint.level(), wireEndPoint.pos());
+            Logistics.get().add(posA, posB);
+
+            if (level.getBlockEntity(posA.pos()) instanceof LogisticsItemConnectorBlockEntity blockEntity) {
+                Logistics.get().add(blockEntity.leafNode());
+            }
+
+            if (level.getBlockEntity(posB.pos()) instanceof LogisticsItemConnectorBlockEntity blockEntity) {
+                Logistics.get().add(blockEntity.leafNode());
+            }
+        }
 
         return InteractionResult.SUCCESS;
     }

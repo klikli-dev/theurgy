@@ -23,7 +23,7 @@ public class LogisticsItemConnectorBlockItem extends BlockItem {
 
     @Override
     protected boolean updateCustomBlockEntityTag(BlockPos pPos, Level pLevel, @Nullable Player pPlayer, ItemStack pStack, BlockState pState) {
-        var direction = pState.getValue(BlockStateProperties.FACING);
+        var direction = pState.getValue(BlockStateProperties.FACING).getOpposite();
 
         var blockEntityTag = pStack.getOrCreateTagElement("BlockEntityTag");
 

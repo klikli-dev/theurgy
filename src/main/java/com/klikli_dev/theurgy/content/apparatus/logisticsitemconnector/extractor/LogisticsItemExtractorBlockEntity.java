@@ -36,15 +36,5 @@ public class LogisticsItemExtractorBlockEntity extends LogisticsItemConnectorBlo
         }
     }
 
-    @Override
-    public void load(CompoundTag pTag) {
-        super.load(pTag);
-        this.leafNode().load(pTag);
-    }
 
-    @Override
-    protected void saveAdditional(CompoundTag pTag) {
-        super.saveAdditional(pTag);
-        this.leafNode().saveAdditional(pTag);
-    }
 }

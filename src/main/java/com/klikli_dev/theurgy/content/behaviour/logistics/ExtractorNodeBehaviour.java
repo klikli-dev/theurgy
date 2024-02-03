@@ -1,4 +1,4 @@
-package com.klikli_dev.theurgy.logistics;
+package com.klikli_dev.theurgy.content.behaviour.logistics;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.GlobalPos;
@@ -11,14 +11,14 @@ import java.util.Set;
 /**
  * A special leaf node that is used to extract from its targets and inserts into valid insert targets in the graph.
  */
-public interface LogisticsExtractorNode<T, C> extends LogisticsLeafNode<T, C> {
+public abstract class ExtractorNodeBehaviour<T, C> extends LeafNodeBehaviour<T, C> {
 
     //TODO: if we end up with nodes that can support multiple capability types we need to rework this
     //      for now we are working with the assumption that each leaf node represents exactly one capability type.
     //      if we get multi-type nodes we can probably just handle the functionality in the subclasses
 
     @Override
-    default LeafNodeMode mode() {
+    public LeafNodeMode mode() {
         return LeafNodeMode.EXTRACT;
     }
 
@@ -33,7 +33,7 @@ public interface LogisticsExtractorNode<T, C> extends LogisticsLeafNode<T, C> {
      * @param pos      the position of the leaf node
      * @param leafNode the leaf node added
      */
-    default void onLeafNodeAddedToGraph(GlobalPos pos, LogisticsLeafNode<T, C> leafNode) {
+    public void onLeafNodeAddedToGraph(GlobalPos pos, LeafNodeBehaviour<T, C> leafNode) {
         if (leafNode.mode() != LeafNodeMode.INSERT)
             return; //as we are only caching insert mode all other nodes are not relevant
 
@@ -50,7 +50,7 @@ public interface LogisticsExtractorNode<T, C> extends LogisticsLeafNode<T, C> {
      * Called if a leaf node is removed from the graph.
      * Should be used to update the cached insertTargets.
      */
-    default void onLeafNodeRemovedFromGraph(GlobalPos pos, LogisticsLeafNode<T, C> leafNode) {
+    public void onLeafNodeRemovedFromGraph(GlobalPos pos, LeafNodeBehaviour<T, C> leafNode) {
         if (leafNode.mode() != LeafNodeMode.INSERT)
             return; //as we are only caching insert mode all other nodes are not relevant
 
@@ -64,7 +64,7 @@ public interface LogisticsExtractorNode<T, C> extends LogisticsLeafNode<T, C> {
      * This is NOT called if a leaf node (with one or more targets) is added to the graph.
      * For that see onLeafNodeAddedToGraph.
      */
-    default void onTargetAddedToGraph(GlobalPos pos, BlockCapabilityCache<T, C> capability, LogisticsLeafNode<T, C> leafNode) {
+    public void onTargetAddedToGraph(GlobalPos pos, BlockCapabilityCache<T, C> capability, LeafNodeBehaviour<T, C> leafNode) {
         if (leafNode.mode() != LeafNodeMode.INSERT)
             return; //as we are only caching insert mode all other nodes are not relevant
 
@@ -78,22 +78,22 @@ public interface LogisticsExtractorNode<T, C> extends LogisticsLeafNode<T, C> {
      * This is NOT called if a leaf node (with one or more targets) is removed from the graph.
      * For that see onLeafNodeRemovedFromGraph.
      */
-    default void onTargetRemovedFromGraph(GlobalPos pos, LogisticsLeafNode<T, C> leafNode) {
+    public void onTargetRemovedFromGraph(GlobalPos pos, LeafNodeBehaviour<T, C> leafNode) {
         if (leafNode.mode() != LeafNodeMode.INSERT)
             return; //as we are only caching insert mode all other nodes are not relevant
 
         this.removeInsertTarget(pos);
     }
 
-    default void addInsertTarget(BlockCapabilityCache<T, C> capability) {
+    protected void addInsertTarget(BlockCapabilityCache<T, C> capability) {
         this.insertTargets().add(capability);
     }
 
-    default void removeInsertTarget(GlobalPos pos) {
+    protected void removeInsertTarget(GlobalPos pos) {
         this.removeInsertTarget(pos.dimension(), pos.pos());
     }
 
-    default void removeInsertTarget(ResourceKey<Level> dimension, BlockPos pos) {
+    protected void removeInsertTarget(ResourceKey<Level> dimension, BlockPos pos) {
         this.insertTargets().removeIf(cached -> cached.level().dimension().equals(dimension) && cached.pos().equals(pos));
     }
 
@@ -101,10 +101,10 @@ public interface LogisticsExtractorNode<T, C> extends LogisticsLeafNode<T, C> {
      * Checks if the target is a valid insert target for this extractor node.
      * This should mainly perform the check if the desired capability is present.
      */
-    boolean isValidInsertTarget(LogisticsLeafNode<T, C> leafNode, BlockCapabilityCache<T, C> capability);
+    protected abstract boolean isValidInsertTarget(LeafNodeBehaviour<T, C> leafNode, BlockCapabilityCache<T, C> capability);
 
     /**
      * Gets the list of cached block entities connected to insert nodes that this extractor will insert into
      */
-    Set<BlockCapabilityCache<T, C>> insertTargets();
+    public abstract Set<BlockCapabilityCache<T, C>> insertTargets();
 }

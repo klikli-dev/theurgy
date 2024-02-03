@@ -4,14 +4,18 @@ import com.google.common.graph.GraphBuilder;
 import com.google.common.graph.MutableGraph;
 import com.google.common.graph.Traverser;
 import com.klikli_dev.theurgy.Theurgy;
+import com.klikli_dev.theurgy.content.behaviour.logistics.HasLeafNodeBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.logistics.InserterNodeBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.logistics.LeafNodeBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.logistics.LeafNodeMode;
 import com.klikli_dev.theurgy.util.TheurgyExtraCodecs;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.datafix.DataFixTypes;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.saveddata.SavedData;
@@ -48,9 +52,13 @@ public class Logistics extends SavedData {
         return CODEC.parse(NbtOps.INSTANCE, pCompoundTag.get(NBT_TAG)).result().orElseThrow();
     }
 
+    public static MinecraftServer server() {
+        return ServerLifecycleHooks.getCurrentServer();
+    }
+
     public static Logistics get() {
         if (cachedLogistics == null) {
-            var server = ServerLifecycleHooks.getCurrentServer();
+            var server = server();
 
             if (server != null) {
                 var logistics = server.overworld().getDataStorage().computeIfAbsent(
@@ -78,7 +86,29 @@ public class Logistics extends SavedData {
         }
     }
 
-    public <T, C> void onCapabilityInvalidated(GlobalPos pos, LogisticsInserterNode<T, C> leafNode) {
+    public LeafNodeBehaviour<?, ?> getLeafNode(GlobalPos pos, LeafNodeMode mode) {
+        var node = this.getLeafNode(pos);
+        if (node != null && node.mode() == mode) {
+            return node;
+        }
+        return null;
+    }
+
+    public LeafNodeBehaviour<?, ?> getLeafNode(GlobalPos pos) {
+        var level = server().getLevel(pos.dimension());
+        if (level == null) {
+            return null;
+        }
+
+        var blockEntity = level.getBlockEntity(pos.pos());
+        if (blockEntity instanceof HasLeafNodeBehaviour<?, ?> hasLeafNode) {
+            return hasLeafNode.leafNode();
+        }
+
+        return null;
+    }
+
+    public <T, C> void onCapabilityInvalidated(GlobalPos pos, InserterNodeBehaviour<T, C> leafNode) {
         //TODO: notify the extractor nodes and call onTargetRemovedFromGraph
     }
 
@@ -106,12 +136,13 @@ public class Logistics extends SavedData {
 
     /**
      * Adds a leaf node to the graph.
-     * @param node the position of the leaf node
-     * @param leafNode the leaf node
+     *
+     * @param node        the position of the leaf node
+     * @param leafNode    the leaf node
      * @param connectedTo the position of the node this leaf node is connected to.
      *                    If the node is not connected to any other node yet then this should not be called yet.
      */
-    public void addLeafNode(GlobalPos node, LogisticsLeafNode<?, ?> leafNode, GlobalPos connectedTo) {
+    public void addLeafNode(GlobalPos node, LeafNodeBehaviour<?, ?> leafNode, GlobalPos connectedTo) {
         var network = this.add(node, connectedTo);
         this.blockPosToNetwork.put(node, network);
         network.addLeafNode(node, leafNode);

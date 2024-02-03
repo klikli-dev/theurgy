@@ -1,9 +1,12 @@
 package com.klikli_dev.theurgy.content.behaviour.logistics;
 
+import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.neoforged.neoforge.capabilities.BlockCapability;
 import net.neoforged.neoforge.capabilities.BlockCapabilityCache;
 
 import java.util.Set;
@@ -12,6 +15,12 @@ import java.util.Set;
  * A special leaf node that is used to extract from its targets and inserts into valid insert targets in the graph.
  */
 public abstract class ExtractorNodeBehaviour<T, C> extends LeafNodeBehaviour<T, C> {
+
+    protected Set<BlockCapabilityCache<T, C>> insertTargets;
+    public ExtractorNodeBehaviour(BlockEntity blockEntity, BlockCapability<T, C> capabilityType) {
+        super(blockEntity, capabilityType);
+        this.insertTargets = new ObjectOpenHashSet<>();
+    }
 
     //TODO: if we end up with nodes that can support multiple capability types we need to rework this
     //      for now we are working with the assumption that each leaf node represents exactly one capability type.
@@ -22,7 +31,16 @@ public abstract class ExtractorNodeBehaviour<T, C> extends LeafNodeBehaviour<T, 
         return LeafNodeMode.EXTRACT;
     }
 
-    //TODO: the extractor blocks are the ones that tick and "push" stuff around the network
+    /**
+     * Gets the list of cached block entities connected to insert nodes that this extractor will insert into
+     */
+    public Set<BlockCapabilityCache<T, C>> insertTargets(){
+        return this.insertTargets;
+    }
+
+    public void resetInsertTargets(){
+        this.insertTargets.clear();
+    }
 
     /**
      * Called if a leaf node is added to the graph.
@@ -95,16 +113,14 @@ public abstract class ExtractorNodeBehaviour<T, C> extends LeafNodeBehaviour<T, 
         this.insertTargets().removeIf(cached -> cached.level().dimension().equals(dimension) && cached.pos().equals(pos));
     }
 
+    //TODO: the extractor blocks are the ones that tick and "push" stuff around the network
+
+    public void serverTick(){
+
+    }
+
     /**
      * Checks if the target is a valid insert target for this extractor node.
-     * This should mainly perform the check if the desired capability is present.
      */
     protected abstract boolean isValidInsertTarget(LeafNodeBehaviour<T, C> leafNode, BlockCapabilityCache<T, C> capability);
-
-    /**
-     * Gets the list of cached block entities connected to insert nodes that this extractor will insert into
-     */
-    public abstract Set<BlockCapabilityCache<T, C>> insertTargets();
-
-    public abstract void resetInsertTargets();
 }

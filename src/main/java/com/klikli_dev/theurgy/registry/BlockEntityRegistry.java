@@ -15,8 +15,8 @@ import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorMercuryVessel
 import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorSaltVesselBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorSulfurVesselBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron.LiquefactionCauldronBlockEntity;
-import com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector.LogisticsItemConnectorBlock;
-import com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector.LogisticsItemConnectorBlockEntity;
+import com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector.extractor.LogisticsItemExtractorBlockEntity;
+import com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector.inserter.LogisticsItemInserterBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.mercurycatalyst.MercuryCatalystBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.pyromanticbrazier.PyromanticBrazierBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.reformationarray.ReformationResultPedestalBlockEntity;
@@ -106,8 +106,12 @@ public class BlockEntityRegistry {
             BLOCKS.register("digestion_vat", () ->
                     BlockEntityType.Builder.of(DigestionVatBlockEntity::new, BlockRegistry.DIGESTION_VAT.get()).build(null));
 
-    public static final Supplier<BlockEntityType<LogisticsItemConnectorBlockEntity>> LOGISTICS_ITEM_CONNECTOR =
-            BLOCKS.register("logistics_item_connector", () ->
-                    BlockEntityType.Builder.of(LogisticsItemConnectorBlockEntity::new, BlockRegistry.LOGISTICS_ITEM_CONNECTOR.get()).build(null));
+    public static final Supplier<BlockEntityType<LogisticsItemInserterBlockEntity>> LOGISTICS_ITEM_INSERTER =
+            BLOCKS.register("logistics_item_inserter", () ->
+                    BlockEntityType.Builder.of(LogisticsItemInserterBlockEntity::new, BlockRegistry.LOGISTICS_ITEM_INSERTER.get()).build(null));
+
+    public static final Supplier<BlockEntityType<LogisticsItemExtractorBlockEntity>> LOGISTICS_ITEM_EXTRACTOR =
+            BLOCKS.register("logistics_item_extractor", () ->
+                    BlockEntityType.Builder.of(LogisticsItemExtractorBlockEntity::new, BlockRegistry.LOGISTICS_ITEM_EXTRACTOR.get()).build(null));
 
 }

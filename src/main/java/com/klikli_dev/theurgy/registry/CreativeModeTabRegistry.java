@@ -65,7 +65,9 @@ public class CreativeModeTabRegistry {
                 output.accept(ItemRegistry.FERMENTATION_VAT.get());
                 output.accept(ItemRegistry.DIGESTION_VAT.get());
 
-                output.accept(ItemRegistry.LOGISTICS_ITEM_CONNECTOR.get());
+                output.accept(ItemRegistry.LOGISTICS_ITEM_INSERTER.get());
+                output.accept(ItemRegistry.LOGISTICS_ITEM_EXTRACTOR.get());
+                output.accept(ItemRegistry.COPPER_WIRE.get());
 
             }).build());
 

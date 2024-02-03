@@ -16,6 +16,8 @@ import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorSaltVesselBlo
 import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorSulfurVesselBlock;
 import com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron.LiquefactionCauldronBlock;
 import com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector.LogisticsItemConnectorBlock;
+import com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector.extractor.LogisticsItemExtractorBlock;
+import com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector.inserter.LogisticsItemInserterBlock;
 import com.klikli_dev.theurgy.content.apparatus.logisticsnode.LogisticsNodeBlock;
 import com.klikli_dev.theurgy.content.apparatus.mercurycatalyst.MercuryCatalystBlock;
 import com.klikli_dev.theurgy.content.apparatus.pyromanticbrazier.PyromanticBrazierBlock;
@@ -178,11 +180,19 @@ public class BlockRegistry {
                     .strength(0.1f))
             );
 
-    public static final DeferredBlock<LogisticsItemConnectorBlock> LOGISTICS_ITEM_CONNECTOR =
-            BLOCKS.register("logistics_item_connector", () -> new LogisticsItemConnectorBlock(BlockBehaviour.Properties.of()
+    public static final DeferredBlock<LogisticsItemInserterBlock> LOGISTICS_ITEM_INSERTER =
+            BLOCKS.register("logistics_item_connector", () -> new LogisticsItemInserterBlock(BlockBehaviour.Properties.of()
                     .strength(0.1f)
                     .noOcclusion()
                     .forceSolidOff()
+                    )
+            );
+
+    public static final DeferredBlock<LogisticsItemExtractorBlock> LOGISTICS_ITEM_EXTRACTOR =
+            BLOCKS.register("logistics_item_extractor", () -> new LogisticsItemExtractorBlock(BlockBehaviour.Properties.of()
+                            .strength(0.1f)
+                            .noOcclusion()
+                            .forceSolidOff()
                     )
             );
 

@@ -1,9 +1,12 @@
 package com.klikli_dev.theurgy.content.behaviour.logistics;
 
+import com.klikli_dev.theurgy.logistics.Logistics;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.capabilities.BlockCapability;
+import net.neoforged.neoforge.common.util.Lazy;
 
 import java.util.List;
 
@@ -26,27 +29,46 @@ public abstract class LeafNodeBehaviour<T, C> {
     //      the general path will then likely be to just remove the node, link it and re-add it.
     //      t1 nodes like the connector will likely just get destroyed when the target is removed anyway.
 
+    protected BlockEntity blockEntity;
+    protected Lazy<GlobalPos> globalPos;
+    protected BlockCapability<T, C> capabilityType;
+    protected List<BlockPos> targets;
+    protected int frequency;
 
-    /**
-     * The targets of this leaf node, i.e. the block positions of the block entities this leaf node interfaces with.
-     */
-    public abstract List<BlockPos> targets();
+    public LeafNodeBehaviour(BlockEntity blockEntity, BlockCapability<T, C> capabilityType){
+        this.blockEntity = blockEntity;
+        this.globalPos = Lazy.of(() -> GlobalPos.of(this.level().dimension(), this.blockEntity.getBlockPos())); //will be initialized lazily
+        this.capabilityType = capabilityType;
+        this.targets = List.of();
+        this.frequency = 0;
+    }
 
-    public abstract GlobalPos globalPos();
+    public Level level(){
+        return this.blockEntity.getLevel();
+    }
 
-    /**
-     * The mode of this leaf node, i.e. if it is an insert or extract node.
-     */
-    public abstract LeafNodeMode mode();
-
-    public abstract Level level();
+    public GlobalPos globalPos(){
+        return this.globalPos.get();
+    }
 
     /**
      * Gets the capability type of this node.
      */
-    public abstract BlockCapability<T, C> capabilityType();
+    public BlockCapability<T, C> capabilityType(){
+        return this.capabilityType;
+    }
 
-    public abstract int frequency();
+    /**
+     * The targets of this leaf node, i.e. the block positions of the block entities this leaf node interfaces with.
+     */
+    public List<BlockPos> targets(){
+        return this.targets;
+    }
+
+    public int frequency(){
+        return this.frequency;
+    }
+
 
     public ExtractorNodeBehaviour<T, C> asExtractor() {
         return (ExtractorNodeBehaviour<T, C>) this;
@@ -56,4 +78,33 @@ public abstract class LeafNodeBehaviour<T, C> {
         return (InserterNodeBehaviour<T, C>) this;
     }
 
+    /**
+     * Call from BlockEntity.onLoad()
+     * This is called before the first tick of the BE after a chunk was loaded.
+     */
+    public void onLoad(){
+        Logistics.get().add(this);
+    }
+
+    /**
+     * Call from BlockEntity.onChunkUnload()
+     * This is called when the chunk is unloaded.
+     */
+    public void onChunkUnload(){
+        Logistics.get().remove(this, false);
+    }
+
+    /**
+     * Call from Block.onRemove(), it is only called if a block is destroyed.
+     * Do not call from BlockEntity.setRemoved()
+     *      -> that is also called on chunk unload and would permanently disconnect the node from its network.
+     */
+    public void onDestroyed(){
+        Logistics.get().remove(this, true);
+    }
+
+    /**
+     * The mode of this leaf node, i.e. if it is an insert or extract node.
+     */
+    public abstract LeafNodeMode mode();
 }

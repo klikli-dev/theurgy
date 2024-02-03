@@ -48,7 +48,7 @@ public class TheurgyBlockStateProvider extends BlockStateProvider {
 
         this.registerFermentationVat();
         this.registerDigestionVat();
-        this.registerLogisticsItemConnector();
+        this.registerLogisticsItemInserter();
 
         this.simpleBlockWithItem(BlockRegistry.SAL_AMMONIAC_ORE.get(), this.cubeAll(BlockRegistry.SAL_AMMONIAC_ORE.get()));
         this.simpleBlockWithItem(BlockRegistry.DEEPSLATE_SAL_AMMONIAC_ORE.get(), this.cubeAll(BlockRegistry.DEEPSLATE_SAL_AMMONIAC_ORE.get()));
@@ -57,16 +57,28 @@ public class TheurgyBlockStateProvider extends BlockStateProvider {
         this.simpleBlockWithItem(BlockRegistry.LOGISTICS_NODE.get(), this.cubeAll(BlockRegistry.LOGISTICS_NODE.get()));
     }
 
-    protected void registerLogisticsItemConnector() {
-        var model = this.models().withExistingParent("logistics_item_connector", this.modLoc("block/logistics_connector_template"))
+    protected void registerLogisticsItemInserter() {
+        var model = this.models().withExistingParent("logistics_item_inserter", this.modLoc("block/logistics_connector_template"))
                 .ao(false)
                 //blockbench spits out garbage textures by losing the folder name so we fix them here
                 .texture("texture", this.modLoc("block/logistics_connector"))
                 .texture("particle", this.mcLoc("block/copper_block"));
 
         //build blockstate
-        this.directionalBlock(BlockRegistry.LOGISTICS_ITEM_CONNECTOR.get(), model);
-        this.simpleBlockItem(BlockRegistry.LOGISTICS_ITEM_CONNECTOR.get(), model);
+        this.directionalBlock(BlockRegistry.LOGISTICS_ITEM_INSERTER.get(), model);
+        this.simpleBlockItem(BlockRegistry.LOGISTICS_ITEM_INSERTER.get(), model);
+    }
+
+    protected void registerLogisticsItemExtractor() {
+        var model = this.models().withExistingParent("logistics_item_extractor", this.modLoc("block/logistics_connector_template"))
+                .ao(false)
+                //blockbench spits out garbage textures by losing the folder name so we fix them here
+                .texture("texture", this.modLoc("block/logistics_connector"))
+                .texture("particle", this.mcLoc("block/copper_block"));
+
+        //build blockstate
+        this.directionalBlock(BlockRegistry.LOGISTICS_ITEM_EXTRACTOR.get(), model);
+        this.simpleBlockItem(BlockRegistry.LOGISTICS_ITEM_EXTRACTOR.get(), model);
     }
 
     protected void registerFermentationVat() {

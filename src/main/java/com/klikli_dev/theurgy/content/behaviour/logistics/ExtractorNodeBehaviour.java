@@ -22,9 +22,7 @@ public abstract class ExtractorNodeBehaviour<T, C> extends LeafNodeBehaviour<T, 
         return LeafNodeMode.EXTRACT;
     }
 
-    //TODO: BlockCapabilityCache
-    //      Figure out how we handle the generics
-    //      -> we need to store the nodes by their capability in a map in our logistics system, that way we can easily notify those of the same type
+    //TODO: the extractor blocks are the ones that tick and "push" stuff around the network
 
     /**
      * Called if a leaf node is added to the graph.

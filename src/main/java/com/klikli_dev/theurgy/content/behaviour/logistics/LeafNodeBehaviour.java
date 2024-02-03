@@ -1,6 +1,7 @@
 package com.klikli_dev.theurgy.content.behaviour.logistics;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.GlobalPos;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.capabilities.BlockCapability;
 
@@ -16,10 +17,22 @@ public abstract class LeafNodeBehaviour<T, C> {
 
     //TODO: add some basic logic to the behaviour, including storage, nbt serialization, etc
 
+    //TODO: leaf node needs to listen to neighbor chunk load/unload to detect target changes if not in the same chunk
+    //      target unload probably doable via the capability cache
+
+    //TODO: target removal: probably not a problem for Logistics.get(), but rather just locally to the leaf node.
+    //      the leaf node reports the target unload, and never reports a target load -> because removed
+    //      for the logistics system that does not matter, and the node itself can e.g. show an error message if status checked
+    //      the general path will then likely be to just remove the node, link it and re-add it.
+    //      t1 nodes like the connector will likely just get destroyed when the target is removed anyway.
+
+
     /**
      * The targets of this leaf node, i.e. the block positions of the block entities this leaf node interfaces with.
      */
     public abstract List<BlockPos> targets();
+
+    public abstract GlobalPos globalPos();
 
     /**
      * The mode of this leaf node, i.e. if it is an insert or extract node.

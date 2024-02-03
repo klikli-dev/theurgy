@@ -134,18 +134,40 @@ public class Logistics extends SavedData {
         this.graph().addNode(node);
     }
 
+    public void removeLeafNode(LeafNodeBehaviour<?, ?> leafNode) {
+        //TODO: Implement
+
+        //TODO: if a leaf node is unloaded we remove it as a leaf node, but leaf the "normal" node behind.
+        //      this way it stays known to the network and can re-add itself when loaded
+        //      otherwise we would have the problem that a leaf node would have to know which network it is in to register correctly
+    }
+
     /**
      * Adds a leaf node to the graph.
      *
-     * @param node        the position of the leaf node
      * @param leafNode    the leaf node
      * @param connectedTo the position of the node this leaf node is connected to.
      *                    If the node is not connected to any other node yet then this should not be called yet.
      */
-    public void addLeafNode(GlobalPos node, LeafNodeBehaviour<?, ?> leafNode, GlobalPos connectedTo) {
-        var network = this.add(node, connectedTo);
-        this.blockPosToNetwork.put(node, network);
-        network.addLeafNode(node, leafNode);
+    public void addLeafNode(LeafNodeBehaviour<?, ?> leafNode, GlobalPos connectedTo) {
+        //TODO: we should not need a connectedTo
+        //      in most cases the node is first added solo, and then a connection added later
+
+        //TODO: a network merge should cause logistics networks to rebuild cache.
+        //      we can just flush cache and rebuild for all nodes
+        //      we can slightly improve performance by just calling the "add" functionality on the respective other half of the network
+        //      but that is probably not worth it .. we can just leave a comment behind as a potential future improvement
+
+
+        //TODO: can we somehow handle offline modifications? eg worldedit
+        //      check if node exists on chunk load and kick out all GlobalPos that no longer represent a node block
+        //      that does not handle if a DIFFERENT node was placed which may cause issues with our capability key system
+        //      -> or we can just require admins that do that to do it live? :)
+        //      the kicking of non-nodes might make sense though
+        var pos = leafNode.globalPos();
+        var network = this.add(pos, connectedTo);
+        this.blockPosToNetwork.put(pos, network);
+        network.addLeafNode(leafNode);
     }
 
     public LogisticsNetwork add(GlobalPos a, GlobalPos b) {
@@ -199,12 +221,17 @@ public class Logistics extends SavedData {
     public void remove(GlobalPos a, GlobalPos b) {
         //TODO: detect network splits
         //      here we must rely on the graph and just rebuild both fully
-        //TODO: might be safe to do async? But game could further modify state ... so probably not
+
+        //TODO: logistics networks also need to re-notify all their nodes to update the cache.
+        //      as long as both new networks reset and rebuild fully that is probably pretty easy.
         this.graph().removeEdge(a, b);
     }
 
     public void remove(GlobalPos destroyedBlock) {
         this.graph().removeNode(destroyedBlock);
         //TODO: update the network, detect network splits
+
+        //TODO: logistics networks also need to re-notify all their nodes to update the cache.
+        //      as long as both new networks reset and rebuild fully that is probably pretty easy.
     }
 }

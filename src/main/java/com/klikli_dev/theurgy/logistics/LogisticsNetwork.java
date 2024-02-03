@@ -41,12 +41,14 @@ public class LogisticsNetwork {
         this.nodes.add(pos);
     }
 
-    public void addLeafNode(GlobalPos pos, LeafNodeBehaviour<?, ?> leafNode) {
+    public void addLeafNode(LeafNodeBehaviour<?, ?> leafNode) {
+        var pos = leafNode.globalPos();
         this.leafNodes.add(pos);
         this.keyToLeafNodes.put(new Key(leafNode.capabilityType(), leafNode.frequency()), pos);
     }
 
-    public <T, C> void onFrequencyChange(GlobalPos pos, LeafNodeBehaviour<T, C> leafNode, BlockCapability<T, C> capability, int oldFrequency, int newFrequency) {
+    public <T, C> void onFrequencyChange(LeafNodeBehaviour<T, C> leafNode, BlockCapability<T, C> capability, int oldFrequency, int newFrequency) {
+        var pos = leafNode.globalPos();
         var oldKey = new Key(capability, oldFrequency);
         var newKey = new Key(capability, newFrequency);
 
@@ -57,24 +59,41 @@ public class LogisticsNetwork {
         //      That is ok -> the unloaded ones re-query their status when they are loaded.
 
         if (leafNode.mode() == LeafNodeMode.INSERT) {
-            this.onInsertNodeFrequencyChange(pos, leafNode.asInserter(), oldKey, newKey);
+            this.onInsertNodeFrequencyChange(leafNode.asInserter(), oldKey, newKey);
         }
-        if(leafNode.mode() == LeafNodeMode.EXTRACT) {
-            this.onExtractNodeFrequencyChange(pos, leafNode.asExtractor(), oldKey, newKey);
+        if (leafNode.mode() == LeafNodeMode.EXTRACT) {
+            this.onExtractNodeFrequencyChange(leafNode.asExtractor(), oldKey, newKey);
         }
-
     }
 
-    protected <T, C> void onExtractNodeFrequencyChange(GlobalPos pos, ExtractorNodeBehaviour<T, C> leafNode, Key oldKey, Key newKey) {
-        //here we just reset the cache -> that way we avoid iterating the old ones
-        leafNode.resetInsertTargets();
+    protected <T, C> void onExtractNodeFrequencyChange(ExtractorNodeBehaviour<T, C> leafNode, Key oldKey, Key newKey) {
+        this.onUnloadExtractNode(leafNode, oldKey);
+        this.onLoadExtractNode(leafNode, newKey);
+    }
 
-        //TODO: refactor this so it can be used for the init on load of a leaf node
-        //TODO: we also need to handle node unload!
-        //then we re-query all potential targets and add them.
-        var newSet = this.keyToLeafNodes.get(newKey);
-        for (var other : newSet) {
-            if (other.equals(pos)) {
+    protected <T, C> void onInsertNodeFrequencyChange(InserterNodeBehaviour<T, C> leafNode, Key oldKey, Key newKey) {
+        this.onUnloadInsertNode(leafNode, oldKey);
+        this.onLoadInsertNode(leafNode, newKey);
+    }
+
+    /**
+     * Shorthand for loads called from the node itself.
+     * Does not need to provide the key separately, because it is unchanged.
+     * The main overload is also used for frequency changes so we need to be able to manually specify a key.
+     */
+    public <T, C> void onLoadExtractNode(ExtractorNodeBehaviour<T, C> leafNode) {
+        this.onLoadExtractNode(leafNode, new Key(leafNode.capabilityType(), leafNode.frequency()));
+    }
+
+    /**
+     * Called when an extract node is loaded on / added to the graph
+     * It rebuilds the cache of insert targets for the node.
+     */
+    public <T, C> void onLoadExtractNode(ExtractorNodeBehaviour<T, C> leafNode, Key newKey) {
+        var otherNodes = this.getLeafNodes(newKey);
+
+        for (var other : otherNodes) {
+            if (other.equals(leafNode.globalPos())) { //skip self
                 continue;
             }
 
@@ -88,32 +107,40 @@ public class LogisticsNetwork {
         }
     }
 
-    protected <T, C> void onInsertNodeFrequencyChange(GlobalPos pos, InserterNodeBehaviour<T, C> leafNode, Key oldKey, Key newKey) {
-        //TODO: refactor this so it can be used for the init on load of a leaf node
-        //      that likely only needs the new set operations :)
-        //TODO: we also need to handle node unload!
+    /**
+     * Shorthand for unloads called from the node itself.
+     * Does not need to provide the key separately, because it is unchanged.
+     * The main overload is also used for frequency changes so we need to be able to manually specify a key.
+     */
+    public <T, C> void onUnloadExtractNode(ExtractorNodeBehaviour<T, C> leafNode) {
+        this.onUnloadExtractNode(leafNode, new Key(leafNode.capabilityType(), leafNode.frequency()));
+    }
 
-        //first we need to inform all our old nodes that they have to remove us
-        var oldSet = this.keyToLeafNodes.get(oldKey);
-        for (var other : oldSet) {
-            if (other.equals(pos)) {
-                continue;
-            }
+    /**
+     * Resets the node's cache of insert targets.
+     */
+    public <T, C> void onUnloadExtractNode(ExtractorNodeBehaviour<T, C> leafNode, Key oldKey) {
+        //here we just reset the cache -> that way we avoid iterating the old ones
+        leafNode.resetInsertTargets();
+    }
 
-            //noinspection unchecked -> our set ensures only compatible nodes are available
-            var otherLeafNode = (LeafNodeBehaviour<T, C>) Logistics.get().getLeafNode(other, LeafNodeMode.EXTRACT);
-            if (otherLeafNode == null) {
-                continue;
-            }
+    /**
+     * Shorthand for loads called from the node itself.
+     * Does not need to provide the key separately, because it is unchanged.
+     * The main overload is also used for frequency changes so we need to be able to manually specify a key.
+     */
+    public <T, C> void onLoadInsertNode(InserterNodeBehaviour<T, C> leafNode) {
+        this.onLoadInsertNode(leafNode, new Key(leafNode.capabilityType(), leafNode.frequency()));
+    }
 
-            var extractNode = otherLeafNode.asExtractor();
-            extractNode.onLeafNodeRemovedFromGraph(pos, leafNode);
-        }
-
-        //then the new ones to add us
+    /**
+     * Informs live nodes to add us to their cache
+     */
+    public <T, C> void onLoadInsertNode(InserterNodeBehaviour<T, C> leafNode, Key newKey) {
+        //we need to inform all our new nodes that they have to add us
         var newSet = this.keyToLeafNodes.get(newKey);
         for (var other : newSet) {
-            if (other.equals(pos)) {
+            if (other.equals(leafNode.globalPos())) {
                 continue;
             }
 
@@ -124,7 +151,38 @@ public class LogisticsNetwork {
             }
 
             var extractNode = otherLeafNode.asExtractor();
-            extractNode.onLeafNodeAddedToGraph(pos, leafNode);
+            extractNode.onLeafNodeAddedToGraph(leafNode.globalPos(), leafNode);
+        }
+    }
+
+    /**
+     * Shorthand for unloads called from the node itself.
+     * Does not need to provide the key separately, because it is unchanged.
+     * The main overload is also used for frequency changes so we need to be able to manually specify a key.
+     */
+    public <T, C> void onUnloadInsertNode(InserterNodeBehaviour<T, C> leafNode) {
+        this.onUnloadInsertNode(leafNode, new Key(leafNode.capabilityType(), leafNode.frequency()));
+    }
+
+    /**
+     * Informs live nodes to remove us from their cache.
+     */
+    public <T, C> void onUnloadInsertNode(InserterNodeBehaviour<T, C> leafNode, Key oldKey) {
+        //we need to inform all our nodes that they have to remove us
+        var oldSet = this.keyToLeafNodes.get(oldKey);
+        for (var other : oldSet) {
+            if (other.equals(leafNode.globalPos())) {
+                continue;
+            }
+
+            //noinspection unchecked -> our set ensures only compatible nodes are available
+            var otherLeafNode = (LeafNodeBehaviour<T, C>) Logistics.get().getLeafNode(other, LeafNodeMode.EXTRACT);
+            if (otherLeafNode == null) {
+                continue;
+            }
+
+            var extractNode = otherLeafNode.asExtractor();
+            extractNode.onLeafNodeRemovedFromGraph(leafNode.globalPos(), leafNode);
         }
     }
 

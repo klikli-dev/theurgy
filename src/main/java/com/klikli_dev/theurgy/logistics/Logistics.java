@@ -4,10 +4,7 @@ import com.google.common.graph.GraphBuilder;
 import com.google.common.graph.MutableGraph;
 import com.google.common.graph.Traverser;
 import com.klikli_dev.theurgy.Theurgy;
-import com.klikli_dev.theurgy.content.behaviour.logistics.HasLeafNodeBehaviour;
-import com.klikli_dev.theurgy.content.behaviour.logistics.InserterNodeBehaviour;
-import com.klikli_dev.theurgy.content.behaviour.logistics.LeafNodeBehaviour;
-import com.klikli_dev.theurgy.content.behaviour.logistics.LeafNodeMode;
+import com.klikli_dev.theurgy.content.behaviour.logistics.*;
 import com.klikli_dev.theurgy.util.TheurgyExtraCodecs;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -20,8 +17,10 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.datafix.DataFixTypes;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.saveddata.SavedData;
+import net.neoforged.neoforge.capabilities.BlockCapability;
 import net.neoforged.neoforge.event.level.LevelEvent;
 import net.neoforged.neoforge.server.ServerLifecycleHooks;
+import org.checkerframework.checker.units.qual.C;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -136,11 +135,7 @@ public class Logistics extends SavedData {
      * Call enableLeafNodeCache() before calling this to enable caching if you plan to access a lot of nodes in short periods of time.
      */
     public LeafNodeBehaviour<?, ?> getLeafNode(GlobalPos pos, LeafNodeMode mode) {
-        var node = this.getLeafNode(pos);
-        if (node != null && node.mode() == mode) {
-            return node;
-        }
-        return null;
+        return this.getLeafNode(pos, mode, (BlockCapability<?, ?>) null);
     }
 
 
@@ -149,13 +144,34 @@ public class Logistics extends SavedData {
      * Call enableLeafNodeCache() before calling this to enable caching if you plan to access a lot of nodes in short periods of time.
      */
     public LeafNodeBehaviour<?, ?> getLeafNode(GlobalPos pos) {
+        return this.getLeafNode(pos, (BlockCapability<?, ?>) null);
+    }
 
+
+    /**
+     * Gets the leaf node at the given position if it is in the desired mode ( or null ).
+     * Call enableLeafNodeCache() before calling this to enable caching if you plan to access a lot of nodes in short periods of time.
+     */
+    public <T, C> LeafNodeBehaviour<T, C> getLeafNode(GlobalPos pos, LeafNodeMode mode, BlockCapability<T, C> capability) {
+        var node = this.getLeafNode(pos, capability);
+        if (node != null && node.mode() == mode) {
+            return node;
+        }
+        return null;
+    }
+
+
+    public <T, C> LeafNodeBehaviour<T, C> getLeafNode(GlobalPos pos, BlockCapability<T, C> capability) {
         //first check leaf node cache
-        LeafNodeBehaviour<?, ?> result = null;
+        LeafNodeBehaviour<T, C> result = null;
         if (this.useLeafNodeCache) {
             var weakRef = this.cachedLeafNodes.get(pos);
             if (weakRef != null) {
-                result = weakRef.get();
+                var temp = weakRef.get();
+                if(temp != null && (capability == null || temp.capabilityType().equals(capability))){
+                    //noinspection unchecked -> we know it is the right type because we check!
+                    result = (LeafNodeBehaviour<T, C>) temp;
+                }
                 if (result == null) { //clean up cache if needed.
                     this.cachedLeafNodes.remove(pos);
                 }
@@ -170,8 +186,9 @@ public class Logistics extends SavedData {
             }
 
             var blockEntity = level.getBlockEntity(pos.pos());
-            if (blockEntity instanceof HasLeafNodeBehaviour<?, ?> hasLeafNode) {
-                result = hasLeafNode.leafNode();
+            if (blockEntity instanceof HasLeafNodeBehaviour<?, ?> hasLeafNode && (capability == null || hasLeafNode.leafNode().capabilityType().equals(capability))) {
+                //noinspection unchecked -> we know it is the right type because we check!
+                result = (LeafNodeBehaviour<T, C>) hasLeafNode.leafNode();
             }
 
             if (result != null && this.useLeafNodeCache) {
@@ -180,6 +197,19 @@ public class Logistics extends SavedData {
         }
 
         return result;
+    }
+
+    /**
+     * Returns true if the given position is a logistics node.
+     */
+    public boolean isLogisticsNode(GlobalPos pos) {
+        var level = server().getLevel(pos.dimension());
+        if (level == null) {
+            return false;
+        }
+
+        var blockEntity = level.getBlockEntity(pos.pos());
+        return blockEntity instanceof LogisticsNode;
     }
 
     /**

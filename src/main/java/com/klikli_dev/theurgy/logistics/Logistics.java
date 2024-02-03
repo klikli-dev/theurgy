@@ -61,33 +61,6 @@ public class Logistics extends SavedData {
         this.rebuildGraph();
     }
 
-    public void rebuildGraph(){
-        this.graphNodes.clear();
-        this.blockPosToNetwork.clear();
-        for(var node : this.graph.nodes()){
-            //skip nodes we already handled
-            if(this.graphNodes.contains(node)){
-                continue;
-            }
-
-            //now get all nodes connected to this one and create a network for them
-            var connected = this.getConnected(node);
-            var network = new LogisticsNetwork();
-
-            //add the root node
-            network.addNode(node);
-            this.blockPosToNetwork.put(node, network);
-            this.graphNodes.add(node);
-
-            //now add all other nodes
-            connected.forEach(c -> {
-                network.addNode(c);
-                this.blockPosToNetwork.put(c, network);
-                this.graphNodes.add(c); //this ensures we don't unnecessarily double-check
-            });
-        }
-    }
-
     public static Logistics load(CompoundTag pCompoundTag) {
         return CODEC.parse(NbtOps.INSTANCE, pCompoundTag.get(NBT_TAG)).result().orElseThrow();
     }
@@ -123,6 +96,33 @@ public class Logistics extends SavedData {
     public static void onLevelUnload(LevelEvent.Unload event) {
         if (event.getLevel() instanceof Level level && level.dimension() == Level.OVERWORLD) {
             cachedLogistics = null;
+        }
+    }
+
+    public void rebuildGraph() {
+        this.graphNodes.clear();
+        this.blockPosToNetwork.clear();
+        for (var node : this.graph.nodes()) {
+            //skip nodes we already handled
+            if (this.graphNodes.contains(node)) {
+                continue;
+            }
+
+            //now get all nodes connected to this one and create a network for them
+            var connected = this.getConnected(node);
+            var network = new LogisticsNetwork();
+
+            //add the root node
+            network.addNode(node);
+            this.blockPosToNetwork.put(node, network);
+            this.graphNodes.add(node);
+
+            //now add all other nodes
+            connected.forEach(c -> {
+                network.addNode(c);
+                this.blockPosToNetwork.put(c, network);
+                this.graphNodes.add(c); //this ensures we don't unnecessarily double-check
+            });
         }
     }
 
@@ -194,8 +194,11 @@ public class Logistics extends SavedData {
         return result;
     }
 
-    public <T, C> void onCapabilityInvalidated(GlobalPos pos, InserterNodeBehaviour<T, C> leafNode) {
-        //TODO: notify the extractor nodes and call onTargetRemovedFromGraph
+    public <T, C> void onCapabilityInvalidated(GlobalPos targetPos, InserterNodeBehaviour<T, C> leafNode) {
+        var network = this.blockPosToNetwork.get(targetPos);
+        if (network != null) {
+            network.onCapabilityInvalidated(targetPos, leafNode);
+        }
     }
 
     public MutableGraph<GlobalPos> graph() {
@@ -221,13 +224,24 @@ public class Logistics extends SavedData {
     }
 
     public void removeLeafNode(LeafNodeBehaviour<?, ?> leafNode, boolean permanently) {
-        //TODO: need to know if it was destroyed or unloaded
-        //TODO: Implement
+        //if a leaf node is unloaded we remove it as a leaf node, but leave the "normal" node behind.
+        //this way it stays known to the network and can re-add itself when loaded
+        //otherwise we would have the problem that a leaf node would have to know which network it is in to register correctly
+        //only if it was destroyed = permanently removed we remove the normal node too
 
-        //TODO: if a leaf node is unloaded we remove it as a leaf node, but leaf the "normal" node behind.
-        //      this way it stays known to the network and can re-add itself when loaded
-        //      otherwise we would have the problem that a leaf node would have to know which network it is in to register correctly
-        //TODO: only if it was destroyed = permanently removed we remove the normal node too
+        var network = this.blockPosToNetwork.get(leafNode.globalPos());
+        if (network != null) {
+            network.removeLeafNode(leafNode);
+        }
+
+        if (permanently) {
+            if (network != null) {
+                network.removeNode(leafNode.globalPos());
+            }
+            this.graph().removeNode(leafNode.globalPos());
+            this.graphNodes().remove(leafNode.globalPos());
+            this.blockPosToNetwork.remove(leafNode.globalPos());
+        }
     }
 
     /**
@@ -295,9 +309,9 @@ public class Logistics extends SavedData {
             network = netA;
         } else if (netA != netB) {
             //merge networks
-            if(netA.nodes().size() == 1) //in case netB is also 1 that is fine.
+            if (netA.nodes().size() == 1) //in case netB is also 1 that is fine.
                 network = this.mergeSingle(netB, netA);
-            else if(netB.nodes().size() == 1)
+            else if (netB.nodes().size() == 1)
                 network = this.mergeSingle(netA, netB);
             else
                 network = this.merge(netA, netB);

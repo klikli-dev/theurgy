@@ -18,8 +18,8 @@ public abstract class InserterNodeBehaviour<T, C> extends LeafNodeBehaviour<T, C
 
     public List<BlockCapabilityCache<T, C>> buildTargetCapabilities(List<GlobalPos> targets) {
         var serverLevel = (ServerLevel) this.level();
-        return targets.stream().map(pos -> BlockCapabilityCache.create(this.capabilityType(), serverLevel, pos.pos(), this.getTargetContext(pos), () -> true, () -> {
-            Logistics.get().onCapabilityInvalidated(pos, this);
+        return targets.stream().map(target -> BlockCapabilityCache.create(this.capabilityType(), serverLevel, target.pos(), this.getTargetContext(target), () -> true, () -> {
+            Logistics.get().onCapabilityInvalidated(target, this);
         })).toList();
     }
 

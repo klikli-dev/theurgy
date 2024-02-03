@@ -42,6 +42,10 @@ public class LogisticsNetwork {
         this.nodes.add(pos);
     }
 
+    public void removeNode(GlobalPos pos){
+        this.nodes.remove(pos);
+    }
+
     public void addLeafNode(LeafNodeBehaviour<?, ?> leafNode) {
         var pos = leafNode.globalPos();
         this.leafNodes.add(pos);
@@ -54,6 +58,38 @@ public class LogisticsNetwork {
             this.onLoadExtractNode(leafNode.asExtractor());
         }
     }
+
+    public void removeLeafNode(LeafNodeBehaviour<?, ?> leafNode){
+        var pos = leafNode.globalPos();
+        this.leafNodes.remove(pos);
+        this.keyToLeafNodes.remove(new Key(leafNode.capabilityType(), leafNode.frequency()), pos);
+
+        if (leafNode.mode() == LeafNodeMode.INSERT) {
+            this.onUnloadInsertNode(leafNode.asInserter());
+        }
+        if (leafNode.mode() == LeafNodeMode.EXTRACT) {
+            this.onUnloadExtractNode(leafNode.asExtractor());
+        }
+    }
+
+    public <T, C> void onCapabilityInvalidated(GlobalPos targetPos, InserterNodeBehaviour<T, C> leafNode) {
+        var otherNodes = this.getLeafNodes(leafNode.capabilityType(), leafNode.frequency());
+        for (var other : otherNodes) {
+            if (other.equals(leafNode.globalPos())) { //skip self
+                continue;
+            }
+
+            //noinspection unchecked -> our set ensures only compatible nodes are available
+            var otherLeafNode = (LeafNodeBehaviour<T, C>) Logistics.get().getLeafNode(other, LeafNodeMode.EXTRACT);
+            if (otherLeafNode == null) {
+                continue;
+            }
+
+            var extractNode = otherLeafNode.asExtractor();
+            extractNode.onTargetRemovedFromGraph(targetPos, leafNode);
+        }
+    }
+
 
     public <T, C> void onFrequencyChange(LeafNodeBehaviour<T, C> leafNode, BlockCapability<T, C> capability, int oldFrequency, int newFrequency) {
         var pos = leafNode.globalPos();

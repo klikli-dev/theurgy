@@ -3,15 +3,14 @@ package com.klikli_dev.theurgy.logistics;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.SetMultimap;
-import com.klikli_dev.theurgy.content.behaviour.logistics.*;
-import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
+import com.klikli_dev.theurgy.content.behaviour.logistics.ExtractorNodeBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.logistics.InserterNodeBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.logistics.LeafNodeBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.logistics.LeafNodeMode;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import net.minecraft.core.GlobalPos;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.capabilities.BlockCapability;
 
-import java.lang.ref.WeakReference;
-import java.util.Map;
 import java.util.Set;
 
 /**
@@ -42,7 +41,7 @@ public class LogisticsNetwork {
         this.nodes.add(pos);
     }
 
-    public void removeNode(GlobalPos pos){
+    public void removeNode(GlobalPos pos) {
         this.nodes.remove(pos);
     }
 
@@ -59,7 +58,7 @@ public class LogisticsNetwork {
         }
     }
 
-    public void removeLeafNode(LeafNodeBehaviour<?, ?> leafNode){
+    public void removeLeafNode(LeafNodeBehaviour<?, ?> leafNode) {
         var pos = leafNode.globalPos();
         this.leafNodes.remove(pos);
         this.keyToLeafNodes.remove(new Key(leafNode.capabilityType(), leafNode.frequency()), pos);
@@ -79,8 +78,7 @@ public class LogisticsNetwork {
                 continue;
             }
 
-            //noinspection unchecked -> our set ensures only compatible nodes are available
-            var otherLeafNode = (LeafNodeBehaviour<T, C>) Logistics.get().getLeafNode(other, LeafNodeMode.EXTRACT);
+            var otherLeafNode = Logistics.get().getLeafNode(other, LeafNodeMode.EXTRACT, leafNode.capabilityType());
             if (otherLeafNode == null) {
                 continue;
             }
@@ -141,8 +139,7 @@ public class LogisticsNetwork {
                 continue;
             }
 
-            //noinspection unchecked -> our set ensures only compatible nodes are available
-            var otherLeafNode = (LeafNodeBehaviour<T, C>) Logistics.get().getLeafNode(other, LeafNodeMode.INSERT);
+            var otherLeafNode = Logistics.get().getLeafNode(other, LeafNodeMode.INSERT, leafNode.capabilityType());
             if (otherLeafNode == null) {
                 continue;
             }
@@ -188,8 +185,7 @@ public class LogisticsNetwork {
                 continue;
             }
 
-            //noinspection unchecked -> our set ensures only compatible nodes are available
-            var otherLeafNode = (LeafNodeBehaviour<T, C>) Logistics.get().getLeafNode(other, LeafNodeMode.EXTRACT);
+            var otherLeafNode = Logistics.get().getLeafNode(other, LeafNodeMode.EXTRACT, leafNode.capabilityType());
             if (otherLeafNode == null) {
                 continue;
             }
@@ -219,8 +215,7 @@ public class LogisticsNetwork {
                 continue;
             }
 
-            //noinspection unchecked -> our set ensures only compatible nodes are available
-            var otherLeafNode = (LeafNodeBehaviour<T, C>) Logistics.get().getLeafNode(other, LeafNodeMode.EXTRACT);
+            var otherLeafNode = Logistics.get().getLeafNode(other, LeafNodeMode.EXTRACT, leafNode.capabilityType());
             if (otherLeafNode == null) {
                 continue;
             }
@@ -242,30 +237,30 @@ public class LogisticsNetwork {
     /**
      * Forces all nodes to rebuild their caches.
      */
-    public void rebuildCaches(){
+    public void rebuildCaches() {
         Logistics.get().enableLeafNodeCache();
         //first unload all to unlink them
-        for(var leafNode : this.leafNodes){
+        for (var leafNode : this.leafNodes) {
             var node = Logistics.get().getLeafNode(leafNode);
-            if(node != null){
-                if(node.mode() == LeafNodeMode.EXTRACT){
+            if (node != null) {
+                if (node.mode() == LeafNodeMode.EXTRACT) {
                     this.onUnloadExtractNode(node.asExtractor());
                 }
-                if(node.mode() == LeafNodeMode.INSERT){
+                if (node.mode() == LeafNodeMode.INSERT) {
                     //no need to call unload here as it just notifies the extractors, which we reset anyay
                     //this.onUnloadInsertNode(node.asInserter());
                 }
             }
         }
         //then load all to link them
-        for(var leafNode : this.leafNodes){
+        for (var leafNode : this.leafNodes) {
             var node = Logistics.get().getLeafNode(leafNode);
-            if(node != null){
-                if(node.mode() == LeafNodeMode.EXTRACT){
+            if (node != null) {
+                if (node.mode() == LeafNodeMode.EXTRACT) {
                     //now there is no need to call load here, as the load insert will notify the extractors
                     //this.onLoadExtractNode(node.asExtractor());
                 }
-                if(node.mode() == LeafNodeMode.INSERT){
+                if (node.mode() == LeafNodeMode.INSERT) {
                     this.onLoadInsertNode(node.asInserter());
                 }
             }

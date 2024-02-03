@@ -4,7 +4,7 @@
 
 package com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron;
 
-import com.klikli_dev.theurgy.content.behaviour.HeatConsumerBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.heat.HeatConsumerBehaviour;
 import com.klikli_dev.theurgy.content.capability.DefaultHeatReceiver;
 import com.klikli_dev.theurgy.content.particle.ParticleColor;
 import com.klikli_dev.theurgy.content.particle.coloredbubble.ColoredBubbleParticleProvider;

@@ -4,7 +4,7 @@
 
 package com.klikli_dev.theurgy.content.apparatus.distiller;
 
-import com.klikli_dev.theurgy.content.behaviour.CraftingBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.crafting.CraftingBehaviour;
 import com.klikli_dev.theurgy.content.recipe.DistillationRecipe;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import net.minecraft.world.item.ItemStack;

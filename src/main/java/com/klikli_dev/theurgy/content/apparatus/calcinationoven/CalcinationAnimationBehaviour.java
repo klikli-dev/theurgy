@@ -4,7 +4,7 @@
 
 package com.klikli_dev.theurgy.content.apparatus.calcinationoven;
 
-import com.klikli_dev.theurgy.content.behaviour.AnimationBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.animation.AnimationBehaviour;
 import software.bernie.geckolib.animatable.GeoBlockEntity;
 import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.animation.AnimationState;

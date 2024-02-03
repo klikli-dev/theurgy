@@ -4,7 +4,7 @@
 
 package com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator;
 
-import com.klikli_dev.theurgy.content.behaviour.CraftingBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.crafting.CraftingBehaviour;
 import com.klikli_dev.theurgy.content.recipe.AccumulationRecipe;
 import com.klikli_dev.theurgy.content.recipe.wrapper.RecipeWrapperWithFluid;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;

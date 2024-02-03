@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: MIT
 
-package com.klikli_dev.theurgy.content.behaviour;
+package com.klikli_dev.theurgy.content.behaviour.heat;
 
 import com.klikli_dev.theurgy.registry.CapabilityRegistry;
 import net.minecraft.core.Direction;

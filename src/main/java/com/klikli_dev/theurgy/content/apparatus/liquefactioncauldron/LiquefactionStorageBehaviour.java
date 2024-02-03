@@ -4,7 +4,7 @@
 
 package com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron;
 
-import com.klikli_dev.theurgy.content.behaviour.StorageBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.storage.StorageBehaviour;
 import com.klikli_dev.theurgy.content.storage.MonitoredItemStackHandler;
 import com.klikli_dev.theurgy.content.storage.PreventInsertWrapper;
 import com.klikli_dev.theurgy.registry.FluidTagRegistry;

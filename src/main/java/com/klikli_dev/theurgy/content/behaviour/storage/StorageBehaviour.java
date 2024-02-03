@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: MIT
 
-package com.klikli_dev.theurgy.content.behaviour;
+package com.klikli_dev.theurgy.content.behaviour.storage;
 
 import com.klikli_dev.theurgy.util.TetraConsumer;
 import net.minecraft.nbt.CompoundTag;

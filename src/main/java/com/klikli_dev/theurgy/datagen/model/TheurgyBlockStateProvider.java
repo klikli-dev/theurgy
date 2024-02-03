@@ -49,6 +49,7 @@ public class TheurgyBlockStateProvider extends BlockStateProvider {
         this.registerFermentationVat();
         this.registerDigestionVat();
         this.registerLogisticsItemInserter();
+        this.registerLogisticsItemExtractor();
 
         this.simpleBlockWithItem(BlockRegistry.SAL_AMMONIAC_ORE.get(), this.cubeAll(BlockRegistry.SAL_AMMONIAC_ORE.get()));
         this.simpleBlockWithItem(BlockRegistry.DEEPSLATE_SAL_AMMONIAC_ORE.get(), this.cubeAll(BlockRegistry.DEEPSLATE_SAL_AMMONIAC_ORE.get()));

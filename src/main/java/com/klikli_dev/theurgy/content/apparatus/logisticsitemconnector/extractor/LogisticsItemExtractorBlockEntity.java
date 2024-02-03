@@ -4,6 +4,7 @@ import com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector.Logistics
 import com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector.inserter.LogisticsItemInserterBehaviour;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class LogisticsItemExtractorBlockEntity extends LogisticsItemConnectorBlockEntity {
@@ -26,5 +27,17 @@ public class LogisticsItemExtractorBlockEntity extends LogisticsItemConnectorBlo
     public void onChunkUnloaded() {
         super.onChunkUnloaded();
         this.leafNode().onChunkUnload();
+    }
+
+    @Override
+    public void load(CompoundTag pTag) {
+        super.load(pTag);
+        this.leafNode().load(pTag);
+    }
+
+    @Override
+    protected void saveAdditional(CompoundTag pTag) {
+        super.saveAdditional(pTag);
+        this.leafNode().saveAdditional(pTag);
     }
 }

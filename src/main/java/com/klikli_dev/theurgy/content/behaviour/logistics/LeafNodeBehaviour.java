@@ -3,11 +3,16 @@ package com.klikli_dev.theurgy.content.behaviour.logistics;
 import com.klikli_dev.theurgy.logistics.Logistics;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.GlobalPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.LongTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.capabilities.BlockCapability;
 import net.neoforged.neoforge.common.util.Lazy;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -39,7 +44,7 @@ public abstract class LeafNodeBehaviour<T, C> {
         this.blockEntity = blockEntity;
         this.globalPos = Lazy.of(() -> GlobalPos.of(this.level().dimension(), this.blockEntity.getBlockPos())); //will be initialized lazily
         this.capabilityType = capabilityType;
-        this.targets = List.of();
+        this.targets = new ArrayList<>();
         this.frequency = 0;
     }
 
@@ -101,6 +106,24 @@ public abstract class LeafNodeBehaviour<T, C> {
      */
     public void onDestroyed(){
         Logistics.get().remove(this, true);
+    }
+
+    public void saveAdditional(CompoundTag pTag) {
+        pTag.putInt("frequency", this.frequency);
+        var list = new ListTag();
+        for(var target : this.targets){
+            list.add(LongTag.valueOf(target.asLong()));
+        }
+        pTag.put("targets", list);
+    }
+
+    public void load(CompoundTag pTag) {
+        this.frequency = pTag.getInt("frequency");
+        this.targets = new ArrayList<>();
+        var list = pTag.getList("targets", Tag.TAG_LONG);
+        for(int i = 0; i < list.size(); i++){
+            this.targets.add(BlockPos.of(((LongTag)list.get(i)).getAsLong()));
+        }
     }
 
     /**

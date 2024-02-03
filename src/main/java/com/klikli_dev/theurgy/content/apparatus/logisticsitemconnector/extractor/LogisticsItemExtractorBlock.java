@@ -4,6 +4,8 @@ import com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector.Logistics
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.DirectionalBlock;
 import net.minecraft.world.level.block.EntityBlock;
@@ -25,6 +27,11 @@ public class LogisticsItemExtractorBlock extends LogisticsItemConnectorBlock imp
     protected MapCodec<? extends DirectionalBlock> codec() {
         return CODEC;
     }
+
+    //TODO: get targets on place using the updateCustomBlockEntityTag method
+    //      might also be possible in the onplacedby
+    //      the first option has the advantage of also working for future logistics blocks that use the selector system
+    //      in both cases we simply place the targets in the "BlockEntityTag" and let the entity load them
 
 
     @Nullable

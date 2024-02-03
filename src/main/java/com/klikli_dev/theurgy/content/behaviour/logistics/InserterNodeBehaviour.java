@@ -30,8 +30,8 @@ public abstract class InserterNodeBehaviour<T, C> extends LeafNodeBehaviour<T, C
 
     @Override
     public void onLoad() {
-        this.buildTargetCapabilities(this.targets());
-        //TODO: they also need to be called if targets change
+        //targets are filled via load(tag) on the parent, the NBT in turn is provided by the BlockItem.
+        this.targetCapabilities = this.buildTargetCapabilities(this.targets());
         super.onLoad();
     }
 

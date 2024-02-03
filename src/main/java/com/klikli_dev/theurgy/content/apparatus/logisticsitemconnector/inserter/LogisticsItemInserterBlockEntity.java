@@ -3,6 +3,7 @@ package com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector.inserter
 import com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector.LogisticsItemConnectorBlockEntity;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class LogisticsItemInserterBlockEntity extends LogisticsItemConnectorBlockEntity {
@@ -15,5 +16,17 @@ public class LogisticsItemInserterBlockEntity extends LogisticsItemConnectorBloc
     @Override
     public LogisticsItemInserterBehaviour leafNode() {
         return (LogisticsItemInserterBehaviour) this.leafNodeBehaviour;
+    }
+
+    @Override
+    public void load(CompoundTag pTag) {
+        super.load(pTag);
+        this.leafNode().load(pTag);
+    }
+
+    @Override
+    protected void saveAdditional(CompoundTag pTag) {
+        super.saveAdditional(pTag);
+        this.leafNode().saveAdditional(pTag);
     }
 }

@@ -107,4 +107,6 @@ public abstract class ExtractorNodeBehaviour<T, C> extends LeafNodeBehaviour<T, 
      * Gets the list of cached block entities connected to insert nodes that this extractor will insert into
      */
     public abstract Set<BlockCapabilityCache<T, C>> insertTargets();
+
+    public abstract void resetInsertTargets();
 }

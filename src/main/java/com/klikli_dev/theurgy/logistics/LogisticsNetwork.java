@@ -3,6 +3,8 @@ package com.klikli_dev.theurgy.logistics;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.SetMultimap;
+import com.klikli_dev.theurgy.content.behaviour.logistics.ExtractorNodeBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.logistics.InserterNodeBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.logistics.LeafNodeBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.logistics.LeafNodeMode;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
@@ -48,33 +50,50 @@ public class LogisticsNetwork {
         var oldKey = new Key(capability, oldFrequency);
         var newKey = new Key(capability, newFrequency);
 
-        //TODO: handle frequency changes
-
-
-        //TODO: need to notify the other nodes of the frequency change so they can update their cache
-        //      specifically we can just directly call the add/remove leaf node methods
-
-        //TODO: how do we handle unloaded nodes? -> they will query their cache on load
-
         this.keyToLeafNodes.remove(oldKey, pos);
         this.keyToLeafNodes.put(newKey, pos);
 
-        //TODO: if the changed node is an insert node -> we need to update the extract nodes that are connected to it
-        //      if the changed node is an extract one, we need it to re-query all its targets and update its cache, but the other nodes need not be informed
-
+        //Note: When we update the network, it only updates currently loaded leaf nodes.
+        //      That is ok -> the unloaded ones re-query their status when they are loaded.
 
         if (leafNode.mode() == LeafNodeMode.INSERT) {
-            this.onInsertNodeFrequencyChange(pos, leafNode, oldKey, newKey);
+            this.onInsertNodeFrequencyChange(pos, leafNode.asInserter(), oldKey, newKey);
+        }
+        if(leafNode.mode() == LeafNodeMode.EXTRACT) {
+            this.onExtractNodeFrequencyChange(pos, leafNode.asExtractor(), oldKey, newKey);
         }
 
-
     }
 
-    protected <T, C> void onExtractNodeFrequencyChange(GlobalPos pos, LeafNodeBehaviour<T, C> leafNode, Key oldKey, Key newKey) {
-        
+    protected <T, C> void onExtractNodeFrequencyChange(GlobalPos pos, ExtractorNodeBehaviour<T, C> leafNode, Key oldKey, Key newKey) {
+        //here we just reset the cache -> that way we avoid iterating the old ones
+        leafNode.resetInsertTargets();
+
+        //TODO: refactor this so it can be used for the init on load of a leaf node
+        //TODO: we also need to handle node unload!
+        //then we re-query all potential targets and add them.
+        var newSet = this.keyToLeafNodes.get(newKey);
+        for (var other : newSet) {
+            if (other.equals(pos)) {
+                continue;
+            }
+
+            //noinspection unchecked -> our set ensures only compatible nodes are available
+            var otherLeafNode = (LeafNodeBehaviour<T, C>) Logistics.get().getLeafNode(other, LeafNodeMode.INSERT);
+            if (otherLeafNode == null) {
+                continue;
+            }
+
+            leafNode.onLeafNodeAddedToGraph(other, otherLeafNode);
+        }
     }
 
-    protected <T, C> void onInsertNodeFrequencyChange(GlobalPos pos, LeafNodeBehaviour<T, C> leafNode, Key oldKey, Key newKey) {
+    protected <T, C> void onInsertNodeFrequencyChange(GlobalPos pos, InserterNodeBehaviour<T, C> leafNode, Key oldKey, Key newKey) {
+        //TODO: refactor this so it can be used for the init on load of a leaf node
+        //      that likely only needs the new set operations :)
+        //TODO: we also need to handle node unload!
+
+        //first we need to inform all our old nodes that they have to remove us
         var oldSet = this.keyToLeafNodes.get(oldKey);
         for (var other : oldSet) {
             if (other.equals(pos)) {
@@ -91,6 +110,7 @@ public class LogisticsNetwork {
             extractNode.onLeafNodeRemovedFromGraph(pos, leafNode);
         }
 
+        //then the new ones to add us
         var newSet = this.keyToLeafNodes.get(newKey);
         for (var other : newSet) {
             if (other.equals(pos)) {

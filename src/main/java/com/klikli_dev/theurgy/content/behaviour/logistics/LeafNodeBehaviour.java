@@ -24,14 +24,6 @@ import java.util.List;
  */
 public abstract class LeafNodeBehaviour<T, C> {
 
-    //TODO: handle the case of a leaf node being loaded when its target is in another chunk -> needs to listen for chunk load to update its targets
-    //      then needs to call the onTargetAddedToGraph
-
-    //TODO: add some basic logic to the behaviour, including storage, nbt serialization, etc
-
-    //TODO: leaf node needs to listen to neighbor chunk load/unload to detect target changes if not in the same chunk
-    //      target unload probably doable via the capability cache
-
     //TODO: target removal: probably not a problem for Logistics.get(), but rather just locally to the leaf node.
     //      the leaf node reports the target unload, and never reports a target load -> because removed
     //      for the logistics system that does not matter, and the node itself can e.g. show an error message if status checked

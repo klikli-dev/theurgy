@@ -393,16 +393,6 @@ public class Logistics extends SavedData {
         }
     }
 
-    /**
-     * Call this from a leaf node, if one of the capabilities it targets is invalidated.
-     */
-    public <T, C> void onCapabilityInvalidated(GlobalPos targetPos, InserterNodeBehaviour<T, C> leafNode) {
-        var network = this.blockPosToNetwork.get(targetPos);
-        if (network != null) {
-            network.onCapabilityInvalidated(targetPos, leafNode);
-        }
-    }
-
     @Override
     public CompoundTag save(CompoundTag pCompoundTag) {
         pCompoundTag.put(NBT_TAG, CODEC.encodeStart(NbtOps.INSTANCE, this).result().orElseThrow());

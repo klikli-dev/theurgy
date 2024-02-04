@@ -14,6 +14,7 @@ import com.klikli_dev.theurgy.content.behaviour.logistics.LeafNodeMode;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import net.minecraft.core.GlobalPos;
 import net.neoforged.neoforge.capabilities.BlockCapability;
+import net.neoforged.neoforge.capabilities.BlockCapabilityCache;
 
 import java.util.Set;
 
@@ -75,7 +76,24 @@ public class LogisticsNetwork {
         }
     }
 
-    public <T, C> void onCapabilityInvalidated(GlobalPos targetPos, InserterNodeBehaviour<T, C> leafNode) {
+    public <T, C> void onInserterNodeTargetAdded(GlobalPos targetPos, BlockCapabilityCache<T, C> capability, InserterNodeBehaviour<T, C> leafNode) {
+        var otherNodes = this.getLeafNodes(leafNode.capabilityType(), leafNode.frequency());
+        for (var other : otherNodes) {
+            if (other.equals(leafNode.globalPos())) { //skip self
+                continue;
+            }
+
+            var otherLeafNode = Logistics.get().getLeafNode(other, LeafNodeMode.EXTRACT, leafNode.capabilityType());
+            if (otherLeafNode == null) {
+                continue;
+            }
+
+            var extractNode = otherLeafNode.asExtractor();
+            extractNode.onTargetAddedToGraph(targetPos, capability, leafNode);
+        }
+    }
+
+    public <T, C> void onInserterNodeTargetRemoved(GlobalPos targetPos, InserterNodeBehaviour<T, C> leafNode) {
         var otherNodes = this.getLeafNodes(leafNode.capabilityType(), leafNode.frequency());
         for (var other : otherNodes) {
             if (other.equals(leafNode.globalPos())) { //skip self

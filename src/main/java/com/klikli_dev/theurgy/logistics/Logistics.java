@@ -266,6 +266,7 @@ public class Logistics extends SavedData {
         if (isNew) {
             //if new we just add it, there will be no network
             this.graph().addNode(node);
+            this.setDirty();
             return null;
         } else {
             //if not new it was previously added and may have been connected before, so we query the graph.
@@ -289,6 +290,7 @@ public class Logistics extends SavedData {
         var neighbors = this.graph().adjacentNodes(destroyedBlock);
         this.graph().removeNode(destroyedBlock);
         this.graphNodes().remove(destroyedBlock);
+        this.setDirty();
 
         var oldNetwork = this.blockPosToNetwork.get(destroyedBlock);
         if (oldNetwork != null) {
@@ -327,6 +329,7 @@ public class Logistics extends SavedData {
         this.graph().putEdge(a, b);
         this.graphNodes().add(a);
         this.graphNodes().add(b);
+        this.setDirty();
 
         LogisticsNetwork network;
         var netA = this.blockPosToNetwork.get(a);
@@ -371,6 +374,7 @@ public class Logistics extends SavedData {
      */
     public void remove(GlobalPos a, GlobalPos b) {
         this.graph().removeEdge(a, b);
+        this.setDirty();
 
         var connectedA = new ObjectOpenHashSet<GlobalPos>();
         this.getConnected(a).forEach(connectedA::add);
@@ -422,7 +426,7 @@ public class Logistics extends SavedData {
     private void rebuildGraph() {
         this.graphNodes.clear();
         this.blockPosToNetwork.clear();
-        for (var node : this.graph.nodes()) {
+        for (var node : this.graph().nodes()) {
             //skip nodes we already handled
             if (this.graphNodes.contains(node)) {
                 continue;

@@ -27,7 +27,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.Shapes;
 import org.jetbrains.annotations.Nullable;
 
-public class LogisticsItemExtractorBlock extends LogisticsItemConnectorBlock implements EntityBlock {
+public class LogisticsItemExtractorBlock extends LogisticsItemConnectorBlock {
 
     public static final MapCodec<LogisticsItemExtractorBlock> CODEC = simpleCodec(LogisticsItemExtractorBlock::new);
 
@@ -82,6 +82,8 @@ public class LogisticsItemExtractorBlock extends LogisticsItemConnectorBlock imp
             return null;
         }
         return (lvl, pos, blockState, t) -> {
+            //TODO: does not tick!
+            //it seems an inserter ticker is registered? o.O
             if (t instanceof LogisticsItemExtractorBlockEntity blockEntity) {
                 blockEntity.tickServer();
             }

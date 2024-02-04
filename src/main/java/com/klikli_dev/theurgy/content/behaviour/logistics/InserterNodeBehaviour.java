@@ -84,8 +84,6 @@ public abstract class InserterNodeBehaviour<T, C> extends LeafNodeBehaviour<T, C
         }
     }
 
-    protected abstract C getTargetContext(BlockPos targetPos);
-
     /**
      * gets the target capabilities that are currently loaded & available.
      * @return

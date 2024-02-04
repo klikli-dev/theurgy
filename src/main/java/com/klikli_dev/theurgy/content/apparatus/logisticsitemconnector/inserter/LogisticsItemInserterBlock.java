@@ -23,7 +23,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import org.jetbrains.annotations.Nullable;
 
-public class LogisticsItemInserterBlock extends LogisticsItemConnectorBlock implements EntityBlock {
+public class LogisticsItemInserterBlock extends LogisticsItemConnectorBlock {
 
     public static final MapCodec<LogisticsItemInserterBlock> CODEC = simpleCodec(LogisticsItemInserterBlock::new);
 

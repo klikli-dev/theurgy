@@ -14,7 +14,7 @@ import net.minecraft.world.level.block.state.BlockState;
 public class LogisticsItemExtractorBlockEntity extends LogisticsItemConnectorBlockEntity {
 
     public LogisticsItemExtractorBlockEntity(BlockPos pPos, BlockState pBlockState) {
-        super(BlockEntityRegistry.LOGISTICS_ITEM_INSERTER.get(), pPos, pBlockState);
+        super(BlockEntityRegistry.LOGISTICS_ITEM_EXTRACTOR.get(), pPos, pBlockState);
         this.leafNodeBehaviour =  new LogisticsItemExtractorBehaviour(this);
     }
 
@@ -26,15 +26,4 @@ public class LogisticsItemExtractorBlockEntity extends LogisticsItemConnectorBlo
     public void tickServer(){
         this.leafNode().tickServer();
     }
-
-    @Override
-    public void onChunkUnloaded() {
-        super.onChunkUnloaded();
-
-        if(!this.level.isClientSide){
-            this.leafNode().onChunkUnload();
-        }
-    }
-
-
 }

@@ -70,7 +70,6 @@ public abstract class LeafNodeBehaviour<T, C> {
         return this.frequency;
     }
 
-
     public ExtractorNodeBehaviour<T, C> asExtractor() {
         return (ExtractorNodeBehaviour<T, C>) this;
     }
@@ -126,4 +125,7 @@ public abstract class LeafNodeBehaviour<T, C> {
      * The mode of this leaf node, i.e. if it is an insert or extract node.
      */
     public abstract LeafNodeMode mode();
+
+    protected abstract C getTargetContext(BlockPos targetPos);
+
 }

@@ -61,16 +61,17 @@ public abstract class LogisticsItemConnectorBlock extends DirectionalBlock imple
             }
 
             var connected = Logistics.get().getNetwork(GlobalPos.of(pLevel.dimension(), pPos));
-            var shape = Shapes.block();
-            for(var block : connected.nodes()){
-                if(block.dimension().equals(pLevel.dimension())){
-                    Outliner.get().showAABB(block, shape.bounds()
-                                    .move(block.pos()), 20 * 5)
-                            .colored(0x00FF00)
-                            .lineWidth(1 / 16f);
+            if(connected != null){
+                var shape = Shapes.block();
+                for(var block : connected.nodes()){
+                    if(block.dimension().equals(pLevel.dimension())){
+                        Outliner.get().showAABB(block, shape.bounds()
+                                        .move(block.pos()), 20 * 5)
+                                .colored(0x00FF00)
+                                .lineWidth(1 / 16f);
+                    }
                 }
             }
-
         }
 
         return InteractionResult.SUCCESS;
@@ -98,6 +99,7 @@ public abstract class LogisticsItemConnectorBlock extends DirectionalBlock imple
         super.onRemove(pState, pLevel, pPos, pNewState, pMovedByPiston);
 
         Wires.get(pLevel).removeWiresFor(pPos);
+        //TODO: crash on remove -> concurrent modification exception
 
         if(!pLevel.isClientSide && pLevel.getBlockEntity(pPos) instanceof LogisticsItemConnectorBlockEntity blockEntity){
             blockEntity.leafNode().onDestroyed();

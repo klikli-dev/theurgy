@@ -51,6 +51,8 @@ public class LogisticsItemExtractorBehaviour extends ExtractorNodeBehaviour<IIte
     public void tickServer() {
         //TODO: extract and insert nodes have to be disable-able
 
+        //TODO: extraction should happen on a low tick, and in bulk.
+
         super.tickServer(); //this moves our distributor to the next target if needed.
 
         var insertTarget = this.distributor.target();

@@ -34,7 +34,7 @@ public abstract class ExtractorNodeBehaviour<T, C> extends LeafNodeBehaviour<T, 
         super(blockEntity, capabilityType);
         this.insertTargets = new ArrayList<>();
         this.extractTargets = new ArrayList<>();
-        this.distributor = DistributionMode.createDistributor(DistributionMode.ROUND_ROBIN, this.extractTargets);
+        this.distributor = DistributionMode.createDistributor(DistributionMode.ROUND_ROBIN, this.insertTargets);
     }
 
     //TODO: if we end up with nodes that can support multiple capability types we need to rework this
@@ -58,7 +58,7 @@ public abstract class ExtractorNodeBehaviour<T, C> extends LeafNodeBehaviour<T, 
     }
 
     public List<BlockCapabilityCache<T, C>> extractTargets() {
-        return this.insertTargets;
+        return this.extractTargets;
     }
 
     /**
@@ -178,7 +178,7 @@ public abstract class ExtractorNodeBehaviour<T, C> extends LeafNodeBehaviour<T, 
         if (pTag.contains("distributor")) {
             mode = DistributionMode.values()[pTag.getByte("distributor")];
         }
-        this.distributor = DistributionMode.createDistributor(mode, this.extractTargets);
+        this.distributor = DistributionMode.createDistributor(mode, this.insertTargets);
     }
 
 

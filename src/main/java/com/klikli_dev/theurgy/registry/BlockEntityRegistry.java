@@ -107,11 +107,11 @@ public class BlockEntityRegistry {
                     BlockEntityType.Builder.of(DigestionVatBlockEntity::new, BlockRegistry.DIGESTION_VAT.get()).build(null));
 
     public static final Supplier<BlockEntityType<LogisticsItemInserterBlockEntity>> LOGISTICS_ITEM_INSERTER =
-            BLOCKS.register("logistics_item_inserter", () ->
+            BLOCKS.register(BlockRegistry.LOGISTICS_ITEM_INSERTER.getId().getPath(), () ->
                     BlockEntityType.Builder.of(LogisticsItemInserterBlockEntity::new, BlockRegistry.LOGISTICS_ITEM_INSERTER.get()).build(null));
 
     public static final Supplier<BlockEntityType<LogisticsItemExtractorBlockEntity>> LOGISTICS_ITEM_EXTRACTOR =
-            BLOCKS.register("logistics_item_extractor", () ->
+            BLOCKS.register(BlockRegistry.LOGISTICS_ITEM_EXTRACTOR.getId().getPath(), () ->
                     BlockEntityType.Builder.of(LogisticsItemExtractorBlockEntity::new, BlockRegistry.LOGISTICS_ITEM_EXTRACTOR.get()).build(null));
 
 }

@@ -22,6 +22,7 @@ import net.minecraft.world.level.saveddata.SavedData;
 import net.neoforged.neoforge.event.level.LevelEvent;
 
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Stream;
@@ -193,7 +194,8 @@ public class Wires extends SavedData {
 
     public void removeWiresFor(BlockPos pos){
         var wires = this.getWires(pos);
-        wires.forEach(this::removeWire);
+        var copy = new ArrayList<>(wires); //removeWires modifies the underlying set so we can't iterate on it
+        copy.forEach(this::removeWire);
     }
 
     public void removeWire(Wire wire) {

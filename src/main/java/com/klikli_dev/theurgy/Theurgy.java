@@ -21,10 +21,8 @@ import com.klikli_dev.theurgy.content.apparatus.salammoniactank.render.SalAmmoni
 import com.klikli_dev.theurgy.content.item.AlchemicalSaltItem;
 import com.klikli_dev.theurgy.content.item.AlchemicalSulfurItem;
 import com.klikli_dev.theurgy.content.item.DivinationRodItem;
+import com.klikli_dev.theurgy.content.render.*;
 import com.klikli_dev.theurgy.logistics.Logistics;
-import com.klikli_dev.theurgy.content.render.BlankEntityRenderer;
-import com.klikli_dev.theurgy.content.render.ClientTicks;
-import com.klikli_dev.theurgy.content.render.TheurgyModelLayers;
 import com.klikli_dev.theurgy.content.render.outliner.Outliner;
 import com.klikli_dev.theurgy.datagen.TheurgyDataGenerators;
 import com.klikli_dev.theurgy.integration.modonomicon.PageLoaders;
@@ -40,6 +38,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.item.ItemProperties;
+import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.ItemStack;
@@ -53,10 +52,7 @@ import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLDedicatedServerSetupEvent;
 import net.neoforged.fml.loading.FMLEnvironment;
-import net.neoforged.neoforge.client.event.EntityRenderersEvent;
-import net.neoforged.neoforge.client.event.RecipesUpdatedEvent;
-import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
-import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
+import net.neoforged.neoforge.client.event.*;
 import net.neoforged.neoforge.client.model.DynamicFluidContainerModel;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.TickEvent;
@@ -119,11 +115,13 @@ public class Theurgy {
             modEventBus.addListener(Client::onRegisterEntityRenderers);
             modEventBus.addListener(Client::onRegisterItemColors);
             modEventBus.addListener(Client::onRegisterBlockColors);
+            modEventBus.addListener(BlockOverlays::onTextureAtlasStitched);
             NeoForge.EVENT_BUS.addListener(Client::onRenderLevelStage);
             NeoForge.EVENT_BUS.addListener(Client::onClientTick);
             NeoForge.EVENT_BUS.addListener(Client::onRecipesUpdated);
             NeoForge.EVENT_BUS.addListener(Client::onRightClick);
             NeoForge.EVENT_BUS.addListener(Client::onLeftClick);
+            NeoForge.EVENT_BUS.addListener(BlockHighlightRenderer::onRenderBlockHighlight);
         }
 
         GeckoLib.initialize(modEventBus);

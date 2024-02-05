@@ -12,9 +12,11 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.level.material.Fluid;
@@ -22,11 +24,23 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.FluidType;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * See com.simibubi.create.foundation.fluid.FluidRenderer
  */
 public class FluidRenderer {
+
+    public static TextureAtlasSprite getFluidTexture(@NotNull FluidStack fluidStack, @NotNull FluidTextureType type) {
+        IClientFluidTypeExtensions properties = IClientFluidTypeExtensions.of(fluidStack.getFluid());
+        ResourceLocation spriteLocation;
+        if (type == FluidTextureType.STILL) {
+            spriteLocation = properties.getStillTexture(fluidStack);
+        } else {
+            spriteLocation = properties.getFlowingTexture(fluidStack);
+        }
+        return Minecraft.getInstance().getTextureAtlas(TextureAtlas.LOCATION_BLOCKS).apply(spriteLocation);
+    }
 
     public static VertexConsumer getFluidBuilder(MultiBufferSource buffer) {
         return buffer.getBuffer(RenderTypes.fluid());
@@ -173,5 +187,10 @@ public class FluidRenderer {
                 .uv2(light)
                 .normal(peek.normal(), normal.getX(), normal.getY(), normal.getZ())
                 .endVertex();
+    }
+
+    public enum FluidTextureType {
+        STILL,
+        FLOWING
     }
 }

@@ -22,6 +22,7 @@ import com.klikli_dev.theurgy.content.item.AlchemicalSaltItem;
 import com.klikli_dev.theurgy.content.item.AlchemicalSulfurItem;
 import com.klikli_dev.theurgy.content.item.DivinationRodItem;
 import com.klikli_dev.theurgy.content.render.*;
+import com.klikli_dev.theurgy.content.render.itemhud.ItemHUD;
 import com.klikli_dev.theurgy.logistics.Logistics;
 import com.klikli_dev.theurgy.content.render.outliner.Outliner;
 import com.klikli_dev.theurgy.datagen.TheurgyDataGenerators;
@@ -38,7 +39,6 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.item.ItemProperties;
-import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.ItemStack;
@@ -53,6 +53,7 @@ import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLDedicatedServerSetupEvent;
 import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.client.event.*;
+import net.neoforged.neoforge.client.gui.overlay.VanillaGuiOverlay;
 import net.neoforged.neoforge.client.model.DynamicFluidContainerModel;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.TickEvent;
@@ -115,6 +116,7 @@ public class Theurgy {
             modEventBus.addListener(Client::onRegisterEntityRenderers);
             modEventBus.addListener(Client::onRegisterItemColors);
             modEventBus.addListener(Client::onRegisterBlockColors);
+            modEventBus.addListener(Client::onRegisterGuiOverlays);
             modEventBus.addListener(BlockOverlays::onTextureAtlasStitched);
             NeoForge.EVENT_BUS.addListener(Client::onRenderLevelStage);
             NeoForge.EVENT_BUS.addListener(Client::onClientTick);
@@ -265,6 +267,10 @@ public class Theurgy {
 
         public static void onRegisterBlockColors(RegisterColorHandlersEvent.Block event) {
             event.register(MercuryCatalystBlock::getBlockColor, BlockRegistry.MERCURY_CATALYST.get());
+        }
+
+        public static void onRegisterGuiOverlays(RegisterGuiOverlaysEvent event){
+            event.registerAbove(VanillaGuiOverlay.HOTBAR.id(), Theurgy.loc("item_hud"), ItemHUD.get());
         }
 
         public static void onRightClick(PlayerInteractEvent.RightClickBlock event) {

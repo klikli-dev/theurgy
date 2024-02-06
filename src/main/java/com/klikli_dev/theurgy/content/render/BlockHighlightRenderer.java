@@ -2,6 +2,7 @@ package com.klikli_dev.theurgy.content.render;
 
 import com.klikli_dev.theurgy.content.render.cube.CubeModel;
 import com.klikli_dev.theurgy.content.render.cube.CubeModelRenderer;
+import com.klikli_dev.theurgy.registry.ItemRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.texture.OverlayTexture;
@@ -28,12 +29,11 @@ public class BlockHighlightRenderer {
         var bufferSource = event.getMultiBufferSource();
 
         var stack = player.getMainHandItem();
+        if(!stack.is(ItemRegistry.MERCURIAL_WAND.get()))
+            return;
         //TODO: check for side selector multi tool
         //TODO: use scroll wheel to change side
         //TODO: somehow prevent that from being used to scroll the multi tool
-
-        //TODO: currently it hides the catalyst, probably because it is a translucent block
-        //      confirmed, does the same to stained glass
 
         //Note: for now we simply do not use transparency here because it does not work nicely with translucent blocks
         //      specifically, it stops them from rendering, os the transparent highlight renders the world behind the bock.

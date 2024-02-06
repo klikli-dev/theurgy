@@ -33,6 +33,8 @@ public class CreativeModeTabRegistry {
                 DivinationRodItem.registerCreativeModeTabs(ItemRegistry.AMETHYST_DIVINATION_ROD.get(), output);
 
                 output.accept(ItemRegistry.SAL_AMMONIAC_BUCKET.get());
+                output.accept(ItemRegistry.COPPER_WIRE.get());
+                output.accept(ItemRegistry.MERCURIAL_WAND.get());
 
                 output.accept(ItemRegistry.MERCURY_SHARD.get());
                 output.accept(ItemRegistry.MERCURY_CRYSTAL.get());
@@ -67,7 +69,6 @@ public class CreativeModeTabRegistry {
 
                 output.accept(ItemRegistry.LOGISTICS_ITEM_INSERTER.get());
                 output.accept(ItemRegistry.LOGISTICS_ITEM_EXTRACTOR.get());
-                output.accept(ItemRegistry.COPPER_WIRE.get());
 
             }).build());
 

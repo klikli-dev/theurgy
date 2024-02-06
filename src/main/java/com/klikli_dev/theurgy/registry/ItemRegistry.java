@@ -18,6 +18,7 @@ import com.klikli_dev.theurgy.content.apparatus.reformationarray.SulfuricFluxEmi
 import com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator.SalAmmoniacAccumulatorBlockItem;
 import com.klikli_dev.theurgy.content.apparatus.salammoniactank.SalAmmoniacTankBlockItem;
 import com.klikli_dev.theurgy.content.item.DivinationRodItem;
+import com.klikli_dev.theurgy.content.item.MercurialWandItem;
 import com.klikli_dev.theurgy.content.item.WireItem;
 import net.minecraft.world.item.*;
 import net.neoforged.neoforge.registries.DeferredItem;
@@ -125,6 +126,9 @@ public class ItemRegistry {
     //Other Tools
     public static final DeferredItem<Item> COPPER_WIRE =
             ITEMS.register("copper_wire", () -> new WireItem(new Item.Properties()));
+
+    public static final DeferredItem<Item> MERCURIAL_WAND =
+            ITEMS.register("mercurial_wand", () -> new MercurialWandItem(new Item.Properties()));
 
     //Buckets
     public static final DeferredItem<Item> SAL_AMMONIAC_BUCKET =

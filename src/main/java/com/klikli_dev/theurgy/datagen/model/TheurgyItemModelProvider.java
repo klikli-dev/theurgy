@@ -184,5 +184,6 @@ public class TheurgyItemModelProvider extends net.neoforged.neoforge.client.mode
         this.registerDivinationRod(ItemRegistry.AMETHYST_DIVINATION_ROD.get());
 
         this.registerItemGenerated(this.name(ItemRegistry.COPPER_WIRE.get()));
+        this.registerItemGenerated(this.name(ItemRegistry.MERCURIAL_WAND.get()));
     }
 }

@@ -647,6 +647,11 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
                 "Can be used to connect different parts of Mercurial Logistics Networks.");
         //TODO: usage
 
+        this.addItem(ItemRegistry.MERCURIAL_WAND, "Mercurial Wand");
+        this.addTooltip(ItemRegistry.MERCURIAL_WAND,
+                "Definitely not just a wrench.",
+                "Allows configuring alchemical apparatuses and mercurial logistics networks.");
+        //TODO: usage
 
         this.addItem(ItemRegistry.MERCURY_SHARD, "Mercury Shard");
         this.addExtendedTooltip(ItemRegistry.MERCURY_SHARD,

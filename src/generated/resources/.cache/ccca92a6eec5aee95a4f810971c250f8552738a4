@@ -1,4 +1,4 @@
-// 1.20.4	2024-01-27T19:24:48.7633379	Item Models: theurgy
+// 1.20.4	2024-02-06T08:41:30.5415144	Item Models: theurgy
 a402a05d887ec6d271a9350944338d29e1233318 assets/theurgy/models/item/alchemical_salt.json
 9fd173e362b6644716da98ba0d15809f85879e78 assets/theurgy/models/item/alchemical_salt_crops.json
 9fd173e362b6644716da98ba0d15809f85879e78 assets/theurgy/models/item/alchemical_salt_mineral.json
@@ -117,6 +117,7 @@ e10c25d97937f9dbbae1e85e2768cdec9cbda373 assets/theurgy/models/item/gems_rare_ic
 dfd3d9a5b48e72aa2bb7424dba51a88c738f40d1 assets/theurgy/models/item/jar_label_frame_precious_icon.json
 f83a199b1494744aff01fc4c082fc35cdd78a476 assets/theurgy/models/item/jar_label_frame_rare_icon.json
 94bfa4f4e6caf28d6f20cee65ac10387f5b115e2 assets/theurgy/models/item/jar_label_icon.json
+c2484015c8060c0acd1a8e7fb9d99c5462cf9022 assets/theurgy/models/item/mercurial_wand.json
 dba6c70f6dc6e3efa9e5ca587d452b81421cabe2 assets/theurgy/models/item/mercury_crystal.json
 022666f33be76a64adeafdb25b8955238da6ad02 assets/theurgy/models/item/mercury_shard.json
 c80de76c9a65f6feb89341144bd407f44a37b7ba assets/theurgy/models/item/metals_abundant_icon.json

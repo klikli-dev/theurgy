@@ -21,6 +21,7 @@ public class Networking {
         final IPayloadRegistrar registrar = event.registrar(Theurgy.MODID);
 
         registrar.play(MessageSetDivinationResult.ID, MessageSetDivinationResult::new, MessageHandler::handle);
+        registrar.play(MessageSetMode.ID, MessageSetMode::new, MessageHandler::handle);
         registrar.play(MessageCaloricFluxEmitterSelection.ID, MessageCaloricFluxEmitterSelection::new, MessageHandler::handle);
         registrar.play(MessageSulfuricFluxEmitterSelection.ID, MessageSulfuricFluxEmitterSelection::new, MessageHandler::handle);
         registrar.play(MessageLogisticsNodeSelection.ID, MessageLogisticsNodeSelection::new, MessageHandler::handle);

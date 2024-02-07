@@ -21,19 +21,22 @@ import com.klikli_dev.theurgy.content.apparatus.salammoniactank.render.SalAmmoni
 import com.klikli_dev.theurgy.content.item.AlchemicalSaltItem;
 import com.klikli_dev.theurgy.content.item.AlchemicalSulfurItem;
 import com.klikli_dev.theurgy.content.item.DivinationRodItem;
+import com.klikli_dev.theurgy.content.item.ModeItem;
 import com.klikli_dev.theurgy.content.render.*;
 import com.klikli_dev.theurgy.content.render.itemhud.ItemHUD;
-import com.klikli_dev.theurgy.logistics.Logistics;
 import com.klikli_dev.theurgy.content.render.outliner.Outliner;
 import com.klikli_dev.theurgy.datagen.TheurgyDataGenerators;
 import com.klikli_dev.theurgy.integration.modonomicon.PageLoaders;
 import com.klikli_dev.theurgy.integration.modonomicon.PageRenderers;
+import com.klikli_dev.theurgy.logistics.Logistics;
 import com.klikli_dev.theurgy.logistics.WireRenderer;
 import com.klikli_dev.theurgy.logistics.WireSync;
 import com.klikli_dev.theurgy.logistics.Wires;
 import com.klikli_dev.theurgy.network.Networking;
+import com.klikli_dev.theurgy.network.messages.MessageSetMode;
 import com.klikli_dev.theurgy.registry.*;
 import com.klikli_dev.theurgy.tooltips.TooltipHandler;
+import com.klikli_dev.theurgy.util.ScrollHelper;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.logging.LogUtils;
@@ -118,12 +121,16 @@ public class Theurgy {
             modEventBus.addListener(Client::onRegisterBlockColors);
             modEventBus.addListener(Client::onRegisterGuiOverlays);
             modEventBus.addListener(BlockOverlays::onTextureAtlasStitched);
+            modEventBus.addListener(KeyMappingsRegistry::onRegisterKeyMappings);
             NeoForge.EVENT_BUS.addListener(Client::onRenderLevelStage);
             NeoForge.EVENT_BUS.addListener(Client::onClientTick);
             NeoForge.EVENT_BUS.addListener(Client::onRecipesUpdated);
+            NeoForge.EVENT_BUS.addListener(Client::onMouseScrolling);
             NeoForge.EVENT_BUS.addListener(Client::onRightClick);
             NeoForge.EVENT_BUS.addListener(Client::onLeftClick);
             NeoForge.EVENT_BUS.addListener(BlockHighlightRenderer::onRenderBlockHighlight);
+            NeoForge.EVENT_BUS.addListener(KeyMappingsRegistry::onKeyInput);
+            NeoForge.EVENT_BUS.addListener(KeyMappingsRegistry::onMouseInput);
         }
 
         GeckoLib.initialize(modEventBus);
@@ -269,8 +276,23 @@ public class Theurgy {
             event.register(MercuryCatalystBlock::getBlockColor, BlockRegistry.MERCURY_CATALYST.get());
         }
 
-        public static void onRegisterGuiOverlays(RegisterGuiOverlaysEvent event){
+        public static void onRegisterGuiOverlays(RegisterGuiOverlaysEvent event) {
             event.registerAbove(VanillaGuiOverlay.HOTBAR.id(), Theurgy.loc("item_hud"), ItemHUD.get());
+        }
+
+        public static void onMouseScrolling(InputEvent.MouseScrollingEvent event) {
+            var minecraft = Minecraft.getInstance();
+            if (minecraft.player != null && minecraft.player.isShiftKeyDown()) {
+                double delta = event.getScrollDeltaY();
+
+                if (delta != 0 && minecraft.player.getMainHandItem().getItem() instanceof ModeItem) {
+                    int shift = ScrollHelper.scroll(delta);
+                    if (shift != 0) {
+                        Networking.sendToServer(new MessageSetMode(shift));
+                    }
+                    event.setCanceled(true);
+                }
+            }
         }
 
         public static void onRightClick(PlayerInteractEvent.RightClickBlock event) {

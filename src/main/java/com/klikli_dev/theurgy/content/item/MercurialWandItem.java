@@ -15,13 +15,16 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class MercurialWandItem extends Item implements ItemHUDProvider {
+public class MercurialWandItem extends Item implements ItemHUDProvider, ModeItem {
     public MercurialWandItem(Properties pProperties) {
         super(pProperties);
     }
 
+    @Override
     public void changeMode(Player player, ItemStack stack, int shift) {
         //TODO: when we change mode we should run  player.displayClientMessage() to show the new mode above the hotbar
+
+        player.displayClientMessage(Component.translatable("test %s", shift), true);
     }
 
     @Override

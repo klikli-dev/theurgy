@@ -119,6 +119,12 @@ public class TheurgyConstants {
             public static final String UNIT_MILLIBUCKETS = PREFIX + "unit.millibuckets";
         }
 
+        public static class Key {
+            public static final String PREFIX = Theurgy.MODID + ".key.";
+            public static final String CATEGORY = PREFIX + "theurgy.category";
+            public static final String CHANGE_ITEM_MODE = PREFIX + "change_item_mode";
+        }
+
         public static class Behaviour {
             public static final String PREFIX = Theurgy.MODID + ".behaviour.";
             public static final String SELECTION_MODE = PREFIX + "selection.mode";

@@ -43,6 +43,11 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         return ChatFormatting.DARK_RED + text + ChatFormatting.RESET + ChatFormatting.GRAY;
     }
 
+    private void addKeys() {
+        this.add(TheurgyConstants.I18n.Key.CATEGORY, "Theurgy");
+        this.add(TheurgyConstants.I18n.Key.CHANGE_ITEM_MODE, "Change Item Mode");
+    }
+
     private void addMisc() {
         this.add(TheurgyConstants.I18n.Tooltip.SHOW_EXTENDED, ChatFormatting.GOLD + "[" +
                 ChatFormatting.LIGHT_PURPLE + "shift " +
@@ -685,6 +690,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
     @Override
     protected void addTranslations() {
         this.addMisc();
+        this.addKeys();
         this.addSubtitles();
         this.addMessages();
         this.addItems();

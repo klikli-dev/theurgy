@@ -78,17 +78,25 @@ public class LiquefactionCauldronRenderer implements BlockEntityRenderer<Liquefa
 
         var builder = pBufferSource.getBuffer(RenderTypes.fluid());
 
+        //Hack: the UV calculation doesn't work on 1.20.4, so we just use the full texture for now
+        //TODO: fix this for 1.20.4
+        var u1 = fluidTexture.getU0();
+        var u2 = fluidTexture.getU1();
+        var v1 = fluidTexture.getV0();
+        var v2 = fluidTexture.getV1();
+
+
         putVertex(builder, pPoseStack, min, fluidHeight, min, color,
-                fluidTexture.getU(2), fluidTexture.getV(2), Direction.UP, fluidLight);
+                u1, v1, Direction.UP, fluidLight);
 
         putVertex(builder, pPoseStack, min, fluidHeight, max, color,
-                fluidTexture.getU(14), fluidTexture.getV(2), Direction.UP, fluidLight);
+                u1, v2, Direction.UP, fluidLight);
 
         putVertex(builder, pPoseStack, max, fluidHeight, max, color,
-                fluidTexture.getU(14), fluidTexture.getV(14), Direction.UP, fluidLight);
+                u2, v2, Direction.UP, fluidLight);
 
         putVertex(builder, pPoseStack, max, fluidHeight, min, color,
-                fluidTexture.getU(2), fluidTexture.getV(14), Direction.UP, fluidLight);
+                u2, v1, Direction.UP, fluidLight);
 
         pPoseStack.popPose();
     }

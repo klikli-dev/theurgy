@@ -98,6 +98,7 @@ public class CapabilityRegistry {
     }
 
     public static void registerDistiller(RegisterCapabilitiesEvent event) {
+        //TODO: the top block entity must mirror capabilities
         event.registerBlockEntity(
                 Capabilities.ItemHandler.BLOCK,
                 BlockEntityRegistry.DISTILLER.get(),

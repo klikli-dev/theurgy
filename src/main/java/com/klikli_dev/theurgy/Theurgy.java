@@ -33,7 +33,6 @@ import com.klikli_dev.theurgy.logistics.WireRenderer;
 import com.klikli_dev.theurgy.logistics.WireSync;
 import com.klikli_dev.theurgy.logistics.Wires;
 import com.klikli_dev.theurgy.network.Networking;
-import com.klikli_dev.theurgy.network.messages.MessageSetMode;
 import com.klikli_dev.theurgy.registry.*;
 import com.klikli_dev.theurgy.tooltips.TooltipHandler;
 import com.klikli_dev.theurgy.util.ScrollHelper;
@@ -284,11 +283,12 @@ public class Theurgy {
             var minecraft = Minecraft.getInstance();
             if (minecraft.player != null && minecraft.player.isShiftKeyDown()) {
                 double delta = event.getScrollDeltaY();
+                var stack = minecraft.player.getMainHandItem();
 
-                if (delta != 0 && minecraft.player.getMainHandItem().getItem() instanceof ModeItem) {
+                if (delta != 0 && stack.getItem() instanceof ModeItem modeItem) {
                     int shift = ScrollHelper.scroll(delta);
                     if (shift != 0) {
-                        Networking.sendToServer(new MessageSetMode(shift));
+                        modeItem.onScroll(minecraft.player, stack, shift);
                     }
                     event.setCanceled(true);
                 }

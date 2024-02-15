@@ -34,7 +34,8 @@ public abstract class MercurialWandItemMode extends ItemMode {
 
     public enum Type{
 
-        SELECT_DIRECTION(new SelectDirectionMode());
+        SELECT_DIRECTION(new SelectDirectionMode()),
+        SET_SELECTED_DIRECTION(new SetSelectedDirectionMode());
 
         final MercurialWandItemMode mode;
 

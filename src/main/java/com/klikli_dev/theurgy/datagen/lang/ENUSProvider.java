@@ -586,7 +586,6 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.addSalts();
         this.addSulfurs();
         this.addDivinationRods();
-
         this.addItem(ItemRegistry.EMPTY_JAR_ICON, "Empty Jar Icon");
         this.addTooltip(ItemRegistry.EMPTY_JAR_ICON, "Dummy item for rendering.");
         this.addItem(ItemRegistry.EMPTY_JAR_IRON_BAND_ICON, "Empty Jar with Iron Band Icon");
@@ -657,6 +656,10 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
                 "Definitely not just a wrench.",
                 "Allows configuring alchemical apparatuses and mercurial logistics networks.");
         //TODO: usage
+
+        this.add(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_SELECT_DIRECTION, "Select direction");
+        this.add(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_SET_SELECTED_DIRECTION, "Set selected direction");
+
 
         this.addItem(ItemRegistry.MERCURY_SHARD, "Mercury Shard");
         this.addExtendedTooltip(ItemRegistry.MERCURY_SHARD,

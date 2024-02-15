@@ -67,6 +67,7 @@ public class TheurgyConstants {
             public static class Mode {
                 public static final String PREFIX = "item.mode." + Theurgy.MODID + ".";
                 public static final String MERCURIAL_WAND_SELECT_DIRECTION = PREFIX + "mercurial_wand.select_direction";
+                public static final String MERCURIAL_WAND_SET_SELECTED_DIRECTION = PREFIX + "mercurial_wand.set_selected_direction";
             }
         }
 

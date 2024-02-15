@@ -17,9 +17,9 @@ import com.klikli_dev.theurgy.content.apparatus.logisticsnode.LogisticsNodeBlock
 import com.klikli_dev.theurgy.content.apparatus.reformationarray.SulfuricFluxEmitterBlockItem;
 import com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator.SalAmmoniacAccumulatorBlockItem;
 import com.klikli_dev.theurgy.content.apparatus.salammoniactank.SalAmmoniacTankBlockItem;
-import com.klikli_dev.theurgy.content.item.DivinationRodItem;
-import com.klikli_dev.theurgy.content.item.MercurialWandItem;
-import com.klikli_dev.theurgy.content.item.WireItem;
+import com.klikli_dev.theurgy.content.item.divinationrod.DivinationRodItem;
+import com.klikli_dev.theurgy.content.item.mercurialwand.MercurialWandItem;
+import com.klikli_dev.theurgy.content.item.wire.WireItem;
 import net.minecraft.world.item.*;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;

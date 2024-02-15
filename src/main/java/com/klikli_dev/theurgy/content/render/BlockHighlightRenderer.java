@@ -7,6 +7,8 @@
 
 package com.klikli_dev.theurgy.content.render;
 
+import com.klikli_dev.theurgy.content.item.mercurialwand.mode.MercurialWandItemMode;
+import com.klikli_dev.theurgy.content.item.mercurialwand.mode.SelectDirectionMode;
 import com.klikli_dev.theurgy.content.render.cube.CubeModel;
 import com.klikli_dev.theurgy.content.render.cube.CubeModelRenderer;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
@@ -45,11 +47,16 @@ public class BlockHighlightRenderer {
         //TODO: use scroll wheel to change side
         //TODO: somehow prevent that from being used to scroll the multi tool
 
+        var mode = MercurialWandItemMode.getMode(stack);
+        if (!(mode instanceof SelectDirectionMode selectDirectionMode))
+            return;
+
+        Direction face = selectDirectionMode.getDirection(stack);
+
         //Note: for now we simply do not use transparency here because it does not work nicely with translucent blocks
         //      specifically, it stops them from rendering, os the transparent highlight renders the world behind the bock.
         //      If we want to play with it again, use     public final static Color GREEN = new Color(0, 255, 0, 155).setImmutable();
 
-        Direction face = rayTraceResult.getDirection().getOpposite(); //opposite to test rendering behind. Will instead be drawn from the config tool scroll selection
         Vec3 viewPosition = camera.getPosition();
         ps.pushPose();
         ps.translate(pos.getX() - viewPosition.x, pos.getY() - viewPosition.y, pos.getZ() - viewPosition.z);

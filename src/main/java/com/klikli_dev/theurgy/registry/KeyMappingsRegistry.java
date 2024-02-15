@@ -1,7 +1,7 @@
 package com.klikli_dev.theurgy.registry;
 
 import com.klikli_dev.theurgy.TheurgyConstants;
-import com.klikli_dev.theurgy.content.item.ModeItem;
+import com.klikli_dev.theurgy.content.item.mode.ModeItem;
 import com.klikli_dev.theurgy.network.Networking;
 import com.klikli_dev.theurgy.network.messages.MessageSetMode;
 import com.mojang.blaze3d.platform.InputConstants;

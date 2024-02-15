@@ -2,12 +2,12 @@
 //
 // SPDX-License-Identifier: MIT
 
-package com.klikli_dev.theurgy.content.item;
+package com.klikli_dev.theurgy.content.item.sulfur;
 
 import com.google.common.base.Suppliers;
 import com.google.common.collect.ImmutableList;
 import com.klikli_dev.theurgy.TheurgyConstants;
-import com.klikli_dev.theurgy.content.item.render.AlchemicalSulfurBEWLR;
+import com.klikli_dev.theurgy.content.item.sulfur.render.AlchemicalSulfurBEWLR;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import com.klikli_dev.theurgy.registry.SulfurRegistry;

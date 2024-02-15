@@ -1,4 +1,4 @@
-package com.klikli_dev.theurgy.content.item;
+package com.klikli_dev.theurgy.content.item.mode;
 
 import com.klikli_dev.theurgy.network.Networking;
 import com.klikli_dev.theurgy.network.messages.MessageSetMode;
@@ -11,4 +11,6 @@ public interface ModeItem {
     default void onScroll(Player player, ItemStack stack, int shift) {
         Networking.sendToServer(new MessageSetMode(shift));
     }
+
+
 }

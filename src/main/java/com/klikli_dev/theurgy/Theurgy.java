@@ -18,10 +18,10 @@ import com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron.render.Liqu
 import com.klikli_dev.theurgy.content.apparatus.mercurycatalyst.MercuryCatalystBlock;
 import com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator.render.SalAmmoniacAccumulatorRenderer;
 import com.klikli_dev.theurgy.content.apparatus.salammoniactank.render.SalAmmoniacTankRenderer;
-import com.klikli_dev.theurgy.content.item.AlchemicalSaltItem;
-import com.klikli_dev.theurgy.content.item.AlchemicalSulfurItem;
-import com.klikli_dev.theurgy.content.item.DivinationRodItem;
-import com.klikli_dev.theurgy.content.item.ModeItem;
+import com.klikli_dev.theurgy.content.item.salt.AlchemicalSaltItem;
+import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurItem;
+import com.klikli_dev.theurgy.content.item.divinationrod.DivinationRodItem;
+import com.klikli_dev.theurgy.content.item.mode.ModeItem;
 import com.klikli_dev.theurgy.content.render.*;
 import com.klikli_dev.theurgy.content.render.itemhud.ItemHUD;
 import com.klikli_dev.theurgy.content.render.outliner.Outliner;

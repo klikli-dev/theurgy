@@ -5,7 +5,7 @@
 package com.klikli_dev.theurgy.registry;
 
 import com.klikli_dev.theurgy.Theurgy;
-import com.klikli_dev.theurgy.content.item.AlchemicalSaltItem;
+import com.klikli_dev.theurgy.content.item.salt.AlchemicalSaltItem;
 import com.klikli_dev.theurgy.util.LevelUtil;
 import net.minecraft.world.item.Item;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;

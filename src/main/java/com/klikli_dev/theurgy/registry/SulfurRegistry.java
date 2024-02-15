@@ -6,9 +6,9 @@ package com.klikli_dev.theurgy.registry;
 
 import com.google.common.base.Suppliers;
 import com.klikli_dev.theurgy.Theurgy;
-import com.klikli_dev.theurgy.content.item.AlchemicalSulfurItem;
-import com.klikli_dev.theurgy.content.item.AlchemicalSulfurTier;
-import com.klikli_dev.theurgy.content.item.AlchemicalSulfurType;
+import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurItem;
+import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurTier;
+import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurType;
 import com.klikli_dev.theurgy.content.recipe.LiquefactionRecipe;
 import com.klikli_dev.theurgy.util.LevelUtil;
 import net.minecraft.world.item.Item;

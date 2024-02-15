@@ -63,6 +63,11 @@ public class TheurgyConstants {
             private static final String PREFIX = "item." + Theurgy.MODID + ".";
             public static final String ALCHEMICAL_SULFUR_UNKNOWN_SOURCE = PREFIX + "alchemical_sulfur.unknown_source";
             public static final String DIVINATION_ROD_UNKNOWN_LINKED_BLOCK = PREFIX + "divination_rod.unknown_linked_block";
+
+            public static class Mode {
+                public static final String PREFIX = "item.mode." + Theurgy.MODID + ".";
+                public static final String MERCURIAL_WAND_SELECT_DIRECTION = PREFIX + "mercurial_wand.select_direction";
+            }
         }
 
         public static class Tooltip {

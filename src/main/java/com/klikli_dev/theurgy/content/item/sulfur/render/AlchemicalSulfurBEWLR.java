@@ -2,11 +2,11 @@
 //
 // SPDX-License-Identifier: MIT
 
-package com.klikli_dev.theurgy.content.item.render;
+package com.klikli_dev.theurgy.content.item.sulfur.render;
 
 import com.klikli_dev.theurgy.config.ClientConfig;
-import com.klikli_dev.theurgy.content.item.AlchemicalSulfurItem;
-import com.klikli_dev.theurgy.content.item.AlchemicalSulfurTier;
+import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurItem;
+import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurTier;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.mojang.blaze3d.platform.Lighting;
 import com.mojang.blaze3d.vertex.PoseStack;

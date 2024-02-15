@@ -4,9 +4,9 @@
 
 package com.klikli_dev.theurgy.datagen;
 
-import com.klikli_dev.theurgy.content.item.AlchemicalSulfurItem;
-import com.klikli_dev.theurgy.content.item.AlchemicalSulfurTier;
-import com.klikli_dev.theurgy.content.item.AlchemicalSulfurType;
+import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurItem;
+import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurTier;
+import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurType;
 import com.klikli_dev.theurgy.registry.SulfurRegistry;
 
 import java.util.List;

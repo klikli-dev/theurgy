@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: MIT
 
-package com.klikli_dev.theurgy.content.item;
+package com.klikli_dev.theurgy.content.item.salt;
 
 import com.google.common.collect.ImmutableList;
 import com.klikli_dev.theurgy.TheurgyConstants;

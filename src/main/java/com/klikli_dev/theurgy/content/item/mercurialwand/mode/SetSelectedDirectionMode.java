@@ -2,8 +2,9 @@ package com.klikli_dev.theurgy.content.item.mercurialwand.mode;
 
 import com.klikli_dev.theurgy.TheurgyConstants;
 import net.minecraft.core.Direction;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.UseOnContext;
 
 public class SetSelectedDirectionMode extends MercurialWandItemMode {
 
@@ -21,4 +22,21 @@ public class SetSelectedDirectionMode extends MercurialWandItemMode {
         return mode.getDirection(stack);
     }
 
+    @Override
+    public InteractionResult onItemUseFirst(ItemStack stack, UseOnContext context) {
+        //get the target block and set its direction if it is a fitting block
+
+        var blockPos = context.getClickedPos();
+        var level = context.getLevel();
+
+        var blockEntity = level.getBlockEntity(blockPos);
+        if (blockEntity instanceof TargetDirectionSetter directionSettable) {
+            directionSettable.setTargetDirection(this.getDirection(stack));
+            return InteractionResult.SUCCESS;
+        }
+
+        //TODO: implement the TargetDirectionSetter interface in our logistics block entities - or rather their behaviours to also store the override
+
+        return super.onItemUseFirst(stack, context);
+    }
 }

@@ -15,7 +15,7 @@ public abstract class ItemMode {
         return InteractionResultHolder.pass(pPlayer.getItemInHand(pUsedHand));
     }
 
-    public InteractionResult useOn(UseOnContext pContext) {
+    public InteractionResult onItemUseFirst(ItemStack stack, UseOnContext context) {
         return InteractionResult.PASS;
     }
 

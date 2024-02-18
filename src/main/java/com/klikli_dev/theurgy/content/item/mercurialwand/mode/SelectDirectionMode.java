@@ -3,8 +3,10 @@ package com.klikli_dev.theurgy.content.item.mercurialwand.mode;
 import com.klikli_dev.theurgy.TheurgyConstants;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.UseOnContext;
 
 public class SelectDirectionMode extends MercurialWandItemMode {
 
@@ -32,6 +34,12 @@ public class SelectDirectionMode extends MercurialWandItemMode {
         } else {
             modeTag.putInt("direction", this.shiftDirection(this.getDirection(modeTag), shift).ordinal());
         }
+    }
+
+    @Override
+    public InteractionResult onItemUseFirst(ItemStack stack, UseOnContext context) {
+        //the select direction mode does not have a "use" function, it just listens to the scroll
+        return InteractionResult.CONSUME; //we need to consume because SUCCESS causes a swing animation
     }
 
     public Direction getDirection(CompoundTag modeTag) {

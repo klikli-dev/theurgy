@@ -53,9 +53,9 @@ public class MercurialWandItem extends Item implements ItemHUDProvider, ModeItem
         var stack = pPlayer.getItemInHand(pUsedHand);
         var mode = MercurialWandItemMode.getMode(stack);
 
-        if(mode instanceof SelectDirectionMode) {
-            //TODO without a block target this mode should probably not do anything
-            return InteractionResultHolder.sidedSuccess(stack, pLevel.isClientSide());
+        var result = mode.use(pLevel, pPlayer, pUsedHand);
+        if(result.getResult() != InteractionResult.PASS) {
+            return result;
         }
 
         return super.use(pLevel, pPlayer, pUsedHand);
@@ -66,8 +66,9 @@ public class MercurialWandItem extends Item implements ItemHUDProvider, ModeItem
         //onItemUseFirst is called BEFORE the block so we can interrupt e.g. opening the block inv
         var mode = MercurialWandItemMode.getMode(stack);
 
-        if(mode instanceof SelectDirectionMode) {
-            return InteractionResult.CONSUME; //we need to consume because SUCCESS causes a swing animation
+        var result = mode.onItemUseFirst(stack, context);
+        if(result != InteractionResult.PASS) {
+            return result;
         }
 
         return super.onItemUseFirst(stack, context);

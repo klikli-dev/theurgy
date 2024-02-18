@@ -19,6 +19,8 @@ public abstract class MercurialWandItemMode extends ItemMode {
         return this.type.name().toLowerCase();
     }
 
+
+
     public static MercurialWandItemMode getMode(ItemStack stack){
         var tag = stack.getOrCreateTag();
         var modeOrdinal = tag.getInt("theurgy:mode");

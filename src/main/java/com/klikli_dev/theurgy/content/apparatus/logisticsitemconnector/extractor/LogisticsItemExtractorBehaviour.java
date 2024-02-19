@@ -99,8 +99,6 @@ public class LogisticsItemExtractorBehaviour extends ExtractorNodeBehaviour<IIte
 
     @Override
     public void tickServer() {
-        //TODO: extract and insert nodes have to be disable-able
-
         //TODO: extraction should happen on a low tick, and in bulk.
 
         if (!this.enabled)

@@ -9,6 +9,7 @@ import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 public class LogisticsItemInserterBlockEntity extends LogisticsItemConnectorBlockEntity {
 
@@ -40,5 +41,10 @@ public class LogisticsItemInserterBlockEntity extends LogisticsItemConnectorBloc
     @Override
     public Direction targetDirection() {
         return this.leafNode().directionOverride();
+    }
+
+    @Override
+    public BlockPos targetPos() {
+        return this.leafNode().targets().isEmpty() ? this.getBlockPos() : this.leafNode().targets().get(0);
     }
 }

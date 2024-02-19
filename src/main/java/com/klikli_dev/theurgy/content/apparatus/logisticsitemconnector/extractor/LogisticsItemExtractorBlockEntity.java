@@ -45,4 +45,9 @@ public class LogisticsItemExtractorBlockEntity extends LogisticsItemConnectorBlo
     public Direction targetDirection() {
         return this.leafNode().directionOverride();
     }
+
+    @Override
+    public BlockPos targetPos() {
+        return this.leafNode().targets().isEmpty() ? this.getBlockPos() : this.leafNode().targets().get(0);
+    }
 }

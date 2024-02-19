@@ -36,7 +36,9 @@ public class SetSelectedDirectionMode extends MercurialWandItemMode {
             return InteractionResult.SUCCESS;
         }
 
-        //TODO: implement the TargetDirectionSetter interface in our logistics block entities - or rather their behaviours to also store the override
+        //TODO: when looking at valid target block its current direction should be
+        //      to that end we need to know its target block
+        //      Concrete: We need to sync most node data to the client!
 
         return super.onItemUseFirst(stack, context);
     }

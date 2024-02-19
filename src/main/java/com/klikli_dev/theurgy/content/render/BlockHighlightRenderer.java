@@ -50,6 +50,9 @@ public class BlockHighlightRenderer {
         var mode = MercurialWandItemMode.getMode(stack);
         if (!(mode instanceof SelectDirectionMode selectDirectionMode))
             return;
+        //TODO: this should probably be done in the mode - but need to be careful about client only classes
+        //      probably the mode should give us a .renderHandler() on which we can call relevant code
+        
 
         Direction face = selectDirectionMode.getDirection(stack);
 

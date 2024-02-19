@@ -33,6 +33,9 @@ public abstract class LeafNodeBehaviour<T, C> {
     protected BlockEntity blockEntity;
     protected Lazy<GlobalPos> globalPos;
     protected BlockCapability<T, C> capabilityType;
+    /*
+     * Targets are set via BlockItem by placing them in the NBT, at least for the LogisticsItemConnectorBlocks
+     */
     protected List<BlockPos> targets;
     protected int frequency;
 

@@ -20,12 +20,15 @@ public class Networking {
     public static void register(final RegisterPayloadHandlerEvent event) {
         final IPayloadRegistrar registrar = event.registrar(Theurgy.MODID);
 
+        //to server
         registrar.play(MessageSetDivinationResult.ID, MessageSetDivinationResult::new, MessageHandler::handle);
         registrar.play(MessageSetMode.ID, MessageSetMode::new, MessageHandler::handle);
+        registrar.play(MessageItemModeSelectDirection.ID, MessageItemModeSelectDirection::new, MessageHandler::handle);
         registrar.play(MessageCaloricFluxEmitterSelection.ID, MessageCaloricFluxEmitterSelection::new, MessageHandler::handle);
         registrar.play(MessageSulfuricFluxEmitterSelection.ID, MessageSulfuricFluxEmitterSelection::new, MessageHandler::handle);
         registrar.play(MessageLogisticsNodeSelection.ID, MessageLogisticsNodeSelection::new, MessageHandler::handle);
 
+        //to client
         registrar.play(MessageRequestCaloricFluxEmitterSelection.ID, MessageRequestCaloricFluxEmitterSelection::new, MessageHandler::handle);
         registrar.play(MessageRequestSulfuricFluxEmitterSelection.ID, MessageRequestSulfuricFluxEmitterSelection::new, MessageHandler::handle);
         registrar.play(MessageRequestLogisticsNodeSelection.ID, MessageRequestLogisticsNodeSelection::new, MessageHandler::handle);

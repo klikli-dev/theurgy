@@ -2,6 +2,8 @@ package com.klikli_dev.theurgy.content.item.mercurialwand.mode;
 
 import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.content.item.mode.ItemModeRenderHandler;
+import com.klikli_dev.theurgy.network.Networking;
+import com.klikli_dev.theurgy.network.messages.MessageItemModeSelectDirection;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -42,6 +44,10 @@ public class SelectDirectionMode extends MercurialWandItemMode {
         var modeTag = this.getModeTag(stack);
         var direction = !modeTag.contains("direction") ? Direction.fromYRot(player.getYRot()) : this.shiftDirection(this.getDirection(modeTag), shift);
 
+        modeTag.putInt("direction", direction.ordinal());
+
+        Networking.sendToServer(new MessageItemModeSelectDirection(direction));
+
         player.displayClientMessage(Component.translatable(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_SELECT_DIRECTION_SUCCESS,
                 Component.translatable(direction.getName()).withStyle(ChatFormatting.GREEN)
         ), true);
@@ -57,8 +63,16 @@ public class SelectDirectionMode extends MercurialWandItemMode {
         return Direction.values()[modeTag.getInt("direction")];
     }
 
+    public void setDirection(CompoundTag modeTag, Direction direction) {
+        modeTag.putInt("direction", direction.ordinal());
+    }
+
     public Direction getDirection(ItemStack stack) {
         return this.getDirection(this.getModeTag(stack));
+    }
+
+    public void setDirection(ItemStack stack, Direction direction) {
+        this.setDirection(this.getModeTag(stack), direction);
     }
 
     protected Direction nextDirection(Direction direction) {

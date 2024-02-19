@@ -31,7 +31,7 @@ public class MercurialWandItem extends Item implements ItemHUDProvider, ModeItem
         var nextMode = MercurialWandItemMode.getMode(stack).type().next().mode();
         MercurialWandItemMode.setMode(stack, nextMode);
 
-        player.displayClientMessage(Component.translatable(nextMode.descriptionId()), true);
+        player.displayClientMessage(nextMode.description(stack, player.level()), true);
     }
 
     @Override
@@ -74,7 +74,7 @@ public class MercurialWandItem extends Item implements ItemHUDProvider, ModeItem
     @Override
     public void appendHUDText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents) {
         var mode = MercurialWandItemMode.getMode(pStack);
-        pTooltipComponents.add(Component.translatable(mode.descriptionId()));
+        pTooltipComponents.add(mode.description(pStack, pLevel));
     }
 
     public static class DistHelper {

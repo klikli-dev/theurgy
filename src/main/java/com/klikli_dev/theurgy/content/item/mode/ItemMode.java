@@ -1,6 +1,8 @@
 package com.klikli_dev.theurgy.content.item.mode;
 
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
@@ -8,6 +10,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.Nullable;
 
 public abstract class ItemMode {
 
@@ -30,6 +33,12 @@ public abstract class ItemMode {
     protected abstract String typeName();
 
     public abstract String descriptionId();
+
+    public MutableComponent description(ItemStack pStack, @Nullable Level pLevel) {
+        return Component.translatable(this.descriptionId());
+    }
+
+    public abstract ItemModeRenderHandler renderHandler();
 
     protected CompoundTag getModeTag(ItemStack stack) {
         //an item will end up with one tag per mode type.

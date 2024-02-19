@@ -658,7 +658,9 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         //TODO: usage
 
         this.add(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_SELECT_DIRECTION, "Select direction");
-        this.add(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_SET_SELECTED_DIRECTION, "Set selected direction");
+        this.add(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_SELECT_DIRECTION_SUCCESS, "Direction: %s");
+        this.add(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_SET_SELECTED_DIRECTION, "Set selected direction (%s)");
+        this.add(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_SET_SELECTED_DIRECTION_SUCCESS, "Set direction to %s");
 
 
         this.addItem(ItemRegistry.MERCURY_SHARD, "Mercury Shard");

@@ -43,16 +43,13 @@ public class BlockHighlightRenderer {
         var stack = player.getMainHandItem();
         if(!stack.is(ItemRegistry.MERCURIAL_WAND.get()))
             return;
-        //TODO: check for side selector multi tool
-        //TODO: use scroll wheel to change side
-        //TODO: somehow prevent that from being used to scroll the multi tool
 
         var mode = MercurialWandItemMode.getMode(stack);
         if (!(mode instanceof SelectDirectionMode selectDirectionMode))
             return;
         //TODO: this should probably be done in the mode - but need to be careful about client only classes
         //      probably the mode should give us a .renderHandler() on which we can call relevant code
-        
+
 
         Direction face = selectDirectionMode.getDirection(stack);
 

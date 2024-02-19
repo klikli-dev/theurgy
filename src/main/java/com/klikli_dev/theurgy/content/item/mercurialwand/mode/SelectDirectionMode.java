@@ -1,8 +1,11 @@
 package com.klikli_dev.theurgy.content.item.mercurialwand.mode;
 
 import com.klikli_dev.theurgy.TheurgyConstants;
+import com.klikli_dev.theurgy.content.item.mode.ItemModeRenderHandler;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -10,13 +13,21 @@ import net.minecraft.world.item.context.UseOnContext;
 
 public class SelectDirectionMode extends MercurialWandItemMode {
 
+    private ItemModeRenderHandler renderHandler;
+
     protected SelectDirectionMode() {
         super();
+        this.renderHandler = new ItemModeRenderHandler();
     }
 
     @Override
     public String descriptionId() {
         return TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_SELECT_DIRECTION;
+    }
+
+    @Override
+    public ItemModeRenderHandler renderHandler() {
+        return this.renderHandler;
     }
 
     @Override
@@ -29,11 +40,11 @@ public class SelectDirectionMode extends MercurialWandItemMode {
         super.onScrollWithRightDown(player, stack, shift);
 
         var modeTag = this.getModeTag(stack);
-        if (!modeTag.contains("direction")) {
-            modeTag.putInt("direction", Direction.fromYRot(player.getYRot()).ordinal());
-        } else {
-            modeTag.putInt("direction", this.shiftDirection(this.getDirection(modeTag), shift).ordinal());
-        }
+        var direction = !modeTag.contains("direction") ? Direction.fromYRot(player.getYRot()) : this.shiftDirection(this.getDirection(modeTag), shift);
+
+        player.displayClientMessage(Component.translatable(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_SELECT_DIRECTION_SUCCESS,
+                Component.translatable(direction.getName()).withStyle(ChatFormatting.GREEN)
+        ), true);
     }
 
     @Override

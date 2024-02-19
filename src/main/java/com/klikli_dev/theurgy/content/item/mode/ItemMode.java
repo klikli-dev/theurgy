@@ -23,7 +23,7 @@ public abstract class ItemMode {
 
     }
 
-    public boolean supportsScrollWithRightDown(){
+    public boolean supportsScrollWithRightDown() {
         return false;
     }
 
@@ -31,7 +31,7 @@ public abstract class ItemMode {
 
     public abstract String descriptionId();
 
-    protected CompoundTag getModeTag(ItemStack stack){
+    protected CompoundTag getModeTag(ItemStack stack) {
         //an item will end up with one tag per mode type.
         return stack.getOrCreateTagElement("theurgy:mode." + this.typeName());
     }

@@ -43,17 +43,17 @@ public abstract class LogisticsItemConnectorBlock extends DirectionalBlock imple
     @Override
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
 
-        if(!pPlayer.getItemInHand(pHand).isEmpty())
+        if (!pPlayer.getItemInHand(pHand).isEmpty())
             return InteractionResult.PASS;
 
 
-        if(!pLevel.isClientSide){
+        if (!pLevel.isClientSide) {
             //TODO: needs to send packet that does outlining
             //maybe a generic one?
 
-            if(pLevel.getBlockEntity(pPos) instanceof LogisticsItemConnectorBlockEntity blockEntity){
+            if (pLevel.getBlockEntity(pPos) instanceof LogisticsItemConnectorBlockEntity blockEntity) {
                 var targets = blockEntity.leafNode().targets();
-                for(var target : targets){
+                for (var target : targets) {
                     Outliner.get().showAABB(target, Shapes.block().bounds().move(target), 20 * 5)
                             .colored(0x00FFFF)
                             .lineWidth(1 / 16f);
@@ -61,10 +61,10 @@ public abstract class LogisticsItemConnectorBlock extends DirectionalBlock imple
             }
 
             var connected = Logistics.get().getNetwork(GlobalPos.of(pLevel.dimension(), pPos));
-            if(connected != null){
+            if (connected != null) {
                 var shape = Shapes.block();
-                for(var block : connected.nodes()){
-                    if(block.dimension().equals(pLevel.dimension())){
+                for (var block : connected.nodes()) {
+                    if (block.dimension().equals(pLevel.dimension())) {
                         Outliner.get().showAABB(block, shape.bounds()
                                         .move(block.pos()), 20 * 5)
                                 .colored(0x00FF00)
@@ -101,7 +101,7 @@ public abstract class LogisticsItemConnectorBlock extends DirectionalBlock imple
         Wires.get(pLevel).removeWiresFor(pPos);
         //TODO: crash on remove -> concurrent modification exception
 
-        if(!pLevel.isClientSide && pLevel.getBlockEntity(pPos) instanceof LogisticsItemConnectorBlockEntity blockEntity){
+        if (!pLevel.isClientSide && pLevel.getBlockEntity(pPos) instanceof LogisticsItemConnectorBlockEntity blockEntity) {
             blockEntity.leafNode().onDestroyed();
         }
     }

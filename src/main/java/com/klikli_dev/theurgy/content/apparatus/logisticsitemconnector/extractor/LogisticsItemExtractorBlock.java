@@ -5,20 +5,15 @@
 package com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector.extractor;
 
 import com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector.LogisticsItemConnectorBlock;
-import com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector.LogisticsItemConnectorBlockEntity;
 import com.klikli_dev.theurgy.content.render.outliner.Outliner;
-import com.klikli_dev.theurgy.logistics.Logistics;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.GlobalPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.DirectionalBlock;
-import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -48,17 +43,17 @@ public class LogisticsItemExtractorBlock extends LogisticsItemConnectorBlock {
     @Override
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
 
-        if(!pPlayer.getItemInHand(pHand).isEmpty())
+        if (!pPlayer.getItemInHand(pHand).isEmpty())
             return InteractionResult.PASS;
 
 
-        if(!pLevel.isClientSide){
+        if (!pLevel.isClientSide) {
             //TODO: needs to send packet that does outlining
             //maybe a generic one?
 
-            if(pLevel.getBlockEntity(pPos) instanceof LogisticsItemExtractorBlockEntity blockEntity){
+            if (pLevel.getBlockEntity(pPos) instanceof LogisticsItemExtractorBlockEntity blockEntity) {
                 var targets = blockEntity.leafNode().insertTargets();
-                for(var target : targets){
+                for (var target : targets) {
                     Outliner.get().showAABB(target, Shapes.block().bounds().move(target.pos()), 20 * 5)
                             .colored(0xFFFFF00)
                             .lineWidth(1 / 16f);

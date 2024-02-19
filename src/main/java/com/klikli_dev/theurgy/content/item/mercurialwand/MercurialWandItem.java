@@ -5,11 +5,9 @@
 package com.klikli_dev.theurgy.content.item.mercurialwand;
 
 import com.klikli_dev.theurgy.content.item.mercurialwand.mode.MercurialWandItemMode;
-import com.klikli_dev.theurgy.content.item.mercurialwand.mode.SelectDirectionMode;
 import com.klikli_dev.theurgy.content.item.mode.ModeItem;
 import com.klikli_dev.theurgy.content.render.itemhud.ItemHUDProvider;
 import net.minecraft.client.Minecraft;
-import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -19,7 +17,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelReader;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -54,7 +51,7 @@ public class MercurialWandItem extends Item implements ItemHUDProvider, ModeItem
         var mode = MercurialWandItemMode.getMode(stack);
 
         var result = mode.use(pLevel, pPlayer, pUsedHand);
-        if(result.getResult() != InteractionResult.PASS) {
+        if (result.getResult() != InteractionResult.PASS) {
             return result;
         }
 
@@ -67,7 +64,7 @@ public class MercurialWandItem extends Item implements ItemHUDProvider, ModeItem
         var mode = MercurialWandItemMode.getMode(stack);
 
         var result = mode.onItemUseFirst(stack, context);
-        if(result != InteractionResult.PASS) {
+        if (result != InteractionResult.PASS) {
             return result;
         }
 

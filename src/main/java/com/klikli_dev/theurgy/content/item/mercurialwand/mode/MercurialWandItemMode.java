@@ -6,11 +6,22 @@ import net.minecraft.world.item.ItemStack;
 public abstract class MercurialWandItemMode extends ItemMode {
     protected Type type;
 
-    protected MercurialWandItemMode(){
+    protected MercurialWandItemMode() {
         super();
     }
 
-    public Type type(){
+    public static MercurialWandItemMode getMode(ItemStack stack) {
+        var tag = stack.getOrCreateTag();
+        var modeOrdinal = tag.getInt("theurgy:mode");
+        return Type.values()[modeOrdinal].mode();
+    }
+
+    public static void setMode(ItemStack stack, MercurialWandItemMode mode) {
+        var tag = stack.getOrCreateTag();
+        tag.putInt("theurgy:mode", mode.type.ordinal());
+    }
+
+    public Type type() {
         return this.type;
     }
 
@@ -20,57 +31,42 @@ public abstract class MercurialWandItemMode extends ItemMode {
     }
 
 
-
-    public static MercurialWandItemMode getMode(ItemStack stack){
-        var tag = stack.getOrCreateTag();
-        var modeOrdinal = tag.getInt("theurgy:mode");
-        return Type.values()[modeOrdinal].mode();
-    }
-
-
-    public static void setMode(ItemStack stack, MercurialWandItemMode mode){
-        var tag = stack.getOrCreateTag();
-        tag.putInt("theurgy:mode", mode.type.ordinal());
-    }
-
-
-    public enum Type{
+    public enum Type {
 
         SELECT_DIRECTION(new SelectDirectionMode()),
         SET_SELECTED_DIRECTION(new SetSelectedDirectionMode());
 
         final MercurialWandItemMode mode;
 
-        Type(MercurialWandItemMode mode){
+        Type(MercurialWandItemMode mode) {
             this.mode = mode;
             mode.type = this;
         }
 
-        public MercurialWandItemMode mode(){
+        public MercurialWandItemMode mode() {
             return this.mode;
         }
 
-        public Type next(){
+        public Type next() {
             int next = this.ordinal() + 1;
-            if(next >= Type.values().length){
+            if (next >= Type.values().length) {
                 next = 0;
             }
             return Type.values()[next];
         }
 
-        public Type previous(){
+        public Type previous() {
             int previous = this.ordinal() - 1;
-            if(previous < 0){
+            if (previous < 0) {
                 previous = Type.values().length - 1;
             }
             return Type.values()[previous];
         }
 
-        public Type shift(int shift){
-            if(shift > 0){
+        public Type shift(int shift) {
+            if (shift > 0) {
                 return this.next();
-            }
-            else if(shift < 0){
+            } else if (shift < 0) {
                 return this.previous();
             }
             return this;

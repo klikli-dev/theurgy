@@ -23,7 +23,9 @@ public class LogisticsItemExtractorBehaviour extends ExtractorNodeBehaviour<IIte
     public static final int EXTRACTION_EVERY_N_TICKS = 20; // 1 second
     public static final int MAX_EXTRACTION_AMOUNT = 10; //how many items to extract per extraction tick
 
-    public int extractionAmount = MAX_EXTRACTION_AMOUNT;
+    private int extractionAmount = MAX_EXTRACTION_AMOUNT;
+    private Direction directionOverride = null;
+    private boolean enabled = true;
 
     public LogisticsItemExtractorBehaviour(BlockEntity blockEntity) {
         super(blockEntity, Capabilities.ItemHandler.BLOCK);
@@ -50,8 +52,24 @@ public class LogisticsItemExtractorBehaviour extends ExtractorNodeBehaviour<IIte
 
     @Override
     protected @Nullable Direction getTargetContext(BlockPos targetPos) {
-        //TODO: handle context / direction override!
-        return this.blockEntity.getBlockState().getValue(BlockStateProperties.FACING);
+        return this.directionOverride != null ? this.directionOverride :
+                this.blockEntity.getBlockState().getValue(BlockStateProperties.FACING);
+    }
+
+    public boolean enabled() {
+        return this.enabled;
+    }
+
+    public void enabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public void directionOverride(Direction directionOverride) {
+        this.directionOverride = directionOverride;
+    }
+
+    public Direction directionOverride() {
+        return this.directionOverride;
     }
 
     @Override
@@ -59,6 +77,9 @@ public class LogisticsItemExtractorBehaviour extends ExtractorNodeBehaviour<IIte
         super.saveAdditional(pTag);
 
         pTag.putInt("extractionAmount", this.extractionAmount);
+        pTag.putBoolean("enabled", this.enabled);
+        if (this.directionOverride != null)
+            pTag.putInt("directionOverride", this.directionOverride.get3DDataValue());
     }
 
     @Override
@@ -68,6 +89,12 @@ public class LogisticsItemExtractorBehaviour extends ExtractorNodeBehaviour<IIte
         if (pTag.contains("extractionAmount")) {
             this.extractionAmount = pTag.getInt("extractionAmount");
         }
+        if (pTag.contains("directionOverride")) {
+            this.directionOverride = Direction.from3DDataValue(pTag.getInt("directionOverride"));
+        }
+        if (pTag.contains("enabled")) {
+            this.enabled = pTag.getBoolean("enabled");
+        }
     }
 
     @Override
@@ -75,6 +102,9 @@ public class LogisticsItemExtractorBehaviour extends ExtractorNodeBehaviour<IIte
         //TODO: extract and insert nodes have to be disable-able
 
         //TODO: extraction should happen on a low tick, and in bulk.
+
+        if (!this.enabled)
+            return;
 
         super.tickServer(); //this moves our distributor to the next target if needed.
 

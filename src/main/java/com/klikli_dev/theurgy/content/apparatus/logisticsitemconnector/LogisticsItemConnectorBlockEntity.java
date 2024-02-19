@@ -6,6 +6,8 @@ package com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector;
 
 import com.klikli_dev.theurgy.content.behaviour.logistics.HasLeafNodeBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.logistics.LeafNodeBehaviour;
+import com.klikli_dev.theurgy.content.item.mode.EnabledSetter;
+import com.klikli_dev.theurgy.content.item.mode.TargetDirectionSetter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -15,7 +17,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.items.IItemHandler;
 import org.jetbrains.annotations.Nullable;
 
-public abstract class LogisticsItemConnectorBlockEntity extends BlockEntity implements HasLeafNodeBehaviour<IItemHandler, @Nullable Direction> {
+public abstract class LogisticsItemConnectorBlockEntity extends BlockEntity implements HasLeafNodeBehaviour<IItemHandler, @Nullable Direction>, TargetDirectionSetter, EnabledSetter {
 
     protected LeafNodeBehaviour<IItemHandler, @Nullable Direction> leafNodeBehaviour;
 

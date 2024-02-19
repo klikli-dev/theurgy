@@ -1,6 +1,7 @@
 package com.klikli_dev.theurgy.content.item.mercurialwand.mode;
 
 import com.klikli_dev.theurgy.TheurgyConstants;
+import com.klikli_dev.theurgy.content.item.mode.TargetDirectionSetter;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.ItemStack;
@@ -31,7 +32,7 @@ public class SetSelectedDirectionMode extends MercurialWandItemMode {
 
         var blockEntity = level.getBlockEntity(blockPos);
         if (blockEntity instanceof TargetDirectionSetter directionSettable) {
-            directionSettable.setTargetDirection(this.getDirection(stack));
+            directionSettable.targetDirection(this.getDirection(stack));
             return InteractionResult.SUCCESS;
         }
 

@@ -45,7 +45,7 @@ public class ClientConfig {
 
             this.itemHUDScale = builder
                     .comment("The scale of the Item HUD text (e.g. for the mercurial wand).")
-                    .defineInRange("hudScale", 1.0, 0.25, 3);
+                    .defineInRange("hudScale", 0.7, 0.25, 3);
 
             builder.pop();
         }

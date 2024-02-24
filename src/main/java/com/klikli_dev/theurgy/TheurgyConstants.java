@@ -70,6 +70,12 @@ public class TheurgyConstants {
                 public static final String MERCURIAL_WAND_SELECT_DIRECTION_SUCCESS = PREFIX + "mercurial_wand.select_direction.success";
                 public static final String MERCURIAL_WAND_SET_SELECTED_DIRECTION = PREFIX + "mercurial_wand.set_selected_direction";
                 public static final String MERCURIAL_WAND_SET_SELECTED_DIRECTION_SUCCESS = PREFIX + "mercurial_wand.set_selected_direction.success";
+
+                public static final String MERCURIAL_WAND_SWITCH_LOGISTICS_ENABLED = PREFIX + "mercurial_wand.switch_logistics_enabled";
+                public static final String MERCURIAL_WAND_SWITCH_LOGISTICS_ENABLED_HUD = PREFIX + "mercurial_wand.switch_logistics_enabled.hud";
+                public static final String MERCURIAL_WAND_SWITCH_LOGISTICS_ENABLED_SUCCESS = PREFIX + "mercurial_wand.switch_logistics_enabled.success";
+                public static final String ENABLED = PREFIX + "mercurial_wand.enabled";
+                public static final String DISABLED = PREFIX + "mercurial_wand.disabled";
             }
         }
 

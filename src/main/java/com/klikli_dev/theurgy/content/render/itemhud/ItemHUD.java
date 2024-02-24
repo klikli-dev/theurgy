@@ -39,7 +39,7 @@ public class ItemHUD implements IGuiOverlay {
             return;
 
         var hudTexts = new ArrayList<Component>();
-        itemHUDProvider.appendHUDText(stack, minecraft.level, hudTexts);
+        itemHUDProvider.appendHUDText(minecraft.player, minecraft.hitResult, stack, minecraft.level, hudTexts);
 
         if (hudTexts.isEmpty())
             return;

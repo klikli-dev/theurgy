@@ -17,6 +17,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.HitResult;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -72,9 +73,8 @@ public class MercurialWandItem extends Item implements ItemHUDProvider, ModeItem
     }
 
     @Override
-    public void appendHUDText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents) {
-        var mode = MercurialWandItemMode.getMode(pStack);
-        pTooltipComponents.add(mode.description(pStack, pLevel));
+    public void appendHUDText(Player pPlayer, HitResult pHitResult, ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents) {
+        MercurialWandItemMode.getMode(pStack).appendHUDText(pPlayer, pHitResult, pStack, pLevel, pTooltipComponents);
     }
 
     public static class DistHelper {

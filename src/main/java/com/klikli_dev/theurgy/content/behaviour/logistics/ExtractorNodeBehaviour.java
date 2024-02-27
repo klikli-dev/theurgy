@@ -141,10 +141,14 @@ public abstract class ExtractorNodeBehaviour<T, C> extends LeafNodeBehaviour<T, 
     @Override
     public void onLoad() {
         //targets are filled via load(tag) on the parent, the NBT in turn is provided by the BlockItem.
-        this.extractTargets.clear();
-        this.extractTargets.addAll(this.buildTargetCapabilities(this.targets()));
+        this.rebuildExtractTargets();
 
         super.onLoad();
+    }
+
+    public void rebuildExtractTargets() {
+        this.extractTargets.clear();
+        this.extractTargets.addAll(this.buildTargetCapabilities(this.targets()));
     }
 
     /**

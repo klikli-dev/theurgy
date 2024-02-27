@@ -66,6 +66,7 @@ public class LogisticsItemExtractorBehaviour extends ExtractorNodeBehaviour<IIte
 
     public void directionOverride(Direction directionOverride) {
         this.directionOverride = directionOverride;
+        this.rebuildExtractTargets();
     }
 
     public Direction directionOverride() {

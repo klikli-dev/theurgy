@@ -48,6 +48,7 @@ public class RoundRobinDistributor<T, C> extends Distributor<T, C>{
 
     @Override
     public void onTargetsChanged() {
+        this.cachedTarget = null;
         if(this.targets.isEmpty()) {
             this.currentTargetIndex = -1;
         } else if(this.currentTargetIndex >= this.targets.size()) {

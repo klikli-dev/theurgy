@@ -5,7 +5,6 @@
 package com.klikli_dev.theurgy.content.behaviour.logistics;
 
 import com.klikli_dev.theurgy.logistics.Logistics;
-import com.klikli_dev.theurgy.logistics.LogisticsNetwork;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.server.level.ServerLevel;
@@ -20,7 +19,7 @@ import java.util.List;
  * A special leaf node whose targets can be inserted into.
  */
 public abstract class InserterNodeBehaviour<T, C> extends LeafNodeBehaviour<T, C> {
-    List<BlockCapabilityCache<T, C>> targetCapabilities;
+    protected List<BlockCapabilityCache<T, C>> targetCapabilities;
 
     public InserterNodeBehaviour(BlockEntity blockEntity, BlockCapability<T, C> capabilityType) {
         super(blockEntity, capabilityType);
@@ -50,15 +49,15 @@ public abstract class InserterNodeBehaviour<T, C> extends LeafNodeBehaviour<T, C
         var serverLevel = (ServerLevel) this.level();
         return targets.stream()
                 .map(target -> BlockCapabilityCache.create(this.capabilityType(), serverLevel, target, this.getTargetContext(target),
-                //only listen to the invalidator if the node is still valid
-                () -> !this.blockEntity.isRemoved() && Logistics.get().getNetwork(this.globalPos()) != null,
-                () -> {
-                    //handles chunk loads/unloads and destruction of the target BE
-                    this.onCapabilityInvalidated(target, this);
-                })).toList();
+                        //only listen to the invalidator if the node is still valid
+                        () -> !this.blockEntity.isRemoved() && Logistics.get().getNetwork(this.globalPos()) != null,
+                        () -> {
+                            //handles chunk loads/unloads and destruction of the target BE
+                            this.onCapabilityInvalidated(target, this, false);
+                        })).toList();
     }
 
-    public void onCapabilityInvalidated(BlockPos targetPos, InserterNodeBehaviour<T, C> leafNode) {
+    public void onCapabilityInvalidated(BlockPos targetPos, InserterNodeBehaviour<T, C> leafNode, boolean forceSetRemoved) {
         var serverLevel = (ServerLevel) this.level();
         //Note: we never modify this.targetCapabilities because it listens for chunk *loads* too!
 
@@ -75,9 +74,9 @@ public abstract class InserterNodeBehaviour<T, C> extends LeafNodeBehaviour<T, C
             network.onInserterNodeTargetRemoved(targetGlobalPos, leafNode);
 
             //then if we have a still valid one, re-add it / or if it is valid for the first time add it
-            if (targetValid) {
+            if (targetValid && !forceSetRemoved) {
                 var capabilityCache = this.targetCapabilities.stream().filter(cache -> cache.pos().equals(targetPos)).findFirst().orElse(null);
-                if (capabilityCache != null){
+                if (capabilityCache != null) {
                     network.onInserterNodeTargetAdded(targetGlobalPos, capabilityCache, leafNode);
                 }
             }
@@ -85,7 +84,26 @@ public abstract class InserterNodeBehaviour<T, C> extends LeafNodeBehaviour<T, C
     }
 
     /**
+     * Notify the network that a new capability cache was created -> calls onInserterNodeTargetAdded.
+     * The main use is to notify the network when a target capability cache was re-created after its context (direction) changed.
+     */
+    protected void notifyTargetCapabilityCacheCreated(BlockCapabilityCache<T, C> capability) {
+        var serverLevel = (ServerLevel) this.level();
+
+        //only notify if we actually have a valid one - otherwise onCapabilityInvalidated will handle it on load of target
+        var targetValid = serverLevel.isLoaded(capability.pos()) && serverLevel.getBlockEntity(capability.pos()) != null;
+
+        var targetGlobalPos = GlobalPos.of(serverLevel.dimension(), capability.pos());
+
+        var network = Logistics.get().getNetwork(this.globalPos());
+        if (network != null && targetValid) {
+            network.onInserterNodeTargetAdded(targetGlobalPos, capability, this);
+        }
+    }
+
+    /**
      * gets the target capabilities that are currently loaded & available.
+     *
      * @return
      */
     public List<BlockCapabilityCache<T, C>> targetCapabilities() {

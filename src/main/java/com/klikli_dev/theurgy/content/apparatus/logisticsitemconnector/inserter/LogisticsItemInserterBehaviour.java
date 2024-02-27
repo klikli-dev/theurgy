@@ -35,6 +35,15 @@ public class LogisticsItemInserterBehaviour extends InserterNodeBehaviour<IItemH
 
     public void directionOverride(Direction directionOverride) {
         this.directionOverride = directionOverride;
+
+        //first notify the network to remove the old target capabilities
+        this.targetCapabilities.forEach(c -> this.onCapabilityInvalidated(c.pos(), this, true));
+
+        //then build the new capabilities
+        this.targetCapabilities = this.buildTargetCapabilities(this.targets());
+
+        //then notify the network to add the new target capabilities
+        this.targetCapabilities.forEach(this::notifyTargetCapabilityCacheCreated);
     }
 
     public Direction directionOverride() {

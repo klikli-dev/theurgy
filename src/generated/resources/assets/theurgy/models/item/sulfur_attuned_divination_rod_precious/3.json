@@ -1,5 +1,5 @@
 {
-  "parent": "minecraft:item/generated",
+  "parent": "minecraft:item/handheld",
   "textures": {
     "layer0": "theurgy:item/sulfur_attuned_divination_rod_precious/divination_rod_3"
   }

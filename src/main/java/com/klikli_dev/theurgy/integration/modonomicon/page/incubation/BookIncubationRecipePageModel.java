@@ -4,13 +4,14 @@
 
 package com.klikli_dev.theurgy.integration.modonomicon.page.incubation;
 
+import com.klikli_dev.modonomicon.api.datagen.book.condition.BookConditionModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookRecipePageModel;
 import com.klikli_dev.theurgy.integration.modonomicon.TheurgyModonomiconConstants;
 import org.jetbrains.annotations.NotNull;
 
 public class BookIncubationRecipePageModel extends BookRecipePageModel {
-    protected BookIncubationRecipePageModel(@NotNull String anchor) {
-        super(TheurgyModonomiconConstants.Page.INCUBATION_RECIPE, anchor);
+    protected BookIncubationRecipePageModel(@NotNull String anchor, @NotNull BookConditionModel condition) {
+        super(TheurgyModonomiconConstants.Page.INCUBATION_RECIPE, anchor, condition);
     }
 
     public static Builder builder() {
@@ -23,7 +24,7 @@ public class BookIncubationRecipePageModel extends BookRecipePageModel {
         }
 
         public BookIncubationRecipePageModel build() {
-            var model = new BookIncubationRecipePageModel(this.anchor);
+            var model = new BookIncubationRecipePageModel(this.anchor, this.condition);
             model.title1 = this.title1;
             model.recipeId1 = this.recipeId1;
             model.title2 = this.title2;

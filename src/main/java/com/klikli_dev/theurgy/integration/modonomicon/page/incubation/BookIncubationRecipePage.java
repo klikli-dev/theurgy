@@ -43,10 +43,4 @@ public class BookIncubationRecipePage extends BookProcessingRecipePage<Incubatio
         return TheurgyModonomiconConstants.Page.INCUBATION_RECIPE;
     }
 
-
-    @Override
-    public void toNetwork(FriendlyByteBuf buffer) {
-        super.toNetwork(buffer);
-        buffer.writeUtf(this.anchor);
-    }
 }

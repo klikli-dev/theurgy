@@ -93,9 +93,4 @@ public class BookAccumulationRecipePage extends BookRecipePage<AccumulationRecip
         return ItemStack.EMPTY;
     }
 
-    @Override
-    public void toNetwork(FriendlyByteBuf buffer) {
-        super.toNetwork(buffer);
-        buffer.writeUtf(this.anchor);
-    }
 }

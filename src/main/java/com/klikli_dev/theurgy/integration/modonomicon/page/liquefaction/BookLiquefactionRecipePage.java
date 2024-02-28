@@ -42,10 +42,4 @@ public class BookLiquefactionRecipePage extends BookProcessingRecipePage<Liquefa
     public ResourceLocation getType() {
         return TheurgyModonomiconConstants.Page.LIQUEFACTION_RECIPE;
     }
-
-    @Override
-    public void toNetwork(FriendlyByteBuf buffer) {
-        super.toNetwork(buffer);
-        buffer.writeUtf(this.anchor);
-    }
 }

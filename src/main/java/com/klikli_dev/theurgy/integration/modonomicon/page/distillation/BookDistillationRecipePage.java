@@ -43,9 +43,4 @@ public class BookDistillationRecipePage extends BookProcessingRecipePage<Distill
         return TheurgyModonomiconConstants.Page.DISTILLATION_RECIPE;
     }
 
-    @Override
-    public void toNetwork(FriendlyByteBuf buffer) {
-        super.toNetwork(buffer);
-        buffer.writeUtf(this.anchor);
-    }
 }

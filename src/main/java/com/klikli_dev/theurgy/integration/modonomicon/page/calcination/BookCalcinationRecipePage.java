@@ -43,10 +43,4 @@ public class BookCalcinationRecipePage extends BookProcessingRecipePage<Calcinat
         return TheurgyModonomiconConstants.Page.CALCINATION_RECIPE;
     }
 
-
-    @Override
-    public void toNetwork(FriendlyByteBuf buffer) {
-        super.toNetwork(buffer);
-        buffer.writeUtf(this.anchor);
-    }
 }

@@ -29,6 +29,7 @@ public class LogisticsItemExtractorBlockEntity extends LogisticsItemConnectorBlo
     @Override
     public void enabled(boolean enabled) {
         this.leafNode().enabled(enabled);
+        //TODO: need to network sync this!  and set changed
     }
 
     @Override
@@ -39,6 +40,7 @@ public class LogisticsItemExtractorBlockEntity extends LogisticsItemConnectorBlo
     @Override
     public void targetDirection(Direction direction) {
         this.leafNode().directionOverride(direction);
+        //TODO: need to network sync this!  and set changed
     }
 
     @Override

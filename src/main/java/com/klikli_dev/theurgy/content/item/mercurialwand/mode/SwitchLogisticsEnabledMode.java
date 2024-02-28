@@ -33,25 +33,25 @@ public class SwitchLogisticsEnabledMode extends MercurialWandItemMode {
     @Override
     public void appendHUDText(Player pPlayer, HitResult pHitResult, ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents) {
         var description = this.description(pStack, pLevel);
-         if(pHitResult instanceof BlockHitResult blockHitResult) {
-             var blockEntity = pLevel.getBlockEntity(blockHitResult.getBlockPos());
-             if (blockEntity instanceof EnabledSetter enabledSetter) {
-                 var enabled = enabledSetter.enabled();
+        if (pHitResult instanceof BlockHitResult blockHitResult) {
+            var blockEntity = pLevel.getBlockEntity(blockHitResult.getBlockPos());
+            if (blockEntity instanceof EnabledSetter enabledSetter) {
+                var enabled = enabledSetter.enabled();
 
-                 var component = Component.translatable(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_SWITCH_LOGISTICS_ENABLED_HUD,
-                         Component.translatable(
-                                 enabled ? TheurgyConstants.I18n.Item.Mode.ENABLED :
-                                         TheurgyConstants.I18n.Item.Mode.DISABLED
-                         ).withStyle(
-                                 enabled ? ChatFormatting.GREEN :
-                                         ChatFormatting.RED
-                         )
+                var component = Component.translatable(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_SWITCH_LOGISTICS_ENABLED_HUD,
+                        Component.translatable(
+                                enabled ? TheurgyConstants.I18n.Item.Mode.ENABLED :
+                                        TheurgyConstants.I18n.Item.Mode.DISABLED
+                        ).withStyle(
+                                enabled ? ChatFormatting.GREEN :
+                                        ChatFormatting.RED
+                        )
 
-                 );
+                );
 
-                 description.append(component);
-             }
-         }
+                description.append(component);
+            }
+        }
         pTooltipComponents.add(description);
     }
 
@@ -70,18 +70,20 @@ public class SwitchLogisticsEnabledMode extends MercurialWandItemMode {
         var blockEntity = level.getBlockEntity(blockPos);
         if (blockEntity instanceof EnabledSetter enabledSetter) {
 
-            enabledSetter.enabled(!enabledSetter.enabled());
-            var enabled = enabledSetter.enabled();
+            if (!level.isClientSide) {
+                enabledSetter.enabled(!enabledSetter.enabled());
+                var enabled = enabledSetter.enabled();
 
-            context.getPlayer().displayClientMessage(Component.translatable(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_SWITCH_LOGISTICS_ENABLED_SUCCESS,
-                    Component.translatable(
-                            enabled ? TheurgyConstants.I18n.Item.Mode.ENABLED :
-                                    TheurgyConstants.I18n.Item.Mode.DISABLED
-                    ).withStyle(
-                            enabled ? ChatFormatting.GREEN :
-                                    ChatFormatting.RED
-                    )
-            ), true);
+                context.getPlayer().displayClientMessage(Component.translatable(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_SWITCH_LOGISTICS_ENABLED_SUCCESS,
+                        Component.translatable(
+                                enabled ? TheurgyConstants.I18n.Item.Mode.ENABLED :
+                                        TheurgyConstants.I18n.Item.Mode.DISABLED
+                        ).withStyle(
+                                enabled ? ChatFormatting.GREEN :
+                                        ChatFormatting.RED
+                        )
+                ), true);
+            }
 
             return InteractionResult.SUCCESS;
         }

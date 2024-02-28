@@ -51,13 +51,14 @@ public class SetSelectedDirectionMode extends MercurialWandItemMode {
 
         var blockEntity = level.getBlockEntity(blockPos);
         if (blockEntity instanceof TargetDirectionSetter directionSettable) {
-            var direction = this.getDirection(stack);
-            directionSettable.targetDirection(direction);
+            if(!level.isClientSide){
+                var direction = this.getDirection(stack);
+                directionSettable.targetDirection(direction);
 
-            context.getPlayer().displayClientMessage(Component.translatable(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_SET_SELECTED_DIRECTION_SUCCESS,
-                    Component.translatable(direction.getName()).withStyle(ChatFormatting.GREEN)
-            ), true);
-
+                context.getPlayer().displayClientMessage(Component.translatable(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_SET_SELECTED_DIRECTION_SUCCESS,
+                        Component.translatable(direction.getName()).withStyle(ChatFormatting.GREEN)
+                ), true);
+            }
             return InteractionResult.SUCCESS;
         }
 

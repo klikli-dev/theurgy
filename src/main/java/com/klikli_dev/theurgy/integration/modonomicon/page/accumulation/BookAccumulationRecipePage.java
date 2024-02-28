@@ -7,6 +7,8 @@ package com.klikli_dev.theurgy.integration.modonomicon.page.accumulation;
 import com.google.gson.JsonObject;
 import com.klikli_dev.modonomicon.book.BookEntry;
 import com.klikli_dev.modonomicon.book.BookTextHolder;
+import com.klikli_dev.modonomicon.book.conditions.BookCondition;
+import com.klikli_dev.modonomicon.book.conditions.BookNoneCondition;
 import com.klikli_dev.modonomicon.book.page.BookRecipePage;
 import com.klikli_dev.theurgy.content.recipe.AccumulationRecipe;
 import com.klikli_dev.theurgy.integration.modonomicon.TheurgyModonomiconConstants;
@@ -22,20 +24,24 @@ import net.minecraft.world.level.Level;
 
 
 public class BookAccumulationRecipePage extends BookRecipePage<AccumulationRecipe> {
-    public BookAccumulationRecipePage(BookTextHolder title1, ResourceLocation recipeId1, BookTextHolder title2, ResourceLocation recipeId2, BookTextHolder text, String anchor) {
-        super(RecipeTypeRegistry.ACCUMULATION.get(), title1, recipeId1, title2, recipeId2, text, anchor);
+    public BookAccumulationRecipePage(BookTextHolder title1, ResourceLocation recipeId1, BookTextHolder title2, ResourceLocation recipeId2, BookTextHolder text, String anchor, BookCondition condition) {
+        super(RecipeTypeRegistry.ACCUMULATION.get(), title1, recipeId1, title2, recipeId2, text, anchor, condition);
     }
 
     public static BookAccumulationRecipePage fromJson(JsonObject json) {
         var common = BookRecipePage.commonFromJson(json);
         var anchor = GsonHelper.getAsString(json, "anchor", "");
-        return new BookAccumulationRecipePage(common.title1(), common.recipeId1(), common.title2(), common.recipeId2(), common.text(), anchor);
+        var condition = json.has("condition")
+                ? BookCondition.fromJson(json.getAsJsonObject("condition"))
+                : new BookNoneCondition();
+        return new BookAccumulationRecipePage(common.title1(), common.recipeId1(), common.title2(), common.recipeId2(), common.text(), anchor, condition);
     }
 
     public static BookAccumulationRecipePage fromNetwork(FriendlyByteBuf buffer) {
         var common = BookRecipePage.commonFromNetwork(buffer);
         var anchor = buffer.readUtf();
-        return new BookAccumulationRecipePage(common.title1(), common.recipeId1(), common.title2(), common.recipeId2(), common.text(), anchor);
+        var condition = BookCondition.fromNetwork(buffer);
+        return new BookAccumulationRecipePage(common.title1(), common.recipeId1(), common.title2(), common.recipeId2(), common.text(), anchor, condition);
     }
 
     @Override

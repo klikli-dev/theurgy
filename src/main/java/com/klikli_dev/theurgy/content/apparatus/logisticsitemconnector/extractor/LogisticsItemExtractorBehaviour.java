@@ -78,9 +78,6 @@ public class LogisticsItemExtractorBehaviour extends ExtractorNodeBehaviour<IIte
         super.saveAdditional(pTag);
 
         pTag.putInt("extractionAmount", this.extractionAmount);
-        pTag.putBoolean("enabled", this.enabled);
-        if (this.directionOverride != null)
-            pTag.putInt("directionOverride", this.directionOverride.get3DDataValue());
     }
 
     @Override
@@ -90,6 +87,22 @@ public class LogisticsItemExtractorBehaviour extends ExtractorNodeBehaviour<IIte
         if (pTag.contains("extractionAmount")) {
             this.extractionAmount = pTag.getInt("extractionAmount");
         }
+
+    }
+
+    @Override
+    public void writeNetwork(CompoundTag pTag) {
+        super.writeNetwork(pTag);
+
+        pTag.putBoolean("enabled", this.enabled);
+        if (this.directionOverride != null)
+            pTag.putInt("directionOverride", this.directionOverride.get3DDataValue());
+    }
+
+    @Override
+    public void readNetwork(CompoundTag pTag) {
+        super.readNetwork(pTag);
+
         if (pTag.contains("directionOverride")) {
             this.directionOverride = Direction.from3DDataValue(pTag.getInt("directionOverride"));
         }

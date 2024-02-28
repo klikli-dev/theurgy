@@ -1,6 +1,7 @@
 package com.klikli_dev.theurgy.content.item.mercurialwand.mode;
 
 import com.klikli_dev.theurgy.TheurgyConstants;
+import com.klikli_dev.theurgy.content.item.mode.EnabledSetter;
 import com.klikli_dev.theurgy.content.item.mode.ItemModeRenderHandler;
 import com.klikli_dev.theurgy.content.item.mode.TargetDirectionSetter;
 import net.minecraft.ChatFormatting;
@@ -8,10 +9,15 @@ import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 public class SetSelectedDirectionMode extends MercurialWandItemMode {
 
@@ -28,8 +34,33 @@ public class SetSelectedDirectionMode extends MercurialWandItemMode {
     }
 
     @Override
-    public MutableComponent description(ItemStack pStack, @Nullable Level pLevel) {
-        return Component.translatable(this.descriptionId(), Component.translatable(this.getDirection(pStack).getName()).withStyle(ChatFormatting.GREEN));
+    public void appendHUDText(Player pPlayer, HitResult pHitResult, ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents) {
+
+        //TODO: convert to work for set selected direction
+        //      also probably remove the description above to use super
+        var description = this.description(pStack, pLevel);
+        if (pHitResult instanceof BlockHitResult blockHitResult) {
+            var blockEntity = pLevel.getBlockEntity(blockHitResult.getBlockPos());
+            if (blockEntity instanceof TargetDirectionSetter directionSettable) {
+                var direction = directionSettable.targetDirection();
+                //TODO: we need two different description keys depending on if we target a valid block or not
+
+                // return Component.translatable(this.descriptionId(), Component.translatable(this.getDirection(pStack).getName()).withStyle(ChatFormatting.GREEN));
+                var component = Component.translatable(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_SWITCH_LOGISTICS_ENABLED_HUD,
+                        Component.translatable(
+                                enabled ? TheurgyConstants.I18n.Item.Mode.ENABLED :
+                                        TheurgyConstants.I18n.Item.Mode.DISABLED
+                        ).withStyle(
+                                enabled ? ChatFormatting.GREEN :
+                                        ChatFormatting.RED
+                        )
+
+                );
+
+                description.append(component);
+            }
+        }
+        pTooltipComponents.add(description);
     }
 
     @Override

@@ -68,6 +68,16 @@ public class LogisticsItemInserterBehaviour extends InserterNodeBehaviour<IItemH
     @Override
     public void saveAdditional(CompoundTag pTag) {
         super.saveAdditional(pTag);
+    }
+
+    @Override
+    public void load(CompoundTag pTag) {
+        super.load(pTag);
+    }
+
+    @Override
+    public void writeNetwork(CompoundTag pTag) {
+        super.writeNetwork(pTag);
 
         pTag.putBoolean("enabled", this.enabled);
         if (this.directionOverride != null)
@@ -75,8 +85,8 @@ public class LogisticsItemInserterBehaviour extends InserterNodeBehaviour<IItemH
     }
 
     @Override
-    public void load(CompoundTag pTag) {
-        super.load(pTag);
+    public void readNetwork(CompoundTag pTag) {
+        super.readNetwork(pTag);
 
         if (pTag.contains("directionOverride")) {
             this.directionOverride = Direction.from3DDataValue(pTag.getInt("directionOverride"));

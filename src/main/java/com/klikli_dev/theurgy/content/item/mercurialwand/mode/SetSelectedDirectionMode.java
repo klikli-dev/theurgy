@@ -34,33 +34,29 @@ public class SetSelectedDirectionMode extends MercurialWandItemMode {
     }
 
     @Override
-    public void appendHUDText(Player pPlayer, HitResult pHitResult, ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents) {
+    public MutableComponent description(ItemStack pStack, @Nullable Level pLevel) {
+        return Component.translatable(
+                this.descriptionId(),
+                Component.translatable(this.getDirection(pStack).getName()).withStyle(ChatFormatting.GREEN));
+    }
 
-        //TODO: convert to work for set selected direction
-        //      also probably remove the description above to use super
+    @Override
+    public void appendHUDText(Player pPlayer, HitResult pHitResult, ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents) {
         var description = this.description(pStack, pLevel);
         if (pHitResult instanceof BlockHitResult blockHitResult) {
             var blockEntity = pLevel.getBlockEntity(blockHitResult.getBlockPos());
             if (blockEntity instanceof TargetDirectionSetter directionSettable) {
                 var direction = directionSettable.targetDirection();
-                //TODO: we need two different description keys depending on if we target a valid block or not
 
-                // return Component.translatable(this.descriptionId(), Component.translatable(this.getDirection(pStack).getName()).withStyle(ChatFormatting.GREEN));
-                var component = Component.translatable(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_SWITCH_LOGISTICS_ENABLED_HUD,
-                        Component.translatable(
-                                enabled ? TheurgyConstants.I18n.Item.Mode.ENABLED :
-                                        TheurgyConstants.I18n.Item.Mode.DISABLED
-                        ).withStyle(
-                                enabled ? ChatFormatting.GREEN :
-                                        ChatFormatting.RED
-                        )
-
+                var component = Component.translatable(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_SET_SELECTED_DIRECTION_WITH_TARGET,
+                        Component.translatable(direction.getName()).withStyle(ChatFormatting.GREEN),
+                        Component.translatable(this.getDirection(pStack).getName()).withStyle(ChatFormatting.GREEN)
                 );
 
-                description.append(component);
+                description = component;
             }
         }
-        pTooltipComponents.add(description);
+        pTooltipComponents.add(description );
     }
 
     @Override

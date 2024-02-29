@@ -8,10 +8,13 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.Nullable;
 
 public class SelectDirectionMode extends MercurialWandItemMode {
 
@@ -25,6 +28,13 @@ public class SelectDirectionMode extends MercurialWandItemMode {
     @Override
     public String descriptionId() {
         return TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_SELECT_DIRECTION;
+    }
+
+    @Override
+    public MutableComponent description(ItemStack pStack, @Nullable Level pLevel) {
+        return Component.translatable(
+                this.descriptionId(),
+                Component.translatable(this.getDirection(pStack).getName()).withStyle(ChatFormatting.GREEN));
     }
 
     @Override

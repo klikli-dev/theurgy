@@ -648,14 +648,32 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.addItem(ItemRegistry.COPPER_WIRE, "Copper Wire");
         this.addTooltip(ItemRegistry.COPPER_WIRE,
                 "A piece of copper wire.",
-                "Can be used to connect different parts of Mercurial Logistics Networks.");
-        //TODO: usage
+                "Can be used to connect different parts of Mercurial Logistics Networks.",
+                """
+                        Right-click one connector, then right-click another connector to connect them with the wire.
+                        """
+                );
 
         this.addItem(ItemRegistry.MERCURIAL_WAND, "Mercurial Wand");
+
+        var wandUsage = this.f("""
+                        {0} to use current mode.
+                        Hold {1} and {3} to cycle through modes.
+                        Hold {1} and {2} and {3} to use "Select Direction Mode".
+                        {0} without any keys held down in case a mode gets stuck.
+                        """,
+                this.green("Right-Click"),
+                this.green("Crouch"),
+                this.green("Right Mouse Button"),
+                this.green("Scroll")
+        );
         this.addTooltip(ItemRegistry.MERCURIAL_WAND,
                 "Definitely not just a wrench.",
-                "Allows configuring alchemical apparatuses and mercurial logistics networks.");
-        //TODO: usage
+                "Allows configuring alchemical apparatuses and mercurial logistics networks.",
+                wandUsage
+                );
+
+
 
         this.add(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_SELECT_DIRECTION, "Select direction (Currently: %s)");
         this.add(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_SELECT_DIRECTION_SUCCESS, "Direction: %s");

@@ -12,6 +12,9 @@
     {
       "type": "modonomicon:spotlight",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "item": [
         {
           "item": "theurgy:sulfur_attuned_divination_rod_abundant"
@@ -26,6 +29,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.getting_started.abundant_and_common_sulfur_attuned_divination_rod.sulfur.text",
       "title": "book.theurgy.the_hermetica.getting_started.abundant_and_common_sulfur_attuned_divination_rod.sulfur.title",
@@ -34,6 +40,9 @@
     {
       "type": "modonomicon:crafting_recipe",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "recipe_id_1": "theurgy:crafting/shaped/sulfur_attuned_divination_rod_abundant",
       "text": "book.theurgy.the_hermetica.getting_started.abundant_and_common_sulfur_attuned_divination_rod.recipe_abundant.text",
       "title1": "",
@@ -42,6 +51,9 @@
     {
       "type": "modonomicon:crafting_recipe",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "recipe_id_1": "theurgy:crafting/shaped/sulfur_attuned_divination_rod_common",
       "text": "book.theurgy.the_hermetica.getting_started.abundant_and_common_sulfur_attuned_divination_rod.recipe_common.text",
       "title1": "",

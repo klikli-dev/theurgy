@@ -14,6 +14,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.getting_started.ore_refining.intro.text",
       "title": "book.theurgy.the_hermetica.getting_started.ore_refining.intro.title",
@@ -22,6 +25,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.getting_started.ore_refining.intro2.text",
       "title": "book.theurgy.the_hermetica.getting_started.ore_refining.intro2.title",
@@ -30,6 +36,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.getting_started.ore_refining.overview.text",
       "title": "book.theurgy.the_hermetica.getting_started.ore_refining.overview.title",
@@ -38,6 +47,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.getting_started.ore_refining.next.text",
       "title": "book.theurgy.the_hermetica.getting_started.ore_refining.next.title",

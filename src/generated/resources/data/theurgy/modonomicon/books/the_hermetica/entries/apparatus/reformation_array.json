@@ -17,6 +17,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.apparatus.reformation_array.about.text",
       "title": "book.theurgy.the_hermetica.apparatus.reformation_array.about.title",
@@ -25,6 +28,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.apparatus.reformation_array.about2.text",
       "title": "book.theurgy.the_hermetica.apparatus.reformation_array.about2.title",
@@ -33,6 +39,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.apparatus.reformation_array.structure.text",
       "title": "book.theurgy.the_hermetica.apparatus.reformation_array.structure.title",
@@ -41,6 +50,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.apparatus.reformation_array.structure2.text",
       "title": "book.theurgy.the_hermetica.apparatus.reformation_array.structure2.title",
@@ -49,6 +61,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.apparatus.reformation_array.functions.text",
       "title": "book.theurgy.the_hermetica.apparatus.reformation_array.functions.title",
@@ -57,6 +72,9 @@
     {
       "type": "modonomicon:multiblock",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "multiblock_id": "theurgy:placement/reformation_array",
       "multiblock_name": "",
       "show_visualize_button": true,
@@ -65,6 +83,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.apparatus.reformation_array.visuals.text",
       "title": "book.theurgy.the_hermetica.apparatus.reformation_array.visuals.title",

@@ -12,6 +12,9 @@
     {
       "type": "modonomicon:spotlight",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "item": {
         "item": "theurgy:sal_ammoniac_bucket"
       },
@@ -21,6 +24,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.getting_started.create_solvent.obtain.text",
       "title": "book.theurgy.the_hermetica.getting_started.create_solvent.obtain.title",
@@ -29,6 +35,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.getting_started.create_solvent.faster.text",
       "title": "book.theurgy.the_hermetica.getting_started.create_solvent.faster.title",
@@ -37,6 +46,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.getting_started.create_solvent.step1.text",
       "title": "book.theurgy.the_hermetica.getting_started.create_solvent.step1.title",
@@ -45,6 +57,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.getting_started.create_solvent.step2.text",
       "title": "book.theurgy.the_hermetica.getting_started.create_solvent.step2.title",
@@ -53,6 +68,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.getting_started.create_solvent.step3.text",
       "title": "book.theurgy.the_hermetica.getting_started.create_solvent.step3.title",
@@ -61,6 +79,9 @@
     {
       "type": "modonomicon:crafting_recipe",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "recipe_id_1": "theurgy:crafting/shapeless/sal_ammoniac_crystal_from_sal_ammoniac_bucket",
       "text": "book.theurgy.the_hermetica.getting_started.create_solvent.recipe.text",
       "title1": "",

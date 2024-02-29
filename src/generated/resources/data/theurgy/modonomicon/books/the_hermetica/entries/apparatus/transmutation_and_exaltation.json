@@ -17,6 +17,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.apparatus.transmutation_and_exaltation.about.text",
       "title": "book.theurgy.the_hermetica.apparatus.transmutation_and_exaltation.about.title",
@@ -25,6 +28,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.apparatus.transmutation_and_exaltation.transmutation.text",
       "title": "book.theurgy.the_hermetica.apparatus.transmutation_and_exaltation.transmutation.title",
@@ -33,6 +39,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.apparatus.transmutation_and_exaltation.exaltation.text",
       "title": "book.theurgy.the_hermetica.apparatus.transmutation_and_exaltation.exaltation.title",

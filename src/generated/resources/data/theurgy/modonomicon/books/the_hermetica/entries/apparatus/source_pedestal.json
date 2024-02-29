@@ -12,6 +12,9 @@
     {
       "type": "modonomicon:spotlight",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "item": {
         "item": "theurgy:reformation_source_pedestal"
       },
@@ -21,6 +24,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.apparatus.source_pedestal.structure.text",
       "title": "book.theurgy.the_hermetica.apparatus.source_pedestal.structure.title",
@@ -29,6 +35,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.apparatus.source_pedestal.sulfur_consumption.text",
       "title": "book.theurgy.the_hermetica.apparatus.source_pedestal.sulfur_consumption.title",
@@ -37,6 +46,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.apparatus.source_pedestal.usage.text",
       "title": "book.theurgy.the_hermetica.apparatus.source_pedestal.usage.title",
@@ -45,6 +57,9 @@
     {
       "type": "modonomicon:crafting_recipe",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "recipe_id_1": "theurgy:crafting/shaped/reformation_source_pedestal",
       "text": "",
       "title1": "",

@@ -12,6 +12,9 @@
     {
       "type": "modonomicon:spotlight",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "item": {
         "item": "theurgy:alchemical_sulfur_iron"
       },
@@ -21,6 +24,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.getting_started.alchemical_niter.intro2.text",
       "title": "book.theurgy.the_hermetica.getting_started.alchemical_niter.intro2.title",
@@ -29,6 +35,9 @@
     {
       "type": "modonomicon:spotlight",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "item": {
         "item": "theurgy:alchemical_sulfur_metals_common"
       },
@@ -38,6 +47,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.getting_started.alchemical_niter.niter2.text",
       "title": "book.theurgy.the_hermetica.getting_started.alchemical_niter.niter2.title",
@@ -46,6 +58,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.getting_started.alchemical_niter.processes.text",
       "title": "book.theurgy.the_hermetica.getting_started.alchemical_niter.processes.title",
@@ -54,6 +69,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.getting_started.alchemical_niter.reformation.text",
       "title": "book.theurgy.the_hermetica.getting_started.alchemical_niter.reformation.title",

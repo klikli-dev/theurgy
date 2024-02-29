@@ -12,6 +12,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.getting_started.spagyrics.intro.text",
       "title": "book.theurgy.the_hermetica.getting_started.spagyrics.intro.title",
@@ -20,6 +23,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.getting_started.spagyrics.benefits.text",
       "title": "book.theurgy.the_hermetica.getting_started.spagyrics.benefits.title",
@@ -28,6 +34,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.getting_started.spagyrics.applications.text",
       "title": "book.theurgy.the_hermetica.getting_started.spagyrics.applications.title",
@@ -36,6 +45,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.getting_started.spagyrics.principles.text",
       "title": "book.theurgy.the_hermetica.getting_started.spagyrics.principles.title",
@@ -44,6 +56,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.getting_started.spagyrics.salt.text",
       "title": "book.theurgy.the_hermetica.getting_started.spagyrics.salt.title",
@@ -52,6 +67,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.getting_started.spagyrics.sulfur.text",
       "title": "book.theurgy.the_hermetica.getting_started.spagyrics.sulfur.title",
@@ -60,6 +78,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.getting_started.spagyrics.mercury.text",
       "title": "book.theurgy.the_hermetica.getting_started.spagyrics.mercury.title",

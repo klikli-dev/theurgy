@@ -35,35 +35,12 @@ public class BlockHighlightRenderer {
         if (rayTraceResult.getType() == BlockHitResult.Type.MISS)
             return;
 
-        var pos = rayTraceResult.getBlockPos();
-        var ps = event.getPoseStack();
-        var camera = event.getCamera();
-        var bufferSource = event.getMultiBufferSource();
-
         var stack = player.getMainHandItem();
         if(!stack.is(ItemRegistry.MERCURIAL_WAND.get()))
             return;
 
         var mode = MercurialWandItemMode.getMode(stack);
-        if (!(mode instanceof SelectDirectionMode selectDirectionMode))
-            return;
-        //TODO: this should probably be done in the mode - but need to be careful about client only classes
-        //      probably the mode should give us a .renderHandler() on which we can call relevant code
 
-
-        Direction face = selectDirectionMode.getDirection(stack);
-
-        //Note: for now we simply do not use transparency here because it does not work nicely with translucent blocks
-        //      specifically, it stops them from rendering, os the transparent highlight renders the world behind the bock.
-        //      If we want to play with it again, use     public final static Color GREEN = new Color(0, 255, 0, 155).setImmutable();
-
-        Vec3 viewPosition = camera.getPosition();
-        ps.pushPose();
-        ps.translate(pos.getX() - viewPosition.x, pos.getY() - viewPosition.y, pos.getZ() - viewPosition.z);
-        CubeModelRenderer.renderCube(
-                CubeModel.getOverlayModel(face, BlockOverlays.WHITE), ps, bufferSource.getBuffer(RenderTypes.translucentCullNoDepthBlockSheet()),
-                Color.GREEN.getRGB(), LightTexture.FULL_BRIGHT, OverlayTexture.NO_OVERLAY, CubeModelRenderer.FaceDisplay.FRONT,
-                camera);
-        ps.popPose();
+        mode.renderHandler().renderBlockHighlight(event);
     }
 }

@@ -21,11 +21,11 @@ import java.util.List;
 
 public class SetSelectedDirectionMode extends MercurialWandItemMode {
 
-    private ItemModeRenderHandler renderHandler;
+    private ItemModeRenderHandler<SetSelectedDirectionMode> renderHandler;
 
     protected SetSelectedDirectionMode() {
         super();
-        this.renderHandler = new ItemModeRenderHandler();
+        this.renderHandler = new ItemModeRenderHandler<>(this);
     }
 
     @Override
@@ -60,7 +60,7 @@ public class SetSelectedDirectionMode extends MercurialWandItemMode {
     }
 
     @Override
-    public ItemModeRenderHandler renderHandler() {
+    public ItemModeRenderHandler<?> renderHandler() {
         return this.renderHandler;
     }
 

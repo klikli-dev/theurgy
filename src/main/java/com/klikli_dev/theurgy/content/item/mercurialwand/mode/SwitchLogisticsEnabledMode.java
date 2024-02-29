@@ -18,11 +18,11 @@ import java.util.List;
 
 public class SwitchLogisticsEnabledMode extends MercurialWandItemMode {
 
-    private final ItemModeRenderHandler renderHandler;
+    private final ItemModeRenderHandler<SwitchLogisticsEnabledMode> renderHandler;
 
     protected SwitchLogisticsEnabledMode() {
         super();
-        this.renderHandler = new ItemModeRenderHandler();
+        this.renderHandler = new ItemModeRenderHandler<>(this);
     }
 
     @Override
@@ -56,7 +56,7 @@ public class SwitchLogisticsEnabledMode extends MercurialWandItemMode {
     }
 
     @Override
-    public ItemModeRenderHandler renderHandler() {
+    public ItemModeRenderHandler<?> renderHandler() {
         return this.renderHandler;
     }
 

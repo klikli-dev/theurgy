@@ -1,6 +1,7 @@
 package com.klikli_dev.theurgy.content.item.mercurialwand.mode;
 
 import com.klikli_dev.theurgy.TheurgyConstants;
+import com.klikli_dev.theurgy.content.item.mode.ItemMode;
 import com.klikli_dev.theurgy.content.item.mode.ItemModeRenderHandler;
 import com.klikli_dev.theurgy.network.Networking;
 import com.klikli_dev.theurgy.network.messages.MessageItemModeSelectDirection;
@@ -18,11 +19,11 @@ import org.jetbrains.annotations.Nullable;
 
 public class SelectDirectionMode extends MercurialWandItemMode {
 
-    private ItemModeRenderHandler renderHandler;
+    private final SelectDirectionModeRenderHandler renderHandler;
 
     protected SelectDirectionMode() {
         super();
-        this.renderHandler = new ItemModeRenderHandler();
+        this.renderHandler = new SelectDirectionModeRenderHandler(this);
     }
 
     @Override
@@ -38,7 +39,7 @@ public class SelectDirectionMode extends MercurialWandItemMode {
     }
 
     @Override
-    public ItemModeRenderHandler renderHandler() {
+    public SelectDirectionModeRenderHandler renderHandler() {
         return this.renderHandler;
     }
 

@@ -47,7 +47,7 @@ public abstract class ItemMode implements ItemHUDProvider {
         pTooltipComponents.add(this.description(pStack, pLevel));
     }
 
-    public abstract ItemModeRenderHandler renderHandler();
+    public abstract ItemModeRenderHandler<?> renderHandler();
 
     protected CompoundTag getModeTag(ItemStack stack) {
         //an item will end up with one tag per mode type.

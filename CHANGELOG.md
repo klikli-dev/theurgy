@@ -4,6 +4,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.4-1.17.1] - 2024-02-28
+### :sparkles: New Features
+- [`81806e7`](https://github.com/klikli-dev/theurgy/commit/81806e7347ca346e51c777cfeaa704a703fbb6a1) - update to work with modonomicon 1.60 *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :bug: Bug Fixes
+- [`67c7192`](https://github.com/klikli-dev/theurgy/commit/67c7192d0667da529fa3c750a774d3fd068ed766) - theurgy recipe page network sync *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
+## [release/v1.20.4-1.16.2] - 2024-02-14
+### :bug: Bug Fixes
+- [`b875082`](https://github.com/klikli-dev/theurgy/commit/b8750825f2df016699e5c0168235b6a59eb14800) - liquefaction cauldron fluid renderer *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`0a18739`](https://github.com/klikli-dev/theurgy/commit/0a1873912316ca086ae0b41a75d415ef444b9134) - brazier *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`c70f52e`](https://github.com/klikli-dev/theurgy/commit/c70f52ef254ea3d63bec462236658cb6bd97875a) - capability access for top block of double tall blocks *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.4-1.16.1] - 2024-01-30
 ### :bug: Bug Fixes
 - [`4edd482`](https://github.com/klikli-dev/theurgy/commit/4edd48233258c90a925d41069c42102879e7a67e) - content errors in book *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -468,3 +483,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.4-1.15.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.4-1.14.0...release/v1.20.4-1.15.0
 [release/v1.20.4-1.16.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.4-1.15.0...release/v1.20.4-1.16.0
 [release/v1.20.4-1.16.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.4-1.16.0...release/v1.20.4-1.16.1
+[release/v1.20.4-1.16.2]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.4-1.16.1...release/v1.20.4-1.16.2
+[release/v1.20.4-1.17.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.4-1.16.2...release/v1.20.4-1.17.1

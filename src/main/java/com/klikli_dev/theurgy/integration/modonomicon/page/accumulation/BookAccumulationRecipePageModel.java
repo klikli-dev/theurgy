@@ -4,6 +4,7 @@
 
 package com.klikli_dev.theurgy.integration.modonomicon.page.accumulation;
 
+import com.klikli_dev.modonomicon.api.datagen.book.condition.BookConditionModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookRecipePageModel;
 import com.klikli_dev.theurgy.integration.modonomicon.TheurgyModonomiconConstants;
 

@@ -107,9 +107,15 @@ public abstract class LeafNodeBehaviour<T, C> {
     }
 
     public void saveAdditional(CompoundTag pTag) {
-
         this.writeNetwork(pTag);
+    }
 
+    public void load(CompoundTag pTag) {
+        this.readNetwork(pTag);
+    }
+
+    public void writeNetwork(CompoundTag pTag) {
+        pTag.putInt("frequency", this.frequency);
         var list = new ListTag();
         for(var target : this.targets){
             list.add(LongTag.valueOf(target.asLong()));
@@ -117,25 +123,14 @@ public abstract class LeafNodeBehaviour<T, C> {
         pTag.put("targets", list);
     }
 
-    public void load(CompoundTag pTag) {
-        this.readNetwork(pTag);
-
+    public void readNetwork(CompoundTag pTag) {
+        this.frequency = pTag.getInt("frequency");
         this.targets = new ArrayList<>();
         var list = pTag.getList("targets", Tag.TAG_LONG);
         for(int i = 0; i < list.size(); i++){
             this.targets.add(BlockPos.of(((LongTag)list.get(i)).getAsLong()));
         }
     }
-
-    public void writeNetwork(CompoundTag pTag) {
-        pTag.putInt("frequency", this.frequency);
-    }
-
-    public void readNetwork(CompoundTag pTag) {
-        this.frequency = pTag.getInt("frequency");
-    }
-
-
 
     /**
      * The mode of this leaf node, i.e. if it is an insert or extract node.

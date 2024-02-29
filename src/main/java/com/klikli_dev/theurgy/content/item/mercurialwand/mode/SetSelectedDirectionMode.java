@@ -21,11 +21,11 @@ import java.util.List;
 
 public class SetSelectedDirectionMode extends MercurialWandItemMode {
 
-    private ItemModeRenderHandler<SetSelectedDirectionMode> renderHandler;
+    private SetSelectedDirectionModeRenderHandler renderHandler;
 
     protected SetSelectedDirectionMode() {
         super();
-        this.renderHandler = new ItemModeRenderHandler<>(this);
+        this.renderHandler = new SetSelectedDirectionModeRenderHandler(this);
     }
 
     @Override
@@ -46,11 +46,12 @@ public class SetSelectedDirectionMode extends MercurialWandItemMode {
         if (pHitResult instanceof BlockHitResult blockHitResult) {
             var blockEntity = pLevel.getBlockEntity(blockHitResult.getBlockPos());
             if (blockEntity instanceof TargetDirectionSetter directionSettable) {
-                var direction = directionSettable.targetDirection();
+                var currentDirection = directionSettable.targetDirection();
+                var newDirection = this.getDirection(pStack);
 
                 var component = Component.translatable(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_SET_SELECTED_DIRECTION_WITH_TARGET,
-                        Component.translatable(direction.getName()).withStyle(ChatFormatting.GREEN),
-                        Component.translatable(this.getDirection(pStack).getName()).withStyle(ChatFormatting.GREEN)
+                        Component.translatable(currentDirection.getName()).withStyle(currentDirection != newDirection ? ChatFormatting.YELLOW : ChatFormatting.GREEN),
+                        Component.translatable(newDirection.getName()).withStyle(ChatFormatting.GREEN)
                 );
 
                 description = component;
@@ -60,7 +61,7 @@ public class SetSelectedDirectionMode extends MercurialWandItemMode {
     }
 
     @Override
-    public ItemModeRenderHandler<?> renderHandler() {
+    public SetSelectedDirectionModeRenderHandler renderHandler() {
         return this.renderHandler;
     }
 

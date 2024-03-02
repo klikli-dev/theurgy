@@ -10,9 +10,11 @@ import com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron.Liquefactio
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import net.minecraft.client.renderer.block.model.BlockModel;
 import net.minecraft.core.Direction;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemDisplayContext;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.PipeBlock;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
@@ -26,6 +28,10 @@ import net.neoforged.neoforge.common.data.ExistingFileHelper;
 public class TheurgyBlockStateProvider extends BlockStateProvider {
     public TheurgyBlockStateProvider(PackOutput packOutput, ExistingFileHelper exFileHelper) {
         super(packOutput, Theurgy.MODID, exFileHelper);
+    }
+
+    protected ResourceLocation key(Block block) {
+        return BuiltInRegistries.BLOCK.getKey(block);
     }
 
     @Override
@@ -60,24 +66,98 @@ public class TheurgyBlockStateProvider extends BlockStateProvider {
         var model = this.models().withExistingParent("logistics_item_inserter", this.modLoc("block/logistics_connector_template"))
                 .ao(false)
                 //blockbench spits out garbage textures by losing the folder name so we fix them here
-                .texture("texture", this.modLoc("block/logistics_connector"))
+                .texture("texture", this.modLoc("block/logistics_inserter"))
                 .texture("particle", this.mcLoc("block/copper_block"));
 
         //build blockstate
         this.directionalBlock(BlockRegistry.LOGISTICS_ITEM_INSERTER.get(), model);
-        this.simpleBlockItem(BlockRegistry.LOGISTICS_ITEM_INSERTER.get(), model);
+        this.itemModels().getBuilder(this.key(BlockRegistry.LOGISTICS_ITEM_INSERTER.get()).getPath())
+                .parent(model)
+                .transforms()
+                .transform(ItemDisplayContext.GUI)
+                .rotation(30, 225, 0)
+                .translation(0, 4, 0)
+                .scale(1)
+                .end()
+                .transform(ItemDisplayContext.GROUND)
+                .rotation(0, 0, 0)
+                .translation(0, 5, 0)
+                .scale(0.5f)
+                .end()
+                .transform(ItemDisplayContext.FIXED)
+                .rotation(0, 0, 0)
+                .translation(0, 3, 0)
+                .scale(0.5f)
+                .end()
+                .transform(ItemDisplayContext.THIRD_PERSON_RIGHT_HAND)
+                .rotation(0, 0, 0)
+                .translation(0, 6, 0)
+                .scale(0.7f)
+                .end()
+                .transform(ItemDisplayContext.FIRST_PERSON_RIGHT_HAND)
+                .rotation(0, 0, 0)
+                .translation(0, 6, 0)
+                .scale(0.7f)
+                .end()
+                .transform(ItemDisplayContext.THIRD_PERSON_LEFT_HAND)
+                .rotation(0, 0, 0)
+                .translation(0, 6, 0)
+                .scale(0.7f)
+                .end()
+                .transform(ItemDisplayContext.FIRST_PERSON_LEFT_HAND)
+                .rotation(0, 225, 0)
+                .translation(0, 6, 0)
+                .scale(0.7f)
+                .end();
     }
 
     protected void registerLogisticsItemExtractor() {
         var model = this.models().withExistingParent("logistics_item_extractor", this.modLoc("block/logistics_connector_template"))
                 .ao(false)
                 //blockbench spits out garbage textures by losing the folder name so we fix them here
-                .texture("texture", this.modLoc("block/logistics_connector"))
+                .texture("texture", this.modLoc("block/logistics_extractor"))
                 .texture("particle", this.mcLoc("block/copper_block"));
 
         //build blockstate
         this.directionalBlock(BlockRegistry.LOGISTICS_ITEM_EXTRACTOR.get(), model);
-        this.simpleBlockItem(BlockRegistry.LOGISTICS_ITEM_EXTRACTOR.get(), model);
+        this.itemModels().getBuilder(this.key(BlockRegistry.LOGISTICS_ITEM_EXTRACTOR.get()).getPath())
+                .parent(model)
+                .transforms()
+                .transform(ItemDisplayContext.GUI)
+                .rotation(30, 225, 0)
+                .translation(0, 4, 0)
+                .scale(1)
+                .end()
+                .transform(ItemDisplayContext.GROUND)
+                .rotation(0, 0, 0)
+                .translation(0, 5, 0)
+                .scale(0.5f)
+                .end()
+                .transform(ItemDisplayContext.FIXED)
+                .rotation(0, 0, 0)
+                .translation(0, 3, 0)
+                .scale(0.5f)
+                .end()
+                .transform(ItemDisplayContext.THIRD_PERSON_RIGHT_HAND)
+                .rotation(0, 0, 0)
+                .translation(0, 6, 0)
+                .scale(0.7f)
+                .end()
+                .transform(ItemDisplayContext.FIRST_PERSON_RIGHT_HAND)
+                .rotation(0, 0, 0)
+                .translation(0, 6, 0)
+                .scale(0.7f)
+                .end()
+                .transform(ItemDisplayContext.THIRD_PERSON_LEFT_HAND)
+                .rotation(0, 0, 0)
+                .translation(0, 6, 0)
+                .scale(0.7f)
+                .end()
+                .transform(ItemDisplayContext.FIRST_PERSON_LEFT_HAND)
+                .rotation(0, 225, 0)
+                .translation(0, 6, 0)
+                .scale(0.7f)
+                .end();
     }
 
     protected void registerLogisticsNode() {
@@ -90,7 +170,44 @@ public class TheurgyBlockStateProvider extends BlockStateProvider {
 
         //build blockstate
         this.directionalBlock(BlockRegistry.LOGISTICS_NODE.get(), model);
-        this.simpleBlockItem(BlockRegistry.LOGISTICS_NODE.get(), model);
+        this.itemModels().getBuilder(this.key(BlockRegistry.LOGISTICS_NODE.get()).getPath())
+                .parent(model)
+                .transforms()
+                .transform(ItemDisplayContext.GUI)
+                .rotation(30, 225, 0)
+                .translation(0, 4, 0)
+                .scale(1)
+                .end()
+                .transform(ItemDisplayContext.GROUND)
+                .rotation(0, 0, 0)
+                .translation(0, 5, 0)
+                .scale(0.5f)
+                .end()
+                .transform(ItemDisplayContext.FIXED)
+                .rotation(0, 0, 0)
+                .translation(0, 3, 0)
+                .scale(0.5f)
+                .end()
+                .transform(ItemDisplayContext.THIRD_PERSON_RIGHT_HAND)
+                .rotation(0, 0, 0)
+                .translation(0, 6, 0)
+                .scale(0.7f)
+                .end()
+                .transform(ItemDisplayContext.FIRST_PERSON_RIGHT_HAND)
+                .rotation(0, 0, 0)
+                .translation(0, 6, 0)
+                .scale(0.7f)
+                .end()
+                .transform(ItemDisplayContext.THIRD_PERSON_LEFT_HAND)
+                .rotation(0, 0, 0)
+                .translation(0, 6, 0)
+                .scale(0.7f)
+                .end()
+                .transform(ItemDisplayContext.FIRST_PERSON_LEFT_HAND)
+                .rotation(0, 225, 0)
+                .translation(0, 6, 0)
+                .scale(0.7f)
+                .end();
     }
 
     protected void registerFermentationVat() {

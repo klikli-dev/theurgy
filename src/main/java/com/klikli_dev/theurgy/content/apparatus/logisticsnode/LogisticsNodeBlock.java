@@ -73,6 +73,7 @@ public class LogisticsNodeBlock extends DirectionalBlock {
     }
 
     //TODO destroy self on neighbor destroy
+    //TODO only allow to attach to a full face
 
     @Override
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {

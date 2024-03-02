@@ -1,6 +1,9 @@
 {
-  "parent": "minecraft:block/cube_all",
+  "parent": "theurgy:block/logistics_node_template",
+  "ambientocclusion": false,
   "textures": {
-    "all": "theurgy:block/logistics_node"
+    "base": "theurgy:block/logistics_node_base",
+    "connector": "theurgy:block/logistics_node_connector",
+    "particle": "minecraft:block/terracotta"
   }
 }

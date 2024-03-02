@@ -50,12 +50,10 @@ public class TheurgyBlockStateProvider extends BlockStateProvider {
         this.registerDigestionVat();
         this.registerLogisticsItemInserter();
         this.registerLogisticsItemExtractor();
+        this.registerLogisticsNode();
 
         this.simpleBlockWithItem(BlockRegistry.SAL_AMMONIAC_ORE.get(), this.cubeAll(BlockRegistry.SAL_AMMONIAC_ORE.get()));
         this.simpleBlockWithItem(BlockRegistry.DEEPSLATE_SAL_AMMONIAC_ORE.get(), this.cubeAll(BlockRegistry.DEEPSLATE_SAL_AMMONIAC_ORE.get()));
-
-
-        this.simpleBlockWithItem(BlockRegistry.LOGISTICS_NODE.get(), this.cubeAll(BlockRegistry.LOGISTICS_NODE.get()));
     }
 
     protected void registerLogisticsItemInserter() {
@@ -80,6 +78,19 @@ public class TheurgyBlockStateProvider extends BlockStateProvider {
         //build blockstate
         this.directionalBlock(BlockRegistry.LOGISTICS_ITEM_EXTRACTOR.get(), model);
         this.simpleBlockItem(BlockRegistry.LOGISTICS_ITEM_EXTRACTOR.get(), model);
+    }
+
+    protected void registerLogisticsNode() {
+        var model = this.models().withExistingParent("logistics_node", this.modLoc("block/logistics_node_template"))
+                .ao(false)
+                //blockbench spits out garbage textures by losing the folder name so we fix them here
+                .texture("connector", this.modLoc("block/logistics_node_connector"))
+                .texture("base", this.modLoc("block/logistics_node_base"))
+                .texture("particle", this.mcLoc("block/terracotta"));
+
+        //build blockstate
+        this.directionalBlock(BlockRegistry.LOGISTICS_NODE.get(), model);
+        this.simpleBlockItem(BlockRegistry.LOGISTICS_NODE.get(), model);
     }
 
     protected void registerFermentationVat() {

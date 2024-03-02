@@ -28,11 +28,18 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public abstract class LogisticsItemConnectorBlock extends DirectionalBlock implements EntityBlock {
 
-    protected static final float AABB_MIN = 6.0F;
-    protected static final float AABB_MAX = 10.0F;
-    protected static final VoxelShape Y_AXIS_AABB = Block.box(AABB_MIN, 0.0, AABB_MIN, AABB_MAX, 16.0, AABB_MAX);
-    protected static final VoxelShape Z_AXIS_AABB = Block.box(AABB_MIN, AABB_MIN, 0.0, AABB_MAX, AABB_MAX, 16.0);
-    protected static final VoxelShape X_AXIS_AABB = Block.box(0.0, AABB_MIN, AABB_MIN, 16.0, AABB_MAX, AABB_MAX);
+    protected static final float LENGTH = 2.0F;
+    protected static final float WIDTH = 2.0F;
+    protected static final float HEIGHT = 8.0F;
+
+    protected static final float CENTER = 8.0F; // Center of the block
+
+    protected static final VoxelShape UP = Block.box(CENTER - WIDTH / 2, 0.0F, CENTER - LENGTH / 2, CENTER + WIDTH / 2, HEIGHT, CENTER + LENGTH / 2);
+    protected static final VoxelShape DOWN = Block.box(CENTER - WIDTH / 2, 16.0F - HEIGHT, CENTER - LENGTH / 2, CENTER + WIDTH / 2, 16.0F, CENTER + LENGTH / 2);
+    protected static final VoxelShape WEST = Block.box(16.0F - HEIGHT, CENTER - WIDTH / 2, CENTER - LENGTH / 2, 16.0F, CENTER + WIDTH / 2, CENTER + LENGTH / 2);
+    protected static final VoxelShape EAST = Block.box(0.0F, CENTER - WIDTH / 2, CENTER - LENGTH / 2, HEIGHT, CENTER + WIDTH / 2, CENTER + LENGTH / 2);
+    protected static final VoxelShape NORTH = Block.box(CENTER - WIDTH / 2, CENTER - LENGTH / 2, 16.0F - HEIGHT, CENTER + WIDTH / 2, CENTER + LENGTH / 2, 16.0F);
+    protected static final VoxelShape SOUTH = Block.box(CENTER - WIDTH / 2, CENTER - LENGTH / 2, 0.0F, CENTER + WIDTH / 2, CENTER + LENGTH / 2, HEIGHT);
 
     public LogisticsItemConnectorBlock(Properties properties) {
         super(properties);
@@ -77,19 +84,17 @@ public abstract class LogisticsItemConnectorBlock extends DirectionalBlock imple
         return InteractionResult.SUCCESS;
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
-        //TODO: fix Shape!
-
-        switch (pState.getValue(FACING).getAxis()) {
-            case X:
-            default:
-                return X_AXIS_AABB;
-            case Z:
-                return Z_AXIS_AABB;
-            case Y:
-                return Y_AXIS_AABB;
-        }
+        return switch (pState.getValue(FACING)) {
+            default -> UP;
+            case DOWN -> DOWN;
+            case NORTH -> NORTH;
+            case SOUTH -> SOUTH;
+            case WEST -> WEST;
+            case EAST -> EAST;
+        };
     }
 
     //TODO destroy self on neighbor destroy

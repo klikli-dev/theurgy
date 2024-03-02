@@ -22,7 +22,7 @@ public class LogisticsItemExtractorBehaviour extends ExtractorNodeBehaviour<IIte
 
     public static final int EXTRACTION_EVERY_N_TICKS = 20; // 1 second
     public static final int MAX_EXTRACTION_AMOUNT = 10; //how many items to extract per extraction tick
-
+    private final int slowTickRandomOffset = (int) (Math.random() * 20);
     private int extractionAmount = MAX_EXTRACTION_AMOUNT;
     private Direction directionOverride = null;
     private boolean enabled = true;
@@ -118,10 +118,13 @@ public class LogisticsItemExtractorBehaviour extends ExtractorNodeBehaviour<IIte
         if (!this.enabled)
             return;
 
-        super.tickServer(); //this moves our distributor to the next target if needed.
+        super.tickServer();
 
-        if (this.blockEntity.getLevel().getGameTime() % EXTRACTION_EVERY_N_TICKS != 0) //slow tick
+        if ((this.slowTickRandomOffset + this.blockEntity.getLevel().getGameTime()) % EXTRACTION_EVERY_N_TICKS != 0) //slow tick
             return;
+
+        this.distributor.tick(); //moved from super.tickServer() here because otherwise the distributor keeps moving targets despite not moving items
+
 
         var insertTarget = this.distributor.target();
         if (insertTarget == null)

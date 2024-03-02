@@ -162,10 +162,7 @@ public abstract class ExtractorNodeBehaviour<T, C> extends LeafNodeBehaviour<T, 
                 .map(target -> BlockCapabilityCache.create(this.capabilityType(), serverLevel, target, this.getTargetContext(target))).toList();
     }
 
-    //TODO: the extractor blocks are the ones that tick and "push" stuff around the network
-
     public void tickServer() {
-        this.distributor.tick();
     }
 
     @Override

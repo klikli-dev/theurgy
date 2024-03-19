@@ -228,5 +228,5 @@ public abstract class JsonRecipeProvider implements DataProvider {
         return CompletableFuture.allOf(futures.toArray(CompletableFuture[]::new));
     }
 
-    abstract void buildRecipes(BiConsumer<ResourceLocation, JsonObject> recipeConsumer);
+    public abstract void buildRecipes(BiConsumer<ResourceLocation, JsonObject> recipeConsumer);
 }

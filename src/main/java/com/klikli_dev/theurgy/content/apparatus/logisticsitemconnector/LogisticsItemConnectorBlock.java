@@ -4,6 +4,7 @@
 
 package com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector;
 
+import com.klikli_dev.theurgy.content.apparatus.DirectionalBlockShape;
 import com.klikli_dev.theurgy.content.render.outliner.Outliner;
 import com.klikli_dev.theurgy.logistics.Logistics;
 import com.klikli_dev.theurgy.logistics.Wires;
@@ -28,18 +29,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public abstract class LogisticsItemConnectorBlock extends DirectionalBlock implements EntityBlock {
 
-    protected static final float LENGTH = 2.0F;
-    protected static final float WIDTH = 2.0F;
-    protected static final float HEIGHT = 8.0F;
-
-    protected static final float CENTER = 8.0F; // Center of the block
-
-    protected static final VoxelShape UP = Block.box(CENTER - WIDTH / 2, 0.0F, CENTER - LENGTH / 2, CENTER + WIDTH / 2, HEIGHT, CENTER + LENGTH / 2);
-    protected static final VoxelShape DOWN = Block.box(CENTER - WIDTH / 2, 16.0F - HEIGHT, CENTER - LENGTH / 2, CENTER + WIDTH / 2, 16.0F, CENTER + LENGTH / 2);
-    protected static final VoxelShape WEST = Block.box(16.0F - HEIGHT, CENTER - WIDTH / 2, CENTER - LENGTH / 2, 16.0F, CENTER + WIDTH / 2, CENTER + LENGTH / 2);
-    protected static final VoxelShape EAST = Block.box(0.0F, CENTER - WIDTH / 2, CENTER - LENGTH / 2, HEIGHT, CENTER + WIDTH / 2, CENTER + LENGTH / 2);
-    protected static final VoxelShape NORTH = Block.box(CENTER - WIDTH / 2, CENTER - LENGTH / 2, 16.0F - HEIGHT, CENTER + WIDTH / 2, CENTER + LENGTH / 2, 16.0F);
-    protected static final VoxelShape SOUTH = Block.box(CENTER - WIDTH / 2, CENTER - LENGTH / 2, 0.0F, CENTER + WIDTH / 2, CENTER + LENGTH / 2, HEIGHT);
+    public static final DirectionalBlockShape SHAPE = new DirectionalBlockShape(2, 2, 8);
 
     public LogisticsItemConnectorBlock(Properties properties) {
         super(properties);
@@ -87,14 +77,7 @@ public abstract class LogisticsItemConnectorBlock extends DirectionalBlock imple
     @SuppressWarnings("deprecation")
     @Override
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
-        return switch (pState.getValue(FACING)) {
-            default -> UP;
-            case DOWN -> DOWN;
-            case NORTH -> NORTH;
-            case SOUTH -> SOUTH;
-            case WEST -> WEST;
-            case EAST -> EAST;
-        };
+        return SHAPE.getShape(pState.getValue(FACING));
     }
 
     //TODO destroy self on neighbor destroy

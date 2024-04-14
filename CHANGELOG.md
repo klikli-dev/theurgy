@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.17.2] - 2024-04-14
+### :bug: Bug Fixes
+- [`4255492`](https://github.com/klikli-dev/theurgy/commit/425549246e0eada609eb2db24470aebfc0df0036) - sal ammoniac accumulator tooltip claims you need a brazier below *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`0ee6af1`](https://github.com/klikli-dev/theurgy/commit/0ee6af1539b9e5cc8dc78ded0eaa33d7c866de76) - datagen with updated modonomicon *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.1-1.17.1] - 2024-02-28
 ### :bug: Bug Fixes
 - [`16be310`](https://github.com/klikli-dev/theurgy/commit/16be3100639a215c2e84dd1f787a5ad55cbf6fec) - theurgy recipe page network sync *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -452,3 +460,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.16.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.16.0...release/v1.20.1-1.16.1
 [release/v1.20.1-1.17.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.16.1...release/v1.20.1-1.17.0
 [release/v1.20.1-1.17.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.17.0...release/v1.20.1-1.17.1
+[release/v1.20.1-1.17.2]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.17.1...release/v1.20.1-1.17.2

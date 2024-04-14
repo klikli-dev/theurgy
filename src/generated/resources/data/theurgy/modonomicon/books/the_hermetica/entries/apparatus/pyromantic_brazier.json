@@ -12,6 +12,9 @@
     {
       "type": "modonomicon:spotlight",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "item": {
         "item": "theurgy:pyromantic_brazier"
       },
@@ -21,6 +24,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.apparatus.pyromantic_brazier.usage.text",
       "title": "book.theurgy.the_hermetica.apparatus.pyromantic_brazier.usage.title",
@@ -29,6 +35,9 @@
     {
       "type": "modonomicon:crafting_recipe",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "recipe_id_1": "theurgy:crafting/shaped/pyromantic_brazier",
       "text": "",
       "title1": "",

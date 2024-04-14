@@ -12,6 +12,9 @@
     {
       "type": "modonomicon:spotlight",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "item": {
         "item": "theurgy:sal_ammoniac_tank"
       },
@@ -21,6 +24,9 @@
     {
       "type": "modonomicon:crafting_recipe",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "recipe_id_1": "theurgy:crafting/shaped/sal_ammoniac_tank",
       "text": "",
       "title1": "",

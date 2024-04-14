@@ -12,6 +12,9 @@
     {
       "type": "modonomicon:spotlight",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "item": {
         "item": "theurgy:caloric_flux_emitter"
       },
@@ -21,6 +24,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.apparatus.caloric_flux_emitter.usage.text",
       "title": "book.theurgy.the_hermetica.apparatus.caloric_flux_emitter.usage.title",
@@ -29,6 +35,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.apparatus.caloric_flux_emitter.redstone.text",
       "title": "book.theurgy.the_hermetica.apparatus.caloric_flux_emitter.redstone.title",
@@ -37,6 +46,9 @@
     {
       "type": "modonomicon:crafting_recipe",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "recipe_id_1": "theurgy:crafting/shaped/caloric_flux_emitter_from_campfire",
       "recipe_id_2": "theurgy:crafting/shaped/caloric_flux_emitter_from_lava_bucket",
       "text": "",

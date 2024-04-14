@@ -12,6 +12,9 @@
     {
       "type": "modonomicon:spotlight",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "item": {
         "item": "minecraft:gold_ingot"
       },
@@ -21,6 +24,9 @@
     {
       "type": "modonomicon:spotlight",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "item": {
         "item": "minecraft:gold_ingot"
       },

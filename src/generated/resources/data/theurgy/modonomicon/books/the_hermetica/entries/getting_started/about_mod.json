@@ -12,6 +12,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.getting_started.about_mod.about.text",
       "title": "book.theurgy.the_hermetica.getting_started.about_mod.about.title",
@@ -20,6 +23,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.getting_started.about_mod.about2.text",
       "title": "book.theurgy.the_hermetica.getting_started.about_mod.about2.title",
@@ -28,6 +34,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.getting_started.about_mod.about3.text",
       "title": "book.theurgy.the_hermetica.getting_started.about_mod.about3.title",
@@ -36,6 +45,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.getting_started.about_mod.features.text",
       "title": "book.theurgy.the_hermetica.getting_started.about_mod.features.title",
@@ -44,6 +56,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.getting_started.about_mod.features2.text",
       "title": "book.theurgy.the_hermetica.getting_started.about_mod.features2.title",

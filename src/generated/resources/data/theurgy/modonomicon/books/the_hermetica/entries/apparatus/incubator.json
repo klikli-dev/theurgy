@@ -12,6 +12,9 @@
     {
       "type": "modonomicon:spotlight",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "item": {
         "item": "theurgy:incubator"
       },
@@ -21,6 +24,9 @@
     {
       "type": "modonomicon:multiblock",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "multiblock_id": "theurgy:placement/incubator",
       "multiblock_name": "",
       "show_visualize_button": true,
@@ -29,6 +35,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.apparatus.incubator.usage.text",
       "title": "book.theurgy.the_hermetica.apparatus.incubator.usage.title",
@@ -37,6 +46,9 @@
     {
       "type": "modonomicon:crafting_recipe",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "recipe_id_1": "theurgy:crafting/shaped/incubator",
       "text": "",
       "title1": "",
@@ -45,6 +57,9 @@
     {
       "type": "modonomicon:crafting_recipe",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "recipe_id_1": "theurgy:crafting/shaped/incubator_mercury_vessel",
       "text": "",
       "title1": "",
@@ -53,6 +68,9 @@
     {
       "type": "modonomicon:crafting_recipe",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "recipe_id_1": "theurgy:crafting/shaped/incubator_salt_vessel",
       "text": "",
       "title1": "",
@@ -61,6 +79,9 @@
     {
       "type": "modonomicon:crafting_recipe",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "recipe_id_1": "theurgy:crafting/shaped/incubator_sulfur_vessel",
       "text": "",
       "title1": "",
@@ -70,6 +91,9 @@
       "type": "modonomicon:image",
       "anchor": "",
       "border": true,
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "images": [
         "theurgy:textures/gui/book/incubator_working.png"
       ],

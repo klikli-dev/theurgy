@@ -12,6 +12,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.getting_started.sulfuric_flux_emitter.target.text",
       "title": "book.theurgy.the_hermetica.getting_started.sulfuric_flux_emitter.target.title",
@@ -20,6 +23,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.getting_started.sulfuric_flux_emitter.visuals.text",
       "title": "book.theurgy.the_hermetica.getting_started.sulfuric_flux_emitter.visuals.title",
@@ -28,6 +34,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.getting_started.sulfuric_flux_emitter.problems.text",
       "title": "book.theurgy.the_hermetica.getting_started.sulfuric_flux_emitter.problems.title",

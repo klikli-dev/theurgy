@@ -18,6 +18,9 @@
     {
       "type": "modonomicon:spotlight",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "item": {
         "item": "minecraft:gold_ingot"
       },
@@ -27,6 +30,9 @@
     {
       "type": "modonomicon:spotlight",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "item": {
         "item": "minecraft:charcoal"
       },
@@ -36,6 +42,9 @@
     {
       "type": "modonomicon:spotlight",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "item": {
         "item": "minecraft:charcoal"
       },
@@ -45,6 +54,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.getting_started.renewable_gold.tips.text",
       "title": "book.theurgy.the_hermetica.getting_started.renewable_gold.tips.title",

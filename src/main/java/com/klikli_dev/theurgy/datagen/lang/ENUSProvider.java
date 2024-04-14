@@ -205,10 +205,10 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
                 "A simple device to increase the concentration of residual Sal Ammoniac in water by evaporation.",
                 "The resulting concentrated Sal Ammoniac fluid is a solvent that can be used in Liquefaction Cauldrons.",
                 this.f("""
-                                Place this on top of a heating device such as a Pyromantic Brazier.
+                                Place this on top of a Sal Ammoniac Tank.
                                 {0} with water buckets to fill the accumulator.
-                                The water will be consumed to fill the accumulator.
-                                You can additionally add Sal Ammoniac Crystals to speed up the process.
+                                The water will be consumed to fill the Sal Ammoniac Tank below.
+                                You can additionally add Sal Ammoniac Crystals to the Accumulator to speed up the process.
                                 """,
                         this.green("Right-Click")));
 

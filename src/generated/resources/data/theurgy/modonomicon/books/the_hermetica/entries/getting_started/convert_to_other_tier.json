@@ -18,6 +18,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.getting_started.convert_to_other_tier.intro.text",
       "title": "book.theurgy.the_hermetica.getting_started.convert_to_other_tier.intro.title",
@@ -26,6 +29,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.getting_started.convert_to_other_tier.intro2.text",
       "title": "book.theurgy.the_hermetica.getting_started.convert_to_other_tier.intro2.title",
@@ -34,6 +40,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.getting_started.convert_to_other_tier.digestion.text",
       "title": "book.theurgy.the_hermetica.getting_started.convert_to_other_tier.digestion.title",
@@ -42,6 +51,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.getting_started.convert_to_other_tier.process.text",
       "title": "book.theurgy.the_hermetica.getting_started.convert_to_other_tier.process.title",
@@ -50,6 +62,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.getting_started.convert_to_other_tier.process2.text",
       "title": "book.theurgy.the_hermetica.getting_started.convert_to_other_tier.process2.title",
@@ -58,6 +73,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.getting_started.convert_to_other_tier.instructions.text",
       "title": "book.theurgy.the_hermetica.getting_started.convert_to_other_tier.instructions.title",

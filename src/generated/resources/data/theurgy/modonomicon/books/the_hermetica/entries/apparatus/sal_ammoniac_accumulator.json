@@ -12,6 +12,9 @@
     {
       "type": "modonomicon:spotlight",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "item": {
         "item": "theurgy:sal_ammoniac_accumulator"
       },
@@ -21,6 +24,9 @@
     {
       "type": "modonomicon:multiblock",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "multiblock_id": "theurgy:placement/sal_ammoniac_accumulator",
       "multiblock_name": "",
       "show_visualize_button": true,
@@ -29,6 +35,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.apparatus.sal_ammoniac_accumulator.usage.text",
       "title": "book.theurgy.the_hermetica.apparatus.sal_ammoniac_accumulator.usage.title",
@@ -37,6 +46,9 @@
     {
       "type": "modonomicon:crafting_recipe",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "recipe_id_1": "theurgy:crafting/shaped/sal_ammoniac_accumulator",
       "text": "",
       "title1": "",
@@ -46,6 +58,9 @@
       "type": "modonomicon:image",
       "anchor": "",
       "border": true,
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "images": [
         "theurgy:textures/gui/book/sal_ammoniac_accumulator_working.png"
       ],

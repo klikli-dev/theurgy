@@ -18,6 +18,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.getting_started.replication.intro.text",
       "title": "book.theurgy.the_hermetica.getting_started.replication.intro.title",
@@ -26,6 +29,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.getting_started.replication.intro2.text",
       "title": "book.theurgy.the_hermetica.getting_started.replication.intro2.title",
@@ -34,6 +40,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.getting_started.replication.intro3.text",
       "title": "book.theurgy.the_hermetica.getting_started.replication.intro3.title",

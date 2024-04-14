@@ -18,6 +18,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.getting_started.convert_to_other_type.intro.text",
       "title": "book.theurgy.the_hermetica.getting_started.convert_to_other_type.intro.title",
@@ -26,6 +29,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.getting_started.convert_to_other_type.intro2.text",
       "title": "book.theurgy.the_hermetica.getting_started.convert_to_other_type.intro2.title",
@@ -34,6 +40,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.getting_started.convert_to_other_type.process.text",
       "title": "book.theurgy.the_hermetica.getting_started.convert_to_other_type.process.title",
@@ -42,6 +51,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.getting_started.convert_to_other_type.process2.text",
       "title": "book.theurgy.the_hermetica.getting_started.convert_to_other_type.process2.title",
@@ -50,6 +62,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.getting_started.convert_to_other_type.limitations.text",
       "title": "book.theurgy.the_hermetica.getting_started.convert_to_other_type.limitations.title",
@@ -58,6 +73,9 @@
     {
       "type": "modonomicon:text",
       "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.getting_started.convert_to_other_type.instructions.text",
       "title": "book.theurgy.the_hermetica.getting_started.convert_to_other_type.instructions.title",

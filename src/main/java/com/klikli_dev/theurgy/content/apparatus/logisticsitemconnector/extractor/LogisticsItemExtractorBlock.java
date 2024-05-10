@@ -40,30 +40,6 @@ public class LogisticsItemExtractorBlock extends LogisticsItemConnectorBlock {
     //      the first option has the advantage of also working for future logistics blocks that use the selector system
     //      in both cases we simply place the targets in the "BlockEntityTag" and let the entity load them
 
-    @Override
-    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
-
-        if (!pPlayer.getItemInHand(pHand).isEmpty())
-            return InteractionResult.PASS;
-
-
-        if (!pLevel.isClientSide) {
-            //TODO: needs to send packet that does outlining
-            //maybe a generic one?
-
-            if (pLevel.getBlockEntity(pPos) instanceof LogisticsItemExtractorBlockEntity blockEntity) {
-                var targets = blockEntity.leafNode().insertTargets();
-                for (var target : targets) {
-                    Outliner.get().showAABB(target, Shapes.block().bounds().move(target.pos()), 20 * 5)
-                            .colored(0xFFFFF00)
-                            .lineWidth(1 / 16f);
-                }
-            }
-        }
-
-        return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
-    }
-
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
@@ -77,8 +53,6 @@ public class LogisticsItemExtractorBlock extends LogisticsItemConnectorBlock {
             return null;
         }
         return (lvl, pos, blockState, t) -> {
-            //TODO: does not tick!
-            //it seems an inserter ticker is registered? o.O
             if (t instanceof LogisticsItemExtractorBlockEntity blockEntity) {
                 blockEntity.tickServer();
             }

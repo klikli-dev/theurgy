@@ -6,6 +6,7 @@ package com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector.extracto
 
 import com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector.LogisticsItemConnectorBlockEntity;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
+import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -17,6 +18,9 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class LogisticsItemExtractorBlockEntity extends LogisticsItemConnectorBlockEntity {
 
     public LogisticsItemExtractorBlockEntity(BlockPos pPos, BlockState pBlockState) {
@@ -27,6 +31,21 @@ public class LogisticsItemExtractorBlockEntity extends LogisticsItemConnectorBlo
     @Override
     public LogisticsItemExtractorBehaviour leafNode() {
         return (LogisticsItemExtractorBehaviour) this.leafNodeBehaviour;
+    }
+
+    @Override
+    public List<Pair<BlockPos, Integer>> getStatusHighlights() {
+        if (this.level.isClientSide())
+            return List.of();
+
+        var result = super.getStatusHighlights();
+
+        var targets = this.leafNode().insertTargets();
+        for (var target : targets) {
+            result.add(Pair.of(target.pos(), 0xFFFFF00));
+        }
+
+        return result;
     }
 
     @Override
@@ -93,7 +112,7 @@ public class LogisticsItemExtractorBlockEntity extends LogisticsItemConnectorBlo
 
     @Override
     public Direction targetDirection() {
-        return this.leafNode().directionOverride();
+        return this.leafNode().getTargetContext(this.targetPos());
     }
 
     @Override

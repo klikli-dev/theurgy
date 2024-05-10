@@ -34,6 +34,7 @@ public class Networking {
         registrar.play(MessageRequestLogisticsNodeSelection.ID, MessageRequestLogisticsNodeSelection::new, MessageHandler::handle);
         registrar.play(MessageShowCaloricFlux.ID, MessageShowCaloricFlux::new, MessageHandler::handle);
         registrar.play(MessageShowSulfuricFluxEmitterStatus.ID, MessageShowSulfuricFluxEmitterStatus::new, MessageHandler::handle);
+        registrar.play(MessageShowLogisticsNodeStatus.ID, MessageShowLogisticsNodeStatus::new, MessageHandler::handle);
         registrar.play(MessageAddWires.ID, MessageAddWires::new, MessageHandler::handle);
         registrar.play(MessageRemoveWires.ID, MessageRemoveWires::new, MessageHandler::handle);
     }

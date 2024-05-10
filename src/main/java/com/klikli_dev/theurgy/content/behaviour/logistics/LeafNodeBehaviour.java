@@ -137,6 +137,6 @@ public abstract class LeafNodeBehaviour<T, C> {
      */
     public abstract LeafNodeMode mode();
 
-    protected abstract C getTargetContext(BlockPos targetPos);
+    public abstract C getTargetContext(BlockPos targetPos);
 
 }

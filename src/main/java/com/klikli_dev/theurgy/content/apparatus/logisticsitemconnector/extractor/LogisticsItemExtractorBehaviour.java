@@ -51,7 +51,7 @@ public class LogisticsItemExtractorBehaviour extends ExtractorNodeBehaviour<IIte
     }
 
     @Override
-    protected @Nullable Direction getTargetContext(BlockPos targetPos) {
+    public @Nullable Direction getTargetContext(BlockPos targetPos) {
         return this.directionOverride != null ? this.directionOverride :
                 this.blockEntity.getBlockState().getValue(BlockStateProperties.FACING);
     }

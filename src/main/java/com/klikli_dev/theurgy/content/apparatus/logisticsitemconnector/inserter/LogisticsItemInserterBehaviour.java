@@ -60,7 +60,7 @@ public class LogisticsItemInserterBehaviour extends InserterNodeBehaviour<IItemH
     }
 
     @Override
-    protected @Nullable Direction getTargetContext(BlockPos targetPos) {
+    public @Nullable Direction getTargetContext(BlockPos targetPos) {
         return this.directionOverride != null ? this.directionOverride :
                 this.blockEntity.getBlockState().getValue(BlockStateProperties.FACING);
     }

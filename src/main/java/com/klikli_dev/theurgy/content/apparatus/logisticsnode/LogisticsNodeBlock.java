@@ -4,12 +4,15 @@
 
 package com.klikli_dev.theurgy.content.apparatus.logisticsnode;
 
-import com.klikli_dev.theurgy.content.render.outliner.Outliner;
 import com.klikli_dev.theurgy.logistics.Logistics;
+import com.klikli_dev.theurgy.network.Networking;
+import com.klikli_dev.theurgy.network.messages.MessageShowLogisticsNodeStatus;
+import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.GlobalPos;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -22,8 +25,10 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class LogisticsNodeBlock extends DirectionalBlock {
     public static final MapCodec<LogisticsNodeBlock> CODEC = simpleCodec(LogisticsNodeBlock::new);
@@ -77,29 +82,20 @@ public class LogisticsNodeBlock extends DirectionalBlock {
 
     @Override
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
-        //TODO: this whole block probably should not exist and be only for debug :)
+        //TODO: this whole block probably should not exist and be only for debug - or converted to a "connector" node for multiple cables to meet:)
         if (!pPlayer.getItemInHand(pHand).isEmpty())
             return InteractionResult.PASS;
+        if (pLevel.isClientSide)
+            return InteractionResult.SUCCESS;
 
-        //TODO: selection behaviour should be an interface -> somehow automate tick/right/left click events
-        //      e.g. lazily make list of fitting blocks and cache it
-
-        if (!pLevel.isClientSide) {
-            //TODO: needs to send packet that does outlining
-            //maybe a generic one?
-
-            var connected = Logistics.get().getNetwork(GlobalPos.of(pLevel.dimension(), pPos));
-            var shape = Shapes.block();
-            for (var block : connected.nodes()) {
-                if (block.dimension().equals(pLevel.dimension())) {
-                    Outliner.get().showAABB(block, shape.bounds()
-                                    .move(block.pos()), 20 * 5)
-                            .colored(0x00FF00)
-                            .lineWidth(1 / 16f);
-                }
+        List<Pair<BlockPos, Integer>> result = new ArrayList<>();
+        var connected = Logistics.get().getNetwork(GlobalPos.of(pLevel.dimension(), pPos));
+        for (var block : connected.nodes()) {
+            if (block.dimension().equals(pLevel.dimension())) {
+                result.add(Pair.of(block.pos(), 0xFFFFF00));
             }
-
         }
+        Networking.sendTo((ServerPlayer) pPlayer, new MessageShowLogisticsNodeStatus(result));
 
         return InteractionResult.SUCCESS;
     }

@@ -90,7 +90,7 @@ public class LogisticsItemInserterBlockEntity extends LogisticsItemConnectorBloc
 
     @Override
     public Direction targetDirection() {
-        return this.leafNode().directionOverride();
+        return this.leafNode().getTargetContext(this.targetPos());
     }
 
     @Override

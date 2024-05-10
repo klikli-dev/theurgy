@@ -8,9 +8,13 @@ import com.klikli_dev.theurgy.content.apparatus.DirectionalBlockShape;
 import com.klikli_dev.theurgy.content.render.outliner.Outliner;
 import com.klikli_dev.theurgy.logistics.Logistics;
 import com.klikli_dev.theurgy.logistics.Wires;
+import com.klikli_dev.theurgy.network.Networking;
+import com.klikli_dev.theurgy.network.messages.MessageShowLogisticsNodeStatus;
+import com.klikli_dev.theurgy.network.messages.MessageShowSulfuricFluxEmitterStatus;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.GlobalPos;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -43,32 +47,11 @@ public abstract class LogisticsItemConnectorBlock extends DirectionalBlock imple
         if (!pPlayer.getItemInHand(pHand).isEmpty())
             return InteractionResult.PASS;
 
+        if (pLevel.isClientSide)
+            return InteractionResult.SUCCESS;
 
-        if (!pLevel.isClientSide) {
-            //TODO: needs to send packet that does outlining
-            //maybe a generic one?
-
-            if (pLevel.getBlockEntity(pPos) instanceof LogisticsItemConnectorBlockEntity blockEntity) {
-                var targets = blockEntity.leafNode().targets();
-                for (var target : targets) {
-                    Outliner.get().showAABB(target, Shapes.block().bounds().move(target), 20 * 5)
-                            .colored(0x00FFFF)
-                            .lineWidth(1 / 16f);
-                }
-            }
-
-            var connected = Logistics.get().getNetwork(GlobalPos.of(pLevel.dimension(), pPos));
-            if (connected != null) {
-                var shape = Shapes.block();
-                for (var block : connected.nodes()) {
-                    if (block.dimension().equals(pLevel.dimension())) {
-                        Outliner.get().showAABB(block, shape.bounds()
-                                        .move(block.pos()), 20 * 5)
-                                .colored(0x00FF00)
-                                .lineWidth(1 / 16f);
-                    }
-                }
-            }
+        if (pLevel.getBlockEntity(pPos) instanceof LogisticsItemConnectorBlockEntity blockEntity) {
+            Networking.sendTo((ServerPlayer) pPlayer, new MessageShowLogisticsNodeStatus(blockEntity.getStatusHighlights()));
         }
 
         return InteractionResult.SUCCESS;

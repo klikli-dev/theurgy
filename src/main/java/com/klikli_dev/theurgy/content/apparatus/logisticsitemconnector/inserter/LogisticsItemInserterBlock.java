@@ -26,7 +26,6 @@ public class LogisticsItemInserterBlock extends LogisticsItemConnectorBlock {
         return CODEC;
     }
 
-
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {

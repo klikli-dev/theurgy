@@ -36,15 +36,21 @@ public abstract class MercurialWandItemMode extends ItemMode {
 
 
     public enum Type {
-
-        SELECT_DIRECTION(new SelectDirectionMode()),
-        SET_SELECTED_DIRECTION(new SetSelectedDirectionMode()),
-        SWITCH_LOGISTICS_ENABLED(new SwitchLogisticsEnabledMode());
+        ROTATE_DIRECTION(new RotateSelectedDirectionMode()),
+        SWITCH_LOGISTICS_ENABLED(new SwitchLogisticsEnabledMode()),
+        SELECT_DIRECTION(new SelectDirectionMode(), false),
+        SET_SELECTED_DIRECTION(new SetSelectedDirectionMode(), false);
 
         final MercurialWandItemMode mode;
+        final boolean enabled;
 
         Type(MercurialWandItemMode mode) {
+            this(mode, true);
+        }
+
+        Type(MercurialWandItemMode mode, boolean enabled) {
             this.mode = mode;
+            this.enabled = enabled;
             mode.type = this;
         }
 
@@ -57,6 +63,10 @@ public abstract class MercurialWandItemMode extends ItemMode {
             if (next >= Type.values().length) {
                 next = 0;
             }
+            var nextValue = Type.values()[next];
+            if (!nextValue.enabled) {
+                return nextValue.next();
+            }
             return Type.values()[next];
         }
 
@@ -65,6 +75,12 @@ public abstract class MercurialWandItemMode extends ItemMode {
             if (previous < 0) {
                 previous = Type.values().length - 1;
             }
+
+            var previousValue = Type.values()[previous];
+            if (!previousValue.enabled) {
+                return previousValue.previous();
+            }
+
             return Type.values()[previous];
         }
 

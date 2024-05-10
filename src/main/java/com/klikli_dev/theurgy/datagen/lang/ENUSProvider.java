@@ -22,6 +22,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Item;
 import net.neoforged.neoforge.registries.DeferredHolder;
+import org.checkerframework.common.returnsreceiver.qual.This;
 
 import java.text.MessageFormat;
 import java.util.function.Supplier;
@@ -659,9 +660,11 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         var wandUsage = this.f("""
                         {0} to use current mode.
                         Hold {1} and {3} to cycle through modes.
-                        Hold {1} and {2} and {3} to use "Select Direction Mode".
-                        {0} without any keys held down in case a mode gets stuck.
                         """,
+//these two are only relevant if we use the "Select Direction Mode" again, which we currently don't
+//                        Hold {1} and {2} and {3} to use "Select Direction Mode".
+//                        {0} without any keys held down in case a mode gets stuck.
+//                        """,
                 this.green("Right-Click"),
                 this.green("Crouch"),
                 this.green("Right Mouse Button"),
@@ -673,13 +676,14 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
                 wandUsage
                 );
 
-
-
         this.add(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_SELECT_DIRECTION, "Select direction (Currently: %s)");
         this.add(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_SELECT_DIRECTION_SUCCESS, "Direction: %s");
         this.add(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_SET_SELECTED_DIRECTION, "Set direction to %s");
         this.add(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_SET_SELECTED_DIRECTION_WITH_TARGET, "Set direction from %s to %s");
         this.add(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_SET_SELECTED_DIRECTION_SUCCESS, "Set direction to %s");
+        this.add(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_ROTATE_SELECTED_DIRECTION, "Rotate selected direction");
+        this.add(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_ROTATE_SELECTED_DIRECTION_WITH_TARGET, "Set direction from %s to %s");
+        this.add(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_ROTATE_SELECTED_DIRECTION_SUCCESS, "Rotated direction to %s");
         this.add(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_SWITCH_LOGISTICS_ENABLED, "Enable/Disable");
         this.add(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_SWITCH_LOGISTICS_ENABLED_HUD, " (Currently: %s)");
         this.add(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_SWITCH_LOGISTICS_ENABLED_SUCCESS, "Logistics Connector is now %s");

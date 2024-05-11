@@ -52,9 +52,10 @@ public class WireRenderer {
         }
         poseStack.popPose();
 
-        //TODO: look up wire in cache
-        //TODO: render wires to cache, if not in cache.
-        //TODO: clear cache if related wire is no longer rendered (probably should be done from Wires class)
+        //TODO: render cache?
+        //  look up wire in cache
+        //  render wires to cache, if not in cache.
+        //  clear cache if related wire is no longer rendered (probably should be done from Wires class)
     }
 
     private void renderWire(VertexConsumer vertexBuilder, PoseStack poseStack, Vec3 startPos, Vec3 endPos) {

@@ -193,10 +193,11 @@ public class Wires extends SavedData {
         this.setDirty();
     }
 
-    public void removeWiresFor(BlockPos pos){
+    public int removeWiresFor(BlockPos pos){
         var wires = this.getWires(pos);
         var copy = new ArrayList<>(wires); //removeWires modifies the underlying set so we can't iterate on it
         copy.forEach(this::removeWire);
+        return copy.size();
     }
 
     public void removeWire(Wire wire) {

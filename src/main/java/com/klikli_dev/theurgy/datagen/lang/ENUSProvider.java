@@ -329,6 +329,18 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
                         this.green("Right-Click")
                 )
         );
+
+        this.addBlock(BlockRegistry.LOGISTICS_CONNECTION_NODE, "Mercurial Connection Node");
+        this.addTooltip(BlockRegistry.LOGISTICS_CONNECTION_NODE.get()::asItem,
+                "Allows to connect multiple wires in a Mercurial Logistics Network",
+                "Can be used to insert or extract items from a block.",
+                this.f(
+                        """
+                                Place the connection node, then use wires to connect it with other connection nodes, or other mercurial logistics blocks.
+                                """,
+                        this.green("Right-Click")
+                )
+        );
     }
 
     private void addGenericSulfur(AlchemicalSulfurItem sulfur) {

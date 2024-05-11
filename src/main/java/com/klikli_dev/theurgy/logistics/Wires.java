@@ -5,6 +5,7 @@
 package com.klikli_dev.theurgy.logistics;
 
 import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Multimaps;
 import com.google.common.collect.SetMultimap;
 import com.klikli_dev.modonomicon.util.Codecs;
 import com.mojang.serialization.Codec;
@@ -51,16 +52,16 @@ public class Wires extends SavedData {
     /**
      * Store all wires per chunk to access for e.g. players watching a chunk.
      */
-    private final SetMultimap<ChunkPos, Wire> chunkToWires = HashMultimap.create();
+    private final SetMultimap<ChunkPos, Wire> chunkToWires = Multimaps.synchronizedSetMultimap(HashMultimap.create());
     /**
      * Also store reverse map, mainly to make removal from chunkToWires easier.
      */
-    private final SetMultimap<Wire, ChunkPos> wiresToChunk = HashMultimap.create();
+    private final SetMultimap<Wire, ChunkPos> wiresToChunk = Multimaps.synchronizedSetMultimap(HashMultimap.create());
 
     /**
      * Maps the wire start and end point to the wire.
      */
-    private final SetMultimap<BlockPos, Wire> blockPosToWire = HashMultimap.create();
+    private final SetMultimap<BlockPos, Wire> blockPosToWire = Multimaps.synchronizedSetMultimap(HashMultimap.create());
 
     private final boolean isClient;
 

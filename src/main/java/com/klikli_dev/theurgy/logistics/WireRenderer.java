@@ -17,13 +17,14 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
 import org.joml.Matrix4f;
 
+import java.util.Collections;
 import java.util.Set;
 
 public class WireRenderer {
 
     private static final WireRenderer instance = new WireRenderer();
 
-    public Set<Wire> wires = new ObjectOpenHashSet<>();
+    public Set<Wire> wires = Collections.synchronizedSet(new ObjectOpenHashSet<>());
 
     public static WireRenderer get() {
         return instance;

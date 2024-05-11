@@ -2,9 +2,12 @@
 //
 // SPDX-License-Identifier: MIT
 
-package com.klikli_dev.theurgy.content.apparatus.logisticsnode;
+package com.klikli_dev.theurgy.content.apparatus.logisticsconnectornode;
 
+import com.klikli_dev.theurgy.content.apparatus.DirectionalBlockShape;
+import com.klikli_dev.theurgy.content.behaviour.logistics.HasWireEndPoint;
 import com.klikli_dev.theurgy.logistics.Logistics;
+import com.klikli_dev.theurgy.logistics.Wires;
 import com.klikli_dev.theurgy.network.Networking;
 import com.klikli_dev.theurgy.network.messages.MessageShowLogisticsNodeStatus;
 import com.mojang.datafixers.util.Pair;
@@ -30,27 +33,14 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LogisticsNodeBlock extends DirectionalBlock {
-    public static final MapCodec<LogisticsNodeBlock> CODEC = simpleCodec(LogisticsNodeBlock::new);
+public class LogisticsConnectionNodeBlock extends DirectionalBlock implements HasWireEndPoint {
+    public static final MapCodec<LogisticsConnectionNodeBlock> CODEC = simpleCodec(LogisticsConnectionNodeBlock::new);
 
-    protected static final float LENGTH = 6.0F;
-    protected static final float WIDTH = 6.0F;
-    protected static final float HEIGHT = 8.0F;
+    public static final DirectionalBlockShape SHAPE = new DirectionalBlockShape(6, 6, 8);
 
-    protected static final float CENTER = 8.0F; // Center of the block
 
-    protected static final VoxelShape UP = Block.box(CENTER - WIDTH / 2, 0.0F, CENTER - LENGTH / 2, CENTER + WIDTH / 2, HEIGHT, CENTER + LENGTH / 2);
-    protected static final VoxelShape DOWN = Block.box(CENTER - WIDTH / 2, 16.0F - HEIGHT, CENTER - LENGTH / 2, CENTER + WIDTH / 2, 16.0F, CENTER + LENGTH / 2);
-    protected static final VoxelShape WEST = Block.box(16.0F - HEIGHT, CENTER - WIDTH / 2, CENTER - LENGTH / 2, 16.0F, CENTER + WIDTH / 2, CENTER + LENGTH / 2);
-    protected static final VoxelShape EAST = Block.box(0.0F, CENTER - WIDTH / 2, CENTER - LENGTH / 2, HEIGHT, CENTER + WIDTH / 2, CENTER + LENGTH / 2);
-    protected static final VoxelShape NORTH = Block.box(CENTER - WIDTH / 2, CENTER - LENGTH / 2, 16.0F - HEIGHT, CENTER + WIDTH / 2, CENTER + LENGTH / 2, 16.0F);
-    protected static final VoxelShape SOUTH = Block.box(CENTER - WIDTH / 2, CENTER - LENGTH / 2, 0.0F, CENTER + WIDTH / 2, CENTER + LENGTH / 2, HEIGHT);
-
-    protected LogisticsNodeSelectionBehaviour selectionBehaviour;
-
-    public LogisticsNodeBlock(Properties properties) {
+    public LogisticsConnectionNodeBlock(Properties properties) {
         super(properties);
-        this.selectionBehaviour = new LogisticsNodeSelectionBehaviour();
 
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.UP));
     }
@@ -60,21 +50,11 @@ public class LogisticsNodeBlock extends DirectionalBlock {
         return CODEC;
     }
 
-    public LogisticsNodeSelectionBehaviour selectionBehaviour() {
-        return this.selectionBehaviour;
-    }
 
     @SuppressWarnings("deprecation")
     @Override
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
-        return switch (pState.getValue(FACING)) {
-            default -> UP;
-            case DOWN -> DOWN;
-            case NORTH -> NORTH;
-            case SOUTH -> SOUTH;
-            case WEST -> WEST;
-            case EAST -> EAST;
-        };
+        return SHAPE.getShape(pState.getValue(FACING));
     }
 
     //TODO destroy self on neighbor destroy
@@ -85,6 +65,7 @@ public class LogisticsNodeBlock extends DirectionalBlock {
         //TODO: this whole block probably should not exist and be only for debug - or converted to a "connector" node for multiple cables to meet:)
         if (!pPlayer.getItemInHand(pHand).isEmpty())
             return InteractionResult.PASS;
+
         if (pLevel.isClientSide)
             return InteractionResult.SUCCESS;
 
@@ -103,6 +84,10 @@ public class LogisticsNodeBlock extends DirectionalBlock {
     @Override
     public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pMovedByPiston) {
         super.onRemove(pState, pLevel, pPos, pNewState, pMovedByPiston);
+
+        //Note: Adding is not necessary, because when using the wire it adds the two connection points.
+        Wires.get(pLevel).removeWiresFor(pPos);
+        //TODO: crash on remove -> concurrent modification exception
 
         if (!pLevel.isClientSide) {
             Logistics.get().remove(GlobalPos.of(pLevel.dimension(), pPos));

@@ -161,7 +161,7 @@ public class TheurgyBlockStateProvider extends BlockStateProvider {
     }
 
     protected void registerLogisticsNode() {
-        var model = this.models().withExistingParent("logistics_node", this.modLoc("block/logistics_node_template"))
+        var model = this.models().withExistingParent("logistics_connection_node", this.modLoc("block/logistics_node_template"))
                 .ao(false)
                 //blockbench spits out garbage textures by losing the folder name so we fix them here
                 .texture("connector", this.modLoc("block/logistics_node_connector"))
@@ -169,8 +169,8 @@ public class TheurgyBlockStateProvider extends BlockStateProvider {
                 .texture("particle", this.mcLoc("block/terracotta"));
 
         //build blockstate
-        this.directionalBlock(BlockRegistry.LOGISTICS_NODE.get(), model);
-        this.itemModels().getBuilder(this.key(BlockRegistry.LOGISTICS_NODE.get()).getPath())
+        this.directionalBlock(BlockRegistry.LOGISTICS_CONNECTION_NODE.get(), model);
+        this.itemModels().getBuilder(this.key(BlockRegistry.LOGISTICS_CONNECTION_NODE.get()).getPath())
                 .parent(model)
                 .transforms()
                 .transform(ItemDisplayContext.GUI)

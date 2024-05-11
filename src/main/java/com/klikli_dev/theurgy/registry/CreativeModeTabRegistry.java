@@ -69,7 +69,7 @@ public class CreativeModeTabRegistry {
 
                 output.accept(ItemRegistry.LOGISTICS_ITEM_INSERTER.get());
                 output.accept(ItemRegistry.LOGISTICS_ITEM_EXTRACTOR.get());
-                output.accept(ItemRegistry.LOGISTICS_NODE.get());
+                output.accept(ItemRegistry.LOGISTICS_CONNECTION_NODE.get());
 
             }).build());
 

@@ -4,8 +4,8 @@
 
 package com.klikli_dev.theurgy.content.item.wire;
 
-import com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector.LogisticsItemConnectorBlock;
-import com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector.LogisticsItemConnectorBlockEntity;
+import com.klikli_dev.theurgy.content.behaviour.logistics.HasLeafNodeBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.logistics.HasWireEndPoint;
 import com.klikli_dev.theurgy.logistics.Logistics;
 import com.klikli_dev.theurgy.logistics.Wire;
 import com.klikli_dev.theurgy.logistics.WireEndPoint;
@@ -40,8 +40,7 @@ public class WireItem extends Item {
         var level = pContext.getLevel();
         var pos = pContext.getClickedPos();
 
-        //TODO: implement proper wire point check
-        return level.getBlockState(pos).getBlock() instanceof LogisticsItemConnectorBlock;
+        return level.getBlockState(pos).getBlock() instanceof HasWireEndPoint;
     }
 
     protected InteractionResult connectWire(UseOnContext pContext, WireEndPoint wireEndPoint) {
@@ -71,11 +70,11 @@ public class WireItem extends Item {
             var posB = GlobalPos.of(wireEndPoint.level(), wireEndPoint.pos());
             Logistics.get().add(posA, posB);
 
-            if (level.getBlockEntity(posA.pos()) instanceof LogisticsItemConnectorBlockEntity blockEntity) {
+            if (level.getBlockEntity(posA.pos()) instanceof HasLeafNodeBehaviour<?, ?> blockEntity) {
                 Logistics.get().add(blockEntity.leafNode());
             }
 
-            if (level.getBlockEntity(posB.pos()) instanceof LogisticsItemConnectorBlockEntity blockEntity) {
+            if (level.getBlockEntity(posB.pos()) instanceof HasLeafNodeBehaviour<?, ?> blockEntity) {
                 Logistics.get().add(blockEntity.leafNode());
             }
         }

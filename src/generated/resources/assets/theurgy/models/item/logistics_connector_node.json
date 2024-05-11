@@ -1,5 +1,5 @@
 {
-  "parent": "theurgy:block/logistics_node",
+  "parent": "theurgy:block/logistics_connection_node",
   "display": {
     "firstperson_lefthand": {
       "rotation": [

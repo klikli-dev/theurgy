@@ -26,12 +26,10 @@ public class Networking {
         registrar.play(MessageItemModeSelectDirection.ID, MessageItemModeSelectDirection::new, MessageHandler::handle);
         registrar.play(MessageCaloricFluxEmitterSelection.ID, MessageCaloricFluxEmitterSelection::new, MessageHandler::handle);
         registrar.play(MessageSulfuricFluxEmitterSelection.ID, MessageSulfuricFluxEmitterSelection::new, MessageHandler::handle);
-        registrar.play(MessageLogisticsNodeSelection.ID, MessageLogisticsNodeSelection::new, MessageHandler::handle);
 
         //to client
         registrar.play(MessageRequestCaloricFluxEmitterSelection.ID, MessageRequestCaloricFluxEmitterSelection::new, MessageHandler::handle);
         registrar.play(MessageRequestSulfuricFluxEmitterSelection.ID, MessageRequestSulfuricFluxEmitterSelection::new, MessageHandler::handle);
-        registrar.play(MessageRequestLogisticsNodeSelection.ID, MessageRequestLogisticsNodeSelection::new, MessageHandler::handle);
         registrar.play(MessageShowCaloricFlux.ID, MessageShowCaloricFlux::new, MessageHandler::handle);
         registrar.play(MessageShowSulfuricFluxEmitterStatus.ID, MessageShowSulfuricFluxEmitterStatus::new, MessageHandler::handle);
         registrar.play(MessageShowLogisticsNodeStatus.ID, MessageShowLogisticsNodeStatus::new, MessageHandler::handle);

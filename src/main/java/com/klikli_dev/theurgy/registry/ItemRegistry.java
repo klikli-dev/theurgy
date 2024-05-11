@@ -13,7 +13,6 @@ import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorMercuryVessel
 import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorSaltVesselBlockItem;
 import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorSulfurVesselBlockItem;
 import com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector.LogisticsItemConnectorBlockItem;
-import com.klikli_dev.theurgy.content.apparatus.logisticsnode.LogisticsNodeBlockItem;
 import com.klikli_dev.theurgy.content.apparatus.reformationarray.SulfuricFluxEmitterBlockItem;
 import com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator.SalAmmoniacAccumulatorBlockItem;
 import com.klikli_dev.theurgy.content.apparatus.salammoniactank.SalAmmoniacTankBlockItem;
@@ -193,8 +192,8 @@ public class ItemRegistry {
     public static final DeferredItem<BlockItem> DIGESTION_VAT =
             ITEMS.register("digestion_vat", () -> new DigestionVatBlockItem(BlockRegistry.DIGESTION_VAT.get(), new Item.Properties()));
 
-    public static final DeferredItem<BlockItem> LOGISTICS_NODE =
-            ITEMS.register(BlockRegistry.LOGISTICS_NODE.getId().getPath(), () -> new LogisticsNodeBlockItem(BlockRegistry.LOGISTICS_NODE.get(), new Item.Properties()));
+    public static final DeferredItem<BlockItem> LOGISTICS_CONNECTION_NODE =
+            ITEMS.register(BlockRegistry.LOGISTICS_CONNECTION_NODE.getId().getPath(), () -> new BlockItem(BlockRegistry.LOGISTICS_CONNECTION_NODE.get(), new Item.Properties()));
 
     public static final DeferredItem<BlockItem> LOGISTICS_ITEM_INSERTER =
             ITEMS.register(BlockRegistry.LOGISTICS_ITEM_INSERTER.getId().getPath(), () -> new LogisticsItemConnectorBlockItem(BlockRegistry.LOGISTICS_ITEM_INSERTER.get(), new Item.Properties()));

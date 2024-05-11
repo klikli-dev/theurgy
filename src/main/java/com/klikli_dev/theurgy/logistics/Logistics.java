@@ -285,6 +285,9 @@ public class Logistics extends SavedData {
      */
     public void remove(GlobalPos destroyedBlock) {
         //This is a bit trickier than just removing an edge, because it can theoretically create multiple networks.
+        if(!this.graphNodes().contains(destroyedBlock)){
+            return;
+        }
 
         //first query the neighbors, because after removal we can't
         var neighbors = this.graph().adjacentNodes(destroyedBlock);

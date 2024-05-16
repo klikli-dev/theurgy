@@ -124,7 +124,7 @@ public class ItemRegistry {
 
     //Other Tools
     public static final DeferredItem<Item> COPPER_WIRE =
-            ITEMS.register("copper_wire", () -> new WireItem(new Item.Properties()));
+            ITEMS.register("copper_wire", () -> new WireItem(new Item.Properties(), 32));
 
     public static final DeferredItem<MercurialWandItem> MERCURIAL_WAND =
             ITEMS.register("mercurial_wand", () -> new MercurialWandItem(new Item.Properties()));

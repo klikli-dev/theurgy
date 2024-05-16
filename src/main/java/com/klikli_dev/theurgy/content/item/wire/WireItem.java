@@ -16,8 +16,11 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.context.UseOnContext;
 
 public class WireItem extends Item {
-    public WireItem(Properties pProperties) {
+
+    private final int maxRange;
+    public WireItem(Properties pProperties, int maxRange) {
         super(pProperties);
+        this.maxRange = maxRange;
     }
 
     @Override
@@ -51,7 +54,7 @@ public class WireItem extends Item {
         if (wireEndPoint.pos().equals(pos))
             return InteractionResult.FAIL; //can't connect to self
 
-        if (wireEndPoint.pos().distManhattan(pos) > 32) //TODO: implement max wire range properly
+        if (wireEndPoint.pos().distManhattan(pos) > this.maxRange)
             return InteractionResult.FAIL; //can't connect to points too far away
 
         var stack = pContext.getItemInHand();

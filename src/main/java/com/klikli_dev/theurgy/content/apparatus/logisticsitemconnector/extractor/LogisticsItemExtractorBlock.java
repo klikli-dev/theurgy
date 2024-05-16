@@ -35,11 +35,6 @@ public class LogisticsItemExtractorBlock extends LogisticsItemConnectorBlock {
         return CODEC;
     }
 
-    //TODO: get targets on place using the updateCustomBlockEntityTag method
-    //      might also be possible in the onplacedby
-    //      the first option has the advantage of also working for future logistics blocks that use the selector system
-    //      in both cases we simply place the targets in the "BlockEntityTag" and let the entity load them
-
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {

@@ -94,12 +94,6 @@ public class SetSelectedDirectionMode extends MercurialWandItemMode {
             return InteractionResult.SUCCESS;
         }
 
-        //TODO: when looking at valid target block its current direction should be
-        //      to that end we need to know its target block
-        //      Concrete: We need to sync most node data to the client!
-        //TODO: we should also show the new direction in a different color
-
-
         return super.onItemUseFirst(stack, context);
     }
 }

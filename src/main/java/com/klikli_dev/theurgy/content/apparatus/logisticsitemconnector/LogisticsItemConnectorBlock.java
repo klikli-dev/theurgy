@@ -20,7 +20,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DirectionalBlock;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -28,6 +31,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.NotNull;
 
 public abstract class LogisticsItemConnectorBlock extends DirectionalBlock implements EntityBlock, HasWireEndPoint {
 
@@ -61,14 +65,12 @@ public abstract class LogisticsItemConnectorBlock extends DirectionalBlock imple
         return SHAPE.getShape(pState.getValue(FACING));
     }
 
-    //TODO destroy self on neighbor destroy
-
     @Override
     public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pMovedByPiston) {
         super.onRemove(pState, pLevel, pPos, pNewState, pMovedByPiston);
 
         var removedWires = Wires.get(pLevel).removeWiresFor(pPos);
-        if(pLevel.isClientSide)
+        if (pLevel.isClientSide)
             return;
 
         Block.popResource(pLevel, pPos, new ItemStack(ItemRegistry.COPPER_WIRE.get(), removedWires));
@@ -90,5 +92,21 @@ public abstract class LogisticsItemConnectorBlock extends DirectionalBlock imple
         return blockstate.is(this) && blockstate.getValue(FACING) == direction
                 ? this.defaultBlockState().setValue(FACING, direction.getOpposite())
                 : this.defaultBlockState().setValue(FACING, direction);
+    }
+
+    @SuppressWarnings("deprecation")
+    @Override
+    public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) {
+        //The item connector can be connected to any block that is not air.
+        //that is because many machines do not offer solid faces.
+        Direction direction = pState.getValue(FACING);
+        BlockPos blockpos = pPos.relative(direction.getOpposite());
+        return !pLevel.getBlockState(blockpos).isAir();
+    }
+
+    @SuppressWarnings("deprecation")
+    @Override
+    public @NotNull BlockState updateShape(BlockState pState, Direction pFacing, @NotNull BlockState pFacingState, @NotNull LevelAccessor pLevel, @NotNull BlockPos pCurrentPos, @NotNull BlockPos pFacingPos) {
+        return pFacing.getOpposite() == pState.getValue(FACING) && !pState.canSurvive(pLevel, pCurrentPos) ? Blocks.AIR.defaultBlockState() : pState;
     }
 }

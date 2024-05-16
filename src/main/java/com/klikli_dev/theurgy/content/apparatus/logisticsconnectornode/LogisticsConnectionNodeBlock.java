@@ -24,13 +24,17 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DirectionalBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,12 +63,10 @@ public class LogisticsConnectionNodeBlock extends DirectionalBlock implements Ha
         return SHAPE.getShape(pState.getValue(FACING));
     }
 
-    //TODO destroy self on neighbor destroy
     //TODO only allow to attach to a full face
 
     @Override
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
-        //TODO: this whole block probably should not exist and be only for debug - or converted to a "connector" node for multiple cables to meet:)
         if (!pPlayer.getItemInHand(pHand).isEmpty())
             return InteractionResult.PASS;
 
@@ -109,5 +111,21 @@ public class LogisticsConnectionNodeBlock extends DirectionalBlock implements Ha
         return blockstate.is(this) && blockstate.getValue(FACING) == direction
                 ? this.defaultBlockState().setValue(FACING, direction.getOpposite())
                 : this.defaultBlockState().setValue(FACING, direction);
+    }
+
+    @SuppressWarnings("deprecation")
+    @Override
+    public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) {
+        //the connection node can only be placed on a solid face
+        Direction direction = pState.getValue(FACING);
+        BlockPos blockpos = pPos.relative(direction.getOpposite());
+        BlockState blockstate = pLevel.getBlockState(blockpos);
+        return blockstate.isFaceSturdy(pLevel, blockpos, direction);
+    }
+
+    @SuppressWarnings("deprecation")
+    @Override
+    public @NotNull BlockState updateShape(BlockState pState, Direction pFacing, @NotNull BlockState pFacingState, @NotNull LevelAccessor pLevel, @NotNull BlockPos pCurrentPos, @NotNull BlockPos pFacingPos) {
+        return pFacing.getOpposite() == pState.getValue(FACING) && !pState.canSurvive(pLevel, pCurrentPos) ? Blocks.AIR.defaultBlockState() : pState;
     }
 }

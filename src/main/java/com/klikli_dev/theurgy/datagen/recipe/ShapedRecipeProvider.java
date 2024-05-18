@@ -328,6 +328,14 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
                 .define('g', Tags.Items.INGOTS_GOLD)
                 .define('S', Tags.Items.SANDSTONE)
         );
+
+
+        this.makeRecipe(this.name(ItemRegistry.COPPER_WIRE.get()), new RecipeBuilder(
+                ItemRegistry.COPPER_WIRE.get(), 10)
+                .pattern("cmc")
+                .define('m', ItemRegistry.MERCURY_SHARD)
+                .define('c', Tags.Items.INGOTS_COPPER)
+        );
     }
 
     public JsonObject makeDivinationRodSettings(DivinationRodItem rodItem) {

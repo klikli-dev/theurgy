@@ -658,9 +658,9 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.addTooltip(ItemRegistry.OTHER_MINERALS_PRECIOUS_ICON, "Dummy item for rendering.");
 
         this.addItem(ItemRegistry.SAL_AMMONIAC_BUCKET, "Sal Ammoniac Bucket");
-        this.addItem(ItemRegistry.COPPER_WIRE, "Copper Wire");
+        this.addItem(ItemRegistry.COPPER_WIRE, "Mercurial Copper Wire");
         this.addTooltip(ItemRegistry.COPPER_WIRE,
-                "A piece of copper wire.",
+                "A piece of copper wire capable of transferring matter in its mercurial form.",
                 "Can be used to connect different parts of Mercurial Logistics Networks.",
                 """
                         Right-click one connector, then right-click another connector to connect them with the wire.

@@ -43,7 +43,7 @@ public class DigestionRecipeProvider extends JsonRecipeProvider {
     }
 
     @Override
-    void buildRecipes(BiConsumer<ResourceLocation, JsonObject> recipeConsumer) {
+    public void buildRecipes(BiConsumer<ResourceLocation, JsonObject> recipeConsumer) {
         this.makeRecipeWithTags(Fluids.WATER, 1000, List.of(
                 Tags.Items.INGOTS_GOLD,
                 ItemTagRegistry.ALCHEMICAL_SALTS

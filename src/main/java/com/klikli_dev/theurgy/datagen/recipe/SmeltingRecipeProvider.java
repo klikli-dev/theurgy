@@ -25,7 +25,7 @@ public class SmeltingRecipeProvider extends JsonRecipeProvider {
     }
 
     @Override
-    void buildRecipes(BiConsumer<ResourceLocation, JsonObject> recipeConsumer) {
+    public void buildRecipes(BiConsumer<ResourceLocation, JsonObject> recipeConsumer) {
 //        this.makeRecipe("sal_ammoniac_crystal_from_sal_ammoniac_bucket",
 //                new RecipeBuilder(ItemRegistry.SAL_AMMONIAC_CRYSTAL.get(), 1)
 //                        .requires(ItemRegistry.SAL_AMMONIAC_BUCKET.get())

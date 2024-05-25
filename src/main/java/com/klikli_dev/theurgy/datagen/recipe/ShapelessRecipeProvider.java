@@ -29,7 +29,7 @@ public class ShapelessRecipeProvider extends JsonRecipeProvider {
     }
 
     @Override
-    void buildRecipes(BiConsumer<ResourceLocation, JsonObject> recipeConsumer) {
+    public void buildRecipes(BiConsumer<ResourceLocation, JsonObject> recipeConsumer) {
 
         var hermeticaNbt = new JsonObject();
         hermeticaNbt.addProperty("modonomicon:book_id", "theurgy:the_hermetica");

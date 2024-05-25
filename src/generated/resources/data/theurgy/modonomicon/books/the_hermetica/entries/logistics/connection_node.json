@@ -2,12 +2,12 @@
   "background_u_index": 0,
   "background_v_index": 0,
   "category": "theurgy:logistics",
-  "description": "book.theurgy.the_hermetica.logistics.mercurial_wire.description",
+  "description": "book.theurgy.the_hermetica.logistics.connection_node.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "theurgy:copper_wire"
+    "item": "theurgy:logistics_connector_node"
   },
-  "name": "book.theurgy.the_hermetica.logistics.mercurial_wire.name",
+  "name": "book.theurgy.the_hermetica.logistics.connection_node.name",
   "pages": [
     {
       "type": "modonomicon:spotlight",
@@ -16,9 +16,9 @@
         "type": "modonomicon:none"
       },
       "item": {
-        "item": "theurgy:copper_wire"
+        "item": "theurgy:logistics_connector_node"
       },
-      "text": "book.theurgy.the_hermetica.logistics.mercurial_wire.wire.text",
+      "text": "book.theurgy.the_hermetica.logistics.connection_node.node.text",
       "title": ""
     },
     {
@@ -27,7 +27,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "theurgy:crafting/shaped/copper_wire",
+      "recipe_id_1": "theurgy:crafting/shaped/logistics_connector_node",
       "text": "",
       "title1": "",
       "title2": ""
@@ -39,31 +39,33 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.logistics.mercurial_wire.usage.text",
-      "title": "book.theurgy.the_hermetica.logistics.mercurial_wire.usage.title",
+      "text": "book.theurgy.the_hermetica.logistics.connection_node.usage.text",
+      "title": "book.theurgy.the_hermetica.logistics.connection_node.usage.title",
       "use_markdown_in_title": false
     },
     {
-      "type": "modonomicon:text",
+      "type": "modonomicon:image",
       "anchor": "",
+      "border": true,
       "condition": {
         "type": "modonomicon:none"
       },
-      "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.logistics.mercurial_wire.removal.text",
-      "title": "book.theurgy.the_hermetica.logistics.mercurial_wire.removal.title",
-      "use_markdown_in_title": false
+      "images": [
+        "theurgy:textures/gui/book/connection_node_example.png"
+      ],
+      "text": "",
+      "title": "book.theurgy.the_hermetica.logistics.connection_node.image.title"
     }
   ],
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "theurgy:logistics/intro",
+      "entry": "theurgy:logistics/logistics_network",
       "line_enabled": true,
       "line_reversed": false
     }
   ],
   "show_when_any_parent_unlocked": false,
-  "x": 5,
+  "x": 9,
   "y": 0
 }

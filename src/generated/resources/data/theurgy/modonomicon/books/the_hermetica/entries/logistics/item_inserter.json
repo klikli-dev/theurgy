@@ -2,12 +2,12 @@
   "background_u_index": 0,
   "background_v_index": 0,
   "category": "theurgy:logistics",
-  "description": "book.theurgy.the_hermetica.logistics.mercurial_wand.description",
+  "description": "book.theurgy.the_hermetica.logistics.item_inserter.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "theurgy:mercurial_wand"
+    "item": "theurgy:logistics_item_inserter"
   },
-  "name": "book.theurgy.the_hermetica.logistics.mercurial_wand.name",
+  "name": "book.theurgy.the_hermetica.logistics.item_inserter.name",
   "pages": [
     {
       "type": "modonomicon:spotlight",
@@ -16,9 +16,9 @@
         "type": "modonomicon:none"
       },
       "item": {
-        "item": "theurgy:mercurial_wand"
+        "item": "theurgy:logistics_item_inserter"
       },
-      "text": "book.theurgy.the_hermetica.logistics.mercurial_wand.conversion.text",
+      "text": "book.theurgy.the_hermetica.logistics.item_inserter.inserter.text",
       "title": ""
     },
     {
@@ -27,7 +27,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "theurgy:crafting/shaped/mercurial_wand",
+      "recipe_id_1": "theurgy:crafting/shaped/logistics_item_inserter",
       "text": "",
       "title1": "",
       "title2": ""
@@ -39,8 +39,8 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.logistics.mercurial_wand.usage.text",
-      "title": "book.theurgy.the_hermetica.logistics.mercurial_wand.usage.title",
+      "text": "book.theurgy.the_hermetica.logistics.item_inserter.usage.text",
+      "title": "book.theurgy.the_hermetica.logistics.item_inserter.usage.title",
       "use_markdown_in_title": false
     },
     {
@@ -50,8 +50,8 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.logistics.mercurial_wand.rotate.text",
-      "title": "book.theurgy.the_hermetica.logistics.mercurial_wand.rotate.title",
+      "text": "book.theurgy.the_hermetica.logistics.item_inserter.identification.text",
+      "title": "book.theurgy.the_hermetica.logistics.item_inserter.identification.title",
       "use_markdown_in_title": false
     },
     {
@@ -61,19 +61,8 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.logistics.mercurial_wand.rotate_visuals.text",
-      "title": "book.theurgy.the_hermetica.logistics.mercurial_wand.rotate_visuals.title",
-      "use_markdown_in_title": false
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.logistics.mercurial_wand.enable.text",
-      "title": "book.theurgy.the_hermetica.logistics.mercurial_wand.enable.title",
+      "text": "book.theurgy.the_hermetica.logistics.item_inserter.direction.text",
+      "title": "book.theurgy.the_hermetica.logistics.item_inserter.direction.title",
       "use_markdown_in_title": false
     }
   ],
@@ -86,6 +75,6 @@
     }
   ],
   "show_when_any_parent_unlocked": false,
-  "x": -1,
-  "y": 2
+  "x": 3,
+  "y": -2
 }

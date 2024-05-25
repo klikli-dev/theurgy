@@ -17,6 +17,8 @@ import com.mojang.datafixers.util.Pair;
 import net.minecraft.world.item.crafting.Ingredient;
 
 public class MercurialWandEntry extends EntryProvider {
+
+    public static final String ENTRY_ID = "mercurial_wand";
     public MercurialWandEntry(CategoryProvider parent) {
         super(parent);
     }
@@ -51,13 +53,26 @@ public class MercurialWandEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Rotate Selected Direction");
         this.pageText("""
-               With this mode, right-clicking on a block will rotate the selected direction of the target block.
+               With this mode, right-clicking on a block will cycle the selected direction of the target block.
                \\
                \\
                The "selected direction" is the direction the block will insert/extract to/from.
                \\
                \\
                The default selected direction is the face the block is attached to.
+                """
+        );
+
+        this.page("rotate_visuals", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("Rotate Selected Direction");
+        this.pageText("""
+               When looking at a logistics block with this mode selected, the block will highlight the selected direction on its target block.
+               \\
+               \\
+               Yellow is the current direction, green is the direction that will be set if you right-click.\\
+               Make sure that the side you want to insert/extract from is yellow!
                 """
         );
 
@@ -96,6 +111,6 @@ public class MercurialWandEntry extends EntryProvider {
 
     @Override
     protected String entryId() {
-        return "mercurial_wand";
+        return ENTRY_ID;
     }
 }

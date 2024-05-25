@@ -114,11 +114,16 @@ public class LogisticsConnectionNodeBlock extends DirectionalBlock implements Ha
     @SuppressWarnings("deprecation")
     @Override
     public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) {
-        //the connection node can only be placed on a solid face
+//        //the connection node can only be placed on a solid face
+//        Direction direction = pState.getValue(FACING);
+//        BlockPos blockpos = pPos.relative(direction.getOpposite());
+//        BlockState blockstate = pLevel.getBlockState(blockpos);
+//        return blockstate.isFaceSturdy(pLevel, blockpos, direction);
+
+        //The connection node can be connected to any block that is not air.
         Direction direction = pState.getValue(FACING);
         BlockPos blockpos = pPos.relative(direction.getOpposite());
-        BlockState blockstate = pLevel.getBlockState(blockpos);
-        return blockstate.isFaceSturdy(pLevel, blockpos, direction);
+        return !pLevel.getBlockState(blockpos).isAir();
     }
 
     @SuppressWarnings("deprecation")

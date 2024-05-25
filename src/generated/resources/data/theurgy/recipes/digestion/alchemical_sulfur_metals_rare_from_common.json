@@ -1,5 +1,6 @@
 {
   "type": "theurgy:digestion",
+  "category": "misc",
   "fluid": {
     "tag": "theurgy:sal_ammoniac"
   },

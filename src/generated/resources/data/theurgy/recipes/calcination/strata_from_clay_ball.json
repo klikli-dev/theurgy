@@ -1,5 +1,6 @@
 {
   "type": "theurgy:calcination",
+  "category": "misc",
   "ingredient": {
     "item": "minecraft:clay_ball"
   },

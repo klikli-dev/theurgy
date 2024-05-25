@@ -14,6 +14,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
 import net.neoforged.neoforge.common.Tags;
@@ -41,6 +42,16 @@ public class ShapelessRecipeProvider extends JsonRecipeProvider {
         this.makeRecipe("sal_ammoniac_crystal_from_sal_ammoniac_bucket",
                 new RecipeBuilder(ItemRegistry.SAL_AMMONIAC_CRYSTAL.get(), 1)
                         .requires(ItemRegistry.SAL_AMMONIAC_BUCKET.get())
+        );
+
+        this.makeRecipe("logistics_item_extractor_from_inserter",
+                new RecipeBuilder(ItemRegistry.LOGISTICS_ITEM_EXTRACTOR.get(), 1)
+                        .requires(ItemRegistry.LOGISTICS_ITEM_INSERTER.get())
+        );
+
+        this.makeRecipe("logistics_item_inserter_from_extractor",
+                new RecipeBuilder(ItemRegistry.LOGISTICS_ITEM_INSERTER.get(), 1)
+                        .requires(ItemRegistry.LOGISTICS_ITEM_EXTRACTOR.get())
         );
     }
 
@@ -107,6 +118,9 @@ public class ShapelessRecipeProvider extends JsonRecipeProvider {
         }
 
         public JsonObject build() {
+            if(!this.recipe.has("category"))
+                this.recipe.addProperty("category", CraftingBookCategory.MISC.getSerializedName());
+
             return this.recipe;
         }
 

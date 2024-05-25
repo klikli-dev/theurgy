@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "b": {
+      "tag": "forge:ingots/brick"
+    },
+    "i": {
+      "tag": "forge:ingots/iron"
+    },
+    "m": {
+      "item": "theurgy:mercury_shard"
+    }
+  },
+  "pattern": [
+    " m ",
+    " i ",
+    "bbb"
+  ],
+  "result": {
+    "count": 3,
+    "item": "theurgy:logistics_connector_node"
+  }
+}

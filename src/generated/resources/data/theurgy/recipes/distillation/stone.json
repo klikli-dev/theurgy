@@ -9,6 +9,7 @@
     }
   ],
   "type": "theurgy:distillation",
+  "category": "misc",
   "ingredient": {
     "tag": "forge:stone"
   },

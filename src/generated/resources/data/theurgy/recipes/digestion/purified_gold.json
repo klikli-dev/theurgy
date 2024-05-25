@@ -16,6 +16,7 @@
     }
   ],
   "type": "theurgy:digestion",
+  "category": "misc",
   "fluid": {
     "tag": "minecraft:water"
   },

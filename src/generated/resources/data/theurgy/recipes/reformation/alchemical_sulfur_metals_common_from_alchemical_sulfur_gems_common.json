@@ -1,5 +1,6 @@
 {
   "type": "theurgy:reformation",
+  "category": "misc",
   "mercury_flux": 100,
   "result": {
     "count": 2,

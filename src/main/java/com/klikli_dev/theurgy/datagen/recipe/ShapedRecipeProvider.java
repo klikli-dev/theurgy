@@ -19,6 +19,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Tier;
+import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
@@ -336,6 +337,42 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
                 .define('m', ItemRegistry.MERCURY_SHARD)
                 .define('c', Tags.Items.INGOTS_COPPER)
         );
+
+        this.makeRecipe(this.name(ItemRegistry.MERCURIAL_WAND.get()), new RecipeBuilder(
+                ItemRegistry.MERCURIAL_WAND.get(), 1)
+                .pattern(" sm")
+                .pattern(" cs")
+                .pattern("s  ")
+                .define('m', ItemRegistry.MERCURY_SHARD)
+                .define('s', Tags.Items.RODS_WOODEN)
+                .define('c', Tags.Items.INGOTS_COPPER)
+        );
+
+        this.makeRecipe(this.name(ItemRegistry.LOGISTICS_ITEM_INSERTER.get()), new RecipeBuilder(
+                ItemRegistry.LOGISTICS_ITEM_INSERTER.get(), 1)
+                .pattern("m")
+                .pattern("c")
+                .define('m', ItemRegistry.MERCURY_SHARD)
+                .define('c', Tags.Items.INGOTS_COPPER)
+        );
+
+        this.makeRecipe(this.name(ItemRegistry.LOGISTICS_ITEM_EXTRACTOR.get()), new RecipeBuilder(
+                ItemRegistry.LOGISTICS_ITEM_EXTRACTOR.get(), 1)
+                .pattern("c")
+                .pattern("m")
+                .define('m', ItemRegistry.MERCURY_SHARD)
+                .define('c', Tags.Items.INGOTS_COPPER)
+        );
+
+        this.makeRecipe(this.name(ItemRegistry.LOGISTICS_CONNECTION_NODE.get()), new RecipeBuilder(
+                ItemRegistry.LOGISTICS_CONNECTION_NODE.get(), 3)
+                .pattern(" m ")
+                .pattern(" i ")
+                .pattern("bbb")
+                .define('m', ItemRegistry.MERCURY_SHARD)
+                .define('i', Tags.Items.INGOTS_IRON)
+                .define('b', Tags.Items.INGOTS_BRICK)
+        );
     }
 
     public JsonObject makeDivinationRodSettings(DivinationRodItem rodItem) {
@@ -420,6 +457,8 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
         }
 
         public JsonObject build() {
+            if(!this.recipe.has("category"))
+                this.recipe.addProperty("category", CraftingBookCategory.MISC.getSerializedName());
             return this.recipe;
         }
     }

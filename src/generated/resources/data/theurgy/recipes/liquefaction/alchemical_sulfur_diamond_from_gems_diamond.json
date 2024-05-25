@@ -9,6 +9,7 @@
     }
   ],
   "type": "theurgy:liquefaction",
+  "category": "misc",
   "ingredient": {
     "tag": "forge:gems/diamond"
   },

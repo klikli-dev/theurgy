@@ -9,6 +9,7 @@
     }
   ],
   "type": "theurgy:calcination",
+  "category": "misc",
   "ingredient": {
     "tag": "forge:stone"
   },

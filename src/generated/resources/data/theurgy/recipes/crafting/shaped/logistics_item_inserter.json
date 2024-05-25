@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "c": {
+      "tag": "forge:ingots/copper"
+    },
+    "m": {
+      "item": "theurgy:mercury_shard"
+    }
+  },
+  "pattern": [
+    "m",
+    "c"
+  ],
+  "result": {
+    "count": 1,
+    "item": "theurgy:logistics_item_inserter"
+  }
+}

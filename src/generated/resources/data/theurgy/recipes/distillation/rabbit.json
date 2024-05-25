@@ -1,5 +1,6 @@
 {
   "type": "theurgy:distillation",
+  "category": "misc",
   "ingredient": {
     "item": "minecraft:rabbit"
   },

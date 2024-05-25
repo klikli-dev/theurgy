@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.17.4] - 2024-05-25
+### :bug: Bug Fixes
+- [`3533f34`](https://github.com/klikli-dev/theurgy/commit/3533f341adbf70e353b098e0680f04159e61a04a) - buildRecipes is protected on children of JsonRecipeProvider *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.1-1.17.2] - 2024-04-14
 ### :bug: Bug Fixes
 - [`4255492`](https://github.com/klikli-dev/theurgy/commit/425549246e0eada609eb2db24470aebfc0df0036) - sal ammoniac accumulator tooltip claims you need a brazier below *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -461,3 +466,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.17.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.16.1...release/v1.20.1-1.17.0
 [release/v1.20.1-1.17.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.17.0...release/v1.20.1-1.17.1
 [release/v1.20.1-1.17.2]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.17.1...release/v1.20.1-1.17.2
+[release/v1.20.1-1.17.4]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.17.3...release/v1.20.1-1.17.4

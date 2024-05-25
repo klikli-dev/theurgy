@@ -7,10 +7,10 @@ package com.klikli_dev.theurgy.datagen.lang;
 import com.klikli_dev.modonomicon.api.datagen.AbstractModonomiconLanguageProvider;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.TheurgyConstants;
-import com.klikli_dev.theurgy.content.item.AlchemicalSaltItem;
-import com.klikli_dev.theurgy.content.item.AlchemicalSulfurItem;
-import com.klikli_dev.theurgy.content.item.AlchemicalSulfurTier;
-import com.klikli_dev.theurgy.content.item.AlchemicalSulfurType;
+import com.klikli_dev.theurgy.content.item.salt.AlchemicalSaltItem;
+import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurItem;
+import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurTier;
+import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurType;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.registry.SaltRegistry;
@@ -22,6 +22,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Item;
 import net.neoforged.neoforge.registries.DeferredHolder;
+import org.checkerframework.common.returnsreceiver.qual.This;
 
 import java.text.MessageFormat;
 import java.util.function.Supplier;
@@ -41,6 +42,11 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
 
     protected String darkRed(String text) {
         return ChatFormatting.DARK_RED + text + ChatFormatting.RESET + ChatFormatting.GRAY;
+    }
+
+    private void addKeys() {
+        this.add(TheurgyConstants.I18n.Key.CATEGORY, "Theurgy");
+        this.add(TheurgyConstants.I18n.Key.CHANGE_ITEM_MODE, "Change Item Mode");
     }
 
     private void addMisc() {
@@ -297,6 +303,44 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.addBlock(BlockRegistry.DEEPSLATE_SAL_AMMONIAC_ORE, "Deepslate Sal Ammoniac Ore");
         this.addExtendedTooltip(BlockRegistry.DEEPSLATE_SAL_AMMONIAC_ORE.get()::asItem,
                 "Ore that yields Sal Ammoniac Crystals for use in a Sal Ammoniac Accumulator.");
+
+        this.addBlock(BlockRegistry.LOGISTICS_ITEM_INSERTER, "Mercurial Item Inserter");
+        this.addTooltip(BlockRegistry.LOGISTICS_ITEM_INSERTER.get()::asItem,
+                "Allows to insert items into a block from a Mercurial Logistics Network",
+                "Can be used to insert or extract items from a block.",
+                this.f(
+                        """
+                                {0} the target block with the inserter to place it.
+                                Then {0} the inserter with a cable to connect it to the network.
+                                """,
+                        this.green("Right-Click")
+                )
+        );
+
+        this.addBlock(BlockRegistry.LOGISTICS_ITEM_EXTRACTOR, "Mercurial Item Extractor");
+        this.addTooltip(BlockRegistry.LOGISTICS_ITEM_EXTRACTOR.get()::asItem,
+                "Allows to extract items from a block into a Mercurial Logistics Network",
+                "Can be used to insert or extract items from a block.",
+                this.f(
+                        """
+                                {0} the target block with the extractor to place it.
+                                Then {0} the extractor with a cable to connect it to the network.
+                                """,
+                        this.green("Right-Click")
+                )
+        );
+
+        this.addBlock(BlockRegistry.LOGISTICS_CONNECTION_NODE, "Mercurial Connection Node");
+        this.addTooltip(BlockRegistry.LOGISTICS_CONNECTION_NODE.get()::asItem,
+                "Allows to connect multiple wires in a Mercurial Logistics Network",
+                "Can be used to insert or extract items from a block.",
+                this.f(
+                        """
+                                Place the connection node, then use wires to connect it with other connection nodes, or other mercurial logistics blocks.
+                                """,
+                        this.green("Right-Click")
+                )
+        );
     }
 
     private void addGenericSulfur(AlchemicalSulfurItem sulfur) {
@@ -555,7 +599,6 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.addSalts();
         this.addSulfurs();
         this.addDivinationRods();
-
         this.addItem(ItemRegistry.EMPTY_JAR_ICON, "Empty Jar Icon");
         this.addTooltip(ItemRegistry.EMPTY_JAR_ICON, "Dummy item for rendering.");
         this.addItem(ItemRegistry.EMPTY_JAR_IRON_BAND_ICON, "Empty Jar with Iron Band Icon");
@@ -615,6 +658,50 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.addTooltip(ItemRegistry.OTHER_MINERALS_PRECIOUS_ICON, "Dummy item for rendering.");
 
         this.addItem(ItemRegistry.SAL_AMMONIAC_BUCKET, "Sal Ammoniac Bucket");
+        this.addItem(ItemRegistry.COPPER_WIRE, "Mercurial Copper Wire");
+        this.addTooltip(ItemRegistry.COPPER_WIRE,
+                "A piece of copper wire capable of transferring matter in its mercurial form.",
+                "Can be used to connect different parts of Mercurial Logistics Networks.",
+                """
+                        Right-click one connector, then right-click another connector to connect them with the wire.
+                        """
+                );
+
+        this.addItem(ItemRegistry.MERCURIAL_WAND, "Mercurial Wand");
+
+        var wandUsage = this.f("""
+                        {0} to use current mode.
+                        Hold {1} and {3} to cycle through modes.
+                        """,
+//these two are only relevant if we use the "Select Direction Mode" again, which we currently don't
+//                        Hold {1} and {2} and {3} to use "Select Direction Mode".
+//                        {0} without any keys held down in case a mode gets stuck.
+//                        """,
+                this.green("Right-Click"),
+                this.green("Crouch"),
+                this.green("Right Mouse Button"),
+                this.green("Scroll")
+        );
+        this.addTooltip(ItemRegistry.MERCURIAL_WAND,
+                "Definitely not just a wrench.",
+                "Allows configuring alchemical apparatuses and mercurial logistics networks.",
+                wandUsage
+                );
+
+        this.add(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_SELECT_DIRECTION, "Select direction (Currently: %s)");
+        this.add(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_SELECT_DIRECTION_SUCCESS, "Direction: %s");
+        this.add(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_SET_SELECTED_DIRECTION, "Set direction to %s");
+        this.add(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_SET_SELECTED_DIRECTION_WITH_TARGET, "Set direction from %s to %s");
+        this.add(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_SET_SELECTED_DIRECTION_SUCCESS, "Set direction to %s");
+        this.add(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_ROTATE_SELECTED_DIRECTION, "Rotate selected direction");
+        this.add(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_ROTATE_SELECTED_DIRECTION_WITH_TARGET, "Set direction from %s to %s");
+        this.add(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_ROTATE_SELECTED_DIRECTION_SUCCESS, "Rotated direction to %s");
+        this.add(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_SWITCH_LOGISTICS_ENABLED, "Enable/Disable");
+        this.add(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_SWITCH_LOGISTICS_ENABLED_HUD, " (Currently: %s)");
+        this.add(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_SWITCH_LOGISTICS_ENABLED_SUCCESS, "Logistics Connector is now %s");
+        this.add(TheurgyConstants.I18n.Item.Mode.ENABLED, "Enabled");
+        this.add(TheurgyConstants.I18n.Item.Mode.DISABLED, "Disabled");
+
 
         this.addItem(ItemRegistry.MERCURY_SHARD, "Mercury Shard");
         this.addExtendedTooltip(ItemRegistry.MERCURY_SHARD,
@@ -648,6 +735,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
     @Override
     protected void addTranslations() {
         this.addMisc();
+        this.addKeys();
         this.addSubtitles();
         this.addMessages();
         this.addItems();

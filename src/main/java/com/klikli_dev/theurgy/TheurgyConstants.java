@@ -63,6 +63,23 @@ public class TheurgyConstants {
             private static final String PREFIX = "item." + Theurgy.MODID + ".";
             public static final String ALCHEMICAL_SULFUR_UNKNOWN_SOURCE = PREFIX + "alchemical_sulfur.unknown_source";
             public static final String DIVINATION_ROD_UNKNOWN_LINKED_BLOCK = PREFIX + "divination_rod.unknown_linked_block";
+
+            public static class Mode {
+                public static final String PREFIX = "item.mode." + Theurgy.MODID + ".";
+                public static final String MERCURIAL_WAND_SELECT_DIRECTION = PREFIX + "mercurial_wand.select_direction";
+                public static final String MERCURIAL_WAND_SELECT_DIRECTION_SUCCESS = PREFIX + "mercurial_wand.select_direction.success";
+                public static final String MERCURIAL_WAND_SET_SELECTED_DIRECTION = PREFIX + "mercurial_wand.set_selected_direction";
+                public static final String MERCURIAL_WAND_SET_SELECTED_DIRECTION_WITH_TARGET = PREFIX + "mercurial_wand.set_selected_direction.with_target";
+                public static final String MERCURIAL_WAND_SET_SELECTED_DIRECTION_SUCCESS = PREFIX + "mercurial_wand.set_selected_direction.success";
+                public static final String MERCURIAL_WAND_ROTATE_SELECTED_DIRECTION = PREFIX + "mercurial_wand.rotate_selected_direction";
+                public static final String MERCURIAL_WAND_ROTATE_SELECTED_DIRECTION_WITH_TARGET = PREFIX + "mercurial_wand.rotate_selected_direction.with_target";
+                public static final String MERCURIAL_WAND_ROTATE_SELECTED_DIRECTION_SUCCESS = PREFIX + "mercurial_wand.rotate_selected_direction.success";
+                public static final String MERCURIAL_WAND_SWITCH_LOGISTICS_ENABLED = PREFIX + "mercurial_wand.switch_logistics_enabled";
+                public static final String MERCURIAL_WAND_SWITCH_LOGISTICS_ENABLED_HUD = PREFIX + "mercurial_wand.switch_logistics_enabled.hud";
+                public static final String MERCURIAL_WAND_SWITCH_LOGISTICS_ENABLED_SUCCESS = PREFIX + "mercurial_wand.switch_logistics_enabled.success";
+                public static final String ENABLED = PREFIX + "mercurial_wand.enabled";
+                public static final String DISABLED = PREFIX + "mercurial_wand.disabled";
+            }
         }
 
         public static class Tooltip {
@@ -119,6 +136,12 @@ public class TheurgyConstants {
             public static final String UNIT_MILLIBUCKETS = PREFIX + "unit.millibuckets";
         }
 
+        public static class Key {
+            public static final String PREFIX = Theurgy.MODID + ".key.";
+            public static final String CATEGORY = PREFIX + "theurgy.category";
+            public static final String CHANGE_ITEM_MODE = PREFIX + "change_item_mode";
+        }
+
         public static class Behaviour {
             public static final String PREFIX = Theurgy.MODID + ".behaviour.";
             public static final String SELECTION_MODE = PREFIX + "selection.mode";
@@ -133,6 +156,8 @@ public class TheurgyConstants {
             public static final String SELECTION_SUMMARY_SULFURIC_FLUX_EMITTER_NO_TARGET = PREFIX + "selection.summary.sulfuric_flux_emitter.no_target";
             public static final String SELECTION_SUMMARY_SULFURIC_FLUX_EMITTER_NO_SOURCES = PREFIX + "selection.summary.sulfuric_flux_emitter.no_sources";
             public static final String SELECTION_SUMMARY_SULFURIC_FLUX_EMITTER_NO_RESULT = PREFIX + "selection.summary.sulfuric_flux_emitter.no_result";
+
+            public static final String SELECTION_MODE_LOGISTICS_NODE = PREFIX + "selection.mode.logistics_node";
 
             public static final String INTERACTION_FERMENTATION_VAT_NO_RECIPE = PREFIX + "interaction.fermentation_vat.no_recipe";
             public static final String INTERACTION_FERMENTATION_VAT_CLOSED = PREFIX + "interaction.fermentation_vat.closed";

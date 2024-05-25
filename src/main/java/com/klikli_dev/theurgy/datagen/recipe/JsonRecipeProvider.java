@@ -17,6 +17,7 @@ import net.minecraft.nbt.NbtOps;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.material.Fluid;
 import net.neoforged.neoforge.fluids.FluidStack;
@@ -196,6 +197,9 @@ public abstract class JsonRecipeProvider implements DataProvider {
         Set<ResourceLocation> set = Sets.newHashSet();
         List<CompletableFuture<?>> futures = new ArrayList<>();
         this.recipeConsumer = (id, recipe) -> {
+            if(!recipe.has("category"))
+                recipe.addProperty("category", CraftingBookCategory.MISC.getSerializedName());
+
             if (!set.add(id)) {
                 throw new IllegalStateException("Duplicate recipe " + id);
             } else {
@@ -206,5 +210,5 @@ public abstract class JsonRecipeProvider implements DataProvider {
         return CompletableFuture.allOf(futures.toArray(CompletableFuture[]::new));
     }
 
-    abstract void buildRecipes(BiConsumer<ResourceLocation, JsonObject> recipeConsumer);
+    public abstract void buildRecipes(BiConsumer<ResourceLocation, JsonObject> recipeConsumer);
 }

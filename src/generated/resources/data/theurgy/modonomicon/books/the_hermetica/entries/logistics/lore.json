@@ -1,0 +1,57 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "theurgy:logistics",
+  "description": "book.theurgy.the_hermetica.logistics.lore.description",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "theurgy:mercury_shard"
+  },
+  "name": "book.theurgy.the_hermetica.logistics.lore.name",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.logistics.lore.conversion.text",
+      "title": "book.theurgy.the_hermetica.logistics.lore.conversion.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.logistics.lore.wires.text",
+      "title": "book.theurgy.the_hermetica.logistics.lore.wires.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.logistics.lore.reversal.text",
+      "title": "book.theurgy.the_hermetica.logistics.lore.reversal.title",
+      "use_markdown_in_title": false
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "theurgy:logistics/intro",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "x": -1,
+  "y": -2
+}

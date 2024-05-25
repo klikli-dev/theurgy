@@ -1,5 +1,6 @@
 {
   "type": "theurgy:incubation",
+  "category": "misc",
   "mercury": {
     "item": "theurgy:mercury_shard"
   },

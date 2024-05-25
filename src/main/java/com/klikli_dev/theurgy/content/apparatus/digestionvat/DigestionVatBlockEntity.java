@@ -4,7 +4,7 @@
 
 package com.klikli_dev.theurgy.content.apparatus.digestionvat;
 
-import com.klikli_dev.theurgy.content.behaviour.HasCraftingBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.crafting.HasCraftingBehaviour;
 import com.klikli_dev.theurgy.content.recipe.DigestionRecipe;
 import com.klikli_dev.theurgy.content.recipe.wrapper.RecipeWrapperWithFluid;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;

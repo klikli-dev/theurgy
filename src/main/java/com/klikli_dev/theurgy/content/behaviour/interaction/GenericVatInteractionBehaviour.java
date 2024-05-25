@@ -4,7 +4,7 @@
 
 package com.klikli_dev.theurgy.content.behaviour.interaction;
 
-import com.klikli_dev.theurgy.content.behaviour.HasCraftingBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.crafting.HasCraftingBehaviour;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;

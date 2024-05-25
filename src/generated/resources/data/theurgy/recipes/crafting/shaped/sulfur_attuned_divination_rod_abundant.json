@@ -1,5 +1,6 @@
 {
   "type": "theurgy:divination_rod",
+  "category": "misc",
   "key": {
     "G": {
       "tag": "forge:glass"

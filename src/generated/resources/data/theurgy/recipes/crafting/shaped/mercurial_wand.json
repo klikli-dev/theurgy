@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "c": {
+      "tag": "forge:ingots/copper"
+    },
+    "m": {
+      "item": "theurgy:mercury_shard"
+    },
+    "s": {
+      "tag": "forge:rods/wooden"
+    }
+  },
+  "pattern": [
+    " sm",
+    " cs",
+    "s  "
+  ],
+  "result": {
+    "count": 1,
+    "item": "theurgy:mercurial_wand"
+  }
+}

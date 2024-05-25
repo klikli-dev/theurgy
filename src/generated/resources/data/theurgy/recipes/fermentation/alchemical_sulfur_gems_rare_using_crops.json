@@ -16,6 +16,7 @@
     }
   ],
   "type": "theurgy:fermentation",
+  "category": "misc",
   "fluid": {
     "tag": "minecraft:water"
   },

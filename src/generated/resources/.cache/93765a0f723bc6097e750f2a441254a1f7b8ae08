@@ -1,3 +1,5 @@
-// 1.20.4	2024-01-16T15:38:38.1742182	Shapeless Crafting Recipes
-cc984ff1635bde6101fa84b2261798fe4af68557 data/theurgy/recipes/crafting/shapeless/sal_ammoniac_crystal_from_sal_ammoniac_bucket.json
-bd9adbc64c1dad493a909a3f4b90ac016757432c data/theurgy/recipes/crafting/shapeless/the_hermetica.json
+// 1.20.4	2024-05-25T13:38:47.7947444	Shapeless Crafting Recipes
+6017c308729d12b68a43e016207b272ce0b636a4 data/theurgy/recipes/crafting/shapeless/logistics_item_extractor_from_inserter.json
+4a7e21b89d8e40928e19abe740839aaadd000921 data/theurgy/recipes/crafting/shapeless/logistics_item_inserter_from_extractor.json
+2eabb44670401c8fd0b1ca254b9893de14f6b125 data/theurgy/recipes/crafting/shapeless/sal_ammoniac_crystal_from_sal_ammoniac_bucket.json
+3fb7309b9ae4030f1a88b5a888a01be4a292e6cf data/theurgy/recipes/crafting/shapeless/the_hermetica.json

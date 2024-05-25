@@ -6,7 +6,7 @@ package com.klikli_dev.theurgy.datagen.model;
 
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.TheurgyConstants;
-import com.klikli_dev.theurgy.content.item.AlchemicalSulfurItem;
+import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurItem;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.registry.SaltRegistry;
 import com.klikli_dev.theurgy.registry.SulfurRegistry;
@@ -43,11 +43,16 @@ public class TheurgyItemModelProvider extends net.neoforged.neoforge.client.mode
                 .texture("layer0", this.modLoc("item/" + texture));
     }
 
-    private void registerItemHandheld(String name) {
-        this.getBuilder(name)
-                .parent(new ModelFile.UncheckedModelFile("item/handheld"))
-                .texture("layer0", this.modLoc("item/" + name));
+    private ItemModelBuilder registerItemHandheld(String name) {
+        return this.registerItemHandheld(name, name);
     }
+
+    private ItemModelBuilder registerItemHandheld(String name, String texture) {
+        return this.getBuilder(name)
+                .parent(new ModelFile.UncheckedModelFile("item/handheld"))
+                .texture("layer0", this.modLoc("item/" + texture));
+    }
+
 
     private void registerItemBuiltinEntity(String name) {
         this.getBuilder(name)
@@ -57,15 +62,15 @@ public class TheurgyItemModelProvider extends net.neoforged.neoforge.client.mode
     private void registerDivinationRod(Item divinationRodItem) {
 
         //somehow we have to prefix "item/" if we append "/0" instead of "_=". Probably something in the item builder or resource location logic it a "/" is present. Anyhow, this moves the variants into a subfolder
-        var variant0 = this.registerItemGenerated("item/" + this.name(divinationRodItem) + "/0", this.name(divinationRodItem) + "/divination_rod_0");
-        var variant1 = this.registerItemGenerated("item/" + this.name(divinationRodItem) + "/1", this.name(divinationRodItem) + "/divination_rod_1");
-        var variant2 = this.registerItemGenerated("item/" + this.name(divinationRodItem) + "/2", this.name(divinationRodItem) + "/divination_rod_2");
-        var variant3 = this.registerItemGenerated("item/" + this.name(divinationRodItem) + "/3", this.name(divinationRodItem) + "/divination_rod_3");
-        var variant4 = this.registerItemGenerated("item/" + this.name(divinationRodItem) + "/4", this.name(divinationRodItem) + "/divination_rod_4");
-        var variant5 = this.registerItemGenerated("item/" + this.name(divinationRodItem) + "/5", this.name(divinationRodItem) + "/divination_rod_5");
-        var variant6 = this.registerItemGenerated("item/" + this.name(divinationRodItem) + "/6", this.name(divinationRodItem) + "/divination_rod_6");
-        var variant7 = this.registerItemGenerated("item/" + this.name(divinationRodItem) + "/7", this.name(divinationRodItem) + "/divination_rod_7");
-        var searchingVariant = this.registerItemGenerated("item/" + this.name(divinationRodItem) + "/searching", this.name(divinationRodItem) + "/divination_rod_searching");
+        var variant0 = this.registerItemHandheld("item/" + this.name(divinationRodItem) + "/0", this.name(divinationRodItem) + "/divination_rod_0");
+        var variant1 = this.registerItemHandheld("item/" + this.name(divinationRodItem) + "/1", this.name(divinationRodItem) + "/divination_rod_1");
+        var variant2 = this.registerItemHandheld("item/" + this.name(divinationRodItem) + "/2", this.name(divinationRodItem) + "/divination_rod_2");
+        var variant3 = this.registerItemHandheld("item/" + this.name(divinationRodItem) + "/3", this.name(divinationRodItem) + "/divination_rod_3");
+        var variant4 = this.registerItemHandheld("item/" + this.name(divinationRodItem) + "/4", this.name(divinationRodItem) + "/divination_rod_4");
+        var variant5 = this.registerItemHandheld("item/" + this.name(divinationRodItem) + "/5", this.name(divinationRodItem) + "/divination_rod_5");
+        var variant6 = this.registerItemHandheld("item/" + this.name(divinationRodItem) + "/6", this.name(divinationRodItem) + "/divination_rod_6");
+        var variant7 = this.registerItemHandheld("item/" + this.name(divinationRodItem) + "/7", this.name(divinationRodItem) + "/divination_rod_7");
+        var searchingVariant = this.registerItemHandheld("item/" + this.name(divinationRodItem) + "/searching", this.name(divinationRodItem) + "/divination_rod_searching");
 
         var name = this.name(divinationRodItem);
         this.getBuilder(name)
@@ -182,5 +187,8 @@ public class TheurgyItemModelProvider extends net.neoforged.neoforge.client.mode
         this.registerDivinationRod(ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_RARE.get());
         this.registerDivinationRod(ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_PRECIOUS.get());
         this.registerDivinationRod(ItemRegistry.AMETHYST_DIVINATION_ROD.get());
+
+        this.registerItemGenerated(this.name(ItemRegistry.COPPER_WIRE.get()));
+        this.registerItemHandheld(this.name(ItemRegistry.MERCURIAL_WAND.get()));
     }
 }

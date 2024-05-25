@@ -33,6 +33,8 @@ public class TheurgyBookProvider extends BookProvider {
 
         var apparatusCategory = new ApparatusCategory(this).generate().withSortNumber(categorySortNum++);
 
+        var logisticsCategory = new LogisticsCategory(this).generate().withSortNumber(categorySortNum++);
+
         //TODO: entry read condition
 
         var book = BookModel.create(
@@ -42,7 +44,8 @@ public class TheurgyBookProvider extends BookProvider {
                 .withTooltip(this.context().bookTooltip())
                 .withCategories(
                         gettingStartedCategory,
-                        apparatusCategory
+                        apparatusCategory,
+                        logisticsCategory
                 )
                 .withGenerateBookItem(true)
                 .withModel(this.modLoc("the_hermetica_icon"))

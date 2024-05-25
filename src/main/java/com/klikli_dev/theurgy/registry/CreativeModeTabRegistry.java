@@ -6,7 +6,7 @@ package com.klikli_dev.theurgy.registry;
 
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.TheurgyConstants;
-import com.klikli_dev.theurgy.content.item.DivinationRodItem;
+import com.klikli_dev.theurgy.content.item.divinationrod.DivinationRodItem;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
@@ -33,6 +33,8 @@ public class CreativeModeTabRegistry {
                 DivinationRodItem.registerCreativeModeTabs(ItemRegistry.AMETHYST_DIVINATION_ROD.get(), output);
 
                 output.accept(ItemRegistry.SAL_AMMONIAC_BUCKET.get());
+                output.accept(ItemRegistry.COPPER_WIRE.get());
+                output.accept(ItemRegistry.MERCURIAL_WAND.get());
 
                 output.accept(ItemRegistry.MERCURY_SHARD.get());
                 output.accept(ItemRegistry.MERCURY_CRYSTAL.get());
@@ -64,6 +66,10 @@ public class CreativeModeTabRegistry {
 
                 output.accept(ItemRegistry.FERMENTATION_VAT.get());
                 output.accept(ItemRegistry.DIGESTION_VAT.get());
+
+                output.accept(ItemRegistry.LOGISTICS_ITEM_INSERTER.get());
+                output.accept(ItemRegistry.LOGISTICS_ITEM_EXTRACTOR.get());
+                output.accept(ItemRegistry.LOGISTICS_CONNECTION_NODE.get());
 
             }).build());
 

@@ -1,0 +1,76 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "minecraft:block/block",
+	"textures": {
+		"particle": "logistics_node_connector",
+		"connector": "logistics_node_connector",
+		"base": "logistics_node_base"
+	},
+	"elements": [
+		{
+			"name": "Connector",
+			"from": [7, 5, 7],
+			"to": [9, 8, 9],
+			"faces": {
+				"north": {"uv": [2, 5, 4, 8], "texture": "#connector"},
+				"east": {"uv": [0, 5, 2, 8], "texture": "#connector"},
+				"south": {"uv": [6, 5, 8, 8], "texture": "#connector"},
+				"west": {"uv": [4, 5, 6, 8], "texture": "#connector"},
+				"up": {"uv": [4, 5, 2, 3], "texture": "#connector"},
+				"down": {"uv": [6, 3, 4, 5], "texture": "#connector"}
+			}
+		},
+		{
+			"name": "InsulatorBase",
+			"from": [7, 1, 7],
+			"to": [9, 4, 9],
+			"faces": {
+				"north": {"uv": [2, 7, 4, 10], "texture": "#base"},
+				"east": {"uv": [0, 7, 2, 10], "texture": "#base"},
+				"south": {"uv": [6, 7, 8, 10], "texture": "#base"},
+				"west": {"uv": [4, 7, 6, 10], "texture": "#base"},
+				"up": {"uv": [4, 7, 2, 5], "texture": "#base"},
+				"down": {"uv": [6, 5, 4, 7], "texture": "#base"}
+			}
+		},
+		{
+			"name": "InsulatorFrill1",
+			"from": [6, 0, 6],
+			"to": [10, 1, 10],
+			"faces": {
+				"north": {"uv": [4, 4, 8, 5], "texture": "#base"},
+				"east": {"uv": [0, 4, 4, 5], "texture": "#base"},
+				"south": {"uv": [12, 4, 16, 5], "texture": "#base"},
+				"west": {"uv": [8, 4, 12, 5], "texture": "#base"},
+				"up": {"uv": [8, 4, 4, 0], "texture": "#base"},
+				"down": {"uv": [12, 0, 8, 4], "texture": "#base"}
+			}
+		},
+		{
+			"name": "InsulatorFrill2",
+			"from": [6, 2, 6],
+			"to": [10, 3, 10],
+			"faces": {
+				"north": {"uv": [4, 4, 8, 5], "texture": "#base"},
+				"east": {"uv": [0, 4, 4, 5], "texture": "#base"},
+				"south": {"uv": [12, 4, 16, 5], "texture": "#base"},
+				"west": {"uv": [8, 4, 12, 5], "texture": "#base"},
+				"up": {"uv": [8, 4, 4, 0], "texture": "#base"},
+				"down": {"uv": [12, 0, 8, 4], "texture": "#base"}
+			}
+		},
+		{
+			"name": "InsulatorFrill3",
+			"from": [6, 4, 6],
+			"to": [10, 5, 10],
+			"faces": {
+				"north": {"uv": [4, 4, 8, 5], "texture": "#base"},
+				"east": {"uv": [0, 4, 4, 5], "texture": "#base"},
+				"south": {"uv": [12, 4, 16, 5], "texture": "#base"},
+				"west": {"uv": [8, 4, 12, 5], "texture": "#base"},
+				"up": {"uv": [8, 4, 4, 0], "texture": "#base"},
+				"down": {"uv": [12, 0, 8, 4], "texture": "#base"}
+			}
+		}
+	]
+}

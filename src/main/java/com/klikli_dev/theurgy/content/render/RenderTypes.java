@@ -12,11 +12,37 @@ import com.mojang.blaze3d.vertex.VertexFormat;
 import net.minecraft.Util;
 import net.minecraft.client.renderer.RenderStateShard;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.resources.ResourceLocation;
 
 import java.util.function.Function;
 
 public class RenderTypes extends RenderStateShard {
+
+    protected static final Function<ResourceLocation, RenderType> ENTITY_TRANSLUCENT_CULL_NO_DEPTH = Util.memoize(
+            p_286165_ -> {
+                RenderType.CompositeState rendertype$compositestate = RenderType.CompositeState.builder()
+                        .setShaderState(RENDERTYPE_ENTITY_TRANSLUCENT_CULL_SHADER)
+                        .setDepthTestState(DepthTestStateShard.NO_DEPTH_TEST)
+                        .setTextureState(new RenderStateShard.TextureStateShard(p_286165_, false, false))
+                        .setTransparencyState(TRANSLUCENT_TRANSPARENCY)
+                        .setLightmapState(LIGHTMAP)
+                        .setOverlayState(OVERLAY)
+                        .createCompositeState(true);
+                return RenderType.create("entity_translucent_cull_no_depth", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 1536, true, true, rendertype$compositestate);
+            }
+    );
+
+    public static RenderType entityTranslucentCullNoDepth(ResourceLocation pLocation) {
+        return ENTITY_TRANSLUCENT_CULL_NO_DEPTH.apply(pLocation);
+    }
+
+    protected static final RenderType TRANSLUCENT_CULL_NO_DEPTH_BLOCK_SHEET = entityTranslucentCullNoDepth(TextureAtlas.LOCATION_BLOCKS);
+
+    public static RenderType translucentCullNoDepthBlockSheet() {
+        return TRANSLUCENT_CULL_NO_DEPTH_BLOCK_SHEET;
+    }
+
     protected static final TransparencyStateShard SRC_MINUS_ONE_TRANSPARENCY = new TransparencyStateShard(Theurgy.loc("src_minus_one").toString(),
             () -> {
                 RenderSystem.enableDepthTest();

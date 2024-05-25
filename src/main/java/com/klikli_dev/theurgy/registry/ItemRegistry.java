@@ -12,10 +12,13 @@ import com.klikli_dev.theurgy.content.apparatus.distiller.DistillerBlockItem;
 import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorMercuryVesselBlockItem;
 import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorSaltVesselBlockItem;
 import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorSulfurVesselBlockItem;
+import com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector.LogisticsItemConnectorBlockItem;
 import com.klikli_dev.theurgy.content.apparatus.reformationarray.SulfuricFluxEmitterBlockItem;
 import com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator.SalAmmoniacAccumulatorBlockItem;
 import com.klikli_dev.theurgy.content.apparatus.salammoniactank.SalAmmoniacTankBlockItem;
-import com.klikli_dev.theurgy.content.item.DivinationRodItem;
+import com.klikli_dev.theurgy.content.item.divinationrod.DivinationRodItem;
+import com.klikli_dev.theurgy.content.item.mercurialwand.MercurialWandItem;
+import com.klikli_dev.theurgy.content.item.wire.WireItem;
 import net.minecraft.world.item.*;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -119,6 +122,13 @@ public class ItemRegistry {
                     Tiers.STONE, BlockTagRegistry.DIVINATION_ROD_T1_ALLOWED_BLOCKS, BlockTagRegistry.DIVINATION_ROD_T1_DISALLOWED_BLOCKS,
                     96, 40, 16, false));
 
+    //Other Tools
+    public static final DeferredItem<Item> COPPER_WIRE =
+            ITEMS.register("copper_wire", () -> new WireItem(new Item.Properties(), 32));
+
+    public static final DeferredItem<MercurialWandItem> MERCURIAL_WAND =
+            ITEMS.register("mercurial_wand", () -> new MercurialWandItem(new Item.Properties()));
+
     //Buckets
     public static final DeferredItem<Item> SAL_AMMONIAC_BUCKET =
             ITEMS.register("sal_ammoniac_bucket", () -> new BucketItem(
@@ -181,4 +191,13 @@ public class ItemRegistry {
 
     public static final DeferredItem<BlockItem> DIGESTION_VAT =
             ITEMS.register("digestion_vat", () -> new DigestionVatBlockItem(BlockRegistry.DIGESTION_VAT.get(), new Item.Properties()));
+
+    public static final DeferredItem<BlockItem> LOGISTICS_CONNECTION_NODE =
+            ITEMS.register(BlockRegistry.LOGISTICS_CONNECTION_NODE.getId().getPath(), () -> new BlockItem(BlockRegistry.LOGISTICS_CONNECTION_NODE.get(), new Item.Properties()));
+
+    public static final DeferredItem<BlockItem> LOGISTICS_ITEM_INSERTER =
+            ITEMS.register(BlockRegistry.LOGISTICS_ITEM_INSERTER.getId().getPath(), () -> new LogisticsItemConnectorBlockItem(BlockRegistry.LOGISTICS_ITEM_INSERTER.get(), new Item.Properties()));
+
+    public static final DeferredItem<BlockItem> LOGISTICS_ITEM_EXTRACTOR =
+            ITEMS.register(BlockRegistry.LOGISTICS_ITEM_EXTRACTOR.getId().getPath(), () -> new LogisticsItemConnectorBlockItem(BlockRegistry.LOGISTICS_ITEM_EXTRACTOR.get(), new Item.Properties()));
 }

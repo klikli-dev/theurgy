@@ -1,5 +1,6 @@
 {
   "type": "theurgy:divination_rod",
+  "category": "misc",
   "key": {
     "A": {
       "tag": "forge:gems/amethyst"

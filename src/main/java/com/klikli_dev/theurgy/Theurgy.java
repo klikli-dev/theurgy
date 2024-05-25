@@ -18,19 +18,24 @@ import com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron.render.Liqu
 import com.klikli_dev.theurgy.content.apparatus.mercurycatalyst.MercuryCatalystBlock;
 import com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator.render.SalAmmoniacAccumulatorRenderer;
 import com.klikli_dev.theurgy.content.apparatus.salammoniactank.render.SalAmmoniacTankRenderer;
-import com.klikli_dev.theurgy.content.item.AlchemicalSaltItem;
-import com.klikli_dev.theurgy.content.item.AlchemicalSulfurItem;
-import com.klikli_dev.theurgy.content.item.DivinationRodItem;
-import com.klikli_dev.theurgy.content.render.BlankEntityRenderer;
-import com.klikli_dev.theurgy.content.render.ClientTicks;
-import com.klikli_dev.theurgy.content.render.TheurgyModelLayers;
+import com.klikli_dev.theurgy.content.item.salt.AlchemicalSaltItem;
+import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurItem;
+import com.klikli_dev.theurgy.content.item.divinationrod.DivinationRodItem;
+import com.klikli_dev.theurgy.content.item.mode.ModeItem;
+import com.klikli_dev.theurgy.content.render.*;
+import com.klikli_dev.theurgy.content.render.itemhud.ItemHUD;
 import com.klikli_dev.theurgy.content.render.outliner.Outliner;
 import com.klikli_dev.theurgy.datagen.TheurgyDataGenerators;
 import com.klikli_dev.theurgy.integration.modonomicon.PageLoaders;
 import com.klikli_dev.theurgy.integration.modonomicon.PageRenderers;
+import com.klikli_dev.theurgy.logistics.Logistics;
+import com.klikli_dev.theurgy.logistics.WireRenderer;
+import com.klikli_dev.theurgy.logistics.WireSync;
+import com.klikli_dev.theurgy.logistics.Wires;
 import com.klikli_dev.theurgy.network.Networking;
 import com.klikli_dev.theurgy.registry.*;
 import com.klikli_dev.theurgy.tooltips.TooltipHandler;
+import com.klikli_dev.theurgy.util.ScrollHelper;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.logging.LogUtils;
@@ -49,10 +54,8 @@ import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLDedicatedServerSetupEvent;
 import net.neoforged.fml.loading.FMLEnvironment;
-import net.neoforged.neoforge.client.event.EntityRenderersEvent;
-import net.neoforged.neoforge.client.event.RecipesUpdatedEvent;
-import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
-import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
+import net.neoforged.neoforge.client.event.*;
+import net.neoforged.neoforge.client.gui.overlay.VanillaGuiOverlay;
 import net.neoforged.neoforge.client.model.DynamicFluidContainerModel;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.TickEvent;
@@ -103,6 +106,10 @@ public class Theurgy {
         modEventBus.addListener(CapabilityRegistry::onRegisterCapabilities);
 
         NeoForge.EVENT_BUS.addListener(TooltipHandler::onItemTooltipEvent);
+        NeoForge.EVENT_BUS.addListener(Logistics::onLevelUnload);
+        NeoForge.EVENT_BUS.addListener(Wires::onLevelUnload);
+        NeoForge.EVENT_BUS.addListener(WireSync.get()::onChunkWatch);
+        NeoForge.EVENT_BUS.addListener(WireSync.get()::onChunkUnWatch);
 
         if (FMLEnvironment.dist == Dist.CLIENT) {
             modEventBus.addListener(ParticleRegistry::registerFactories);
@@ -111,11 +118,18 @@ public class Theurgy {
             modEventBus.addListener(Client::onRegisterEntityRenderers);
             modEventBus.addListener(Client::onRegisterItemColors);
             modEventBus.addListener(Client::onRegisterBlockColors);
+            modEventBus.addListener(Client::onRegisterGuiOverlays);
+            modEventBus.addListener(BlockOverlays::onTextureAtlasStitched);
+            modEventBus.addListener(KeyMappingsRegistry::onRegisterKeyMappings);
             NeoForge.EVENT_BUS.addListener(Client::onRenderLevelStage);
             NeoForge.EVENT_BUS.addListener(Client::onClientTick);
             NeoForge.EVENT_BUS.addListener(Client::onRecipesUpdated);
+            NeoForge.EVENT_BUS.addListener(Client::onMouseScrolling);
             NeoForge.EVENT_BUS.addListener(Client::onRightClick);
             NeoForge.EVENT_BUS.addListener(Client::onLeftClick);
+            NeoForge.EVENT_BUS.addListener(BlockHighlightRenderer::onRenderBlockHighlight);
+            NeoForge.EVENT_BUS.addListener(KeyMappingsRegistry::onKeyInput);
+            NeoForge.EVENT_BUS.addListener(KeyMappingsRegistry::onMouseInput);
         }
 
         GeckoLib.initialize(modEventBus);
@@ -189,6 +203,8 @@ public class Theurgy {
             buffer.endBatch();
             RenderSystem.enableCull();
             ms.popPose();
+
+            WireRenderer.get().onRenderLevelStage(event);
         }
 
         public static void onRecipesUpdated(RecipesUpdatedEvent event) {
@@ -256,6 +272,26 @@ public class Theurgy {
 
         public static void onRegisterBlockColors(RegisterColorHandlersEvent.Block event) {
             event.register(MercuryCatalystBlock::getBlockColor, BlockRegistry.MERCURY_CATALYST.get());
+        }
+
+        public static void onRegisterGuiOverlays(RegisterGuiOverlaysEvent event) {
+            event.registerAbove(VanillaGuiOverlay.HOTBAR.id(), Theurgy.loc("item_hud"), ItemHUD.get());
+        }
+
+        public static void onMouseScrolling(InputEvent.MouseScrollingEvent event) {
+            var minecraft = Minecraft.getInstance();
+            if (minecraft.player != null && minecraft.player.isShiftKeyDown()) {
+                double delta = event.getScrollDeltaY();
+                var stack = minecraft.player.getMainHandItem();
+
+                if (delta != 0 && stack.getItem() instanceof ModeItem modeItem) {
+                    int shift = ScrollHelper.scroll(delta);
+                    if (shift != 0) {
+                        modeItem.onScroll(minecraft.player, stack, shift);
+                    }
+                    event.setCanceled(true);
+                }
+            }
         }
 
         public static void onRightClick(PlayerInteractEvent.RightClickBlock event) {

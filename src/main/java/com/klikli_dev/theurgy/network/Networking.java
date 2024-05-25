@@ -20,14 +20,21 @@ public class Networking {
     public static void register(final RegisterPayloadHandlerEvent event) {
         final IPayloadRegistrar registrar = event.registrar(Theurgy.MODID);
 
+        //to server
         registrar.play(MessageSetDivinationResult.ID, MessageSetDivinationResult::new, MessageHandler::handle);
+        registrar.play(MessageSetMode.ID, MessageSetMode::new, MessageHandler::handle);
+        registrar.play(MessageItemModeSelectDirection.ID, MessageItemModeSelectDirection::new, MessageHandler::handle);
         registrar.play(MessageCaloricFluxEmitterSelection.ID, MessageCaloricFluxEmitterSelection::new, MessageHandler::handle);
         registrar.play(MessageSulfuricFluxEmitterSelection.ID, MessageSulfuricFluxEmitterSelection::new, MessageHandler::handle);
 
+        //to client
         registrar.play(MessageRequestCaloricFluxEmitterSelection.ID, MessageRequestCaloricFluxEmitterSelection::new, MessageHandler::handle);
         registrar.play(MessageRequestSulfuricFluxEmitterSelection.ID, MessageRequestSulfuricFluxEmitterSelection::new, MessageHandler::handle);
         registrar.play(MessageShowCaloricFlux.ID, MessageShowCaloricFlux::new, MessageHandler::handle);
         registrar.play(MessageShowSulfuricFluxEmitterStatus.ID, MessageShowSulfuricFluxEmitterStatus::new, MessageHandler::handle);
+        registrar.play(MessageShowLogisticsNodeStatus.ID, MessageShowLogisticsNodeStatus::new, MessageHandler::handle);
+        registrar.play(MessageAddWires.ID, MessageAddWires::new, MessageHandler::handle);
+        registrar.play(MessageRemoveWires.ID, MessageRemoveWires::new, MessageHandler::handle);
     }
 
 

@@ -1,0 +1,82 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "theurgy:logistics",
+  "description": "book.theurgy.the_hermetica.logistics.connection_node.description",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "theurgy:logistics_connector_node"
+  },
+  "name": "book.theurgy.the_hermetica.logistics.connection_node.name",
+  "pages": [
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "item": {
+        "item": "theurgy:logistics_connector_node"
+      },
+      "text": "book.theurgy.the_hermetica.logistics.connection_node.node.text",
+      "title": ""
+    },
+    {
+      "type": "modonomicon:crafting_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "theurgy:crafting/shaped/logistics_connector_node",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.logistics.connection_node.usage.text",
+      "title": "book.theurgy.the_hermetica.logistics.connection_node.usage.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:image",
+      "anchor": "",
+      "border": true,
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "images": [
+        "theurgy:textures/gui/book/connection_node_example.png"
+      ],
+      "text": "",
+      "title": "book.theurgy.the_hermetica.logistics.connection_node.image.title"
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.logistics.connection_node.large_networks.text",
+      "title": "book.theurgy.the_hermetica.logistics.connection_node.large_networks.title",
+      "use_markdown_in_title": false
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "theurgy:logistics/logistics_network",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "x": 9,
+  "y": 0
+}

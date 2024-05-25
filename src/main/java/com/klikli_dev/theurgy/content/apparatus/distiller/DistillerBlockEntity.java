@@ -4,8 +4,8 @@
 
 package com.klikli_dev.theurgy.content.apparatus.distiller;
 
-import com.klikli_dev.theurgy.content.behaviour.AnimationBehaviour;
-import com.klikli_dev.theurgy.content.behaviour.HeatConsumerBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.animation.AnimationBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.heat.HeatConsumerBehaviour;
 import com.klikli_dev.theurgy.content.capability.DefaultHeatReceiver;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;

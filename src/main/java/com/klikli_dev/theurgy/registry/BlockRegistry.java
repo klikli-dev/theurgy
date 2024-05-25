@@ -15,6 +15,9 @@ import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorMercuryVessel
 import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorSaltVesselBlock;
 import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorSulfurVesselBlock;
 import com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron.LiquefactionCauldronBlock;
+import com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector.extractor.LogisticsItemExtractorBlock;
+import com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector.inserter.LogisticsItemInserterBlock;
+import com.klikli_dev.theurgy.content.apparatus.logisticsconnectornode.LogisticsConnectionNodeBlock;
 import com.klikli_dev.theurgy.content.apparatus.mercurycatalyst.MercuryCatalystBlock;
 import com.klikli_dev.theurgy.content.apparatus.pyromanticbrazier.PyromanticBrazierBlock;
 import com.klikli_dev.theurgy.content.apparatus.reformationarray.ReformationResultPedestalBlock;
@@ -169,6 +172,30 @@ public class BlockRegistry {
                     .mapColor(MapColor.CLAY)
                     .sound(SoundType.DECORATED_POT)
                     .strength(1.0f))
+            );
+
+    public static final DeferredBlock<LogisticsConnectionNodeBlock> LOGISTICS_CONNECTION_NODE =
+            BLOCKS.register("logistics_connector_node", () -> new LogisticsConnectionNodeBlock(BlockBehaviour.Properties.of()
+                            .strength(0.1f)
+                            .noOcclusion()
+                            .forceSolidOff()
+                    )
+            );
+
+    public static final DeferredBlock<LogisticsItemInserterBlock> LOGISTICS_ITEM_INSERTER =
+            BLOCKS.register("logistics_item_inserter", () -> new LogisticsItemInserterBlock(BlockBehaviour.Properties.of()
+                            .strength(0.1f)
+                            .noOcclusion()
+                            .forceSolidOff()
+                    )
+            );
+
+    public static final DeferredBlock<LogisticsItemExtractorBlock> LOGISTICS_ITEM_EXTRACTOR =
+            BLOCKS.register("logistics_item_extractor", () -> new LogisticsItemExtractorBlock(BlockBehaviour.Properties.of()
+                            .strength(0.1f)
+                            .noOcclusion()
+                            .forceSolidOff()
+                    )
             );
 
     public static final DeferredBlock<Block> SAL_AMMONIAC_ORE =

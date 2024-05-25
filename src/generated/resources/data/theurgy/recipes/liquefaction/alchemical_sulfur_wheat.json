@@ -1,5 +1,6 @@
 {
   "type": "theurgy:liquefaction",
+  "category": "misc",
   "ingredient": {
     "item": "minecraft:wheat"
   },

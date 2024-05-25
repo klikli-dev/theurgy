@@ -55,6 +55,17 @@
       ],
       "text": "",
       "title": "book.theurgy.the_hermetica.logistics.connection_node.image.title"
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.logistics.connection_node.large_networks.text",
+      "title": "book.theurgy.the_hermetica.logistics.connection_node.large_networks.title",
+      "use_markdown_in_title": false
     }
   ],
   "parents": [

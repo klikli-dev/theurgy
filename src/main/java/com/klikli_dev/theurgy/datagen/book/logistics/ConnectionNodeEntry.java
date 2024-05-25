@@ -51,6 +51,18 @@ public class ConnectionNodeEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withImages(Theurgy.loc("textures/gui/book/connection_node_example.png")));
         this.pageTitle("Demonstration");
+
+        this.page("large_networks", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("Complex Networks");
+        this.pageText("""
+               In networks with multiple inserters and extractors the default behaviour is round-robin. That means each extractor will attempt to split the items evenly between all connected inserters.
+               \\
+               \\
+               In the future more advanced configurations will be possible.
+                """
+        );
     }
 
     @Override

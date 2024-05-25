@@ -656,6 +656,8 @@
   "book.theurgy.the_hermetica.getting_started.target_pedestal.target.title": "The Target",
   "book.theurgy.the_hermetica.logistics.connection_node.description": "Extend the Range of Logistics Networks",
   "book.theurgy.the_hermetica.logistics.connection_node.image.title": "Demonstration",
+  "book.theurgy.the_hermetica.logistics.connection_node.large_networks.text": "In networks with multiple inserters and extractors the default behaviour is round-robin. That means each extractor will attempt to split the items evenly between all connected inserters.\n\\\n\\\nIn the future more advanced configurations will be possible.\n",
+  "book.theurgy.the_hermetica.logistics.connection_node.large_networks.title": "Complex Networks",
   "book.theurgy.the_hermetica.logistics.connection_node.name": "Mercurial Connection Node",
   "book.theurgy.the_hermetica.logistics.connection_node.node.text": "The node allows connecting wires over long distances without placing an inserter or extractor.\n",
   "book.theurgy.the_hermetica.logistics.connection_node.usage.text": "1. Right-click any block to attach the node to it.\n2. Then connect the node to other blocks using wires.\n3. Any block connected directly or indirectly will be part of the same network.\n",

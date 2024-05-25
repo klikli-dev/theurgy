@@ -65,6 +65,29 @@ public class DigestionVatEntry extends EntryProvider {
                 this.itemLink(ItemRegistry.PURIFIED_GOLD.get())
         );
 
+        this.page("usage2", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.add(this.context().pageTitle(), "Usage");
+        this.add(this.context().pageText(),
+                """
+                        Both items and fluids can also be piped in and out of the vat, or hoppers can be used.
+                        """
+        );
+
+        this.page("redstone", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.add(this.context().pageTitle(), "Redstone");
+        this.add(this.context().pageText(),
+                """
+                        The vat can be closed by applying a redstone signal (if a valid recipe is present).
+                        \\
+                        \\
+                        If the redstone signal is turned off the vat will open again.
+                        """
+        );
+
         this.page("recipe", () -> BookCraftingRecipePageModel.create()
                 .withRecipeId1(Theurgy.loc("crafting/shaped/digestion_vat")));
 

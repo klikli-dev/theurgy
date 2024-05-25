@@ -1,7 +1,8 @@
-// 1.20.4	2024-02-29T11:58:47.5812409	Books: theurgy
+// 1.20.4	2024-05-25T14:27:01.2984565	Books: theurgy
 945f222b9db8c0781d05b5a13138c18620a0edc3 data/theurgy/modonomicon/books/the_hermetica/book.json
 f44f61550bc8611d61016c6476b88448c0fe9f00 data/theurgy/modonomicon/books/the_hermetica/categories/apparatus.json
 49226efd8791cdb701bf00d7af65fff59b8c6df6 data/theurgy/modonomicon/books/the_hermetica/categories/getting_started.json
+895551b2369eeed52d75cd7b057a97411eb2e5c9 data/theurgy/modonomicon/books/the_hermetica/categories/logistics.json
 a64ca5b23a0ad5dcc7eab9bb3182882013665ebd data/theurgy/modonomicon/books/the_hermetica/entries/apparatus/calcination_oven.json
 5e015ded9416e1151342e4546cef7e645bd69c4f data/theurgy/modonomicon/books/the_hermetica/entries/apparatus/caloric_flux_emitter.json
 af4cf1fa34b4b568cd982c7227f59abcbbdf69c3 data/theurgy/modonomicon/books/the_hermetica/entries/apparatus/digestion_vat.json
@@ -71,3 +72,4 @@ a05ddad64d7310137f8e0c9e24c9d4f32dbd71ec data/theurgy/modonomicon/books/the_herm
 9ac8ff0a1648608e2aa70f26b19c7d96dd1b72dd data/theurgy/modonomicon/books/the_hermetica/entries/getting_started/t3_divination_rod.json
 3f5cbd20d3bfb15a5db03b513b4813affbbe6dab data/theurgy/modonomicon/books/the_hermetica/entries/getting_started/t4_divination_rod.json
 5fef9e79b194b44816e2cc923ae2fc479cf6fbdb data/theurgy/modonomicon/books/the_hermetica/entries/getting_started/target_pedestal.json
+35730f4fc3fee8c9e75ae87360ff7942d5d74e2e data/theurgy/modonomicon/books/the_hermetica/entries/logistics/intro.json

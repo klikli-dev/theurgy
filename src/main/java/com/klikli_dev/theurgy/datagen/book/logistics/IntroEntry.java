@@ -37,11 +37,9 @@ public class IntroEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Mercurial Logistics");
         this.pageText("""
-                If the conversion between matter and energy in both directions can be controlled, then a much more efficient transportation system can be created: Mercurial Logistics.
+                If the conversion between matter and energy in both directions can be controlled, then a much more efficient transportation system can be created, utilizing metal wires instead of hoppers or pipes: Mercurial Logistics.
                 """
         );
-
-        //TODO: explain why that is desirable
     }
 
     @Override

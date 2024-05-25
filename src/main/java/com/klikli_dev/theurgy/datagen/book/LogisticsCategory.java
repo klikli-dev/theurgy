@@ -9,6 +9,9 @@ import com.klikli_dev.modonomicon.api.datagen.CategoryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookCategoryModel;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.datagen.book.logistics.IntroEntry;
+import com.klikli_dev.theurgy.datagen.book.logistics.LoreEntry;
+import com.klikli_dev.theurgy.datagen.book.logistics.MercurialWandEntry;
+import com.klikli_dev.theurgy.datagen.book.logistics.MercurialWireEntry;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 
 
@@ -27,11 +30,11 @@ public class LogisticsCategory extends CategoryProvider {
                 "__________________________________",
                 "__________________________________",
                 "__________________________________",
+                "________________l_________________",
                 "__________________________________",
+                "________________i___ŵ_____________",
                 "__________________________________",
-                "________________i_________________",
-                "__________________________________",
-                "__________________________________",
+                "________________w_________________",
                 "__________________________________",
                 "__________________________________",
                 "__________________________________"
@@ -42,9 +45,17 @@ public class LogisticsCategory extends CategoryProvider {
     @Override
     protected void generateEntries() {
         var introEntry = new IntroEntry(this).generate('i');
-        //finish intro entry with some more info - or create lore entry
+        var loreEntry = new LoreEntry(this).generate('l');
+        loreEntry.withParent(introEntry);
 
-        //entry for wand
+        var wandEntry = new MercurialWandEntry(this).generate('w');
+        wandEntry.withParent(introEntry);
+        //TODO: move wand entry after the first entry that shows a basic setup
+        //      then add a brief tutorial entry for reconfiguring e.g. an oven setup with the wand
+
+        var wireEntry = new MercurialWireEntry(this).generate('ŵ');
+        wireEntry.withParent(introEntry);
+
         //entry for inserter and extractor and wire, that then all lead to an entry that shows how to set them up
         //then an entry for the node
         //then entries for configuration, maybe as followups to the inserter/extractor entries

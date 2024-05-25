@@ -30,7 +30,7 @@ public class AccumulationRecipeProvider extends JsonRecipeProvider {
     }
 
     @Override
-    void buildRecipes(BiConsumer<ResourceLocation, JsonObject> recipeConsumer) {
+    public void buildRecipes(BiConsumer<ResourceLocation, JsonObject> recipeConsumer) {
         var salAmmoniac = FluidRegistry.SAL_AMMONIAC.get();
 
         this.makeRecipe("sal_ammoniac_from_water", salAmmoniac, 100, (Item) null, FluidTags.WATER, 1000, TIME);

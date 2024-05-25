@@ -32,7 +32,7 @@ public class LiquefactionRecipeProvider extends JsonRecipeProvider {
     }
 
     @Override
-    void buildRecipes(BiConsumer<ResourceLocation, JsonObject> recipeConsumer) {
+    public void buildRecipes(BiConsumer<ResourceLocation, JsonObject> recipeConsumer) {
         var salAmmoniac = FluidRegistry.SAL_AMMONIAC.get();
 
 

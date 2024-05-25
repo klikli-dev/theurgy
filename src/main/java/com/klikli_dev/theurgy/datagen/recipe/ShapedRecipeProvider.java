@@ -35,7 +35,7 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
     }
 
     @Override
-    void buildRecipes(BiConsumer<ResourceLocation, JsonObject> recipeConsumer) {
+    public void buildRecipes(BiConsumer<ResourceLocation, JsonObject> recipeConsumer) {
         //Divination Rods
         this.makeRecipe("divination_rod_t1", new RecipeBuilder(
                 ItemRegistry.DIVINATION_ROD_T1.get(), 1, this.makeDivinationRodSettings(ItemRegistry.DIVINATION_ROD_T1.get()))

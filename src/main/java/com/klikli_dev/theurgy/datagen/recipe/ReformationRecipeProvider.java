@@ -173,7 +173,7 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
     }
 
     @Override
-    void buildRecipes(BiConsumer<ResourceLocation, JsonObject> recipeConsumer) {
+    public void buildRecipes(BiConsumer<ResourceLocation, JsonObject> recipeConsumer) {
 
         //Set up materials that should not get the automatic conversion rates
         this.noAutomaticRecipesFor = Set.of(

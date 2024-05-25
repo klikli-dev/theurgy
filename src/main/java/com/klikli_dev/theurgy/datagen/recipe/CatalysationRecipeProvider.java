@@ -25,7 +25,7 @@ public class CatalysationRecipeProvider extends JsonRecipeProvider {
     }
 
     @Override
-    void buildRecipes(BiConsumer<ResourceLocation, JsonObject> recipeConsumer) {
+    public void buildRecipes(BiConsumer<ResourceLocation, JsonObject> recipeConsumer) {
         //one coal = one mercury shard
         //one coal burns 200t in a furnace/generator and usually yields 40 FE / t = 8000FE
         //that means we should make one shard give mercury flux equivalent to 8000 FE

@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.4-1.18.0] - 2024-05-25
+### :sparkles: New Features
+- [`c52b48e`](https://github.com/klikli-dev/theurgy/commit/c52b48e5cd7184ee66ecd788a3ae9f13a397a7d5) - mercurial logistics networks *(PR [#180](https://github.com/klikli-dev/theurgy/pull/180) by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.4-1.17.2] - 2024-04-14
 ### :bug: Bug Fixes
 - [`482dcdd`](https://github.com/klikli-dev/theurgy/commit/482dcdda6bc6dc119a8934a8b341fc55301106ab) - sal ammoniac accumulator tooltip claims you need a brazier below *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -494,3 +499,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.4-1.16.2]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.4-1.16.1...release/v1.20.4-1.16.2
 [release/v1.20.4-1.17.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.4-1.16.2...release/v1.20.4-1.17.1
 [release/v1.20.4-1.17.2]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.4-1.17.1...release/v1.20.4-1.17.2
+[release/v1.20.4-1.18.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.4-1.17.2...release/v1.20.4-1.18.0

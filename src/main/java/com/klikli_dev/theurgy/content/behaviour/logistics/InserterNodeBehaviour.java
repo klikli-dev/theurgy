@@ -49,8 +49,10 @@ public abstract class InserterNodeBehaviour<T, C> extends LeafNodeBehaviour<T, C
         var serverLevel = (ServerLevel) this.level();
         return targets.stream()
                 .map(target -> BlockCapabilityCache.create(this.capabilityType(), serverLevel, target, this.getTargetContext(target),
-                        //only listen to the invalidator if the node is still valid
-                        () -> !this.blockEntity.isRemoved() && Logistics.get().getNetwork(this.globalPos()) != null,
+                        //only listen to the invalidator if we (the BE) still exist.
+                        //Note: Previously we also checked if there is a valid network at this location, however that leads to issues
+                        //  namely a single inserter node that is not connected to anything will not have a network, which can lead to the cap cache being removed despite the inserter being fine!
+                        () -> !this.blockEntity.isRemoved(),
                         () -> {
                             //handles chunk loads/unloads and destruction of the target BE
                             this.onCapabilityInvalidated(target, this, false);

@@ -151,7 +151,7 @@ public class IncubatorBlockEntity extends BlockEntity {
         super.loadAdditional(pTag, pRegistries);
 
         if (pTag.contains("heatReceiver"))
-            this.heatReceiver.deserializeNBT(pTag.get("heatReceiver"));
+            this.heatReceiver.deserializeNBT(pRegistries, pTag.get("heatReceiver"));
 
         this.readNetwork(pTag, pRegistries);
     }

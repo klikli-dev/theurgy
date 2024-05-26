@@ -4,14 +4,27 @@
 
 package com.klikli_dev.theurgy.util;
 
-import com.mojang.datafixers.util.Function6;
 import com.mojang.datafixers.util.Function7;
 import com.mojang.datafixers.util.Pair;
+import io.netty.buffer.ByteBuf;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.world.phys.Vec3;
 
 import java.util.function.Function;
 
 public class TheurgyExtraStreamCodecs {
+
+    public static final StreamCodec<ByteBuf, Vec3> VEC3_FLOAT = new StreamCodec<>() {
+        public Vec3 decode(ByteBuf buf) {
+            return new Vec3(buf.readFloat(), buf.readFloat(), buf.readFloat());
+        }
+
+        public void encode(ByteBuf buf, Vec3 vec) {
+            buf.writeFloat((float) vec.x);
+            buf.writeFloat((float) vec.y);
+            buf.writeFloat((float) vec.z);
+        }
+    };
 
     public static <B, F, S> StreamCodec<B, Pair<F, S>> pair(StreamCodec<B, F> firstCodec, StreamCodec<B, S> secondCodec) {
         return StreamCodec.composite(

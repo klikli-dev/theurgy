@@ -106,7 +106,7 @@ public class CalcinationOvenBlockEntity extends BlockEntity implements GeoBlockE
         super.loadAdditional(pTag, pRegistries);
 
         if (pTag.contains("heatReceiver"))
-            this.heatReceiver.deserializeNBT(pTag.get("heatReceiver"));
+            this.heatReceiver.deserializeNBT(pRegistries, pTag.get("heatReceiver"));
 
         this.storageBehaviour.loadAdditional(pTag, pRegistries);
         this.craftingBehaviour.loadAdditional(pTag, pRegistries);

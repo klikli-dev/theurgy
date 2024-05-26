@@ -69,9 +69,9 @@ public abstract class ColoredProjectile extends Projectile {
     }
 
     @Override
-    protected void defineSynchedData() {
-        this.entityData.define(COLOR, new ParticleColor(255, 25, 180).getColor());
-        this.entityData.define(FINAL_COLOR, new ParticleColor(255, 25, 180).getColor());
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        builder.define(COLOR, new ParticleColor(255, 25, 180).getColor());
+        builder.define(FINAL_COLOR, new ParticleColor(255, 25, 180).getColor());
     }
 
 

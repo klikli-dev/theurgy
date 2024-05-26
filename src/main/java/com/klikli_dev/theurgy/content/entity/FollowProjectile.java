@@ -104,14 +104,14 @@ public class FollowProjectile extends ColoredProjectile {
         this.getEntityData().set(DESPAWN_DISTANCE, distance);
     }
 
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(TO, new Vec3(0, 0, 0));
-        this.entityData.define(FROM, new Vec3(0, 0, 0));
-        this.entityData.define(SIZE, 0.0f);
-        this.entityData.define(SPAWN_TOUCH, this.defaultsBurst());
-        this.entityData.define(DESPAWN_DISTANCE, 10);
-        this.entityData.define(ARRIVAL_DISTANCE, 1.0f);
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(TO, new Vec3(0, 0, 0));
+        builder.define(FROM, new Vec3(0, 0, 0));
+        builder.define(SIZE, 0.0f);
+        builder.define(SPAWN_TOUCH, this.defaultsBurst());
+        builder.define(DESPAWN_DISTANCE, 10);
+        builder.define(ARRIVAL_DISTANCE, 1.0f);
     }
 
     public boolean defaultsBurst() {

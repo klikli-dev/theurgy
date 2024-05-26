@@ -11,9 +11,8 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.neoforged.neoforge.fluids.FluidStack;
 
-import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Supplier;
 
 public class TheurgyExtraCodecs {

@@ -8,46 +8,41 @@ import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.content.item.divinationrod.DivinationRodItem;
 import com.klikli_dev.theurgy.network.Message;
+import io.netty.buffer.ByteBuf;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Optional;
 
 
 public class MessageSetDivinationResult implements Message {
+    public static final Type<MessageSetDivinationResult> TYPE = new Type<>(Theurgy.loc("set_divination_result"));
 
-    public static final ResourceLocation ID = Theurgy.loc("set_divination_result");
+    public static final StreamCodec<RegistryFriendlyByteBuf, MessageSetDivinationResult> STREAM_CODEC =
+            StreamCodec.composite(
+                    ByteBufCodecs.optional(BlockPos.STREAM_CODEC),
+                    (m) -> Optional.ofNullable(m.pos),
+                    ByteBufCodecs.BYTE,
+                    (m) -> m.distance,
+                    (pos, distance) -> new MessageSetDivinationResult(pos.orElse(null), distance)
+            );
 
-    public BlockPos pos;
-    public byte distance;
-
-    public MessageSetDivinationResult(FriendlyByteBuf buf) {
-        this.decode(buf);
-    }
+    public final BlockPos pos;
+    public final byte distance;
 
     public MessageSetDivinationResult(BlockPos pos, float distance) {
         this.pos = pos;
         this.distance = (byte) Math.min(256, distance);
-    }
-
-    @Override
-    public void encode(FriendlyByteBuf buf) {
-        buf.writeBoolean(this.pos != null);
-        if (this.pos != null) {
-            buf.writeBlockPos(this.pos);
-        }
-        buf.writeByte(this.distance);
-    }
-
-    @Override
-    public void decode(FriendlyByteBuf buf) {
-        if (buf.readBoolean()) {
-            this.pos = buf.readBlockPos();
-        }
-        this.distance = buf.readByte();
     }
 
     @Override
@@ -64,7 +59,7 @@ public class MessageSetDivinationResult implements Message {
     }
 
     @Override
-    public ResourceLocation id() {
-        return ID;
+    public @NotNull Type<? extends CustomPacketPayload> type() {
+        return TYPE;
     }
 }

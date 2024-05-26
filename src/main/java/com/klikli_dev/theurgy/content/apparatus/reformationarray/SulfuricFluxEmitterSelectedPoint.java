@@ -5,17 +5,25 @@
 package com.klikli_dev.theurgy.content.apparatus.reformationarray;
 
 import com.klikli_dev.theurgy.TheurgyConstants;
+import com.klikli_dev.theurgy.content.apparatus.caloricfluxemitter.CaloricFluxEmitterSelectedPoint;
 import com.klikli_dev.theurgy.content.behaviour.selection.SelectedPoint;
 import com.klikli_dev.theurgy.content.render.Color;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import io.netty.buffer.ByteBuf;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.util.ByIdMap;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.List;
+import java.util.function.IntFunction;
 
 public class SulfuricFluxEmitterSelectedPoint extends SelectedPoint<SulfuricFluxEmitterSelectedPoint> {
 
@@ -27,6 +35,14 @@ public class SulfuricFluxEmitterSelectedPoint extends SelectedPoint<SulfuricFlux
                     .apply(instance, SulfuricFluxEmitterSelectedPoint::new));
 
     public static final Codec<List<SulfuricFluxEmitterSelectedPoint>> LIST_CODEC = Codec.list(CODEC);
+
+    public static final StreamCodec<RegistryFriendlyByteBuf, SulfuricFluxEmitterSelectedPoint> STREAM_CODEC = StreamCodec.composite(
+            BlockPos.STREAM_CODEC,
+            SelectedPoint::getBlockPos,
+            Type.STREAM_CODEC,
+            SulfuricFluxEmitterSelectedPoint::getType,
+            SulfuricFluxEmitterSelectedPoint::new
+    );
 
     protected Type type;
 
@@ -71,6 +87,8 @@ public class SulfuricFluxEmitterSelectedPoint extends SelectedPoint<SulfuricFlux
         TARGET("TARGET", new Color(0x0000FF, false)),
         RESULT("RESULT", new Color(0x008000, false));
 
+        public static final IntFunction<Type> BY_ID = ByIdMap.continuous(Enum::ordinal, values(), ByIdMap.OutOfBoundsStrategy.WRAP);
+        public static final StreamCodec<ByteBuf, Type> STREAM_CODEC = ByteBufCodecs.idMapper(BY_ID, Type::ordinal);
         private final String name;
         private final Color color;
 

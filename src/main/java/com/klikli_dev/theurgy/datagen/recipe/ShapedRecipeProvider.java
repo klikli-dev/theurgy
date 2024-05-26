@@ -19,12 +19,12 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Tier;
+import net.minecraft.world.item.Tiers;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.Tags;
-import net.neoforged.neoforge.common.TierSortingRegistry;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.function.BiConsumer;
@@ -43,7 +43,7 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
                 .pattern(" GR")
                 .pattern(" RG")
                 .pattern("R  ")
-                .define('G', Tags.Items.GLASS)
+                .define('G', Tags.Items.GLASS_BLOCKS)
                 .define('R', Tags.Items.RODS_WOODEN)
         );
 
@@ -55,7 +55,7 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
                 .pattern(" RG")
                 .pattern("R  ")
                 .define('P', Tags.Items.DYES_PURPLE)
-                .define('G', Tags.Items.GLASS)
+                .define('G', Tags.Items.GLASS_BLOCKS)
                 .define('R', Tags.Items.RODS_WOODEN)
         );
 
@@ -64,7 +64,7 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
                 .pattern(" GS")
                 .pattern(" RG")
                 .pattern("R  ")
-                .define('G', Tags.Items.GLASS)
+                .define('G', Tags.Items.GLASS_BLOCKS)
                 .define('R', Tags.Items.RODS_WOODEN)
                 .define('S', ItemTagRegistry.ALCHEMICAL_SULFURS_ABUNDANT)
         );
@@ -73,7 +73,7 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
                 .pattern(" GS")
                 .pattern(" RG")
                 .pattern("R  ")
-                .define('G', Tags.Items.GLASS)
+                .define('G', Tags.Items.GLASS_BLOCKS)
                 .define('R', Tags.Items.RODS_WOODEN)
                 .define('S', ItemTagRegistry.ALCHEMICAL_SULFURS_COMMON)
         );
@@ -83,7 +83,7 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
                 .pattern(" GM")
                 .pattern(" AG")
                 .pattern("R  ")
-                .define('G', Tags.Items.GLASS)
+                .define('G', Tags.Items.GLASS_BLOCKS)
                 .define('R', Tags.Items.RODS_WOODEN)
                 .define('A', Tags.Items.GEMS_AMETHYST)
                 .define('M', Tags.Items.NUGGETS_GOLD)
@@ -93,7 +93,7 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
                 .pattern(" GS")
                 .pattern(" AG")
                 .pattern("R  ")
-                .define('G', Tags.Items.GLASS)
+                .define('G', Tags.Items.GLASS_BLOCKS)
                 .define('R', Tags.Items.RODS_WOODEN)
                 .define('A', Tags.Items.GEMS_AMETHYST)
                 .define('S', ItemTagRegistry.ALCHEMICAL_SULFURS_RARE)
@@ -104,7 +104,7 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
                 .pattern(" GD")
                 .pattern(" QG")
                 .pattern("A  ")
-                .define('G', Tags.Items.GLASS)
+                .define('G', Tags.Items.GLASS_BLOCKS)
                 .define('Q', Tags.Items.GEMS_QUARTZ)
                 .define('D', Tags.Items.GEMS_DIAMOND)
                 .define('A', Tags.Items.GEMS_AMETHYST)
@@ -114,7 +114,7 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
                 .pattern(" GS")
                 .pattern(" DG")
                 .pattern("A  ")
-                .define('G', Tags.Items.GLASS)
+                .define('G', Tags.Items.GLASS_BLOCKS)
                 .define('D', Tags.Items.GEMS_DIAMOND)
                 .define('A', Tags.Items.GEMS_AMETHYST)
                 .define('S', ItemTagRegistry.ALCHEMICAL_SULFURS_PRECIOUS)
@@ -125,7 +125,7 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
                 .pattern(" GM")
                 .pattern(" RG")
                 .pattern("A  ")
-                .define('G', Tags.Items.GLASS)
+                .define('G', Tags.Items.GLASS_BLOCKS)
                 .define('R', Tags.Items.RODS_BLAZE)
                 .define('M', Tags.Items.ORES_NETHERITE_SCRAP)
                 .define('A', Tags.Items.GEMS_AMETHYST)
@@ -137,7 +137,7 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
                 .pattern("CSC")
                 .pattern("SSS")
                 .define('C', Tags.Items.INGOTS_COPPER)
-                .define('S', Tags.Items.STONE)
+                .define('S', Tags.Items.STONES)
         );
 
 
@@ -158,7 +158,7 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
                 .pattern("SSS")
                 .define('C', Tags.Items.STORAGE_BLOCKS_COPPER)
                 .define('I', Tags.Items.INGOTS_IRON)
-                .define('S', Tags.Items.STONE)
+                .define('S', Tags.Items.STONES)
         );
 
         this.makeRecipe(ItemRegistry.LIQUEFACTION_CAULDRON.get(), new RecipeBuilder(
@@ -168,7 +168,7 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
                 .pattern("SSS")
                 .define('C', Tags.Items.INGOTS_COPPER)
                 .define('B', Items.CAULDRON)
-                .define('S', Tags.Items.STONE)
+                .define('S', Tags.Items.STONES)
         );
 
         this.makeRecipe(ItemRegistry.SAL_AMMONIAC_ACCUMULATOR.get(), new RecipeBuilder(
@@ -178,7 +178,7 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
                 .pattern("R R")
                 .define('R', Tags.Items.RODS_WOODEN)
                 .define('I', Tags.Items.INGOTS_IRON)
-                .define('S', Tags.Items.STONE)
+                .define('S', Tags.Items.STONES)
         );
 
         this.makeRecipe(ItemRegistry.SAL_AMMONIAC_TANK.get(), new RecipeBuilder(
@@ -199,7 +199,7 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
                 .define('P', ItemTags.PLANKS)
                 .define('C', Tags.Items.INGOTS_COPPER)
                 .define('G', Tags.Items.INGOTS_GOLD)
-                .define('S', Tags.Items.STONE)
+                .define('S', Tags.Items.STONES)
         );
 
         this.makeRecipe(ItemRegistry.INCUBATOR_MERCURY_VESSEL.get(), new RecipeBuilder(
@@ -209,7 +209,7 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
                 .pattern("SSS")
                 .define('c', Tags.Items.INGOTS_COPPER)
                 .define('M', ItemTagRegistry.ALCHEMICAL_MERCURIES)
-                .define('S', Tags.Items.STONE)
+                .define('S', Tags.Items.STONES)
         );
 
         this.makeRecipe(ItemRegistry.INCUBATOR_SALT_VESSEL.get(), new RecipeBuilder(
@@ -219,7 +219,7 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
                 .pattern("SSS")
                 .define('c', Tags.Items.INGOTS_COPPER)
                 .define('s', ItemTagRegistry.ALCHEMICAL_SALTS)
-                .define('S', Tags.Items.STONE)
+                .define('S', Tags.Items.STONES)
         );
 
         this.makeRecipe(ItemRegistry.INCUBATOR_SULFUR_VESSEL.get(), new RecipeBuilder(
@@ -229,7 +229,7 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
                 .pattern("SSS")
                 .define('c', Tags.Items.INGOTS_COPPER)
                 .define('s', ItemTagRegistry.ALCHEMICAL_SULFURS)
-                .define('S', Tags.Items.STONE)
+                .define('S', Tags.Items.STONES)
         );
 
 
@@ -238,7 +238,7 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
                 .pattern("imi")
                 .pattern("gQg")
                 .pattern("igi")
-                .define('Q', Tags.Items.STORAGE_BLOCKS_QUARTZ)
+                .define('Q', Items.QUARTZ_BLOCK)
                 .define('g', Tags.Items.INGOTS_GOLD)
                 .define('i', Tags.Items.INGOTS_IRON)
                 .define('m', ItemTagRegistry.ALCHEMICAL_MERCURIES)
@@ -251,7 +251,7 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
                 .pattern("sss")
                 .define('h', Items.CAMPFIRE)
                 .define('g', Tags.Items.INGOTS_GOLD)
-                .define('s', Tags.Items.STONE)
+                .define('s', Tags.Items.STONES)
                 .define('m', ItemTagRegistry.ALCHEMICAL_MERCURIES)
         );
 
@@ -262,7 +262,7 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
                 .pattern("sss")
                 .define('h', Items.LAVA_BUCKET)
                 .define('g', Tags.Items.INGOTS_GOLD)
-                .define('s', Tags.Items.STONE)
+                .define('s', Tags.Items.STONES)
                 .define('m', ItemTagRegistry.ALCHEMICAL_MERCURIES)
         );
 
@@ -273,7 +273,7 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
                 .pattern("sss")
                 .define('a', ItemTagRegistry.SAL_AMMONIAC_GEMS)
                 .define('g', Tags.Items.INGOTS_GOLD)
-                .define('s', Tags.Items.STONE)
+                .define('s', Tags.Items.STONES)
                 .define('S', ItemTagRegistry.ALCHEMICAL_SULFURS)
         );
 
@@ -327,7 +327,7 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
                 .define('s', ItemTagRegistry.SAL_AMMONIAC_GEMS)
                 .define('p', Items.DECORATED_POT)
                 .define('g', Tags.Items.INGOTS_GOLD)
-                .define('S', Tags.Items.SANDSTONE)
+                .define('S', Tags.Items.SANDSTONE_BLOCKS)
         );
 
 
@@ -371,7 +371,7 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
                 .pattern("bbb")
                 .define('m', ItemRegistry.MERCURY_SHARD)
                 .define('i', Tags.Items.INGOTS_IRON)
-                .define('b', Tags.Items.INGOTS_BRICK)
+                .define('b', Tags.Items.BRICKS_NORMAL)
         );
     }
 
@@ -379,10 +379,10 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
         return this.makeDivinationRodSettings(rodItem.defaultTier, rodItem.defaultAllowedBlocksTag, rodItem.defaultDisallowedBlocksTag, rodItem.defaultRange, rodItem.defaultDuration, rodItem.defaultDurability);
     }
 
-    public JsonObject makeDivinationRodSettings(Tier defaultTier, TagKey<Block> defaultAllowedBlocksTag, TagKey<Block> defaultDisallowedBlocksTag, int defaultRange, int defaultDuration, int defaultDurability) {
+    public JsonObject makeDivinationRodSettings(Tiers defaultTier, TagKey<Block> defaultAllowedBlocksTag, TagKey<Block> defaultDisallowedBlocksTag, int defaultRange, int defaultDuration, int defaultDurability) {
         JsonObject settings = new JsonObject();
 
-        settings.addProperty(TheurgyConstants.Nbt.Divination.SETTING_TIER, TierSortingRegistry.getName(defaultTier).toString());
+        settings.addProperty(TheurgyConstants.Nbt.Divination.SETTING_TIER, defaultTier.name());
         settings.addProperty(TheurgyConstants.Nbt.Divination.SETTING_ALLOWED_BLOCKS_TAG, defaultAllowedBlocksTag.location().toString());
         settings.addProperty(TheurgyConstants.Nbt.Divination.SETTING_DISALLOWED_BLOCKS_TAG, defaultDisallowedBlocksTag.location().toString());
         settings.addProperty(TheurgyConstants.Nbt.Divination.SETTING_RANGE, defaultRange);

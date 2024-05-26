@@ -39,7 +39,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.common.TierSortingRegistry;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collections;
@@ -52,7 +51,7 @@ public class DivinationRodItem extends Item {
     public static final float NOT_FOUND = 7.0f;
     public static final float SEARCHING = 8.0f;
 
-    public Tier defaultTier;
+    public Tiers defaultTier;
     public TagKey<Block> defaultAllowedBlocksTag;
     public TagKey<Block> defaultDisallowedBlocksTag;
 
@@ -61,7 +60,7 @@ public class DivinationRodItem extends Item {
     public int defaultDurability;
     public boolean defaultAllowAttuning;
 
-    public DivinationRodItem(Properties pProperties, Tier defaultTier, TagKey<Block> defaultAllowedBlocksTag, TagKey<Block> defaultDisallowedBlocksTag, int defaultRange, int defaultDuration, int defaultDurability, boolean defaultAllowAttuning) {
+    public DivinationRodItem(Properties pProperties, Tiers defaultTier, TagKey<Block> defaultAllowedBlocksTag, TagKey<Block> defaultDisallowedBlocksTag, int defaultRange, int defaultDuration, int defaultDurability, boolean defaultAllowAttuning) {
         super(pProperties);
         this.defaultTier = defaultTier;
         this.defaultAllowedBlocksTag = defaultAllowedBlocksTag;

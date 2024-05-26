@@ -4,35 +4,19 @@
 
 package com.klikli_dev.theurgy.content.recipe.result;
 
-import com.mojang.datafixers.util.Either;
+import com.klikli_dev.theurgy.registry.TheurgyRegistries;
 import com.mojang.serialization.Codec;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.util.ExtraCodecs;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
 
 
 public abstract class RecipeResult {
-    public static final Codec<RecipeResult> CODEC = ExtraCodecs.xor(ItemRecipeResult.CODEC, TagRecipeResult.CODEC)
-            .xmap(first -> first.map(l -> l, r -> r), second -> {
-                if (second instanceof TagRecipeResult tag) {
-                    return Either.right(tag);
-                } else if (second instanceof ItemRecipeResult item) {
-                    return Either.left(item);
-                } else {
-                    throw new UnsupportedOperationException("This is neither an ItemRecipeResult nor a TagRecipeResult.");
-                }
-            });
 
-    public static RecipeResult fromNetwork(FriendlyByteBuf pBuffer) {
-        var type = pBuffer.readByte();
-        if (type == ItemRecipeResult.TYPE) {
-            return ItemRecipeResult.fromNetwork(pBuffer);
-        } else if (type == TagRecipeResult.TYPE) {
-            return TagRecipeResult.fromNetwork(pBuffer);
-        } else {
-            throw new IllegalArgumentException("Unknown recipe result type: " + type);
-        }
-    }
+    public static final Codec<RecipeResult> CODEC = TheurgyRegistries.RECIPE_RESULT_TYPES.byNameCodec().dispatch(RecipeResult::getType, RecipeResultType::codec);
+
+    private static final StreamCodec<RegistryFriendlyByteBuf, RecipeResult> STREAM_CODEC = ByteBufCodecs.registry(TheurgyRegistries.Keys.RECIPE_RESULT_TYPES).dispatch(RecipeResult::getType, RecipeResultType::streamCodec);
 
     /**
      * Get the preferred item stack this result represents.
@@ -44,9 +28,5 @@ public abstract class RecipeResult {
      */
     public abstract ItemStack[] getStacks();
 
-    public abstract byte getType();
-
-    public void toNetwork(FriendlyByteBuf pBuffer) {
-        pBuffer.writeByte(this.getType());
-    }
+    public abstract RecipeResultType<?> getType();
 }

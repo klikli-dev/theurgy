@@ -95,12 +95,15 @@ public class Theurgy {
         RecipeTypeRegistry.RECIPE_TYPES.register(modEventBus);
         ConditionRegistry.CONDITION_SERIALIZERS.register(modEventBus);
         IngredientTypeRegistry.INGREDIENT_TYPES.register(modEventBus);
+        RecipeResultRegistry.RECIPE_RESULT_TYPES.register(modEventBus);
 
         modEventBus.addListener(this::onCommonSetup);
         modEventBus.addListener(this::onServerSetup);
         modEventBus.addListener(Networking::register);
 
         modEventBus.addListener(TheurgyDataGenerators::onGatherData);
+
+        modEventBus.addListener(TheurgyRegistries::onRegisterRegistries);
         modEventBus.addListener(SulfurRegistry::onBuildCreativeModTabs);
         modEventBus.addListener(SaltRegistry::onBuildCreativeModTabs);
         modEventBus.addListener(CapabilityRegistry::onRegisterCapabilities);

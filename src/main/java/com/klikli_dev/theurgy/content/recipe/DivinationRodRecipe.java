@@ -186,7 +186,7 @@ public class DivinationRodRecipe extends ShapedRecipe {
                 p_311728_ -> p_311728_.group(
                                 ExtraCodecs.strictOptionalField(Codec.STRING, "group", "").forGetter(p_311729_ -> p_311729_.getGroup()),
                                 ShapedRecipePattern.MAP_CODEC.forGetter(p_311733_ -> p_311733_.pattern),
-                                ItemStack.ITEM_WITH_COUNT_CODEC.fieldOf("result").forGetter(p_311730_ -> p_311730_.getResultItem(RegistryAccess.EMPTY)),
+                                ItemStack.STRICT_CODEC.fieldOf("result").forGetter(p_311730_ -> p_311730_.getResultItem(RegistryAccess.EMPTY)),
                                 ExtraCodecs.strictOptionalField(Codec.BOOL, "show_notification", true).forGetter(p_311731_ -> p_311731_.showNotification())
                         )
                         .apply(p_311728_, DivinationRodRecipe::new)

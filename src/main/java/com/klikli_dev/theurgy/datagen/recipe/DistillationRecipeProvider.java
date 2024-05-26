@@ -32,14 +32,14 @@ public class DistillationRecipeProvider extends JsonRecipeProvider {
 
     @Override
     public void buildRecipes(BiConsumer<ResourceLocation, JsonObject> recipeConsumer) {
-        this.makeMercuryShardRecipe(1, Tags.Items.STONE, 10);
+        this.makeMercuryShardRecipe(1, Tags.Items.STONES, 10);
         this.makeMercuryShardRecipe(1, Tags.Items.SANDSTONE, 10);
         this.makeMercuryShardRecipe(1, ItemTags.STONE_BRICKS, 10);
         this.makeMercuryShardRecipe(1, Tags.Items.COBBLESTONE, 10);
         this.makeMercuryShardRecipe(1, Tags.Items.GRAVEL, 15);
         this.makeMercuryShardRecipe(1, ItemTags.DIRT, 25);
         this.makeMercuryShardRecipe(1, Tags.Items.SAND, 15);
-        this.makeMercuryShardRecipe(1, Tags.Items.GLASS, 10);
+        this.makeMercuryShardRecipe(1, Tags.Items.GLASS_BLOCKS, 10);
 
         this.makeMercuryShardRecipe(5, ItemTagRegistry.LOW_MERCURY_ORES, 1);
         this.makeMercuryShardRecipe(25, ItemTagRegistry.MEDIUM_MERCURY_ORES, 1);

@@ -4,42 +4,49 @@
 
 package com.klikli_dev.theurgy.content.recipe.result;
 
+import com.klikli_dev.theurgy.registry.RecipeResultRegistry;
 import com.klikli_dev.theurgy.util.TagUtil;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.core.component.DataComponentPatch;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Optional;
-
 /**
  * A tag result for recipes that use tags as output.
  */
 public class TagRecipeResult extends RecipeResult {
 
-    public static final Codec<TagRecipeResult> CODEC = RecordCodecBuilder.create((builder) -> {
-        return builder.group(
-                TagKey.codec(Registries.ITEM).fieldOf("tag").forGetter((getter) -> {
-                    return getter.tag;
-                }), Codec.INT.fieldOf("count").forGetter((getter) -> {
-                    return getter.count;
-                }), CompoundTag.CODEC.optionalFieldOf("nbt").forGetter((getter) -> {
-                    return Optional.ofNullable(getter.nbt);
-                })).apply(builder, TagRecipeResult::new);
-    });
-    public static byte TYPE = 1;
+    public static final MapCodec<TagRecipeResult> CODEC = RecordCodecBuilder.mapCodec((builder) -> builder.group(
+            TagKey.codec(Registries.ITEM).fieldOf("tag").forGetter(t -> t.tag),
+            Codec.INT.fieldOf("count").forGetter(t -> t.count),
+            DataComponentPatch.CODEC.optionalFieldOf("components", DataComponentPatch.EMPTY).forGetter(t -> t.patch)
+    ).apply(builder, TagRecipeResult::new));
+
+    public static final StreamCodec<RegistryFriendlyByteBuf, TagRecipeResult> STREAM_CODEC = StreamCodec.composite(
+            ByteBufCodecs.fromCodec(TagKey.codec(Registries.ITEM)),
+            t -> t.tag,
+            ByteBufCodecs.INT,
+            t -> t.count,
+            DataComponentPatch.STREAM_CODEC,
+            t -> t.patch,
+            TagRecipeResult::new
+    );
+
     private final TagKey<Item> tag;
     private final int count;
-    @Nullable
-    private final CompoundTag nbt;
+    private final DataComponentPatch patch;
 
     @Nullable
     protected ItemStack cachedOutputStack;
@@ -48,24 +55,14 @@ public class TagRecipeResult extends RecipeResult {
     private ItemStack[] cachedStacks;
 
     public TagRecipeResult(TagKey<Item> tag, int count) {
-        this(tag, count, (CompoundTag) null);
+        this(tag, count, DataComponentPatch.EMPTY);
     }
 
-    public TagRecipeResult(TagKey<Item> tag, int count, @SuppressWarnings("OptionalUsedAsFieldOrParameterType") Optional<CompoundTag> nbt) {
-        this(tag, count, nbt.orElse(null));
-    }
 
-    public TagRecipeResult(TagKey<Item> tag, int count, @Nullable CompoundTag nbt) {
+    public TagRecipeResult(TagKey<Item> tag, int count, DataComponentPatch patch) {
         this.tag = tag;
         this.count = count;
-        this.nbt = nbt;
-    }
-
-    public static TagRecipeResult fromNetwork(FriendlyByteBuf pBuffer) {
-        var tag = TagKey.create(Registries.ITEM, pBuffer.readResourceLocation());
-        var count = pBuffer.readVarInt();
-        var nbt = pBuffer.readBoolean() ? pBuffer.readNbt() : null;
-        return new TagRecipeResult(tag, count, nbt);
+        this.patch = patch;
     }
 
     public TagKey<Item> getTag() {
@@ -76,13 +73,8 @@ public class TagRecipeResult extends RecipeResult {
         return this.count;
     }
 
-    @Nullable
-    public CompoundTag getNbt() {
-        return this.nbt;
-    }
-
-    public boolean hasNbt() {
-        return this.nbt != null;
+    public DataComponentPatch getPatch() {
+        return this.patch;
     }
 
     @Override
@@ -90,10 +82,11 @@ public class TagRecipeResult extends RecipeResult {
         if (this.cachedOutputStack == null) {
             var item = TagUtil.getItemStackForTag(this.tag).copy();
             item.setCount(this.count);
-            item.setTag(this.nbt);
+            item.applyComponents(this.patch);
 
             if (item.isEmpty()) {
-                item = new ItemStack(Blocks.BARRIER).setHoverName(Component.literal("Empty Tag: " + this.tag.location()));
+                item = new ItemStack(Blocks.BARRIER);
+                item.set(DataComponents.CUSTOM_NAME, Component.literal("Empty Tag: " + this.tag.location()));
             }
 
             this.cachedOutputStack = item;
@@ -113,19 +106,7 @@ public class TagRecipeResult extends RecipeResult {
     }
 
     @Override
-    public byte getType() {
-        return TYPE;
-    }
-
-    @Override
-    public void toNetwork(FriendlyByteBuf pBuffer) {
-        super.toNetwork(pBuffer); //write type
-
-        pBuffer.writeResourceLocation(this.tag.location());
-        pBuffer.writeVarInt(this.count);
-        pBuffer.writeBoolean(this.nbt != null);
-        if (this.nbt != null) {
-            pBuffer.writeNbt(this.nbt);
-        }
+    public RecipeResultType<?> getType() {
+        return RecipeResultRegistry.TAG.get();
     }
 }

@@ -31,7 +31,7 @@ public class LiquefactionRecipe implements Recipe<RecipeWrapperWithFluid> {
                     Ingredient.CODEC.fieldOf("ingredient").forGetter((r) -> r.ingredient),
                     FluidIngredient.CODEC.fieldOf("solvent").forGetter((r) -> r.solvent),
                     Codec.INT.fieldOf("solvent_amount").forGetter((r) -> r.solventAmount),
-                    ItemStack.ITEM_WITH_COUNT_CODEC.fieldOf("result").forGetter(r -> r.result),
+                    ItemStack.STRICT_CODEC.fieldOf("result").forGetter(r -> r.result),
                     Codec.INT.optionalFieldOf("time", DEFAULT_TIME).forGetter(r -> r.time)
             ).apply(instance, LiquefactionRecipe::new)
     );

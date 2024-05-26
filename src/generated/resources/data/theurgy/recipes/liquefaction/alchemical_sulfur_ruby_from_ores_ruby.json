@@ -14,7 +14,7 @@
     "tag": "forge:ores/ruby"
   },
   "result": {
-    "count": 6,
+    "count": 8,
     "item": "theurgy:alchemical_sulfur_ruby",
     "nbt": {
       "theurgy:sulfur.source.id": "#forge:ores/ruby"

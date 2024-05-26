@@ -14,7 +14,7 @@
     "tag": "forge:raw_materials/iron"
   },
   "result": {
-    "count": 2,
+    "count": 3,
     "item": "theurgy:alchemical_sulfur_iron",
     "nbt": {
       "theurgy:sulfur.source.id": "#forge:raw_materials/iron"

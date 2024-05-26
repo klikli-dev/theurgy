@@ -14,7 +14,7 @@
     "tag": "forge:ores/sapphire"
   },
   "result": {
-    "count": 6,
+    "count": 8,
     "item": "theurgy:alchemical_sulfur_sapphire",
     "nbt": {
       "theurgy:sulfur.source.id": "#forge:ores/sapphire"

@@ -14,7 +14,7 @@
     "tag": "forge:ores/lapis"
   },
   "result": {
-    "count": 10,
+    "count": 12,
     "item": "theurgy:alchemical_sulfur_lapis",
     "nbt": {
       "theurgy:sulfur.source.id": "#forge:ores/lapis"

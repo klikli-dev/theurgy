@@ -35,7 +35,6 @@ public class LiquefactionRecipeProvider extends JsonRecipeProvider {
     public void buildRecipes(BiConsumer<ResourceLocation, JsonObject> recipeConsumer) {
         var salAmmoniac = FluidRegistry.SAL_AMMONIAC.get();
 
-
         //Vanilla
         //Sulfurs with overrideTagSourceName
         this.makeRecipe(SulfurRegistry.LOGS.get(), ItemTags.LOGS, salAmmoniac, 10);
@@ -44,38 +43,38 @@ public class LiquefactionRecipeProvider extends JsonRecipeProvider {
         this.makeRecipe(SulfurRegistry.WHEAT.get(), Items.WHEAT, salAmmoniac, 10);
 
         //Common Metals Ore Sulfurs
-        this.makeRecipe(SulfurRegistry.IRON.get(), 3, Tags.Items.ORES_IRON, salAmmoniac, 10);
-        this.makeRecipe(SulfurRegistry.COPPER.get(), 3, Tags.Items.ORES_COPPER, salAmmoniac, 10);
-        this.makeRecipe(SulfurRegistry.GOLD.get(), 3, Tags.Items.ORES_GOLD, salAmmoniac, 15);
+        this.makeRecipe(SulfurRegistry.IRON.get(), 5, Tags.Items.ORES_IRON, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.COPPER.get(), 5, Tags.Items.ORES_COPPER, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.GOLD.get(), 5, Tags.Items.ORES_GOLD, salAmmoniac, 15);
         //netherite has a custom recipe in vanilla, 4 scraps per ingot, so we only do 1 sulfur here to avoid insane duplication rates
         this.makeRecipe(SulfurRegistry.NETHERITE.get(), 1, Tags.Items.ORES_NETHERITE_SCRAP, salAmmoniac, 100);
-        this.makeRecipe(SulfurRegistry.URANIUM.get(), 3, this.tag("forge:ores/uranium"), salAmmoniac, 10);
-        this.makeRecipe(SulfurRegistry.SILVER.get(), 3, this.tag("forge:ores/silver"), salAmmoniac, 10);
-        this.makeRecipe(SulfurRegistry.AZURE_SILVER.get(), 3, this.tag("forge:ores/azure_silver"), salAmmoniac, 10);
-        this.makeRecipe(SulfurRegistry.ZINC.get(), 3, this.tag("forge:ores/zinc"), salAmmoniac, 10);
-        this.makeRecipe(SulfurRegistry.OSMIUM.get(), 3, this.tag("forge:ores/osmium"), salAmmoniac, 10);
-        this.makeRecipe(SulfurRegistry.NICKEL.get(), 3, this.tag("forge:ores/nickel"), salAmmoniac, 10);
-        this.makeRecipe(SulfurRegistry.LEAD.get(), 3, this.tag("forge:ores/lead"), salAmmoniac, 10);
-        this.makeRecipe(SulfurRegistry.ALLTHEMODIUM.get(), 3, this.tag("forge:ores/allthemodium"), salAmmoniac, 100);
-        this.makeRecipe(SulfurRegistry.UNOBTAINIUM.get(), 3, this.tag("forge:ores/unobtainium"), salAmmoniac, 100);
-        this.makeRecipe(SulfurRegistry.IRIDIUM.get(), 3, this.tag("forge:ores/iridium"), salAmmoniac, 10);
-        this.makeRecipe(SulfurRegistry.TIN.get(), 3, this.tag("forge:ores/tin"), salAmmoniac, 10);
-        this.makeRecipe(SulfurRegistry.CINNABAR.get(), 3, this.tag("forge:ores/cinnabar"), salAmmoniac, 10);
-        this.makeRecipe(SulfurRegistry.CRIMSON_IRON.get(), 3, this.tag("forge:ores/crimson_iron"), salAmmoniac, 20);
-        this.makeRecipe(SulfurRegistry.PLATINUM.get(), 3, this.tag("forge:ores/platinum"), salAmmoniac, 20);
-        this.makeRecipe(SulfurRegistry.VIBRANIUM.get(), 3, this.tag("forge:ores/vibranium"), salAmmoniac, 20);
+        this.makeRecipe(SulfurRegistry.URANIUM.get(), 5, this.tag("forge:ores/uranium"), salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.SILVER.get(), 5, this.tag("forge:ores/silver"), salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.AZURE_SILVER.get(), 5, this.tag("forge:ores/azure_silver"), salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.ZINC.get(), 5, this.tag("forge:ores/zinc"), salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.OSMIUM.get(), 5, this.tag("forge:ores/osmium"), salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.NICKEL.get(), 5, this.tag("forge:ores/nickel"), salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.LEAD.get(), 5, this.tag("forge:ores/lead"), salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.ALLTHEMODIUM.get(), 5, this.tag("forge:ores/allthemodium"), salAmmoniac, 100);
+        this.makeRecipe(SulfurRegistry.UNOBTAINIUM.get(), 5, this.tag("forge:ores/unobtainium"), salAmmoniac, 100);
+        this.makeRecipe(SulfurRegistry.IRIDIUM.get(), 5, this.tag("forge:ores/iridium"), salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.TIN.get(), 5, this.tag("forge:ores/tin"), salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.CINNABAR.get(), 5, this.tag("forge:ores/cinnabar"), salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.CRIMSON_IRON.get(), 5, this.tag("forge:ores/crimson_iron"), salAmmoniac, 20);
+        this.makeRecipe(SulfurRegistry.PLATINUM.get(), 5, this.tag("forge:ores/platinum"), salAmmoniac, 20);
+        this.makeRecipe(SulfurRegistry.VIBRANIUM.get(), 5, this.tag("forge:ores/vibranium"), salAmmoniac, 20);
 
         //Common Gems Ore Sulfurs
         this.makeRecipe(SulfurRegistry.DIAMOND.get(), 4, Tags.Items.ORES_DIAMOND, salAmmoniac, 100);
         this.makeRecipe(SulfurRegistry.EMERALD.get(), 4, Tags.Items.ORES_EMERALD, salAmmoniac, 100);
-        this.makeRecipe(SulfurRegistry.LAPIS.get(), 10, Tags.Items.ORES_LAPIS, salAmmoniac, 10);
-        this.makeRecipe(SulfurRegistry.QUARTZ.get(), 8, Tags.Items.ORES_QUARTZ, salAmmoniac, 10);
-        this.makeRecipe(SulfurRegistry.RUBY.get(), 6, this.tag("forge:ores/ruby"), salAmmoniac, 15);
-        this.makeRecipe(SulfurRegistry.APATITE.get(), 8, this.tag("forge:ores/apatite"), salAmmoniac, 10);
-        this.makeRecipe(SulfurRegistry.PERIDOT.get(), 6, this.tag("forge:ores/peridot"), salAmmoniac, 15);
-        this.makeRecipe(SulfurRegistry.FLUORITE.get(), 6, this.tag("forge:ores/fluorite"), salAmmoniac, 10);
-        this.makeRecipe(SulfurRegistry.SAPPHIRE.get(), 6, this.tag("forge:ores/sapphire"), salAmmoniac, 15);
-        this.makeRecipe(SulfurRegistry.SAL_AMMONIAC.get(), 4, this.tag("forge:ores/sal_ammoniac"), salAmmoniac, 15);
+        this.makeRecipe(SulfurRegistry.LAPIS.get(), 12, Tags.Items.ORES_LAPIS, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.QUARTZ.get(), 10, Tags.Items.ORES_QUARTZ, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.RUBY.get(), 8, this.tag("forge:ores/ruby"), salAmmoniac, 15);
+        this.makeRecipe(SulfurRegistry.APATITE.get(), 9, this.tag("forge:ores/apatite"), salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.PERIDOT.get(), 8, this.tag("forge:ores/peridot"), salAmmoniac, 15);
+        this.makeRecipe(SulfurRegistry.FLUORITE.get(), 8, this.tag("forge:ores/fluorite"), salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.SAPPHIRE.get(), 8, this.tag("forge:ores/sapphire"), salAmmoniac, 15);
+        this.makeRecipe(SulfurRegistry.SAL_AMMONIAC.get(), 6, this.tag("forge:ores/sal_ammoniac"), salAmmoniac, 15);
 
         //Other Common Mineral Ores
         this.makeRecipe(SulfurRegistry.REDSTONE.get(), 9, Tags.Items.ORES_REDSTONE, salAmmoniac, 10);
@@ -83,24 +82,24 @@ public class LiquefactionRecipeProvider extends JsonRecipeProvider {
         this.makeRecipe(SulfurRegistry.SULFUR.get(), 6, this.tag("forge:ores/sulfur"), salAmmoniac, 10);
 
         //Common Raw Materials Sulfurs
-        this.makeRecipe(SulfurRegistry.IRON.get(), 2, Tags.Items.RAW_MATERIALS_IRON, salAmmoniac, 10);
-        this.makeRecipe(SulfurRegistry.COPPER.get(), 2, Tags.Items.RAW_MATERIALS_COPPER, salAmmoniac, 10);
-        this.makeRecipe(SulfurRegistry.GOLD.get(), 2, Tags.Items.RAW_MATERIALS_GOLD, salAmmoniac, 15);
-        this.makeRecipe(SulfurRegistry.URANIUM.get(), 2, this.tag("forge:raw_materials/uranium"), salAmmoniac, 10);
-        this.makeRecipe(SulfurRegistry.AZURE_SILVER.get(), 2, this.tag("forge:raw_materials/azure_silver"), salAmmoniac, 10);
-        this.makeRecipe(SulfurRegistry.SILVER.get(), 2, this.tag("forge:raw_materials/silver"), salAmmoniac, 10);
-        this.makeRecipe(SulfurRegistry.ZINC.get(), 2, this.tag("forge:raw_materials/zinc"), salAmmoniac, 10);
-        this.makeRecipe(SulfurRegistry.OSMIUM.get(), 2, this.tag("forge:raw_materials/osmium"), salAmmoniac, 10);
-        this.makeRecipe(SulfurRegistry.NICKEL.get(), 2, this.tag("forge:raw_materials/nickel"), salAmmoniac, 10);
-        this.makeRecipe(SulfurRegistry.LEAD.get(), 2, this.tag("forge:raw_materials/lead"), salAmmoniac, 10);
-        this.makeRecipe(SulfurRegistry.ALLTHEMODIUM.get(), 2, this.tag("forge:raw_materials/allthemodium"), salAmmoniac, 100);
-        this.makeRecipe(SulfurRegistry.UNOBTAINIUM.get(), 2, this.tag("forge:raw_materials/unobtainium"), salAmmoniac, 100);
-        this.makeRecipe(SulfurRegistry.IRIDIUM.get(), 2, this.tag("forge:raw_materials/iridium"), salAmmoniac, 10);
-        this.makeRecipe(SulfurRegistry.TIN.get(), 2, this.tag("forge:raw_materials/tin"), salAmmoniac, 10);
-        this.makeRecipe(SulfurRegistry.CINNABAR.get(), 2, this.tag("forge:raw_materials/cinnabar"), salAmmoniac, 10);
-        this.makeRecipe(SulfurRegistry.CRIMSON_IRON.get(), 2, this.tag("forge:raw_materials/crimson_iron"), salAmmoniac, 20);
-        this.makeRecipe(SulfurRegistry.PLATINUM.get(), 2, this.tag("forge:raw_materials/platinum"), salAmmoniac, 20);
-        this.makeRecipe(SulfurRegistry.VIBRANIUM.get(), 2, this.tag("forge:raw_materials/vibranium"), salAmmoniac, 20);
+        this.makeRecipe(SulfurRegistry.IRON.get(), 3, Tags.Items.RAW_MATERIALS_IRON, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.COPPER.get(), 3, Tags.Items.RAW_MATERIALS_COPPER, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.GOLD.get(), 3, Tags.Items.RAW_MATERIALS_GOLD, salAmmoniac, 15);
+        this.makeRecipe(SulfurRegistry.URANIUM.get(), 3, this.tag("forge:raw_materials/uranium"), salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.AZURE_SILVER.get(), 3, this.tag("forge:raw_materials/azure_silver"), salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.SILVER.get(), 3, this.tag("forge:raw_materials/silver"), salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.ZINC.get(), 3, this.tag("forge:raw_materials/zinc"), salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.OSMIUM.get(), 3, this.tag("forge:raw_materials/osmium"), salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.NICKEL.get(), 3, this.tag("forge:raw_materials/nickel"), salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.LEAD.get(), 3, this.tag("forge:raw_materials/lead"), salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.ALLTHEMODIUM.get(), 3, this.tag("forge:raw_materials/allthemodium"), salAmmoniac, 100);
+        this.makeRecipe(SulfurRegistry.UNOBTAINIUM.get(), 3, this.tag("forge:raw_materials/unobtainium"), salAmmoniac, 100);
+        this.makeRecipe(SulfurRegistry.IRIDIUM.get(), 3, this.tag("forge:raw_materials/iridium"), salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.TIN.get(), 3, this.tag("forge:raw_materials/tin"), salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.CINNABAR.get(), 3, this.tag("forge:raw_materials/cinnabar"), salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.CRIMSON_IRON.get(), 3, this.tag("forge:raw_materials/crimson_iron"), salAmmoniac, 20);
+        this.makeRecipe(SulfurRegistry.PLATINUM.get(), 3, this.tag("forge:raw_materials/platinum"), salAmmoniac, 20);
+        this.makeRecipe(SulfurRegistry.VIBRANIUM.get(), 3, this.tag("forge:raw_materials/vibranium"), salAmmoniac, 20);
 
         //Common Metal Ingots sulfurs
         this.makeRecipe(SulfurRegistry.IRON.get(), 1, Tags.Items.INGOTS_IRON, salAmmoniac, 10);

@@ -14,7 +14,7 @@
     "tag": "forge:ores/fluorite"
   },
   "result": {
-    "count": 6,
+    "count": 8,
     "item": "theurgy:alchemical_sulfur_fluorite",
     "nbt": {
       "theurgy:sulfur.source.id": "#forge:ores/fluorite"

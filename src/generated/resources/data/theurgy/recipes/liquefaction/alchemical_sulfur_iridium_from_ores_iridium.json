@@ -14,7 +14,7 @@
     "tag": "forge:ores/iridium"
   },
   "result": {
-    "count": 3,
+    "count": 5,
     "item": "theurgy:alchemical_sulfur_iridium",
     "nbt": {
       "theurgy:sulfur.source.id": "#forge:ores/iridium"

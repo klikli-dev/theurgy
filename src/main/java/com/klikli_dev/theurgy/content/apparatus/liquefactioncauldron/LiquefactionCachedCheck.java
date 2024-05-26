@@ -32,19 +32,18 @@ class LiquefactionCachedCheck implements RecipeManager.CachedCheck<RecipeWrapper
         this.internal = RecipeManager.createCheck(type);
     }
 
-    private Optional<Pair<ResourceLocation, RecipeHolder<LiquefactionRecipe>>> getRecipeFor(ItemStack stack, Level level, @Nullable ResourceLocation lastRecipe) {
-        //TODO: No need for pair here, the holder has the id!
+    private Optional<RecipeHolder<LiquefactionRecipe>> getRecipeFor(ItemStack stack, Level level, @Nullable ResourceLocation lastRecipe) {
         var recipeManager = level.getRecipeManager();
-        var map = recipeManager.byType(this.type);
         if (lastRecipe != null) {
-            var recipe = map.get(lastRecipe);
+
+            var recipe = recipeManager.byKeyTyped(this.type, lastRecipe);
             //test only the ingredient without the (separate) solvent fluid ingredient check that the recipe.matches() would.
             if (recipe != null && recipe.value().getIngredient().test(stack)) {
-                return Optional.of(Pair.of(lastRecipe, recipe));
+                return Optional.of(recipe);
             }
         }
-        // return this.byType(pRecipeType).stream().filter(p_300822_ -> p_300822_.value().matches(pInventory, pLevel)).findFirst();
-        return map.entrySet().stream().filter((entry) -> entry.getValue().value().getIngredient().test(stack)).findFirst().map((entry) -> Pair.of(entry.getKey(), entry.getValue()));
+
+        return recipeManager.byType(this.type).stream().filter((entry) -> entry.value().getIngredient().test(stack)).findFirst();
     }
 
     /**
@@ -53,9 +52,9 @@ class LiquefactionCachedCheck implements RecipeManager.CachedCheck<RecipeWrapper
     public Optional<RecipeHolder<LiquefactionRecipe>> getRecipeFor(ItemStack stack, Level level) {
         var optional = this.getRecipeFor(stack, level, this.lastRecipe);
         if (optional.isPresent()) {
-            var pair = optional.get();
-            this.lastRecipe = pair.getFirst();
-            return Optional.of(pair.getSecond());
+            var recipeHolder = optional.get();
+            this.lastRecipe = recipeHolder.id();
+            return optional;
         } else {
             return Optional.empty();
         }

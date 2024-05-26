@@ -6,7 +6,6 @@ package com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator;
 
 import com.klikli_dev.theurgy.content.recipe.AccumulationRecipe;
 import com.klikli_dev.theurgy.content.recipe.wrapper.RecipeWrapperWithFluid;
-import com.mojang.datafixers.util.Pair;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
@@ -33,34 +32,30 @@ class SalAmmoniacAccumulatorCachedCheck implements RecipeManager.CachedCheck<Rec
         this.internal = RecipeManager.createCheck(type);
     }
 
-    private Optional<Pair<ResourceLocation, RecipeHolder<AccumulationRecipe>>> getRecipeFor(ItemStack stack, Level level, @Nullable ResourceLocation lastRecipe) {
-
+    private Optional<RecipeHolder<AccumulationRecipe>> getRecipeFor(ItemStack stack, Level level, @Nullable ResourceLocation lastRecipe) {
         var recipeManager = level.getRecipeManager();
-        var map = recipeManager.byType(this.type);
         if (lastRecipe != null) {
-            var recipe = map.get(lastRecipe);
+            var recipe = recipeManager.byKeyTyped(this.type, lastRecipe);
             //test only the ingredient without the (separate) evaporate fluid ingredient check that the recipe.matches() would.
             if (recipe != null && recipe.value().hasSolute() && recipe.value().getSolute().test(stack)) {
-                return Optional.of(Pair.of(lastRecipe, recipe));
+                return Optional.of(recipe);
             }
         }
 
-        return map.entrySet().stream().filter((entry) -> entry.getValue().value().hasSolute() && entry.getValue().value().getSolute().test(stack)).findFirst().map((entry) -> Pair.of(entry.getKey(), entry.getValue()));
+        return recipeManager.byType(this.type).stream().filter((entry) -> entry.value().hasSolute() && entry.value().getSolute().test(stack)).findFirst();
     }
 
-    private Optional<Pair<ResourceLocation, RecipeHolder<AccumulationRecipe>>> getRecipeFor(FluidStack stack, Level level, @Nullable ResourceLocation lastRecipe) {
-
+    private Optional<RecipeHolder<AccumulationRecipe>> getRecipeFor(FluidStack stack, Level level, @Nullable ResourceLocation lastRecipe) {
         var recipeManager = level.getRecipeManager();
-        var map = recipeManager.byType(this.type);
         if (lastRecipe != null) {
-            var recipe = map.get(lastRecipe);
+            var recipe = recipeManager.byKeyTyped(this.type, lastRecipe);
             //test only the fluid without the (separate) solute item ingredient check that the recipe.matches() would.
             if (recipe != null && recipe.value().getEvaporant().test(stack)) {
-                return Optional.of(Pair.of(lastRecipe, recipe));
+                return Optional.of(recipe);
             }
         }
 
-        return map.entrySet().stream().filter((entry) -> entry.getValue().value().getEvaporant().test(stack)).findFirst().map((entry) -> Pair.of(entry.getKey(), entry.getValue()));
+        return recipeManager.byType(this.type).stream().filter((entry) -> entry.value().getEvaporant().test(stack)).findFirst();
     }
 
     /**
@@ -69,9 +64,9 @@ class SalAmmoniacAccumulatorCachedCheck implements RecipeManager.CachedCheck<Rec
     public Optional<RecipeHolder<AccumulationRecipe>> getRecipeFor(ItemStack stack, Level level) {
         var optional = this.getRecipeFor(stack, level, this.lastRecipe);
         if (optional.isPresent()) {
-            var pair = optional.get();
-            this.lastRecipe = pair.getFirst();
-            return Optional.of(pair.getSecond());
+            var recipeHolder = optional.get();
+            this.lastRecipe = recipeHolder.id();
+            return optional;
         } else {
             return Optional.empty();
         }
@@ -83,9 +78,9 @@ class SalAmmoniacAccumulatorCachedCheck implements RecipeManager.CachedCheck<Rec
     public Optional<RecipeHolder<AccumulationRecipe>> getRecipeFor(FluidStack stack, Level level) {
         var optional = this.getRecipeFor(stack, level, this.lastRecipe);
         if (optional.isPresent()) {
-            var pair = optional.get();
-            this.lastRecipe = pair.getFirst();
-            return Optional.of(pair.getSecond());
+            var recipeHolder = optional.get();
+            this.lastRecipe = recipeHolder.id();
+            return optional;
         } else {
             return Optional.empty();
         }

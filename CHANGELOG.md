@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.4-1.18.2] - 2024-05-26
+### :sparkles: New Features
+- [`de29758`](https://github.com/klikli-dev/theurgy/commit/de29758f8f269913a52c30cfd95fc013eaaeb5d2) - mention vat redstone interactions in guide book *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :bug: Bug Fixes
+- [`c96644c`](https://github.com/klikli-dev/theurgy/commit/c96644cdc17d2679cbe4c4ad71c4d2255f04ee6e) - adjust recipe rates to reflect book content *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`b1e4ccd`](https://github.com/klikli-dev/theurgy/commit/b1e4ccd630ee8bcb88db85fdba5e0985ef11e690) - possible reason for a capability related crash *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.4-1.18.0] - 2024-05-25
 ### :sparkles: New Features
 - [`c52b48e`](https://github.com/klikli-dev/theurgy/commit/c52b48e5cd7184ee66ecd788a3ae9f13a397a7d5) - mercurial logistics networks *(PR [#180](https://github.com/klikli-dev/theurgy/pull/180) by [@klikli-dev](https://github.com/klikli-dev))*
@@ -500,3 +509,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.4-1.17.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.4-1.16.2...release/v1.20.4-1.17.1
 [release/v1.20.4-1.17.2]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.4-1.17.1...release/v1.20.4-1.17.2
 [release/v1.20.4-1.18.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.4-1.17.2...release/v1.20.4-1.18.0
+[release/v1.20.4-1.18.2]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.4-1.18.0...release/v1.20.4-1.18.2

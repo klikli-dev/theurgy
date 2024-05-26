@@ -9,6 +9,7 @@ import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.Packet;
@@ -49,15 +50,15 @@ public class LogisticsItemExtractorBlockEntity extends LogisticsItemConnectorBlo
     }
 
     @Override
-    public CompoundTag getUpdateTag() {
+    public CompoundTag getUpdateTag(HolderLookup.Provider pRegistries) {
         var tag = new CompoundTag();
-        this.writeNetwork(tag);
+        this.writeNetwork(tag, pRegistries);
         return tag;
     }
 
     @Override
-    public void handleUpdateTag(CompoundTag tag) {
-        this.readNetwork(tag);
+    public void handleUpdateTag(CompoundTag tag, HolderLookup.Provider pRegistries) {
+        this.readNetwork(tag, pRegistries);
     }
 
     @Nullable
@@ -67,19 +68,19 @@ public class LogisticsItemExtractorBlockEntity extends LogisticsItemConnectorBlo
     }
 
     @Override
-    public void onDataPacket(Connection connection, ClientboundBlockEntityDataPacket packet) {
+    public void onDataPacket(Connection connection, ClientboundBlockEntityDataPacket packet, HolderLookup.Provider pRegistries) {
         var tag = packet.getTag();
         if (tag != null) {
-            this.readNetwork(tag);
+            this.readNetwork(tag, pRegistries);
         }
     }
 
-    public void readNetwork(CompoundTag tag) {
-        this.leafNode().readNetwork(tag);
+    public void readNetwork(CompoundTag tag, HolderLookup.Provider pRegistries) {
+        this.leafNode().readNetwork(tag, pRegistries);
     }
 
-    public void writeNetwork(CompoundTag tag) {
-        this.leafNode().writeNetwork(tag);
+    public void writeNetwork(CompoundTag tag, HolderLookup.Provider pRegistries) {
+        this.leafNode().writeNetwork(tag, pRegistries);;
     }
 
     protected void sendBlockUpdated() {

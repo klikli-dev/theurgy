@@ -10,6 +10,7 @@ import com.klikli_dev.theurgy.content.particle.ParticleColor;
 import com.klikli_dev.theurgy.content.particle.coloredbubble.ColoredBubbleParticleProvider;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.Packet;
@@ -43,15 +44,15 @@ public class LiquefactionCauldronBlockEntity extends BlockEntity {
     }
 
     @Override
-    public CompoundTag getUpdateTag() {
+    public CompoundTag getUpdateTag(HolderLookup.Provider pRegistries) {
         var tag = new CompoundTag();
-        this.writeNetwork(tag);
+        this.writeNetwork(tag, pRegistries);
         return tag;
     }
 
     @Override
-    public void handleUpdateTag(CompoundTag tag) {
-        this.readNetwork(tag);
+    public void handleUpdateTag(CompoundTag tag, HolderLookup.Provider pRegistries) {
+        this.readNetwork(tag, pRegistries);
     }
 
     @Nullable
@@ -61,21 +62,21 @@ public class LiquefactionCauldronBlockEntity extends BlockEntity {
     }
 
     @Override
-    public void onDataPacket(Connection connection, ClientboundBlockEntityDataPacket packet) {
+    public void onDataPacket(Connection connection, ClientboundBlockEntityDataPacket packet, HolderLookup.Provider pRegistries) {
         var tag = packet.getTag();
         if (tag != null) {
-            this.readNetwork(tag);
+            this.readNetwork(tag, pRegistries);
         }
     }
 
-    public void readNetwork(CompoundTag tag) {
-        this.storageBehaviour.readNetwork(tag);
-        this.craftingBehaviour.readNetwork(tag);
+    public void readNetwork(CompoundTag tag, HolderLookup.Provider pRegistries) {
+        this.storageBehaviour.readNetwork(tag, pRegistries);
+        this.craftingBehaviour.readNetwork(tag, pRegistries);
     }
 
-    public void writeNetwork(CompoundTag tag) {
-        this.storageBehaviour.writeNetwork(tag);
-        this.craftingBehaviour.writeNetwork(tag);
+    public void writeNetwork(CompoundTag tag, HolderLookup.Provider pRegistries) {
+        this.storageBehaviour.writeNetwork(tag, pRegistries);;
+        this.craftingBehaviour.writeNetwork(tag, pRegistries);;
     }
 
     public void sendBlockUpdated() {
@@ -108,23 +109,23 @@ public class LiquefactionCauldronBlockEntity extends BlockEntity {
     }
 
     @Override
-    protected void saveAdditional(CompoundTag pTag) {
-        super.saveAdditional(pTag);
+    protected void saveAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
+        super.saveAdditional(pTag, pRegistries);
 
-        pTag.put("heatReceiver", this.heatReceiver.serializeNBT());
+        pTag.put("heatReceiver", this.heatReceiver.serializeNBT(pRegistries));
 
-        this.storageBehaviour.saveAdditional(pTag);
-        this.craftingBehaviour.saveAdditional(pTag);
+        this.storageBehaviour.saveAdditional(pTag, pRegistries);
+        this.craftingBehaviour.saveAdditional(pTag, pRegistries);
     }
 
     @Override
-    public void load(CompoundTag pTag) {
-        super.load(pTag);
+    public void loadAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
+        super.loadAdditional(pTag, pRegistries);
 
         if (pTag.contains("heatReceiver"))
             this.heatReceiver.deserializeNBT(pTag.get("heatReceiver"));
 
-        this.storageBehaviour.load(pTag);
-        this.craftingBehaviour.load(pTag);
+        this.storageBehaviour.loadAdditional(pTag, pRegistries);
+        this.craftingBehaviour.loadAdditional(pTag, pRegistries);
     }
 }

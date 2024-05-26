@@ -13,6 +13,7 @@ import com.klikli_dev.theurgy.content.storage.PreventInsertWrapper;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
@@ -70,15 +71,15 @@ public class IncubatorBlockEntity extends BlockEntity {
     }
 
     @Override
-    public CompoundTag getUpdateTag() {
+    public CompoundTag getUpdateTag(HolderLookup.Provider pRegistries) {
         var tag = new CompoundTag();
-        this.writeNetwork(tag);
+        this.writeNetwork(tag, pRegistries);
         return tag;
     }
 
     @Override
-    public void handleUpdateTag(CompoundTag tag) {
-        this.readNetwork(tag);
+    public void handleUpdateTag(CompoundTag tag, HolderLookup.Provider pRegistries) {
+        this.readNetwork(tag, pRegistries);
     }
 
     @Nullable
@@ -88,24 +89,24 @@ public class IncubatorBlockEntity extends BlockEntity {
     }
 
     @Override
-    public void onDataPacket(Connection connection, ClientboundBlockEntityDataPacket packet) {
+    public void onDataPacket(Connection connection, ClientboundBlockEntityDataPacket packet, HolderLookup.Provider pRegistries) {
         var tag = packet.getTag();
         if (tag != null) {
-            this.readNetwork(tag);
+            this.readNetwork(tag, pRegistries);
         }
     }
 
-    public void readNetwork(CompoundTag pTag) {
+    public void readNetwork(CompoundTag pTag, HolderLookup.Provider pRegistries) {
         if (pTag.contains("outputInventory"))
-            this.outputInventory.deserializeNBT(pTag.getCompound("outputInventory"));
+            this.outputInventory.deserializeNBT(pRegistries, pTag.getCompound("outputInventory"));
 
-        this.craftingBehaviour.readNetwork(pTag);
+        this.craftingBehaviour.readNetwork(pTag, pRegistries);
     }
 
-    public void writeNetwork(CompoundTag pTag) {
-        pTag.put("outputInventory", this.outputInventory.serializeNBT());
+    public void writeNetwork(CompoundTag pTag, HolderLookup.Provider pRegistries) {
+        pTag.put("outputInventory", this.outputInventory.serializeNBT(pRegistries));
 
-        this.craftingBehaviour.writeNetwork(pTag);
+        this.craftingBehaviour.writeNetwork(pTag, pRegistries);
     }
 
     public void tickServer() {
@@ -137,22 +138,22 @@ public class IncubatorBlockEntity extends BlockEntity {
     }
 
     @Override
-    protected void saveAdditional(CompoundTag pTag) {
-        super.saveAdditional(pTag);
+    protected void saveAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
+        super.saveAdditional(pTag, pRegistries);
 
-        pTag.put("heatReceiver", this.heatReceiver.serializeNBT());
+        pTag.put("heatReceiver", this.heatReceiver.serializeNBT(pRegistries));
 
-        this.writeNetwork(pTag);
+        this.writeNetwork(pTag, pRegistries);
     }
 
     @Override
-    public void load(CompoundTag pTag) {
-        super.load(pTag);
+    public void loadAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
+        super.loadAdditional(pTag, pRegistries);
 
         if (pTag.contains("heatReceiver"))
             this.heatReceiver.deserializeNBT(pTag.get("heatReceiver"));
 
-        this.readNetwork(pTag);
+        this.readNetwork(pTag, pRegistries);
     }
 
     private void checkForVessel(BlockPos pos) {

@@ -63,6 +63,7 @@ public class LogisticsConnectionNodeBlock extends DirectionalBlock implements Ha
         return SHAPE.getShape(pState.getValue(FACING));
     }
 
+
     @Override
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         if (!pPlayer.getItemInHand(pHand).isEmpty())

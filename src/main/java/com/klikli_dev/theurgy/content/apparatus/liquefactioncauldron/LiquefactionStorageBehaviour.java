@@ -8,6 +8,7 @@ import com.klikli_dev.theurgy.content.behaviour.storage.StorageBehaviour;
 import com.klikli_dev.theurgy.content.storage.MonitoredItemStackHandler;
 import com.klikli_dev.theurgy.content.storage.PreventInsertWrapper;
 import com.klikli_dev.theurgy.registry.FluidTagRegistry;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -51,27 +52,27 @@ public class LiquefactionStorageBehaviour extends StorageBehaviour<LiquefactionS
     }
 
     @Override
-    public void readNetwork(CompoundTag pTag) {
-        if (pTag.contains("inputInventory")) this.inputInventory.deserializeNBT(pTag.getCompound("inputInventory"));
-        if (pTag.contains("outputInventory")) this.outputInventory.deserializeNBT(pTag.getCompound("outputInventory"));
-        if (pTag.contains("solventTank")) this.solventTank.readFromNBT(pTag.getCompound("solventTank"));
+    public void readNetwork(CompoundTag pTag, HolderLookup.Provider pRegistries) {
+        if (pTag.contains("inputInventory")) this.inputInventory.deserializeNBT(pRegistries, pTag.getCompound("inputInventory"));
+        if (pTag.contains("outputInventory")) this.outputInventory.deserializeNBT(pRegistries, pTag.getCompound("outputInventory"));
+        if (pTag.contains("solventTank")) this.solventTank.readFromNBT(pRegistries, pTag.getCompound("solventTank"));
     }
 
     @Override
-    public void writeNetwork(CompoundTag pTag) {
-        pTag.put("inputInventory", this.inputInventory.serializeNBT());
-        pTag.put("outputInventory", this.outputInventory.serializeNBT());
-        pTag.put("solventTank", this.solventTank.writeToNBT(new CompoundTag()));
+    public void writeNetwork(CompoundTag pTag, HolderLookup.Provider pRegistries) {
+        pTag.put("inputInventory", this.inputInventory.serializeNBT(pRegistries));
+        pTag.put("outputInventory", this.outputInventory.serializeNBT(pRegistries));
+        pTag.put("solventTank", this.solventTank.writeToNBT(pRegistries, new CompoundTag()));
     }
 
     @Override
-    public void saveAdditional(CompoundTag pTag) {
-        this.writeNetwork(pTag);
+    public void saveAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
+        this.writeNetwork(pTag, pRegistries);
     }
 
     @Override
-    public void load(CompoundTag pTag) {
-        this.readNetwork(pTag);
+    public void loadAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
+        this.readNetwork(pTag, pRegistries);
     }
 
     public class SolventTank extends FluidTank {

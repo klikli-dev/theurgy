@@ -7,6 +7,7 @@ package com.klikli_dev.theurgy.content.behaviour.logistics;
 import com.klikli_dev.theurgy.logistics.Logistics;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.GlobalPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.LongTag;
@@ -106,15 +107,15 @@ public abstract class LeafNodeBehaviour<T, C> {
         Logistics.get().remove(this, true);
     }
 
-    public void saveAdditional(CompoundTag pTag) {
-        this.writeNetwork(pTag);
+    public void saveAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
+        this.writeNetwork(pTag, pRegistries);
     }
 
-    public void load(CompoundTag pTag) {
-        this.readNetwork(pTag);
+    public void loadAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
+        this.readNetwork(pTag, pRegistries);
     }
 
-    public void writeNetwork(CompoundTag pTag) {
+    public void writeNetwork(CompoundTag pTag, HolderLookup.Provider pRegistries) {
         pTag.putInt("frequency", this.frequency);
         var list = new ListTag();
         for(var target : this.targets){
@@ -123,7 +124,7 @@ public abstract class LeafNodeBehaviour<T, C> {
         pTag.put("targets", list);
     }
 
-    public void readNetwork(CompoundTag pTag) {
+    public void readNetwork(CompoundTag pTag, HolderLookup.Provider pRegistries) {
         this.frequency = pTag.getInt("frequency");
         this.targets = new ArrayList<>();
         var list = pTag.getList("targets", Tag.TAG_LONG);

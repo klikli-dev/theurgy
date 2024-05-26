@@ -17,6 +17,7 @@ import com.mojang.datafixers.util.Pair;
 import io.netty.handler.codec.EncoderException;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.Connection;
@@ -206,56 +207,56 @@ public class SulfuricFluxEmitterBlockEntity extends BlockEntity {
     }
 
     @Override
-    protected void saveAdditional(CompoundTag pTag) {
-        super.saveAdditional(pTag);
+    protected void saveAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
+        super.saveAdditional(pTag, pRegistries);
 
-        pTag.put("mercuryFluxStorage", this.mercuryFluxStorage.serializeNBT());
-        pTag.put("sourcePedestals", Util.getOrThrow(SulfuricFluxEmitterSelectedPoint.LIST_CODEC.encodeStart(NbtOps.INSTANCE, this.sourcePedestals), (e) -> new EncoderException("Failed to encode: " + e + " " + this.sourcePedestals)));
+        pTag.put("mercuryFluxStorage", this.mercuryFluxStorage.serializeNBT(pRegistries));
+        pTag.put("sourcePedestals", SulfuricFluxEmitterSelectedPoint.LIST_CODEC.encodeStart(NbtOps.INSTANCE, this.sourcePedestals).getOrThrow((e) -> new EncoderException("Failed to encode: " + e + " " + this.sourcePedestals)));
 
         if (this.targetPedestal != null)
-            pTag.put("targetPedestal", Util.getOrThrow(SulfuricFluxEmitterSelectedPoint.CODEC.encodeStart(NbtOps.INSTANCE, this.targetPedestal), (e) -> new EncoderException("Failed to encode: " + e + " " + this.targetPedestal)));
+            pTag.put("targetPedestal", SulfuricFluxEmitterSelectedPoint.CODEC.encodeStart(NbtOps.INSTANCE, this.targetPedestal).getOrThrow((e) -> new EncoderException("Failed to encode: " + e + " " + this.targetPedestal)));
 
         if (this.resultPedestal != null)
-            pTag.put("resultPedestal", Util.getOrThrow(SulfuricFluxEmitterSelectedPoint.CODEC.encodeStart(NbtOps.INSTANCE, this.resultPedestal), (e) -> new EncoderException("Failed to encode: " + e + " " + this.resultPedestal)));
+            pTag.put("resultPedestal", SulfuricFluxEmitterSelectedPoint.CODEC.encodeStart(NbtOps.INSTANCE, this.resultPedestal).getOrThrow((e) -> new EncoderException("Failed to encode: " + e + " " + this.resultPedestal)));
 
-        this.craftingBehaviour.saveAdditional(pTag);
+        this.craftingBehaviour.saveAdditional(pTag, pRegistries);
 
     }
 
     @Override
-    public void load(CompoundTag pTag) {
-        super.load(pTag);
+    public void loadAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
+        super.loadAdditional(pTag, pRegistries);
 
         if (pTag.contains("mercuryFluxStorage"))
             //get instead of getCompound here because the storage serializes as int tag
-            this.mercuryFluxStorage.deserializeNBT(pTag.get("mercuryFluxStorage"));
+            this.mercuryFluxStorage.deserializeNBT(pRegistries, pTag.get("mercuryFluxStorage"));
 
         if (pTag.contains("sourcePedestals")) {
             this.sourcePedestals.clear();
-            this.sourcePedestals.addAll(Util.getOrThrow(SulfuricFluxEmitterSelectedPoint.LIST_CODEC.parse(NbtOps.INSTANCE, pTag.get("sourcePedestals")), (e) -> new EncoderException("Failed to decode: " + e + " " + pTag.get("sourcePedestals"))));
+            this.sourcePedestals.addAll(SulfuricFluxEmitterSelectedPoint.LIST_CODEC.parse(NbtOps.INSTANCE, pTag.get("sourcePedestals")).getOrThrow((e) -> new EncoderException("Failed to decode: " + e + " " + pTag.get("sourcePedestals"))));
         }
 
         if (pTag.contains("targetPedestal")) {
-            this.targetPedestal = Util.getOrThrow(SulfuricFluxEmitterSelectedPoint.CODEC.parse(NbtOps.INSTANCE, pTag.get("targetPedestal")), (e) -> new EncoderException("Failed to decode: " + e + " " + pTag.get("targetPedestal")));
+            this.targetPedestal = SulfuricFluxEmitterSelectedPoint.CODEC.parse(NbtOps.INSTANCE, pTag.get("targetPedestal")).getOrThrow((e) -> new EncoderException("Failed to decode: " + e + " " + pTag.get("targetPedestal")));
         }
 
         if (pTag.contains("resultPedestal")) {
-            this.resultPedestal = Util.getOrThrow(SulfuricFluxEmitterSelectedPoint.CODEC.parse(NbtOps.INSTANCE, pTag.get("resultPedestal")), (e) -> new EncoderException("Failed to decode: " + e + " " + pTag.get("resultPedestal")));
+            this.resultPedestal = SulfuricFluxEmitterSelectedPoint.CODEC.parse(NbtOps.INSTANCE, pTag.get("resultPedestal")).getOrThrow((e) -> new EncoderException("Failed to decode: " + e + " " + pTag.get("resultPedestal")));
         }
 
-        this.craftingBehaviour.load(pTag);
+        this.craftingBehaviour.loadAdditional(pTag, pRegistries);
     }
 
     @Override
-    public CompoundTag getUpdateTag() {
+    public CompoundTag getUpdateTag(HolderLookup.Provider pRegistries) {
         var tag = new CompoundTag();
-        this.writeNetwork(tag);
+        this.writeNetwork(tag, pRegistries);
         return tag;
     }
 
     @Override
-    public void handleUpdateTag(CompoundTag tag) {
-        this.readNetwork(tag);
+    public void handleUpdateTag(CompoundTag tag, HolderLookup.Provider pRegistries) {
+        this.readNetwork(tag, pRegistries);
     }
 
     @Nullable
@@ -265,14 +266,14 @@ public class SulfuricFluxEmitterBlockEntity extends BlockEntity {
     }
 
     @Override
-    public void onDataPacket(Connection connection, ClientboundBlockEntityDataPacket packet) {
+    public void onDataPacket(Connection connection, ClientboundBlockEntityDataPacket packet, HolderLookup.Provider pRegistries) {
         var tag = packet.getTag();
         if (tag != null) {
-            this.readNetwork(tag);
+            this.readNetwork(tag, pRegistries);
         }
     }
 
-    public void readNetwork(CompoundTag pTag) {
+    public void readNetwork(CompoundTag pTag, HolderLookup.Provider pRegistries) {
 
         if (pTag.contains("sourcePedestalsWithContents")) {
             this.sourcePedestalsWithContents.clear();
@@ -287,10 +288,10 @@ public class SulfuricFluxEmitterBlockEntity extends BlockEntity {
             this.resultPedestal = Util.getOrThrow(SulfuricFluxEmitterSelectedPoint.CODEC.parse(NbtOps.INSTANCE, pTag.get("resultPedestal")), (e) -> new EncoderException("Failed to decode: " + e + " " + pTag.get("resultPedestal")));
         }
 
-        this.craftingBehaviour.readNetwork(pTag);
+        this.craftingBehaviour.readNetwork(pTag, pRegistries);
     }
 
-    public void writeNetwork(CompoundTag pTag) {
+    public void writeNetwork(CompoundTag pTag, HolderLookup.Provider pRegistries) {
         pTag.put("sourcePedestalsWithContents", Util.getOrThrow(SulfuricFluxEmitterSelectedPoint.LIST_CODEC.encodeStart(NbtOps.INSTANCE, this.sourcePedestalsWithContents), (e) -> new EncoderException("Failed to encode: " + e + " " + this.sourcePedestalsWithContents)));
 
         if (this.targetPedestal != null)
@@ -299,7 +300,7 @@ public class SulfuricFluxEmitterBlockEntity extends BlockEntity {
         if (this.resultPedestal != null)
             pTag.put("resultPedestal", Util.getOrThrow(SulfuricFluxEmitterSelectedPoint.CODEC.encodeStart(NbtOps.INSTANCE, this.resultPedestal), (e) -> new EncoderException("Failed to encode: " + e + " " + this.resultPedestal)));
 
-        this.craftingBehaviour.writeNetwork(pTag);
+        this.craftingBehaviour.writeNetwork(pTag, pRegistries);
     }
 
     public SelectionBehaviour<SulfuricFluxEmitterSelectedPoint> getSelectionBehaviour() {

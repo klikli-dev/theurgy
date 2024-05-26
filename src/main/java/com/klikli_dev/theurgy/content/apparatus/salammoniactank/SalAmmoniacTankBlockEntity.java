@@ -7,6 +7,7 @@ package com.klikli_dev.theurgy.content.apparatus.salammoniactank;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.FluidTagRegistry;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.Packet;
@@ -39,15 +40,15 @@ public class SalAmmoniacTankBlockEntity extends BlockEntity implements GeoBlockE
     }
 
     @Override
-    public CompoundTag getUpdateTag() {
+    public CompoundTag getUpdateTag(HolderLookup.Provider pRegistries) {
         var tag = new CompoundTag();
-        this.writeNetwork(tag);
+        this.writeNetwork(tag, pRegistries);
         return tag;
     }
 
     @Override
-    public void handleUpdateTag(CompoundTag tag) {
-        this.readNetwork(tag);
+    public void handleUpdateTag(CompoundTag tag, HolderLookup.Provider pRegistries) {
+        this.readNetwork(tag, pRegistries);
     }
 
     @Nullable
@@ -57,21 +58,21 @@ public class SalAmmoniacTankBlockEntity extends BlockEntity implements GeoBlockE
     }
 
     @Override
-    public void onDataPacket(Connection connection, ClientboundBlockEntityDataPacket packet) {
+    public void onDataPacket(Connection connection, ClientboundBlockEntityDataPacket packet, HolderLookup.Provider pRegistries) {
         var tag = packet.getTag();
         if (tag != null) {
-            this.readNetwork(tag);
+            this.readNetwork(tag, pRegistries);
         }
     }
 
-    public void readNetwork(CompoundTag tag) {
+    public void readNetwork(CompoundTag tag, HolderLookup.Provider pRegistries) {
         if (tag.contains("tank")) {
-            this.tank.readFromNBT(tag.getCompound("tank"));
+            this.tank.readFromNBT(pRegistries, tag.getCompound("tank"));
         }
     }
 
-    public void writeNetwork(CompoundTag tag) {
-        tag.put("tank", this.tank.writeToNBT(new CompoundTag()));
+    public void writeNetwork(CompoundTag tag, HolderLookup.Provider pRegistries) {
+        tag.put("tank", this.tank.writeToNBT(pRegistries, new CompoundTag()));
     }
 
     public void sendBlockUpdated() {
@@ -80,17 +81,17 @@ public class SalAmmoniacTankBlockEntity extends BlockEntity implements GeoBlockE
     }
 
     @Override
-    protected void saveAdditional(CompoundTag pTag) {
-        super.saveAdditional(pTag);
-        pTag.put("tank", this.tank.writeToNBT(new CompoundTag()));
+    protected void saveAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
+        super.saveAdditional(pTag, pRegistries);
+        pTag.put("tank", this.tank.writeToNBT(pRegistries, new CompoundTag()));
     }
 
     @Override
-    public void load(CompoundTag pTag) {
-        super.load(pTag);
+    public void loadAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
+        super.loadAdditional(pTag, pRegistries);
 
         if (pTag.contains("tank")) {
-            this.tank.readFromNBT(pTag.getCompound("tank"));
+            this.tank.readFromNBT(pRegistries, pTag.getCompound("tank"));
         }
     }
 

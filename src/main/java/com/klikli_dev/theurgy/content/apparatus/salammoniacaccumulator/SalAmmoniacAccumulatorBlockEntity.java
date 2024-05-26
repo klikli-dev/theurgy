@@ -10,6 +10,7 @@ import com.klikli_dev.theurgy.content.storage.MonitoredItemStackHandler;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.ItemTagRegistry;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.Packet;
@@ -60,15 +61,15 @@ public class SalAmmoniacAccumulatorBlockEntity extends BlockEntity implements Ge
     }
 
     @Override
-    public CompoundTag getUpdateTag() {
+    public CompoundTag getUpdateTag(HolderLookup.Provider pRegistries) {
         var tag = new CompoundTag();
-        this.writeNetwork(tag);
+        this.writeNetwork(tag, pRegistries);
         return tag;
     }
 
     @Override
-    public void handleUpdateTag(CompoundTag tag) {
-        this.readNetwork(tag);
+    public void handleUpdateTag(CompoundTag tag, HolderLookup.Provider pRegistries) {
+        this.readNetwork(tag, pRegistries);
     }
 
     @Nullable
@@ -78,30 +79,30 @@ public class SalAmmoniacAccumulatorBlockEntity extends BlockEntity implements Ge
     }
 
     @Override
-    public void onDataPacket(Connection connection, ClientboundBlockEntityDataPacket packet) {
+    public void onDataPacket(Connection connection, ClientboundBlockEntityDataPacket packet, HolderLookup.Provider pRegistries) {
         var tag = packet.getTag();
         if (tag != null) {
-            this.readNetwork(tag);
+            this.readNetwork(tag, pRegistries);
         }
     }
 
-    public void readNetwork(CompoundTag tag) {
+    public void readNetwork(CompoundTag tag, HolderLookup.Provider pRegistries) {
         if (tag.contains("waterTank")) {
-            this.waterTank.readFromNBT(tag.getCompound("waterTank"));
+            this.waterTank.readFromNBT(pRegistries, tag.getCompound("waterTank"));
         }
 
         if (tag.contains("inventory")) {
-            this.inventory.deserializeNBT(tag.getCompound("inventory"));
+            this.inventory.deserializeNBT(pRegistries, tag.getCompound("inventory"));
         }
 
-        this.craftingBehaviour.readNetwork(tag);
+        this.craftingBehaviour.readNetwork(tag, pRegistries);
     }
 
-    public void writeNetwork(CompoundTag tag) {
-        tag.put("waterTank", this.waterTank.writeToNBT(new CompoundTag()));
-        tag.put("inventory", this.inventory.serializeNBT());
+    public void writeNetwork(CompoundTag tag, HolderLookup.Provider pRegistries) {
+        tag.put("waterTank", this.waterTank.writeToNBT(pRegistries, new CompoundTag()));
+        tag.put("inventory", this.inventory.serializeNBT(pRegistries));
 
-        this.craftingBehaviour.writeNetwork(tag);
+        this.craftingBehaviour.writeNetwork(tag, pRegistries);;
     }
 
     public void sendBlockUpdated() {
@@ -170,26 +171,26 @@ public class SalAmmoniacAccumulatorBlockEntity extends BlockEntity implements Ge
     }
 
     @Override
-    protected void saveAdditional(CompoundTag pTag) {
-        super.saveAdditional(pTag);
+    protected void saveAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
+        super.saveAdditional(pTag, pRegistries);
 
-        pTag.put("inventory", this.inventory.serializeNBT());
-        pTag.put("waterTank", this.waterTank.writeToNBT(new CompoundTag()));
+        pTag.put("inventory", this.inventory.serializeNBT(pRegistries));
+        pTag.put("waterTank", this.waterTank.writeToNBT(pRegistries, new CompoundTag()));
 
-        this.craftingBehaviour.saveAdditional(pTag);
+        this.craftingBehaviour.saveAdditional(pTag, pRegistries);
     }
 
     @Override
-    public void load(CompoundTag pTag) {
-        super.load(pTag);
+    public void loadAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
+        super.loadAdditional(pTag, pRegistries);
 
-        if (pTag.contains("inventory")) this.inventory.deserializeNBT(pTag.getCompound("inventory"));
+        if (pTag.contains("inventory")) this.inventory.deserializeNBT(pRegistries, pTag.getCompound("inventory"));
 
         if (pTag.contains("waterTank")) {
-            this.waterTank.readFromNBT(pTag.getCompound("waterTank"));
+            this.waterTank.readFromNBT(pRegistries, pTag.getCompound("waterTank"));
         }
 
-        this.craftingBehaviour.load(pTag);
+        this.craftingBehaviour.loadAdditional(pTag, pRegistries);
     }
 
     @Override

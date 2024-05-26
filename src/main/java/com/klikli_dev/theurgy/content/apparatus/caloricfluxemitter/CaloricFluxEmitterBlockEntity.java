@@ -14,8 +14,11 @@ import com.klikli_dev.theurgy.registry.CapabilityRegistry;
 import io.netty.handler.codec.EncoderException;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -52,7 +55,7 @@ public class CaloricFluxEmitterBlockEntity extends BlockEntity {
         if (this.getLevel().getGameTime() % TICK_INTERVAL != 0)
             return; //slow tick
 
-        if(!this.getBlockState().getValue(BlockStateProperties.ENABLED))
+        if (!this.getBlockState().getValue(BlockStateProperties.ENABLED))
             return; //disabled with active redstone
 
         if (this.selectedPoints.isEmpty())
@@ -72,29 +75,29 @@ public class CaloricFluxEmitterBlockEntity extends BlockEntity {
             this.mercuryFluxStorage.extractEnergy(FLUX_PER_HEAT, false);
             heatReceiver.setHotUntil(this.getLevel().getGameTime() + HEAT_TARGET_FOR_TICKS);
 
-            Networking.sendToTracking(this.getLevel().getChunkAt(this.getBlockPos()), new MessageShowCaloricFlux(this.getBlockPos(), selectedPoint.getBlockPos(), this.getBlockState().getValue(CaloricFluxEmitterBlock.FACING)));
+            Networking.sendToTracking((ServerLevel) this.getLevel(), new ChunkPos(this.getBlockPos()), new MessageShowCaloricFlux(this.getBlockPos(), selectedPoint.getBlockPos(), this.getBlockState().getValue(CaloricFluxEmitterBlock.FACING)));
         }
     }
 
 
     @Override
-    protected void saveAdditional(CompoundTag pTag) {
-        super.saveAdditional(pTag);
+    protected void saveAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
+        super.saveAdditional(pTag, pRegistries);
 
-        pTag.put("mercuryFluxStorage", this.mercuryFluxStorage.serializeNBT());
-        pTag.put("selectedPoints", Util.getOrThrow(CaloricFluxEmitterSelectedPoint.LIST_CODEC.encodeStart(NbtOps.INSTANCE, this.selectedPoints), (e) -> new EncoderException("Failed to encode: " + e + " " + this.selectedPoints)));
+        pTag.put("mercuryFluxStorage", this.mercuryFluxStorage.serializeNBT(pRegistries));
+        pTag.put("selectedPoints", CaloricFluxEmitterSelectedPoint.LIST_CODEC.encodeStart(NbtOps.INSTANCE, this.selectedPoints).getOrThrow((e) -> new EncoderException("Failed to encode: " + e + " " + this.selectedPoints)));
     }
 
     @Override
-    public void load(CompoundTag pTag) {
-        super.load(pTag);
+    public void loadAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
+        super.loadAdditional(pTag, pRegistries);
 
         if (pTag.contains("mercuryFluxStorage"))
             //get instead of getCompound here because the storage serializes as int tag
-            this.mercuryFluxStorage.deserializeNBT(pTag.get("mercuryFluxStorage"));
+            this.mercuryFluxStorage.deserializeNBT(pRegistries, pTag.get("mercuryFluxStorage"));
 
         if (pTag.contains("selectedPoints")) {
-            this.selectedPoints = Util.getOrThrow(CaloricFluxEmitterSelectedPoint.LIST_CODEC.parse(NbtOps.INSTANCE, pTag.get("selectedPoints")), (e) -> new EncoderException("Failed to decode: " + e + " " + pTag.get("selectedPoints")));
+            this.selectedPoints = CaloricFluxEmitterSelectedPoint.LIST_CODEC.parse(NbtOps.INSTANCE, pTag.get("selectedPoints")).getOrThrow((e) -> new EncoderException("Failed to decode: " + e + " " + pTag.get("selectedPoints")));
         }
     }
 

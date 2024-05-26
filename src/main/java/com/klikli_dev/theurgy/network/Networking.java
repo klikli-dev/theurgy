@@ -6,7 +6,9 @@ package com.klikli_dev.theurgy.network;
 
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.network.messages.*;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.level.ChunkPos;
 import net.neoforged.neoforge.network.PacketDistributor;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 
@@ -35,6 +37,10 @@ public class Networking {
 
     public static <T extends Message> void sendTo(ServerPlayer player, T message) {
         PacketDistributor.sendToPlayer(player, message);
+    }
+
+    public static <T extends Message> void sendToTracking(ServerLevel level, ChunkPos chunkPos, T message) {
+        PacketDistributor.sendToPlayersTrackingChunk(level, chunkPos, message);
     }
 
     public static <T extends Message> void sendToServer(T message) {

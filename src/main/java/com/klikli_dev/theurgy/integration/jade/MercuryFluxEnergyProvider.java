@@ -10,13 +10,13 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.Nullable;
 import snownee.jade.api.Accessor;
-import snownee.jade.api.BlockAccessor;
 import snownee.jade.api.view.*;
+import snownee.jade.util.CommonProxy;
 
 import java.util.List;
 import java.util.Objects;
 
-public class MercuryFluxEnergyProvider implements IServerExtensionProvider<Object, CompoundTag>, IClientExtensionProvider<CompoundTag, EnergyView> {
+public class MercuryFluxEnergyProvider implements IServerExtensionProvider<CompoundTag>, IClientExtensionProvider<CompoundTag, EnergyView> {
 
     public static final ResourceLocation ID = Theurgy.loc("mercury_flux");
     private static final MercuryFluxEnergyProvider instance = new MercuryFluxEnergyProvider();
@@ -25,17 +25,15 @@ public class MercuryFluxEnergyProvider implements IServerExtensionProvider<Objec
         return instance;
     }
 
-    public static List<ViewGroup<CompoundTag>> wrapMercuryFluxStorage(Accessor<?> accessor, Object target) {
-        if (accessor instanceof BlockAccessor ba) {
-            var storage = ba.getLevel().getCapability(CapabilityRegistry.MERCURY_FLUX_HANDLER, ba.getPosition(), ba.getBlockState(), ba.getBlockEntity(), null);
-            if (storage != null) {
-                ViewGroup<CompoundTag> group = new ViewGroup(List.of(EnergyView.of(storage.getEnergyStored(), storage.getMaxEnergyStored())));
-                group.getExtraData().putString("Unit", "MF");
-                return List.of(group);
-            }
+    public static @Nullable List<ViewGroup<CompoundTag>> wrapMercuryFluxStorage(Accessor<?> accessor) {
+        var storage = CommonProxy.getDefaultStorage(accessor, CapabilityRegistry.MERCURY_FLUX_HANDLER, null);
+        if (storage != null) {
+            ViewGroup<CompoundTag> group = new ViewGroup(List.of(EnergyView.of(storage.getEnergyStored(), storage.getMaxEnergyStored())));
+            group.getExtraData().putString("Unit", "MF");
+            return List.of(group);
+        } else {
+            return null;
         }
-
-        return null;
     }
 
     @Override
@@ -52,7 +50,7 @@ public class MercuryFluxEnergyProvider implements IServerExtensionProvider<Objec
     }
 
     @Override
-    public @Nullable List<ViewGroup<CompoundTag>> getGroups(Accessor<?> accessor, Object o) {
-        return wrapMercuryFluxStorage(accessor, o);
+    public @Nullable List<ViewGroup<CompoundTag>> getGroups(Accessor<?> accessor) {
+        return wrapMercuryFluxStorage(accessor);
     }
 }

@@ -6,7 +6,7 @@ package com.klikli_dev.theurgy.datagen.worldgen;
 
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.world.level.biome.Biome;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 
@@ -17,7 +17,7 @@ public class TheurgyRegistries {
             .add(Registries.BIOME, TheurgyRegistries::bootstrapBiomes)
             .add(NeoForgeRegistries.Keys.BIOME_MODIFIERS, BiomeModifiers::bootstrap);
 
-    public static void bootstrapBiomes(BootstapContext<Biome> context) {
+    public static void bootstrapBiomes(BootstrapContext<Biome> context) {
         //doesn't need to do anything, just gives us access to a biome registry with empty tag lookup in our other boopstrap contexts
     }
 }

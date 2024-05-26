@@ -6,7 +6,7 @@ package com.klikli_dev.theurgy.datagen.worldgen;
 
 import com.klikli_dev.theurgy.Theurgy;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
@@ -18,7 +18,7 @@ public class PlacedFeatures {
     public static final ResourceKey<PlacedFeature> SAL_AMMONIAC_ORE = ResourceKey.create(Registries.PLACED_FEATURE, Theurgy.loc("sal_ammoniac_ore"));
 
 
-    public static void bootstrap(BootstapContext<PlacedFeature> context) {
+    public static void bootstrap(BootstrapContext<PlacedFeature> context) {
         var configuredFeatures = context.lookup(Registries.CONFIGURED_FEATURE);
         PlacementUtils.register(context, SAL_AMMONIAC_ORE, configuredFeatures.getOrThrow(ConfiguredFeatures.SAL_AMMONIAC_ORE),
                 commonOrePlacement(20, HeightRangePlacement.triangle(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(200))));

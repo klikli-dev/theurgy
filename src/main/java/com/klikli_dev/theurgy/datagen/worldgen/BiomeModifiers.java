@@ -7,7 +7,7 @@ package com.klikli_dev.theurgy.datagen.worldgen;
 import com.klikli_dev.theurgy.Theurgy;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.level.levelgen.GenerationStep;
@@ -20,7 +20,7 @@ public class BiomeModifiers {
     public static final ResourceKey<BiomeModifier> ADD_SAL_AMMONIAC_ORE = ResourceKey.create(NeoForgeRegistries.Keys.BIOME_MODIFIERS, Theurgy.loc("add_sal_ammoniac_ore"));
 
 
-    public static void bootstrap(BootstapContext<BiomeModifier> context) {
+    public static void bootstrap(BootstrapContext<BiomeModifier> context) {
         var placedFeatures = context.lookup(Registries.PLACED_FEATURE);
         var biomes = context.lookup(Registries.BIOME);
 

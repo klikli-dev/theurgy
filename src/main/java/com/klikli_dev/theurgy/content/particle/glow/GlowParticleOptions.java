@@ -6,14 +6,15 @@ package com.klikli_dev.theurgy.content.particle.glow;
 
 import com.klikli_dev.theurgy.content.particle.ParticleColor;
 import com.klikli_dev.theurgy.registry.ParticleRegistry;
-import com.mojang.brigadier.StringReader;
-import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import com.klikli_dev.theurgy.util.TheurgyExtraStreamCodecs;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 
 
 /**
@@ -22,7 +23,7 @@ import net.minecraft.network.FriendlyByteBuf;
 
 public class GlowParticleOptions implements ParticleOptions {
 
-    public static final Codec<GlowParticleOptions> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+    public static final MapCodec<GlowParticleOptions> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
                     Codec.FLOAT.fieldOf("r").forGetter(d -> d.color.getRed()),
                     Codec.FLOAT.fieldOf("g").forGetter(d -> d.color.getGreen()),
                     Codec.FLOAT.fieldOf("b").forGetter(d -> d.color.getBlue()),
@@ -33,19 +34,24 @@ public class GlowParticleOptions implements ParticleOptions {
             )
             .apply(instance, GlowParticleOptions::new));
 
-    @SuppressWarnings("deprecation")
-    public static final Deserializer<GlowParticleOptions> DESERIALIZER = new Deserializer<>() {
-        @Override
-        public GlowParticleOptions fromCommand(ParticleType<GlowParticleOptions> type, StringReader reader) throws CommandSyntaxException {
-            reader.expect(' ');
-            return new GlowParticleOptions(type, ParticleColor.fromString(reader.readString()), reader.readBoolean());
-        }
+    public static final StreamCodec<RegistryFriendlyByteBuf, GlowParticleOptions> STREAM_CODEC = TheurgyExtraStreamCodecs.composite(
+            ByteBufCodecs.FLOAT,
+            r -> r.color.getRed(),
+            ByteBufCodecs.FLOAT,
+            r -> r.color.getGreen(),
+            ByteBufCodecs.FLOAT,
+            r -> r.color.getBlue(),
+            ByteBufCodecs.BOOL,
+            r -> r.disableDepthTest,
+            ByteBufCodecs.FLOAT,
+            r -> r.size,
+            ByteBufCodecs.FLOAT,
+            r -> r.alpha,
+            ByteBufCodecs.INT,
+            r -> r.age,
+            GlowParticleOptions::new
+    );
 
-        @Override
-        public GlowParticleOptions fromNetwork(ParticleType<GlowParticleOptions> type, FriendlyByteBuf buffer) {
-            return new GlowParticleOptions(type, ParticleColor.deserialize(buffer.readNbt()), buffer.readBoolean());
-        }
-    };
     private final ParticleType<GlowParticleOptions> type;
     public ParticleColor color;
     public boolean disableDepthTest;
@@ -78,15 +84,5 @@ public class GlowParticleOptions implements ParticleOptions {
     @Override
     public ParticleType<GlowParticleOptions> getType() {
         return this.type;
-    }
-
-    @Override
-    public void writeToNetwork(FriendlyByteBuf packetBuffer) {
-        packetBuffer.writeNbt(this.color.serialize());
-    }
-
-    @Override
-    public String writeToString() {
-        return BuiltInRegistries.PARTICLE_TYPE.getKey(this.getType()) + " " + this.color.serialize();
     }
 }

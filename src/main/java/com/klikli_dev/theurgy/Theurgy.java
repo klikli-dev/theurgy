@@ -97,6 +97,7 @@ public class Theurgy {
         ConditionRegistry.CONDITION_SERIALIZERS.register(modEventBus);
         IngredientTypeRegistry.INGREDIENT_TYPES.register(modEventBus);
         RecipeResultRegistry.RECIPE_RESULT_TYPES.register(modEventBus);
+        DataComponentRegistry.DATA_COMPONENTS.register(modEventBus);
 
         modEventBus.addListener(this::onCommonSetup);
         modEventBus.addListener(this::onServerSetup);

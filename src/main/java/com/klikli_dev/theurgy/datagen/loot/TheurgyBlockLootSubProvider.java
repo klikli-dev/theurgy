@@ -5,10 +5,13 @@
 package com.klikli_dev.theurgy.datagen.loot;
 
 import com.klikli_dev.theurgy.registry.BlockRegistry;
+import com.klikli_dev.theurgy.registry.DataComponentRegistry;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
-import com.mojang.datafixers.util.Pair;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponentType;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.data.loot.BlockLootSubProvider;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -16,11 +19,9 @@ import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
-import net.minecraft.world.level.storage.loot.functions.CopyNbtFunction;
-import net.minecraft.world.level.storage.loot.providers.nbt.ContextNbtProvider;
+import net.minecraft.world.level.storage.loot.functions.CopyComponentsFunction;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 
-import java.util.Arrays;
 import java.util.Set;
 import java.util.function.BiConsumer;
 
@@ -30,9 +31,9 @@ public class TheurgyBlockLootSubProvider extends BlockLootSubProvider {
     }
 
     @Override
-    public void generate(BiConsumer<ResourceLocation, LootTable.Builder> consumer) {
+    public void generate(HolderLookup.Provider pRegistries, BiConsumer<ResourceKey<LootTable>, LootTable.Builder> pGenerator) {
         this.generate();
-        this.map.forEach(consumer::accept);
+        this.map.forEach(pGenerator);
     }
 
     @Override
@@ -47,18 +48,18 @@ public class TheurgyBlockLootSubProvider extends BlockLootSubProvider {
         this.dropSelf(BlockRegistry.INCUBATOR_SALT_VESSEL.get());
         this.dropSelf(BlockRegistry.SAL_AMMONIAC_ACCUMULATOR.get());
         this.dropSelf(BlockRegistry.SAL_AMMONIAC_TANK.get());
-        this.dropSelfWithNbt(BlockRegistry.MERCURY_CATALYST.get(),
-                "mercuryFluxStorage",
-                "mercuryFluxToConvert",
-                "currentMercuryFluxPerTick",
-                "inventory"
+        this.dropSelfWithComponents(BlockRegistry.MERCURY_CATALYST.get(),
+                DataComponentRegistry.MERCURY_FLUX_STORAGE.get(),
+                DataComponentRegistry.MERCURY_FLUX_TO_CONVERT.get(),
+                DataComponentRegistry.CURRENT_MERCURY_FLUX_PER_TICK.get(),
+                DataComponents.CONTAINER
         );
-        this.dropSelfWithNbt(BlockRegistry.CALORIC_FLUX_EMITTER.get(),
-                "mercuryFluxStorage"
+        this.dropSelfWithComponents(BlockRegistry.CALORIC_FLUX_EMITTER.get(),
+                DataComponentRegistry.MERCURY_FLUX_STORAGE.get()
         );
 
-        this.dropSelfWithNbt(BlockRegistry.SULFURIC_FLUX_EMITTER.get(),
-                "mercuryFluxStorage"
+        this.dropSelfWithComponents(BlockRegistry.SULFURIC_FLUX_EMITTER.get(),
+                DataComponentRegistry.MERCURY_FLUX_STORAGE.get()
         );
         this.dropSelf(BlockRegistry.REFORMATION_SOURCE_PEDESTAL.get());
         this.dropSelf(BlockRegistry.REFORMATION_TARGET_PEDESTAL.get());
@@ -83,22 +84,15 @@ public class TheurgyBlockLootSubProvider extends BlockLootSubProvider {
         this.add(pBlock, this.createSinglePropConditionTable(pBlock, BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.LOWER));
     }
 
-
-    @SuppressWarnings("unchecked")
-    protected final void dropSelfWithNbt(Block pBlock, String... sourcePaths) {
-        this.dropSelfWithNbt(pBlock, Arrays.stream(sourcePaths).map(s -> Pair.of(s, "BlockEntityTag." + s)).toArray(Pair[]::new));
+    protected final void dropSelfWithComponents(Block pBlock, DataComponentType<?>... pIncludes) {
+        this.add(pBlock, this.createSelfWithComponentsDrop(pBlock, this.copyComponents(pIncludes)));
     }
 
-    @SafeVarargs
-    protected final void dropSelfWithNbt(Block pBlock, Pair<String, String>... sourceTargetPathPairs) {
-        this.add(pBlock, this.createSelfWithNbtDrop(pBlock, this.copyData(sourceTargetPathPairs)));
+    protected void dropSelfWithComponents(Block pBlock, CopyComponentsFunction.Builder data) {
+        this.add(pBlock, this.createSelfWithComponentsDrop(pBlock, data));
     }
 
-    protected void dropSelfWithNbt(Block pBlock, CopyNbtFunction.Builder data) {
-        this.add(pBlock, this.createSelfWithNbtDrop(pBlock, data));
-    }
-
-    protected LootTable.Builder createSelfWithNbtDrop(Block pBlock, CopyNbtFunction.Builder data) {
+    protected LootTable.Builder createSelfWithComponentsDrop(Block pBlock, CopyComponentsFunction.Builder data) {
         return LootTable.lootTable()
                 .withPool(
                         this.applyExplosionCondition(pBlock,
@@ -112,10 +106,10 @@ public class TheurgyBlockLootSubProvider extends BlockLootSubProvider {
                 );
     }
 
-    protected CopyNbtFunction.Builder copyData(Pair<String, String>... sourceTargetPathPairs) {
-        var builder = CopyNbtFunction.copyData(ContextNbtProvider.BLOCK_ENTITY);
-        for (var pair : sourceTargetPathPairs) {
-            builder.copy(pair.getFirst(), pair.getSecond());
+    protected CopyComponentsFunction.Builder copyComponents(DataComponentType<?>... pIncludes) {
+        var builder = CopyComponentsFunction.copyComponents(CopyComponentsFunction.Source.BLOCK_ENTITY);
+        for (var include : pIncludes) {
+            builder.include(include);
         }
         return builder;
     }

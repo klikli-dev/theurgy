@@ -174,13 +174,6 @@ public class ReformationRecipe implements Recipe<ReformationArrayRecipeWrapper> 
         return RecipeTypeRegistry.REFORMATION.get();
     }
 
-    public record IngedientWithCount(Ingredient ingredient, int count) {
-        public static final Codec<IngedientWithCount> CODEC = Codec.pair(
-                Codec.INT.optionalFieldOf("count", 1).codec(),
-                Ingredient.CODEC
-        ).xmap(s -> new IngedientWithCount(s.getSecond(), s.getFirst()), s -> Pair.of(s.count, s.ingredient));
-    }
-
     public static class Serializer implements RecipeSerializer<ReformationRecipe> {
 
         @Override

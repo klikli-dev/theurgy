@@ -4,17 +4,19 @@
 
 package com.klikli_dev.theurgy.content.recipe;
 
-import com.klikli_dev.theurgy.content.recipe.ingredient.FluidIngredient;
+
 import com.klikli_dev.theurgy.content.recipe.wrapper.RecipeWrapperWithFluid;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.registry.RecipeSerializerRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.RegistryAccess;
-import net.minecraft.nbt.NbtOps;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.entity.player.StackedContents;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -22,6 +24,7 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
+import net.neoforged.neoforge.fluids.crafting.FluidIngredient;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +32,7 @@ import java.util.List;
 public class FermentationRecipe implements Recipe<RecipeWrapperWithFluid> {
     public static final int DEFAULT_TIME = 200;
 
-    public static final Codec<FermentationRecipe> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+    public static final MapCodec<FermentationRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
                     FluidIngredient.CODEC.fieldOf("fluid").forGetter((r) -> r.fluid),
                     Codec.INT.fieldOf("fluidAmount").forGetter((r) -> r.fluidAmount),
                     Ingredient.CODEC.listOf().fieldOf("ingredients").forGetter(r -> r.ingredients),
@@ -37,6 +40,21 @@ public class FermentationRecipe implements Recipe<RecipeWrapperWithFluid> {
                     Codec.INT.optionalFieldOf("time", DEFAULT_TIME).forGetter(r -> r.time)
             ).apply(instance, FermentationRecipe::new)
     );
+    public static final StreamCodec<RegistryFriendlyByteBuf, FermentationRecipe> STREAM_CODEC = StreamCodec.composite(
+            FluidIngredient.STREAM_CODEC,
+            r -> r.fluid,
+            ByteBufCodecs.INT,
+            r -> r.fluidAmount,
+            Ingredient.CONTENTS_STREAM_CODEC.apply(ByteBufCodecs.list()),
+            r -> r.ingredients,
+            ItemStack.STREAM_CODEC,
+            r -> r.result,
+            ByteBufCodecs.INT,
+            r -> r.time,
+            FermentationRecipe::new
+    );
+
+
     protected final FluidIngredient fluid;
     protected final int fluidAmount;
 
@@ -90,7 +108,7 @@ public class FermentationRecipe implements Recipe<RecipeWrapperWithFluid> {
     }
 
     @Override
-    public ItemStack assemble(RecipeWrapperWithFluid pInv, RegistryAccess registryAccess) {
+    public ItemStack assemble(RecipeWrapperWithFluid pInv, HolderLookup.Provider pRegistries) {
         return this.result.copy();
     }
 
@@ -100,7 +118,7 @@ public class FermentationRecipe implements Recipe<RecipeWrapperWithFluid> {
     }
 
     @Override
-    public ItemStack getResultItem(RegistryAccess registryAccess) {
+    public ItemStack getResultItem(HolderLookup.Provider pRegistries) {
         return this.result;
     }
 
@@ -138,20 +156,14 @@ public class FermentationRecipe implements Recipe<RecipeWrapperWithFluid> {
     public static class Serializer implements RecipeSerializer<FermentationRecipe> {
 
         @Override
-        public Codec<FermentationRecipe> codec() {
+        public MapCodec<FermentationRecipe> codec() {
             return CODEC;
         }
 
         @Override
-        public FermentationRecipe fromNetwork(FriendlyByteBuf pBuffer) {
-            //noinspection deprecation
-            return pBuffer.readWithCodecTrusted(NbtOps.INSTANCE, CODEC);
+        public StreamCodec<RegistryFriendlyByteBuf, FermentationRecipe> streamCodec() {
+            return STREAM_CODEC;
         }
 
-        @Override
-        public void toNetwork(FriendlyByteBuf pBuffer, FermentationRecipe pRecipe) {
-            //noinspection deprecation
-            pBuffer.writeWithCodec(NbtOps.INSTANCE, CODEC, pRecipe);
-        }
     }
 }

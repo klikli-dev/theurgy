@@ -8,11 +8,13 @@ import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.RecipeSerializerRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.RegistryAccess;
-import net.minecraft.nbt.NbtOps;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
@@ -26,12 +28,24 @@ public class CalcinationRecipe implements Recipe<RecipeWrapper> {
 
     public static final int DEFAULT_TIME = 100;
 
-    public static final Codec<CalcinationRecipe> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+    public static final MapCodec<CalcinationRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
                     Ingredient.CODEC.fieldOf("ingredient").forGetter((r) -> r.ingredient),
                     Codec.INT.fieldOf("ingredientCount").forGetter((r) -> r.ingredientCount),
                     ItemStack.STRICT_CODEC.fieldOf("result").forGetter(r -> r.result),
                     Codec.INT.optionalFieldOf("time", DEFAULT_TIME).forGetter(r -> r.time)
             ).apply(instance, CalcinationRecipe::new)
+    );
+
+    public static final StreamCodec<RegistryFriendlyByteBuf, CalcinationRecipe> STREAM_CODEC = StreamCodec.composite(
+            Ingredient.CONTENTS_STREAM_CODEC,
+            r -> r.ingredient,
+            ByteBufCodecs.INT,
+            r -> r.ingredientCount,
+            ItemStack.STREAM_CODEC,
+            r -> r.result,
+            ByteBufCodecs.INT,
+            r -> r.time,
+            CalcinationRecipe::new
     );
 
     protected final Ingredient ingredient;
@@ -62,7 +76,7 @@ public class CalcinationRecipe implements Recipe<RecipeWrapper> {
     }
 
     @Override
-    public ItemStack assemble(RecipeWrapper pInv, RegistryAccess registryAccess) {
+    public ItemStack assemble(RecipeWrapper pInv, HolderLookup.Provider pRegistries) {
         return this.result.copy();
     }
 
@@ -72,7 +86,7 @@ public class CalcinationRecipe implements Recipe<RecipeWrapper> {
     }
 
     @Override
-    public ItemStack getResultItem(RegistryAccess registryAccess) {
+    public ItemStack getResultItem(HolderLookup.Provider pRegistries) {
         return this.result;
     }
 
@@ -99,20 +113,13 @@ public class CalcinationRecipe implements Recipe<RecipeWrapper> {
 
     public static class Serializer implements RecipeSerializer<CalcinationRecipe> {
         @Override
-        public Codec<CalcinationRecipe> codec() {
+        public MapCodec<CalcinationRecipe> codec() {
             return CODEC;
         }
 
         @Override
-        public CalcinationRecipe fromNetwork(FriendlyByteBuf pBuffer) {
-            //noinspection deprecation
-            return pBuffer.readWithCodecTrusted(NbtOps.INSTANCE, CODEC);
-        }
-
-        @Override
-        public void toNetwork(FriendlyByteBuf pBuffer, CalcinationRecipe pRecipe) {
-            //noinspection deprecation
-            pBuffer.writeWithCodec(NbtOps.INSTANCE, CODEC, pRecipe);
+        public StreamCodec<RegistryFriendlyByteBuf, CalcinationRecipe> streamCodec() {
+            return STREAM_CODEC;
         }
     }
 }

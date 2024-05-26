@@ -9,21 +9,23 @@ import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.config.ServerConfig;
 import com.klikli_dev.theurgy.registry.RecipeSerializerRegistry;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
-import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.CraftingBookCategory;
-import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.ShapedRecipe;
-import net.minecraft.world.item.crafting.ShapedRecipePattern;
+import net.minecraft.world.item.crafting.*;
+import net.neoforged.neoforge.fluids.crafting.FluidIngredient;
 
 
 public class DivinationRodRecipe extends ShapedRecipe {
@@ -38,8 +40,8 @@ public class DivinationRodRecipe extends ShapedRecipe {
     }
 
     @Override
-    public ItemStack assemble(CraftingContainer pInv, RegistryAccess registryAccess) {
-        var result = this.getResultItem(registryAccess).copy();
+    public ItemStack assemble(CraftingContainer pInv, HolderLookup.Provider pRegistries) {
+        var result = this.getResultItem(pRegistries).copy();
 
         var resultTag = result.getOrCreateTag();
 
@@ -182,31 +184,36 @@ public class DivinationRodRecipe extends ShapedRecipe {
     public static class Serializer implements RecipeSerializer<DivinationRodRecipe> {
 
         //copied from ShapedRecipe.Serializer because xMapping it somehow causes a json null thingy error
-        public static final Codec<DivinationRodRecipe> CODEC = RecordCodecBuilder.create(
-                p_311728_ -> p_311728_.group(
-                                ExtraCodecs.strictOptionalField(Codec.STRING, "group", "").forGetter(p_311729_ -> p_311729_.getGroup()),
+        public static final MapCodec<DivinationRodRecipe> CODEC = RecordCodecBuilder.mapCodec(
+                p_340778_ -> p_340778_.group(
+                                Codec.STRING.optionalFieldOf("group", "").forGetter(p_311729_ -> p_311729_.getGroup()),
                                 ShapedRecipePattern.MAP_CODEC.forGetter(p_311733_ -> p_311733_.pattern),
                                 ItemStack.STRICT_CODEC.fieldOf("result").forGetter(p_311730_ -> p_311730_.getResultItem(RegistryAccess.EMPTY)),
-                                ExtraCodecs.strictOptionalField(Codec.BOOL, "show_notification", true).forGetter(p_311731_ -> p_311731_.showNotification())
+                                Codec.BOOL.optionalFieldOf("show_notification", true).forGetter(ShapedRecipe::showNotification)
                         )
-                        .apply(p_311728_, DivinationRodRecipe::new)
+                        .apply(p_340778_, DivinationRodRecipe::new)
+        );
+        public static final StreamCodec<RegistryFriendlyByteBuf, DivinationRodRecipe> STREAM_CODEC = StreamCodec.composite(
+                ByteBufCodecs.STRING_UTF8,
+                ShapedRecipe::getGroup,
+                ShapedRecipePattern.STREAM_CODEC,
+                r -> r.pattern,
+                ItemStack.STREAM_CODEC,
+                r -> r.getResultItem(RegistryAccess.EMPTY),
+                ByteBufCodecs.BOOL,
+                ShapedRecipe::showNotification,
+                DivinationRodRecipe::new
         );
 
+
         @Override
-        public Codec<DivinationRodRecipe> codec() {
+        public MapCodec<DivinationRodRecipe> codec() {
             return CODEC;
         }
 
         @Override
-        public DivinationRodRecipe fromNetwork(FriendlyByteBuf pBuffer) {
-            //noinspection deprecation
-            return pBuffer.readWithCodecTrusted(NbtOps.INSTANCE, CODEC);
-        }
-
-        @Override
-        public void toNetwork(FriendlyByteBuf pBuffer, DivinationRodRecipe pRecipe) {
-            //noinspection deprecation
-            pBuffer.writeWithCodec(NbtOps.INSTANCE, CODEC, pRecipe);
+        public StreamCodec<RegistryFriendlyByteBuf, DivinationRodRecipe> streamCodec() {
+            return STREAM_CODEC;
         }
     }
 }

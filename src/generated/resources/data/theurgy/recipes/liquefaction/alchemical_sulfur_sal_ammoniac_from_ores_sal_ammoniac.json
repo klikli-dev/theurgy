@@ -14,7 +14,7 @@
   },
   "liquefaction_time": 100,
   "result": {
-    "count": 4,
+    "count": 6,
     "item": "theurgy:alchemical_sulfur_sal_ammoniac",
     "nbt": {
       "theurgy:sulfur.source.id": "#forge:ores/sal_ammoniac"

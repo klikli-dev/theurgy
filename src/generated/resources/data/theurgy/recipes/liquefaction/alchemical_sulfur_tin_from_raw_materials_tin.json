@@ -14,7 +14,7 @@
   },
   "liquefaction_time": 100,
   "result": {
-    "count": 2,
+    "count": 3,
     "item": "theurgy:alchemical_sulfur_tin",
     "nbt": {
       "theurgy:sulfur.source.id": "#forge:raw_materials/tin"

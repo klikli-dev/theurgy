@@ -14,7 +14,7 @@
   },
   "liquefaction_time": 100,
   "result": {
-    "count": 3,
+    "count": 5,
     "item": "theurgy:alchemical_sulfur_allthemodium",
     "nbt": {
       "theurgy:sulfur.source.id": "#forge:ores/allthemodium"

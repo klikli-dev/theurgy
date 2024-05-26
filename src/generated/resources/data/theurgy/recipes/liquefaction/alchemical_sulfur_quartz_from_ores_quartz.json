@@ -14,7 +14,7 @@
   },
   "liquefaction_time": 100,
   "result": {
-    "count": 8,
+    "count": 10,
     "item": "theurgy:alchemical_sulfur_quartz",
     "nbt": {
       "theurgy:sulfur.source.id": "#forge:ores/quartz"

@@ -33,7 +33,7 @@ class LiquefactionCachedCheck implements RecipeManager.CachedCheck<RecipeWrapper
     }
 
     private Optional<Pair<ResourceLocation, RecipeHolder<LiquefactionRecipe>>> getRecipeFor(ItemStack stack, Level level, @Nullable ResourceLocation lastRecipe) {
-
+        //TODO: No need for pair here, the holder has the id!
         var recipeManager = level.getRecipeManager();
         var map = recipeManager.byType(this.type);
         if (lastRecipe != null) {
@@ -43,7 +43,7 @@ class LiquefactionCachedCheck implements RecipeManager.CachedCheck<RecipeWrapper
                 return Optional.of(Pair.of(lastRecipe, recipe));
             }
         }
-
+        // return this.byType(pRecipeType).stream().filter(p_300822_ -> p_300822_.value().matches(pInventory, pLevel)).findFirst();
         return map.entrySet().stream().filter((entry) -> entry.getValue().value().getIngredient().test(stack)).findFirst().map((entry) -> Pair.of(entry.getKey(), entry.getValue()));
     }
 

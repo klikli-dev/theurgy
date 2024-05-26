@@ -126,7 +126,7 @@ public class DigestionStorageBehaviour extends StorageBehaviour<DigestionStorage
         public boolean isItemValid(int slot, ItemStack stack) {
             //we only allow one item type to fill maximum one slot, so if another slot has the stack, return false.
             for (int i = 0; i < this.getSlots(); i++) {
-                if (i != slot && ItemHandlerHelper.canItemStacksStack(stack, this.getStackInSlot(i))) {
+                if (i != slot && ItemStack.isSameItemSameComponents(stack, this.getStackInSlot(i))) {
                     return false;
                 }
             }

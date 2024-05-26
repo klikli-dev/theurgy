@@ -100,7 +100,7 @@ public class MonitoredFluidTank extends FluidTank {
     public void setFluid(FluidStack newStack) {
         var oldStack = this.getFluid();
 
-        boolean sameFluid = newStack.isFluidEqual(oldStack);
+        boolean sameFluid = FluidStack.isSameFluidSameComponents(newStack, oldStack);
 
         super.setFluid(newStack);
 

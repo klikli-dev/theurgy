@@ -30,7 +30,7 @@ public class CalcinationCraftingBehaviour extends CraftingBehaviour<RecipeWrappe
 
     @Override
     public boolean canProcess(ItemStack stack) {
-        if (ItemHandlerHelper.canItemStacksStack(stack, this.inputInventorySupplier.get().getStackInSlot(0)))
+        if (ItemStack.isSameItemSameComponents(stack, this.inputInventorySupplier.get().getStackInSlot(0)))
             return true; //early out if we are already processing this type of item
 
         ItemStackHandler tempInv = new ItemStackHandler(1);

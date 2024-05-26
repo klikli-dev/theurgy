@@ -43,7 +43,7 @@ public class MercuryCatalystCraftingBehaviour extends CraftingBehaviour<RecipeWr
 
     @Override
     public boolean canProcess(ItemStack stack) {
-        if (ItemHandlerHelper.canItemStacksStack(stack, this.inputInventorySupplier.get().getStackInSlot(0)))
+        if (ItemStack.isSameItemSameComponents(stack, this.inputInventorySupplier.get().getStackInSlot(0)))
             return true; //early out if we are already processing this type of item
 
         var tempInv = new ItemStackHandler(NonNullList.of(ItemStack.EMPTY, stack));

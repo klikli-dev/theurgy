@@ -9,18 +9,18 @@ package com.klikli_dev.theurgy.content.render.itemhud;
 
 import com.klikli_dev.theurgy.config.ClientConfig;
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.LayeredDraw;
 import net.minecraft.network.chat.Component;
-import net.neoforged.neoforge.client.gui.overlay.ExtendedGui;
-import net.neoforged.neoforge.client.gui.overlay.IGuiOverlay;
 
 import java.util.ArrayList;
 
 /**
  * Based on https://github.com/mekanism/Mekanism/blob/d22f6e2028009ed043f8b40c4ea1f7912be3002c/src/main/java/mekanism/client/render/HUDRenderer.java
  */
-public class ItemHUD implements IGuiOverlay {
+public class ItemHUD implements LayeredDraw.Layer {
 
     private static final ItemHUD instance = new ItemHUD();
 
@@ -29,8 +29,8 @@ public class ItemHUD implements IGuiOverlay {
     }
 
     @Override
-    public void render(ExtendedGui gui, GuiGraphics guiGraphics, float partialTick, int screenWidth, int screenHeight) {
-        var minecraft = gui.getMinecraft();
+    public void render(GuiGraphics guiGraphics, float pPartialTick) {
+        var minecraft = Minecraft.getInstance();
         if (minecraft.options.hideGui || minecraft.player == null || minecraft.player.isSpectator() || !ClientConfig.get().rendering.enableItemHUD.get())
             return;
 
@@ -44,11 +44,11 @@ public class ItemHUD implements IGuiOverlay {
         if (hudTexts.isEmpty())
             return;
 
-        Font font = gui.getFont();
+        Font font = minecraft.font;
 
         float hudScale = ClientConfig.get().rendering.itemHUDScale.get().floatValue();
 
-        int yScale = (int) (screenHeight / hudScale);
+        int yScale = (int) (guiGraphics.guiHeight() / hudScale);
         int start = 2 + hudTexts.size() * 9; //where we start rendering at the bottom of the screen
         int y = yScale - start;
 
@@ -63,6 +63,5 @@ public class ItemHUD implements IGuiOverlay {
         }
 
         pose.popPose();
-
     }
 }

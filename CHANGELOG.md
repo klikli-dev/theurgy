@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.17.5] - 2024-05-26
+### :bug: Bug Fixes
+- [`e030f0b`](https://github.com/klikli-dev/theurgy/commit/e030f0b65958167b41015800b687ff535594872c) - adjust recipe rates to reflect book content *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.1-1.17.4] - 2024-05-25
 ### :bug: Bug Fixes
 - [`3533f34`](https://github.com/klikli-dev/theurgy/commit/3533f341adbf70e353b098e0680f04159e61a04a) - buildRecipes is protected on children of JsonRecipeProvider *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -467,3 +472,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.17.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.17.0...release/v1.20.1-1.17.1
 [release/v1.20.1-1.17.2]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.17.1...release/v1.20.1-1.17.2
 [release/v1.20.1-1.17.4]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.17.3...release/v1.20.1-1.17.4
+[release/v1.20.1-1.17.5]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.17.4...release/v1.20.1-1.17.5

@@ -8,6 +8,7 @@ package com.klikli_dev.theurgy.registry;
 
 import com.klikli_dev.theurgy.Theurgy;
 import com.mojang.serialization.Codec;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.codec.ByteBufCodecs;
@@ -35,6 +36,18 @@ public class DataComponentRegistry {
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> CURRENT_MERCURY_FLUX_PER_TICK = register("current_mercury_flux_per_tick", builder -> builder
             .persistent(Codec.INT)
             .networkSynchronized(ByteBufCodecs.INT)
+            .cacheEncoding()
+    );
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Float>> DIVINATION_DISTANCE = register("divination_distance", builder -> builder
+            .persistent(Codec.FLOAT)
+            .networkSynchronized(ByteBufCodecs.FLOAT)
+            .cacheEncoding()
+    );
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<BlockPos>> DIVINATION_POS = register("divination_pos", builder -> builder
+            .persistent(BlockPos.CODEC)
+            .networkSynchronized(BlockPos.STREAM_CODEC)
             .cacheEncoding()
     );
 

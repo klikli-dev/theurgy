@@ -8,6 +8,7 @@ import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.content.item.divinationrod.DivinationRodItem;
 import com.klikli_dev.theurgy.network.Message;
+import com.klikli_dev.theurgy.registry.DataComponentRegistry;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
@@ -49,11 +50,10 @@ public class MessageSetDivinationResult implements Message {
     public void onServerReceived(MinecraftServer minecraftServer, ServerPlayer player) {
         ItemStack stack = player.getItemInHand(InteractionHand.MAIN_HAND);
         if (stack.getItem() instanceof DivinationRodItem) {
-            var tag = stack.getOrCreateTag();
-            tag.putFloat(TheurgyConstants.Nbt.Divination.DISTANCE, this.distance);
-            if (this.pos != null) {
-                tag.putLong(TheurgyConstants.Nbt.Divination.POS, this.pos.asLong());
-            }
+
+            stack.set(DataComponentRegistry.DIVINATION_DISTANCE.get(), (float)this.distance);
+            stack.set(DataComponentRegistry.DIVINATION_POS.get(), this.pos);
+
             player.inventoryMenu.broadcastChanges();
         }
     }

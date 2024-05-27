@@ -7,6 +7,7 @@
 package com.klikli_dev.theurgy.registry;
 
 import com.klikli_dev.theurgy.Theurgy;
+import com.klikli_dev.theurgy.logistics.WireEndPoint;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponentType;
@@ -48,6 +49,12 @@ public class DataComponentRegistry {
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<BlockPos>> DIVINATION_POS = register("divination_pos", builder -> builder
             .persistent(BlockPos.CODEC)
             .networkSynchronized(BlockPos.STREAM_CODEC)
+            .cacheEncoding()
+    );
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<WireEndPoint>> WIRE_END_POINT = register("wire_end_point", builder -> builder
+            .persistent(WireEndPoint.CODEC.codec())
+            .networkSynchronized(WireEndPoint.STREAM_CODEC)
             .cacheEncoding()
     );
 

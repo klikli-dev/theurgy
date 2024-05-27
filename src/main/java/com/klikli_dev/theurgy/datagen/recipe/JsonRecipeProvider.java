@@ -177,7 +177,7 @@ public abstract class JsonRecipeProvider implements DataProvider {
     }
 
     public JsonObject makeFluidResult(FluidStack fluidStack) {
-        return FluidStack.CODEC.encodeStart(JsonOps.INSTANCE, fluidStack).getOrThrow(false, (s -> {
+        return FluidStack.CODEC.encodeStart(JsonOps.INSTANCE, fluidStack).getOrThrow((s -> {
             throw new IllegalStateException("Failed to encode fluid stack: " + s);
         })).getAsJsonObject();
     }

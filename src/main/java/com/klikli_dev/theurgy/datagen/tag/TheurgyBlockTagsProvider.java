@@ -28,14 +28,14 @@ public class TheurgyBlockTagsProvider extends BlockTagsProvider {
         this.tag(BlockTagRegistry.DIVINATION_ROD_T1_ALLOWED_BLOCKS)
                 .add(Blocks.SUGAR_CANE)
                 .addTag(Tags.Blocks.ORES)
-                .addTag(Tags.Blocks.SAND)
-                .addTag(Tags.Blocks.STONE)
+                .addTag(Tags.Blocks.SANDSTONE_BLOCKS)
+                .addTag(Tags.Blocks.STONES)
                 .addTag(BlockTags.LOGS);
         this.tag(BlockTagRegistry.DIVINATION_ROD_T1_DISALLOWED_BLOCKS);
 
         this.tag(BlockTagRegistry.DIVINATION_ROD_T2_ALLOWED_BLOCKS)
                 .addTag(BlockTagRegistry.DIVINATION_ROD_T1_ALLOWED_BLOCKS)
-                .addTag(Tags.Blocks.OBSIDIAN);
+                .addTag(Tags.Blocks.OBSIDIANS);
         this.tag(BlockTagRegistry.DIVINATION_ROD_T2_DISALLOWED_BLOCKS);
 
         this.tag(BlockTagRegistry.DIVINATION_ROD_T3_ALLOWED_BLOCKS)

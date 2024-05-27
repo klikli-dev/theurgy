@@ -32,8 +32,8 @@ public class CalcinationRecipeProvider extends JsonRecipeProvider {
     @Override
     public void buildRecipes(BiConsumer<ResourceLocation, JsonObject> recipeConsumer) {
         this.makeRecipe(SaltRegistry.STRATA.get(), "from_stone", Tags.Items.STONES);
-        this.makeRecipe(SaltRegistry.STRATA.get(), "from_sandstone", Tags.Items.SANDSTONE);
-        this.makeRecipe(SaltRegistry.STRATA.get(), "from_cobblestone", Tags.Items.COBBLESTONE);
+        this.makeRecipe(SaltRegistry.STRATA.get(), "from_sandstone", Tags.Items.SANDSTONE_BLOCKS);
+        this.makeRecipe(SaltRegistry.STRATA.get(), "from_cobblestone", Tags.Items.COBBLESTONES);
         this.makeRecipe(SaltRegistry.STRATA.get(), "from_dirt", ItemTags.DIRT);
         this.makeRecipe(SaltRegistry.STRATA.get(), "from_sand", ItemTags.SAND);
         this.makeRecipe(SaltRegistry.STRATA.get(), "from_gravel", 1, Items.GRAVEL, 1, TIME);

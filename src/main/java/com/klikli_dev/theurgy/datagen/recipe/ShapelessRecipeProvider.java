@@ -36,7 +36,7 @@ public class ShapelessRecipeProvider extends JsonRecipeProvider {
         this.makeRecipe("the_hermetica",
                 new RecipeBuilder(com.klikli_dev.modonomicon.registry.ItemRegistry.MODONOMICON.get(), 1, hermeticaNbt)
                         .requires(Items.BOOK)
-                        .requires(Tags.Items.SAND, 2)
+                        .requires(Tags.Items.SANDS, 2)
         );
 
         this.makeRecipe("sal_ammoniac_crystal_from_sal_ammoniac_bucket",

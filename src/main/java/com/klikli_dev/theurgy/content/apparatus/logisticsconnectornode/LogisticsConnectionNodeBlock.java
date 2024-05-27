@@ -19,6 +19,7 @@ import net.minecraft.core.GlobalPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -65,10 +66,8 @@ public class LogisticsConnectionNodeBlock extends DirectionalBlock implements Ha
 
 
     @Override
-    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
-        if (!pPlayer.getItemInHand(pHand).isEmpty())
-            return InteractionResult.PASS;
-
+    protected InteractionResult useWithoutItem(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, BlockHitResult pHitResult) {
+        //this is always mainhand and empty hand, new since 1.20.6
         if (pLevel.isClientSide)
             return InteractionResult.SUCCESS;
 

@@ -5,6 +5,7 @@
 package com.klikli_dev.theurgy.logistics;
 
 import com.klikli_dev.theurgy.registry.DataComponentRegistry;
+import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
@@ -19,7 +20,7 @@ import net.minecraft.world.level.Level;
 
 public record WireEndPoint(BlockPos pos, ResourceKey<Level> level) {
 
-    public static final MapCodec<WireEndPoint> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+    public static final Codec<WireEndPoint> CODEC = RecordCodecBuilder.create(instance -> instance.group(
                     BlockPos.CODEC.fieldOf("pos").forGetter((r) -> r.pos),
                     ResourceKey.codec(Registries.DIMENSION).fieldOf("level").forGetter((r) -> r.level)
             ).apply(instance, WireEndPoint::new)

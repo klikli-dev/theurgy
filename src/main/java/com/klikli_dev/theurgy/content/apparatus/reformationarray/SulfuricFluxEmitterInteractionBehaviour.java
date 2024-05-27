@@ -14,8 +14,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
@@ -24,16 +25,16 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 
 public class SulfuricFluxEmitterInteractionBehaviour implements InteractionBehaviour {
-    @Override
-    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
 
+    @Override
+    public ItemInteractionResult useItemOn(ItemStack pStack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHitResult) {
         var blockEntity = pLevel.getBlockEntity(pPos);
 
         if (!(blockEntity instanceof SulfuricFluxEmitterBlockEntity sulfuricFluxEmitter))
-            return InteractionResult.PASS;
+            return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 
         if (pLevel.isClientSide)
-            return InteractionResult.SUCCESS;
+            return ItemInteractionResult.SUCCESS;
 
         Networking.sendTo((ServerPlayer) pPlayer, new MessageShowSulfuricFluxEmitterStatus(
                 pPos,
@@ -46,7 +47,7 @@ public class SulfuricFluxEmitterInteractionBehaviour implements InteractionBehav
         //this is mainly useful if they removed a pedestal and want it to be recognized it again after rebuilding it
         sulfuricFluxEmitter.checkValidMultiblockOnNextQuery = true;
 
-        return InteractionResult.SUCCESS;
+        return ItemInteractionResult.SUCCESS;
     }
 
     public void showStatus(Level level, BlockPos pos, Player player) {

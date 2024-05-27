@@ -7,18 +7,11 @@
 
 package com.klikli_dev.theurgy.content.render;
 
-import com.klikli_dev.theurgy.content.item.mercurialwand.mode.MercurialWandItemMode;
-import com.klikli_dev.theurgy.content.item.mercurialwand.mode.SelectDirectionMode;
-import com.klikli_dev.theurgy.content.render.cube.CubeModel;
-import com.klikli_dev.theurgy.content.render.cube.CubeModelRenderer;
+import com.klikli_dev.theurgy.registry.DataComponentRegistry;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.LightTexture;
-import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.core.Direction;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.client.event.RenderHighlightEvent;
 
 /**
@@ -36,10 +29,10 @@ public class BlockHighlightRenderer {
             return;
 
         var stack = player.getMainHandItem();
-        if(!stack.is(ItemRegistry.MERCURIAL_WAND.get()))
+        if (!stack.is(ItemRegistry.MERCURIAL_WAND.get()))
             return;
 
-        var mode = MercurialWandItemMode.getMode(stack);
+        var mode = stack.get(DataComponentRegistry.MERCURIAL_WAND_ITEM_MODE.get());
 
         mode.renderHandler().renderBlockHighlight(event);
     }

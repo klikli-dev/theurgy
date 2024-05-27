@@ -6,7 +6,7 @@ package com.klikli_dev.theurgy.content.behaviour.itemhandler;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -24,14 +24,14 @@ public class TwoSlotItemHandlerBehaviour implements ItemHandlerBehaviour {
      * Default interaction for blocks that have a block entity with an input and an output inventory with one slot each, made available as combined inventory with input on slot 0 and output on slot 1.
      */
     @Override
-    public InteractionResult useItemHandler(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
+    public ItemInteractionResult useItemOn(ItemStack pStack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHitResult) {
         if (pHand != InteractionHand.MAIN_HAND)
-            return InteractionResult.PASS;
+            return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 
         var blockItemHandler = pLevel.getCapability(Capabilities.ItemHandler.BLOCK, pPos, null);
         //a block without item handler is of no interest
         if (blockItemHandler == null)
-            return InteractionResult.PASS;
+            return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 
         ItemStack stackInHand = pPlayer.getItemInHand(pHand);
 
@@ -40,24 +40,24 @@ public class TwoSlotItemHandlerBehaviour implements ItemHandlerBehaviour {
             var extracted = blockItemHandler.extractItem(OUTPUT_SLOT, blockItemHandler.getSlotLimit(OUTPUT_SLOT), false);
             if (!extracted.isEmpty()) {
                 pPlayer.getInventory().placeItemBackInInventory(extracted);
-                return InteractionResult.SUCCESS;
+                return ItemInteractionResult.SUCCESS;
             }
 
             //if no output, try take input
             extracted = blockItemHandler.extractItem(INPUT_SLOT, blockItemHandler.getSlotLimit(INPUT_SLOT), false);
             if (!extracted.isEmpty()) {
                 pPlayer.getInventory().placeItemBackInInventory(extracted);
-                return InteractionResult.SUCCESS;
+                return ItemInteractionResult.SUCCESS;
             }
         } else {
             //if we have an item in hand, try to insert
             var remainder = blockItemHandler.insertItem(INPUT_SLOT, stackInHand, false);
             pPlayer.setItemInHand(pHand, remainder);
             if (remainder.getCount() != stackInHand.getCount()) {
-                return InteractionResult.SUCCESS;
+                return ItemInteractionResult.SUCCESS;
             }
         }
 
-        return InteractionResult.PASS;
+        return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
     }
 }

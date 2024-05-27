@@ -51,7 +51,7 @@ public class MercurialWandEntry extends EntryProvider {
         this.page("rotate", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Rotate Selected Direction");
+        this.pageTitle("Cycle Selected Direction");
         this.pageText("""
                With this mode, right-clicking on a block will cycle the selected direction of the target block.
                \\
@@ -66,7 +66,7 @@ public class MercurialWandEntry extends EntryProvider {
         this.page("rotate_visuals", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Rotate Selected Direction");
+        this.pageTitle("Cycle Selected Direction");
         this.pageText("""
                When looking at a logistics block with this mode selected, the block will highlight the selected direction on its target block.
                \\

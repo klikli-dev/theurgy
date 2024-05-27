@@ -6,7 +6,7 @@ package com.klikli_dev.theurgy.content.behaviour.itemhandler;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -30,14 +30,14 @@ public class DynamicOneOutputSlotItemHandlerBehaviour implements ItemHandlerBeha
      * Default interaction for blocks that have a block entity with an input and an output inventory, where the output inventory has one slot and the input inventory a dynamic acmount of slots, made available as combined inventory with inputs on slot 0 to n-2 and output on slot n-1.
      */
     @Override
-    public InteractionResult useItemHandler(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
+    public ItemInteractionResult useItemOn(ItemStack pStack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHitResult) {
         if (pHand != InteractionHand.MAIN_HAND)
-            return InteractionResult.PASS;
+            return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 
         var blockItemHandler = pLevel.getCapability(Capabilities.ItemHandler.BLOCK, pPos, null);
         //a block without item handler is of no interest
         if (blockItemHandler == null)
-            return InteractionResult.PASS;
+            return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 
         var outputSlot = this.getOutputSlot(blockItemHandler);
         var maxInputSlot = this.getMaxInputSlot(blockItemHandler);
@@ -49,7 +49,7 @@ public class DynamicOneOutputSlotItemHandlerBehaviour implements ItemHandlerBeha
             var extracted = blockItemHandler.extractItem(outputSlot, blockItemHandler.getSlotLimit(outputSlot), false);
             if (!extracted.isEmpty()) {
                 pPlayer.getInventory().placeItemBackInInventory(extracted);
-                return InteractionResult.SUCCESS;
+                return ItemInteractionResult.SUCCESS;
             }
 
             //if no output, try take input
@@ -57,7 +57,7 @@ public class DynamicOneOutputSlotItemHandlerBehaviour implements ItemHandlerBeha
                 extracted = blockItemHandler.extractItem(inputSlot, blockItemHandler.getSlotLimit(inputSlot), false);
                 if (!extracted.isEmpty()) {
                     pPlayer.getInventory().placeItemBackInInventory(extracted);
-                    return InteractionResult.SUCCESS;
+                    return ItemInteractionResult.SUCCESS;
                 }
             }
         } else {
@@ -66,11 +66,11 @@ public class DynamicOneOutputSlotItemHandlerBehaviour implements ItemHandlerBeha
                 var remainder = blockItemHandler.insertItem(inputSlot, stackInHand, false);
                 pPlayer.setItemInHand(pHand, remainder);
                 if (remainder.getCount() != stackInHand.getCount()) {
-                    return InteractionResult.SUCCESS;
+                    return ItemInteractionResult.SUCCESS;
                 }
             }
         }
 
-        return InteractionResult.PASS;
+        return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
     }
 }

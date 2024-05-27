@@ -22,7 +22,6 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Item;
 import net.neoforged.neoforge.registries.DeferredHolder;
-import org.checkerframework.common.returnsreceiver.qual.This;
 
 import java.text.MessageFormat;
 import java.util.function.Supplier;
@@ -693,9 +692,9 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.add(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_SET_SELECTED_DIRECTION, "Set direction to %s");
         this.add(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_SET_SELECTED_DIRECTION_WITH_TARGET, "Set direction from %s to %s");
         this.add(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_SET_SELECTED_DIRECTION_SUCCESS, "Set direction to %s");
-        this.add(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_ROTATE_SELECTED_DIRECTION, "Rotate selected direction");
-        this.add(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_ROTATE_SELECTED_DIRECTION_WITH_TARGET, "Set direction from %s to %s");
-        this.add(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_ROTATE_SELECTED_DIRECTION_SUCCESS, "Rotated direction to %s");
+        this.add(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_CYCLE_SELECTED_DIRECTION, "Cycle selected direction");
+        this.add(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_CYCLE_SELECTED_DIRECTION_WITH_TARGET, "Set direction from %s to %s");
+        this.add(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_CYCLE_SELECTED_DIRECTION_SUCCESS, "Cycle direction to %s");
         this.add(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_SWITCH_LOGISTICS_ENABLED, "Enable/Disable");
         this.add(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_SWITCH_LOGISTICS_ENABLED_HUD, " (Currently: %s)");
         this.add(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_SWITCH_LOGISTICS_ENABLED_SUCCESS, "Logistics Connector is now %s");

@@ -7,6 +7,7 @@
 package com.klikli_dev.theurgy.registry;
 
 import com.klikli_dev.theurgy.Theurgy;
+import com.klikli_dev.theurgy.content.item.mercurialwand.mode.MercurialWandItemMode;
 import com.klikli_dev.theurgy.logistics.WireEndPoint;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
@@ -53,8 +54,14 @@ public class DataComponentRegistry {
     );
 
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<WireEndPoint>> WIRE_END_POINT = register("wire_end_point", builder -> builder
-            .persistent(WireEndPoint.CODEC.codec())
+            .persistent(WireEndPoint.CODEC)
             .networkSynchronized(WireEndPoint.STREAM_CODEC)
+            .cacheEncoding()
+    );
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<MercurialWandItemMode>> MERCURIAL_WAND_ITEM_MODE = register("mercurial_wand_item_mode", builder -> builder
+            .persistent(MercurialWandItemMode.CODEC)
+            .networkSynchronized(MercurialWandItemMode.STREAM_CODEC)
             .cacheEncoding()
     );
 

@@ -20,7 +20,6 @@ public class Networking {
         //to server
         registrar.playToServer(MessageSetDivinationResult.TYPE, MessageSetDivinationResult.STREAM_CODEC, MessageHandler::handle);
         registrar.playToServer(MessageSetMode.TYPE, MessageSetMode.STREAM_CODEC, MessageHandler::handle);
-        registrar.playToServer(MessageItemModeSelectDirection.TYPE, MessageItemModeSelectDirection.STREAM_CODEC, MessageHandler::handle);
         registrar.playToServer(MessageCaloricFluxEmitterSelection.TYPE, MessageCaloricFluxEmitterSelection.STREAM_CODEC, MessageHandler::handle);
         registrar.playToServer(MessageSulfuricFluxEmitterSelection.TYPE, MessageSulfuricFluxEmitterSelection.STREAM_CODEC, MessageHandler::handle);
 

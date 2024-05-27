@@ -139,28 +139,11 @@ public class CalcinationOvenBlock extends Block implements EntityBlock {
         //handle top block
         pPos = pState.getValue(HALF) == DoubleBlockHalf.UPPER ? pPos.below() : pPos;
 
-        if (this.itemHandlerBehaviour.useItemHandler(pState, pLevel, pPos, pPlayer, pHand, pHit) == InteractionResult.SUCCESS) {
-            return InteractionResult.SUCCESS;
+        if (this.itemHandlerBehaviour.useItemOn(pStack, pState, pLevel, pPos, pPlayer, pHand, pHitResult) == ItemInteractionResult.SUCCESS) {
+            return ItemInteractionResult.SUCCESS;
         }
 
-        return InteractionResult.PASS;
-    }
-
-    @Override
-    protected InteractionResult useWithoutItem(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, BlockHitResult pHitResult) {
-        //TODO: ALign with above
-        //We do not check for client side because
-        // a) returning success causes https://github.com/klikli-dev/theurgy/issues/158
-        // b) client side BEs are separate objects even in SP, so modification in our behaviours is safe
-
-        //handle top block
-        pPos = pState.getValue(HALF) == DoubleBlockHalf.UPPER ? pPos.below() : pPos;
-
-        if (this.itemHandlerBehaviour.useItemHandler(pState, pLevel, pPos, pPlayer, pHand, pHit) == InteractionResult.SUCCESS) {
-            return InteractionResult.SUCCESS;
-        }
-
-        return InteractionResult.PASS;
+        return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
     }
 
     @Override

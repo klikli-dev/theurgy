@@ -32,7 +32,7 @@ public class FermentationRecipeProvider extends JsonRecipeProvider {
 
     @Override
     public void buildRecipes(BiConsumer<ResourceLocation, JsonObject> recipeConsumer) {
-        this.makeRecipesForCropTag(ItemTagRegistry.SUGAR);
+        this.makeRecipesForCropTag(ItemTagRegistry.SUGARS);
         this.makeRecipesForCropTag(Tags.Items.CROPS);
     }
 

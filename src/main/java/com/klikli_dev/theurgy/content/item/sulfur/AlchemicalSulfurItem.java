@@ -8,31 +8,31 @@ import com.google.common.base.Suppliers;
 import com.google.common.collect.ImmutableList;
 import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.content.item.sulfur.render.AlchemicalSulfurBEWLR;
+import com.klikli_dev.theurgy.registry.DataComponentRegistry;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
-import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
-import com.klikli_dev.theurgy.registry.SulfurRegistry;
-import com.klikli_dev.theurgy.util.LevelUtil;
 import com.klikli_dev.theurgy.util.TagUtil;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
+import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.ComponentUtils;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 
 import java.util.List;
+import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 public class AlchemicalSulfurItem extends Item {
+    private static final Map<Holder<Item>, ItemStack> sulfurSourceItemCache = new Object2ObjectOpenHashMap<>();
+    private static final Map<TagKey<Item>, ItemStack> sulfurSourceTagCache = new Object2ObjectOpenHashMap<>();
     /**
      * if true, an item model based on builtin/entity will be generated for this item.
      * This will cause SulfurBEWLR to be used to render the item dynamically based on TheurgyConstants.Nbt.SULFUR_SOURCE_ID, instead of a json model.
@@ -54,41 +54,36 @@ public class AlchemicalSulfurItem extends Item {
      * if true, will use TheurgyConstants.Nbt.SULFUR_SOURCE_ID to provide a parameter to the item tooltip component that can be accessed with %s in the language file.
      */
     public boolean provideAutomaticTooltipData;
-
     /**
      * If true, data gen will generate a lang entry for the item tooltip.
      */
     public boolean useAutomaticTooltipLangGeneration;
-
     /**
      * If true will convert the tag to a description id and use it as source name, instead of the source stack procured for the tag.
      * This is mainly intended for sulfurs that actually represent a tag (such as "all logs").
      * It should not be used for sulfurs that represent a specific item where we use the tag to handle mod compat (e.g. "Tingleberry").
      */
     public boolean overrideTagSourceName;
-
     /**
      * If true will use the source name from the lang file, instead of the source stack.
      * Additionally, this will cause overrideTagSourceName to be ignored.
      */
     public boolean overrideSourceName;
-
     /**
      * If true the LiquefactionRecipe used to craft this item will automatically generate a source id based on the ingredient, if no source id is provided in the recipe result nbt.
      */
     public boolean autoGenerateSourceIdInRecipe;
-
-    public Supplier<ItemStack> sourceStackSupplier;
     public Supplier<ItemStack> emptyJarStackSupplier;
-
     public AlchemicalSulfurTier tier;
+
+    //TODO: Rework sulfur source handling
+    //      if items can support default data components, we can probably provide all sulfurs with the proper source as component
+    //      ideally we should remove all "get from recipe" handling
+    //      the only exception can maybe be JEI? that should reflect recipe changes
+    //      although the question is if recipes ever change the sulfur source - probably not!
     public AlchemicalSulfurType type;
 
     public AlchemicalSulfurItem(Properties pProperties) {
-        this(pProperties, Suppliers.memoize(() -> ItemStack.EMPTY));
-    }
-
-    public AlchemicalSulfurItem(Properties pProperties, Supplier<ItemStack> sourceStackSupplier) {
         super(pProperties);
         this.useAutomaticIconRendering = true;
         this.useAutomaticNameRendering = true;
@@ -98,33 +93,9 @@ public class AlchemicalSulfurItem extends Item {
         this.autoGenerateSourceIdInRecipe = true;
         this.overrideTagSourceName = false;
         this.overrideSourceName = false;
-        this.sourceStackSupplier = sourceStackSupplier;
         this.emptyJarStackSupplier = Suppliers.memoize(() -> new ItemStack(ItemRegistry.EMPTY_JAR_ICON.get()));
         this.tier = AlchemicalSulfurTier.ABUNDANT;
         this.type = AlchemicalSulfurType.MISC;
-    }
-
-    public static String getSourceItemId(ItemStack sulfurStack) {
-        if (!sulfurStack.hasTag()) {
-            var level = LevelUtil.getLevelWithoutContext();
-            var recipeManager = level == null ? null : level.getRecipeManager();
-            var registryAccess = level == null ? null : level.registryAccess();
-
-            if (recipeManager != null && sulfurStack.getItem() instanceof AlchemicalSulfurItem sulfur) {
-                var liquefactionRecipes = recipeManager.getAllRecipesFor(RecipeTypeRegistry.LIQUEFACTION.get()).stream().filter(r -> r.value().getResultItem(registryAccess) != null).toList();
-
-                var preferred = SulfurRegistry.getPreferredSulfurVariant(sulfur, liquefactionRecipes, level);
-                if (preferred.isPresent() && preferred.get().hasTag()) {
-                    sulfurStack.setTag(preferred.get().getTag());
-                }
-            }
-        }
-
-        if (sulfurStack.hasTag() && sulfurStack.getTag().contains(TheurgyConstants.Nbt.SULFUR_SOURCE_ID)) {
-            return sulfurStack.getTag().getString(TheurgyConstants.Nbt.SULFUR_SOURCE_ID);
-        }
-
-        return "";
     }
 
     public static ItemStack getEmptyJarStack(ItemStack sulfurStack) {
@@ -159,31 +130,24 @@ public class AlchemicalSulfurItem extends Item {
      */
     public static ItemStack getSourceStack(ItemStack sulfurStack) {
 
-        if (sulfurStack.getItem() instanceof AlchemicalSulfurItem sulfur) {
-            var sourceStack = sulfur.getSourceStack();
-            if (!sourceStack.isEmpty())
-                return sourceStack;
-        }
+        if (sulfurStack.has(DataComponentRegistry.SULFUR_SOURCE_ITEM))
+            return sulfurSourceItemCache.computeIfAbsent(sulfurStack.get(DataComponentRegistry.SULFUR_SOURCE_ITEM), ItemStack::new);
 
-        var itemSourceId = getSourceItemId(sulfurStack); //we call this first, because it might find the source for us
 
-        //but then we do our normal checks
-        if (sulfurStack.hasTag() && sulfurStack.getTag().contains(TheurgyConstants.Nbt.SULFUR_SOURCE_ID)) {
-            ItemStack sourceStack;
+        if (sulfurStack.has(DataComponentRegistry.SULFUR_SOURCE_TAG))
+            return sulfurSourceTagCache.computeIfAbsent(sulfurStack.get(DataComponentRegistry.SULFUR_SOURCE_TAG), TagUtil::getItemStackForTag);
 
-            if (itemSourceId.startsWith("#")) {
-                var tagId = new ResourceLocation(itemSourceId.substring(1));
-                var tag = TagKey.create(Registries.ITEM, tagId);
-                sourceStack = TagUtil.getItemStackForTag(tag);
-            } else {
-                var itemId = new ResourceLocation(itemSourceId);
-                sourceStack = new ItemStack(BuiltInRegistries.ITEM.get(itemId));
-            }
+        return ItemStack.EMPTY;
+    }
 
-            if (sulfurStack.getTag().contains(TheurgyConstants.Nbt.SULFUR_SOURCE_NBT))
-                sourceStack.setTag(sulfurStack.getTag().getCompound(TheurgyConstants.Nbt.SULFUR_SOURCE_NBT));
-            return sourceStack;
-        }
+    public static ItemStack getSourceStack(Item sulfur) {
+
+        if (sulfur.components().has(DataComponentRegistry.SULFUR_SOURCE_ITEM.get()))
+            return sulfurSourceItemCache.computeIfAbsent(sulfur.components().get(DataComponentRegistry.SULFUR_SOURCE_ITEM.get()), ItemStack::new);
+
+
+        if (sulfur.components().has(DataComponentRegistry.SULFUR_SOURCE_TAG.get()))
+            return sulfurSourceTagCache.computeIfAbsent(sulfur.components().get(DataComponentRegistry.SULFUR_SOURCE_TAG.get()), TagUtil::getItemStackForTag);
 
         return ItemStack.EMPTY;
     }
@@ -235,10 +199,6 @@ public class AlchemicalSulfurItem extends Item {
 
     public AlchemicalSulfurType type() {
         return this.type;
-    }
-
-    public ItemStack getSourceStack() {
-        return this.sourceStackSupplier.get();
     }
 
     public AlchemicalSulfurItem noAuto() {
@@ -305,10 +265,8 @@ public class AlchemicalSulfurItem extends Item {
         var source = getSourceStack(pStack);
 
         if (!source.isEmpty()) {
-            var sourceId = getSourceItemId(pStack);
-            if (sourceId.startsWith("#") && this.overrideTagSourceName) {
-                var tagId = new ResourceLocation(sourceId.substring(1));
-                return formatSourceName(Component.translatable(Util.makeDescriptionId("tag", tagId)), this.tier);
+            if (pStack.has(DataComponentRegistry.SULFUR_SOURCE_TAG) && this.overrideTagSourceName) {
+                return formatSourceName(Component.translatable(Util.makeDescriptionId("tag", pStack.get(DataComponentRegistry.SULFUR_SOURCE_TAG).location())), this.tier);
             }
 
             if (source.getHoverName() instanceof MutableComponent hoverName)

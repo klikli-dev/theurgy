@@ -201,7 +201,7 @@ public class Theurgy {
         }
 
         public static void onRecipesUpdated(RecipesUpdatedEvent event) {
-            //now disable rendering of sulfurs that have no recipe -> otherwise we see "no source" sulfurs in tag recipes
+            //now disable rendering of sulfurs that have no recipe in modonomicon -> otherwise we see "no source" sulfurs in tag recipes
             //See also JeiPlugin.registerRecipes
             var registryAccess = Minecraft.getInstance().level.registryAccess();
             var liquefactionRecipes = event.getRecipeManager().getAllRecipesFor(RecipeTypeRegistry.LIQUEFACTION.get());

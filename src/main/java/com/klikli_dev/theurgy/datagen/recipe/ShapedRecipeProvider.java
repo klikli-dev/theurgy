@@ -18,7 +18,6 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.Tiers;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -271,7 +270,7 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
                 .pattern(" a ")
                 .pattern("gSg")
                 .pattern("sss")
-                .define('a', ItemTagRegistry.SAL_AMMONIAC_GEMS)
+                .define('a', ItemTagRegistry.GEMS_SAL_AMMONIAC)
                 .define('g', Tags.Items.INGOTS_GOLD)
                 .define('s', Tags.Items.STONES)
                 .define('S', ItemTagRegistry.ALCHEMICAL_SULFURS)
@@ -324,7 +323,7 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
                 .pattern(" s ")
                 .pattern("gpg")
                 .pattern("SSS")
-                .define('s', ItemTagRegistry.SAL_AMMONIAC_GEMS)
+                .define('s', ItemTagRegistry.GEMS_SAL_AMMONIAC)
                 .define('p', Items.DECORATED_POT)
                 .define('g', Tags.Items.INGOTS_GOLD)
                 .define('S', Tags.Items.SANDSTONE_BLOCKS)

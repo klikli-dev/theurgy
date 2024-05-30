@@ -56,11 +56,11 @@ public class ShapelessRecipeProvider extends JsonRecipeProvider {
     }
 
     protected void makeRecipe(ShapelessRecipeBuilder recipe) {
-        this.makeRecipe(this.name(recipe.result.getItem()), recipe);
+        this.makeRecipe(this.name(recipe.result()), recipe);
     }
 
     protected void makeRecipe(ItemLike result, ShapelessRecipeBuilder recipe) {
-        this.makeRecipe(this.name(result.asItem()), recipe);
+        this.makeRecipe(this.name(result), recipe);
     }
 
     protected void makeRecipe(String name, ShapelessRecipeBuilder recipe) {

@@ -56,8 +56,12 @@ public abstract class JsonRecipeProvider implements DataProvider {
         this.modid = modid;
     }
 
-    protected String name(Item item) {
-        return BuiltInRegistries.ITEM.getKey(item).getPath();
+    protected String name(ItemStack item) {
+        return this.name(item.getItem());
+    }
+
+    protected String name(ItemLike item) {
+        return BuiltInRegistries.ITEM.getKey(item.asItem()).getPath();
     }
 
     protected String name(TagKey<Item> tag) {
@@ -150,7 +154,7 @@ public abstract class JsonRecipeProvider implements DataProvider {
         public T result(String propertyName, RecipeResult result) {
             this.recipe.add(propertyName, RecipeResult.CODEC.encodeStart(JsonOps.INSTANCE, result).getOrThrow());
 
-            if(result instanceof TagRecipeResult tagRecipeResult) {
+            if (result instanceof TagRecipeResult tagRecipeResult) {
                 this.condition(new NotCondition(new TagEmptyCondition(tagRecipeResult.tag().location().toString())));
             }
 
@@ -237,13 +241,21 @@ public abstract class JsonRecipeProvider implements DataProvider {
         }
 
         public T condition(ICondition condition) {
-            if(!this.recipe.has("conditions"))
+            if (!this.recipe.has("conditions"))
                 this.recipe.add("conditions", new JsonArray());
 
             this.recipe.getAsJsonArray("conditions").add(
                     ICondition.CODEC.encodeStart(JsonOps.INSTANCE, condition).getOrThrow()
             );
             return this.getThis();
+        }
+
+
+        public JsonObject build() {
+            if (!this.recipe.has("category"))
+                this.recipe.addProperty("category", CraftingBookCategory.MISC.getSerializedName());
+
+            return this.recipe;
         }
     }
 }

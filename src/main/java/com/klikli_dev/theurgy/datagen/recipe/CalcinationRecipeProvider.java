@@ -4,7 +4,6 @@
 
 package com.klikli_dev.theurgy.datagen.recipe;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.content.recipe.CalcinationRecipe;
@@ -16,7 +15,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.ItemLike;
 import net.neoforged.neoforge.common.Tags;
 
 import java.util.function.BiConsumer;
@@ -31,89 +32,66 @@ public class CalcinationRecipeProvider extends JsonRecipeProvider {
 
     @Override
     public void buildRecipes(BiConsumer<ResourceLocation, JsonObject> recipeConsumer) {
-        this.makeRecipe(SaltRegistry.STRATA.get(), "from_stone", Tags.Items.STONES);
-        this.makeRecipe(SaltRegistry.STRATA.get(), "from_sandstone", Tags.Items.SANDSTONE_BLOCKS);
-        this.makeRecipe(SaltRegistry.STRATA.get(), "from_cobblestone", Tags.Items.COBBLESTONES);
-        this.makeRecipe(SaltRegistry.STRATA.get(), "from_dirt", ItemTags.DIRT);
-        this.makeRecipe(SaltRegistry.STRATA.get(), "from_sand", ItemTags.SAND);
-        this.makeRecipe(SaltRegistry.STRATA.get(), "from_gravel", 1, Items.GRAVEL, 1, TIME);
-        this.makeRecipe(SaltRegistry.STRATA.get(), "from_clay", 4, Items.CLAY, 1, TIME);
-        this.makeRecipe(SaltRegistry.STRATA.get(), "from_clay_ball", 1, Items.CLAY_BALL, 1, TIME);
-        this.makeRecipe(SaltRegistry.MINERAL.get(), "from_ores", Tags.Items.ORES);
-        this.makeRecipe(SaltRegistry.MINERAL.get(), "from_raw_materials", Tags.Items.RAW_MATERIALS);
-        this.makeRecipe(SaltRegistry.MINERAL.get(), "from_ingots", 2, Tags.Items.INGOTS);
-        this.makeRecipe(SaltRegistry.MINERAL.get(), "from_gems", 2, Tags.Items.GEMS);
-        this.makeRecipe(SaltRegistry.MINERAL.get(), "from_other_minerals", 2, ItemTagRegistry.OTHER_MINERALS);
-        this.makeRecipe(SaltRegistry.CROPS.get(), "", Tags.Items.CROPS);
-        this.makeRecipe(SaltRegistry.MINERAL.get(), "", 1, SaltRegistry.STRATA.get(), 20, TIME);
+        this.makeRecipe("from_stone", new Builder(SaltRegistry.STRATA).ingredient(Tags.Items.STONES));
+        this.makeRecipe("from_sandstone", new Builder(SaltRegistry.STRATA).ingredient(Tags.Items.SANDSTONE_BLOCKS));
+        this.makeRecipe("from_cobblestone", new Builder(SaltRegistry.STRATA).ingredient(Tags.Items.COBBLESTONES));
+        this.makeRecipe("from_dirt", new Builder(SaltRegistry.STRATA).ingredient(ItemTags.DIRT));
+        this.makeRecipe("from_sand", new Builder(SaltRegistry.STRATA).ingredient(ItemTags.SAND));
+        this.makeRecipe("from_gravel", new Builder(SaltRegistry.STRATA).ingredient(Items.GRAVEL));
+        this.makeRecipe("from_clay", new Builder(SaltRegistry.STRATA, 4).ingredient(Items.CLAY));
+        this.makeRecipe("from_clay_ball", new Builder(SaltRegistry.STRATA).ingredient(Items.CLAY_BALL));
+        this.makeRecipe("from_ores", new Builder(SaltRegistry.STRATA).ingredient(Tags.Items.ORES));
+        this.makeRecipe("from_raw_materials", new Builder(SaltRegistry.STRATA).ingredient(Tags.Items.RAW_MATERIALS));
+        this.makeRecipe("from_ingots", new Builder(SaltRegistry.STRATA, 2).ingredient(Tags.Items.INGOTS));
+        this.makeRecipe("from_gems", new Builder(SaltRegistry.STRATA, 2).ingredient(Tags.Items.GEMS));
+        this.makeRecipe("from_other_minerals", new Builder(SaltRegistry.STRATA, 2).ingredient(ItemTagRegistry.OTHER_MINERALS));
+        this.makeRecipe("", new Builder(SaltRegistry.STRATA).ingredient(Tags.Items.CROPS));
+        this.makeRecipe("", new Builder(SaltRegistry.STRATA).ingredient(SaltRegistry.STRATA.get(), 20));
     }
 
 
-    public void makeRecipe(Item salt, String suffix, TagKey<Item> ingredient) {
-        this.makeRecipe(salt, suffix, ingredient, TIME);
-    }
-
-    public void makeRecipe(Item salt, String suffix, TagKey<Item> ingredient, int calcinationTime) {
-        this.makeRecipe(salt, suffix, 1, ingredient, 1, calcinationTime);
-    }
-
-    public void makeRecipe(Item salt, String suffix, int resultCount, TagKey<Item> ingredient) {
-        this.makeRecipe(salt, suffix, resultCount, ingredient, 1);
-    }
-
-
-    public void makeRecipe(Item salt, String suffix, int resultCount, TagKey<Item> ingredient, int ingredientCount) {
-        this.makeRecipe(salt, suffix, resultCount, ingredient, ingredientCount, TIME);
-    }
-
-    public void makeRecipe(Item salt, String suffix, int resultCount, Item ingredient, int ingredientCount, int calcinationTime) {
-        var name = this.name(salt).replace("alchemical_salt_", "");
-        if (suffix != null && !suffix.isEmpty())
-            name += "_" + suffix;
-
-        var recipe = this.makeRecipeJson(
-                this.makeItemIngredient(this.locFor(ingredient)), ingredientCount,
-                this.makeItemResult(this.locFor(salt), resultCount), calcinationTime);
-
-        this.recipeConsumer.accept(
-                this.modLoc(name),
-                recipe
-        );
-
-    }
-
-    public void makeRecipe(Item salt, String suffix, int resultCount, TagKey<Item> ingredient, int ingredientCount, int calcinationTime) {
-        var name = this.name(salt).replace("alchemical_salt_", "");
-        if (suffix != null && !suffix.isEmpty())
-            name += "_" + suffix;
-
-        var recipe = this.makeRecipeJson(
-                this.makeTagIngredient(this.locFor(ingredient)), ingredientCount,
-                this.makeItemResult(this.locFor(salt), resultCount), calcinationTime);
-
-        var conditions = new JsonArray();
-        conditions.add(this.makeTagNotEmptyCondition(ingredient.location().toString()));
-        recipe.add("neoforge:conditions", conditions);
-
-        this.recipeConsumer.accept(
-                this.modLoc(name),
-                recipe
-        );
-
-    }
-
-    public JsonObject makeRecipeJson(JsonObject ingredient, int ingredientCount, JsonObject result, int calcinationTime) {
-        var recipe = new JsonObject();
-        recipe.addProperty("type", RecipeTypeRegistry.CALCINATION.getId().toString());
-        recipe.add("ingredient", ingredient);
-        recipe.addProperty("ingredientCount", ingredientCount);
-        recipe.add("result", result);
-        recipe.addProperty("time", calcinationTime);
-        return recipe;
+    protected void makeRecipe(String suffix, Builder recipe) {
+        this.recipeConsumer.accept(this.modLoc(this.name(recipe.result()) + suffix), recipe.build());
     }
 
     @Override
     public String getName() {
         return "Calcination Recipes";
+    }
+
+    protected static class Builder extends RecipeBuilder<Builder> {
+
+        private final ItemStack result;
+
+        protected Builder(ItemLike result) {
+            this(result, 1);
+        }
+
+        protected Builder(ItemLike result, int count) {
+            this(new ItemStack(result, count));
+        }
+
+        protected Builder(ItemStack result) {
+            super(RecipeTypeRegistry.CALCINATION);
+            this.result(result);
+            this.time(TIME);
+            this.result = result;
+        }
+
+        @Override
+        public Builder ingredient(TagKey<?> tag, int amount) {
+            this.recipe.addProperty("ingredientCount", amount);
+            return this.ingredient("ingredient", tag, -1);
+        }
+
+        @Override
+        public Builder ingredient(Item item, int amount) {
+            this.recipe.addProperty("ingredientCount", amount);
+            return this.ingredient("ingredient", item);
+        }
+
+        public ItemStack result() {
+            return this.result;
+        }
     }
 }

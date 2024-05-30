@@ -396,11 +396,11 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
     }
 
     protected void makeRecipe(ShapedRecipeBuilder recipe) {
-        this.makeRecipe(this.name(recipe.result.getItem()), recipe);
+        this.makeRecipe(this.name(recipe.result()), recipe);
     }
 
     protected void makeRecipe(ItemLike result, ShapedRecipeBuilder recipe) {
-        this.makeRecipe(this.name(result.asItem()), recipe);
+        this.makeRecipe(this.name(result), recipe);
     }
 
     protected void makeRecipe(String name, ShapedRecipeBuilder recipe) {

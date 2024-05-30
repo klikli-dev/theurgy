@@ -11,13 +11,18 @@ import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurItem;
 import com.klikli_dev.theurgy.content.recipe.FermentationRecipe;
 import com.klikli_dev.theurgy.registry.*;
 import com.mojang.datafixers.util.Pair;
+import net.minecraft.core.Holder;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
 import net.neoforged.neoforge.common.Tags;
+import net.neoforged.neoforge.common.conditions.NotCondition;
+import net.neoforged.neoforge.common.conditions.TagEmptyCondition;
 
 import java.util.List;
 import java.util.function.BiConsumer;
@@ -71,14 +76,14 @@ public class DigestionRecipeProvider extends JsonRecipeProvider {
     }
 
     public void makeRecipe(String name, Fluid fluid, int fluidAmount, List<Pair<Item, Integer>> ingredients, Item result, int resultCount, int time) {
-        var recipe = this.makeRecipeJson(
-                this.makeFluidTagIngredient(this.locFor(fluid)),
-                fluidAmount,
-                ingredients.stream().map(i -> this.makeItemIngredient(this.locFor(i.getFirst()), i.getSecond())).toList(),
-                this.makeItemResult(this.locFor(result), resultCount),
-                time);
 
-        this.recipeConsumer.accept(this.modLoc(name), recipe);
+        var recipe = new Builder(new ItemStack(result, resultCount))
+                .fluid(fluid, fluidAmount)
+                .time(time);
+
+        ingredients.forEach(i -> recipe.ingredients(i.getFirst(), i.getSecond()));
+
+        this.recipeConsumer.accept(this.modLoc(name), recipe.build());
     }
 
     public void makeRecipeWithTags(Fluid fluid, int fluidAmount, List<TagKey<Item>> ingredients, Item result, int resultCount, int time) {
@@ -86,41 +91,81 @@ public class DigestionRecipeProvider extends JsonRecipeProvider {
     }
 
     public void makeRecipeWithTags(String name, Fluid fluid, int fluidAmount, List<TagKey<Item>> ingredients, Item result, int resultCount, int time) {
-        var recipe = this.makeRecipeJson(
-                this.makeFluidTagIngredient(this.locFor(fluid)),
-                fluidAmount,
-                ingredients.stream().map(i -> this.makeTagIngredient(this.locFor(i), 1)).toList(),
-                this.makeItemResult(this.locFor(result), resultCount),
-                time);
 
-        var conditions = new JsonArray();
-        for (var ingredient : ingredients) {
-            conditions.add(this.makeTagNotEmptyCondition(ingredient.location().toString()));
-        }
-        recipe.add("neoforge:conditions", conditions);
+        var recipe = new Builder(new ItemStack(result, resultCount))
+                .fluid(fluid, fluidAmount)
+                .time(time);
 
-        this.recipeConsumer.accept(this.modLoc(name), recipe);
+        ingredients.forEach(i -> recipe.ingredients(i, 1));
+
+        this.recipeConsumer.accept(this.modLoc(name), recipe.build());
     }
-
-    public JsonObject makeRecipeJson(JsonObject fluid, int fluidAmount, List<JsonObject> ingredients, JsonObject result, int time) {
-        var ingredientsArray = new JsonArray();
-        for (var ingredient : ingredients) {
-            ingredientsArray.add(ingredient);
-        }
-
-        var recipe = new JsonObject();
-        recipe.addProperty("type", RecipeTypeRegistry.DIGESTION.getId().toString());
-        recipe.add("fluid", fluid);
-        recipe.addProperty("fluidAmount", fluidAmount);
-        recipe.add("ingredients", ingredientsArray);
-        recipe.add("result", result);
-        recipe.addProperty("time", time);
-        return recipe;
-    }
-
 
     @Override
     public String getName() {
         return "Digestion Recipes";
+    }
+
+    protected static class Builder extends RecipeBuilder<Builder> {
+        protected Builder(ItemStack result) {
+            super(RecipeTypeRegistry.DIGESTION);
+            this.result(result);
+            this.time(TIME);
+        }
+
+        public Builder fluid(TagKey<Fluid> tag, int amount) {
+            this.recipe.addProperty("fluidAmount", amount);
+            return this.ingredient("fluid", tag, -1);
+        }
+
+        public Builder fluid(Fluid fluid, int amount) {
+            this.recipe.addProperty("fluidAmount", amount);
+            return this.ingredient("fluid", fluid);
+        }
+
+        public Builder ingredients(ItemLike item) {
+            //noinspection deprecation
+            return this.ingredients(item.asItem().builtInRegistryHolder());
+        }
+
+        public Builder ingredients(ItemLike item, int count) {
+            //noinspection deprecation
+            return this.ingredients(item.asItem().builtInRegistryHolder(), 1);
+        }
+
+        public Builder ingredients(Holder<Item> itemHolder) {
+            return this.ingredients(itemHolder, 1);
+        }
+
+        public Builder ingredients(Holder<Item> itemHolder, int count) {
+            if (!this.recipe.has("ingredients"))
+                this.recipe.add("ingredients", new JsonArray());
+
+            JsonObject jsonobject = new JsonObject();
+            //noinspection OptionalGetWithoutIsPresent
+            jsonobject.addProperty("item", itemHolder.unwrapKey().get().location().toString());
+            jsonobject.addProperty("count", count);
+
+            this.recipe.getAsJsonArray("ingredients").add(jsonobject);
+
+            return this.getThis();
+        }
+
+
+        public Builder ingredients(TagKey<?> tag, int count) {
+            if (!this.recipe.has("ingredients"))
+                this.recipe.add("ingredients", new JsonArray());
+
+            JsonObject jsonobject = new JsonObject();
+            jsonobject.addProperty("tag", tag.location().toString());
+            if (count > -1)
+                jsonobject.addProperty("count", count);
+
+            this.recipe.getAsJsonArray("ingredients").add(jsonobject);
+
+            this.condition(new NotCondition(new TagEmptyCondition(tag.location().toString())));
+
+            return this.getThis();
+        }
     }
 }

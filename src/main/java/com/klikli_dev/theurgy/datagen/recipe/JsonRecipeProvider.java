@@ -227,6 +227,14 @@ public abstract class JsonRecipeProvider implements DataProvider {
             return this.getThis();
         }
 
+        public T ingredient(String propertyName, Fluid fluid) {
+            JsonObject jsonobject = new JsonObject();
+            //noinspection OptionalGetWithoutIsPresent,deprecation
+            jsonobject.addProperty("fluid", fluid.builtInRegistryHolder().unwrapKey().get().location().toString());
+            this.recipe.add(propertyName, jsonobject);
+            return this.getThis();
+        }
+
         public T ingredient(String propertyName, Item item) {
             //noinspection deprecation
             return this.ingredient(propertyName, item.builtInRegistryHolder());

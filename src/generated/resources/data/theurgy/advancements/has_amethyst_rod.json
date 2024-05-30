@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "theurgy:amethyst_divination_rod"
-            ]
+            "items": "theurgy:amethyst_divination_rod"
           }
         ]
       },

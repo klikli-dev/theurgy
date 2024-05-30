@@ -4,20 +4,20 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:ores/sapphire"
+        "tag": "c:ores/sapphire"
       }
     }
   ],
   "type": "theurgy:liquefaction",
   "category": "misc",
   "ingredient": {
-    "tag": "forge:ores/sapphire"
+    "tag": "c:ores/sapphire"
   },
   "result": {
     "count": 8,
     "item": "theurgy:alchemical_sulfur_sapphire",
     "nbt": {
-      "theurgy:sulfur.source.id": "#forge:ores/sapphire"
+      "theurgy:sulfur.source.id": "#c:ores/sapphire"
     }
   },
   "solvent": {

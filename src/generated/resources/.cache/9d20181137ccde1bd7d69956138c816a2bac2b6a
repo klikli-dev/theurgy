@@ -1,4 +1,4 @@
-// 1.20.4	2024-05-25T13:38:47.7931543	Digestion Recipes
+// 1.20.6	2024-05-30T10:41:42.0368683	Digestion Recipes
 0e0b8f2a4f89f99eae7ba3fee4565b7f8d92fd76 data/theurgy/recipes/digestion/alchemical_sulfur_gems_abundant_from_common.json
 a669e331da141a09febd8c1dce0c671ce8c36291 data/theurgy/recipes/digestion/alchemical_sulfur_gems_common_from_abundant.json
 9c101048aa5e2aa3824560a8673df815b7b1abfd data/theurgy/recipes/digestion/alchemical_sulfur_gems_common_from_rare.json
@@ -17,4 +17,4 @@ a169bb5c3fd50c8931ed8aebcb2eccc3a9de94ca data/theurgy/recipes/digestion/alchemic
 2cb7b782d08543fdb808f360d9ea960c2d9eb724 data/theurgy/recipes/digestion/alchemical_sulfur_other_minerals_precious_from_rare.json
 ee1607a1bec2c7a248b449937b1941c99d74b5bd data/theurgy/recipes/digestion/alchemical_sulfur_other_minerals_rare_from_common.json
 270e9acddb20929015c623d644474bd467e00cb4 data/theurgy/recipes/digestion/alchemical_sulfur_other_minerals_rare_from_precious.json
-c1625ff9a36ab1ca46ed65af618a271e27cfc346 data/theurgy/recipes/digestion/purified_gold.json
+d759e25b8e8a6fe654899b62aefda2bfcabf3907 data/theurgy/recipes/digestion/purified_gold.json

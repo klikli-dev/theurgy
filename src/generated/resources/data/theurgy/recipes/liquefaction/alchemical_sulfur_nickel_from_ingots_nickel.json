@@ -4,20 +4,20 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:ingots/nickel"
+        "tag": "c:ingots/nickel"
       }
     }
   ],
   "type": "theurgy:liquefaction",
   "category": "misc",
   "ingredient": {
-    "tag": "forge:ingots/nickel"
+    "tag": "c:ingots/nickel"
   },
   "result": {
     "count": 1,
     "item": "theurgy:alchemical_sulfur_nickel",
     "nbt": {
-      "theurgy:sulfur.source.id": "#forge:ingots/nickel"
+      "theurgy:sulfur.source.id": "#c:ingots/nickel"
     }
   },
   "solvent": {

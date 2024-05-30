@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "theurgy:sulfur_attuned_divination_rod_abundant"
-            ]
+            "items": "theurgy:sulfur_attuned_divination_rod_abundant"
           }
         ]
       },
@@ -17,9 +15,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "theurgy:sulfur_attuned_divination_rod_common"
-            ]
+            "items": "theurgy:sulfur_attuned_divination_rod_common"
           }
         ]
       },
@@ -29,9 +25,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "theurgy:divination_rod_t1"
-            ]
+            "items": "theurgy:divination_rod_t1"
           }
         ]
       },

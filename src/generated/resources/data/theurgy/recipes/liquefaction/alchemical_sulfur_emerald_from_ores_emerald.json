@@ -4,20 +4,20 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:ores/emerald"
+        "tag": "c:ores/emerald"
       }
     }
   ],
   "type": "theurgy:liquefaction",
   "category": "misc",
   "ingredient": {
-    "tag": "forge:ores/emerald"
+    "tag": "c:ores/emerald"
   },
   "result": {
     "count": 4,
     "item": "theurgy:alchemical_sulfur_emerald",
     "nbt": {
-      "theurgy:sulfur.source.id": "#forge:ores/emerald"
+      "theurgy:sulfur.source.id": "#c:ores/emerald"
     }
   },
   "solvent": {

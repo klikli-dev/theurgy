@@ -4,14 +4,14 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:glass"
+        "tag": "c:cobblestones"
       }
     }
   ],
   "type": "theurgy:distillation",
   "category": "misc",
   "ingredient": {
-    "tag": "forge:glass"
+    "tag": "c:cobblestones"
   },
   "ingredientCount": 10,
   "result": {

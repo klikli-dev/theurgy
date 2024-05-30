@@ -4,14 +4,14 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:ingots"
+        "tag": "c:ingots"
       }
     }
   ],
   "type": "theurgy:calcination",
   "category": "misc",
   "ingredient": {
-    "tag": "forge:ingots"
+    "tag": "c:ingots"
   },
   "ingredientCount": 1,
   "result": {

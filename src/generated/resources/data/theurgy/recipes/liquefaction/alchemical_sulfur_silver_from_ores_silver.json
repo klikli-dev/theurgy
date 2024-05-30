@@ -4,20 +4,20 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:ores/silver"
+        "tag": "c:ores/silver"
       }
     }
   ],
   "type": "theurgy:liquefaction",
   "category": "misc",
   "ingredient": {
-    "tag": "forge:ores/silver"
+    "tag": "c:ores/silver"
   },
   "result": {
     "count": 5,
     "item": "theurgy:alchemical_sulfur_silver",
     "nbt": {
-      "theurgy:sulfur.source.id": "#forge:ores/silver"
+      "theurgy:sulfur.source.id": "#c:ores/silver"
     }
   },
   "solvent": {

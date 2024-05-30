@@ -1,6 +1,6 @@
 {
   "values": [
-    "#forge:raw_materials/gold",
+    "#c:raw_materials/gold",
     {
       "id": "#forge:raw_materials/uranium",
       "required": false

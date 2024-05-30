@@ -4,14 +4,14 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:raw_materials"
+        "tag": "c:raw_materials"
       }
     }
   ],
   "type": "theurgy:calcination",
   "category": "misc",
   "ingredient": {
-    "tag": "forge:raw_materials"
+    "tag": "c:raw_materials"
   },
   "ingredientCount": 1,
   "result": {

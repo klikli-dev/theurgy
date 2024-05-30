@@ -4,7 +4,7 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:ingots/crimson_iron"
+        "tag": "c:ingots/crimson_iron"
       }
     }
   ],
@@ -15,7 +15,7 @@
   },
   "result": {
     "count": 1,
-    "tag": "forge:ingots/crimson_iron"
+    "tag": "c:ingots/crimson_iron"
   },
   "salt": {
     "item": "theurgy:alchemical_salt_mineral"

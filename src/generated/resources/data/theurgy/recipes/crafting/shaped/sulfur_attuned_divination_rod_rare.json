@@ -3,13 +3,13 @@
   "category": "misc",
   "key": {
     "A": {
-      "tag": "forge:gems/amethyst"
+      "tag": "c:gems/amethyst"
     },
     "G": {
-      "tag": "forge:glass"
+      "tag": "c:glass_blocks"
     },
     "R": {
-      "tag": "forge:rods/wooden"
+      "tag": "c:rods/wooden"
     },
     "S": {
       "tag": "theurgy:alchemical_sulfurs/rare"
@@ -29,7 +29,7 @@
       "theurgy:divination.setting.duration": 40,
       "theurgy:divination.setting.max_damage": 32,
       "theurgy:divination.setting.range": 96,
-      "theurgy:divination.setting.tier": "minecraft:stone"
+      "theurgy:divination.setting.tier": "STONE"
     }
   }
 }

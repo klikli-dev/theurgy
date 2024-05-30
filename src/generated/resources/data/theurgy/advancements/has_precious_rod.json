@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "theurgy:sulfur_attuned_divination_rod_precious"
-            ]
+            "items": "theurgy:sulfur_attuned_divination_rod_precious"
           }
         ]
       },

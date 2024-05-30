@@ -4,14 +4,14 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:sandstone"
+        "tag": "c:sandstone/blocks"
       }
     }
   ],
   "type": "theurgy:distillation",
   "category": "misc",
   "ingredient": {
-    "tag": "forge:sandstone"
+    "tag": "c:sandstone/blocks"
   },
   "ingredientCount": 10,
   "result": {

@@ -3,10 +3,10 @@
   "category": "misc",
   "key": {
     "b": {
-      "tag": "forge:ingots/brick"
+      "tag": "c:bricks/normal"
     },
     "i": {
-      "tag": "forge:ingots/iron"
+      "tag": "c:ingots/iron"
     },
     "m": {
       "item": "theurgy:mercury_shard"

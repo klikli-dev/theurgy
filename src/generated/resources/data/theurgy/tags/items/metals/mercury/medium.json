@@ -1,6 +1,6 @@
 {
   "values": [
-    "#forge:ingots/gold",
+    "#c:ingots/gold",
     {
       "id": "#forge:ingots/uranium",
       "required": false

@@ -3,16 +3,16 @@
   "category": "misc",
   "key": {
     "S": {
-      "tag": "forge:sandstone"
+      "tag": "c:sandstone/blocks"
     },
     "g": {
-      "tag": "forge:ingots/gold"
+      "tag": "c:ingots/gold"
     },
     "p": {
       "item": "minecraft:decorated_pot"
     },
     "s": {
-      "tag": "forge:gems/sal_ammoniac"
+      "tag": "c:gems/sal_ammoniac"
     }
   },
   "pattern": [

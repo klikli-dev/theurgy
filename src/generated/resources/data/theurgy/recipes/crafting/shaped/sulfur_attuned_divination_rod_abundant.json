@@ -3,10 +3,10 @@
   "category": "misc",
   "key": {
     "G": {
-      "tag": "forge:glass"
+      "tag": "c:glass_blocks"
     },
     "R": {
-      "tag": "forge:rods/wooden"
+      "tag": "c:rods/wooden"
     },
     "S": {
       "tag": "theurgy:alchemical_sulfurs/abundant"
@@ -26,7 +26,7 @@
       "theurgy:divination.setting.duration": 40,
       "theurgy:divination.setting.max_damage": 16,
       "theurgy:divination.setting.range": 96,
-      "theurgy:divination.setting.tier": "minecraft:stone"
+      "theurgy:divination.setting.tier": "STONE"
     }
   }
 }

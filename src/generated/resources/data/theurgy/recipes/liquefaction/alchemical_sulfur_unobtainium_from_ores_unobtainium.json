@@ -4,20 +4,20 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:ores/unobtainium"
+        "tag": "c:ores/unobtainium"
       }
     }
   ],
   "type": "theurgy:liquefaction",
   "category": "misc",
   "ingredient": {
-    "tag": "forge:ores/unobtainium"
+    "tag": "c:ores/unobtainium"
   },
   "result": {
     "count": 5,
     "item": "theurgy:alchemical_sulfur_unobtainium",
     "nbt": {
-      "theurgy:sulfur.source.id": "#forge:ores/unobtainium"
+      "theurgy:sulfur.source.id": "#c:ores/unobtainium"
     }
   },
   "solvent": {

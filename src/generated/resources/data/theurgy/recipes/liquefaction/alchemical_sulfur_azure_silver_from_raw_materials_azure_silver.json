@@ -4,20 +4,20 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:raw_materials/azure_silver"
+        "tag": "c:raw_materials/azure_silver"
       }
     }
   ],
   "type": "theurgy:liquefaction",
   "category": "misc",
   "ingredient": {
-    "tag": "forge:raw_materials/azure_silver"
+    "tag": "c:raw_materials/azure_silver"
   },
   "result": {
     "count": 3,
     "item": "theurgy:alchemical_sulfur_azure_silver",
     "nbt": {
-      "theurgy:sulfur.source.id": "#forge:raw_materials/azure_silver"
+      "theurgy:sulfur.source.id": "#c:raw_materials/azure_silver"
     }
   },
   "solvent": {

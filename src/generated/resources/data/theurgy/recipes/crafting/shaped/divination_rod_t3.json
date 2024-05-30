@@ -3,16 +3,16 @@
   "category": "misc",
   "key": {
     "A": {
-      "tag": "forge:gems/amethyst"
+      "tag": "c:gems/amethyst"
     },
     "D": {
-      "tag": "forge:gems/diamond"
+      "tag": "c:gems/diamond"
     },
     "G": {
-      "tag": "forge:glass"
+      "tag": "c:glass_blocks"
     },
     "Q": {
-      "tag": "forge:gems/quartz"
+      "tag": "c:gems/quartz"
     }
   },
   "pattern": [
@@ -29,7 +29,7 @@
       "theurgy:divination.setting.duration": 40,
       "theurgy:divination.setting.max_damage": 32,
       "theurgy:divination.setting.range": 96,
-      "theurgy:divination.setting.tier": "minecraft:diamond"
+      "theurgy:divination.setting.tier": "DIAMOND"
     }
   }
 }

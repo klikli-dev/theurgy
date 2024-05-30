@@ -4,14 +4,14 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "theurgy:alchemical_sulfurs/metals/precious"
+        "tag": "theurgy:alchemical_sulfurs/other_minerals/rare"
       }
     },
     {
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:sugar"
+        "tag": "c:sugars"
       }
     }
   ],
@@ -20,18 +20,18 @@
   "fluid": {
     "tag": "minecraft:water"
   },
-  "fluidAmount": 1000,
+  "fluidAmount": 500,
   "ingredients": [
     {
-      "tag": "theurgy:alchemical_sulfurs/metals/precious"
+      "tag": "theurgy:alchemical_sulfurs/other_minerals/rare"
     },
     {
-      "tag": "forge:sugar"
+      "tag": "c:sugars"
     }
   ],
   "result": {
     "count": 1,
-    "item": "theurgy:alchemical_sulfur_metals_precious"
+    "item": "theurgy:alchemical_sulfur_other_minerals_rare"
   },
   "time": 200
 }

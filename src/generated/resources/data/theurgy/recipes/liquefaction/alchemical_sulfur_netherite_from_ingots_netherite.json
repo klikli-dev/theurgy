@@ -4,20 +4,20 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:ingots/netherite"
+        "tag": "c:ingots/netherite"
       }
     }
   ],
   "type": "theurgy:liquefaction",
   "category": "misc",
   "ingredient": {
-    "tag": "forge:ingots/netherite"
+    "tag": "c:ingots/netherite"
   },
   "result": {
     "count": 1,
     "item": "theurgy:alchemical_sulfur_netherite",
     "nbt": {
-      "theurgy:sulfur.source.id": "#forge:ingots/netherite"
+      "theurgy:sulfur.source.id": "#c:ingots/netherite"
     }
   },
   "solvent": {

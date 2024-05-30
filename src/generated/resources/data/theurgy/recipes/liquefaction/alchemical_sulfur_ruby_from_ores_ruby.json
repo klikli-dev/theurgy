@@ -4,20 +4,20 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:ores/ruby"
+        "tag": "c:ores/ruby"
       }
     }
   ],
   "type": "theurgy:liquefaction",
   "category": "misc",
   "ingredient": {
-    "tag": "forge:ores/ruby"
+    "tag": "c:ores/ruby"
   },
   "result": {
     "count": 8,
     "item": "theurgy:alchemical_sulfur_ruby",
     "nbt": {
-      "theurgy:sulfur.source.id": "#forge:ores/ruby"
+      "theurgy:sulfur.source.id": "#c:ores/ruby"
     }
   },
   "solvent": {

@@ -3,7 +3,7 @@
   "category": "misc",
   "key": {
     "g": {
-      "tag": "forge:ingots/gold"
+      "tag": "c:ingots/gold"
     },
     "h": {
       "item": "minecraft:campfire"
@@ -12,7 +12,7 @@
       "tag": "theurgy:alchemical_mercuries"
     },
     "s": {
-      "tag": "forge:stone"
+      "tag": "c:stones"
     }
   },
   "pattern": [

@@ -4,16 +4,16 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:stone"
+        "tag": "c:sands"
       }
     }
   ],
   "type": "theurgy:distillation",
   "category": "misc",
   "ingredient": {
-    "tag": "forge:stone"
+    "tag": "c:sands"
   },
-  "ingredientCount": 10,
+  "ingredientCount": 15,
   "result": {
     "count": 1,
     "item": "theurgy:mercury_shard"

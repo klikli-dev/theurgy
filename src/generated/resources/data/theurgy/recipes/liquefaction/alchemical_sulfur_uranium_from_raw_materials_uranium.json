@@ -4,20 +4,20 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:raw_materials/uranium"
+        "tag": "c:raw_materials/uranium"
       }
     }
   ],
   "type": "theurgy:liquefaction",
   "category": "misc",
   "ingredient": {
-    "tag": "forge:raw_materials/uranium"
+    "tag": "c:raw_materials/uranium"
   },
   "result": {
     "count": 3,
     "item": "theurgy:alchemical_sulfur_uranium",
     "nbt": {
-      "theurgy:sulfur.source.id": "#forge:raw_materials/uranium"
+      "theurgy:sulfur.source.id": "#c:raw_materials/uranium"
     }
   },
   "solvent": {

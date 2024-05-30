@@ -6,8 +6,8 @@
   },
   "evaporantAmount": 1000,
   "result": {
-    "Amount": 100,
-    "FluidName": "theurgy:sal_ammoniac"
+    "amount": 100,
+    "id": "theurgy:sal_ammoniac"
   },
   "time": 100
 }

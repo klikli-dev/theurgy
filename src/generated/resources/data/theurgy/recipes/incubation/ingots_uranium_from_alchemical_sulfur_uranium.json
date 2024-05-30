@@ -4,7 +4,7 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:ingots/uranium"
+        "tag": "c:ingots/uranium"
       }
     }
   ],
@@ -15,7 +15,7 @@
   },
   "result": {
     "count": 1,
-    "tag": "forge:ingots/uranium"
+    "tag": "c:ingots/uranium"
   },
   "salt": {
     "item": "theurgy:alchemical_salt_mineral"

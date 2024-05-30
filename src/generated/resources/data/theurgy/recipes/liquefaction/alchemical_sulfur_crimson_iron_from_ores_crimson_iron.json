@@ -4,20 +4,20 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:ores/crimson_iron"
+        "tag": "c:ores/crimson_iron"
       }
     }
   ],
   "type": "theurgy:liquefaction",
   "category": "misc",
   "ingredient": {
-    "tag": "forge:ores/crimson_iron"
+    "tag": "c:ores/crimson_iron"
   },
   "result": {
     "count": 5,
     "item": "theurgy:alchemical_sulfur_crimson_iron",
     "nbt": {
-      "theurgy:sulfur.source.id": "#forge:ores/crimson_iron"
+      "theurgy:sulfur.source.id": "#c:ores/crimson_iron"
     }
   },
   "solvent": {

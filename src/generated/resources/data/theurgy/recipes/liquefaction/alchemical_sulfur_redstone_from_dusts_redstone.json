@@ -4,20 +4,20 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:dusts/redstone"
+        "tag": "c:dusts/redstone"
       }
     }
   ],
   "type": "theurgy:liquefaction",
   "category": "misc",
   "ingredient": {
-    "tag": "forge:dusts/redstone"
+    "tag": "c:dusts/redstone"
   },
   "result": {
     "count": 1,
     "item": "theurgy:alchemical_sulfur_redstone",
     "nbt": {
-      "theurgy:sulfur.source.id": "#forge:dusts/redstone"
+      "theurgy:sulfur.source.id": "#c:dusts/redstone"
     }
   },
   "solvent": {

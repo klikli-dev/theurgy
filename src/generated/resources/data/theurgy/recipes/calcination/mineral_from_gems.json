@@ -4,14 +4,14 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:gems"
+        "tag": "c:gems"
       }
     }
   ],
   "type": "theurgy:calcination",
   "category": "misc",
   "ingredient": {
-    "tag": "forge:gems"
+    "tag": "c:gems"
   },
   "ingredientCount": 1,
   "result": {

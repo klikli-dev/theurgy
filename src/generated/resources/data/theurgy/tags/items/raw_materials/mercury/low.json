@@ -1,7 +1,7 @@
 {
   "values": [
-    "#forge:raw_materials/iron",
-    "#forge:raw_materials/copper",
+    "#c:raw_materials/iron",
+    "#c:raw_materials/copper",
     {
       "id": "#forge:raw_materials/zinc",
       "required": false

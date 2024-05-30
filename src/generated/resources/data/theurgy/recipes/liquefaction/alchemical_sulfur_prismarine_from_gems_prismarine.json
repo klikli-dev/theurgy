@@ -4,20 +4,20 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:gems/prismarine"
+        "tag": "c:gems/prismarine"
       }
     }
   ],
   "type": "theurgy:liquefaction",
   "category": "misc",
   "ingredient": {
-    "tag": "forge:gems/prismarine"
+    "tag": "c:gems/prismarine"
   },
   "result": {
     "count": 1,
     "item": "theurgy:alchemical_sulfur_prismarine",
     "nbt": {
-      "theurgy:sulfur.source.id": "#forge:gems/prismarine"
+      "theurgy:sulfur.source.id": "#c:gems/prismarine"
     }
   },
   "solvent": {

@@ -4,20 +4,20 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:ores/zinc"
+        "tag": "c:ores/zinc"
       }
     }
   ],
   "type": "theurgy:liquefaction",
   "category": "misc",
   "ingredient": {
-    "tag": "forge:ores/zinc"
+    "tag": "c:ores/zinc"
   },
   "result": {
     "count": 5,
     "item": "theurgy:alchemical_sulfur_zinc",
     "nbt": {
-      "theurgy:sulfur.source.id": "#forge:ores/zinc"
+      "theurgy:sulfur.source.id": "#c:ores/zinc"
     }
   },
   "solvent": {

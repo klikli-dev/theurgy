@@ -4,20 +4,20 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:ores/osmium"
+        "tag": "c:ores/osmium"
       }
     }
   ],
   "type": "theurgy:liquefaction",
   "category": "misc",
   "ingredient": {
-    "tag": "forge:ores/osmium"
+    "tag": "c:ores/osmium"
   },
   "result": {
     "count": 5,
     "item": "theurgy:alchemical_sulfur_osmium",
     "nbt": {
-      "theurgy:sulfur.source.id": "#forge:ores/osmium"
+      "theurgy:sulfur.source.id": "#c:ores/osmium"
     }
   },
   "solvent": {

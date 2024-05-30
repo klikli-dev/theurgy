@@ -4,20 +4,20 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:ores/tin"
+        "tag": "c:ores/tin"
       }
     }
   ],
   "type": "theurgy:liquefaction",
   "category": "misc",
   "ingredient": {
-    "tag": "forge:ores/tin"
+    "tag": "c:ores/tin"
   },
   "result": {
     "count": 5,
     "item": "theurgy:alchemical_sulfur_tin",
     "nbt": {
-      "theurgy:sulfur.source.id": "#forge:ores/tin"
+      "theurgy:sulfur.source.id": "#c:ores/tin"
     }
   },
   "solvent": {

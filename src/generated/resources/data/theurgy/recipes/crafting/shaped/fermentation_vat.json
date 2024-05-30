@@ -3,13 +3,13 @@
   "category": "misc",
   "key": {
     "C": {
-      "tag": "forge:storage_blocks/copper"
+      "tag": "c:storage_blocks/copper"
     },
     "b": {
-      "tag": "forge:barrels/wooden"
+      "tag": "c:barrels/wooden"
     },
     "c": {
-      "tag": "forge:ingots/copper"
+      "tag": "c:ingots/copper"
     },
     "s": {
       "tag": "theurgy:alchemical_sulfurs"

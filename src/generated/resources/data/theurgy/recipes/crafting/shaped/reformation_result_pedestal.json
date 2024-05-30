@@ -6,7 +6,7 @@
       "tag": "theurgy:alchemical_sulfurs"
     },
     "g": {
-      "tag": "forge:ingots/gold"
+      "tag": "c:ingots/gold"
     },
     "s": {
       "item": "minecraft:blackstone"

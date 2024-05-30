@@ -1,6 +1,6 @@
 {
   "values": [
-    "#forge:ores/gold",
+    "#c:ores/gold",
     {
       "id": "#forge:ores/azure_silver",
       "required": false

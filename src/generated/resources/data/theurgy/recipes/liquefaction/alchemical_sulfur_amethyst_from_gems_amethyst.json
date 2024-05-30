@@ -4,20 +4,20 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:gems/amethyst"
+        "tag": "c:gems/amethyst"
       }
     }
   ],
   "type": "theurgy:liquefaction",
   "category": "misc",
   "ingredient": {
-    "tag": "forge:gems/amethyst"
+    "tag": "c:gems/amethyst"
   },
   "result": {
     "count": 1,
     "item": "theurgy:alchemical_sulfur_amethyst",
     "nbt": {
-      "theurgy:sulfur.source.id": "#forge:gems/amethyst"
+      "theurgy:sulfur.source.id": "#c:gems/amethyst"
     }
   },
   "solvent": {

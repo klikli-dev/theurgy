@@ -4,20 +4,20 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:ingots/lead"
+        "tag": "c:ingots/lead"
       }
     }
   ],
   "type": "theurgy:liquefaction",
   "category": "misc",
   "ingredient": {
-    "tag": "forge:ingots/lead"
+    "tag": "c:ingots/lead"
   },
   "result": {
     "count": 1,
     "item": "theurgy:alchemical_sulfur_lead",
     "nbt": {
-      "theurgy:sulfur.source.id": "#forge:ingots/lead"
+      "theurgy:sulfur.source.id": "#c:ingots/lead"
     }
   },
   "solvent": {

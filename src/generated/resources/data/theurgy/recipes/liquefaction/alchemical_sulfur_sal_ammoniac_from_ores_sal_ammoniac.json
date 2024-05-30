@@ -4,20 +4,20 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:ores/sal_ammoniac"
+        "tag": "c:ores/sal_ammoniac"
       }
     }
   ],
   "type": "theurgy:liquefaction",
   "category": "misc",
   "ingredient": {
-    "tag": "forge:ores/sal_ammoniac"
+    "tag": "c:ores/sal_ammoniac"
   },
   "result": {
     "count": 6,
     "item": "theurgy:alchemical_sulfur_sal_ammoniac",
     "nbt": {
-      "theurgy:sulfur.source.id": "#forge:ores/sal_ammoniac"
+      "theurgy:sulfur.source.id": "#c:ores/sal_ammoniac"
     }
   },
   "solvent": {

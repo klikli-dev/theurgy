@@ -1,9 +1,9 @@
 {
   "values": [
     "minecraft:sugar_cane",
-    "#forge:ores",
-    "#forge:sand",
-    "#forge:stone",
+    "#c:ores",
+    "#c:sandstone/blocks",
+    "#c:stones",
     "#minecraft:logs"
   ]
 }

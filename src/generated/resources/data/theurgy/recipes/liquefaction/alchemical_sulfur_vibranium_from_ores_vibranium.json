@@ -4,20 +4,20 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:ores/vibranium"
+        "tag": "c:ores/vibranium"
       }
     }
   ],
   "type": "theurgy:liquefaction",
   "category": "misc",
   "ingredient": {
-    "tag": "forge:ores/vibranium"
+    "tag": "c:ores/vibranium"
   },
   "result": {
     "count": 5,
     "item": "theurgy:alchemical_sulfur_vibranium",
     "nbt": {
-      "theurgy:sulfur.source.id": "#forge:ores/vibranium"
+      "theurgy:sulfur.source.id": "#c:ores/vibranium"
     }
   },
   "solvent": {

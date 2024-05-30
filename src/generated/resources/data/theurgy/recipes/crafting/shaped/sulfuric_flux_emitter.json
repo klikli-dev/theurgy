@@ -6,13 +6,13 @@
       "tag": "theurgy:alchemical_sulfurs"
     },
     "a": {
-      "tag": "forge:gems/sal_ammoniac"
+      "tag": "c:gems/sal_ammoniac"
     },
     "g": {
-      "tag": "forge:ingots/gold"
+      "tag": "c:ingots/gold"
     },
     "s": {
-      "tag": "forge:stone"
+      "tag": "c:stones"
     }
   },
   "pattern": [

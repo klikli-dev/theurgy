@@ -4,20 +4,20 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:ores/iron"
+        "tag": "c:ores/iron"
       }
     }
   ],
   "type": "theurgy:liquefaction",
   "category": "misc",
   "ingredient": {
-    "tag": "forge:ores/iron"
+    "tag": "c:ores/iron"
   },
   "result": {
     "count": 5,
     "item": "theurgy:alchemical_sulfur_iron",
     "nbt": {
-      "theurgy:sulfur.source.id": "#forge:ores/iron"
+      "theurgy:sulfur.source.id": "#c:ores/iron"
     }
   },
   "solvent": {

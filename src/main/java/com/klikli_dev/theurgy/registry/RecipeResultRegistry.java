@@ -20,7 +20,7 @@ public class RecipeResultRegistry {
             RECIPE_RESULT_TYPES.register("item", () -> new RecipeResultType<>(ItemRecipeResult.CODEC, ItemRecipeResult.STREAM_CODEC));
 
     public static final DeferredHolder<RecipeResultType<?>, RecipeResultType<TagRecipeResult>> TAG =
-            RECIPE_RESULT_TYPES.register("item", () -> new RecipeResultType<>(TagRecipeResult.CODEC, TagRecipeResult.STREAM_CODEC));
+            RECIPE_RESULT_TYPES.register("tag", () -> new RecipeResultType<>(TagRecipeResult.CODEC, TagRecipeResult.STREAM_CODEC));
 
 
 }

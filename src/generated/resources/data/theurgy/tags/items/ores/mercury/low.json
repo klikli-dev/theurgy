@@ -1,11 +1,11 @@
 {
   "values": [
-    "#forge:ores/iron",
-    "#forge:ores/copper",
-    "#forge:ores/lapis",
-    "#forge:ores/quartz",
-    "#forge:ores/redstone",
-    "#forge:ores/coal",
+    "#c:ores/iron",
+    "#c:ores/copper",
+    "#c:ores/lapis",
+    "#c:ores/quartz",
+    "#c:ores/redstone",
+    "#c:ores/coal",
     {
       "id": "#forge:ores/zinc",
       "required": false

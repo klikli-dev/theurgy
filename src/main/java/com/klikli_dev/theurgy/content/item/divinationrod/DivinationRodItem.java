@@ -65,7 +65,15 @@ public class DivinationRodItem extends Item {
     public boolean defaultAllowAttuning;
 
     public DivinationRodItem(Properties pProperties, Tiers defaultTier, TagKey<Block> defaultAllowedBlocksTag, TagKey<Block> defaultDisallowedBlocksTag, int defaultRange, int defaultDuration, int defaultDurability, boolean defaultAllowAttuning) {
-        super(pProperties);
+        super(pProperties
+                .component(DataComponentRegistry.DIVINATION_SETTINGS_TIER, defaultTier)
+                .component(DataComponentRegistry.DIVINATION_SETTINGS_ALLOWED_BLOCKS_TAG, defaultAllowedBlocksTag)
+                .component(DataComponentRegistry.DIVINATION_SETTINGS_DISALLOWED_BLOCKS_TAG, defaultDisallowedBlocksTag)
+                .component(DataComponentRegistry.DIVINATION_SETTINGS_RANGE, defaultRange)
+                .component(DataComponentRegistry.DIVINATION_SETTINGS_DURATION, defaultDuration)
+                .component(DataComponentRegistry.DIVINATION_SETTINGS_MAX_DAMAGE, defaultDurability)
+                .component(DataComponentRegistry.DIVINATION_SETTINGS_ALLOW_ATTUNING, defaultAllowAttuning)
+        );
         this.defaultTier = defaultTier;
         this.defaultAllowedBlocksTag = defaultAllowedBlocksTag;
         this.defaultDisallowedBlocksTag = defaultDisallowedBlocksTag;
@@ -259,13 +267,13 @@ public class DivinationRodItem extends Item {
                     if (stack.has(DataComponentRegistry.DIVINATION_LINKED_TAG)) {
                         scanLinkedTag(player,
                                 stack.get(DataComponentRegistry.DIVINATION_LINKED_TAG),
-                                stack.get(DataComponentRegistry.DIVINATION_SETTINGS_RANGE),
-                                stack.get(DataComponentRegistry.DIVINATION_SETTINGS_DURATION));
+                                stack.getOrDefault(DataComponentRegistry.DIVINATION_SETTINGS_RANGE, this.defaultRange),
+                                stack.getOrDefault(DataComponentRegistry.DIVINATION_SETTINGS_DURATION, this.defaultDuration));
                     } else if(stack.has(DataComponentRegistry.DIVINATION_LINKED_BLOCK)){
                         scanLinkedBlock(player,
                                 stack.get(DataComponentRegistry.DIVINATION_LINKED_BLOCK),
-                                stack.get(DataComponentRegistry.DIVINATION_SETTINGS_RANGE),
-                                stack.get(DataComponentRegistry.DIVINATION_SETTINGS_DURATION));
+                                stack.getOrDefault(DataComponentRegistry.DIVINATION_SETTINGS_RANGE, this.defaultRange),
+                                stack.getOrDefault(DataComponentRegistry.DIVINATION_SETTINGS_DURATION, this.defaultDuration));
                     }
                 }
             } else if (!level.isClientSide) {
@@ -292,17 +300,19 @@ public class DivinationRodItem extends Item {
             return stack;
         }
 
-        player.getCooldowns().addCooldown(this, stack.getOrCreateTag().getInt(TheurgyConstants.Nbt.Divination.SETTING_DURATION));
-        stack.getOrCreateTag().putFloat(TheurgyConstants.Nbt.Divination.DISTANCE, NOT_FOUND);
+        player.getCooldowns().addCooldown(this, stack.getOrDefault(DataComponentRegistry.DIVINATION_SETTINGS_DURATION, this.defaultDuration));
+
+        stack.set(DataComponentRegistry.DIVINATION_DISTANCE, NOT_FOUND);
+
         if (level.isClientSide) {
             BlockPos result = ScanManager.get().finishScan(player);
             float distance = this.getDistance(player.position(), result);
-            stack.getTag().putFloat(TheurgyConstants.Nbt.Divination.DISTANCE, distance);
+            stack.set(DataComponentRegistry.DIVINATION_DISTANCE, distance);
 
             Networking.sendToServer(new MessageSetDivinationResult(result, distance));
 
             if (result != null) {
-                stack.getTag().putLong(TheurgyConstants.Nbt.Divination.POS, result.asLong());
+                stack.set(DataComponentRegistry.DIVINATION_POS, result);
                 this.spawnResultParticle(result, level, player);
             }
         } else {
@@ -310,27 +320,26 @@ public class DivinationRodItem extends Item {
             if (!player.getAbilities().instabuild)
                 //only hurt, but do not break -> this allows using the rod without breaking it when we just re-use a saved result.
                 //we break it at the beginning of this method if we are at >= max damage.
-                stack.hurt(1, player.getRandom(), null);
+                stack.hurtAndBreak(1, player.getRandom(), null, () -> {});
         }
         return stack;
     }
 
     @Override
     public int getUseDuration(ItemStack stack) {
-        return stack.getOrCreateTag().getInt(TheurgyConstants.Nbt.Divination.SETTING_DURATION);
+        return stack.getOrDefault(DataComponentRegistry.DIVINATION_SETTINGS_DURATION, this.defaultDuration);
     }
 
     @Override
     public void releaseUsing(ItemStack stack, Level level, LivingEntity pLivingEntity, int pTimeCharged) {
-        if (!stack.getOrCreateTag().contains(TheurgyConstants.Nbt.Divination.POS))
+        if(!stack.has(DataComponentRegistry.DIVINATION_POS))
             //player interrupted, so we can safely set not found on server, if we don't have a previous result
-            stack.getOrCreateTag().putFloat(TheurgyConstants.Nbt.Divination.DISTANCE, NOT_FOUND);
+            stack.set(DataComponentRegistry.DIVINATION_DISTANCE, NOT_FOUND);
         else {
             //otherwise, restore distance from result
             //nice bonus: will update crystal status on every "display only" use.
-            BlockPos result = BlockPos.of(stack.getTag().getLong(TheurgyConstants.Nbt.Divination.POS));
-            float distance = this.getDistance(pLivingEntity.position(), result);
-            stack.getTag().putFloat(TheurgyConstants.Nbt.Divination.DISTANCE, distance);
+            float distance = this.getDistance(pLivingEntity.position(), stack.get(DataComponentRegistry.DIVINATION_POS));
+            stack.set(DataComponentRegistry.DIVINATION_DISTANCE, distance);
         }
 
 
@@ -338,9 +347,8 @@ public class DivinationRodItem extends Item {
             ScanManager.get().cancelScan();
 
             //re-use old result
-            if (stack.getTag().contains(TheurgyConstants.Nbt.Divination.POS)) {
-                BlockPos result = BlockPos.of(stack.getTag().getLong(TheurgyConstants.Nbt.Divination.POS));
-                this.spawnResultParticle(result, level, pLivingEntity);
+            if (stack.has(DataComponentRegistry.DIVINATION_POS)) {
+                this.spawnResultParticle(stack.get(DataComponentRegistry.DIVINATION_POS), level, pLivingEntity);
             }
         }
         super.releaseUsing(stack, level, pLivingEntity, pTimeCharged);
@@ -348,7 +356,7 @@ public class DivinationRodItem extends Item {
 
     @Override
     public Component getName(ItemStack pStack) {
-        if (hasLinkedBlock(pStack)) {
+        if (pStack.has(DataComponentRegistry.DIVINATION_LINKED_BLOCK) || pStack.has(DataComponentRegistry.DIVINATION_LINKED_TAG)) {
             var stack = getLinkedBlockStack(pStack);
             if (!stack.isEmpty()) {
                 var blockComponent = ComponentUtils.wrapInSquareBrackets(
@@ -370,39 +378,8 @@ public class DivinationRodItem extends Item {
     }
 
     @Override
-    public void verifyTagAfterLoad(CompoundTag tag) {
-        //moved from initCapabilities, because that is now lazy loaded.
-        //that lazy load caused: https://github.com/klikli-dev/theurgy/issues/117
-        //Issue explained very well here: https://github.com/BluSunrize/ImmersiveEngineering/issues/5708#issuecomment-1574885125
-
-        //fill in any nbt that is not provided by the recipe with default values
-        if (!tag.contains(TheurgyConstants.Nbt.Divination.SETTING_TIER))
-            tag.putString(TheurgyConstants.Nbt.Divination.SETTING_TIER, TierSortingRegistry.getName(this.defaultTier).toString());
-
-        if (!tag.contains(TheurgyConstants.Nbt.Divination.SETTING_ALLOWED_BLOCKS_TAG))
-            tag.putString(TheurgyConstants.Nbt.Divination.SETTING_ALLOWED_BLOCKS_TAG, this.defaultAllowedBlocksTag.location().toString());
-
-        if (!tag.contains(TheurgyConstants.Nbt.Divination.SETTING_DISALLOWED_BLOCKS_TAG))
-            tag.putString(TheurgyConstants.Nbt.Divination.SETTING_DISALLOWED_BLOCKS_TAG, this.defaultDisallowedBlocksTag.location().toString());
-
-        if (!tag.contains(TheurgyConstants.Nbt.Divination.SETTING_RANGE))
-            tag.putInt(TheurgyConstants.Nbt.Divination.SETTING_RANGE, this.defaultRange);
-
-        if (!tag.contains(TheurgyConstants.Nbt.Divination.SETTING_DURATION))
-            tag.putInt(TheurgyConstants.Nbt.Divination.SETTING_DURATION, this.defaultDuration);
-
-        if (!tag.contains(TheurgyConstants.Nbt.Divination.SETTING_DURABILITY))
-            tag.putInt(TheurgyConstants.Nbt.Divination.SETTING_DURABILITY, this.defaultDurability);
-
-        if (!tag.contains(TheurgyConstants.Nbt.Divination.SETTING_ALLOW_ATTUNING))
-            tag.putBoolean(TheurgyConstants.Nbt.Divination.SETTING_ALLOW_ATTUNING, this.defaultAllowAttuning);
-
-        super.verifyTagAfterLoad(tag);
-    }
-
-    @Override
-    public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced) {
-        if (hasLinkedBlock(pStack)) {
+    public void appendHoverText(ItemStack pStack, TooltipContext pContext, List<Component> pTooltipComponents, TooltipFlag pTooltipFlag) {
+        if (pStack.has(DataComponentRegistry.DIVINATION_LINKED_BLOCK) || pStack.has(DataComponentRegistry.DIVINATION_LINKED_TAG)) {
             var stack = getLinkedBlockStack(pStack);
             if (!stack.isEmpty()) {
                 var blockComponent = Component.empty().append(stack.getHoverName())
@@ -416,11 +393,12 @@ public class DivinationRodItem extends Item {
                                 blockComponent
                         ).withStyle(ChatFormatting.GRAY));
 
-                if (pStack.getTag().contains(TheurgyConstants.Nbt.Divination.POS)) {
-                    var pos = BlockPos.of(pStack.getTag().getLong(TheurgyConstants.Nbt.Divination.POS));
+                if (pStack.has(DataComponentRegistry.DIVINATION_POS)) {
                     pTooltipComponents.add(Component.translatable(TheurgyConstants.I18n.Tooltip.DIVINATION_ROD_LAST_RESULT,
                             blockComponent,
-                            ComponentUtils.wrapInSquareBrackets(Component.literal(pos.toShortString()).withStyle(ChatFormatting.GREEN))
+                            ComponentUtils.wrapInSquareBrackets(Component.literal(
+                                    pStack.get(DataComponentRegistry.DIVINATION_POS).toShortString()
+                            ).withStyle(ChatFormatting.GREEN))
                     ).withStyle(ChatFormatting.GRAY));
                 }
             }
@@ -429,7 +407,7 @@ public class DivinationRodItem extends Item {
             pTooltipComponents.add(Component.translatable(TheurgyConstants.I18n.Tooltip.DIVINATION_ROD_NO_LINK));
         }
 
-        super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced);
+        super.appendHoverText(pStack, pContext, pTooltipComponents, pTooltipFlag);
     }
 
     /**
@@ -489,18 +467,15 @@ public class DivinationRodItem extends Item {
     }
 
     public Tier getMiningTier(ItemStack stack) {
-        var tier = stack.getOrCreateTag().getString(TheurgyConstants.Nbt.Divination.SETTING_TIER);
-        return TierSortingRegistry.byName(new ResourceLocation(tier));
+        return stack.getOrDefault(DataComponentRegistry.DIVINATION_SETTINGS_TIER, this.defaultTier);
     }
 
     public TagKey<Block> getAllowedBlocksTag(ItemStack stack) {
-        var allowedBlocksTag = stack.getOrCreateTag().getString(TheurgyConstants.Nbt.Divination.SETTING_ALLOWED_BLOCKS_TAG);
-        return BlockTagRegistry.tag(new ResourceLocation(allowedBlocksTag));
+        return stack.getOrDefault(DataComponentRegistry.DIVINATION_SETTINGS_ALLOWED_BLOCKS_TAG, this.defaultAllowedBlocksTag);
     }
 
     public TagKey<Block> getDisallowedBlocksTag(ItemStack stack) {
-        var disallowedBlocksTag = stack.getOrCreateTag().getString(TheurgyConstants.Nbt.Divination.SETTING_DISALLOWED_BLOCKS_TAG);
-        return BlockTagRegistry.tag(new ResourceLocation(disallowedBlocksTag));
+        return stack.getOrDefault(DataComponentRegistry.DIVINATION_SETTINGS_DISALLOWED_BLOCKS_TAG, this.defaultDisallowedBlocksTag);
     }
 
     /**
@@ -509,10 +484,9 @@ public class DivinationRodItem extends Item {
     public static class DistHelper {
         @SuppressWarnings("deprecation")
         public static ItemPropertyFunction DIVINATION_DISTANCE = (stack, world, entity, i) -> {
-            if (!stack.getOrCreateTag().contains(TheurgyConstants.Nbt.Divination.DISTANCE) ||
-                    stack.getTag().getFloat(TheurgyConstants.Nbt.Divination.DISTANCE) < 0)
+            if (stack.getOrDefault(DataComponentRegistry.DIVINATION_DISTANCE, -1.0f) < 0)
                 return NOT_FOUND;
-            return stack.getTag().getFloat(TheurgyConstants.Nbt.Divination.DISTANCE);
+            return stack.get(DataComponentRegistry.DIVINATION_DISTANCE);
         };
     }
 }

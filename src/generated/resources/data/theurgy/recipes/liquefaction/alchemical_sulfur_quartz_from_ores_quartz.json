@@ -4,20 +4,20 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:ores/quartz"
+        "tag": "c:ores/quartz"
       }
     }
   ],
   "type": "theurgy:liquefaction",
   "category": "misc",
   "ingredient": {
-    "tag": "forge:ores/quartz"
+    "tag": "c:ores/quartz"
   },
   "result": {
     "count": 10,
     "item": "theurgy:alchemical_sulfur_quartz",
     "nbt": {
-      "theurgy:sulfur.source.id": "#forge:ores/quartz"
+      "theurgy:sulfur.source.id": "#c:ores/quartz"
     }
   },
   "solvent": {

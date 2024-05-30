@@ -1,6 +1,6 @@
 {
   "values": [
-    "#forge:ingots/netherite",
+    "#c:ingots/netherite",
     {
       "id": "#forge:ingots/allthemodium",
       "required": false

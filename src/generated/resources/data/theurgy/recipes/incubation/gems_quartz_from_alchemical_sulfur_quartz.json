@@ -4,7 +4,7 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:gems/quartz"
+        "tag": "c:gems/quartz"
       }
     }
   ],
@@ -15,7 +15,7 @@
   },
   "result": {
     "count": 1,
-    "tag": "forge:gems/quartz"
+    "tag": "c:gems/quartz"
   },
   "salt": {
     "item": "theurgy:alchemical_salt_mineral"

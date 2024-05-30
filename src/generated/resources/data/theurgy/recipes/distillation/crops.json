@@ -4,14 +4,14 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:crops"
+        "tag": "c:crops"
       }
     }
   ],
   "type": "theurgy:distillation",
   "category": "misc",
   "ingredient": {
-    "tag": "forge:crops"
+    "tag": "c:crops"
   },
   "ingredientCount": 3,
   "result": {

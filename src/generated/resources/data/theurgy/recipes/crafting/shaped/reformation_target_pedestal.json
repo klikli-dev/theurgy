@@ -6,10 +6,10 @@
       "tag": "theurgy:alchemical_sulfurs"
     },
     "c": {
-      "tag": "forge:ingots/copper"
+      "tag": "c:ingots/copper"
     },
     "d": {
-      "tag": "forge:gems/diamond"
+      "tag": "c:gems/diamond"
     },
     "s": {
       "item": "minecraft:blackstone"

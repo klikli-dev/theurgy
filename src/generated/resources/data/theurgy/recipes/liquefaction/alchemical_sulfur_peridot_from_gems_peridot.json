@@ -4,20 +4,20 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:gems/peridot"
+        "tag": "c:gems/peridot"
       }
     }
   ],
   "type": "theurgy:liquefaction",
   "category": "misc",
   "ingredient": {
-    "tag": "forge:gems/peridot"
+    "tag": "c:gems/peridot"
   },
   "result": {
     "count": 1,
     "item": "theurgy:alchemical_sulfur_peridot",
     "nbt": {
-      "theurgy:sulfur.source.id": "#forge:gems/peridot"
+      "theurgy:sulfur.source.id": "#c:gems/peridot"
     }
   },
   "solvent": {

@@ -4,20 +4,20 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:raw_materials/gold"
+        "tag": "c:raw_materials/gold"
       }
     }
   ],
   "type": "theurgy:liquefaction",
   "category": "misc",
   "ingredient": {
-    "tag": "forge:raw_materials/gold"
+    "tag": "c:raw_materials/gold"
   },
   "result": {
     "count": 3,
     "item": "theurgy:alchemical_sulfur_gold",
     "nbt": {
-      "theurgy:sulfur.source.id": "#forge:raw_materials/gold"
+      "theurgy:sulfur.source.id": "#c:raw_materials/gold"
     }
   },
   "solvent": {

@@ -4,20 +4,20 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:ores/platinum"
+        "tag": "c:ores/platinum"
       }
     }
   ],
   "type": "theurgy:liquefaction",
   "category": "misc",
   "ingredient": {
-    "tag": "forge:ores/platinum"
+    "tag": "c:ores/platinum"
   },
   "result": {
     "count": 5,
     "item": "theurgy:alchemical_sulfur_platinum",
     "nbt": {
-      "theurgy:sulfur.source.id": "#forge:ores/platinum"
+      "theurgy:sulfur.source.id": "#c:ores/platinum"
     }
   },
   "solvent": {

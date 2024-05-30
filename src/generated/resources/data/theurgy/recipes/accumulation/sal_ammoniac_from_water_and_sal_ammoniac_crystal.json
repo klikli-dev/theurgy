@@ -6,11 +6,11 @@
   },
   "evaporantAmount": 1000,
   "result": {
-    "Amount": 1000,
-    "FluidName": "theurgy:sal_ammoniac"
+    "amount": 1000,
+    "id": "theurgy:sal_ammoniac"
   },
   "solute": {
-    "tag": "forge:gems/sal_ammoniac"
+    "tag": "c:gems/sal_ammoniac"
   },
   "time": 100
 }

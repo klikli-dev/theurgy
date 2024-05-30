@@ -4,20 +4,20 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:ingots/uranium"
+        "tag": "c:ingots/uranium"
       }
     }
   ],
   "type": "theurgy:liquefaction",
   "category": "misc",
   "ingredient": {
-    "tag": "forge:ingots/uranium"
+    "tag": "c:ingots/uranium"
   },
   "result": {
     "count": 1,
     "item": "theurgy:alchemical_sulfur_uranium",
     "nbt": {
-      "theurgy:sulfur.source.id": "#forge:ingots/uranium"
+      "theurgy:sulfur.source.id": "#c:ingots/uranium"
     }
   },
   "solvent": {

@@ -1,8 +1,8 @@
 {
   "values": [
-    "#forge:ores/diamond",
-    "#forge:ores/emerald",
-    "#forge:ores/netherite_scrap",
+    "#c:ores/diamond",
+    "#c:ores/emerald",
+    "#c:ores/netherite_scrap",
     {
       "id": "#forge:ores/allthemodium",
       "required": false

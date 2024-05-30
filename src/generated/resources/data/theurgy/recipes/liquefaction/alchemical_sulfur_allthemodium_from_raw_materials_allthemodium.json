@@ -4,20 +4,20 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:raw_materials/allthemodium"
+        "tag": "c:raw_materials/allthemodium"
       }
     }
   ],
   "type": "theurgy:liquefaction",
   "category": "misc",
   "ingredient": {
-    "tag": "forge:raw_materials/allthemodium"
+    "tag": "c:raw_materials/allthemodium"
   },
   "result": {
     "count": 3,
     "item": "theurgy:alchemical_sulfur_allthemodium",
     "nbt": {
-      "theurgy:sulfur.source.id": "#forge:raw_materials/allthemodium"
+      "theurgy:sulfur.source.id": "#c:raw_materials/allthemodium"
     }
   },
   "solvent": {

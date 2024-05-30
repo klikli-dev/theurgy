@@ -4,14 +4,14 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:gravel"
+        "tag": "c:gravels"
       }
     }
   ],
   "type": "theurgy:distillation",
   "category": "misc",
   "ingredient": {
-    "tag": "forge:gravel"
+    "tag": "c:gravels"
   },
   "ingredientCount": 15,
   "result": {

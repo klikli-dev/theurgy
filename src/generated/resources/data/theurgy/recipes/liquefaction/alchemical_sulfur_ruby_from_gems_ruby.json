@@ -4,20 +4,20 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:gems/ruby"
+        "tag": "c:gems/ruby"
       }
     }
   ],
   "type": "theurgy:liquefaction",
   "category": "misc",
   "ingredient": {
-    "tag": "forge:gems/ruby"
+    "tag": "c:gems/ruby"
   },
   "result": {
     "count": 1,
     "item": "theurgy:alchemical_sulfur_ruby",
     "nbt": {
-      "theurgy:sulfur.source.id": "#forge:gems/ruby"
+      "theurgy:sulfur.source.id": "#c:gems/ruby"
     }
   },
   "solvent": {

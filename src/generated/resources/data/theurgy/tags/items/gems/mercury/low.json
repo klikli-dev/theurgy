@@ -1,7 +1,7 @@
 {
   "values": [
-    "#forge:gems/lapis",
-    "#forge:gems/quartz",
+    "#c:gems/lapis",
+    "#c:gems/quartz",
     {
       "id": "#forge:gems/cinnabar",
       "required": false

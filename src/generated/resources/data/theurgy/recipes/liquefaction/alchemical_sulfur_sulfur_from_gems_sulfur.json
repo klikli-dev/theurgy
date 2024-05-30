@@ -4,20 +4,20 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:gems/sulfur"
+        "tag": "c:gems/sulfur"
       }
     }
   ],
   "type": "theurgy:liquefaction",
   "category": "misc",
   "ingredient": {
-    "tag": "forge:gems/sulfur"
+    "tag": "c:gems/sulfur"
   },
   "result": {
     "count": 1,
     "item": "theurgy:alchemical_sulfur_sulfur",
     "nbt": {
-      "theurgy:sulfur.source.id": "#forge:gems/sulfur"
+      "theurgy:sulfur.source.id": "#c:gems/sulfur"
     }
   },
   "solvent": {

@@ -4,20 +4,20 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:gems/diamond"
+        "tag": "c:gems/diamond"
       }
     }
   ],
   "type": "theurgy:liquefaction",
   "category": "misc",
   "ingredient": {
-    "tag": "forge:gems/diamond"
+    "tag": "c:gems/diamond"
   },
   "result": {
     "count": 1,
     "item": "theurgy:alchemical_sulfur_diamond",
     "nbt": {
-      "theurgy:sulfur.source.id": "#forge:gems/diamond"
+      "theurgy:sulfur.source.id": "#c:gems/diamond"
     }
   },
   "solvent": {

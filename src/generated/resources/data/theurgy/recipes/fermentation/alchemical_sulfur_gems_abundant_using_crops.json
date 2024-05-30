@@ -11,7 +11,7 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:crops"
+        "tag": "c:crops"
       }
     }
   ],
@@ -26,7 +26,7 @@
       "tag": "theurgy:alchemical_sulfurs/gems/abundant"
     },
     {
-      "tag": "forge:crops"
+      "tag": "c:crops"
     }
   ],
   "result": {

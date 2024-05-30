@@ -4,14 +4,14 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "theurgy:alchemical_sulfurs/metals/abundant"
+        "tag": "theurgy:alchemical_sulfurs/metals/common"
       }
     },
     {
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:sugar"
+        "tag": "c:sugars"
       }
     }
   ],
@@ -20,18 +20,18 @@
   "fluid": {
     "tag": "minecraft:water"
   },
-  "fluidAmount": 125,
+  "fluidAmount": 250,
   "ingredients": [
     {
-      "tag": "theurgy:alchemical_sulfurs/metals/abundant"
+      "tag": "theurgy:alchemical_sulfurs/metals/common"
     },
     {
-      "tag": "forge:sugar"
+      "tag": "c:sugars"
     }
   ],
   "result": {
     "count": 1,
-    "item": "theurgy:alchemical_sulfur_metals_abundant"
+    "item": "theurgy:alchemical_sulfur_metals_common"
   },
   "time": 200
 }

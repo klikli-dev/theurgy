@@ -4,20 +4,20 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:ores/coal"
+        "tag": "c:ores/coal"
       }
     }
   ],
   "type": "theurgy:liquefaction",
   "category": "misc",
   "ingredient": {
-    "tag": "forge:ores/coal"
+    "tag": "c:ores/coal"
   },
   "result": {
     "count": 4,
     "item": "theurgy:alchemical_sulfur_coal",
     "nbt": {
-      "theurgy:sulfur.source.id": "#forge:ores/coal"
+      "theurgy:sulfur.source.id": "#c:ores/coal"
     }
   },
   "solvent": {

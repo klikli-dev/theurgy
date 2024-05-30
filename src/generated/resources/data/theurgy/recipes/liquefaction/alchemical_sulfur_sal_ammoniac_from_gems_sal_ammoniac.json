@@ -4,20 +4,20 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:gems/sal_ammoniac"
+        "tag": "c:gems/sal_ammoniac"
       }
     }
   ],
   "type": "theurgy:liquefaction",
   "category": "misc",
   "ingredient": {
-    "tag": "forge:gems/sal_ammoniac"
+    "tag": "c:gems/sal_ammoniac"
   },
   "result": {
     "count": 1,
     "item": "theurgy:alchemical_sulfur_sal_ammoniac",
     "nbt": {
-      "theurgy:sulfur.source.id": "#forge:gems/sal_ammoniac"
+      "theurgy:sulfur.source.id": "#c:gems/sal_ammoniac"
     }
   },
   "solvent": {

@@ -4,20 +4,20 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:ores/fluorite"
+        "tag": "c:ores/fluorite"
       }
     }
   ],
   "type": "theurgy:liquefaction",
   "category": "misc",
   "ingredient": {
-    "tag": "forge:ores/fluorite"
+    "tag": "c:ores/fluorite"
   },
   "result": {
     "count": 8,
     "item": "theurgy:alchemical_sulfur_fluorite",
     "nbt": {
-      "theurgy:sulfur.source.id": "#forge:ores/fluorite"
+      "theurgy:sulfur.source.id": "#c:ores/fluorite"
     }
   },
   "solvent": {

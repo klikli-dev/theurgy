@@ -4,20 +4,20 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:ores/lapis"
+        "tag": "c:ores/lapis"
       }
     }
   ],
   "type": "theurgy:liquefaction",
   "category": "misc",
   "ingredient": {
-    "tag": "forge:ores/lapis"
+    "tag": "c:ores/lapis"
   },
   "result": {
     "count": 12,
     "item": "theurgy:alchemical_sulfur_lapis",
     "nbt": {
-      "theurgy:sulfur.source.id": "#forge:ores/lapis"
+      "theurgy:sulfur.source.id": "#c:ores/lapis"
     }
   },
   "solvent": {

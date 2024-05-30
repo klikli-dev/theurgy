@@ -4,7 +4,7 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:ingots/allthemodium"
+        "tag": "c:ingots/allthemodium"
       }
     }
   ],
@@ -15,7 +15,7 @@
   },
   "result": {
     "count": 1,
-    "tag": "forge:ingots/allthemodium"
+    "tag": "c:ingots/allthemodium"
   },
   "salt": {
     "item": "theurgy:alchemical_salt_mineral"

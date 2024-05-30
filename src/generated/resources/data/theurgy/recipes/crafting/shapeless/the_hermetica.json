@@ -6,10 +6,10 @@
       "item": "minecraft:book"
     },
     {
-      "tag": "forge:sand"
+      "tag": "c:sands"
     },
     {
-      "tag": "forge:sand"
+      "tag": "c:sands"
     }
   ],
   "result": {

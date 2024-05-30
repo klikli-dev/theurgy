@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "theurgy:liquefaction_cauldron"
-            ]
+            "items": "theurgy:liquefaction_cauldron"
           }
         ]
       },

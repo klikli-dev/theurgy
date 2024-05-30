@@ -11,9 +11,9 @@
     }
   ],
   "ingredient": {
-    "count": 1,
     "tag": "minecraft:wool"
   },
+  "ingredientCount": 1,
   "result": {
     "type": "theurgy:item",
     "count": 1,

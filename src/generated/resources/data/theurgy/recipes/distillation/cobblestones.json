@@ -11,9 +11,9 @@
     }
   ],
   "ingredient": {
-    "count": 10,
     "tag": "c:cobblestones"
   },
+  "ingredientCount": 10,
   "result": {
     "type": "theurgy:item",
     "count": 1,

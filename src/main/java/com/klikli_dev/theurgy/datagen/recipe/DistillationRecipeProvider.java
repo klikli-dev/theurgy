@@ -130,5 +130,17 @@ public class DistillationRecipeProvider extends JsonRecipeProvider {
             this.result(result);
             this.time(TIME);
         }
+
+        @Override
+        public Builder ingredient(Item item, int count) {
+            this.recipe.addProperty("ingredientCount", count);
+            return this.ingredient("ingredient", item);
+        }
+
+        @Override
+        public Builder ingredient(TagKey<?> tag, int count) {
+            this.recipe.addProperty("ingredientCount", count);
+            return this.ingredient("ingredient", tag);
+        }
     }
 }

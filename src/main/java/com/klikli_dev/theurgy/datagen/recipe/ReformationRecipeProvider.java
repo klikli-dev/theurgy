@@ -216,6 +216,7 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
 
         var recipe = new Builder(new ItemStack(result, resultCount))
                 .target(result)
+                .mercuryFlux(mercuryFlux)
                 .time(reformationTime);
 
         sources.forEach(s -> recipe.sources(s, 1));
@@ -235,6 +236,7 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
 
         var recipe = new Builder(new ItemStack(result, resultCount))
                 .target(result)
+                .mercuryFlux(mercuryFlux)
                 .time(reformationTime);
 
         sources.forEach(recipe::sources);

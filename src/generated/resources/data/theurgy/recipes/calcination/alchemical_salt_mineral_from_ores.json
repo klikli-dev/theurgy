@@ -6,17 +6,17 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "c:gems"
+        "tag": "c:ores"
       }
     }
   ],
   "ingredient": {
-    "tag": "c:gems"
+    "tag": "c:ores"
   },
-  "ingredientCount": -1,
+  "ingredientCount": 1,
   "result": {
     "type": "theurgy:item",
-    "count": 2,
+    "count": 1,
     "id": "theurgy:alchemical_salt_mineral"
   },
   "time": 100

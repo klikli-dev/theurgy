@@ -10,6 +10,7 @@
       }
     }
   ],
+  "mercuryFlux": 150,
   "result": {
     "type": "theurgy:item",
     "count": 1,

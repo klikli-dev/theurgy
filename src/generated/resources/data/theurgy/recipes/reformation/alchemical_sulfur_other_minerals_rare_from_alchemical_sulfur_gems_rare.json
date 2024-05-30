@@ -1,6 +1,7 @@
 {
   "type": "theurgy:reformation",
   "category": "misc",
+  "mercuryFlux": 150,
   "result": {
     "type": "theurgy:item",
     "count": 4,

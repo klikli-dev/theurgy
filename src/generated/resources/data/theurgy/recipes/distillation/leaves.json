@@ -11,9 +11,9 @@
     }
   ],
   "ingredient": {
-    "count": 5,
     "tag": "minecraft:leaves"
   },
+  "ingredientCount": 5,
   "result": {
     "type": "theurgy:item",
     "count": 1,

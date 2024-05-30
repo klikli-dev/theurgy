@@ -2,9 +2,9 @@
   "type": "theurgy:distillation",
   "category": "misc",
   "ingredient": {
-    "count": 2,
     "item": "minecraft:rabbit"
   },
+  "ingredientCount": 2,
   "result": {
     "type": "theurgy:item",
     "count": 1,

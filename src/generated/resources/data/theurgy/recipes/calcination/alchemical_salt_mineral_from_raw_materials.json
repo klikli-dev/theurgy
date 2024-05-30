@@ -6,18 +6,18 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "minecraft:sand"
+        "tag": "c:raw_materials"
       }
     }
   ],
   "ingredient": {
-    "tag": "minecraft:sand"
+    "tag": "c:raw_materials"
   },
-  "ingredientCount": -1,
+  "ingredientCount": 1,
   "result": {
     "type": "theurgy:item",
     "count": 1,
-    "id": "theurgy:alchemical_salt_strata"
+    "id": "theurgy:alchemical_salt_mineral"
   },
   "time": 100
 }

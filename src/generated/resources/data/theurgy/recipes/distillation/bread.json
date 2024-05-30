@@ -2,9 +2,9 @@
   "type": "theurgy:distillation",
   "category": "misc",
   "ingredient": {
-    "count": 1,
     "item": "minecraft:bread"
   },
+  "ingredientCount": 1,
   "result": {
     "type": "theurgy:item",
     "count": 1,

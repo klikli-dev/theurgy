@@ -6,14 +6,14 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "minecraft:dirt"
+        "tag": "c:sandstone/blocks"
       }
     }
   ],
   "ingredient": {
-    "tag": "minecraft:dirt"
+    "tag": "c:sandstone/blocks"
   },
-  "ingredientCount": -1,
+  "ingredientCount": 1,
   "result": {
     "type": "theurgy:item",
     "count": 1,

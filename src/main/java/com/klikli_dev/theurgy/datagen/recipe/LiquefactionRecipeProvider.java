@@ -4,11 +4,10 @@
 
 package com.klikli_dev.theurgy.datagen.recipe;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.klikli_dev.theurgy.Theurgy;
-import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.content.recipe.LiquefactionRecipe;
+import com.klikli_dev.theurgy.content.recipe.result.RecipeResult;
 import com.klikli_dev.theurgy.registry.FluidRegistry;
 import com.klikli_dev.theurgy.registry.ItemTagRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
@@ -18,6 +17,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.material.Fluid;
 import net.neoforged.neoforge.common.Tags;
@@ -157,16 +157,18 @@ public class LiquefactionRecipeProvider extends JsonRecipeProvider {
     }
 
     public void makeRecipe(Item sulfur, int resultCount, Item ingredient, Fluid solvent, int solventAmount, int liquefactionTime) {
+        var name = this.name(sulfur);
 
-        var nbt = this.makeSulfurNbt(ingredient);
+        var recipe = new Builder(RecipeResult.of(new ItemStack(sulfur, resultCount)))
+                .solvent(solvent, solventAmount)
+                .ingredient(ingredient)
+                .time(liquefactionTime)
+                .build();
+
         this.recipeConsumer.accept(
-                this.modLoc(this.name(sulfur)),
-                this.makeRecipeJson(
-                        this.makeItemIngredient(this.locFor(ingredient)),
-                        this.makeFluidIngredient(this.locFor(solvent)),
-                        solventAmount,
-                        this.makeItemResult(this.locFor(sulfur), resultCount, nbt), liquefactionTime));
-
+                this.modLoc(name),
+                recipe
+        );
     }
 
     public void makeRecipe(Item sulfurName, TagKey<Item> ingredient, Fluid solvent, int solventAmount) {
@@ -182,52 +184,35 @@ public class LiquefactionRecipeProvider extends JsonRecipeProvider {
     }
 
     public void makeRecipe(Item sulfur, int resultCount, TagKey<Item> ingredient, Fluid solvent, int solventAmount, int liquefactionTime) {
-
         var name = this.name(sulfur) + "_from_" + this.name(ingredient);
-        var nbt = this.makeSulfurNbt(ingredient);
-        var recipe = this.makeRecipeJson(
-                this.makeTagIngredient(ingredient.location()),
-                this.makeFluidIngredient(this.locFor(solvent)),
-                solventAmount,
-                this.makeItemResult(this.locFor(sulfur), resultCount, nbt), liquefactionTime);
 
-        var conditions = new JsonArray();
-        conditions.add(this.makeTagNotEmptyCondition(ingredient.location().toString()));
-        recipe.add("neoforge:conditions", conditions);
+        var recipe = new Builder(RecipeResult.of(new ItemStack(sulfur, resultCount)))
+                .solvent(solvent, solventAmount)
+                .ingredient(ingredient)
+                .time(liquefactionTime)
+                .build();
 
         this.recipeConsumer.accept(
                 this.modLoc(name),
                 recipe
         );
-
-    }
-
-
-    public JsonObject makeSulfurNbt(Item ingredient) {
-        var nbt = new JsonObject();
-        nbt.addProperty(TheurgyConstants.Nbt.SULFUR_SOURCE_ID, this.locFor(ingredient).toString());
-        return nbt;
-    }
-
-    public JsonObject makeSulfurNbt(TagKey<Item> ingredient) {
-        var nbt = new JsonObject();
-        nbt.addProperty(TheurgyConstants.Nbt.SULFUR_SOURCE_ID, "#" + ingredient.location());
-        return nbt;
-    }
-
-    public JsonObject makeRecipeJson(JsonObject ingredient, JsonObject solvent, int solventAmount, JsonObject result, int liquefactionTime) {
-        var recipe = new JsonObject();
-        recipe.addProperty("type", RecipeTypeRegistry.LIQUEFACTION.getId().toString());
-        recipe.add("solvent", solvent);
-        recipe.addProperty("solvent_amount", solventAmount);
-        recipe.add("ingredient", ingredient);
-        recipe.add("result", result);
-        recipe.addProperty("time", liquefactionTime);
-        return recipe;
     }
 
     @Override
     public String getName() {
         return "Liquefaction Recipes";
+    }
+
+    protected static class Builder extends RecipeBuilder<Builder> {
+        protected Builder(RecipeResult result) {
+            super(RecipeTypeRegistry.LIQUEFACTION);
+            this.result(result);
+            this.time(TIME);
+        }
+
+        public Builder solvent(Fluid fluid, int amount) {
+            this.recipe.addProperty("solventAmount", amount);
+            return this.ingredient("solvent", fluid);
+        }
     }
 }

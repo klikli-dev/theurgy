@@ -33,7 +33,7 @@ public class LiquefactionRecipe implements Recipe<RecipeWrapperWithFluid> {
     public static final MapCodec<LiquefactionRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
                     Ingredient.CODEC.fieldOf("ingredient").forGetter((r) -> r.ingredient),
                     FluidIngredient.CODEC.fieldOf("solvent").forGetter((r) -> r.solvent),
-                    Codec.INT.fieldOf("solvent_amount").forGetter((r) -> r.solventAmount),
+                    Codec.INT.fieldOf("solventAmount").forGetter((r) -> r.solventAmount),
                     ItemStack.STRICT_CODEC.fieldOf("result").forGetter(r -> r.result),
                     Codec.INT.optionalFieldOf("time", DEFAULT_TIME).forGetter(r -> r.time)
             ).apply(instance, LiquefactionRecipe::new)

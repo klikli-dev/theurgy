@@ -9,6 +9,8 @@ package com.klikli_dev.theurgy.registry;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.content.item.mercurialwand.mode.MercurialWandItemMode;
 import com.klikli_dev.theurgy.logistics.WireEndPoint;
+import com.klikli_dev.theurgy.util.TheurgyExtraCodecs;
+import com.klikli_dev.theurgy.util.TheurgyExtraStreamCodecs;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -18,6 +20,9 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Tier;
+import net.minecraft.world.item.Tiers;
+import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -45,6 +50,48 @@ public class DataComponentRegistry {
             .cacheEncoding()
     );
 
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<TagKey<Block>>> DIVINATION_SETTINGS_ALLOWED_BLOCKS_TAG = DATA_COMPONENTS.registerComponentType("divination_settings_allowed_blocks_tag", builder -> builder
+            .persistent(TagKey.codec(Registries.BLOCK))
+            .networkSynchronized(ByteBufCodecs.fromCodec(TagKey.codec(Registries.BLOCK)))
+            .cacheEncoding()
+    );
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<TagKey<Block>>> DIVINATION_SETTINGS_DISALLOWED_BLOCKS_TAG = DATA_COMPONENTS.registerComponentType("divination_settings_disallowed_blocks_tag", builder -> builder
+            .persistent(TagKey.codec(Registries.BLOCK))
+            .networkSynchronized(ByteBufCodecs.fromCodec(TagKey.codec(Registries.BLOCK)))
+            .cacheEncoding()
+    );
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> DIVINATION_SETTINGS_DURATION = DATA_COMPONENTS.registerComponentType("divination_settings_duration", builder -> builder
+            .persistent(Codec.INT)
+            .networkSynchronized(ByteBufCodecs.INT)
+            .cacheEncoding()
+    );
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> DIVINATION_SETTINGS_MAX_DAMAGE = DATA_COMPONENTS.registerComponentType("divination_settings_max_damage", builder -> builder
+            .persistent(Codec.INT)
+            .networkSynchronized(ByteBufCodecs.INT)
+            .cacheEncoding()
+    );
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> DIVINATION_SETTINGS_RANGE = DATA_COMPONENTS.registerComponentType("divination_settings_range", builder -> builder
+            .persistent(Codec.INT)
+            .networkSynchronized(ByteBufCodecs.INT)
+            .cacheEncoding()
+    );
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Tiers>> DIVINATION_SETTINGS_TIER = DATA_COMPONENTS.registerComponentType("divination_settings_tier", builder -> builder
+            .persistent(TheurgyExtraCodecs.TIERS_CODEC)
+            .networkSynchronized(TheurgyExtraStreamCodecs.TIERS_STREAM_CODEC)
+            .cacheEncoding()
+    );
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Boolean>> DIVINATION_SETTINGS_ALLOW_ATTUNING = DATA_COMPONENTS.registerComponentType("divination_settings_allow_attuning", builder -> builder
+            .persistent(Codec.BOOL)
+            .networkSynchronized(ByteBufCodecs.BOOL)
+            .cacheEncoding()
+    );
+
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Float>> DIVINATION_DISTANCE = DATA_COMPONENTS.registerComponentType("divination_distance", builder -> builder
             .persistent(Codec.FLOAT)
             .networkSynchronized(ByteBufCodecs.FLOAT)
@@ -54,6 +101,18 @@ public class DataComponentRegistry {
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<BlockPos>> DIVINATION_POS = DATA_COMPONENTS.registerComponentType("divination_pos", builder -> builder
             .persistent(BlockPos.CODEC)
             .networkSynchronized(BlockPos.STREAM_CODEC)
+            .cacheEncoding()
+    );
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Holder<Block>>> DIVINATION_LINKED_BLOCK = DATA_COMPONENTS.registerComponentType("divination_linked_block", builder -> builder
+            .persistent(BuiltInRegistries.BLOCK.holderByNameCodec())
+            .networkSynchronized(ByteBufCodecs.holderRegistry(Registries.BLOCK))
+            .cacheEncoding()
+    );
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<TagKey<Block>>> DIVINATION_LINKED_TAG = DATA_COMPONENTS.registerComponentType("divination_linked_tag", builder -> builder
+            .persistent(TagKey.codec(Registries.BLOCK))
+            .networkSynchronized(ByteBufCodecs.fromCodec(TagKey.codec(Registries.BLOCK)))
             .cacheEncoding()
     );
 

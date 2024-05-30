@@ -10,6 +10,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.Nullable;
 
 
@@ -27,6 +28,18 @@ public class TagUtil {
 
     public static ItemStack getItemStackForTag(TagKey<Item> tag) {
         var item = getItemForTag(tag);
+        return item != null ? new ItemStack(item) : ItemStack.EMPTY;
+    }
+
+    @Nullable
+    public static Block getBlockForTag(TagKey<Block> tag) {
+        return BuiltInRegistries.BLOCK.getTag(tag)
+                        .flatMap(t -> t.stream().map(Holder::value).findFirst())
+                        .orElse(null);
+    }
+
+    public static ItemStack getItemStackForBlockTag(TagKey<Block> tag) {
+        var item = getBlockForTag(tag);
         return item != null ? new ItemStack(item) : ItemStack.EMPTY;
     }
 }

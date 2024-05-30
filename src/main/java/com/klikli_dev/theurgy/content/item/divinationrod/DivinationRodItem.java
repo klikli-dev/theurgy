@@ -9,16 +9,19 @@ import com.klikli_dev.theurgy.content.entity.FollowProjectile;
 import com.klikli_dev.theurgy.network.Networking;
 import com.klikli_dev.theurgy.network.messages.MessageSetDivinationResult;
 import com.klikli_dev.theurgy.registry.BlockTagRegistry;
+import com.klikli_dev.theurgy.registry.DataComponentRegistry;
 import com.klikli_dev.theurgy.registry.SoundRegistry;
 import com.klikli_dev.theurgy.scanner.ScanManager;
 import com.klikli_dev.theurgy.util.EntityUtil;
 import com.klikli_dev.theurgy.util.LevelUtil;
 import com.klikli_dev.theurgy.util.TagUtil;
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.renderer.item.ItemPropertyFunction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
@@ -43,6 +46,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -71,44 +75,26 @@ public class DivinationRodItem extends Item {
         this.defaultAllowAttuning = defaultAllowAttuning;
     }
 
-    public static String getLinkedBlockId(ItemStack divinationRod) {
-        return divinationRod.getOrCreateTag().getString(TheurgyConstants.Nbt.Divination.LINKED_BLOCK_ID);
-    }
-
-    public static boolean hasLinkedBlock(ItemStack divinationRod) {
-        return divinationRod.hasTag() && divinationRod.getTag().contains(TheurgyConstants.Nbt.Divination.LINKED_BLOCK_ID);
-    }
+    private static final Map<Holder<Block>, ItemStack> linkedBlockCache = new Object2ObjectOpenHashMap<>();
+    private static final Map<TagKey<Block>, ItemStack> linkedTagCache = new Object2ObjectOpenHashMap<>();
 
     public static ItemStack getLinkedBlockStack(ItemStack divinationRod) {
-        if (hasLinkedBlock(divinationRod)) {
-            var targetId = getLinkedBlockId(divinationRod);
-            ItemStack targetStack;
+        if (divinationRod.has(DataComponentRegistry.DIVINATION_LINKED_BLOCK))
+            return linkedBlockCache.computeIfAbsent(divinationRod.get(DataComponentRegistry.DIVINATION_LINKED_BLOCK), b -> new ItemStack(b.value()));
 
-            if (targetId.startsWith("#")) {
-                var tagId = new ResourceLocation(targetId.substring(1));
-                var tag = TagKey.create(Registries.ITEM, tagId);
-                targetStack = TagUtil.getItemStackForTag(tag);
-            } else {
-                var itemId = new ResourceLocation(targetId);
-                targetStack = new ItemStack(BuiltInRegistries.ITEM.get(itemId));
-            }
 
-            return targetStack;
-        }
+        if (divinationRod.has(DataComponentRegistry.DIVINATION_LINKED_TAG))
+            return linkedTagCache.computeIfAbsent(divinationRod.get(DataComponentRegistry.DIVINATION_LINKED_TAG), TagUtil::getItemStackForBlockTag);
 
         return ItemStack.EMPTY;
     }
 
-    private static void scanLinkedBlock(Player player, String id, int range, int duration) {
-        var targetId = new ResourceLocation(id);
-
-        var blocks = getScanTargetsForId(targetId);
+    private static void scanLinkedBlock(Player player, Holder<Block> blockHolder, int range, int duration) {
+        var blocks = getScanTargetsForId(blockHolder.unwrapKey().get().location());
         ScanManager.get().beginScan(player, blocks, range, duration);
     }
 
-    private static void scanLinkedTag(Player player, String id, int range, int duration) {
-        var targetId = new ResourceLocation(id.substring(1)); //skip the #
-        var tagKey = TagKey.create(Registries.BLOCK, targetId);
+    private static void scanLinkedTag(Player player, TagKey<Block> tagKey, int range, int duration) {
         var blocks = BuiltInRegistries.BLOCK.getTag(tagKey)
                 .map(tag -> tag.stream().map(Holder::value).collect(Collectors.toSet()))
                 .orElse(Collections.emptySet());
@@ -170,7 +156,7 @@ public class DivinationRodItem extends Item {
 
     @Override
     public int getMaxDamage(ItemStack stack) {
-        return stack.getOrCreateTag().getInt(TheurgyConstants.Nbt.Divination.SETTING_DURABILITY);
+        return stack.getOrDefault(DataComponentRegistry.DIVINATION_SETTINGS_MAX_DAMAGE, 1);
     }
 
     @Override
@@ -193,7 +179,7 @@ public class DivinationRodItem extends Item {
 
         if (player.isShiftKeyDown()) {
 
-            if (!stack.getOrCreateTag().getBoolean(TheurgyConstants.Nbt.Divination.SETTING_ALLOW_ATTUNING)) {
+            if (!stack.getOrDefault(DataComponentRegistry.DIVINATION_SETTINGS_ALLOW_ATTUNING, false)) {
                 if (!level.isClientSide) {
                     player.sendSystemMessage(
                             Component.translatable(TheurgyConstants.I18n.Message.DIVINATION_ROD_ATTUNING_NOT_ALLOWED)
@@ -204,7 +190,7 @@ public class DivinationRodItem extends Item {
 
             BlockState state = level.getBlockState(pos);
             if (!state.isAir()) {
-                if (!TierSortingRegistry.isCorrectTierForDrops(tier, state)) {
+                if (state.is(tier.getIncorrectBlocksForDrops())) {
                     if (!level.isClientSide) {
                         player.sendSystemMessage(
                                 Component.translatable(
@@ -236,10 +222,7 @@ public class DivinationRodItem extends Item {
                     return InteractionResult.FAIL;
                 } else {
                     if (!level.isClientSide) {
-                        stack.getOrCreateTag().putString(
-                                TheurgyConstants.Nbt.Divination.LINKED_BLOCK_ID,
-                                BuiltInRegistries.BLOCK.getKey(state.getBlock()).toString()
-                        );
+                        stack.set(DataComponentRegistry.DIVINATION_LINKED_BLOCK, state.getBlockHolder());
 
                         player.sendSystemMessage(
                                 Component.translatable(
@@ -265,24 +248,24 @@ public class DivinationRodItem extends Item {
         var stack = player.getItemInHand(hand);
 
         if (!player.isShiftKeyDown()) {
-            if (hasLinkedBlock(stack)) {
-                var tag = stack.getTag();
-                tag.putFloat(TheurgyConstants.Nbt.Divination.DISTANCE, SEARCHING);
+            if (stack.has(DataComponentRegistry.DIVINATION_LINKED_BLOCK) || stack.has(DataComponentRegistry.DIVINATION_LINKED_TAG)) {
+
+                stack.set(DataComponentRegistry.DIVINATION_DISTANCE, SEARCHING);
                 player.startUsingItem(hand);
                 level.playSound(player, player.blockPosition(), SoundRegistry.TUNING_FORK.get(), SoundSource.PLAYERS,
                         1, 1);
 
                 if (level.isClientSide) {
-                    var targetId = getLinkedBlockId(stack);
-
-                    if (targetId.startsWith("#")) {
-                        scanLinkedTag(player, targetId,
-                                tag.getInt(TheurgyConstants.Nbt.Divination.SETTING_RANGE),
-                                tag.getInt(TheurgyConstants.Nbt.Divination.SETTING_DURATION));
-                    } else {
-                        scanLinkedBlock(player, targetId,
-                                tag.getInt(TheurgyConstants.Nbt.Divination.SETTING_RANGE),
-                                tag.getInt(TheurgyConstants.Nbt.Divination.SETTING_DURATION));
+                    if (stack.has(DataComponentRegistry.DIVINATION_LINKED_TAG)) {
+                        scanLinkedTag(player,
+                                stack.get(DataComponentRegistry.DIVINATION_LINKED_TAG),
+                                stack.get(DataComponentRegistry.DIVINATION_SETTINGS_RANGE),
+                                stack.get(DataComponentRegistry.DIVINATION_SETTINGS_DURATION));
+                    } else if(stack.has(DataComponentRegistry.DIVINATION_LINKED_BLOCK)){
+                        scanLinkedBlock(player,
+                                stack.get(DataComponentRegistry.DIVINATION_LINKED_BLOCK),
+                                stack.get(DataComponentRegistry.DIVINATION_SETTINGS_RANGE),
+                                stack.get(DataComponentRegistry.DIVINATION_SETTINGS_DURATION));
                     }
                 }
             } else if (!level.isClientSide) {
@@ -301,7 +284,7 @@ public class DivinationRodItem extends Item {
 
         if (stack.getDamageValue() >= stack.getMaxDamage()) {
             //if in the last usage cycle the item was used up, we now actually break it to avoid over-use
-            player.broadcastBreakEvent(player.getUsedItemHand());
+            player.broadcastBreakEvent(LivingEntity.getSlotForHand(player.getUsedItemHand()));
             var item = stack.getItem();
             stack.shrink(1);
             player.awardStat(Stats.ITEM_BROKEN.get(item));

@@ -5,8 +5,8 @@
 package com.klikli_dev.theurgy.content.recipe;
 
 import com.klikli_dev.theurgy.Theurgy;
-import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.config.ServerConfig;
+import com.klikli_dev.theurgy.registry.DataComponentRegistry;
 import com.klikli_dev.theurgy.registry.RecipeSerializerRegistry;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
@@ -15,17 +15,18 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.nbt.NbtOps;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.*;
-import net.neoforged.neoforge.fluids.crafting.FluidIngredient;
+import net.minecraft.world.item.crafting.CraftingBookCategory;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.ShapedRecipe;
+import net.minecraft.world.item.crafting.ShapedRecipePattern;
 
 
 public class DivinationRodRecipe extends ShapedRecipe {
@@ -43,35 +44,33 @@ public class DivinationRodRecipe extends ShapedRecipe {
     public ItemStack assemble(CraftingContainer pInv, HolderLookup.Provider pRegistries) {
         var result = this.getResultItem(pRegistries).copy();
 
-        var resultTag = result.getOrCreateTag();
+        if (result.has(DataComponentRegistry.DIVINATION_LINKED_BLOCK) || result.has(DataComponentRegistry.DIVINATION_LINKED_TAG))
+            return result;
 
-        //if the recipe already has a linked block, we don't need to do the translation stuff.
-        //if that linked block is only a preview (coming from getResultItem(), used mainly for correct display in JEI),
-        // we have to ignore it and translate after all
-        if (!resultTag.contains(TheurgyConstants.Nbt.Divination.LINKED_BLOCK_ID) ||
-                resultTag.getBoolean(TheurgyConstants.Nbt.Divination.LINKED_BLOCK_ID_PREVIEW_MODE)
-        ) {
+        //check pInv for ingredients with sulfur source id, if so, find the appropriate block id based on it and set it on the result item
+        for (int i = 0; i < pInv.getContainerSize(); i++) {
+            var stack = pInv.getItem(i);
+            if (stack.has(DataComponentRegistry.SULFUR_SOURCE_ITEM)) {
+                var sourceItem = stack.get(DataComponentRegistry.SULFUR_SOURCE_ITEM);
+                var sourceItemKey = sourceItem.unwrapKey();
+                if (sourceItemKey.isEmpty())
+                    continue;
 
-            //check pInv for ingredients with sulfur source id, if so, find the appropriate block id based on it and set it on the result item
-            String sourceId = null;
-            for (int i = 0; i < pInv.getContainerSize(); i++) {
-                var stack = pInv.getItem(i);
-                if (stack.hasTag()) {
-                    var tag = stack.getTag();
-                    if (tag.contains(TheurgyConstants.Nbt.SULFUR_SOURCE_ID)) {
-                        sourceId = tag.getString(TheurgyConstants.Nbt.SULFUR_SOURCE_ID);
-                        break;
-                    }
+                var sourceBlock = this.translateToBlock(sourceItem.unwrapKey().get().location().toString());
+
+                if (sourceBlock != null) {
+                    result.set(DataComponentRegistry.DIVINATION_LINKED_BLOCK, BuiltInRegistries.BLOCK.getHolder(new ResourceLocation(sourceBlock)).get());
                 }
+                break;
             }
+            if (stack.has(DataComponentRegistry.SULFUR_SOURCE_TAG)) {
+                var sourceItemTag = stack.get(DataComponentRegistry.SULFUR_SOURCE_TAG);
+                var sourceBlockTag = this.translateTagToBlock(sourceItemTag.location().toString());
 
-            if (sourceId != null) {
-                var translated = sourceId.startsWith("#") ? this.translateTagToBlock(sourceId) : this.translateToBlock(sourceId);
-                if (translated != null) {
-                    resultTag.putString(TheurgyConstants.Nbt.Divination.LINKED_BLOCK_ID, translated);
-                } else {
-                    resultTag.putString(TheurgyConstants.Nbt.Divination.LINKED_BLOCK_ID, sourceId);
+                if (sourceBlockTag != null) {
+                    result.set(DataComponentRegistry.DIVINATION_LINKED_TAG, BlockTags.create(new ResourceLocation(sourceBlockTag)));
                 }
+                break;
             }
         }
 
@@ -88,17 +87,17 @@ public class DivinationRodRecipe extends ShapedRecipe {
         //even though likely not all of these will be used to create sulfur its good to handle them.
 
         //examples:
-        //target is forge:ores/iron
-        //forge:ingots/iron
-        //forge:nuggets/iron
-        //forge:raw_materials/iron
-        //forge:dusts/iron
-        //forge:storage_blocks/iron
-        //forge:gems/iron
+        //target is c:ores/iron
+        //c:ingots/iron
+        //c:nuggets/iron
+        //c:raw_materials/iron
+        //c:dusts/iron
+        //c:storage_blocks/iron
+        //c:gems/iron
 
         //special handling for coal items as they are none of the above
         if (sourceTag.equals("#minecraft:coals"))
-            return "#forge:ores/coal";
+            return "#c:ores/coal";
 
         var parts = sourceTag.split(":");
         var namespace = parts[0];

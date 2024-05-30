@@ -8,14 +8,34 @@ import com.google.common.graph.EndpointPair;
 import com.google.common.graph.MutableGraph;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import io.netty.buffer.ByteBuf;
+import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.util.ByIdMap;
+import net.minecraft.world.item.Tiers;
+import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.neoforged.neoforge.fluids.FluidStack;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.function.IntFunction;
 import java.util.function.Supplier;
 
 public class TheurgyExtraCodecs {
+    private static final Map<String, Tiers> TIERS = Map.of(
+            "wood", Tiers.WOOD,
+            "stone", Tiers.STONE,
+            "iron", Tiers.IRON,
+            "diamond", Tiers.DIAMOND,
+            "gold", Tiers.GOLD,
+            "netherite", Tiers.NETHERITE
+    );
+
+    public static final Codec<Tiers> TIERS_CODEC = Codec.stringResolver(Tiers::name, TIERS::get);
+
     public static final Codec<FluidStack> SINGLE_FLUID_CODEC = BuiltInRegistries.FLUID.byNameCodec().xmap(fluid -> new FluidStack(fluid, 1), FluidStack::getFluid);
 
     @SuppressWarnings("UnstableApiUsage")

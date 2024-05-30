@@ -6,7 +6,6 @@ package com.klikli_dev.theurgy.content.recipe.result;
 
 import com.klikli_dev.theurgy.registry.RecipeResultRegistry;
 import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
@@ -32,10 +31,6 @@ public class ItemRecipeResult extends RecipeResult {
 
     public ItemRecipeResult(ItemStack stack) {
         this.stack = stack;
-    }
-
-    public static ItemRecipeResult fromNetwork(RegistryFriendlyByteBuf pBuffer) {
-        return new ItemRecipeResult(ItemStack.STREAM_CODEC.decode(pBuffer));
     }
 
     @Override

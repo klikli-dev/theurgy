@@ -65,15 +65,15 @@ public class TagRecipeResult extends RecipeResult {
         this.patch = patch;
     }
 
-    public TagKey<Item> getTag() {
+    public TagKey<Item> tag() {
         return this.tag;
     }
 
-    public int getCount() {
+    public int count() {
         return this.count;
     }
 
-    public DataComponentPatch getPatch() {
+    public DataComponentPatch patch() {
         return this.patch;
     }
 

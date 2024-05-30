@@ -5,8 +5,13 @@
 package com.klikli_dev.theurgy.datagen.recipe;
 
 import com.google.common.collect.Sets;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.klikli_dev.theurgy.content.recipe.result.ItemRecipeResult;
+import com.klikli_dev.theurgy.content.recipe.result.RecipeResult;
+import com.klikli_dev.theurgy.content.recipe.result.TagRecipeResult;
 import com.mojang.serialization.JsonOps;
+import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.CachedOutput;
@@ -17,10 +22,16 @@ import net.minecraft.nbt.NbtOps;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.material.Fluid;
+import net.neoforged.neoforge.common.conditions.ICondition;
+import net.neoforged.neoforge.common.conditions.NotCondition;
+import net.neoforged.neoforge.common.conditions.TagEmptyCondition;
 import net.neoforged.neoforge.fluids.FluidStack;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -42,9 +53,6 @@ public abstract class JsonRecipeProvider implements DataProvider {
 
     /**
      * Creates a new recipe provider with the given sub path.
-     *
-     * @param packOutput
-     * @param recipeSubPath e.g. "calcination"
      */
     public JsonRecipeProvider(PackOutput packOutput, String modid, String recipeSubPath) {
         this.recipePathProvider = packOutput.createPathProvider(PackOutput.Target.DATA_PACK, "recipes/" + recipeSubPath);
@@ -91,113 +99,12 @@ public abstract class JsonRecipeProvider implements DataProvider {
         return new ResourceLocation(name);
     }
 
-    public ResourceLocation forgeLoc(String name) {
-        return new ResourceLocation("forge", name);
-    }
-
-    public JsonObject makeFluidIngredient(ResourceLocation fluid) {
-        JsonObject jsonobject = new JsonObject();
-        jsonobject.addProperty("fluid", fluid.toString());
-        return jsonobject;
-    }
-
-    public JsonObject makeFluidTagIngredient(ResourceLocation tag) {
-        JsonObject jsonobject = new JsonObject();
-        jsonobject.addProperty("tag", tag.toString());
-        return jsonobject;
-    }
-
-    public JsonObject makeTagIngredient(ResourceLocation tag) {
-        JsonObject jsonobject = new JsonObject();
-        jsonobject.addProperty("tag", tag.toString());
-        return jsonobject;
-    }
-
-    public JsonObject makeTagIngredient(ResourceLocation tag, int count) {
-        var jsonobject = this.makeTagIngredient(tag);
-        jsonobject.addProperty("count", count);
-        return jsonobject;
-    }
-
-    public JsonObject makeItemIngredient(ResourceLocation item) {
-        JsonObject jsonobject = new JsonObject();
-        jsonobject.addProperty("item", item.toString());
-        return jsonobject;
-    }
-
-    public JsonObject makeItemIngredient(ResourceLocation item, int count) {
-        var jsonobject = this.makeItemIngredient(item);
-        jsonobject.addProperty("count", count);
-        return jsonobject;
-    }
-
-
-    public JsonObject makeItemResult(ResourceLocation item) {
-        return this.makeItemResult(item, 1);
-    }
-
-    public JsonObject makeItemResult(ResourceLocation item, int count) {
-        return this.makeItemResult(item, count, (JsonObject) null);
-    }
-
-    public JsonObject makeItemResult(ResourceLocation item, int count, @Nullable CompoundTag nbt) {
-        return this.makeItemResult(item, count, nbt == null ? null : (JsonObject) NbtOps.INSTANCE.convertTo(JsonOps.INSTANCE, nbt));
-    }
-
-    public JsonObject makeItemResult(ResourceLocation item, int count, @Nullable JsonObject nbt) {
-        JsonObject jsonobject = new JsonObject();
-        jsonobject.addProperty("item", item.toString());
-        jsonobject.addProperty("count", count);
-        if (nbt != null) {
-            jsonobject.add("nbt", nbt);
-        }
-        return jsonobject;
-    }
-
-    public JsonObject makeTagResult(ResourceLocation item) {
-        return this.makeTagResult(item, 1);
-    }
-
-    public JsonObject makeTagResult(ResourceLocation item, int count) {
-        return this.makeTagResult(item, count, (JsonObject) null);
-    }
-
-    public JsonObject makeTagResult(ResourceLocation tag, int count, @Nullable CompoundTag nbt) {
-        return this.makeTagResult(tag, count, nbt == null ? null : (JsonObject) NbtOps.INSTANCE.convertTo(JsonOps.INSTANCE, nbt));
-    }
-
-    public JsonObject makeTagResult(ResourceLocation tag, int count, @Nullable JsonObject nbt) {
-        JsonObject jsonobject = new JsonObject();
-        jsonobject.addProperty("tag", tag.toString());
-        jsonobject.addProperty("count", count);
-        if (nbt != null) {
-            jsonobject.add("nbt", nbt);
-        }
-        return jsonobject;
-    }
-
-    public JsonObject makeFluidResult(FluidStack fluidStack) {
-        return FluidStack.CODEC.encodeStart(JsonOps.INSTANCE, fluidStack).getOrThrow((s -> {
-            throw new IllegalStateException("Failed to encode fluid stack: " + s);
-        })).getAsJsonObject();
-    }
-
-    public JsonObject makeTagNotEmptyCondition(String tag) {
-        var condition = new JsonObject();
-        condition.addProperty("type", "neoforge:not");
-        var value = new JsonObject();
-        value.addProperty("type", "neoforge:tag_empty");
-        value.addProperty("tag", tag);
-        condition.add("value", value);
-        return condition;
-    }
-
     @Override
-    public CompletableFuture<?> run(CachedOutput pOutput) {
+    public @NotNull CompletableFuture<?> run(@NotNull CachedOutput pOutput) {
         Set<ResourceLocation> set = Sets.newHashSet();
         List<CompletableFuture<?>> futures = new ArrayList<>();
         this.recipeConsumer = (id, recipe) -> {
-            if(!recipe.has("category"))
+            if (!recipe.has("category"))
                 recipe.addProperty("category", CraftingBookCategory.MISC.getSerializedName());
 
             if (!set.add(id)) {
@@ -211,4 +118,135 @@ public abstract class JsonRecipeProvider implements DataProvider {
     }
 
     public abstract void buildRecipes(BiConsumer<ResourceLocation, JsonObject> recipeConsumer);
+
+    public static abstract class Builder<T extends Builder<T>> {
+
+        protected JsonObject recipe = new JsonObject();
+
+        protected Builder(Holder<RecipeType<?>> type) {
+            //noinspection OptionalGetWithoutIsPresent
+            this.recipe.addProperty("type", type.unwrapKey().get().location().toString());
+        }
+
+        public T getThis() {
+            //noinspection unchecked
+            return (T) this;
+        }
+
+        public T time(int time) {
+            this.recipe.addProperty("time", time);
+            return this.getThis();
+        }
+
+        public T result(ItemStack result) {
+            return this.result("result", result);
+        }
+
+        public T result(String propertyName, ItemStack result) {
+            return this.result(propertyName, new ItemRecipeResult(result));
+        }
+
+        public T result(RecipeResult result) {
+            return this.result("result", result);
+        }
+
+        public T result(String propertyName, RecipeResult result) {
+            this.recipe.add(propertyName, RecipeResult.CODEC.encodeStart(JsonOps.INSTANCE, result).getOrThrow());
+
+            if(result instanceof TagRecipeResult tagRecipeResult) {
+                this.condition(new NotCondition(new TagEmptyCondition(tagRecipeResult.tag().location().toString())));
+            }
+
+            return this.getThis();
+        }
+
+        public T result(FluidStack result) {
+            return this.result("result", result);
+        }
+
+        public T result(String propertyName, FluidStack result) {
+            this.recipe.add(propertyName, FluidStack.CODEC.encodeStart(JsonOps.INSTANCE, result).getOrThrow());
+            return this.getThis();
+        }
+
+        public T ingredient(TagKey<?> tag) {
+            return this.ingredient(tag, -1);
+        }
+
+        public T ingredient(TagKey<?> tag, int count) {
+            return this.ingredient("ingredient", tag, count);
+        }
+
+        public T ingredient(String propertyName, TagKey<?> tag) {
+            return this.ingredient(propertyName, tag, -1);
+        }
+
+        public T ingredient(String propertyName, TagKey<?> tag, int count) {
+            JsonObject jsonobject = new JsonObject();
+            jsonobject.addProperty("tag", tag.location().toString());
+            if (count > -1)
+                jsonobject.addProperty("count", count);
+            this.recipe.add(propertyName, jsonobject);
+
+            this.condition(new NotCondition(new TagEmptyCondition(tag.location().toString())));
+
+            return this.getThis();
+        }
+
+        public T ingredient(ItemStack stack) {
+            return this.ingredient("ingredient", stack);
+        }
+
+        public T ingredient(Holder<Item> itemHolder) {
+            return this.ingredient("ingredient", itemHolder);
+        }
+
+        public T ingredient(Item item) {
+            return this.ingredient("ingredient", item);
+        }
+
+        public T ingredient(Item item, int count) {
+            return this.ingredient("ingredient", new ItemStack(item, count));
+        }
+
+        public T ingredient(Holder<Item> itemHolder, int count) {
+            return this.ingredient("ingredient", itemHolder, count);
+        }
+
+        public T ingredient(String propertyName, Holder<Item> itemHolder, int count) {
+            return this.ingredient(propertyName, new ItemStack(itemHolder, count));
+        }
+
+        public T ingredient(String propertyName, ItemStack stack) {
+            JsonObject jsonobject = new JsonObject();
+            //noinspection OptionalGetWithoutIsPresent
+            jsonobject.addProperty("item", stack.getItemHolder().unwrapKey().get().location().toString());
+            jsonobject.addProperty("count", stack.getCount());
+            this.recipe.add(propertyName, jsonobject);
+            return this.getThis();
+        }
+
+        public T ingredient(String propertyName, Item item) {
+            //noinspection deprecation
+            return this.ingredient(propertyName, item.builtInRegistryHolder());
+        }
+
+        public T ingredient(String propertyName, Holder<Item> itemHolder) {
+            JsonObject jsonobject = new JsonObject();
+            //noinspection OptionalGetWithoutIsPresent
+            jsonobject.addProperty("item", itemHolder.unwrapKey().get().location().toString());
+            this.recipe.add(propertyName, jsonobject);
+            return this.getThis();
+        }
+
+        public T condition(ICondition condition) {
+            if(!this.recipe.has("conditions"))
+                this.recipe.add("conditions", new JsonArray());
+
+            this.recipe.getAsJsonArray("conditions").add(
+                    ICondition.CODEC.encodeStart(JsonOps.INSTANCE, condition).getOrThrow()
+            );
+            return this.getThis();
+        }
+    }
 }

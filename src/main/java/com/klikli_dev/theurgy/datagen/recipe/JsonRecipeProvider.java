@@ -17,8 +17,6 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.NbtOps;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
@@ -32,7 +30,6 @@ import net.neoforged.neoforge.common.conditions.NotCondition;
 import net.neoforged.neoforge.common.conditions.TagEmptyCondition;
 import net.neoforged.neoforge.fluids.FluidStack;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -119,11 +116,11 @@ public abstract class JsonRecipeProvider implements DataProvider {
 
     public abstract void buildRecipes(BiConsumer<ResourceLocation, JsonObject> recipeConsumer);
 
-    public static abstract class Builder<T extends Builder<T>> {
+    protected static abstract class RecipeBuilder<T extends RecipeBuilder<T>> {
 
         protected JsonObject recipe = new JsonObject();
 
-        protected Builder(Holder<RecipeType<?>> type) {
+        protected RecipeBuilder(Holder<RecipeType<?>> type) {
             //noinspection OptionalGetWithoutIsPresent
             this.recipe.addProperty("type", type.unwrapKey().get().location().toString());
         }

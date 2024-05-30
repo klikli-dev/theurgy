@@ -29,9 +29,9 @@ public class AlchemicalSulfurSubtypeInterpreter implements IIngredientSubtypeInt
         }
 
         return nbtTagCompound.toString()
-                .replace("#forge:ores", "#theurgy:minerals")
-                .replace("#forge:ingots", "#theurgy:minerals")
-                .replace("#forge:gems", "#theurgy:minerals")
-                .replace("#forge:raw_materials", "#theurgy:minerals");
+                .replace("#c:ores", "#theurgy:minerals")
+                .replace("#c:ingots", "#theurgy:minerals")
+                .replace("#c:gems", "#theurgy:minerals")
+                .replace("#c:raw_materials", "#theurgy:minerals");
     }
 }

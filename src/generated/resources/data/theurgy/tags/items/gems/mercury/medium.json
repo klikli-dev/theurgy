@@ -4,19 +4,19 @@
     "#c:gems/prismarine",
     "#c:gems/sal_ammoniac",
     {
-      "id": "#forge:gems/ruby",
+      "id": "#c:gems/ruby",
       "required": false
     },
     {
-      "id": "#forge:gems/peridot",
+      "id": "#c:gems/peridot",
       "required": false
     },
     {
-      "id": "#forge:gems/fluorite",
+      "id": "#c:gems/fluorite",
       "required": false
     },
     {
-      "id": "#forge:gems/sapphire",
+      "id": "#c:gems/sapphire",
       "required": false
     }
   ]

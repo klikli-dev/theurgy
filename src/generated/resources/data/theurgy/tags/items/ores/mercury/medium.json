@@ -2,43 +2,43 @@
   "values": [
     "#c:ores/gold",
     {
-      "id": "#forge:ores/azure_silver",
+      "id": "#c:ores/azure_silver",
       "required": false
     },
     {
-      "id": "#forge:ores/silver",
+      "id": "#c:ores/silver",
       "required": false
     },
     {
-      "id": "#forge:ores/uranium",
+      "id": "#c:ores/uranium",
       "required": false
     },
     {
-      "id": "#forge:ores/iridium",
+      "id": "#c:ores/iridium",
       "required": false
     },
     {
-      "id": "#forge:ores/platinum",
+      "id": "#c:ores/platinum",
       "required": false
     },
     {
-      "id": "#forge:ores/crimson_iron",
+      "id": "#c:ores/crimson_iron",
       "required": false
     },
     {
-      "id": "#forge:ores/ruby",
+      "id": "#c:ores/ruby",
       "required": false
     },
     {
-      "id": "#forge:ores/peridot",
+      "id": "#c:ores/peridot",
       "required": false
     },
     {
-      "id": "#forge:ores/fluorite",
+      "id": "#c:ores/fluorite",
       "required": false
     },
     {
-      "id": "#forge:ores/sapphire",
+      "id": "#c:ores/sapphire",
       "required": false
     }
   ]

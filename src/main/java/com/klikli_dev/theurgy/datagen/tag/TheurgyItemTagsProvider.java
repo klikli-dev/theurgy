@@ -66,30 +66,30 @@ public class TheurgyItemTagsProvider extends ItemTagsProvider {
         });
 
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_AND_NITERS)
-                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS.location())
-                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_NITERS.location());
+                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS)
+                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_NITERS);
 
         this.tag(ItemTagRegistry.SUGARS)
                 .add(Items.SUGAR);
 
         //add the tier tags into the material tag
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS)
-                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_ABUNDANT.location())
-                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_COMMON.location())
-                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_RARE.location())
-                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_PRECIOUS.location());
+                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_ABUNDANT)
+                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_COMMON)
+                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_RARE)
+                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_PRECIOUS);
 
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS)
-                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_ABUNDANT.location())
-                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_COMMON.location())
-                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_RARE.location())
-                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_PRECIOUS.location());
+                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_ABUNDANT)
+                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_COMMON)
+                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_RARE)
+                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_PRECIOUS);
 
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS)
-                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_ABUNDANT.location())
-                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_COMMON.location())
-                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_RARE.location())
-                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_PRECIOUS.location());
+                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_ABUNDANT)
+                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_COMMON)
+                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_RARE)
+                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_PRECIOUS);
 
 
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_ABUNDANT);
@@ -183,110 +183,109 @@ public class TheurgyItemTagsProvider extends ItemTagsProvider {
                 .addTag(Tags.Items.ORES_QUARTZ)
                 .addTag(Tags.Items.ORES_REDSTONE)
                 .addTag(Tags.Items.ORES_COAL)
-                .addOptionalTag(this.rl("forge:ores/zinc"))
-                .addOptionalTag(this.rl("forge:ores/osmium"))
-                .addOptionalTag(this.rl("forge:ores/nickel"))
-                .addOptionalTag(this.rl("forge:ores/lead"))
-                .addOptionalTag(this.rl("forge:ores/tin"))
-                .addOptionalTag(this.rl("forge:ores/cinnabar"))
-                .addOptionalTag(this.rl("forge:ores/apatite"))
-                .addOptionalTag(this.rl("forge:ores/sulfur"))
+                .addOptionalTag(ItemTagRegistry.ORES_ZINC)
+                .addOptionalTag(ItemTagRegistry.ORES_OSMIUM)
+                .addOptionalTag(ItemTagRegistry.ORES_NICKEL)
+                .addOptionalTag(ItemTagRegistry.ORES_LEAD)
+                .addOptionalTag(ItemTagRegistry.ORES_TIN)
+                .addOptionalTag(ItemTagRegistry.ORES_CINNABAR)
+                .addOptionalTag(ItemTagRegistry.ORES_APATITE)
+                .addOptionalTag(ItemTagRegistry.ORES_SULFUR)
         ;
 
         this.tag(ItemTagRegistry.MEDIUM_MERCURY_ORES)
                 .addTag(Tags.Items.ORES_GOLD)
-                .addOptionalTag(this.rl("forge:ores/azure_silver"))
-                .addOptionalTag(this.rl("forge:ores/silver"))
-                .addOptionalTag(this.rl("forge:ores/uranium"))
-                .addOptionalTag(this.rl("forge:ores/iridium"))
-                .addOptionalTag(this.rl("forge:ores/platinum"))
-                .addOptionalTag(this.rl("forge:ores/crimson_iron"))
-                .addOptionalTag(this.rl("forge:ores/ruby"))
-                .addOptionalTag(this.rl("forge:ores/peridot"))
-                .addOptionalTag(this.rl("forge:ores/fluorite"))
-                .addOptionalTag(this.rl("forge:ores/sapphire"))
+                .addOptionalTag(ItemTagRegistry.ORES_AZURE_SILVER)
+                .addOptionalTag(ItemTagRegistry.ORES_SILVER)
+                .addOptionalTag(ItemTagRegistry.ORES_URANIUM)
+                .addOptionalTag(ItemTagRegistry.ORES_IRIDIUM)
+                .addOptionalTag(ItemTagRegistry.ORES_PLATINUM)
+                .addOptionalTag(ItemTagRegistry.ORES_CRIMSON_IRON)
+                .addOptionalTag(ItemTagRegistry.ORES_RUBY)
+                .addOptionalTag(ItemTagRegistry.ORES_PERIDOT)
+                .addOptionalTag(ItemTagRegistry.ORES_FLUORITE)
+                .addOptionalTag(ItemTagRegistry.ORES_SAPPHIRE)
         ;
 
         this.tag(ItemTagRegistry.HIGH_MERCURY_ORES)
                 .addTag(Tags.Items.ORES_DIAMOND)
                 .addTag(Tags.Items.ORES_EMERALD)
                 .addTag(Tags.Items.ORES_NETHERITE_SCRAP)
-                .addOptionalTag(this.rl("forge:ores/allthemodium"))
-                .addOptionalTag(this.rl("forge:ores/unobtainium"))
-                .addOptionalTag(this.rl("forge:ores/vibranium"))
+                .addOptionalTag(ItemTagRegistry.ORES_ALLTHEMODIUM)
+                .addOptionalTag(ItemTagRegistry.ORES_UNOBTAINIUM)
+                .addOptionalTag(ItemTagRegistry.ORES_VIBRANIUM)
 
         ;
 
         this.tag(ItemTagRegistry.LOW_MERCURY_RAW_MATERIALS)
                 .addTag(Tags.Items.RAW_MATERIALS_IRON)
                 .addTag(Tags.Items.RAW_MATERIALS_COPPER)
-                .addOptionalTag(this.rl("forge:raw_materials/zinc"))
-                .addOptionalTag(this.rl("forge:raw_materials/osmium"))
-                .addOptionalTag(this.rl("forge:raw_materials/nickel"))
-                .addOptionalTag(this.rl("forge:raw_materials/lead"))
-                .addOptionalTag(this.rl("forge:raw_materials/tin"))
-                .addOptionalTag(this.rl("forge:raw_materials/cinnabar"))
+                .addOptionalTag(ItemTagRegistry.RAW_MATERIALS_ZINC)
+                .addOptionalTag(ItemTagRegistry.RAW_MATERIALS_OSMIUM)
+                .addOptionalTag(ItemTagRegistry.RAW_MATERIALS_NICKEL)
+                .addOptionalTag(ItemTagRegistry.RAW_MATERIALS_LEAD)
+                .addOptionalTag(ItemTagRegistry.RAW_MATERIALS_TIN)
+                .addOptionalTag(ItemTagRegistry.RAW_MATERIALS_CINNABAR)
         ;
 
         this.tag(ItemTagRegistry.MEDIUM_MERCURY_RAW_MATERIALS)
                 .addTag(Tags.Items.RAW_MATERIALS_GOLD)
-                .addOptionalTag(this.rl("forge:raw_materials/uranium"))
-                .addOptionalTag(this.rl("forge:raw_materials/silver"))
-                .addOptionalTag(this.rl("forge:raw_materials/azure_silver"))
-                .addOptionalTag(this.rl("forge:raw_materials/iridium"))
-                .addOptionalTag(this.rl("forge:raw_materials/crimson_iron"))
-                .addOptionalTag(this.rl("forge:raw_materials/platinum"))
+                .addOptionalTag(ItemTagRegistry.RAW_MATERIALS_URANIUM)
+                .addOptionalTag(ItemTagRegistry.RAW_MATERIALS_SILVER)
+                .addOptionalTag(ItemTagRegistry.RAW_MATERIALS_AZURE_SILVER)
+                .addOptionalTag(ItemTagRegistry.RAW_MATERIALS_IRIDIUM)
+                .addOptionalTag(ItemTagRegistry.RAW_MATERIALS_CRIMSON_IRON)
+                .addOptionalTag(ItemTagRegistry.RAW_MATERIALS_PLATINUM)
         ;
 
         this.tag(ItemTagRegistry.HIGH_MERCURY_RAW_MATERIALS)
-                .addOptionalTag(this.rl("forge:raw_materials/allthemodium"))
-                .addOptionalTag(this.rl("forge:raw_materials/unobtainium"))
-                .addOptionalTag(this.rl("forge:raw_materials/vibranium"))
+                .addOptionalTag(ItemTagRegistry.RAW_MATERIALS_ALLTHEMODIUM)
+                .addOptionalTag(ItemTagRegistry.RAW_MATERIALS_UNOBTAINIUM)
+                .addOptionalTag(ItemTagRegistry.RAW_MATERIALS_VIBRANIUM)
         ;
 
         this.tag(ItemTagRegistry.LOW_MERCURY_METALS)
                 .addTag(Tags.Items.INGOTS_IRON)
                 .addTag(Tags.Items.INGOTS_COPPER)
-                .addOptionalTag(this.rl("forge:ingots/zinc"))
-                .addOptionalTag(this.rl("forge:ingots/osmium"))
-                .addOptionalTag(this.rl("forge:ingots/nickel"))
-                .addOptionalTag(this.rl("forge:ingots/lead"))
-                .addOptionalTag(this.rl("forge:ingots/tin"))
-                .addOptionalTag(this.rl("forge:ingots/cinnabar"))
+                .addOptionalTag(ItemTagRegistry.INGOTS_ZINC)
+                .addOptionalTag(ItemTagRegistry.INGOTS_OSMIUM)
+                .addOptionalTag(ItemTagRegistry.INGOTS_NICKEL)
+                .addOptionalTag(ItemTagRegistry.INGOTS_LEAD)
+                .addOptionalTag(ItemTagRegistry.INGOTS_TIN)
+                .addOptionalTag(ItemTagRegistry.INGOTS_CINNABAR)
         ;
 
         this.tag(ItemTagRegistry.MEDIUM_MERCURY_METALS)
                 .addTag(Tags.Items.INGOTS_GOLD)
-                .addOptionalTag(this.rl("forge:ingots/uranium"))
-                .addOptionalTag(this.rl("forge:ingots/silver"))
-                .addOptionalTag(this.rl("forge:ingots/azure_silver"))
-                .addOptionalTag(this.rl("forge:ingots/iridium"))
-                .addOptionalTag(this.rl("forge:ingots/crimson_iron"))
-                .addOptionalTag(this.rl("forge:ingots/platinum"))
+                .addOptionalTag(ItemTagRegistry.INGOTS_URANIUM)
+                .addOptionalTag(ItemTagRegistry.INGOTS_SILVER)
+                .addOptionalTag(ItemTagRegistry.INGOTS_AZURE_SILVER)
+                .addOptionalTag(ItemTagRegistry.INGOTS_IRIDIUM)
+                .addOptionalTag(ItemTagRegistry.INGOTS_CRIMSON_IRON)
+                .addOptionalTag(ItemTagRegistry.INGOTS_PLATINUM)
         ;
 
         this.tag(ItemTagRegistry.HIGH_MERCURY_METALS)
                 .addTag(Tags.Items.INGOTS_NETHERITE)
-                .addOptionalTag(this.rl("forge:ingots/allthemodium"))
-                .addOptionalTag(this.rl("forge:ingots/unobtainium"))
-                .addOptionalTag(this.rl("forge:ingots/vibranium"))
+                .addOptionalTag(ItemTagRegistry.INGOTS_ALLTHEMODIUM)
+                .addOptionalTag(ItemTagRegistry.INGOTS_UNOBTAINIUM)
+                .addOptionalTag(ItemTagRegistry.INGOTS_VIBRANIUM)
         ;
 
         this.tag(ItemTagRegistry.LOW_MERCURY_GEMS)
                 .addTag(Tags.Items.GEMS_LAPIS)
                 .addTag(Tags.Items.GEMS_QUARTZ)
-                .addOptionalTag(this.rl("forge:gems/cinnabar"))
-                .addOptionalTag(this.rl("forge:gems/apatite"))
+                .addOptionalTag(ItemTagRegistry.GEMS_APATITE)
         ;
 
         this.tag(ItemTagRegistry.MEDIUM_MERCURY_GEMS)
                 .addTag(Tags.Items.GEMS_AMETHYST)
                 .addTag(Tags.Items.GEMS_PRISMARINE)
                 .addTag(ItemTagRegistry.GEMS_SAL_AMMONIAC)
-                .addOptionalTag(this.rl("forge:gems/ruby"))
-                .addOptionalTag(this.rl("forge:gems/peridot"))
-                .addOptionalTag(this.rl("forge:gems/fluorite"))
-                .addOptionalTag(this.rl("forge:gems/sapphire"))
+                .addOptionalTag(ItemTagRegistry.GEMS_RUBY)
+                .addOptionalTag(ItemTagRegistry.GEMS_PERIDOT)
+                .addOptionalTag(ItemTagRegistry.GEMS_FLUORITE)
+                .addOptionalTag(ItemTagRegistry.GEMS_SAPPHIRE)
         ;
 
         this.tag(ItemTagRegistry.HIGH_MERCURY_GEMS)
@@ -300,7 +299,7 @@ public class TheurgyItemTagsProvider extends ItemTagsProvider {
         ;
 
         this.tag(ItemTagRegistry.MEDIUM_MERCURY_OTHER_MINERALS)
-                .addOptionalTag(this.rl("forge:gems/sulfur"))
+                .addOptionalTag(ItemTagRegistry.GEMS_SULFUR)
         ;
 
         this.tag(ItemTagRegistry.HIGH_MERCURY_OTHER_MINERALS)
@@ -309,7 +308,7 @@ public class TheurgyItemTagsProvider extends ItemTagsProvider {
         this.tag(ItemTagRegistry.OTHER_MINERALS)
                 .addTag(ItemTags.COALS)
                 .addTag(Tags.Items.DUSTS_REDSTONE)
-        //.addOptionalTag(this.rl("forge:gems/sulfur")) sulfur is classified as a gem, so its handled in the Tags.Items.GEMS
+        //  .addOptionalTag(ItemTagRegistry.GEMS_SULFUR) sulfur is classified as a gem, so its handled in the Tags.Items.GEMS
         ;
 
     }

@@ -147,7 +147,7 @@ public class DivinationRodItem extends Item {
                 .replace("_deepslate", "")
                 .replace("deepslate_", "");
 
-        return new ResourceLocation("forge:ores/" + oreName);
+        return new ResourceLocation("c:ores/" + oreName);
     }
 
     public static void registerCreativeModeTabs(DivinationRodItem item, CreativeModeTab.Output output) {

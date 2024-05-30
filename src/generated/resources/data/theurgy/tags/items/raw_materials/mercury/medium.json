@@ -2,27 +2,27 @@
   "values": [
     "#c:raw_materials/gold",
     {
-      "id": "#forge:raw_materials/uranium",
+      "id": "#c:raw_materials/uranium",
       "required": false
     },
     {
-      "id": "#forge:raw_materials/silver",
+      "id": "#c:raw_materials/silver",
       "required": false
     },
     {
-      "id": "#forge:raw_materials/azure_silver",
+      "id": "#c:raw_materials/azure_silver",
       "required": false
     },
     {
-      "id": "#forge:raw_materials/iridium",
+      "id": "#c:raw_materials/iridium",
       "required": false
     },
     {
-      "id": "#forge:raw_materials/crimson_iron",
+      "id": "#c:raw_materials/crimson_iron",
       "required": false
     },
     {
-      "id": "#forge:raw_materials/platinum",
+      "id": "#c:raw_materials/platinum",
       "required": false
     }
   ]

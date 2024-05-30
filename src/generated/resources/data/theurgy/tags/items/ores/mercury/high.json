@@ -4,15 +4,15 @@
     "#c:ores/emerald",
     "#c:ores/netherite_scrap",
     {
-      "id": "#forge:ores/allthemodium",
+      "id": "#c:ores/allthemodium",
       "required": false
     },
     {
-      "id": "#forge:ores/unobtainium",
+      "id": "#c:ores/unobtainium",
       "required": false
     },
     {
-      "id": "#forge:ores/vibranium",
+      "id": "#c:ores/vibranium",
       "required": false
     }
   ]

@@ -1,10 +1,10 @@
-// 1.20.6	2024-05-30T10:41:42.0408669	Tags for minecraft:block mod id theurgy
-0fcdb0064991d93ee3af5633b952de0970a4b669 data/c/tags/blocks/ores.json
+// 1.20.6	2024-05-30T17:11:26.8192004	Tags for minecraft:block mod id theurgy
+2a6db3eadd0ca532bb90db84dde920e689ea0e24 data/c/tags/blocks/ores.json
+04abd356cb9b230f4d1adcf90db05571e8a17d05 data/c/tags/blocks/ores/sal_ammoniac.json
 9148832ee4e83df2b37e23918707fd8046f26ff7 data/c/tags/blocks/ores_in_ground/deepslate.json
 f8295983ffdb0c42c6c8b12788a5b63c1eb43f72 data/c/tags/blocks/ores_in_ground/stone.json
-04abd356cb9b230f4d1adcf90db05571e8a17d05 data/forge/tags/blocks/ores/sal_ammoniac.json
-0fcdb0064991d93ee3af5633b952de0970a4b669 data/minecraft/tags/blocks/mineable/pickaxe.json
-0fcdb0064991d93ee3af5633b952de0970a4b669 data/minecraft/tags/blocks/needs_stone_tool.json
+2a6db3eadd0ca532bb90db84dde920e689ea0e24 data/minecraft/tags/blocks/mineable/pickaxe.json
+2a6db3eadd0ca532bb90db84dde920e689ea0e24 data/minecraft/tags/blocks/needs_stone_tool.json
 c293a359bdae29f60dd49d3fa1e744837bd81a24 data/theurgy/tags/blocks/divination_rod_t1_allowed_blocks.json
 35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/theurgy/tags/blocks/divination_rod_t1_disallowed_blocks.json
 4510d4c0f37352bc142aba37200b2018ae414017 data/theurgy/tags/blocks/divination_rod_t2_allowed_blocks.json

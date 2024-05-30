@@ -2,27 +2,27 @@
   "values": [
     "#c:ingots/gold",
     {
-      "id": "#forge:ingots/uranium",
+      "id": "#c:ingots/uranium",
       "required": false
     },
     {
-      "id": "#forge:ingots/silver",
+      "id": "#c:ingots/silver",
       "required": false
     },
     {
-      "id": "#forge:ingots/azure_silver",
+      "id": "#c:ingots/azure_silver",
       "required": false
     },
     {
-      "id": "#forge:ingots/iridium",
+      "id": "#c:ingots/iridium",
       "required": false
     },
     {
-      "id": "#forge:ingots/crimson_iron",
+      "id": "#c:ingots/crimson_iron",
       "required": false
     },
     {
-      "id": "#forge:ingots/platinum",
+      "id": "#c:ingots/platinum",
       "required": false
     }
   ]

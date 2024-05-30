@@ -1,16 +1,18 @@
 {
   "type": "theurgy:reformation",
   "category": "misc",
-  "mercury_flux": 100,
   "result": {
+    "type": "theurgy:item",
     "count": 1,
-    "item": "theurgy:alchemical_sulfur_metals_common"
+    "id": "theurgy:alchemical_sulfur_metals_common"
   },
   "sources": [
     {
+      "count": 1,
       "item": "theurgy:alchemical_sulfur_other_minerals_common"
     },
     {
+      "count": 1,
       "item": "theurgy:alchemical_sulfur_other_minerals_common"
     }
   ],

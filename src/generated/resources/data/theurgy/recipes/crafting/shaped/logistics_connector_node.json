@@ -19,6 +19,6 @@
   ],
   "result": {
     "count": 3,
-    "item": "theurgy:logistics_connector_node"
+    "id": "theurgy:logistics_connector_node"
   }
 }

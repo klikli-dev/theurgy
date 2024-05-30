@@ -2,7 +2,7 @@
   "type": "theurgy:digestion",
   "category": "misc",
   "fluid": {
-    "tag": "theurgy:sal_ammoniac"
+    "fluid": "theurgy:sal_ammoniac"
   },
   "fluidAmount": 50,
   "ingredients": [
@@ -12,8 +12,9 @@
     }
   ],
   "result": {
+    "type": "theurgy:item",
     "count": 4,
-    "item": "theurgy:alchemical_sulfur_metals_rare"
+    "id": "theurgy:alchemical_sulfur_metals_rare"
   },
   "time": 1000
 }

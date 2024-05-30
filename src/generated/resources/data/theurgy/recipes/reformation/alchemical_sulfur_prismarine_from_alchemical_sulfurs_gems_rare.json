@@ -1,5 +1,7 @@
 {
-  "neoforge:conditions": [
+  "type": "theurgy:reformation",
+  "category": "misc",
+  "conditions": [
     {
       "type": "neoforge:not",
       "value": {
@@ -8,15 +10,14 @@
       }
     }
   ],
-  "type": "theurgy:reformation",
-  "category": "misc",
-  "mercury_flux": 150,
   "result": {
+    "type": "theurgy:item",
     "count": 1,
-    "item": "theurgy:alchemical_sulfur_prismarine"
+    "id": "theurgy:alchemical_sulfur_prismarine"
   },
   "sources": [
     {
+      "count": 1,
       "tag": "theurgy:alchemical_sulfurs/gems/rare"
     }
   ],

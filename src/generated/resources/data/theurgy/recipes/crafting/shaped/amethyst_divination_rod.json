@@ -18,16 +18,10 @@
     "R  "
   ],
   "result": {
+    "components": {
+      "theurgy:divination_linked_block": "minecraft:budding_amethyst"
+    },
     "count": 1,
-    "item": "theurgy:amethyst_divination_rod",
-    "nbt": {
-      "theurgy:divination.linked_block_id": "minecraft:budding_amethyst",
-      "theurgy:divination.setting.allowed_blocks_tag": "theurgy:divination_rod_t1_allowed_blocks",
-      "theurgy:divination.setting.disallowed_blocks_tag": "theurgy:divination_rod_t1_disallowed_blocks",
-      "theurgy:divination.setting.duration": 40,
-      "theurgy:divination.setting.max_damage": 16,
-      "theurgy:divination.setting.range": 96,
-      "theurgy:divination.setting.tier": "STONE"
-    }
+    "id": "theurgy:amethyst_divination_rod"
   }
 }

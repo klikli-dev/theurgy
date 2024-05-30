@@ -2,12 +2,12 @@
   "type": "theurgy:digestion",
   "category": "misc",
   "fluid": {
-    "tag": "theurgy:sal_ammoniac"
+    "fluid": "theurgy:sal_ammoniac"
   },
   "fluidAmount": 15,
   "ingredients": [
     {
-      "count": 4,
+      "count": 1,
       "item": "theurgy:alchemical_sulfur_gems_common"
     },
     {
@@ -16,8 +16,9 @@
     }
   ],
   "result": {
+    "type": "theurgy:item",
     "count": 1,
-    "item": "theurgy:alchemical_sulfur_gems_rare"
+    "id": "theurgy:alchemical_sulfur_gems_rare"
   },
   "time": 1000
 }

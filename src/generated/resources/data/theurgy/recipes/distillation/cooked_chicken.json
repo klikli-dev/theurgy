@@ -2,12 +2,13 @@
   "type": "theurgy:distillation",
   "category": "misc",
   "ingredient": {
+    "count": 1,
     "item": "minecraft:cooked_chicken"
   },
-  "ingredientCount": 1,
   "result": {
+    "type": "theurgy:item",
     "count": 1,
-    "item": "theurgy:mercury_shard"
+    "id": "theurgy:mercury_shard"
   },
   "time": 100
 }

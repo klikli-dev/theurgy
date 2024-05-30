@@ -1,5 +1,7 @@
 {
-  "neoforge:conditions": [
+  "type": "theurgy:liquefaction",
+  "category": "misc",
+  "conditions": [
     {
       "type": "neoforge:not",
       "value": {
@@ -8,21 +10,17 @@
       }
     }
   ],
-  "type": "theurgy:liquefaction",
-  "category": "misc",
   "ingredient": {
     "tag": "c:raw_materials/unobtainium"
   },
   "result": {
+    "type": "theurgy:item",
     "count": 3,
-    "item": "theurgy:alchemical_sulfur_unobtainium",
-    "nbt": {
-      "theurgy:sulfur.source.id": "#c:raw_materials/unobtainium"
-    }
+    "id": "theurgy:alchemical_sulfur_unobtainium"
   },
   "solvent": {
     "fluid": "theurgy:sal_ammoniac"
   },
-  "solvent_amount": 100,
+  "solventAmount": 100,
   "time": 100
 }

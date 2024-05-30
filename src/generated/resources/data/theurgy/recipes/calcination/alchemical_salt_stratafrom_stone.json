@@ -1,5 +1,7 @@
 {
-  "neoforge:conditions": [
+  "type": "theurgy:calcination",
+  "category": "misc",
+  "conditions": [
     {
       "type": "neoforge:not",
       "value": {
@@ -8,15 +10,14 @@
       }
     }
   ],
-  "type": "theurgy:calcination",
-  "category": "misc",
   "ingredient": {
     "tag": "c:stones"
   },
-  "ingredientCount": 1,
+  "ingredientCount": -1,
   "result": {
+    "type": "theurgy:item",
     "count": 1,
-    "item": "theurgy:alchemical_salt_strata"
+    "id": "theurgy:alchemical_salt_strata"
   },
   "time": 100
 }

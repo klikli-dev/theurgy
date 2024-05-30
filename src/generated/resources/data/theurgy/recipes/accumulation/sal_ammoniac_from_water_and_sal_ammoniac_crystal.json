@@ -1,6 +1,22 @@
 {
   "type": "theurgy:accumulation",
   "category": "misc",
+  "conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "minecraft:water"
+      }
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:gems/sal_ammoniac"
+      }
+    }
+  ],
   "evaporant": {
     "tag": "minecraft:water"
   },

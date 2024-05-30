@@ -1,5 +1,7 @@
 {
-  "neoforge:conditions": [
+  "type": "theurgy:distillation",
+  "category": "misc",
+  "conditions": [
     {
       "type": "neoforge:not",
       "value": {
@@ -8,15 +10,14 @@
       }
     }
   ],
-  "type": "theurgy:distillation",
-  "category": "misc",
   "ingredient": {
+    "count": 3,
     "tag": "c:dyes"
   },
-  "ingredientCount": 3,
   "result": {
+    "type": "theurgy:item",
     "count": 1,
-    "item": "theurgy:mercury_shard"
+    "id": "theurgy:mercury_shard"
   },
   "time": 100
 }

@@ -1,13 +1,14 @@
 {
   "type": "theurgy:reformation",
   "category": "misc",
-  "mercury_flux": 150,
   "result": {
+    "type": "theurgy:item",
     "count": 1,
-    "item": "theurgy:alchemical_sulfur_sapphire"
+    "id": "theurgy:alchemical_sulfur_sapphire"
   },
   "sources": [
     {
+      "count": 1,
       "item": "theurgy:alchemical_sulfur_gems_rare"
     }
   ],

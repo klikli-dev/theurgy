@@ -1,5 +1,7 @@
 {
-  "neoforge:conditions": [
+  "type": "theurgy:incubation",
+  "category": "misc",
+  "conditions": [
     {
       "type": "neoforge:not",
       "value": {
@@ -8,19 +10,21 @@
       }
     }
   ],
-  "type": "theurgy:incubation",
-  "category": "misc",
   "mercury": {
+    "count": 1,
     "item": "theurgy:mercury_shard"
   },
   "result": {
+    "type": "theurgy:tag",
     "count": 1,
     "tag": "c:gems/amethyst"
   },
   "salt": {
+    "count": 1,
     "item": "theurgy:alchemical_salt_mineral"
   },
   "sulfur": {
+    "count": 1,
     "item": "theurgy:alchemical_sulfur_amethyst"
   },
   "time": 100

@@ -4,7 +4,6 @@
 
 package com.klikli_dev.theurgy.datagen.recipe;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.content.recipe.DistillationRecipe;
@@ -17,6 +16,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.neoforged.neoforge.common.Tags;
 
@@ -94,21 +94,12 @@ public class DistillationRecipeProvider extends JsonRecipeProvider {
     }
 
     public void makeMercuryShardRecipe(String recipeName, int resultCount, TagKey<Item> ingredient, int ingredientCount, int distillationTime) {
-
-        var recipe = this.makeRecipeJson(
-                this.makeTagIngredient(ingredient.location()),
-                ingredientCount,
-                this.makeItemResult(this.locFor(ItemRegistry.MERCURY_SHARD.get()), resultCount), distillationTime);
-
-        var conditions = new JsonArray();
-        conditions.add(this.makeTagNotEmptyCondition(ingredient.location().toString()));
-        recipe.add("neoforge:conditions", conditions);
-
         this.recipeConsumer.accept(
                 this.modLoc(recipeName),
-                recipe
-        );
-
+                new Builder(new ItemStack(ItemRegistry.MERCURY_SHARD.get(), resultCount))
+                        .ingredient(ingredient, ingredientCount)
+                        .time(distillationTime)
+                        .build());
     }
 
     public void makeMercuryShardRecipe(int resultCount, Item ingredient, int ingredientCount) {
@@ -122,25 +113,22 @@ public class DistillationRecipeProvider extends JsonRecipeProvider {
     public void makeMercuryShardRecipe(String recipeName, int resultCount, Item ingredient, int ingredientCount, int distillationTime) {
         this.recipeConsumer.accept(
                 this.modLoc(recipeName),
-                this.makeRecipeJson(
-                        this.makeItemIngredient(this.locFor(ingredient)),
-                        ingredientCount,
-                        this.makeItemResult(this.locFor(ItemRegistry.MERCURY_SHARD.get()), resultCount), distillationTime));
-
-    }
-
-    public JsonObject makeRecipeJson(JsonObject ingredient, int ingredientCount, JsonObject result, int distillationTime) {
-        var recipe = new JsonObject();
-        recipe.addProperty("type", RecipeTypeRegistry.DISTILLATION.getId().toString());
-        recipe.add("ingredient", ingredient);
-        recipe.addProperty("ingredientCount", ingredientCount);
-        recipe.add("result", result);
-        recipe.addProperty("time", distillationTime);
-        return recipe;
+                new Builder(new ItemStack(ItemRegistry.MERCURY_SHARD.get(), resultCount))
+                        .ingredient(ingredient, ingredientCount)
+                        .time(distillationTime)
+                        .build());
     }
 
     @Override
     public String getName() {
         return "Distillation Recipes";
+    }
+
+    protected static class Builder extends RecipeBuilder<Builder> {
+        protected Builder(ItemStack result) {
+            super(RecipeTypeRegistry.DISTILLATION);
+            this.result(result);
+            this.time(TIME);
+        }
     }
 }

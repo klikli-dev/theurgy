@@ -40,13 +40,13 @@ public class CalcinationRecipeProvider extends JsonRecipeProvider {
         this.makeRecipe("from_gravel", new Builder(SaltRegistry.STRATA).ingredient(Items.GRAVEL));
         this.makeRecipe("from_clay", new Builder(SaltRegistry.STRATA, 4).ingredient(Items.CLAY));
         this.makeRecipe("from_clay_ball", new Builder(SaltRegistry.STRATA).ingredient(Items.CLAY_BALL));
-        this.makeRecipe("from_ores", new Builder(SaltRegistry.STRATA).ingredient(Tags.Items.ORES));
-        this.makeRecipe("from_raw_materials", new Builder(SaltRegistry.STRATA).ingredient(Tags.Items.RAW_MATERIALS));
-        this.makeRecipe("from_ingots", new Builder(SaltRegistry.STRATA, 2).ingredient(Tags.Items.INGOTS));
-        this.makeRecipe("from_gems", new Builder(SaltRegistry.STRATA, 2).ingredient(Tags.Items.GEMS));
-        this.makeRecipe("from_other_minerals", new Builder(SaltRegistry.STRATA, 2).ingredient(ItemTagRegistry.OTHER_MINERALS));
-        this.makeRecipe("", new Builder(SaltRegistry.STRATA).ingredient(Tags.Items.CROPS));
-        this.makeRecipe("", new Builder(SaltRegistry.STRATA).ingredient(SaltRegistry.STRATA.get(), 20));
+        this.makeRecipe("from_ores", new Builder(SaltRegistry.MINERAL).ingredient(Tags.Items.ORES));
+        this.makeRecipe("from_raw_materials", new Builder(SaltRegistry.MINERAL).ingredient(Tags.Items.RAW_MATERIALS));
+        this.makeRecipe("from_ingots", new Builder(SaltRegistry.MINERAL, 2).ingredient(Tags.Items.INGOTS));
+        this.makeRecipe("from_gems", new Builder(SaltRegistry.MINERAL, 2).ingredient(Tags.Items.GEMS));
+        this.makeRecipe("from_other_minerals", new Builder(SaltRegistry.MINERAL, 2).ingredient(ItemTagRegistry.OTHER_MINERALS));
+        this.makeRecipe("", new Builder(SaltRegistry.MINERAL).ingredient(SaltRegistry.STRATA.get(), 20));
+        this.makeRecipe("", new Builder(SaltRegistry.CROPS).ingredient(Tags.Items.CROPS));
     }
 
 

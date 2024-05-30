@@ -4,18 +4,19 @@
 
 package com.klikli_dev.theurgy.datagen.recipe;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.content.item.salt.AlchemicalSaltItem;
 import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurItem;
 import com.klikli_dev.theurgy.content.recipe.IncubationRecipe;
+import com.klikli_dev.theurgy.content.recipe.result.RecipeResult;
 import com.klikli_dev.theurgy.registry.*;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.neoforged.neoforge.common.Tags;
 
@@ -91,16 +92,12 @@ public class IncubationRecipeProvider extends JsonRecipeProvider {
     }
 
     public void makeRecipe(String recipeName, TagKey<Item> result, int resultCount, Item mercury, AlchemicalSaltItem salt, AlchemicalSulfurItem sulfur, int incubationTime) {
-
-        var recipe = this.makeRecipeJson(
-                this.makeItemIngredient(this.locFor(mercury)),
-                this.makeItemIngredient(this.locFor(salt)),
-                this.makeItemIngredient(this.locFor(sulfur)),
-                this.makeTagResult(this.locFor(result), resultCount), incubationTime);
-
-        var conditions = new JsonArray();
-        conditions.add(this.makeTagNotEmptyCondition(result.location().toString()));
-        recipe.add("neoforge:conditions", conditions);
+        var recipe = new Builder(RecipeResult.of(result, resultCount))
+                .mercury(mercury)
+                .salt(salt)
+                .sulfur(sulfur)
+                .time(incubationTime)
+                .build();
 
         this.recipeConsumer.accept(
                 this.modLoc(recipeName),
@@ -125,14 +122,17 @@ public class IncubationRecipeProvider extends JsonRecipeProvider {
     }
 
     public void makeRecipe(String recipeName, Item result, int resultCount, Item mercury, AlchemicalSaltItem salt, AlchemicalSulfurItem sulfur, int incubationTime) {
+        var recipe = new Builder(RecipeResult.of(new ItemStack(result, resultCount)))
+                .mercury(mercury)
+                .salt(salt)
+                .sulfur(sulfur)
+                .time(incubationTime)
+                .build();
+
         this.recipeConsumer.accept(
                 this.modLoc(recipeName),
-                this.makeRecipeJson(
-                        this.makeItemIngredient(this.locFor(mercury)),
-                        this.makeItemIngredient(this.locFor(salt)),
-                        this.makeItemIngredient(this.locFor(sulfur)),
-                        this.makeItemResult(this.locFor(result), resultCount), incubationTime));
-
+                recipe
+        );
     }
 
     public JsonObject makeRecipeJson(JsonObject mercury, JsonObject salt, JsonObject sulfur, JsonObject result, int incubationTime) {
@@ -149,5 +149,25 @@ public class IncubationRecipeProvider extends JsonRecipeProvider {
     @Override
     public String getName() {
         return "Incubation Recipes";
+    }
+
+    protected static class Builder extends RecipeBuilder<Builder> {
+        protected Builder(RecipeResult result) {
+            super(RecipeTypeRegistry.INCUBATION);
+            this.result(result);
+            this.time(TIME);
+        }
+
+        public Builder salt(AlchemicalSaltItem item) {
+            return this.ingredient("salt", new ItemStack(item, 1));
+        }
+
+        public Builder mercury(Item item) {
+            return this.ingredient("mercury", new ItemStack(item, 1));
+        }
+
+        public Builder sulfur(AlchemicalSulfurItem item) {
+            return this.ingredient("sulfur", new ItemStack(item, 1));
+        }
     }
 }

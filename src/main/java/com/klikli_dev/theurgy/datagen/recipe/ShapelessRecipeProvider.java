@@ -82,7 +82,7 @@ public class ShapelessRecipeProvider extends JsonRecipeProvider {
         }
 
         public ShapelessRecipeBuilder(ItemLike result, int count) {
-            this(result, count, null);
+            this(result, count, DataComponentPatch.EMPTY);
         }
 
         public ShapelessRecipeBuilder(ItemLike result, int count, DataComponentPatch patch) {

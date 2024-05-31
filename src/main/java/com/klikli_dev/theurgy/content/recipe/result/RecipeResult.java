@@ -4,34 +4,37 @@
 
 package com.klikli_dev.theurgy.content.recipe.result;
 
-import com.mojang.datafixers.util.Either;
+import com.klikli_dev.theurgy.registry.TheurgyRegistries;
 import com.mojang.serialization.Codec;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.util.ExtraCodecs;
+import net.minecraft.core.component.DataComponentPatch;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 
 public abstract class RecipeResult {
-    public static final Codec<RecipeResult> CODEC = ExtraCodecs.xor(ItemRecipeResult.CODEC, TagRecipeResult.CODEC)
-            .xmap(first -> first.map(l -> l, r -> r), second -> {
-                if (second instanceof TagRecipeResult tag) {
-                    return Either.right(tag);
-                } else if (second instanceof ItemRecipeResult item) {
-                    return Either.left(item);
-                } else {
-                    throw new UnsupportedOperationException("This is neither an ItemRecipeResult nor a TagRecipeResult.");
-                }
-            });
 
-    public static RecipeResult fromNetwork(FriendlyByteBuf pBuffer) {
-        var type = pBuffer.readByte();
-        if (type == ItemRecipeResult.TYPE) {
-            return ItemRecipeResult.fromNetwork(pBuffer);
-        } else if (type == TagRecipeResult.TYPE) {
-            return TagRecipeResult.fromNetwork(pBuffer);
-        } else {
-            throw new IllegalArgumentException("Unknown recipe result type: " + type);
-        }
+    public static final Codec<RecipeResult> CODEC = TheurgyRegistries.RECIPE_RESULT_TYPES.byNameCodec().dispatch(RecipeResult::getType, RecipeResultType::codec);
+
+    public static final StreamCodec<RegistryFriendlyByteBuf, RecipeResult> STREAM_CODEC = ByteBufCodecs.registry(TheurgyRegistries.Keys.RECIPE_RESULT_TYPES).dispatch(RecipeResult::getType, RecipeResultType::streamCodec);
+
+    public static RecipeResult of(ItemStack stack) {
+        return new ItemRecipeResult(stack);
+    }
+
+    public static RecipeResult of(TagKey<Item> tag) {
+        return new TagRecipeResult(tag, 1);
+    }
+
+    public static RecipeResult of(TagKey<Item> tag, int count) {
+        return new TagRecipeResult(tag, count);
+    }
+
+    public static RecipeResult of(TagKey<Item> tag, int count, DataComponentPatch patch) {
+        return new TagRecipeResult(tag, count, patch);
     }
 
     /**
@@ -44,9 +47,5 @@ public abstract class RecipeResult {
      */
     public abstract ItemStack[] getStacks();
 
-    public abstract byte getType();
-
-    public void toNetwork(FriendlyByteBuf pBuffer) {
-        pBuffer.writeByte(this.getType());
-    }
+    public abstract RecipeResultType<?> getType();
 }

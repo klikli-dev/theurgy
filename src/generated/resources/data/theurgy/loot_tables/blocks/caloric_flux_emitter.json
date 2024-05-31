@@ -13,13 +13,9 @@
           "type": "minecraft:item",
           "functions": [
             {
-              "function": "minecraft:copy_nbt",
-              "ops": [
-                {
-                  "op": "replace",
-                  "source": "mercuryFluxStorage",
-                  "target": "BlockEntityTag.mercuryFluxStorage"
-                }
+              "function": "minecraft:copy_components",
+              "include": [
+                "theurgy:mercury_flux_storage"
               ],
               "source": "block_entity"
             }

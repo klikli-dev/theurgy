@@ -7,6 +7,7 @@ package com.klikli_dev.theurgy.content.apparatus.distiller;
 import com.klikli_dev.theurgy.content.behaviour.storage.StorageBehaviour;
 import com.klikli_dev.theurgy.content.storage.MonitoredItemStackHandler;
 import com.klikli_dev.theurgy.content.storage.PreventInsertWrapper;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -43,25 +44,25 @@ public class DistillationStorageBehaviour extends StorageBehaviour<DistillationS
     }
 
     @Override
-    public void readNetwork(CompoundTag pTag) {
-        if (pTag.contains("inputInventory")) this.inputInventory.deserializeNBT(pTag.getCompound("inputInventory"));
-        if (pTag.contains("outputInventory")) this.outputInventory.deserializeNBT(pTag.getCompound("outputInventory"));
+    public void readNetwork(CompoundTag pTag, HolderLookup.Provider pRegistries) {
+        if (pTag.contains("inputInventory")) this.inputInventory.deserializeNBT(pRegistries, pTag.getCompound("inputInventory"));
+        if (pTag.contains("outputInventory")) this.outputInventory.deserializeNBT(pRegistries, pTag.getCompound("outputInventory"));
     }
 
     @Override
-    public void writeNetwork(CompoundTag pTag) {
-        pTag.put("inputInventory", this.inputInventory.serializeNBT());
-        pTag.put("outputInventory", this.outputInventory.serializeNBT());
+    public void writeNetwork(CompoundTag pTag, HolderLookup.Provider pRegistries) {
+        pTag.put("inputInventory", this.inputInventory.serializeNBT(pRegistries));
+        pTag.put("outputInventory", this.outputInventory.serializeNBT(pRegistries));
     }
 
     @Override
-    public void saveAdditional(CompoundTag pTag) {
-        this.writeNetwork(pTag);
+    public void saveAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
+        this.writeNetwork(pTag, pRegistries);
     }
 
     @Override
-    public void load(CompoundTag pTag) {
-        this.readNetwork(pTag);
+    public void loadAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
+        this.readNetwork(pTag, pRegistries);
     }
 
     public class InputInventory extends MonitoredItemStackHandler {

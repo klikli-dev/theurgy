@@ -1,16 +1,16 @@
 {
   "values": [
-    "#forge:ingots/netherite",
+    "#c:ingots/netherite",
     {
-      "id": "#forge:ingots/allthemodium",
+      "id": "#c:ingots/allthemodium",
       "required": false
     },
     {
-      "id": "#forge:ingots/unobtainium",
+      "id": "#c:ingots/unobtainium",
       "required": false
     },
     {
-      "id": "#forge:ingots/vibranium",
+      "id": "#c:ingots/vibranium",
       "required": false
     }
   ]

@@ -8,6 +8,7 @@ import com.klikli_dev.theurgy.content.behaviour.crafting.CraftingBehaviour;
 import com.klikli_dev.theurgy.content.capability.MercuryFluxStorage;
 import com.klikli_dev.theurgy.content.recipe.CatalysationRecipe;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
@@ -43,7 +44,7 @@ public class MercuryCatalystCraftingBehaviour extends CraftingBehaviour<RecipeWr
 
     @Override
     public boolean canProcess(ItemStack stack) {
-        if (ItemHandlerHelper.canItemStacksStack(stack, this.inputInventorySupplier.get().getStackInSlot(0)))
+        if (ItemStack.isSameItemSameComponents(stack, this.inputInventorySupplier.get().getStackInSlot(0)))
             return true; //early out if we are already processing this type of item
 
         var tempInv = new ItemStackHandler(NonNullList.of(ItemStack.EMPTY, stack));
@@ -53,13 +54,13 @@ public class MercuryCatalystCraftingBehaviour extends CraftingBehaviour<RecipeWr
     }
 
     @Override
-    public void saveAdditional(CompoundTag pTag) {
+    public void saveAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
         pTag.putInt("mercuryFluxToConvert", this.mercuryFluxToConvert);
         pTag.putInt("currentMercuryFluxPerTick", this.currentMercuryFluxPerTick);
     }
 
     @Override
-    public void load(CompoundTag pTag) {
+    public void loadAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
         if (pTag.contains("mercuryFluxToConvert"))
             this.mercuryFluxToConvert = pTag.getInt("mercuryFluxToConvert");
 

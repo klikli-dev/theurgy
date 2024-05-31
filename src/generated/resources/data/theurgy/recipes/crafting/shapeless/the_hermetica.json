@@ -6,17 +6,17 @@
       "item": "minecraft:book"
     },
     {
-      "tag": "forge:sand"
+      "tag": "c:sands"
     },
     {
-      "tag": "forge:sand"
+      "tag": "c:sands"
     }
   ],
   "result": {
-    "count": 1,
-    "item": "modonomicon:modonomicon",
-    "nbt": {
+    "components": {
       "modonomicon:book_id": "theurgy:the_hermetica"
-    }
+    },
+    "count": 1,
+    "id": "modonomicon:modonomicon"
   }
 }

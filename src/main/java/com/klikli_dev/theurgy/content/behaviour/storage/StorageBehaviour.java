@@ -5,6 +5,7 @@
 package com.klikli_dev.theurgy.content.behaviour.storage;
 
 import com.klikli_dev.theurgy.util.TetraConsumer;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
@@ -58,13 +59,13 @@ public abstract class StorageBehaviour<S extends StorageBehaviour<?>> {
         return (S) this;
     }
 
-    public abstract void readNetwork(CompoundTag pTag);
+    public abstract void readNetwork(CompoundTag pTag, HolderLookup.Provider pRegistries);
 
-    public abstract void writeNetwork(CompoundTag pTag);
+    public abstract void writeNetwork(CompoundTag pTag, HolderLookup.Provider pRegistries);
 
-    public abstract void saveAdditional(CompoundTag pTag);
+    public abstract void saveAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries);
 
-    public abstract void load(CompoundTag pTag);
+    public abstract void loadAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries);
 
     protected void sendBlockUpdated() {
         if (this.blockEntity.getLevel() != null && !this.blockEntity.getLevel().isClientSide)

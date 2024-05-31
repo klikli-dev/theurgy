@@ -5,15 +5,16 @@
 package com.klikli_dev.theurgy.integration.modonomicon.page.accumulation;
 
 import com.google.gson.JsonObject;
-import com.klikli_dev.modonomicon.book.BookEntry;
 import com.klikli_dev.modonomicon.book.BookTextHolder;
 import com.klikli_dev.modonomicon.book.conditions.BookCondition;
 import com.klikli_dev.modonomicon.book.conditions.BookNoneCondition;
+import com.klikli_dev.modonomicon.book.entries.ContentBookEntry;
 import com.klikli_dev.modonomicon.book.page.BookRecipePage;
 import com.klikli_dev.theurgy.content.recipe.AccumulationRecipe;
 import com.klikli_dev.theurgy.integration.modonomicon.TheurgyModonomiconConstants;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceLocation;
@@ -28,16 +29,16 @@ public class BookAccumulationRecipePage extends BookRecipePage<AccumulationRecip
         super(RecipeTypeRegistry.ACCUMULATION.get(), title1, recipeId1, title2, recipeId2, text, anchor, condition);
     }
 
-    public static BookAccumulationRecipePage fromJson(JsonObject json) {
-        var common = BookRecipePage.commonFromJson(json);
+    public static BookAccumulationRecipePage fromJson(JsonObject json, HolderLookup.Provider provider) {
+        var common = BookRecipePage.commonFromJson(json, provider);
         var anchor = GsonHelper.getAsString(json, "anchor", "");
         var condition = json.has("condition")
-                ? BookCondition.fromJson(json.getAsJsonObject("condition"))
+                ? BookCondition.fromJson(json.getAsJsonObject("condition"), provider)
                 : new BookNoneCondition();
         return new BookAccumulationRecipePage(common.title1(), common.recipeId1(), common.title2(), common.recipeId2(), common.text(), anchor, condition);
     }
 
-    public static BookAccumulationRecipePage fromNetwork(FriendlyByteBuf buffer) {
+    public static BookAccumulationRecipePage fromNetwork(RegistryFriendlyByteBuf buffer) {
         var common = BookRecipePage.commonFromNetwork(buffer);
         var anchor = buffer.readUtf();
         var condition = BookCondition.fromNetwork(buffer);
@@ -50,7 +51,7 @@ public class BookAccumulationRecipePage extends BookRecipePage<AccumulationRecip
     }
 
     @Override
-    public void build(Level level, BookEntry parentEntry, int pageNum) {
+    public void build(Level level, ContentBookEntry parentEntry, int pageNum) {
         //copy from parents parent as we won't be calling super.
         this.parentEntry = parentEntry;
         this.pageNumber = pageNum;
@@ -69,7 +70,7 @@ public class BookAccumulationRecipePage extends BookRecipePage<AccumulationRecip
         if (this.title1.isEmpty()) {
             //use recipe title if we don't have a custom one
             this.title1 = new BookTextHolder(((MutableComponent)
-                    this.recipe1.value().getResult().getDisplayName())
+                    this.recipe1.value().getResult().getHoverName())
                     .withStyle(Style.EMPTY
                             .withBold(true)
                             .withColor(this.getParentEntry().getBook().getDefaultTitleColor())
@@ -78,7 +79,7 @@ public class BookAccumulationRecipePage extends BookRecipePage<AccumulationRecip
 
         if (this.recipe2 != null && this.title2.isEmpty()) {
             //use recipe title if we don't have a custom one
-            this.title2 = new BookTextHolder(((MutableComponent) this.recipe2.value().getResult().getDisplayName())
+            this.title2 = new BookTextHolder(((MutableComponent) this.recipe2.value().getResult().getHoverName())
                     .withStyle(Style.EMPTY
                             .withBold(true)
                             .withColor(this.getParentEntry().getBook().getDefaultTitleColor())

@@ -7,6 +7,7 @@ package com.klikli_dev.theurgy.content.item.mercurialwand;
 import com.klikli_dev.theurgy.content.item.mercurialwand.mode.MercurialWandItemMode;
 import com.klikli_dev.theurgy.content.item.mode.ModeItem;
 import com.klikli_dev.theurgy.content.render.itemhud.ItemHUDProvider;
+import com.klikli_dev.theurgy.registry.DataComponentRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
@@ -29,17 +30,18 @@ public class MercurialWandItem extends Item implements ItemHUDProvider, ModeItem
 
     @Override
     public void changeMode(Player player, ItemStack stack, int shift) {
-        var nextMode = MercurialWandItemMode.getMode(stack).type().next().mode();
-        MercurialWandItemMode.setMode(stack, nextMode);
+        var nextMode = stack.get(DataComponentRegistry.MERCURIAL_WAND_ITEM_MODE.get()).type().next().mode();
+        stack.set(DataComponentRegistry.MERCURIAL_WAND_ITEM_MODE.get(), nextMode);
 
         player.displayClientMessage(nextMode.description(stack, player.level()), true);
     }
 
     @Override
     public void onScroll(Player player, ItemStack stack, int shift) {
-        if (MercurialWandItemMode.getMode(stack).supportsScrollWithRightDown() && DistHelper.isRightPressed()) {
+        var mode = stack.get(DataComponentRegistry.MERCURIAL_WAND_ITEM_MODE.get());
+        if (mode.supportsScrollWithRightDown() && DistHelper.isRightPressed()) {
             //if right mouse button is pressed AND we are in a mode that supports this we perform a sub-scroll.
-            MercurialWandItemMode.getMode(stack).onScrollWithRightDown(player, stack, shift);
+            mode.onScrollWithRightDown(player, stack, shift);
         } else {
             //otherwise we change the mode
             ModeItem.super.onScroll(player, stack, shift);
@@ -49,7 +51,7 @@ public class MercurialWandItem extends Item implements ItemHUDProvider, ModeItem
     @Override
     public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
         var stack = pPlayer.getItemInHand(pUsedHand);
-        var mode = MercurialWandItemMode.getMode(stack);
+        var mode = stack.get(DataComponentRegistry.MERCURIAL_WAND_ITEM_MODE.get());
 
         var result = mode.use(pLevel, pPlayer, pUsedHand);
         if (result.getResult() != InteractionResult.PASS) {
@@ -62,7 +64,7 @@ public class MercurialWandItem extends Item implements ItemHUDProvider, ModeItem
     @Override
     public InteractionResult onItemUseFirst(ItemStack stack, UseOnContext context) {
         //onItemUseFirst is called BEFORE the block so we can interrupt e.g. opening the block inv
-        var mode = MercurialWandItemMode.getMode(stack);
+        var mode = stack.get(DataComponentRegistry.MERCURIAL_WAND_ITEM_MODE.get());
 
         var result = mode.onItemUseFirst(stack, context);
         if (result != InteractionResult.PASS) {
@@ -74,7 +76,7 @@ public class MercurialWandItem extends Item implements ItemHUDProvider, ModeItem
 
     @Override
     public void appendHUDText(Player pPlayer, HitResult pHitResult, ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents) {
-        MercurialWandItemMode.getMode(pStack).appendHUDText(pPlayer, pHitResult, pStack, pLevel, pTooltipComponents);
+        pStack.get(DataComponentRegistry.MERCURIAL_WAND_ITEM_MODE.get()).appendHUDText(pPlayer, pHitResult, pStack, pLevel, pTooltipComponents);
     }
 
     public static class DistHelper {

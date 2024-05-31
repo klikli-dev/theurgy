@@ -5,6 +5,7 @@
 package com.klikli_dev.theurgy.content.apparatus.fermentationvat;
 
 import com.klikli_dev.theurgy.TheurgyConstants;
+import com.klikli_dev.theurgy.content.apparatus.digestionvat.DigestionVatBlockEntity;
 import com.klikli_dev.theurgy.content.behaviour.interaction.GenericVatInteractionBehaviour;
 import com.klikli_dev.theurgy.content.recipe.FermentationRecipe;
 import net.minecraft.ChatFormatting;
@@ -12,21 +13,24 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 
 
 public class FermentationVatInteractionBehaviour extends GenericVatInteractionBehaviour<FermentationRecipe> {
+
     @Override
-    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
+    public ItemInteractionResult useItemOn(ItemStack pStack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHitResult) {
         var blockEntity = pLevel.getBlockEntity(pPos);
 
         if (!(blockEntity instanceof FermentationVatBlockEntity vat))
-            return InteractionResult.PASS;
+            return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 
-        return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
+        return super.useItemOn(pStack, pState, pLevel, pPos, pPlayer, pHand, pHitResult);
     }
 
     @Override

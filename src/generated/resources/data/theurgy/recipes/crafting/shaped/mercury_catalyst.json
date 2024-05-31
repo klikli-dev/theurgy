@@ -3,13 +3,13 @@
   "category": "misc",
   "key": {
     "Q": {
-      "tag": "forge:storage_blocks/quartz"
+      "item": "minecraft:quartz_block"
     },
     "g": {
-      "tag": "forge:ingots/gold"
+      "tag": "c:ingots/gold"
     },
     "i": {
-      "tag": "forge:ingots/iron"
+      "tag": "c:ingots/iron"
     },
     "m": {
       "tag": "theurgy:alchemical_mercuries"
@@ -22,6 +22,6 @@
   ],
   "result": {
     "count": 1,
-    "item": "theurgy:mercury_catalyst"
+    "id": "theurgy:mercury_catalyst"
   }
 }

@@ -18,10 +18,10 @@ import com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron.render.Liqu
 import com.klikli_dev.theurgy.content.apparatus.mercurycatalyst.MercuryCatalystBlock;
 import com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator.render.SalAmmoniacAccumulatorRenderer;
 import com.klikli_dev.theurgy.content.apparatus.salammoniactank.render.SalAmmoniacTankRenderer;
-import com.klikli_dev.theurgy.content.item.salt.AlchemicalSaltItem;
-import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurItem;
 import com.klikli_dev.theurgy.content.item.divinationrod.DivinationRodItem;
 import com.klikli_dev.theurgy.content.item.mode.ModeItem;
+import com.klikli_dev.theurgy.content.item.salt.AlchemicalSaltItem;
+import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurItem;
 import com.klikli_dev.theurgy.content.render.*;
 import com.klikli_dev.theurgy.content.render.itemhud.ItemHUD;
 import com.klikli_dev.theurgy.content.render.outliner.Outliner;
@@ -47,7 +47,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
-import net.neoforged.fml.ModLoadingContext;
+import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
@@ -55,14 +55,12 @@ import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLDedicatedServerSetupEvent;
 import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.client.event.*;
-import net.neoforged.neoforge.client.gui.overlay.VanillaGuiOverlay;
+import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 import net.neoforged.neoforge.client.model.DynamicFluidContainerModel;
 import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.event.TickEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import org.slf4j.Logger;
-import software.bernie.geckolib.GeckoLib;
 
 
 @Mod(Theurgy.MODID)
@@ -72,12 +70,12 @@ public class Theurgy {
 
     public static Theurgy INSTANCE;
 
-    public Theurgy(IEventBus modEventBus) {
+    public Theurgy(IEventBus modEventBus, ModContainer modContainer) {
         INSTANCE = this;
 
-        ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, ServerConfig.get().spec);
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, CommonConfig.get().spec);
-        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ClientConfig.get().spec);
+        modContainer.registerConfig(ModConfig.Type.SERVER, ServerConfig.get().spec);
+        modContainer.registerConfig(ModConfig.Type.COMMON, CommonConfig.get().spec);
+        modContainer.registerConfig(ModConfig.Type.CLIENT, ClientConfig.get().spec);
 
         ItemRegistry.ITEMS.register(modEventBus);
         CreativeModeTabRegistry.CREATIVE_MODE_TABS.register(modEventBus);
@@ -94,13 +92,16 @@ public class Theurgy {
         RecipeSerializerRegistry.RECIPE_SERIALIZERS.register(modEventBus);
         RecipeTypeRegistry.RECIPE_TYPES.register(modEventBus);
         ConditionRegistry.CONDITION_SERIALIZERS.register(modEventBus);
-        IngredientTypeRegistry.INGREDIENT_TYPES.register(modEventBus);
+        RecipeResultRegistry.RECIPE_RESULT_TYPES.register(modEventBus);
+        DataComponentRegistry.DATA_COMPONENTS.register(modEventBus);
 
         modEventBus.addListener(this::onCommonSetup);
         modEventBus.addListener(this::onServerSetup);
         modEventBus.addListener(Networking::register);
 
         modEventBus.addListener(TheurgyDataGenerators::onGatherData);
+
+        modEventBus.addListener(TheurgyRegistries::onRegisterRegistries);
         modEventBus.addListener(SulfurRegistry::onBuildCreativeModTabs);
         modEventBus.addListener(SaltRegistry::onBuildCreativeModTabs);
         modEventBus.addListener(CapabilityRegistry::onRegisterCapabilities);
@@ -131,8 +132,6 @@ public class Theurgy {
             NeoForge.EVENT_BUS.addListener(KeyMappingsRegistry::onKeyInput);
             NeoForge.EVENT_BUS.addListener(KeyMappingsRegistry::onMouseInput);
         }
-
-        GeckoLib.initialize(modEventBus);
     }
 
     public static ResourceLocation loc(String path) {
@@ -157,29 +156,23 @@ public class Theurgy {
 
             PageRenderers.onClientSetup(event);
 
-            NeoForge.EVENT_BUS.addListener((TickEvent.ClientTickEvent e) -> {
-                if (e.phase == TickEvent.Phase.END) {
-                    ClientTicks.endClientTick(Minecraft.getInstance());
-                }
+            NeoForge.EVENT_BUS.addListener((ClientTickEvent.Post e) -> {
+                ClientTicks.endClientTick(Minecraft.getInstance());
             });
-            NeoForge.EVENT_BUS.addListener((TickEvent.RenderTickEvent e) -> {
-                if (e.phase == TickEvent.Phase.START) {
-                    ClientTicks.renderTickStart(e.renderTickTime);
-                } else {
-                    ClientTicks.renderTickEnd();
-                }
+            NeoForge.EVENT_BUS.addListener((RenderFrameEvent.Pre e) -> {
+                ClientTicks.renderTickStart(e.getPartialTick());
+
+            });
+            NeoForge.EVENT_BUS.addListener((RenderFrameEvent.Post e) -> {
+                ClientTicks.renderTickEnd();
             });
 
             LOGGER.info("Client setup complete.");
         }
 
-        public static void onClientTick(TickEvent.ClientTickEvent event) {
+        public static void onClientTick(ClientTickEvent.Post event) {
             if (Minecraft.getInstance().level == null || Minecraft.getInstance().player == null)
                 return;
-
-            if (event.phase == TickEvent.Phase.START) {
-                return;
-            }
 
             Outliner.get().tick();
             BlockRegistry.CALORIC_FLUX_EMITTER.get().selectionBehaviour().tick(Minecraft.getInstance().player);
@@ -208,7 +201,7 @@ public class Theurgy {
         }
 
         public static void onRecipesUpdated(RecipesUpdatedEvent event) {
-            //now disable rendering of sulfurs that have no recipe -> otherwise we see "no source" sulfurs in tag recipes
+            //now disable rendering of sulfurs that have no recipe in modonomicon -> otherwise we see "no source" sulfurs in tag recipes
             //See also JeiPlugin.registerRecipes
             var registryAccess = Minecraft.getInstance().level.registryAccess();
             var liquefactionRecipes = event.getRecipeManager().getAllRecipesFor(RecipeTypeRegistry.LIQUEFACTION.get());
@@ -274,8 +267,8 @@ public class Theurgy {
             event.register(MercuryCatalystBlock::getBlockColor, BlockRegistry.MERCURY_CATALYST.get());
         }
 
-        public static void onRegisterGuiOverlays(RegisterGuiOverlaysEvent event) {
-            event.registerAbove(VanillaGuiOverlay.HOTBAR.id(), Theurgy.loc("item_hud"), ItemHUD.get());
+        public static void onRegisterGuiOverlays(RegisterGuiLayersEvent event) {
+            event.registerAbove(VanillaGuiLayers.HOTBAR, Theurgy.loc("item_hud"), ItemHUD.get());
         }
 
         public static void onMouseScrolling(InputEvent.MouseScrollingEvent event) {
@@ -310,13 +303,11 @@ public class Theurgy {
         public static void onLeftClick(PlayerInteractEvent.LeftClickBlock event) {
             if (BlockRegistry.CALORIC_FLUX_EMITTER.get().selectionBehaviour().onLeftClickBlock(event.getLevel(), event.getEntity(), event.getHand(), event.getPos(), event.getFace())) {
                 event.setCanceled(true);
-                event.setCancellationResult(InteractionResult.SUCCESS);
                 return;
             }
 
             if (BlockRegistry.SULFURIC_FLUX_EMITTER.get().selectionBehaviour().onLeftClickBlock(event.getLevel(), event.getEntity(), event.getHand(), event.getPos(), event.getFace())) {
                 event.setCanceled(true);
-                event.setCancellationResult(InteractionResult.SUCCESS);
             }
         }
     }

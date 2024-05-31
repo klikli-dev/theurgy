@@ -1,13 +1,22 @@
 {
   "type": "theurgy:accumulation",
   "category": "misc",
+  "conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "minecraft:water"
+      }
+    }
+  ],
   "evaporant": {
     "tag": "minecraft:water"
   },
   "evaporantAmount": 1000,
   "result": {
-    "Amount": 100,
-    "FluidName": "theurgy:sal_ammoniac"
+    "amount": 100,
+    "id": "theurgy:sal_ammoniac"
   },
   "time": 100
 }

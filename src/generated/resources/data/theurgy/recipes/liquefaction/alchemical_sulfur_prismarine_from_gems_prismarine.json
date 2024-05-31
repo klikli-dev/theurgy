@@ -1,28 +1,26 @@
 {
-  "neoforge:conditions": [
+  "type": "theurgy:liquefaction",
+  "category": "misc",
+  "conditions": [
     {
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:gems/prismarine"
+        "tag": "c:gems/prismarine"
       }
     }
   ],
-  "type": "theurgy:liquefaction",
-  "category": "misc",
   "ingredient": {
-    "tag": "forge:gems/prismarine"
+    "tag": "c:gems/prismarine"
   },
   "result": {
+    "type": "theurgy:item",
     "count": 1,
-    "item": "theurgy:alchemical_sulfur_prismarine",
-    "nbt": {
-      "theurgy:sulfur.source.id": "#forge:gems/prismarine"
-    }
+    "id": "theurgy:alchemical_sulfur_prismarine"
   },
   "solvent": {
     "fluid": "theurgy:sal_ammoniac"
   },
-  "solvent_amount": 10,
+  "solventAmount": 10,
   "time": 100
 }

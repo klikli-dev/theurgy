@@ -5,15 +5,13 @@
     "item": "minecraft:wheat"
   },
   "result": {
+    "type": "theurgy:item",
     "count": 1,
-    "item": "theurgy:alchemical_sulfur_wheat",
-    "nbt": {
-      "theurgy:sulfur.source.id": "minecraft:wheat"
-    }
+    "id": "theurgy:alchemical_sulfur_wheat"
   },
   "solvent": {
     "fluid": "theurgy:sal_ammoniac"
   },
-  "solvent_amount": 10,
+  "solventAmount": 10,
   "time": 100
 }

@@ -99,12 +99,12 @@ public class WireRenderer {
 
                 vertexBuilder.vertex(fourMatrix, (float) firstPoint.x(), (float) firstPoint.y(), (float) firstPoint.z())
                         .color(0, 0, 0, 255)
-                        .normal(poseStack.last().normal(), (float) normal.x(), (float) normal.y(), (float) normal.z())
+                        .normal(poseStack.last(), (float) normal.x(), (float) normal.y(), (float) normal.z())
                         .endVertex();
 
                 vertexBuilder.vertex(fourMatrix, (float) secondPoint.x(), (float) secondPoint.y(), (float) secondPoint.z())
                         .color(0, 0, 0, 255)
-                        .normal(poseStack.last().normal(), (float) reverseNormal.x(), (float) reverseNormal.y(), (float) reverseNormal.z())
+                        .normal(poseStack.last(), (float) reverseNormal.x(), (float) reverseNormal.y(), (float) reverseNormal.z())
                         .endVertex();
             }
             poseStack.popPose();

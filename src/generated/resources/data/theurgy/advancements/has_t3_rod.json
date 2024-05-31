@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "theurgy:divination_rod_t3"
-            ]
+            "items": "theurgy:divination_rod_t3"
           }
         ]
       },

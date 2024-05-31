@@ -3,13 +3,13 @@
   "category": "misc",
   "key": {
     "I": {
-      "tag": "forge:ingots/iron"
+      "tag": "c:ingots/iron"
     },
     "R": {
-      "tag": "forge:rods/wooden"
+      "tag": "c:rods/wooden"
     },
     "S": {
-      "tag": "forge:stone"
+      "tag": "c:stones"
     }
   },
   "pattern": [
@@ -19,6 +19,6 @@
   ],
   "result": {
     "count": 1,
-    "item": "theurgy:sal_ammoniac_accumulator"
+    "id": "theurgy:sal_ammoniac_accumulator"
   }
 }

@@ -8,11 +8,16 @@ import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.registry.RecipeSerializerRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
@@ -25,11 +30,21 @@ import net.neoforged.neoforge.items.wrapper.RecipeWrapper;
 public class CatalysationRecipe implements Recipe<RecipeWrapper> {
     public static final int DEFAULT_MERCURY_FLUX_PER_TICK = 20;
 
-    public static final Codec<CatalysationRecipe> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+    public static final MapCodec<CatalysationRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
                     Ingredient.CODEC.fieldOf("ingredient").forGetter(r -> r.ingredient),
                     Codec.INT.fieldOf("totalMercuryFlux").forGetter(r -> r.totalMercuryFlux),
                     Codec.INT.fieldOf("mercuryFluxPerTick").forGetter(r -> r.mercuryFluxPerTick)
             ).apply(instance, CatalysationRecipe::new)
+    );
+
+    public static final StreamCodec<RegistryFriendlyByteBuf, CatalysationRecipe> STREAM_CODEC = StreamCodec.composite(
+            Ingredient.CONTENTS_STREAM_CODEC,
+            r -> r.ingredient,
+            ByteBufCodecs.INT,
+            r -> r.totalMercuryFlux,
+            ByteBufCodecs.INT,
+            r -> r.mercuryFluxPerTick,
+            CatalysationRecipe::new
     );
     protected final Ingredient ingredient;
 
@@ -74,7 +89,7 @@ public class CatalysationRecipe implements Recipe<RecipeWrapper> {
     }
 
     @Override
-    public ItemStack assemble(RecipeWrapper pContainer, RegistryAccess pRegistryAccess) {
+    public ItemStack assemble(RecipeWrapper pCraftingContainer, HolderLookup.Provider pRegistries) {
         return ItemStack.EMPTY;
     }
 
@@ -84,7 +99,7 @@ public class CatalysationRecipe implements Recipe<RecipeWrapper> {
     }
 
     @Override
-    public ItemStack getResultItem(RegistryAccess registryAccess) {
+    public ItemStack getResultItem(HolderLookup.Provider pRegistries) {
         return ItemStack.EMPTY;
     }
 
@@ -107,20 +122,13 @@ public class CatalysationRecipe implements Recipe<RecipeWrapper> {
     public static class Serializer implements RecipeSerializer<CatalysationRecipe> {
 
         @Override
-        public Codec<CatalysationRecipe> codec() {
+        public MapCodec<CatalysationRecipe> codec() {
             return CODEC;
         }
 
         @Override
-        public CatalysationRecipe fromNetwork(FriendlyByteBuf pBuffer) {
-            //noinspection deprecation
-            return pBuffer.readWithCodecTrusted(NbtOps.INSTANCE, CODEC);
-        }
-
-        @Override
-        public void toNetwork(FriendlyByteBuf pBuffer, CatalysationRecipe pRecipe) {
-            //noinspection deprecation
-            pBuffer.writeWithCodec(NbtOps.INSTANCE, CODEC, pRecipe);
+        public StreamCodec<RegistryFriendlyByteBuf, CatalysationRecipe> streamCodec() {
+            return STREAM_CODEC;
         }
     }
 }

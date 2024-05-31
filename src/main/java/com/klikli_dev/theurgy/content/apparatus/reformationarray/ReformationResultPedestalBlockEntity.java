@@ -10,6 +10,7 @@ import com.klikli_dev.theurgy.content.storage.MonitoredItemStackHandler;
 import com.klikli_dev.theurgy.content.storage.PreventInsertWrapper;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.Packet;
@@ -73,29 +74,29 @@ public class ReformationResultPedestalBlockEntity extends BlockEntity {
 
 
     @Override
-    protected void saveAdditional(CompoundTag pTag) {
-        super.saveAdditional(pTag);
+    protected void saveAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
+        super.saveAdditional(pTag, pRegistries);
 
-        this.writeNetwork(pTag);
+        this.writeNetwork(pTag, pRegistries);
     }
 
     @Override
-    public void load(CompoundTag pTag) {
-        super.load(pTag);
+    public void loadAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
+        super.loadAdditional(pTag, pRegistries);
 
-        this.readNetwork(pTag);
+        this.readNetwork(pTag, pRegistries);
     }
 
     @Override
-    public CompoundTag getUpdateTag() {
+    public CompoundTag getUpdateTag(HolderLookup.Provider pRegistries) {
         var tag = new CompoundTag();
-        this.writeNetwork(tag);
+        this.writeNetwork(tag, pRegistries);
         return tag;
     }
 
     @Override
-    public void handleUpdateTag(CompoundTag tag) {
-        this.readNetwork(tag);
+    public void handleUpdateTag(CompoundTag tag, HolderLookup.Provider pRegistries) {
+        this.readNetwork(tag, pRegistries);
     }
 
     @Nullable
@@ -105,22 +106,22 @@ public class ReformationResultPedestalBlockEntity extends BlockEntity {
     }
 
     @Override
-    public void onDataPacket(Connection connection, ClientboundBlockEntityDataPacket packet) {
+    public void onDataPacket(Connection connection, ClientboundBlockEntityDataPacket packet, HolderLookup.Provider pRegistries) {
         var tag = packet.getTag();
         if (tag != null) {
-            this.readNetwork(tag);
+            this.readNetwork(tag, pRegistries);
         }
     }
 
-    public void readNetwork(CompoundTag pTag) {
+    public void readNetwork(CompoundTag pTag, HolderLookup.Provider pRegistries) {
         if (pTag.contains("showParticles")) this.showParticles = pTag.getBoolean("showParticles");
-        if (pTag.contains("outputInventory")) this.outputInventory.deserializeNBT(pTag.getCompound("outputInventory"));
+        if (pTag.contains("outputInventory")) this.outputInventory.deserializeNBT(pRegistries, pTag.getCompound("outputInventory"));
     }
 
-    public void writeNetwork(CompoundTag pTag) {
+    public void writeNetwork(CompoundTag pTag, HolderLookup.Provider pRegistries) {
         this.showParticles = !this.outputInventory.getStackInSlot(0).isEmpty();
         pTag.putBoolean("showParticles", this.showParticles);
-        pTag.put("outputInventory", this.outputInventory.serializeNBT());
+        pTag.put("outputInventory", this.outputInventory.serializeNBT(pRegistries));
     }
 
     public void sendBlockUpdated() {

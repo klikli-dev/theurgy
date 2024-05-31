@@ -1,28 +1,26 @@
 {
-  "neoforge:conditions": [
+  "type": "theurgy:liquefaction",
+  "category": "misc",
+  "conditions": [
     {
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:ores/emerald"
+        "tag": "c:ores/emerald"
       }
     }
   ],
-  "type": "theurgy:liquefaction",
-  "category": "misc",
   "ingredient": {
-    "tag": "forge:ores/emerald"
+    "tag": "c:ores/emerald"
   },
   "result": {
+    "type": "theurgy:item",
     "count": 4,
-    "item": "theurgy:alchemical_sulfur_emerald",
-    "nbt": {
-      "theurgy:sulfur.source.id": "#forge:ores/emerald"
-    }
+    "id": "theurgy:alchemical_sulfur_emerald"
   },
   "solvent": {
     "fluid": "theurgy:sal_ammoniac"
   },
-  "solvent_amount": 100,
+  "solventAmount": 100,
   "time": 100
 }

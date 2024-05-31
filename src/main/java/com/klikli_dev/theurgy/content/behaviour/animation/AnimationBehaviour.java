@@ -6,9 +6,10 @@ package com.klikli_dev.theurgy.content.behaviour.animation;
 
 import net.minecraft.world.level.block.entity.BlockEntity;
 import software.bernie.geckolib.animatable.GeoBlockEntity;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.animation.AnimationController;
+import software.bernie.geckolib.animation.AnimationState;
+import software.bernie.geckolib.animation.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 public abstract class AnimationBehaviour<T extends BlockEntity & GeoBlockEntity> {

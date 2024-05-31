@@ -42,7 +42,7 @@ public class CatalysationRecipeProvider extends JsonRecipeProvider {
     public JsonObject makeRecipeJson(Ingredient ingredient, int totalMercuryFlux, int mercuryFluxPerTick) {
         var recipe = new CatalysationRecipe(ingredient, totalMercuryFlux, mercuryFluxPerTick);
 
-        var json = CatalysationRecipe.CODEC.encodeStart(JsonOps.INSTANCE, recipe)
+        var json = CatalysationRecipe.CODEC.codec().encodeStart(JsonOps.INSTANCE, recipe)
                 .resultOrPartial(Theurgy.LOGGER::error).get().getAsJsonObject();
         json.addProperty("type", "theurgy:catalysation");
         return json;

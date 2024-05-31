@@ -5,19 +5,22 @@
 package com.klikli_dev.theurgy.content.recipe;
 
 import com.klikli_dev.theurgy.Theurgy;
-import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.config.ServerConfig;
+import com.klikli_dev.theurgy.registry.DataComponentRegistry;
 import com.klikli_dev.theurgy.registry.RecipeSerializerRegistry;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.nbt.NbtOps;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
-import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
@@ -38,38 +41,36 @@ public class DivinationRodRecipe extends ShapedRecipe {
     }
 
     @Override
-    public ItemStack assemble(CraftingContainer pInv, RegistryAccess registryAccess) {
-        var result = this.getResultItem(registryAccess).copy();
+    public ItemStack assemble(CraftingContainer pInv, HolderLookup.Provider pRegistries) {
+        var result = this.getResultItem(pRegistries).copy();
 
-        var resultTag = result.getOrCreateTag();
+        if (result.has(DataComponentRegistry.DIVINATION_LINKED_BLOCK) || result.has(DataComponentRegistry.DIVINATION_LINKED_TAG))
+            return result;
 
-        //if the recipe already has a linked block, we don't need to do the translation stuff.
-        //if that linked block is only a preview (coming from getResultItem(), used mainly for correct display in JEI),
-        // we have to ignore it and translate after all
-        if (!resultTag.contains(TheurgyConstants.Nbt.Divination.LINKED_BLOCK_ID) ||
-                resultTag.getBoolean(TheurgyConstants.Nbt.Divination.LINKED_BLOCK_ID_PREVIEW_MODE)
-        ) {
+        //check pInv for ingredients with sulfur source id, if so, find the appropriate block id based on it and set it on the result item
+        for (int i = 0; i < pInv.getContainerSize(); i++) {
+            var stack = pInv.getItem(i);
+            if (stack.has(DataComponentRegistry.SULFUR_SOURCE_ITEM)) {
+                var sourceItem = stack.get(DataComponentRegistry.SULFUR_SOURCE_ITEM);
+                var sourceItemKey = sourceItem.unwrapKey();
+                if (sourceItemKey.isEmpty())
+                    continue;
 
-            //check pInv for ingredients with sulfur source id, if so, find the appropriate block id based on it and set it on the result item
-            String sourceId = null;
-            for (int i = 0; i < pInv.getContainerSize(); i++) {
-                var stack = pInv.getItem(i);
-                if (stack.hasTag()) {
-                    var tag = stack.getTag();
-                    if (tag.contains(TheurgyConstants.Nbt.SULFUR_SOURCE_ID)) {
-                        sourceId = tag.getString(TheurgyConstants.Nbt.SULFUR_SOURCE_ID);
-                        break;
-                    }
+                var sourceBlock = this.translateToBlock(sourceItem.unwrapKey().get().location().toString());
+
+                if (sourceBlock != null) {
+                    result.set(DataComponentRegistry.DIVINATION_LINKED_BLOCK, BuiltInRegistries.BLOCK.getHolder(new ResourceLocation(sourceBlock)).get());
                 }
+                break;
             }
+            if (stack.has(DataComponentRegistry.SULFUR_SOURCE_TAG)) {
+                var sourceItemTag = stack.get(DataComponentRegistry.SULFUR_SOURCE_TAG);
+                var sourceBlockTag = this.translateTagToBlock(sourceItemTag.location().toString());
 
-            if (sourceId != null) {
-                var translated = sourceId.startsWith("#") ? this.translateTagToBlock(sourceId) : this.translateToBlock(sourceId);
-                if (translated != null) {
-                    resultTag.putString(TheurgyConstants.Nbt.Divination.LINKED_BLOCK_ID, translated);
-                } else {
-                    resultTag.putString(TheurgyConstants.Nbt.Divination.LINKED_BLOCK_ID, sourceId);
+                if (sourceBlockTag != null) {
+                    result.set(DataComponentRegistry.DIVINATION_LINKED_TAG, BlockTags.create(new ResourceLocation(sourceBlockTag)));
                 }
+                break;
             }
         }
 
@@ -86,17 +87,17 @@ public class DivinationRodRecipe extends ShapedRecipe {
         //even though likely not all of these will be used to create sulfur its good to handle them.
 
         //examples:
-        //target is forge:ores/iron
-        //forge:ingots/iron
-        //forge:nuggets/iron
-        //forge:raw_materials/iron
-        //forge:dusts/iron
-        //forge:storage_blocks/iron
-        //forge:gems/iron
+        //target is c:ores/iron
+        //c:ingots/iron
+        //c:nuggets/iron
+        //c:raw_materials/iron
+        //c:dusts/iron
+        //c:storage_blocks/iron
+        //c:gems/iron
 
         //special handling for coal items as they are none of the above
         if (sourceTag.equals("#minecraft:coals"))
-            return "#forge:ores/coal";
+            return "#c:ores/coal";
 
         var parts = sourceTag.split(":");
         var namespace = parts[0];
@@ -182,31 +183,36 @@ public class DivinationRodRecipe extends ShapedRecipe {
     public static class Serializer implements RecipeSerializer<DivinationRodRecipe> {
 
         //copied from ShapedRecipe.Serializer because xMapping it somehow causes a json null thingy error
-        public static final Codec<DivinationRodRecipe> CODEC = RecordCodecBuilder.create(
-                p_311728_ -> p_311728_.group(
-                                ExtraCodecs.strictOptionalField(Codec.STRING, "group", "").forGetter(p_311729_ -> p_311729_.getGroup()),
+        public static final MapCodec<DivinationRodRecipe> CODEC = RecordCodecBuilder.mapCodec(
+                p_340778_ -> p_340778_.group(
+                                Codec.STRING.optionalFieldOf("group", "").forGetter(p_311729_ -> p_311729_.getGroup()),
                                 ShapedRecipePattern.MAP_CODEC.forGetter(p_311733_ -> p_311733_.pattern),
-                                ItemStack.ITEM_WITH_COUNT_CODEC.fieldOf("result").forGetter(p_311730_ -> p_311730_.getResultItem(RegistryAccess.EMPTY)),
-                                ExtraCodecs.strictOptionalField(Codec.BOOL, "show_notification", true).forGetter(p_311731_ -> p_311731_.showNotification())
+                                ItemStack.STRICT_CODEC.fieldOf("result").forGetter(p_311730_ -> p_311730_.getResultItem(RegistryAccess.EMPTY)),
+                                Codec.BOOL.optionalFieldOf("show_notification", true).forGetter(ShapedRecipe::showNotification)
                         )
-                        .apply(p_311728_, DivinationRodRecipe::new)
+                        .apply(p_340778_, DivinationRodRecipe::new)
+        );
+        public static final StreamCodec<RegistryFriendlyByteBuf, DivinationRodRecipe> STREAM_CODEC = StreamCodec.composite(
+                ByteBufCodecs.STRING_UTF8,
+                ShapedRecipe::getGroup,
+                ShapedRecipePattern.STREAM_CODEC,
+                r -> r.pattern,
+                ItemStack.STREAM_CODEC,
+                r -> r.getResultItem(RegistryAccess.EMPTY),
+                ByteBufCodecs.BOOL,
+                ShapedRecipe::showNotification,
+                DivinationRodRecipe::new
         );
 
+
         @Override
-        public Codec<DivinationRodRecipe> codec() {
+        public MapCodec<DivinationRodRecipe> codec() {
             return CODEC;
         }
 
         @Override
-        public DivinationRodRecipe fromNetwork(FriendlyByteBuf pBuffer) {
-            //noinspection deprecation
-            return pBuffer.readWithCodecTrusted(NbtOps.INSTANCE, CODEC);
-        }
-
-        @Override
-        public void toNetwork(FriendlyByteBuf pBuffer, DivinationRodRecipe pRecipe) {
-            //noinspection deprecation
-            pBuffer.writeWithCodec(NbtOps.INSTANCE, CODEC, pRecipe);
+        public StreamCodec<RegistryFriendlyByteBuf, DivinationRodRecipe> streamCodec() {
+            return STREAM_CODEC;
         }
     }
 }

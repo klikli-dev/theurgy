@@ -1,10 +1,12 @@
 {
-  "neoforge:conditions": [
+  "type": "theurgy:digestion",
+  "category": "misc",
+  "conditions": [
     {
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:ingots/gold"
+        "tag": "c:ingots/gold"
       }
     },
     {
@@ -15,16 +17,14 @@
       }
     }
   ],
-  "type": "theurgy:digestion",
-  "category": "misc",
   "fluid": {
-    "tag": "minecraft:water"
+    "fluid": "minecraft:water"
   },
   "fluidAmount": 1000,
   "ingredients": [
     {
       "count": 1,
-      "tag": "forge:ingots/gold"
+      "tag": "c:ingots/gold"
     },
     {
       "count": 1,
@@ -32,8 +32,9 @@
     }
   ],
   "result": {
+    "type": "theurgy:item",
     "count": 20,
-    "item": "theurgy:purified_gold"
+    "id": "theurgy:purified_gold"
   },
   "time": 1000
 }

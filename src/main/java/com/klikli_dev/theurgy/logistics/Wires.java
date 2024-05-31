@@ -12,6 +12,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.SectionPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
@@ -159,7 +160,7 @@ public class Wires extends SavedData {
         }
     }
 
-    public static Wires load(CompoundTag pCompoundTag) {
+    public static Wires load(CompoundTag pCompoundTag, HolderLookup.Provider pRegistries) {
         return CODEC.parse(NbtOps.INSTANCE, pCompoundTag.get(NBT_TAG)).result().orElseThrow();
     }
 
@@ -222,7 +223,7 @@ public class Wires extends SavedData {
     }
 
     @Override
-    public CompoundTag save(CompoundTag pCompoundTag) {
+    public CompoundTag save(CompoundTag pCompoundTag, HolderLookup.Provider pRegistries) {
         pCompoundTag.put(NBT_TAG, CODEC.encodeStart(NbtOps.INSTANCE, this).result().orElseThrow());
         return pCompoundTag;
     }

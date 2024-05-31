@@ -6,7 +6,7 @@
       "tag": "theurgy:alchemical_sulfurs"
     },
     "g": {
-      "tag": "forge:ingots/gold"
+      "tag": "c:ingots/gold"
     },
     "s": {
       "item": "minecraft:blackstone"
@@ -19,6 +19,6 @@
   ],
   "result": {
     "count": 1,
-    "item": "theurgy:reformation_result_pedestal"
+    "id": "theurgy:reformation_result_pedestal"
   }
 }

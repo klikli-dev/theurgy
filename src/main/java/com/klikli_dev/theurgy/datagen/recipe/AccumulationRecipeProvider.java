@@ -17,7 +17,6 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.material.Fluid;
 import net.neoforged.neoforge.fluids.FluidStack;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.function.BiConsumer;
 
@@ -33,46 +32,42 @@ public class AccumulationRecipeProvider extends JsonRecipeProvider {
     public void buildRecipes(BiConsumer<ResourceLocation, JsonObject> recipeConsumer) {
         var salAmmoniac = FluidRegistry.SAL_AMMONIAC.get();
 
-        this.makeRecipe("sal_ammoniac_from_water", salAmmoniac, 100, (Item) null, FluidTags.WATER, 1000, TIME);
-        this.makeRecipe("sal_ammoniac_from_water_and_sal_ammoniac_crystal", salAmmoniac, 1000, ItemTagRegistry.SAL_AMMONIAC_GEMS, FluidTags.WATER, 1000, TIME);
+        this.makeRecipe("sal_ammoniac_from_water",
+                new Builder(new FluidStack(salAmmoniac, 100))
+                        .evaporant(FluidTags.WATER, 1000)
+                        .time(TIME));
+
+        this.makeRecipe("sal_ammoniac_from_water_and_sal_ammoniac_crystal",
+                new Builder(new FluidStack(salAmmoniac, 1000))
+                        .evaporant(FluidTags.WATER, 1000)
+                        .solute(ItemTagRegistry.GEMS_SAL_AMMONIAC)
+                        .time(TIME));
     }
 
-    public void makeRecipe(String name, Fluid result, int resultAmount, @Nullable Item solute, TagKey<Fluid> evaporant, int evaporantAmount, int accumulationTime) {
-        this.recipeConsumer.accept(
-                this.modLoc(name),
-                this.makeRecipeJson(
-                        this.makeFluidTagIngredient(evaporant.location()),
-                        evaporantAmount,
-                        solute != null ? this.makeItemIngredient(this.locFor(solute)) : null,
-                        this.makeFluidResult(new FluidStack(result, resultAmount)), accumulationTime));
-    }
-
-    public void makeRecipe(String name, Fluid result, int resultAmount, @Nullable TagKey<Item> solute, TagKey<Fluid> evaporant, int evaporantAmount, int accumulationTime) {
-        this.recipeConsumer.accept(
-                this.modLoc(name),
-                this.makeRecipeJson(
-                        this.makeFluidTagIngredient(evaporant.location()),
-                        evaporantAmount,
-                        solute != null ? this.makeTagIngredient(solute.location()) : null,
-                        this.makeFluidResult(new FluidStack(result, resultAmount)), accumulationTime));
-    }
-
-    public JsonObject makeRecipeJson(JsonObject evaporant, int evaporantAmount, @Nullable JsonObject solute, JsonObject result, int accumulationTime) {
-
-        var recipe = new JsonObject();
-        recipe.addProperty("type", RecipeTypeRegistry.ACCUMULATION.getId().toString());
-        recipe.add("evaporant", evaporant);
-        recipe.addProperty("evaporantAmount", evaporantAmount);
-        if (solute != null)
-            recipe.add("solute", solute);
-        recipe.add("result", result);
-        recipe.addProperty("time", accumulationTime);
-        return recipe;
+    protected void makeRecipe(String name, Builder recipe) {
+        this.recipeConsumer.accept(this.modLoc(name), recipe.build());
     }
 
 
     @Override
     public String getName() {
         return "Accumulation Recipes";
+    }
+
+
+    protected static class Builder extends RecipeBuilder<Builder> {
+        protected Builder(FluidStack result) {
+            super(RecipeTypeRegistry.ACCUMULATION);
+            this.result(result);
+        }
+
+        public Builder evaporant(TagKey<Fluid> tag, int amount) {
+            this.recipe.addProperty("evaporantAmount", amount);
+            return this.ingredient("evaporant", tag, -1);
+        }
+
+        public Builder solute(TagKey<Item> tag) {
+            return this.ingredient("solute", tag, -1);
+        }
     }
 }

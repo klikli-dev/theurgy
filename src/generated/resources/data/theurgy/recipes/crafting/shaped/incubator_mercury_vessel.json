@@ -6,10 +6,10 @@
       "tag": "theurgy:alchemical_mercuries"
     },
     "S": {
-      "tag": "forge:stone"
+      "tag": "c:stones"
     },
     "c": {
-      "tag": "forge:ingots/copper"
+      "tag": "c:ingots/copper"
     }
   },
   "pattern": [
@@ -19,6 +19,6 @@
   ],
   "result": {
     "count": 1,
-    "item": "theurgy:incubator_mercury_vessel"
+    "id": "theurgy:incubator_mercury_vessel"
   }
 }

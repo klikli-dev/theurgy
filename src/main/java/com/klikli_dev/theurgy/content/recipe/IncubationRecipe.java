@@ -10,11 +10,13 @@ import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.RecipeSerializerRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.RegistryAccess;
-import net.minecraft.nbt.NbtOps;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
@@ -27,13 +29,27 @@ public class IncubationRecipe implements Recipe<IncubatorRecipeWrapper> {
 
     public static final int DEFAULT_TIME = 100;
 
-    public static final Codec<IncubationRecipe> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+    public static final MapCodec<IncubationRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             Ingredient.CODEC.fieldOf("mercury").forGetter((r) -> r.mercury),
             Ingredient.CODEC.fieldOf("salt").forGetter((r) -> r.salt),
             Ingredient.CODEC.fieldOf("sulfur").forGetter((r) -> r.sulfur),
             RecipeResult.CODEC.fieldOf("result").forGetter(r -> r.result),
             Codec.INT.optionalFieldOf("time", DEFAULT_TIME).forGetter(r -> r.time)
     ).apply(instance, IncubationRecipe::new));
+
+    public static final StreamCodec<RegistryFriendlyByteBuf, IncubationRecipe> STREAM_CODEC = StreamCodec.composite(
+            Ingredient.CONTENTS_STREAM_CODEC,
+            r -> r.mercury,
+            Ingredient.CONTENTS_STREAM_CODEC,
+            r -> r.salt,
+            Ingredient.CONTENTS_STREAM_CODEC,
+            r -> r.sulfur,
+            RecipeResult.STREAM_CODEC,
+            r -> r.result,
+            ByteBufCodecs.INT,
+            r -> r.time,
+            IncubationRecipe::new
+    );
 
     protected final Ingredient mercury;
     protected final Ingredient salt;
@@ -63,7 +79,7 @@ public class IncubationRecipe implements Recipe<IncubatorRecipeWrapper> {
     }
 
     @Override
-    public ItemStack assemble(IncubatorRecipeWrapper pInv, RegistryAccess registryAccess) {
+    public ItemStack assemble(IncubatorRecipeWrapper pInv, HolderLookup.Provider pRegistries) {
         return this.result.getStack().copy();
     }
 
@@ -73,7 +89,7 @@ public class IncubationRecipe implements Recipe<IncubatorRecipeWrapper> {
     }
 
     @Override
-    public ItemStack getResultItem(RegistryAccess registryAccess) {
+    public ItemStack getResultItem(HolderLookup.Provider pRegistries) {
         return this.result.getStack();
     }
 
@@ -119,20 +135,13 @@ public class IncubationRecipe implements Recipe<IncubatorRecipeWrapper> {
     public static class Serializer implements RecipeSerializer<IncubationRecipe> {
 
         @Override
-        public Codec<IncubationRecipe> codec() {
+        public MapCodec<IncubationRecipe> codec() {
             return CODEC;
         }
 
         @Override
-        public IncubationRecipe fromNetwork(FriendlyByteBuf pBuffer) {
-            //noinspection deprecation
-            return pBuffer.readWithCodecTrusted(NbtOps.INSTANCE, CODEC);
-        }
-
-        @Override
-        public void toNetwork(FriendlyByteBuf pBuffer, IncubationRecipe pRecipe) {
-            //noinspection deprecation
-            pBuffer.writeWithCodec(NbtOps.INSTANCE, CODEC, pRecipe);
+        public StreamCodec<RegistryFriendlyByteBuf, IncubationRecipe> streamCodec() {
+            return STREAM_CODEC;
         }
     }
 }

@@ -1,28 +1,26 @@
 {
-  "neoforge:conditions": [
+  "type": "theurgy:liquefaction",
+  "category": "misc",
+  "conditions": [
     {
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:ores/fluorite"
+        "tag": "c:ores/fluorite"
       }
     }
   ],
-  "type": "theurgy:liquefaction",
-  "category": "misc",
   "ingredient": {
-    "tag": "forge:ores/fluorite"
+    "tag": "c:ores/fluorite"
   },
   "result": {
+    "type": "theurgy:item",
     "count": 8,
-    "item": "theurgy:alchemical_sulfur_fluorite",
-    "nbt": {
-      "theurgy:sulfur.source.id": "#forge:ores/fluorite"
-    }
+    "id": "theurgy:alchemical_sulfur_fluorite"
   },
   "solvent": {
     "fluid": "theurgy:sal_ammoniac"
   },
-  "solvent_amount": 10,
+  "solventAmount": 10,
   "time": 100
 }

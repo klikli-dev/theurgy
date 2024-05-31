@@ -7,7 +7,7 @@ package com.klikli_dev.theurgy.datagen.worldgen;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
@@ -21,7 +21,7 @@ import java.util.List;
 public class ConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> SAL_AMMONIAC_ORE = ResourceKey.create(Registries.CONFIGURED_FEATURE, Theurgy.loc("sal_ammoniac_ore"));
 
-    public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> context) {
+    public static void bootstrap(BootstrapContext<ConfiguredFeature<?, ?>> context) {
         var placedFeatures = context.lookup(Registries.PLACED_FEATURE);
 
         List<OreConfiguration.TargetBlockState> salAmmoniacOres = List.of(

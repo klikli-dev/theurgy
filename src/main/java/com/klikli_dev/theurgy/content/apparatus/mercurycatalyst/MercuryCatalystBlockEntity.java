@@ -11,6 +11,7 @@ import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.CapabilityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.Packet;
@@ -49,15 +50,15 @@ public class MercuryCatalystBlockEntity extends BlockEntity {
     }
 
     @Override
-    public CompoundTag getUpdateTag() {
+    public CompoundTag getUpdateTag(HolderLookup.Provider pRegistries) {
         var tag = new CompoundTag();
-        this.writeNetwork(tag);
+        this.writeNetwork(tag, pRegistries);
         return tag;
     }
 
     @Override
-    public void handleUpdateTag(CompoundTag tag) {
-        this.readNetwork(tag);
+    public void handleUpdateTag(CompoundTag tag, HolderLookup.Provider pRegistries) {
+        this.readNetwork(tag, pRegistries);
     }
 
     @Nullable
@@ -67,25 +68,25 @@ public class MercuryCatalystBlockEntity extends BlockEntity {
     }
 
     @Override
-    public void onDataPacket(Connection connection, ClientboundBlockEntityDataPacket packet) {
+    public void onDataPacket(Connection connection, ClientboundBlockEntityDataPacket packet, HolderLookup.Provider pRegistries) {
         var tag = packet.getTag();
         if (tag != null) {
-            this.readNetwork(tag);
+            this.readNetwork(tag, pRegistries);
         }
     }
 
-    public void readNetwork(CompoundTag tag) {
+    public void readNetwork(CompoundTag tag, HolderLookup.Provider pRegistries) {
         if (tag.contains("mercuryFluxStorage")) {
             //get instead of getCompound here because the storage serializes as int tag
-            this.mercuryFluxStorage.deserializeNBT(tag.get("mercuryFluxStorage"));
+            this.mercuryFluxStorage.deserializeNBT(pRegistries, tag.get("mercuryFluxStorage"));
             if (this.level != null) {
                 this.level.sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), Block.UPDATE_IMMEDIATE);
             }
         }
     }
 
-    public void writeNetwork(CompoundTag tag) {
-        tag.put("mercuryFluxStorage", this.mercuryFluxStorage.serializeNBT());
+    public void writeNetwork(CompoundTag tag, HolderLookup.Provider pRegistries) {
+        tag.put("mercuryFluxStorage", this.mercuryFluxStorage.serializeNBT(pRegistries));
     }
 
     public void sendBlockUpdated() {
@@ -126,23 +127,23 @@ public class MercuryCatalystBlockEntity extends BlockEntity {
     }
 
     @Override
-    protected void saveAdditional(CompoundTag pTag) {
-        super.saveAdditional(pTag);
+    protected void saveAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
+        super.saveAdditional(pTag, pRegistries);
 
-        pTag.put("inventory", this.inventory.serializeNBT());
-        pTag.put("mercuryFluxStorage", this.mercuryFluxStorage.serializeNBT());
+        pTag.put("inventory", this.inventory.serializeNBT(pRegistries));
+        pTag.put("mercuryFluxStorage", this.mercuryFluxStorage.serializeNBT(pRegistries));
     }
 
     @Override
-    public void load(CompoundTag pTag) {
-        super.load(pTag);
+    public void loadAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
+        super.loadAdditional(pTag, pRegistries);
 
         if (pTag.contains("inventory"))
-            this.inventory.deserializeNBT(pTag.getCompound("inventory"));
+            this.inventory.deserializeNBT(pRegistries, pTag.getCompound("inventory"));
 
         if (pTag.contains("mercuryFluxStorage"))
             //get instead of getCompound here because the storage serializes as int tag
-            this.mercuryFluxStorage.deserializeNBT(pTag.get("mercuryFluxStorage"));
+            this.mercuryFluxStorage.deserializeNBT(pRegistries, pTag.get("mercuryFluxStorage"));
     }
 
     private class Inventory extends MonitoredItemStackHandler {

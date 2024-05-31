@@ -4,17 +4,19 @@
 
 package com.klikli_dev.theurgy.content.recipe;
 
-import com.klikli_dev.theurgy.content.recipe.ingredient.FluidIngredient;
+
 import com.klikli_dev.theurgy.content.recipe.wrapper.RecipeWrapperWithFluid;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.registry.RecipeSerializerRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.RegistryAccess;
-import net.minecraft.nbt.NbtOps;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
@@ -22,6 +24,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.crafting.FluidIngredient;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
@@ -29,7 +32,7 @@ import java.util.Optional;
 public class AccumulationRecipe implements Recipe<RecipeWrapperWithFluid> {
     public static final int DEFAULT_TIME = 100;
 
-    public static final Codec<AccumulationRecipe> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+    public static final MapCodec<AccumulationRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
                     FluidIngredient.CODEC.fieldOf("evaporant").forGetter((r) -> r.evaporant),
                     Codec.INT.fieldOf("evaporantAmount").forGetter((r) -> r.evaporantAmount),
                     Ingredient.CODEC.optionalFieldOf("solute").forGetter(r -> Optional.ofNullable(r.solute)),
@@ -37,6 +40,21 @@ public class AccumulationRecipe implements Recipe<RecipeWrapperWithFluid> {
                     Codec.INT.optionalFieldOf("time", DEFAULT_TIME).forGetter(r -> r.time)
             ).apply(instance, (evaporant, evaporantAmount, solute, result, accumulation_time) -> new AccumulationRecipe(evaporant, evaporantAmount, solute.orElse(null), result, accumulation_time))
     );
+
+    public static final StreamCodec<RegistryFriendlyByteBuf, AccumulationRecipe> STREAM_CODEC = StreamCodec.composite(
+            FluidIngredient.STREAM_CODEC,
+            r -> r.evaporant,
+            ByteBufCodecs.INT,
+            r -> r.evaporantAmount,
+            ByteBufCodecs.optional(Ingredient.CONTENTS_STREAM_CODEC),
+            r -> Optional.ofNullable(r.solute),
+            FluidStack.STREAM_CODEC,
+            r -> r.result,
+            ByteBufCodecs.INT,
+            r -> r.time,
+            (evaporant, evaporantAmount, solute, result, accumulation_time) -> new AccumulationRecipe(evaporant, evaporantAmount, solute.orElse(null), result, accumulation_time)
+    );
+
     /**
      * The fluid to evaporate to obtain the result.
      */
@@ -80,11 +98,11 @@ public class AccumulationRecipe implements Recipe<RecipeWrapperWithFluid> {
     }
 
     @Override
-    public ItemStack assemble(RecipeWrapperWithFluid pInv, RegistryAccess registryAccess) {
+    public ItemStack assemble(RecipeWrapperWithFluid pInv, HolderLookup.Provider pRegistries) {
         return ItemStack.EMPTY;
     }
 
-    public FluidStack assembleFluid(RecipeWrapperWithFluid pInv, RegistryAccess registryAccess) {
+    public FluidStack assembleFluid(RecipeWrapperWithFluid pInv, HolderLookup.Provider pRegistries) {
         return this.result.copy();
     }
 
@@ -94,7 +112,7 @@ public class AccumulationRecipe implements Recipe<RecipeWrapperWithFluid> {
     }
 
     @Override
-    public ItemStack getResultItem(RegistryAccess registryAccess) {
+    public ItemStack getResultItem(HolderLookup.Provider pRegistries) {
         return ItemStack.EMPTY;
     }
 
@@ -144,20 +162,13 @@ public class AccumulationRecipe implements Recipe<RecipeWrapperWithFluid> {
     public static class Serializer implements RecipeSerializer<AccumulationRecipe> {
 
         @Override
-        public Codec<AccumulationRecipe> codec() {
+        public MapCodec<AccumulationRecipe> codec() {
             return CODEC;
         }
 
         @Override
-        public AccumulationRecipe fromNetwork(FriendlyByteBuf pBuffer) {
-            //noinspection deprecation
-            return pBuffer.readWithCodecTrusted(NbtOps.INSTANCE, CODEC);
-        }
-
-        @Override
-        public void toNetwork(FriendlyByteBuf pBuffer, AccumulationRecipe pRecipe) {
-            //noinspection deprecation
-            pBuffer.writeWithCodec(NbtOps.INSTANCE, CODEC, pRecipe);
+        public StreamCodec<RegistryFriendlyByteBuf, AccumulationRecipe> streamCodec() {
+            return STREAM_CODEC;
         }
     }
 }

@@ -1,4 +1,4 @@
-// 1.20.4	2024-02-27T16:42:55.6015607	Item Models: theurgy
+// 1.20.6	2024-05-30T10:41:42.0378688	Item Models: theurgy
 a402a05d887ec6d271a9350944338d29e1233318 assets/theurgy/models/item/alchemical_salt.json
 9fd173e362b6644716da98ba0d15809f85879e78 assets/theurgy/models/item/alchemical_salt_crops.json
 9fd173e362b6644716da98ba0d15809f85879e78 assets/theurgy/models/item/alchemical_salt_mineral.json
@@ -18,7 +18,6 @@ e0f7b66a84e6588f01abbbce75b1803ffe5d46e2 assets/theurgy/models/item/alchemical_s
 e0f7b66a84e6588f01abbbce75b1803ffe5d46e2 assets/theurgy/models/item/alchemical_sulfur_gems_common.json
 e0f7b66a84e6588f01abbbce75b1803ffe5d46e2 assets/theurgy/models/item/alchemical_sulfur_gems_precious.json
 e0f7b66a84e6588f01abbbce75b1803ffe5d46e2 assets/theurgy/models/item/alchemical_sulfur_gems_rare.json
-e0f7b66a84e6588f01abbbce75b1803ffe5d46e2 assets/theurgy/models/item/alchemical_sulfur_generic.json
 e0f7b66a84e6588f01abbbce75b1803ffe5d46e2 assets/theurgy/models/item/alchemical_sulfur_gold.json
 e0f7b66a84e6588f01abbbce75b1803ffe5d46e2 assets/theurgy/models/item/alchemical_sulfur_iridium.json
 e0f7b66a84e6588f01abbbce75b1803ffe5d46e2 assets/theurgy/models/item/alchemical_sulfur_iron.json

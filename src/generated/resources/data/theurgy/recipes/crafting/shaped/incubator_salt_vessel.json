@@ -3,10 +3,10 @@
   "category": "misc",
   "key": {
     "S": {
-      "tag": "forge:stone"
+      "tag": "c:stones"
     },
     "c": {
-      "tag": "forge:ingots/copper"
+      "tag": "c:ingots/copper"
     },
     "s": {
       "tag": "theurgy:alchemical_salts"
@@ -19,6 +19,6 @@
   ],
   "result": {
     "count": 1,
-    "item": "theurgy:incubator_salt_vessel"
+    "id": "theurgy:incubator_salt_vessel"
   }
 }

@@ -6,7 +6,6 @@ package com.klikli_dev.theurgy.content.apparatus.digestionvat;
 
 import com.klikli_dev.theurgy.content.recipe.DigestionRecipe;
 import com.klikli_dev.theurgy.content.recipe.wrapper.RecipeWrapperWithFluid;
-import com.mojang.datafixers.util.Pair;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
@@ -33,34 +32,32 @@ public class DigestionCachedCheck implements RecipeManager.CachedCheck<RecipeWra
         this.internal = RecipeManager.createCheck(type);
     }
 
-    private Optional<Pair<ResourceLocation, RecipeHolder<DigestionRecipe>>> getRecipeFor(ItemStack stack, Level level, @Nullable ResourceLocation lastRecipe) {
-
+    private Optional<RecipeHolder<DigestionRecipe>> getRecipeFor(ItemStack stack, Level level, @Nullable ResourceLocation lastRecipe) {
         var recipeManager = level.getRecipeManager();
-        var map = recipeManager.byType(this.type);
         if (lastRecipe != null) {
-            var recipe = map.get(lastRecipe);
+
+            var recipe = recipeManager.byKeyTyped(this.type, lastRecipe);
             //test only the ingredient without the (separate) fluid ingredient check that the recipe.matches() would.
             if (recipe != null && recipe.value().getIngredients().stream().anyMatch(i -> i.test(stack))) {
-                return Optional.of(Pair.of(lastRecipe, recipe));
+                return Optional.of(recipe);
             }
         }
 
-        return map.entrySet().stream().filter((entry) -> entry.getValue().value().getIngredients().stream().anyMatch(i -> i.test(stack))).findFirst().map((entry) -> Pair.of(entry.getKey(), entry.getValue()));
+        return recipeManager.byType(this.type).stream().filter((entry) -> entry.value().getIngredients().stream().anyMatch(i -> i.test(stack))).findFirst();
     }
 
-    private Optional<Pair<ResourceLocation, RecipeHolder<DigestionRecipe>>> getRecipeFor(FluidStack stack, Level level, @Nullable ResourceLocation lastRecipe) {
-
+    private Optional<RecipeHolder<DigestionRecipe>> getRecipeFor(FluidStack stack, Level level, @Nullable ResourceLocation lastRecipe) {
         var recipeManager = level.getRecipeManager();
-        var map = recipeManager.byType(this.type);
         if (lastRecipe != null) {
-            var recipe = map.get(lastRecipe);
+
+            var recipe = recipeManager.byKeyTyped(this.type, lastRecipe);
             //test only the fluid without the (separate) item ingredients check that the recipe.matches() would.
             if (recipe != null && recipe.value().getFluid().test(stack)) {
-                return Optional.of(Pair.of(lastRecipe, recipe));
+                return Optional.of(recipe);
             }
         }
 
-        return map.entrySet().stream().filter((entry) -> entry.getValue().value().getFluid().test(stack)).findFirst().map((entry) -> Pair.of(entry.getKey(), entry.getValue()));
+        return recipeManager.byType(this.type).stream().filter((entry) -> entry.value().getFluid().test(stack)).findFirst();
     }
 
     /**
@@ -69,9 +66,9 @@ public class DigestionCachedCheck implements RecipeManager.CachedCheck<RecipeWra
     public Optional<RecipeHolder<DigestionRecipe>> getRecipeFor(ItemStack stack, Level level) {
         var optional = this.getRecipeFor(stack, level, this.lastRecipe);
         if (optional.isPresent()) {
-            var pair = optional.get();
-            this.lastRecipe = pair.getFirst();
-            return Optional.of(pair.getSecond());
+            var recipeHolder = optional.get();
+            this.lastRecipe = recipeHolder.id();
+            return optional;
         } else {
             return Optional.empty();
         }
@@ -83,9 +80,9 @@ public class DigestionCachedCheck implements RecipeManager.CachedCheck<RecipeWra
     public Optional<RecipeHolder<DigestionRecipe>> getRecipeFor(FluidStack stack, Level level) {
         var optional = this.getRecipeFor(stack, level, this.lastRecipe);
         if (optional.isPresent()) {
-            var pair = optional.get();
-            this.lastRecipe = pair.getFirst();
-            return Optional.of(pair.getSecond());
+            var recipeHolder = optional.get();
+            this.lastRecipe = recipeHolder.id();
+            return optional;
         } else {
             return Optional.empty();
         }

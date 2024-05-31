@@ -4,6 +4,7 @@
 
 package com.klikli_dev.theurgy.content.behaviour.crafting;
 
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
@@ -43,19 +44,19 @@ public abstract class CraftingBehaviour<W extends RecipeWrapper, R extends Recip
         return this.isProcessing;
     }
 
-    public void readNetwork(CompoundTag tag) {
+    public void readNetwork(CompoundTag tag, HolderLookup.Provider pRegistries) {
         this.isProcessing = tag.getBoolean("isProcessing");
     }
 
-    public void writeNetwork(CompoundTag tag) {
+    public void writeNetwork(CompoundTag tag, HolderLookup.Provider pRegistries) {
         tag.putBoolean("isProcessing", this.isProcessing);
     }
 
-    public void saveAdditional(CompoundTag pTag) {
+    public void saveAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
         pTag.putShort("progress", (short) this.progress);
     }
 
-    public void load(CompoundTag pTag) {
+    public void loadAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
         if (pTag.contains("progress"))
             this.progress = pTag.getShort("progress");
     }

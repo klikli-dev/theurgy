@@ -8,6 +8,7 @@ import com.klikli_dev.theurgy.content.behaviour.logistics.InserterNodeBehaviour;
 import com.klikli_dev.theurgy.logistics.Logistics;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -66,18 +67,18 @@ public class LogisticsItemInserterBehaviour extends InserterNodeBehaviour<IItemH
     }
 
     @Override
-    public void saveAdditional(CompoundTag pTag) {
-        super.saveAdditional(pTag);
+    public void saveAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
+        super.saveAdditional(pTag, pRegistries);
     }
 
     @Override
-    public void load(CompoundTag pTag) {
-        super.load(pTag);
+    public void loadAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
+        super.loadAdditional(pTag, pRegistries);
     }
 
     @Override
-    public void writeNetwork(CompoundTag pTag) {
-        super.writeNetwork(pTag);
+    public void writeNetwork(CompoundTag pTag, HolderLookup.Provider pRegistries) {
+        super.writeNetwork(pTag, pRegistries);
 
         pTag.putBoolean("enabled", this.enabled);
         if (this.directionOverride != null)
@@ -85,8 +86,8 @@ public class LogisticsItemInserterBehaviour extends InserterNodeBehaviour<IItemH
     }
 
     @Override
-    public void readNetwork(CompoundTag pTag) {
-        super.readNetwork(pTag);
+    public void readNetwork(CompoundTag pTag, HolderLookup.Provider pRegistries) {
+        super.readNetwork(pTag, pRegistries);
 
         if (pTag.contains("directionOverride")) {
             this.directionOverride = Direction.from3DDataValue(pTag.getInt("directionOverride"));

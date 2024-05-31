@@ -45,7 +45,7 @@ public class BookAccumulationRecipePageRenderer extends BookRecipePageRenderer<A
         }
 
         GuiTextures.MODONOMICON_SLOT.render(guiGraphics, recipeX, recipeY); //render the fluid input slot
-        this.parentScreen.renderFluidStacks(guiGraphics, recipeX + 2, recipeY + 2, mouseX, mouseY, Arrays.stream(recipe.getEvaporant().getFluids()).map(f -> (FluidHolder) new NeoFluidHolder(f.getFluid(), recipe.getEvaporantAmount(), f.getTag())).toList(), FluidType.BUCKET_VOLUME);
+        this.parentScreen.renderFluidStacks(guiGraphics, recipeX + 2, recipeY + 2, mouseX, mouseY, Arrays.stream(recipe.getEvaporant().getStacks()).map(f -> (FluidHolder) new NeoFluidHolder(f.getFluidHolder(), recipe.getEvaporantAmount(), f.getComponentsPatch())).toList(), FluidType.BUCKET_VOLUME);
 
         if (recipe.hasSolute()) {
             GuiTextures.MODONOMICON_SLOT.render(guiGraphics, recipeX, recipeY + 24); //render the item input slot

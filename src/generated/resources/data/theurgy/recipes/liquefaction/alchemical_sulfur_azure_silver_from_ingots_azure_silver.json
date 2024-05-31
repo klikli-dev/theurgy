@@ -1,28 +1,26 @@
 {
-  "neoforge:conditions": [
+  "type": "theurgy:liquefaction",
+  "category": "misc",
+  "conditions": [
     {
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:ingots/azure_silver"
+        "tag": "c:ingots/azure_silver"
       }
     }
   ],
-  "type": "theurgy:liquefaction",
-  "category": "misc",
   "ingredient": {
-    "tag": "forge:ingots/azure_silver"
+    "tag": "c:ingots/azure_silver"
   },
   "result": {
+    "type": "theurgy:item",
     "count": 1,
-    "item": "theurgy:alchemical_sulfur_azure_silver",
-    "nbt": {
-      "theurgy:sulfur.source.id": "#forge:ingots/azure_silver"
-    }
+    "id": "theurgy:alchemical_sulfur_azure_silver"
   },
   "solvent": {
     "fluid": "theurgy:sal_ammoniac"
   },
-  "solvent_amount": 10,
+  "solventAmount": 10,
   "time": 100
 }

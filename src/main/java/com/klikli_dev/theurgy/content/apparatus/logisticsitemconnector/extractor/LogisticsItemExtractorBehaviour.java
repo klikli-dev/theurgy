@@ -8,6 +8,7 @@ import com.klikli_dev.theurgy.content.behaviour.logistics.ExtractorNodeBehaviour
 import com.klikli_dev.theurgy.content.behaviour.logistics.LeafNodeBehaviour;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -74,15 +75,15 @@ public class LogisticsItemExtractorBehaviour extends ExtractorNodeBehaviour<IIte
     }
 
     @Override
-    public void saveAdditional(CompoundTag pTag) {
-        super.saveAdditional(pTag);
+    public void saveAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
+        super.saveAdditional(pTag, pRegistries);
 
         pTag.putInt("extractionAmount", this.extractionAmount);
     }
 
     @Override
-    public void load(CompoundTag pTag) {
-        super.load(pTag);
+    public void loadAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
+        super.loadAdditional(pTag, pRegistries);
 
         if (pTag.contains("extractionAmount")) {
             this.extractionAmount = pTag.getInt("extractionAmount");
@@ -91,8 +92,8 @@ public class LogisticsItemExtractorBehaviour extends ExtractorNodeBehaviour<IIte
     }
 
     @Override
-    public void writeNetwork(CompoundTag pTag) {
-        super.writeNetwork(pTag);
+    public void writeNetwork(CompoundTag pTag, HolderLookup.Provider pRegistries) {
+        super.writeNetwork(pTag, pRegistries);
 
         pTag.putBoolean("enabled", this.enabled);
         if (this.directionOverride != null)
@@ -100,8 +101,8 @@ public class LogisticsItemExtractorBehaviour extends ExtractorNodeBehaviour<IIte
     }
 
     @Override
-    public void readNetwork(CompoundTag pTag) {
-        super.readNetwork(pTag);
+    public void readNetwork(CompoundTag pTag, HolderLookup.Provider pRegistries) {
+        super.readNetwork(pTag, pRegistries);
 
         if (pTag.contains("directionOverride")) {
             this.directionOverride = Direction.from3DDataValue(pTag.getInt("directionOverride"));

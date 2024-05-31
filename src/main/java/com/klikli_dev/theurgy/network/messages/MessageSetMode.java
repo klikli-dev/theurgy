@@ -7,36 +7,36 @@ package com.klikli_dev.theurgy.network.messages;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.content.item.mode.ModeItem;
 import com.klikli_dev.theurgy.network.Message;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 
 public class MessageSetMode implements Message {
+    public static final Type<MessageSetMode> TYPE = new Type<>(Theurgy.loc("set_mode"));
 
-    public static final ResourceLocation ID = Theurgy.loc("set_mode");
+    public static final StreamCodec<RegistryFriendlyByteBuf, MessageSetMode> STREAM_CODEC =
+            StreamCodec.composite(
+                    ByteBufCodecs.BYTE,
+                    (m) -> m.shift,
+                    MessageSetMode::new
+            );
 
-    public byte shift;
 
-    public MessageSetMode(FriendlyByteBuf buf) {
-        this.decode(buf);
-    }
+    public final byte shift;
 
     public MessageSetMode(int shift) {
-        this.shift = (byte) shift;
+        this((byte) shift);
     }
 
-    @Override
-    public void encode(FriendlyByteBuf buf) {
-        buf.writeByte(this.shift);
-    }
-
-    @Override
-    public void decode(FriendlyByteBuf buf) {
-        this.shift = buf.readByte();
+    public MessageSetMode(byte shift) {
+        this.shift = shift;
     }
 
     @Override
@@ -48,7 +48,7 @@ public class MessageSetMode implements Message {
     }
 
     @Override
-    public ResourceLocation id() {
-        return ID;
+    public @NotNull Type<? extends CustomPacketPayload> type() {
+        return TYPE;
     }
 }

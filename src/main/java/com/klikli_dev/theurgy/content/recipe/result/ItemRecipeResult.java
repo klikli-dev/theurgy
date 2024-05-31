@@ -4,8 +4,10 @@
 
 package com.klikli_dev.theurgy.content.recipe.result;
 
-import com.mojang.serialization.Codec;
-import net.minecraft.network.FriendlyByteBuf;
+import com.klikli_dev.theurgy.registry.RecipeResultRegistry;
+import com.mojang.serialization.MapCodec;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 
@@ -14,9 +16,13 @@ import org.jetbrains.annotations.Nullable;
  */
 public class ItemRecipeResult extends RecipeResult {
 
-    public static final Codec<ItemRecipeResult> CODEC = ItemStack.ITEM_WITH_COUNT_CODEC.xmap(ItemRecipeResult::new, ItemRecipeResult::getStack);
+    public static final MapCodec<ItemRecipeResult> CODEC = MapCodec.assumeMapUnsafe(ItemStack.STRICT_CODEC.xmap(ItemRecipeResult::new, ItemRecipeResult::getStack));
 
-    public static byte TYPE = 0;
+    public static final StreamCodec<RegistryFriendlyByteBuf, ItemRecipeResult> STREAM_CODEC = StreamCodec.composite(
+            ItemStack.STREAM_CODEC,
+            ItemRecipeResult::getStack,
+            ItemRecipeResult::new
+    );
 
     private final ItemStack stack;
 
@@ -25,10 +31,6 @@ public class ItemRecipeResult extends RecipeResult {
 
     public ItemRecipeResult(ItemStack stack) {
         this.stack = stack;
-    }
-
-    public static ItemRecipeResult fromNetwork(FriendlyByteBuf pBuffer) {
-        return new ItemRecipeResult(pBuffer.readItem());
     }
 
     @Override
@@ -45,14 +47,8 @@ public class ItemRecipeResult extends RecipeResult {
     }
 
     @Override
-    public byte getType() {
-        return TYPE;
+    public RecipeResultType<?> getType() {
+        return RecipeResultRegistry.ITEM.get();
     }
 
-    @Override
-    public void toNetwork(FriendlyByteBuf pBuffer) {
-        super.toNetwork(pBuffer); //write type
-
-        pBuffer.writeItem(this.stack);
-    }
 }

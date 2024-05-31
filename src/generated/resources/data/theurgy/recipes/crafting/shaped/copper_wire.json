@@ -3,7 +3,7 @@
   "category": "misc",
   "key": {
     "c": {
-      "tag": "forge:ingots/copper"
+      "tag": "c:ingots/copper"
     },
     "m": {
       "item": "theurgy:mercury_shard"
@@ -14,6 +14,6 @@
   ],
   "result": {
     "count": 10,
-    "item": "theurgy:copper_wire"
+    "id": "theurgy:copper_wire"
   }
 }

@@ -1,28 +1,26 @@
 {
-  "neoforge:conditions": [
+  "type": "theurgy:liquefaction",
+  "category": "misc",
+  "conditions": [
     {
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:gems/ruby"
+        "tag": "c:gems/ruby"
       }
     }
   ],
-  "type": "theurgy:liquefaction",
-  "category": "misc",
   "ingredient": {
-    "tag": "forge:gems/ruby"
+    "tag": "c:gems/ruby"
   },
   "result": {
+    "type": "theurgy:item",
     "count": 1,
-    "item": "theurgy:alchemical_sulfur_ruby",
-    "nbt": {
-      "theurgy:sulfur.source.id": "#forge:gems/ruby"
-    }
+    "id": "theurgy:alchemical_sulfur_ruby"
   },
   "solvent": {
     "fluid": "theurgy:sal_ammoniac"
   },
-  "solvent_amount": 15,
+  "solventAmount": 15,
   "time": 100
 }

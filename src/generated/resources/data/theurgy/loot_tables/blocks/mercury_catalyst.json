@@ -13,28 +13,12 @@
           "type": "minecraft:item",
           "functions": [
             {
-              "function": "minecraft:copy_nbt",
-              "ops": [
-                {
-                  "op": "replace",
-                  "source": "mercuryFluxStorage",
-                  "target": "BlockEntityTag.mercuryFluxStorage"
-                },
-                {
-                  "op": "replace",
-                  "source": "mercuryFluxToConvert",
-                  "target": "BlockEntityTag.mercuryFluxToConvert"
-                },
-                {
-                  "op": "replace",
-                  "source": "currentMercuryFluxPerTick",
-                  "target": "BlockEntityTag.currentMercuryFluxPerTick"
-                },
-                {
-                  "op": "replace",
-                  "source": "inventory",
-                  "target": "BlockEntityTag.inventory"
-                }
+              "function": "minecraft:copy_components",
+              "include": [
+                "theurgy:mercury_flux_storage",
+                "theurgy:mercury_flux_to_convert",
+                "theurgy:current_mercury_flux_per_tick",
+                "minecraft:container"
               ],
               "source": "block_entity"
             }

@@ -4,40 +4,61 @@
 
 package com.klikli_dev.theurgy.content.recipe;
 
-import com.klikli_dev.theurgy.content.recipe.ingredient.FluidIngredient;
+
 import com.klikli_dev.theurgy.content.recipe.wrapper.RecipeWrapperWithFluid;
 import com.klikli_dev.theurgy.datagen.recipe.IngredientWithCount;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.registry.RecipeSerializerRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.ints.IntArrayList;
 import it.unimi.dsi.fastutil.ints.IntList;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
+import net.neoforged.neoforge.fluids.crafting.FluidIngredient;
 
 import java.util.List;
 
 public class DigestionRecipe implements Recipe<RecipeWrapperWithFluid> {
     public static final int DEFAULT_TIME = 200;
 
-    public static final Codec<DigestionRecipe> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+    public static final MapCodec<DigestionRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
                     FluidIngredient.CODEC.fieldOf("fluid").forGetter((r) -> r.fluid),
                     Codec.INT.fieldOf("fluidAmount").forGetter((r) -> r.fluidAmount),
                     IngredientWithCount.CODEC.listOf().fieldOf("ingredients").forGetter(r -> r.ingredientsWithCount),
-                    ItemStack.ITEM_WITH_COUNT_CODEC.fieldOf("result").forGetter(r -> r.result),
+                    ItemStack.STRICT_CODEC.fieldOf("result").forGetter(r -> r.result),
                     Codec.INT.optionalFieldOf("time", DEFAULT_TIME).forGetter(r -> r.time)
             ).apply(instance, DigestionRecipe::new)
     );
+
+    public static final StreamCodec<RegistryFriendlyByteBuf, DigestionRecipe> STREAM_CODEC = StreamCodec.composite(
+            FluidIngredient.STREAM_CODEC,
+            r -> r.fluid,
+            ByteBufCodecs.INT,
+            r -> r.fluidAmount,
+            IngredientWithCount.STREAM_CODEC.apply(ByteBufCodecs.list()),
+            r -> r.ingredientsWithCount,
+            ItemStack.STREAM_CODEC,
+            r -> r.result,
+            ByteBufCodecs.INT,
+            r -> r.time,
+            DigestionRecipe::new
+    );
+
     protected final FluidIngredient fluid;
     protected final int fluidAmount;
 
@@ -101,7 +122,7 @@ public class DigestionRecipe implements Recipe<RecipeWrapperWithFluid> {
     }
 
     @Override
-    public ItemStack assemble(RecipeWrapperWithFluid pInv, RegistryAccess registryAccess) {
+    public ItemStack assemble(RecipeWrapperWithFluid pInv, HolderLookup.Provider pRegistries) {
         return this.result.copy();
     }
 
@@ -111,7 +132,7 @@ public class DigestionRecipe implements Recipe<RecipeWrapperWithFluid> {
     }
 
     @Override
-    public ItemStack getResultItem(RegistryAccess registryAccess) {
+    public ItemStack getResultItem(HolderLookup.Provider pRegistries) {
         return this.result;
     }
 
@@ -151,22 +172,14 @@ public class DigestionRecipe implements Recipe<RecipeWrapperWithFluid> {
     }
 
     public static class Serializer implements RecipeSerializer<DigestionRecipe> {
-
         @Override
-        public Codec<DigestionRecipe> codec() {
+        public MapCodec<DigestionRecipe> codec() {
             return CODEC;
         }
 
         @Override
-        public DigestionRecipe fromNetwork(FriendlyByteBuf pBuffer) {
-            //noinspection deprecation
-            return pBuffer.readWithCodecTrusted(NbtOps.INSTANCE, CODEC);
-        }
-
-        @Override
-        public void toNetwork(FriendlyByteBuf pBuffer, DigestionRecipe pRecipe) {
-            //noinspection deprecation
-            pBuffer.writeWithCodec(NbtOps.INSTANCE, CODEC, pRecipe);
+        public StreamCodec<RegistryFriendlyByteBuf, DigestionRecipe> streamCodec() {
+            return STREAM_CODEC;
         }
     }
 }

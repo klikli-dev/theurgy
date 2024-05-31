@@ -1,26 +1,30 @@
 {
-  "neoforge:conditions": [
+  "type": "theurgy:incubation",
+  "category": "misc",
+  "conditions": [
     {
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:ingots/crimson_iron"
+        "tag": "c:ingots/crimson_iron"
       }
     }
   ],
-  "type": "theurgy:incubation",
-  "category": "misc",
   "mercury": {
+    "count": 1,
     "item": "theurgy:mercury_shard"
   },
   "result": {
+    "type": "theurgy:tag",
     "count": 1,
-    "tag": "forge:ingots/crimson_iron"
+    "tag": "c:ingots/crimson_iron"
   },
   "salt": {
+    "count": 1,
     "item": "theurgy:alchemical_salt_mineral"
   },
   "sulfur": {
+    "count": 1,
     "item": "theurgy:alchemical_sulfur_crimson_iron"
   },
   "time": 100

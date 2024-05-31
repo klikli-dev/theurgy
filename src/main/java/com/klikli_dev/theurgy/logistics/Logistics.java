@@ -15,6 +15,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import net.minecraft.core.GlobalPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.server.MinecraftServer;
@@ -73,7 +74,7 @@ public class Logistics extends SavedData {
         this.rebuildGraph();
     }
 
-    public static Logistics load(CompoundTag pCompoundTag) {
+    public static Logistics load(CompoundTag pCompoundTag, HolderLookup.Provider pRegistries) {
         return CODEC.parse(NbtOps.INSTANCE, pCompoundTag.get(NBT_TAG)).result().orElseThrow();
     }
 
@@ -401,7 +402,7 @@ public class Logistics extends SavedData {
     }
 
     @Override
-    public CompoundTag save(CompoundTag pCompoundTag) {
+    public CompoundTag save(CompoundTag pCompoundTag, HolderLookup.Provider pRegistries) {
         pCompoundTag.put(NBT_TAG, CODEC.encodeStart(NbtOps.INSTANCE, this).result().orElseThrow());
         return pCompoundTag;
     }

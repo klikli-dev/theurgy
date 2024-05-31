@@ -38,7 +38,7 @@ public class SalAmmoniacAccumulatorCraftingBehaviour extends CraftingBehaviour<R
 
     @Override
     public boolean canProcess(ItemStack stack) {
-        if (ItemHandlerHelper.canItemStacksStack(stack, this.inputInventorySupplier.get().getStackInSlot(0)))
+        if (ItemStack.isSameItemSameComponents(stack, this.inputInventorySupplier.get().getStackInSlot(0)))
             return true; //early out if we are already processing this type of item
 
 
@@ -47,7 +47,7 @@ public class SalAmmoniacAccumulatorCraftingBehaviour extends CraftingBehaviour<R
 
 
     public boolean canProcess(FluidStack stack) {
-        if (this.waterTankSupplier.get().getFluidInTank(0).isFluidEqual(stack))
+        if (FluidStack.isSameFluidSameComponents(this.waterTankSupplier.get().getFluidInTank(0), stack))
             return true; //early out if we are already processing this type of fluid
 
         //now we use our custom cached check that checks only liquids:

@@ -1,0 +1,23 @@
+{
+  "type": "theurgy:calcination",
+  "category": "misc",
+  "conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:ingots"
+      }
+    }
+  ],
+  "ingredient": {
+    "tag": "c:ingots"
+  },
+  "ingredientCount": 1,
+  "result": {
+    "type": "theurgy:item",
+    "count": 2,
+    "id": "theurgy:alchemical_salt_mineral"
+  },
+  "time": 100
+}

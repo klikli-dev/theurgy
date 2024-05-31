@@ -1,13 +1,15 @@
 {
   "type": "theurgy:reformation",
   "category": "misc",
-  "mercury_flux": 50,
+  "mercuryFlux": 50,
   "result": {
+    "type": "theurgy:item",
     "count": 1,
-    "item": "theurgy:alchemical_sulfur_copper"
+    "id": "theurgy:alchemical_sulfur_copper"
   },
   "sources": [
     {
+      "count": 1,
       "item": "theurgy:alchemical_sulfur_metals_abundant"
     }
   ],

@@ -11,6 +11,7 @@ import com.klikli_dev.theurgy.content.item.mode.TargetDirectionSetter;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -77,15 +78,15 @@ public abstract class LogisticsItemConnectorBlockEntity extends BlockEntity impl
     }
 
     @Override
-    public void load(CompoundTag pTag) {
-        super.load(pTag);
-        this.leafNode().load(pTag);
+    public void loadAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
+        super.loadAdditional(pTag, pRegistries);
+        this.leafNode().loadAdditional(pTag, pRegistries);
     }
 
     @Override
-    protected void saveAdditional(CompoundTag pTag) {
-        super.saveAdditional(pTag);
-        this.leafNode().saveAdditional(pTag);
+    protected void saveAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
+        super.saveAdditional(pTag, pRegistries);
+        this.leafNode().saveAdditional(pTag, pRegistries);
     }
 
     @Override

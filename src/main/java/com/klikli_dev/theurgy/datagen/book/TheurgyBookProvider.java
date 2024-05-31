@@ -9,12 +9,15 @@ import com.klikli_dev.modonomicon.api.datagen.ModonomiconLanguageProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookModel;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.registry.CreativeModeTabRegistry;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
+
+import java.util.concurrent.CompletableFuture;
 
 
 public class TheurgyBookProvider extends BookProvider {
-    public TheurgyBookProvider(PackOutput packOutput, ModonomiconLanguageProvider lang) {
-        super("the_hermetica", packOutput, Theurgy.MODID, lang);
+    public TheurgyBookProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> pRegistries, ModonomiconLanguageProvider lang) {
+        super("the_hermetica", packOutput, pRegistries, Theurgy.MODID, lang);
     }
 
     @Override

@@ -12,45 +12,39 @@ import com.klikli_dev.theurgy.util.EntityUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 
 
 public class MessageShowCaloricFlux implements Message {
-
-    public static final ResourceLocation ID = Theurgy.loc("show_caloric_flux");
+    public static final Type<MessageShowCaloricFlux> TYPE = new Type<>(Theurgy.loc("show_caloric_flux"));
 
     public static final Color COLOR = new Color(0xdb3f07, false);
 
-    private BlockPos from;
-    private BlockPos to;
+    public static final StreamCodec<RegistryFriendlyByteBuf, MessageShowCaloricFlux> STREAM_CODEC =
+            StreamCodec.composite(
+                    BlockPos.STREAM_CODEC,
+                    (m) -> m.from,
+                    BlockPos.STREAM_CODEC,
+                    (m) -> m.to,
+                    Direction.STREAM_CODEC,
+                    (m) -> m.emitterDirection,
+                    MessageShowCaloricFlux::new
+            );
 
-    private Direction emitterDirection;
+    private final BlockPos from;
+    private final BlockPos to;
+
+    private final Direction emitterDirection;
 
     public MessageShowCaloricFlux(BlockPos from, BlockPos to, Direction emitterDirection) {
         this.from = from;
         this.to = to;
         this.emitterDirection = emitterDirection;
-    }
-
-    public MessageShowCaloricFlux(FriendlyByteBuf buf) {
-        this.decode(buf);
-    }
-
-    @Override
-    public void encode(FriendlyByteBuf buf) {
-        buf.writeBlockPos(this.from);
-        buf.writeBlockPos(this.to);
-        buf.writeEnum(this.emitterDirection);
-    }
-
-    @Override
-    public void decode(FriendlyByteBuf buf) {
-        this.from = buf.readBlockPos();
-        this.to = buf.readBlockPos();
-        this.emitterDirection = buf.readEnum(Direction.class);
     }
 
     @Override
@@ -69,7 +63,7 @@ public class MessageShowCaloricFlux implements Message {
     }
 
     @Override
-    public ResourceLocation id() {
-        return ID;
+    public @NotNull Type<? extends CustomPacketPayload> type() {
+        return TYPE;
     }
 }

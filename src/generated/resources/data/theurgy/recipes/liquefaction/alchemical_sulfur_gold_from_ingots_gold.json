@@ -1,28 +1,26 @@
 {
-  "neoforge:conditions": [
+  "type": "theurgy:liquefaction",
+  "category": "misc",
+  "conditions": [
     {
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:ingots/gold"
+        "tag": "c:ingots/gold"
       }
     }
   ],
-  "type": "theurgy:liquefaction",
-  "category": "misc",
   "ingredient": {
-    "tag": "forge:ingots/gold"
+    "tag": "c:ingots/gold"
   },
   "result": {
+    "type": "theurgy:item",
     "count": 1,
-    "item": "theurgy:alchemical_sulfur_gold",
-    "nbt": {
-      "theurgy:sulfur.source.id": "#forge:ingots/gold"
-    }
+    "id": "theurgy:alchemical_sulfur_gold"
   },
   "solvent": {
     "fluid": "theurgy:sal_ammoniac"
   },
-  "solvent_amount": 15,
+  "solventAmount": 15,
   "time": 100
 }

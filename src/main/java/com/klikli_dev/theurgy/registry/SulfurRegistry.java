@@ -11,8 +11,12 @@ import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurTier;
 import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurType;
 import com.klikli_dev.theurgy.content.recipe.LiquefactionRecipe;
 import com.klikli_dev.theurgy.util.LevelUtil;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.common.Tags;
@@ -30,8 +34,6 @@ import java.util.stream.Collectors;
 public class SulfurRegistry {
     public static final DeferredRegister.Items SULFURS = DeferredRegister.createItems(Theurgy.MODID);
 
-    public static final DeferredItem<AlchemicalSulfurItem> GENERIC = registerWithTagSourceNameOverride("generic", AlchemicalSulfurTier.ABUNDANT, AlchemicalSulfurType.MISC);
-
     public static final DeferredItem<AlchemicalSulfurItem> GEMS_ABUNDANT = registerNiter("gems_abundant", ItemRegistry.GEMS_ABUNDANT_ICON, AlchemicalSulfurTier.ABUNDANT);
     public static final DeferredItem<AlchemicalSulfurItem> GEMS_COMMON = registerNiter("gems_common", ItemRegistry.GEMS_COMMON_ICON, AlchemicalSulfurTier.COMMON);
     public static final DeferredItem<AlchemicalSulfurItem> GEMS_RARE = registerNiter("gems_rare", ItemRegistry.GEMS_RARE_ICON, AlchemicalSulfurTier.RARE);
@@ -48,56 +50,57 @@ public class SulfurRegistry {
     public static final DeferredItem<AlchemicalSulfurItem> OTHER_MINERALS_PRECIOUS = registerNiter("other_minerals_precious", ItemRegistry.OTHER_MINERALS_PRECIOUS_ICON, AlchemicalSulfurTier.PRECIOUS);
 
 
-    public static final DeferredItem<AlchemicalSulfurItem> LOGS = registerWithTagSourceNameOverride("logs", AlchemicalSulfurTier.ABUNDANT, AlchemicalSulfurType.MISC);
+    public static final DeferredItem<AlchemicalSulfurItem> LOGS = registerWithTagSourceNameOverride(ItemTags.LOGS, AlchemicalSulfurTier.ABUNDANT, AlchemicalSulfurType.MISC);
 
     //Crops
-    public static final DeferredItem<AlchemicalSulfurItem> WHEAT = registerDefault("wheat", AlchemicalSulfurTier.ABUNDANT, AlchemicalSulfurType.MISC);
+    public static final DeferredItem<AlchemicalSulfurItem> WHEAT = registerDefault("wheat", Items.WHEAT, AlchemicalSulfurTier.ABUNDANT, AlchemicalSulfurType.MISC);
 
 
     //Common Metals
-    public static final DeferredItem<AlchemicalSulfurItem> IRON = registerWithSourceNameOverride("iron", AlchemicalSulfurTier.COMMON, AlchemicalSulfurType.METALS);
-    public static final DeferredItem<AlchemicalSulfurItem> COPPER = registerWithSourceNameOverride("copper", AlchemicalSulfurTier.ABUNDANT, AlchemicalSulfurType.METALS);
+    public static final DeferredItem<AlchemicalSulfurItem> IRON = registerWithSourceNameOverride(Tags.Items.INGOTS_IRON, AlchemicalSulfurTier.COMMON, AlchemicalSulfurType.METALS);
+    public static final DeferredItem<AlchemicalSulfurItem> COPPER = registerWithSourceNameOverride(Tags.Items.INGOTS_COPPER, AlchemicalSulfurTier.ABUNDANT, AlchemicalSulfurType.METALS);
 
-    public static final DeferredItem<AlchemicalSulfurItem> SILVER = registerWithSourceNameOverride("silver", AlchemicalSulfurTier.RARE, AlchemicalSulfurType.METALS);
+    public static final DeferredItem<AlchemicalSulfurItem> SILVER = registerWithSourceNameOverride(ItemTagRegistry.INGOTS_SILVER, AlchemicalSulfurTier.RARE, AlchemicalSulfurType.METALS);
 
-    public static final DeferredItem<AlchemicalSulfurItem> GOLD = registerWithSourceNameOverride("gold", AlchemicalSulfurTier.RARE, AlchemicalSulfurType.METALS);
+    public static final DeferredItem<AlchemicalSulfurItem> GOLD = registerWithSourceNameOverride(Tags.Items.INGOTS_GOLD, AlchemicalSulfurTier.RARE, AlchemicalSulfurType.METALS);
 
-    public static final DeferredItem<AlchemicalSulfurItem> NETHERITE = registerWithSourceNameOverride("netherite", AlchemicalSulfurTier.PRECIOUS, AlchemicalSulfurType.METALS);
-    public static final DeferredItem<AlchemicalSulfurItem> URANIUM = registerWithSourceNameOverride("uranium", AlchemicalSulfurTier.RARE, AlchemicalSulfurType.METALS);
-    public static final DeferredItem<AlchemicalSulfurItem> AZURE_SILVER = registerWithSourceNameOverride("azure_silver", AlchemicalSulfurTier.RARE, AlchemicalSulfurType.METALS);
-    public static final DeferredItem<AlchemicalSulfurItem> ZINC = registerWithSourceNameOverride("zinc", AlchemicalSulfurTier.COMMON, AlchemicalSulfurType.METALS);
-    public static final DeferredItem<AlchemicalSulfurItem> OSMIUM = registerWithSourceNameOverride("osmium", AlchemicalSulfurTier.COMMON, AlchemicalSulfurType.METALS);
-    public static final DeferredItem<AlchemicalSulfurItem> NICKEL = registerWithSourceNameOverride("nickel", AlchemicalSulfurTier.COMMON, AlchemicalSulfurType.METALS);
-    public static final DeferredItem<AlchemicalSulfurItem> LEAD = registerWithSourceNameOverride("lead", AlchemicalSulfurTier.COMMON, AlchemicalSulfurType.METALS);
-    public static final DeferredItem<AlchemicalSulfurItem> ALLTHEMODIUM = registerWithSourceNameOverride("allthemodium", AlchemicalSulfurTier.PRECIOUS, AlchemicalSulfurType.METALS);
-    public static final DeferredItem<AlchemicalSulfurItem> UNOBTAINIUM = registerWithSourceNameOverride("unobtainium", AlchemicalSulfurTier.PRECIOUS, AlchemicalSulfurType.METALS);
-    public static final DeferredItem<AlchemicalSulfurItem> IRIDIUM = registerWithSourceNameOverride("iridium", AlchemicalSulfurTier.RARE, AlchemicalSulfurType.METALS);
-    public static final DeferredItem<AlchemicalSulfurItem> TIN = registerWithSourceNameOverride("tin", AlchemicalSulfurTier.COMMON, AlchemicalSulfurType.METALS);
-    public static final DeferredItem<AlchemicalSulfurItem> CINNABAR = registerWithSourceNameOverride("cinnabar", AlchemicalSulfurTier.COMMON, AlchemicalSulfurType.METALS);
-    public static final DeferredItem<AlchemicalSulfurItem> CRIMSON_IRON = registerWithSourceNameOverride("crimson_iron", AlchemicalSulfurTier.RARE, AlchemicalSulfurType.METALS);
-    public static final DeferredItem<AlchemicalSulfurItem> PLATINUM = registerWithSourceNameOverride("platinum", AlchemicalSulfurTier.RARE, AlchemicalSulfurType.METALS);
-    public static final DeferredItem<AlchemicalSulfurItem> VIBRANIUM = registerWithSourceNameOverride("vibranium", AlchemicalSulfurTier.PRECIOUS, AlchemicalSulfurType.METALS);
+    public static final DeferredItem<AlchemicalSulfurItem> NETHERITE = registerWithSourceNameOverride(Tags.Items.INGOTS_NETHERITE, AlchemicalSulfurTier.PRECIOUS, AlchemicalSulfurType.METALS);
+    public static final DeferredItem<AlchemicalSulfurItem> URANIUM = registerWithSourceNameOverride(ItemTagRegistry.INGOTS_URANIUM, AlchemicalSulfurTier.RARE, AlchemicalSulfurType.METALS);
+
+    public static final DeferredItem<AlchemicalSulfurItem> AZURE_SILVER = registerWithSourceNameOverride(ItemTagRegistry.INGOTS_AZURE_SILVER, AlchemicalSulfurTier.RARE, AlchemicalSulfurType.METALS);
+    public static final DeferredItem<AlchemicalSulfurItem> ZINC = registerWithSourceNameOverride(ItemTagRegistry.INGOTS_ZINC, AlchemicalSulfurTier.COMMON, AlchemicalSulfurType.METALS);
+    public static final DeferredItem<AlchemicalSulfurItem> OSMIUM = registerWithSourceNameOverride(ItemTagRegistry.INGOTS_OSMIUM, AlchemicalSulfurTier.COMMON, AlchemicalSulfurType.METALS);
+    public static final DeferredItem<AlchemicalSulfurItem> NICKEL = registerWithSourceNameOverride(ItemTagRegistry.INGOTS_NICKEL, AlchemicalSulfurTier.COMMON, AlchemicalSulfurType.METALS);
+    public static final DeferredItem<AlchemicalSulfurItem> LEAD = registerWithSourceNameOverride(ItemTagRegistry.INGOTS_LEAD, AlchemicalSulfurTier.COMMON, AlchemicalSulfurType.METALS);
+    public static final DeferredItem<AlchemicalSulfurItem> ALLTHEMODIUM = registerWithSourceNameOverride(ItemTagRegistry.INGOTS_ALLTHEMODIUM, AlchemicalSulfurTier.PRECIOUS, AlchemicalSulfurType.METALS);
+    public static final DeferredItem<AlchemicalSulfurItem> UNOBTAINIUM = registerWithSourceNameOverride(ItemTagRegistry.INGOTS_UNOBTAINIUM, AlchemicalSulfurTier.PRECIOUS, AlchemicalSulfurType.METALS);
+    public static final DeferredItem<AlchemicalSulfurItem> IRIDIUM = registerWithSourceNameOverride(ItemTagRegistry.INGOTS_IRIDIUM, AlchemicalSulfurTier.RARE, AlchemicalSulfurType.METALS);
+    public static final DeferredItem<AlchemicalSulfurItem> TIN = registerWithSourceNameOverride(ItemTagRegistry.INGOTS_TIN, AlchemicalSulfurTier.COMMON, AlchemicalSulfurType.METALS);
+    public static final DeferredItem<AlchemicalSulfurItem> CINNABAR = registerWithSourceNameOverride(ItemTagRegistry.INGOTS_CINNABAR, AlchemicalSulfurTier.COMMON, AlchemicalSulfurType.METALS);
+    public static final DeferredItem<AlchemicalSulfurItem> CRIMSON_IRON = registerWithSourceNameOverride(ItemTagRegistry.INGOTS_CRIMSON_IRON, AlchemicalSulfurTier.RARE, AlchemicalSulfurType.METALS);
+    public static final DeferredItem<AlchemicalSulfurItem> PLATINUM = registerWithSourceNameOverride(ItemTagRegistry.INGOTS_PLATINUM, AlchemicalSulfurTier.RARE, AlchemicalSulfurType.METALS);
+    public static final DeferredItem<AlchemicalSulfurItem> VIBRANIUM = registerWithSourceNameOverride(ItemTagRegistry.INGOTS_VIBRANIUM, AlchemicalSulfurTier.PRECIOUS, AlchemicalSulfurType.METALS);
 
     //Common Gems
 
-    public static final DeferredItem<AlchemicalSulfurItem> DIAMOND = registerWithSourceNameOverride("diamond", AlchemicalSulfurTier.PRECIOUS, AlchemicalSulfurType.GEMS);
-    public static final DeferredItem<AlchemicalSulfurItem> EMERALD = registerWithSourceNameOverride("emerald", AlchemicalSulfurTier.PRECIOUS, AlchemicalSulfurType.GEMS);
-    public static final DeferredItem<AlchemicalSulfurItem> LAPIS = registerWithSourceNameOverride("lapis", AlchemicalSulfurTier.COMMON, AlchemicalSulfurType.GEMS);
-    public static final DeferredItem<AlchemicalSulfurItem> QUARTZ = registerWithSourceNameOverride("quartz", AlchemicalSulfurTier.COMMON, AlchemicalSulfurType.GEMS);
-    public static final DeferredItem<AlchemicalSulfurItem> AMETHYST = registerWithSourceNameOverride("amethyst", AlchemicalSulfurTier.RARE, AlchemicalSulfurType.GEMS);
-    public static final DeferredItem<AlchemicalSulfurItem> PRISMARINE = registerWithSourceNameOverride("prismarine", AlchemicalSulfurTier.RARE, AlchemicalSulfurType.GEMS);
-    public static final DeferredItem<AlchemicalSulfurItem> RUBY = registerWithSourceNameOverride("ruby", AlchemicalSulfurTier.RARE, AlchemicalSulfurType.GEMS);
-    public static final DeferredItem<AlchemicalSulfurItem> APATITE = registerWithSourceNameOverride("apatite", AlchemicalSulfurTier.ABUNDANT, AlchemicalSulfurType.GEMS);
-    public static final DeferredItem<AlchemicalSulfurItem> PERIDOT = registerWithSourceNameOverride("peridot", AlchemicalSulfurTier.RARE, AlchemicalSulfurType.GEMS);
-    public static final DeferredItem<AlchemicalSulfurItem> FLUORITE = registerWithSourceNameOverride("fluorite", AlchemicalSulfurTier.ABUNDANT, AlchemicalSulfurType.GEMS);
-    public static final DeferredItem<AlchemicalSulfurItem> SAPPHIRE = registerWithSourceNameOverride("sapphire", AlchemicalSulfurTier.RARE, AlchemicalSulfurType.GEMS);
+    public static final DeferredItem<AlchemicalSulfurItem> DIAMOND = registerWithSourceNameOverride(Tags.Items.GEMS_DIAMOND, AlchemicalSulfurTier.PRECIOUS, AlchemicalSulfurType.GEMS);
+    public static final DeferredItem<AlchemicalSulfurItem> EMERALD = registerWithSourceNameOverride(Tags.Items.GEMS_EMERALD, AlchemicalSulfurTier.PRECIOUS, AlchemicalSulfurType.GEMS);
+    public static final DeferredItem<AlchemicalSulfurItem> LAPIS = registerWithSourceNameOverride(Tags.Items.GEMS_LAPIS, AlchemicalSulfurTier.COMMON, AlchemicalSulfurType.GEMS);
+    public static final DeferredItem<AlchemicalSulfurItem> QUARTZ = registerWithSourceNameOverride(Tags.Items.GEMS_QUARTZ, AlchemicalSulfurTier.COMMON, AlchemicalSulfurType.GEMS);
+    public static final DeferredItem<AlchemicalSulfurItem> AMETHYST = registerWithSourceNameOverride(Tags.Items.GEMS_AMETHYST, AlchemicalSulfurTier.RARE, AlchemicalSulfurType.GEMS);
+    public static final DeferredItem<AlchemicalSulfurItem> PRISMARINE = registerWithSourceNameOverride(Tags.Items.GEMS_PRISMARINE, AlchemicalSulfurTier.RARE, AlchemicalSulfurType.GEMS);
+    public static final DeferredItem<AlchemicalSulfurItem> RUBY = registerWithSourceNameOverride(ItemTagRegistry.GEMS_RUBY, AlchemicalSulfurTier.RARE, AlchemicalSulfurType.GEMS);
+    public static final DeferredItem<AlchemicalSulfurItem> APATITE = registerWithSourceNameOverride(ItemTagRegistry.GEMS_APATITE, AlchemicalSulfurTier.ABUNDANT, AlchemicalSulfurType.GEMS);
+    public static final DeferredItem<AlchemicalSulfurItem> PERIDOT = registerWithSourceNameOverride(ItemTagRegistry.GEMS_PERIDOT, AlchemicalSulfurTier.RARE, AlchemicalSulfurType.GEMS);
+    public static final DeferredItem<AlchemicalSulfurItem> FLUORITE = registerWithSourceNameOverride(ItemTagRegistry.GEMS_FLUORITE, AlchemicalSulfurTier.ABUNDANT, AlchemicalSulfurType.GEMS);
+    public static final DeferredItem<AlchemicalSulfurItem> SAPPHIRE = registerWithSourceNameOverride(ItemTagRegistry.GEMS_SAPPHIRE, AlchemicalSulfurTier.RARE, AlchemicalSulfurType.GEMS);
 
-    public static final DeferredItem<AlchemicalSulfurItem> SAL_AMMONIAC = registerWithSourceNameOverride("sal_ammoniac", AlchemicalSulfurTier.ABUNDANT, AlchemicalSulfurType.GEMS);
+    public static final DeferredItem<AlchemicalSulfurItem> SAL_AMMONIAC = registerWithSourceNameOverride(ItemTagRegistry.GEMS_SAL_AMMONIAC, AlchemicalSulfurTier.ABUNDANT, AlchemicalSulfurType.GEMS);
 
     //Other Common Minerals
-    public static final DeferredItem<AlchemicalSulfurItem> REDSTONE = registerWithSourceNameOverride("redstone", AlchemicalSulfurTier.COMMON, AlchemicalSulfurType.OTHER_MINERALS);
-    public static final DeferredItem<AlchemicalSulfurItem> COAL = registerDefault("coal", AlchemicalSulfurTier.ABUNDANT, AlchemicalSulfurType.OTHER_MINERALS);
-    public static final DeferredItem<AlchemicalSulfurItem> SULFUR = registerWithSourceNameOverride("sulfur", AlchemicalSulfurTier.COMMON, AlchemicalSulfurType.OTHER_MINERALS);
+    public static final DeferredItem<AlchemicalSulfurItem> REDSTONE = registerWithSourceNameOverride(Tags.Items.DUSTS_REDSTONE, AlchemicalSulfurTier.COMMON, AlchemicalSulfurType.OTHER_MINERALS);
+    public static final DeferredItem<AlchemicalSulfurItem> COAL = registerDefault("coal", ItemTags.COALS, AlchemicalSulfurTier.ABUNDANT, AlchemicalSulfurType.OTHER_MINERALS);
+    public static final DeferredItem<AlchemicalSulfurItem> SULFUR = registerWithSourceNameOverride(ItemTagRegistry.GEMS_SULFUR, AlchemicalSulfurTier.COMMON, AlchemicalSulfurType.OTHER_MINERALS);
 
     /**
      * Sulfurs for which we return true will not be exlcuded from jei/modonomicon renderers despite not having a liquefaction recipe
@@ -110,20 +113,71 @@ public class SulfurRegistry {
         return register(name, () -> new AlchemicalSulfurItem(new Item.Properties()).overrideTagSourceName(true).tier(tier).type(type));
     }
 
+    public static DeferredItem<AlchemicalSulfurItem> registerWithTagSourceNameOverride(TagKey<Item> source, AlchemicalSulfurTier tier, AlchemicalSulfurType type) {
+        return register(name(source), () -> new AlchemicalSulfurItem(new Item.Properties()
+                .component(
+                        DataComponentRegistry.SULFUR_SOURCE_TAG,
+                        source)
+        ).overrideTagSourceName(true).tier(tier).type(type));
+    }
+
     public static DeferredItem<AlchemicalSulfurItem> registerWithSourceNameOverride(String name, AlchemicalSulfurTier tier, AlchemicalSulfurType type) {
         return register(name, () -> new AlchemicalSulfurItem(new Item.Properties()).overrideSourceName(true).tier(tier).type(type));
     }
 
-    public static DeferredItem<AlchemicalSulfurItem> registerNiter(String name, Supplier<Item> sourceStackSupplier, AlchemicalSulfurTier tier) {
-        return register(name, () -> new AlchemicalSulfurItem(new Item.Properties(), Suppliers.memoize(() -> new ItemStack(sourceStackSupplier.get()))).overrideSourceName(true).autoTooltip(true, false).autoName(true, false).withJarIcon(Suppliers.memoize(() -> new ItemStack(ItemRegistry.EMPTY_CERAMIC_JAR_ICON.get()))).tier(tier).type(AlchemicalSulfurType.NITER));
+    /**
+     * The source tag does not need to cover all possible sources (e.g. a "uranium" tag that covers ore, raw metal, ingot, ...) but rather one possible source that should be used to get the icon from.
+     */
+    public static DeferredItem<AlchemicalSulfurItem> registerWithSourceNameOverride(TagKey<Item> source, AlchemicalSulfurTier tier, AlchemicalSulfurType type) {
+        return register(name(source), () -> new AlchemicalSulfurItem(new Item.Properties()
+                .component(
+                        DataComponentRegistry.SULFUR_SOURCE_TAG,
+                        source
+                )).overrideSourceName(true).tier(tier).type(type));
+    }
+
+    public static DeferredItem<AlchemicalSulfurItem> registerNiter(String name, DeferredItem<?> sourceStack, AlchemicalSulfurTier tier) {
+        return register(name, () -> new AlchemicalSulfurItem(new Item.Properties().component(
+                DataComponentRegistry.SULFUR_SOURCE_ITEM,
+                DeferredHolder.create(Registries.ITEM, sourceStack.getId())
+        )).overrideSourceName(true).autoTooltip(true, false).autoName(true, false).withJarIcon(Suppliers.memoize(() -> new ItemStack(ItemRegistry.EMPTY_CERAMIC_JAR_ICON.get()))).tier(tier).type(AlchemicalSulfurType.NITER));
     }
 
     public static DeferredItem<AlchemicalSulfurItem> registerDefault(String name, AlchemicalSulfurTier tier, AlchemicalSulfurType type) {
         return register(name, () -> new AlchemicalSulfurItem(new Item.Properties()).tier(tier).type(type));
     }
 
+    public static DeferredItem<AlchemicalSulfurItem> registerDefault(String name, TagKey<Item> source, AlchemicalSulfurTier tier, AlchemicalSulfurType type) {
+        return register(name, () -> new AlchemicalSulfurItem(new Item.Properties()
+                .component(
+                        DataComponentRegistry.SULFUR_SOURCE_TAG,
+                        source)
+        ).tier(tier).type(type));
+    }
+
+    public static DeferredItem<AlchemicalSulfurItem> registerDefault(String name, DeferredItem<?> sourceStack, AlchemicalSulfurTier tier, AlchemicalSulfurType type) {
+        return register(name, () -> new AlchemicalSulfurItem(new Item.Properties()
+                .component(
+                        DataComponentRegistry.SULFUR_SOURCE_ITEM,
+                        DeferredHolder.create(Registries.ITEM, sourceStack.getId())
+                )).tier(tier).type(type));
+    }
+
+    public static DeferredItem<AlchemicalSulfurItem> registerDefault(String name, Item sourceStack, AlchemicalSulfurTier tier, AlchemicalSulfurType type) {
+        return register(name, () -> new AlchemicalSulfurItem(new Item.Properties()
+                .component(
+                        DataComponentRegistry.SULFUR_SOURCE_ITEM,
+                        sourceStack.builtInRegistryHolder()
+                )).tier(tier).type(type));
+    }
+
     public static <T extends Item> DeferredItem<T> register(String name, Supplier<T> sup) {
         return SULFURS.register("alchemical_sulfur_" + name, sup);
+    }
+
+    private static String name(TagKey<Item> source) {
+        var slashIndex = source.location().getPath().lastIndexOf("/");
+        return source.location().getPath().substring(slashIndex + 1);
     }
 
 
@@ -141,15 +195,12 @@ public class SulfurRegistry {
             var recipeManager = level.getRecipeManager();
             var liquefactionRecipes = recipeManager.getAllRecipesFor(RecipeTypeRegistry.LIQUEFACTION.get());
 
-            var sulfursWithoutRecipe = SulfurRegistry.SULFURS.getEntries().stream()
-                    .map(DeferredHolder::get)
-                    .map(AlchemicalSulfurItem.class::cast)
-                    .filter(sulfur -> !SulfurRegistry.keepInItemLists(sulfur))
-                    .filter(sulfur -> liquefactionRecipes.stream().noneMatch(r -> r.value().getResultItem(level.registryAccess()) != null && r.value().getResultItem(level.registryAccess()).getItem() == sulfur)).collect(Collectors.toSet());
-
-            SULFURS.getEntries().stream().map(DeferredHolder::get).map(AlchemicalSulfurItem.class::cast).filter(i -> !sulfursWithoutRecipe.contains(i)).forEach(sulfur -> {
-                var preferred = getPreferredSulfurVariant(sulfur, liquefactionRecipes, level);
-                preferred.ifPresent(itemStack -> event.accept(itemStack.copyWithCount(1)));
+            //Register only sulfurs that have a liquefaction recipe
+            liquefactionRecipes.forEach(r -> {
+                var result = r.value().getResultItem(level.registryAccess());
+                if (result != null && !result.isEmpty() && result.getItem() instanceof AlchemicalSulfurItem){
+                    event.accept(result.copyWithCount(1));
+                }
             });
 
             event.accept(SulfurRegistry.GEMS_ABUNDANT.get());
@@ -165,27 +216,5 @@ public class SulfurRegistry {
             event.accept(SulfurRegistry.OTHER_MINERALS_RARE.get());
             event.accept(SulfurRegistry.OTHER_MINERALS_PRECIOUS.get());
         }
-    }
-
-    /**
-     * We want sulfurs to display with the most recognizable source items: ingots, gems, dusts.
-     * This method selects these sulfurs, and otherwise gets the first matching one.
-     */
-    public static Optional<ItemStack> getPreferredSulfurVariant(AlchemicalSulfurItem sulfur, List<RecipeHolder<LiquefactionRecipe>> liquefactionRecipes, Level level) {
-        var matchingRecipes = liquefactionRecipes.stream()
-                .filter(recipe -> recipe.value().getResultItem(level.registryAccess()) != null && recipe.value().getResultItem(level.registryAccess()).getItem() == sulfur).toList();
-
-        //prefer ingot/gems
-        var sulfurWithNbt = matchingRecipes.stream().filter(r -> Arrays.stream(r.value().getIngredient().getItems()).anyMatch(i -> i.is(Tags.Items.INGOTS) || i.is(Tags.Items.GEMS))).findFirst().map(r -> r.value().getResultItem(level.registryAccess()));
-
-        //second choice: dusts (e.g redstone, glowstone)
-        if (sulfurWithNbt.isEmpty())
-            sulfurWithNbt = matchingRecipes.stream().filter(r -> Arrays.stream(r.value().getIngredient().getItems()).anyMatch(i -> i.is(Tags.Items.DUSTS))).findFirst().map(r -> r.value().getResultItem(level.registryAccess()));
-
-        //but fall back to any other
-        if (sulfurWithNbt.isEmpty())
-            sulfurWithNbt = matchingRecipes.stream().findFirst().map(r -> r.value().getResultItem(level.registryAccess()));
-
-        return sulfurWithNbt;
     }
 }

@@ -1,13 +1,15 @@
 {
   "type": "theurgy:reformation",
   "category": "misc",
-  "mercury_flux": 50,
+  "mercuryFlux": 50,
   "result": {
+    "type": "theurgy:item",
     "count": 4,
-    "item": "theurgy:alchemical_sulfur_other_minerals_abundant"
+    "id": "theurgy:alchemical_sulfur_other_minerals_abundant"
   },
   "sources": [
     {
+      "count": 1,
       "item": "theurgy:alchemical_sulfur_gems_abundant"
     }
   ],

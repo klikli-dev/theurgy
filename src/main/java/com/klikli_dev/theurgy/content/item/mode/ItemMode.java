@@ -52,9 +52,4 @@ public abstract class ItemMode implements ItemHUDProvider {
     }
 
     public abstract ItemModeRenderHandler<?> renderHandler();
-
-    protected CompoundTag getModeTag(ItemStack stack) {
-        //an item will end up with one tag per mode type.
-        return stack.getOrCreateTagElement("theurgy:mode." + this.typeName());
-    }
 }

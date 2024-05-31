@@ -1,0 +1,14 @@
+{
+  "type": "theurgy:calcination",
+  "category": "misc",
+  "ingredient": {
+    "item": "minecraft:clay_ball"
+  },
+  "ingredientCount": 1,
+  "result": {
+    "type": "theurgy:item",
+    "count": 1,
+    "id": "theurgy:alchemical_salt_strata"
+  },
+  "time": 100
+}

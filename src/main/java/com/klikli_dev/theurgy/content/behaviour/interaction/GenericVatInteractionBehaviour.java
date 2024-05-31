@@ -8,7 +8,9 @@ import com.klikli_dev.theurgy.content.behaviour.crafting.HasCraftingBehaviour;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -19,14 +21,14 @@ import net.minecraft.world.phys.BlockHitResult;
 
 public abstract class GenericVatInteractionBehaviour<R extends Recipe<?>> implements InteractionBehaviour {
     @Override
-    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
+    public ItemInteractionResult useItemOn(ItemStack pStack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHitResult) {
         if (pHand != InteractionHand.MAIN_HAND)
-            return InteractionResult.PASS;
+            return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 
         var blockEntity = pLevel.getBlockEntity(pPos);
 
         if (!(blockEntity instanceof HasCraftingBehaviour<?, ?, ?>))
-            return InteractionResult.PASS;
+            return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
         @SuppressWarnings("unchecked") var vat = (HasCraftingBehaviour<?, R, ?>) blockEntity;
 
         //interaction with shift and empty hand opens/closes the vat
@@ -35,13 +37,13 @@ public abstract class GenericVatInteractionBehaviour<R extends Recipe<?>> implem
             //if the vat is closed then other interactions are not allowed and we say that, and handle the event to avoid further interaction
             if (!pState.getValue(BlockStateProperties.OPEN)) {
                 this.showClosedMessage(pLevel, pPlayer);
-                return InteractionResult.FAIL;
+                return ItemInteractionResult.FAIL;
             }
-            return InteractionResult.PASS;
+            return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
         }
 
         if (pLevel.isClientSide)
-            return InteractionResult.SUCCESS;
+            return ItemInteractionResult.SUCCESS;
 
         var craftingBehaviour = vat.craftingBehaviour();
 
@@ -54,7 +56,7 @@ public abstract class GenericVatInteractionBehaviour<R extends Recipe<?>> implem
                 pLevel.setBlock(pPos, pState.setValue(BlockStateProperties.OPEN, false), Block.UPDATE_CLIENTS);
             } else {
                 this.showNoRecipeMessage(pLevel, pPlayer);
-                return InteractionResult.FAIL;
+                return ItemInteractionResult.FAIL;
             }
         } else {
             //when opening we stop processing (because we want to interrupt the crafting process)
@@ -64,7 +66,7 @@ public abstract class GenericVatInteractionBehaviour<R extends Recipe<?>> implem
             blockEntity.setChanged();
         }
 
-        return InteractionResult.SUCCESS;
+        return ItemInteractionResult.SUCCESS;
     }
 
 

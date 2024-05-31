@@ -35,7 +35,7 @@ public class FermentationCraftingBehaviour extends CraftingBehaviour<RecipeWrapp
 
     @Override
     public boolean canProcess(ItemStack stack) {
-        if (ItemHandlerHelper.canItemStacksStack(stack, this.inputInventorySupplier.get().getStackInSlot(0)))
+        if (ItemStack.isSameItemSameComponents(stack, this.inputInventorySupplier.get().getStackInSlot(0)))
             return true; //early out if we are already processing this type of item
 
 
@@ -44,7 +44,7 @@ public class FermentationCraftingBehaviour extends CraftingBehaviour<RecipeWrapp
 
 
     public boolean canProcess(FluidStack stack) {
-        if (this.fluidTankSupplier.get().getFluidInTank(0).isFluidEqual(stack))
+        if (FluidStack.isSameFluidSameComponents(this.fluidTankSupplier.get().getFluidInTank(0), stack))
             return true; //early out if we are already processing this type of fluid
 
         //now we use our custom cached check that checks only liquids:

@@ -5,24 +5,27 @@
 package com.klikli_dev.theurgy.content.item.mercurialwand.mode;
 
 import com.klikli_dev.theurgy.content.item.mode.ItemMode;
+import com.mojang.serialization.Codec;
+import io.netty.buffer.ByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.util.ByIdMap;
+import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.function.IntFunction;
 
 public abstract class MercurialWandItemMode extends ItemMode {
+
+    public static final Codec<MercurialWandItemMode> CODEC = Type.CODEC.xmap(Type::mode, MercurialWandItemMode::type);
+
+    public static final StreamCodec<ByteBuf, MercurialWandItemMode> STREAM_CODEC = Type.STREAM_CODEC.map(Type::mode, MercurialWandItemMode::type);
+
     protected Type type;
 
     protected MercurialWandItemMode() {
         super();
-    }
-
-    public static MercurialWandItemMode getMode(ItemStack stack) {
-        var tag = stack.getOrCreateTag();
-        var modeOrdinal = tag.getInt("theurgy:mode");
-        return Type.values()[modeOrdinal].mode();
-    }
-
-    public static void setMode(ItemStack stack, MercurialWandItemMode mode) {
-        var tag = stack.getOrCreateTag();
-        tag.putInt("theurgy:mode", mode.type.ordinal());
     }
 
     public Type type() {
@@ -35,20 +38,23 @@ public abstract class MercurialWandItemMode extends ItemMode {
     }
 
 
-    public enum Type {
-        ROTATE_DIRECTION(new RotateSelectedDirectionMode()),
-        SWITCH_LOGISTICS_ENABLED(new SwitchLogisticsEnabledMode()),
-        SELECT_DIRECTION(new SelectDirectionMode(), false),
-        SET_SELECTED_DIRECTION(new SetSelectedDirectionMode(), false);
+    public enum Type implements StringRepresentable {
+        CYCLE_DIRECTION("cycle_direction",new CycleSelectedDirectionMode()),
+        SWITCH_LOGISTICS_ENABLED("switch_logistics_enabled", new SwitchLogisticsEnabledMode());
 
+        public static final Codec<Type> CODEC = StringRepresentable.fromValues(Type::values);
+        public static final IntFunction<Type> BY_ID = ByIdMap.continuous(Enum::ordinal, values(), ByIdMap.OutOfBoundsStrategy.WRAP);
+        public static final StreamCodec<ByteBuf, Type> STREAM_CODEC = ByteBufCodecs.idMapper(BY_ID, Type::ordinal);
+        final String name;
         final MercurialWandItemMode mode;
         final boolean enabled;
 
-        Type(MercurialWandItemMode mode) {
-            this(mode, true);
+        Type(String name, MercurialWandItemMode mode) {
+            this(name, mode, true);
         }
 
-        Type(MercurialWandItemMode mode, boolean enabled) {
+        Type(String name, MercurialWandItemMode mode, boolean enabled) {
+            this.name = name;
             this.mode = mode;
             this.enabled = enabled;
             mode.type = this;
@@ -93,5 +99,9 @@ public abstract class MercurialWandItemMode extends ItemMode {
             return this;
         }
 
+        @Override
+        public @NotNull String getSerializedName() {
+            return this.name;
+        }
     }
 }

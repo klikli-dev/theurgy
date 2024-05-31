@@ -1,28 +1,26 @@
 {
-  "neoforge:conditions": [
+  "type": "theurgy:liquefaction",
+  "category": "misc",
+  "conditions": [
     {
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:ores/netherite_scrap"
+        "tag": "c:ores/netherite_scrap"
       }
     }
   ],
-  "type": "theurgy:liquefaction",
-  "category": "misc",
   "ingredient": {
-    "tag": "forge:ores/netherite_scrap"
+    "tag": "c:ores/netherite_scrap"
   },
   "result": {
+    "type": "theurgy:item",
     "count": 1,
-    "item": "theurgy:alchemical_sulfur_netherite",
-    "nbt": {
-      "theurgy:sulfur.source.id": "#forge:ores/netherite_scrap"
-    }
+    "id": "theurgy:alchemical_sulfur_netherite"
   },
   "solvent": {
     "fluid": "theurgy:sal_ammoniac"
   },
-  "solvent_amount": 100,
+  "solventAmount": 100,
   "time": 100
 }

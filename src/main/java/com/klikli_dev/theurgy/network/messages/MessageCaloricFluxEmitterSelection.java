@@ -9,43 +9,37 @@ import com.klikli_dev.theurgy.content.apparatus.caloricfluxemitter.CaloricFluxEm
 import com.klikli_dev.theurgy.content.apparatus.caloricfluxemitter.CaloricFluxEmitterSelectedPoint;
 import com.klikli_dev.theurgy.network.Message;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MessageCaloricFluxEmitterSelection implements Message {
+    public static final Type<MessageCaloricFluxEmitterSelection> TYPE = new Type<>(Theurgy.loc("caloric_flux_emitter_selection"));
 
-    public static final ResourceLocation ID = Theurgy.loc("caloric_flux_emitter_selection");
+    public static final StreamCodec<RegistryFriendlyByteBuf, MessageCaloricFluxEmitterSelection> STREAM_CODEC =
+            StreamCodec.composite(
+                    BlockPos.STREAM_CODEC,
+                    (m) -> m.blockPos,
+                    CaloricFluxEmitterSelectedPoint.STREAM_CODEC.apply(ByteBufCodecs.list()),
+                    (m) -> m.selectedPoints,
+                    MessageCaloricFluxEmitterSelection::new
+            );
 
-
-    private List<CaloricFluxEmitterSelectedPoint> selectedPoints;
-    private BlockPos blockPos;
+    private final List<CaloricFluxEmitterSelectedPoint> selectedPoints;
+    private final BlockPos blockPos;
 
     public MessageCaloricFluxEmitterSelection(BlockPos blockPos, List<CaloricFluxEmitterSelectedPoint> selectedPoints) {
         this.blockPos = blockPos;
         this.selectedPoints = new ArrayList<>(selectedPoints);
-    }
-
-    public MessageCaloricFluxEmitterSelection(FriendlyByteBuf buf) {
-        this.decode(buf);
-    }
-
-    @Override
-    public void encode(FriendlyByteBuf buf) {
-        buf.writeBlockPos(this.blockPos);
-        buf.writeCollection(this.selectedPoints, (buf1, point) -> buf1.writeJsonWithCodec(point.codec(), point));
-    }
-
-    @Override
-    public void decode(FriendlyByteBuf buf) {
-        this.blockPos = buf.readBlockPos();
-        this.selectedPoints = buf.readList(buf1 -> buf1.readJsonWithCodec(CaloricFluxEmitterSelectedPoint.CODEC));
     }
 
     @Override
@@ -63,7 +57,7 @@ public class MessageCaloricFluxEmitterSelection implements Message {
     }
 
     @Override
-    public ResourceLocation id() {
-        return ID;
+    public @NotNull Type<? extends CustomPacketPayload> type() {
+        return TYPE;
     }
 }

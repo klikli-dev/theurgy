@@ -1,0 +1,38 @@
+{
+  "type": "theurgy:fermentation",
+  "category": "misc",
+  "conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "theurgy:alchemical_sulfurs/metals/rare"
+      }
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:sugars"
+      }
+    }
+  ],
+  "fluid": {
+    "fluid": "minecraft:water"
+  },
+  "fluidAmount": 500,
+  "ingredients": [
+    {
+      "tag": "theurgy:alchemical_sulfurs/metals/rare"
+    },
+    {
+      "tag": "c:sugars"
+    }
+  ],
+  "result": {
+    "type": "theurgy:item",
+    "count": 1,
+    "id": "theurgy:mercury_shard"
+  },
+  "time": 200
+}

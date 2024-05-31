@@ -15,10 +15,15 @@ import com.klikli_dev.theurgy.registry.ItemTagRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import com.klikli_dev.theurgy.registry.SulfurRegistry;
 import com.mojang.datafixers.util.Pair;
+import net.minecraft.core.Holder;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.ItemLike;
+import net.neoforged.neoforge.common.conditions.NotCondition;
+import net.neoforged.neoforge.common.conditions.TagEmptyCondition;
 
 import java.util.*;
 import java.util.function.BiConsumer;
@@ -208,20 +213,15 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
 
 
     public void makeTagRecipe(String recipeName, Item result, int resultCount, List<TagKey<Item>> sources, int mercuryFlux, int reformationTime) {
-        var recipe = this.makeRecipeJson(
-                sources.stream().map(s -> this.makeTagIngredient(this.locFor(s))).toList(),
-                this.makeItemIngredient(this.locFor(result)),
-                mercuryFlux,
-                this.makeItemResult(this.locFor(result), resultCount),
-                reformationTime);
 
-        var conditions = new JsonArray();
-        for (var source : sources) {
-            conditions.add(this.makeTagNotEmptyCondition(source.location().toString()));
-        }
-        recipe.add("neoforge:conditions", conditions);
+        var recipe = new Builder(new ItemStack(result, resultCount))
+                .target(result)
+                .mercuryFlux(mercuryFlux)
+                .time(reformationTime);
 
-        this.recipeCache.put(this.modLoc(recipeName), recipe);
+        sources.forEach(s -> recipe.sources(s, 1));
+
+        this.recipeCache.put(this.modLoc(recipeName), recipe.build());
     }
 
     public void makeRecipe(Item result, Item source, int mercuryFlux) {
@@ -233,34 +233,82 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
     }
 
     public void makeRecipe(String recipeName, Item result, int resultCount, List<Item> sources, int mercuryFlux, int reformationTime) {
-        this.recipeCache.put(
-                this.modLoc(recipeName),
-                this.makeRecipeJson(
-                        sources.stream().map(s -> this.makeItemIngredient(this.locFor(s))).toList(),
-                        this.makeItemIngredient(this.locFor(result)),
-                        mercuryFlux,
-                        this.makeItemResult(this.locFor(result), resultCount),
-                        reformationTime));
-    }
 
-    public JsonObject makeRecipeJson(List<JsonObject> sources, JsonObject target, int mercuryFlux, JsonObject result, int reformationTime) {
-        var sourcesArray = new JsonArray();
-        for (var source : sources) {
-            sourcesArray.add(source);
-        }
+        var recipe = new Builder(new ItemStack(result, resultCount))
+                .target(result)
+                .mercuryFlux(mercuryFlux)
+                .time(reformationTime);
 
-        var recipe = new JsonObject();
-        recipe.addProperty("type", RecipeTypeRegistry.REFORMATION.getId().toString());
-        recipe.add("sources", sourcesArray);
-        recipe.add("target", target);
-        recipe.addProperty("mercury_flux", mercuryFlux);
-        recipe.add("result", result);
-        recipe.addProperty("time", reformationTime);
-        return recipe;
+        sources.forEach(recipe::sources);
+
+        this.recipeCache.put(this.modLoc(recipeName), recipe.build());
     }
 
     @Override
     public String getName() {
         return "Reformation Recipes";
+    }
+
+
+    protected static class Builder extends RecipeBuilder<Builder> {
+        protected Builder(ItemStack result) {
+            super(RecipeTypeRegistry.REFORMATION);
+            this.result(result);
+            this.time(TIME);
+        }
+
+        public Builder target(Item item) {
+            return this.ingredient("target", item);
+        }
+
+        public Builder mercuryFlux(int mercuryFlux) {
+            this.recipe.addProperty("mercuryFlux", mercuryFlux);
+            return this.getThis();
+        }
+
+        public Builder sources(ItemLike item) {
+            //noinspection deprecation
+            return this.sources(item.asItem().builtInRegistryHolder());
+        }
+
+        public Builder sources(ItemLike item, int count) {
+            //noinspection deprecation
+            return this.sources(item.asItem().builtInRegistryHolder(), 1);
+        }
+
+        public Builder sources(Holder<Item> itemHolder) {
+            return this.sources(itemHolder, 1);
+        }
+
+        public Builder sources(Holder<Item> itemHolder, int count) {
+            if (!this.recipe.has("sources"))
+                this.recipe.add("sources", new JsonArray());
+
+            JsonObject jsonobject = new JsonObject();
+            //noinspection OptionalGetWithoutIsPresent
+            jsonobject.addProperty("item", itemHolder.unwrapKey().get().location().toString());
+            jsonobject.addProperty("count", count);
+
+            this.recipe.getAsJsonArray("sources").add(jsonobject);
+
+            return this.getThis();
+        }
+
+
+        public Builder sources(TagKey<?> tag, int count) {
+            if (!this.recipe.has("sources"))
+                this.recipe.add("sources", new JsonArray());
+
+            JsonObject jsonobject = new JsonObject();
+            jsonobject.addProperty("tag", tag.location().toString());
+            if (count > -1)
+                jsonobject.addProperty("count", count);
+
+            this.recipe.getAsJsonArray("sources").add(jsonobject);
+
+            this.condition(new NotCondition(new TagEmptyCondition(tag.location().toString())));
+
+            return this.getThis();
+        }
     }
 }

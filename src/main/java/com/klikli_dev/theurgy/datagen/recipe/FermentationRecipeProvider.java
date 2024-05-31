@@ -8,16 +8,23 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.content.recipe.FermentationRecipe;
+import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.registry.ItemTagRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import com.klikli_dev.theurgy.registry.SulfurRegistry;
+import net.minecraft.core.Holder;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
 import net.neoforged.neoforge.common.Tags;
+import net.neoforged.neoforge.common.conditions.NotCondition;
+import net.neoforged.neoforge.common.conditions.TagEmptyCondition;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.function.BiConsumer;
@@ -32,7 +39,7 @@ public class FermentationRecipeProvider extends JsonRecipeProvider {
 
     @Override
     public void buildRecipes(BiConsumer<ResourceLocation, JsonObject> recipeConsumer) {
-        this.makeRecipesForCropTag(ItemTagRegistry.SUGAR);
+        this.makeRecipesForCropTag(ItemTagRegistry.SUGARS);
         this.makeRecipesForCropTag(Tags.Items.CROPS);
     }
 
@@ -107,42 +114,81 @@ public class FermentationRecipeProvider extends JsonRecipeProvider {
     }
 
     public void makeRecipe(String name, Fluid fluid, int fluidAmount, List<TagKey<Item>> ingredients, Item result, int resultCount, int time) {
-        var recipe = this.makeRecipeJson(
-                this.makeFluidTagIngredient(this.locFor(fluid)),
-                fluidAmount,
-                ingredients.stream().map(i -> this.makeTagIngredient(this.locFor(i))).toList(),
-                this.makeItemResult(this.locFor(result), resultCount),
-                time);
 
-        var conditions = new JsonArray();
-        for (var ingredient : ingredients) {
-            conditions.add(this.makeTagNotEmptyCondition(ingredient.location().toString()));
-        }
-        recipe.add("neoforge:conditions", conditions);
+        var recipe = new Builder(new ItemStack(ItemRegistry.MERCURY_SHARD.get(), resultCount))
+                .fluid(fluid, fluidAmount)
+                .time(time);
 
-        this.recipeConsumer.accept(this.modLoc(name), recipe);
+        ingredients.forEach(i -> recipe.ingredients(i, -1));
+
+        this.recipeConsumer.accept(this.modLoc(name), recipe.build());
     }
-
-
-    public JsonObject makeRecipeJson(JsonObject fluid, int fluidAmount, List<JsonObject> ingredients, JsonObject result, int time) {
-        var ingredientsArray = new JsonArray();
-        for (var ingredient : ingredients) {
-            ingredientsArray.add(ingredient);
-        }
-
-        var recipe = new JsonObject();
-        recipe.addProperty("type", RecipeTypeRegistry.FERMENTATION.getId().toString());
-        recipe.add("fluid", fluid);
-        recipe.addProperty("fluidAmount", fluidAmount);
-        recipe.add("ingredients", ingredientsArray);
-        recipe.add("result", result);
-        recipe.addProperty("time", time);
-        return recipe;
-    }
-
 
     @Override
-    public String getName() {
+    public @NotNull String getName() {
         return "Fermentation Recipes";
+    }
+
+    protected static class Builder extends RecipeBuilder<Builder> {
+        protected Builder(ItemStack result) {
+            super(RecipeTypeRegistry.FERMENTATION);
+            this.result(result);
+            this.time(TIME);
+        }
+
+        public Builder fluid(TagKey<Fluid> tag, int amount) {
+            this.recipe.addProperty("fluidAmount", amount);
+            return this.ingredient("fluid", tag, -1);
+        }
+
+        public Builder fluid(Fluid fluid, int amount) {
+            this.recipe.addProperty("fluidAmount", amount);
+            return this.ingredient("fluid", fluid);
+        }
+
+        public Builder ingredients(ItemLike item) {
+            //noinspection deprecation
+            return this.ingredients(item.asItem().builtInRegistryHolder());
+        }
+
+        public Builder ingredients(ItemLike item, int count) {
+            //noinspection deprecation
+            return this.ingredients(item.asItem().builtInRegistryHolder(), 1);
+        }
+
+        public Builder ingredients(Holder<Item> itemHolder) {
+            return this.ingredients(itemHolder, 1);
+        }
+
+        public Builder ingredients(Holder<Item> itemHolder, int count) {
+            if (!this.recipe.has("ingredients"))
+                this.recipe.add("ingredients", new JsonArray());
+
+            JsonObject jsonobject = new JsonObject();
+            //noinspection OptionalGetWithoutIsPresent
+            jsonobject.addProperty("item", itemHolder.unwrapKey().get().location().toString());
+            jsonobject.addProperty("count", count);
+
+            this.recipe.getAsJsonArray("ingredients").add(jsonobject);
+
+            return this.getThis();
+        }
+
+
+        public Builder ingredients(TagKey<?> tag, int count) {
+            if (!this.recipe.has("ingredients"))
+                this.recipe.add("ingredients", new JsonArray());
+
+            JsonObject jsonobject = new JsonObject();
+            jsonobject.addProperty("tag", tag.location().toString());
+            if (count > -1)
+                jsonobject.addProperty("count", count);
+
+            this.recipe.getAsJsonArray("ingredients").add(jsonobject);
+
+            this.condition(new NotCondition(new TagEmptyCondition(tag.location().toString())));
+
+            return this.getThis();
+        }
     }
 }

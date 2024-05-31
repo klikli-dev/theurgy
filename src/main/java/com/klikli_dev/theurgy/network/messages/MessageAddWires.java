@@ -10,40 +10,34 @@ import com.klikli_dev.theurgy.logistics.Wires;
 import com.klikli_dev.theurgy.network.Message;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import net.minecraft.client.Minecraft;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.world.entity.player.Player;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Set;
 
 public class MessageAddWires implements Message {
 
-    public static final ResourceLocation ID = Theurgy.loc("add_wires");
+    public static final Type<MessageAddWires> TYPE = new Type<>(Theurgy.loc("add_wires"));
+    public static final StreamCodec<RegistryFriendlyByteBuf, MessageAddWires> STREAM_CODEC =
+            StreamCodec.composite(
+                    Wire.STREAM_CODEC.apply(ByteBufCodecs.collection(ObjectOpenHashSet::new)),
+                    (m) -> m.wires,
+                    MessageAddWires::new
+            );
 
-    public Set<Wire> wires;
+    public final Set<Wire> wires;
 
     public MessageAddWires(Set<Wire> wires) {
         this.wires = wires;
     }
 
-    public MessageAddWires(FriendlyByteBuf buf) {
-        this.decode(buf);
-    }
-
     @Override
-    public void encode(FriendlyByteBuf buf) {
-        buf.writeCollection(this.wires, (buf1, wire) -> buf1.writeNbt(wire.save(new CompoundTag())));
-    }
-
-    @Override
-    public void decode(FriendlyByteBuf buf) {
-        this.wires = buf.readCollection(ObjectOpenHashSet::new, (buf1) -> Wire.load(buf1.readNbt()));
-    }
-
-    @Override
-    public ResourceLocation id() {
-        return ID;
+    public @NotNull Type<? extends CustomPacketPayload> type() {
+        return TYPE;
     }
 
     @Override

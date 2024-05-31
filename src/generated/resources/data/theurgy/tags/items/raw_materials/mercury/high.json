@@ -1,15 +1,15 @@
 {
   "values": [
     {
-      "id": "#forge:raw_materials/allthemodium",
+      "id": "#c:raw_materials/allthemodium",
       "required": false
     },
     {
-      "id": "#forge:raw_materials/unobtainium",
+      "id": "#c:raw_materials/unobtainium",
       "required": false
     },
     {
-      "id": "#forge:raw_materials/vibranium",
+      "id": "#c:raw_materials/vibranium",
       "required": false
     }
   ]

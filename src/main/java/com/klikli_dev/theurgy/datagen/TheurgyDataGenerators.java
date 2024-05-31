@@ -39,10 +39,15 @@ public class TheurgyDataGenerators {
         generator.addProvider(event.includeServer(), new TheurgyFluidTagsProvider(generator.getPackOutput(), event.getLookupProvider(), event.getExistingFileHelper()));
         generator.addProvider(event.includeServer(), new TheurgyItemTagsProvider(generator.getPackOutput(), event.getLookupProvider(), blockTagsProvider.contentsGetter(), event.getExistingFileHelper()));
 
-        generator.addProvider(event.includeServer(),
-                new LootTableProvider(generator.getPackOutput(), Set.of(), List.of(
-                        new LootTableProvider.SubProviderEntry(TheurgyBlockLootSubProvider::new, LootContextParamSets.BLOCK)
-                )));
+        generator.addProvider(event.includeServer(), new LootTableProvider(
+                        generator.getPackOutput(),
+                        Set.of(),
+                        List.of(
+                                new LootTableProvider.SubProviderEntry(TheurgyBlockLootSubProvider::new, LootContextParamSets.BLOCK)
+                        ),
+                        event.getLookupProvider()
+                )
+        );
 
         generator.addProvider(event.includeServer(),
                 new AdvancementProvider(generator.getPackOutput(), event.getLookupProvider(), event.getExistingFileHelper(), List.of(
@@ -68,7 +73,7 @@ public class TheurgyDataGenerators {
         generator.addProvider(event.includeServer(), new TheurgyMultiblockProvider(generator.getPackOutput()));
 
         var enUSProvider = new ENUSProvider(generator.getPackOutput());
-        generator.addProvider(event.includeServer(), new TheurgyBookProvider(generator.getPackOutput(), enUSProvider));
+        generator.addProvider(event.includeServer(), new TheurgyBookProvider(generator.getPackOutput(), event.getLookupProvider(), enUSProvider));
 
         //Important: Lang provider (in this case enus) needs to be added after the book provider to process the texts added by the book provider
         generator.addProvider(event.includeClient(), enUSProvider);

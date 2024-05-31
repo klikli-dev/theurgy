@@ -1,28 +1,26 @@
 {
-  "neoforge:conditions": [
+  "type": "theurgy:liquefaction",
+  "category": "misc",
+  "conditions": [
     {
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:ores/osmium"
+        "tag": "c:ores/osmium"
       }
     }
   ],
-  "type": "theurgy:liquefaction",
-  "category": "misc",
   "ingredient": {
-    "tag": "forge:ores/osmium"
+    "tag": "c:ores/osmium"
   },
   "result": {
+    "type": "theurgy:item",
     "count": 5,
-    "item": "theurgy:alchemical_sulfur_osmium",
-    "nbt": {
-      "theurgy:sulfur.source.id": "#forge:ores/osmium"
-    }
+    "id": "theurgy:alchemical_sulfur_osmium"
   },
   "solvent": {
     "fluid": "theurgy:sal_ammoniac"
   },
-  "solvent_amount": 10,
+  "solventAmount": 10,
   "time": 100
 }

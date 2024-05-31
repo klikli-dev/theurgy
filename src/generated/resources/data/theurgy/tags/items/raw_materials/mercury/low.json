@@ -1,29 +1,29 @@
 {
   "values": [
-    "#forge:raw_materials/iron",
-    "#forge:raw_materials/copper",
+    "#c:raw_materials/iron",
+    "#c:raw_materials/copper",
     {
-      "id": "#forge:raw_materials/zinc",
+      "id": "#c:raw_materials/zinc",
       "required": false
     },
     {
-      "id": "#forge:raw_materials/osmium",
+      "id": "#c:raw_materials/osmium",
       "required": false
     },
     {
-      "id": "#forge:raw_materials/nickel",
+      "id": "#c:raw_materials/nickel",
       "required": false
     },
     {
-      "id": "#forge:raw_materials/lead",
+      "id": "#c:raw_materials/lead",
       "required": false
     },
     {
-      "id": "#forge:raw_materials/tin",
+      "id": "#c:raw_materials/tin",
       "required": false
     },
     {
-      "id": "#forge:raw_materials/cinnabar",
+      "id": "#c:raw_materials/cinnabar",
       "required": false
     }
   ]

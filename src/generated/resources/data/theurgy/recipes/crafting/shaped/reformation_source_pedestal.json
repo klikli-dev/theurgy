@@ -6,7 +6,7 @@
       "tag": "theurgy:alchemical_sulfurs"
     },
     "i": {
-      "tag": "forge:ingots/iron"
+      "tag": "c:ingots/iron"
     },
     "s": {
       "item": "minecraft:blackstone"
@@ -19,6 +19,6 @@
   ],
   "result": {
     "count": 1,
-    "item": "theurgy:reformation_source_pedestal"
+    "id": "theurgy:reformation_source_pedestal"
   }
 }

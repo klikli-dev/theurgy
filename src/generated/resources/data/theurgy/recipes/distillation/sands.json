@@ -1,0 +1,23 @@
+{
+  "type": "theurgy:distillation",
+  "category": "misc",
+  "conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:sands"
+      }
+    }
+  ],
+  "ingredient": {
+    "tag": "c:sands"
+  },
+  "ingredientCount": 15,
+  "result": {
+    "type": "theurgy:item",
+    "count": 1,
+    "id": "theurgy:mercury_shard"
+  },
+  "time": 100
+}

@@ -3,13 +3,13 @@
   "category": "misc",
   "key": {
     "c": {
-      "tag": "forge:ingots/copper"
+      "tag": "c:ingots/copper"
     },
     "m": {
       "item": "theurgy:mercury_shard"
     },
     "s": {
-      "tag": "forge:rods/wooden"
+      "tag": "c:rods/wooden"
     }
   },
   "pattern": [
@@ -19,6 +19,6 @@
   ],
   "result": {
     "count": 1,
-    "item": "theurgy:mercurial_wand"
+    "id": "theurgy:mercurial_wand"
   }
 }

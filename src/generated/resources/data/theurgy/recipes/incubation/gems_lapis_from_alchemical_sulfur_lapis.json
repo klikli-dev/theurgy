@@ -1,26 +1,30 @@
 {
-  "neoforge:conditions": [
+  "type": "theurgy:incubation",
+  "category": "misc",
+  "conditions": [
     {
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:gems/lapis"
+        "tag": "c:gems/lapis"
       }
     }
   ],
-  "type": "theurgy:incubation",
-  "category": "misc",
   "mercury": {
+    "count": 1,
     "item": "theurgy:mercury_shard"
   },
   "result": {
+    "type": "theurgy:tag",
     "count": 1,
-    "tag": "forge:gems/lapis"
+    "tag": "c:gems/lapis"
   },
   "salt": {
+    "count": 1,
     "item": "theurgy:alchemical_salt_mineral"
   },
   "sulfur": {
+    "count": 1,
     "item": "theurgy:alchemical_sulfur_lapis"
   },
   "time": 100

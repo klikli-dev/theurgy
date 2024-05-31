@@ -6,8 +6,9 @@
   },
   "ingredientCount": 2,
   "result": {
+    "type": "theurgy:item",
     "count": 1,
-    "item": "theurgy:mercury_shard"
+    "id": "theurgy:mercury_shard"
   },
   "time": 100
 }

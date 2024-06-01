@@ -1,0 +1,27 @@
+{
+  "type": "theurgy:liquefaction",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:gems/niter"
+      }
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:gems/niter"
+  },
+  "liquefaction_time": 100,
+  "result": {
+    "count": 6,
+    "item": "theurgy:alchemical_sulfur_niter",
+    "nbt": {
+      "theurgy:sulfur.source.id": "#forge:gems/niter"
+    }
+  },
+  "solvent": {
+    "fluid": "theurgy:sal_ammoniac"
+  },
+  "solvent_amount": 15
+}

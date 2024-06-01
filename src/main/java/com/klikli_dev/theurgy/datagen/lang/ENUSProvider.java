@@ -392,6 +392,10 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.addSulfurSource(SulfurRegistry.CRIMSON_IRON, "Crimson Iron");
         this.addSulfurSource(SulfurRegistry.PLATINUM, "Platinum");
         this.addSulfurSource(SulfurRegistry.VIBRANIUM, "Vibranium");
+        this.addSulfurSource(SulfurRegistry.DESH, "Desh");
+        this.addSulfurSource(SulfurRegistry.OSTRUM, "Ostrum");
+        this.addSulfurSource(SulfurRegistry.CALORITE, "Calorite");
+        this.addSulfurSource(SulfurRegistry.IESNIUM, "Iesnium");
 
         //Common Gems
         this.addSulfurSource(SulfurRegistry.DIAMOND, "Diamond");
@@ -406,6 +410,9 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.addSulfurSource(SulfurRegistry.FLUORITE, "Fluorite");
         this.addSulfurSource(SulfurRegistry.SAPPHIRE, "Sapphire");
         this.addSulfurSource(SulfurRegistry.SAL_AMMONIAC, "Sal Ammoniac");
+        this.addSulfurSource(SulfurRegistry.CERTUS_QUARTZ, "Certus Quartz");
+        this.addSulfurSource(SulfurRegistry.FLUIX, "Fluix");
+        this.addSulfurSource(SulfurRegistry.NITER, "Niter");
 
         //Other Common Minerals
         this.addSulfurSource(SulfurRegistry.REDSTONE, "Redstone");

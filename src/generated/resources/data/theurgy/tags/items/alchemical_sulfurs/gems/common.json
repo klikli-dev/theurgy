@@ -1,6 +1,8 @@
 {
   "values": [
     "theurgy:alchemical_sulfur_lapis",
-    "theurgy:alchemical_sulfur_quartz"
+    "theurgy:alchemical_sulfur_quartz",
+    "theurgy:alchemical_sulfur_certus_quartz",
+    "theurgy:alchemical_sulfur_niter"
   ]
 }

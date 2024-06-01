@@ -1,0 +1,26 @@
+{
+  "type": "theurgy:incubation",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:gems/certus_quartz"
+      }
+    }
+  ],
+  "incubation_time": 100,
+  "mercury": {
+    "item": "theurgy:mercury_shard"
+  },
+  "result": {
+    "count": 1,
+    "tag": "forge:gems/certus_quartz"
+  },
+  "salt": {
+    "item": "theurgy:alchemical_salt_mineral"
+  },
+  "sulfur": {
+    "item": "theurgy:alchemical_sulfur_certus_quartz"
+  }
+}

@@ -34,7 +34,7 @@ public class AccumulationRecipeProvider extends JsonRecipeProvider {
         var salAmmoniac = FluidRegistry.SAL_AMMONIAC.get();
 
         this.makeRecipe("sal_ammoniac_from_water", salAmmoniac, 100, (Item) null, FluidTags.WATER, 1000, TIME);
-        this.makeRecipe("sal_ammoniac_from_water_and_sal_ammoniac_crystal", salAmmoniac, 1000, ItemTagRegistry.SAL_AMMONIAC_GEMS, FluidTags.WATER, 1000, TIME);
+        this.makeRecipe("sal_ammoniac_from_water_and_sal_ammoniac_crystal", salAmmoniac, 1000, ItemTagRegistry.GEMS_SAL_AMMONIAC, FluidTags.WATER, 1000, TIME);
     }
 
     public void makeRecipe(String name, Fluid result, int resultAmount, @Nullable Item solute, TagKey<Fluid> evaporant, int evaporantAmount, int accumulationTime) {

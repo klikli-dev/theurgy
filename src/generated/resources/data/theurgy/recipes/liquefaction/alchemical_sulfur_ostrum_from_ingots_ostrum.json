@@ -1,0 +1,27 @@
+{
+  "type": "theurgy:liquefaction",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:ingots/ostrum"
+      }
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:ingots/ostrum"
+  },
+  "liquefaction_time": 100,
+  "result": {
+    "count": 5,
+    "item": "theurgy:alchemical_sulfur_ostrum",
+    "nbt": {
+      "theurgy:sulfur.source.id": "#forge:ingots/ostrum"
+    }
+  },
+  "solvent": {
+    "fluid": "theurgy:sal_ammoniac"
+  },
+  "solvent_amount": 10
+}

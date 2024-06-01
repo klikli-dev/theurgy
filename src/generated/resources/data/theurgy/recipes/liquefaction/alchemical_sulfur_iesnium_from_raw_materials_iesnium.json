@@ -1,0 +1,27 @@
+{
+  "type": "theurgy:liquefaction",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:raw_materials/iesnium"
+      }
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:raw_materials/iesnium"
+  },
+  "liquefaction_time": 100,
+  "result": {
+    "count": 5,
+    "item": "theurgy:alchemical_sulfur_iesnium",
+    "nbt": {
+      "theurgy:sulfur.source.id": "#forge:raw_materials/iesnium"
+    }
+  },
+  "solvent": {
+    "fluid": "theurgy:sal_ammoniac"
+  },
+  "solvent_amount": 50
+}

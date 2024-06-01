@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.4-1.19.0] - 2024-06-01
+### :sparkles: New Features
+- [`960d35d`](https://github.com/klikli-dev/theurgy/commit/960d35d674d9f047155de3785e69b3f98ccf1f05) - Add support for additional modded materials *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.4-1.18.2] - 2024-05-26
 ### :sparkles: New Features
 - [`de29758`](https://github.com/klikli-dev/theurgy/commit/de29758f8f269913a52c30cfd95fc013eaaeb5d2) - mention vat redstone interactions in guide book *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -510,3 +515,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.4-1.17.2]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.4-1.17.1...release/v1.20.4-1.17.2
 [release/v1.20.4-1.18.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.4-1.17.2...release/v1.20.4-1.18.0
 [release/v1.20.4-1.18.2]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.4-1.18.0...release/v1.20.4-1.18.2
+[release/v1.20.4-1.19.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.4-1.18.2...release/v1.20.4-1.19.0

@@ -1,0 +1,26 @@
+{
+  "type": "theurgy:liquefaction",
+  "category": "misc",
+  "conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:gems/fluix"
+      }
+    }
+  ],
+  "ingredient": {
+    "tag": "c:gems/fluix"
+  },
+  "result": {
+    "type": "theurgy:item",
+    "count": 6,
+    "id": "theurgy:alchemical_sulfur_fluix"
+  },
+  "solvent": {
+    "fluid": "theurgy:sal_ammoniac"
+  },
+  "solventAmount": 15,
+  "time": 100
+}

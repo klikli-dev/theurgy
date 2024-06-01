@@ -80,6 +80,10 @@ public class SulfurRegistry {
     public static final DeferredItem<AlchemicalSulfurItem> CRIMSON_IRON = registerWithSourceNameOverride(ItemTagRegistry.INGOTS_CRIMSON_IRON, AlchemicalSulfurTier.RARE, AlchemicalSulfurType.METALS);
     public static final DeferredItem<AlchemicalSulfurItem> PLATINUM = registerWithSourceNameOverride(ItemTagRegistry.INGOTS_PLATINUM, AlchemicalSulfurTier.RARE, AlchemicalSulfurType.METALS);
     public static final DeferredItem<AlchemicalSulfurItem> VIBRANIUM = registerWithSourceNameOverride(ItemTagRegistry.INGOTS_VIBRANIUM, AlchemicalSulfurTier.PRECIOUS, AlchemicalSulfurType.METALS);
+    public static final DeferredItem<AlchemicalSulfurItem> DESH = registerWithSourceNameOverride(ItemTagRegistry.INGOTS_DESH, AlchemicalSulfurTier.COMMON, AlchemicalSulfurType.METALS);
+    public static final DeferredItem<AlchemicalSulfurItem> OSTRUM = registerWithSourceNameOverride(ItemTagRegistry.INGOTS_OSTRUM, AlchemicalSulfurTier.RARE, AlchemicalSulfurType.METALS);
+    public static final DeferredItem<AlchemicalSulfurItem> CALORITE = registerWithSourceNameOverride(ItemTagRegistry.INGOTS_CALORITE, AlchemicalSulfurTier.PRECIOUS, AlchemicalSulfurType.METALS);
+    public static final DeferredItem<AlchemicalSulfurItem> IESNIUM = registerWithSourceNameOverride(ItemTagRegistry.INGOTS_IESNIUM, AlchemicalSulfurTier.PRECIOUS, AlchemicalSulfurType.METALS);
 
     //Common Gems
 
@@ -94,8 +98,10 @@ public class SulfurRegistry {
     public static final DeferredItem<AlchemicalSulfurItem> PERIDOT = registerWithSourceNameOverride(ItemTagRegistry.GEMS_PERIDOT, AlchemicalSulfurTier.RARE, AlchemicalSulfurType.GEMS);
     public static final DeferredItem<AlchemicalSulfurItem> FLUORITE = registerWithSourceNameOverride(ItemTagRegistry.GEMS_FLUORITE, AlchemicalSulfurTier.ABUNDANT, AlchemicalSulfurType.GEMS);
     public static final DeferredItem<AlchemicalSulfurItem> SAPPHIRE = registerWithSourceNameOverride(ItemTagRegistry.GEMS_SAPPHIRE, AlchemicalSulfurTier.RARE, AlchemicalSulfurType.GEMS);
-
     public static final DeferredItem<AlchemicalSulfurItem> SAL_AMMONIAC = registerWithSourceNameOverride(ItemTagRegistry.GEMS_SAL_AMMONIAC, AlchemicalSulfurTier.ABUNDANT, AlchemicalSulfurType.GEMS);
+    public static final DeferredItem<AlchemicalSulfurItem> CERTUS_QUARTZ = registerWithSourceNameOverride(ItemTagRegistry.GEMS_CERTUS_QUARTZ, AlchemicalSulfurTier.COMMON, AlchemicalSulfurType.GEMS);
+    public static final DeferredItem<AlchemicalSulfurItem> FLUIX = registerWithSourceNameOverride(ItemTagRegistry.GEMS_FLUIX, AlchemicalSulfurTier.RARE, AlchemicalSulfurType.GEMS);
+    public static final DeferredItem<AlchemicalSulfurItem> NITER = registerWithSourceNameOverride(ItemTagRegistry.GEMS_NITER, AlchemicalSulfurTier.COMMON, AlchemicalSulfurType.GEMS);
 
     //Other Common Minerals
     public static final DeferredItem<AlchemicalSulfurItem> REDSTONE = registerWithSourceNameOverride(Tags.Items.DUSTS_REDSTONE, AlchemicalSulfurTier.COMMON, AlchemicalSulfurType.OTHER_MINERALS);

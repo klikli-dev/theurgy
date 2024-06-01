@@ -1,0 +1,26 @@
+{
+  "type": "theurgy:liquefaction",
+  "category": "misc",
+  "conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:ingots/desh"
+      }
+    }
+  ],
+  "ingredient": {
+    "tag": "c:ingots/desh"
+  },
+  "result": {
+    "type": "theurgy:item",
+    "count": 5,
+    "id": "theurgy:alchemical_sulfur_desh"
+  },
+  "solvent": {
+    "fluid": "theurgy:sal_ammoniac"
+  },
+  "solventAmount": 10,
+  "time": 100
+}

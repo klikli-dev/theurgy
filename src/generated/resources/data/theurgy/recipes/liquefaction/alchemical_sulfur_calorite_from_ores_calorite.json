@@ -1,0 +1,26 @@
+{
+  "type": "theurgy:liquefaction",
+  "category": "misc",
+  "conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:ores/calorite"
+      }
+    }
+  ],
+  "ingredient": {
+    "tag": "c:ores/calorite"
+  },
+  "result": {
+    "type": "theurgy:item",
+    "count": 5,
+    "id": "theurgy:alchemical_sulfur_calorite"
+  },
+  "solvent": {
+    "fluid": "theurgy:sal_ammoniac"
+  },
+  "solventAmount": 50,
+  "time": 100
+}

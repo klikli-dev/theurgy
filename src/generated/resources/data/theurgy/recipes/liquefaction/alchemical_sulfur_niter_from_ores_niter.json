@@ -1,0 +1,26 @@
+{
+  "type": "theurgy:liquefaction",
+  "category": "misc",
+  "conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:ores/niter"
+      }
+    }
+  ],
+  "ingredient": {
+    "tag": "c:ores/niter"
+  },
+  "result": {
+    "type": "theurgy:item",
+    "count": 6,
+    "id": "theurgy:alchemical_sulfur_niter"
+  },
+  "solvent": {
+    "fluid": "theurgy:sal_ammoniac"
+  },
+  "solventAmount": 15,
+  "time": 100
+}

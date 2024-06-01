@@ -1,0 +1,29 @@
+{
+  "type": "theurgy:reformation",
+  "category": "misc",
+  "conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "theurgy:alchemical_sulfurs/metals/common"
+      }
+    }
+  ],
+  "mercuryFlux": 100,
+  "result": {
+    "type": "theurgy:item",
+    "count": 1,
+    "id": "theurgy:alchemical_sulfur_desh"
+  },
+  "sources": [
+    {
+      "count": 1,
+      "tag": "theurgy:alchemical_sulfurs/metals/common"
+    }
+  ],
+  "target": {
+    "item": "theurgy:alchemical_sulfur_desh"
+  },
+  "time": 100
+}

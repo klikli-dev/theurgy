@@ -29,13 +29,13 @@ public class TheurgyItemTagsProvider extends ItemTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider pProvider) {
-        this.copy(BlockTagRegistry.SAL_AMMONIAC_ORES, ItemTagRegistry.SAL_AMMONIAC_ORES);
+        this.copy(BlockTagRegistry.SAL_AMMONIAC_ORES, ItemTagRegistry.ORES_SAL_AMMONIAC);
         this.copy(Tags.Blocks.ORES_IN_GROUND_STONE, Tags.Items.ORES_IN_GROUND_STONE);
         this.copy(Tags.Blocks.ORES_IN_GROUND_DEEPSLATE, Tags.Items.ORES_IN_GROUND_DEEPSLATE);
 
-        this.tag(ItemTagRegistry.SAL_AMMONIAC_GEMS)
+        this.tag(ItemTagRegistry.GEMS_SAL_AMMONIAC)
                 .add(ItemRegistry.SAL_AMMONIAC_CRYSTAL.get());
-        this.tag(Tags.Items.GEMS).addTag(ItemTagRegistry.SAL_AMMONIAC_GEMS);
+        this.tag(Tags.Items.GEMS).addTag(ItemTagRegistry.GEMS_SAL_AMMONIAC);
 
         var mercuriesTag = this.tag(ItemTagRegistry.ALCHEMICAL_MERCURIES);
         ItemRegistry.ITEMS.getEntries().forEach(item -> {
@@ -282,7 +282,7 @@ public class TheurgyItemTagsProvider extends ItemTagsProvider {
         this.tag(ItemTagRegistry.MEDIUM_MERCURY_GEMS)
                 .addTag(Tags.Items.GEMS_AMETHYST)
                 .addTag(Tags.Items.GEMS_PRISMARINE)
-                .addTag(ItemTagRegistry.SAL_AMMONIAC_GEMS)
+                .addTag(ItemTagRegistry.GEMS_SAL_AMMONIAC)
                 .addOptionalTag(this.rl("forge:gems/ruby"))
                 .addOptionalTag(this.rl("forge:gems/peridot"))
                 .addOptionalTag(this.rl("forge:gems/fluorite"))

@@ -1,0 +1,18 @@
+{
+  "type": "theurgy:reformation",
+  "category": "misc",
+  "mercury_flux": 100,
+  "result": {
+    "count": 1,
+    "item": "theurgy:alchemical_sulfur_niter"
+  },
+  "sources": [
+    {
+      "item": "theurgy:alchemical_sulfur_gems_common"
+    }
+  ],
+  "target": {
+    "item": "theurgy:alchemical_sulfur_niter"
+  },
+  "time": 100
+}

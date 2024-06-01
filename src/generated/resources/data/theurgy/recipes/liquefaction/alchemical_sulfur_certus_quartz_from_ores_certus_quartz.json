@@ -1,0 +1,28 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "forge:ores/certus_quartz"
+      }
+    }
+  ],
+  "type": "theurgy:liquefaction",
+  "category": "misc",
+  "ingredient": {
+    "tag": "forge:ores/certus_quartz"
+  },
+  "result": {
+    "count": 6,
+    "item": "theurgy:alchemical_sulfur_certus_quartz",
+    "nbt": {
+      "theurgy:sulfur.source.id": "#forge:ores/certus_quartz"
+    }
+  },
+  "solvent": {
+    "fluid": "theurgy:sal_ammoniac"
+  },
+  "solvent_amount": 15,
+  "time": 100
+}

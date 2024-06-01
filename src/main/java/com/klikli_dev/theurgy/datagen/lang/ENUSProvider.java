@@ -435,6 +435,10 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.addSulfurSource(SulfurRegistry.CRIMSON_IRON, "Crimson Iron");
         this.addSulfurSource(SulfurRegistry.PLATINUM, "Platinum");
         this.addSulfurSource(SulfurRegistry.VIBRANIUM, "Vibranium");
+        this.addSulfurSource(SulfurRegistry.DESH, "Desh");
+        this.addSulfurSource(SulfurRegistry.OSTRUM, "Ostrum");
+        this.addSulfurSource(SulfurRegistry.CALORITE, "Calorite");
+        this.addSulfurSource(SulfurRegistry.IESNIUM, "Iesnium");
 
         //Common Gems
         this.addSulfurSource(SulfurRegistry.DIAMOND, "Diamond");
@@ -449,6 +453,9 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.addSulfurSource(SulfurRegistry.FLUORITE, "Fluorite");
         this.addSulfurSource(SulfurRegistry.SAPPHIRE, "Sapphire");
         this.addSulfurSource(SulfurRegistry.SAL_AMMONIAC, "Sal Ammoniac");
+        this.addSulfurSource(SulfurRegistry.CERTUS_QUARTZ, "Certus Quartz");
+        this.addSulfurSource(SulfurRegistry.FLUIX, "Fluix");
+        this.addSulfurSource(SulfurRegistry.NITER, "Niter");
 
         //Other Common Minerals
         this.addSulfurSource(SulfurRegistry.REDSTONE, "Redstone");
@@ -665,7 +672,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
                 """
                         Right-click one connector, then right-click another connector to connect them with the wire.
                         """
-                );
+        );
 
         this.addItem(ItemRegistry.MERCURIAL_WAND, "Mercurial Wand");
 
@@ -686,7 +693,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
                 "Definitely not just a wrench.",
                 "Allows configuring alchemical apparatuses and mercurial logistics networks.",
                 wandUsage
-                );
+        );
 
         this.add(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_SELECT_DIRECTION, "Select direction (Currently: %s)");
         this.add(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_SELECT_DIRECTION_SUCCESS, "Direction: %s");

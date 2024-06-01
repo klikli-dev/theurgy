@@ -1,0 +1,18 @@
+{
+  "type": "theurgy:reformation",
+  "category": "misc",
+  "mercury_flux": 200,
+  "result": {
+    "count": 1,
+    "item": "theurgy:alchemical_sulfur_calorite"
+  },
+  "sources": [
+    {
+      "item": "theurgy:alchemical_sulfur_metals_precious"
+    }
+  ],
+  "target": {
+    "item": "theurgy:alchemical_sulfur_calorite"
+  },
+  "time": 100
+}

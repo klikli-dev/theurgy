@@ -128,7 +128,7 @@ public class SalAmmoniacAccumulatorBlockEntity extends BlockEntity implements Ge
                 var fluidClientExtension = IClientFluidTypeExtensions.of(fluidStack.getFluid());
                 int waterColor = fluidClientExtension.getTintColor(fluidStack);
 
-                var particleColor = this.inventory.getStackInSlot(0).is(ItemTagRegistry.SAL_AMMONIAC_GEMS) ?
+                var particleColor = this.inventory.getStackInSlot(0).is(ItemTagRegistry.GEMS_SAL_AMMONIAC) ?
                         new ParticleColor(255, 192, 128) : ParticleColor.fromInt(waterColor);
 
                 var fluidHeight = fluidStack.getAmount() / (float) this.waterTank.getCapacity();

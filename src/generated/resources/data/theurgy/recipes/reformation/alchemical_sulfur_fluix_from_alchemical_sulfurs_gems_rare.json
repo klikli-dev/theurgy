@@ -1,0 +1,27 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "theurgy:alchemical_sulfurs/gems/rare"
+      }
+    }
+  ],
+  "type": "theurgy:reformation",
+  "category": "misc",
+  "mercury_flux": 150,
+  "result": {
+    "count": 1,
+    "item": "theurgy:alchemical_sulfur_fluix"
+  },
+  "sources": [
+    {
+      "tag": "theurgy:alchemical_sulfurs/gems/rare"
+    }
+  ],
+  "target": {
+    "item": "theurgy:alchemical_sulfur_fluix"
+  },
+  "time": 100
+}

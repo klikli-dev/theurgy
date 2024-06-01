@@ -1,0 +1,28 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "forge:raw_materials/ostrum"
+      }
+    }
+  ],
+  "type": "theurgy:liquefaction",
+  "category": "misc",
+  "ingredient": {
+    "tag": "forge:raw_materials/ostrum"
+  },
+  "result": {
+    "count": 5,
+    "item": "theurgy:alchemical_sulfur_ostrum",
+    "nbt": {
+      "theurgy:sulfur.source.id": "#forge:raw_materials/ostrum"
+    }
+  },
+  "solvent": {
+    "fluid": "theurgy:sal_ammoniac"
+  },
+  "solvent_amount": 10,
+  "time": 100
+}

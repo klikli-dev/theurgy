@@ -1,0 +1,18 @@
+{
+  "type": "theurgy:reformation",
+  "category": "misc",
+  "mercury_flux": 150,
+  "result": {
+    "count": 1,
+    "item": "theurgy:alchemical_sulfur_fluix"
+  },
+  "sources": [
+    {
+      "item": "theurgy:alchemical_sulfur_gems_rare"
+    }
+  ],
+  "target": {
+    "item": "theurgy:alchemical_sulfur_fluix"
+  },
+  "time": 100
+}

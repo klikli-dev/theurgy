@@ -1,0 +1,28 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "forge:raw_materials/calorite"
+      }
+    }
+  ],
+  "type": "theurgy:liquefaction",
+  "category": "misc",
+  "ingredient": {
+    "tag": "forge:raw_materials/calorite"
+  },
+  "result": {
+    "count": 5,
+    "item": "theurgy:alchemical_sulfur_calorite",
+    "nbt": {
+      "theurgy:sulfur.source.id": "#forge:raw_materials/calorite"
+    }
+  },
+  "solvent": {
+    "fluid": "theurgy:sal_ammoniac"
+  },
+  "solvent_amount": 50,
+  "time": 100
+}

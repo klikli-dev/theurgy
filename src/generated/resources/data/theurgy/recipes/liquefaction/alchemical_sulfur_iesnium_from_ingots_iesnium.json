@@ -1,0 +1,28 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "forge:ingots/iesnium"
+      }
+    }
+  ],
+  "type": "theurgy:liquefaction",
+  "category": "misc",
+  "ingredient": {
+    "tag": "forge:ingots/iesnium"
+  },
+  "result": {
+    "count": 5,
+    "item": "theurgy:alchemical_sulfur_iesnium",
+    "nbt": {
+      "theurgy:sulfur.source.id": "#forge:ingots/iesnium"
+    }
+  },
+  "solvent": {
+    "fluid": "theurgy:sal_ammoniac"
+  },
+  "solvent_amount": 50,
+  "time": 100
+}

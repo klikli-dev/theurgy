@@ -1,0 +1,27 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "forge:ingots/desh"
+      }
+    }
+  ],
+  "type": "theurgy:incubation",
+  "category": "misc",
+  "mercury": {
+    "item": "theurgy:mercury_shard"
+  },
+  "result": {
+    "count": 1,
+    "tag": "forge:ingots/desh"
+  },
+  "salt": {
+    "item": "theurgy:alchemical_salt_mineral"
+  },
+  "sulfur": {
+    "item": "theurgy:alchemical_sulfur_desh"
+  },
+  "time": 100
+}

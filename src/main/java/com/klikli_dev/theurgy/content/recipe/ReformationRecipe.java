@@ -47,7 +47,7 @@ public class ReformationRecipe implements Recipe<ReformationArrayRecipeWrapper> 
             r -> r.sources,
             Ingredient.CONTENTS_STREAM_CODEC,
             r -> r.target,
-            ItemStack.STREAM_CODEC,
+            ItemStack.OPTIONAL_STREAM_CODEC,
             r -> r.result,
             ByteBufCodecs.INT,
             r -> r.mercuryFlux,

@@ -52,7 +52,7 @@ public class DigestionRecipe implements Recipe<RecipeWrapperWithFluid> {
             r -> r.fluidAmount,
             IngredientWithCount.STREAM_CODEC.apply(ByteBufCodecs.list()),
             r -> r.ingredientsWithCount,
-            ItemStack.STREAM_CODEC,
+            ItemStack.OPTIONAL_STREAM_CODEC,
             r -> r.result,
             ByteBufCodecs.INT,
             r -> r.time,

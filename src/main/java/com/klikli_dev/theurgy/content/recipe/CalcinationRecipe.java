@@ -41,7 +41,7 @@ public class CalcinationRecipe implements Recipe<RecipeWrapper> {
             r -> r.ingredient,
             ByteBufCodecs.INT,
             r -> r.ingredientCount,
-            ItemStack.STREAM_CODEC,
+            ItemStack.OPTIONAL_STREAM_CODEC,
             r -> r.result,
             ByteBufCodecs.INT,
             r -> r.time,

@@ -19,7 +19,7 @@ public class ItemRecipeResult extends RecipeResult {
     public static final MapCodec<ItemRecipeResult> CODEC = MapCodec.assumeMapUnsafe(ItemStack.STRICT_CODEC.xmap(ItemRecipeResult::new, ItemRecipeResult::getStack));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, ItemRecipeResult> STREAM_CODEC = StreamCodec.composite(
-            ItemStack.STREAM_CODEC,
+            ItemStack.OPTIONAL_STREAM_CODEC,
             ItemRecipeResult::getStack,
             ItemRecipeResult::new
     );

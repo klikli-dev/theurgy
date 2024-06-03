@@ -47,7 +47,7 @@ public class FermentationRecipe implements Recipe<RecipeWrapperWithFluid> {
             r -> r.fluidAmount,
             Ingredient.CONTENTS_STREAM_CODEC.apply(ByteBufCodecs.list()),
             r -> r.ingredients,
-            ItemStack.STREAM_CODEC,
+            ItemStack.OPTIONAL_STREAM_CODEC,
             r -> r.result,
             ByteBufCodecs.INT,
             r -> r.time,

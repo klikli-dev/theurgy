@@ -197,7 +197,7 @@ public class DivinationRodRecipe extends ShapedRecipe {
                 ShapedRecipe::getGroup,
                 ShapedRecipePattern.STREAM_CODEC,
                 r -> r.pattern,
-                ItemStack.STREAM_CODEC,
+                ItemStack.OPTIONAL_STREAM_CODEC,
                 r -> r.getResultItem(RegistryAccess.EMPTY),
                 ByteBufCodecs.BOOL,
                 ShapedRecipe::showNotification,

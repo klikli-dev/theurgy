@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.6-1.19.2] - 2024-06-06
+### :bug: Bug Fixes
+- [`029f812`](https://github.com/klikli-dev/theurgy/commit/029f812e83f83326e390bc316e422d4895b8b122) - set default mercurial wand mode *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.6-1.19.1] - 2024-06-03
 ### :bug: Bug Fixes
 - [`ae955cc`](https://github.com/klikli-dev/theurgy/commit/ae955cc8fdfef97389d4c449eebfb13a1dbc7d0a) - switch to optional stream codec to allow empty item stacks *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -518,3 +523,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.6-1.18.2]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.6-0.0.0...release/v1.20.6-1.18.2
 [release/v1.20.6-1.19.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.6-1.18.2...release/v1.20.6-1.19.0
 [release/v1.20.6-1.19.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.6-1.19.0...release/v1.20.6-1.19.1
+[release/v1.20.6-1.19.2]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.6-1.19.1...release/v1.20.6-1.19.2

@@ -18,6 +18,7 @@ import com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator.SalAmmoni
 import com.klikli_dev.theurgy.content.apparatus.salammoniactank.SalAmmoniacTankBlockItem;
 import com.klikli_dev.theurgy.content.item.divinationrod.DivinationRodItem;
 import com.klikli_dev.theurgy.content.item.mercurialwand.MercurialWandItem;
+import com.klikli_dev.theurgy.content.item.mercurialwand.mode.MercurialWandItemMode;
 import com.klikli_dev.theurgy.content.item.wire.WireItem;
 import net.minecraft.world.item.*;
 import net.neoforged.neoforge.registries.DeferredItem;
@@ -127,7 +128,9 @@ public class ItemRegistry {
             ITEMS.register("copper_wire", () -> new WireItem(new Item.Properties(), 32));
 
     public static final DeferredItem<MercurialWandItem> MERCURIAL_WAND =
-            ITEMS.register("mercurial_wand", () -> new MercurialWandItem(new Item.Properties()));
+            ITEMS.register("mercurial_wand", () -> new MercurialWandItem(new Item.Properties()
+                    .component(DataComponentRegistry.MERCURIAL_WAND_ITEM_MODE.get(), MercurialWandItemMode.Type.CYCLE_DIRECTION.mode())
+            ));
 
     //Buckets
     public static final DeferredItem<Item> SAL_AMMONIAC_BUCKET =

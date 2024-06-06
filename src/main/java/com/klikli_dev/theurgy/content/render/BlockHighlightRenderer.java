@@ -33,6 +33,8 @@ public class BlockHighlightRenderer {
             return;
 
         var mode = stack.get(DataComponentRegistry.MERCURIAL_WAND_ITEM_MODE.get());
+        if (mode == null)
+            return;
 
         mode.renderHandler().renderBlockHighlight(event);
     }

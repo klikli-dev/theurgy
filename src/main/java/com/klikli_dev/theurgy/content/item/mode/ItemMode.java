@@ -42,6 +42,16 @@ public abstract class ItemMode implements ItemHUDProvider {
 
     public abstract String descriptionId();
 
+    @Override
+    public int hashCode() {
+        return this.typeName().hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof ItemMode && ((ItemMode) obj).typeName().equals(this.typeName());
+    }
+
     public MutableComponent description(ItemStack pStack, @Nullable Level pLevel) {
         return Component.translatable(this.descriptionId());
     }

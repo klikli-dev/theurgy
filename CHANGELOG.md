@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.6-1.19.4] - 2024-06-08
+### :bug: Bug Fixes
+- [`9208622`](https://github.com/klikli-dev/theurgy/commit/9208622f561daf662ecd0358571e1f1f2f3fc827) - invalid recipe identifiers in the hermetica *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`7d6434e`](https://github.com/klikli-dev/theurgy/commit/7d6434e44f3e4cc36dc52e51b8d4ec883e3c1ac0) - increase modonomicon version *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.6-1.19.3] - 2024-06-08
 ### :bug: Bug Fixes
 - [`d68181e`](https://github.com/klikli-dev/theurgy/commit/d68181e999918f1c4f650fc31a55e7a5ac2ee67a) - item mode data component needs hash & equals *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -534,3 +542,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.6-1.19.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.6-1.19.0...release/v1.20.6-1.19.1
 [release/v1.20.6-1.19.2]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.6-1.19.1...release/v1.20.6-1.19.2
 [release/v1.20.6-1.19.3]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.6-1.19.2...release/v1.20.6-1.19.3
+[release/v1.20.6-1.19.4]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.6-1.19.3...release/v1.20.6-1.19.4

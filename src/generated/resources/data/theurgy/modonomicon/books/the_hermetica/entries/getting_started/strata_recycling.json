@@ -51,8 +51,8 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "theurgy:calcination/strata_from_cobblestone",
-      "recipe_id_2": "theurgy:calcination/mineral",
+      "recipe_id_1": "theurgy:calcination/alchemical_salt_strata_from_cobblestone",
+      "recipe_id_2": "theurgy:calcination/alchemical_salt_mineral",
       "text": "book.theurgy.the_hermetica.getting_started.strata_recycling.recipe1.text",
       "title1": "",
       "title2": ""

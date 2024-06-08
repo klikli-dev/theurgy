@@ -69,8 +69,8 @@ public class StrataRecyclingEntry extends EntryProvider {
         );
 
         this.page("recipe1", () -> BookCalcinationRecipePageModel.create()
-                .withRecipeId1("theurgy:calcination/strata_from_cobblestone")
-                .withRecipeId2("theurgy:calcination/mineral")
+                .withRecipeId1("theurgy:calcination/alchemical_salt_strata_from_cobblestone")
+                .withRecipeId2("theurgy:calcination/alchemical_salt_mineral")
                 .withText(this.context().pageText()));
         this.pageText(
                 """

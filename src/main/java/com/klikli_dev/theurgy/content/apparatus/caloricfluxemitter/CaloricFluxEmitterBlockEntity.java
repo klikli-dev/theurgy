@@ -11,10 +11,11 @@ import com.klikli_dev.theurgy.network.messages.MessageShowCaloricFlux;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.CapabilityRegistry;
+import com.klikli_dev.theurgy.registry.DataComponentRegistry;
 import io.netty.handler.codec.EncoderException;
-import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.server.level.ServerLevel;
@@ -99,6 +100,21 @@ public class CaloricFluxEmitterBlockEntity extends BlockEntity {
         if (pTag.contains("selectedPoints")) {
             this.selectedPoints = CaloricFluxEmitterSelectedPoint.LIST_CODEC.parse(NbtOps.INSTANCE, pTag.get("selectedPoints")).getOrThrow((e) -> new EncoderException("Failed to decode: " + e + " " + pTag.get("selectedPoints")));
         }
+    }
+
+    @Override
+    protected void applyImplicitComponents(BlockEntity.DataComponentInput pComponentInput) {
+        super.applyImplicitComponents(pComponentInput);
+
+        if (pComponentInput.get(DataComponentRegistry.MERCURY_FLUX_STORAGE) != null)
+            this.mercuryFluxStorage.setEnergyStored(pComponentInput.get(DataComponentRegistry.MERCURY_FLUX_STORAGE));
+    }
+
+    @Override
+    protected void collectImplicitComponents(DataComponentMap.Builder pComponents) {
+        super.collectImplicitComponents(pComponents);
+
+        pComponents.set(DataComponentRegistry.MERCURY_FLUX_STORAGE, this.mercuryFluxStorage.getEnergyStored());
     }
 
     public SelectionBehaviour<CaloricFluxEmitterSelectedPoint> getSelectionBehaviour() {

@@ -9,15 +9,18 @@ import com.klikli_dev.theurgy.content.capability.DefaultMercuryFluxStorage;
 import com.klikli_dev.theurgy.content.storage.MonitoredItemStackHandler;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.CapabilityRegistry;
+import com.klikli_dev.theurgy.registry.DataComponentRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -100,7 +103,7 @@ public class MercuryCatalystBlockEntity extends BlockEntity {
         this.craftingBehaviour.tickServer(true, hasInput);
 
         if (this.getLevel().getGameTime() % PUSH_TICK_INTERVAL == 0) {
-            if(this.getBlockState().getValue(BlockStateProperties.ENABLED)){
+            if (this.getBlockState().getValue(BlockStateProperties.ENABLED)) {
                 this.pushMercuryFlux();
             }
         }
@@ -132,6 +135,8 @@ public class MercuryCatalystBlockEntity extends BlockEntity {
 
         pTag.put("inventory", this.inventory.serializeNBT(pRegistries));
         pTag.put("mercuryFluxStorage", this.mercuryFluxStorage.serializeNBT(pRegistries));
+
+        this.craftingBehaviour.saveAdditional(pTag, pRegistries);
     }
 
     @Override
@@ -144,6 +149,33 @@ public class MercuryCatalystBlockEntity extends BlockEntity {
         if (pTag.contains("mercuryFluxStorage"))
             //get instead of getCompound here because the storage serializes as int tag
             this.mercuryFluxStorage.deserializeNBT(pRegistries, pTag.get("mercuryFluxStorage"));
+
+        this.craftingBehaviour.loadAdditional(pTag, pRegistries);
+    }
+
+    @Override
+    protected void applyImplicitComponents(BlockEntity.DataComponentInput pComponentInput) {
+        super.applyImplicitComponents(pComponentInput);
+
+        if (pComponentInput.get(DataComponentRegistry.MERCURY_FLUX_STORAGE) != null)
+            //noinspection DataFlowIssue
+            this.mercuryFluxStorage.setEnergyStored(pComponentInput.get(DataComponentRegistry.MERCURY_FLUX_STORAGE));
+
+        if (pComponentInput.get(DataComponentRegistry.MERCURY_CATALYST_INVENTORY) != null)
+            this.inventory.deserializeNBT(this.level.registryAccess(), pComponentInput.get(DataComponentRegistry.MERCURY_CATALYST_INVENTORY).getUnsafe());
+
+        this.craftingBehaviour.applyImplicitComponents(pComponentInput);
+    }
+
+    @Override
+    protected void collectImplicitComponents(DataComponentMap.Builder pComponents) {
+        super.collectImplicitComponents(pComponents);
+
+        pComponents.set(DataComponentRegistry.MERCURY_FLUX_STORAGE, this.mercuryFluxStorage.getEnergyStored());
+
+        pComponents.set(DataComponentRegistry.MERCURY_CATALYST_INVENTORY, CustomData.of(this.inventory.serializeNBT(this.level.registryAccess())));
+
+        this.craftingBehaviour.collectImplicitComponents(pComponents);
     }
 
     private class Inventory extends MonitoredItemStackHandler {

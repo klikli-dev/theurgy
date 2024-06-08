@@ -32,6 +32,11 @@ public interface MercuryFluxStorage {
     int getEnergyStored();
 
     /**
+     * Sets the amount of energy stored.
+     */
+    void setEnergyStored(int energy);
+
+    /**
      * Returns the maximum amount of energy that can be stored.
      */
     int getMaxEnergyStored();

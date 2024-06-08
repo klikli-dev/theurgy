@@ -22,6 +22,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.Tiers;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -139,4 +140,11 @@ public class DataComponentRegistry {
             .networkSynchronized(ByteBufCodecs.fromCodec(TagKey.codec(Registries.ITEM)))
             .cacheEncoding()
     );
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<CustomData>> MERCURY_CATALYST_INVENTORY = DATA_COMPONENTS.registerComponentType("mercury_catalyst_inventory", builder -> builder
+            .persistent(CustomData.CODEC)
+            .networkSynchronized(CustomData.STREAM_CODEC)
+            .cacheEncoding()
+    );
+
 }

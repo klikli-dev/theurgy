@@ -4,9 +4,12 @@
 
 package com.klikli_dev.theurgy.content.behaviour.crafting;
 
+import com.klikli_dev.theurgy.registry.DataComponentRegistry;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
@@ -59,6 +62,14 @@ public abstract class CraftingBehaviour<W extends RecipeWrapper, R extends Recip
     public void loadAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
         if (pTag.contains("progress"))
             this.progress = pTag.getShort("progress");
+    }
+
+    public void applyImplicitComponents(BlockEntity.DataComponentInput pComponentInput) {
+
+    }
+
+    public void collectImplicitComponents(DataComponentMap.Builder pComponents) {
+
     }
 
     public Optional<RecipeHolder<R>> getRecipe() {

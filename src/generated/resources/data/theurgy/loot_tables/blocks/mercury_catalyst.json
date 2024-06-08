@@ -18,7 +18,7 @@
                 "theurgy:mercury_flux_storage",
                 "theurgy:mercury_flux_to_convert",
                 "theurgy:current_mercury_flux_per_tick",
-                "minecraft:container"
+                "theurgy:mercury_catalyst_inventory"
               ],
               "source": "block_entity"
             }

@@ -65,6 +65,11 @@ public class DefaultMercuryFluxStorage implements MercuryFluxStorage, INBTSerial
     }
 
     @Override
+    public void setEnergyStored(int energy) {
+        this.energy = Math.max(0, Math.min(this.capacity, energy));
+    }
+
+    @Override
     public int getMaxEnergyStored() {
         return this.capacity;
     }

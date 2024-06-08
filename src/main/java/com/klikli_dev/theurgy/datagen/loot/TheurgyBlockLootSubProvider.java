@@ -52,7 +52,7 @@ public class TheurgyBlockLootSubProvider extends BlockLootSubProvider {
                 DataComponentRegistry.MERCURY_FLUX_STORAGE.get(),
                 DataComponentRegistry.MERCURY_FLUX_TO_CONVERT.get(),
                 DataComponentRegistry.CURRENT_MERCURY_FLUX_PER_TICK.get(),
-                DataComponents.CONTAINER
+                DataComponentRegistry.MERCURY_CATALYST_INVENTORY.get()
         );
         this.dropSelfWithComponents(BlockRegistry.CALORIC_FLUX_EMITTER.get(),
                 DataComponentRegistry.MERCURY_FLUX_STORAGE.get()

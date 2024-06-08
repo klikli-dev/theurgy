@@ -12,11 +12,13 @@ import com.klikli_dev.theurgy.content.recipe.wrapper.ReformationArrayRecipeWrapp
 import com.klikli_dev.theurgy.content.render.Color;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
+import com.klikli_dev.theurgy.registry.DataComponentRegistry;
 import com.klikli_dev.theurgy.util.EntityUtil;
 import com.mojang.datafixers.util.Pair;
 import io.netty.handler.codec.EncoderException;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.Connection;
@@ -300,6 +302,21 @@ public class SulfuricFluxEmitterBlockEntity extends BlockEntity {
             pTag.put("resultPedestal", SulfuricFluxEmitterSelectedPoint.CODEC.encodeStart(NbtOps.INSTANCE, this.resultPedestal).getOrThrow((e) -> new EncoderException("Failed to encode: " + e + " " + this.resultPedestal)));
 
         this.craftingBehaviour.writeNetwork(pTag, pRegistries);
+    }
+
+    @Override
+    protected void applyImplicitComponents(BlockEntity.DataComponentInput pComponentInput) {
+        super.applyImplicitComponents(pComponentInput);
+
+        if (pComponentInput.get(DataComponentRegistry.MERCURY_FLUX_STORAGE) != null)
+            this.mercuryFluxStorage.setEnergyStored(pComponentInput.get(DataComponentRegistry.MERCURY_FLUX_STORAGE));
+    }
+
+    @Override
+    protected void collectImplicitComponents(DataComponentMap.Builder pComponents) {
+        super.collectImplicitComponents(pComponents);
+
+        pComponents.set(DataComponentRegistry.MERCURY_FLUX_STORAGE, this.mercuryFluxStorage.getEnergyStored());
     }
 
     public SelectionBehaviour<SulfuricFluxEmitterSelectedPoint> getSelectionBehaviour() {

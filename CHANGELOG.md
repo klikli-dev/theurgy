@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.6-1.19.3] - 2024-06-08
+### :bug: Bug Fixes
+- [`d68181e`](https://github.com/klikli-dev/theurgy/commit/d68181e999918f1c4f650fc31a55e7a5ac2ee67a) - item mode data component needs hash & equals *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`090c1a5`](https://github.com/klikli-dev/theurgy/commit/090c1a501a3c34cf209dcb655d9f86680f29ace6) - storage of BE data in items after drop *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`825028e`](https://github.com/klikli-dev/theurgy/commit/825028ee36634a0f5e9c1bfb9f4b830cb41cd17c) - update to latest neo *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.6-1.19.2] - 2024-06-06
 ### :bug: Bug Fixes
 - [`029f812`](https://github.com/klikli-dev/theurgy/commit/029f812e83f83326e390bc316e422d4895b8b122) - set default mercurial wand mode *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -524,3 +533,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.6-1.19.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.6-1.18.2...release/v1.20.6-1.19.0
 [release/v1.20.6-1.19.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.6-1.19.0...release/v1.20.6-1.19.1
 [release/v1.20.6-1.19.2]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.6-1.19.1...release/v1.20.6-1.19.2
+[release/v1.20.6-1.19.3]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.6-1.19.2...release/v1.20.6-1.19.3

@@ -67,6 +67,11 @@ public class IncubationRecipe implements Recipe<IncubatorRecipeWrapper> {
     }
 
     @Override
+    public boolean isSpecial() {
+        return true;
+    }
+
+    @Override
     public RecipeType<?> getType() {
         return RecipeTypeRegistry.INCUBATION.get();
     }

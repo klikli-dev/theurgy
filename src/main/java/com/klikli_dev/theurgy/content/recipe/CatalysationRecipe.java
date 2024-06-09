@@ -65,11 +65,6 @@ public class CatalysationRecipe implements Recipe<RecipeWrapper> {
         this.mercuryFluxPerTick = mercuryFluxPerTick;
     }
 
-    @Override
-    public RecipeType<?> getType() {
-        return RecipeTypeRegistry.CATALYSATION.get();
-    }
-
     public Ingredient getIngredient() {
         return this.ingredient;
     }
@@ -80,6 +75,16 @@ public class CatalysationRecipe implements Recipe<RecipeWrapper> {
 
     public int getTotalMercuryFlux() {
         return this.totalMercuryFlux;
+    }
+
+    @Override
+    public boolean isSpecial() {
+        return true;
+    }
+
+    @Override
+    public RecipeType<?> getType() {
+        return RecipeTypeRegistry.CATALYSATION.get();
     }
 
     @Override

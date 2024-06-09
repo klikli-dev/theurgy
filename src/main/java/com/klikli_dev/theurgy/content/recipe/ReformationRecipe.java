@@ -91,6 +91,11 @@ public class ReformationRecipe implements Recipe<ReformationArrayRecipeWrapper> 
     }
 
     @Override
+    public boolean isSpecial() {
+        return true;
+    }
+
+    @Override
     public boolean matches(ReformationArrayRecipeWrapper pContainer, Level pLevel) {
 
         //if we do not have enough flux, exit early

@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.4-1.19.1] - 2024-06-09
+### :bug: Bug Fixes
+- [`a0a30bf`](https://github.com/klikli-dev/theurgy/commit/a0a30bf4e61abc45e27e597190293d28b7b06e03) - remove vanilla recipe book log spam *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`7f41340`](https://github.com/klikli-dev/theurgy/commit/7f41340013589748c3dfeea0e2fba55b8989e4e7) - re-enable Jade integration *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.4-1.19.0] - 2024-06-01
 ### :sparkles: New Features
 - [`960d35d`](https://github.com/klikli-dev/theurgy/commit/960d35d674d9f047155de3785e69b3f98ccf1f05) - Add support for additional modded materials *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -516,3 +524,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.4-1.18.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.4-1.17.2...release/v1.20.4-1.18.0
 [release/v1.20.4-1.18.2]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.4-1.18.0...release/v1.20.4-1.18.2
 [release/v1.20.4-1.19.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.4-1.18.2...release/v1.20.4-1.19.0
+[release/v1.20.4-1.19.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.4-1.19.0...release/v1.20.4-1.19.1

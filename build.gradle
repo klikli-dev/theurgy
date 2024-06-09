@@ -126,6 +126,9 @@ dependencies {
 
     //Jade (Hwyla/Waila)
     implementation "maven.modrinth:jade:${jade_version}+neoforge"
+
+    //EMI (if jei is not available, for convenience)
+    implementation "maven.modrinth:emi:${emi_version}+${minecraft_version}+neoforge"
 }
 
 processResources {

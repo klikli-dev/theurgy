@@ -48,6 +48,11 @@ public class DistillationRecipe implements Recipe<RecipeWrapper> {
     }
 
     @Override
+    public boolean isSpecial() {
+        return true;
+    }
+
+    @Override
     public RecipeType<?> getType() {
         return RecipeTypeRegistry.DISTILLATION.get();
     }

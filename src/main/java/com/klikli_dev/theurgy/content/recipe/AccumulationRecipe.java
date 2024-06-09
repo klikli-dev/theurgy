@@ -62,6 +62,11 @@ public class AccumulationRecipe implements Recipe<RecipeWrapperWithFluid> {
     }
 
     @Override
+    public boolean isSpecial() {
+        return true;
+    }
+
+    @Override
     public RecipeType<?> getType() {
         return RecipeTypeRegistry.ACCUMULATION.get();
     }

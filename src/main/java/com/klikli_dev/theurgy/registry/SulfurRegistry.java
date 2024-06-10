@@ -11,12 +11,11 @@ import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurTier;
 import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurType;
 import com.klikli_dev.theurgy.content.recipe.LiquefactionRecipe;
 import com.klikli_dev.theurgy.util.LevelUtil;
+import it.unimi.dsi.fastutil.objects.ObjectLinkedOpenCustomHashSet;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.common.Tags;
@@ -201,11 +200,17 @@ public class SulfurRegistry {
             var recipeManager = level.getRecipeManager();
             var liquefactionRecipes = recipeManager.getAllRecipesFor(RecipeTypeRegistry.LIQUEFACTION.get());
 
+            //From: EventHooks#onCreativeModeTabBuildContents
+            //we need to use it here to test before inserting, because event.getEntries().contains uses a different hashing strategy and is thus not reliable
+            final var searchDupes = new ObjectLinkedOpenCustomHashSet<ItemStack>(ItemStackLinkedSet.TYPE_AND_TAG);
             //Register only sulfurs that have a liquefaction recipe
             liquefactionRecipes.forEach(r -> {
                 var result = r.value().getResultItem(level.registryAccess());
-                if (result != null && !result.isEmpty() && result.getItem() instanceof AlchemicalSulfurItem){
-                    event.accept(result.copyWithCount(1));
+                if (result != null && !result.isEmpty() && result.getItem() instanceof AlchemicalSulfurItem && !event.getEntries().contains(result)){
+                    var stack = result.copyWithCount(1);
+                    if (searchDupes.add(stack)) {
+                        event.accept(stack, event.getTabKey() == CreativeModeTabs.SEARCH ? CreativeModeTab.TabVisibility.SEARCH_TAB_ONLY : CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+                    }
                 }
             });
 

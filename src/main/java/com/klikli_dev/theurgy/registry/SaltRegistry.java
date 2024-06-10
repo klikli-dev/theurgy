@@ -7,7 +7,8 @@ package com.klikli_dev.theurgy.registry;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.content.item.salt.AlchemicalSaltItem;
 import com.klikli_dev.theurgy.util.LevelUtil;
-import net.minecraft.world.item.Item;
+import it.unimi.dsi.fastutil.objects.ObjectLinkedOpenCustomHashSet;
+import net.minecraft.world.item.*;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
@@ -51,12 +52,21 @@ public class SaltRegistry {
             var recipeManager = level.getRecipeManager();
             var calcinationRecipes = recipeManager.getAllRecipesFor(RecipeTypeRegistry.CALCINATION.get());
 
+            //From: EventHooks#onCreativeModeTabBuildContents
+            //we need to use it here to test before inserting, because event.getEntries().contains uses a different hashing strategy and is thus not reliable
+            final var searchDupes = new ObjectLinkedOpenCustomHashSet<ItemStack>(ItemStackLinkedSet.TYPE_AND_TAG);
+
             SALTS.getEntries().stream()
                     .map(DeferredHolder::get)
                     .forEach(sulfur -> {
                         calcinationRecipes.stream()
                                 .filter(recipe -> recipe.value().getResultItem(level.registryAccess()) != null && recipe.value().getResultItem(level.registryAccess()).getItem() == sulfur)
-                                .forEach(recipe -> event.accept(recipe.value().getResultItem(level.registryAccess()).copyWithCount(1)));
+                                .forEach(recipe -> {
+                                    var stack = recipe.value().getResultItem(level.registryAccess()).copyWithCount(1);
+                                    if (searchDupes.add(stack)) {
+                                        event.accept(stack, event.getTabKey() == CreativeModeTabs.SEARCH ? CreativeModeTab.TabVisibility.SEARCH_TAB_ONLY : CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);;
+                                    }
+                                });
                     });
         }
     }

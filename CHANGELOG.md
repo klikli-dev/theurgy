@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.6-1.19.6] - 2024-06-10
+### :bug: Bug Fixes
+- [`fd829b3`](https://github.com/klikli-dev/theurgy/commit/fd829b35bfd56674ece7cdd0a66ea380f74c6ea4) - remove vanilla recipe book log spam *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`1bf9012`](https://github.com/klikli-dev/theurgy/commit/1bf9012ddd1db0138323b3292303fd42a062be02) - add custom anti-duplication handling for creative tabs *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`b602a8b`](https://github.com/klikli-dev/theurgy/commit/b602a8bf609d16e86d87b8a3e562e690c3fb48a5) - add EMI to dev env for convenience *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`4b7027b`](https://github.com/klikli-dev/theurgy/commit/4b7027b0d4dc9edb0e6f596f2eeef61f91c54228) - add tag translations for EMI compatibility *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.6-1.19.4] - 2024-06-08
 ### :bug: Bug Fixes
 - [`9208622`](https://github.com/klikli-dev/theurgy/commit/9208622f561daf662ecd0358571e1f1f2f3fc827) - invalid recipe identifiers in the hermetica *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -543,3 +553,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.6-1.19.2]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.6-1.19.1...release/v1.20.6-1.19.2
 [release/v1.20.6-1.19.3]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.6-1.19.2...release/v1.20.6-1.19.3
 [release/v1.20.6-1.19.4]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.6-1.19.3...release/v1.20.6-1.19.4
+[release/v1.20.6-1.19.6]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.6-1.19.4...release/v1.20.6-1.19.6

@@ -11,16 +11,16 @@ import com.klikli_dev.theurgy.content.item.salt.AlchemicalSaltItem;
 import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurItem;
 import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurTier;
 import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurType;
-import com.klikli_dev.theurgy.registry.BlockRegistry;
-import com.klikli_dev.theurgy.registry.ItemRegistry;
-import com.klikli_dev.theurgy.registry.SaltRegistry;
-import com.klikli_dev.theurgy.registry.SulfurRegistry;
+import com.klikli_dev.theurgy.registry.*;
 import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.material.Fluid;
 import net.neoforged.neoforge.registries.DeferredHolder;
 
 import java.text.MessageFormat;
@@ -47,6 +47,23 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.add(TheurgyConstants.I18n.Key.CATEGORY, "Theurgy");
         this.add(TheurgyConstants.I18n.Key.CHANGE_ITEM_MODE, "Change Item Mode");
     }
+
+    private void addItemTag(ResourceLocation resourceLocation, String string) {
+        this.add("tag.item." + resourceLocation.getNamespace() + "." + resourceLocation.getPath().replace("/", "."), string);
+    }
+
+    private void addItemTag(TagKey<Item> item, String string) {
+        this.addItemTag(item.location(), string);
+    }
+
+    private void addFluidTag(ResourceLocation resourceLocation, String string) {
+        this.add("tag.fluid." + resourceLocation.getNamespace() + "." + resourceLocation.getPath().replace("/", "."), string);
+    }
+
+    private void addFluidTag(TagKey<Fluid> item, String string) {
+        this.addItemTag(item.location(), string);
+    }
+
 
     private void addMisc() {
         this.add(TheurgyConstants.I18n.Tooltip.SHOW_EXTENDED, ChatFormatting.GOLD + "[" +
@@ -103,6 +120,52 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.add(TheurgyConstants.I18n.JEI.TARGET_SULFUR_TOOLTIP, "The Target Sulfur will not be consumed!\nYou can retrieve it after crafting is complete.");
 
         this.add("config.jade.plugin_theurgy.mercury_flux", "Theurgy Mercury Flux");
+
+        this.addItemTag(ItemTagRegistry.GEMS_SAL_AMMONIAC, "Sal Ammoniac Gems");
+        this.addItemTag(ItemTagRegistry.ORES_SAL_AMMONIAC, "Sal Ammoniac Ores");
+        this.addItemTag(ItemTagRegistry.SUGARS, "Sugars");
+        this.addItemTag(ItemTagRegistry.ALCHEMICAL_MERCURIES, "Alchemical Mercuries");
+        this.addItemTag(ItemTagRegistry.ALCHEMICAL_NITERS, "Alchemical Niters");
+        this.addItemTag(ItemTagRegistry.ALCHEMICAL_SALTS, "Alchemical Salts");
+        this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS, "Alchemical Sulfurs");
+        this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_ABUNDANT, "Alchemical Sulfurs: Abundant");
+        this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_COMMON, "Alchemical Sulfurs: Common");
+        this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS, "Alchemical Sulfurs: Gems");
+        this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_ABUNDANT, "Alchemical Sulfurs: Abundant Gems");
+        this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_COMMON, "Alchemical Sulfurs: Common Gems");
+        this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_PRECIOUS, "Alchemical Sulfurs: Precious Gems");
+        this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_RARE, "Alchemical Sulfurs: Rare Gems");
+        this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS, "Alchemical Sulfurs: Metals");
+        this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_ABUNDANT, "Alchemical Sulfurs: Abundant Metals");
+        this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_COMMON, "Alchemical Sulfurs: Common Metals");
+        this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_PRECIOUS, "Alchemical Sulfurs: Precious Metals");
+        this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_RARE, "Alchemical Sulfurs: Rare Metals");
+        this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS, "Alchemical Sulfurs: Other Minerals");
+        this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_ABUNDANT, "Alchemical Sulfurs: Abundant Other Minerals");
+
+        this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_COMMON, "Alchemical Sulfurs: Common Other Minerals");
+        this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_PRECIOUS, "Alchemical Sulfurs: Precious");
+        this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_RARE, "Alchemical Sulfurs: Rare");
+        this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_AND_NITERS, "Alchemical Sulfurs and Niters");
+        this.addItemTag(ItemTagRegistry.HIGH_MERCURY_GEMS, "High Mercury Gems");
+        this.addItemTag(ItemTagRegistry.LOW_MERCURY_GEMS, "Low Mercury Gems");
+        this.addItemTag(ItemTagRegistry.MEDIUM_MERCURY_GEMS, "Medium Mercury Gems");
+        this.addItemTag(ItemTagRegistry.HIGH_MERCURY_METALS, "High Mercury Metals");
+        this.addItemTag(ItemTagRegistry.LOW_MERCURY_METALS, "Low Mercury Metals");
+        this.addItemTag(ItemTagRegistry.MEDIUM_MERCURY_METALS, "Medium Mercury Metals");
+        this.addItemTag(ItemTagRegistry.HIGH_MERCURY_ORES, "High Mercury Ores");
+        this.addItemTag(ItemTagRegistry.LOW_MERCURY_ORES, "Low Mercury Ores");
+        this.addItemTag(ItemTagRegistry.MEDIUM_MERCURY_ORES, "Medium Mercury Ores");
+        this.addItemTag(ItemTagRegistry.OTHER_MINERALS, "Other Minerals");
+        this.addItemTag(ItemTagRegistry.LOW_MERCURY_OTHER_MINERALS, "Low Mercury Other Minerals");
+        this.addItemTag(ItemTagRegistry.MEDIUM_MERCURY_OTHER_MINERALS, "Medium Mercury Other Minerals");
+        this.addItemTag(ItemTagRegistry.HIGH_MERCURY_OTHER_MINERALS, "High Mercury Other Minerals");
+        this.addItemTag(ItemTagRegistry.LOW_MERCURY_RAW_MATERIALS, "Low Mercury Raw Materials");
+        this.addItemTag(ItemTagRegistry.MEDIUM_MERCURY_RAW_MATERIALS, "Medium Mercury Raw Materials");
+        this.addItemTag(ItemTagRegistry.HIGH_MERCURY_RAW_MATERIALS, "Medium Mercury Raw Materials");
+
+        this.addFluidTag(FluidTagRegistry.SAL_AMMONIAC, "Sal Ammoniac");
+        this.addFluidTag(FluidTagRegistry.SOLVENT, "Solvent");
     }
 
     private void addSubtitles() {

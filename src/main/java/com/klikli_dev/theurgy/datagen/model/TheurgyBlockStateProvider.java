@@ -322,7 +322,7 @@ public class TheurgyBlockStateProvider extends BlockStateProvider {
     protected void registerCaloricFluxEmitter() {
         var model = this.models().withExistingParent("caloric_flux_emitter", this.modLoc("block/caloric_flux_emitter_template"))
                 .ao(false)
-                .renderType(new ResourceLocation("minecraft", "translucent"))
+                .renderType(ResourceLocation.fromNamespaceAndPath("minecraft",  "translucent"))
                 //blockbench spits out garbage textures by losing the folder name so we fix them here
                 .texture("emitter", this.modLoc("block/caloric_flux_emitter"))
                 .texture("socket", this.modLoc("block/emitter_socket"))
@@ -337,7 +337,7 @@ public class TheurgyBlockStateProvider extends BlockStateProvider {
         //we re-use the caloric flux emitter model
         var model = this.models().withExistingParent("sulfuric_flux_emitter", this.modLoc("block/sulfuric_flux_emitter_template"))
                 .ao(false)
-                .renderType(new ResourceLocation("minecraft", "translucent"))
+                .renderType(ResourceLocation.fromNamespaceAndPath("minecraft",  "translucent"))
                 //blockbench spits out garbage textures by losing the folder name so we fix them here
                 .texture("emitter", this.modLoc("block/sulfuric_flux_emitter"))
                 .texture("socket", this.modLoc("block/emitter_socket"))
@@ -376,7 +376,7 @@ public class TheurgyBlockStateProvider extends BlockStateProvider {
     protected void registerMercuryCatalyst() {
         var model = this.models().withExistingParent("mercury_catalyst", this.modLoc("block/mercury_catalyst_template"))
                 .ao(false)
-                .renderType(new ResourceLocation("minecraft", "translucent"))
+                .renderType(ResourceLocation.fromNamespaceAndPath("minecraft",  "translucent"))
                 //blockbench spits out garbage textures by losing the folder name so we fix them here
                 .texture("texture", this.modLoc("block/mercury_catalyst"))
                 .texture("particle", this.mcLoc("block/iron_block"));

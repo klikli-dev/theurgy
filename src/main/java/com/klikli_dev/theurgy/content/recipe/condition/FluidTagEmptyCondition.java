@@ -22,11 +22,11 @@ public record FluidTagEmptyCondition(TagKey<Fluid> tag) implements ICondition {
                     .apply(builder, FluidTagEmptyCondition::new));
 
     public FluidTagEmptyCondition(String location) {
-        this(new ResourceLocation(location));
+        this(ResourceLocation.parse(location));
     }
 
     public FluidTagEmptyCondition(String namespace, String path) {
-        this(new ResourceLocation(namespace, path));
+        this(ResourceLocation.fromNamespaceAndPath(namespace,  path));
     }
 
     public FluidTagEmptyCondition(ResourceLocation tag) {

@@ -135,7 +135,7 @@ public class Theurgy {
     }
 
     public static ResourceLocation loc(String path) {
-        return new ResourceLocation(MODID, path);
+        return ResourceLocation.fromNamespaceAndPath(MODID,  path);
     }
 
     public void onCommonSetup(FMLCommonSetupEvent event) {

@@ -21,8 +21,8 @@ public enum GuiTextures {
     JEI_ARROW_RIGHT_EMPTY("jei/recipe_gui", 0, 26, 22, 16),
     JEI_ARROW_RIGHT_FULL("jei/recipe_gui", 22, 26, 22, 16),
 
-    MODONOMICON_ARROW_RIGHT(new ResourceLocation("modonomicon", "textures/gui/crafting_textures.png"), 71, 205, 9, 9, 128, 256),
-    MODONOMICON_SLOT(new ResourceLocation("modonomicon", "textures/gui/crafting_textures.png"), 84, 198, 22, 22, 128, 256);
+    MODONOMICON_ARROW_RIGHT(ResourceLocation.fromNamespaceAndPath("modonomicon",  "textures/gui/crafting_textures.png"), 71, 205, 9, 9, 128, 256),
+    MODONOMICON_SLOT(ResourceLocation.fromNamespaceAndPath("modonomicon",  "textures/gui/crafting_textures.png"), 84, 198, 22, 22, 128, 256);
 
     public final ResourceLocation location;
     public final int textureHeight;

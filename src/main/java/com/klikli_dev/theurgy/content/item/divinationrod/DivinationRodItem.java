@@ -127,7 +127,7 @@ public class DivinationRodItem extends Item {
 
             //also search for deepslate ores
             if (linkedBlockId.getPath().contains("_ore") && !linkedBlockId.getPath().contains("deepslate_")) {
-                var deepslateId = new ResourceLocation(linkedBlockId.getNamespace(), "deepslate_" + linkedBlockId.getPath());
+                var deepslateId = ResourceLocation.fromNamespaceAndPath(linkedBlockId.getNamespace(),  "deepslate_" + linkedBlockId.getPath());
                 deepslateBlock = BuiltInRegistries.BLOCK.get(deepslateId);
             }
 
@@ -147,7 +147,7 @@ public class DivinationRodItem extends Item {
                 .replace("_deepslate", "")
                 .replace("deepslate_", "");
 
-        return new ResourceLocation("c:ores/" + oreName);
+        return ResourceLocation.parse("c:ores/" + oreName);
     }
 
     public static void registerCreativeModeTabs(DivinationRodItem item, CreativeModeTab.Output output) {

@@ -59,7 +59,7 @@ public class DivinationRodRecipe extends ShapedRecipe {
                 var sourceBlock = this.translateToBlock(sourceItem.unwrapKey().get().location().toString());
 
                 if (sourceBlock != null) {
-                    result.set(DataComponentRegistry.DIVINATION_LINKED_BLOCK, BuiltInRegistries.BLOCK.getHolder(new ResourceLocation(sourceBlock)).get());
+                    result.set(DataComponentRegistry.DIVINATION_LINKED_BLOCK, BuiltInRegistries.BLOCK.getHolder(ResourceLocation.parse(sourceBlock)).get());
                 }
                 break;
             }
@@ -68,7 +68,7 @@ public class DivinationRodRecipe extends ShapedRecipe {
                 var sourceBlockTag = this.translateTagToBlock(sourceItemTag.location().toString());
 
                 if (sourceBlockTag != null) {
-                    result.set(DataComponentRegistry.DIVINATION_LINKED_TAG, BlockTags.create(new ResourceLocation(sourceBlockTag)));
+                    result.set(DataComponentRegistry.DIVINATION_LINKED_TAG, BlockTags.create(ResourceLocation.parse(sourceBlockTag)));
                 }
                 break;
             }
@@ -117,7 +117,7 @@ public class DivinationRodRecipe extends ShapedRecipe {
             translatedPath = translatedPath.replace("gems/", "ores/");
         }
 
-        var translatedTag = new ResourceLocation(namespace.substring(1) + ":" + translatedPath);
+        var translatedTag = ResourceLocation.parse(namespace.substring(1) + ":" + translatedPath);
         if (BuiltInRegistries.BLOCK.getTag(TagKey.create(Registries.BLOCK, translatedTag)).isPresent())
             return "#" + translatedTag;
 
@@ -164,7 +164,7 @@ public class DivinationRodRecipe extends ShapedRecipe {
         }
 
         translatedPath = translatedPath + "_ore";
-        var translatedRL = new ResourceLocation(namespace + ":" + translatedPath);
+        var translatedRL = ResourceLocation.parse(namespace + ":" + translatedPath);
         if (BuiltInRegistries.BLOCK.containsKey(translatedRL)) {
             return translatedRL.toString();
         }

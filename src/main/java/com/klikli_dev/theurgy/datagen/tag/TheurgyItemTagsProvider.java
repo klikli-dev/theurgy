@@ -314,6 +314,6 @@ public class TheurgyItemTagsProvider extends ItemTagsProvider {
     }
 
     public ResourceLocation rl(String tag) {
-        return new ResourceLocation(tag);
+        return ResourceLocation.parse(tag);
     }
 }

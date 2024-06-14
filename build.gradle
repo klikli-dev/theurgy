@@ -18,7 +18,7 @@ sourceSets {
     main {
         java {
             exclude '**/AlmostUnifiedIntegrationImpl.java'
-//            exclude '**/jade/**/*.java'
+            exclude '**/jade/**/*.java'
             exclude '**/jei/**/*.java'
         }
     }
@@ -119,16 +119,16 @@ dependencies {
 //    implementation "com.almostreliable.mods:almostunified-forge:${minecraft_version}-${almost_unified_version}"
 
     //Geckolib
-    implementation "software.bernie.geckolib:geckolib-neoforge-${geckolib_minecraft_version}:${geckolib_version}"
+//    implementation "software.bernie.geckolib:geckolib-neoforge-${geckolib_minecraft_version}:${geckolib_version}"
 
     //modonomicon
     implementation "com.klikli_dev:modonomicon-${minecraft_version}-neoforge:${modonomicon_version}"
 
     //Jade (Hwyla/Waila)
-    implementation "maven.modrinth:jade:${jade_version}+neoforge"
+//    implementation "maven.modrinth:jade:${jade_version}+neoforge"
 
     //EMI (if jei is not available, for convenience)
-    implementation "maven.modrinth:emi:${emi_version}+${minecraft_version}+neoforge"
+//    implementation "maven.modrinth:emi:${emi_version}+${minecraft_version}+neoforge"
 }
 
 processResources {

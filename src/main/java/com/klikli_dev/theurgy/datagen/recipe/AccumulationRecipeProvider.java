@@ -66,7 +66,7 @@ public class AccumulationRecipeProvider extends JsonRecipeProvider {
         }
 
         public Builder solute(TagKey<Item> tag) {
-            return this.sizedIngredient("solute", tag, -1);
+            return this.ingredient("solute", tag);
         }
     }
 }

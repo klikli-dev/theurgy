@@ -121,7 +121,7 @@ public class FermentationRecipeProvider extends JsonRecipeProvider {
                 .fluid(fluid, fluidAmount)
                 .time(time);
 
-        ingredients.forEach(i -> recipe.ingredients(i, -1));
+        ingredients.forEach(recipe::ingredients);
 
         this.recipeConsumer.accept(this.modLoc(name), recipe.build());
     }
@@ -175,6 +175,20 @@ public class FermentationRecipeProvider extends JsonRecipeProvider {
                 this.recipe.add("ingredients", new JsonArray());
 
             this.recipe.getAsJsonArray("ingredients").add(SizedIngredient.NESTED_CODEC.encodeStart(JsonOps.INSTANCE, SizedIngredient.of(tag, count)).getOrThrow());
+
+            this.condition(new NotCondition(new TagEmptyCondition(tag.location().toString())));
+
+            return this.getThis();
+        }
+
+        public Builder ingredients(TagKey<Item> tag) {
+            if (!this.recipe.has("ingredients"))
+                this.recipe.add("ingredients", new JsonArray());
+
+            JsonObject jsonobject = new JsonObject();
+            jsonobject.addProperty("tag", tag.location().toString());
+
+            this.recipe.getAsJsonArray("ingredients").add(jsonobject);
 
             this.condition(new NotCondition(new TagEmptyCondition(tag.location().toString())));
 

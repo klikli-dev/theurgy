@@ -4,13 +4,10 @@
 
 package com.klikli_dev.theurgy.integration.modonomicon.page.incubation;
 
-import com.klikli_dev.modonomicon.client.gui.book.BookContentScreen;
+import com.klikli_dev.modonomicon.client.gui.book.entry.BookEntryScreen;
 import com.klikli_dev.modonomicon.client.render.page.BookRecipePageRenderer;
 import com.klikli_dev.theurgy.content.gui.GuiTextures;
 import com.klikli_dev.theurgy.content.recipe.IncubationRecipe;
-import com.klikli_dev.theurgy.content.recipe.LiquefactionRecipe;
-import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -20,7 +17,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class BookIncubationRecipePageRenderer extends BookRecipePageRenderer<IncubationRecipe, BookIncubationRecipePage> {
 
@@ -36,7 +32,7 @@ public class BookIncubationRecipePageRenderer extends BookRecipePageRenderer<Inc
     }
 
     @Override
-    public void onBeginDisplayPage(BookContentScreen parentScreen, int left, int top) {
+    public void onBeginDisplayPage(BookEntryScreen parentScreen, int left, int top) {
         super.onBeginDisplayPage(parentScreen, left, top);
 
         if (this.page.getRecipe1() != null)
@@ -56,11 +52,11 @@ public class BookIncubationRecipePageRenderer extends BookRecipePageRenderer<Inc
 
         if (!second) {
             if (!this.page.getTitle1().isEmpty()) {
-                this.renderTitle(guiGraphics, this.page.getTitle1(), false, BookContentScreen.PAGE_WIDTH / 2, 0);
+                this.renderTitle(guiGraphics, this.page.getTitle1(), false, BookEntryScreen.PAGE_WIDTH / 2, 0);
             }
         } else {
             if (!this.page.getTitle2().isEmpty()) {
-                this.renderTitle(guiGraphics, this.page.getTitle2(), false, BookContentScreen.PAGE_WIDTH / 2,
+                this.renderTitle(guiGraphics, this.page.getTitle2(), false, BookEntryScreen.PAGE_WIDTH / 2,
                         recipeY - (this.page.getTitle2().getString().isEmpty() ? 10 : 0) - 10);
             }
         }

@@ -4,11 +4,10 @@
 
 package com.klikli_dev.theurgy.content.recipe;
 
-import com.klikli_dev.theurgy.content.recipe.wrapper.ReformationArrayRecipeWrapper;
+import com.klikli_dev.theurgy.content.recipe.input.ReformationArrayRecipeInput;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.RecipeSerializerRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
-import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -28,7 +27,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ReformationRecipe implements Recipe<ReformationArrayRecipeWrapper> {
+public class ReformationRecipe implements Recipe<ReformationArrayRecipeInput> {
 
     public static final int DEFAULT_TIME = 100;
 
@@ -96,7 +95,7 @@ public class ReformationRecipe implements Recipe<ReformationArrayRecipeWrapper> 
     }
 
     @Override
-    public boolean matches(ReformationArrayRecipeWrapper pContainer, Level pLevel) {
+    public boolean matches(ReformationArrayRecipeInput pContainer, @NotNull Level pLevel) {
 
         //if we do not have enough flux, exit early
         if (pContainer.getMercuryFluxStorage().getEnergyStored() < this.mercuryFlux)
@@ -134,7 +133,7 @@ public class ReformationRecipe implements Recipe<ReformationArrayRecipeWrapper> 
     }
 
     @Override
-    public ItemStack assemble(ReformationArrayRecipeWrapper pCraftingContainer, HolderLookup.Provider pRegistries) {
+    public @NotNull ItemStack assemble(@NotNull ReformationArrayRecipeInput pCraftingContainer, @NotNull HolderLookup.Provider pRegistries) {
         var result = this.result.copy();
         //TODO: the tag copy should be an option in the recipe json
         var targetItem = pCraftingContainer.getTargetPedestalInv().getStackInSlot(0);
@@ -153,29 +152,29 @@ public class ReformationRecipe implements Recipe<ReformationArrayRecipeWrapper> 
 
 
     @Override
-    public ItemStack getResultItem(HolderLookup.Provider pRegistries) {
+    public @NotNull ItemStack getResultItem(@NotNull HolderLookup.Provider pRegistries) {
         return this.result;
     }
 
     @Override
-    public NonNullList<Ingredient> getIngredients() {
+    public @NotNull NonNullList<Ingredient> getIngredients() {
         NonNullList<Ingredient> nonnulllist = NonNullList.create();
         nonnulllist.addAll(this.sources);
         return nonnulllist;
     }
 
     @Override
-    public ItemStack getToastSymbol() {
+    public @NotNull ItemStack getToastSymbol() {
         return new ItemStack(BlockRegistry.REFORMATION_RESULT_PEDESTAL.get());
     }
 
     @Override
-    public RecipeSerializer<?> getSerializer() {
+    public @NotNull RecipeSerializer<?> getSerializer() {
         return RecipeSerializerRegistry.REFORMATION.get();
     }
 
     @Override
-    public RecipeType<?> getType() {
+    public @NotNull RecipeType<?> getType() {
         return RecipeTypeRegistry.REFORMATION.get();
     }
 

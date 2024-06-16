@@ -53,6 +53,7 @@
     }
   ],
   "show_when_any_parent_unlocked": false,
+  "sort_number": 32,
   "x": 9,
   "y": 4
 }

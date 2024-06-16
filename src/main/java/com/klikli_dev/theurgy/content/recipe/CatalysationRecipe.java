@@ -4,6 +4,7 @@
 
 package com.klikli_dev.theurgy.content.recipe;
 
+import com.klikli_dev.theurgy.content.recipe.input.ItemHandlerRecipeInput;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.registry.RecipeSerializerRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
@@ -12,9 +13,6 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.RegistryAccess;
-import net.minecraft.nbt.NbtOps;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
@@ -24,10 +22,10 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
-import net.neoforged.neoforge.items.wrapper.RecipeWrapper;
+import org.jetbrains.annotations.NotNull;
 
 
-public class CatalysationRecipe implements Recipe<RecipeWrapper> {
+public class CatalysationRecipe implements Recipe<ItemHandlerRecipeInput> {
     public static final int DEFAULT_MERCURY_FLUX_PER_TICK = 20;
 
     public static final MapCodec<CatalysationRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
@@ -83,18 +81,18 @@ public class CatalysationRecipe implements Recipe<RecipeWrapper> {
     }
 
     @Override
-    public RecipeType<?> getType() {
+    public @NotNull RecipeType<?> getType() {
         return RecipeTypeRegistry.CATALYSATION.get();
     }
 
     @Override
-    public boolean matches(RecipeWrapper pContainer, Level pLevel) {
+    public boolean matches(@NotNull ItemHandlerRecipeInput pContainer, @NotNull Level pLevel) {
         var stack = pContainer.getItem(0);
         return this.ingredient.test(stack);
     }
 
     @Override
-    public ItemStack assemble(RecipeWrapper pCraftingContainer, HolderLookup.Provider pRegistries) {
+    public @NotNull ItemStack assemble(@NotNull ItemHandlerRecipeInput pCraftingContainer, HolderLookup.@NotNull Provider pRegistries) {
         return ItemStack.EMPTY;
     }
 
@@ -104,35 +102,34 @@ public class CatalysationRecipe implements Recipe<RecipeWrapper> {
     }
 
     @Override
-    public ItemStack getResultItem(HolderLookup.Provider pRegistries) {
+    public @NotNull ItemStack getResultItem(HolderLookup.@NotNull Provider pRegistries) {
         return ItemStack.EMPTY;
     }
 
     @Override
-    public NonNullList<Ingredient> getIngredients() {
+    public @NotNull NonNullList<Ingredient> getIngredients() {
         return NonNullList.of(Ingredient.EMPTY, this.ingredient);
     }
 
     @Override
-    public ItemStack getToastSymbol() {
+    public @NotNull ItemStack getToastSymbol() {
         return new ItemStack(ItemRegistry.MERCURY_CATALYST.get());
     }
 
     @Override
-    public RecipeSerializer<?> getSerializer() {
+    public @NotNull RecipeSerializer<?> getSerializer() {
         return RecipeSerializerRegistry.CATALYSATION.get();
     }
-
 
     public static class Serializer implements RecipeSerializer<CatalysationRecipe> {
 
         @Override
-        public MapCodec<CatalysationRecipe> codec() {
+        public @NotNull MapCodec<CatalysationRecipe> codec() {
             return CODEC;
         }
 
         @Override
-        public StreamCodec<RegistryFriendlyByteBuf, CatalysationRecipe> streamCodec() {
+        public @NotNull StreamCodec<RegistryFriendlyByteBuf, CatalysationRecipe> streamCodec() {
             return STREAM_CODEC;
         }
     }

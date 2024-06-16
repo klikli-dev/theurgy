@@ -85,7 +85,7 @@ public abstract class JsonRecipeProvider implements DataProvider {
     }
 
     public TagKey<Item> tag(String tag) {
-        return this.tag(new ResourceLocation(tag));
+        return this.tag(ResourceLocation.parse(tag));
     }
 
     public TagKey<Item> tag(ResourceLocation tag) {
@@ -93,11 +93,11 @@ public abstract class JsonRecipeProvider implements DataProvider {
     }
 
     public ResourceLocation modLoc(String name) {
-        return new ResourceLocation(this.modid, name);
+        return ResourceLocation.fromNamespaceAndPath(this.modid,  name);
     }
 
     public ResourceLocation mcLoc(String name) {
-        return new ResourceLocation(name);
+        return ResourceLocation.parse(name);
     }
 
     @Override

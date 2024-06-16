@@ -18,7 +18,6 @@ public interface AlmostUnifiedIntegration {
         return instance;
     }
 
-
     boolean isLoaded();
 
     @Nullable Item getPreferredItemForTag(TagKey<Item> tag);

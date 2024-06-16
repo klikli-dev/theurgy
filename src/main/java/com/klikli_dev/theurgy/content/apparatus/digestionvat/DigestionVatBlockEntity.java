@@ -6,7 +6,7 @@ package com.klikli_dev.theurgy.content.apparatus.digestionvat;
 
 import com.klikli_dev.theurgy.content.behaviour.crafting.HasCraftingBehaviour;
 import com.klikli_dev.theurgy.content.recipe.DigestionRecipe;
-import com.klikli_dev.theurgy.content.recipe.wrapper.RecipeWrapperWithFluid;
+import com.klikli_dev.theurgy.content.recipe.input.ItemHandlerWithFluidRecipeInput;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -22,7 +22,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import org.jetbrains.annotations.Nullable;
 
-public class DigestionVatBlockEntity extends BlockEntity implements HasCraftingBehaviour<RecipeWrapperWithFluid, DigestionRecipe, DigestionCachedCheck> {
+public class DigestionVatBlockEntity extends BlockEntity implements HasCraftingBehaviour<ItemHandlerWithFluidRecipeInput, DigestionRecipe, DigestionCachedCheck> {
 
     public DigestionCraftingBehaviour craftingBehaviour;
     public DigestionStorageBehaviour storageBehaviour;

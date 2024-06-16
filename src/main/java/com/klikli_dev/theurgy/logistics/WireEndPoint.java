@@ -36,7 +36,7 @@ public record WireEndPoint(BlockPos pos, ResourceKey<Level> level) {
 
 
     public static WireEndPoint load(CompoundTag tag) {
-        return new WireEndPoint(BlockPos.of(tag.getLong("pos")), ResourceKey.create(Registries.DIMENSION, new ResourceLocation(tag.getString("level"))));
+        return new WireEndPoint(BlockPos.of(tag.getLong("pos")), ResourceKey.create(Registries.DIMENSION, ResourceLocation.parse(tag.getString("level"))));
     }
 
     public static WireEndPoint load(ItemStack stack) {

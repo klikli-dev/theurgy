@@ -2,17 +2,17 @@
 //
 // SPDX-License-Identifier: MIT
 
-package com.klikli_dev.theurgy.content.recipe.wrapper;
+package com.klikli_dev.theurgy.content.recipe.input;
 
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.items.IItemHandlerModifiable;
-import net.neoforged.neoforge.items.wrapper.RecipeWrapper;
 
-public class RecipeWrapperWithFluid extends RecipeWrapper {
+
+public class ItemHandlerWithFluidRecipeInput extends ItemHandlerRecipeInput {
 
     private final IFluidHandler tank;
 
-    public RecipeWrapperWithFluid(IItemHandlerModifiable inv, IFluidHandler tank) {
+    public ItemHandlerWithFluidRecipeInput(IItemHandlerModifiable inv, IFluidHandler tank) {
         super(inv);
         this.tank = tank;
     }

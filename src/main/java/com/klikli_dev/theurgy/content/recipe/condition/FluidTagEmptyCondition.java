@@ -4,7 +4,6 @@
 
 package com.klikli_dev.theurgy.content.recipe.condition;
 
-import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.registries.Registries;
@@ -12,6 +11,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.material.Fluid;
 import net.neoforged.neoforge.common.conditions.ICondition;
+import org.jetbrains.annotations.NotNull;
 
 public record FluidTagEmptyCondition(TagKey<Fluid> tag) implements ICondition {
 
@@ -22,11 +22,11 @@ public record FluidTagEmptyCondition(TagKey<Fluid> tag) implements ICondition {
                     .apply(builder, FluidTagEmptyCondition::new));
 
     public FluidTagEmptyCondition(String location) {
-        this(new ResourceLocation(location));
+        this(ResourceLocation.parse(location));
     }
 
     public FluidTagEmptyCondition(String namespace, String path) {
-        this(new ResourceLocation(namespace, path));
+        this(ResourceLocation.fromNamespaceAndPath(namespace, path));
     }
 
     public FluidTagEmptyCondition(ResourceLocation tag) {
@@ -39,7 +39,7 @@ public record FluidTagEmptyCondition(TagKey<Fluid> tag) implements ICondition {
     }
 
     @Override
-    public MapCodec<? extends ICondition> codec() {
+    public @NotNull MapCodec<? extends ICondition> codec() {
         return CODEC;
     }
 

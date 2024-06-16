@@ -26,12 +26,12 @@ import java.util.Set;
 import java.util.function.BiConsumer;
 
 public class TheurgyBlockLootSubProvider extends BlockLootSubProvider {
-    public TheurgyBlockLootSubProvider() {
-        super(Set.of(), FeatureFlags.REGISTRY.allFlags());
+    public TheurgyBlockLootSubProvider(HolderLookup.Provider pRegistries) {
+        super(Set.of(), FeatureFlags.REGISTRY.allFlags(), pRegistries);
     }
 
     @Override
-    public void generate(HolderLookup.Provider pRegistries, BiConsumer<ResourceKey<LootTable>, LootTable.Builder> pGenerator) {
+    public void generate(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> pGenerator) {
         this.generate();
         this.map.forEach(pGenerator);
     }

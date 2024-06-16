@@ -2,18 +2,17 @@
 //
 // SPDX-License-Identifier: MIT
 
-package com.klikli_dev.theurgy.content.recipe.wrapper;
+package com.klikli_dev.theurgy.content.recipe.input;
 
 import net.neoforged.neoforge.items.IItemHandlerModifiable;
 import net.neoforged.neoforge.items.wrapper.CombinedInvWrapper;
-import net.neoforged.neoforge.items.wrapper.RecipeWrapper;
 
-public class IncubatorRecipeWrapper extends RecipeWrapper {
+public class IncubatorRecipeInput extends ItemHandlerRecipeInput {
     private final IItemHandlerModifiable mercuryVesselInv;
     private final IItemHandlerModifiable saltVesselInv;
     private final IItemHandlerModifiable sulfurVesselInv;
 
-    public IncubatorRecipeWrapper(IItemHandlerModifiable mercuryVesselInv, IItemHandlerModifiable saltVesselInv, IItemHandlerModifiable sulfurVesselInv) {
+    public IncubatorRecipeInput(IItemHandlerModifiable mercuryVesselInv, IItemHandlerModifiable saltVesselInv, IItemHandlerModifiable sulfurVesselInv) {
         super(new CombinedInvWrapper(mercuryVesselInv, saltVesselInv, sulfurVesselInv));
 
         this.mercuryVesselInv = mercuryVesselInv;

@@ -64,6 +64,7 @@
     }
   ],
   "show_when_any_parent_unlocked": true,
+  "sort_number": 20,
   "x": 3,
   "y": -2
 }

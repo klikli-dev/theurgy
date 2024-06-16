@@ -44,7 +44,7 @@ public class BlockTagRegistry {
     }
 
     private static TagKey<Block> cTag(String name) {
-        return BlockTags.create(new ResourceLocation("c", name));
+        return BlockTags.create(ResourceLocation.fromNamespaceAndPath("c",  name));
     }
 
 }

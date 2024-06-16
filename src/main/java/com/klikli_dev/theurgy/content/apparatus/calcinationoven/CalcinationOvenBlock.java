@@ -6,6 +6,7 @@ package com.klikli_dev.theurgy.content.apparatus.calcinationoven;
 
 import com.klikli_dev.theurgy.content.behaviour.itemhandler.ItemHandlerBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.itemhandler.TwoSlotItemHandlerBehaviour;
+import com.klikli_dev.theurgy.content.recipe.input.ItemHandlerRecipeInput;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -35,6 +36,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+
 import net.neoforged.neoforge.items.wrapper.RecipeWrapper;
 import org.jetbrains.annotations.Nullable;
 

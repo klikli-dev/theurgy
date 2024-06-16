@@ -9,6 +9,7 @@ package com.klikli_dev.theurgy.content.render.itemhud;
 
 import com.klikli_dev.theurgy.config.ClientConfig;
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
@@ -29,7 +30,7 @@ public class ItemHUD implements LayeredDraw.Layer {
     }
 
     @Override
-    public void render(GuiGraphics guiGraphics, float pPartialTick) {
+    public void render(GuiGraphics guiGraphics, DeltaTracker deltaTracker) {
         var minecraft = Minecraft.getInstance();
         if (minecraft.options.hideGui || minecraft.player == null || minecraft.player.isSpectator() || !ClientConfig.get().rendering.enableItemHUD.get())
             return;

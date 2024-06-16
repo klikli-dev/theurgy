@@ -6,7 +6,7 @@ package com.klikli_dev.theurgy.content.apparatus.incubator;
 
 import com.klikli_dev.theurgy.content.behaviour.crafting.CraftingBehaviour;
 import com.klikli_dev.theurgy.content.recipe.IncubationRecipe;
-import com.klikli_dev.theurgy.content.recipe.wrapper.IncubatorRecipeWrapper;
+import com.klikli_dev.theurgy.content.recipe.input.IncubatorRecipeInput;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
@@ -17,8 +17,8 @@ import net.neoforged.neoforge.items.ItemHandlerHelper;
 
 import java.util.function.Supplier;
 
-public class IncubatorCraftingBehaviour extends CraftingBehaviour<IncubatorRecipeWrapper, IncubationRecipe, RecipeManager.CachedCheck<IncubatorRecipeWrapper, IncubationRecipe>> {
-    public IncubatorCraftingBehaviour(BlockEntity blockEntity, Supplier<IncubatorRecipeWrapper> recipeWrapperSupplier, Supplier<IItemHandlerModifiable> inputInventorySupplier, Supplier<IItemHandlerModifiable> outputInventorySupplier) {
+public class IncubatorCraftingBehaviour extends CraftingBehaviour<IncubatorRecipeInput, IncubationRecipe, RecipeManager.CachedCheck<IncubatorRecipeInput, IncubationRecipe>> {
+    public IncubatorCraftingBehaviour(BlockEntity blockEntity, Supplier<IncubatorRecipeInput> recipeWrapperSupplier, Supplier<IItemHandlerModifiable> inputInventorySupplier, Supplier<IItemHandlerModifiable> outputInventorySupplier) {
         super(blockEntity,
                 recipeWrapperSupplier,
                 inputInventorySupplier,
@@ -33,15 +33,15 @@ public class IncubatorCraftingBehaviour extends CraftingBehaviour<IncubatorRecip
 
     @Override
     protected boolean craft(RecipeHolder<IncubationRecipe> pRecipe) {
-        var recipeWrapper = this.recipeWrapperSupplier.get();
-        var assembledStack = pRecipe.value().assemble(recipeWrapper, this.blockEntity.getLevel().registryAccess());
+        var ItemHandlerRecipeInput = this.recipeWrapperSupplier.get();
+        var assembledStack = pRecipe.value().assemble(ItemHandlerRecipeInput, this.blockEntity.getLevel().registryAccess());
 
         // Safely insert the assembledStack into the outputInventory and update the input stack.
         ItemHandlerHelper.insertItemStacked(this.outputInventorySupplier.get(), assembledStack, false);
 
-        recipeWrapper.getMercuryVesselInv().extractItem(0, 1, false);
-        recipeWrapper.getSaltVesselInv().extractItem(0, 1, false);
-        recipeWrapper.getSulfurVesselInv().extractItem(0, 1, false);
+        ItemHandlerRecipeInput.getMercuryVesselInv().extractItem(0, 1, false);
+        ItemHandlerRecipeInput.getSaltVesselInv().extractItem(0, 1, false);
+        ItemHandlerRecipeInput.getSulfurVesselInv().extractItem(0, 1, false);
 
         return true;
     }

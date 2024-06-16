@@ -169,6 +169,6 @@ public class ItemTagRegistry {
     }
 
     private static TagKey<Item> cTag(String name) {
-        return ItemTags.create(new ResourceLocation("c", name));
+        return ItemTags.create(ResourceLocation.fromNamespaceAndPath("c",  name));
     }
 }

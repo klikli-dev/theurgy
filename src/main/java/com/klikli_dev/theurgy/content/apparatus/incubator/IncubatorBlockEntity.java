@@ -7,7 +7,7 @@ package com.klikli_dev.theurgy.content.apparatus.incubator;
 import com.klikli_dev.theurgy.content.behaviour.crafting.CraftingBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.heat.HeatConsumerBehaviour;
 import com.klikli_dev.theurgy.content.capability.DefaultHeatReceiver;
-import com.klikli_dev.theurgy.content.recipe.wrapper.IncubatorRecipeWrapper;
+import com.klikli_dev.theurgy.content.recipe.input.IncubatorRecipeInput;
 import com.klikli_dev.theurgy.content.storage.MonitoredItemStackHandler;
 import com.klikli_dev.theurgy.content.storage.PreventInsertWrapper;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
@@ -42,7 +42,7 @@ public class IncubatorBlockEntity extends BlockEntity {
      */
     public PreventInsertWrapper outputInventoryTakeOnlyWrapper;
 
-    public IncubatorRecipeWrapper recipeWrapper;
+    public IncubatorRecipeInput ItemHandlerRecipeInput;
 
     public DefaultHeatReceiver heatReceiver;
 
@@ -61,7 +61,7 @@ public class IncubatorBlockEntity extends BlockEntity {
 
         this.heatReceiver = new DefaultHeatReceiver();
 
-        this.craftingBehaviour = new IncubatorCraftingBehaviour(this, () -> this.recipeWrapper, () -> null, () -> this.outputInventory);
+        this.craftingBehaviour = new IncubatorCraftingBehaviour(this, () -> this.ItemHandlerRecipeInput, () -> null, () -> this.outputInventory);
         this.heatConsumerBehaviour = new HeatConsumerBehaviour(this);
     }
 
@@ -200,11 +200,11 @@ public class IncubatorBlockEntity extends BlockEntity {
     }
 
     public void onAssembleMultiblock() {
-        this.recipeWrapper = new IncubatorRecipeWrapper(this.mercuryVessel.inputInventory, this.saltVessel.inputInventory, this.sulfurVessel.inputInventory);
+        this.ItemHandlerRecipeInput = new IncubatorRecipeInput(this.mercuryVessel.inputInventory, this.saltVessel.inputInventory, this.sulfurVessel.inputInventory);
     }
 
     public void onDisassembleMultiblock() {
-        this.recipeWrapper = null;
+        this.ItemHandlerRecipeInput = null;
     }
 
     @Override

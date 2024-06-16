@@ -20,6 +20,8 @@
   "crafting_texture": "modonomicon:textures/gui/crafting_textures.png",
   "creative_tab": "theurgy:theurgy",
   "default_title_color": 0,
+  "description": "",
+  "display_mode": "node",
   "font": "modonomicon:default",
   "frame_texture": "modonomicon:textures/gui/book_frame.png",
   "generate_book_item": true,
@@ -34,6 +36,7 @@
   },
   "model": "theurgy:the_hermetica_icon",
   "name": "book.theurgy.the_hermetica.name",
+  "page_display_mode": "double_page",
   "read_all_button_y_offset": 0,
   "right_frame_overlay": {
     "frame_height": 70,
@@ -46,7 +49,8 @@
   },
   "search_button_x_offset": 0,
   "search_button_y_offset": 0,
-  "tooltip": "book.theurgy.the_hermetica.tooltip",
+  "single_page_texture": "modonomicon:textures/gui/single_page_entry.png",
+  "tooltip": "",
   "top_frame_overlay": {
     "frame_height": 7,
     "frame_width": 72,

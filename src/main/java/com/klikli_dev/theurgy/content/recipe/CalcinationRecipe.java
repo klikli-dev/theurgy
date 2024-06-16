@@ -4,6 +4,7 @@
 
 package com.klikli_dev.theurgy.content.recipe;
 
+import com.klikli_dev.theurgy.content.recipe.input.ItemHandlerRecipeInput;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.RecipeSerializerRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
@@ -21,10 +22,10 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
-import net.neoforged.neoforge.items.wrapper.RecipeWrapper;
+import org.jetbrains.annotations.NotNull;
 
 
-public class CalcinationRecipe implements Recipe<RecipeWrapper> {
+public class CalcinationRecipe implements Recipe<ItemHandlerRecipeInput> {
 
     public static final int DEFAULT_TIME = 100;
 
@@ -70,18 +71,18 @@ public class CalcinationRecipe implements Recipe<RecipeWrapper> {
     }
 
     @Override
-    public RecipeType<?> getType() {
+    public @NotNull RecipeType<?> getType() {
         return RecipeTypeRegistry.CALCINATION.get();
     }
 
     @Override
-    public boolean matches(RecipeWrapper pContainer, Level pLevel) {
-        var stack = pContainer.getItem(0);
+    public boolean matches(ItemHandlerRecipeInput input, @NotNull Level pLevel) {
+        var stack = input.getItem(0);
         return this.ingredient.test(stack) && stack.getCount() >= this.ingredientCount;
     }
 
     @Override
-    public ItemStack assemble(RecipeWrapper pInv, HolderLookup.Provider pRegistries) {
+    public @NotNull ItemStack assemble(@NotNull ItemHandlerRecipeInput input, HolderLookup.@NotNull Provider pRegistries) {
         return this.result.copy();
     }
 
@@ -91,24 +92,24 @@ public class CalcinationRecipe implements Recipe<RecipeWrapper> {
     }
 
     @Override
-    public ItemStack getResultItem(HolderLookup.Provider pRegistries) {
+    public @NotNull ItemStack getResultItem(HolderLookup.@NotNull Provider pRegistries) {
         return this.result;
     }
 
     @Override
-    public NonNullList<Ingredient> getIngredients() {
+    public @NotNull NonNullList<Ingredient> getIngredients() {
         NonNullList<Ingredient> nonnulllist = NonNullList.create();
         nonnulllist.add(this.ingredient);
         return nonnulllist;
     }
 
     @Override
-    public ItemStack getToastSymbol() {
+    public @NotNull ItemStack getToastSymbol() {
         return new ItemStack(BlockRegistry.CALCINATION_OVEN.get());
     }
 
     @Override
-    public RecipeSerializer<?> getSerializer() {
+    public @NotNull RecipeSerializer<?> getSerializer() {
         return RecipeSerializerRegistry.CALCINATION.get();
     }
 
@@ -118,12 +119,12 @@ public class CalcinationRecipe implements Recipe<RecipeWrapper> {
 
     public static class Serializer implements RecipeSerializer<CalcinationRecipe> {
         @Override
-        public MapCodec<CalcinationRecipe> codec() {
+        public @NotNull MapCodec<CalcinationRecipe> codec() {
             return CODEC;
         }
 
         @Override
-        public StreamCodec<RegistryFriendlyByteBuf, CalcinationRecipe> streamCodec() {
+        public @NotNull StreamCodec<RegistryFriendlyByteBuf, CalcinationRecipe> streamCodec() {
             return STREAM_CODEC;
         }
     }

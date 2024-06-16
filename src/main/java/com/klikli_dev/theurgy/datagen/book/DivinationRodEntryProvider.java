@@ -9,6 +9,7 @@ import com.klikli_dev.modonomicon.api.datagen.CategoryProvider;
 import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
 import com.klikli_dev.modonomicon.api.datagen.book.BookCategoryModel;
 import com.klikli_dev.modonomicon.api.datagen.book.BookEntryModel;
+import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookCraftingRecipePageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
@@ -24,9 +25,8 @@ import net.minecraft.world.item.crafting.Ingredient;
  */
 public class DivinationRodEntryProvider extends CategoryProvider {
 
-
     public DivinationRodEntryProvider(TheurgyBookProvider parent, CategoryEntryMap entryMap) {
-        super(parent, "dummy");
+        super(parent);
 
         this.entryMap = entryMap;
     }
@@ -47,7 +47,22 @@ public class DivinationRodEntryProvider extends CategoryProvider {
     }
 
     @Override
-    protected BookCategoryModel generateCategory() {
+    protected String categoryName() {
+        return "";
+    }
+
+    @Override
+    protected BookIconModel categoryIcon() {
+        return BookIconModel.create(Items.BARRIER);
+    }
+
+    @Override
+    public String categoryId() {
+        return "dummy";
+    }
+
+    @Override
+    public BookCategoryModel generate() {
         throw new UnsupportedOperationException("This is a dummy provider to help generate entries, it should not be used to generate a Category.");
     }
 

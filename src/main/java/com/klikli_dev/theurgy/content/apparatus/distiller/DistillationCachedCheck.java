@@ -5,6 +5,7 @@
 package com.klikli_dev.theurgy.content.apparatus.distiller;
 
 import com.klikli_dev.theurgy.content.recipe.DistillationRecipe;
+import com.klikli_dev.theurgy.content.recipe.input.ItemHandlerRecipeInput;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -12,7 +13,7 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
-import net.neoforged.neoforge.items.wrapper.RecipeWrapper;
+
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
@@ -20,10 +21,10 @@ import java.util.Optional;
 /**
  * A custom cached check
  */
-class DistillationCachedCheck implements RecipeManager.CachedCheck<RecipeWrapper, DistillationRecipe> {
+class DistillationCachedCheck implements RecipeManager.CachedCheck<ItemHandlerRecipeInput, DistillationRecipe> {
 
     private final RecipeType<DistillationRecipe> type;
-    private final RecipeManager.CachedCheck<RecipeWrapper, DistillationRecipe> internal;
+    private final RecipeManager.CachedCheck<ItemHandlerRecipeInput, DistillationRecipe> internal;
     @Nullable
     private ResourceLocation lastRecipe;
 
@@ -64,7 +65,7 @@ class DistillationCachedCheck implements RecipeManager.CachedCheck<RecipeWrapper
      * This checks full recipe validity: ingredients + ingredient count
      */
     @Override
-    public Optional<RecipeHolder<DistillationRecipe>> getRecipeFor(RecipeWrapper container, Level level) {
+    public Optional<RecipeHolder<DistillationRecipe>> getRecipeFor(ItemHandlerRecipeInput container, Level level) {
         var recipe = this.internal.getRecipeFor(container, level);
         if (recipe.isPresent()) {
             this.lastRecipe = recipe.get().id();

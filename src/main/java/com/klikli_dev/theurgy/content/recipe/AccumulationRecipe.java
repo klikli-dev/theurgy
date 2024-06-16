@@ -5,7 +5,7 @@
 package com.klikli_dev.theurgy.content.recipe;
 
 
-import com.klikli_dev.theurgy.content.recipe.wrapper.RecipeWrapperWithFluid;
+import com.klikli_dev.theurgy.content.recipe.input.ItemHandlerWithFluidRecipeInput;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.registry.RecipeSerializerRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
@@ -25,11 +25,12 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.crafting.FluidIngredient;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
-public class AccumulationRecipe implements Recipe<RecipeWrapperWithFluid> {
+public class AccumulationRecipe implements Recipe<ItemHandlerWithFluidRecipeInput> {
     public static final int DEFAULT_TIME = 100;
 
     public static final MapCodec<AccumulationRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
@@ -85,14 +86,15 @@ public class AccumulationRecipe implements Recipe<RecipeWrapperWithFluid> {
     }
 
     @Override
-    public RecipeType<?> getType() {
+    public @NotNull RecipeType<?> getType() {
         return RecipeTypeRegistry.ACCUMULATION.get();
     }
 
     @Override
-    public boolean matches(RecipeWrapperWithFluid pContainer, Level pLevel) {
+    public boolean matches(@NotNull ItemHandlerWithFluidRecipeInput pContainer, @NotNull Level pLevel) {
         var fluid = pContainer.getTank().getFluidInTank(0);
         boolean evaporantMatches = this.evaporant.test(fluid) && fluid.getAmount() >= this.evaporantAmount;
+        //noinspection DataFlowIssue: we are checking this.hasSolute so solute is not null!
         boolean soluteMatches =
                 pContainer.getItem(0).isEmpty() && !this.hasSolute() || //if recipe requires no solute and container does not have one we're ok
                         this.hasSolute() && this.solute.test(pContainer.getItem(0)); // if recipe requires solute we check if the container has it
@@ -103,11 +105,11 @@ public class AccumulationRecipe implements Recipe<RecipeWrapperWithFluid> {
     }
 
     @Override
-    public ItemStack assemble(RecipeWrapperWithFluid pInv, HolderLookup.Provider pRegistries) {
+    public @NotNull ItemStack assemble(@NotNull ItemHandlerWithFluidRecipeInput pInv, @NotNull HolderLookup.Provider pRegistries) {
         return ItemStack.EMPTY;
     }
 
-    public FluidStack assembleFluid(RecipeWrapperWithFluid pInv, HolderLookup.Provider pRegistries) {
+    public @NotNull FluidStack assembleFluid(@NotNull ItemHandlerWithFluidRecipeInput pInv, @NotNull HolderLookup.Provider pRegistries) {
         return this.result.copy();
     }
 
@@ -117,12 +119,12 @@ public class AccumulationRecipe implements Recipe<RecipeWrapperWithFluid> {
     }
 
     @Override
-    public ItemStack getResultItem(HolderLookup.Provider pRegistries) {
+    public @NotNull ItemStack getResultItem(HolderLookup.@NotNull Provider pRegistries) {
         return ItemStack.EMPTY;
     }
 
     @Override
-    public NonNullList<Ingredient> getIngredients() {
+    public @NotNull NonNullList<Ingredient> getIngredients() {
         NonNullList<Ingredient> nonnulllist = NonNullList.create();
         if (this.solute != null)
             nonnulllist.add(this.solute);
@@ -130,12 +132,12 @@ public class AccumulationRecipe implements Recipe<RecipeWrapperWithFluid> {
     }
 
     @Override
-    public ItemStack getToastSymbol() {
+    public @NotNull ItemStack getToastSymbol() {
         return new ItemStack(ItemRegistry.SAL_AMMONIAC_ACCUMULATOR.get());
     }
 
     @Override
-    public RecipeSerializer<?> getSerializer() {
+    public @NotNull RecipeSerializer<?> getSerializer() {
         return RecipeSerializerRegistry.ACCUMULATION.get();
     }
 
@@ -167,12 +169,12 @@ public class AccumulationRecipe implements Recipe<RecipeWrapperWithFluid> {
     public static class Serializer implements RecipeSerializer<AccumulationRecipe> {
 
         @Override
-        public MapCodec<AccumulationRecipe> codec() {
+        public @NotNull MapCodec<AccumulationRecipe> codec() {
             return CODEC;
         }
 
         @Override
-        public StreamCodec<RegistryFriendlyByteBuf, AccumulationRecipe> streamCodec() {
+        public @NotNull StreamCodec<RegistryFriendlyByteBuf, AccumulationRecipe> streamCodec() {
             return STREAM_CODEC;
         }
     }

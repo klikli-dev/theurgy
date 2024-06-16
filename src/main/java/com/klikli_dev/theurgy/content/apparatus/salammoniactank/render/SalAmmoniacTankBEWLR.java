@@ -4,12 +4,14 @@
 
 package com.klikli_dev.theurgy.content.apparatus.salammoniactank.render;
 
+import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorMercuryVesselBlockItem;
 import com.klikli_dev.theurgy.content.apparatus.salammoniactank.SalAmmoniacTankBlockItem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.model.ItemTransform;
 import net.minecraft.world.item.ItemDisplayContext;
+import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 import software.bernie.geckolib.cache.object.BakedGeoModel;
@@ -31,8 +33,10 @@ public class SalAmmoniacTankBEWLR extends GeoItemRenderer<SalAmmoniacTankBlockIt
     }
 
     @Override
-    public void preRender(PoseStack poseStack, SalAmmoniacTankBlockItem animatable, BakedGeoModel model, MultiBufferSource bufferSource, VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, float red, float green, float blue,
-                          float alpha) {
+    public void preRender(PoseStack poseStack, SalAmmoniacTankBlockItem animatable, BakedGeoModel model, @Nullable MultiBufferSource bufferSource, @Nullable VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, int colour) {
+//        super.preRender(poseStack, animatable, model, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, colour);
+        if (isReRender)
+            return;
         //copied from parent, but fixed to also center the model when scaling
         this.itemRenderTranslations = new Matrix4f(poseStack.last().pose());
 

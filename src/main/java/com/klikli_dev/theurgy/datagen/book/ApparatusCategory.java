@@ -4,10 +4,10 @@
 
 package com.klikli_dev.theurgy.datagen.book;
 
-import com.klikli_dev.modonomicon.api.datagen.BookProvider;
 import com.klikli_dev.modonomicon.api.datagen.CategoryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookCategoryModel;
 import com.klikli_dev.modonomicon.api.datagen.book.BookEntryModel;
+import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.condition.BookTrueConditionModel;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.datagen.book.apparatus.HowToEntry;
@@ -23,13 +23,12 @@ import com.klikli_dev.theurgy.datagen.book.apparatus.transmutationandexaltation.
 import com.klikli_dev.theurgy.datagen.book.apparatus.transmutationandexaltation.TransmutationAndExaltationEntry;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 
-
 public class ApparatusCategory extends CategoryProvider {
 
     public static final String CATEGORY_ID = "apparatus";
 
-    public ApparatusCategory(BookProvider parent) {
-        super(parent, CATEGORY_ID);
+    public ApparatusCategory(TheurgyBookProvider parent) {
+        super(parent);
     }
 
     @Override
@@ -63,6 +62,26 @@ public class ApparatusCategory extends CategoryProvider {
         this.mercuryFluxEntries(introEntry);
         this.reformationEntries(introEntry);
         this.exaltationEntries(introEntry);
+    }
+
+    @Override
+    protected String categoryName() {
+        return "About Apparatus";
+    }
+
+    @Override
+    protected BookIconModel categoryIcon() {
+        return BookIconModel.create(ItemRegistry.CALCINATION_OVEN.get());
+    }
+
+    @Override
+    public String categoryId() {
+        return CATEGORY_ID;
+    }
+
+    @Override
+    protected BookCategoryModel additionalSetup(BookCategoryModel category) {
+        return super.additionalSetup(category).withBackground(Theurgy.loc("textures/gui/book/bg_nightsky2.png"));
     }
 
     private void exaltationEntries(BookEntryModel parent) {
@@ -136,17 +155,4 @@ public class ApparatusCategory extends CategoryProvider {
         var incubatorEntry = new IncubatorEntry(this).generate('ï');
         incubatorEntry.addParent(this.parent(spagyricsEntry));
     }
-
-    @Override
-    protected BookCategoryModel generateCategory() {
-        this.add(this.context().categoryName(), "About Apparatus");
-
-        return BookCategoryModel.create(
-                        Theurgy.loc(this.context().categoryId()),
-                        this.context().categoryName()
-                )
-                .withBackground(Theurgy.loc("textures/gui/book/bg_nightsky2.png"))
-                .withIcon(ItemRegistry.CALCINATION_OVEN.get());
-    }
-
 }

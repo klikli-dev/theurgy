@@ -5,7 +5,7 @@
 package com.klikli_dev.theurgy.content.recipe;
 
 
-import com.klikli_dev.theurgy.content.recipe.wrapper.RecipeWrapperWithFluid;
+import com.klikli_dev.theurgy.content.recipe.input.ItemHandlerWithFluidRecipeInput;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.RecipeSerializerRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
@@ -24,9 +24,10 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.fluids.crafting.FluidIngredient;
+import org.jetbrains.annotations.NotNull;
 
 
-public class LiquefactionRecipe implements Recipe<RecipeWrapperWithFluid> {
+public class LiquefactionRecipe implements Recipe<ItemHandlerWithFluidRecipeInput> {
 
     public static final int DEFAULT_TIME = 100;
 
@@ -73,18 +74,18 @@ public class LiquefactionRecipe implements Recipe<RecipeWrapperWithFluid> {
     }
 
     @Override
-    public RecipeType<?> getType() {
+    public @NotNull RecipeType<?> getType() {
         return RecipeTypeRegistry.LIQUEFACTION.get();
     }
 
     @Override
-    public boolean matches(RecipeWrapperWithFluid pContainer, Level pLevel) {
+    public boolean matches(@NotNull ItemHandlerWithFluidRecipeInput pContainer, @NotNull Level pLevel) {
         var fluid = pContainer.getTank().getFluidInTank(0);
         return this.ingredient.test(pContainer.getItem(0)) && this.solvent.test(fluid) && fluid.getAmount() >= this.solventAmount;
     }
 
     @Override
-    public ItemStack assemble(RecipeWrapperWithFluid pCraftingContainer, HolderLookup.Provider pRegistries) {
+    public @NotNull ItemStack assemble(@NotNull ItemHandlerWithFluidRecipeInput pCraftingContainer, @NotNull HolderLookup.Provider pRegistries) {
         return this.result.copy();
     }
 
@@ -94,24 +95,24 @@ public class LiquefactionRecipe implements Recipe<RecipeWrapperWithFluid> {
     }
 
     @Override
-    public ItemStack getResultItem(HolderLookup.Provider pRegistries) {
+    public @NotNull ItemStack getResultItem(@NotNull HolderLookup.Provider pRegistries) {
         return this.result;
     }
 
     @Override
-    public NonNullList<Ingredient> getIngredients() {
+    public @NotNull NonNullList<Ingredient> getIngredients() {
         NonNullList<Ingredient> nonnulllist = NonNullList.create();
         nonnulllist.add(this.ingredient);
         return nonnulllist;
     }
 
     @Override
-    public ItemStack getToastSymbol() {
+    public @NotNull ItemStack getToastSymbol() {
         return new ItemStack(BlockRegistry.LIQUEFACTION_CAULDRON.get());
     }
 
     @Override
-    public RecipeSerializer<?> getSerializer() {
+    public @NotNull RecipeSerializer<?> getSerializer() {
         return RecipeSerializerRegistry.LIQUEFACTION.get();
     }
 
@@ -134,12 +135,12 @@ public class LiquefactionRecipe implements Recipe<RecipeWrapperWithFluid> {
     public static class Serializer implements RecipeSerializer<LiquefactionRecipe> {
 
         @Override
-        public MapCodec<LiquefactionRecipe> codec() {
+        public @NotNull MapCodec<LiquefactionRecipe> codec() {
             return CODEC;
         }
 
         @Override
-        public StreamCodec<RegistryFriendlyByteBuf, LiquefactionRecipe> streamCodec() {
+        public @NotNull StreamCodec<RegistryFriendlyByteBuf, LiquefactionRecipe> streamCodec() {
             return STREAM_CODEC;
         }
     }

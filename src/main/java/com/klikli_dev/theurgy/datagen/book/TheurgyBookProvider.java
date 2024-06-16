@@ -4,20 +4,16 @@
 
 package com.klikli_dev.theurgy.datagen.book;
 
-import com.klikli_dev.modonomicon.api.datagen.BookProvider;
 import com.klikli_dev.modonomicon.api.datagen.ModonomiconLanguageProvider;
+import com.klikli_dev.modonomicon.api.datagen.SingleBookSubProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookModel;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.registry.CreativeModeTabRegistry;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.data.PackOutput;
-
-import java.util.concurrent.CompletableFuture;
 
 
-public class TheurgyBookProvider extends BookProvider {
-    public TheurgyBookProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> pRegistries, ModonomiconLanguageProvider lang) {
-        super("the_hermetica", packOutput, pRegistries, Theurgy.MODID, lang);
+public class TheurgyBookProvider extends SingleBookSubProvider {
+    public TheurgyBookProvider(ModonomiconLanguageProvider lang) {
+        super("the_hermetica", Theurgy.MODID, lang);
     }
 
     @Override
@@ -27,33 +23,32 @@ public class TheurgyBookProvider extends BookProvider {
     }
 
     @Override
-    protected BookModel generateBook() {
-        this.lang.add(this.context().bookName(), "The Hermetica");
-        this.lang.add(this.context().bookTooltip(), "A treatise on the Ancient Art of Alchemy.\n§o(In-Game Guide for Theurgy)§r");
+    protected void generateCategories() {
+        //TODO: setup real entry conditions
 
-        int categorySortNum = 1;
-        var gettingStartedCategory = new GettingStartedCategoryProvider(this).generate().withSortNumber(categorySortNum++);
+        var gettingStartedCategory = this.add(new GettingStartedCategoryProvider(this).generate());
 
-        var apparatusCategory = new ApparatusCategory(this).generate().withSortNumber(categorySortNum++);
+        var apparatusCategory = this.add(new ApparatusCategory(this).generate());
 
-        var logisticsCategory = new LogisticsCategory(this).generate().withSortNumber(categorySortNum++);
+        var logisticsCategory = this.add(new LogisticsCategory(this).generate());
+    }
 
-        //TODO: entry read condition
+    @Override
+    protected String bookName() {
+        return "The Hermetica";
+    }
 
-        var book = BookModel.create(
-                        this.modLoc(this.context().bookId()),
-                        this.context().bookName()
-                )
-                .withTooltip(this.context().bookTooltip())
-                .withCategories(
-                        gettingStartedCategory,
-                        apparatusCategory,
-                        logisticsCategory
-                )
-                .withGenerateBookItem(true)
+    @Override
+    protected String bookTooltip() {
+        return "A treatise on the Ancient Art of Alchemy.\n§o(In-Game Guide for Theurgy)§r";
+    }
+
+    @Override
+    protected BookModel additionalSetup(BookModel book) {
+        return super.additionalSetup(book)
                 .withModel(this.modLoc("the_hermetica_icon"))
+                .withGenerateBookItem(true)
                 .withCreativeTab(CreativeModeTabRegistry.THEURGY.getId())
                 .withAutoAddReadConditions(true);
-        return book;
     }
 }

@@ -25,8 +25,7 @@ public class LiquefactionCauldronRenderer implements BlockEntityRenderer<Liquefa
     public LiquefactionCauldronRenderer(BlockEntityRendererProvider.Context pContext) {
     }
 
-    private static void putVertex(VertexConsumer builder, PoseStack ms, float x, float y, float z, int color, float u,
-                                  float v, Direction face, int light) {
+    private static void putVertex(VertexConsumer builder, PoseStack ms, float x, float y, float z, int color, float u, float v, Direction face, int light) {
 
         Vec3i normal = face.getNormal();
         PoseStack.Pose peek = ms.last();
@@ -35,13 +34,12 @@ public class LiquefactionCauldronRenderer implements BlockEntityRenderer<Liquefa
         int g = color >> 8 & 0xff;
         int b = color & 0xff;
 
-        builder.vertex(peek.pose(), x, y, z)
-                .color(r, g, b, a)
-                .uv(u, v)
-                .overlayCoords(OverlayTexture.NO_OVERLAY)
-                .uv2(light)
-                .normal(peek, normal.getX(), normal.getY(), normal.getZ())
-                .endVertex();
+        builder.addVertex(peek.pose(), x, y, z)
+                .setColor(r, g, b, a)
+                .setUv(u, v)
+                .setOverlay(OverlayTexture.NO_OVERLAY)
+                .setLight(light)
+                .setNormal(peek, normal.getX(), normal.getY(), normal.getZ());
     }
 
     /**

@@ -5,7 +5,7 @@
 package com.klikli_dev.theurgy.content.recipe;
 
 
-import com.klikli_dev.theurgy.content.recipe.wrapper.RecipeWrapperWithFluid;
+import com.klikli_dev.theurgy.content.recipe.input.ItemHandlerWithFluidRecipeInput;
 import com.klikli_dev.theurgy.datagen.recipe.IngredientWithCount;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.registry.RecipeSerializerRegistry;
@@ -17,9 +17,6 @@ import it.unimi.dsi.fastutil.ints.IntArrayList;
 import it.unimi.dsi.fastutil.ints.IntList;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.RegistryAccess;
-import net.minecraft.nbt.NbtOps;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
@@ -30,10 +27,11 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.fluids.crafting.FluidIngredient;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class DigestionRecipe implements Recipe<RecipeWrapperWithFluid> {
+public class DigestionRecipe implements Recipe<ItemHandlerWithFluidRecipeInput> {
     public static final int DEFAULT_TIME = 200;
 
     public static final MapCodec<DigestionRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
@@ -82,12 +80,12 @@ public class DigestionRecipe implements Recipe<RecipeWrapperWithFluid> {
     }
 
     @Override
-    public RecipeType<?> getType() {
+    public @NotNull RecipeType<?> getType() {
         return RecipeTypeRegistry.DIGESTION.get();
     }
 
     @Override
-    public boolean matches(RecipeWrapperWithFluid pContainer, Level pLevel) {
+    public boolean matches(ItemHandlerWithFluidRecipeInput pContainer, @NotNull Level pLevel) {
         var fluid = pContainer.getTank().getFluidInTank(0);
         var fluidMatches = this.fluid.test(fluid) && fluid.getAmount() >= this.fluidAmount;
         if (!fluidMatches)
@@ -95,11 +93,11 @@ public class DigestionRecipe implements Recipe<RecipeWrapperWithFluid> {
 
         IntList visited = new IntArrayList();
         //first check for each ingredient if we have it in the container
-        for(var ingredient : this.ingredientsWithCount) {
+        for (var ingredient : this.ingredientsWithCount) {
             var found = false;
-            for(int i = 0; i < pContainer.getContainerSize(); i++) {
+            for (int i = 0; i < pContainer.size(); i++) {
                 //skip already visited slots to not "double dip"
-                if(visited.contains(i))
+                if (visited.contains(i))
                     continue;
 
                 var stack = pContainer.getItem(i);
@@ -114,12 +112,12 @@ public class DigestionRecipe implements Recipe<RecipeWrapperWithFluid> {
         }
 
         //Now make sure that we have no additional ingredients
-        for(int i = 0; i < pContainer.getContainerSize(); i++) {
-            if(visited.contains(i))
+        for (int i = 0; i < pContainer.size(); i++) {
+            if (visited.contains(i))
                 continue;
 
             var stack = pContainer.getItem(i);
-            if(!stack.isEmpty())
+            if (!stack.isEmpty())
                 return false;
         }
 
@@ -127,7 +125,7 @@ public class DigestionRecipe implements Recipe<RecipeWrapperWithFluid> {
     }
 
     @Override
-    public ItemStack assemble(RecipeWrapperWithFluid pInv, HolderLookup.Provider pRegistries) {
+    public @NotNull ItemStack assemble(@NotNull ItemHandlerWithFluidRecipeInput pInv, HolderLookup.@NotNull Provider pRegistries) {
         return this.result.copy();
     }
 
@@ -137,12 +135,12 @@ public class DigestionRecipe implements Recipe<RecipeWrapperWithFluid> {
     }
 
     @Override
-    public ItemStack getResultItem(HolderLookup.Provider pRegistries) {
+    public @NotNull ItemStack getResultItem(HolderLookup.@NotNull Provider pRegistries) {
         return this.result;
     }
 
     @Override
-    public NonNullList<Ingredient> getIngredients() {
+    public @NotNull NonNullList<Ingredient> getIngredients() {
         return this.ingredients;
     }
 
@@ -151,12 +149,12 @@ public class DigestionRecipe implements Recipe<RecipeWrapperWithFluid> {
     }
 
     @Override
-    public ItemStack getToastSymbol() {
+    public @NotNull ItemStack getToastSymbol() {
         return new ItemStack(ItemRegistry.DIGESTION_VAT.get());
     }
 
     @Override
-    public RecipeSerializer<?> getSerializer() {
+    public @NotNull RecipeSerializer<?> getSerializer() {
         return RecipeSerializerRegistry.DIGESTION.get();
     }
 
@@ -178,12 +176,12 @@ public class DigestionRecipe implements Recipe<RecipeWrapperWithFluid> {
 
     public static class Serializer implements RecipeSerializer<DigestionRecipe> {
         @Override
-        public MapCodec<DigestionRecipe> codec() {
+        public @NotNull MapCodec<DigestionRecipe> codec() {
             return CODEC;
         }
 
         @Override
-        public StreamCodec<RegistryFriendlyByteBuf, DigestionRecipe> streamCodec() {
+        public @NotNull StreamCodec<RegistryFriendlyByteBuf, DigestionRecipe> streamCodec() {
             return STREAM_CODEC;
         }
     }

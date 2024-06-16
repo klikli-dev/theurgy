@@ -7,6 +7,7 @@ package com.klikli_dev.theurgy.content.apparatus.mercurycatalyst;
 import com.klikli_dev.theurgy.content.behaviour.crafting.CraftingBehaviour;
 import com.klikli_dev.theurgy.content.capability.MercuryFluxStorage;
 import com.klikli_dev.theurgy.content.recipe.CatalysationRecipe;
+import com.klikli_dev.theurgy.content.recipe.input.ItemHandlerRecipeInput;
 import com.klikli_dev.theurgy.registry.DataComponentRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import net.minecraft.core.HolderLookup;
@@ -20,12 +21,12 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.common.util.Lazy;
 import net.neoforged.neoforge.items.IItemHandlerModifiable;
 import net.neoforged.neoforge.items.ItemStackHandler;
-import net.neoforged.neoforge.items.wrapper.RecipeWrapper;
+
 import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Supplier;
 
-public class MercuryCatalystCraftingBehaviour extends CraftingBehaviour<RecipeWrapper, CatalysationRecipe, RecipeManager.CachedCheck<RecipeWrapper, CatalysationRecipe>> {
+public class MercuryCatalystCraftingBehaviour extends CraftingBehaviour<ItemHandlerRecipeInput, CatalysationRecipe, RecipeManager.CachedCheck<ItemHandlerRecipeInput, CatalysationRecipe>> {
 
     private final Supplier<MercuryFluxStorage> mercuryFluxStorageSupplier;
 
@@ -35,7 +36,7 @@ public class MercuryCatalystCraftingBehaviour extends CraftingBehaviour<RecipeWr
 
     public MercuryCatalystCraftingBehaviour(BlockEntity blockEntity, Supplier<IItemHandlerModifiable> inputInventorySupplier, Supplier<IItemHandlerModifiable> outputInventorySupplier, Supplier<MercuryFluxStorage> mercuryFluxStorageSupplier) {
         super(blockEntity,
-                Lazy.of(() -> new RecipeWrapper(inputInventorySupplier.get())),
+                Lazy.of(() -> new ItemHandlerRecipeInput(inputInventorySupplier.get())),
                 inputInventorySupplier,
                 outputInventorySupplier,
                 RecipeManager.createCheck(RecipeTypeRegistry.CATALYSATION.get()));
@@ -49,7 +50,7 @@ public class MercuryCatalystCraftingBehaviour extends CraftingBehaviour<RecipeWr
             return true; //early out if we are already processing this type of item
 
         var tempInv = new ItemStackHandler(NonNullList.of(ItemStack.EMPTY, stack));
-        var tempRecipeWrapper = new RecipeWrapper(tempInv);
+        var tempRecipeWrapper = new ItemHandlerRecipeInput(tempInv);
 
         return this.recipeCachedCheck.getRecipeFor(tempRecipeWrapper, this.blockEntity.getLevel()).isPresent();
     }

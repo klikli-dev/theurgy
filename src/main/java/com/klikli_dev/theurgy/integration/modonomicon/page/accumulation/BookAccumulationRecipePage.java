@@ -8,7 +8,7 @@ import com.google.gson.JsonObject;
 import com.klikli_dev.modonomicon.book.BookTextHolder;
 import com.klikli_dev.modonomicon.book.conditions.BookCondition;
 import com.klikli_dev.modonomicon.book.conditions.BookNoneCondition;
-import com.klikli_dev.modonomicon.book.entries.ContentBookEntry;
+import com.klikli_dev.modonomicon.book.entries.BookContentEntry;
 import com.klikli_dev.modonomicon.book.page.BookRecipePage;
 import com.klikli_dev.theurgy.content.recipe.AccumulationRecipe;
 import com.klikli_dev.theurgy.integration.modonomicon.TheurgyModonomiconConstants;
@@ -51,7 +51,7 @@ public class BookAccumulationRecipePage extends BookRecipePage<AccumulationRecip
     }
 
     @Override
-    public void build(Level level, ContentBookEntry parentEntry, int pageNum) {
+    public void build(Level level, BookContentEntry parentEntry, int pageNum) {
         //copy from parents parent as we won't be calling super.
         this.parentEntry = parentEntry;
         this.pageNumber = pageNum;

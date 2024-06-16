@@ -2,23 +2,22 @@
 //
 // SPDX-License-Identifier: MIT
 
-package com.klikli_dev.theurgy.content.recipe.wrapper;
+package com.klikli_dev.theurgy.content.recipe.input;
 
 import com.klikli_dev.theurgy.content.capability.MercuryFluxStorage;
 import net.neoforged.neoforge.items.IItemHandlerModifiable;
 import net.neoforged.neoforge.items.wrapper.CombinedInvWrapper;
-import net.neoforged.neoforge.items.wrapper.RecipeWrapper;
 
 import java.util.List;
 import java.util.stream.Stream;
 
-public class ReformationArrayRecipeWrapper extends RecipeWrapper {
+public class ReformationArrayRecipeInput extends ItemHandlerRecipeInput {
     private final List<IItemHandlerModifiable> sourcePedestalInvs;
     private final IItemHandlerModifiable targetPedestalInv;
 
     private final MercuryFluxStorage mercuryFluxStorage;
 
-    public ReformationArrayRecipeWrapper(List<IItemHandlerModifiable> sourcePedestalInvs, IItemHandlerModifiable targetPedestalInv, MercuryFluxStorage mercuryFluxStorage) {
+    public ReformationArrayRecipeInput(List<IItemHandlerModifiable> sourcePedestalInvs, IItemHandlerModifiable targetPedestalInv, MercuryFluxStorage mercuryFluxStorage) {
         super(new CombinedInvWrapper(Stream.concat(Stream.of(targetPedestalInv), sourcePedestalInvs.stream())
                 .toArray(IItemHandlerModifiable[]::new)));
 

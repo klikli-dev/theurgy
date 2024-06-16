@@ -7,7 +7,7 @@ package com.klikli_dev.theurgy.content.apparatus.reformationarray;
 import com.klikli_dev.theurgy.content.behaviour.crafting.CraftingBehaviour;
 import com.klikli_dev.theurgy.content.capability.MercuryFluxStorage;
 import com.klikli_dev.theurgy.content.recipe.ReformationRecipe;
-import com.klikli_dev.theurgy.content.recipe.wrapper.ReformationArrayRecipeWrapper;
+import com.klikli_dev.theurgy.content.recipe.input.ReformationArrayRecipeInput;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
@@ -20,11 +20,11 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Supplier;
 
-public class ReformationArrayCraftingBehaviour extends CraftingBehaviour<ReformationArrayRecipeWrapper, ReformationRecipe, RecipeManager.CachedCheck<ReformationArrayRecipeWrapper, ReformationRecipe>> {
+public class ReformationArrayCraftingBehaviour extends CraftingBehaviour<ReformationArrayRecipeInput, ReformationRecipe, RecipeManager.CachedCheck<ReformationArrayRecipeInput, ReformationRecipe>> {
 
     protected final Supplier<MercuryFluxStorage> mercuryFluxStorageSupplier;
 
-    public ReformationArrayCraftingBehaviour(BlockEntity blockEntity, Supplier<ReformationArrayRecipeWrapper> recipeWrapperSupplier, Supplier<IItemHandlerModifiable> inputInventorySupplier, Supplier<IItemHandlerModifiable> outputInventorySupplier, Supplier<MercuryFluxStorage> mercuryFluxStorageSupplier) {
+    public ReformationArrayCraftingBehaviour(BlockEntity blockEntity, Supplier<ReformationArrayRecipeInput> recipeWrapperSupplier, Supplier<IItemHandlerModifiable> inputInventorySupplier, Supplier<IItemHandlerModifiable> outputInventorySupplier, Supplier<MercuryFluxStorage> mercuryFluxStorageSupplier) {
         super(blockEntity,
                 recipeWrapperSupplier,
                 inputInventorySupplier,
@@ -44,8 +44,8 @@ public class ReformationArrayCraftingBehaviour extends CraftingBehaviour<Reforma
 
     @Override
     protected boolean craft(RecipeHolder<ReformationRecipe> pRecipe) {
-        var recipeWrapper = this.recipeWrapperSupplier.get();
-        var assembledStack = pRecipe.value().assemble(recipeWrapper, this.blockEntity.getLevel().registryAccess());
+        var ItemHandlerRecipeInput = this.recipeWrapperSupplier.get();
+        var assembledStack = pRecipe.value().assemble(ItemHandlerRecipeInput, this.blockEntity.getLevel().registryAccess());
 
         //consume energy
         this.mercuryFluxStorageSupplier.get().extractEnergy(pRecipe.value().getMercuryFlux(), false);
@@ -53,7 +53,7 @@ public class ReformationArrayCraftingBehaviour extends CraftingBehaviour<Reforma
         // Loop through required sources of recipe and through source inventories and extract
         Set<IItemHandlerModifiable> usedInventories = new HashSet<>();
         for (var source : pRecipe.value().getSources()) {
-            for (var sourceInventory : recipeWrapper.getSourcePedestalInvs()) {
+            for (var sourceInventory : ItemHandlerRecipeInput.getSourcePedestalInvs()) {
                 // Skip this source inventory if it has already been used
                 if (usedInventories.contains(sourceInventory)) {
                     continue;

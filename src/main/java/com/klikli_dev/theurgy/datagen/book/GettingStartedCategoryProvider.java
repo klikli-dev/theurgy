@@ -7,6 +7,7 @@ package com.klikli_dev.theurgy.datagen.book;
 import com.klikli_dev.modonomicon.api.datagen.CategoryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookCategoryModel;
 import com.klikli_dev.modonomicon.api.datagen.book.BookEntryModel;
+import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.datagen.book.gettingstarted.*;
 import com.klikli_dev.theurgy.datagen.book.gettingstarted.exaltation.ConvertToOtherTierEntry;
@@ -27,7 +28,7 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
     public static final String CATEGORY_ID = "getting_started";
 
     public GettingStartedCategoryProvider(TheurgyBookProvider parent) {
-        super(parent, CATEGORY_ID);
+        super(parent);
     }
 
     public TheurgyBookProvider parent() {
@@ -94,6 +95,26 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
         renewableGold.withParent(exaltation.getFirst());
         renewableGold.withCondition(this.condition().entryRead(exaltation.getSecond()));
         renewableGold.hideWhileLocked(true);
+    }
+
+    @Override
+    protected String categoryName() {
+        return "Getting Started";
+    }
+
+    @Override
+    protected BookIconModel categoryIcon() {
+        return BookIconModel.create(ItemRegistry.THE_HERMETICA_ICON.get());
+    }
+
+    @Override
+    public String categoryId() {
+        return CATEGORY_ID;
+    }
+
+    @Override
+    protected BookCategoryModel additionalSetup(BookCategoryModel category) {
+        return super.additionalSetup(category).withBackground(Theurgy.loc("textures/gui/book/bg_nightsky.png"));
     }
 
     protected Pair<BookEntryModel, BookEntryModel> generateExaltationEntries(Pair<BookEntryModel, BookEntryModel> transmutation) {
@@ -287,11 +308,4 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
         //  amethyst entry should NOT depend on spagyrics -> hence not on abundant sulfur rod
     }
 
-    @Override
-    protected BookCategoryModel generateCategory() {
-        this.add(this.context().categoryName(), "Getting Started");
-
-        return BookCategoryModel.create(Theurgy.loc((this.context().categoryId())), this.context().categoryName())
-                .withIcon(ItemRegistry.THE_HERMETICA_ICON.get()).withBackground(Theurgy.loc("textures/gui/book/bg_nightsky.png"));
-    }
 }

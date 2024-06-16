@@ -105,8 +105,8 @@ public class SulfuricFluxEmitterBlockEntity extends BlockEntity {
         this.isValidMultiblock = true; //set to true, then set to false if any of the checks fail
 
         if (this.targetPedestal != null) {
-            var targetPedestalBlockEntity = (ReformationTargetPedestalBlockEntity) this.level.getBlockEntity(this.targetPedestal.getBlockPos());
-            if (targetPedestalBlockEntity == null) {
+            var targetPedestalBlockEntity = this.level.getBlockEntity(this.targetPedestal.getBlockPos());
+            if (!(targetPedestalBlockEntity instanceof ReformationTargetPedestalBlockEntity)) {
                 this.isValidMultiblock = false;
             }
         } else {
@@ -114,8 +114,8 @@ public class SulfuricFluxEmitterBlockEntity extends BlockEntity {
         }
 
         if (this.resultPedestal != null) {
-            var resultPedestalBlockEntity = (ReformationResultPedestalBlockEntity) this.level.getBlockEntity(this.resultPedestal.getBlockPos());
-            if (resultPedestalBlockEntity == null) {
+            var resultPedestalBlockEntity = this.level.getBlockEntity(this.resultPedestal.getBlockPos());
+            if (!(resultPedestalBlockEntity instanceof ReformationResultPedestalBlockEntity)) {
                 this.isValidMultiblock = false;
             }
         } else {
@@ -124,8 +124,8 @@ public class SulfuricFluxEmitterBlockEntity extends BlockEntity {
 
         var hasSourcePedestals = false;
         for (var sourcePedestal : this.sourcePedestals) {
-            var sourcePedestalBlockEntity = (ReformationSourcePedestalBlockEntity) this.level.getBlockEntity(sourcePedestal.getBlockPos());
-            if (sourcePedestalBlockEntity != null) {
+            var sourcePedestalBlockEntity = this.level.getBlockEntity(sourcePedestal.getBlockPos());
+            if (!(sourcePedestalBlockEntity instanceof ReformationSourcePedestalBlockEntity)) {
                 hasSourcePedestals = true;
             }
         }

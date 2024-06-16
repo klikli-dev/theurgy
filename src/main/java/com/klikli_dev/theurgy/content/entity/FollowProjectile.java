@@ -18,6 +18,7 @@ import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerEntity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
@@ -224,11 +225,6 @@ public class FollowProjectile extends ColoredProjectile {
         super.addAdditionalSaveData(compound);
         Vec3.CODEC.encodeStart(NbtOps.INSTANCE, this.entityData.get(FollowProjectile.FROM)).result().ifPresent((e) -> compound.put("from", e));
         Vec3.CODEC.encodeStart(NbtOps.INSTANCE, this.entityData.get(FollowProjectile.TO)).result().ifPresent((e) -> compound.put("to", e));
-    }
-
-    @Override
-    public Packet<ClientGamePacketListener> getAddEntityPacket() {
-        throw new UnsupportedOperationException();
     }
 
     @Override

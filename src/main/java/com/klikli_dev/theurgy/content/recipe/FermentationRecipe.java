@@ -24,7 +24,7 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
-import net.neoforged.neoforge.fluids.crafting.FluidIngredient;
+import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -34,18 +34,15 @@ public class FermentationRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
     public static final int DEFAULT_TIME = 200;
 
     public static final MapCodec<FermentationRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-                    FluidIngredient.CODEC.fieldOf("fluid").forGetter((r) -> r.fluid),
-                    Codec.INT.fieldOf("fluidAmount").forGetter((r) -> r.fluidAmount),
+                    SizedFluidIngredient.NESTED_CODEC.fieldOf("fluid").forGetter((r) -> r.fluid),
                     Ingredient.CODEC.listOf().fieldOf("ingredients").forGetter(r -> r.ingredients),
                     ItemStack.STRICT_CODEC.fieldOf("result").forGetter(r -> r.result),
                     Codec.INT.optionalFieldOf("time", DEFAULT_TIME).forGetter(r -> r.time)
             ).apply(instance, FermentationRecipe::new)
     );
     public static final StreamCodec<RegistryFriendlyByteBuf, FermentationRecipe> STREAM_CODEC = StreamCodec.composite(
-            FluidIngredient.STREAM_CODEC,
+            SizedFluidIngredient.STREAM_CODEC,
             r -> r.fluid,
-            ByteBufCodecs.INT,
-            r -> r.fluidAmount,
             Ingredient.CONTENTS_STREAM_CODEC.apply(ByteBufCodecs.list()),
             r -> r.ingredients,
             ItemStack.OPTIONAL_STREAM_CODEC,
@@ -56,17 +53,15 @@ public class FermentationRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
     );
 
 
-    protected final FluidIngredient fluid;
-    protected final int fluidAmount;
+    protected final SizedFluidIngredient fluid;
 
     protected final NonNullList<Ingredient> ingredients;
     protected final ItemStack result;
     protected final int time;
     private final boolean hasOnlySimpleIngredients;
 
-    public FermentationRecipe(FluidIngredient fluid, int fluidAmount, List<Ingredient> ingredients, ItemStack result, int time) {
+    public FermentationRecipe(SizedFluidIngredient fluid, List<Ingredient> ingredients, ItemStack result, int time) {
         this.fluid = fluid;
-        this.fluidAmount = fluidAmount;
         this.ingredients = ingredients.stream().collect(NonNullList::create, NonNullList::add, NonNullList::addAll);
         this.hasOnlySimpleIngredients = ingredients.stream().allMatch(Ingredient::isSimple);
         this.result = result;
@@ -86,7 +81,7 @@ public class FermentationRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
     @Override
     public boolean matches(ItemHandlerWithFluidRecipeInput pContainer, @NotNull Level pLevel) {
         var fluid = pContainer.getTank().getFluidInTank(0);
-        var fluidMatches = this.fluid.test(fluid) && fluid.getAmount() >= this.fluidAmount;
+        var fluidMatches = this.fluid.test(fluid);
         if (!fluidMatches)
             return false;
 
@@ -143,12 +138,12 @@ public class FermentationRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
         return RecipeSerializerRegistry.FERMENTATION.get();
     }
 
-    public FluidIngredient getFluid() {
+    public SizedFluidIngredient getFluid() {
         return this.fluid;
     }
 
     public int getFluidAmount() {
-        return this.fluidAmount;
+        return this.fluid.amount();
     }
 
     public ItemStack getResult() {

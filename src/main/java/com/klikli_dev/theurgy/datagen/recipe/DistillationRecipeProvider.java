@@ -97,7 +97,7 @@ public class DistillationRecipeProvider extends JsonRecipeProvider {
         this.recipeConsumer.accept(
                 this.modLoc(recipeName),
                 new Builder(new ItemStack(ItemRegistry.MERCURY_SHARD.get(), resultCount))
-                        .ingredient(ingredient, ingredientCount)
+                        .sizedIngredient(ingredient, ingredientCount)
                         .time(distillationTime)
                         .build());
     }
@@ -129,18 +129,6 @@ public class DistillationRecipeProvider extends JsonRecipeProvider {
             super(RecipeTypeRegistry.DISTILLATION);
             this.result(result);
             this.time(TIME);
-        }
-
-        @Override
-        public Builder ingredient(Item item, int count) {
-            this.recipe.addProperty("ingredientCount", count);
-            return this.ingredient("ingredient", item);
-        }
-
-        @Override
-        public Builder ingredient(TagKey<?> tag, int count) {
-            this.recipe.addProperty("ingredientCount", count);
-            return this.ingredient("ingredient", tag);
         }
     }
 }

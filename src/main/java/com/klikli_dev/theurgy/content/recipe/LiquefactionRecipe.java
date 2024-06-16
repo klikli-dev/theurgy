@@ -24,6 +24,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.fluids.crafting.FluidIngredient;
+import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 import org.jetbrains.annotations.NotNull;
 
 
@@ -33,8 +34,7 @@ public class LiquefactionRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
 
     public static final MapCodec<LiquefactionRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
                     Ingredient.CODEC.fieldOf("ingredient").forGetter((r) -> r.ingredient),
-                    FluidIngredient.CODEC.fieldOf("solvent").forGetter((r) -> r.solvent),
-                    Codec.INT.fieldOf("solventAmount").forGetter((r) -> r.solventAmount),
+                    SizedFluidIngredient.NESTED_CODEC.fieldOf("solvent").forGetter((r) -> r.solvent),
                     ItemStack.STRICT_CODEC.fieldOf("result").forGetter(r -> r.result),
                     Codec.INT.optionalFieldOf("time", DEFAULT_TIME).forGetter(r -> r.time)
             ).apply(instance, LiquefactionRecipe::new)
@@ -43,10 +43,8 @@ public class LiquefactionRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
     public static final StreamCodec<RegistryFriendlyByteBuf, LiquefactionRecipe> STREAM_CODEC = StreamCodec.composite(
             Ingredient.CONTENTS_STREAM_CODEC,
             r -> r.ingredient,
-            FluidIngredient.STREAM_CODEC,
+            SizedFluidIngredient.STREAM_CODEC,
             r -> r.solvent,
-            ByteBufCodecs.INT,
-            r -> r.solventAmount,
             ItemStack.OPTIONAL_STREAM_CODEC,
             r -> r.result,
             ByteBufCodecs.INT,
@@ -55,15 +53,13 @@ public class LiquefactionRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
     );
 
     protected final Ingredient ingredient;
-    protected final FluidIngredient solvent;
-    protected final int solventAmount;
+    protected final SizedFluidIngredient solvent;
     protected final ItemStack result;
     protected final int time;
 
-    public LiquefactionRecipe(Ingredient pIngredient, FluidIngredient pSolvent, int solventAmount, ItemStack pResult, int time) {
+    public LiquefactionRecipe(Ingredient pIngredient, SizedFluidIngredient pSolvent, ItemStack pResult, int time) {
         this.ingredient = pIngredient;
         this.solvent = pSolvent;
-        this.solventAmount = solventAmount;
         this.result = pResult;
         this.time = time;
     }
@@ -81,7 +77,7 @@ public class LiquefactionRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
     @Override
     public boolean matches(@NotNull ItemHandlerWithFluidRecipeInput pContainer, @NotNull Level pLevel) {
         var fluid = pContainer.getTank().getFluidInTank(0);
-        return this.ingredient.test(pContainer.getItem(0)) && this.solvent.test(fluid) && fluid.getAmount() >= this.solventAmount;
+        return this.ingredient.test(pContainer.getItem(0)) && this.solvent.test(fluid);
     }
 
     @Override
@@ -120,12 +116,12 @@ public class LiquefactionRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
         return this.time;
     }
 
-    public FluidIngredient getSolvent() {
+    public SizedFluidIngredient getSolvent() {
         return this.solvent;
     }
 
     public int getSolventAmount() {
-        return this.solventAmount;
+        return this.solvent.amount();
     }
 
     public Ingredient getIngredient() {

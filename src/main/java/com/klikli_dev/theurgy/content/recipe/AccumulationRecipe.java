@@ -25,6 +25,7 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.crafting.FluidIngredient;
+import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -34,33 +35,29 @@ public class AccumulationRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
     public static final int DEFAULT_TIME = 100;
 
     public static final MapCodec<AccumulationRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-                    FluidIngredient.CODEC.fieldOf("evaporant").forGetter((r) -> r.evaporant),
-                    Codec.INT.fieldOf("evaporantAmount").forGetter((r) -> r.evaporantAmount),
+                    SizedFluidIngredient.NESTED_CODEC.fieldOf("evaporant").forGetter((r) -> r.evaporant),
                     Ingredient.CODEC.optionalFieldOf("solute").forGetter(r -> Optional.ofNullable(r.solute)),
                     FluidStack.CODEC.fieldOf("result").forGetter(r -> r.result),
                     Codec.INT.optionalFieldOf("time", DEFAULT_TIME).forGetter(r -> r.time)
-            ).apply(instance, (evaporant, evaporantAmount, solute, result, accumulation_time) -> new AccumulationRecipe(evaporant, evaporantAmount, solute.orElse(null), result, accumulation_time))
+            ).apply(instance, (evaporant, solute, result, accumulation_time) -> new AccumulationRecipe(evaporant, solute.orElse(null), result, accumulation_time))
     );
 
     public static final StreamCodec<RegistryFriendlyByteBuf, AccumulationRecipe> STREAM_CODEC = StreamCodec.composite(
-            FluidIngredient.STREAM_CODEC,
+            SizedFluidIngredient.STREAM_CODEC,
             r -> r.evaporant,
-            ByteBufCodecs.INT,
-            r -> r.evaporantAmount,
             ByteBufCodecs.optional(Ingredient.CONTENTS_STREAM_CODEC),
             r -> Optional.ofNullable(r.solute),
             FluidStack.STREAM_CODEC,
             r -> r.result,
             ByteBufCodecs.INT,
             r -> r.time,
-            (evaporant, evaporantAmount, solute, result, accumulation_time) -> new AccumulationRecipe(evaporant, evaporantAmount, solute.orElse(null), result, accumulation_time)
+            (evaporant, solute, result, accumulation_time) -> new AccumulationRecipe(evaporant, solute.orElse(null), result, accumulation_time)
     );
 
     /**
      * The fluid to evaporate to obtain the result.
      */
-    protected final FluidIngredient evaporant;
-    protected final int evaporantAmount;
+    protected final SizedFluidIngredient evaporant;
     /**
      * The (optional) item to dissolve in the evaporant to obtain the result.
      */
@@ -72,9 +69,8 @@ public class AccumulationRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
     protected final FluidStack result;
     protected final int time;
 
-    public AccumulationRecipe(FluidIngredient evaporant, int evaporantAmount, @Nullable Ingredient solute, FluidStack result, int time) {
+    public AccumulationRecipe(SizedFluidIngredient evaporant, @Nullable Ingredient solute, FluidStack result, int time) {
         this.evaporant = evaporant;
-        this.evaporantAmount = evaporantAmount;
         this.solute = solute;
         this.result = result;
         this.time = time;
@@ -93,7 +89,7 @@ public class AccumulationRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
     @Override
     public boolean matches(@NotNull ItemHandlerWithFluidRecipeInput pContainer, @NotNull Level pLevel) {
         var fluid = pContainer.getTank().getFluidInTank(0);
-        boolean evaporantMatches = this.evaporant.test(fluid) && fluid.getAmount() >= this.evaporantAmount;
+        boolean evaporantMatches = this.evaporant.test(fluid);
         //noinspection DataFlowIssue: we are checking this.hasSolute so solute is not null!
         boolean soluteMatches =
                 pContainer.getItem(0).isEmpty() && !this.hasSolute() || //if recipe requires no solute and container does not have one we're ok
@@ -145,12 +141,12 @@ public class AccumulationRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
         return this.time;
     }
 
-    public FluidIngredient getEvaporant() {
+    public SizedFluidIngredient getEvaporant() {
         return this.evaporant;
     }
 
     public int getEvaporantAmount() {
-        return this.evaporantAmount;
+        return this.evaporant.amount();
     }
 
     @Nullable

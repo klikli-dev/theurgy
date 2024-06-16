@@ -11,6 +11,7 @@ import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurItem;
 import com.klikli_dev.theurgy.content.recipe.FermentationRecipe;
 import com.klikli_dev.theurgy.registry.*;
 import com.mojang.datafixers.util.Pair;
+import com.mojang.serialization.JsonOps;
 import net.minecraft.core.Holder;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
@@ -23,6 +24,7 @@ import net.minecraft.world.level.material.Fluids;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.conditions.NotCondition;
 import net.neoforged.neoforge.common.conditions.TagEmptyCondition;
+import net.neoforged.neoforge.common.crafting.SizedIngredient;
 
 import java.util.List;
 import java.util.function.BiConsumer;
@@ -114,13 +116,11 @@ public class DigestionRecipeProvider extends JsonRecipeProvider {
         }
 
         public Builder fluid(TagKey<Fluid> tag, int amount) {
-            this.recipe.addProperty("fluidAmount", amount);
-            return this.ingredient("fluid", tag, -1);
+            return this.sizedFluidIngredient("fluid", tag, amount);
         }
 
         public Builder fluid(Fluid fluid, int amount) {
-            this.recipe.addProperty("fluidAmount", amount);
-            return this.ingredient("fluid", fluid);
+            return this.sizedFluidIngredient("fluid", fluid, amount);
         }
 
         public Builder ingredients(ItemLike item) {
@@ -130,7 +130,7 @@ public class DigestionRecipeProvider extends JsonRecipeProvider {
 
         public Builder ingredients(ItemLike item, int count) {
             //noinspection deprecation
-            return this.ingredients(item.asItem().builtInRegistryHolder(), 1);
+            return this.ingredients(item.asItem().builtInRegistryHolder(), count);
         }
 
         public Builder ingredients(Holder<Item> itemHolder) {
@@ -141,27 +141,16 @@ public class DigestionRecipeProvider extends JsonRecipeProvider {
             if (!this.recipe.has("ingredients"))
                 this.recipe.add("ingredients", new JsonArray());
 
-            JsonObject jsonobject = new JsonObject();
-            //noinspection OptionalGetWithoutIsPresent
-            jsonobject.addProperty("item", itemHolder.unwrapKey().get().location().toString());
-            jsonobject.addProperty("count", count);
-
-            this.recipe.getAsJsonArray("ingredients").add(jsonobject);
+            this.recipe.getAsJsonArray("ingredients").add(ItemStack.CODEC.encodeStart(JsonOps.INSTANCE, new ItemStack(itemHolder, count)).getOrThrow());
 
             return this.getThis();
         }
 
-
-        public Builder ingredients(TagKey<?> tag, int count) {
+        public Builder ingredients(TagKey<Item> tag, int count) {
             if (!this.recipe.has("ingredients"))
                 this.recipe.add("ingredients", new JsonArray());
 
-            JsonObject jsonobject = new JsonObject();
-            jsonobject.addProperty("tag", tag.location().toString());
-            if (count > -1)
-                jsonobject.addProperty("count", count);
-
-            this.recipe.getAsJsonArray("ingredients").add(jsonobject);
+            this.recipe.getAsJsonArray("ingredients").add(SizedIngredient.NESTED_CODEC.encodeStart(JsonOps.INSTANCE, SizedIngredient.of(tag, count)).getOrThrow());
 
             this.condition(new NotCondition(new TagEmptyCondition(tag.location().toString())));
 

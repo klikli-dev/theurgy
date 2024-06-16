@@ -62,12 +62,11 @@ public class AccumulationRecipeProvider extends JsonRecipeProvider {
         }
 
         public Builder evaporant(TagKey<Fluid> tag, int amount) {
-            this.recipe.addProperty("evaporantAmount", amount);
-            return this.ingredient("evaporant", tag, -1);
+            return this.sizedFluidIngredient("evaporant", tag, amount);
         }
 
         public Builder solute(TagKey<Item> tag) {
-            return this.ingredient("solute", tag, -1);
+            return this.sizedIngredient("solute", tag, -1);
         }
     }
 }

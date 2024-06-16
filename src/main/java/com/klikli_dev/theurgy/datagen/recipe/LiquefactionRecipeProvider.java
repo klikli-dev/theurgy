@@ -228,8 +228,7 @@ public class LiquefactionRecipeProvider extends JsonRecipeProvider {
         }
 
         public Builder solvent(Fluid fluid, int amount) {
-            this.recipe.addProperty("solventAmount", amount);
-            return this.ingredient("solvent", fluid);
+            return this.sizedFluidIngredient("solvent", fluid, amount);
         }
     }
 }

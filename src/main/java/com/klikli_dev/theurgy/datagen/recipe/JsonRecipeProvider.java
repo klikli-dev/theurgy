@@ -28,7 +28,9 @@ import net.minecraft.world.level.material.Fluid;
 import net.neoforged.neoforge.common.conditions.ICondition;
 import net.neoforged.neoforge.common.conditions.NotCondition;
 import net.neoforged.neoforge.common.conditions.TagEmptyCondition;
+import net.neoforged.neoforge.common.crafting.SizedIngredient;
 import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -93,7 +95,7 @@ public abstract class JsonRecipeProvider implements DataProvider {
     }
 
     public ResourceLocation modLoc(String name) {
-        return ResourceLocation.fromNamespaceAndPath(this.modid,  name);
+        return ResourceLocation.fromNamespaceAndPath(this.modid, name);
     }
 
     public ResourceLocation mcLoc(String name) {
@@ -170,23 +172,17 @@ public abstract class JsonRecipeProvider implements DataProvider {
             return this.getThis();
         }
 
-        public T ingredient(TagKey<?> tag) {
-            return this.ingredient(tag, -1);
+        public T ingredient(TagKey<Item> tag) {
+            return this.ingredient("ingredient", tag);
         }
 
-        public T ingredient(TagKey<?> tag, int count) {
-            return this.ingredient("ingredient", tag, count);
+        public T sizedIngredient(TagKey<Item> tag, int count) {
+            return this.sizedIngredient("ingredient", tag, count);
         }
 
         public T ingredient(String propertyName, TagKey<?> tag) {
-            return this.ingredient(propertyName, tag, -1);
-        }
-
-        public T ingredient(String propertyName, TagKey<?> tag, int count) {
             JsonObject jsonobject = new JsonObject();
             jsonobject.addProperty("tag", tag.location().toString());
-            if (count > -1)
-                jsonobject.addProperty("count", count);
             this.recipe.add(propertyName, jsonobject);
 
             this.condition(new NotCondition(new TagEmptyCondition(tag.location().toString())));
@@ -194,24 +190,24 @@ public abstract class JsonRecipeProvider implements DataProvider {
             return this.getThis();
         }
 
+        public T ingredient(Holder<Item> itemHolder) {
+            return this.ingredient(new ItemStack(itemHolder));
+        }
+
+        public T ingredient(Item item) {
+            return this.ingredient(new ItemStack(item));
+        }
+
         public T ingredient(ItemStack stack) {
             return this.ingredient("ingredient", stack);
         }
 
-        public T ingredient(Holder<Item> itemHolder) {
-            return this.ingredient("ingredient", itemHolder);
-        }
-
-        public T ingredient(Item item) {
-            return this.ingredient("ingredient", item);
-        }
-
         public T ingredient(Item item, int count) {
-            return this.ingredient("ingredient", new ItemStack(item, count));
+            return this.ingredient(new ItemStack(item, count));
         }
 
         public T ingredient(Holder<Item> itemHolder, int count) {
-            return this.ingredient("ingredient", itemHolder, count);
+            return this.ingredient(new ItemStack(itemHolder, count));
         }
 
         public T ingredient(String propertyName, Holder<Item> itemHolder, int count) {
@@ -219,15 +215,28 @@ public abstract class JsonRecipeProvider implements DataProvider {
         }
 
         public T ingredient(String propertyName, ItemStack stack) {
-            JsonObject jsonobject = new JsonObject();
-            //noinspection OptionalGetWithoutIsPresent
-            jsonobject.addProperty("item", stack.getItemHolder().unwrapKey().get().location().toString());
-            jsonobject.addProperty("count", stack.getCount());
-            this.recipe.add(propertyName, jsonobject);
+            this.recipe.add(propertyName, ItemStack.STRICT_CODEC.encodeStart(JsonOps.INSTANCE, stack).getOrThrow());
             return this.getThis();
         }
 
-        public T ingredient(String propertyName, Fluid fluid) {
+        public T sizedIngredient(String propertyName, TagKey<Item> item, int amount) {
+            this.recipe.add(propertyName, SizedIngredient.NESTED_CODEC.encodeStart(JsonOps.INSTANCE, SizedIngredient.of(item, amount)).getOrThrow());
+            this.condition(new NotCondition(new TagEmptyCondition(item.location().toString())));
+            return this.getThis();
+        }
+
+        public T sizedFluidIngredient(String propertyName, TagKey<Fluid> fluid, int amount) {
+            this.recipe.add(propertyName, SizedFluidIngredient.NESTED_CODEC.encodeStart(JsonOps.INSTANCE, SizedFluidIngredient.of(fluid, amount)).getOrThrow());
+            this.condition(new NotCondition(new TagEmptyCondition(fluid.location().toString())));
+            return this.getThis();
+        }
+
+        public T sizedFluidIngredient(String propertyName, Fluid fluid, int amount) {
+            this.recipe.add(propertyName, SizedFluidIngredient.NESTED_CODEC.encodeStart(JsonOps.INSTANCE, SizedFluidIngredient.of(fluid, amount)).getOrThrow());
+            return this.getThis();
+        }
+
+        public T fluidIngredient(String propertyName, Fluid fluid) {
             JsonObject jsonobject = new JsonObject();
             //noinspection OptionalGetWithoutIsPresent,deprecation
             jsonobject.addProperty("fluid", fluid.builtInRegistryHolder().unwrapKey().get().location().toString());
@@ -257,7 +266,6 @@ public abstract class JsonRecipeProvider implements DataProvider {
             );
             return this.getThis();
         }
-
 
         public JsonObject build() {
             if (!this.recipe.has("category"))

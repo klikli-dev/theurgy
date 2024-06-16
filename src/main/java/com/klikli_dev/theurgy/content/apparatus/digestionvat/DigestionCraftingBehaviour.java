@@ -77,7 +77,7 @@ public class DigestionCraftingBehaviour extends CraftingBehaviour<ItemHandlerWit
         //consume the input stacks
         //the double loop may not be necessary, it may be OK to just take one from each slot (because recipe matches only if exact items match, not if more items are present)
         //however this costs almost nothing extra and is safer so we do it.
-        for (var ingredient : pRecipe.value().getIngredientsWithCount()) {
+        for (var ingredient : pRecipe.value().getSizedIngredients()) {
             for (int i = 0; i < this.inputInventorySupplier.get().getSlots(); i++) {
                 if (ingredient.ingredient().test(this.inputInventorySupplier.get().getStackInSlot(i))) {
                     this.inputInventorySupplier.get().extractItem(i, ingredient.count(), false);

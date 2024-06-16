@@ -78,28 +78,6 @@ public class CalcinationRecipeProvider extends JsonRecipeProvider {
             this.result = result;
         }
 
-        @Override
-        public Builder ingredient(TagKey<?> tag) {
-            return this.ingredient(tag, 1);
-        }
-
-        @Override
-        public Builder ingredient(Item item) {
-            return this.ingredient(item, 1);
-        }
-
-        @Override
-        public Builder ingredient(TagKey<?> tag, int amount) {
-            this.recipe.addProperty("ingredientCount", amount);
-            return this.ingredient("ingredient", tag, -1);
-        }
-
-        @Override
-        public Builder ingredient(Item item, int amount) {
-            this.recipe.addProperty("ingredientCount", amount);
-            return this.ingredient("ingredient", item);
-        }
-
         public ItemStack result() {
             return this.result;
         }

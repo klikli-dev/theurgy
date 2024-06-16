@@ -146,9 +146,9 @@ public class DigestionCategory implements IRecipeCategory<RecipeHolder<Digestion
                 .setBackground(JeiDrawables.INPUT_SLOT, -1, -1);
 
 
-        this.addToSlot(topLeft, 0, recipe.value().getIngredientsWithCount());
-        this.addToSlot(topRight, 1, recipe.value().getIngredientsWithCount());
-        this.addToSlot(bottomLeft, 2, recipe.value().getIngredientsWithCount());
+        this.addToSlot(topLeft, 0, recipe.value().getSizedIngredients());
+        this.addToSlot(topRight, 1, recipe.value().getSizedIngredients());
+        this.addToSlot(bottomLeft, 2, recipe.value().getSizedIngredients());
 
         builder.addSlot(OUTPUT, 81, 9)
                 .setBackground(JeiDrawables.OUTPUT_SLOT, -5, -5)

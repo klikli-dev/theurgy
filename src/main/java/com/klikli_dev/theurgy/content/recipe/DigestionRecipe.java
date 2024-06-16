@@ -6,7 +6,6 @@ package com.klikli_dev.theurgy.content.recipe;
 
 
 import com.klikli_dev.theurgy.content.recipe.input.ItemHandlerWithFluidRecipeInput;
-import com.klikli_dev.theurgy.datagen.recipe.IngredientWithCount;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.registry.RecipeSerializerRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
@@ -26,7 +25,8 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
-import net.neoforged.neoforge.fluids.crafting.FluidIngredient;
+import net.neoforged.neoforge.common.crafting.SizedIngredient;
+import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -35,21 +35,18 @@ public class DigestionRecipe implements Recipe<ItemHandlerWithFluidRecipeInput> 
     public static final int DEFAULT_TIME = 200;
 
     public static final MapCodec<DigestionRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-                    FluidIngredient.CODEC.fieldOf("fluid").forGetter((r) -> r.fluid),
-                    Codec.INT.fieldOf("fluidAmount").forGetter((r) -> r.fluidAmount),
-                    IngredientWithCount.CODEC.listOf().fieldOf("ingredients").forGetter(r -> r.ingredientsWithCount),
+                    SizedFluidIngredient.NESTED_CODEC.fieldOf("fluid").forGetter((r) -> r.fluid),
+                    SizedIngredient.NESTED_CODEC.listOf().fieldOf("ingredients").forGetter(r -> r.sizedIngredients),
                     ItemStack.STRICT_CODEC.fieldOf("result").forGetter(r -> r.result),
                     Codec.INT.optionalFieldOf("time", DEFAULT_TIME).forGetter(r -> r.time)
             ).apply(instance, DigestionRecipe::new)
     );
 
     public static final StreamCodec<RegistryFriendlyByteBuf, DigestionRecipe> STREAM_CODEC = StreamCodec.composite(
-            FluidIngredient.STREAM_CODEC,
+            SizedFluidIngredient.STREAM_CODEC,
             r -> r.fluid,
-            ByteBufCodecs.INT,
-            r -> r.fluidAmount,
-            IngredientWithCount.STREAM_CODEC.apply(ByteBufCodecs.list()),
-            r -> r.ingredientsWithCount,
+            SizedIngredient.STREAM_CODEC.apply(ByteBufCodecs.list()),
+            r -> r.sizedIngredients,
             ItemStack.OPTIONAL_STREAM_CODEC,
             r -> r.result,
             ByteBufCodecs.INT,
@@ -57,19 +54,17 @@ public class DigestionRecipe implements Recipe<ItemHandlerWithFluidRecipeInput> 
             DigestionRecipe::new
     );
 
-    protected final FluidIngredient fluid;
-    protected final int fluidAmount;
+    protected final SizedFluidIngredient fluid;
 
-    protected final List<IngredientWithCount> ingredientsWithCount;
+    protected final List<SizedIngredient> sizedIngredients;
     protected final NonNullList<Ingredient> ingredients;
     protected final ItemStack result;
     protected final int time;
 
-    public DigestionRecipe(FluidIngredient fluid, int fluidAmount, List<IngredientWithCount> ingredientsWithCount, ItemStack result, int time) {
+    public DigestionRecipe(SizedFluidIngredient fluid, List<SizedIngredient> sizedIngredients, ItemStack result, int time) {
         this.fluid = fluid;
-        this.fluidAmount = fluidAmount;
-        this.ingredientsWithCount = ingredientsWithCount;
-        this.ingredients = ingredientsWithCount.stream().map(IngredientWithCount::ingredient).collect(NonNullList::create, NonNullList::add, NonNullList::addAll);
+        this.sizedIngredients = sizedIngredients;
+        this.ingredients = sizedIngredients.stream().map(SizedIngredient::ingredient).collect(NonNullList::create, NonNullList::add, NonNullList::addAll);
         this.result = result;
         this.time = time;
     }
@@ -87,13 +82,13 @@ public class DigestionRecipe implements Recipe<ItemHandlerWithFluidRecipeInput> 
     @Override
     public boolean matches(ItemHandlerWithFluidRecipeInput pContainer, @NotNull Level pLevel) {
         var fluid = pContainer.getTank().getFluidInTank(0);
-        var fluidMatches = this.fluid.test(fluid) && fluid.getAmount() >= this.fluidAmount;
+        var fluidMatches = this.fluid.test(fluid);
         if (!fluidMatches)
             return false;
 
         IntList visited = new IntArrayList();
         //first check for each ingredient if we have it in the container
-        for (var ingredient : this.ingredientsWithCount) {
+        for (var ingredient : this.sizedIngredients) {
             var found = false;
             for (int i = 0; i < pContainer.size(); i++) {
                 //skip already visited slots to not "double dip"
@@ -144,8 +139,8 @@ public class DigestionRecipe implements Recipe<ItemHandlerWithFluidRecipeInput> 
         return this.ingredients;
     }
 
-    public List<IngredientWithCount> getIngredientsWithCount() {
-        return this.ingredientsWithCount;
+    public List<SizedIngredient> getSizedIngredients() {
+        return this.sizedIngredients;
     }
 
     @Override
@@ -158,12 +153,12 @@ public class DigestionRecipe implements Recipe<ItemHandlerWithFluidRecipeInput> 
         return RecipeSerializerRegistry.DIGESTION.get();
     }
 
-    public FluidIngredient getFluid() {
+    public SizedFluidIngredient getFluid() {
         return this.fluid;
     }
 
     public int getFluidAmount() {
-        return this.fluidAmount;
+        return this.fluid.amount();
     }
 
     public ItemStack getResult() {

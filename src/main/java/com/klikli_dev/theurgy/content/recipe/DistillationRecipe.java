@@ -22,6 +22,7 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
+import net.neoforged.neoforge.common.crafting.SizedIngredient;
 import org.jetbrains.annotations.NotNull;
 
 public class DistillationRecipe implements Recipe<ItemHandlerRecipeInput> {
@@ -29,18 +30,15 @@ public class DistillationRecipe implements Recipe<ItemHandlerRecipeInput> {
     public static final int DEFAULT_TIME = 100;
 
     public static final MapCodec<DistillationRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-                    Ingredient.CODEC.fieldOf("ingredient").forGetter((r) -> r.ingredient),
-                    Codec.INT.fieldOf("ingredientCount").forGetter((r) -> r.ingredientCount),
+            SizedIngredient.NESTED_CODEC.fieldOf("ingredient").forGetter((r) -> r.ingredient),
                     ItemStack.STRICT_CODEC.fieldOf("result").forGetter(r -> r.result),
                     Codec.INT.optionalFieldOf("time", DEFAULT_TIME).forGetter(r -> r.time)
             ).apply(instance, DistillationRecipe::new)
     );
 
     public static final StreamCodec<RegistryFriendlyByteBuf, DistillationRecipe> STREAM_CODEC = StreamCodec.composite(
-            Ingredient.CONTENTS_STREAM_CODEC,
+            SizedIngredient.STREAM_CODEC,
             r -> r.ingredient,
-            ByteBufCodecs.INT,
-            r -> r.ingredientCount,
             ItemStack.OPTIONAL_STREAM_CODEC,
             r -> r.result,
             ByteBufCodecs.INT,
@@ -48,14 +46,12 @@ public class DistillationRecipe implements Recipe<ItemHandlerRecipeInput> {
             DistillationRecipe::new
     );
 
-    protected final Ingredient ingredient;
-    protected final int ingredientCount;
+    protected final SizedIngredient ingredient;
     protected final ItemStack result;
     protected final int time;
 
-    public DistillationRecipe(Ingredient pIngredient, int ingredientCount, ItemStack pResult, int time) {
+    public DistillationRecipe(SizedIngredient pIngredient, ItemStack pResult, int time) {
         this.ingredient = pIngredient;
-        this.ingredientCount = ingredientCount;
         this.result = pResult;
         this.time = time;
     }
@@ -73,7 +69,7 @@ public class DistillationRecipe implements Recipe<ItemHandlerRecipeInput> {
     @Override
     public boolean matches(@NotNull ItemHandlerRecipeInput pContainer, @NotNull Level pLevel) {
         var stack = pContainer.getItem(0);
-        return this.ingredient.test(stack) && stack.getCount() >= this.ingredientCount;
+        return this.ingredient.test(stack);
     }
 
     @Override
@@ -94,16 +90,16 @@ public class DistillationRecipe implements Recipe<ItemHandlerRecipeInput> {
     @Override
     public @NotNull NonNullList<Ingredient> getIngredients() {
         NonNullList<Ingredient> nonnulllist = NonNullList.create();
-        nonnulllist.add(this.ingredient);
+        nonnulllist.add(this.ingredient.ingredient());
         return nonnulllist;
     }
 
-    public Ingredient getIngredient() {
+    public SizedIngredient getIngredient() {
         return this.ingredient;
     }
 
     public int getIngredientCount() {
-        return this.ingredientCount;
+        return this.ingredient.count();
     }
 
     @Override

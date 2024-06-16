@@ -22,7 +22,10 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
+import net.neoforged.neoforge.common.crafting.SizedIngredient;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
 
 
 public class CalcinationRecipe implements Recipe<ItemHandlerRecipeInput> {
@@ -30,18 +33,15 @@ public class CalcinationRecipe implements Recipe<ItemHandlerRecipeInput> {
     public static final int DEFAULT_TIME = 100;
 
     public static final MapCodec<CalcinationRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-                    Ingredient.CODEC.fieldOf("ingredient").forGetter((r) -> r.ingredient),
-                    Codec.INT.fieldOf("ingredientCount").forGetter((r) -> r.ingredientCount),
+                    SizedIngredient.NESTED_CODEC.fieldOf("ingredient").forGetter((r) -> r.ingredient),
                     ItemStack.STRICT_CODEC.fieldOf("result").forGetter(r -> r.result),
                     Codec.INT.optionalFieldOf("time", DEFAULT_TIME).forGetter(r -> r.time)
             ).apply(instance, CalcinationRecipe::new)
     );
 
     public static final StreamCodec<RegistryFriendlyByteBuf, CalcinationRecipe> STREAM_CODEC = StreamCodec.composite(
-            Ingredient.CONTENTS_STREAM_CODEC,
+            SizedIngredient.STREAM_CODEC,
             r -> r.ingredient,
-            ByteBufCodecs.INT,
-            r -> r.ingredientCount,
             ItemStack.OPTIONAL_STREAM_CODEC,
             r -> r.result,
             ByteBufCodecs.INT,
@@ -49,20 +49,18 @@ public class CalcinationRecipe implements Recipe<ItemHandlerRecipeInput> {
             CalcinationRecipe::new
     );
 
-    protected final Ingredient ingredient;
-    protected final int ingredientCount;
+    protected final SizedIngredient ingredient;
     protected final ItemStack result;
     protected final int time;
 
-    public CalcinationRecipe(Ingredient pIngredient, int ingredientCount, ItemStack pResult, int time) {
+    public CalcinationRecipe(SizedIngredient pIngredient, ItemStack pResult, int time) {
         this.ingredient = pIngredient;
-        this.ingredientCount = ingredientCount;
         this.result = pResult;
         this.time = time;
     }
 
     public int getIngredientCount() {
-        return this.ingredientCount;
+        return this.ingredient.count();
     }
 
     @Override
@@ -78,7 +76,7 @@ public class CalcinationRecipe implements Recipe<ItemHandlerRecipeInput> {
     @Override
     public boolean matches(ItemHandlerRecipeInput input, @NotNull Level pLevel) {
         var stack = input.getItem(0);
-        return this.ingredient.test(stack) && stack.getCount() >= this.ingredientCount;
+        return this.ingredient.test(stack);
     }
 
     @Override
@@ -99,7 +97,7 @@ public class CalcinationRecipe implements Recipe<ItemHandlerRecipeInput> {
     @Override
     public @NotNull NonNullList<Ingredient> getIngredients() {
         NonNullList<Ingredient> nonnulllist = NonNullList.create();
-        nonnulllist.add(this.ingredient);
+        nonnulllist.add(this.ingredient.ingredient());
         return nonnulllist;
     }
 

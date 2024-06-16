@@ -11,6 +11,7 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.util.Mth;
+import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.cache.object.BakedGeoModel;
 import software.bernie.geckolib.renderer.GeoBlockRenderer;
 
@@ -24,14 +25,17 @@ public class SalAmmoniacAccumulatorRenderer extends GeoBlockRenderer<SalAmmoniac
     /**
      * See com.simibubi.create.content.fluids.tank.FluidTankRenderer
      */
+
     @Override
-    public void postRender(PoseStack poseStack, SalAmmoniacAccumulatorBlockEntity pBlockEntity, BakedGeoModel model, MultiBufferSource bufferSource, VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-        if (pBlockEntity.waterTank.isEmpty())
+    public void postRender(PoseStack poseStack, SalAmmoniacAccumulatorBlockEntity animatable, BakedGeoModel model, MultiBufferSource bufferSource, @Nullable VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, int colour) {
+        super.postRender(poseStack, animatable, model, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, colour);
+
+        if (animatable.waterTank.isEmpty())
             return;
 
-        var fluidStack = pBlockEntity.waterTank.getFluid();
+        var fluidStack = animatable.waterTank.getFluid();
 
-        var fluidHeight = fluidStack.getAmount() / (float) pBlockEntity.waterTank.getCapacity();
+        var fluidHeight = fluidStack.getAmount() / (float) animatable.waterTank.getCapacity();
 
         float blockHeight = 12 / 16f - 2 / 128f;
         float blockWidth = 1;

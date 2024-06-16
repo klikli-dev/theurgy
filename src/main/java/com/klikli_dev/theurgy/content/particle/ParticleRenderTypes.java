@@ -16,12 +16,13 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.ParticleRenderType;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.renderer.texture.TextureManager;
+import org.jetbrains.annotations.Nullable;
 
 public class ParticleRenderTypes {
     public static final ParticleRenderType EMBER_RENDER = new ParticleRenderType() {
+        @Nullable
         @Override
-        @SuppressWarnings("deprecation")
-        public void begin(BufferBuilder buffer, TextureManager textureManager) {
+        public BufferBuilder begin(Tesselator tesselator, TextureManager p_107437_) {
             Minecraft.getInstance().gameRenderer.lightTexture().turnOnLightLayer();
             RenderSystem.enableBlend();
             RenderSystem.enableCull();
@@ -29,12 +30,7 @@ public class ParticleRenderTypes {
             RenderSystem.enableDepthTest();
             RenderSystem.depthMask(false);
             RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA.value, GlStateManager.DestFactor.ONE.value);
-            buffer.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.PARTICLE);
-        }
-
-        @Override
-        public void end(Tesselator tessellator) {
-            tessellator.end();
+            return tesselator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.PARTICLE);
         }
 
         @Override
@@ -46,7 +42,7 @@ public class ParticleRenderTypes {
     public static final ParticleRenderType EMBER_RENDER_NO_MASK = new ParticleRenderType() {
         @Override
         @SuppressWarnings("deprecation")
-        public void begin(BufferBuilder buffer, TextureManager textureManager) {
+        public BufferBuilder begin(Tesselator tesselator, TextureManager textureManager) {
             RenderSystem.disableDepthTest();
             RenderSystem.enableBlend();
 
@@ -55,15 +51,9 @@ public class ParticleRenderTypes {
             RenderSystem.setShaderTexture(0, TextureAtlas.LOCATION_PARTICLES);
             RenderSystem.depthMask(false);
             RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA.value, GlStateManager.DestFactor.ONE.value);
-            buffer.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.PARTICLE);
+            return tesselator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.PARTICLE);
         }
-
-        @Override
-        public void end(Tesselator tessellator) {
-            tessellator.end();
-            RenderSystem.enableDepthTest();
-        }
-
+        
         @Override
         public String toString() {
             return Theurgy.MODID + ":em_rend_no_mask";

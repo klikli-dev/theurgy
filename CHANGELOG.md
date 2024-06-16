@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21-1.21.1] - 2024-06-16
+### :bug: Bug Fixes
+- [`22945b5`](https://github.com/klikli-dev/theurgy/commit/22945b5d95e34b0d8fff84225533486520001501) - save-related crash with logistics system *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`148fa8e`](https://github.com/klikli-dev/theurgy/commit/148fa8e77fb3a5aac578180e27dc7819dc861a26) - add REI as runtime dep for convenience *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`ed5cc87`](https://github.com/klikli-dev/theurgy/commit/ed5cc8740c17e25f28a97ad64ba5480c0560a42e) - disable REI again as it seems not to work in dev.. *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21-1.21.0] - 2024-06-16
 ### :sparkles: New Features
 - [`82731e9`](https://github.com/klikli-dev/theurgy/commit/82731e9c4d7ef0280a7a465b9b63d37348d5fb4e) - switch to using SizedIngredients provided by neo *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -583,3 +592,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21-1.20.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.20.0...release/v1.21-1.20.1
 [release/v1.21-1.20.2]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.20.1...release/v1.21-1.20.2
 [release/v1.21-1.21.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.20.2...release/v1.21-1.21.0
+[release/v1.21-1.21.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.21.0...release/v1.21-1.21.1

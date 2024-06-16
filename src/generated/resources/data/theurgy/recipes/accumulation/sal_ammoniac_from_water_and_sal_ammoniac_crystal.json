@@ -18,9 +18,11 @@
     }
   ],
   "evaporant": {
-    "tag": "minecraft:water"
+    "amount": 1000,
+    "ingredient": {
+      "tag": "minecraft:water"
+    }
   },
-  "evaporantAmount": 1000,
   "result": {
     "amount": 1000,
     "id": "theurgy:sal_ammoniac"

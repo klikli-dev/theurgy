@@ -18,9 +18,11 @@
     }
   ],
   "fluid": {
-    "fluid": "minecraft:water"
+    "amount": 500,
+    "ingredient": {
+      "fluid": "minecraft:water"
+    }
   },
-  "fluidAmount": 500,
   "ingredients": [
     {
       "tag": "theurgy:alchemical_sulfurs/metals/rare"

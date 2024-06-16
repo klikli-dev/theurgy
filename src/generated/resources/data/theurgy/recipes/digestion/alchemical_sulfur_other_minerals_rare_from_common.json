@@ -2,17 +2,19 @@
   "type": "theurgy:digestion",
   "category": "misc",
   "fluid": {
-    "fluid": "theurgy:sal_ammoniac"
+    "amount": 15,
+    "ingredient": {
+      "fluid": "theurgy:sal_ammoniac"
+    }
   },
-  "fluidAmount": 15,
   "ingredients": [
     {
-      "count": 1,
-      "item": "theurgy:alchemical_sulfur_other_minerals_common"
+      "count": 4,
+      "id": "theurgy:alchemical_sulfur_other_minerals_common"
     },
     {
       "count": 1,
-      "item": "theurgy:purified_gold"
+      "id": "theurgy:purified_gold"
     }
   ],
   "result": {

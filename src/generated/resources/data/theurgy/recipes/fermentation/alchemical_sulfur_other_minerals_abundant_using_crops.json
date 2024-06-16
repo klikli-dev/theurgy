@@ -18,9 +18,11 @@
     }
   ],
   "fluid": {
-    "fluid": "minecraft:water"
+    "amount": 125,
+    "ingredient": {
+      "fluid": "minecraft:water"
+    }
   },
-  "fluidAmount": 125,
   "ingredients": [
     {
       "tag": "theurgy:alchemical_sulfurs/other_minerals/abundant"

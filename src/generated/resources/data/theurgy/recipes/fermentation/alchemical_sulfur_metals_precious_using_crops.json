@@ -18,9 +18,11 @@
     }
   ],
   "fluid": {
-    "fluid": "minecraft:water"
+    "amount": 1000,
+    "ingredient": {
+      "fluid": "minecraft:water"
+    }
   },
-  "fluidAmount": 1000,
   "ingredients": [
     {
       "tag": "theurgy:alchemical_sulfurs/metals/precious"

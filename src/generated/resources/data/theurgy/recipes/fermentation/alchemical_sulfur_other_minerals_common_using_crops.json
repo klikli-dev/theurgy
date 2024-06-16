@@ -18,9 +18,11 @@
     }
   ],
   "fluid": {
-    "fluid": "minecraft:water"
+    "amount": 250,
+    "ingredient": {
+      "fluid": "minecraft:water"
+    }
   },
-  "fluidAmount": 250,
   "ingredients": [
     {
       "tag": "theurgy:alchemical_sulfurs/other_minerals/common"

@@ -4,9 +4,9 @@
 
 package com.klikli_dev.theurgy.datagen.book;
 
-import com.klikli_dev.modonomicon.api.datagen.BookProvider;
 import com.klikli_dev.modonomicon.api.datagen.CategoryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookCategoryModel;
+import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.datagen.book.logistics.*;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
@@ -16,8 +16,8 @@ public class LogisticsCategory extends CategoryProvider {
 
     public static final String CATEGORY_ID = "logistics";
 
-    public LogisticsCategory(BookProvider parent) {
-        super(parent, CATEGORY_ID);
+    public LogisticsCategory(TheurgyBookProvider parent) {
+        super(parent);
     }
 
     @Override
@@ -69,15 +69,22 @@ public class LogisticsCategory extends CategoryProvider {
     }
 
     @Override
-    protected BookCategoryModel generateCategory() {
-        this.add(this.context().categoryName(), "Mercurial Logistics");
-
-        return BookCategoryModel.create(
-                        Theurgy.loc(this.context().categoryId()),
-                        this.context().categoryName()
-                )
-                .withBackground(Theurgy.loc("textures/gui/book/bg_nightsky2.png"))
-                .withIcon(ItemRegistry.MERCURIAL_WAND.get());
+    protected String categoryName() {
+        return "Mercurial Logistics";
     }
 
+    @Override
+    protected BookIconModel categoryIcon() {
+        return BookIconModel.create(ItemRegistry.MERCURIAL_WAND.get());
+    }
+
+    @Override
+    public String categoryId() {
+        return CATEGORY_ID;
+    }
+
+    @Override
+    protected BookCategoryModel additionalSetup(BookCategoryModel category) {
+        return super.additionalSetup(category).withBackground(Theurgy.loc("textures/gui/book/bg_nightsky2.png"));
+    }
 }

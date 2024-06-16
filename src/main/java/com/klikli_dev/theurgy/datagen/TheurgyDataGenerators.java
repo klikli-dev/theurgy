@@ -4,6 +4,7 @@
 
 package com.klikli_dev.theurgy.datagen;
 
+import com.klikli_dev.modonomicon.api.datagen.BookProvider;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.datagen.advancement.TheurgyAdvancementSubProvider;
 import com.klikli_dev.theurgy.datagen.book.TheurgyBookProvider;
@@ -73,7 +74,11 @@ public class TheurgyDataGenerators {
         generator.addProvider(event.includeServer(), new TheurgyMultiblockProvider(generator.getPackOutput()));
 
         var enUSProvider = new ENUSProvider(generator.getPackOutput());
-        generator.addProvider(event.includeServer(), new TheurgyBookProvider(generator.getPackOutput(), event.getLookupProvider(), enUSProvider));
+        generator.addProvider(event.includeServer(),
+                new BookProvider(generator.getPackOutput(), event.getLookupProvider(), Theurgy.MODID, List.of(
+                        new TheurgyBookProvider(enUSProvider))
+                )
+        );
 
         //Important: Lang provider (in this case enus) needs to be added after the book provider to process the texts added by the book provider
         generator.addProvider(event.includeClient(), enUSProvider);

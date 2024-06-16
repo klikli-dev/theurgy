@@ -160,7 +160,7 @@ public class Theurgy {
                 ClientTicks.endClientTick(Minecraft.getInstance());
             });
             NeoForge.EVENT_BUS.addListener((RenderFrameEvent.Pre e) -> {
-                ClientTicks.renderTickStart(e.getPartialTick());
+                ClientTicks.renderTickStart(e.getPartialTick().getGameTimeDeltaPartialTick(true));
 
             });
             NeoForge.EVENT_BUS.addListener((RenderFrameEvent.Post e) -> {

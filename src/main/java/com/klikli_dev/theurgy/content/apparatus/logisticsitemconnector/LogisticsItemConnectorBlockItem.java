@@ -15,6 +15,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import org.jetbrains.annotations.Nullable;
@@ -26,18 +27,10 @@ public class LogisticsItemConnectorBlockItem extends BlockItem {
 
     @Override
     protected boolean updateCustomBlockEntityTag(BlockPos pPos, Level pLevel, @Nullable Player pPlayer, ItemStack pStack, BlockState pState) {
-        var direction = pState.getValue(BlockStateProperties.FACING).getOpposite();
-
-        var blockEntityTag = new CompoundTag();
-
-        var list = new ListTag();
-        var target = pPos.relative(direction);
-        list.add(LongTag.valueOf(target.asLong()));
-        blockEntityTag.put("targets", list);
-
-        pStack.set(DataComponents.BLOCK_ENTITY_DATA, CustomData.of(blockEntityTag));
-
-        //super will handle copying the nbt to the block entity and loading it there
+        if(pLevel.getBlockEntity(pPos) instanceof LogisticsItemConnectorBlockEntity connector){
+            var direction = pState.getValue(BlockStateProperties.FACING).getOpposite();
+            connector.leafNode().targets().add(pPos.relative(direction));
+        }
         return super.updateCustomBlockEntityTag(pPos, pLevel, pPlayer, pStack, pState);
     }
 }

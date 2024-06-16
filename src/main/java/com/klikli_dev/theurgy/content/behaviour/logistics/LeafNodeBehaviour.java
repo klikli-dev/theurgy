@@ -14,6 +14,7 @@ import net.minecraft.nbt.LongTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.neoforged.neoforge.capabilities.BlockCapability;
 import net.neoforged.neoforge.common.util.Lazy;
 
@@ -34,13 +35,17 @@ public abstract class LeafNodeBehaviour<T, C> {
     protected BlockEntity blockEntity;
     protected Lazy<GlobalPos> globalPos;
     protected BlockCapability<T, C> capabilityType;
-    /*
-     * Targets are set via BlockItem by placing them in the NBT, at least for the LogisticsItemConnectorBlocks
+
+    /**
+     * The block this node makes accessible to the network (e.g. by being attached to a block).
+     * Child node behaviours can e.g. build insert/extract target lists from this list.
+     *
+     * For the most basic leaf nodes the target list is simply the block they are attached to.
      */
     protected List<BlockPos> targets;
     protected int frequency;
 
-    public LeafNodeBehaviour(BlockEntity blockEntity, BlockCapability<T, C> capabilityType){
+    public LeafNodeBehaviour(BlockEntity blockEntity, BlockCapability<T, C> capabilityType) {
         this.blockEntity = blockEntity;
         this.globalPos = Lazy.of(() -> GlobalPos.of(this.level().dimension(), this.blockEntity.getBlockPos())); //will be initialized lazily
         this.capabilityType = capabilityType;
@@ -48,29 +53,29 @@ public abstract class LeafNodeBehaviour<T, C> {
         this.frequency = 0;
     }
 
-    public Level level(){
+    public Level level() {
         return this.blockEntity.getLevel();
     }
 
-    public GlobalPos globalPos(){
+    public GlobalPos globalPos() {
         return this.globalPos.get();
     }
 
     /**
      * Gets the capability type of this node.
      */
-    public BlockCapability<T, C> capabilityType(){
+    public BlockCapability<T, C> capabilityType() {
         return this.capabilityType;
     }
 
     /**
      * The targets of this leaf node, i.e. the block positions of the block entities this leaf node interfaces with.
      */
-    public List<BlockPos> targets(){
+    public List<BlockPos> targets() {
         return this.targets;
     }
 
-    public int frequency(){
+    public int frequency() {
         return this.frequency;
     }
 
@@ -86,7 +91,7 @@ public abstract class LeafNodeBehaviour<T, C> {
      * Call from BlockEntity.onLoad()
      * This is called before the first tick of the BE after a chunk was loaded.
      */
-    public void onLoad(){
+    public void onLoad() {
         Logistics.get().add(this);
     }
 
@@ -94,16 +99,16 @@ public abstract class LeafNodeBehaviour<T, C> {
      * Call from BlockEntity.onChunkUnload()
      * This is called when the chunk is unloaded.
      */
-    public void onChunkUnload(){
+    public void onChunkUnload() {
         Logistics.get().remove(this, false);
     }
 
     /**
      * Call from Block.onRemove(), it is only called if a block is destroyed.
      * Do not call from BlockEntity.setRemoved()
-     *      -> that is also called on chunk unload and would permanently disconnect the node from its network.
+     * -> that is also called on chunk unload and would permanently disconnect the node from its network.
      */
-    public void onDestroyed(){
+    public void onDestroyed() {
         Logistics.get().remove(this, true);
     }
 
@@ -118,7 +123,7 @@ public abstract class LeafNodeBehaviour<T, C> {
     public void writeNetwork(CompoundTag pTag, HolderLookup.Provider pRegistries) {
         pTag.putInt("frequency", this.frequency);
         var list = new ListTag();
-        for(var target : this.targets){
+        for (var target : this.targets) {
             list.add(LongTag.valueOf(target.asLong()));
         }
         pTag.put("targets", list);
@@ -128,8 +133,8 @@ public abstract class LeafNodeBehaviour<T, C> {
         this.frequency = pTag.getInt("frequency");
         this.targets = new ArrayList<>();
         var list = pTag.getList("targets", Tag.TAG_LONG);
-        for(int i = 0; i < list.size(); i++){
-            this.targets.add(BlockPos.of(((LongTag)list.get(i)).getAsLong()));
+        for (int i = 0; i < list.size(); i++) {
+            this.targets.add(BlockPos.of(((LongTag) list.get(i)).getAsLong()));
         }
     }
 

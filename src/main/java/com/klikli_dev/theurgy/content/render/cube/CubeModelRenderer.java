@@ -33,7 +33,7 @@ public class CubeModelRenderer {
      * just use one backing "temporary" array.
      */
     private static final int[] combinedARGB = new int[EnumUtil.DIRECTIONS.length];
-    private static final Vector3f setNormal = new Vector3f(1, 1, 1).normalize();
+    private static final Vector3f NORMAL = new Vector3f(1, 1, 1).normalize();
     private static final int X_AXIS_MASK = 1 << Axis.X.ordinal();
     private static final int Y_AXIS_MASK = 1 << Axis.Y.ordinal();
     private static final int Z_AXIS_MASK = 1 << Axis.Z.ordinal();
@@ -131,7 +131,7 @@ public class CubeModelRenderer {
         matrix.translate(xShift, yShift, zShift);
         PoseStack.Pose lastMatrix = matrix.last();
         Matrix4f matrix4f = lastMatrix.pose();
-        NormalData setNormal = new NormalData(lastMatrix.setNormal(), setNormal, faceDisplay);
+        NormalData setNormal = new NormalData(lastMatrix.normal(), NORMAL, faceDisplay);
         Vector3f from = new Vector3f();
         Vector3f to = new Vector3f();
 

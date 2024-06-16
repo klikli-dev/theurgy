@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21-1.20.2] - 2024-06-16
+### :wrench: Chores
+- [`03b93d6`](https://github.com/klikli-dev/theurgy/commit/03b93d6b140a374e772659f4cb2db1724c003b3a) - update github action *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21-1.20.1] - 2024-06-16
 ### :bug: Bug Fixes
 - [`0b23a8b`](https://github.com/klikli-dev/theurgy/commit/0b23a8b56c798d360e38d866a746ee2a506dcfb8) - changelog workflow *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -560,3 +565,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.6-1.19.4]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.6-1.19.3...release/v1.20.6-1.19.4
 [release/v1.20.6-1.19.6]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.6-1.19.4...release/v1.20.6-1.19.6
 [release/v1.21-1.20.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.20.0...release/v1.21-1.20.1
+[release/v1.21-1.20.2]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.20.1...release/v1.21-1.20.2

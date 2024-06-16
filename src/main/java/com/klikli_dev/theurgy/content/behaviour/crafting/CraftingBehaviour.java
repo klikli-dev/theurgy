@@ -4,26 +4,24 @@
 
 package com.klikli_dev.theurgy.content.behaviour.crafting;
 
-import com.klikli_dev.theurgy.registry.DataComponentRegistry;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.items.IItemHandlerModifiable;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
-import net.neoforged.neoforge.items.wrapper.RecipeWrapper;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 import java.util.function.Supplier;
 
-public abstract class CraftingBehaviour<W extends RecipeWrapper, R extends Recipe<W>, C extends RecipeManager.CachedCheck<W, R>> {
+public abstract class CraftingBehaviour<W extends RecipeInput, R extends Recipe<W >, C extends RecipeManager.CachedCheck<W, R>> {
     protected BlockEntity blockEntity;
     protected Supplier<W> recipeWrapperSupplier;
     protected Supplier<IItemHandlerModifiable> inputInventorySupplier;

@@ -4,7 +4,7 @@
 
 package com.klikli_dev.theurgy.integration.modonomicon.page.distillation;
 
-import com.klikli_dev.modonomicon.client.gui.book.BookContentScreen;
+import com.klikli_dev.modonomicon.client.gui.book.entry.BookEntryScreen;
 import com.klikli_dev.modonomicon.client.render.page.BookRecipePageRenderer;
 import com.klikli_dev.theurgy.content.gui.GuiTextures;
 import com.klikli_dev.theurgy.content.recipe.DistillationRecipe;
@@ -28,11 +28,11 @@ public class BookDistillationRecipePageRenderer extends BookRecipePageRenderer<D
 
         if (!second) {
             if (!this.page.getTitle1().isEmpty()) {
-                this.renderTitle(guiGraphics, this.page.getTitle1(), false, BookContentScreen.PAGE_WIDTH / 2, 0);
+                this.renderTitle(guiGraphics, this.page.getTitle1(), false, BookEntryScreen.PAGE_WIDTH / 2, 0);
             }
         } else {
             if (!this.page.getTitle2().isEmpty()) {
-                this.renderTitle(guiGraphics, this.page.getTitle2(), false, BookContentScreen.PAGE_WIDTH / 2,
+                this.renderTitle(guiGraphics, this.page.getTitle2(), false, BookEntryScreen.PAGE_WIDTH / 2,
                         recipeY - (this.page.getTitle2().getString().isEmpty() ? 10 : 0) - 10);
             }
         }

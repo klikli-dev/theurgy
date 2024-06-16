@@ -54,7 +54,7 @@ public abstract class JsonRecipeProvider implements DataProvider {
      * Creates a new recipe provider with the given sub path.
      */
     public JsonRecipeProvider(PackOutput packOutput, String modid, String recipeSubPath) {
-        this.recipePathProvider = packOutput.createPathProvider(PackOutput.Target.DATA_PACK, "recipes/" + recipeSubPath);
+        this.recipePathProvider = packOutput.createPathProvider(PackOutput.Target.DATA_PACK, "recipe/" + recipeSubPath);
         this.modid = modid;
     }
 

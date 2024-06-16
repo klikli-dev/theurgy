@@ -4,6 +4,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21-1.21.0] - 2024-06-16
+### :sparkles: New Features
+- [`82731e9`](https://github.com/klikli-dev/theurgy/commit/82731e9c4d7ef0280a7a465b9b63d37348d5fb4e) - switch to using SizedIngredients provided by neo *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :bug: Bug Fixes
+- [`89d8615`](https://github.com/klikli-dev/theurgy/commit/89d86158b483302e039859d1382da3ed87a413f6) - color variable macro not parsed *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`ceff061`](https://github.com/klikli-dev/theurgy/commit/ceff06198479b1e82ee7b2ebc1ad9b712309df53) - recipe gen fixes *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`3480101`](https://github.com/klikli-dev/theurgy/commit/348010149db529e7a81d50699a41e78549008a0f) - recipe path *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`3a2a057`](https://github.com/klikli-dev/theurgy/commit/3a2a057f1d998f44b23aacd0474125c148c3b9d5) - recipes *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`495dba0`](https://github.com/klikli-dev/theurgy/commit/495dba025368a73ac417ef50eb95f0656710bd64) - run datagen *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`50bdf83`](https://github.com/klikli-dev/theurgy/commit/50bdf836eb1a82c3ad62ec48213e20eebb763852) - run datagen *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`ddf5567`](https://github.com/klikli-dev/theurgy/commit/ddf5567761d7353acc72430659fc3fc19e40b619) - run datagen *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21-1.20.2] - 2024-06-16
 ### :wrench: Chores
 - [`03b93d6`](https://github.com/klikli-dev/theurgy/commit/03b93d6b140a374e772659f4cb2db1724c003b3a) - update github action *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -566,3 +582,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.6-1.19.6]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.6-1.19.4...release/v1.20.6-1.19.6
 [release/v1.21-1.20.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.20.0...release/v1.21-1.20.1
 [release/v1.21-1.20.2]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.20.1...release/v1.21-1.20.2
+[release/v1.21-1.21.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.20.2...release/v1.21-1.21.0

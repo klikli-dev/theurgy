@@ -6,7 +6,7 @@ package com.klikli_dev.theurgy.content.apparatus.fermentationvat;
 
 import com.klikli_dev.theurgy.content.behaviour.crafting.HasCraftingBehaviour;
 import com.klikli_dev.theurgy.content.recipe.FermentationRecipe;
-import com.klikli_dev.theurgy.content.recipe.wrapper.RecipeWrapperWithFluid;
+import com.klikli_dev.theurgy.content.recipe.input.ItemHandlerWithFluidRecipeInput;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -21,7 +21,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import org.jetbrains.annotations.Nullable;
 
-public class FermentationVatBlockEntity extends BlockEntity implements HasCraftingBehaviour<RecipeWrapperWithFluid, FermentationRecipe, FermentationCachedCheck> {
+public class FermentationVatBlockEntity extends BlockEntity implements HasCraftingBehaviour<ItemHandlerWithFluidRecipeInput, FermentationRecipe, FermentationCachedCheck> {
 
     public FermentationStorageBehaviour storageBehaviour;
 

@@ -6,7 +6,7 @@ package com.klikli_dev.theurgy.content.apparatus.digestionvat;
 
 import com.klikli_dev.theurgy.content.behaviour.crafting.CraftingBehaviour;
 import com.klikli_dev.theurgy.content.recipe.DigestionRecipe;
-import com.klikli_dev.theurgy.content.recipe.wrapper.RecipeWrapperWithFluid;
+import com.klikli_dev.theurgy.content.recipe.input.ItemHandlerWithFluidRecipeInput;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
@@ -17,15 +17,16 @@ import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.items.IItemHandlerModifiable;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 
+import java.util.Objects;
 import java.util.function.Supplier;
 
-public class DigestionCraftingBehaviour extends CraftingBehaviour<RecipeWrapperWithFluid, DigestionRecipe, DigestionCachedCheck> {
+public class DigestionCraftingBehaviour extends CraftingBehaviour<ItemHandlerWithFluidRecipeInput, DigestionRecipe, DigestionCachedCheck> {
 
     protected Supplier<IFluidHandler> fluidTankSupplier;
 
     public DigestionCraftingBehaviour(BlockEntity blockEntity, Supplier<IItemHandlerModifiable> inputInventorySupplier, Supplier<IItemHandlerModifiable> outputInventorySupplier, Supplier<IFluidHandler> fluidTankSupplier) {
         super(blockEntity,
-                Lazy.of(() -> new RecipeWrapperWithFluid(inputInventorySupplier.get(), fluidTankSupplier.get())),
+                Lazy.of(() -> new ItemHandlerWithFluidRecipeInput(inputInventorySupplier.get(), fluidTankSupplier.get())),
                 inputInventorySupplier,
                 outputInventorySupplier,
                 new DigestionCachedCheck(RecipeTypeRegistry.DIGESTION.get()));
@@ -68,7 +69,7 @@ public class DigestionCraftingBehaviour extends CraftingBehaviour<RecipeWrapperW
 
     @Override
     protected boolean craft(RecipeHolder<DigestionRecipe> pRecipe) {
-        var assembledStack = pRecipe.value().assemble(this.recipeWrapperSupplier.get(), this.blockEntity.getLevel().registryAccess());
+        var assembledStack = pRecipe.value().assemble(this.recipeWrapperSupplier.get(), Objects.requireNonNull(this.blockEntity.getLevel()).registryAccess());
 
         // Safely insert the assembledStack into the outputInventory and update the input stack.
         ItemHandlerHelper.insertItemStacked(this.outputInventorySupplier.get(), assembledStack, false);

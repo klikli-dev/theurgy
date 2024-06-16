@@ -5,8 +5,7 @@
 package com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron;
 
 import com.klikli_dev.theurgy.content.recipe.LiquefactionRecipe;
-import com.klikli_dev.theurgy.content.recipe.wrapper.RecipeWrapperWithFluid;
-import com.mojang.datafixers.util.Pair;
+import com.klikli_dev.theurgy.content.recipe.input.ItemHandlerWithFluidRecipeInput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
@@ -20,10 +19,10 @@ import java.util.Optional;
 /**
  * A custom cached check
  */
-class LiquefactionCachedCheck implements RecipeManager.CachedCheck<RecipeWrapperWithFluid, LiquefactionRecipe> {
+class LiquefactionCachedCheck implements RecipeManager.CachedCheck<ItemHandlerWithFluidRecipeInput, LiquefactionRecipe> {
 
     private final RecipeType<LiquefactionRecipe> type;
-    private final RecipeManager.CachedCheck<RecipeWrapperWithFluid, LiquefactionRecipe> internal;
+    private final RecipeManager.CachedCheck<ItemHandlerWithFluidRecipeInput, LiquefactionRecipe> internal;
     @Nullable
     private ResourceLocation lastRecipe;
 
@@ -64,7 +63,7 @@ class LiquefactionCachedCheck implements RecipeManager.CachedCheck<RecipeWrapper
      * This checks full recipe validity: ingredients + fluids
      */
     @Override
-    public Optional<RecipeHolder<LiquefactionRecipe>> getRecipeFor(RecipeWrapperWithFluid container, Level level) {
+    public Optional<RecipeHolder<LiquefactionRecipe>> getRecipeFor(ItemHandlerWithFluidRecipeInput container, Level level) {
         var recipe = this.internal.getRecipeFor(container, level);
         if (recipe.isPresent()) {
             this.lastRecipe = recipe.get().id();

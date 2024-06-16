@@ -21,34 +21,33 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
-import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.CraftingBookCategory;
-import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.ShapedRecipe;
-import net.minecraft.world.item.crafting.ShapedRecipePattern;
+import net.minecraft.world.item.crafting.*;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 
 public class DivinationRodRecipe extends ShapedRecipe {
 
-    public DivinationRodRecipe(String pGroup, ShapedRecipePattern pPattern, ItemStack pResult, boolean pShowNotification) {
+    public DivinationRodRecipe(@NotNull String pGroup, @NotNull ShapedRecipePattern pPattern, @NotNull ItemStack pResult, boolean pShowNotification) {
         super(pGroup, CraftingBookCategory.MISC, pPattern, pResult, pShowNotification);
     }
 
     @Override
-    public RecipeSerializer<?> getSerializer() {
+    public @NotNull RecipeSerializer<?> getSerializer() {
         return RecipeSerializerRegistry.DIVINATION_ROD.get();
     }
 
+    @SuppressWarnings({"DataFlowIssue", "OptionalGetWithoutIsPresent"})
     @Override
-    public ItemStack assemble(CraftingContainer pInv, HolderLookup.Provider pRegistries) {
+    public @NotNull ItemStack assemble(@NotNull CraftingInput pInv, HolderLookup.@NotNull Provider pRegistries) {
         var result = this.getResultItem(pRegistries).copy();
 
         if (result.has(DataComponentRegistry.DIVINATION_LINKED_BLOCK) || result.has(DataComponentRegistry.DIVINATION_LINKED_TAG))
             return result;
 
         //check pInv for ingredients with sulfur source id, if so, find the appropriate block id based on it and set it on the result item
-        for (int i = 0; i < pInv.getContainerSize(); i++) {
+        for (int i = 0; i < pInv.size(); i++) {
             var stack = pInv.getItem(i);
             if (stack.has(DataComponentRegistry.SULFUR_SOURCE_ITEM)) {
                 var sourceItem = stack.get(DataComponentRegistry.SULFUR_SOURCE_ITEM);
@@ -77,7 +76,7 @@ public class DivinationRodRecipe extends ShapedRecipe {
         return result;
     }
 
-    public String translateTagToBlock(String sourceTag) {
+    public @Nullable String translateTagToBlock(@NotNull String sourceTag) {
         //first we check if we have a manual override mapping
         var mapped = ServerConfig.get().recipes.sulfurSourceToBlockMapping.get().get(sourceTag);
         if (mapped != null)
@@ -125,7 +124,7 @@ public class DivinationRodRecipe extends ShapedRecipe {
         return null;
     }
 
-    public String translateToBlock(String sourceId) {
+    public @Nullable String translateToBlock(@NotNull String sourceId) {
         //first we check if we have a manual override mapping
         var mapped = ServerConfig.get().recipes.sulfurSourceToBlockMapping.get().get(sourceId);
         if (mapped != null)
@@ -185,7 +184,7 @@ public class DivinationRodRecipe extends ShapedRecipe {
         //copied from ShapedRecipe.Serializer because xMapping it somehow causes a json null thingy error
         public static final MapCodec<DivinationRodRecipe> CODEC = RecordCodecBuilder.mapCodec(
                 p_340778_ -> p_340778_.group(
-                                Codec.STRING.optionalFieldOf("group", "").forGetter(p_311729_ -> p_311729_.getGroup()),
+                                Codec.STRING.optionalFieldOf("group", "").forGetter(ShapedRecipe::getGroup),
                                 ShapedRecipePattern.MAP_CODEC.forGetter(p_311733_ -> p_311733_.pattern),
                                 ItemStack.STRICT_CODEC.fieldOf("result").forGetter(p_311730_ -> p_311730_.getResultItem(RegistryAccess.EMPTY)),
                                 Codec.BOOL.optionalFieldOf("show_notification", true).forGetter(ShapedRecipe::showNotification)
@@ -206,12 +205,12 @@ public class DivinationRodRecipe extends ShapedRecipe {
 
 
         @Override
-        public MapCodec<DivinationRodRecipe> codec() {
+        public @NotNull MapCodec<DivinationRodRecipe> codec() {
             return CODEC;
         }
 
         @Override
-        public StreamCodec<RegistryFriendlyByteBuf, DivinationRodRecipe> streamCodec() {
+        public @NotNull StreamCodec<RegistryFriendlyByteBuf, DivinationRodRecipe> streamCodec() {
             return STREAM_CODEC;
         }
     }

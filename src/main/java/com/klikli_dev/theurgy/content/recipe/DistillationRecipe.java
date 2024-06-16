@@ -4,6 +4,7 @@
 
 package com.klikli_dev.theurgy.content.recipe;
 
+import com.klikli_dev.theurgy.content.recipe.input.ItemHandlerRecipeInput;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.RecipeSerializerRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
@@ -21,10 +22,9 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
-import net.neoforged.neoforge.items.wrapper.RecipeWrapper;
+import org.jetbrains.annotations.NotNull;
 
-
-public class DistillationRecipe implements Recipe<RecipeWrapper> {
+public class DistillationRecipe implements Recipe<ItemHandlerRecipeInput> {
 
     public static final int DEFAULT_TIME = 100;
 
@@ -48,7 +48,6 @@ public class DistillationRecipe implements Recipe<RecipeWrapper> {
             DistillationRecipe::new
     );
 
-
     protected final Ingredient ingredient;
     protected final int ingredientCount;
     protected final ItemStack result;
@@ -67,18 +66,18 @@ public class DistillationRecipe implements Recipe<RecipeWrapper> {
     }
 
     @Override
-    public RecipeType<?> getType() {
+    public @NotNull RecipeType<?> getType() {
         return RecipeTypeRegistry.DISTILLATION.get();
     }
 
     @Override
-    public boolean matches(RecipeWrapper pContainer, Level pLevel) {
+    public boolean matches(@NotNull ItemHandlerRecipeInput pContainer, @NotNull Level pLevel) {
         var stack = pContainer.getItem(0);
         return this.ingredient.test(stack) && stack.getCount() >= this.ingredientCount;
     }
 
     @Override
-    public ItemStack assemble(RecipeWrapper pInv, HolderLookup.Provider pRegistries) {
+    public @NotNull ItemStack assemble(@NotNull ItemHandlerRecipeInput pInv, HolderLookup.@NotNull Provider pRegistries) {
         return this.result.copy();
     }
 
@@ -88,12 +87,12 @@ public class DistillationRecipe implements Recipe<RecipeWrapper> {
     }
 
     @Override
-    public ItemStack getResultItem(HolderLookup.Provider pRegistries) {
+    public @NotNull ItemStack getResultItem(HolderLookup.@NotNull Provider pRegistries) {
         return this.result;
     }
 
     @Override
-    public NonNullList<Ingredient> getIngredients() {
+    public @NotNull NonNullList<Ingredient> getIngredients() {
         NonNullList<Ingredient> nonnulllist = NonNullList.create();
         nonnulllist.add(this.ingredient);
         return nonnulllist;
@@ -108,12 +107,12 @@ public class DistillationRecipe implements Recipe<RecipeWrapper> {
     }
 
     @Override
-    public ItemStack getToastSymbol() {
+    public @NotNull ItemStack getToastSymbol() {
         return new ItemStack(BlockRegistry.DISTILLER.get());
     }
 
     @Override
-    public RecipeSerializer<?> getSerializer() {
+    public @NotNull RecipeSerializer<?> getSerializer() {
         return RecipeSerializerRegistry.DISTILLATION.get();
     }
 
@@ -124,12 +123,12 @@ public class DistillationRecipe implements Recipe<RecipeWrapper> {
     public static class Serializer implements RecipeSerializer<DistillationRecipe> {
 
         @Override
-        public MapCodec<DistillationRecipe> codec() {
+        public @NotNull MapCodec<DistillationRecipe> codec() {
             return CODEC;
         }
 
         @Override
-        public StreamCodec<RegistryFriendlyByteBuf, DistillationRecipe> streamCodec() {
+        public @NotNull StreamCodec<RegistryFriendlyByteBuf, DistillationRecipe> streamCodec() {
             return STREAM_CODEC;
         }
     }

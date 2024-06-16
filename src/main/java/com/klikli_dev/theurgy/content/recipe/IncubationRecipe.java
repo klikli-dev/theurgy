@@ -4,8 +4,8 @@
 
 package com.klikli_dev.theurgy.content.recipe;
 
+import com.klikli_dev.theurgy.content.recipe.input.IncubatorRecipeInput;
 import com.klikli_dev.theurgy.content.recipe.result.RecipeResult;
-import com.klikli_dev.theurgy.content.recipe.wrapper.IncubatorRecipeWrapper;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.RecipeSerializerRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
@@ -23,9 +23,10 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 
 
-public class IncubationRecipe implements Recipe<IncubatorRecipeWrapper> {
+public class IncubationRecipe implements Recipe<IncubatorRecipeInput> {
 
     public static final int DEFAULT_TIME = 100;
 
@@ -72,19 +73,19 @@ public class IncubationRecipe implements Recipe<IncubatorRecipeWrapper> {
     }
 
     @Override
-    public RecipeType<?> getType() {
+    public @NotNull RecipeType<?> getType() {
         return RecipeTypeRegistry.INCUBATION.get();
     }
 
     @Override
-    public boolean matches(IncubatorRecipeWrapper pContainer, Level pLevel) {
+    public boolean matches(@NotNull IncubatorRecipeInput pContainer, @NotNull Level pLevel) {
         return this.mercury.test(pContainer.getMercuryVesselInv().getStackInSlot(0)) &&
                 this.salt.test(pContainer.getSaltVesselInv().getStackInSlot(0)) &&
                 this.sulfur.test(pContainer.getSulfurVesselInv().getStackInSlot(0));
     }
 
     @Override
-    public ItemStack assemble(IncubatorRecipeWrapper pInv, HolderLookup.Provider pRegistries) {
+    public @NotNull ItemStack assemble(@NotNull IncubatorRecipeInput pInv, @NotNull HolderLookup.Provider pRegistries) {
         return this.result.getStack().copy();
     }
 
@@ -94,7 +95,7 @@ public class IncubationRecipe implements Recipe<IncubatorRecipeWrapper> {
     }
 
     @Override
-    public ItemStack getResultItem(HolderLookup.Provider pRegistries) {
+    public @NotNull ItemStack getResultItem(@NotNull HolderLookup.Provider pRegistries) {
         return this.result.getStack();
     }
 
@@ -103,7 +104,7 @@ public class IncubationRecipe implements Recipe<IncubatorRecipeWrapper> {
     }
 
     @Override
-    public NonNullList<Ingredient> getIngredients() {
+    public @NotNull NonNullList<Ingredient> getIngredients() {
         NonNullList<Ingredient> nonnulllist = NonNullList.create();
         nonnulllist.add(this.mercury);
         nonnulllist.add(this.salt);
@@ -112,12 +113,12 @@ public class IncubationRecipe implements Recipe<IncubatorRecipeWrapper> {
     }
 
     @Override
-    public ItemStack getToastSymbol() {
+    public @NotNull ItemStack getToastSymbol() {
         return new ItemStack(BlockRegistry.INCUBATOR.get());
     }
 
     @Override
-    public RecipeSerializer<?> getSerializer() {
+    public @NotNull RecipeSerializer<?> getSerializer() {
         return RecipeSerializerRegistry.INCUBATION.get();
     }
 
@@ -140,12 +141,12 @@ public class IncubationRecipe implements Recipe<IncubatorRecipeWrapper> {
     public static class Serializer implements RecipeSerializer<IncubationRecipe> {
 
         @Override
-        public MapCodec<IncubationRecipe> codec() {
+        public @NotNull MapCodec<IncubationRecipe> codec() {
             return CODEC;
         }
 
         @Override
-        public StreamCodec<RegistryFriendlyByteBuf, IncubationRecipe> streamCodec() {
+        public @NotNull StreamCodec<RegistryFriendlyByteBuf, IncubationRecipe> streamCodec() {
             return STREAM_CODEC;
         }
     }

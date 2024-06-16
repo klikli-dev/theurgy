@@ -5,7 +5,7 @@
 package com.klikli_dev.theurgy.content.recipe;
 
 
-import com.klikli_dev.theurgy.content.recipe.wrapper.RecipeWrapperWithFluid;
+import com.klikli_dev.theurgy.content.recipe.input.ItemHandlerWithFluidRecipeInput;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.registry.RecipeSerializerRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
@@ -25,11 +25,12 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.fluids.crafting.FluidIngredient;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class FermentationRecipe implements Recipe<RecipeWrapperWithFluid> {
+public class FermentationRecipe implements Recipe<ItemHandlerWithFluidRecipeInput> {
     public static final int DEFAULT_TIME = 200;
 
     public static final MapCodec<FermentationRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
@@ -78,12 +79,12 @@ public class FermentationRecipe implements Recipe<RecipeWrapperWithFluid> {
     }
 
     @Override
-    public RecipeType<?> getType() {
+    public @NotNull RecipeType<?> getType() {
         return RecipeTypeRegistry.FERMENTATION.get();
     }
 
     @Override
-    public boolean matches(RecipeWrapperWithFluid pContainer, Level pLevel) {
+    public boolean matches(ItemHandlerWithFluidRecipeInput pContainer, @NotNull Level pLevel) {
         var fluid = pContainer.getTank().getFluidInTank(0);
         var fluidMatches = this.fluid.test(fluid) && fluid.getAmount() >= this.fluidAmount;
         if (!fluidMatches)
@@ -94,7 +95,7 @@ public class FermentationRecipe implements Recipe<RecipeWrapperWithFluid> {
         List<ItemStack> inputs = new ArrayList<>();
         int containerItemsCount = 0;
 
-        for (int j = 0; j < pContainer.getContainerSize(); ++j) {
+        for (int j = 0; j < pContainer.size(); ++j) {
             var itemstack = pContainer.getItem(j);
             if (!itemstack.isEmpty()) {
                 containerItemsCount++;
@@ -113,7 +114,7 @@ public class FermentationRecipe implements Recipe<RecipeWrapperWithFluid> {
     }
 
     @Override
-    public ItemStack assemble(RecipeWrapperWithFluid pInv, HolderLookup.Provider pRegistries) {
+    public @NotNull ItemStack assemble(@NotNull ItemHandlerWithFluidRecipeInput pInv, @NotNull HolderLookup.Provider pRegistries) {
         return this.result.copy();
     }
 
@@ -123,22 +124,22 @@ public class FermentationRecipe implements Recipe<RecipeWrapperWithFluid> {
     }
 
     @Override
-    public ItemStack getResultItem(HolderLookup.Provider pRegistries) {
+    public @NotNull ItemStack getResultItem(HolderLookup.@NotNull Provider pRegistries) {
         return this.result;
     }
 
     @Override
-    public NonNullList<Ingredient> getIngredients() {
+    public @NotNull NonNullList<Ingredient> getIngredients() {
         return this.ingredients;
     }
 
     @Override
-    public ItemStack getToastSymbol() {
+    public @NotNull ItemStack getToastSymbol() {
         return new ItemStack(ItemRegistry.FERMENTATION_VAT.get());
     }
 
     @Override
-    public RecipeSerializer<?> getSerializer() {
+    public @NotNull RecipeSerializer<?> getSerializer() {
         return RecipeSerializerRegistry.FERMENTATION.get();
     }
 
@@ -161,12 +162,12 @@ public class FermentationRecipe implements Recipe<RecipeWrapperWithFluid> {
     public static class Serializer implements RecipeSerializer<FermentationRecipe> {
 
         @Override
-        public MapCodec<FermentationRecipe> codec() {
+        public @NotNull MapCodec<FermentationRecipe> codec() {
             return CODEC;
         }
 
         @Override
-        public StreamCodec<RegistryFriendlyByteBuf, FermentationRecipe> streamCodec() {
+        public @NotNull StreamCodec<RegistryFriendlyByteBuf, FermentationRecipe> streamCodec() {
             return STREAM_CODEC;
         }
 

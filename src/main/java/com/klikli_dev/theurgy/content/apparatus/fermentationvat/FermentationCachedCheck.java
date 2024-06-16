@@ -5,7 +5,7 @@
 package com.klikli_dev.theurgy.content.apparatus.fermentationvat;
 
 import com.klikli_dev.theurgy.content.recipe.FermentationRecipe;
-import com.klikli_dev.theurgy.content.recipe.wrapper.RecipeWrapperWithFluid;
+import com.klikli_dev.theurgy.content.recipe.input.ItemHandlerWithFluidRecipeInput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
@@ -20,10 +20,10 @@ import java.util.Optional;
 /**
  * A custom cached check
  */
-public class FermentationCachedCheck implements RecipeManager.CachedCheck<RecipeWrapperWithFluid, FermentationRecipe> {
+public class FermentationCachedCheck implements RecipeManager.CachedCheck<ItemHandlerWithFluidRecipeInput, FermentationRecipe> {
 
     private final RecipeType<FermentationRecipe> type;
-    private final RecipeManager.CachedCheck<RecipeWrapperWithFluid, FermentationRecipe> internal;
+    private final RecipeManager.CachedCheck<ItemHandlerWithFluidRecipeInput, FermentationRecipe> internal;
     @Nullable
     private ResourceLocation lastRecipe;
 
@@ -92,7 +92,7 @@ public class FermentationCachedCheck implements RecipeManager.CachedCheck<Recipe
      * This checks full recipe validity: ingredients + fluids
      */
     @Override
-    public Optional<RecipeHolder<FermentationRecipe>> getRecipeFor(RecipeWrapperWithFluid container, Level level) {
+    public Optional<RecipeHolder<FermentationRecipe>> getRecipeFor(ItemHandlerWithFluidRecipeInput container, Level level) {
         var recipe = this.internal.getRecipeFor(container, level);
         if (recipe.isPresent()) {
             this.lastRecipe = recipe.get().id();

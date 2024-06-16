@@ -33,9 +33,9 @@ public abstract class CraftingBehaviour<W extends RecipeInput, R extends Recipe<
     protected boolean isProcessing;
 
 
-    public CraftingBehaviour(BlockEntity blockEntity, Supplier<W> recipeWrapper, Supplier<IItemHandlerModifiable> inputInventorySupplier, Supplier<IItemHandlerModifiable> outputInventorySupplier, C recipeCachedCheck) {
+    public CraftingBehaviour(BlockEntity blockEntity, Supplier<W> ItemHandlerRecipeInput, Supplier<IItemHandlerModifiable> inputInventorySupplier, Supplier<IItemHandlerModifiable> outputInventorySupplier, C recipeCachedCheck) {
         this.blockEntity = blockEntity;
-        this.recipeWrapperSupplier = recipeWrapper;
+        this.recipeWrapperSupplier = ItemHandlerRecipeInput;
         this.inputInventorySupplier = inputInventorySupplier;
         this.outputInventorySupplier = outputInventorySupplier;
         this.recipeCachedCheck = recipeCachedCheck;

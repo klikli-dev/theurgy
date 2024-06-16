@@ -6,7 +6,7 @@ package com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron;
 
 import com.klikli_dev.theurgy.content.behaviour.crafting.CraftingBehaviour;
 import com.klikli_dev.theurgy.content.recipe.LiquefactionRecipe;
-import com.klikli_dev.theurgy.content.recipe.wrapper.RecipeWrapperWithFluid;
+import com.klikli_dev.theurgy.content.recipe.input.ItemHandlerWithFluidRecipeInput;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
@@ -14,17 +14,16 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.common.util.Lazy;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.items.IItemHandlerModifiable;
-import net.neoforged.neoforge.items.ItemHandlerHelper;
 
 import java.util.function.Supplier;
 
-public class LiquefactionCraftingBehaviour extends CraftingBehaviour<RecipeWrapperWithFluid, LiquefactionRecipe, LiquefactionCachedCheck> {
+public class LiquefactionCraftingBehaviour extends CraftingBehaviour<ItemHandlerWithFluidRecipeInput, LiquefactionRecipe, LiquefactionCachedCheck> {
 
     protected Supplier<IFluidHandler> solventTankSupplier;
 
     public LiquefactionCraftingBehaviour(BlockEntity blockEntity, Supplier<IItemHandlerModifiable> inputInventorySupplier, Supplier<IItemHandlerModifiable> outputInventorySupplier, Supplier<IFluidHandler> solventTankSupplier) {
         super(blockEntity,
-                Lazy.of(() -> new RecipeWrapperWithFluid(inputInventorySupplier.get(), solventTankSupplier.get())),
+                Lazy.of(() -> new ItemHandlerWithFluidRecipeInput(inputInventorySupplier.get(), solventTankSupplier.get())),
                 inputInventorySupplier,
                 outputInventorySupplier,
                 new LiquefactionCachedCheck(RecipeTypeRegistry.LIQUEFACTION.get()));

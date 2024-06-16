@@ -8,7 +8,7 @@ import com.klikli_dev.theurgy.content.behaviour.crafting.CraftingBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.selection.SelectionBehaviour;
 import com.klikli_dev.theurgy.content.capability.DefaultMercuryFluxStorage;
 import com.klikli_dev.theurgy.content.entity.FollowProjectile;
-import com.klikli_dev.theurgy.content.recipe.wrapper.ReformationArrayRecipeWrapper;
+import com.klikli_dev.theurgy.content.recipe.input.ReformationArrayRecipeInput;
 import com.klikli_dev.theurgy.content.render.Color;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
@@ -49,7 +49,7 @@ public class SulfuricFluxEmitterBlockEntity extends BlockEntity {
     protected boolean checkValidMultiblockOnNextQuery;
     protected boolean hasSourceItems;
     protected boolean hasTargetItem;
-    private ReformationArrayRecipeWrapper recipeWrapper;
+    private ReformationArrayRecipeInput ItemHandlerRecipeInput;
 
     public SulfuricFluxEmitterBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(BlockEntityRegistry.SULFURIC_FLUX_EMITTER.get(), pPos, pBlockState);
@@ -61,7 +61,7 @@ public class SulfuricFluxEmitterBlockEntity extends BlockEntity {
         this.sourcePedestals = new ArrayList<>();
         this.sourcePedestalsWithContents = new ArrayList<>();
 
-        this.craftingBehaviour = new ReformationArrayCraftingBehaviour(this, () -> this.recipeWrapper, () -> null, this::getOutputInventory, () -> this.mercuryFluxStorage);
+        this.craftingBehaviour = new ReformationArrayCraftingBehaviour(this, () -> this.ItemHandlerRecipeInput, () -> null, this::getOutputInventory, () -> this.mercuryFluxStorage);
     }
 
     public void removeResultPedestal(ReformationResultPedestalBlockEntity pedestal) {
@@ -169,11 +169,11 @@ public class SulfuricFluxEmitterBlockEntity extends BlockEntity {
         this.onSourcePedestalContentChange(null); //only call it once as we don't need to call it on each
 
 
-        this.recipeWrapper = new ReformationArrayRecipeWrapper(sourceInventories, targetPedestalBlockEntity.inputInventory, this.mercuryFluxStorage);
+        this.ItemHandlerRecipeInput = new ReformationArrayRecipeInput(sourceInventories, targetPedestalBlockEntity.inputInventory, this.mercuryFluxStorage);
     }
 
     public void onDisassembleMultiblock() {
-        this.recipeWrapper = null;
+        this.ItemHandlerRecipeInput = null;
     }
 
     public IItemHandlerModifiable getOutputInventory() {

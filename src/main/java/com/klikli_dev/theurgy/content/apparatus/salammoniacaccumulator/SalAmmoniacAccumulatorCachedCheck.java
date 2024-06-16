@@ -5,7 +5,7 @@
 package com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator;
 
 import com.klikli_dev.theurgy.content.recipe.AccumulationRecipe;
-import com.klikli_dev.theurgy.content.recipe.wrapper.RecipeWrapperWithFluid;
+import com.klikli_dev.theurgy.content.recipe.input.ItemHandlerWithFluidRecipeInput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
@@ -20,10 +20,10 @@ import java.util.Optional;
 /**
  * A custom cached check
  */
-class SalAmmoniacAccumulatorCachedCheck implements RecipeManager.CachedCheck<RecipeWrapperWithFluid, AccumulationRecipe> {
+class SalAmmoniacAccumulatorCachedCheck implements RecipeManager.CachedCheck<ItemHandlerWithFluidRecipeInput, AccumulationRecipe> {
 
     private final RecipeType<AccumulationRecipe> type;
-    private final RecipeManager.CachedCheck<RecipeWrapperWithFluid, AccumulationRecipe> internal;
+    private final RecipeManager.CachedCheck<ItemHandlerWithFluidRecipeInput, AccumulationRecipe> internal;
     @Nullable
     private ResourceLocation lastRecipe;
 
@@ -90,7 +90,7 @@ class SalAmmoniacAccumulatorCachedCheck implements RecipeManager.CachedCheck<Rec
      * This checks full recipe validity: ingredients + fluids
      */
     @Override
-    public Optional<RecipeHolder<AccumulationRecipe>> getRecipeFor(RecipeWrapperWithFluid container, Level level) {
+    public Optional<RecipeHolder<AccumulationRecipe>> getRecipeFor(ItemHandlerWithFluidRecipeInput container, Level level) {
         var recipe = this.internal.getRecipeFor(container, level);
         if (recipe.isPresent()) {
             this.lastRecipe = recipe.get().id();

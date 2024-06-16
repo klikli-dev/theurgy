@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.4-1.19.2] - 2024-06-16
+### :bug: Bug Fixes
+- [`ff90067`](https://github.com/klikli-dev/theurgy/commit/ff900677e6a2f4ad16a24dac8a3bf1b24fa1fa93) - crash when switching reformation array blocks *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.4-1.19.1] - 2024-06-09
 ### :bug: Bug Fixes
 - [`a0a30bf`](https://github.com/klikli-dev/theurgy/commit/a0a30bf4e61abc45e27e597190293d28b7b06e03) - remove vanilla recipe book log spam *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -525,3 +530,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.4-1.18.2]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.4-1.18.0...release/v1.20.4-1.18.2
 [release/v1.20.4-1.19.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.4-1.18.2...release/v1.20.4-1.19.0
 [release/v1.20.4-1.19.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.4-1.19.0...release/v1.20.4-1.19.1
+[release/v1.20.4-1.19.2]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.4-1.19.1...release/v1.20.4-1.19.2

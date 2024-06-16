@@ -19,8 +19,10 @@
     "id": "theurgy:alchemical_sulfur_netherite"
   },
   "solvent": {
-    "fluid": "theurgy:sal_ammoniac"
+    "amount": 100,
+    "ingredient": {
+      "fluid": "theurgy:sal_ammoniac"
+    }
   },
-  "solventAmount": 100,
   "time": 100
 }

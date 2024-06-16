@@ -19,8 +19,10 @@
     "id": "theurgy:alchemical_sulfur_silver"
   },
   "solvent": {
-    "fluid": "theurgy:sal_ammoniac"
+    "amount": 10,
+    "ingredient": {
+      "fluid": "theurgy:sal_ammoniac"
+    }
   },
-  "solventAmount": 10,
   "time": 100
 }

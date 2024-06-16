@@ -11,9 +11,11 @@
     }
   ],
   "ingredient": {
-    "tag": "minecraft:planks"
+    "count": 8,
+    "ingredient": {
+      "tag": "minecraft:planks"
+    }
   },
-  "ingredientCount": 8,
   "result": {
     "type": "theurgy:item",
     "count": 1,

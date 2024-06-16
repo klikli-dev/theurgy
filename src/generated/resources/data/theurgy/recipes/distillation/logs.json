@@ -11,9 +11,11 @@
     }
   ],
   "ingredient": {
-    "tag": "minecraft:logs"
+    "count": 2,
+    "ingredient": {
+      "tag": "minecraft:logs"
+    }
   },
-  "ingredientCount": 2,
   "result": {
     "type": "theurgy:item",
     "count": 1,

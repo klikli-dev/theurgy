@@ -19,8 +19,10 @@
     "id": "theurgy:alchemical_sulfur_ruby"
   },
   "solvent": {
-    "fluid": "theurgy:sal_ammoniac"
+    "amount": 15,
+    "ingredient": {
+      "fluid": "theurgy:sal_ammoniac"
+    }
   },
-  "solventAmount": 15,
   "time": 100
 }

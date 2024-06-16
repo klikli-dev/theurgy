@@ -11,9 +11,11 @@
     }
   ],
   "ingredient": {
-    "tag": "minecraft:dirt"
+    "count": 25,
+    "ingredient": {
+      "tag": "minecraft:dirt"
+    }
   },
-  "ingredientCount": 25,
   "result": {
     "type": "theurgy:item",
     "count": 1,

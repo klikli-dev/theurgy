@@ -11,9 +11,11 @@
     }
   ],
   "ingredient": {
-    "tag": "c:sands"
+    "count": 15,
+    "ingredient": {
+      "tag": "c:sands"
+    }
   },
-  "ingredientCount": 15,
   "result": {
     "type": "theurgy:item",
     "count": 1,

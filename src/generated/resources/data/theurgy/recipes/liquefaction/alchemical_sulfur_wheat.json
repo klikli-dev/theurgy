@@ -2,7 +2,8 @@
   "type": "theurgy:liquefaction",
   "category": "misc",
   "ingredient": {
-    "item": "minecraft:wheat"
+    "count": 1,
+    "id": "minecraft:wheat"
   },
   "result": {
     "type": "theurgy:item",
@@ -10,8 +11,10 @@
     "id": "theurgy:alchemical_sulfur_wheat"
   },
   "solvent": {
-    "fluid": "theurgy:sal_ammoniac"
+    "amount": 10,
+    "ingredient": {
+      "fluid": "theurgy:sal_ammoniac"
+    }
   },
-  "solventAmount": 10,
   "time": 100
 }

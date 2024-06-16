@@ -2,9 +2,9 @@
   "type": "theurgy:distillation",
   "category": "misc",
   "ingredient": {
-    "item": "minecraft:chicken"
+    "count": 2,
+    "id": "minecraft:chicken"
   },
-  "ingredientCount": 2,
   "result": {
     "type": "theurgy:item",
     "count": 1,

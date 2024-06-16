@@ -11,9 +11,11 @@
     }
   ],
   "ingredient": {
-    "tag": "minecraft:saplings"
+    "count": 3,
+    "ingredient": {
+      "tag": "minecraft:saplings"
+    }
   },
-  "ingredientCount": 3,
   "result": {
     "type": "theurgy:item",
     "count": 1,

@@ -11,9 +11,11 @@
     }
   ],
   "ingredient": {
-    "tag": "minecraft:flowers"
+    "count": 3,
+    "ingredient": {
+      "tag": "minecraft:flowers"
+    }
   },
-  "ingredientCount": 3,
   "result": {
     "type": "theurgy:item",
     "count": 1,

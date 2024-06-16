@@ -11,9 +11,11 @@
     }
   ],
   "ingredient": {
-    "tag": "theurgy:raw_materials/mercury/low"
+    "count": 1,
+    "ingredient": {
+      "tag": "theurgy:raw_materials/mercury/low"
+    }
   },
-  "ingredientCount": 1,
   "result": {
     "type": "theurgy:item",
     "count": 1,

@@ -2,9 +2,9 @@
   "type": "theurgy:distillation",
   "category": "misc",
   "ingredient": {
-    "item": "minecraft:cooked_beef"
+    "count": 1,
+    "id": "minecraft:cooked_beef"
   },
-  "ingredientCount": 1,
   "result": {
     "type": "theurgy:item",
     "count": 1,

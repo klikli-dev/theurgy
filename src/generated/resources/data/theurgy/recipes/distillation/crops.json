@@ -11,9 +11,11 @@
     }
   ],
   "ingredient": {
-    "tag": "c:crops"
+    "count": 3,
+    "ingredient": {
+      "tag": "c:crops"
+    }
   },
-  "ingredientCount": 3,
   "result": {
     "type": "theurgy:item",
     "count": 1,

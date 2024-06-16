@@ -2,9 +2,9 @@
   "type": "theurgy:calcination",
   "category": "misc",
   "ingredient": {
-    "item": "minecraft:clay"
+    "count": 1,
+    "id": "minecraft:clay"
   },
-  "ingredientCount": 1,
   "result": {
     "type": "theurgy:item",
     "count": 4,

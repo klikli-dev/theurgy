@@ -19,8 +19,10 @@
     "id": "theurgy:alchemical_sulfur_calorite"
   },
   "solvent": {
-    "fluid": "theurgy:sal_ammoniac"
+    "amount": 50,
+    "ingredient": {
+      "fluid": "theurgy:sal_ammoniac"
+    }
   },
-  "solventAmount": 50,
   "time": 100
 }

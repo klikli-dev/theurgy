@@ -2,9 +2,9 @@
   "type": "theurgy:distillation",
   "category": "misc",
   "ingredient": {
-    "item": "minecraft:salmon"
+    "count": 2,
+    "id": "minecraft:salmon"
   },
-  "ingredientCount": 2,
   "result": {
     "type": "theurgy:item",
     "count": 1,

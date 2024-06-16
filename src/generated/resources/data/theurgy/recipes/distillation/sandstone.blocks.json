@@ -11,9 +11,11 @@
     }
   ],
   "ingredient": {
-    "tag": "c:sandstone/blocks"
+    "count": 10,
+    "ingredient": {
+      "tag": "c:sandstone/blocks"
+    }
   },
-  "ingredientCount": 10,
   "result": {
     "type": "theurgy:item",
     "count": 1,

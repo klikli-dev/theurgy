@@ -11,9 +11,11 @@
     }
   ],
   "ingredient": {
-    "tag": "c:glass_blocks"
+    "count": 10,
+    "ingredient": {
+      "tag": "c:glass_blocks"
+    }
   },
-  "ingredientCount": 10,
   "result": {
     "type": "theurgy:item",
     "count": 1,

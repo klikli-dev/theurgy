@@ -12,7 +12,7 @@
   ],
   "mercury": {
     "count": 1,
-    "item": "theurgy:mercury_shard"
+    "id": "theurgy:mercury_shard"
   },
   "result": {
     "type": "theurgy:tag",
@@ -21,11 +21,11 @@
   },
   "salt": {
     "count": 1,
-    "item": "theurgy:alchemical_salt_mineral"
+    "id": "theurgy:alchemical_salt_mineral"
   },
   "sulfur": {
     "count": 1,
-    "item": "theurgy:alchemical_sulfur_certus_quartz"
+    "id": "theurgy:alchemical_sulfur_certus_quartz"
   },
   "time": 100
 }

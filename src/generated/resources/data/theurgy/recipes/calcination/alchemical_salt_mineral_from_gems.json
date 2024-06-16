@@ -13,7 +13,6 @@
   "ingredient": {
     "tag": "c:gems"
   },
-  "ingredientCount": 1,
   "result": {
     "type": "theurgy:item",
     "count": 2,

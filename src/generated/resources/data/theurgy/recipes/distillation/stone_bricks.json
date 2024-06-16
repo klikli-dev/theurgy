@@ -11,9 +11,11 @@
     }
   ],
   "ingredient": {
-    "tag": "minecraft:stone_bricks"
+    "count": 10,
+    "ingredient": {
+      "tag": "minecraft:stone_bricks"
+    }
   },
-  "ingredientCount": 10,
   "result": {
     "type": "theurgy:item",
     "count": 1,

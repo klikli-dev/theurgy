@@ -11,9 +11,11 @@
     }
   ],
   "ingredient": {
-    "tag": "c:stones"
+    "count": 10,
+    "ingredient": {
+      "tag": "c:stones"
+    }
   },
-  "ingredientCount": 10,
   "result": {
     "type": "theurgy:item",
     "count": 1,

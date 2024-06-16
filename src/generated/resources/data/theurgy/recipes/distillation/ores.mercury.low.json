@@ -11,9 +11,11 @@
     }
   ],
   "ingredient": {
-    "tag": "theurgy:ores/mercury/low"
+    "count": 1,
+    "ingredient": {
+      "tag": "theurgy:ores/mercury/low"
+    }
   },
-  "ingredientCount": 1,
   "result": {
     "type": "theurgy:item",
     "count": 5,

@@ -11,7 +11,10 @@
     }
   ],
   "ingredient": {
-    "tag": "c:gems"
+    "count": 1,
+    "ingredient": {
+      "tag": "c:gems"
+    }
   },
   "result": {
     "type": "theurgy:item",

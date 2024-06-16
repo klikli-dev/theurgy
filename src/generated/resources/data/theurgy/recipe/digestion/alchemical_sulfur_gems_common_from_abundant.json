@@ -10,11 +10,15 @@
   "ingredients": [
     {
       "count": 4,
-      "id": "theurgy:alchemical_sulfur_gems_abundant"
+      "ingredient": {
+        "item": "theurgy:alchemical_sulfur_gems_abundant"
+      }
     },
     {
       "count": 1,
-      "id": "theurgy:purified_gold"
+      "ingredient": {
+        "item": "theurgy:purified_gold"
+      }
     }
   ],
   "result": {

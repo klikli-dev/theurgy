@@ -22,6 +22,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.material.Fluid;
@@ -30,6 +31,7 @@ import net.neoforged.neoforge.common.conditions.NotCondition;
 import net.neoforged.neoforge.common.conditions.TagEmptyCondition;
 import net.neoforged.neoforge.common.crafting.SizedIngredient;
 import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.crafting.FluidIngredient;
 import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 import org.jetbrains.annotations.NotNull;
 
@@ -180,48 +182,39 @@ public abstract class JsonRecipeProvider implements DataProvider {
             return this.sizedIngredient("ingredient", tag, count);
         }
 
-        public T ingredient(String propertyName, TagKey<?> tag) {
-            JsonObject jsonobject = new JsonObject();
-            jsonobject.addProperty("tag", tag.location().toString());
-            this.recipe.add(propertyName, jsonobject);
+        public T sizedIngredient(ItemLike item, int count) {
+            return this.sizedIngredient("ingredient", item, count);
+        }
+
+        public T ingredient(String propertyName, TagKey<Item> tag) {
+            this.recipe.add(propertyName, Ingredient.CODEC.encodeStart(JsonOps.INSTANCE, Ingredient.of(tag)).getOrThrow());
 
             this.condition(new NotCondition(new TagEmptyCondition(tag.location().toString())));
 
             return this.getThis();
         }
 
-        public T ingredient(Holder<Item> itemHolder) {
-            return this.ingredient(new ItemStack(itemHolder));
+        public T ingredient(ItemLike item) {
+            return this.ingredient("ingredient", item);
         }
 
-        public T ingredient(Item item) {
-            return this.ingredient(new ItemStack(item));
+        public T ingredient(String propertyName, ItemLike item) {
+            return this.ingredient(propertyName, Ingredient.of(item));
         }
 
-        public T ingredient(ItemStack stack) {
-            return this.ingredient("ingredient", stack);
-        }
-
-        public T ingredient(Item item, int count) {
-            return this.ingredient(new ItemStack(item, count));
-        }
-
-        public T ingredient(Holder<Item> itemHolder, int count) {
-            return this.ingredient(new ItemStack(itemHolder, count));
-        }
-
-        public T ingredient(String propertyName, Holder<Item> itemHolder, int count) {
-            return this.ingredient(propertyName, new ItemStack(itemHolder, count));
-        }
-
-        public T ingredient(String propertyName, ItemStack stack) {
-            this.recipe.add(propertyName, ItemStack.STRICT_CODEC.encodeStart(JsonOps.INSTANCE, stack).getOrThrow());
+        public T ingredient(String propertyName, Ingredient ingredient) {
+            this.recipe.add(propertyName, Ingredient.CODEC.encodeStart(JsonOps.INSTANCE, ingredient).getOrThrow());
             return this.getThis();
         }
 
         public T sizedIngredient(String propertyName, TagKey<Item> item, int amount) {
             this.recipe.add(propertyName, SizedIngredient.NESTED_CODEC.encodeStart(JsonOps.INSTANCE, SizedIngredient.of(item, amount)).getOrThrow());
             this.condition(new NotCondition(new TagEmptyCondition(item.location().toString())));
+            return this.getThis();
+        }
+
+        public T sizedIngredient(String propertyName, ItemLike item, int amount) {
+            this.recipe.add(propertyName, SizedIngredient.NESTED_CODEC.encodeStart(JsonOps.INSTANCE, SizedIngredient.of(item, amount)).getOrThrow());
             return this.getThis();
         }
 
@@ -237,10 +230,7 @@ public abstract class JsonRecipeProvider implements DataProvider {
         }
 
         public T fluidIngredient(String propertyName, Fluid fluid) {
-            JsonObject jsonobject = new JsonObject();
-            //noinspection OptionalGetWithoutIsPresent,deprecation
-            jsonobject.addProperty("fluid", fluid.builtInRegistryHolder().unwrapKey().get().location().toString());
-            this.recipe.add(propertyName, jsonobject);
+            this.recipe.add(propertyName, FluidIngredient.CODEC.encodeStart(JsonOps.INSTANCE, FluidIngredient.of(fluid)).getOrThrow());
             return this.getThis();
         }
 

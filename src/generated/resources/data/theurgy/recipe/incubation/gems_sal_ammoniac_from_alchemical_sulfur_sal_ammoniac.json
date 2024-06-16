@@ -11,8 +11,7 @@
     }
   ],
   "mercury": {
-    "count": 1,
-    "id": "theurgy:mercury_shard"
+    "item": "theurgy:mercury_shard"
   },
   "result": {
     "type": "theurgy:tag",
@@ -20,12 +19,10 @@
     "tag": "c:gems/sal_ammoniac"
   },
   "salt": {
-    "count": 1,
-    "id": "theurgy:alchemical_salt_mineral"
+    "item": "theurgy:alchemical_salt_mineral"
   },
   "sulfur": {
-    "count": 1,
-    "id": "theurgy:alchemical_sulfur_sal_ammoniac"
+    "item": "theurgy:alchemical_sulfur_sal_ammoniac"
   },
   "time": 100
 }

@@ -11,7 +11,10 @@
     }
   ],
   "ingredient": {
-    "tag": "theurgy:other_minerals"
+    "count": 1,
+    "ingredient": {
+      "tag": "theurgy:other_minerals"
+    }
   },
   "result": {
     "type": "theurgy:item",

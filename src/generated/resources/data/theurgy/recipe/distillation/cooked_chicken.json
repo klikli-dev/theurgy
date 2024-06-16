@@ -3,7 +3,9 @@
   "category": "misc",
   "ingredient": {
     "count": 1,
-    "id": "minecraft:cooked_chicken"
+    "ingredient": {
+      "item": "minecraft:cooked_chicken"
+    }
   },
   "result": {
     "type": "theurgy:item",

@@ -114,7 +114,7 @@ public class DistillationRecipeProvider extends JsonRecipeProvider {
         this.recipeConsumer.accept(
                 this.modLoc(recipeName),
                 new Builder(new ItemStack(ItemRegistry.MERCURY_SHARD.get(), resultCount))
-                        .ingredient(ingredient, ingredientCount)
+                        .sizedIngredient(ingredient, ingredientCount)
                         .time(distillationTime)
                         .build());
     }

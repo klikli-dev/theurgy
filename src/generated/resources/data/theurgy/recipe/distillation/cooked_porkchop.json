@@ -3,7 +3,9 @@
   "category": "misc",
   "ingredient": {
     "count": 1,
-    "id": "minecraft:cooked_porkchop"
+    "ingredient": {
+      "item": "minecraft:cooked_porkchop"
+    }
   },
   "result": {
     "type": "theurgy:item",

@@ -10,11 +10,15 @@
   "ingredients": [
     {
       "count": 4,
-      "id": "theurgy:alchemical_sulfur_other_minerals_rare"
+      "ingredient": {
+        "item": "theurgy:alchemical_sulfur_other_minerals_rare"
+      }
     },
     {
       "count": 1,
-      "id": "theurgy:purified_gold"
+      "ingredient": {
+        "item": "theurgy:purified_gold"
+      }
     }
   ],
   "result": {

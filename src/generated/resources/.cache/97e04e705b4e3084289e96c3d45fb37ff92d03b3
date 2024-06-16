@@ -1,15 +1,15 @@
-// 1.21	2024-06-16T17:26:45.2743666	Distillation Recipes
-554ced40cf12fe6a916be2733b8f047d55501ad3 data/theurgy/recipe/distillation/beef.json
-1915136b680a4fee81e1e0dc165c6a4271fd26c8 data/theurgy/recipe/distillation/bread.json
-2ed4a06dfea1a74382c7dde5013efd33fb613e21 data/theurgy/recipe/distillation/chicken.json
+// 1.21	2024-06-16T17:53:35.9754046	Distillation Recipes
+de3eabbc2b162a18c61258f9c826632bcc827c31 data/theurgy/recipe/distillation/beef.json
+3d60a592cb7374ed811619c57cbe4a06ea3515a2 data/theurgy/recipe/distillation/bread.json
+66df016add0272205cebf425114bbbf23f42bfb8 data/theurgy/recipe/distillation/chicken.json
 a983c6ba013fc65e3f1186f8e8c690d0a7172871 data/theurgy/recipe/distillation/cobblestones.json
-36794cca014632b25df71407951057a1b3a52286 data/theurgy/recipe/distillation/cod.json
-139108f06eacc638871187e21d0b0206fb139d8d data/theurgy/recipe/distillation/cooked_beef.json
-19866177c419c32b7a9ee1cab204b9a721e6aaab data/theurgy/recipe/distillation/cooked_chicken.json
-0b8d493038b9fa2ea6b2ea5b5a1b7d05966fa5d8 data/theurgy/recipe/distillation/cooked_cod.json
-f4fe2bd63ac087cf445d734938e35afee9b05715 data/theurgy/recipe/distillation/cooked_porkchop.json
-bda0370e91f1d9bc40ee7510a6711413460c5e2e data/theurgy/recipe/distillation/cooked_rabbit.json
-67cea2fd1f224a691466f972b31c22f4e8bf09a0 data/theurgy/recipe/distillation/cooked_salmon.json
+8311bd08ffcf6f5528621ca0989bbd5516749743 data/theurgy/recipe/distillation/cod.json
+c3222d6873e08a1e33e68cc63fd67e146b84d2af data/theurgy/recipe/distillation/cooked_beef.json
+f36d725f7571b9e38eaa259c98dbe688a51896d5 data/theurgy/recipe/distillation/cooked_chicken.json
+9b6accd5be90991389ac3e8ca91c13bcb50403cf data/theurgy/recipe/distillation/cooked_cod.json
+c87a24e98cd96e90247146a5d9898ee132fb2535 data/theurgy/recipe/distillation/cooked_porkchop.json
+c137edc692ec3eb8b691610ed9bb1992dbcfab42 data/theurgy/recipe/distillation/cooked_rabbit.json
+f356c433f916c87c70091d4fb9cf63a4766b540d data/theurgy/recipe/distillation/cooked_salmon.json
 263c45a82a77f57c1418887f83598bc2a360f6ca data/theurgy/recipe/distillation/crops.json
 3edd2f524aaa4a3a8f7802ee62449b6706cc4ca2 data/theurgy/recipe/distillation/dirt.json
 65e3c0d22af5fc6b3bb153bad43747abdbea67d3 data/theurgy/recipe/distillation/dyes.json
@@ -31,12 +31,12 @@ f14b44500847160d33f06647f1ebbf6c132792f6 data/theurgy/recipe/distillation/ores.m
 27037784812aca05087b1e2791c8df9114ad9308 data/theurgy/recipe/distillation/other_minerals.mercury.low.json
 1207aa2d44f019e67bd850a69d144aba59ecb257 data/theurgy/recipe/distillation/other_minerals.mercury.medium.json
 1347a096a4c4c585cd964746bca335e918a15447 data/theurgy/recipe/distillation/planks.json
-fea4c0cd653e4e52d044704902db83cff4a0803c data/theurgy/recipe/distillation/porkchop.json
-19051fb0226d097f8c1578ef136b32aa03a1f5d7 data/theurgy/recipe/distillation/rabbit.json
+f5d7ae14d57b838f1ab061c12eeee8d2e77f989f data/theurgy/recipe/distillation/porkchop.json
+3d8482a1b32d536ae508fc73e2cde9241eb4dd5b data/theurgy/recipe/distillation/rabbit.json
 35f6e27151d72b668292f88f234a1291d8c83463 data/theurgy/recipe/distillation/raw_materials.mercury.high.json
 c9bf45839e6b35a6330c93ade7f4bab4b3c6f70d data/theurgy/recipe/distillation/raw_materials.mercury.low.json
 26d1f7c6cf8d8908b5cff787e877db40be8d78bc data/theurgy/recipe/distillation/raw_materials.mercury.medium.json
-4e1451a6cf61fa93ce156760607d837e39dd08f4 data/theurgy/recipe/distillation/salmon.json
+66a938f2baa2eaa01e88c0ad6495c24b686dcd34 data/theurgy/recipe/distillation/salmon.json
 5626b6354098325abe8b121376e7c2be4607019e data/theurgy/recipe/distillation/sands.json
 ac487564841a330d5f5957d263f0657b58f00cf6 data/theurgy/recipe/distillation/sandstone.blocks.json
 10c7274a98b638252240a643dd3fb193f2fd08ca data/theurgy/recipe/distillation/saplings.json

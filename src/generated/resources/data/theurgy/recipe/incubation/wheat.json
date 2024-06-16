@@ -2,8 +2,7 @@
   "type": "theurgy:incubation",
   "category": "misc",
   "mercury": {
-    "count": 1,
-    "id": "theurgy:mercury_shard"
+    "item": "theurgy:mercury_shard"
   },
   "result": {
     "type": "theurgy:item",
@@ -11,12 +10,10 @@
     "id": "minecraft:wheat"
   },
   "salt": {
-    "count": 1,
-    "id": "theurgy:alchemical_salt_crops"
+    "item": "theurgy:alchemical_salt_crops"
   },
   "sulfur": {
-    "count": 1,
-    "id": "theurgy:alchemical_sulfur_wheat"
+    "item": "theurgy:alchemical_sulfur_wheat"
   },
   "time": 100
 }

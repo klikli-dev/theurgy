@@ -3,7 +3,9 @@
   "category": "misc",
   "ingredient": {
     "count": 20,
-    "id": "theurgy:alchemical_salt_strata"
+    "ingredient": {
+      "item": "theurgy:alchemical_salt_strata"
+    }
   },
   "result": {
     "type": "theurgy:item",

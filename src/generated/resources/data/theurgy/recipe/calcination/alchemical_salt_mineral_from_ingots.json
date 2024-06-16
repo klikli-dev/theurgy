@@ -11,7 +11,10 @@
     }
   ],
   "ingredient": {
-    "tag": "c:ingots"
+    "count": 1,
+    "ingredient": {
+      "tag": "c:ingots"
+    }
   },
   "result": {
     "type": "theurgy:item",

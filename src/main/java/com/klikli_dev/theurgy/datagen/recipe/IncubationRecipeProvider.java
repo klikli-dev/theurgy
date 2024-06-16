@@ -166,15 +166,15 @@ public class IncubationRecipeProvider extends JsonRecipeProvider {
         }
 
         public Builder salt(AlchemicalSaltItem item) {
-            return this.ingredient("salt", new ItemStack(item, 1));
+            return this.ingredient("salt", item);
         }
 
         public Builder mercury(Item item) {
-            return this.ingredient("mercury", new ItemStack(item, 1));
+            return this.ingredient("mercury", item);
         }
 
         public Builder sulfur(AlchemicalSulfurItem item) {
-            return this.ingredient("sulfur", new ItemStack(item, 1));
+            return this.ingredient("sulfur", item);
         }
     }
 }

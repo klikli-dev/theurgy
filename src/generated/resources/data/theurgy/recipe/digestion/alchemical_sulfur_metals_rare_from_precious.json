@@ -10,7 +10,9 @@
   "ingredients": [
     {
       "count": 1,
-      "id": "theurgy:alchemical_sulfur_metals_precious"
+      "ingredient": {
+        "item": "theurgy:alchemical_sulfur_metals_precious"
+      }
     }
   ],
   "result": {

@@ -124,24 +124,15 @@ public class DigestionRecipeProvider extends JsonRecipeProvider {
         }
 
         public Builder ingredients(ItemLike item) {
-            //noinspection deprecation
-            return this.ingredients(item.asItem().builtInRegistryHolder());
+            return this.ingredients(item, 1);
         }
 
         public Builder ingredients(ItemLike item, int count) {
-            //noinspection deprecation
-            return this.ingredients(item.asItem().builtInRegistryHolder(), count);
-        }
-
-        public Builder ingredients(Holder<Item> itemHolder) {
-            return this.ingredients(itemHolder, 1);
-        }
-
-        public Builder ingredients(Holder<Item> itemHolder, int count) {
             if (!this.recipe.has("ingredients"))
                 this.recipe.add("ingredients", new JsonArray());
 
-            this.recipe.getAsJsonArray("ingredients").add(ItemStack.CODEC.encodeStart(JsonOps.INSTANCE, new ItemStack(itemHolder, count)).getOrThrow());
+            this.recipe.getAsJsonArray("ingredients").add(
+                    SizedIngredient.NESTED_CODEC.encodeStart(JsonOps.INSTANCE, SizedIngredient.of(item, count)).getOrThrow());
 
             return this.getThis();
         }

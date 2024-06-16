@@ -10,7 +10,9 @@
   "ingredients": [
     {
       "count": 1,
-      "id": "theurgy:alchemical_sulfur_metals_common"
+      "ingredient": {
+        "item": "theurgy:alchemical_sulfur_metals_common"
+      }
     }
   ],
   "result": {

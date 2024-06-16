@@ -10,7 +10,9 @@
   "ingredients": [
     {
       "count": 1,
-      "id": "theurgy:alchemical_sulfur_gems_precious"
+      "ingredient": {
+        "item": "theurgy:alchemical_sulfur_gems_precious"
+      }
     }
   ],
   "result": {

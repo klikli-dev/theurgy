@@ -97,15 +97,13 @@ public class WireRenderer {
                 Vec3 normal = secondPoint.subtract(firstPoint).normalize();
                 Vec3 reverseNormal = firstPoint.subtract(secondPoint).normalize();
 
-                vertexBuilder.vertex(fourMatrix, (float) firstPoint.x(), (float) firstPoint.y(), (float) firstPoint.z())
-                        .color(0, 0, 0, 255)
-                        .normal(poseStack.last(), (float) normal.x(), (float) normal.y(), (float) normal.z())
-                        .endVertex();
+                vertexBuilder.addVertex(fourMatrix, (float) firstPoint.x(), (float) firstPoint.y(), (float) firstPoint.z())
+                        .setColor(0, 0, 0, 255)
+                        .setNormal(poseStack.last(), (float) normal.x(), (float) normal.y(), (float) normal.z());
 
-                vertexBuilder.vertex(fourMatrix, (float) secondPoint.x(), (float) secondPoint.y(), (float) secondPoint.z())
-                        .color(0, 0, 0, 255)
-                        .normal(poseStack.last(), (float) reverseNormal.x(), (float) reverseNormal.y(), (float) reverseNormal.z())
-                        .endVertex();
+                vertexBuilder.addVertex(fourMatrix, (float) secondPoint.x(), (float) secondPoint.y(), (float) secondPoint.z())
+                        .setColor(0, 0, 0, 255)
+                        .setNormal(poseStack.last(), (float) reverseNormal.x(), (float) reverseNormal.y(), (float) reverseNormal.z());
             }
             poseStack.popPose();
 

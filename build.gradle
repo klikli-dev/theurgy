@@ -128,7 +128,12 @@ dependencies {
     implementation "maven.modrinth:jade:${jade_version}+neoforge"
 
     //EMI (if jei is not available, for convenience)
-//    implementation "maven.modrinth:emi:${emi_version}+${minecraft_version}+neoforge"
+//    runtimeOnly "maven.modrinth:emi:${emi_version}+${minecraft_version}+neoforge"
+
+    //REI (if jei is not available, for convenience)
+    runtimeOnly "maven.modrinth:rei:${rei_version}+neoforge"
+    runtimeOnly "maven.modrinth:architectury-api:${architectury_version}+neoforge"
+    runtimeOnly "maven.modrinth:cloth-config:${cloth_config_version}+neoforge"
 }
 
 processResources {

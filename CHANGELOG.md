@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21-1.22.0] - 2024-06-17
+### :sparkles: New Features
+- [`3f49645`](https://github.com/klikli-dev/theurgy/commit/3f49645902a024caa9932640a7c8d86b9b8bffb4) - enable JEI integration *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :bug: Bug Fixes
+- [`23791ac`](https://github.com/klikli-dev/theurgy/commit/23791ac6c4cc1c23262157cde20efb5468d4fe3a) - recipe conditions *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`c3b7cbd`](https://github.com/klikli-dev/theurgy/commit/c3b7cbd1e6a9f2811b75d2e67341b9af1427d4de) - update to latest modonomicon *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21-1.21.1] - 2024-06-16
 ### :bug: Bug Fixes
 - [`22945b5`](https://github.com/klikli-dev/theurgy/commit/22945b5d95e34b0d8fff84225533486520001501) - save-related crash with logistics system *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -593,3 +604,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21-1.20.2]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.20.1...release/v1.21-1.20.2
 [release/v1.21-1.21.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.20.2...release/v1.21-1.21.0
 [release/v1.21-1.21.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.21.0...release/v1.21-1.21.1
+[release/v1.21-1.22.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.21.1...release/v1.21-1.22.0

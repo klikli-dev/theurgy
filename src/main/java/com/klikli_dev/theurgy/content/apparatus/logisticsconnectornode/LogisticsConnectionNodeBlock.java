@@ -64,23 +64,26 @@ public class LogisticsConnectionNodeBlock extends DirectionalBlock implements Ha
         return SHAPE.getShape(pState.getValue(FACING));
     }
 
-
     @Override
-    protected InteractionResult useWithoutItem(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, BlockHitResult pHitResult) {
-        //this is always mainhand and empty hand, new since 1.20.6
-        if (pLevel.isClientSide)
-            return InteractionResult.SUCCESS;
+    protected ItemInteractionResult useItemOn(ItemStack pStack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHitResult) {
+        if(!pLevel.isClientSide() && pHand == InteractionHand.MAIN_HAND && pPlayer.getMainHandItem().isEmpty()){
+            List<Pair<BlockPos, Integer>> result = new ArrayList<>();
+            var connected = Logistics.get().getNetwork(GlobalPos.of(pLevel.dimension(), pPos));
 
-        List<Pair<BlockPos, Integer>> result = new ArrayList<>();
-        var connected = Logistics.get().getNetwork(GlobalPos.of(pLevel.dimension(), pPos));
-        for (var block : connected.nodes()) {
-            if (block.dimension().equals(pLevel.dimension())) {
-                result.add(Pair.of(block.pos(), 0xFFFFF00));
+            if(connected != null){
+                for (var block : connected.nodes()) {
+                    if (block.dimension().equals(pLevel.dimension())) {
+                        result.add(Pair.of(block.pos(), 0xFFFFF00));
+                    }
+                }
+                Networking.sendTo((ServerPlayer) pPlayer, new MessageShowLogisticsNodeStatus(result));
+
             }
-        }
-        Networking.sendTo((ServerPlayer) pPlayer, new MessageShowLogisticsNodeStatus(result));
+            return ItemInteractionResult.SUCCESS;
 
-        return InteractionResult.SUCCESS;
+        }
+
+        return super.useItemOn(pStack, pState, pLevel, pPos, pPlayer, pHand, pHitResult);
     }
 
     @Override

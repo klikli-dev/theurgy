@@ -1,7 +1,5 @@
 {
-  "type": "theurgy:distillation",
-  "category": "misc",
-  "conditions": [
+  "neoforge:conditions": [
     {
       "type": "neoforge:not",
       "value": {
@@ -10,6 +8,8 @@
       }
     }
   ],
+  "type": "theurgy:distillation",
+  "category": "misc",
   "ingredient": {
     "count": 5,
     "ingredient": {

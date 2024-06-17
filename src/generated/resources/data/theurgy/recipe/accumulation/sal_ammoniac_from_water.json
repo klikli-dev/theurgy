@@ -1,7 +1,5 @@
 {
-  "type": "theurgy:accumulation",
-  "category": "misc",
-  "conditions": [
+  "neoforge:conditions": [
     {
       "type": "neoforge:not",
       "value": {
@@ -10,6 +8,8 @@
       }
     }
   ],
+  "type": "theurgy:accumulation",
+  "category": "misc",
   "evaporant": {
     "amount": 1000,
     "ingredient": {

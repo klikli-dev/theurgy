@@ -1,7 +1,5 @@
 {
-  "type": "theurgy:liquefaction",
-  "category": "misc",
-  "conditions": [
+  "neoforge:conditions": [
     {
       "type": "neoforge:not",
       "value": {
@@ -10,6 +8,8 @@
       }
     }
   ],
+  "type": "theurgy:liquefaction",
+  "category": "misc",
   "ingredient": {
     "tag": "c:ores/lead"
   },

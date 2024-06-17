@@ -1,7 +1,5 @@
 {
-  "type": "theurgy:calcination",
-  "category": "misc",
-  "conditions": [
+  "neoforge:conditions": [
     {
       "type": "neoforge:not",
       "value": {
@@ -10,6 +8,8 @@
       }
     }
   ],
+  "type": "theurgy:calcination",
+  "category": "misc",
   "ingredient": {
     "count": 1,
     "ingredient": {

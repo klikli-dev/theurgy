@@ -248,10 +248,10 @@ public abstract class JsonRecipeProvider implements DataProvider {
         }
 
         public T condition(ICondition condition) {
-            if (!this.recipe.has("conditions"))
-                this.recipe.add("conditions", new JsonArray());
+            if (!this.recipe.has("neoforge:conditions"))
+                this.recipe.add("neoforge:conditions", new JsonArray());
 
-            this.recipe.getAsJsonArray("conditions").add(
+            this.recipe.getAsJsonArray("neoforge:conditions").add(
                     ICondition.CODEC.encodeStart(JsonOps.INSTANCE, condition).getOrThrow()
             );
             return this.getThis();

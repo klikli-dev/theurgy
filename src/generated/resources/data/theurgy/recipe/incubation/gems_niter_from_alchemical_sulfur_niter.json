@@ -1,7 +1,5 @@
 {
-  "type": "theurgy:incubation",
-  "category": "misc",
-  "conditions": [
+  "neoforge:conditions": [
     {
       "type": "neoforge:not",
       "value": {
@@ -10,6 +8,8 @@
       }
     }
   ],
+  "type": "theurgy:incubation",
+  "category": "misc",
   "mercury": {
     "item": "theurgy:mercury_shard"
   },

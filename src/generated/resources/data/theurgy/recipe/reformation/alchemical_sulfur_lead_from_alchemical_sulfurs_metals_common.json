@@ -1,7 +1,5 @@
 {
-  "type": "theurgy:reformation",
-  "category": "misc",
-  "conditions": [
+  "neoforge:conditions": [
     {
       "type": "neoforge:not",
       "value": {
@@ -10,6 +8,8 @@
       }
     }
   ],
+  "type": "theurgy:reformation",
+  "category": "misc",
   "mercuryFlux": 100,
   "result": {
     "type": "theurgy:item",

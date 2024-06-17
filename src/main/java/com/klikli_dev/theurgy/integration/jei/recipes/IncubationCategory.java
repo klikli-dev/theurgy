@@ -32,6 +32,7 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import static mezz.jei.api.recipe.RecipeIngredientRole.INPUT;
@@ -116,29 +117,9 @@ public class IncubationCategory implements IRecipeCategory<RecipeHolder<Incubati
                 .setBackground(JeiDrawables.INPUT_SLOT, -1, -1)
                 .addIngredients(recipe.value().getMercury());
 
-        //sulfurs in the recipe are in most cases specified only via the item id (as one sulfur = one item), but for rendering we need the nbt, so we get it from the corresponding recipe.
-        var recipeManager = Minecraft.getInstance().level.getRecipeManager();
-        var liquefactionRecipes = recipeManager.getAllRecipesFor(RecipeTypeRegistry.LIQUEFACTION.get()).stream().filter(r -> r.value().getResultItem(Minecraft.getInstance().level.registryAccess()) != null).collect(Collectors.toList());
-
-        var sulfurIngredients = Arrays.stream(recipe.value().getSulfur().getItems()).map(sulfur -> {
-            if (sulfur.hasTag())
-                return sulfur;
-
-            var sulfurItem = sulfur.getItem();
-            var sulfurWithNbt = liquefactionRecipes.stream()
-                    .filter(r -> r.value().getResultItem(Minecraft.getInstance().level.registryAccess()).getItem() == sulfurItem).map(r -> r.value().getResultItem(Minecraft.getInstance().level.registryAccess())).findFirst();
-
-            if (sulfurWithNbt.isPresent()) {
-                sulfur = sulfur.copy();
-                sulfur.setTag(sulfurWithNbt.get().getTag());
-            }
-
-            return sulfur;
-        }).toList();
-
         builder.addSlot(INPUT, 1, 21)
                 .setBackground(JeiDrawables.INPUT_SLOT, -1, -1)
-                .addItemStacks(sulfurIngredients);
+                .addItemStacks(Arrays.asList(recipe.value().getSulfur().getItems()));
 
         builder.addSlot(INPUT, 1, 42)
                 .setBackground(JeiDrawables.INPUT_SLOT, -1, -1)

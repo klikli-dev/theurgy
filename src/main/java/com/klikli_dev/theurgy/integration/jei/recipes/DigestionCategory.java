@@ -10,7 +10,6 @@ import com.google.common.cache.LoadingCache;
 import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.content.gui.GuiTextures;
 import com.klikli_dev.theurgy.content.recipe.DigestionRecipe;
-import com.klikli_dev.theurgy.datagen.recipe.IngredientWithCount;
 import com.klikli_dev.theurgy.integration.jei.JeiDrawables;
 import com.klikli_dev.theurgy.integration.jei.JeiRecipeTypes;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
@@ -33,6 +32,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import net.neoforged.neoforge.common.crafting.SizedIngredient;
 import net.neoforged.neoforge.fluids.FluidStack;
 
 import java.util.Arrays;
@@ -127,7 +127,7 @@ public class DigestionCategory implements IRecipeCategory<RecipeHolder<Digestion
         return this.localizedName;
     }
 
-    public void addToSlot(IRecipeSlotBuilder builder, int ingredientIndex, List<IngredientWithCount> ingredients) {
+    public void addToSlot(IRecipeSlotBuilder builder, int ingredientIndex, List<SizedIngredient> ingredients) {
         if (ingredientIndex >= ingredients.size())
             return;
 

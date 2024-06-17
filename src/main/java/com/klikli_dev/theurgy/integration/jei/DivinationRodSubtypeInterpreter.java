@@ -4,7 +4,7 @@
 
 package com.klikli_dev.theurgy.integration.jei;
 
-import com.klikli_dev.theurgy.TheurgyConstants;
+import com.klikli_dev.theurgy.registry.DataComponentRegistry;
 import mezz.jei.api.ingredients.subtypes.IIngredientSubtypeInterpreter;
 import mezz.jei.api.ingredients.subtypes.UidContext;
 import net.minecraft.world.item.ItemStack;
@@ -21,20 +21,14 @@ public class DivinationRodSubtypeInterpreter implements IIngredientSubtypeInterp
 
     @Override
     public String apply(ItemStack ingredient, UidContext context) {
-        var tag = ingredient.getTag();
+        var settingTier = ingredient.getOrDefault(DataComponentRegistry.DIVINATION_SETTINGS_TIER, "");
+        var settingAllowedBlocksTag = ingredient.getOrDefault(DataComponentRegistry.DIVINATION_SETTINGS_ALLOWED_BLOCKS_TAG, "");
+        var settingDisallowedBlocksTag = ingredient.getOrDefault(DataComponentRegistry.DIVINATION_SETTINGS_DISALLOWED_BLOCKS_TAG, "");
+        var settingRange = ingredient.getOrDefault(DataComponentRegistry.DIVINATION_SETTINGS_RANGE, 0);
+        var settingDuration = ingredient.getOrDefault(DataComponentRegistry.DIVINATION_SETTINGS_DURATION, 0);
+        var settingDurability = ingredient.getOrDefault(DataComponentRegistry.DIVINATION_SETTINGS_MAX_DAMAGE, 0);
+        var settingAllowAttuning = ingredient.getOrDefault(DataComponentRegistry.DIVINATION_SETTINGS_ALLOW_ATTUNING, false);
 
-        if (tag != null) {
-            var settingTier = tag.getInt(TheurgyConstants.Nbt.Divination.SETTING_TIER);
-            var settingAllowedBlocksTag = tag.getString(TheurgyConstants.Nbt.Divination.SETTING_ALLOWED_BLOCKS_TAG);
-            var settingDisallowedBlocksTag = tag.getString(TheurgyConstants.Nbt.Divination.SETTING_DISALLOWED_BLOCKS_TAG);
-            var settingRange = tag.getInt(TheurgyConstants.Nbt.Divination.SETTING_RANGE);
-            var settingDuration = tag.getInt(TheurgyConstants.Nbt.Divination.SETTING_DURATION);
-            var settingDurability = tag.getInt(TheurgyConstants.Nbt.Divination.SETTING_DURABILITY);
-            var settingAllowAttuning = tag.getBoolean(TheurgyConstants.Nbt.Divination.SETTING_ALLOW_ATTUNING);
-
-            return String.format("%s_%s_%s_%s_%s_%s_%s", settingTier, settingAllowedBlocksTag, settingDisallowedBlocksTag, settingRange, settingDuration, settingDurability, settingAllowAttuning);
-        }
-
-        return IIngredientSubtypeInterpreter.NONE;
+        return String.format("%s_%s_%s_%s_%s_%s_%s", settingTier, settingAllowedBlocksTag, settingDisallowedBlocksTag, settingRange, settingDuration, settingDurability, settingAllowAttuning);
     }
 }

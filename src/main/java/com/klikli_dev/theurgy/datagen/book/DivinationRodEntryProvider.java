@@ -66,6 +66,20 @@ public class DivinationRodEntryProvider extends CategoryProvider {
         throw new UnsupportedOperationException("This is a dummy provider to help generate entries, it should not be used to generate a Category.");
     }
 
+    protected BookEntryModel entry() {
+        var entry = BookEntryModel.create(
+                        this.modLoc(this.context().categoryId() + "/" + this.context().entryId()),
+                        this.context().entryName()
+                )
+                .withDescription(this.context().entryDescription());
+
+        return entry;
+    }
+
+    protected BookEntryModel entry(char location) {
+        return this.entry().withLocation(this.entryMap().get(location));
+    }
+
     public BookEntryModel aboutDivinationRods(char location) {
         this.context().entry("about_divination_rods");
         this.add(this.context().entryName(), "About Divination Rods");

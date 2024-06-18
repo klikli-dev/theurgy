@@ -16,17 +16,19 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
+import net.neoforged.neoforge.common.util.Lazy;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
 public class SwitchLogisticsEnabledMode extends MercurialWandItemMode {
 
-    private final ItemModeRenderHandler<SwitchLogisticsEnabledMode> renderHandler;
+    private final Lazy<ItemModeRenderHandler<SwitchLogisticsEnabledMode>> renderHandler;
 
     protected SwitchLogisticsEnabledMode() {
         super();
-        this.renderHandler = new ItemModeRenderHandler<>(this);
+        //We're using a lazy so that on the serverside we don't construct the client-only renderer UNLESS code actually calls it in which case we will crash which is fine as a warning.
+        this.renderHandler = Lazy.of(() -> new ItemModeRenderHandler<>(this));
     }
 
     @Override
@@ -61,7 +63,7 @@ public class SwitchLogisticsEnabledMode extends MercurialWandItemMode {
 
     @Override
     public ItemModeRenderHandler<?> renderHandler() {
-        return this.renderHandler;
+        return this.renderHandler.get();
     }
 
     @Override

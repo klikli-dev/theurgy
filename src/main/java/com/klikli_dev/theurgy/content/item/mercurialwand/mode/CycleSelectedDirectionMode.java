@@ -16,17 +16,19 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
+import net.neoforged.neoforge.common.util.Lazy;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
 public class CycleSelectedDirectionMode extends MercurialWandItemMode {
 
-    private final RotateSelectedDirectionModeRenderHandler renderHandler;
+    private final Lazy<RotateSelectedDirectionModeRenderHandler> renderHandler;
 
     protected CycleSelectedDirectionMode() {
         super();
-        this.renderHandler = new RotateSelectedDirectionModeRenderHandler(this);
+        //We're using a lazy so that on the serverside we don't construct the client-only renderer UNLESS code actually calls it in which case we will crash which is fine as a warning.
+        this.renderHandler = Lazy.of(() -> new RotateSelectedDirectionModeRenderHandler(this));
     }
 
     @Override
@@ -56,7 +58,7 @@ public class CycleSelectedDirectionMode extends MercurialWandItemMode {
 
     @Override
     public RotateSelectedDirectionModeRenderHandler renderHandler() {
-        return this.renderHandler;
+        return this.renderHandler.get();
     }
 
     @Override

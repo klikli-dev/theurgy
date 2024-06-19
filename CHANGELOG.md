@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.19.2] - 2024-06-19
+### :bug: Bug Fixes
+- [`35d4e08`](https://github.com/klikli-dev/theurgy/commit/35d4e08e0664bf004512ef35e0ca292b25eec773) - reformation arrays do not recognize source pedestals any more *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.1-1.19.1] - 2024-06-16
 ### :bug: Bug Fixes
 - [`c46f7ce`](https://github.com/klikli-dev/theurgy/commit/c46f7ce03e188c8674fd3ce39ed8c7ca5f5e2198) - crash when switching reformation array blocks *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -485,3 +490,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.17.5]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.17.4...release/v1.20.1-1.17.5
 [release/v1.20.1-1.19.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.17.5...release/v1.20.1-1.19.0
 [release/v1.20.1-1.19.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.19.0...release/v1.20.1-1.19.1
+[release/v1.20.1-1.19.2]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.19.1...release/v1.20.1-1.19.2

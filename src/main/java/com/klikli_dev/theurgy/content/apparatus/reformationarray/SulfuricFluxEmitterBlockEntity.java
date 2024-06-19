@@ -127,7 +127,7 @@ public class SulfuricFluxEmitterBlockEntity extends BlockEntity {
         var hasSourcePedestals = false;
         for (var sourcePedestal : this.sourcePedestals) {
             var sourcePedestalBlockEntity = this.level.getBlockEntity(sourcePedestal.getBlockPos());
-            if (!(sourcePedestalBlockEntity instanceof ReformationSourcePedestalBlockEntity)) {
+            if (sourcePedestalBlockEntity instanceof ReformationSourcePedestalBlockEntity) {
                 hasSourcePedestals = true;
             }
         }

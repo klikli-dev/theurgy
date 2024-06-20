@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21-1.22.4] - 2024-06-20
+### :bug: Bug Fixes
+- [`290c1e5`](https://github.com/klikli-dev/theurgy/commit/290c1e5b6c04f751ccb46dc2e2409f314c38b97b) - accumulation recipes not loading *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21-1.22.3] - 2024-06-19
 ### :bug: Bug Fixes
 - [`2759f24`](https://github.com/klikli-dev/theurgy/commit/2759f24235b79d9b9edb4404dea067b246aa04eb) - reformation arrays do not recognize source pedestals any more *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -623,3 +628,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21-1.22.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.22.0...release/v1.21-1.22.1
 [release/v1.21-1.22.2]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.22.1...release/v1.21-1.22.2
 [release/v1.21-1.22.3]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.22.2...release/v1.21-1.22.3
+[release/v1.21-1.22.4]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.22.3...release/v1.21-1.22.4

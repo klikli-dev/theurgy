@@ -3,7 +3,7 @@
     {
       "type": "neoforge:not",
       "value": {
-        "type": "neoforge:tag_empty",
+        "type": "theurgy:fluid_tag_empty",
         "tag": "minecraft:water"
       }
     },

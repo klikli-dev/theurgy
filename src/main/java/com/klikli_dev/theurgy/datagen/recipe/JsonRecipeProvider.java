@@ -7,6 +7,7 @@ package com.klikli_dev.theurgy.datagen.recipe;
 import com.google.common.collect.Sets;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.klikli_dev.theurgy.content.recipe.condition.FluidTagEmptyCondition;
 import com.klikli_dev.theurgy.content.recipe.result.ItemRecipeResult;
 import com.klikli_dev.theurgy.content.recipe.result.RecipeResult;
 import com.klikli_dev.theurgy.content.recipe.result.TagRecipeResult;
@@ -220,7 +221,7 @@ public abstract class JsonRecipeProvider implements DataProvider {
 
         public T sizedFluidIngredient(String propertyName, TagKey<Fluid> fluid, int amount) {
             this.recipe.add(propertyName, SizedFluidIngredient.NESTED_CODEC.encodeStart(JsonOps.INSTANCE, SizedFluidIngredient.of(fluid, amount)).getOrThrow());
-            this.condition(new NotCondition(new TagEmptyCondition(fluid.location().toString())));
+            this.condition(new NotCondition(new FluidTagEmptyCondition(fluid.location().toString())));
             return this.getThis();
         }
 

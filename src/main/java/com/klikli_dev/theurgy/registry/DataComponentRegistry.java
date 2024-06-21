@@ -23,6 +23,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.Tiers;
 import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.item.component.ItemContainerContents;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -144,6 +145,25 @@ public class DataComponentRegistry {
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<CustomData>> MERCURY_CATALYST_INVENTORY = DATA_COMPONENTS.registerComponentType("mercury_catalyst_inventory", builder -> builder
             .persistent(CustomData.CODEC)
             .networkSynchronized(CustomData.STREAM_CODEC)
+            .cacheEncoding()
+    );
+
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<ItemContainerContents>> FILTER_ITEMS = DATA_COMPONENTS.registerComponentType("filter_items", builder -> builder
+            .persistent(ItemContainerContents.CODEC)
+            .networkSynchronized(ItemContainerContents.STREAM_CODEC)
+            .cacheEncoding()
+    );
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Boolean>> FILTER_IS_DENY_LIST = DATA_COMPONENTS.registerComponentType("filter_is_deny_list", builder -> builder
+            .persistent(Codec.BOOL)
+            .networkSynchronized(ByteBufCodecs.BOOL)
+            .cacheEncoding()
+    );
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Boolean>> FILTER_RESPECTS_DATA_COMPONENTS = DATA_COMPONENTS.registerComponentType("filter_respects_data_components", builder -> builder
+            .persistent(Codec.BOOL)
+            .networkSynchronized(ByteBufCodecs.BOOL)
             .cacheEncoding()
     );
 

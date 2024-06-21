@@ -27,7 +27,13 @@ public enum GuiTextures implements ScreenElement {
 
     BUTTON("widgets", 18, 18),
     BUTTON_HOVER("widgets", 18, 0, 18, 18),
-    BUTTON_DOWN("widgets", 36, 0, 18, 18);
+    BUTTON_DOWN("widgets", 36, 0, 18, 18),
+
+    INDICATOR("widgets", 0, 18, 18, 6),
+    INDICATOR_WHITE("widgets", 18, 18, 18, 6),
+    INDICATOR_GREEN("widgets", 36, 18, 18, 6),
+    INDICATOR_YELLOW("widgets", 54, 18, 18, 6),
+    INDICATOR_RED("widgets", 72, 18, 18, 6);
 
     public final ResourceLocation location;
     public final int textureHeight;

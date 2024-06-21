@@ -39,7 +39,8 @@ class DistillationCachedCheck implements RecipeManager.CachedCheck<ItemHandlerRe
 
             var recipe = recipeManager.byKeyTyped(this.type, lastRecipe);
             //test only the ingredient without the (separate) ingredient count check that the recipe.matches() would.
-            if (recipe != null && recipe.value().getIngredient().test(stack)) {
+            //that means we call ingredient().test() instead of .test() (which would also match the count)
+            if (recipe != null && recipe.value().getIngredient().ingredient().test(stack)) {
                 return Optional.of(recipe);
             }
         }

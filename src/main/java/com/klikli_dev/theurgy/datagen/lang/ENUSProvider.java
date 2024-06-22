@@ -64,7 +64,6 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.addItemTag(item.location(), string);
     }
 
-
     private void addMisc() {
         this.add(TheurgyConstants.I18n.Tooltip.SHOW_EXTENDED, ChatFormatting.GOLD + "[" +
                 ChatFormatting.LIGHT_PURPLE + "shift " +
@@ -83,6 +82,11 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
                 ChatFormatting.GOLD + "]");
 
         this.add(TheurgyConstants.I18n.Misc.UNIT_MILLIBUCKETS, "%smB");
+    }
+
+    private void addGui(){
+        this.add(TheurgyConstants.I18n.Gui.FILTER_RESET_BUTTON_TOOLTIP, "Reset Filter Settings");
+        this.add(TheurgyConstants.I18n.Gui.FILTER_CONFIRM_BUTTON_TOOLTIP, "Save Filter Settings");
     }
 
     private void addBehaviours() {
@@ -554,7 +558,6 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.add(key.get().getDescriptionId() + TheurgyConstants.I18n.Item.ALCHEMICAL_SULFUR_SOURCE_SUFFIX, name);
     }
 
-
     public void addIngredientInfo(Supplier<Item> ingredient, String info) {
         this.add("jei." + Theurgy.MODID + ".ingredient." +
                 BuiltInRegistries.ITEM.getKey(ingredient.get()).getPath() + ".description", info);
@@ -812,6 +815,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.addFluids();
         this.addIntegrations();
         this.addBehaviours();
+        this.addGui();
     }
 
 

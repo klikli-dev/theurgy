@@ -19,6 +19,7 @@ import com.klikli_dev.theurgy.content.apparatus.mercurycatalyst.MercuryCatalystB
 import com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator.render.SalAmmoniacAccumulatorRenderer;
 import com.klikli_dev.theurgy.content.apparatus.salammoniactank.render.SalAmmoniacTankRenderer;
 import com.klikli_dev.theurgy.content.item.divinationrod.DivinationRodItem;
+import com.klikli_dev.theurgy.content.item.filter.ListFilterScreen;
 import com.klikli_dev.theurgy.content.item.mode.ModeItem;
 import com.klikli_dev.theurgy.content.item.salt.AlchemicalSaltItem;
 import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurItem;
@@ -121,6 +122,7 @@ public class Theurgy {
             modEventBus.addListener(Client::onRegisterItemColors);
             modEventBus.addListener(Client::onRegisterBlockColors);
             modEventBus.addListener(Client::onRegisterGuiOverlays);
+            modEventBus.addListener(Client::onRegisterMenuScreens);
             modEventBus.addListener(BlockOverlays::onTextureAtlasStitched);
             modEventBus.addListener(KeyMappingsRegistry::onRegisterKeyMappings);
             NeoForge.EVENT_BUS.addListener(Client::onRenderLevelStage);
@@ -270,6 +272,10 @@ public class Theurgy {
 
         public static void onRegisterGuiOverlays(RegisterGuiLayersEvent event) {
             event.registerAbove(VanillaGuiLayers.HOTBAR, Theurgy.loc("item_hud"), ItemHUD.get());
+        }
+
+        public static void onRegisterMenuScreens(RegisterMenuScreensEvent event){
+            event.register(MenuTypeRegistry.LIST_FILTER.get(), ListFilterScreen::new);
         }
 
         public static void onMouseScrolling(InputEvent.MouseScrollingEvent event) {

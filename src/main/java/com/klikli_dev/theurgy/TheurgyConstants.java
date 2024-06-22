@@ -132,6 +132,18 @@ public class TheurgyConstants {
             public static final String PREFIX = Theurgy.MODID + ".gui.";
             public static final String FILTER_RESET_BUTTON_TOOLTIP = PREFIX + "filter.reset_button.tooltip";
             public static final String FILTER_CONFIRM_BUTTON_TOOLTIP = PREFIX + "filter.confirm_button.tooltip";
+
+            public static final String FILTER_DENY_LIST_BUTTON_TOOLTIP = PREFIX + "filter.deny_list_button.tooltip";
+            public static final String FILTER_DENY_LIST_BUTTON_TOOLTIP_SHIFT = PREFIX + "filter.deny_list_button.tooltip.shift";
+
+            public static final String FILTER_ACCEPT_LIST_BUTTON_TOOLTIP = PREFIX + "filter.accept_list_button.tooltip";
+            public static final String FILTER_ACCEPT_LIST_BUTTON_TOOLTIP_SHIFT = PREFIX + "filter.accept_list_button.tooltip.shift";
+
+            public static final String FILTER_IGNORE_DATA_COMPONENTS_BUTTON_TOOLTIP = PREFIX + "filter.ignore_data_components_button.tooltip";
+            public static final String FILTER_IGNORE_DATA_COMPONENTS_BUTTON_TOOLTIP_SHIFT = PREFIX + "filter.ignore_data_components_button.tooltip.shift";
+
+            public static final String FILTER_RESPECT_DATA_COMPONENTS_BUTTON_TOOLTIP = PREFIX + "filter.respect_data_components_button.tooltip";
+            public static final String FILTER_RESPECT_DATA_COMPONENTS_BUTTON_TOOLTIP_SHIFT = PREFIX + "filter.respect_data_components_button.tooltip.shift";
         }
     }
 

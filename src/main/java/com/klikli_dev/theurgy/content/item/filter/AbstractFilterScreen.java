@@ -82,6 +82,7 @@ public abstract class AbstractFilterScreen<T extends AbstractFilterMenu> extends
             this.menu.player.closeContainer();
 
         super.containerTick();
+
         this.updateButtonState();
         this.updateIndicatorState();
     }

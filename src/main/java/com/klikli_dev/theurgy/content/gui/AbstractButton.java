@@ -44,8 +44,16 @@ public abstract class AbstractButton extends AbstractWidget {
         return (T) this;
     }
 
+    public <T extends AbstractButton> T withTooltip(String component) {
+        return this.withTooltip(Component.translatable(component));
+    }
+
     public <T extends AbstractButton> T withTooltip(Component component) {
         return this.withTooltip(Tooltip.create(component));
+    }
+
+    public <T extends AbstractButton> T withTooltip(String component, String shiftDownComponent) {
+        return this.withTooltip(Component.translatable(component), (Component.translatable(shiftDownComponent)));
     }
 
     public <T extends AbstractButton> T withTooltip(Component component, Component shiftDownComponent) {

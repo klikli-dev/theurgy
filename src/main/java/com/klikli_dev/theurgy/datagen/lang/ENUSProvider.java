@@ -87,6 +87,18 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
     private void addGui(){
         this.add(TheurgyConstants.I18n.Gui.FILTER_RESET_BUTTON_TOOLTIP, "Reset Filter Settings");
         this.add(TheurgyConstants.I18n.Gui.FILTER_CONFIRM_BUTTON_TOOLTIP, "Save Filter Settings");
+
+        this.add(TheurgyConstants.I18n.Gui.FILTER_ACCEPT_LIST_BUTTON_TOOLTIP, "Allow-List");
+        this.add(TheurgyConstants.I18n.Gui.FILTER_ACCEPT_LIST_BUTTON_TOOLTIP_SHIFT, "Items pass if they match any of the above. An empty Allow-List rejects everything.");
+
+        this.add(TheurgyConstants.I18n.Gui.FILTER_DENY_LIST_BUTTON_TOOLTIP, "Deny-List");
+        this.add(TheurgyConstants.I18n.Gui.FILTER_DENY_LIST_BUTTON_TOOLTIP_SHIFT, "Items pass if they DO NOT match any of the above. An empty Deny-List accepts everything.");
+
+        this.add(TheurgyConstants.I18n.Gui.FILTER_RESPECT_DATA_COMPONENTS_BUTTON_TOOLTIP, "Respect Data");
+        this.add(TheurgyConstants.I18n.Gui.FILTER_RESPECT_DATA_COMPONENTS_BUTTON_TOOLTIP_SHIFT, "Items pass if they match the data components of the filter item (durability, enchantments and others).");
+
+        this.add(TheurgyConstants.I18n.Gui.FILTER_IGNORE_DATA_COMPONENTS_BUTTON_TOOLTIP, "Ignore Data");
+        this.add(TheurgyConstants.I18n.Gui.FILTER_IGNORE_DATA_COMPONENTS_BUTTON_TOOLTIP_SHIFT, "Items pass regardless of their data components (durability, enchantments and others).");
     }
 
     private void addBehaviours() {

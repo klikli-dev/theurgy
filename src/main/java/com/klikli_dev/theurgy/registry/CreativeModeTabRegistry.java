@@ -35,6 +35,7 @@ public class CreativeModeTabRegistry {
                 output.accept(ItemRegistry.SAL_AMMONIAC_BUCKET.get());
                 output.accept(ItemRegistry.COPPER_WIRE.get());
                 output.accept(ItemRegistry.MERCURIAL_WAND.get());
+                output.accept(ItemRegistry.LIST_FILTER.get());
 
                 output.accept(ItemRegistry.MERCURY_SHARD.get());
                 output.accept(ItemRegistry.MERCURY_CRYSTAL.get());

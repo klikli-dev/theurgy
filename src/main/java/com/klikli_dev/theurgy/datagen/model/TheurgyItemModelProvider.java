@@ -190,5 +190,6 @@ public class TheurgyItemModelProvider extends net.neoforged.neoforge.client.mode
 
         this.registerItemGenerated(this.name(ItemRegistry.COPPER_WIRE.get()));
         this.registerItemHandheld(this.name(ItemRegistry.MERCURIAL_WAND.get()));
+        this.registerItemGenerated(this.name(ItemRegistry.LIST_FILTER.get()));
     }
 }

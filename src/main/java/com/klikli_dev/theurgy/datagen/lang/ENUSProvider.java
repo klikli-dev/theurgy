@@ -740,7 +740,6 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         );
 
         this.addItem(ItemRegistry.MERCURIAL_WAND, "Mercurial Wand");
-
         var wandUsage = this.f("""
                         {0} to use current mode.
                         Hold {1} and {3} to cycle through modes.
@@ -773,6 +772,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.add(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_SWITCH_LOGISTICS_ENABLED_SUCCESS, "Logistics Connector is now %s");
         this.add(TheurgyConstants.I18n.Item.Mode.ENABLED, "Enabled");
         this.add(TheurgyConstants.I18n.Item.Mode.DISABLED, "Disabled");
+
+        this.addItem(ItemRegistry.LIST_FILTER, "Mercurial List Filter");
 
 
         this.addItem(ItemRegistry.MERCURY_SHARD, "Mercury Shard");

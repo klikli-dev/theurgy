@@ -1092,6 +1092,7 @@
   "item.theurgy.jar_label_frame_rare_icon.tooltip": "Dummy item for rendering.",
   "item.theurgy.jar_label_icon": "Jar Label Icon",
   "item.theurgy.jar_label_icon.tooltip": "Dummy item for rendering.",
+  "item.theurgy.list_filter": "Mercurial List Filter",
   "item.theurgy.mercurial_wand": "Mercurial Wand",
   "item.theurgy.mercurial_wand.tooltip": "Definitely not just a wrench.",
   "item.theurgy.mercurial_wand.tooltip.extended": "Allows configuring alchemical apparatuses and mercurial logistics networks.",

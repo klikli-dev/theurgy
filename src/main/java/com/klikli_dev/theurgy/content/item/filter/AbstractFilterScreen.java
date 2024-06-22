@@ -59,6 +59,11 @@ public abstract class AbstractFilterScreen<T extends AbstractFilterMenu> extends
     }
 
     @Override
+    protected void renderLabels(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY) {
+        //prevent automatic rendering of container title
+    }
+
+    @Override
     protected void renderBg(GuiGraphics pGuiGraphics, float pPartialTick, int pMouseX, int pMouseY) {
         int invX = this.getLeftOfCentered(GuiTextures.PLAYER_INVENTORY.width);
         int invY = this.topPos + this.background.height + 4;

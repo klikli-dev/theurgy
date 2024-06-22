@@ -42,7 +42,7 @@ public class ListFilterMenu extends AbstractFilterMenu {
 
     @Override
     protected int getPlayerInventoryXOffset() {
-        return 38;
+        return 27;
     }
 
     @Override

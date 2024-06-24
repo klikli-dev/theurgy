@@ -813,4 +813,10 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.addIntegrations();
         this.addBehaviours();
     }
+
+
+    @Override
+    public void add(String key, String name) {
+        super.add(key, name);
+    }
 }

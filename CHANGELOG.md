@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21-1.23.0] - 2024-06-24
+### :sparkles: New Features
+- [`76d84fc`](https://github.com/klikli-dev/theurgy/commit/76d84fc3cf6ae1e67d7303082bef42e8d4c0d2a4) - update to latest modonomicon *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21-1.22.5] - 2024-06-21
 ### :bug: Bug Fixes
 - [`e4b673c`](https://github.com/klikli-dev/theurgy/commit/e4b673c9b16dccb9ea93ae172a08349d1cde65a8) - use of sizedingredient.test instead of ingredient.test *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -635,3 +640,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21-1.22.3]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.22.2...release/v1.21-1.22.3
 [release/v1.21-1.22.4]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.22.3...release/v1.21-1.22.4
 [release/v1.21-1.22.5]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.22.4...release/v1.21-1.22.5
+[release/v1.21-1.23.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.22.5...release/v1.21-1.23.0

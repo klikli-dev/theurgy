@@ -82,8 +82,8 @@ public class ListFilterScreen extends AbstractFilterScreen<ListFilterMenu> {
 
         this.denyListButton = new IconButton(x + 18, y + 75, GuiIcons.DENY_LIST);
         this.denyListButton.withTooltip(
-                TheurgyConstants.I18n.Gui.FILTER_ACCEPT_LIST_BUTTON_TOOLTIP,
-                TheurgyConstants.I18n.Gui.FILTER_ACCEPT_LIST_BUTTON_TOOLTIP_SHIFT
+                TheurgyConstants.I18n.Gui.FILTER_DENY_LIST_BUTTON_TOOLTIP,
+                TheurgyConstants.I18n.Gui.FILTER_DENY_LIST_BUTTON_TOOLTIP_SHIFT
         );
         this.denyListButton.withOnClick(() -> {
             this.menu.isDenyList = true;

@@ -156,7 +156,6 @@ public class CalcinationOvenBlock extends Block implements EntityBlock {
                 for (int i = 0; i < blockEntity.storageBehaviour.inventory.getSlots(); i++) {
                     Containers.dropItemStack(pLevel, pPos.getX(), pPos.getY(), pPos.getZ(), blockEntity.storageBehaviour.inventory.getStackInSlot(i));
                 }
-                //Containers.dropItemStack(pLevel, pPos.getX(), pPos.getY(), pPos.getZ(), blockEntity.storageBehaviour.inventory.getStackInSlot(0));
             }
         }
         super.onRemove(pState, pLevel, pPos, pNewState, pIsMoving);

@@ -106,7 +106,7 @@ public class PyromanticBrazierBlock extends Block implements EntityBlock {
     public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
         if (!pState.is(pNewState.getBlock())) {
             if (pLevel.getBlockEntity(pPos) instanceof PyromanticBrazierBlockEntity blockEntity) {
-                Containers.dropContents(pLevel, pPos, new RecipeWrapper(blockEntity.inventory));
+                Containers.dropItemStack(pLevel, pPos.getX(), pPos.getY(), pPos.getZ(), blockEntity.inventory.getStackInSlot(0));
             }
         }
         super.onRemove(pState, pLevel, pPos, pNewState, pIsMoving);

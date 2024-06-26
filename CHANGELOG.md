@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21-1.23.1] - 2024-06-26
+### :bug: Bug Fixes
+- [`29b3bda`](https://github.com/klikli-dev/theurgy/commit/29b3bda764cb74e2b8245d9ac3e9023c1fe16c10) - [#189](https://github.com/klikli-dev/theurgy/pull/189) and [#188](https://github.com/klikli-dev/theurgy/pull/188) caused by deprecated dropContents function *(PR [#190](https://github.com/klikli-dev/theurgy/pull/190) by [@amahlaka](https://github.com/amahlaka))*
+  - :arrow_lower_right: *fixes issue [#189](https://github.com/klikli-dev/theurgy/issues/189) opened by [@amahlaka](https://github.com/amahlaka)*
+
+
 ## [release/v1.21-1.23.0] - 2024-06-24
 ### :sparkles: New Features
 - [`76d84fc`](https://github.com/klikli-dev/theurgy/commit/76d84fc3cf6ae1e67d7303082bef42e8d4c0d2a4) - update to latest modonomicon *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -641,3 +647,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21-1.22.4]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.22.3...release/v1.21-1.22.4
 [release/v1.21-1.22.5]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.22.4...release/v1.21-1.22.5
 [release/v1.21-1.23.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.22.5...release/v1.21-1.23.0
+[release/v1.21-1.23.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.23.0...release/v1.21-1.23.1

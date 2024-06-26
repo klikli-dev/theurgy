@@ -126,7 +126,6 @@ public class LogisticsItemExtractorBehaviour extends ExtractorNodeBehaviour<IIte
 
         this.distributor.tick(); //moved from super.tickServer() here because otherwise the distributor keeps moving targets despite not moving items
 
-
         var insertTarget = this.distributor.target();
         if (insertTarget == null)
             return;
@@ -152,11 +151,20 @@ public class LogisticsItemExtractorBehaviour extends ExtractorNodeBehaviour<IIte
         if (extractSlot == -1)
             return; //nothing found to extract
 
+        //	ItemStack inserted = stack.stack;
+        //		if (!filtering.test(inserted))
+        //			return inserted;
+
 
         //first simulate extraction, this tells us how much we can extract
         var extractStack = extractCap.extractItem(extractSlot, this.extractionAmount, true);
         if (extractStack.isEmpty())
             return;
+        //TODO: Filtering
+        //      we need to check the filter of the extractor
+        //      then we also need to check the filter of the inserter
+        //      PROBLEM: we don't have access to the inserter node the target comes from
+        //          so we probably need to save more info
 
 
         //TODO: better round robin distribution that works with extraction amounts > 1?

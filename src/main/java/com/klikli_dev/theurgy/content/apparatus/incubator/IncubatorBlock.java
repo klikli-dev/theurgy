@@ -183,7 +183,9 @@ public class IncubatorBlock extends Block implements EntityBlock {
     public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
         if (!pState.is(pNewState.getBlock())) {
             if (pState.getValue(HALF) == DoubleBlockHalf.LOWER && pLevel.getBlockEntity(pPos) instanceof IncubatorBlockEntity blockEntity) {
-                Containers.dropContents(pLevel, pPos, new RecipeWrapper(blockEntity.outputInventory));
+                for (int i = 0; i < blockEntity.outputInventory.getSlots(); i++) {
+                    Containers.dropItemStack(pLevel, pPos.getX(), pPos.getY(), pPos.getZ(), blockEntity.outputInventory.getStackInSlot(i));
+                }
             }
         }
         super.onRemove(pState, pLevel, pPos, pNewState, pIsMoving);

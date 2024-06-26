@@ -155,7 +155,9 @@ public class LiquefactionCauldronBlock extends Block implements EntityBlock {
     public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
         if (!pState.is(pNewState.getBlock())) {
             if (pState.getValue(HALF) == DoubleBlockHalf.LOWER && pLevel.getBlockEntity(pPos) instanceof LiquefactionCauldronBlockEntity blockEntity) {
-                Containers.dropContents(pLevel, pPos, new RecipeWrapper(blockEntity.storageBehaviour.inventory));
+                for (int i = 0; i < blockEntity.storageBehaviour.inventory.getSlots(); i++) {
+                    Containers.dropItemStack(pLevel, pPos.getX(), pPos.getY(), pPos.getZ(), blockEntity.storageBehaviour.inventory.getStackInSlot(i));
+                }
             }
         }
         super.onRemove(pState, pLevel, pPos, pNewState, pIsMoving);

@@ -50,11 +50,12 @@ public class ReformationResultPedestalBlock extends Block implements EntityBlock
     }
 
     @Override
-    @SuppressWarnings("deprecation")
     public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
         if (!pState.is(pNewState.getBlock())) {
             if (pLevel.getBlockEntity(pPos) instanceof ReformationResultPedestalBlockEntity blockEntity) {
-                Containers.dropContents(pLevel, pPos, new RecipeWrapper(blockEntity.outputInventory));
+                for (int i = 0; i < blockEntity.outputInventory.getSlots(); i++) {
+                    Containers.dropItemStack(pLevel, pPos.getX(), pPos.getY(), pPos.getZ(), blockEntity.outputInventory.getStackInSlot(i));
+                }
             }
         }
         super.onRemove(pState, pLevel, pPos, pNewState, pIsMoving);

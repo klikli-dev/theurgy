@@ -59,10 +59,12 @@ public class LogisticsItemInserterBlockEntity extends LogisticsItemConnectorBloc
 
     public void readNetwork(CompoundTag tag, HolderLookup.Provider pRegistries) {
         this.leafNode().readNetwork(tag, pRegistries);
+        this.filter().readNetwork(tag, pRegistries);
     }
 
     public void writeNetwork(CompoundTag tag, HolderLookup.Provider pRegistries) {
-        this.leafNode().writeNetwork(tag, pRegistries);;
+        this.leafNode().writeNetwork(tag, pRegistries);
+        this.filter().writeNetwork(tag, pRegistries);
     }
 
     protected void sendBlockUpdated() {

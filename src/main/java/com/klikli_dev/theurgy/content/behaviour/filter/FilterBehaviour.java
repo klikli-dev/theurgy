@@ -19,9 +19,6 @@ public class FilterBehaviour {
         this.callback = (stack) -> {
         };
         this.filter = Filter.empty();
-
-        //TODO: In the callback, update the filter of the leaf node
-        //TODO: in the callback, update the blockstate based on filter == empty or not
     }
 
     public Filter filter() {
@@ -33,8 +30,9 @@ public class FilterBehaviour {
         this.callback.accept(filter);
     }
 
-    public void withCallback(Consumer<Filter> callback) {
+    public FilterBehaviour withCallback(Consumer<Filter> callback) {
         this.callback = callback;
+        return this;
     }
 
     public void saveAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {

@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21-1.24.0] - 2024-06-27
+### :sparkles: New Features
+- [`d35283e`](https://github.com/klikli-dev/theurgy/commit/d35283e94370165d250ce488b762278ca6dee3b7) - Add filters for logistics system *(PR [#191](https://github.com/klikli-dev/theurgy/pull/191) by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21-1.23.1] - 2024-06-26
 ### :bug: Bug Fixes
 - [`29b3bda`](https://github.com/klikli-dev/theurgy/commit/29b3bda764cb74e2b8245d9ac3e9023c1fe16c10) - [#189](https://github.com/klikli-dev/theurgy/pull/189) and [#188](https://github.com/klikli-dev/theurgy/pull/188) caused by deprecated dropContents function *(PR [#190](https://github.com/klikli-dev/theurgy/pull/190) by [@amahlaka](https://github.com/amahlaka))*
@@ -648,3 +653,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21-1.22.5]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.22.4...release/v1.21-1.22.5
 [release/v1.21-1.23.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.22.5...release/v1.21-1.23.0
 [release/v1.21-1.23.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.23.0...release/v1.21-1.23.1
+[release/v1.21-1.24.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.23.1...release/v1.21-1.24.0

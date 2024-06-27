@@ -78,7 +78,7 @@ public abstract class AbstractFilterScreen<T extends AbstractFilterMenu> extends
 
     @Override
     protected void containerTick() {
-        if (!ItemStack.isSameItemSameComponents(this.menu.player.getMainHandItem(), this.menu.contentHolder))
+        if (!ItemStack.isSameItem(this.menu.player.getMainHandItem(), this.menu.contentHolder))
             this.menu.player.closeContainer();
 
         super.containerTick();

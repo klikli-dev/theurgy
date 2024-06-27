@@ -7,6 +7,7 @@
 package com.klikli_dev.theurgy.registry;
 
 import com.klikli_dev.theurgy.Theurgy;
+import com.klikli_dev.theurgy.content.item.filter.FilterMode;
 import com.klikli_dev.theurgy.content.item.mercurialwand.mode.MercurialWandItemMode;
 import com.klikli_dev.theurgy.logistics.WireEndPoint;
 import com.klikli_dev.theurgy.util.TheurgyExtraCodecs;
@@ -20,15 +21,12 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.Tiers;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.component.ItemContainerContents;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
-
-import java.util.function.UnaryOperator;
 
 public class DataComponentRegistry {
 
@@ -164,6 +162,12 @@ public class DataComponentRegistry {
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Boolean>> FILTER_RESPECTS_DATA_COMPONENTS = DATA_COMPONENTS.registerComponentType("filter_respects_data_components", builder -> builder
             .persistent(Codec.BOOL)
             .networkSynchronized(ByteBufCodecs.BOOL)
+            .cacheEncoding()
+    );
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<FilterMode>> FILTER_MODE = DATA_COMPONENTS.registerComponentType("filter_is_deny_list", builder -> builder
+            .persistent(FilterMode.CODEC)
+            .networkSynchronized(FilterMode.STREAM_CODEC)
             .cacheEncoding()
     );
 

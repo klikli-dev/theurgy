@@ -47,16 +47,22 @@ public abstract class LogisticsItemConnectorBlock extends DirectionalBlock imple
     }
 
     @Override
-    protected ItemInteractionResult useItemOn(ItemStack pStack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHitResult) {
+    protected @NotNull ItemInteractionResult useItemOn(@NotNull ItemStack pStack, @NotNull BlockState pState, @NotNull Level pLevel, @NotNull BlockPos pPos, Player pPlayer, @NotNull InteractionHand pHand, @NotNull BlockHitResult pHitResult) {
+        if(!(pLevel.getBlockEntity(pPos) instanceof LogisticsItemConnectorBlockEntity blockEntity)){
+            return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        }
+
+        var result = blockEntity.filter().useItemOn(pStack, pState, pLevel, pPos, pPlayer, pHand, pHitResult);
+        if(result != ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION)
+            return result;
+
         if (!pPlayer.getItemInHand(pHand).isEmpty())
             return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 
         if (pLevel.isClientSide)
             return ItemInteractionResult.SUCCESS;
 
-        if (pLevel.getBlockEntity(pPos) instanceof LogisticsItemConnectorBlockEntity blockEntity) {
-            Networking.sendTo((ServerPlayer) pPlayer, new MessageShowLogisticsNodeStatus(blockEntity.getStatusHighlights()));
-        }
+        Networking.sendTo((ServerPlayer) pPlayer, new MessageShowLogisticsNodeStatus(blockEntity.getStatusHighlights()));
 
         return ItemInteractionResult.SUCCESS;
     }

@@ -59,7 +59,7 @@ public class ListFilter extends Filter {
         for (int i = 0; i < items.getSlots(); i++) {
             ItemStack stackInSlot = items.getStackInSlot(i);
             if (!stackInSlot.isEmpty())
-                this.filterItems.add(stackInSlot);
+                result.add(stackInSlot);
         }
 
         return result;

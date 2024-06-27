@@ -115,7 +115,7 @@ public abstract class LogisticsItemConnectorBlockEntity extends BlockEntity impl
     protected void updateBlockStateToMatchFilter() {
         var isEmpty = !this.getBlockState().getValue(LogisticsItemConnectorBlock.HAS_FILTER);
         if(this.filter().filter().isEmpty() != isEmpty){
-            var newState = this.getBlockState().setValue(LogisticsItemConnectorBlock.HAS_FILTER, this.filter().filter().isEmpty());
+            var newState = this.getBlockState().setValue(LogisticsItemConnectorBlock.HAS_FILTER, !this.filter().filter().isEmpty());
             this.level.setBlock(this.getBlockPos(), newState, Block.UPDATE_ALL);
         }
     }

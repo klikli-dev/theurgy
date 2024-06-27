@@ -7,6 +7,7 @@ package com.klikli_dev.theurgy.datagen.model;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorBlock;
 import com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron.LiquefactionCauldronBlock;
+import com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector.LogisticsItemConnectorBlock;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import net.minecraft.client.renderer.block.model.BlockModel;
 import net.minecraft.core.Direction;
@@ -54,15 +55,24 @@ public class TheurgyBlockStateProvider extends BlockStateProvider {
 
         this.registerFermentationVat();
         this.registerDigestionVat();
-        this.registerLogisticsItemInserter();
-        this.registerLogisticsItemExtractor();
+        var filter = this.makeLogisticsFilterModel();
+        this.registerLogisticsItemInserter(filter);
+        this.registerLogisticsItemExtractor(filter);
         this.registerLogisticsNode();
 
         this.simpleBlockWithItem(BlockRegistry.SAL_AMMONIAC_ORE.get(), this.cubeAll(BlockRegistry.SAL_AMMONIAC_ORE.get()));
         this.simpleBlockWithItem(BlockRegistry.DEEPSLATE_SAL_AMMONIAC_ORE.get(), this.cubeAll(BlockRegistry.DEEPSLATE_SAL_AMMONIAC_ORE.get()));
     }
 
-    protected void registerLogisticsItemInserter() {
+    protected ModelFile makeLogisticsFilterModel() {
+        return this.models().withExistingParent("logistics_connector_filter", this.modLoc("block/logistics_connector_filter_template"))
+                .ao(false)
+                //blockbench spits out garbage textures by losing the folder name so we fix them here
+                .texture("texture", this.modLoc("block/logistics_connector_filter"))
+                .texture("particle", this.mcLoc("block/iron_block"));
+    }
+
+    protected void registerLogisticsItemInserter(ModelFile filter) {
         var model = this.models().withExistingParent("logistics_item_inserter", this.modLoc("block/logistics_connector_template"))
                 .ao(false)
                 //blockbench spits out garbage textures by losing the folder name so we fix them here
@@ -70,7 +80,30 @@ public class TheurgyBlockStateProvider extends BlockStateProvider {
                 .texture("particle", this.mcLoc("block/copper_block"));
 
         //build blockstate
-        this.directionalBlock(BlockRegistry.LOGISTICS_ITEM_INSERTER.get(), model);
+        MultiPartBlockStateBuilder builder = this.getMultipartBuilder(BlockRegistry.LOGISTICS_ITEM_INSERTER.get());
+
+        var angleOffset = 180;
+        for(var state: BlockRegistry.LOGISTICS_ITEM_INSERTER.get().getStateDefinition().getPossibleStates()){
+            Direction dir = state.getValue(BlockStateProperties.FACING);
+
+            //For reasons only the gods know the filter (the outer model) has to come first, otherwise the inner model has no texture.
+            builder.part().modelFile(filter)
+                    .rotationX(dir == Direction.DOWN ? 180 : dir.getAxis().isHorizontal() ? 90 : 0)
+                    .rotationY(dir.getAxis().isVertical() ? 0 : (((int) dir.toYRot()) + angleOffset) % 360)
+                    .addModel()
+                    .condition(BlockStateProperties.FACING, dir)
+                    .condition(LogisticsItemConnectorBlock.HAS_FILTER, true)
+                    .end();
+
+            builder.part().modelFile(model)
+                    .rotationX(dir == Direction.DOWN ? 180 : dir.getAxis().isHorizontal() ? 90 : 0)
+                    .rotationY(dir.getAxis().isVertical() ? 0 : (((int) dir.toYRot()) + angleOffset) % 360)
+                    .addModel()
+                    .condition(BlockStateProperties.FACING, dir)
+                    .end();
+
+        }
+
         this.itemModels().getBuilder(this.key(BlockRegistry.LOGISTICS_ITEM_INSERTER.get()).getPath())
                 .parent(model)
                 .transforms()
@@ -111,15 +144,39 @@ public class TheurgyBlockStateProvider extends BlockStateProvider {
                 .end();
     }
 
-    protected void registerLogisticsItemExtractor() {
+    protected void registerLogisticsItemExtractor(ModelFile filter) {
         var model = this.models().withExistingParent("logistics_item_extractor", this.modLoc("block/logistics_connector_template"))
                 .ao(false)
                 //blockbench spits out garbage textures by losing the folder name so we fix them here
                 .texture("texture", this.modLoc("block/logistics_extractor"))
                 .texture("particle", this.mcLoc("block/copper_block"));
 
+
         //build blockstate
-        this.directionalBlock(BlockRegistry.LOGISTICS_ITEM_EXTRACTOR.get(), model);
+        MultiPartBlockStateBuilder builder = this.getMultipartBuilder(BlockRegistry.LOGISTICS_ITEM_EXTRACTOR.get());
+
+        var angleOffset = 180;
+        for(var state: BlockRegistry.LOGISTICS_ITEM_EXTRACTOR.get().getStateDefinition().getPossibleStates()){
+            Direction dir = state.getValue(BlockStateProperties.FACING);
+
+            //For reasons only the gods know the filter (the outer model) has to come first, otherwise the inner model has no texture.
+            builder.part().modelFile(filter)
+                    .rotationX(dir == Direction.DOWN ? 180 : dir.getAxis().isHorizontal() ? 90 : 0)
+                    .rotationY(dir.getAxis().isVertical() ? 0 : (((int) dir.toYRot()) + angleOffset) % 360)
+                    .addModel()
+                    .condition(BlockStateProperties.FACING, dir)
+                    .condition(LogisticsItemConnectorBlock.HAS_FILTER, true)
+                    .end();
+
+            builder.part().modelFile(model)
+                    .rotationX(dir == Direction.DOWN ? 180 : dir.getAxis().isHorizontal() ? 90 : 0)
+                    .rotationY(dir.getAxis().isVertical() ? 0 : (((int) dir.toYRot()) + angleOffset) % 360)
+                    .addModel()
+                    .condition(BlockStateProperties.FACING, dir)
+                    .end();
+
+        }
+
         this.itemModels().getBuilder(this.key(BlockRegistry.LOGISTICS_ITEM_EXTRACTOR.get()).getPath())
                 .parent(model)
                 .transforms()

@@ -30,7 +30,7 @@ public abstract class Filter implements INBTSerializable<CompoundTag> {
 
 
     public static Filter empty() {
-        return EmptyFilter.of(ItemStack.EMPTY);
+        return new EmptyFilter();
     }
 
     public ItemStack item() {

@@ -44,7 +44,8 @@
         "theurgy:textures/gui/book/furnace_automation.png"
       ],
       "text": "",
-      "title": "book.theurgy.the_hermetica.logistics.logistics_network.image.title"
+      "title": "book.theurgy.the_hermetica.logistics.logistics_network.image.title",
+      "use_legacy_rendering": false
     },
     {
       "type": "modonomicon:text",

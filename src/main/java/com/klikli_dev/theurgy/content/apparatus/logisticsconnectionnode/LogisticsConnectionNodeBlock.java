@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: MIT
 
-package com.klikli_dev.theurgy.content.apparatus.logisticsconnectornode;
+package com.klikli_dev.theurgy.content.apparatus.logisticsconnectionnode;
 
 import com.klikli_dev.theurgy.content.apparatus.DirectionalBlockShape;
 import com.klikli_dev.theurgy.content.behaviour.logistics.HasWireEndPoint;
@@ -18,7 +18,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -90,14 +89,16 @@ public class LogisticsConnectionNodeBlock extends DirectionalBlock implements Ha
     public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pMovedByPiston) {
         super.onRemove(pState, pLevel, pPos, pNewState, pMovedByPiston);
 
-        //Note: Adding is not necessary, because when using the wire it adds the two connection points.
-        var removedWires = Wires.get(pLevel).removeWiresFor(pPos);
+        if (pState.hasBlockEntity() && (!pState.is(pNewState.getBlock()) || !pNewState.hasBlockEntity())) {
+            //Note: Adding is not necessary, because when using the wire it adds the two connection points.
+            var removedWires = Wires.get(pLevel).removeWiresFor(pPos);
 
-        if (pLevel.isClientSide)
-            return;
+            if (pLevel.isClientSide)
+                return;
 
-        Block.popResource(pLevel, pPos, new ItemStack(ItemRegistry.COPPER_WIRE.get(), removedWires));
-        Logistics.get().remove(GlobalPos.of(pLevel.dimension(), pPos));
+            Block.popResource(pLevel, pPos, new ItemStack(ItemRegistry.COPPER_WIRE.get(), removedWires));
+            Logistics.get().remove(GlobalPos.of(pLevel.dimension(), pPos));
+        }
     }
 
     @Override

@@ -35,7 +35,10 @@ public abstract class LogisticsItemConnectorBlockEntity extends BlockEntity impl
         super(pType, pPos, pBlockState);
         //the leaf node behaviour is set in child
         this.filterBehaviour = new FilterBehaviour(this).withCallback(
-                (filter) -> this.updateBlockStateToMatchFilter()
+                (filter) -> {
+                    this.updateBlockStateToMatchFilter();
+                    this.leafNode().filter(filter);
+                }
         );
     }
 

@@ -77,14 +77,16 @@ public abstract class LogisticsItemConnectorBlock extends DirectionalBlock imple
     public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pMovedByPiston) {
         super.onRemove(pState, pLevel, pPos, pNewState, pMovedByPiston);
 
-        var removedWires = Wires.get(pLevel).removeWiresFor(pPos);
-        if (pLevel.isClientSide)
-            return;
+        if (pState.hasBlockEntity() && (!pState.is(pNewState.getBlock()) || !pNewState.hasBlockEntity())) {
+            var removedWires = Wires.get(pLevel).removeWiresFor(pPos);
+            if (pLevel.isClientSide)
+                return;
 
-        Block.popResource(pLevel, pPos, new ItemStack(ItemRegistry.COPPER_WIRE.get(), removedWires));
+            Block.popResource(pLevel, pPos, new ItemStack(ItemRegistry.COPPER_WIRE.get(), removedWires));
 
-        if (pLevel.getBlockEntity(pPos) instanceof LogisticsItemConnectorBlockEntity blockEntity) {
-            blockEntity.leafNode().onDestroyed();
+            if (pLevel.getBlockEntity(pPos) instanceof LogisticsItemConnectorBlockEntity blockEntity) {
+                blockEntity.leafNode().onDestroyed();
+            }
         }
     }
 

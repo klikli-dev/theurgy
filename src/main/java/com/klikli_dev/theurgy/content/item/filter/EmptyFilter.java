@@ -17,4 +17,9 @@ public class EmptyFilter extends Filter {
     public boolean test(Level level, ItemStack stack, boolean matchDataComponents) {
         return true;
     }
+
+    @Override
+    public boolean isEmpty() {
+        return true;
+    }
 }

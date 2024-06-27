@@ -4,15 +4,16 @@
 
 package com.klikli_dev.theurgy.content.behaviour.logistics.distribution;
 
+import com.klikli_dev.theurgy.content.behaviour.logistics.InsertTarget;
 import net.neoforged.neoforge.capabilities.BlockCapabilityCache;
 
 import java.util.List;
 
 public class RoundRobinDistributor<T, C> extends Distributor<T, C>{
     protected int currentTargetIndex;
-    protected BlockCapabilityCache<T, C> cachedTarget;
+    protected InsertTarget<T, C> cachedTarget;
 
-    public RoundRobinDistributor(List<BlockCapabilityCache<T, C>> targets) {
+    public RoundRobinDistributor(List<InsertTarget<T, C>> targets) {
         super(targets);
     }
 
@@ -22,7 +23,7 @@ public class RoundRobinDistributor<T, C> extends Distributor<T, C>{
     }
 
     @Override
-    public BlockCapabilityCache<T, C> target() {
+    public InsertTarget<T, C> target() {
         return this.cachedTarget;
     }
 

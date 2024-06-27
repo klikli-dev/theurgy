@@ -6,15 +6,10 @@ package com.klikli_dev.theurgy.content.behaviour.logistics;
 
 import com.klikli_dev.theurgy.content.behaviour.logistics.distribution.DistributionMode;
 import com.klikli_dev.theurgy.content.behaviour.logistics.distribution.Distributor;
-import com.klikli_dev.theurgy.content.behaviour.logistics.distribution.RoundRobinDistributor;
-import com.klikli_dev.theurgy.logistics.Logistics;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.LongTag;
-import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
@@ -30,7 +25,7 @@ import java.util.List;
  */
 public abstract class ExtractorNodeBehaviour<T, C> extends LeafNodeBehaviour<T, C> {
 
-    protected List<BlockCapabilityCache<T, C>> insertTargets;
+    protected List<InsertTarget<T, C>> insertTargets;
     protected List<BlockCapabilityCache<T, C>> extractTargets;
     protected Distributor<T, C> distributor;
 
@@ -53,7 +48,7 @@ public abstract class ExtractorNodeBehaviour<T, C> extends LeafNodeBehaviour<T, 
     /**
      * Gets the list of cached block entities connected to insert nodes that this extractor will insert into
      */
-    public List<BlockCapabilityCache<T, C>> insertTargets() {
+    public List<InsertTarget<T, C>> insertTargets() {
         return this.insertTargets;
     }
 
@@ -76,11 +71,12 @@ public abstract class ExtractorNodeBehaviour<T, C> extends LeafNodeBehaviour<T, 
         if (leafNode.mode() != LeafNodeMode.INSERT)
             return; //as we are only caching insert mode all other nodes are not relevant
 
-        var targets = leafNode.asInserter().targetCapabilities();
+        var inserter = leafNode.asInserter();
+        var targets = inserter.availableTargetCapabilities();
 
         for (var target : targets) {
             if (target != null && this.isValidInsertTarget(leafNode, target)) {
-                this.addInsertTarget(target);
+                this.addInsertTarget(inserter, target);
             }
         }
     }
@@ -107,8 +103,10 @@ public abstract class ExtractorNodeBehaviour<T, C> extends LeafNodeBehaviour<T, 
         if (leafNode.mode() != LeafNodeMode.INSERT)
             return; //as we are only caching insert mode all other nodes are not relevant
 
+        var inserter = leafNode.asInserter();
+
         if (this.isValidInsertTarget(leafNode, capability)) {
-            this.addInsertTarget(capability);
+            this.addInsertTarget(inserter, capability);
         }
     }
 
@@ -124,9 +122,10 @@ public abstract class ExtractorNodeBehaviour<T, C> extends LeafNodeBehaviour<T, 
         this.removeInsertTarget(pos);
     }
 
-    protected void addInsertTarget(BlockCapabilityCache<T, C> capability) {
-        if (!this.insertTargets().contains(capability)){
-            this.insertTargets().add(capability);
+    protected void addInsertTarget(InserterNodeBehaviour<T, C> inserter, BlockCapabilityCache<T, C> capability) {
+        var insertTarget = new InsertTarget<>(inserter, capability);
+        if (!this.insertTargets().contains(insertTarget)){
+            this.insertTargets().add(insertTarget);
             this.distributor.onTargetsChanged();
         }
     }
@@ -136,11 +135,10 @@ public abstract class ExtractorNodeBehaviour<T, C> extends LeafNodeBehaviour<T, 
     }
 
     protected void removeInsertTarget(ResourceKey<Level> dimension, BlockPos pos) {
-        if(this.insertTargets().removeIf(cached -> cached.level().dimension().equals(dimension) && cached.pos().equals(pos))){
+        if(this.insertTargets().removeIf(cached -> cached.capability().level().dimension().equals(dimension) && cached.capability().pos().equals(pos))){
             this.distributor.onTargetsChanged();
         }
     }
-
 
     @Override
     public void onLoad() {

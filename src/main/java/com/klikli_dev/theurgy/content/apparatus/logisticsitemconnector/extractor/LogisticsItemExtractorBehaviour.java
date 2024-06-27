@@ -6,11 +6,13 @@ package com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector.extracto
 
 import com.klikli_dev.theurgy.content.behaviour.logistics.ExtractorNodeBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.logistics.LeafNodeBehaviour;
+import com.klikli_dev.theurgy.content.item.filter.Filter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.neoforged.neoforge.capabilities.BlockCapabilityCache;
@@ -32,13 +34,14 @@ public class LogisticsItemExtractorBehaviour extends ExtractorNodeBehaviour<IIte
         super(blockEntity, Capabilities.ItemHandler.BLOCK);
     }
 
-    protected static int getFirstMatchingSlot(IItemHandler handler) {
-        return getFirstMatchingSlotAfter(handler, -1);
+    protected static int getFirstMatchingSlot(Level level, IItemHandler handler, Filter extractFilter, Filter insertFilter) {
+        return getFirstMatchingSlotAfter(level, handler, -1, extractFilter, insertFilter);
     }
 
-    protected static int getFirstMatchingSlotAfter(IItemHandler handler, int slot) {
+    protected static int getFirstMatchingSlotAfter(Level level, IItemHandler handler, int slot, Filter extractFilter, Filter insertFilter) {
         for (int i = slot + 1; i < handler.getSlots(); i++) {
-            if (!handler.getStackInSlot(i).isEmpty()) {
+            var stack = handler.getStackInSlot(i);
+            if (!stack.isEmpty() && extractFilter.test(level, stack) && insertFilter.test(level, stack)) {
                 return i;
             }
         }
@@ -134,7 +137,7 @@ public class LogisticsItemExtractorBehaviour extends ExtractorNodeBehaviour<IIte
         if (extractTarget == null)
             return;
 
-        var insertCap = insertTarget.getCapability();
+        var insertCap = insertTarget.capability().getCapability();
         if (insertCap == null)
             return;
 
@@ -142,30 +145,18 @@ public class LogisticsItemExtractorBehaviour extends ExtractorNodeBehaviour<IIte
         if (extractCap == null)
             return;
 
-        //TODO: item filter!
-        this.performExtraction(extractCap, insertCap);
+        this.performExtraction(extractCap, this.filter(), insertCap, insertTarget.inserter().filter());
     }
 
-    protected void performExtraction(IItemHandler extractCap, IItemHandler insertCap) {
-        int extractSlot = getFirstMatchingSlot(extractCap);
+    protected void performExtraction(IItemHandler extractCap, Filter extractFilter, IItemHandler insertCap, Filter insertFilter) {
+        int extractSlot = getFirstMatchingSlot(this.level(), extractCap, extractFilter, insertFilter);
         if (extractSlot == -1)
             return; //nothing found to extract
-
-        //	ItemStack inserted = stack.stack;
-        //		if (!filtering.test(inserted))
-        //			return inserted;
-
 
         //first simulate extraction, this tells us how much we can extract
         var extractStack = extractCap.extractItem(extractSlot, this.extractionAmount, true);
         if (extractStack.isEmpty())
             return;
-        //TODO: Filtering
-        //      we need to check the filter of the extractor
-        //      then we also need to check the filter of the inserter
-        //      PROBLEM: we don't have access to the inserter node the target comes from
-        //          so we probably need to save more info
-
 
         //TODO: better round robin distribution that works with extraction amounts > 1?
         //  Simulate extract to get available

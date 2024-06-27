@@ -43,7 +43,7 @@ public class LogisticsItemExtractorBlockEntity extends LogisticsItemConnectorBlo
 
         var targets = this.leafNode().insertTargets();
         for (var target : targets) {
-            result.add(Pair.of(target.pos(), 0xFFFFF00));
+            result.add(Pair.of(target.capability().pos(), 0xFFFFF00));
         }
 
         return result;

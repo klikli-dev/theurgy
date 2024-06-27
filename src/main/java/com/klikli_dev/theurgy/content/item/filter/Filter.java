@@ -45,6 +45,8 @@ public abstract class Filter implements INBTSerializable<CompoundTag> {
 
     public abstract boolean test(Level level, ItemStack stack, boolean matchDataComponents);
 
+    public abstract boolean isEmpty();
+
     @Override
     public @NotNull CompoundTag serializeNBT(HolderLookup.@NotNull Provider provider) {
         return (CompoundTag) ItemStack.OPTIONAL_CODEC.encodeStart(provider.createSerializationContext(NbtOps.INSTANCE), this.filterItemStack).getOrThrow();

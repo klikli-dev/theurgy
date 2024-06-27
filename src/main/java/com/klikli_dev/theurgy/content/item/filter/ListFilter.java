@@ -35,6 +35,11 @@ public class ListFilter extends Filter {
         return this.isDenyList;
     }
 
+    @Override
+    public boolean isEmpty() {
+        return this.filterItems.isEmpty();
+    }
+
     private boolean testFilterItemStack(ItemStack filterItemStack, ItemStack stackToTest, boolean matchDataComponents) {
         if (matchDataComponents) {
             return ItemStack.isSameItemSameComponents(filterItemStack, stackToTest);

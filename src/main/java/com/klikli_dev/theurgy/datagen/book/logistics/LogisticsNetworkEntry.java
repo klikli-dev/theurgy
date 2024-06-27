@@ -20,6 +20,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Ingredient;
 
 public class LogisticsNetworkEntry extends EntryProvider {
+    public static final String ENTRY_ID = "logistics_network";
+
     public LogisticsNetworkEntry(CategoryProvider parent) {
         super(parent);
     }
@@ -78,7 +80,7 @@ public class LogisticsNetworkEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Advanced Networks");
         this.pageText("""
-                More complex networks that allow filtering which items are inserted/extracted will be available in the future.
+                More complex network behaviours can be achieved with the use of filters (see further entries to learn more). Additionally, in the future more advanced routing options will be available.
                 """
         );
     }
@@ -107,6 +109,6 @@ public class LogisticsNetworkEntry extends EntryProvider {
 
     @Override
     protected String entryId() {
-        return "logistics_network";
+        return ENTRY_ID;
     }
 }

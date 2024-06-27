@@ -17,7 +17,7 @@ import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorSulfurVesselB
 import com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron.LiquefactionCauldronBlock;
 import com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector.extractor.LogisticsItemExtractorBlock;
 import com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector.inserter.LogisticsItemInserterBlock;
-import com.klikli_dev.theurgy.content.apparatus.logisticsconnectornode.LogisticsConnectionNodeBlock;
+import com.klikli_dev.theurgy.content.apparatus.logisticsconnectionnode.LogisticsConnectionNodeBlock;
 import com.klikli_dev.theurgy.content.apparatus.mercurycatalyst.MercuryCatalystBlock;
 import com.klikli_dev.theurgy.content.apparatus.pyromanticbrazier.PyromanticBrazierBlock;
 import com.klikli_dev.theurgy.content.apparatus.reformationarray.ReformationResultPedestalBlock;

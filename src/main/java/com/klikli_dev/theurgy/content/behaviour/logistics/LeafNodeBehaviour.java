@@ -4,6 +4,9 @@
 
 package com.klikli_dev.theurgy.content.behaviour.logistics;
 
+import com.klikli_dev.theurgy.content.behaviour.filter.FilterBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.filter.HasFilterBehaviour;
+import com.klikli_dev.theurgy.content.item.filter.Filter;
 import com.klikli_dev.theurgy.logistics.Logistics;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.GlobalPos;
@@ -35,7 +38,7 @@ public abstract class LeafNodeBehaviour<T, C> {
     protected BlockEntity blockEntity;
     protected Lazy<GlobalPos> globalPos;
     protected BlockCapability<T, C> capabilityType;
-
+    protected Filter filter;
     /**
      * The block this node makes accessible to the network (e.g. by being attached to a block).
      * Child node behaviours can e.g. build insert/extract target lists from this list.
@@ -51,6 +54,7 @@ public abstract class LeafNodeBehaviour<T, C> {
         this.capabilityType = capabilityType;
         this.targets = new ArrayList<>();
         this.frequency = 0;
+        this.filter = Filter.empty();
     }
 
     public Level level() {
@@ -59,6 +63,14 @@ public abstract class LeafNodeBehaviour<T, C> {
 
     public GlobalPos globalPos() {
         return this.globalPos.get();
+    }
+
+    public Filter filter(){
+        return this.filter;
+    }
+
+    public void filter(Filter filter){
+        this.filter = filter;
     }
 
     /**

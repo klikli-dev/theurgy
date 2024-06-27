@@ -4,20 +4,21 @@
 
 package com.klikli_dev.theurgy.content.behaviour.logistics.distribution;
 
+import com.klikli_dev.theurgy.content.behaviour.logistics.InsertTarget;
 import net.neoforged.neoforge.capabilities.BlockCapabilityCache;
 
 import java.util.List;
 
 public abstract class Distributor<T, C> {
-    protected List<BlockCapabilityCache<T, C>> targets;
+    protected List<InsertTarget<T, C>> targets;
 
-    public Distributor(List<BlockCapabilityCache<T, C>> targets) {
+    public Distributor(List<InsertTarget<T, C>> targets) {
         this.targets = targets;
     }
 
     public abstract DistributionMode mode();
 
-    public abstract BlockCapabilityCache<T, C> target();
+    public abstract InsertTarget<T, C> target();
 
     public abstract void tick();
 

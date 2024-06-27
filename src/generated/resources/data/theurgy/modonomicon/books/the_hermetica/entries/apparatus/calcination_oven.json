@@ -65,7 +65,8 @@
         "theurgy:textures/gui/book/calcination_oven_working.png"
       ],
       "text": "book.theurgy.the_hermetica.apparatus.calcination_oven.working.text",
-      "title": "book.theurgy.the_hermetica.apparatus.calcination_oven.working.title"
+      "title": "book.theurgy.the_hermetica.apparatus.calcination_oven.working.title",
+      "use_legacy_rendering": false
     }
   ],
   "parents": [

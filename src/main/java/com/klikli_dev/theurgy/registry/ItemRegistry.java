@@ -17,6 +17,7 @@ import com.klikli_dev.theurgy.content.apparatus.reformationarray.SulfuricFluxEmi
 import com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator.SalAmmoniacAccumulatorBlockItem;
 import com.klikli_dev.theurgy.content.apparatus.salammoniactank.SalAmmoniacTankBlockItem;
 import com.klikli_dev.theurgy.content.item.divinationrod.DivinationRodItem;
+import com.klikli_dev.theurgy.content.item.filter.FilterItem;
 import com.klikli_dev.theurgy.content.item.mercurialwand.MercurialWandItem;
 import com.klikli_dev.theurgy.content.item.mercurialwand.mode.MercurialWandItemMode;
 import com.klikli_dev.theurgy.content.item.wire.WireItem;
@@ -131,6 +132,8 @@ public class ItemRegistry {
             ITEMS.register("mercurial_wand", () -> new MercurialWandItem(new Item.Properties()
                     .component(DataComponentRegistry.MERCURIAL_WAND_ITEM_MODE.get(), MercurialWandItemMode.Type.CYCLE_DIRECTION.mode())
             ));
+
+    public static final DeferredItem<FilterItem> LIST_FILTER = ITEMS.register("list_filter", () -> new FilterItem(new Item.Properties()));
 
     //Buckets
     public static final DeferredItem<Item> SAL_AMMONIAC_BUCKET =

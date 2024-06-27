@@ -108,14 +108,14 @@ public abstract class InserterNodeBehaviour<T, C> extends LeafNodeBehaviour<T, C
      *
      * @return
      */
-    public List<BlockCapabilityCache<T, C>> targetCapabilities() {
+    public List<BlockCapabilityCache<T, C>> availableTargetCapabilities() {
         return this.targetCapabilities.stream().filter(cache -> this.level().isLoaded(cache.pos()) && this.level().getBlockEntity(cache.pos()) != null).toList();
     }
 
     /**
      * Gets all target capabilities.
      */
-    public List<BlockCapabilityCache<T, C>> targetAllCapabilities() {
+    public List<BlockCapabilityCache<T, C>> allTargetCapabilities() {
         return this.targetCapabilities;
     }
 

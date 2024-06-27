@@ -101,4 +101,8 @@ public class TooltipHandler {
         }
         return ImmutableList.of();
     }
+
+    public static MutableComponent holdShift() {
+        return Component.translatable(TheurgyConstants.I18n.Tooltip.SHOW_EXTENDED);
+    }
 }

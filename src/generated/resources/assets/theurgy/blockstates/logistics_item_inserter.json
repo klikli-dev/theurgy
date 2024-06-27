@@ -1,30 +1,240 @@
 {
-  "variants": {
-    "facing=down": {
-      "model": "theurgy:block/logistics_item_inserter",
-      "x": 180
+  "multipart": [
+    {
+      "apply": {
+        "model": "theurgy:block/logistics_connector_filter",
+        "x": 90
+      },
+      "when": {
+        "facing": "north",
+        "has_filter": "true"
+      }
     },
-    "facing=east": {
-      "model": "theurgy:block/logistics_item_inserter",
-      "x": 90,
-      "y": 90
+    {
+      "apply": {
+        "model": "theurgy:block/logistics_item_inserter",
+        "x": 90
+      },
+      "when": {
+        "facing": "north"
+      }
     },
-    "facing=north": {
-      "model": "theurgy:block/logistics_item_inserter",
-      "x": 90
+    {
+      "apply": {
+        "model": "theurgy:block/logistics_connector_filter",
+        "x": 90
+      },
+      "when": {
+        "facing": "north",
+        "has_filter": "true"
+      }
     },
-    "facing=south": {
-      "model": "theurgy:block/logistics_item_inserter",
-      "x": 90,
-      "y": 180
+    {
+      "apply": {
+        "model": "theurgy:block/logistics_item_inserter",
+        "x": 90
+      },
+      "when": {
+        "facing": "north"
+      }
     },
-    "facing=up": {
-      "model": "theurgy:block/logistics_item_inserter"
+    {
+      "apply": {
+        "model": "theurgy:block/logistics_connector_filter",
+        "x": 90,
+        "y": 90
+      },
+      "when": {
+        "facing": "east",
+        "has_filter": "true"
+      }
     },
-    "facing=west": {
-      "model": "theurgy:block/logistics_item_inserter",
-      "x": 90,
-      "y": 270
+    {
+      "apply": {
+        "model": "theurgy:block/logistics_item_inserter",
+        "x": 90,
+        "y": 90
+      },
+      "when": {
+        "facing": "east"
+      }
+    },
+    {
+      "apply": {
+        "model": "theurgy:block/logistics_connector_filter",
+        "x": 90,
+        "y": 90
+      },
+      "when": {
+        "facing": "east",
+        "has_filter": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "theurgy:block/logistics_item_inserter",
+        "x": 90,
+        "y": 90
+      },
+      "when": {
+        "facing": "east"
+      }
+    },
+    {
+      "apply": {
+        "model": "theurgy:block/logistics_connector_filter",
+        "x": 90,
+        "y": 180
+      },
+      "when": {
+        "facing": "south",
+        "has_filter": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "theurgy:block/logistics_item_inserter",
+        "x": 90,
+        "y": 180
+      },
+      "when": {
+        "facing": "south"
+      }
+    },
+    {
+      "apply": {
+        "model": "theurgy:block/logistics_connector_filter",
+        "x": 90,
+        "y": 180
+      },
+      "when": {
+        "facing": "south",
+        "has_filter": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "theurgy:block/logistics_item_inserter",
+        "x": 90,
+        "y": 180
+      },
+      "when": {
+        "facing": "south"
+      }
+    },
+    {
+      "apply": {
+        "model": "theurgy:block/logistics_connector_filter",
+        "x": 90,
+        "y": 270
+      },
+      "when": {
+        "facing": "west",
+        "has_filter": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "theurgy:block/logistics_item_inserter",
+        "x": 90,
+        "y": 270
+      },
+      "when": {
+        "facing": "west"
+      }
+    },
+    {
+      "apply": {
+        "model": "theurgy:block/logistics_connector_filter",
+        "x": 90,
+        "y": 270
+      },
+      "when": {
+        "facing": "west",
+        "has_filter": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "theurgy:block/logistics_item_inserter",
+        "x": 90,
+        "y": 270
+      },
+      "when": {
+        "facing": "west"
+      }
+    },
+    {
+      "apply": {
+        "model": "theurgy:block/logistics_connector_filter"
+      },
+      "when": {
+        "facing": "up",
+        "has_filter": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "theurgy:block/logistics_item_inserter"
+      },
+      "when": {
+        "facing": "up"
+      }
+    },
+    {
+      "apply": {
+        "model": "theurgy:block/logistics_connector_filter"
+      },
+      "when": {
+        "facing": "up",
+        "has_filter": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "theurgy:block/logistics_item_inserter"
+      },
+      "when": {
+        "facing": "up"
+      }
+    },
+    {
+      "apply": {
+        "model": "theurgy:block/logistics_connector_filter",
+        "x": 180
+      },
+      "when": {
+        "facing": "down",
+        "has_filter": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "theurgy:block/logistics_item_inserter",
+        "x": 180
+      },
+      "when": {
+        "facing": "down"
+      }
+    },
+    {
+      "apply": {
+        "model": "theurgy:block/logistics_connector_filter",
+        "x": 180
+      },
+      "when": {
+        "facing": "down",
+        "has_filter": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "theurgy:block/logistics_item_inserter",
+        "x": 180
+      },
+      "when": {
+        "facing": "down"
+      }
     }
-  }
+  ]
 }

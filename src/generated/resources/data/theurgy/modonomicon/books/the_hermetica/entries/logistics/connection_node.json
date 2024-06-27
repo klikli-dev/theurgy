@@ -54,7 +54,8 @@
         "theurgy:textures/gui/book/connection_node_example.png"
       ],
       "text": "",
-      "title": "book.theurgy.the_hermetica.logistics.connection_node.image.title"
+      "title": "book.theurgy.the_hermetica.logistics.connection_node.image.title",
+      "use_legacy_rendering": false
     },
     {
       "type": "modonomicon:text",

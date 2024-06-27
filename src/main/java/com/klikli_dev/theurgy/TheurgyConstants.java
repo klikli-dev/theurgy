@@ -8,47 +8,9 @@ import net.minecraft.resources.ResourceLocation;
 
 public class TheurgyConstants {
 
-    public static class Nbt {
-
-        protected static final String PREFIX = Theurgy.MODID + ":";
-
-        /**
-         * Used to store item id of the item the sulfur was created from.
-         * Should be a ResourceLocation string.
-         * Sample Command: /give @s theurgy:alchemical_sulfur{"theurgy:sulfur.source.id":"minecraft:oak_log"}
-         */
-        public static final String SULFUR_SOURCE_ID = PREFIX + "sulfur.source.id";
-
-        /**
-         * Used to store stack NBT of the stack the sulfur was created from.
-         * Should be a CompoundTag.
-         */
-        public static final String SULFUR_SOURCE_NBT = PREFIX + "sulfur.source.nbt";
-
-
-        public static class Divination {
-
-            public static final String DISTANCE = PREFIX + "divination.distance";
-            public static final String POS = PREFIX + "divination.pos";
-            public static final String LINKED_BLOCK_ID = PREFIX + "divination.linked_block_id";
-            public static final String LINKED_BLOCK_ID_PREVIEW_MODE = PREFIX + "divination.linked_block_id.preview_mode";
-
-            public static final String SETTING_TIER = PREFIX + "divination.setting.tier";
-            public static final String SETTING_ALLOWED_BLOCKS_TAG = PREFIX + "divination.setting.allowed_blocks_tag";
-            public static final String SETTING_DISALLOWED_BLOCKS_TAG = PREFIX + "divination.setting.disallowed_blocks_tag";
-            public static final String SETTING_RANGE = PREFIX + "divination.setting.range";
-            public static final String SETTING_DURATION = PREFIX + "divination.setting.duration";
-            public static final String SETTING_DURABILITY = PREFIX + "divination.setting.max_damage";
-
-            public static final String SETTING_ALLOW_ATTUNING = PREFIX + "divination.setting.allow_attuning";
-        }
-
-    }
-
     public static class ItemProperty {
 
         public static final ResourceLocation DIVINATION_DISTANCE = Theurgy.loc("divination_distance");
-
 
     }
 
@@ -164,6 +126,24 @@ public class TheurgyConstants {
 
             public static final String INTERACTION_DIGESTION_VAT_NO_RECIPE = PREFIX + "interaction.digestion_vat.no_recipe";
             public static final String INTERACTION_DIGESTION_VAT_CLOSED = PREFIX + "interaction.digestion_vat.closed";
+        }
+
+        public static class Gui {
+            public static final String PREFIX = Theurgy.MODID + ".gui.";
+            public static final String FILTER_RESET_BUTTON_TOOLTIP = PREFIX + "filter.reset_button.tooltip";
+            public static final String FILTER_CONFIRM_BUTTON_TOOLTIP = PREFIX + "filter.confirm_button.tooltip";
+
+            public static final String FILTER_DENY_LIST_BUTTON_TOOLTIP = PREFIX + "filter.deny_list_button.tooltip";
+            public static final String FILTER_DENY_LIST_BUTTON_TOOLTIP_SHIFT = PREFIX + "filter.deny_list_button.tooltip.shift";
+
+            public static final String FILTER_ACCEPT_LIST_BUTTON_TOOLTIP = PREFIX + "filter.accept_list_button.tooltip";
+            public static final String FILTER_ACCEPT_LIST_BUTTON_TOOLTIP_SHIFT = PREFIX + "filter.accept_list_button.tooltip.shift";
+
+            public static final String FILTER_IGNORE_DATA_COMPONENTS_BUTTON_TOOLTIP = PREFIX + "filter.ignore_data_components_button.tooltip";
+            public static final String FILTER_IGNORE_DATA_COMPONENTS_BUTTON_TOOLTIP_SHIFT = PREFIX + "filter.ignore_data_components_button.tooltip.shift";
+
+            public static final String FILTER_RESPECT_DATA_COMPONENTS_BUTTON_TOOLTIP = PREFIX + "filter.respect_data_components_button.tooltip";
+            public static final String FILTER_RESPECT_DATA_COMPONENTS_BUTTON_TOOLTIP_SHIFT = PREFIX + "filter.respect_data_components_button.tooltip.shift";
         }
     }
 

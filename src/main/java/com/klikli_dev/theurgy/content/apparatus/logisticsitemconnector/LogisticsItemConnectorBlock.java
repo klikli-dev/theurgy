@@ -14,7 +14,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -29,6 +28,7 @@ import net.minecraft.world.level.block.DirectionalBlock;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -36,25 +36,33 @@ import org.jetbrains.annotations.NotNull;
 
 public abstract class LogisticsItemConnectorBlock extends DirectionalBlock implements EntityBlock, HasWireEndPoint {
 
+    public static final BooleanProperty HAS_FILTER = BooleanProperty.create("has_filter");
+
     public static final DirectionalBlockShape SHAPE = new DirectionalBlockShape(2, 2, 8);
 
     public LogisticsItemConnectorBlock(Properties properties) {
         super(properties);
 
-        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.UP));
+        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.UP).setValue(HAS_FILTER, false));
     }
 
     @Override
-    protected ItemInteractionResult useItemOn(ItemStack pStack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHitResult) {
+    protected @NotNull ItemInteractionResult useItemOn(@NotNull ItemStack pStack, @NotNull BlockState pState, @NotNull Level pLevel, @NotNull BlockPos pPos, Player pPlayer, @NotNull InteractionHand pHand, @NotNull BlockHitResult pHitResult) {
+        if(!(pLevel.getBlockEntity(pPos) instanceof LogisticsItemConnectorBlockEntity blockEntity)){
+            return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        }
+
+        var result = blockEntity.filter().useItemOn(pStack, pState, pLevel, pPos, pPlayer, pHand, pHitResult);
+        if(result != ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION)
+            return result;
+
         if (!pPlayer.getItemInHand(pHand).isEmpty())
             return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 
         if (pLevel.isClientSide)
             return ItemInteractionResult.SUCCESS;
 
-        if (pLevel.getBlockEntity(pPos) instanceof LogisticsItemConnectorBlockEntity blockEntity) {
-            Networking.sendTo((ServerPlayer) pPlayer, new MessageShowLogisticsNodeStatus(blockEntity.getStatusHighlights()));
-        }
+        Networking.sendTo((ServerPlayer) pPlayer, new MessageShowLogisticsNodeStatus(blockEntity.getStatusHighlights()));
 
         return ItemInteractionResult.SUCCESS;
     }
@@ -69,20 +77,22 @@ public abstract class LogisticsItemConnectorBlock extends DirectionalBlock imple
     public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pMovedByPiston) {
         super.onRemove(pState, pLevel, pPos, pNewState, pMovedByPiston);
 
-        var removedWires = Wires.get(pLevel).removeWiresFor(pPos);
-        if (pLevel.isClientSide)
-            return;
+        if (pState.hasBlockEntity() && (!pState.is(pNewState.getBlock()) || !pNewState.hasBlockEntity())) {
+            var removedWires = Wires.get(pLevel).removeWiresFor(pPos);
+            if (pLevel.isClientSide)
+                return;
 
-        Block.popResource(pLevel, pPos, new ItemStack(ItemRegistry.COPPER_WIRE.get(), removedWires));
+            Block.popResource(pLevel, pPos, new ItemStack(ItemRegistry.COPPER_WIRE.get(), removedWires));
 
-        if (pLevel.getBlockEntity(pPos) instanceof LogisticsItemConnectorBlockEntity blockEntity) {
-            blockEntity.leafNode().onDestroyed();
+            if (pLevel.getBlockEntity(pPos) instanceof LogisticsItemConnectorBlockEntity blockEntity) {
+                blockEntity.leafNode().onDestroyed();
+            }
         }
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
-        pBuilder.add(FACING);
+        pBuilder.add(FACING, HAS_FILTER);
     }
 
     @Override

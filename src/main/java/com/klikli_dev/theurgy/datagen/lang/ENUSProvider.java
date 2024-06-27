@@ -64,7 +64,6 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.addItemTag(item.location(), string);
     }
 
-
     private void addMisc() {
         this.add(TheurgyConstants.I18n.Tooltip.SHOW_EXTENDED, ChatFormatting.GOLD + "[" +
                 ChatFormatting.LIGHT_PURPLE + "shift " +
@@ -83,6 +82,23 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
                 ChatFormatting.GOLD + "]");
 
         this.add(TheurgyConstants.I18n.Misc.UNIT_MILLIBUCKETS, "%smB");
+    }
+
+    private void addGui(){
+        this.add(TheurgyConstants.I18n.Gui.FILTER_RESET_BUTTON_TOOLTIP, "Reset Filter Settings");
+        this.add(TheurgyConstants.I18n.Gui.FILTER_CONFIRM_BUTTON_TOOLTIP, "Save Filter Settings");
+
+        this.add(TheurgyConstants.I18n.Gui.FILTER_ACCEPT_LIST_BUTTON_TOOLTIP, "Allow-List");
+        this.add(TheurgyConstants.I18n.Gui.FILTER_ACCEPT_LIST_BUTTON_TOOLTIP_SHIFT, "Items pass if they match any of the above. An empty Allow-List rejects everything.");
+
+        this.add(TheurgyConstants.I18n.Gui.FILTER_DENY_LIST_BUTTON_TOOLTIP, "Deny-List");
+        this.add(TheurgyConstants.I18n.Gui.FILTER_DENY_LIST_BUTTON_TOOLTIP_SHIFT, "Items pass if they DO NOT match any of the above. An empty Deny-List accepts everything.");
+
+        this.add(TheurgyConstants.I18n.Gui.FILTER_RESPECT_DATA_COMPONENTS_BUTTON_TOOLTIP, "Respect Data");
+        this.add(TheurgyConstants.I18n.Gui.FILTER_RESPECT_DATA_COMPONENTS_BUTTON_TOOLTIP_SHIFT, "Items pass if they match the data components of the filter item (durability, enchantments and others).");
+
+        this.add(TheurgyConstants.I18n.Gui.FILTER_IGNORE_DATA_COMPONENTS_BUTTON_TOOLTIP, "Ignore Data");
+        this.add(TheurgyConstants.I18n.Gui.FILTER_IGNORE_DATA_COMPONENTS_BUTTON_TOOLTIP_SHIFT, "Items pass regardless of their data components (durability, enchantments and others).");
     }
 
     private void addBehaviours() {
@@ -554,7 +570,6 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.add(key.get().getDescriptionId() + TheurgyConstants.I18n.Item.ALCHEMICAL_SULFUR_SOURCE_SUFFIX, name);
     }
 
-
     public void addIngredientInfo(Supplier<Item> ingredient, String info) {
         this.add("jei." + Theurgy.MODID + ".ingredient." +
                 BuiltInRegistries.ITEM.getKey(ingredient.get()).getPath() + ".description", info);
@@ -737,7 +752,6 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         );
 
         this.addItem(ItemRegistry.MERCURIAL_WAND, "Mercurial Wand");
-
         var wandUsage = this.f("""
                         {0} to use current mode.
                         Hold {1} and {3} to cycle through modes.
@@ -770,6 +784,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.add(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_SWITCH_LOGISTICS_ENABLED_SUCCESS, "Logistics Connector is now %s");
         this.add(TheurgyConstants.I18n.Item.Mode.ENABLED, "Enabled");
         this.add(TheurgyConstants.I18n.Item.Mode.DISABLED, "Disabled");
+
+        this.addItem(ItemRegistry.LIST_FILTER, "Mercurial List Filter");
 
 
         this.addItem(ItemRegistry.MERCURY_SHARD, "Mercury Shard");
@@ -812,6 +828,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.addFluids();
         this.addIntegrations();
         this.addBehaviours();
+        this.addGui();
     }
 
 

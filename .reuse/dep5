@@ -4,11 +4,11 @@ Upstream-Contact: klikli-dev
 Source: https://github.com/klikli-dev/theurgy
 
 Files: src/main/resources/*
-Copyright: 2022 klikli-dev
+Copyright: 2024 klikli-dev
 License: CC-BY-4.0
 
 Files: src/generated/resources/*
-Copyright: 2022 klikli-dev
+Copyright: 2024 klikli-dev
 License: CC-BY-4.0
 
 Files: .github/*

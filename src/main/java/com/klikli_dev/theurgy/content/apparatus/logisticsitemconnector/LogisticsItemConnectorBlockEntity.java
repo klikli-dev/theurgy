@@ -4,6 +4,8 @@
 
 package com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector;
 
+import com.klikli_dev.theurgy.content.behaviour.filter.FilterBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.filter.HasFilterBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.logistics.HasLeafNodeBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.logistics.LeafNodeBehaviour;
 import com.klikli_dev.theurgy.content.item.mode.EnabledSetter;
@@ -13,6 +15,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.level.block.AbstractFurnaceBlock;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -22,12 +26,25 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class LogisticsItemConnectorBlockEntity extends BlockEntity implements HasLeafNodeBehaviour<IItemHandler, @Nullable Direction>, TargetDirectionSetter, EnabledSetter {
+public abstract class LogisticsItemConnectorBlockEntity extends BlockEntity implements HasLeafNodeBehaviour<IItemHandler, @Nullable Direction>, HasFilterBehaviour, TargetDirectionSetter, EnabledSetter {
 
     protected LeafNodeBehaviour<IItemHandler, @Nullable Direction> leafNodeBehaviour;
+    protected FilterBehaviour filterBehaviour;
 
     protected LogisticsItemConnectorBlockEntity(BlockEntityType<?> pType, BlockPos pPos, BlockState pBlockState) {
         super(pType, pPos, pBlockState);
+        //the leaf node behaviour is set in child
+        this.filterBehaviour = new FilterBehaviour(this).withCallback(
+                (filter) -> {
+                    this.updateBlockStateToMatchFilter();
+                    this.leafNode().filter(filter);
+                }
+        );
+    }
+
+    @Override
+    public FilterBehaviour filter() {
+        return this.filterBehaviour;
     }
 
     @Override
@@ -65,6 +82,8 @@ public abstract class LogisticsItemConnectorBlockEntity extends BlockEntity impl
 
         if (!this.level.isClientSide) {
             this.leafNode().onLoad();
+
+            this.updateBlockStateToMatchFilter();
         }
     }
 
@@ -81,16 +100,27 @@ public abstract class LogisticsItemConnectorBlockEntity extends BlockEntity impl
     public void loadAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
         super.loadAdditional(pTag, pRegistries);
         this.leafNode().loadAdditional(pTag, pRegistries);
+        this.filter().loadAdditional(pTag, pRegistries);
     }
 
     @Override
     protected void saveAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
         super.saveAdditional(pTag, pRegistries);
         this.leafNode().saveAdditional(pTag, pRegistries);
+        this.filter().saveAdditional(pTag, pRegistries);
     }
 
     @Override
     public LeafNodeBehaviour<IItemHandler, @Nullable Direction> leafNode() {
         return this.leafNodeBehaviour;
     }
+
+    protected void updateBlockStateToMatchFilter() {
+        var isEmpty = !this.getBlockState().getValue(LogisticsItemConnectorBlock.HAS_FILTER);
+        if(this.filter().filter().isEmpty() != isEmpty){
+            var newState = this.getBlockState().setValue(LogisticsItemConnectorBlock.HAS_FILTER, !this.filter().filter().isEmpty());
+            this.level.setBlock(this.getBlockPos(), newState, Block.UPDATE_ALL);
+        }
+    }
+
 }

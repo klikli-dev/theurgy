@@ -1,4 +1,4 @@
-// 1.21	2024-06-16T17:26:45.2673641	Shaped Crafting Recipes
+// 1.21	2024-06-27T12:23:04.785347	Shaped Crafting Recipes
 1a1455c9a7af01c27e142f6dbd30d87036d4d091 data/theurgy/recipe/crafting/shaped/amethyst_divination_rod.json
 5947320d23ddb2fea340162d3fa1f499ae60fe60 data/theurgy/recipe/crafting/shaped/calcination_oven.json
 fea993b064c542dc56524de4c628f0160ed5850f data/theurgy/recipe/crafting/shaped/caloric_flux_emitter_from_campfire.json
@@ -16,6 +16,7 @@ f89630022cc77960809704f97a6a655986f924ad data/theurgy/recipe/crafting/shaped/inc
 cd84d5636f07b867158c49eba4c340b7f47e6996 data/theurgy/recipe/crafting/shaped/incubator_salt_vessel.json
 85ddf466c8fe887d9dddb263aff4ed51d828c846 data/theurgy/recipe/crafting/shaped/incubator_sulfur_vessel.json
 473b7db592ed450f6be0785521593e0fc18e394d data/theurgy/recipe/crafting/shaped/liquefaction_cauldron.json
+666bb57d2446a04b5385b63d8940748ed3f16afd data/theurgy/recipe/crafting/shaped/list_filter.json
 5cf698be6496edd1070ed239a9b6fcdd80d4f05a data/theurgy/recipe/crafting/shaped/logistics_connector_node.json
 34d5886f5d4f29e58249d2bb00eb29b926b8daab data/theurgy/recipe/crafting/shaped/logistics_item_extractor.json
 95fba052d90433b04781cc28b8f09ac1e9c2443b data/theurgy/recipe/crafting/shaped/logistics_item_inserter.json

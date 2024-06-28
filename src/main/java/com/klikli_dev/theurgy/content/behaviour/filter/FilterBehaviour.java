@@ -4,7 +4,6 @@
 
 package com.klikli_dev.theurgy.content.behaviour.filter;
 
-import com.klikli_dev.theurgy.content.item.filter.Filter;
 import com.klikli_dev.theurgy.content.item.filter.FilterItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;

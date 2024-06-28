@@ -134,6 +134,7 @@ public class ItemRegistry {
             ));
 
     public static final DeferredItem<FilterItem> LIST_FILTER = ITEMS.register("list_filter", () -> new FilterItem(new Item.Properties()));
+    public static final DeferredItem<FilterItem> ATTRIBUTE_FILTER = ITEMS.register("attribute_filter", () -> new FilterItem(new Item.Properties()));
 
     //Buckets
     public static final DeferredItem<Item> SAL_AMMONIAC_BUCKET =

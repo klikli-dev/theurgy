@@ -4,9 +4,7 @@
 
 package com.klikli_dev.theurgy.content.behaviour.logistics;
 
-import com.klikli_dev.theurgy.content.behaviour.filter.FilterBehaviour;
-import com.klikli_dev.theurgy.content.behaviour.filter.HasFilterBehaviour;
-import com.klikli_dev.theurgy.content.item.filter.Filter;
+import com.klikli_dev.theurgy.content.behaviour.filter.Filter;
 import com.klikli_dev.theurgy.logistics.Logistics;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.GlobalPos;
@@ -17,7 +15,6 @@ import net.minecraft.nbt.LongTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.neoforged.neoforge.capabilities.BlockCapability;
 import net.neoforged.neoforge.common.util.Lazy;
 

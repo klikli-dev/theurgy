@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: MIT
 
-package com.klikli_dev.theurgy.content.item.filter;
+package com.klikli_dev.theurgy.content.behaviour.filter;
 
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;

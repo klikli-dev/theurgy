@@ -7,7 +7,7 @@
 package com.klikli_dev.theurgy.registry;
 
 import com.klikli_dev.theurgy.Theurgy;
-import com.klikli_dev.theurgy.content.item.filter.FilterMode;
+import com.klikli_dev.theurgy.content.behaviour.filter.FilterMode;
 import com.klikli_dev.theurgy.content.item.mercurialwand.mode.MercurialWandItemMode;
 import com.klikli_dev.theurgy.logistics.WireEndPoint;
 import com.klikli_dev.theurgy.util.TheurgyExtraCodecs;

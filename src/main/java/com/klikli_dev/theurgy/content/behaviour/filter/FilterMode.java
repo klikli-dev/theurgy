@@ -1,4 +1,4 @@
-package com.klikli_dev.theurgy.content.item.filter;
+package com.klikli_dev.theurgy.content.behaviour.filter;
 
 import com.mojang.serialization.Codec;
 import io.netty.buffer.ByteBuf;

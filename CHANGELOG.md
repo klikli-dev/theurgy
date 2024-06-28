@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.4-1.19.4] - 2024-06-28
+### :wrench: Chores
+- [`132ca5e`](https://github.com/klikli-dev/theurgy/commit/132ca5e39987165f50bbc2a3d4e37adda1084794) - reduce hermetica icon size *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.4-1.19.3] - 2024-06-19
 ### :bug: Bug Fixes
 - [`e14e2db`](https://github.com/klikli-dev/theurgy/commit/e14e2db1c46a72ecfdfe22be311340a75c856f4a) - reformation arrays do not recognize source pedestals any more *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -537,3 +542,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.4-1.19.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.4-1.19.0...release/v1.20.4-1.19.1
 [release/v1.20.4-1.19.2]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.4-1.19.1...release/v1.20.4-1.19.2
 [release/v1.20.4-1.19.3]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.4-1.19.2...release/v1.20.4-1.19.3
+[release/v1.20.4-1.19.4]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.4-1.19.3...release/v1.20.4-1.19.4

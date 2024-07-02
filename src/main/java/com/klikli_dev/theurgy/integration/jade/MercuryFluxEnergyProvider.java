@@ -8,6 +8,7 @@ import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.registry.CapabilityRegistry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
+import net.neoforged.neoforge.capabilities.Capabilities;
 import org.jetbrains.annotations.Nullable;
 import snownee.jade.api.Accessor;
 import snownee.jade.api.view.*;
@@ -52,5 +53,13 @@ public class MercuryFluxEnergyProvider implements IServerExtensionProvider<Compo
     @Override
     public @Nullable List<ViewGroup<CompoundTag>> getGroups(Accessor<?> accessor) {
         return wrapMercuryFluxStorage(accessor);
+    }
+
+    public boolean shouldRequestData(Accessor<?> accessor) {
+        return hasDefaultMercuryFluxStorage(accessor);
+    }
+
+    public static boolean hasDefaultMercuryFluxStorage(Accessor<?> accessor) {
+        return CommonProxy.hasDefaultStorage(accessor, CapabilityRegistry.MERCURY_FLUX_HANDLER, null);
     }
 }

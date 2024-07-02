@@ -221,7 +221,8 @@ public abstract class JsonRecipeProvider implements DataProvider {
 
         public T sizedFluidIngredient(String propertyName, TagKey<Fluid> fluid, int amount) {
             this.recipe.add(propertyName, SizedFluidIngredient.NESTED_CODEC.encodeStart(JsonOps.INSTANCE, SizedFluidIngredient.of(fluid, amount)).getOrThrow());
-            this.condition(new NotCondition(new FluidTagEmptyCondition(fluid.location().toString())));
+            //TODO: enable once kubejs offers fluid tag cache access
+//            this.condition(new NotCondition(new FluidTagEmptyCondition(fluid.location().toString())));
             return this.getThis();
         }
 

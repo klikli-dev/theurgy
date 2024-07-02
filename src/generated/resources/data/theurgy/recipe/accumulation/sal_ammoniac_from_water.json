@@ -1,13 +1,4 @@
 {
-  "neoforge:conditions": [
-    {
-      "type": "neoforge:not",
-      "value": {
-        "type": "theurgy:fluid_tag_empty",
-        "tag": "minecraft:water"
-      }
-    }
-  ],
   "type": "theurgy:accumulation",
   "category": "misc",
   "evaporant": {

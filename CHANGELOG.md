@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21-1.24.2] - 2024-07-02
+### :bug: Bug Fixes
+- [`32538f0`](https://github.com/klikli-dev/theurgy/commit/32538f05c37397548d1d6abd9218224bbf6b985b) - mf provider also affects other energy types *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`13aae81`](https://github.com/klikli-dev/theurgy/commit/13aae813b40265b3ad31278412c0b395ef83520f) - update to latest neo & update depende ncies *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21-1.24.1] - 2024-06-28
 ### :wrench: Chores
 - [`f8612e5`](https://github.com/klikli-dev/theurgy/commit/f8612e5331926eea550f55134e3227d5a72ba65b) - reduce hermetica icon size *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -660,3 +668,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21-1.23.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.23.0...release/v1.21-1.23.1
 [release/v1.21-1.24.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.23.1...release/v1.21-1.24.0
 [release/v1.21-1.24.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.24.0...release/v1.21-1.24.1
+[release/v1.21-1.24.2]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.24.1...release/v1.21-1.24.2

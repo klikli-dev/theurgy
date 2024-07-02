@@ -4,6 +4,8 @@
 
 package com.klikli_dev.theurgy.content.recipe.condition;
 
+import com.klikli_dev.theurgy.integration.kubejs.KubeJsIntegration;
+import com.klikli_dev.theurgy.integration.kubejs.KubeJsIntegrationImpl;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.registries.Registries;
@@ -35,6 +37,9 @@ public record FluidTagEmptyCondition(TagKey<Fluid> tag) implements ICondition {
 
     @Override
     public boolean test(ICondition.IContext context) {
+        if(KubeJsIntegration.get().isLoaded())
+            return KubeJsIntegration.get().isEmpty(this.tag);
+
         return context.getTag(this.tag).isEmpty();
     }
 

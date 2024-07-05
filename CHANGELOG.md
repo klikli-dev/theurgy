@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21-1.24.4] - 2024-07-05
+### :bug: Bug Fixes
+- [`202c956`](https://github.com/klikli-dev/theurgy/commit/202c956d73af0dfada1d6142bc37d3265876da65) - fermentation recipes *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21-1.24.3] - 2024-07-02
 ### :wrench: Chores
 - [`c0b1506`](https://github.com/klikli-dev/theurgy/commit/c0b1506c555eb9b1afc663b98ed87443325ed7f9) - prepare kubejs integration for potential future kubejs tag condition fix *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -676,3 +681,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21-1.24.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.24.0...release/v1.21-1.24.1
 [release/v1.21-1.24.2]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.24.1...release/v1.21-1.24.2
 [release/v1.21-1.24.3]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.24.2...release/v1.21-1.24.3
+[release/v1.21-1.24.4]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.24.3...release/v1.21-1.24.4

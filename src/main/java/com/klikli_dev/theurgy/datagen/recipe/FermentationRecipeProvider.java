@@ -117,7 +117,7 @@ public class FermentationRecipeProvider extends JsonRecipeProvider {
 
     public void makeRecipe(String name, Fluid fluid, int fluidAmount, List<TagKey<Item>> ingredients, Item result, int resultCount, int time) {
 
-        var recipe = new Builder(new ItemStack(ItemRegistry.MERCURY_SHARD.get(), resultCount))
+        var recipe = new Builder(new ItemStack(result, resultCount))
                 .fluid(fluid, fluidAmount)
                 .time(time);
 

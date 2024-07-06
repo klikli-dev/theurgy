@@ -144,6 +144,11 @@ public class TheurgyConstants {
 
             public static final String FILTER_RESPECT_DATA_COMPONENTS_BUTTON_TOOLTIP = PREFIX + "filter.respect_data_components_button.tooltip";
             public static final String FILTER_RESPECT_DATA_COMPONENTS_BUTTON_TOOLTIP_SHIFT = PREFIX + "filter.respect_data_components_button.tooltip.shift";
+
+            public static final String SCROLL_DEFAULT_TITLE = PREFIX + "scroll_input.default_title";
+            public static final String SCROLL_TO_MODIFY = PREFIX + "scroll_input.scroll_to_modify";
+            public static final String SCROLL_TO_SELECT = PREFIX + "scroll_input.scroll_to_select";
+            public static final String SCROLL_SHIFT_SCROLLS_FASTER = PREFIX + "scroll_input.shift_scrolls_faster";
         }
     }
 

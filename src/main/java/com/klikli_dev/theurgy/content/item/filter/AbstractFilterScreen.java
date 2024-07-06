@@ -5,11 +5,9 @@
 package com.klikli_dev.theurgy.content.item.filter;
 
 import com.klikli_dev.theurgy.TheurgyConstants;
-import com.klikli_dev.theurgy.content.gui.GuiIcons;
-import com.klikli_dev.theurgy.content.gui.GuiTextures;
-import com.klikli_dev.theurgy.content.gui.IconButton;
-import com.klikli_dev.theurgy.content.gui.Indicator;
+import com.klikli_dev.theurgy.content.gui.*;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -82,10 +80,17 @@ public abstract class AbstractFilterScreen<T extends AbstractFilterMenu> extends
             this.menu.player.closeContainer();
 
         super.containerTick();
+        for (GuiEventListener listener : children()) {
+            if (listener instanceof TickableGuiEventListener tickable) {
+                tickable.tick();
+            }
+        }
 
         this.updateButtonState();
         this.updateIndicatorState();
     }
+
+
 
     public int getLeftOfCentered(int textureWidth) {
         return this.leftPos + (this.imageWidth - textureWidth) / 2;

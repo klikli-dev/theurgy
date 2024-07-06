@@ -99,6 +99,11 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
 
         this.add(TheurgyConstants.I18n.Gui.FILTER_IGNORE_DATA_COMPONENTS_BUTTON_TOOLTIP, "Ignore Data");
         this.add(TheurgyConstants.I18n.Gui.FILTER_IGNORE_DATA_COMPONENTS_BUTTON_TOOLTIP_SHIFT, "Items pass regardless of their data components (durability, enchantments and others).");
+
+        this.add(TheurgyConstants.I18n.Gui.SCROLL_DEFAULT_TITLE, "Choose an Option:");
+        this.add(TheurgyConstants.I18n.Gui.SCROLL_TO_MODIFY, "Scroll to Modify");
+        this.add(TheurgyConstants.I18n.Gui.SCROLL_TO_SELECT, "Scroll to Select");
+        this.add(TheurgyConstants.I18n.Gui.SCROLL_SHIFT_SCROLLS_FASTER, "Shift to Scroll Faster");
     }
 
     private void addBehaviours() {

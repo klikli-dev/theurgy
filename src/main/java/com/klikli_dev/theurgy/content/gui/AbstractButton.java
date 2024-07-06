@@ -12,6 +12,8 @@ import net.minecraft.network.chat.Component;
 import org.jetbrains.annotations.NotNull;
 
 public abstract class AbstractButton extends AbstractWidget {
+    public static final int HEADER_RGB = 0x5391E1;
+    public static final int HINT_RGB = 0x96B7E0;
 
     protected TriConsumer<Double, Double, Integer> onClick = (_$, _$$, _$$$) -> {
     };
@@ -53,7 +55,7 @@ public abstract class AbstractButton extends AbstractWidget {
     }
 
     public <T extends AbstractButton> T withTooltip(String component, String shiftDownComponent) {
-        return this.withTooltip(Component.translatable(component), (Component.translatable(shiftDownComponent)));
+        return this.withTooltip(Component.translatable(component), Component.translatable(shiftDownComponent));
     }
 
     public <T extends AbstractButton> T withTooltip(Component component, Component shiftDownComponent) {

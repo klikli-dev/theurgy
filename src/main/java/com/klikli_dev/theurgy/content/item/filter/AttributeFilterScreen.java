@@ -181,6 +181,7 @@ public class AttributeFilterScreen extends AbstractFilterScreen<AttributeFilterM
     @Override
     public void render(@NotNull GuiGraphics pGuiGraphics, int pMouseX, int pMouseY, float pPartialTick) {
         super.render(pGuiGraphics, pMouseX, pMouseY, pPartialTick);
+        this.renderTooltip(pGuiGraphics, pMouseX, pMouseY);
 
         ItemStack stack = this.menu.ghostInventory.getStackInSlot(1);
         PoseStack matrixStack = pGuiGraphics.pose();

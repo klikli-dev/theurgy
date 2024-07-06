@@ -107,7 +107,7 @@ public class AttributeFilterScreen extends AbstractFilterScreen<AttributeFilterM
         this.acceptListAndButton = new IconButton(x + 65, y + 61, GuiIcons.ACCEPT_LIST_AND);
         this.acceptListAndButton.withOnClick(() -> {
             this.menu.filterMode = FilterMode.ACCEPT_LIST_AND;
-            this.sendOptionUpdate(MessageSetListFilterScreenOption.Option.ACCEPT_LIST);
+            this.sendOptionUpdate(MessageSetListFilterScreenOption.Option.ACCEPT_LIST2);
         });
         this.acceptListAndButton.withTooltip(
                 TheurgyConstants.I18n.Gui.ATTRIBUTE_FILTER_ACCEPT_LIST_AND_BUTTON_TOOLTIP,
@@ -162,6 +162,7 @@ public class AttributeFilterScreen extends AbstractFilterScreen<AttributeFilterM
 
         this.attributeSelector = new SelectionScrollInput(x + 39, y + 23, 137, 18);
         this.attributeSelector.forOptions(List.of(Component.empty()));
+        this.attributeSelector.updateTooltip();
         this.attributeSelector.removeCallback();
         this.addRenderableWidget(this.attributeSelector);
 
@@ -237,7 +238,8 @@ public class AttributeFilterScreen extends AbstractFilterScreen<AttributeFilterM
         ItemAttribute itemAttribute = this.attributesOfItem.get(index);
         itemAttribute.serializeNBT(Minecraft.getInstance().player.registryAccess(), tag);
 
-        this.sendOptionUpdate(inverted ? MessageSetListFilterScreenOption.Option.ADD_INVERTED_TAG : MessageSetListFilterScreenOption.Option.ADD_TAG);
+        var option = inverted ? MessageSetListFilterScreenOption.Option.ADD_INVERTED_TAG : MessageSetListFilterScreenOption.Option.ADD_TAG;
+        Networking.sendToServer(new MessageSetListFilterScreenOption(option, tag));
 
         this.menu.selectedAttributes.add(Pair.of(itemAttribute, inverted));
 

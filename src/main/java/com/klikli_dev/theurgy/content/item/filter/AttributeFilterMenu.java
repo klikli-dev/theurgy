@@ -16,6 +16,7 @@ import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ClickType;
@@ -53,16 +54,6 @@ public class AttributeFilterMenu extends AbstractFilterMenu {
     }
 
     @Override
-    protected void init(Inventory inv, ItemStack contentHolderIn) {
-        super.init(inv, contentHolderIn);
-
-        ItemStack stack = new ItemStack(Items.NAME_TAG);
-        stack.set(DataComponents.ITEM_NAME,
-                Component.literal("Selected Tags").withStyle(ChatFormatting.RESET, ChatFormatting.BLUE));
-        this.ghostInventory.setStackInSlot(1, stack);
-    }
-
-    @Override
     protected ComponentItemHandler createGhostInventory() {
         return new ComponentItemHandler(this.contentHolder, DataComponentRegistry.FILTER_ITEMS.get(), 2);
     }
@@ -86,6 +77,16 @@ public class AttributeFilterMenu extends AbstractFilterMenu {
                 return false;
             }
         });
+    }
+
+    @Override
+    protected void init(Inventory inv, ItemStack contentHolderIn) {
+        super.init(inv, contentHolderIn);
+
+        ItemStack stack = new ItemStack(Items.NAME_TAG);
+        stack.set(DataComponents.ITEM_NAME,
+                Component.literal("Selected Tags").withStyle(ChatFormatting.RESET, ChatFormatting.BLUE));
+        this.ghostInventory.setStackInSlot(1, stack);
     }
 
     @Override
@@ -145,8 +146,8 @@ public class AttributeFilterMenu extends AbstractFilterMenu {
 
 
     @Override
-    protected void saveData(ItemStack filterItem) {
-        this.contentHolder.set(DataComponentRegistry.FILTER_MODE, this.filterMode);
+    protected void saveData(ItemStack contentHolder) {
+        contentHolder.set(DataComponentRegistry.FILTER_MODE, this.filterMode);
 
         ListTag attributes = new ListTag();
         this.selectedAttributes.forEach(at -> {
@@ -160,7 +161,6 @@ public class AttributeFilterMenu extends AbstractFilterMenu {
 
         var tag = new CompoundTag();
         tag.put("MatchedAttributes", attributes);
-        filterItem.set(DataComponentRegistry.FILTER_ATTRIBUTES, CustomData.of(tag));
+        contentHolder.set(DataComponentRegistry.FILTER_ATTRIBUTES, CustomData.of(tag));
     }
-
 }

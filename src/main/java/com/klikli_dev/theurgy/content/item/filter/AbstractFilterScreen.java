@@ -111,10 +111,6 @@ public abstract class AbstractFilterScreen<T extends AbstractFilterMenu> extends
             indicator.state = this.isIndicatorOn(indicator) ? Indicator.State.ON : Indicator.State.OFF;
     }
 
-    protected List<MutableComponent> getTooltipDescriptions() {
-        return Collections.emptyList();
-    }
-
     protected List<Indicator> getIndicators() {
         return Collections.emptyList();
     }

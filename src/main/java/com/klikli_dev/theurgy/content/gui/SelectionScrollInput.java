@@ -33,7 +33,7 @@ public class SelectionScrollInput extends ScrollInput {
     }
 
     @Override
-    protected void updateTooltip() {
+    public void updateTooltip() {
         var tooltip = Component.empty();
 
         if (this.title != null)

@@ -178,7 +178,7 @@ public class ScrollInput extends AbstractButton implements TickableGuiEventListe
         this.displayLabel.text = this.formatter.apply(this.state);
     }
 
-    protected void updateTooltip() {
+    public void updateTooltip() {
         var tooltip = Component.empty();
 
         if (this.title != null)

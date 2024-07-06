@@ -165,7 +165,7 @@ public class DataComponentRegistry {
             .cacheEncoding()
     );
 
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<FilterMode>> FILTER_MODE = DATA_COMPONENTS.registerComponentType("filter_is_deny_list", builder -> builder
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<FilterMode>> FILTER_MODE = DATA_COMPONENTS.registerComponentType("filter_mode", builder -> builder
             .persistent(FilterMode.CODEC)
             .networkSynchronized(FilterMode.STREAM_CODEC)
             .cacheEncoding()

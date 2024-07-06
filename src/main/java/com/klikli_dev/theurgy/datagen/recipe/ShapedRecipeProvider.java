@@ -388,6 +388,16 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
                 .define('p', Items.PAPER)
                 .define('m', ItemRegistry.MERCURY_SHARD)
         );
+
+        this.makeRecipe(new ShapedRecipeBuilder(
+                ItemRegistry.ATTRIBUTE_FILTER.get(), 9)
+                .pattern("pfp")
+                .pattern("pmp")
+                .pattern("ppp")
+                .define('f', Items.FEATHER)
+                .define('p', Items.PAPER)
+                .define('m', ItemRegistry.MERCURY_SHARD)
+        );
     }
 
     public DataComponentPatch.Builder makeDivinationRodSettings(DivinationRodItem rodItem) {

@@ -7,6 +7,7 @@ package com.klikli_dev.theurgy.content.item.filter;
 import com.klikli_dev.theurgy.content.behaviour.filter.FilterMode;
 import com.klikli_dev.theurgy.content.behaviour.filter.attribute.ItemAttribute;
 import com.klikli_dev.theurgy.registry.DataComponentRegistry;
+import com.klikli_dev.theurgy.registry.MenuTypeRegistry;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
@@ -41,6 +42,14 @@ public class AttributeFilterMenu extends AbstractFilterMenu {
 
     protected AttributeFilterMenu(MenuType<?> type, int id, Inventory inv, ItemStack contentHolder) {
         super(type, id, inv, contentHolder);
+    }
+
+    public static AttributeFilterMenu create(int id, Inventory inv, ItemStack stack) {
+        return new AttributeFilterMenu(MenuTypeRegistry.ATTRIBUTE_FILTER.get(), id, inv, stack);
+    }
+
+    public static AttributeFilterMenu create(int id, Inventory inv, RegistryFriendlyByteBuf extraData) {
+        return new AttributeFilterMenu(MenuTypeRegistry.ATTRIBUTE_FILTER.get(), id, inv, extraData);
     }
 
     @Override

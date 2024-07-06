@@ -44,6 +44,7 @@ public abstract class AbstractFilterScreen<T extends AbstractFilterMenu> extends
         this.resetButton.withTooltip(Component.translatable(TheurgyConstants.I18n.Gui.FILTER_RESET_BUTTON_TOOLTIP));
         this.resetButton.withOnClick(() -> {
             this.menu.clearContents();
+            this.clearContents();
             this.menu.sendClearPacket();
         });
         this.addRenderableWidget(this.resetButton);
@@ -122,6 +123,8 @@ public abstract class AbstractFilterScreen<T extends AbstractFilterMenu> extends
     protected List<IconButton> getButtons() {
         return Collections.emptyList();
     }
+
+    protected void clearContents() {}
 
     protected abstract int getScreenTitleColor();
 

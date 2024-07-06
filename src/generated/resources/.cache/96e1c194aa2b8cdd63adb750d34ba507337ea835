@@ -1,5 +1,6 @@
-// 1.21	2024-06-27T12:23:04.785347	Shaped Crafting Recipes
+// 1.21	2024-07-06T18:53:49.9909335	Shaped Crafting Recipes
 1a1455c9a7af01c27e142f6dbd30d87036d4d091 data/theurgy/recipe/crafting/shaped/amethyst_divination_rod.json
+42a5d6c467bfe9598f3ec75079b6da36b9862565 data/theurgy/recipe/crafting/shaped/attribute_filter.json
 5947320d23ddb2fea340162d3fa1f499ae60fe60 data/theurgy/recipe/crafting/shaped/calcination_oven.json
 fea993b064c542dc56524de4c628f0160ed5850f data/theurgy/recipe/crafting/shaped/caloric_flux_emitter_from_campfire.json
 1419a9e2ec026cf4c03d8df57bc4fea711c12872 data/theurgy/recipe/crafting/shaped/caloric_flux_emitter_from_lava_bucket.json

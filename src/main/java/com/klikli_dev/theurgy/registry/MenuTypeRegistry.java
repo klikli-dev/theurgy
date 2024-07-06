@@ -5,6 +5,7 @@
 package com.klikli_dev.theurgy.registry;
 
 import com.klikli_dev.theurgy.Theurgy;
+import com.klikli_dev.theurgy.content.item.filter.AttributeFilterMenu;
 import com.klikli_dev.theurgy.content.item.filter.ListFilterMenu;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.inventory.MenuType;
@@ -18,4 +19,5 @@ public class MenuTypeRegistry {
 
     public static final DeferredHolder<MenuType<?>, MenuType<ListFilterMenu>> LIST_FILTER = MENU_TYPES.register("list_filter", () -> IMenuTypeExtension.create(ListFilterMenu::create));
 
+    public static final DeferredHolder<MenuType<?>, MenuType<AttributeFilterMenu>> ATTRIBUTE_FILTER = MENU_TYPES.register("attribute_filter", () -> IMenuTypeExtension.create(AttributeFilterMenu::create));
 }

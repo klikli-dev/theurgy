@@ -5,9 +5,14 @@
 package com.klikli_dev.theurgy.content.item.filter;
 
 import com.klikli_dev.theurgy.TheurgyConstants;
+import com.klikli_dev.theurgy.content.behaviour.filter.FilterMode;
+import com.klikli_dev.theurgy.content.behaviour.filter.attribute.ItemAttribute;
 import com.klikli_dev.theurgy.registry.DataComponentRegistry;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -29,7 +34,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class FilterItem extends Item implements MenuProvider {
+public abstract class FilterItem extends Item implements MenuProvider {
     public FilterItem(Properties pProperties) {
         super(pProperties);
     }
@@ -67,50 +72,10 @@ public class FilterItem extends Item implements MenuProvider {
         }
     }
 
-    private List<Component> makeSummary(ItemStack filter) {
-        List<Component> list = new ArrayList<>();
-
-        if (!filter.has(DataComponentRegistry.FILTER_ITEMS))
-            return list;
-
-        var filterItems = filter.get(DataComponentRegistry.FILTER_ITEMS);
-        boolean blacklist = filter.getOrDefault(DataComponentRegistry.FILTER_IS_DENY_LIST, false);
-
-        list.add((blacklist ?
-                Component.translatable(TheurgyConstants.I18n.Gui.FILTER_DENY_LIST_BUTTON_TOOLTIP)
-                : Component.translatable(TheurgyConstants.I18n.Gui.FILTER_ACCEPT_LIST_BUTTON_TOOLTIP)).withStyle(ChatFormatting.GOLD));
-
-        int count = 0;
-        for (int i = 0; i < filterItems.getSlots(); i++) {
-            if (count > 3) {
-                list.add(Component.literal("- ...")
-                        .withStyle(ChatFormatting.DARK_GRAY));
-                break;
-            }
-
-            ItemStack filterStack = filterItems.getStackInSlot(i);
-            if (filterStack.isEmpty())
-                continue;
-            list.add(Component.literal("- ")
-                    .append(filterStack.getHoverName())
-                    .withStyle(ChatFormatting.GRAY));
-            count++;
-        }
-
-        if (count == 0)
-            return Collections.emptyList();
-
-        return list;
-    }
+    protected abstract List<Component> makeSummary(ItemStack filter);
 
     @Override
     public @NotNull Component getDisplayName() {
         return this.getDescription();
-    }
-
-    @Nullable
-    @Override
-    public AbstractContainerMenu createMenu(int pContainerId, @NotNull Inventory pPlayerInventory, @NotNull Player pPlayer) {
-        return ListFilterMenu.create(pContainerId, pPlayerInventory, pPlayer.getMainHandItem());
     }
 }

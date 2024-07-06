@@ -37,7 +37,8 @@ public enum GuiTextures implements ScreenElement {
 
     PLAYER_INVENTORY("player_inventory", 176, 108),
 
-    FILTER("filters", 214, 99);
+    FILTER("filters", 214, 99),
+    ATTRIBUTE_FILTER("filters", 0, 99, 241, 85);
 
     public final ResourceLocation location;
     public final int textureHeight;

@@ -4,16 +4,18 @@
 
 package com.klikli_dev.theurgy.content.behaviour.filter;
 
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
 public class EmptyFilter extends Filter {
     protected EmptyFilter() {
-        super(ItemStack.EMPTY);
+        super(RegistryAccess.EMPTY, ItemStack.EMPTY);
     }
 
     @Override
-    protected void initFromFilterItemStack(ItemStack filterItemStack) {
+    protected void initFromFilterItemStack(HolderLookup.Provider provider, ItemStack filterItemStack) {
 
     }
 

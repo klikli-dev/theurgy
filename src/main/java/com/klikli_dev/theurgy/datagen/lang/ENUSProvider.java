@@ -88,11 +88,11 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.add(TheurgyConstants.I18n.Gui.FILTER_RESET_BUTTON_TOOLTIP, "Reset Filter Settings");
         this.add(TheurgyConstants.I18n.Gui.FILTER_CONFIRM_BUTTON_TOOLTIP, "Save Filter Settings");
 
-        this.add(TheurgyConstants.I18n.Gui.FILTER_ACCEPT_LIST_BUTTON_TOOLTIP, "Allow-List");
-        this.add(TheurgyConstants.I18n.Gui.FILTER_ACCEPT_LIST_BUTTON_TOOLTIP_SHIFT, "Items pass if they match any of the above. An empty Allow-List rejects everything.");
+        this.add(TheurgyConstants.I18n.Gui.LIST_FILTER_ACCEPT_LIST_BUTTON_TOOLTIP, "Allow-List");
+        this.add(TheurgyConstants.I18n.Gui.LIST_FILTER_ACCEPT_LIST_BUTTON_TOOLTIP_SHIFT, "Items pass if they match any of the above. An empty Allow-List rejects everything.");
 
-        this.add(TheurgyConstants.I18n.Gui.FILTER_DENY_LIST_BUTTON_TOOLTIP, "Deny-List");
-        this.add(TheurgyConstants.I18n.Gui.FILTER_DENY_LIST_BUTTON_TOOLTIP_SHIFT, "Items pass if they DO NOT match any of the above. An empty Deny-List accepts everything.");
+        this.add(TheurgyConstants.I18n.Gui.LIST_FILTER_DENY_LIST_BUTTON_TOOLTIP, "Deny-List");
+        this.add(TheurgyConstants.I18n.Gui.LIST_FILTER_DENY_LIST_BUTTON_TOOLTIP_SHIFT, "Items pass if they DO NOT match any of the above. An empty Deny-List accepts everything.");
 
         this.add(TheurgyConstants.I18n.Gui.FILTER_RESPECT_DATA_COMPONENTS_BUTTON_TOOLTIP, "Respect Data");
         this.add(TheurgyConstants.I18n.Gui.FILTER_RESPECT_DATA_COMPONENTS_BUTTON_TOOLTIP_SHIFT, "Items pass if they match the data components of the filter item (durability, enchantments and others).");
@@ -104,6 +104,22 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.add(TheurgyConstants.I18n.Gui.SCROLL_TO_MODIFY, "Scroll to Modify");
         this.add(TheurgyConstants.I18n.Gui.SCROLL_TO_SELECT, "Scroll to Select");
         this.add(TheurgyConstants.I18n.Gui.SCROLL_SHIFT_SCROLLS_FASTER, "Shift to Scroll Faster");
+
+        this.add(TheurgyConstants.I18n.Gui.ATTRIBUTE_FILTER_ACCEPT_LIST_OR_BUTTON_TOOLTIP, "Allow-List (Any)");
+        this.add(TheurgyConstants.I18n.Gui.ATTRIBUTE_FILTER_ACCEPT_LIST_OR_BUTTON_TOOLTIP_SHIFT, "Items pass if they have ANY of the selected attributes.");
+
+        this.add(TheurgyConstants.I18n.Gui.ATTRIBUTE_FILTER_ACCEPT_LIST_AND_BUTTON_TOOLTIP, "Allow-List (All)");
+        this.add(TheurgyConstants.I18n.Gui.ATTRIBUTE_FILTER_ACCEPT_LIST_AND_BUTTON_TOOLTIP_SHIFT, "Items pass if they have ALL of the selected attributes.");
+
+        this.add(TheurgyConstants.I18n.Gui.ATTRIBUTE_FILTER_DENY_LIST_BUTTON_TOOLTIP, "Deny-List");
+        this.add(TheurgyConstants.I18n.Gui.ATTRIBUTE_FILTER_DENY_LIST_BUTTON_TOOLTIP_SHIFT, "Items pass if they do NOT have any of the selected attributes.");
+
+        this.add(TheurgyConstants.I18n.Gui.ATTRIBUTE_FILTER_ADD_BUTTON_TOOLTIP, "Add attribute to list");
+        this.add(TheurgyConstants.I18n.Gui.ATTRIBUTE_FILTER_ADD_INVERTED_BUTTON_TOOLTIP, "Add opposite attribute to list");
+
+        this.add(TheurgyConstants.I18n.Gui.ATTRIBUTE_FILTER_ADD_REFERENCE_ITEM, "Add Reference Item");
+        this.add(TheurgyConstants.I18n.Gui.ATTRIBUTE_FILTER_NO_SELECTED_ATTRIBUTES, "No attributes selected");
+        this.add(TheurgyConstants.I18n.Gui.ATTRIBUTE_FILTER_SELECTED_ATTRIBUTES, "Selected attributes:");
     }
 
     private void addBehaviours() {
@@ -791,6 +807,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.add(TheurgyConstants.I18n.Item.Mode.DISABLED, "Disabled");
 
         this.addItem(ItemRegistry.LIST_FILTER, "Mercurial List Filter");
+        this.addItem(ItemRegistry.ATTRIBUTE_FILTER, "Mercurial Attribute Filter");
 
 
         this.addItem(ItemRegistry.MERCURY_SHARD, "Mercury Shard");

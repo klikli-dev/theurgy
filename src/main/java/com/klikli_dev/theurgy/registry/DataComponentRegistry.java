@@ -171,4 +171,10 @@ public class DataComponentRegistry {
             .cacheEncoding()
     );
 
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<CustomData>> FILTER_ATTRIBUTES = DATA_COMPONENTS.registerComponentType("filter_attributes", builder -> builder
+            .persistent(CustomData.CODEC)
+            .networkSynchronized(CustomData.STREAM_CODEC)
+            .cacheEncoding()
+    );
+
 }

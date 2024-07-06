@@ -1,8 +1,13 @@
+// SPDX-FileCopyrightText: 2024 klikli-dev
+//
+// SPDX-License-Identifier: MIT
+
 package com.klikli_dev.theurgy.content.item.filter;
 
 import com.klikli_dev.theurgy.content.behaviour.filter.FilterMode;
 import com.klikli_dev.theurgy.content.behaviour.filter.attribute.ItemAttribute;
 import com.klikli_dev.theurgy.registry.DataComponentRegistry;
+import com.mojang.datafixers.util.Pair;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
@@ -17,15 +22,18 @@ import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.CustomData;
 import net.neoforged.neoforge.items.ComponentItemHandler;
 import net.neoforged.neoforge.items.SlotItemHandler;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class AttributeFilterMenu extends AbstractFilterMenu {
 
     public FilterMode filterMode;
+    public List<Pair<ItemAttribute, Boolean>> selectedAttributes;
 
     protected AttributeFilterMenu(MenuType<?> type, int id, Inventory inv, RegistryFriendlyByteBuf extraData) {
         super(type, id, inv, extraData);
@@ -115,34 +123,35 @@ public class AttributeFilterMenu extends AbstractFilterMenu {
 
         this.filterMode = this.contentHolder.getOrDefault(DataComponentRegistry.FILTER_MODE, FilterMode.ACCEPT_LIST_OR);
 
-        selectedAttributes = new ArrayList<>();
-        ListTag attributes = filterItem.getOrCreateTag()
-                .getList("MatchedAttributes", Tag.TAG_COMPOUND);
+        this.selectedAttributes = new ArrayList<>();
+
+        //noinspection deprecation
+        var tag = filterItem.getOrDefault(DataComponentRegistry.FILTER_ATTRIBUTES, CustomData.EMPTY).getUnsafe();
+        ListTag attributes = tag.getList("MatchedAttributes", Tag.TAG_COMPOUND);
         attributes.forEach(inbt -> {
             CompoundTag compound = (CompoundTag) inbt;
-            selectedAttributes.add(Pair.of(ItemAttribute.fromNBT(compound), compound.getBoolean("Inverted")));
+            this.selectedAttributes.add(Pair.of(ItemAttribute.of(this.player.registryAccess(), compound), compound.getBoolean("Inverted")));
         });
     }
 
 
     @Override
     protected void saveData(ItemStack filterItem) {
-
         this.contentHolder.set(DataComponentRegistry.FILTER_MODE, this.filterMode);
 
-
         ListTag attributes = new ListTag();
-        selectedAttributes.forEach(at -> {
+        this.selectedAttributes.forEach(at -> {
             if (at == null)
                 return;
             CompoundTag compoundNBT = new CompoundTag();
-            at.getFirst()
-                    .serializeNBT(compoundNBT);
+            at.getFirst().serializeNBT(this.player.registryAccess(), compoundNBT);
             compoundNBT.putBoolean("Inverted", at.getSecond());
             attributes.add(compoundNBT);
         });
-        filterItem.getOrCreateTag()
-                .put("MatchedAttributes", attributes);
+
+        var tag = new CompoundTag();
+        tag.put("MatchedAttributes", attributes);
+        filterItem.set(DataComponentRegistry.FILTER_ATTRIBUTES, CustomData.of(tag));
     }
 
 }

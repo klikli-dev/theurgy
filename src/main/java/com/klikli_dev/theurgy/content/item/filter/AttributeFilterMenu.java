@@ -69,7 +69,7 @@ public class AttributeFilterMenu extends AbstractFilterMenu {
 
     @Override
     protected int getPlayerInventoryXOffset() {
-        return 51;
+        return 40;
     }
 
     @Override

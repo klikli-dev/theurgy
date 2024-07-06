@@ -7,6 +7,7 @@ package com.klikli_dev.theurgy.datagen.lang;
 import com.klikli_dev.modonomicon.api.datagen.AbstractModonomiconLanguageProvider;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.TheurgyConstants;
+import com.klikli_dev.theurgy.content.behaviour.filter.attribute.*;
 import com.klikli_dev.theurgy.content.item.salt.AlchemicalSaltItem;
 import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurItem;
 import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurTier;
@@ -84,7 +85,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.add(TheurgyConstants.I18n.Misc.UNIT_MILLIBUCKETS, "%smB");
     }
 
-    private void addGui(){
+    private void addGui() {
         this.add(TheurgyConstants.I18n.Gui.FILTER_RESET_BUTTON_TOOLTIP, "Reset Filter Settings");
         this.add(TheurgyConstants.I18n.Gui.FILTER_CONFIRM_BUTTON_TOOLTIP, "Save Filter Settings");
 
@@ -839,6 +840,53 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         );
     }
 
+    protected void addItemAttributes() {
+        this.addItemAttribute(ItemAttribute.addedBy, false, "was added by %1$s");
+        this.addItemAttribute(ItemAttribute.addedBy, true, "was not added by %1$s");
+        this.addItemAttribute(StandardAttributes.BADLY_DAMAGED, false, "is heavily damaged");
+        this.addItemAttribute(StandardAttributes.BADLY_DAMAGED, true, "is not heavily damaged");
+        this.addItemAttribute(StandardAttributes.BLASTABLE, false, "can be Smelted in a Blast Furnace");
+        this.addItemAttribute(StandardAttributes.BLASTABLE, true, "cannot be Smelted in a Blast Furnace");
+        this.addItemAttribute(StandardAttributes.COMPOSTABLE, false, "can be composted");
+        this.addItemAttribute(StandardAttributes.COMPOSTABLE, true, "cannot be composted");
+        this.addItemAttribute(StandardAttributes.CONSUMABLE, false, "can be eaten");
+        this.addItemAttribute(StandardAttributes.CONSUMABLE, true, "cannot be eaten");
+        this.addItemAttribute(StandardAttributes.DAMAGED, false, "is damaged");
+        this.addItemAttribute(StandardAttributes.DAMAGED, true, "is not damaged");
+        this.addItemAttribute(StandardAttributes.ENCHANTED, false, "is enchanted");
+        this.addItemAttribute(StandardAttributes.ENCHANTED, true, "is unenchanted");
+        this.addItemAttribute(StandardAttributes.EQUIPABLE, false, "can be equipped");
+        this.addItemAttribute(StandardAttributes.EQUIPABLE, true, "cannot be equipped");
+        this.addItemAttribute(StandardAttributes.FLUID_CONTAINER, false, "can store fluids");
+        this.addItemAttribute(StandardAttributes.FLUID_CONTAINER, true, "cannot store fluids");
+        this.addItemAttribute(StandardAttributes.FURNACE_FUEL, false, "is furnace fuel");
+        this.addItemAttribute(StandardAttributes.FURNACE_FUEL, true, "is not furnace fuel");
+        this.addItemAttribute(EnchantAttribute.EMPTY, false, "is enchanted with %1$s");
+        this.addItemAttribute(EnchantAttribute.EMPTY, true, "is not enchanted with %1$s");
+        this.addItemAttribute(FluidContentsAttribute.EMPTY, false, "contains %1$s");
+        this.addItemAttribute(FluidContentsAttribute.EMPTY, true, "does not contain %1$s");
+        this.addItemAttribute(ItemNameAttribute.DUMMY, false, "has the custom name %1$s");
+        this.addItemAttribute(ItemNameAttribute.DUMMY, true, "does not have the custom name %1$s");
+        this.addItemAttribute(InTagAttribute.DUMMY, false, "is tagged %1$s");
+        this.addItemAttribute(InTagAttribute.DUMMY, true, "is not tagged %1$s");
+        this.addItemAttribute(StandardAttributes.MAX_ENCHANTED, false, "is enchanted at max level");
+        this.addItemAttribute(StandardAttributes.MAX_ENCHANTED, true, "is not enchanted at max level");
+        this.addItemAttribute(StandardAttributes.NOT_STACKABLE, false, "cannot be stacked");
+        this.addItemAttribute(StandardAttributes.NOT_STACKABLE, true, "can be stacked");
+        this.addItemAttribute(StandardAttributes.PLACEABLE, false, "is placeable");
+        this.addItemAttribute(StandardAttributes.PLACEABLE, true, "is not placeable");
+        this.addItemAttribute(StandardAttributes.RENAMED, false, "has a custom name");
+        this.addItemAttribute(StandardAttributes.RENAMED, true, "does not have a custom name");
+        this.addItemAttribute(StandardAttributes.SMELTABLE, false, "can be Smelted");
+        this.addItemAttribute(StandardAttributes.SMELTABLE, true, "cannot be Smelted");
+        this.addItemAttribute(StandardAttributes.SMOKABLE, false, "can be Smoked");
+        this.addItemAttribute(StandardAttributes.SMOKABLE, true, "cannot be Smoked");
+    }
+
+    protected void addItemAttribute(ItemAttribute attribute, boolean inverted, String text) {
+        this.add("item_attributes." + attribute.getTranslationKey() + (inverted ? ".inverted" : ""), text);
+    }
+
     @Override
     protected void addTranslations() {
         this.addMisc();
@@ -851,6 +899,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.addIntegrations();
         this.addBehaviours();
         this.addGui();
+
+        this.addItemAttributes();
     }
 
 

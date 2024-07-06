@@ -18,6 +18,8 @@ import java.util.stream.Collectors;
 
 public class InTagAttribute implements ItemAttribute {
 
+    public static final InTagAttribute DUMMY = new InTagAttribute(ItemTags.DIRT);
+
     public TagKey<Item> tag;
 
     public InTagAttribute(TagKey<Item> tag) {

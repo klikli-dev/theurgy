@@ -14,6 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ItemNameAttribute implements ItemAttribute {
+
+    public static final ItemAttribute DUMMY = new ItemNameAttribute("dummy");
+
     String itemName;
 
     public ItemNameAttribute(String itemName) {

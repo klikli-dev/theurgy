@@ -21,11 +21,11 @@ public interface ItemAttribute {
     List<ItemAttribute> types = new ArrayList<>();
 
     ItemAttribute standard = register(StandardAttributes.DUMMY);
-    ItemAttribute inTag = register(new InTagAttribute(ItemTags.LOGS));
+    ItemAttribute inTag = register(InTagAttribute.DUMMY);
     ItemAttribute addedBy = register(new AddedByAttribute("dummy"));
     ItemAttribute hasEnchant = register(EnchantAttribute.EMPTY);
     ItemAttribute hasFluid = register(FluidContentsAttribute.EMPTY);
-    ItemAttribute hasName = register(new ItemNameAttribute("dummy"));
+    ItemAttribute hasName = register(ItemNameAttribute.DUMMY);
 
     static ItemAttribute register(ItemAttribute attributeType) {
         types.add(attributeType);

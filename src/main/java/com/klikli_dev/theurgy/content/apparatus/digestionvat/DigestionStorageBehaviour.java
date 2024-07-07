@@ -156,7 +156,9 @@ public class DigestionStorageBehaviour extends StorageBehaviour<DigestionStorage
         protected void onContentTypeChanged(int slot, ItemStack oldStack, ItemStack newStack) {
             //we also need to network sync our BE, because if the content type changes then the interaction behaviour client side changes
             DigestionStorageBehaviour.this.sendBlockUpdated();
-            DigestionStorageBehaviour.this.blockEntity.getLevel().updateNeighbourForOutputSignal(DigestionStorageBehaviour.this.blockEntity.getBlockPos(), DigestionStorageBehaviour.this.blockEntity.getBlockState().getBlock());
+
+            //also update redstone state for neighbors, because redstone output depends on output inventory contents
+            DigestionStorageBehaviour.this.blockEntity.getLevel().updateNeighborsAt(DigestionStorageBehaviour.this.blockEntity.getBlockPos(), DigestionStorageBehaviour.this.blockEntity.getBlockState().getBlock());
         }
 
         @Override

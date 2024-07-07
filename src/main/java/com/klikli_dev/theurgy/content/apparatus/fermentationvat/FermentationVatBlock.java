@@ -16,7 +16,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -36,15 +35,14 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
-
-import net.neoforged.neoforge.items.wrapper.RecipeWrapper;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 
 public class FermentationVatBlock extends Block implements EntityBlock {
-    public static final DirectionProperty FACING = BlockStateProperties.FACING;
+    public static final DirectionProperty HORIZONTAL_FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final BooleanProperty OPEN = BlockStateProperties.OPEN;
-
+    public static final BooleanProperty HAS_OUTPUT = BooleanProperty.create("has_output");
 
     protected ItemHandlerBehaviour itemHandlerBehaviour;
     protected FluidHandlerBehaviour fluidHandlerBehaviour;
@@ -58,11 +56,11 @@ public class FermentationVatBlock extends Block implements EntityBlock {
         this.fluidHandlerBehaviour = new OneTankFluidHandlerBehaviour();
         this.interactionBehaviour = new FermentationVatInteractionBehaviour();
 
-        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(OPEN, true));
+        this.registerDefaultState(this.stateDefinition.any().setValue(HORIZONTAL_FACING, Direction.NORTH).setValue(OPEN, true).setValue(HAS_OUTPUT, false));
     }
 
     @Override
-    protected ItemInteractionResult useItemOn(ItemStack pStack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHitResult) {
+    protected @NotNull ItemInteractionResult useItemOn(@NotNull ItemStack pStack, @NotNull BlockState pState, @NotNull Level pLevel, @NotNull BlockPos pPos, @NotNull Player pPlayer, @NotNull InteractionHand pHand, @NotNull BlockHitResult pHitResult) {
         //We do not check for client side because
         // a) returning success causes https://github.com/klikli-dev/theurgy/issues/158
         // b) client side BEs are separate objects even in SP, so modification in our behaviours is safe
@@ -84,8 +82,7 @@ public class FermentationVatBlock extends Block implements EntityBlock {
     }
 
     @Override
-    @SuppressWarnings("deprecation")
-    public void neighborChanged(BlockState pState, Level pLevel, BlockPos pPos, Block pBlock, BlockPos pFromPos, boolean pIsMoving) {
+    public void neighborChanged(BlockState pState, Level pLevel, @NotNull BlockPos pPos, @NotNull Block pBlock, @NotNull BlockPos pFromPos, boolean pIsMoving) {
         //Closed = is processing
         //has signal -> should be processing -> close
 
@@ -112,8 +109,7 @@ public class FermentationVatBlock extends Block implements EntityBlock {
 
 
     @Override
-    @SuppressWarnings("deprecation")
-    public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
+    public void onRemove(BlockState pState, @NotNull Level pLevel, @NotNull BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
         if (!pState.is(pNewState.getBlock())) {
             if (pLevel.getBlockEntity(pPos) instanceof FermentationVatBlockEntity blockEntity) {
                 for (int i = 0; i < blockEntity.storageBehaviour.inventory.getSlots(); i++) {
@@ -127,40 +123,40 @@ public class FermentationVatBlock extends Block implements EntityBlock {
 
     @Override
     @SuppressWarnings("deprecation")
-    public BlockState rotate(BlockState pState, Rotation pRotation) {
-        return pState.setValue(FACING, pRotation.rotate(pState.getValue(FACING)));
+    public @NotNull BlockState rotate(BlockState pState, Rotation pRotation) {
+        return pState.setValue(HORIZONTAL_FACING, pRotation.rotate(pState.getValue(HORIZONTAL_FACING)));
     }
 
     @Override
     @SuppressWarnings("deprecation")
-    public BlockState mirror(BlockState pState, Mirror pMirror) {
-        return pState.rotate(pMirror.getRotation(pState.getValue(FACING)));
+    public @NotNull BlockState mirror(BlockState pState, Mirror pMirror) {
+        return pState.rotate(pMirror.getRotation(pState.getValue(HORIZONTAL_FACING)));
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
-        pBuilder.add(FACING, OPEN);
+        pBuilder.add(HORIZONTAL_FACING, OPEN, HAS_OUTPUT);
     }
 
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {
-        return this.defaultBlockState().setValue(FACING, pContext.getNearestLookingDirection().getOpposite());
+        return this.defaultBlockState().setValue(HORIZONTAL_FACING, pContext.getHorizontalDirection());
     }
 
     @Override
-    protected boolean isPathfindable(BlockState pState, PathComputationType pPathComputationType) {
+    protected boolean isPathfindable(@NotNull BlockState pState, @NotNull PathComputationType pPathComputationType) {
         return false;
     }
 
     @Nullable
     @Override
-    public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
+    public BlockEntity newBlockEntity(@NotNull BlockPos pPos, @NotNull BlockState pState) {
         return BlockEntityRegistry.FERMENTATION_VAT.get().create(pPos, pState);
     }
 
     @Nullable
     @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, @NotNull BlockState pState, @NotNull BlockEntityType<T> pBlockEntityType) {
         if (pLevel.isClientSide()) {
             return null;
         }

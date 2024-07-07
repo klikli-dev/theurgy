@@ -1,9 +1,12 @@
 {
-  "parent": "minecraft:block/cube_bottom_top",
+  "parent": "minecraft:block/cube",
   "textures": {
-    "bottom": "theurgy:block/fermentation_vat_bottom",
-    "particle": "theurgy:block/fermentation_vat_top",
-    "side": "theurgy:block/fermentation_vat_side",
-    "top": "theurgy:block/fermentation_vat_top"
+    "down": "theurgy:block/fermentation_vat_bottom",
+    "east": "theurgy:block/fermentation_vat_side",
+    "north": "theurgy:block/fermentation_vat_side",
+    "particle": "theurgy:block/fermentation_vat_side",
+    "south": "theurgy:block/fermentation_vat_side_front",
+    "up": "theurgy:block/fermentation_vat_top",
+    "west": "theurgy:block/fermentation_vat_side"
   }
 }

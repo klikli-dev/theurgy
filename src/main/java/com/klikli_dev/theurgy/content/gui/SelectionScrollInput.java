@@ -39,18 +39,27 @@ public class SelectionScrollInput extends ScrollInput {
         if (this.title != null)
             tooltip.append(this.title.plainCopy().withStyle(s -> s.withColor(HEADER_RGB)));
 
-        int min = Math.min(this.max - 16, this.state - 7);
-        int max = Math.max(this.min + 16, this.state + 8);
-        min = Math.max(min, this.min);
-        max = Math.min(max, this.max);
-        if (this.min + 1 == min)
-            min--;
-        if (min > this.min)
+        // Calculate visible range
+        int visibleItemCount = 8; // Maximum number of items to show
+        int halfVisibleItemCount = visibleItemCount / 2;
+        int start = Math.max(this.state - halfVisibleItemCount, this.min);
+        int end = Math.min(start + visibleItemCount, this.max);
+        // Adjust if the calculated range is too large
+        if (end - start > visibleItemCount) {
+            start = end - visibleItemCount;
+        }
+        // Ensure the range does not exceed the list bounds
+        start = Math.max(start, this.min);
+        end = Math.min(end, this.max);
+
+        // Indicate more items above, if applicable
+        if (start > this.min) {
             tooltip.append("\n").append(Component.literal("> ...")
                     .withStyle(ChatFormatting.GRAY));
-        if (this.max - 1 == max)
-            max++;
-        for (int i = min; i < max; i++) {
+        }
+
+        // Append items within the visible range
+        for (int i = start; i < end; i++) {
             if (i == this.state)
                 tooltip.append("\n").append(Component.empty()
                         .append("-> ")
@@ -62,9 +71,12 @@ public class SelectionScrollInput extends ScrollInput {
                         .append(this.options.get(i))
                         .withStyle(ChatFormatting.GRAY));
         }
-        if (max < this.max)
+
+        // Indicate more items below, if applicable
+        if (end < this.max) {
             tooltip.append("\n").append(Component.literal("> ...")
                     .withStyle(ChatFormatting.GRAY));
+        }
 
         if (this.hint != null)
             tooltip.append("\n").append(this.hint.plainCopy()

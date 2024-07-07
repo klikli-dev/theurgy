@@ -279,6 +279,7 @@ public class AttributeFilterScreen extends AbstractFilterScreen<AttributeFilterM
                 .map(a -> a.format(false))
                 .collect(Collectors.toList());
         this.attributeSelector.forOptions(options);
+        this.attributeSelector.updateTooltip();
         this.attributeSelector.active = true;
         this.attributeSelector.visible = true;
         this.attributeSelector.setState(0);

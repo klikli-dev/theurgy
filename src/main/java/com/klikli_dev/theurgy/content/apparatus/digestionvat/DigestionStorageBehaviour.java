@@ -91,6 +91,11 @@ public class DigestionStorageBehaviour extends StorageBehaviour<DigestionStorage
         this.readNetwork(pTag, pRegistries);
     }
 
+    @Override
+    public boolean hasOutput() {
+        return !this.outputInventory.getStackInSlot(0).isEmpty();
+    }
+
     public class WaterTank extends MonitoredFluidTank {
 
         public WaterTank(int capacity, Predicate<FluidStack> validator) {
@@ -151,6 +156,7 @@ public class DigestionStorageBehaviour extends StorageBehaviour<DigestionStorage
         protected void onContentTypeChanged(int slot, ItemStack oldStack, ItemStack newStack) {
             //we also need to network sync our BE, because if the content type changes then the interaction behaviour client side changes
             DigestionStorageBehaviour.this.sendBlockUpdated();
+            DigestionStorageBehaviour.this.blockEntity.getLevel().updateNeighbourForOutputSignal(DigestionStorageBehaviour.this.blockEntity.getBlockPos(), DigestionStorageBehaviour.this.blockEntity.getBlockState().getBlock());
         }
 
         @Override

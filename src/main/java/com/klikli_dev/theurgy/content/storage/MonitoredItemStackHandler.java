@@ -51,7 +51,7 @@ public abstract class MonitoredItemStackHandler extends ItemStackHandler {
     public void setStackInSlot(int slot, @NotNull ItemStack newStack) {
         var oldStack = this.getStackInSlot(slot).copy();
 
-        boolean sameItem = !newStack.isEmpty() && ItemStack.isSameItemSameComponents(newStack, oldStack);
+        boolean sameItem = ItemStack.isSameItemSameComponents(newStack, oldStack);
 
         super.setStackInSlot(slot, newStack);
 
@@ -86,7 +86,7 @@ public abstract class MonitoredItemStackHandler extends ItemStackHandler {
             var newStack = this.getStackInSlot(slot);
 
             this.onExtractItem(slot, oldStack, newStack, extracted);
-            if (newStack.isEmpty()) {
+            if (oldStack.isEmpty() != newStack.isEmpty()) {
                 this.onContentTypeChanged(slot, oldStack, newStack);
             }
 

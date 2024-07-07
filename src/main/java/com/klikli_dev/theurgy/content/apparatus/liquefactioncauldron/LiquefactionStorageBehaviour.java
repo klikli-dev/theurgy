@@ -75,6 +75,11 @@ public class LiquefactionStorageBehaviour extends StorageBehaviour<LiquefactionS
         this.readNetwork(pTag, pRegistries);
     }
 
+    @Override
+    public boolean hasOutput() {
+        return !this.outputInventory.getStackInSlot(0).isEmpty();
+    }
+
     public class SolventTank extends FluidTank {
 
         public SolventTank(int capacity, Predicate<FluidStack> validator) {

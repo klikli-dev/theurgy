@@ -126,7 +126,7 @@ public class DigestionVatBlockEntity extends BlockEntity implements HasCraftingB
     }
 
     @Override
-    public StorageBehaviour<DigestionStorageBehaviour> storageBehaviour() {
+    public DigestionStorageBehaviour storageBehaviour() {
         return this.storageBehaviour;
     }
 }

@@ -4,6 +4,7 @@
 
 package com.klikli_dev.theurgy.content.apparatus.digestionvat;
 
+import com.klikli_dev.theurgy.content.behaviour.storage.OutputStorageBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.storage.StorageBehaviour;
 import com.klikli_dev.theurgy.content.storage.*;
 import net.minecraft.core.HolderLookup;
@@ -23,7 +24,7 @@ import net.neoforged.neoforge.items.wrapper.CombinedInvWrapper;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
-public class DigestionStorageBehaviour extends StorageBehaviour<DigestionStorageBehaviour> {
+public class DigestionStorageBehaviour extends StorageBehaviour<DigestionStorageBehaviour> implements OutputStorageBehaviour {
 
     public ItemStackHandler inputInventory;
     public IItemHandler inputInventoryReadOnlyWrapper;
@@ -94,6 +95,11 @@ public class DigestionStorageBehaviour extends StorageBehaviour<DigestionStorage
     @Override
     public boolean hasOutput() {
         return !this.outputInventory.getStackInSlot(0).isEmpty();
+    }
+
+    @Override
+    public IItemHandler outputInventory() {
+        return this.outputInventory;
     }
 
     public class WaterTank extends MonitoredFluidTank {

@@ -9,6 +9,7 @@ import com.klikli_dev.theurgy.content.behaviour.fluidhandler.OneTankFluidHandler
 import com.klikli_dev.theurgy.content.behaviour.interaction.InteractionBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.itemhandler.DynamicOneOutputSlotItemHandlerBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.itemhandler.ItemHandlerBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.redstone.VatAnalogSignalOutputBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.redstone.VatRedstoneChangeOpenCloseLidBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.redstone.VatRedstoneHasOutputBehaviour;
 import com.klikli_dev.theurgy.content.recipe.DigestionRecipe;
@@ -49,7 +50,8 @@ public class DigestionVatBlock extends Block implements EntityBlock {
     protected FluidHandlerBehaviour fluidHandlerBehaviour;
     protected InteractionBehaviour interactionBehaviour;
     protected VatRedstoneChangeOpenCloseLidBehaviour<DigestionRecipe> redstoneInputBehaviour;
-    protected VatRedstoneHasOutputBehaviour<DigestionStorageBehaviour> redstoneOutputBehaviour;
+    protected VatRedstoneHasOutputBehaviour redstoneOutputBehaviour;
+    protected VatAnalogSignalOutputBehaviour analogSignalOutputBehaviour;
 
     public DigestionVatBlock(Properties pProperties) {
         super(pProperties);
@@ -58,7 +60,8 @@ public class DigestionVatBlock extends Block implements EntityBlock {
         this.fluidHandlerBehaviour = new OneTankFluidHandlerBehaviour();
         this.interactionBehaviour = new DigestionVatInteractionBehaviour();
         this.redstoneInputBehaviour = new VatRedstoneChangeOpenCloseLidBehaviour<>();
-        this.redstoneOutputBehaviour = new VatRedstoneHasOutputBehaviour<>();
+        this.redstoneOutputBehaviour = new VatRedstoneHasOutputBehaviour();
+        this.analogSignalOutputBehaviour = new VatAnalogSignalOutputBehaviour();
 
         this.registerDefaultState(this.stateDefinition.any().setValue(HORIZONTAL_FACING, Direction.NORTH).setValue(OPEN, true));
     }
@@ -100,6 +103,18 @@ public class DigestionVatBlock extends Block implements EntityBlock {
     @Override
     protected int getSignal(@NotNull BlockState pState, @NotNull BlockGetter pLevel, @NotNull BlockPos pPos, @NotNull Direction pDirection) {
         return this.redstoneOutputBehaviour.getSignal(pState, pLevel, pPos, pDirection);
+    }
+
+    @SuppressWarnings("deprecation")
+    @Override
+    protected boolean hasAnalogOutputSignal(@NotNull BlockState pState) {
+        return true;
+    }
+
+    @SuppressWarnings("deprecation")
+    @Override
+    protected int getAnalogOutputSignal(@NotNull BlockState pBlockState, @NotNull Level pLevel, @NotNull BlockPos pPos) {
+        return this.analogSignalOutputBehaviour.getAnalogOutputSignal(pBlockState, pLevel, pPos);
     }
 
     @Override

@@ -91,11 +91,6 @@ public class FermentationStorageBehaviour extends StorageBehaviour<FermentationS
         this.readNetwork(pTag, pRegistries);
     }
 
-    @Override
-    public boolean hasOutput() {
-        return !this.outputInventory.getStackInSlot(0).isEmpty();
-    }
-
     public class WaterTank extends MonitoredFluidTank {
 
         public WaterTank(int capacity, Predicate<FluidStack> validator) {

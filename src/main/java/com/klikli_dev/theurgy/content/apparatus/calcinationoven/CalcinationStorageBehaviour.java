@@ -68,10 +68,6 @@ public class CalcinationStorageBehaviour extends StorageBehaviour<CalcinationSto
         this.readNetwork(pTag, pRegistries);
     }
 
-    @Override
-    public boolean hasOutput() {
-        return !this.outputInventory.getStackInSlot(0).isEmpty();
-    }
 
     public class InputInventory extends MonitoredItemStackHandler {
 

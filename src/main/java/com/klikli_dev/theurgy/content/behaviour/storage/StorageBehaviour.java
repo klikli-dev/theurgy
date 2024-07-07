@@ -75,6 +75,4 @@ public abstract class StorageBehaviour<S extends StorageBehaviour<?>> {
     protected void setChanged() {
         this.blockEntity.setChanged();
     }
-
-    public abstract boolean hasOutput();
 }

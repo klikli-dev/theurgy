@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2024 klikli-dev
+#
+# SPDX-License-Identifier: MIT
+
 version = 1
 SPDX-PackageName = "theurgy"
 SPDX-PackageSupplier = "klikli-dev"

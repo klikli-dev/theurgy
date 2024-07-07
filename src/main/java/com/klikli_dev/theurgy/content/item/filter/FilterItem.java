@@ -10,6 +10,8 @@ import com.klikli_dev.theurgy.content.behaviour.filter.attribute.ItemAttribute;
 import com.klikli_dev.theurgy.registry.DataComponentRegistry;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
@@ -64,7 +66,7 @@ public abstract class FilterItem extends Item implements MenuProvider {
     @Override
     public void appendHoverText(@NotNull ItemStack pStack, @NotNull TooltipContext pContext, @NotNull List<Component> pTooltipComponents, @NotNull TooltipFlag pTooltipFlag) {
         if (!Screen.hasShiftDown()) {
-            List<Component> makeSummary = this.makeSummary(pStack);
+            List<Component> makeSummary = this.makeSummary(pStack, pContext.registries());
             if (makeSummary.isEmpty())
                 return;
             pTooltipComponents.add(Component.literal(" ")); //empty line.
@@ -72,7 +74,7 @@ public abstract class FilterItem extends Item implements MenuProvider {
         }
     }
 
-    protected abstract List<Component> makeSummary(ItemStack filter);
+    protected abstract List<Component> makeSummary(ItemStack filter, HolderLookup.Provider registryAccess);
 
     @Override
     public @NotNull Component getDisplayName() {

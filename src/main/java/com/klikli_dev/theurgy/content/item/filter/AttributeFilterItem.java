@@ -10,6 +10,7 @@ import com.klikli_dev.theurgy.content.behaviour.filter.attribute.ItemAttribute;
 import com.klikli_dev.theurgy.registry.DataComponentRegistry;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -33,7 +34,7 @@ public class AttributeFilterItem extends FilterItem {
     }
 
     @Override
-    protected List<Component> makeSummary(ItemStack filter) {
+    protected List<Component> makeSummary(ItemStack filter, HolderLookup.Provider provider) {
         List<Component> list = new ArrayList<>();
 
         if (!filter.has(DataComponentRegistry.FILTER_ATTRIBUTES))
@@ -54,7 +55,7 @@ public class AttributeFilterItem extends FilterItem {
 
         for (Tag inbt : attributes) {
             CompoundTag compound = (CompoundTag) inbt;
-            ItemAttribute attribute = ItemAttribute.of(DistHelper.getRegistryAccess(), compound);
+            ItemAttribute attribute = ItemAttribute.of(provider, compound);
             if (attribute == null)
                 continue;
             boolean inverted = compound.getBoolean("Inverted");
@@ -78,11 +79,5 @@ public class AttributeFilterItem extends FilterItem {
     @Override
     public AbstractContainerMenu createMenu(int pContainerId, @NotNull Inventory pPlayerInventory, @NotNull Player pPlayer) {
         return AttributeFilterMenu.create(pContainerId, pPlayerInventory, pPlayer.getMainHandItem());
-    }
-
-    public static class DistHelper {
-        public static RegistryAccess getRegistryAccess() {
-            return Minecraft.getInstance().player.registryAccess();
-        }
     }
 }

@@ -3,6 +3,7 @@ package com.klikli_dev.theurgy.content.item.filter;
 import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.registry.DataComponentRegistry;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -21,7 +22,7 @@ public class ListFilterItem extends FilterItem{
     }
 
     @Override
-    protected List<Component> makeSummary(ItemStack filter) {
+    protected List<Component> makeSummary(ItemStack filter, HolderLookup.Provider provider) {
         List<Component> list = new ArrayList<>();
 
         if (!filter.has(DataComponentRegistry.FILTER_ITEMS))

@@ -10,6 +10,10 @@ import com.klikli_dev.theurgy.content.behaviour.fluidhandler.OneTankFluidHandler
 import com.klikli_dev.theurgy.content.behaviour.interaction.InteractionBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.itemhandler.DynamicOneOutputSlotItemHandlerBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.itemhandler.ItemHandlerBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.redstone.VatAnalogSignalOutputBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.redstone.VatRedstoneChangeOpenCloseLidBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.redstone.VatRedstoneHasOutputBehaviour;
+import com.klikli_dev.theurgy.content.recipe.DigestionRecipe;
 import com.klikli_dev.theurgy.content.recipe.FermentationRecipe;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
@@ -20,6 +24,7 @@ import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
@@ -46,8 +51,11 @@ public class FermentationVatBlock extends Block implements EntityBlock {
 
     protected ItemHandlerBehaviour itemHandlerBehaviour;
     protected FluidHandlerBehaviour fluidHandlerBehaviour;
-
     protected InteractionBehaviour interactionBehaviour;
+
+    protected VatRedstoneChangeOpenCloseLidBehaviour<FermentationRecipe> redstoneInputBehaviour;
+    protected VatRedstoneHasOutputBehaviour redstoneOutputBehaviour;
+    protected VatAnalogSignalOutputBehaviour analogSignalOutputBehaviour;
 
     public FermentationVatBlock(Properties pProperties) {
         super(pProperties);
@@ -55,6 +63,9 @@ public class FermentationVatBlock extends Block implements EntityBlock {
         this.itemHandlerBehaviour = new DynamicOneOutputSlotItemHandlerBehaviour();
         this.fluidHandlerBehaviour = new OneTankFluidHandlerBehaviour();
         this.interactionBehaviour = new FermentationVatInteractionBehaviour();
+        this.redstoneInputBehaviour = new VatRedstoneChangeOpenCloseLidBehaviour<>();
+        this.redstoneOutputBehaviour = new VatRedstoneHasOutputBehaviour();
+        this.analogSignalOutputBehaviour = new VatAnalogSignalOutputBehaviour();
 
         this.registerDefaultState(this.stateDefinition.any().setValue(HORIZONTAL_FACING, Direction.NORTH).setValue(OPEN, true).setValue(HAS_OUTPUT, false));
     }
@@ -83,30 +94,32 @@ public class FermentationVatBlock extends Block implements EntityBlock {
 
     @Override
     public void neighborChanged(BlockState pState, Level pLevel, @NotNull BlockPos pPos, @NotNull Block pBlock, @NotNull BlockPos pFromPos, boolean pIsMoving) {
-        //Closed = is processing
-        //has signal -> should be processing -> close
-
-        boolean hasSignal = pLevel.hasNeighborSignal(pPos);
-        boolean wasOpen = pState.getValue(OPEN);
-        if (hasSignal && wasOpen) {
-
-            var blockEntity = pLevel.getBlockEntity(pPos);
-            if (!(blockEntity instanceof HasCraftingBehaviour<?, ?, ?>))
-                return;
-
-            @SuppressWarnings("unchecked") var vat = (HasCraftingBehaviour<?, FermentationRecipe, ?>) blockEntity;
-
-            var craftingBehaviour = vat.craftingBehaviour();
-
-            var recipe = craftingBehaviour.getRecipe();
-            if (recipe.isPresent() && craftingBehaviour.canCraft(recipe.get())) {
-                pLevel.setBlock(pPos, pState.setValue(OPEN, false), Block.UPDATE_CLIENTS);
-            }
-        } else if (!hasSignal && !wasOpen) {
-            pLevel.setBlock(pPos, pState.setValue(OPEN, true), Block.UPDATE_CLIENTS);
-        }
+        this.redstoneInputBehaviour.neighborChanged(pState, pLevel, pPos, pBlock, pFromPos, pIsMoving);
     }
 
+    @SuppressWarnings("deprecation")
+    @Override
+    protected boolean isSignalSource(@NotNull BlockState pState) {
+        return true;
+    }
+
+    @SuppressWarnings("deprecation")
+    @Override
+    protected int getSignal(@NotNull BlockState pState, @NotNull BlockGetter pLevel, @NotNull BlockPos pPos, @NotNull Direction pDirection) {
+        return this.redstoneOutputBehaviour.getSignal(pState, pLevel, pPos, pDirection);
+    }
+
+    @SuppressWarnings("deprecation")
+    @Override
+    protected boolean hasAnalogOutputSignal(@NotNull BlockState pState) {
+        return true;
+    }
+
+    @SuppressWarnings("deprecation")
+    @Override
+    protected int getAnalogOutputSignal(@NotNull BlockState pBlockState, @NotNull Level pLevel, @NotNull BlockPos pPos) {
+        return this.analogSignalOutputBehaviour.getAnalogOutputSignal(pBlockState, pLevel, pPos);
+    }
 
     @Override
     public void onRemove(BlockState pState, @NotNull Level pLevel, @NotNull BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
@@ -120,6 +133,10 @@ public class FermentationVatBlock extends Block implements EntityBlock {
         super.onRemove(pState, pLevel, pPos, pNewState, pIsMoving);
     }
 
+    @Override
+    protected boolean isPathfindable(@NotNull BlockState pState, @NotNull PathComputationType pPathComputationType) {
+        return false;
+    }
 
     @Override
     @SuppressWarnings("deprecation")
@@ -141,11 +158,6 @@ public class FermentationVatBlock extends Block implements EntityBlock {
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {
         return this.defaultBlockState().setValue(HORIZONTAL_FACING, pContext.getHorizontalDirection());
-    }
-
-    @Override
-    protected boolean isPathfindable(@NotNull BlockState pState, @NotNull PathComputationType pPathComputationType) {
-        return false;
     }
 
     @Nullable

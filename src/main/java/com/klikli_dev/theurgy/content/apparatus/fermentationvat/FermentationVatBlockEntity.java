@@ -5,6 +5,8 @@
 package com.klikli_dev.theurgy.content.apparatus.fermentationvat;
 
 import com.klikli_dev.theurgy.content.behaviour.crafting.HasCraftingBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.redstone.VatRedstoneAutoCloseBehaviour;
+import com.klikli_dev.theurgy.content.recipe.DigestionRecipe;
 import com.klikli_dev.theurgy.content.recipe.FermentationRecipe;
 import com.klikli_dev.theurgy.content.recipe.input.ItemHandlerWithFluidRecipeInput;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
@@ -24,8 +26,8 @@ import org.jetbrains.annotations.Nullable;
 public class FermentationVatBlockEntity extends BlockEntity implements HasCraftingBehaviour<ItemHandlerWithFluidRecipeInput, FermentationRecipe, FermentationCachedCheck> {
 
     public FermentationStorageBehaviour storageBehaviour;
-
     public FermentationCraftingBehaviour craftingBehaviour;
+    public VatRedstoneAutoCloseBehaviour<DigestionRecipe> redstoneBehaviour;
 
     public FermentationVatBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(BlockEntityRegistry.FERMENTATION_VAT.get(), pPos, pBlockState);
@@ -33,6 +35,7 @@ public class FermentationVatBlockEntity extends BlockEntity implements HasCrafti
         this.storageBehaviour = new FermentationStorageBehaviour(this, () -> this.craftingBehaviour);
 
         this.craftingBehaviour = new FermentationCraftingBehaviour(this, () -> this.storageBehaviour.inputInventory, () -> this.storageBehaviour.outputInventory, () -> this.storageBehaviour.fluidTank);
+        this.redstoneBehaviour = new VatRedstoneAutoCloseBehaviour<>(this);
     }
 
     @Override
@@ -72,9 +75,8 @@ public class FermentationVatBlockEntity extends BlockEntity implements HasCrafti
     }
 
     public void tickServer() {
-        //TODO: isProcessing syncs to client - should we act on that?
-        //      a bubbling sound would be good
-        //      we may be able to just use the closed state clientside to not have to tick the TE -> however, not really a relevant optimization
+        this.redstoneBehaviour.tickServer();
+
         boolean isOpen = this.getBlockState().getValue(BlockStateProperties.OPEN);
         boolean hasInput = this.hasInput();
 

@@ -14,8 +14,16 @@ public class GuiIcons implements ScreenElement {
     public static final GuiIcons CONFIRM = new GuiIcons(0, 1);
     public static final GuiIcons DENY_LIST = new GuiIcons(8, 0);
     public static final GuiIcons ACCEPT_LIST = new GuiIcons(9, 0);
+    public static final GuiIcons ACCEPT_LIST_OR = new GuiIcons(10, 0);
+    public static final GuiIcons ACCEPT_LIST_AND = new GuiIcons(11, 0);
+    public static final GuiIcons DENY_LIST_ALT = new GuiIcons(12, 0);
+
     public static final GuiIcons RESPECT_DATA_COMPONENTS = new GuiIcons(13, 0);
     public static final GuiIcons IGNORE_DATA_COMPONENTS = new GuiIcons(14, 0);
+
+    public static final GuiIcons ADD = new GuiIcons(0, 0);
+    public static final GuiIcons ADD_INVERTED = new GuiIcons(4, 7);
+    
     private static final ResourceLocation TEXTURE = Theurgy.loc("textures/gui/icons.png");
     private final int iconX;
     private final int iconY;

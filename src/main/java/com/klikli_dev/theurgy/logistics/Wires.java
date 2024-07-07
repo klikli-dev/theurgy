@@ -161,7 +161,7 @@ public class Wires extends SavedData {
     }
 
     public static Wires load(CompoundTag pCompoundTag, HolderLookup.Provider pRegistries) {
-        return CODEC.parse(NbtOps.INSTANCE, pCompoundTag.get(NBT_TAG)).result().orElseThrow();
+        return CODEC.parse(pRegistries.createSerializationContext(NbtOps.INSTANCE), pCompoundTag.get(NBT_TAG)).result().orElseThrow();
     }
 
     Stream<ChunkPos> calculateChunkPosForWire(Wire wire) {
@@ -224,7 +224,7 @@ public class Wires extends SavedData {
 
     @Override
     public CompoundTag save(CompoundTag pCompoundTag, HolderLookup.Provider pRegistries) {
-        pCompoundTag.put(NBT_TAG, CODEC.encodeStart(NbtOps.INSTANCE, this).result().orElseThrow());
+        pCompoundTag.put(NBT_TAG, CODEC.encodeStart(pRegistries.createSerializationContext(NbtOps.INSTANCE), this).result().orElseThrow());
         return pCompoundTag;
     }
 }

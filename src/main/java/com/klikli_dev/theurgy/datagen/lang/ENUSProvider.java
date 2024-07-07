@@ -7,6 +7,7 @@ package com.klikli_dev.theurgy.datagen.lang;
 import com.klikli_dev.modonomicon.api.datagen.AbstractModonomiconLanguageProvider;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.TheurgyConstants;
+import com.klikli_dev.theurgy.content.behaviour.filter.attribute.*;
 import com.klikli_dev.theurgy.content.item.salt.AlchemicalSaltItem;
 import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurItem;
 import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurTier;
@@ -84,21 +85,42 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.add(TheurgyConstants.I18n.Misc.UNIT_MILLIBUCKETS, "%smB");
     }
 
-    private void addGui(){
+    private void addGui() {
         this.add(TheurgyConstants.I18n.Gui.FILTER_RESET_BUTTON_TOOLTIP, "Reset Filter Settings");
         this.add(TheurgyConstants.I18n.Gui.FILTER_CONFIRM_BUTTON_TOOLTIP, "Save Filter Settings");
 
-        this.add(TheurgyConstants.I18n.Gui.FILTER_ACCEPT_LIST_BUTTON_TOOLTIP, "Allow-List");
-        this.add(TheurgyConstants.I18n.Gui.FILTER_ACCEPT_LIST_BUTTON_TOOLTIP_SHIFT, "Items pass if they match any of the above. An empty Allow-List rejects everything.");
+        this.add(TheurgyConstants.I18n.Gui.LIST_FILTER_ACCEPT_LIST_BUTTON_TOOLTIP, "Allow-List");
+        this.add(TheurgyConstants.I18n.Gui.LIST_FILTER_ACCEPT_LIST_BUTTON_TOOLTIP_SHIFT, "Items pass if they match any of the above. An empty Allow-List rejects everything.");
 
-        this.add(TheurgyConstants.I18n.Gui.FILTER_DENY_LIST_BUTTON_TOOLTIP, "Deny-List");
-        this.add(TheurgyConstants.I18n.Gui.FILTER_DENY_LIST_BUTTON_TOOLTIP_SHIFT, "Items pass if they DO NOT match any of the above. An empty Deny-List accepts everything.");
+        this.add(TheurgyConstants.I18n.Gui.LIST_FILTER_DENY_LIST_BUTTON_TOOLTIP, "Deny-List");
+        this.add(TheurgyConstants.I18n.Gui.LIST_FILTER_DENY_LIST_BUTTON_TOOLTIP_SHIFT, "Items pass if they DO NOT match any of the above. An empty Deny-List accepts everything.");
 
         this.add(TheurgyConstants.I18n.Gui.FILTER_RESPECT_DATA_COMPONENTS_BUTTON_TOOLTIP, "Respect Data");
         this.add(TheurgyConstants.I18n.Gui.FILTER_RESPECT_DATA_COMPONENTS_BUTTON_TOOLTIP_SHIFT, "Items pass if they match the data components of the filter item (durability, enchantments and others).");
 
         this.add(TheurgyConstants.I18n.Gui.FILTER_IGNORE_DATA_COMPONENTS_BUTTON_TOOLTIP, "Ignore Data");
         this.add(TheurgyConstants.I18n.Gui.FILTER_IGNORE_DATA_COMPONENTS_BUTTON_TOOLTIP_SHIFT, "Items pass regardless of their data components (durability, enchantments and others).");
+
+        this.add(TheurgyConstants.I18n.Gui.SCROLL_DEFAULT_TITLE, "Choose an Option:");
+        this.add(TheurgyConstants.I18n.Gui.SCROLL_TO_MODIFY, "Scroll to Modify");
+        this.add(TheurgyConstants.I18n.Gui.SCROLL_TO_SELECT, "Scroll to Select");
+        this.add(TheurgyConstants.I18n.Gui.SCROLL_SHIFT_SCROLLS_FASTER, "Shift to Scroll Faster");
+
+        this.add(TheurgyConstants.I18n.Gui.ATTRIBUTE_FILTER_ACCEPT_LIST_OR_BUTTON_TOOLTIP, "Allow-List (Any)");
+        this.add(TheurgyConstants.I18n.Gui.ATTRIBUTE_FILTER_ACCEPT_LIST_OR_BUTTON_TOOLTIP_SHIFT, "Items pass if they have ANY of the selected attributes.");
+
+        this.add(TheurgyConstants.I18n.Gui.ATTRIBUTE_FILTER_ACCEPT_LIST_AND_BUTTON_TOOLTIP, "Allow-List (All)");
+        this.add(TheurgyConstants.I18n.Gui.ATTRIBUTE_FILTER_ACCEPT_LIST_AND_BUTTON_TOOLTIP_SHIFT, "Items pass if they have ALL of the selected attributes.");
+
+        this.add(TheurgyConstants.I18n.Gui.ATTRIBUTE_FILTER_DENY_LIST_BUTTON_TOOLTIP, "Deny-List");
+        this.add(TheurgyConstants.I18n.Gui.ATTRIBUTE_FILTER_DENY_LIST_BUTTON_TOOLTIP_SHIFT, "Items pass if they do NOT have any of the selected attributes.");
+
+        this.add(TheurgyConstants.I18n.Gui.ATTRIBUTE_FILTER_ADD_BUTTON_TOOLTIP, "Add attribute to list");
+        this.add(TheurgyConstants.I18n.Gui.ATTRIBUTE_FILTER_ADD_INVERTED_BUTTON_TOOLTIP, "Add opposite attribute to list");
+
+        this.add(TheurgyConstants.I18n.Gui.ATTRIBUTE_FILTER_ADD_REFERENCE_ITEM, "Add Reference Item");
+        this.add(TheurgyConstants.I18n.Gui.ATTRIBUTE_FILTER_NO_SELECTED_ATTRIBUTES, "No attributes selected");
+        this.add(TheurgyConstants.I18n.Gui.ATTRIBUTE_FILTER_SELECTED_ATTRIBUTES, "Selected attributes:");
     }
 
     private void addBehaviours() {
@@ -786,6 +808,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.add(TheurgyConstants.I18n.Item.Mode.DISABLED, "Disabled");
 
         this.addItem(ItemRegistry.LIST_FILTER, "Mercurial List Filter");
+        this.addItem(ItemRegistry.ATTRIBUTE_FILTER, "Mercurial Attribute Filter");
 
 
         this.addItem(ItemRegistry.MERCURY_SHARD, "Mercury Shard");
@@ -817,6 +840,53 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         );
     }
 
+    protected void addItemAttributes() {
+        this.addItemAttribute(ItemAttribute.addedBy, false, "was added by %1$s");
+        this.addItemAttribute(ItemAttribute.addedBy, true, "was not added by %1$s");
+        this.addItemAttribute(StandardAttributes.BADLY_DAMAGED, false, "is heavily damaged");
+        this.addItemAttribute(StandardAttributes.BADLY_DAMAGED, true, "is not heavily damaged");
+        this.addItemAttribute(StandardAttributes.BLASTABLE, false, "can be Smelted in a Blast Furnace");
+        this.addItemAttribute(StandardAttributes.BLASTABLE, true, "cannot be Smelted in a Blast Furnace");
+        this.addItemAttribute(StandardAttributes.COMPOSTABLE, false, "can be composted");
+        this.addItemAttribute(StandardAttributes.COMPOSTABLE, true, "cannot be composted");
+        this.addItemAttribute(StandardAttributes.CONSUMABLE, false, "can be eaten");
+        this.addItemAttribute(StandardAttributes.CONSUMABLE, true, "cannot be eaten");
+        this.addItemAttribute(StandardAttributes.DAMAGED, false, "is damaged");
+        this.addItemAttribute(StandardAttributes.DAMAGED, true, "is not damaged");
+        this.addItemAttribute(StandardAttributes.ENCHANTED, false, "is enchanted");
+        this.addItemAttribute(StandardAttributes.ENCHANTED, true, "is unenchanted");
+        this.addItemAttribute(StandardAttributes.EQUIPABLE, false, "can be equipped");
+        this.addItemAttribute(StandardAttributes.EQUIPABLE, true, "cannot be equipped");
+        this.addItemAttribute(StandardAttributes.FLUID_CONTAINER, false, "can store fluids");
+        this.addItemAttribute(StandardAttributes.FLUID_CONTAINER, true, "cannot store fluids");
+        this.addItemAttribute(StandardAttributes.FURNACE_FUEL, false, "is furnace fuel");
+        this.addItemAttribute(StandardAttributes.FURNACE_FUEL, true, "is not furnace fuel");
+        this.addItemAttribute(EnchantAttribute.EMPTY, false, "is enchanted with %1$s");
+        this.addItemAttribute(EnchantAttribute.EMPTY, true, "is not enchanted with %1$s");
+        this.addItemAttribute(FluidContentsAttribute.EMPTY, false, "contains %1$s");
+        this.addItemAttribute(FluidContentsAttribute.EMPTY, true, "does not contain %1$s");
+        this.addItemAttribute(ItemNameAttribute.DUMMY, false, "has the custom name %1$s");
+        this.addItemAttribute(ItemNameAttribute.DUMMY, true, "does not have the custom name %1$s");
+        this.addItemAttribute(InTagAttribute.DUMMY, false, "is tagged %1$s");
+        this.addItemAttribute(InTagAttribute.DUMMY, true, "is not tagged %1$s");
+        this.addItemAttribute(StandardAttributes.MAX_ENCHANTED, false, "is enchanted at max level");
+        this.addItemAttribute(StandardAttributes.MAX_ENCHANTED, true, "is not enchanted at max level");
+        this.addItemAttribute(StandardAttributes.NOT_STACKABLE, false, "cannot be stacked");
+        this.addItemAttribute(StandardAttributes.NOT_STACKABLE, true, "can be stacked");
+        this.addItemAttribute(StandardAttributes.PLACEABLE, false, "is placeable");
+        this.addItemAttribute(StandardAttributes.PLACEABLE, true, "is not placeable");
+        this.addItemAttribute(StandardAttributes.RENAMED, false, "has a custom name");
+        this.addItemAttribute(StandardAttributes.RENAMED, true, "does not have a custom name");
+        this.addItemAttribute(StandardAttributes.SMELTABLE, false, "can be Smelted");
+        this.addItemAttribute(StandardAttributes.SMELTABLE, true, "cannot be Smelted");
+        this.addItemAttribute(StandardAttributes.SMOKABLE, false, "can be Smoked");
+        this.addItemAttribute(StandardAttributes.SMOKABLE, true, "cannot be Smoked");
+    }
+
+    protected void addItemAttribute(ItemAttribute attribute, boolean inverted, String text) {
+        this.add("item_attributes." + attribute.getTranslationKey() + (inverted ? ".inverted" : ""), text);
+    }
+
     @Override
     protected void addTranslations() {
         this.addMisc();
@@ -829,6 +899,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.addIntegrations();
         this.addBehaviours();
         this.addGui();
+
+        this.addItemAttributes();
     }
 
 

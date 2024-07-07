@@ -1,0 +1,74 @@
+# SPDX-FileCopyrightText: 2024 klikli-dev
+#
+# SPDX-License-Identifier: MIT
+
+version = 1
+SPDX-PackageName = "theurgy"
+SPDX-PackageSupplier = "klikli-dev"
+SPDX-PackageDownloadLocation = "https://github.com/klikli-dev/theurgy"
+
+[[annotations]]
+path = "src/main/resources/**"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2024 klikli-dev"
+SPDX-License-Identifier = "CC-BY-4.0"
+
+[[annotations]]
+path = "src/generated/resources/**"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2024 klikli-dev"
+SPDX-License-Identifier = "CC-BY-4.0"
+
+[[annotations]]
+path = ".github/**"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2022 klikli-dev"
+SPDX-License-Identifier = "CC0-1.0"
+
+[[annotations]]
+path = ".gitattributes"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2022 klikli-dev"
+SPDX-License-Identifier = "CC0-1.0"
+
+[[annotations]]
+path = ".gitignore"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2022 klikli-dev"
+SPDX-License-Identifier = "CC0-1.0"
+
+[[annotations]]
+path = "settings.gradle"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2022 klikli-dev"
+SPDX-License-Identifier = "CC0-1.0"
+
+[[annotations]]
+path = "build.gradle"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2022 klikli-dev"
+SPDX-License-Identifier = "CC0-1.0"
+
+[[annotations]]
+path = "gradle.properties"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2022 klikli-dev"
+SPDX-License-Identifier = "CC0-1.0"
+
+[[annotations]]
+path = "gradle/**"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2015 the original author or authors."
+SPDX-License-Identifier = "Apache-2.0"
+
+[[annotations]]
+path = "gradlew**"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2015 the original author or authors."
+SPDX-License-Identifier = "Apache-2.0"
+
+[[annotations]]
+path = "CHANGELOG.md"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2022 klikli-dev"
+SPDX-License-Identifier = "CC0-1.0"

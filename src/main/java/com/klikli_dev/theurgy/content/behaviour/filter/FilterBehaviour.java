@@ -4,7 +4,6 @@
 
 package com.klikli_dev.theurgy.content.behaviour.filter;
 
-import com.klikli_dev.theurgy.content.item.filter.Filter;
 import com.klikli_dev.theurgy.content.item.filter.FilterItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -74,7 +73,7 @@ public class FilterBehaviour {
             if (pStack.isEmpty() || !(pStack.getItem() instanceof FilterItem))
                 return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 
-            var filter = Filter.of(pStack.copyWithCount(1));
+            var filter = Filter.of(pPlayer.registryAccess(), pStack.copyWithCount(1));
 
             if (!filter.isEmpty()) {
                 this.filter(filter);

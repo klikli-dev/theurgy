@@ -2,9 +2,10 @@
 //
 // SPDX-License-Identifier: MIT
 
-package com.klikli_dev.theurgy.content.item.filter;
+package com.klikli_dev.theurgy.content.behaviour.filter;
 
 import com.klikli_dev.theurgy.registry.DataComponentRegistry;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
@@ -17,12 +18,12 @@ public class ListFilter extends Filter {
     public boolean shouldRespectDataComponents;
     public boolean isDenyList;
 
-    protected ListFilter(ItemStack filter) {
-        super(filter);
+    protected ListFilter(HolderLookup.Provider provider, ItemStack filter) {
+        super(provider, filter);
     }
 
     @Override
-    protected void initFromFilterItemStack(ItemStack filterItemStack) {
+    protected void initFromFilterItemStack(HolderLookup.Provider provider, ItemStack filterItemStack) {
         this.filterItems = this.getFilterItems(filterItemStack);
 
         this.shouldRespectDataComponents = filterItemStack.getOrDefault(DataComponentRegistry.FILTER_RESPECTS_DATA_COMPONENTS, false);

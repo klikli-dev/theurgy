@@ -19,6 +19,7 @@ import com.klikli_dev.theurgy.content.apparatus.mercurycatalyst.MercuryCatalystB
 import com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator.render.SalAmmoniacAccumulatorRenderer;
 import com.klikli_dev.theurgy.content.apparatus.salammoniactank.render.SalAmmoniacTankRenderer;
 import com.klikli_dev.theurgy.content.item.divinationrod.DivinationRodItem;
+import com.klikli_dev.theurgy.content.item.filter.AttributeFilterScreen;
 import com.klikli_dev.theurgy.content.item.filter.ListFilterScreen;
 import com.klikli_dev.theurgy.content.item.mode.ModeItem;
 import com.klikli_dev.theurgy.content.item.salt.AlchemicalSaltItem;
@@ -276,6 +277,7 @@ public class Theurgy {
 
         public static void onRegisterMenuScreens(RegisterMenuScreensEvent event){
             event.register(MenuTypeRegistry.LIST_FILTER.get(), ListFilterScreen::new);
+            event.register(MenuTypeRegistry.ATTRIBUTE_FILTER.get(), AttributeFilterScreen::new);
         }
 
         public static void onMouseScrolling(InputEvent.MouseScrollingEvent event) {

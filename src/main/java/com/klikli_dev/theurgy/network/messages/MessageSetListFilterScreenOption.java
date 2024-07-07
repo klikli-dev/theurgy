@@ -54,7 +54,7 @@ public class MessageSetListFilterScreenOption implements Message {
     }
 
     public enum Option {
-        ACCEPT_LIST, DENY_LIST, RESPECT_DATA, IGNORE_DATA, UPDATE_FILTER_ITEM;
+        ACCEPT_LIST, DENY_LIST, RESPECT_DATA, IGNORE_DATA, UPDATE_FILTER_ITEM, ADD_TAG, ADD_INVERTED_TAG;
 
         private static final IntFunction<Option> BY_ID = ByIdMap.continuous(Enum::ordinal, Option.values(), ByIdMap.OutOfBoundsStrategy.WRAP);
 

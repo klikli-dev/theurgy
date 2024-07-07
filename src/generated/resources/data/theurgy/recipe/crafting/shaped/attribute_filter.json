@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "f": {
+      "item": "minecraft:feather"
+    },
+    "m": {
+      "item": "theurgy:mercury_shard"
+    },
+    "p": {
+      "item": "minecraft:paper"
+    }
+  },
+  "pattern": [
+    "pfp",
+    "pmp",
+    "ppp"
+  ],
+  "result": {
+    "count": 9,
+    "id": "theurgy:attribute_filter"
+  }
+}

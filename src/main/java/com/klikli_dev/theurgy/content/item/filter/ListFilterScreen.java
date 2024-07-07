@@ -37,7 +37,6 @@ public class ListFilterScreen extends AbstractFilterScreen<ListFilterMenu> {
 
     @Override
     protected int getScreenTitleColor() {
-        //For other filter: 0x592424
         return 0x303030;
     }
 
@@ -86,8 +85,8 @@ public class ListFilterScreen extends AbstractFilterScreen<ListFilterMenu> {
 
         this.denyListButton = new IconButton(x + 18, y + 75, GuiIcons.DENY_LIST);
         this.denyListButton.withTooltip(
-                TheurgyConstants.I18n.Gui.FILTER_DENY_LIST_BUTTON_TOOLTIP,
-                TheurgyConstants.I18n.Gui.FILTER_DENY_LIST_BUTTON_TOOLTIP_SHIFT
+                TheurgyConstants.I18n.Gui.LIST_FILTER_DENY_LIST_BUTTON_TOOLTIP,
+                TheurgyConstants.I18n.Gui.LIST_FILTER_DENY_LIST_BUTTON_TOOLTIP_SHIFT
         );
         this.denyListButton.withOnClick(() -> {
             this.menu.isDenyList = true;
@@ -97,8 +96,8 @@ public class ListFilterScreen extends AbstractFilterScreen<ListFilterMenu> {
 
         this.acceptListButton = new IconButton(x + 36, y + 75, GuiIcons.ACCEPT_LIST);
         this.acceptListButton.withTooltip(
-                TheurgyConstants.I18n.Gui.FILTER_ACCEPT_LIST_BUTTON_TOOLTIP,
-                TheurgyConstants.I18n.Gui.FILTER_ACCEPT_LIST_BUTTON_TOOLTIP_SHIFT
+                TheurgyConstants.I18n.Gui.LIST_FILTER_ACCEPT_LIST_BUTTON_TOOLTIP,
+                TheurgyConstants.I18n.Gui.LIST_FILTER_ACCEPT_LIST_BUTTON_TOOLTIP_SHIFT
         );
         this.acceptListButton.withOnClick(() -> {
             this.menu.isDenyList = false;

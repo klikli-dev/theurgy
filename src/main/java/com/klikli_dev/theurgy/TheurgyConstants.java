@@ -133,17 +133,38 @@ public class TheurgyConstants {
             public static final String FILTER_RESET_BUTTON_TOOLTIP = PREFIX + "filter.reset_button.tooltip";
             public static final String FILTER_CONFIRM_BUTTON_TOOLTIP = PREFIX + "filter.confirm_button.tooltip";
 
-            public static final String FILTER_DENY_LIST_BUTTON_TOOLTIP = PREFIX + "filter.deny_list_button.tooltip";
-            public static final String FILTER_DENY_LIST_BUTTON_TOOLTIP_SHIFT = PREFIX + "filter.deny_list_button.tooltip.shift";
+            public static final String LIST_FILTER_DENY_LIST_BUTTON_TOOLTIP = PREFIX + "filter.deny_list_button.tooltip";
+            public static final String LIST_FILTER_DENY_LIST_BUTTON_TOOLTIP_SHIFT = PREFIX + "filter.deny_list_button.tooltip.shift";
 
-            public static final String FILTER_ACCEPT_LIST_BUTTON_TOOLTIP = PREFIX + "filter.accept_list_button.tooltip";
-            public static final String FILTER_ACCEPT_LIST_BUTTON_TOOLTIP_SHIFT = PREFIX + "filter.accept_list_button.tooltip.shift";
+            public static final String LIST_FILTER_ACCEPT_LIST_BUTTON_TOOLTIP = PREFIX + "filter.accept_list_button.tooltip";
+            public static final String LIST_FILTER_ACCEPT_LIST_BUTTON_TOOLTIP_SHIFT = PREFIX + "filter.accept_list_button.tooltip.shift";
+
+            public static final String ATTRIBUTE_FILTER_ACCEPT_LIST_OR_BUTTON_TOOLTIP = PREFIX + "attribute_filter.accept_list_or_button.tooltip";
+            public static final String ATTRIBUTE_FILTER_ACCEPT_LIST_OR_BUTTON_TOOLTIP_SHIFT = PREFIX + "attribute_filter.accept_list_or_button.tooltip.shift";
+
+            public static final String ATTRIBUTE_FILTER_ACCEPT_LIST_AND_BUTTON_TOOLTIP = PREFIX + "attribute_filter.accept_list_and_button.tooltip";
+            public static final String ATTRIBUTE_FILTER_ACCEPT_LIST_AND_BUTTON_TOOLTIP_SHIFT = PREFIX + "attribute_filter.accept_list_and_button.tooltip.shift";
+
+            public static final String ATTRIBUTE_FILTER_DENY_LIST_BUTTON_TOOLTIP = PREFIX + "attribute_filter.deny_list_button.tooltip";
+            public static final String ATTRIBUTE_FILTER_DENY_LIST_BUTTON_TOOLTIP_SHIFT = PREFIX + "attribute_filter.deny_list_button.tooltip.shift";
 
             public static final String FILTER_IGNORE_DATA_COMPONENTS_BUTTON_TOOLTIP = PREFIX + "filter.ignore_data_components_button.tooltip";
             public static final String FILTER_IGNORE_DATA_COMPONENTS_BUTTON_TOOLTIP_SHIFT = PREFIX + "filter.ignore_data_components_button.tooltip.shift";
 
             public static final String FILTER_RESPECT_DATA_COMPONENTS_BUTTON_TOOLTIP = PREFIX + "filter.respect_data_components_button.tooltip";
             public static final String FILTER_RESPECT_DATA_COMPONENTS_BUTTON_TOOLTIP_SHIFT = PREFIX + "filter.respect_data_components_button.tooltip.shift";
+
+            public static final String ATTRIBUTE_FILTER_ADD_BUTTON_TOOLTIP = PREFIX + "attribute_filter.add_button.tooltip";
+            public static final String ATTRIBUTE_FILTER_ADD_INVERTED_BUTTON_TOOLTIP = PREFIX + "attribute_filter.add_inverted.tooltip";
+
+            public static final String ATTRIBUTE_FILTER_ADD_REFERENCE_ITEM = PREFIX + "attribute_filter.add_reference_item";
+            public static final String ATTRIBUTE_FILTER_NO_SELECTED_ATTRIBUTES = PREFIX + "attribute_filter.no_selected_attributes";
+            public static final String ATTRIBUTE_FILTER_SELECTED_ATTRIBUTES = PREFIX + "attribute_filter.selected_attributes";
+
+            public static final String SCROLL_DEFAULT_TITLE = PREFIX + "scroll_input.default_title";
+            public static final String SCROLL_TO_MODIFY = PREFIX + "scroll_input.scroll_to_modify";
+            public static final String SCROLL_TO_SELECT = PREFIX + "scroll_input.scroll_to_select";
+            public static final String SCROLL_SHIFT_SCROLLS_FASTER = PREFIX + "scroll_input.shift_scrolls_faster";
         }
     }
 

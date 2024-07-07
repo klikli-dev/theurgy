@@ -6,7 +6,7 @@ package com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector.extracto
 
 import com.klikli_dev.theurgy.content.behaviour.logistics.ExtractorNodeBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.logistics.LeafNodeBehaviour;
-import com.klikli_dev.theurgy.content.item.filter.Filter;
+import com.klikli_dev.theurgy.content.behaviour.filter.Filter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;

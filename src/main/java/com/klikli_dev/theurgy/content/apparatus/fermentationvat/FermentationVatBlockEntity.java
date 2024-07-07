@@ -6,6 +6,8 @@ package com.klikli_dev.theurgy.content.apparatus.fermentationvat;
 
 import com.klikli_dev.theurgy.content.behaviour.crafting.HasCraftingBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.redstone.VatRedstoneAutoCloseBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.storage.HasStorageBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.storage.StorageBehaviour;
 import com.klikli_dev.theurgy.content.recipe.DigestionRecipe;
 import com.klikli_dev.theurgy.content.recipe.FermentationRecipe;
 import com.klikli_dev.theurgy.content.recipe.input.ItemHandlerWithFluidRecipeInput;
@@ -23,7 +25,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import org.jetbrains.annotations.Nullable;
 
-public class FermentationVatBlockEntity extends BlockEntity implements HasCraftingBehaviour<ItemHandlerWithFluidRecipeInput, FermentationRecipe, FermentationCachedCheck> {
+public class FermentationVatBlockEntity extends BlockEntity implements HasCraftingBehaviour<ItemHandlerWithFluidRecipeInput, FermentationRecipe, FermentationCachedCheck>, HasStorageBehaviour<FermentationStorageBehaviour> {
 
     public FermentationStorageBehaviour storageBehaviour;
     public FermentationCraftingBehaviour craftingBehaviour;
@@ -118,4 +120,8 @@ public class FermentationVatBlockEntity extends BlockEntity implements HasCrafti
         return this.craftingBehaviour;
     }
 
+    @Override
+    public FermentationStorageBehaviour storageBehaviour() {
+        return this.storageBehaviour;
+    }
 }

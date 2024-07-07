@@ -1,0 +1,81 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "theurgy:logistics",
+  "description": "book.theurgy.the_hermetica.logistics.attribute_filter.description",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "theurgy:attribute_filter"
+  },
+  "name": "book.theurgy.the_hermetica.logistics.attribute_filter.name",
+  "pages": [
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "item": {
+        "item": "theurgy:attribute_filter"
+      },
+      "text": "book.theurgy.the_hermetica.logistics.attribute_filter.filter.text",
+      "title": ""
+    },
+    {
+      "type": "modonomicon:crafting_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "theurgy:crafting/shaped/attribute_filter",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.logistics.attribute_filter.usage.text",
+      "title": "book.theurgy.the_hermetica.logistics.attribute_filter.usage.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.logistics.attribute_filter.removal.text",
+      "title": "book.theurgy.the_hermetica.logistics.attribute_filter.removal.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.logistics.attribute_filter.credit.text",
+      "title": "book.theurgy.the_hermetica.logistics.attribute_filter.credit.title",
+      "use_markdown_in_title": false
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "theurgy:logistics/list_filter",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "sort_number": 9,
+  "x": 7,
+  "y": 4
+}

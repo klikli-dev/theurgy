@@ -33,7 +33,7 @@ public class LogisticsCategory extends CategoryProvider {
                 "__________________________________",
                 "________________w___e___f_________",
                 "__________________________________",
-                "__________________________________",
+                "________________________a_________",
                 "__________________________________"
 
         };
@@ -69,6 +69,9 @@ public class LogisticsCategory extends CategoryProvider {
 
         var listFilterEntry = new ListFilterEntry(this).generate('f');
         listFilterEntry.withParent(networkEntry);
+
+        var attributeFilterEntry = new AttributeFilterEntry(this).generate('a');
+        attributeFilterEntry.withParent(listFilterEntry);
     }
 
     @Override

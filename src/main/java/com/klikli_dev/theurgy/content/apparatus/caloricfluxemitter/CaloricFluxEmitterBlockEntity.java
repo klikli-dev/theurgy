@@ -86,7 +86,7 @@ public class CaloricFluxEmitterBlockEntity extends BlockEntity {
         super.saveAdditional(pTag, pRegistries);
 
         pTag.put("mercuryFluxStorage", this.mercuryFluxStorage.serializeNBT(pRegistries));
-        pTag.put("selectedPoints", CaloricFluxEmitterSelectedPoint.LIST_CODEC.encodeStart(NbtOps.INSTANCE, this.selectedPoints).getOrThrow((e) -> new EncoderException("Failed to encode: " + e + " " + this.selectedPoints)));
+        pTag.put("selectedPoints", CaloricFluxEmitterSelectedPoint.LIST_CODEC.encodeStart(pRegistries.createSerializationContext(NbtOps.INSTANCE), this.selectedPoints).getOrThrow((e) -> new EncoderException("Failed to encode: " + e + " " + this.selectedPoints)));
     }
 
     @Override
@@ -98,7 +98,7 @@ public class CaloricFluxEmitterBlockEntity extends BlockEntity {
             this.mercuryFluxStorage.deserializeNBT(pRegistries, pTag.get("mercuryFluxStorage"));
 
         if (pTag.contains("selectedPoints")) {
-            this.selectedPoints = CaloricFluxEmitterSelectedPoint.LIST_CODEC.parse(NbtOps.INSTANCE, pTag.get("selectedPoints")).getOrThrow((e) -> new EncoderException("Failed to decode: " + e + " " + pTag.get("selectedPoints")));
+            this.selectedPoints = CaloricFluxEmitterSelectedPoint.LIST_CODEC.parse(pRegistries.createSerializationContext(NbtOps.INSTANCE), pTag.get("selectedPoints")).getOrThrow((e) -> new EncoderException("Failed to decode: " + e + " " + pTag.get("selectedPoints")));
         }
     }
 

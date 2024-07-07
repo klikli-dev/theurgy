@@ -216,15 +216,15 @@ public class FollowProjectile extends ColoredProjectile {
     @Override
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
-        this.entityData.set(FollowProjectile.FROM, Vec3.CODEC.parse(NbtOps.INSTANCE, compound.get("from")).result().get());
-        this.entityData.set(FollowProjectile.TO, Vec3.CODEC.parse(NbtOps.INSTANCE, compound.get("to")).result().get());
+        this.entityData.set(FollowProjectile.FROM, Vec3.CODEC.parse(this.registryAccess().createSerializationContext(NbtOps.INSTANCE), compound.get("from")).result().get());
+        this.entityData.set(FollowProjectile.TO, Vec3.CODEC.parse(this.registryAccess().createSerializationContext(NbtOps.INSTANCE), compound.get("to")).result().get());
     }
 
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
-        Vec3.CODEC.encodeStart(NbtOps.INSTANCE, this.entityData.get(FollowProjectile.FROM)).result().ifPresent((e) -> compound.put("from", e));
-        Vec3.CODEC.encodeStart(NbtOps.INSTANCE, this.entityData.get(FollowProjectile.TO)).result().ifPresent((e) -> compound.put("to", e));
+        Vec3.CODEC.encodeStart(this.registryAccess().createSerializationContext(NbtOps.INSTANCE), this.entityData.get(FollowProjectile.FROM)).result().ifPresent((e) -> compound.put("from", e));
+        Vec3.CODEC.encodeStart(this.registryAccess().createSerializationContext(NbtOps.INSTANCE), this.entityData.get(FollowProjectile.TO)).result().ifPresent((e) -> compound.put("to", e));
     }
 
     @Override

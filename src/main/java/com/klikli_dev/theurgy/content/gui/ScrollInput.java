@@ -37,6 +37,7 @@ public class ScrollInput extends AbstractButton implements TickableGuiEventListe
 
     public ScrollInput(int xIn, int yIn, int widthIn, int heightIn) {
         super(xIn, yIn, widthIn, heightIn);
+        this.tooltip = new WidgetTooltipHolderWithDefaultPositioner();
         this.state = 0;
         this.min = 0;
         this.max = 1;
@@ -185,12 +186,12 @@ public class ScrollInput extends AbstractButton implements TickableGuiEventListe
 
 
         if (this.hint != null)
-            tooltip.append(this.hint.plainCopy()
+            tooltip.append("\n").append(this.hint.plainCopy()
                     .withStyle(s -> s.withColor(HINT_RGB)));
 
-        tooltip.append(this.scrollToModify.plainCopy()
+        tooltip.append("\n").append(this.scrollToModify.plainCopy()
                 .withStyle(ChatFormatting.ITALIC, ChatFormatting.DARK_GRAY));
-        tooltip.append(this.shiftScrollsFaster.plainCopy()
+        tooltip.append("\n").append(this.shiftScrollsFaster.plainCopy()
                 .withStyle(ChatFormatting.ITALIC, ChatFormatting.DARK_GRAY));
 
         this.setTooltip(Tooltip.create(tooltip));

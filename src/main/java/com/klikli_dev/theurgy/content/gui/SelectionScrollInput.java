@@ -6,6 +6,7 @@ package com.klikli_dev.theurgy.content.gui;
 
 import com.klikli_dev.theurgy.TheurgyConstants;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 
@@ -45,30 +46,32 @@ public class SelectionScrollInput extends ScrollInput {
         if (this.min + 1 == min)
             min--;
         if (min > this.min)
-            tooltip.append(Component.literal("> ...")
+            tooltip.append("\n").append(Component.literal("> ...")
                     .withStyle(ChatFormatting.GRAY));
         if (this.max - 1 == max)
             max++;
         for (int i = min; i < max; i++) {
             if (i == this.state)
-                tooltip.append(Component.empty()
+                tooltip.append("\n").append(Component.empty()
                         .append("-> ")
                         .append(this.options.get(i))
                         .withStyle(ChatFormatting.WHITE));
             else
-                tooltip.append(Component.empty()
+                tooltip.append("\n").append(Component.empty()
                         .append("> ")
                         .append(this.options.get(i))
                         .withStyle(ChatFormatting.GRAY));
         }
         if (max < this.max)
-            tooltip.append(Component.literal("> ...")
+            tooltip.append("\n").append(Component.literal("> ...")
                     .withStyle(ChatFormatting.GRAY));
 
         if (this.hint != null)
-            tooltip.append(this.hint.plainCopy()
+            tooltip.append("\n").append(this.hint.plainCopy()
                     .withStyle(s -> s.withColor(HINT_RGB)));
-        tooltip.append(this.scrollToSelect.plainCopy()
+        tooltip.append("\n").append(this.scrollToSelect.plainCopy()
                 .withStyle(ChatFormatting.DARK_GRAY, ChatFormatting.ITALIC));
+
+        this.setTooltip(Tooltip.create(tooltip));
     }
 }

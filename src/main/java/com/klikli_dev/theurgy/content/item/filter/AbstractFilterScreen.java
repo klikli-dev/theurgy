@@ -92,7 +92,6 @@ public abstract class AbstractFilterScreen<T extends AbstractFilterMenu> extends
     }
 
 
-
     public int getLeftOfCentered(int textureWidth) {
         return this.leftPos + (this.imageWidth - textureWidth) / 2;
     }
@@ -124,7 +123,8 @@ public abstract class AbstractFilterScreen<T extends AbstractFilterMenu> extends
         return Collections.emptyList();
     }
 
-    protected void clearContents() {}
+    protected void clearContents() {
+    }
 
     protected abstract int getScreenTitleColor();
 

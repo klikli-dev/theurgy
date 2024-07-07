@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class ListFilterItem extends FilterItem{
+public class ListFilterItem extends FilterItem {
     public ListFilterItem(Properties pProperties) {
         super(pProperties);
     }

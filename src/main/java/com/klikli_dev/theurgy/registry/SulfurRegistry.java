@@ -200,16 +200,14 @@ public class SulfurRegistry {
             var recipeManager = level.getRecipeManager();
             var liquefactionRecipes = recipeManager.getAllRecipesFor(RecipeTypeRegistry.LIQUEFACTION.get());
 
-            //From: EventHooks#onCreativeModeTabBuildContents
-            //we need to use it here to test before inserting, because event.getEntries().contains uses a different hashing strategy and is thus not reliable
-            final var searchDupes = new ObjectLinkedOpenCustomHashSet<ItemStack>(ItemStackLinkedSet.TYPE_AND_TAG);
             //Register only sulfurs that have a liquefaction recipe
             liquefactionRecipes.forEach(r -> {
                 var result = r.value().getResultItem(level.registryAccess());
-                if (result != null && !result.isEmpty() && result.getItem() instanceof AlchemicalSulfurItem && !event.getEntries().contains(result)){
+                if (result != null && !result.isEmpty() && result.getItem() instanceof AlchemicalSulfurItem && !event.getParentEntries().contains(result)){
                     var stack = result.copyWithCount(1);
-                    if (searchDupes.add(stack)) {
-                        event.accept(stack, event.getTabKey() == CreativeModeTabs.SEARCH ? CreativeModeTab.TabVisibility.SEARCH_TAB_ONLY : CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+
+                    if (!event.getParentEntries().contains(stack)) {
+                        event.accept(stack, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
                     }
                 }
             });

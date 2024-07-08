@@ -51,6 +51,9 @@ public class DigestionVatEntry extends EntryProvider {
                         """
         );
 
+        this.page("recipe", () -> BookCraftingRecipePageModel.create()
+                .withRecipeId1(Theurgy.loc("crafting/shaped/digestion_vat")));
+
         this.page("usage", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
@@ -81,15 +84,13 @@ public class DigestionVatEntry extends EntryProvider {
         this.add(this.context().pageTitle(), "Redstone");
         this.add(this.context().pageText(),
                 """
-                        The vat can be closed by applying a redstone signal (if a valid recipe is present).
+                        The vat can be closed by applying a redstone signal (if a valid recipe is present).\\
+                        If a redstone signal is applied and ingredients for a valid recipe are inserted, the vat will automatically close.
                         \\
                         \\
                         If the redstone signal is turned off the vat will open again.
                         """
         );
-
-        this.page("recipe", () -> BookCraftingRecipePageModel.create()
-                .withRecipeId1(Theurgy.loc("crafting/shaped/digestion_vat")));
 
     }
 

@@ -4,6 +4,7 @@
 
 package com.klikli_dev.theurgy.content.apparatus.fermentationvat;
 
+import com.klikli_dev.theurgy.content.behaviour.storage.OutputStorageBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.storage.StorageBehaviour;
 import com.klikli_dev.theurgy.content.storage.*;
 import net.minecraft.core.HolderLookup;
@@ -16,14 +17,14 @@ import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.IItemHandlerModifiable;
-import net.neoforged.neoforge.items.ItemHandlerHelper;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import net.neoforged.neoforge.items.wrapper.CombinedInvWrapper;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
-public class FermentationStorageBehaviour extends StorageBehaviour<FermentationStorageBehaviour> {
+public class FermentationStorageBehaviour extends StorageBehaviour<FermentationStorageBehaviour> implements OutputStorageBehaviour {
 
     public ItemStackHandler inputInventory;
     public IItemHandler inputInventoryReadOnlyWrapper;
@@ -69,8 +70,10 @@ public class FermentationStorageBehaviour extends StorageBehaviour<FermentationS
 
     @Override
     public void readNetwork(CompoundTag pTag, HolderLookup.Provider pRegistries) {
-        if (pTag.contains("inputInventory")) this.inputInventory.deserializeNBT(pRegistries, pTag.getCompound("inputInventory"));
-        if (pTag.contains("outputInventory")) this.outputInventory.deserializeNBT(pRegistries, pTag.getCompound("outputInventory"));
+        if (pTag.contains("inputInventory"))
+            this.inputInventory.deserializeNBT(pRegistries, pTag.getCompound("inputInventory"));
+        if (pTag.contains("outputInventory"))
+            this.outputInventory.deserializeNBT(pRegistries, pTag.getCompound("outputInventory"));
         if (pTag.contains("fluidTank")) this.fluidTank.readFromNBT(pRegistries, pTag.getCompound("fluidTank"));
     }
 
@@ -89,6 +92,16 @@ public class FermentationStorageBehaviour extends StorageBehaviour<FermentationS
     @Override
     public void loadAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
         this.readNetwork(pTag, pRegistries);
+    }
+
+    @Override
+    public boolean hasOutput() {
+        return !this.outputInventory.getStackInSlot(0).isEmpty();
+    }
+
+    @Override
+    public IItemHandler outputInventory() {
+        return this.outputInventory;
     }
 
     public class WaterTank extends MonitoredFluidTank {
@@ -124,7 +137,7 @@ public class FermentationStorageBehaviour extends StorageBehaviour<FermentationS
         }
 
         @Override
-        public boolean isItemValid(int slot, ItemStack stack) {
+        public boolean isItemValid(int slot, @NotNull ItemStack stack) {
             //we only allow one item type to fill maximum one slot, so if another slot has the stack, return false.
             for (int i = 0; i < this.getSlots(); i++) {
                 if (i != slot && ItemStack.isSameItemSameComponents(stack, this.getStackInSlot(i))) {
@@ -149,8 +162,17 @@ public class FermentationStorageBehaviour extends StorageBehaviour<FermentationS
 
         @Override
         protected void onContentTypeChanged(int slot, ItemStack oldStack, ItemStack newStack) {
+            //set the active (redstone) state of the block based on whether the output slot is empty or not.
+            //this is visual only, below we force a neighbor update that queries the storage behaviour directly
+            FermentationStorageBehaviour.this.blockEntity.getLevel().setBlock(FermentationStorageBehaviour.this.blockEntity.getBlockPos(),
+                    FermentationStorageBehaviour.this.blockEntity.getBlockState().setValue(FermentationVatBlock.HAS_OUTPUT, !newStack.isEmpty()), FermentationVatBlock.UPDATE_ALL);
+
             //we also need to network sync our BE, because if the content type changes then the interaction behaviour client side changes
             FermentationStorageBehaviour.this.sendBlockUpdated();
+
+            //this forces redstone to be re-queried and causes the actual update.
+            FermentationStorageBehaviour.this.blockEntity.getLevel().updateNeighborsAt(FermentationStorageBehaviour.this.blockEntity.getBlockPos(), FermentationStorageBehaviour.this.blockEntity.getBlockState().getBlock());
+
         }
 
         @Override

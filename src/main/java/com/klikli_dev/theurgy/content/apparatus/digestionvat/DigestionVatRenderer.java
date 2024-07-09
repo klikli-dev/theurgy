@@ -26,6 +26,8 @@ public class DigestionVatRenderer implements BlockEntityRenderer<DigestionVatBlo
     private static final ResourceLocation BASE_OPEN_TEXTURE = Theurgy.loc("textures/entity/digestion_vat/digestion_vat_base_open.png");
     private static final ResourceLocation BASE_TEXTURE = Theurgy.loc("textures/entity/digestion_vat/digestion_vat_base.png");
     private static final ResourceLocation SIDE_TEXTURE = Theurgy.loc("textures/entity/digestion_vat/digestion_vat_side.png");
+    private static final ResourceLocation FRONT_TEXTURE = Theurgy.loc("textures/entity/digestion_vat/digestion_vat_side_front.png");
+    private static final ResourceLocation FRONT_ACTIVE_TEXTURE = Theurgy.loc("textures/entity/digestion_vat/digestion_vat_side_front_active.png");
     private final ModelPart neck;
     private final ModelPart frontSide;
     private final ModelPart backSide;
@@ -85,7 +87,9 @@ public class DigestionVatRenderer implements BlockEntityRenderer<DigestionVatBlo
         this.top.render(pPoseStack, vertexconsumer, pPackedLight, pPackedOverlay);
         this.bottom.render(pPoseStack, vertexconsumer, pPackedLight, pPackedOverlay);
 
-        this.renderSide(this.frontSide, pPoseStack, pBuffer, pPackedLight, pPackedOverlay);
+        var isActive = pBlockEntity.storageBehaviour().hasOutput();
+
+        this.renderFront(this.frontSide, pPoseStack, pBuffer, pPackedLight, pPackedOverlay, isActive);
         this.renderSide(this.backSide, pPoseStack, pBuffer, pPackedLight, pPackedOverlay);
         this.renderSide(this.leftSide, pPoseStack, pBuffer, pPackedLight, pPackedOverlay);
         this.renderSide(this.rightSide, pPoseStack, pBuffer, pPackedLight, pPackedOverlay);
@@ -94,6 +98,11 @@ public class DigestionVatRenderer implements BlockEntityRenderer<DigestionVatBlo
 
     private void renderSide(ModelPart pModelPart, PoseStack pPoseStack, MultiBufferSource pBuffer, int pPackedLight, int pPackedOverlay) {
         var renderType = RenderType.entitySolid(SIDE_TEXTURE);
+        pModelPart.render(pPoseStack, pBuffer.getBuffer(renderType), pPackedLight, pPackedOverlay);
+    }
+
+    private void renderFront(ModelPart pModelPart, PoseStack pPoseStack, MultiBufferSource pBuffer, int pPackedLight, int pPackedOverlay, boolean isActive) {
+        var renderType = RenderType.entitySolid(isActive ? FRONT_ACTIVE_TEXTURE : FRONT_TEXTURE);
         pModelPart.render(pPoseStack, pBuffer.getBuffer(renderType), pPackedLight, pPackedOverlay);
     }
 }

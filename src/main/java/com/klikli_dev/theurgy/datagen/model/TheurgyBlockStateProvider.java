@@ -5,6 +5,7 @@
 package com.klikli_dev.theurgy.datagen.model;
 
 import com.klikli_dev.theurgy.Theurgy;
+import com.klikli_dev.theurgy.content.apparatus.fermentationvat.FermentationVatBlock;
 import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorBlock;
 import com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron.LiquefactionCauldronBlock;
 import com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector.LogisticsItemConnectorBlock;
@@ -268,23 +269,41 @@ public class TheurgyBlockStateProvider extends BlockStateProvider {
     }
 
     protected void registerFermentationVat() {
-        //for now we use a barrel, later we add the appropriate improved textures
-        var model = this.models().withExistingParent("fermentation_vat", this.mcLoc("block/cube_bottom_top"))
-                .texture("bottom", this.modLoc("block/fermentation_vat_bottom"))
-                .texture("side", this.modLoc("block/fermentation_vat_side"))
-                .texture("top", this.modLoc("block/fermentation_vat_top"))
-                .texture("particle", this.modLoc("block/fermentation_vat_top"));
+        var modelClosed = this.models().withExistingParent("fermentation_vat", this.mcLoc("block/cube"))
+                .texture("up", this.modLoc("block/fermentation_vat_top"))
+                .texture("down", this.modLoc("block/fermentation_vat_bottom"))
+                .texture("south", this.modLoc("block/fermentation_vat_side_front"))
+                .texture("north", this.modLoc("block/fermentation_vat_side"))
+                .texture("west", this.modLoc("block/fermentation_vat_side"))
+                .texture("east", this.modLoc("block/fermentation_vat_side"))
+                .texture("particle", this.modLoc("block/fermentation_vat_side"));
 
-        var modelOpen = this.models().withExistingParent("fermentation_vat_open", this.mcLoc("block/cube_bottom_top"))
-                .texture("bottom", this.modLoc("block/fermentation_vat_bottom"))
-                .texture("side", this.modLoc("block/fermentation_vat_side"))
-                .texture("top", this.modLoc("block/fermentation_vat_top_open"))
-                .texture("particle", this.modLoc("block/fermentation_vat_top"));
+        var modelOpen = this.models().withExistingParent("fermentation_vat_open", this.modLoc("block/fermentation_vat"))
+                .texture("up", this.modLoc("block/fermentation_vat_top_open"));
 
+        var modelClosedActive = this.models().withExistingParent("fermentation_vat_active", this.modLoc("block/fermentation_vat"))
+                .texture("south", this.modLoc("block/fermentation_vat_side_front_active"));
+
+        var modelOpenActive = this.models().withExistingParent("fermentation_vat_open_active", this.modLoc("block/fermentation_vat_open"))
+                .texture("south", this.modLoc("block/fermentation_vat_side_front_active"));
 
         //build blockstate
-        this.directionalBlock(BlockRegistry.FERMENTATION_VAT.get(), (state) -> state.getValue(BlockStateProperties.OPEN) ? modelOpen : model);
-        this.simpleBlockItem(BlockRegistry.FERMENTATION_VAT.get(), model);
+        this.horizontalBlock(BlockRegistry.FERMENTATION_VAT.get(), (state) -> {
+            if (state.getValue(BlockStateProperties.OPEN)) {
+                if (state.getValue(FermentationVatBlock.HAS_OUTPUT)) {
+                    return modelOpenActive;
+                } else {
+                    return modelOpen;
+                }
+            } else {
+                if (state.getValue(FermentationVatBlock.HAS_OUTPUT)) {
+                    return modelClosedActive;
+                } else {
+                    return modelClosed;
+                }
+            }
+        });
+        this.simpleBlockItem(BlockRegistry.FERMENTATION_VAT.get(), modelClosed);
     }
 
     protected void registerDigestionVat() {

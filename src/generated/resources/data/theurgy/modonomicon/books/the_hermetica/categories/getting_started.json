@@ -10,6 +10,8 @@
   "icon": {
     "item": "theurgy:the_hermetica_icon"
   },
+  "max_scroll_x": 512,
+  "max_scroll_y": 512,
   "name": "book.theurgy.the_hermetica.getting_started.name",
   "show_category_button": true,
   "sort_number": 0

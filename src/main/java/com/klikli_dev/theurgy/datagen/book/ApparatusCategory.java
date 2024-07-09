@@ -18,9 +18,7 @@ import com.klikli_dev.theurgy.datagen.book.apparatus.mercuryflux.MercuryFluxEntr
 import com.klikli_dev.theurgy.datagen.book.apparatus.mercuryflux.SulfuricFluxEmitterEntry;
 import com.klikli_dev.theurgy.datagen.book.apparatus.reformation.*;
 import com.klikli_dev.theurgy.datagen.book.apparatus.spagyrics.*;
-import com.klikli_dev.theurgy.datagen.book.apparatus.transmutationandexaltation.DigestionVatEntry;
-import com.klikli_dev.theurgy.datagen.book.apparatus.transmutationandexaltation.FermentationVatEntry;
-import com.klikli_dev.theurgy.datagen.book.apparatus.transmutationandexaltation.TransmutationAndExaltationEntry;
+import com.klikli_dev.theurgy.datagen.book.apparatus.transmutationandexaltation.*;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 
 public class ApparatusCategory extends CategoryProvider {
@@ -45,7 +43,10 @@ public class ApparatusCategory extends CategoryProvider {
                 "____________ș___h_________________",
                 "__________________________________",
                 "____________________f_é_ď_________",
-                "__________________________________"
+                "__________________________________",
+                "______________________ṟ___________",
+                "_________________________________",
+                "______________________ṛ___________"
 
         };
     }
@@ -94,6 +95,17 @@ public class ApparatusCategory extends CategoryProvider {
 
         var digestionVatEntry = new DigestionVatEntry(this).generate('ď');
         digestionVatEntry.addParent(this.parent(transmutationAndExaltation));
+
+        var vatRedstoneEntry = new VatRedstoneEntry(this).generate('ṟ');
+        vatRedstoneEntry.addParent(this.parent(digestionVatEntry).withLineReversed(true));
+        vatRedstoneEntry.addParent(this.parent(fermentationVatEntry).withLineReversed(true));
+        vatRedstoneEntry.withCondition(this.condition().or(
+                this.condition().entryRead(digestionVatEntry),
+                this.condition().entryRead(fermentationVatEntry)
+        ));
+
+        var basicVatAutomationEntry = new BasicVatAutomationEntry(this).generate('ṛ');
+        basicVatAutomationEntry.addParent(this.parent(vatRedstoneEntry));
     }
 
     private void reformationEntries(BookEntryModel parent) {

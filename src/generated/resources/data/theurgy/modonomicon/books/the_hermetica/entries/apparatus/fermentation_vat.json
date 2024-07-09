@@ -44,6 +44,17 @@
       "use_markdown_in_title": false
     },
     {
+      "type": "modonomicon:crafting_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "theurgy:crafting/shaped/fermentation_vat",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    },
+    {
       "type": "modonomicon:text",
       "anchor": "",
       "condition": {
@@ -72,20 +83,20 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.apparatus.fermentation_vat.redstone.text",
-      "title": "book.theurgy.the_hermetica.apparatus.fermentation_vat.redstone.title",
+      "text": "book.theurgy.the_hermetica.apparatus.fermentation_vat.redstone_control.text",
+      "title": "book.theurgy.the_hermetica.apparatus.fermentation_vat.redstone_control.title",
       "use_markdown_in_title": false
     },
     {
-      "type": "modonomicon:crafting_recipe",
+      "type": "modonomicon:text",
       "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "theurgy:crafting/shaped/fermentation_vat",
-      "text": "",
-      "title1": "",
-      "title2": ""
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.apparatus.fermentation_vat.redstone_output.text",
+      "title": "book.theurgy.the_hermetica.apparatus.fermentation_vat.redstone_output.title",
+      "use_markdown_in_title": false
     }
   ],
   "parents": [
@@ -99,5 +110,5 @@
   "show_when_any_parent_unlocked": false,
   "sort_number": 20,
   "x": 3,
-  "y": 4
+  "y": 3
 }

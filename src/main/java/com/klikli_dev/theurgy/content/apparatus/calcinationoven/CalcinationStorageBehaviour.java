@@ -68,6 +68,7 @@ public class CalcinationStorageBehaviour extends StorageBehaviour<CalcinationSto
         this.readNetwork(pTag, pRegistries);
     }
 
+
     public class InputInventory extends MonitoredItemStackHandler {
 
         public InputInventory() {

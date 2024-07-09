@@ -25,17 +25,11 @@ import java.util.List;
  * A leaf node in the logistics graph is a node that interfaces with one or more target block entities - or rather, their capabilities.
  */
 public abstract class LeafNodeBehaviour<T, C> {
-
-    //TODO: target removal: probably not a problem for Logistics.get(), but rather just locally to the leaf node.
-    //      the leaf node reports the target unload, and never reports a target load -> because removed
-    //      for the logistics system that does not matter, and the node itself can e.g. show an error message if status checked
-    //      the general path will then likely be to just remove the node, link it and re-add it.
-    //      t1 nodes like the connector will likely just get destroyed when the target is removed anyway.
-
     protected BlockEntity blockEntity;
     protected Lazy<GlobalPos> globalPos;
     protected BlockCapability<T, C> capabilityType;
     protected Filter filter;
+
     /**
      * The block this node makes accessible to the network (e.g. by being attached to a block).
      * Child node behaviours can e.g. build insert/extract target lists from this list.
@@ -43,6 +37,7 @@ public abstract class LeafNodeBehaviour<T, C> {
      * For the most basic leaf nodes the target list is simply the block they are attached to.
      */
     protected List<BlockPos> targets;
+
     protected int frequency;
 
     public LeafNodeBehaviour(BlockEntity blockEntity, BlockCapability<T, C> capabilityType) {
@@ -86,6 +81,14 @@ public abstract class LeafNodeBehaviour<T, C> {
 
     public int frequency() {
         return this.frequency;
+    }
+
+    public void frequency(int frequency) {
+        //frequency changes effectively mean that the node changes (sub) network, because frequency is part of the lookup key for inserter/extractor nodes.
+        //thus we need to remove and re-add the node to the network.
+        Logistics.get().remove(this, false);
+        this.frequency = frequency;
+        Logistics.get().add(this);
     }
 
     public ExtractorNodeBehaviour<T, C> asExtractor() {

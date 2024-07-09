@@ -33,6 +33,17 @@
       "use_markdown_in_title": false
     },
     {
+      "type": "modonomicon:crafting_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "theurgy:crafting/shaped/digestion_vat",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    },
+    {
       "type": "modonomicon:text",
       "anchor": "",
       "condition": {
@@ -64,17 +75,6 @@
       "text": "book.theurgy.the_hermetica.apparatus.digestion_vat.redstone.text",
       "title": "book.theurgy.the_hermetica.apparatus.digestion_vat.redstone.title",
       "use_markdown_in_title": false
-    },
-    {
-      "type": "modonomicon:crafting_recipe",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "recipe_id_1": "theurgy:crafting/shaped/digestion_vat",
-      "text": "",
-      "title1": "",
-      "title2": ""
     }
   ],
   "parents": [
@@ -88,5 +88,5 @@
   "show_when_any_parent_unlocked": false,
   "sort_number": 21,
   "x": 7,
-  "y": 4
+  "y": 3
 }

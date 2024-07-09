@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2024 klikli-dev
+//
+// SPDX-License-Identifier: MIT
+
 package com.klikli_dev.theurgy.content.behaviour.redstone;
 
 import com.klikli_dev.theurgy.content.behaviour.crafting.HasCraftingBehaviour;

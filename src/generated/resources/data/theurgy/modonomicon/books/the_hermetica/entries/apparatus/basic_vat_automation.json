@@ -66,17 +66,6 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.apparatus.basic_vat_automation.insertion.text",
-      "title": "book.theurgy.the_hermetica.apparatus.basic_vat_automation.insertion.title",
-      "use_markdown_in_title": false
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.apparatus.basic_vat_automation.logistics.text",
       "title": "book.theurgy.the_hermetica.apparatus.basic_vat_automation.logistics.title",
       "use_markdown_in_title": false
@@ -90,6 +79,17 @@
       "show_title_separator": true,
       "text": "book.theurgy.the_hermetica.apparatus.basic_vat_automation.hopper.text",
       "title": "book.theurgy.the_hermetica.apparatus.basic_vat_automation.hopper.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.apparatus.basic_vat_automation.insertion.text",
+      "title": "book.theurgy.the_hermetica.apparatus.basic_vat_automation.insertion.title",
       "use_markdown_in_title": false
     }
   ],

@@ -1,5 +1,5 @@
 {
-  "background": "theurgy:textures/gui/book/bg_nightsky2.png",
+  "background": "theurgy:textures/gui/book/bg_nightsky4_small.png",
   "background_height": 512,
   "background_parallax_layers": [],
   "background_texture_zoom_multiplier": 1.0,

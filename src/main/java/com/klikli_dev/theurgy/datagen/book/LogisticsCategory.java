@@ -91,6 +91,6 @@ public class LogisticsCategory extends CategoryProvider {
 
     @Override
     protected BookCategoryModel additionalSetup(BookCategoryModel category) {
-        return super.additionalSetup(category).withBackground(Theurgy.loc("textures/gui/book/bg_nightsky2.png"));
+        return super.additionalSetup(category).withBackground(Theurgy.loc("textures/gui/book/bg_nightsky4_small.png"));
     }
 }

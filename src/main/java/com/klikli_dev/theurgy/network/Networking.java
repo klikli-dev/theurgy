@@ -24,6 +24,7 @@ public class Networking {
         registrar.playToServer(MessageSulfuricFluxEmitterSelection.TYPE, MessageSulfuricFluxEmitterSelection.STREAM_CODEC, MessageHandler::handle);
         registrar.playToServer(MessageClearMenu.TYPE, MessageClearMenu.STREAM_CODEC, MessageHandler::handle);
         registrar.playToServer(MessageSetListFilterScreenOption.TYPE, MessageSetListFilterScreenOption.STREAM_CODEC, MessageHandler::handle);
+        registrar.playToServer(MessageOnLeftClickEmpty.TYPE, MessageOnLeftClickEmpty.STREAM_CODEC, MessageHandler::handle);
 
         //to client
         registrar.playToClient(MessageRequestCaloricFluxEmitterSelection.TYPE, MessageRequestCaloricFluxEmitterSelection.STREAM_CODEC, MessageHandler::handle);

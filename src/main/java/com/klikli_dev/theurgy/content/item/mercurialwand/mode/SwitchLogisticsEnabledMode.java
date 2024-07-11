@@ -46,8 +46,8 @@ public class SwitchLogisticsEnabledMode extends MercurialWandItemMode {
 
                 var component = Component.translatable(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_SWITCH_LOGISTICS_ENABLED_HUD,
                         Component.translatable(
-                                enabled ? TheurgyConstants.I18n.Item.Mode.ENABLED :
-                                        TheurgyConstants.I18n.Item.Mode.DISABLED
+                                enabled ? TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_ENABLED :
+                                        TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_DISABLED
                         ).withStyle(
                                 enabled ? ChatFormatting.GREEN :
                                         ChatFormatting.RED
@@ -82,8 +82,8 @@ public class SwitchLogisticsEnabledMode extends MercurialWandItemMode {
 
                 context.getPlayer().displayClientMessage(Component.translatable(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_SWITCH_LOGISTICS_ENABLED_SUCCESS,
                         Component.translatable(
-                                enabled ? TheurgyConstants.I18n.Item.Mode.ENABLED :
-                                        TheurgyConstants.I18n.Item.Mode.DISABLED
+                                enabled ? TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_ENABLED :
+                                        TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_DISABLED
                         ).withStyle(
                                 enabled ? ChatFormatting.GREEN :
                                         ChatFormatting.RED

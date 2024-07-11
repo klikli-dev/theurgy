@@ -4,11 +4,14 @@
 
 package com.klikli_dev.theurgy.content.item.mercurialwand;
 
+import com.klikli_dev.theurgy.content.item.HandlesOnLeftClick;
 import com.klikli_dev.theurgy.content.item.mercurialwand.mode.MercurialWandItemMode;
 import com.klikli_dev.theurgy.content.item.mode.ModeItem;
 import com.klikli_dev.theurgy.content.render.itemhud.ItemHUDProvider;
 import com.klikli_dev.theurgy.registry.DataComponentRegistry;
 import net.minecraft.client.Minecraft;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -23,7 +26,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class MercurialWandItem extends Item implements ItemHUDProvider, ModeItem {
+public class MercurialWandItem extends Item implements ItemHUDProvider, ModeItem, HandlesOnLeftClick {
     public MercurialWandItem(Properties pProperties) {
         super(pProperties);
     }
@@ -77,6 +80,22 @@ public class MercurialWandItem extends Item implements ItemHUDProvider, ModeItem
     @Override
     public void appendHUDText(Player pPlayer, HitResult pHitResult, ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents) {
         pStack.get(DataComponentRegistry.MERCURIAL_WAND_ITEM_MODE.get()).appendHUDText(pPlayer, pHitResult, pStack, pLevel, pTooltipComponents);
+    }
+
+    @Override
+    public boolean onLeftClickBlock(Level level, Player player, InteractionHand hand, BlockPos pos, Direction direction) {
+        var stack = player.getItemInHand(hand);
+        var mode = stack.get(DataComponentRegistry.MERCURIAL_WAND_ITEM_MODE.get());
+
+        return mode.onLeftClickBlock(level, player, hand, pos, direction);
+    }
+
+    @Override
+    public void onLeftClickEmpty(Level level, Player player, InteractionHand hand) {
+        var stack = player.getItemInHand(hand);
+        var mode = stack.get(DataComponentRegistry.MERCURIAL_WAND_ITEM_MODE.get());
+
+        mode.onLeftClickEmpty(level, player, hand);
     }
 
     public static class DistHelper {

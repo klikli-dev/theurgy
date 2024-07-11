@@ -40,7 +40,8 @@ public abstract class MercurialWandItemMode extends ItemMode {
 
     public enum Type implements StringRepresentable {
         CYCLE_DIRECTION("cycle_direction",new CycleSelectedDirectionMode()),
-        SWITCH_LOGISTICS_ENABLED("switch_logistics_enabled", new SwitchLogisticsEnabledMode());
+        SWITCH_LOGISTICS_ENABLED("switch_logistics_enabled", new SwitchLogisticsEnabledMode()),
+        SELECT_FREQUENCY("select_frequency", new SelectFrequencyMode());
 
         public static final Codec<Type> CODEC = StringRepresentable.fromValues(Type::values);
         public static final IntFunction<Type> BY_ID = ByIdMap.continuous(Enum::ordinal, values(), ByIdMap.OutOfBoundsStrategy.WRAP);

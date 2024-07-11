@@ -177,4 +177,10 @@ public class DataComponentRegistry {
             .cacheEncoding()
     );
 
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> SELECTED_FREQUENCY = DATA_COMPONENTS.registerComponentType("selected_frequency", builder -> builder
+            .persistent(Codec.INT)
+            .networkSynchronized(ByteBufCodecs.INT)
+            .cacheEncoding()
+    );
+
 }

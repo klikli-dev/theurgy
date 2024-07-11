@@ -133,6 +133,7 @@ public class ItemRegistry {
     public static final DeferredItem<MercurialWandItem> MERCURIAL_WAND =
             ITEMS.register("mercurial_wand", () -> new MercurialWandItem(new Item.Properties()
                     .component(DataComponentRegistry.MERCURIAL_WAND_ITEM_MODE.get(), MercurialWandItemMode.Type.CYCLE_DIRECTION.mode())
+                    .component(DataComponentRegistry.SELECTED_FREQUENCY.get(), 0)
             ));
 
     public static final DeferredItem<FilterItem> LIST_FILTER = ITEMS.register("list_filter", () -> new ListFilterItem(new Item.Properties()));

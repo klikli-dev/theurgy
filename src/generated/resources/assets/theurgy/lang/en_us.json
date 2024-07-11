@@ -807,6 +807,7 @@
   "item.mode.theurgy.mercurial_wand.rotate_selected_direction.with_target": "Set direction from %s to %s",
   "item.mode.theurgy.mercurial_wand.select_direction": "Select direction (Currently: %s)",
   "item.mode.theurgy.mercurial_wand.select_direction.success": "Direction: %s",
+  "item.mode.theurgy.mercurial_wand.select_frequency": "Selected frequency: %s",
   "item.mode.theurgy.mercurial_wand.set_selected_direction": "Set direction to %s",
   "item.mode.theurgy.mercurial_wand.set_selected_direction.success": "Set direction to %s",
   "item.mode.theurgy.mercurial_wand.set_selected_direction.with_target": "Set direction from %s to %s",

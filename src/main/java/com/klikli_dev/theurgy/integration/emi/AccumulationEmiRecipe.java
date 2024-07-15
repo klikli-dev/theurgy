@@ -56,11 +56,6 @@ public class AccumulationEmiRecipe implements EmiRecipe {
     }
 
     @Override
-    public List<EmiIngredient> getCatalysts() {
-        return List.of(EmiStack.of(this.recipe.value().getResult().getFluid().getBucket()));
-    }
-
-    @Override
     public int getDisplayWidth() {
         return 82;
     }

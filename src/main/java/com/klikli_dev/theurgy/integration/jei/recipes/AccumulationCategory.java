@@ -128,7 +128,7 @@ public class AccumulationCategory implements IRecipeCategory<RecipeHolder<Accumu
     public void setRecipe(IRecipeLayoutBuilder builder, RecipeHolder<AccumulationRecipe> recipe, IFocusGroup focuses) {
         builder.addSlot(INPUT, 1, 1)
                 .setBackground(JeiDrawables.INPUT_SLOT, -1, -1)
-                .addIngredients(NeoForgeTypes.FLUID_STACK, this.getFluids(recipe))
+                .addIngredients(NeoForgeTypes.FLUID_STACK, Arrays.stream(recipe.value().getEvaporant().getFluids()).toList())
                 .setFluidRenderer(1000, false, 16, 16)
                 .addTooltipCallback(addFluidTooltip(recipe.value().getEvaporantAmount()));
 
@@ -145,15 +145,6 @@ public class AccumulationCategory implements IRecipeCategory<RecipeHolder<Accumu
 
         //now add the bucket to the recipe lookup for the output fluid
         builder.addInvisibleIngredients(OUTPUT).addItemStack(new ItemStack(recipe.value().getResult().getFluid().getBucket()));
-    }
-
-    public List<FluidStack> getFluids(RecipeHolder<AccumulationRecipe> recipe) {
-        return Arrays.stream(recipe.value().getEvaporant().getFluids())
-                .map(f -> {
-                    var stack = f.copy();
-                    f.setAmount(recipe.value().getEvaporantAmount());
-                    return stack;
-                }).toList();
     }
 
     @Override

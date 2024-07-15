@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21-1.27.1] - 2024-07-15
+### :bug: Bug Fixes
+- [`b7b2eff`](https://github.com/klikli-dev/theurgy/commit/b7b2eff7ea7cd19f97ab00de199329789d07fee0) - fluid-only recipes of item+fluid input type not working *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`6755f2b`](https://github.com/klikli-dev/theurgy/commit/6755f2b9ab093c25c85471abf999682183d9acf9) - add underlying functionality for future logistics frequency changes *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21-1.27.0] - 2024-07-09
 ### :sparkles: New Features
 - [`2bcf9c7`](https://github.com/klikli-dev/theurgy/commit/2bcf9c7c8d42657797ff4bb4646f21032abee81d) - improve vat redstone behaviour and enable better automation *(PR [#197](https://github.com/klikli-dev/theurgy/pull/197) by [@klikli-dev](https://github.com/klikli-dev))*
@@ -717,3 +725,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21-1.26.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.25.1...release/v1.21-1.26.0
 [release/v1.21-1.26.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.26.0...release/v1.21-1.26.1
 [release/v1.21-1.27.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.26.1...release/v1.21-1.27.0
+[release/v1.21-1.27.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.27.0...release/v1.21-1.27.1

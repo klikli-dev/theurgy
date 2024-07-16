@@ -5,6 +5,7 @@
 package com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector;
 
 import com.klikli_dev.theurgy.content.apparatus.DirectionalBlockShape;
+import com.klikli_dev.theurgy.content.behaviour.filter.HasFilterBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.logistics.HasWireEndPoint;
 import com.klikli_dev.theurgy.logistics.Wires;
 import com.klikli_dev.theurgy.network.Networking;
@@ -47,13 +48,13 @@ public abstract class LogisticsItemConnectorBlock extends DirectionalBlock imple
     }
 
     @Override
-    protected @NotNull ItemInteractionResult useItemOn(@NotNull ItemStack pStack, @NotNull BlockState pState, @NotNull Level pLevel, @NotNull BlockPos pPos, Player pPlayer, @NotNull InteractionHand pHand, @NotNull BlockHitResult pHitResult) {
-        if(!(pLevel.getBlockEntity(pPos) instanceof LogisticsItemConnectorBlockEntity blockEntity)){
+    protected @NotNull ItemInteractionResult useItemOn(@NotNull ItemStack pStack, @NotNull BlockState pState, @NotNull Level pLevel, @NotNull BlockPos pPos, @NotNull Player pPlayer, @NotNull InteractionHand pHand, @NotNull BlockHitResult pHitResult) {
+        if (!(pLevel.getBlockEntity(pPos) instanceof LogisticsItemConnectorBlockEntity blockEntity)) {
             return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
         }
 
         var result = blockEntity.filter().useItemOn(pStack, pState, pLevel, pPos, pPlayer, pHand, pHitResult);
-        if(result != ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION)
+        if (result != ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION)
             return result;
 
         if (!pPlayer.getItemInHand(pHand).isEmpty())
@@ -67,16 +68,21 @@ public abstract class LogisticsItemConnectorBlock extends DirectionalBlock imple
         return ItemInteractionResult.SUCCESS;
     }
 
-    @SuppressWarnings("deprecation")
     @Override
-    public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
+    public @NotNull VoxelShape getShape(BlockState pState, @NotNull BlockGetter pLevel, @NotNull BlockPos pPos, @NotNull CollisionContext pContext) {
         return SHAPE.getShape(pState.getValue(FACING));
     }
 
     @Override
-    public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pMovedByPiston) {
-        super.onRemove(pState, pLevel, pPos, pNewState, pMovedByPiston);
+    public void onRemove(BlockState pState, @NotNull Level pLevel, @NotNull BlockPos pPos, BlockState pNewState, boolean pMovedByPiston) {
+        //Drop filter
+        if (!pState.is(pNewState.getBlock())) {
+            if (pLevel.getBlockEntity(pPos) instanceof HasFilterBehaviour hasFilterBehaviour) {
+                hasFilterBehaviour.filter().onRemove(pState, pLevel, pPos, pNewState, pMovedByPiston);
+            }
+        }
 
+        //drop wires
         if (pState.hasBlockEntity() && (!pState.is(pNewState.getBlock()) || !pNewState.hasBlockEntity())) {
             var removedWires = Wires.get(pLevel).removeWiresFor(pPos);
             if (pLevel.isClientSide)
@@ -88,6 +94,8 @@ public abstract class LogisticsItemConnectorBlock extends DirectionalBlock imple
                 blockEntity.leafNode().onDestroyed();
             }
         }
+
+        super.onRemove(pState, pLevel, pPos, pNewState, pMovedByPiston);
     }
 
     @Override
@@ -104,7 +112,6 @@ public abstract class LogisticsItemConnectorBlock extends DirectionalBlock imple
                 : this.defaultBlockState().setValue(FACING, direction);
     }
 
-    @SuppressWarnings("deprecation")
     @Override
     public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) {
         //The item connector can be connected to any block that is not air.
@@ -114,7 +121,6 @@ public abstract class LogisticsItemConnectorBlock extends DirectionalBlock imple
         return !pLevel.getBlockState(blockpos).isAir();
     }
 
-    @SuppressWarnings("deprecation")
     @Override
     public @NotNull BlockState updateShape(BlockState pState, Direction pFacing, @NotNull BlockState pFacingState, @NotNull LevelAccessor pLevel, @NotNull BlockPos pCurrentPos, @NotNull BlockPos pFacingPos) {
         return pFacing.getOpposite() == pState.getValue(FACING) && !pState.canSurvive(pLevel, pCurrentPos) ? Blocks.AIR.defaultBlockState() : pState;

@@ -8,6 +8,7 @@ import com.klikli_dev.theurgy.content.item.filter.FilterItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -40,8 +41,14 @@ public class FilterBehaviour {
     }
 
     public void filter(Filter filter) {
+        this.filter(filter, true);
+    }
+
+    public void filter(Filter filter, boolean notify) {
         this.filter = filter;
-        this.callback.accept(filter);
+        if (notify) {
+            this.callback.accept(filter);
+        }
     }
 
     public FilterBehaviour withCallback(Consumer<Filter> callback) {
@@ -93,5 +100,15 @@ public class FilterBehaviour {
         }
 
         return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+    }
+
+    public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
+        if (!this.filter.isEmpty()) {
+            var stack = this.filter().item().copy();
+
+            this.filter(Filter.empty(), false);
+
+            Containers.dropItemStack(pLevel, pPos.getX(), pPos.getY(), pPos.getZ(), stack);
+        }
     }
 }

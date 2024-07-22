@@ -31,7 +31,7 @@ public class EmiPlugin implements dev.emi.emi.api.EmiPlugin {
     public static final EmiStack LIQUEFACTION_ICON = EmiStack.of(ItemRegistry.LIQUEFACTION_CAULDRON.get());
     public static final EmiRecipeCategory LIQUEFACTION_CATEGORY = new EmiRecipeCategory(RecipeTypeRegistry.LIQUEFACTION.getId(), LIQUEFACTION_ICON);
 
-    public static final EmiStack REFORMATION_ICON = EmiStack.of(ItemRegistry.REFORMATION_RESULT_PEDESTAL.get());
+    public static final EmiStack REFORMATION_ICON = EmiStack.of(ItemRegistry.SULFURIC_FLUX_EMITTER.get());
     public static final EmiRecipeCategory REFORMATION_CATEGORY = new EmiRecipeCategory(RecipeTypeRegistry.REFORMATION.getId(), REFORMATION_ICON);
 
     @Override
@@ -64,6 +64,24 @@ public class EmiPlugin implements dev.emi.emi.api.EmiPlugin {
         registry.addWorkstation(FERMENTATION_CATEGORY, FERMENTATION_ICON);
         for (var recipe : registry.getRecipeManager().getAllRecipesFor(RecipeTypeRegistry.FERMENTATION.get())) {
             registry.addRecipe(new FermentationEmiRecipe(recipe));
+        }
+
+        registry.addCategory(INCUBATION_CATEGORY);
+        registry.addWorkstation(INCUBATION_CATEGORY, INCUBATION_ICON);
+        for (var recipe : registry.getRecipeManager().getAllRecipesFor(RecipeTypeRegistry.INCUBATION.get())) {
+            registry.addRecipe(new IncubationEmiRecipe(recipe));
+        }
+
+        registry.addCategory(LIQUEFACTION_CATEGORY);
+        registry.addWorkstation(LIQUEFACTION_CATEGORY, LIQUEFACTION_ICON);
+        for (var recipe : registry.getRecipeManager().getAllRecipesFor(RecipeTypeRegistry.LIQUEFACTION.get())) {
+            registry.addRecipe(new LiquefactionEmiRecipe(recipe));
+        }
+
+        registry.addCategory(REFORMATION_CATEGORY);
+        registry.addWorkstation(REFORMATION_CATEGORY, REFORMATION_ICON);
+        for (var recipe : registry.getRecipeManager().getAllRecipesFor(RecipeTypeRegistry.REFORMATION.get())) {
+            registry.addRecipe(new ReformationEmiRecipe(recipe));
         }
     }
 }

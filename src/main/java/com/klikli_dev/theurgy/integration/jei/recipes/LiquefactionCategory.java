@@ -32,6 +32,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.neoforged.neoforge.fluids.FluidStack;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 import java.util.List;
@@ -59,7 +60,7 @@ public class LiquefactionCategory implements IRecipeCategory<RecipeHolder<Liquef
                 .maximumSize(25)
                 .build(new CacheLoader<>() {
                     @Override
-                    public IDrawableAnimated load(Integer cookTime) {
+                    public @NotNull IDrawableAnimated load(@NotNull Integer cookTime) {
                         return JeiDrawables.asAnimatedDrawable(guiHelper, GuiTextures.JEI_ARROW_RIGHT_FULL, cookTime, IDrawableAnimated.StartDirection.LEFT, false);
                     }
                 });
@@ -94,7 +95,7 @@ public class LiquefactionCategory implements IRecipeCategory<RecipeHolder<Liquef
     }
 
     @Override
-    public IDrawable getBackground() {
+    public @NotNull IDrawable getBackground() {
         return this.background;
     }
 
@@ -104,7 +105,7 @@ public class LiquefactionCategory implements IRecipeCategory<RecipeHolder<Liquef
     }
 
     @Override
-    public void draw(RecipeHolder<LiquefactionRecipe> recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+    public void draw(@NotNull RecipeHolder<LiquefactionRecipe> recipe, @NotNull IRecipeSlotsView recipeSlotsView, @NotNull GuiGraphics guiGraphics, double mouseX, double mouseY) {
         GuiTextures.JEI_FIRE_EMPTY.render(guiGraphics, 12, 20);
         this.animatedFire.draw(guiGraphics, 12, 20);
 
@@ -127,12 +128,12 @@ public class LiquefactionCategory implements IRecipeCategory<RecipeHolder<Liquef
     }
 
     @Override
-    public Component getTitle() {
+    public @NotNull Component getTitle() {
         return this.localizedName;
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder builder, RecipeHolder<LiquefactionRecipe> recipe, IFocusGroup focuses) {
+    public void setRecipe(IRecipeLayoutBuilder builder, @NotNull RecipeHolder<LiquefactionRecipe> recipe, @NotNull IFocusGroup focuses) {
         builder.addSlot(INPUT, 1, 1)
                 .setBackground(JeiDrawables.INPUT_SLOT, -1, -1)
                 .addIngredients(NeoForgeTypes.FLUID_STACK, this.getFluids(recipe))
@@ -141,7 +142,7 @@ public class LiquefactionCategory implements IRecipeCategory<RecipeHolder<Liquef
 
         builder.addSlot(INPUT, 19, 1)
                 .setBackground(JeiDrawables.INPUT_SLOT, -1, -1)
-                .addIngredients(recipe.value().getIngredients().get(0));
+                .addIngredients(recipe.value().getIngredients().getFirst());
         builder.addSlot(OUTPUT, 81, 9)
                 .setBackground(JeiDrawables.OUTPUT_SLOT, -5, -5)
                 .addItemStack(recipe.value().getResultItem(RegistryAccess.EMPTY));
@@ -160,7 +161,7 @@ public class LiquefactionCategory implements IRecipeCategory<RecipeHolder<Liquef
     }
 
     @Override
-    public RecipeType<RecipeHolder<LiquefactionRecipe>> getRecipeType() {
+    public @NotNull RecipeType<RecipeHolder<LiquefactionRecipe>> getRecipeType() {
         return JeiRecipeTypes.LIQUEFACTION;
     }
 

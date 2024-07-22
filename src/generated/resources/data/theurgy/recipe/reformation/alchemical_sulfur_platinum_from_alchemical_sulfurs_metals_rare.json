@@ -4,6 +4,20 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
+        "tag": "c:ingots/platinum"
+      }
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:ingots/platinum"
+      }
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
         "tag": "theurgy:alchemical_sulfurs/metals/rare"
       }
     }

@@ -11,6 +11,7 @@ import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurItem;
 import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurTier;
 import com.klikli_dev.theurgy.content.recipe.ReformationRecipe;
 import com.klikli_dev.theurgy.datagen.SulfurMappings;
+import com.klikli_dev.theurgy.registry.DataComponentRegistry;
 import com.klikli_dev.theurgy.registry.ItemTagRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import com.klikli_dev.theurgy.registry.SulfurRegistry;
@@ -24,6 +25,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
 import net.neoforged.neoforge.common.conditions.NotCondition;
 import net.neoforged.neoforge.common.conditions.TagEmptyCondition;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 import java.util.function.BiConsumer;
@@ -245,7 +247,7 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
     }
 
     @Override
-    public String getName() {
+    public @NotNull String getName() {
         return "Reformation Recipes";
     }
 
@@ -257,7 +259,27 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
             this.time(TIME);
         }
 
+        @Override
+        public Builder result(ItemStack result) {
+            if(result.getItem() instanceof AlchemicalSulfurItem sulfur) {
+                if(result.has(DataComponentRegistry.SULFUR_SOURCE_TAG)){
+                    var sourceTag = result.get(DataComponentRegistry.SULFUR_SOURCE_TAG);
+                    this.condition(new NotCondition(new TagEmptyCondition(sourceTag)));
+                }
+            }
+
+            return super.result(result);
+        }
+
         public Builder target(Item item) {
+            if(item instanceof AlchemicalSulfurItem sulfur) {
+                var stack = new ItemStack(sulfur);
+                if(stack.has(DataComponentRegistry.SULFUR_SOURCE_TAG)){
+                    var sourceTag = stack.get(DataComponentRegistry.SULFUR_SOURCE_TAG);
+                    this.condition(new NotCondition(new TagEmptyCondition(sourceTag)));
+                }
+            }
+
             return this.ingredient("target", item);
         }
 
@@ -273,7 +295,7 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
 
         public Builder sources(ItemLike item, int count) {
             //noinspection deprecation
-            return this.sources(item.asItem().builtInRegistryHolder(), 1);
+            return this.sources(item.asItem().builtInRegistryHolder(), count);
         }
 
         public Builder sources(Holder<Item> itemHolder) {
@@ -290,6 +312,14 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
             jsonobject.addProperty("count", count);
 
             this.recipe.getAsJsonArray("sources").add(jsonobject);
+
+            if(itemHolder.value() instanceof AlchemicalSulfurItem sulfur) {
+                var stack = new ItemStack(sulfur);
+                if(stack.has(DataComponentRegistry.SULFUR_SOURCE_TAG)){
+                    var sourceTag = stack.get(DataComponentRegistry.SULFUR_SOURCE_TAG);
+                    this.condition(new NotCondition(new TagEmptyCondition(sourceTag)));
+                }
+            }
 
             return this.getThis();
         }

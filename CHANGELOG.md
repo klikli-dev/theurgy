@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21-1.27.3] - 2024-07-22
+### :bug: Bug Fixes
+- [`5caa1ef`](https://github.com/klikli-dev/theurgy/commit/5caa1efb04893ff905bc08389b13110ecb61a3be) - add c:ores tag to sal ammoniac ore *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21-1.27.2] - 2024-07-16
 ### :bug: Bug Fixes
 - [`9f7daba`](https://github.com/klikli-dev/theurgy/commit/9f7daba6ff41de1a964876f914a8b4903095c556) - filter drops *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -732,3 +737,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21-1.27.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.26.1...release/v1.21-1.27.0
 [release/v1.21-1.27.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.27.0...release/v1.21-1.27.1
 [release/v1.21-1.27.2]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.27.1...release/v1.21-1.27.2
+[release/v1.21-1.27.3]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.27.2...release/v1.21-1.27.3

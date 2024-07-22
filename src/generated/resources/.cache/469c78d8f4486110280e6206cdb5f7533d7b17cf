@@ -1,6 +1,7 @@
-// 1.21	2024-06-16T12:34:15.3269222	Tags for minecraft:item mod id theurgy
+// 1.21	2024-07-22T08:52:41.0588189	Tags for minecraft:item mod id theurgy
 f41150cbf3906d7eb1284a3f289d93bb80e57b9f data/c/tags/item/gems.json
 9a414088a384ea8077655b79eb53ac263aaae5e3 data/c/tags/item/gems/sal_ammoniac.json
+2a6db3eadd0ca532bb90db84dde920e689ea0e24 data/c/tags/item/ores.json
 04abd356cb9b230f4d1adcf90db05571e8a17d05 data/c/tags/item/ores/sal_ammoniac.json
 9148832ee4e83df2b37e23918707fd8046f26ff7 data/c/tags/item/ores_in_ground/deepslate.json
 f8295983ffdb0c42c6c8b12788a5b63c1eb43f72 data/c/tags/item/ores_in_ground/stone.json

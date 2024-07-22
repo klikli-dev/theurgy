@@ -33,6 +33,8 @@ public class TheurgyItemTagsProvider extends ItemTagsProvider {
         this.copy(Tags.Blocks.ORES_IN_GROUND_STONE, Tags.Items.ORES_IN_GROUND_STONE);
         this.copy(Tags.Blocks.ORES_IN_GROUND_DEEPSLATE, Tags.Items.ORES_IN_GROUND_DEEPSLATE);
 
+        this.tag(Tags.Items.ORES).addTag(ItemTagRegistry.ORES_SAL_AMMONIAC);
+
         this.tag(ItemTagRegistry.GEMS_SAL_AMMONIAC)
                 .add(ItemRegistry.SAL_AMMONIAC_CRYSTAL.get());
         this.tag(Tags.Items.GEMS).addTag(ItemTagRegistry.GEMS_SAL_AMMONIAC);

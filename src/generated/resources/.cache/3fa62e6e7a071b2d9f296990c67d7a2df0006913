@@ -1,8 +1,8 @@
-// 1.21	2024-07-09T13:31:12.322223	Books: theurgy
+// 1.21	2024-07-22T08:52:41.0558195	Books: theurgy
 c473bf5aa94f847c736c37f1a9f85c86b8bce95d data/theurgy/modonomicon/books/the_hermetica/book.json
 74a2622bcd8dc6316c5977cbea5a026d81dcff87 data/theurgy/modonomicon/books/the_hermetica/categories/apparatus.json
 6f877a9734359091748cca949c8e6c569ad2d67e data/theurgy/modonomicon/books/the_hermetica/categories/getting_started.json
-cbf1b4d247d68abae32e0330622a999b430fe683 data/theurgy/modonomicon/books/the_hermetica/categories/logistics.json
+c901ff2af9083916a51d916567c4d9475469ce80 data/theurgy/modonomicon/books/the_hermetica/categories/logistics.json
 b566a66d301147d1840b1ffd152d40d67b1213d4 data/theurgy/modonomicon/books/the_hermetica/entries/apparatus/basic_vat_automation.json
 6c84ad07a9d4564bfc6e8f76021c725e4e53505b data/theurgy/modonomicon/books/the_hermetica/entries/apparatus/calcination_oven.json
 6a4cf4119c1339960918069c955dd1db251d7a59 data/theurgy/modonomicon/books/the_hermetica/entries/apparatus/caloric_flux_emitter.json

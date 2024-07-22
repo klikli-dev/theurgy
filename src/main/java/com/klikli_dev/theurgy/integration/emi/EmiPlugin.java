@@ -59,5 +59,11 @@ public class EmiPlugin implements dev.emi.emi.api.EmiPlugin {
         for (var recipe : registry.getRecipeManager().getAllRecipesFor(RecipeTypeRegistry.DISTILLATION.get())) {
             registry.addRecipe(new DistillationEmiRecipe(recipe));
         }
+
+        registry.addCategory(FERMENTATION_CATEGORY);
+        registry.addWorkstation(FERMENTATION_CATEGORY, FERMENTATION_ICON);
+        for (var recipe : registry.getRecipeManager().getAllRecipesFor(RecipeTypeRegistry.FERMENTATION.get())) {
+            registry.addRecipe(new FermentationEmiRecipe(recipe));
+        }
     }
 }

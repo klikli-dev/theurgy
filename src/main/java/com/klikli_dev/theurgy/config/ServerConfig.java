@@ -7,6 +7,7 @@ package com.klikli_dev.theurgy.config;
 import net.neoforged.neoforge.common.ModConfigSpec;
 import net.neoforged.neoforge.common.util.Lazy;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -45,7 +46,7 @@ public class ServerConfig {
                             "This is used by divination rod recipes to determine which (ore-)block to scan for, if e.g. a raw metal or ingot is used to craft the sulfur used in the rod. This also works for tags, prefixed with #.",
                             "Format is: [\"source=block\", \"#sourcetag=#blocktag\", ...]"
                     )
-                    .defineList("sulfurSourceToBlockMapping", List.of(), e -> ((String) e).contains("="));
+                    .defineList("sulfurSourceToBlockMapping", new ArrayList<>(), () -> "source=block or #sourcetag=#blocktag", e -> ((String) e).split("=").length == 2);
 
             builder.pop();
         }

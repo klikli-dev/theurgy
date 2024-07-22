@@ -4,6 +4,7 @@
 
 package com.klikli_dev.theurgy.datagen.lang;
 
+import com.klikli_dev.modonomicon.Modonomicon;
 import com.klikli_dev.modonomicon.api.datagen.AbstractModonomiconLanguageProvider;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.TheurgyConstants;
@@ -887,6 +888,23 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.add("item_attributes." + attribute.getTranslationKey() + (inverted ? ".inverted" : ""), text);
     }
 
+    private void addConfigurationTranslations() {
+        this.addConfig("recipes", "Recipe Settings");
+        this.addConfig("sulfurSourceToBlockMapping", "Sulfur Source to Block Mapping");
+
+        this.addConfig("rendering", "Rendering Settings");
+        this.addConfig("renderSulfurSourceItem", "Render Sulfur Source Items");
+        this.addConfig("enableItemHUD", "Enable Item HUD");
+        this.addConfig("hudScale", "HUD Scale");
+
+        this.addConfig("misc", "Misc Settings");
+    }
+
+    private void addConfig(String key, String name){
+        this.add(Theurgy.MODID + ".configuration." + key, name);
+    }
+
+
     @Override
     protected void addTranslations() {
         this.addMisc();
@@ -901,6 +919,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.addGui();
 
         this.addItemAttributes();
+        this.addConfigurationTranslations();
     }
 
 

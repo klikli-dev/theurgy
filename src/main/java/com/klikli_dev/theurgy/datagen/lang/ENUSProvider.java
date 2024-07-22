@@ -62,8 +62,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.add("tag.fluid." + resourceLocation.getNamespace() + "." + resourceLocation.getPath().replace("/", "."), string);
     }
 
-    private void addFluidTag(TagKey<Fluid> item, String string) {
-        this.addItemTag(item.location(), string);
+    private void addFluidTag(TagKey<Fluid> fluid, String string) {
+        this.addFluidTag(fluid.location(), string);
     }
 
     private void addMisc() {
@@ -205,6 +205,17 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
 
         this.addFluidTag(FluidTagRegistry.SAL_AMMONIAC, "Sal Ammoniac");
         this.addFluidTag(FluidTagRegistry.SOLVENT, "Solvent");
+
+        this.add("emi.category.theurgy.calcination","Calcination");
+        this.add("emi.category.theurgy.accumulation","Accumulation");
+        this.add("emi.category.theurgy.digestion","Digestion");
+        this.add("emi.category.theurgy.distillation","Distillation");
+        this.add("emi.category.theurgy.fermentation","Fermentation");
+        this.add("emi.category.theurgy.incubation","Incubation");
+        this.add("emi.category.theurgy.liquefaction","Liquefaction");
+        this.add("emi.category.theurgy.reformation","Reformation");
+
+        this.add(TheurgyConstants.I18n.Gui.SMELTING_TIME_SECONDS, "%ss");
     }
 
     private void addSubtitles() {

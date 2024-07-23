@@ -89,7 +89,9 @@ public class ReformationEmiRecipe implements EmiRecipe {
 
         widgets.addSlot(EmiStack.of(ItemRegistry.SULFURIC_FLUX_EMITTER.get()), 1, 19).drawBack(false);
 
-        widgets.addSlot(EmiIngredient.of(this.recipe.value().getTarget()), 45, 19).catalyst(true).appendTooltip(Component.translatable(TheurgyConstants.I18n.JEI.TARGET_SULFUR_TOOLTIP).withStyle(s -> s.withItalic(true).withColor(ChatFormatting.WHITE)));
+        widgets.addSlot(EmiIngredient.of(this.recipe.value().getTarget()), 45, 19).catalyst(true)
+                .appendTooltip(Component.literal(" "))
+                .appendTooltip(Component.translatable(TheurgyConstants.I18n.JEI.TARGET_SULFUR_TOOLTIP).withStyle(s -> s.withItalic(true).withColor(ChatFormatting.YELLOW)));
 
 
         widgets.addSlot(EmiStack.of(ItemRegistry.REFORMATION_TARGET_PEDESTAL.get()), 45, 42).drawBack(false);

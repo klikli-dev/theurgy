@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21-1.29.0] - 2024-07-23
+### :sparkles: New Features
+- [`fe9ac4b`](https://github.com/klikli-dev/theurgy/commit/fe9ac4b1ef6366d67c529c3eec5b34b480cbce75) - native EMI support (no JEI needed for recipe viewing) *(PR [#204](https://github.com/klikli-dev/theurgy/pull/204) by [@klikli-dev](https://github.com/klikli-dev))*
+  - :arrow_lower_right: *addresses issue [#198](https://github.com/klikli-dev/theurgy/issues/198) opened by [@Kevin-Marsh](https://github.com/Kevin-Marsh)*
+
+
 ## [release/v1.21-1.28.0] - 2024-07-23
 ### :sparkles: New Features
 - [`7b9e7d9`](https://github.com/klikli-dev/theurgy/commit/7b9e7d9106fb3fe0dfdb9e329c28c8a5109c4f95) - add neo config screen *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -747,3 +753,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21-1.27.2]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.27.1...release/v1.21-1.27.2
 [release/v1.21-1.27.3]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.27.2...release/v1.21-1.27.3
 [release/v1.21-1.28.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.27.3...release/v1.21-1.28.0
+[release/v1.21-1.29.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.28.0...release/v1.21-1.29.0

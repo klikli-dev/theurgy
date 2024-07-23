@@ -48,4 +48,6 @@ public abstract class RecipeResult {
     public abstract ItemStack[] getStacks();
 
     public abstract RecipeResultType<?> getType();
+
+    public abstract RecipeResult copyWithCount(int count);
 }

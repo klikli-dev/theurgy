@@ -109,4 +109,9 @@ public class TagRecipeResult extends RecipeResult {
     public RecipeResultType<?> getType() {
         return RecipeResultRegistry.TAG.get();
     }
+
+    @Override
+    public TagRecipeResult copyWithCount(int count) {
+        return new TagRecipeResult(this.tag, count, this.patch);
+    }
 }

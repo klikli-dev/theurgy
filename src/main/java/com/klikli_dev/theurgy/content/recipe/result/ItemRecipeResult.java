@@ -51,4 +51,8 @@ public class ItemRecipeResult extends RecipeResult {
         return RecipeResultRegistry.ITEM.get();
     }
 
+    @Override
+    public ItemRecipeResult copyWithCount(int count) {
+        return new ItemRecipeResult(this.stack.copyWithCount(count));
+    }
 }

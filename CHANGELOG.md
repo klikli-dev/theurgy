@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21-1.30.0] - 2024-07-23
+### :sparkles: New Features
+- [`636e3c4`](https://github.com/klikli-dev/theurgy/commit/636e3c44e3230f1ff04d3d6e51bb87319d0d9257) - add copyWithCount to recipe result *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21-1.29.0] - 2024-07-23
 ### :sparkles: New Features
 - [`fe9ac4b`](https://github.com/klikli-dev/theurgy/commit/fe9ac4b1ef6366d67c529c3eec5b34b480cbce75) - native EMI support (no JEI needed for recipe viewing) *(PR [#204](https://github.com/klikli-dev/theurgy/pull/204) by [@klikli-dev](https://github.com/klikli-dev))*
@@ -754,3 +759,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21-1.27.3]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.27.2...release/v1.21-1.27.3
 [release/v1.21-1.28.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.27.3...release/v1.21-1.28.0
 [release/v1.21-1.29.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.28.0...release/v1.21-1.29.0
+[release/v1.21-1.30.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.29.0...release/v1.21-1.30.0

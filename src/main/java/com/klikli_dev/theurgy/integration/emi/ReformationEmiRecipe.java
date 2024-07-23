@@ -11,6 +11,8 @@ import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.WidgetHolder;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.component.DataComponents;
@@ -46,7 +48,6 @@ public class ReformationEmiRecipe implements EmiRecipe {
     @Override
     public List<EmiIngredient> getInputs() {
         var inputs = new ArrayList<EmiIngredient>();
-        inputs.add(EmiIngredient.of(this.recipe.value().getTarget()));
         this.recipe.value().getSources().forEach(source -> inputs.add(EmiIngredient.of(source)));
         return inputs;
     }
@@ -58,11 +59,13 @@ public class ReformationEmiRecipe implements EmiRecipe {
 
     @Override
     public List<EmiIngredient> getCatalysts() {
-        return List.of(
-                EmiStack.of(ItemRegistry.REFORMATION_RESULT_PEDESTAL),
-                EmiStack.of(ItemRegistry.REFORMATION_TARGET_PEDESTAL),
-                EmiStack.of(ItemRegistry.REFORMATION_SOURCE_PEDESTAL)
-        );
+        var catalysts = new ArrayList<EmiIngredient>();
+        catalysts.add(EmiStack.of(ItemRegistry.SULFURIC_FLUX_EMITTER.get()));
+        catalysts.add(EmiStack.of(ItemRegistry.REFORMATION_RESULT_PEDESTAL.get()));
+        catalysts.add(EmiStack.of(ItemRegistry.REFORMATION_TARGET_PEDESTAL.get()));
+        catalysts.add(EmiStack.of(ItemRegistry.REFORMATION_SOURCE_PEDESTAL.get()));
+        catalysts.add(EmiIngredient.of(this.recipe.value().getTarget()));
+        return catalysts;
     }
 
     @Override
@@ -77,23 +80,19 @@ public class ReformationEmiRecipe implements EmiRecipe {
 
     @Override
     public void addWidgets(WidgetHolder widgets) {
+        Minecraft minecraft = Minecraft.getInstance();
+        Font font = minecraft.font;
+
         widgets.addTexture(EmiTexture.EMPTY_ARROW, 130, 19);
         widgets.addTexture(EmiTexture.EMPTY_ARROW, 19, 19);
         widgets.addTexture(EmiTexture.EMPTY_ARROW, 65, 19);
 
         widgets.addSlot(EmiStack.of(ItemRegistry.SULFURIC_FLUX_EMITTER.get()), 1, 19).drawBack(false);
 
-        widgets.addSlot(EmiStack.of(Items.BARRIER, DataComponentPatch.builder().set(
-                        DataComponents.ITEM_NAME, Component.translatable(TheurgyConstants.I18n.JEI.TARGET_SULFUR_TOOLTIP).withStyle(s -> s.withItalic(true).withColor(ChatFormatting.WHITE))).build())
-                , 45, 1).drawBack(false)
-                .appendTooltip(Component.translatable(TheurgyConstants.I18n.JEI.TARGET_SULFUR_TOOLTIP).withStyle(ChatFormatting.ITALIC))
-        ;
-
-        widgets.addSlot(EmiIngredient.of(this.recipe.value().getTarget()), 45, 19).catalyst(true);
+        widgets.addSlot(EmiIngredient.of(this.recipe.value().getTarget()), 45, 19).catalyst(true).appendTooltip(Component.translatable(TheurgyConstants.I18n.JEI.TARGET_SULFUR_TOOLTIP).withStyle(s -> s.withItalic(true).withColor(ChatFormatting.WHITE)));
 
 
         widgets.addSlot(EmiStack.of(ItemRegistry.REFORMATION_TARGET_PEDESTAL.get()), 45, 42).drawBack(false);
-
 
         int sourceSlotX = 90;
         int startY = 55;
@@ -113,11 +112,17 @@ public class ReformationEmiRecipe implements EmiRecipe {
             }
         }
 
-        //TODO: Draw mercury flux
+        //draw mercury flux
+        int flux = recipe.value().getMercuryFlux();
+        Component mercuryFluxComponent = Component.translatable(TheurgyConstants.I18n.JEI.MERCURY_FLUX, flux);
+        widgets.addText(mercuryFluxComponent, 1, 90, 0xFF808080, false);
 
-        //TODO: draw source pedestal count
+        //draw source pedestal count
+        int count = recipe.value().getSources().size();
+        Component sourcePedestalComponent = Component.translatable(TheurgyConstants.I18n.JEI.SOURCE_PEDESTAL_COUNT, count);
+        widgets.addText(sourcePedestalComponent, 95 - font.width(sourcePedestalComponent), 78, 0xFF808080, false);
 
-        widgets.addSlot(EmiStack.of(ItemRegistry.REFORMATION_SOURCE_PEDESTAL.get()), 90 + 9, startY + 18 + 5).drawBack(false);
+        widgets.addSlot(EmiStack.of(ItemRegistry.REFORMATION_SOURCE_PEDESTAL.get()), 90 + 9, startY + 18).drawBack(false);
 
         widgets.addSlot(EmiStack.of(this.recipe.value().getResultItem(RegistryAccess.EMPTY)), 160, 19).recipeContext(this);
 

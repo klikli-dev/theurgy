@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21-1.30.1] - 2024-07-23
+### :bug: Bug Fixes
+- [`4991d47`](https://github.com/klikli-dev/theurgy/commit/4991d47af7fac5a1ff4ec7f42d72786559df8192) - actually fix neo config screen crash *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21-1.30.0] - 2024-07-23
 ### :sparkles: New Features
 - [`636e3c4`](https://github.com/klikli-dev/theurgy/commit/636e3c44e3230f1ff04d3d6e51bb87319d0d9257) - add copyWithCount to recipe result *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -760,3 +765,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21-1.28.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.27.3...release/v1.21-1.28.0
 [release/v1.21-1.29.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.28.0...release/v1.21-1.29.0
 [release/v1.21-1.30.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.29.0...release/v1.21-1.30.0
+[release/v1.21-1.30.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.30.0...release/v1.21-1.30.1

@@ -80,7 +80,6 @@ public class Theurgy {
         modContainer.registerConfig(ModConfig.Type.SERVER, ServerConfig.get().spec);
         modContainer.registerConfig(ModConfig.Type.COMMON, CommonConfig.get().spec);
         modContainer.registerConfig(ModConfig.Type.CLIENT, ClientConfig.get().spec);
-        modContainer.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
 
         ItemRegistry.ITEMS.register(modEventBus);
         CreativeModeTabRegistry.CREATIVE_MODE_TABS.register(modEventBus);

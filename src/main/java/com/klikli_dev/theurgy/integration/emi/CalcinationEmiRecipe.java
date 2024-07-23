@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2024 klikli-dev
+//
+// SPDX-License-Identifier: MIT
+
 package com.klikli_dev.theurgy.integration.emi;
 
 import com.klikli_dev.theurgy.TheurgyConstants;

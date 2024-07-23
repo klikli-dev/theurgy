@@ -30,7 +30,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
-import net.neoforged.neoforge.fluids.FluidStack;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 import java.util.List;
@@ -55,7 +55,7 @@ public class AccumulationCategory implements IRecipeCategory<RecipeHolder<Accumu
                 .maximumSize(25)
                 .build(new CacheLoader<>() {
                     @Override
-                    public IDrawableAnimated load(Integer cookTime) {
+                    public @NotNull IDrawableAnimated load(@NotNull Integer cookTime) {
                         return JeiDrawables.asAnimatedDrawable(guiHelper, GuiTextures.JEI_ARROW_RIGHT_FULL, cookTime, IDrawableAnimated.StartDirection.LEFT, false);
                     }
                 });
@@ -72,9 +72,9 @@ public class AccumulationCategory implements IRecipeCategory<RecipeHolder<Accumu
             var amount = overrideAmount == -1 ? fluidStack.getAmount() : overrideAmount;
             var text = Component.translatable(TheurgyConstants.I18n.Misc.UNIT_MILLIBUCKETS, amount).withStyle(ChatFormatting.GOLD);
             if (tooltip.isEmpty())
-                tooltip.add(0, text);
+                tooltip.addFirst(text);
             else {
-                List<Component> siblings = tooltip.get(0).getSiblings();
+                List<Component> siblings = tooltip.getFirst().getSiblings();
                 siblings.add(Component.literal(" "));
                 siblings.add(text);
             }
@@ -90,7 +90,7 @@ public class AccumulationCategory implements IRecipeCategory<RecipeHolder<Accumu
     }
 
     @Override
-    public IDrawable getBackground() {
+    public @NotNull IDrawable getBackground() {
         return this.background;
     }
 
@@ -100,7 +100,7 @@ public class AccumulationCategory implements IRecipeCategory<RecipeHolder<Accumu
     }
 
     @Override
-    public void draw(RecipeHolder<AccumulationRecipe> recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+    public void draw(@NotNull RecipeHolder<AccumulationRecipe> recipe, @NotNull IRecipeSlotsView recipeSlotsView, @NotNull GuiGraphics guiGraphics, double mouseX, double mouseY) {
         GuiTextures.JEI_ARROW_RIGHT_EMPTY.render(guiGraphics, 24, 2);
         this.getAnimatedArrow(recipe).draw(guiGraphics, 24, 2);
 
@@ -111,7 +111,7 @@ public class AccumulationCategory implements IRecipeCategory<RecipeHolder<Accumu
         int cookTime = recipe.value().getTime();
         if (cookTime > 0) {
             int cookTimeSeconds = cookTime / 20;
-            Component timeString = Component.translatable("gui.jei.category.smelting.time.seconds", cookTimeSeconds);
+            Component timeString = Component.translatable(TheurgyConstants.I18n.Gui.SMELTING_TIME_SECONDS, cookTimeSeconds);
             Minecraft minecraft = Minecraft.getInstance();
             Font font = minecraft.font;
             int stringWidth = font.width(timeString);
@@ -120,19 +120,20 @@ public class AccumulationCategory implements IRecipeCategory<RecipeHolder<Accumu
     }
 
     @Override
-    public Component getTitle() {
+    public @NotNull Component getTitle() {
         return this.localizedName;
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder builder, RecipeHolder<AccumulationRecipe> recipe, IFocusGroup focuses) {
+    public void setRecipe(IRecipeLayoutBuilder builder, RecipeHolder<AccumulationRecipe> recipe, @NotNull IFocusGroup focuses) {
         builder.addSlot(INPUT, 1, 1)
                 .setBackground(JeiDrawables.INPUT_SLOT, -1, -1)
-                .addIngredients(NeoForgeTypes.FLUID_STACK, this.getFluids(recipe))
+                .addIngredients(NeoForgeTypes.FLUID_STACK, Arrays.stream(recipe.value().getEvaporant().getFluids()).toList())
                 .setFluidRenderer(1000, false, 16, 16)
                 .addTooltipCallback(addFluidTooltip(recipe.value().getEvaporantAmount()));
 
         if (recipe.value().hasSolute()) {
+            assert recipe.value().getSolute() != null;
             builder.addSlot(INPUT, 1, 21)
                     .setBackground(JeiDrawables.INPUT_SLOT, -1, -1)
                     .addIngredients(recipe.value().getSolute());
@@ -147,17 +148,8 @@ public class AccumulationCategory implements IRecipeCategory<RecipeHolder<Accumu
         builder.addInvisibleIngredients(OUTPUT).addItemStack(new ItemStack(recipe.value().getResult().getFluid().getBucket()));
     }
 
-    public List<FluidStack> getFluids(RecipeHolder<AccumulationRecipe> recipe) {
-        return Arrays.stream(recipe.value().getEvaporant().getFluids())
-                .map(f -> {
-                    var stack = f.copy();
-                    f.setAmount(recipe.value().getEvaporantAmount());
-                    return stack;
-                }).toList();
-    }
-
     @Override
-    public RecipeType<RecipeHolder<AccumulationRecipe>> getRecipeType() {
+    public @NotNull RecipeType<RecipeHolder<AccumulationRecipe>> getRecipeType() {
         return JeiRecipeTypes.ACCUMULATION;
     }
 

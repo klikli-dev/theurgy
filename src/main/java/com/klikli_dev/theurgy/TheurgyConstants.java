@@ -130,6 +130,9 @@ public class TheurgyConstants {
 
         public static class Gui {
             public static final String PREFIX = Theurgy.MODID + ".gui.";
+
+            public static final String SMELTING_TIME_SECONDS = PREFIX + "category.smelting.time.seconds";
+
             public static final String FILTER_RESET_BUTTON_TOOLTIP = PREFIX + "filter.reset_button.tooltip";
             public static final String FILTER_CONFIRM_BUTTON_TOOLTIP = PREFIX + "filter.confirm_button.tooltip";
 

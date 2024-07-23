@@ -138,6 +138,8 @@ public class Theurgy {
             NeoForge.EVENT_BUS.addListener(BlockHighlightRenderer::onRenderBlockHighlight);
             NeoForge.EVENT_BUS.addListener(KeyMappingsRegistry::onKeyInput);
             NeoForge.EVENT_BUS.addListener(KeyMappingsRegistry::onMouseInput);
+
+            Client.registerConfigScreen(modContainer);
         }
     }
 
@@ -175,6 +177,10 @@ public class Theurgy {
             });
 
             LOGGER.info("Client setup complete.");
+        }
+
+        public static void registerConfigScreen(ModContainer modContainer){
+            modContainer.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
         }
 
         public static void onClientTick(ClientTickEvent.Post event) {

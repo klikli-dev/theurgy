@@ -5,7 +5,7 @@
   "description": "book.theurgy.the_hermetica.getting_started.niter_to_niter_reformation.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "theurgy:alchemical_sulfur_metals_common"
+    "item": "theurgy:alchemical_niter_metals_common"
   },
   "name": "book.theurgy.the_hermetica.getting_started.niter_to_niter_reformation.name",
   "pages": [

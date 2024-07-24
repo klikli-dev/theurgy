@@ -1,16 +1,17 @@
 {
   "values": [
-    "theurgy:alchemical_sulfur_gems_abundant",
-    "theurgy:alchemical_sulfur_gems_common",
-    "theurgy:alchemical_sulfur_gems_rare",
-    "theurgy:alchemical_sulfur_gems_precious",
-    "theurgy:alchemical_sulfur_metals_abundant",
-    "theurgy:alchemical_sulfur_metals_common",
-    "theurgy:alchemical_sulfur_metals_rare",
-    "theurgy:alchemical_sulfur_metals_precious",
-    "theurgy:alchemical_sulfur_other_minerals_abundant",
-    "theurgy:alchemical_sulfur_other_minerals_common",
-    "theurgy:alchemical_sulfur_other_minerals_rare",
-    "theurgy:alchemical_sulfur_other_minerals_precious"
+    "theurgy:alchemical_niter_gems_abundant",
+    "theurgy:alchemical_niter_gems_common",
+    "theurgy:alchemical_niter_gems_rare",
+    "theurgy:alchemical_niter_gems_precious",
+    "theurgy:alchemical_niter_metals_abundant",
+    "theurgy:alchemical_niter_metals_common",
+    "theurgy:alchemical_niter_metals_rare",
+    "theurgy:alchemical_niter_metals_precious",
+    "theurgy:alchemical_niter_other_minerals_abundant",
+    "theurgy:alchemical_niter_other_minerals_common",
+    "theurgy:alchemical_niter_other_minerals_rare",
+    "theurgy:alchemical_niter_other_minerals_precious",
+    "theurgy:alchemical_niter_logs"
   ]
 }

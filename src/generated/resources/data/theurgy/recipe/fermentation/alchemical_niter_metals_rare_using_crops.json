@@ -1,0 +1,40 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "theurgy:alchemical_sulfurs/metals/rare"
+      }
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:crops"
+      }
+    }
+  ],
+  "type": "theurgy:fermentation",
+  "category": "misc",
+  "fluid": {
+    "amount": 500,
+    "ingredient": {
+      "fluid": "minecraft:water"
+    }
+  },
+  "ingredients": [
+    {
+      "tag": "theurgy:alchemical_sulfurs/metals/rare"
+    },
+    {
+      "tag": "c:crops"
+    }
+  ],
+  "result": {
+    "type": "theurgy:item",
+    "count": 1,
+    "id": "theurgy:alchemical_niter_metals_rare"
+  },
+  "time": 200
+}

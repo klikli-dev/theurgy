@@ -1,6 +1,5 @@
 {
   "values": [
-    "theurgy:alchemical_sulfur_logs",
     "theurgy:alchemical_sulfur_wheat",
     "theurgy:alchemical_sulfur_iron",
     "theurgy:alchemical_sulfur_copper",
@@ -41,7 +40,7 @@
     "theurgy:alchemical_sulfur_fluix",
     "theurgy:alchemical_sulfur_niter",
     "theurgy:alchemical_sulfur_redstone",
-    "theurgy:alchemical_sulfur_coal",
+    "theurgy:alchemical_sulfur_coals",
     "theurgy:alchemical_sulfur_sulfur"
   ]
 }

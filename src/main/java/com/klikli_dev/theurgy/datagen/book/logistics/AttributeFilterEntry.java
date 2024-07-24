@@ -59,18 +59,6 @@ public class AttributeFilterEntry extends EntryProvider {
                2. The filter will be returned to the player's inventory.
                """
         );
-
-        this.page("credit", () -> BookTextPageModel.create()
-                .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText()));
-        this.pageTitle("Credit where Credit is Due");
-        this.pageText("""
-               Filter functionality, including all textures, is largely based on the Filters found in the Mod "Create". [Click here to learn more about Create](https://github.com/Creators-of-Create/Create).
-               \\
-               \\
-               This adaption is possible due to Create being Open Source, licensed under the MIT License. A sincere thanks to the creators of create for their foundational work.
-               """
-        );
     }
 
     @Override

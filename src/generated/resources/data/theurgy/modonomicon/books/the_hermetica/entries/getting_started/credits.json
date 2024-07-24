@@ -1,13 +1,13 @@
 {
-  "background_u_index": 0,
+  "background_u_index": 1,
   "background_v_index": 0,
   "category": "theurgy:getting_started",
-  "description": "book.theurgy.the_hermetica.getting_started.result_pedestal.description",
+  "description": "book.theurgy.the_hermetica.getting_started.credits.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "theurgy:alchemical_sulfur_quartz"
+    "item": "minecraft:diamond"
   },
-  "name": "book.theurgy.the_hermetica.getting_started.result_pedestal.name",
+  "name": "book.theurgy.the_hermetica.getting_started.credits.name",
   "pages": [
     {
       "type": "modonomicon:text",
@@ -16,8 +16,8 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.getting_started.result_pedestal.result.text",
-      "title": "book.theurgy.the_hermetica.getting_started.result_pedestal.result.title",
+      "text": "book.theurgy.the_hermetica.getting_started.credits.intro.text",
+      "title": "book.theurgy.the_hermetica.getting_started.credits.intro.title",
       "use_markdown_in_title": false
     },
     {
@@ -27,8 +27,8 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.getting_started.result_pedestal.result2.text",
-      "title": "book.theurgy.the_hermetica.getting_started.result_pedestal.result2.title",
+      "text": "book.theurgy.the_hermetica.getting_started.credits.open_source.text",
+      "title": "book.theurgy.the_hermetica.getting_started.credits.open_source.title",
       "use_markdown_in_title": false
     },
     {
@@ -38,21 +38,21 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.getting_started.result_pedestal.repeat.text",
-      "title": "book.theurgy.the_hermetica.getting_started.result_pedestal.repeat.title",
+      "text": "book.theurgy.the_hermetica.getting_started.credits.create.text",
+      "title": "book.theurgy.the_hermetica.getting_started.credits.create.title",
       "use_markdown_in_title": false
     }
   ],
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "theurgy:getting_started/sulfuric_flux_emitter",
+      "entry": "theurgy:getting_started/about_mod",
       "line_enabled": true,
       "line_reversed": false
     }
   ],
   "show_when_any_parent_unlocked": false,
-  "sort_number": 31,
-  "x": 15,
-  "y": -2
+  "sort_number": 2,
+  "x": -5,
+  "y": -6
 }

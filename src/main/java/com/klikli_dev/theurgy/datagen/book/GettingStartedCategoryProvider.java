@@ -43,7 +43,7 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
                 "___________________________________",
                 "________________d___ḋ______________",
                 "___________________________________",
-                "__________________đ___ɖ_ᶑ__________",
+                "____________ç_____đ___ɖ_ᶑ__________",
                 "___________________________________",
                 "__________i_a_________c___ṛ_ŕ______",
                 "___________________________________",
@@ -69,6 +69,10 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
         var introEntry = new IntroEntry(this).generate('i');
         var aboutModEntry = new AboutModEntry(this).generate('a');
         aboutModEntry.withParent(introEntry);
+
+        var creditsEntry = new CreditsEntry(this).generate('ç');
+        creditsEntry.withParent(aboutModEntry);
+
         this.generateDivinationRodEntries(aboutModEntry);
 
         var spagyrics = this.generateSpagyricsEntries(aboutModEntry); //spagyrics, incubation

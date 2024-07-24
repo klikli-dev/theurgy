@@ -37,7 +37,7 @@ public class AlchemicalSaltItem extends Item {
     }
 
     public MutableComponent getSourceName(ItemStack pStack) {
-        return formatSourceName(Component.translatable(pStack.getDescriptionId() + TheurgyConstants.I18n.Item.ALCHEMICAL_SALT_SOURCE_SUFFIX));
+        return formatSourceName(Component.translatable(pStack.getDescriptionId() + TheurgyConstants.I18n.Item.ALCHEMICAL_DERIVATIVE_SOURCE_SUFFIX));
     }
 
     @Override

@@ -6,7 +6,7 @@ package com.klikli_dev.theurgy.content.item.sulfur;
 
 import com.klikli_dev.theurgy.Theurgy;
 
-public enum AlchemicalSulfurTier {
+public enum AlchemicalDerivativeTier {
     ABUNDANT(0xcfcfcf),
     COMMON(0x41b335),
     RARE(0x413fa3),
@@ -15,9 +15,9 @@ public enum AlchemicalSulfurTier {
     public final int color;
     public final String descriptionId;
 
-    AlchemicalSulfurTier(int color) {
+    AlchemicalDerivativeTier(int color) {
         this.color = color;
-        this.descriptionId = Theurgy.MODID + "theurgy.sulfur_tier." + this.name().toLowerCase();
+        this.descriptionId = Theurgy.MODID + "theurgy.alchemical_tier." + this.name().toLowerCase();
     }
 
     public int color() {

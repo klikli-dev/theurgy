@@ -10,8 +10,7 @@ public enum AlchemicalSulfurType {
     MISC(),
     GEMS(),
     METALS(),
-    OTHER_MINERALS(),
-    NITER();
+    OTHER_MINERALS();
 
     public final String descriptionId;
 

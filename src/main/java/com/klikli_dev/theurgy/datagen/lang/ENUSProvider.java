@@ -4,14 +4,13 @@
 
 package com.klikli_dev.theurgy.datagen.lang;
 
-import com.klikli_dev.modonomicon.Modonomicon;
 import com.klikli_dev.modonomicon.api.datagen.AbstractModonomiconLanguageProvider;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.content.behaviour.filter.attribute.*;
 import com.klikli_dev.theurgy.content.item.salt.AlchemicalSaltItem;
 import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurItem;
-import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurTier;
+import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalDerivativeTier;
 import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurType;
 import com.klikli_dev.theurgy.registry.*;
 import net.minecraft.ChatFormatting;
@@ -464,18 +463,18 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
     }
 
     private void addSulfurs() {
-        this.add(TheurgyConstants.I18n.Item.ALCHEMICAL_SULFUR_UNKNOWN_SOURCE, "Unknown Source");
+        this.add(TheurgyConstants.I18n.Item.ALCHEMICAL_DERIVATIVE_UNKNOWN_SOURCE, "Unknown Source");
 
-        this.add(AlchemicalSulfurTier.ABUNDANT.descriptionId(), "Abundant");
-        this.add(AlchemicalSulfurTier.COMMON.descriptionId(), "Common");
-        this.add(AlchemicalSulfurTier.RARE.descriptionId(), "Rare");
-        this.add(AlchemicalSulfurTier.PRECIOUS.descriptionId(), "Precious");
+        this.add(AlchemicalDerivativeTier.ABUNDANT.descriptionId(), "Abundant");
+        this.add(AlchemicalDerivativeTier.COMMON.descriptionId(), "Common");
+        this.add(AlchemicalDerivativeTier.RARE.descriptionId(), "Rare");
+        this.add(AlchemicalDerivativeTier.PRECIOUS.descriptionId(), "Precious");
 
         this.add(AlchemicalSulfurType.MISC.descriptionId(), "Misc");
         this.add(AlchemicalSulfurType.METALS.descriptionId(), "Metals");
         this.add(AlchemicalSulfurType.GEMS.descriptionId(), "Gems");
         this.add(AlchemicalSulfurType.OTHER_MINERALS.descriptionId(), "Other Minerals");
-        this.add(AlchemicalSulfurType.NITER.descriptionId(), "Niter");
+        this.add(TheurgyConstants.I18n.Item.ALCHEMICAL_DERIVATIVE_TYPE_NITER, "NITER");
 
 
         //Automatic sulfur name rendering
@@ -492,94 +491,91 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
             }
         });
 
-        //Tag Names for Sulfurs with overrideTagSourceName
-        this.add(Util.makeDescriptionId("tag", ItemTags.LOGS.location()), "Logs");
-        //Note: It was considered to try and warn here if a sulfur has overrideTagSourceName set to true, but no override lang key set.
-        //      This is not possible, however, as the tag source comes from item nbt that is not available at this point.
+        //TODO: Register logs stuff
 
 
         //Names for generic sulfurs
-        this.addSulfurSource(SulfurRegistry.GEMS_ABUNDANT, "Abundant Gems");
+        this.addDerivativeSource(SulfurRegistry.GEMS_ABUNDANT, "Abundant Gems");
         this.addGenericSulfur(SulfurRegistry.GEMS_ABUNDANT.get());
-        this.addSulfurSource(SulfurRegistry.GEMS_COMMON, "Common Gems");
+        this.addDerivativeSource(SulfurRegistry.GEMS_COMMON, "Common Gems");
         this.addGenericSulfur(SulfurRegistry.GEMS_COMMON.get());
-        this.addSulfurSource(SulfurRegistry.GEMS_RARE, "Rare Gems");
+        this.addDerivativeSource(SulfurRegistry.GEMS_RARE, "Rare Gems");
         this.addGenericSulfur(SulfurRegistry.GEMS_RARE.get());
-        this.addSulfurSource(SulfurRegistry.GEMS_PRECIOUS, "Precious Gems");
+        this.addDerivativeSource(SulfurRegistry.GEMS_PRECIOUS, "Precious Gems");
         this.addGenericSulfur(SulfurRegistry.GEMS_PRECIOUS.get());
 
-        this.addSulfurSource(SulfurRegistry.METALS_ABUNDANT, "Abundant Metals");
+        this.addDerivativeSource(SulfurRegistry.METALS_ABUNDANT, "Abundant Metals");
         this.addGenericSulfur(SulfurRegistry.METALS_ABUNDANT.get());
-        this.addSulfurSource(SulfurRegistry.METALS_COMMON, "Common Metals");
+        this.addDerivativeSource(SulfurRegistry.METALS_COMMON, "Common Metals");
         this.addGenericSulfur(SulfurRegistry.METALS_COMMON.get());
-        this.addSulfurSource(SulfurRegistry.METALS_RARE, "Rare Metals");
+        this.addDerivativeSource(SulfurRegistry.METALS_RARE, "Rare Metals");
         this.addGenericSulfur(SulfurRegistry.METALS_RARE.get());
-        this.addSulfurSource(SulfurRegistry.METALS_PRECIOUS, "Precious Metals");
+        this.addDerivativeSource(SulfurRegistry.METALS_PRECIOUS, "Precious Metals");
         this.addGenericSulfur(SulfurRegistry.METALS_PRECIOUS.get());
 
-        this.addSulfurSource(SulfurRegistry.OTHER_MINERALS_ABUNDANT, "Abundant Other Minerals");
+        this.addDerivativeSource(SulfurRegistry.OTHER_MINERALS_ABUNDANT, "Abundant Other Minerals");
         this.addGenericSulfur(SulfurRegistry.OTHER_MINERALS_ABUNDANT.get());
-        this.addSulfurSource(SulfurRegistry.OTHER_MINERALS_COMMON, "Common Other Minerals");
+        this.addDerivativeSource(SulfurRegistry.OTHER_MINERALS_COMMON, "Common Other Minerals");
         this.addGenericSulfur(SulfurRegistry.OTHER_MINERALS_COMMON.get());
-        this.addSulfurSource(SulfurRegistry.OTHER_MINERALS_RARE, "Rare Other Minerals");
+        this.addDerivativeSource(SulfurRegistry.OTHER_MINERALS_RARE, "Rare Other Minerals");
         this.addGenericSulfur(SulfurRegistry.OTHER_MINERALS_RARE.get());
-        this.addSulfurSource(SulfurRegistry.OTHER_MINERALS_PRECIOUS, "Precious Other Minerals");
+        this.addDerivativeSource(SulfurRegistry.OTHER_MINERALS_PRECIOUS, "Precious Other Minerals");
         this.addGenericSulfur(SulfurRegistry.OTHER_MINERALS_PRECIOUS.get());
 
         //Names for Sulfurs with overrideSourceName
         //Common Metals
-        this.addSulfurSource(SulfurRegistry.IRON, "Iron");
-        this.addSulfurSource(SulfurRegistry.COPPER, "Copper");
-        this.addSulfurSource(SulfurRegistry.SILVER, "Silver");
-        this.addSulfurSource(SulfurRegistry.GOLD, "Gold");
-        this.addSulfurSource(SulfurRegistry.NETHERITE, "Netherite");
-        this.addSulfurSource(SulfurRegistry.URANIUM, "Uranium");
-        this.addSulfurSource(SulfurRegistry.AZURE_SILVER, "Azure Silver");
-        this.addSulfurSource(SulfurRegistry.ZINC, "Zinc");
-        this.addSulfurSource(SulfurRegistry.OSMIUM, "Osmium");
-        this.addSulfurSource(SulfurRegistry.NICKEL, "Nickel");
-        this.addSulfurSource(SulfurRegistry.LEAD, "Lead");
-        this.addSulfurSource(SulfurRegistry.ALLTHEMODIUM, "Allthemodium");
-        this.addSulfurSource(SulfurRegistry.UNOBTAINIUM, "Unobtainium");
-        this.addSulfurSource(SulfurRegistry.IRIDIUM, "Iridium");
-        this.addSulfurSource(SulfurRegistry.TIN, "Tin");
-        this.addSulfurSource(SulfurRegistry.CINNABAR, "Cinnabar");
-        this.addSulfurSource(SulfurRegistry.CRIMSON_IRON, "Crimson Iron");
-        this.addSulfurSource(SulfurRegistry.PLATINUM, "Platinum");
-        this.addSulfurSource(SulfurRegistry.VIBRANIUM, "Vibranium");
-        this.addSulfurSource(SulfurRegistry.DESH, "Desh");
-        this.addSulfurSource(SulfurRegistry.OSTRUM, "Ostrum");
-        this.addSulfurSource(SulfurRegistry.CALORITE, "Calorite");
-        this.addSulfurSource(SulfurRegistry.IESNIUM, "Iesnium");
+        this.addDerivativeSource(SulfurRegistry.IRON, "Iron");
+        this.addDerivativeSource(SulfurRegistry.COPPER, "Copper");
+        this.addDerivativeSource(SulfurRegistry.SILVER, "Silver");
+        this.addDerivativeSource(SulfurRegistry.GOLD, "Gold");
+        this.addDerivativeSource(SulfurRegistry.NETHERITE, "Netherite");
+        this.addDerivativeSource(SulfurRegistry.URANIUM, "Uranium");
+        this.addDerivativeSource(SulfurRegistry.AZURE_SILVER, "Azure Silver");
+        this.addDerivativeSource(SulfurRegistry.ZINC, "Zinc");
+        this.addDerivativeSource(SulfurRegistry.OSMIUM, "Osmium");
+        this.addDerivativeSource(SulfurRegistry.NICKEL, "Nickel");
+        this.addDerivativeSource(SulfurRegistry.LEAD, "Lead");
+        this.addDerivativeSource(SulfurRegistry.ALLTHEMODIUM, "Allthemodium");
+        this.addDerivativeSource(SulfurRegistry.UNOBTAINIUM, "Unobtainium");
+        this.addDerivativeSource(SulfurRegistry.IRIDIUM, "Iridium");
+        this.addDerivativeSource(SulfurRegistry.TIN, "Tin");
+        this.addDerivativeSource(SulfurRegistry.CINNABAR, "Cinnabar");
+        this.addDerivativeSource(SulfurRegistry.CRIMSON_IRON, "Crimson Iron");
+        this.addDerivativeSource(SulfurRegistry.PLATINUM, "Platinum");
+        this.addDerivativeSource(SulfurRegistry.VIBRANIUM, "Vibranium");
+        this.addDerivativeSource(SulfurRegistry.DESH, "Desh");
+        this.addDerivativeSource(SulfurRegistry.OSTRUM, "Ostrum");
+        this.addDerivativeSource(SulfurRegistry.CALORITE, "Calorite");
+        this.addDerivativeSource(SulfurRegistry.IESNIUM, "Iesnium");
 
         //Common Gems
-        this.addSulfurSource(SulfurRegistry.DIAMOND, "Diamond");
-        this.addSulfurSource(SulfurRegistry.EMERALD, "Emerald");
-        this.addSulfurSource(SulfurRegistry.LAPIS, "Lapis");
-        this.addSulfurSource(SulfurRegistry.QUARTZ, "Quartz");
-        this.addSulfurSource(SulfurRegistry.AMETHYST, "Amethyst");
-        this.addSulfurSource(SulfurRegistry.PRISMARINE, "Prismarine");
-        this.addSulfurSource(SulfurRegistry.RUBY, "Ruby");
-        this.addSulfurSource(SulfurRegistry.APATITE, "Apatite");
-        this.addSulfurSource(SulfurRegistry.PERIDOT, "Peridot");
-        this.addSulfurSource(SulfurRegistry.FLUORITE, "Fluorite");
-        this.addSulfurSource(SulfurRegistry.SAPPHIRE, "Sapphire");
-        this.addSulfurSource(SulfurRegistry.SAL_AMMONIAC, "Sal Ammoniac");
-        this.addSulfurSource(SulfurRegistry.CERTUS_QUARTZ, "Certus Quartz");
-        this.addSulfurSource(SulfurRegistry.FLUIX, "Fluix");
-        this.addSulfurSource(SulfurRegistry.NITER, "Niter");
+        this.addDerivativeSource(SulfurRegistry.DIAMOND, "Diamond");
+        this.addDerivativeSource(SulfurRegistry.EMERALD, "Emerald");
+        this.addDerivativeSource(SulfurRegistry.LAPIS, "Lapis");
+        this.addDerivativeSource(SulfurRegistry.QUARTZ, "Quartz");
+        this.addDerivativeSource(SulfurRegistry.AMETHYST, "Amethyst");
+        this.addDerivativeSource(SulfurRegistry.PRISMARINE, "Prismarine");
+        this.addDerivativeSource(SulfurRegistry.RUBY, "Ruby");
+        this.addDerivativeSource(SulfurRegistry.APATITE, "Apatite");
+        this.addDerivativeSource(SulfurRegistry.PERIDOT, "Peridot");
+        this.addDerivativeSource(SulfurRegistry.FLUORITE, "Fluorite");
+        this.addDerivativeSource(SulfurRegistry.SAPPHIRE, "Sapphire");
+        this.addDerivativeSource(SulfurRegistry.SAL_AMMONIAC, "Sal Ammoniac");
+        this.addDerivativeSource(SulfurRegistry.CERTUS_QUARTZ, "Certus Quartz");
+        this.addDerivativeSource(SulfurRegistry.FLUIX, "Fluix");
+        this.addDerivativeSource(SulfurRegistry.NITER, "Niter");
 
         //Other Common Minerals
-        this.addSulfurSource(SulfurRegistry.REDSTONE, "Redstone");
-        this.addSulfurSource(SulfurRegistry.COAL, "Coal");
-        this.addSulfurSource(SulfurRegistry.SULFUR, "Sulfur");
+        this.addDerivativeSource(SulfurRegistry.REDSTONE, "Redstone");
+        this.addDerivativeSource(SulfurRegistry.COAL, "Coal");
+        this.addDerivativeSource(SulfurRegistry.SULFUR, "Sulfur");
     }
 
     private void addSalts() {
         //Salt source names used in automatic name rendering
-        this.addSaltSource(SaltRegistry.MINERAL, "Minerals");
-        this.addSaltSource(SaltRegistry.CROPS, "Crops");
-        this.addSaltSource(SaltRegistry.STRATA, "Strata");
+        this.addDerivativeSource(SaltRegistry.MINERAL, "Minerals");
+        this.addDerivativeSource(SaltRegistry.CROPS, "Crops");
+        this.addDerivativeSource(SaltRegistry.STRATA, "Strata");
         this.addExtendedTooltip(SaltRegistry.STRATA.get()::asItem,
                 "Salt extracted from the strata, that is, sedimentary rock, soil, clay and so on.");
 
@@ -596,12 +592,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
 
     }
 
-    public void addSaltSource(Supplier<? extends Item> key, String name) {
-        this.add(key.get().getDescriptionId() + TheurgyConstants.I18n.Item.ALCHEMICAL_SALT_SOURCE_SUFFIX, name);
-    }
-
-    public void addSulfurSource(Supplier<? extends Item> key, String name) {
-        this.add(key.get().getDescriptionId() + TheurgyConstants.I18n.Item.ALCHEMICAL_SULFUR_SOURCE_SUFFIX, name);
+    public void addDerivativeSource(Supplier<? extends Item> key, String name) {
+        this.add(key.get().getDescriptionId() + TheurgyConstants.I18n.Item.ALCHEMICAL_DERIVATIVE_SOURCE_SUFFIX, name);
     }
 
     public void addIngredientInfo(Supplier<Item> ingredient, String info) {

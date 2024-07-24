@@ -27,8 +27,9 @@ import com.klikli_dev.theurgy.content.item.divinationrod.DivinationRodItem;
 import com.klikli_dev.theurgy.content.item.filter.AttributeFilterScreen;
 import com.klikli_dev.theurgy.content.item.filter.ListFilterScreen;
 import com.klikli_dev.theurgy.content.item.salt.AlchemicalSaltItem;
+import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalDerivativeItem;
 import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurItem;
-import com.klikli_dev.theurgy.content.item.sulfur.render.AlchemicalSulfurBEWLR;
+import com.klikli_dev.theurgy.content.item.sulfur.render.AlchemicalDerivativeBEWLR;
 import com.klikli_dev.theurgy.content.render.*;
 import com.klikli_dev.theurgy.content.render.itemhud.ItemHUD;
 import com.klikli_dev.theurgy.content.render.outliner.Outliner;
@@ -95,6 +96,7 @@ public class Theurgy {
         ItemRegistry.ITEMS.register(modEventBus);
         CreativeModeTabRegistry.CREATIVE_MODE_TABS.register(modEventBus);
         SulfurRegistry.SULFURS.register(modEventBus);
+        NiterRegistry.NITERS.register(modEventBus);
         SaltRegistry.SALTS.register(modEventBus);
         BlockRegistry.BLOCKS.register(modEventBus);
         BlockEntityRegistry.BLOCKS.register(modEventBus);
@@ -119,6 +121,7 @@ public class Theurgy {
 
         modEventBus.addListener(TheurgyRegistries::onRegisterRegistries);
         modEventBus.addListener(SulfurRegistry::onBuildCreativeModTabs);
+        modEventBus.addListener(NiterRegistry::onBuildCreativeModTabs);
         modEventBus.addListener(SaltRegistry::onBuildCreativeModTabs);
         modEventBus.addListener(CapabilityRegistry::onRegisterCapabilities);
 
@@ -234,16 +237,21 @@ public class Theurgy {
             SulfurRegistry.SULFURS.getEntries().stream()
                     .map(DeferredHolder::get)
                     .map(AlchemicalSulfurItem.class::cast)
-                    .filter(sulfur -> !SulfurRegistry.keepInItemLists(sulfur))
                     .filter(sulfur -> liquefactionRecipes.stream().noneMatch(r -> r.value().getResultItem(registryAccess) != null && r.value().getResultItem(registryAccess).getItem() == sulfur)).map(ItemStack::new).forEach(PageRendererRegistry::registerItemStackNotToRender);
         }
 
         public static void registerTooltipDataProviders(FMLClientSetupEvent event) {
             TooltipHandler.registerNamespaceToListenTo(MODID);
 
-            SulfurRegistry.SULFURS.getEntries().stream().map(DeferredHolder::get).map(AlchemicalSulfurItem.class::cast).forEach(sulfur -> {
-                if (sulfur.provideAutomaticTooltipData) {
-                    TooltipHandler.registerTooltipDataProvider(sulfur, AlchemicalSulfurItem::getTooltipData);
+            SulfurRegistry.SULFURS.getEntries().stream().map(DeferredHolder::get).map(AlchemicalDerivativeItem.class::cast).forEach(derivative -> {
+                if (derivative.provideAutomaticTooltipData) {
+                    TooltipHandler.registerTooltipDataProvider(derivative, derivative::getTooltipData);
+                }
+            });
+
+            NiterRegistry.NITERS.getEntries().stream().map(DeferredHolder::get).map(AlchemicalDerivativeItem.class::cast).forEach(derivative -> {
+                if (derivative.provideAutomaticTooltipData) {
+                    TooltipHandler.registerTooltipDataProvider(derivative, derivative::getTooltipData);
                 }
             });
 
@@ -287,7 +295,7 @@ public class Theurgy {
             var sulfurExtension = new IClientItemExtensions() {
                 @Override
                 public @NotNull BlockEntityWithoutLevelRenderer getCustomRenderer() {
-                    return AlchemicalSulfurBEWLR.get();
+                    return AlchemicalDerivativeBEWLR.get();
                 }
             };
 

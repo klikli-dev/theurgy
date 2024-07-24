@@ -128,13 +128,13 @@ public class DataComponentRegistry {
             .cacheEncoding()
     );
 
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Holder<Item>>> SULFUR_SOURCE_ITEM = DATA_COMPONENTS.registerComponentType("sulfur_source_item", builder -> builder
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Holder<Item>>> SOURCE_ITEM = DATA_COMPONENTS.registerComponentType("sulfur_source_item", builder -> builder
             .persistent(BuiltInRegistries.ITEM.holderByNameCodec())
             .networkSynchronized(ByteBufCodecs.holderRegistry(Registries.ITEM))
             .cacheEncoding()
     );
 
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<TagKey<Item>>> SULFUR_SOURCE_TAG = DATA_COMPONENTS.registerComponentType("sulfur_source_tag", builder -> builder
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<TagKey<Item>>> SOURCE_TAG = DATA_COMPONENTS.registerComponentType("sulfur_source_tag", builder -> builder
             .persistent(TagKey.codec(Registries.ITEM))
             .networkSynchronized(ByteBufCodecs.fromCodec(TagKey.codec(Registries.ITEM)))
             .cacheEncoding()

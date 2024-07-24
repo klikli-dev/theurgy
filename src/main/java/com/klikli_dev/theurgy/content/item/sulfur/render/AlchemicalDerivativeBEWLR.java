@@ -5,8 +5,9 @@
 package com.klikli_dev.theurgy.content.item.sulfur.render;
 
 import com.klikli_dev.theurgy.config.ClientConfig;
+import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalDerivativeItem;
+import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalDerivativeTier;
 import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurItem;
-import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurTier;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.mojang.blaze3d.platform.Lighting;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -18,27 +19,29 @@ import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
 
-public class AlchemicalSulfurBEWLR extends BlockEntityWithoutLevelRenderer {
+public class AlchemicalDerivativeBEWLR extends BlockEntityWithoutLevelRenderer {
 
-    private static final AlchemicalSulfurBEWLR instance = new AlchemicalSulfurBEWLR();
+    private static final AlchemicalDerivativeBEWLR instance = new AlchemicalDerivativeBEWLR();
     private static final ItemStack labeledEmptyJarStack = new ItemStack(ItemRegistry.EMPTY_JAR_LABELED_ICON.get());
     private static final ItemStack labelStack = new ItemStack(ItemRegistry.JAR_LABEL_ICON.get());
 
-    private static final Map<AlchemicalSulfurTier, ItemStack> tierToIconMap = Map.of(
-            AlchemicalSulfurTier.ABUNDANT, new ItemStack(ItemRegistry.JAR_LABEL_FRAME_ABUNDANT_ICON.get()),
-            AlchemicalSulfurTier.COMMON, new ItemStack(ItemRegistry.JAR_LABEL_FRAME_COMMON_ICON.get()),
-            AlchemicalSulfurTier.RARE, new ItemStack(ItemRegistry.JAR_LABEL_FRAME_RARE_ICON.get()),
-            AlchemicalSulfurTier.PRECIOUS, new ItemStack(ItemRegistry.JAR_LABEL_FRAME_PRECIOUS_ICON.get())
+    private static final Map<AlchemicalDerivativeTier, ItemStack> tierToIconMap = Map.of(
+            AlchemicalDerivativeTier.ABUNDANT, new ItemStack(ItemRegistry.JAR_LABEL_FRAME_ABUNDANT_ICON.get()),
+            AlchemicalDerivativeTier.COMMON, new ItemStack(ItemRegistry.JAR_LABEL_FRAME_COMMON_ICON.get()),
+            AlchemicalDerivativeTier.RARE, new ItemStack(ItemRegistry.JAR_LABEL_FRAME_RARE_ICON.get()),
+            AlchemicalDerivativeTier.PRECIOUS, new ItemStack(ItemRegistry.JAR_LABEL_FRAME_PRECIOUS_ICON.get())
     );
 
-    public AlchemicalSulfurBEWLR() {
+    public AlchemicalDerivativeBEWLR() {
+        //noinspection DataFlowIssue
         super(null, null);
     }
 
-    public static AlchemicalSulfurBEWLR get() {
+    public static AlchemicalDerivativeBEWLR get() {
         return instance;
     }
 
@@ -47,12 +50,12 @@ public class AlchemicalSulfurBEWLR extends BlockEntityWithoutLevelRenderer {
     }
 
     @Override
-    public void renderByItem(ItemStack sulfurStack, ItemDisplayContext displayContext, PoseStack pPoseStack, MultiBufferSource pBuffer, int pPackedLight, int pPackedOverlay) {
+    public void renderByItem(@NotNull ItemStack stack, @NotNull ItemDisplayContext displayContext, PoseStack pPoseStack, @NotNull MultiBufferSource pBuffer, int pPackedLight, int pPackedOverlay) {
 
         var renderSource = ClientConfig.get().rendering.renderSulfurSourceItem.get();
 
         //if we do not render the source we show a simplified labeled icon with pixels representing fictional text
-        var jarStack = renderSource ? AlchemicalSulfurItem.getEmptyJarStack(sulfurStack)
+        var jarStack = renderSource ? AlchemicalDerivativeItem.getEmptyJarStack(stack)
                 : labeledEmptyJarStack;
 
         pPoseStack.popPose();
@@ -62,7 +65,7 @@ public class AlchemicalSulfurBEWLR extends BlockEntityWithoutLevelRenderer {
 
         //if shift is down in gui we just render the contained item in full size
         if (displayContext == ItemDisplayContext.GUI && Screen.hasShiftDown()) {
-            this.renderContainedItemFull(sulfurStack, displayContext, pPoseStack, pBuffer, pPackedLight, pPackedOverlay);
+            this.renderContainedItemFull(stack, displayContext, pPoseStack, pBuffer, pPackedLight, pPackedOverlay);
             return;
         }
 
@@ -77,21 +80,21 @@ public class AlchemicalSulfurBEWLR extends BlockEntityWithoutLevelRenderer {
         //note: if we reset to 3d item light here it ignores it above and renders dark .. idk why
 
 
-        this.renderLabelFrame(sulfurStack, displayContext, pPoseStack, pBuffer, pPackedLight, pPackedOverlay);
+        this.renderLabelFrame(stack, displayContext, pPoseStack, pBuffer, pPackedLight, pPackedOverlay);
 
         //if we render the source we render a text-less clean label and the source item on top of the jar stack
         if (renderSource) {
-            this.renderLabel(sulfurStack, displayContext, pPoseStack, pBuffer, pPackedLight, pPackedOverlay);
-            this.renderContainedItem(sulfurStack, displayContext, pPoseStack, pBuffer, pPackedLight, pPackedOverlay);
+            this.renderLabel(stack, displayContext, pPoseStack, pBuffer, pPackedLight, pPackedOverlay);
+            this.renderContainedItem(stack, displayContext, pPoseStack, pBuffer, pPackedLight, pPackedOverlay);
         }
 
     }
 
-    public void renderLabelFrame(ItemStack sulfurStack, ItemDisplayContext displayContext, PoseStack pPoseStack, MultiBufferSource pBuffer, int pPackedLight, int pPackedOverlay) {
+    public void renderLabelFrame(ItemStack stack, ItemDisplayContext displayContext, PoseStack pPoseStack, MultiBufferSource pBuffer, int pPackedLight, int pPackedOverlay) {
 
         ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
 
-        var tierStack = tierToIconMap.get(AlchemicalSulfurItem.getTier(sulfurStack));
+        var tierStack = tierToIconMap.get(AlchemicalSulfurItem.getTier(stack));
         BakedModel labelModel = itemRenderer.getModel(tierStack, null, null, 0);
 
         pPoseStack.pushPose();
@@ -117,7 +120,7 @@ public class AlchemicalSulfurBEWLR extends BlockEntityWithoutLevelRenderer {
         pPoseStack.popPose();
     }
 
-    public void renderLabel(ItemStack sulfurStack, ItemDisplayContext displayContext, PoseStack pPoseStack, MultiBufferSource pBuffer, int pPackedLight, int pPackedOverlay) {
+    public void renderLabel(ItemStack stack, ItemDisplayContext displayContext, PoseStack pPoseStack, MultiBufferSource pBuffer, int pPackedLight, int pPackedOverlay) {
 
         ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
 
@@ -146,11 +149,14 @@ public class AlchemicalSulfurBEWLR extends BlockEntityWithoutLevelRenderer {
         pPoseStack.popPose();
     }
 
-    public void renderContainedItem(ItemStack sulfurStack, ItemDisplayContext pTransformType, PoseStack pPoseStack, MultiBufferSource pBuffer, int pPackedLight, int pPackedOverlay) {
+    public void renderContainedItem(ItemStack stack, ItemDisplayContext pTransformType, PoseStack pPoseStack, MultiBufferSource pBuffer, int pPackedLight, int pPackedOverlay) {
 
         ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
 
-        var containedStack = AlchemicalSulfurItem.getSourceStack(sulfurStack);
+        if (!(stack.getItem() instanceof AlchemicalDerivativeItem item))
+            return;
+
+        var containedStack = item.getSourceStack(stack);
         if (!containedStack.isEmpty()) {
             BakedModel containedModel = itemRenderer.getModel(containedStack, null, null, 0);
             BakedModel labelModel = itemRenderer.getModel(labelStack, null, null, 0);
@@ -172,7 +178,7 @@ public class AlchemicalSulfurBEWLR extends BlockEntityWithoutLevelRenderer {
 
             Lighting.setupForFlatItems(); //always render "labeled" item flat
 
-            //set graysacle shader color
+            //set grayscale shader color
             itemRenderer.render(containedStack, ItemDisplayContext.GUI, isLeftHand(pTransformType), pPoseStack, pBuffer, pPackedLight,
 
                     pPackedOverlay, containedModel);
@@ -183,11 +189,14 @@ public class AlchemicalSulfurBEWLR extends BlockEntityWithoutLevelRenderer {
         }
     }
 
-    public void renderContainedItemFull(ItemStack sulfurStack, ItemDisplayContext pTransformType, PoseStack pPoseStack, MultiBufferSource pBuffer, int pPackedLight, int pPackedOverlay) {
+    public void renderContainedItemFull(ItemStack stack, ItemDisplayContext pTransformType, PoseStack pPoseStack, MultiBufferSource pBuffer, int pPackedLight, int pPackedOverlay) {
 
         ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
 
-        var containedStack = AlchemicalSulfurItem.getSourceStack(sulfurStack);
+        if (!(stack.getItem() instanceof AlchemicalDerivativeItem item))
+            return;
+
+        var containedStack = item.getSourceStack(stack);
         if (!containedStack.isEmpty()) {
             BakedModel model = itemRenderer.getModel(containedStack, null, null, 0);
 

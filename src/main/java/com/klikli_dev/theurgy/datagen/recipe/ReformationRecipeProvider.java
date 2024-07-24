@@ -8,7 +8,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurItem;
-import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurTier;
+import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalDerivativeTier;
 import com.klikli_dev.theurgy.content.recipe.ReformationRecipe;
 import com.klikli_dev.theurgy.datagen.SulfurMappings;
 import com.klikli_dev.theurgy.registry.DataComponentRegistry;
@@ -33,11 +33,11 @@ import java.util.function.BiConsumer;
 public class ReformationRecipeProvider extends JsonRecipeProvider {
 
     public static final int TIME = ReformationRecipe.DEFAULT_TIME;
-    private final Map<AlchemicalSulfurTier, Integer> fluxPerTier = Map.of(
-            AlchemicalSulfurTier.ABUNDANT, 50,
-            AlchemicalSulfurTier.COMMON, 100,
-            AlchemicalSulfurTier.RARE, 150,
-            AlchemicalSulfurTier.PRECIOUS, 200
+    private final Map<AlchemicalDerivativeTier, Integer> fluxPerTier = Map.of(
+            AlchemicalDerivativeTier.ABUNDANT, 50,
+            AlchemicalDerivativeTier.COMMON, 100,
+            AlchemicalDerivativeTier.RARE, 150,
+            AlchemicalDerivativeTier.PRECIOUS, 200
     );
     private final Map<ResourceLocation, JsonObject> recipeCache = new HashMap<>();
     private Set<AlchemicalSulfurItem> noAutomaticRecipesFor = Set.of();
@@ -262,8 +262,8 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
         @Override
         public Builder result(ItemStack result) {
             if(result.getItem() instanceof AlchemicalSulfurItem sulfur) {
-                if(result.has(DataComponentRegistry.SULFUR_SOURCE_TAG)){
-                    var sourceTag = result.get(DataComponentRegistry.SULFUR_SOURCE_TAG);
+                if(result.has(DataComponentRegistry.SOURCE_TAG)){
+                    var sourceTag = result.get(DataComponentRegistry.SOURCE_TAG);
                     this.condition(new NotCondition(new TagEmptyCondition(sourceTag)));
                 }
             }
@@ -274,8 +274,8 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
         public Builder target(Item item) {
             if(item instanceof AlchemicalSulfurItem sulfur) {
                 var stack = new ItemStack(sulfur);
-                if(stack.has(DataComponentRegistry.SULFUR_SOURCE_TAG)){
-                    var sourceTag = stack.get(DataComponentRegistry.SULFUR_SOURCE_TAG);
+                if(stack.has(DataComponentRegistry.SOURCE_TAG)){
+                    var sourceTag = stack.get(DataComponentRegistry.SOURCE_TAG);
                     this.condition(new NotCondition(new TagEmptyCondition(sourceTag)));
                 }
             }
@@ -315,8 +315,8 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
 
             if(itemHolder.value() instanceof AlchemicalSulfurItem sulfur) {
                 var stack = new ItemStack(sulfur);
-                if(stack.has(DataComponentRegistry.SULFUR_SOURCE_TAG)){
-                    var sourceTag = stack.get(DataComponentRegistry.SULFUR_SOURCE_TAG);
+                if(stack.has(DataComponentRegistry.SOURCE_TAG)){
+                    var sourceTag = stack.get(DataComponentRegistry.SOURCE_TAG);
                     this.condition(new NotCondition(new TagEmptyCondition(sourceTag)));
                 }
             }

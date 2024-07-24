@@ -49,8 +49,8 @@ public class DivinationRodRecipe extends ShapedRecipe {
         //check pInv for ingredients with sulfur source id, if so, find the appropriate block id based on it and set it on the result item
         for (int i = 0; i < pInv.size(); i++) {
             var stack = pInv.getItem(i);
-            if (stack.has(DataComponentRegistry.SULFUR_SOURCE_ITEM)) {
-                var sourceItem = stack.get(DataComponentRegistry.SULFUR_SOURCE_ITEM);
+            if (stack.has(DataComponentRegistry.SOURCE_ITEM)) {
+                var sourceItem = stack.get(DataComponentRegistry.SOURCE_ITEM);
                 var sourceItemKey = sourceItem.unwrapKey();
                 if (sourceItemKey.isEmpty())
                     continue;
@@ -62,8 +62,8 @@ public class DivinationRodRecipe extends ShapedRecipe {
                 }
                 break;
             }
-            if (stack.has(DataComponentRegistry.SULFUR_SOURCE_TAG)) {
-                var sourceItemTag = stack.get(DataComponentRegistry.SULFUR_SOURCE_TAG);
+            if (stack.has(DataComponentRegistry.SOURCE_TAG)) {
+                var sourceItemTag = stack.get(DataComponentRegistry.SOURCE_TAG);
                 var sourceBlockTag = this.translateTagToBlock(sourceItemTag.location().toString());
 
                 if (sourceBlockTag != null) {

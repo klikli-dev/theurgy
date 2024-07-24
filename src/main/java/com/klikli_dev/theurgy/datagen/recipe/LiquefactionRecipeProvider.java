@@ -8,7 +8,10 @@ import com.google.gson.JsonObject;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.content.recipe.LiquefactionRecipe;
 import com.klikli_dev.theurgy.content.recipe.result.RecipeResult;
-import com.klikli_dev.theurgy.registry.*;
+import com.klikli_dev.theurgy.registry.FluidRegistry;
+import com.klikli_dev.theurgy.registry.ItemTagRegistry;
+import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
+import com.klikli_dev.theurgy.registry.SulfurRegistry;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
@@ -33,9 +36,70 @@ public class LiquefactionRecipeProvider extends JsonRecipeProvider {
     public void buildRecipes(BiConsumer<ResourceLocation, JsonObject> recipeConsumer) {
         var salAmmoniac = FluidRegistry.SAL_AMMONIAC.get();
 
-        //Vanilla
-        //TODO: add all the log sulfurs
-//        this.makeRecipe(SulfurRegistry.LOGS.get(), ItemTags.LOGS, salAmmoniac, 10);
+        //Logs
+        this.makeRecipe(SulfurRegistry.OAK_LOG.get(), ItemTags.OAK_LOGS, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.SPRUCE_LOG.get(), Items.SPRUCE_LOG, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.BIRCH_LOG.get(), Items.BIRCH_LOG, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.JUNGLE_LOG.get(), Items.JUNGLE_LOG, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.ACACIA_LOG.get(), Items.ACACIA_LOG, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.CHERRY_LOG.get(), Items.CHERRY_LOG, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.DARK_OAK_LOG.get(), Items.DARK_OAK_LOG, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.MANGROVE_LOG.get(), Items.MANGROVE_LOG, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.CRIMSON_STEM.get(), Items.CRIMSON_STEM, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.WARPED_STEM.get(), Items.WARPED_STEM, salAmmoniac, 10);
+
+        this.makeRecipe(SulfurRegistry.ROWAN_LOG.get(), ItemTagRegistry.LOGS_ROWAN, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.FIR_LOG.get(), ItemTagRegistry.LOGS_FIR, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.REDWOOD_LOG.get(), ItemTagRegistry.LOGS_REDWOOD, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.MAHOGANY_LOG.get(), ItemTagRegistry.LOGS_MAHOGANY, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.JACARANDA_LOG.get(), ItemTagRegistry.LOGS_JACARANDA, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.PALM_LOG.get(), ItemTagRegistry.LOGS_PALM, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.WILLOW_LOG.get(), ItemTagRegistry.LOGS_WILLOW, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.DEAD_LOG.get(), ItemTagRegistry.LOGS_DEAD, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.MAGIC_LOG.get(), ItemTagRegistry.LOGS_MAGIC, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.UMBRAN_LOG.get(), ItemTagRegistry.LOGS_UMBRAN, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.HELLBARK_LOG.get(), ItemTagRegistry.LOGS_HELLBARK, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.CINNAMON_LOG.get(), ItemTagRegistry.LOGS_CINNAMON, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.GLACIAN_LOG.get(), ItemTagRegistry.LOGS_GLACIAN, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.ARCHWOOD_LOG.get(), ItemTagRegistry.LOGS_ARCHWOOD, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.BLUEBRIGHT_LOG.get(), ItemTagRegistry.LOGS_BLUEBRIGHT, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.STARLIT_LOG.get(), ItemTagRegistry.LOGS_STARLIT, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.FROSTBRIGHT_LOG.get(), ItemTagRegistry.LOGS_FROSTBRIGHT, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.COMET_LOG.get(), ItemTagRegistry.LOGS_COMET, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.LUNAR_LOG.get(), ItemTagRegistry.LOGS_LUNAR, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.DUSK_LOG.get(), ItemTagRegistry.LOGS_DUSK, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.MAPLE_LOG.get(), ItemTagRegistry.LOGS_MAPLE, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.CRYSTALLIZED_LOG.get(), ItemTagRegistry.LOGS_CRYSTALLIZED, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.LIVINGWOOD_LOG.get(), ItemTagRegistry.LOGS_LIVINGWOOD, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.GLIMMERING_LIVINGWOOD_LOG.get(), ItemTagRegistry.LOGS_GLIMMERING_LIVINGWOOD, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.DREAMWOOD_LOG.get(), ItemTagRegistry.LOGS_DREAMWOOD, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.GLIMMERING_DREAMWOOD_LOG.get(), ItemTagRegistry.LOGS_DREAMWOOD_GLIMMERING, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.WALNUT_LOG.get(), ItemTagRegistry.LOGS_WALNUT, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.FIG_LOG.get(), ItemTagRegistry.LOGS_FIG, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.WOLFBERRY_LOG.get(), ItemTagRegistry.LOGS_WOLFBERRY, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.ECHO_LOG.get(), ItemTagRegistry.LOGS_ECHO, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.ILLWOOD_LOG.get(), ItemTagRegistry.LOGS_ILLWOOD, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.UNDEAD_LOG.get(), ItemTagRegistry.LOGS_UNDEAD, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.AURUM_LOG.get(), ItemTagRegistry.LOGS_AURUM, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.MENRIL_LOG.get(), ItemTagRegistry.LOGS_MENRIL, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.ASHEN_LOG.get(), ItemTagRegistry.LOGS_ASHEN, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.AZALEA_LOG.get(), ItemTagRegistry.LOGS_AZALEA, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.TRUMPET_LOG.get(), ItemTagRegistry.LOGS_TRUMPET, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.NETHERWOOD_LOG.get(), ItemTagRegistry.LOGS_NETHERWOOD, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.SKYROOT_LOG.get(), ItemTagRegistry.LOGS_SKYROOT, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.GOLDEN_OAK_LOG.get(), ItemTagRegistry.LOGS_GOLDEN_OAK, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.TWILIGHT_OAK_LOG.get(), ItemTagRegistry.LOGS_TWILIGHT_OAK, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.CANOPY_TREE_LOG.get(), ItemTagRegistry.LOGS_CANOPY_TREE, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.DARKWOOD_LOG.get(), ItemTagRegistry.LOGS_DARKWOOD, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.TIMEWOOD_LOG.get(), ItemTagRegistry.LOGS_TIMEWOOD, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.TRANSWOOD_LOG.get(), ItemTagRegistry.LOGS_TRANSWOOD, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.SORTINGWOOD_LOG.get(), ItemTagRegistry.LOGS_SORTINGWOOD, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.MINEWOOD_LOG.get(), ItemTagRegistry.LOGS_MINEWOOD, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.SMOGSTEM_LOG.get(), ItemTagRegistry.LOGS_SMOGSTEM, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.WIGGLEWOOD_LOG.get(), ItemTagRegistry.LOGS_WIGGLEWOOD, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.GRONGLE_LOG.get(), ItemTagRegistry.LOGS_GRONGLE, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.RUBBERWOOD_LOG.get(), ItemTagRegistry.LOGS_RUBBERWOOD, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.OTHERWORLD_LOG.get(), ItemTagRegistry.LOGS_OTHERWORLD, salAmmoniac, 10);
 
         //Crops
         this.makeRecipe(SulfurRegistry.WHEAT.get(), Items.WHEAT, salAmmoniac, 10);

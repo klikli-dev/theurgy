@@ -179,8 +179,10 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_RARE, "Alchemical Sulfurs: Rare Metals");
         this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS, "Alchemical Sulfurs: Other Minerals");
         this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_ABUNDANT, "Alchemical Sulfurs: Abundant Other Minerals");
-
         this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_COMMON, "Alchemical Sulfurs: Common Other Minerals");
+        this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_LOGS, "Alchemical Sulfurs: Logs");
+        this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_LOGS_ABUNDANT, "Alchemical Sulfurs: Abundant Logs");
+
         this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_PRECIOUS, "Alchemical Sulfurs: Precious");
         this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_RARE, "Alchemical Sulfurs: Rare");
         this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_AND_NITERS, "Alchemical Sulfurs and Niters");
@@ -473,6 +475,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.add(AlchemicalSulfurType.METALS.descriptionId(), "Metals");
         this.add(AlchemicalSulfurType.GEMS.descriptionId(), "Gems");
         this.add(AlchemicalSulfurType.OTHER_MINERALS.descriptionId(), "Other Minerals");
+        this.add(AlchemicalSulfurType.LOGS.descriptionId(), "Logs");
         this.add(TheurgyConstants.I18n.Item.ALCHEMICAL_DERIVATIVE_TYPE_NITER, "NITER");
 
 
@@ -511,7 +514,73 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.addDerivativeSource(NiterRegistry.OTHER_MINERALS_RARE, "Rare Other Minerals");
         this.addDerivativeSource(NiterRegistry.OTHER_MINERALS_PRECIOUS, "Precious Other Minerals");
 
+        this.addDerivativeSource(NiterRegistry.LOGS_ABUNDANT, "Abundant Logs");
+
         //Sources for Sulfurs with {@link AlchemicalDerivativeItem#useCustomSourceName}
+        this.addDerivativeSource(SulfurRegistry.OAK_LOG, "Oak");
+        this.addDerivativeSource(SulfurRegistry.SPRUCE_LOG, "Spruce");
+        this.addDerivativeSource(SulfurRegistry.BIRCH_LOG, "Birch");
+        this.addDerivativeSource(SulfurRegistry.JUNGLE_LOG, "Jungle");
+        this.addDerivativeSource(SulfurRegistry.ACACIA_LOG, "Acacia");
+        this.addDerivativeSource(SulfurRegistry.CHERRY_LOG, "Cherry");
+        this.addDerivativeSource(SulfurRegistry.DARK_OAK_LOG, "Dark Oak");
+        this.addDerivativeSource(SulfurRegistry.MANGROVE_LOG, "Mangrove");
+        this.addDerivativeSource(SulfurRegistry.CRIMSON_STEM, "Crimson");
+        this.addDerivativeSource(SulfurRegistry.WARPED_STEM, "Warped");
+
+        this.addDerivativeSource(SulfurRegistry.ROWAN_LOG, "Rowan");
+        this.addDerivativeSource(SulfurRegistry.FIR_LOG, "Fir");
+        this.addDerivativeSource(SulfurRegistry.REDWOOD_LOG, "Redwood");
+        this.addDerivativeSource(SulfurRegistry.MAHOGANY_LOG, "Mahogany");
+        this.addDerivativeSource(SulfurRegistry.JACARANDA_LOG, "Jacaranda");
+        this.addDerivativeSource(SulfurRegistry.PALM_LOG, "Palm");
+        this.addDerivativeSource(SulfurRegistry.WILLOW_LOG, "Willow");
+        this.addDerivativeSource(SulfurRegistry.DEAD_LOG, "Dead");
+        this.addDerivativeSource(SulfurRegistry.MAGIC_LOG, "Magic");
+        this.addDerivativeSource(SulfurRegistry.UMBRAN_LOG, "Umbran");
+        this.addDerivativeSource(SulfurRegistry.HELLBARK_LOG, "Hellbark");
+        this.addDerivativeSource(SulfurRegistry.CINNAMON_LOG, "Cinnamon");
+        this.addDerivativeSource(SulfurRegistry.GLACIAN_LOG, "Glacian");
+        this.addDerivativeSource(SulfurRegistry.ARCHWOOD_LOG, "Archwood");
+        this.addDerivativeSource(SulfurRegistry.BLUEBRIGHT_LOG, "Bluebright");
+        this.addDerivativeSource(SulfurRegistry.STARLIT_LOG, "Starlit");
+        this.addDerivativeSource(SulfurRegistry.FROSTBRIGHT_LOG, "Frostbright");
+        this.addDerivativeSource(SulfurRegistry.COMET_LOG, "Comet");
+        this.addDerivativeSource(SulfurRegistry.LUNAR_LOG, "Lunar");
+        this.addDerivativeSource(SulfurRegistry.DUSK_LOG, "Dusk");
+        this.addDerivativeSource(SulfurRegistry.MAPLE_LOG, "Maple");
+        this.addDerivativeSource(SulfurRegistry.CRYSTALLIZED_LOG, "Crystallized");
+        this.addDerivativeSource(SulfurRegistry.LIVINGWOOD_LOG, "Livingwood");
+        this.addDerivativeSource(SulfurRegistry.GLIMMERING_LIVINGWOOD_LOG, "Glimmering Livingwood");
+        this.addDerivativeSource(SulfurRegistry.DREAMWOOD_LOG, "Dreamwood");
+        this.addDerivativeSource(SulfurRegistry.GLIMMERING_DREAMWOOD_LOG, "Glimmering Dreamwood");
+        this.addDerivativeSource(SulfurRegistry.WALNUT_LOG, "Walnut");
+        this.addDerivativeSource(SulfurRegistry.FIG_LOG, "Fig");
+        this.addDerivativeSource(SulfurRegistry.WOLFBERRY_LOG, "Wolfberry");
+        this.addDerivativeSource(SulfurRegistry.ECHO_LOG, "Echo");
+        this.addDerivativeSource(SulfurRegistry.ILLWOOD_LOG, "Illwood");
+        this.addDerivativeSource(SulfurRegistry.UNDEAD_LOG, "Undead");
+        this.addDerivativeSource(SulfurRegistry.AURUM_LOG, "Aurum");
+        this.addDerivativeSource(SulfurRegistry.MENRIL_LOG, "Menril");
+        this.addDerivativeSource(SulfurRegistry.ASHEN_LOG, "Ashen");
+        this.addDerivativeSource(SulfurRegistry.AZALEA_LOG, "Azalea");
+        this.addDerivativeSource(SulfurRegistry.TRUMPET_LOG, "Trumpet");
+        this.addDerivativeSource(SulfurRegistry.NETHERWOOD_LOG, "Netherwood");
+        this.addDerivativeSource(SulfurRegistry.SKYROOT_LOG, "Skyroot");
+        this.addDerivativeSource(SulfurRegistry.GOLDEN_OAK_LOG, "Golden Oak");
+        this.addDerivativeSource(SulfurRegistry.TWILIGHT_OAK_LOG, "Twilight Oak");
+        this.addDerivativeSource(SulfurRegistry.CANOPY_TREE_LOG, "Canopy Tree");
+        this.addDerivativeSource(SulfurRegistry.DARKWOOD_LOG, "Darkwood");
+        this.addDerivativeSource(SulfurRegistry.TIMEWOOD_LOG, "Timewood");
+        this.addDerivativeSource(SulfurRegistry.TRANSWOOD_LOG, "Transwood");
+        this.addDerivativeSource(SulfurRegistry.SORTINGWOOD_LOG, "Sortingwood");
+        this.addDerivativeSource(SulfurRegistry.MINEWOOD_LOG, "Minewood");
+        this.addDerivativeSource(SulfurRegistry.SMOGSTEM_LOG, "Smogstem");
+        this.addDerivativeSource(SulfurRegistry.WIGGLEWOOD_LOG, "Wigglewood");
+        this.addDerivativeSource(SulfurRegistry.GRONGLE_LOG, "Grongle");
+        this.addDerivativeSource(SulfurRegistry.RUBBERWOOD_LOG, "Rubberwood");
+        this.addDerivativeSource(SulfurRegistry.OTHERWORLD_LOG, "Otherworld");
+
         //Common Metals
         this.addDerivativeSource(SulfurRegistry.IRON, "Iron");
         this.addDerivativeSource(SulfurRegistry.COPPER, "Copper");

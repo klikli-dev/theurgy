@@ -24,9 +24,73 @@ import java.util.function.Supplier;
 public class SulfurRegistry {
     public static final DeferredRegister.Items SULFURS = DeferredRegister.createItems(Theurgy.MODID);
 
-
     //Crops
-    public static final DeferredItem<AlchemicalSulfurItem> WHEAT = registerForSourceItem(Items.WHEAT, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.MISC);
+    public static final DeferredItem<AlchemicalSulfurItem> WHEAT = registerForSourceItem(Items.WHEAT, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.CROPS);
+
+    //Logs
+    public static final DeferredItem<AlchemicalSulfurItem> OAK_LOG = registerForSourceItem(Items.OAK_LOG, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.LOGS);
+    public static final DeferredItem<AlchemicalSulfurItem> SPRUCE_LOG = registerForSourceItem(Items.SPRUCE_LOG, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.LOGS);
+    public static final DeferredItem<AlchemicalSulfurItem> BIRCH_LOG = registerForSourceItem(Items.BIRCH_LOG, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.LOGS);
+    public static final DeferredItem<AlchemicalSulfurItem> JUNGLE_LOG = registerForSourceItem(Items.JUNGLE_LOG, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.LOGS);
+    public static final DeferredItem<AlchemicalSulfurItem> ACACIA_LOG = registerForSourceItem(Items.ACACIA_LOG, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.LOGS);
+    public static final DeferredItem<AlchemicalSulfurItem> CHERRY_LOG = registerForSourceItem(Items.CHERRY_LOG, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.LOGS);
+    public static final DeferredItem<AlchemicalSulfurItem> DARK_OAK_LOG = registerForSourceItem(Items.DARK_OAK_LOG, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.LOGS);
+    public static final DeferredItem<AlchemicalSulfurItem> MANGROVE_LOG = registerForSourceItem(Items.MANGROVE_LOG, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.LOGS);
+    public static final DeferredItem<AlchemicalSulfurItem> CRIMSON_STEM = registerForSourceItem(Items.CRIMSON_STEM, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.LOGS);
+    public static final DeferredItem<AlchemicalSulfurItem> WARPED_STEM = registerForSourceItem(Items.WARPED_STEM, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.LOGS);
+
+    public static final DeferredItem<AlchemicalSulfurItem> ROWAN_LOG = registerForSourceTag(ItemTagRegistry.LOGS_ROWAN, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.LOGS);
+    public static final DeferredItem<AlchemicalSulfurItem> FIR_LOG = registerForSourceTag(ItemTagRegistry.LOGS_FIR, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.LOGS);
+    public static final DeferredItem<AlchemicalSulfurItem> REDWOOD_LOG = registerForSourceTag(ItemTagRegistry.LOGS_REDWOOD, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.LOGS);
+    public static final DeferredItem<AlchemicalSulfurItem> MAHOGANY_LOG = registerForSourceTag(ItemTagRegistry.LOGS_MAHOGANY, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.LOGS);
+    public static final DeferredItem<AlchemicalSulfurItem> JACARANDA_LOG = registerForSourceTag(ItemTagRegistry.LOGS_JACARANDA, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.LOGS);
+    public static final DeferredItem<AlchemicalSulfurItem> PALM_LOG = registerForSourceTag(ItemTagRegistry.LOGS_PALM, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.LOGS);
+    public static final DeferredItem<AlchemicalSulfurItem> WILLOW_LOG = registerForSourceTag(ItemTagRegistry.LOGS_WILLOW, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.LOGS);
+    public static final DeferredItem<AlchemicalSulfurItem> DEAD_LOG = registerForSourceTag(ItemTagRegistry.LOGS_DEAD, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.LOGS);
+    public static final DeferredItem<AlchemicalSulfurItem> MAGIC_LOG = registerForSourceTag(ItemTagRegistry.LOGS_MAGIC, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.LOGS);
+    public static final DeferredItem<AlchemicalSulfurItem> UMBRAN_LOG = registerForSourceTag(ItemTagRegistry.LOGS_UMBRAN, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.LOGS);
+    public static final DeferredItem<AlchemicalSulfurItem> HELLBARK_LOG = registerForSourceTag(ItemTagRegistry.LOGS_HELLBARK, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.LOGS);
+    public static final DeferredItem<AlchemicalSulfurItem> CINNAMON_LOG = registerForSourceTag(ItemTagRegistry.LOGS_CINNAMON, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.LOGS);
+    public static final DeferredItem<AlchemicalSulfurItem> GLACIAN_LOG = registerForSourceTag(ItemTagRegistry.LOGS_GLACIAN, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.LOGS);
+    public static final DeferredItem<AlchemicalSulfurItem> ARCHWOOD_LOG = registerForSourceTag(ItemTagRegistry.LOGS_ARCHWOOD, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.LOGS);
+    public static final DeferredItem<AlchemicalSulfurItem> BLUEBRIGHT_LOG = registerForSourceTag(ItemTagRegistry.LOGS_BLUEBRIGHT, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.LOGS);
+    public static final DeferredItem<AlchemicalSulfurItem> STARLIT_LOG = registerForSourceTag(ItemTagRegistry.LOGS_STARLIT, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.LOGS);
+    public static final DeferredItem<AlchemicalSulfurItem> FROSTBRIGHT_LOG = registerForSourceTag(ItemTagRegistry.LOGS_FROSTBRIGHT, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.LOGS);
+    public static final DeferredItem<AlchemicalSulfurItem> COMET_LOG = registerForSourceTag(ItemTagRegistry.LOGS_COMET, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.LOGS);
+    public static final DeferredItem<AlchemicalSulfurItem> LUNAR_LOG = registerForSourceTag(ItemTagRegistry.LOGS_LUNAR, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.LOGS);
+    public static final DeferredItem<AlchemicalSulfurItem> DUSK_LOG = registerForSourceTag(ItemTagRegistry.LOGS_DUSK, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.LOGS);
+    public static final DeferredItem<AlchemicalSulfurItem> MAPLE_LOG = registerForSourceTag(ItemTagRegistry.LOGS_MAPLE, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.LOGS);
+    public static final DeferredItem<AlchemicalSulfurItem> CRYSTALLIZED_LOG = registerForSourceTag(ItemTagRegistry.LOGS_CRYSTALLIZED, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.LOGS);
+    public static final DeferredItem<AlchemicalSulfurItem> LIVINGWOOD_LOG = registerForSourceTag(ItemTagRegistry.LOGS_LIVINGWOOD, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.LOGS);
+    public static final DeferredItem<AlchemicalSulfurItem> GLIMMERING_LIVINGWOOD_LOG = registerForSourceTag(ItemTagRegistry.LOGS_GLIMMERING_LIVINGWOOD, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.LOGS);
+    public static final DeferredItem<AlchemicalSulfurItem> DREAMWOOD_LOG = registerForSourceTag(ItemTagRegistry.LOGS_DREAMWOOD, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.LOGS);
+    public static final DeferredItem<AlchemicalSulfurItem> GLIMMERING_DREAMWOOD_LOG = registerForSourceTag(ItemTagRegistry.LOGS_DREAMWOOD_GLIMMERING, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.LOGS);
+    public static final DeferredItem<AlchemicalSulfurItem> WALNUT_LOG = registerForSourceTag(ItemTagRegistry.LOGS_WALNUT, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.LOGS);
+    public static final DeferredItem<AlchemicalSulfurItem> FIG_LOG = registerForSourceTag(ItemTagRegistry.LOGS_FIG, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.LOGS);
+    public static final DeferredItem<AlchemicalSulfurItem> WOLFBERRY_LOG = registerForSourceTag(ItemTagRegistry.LOGS_WOLFBERRY, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.LOGS);
+    public static final DeferredItem<AlchemicalSulfurItem> ECHO_LOG = registerForSourceTag(ItemTagRegistry.LOGS_ECHO, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.LOGS);
+    public static final DeferredItem<AlchemicalSulfurItem> ILLWOOD_LOG = registerForSourceTag(ItemTagRegistry.LOGS_ILLWOOD, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.LOGS);
+    public static final DeferredItem<AlchemicalSulfurItem> UNDEAD_LOG = registerForSourceTag(ItemTagRegistry.LOGS_UNDEAD, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.LOGS);
+    public static final DeferredItem<AlchemicalSulfurItem> AURUM_LOG = registerForSourceTag(ItemTagRegistry.LOGS_AURUM, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.LOGS);
+    public static final DeferredItem<AlchemicalSulfurItem> MENRIL_LOG = registerForSourceTag(ItemTagRegistry.LOGS_MENRIL, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.LOGS);
+    public static final DeferredItem<AlchemicalSulfurItem> ASHEN_LOG = registerForSourceTag(ItemTagRegistry.LOGS_ASHEN, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.LOGS);
+    public static final DeferredItem<AlchemicalSulfurItem> AZALEA_LOG = registerForSourceTag(ItemTagRegistry.LOGS_AZALEA, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.LOGS);
+    public static final DeferredItem<AlchemicalSulfurItem> TRUMPET_LOG = registerForSourceTag(ItemTagRegistry.LOGS_TRUMPET, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.LOGS);
+    public static final DeferredItem<AlchemicalSulfurItem> NETHERWOOD_LOG = registerForSourceTag(ItemTagRegistry.LOGS_NETHERWOOD, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.LOGS);
+    public static final DeferredItem<AlchemicalSulfurItem> SKYROOT_LOG = registerForSourceTag(ItemTagRegistry.LOGS_SKYROOT, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.LOGS);
+    public static final DeferredItem<AlchemicalSulfurItem> GOLDEN_OAK_LOG = registerForSourceTag(ItemTagRegistry.LOGS_GOLDEN_OAK, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.LOGS);
+    public static final DeferredItem<AlchemicalSulfurItem> TWILIGHT_OAK_LOG = registerForSourceTag(ItemTagRegistry.LOGS_TWILIGHT_OAK, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.LOGS);
+    public static final DeferredItem<AlchemicalSulfurItem> CANOPY_TREE_LOG = registerForSourceTag(ItemTagRegistry.LOGS_CANOPY_TREE, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.LOGS);
+    public static final DeferredItem<AlchemicalSulfurItem> DARKWOOD_LOG = registerForSourceTag(ItemTagRegistry.LOGS_DARKWOOD, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.LOGS);
+    public static final DeferredItem<AlchemicalSulfurItem> TIMEWOOD_LOG = registerForSourceTag(ItemTagRegistry.LOGS_TIMEWOOD, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.LOGS);
+    public static final DeferredItem<AlchemicalSulfurItem> TRANSWOOD_LOG = registerForSourceTag(ItemTagRegistry.LOGS_TRANSWOOD, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.LOGS);
+    public static final DeferredItem<AlchemicalSulfurItem> SORTINGWOOD_LOG = registerForSourceTag(ItemTagRegistry.LOGS_SORTINGWOOD, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.LOGS);
+    public static final DeferredItem<AlchemicalSulfurItem> MINEWOOD_LOG = registerForSourceTag(ItemTagRegistry.LOGS_MINEWOOD, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.LOGS);
+    public static final DeferredItem<AlchemicalSulfurItem> SMOGSTEM_LOG = registerForSourceTag(ItemTagRegistry.LOGS_SMOGSTEM, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.LOGS);
+    public static final DeferredItem<AlchemicalSulfurItem> WIGGLEWOOD_LOG = registerForSourceTag(ItemTagRegistry.LOGS_WIGGLEWOOD, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.LOGS);
+    public static final DeferredItem<AlchemicalSulfurItem> GRONGLE_LOG = registerForSourceTag(ItemTagRegistry.LOGS_GRONGLE, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.LOGS);
+    public static final DeferredItem<AlchemicalSulfurItem> RUBBERWOOD_LOG = registerForSourceTag(ItemTagRegistry.LOGS_RUBBERWOOD, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.LOGS);
+    public static final DeferredItem<AlchemicalSulfurItem> OTHERWORLD_LOG = registerForSourceTag(ItemTagRegistry.LOGS_OTHERWORLD, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.LOGS);
 
     //Common Metals
     public static final DeferredItem<AlchemicalSulfurItem> IRON = registerForSourceTag(Tags.Items.INGOTS_IRON, AlchemicalDerivativeTier.COMMON, AlchemicalSulfurType.METALS);

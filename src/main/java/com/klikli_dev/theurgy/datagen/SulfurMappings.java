@@ -8,6 +8,7 @@ import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurItem;
 import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalDerivativeTier;
 import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurType;
 import com.klikli_dev.theurgy.registry.SulfurRegistry;
+import net.neoforged.neoforge.registries.DeferredHolder;
 
 import java.util.List;
 
@@ -26,6 +27,8 @@ public class SulfurMappings {
     private static List<AlchemicalSulfurItem> OTHER_MINERALS_COMMON;
     private static List<AlchemicalSulfurItem> OTHER_MINERALS_RARE;
     private static List<AlchemicalSulfurItem> OTHER_MINERALS_PRECIOUS;
+
+    private static List<AlchemicalSulfurItem> LOGS_ABUNDANT;
 
     public static List<AlchemicalSulfurItem> gemsAbundant() {
         if (GEMS_ABUNDANT != null) {
@@ -146,9 +149,19 @@ public class SulfurMappings {
         return OTHER_MINERALS_PRECIOUS;
     }
 
+    public static List<AlchemicalSulfurItem> logsAbundant() {
+        if (LOGS_ABUNDANT != null) {
+            return LOGS_ABUNDANT;
+        }
+
+        LOGS_ABUNDANT = find(AlchemicalSulfurType.LOGS, AlchemicalDerivativeTier.ABUNDANT);
+
+        return LOGS_ABUNDANT;
+    }
+
     private static List<AlchemicalSulfurItem> find(AlchemicalSulfurType type, AlchemicalDerivativeTier tier) {
         return SulfurRegistry.SULFURS.getEntries().stream()
-                .map(entry -> entry.get())
+                .map(DeferredHolder::get)
                 .filter(entry -> entry instanceof AlchemicalSulfurItem)
                 .map(entry -> (AlchemicalSulfurItem) entry)
                 .filter(entry -> entry.type() == type)

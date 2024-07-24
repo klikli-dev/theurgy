@@ -9,7 +9,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
-import net.neoforged.neoforge.common.Tags;
 
 public class ItemTagRegistry {
 
@@ -34,6 +33,9 @@ public class ItemTagRegistry {
     public static final TagKey<Item> ALCHEMICAL_SULFURS_OTHER_MINERALS_COMMON = tag("alchemical_sulfurs/other_minerals/common");
     public static final TagKey<Item> ALCHEMICAL_SULFURS_OTHER_MINERALS_RARE = tag("alchemical_sulfurs/other_minerals/rare");
     public static final TagKey<Item> ALCHEMICAL_SULFURS_OTHER_MINERALS_PRECIOUS = tag("alchemical_sulfurs/other_minerals/precious");
+
+    public static final TagKey<Item> ALCHEMICAL_SULFURS_LOGS = tag("alchemical_sulfurs/logs");
+    public static final TagKey<Item> ALCHEMICAL_SULFURS_LOGS_ABUNDANT = tag("alchemical_sulfurs/logs/abundant");
 
     public static final TagKey<Item> ALCHEMICAL_SULFURS_ABUNDANT = tag("alchemical_sulfurs/abundant");
     public static final TagKey<Item> ALCHEMICAL_SULFURS_COMMON = tag("alchemical_sulfurs/common");
@@ -67,6 +69,62 @@ public class ItemTagRegistry {
     public static final TagKey<Item> ORES_SAL_AMMONIAC = cTag("ores/sal_ammoniac");
 
     //Common tags for other mods start here:
+
+    //Common Logs
+    public static final TagKey<Item> LOGS_ROWAN = cTag("logs/rowan");
+    public static final TagKey<Item> LOGS_FIR = cTag("logs/fir");
+    public static final TagKey<Item> LOGS_REDWOOD = cTag("logs/redwood");
+    public static final TagKey<Item> LOGS_MAHOGANY = cTag("logs/mahogany");
+    public static final TagKey<Item> LOGS_JACARANDA = cTag("logs/jacaranda");
+    public static final TagKey<Item> LOGS_PALM = cTag("logs/palm");
+    public static final TagKey<Item> LOGS_WILLOW = cTag("logs/willow");
+    public static final TagKey<Item> LOGS_DEAD = cTag("logs/dead"); //biomes o plenty
+    public static final TagKey<Item> LOGS_MAGIC = cTag("logs/magic"); //biomes o plenty
+    public static final TagKey<Item> LOGS_UMBRAN = cTag("logs/umbran");
+    public static final TagKey<Item> LOGS_HELLBARK = cTag("logs/hellbark");
+    public static final TagKey<Item> LOGS_CINNAMON = cTag("logs/cinnamon");
+    public static final TagKey<Item> LOGS_GLACIAN = cTag("logs/glacian");
+    public static final TagKey<Item> LOGS_ARCHWOOD = cTag("logs/archwood");
+    public static final TagKey<Item> LOGS_BLUEBRIGHT = cTag("logs/bluebright");
+    public static final TagKey<Item> LOGS_STARLIT = cTag("logs/starlit");
+    public static final TagKey<Item> LOGS_FROSTBRIGHT = cTag("logs/frostbright");
+    public static final TagKey<Item> LOGS_COMET = cTag("logs/comet");
+    public static final TagKey<Item> LOGS_LUNAR = cTag("logs/lunar");
+    public static final TagKey<Item> LOGS_DUSK = cTag("logs/dusk");
+    public static final TagKey<Item> LOGS_MAPLE = cTag("logs/maple");
+    public static final TagKey<Item> LOGS_CRYSTALLIZED = cTag("logs/crystallized");
+    public static final TagKey<Item> LOGS_LIVINGWOOD = cTag("logs/livingwood");
+    public static final TagKey<Item> LOGS_GLIMMERING_LIVINGWOOD = cTag("logs/glimmering_livingwood");
+    public static final TagKey<Item> LOGS_DREAMWOOD = cTag("logs/dreamwood");
+    public static final TagKey<Item> LOGS_DREAMWOOD_GLIMMERING = cTag("logs/glimmering_dreamwood");
+    public static final TagKey<Item> LOGS_WALNUT = cTag("logs/walnut");
+    public static final TagKey<Item> LOGS_FIG = cTag("logs/fig");
+    public static final TagKey<Item> LOGS_WOLFBERRY = cTag("logs/wolfberry");
+    public static final TagKey<Item> LOGS_ECHO = cTag("logs/echo");
+    public static final TagKey<Item> LOGS_ILLWOOD = cTag("logs/illwood");
+    public static final TagKey<Item> LOGS_UNDEAD = cTag("logs/undead");
+    public static final TagKey<Item> LOGS_AURUM = cTag("logs/aurum");
+    public static final TagKey<Item> LOGS_MENRIL = cTag("logs/menril");
+    //productive trees are skipped as the mod provides the means to create all its trees
+    public static final TagKey<Item> LOGS_ASHEN = cTag("logs/ashen");
+    public static final TagKey<Item> LOGS_AZALEA = cTag("logs/azalea");
+    public static final TagKey<Item> LOGS_TRUMPET = cTag("logs/trumpet");
+    public static final TagKey<Item> LOGS_NETHERWOOD = cTag("logs/netherwood");
+    public static final TagKey<Item> LOGS_SKYROOT = cTag("logs/skyroot");
+    public static final TagKey<Item> LOGS_GOLDEN_OAK = cTag("logs/golden_oak");
+    public static final TagKey<Item> LOGS_TWILIGHT_OAK = cTag("logs/twilight_oak");
+    public static final TagKey<Item> LOGS_CANOPY_TREE = cTag("logs/canopy_tree");
+    public static final TagKey<Item> LOGS_DARKWOOD = cTag("logs/darkwood");
+    public static final TagKey<Item> LOGS_TIMEWOOD = cTag("logs/timewood");
+    public static final TagKey<Item> LOGS_TRANSWOOD = cTag("logs/transwood");
+    public static final TagKey<Item> LOGS_SORTINGWOOD = cTag("logs/sortingwood");
+    public static final TagKey<Item> LOGS_MINEWOOD = cTag("logs/minewood");
+    public static final TagKey<Item> LOGS_SMOGSTEM = cTag("logs/smogstem");
+    public static final TagKey<Item> LOGS_WIGGLEWOOD = cTag("logs/wigglewood");
+    public static final TagKey<Item> LOGS_GRONGLE = cTag("logs/grongle");
+    public static final TagKey<Item> LOGS_RUBBERWOOD = cTag("logs/rubberwood");
+    public static final TagKey<Item> LOGS_OTHERWORLD = cTag("logs/otherworld");
+
 
     //Common Metal Ores
     public static final TagKey<Item> ORES_URANIUM = cTag("ores/uranium");

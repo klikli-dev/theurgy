@@ -7,10 +7,7 @@ package com.klikli_dev.theurgy.registry;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalDerivativeTier;
 import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalNiterItem;
-import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurItem;
-import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurType;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -39,7 +36,7 @@ public class NiterRegistry {
     public static final DeferredItem<AlchemicalNiterItem> OTHER_MINERALS_RARE = register("other_minerals_rare", ItemRegistry.OTHER_MINERALS_RARE_ICON, AlchemicalDerivativeTier.RARE);
     public static final DeferredItem<AlchemicalNiterItem> OTHER_MINERALS_PRECIOUS = register("other_minerals_precious", ItemRegistry.OTHER_MINERALS_PRECIOUS_ICON, AlchemicalDerivativeTier.PRECIOUS);
 
-    public static final DeferredItem<AlchemicalNiterItem> LOGS = register("logs", Items.OAK_LOG, AlchemicalDerivativeTier.ABUNDANT);
+    public static final DeferredItem<AlchemicalNiterItem> LOGS_ABUNDANT = register("logs_abundant", Items.OAK_LOG, AlchemicalDerivativeTier.ABUNDANT);
 
     public static DeferredItem<AlchemicalNiterItem> register(String name, TagKey<Item> source, AlchemicalDerivativeTier tier) {
         return register(name, () -> new AlchemicalNiterItem(new Item.Properties().component(

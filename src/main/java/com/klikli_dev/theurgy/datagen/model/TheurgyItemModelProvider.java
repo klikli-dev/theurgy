@@ -142,6 +142,7 @@ public class TheurgyItemModelProvider extends net.neoforged.neoforge.client.mode
             }
         });
 
+        //register the source icons for those niters that don't use an actual item as source icon
         this.registerItemGenerated(this.name(ItemRegistry.GEMS_ABUNDANT_ICON.get()), "niters/gems_abundant");
         this.registerItemGenerated(this.name(ItemRegistry.GEMS_COMMON_ICON.get()), "niters/gems_common");
         this.registerItemGenerated(this.name(ItemRegistry.GEMS_RARE_ICON.get()), "niters/gems_rare");

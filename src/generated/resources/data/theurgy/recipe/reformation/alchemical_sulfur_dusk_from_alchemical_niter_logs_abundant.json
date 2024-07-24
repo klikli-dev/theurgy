@@ -1,0 +1,36 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:logs/dusk"
+      }
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:logs/dusk"
+      }
+    }
+  ],
+  "type": "theurgy:reformation",
+  "category": "misc",
+  "mercuryFlux": 50,
+  "result": {
+    "type": "theurgy:item",
+    "count": 1,
+    "id": "theurgy:alchemical_sulfur_dusk"
+  },
+  "sources": [
+    {
+      "count": 1,
+      "item": "theurgy:alchemical_niter_logs_abundant"
+    }
+  ],
+  "target": {
+    "item": "theurgy:alchemical_sulfur_dusk"
+  },
+  "time": 100
+}

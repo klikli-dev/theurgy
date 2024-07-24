@@ -178,6 +178,26 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
         this.makeNiterToNiterRecipe(NiterRegistry.GEMS_PRECIOUS.get(), 1, NiterRegistry.OTHER_MINERALS_PRECIOUS.get(), 4);
     }
 
+    private void logs() {
+        //Add conversion from the niter (representing the whole tier) to the single specific sulfurs
+        //This enables conversion between tiers by way of digestion
+        this.makeNiterToSulfurRecipe(NiterRegistry.LOGS_ABUNDANT.get(), SulfurMappings.logsAbundant());
+
+        //Also allow direct conversion between specific sulfurs of the same tier
+        var logsFromLogs = List.of(
+                Pair.of(SulfurMappings.logsAbundant(), ItemTagRegistry.ALCHEMICAL_SULFURS_LOGS_ABUNDANT)
+        );
+        this.makeXtoXRecipes(logsFromLogs);
+
+        //Further, allow conversion between types
+
+        //logs should not convert to minerals, we have log->coal furnace recipes to enable that
+//        this.makeNiterToNiterRecipe(NiterRegistry.LOGS_ABUNDANT.get(), 2, NiterRegistry.OTHER_MINERALS_ABUNDANT.get(), 1);
+
+        //but the reverse is fine
+        this.makeNiterToNiterRecipe(NiterRegistry.OTHER_MINERALS_ABUNDANT.get(), 1, NiterRegistry.LOGS_ABUNDANT.get(), 2);
+    }
+
     @Override
     public void buildRecipes(BiConsumer<ResourceLocation, JsonObject> recipeConsumer) {
 
@@ -191,6 +211,7 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
         this.metals();
         this.gems();
         this.otherMinerals();
+        this.logs();
 
         //now flush cache.
         this.recipeCache.forEach(recipeConsumer);

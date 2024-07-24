@@ -24,17 +24,6 @@ public class CalcinationOvenBlockItem extends BlockItem implements GeoItem {
         super(pBlock, pProperties);
     }
 
-
-    @Override
-    public void initializeClient(Consumer<IClientItemExtensions> consumer) {
-        consumer.accept(new IClientItemExtensions() {
-            @Override
-            public BlockEntityWithoutLevelRenderer getCustomRenderer() {
-                return CalcinationOvenBEWLR.get();
-            }
-        });
-    }
-
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
         //do not show anims on item

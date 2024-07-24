@@ -8,15 +8,18 @@ import com.klikli_dev.modonomicon.client.render.page.PageRendererRegistry;
 import com.klikli_dev.theurgy.config.ClientConfig;
 import com.klikli_dev.theurgy.config.CommonConfig;
 import com.klikli_dev.theurgy.config.ServerConfig;
+import com.klikli_dev.theurgy.content.apparatus.calcinationoven.render.CalcinationOvenBEWLR;
 import com.klikli_dev.theurgy.content.apparatus.calcinationoven.render.CalcinationOvenRenderer;
+import com.klikli_dev.theurgy.content.apparatus.digestionvat.DigestionVatBEWLR;
 import com.klikli_dev.theurgy.content.apparatus.digestionvat.DigestionVatRenderer;
+import com.klikli_dev.theurgy.content.apparatus.distiller.render.DistillerBEWLR;
 import com.klikli_dev.theurgy.content.apparatus.distiller.render.DistillerRenderer;
-import com.klikli_dev.theurgy.content.apparatus.incubator.render.IncubatorMercuryVesselRenderer;
-import com.klikli_dev.theurgy.content.apparatus.incubator.render.IncubatorSaltVesselRenderer;
-import com.klikli_dev.theurgy.content.apparatus.incubator.render.IncubatorSulfurVesselRenderer;
+import com.klikli_dev.theurgy.content.apparatus.incubator.render.*;
 import com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron.render.LiquefactionCauldronRenderer;
 import com.klikli_dev.theurgy.content.apparatus.mercurycatalyst.MercuryCatalystBlock;
+import com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator.render.SalAmmoniacAccumulatorBEWLR;
 import com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator.render.SalAmmoniacAccumulatorRenderer;
+import com.klikli_dev.theurgy.content.apparatus.salammoniactank.render.SalAmmoniacTankBEWLR;
 import com.klikli_dev.theurgy.content.apparatus.salammoniactank.render.SalAmmoniacTankRenderer;
 import com.klikli_dev.theurgy.content.item.HandlesOnLeftClick;
 import com.klikli_dev.theurgy.content.item.HandlesOnScroll;
@@ -25,6 +28,7 @@ import com.klikli_dev.theurgy.content.item.filter.AttributeFilterScreen;
 import com.klikli_dev.theurgy.content.item.filter.ListFilterScreen;
 import com.klikli_dev.theurgy.content.item.salt.AlchemicalSaltItem;
 import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurItem;
+import com.klikli_dev.theurgy.content.item.sulfur.render.AlchemicalSulfurBEWLR;
 import com.klikli_dev.theurgy.content.render.*;
 import com.klikli_dev.theurgy.content.render.itemhud.ItemHUD;
 import com.klikli_dev.theurgy.content.render.outliner.Outliner;
@@ -44,6 +48,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionResult;
@@ -59,6 +64,9 @@ import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLDedicatedServerSetupEvent;
 import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.client.event.*;
+import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
+import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
+import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
@@ -66,6 +74,7 @@ import net.neoforged.neoforge.client.model.DynamicFluidContainerModel;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 
 
@@ -124,6 +133,7 @@ public class Theurgy {
             modEventBus.addListener(Client::onClientSetup);
             modEventBus.addListener(Client::onRegisterEntityRendererLayerDefinitions);
             modEventBus.addListener(Client::onRegisterEntityRenderers);
+            modEventBus.addListener(Client::onRegisterClientExtensions);
             modEventBus.addListener(Client::onRegisterItemColors);
             modEventBus.addListener(Client::onRegisterBlockColors);
             modEventBus.addListener(Client::onRegisterGuiOverlays);
@@ -181,7 +191,7 @@ public class Theurgy {
             LOGGER.info("Client setup complete.");
         }
 
-        public static void registerConfigScreen(ModContainer modContainer){
+        public static void registerConfigScreen(ModContainer modContainer) {
             modContainer.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
         }
 
@@ -271,6 +281,100 @@ public class Theurgy {
 
                 LOGGER.debug("Finished registering Item Properties.");
             });
+        }
+
+        public static void onRegisterClientExtensions(RegisterClientExtensionsEvent event) {
+            var sulfurExtension = new IClientItemExtensions() {
+                @Override
+                public @NotNull BlockEntityWithoutLevelRenderer getCustomRenderer() {
+                    return AlchemicalSulfurBEWLR.get();
+                }
+            };
+
+            SulfurRegistry.SULFURS.getEntries().forEach(sulfur -> {
+                event.registerItem(sulfurExtension, sulfur.get());
+            });
+
+            event.registerItem(new IClientItemExtensions() {
+                @Override
+                public @NotNull BlockEntityWithoutLevelRenderer getCustomRenderer() {
+                    return IncubatorSaltVesselBEWLR.get();
+                }
+            }, ItemRegistry.INCUBATOR_SALT_VESSEL.get());
+
+            event.registerItem(new IClientItemExtensions() {
+                @Override
+                public @NotNull BlockEntityWithoutLevelRenderer getCustomRenderer() {
+                    return IncubatorMercuryVesselBEWLR.get();
+                }
+            }, ItemRegistry.INCUBATOR_MERCURY_VESSEL.get());
+
+            event.registerItem(new IClientItemExtensions() {
+                @Override
+                public @NotNull BlockEntityWithoutLevelRenderer getCustomRenderer() {
+                    return IncubatorSulfurVesselBEWLR.get();
+                }
+            }, ItemRegistry.INCUBATOR_SULFUR_VESSEL.get());
+
+
+            event.registerItem(new IClientItemExtensions() {
+                @Override
+                public @NotNull BlockEntityWithoutLevelRenderer getCustomRenderer() {
+                    return SalAmmoniacTankBEWLR.get();
+                }
+            }, ItemRegistry.SAL_AMMONIAC_TANK.get());
+
+            event.registerItem(new IClientItemExtensions() {
+                @Override
+                public @NotNull BlockEntityWithoutLevelRenderer getCustomRenderer() {
+                    return SalAmmoniacAccumulatorBEWLR.get();
+                }
+            }, ItemRegistry.SAL_AMMONIAC_ACCUMULATOR.get());
+
+            event.registerItem(new IClientItemExtensions() {
+
+                @Override
+                public @NotNull BlockEntityWithoutLevelRenderer getCustomRenderer() {
+                    return DigestionVatBEWLR.get();
+                }
+            }, ItemRegistry.DIGESTION_VAT.get());
+
+            event.registerItem(new IClientItemExtensions() {
+                @Override
+                public @NotNull BlockEntityWithoutLevelRenderer getCustomRenderer() {
+                    return CalcinationOvenBEWLR.get();
+                }
+            }, ItemRegistry.CALCINATION_OVEN.get());
+
+            event.registerItem(new IClientItemExtensions() {
+                @Override
+                public @NotNull BlockEntityWithoutLevelRenderer getCustomRenderer() {
+                    return DistillerBEWLR.get();
+                }
+            }, ItemRegistry.DISTILLER.get());
+
+
+            event.registerFluidType(new IClientFluidTypeExtensions() {
+                @Override
+                public @NotNull ResourceLocation getStillTexture() {
+                    return FluidTypeRegistry.SAL_AMMONIAC.get().still;
+                }
+
+                @Override
+                public @NotNull ResourceLocation getFlowingTexture() {
+                    return FluidTypeRegistry.SAL_AMMONIAC.get().flowing;
+                }
+
+                @Override
+                public ResourceLocation getOverlayTexture() {
+                    return FluidTypeRegistry.SAL_AMMONIAC.get().overlay;
+                }
+
+                @Override
+                public int getTintColor() {
+                    return FluidTypeRegistry.SAL_AMMONIAC.get().tint;
+                }
+            }, FluidTypeRegistry.SAL_AMMONIAC.get());
         }
 
         public static void onRegisterItemColors(RegisterColorHandlersEvent.Item event) {

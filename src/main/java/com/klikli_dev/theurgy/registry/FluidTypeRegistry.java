@@ -14,7 +14,7 @@ import net.neoforged.neoforge.registries.NeoForgeRegistries;
 public class FluidTypeRegistry {
     public static final DeferredRegister<FluidType> FLUID_TYPES = DeferredRegister.create(NeoForgeRegistries.FLUID_TYPES, Theurgy.MODID);
 
-    public static final DeferredHolder<FluidType, FluidType> SAL_AMMONIAC = FLUID_TYPES.register("sal_ammoniac",
+    public static final DeferredHolder<FluidType, SolventFluidType> SAL_AMMONIAC = FLUID_TYPES.register("sal_ammoniac",
             () -> new SolventFluidType(
                     FluidType.Properties.create(),
                     Theurgy.loc("block/sal_ammoniac/still"),

@@ -277,16 +277,6 @@ public class AlchemicalSulfurItem extends Item {
     }
 
     @Override
-    public void initializeClient(Consumer<IClientItemExtensions> consumer) {
-        consumer.accept(new IClientItemExtensions() {
-            @Override
-            public BlockEntityWithoutLevelRenderer getCustomRenderer() {
-                return AlchemicalSulfurBEWLR.get();
-            }
-        });
-    }
-
-    @Override
     public Component getName(ItemStack pStack) {
         if (this.useAutomaticNameRendering) {
             var tier = getTier(pStack);

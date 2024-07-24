@@ -55,7 +55,7 @@ public class SetSelectedFrequencyMode extends MercurialWandItemMode {
 
                 var newFrequency = pStack.getOrDefault(DataComponentRegistry.SELECTED_FREQUENCY.get(), 0);
 
-                var component = Component.translatable(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_CYCLE_SELECTED_DIRECTION_WITH_TARGET,
+                var component = Component.translatable(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_SET_SELECTED_FREQUENCY_WITH_TARGET,
                         Component.literal(String.valueOf(currentFrequency)).withStyle(currentFrequency != newFrequency ? ChatFormatting.YELLOW : ChatFormatting.GREEN),
                         Component.literal(String.valueOf(newFrequency)).withStyle(ChatFormatting.GREEN)
                 );

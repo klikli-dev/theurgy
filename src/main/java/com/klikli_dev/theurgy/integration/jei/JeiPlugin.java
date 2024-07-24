@@ -80,7 +80,6 @@ public class JeiPlugin implements IModPlugin {
         var sulfursWithoutRecipe = SulfurRegistry.SULFURS.getEntries().stream()
                 .map(DeferredHolder::get)
                 .map(AlchemicalSulfurItem.class::cast)
-                .filter(sulfur -> !SulfurRegistry.keepInItemLists(sulfur))
                 .filter(sulfur -> liquefactionRecipes.stream().noneMatch(r -> r.value().getResultItem(level.registryAccess()) != null && r.value().getResultItem(level.registryAccess()).getItem() == sulfur)).map(ItemStack::new).toList();
         registration.getIngredientManager().removeIngredientsAtRuntime(VanillaTypes.ITEM_STACK, sulfursWithoutRecipe);
 

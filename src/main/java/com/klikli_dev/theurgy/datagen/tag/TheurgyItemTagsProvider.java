@@ -5,8 +5,8 @@
 package com.klikli_dev.theurgy.datagen.tag;
 
 import com.klikli_dev.theurgy.Theurgy;
+import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalNiterItem;
 import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurItem;
-import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurType;
 import com.klikli_dev.theurgy.datagen.SulfurMappings;
 import com.klikli_dev.theurgy.registry.*;
 import net.minecraft.core.HolderLookup;
@@ -52,20 +52,10 @@ public class TheurgyItemTagsProvider extends ItemTagsProvider {
         });
 
         var sulfursTag = this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS);
-        SulfurRegistry.SULFURS.getEntries().forEach(sulfur -> {
-            if (sulfur.get() instanceof AlchemicalSulfurItem alchemicalSulfurItem) {
-                if (alchemicalSulfurItem.type() != AlchemicalSulfurType.NITER)
-                    sulfursTag.add(sulfur.get());
-            }
-        });
+        SulfurRegistry.SULFURS.getEntries().forEach(sulfur -> sulfursTag.add(sulfur.get()));
 
         var nitersTag = this.tag(ItemTagRegistry.ALCHEMICAL_NITERS);
-        SulfurRegistry.SULFURS.getEntries().forEach(sulfur -> {
-            if(sulfur.get() instanceof AlchemicalSulfurItem alchemicalSulfurItem){
-                if(alchemicalSulfurItem.type() == AlchemicalSulfurType.NITER)
-                    nitersTag.add(sulfur.get());
-            }
-        });
+        NiterRegistry.NITERS.getEntries().forEach(niter -> nitersTag.add(niter.get()));
 
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_AND_NITERS)
                 .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS)

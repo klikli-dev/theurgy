@@ -8,10 +8,7 @@ import com.google.gson.JsonObject;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.content.recipe.LiquefactionRecipe;
 import com.klikli_dev.theurgy.content.recipe.result.RecipeResult;
-import com.klikli_dev.theurgy.registry.FluidRegistry;
-import com.klikli_dev.theurgy.registry.ItemTagRegistry;
-import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
-import com.klikli_dev.theurgy.registry.SulfurRegistry;
+import com.klikli_dev.theurgy.registry.*;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
@@ -37,8 +34,8 @@ public class LiquefactionRecipeProvider extends JsonRecipeProvider {
         var salAmmoniac = FluidRegistry.SAL_AMMONIAC.get();
 
         //Vanilla
-        //Sulfurs with overrideTagSourceName
-        this.makeRecipe(SulfurRegistry.LOGS.get(), ItemTags.LOGS, salAmmoniac, 10);
+        //TODO: add all the log sulfurs
+//        this.makeRecipe(SulfurRegistry.LOGS.get(), ItemTags.LOGS, salAmmoniac, 10);
 
         //Crops
         this.makeRecipe(SulfurRegistry.WHEAT.get(), Items.WHEAT, salAmmoniac, 10);

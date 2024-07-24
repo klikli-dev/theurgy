@@ -9,16 +9,15 @@ import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.content.behaviour.filter.attribute.*;
 import com.klikli_dev.theurgy.content.item.salt.AlchemicalSaltItem;
+import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalNiterItem;
 import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurItem;
 import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalDerivativeTier;
 import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurType;
 import com.klikli_dev.theurgy.registry.*;
 import net.minecraft.ChatFormatting;
-import net.minecraft.Util;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.material.Fluid;
@@ -454,11 +453,11 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         );
     }
 
-    private void addGenericSulfur(AlchemicalSulfurItem sulfur) {
-        this.addItem(() -> sulfur, "Alchemical Niter %s");
-        this.addTooltip(() -> sulfur,
+    private void addNiter(AlchemicalNiterItem niter) {
+        this.addItem(() -> niter, "Alchemical Niter %s");
+        this.addTooltip(() -> niter,
                 "Alchemical Niter crafted from Alchemical Sulfur of any %s.",
-                "Niter represents the abstract category and value of an object, thus it is a further abstraction the \"idea\" or \"soul\" represented by Sulfur.",
+                "Niter represents the abstract category and value of an object, thus it is a further abstraction of the \"idea\" or \"soul\" represented by Sulfur.",
                 "Niter extraction is a required intermediate step to transform one type of Sulfur into another type.");
     }
 
@@ -492,37 +491,27 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         });
 
         //TODO: Register logs stuff
+        //TODO: Register coals
 
+        NiterRegistry.NITERS.getEntries().stream().map(DeferredHolder::get).map(AlchemicalNiterItem.class::cast).forEach(this::addNiter);
 
-        //Names for generic sulfurs
-        this.addDerivativeSource(SulfurRegistry.GEMS_ABUNDANT, "Abundant Gems");
-        this.addGenericSulfur(SulfurRegistry.GEMS_ABUNDANT.get());
-        this.addDerivativeSource(SulfurRegistry.GEMS_COMMON, "Common Gems");
-        this.addGenericSulfur(SulfurRegistry.GEMS_COMMON.get());
-        this.addDerivativeSource(SulfurRegistry.GEMS_RARE, "Rare Gems");
-        this.addGenericSulfur(SulfurRegistry.GEMS_RARE.get());
-        this.addDerivativeSource(SulfurRegistry.GEMS_PRECIOUS, "Precious Gems");
-        this.addGenericSulfur(SulfurRegistry.GEMS_PRECIOUS.get());
+        //Sources for Niters
+        this.addDerivativeSource(NiterRegistry.GEMS_ABUNDANT, "Abundant Gems");
+        this.addDerivativeSource(NiterRegistry.GEMS_COMMON, "Common Gems");
+        this.addDerivativeSource(NiterRegistry.GEMS_RARE, "Rare Gems");
+        this.addDerivativeSource(NiterRegistry.GEMS_PRECIOUS, "Precious Gems");
 
-        this.addDerivativeSource(SulfurRegistry.METALS_ABUNDANT, "Abundant Metals");
-        this.addGenericSulfur(SulfurRegistry.METALS_ABUNDANT.get());
-        this.addDerivativeSource(SulfurRegistry.METALS_COMMON, "Common Metals");
-        this.addGenericSulfur(SulfurRegistry.METALS_COMMON.get());
-        this.addDerivativeSource(SulfurRegistry.METALS_RARE, "Rare Metals");
-        this.addGenericSulfur(SulfurRegistry.METALS_RARE.get());
-        this.addDerivativeSource(SulfurRegistry.METALS_PRECIOUS, "Precious Metals");
-        this.addGenericSulfur(SulfurRegistry.METALS_PRECIOUS.get());
+        this.addDerivativeSource(NiterRegistry.METALS_ABUNDANT, "Abundant Metals");
+        this.addDerivativeSource(NiterRegistry.METALS_COMMON, "Common Metals");
+        this.addDerivativeSource(NiterRegistry.METALS_RARE, "Rare Metals");
+        this.addDerivativeSource(NiterRegistry.METALS_PRECIOUS, "Precious Metals");
 
-        this.addDerivativeSource(SulfurRegistry.OTHER_MINERALS_ABUNDANT, "Abundant Other Minerals");
-        this.addGenericSulfur(SulfurRegistry.OTHER_MINERALS_ABUNDANT.get());
-        this.addDerivativeSource(SulfurRegistry.OTHER_MINERALS_COMMON, "Common Other Minerals");
-        this.addGenericSulfur(SulfurRegistry.OTHER_MINERALS_COMMON.get());
-        this.addDerivativeSource(SulfurRegistry.OTHER_MINERALS_RARE, "Rare Other Minerals");
-        this.addGenericSulfur(SulfurRegistry.OTHER_MINERALS_RARE.get());
-        this.addDerivativeSource(SulfurRegistry.OTHER_MINERALS_PRECIOUS, "Precious Other Minerals");
-        this.addGenericSulfur(SulfurRegistry.OTHER_MINERALS_PRECIOUS.get());
+        this.addDerivativeSource(NiterRegistry.OTHER_MINERALS_ABUNDANT, "Abundant Other Minerals");
+        this.addDerivativeSource(NiterRegistry.OTHER_MINERALS_COMMON, "Common Other Minerals");
+        this.addDerivativeSource(NiterRegistry.OTHER_MINERALS_RARE, "Rare Other Minerals");
+        this.addDerivativeSource(NiterRegistry.OTHER_MINERALS_PRECIOUS, "Precious Other Minerals");
 
-        //Names for Sulfurs with overrideSourceName
+        //Sources for Sulfurs with {@link AlchemicalDerivativeItem#useCustomSourceName}
         //Common Metals
         this.addDerivativeSource(SulfurRegistry.IRON, "Iron");
         this.addDerivativeSource(SulfurRegistry.COPPER, "Copper");

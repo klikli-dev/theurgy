@@ -32,7 +32,7 @@ public class AlchemicalSulfurItem extends AlchemicalDerivativeItem {
         return AlchemicalSulfurType.MISC;
     }
 
-    public AlchemicalSulfurItem ofTag(TagKey<Item> source, AlchemicalDerivativeTier tier, AlchemicalSulfurType type) {
+    public static AlchemicalSulfurItem ofSource(TagKey<Item> source, AlchemicalDerivativeTier tier, AlchemicalSulfurType type) {
         var item = new AlchemicalSulfurItem(new Item.Properties()
                 .component(
                         DataComponentRegistry.SOURCE_TAG,
@@ -45,20 +45,7 @@ public class AlchemicalSulfurItem extends AlchemicalDerivativeItem {
         return item;
     }
 
-    public AlchemicalSulfurItem ofTag(TagKey<Item> source, AlchemicalDerivativeTier tier, AlchemicalSulfurType type) {
-        var item = new AlchemicalSulfurItem(new Item.Properties()
-                .component(
-                        DataComponentRegistry.SOURCE_TAG,
-                        source
-                ));
-        //tags need to override the source name
-        item.useCustomSourceName(true);
-        item.tier(tier);
-        item.type(type);
-        return item;
-    }
-
-    public AlchemicalSulfurItem ofItem(Item sourceStack, AlchemicalDerivativeTier tier, AlchemicalSulfurType type) {
+    public static AlchemicalSulfurItem ofSource(Item sourceStack, AlchemicalDerivativeTier tier, AlchemicalSulfurType type) {
         //noinspection deprecation
         var item = new AlchemicalSulfurItem(new Item.Properties()
                 .component(

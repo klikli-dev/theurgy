@@ -13,26 +13,17 @@ import java.util.List;
 
 public class SulfurMappings {
     private static List<AlchemicalSulfurItem> GEMS_ABUNDANT;
-
     private static List<AlchemicalSulfurItem> GEMS_COMMON;
-
     private static List<AlchemicalSulfurItem> GEMS_RARE;
-
     private static List<AlchemicalSulfurItem> GEMS_PRECIOUS;
 
     private static List<AlchemicalSulfurItem> METALS_ABUNDANT;
-
-
     private static List<AlchemicalSulfurItem> METALS_COMMON;
-
-
     private static List<AlchemicalSulfurItem> METALS_RARE;
-
     private static List<AlchemicalSulfurItem> METALS_PRECIOUS;
 
     private static List<AlchemicalSulfurItem> OTHER_MINERALS_ABUNDANT;
     private static List<AlchemicalSulfurItem> OTHER_MINERALS_COMMON;
-
     private static List<AlchemicalSulfurItem> OTHER_MINERALS_RARE;
     private static List<AlchemicalSulfurItem> OTHER_MINERALS_PRECIOUS;
 

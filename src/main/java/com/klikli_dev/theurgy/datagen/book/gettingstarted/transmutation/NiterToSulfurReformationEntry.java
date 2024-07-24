@@ -11,6 +11,7 @@ import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.klikli_dev.theurgy.datagen.book.GettingStartedCategoryProvider;
 import com.klikli_dev.theurgy.datagen.book.gettingstarted.reformation.ConvertWithinTypeAndTierEntry;
+import com.klikli_dev.theurgy.registry.NiterRegistry;
 import com.klikli_dev.theurgy.registry.SulfurRegistry;
 import com.mojang.datafixers.util.Pair;
 
@@ -34,7 +35,7 @@ public class NiterToSulfurReformationEntry extends EntryProvider {
                         \\
                         This again works exactly as already described in the previous entry and in the {2} entries.
                         """,
-                this.itemLink("Alchemical Niter: Common Metals", SulfurRegistry.METALS_COMMON.get()),
+                this.itemLink("Alchemical Niter: Common Metals", NiterRegistry.METALS_COMMON.get()),
                 this.itemLink("Alchemical Sulfur: Iron", SulfurRegistry.IRON.get()),
                 this.entryLink("Reformation", GettingStartedCategoryProvider.CATEGORY_ID, ConvertWithinTypeAndTierEntry.ENTRY_ID)
         );

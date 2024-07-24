@@ -7,14 +7,13 @@ package com.klikli_dev.theurgy.datagen.recipe;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.klikli_dev.theurgy.Theurgy;
+import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalDerivativeItem;
+import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalNiterItem;
 import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurItem;
 import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalDerivativeTier;
 import com.klikli_dev.theurgy.content.recipe.ReformationRecipe;
 import com.klikli_dev.theurgy.datagen.SulfurMappings;
-import com.klikli_dev.theurgy.registry.DataComponentRegistry;
-import com.klikli_dev.theurgy.registry.ItemTagRegistry;
-import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
-import com.klikli_dev.theurgy.registry.SulfurRegistry;
+import com.klikli_dev.theurgy.registry.*;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.Holder;
 import net.minecraft.data.PackOutput;
@@ -40,14 +39,14 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
             AlchemicalDerivativeTier.PRECIOUS, 200
     );
     private final Map<ResourceLocation, JsonObject> recipeCache = new HashMap<>();
-    private Set<AlchemicalSulfurItem> noAutomaticRecipesFor = Set.of();
+    private Set<AlchemicalDerivativeItem> noAutomaticRecipesFor = Set.of();
 
     public ReformationRecipeProvider(PackOutput packOutput) {
         super(packOutput, Theurgy.MODID, "reformation");
     }
 
-    private int getFlux(AlchemicalSulfurItem sulfur) {
-        return this.fluxPerTier.get(sulfur.tier());
+    private int getFlux(AlchemicalDerivativeItem item) {
+        return this.fluxPerTier.get(item.tier());
     }
 
     private void makeXtoXRecipes(List<Pair<List<AlchemicalSulfurItem>, TagKey<Item>>> sulfurToTag) {
@@ -83,23 +82,23 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
         });
     }
 
-    private void makeNiterToSulfurRecipe(AlchemicalSulfurItem source, List<AlchemicalSulfurItem> targets) {
+    private void makeNiterToSulfurRecipe(AlchemicalNiterItem source, List<AlchemicalSulfurItem> targets) {
         targets.stream().filter(t -> !this.noAutomaticRecipesFor.contains(t)).forEach((target) -> {
             this.makeRecipe(target, source, this.getFlux(target));
         });
     }
 
-    private void makeNiterToNiterRecipe(AlchemicalSulfurItem source, int sourceCount, AlchemicalSulfurItem target, int targetCount) {
+    private void makeNiterToNiterRecipe(AlchemicalNiterItem source, int sourceCount, AlchemicalNiterItem target, int targetCount) {
         this.makeRecipe(target, targetCount, source, sourceCount, this.getFlux(target));
     }
 
     private void metals() {
         //Add conversion from the niter (representing the whole tier) to the single specific sulfurs
         //This enables conversion between tiers by way of digestion
-        this.makeNiterToSulfurRecipe(SulfurRegistry.METALS_ABUNDANT.get(), SulfurMappings.metalsAbundant());
-        this.makeNiterToSulfurRecipe(SulfurRegistry.METALS_COMMON.get(), SulfurMappings.metalsCommon());
-        this.makeNiterToSulfurRecipe(SulfurRegistry.METALS_RARE.get(), SulfurMappings.metalsRare());
-        this.makeNiterToSulfurRecipe(SulfurRegistry.METALS_PRECIOUS.get(), SulfurMappings.metalsPrecious());
+        this.makeNiterToSulfurRecipe(NiterRegistry.METALS_ABUNDANT.get(), SulfurMappings.metalsAbundant());
+        this.makeNiterToSulfurRecipe(NiterRegistry.METALS_COMMON.get(), SulfurMappings.metalsCommon());
+        this.makeNiterToSulfurRecipe(NiterRegistry.METALS_RARE.get(), SulfurMappings.metalsRare());
+        this.makeNiterToSulfurRecipe(NiterRegistry.METALS_PRECIOUS.get(), SulfurMappings.metalsPrecious());
 
         //Also allow direct conversion between specific sulfurs of the same tier
         var metalsFromMetals = List.of(
@@ -111,23 +110,23 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
         this.makeXtoXRecipes(metalsFromMetals);
 
         //Further, allow conversion between types
-        this.makeNiterToNiterRecipe(SulfurRegistry.OTHER_MINERALS_ABUNDANT.get(), 2, SulfurRegistry.METALS_ABUNDANT.get(), 1);
-        this.makeNiterToNiterRecipe(SulfurRegistry.OTHER_MINERALS_COMMON.get(), 2, SulfurRegistry.METALS_COMMON.get(), 1);
-        this.makeNiterToNiterRecipe(SulfurRegistry.OTHER_MINERALS_RARE.get(), 2, SulfurRegistry.METALS_RARE.get(), 1);
-        this.makeNiterToNiterRecipe(SulfurRegistry.OTHER_MINERALS_PRECIOUS.get(), 2, SulfurRegistry.METALS_PRECIOUS.get(), 1);
-        this.makeNiterToNiterRecipe(SulfurRegistry.GEMS_ABUNDANT.get(), 1, SulfurRegistry.METALS_ABUNDANT.get(), 2);
-        this.makeNiterToNiterRecipe(SulfurRegistry.GEMS_COMMON.get(), 1, SulfurRegistry.METALS_COMMON.get(), 2);
-        this.makeNiterToNiterRecipe(SulfurRegistry.GEMS_RARE.get(), 1, SulfurRegistry.METALS_RARE.get(), 2);
-        this.makeNiterToNiterRecipe(SulfurRegistry.GEMS_PRECIOUS.get(), 1, SulfurRegistry.METALS_PRECIOUS.get(), 2);
+        this.makeNiterToNiterRecipe(NiterRegistry.OTHER_MINERALS_ABUNDANT.get(), 2, NiterRegistry.METALS_ABUNDANT.get(), 1);
+        this.makeNiterToNiterRecipe(NiterRegistry.OTHER_MINERALS_COMMON.get(), 2, NiterRegistry.METALS_COMMON.get(), 1);
+        this.makeNiterToNiterRecipe(NiterRegistry.OTHER_MINERALS_RARE.get(), 2, NiterRegistry.METALS_RARE.get(), 1);
+        this.makeNiterToNiterRecipe(NiterRegistry.OTHER_MINERALS_PRECIOUS.get(), 2, NiterRegistry.METALS_PRECIOUS.get(), 1);
+        this.makeNiterToNiterRecipe(NiterRegistry.GEMS_ABUNDANT.get(), 1, NiterRegistry.METALS_ABUNDANT.get(), 2);
+        this.makeNiterToNiterRecipe(NiterRegistry.GEMS_COMMON.get(), 1, NiterRegistry.METALS_COMMON.get(), 2);
+        this.makeNiterToNiterRecipe(NiterRegistry.GEMS_RARE.get(), 1, NiterRegistry.METALS_RARE.get(), 2);
+        this.makeNiterToNiterRecipe(NiterRegistry.GEMS_PRECIOUS.get(), 1, NiterRegistry.METALS_PRECIOUS.get(), 2);
     }
 
     private void gems() {
         //Add conversion from the niter (representing the whole tier) to the single specific sulfurs
         //This enables conversion between tiers by way of digestion
-        this.makeNiterToSulfurRecipe(SulfurRegistry.GEMS_ABUNDANT.get(), SulfurMappings.gemsAbundant());
-        this.makeNiterToSulfurRecipe(SulfurRegistry.GEMS_COMMON.get(), SulfurMappings.gemsCommon());
-        this.makeNiterToSulfurRecipe(SulfurRegistry.GEMS_RARE.get(), SulfurMappings.gemsRare());
-        this.makeNiterToSulfurRecipe(SulfurRegistry.GEMS_PRECIOUS.get(), SulfurMappings.gemsPrecious());
+        this.makeNiterToSulfurRecipe(NiterRegistry.GEMS_ABUNDANT.get(), SulfurMappings.gemsAbundant());
+        this.makeNiterToSulfurRecipe(NiterRegistry.GEMS_COMMON.get(), SulfurMappings.gemsCommon());
+        this.makeNiterToSulfurRecipe(NiterRegistry.GEMS_RARE.get(), SulfurMappings.gemsRare());
+        this.makeNiterToSulfurRecipe(NiterRegistry.GEMS_PRECIOUS.get(), SulfurMappings.gemsPrecious());
 
         //Also allow direct conversion between specific sulfurs of the same tier
         var gemsFromGems = List.of(
@@ -139,24 +138,24 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
         this.makeXtoXRecipes(gemsFromGems);
 
         //Further, allow conversion between types
-        this.makeNiterToNiterRecipe(SulfurRegistry.METALS_ABUNDANT.get(), 2, SulfurRegistry.GEMS_ABUNDANT.get(), 1);
-        this.makeNiterToNiterRecipe(SulfurRegistry.METALS_COMMON.get(), 2, SulfurRegistry.GEMS_COMMON.get(), 1);
-        this.makeNiterToNiterRecipe(SulfurRegistry.METALS_RARE.get(), 2, SulfurRegistry.GEMS_RARE.get(), 1);
-        this.makeNiterToNiterRecipe(SulfurRegistry.METALS_PRECIOUS.get(), 2, SulfurRegistry.GEMS_PRECIOUS.get(), 1);
+        this.makeNiterToNiterRecipe(NiterRegistry.METALS_ABUNDANT.get(), 2, NiterRegistry.GEMS_ABUNDANT.get(), 1);
+        this.makeNiterToNiterRecipe(NiterRegistry.METALS_COMMON.get(), 2, NiterRegistry.GEMS_COMMON.get(), 1);
+        this.makeNiterToNiterRecipe(NiterRegistry.METALS_RARE.get(), 2, NiterRegistry.GEMS_RARE.get(), 1);
+        this.makeNiterToNiterRecipe(NiterRegistry.METALS_PRECIOUS.get(), 2, NiterRegistry.GEMS_PRECIOUS.get(), 1);
 
-        this.makeNiterToNiterRecipe(SulfurRegistry.OTHER_MINERALS_ABUNDANT.get(), 4, SulfurRegistry.GEMS_ABUNDANT.get(), 1);
-        this.makeNiterToNiterRecipe(SulfurRegistry.OTHER_MINERALS_COMMON.get(), 4, SulfurRegistry.GEMS_COMMON.get(), 1);
-        this.makeNiterToNiterRecipe(SulfurRegistry.OTHER_MINERALS_RARE.get(), 4, SulfurRegistry.GEMS_RARE.get(), 1);
-        this.makeNiterToNiterRecipe(SulfurRegistry.OTHER_MINERALS_PRECIOUS.get(), 4, SulfurRegistry.GEMS_PRECIOUS.get(), 1);
+        this.makeNiterToNiterRecipe(NiterRegistry.OTHER_MINERALS_ABUNDANT.get(), 4, NiterRegistry.GEMS_ABUNDANT.get(), 1);
+        this.makeNiterToNiterRecipe(NiterRegistry.OTHER_MINERALS_COMMON.get(), 4, NiterRegistry.GEMS_COMMON.get(), 1);
+        this.makeNiterToNiterRecipe(NiterRegistry.OTHER_MINERALS_RARE.get(), 4, NiterRegistry.GEMS_RARE.get(), 1);
+        this.makeNiterToNiterRecipe(NiterRegistry.OTHER_MINERALS_PRECIOUS.get(), 4, NiterRegistry.GEMS_PRECIOUS.get(), 1);
     }
 
     private void otherMinerals() {
         //Add conversion from the niter (representing the whole tier) to the single specific sulfurs
         //This enables conversion between tiers by way of digestion
-        this.makeNiterToSulfurRecipe(SulfurRegistry.OTHER_MINERALS_ABUNDANT.get(), SulfurMappings.otherMineralsAbundant());
-        this.makeNiterToSulfurRecipe(SulfurRegistry.OTHER_MINERALS_COMMON.get(), SulfurMappings.otherMineralsCommon());
-        this.makeNiterToSulfurRecipe(SulfurRegistry.OTHER_MINERALS_RARE.get(), SulfurMappings.otherMineralsRare());
-        this.makeNiterToSulfurRecipe(SulfurRegistry.OTHER_MINERALS_PRECIOUS.get(), SulfurMappings.otherMineralsPrecious());
+        this.makeNiterToSulfurRecipe(NiterRegistry.OTHER_MINERALS_ABUNDANT.get(), SulfurMappings.otherMineralsAbundant());
+        this.makeNiterToSulfurRecipe(NiterRegistry.OTHER_MINERALS_COMMON.get(), SulfurMappings.otherMineralsCommon());
+        this.makeNiterToSulfurRecipe(NiterRegistry.OTHER_MINERALS_RARE.get(), SulfurMappings.otherMineralsRare());
+        this.makeNiterToSulfurRecipe(NiterRegistry.OTHER_MINERALS_PRECIOUS.get(), SulfurMappings.otherMineralsPrecious());
 
         //Also allow direct conversion between specific sulfurs of the same tier
         var otherMineralsFromOtherMinerals = List.of(
@@ -168,15 +167,15 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
         this.makeXtoXRecipes(otherMineralsFromOtherMinerals);
 
         //Further, allow conversion between types
-        this.makeNiterToNiterRecipe(SulfurRegistry.METALS_ABUNDANT.get(), 1, SulfurRegistry.OTHER_MINERALS_ABUNDANT.get(), 2);
-        this.makeNiterToNiterRecipe(SulfurRegistry.METALS_COMMON.get(), 1, SulfurRegistry.OTHER_MINERALS_COMMON.get(), 2);
-        this.makeNiterToNiterRecipe(SulfurRegistry.METALS_RARE.get(), 1, SulfurRegistry.OTHER_MINERALS_RARE.get(), 2);
-        this.makeNiterToNiterRecipe(SulfurRegistry.METALS_PRECIOUS.get(), 1, SulfurRegistry.OTHER_MINERALS_PRECIOUS.get(), 2);
+        this.makeNiterToNiterRecipe(NiterRegistry.METALS_ABUNDANT.get(), 1, NiterRegistry.OTHER_MINERALS_ABUNDANT.get(), 2);
+        this.makeNiterToNiterRecipe(NiterRegistry.METALS_COMMON.get(), 1, NiterRegistry.OTHER_MINERALS_COMMON.get(), 2);
+        this.makeNiterToNiterRecipe(NiterRegistry.METALS_RARE.get(), 1, NiterRegistry.OTHER_MINERALS_RARE.get(), 2);
+        this.makeNiterToNiterRecipe(NiterRegistry.METALS_PRECIOUS.get(), 1, NiterRegistry.OTHER_MINERALS_PRECIOUS.get(), 2);
 
-        this.makeNiterToNiterRecipe(SulfurRegistry.GEMS_ABUNDANT.get(), 1, SulfurRegistry.OTHER_MINERALS_ABUNDANT.get(), 4);
-        this.makeNiterToNiterRecipe(SulfurRegistry.GEMS_COMMON.get(), 1, SulfurRegistry.OTHER_MINERALS_COMMON.get(), 4);
-        this.makeNiterToNiterRecipe(SulfurRegistry.GEMS_RARE.get(), 1, SulfurRegistry.OTHER_MINERALS_RARE.get(), 4);
-        this.makeNiterToNiterRecipe(SulfurRegistry.GEMS_PRECIOUS.get(), 1, SulfurRegistry.OTHER_MINERALS_PRECIOUS.get(), 4);
+        this.makeNiterToNiterRecipe(NiterRegistry.GEMS_ABUNDANT.get(), 1, NiterRegistry.OTHER_MINERALS_ABUNDANT.get(), 4);
+        this.makeNiterToNiterRecipe(NiterRegistry.GEMS_COMMON.get(), 1, NiterRegistry.OTHER_MINERALS_COMMON.get(), 4);
+        this.makeNiterToNiterRecipe(NiterRegistry.GEMS_RARE.get(), 1, NiterRegistry.OTHER_MINERALS_RARE.get(), 4);
+        this.makeNiterToNiterRecipe(NiterRegistry.GEMS_PRECIOUS.get(), 1, NiterRegistry.OTHER_MINERALS_PRECIOUS.get(), 4);
     }
 
     @Override

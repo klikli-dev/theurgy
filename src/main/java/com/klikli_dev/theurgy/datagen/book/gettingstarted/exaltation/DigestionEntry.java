@@ -11,6 +11,7 @@ import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
+import com.klikli_dev.theurgy.registry.NiterRegistry;
 import com.klikli_dev.theurgy.registry.SulfurRegistry;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -35,12 +36,12 @@ public class DigestionEntry extends EntryProvider {
                         \\
                         We need 4 {0} to create 1 {1}.
                         """,
-                this.itemLink("Alchemical Niter: Common Metals", SulfurRegistry.METALS_COMMON.get()),
-                this.itemLink("Alchemical Niter: Rare Metals", SulfurRegistry.METALS_RARE.get())
+                this.itemLink("Alchemical Niter: Common Metals", NiterRegistry.METALS_COMMON.get()),
+                this.itemLink("Alchemical Niter: Rare Metals", NiterRegistry.METALS_RARE.get())
         );
 
         this.page("metals", () -> BookSpotlightPageModel.create()
-                .withItem(Ingredient.of(SulfurRegistry.METALS_RARE.get()))
+                .withItem(Ingredient.of(NiterRegistry.METALS_RARE.get()))
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
         );
@@ -56,7 +57,7 @@ public class DigestionEntry extends EntryProvider {
                 (Check JEI for more recipes)
                 """,
                 this.itemLink(ItemRegistry.DIGESTION_VAT.get()),
-                this.itemLink("Alchemical Niter: Common Metals", SulfurRegistry.METALS_COMMON.get()),
+                this.itemLink("Alchemical Niter: Common Metals", NiterRegistry.METALS_COMMON.get()),
                 this.itemLink(ItemRegistry.SAL_AMMONIAC_BUCKET.get()),
                 this.itemLink(ItemRegistry.PURIFIED_GOLD.get())
         );
@@ -76,7 +77,7 @@ public class DigestionEntry extends EntryProvider {
                         [#]($INPUT)Right-click[#]() with an empty hand to retrieve the {1}.
                         """,
                 this.itemLink(ItemRegistry.DIGESTION_VAT.get()),
-                this.itemLink("Alchemical Niter: Rare Metals", SulfurRegistry.METALS_RARE.get())
+                this.itemLink("Alchemical Niter: Rare Metals", NiterRegistry.METALS_RARE.get())
         );
 
 
@@ -122,7 +123,7 @@ public class DigestionEntry extends EntryProvider {
 
     @Override
     protected BookIconModel entryIcon() {
-        return BookIconModel.create(SulfurRegistry.METALS_RARE.get());
+        return BookIconModel.create(NiterRegistry.METALS_RARE.get());
     }
 
     @Override

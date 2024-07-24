@@ -60,8 +60,10 @@ public class ConnectionNodeEntry extends EntryProvider {
                In networks with multiple inserters and extractors the default behaviour is round-robin. That means each extractor will attempt to split the items evenly between all connected inserters.
                \\
                \\
-               This behaviour can be modified with filters (see further entries in this category). In the future more advanced routing options will be available.
-                """
+               This behaviour can be modified with filters.\\
+               Further, you can create sub-networks by setting the frequency of inserters and extractors.\\
+               (see further entries in this category for more information on these feature).
+               """
         );
     }
 

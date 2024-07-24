@@ -27,13 +27,13 @@ public class LogisticsCategory extends CategoryProvider {
                 "__________________________________",
                 "__________________________________",
                 "__________________________________",
-                "________________l___í_____________",
+                "________________l___í_____ƒ_______",
                 "__________________________________",
                 "________________i_____ŵ_n_ň_______",
                 "__________________________________",
-                "________________w___e___f_________",
+                "________________w___e_____f_______",
                 "__________________________________",
-                "________________________a_________",
+                "__________________________a_______",
                 "__________________________________"
 
         };
@@ -68,10 +68,13 @@ public class LogisticsCategory extends CategoryProvider {
         nodeEntry.withParent(networkEntry);
 
         var listFilterEntry = new ListFilterEntry(this).generate('f');
-        listFilterEntry.withParent(networkEntry);
+        listFilterEntry.withParent(nodeEntry);
 
         var attributeFilterEntry = new AttributeFilterEntry(this).generate('a');
         attributeFilterEntry.withParent(listFilterEntry);
+
+        var frequencyEntry = new FrequencyEntry(this).generate('ƒ');
+        frequencyEntry.withParent(nodeEntry);
     }
 
     @Override

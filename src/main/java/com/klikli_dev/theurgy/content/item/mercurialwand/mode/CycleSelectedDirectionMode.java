@@ -23,12 +23,12 @@ import java.util.List;
 
 public class CycleSelectedDirectionMode extends MercurialWandItemMode {
 
-    private final Lazy<RotateSelectedDirectionModeRenderHandler> renderHandler;
+    private final Lazy<CycleSelectedDirectionModeRenderHandler> renderHandler;
 
     protected CycleSelectedDirectionMode() {
         super();
         //We're using a lazy so that on the serverside we don't construct the client-only renderer UNLESS code actually calls it in which case we will crash which is fine as a warning.
-        this.renderHandler = Lazy.of(() -> new RotateSelectedDirectionModeRenderHandler(this));
+        this.renderHandler = Lazy.of(() -> new CycleSelectedDirectionModeRenderHandler(this));
     }
 
     @Override
@@ -57,7 +57,7 @@ public class CycleSelectedDirectionMode extends MercurialWandItemMode {
     }
 
     @Override
-    public RotateSelectedDirectionModeRenderHandler renderHandler() {
+    public CycleSelectedDirectionModeRenderHandler renderHandler() {
         return this.renderHandler.get();
     }
 

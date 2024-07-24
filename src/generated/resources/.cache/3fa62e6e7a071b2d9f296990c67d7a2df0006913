@@ -1,4 +1,4 @@
-// 1.21	2024-07-24T09:15:46.8358087	Books: theurgy
+// 1.21	2024-07-24T11:54:57.5950156	Books: theurgy
 c473bf5aa94f847c736c37f1a9f85c86b8bce95d data/theurgy/modonomicon/books/the_hermetica/book.json
 74a2622bcd8dc6316c5977cbea5a026d81dcff87 data/theurgy/modonomicon/books/the_hermetica/categories/apparatus.json
 6f877a9734359091748cca949c8e6c569ad2d67e data/theurgy/modonomicon/books/the_hermetica/categories/getting_started.json
@@ -76,12 +76,13 @@ afaef6f0e88e94ac16d80e9ae621904813fc90e6 data/theurgy/modonomicon/books/the_herm
 bd06f5017c0398db99395fe98b8ff7f2112dde04 data/theurgy/modonomicon/books/the_hermetica/entries/getting_started/t3_divination_rod.json
 e1beb3a9b62ecf8e7caa3a64270a3c65633e3f0c data/theurgy/modonomicon/books/the_hermetica/entries/getting_started/t4_divination_rod.json
 e64f9e374f40c8cbaec0dea1c22e9a653bd673df data/theurgy/modonomicon/books/the_hermetica/entries/getting_started/target_pedestal.json
-5048d857a2042af4a3c356ffa0f93097dd0d7740 data/theurgy/modonomicon/books/the_hermetica/entries/logistics/attribute_filter.json
+0009b0e7d1d159fe4fc13da9aa3cc1c1dc39d56e data/theurgy/modonomicon/books/the_hermetica/entries/logistics/attribute_filter.json
 a4d4ee8172f7c14580d3a7759544aac51a44890e data/theurgy/modonomicon/books/the_hermetica/entries/logistics/connection_node.json
+76190f81026244531738ae77cda192c9d8db6201 data/theurgy/modonomicon/books/the_hermetica/entries/logistics/frequency.json
 2297ec1995a7c83573b45b91a2df7814767bc9ad data/theurgy/modonomicon/books/the_hermetica/entries/logistics/intro.json
 53a9b9e65867567ac0b8d413d0d0c47478b9cc2c data/theurgy/modonomicon/books/the_hermetica/entries/logistics/item_extractor.json
 5f3d12cdea9f2b56d824c9a67df2ab157b93cff5 data/theurgy/modonomicon/books/the_hermetica/entries/logistics/item_inserter.json
-e3cfc4969d0b06ea97c5577ecf5f5646bcf1f722 data/theurgy/modonomicon/books/the_hermetica/entries/logistics/list_filter.json
+232dc28baf1c5a75f3ffd7a14122fa0e8081eab3 data/theurgy/modonomicon/books/the_hermetica/entries/logistics/list_filter.json
 fec65bed57b2bb5b20ebd116c82254c42db9a72e data/theurgy/modonomicon/books/the_hermetica/entries/logistics/logistics_network.json
 754a7a527098cdb3f241d563d34c37ecbafe7ea9 data/theurgy/modonomicon/books/the_hermetica/entries/logistics/lore.json
 6c38cb6e7c0c2eac8ba441b882706cf9f26c7f28 data/theurgy/modonomicon/books/the_hermetica/entries/logistics/mercurial_wand.json

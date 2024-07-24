@@ -39,8 +39,13 @@ public class TheurgyConstants {
                 public static final String MERCURIAL_WAND_SWITCH_LOGISTICS_ENABLED = PREFIX + "mercurial_wand.switch_logistics_enabled";
                 public static final String MERCURIAL_WAND_SWITCH_LOGISTICS_ENABLED_HUD = PREFIX + "mercurial_wand.switch_logistics_enabled.hud";
                 public static final String MERCURIAL_WAND_SWITCH_LOGISTICS_ENABLED_SUCCESS = PREFIX + "mercurial_wand.switch_logistics_enabled.success";
-                public static final String ENABLED = PREFIX + "mercurial_wand.enabled";
-                public static final String DISABLED = PREFIX + "mercurial_wand.disabled";
+                public static final String MERCURIAL_WAND_ENABLED = PREFIX + "mercurial_wand.enabled";
+                public static final String MERCURIAL_WAND_DISABLED = PREFIX + "mercurial_wand.disabled";
+
+                public static final String MERCURIAL_WAND_SELECT_FREQUENCY = PREFIX + "mercurial_wand.select_frequency";
+                public static final String MERCURIAL_WAND_SET_SELECTED_FREQUENCY = PREFIX + "mercurial_wand.set_selected_frequency";
+                public static final String MERCURIAL_WAND_SET_SELECTED_FREQUENCY_WITH_TARGET = PREFIX + "mercurial_wand.set_selected_frequency.with_target";
+                public static final String MERCURIAL_WAND_SET_SELECTED_FREQUENCY_SUCCESS = PREFIX + "mercurial_wand.set_selected_frequency.success";
             }
         }
 

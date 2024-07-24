@@ -5,6 +5,8 @@
 package com.klikli_dev.theurgy.content.item.mode;
 
 import com.klikli_dev.theurgy.content.render.itemhud.ItemHUDProvider;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -28,6 +30,14 @@ public abstract class ItemMode implements ItemHUDProvider {
 
     public InteractionResult onItemUseFirst(ItemStack stack, UseOnContext context) {
         return InteractionResult.PASS;
+    }
+
+    public boolean onLeftClickBlock(Level level, Player player, InteractionHand hand, BlockPos pos, Direction direction) {
+        return false;
+    }
+
+    public void onLeftClickEmpty(Level level, Player player, InteractionHand hand) {
+
     }
 
     public void onScrollWithRightDown(Player player, ItemStack stack, int shift) {

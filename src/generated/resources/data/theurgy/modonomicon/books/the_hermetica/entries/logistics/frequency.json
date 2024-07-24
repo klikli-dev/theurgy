@@ -1,0 +1,69 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "theurgy:logistics",
+  "description": "book.theurgy.the_hermetica.logistics.frequency.description",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "theurgy:mercurial_wand"
+  },
+  "name": "book.theurgy.the_hermetica.logistics.frequency.name",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.logistics.frequency.intro.text",
+      "title": "book.theurgy.the_hermetica.logistics.frequency.intro.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.logistics.frequency.subnetworks.text",
+      "title": "book.theurgy.the_hermetica.logistics.frequency.subnetworks.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.logistics.frequency.select.text",
+      "title": "book.theurgy.the_hermetica.logistics.frequency.select.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.logistics.frequency.set.text",
+      "title": "book.theurgy.the_hermetica.logistics.frequency.set.title",
+      "use_markdown_in_title": false
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "theurgy:logistics/connection_node",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "sort_number": 10,
+  "x": 9,
+  "y": -2
+}

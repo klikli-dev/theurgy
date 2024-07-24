@@ -805,6 +805,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
                 wandUsage
         );
 
+
         this.add(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_SELECT_DIRECTION, "Select direction (Currently: %s)");
         this.add(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_SELECT_DIRECTION_SUCCESS, "Direction: %s");
         this.add(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_SET_SELECTED_DIRECTION, "Set direction to %s");
@@ -816,8 +817,12 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.add(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_SWITCH_LOGISTICS_ENABLED, "Enable/Disable");
         this.add(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_SWITCH_LOGISTICS_ENABLED_HUD, " (Currently: %s)");
         this.add(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_SWITCH_LOGISTICS_ENABLED_SUCCESS, "Logistics Connector is now %s");
-        this.add(TheurgyConstants.I18n.Item.Mode.ENABLED, "Enabled");
-        this.add(TheurgyConstants.I18n.Item.Mode.DISABLED, "Disabled");
+        this.add(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_ENABLED, "Enabled");
+        this.add(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_DISABLED, "Disabled");
+        this.add(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_SELECT_FREQUENCY, "Selected frequency: %s");
+        this.add(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_SET_SELECTED_FREQUENCY, "Set frequency to %s");
+        this.add(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_SET_SELECTED_FREQUENCY_WITH_TARGET, "Set frequency from %s to %s");
+        this.add(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_SET_SELECTED_FREQUENCY_SUCCESS, "Set frequency to %s");
 
         this.addItem(ItemRegistry.LIST_FILTER, "Mercurial List Filter");
         this.addItem(ItemRegistry.ATTRIBUTE_FILTER, "Mercurial Attribute Filter");

@@ -18,10 +18,11 @@ import com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron.render.Liqu
 import com.klikli_dev.theurgy.content.apparatus.mercurycatalyst.MercuryCatalystBlock;
 import com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator.render.SalAmmoniacAccumulatorRenderer;
 import com.klikli_dev.theurgy.content.apparatus.salammoniactank.render.SalAmmoniacTankRenderer;
+import com.klikli_dev.theurgy.content.item.HandlesOnLeftClick;
+import com.klikli_dev.theurgy.content.item.HandlesOnScroll;
 import com.klikli_dev.theurgy.content.item.divinationrod.DivinationRodItem;
 import com.klikli_dev.theurgy.content.item.filter.AttributeFilterScreen;
 import com.klikli_dev.theurgy.content.item.filter.ListFilterScreen;
-import com.klikli_dev.theurgy.content.item.mode.ModeItem;
 import com.klikli_dev.theurgy.content.item.salt.AlchemicalSaltItem;
 import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurItem;
 import com.klikli_dev.theurgy.content.render.*;
@@ -35,6 +36,7 @@ import com.klikli_dev.theurgy.logistics.WireRenderer;
 import com.klikli_dev.theurgy.logistics.WireSync;
 import com.klikli_dev.theurgy.logistics.Wires;
 import com.klikli_dev.theurgy.network.Networking;
+import com.klikli_dev.theurgy.network.messages.MessageOnLeftClickEmpty;
 import com.klikli_dev.theurgy.registry.*;
 import com.klikli_dev.theurgy.tooltips.TooltipHandler;
 import com.klikli_dev.theurgy.util.ScrollHelper;
@@ -134,6 +136,7 @@ public class Theurgy {
             NeoForge.EVENT_BUS.addListener(Client::onMouseScrolling);
             NeoForge.EVENT_BUS.addListener(Client::onRightClick);
             NeoForge.EVENT_BUS.addListener(Client::onLeftClick);
+            NeoForge.EVENT_BUS.addListener(Client::onLeftClickEmpty);
             NeoForge.EVENT_BUS.addListener(BlockHighlightRenderer::onRenderBlockHighlight);
             NeoForge.EVENT_BUS.addListener(KeyMappingsRegistry::onKeyInput);
             NeoForge.EVENT_BUS.addListener(KeyMappingsRegistry::onMouseInput);
@@ -143,7 +146,7 @@ public class Theurgy {
     }
 
     public static ResourceLocation loc(String path) {
-        return ResourceLocation.fromNamespaceAndPath(MODID,  path);
+        return ResourceLocation.fromNamespaceAndPath(MODID, path);
     }
 
     public void onCommonSetup(FMLCommonSetupEvent event) {
@@ -283,7 +286,7 @@ public class Theurgy {
             event.registerAbove(VanillaGuiLayers.HOTBAR, Theurgy.loc("item_hud"), ItemHUD.get());
         }
 
-        public static void onRegisterMenuScreens(RegisterMenuScreensEvent event){
+        public static void onRegisterMenuScreens(RegisterMenuScreensEvent event) {
             event.register(MenuTypeRegistry.LIST_FILTER.get(), ListFilterScreen::new);
             event.register(MenuTypeRegistry.ATTRIBUTE_FILTER.get(), AttributeFilterScreen::new);
         }
@@ -294,10 +297,10 @@ public class Theurgy {
                 double delta = event.getScrollDeltaY();
                 var stack = minecraft.player.getMainHandItem();
 
-                if (delta != 0 && stack.getItem() instanceof ModeItem modeItem) {
+                if (delta != 0 && stack.getItem() instanceof HandlesOnScroll scrollableItem) {
                     int shift = ScrollHelper.scroll(delta);
                     if (shift != 0) {
-                        modeItem.onScroll(minecraft.player, stack, shift);
+                        scrollableItem.onScroll(minecraft.player, stack, shift);
                     }
                     event.setCanceled(true);
                 }
@@ -325,6 +328,23 @@ public class Theurgy {
 
             if (BlockRegistry.SULFURIC_FLUX_EMITTER.get().selectionBehaviour().onLeftClickBlock(event.getLevel(), event.getEntity(), event.getHand(), event.getPos(), event.getFace())) {
                 event.setCanceled(true);
+            }
+
+            //filter for "abort" to avoid constant calls while held down
+            if (event.getAction() == PlayerInteractEvent.LeftClickBlock.Action.ABORT &&
+                    event.getItemStack().getItem() instanceof HandlesOnLeftClick leftClickableItem) {
+                if (leftClickableItem.onLeftClickBlock(event.getLevel(), event.getEntity(), event.getHand(), event.getPos(), event.getFace())) {
+                    event.setCanceled(true);
+                }
+            }
+        }
+
+        public static void onLeftClickEmpty(PlayerInteractEvent.LeftClickEmpty event) {
+            if (event.getItemStack().getItem() instanceof HandlesOnLeftClick leftClickableItem) {
+                leftClickableItem.onLeftClickEmpty(event.getLevel(), event.getEntity(), event.getHand());
+
+                //this event is only called on client, so we send it to the server if we have a left clickable item
+                Networking.sendToServer(new MessageOnLeftClickEmpty(event.getHand()));
             }
         }
     }

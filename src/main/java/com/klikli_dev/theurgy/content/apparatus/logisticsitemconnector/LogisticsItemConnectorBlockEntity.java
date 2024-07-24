@@ -9,6 +9,7 @@ import com.klikli_dev.theurgy.content.behaviour.filter.HasFilterBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.logistics.HasLeafNodeBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.logistics.LeafNodeBehaviour;
 import com.klikli_dev.theurgy.content.item.mode.EnabledSetter;
+import com.klikli_dev.theurgy.content.item.mode.FrequencySetter;
 import com.klikli_dev.theurgy.content.item.mode.TargetDirectionSetter;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.BlockPos;
@@ -26,7 +27,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class LogisticsItemConnectorBlockEntity extends BlockEntity implements HasLeafNodeBehaviour<IItemHandler, @Nullable Direction>, HasFilterBehaviour, TargetDirectionSetter, EnabledSetter {
+public abstract class LogisticsItemConnectorBlockEntity extends BlockEntity implements HasLeafNodeBehaviour<IItemHandler, @Nullable Direction>, HasFilterBehaviour, TargetDirectionSetter, EnabledSetter, FrequencySetter {
 
     protected LeafNodeBehaviour<IItemHandler, @Nullable Direction> leafNodeBehaviour;
     protected FilterBehaviour filterBehaviour;

@@ -66,6 +66,12 @@ public class SelectFrequencyMode extends MercurialWandItemMode {
             return false;
 
         this.changeFrequency(player.getMainHandItem(), -1);
+
+        var newFrequency = player.getMainHandItem().getOrDefault(DataComponentRegistry.SELECTED_FREQUENCY.get(), 0);
+        player.displayClientMessage(Component.translatable(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_SELECT_FREQUENCY,
+                Component.literal(String.valueOf(newFrequency)).withStyle(ChatFormatting.GREEN)
+        ), true);
+
         return true;
     }
 
@@ -77,6 +83,12 @@ public class SelectFrequencyMode extends MercurialWandItemMode {
     @Override
     public InteractionResult onItemUseFirst(ItemStack stack, UseOnContext context) {
         this.changeFrequency(stack, 1);
+
+        var newFrequency = stack.getOrDefault(DataComponentRegistry.SELECTED_FREQUENCY.get(), 0);
+        context.getPlayer().displayClientMessage(Component.translatable(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_SELECT_FREQUENCY,
+                Component.literal(String.valueOf(newFrequency)).withStyle(ChatFormatting.GREEN)
+        ), true);
+
         return InteractionResult.SUCCESS;
     }
 
@@ -88,7 +100,12 @@ public class SelectFrequencyMode extends MercurialWandItemMode {
         if (pLevel.isClientSide)
             return super.use(pLevel, pPlayer, pUsedHand);
 
-        this.changeFrequency(pPlayer.getItemInHand(pUsedHand), 1);
+        this.changeFrequency(pPlayer.getMainHandItem(), 1);
+
+        var newFrequency = pPlayer.getMainHandItem().getOrDefault(DataComponentRegistry.SELECTED_FREQUENCY.get(), 0);
+        pPlayer.displayClientMessage(Component.translatable(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_SELECT_FREQUENCY,
+                Component.literal(String.valueOf(newFrequency)).withStyle(ChatFormatting.GREEN)
+        ), true);
 
         return InteractionResultHolder.success(pPlayer.getItemInHand(pUsedHand));
     }

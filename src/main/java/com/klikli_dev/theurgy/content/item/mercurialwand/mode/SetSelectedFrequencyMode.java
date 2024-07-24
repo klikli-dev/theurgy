@@ -5,8 +5,9 @@
 package com.klikli_dev.theurgy.content.item.mercurialwand.mode;
 
 import com.klikli_dev.theurgy.TheurgyConstants;
+import com.klikli_dev.theurgy.content.item.mode.FrequencySetter;
 import com.klikli_dev.theurgy.content.item.mode.ItemModeRenderHandler;
-import com.klikli_dev.theurgy.content.item.mode.TargetDirectionSetter;
+import com.klikli_dev.theurgy.registry.DataComponentRegistry;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -40,7 +41,8 @@ public class SetSelectedFrequencyMode extends MercurialWandItemMode {
 
     @Override
     public MutableComponent description(ItemStack pStack, @Nullable Level pLevel) {
-        return Component.translatable(this.descriptionId(), );
+        return Component.translatable(this.descriptionId(),
+                Component.literal(String.valueOf(pStack.getOrDefault(DataComponentRegistry.SELECTED_FREQUENCY.get(), 0))).withStyle(ChatFormatting.GREEN));
     }
 
     @Override
@@ -48,13 +50,14 @@ public class SetSelectedFrequencyMode extends MercurialWandItemMode {
         var description = this.description(pStack, pLevel);
         if (pHitResult instanceof BlockHitResult blockHitResult) {
             var blockEntity = pLevel.getBlockEntity(blockHitResult.getBlockPos());
-            if (blockEntity instanceof TargetDirectionSetter directionSettable) {
-                var currentDirection = directionSettable.targetDirection();
-                var newDirection = this.nextDirection(currentDirection);
+            if (blockEntity instanceof FrequencySetter frequencySettable) {
+                var currentFrequency = frequencySettable.frequency();
+
+                var newFrequency = pStack.getOrDefault(DataComponentRegistry.SELECTED_FREQUENCY.get(), 0);
 
                 var component = Component.translatable(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_CYCLE_SELECTED_DIRECTION_WITH_TARGET,
-                        Component.translatable(currentDirection.getName()).withStyle(currentDirection != newDirection ? ChatFormatting.YELLOW : ChatFormatting.GREEN),
-                        Component.translatable(newDirection.getName()).withStyle(ChatFormatting.GREEN)
+                        Component.literal(String.valueOf(currentFrequency)).withStyle(currentFrequency != newFrequency ? ChatFormatting.YELLOW : ChatFormatting.GREEN),
+                        Component.literal(String.valueOf(newFrequency)).withStyle(ChatFormatting.GREEN)
                 );
 
                 description = component;
@@ -64,7 +67,7 @@ public class SetSelectedFrequencyMode extends MercurialWandItemMode {
     }
 
     @Override
-    public CycleSelectedDirectionModeRenderHandler renderHandler() {
+    public ItemModeRenderHandler<SetSelectedFrequencyMode> renderHandler() {
         return this.renderHandler.get();
     }
 
@@ -76,41 +79,19 @@ public class SetSelectedFrequencyMode extends MercurialWandItemMode {
         var level = context.getLevel();
 
         var blockEntity = level.getBlockEntity(blockPos);
-        if (blockEntity instanceof TargetDirectionSetter directionSettable) {
+        if (blockEntity instanceof FrequencySetter frequencySettable) {
             if (!level.isClientSide) {
-                var currentDirection = directionSettable.targetDirection();
-                var newDirection = this.nextDirection(currentDirection);
-                directionSettable.targetDirection(newDirection);
+                var currentFrequency = frequencySettable.frequency();
+                var newFrequency = stack.getOrDefault(DataComponentRegistry.SELECTED_FREQUENCY.get(), 0);
+                frequencySettable.frequency(newFrequency);
 
-                context.getPlayer().displayClientMessage(Component.translatable(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_CYCLE_SELECTED_DIRECTION_SUCCESS,
-                        Component.translatable(newDirection.getName()).withStyle(ChatFormatting.GREEN)
+                context.getPlayer().displayClientMessage(Component.translatable(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_SET_SELECTED_FREQUENCY_SUCCESS,
+                        Component.literal(String.valueOf(newFrequency)).withStyle(ChatFormatting.GREEN)
                 ), true);
             }
             return InteractionResult.SUCCESS;
         }
 
         return super.onItemUseFirst(stack, context);
-    }
-
-    protected Direction nextDirection(Direction direction) {
-        return switch (direction) {
-            case UP -> Direction.NORTH;
-            case NORTH -> Direction.WEST;
-            case SOUTH -> Direction.EAST;
-            case WEST -> Direction.SOUTH;
-            case EAST -> Direction.DOWN;
-            case DOWN -> Direction.UP;
-        };
-    }
-
-    protected Direction previousDirection(Direction direction) {
-        return switch (direction) {
-            case UP -> Direction.DOWN;
-            case NORTH -> Direction.UP;
-            case SOUTH -> Direction.DOWN;
-            case WEST -> Direction.NORTH;
-            case EAST -> Direction.SOUTH;
-            case DOWN -> Direction.NORTH;
-        };
     }
 }

@@ -44,6 +44,8 @@ public class TheurgyConstants {
 
                 public static final String MERCURIAL_WAND_SELECT_FREQUENCY = PREFIX + "mercurial_wand.select_frequency";
                 public static final String MERCURIAL_WAND_SET_SELECTED_FREQUENCY = PREFIX + "mercurial_wand.set_selected_frequency";
+                public static final String MERCURIAL_WAND_SET_SELECTED_FREQUENCY_WITH_TARGET = PREFIX + "mercurial_wand.set_selected_frequency.with_target";
+                public static final String MERCURIAL_WAND_SET_SELECTED_FREQUENCY_SUCCESS = PREFIX + "mercurial_wand.set_selected_frequency.success";
             }
         }
 

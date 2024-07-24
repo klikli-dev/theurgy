@@ -19,9 +19,9 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.client.event.RenderHighlightEvent;
 
-public class RotateSelectedDirectionModeRenderHandler extends ItemModeRenderHandler<CycleSelectedDirectionMode> {
+public class CycleSelectedDirectionModeRenderHandler extends ItemModeRenderHandler<CycleSelectedDirectionMode> {
 
-    public RotateSelectedDirectionModeRenderHandler(CycleSelectedDirectionMode mode) {
+    public CycleSelectedDirectionModeRenderHandler(CycleSelectedDirectionMode mode) {
         super(mode);
     }
 

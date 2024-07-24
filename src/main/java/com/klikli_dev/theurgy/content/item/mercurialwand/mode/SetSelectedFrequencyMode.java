@@ -5,10 +5,12 @@
 package com.klikli_dev.theurgy.content.item.mercurialwand.mode;
 
 import com.klikli_dev.theurgy.TheurgyConstants;
+import com.klikli_dev.theurgy.content.item.mode.ItemModeRenderHandler;
 import com.klikli_dev.theurgy.content.item.mode.TargetDirectionSetter;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -21,19 +23,24 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class CycleSelectedDirectionMode extends MercurialWandItemMode {
+public class SetSelectedFrequencyMode extends MercurialWandItemMode {
 
-    private final Lazy<CycleSelectedDirectionModeRenderHandler> renderHandler;
+    private final Lazy<ItemModeRenderHandler<SetSelectedFrequencyMode>> renderHandler;
 
-    protected CycleSelectedDirectionMode() {
+    protected SetSelectedFrequencyMode() {
         super();
         //We're using a lazy so that on the serverside we don't construct the client-only renderer UNLESS code actually calls it in which case we will crash which is fine as a warning.
-        this.renderHandler = Lazy.of(() -> new CycleSelectedDirectionModeRenderHandler(this));
+        this.renderHandler = Lazy.of(() -> new ItemModeRenderHandler<>(this));
     }
 
     @Override
     public String descriptionId() {
-        return TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_CYCLE_SELECTED_DIRECTION;
+        return TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_SET_SELECTED_FREQUENCY;
+    }
+
+    @Override
+    public MutableComponent description(ItemStack pStack, @Nullable Level pLevel) {
+        return Component.translatable(this.descriptionId(), );
     }
 
     @Override

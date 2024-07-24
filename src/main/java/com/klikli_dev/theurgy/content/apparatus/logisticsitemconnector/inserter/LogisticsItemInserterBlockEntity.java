@@ -100,4 +100,16 @@ public class LogisticsItemInserterBlockEntity extends LogisticsItemConnectorBloc
     public BlockPos targetPos() {
         return this.leafNode().targets().isEmpty() ? this.getBlockPos() : this.leafNode().targets().get(0);
     }
+
+    @Override
+    public void frequency(int frequency) {
+        this.leafNode().frequency(frequency);
+        this.setChanged();
+        this.sendBlockUpdated();
+    }
+
+    @Override
+    public int frequency() {
+        return this.leafNode().frequency();
+    }
 }

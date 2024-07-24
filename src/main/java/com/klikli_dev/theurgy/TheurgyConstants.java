@@ -43,6 +43,7 @@ public class TheurgyConstants {
                 public static final String MERCURIAL_WAND_DISABLED = PREFIX + "mercurial_wand.disabled";
 
                 public static final String MERCURIAL_WAND_SELECT_FREQUENCY = PREFIX + "mercurial_wand.select_frequency";
+                public static final String MERCURIAL_WAND_SET_SELECTED_FREQUENCY = PREFIX + "mercurial_wand.set_selected_frequency";
             }
         }
 

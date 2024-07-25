@@ -25,7 +25,7 @@ import org.jetbrains.annotations.Nullable;
 public class LogisticsFluidExtractorBehaviour extends ExtractorNodeBehaviour<IFluidHandler, @Nullable Direction> {
 
     public static final int EXTRACTION_EVERY_N_TICKS = 20; // 1 second
-    public static final int MAX_EXTRACTION_AMOUNT = 10; //how many items to extract per extraction tick
+    public static final int MAX_EXTRACTION_AMOUNT = 100; //how many items to extract per extraction tick
     private final int slowTickRandomOffset = (int) (Math.random() * 20);
     private int extractionAmount = MAX_EXTRACTION_AMOUNT;
     private Direction directionOverride = null;
@@ -139,17 +139,17 @@ public class LogisticsFluidExtractorBehaviour extends ExtractorNodeBehaviour<IFl
         //TODO: Filter
 
         //first simulate extraction, this tells us how much we can extract
-        var extractStack = extractCap.drain(this.extractionAmount, true);
+        var extractStack = extractCap.drain(this.extractionAmount, IFluidHandler.FluidAction.SIMULATE);
         if (extractStack.isEmpty())
             return;
 
         //and insertion
-        ItemStack inserted = ItemHandlerHelper.insertItemStacked(insertCap, extractStack, true);
+        var inserted = insertCap.fill(extractStack, IFluidHandler.FluidAction.SIMULATE);
 
         //then if anything was inserted during the simulation, perform the real extraction and insertion
-        if (inserted.getCount() != extractStack.getCount()) {
-            ItemStack remaining = ItemHandlerHelper.insertItemStacked(insertCap, extractStack, false);
-            extractCap.extractItem(extractSlot, extractStack.getCount() - remaining.getCount(), false);
+        if (inserted != extractStack.getAmount()) {
+            var remaining = insertCap.fill(extractStack, IFluidHandler.FluidAction.EXECUTE);
+            extractCap.drain(extractStack.getAmount() - remaining, IFluidHandler.FluidAction.EXECUTE);
         }
     }
 }

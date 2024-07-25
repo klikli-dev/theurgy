@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21-1.32.0] - 2024-07-25
+### :sparkles: New Features
+- [`563fa19`](https://github.com/klikli-dev/theurgy/commit/563fa19606c2926d8c238c13448ffdb12c5ec7a5) - add crop and log sulfurs and niters *(PR [#207](https://github.com/klikli-dev/theurgy/pull/207) by [@klikli-dev](https://github.com/klikli-dev))*
+  - :arrow_lower_right: *addresses issue [#89](https://github.com/klikli-dev/theurgy/issues/89) opened by [@klikli-dev](https://github.com/klikli-dev)*
+
+### :wrench: Chores
+- [`a46b456`](https://github.com/klikli-dev/theurgy/commit/a46b4561b163af0b0dc34f95b9afef88fafc6cc7) - update client extension init to no longer use deprecated methods *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21-1.31.0] - 2024-07-24
 ### :sparkles: New Features
 - [`dfcc134`](https://github.com/klikli-dev/theurgy/commit/dfcc13467c04d6d57ed83849f4dd6d59fb0279e1) - Subnetworks with Frequencies *(PR [#206](https://github.com/klikli-dev/theurgy/pull/206) by [@klikli-dev](https://github.com/klikli-dev))*
@@ -778,3 +787,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21-1.30.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.30.0...release/v1.21-1.30.1
 [release/v1.21-1.30.2]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.30.1...release/v1.21-1.30.2
 [release/v1.21-1.31.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.30.2...release/v1.21-1.31.0
+[release/v1.21-1.32.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.31.0...release/v1.21-1.32.0

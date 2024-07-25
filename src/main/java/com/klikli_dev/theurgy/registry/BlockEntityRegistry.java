@@ -114,4 +114,12 @@ public class BlockEntityRegistry {
             BLOCKS.register(BlockRegistry.LOGISTICS_ITEM_EXTRACTOR.getId().getPath(), () ->
                     BlockEntityType.Builder.of(LogisticsItemExtractorBlockEntity::new, BlockRegistry.LOGISTICS_ITEM_EXTRACTOR.get()).build(null));
 
+    public static final Supplier<BlockEntityType<LogisticsItemInserterBlockEntity>> LOGISTICS_FLUID_INSERTER =
+            BLOCKS.register(BlockRegistry.LOGISTICS_FLUID_INSERTER.getId().getPath(), () ->
+                    BlockEntityType.Builder.of(LogisticsItemInserterBlockEntity::new, BlockRegistry.LOGISTICS_FLUID_INSERTER.get()).build(null));
+
+    public static final Supplier<BlockEntityType<LogisticsItemExtractorBlockEntity>> LOGISTICS_FLUID_EXTRACTOR =
+            BLOCKS.register(BlockRegistry.LOGISTICS_FLUID_EXTRACTOR.getId().getPath(), () ->
+                    BlockEntityType.Builder.of(LogisticsItemExtractorBlockEntity::new, BlockRegistry.LOGISTICS_FLUID_EXTRACTOR.get()).build(null));
+
 }

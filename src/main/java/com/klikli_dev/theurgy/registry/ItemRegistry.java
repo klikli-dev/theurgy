@@ -209,4 +209,10 @@ public class ItemRegistry {
 
     public static final DeferredItem<BlockItem> LOGISTICS_ITEM_EXTRACTOR =
             ITEMS.register(BlockRegistry.LOGISTICS_ITEM_EXTRACTOR.getId().getPath(), () -> new LogisticsItemConnectorBlockItem(BlockRegistry.LOGISTICS_ITEM_EXTRACTOR.get(), new Item.Properties()));
+
+    public static final DeferredItem<BlockItem> LOGISTICS_FLUID_INSERTER =
+            ITEMS.register(BlockRegistry.LOGISTICS_FLUID_INSERTER.getId().getPath(), () -> new LogisticsItemConnectorBlockItem(BlockRegistry.LOGISTICS_FLUID_INSERTER.get(), new Item.Properties()));
+
+    public static final DeferredItem<BlockItem> LOGISTICS_FLUID_EXTRACTOR =
+            ITEMS.register(BlockRegistry.LOGISTICS_FLUID_EXTRACTOR.getId().getPath(), () -> new LogisticsItemConnectorBlockItem(BlockRegistry.LOGISTICS_FLUID_EXTRACTOR.get(), new Item.Properties()));
 }

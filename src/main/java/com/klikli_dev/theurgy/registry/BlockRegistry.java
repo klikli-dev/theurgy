@@ -198,6 +198,22 @@ public class BlockRegistry {
                     )
             );
 
+    public static final DeferredBlock<LogisticsItemInserterBlock> LOGISTICS_FLUID_INSERTER =
+            BLOCKS.register("logistics_fluid_inserter", () -> new LogisticsItemInserterBlock(BlockBehaviour.Properties.of()
+                            .strength(0.1f)
+                            .noOcclusion()
+                            .forceSolidOff()
+                    )
+            );
+
+    public static final DeferredBlock<LogisticsItemExtractorBlock> LOGISTICS_FLUID_EXTRACTOR =
+            BLOCKS.register("logistics_fluid_extractor", () -> new LogisticsItemExtractorBlock(BlockBehaviour.Properties.of()
+                            .strength(0.1f)
+                            .noOcclusion()
+                            .forceSolidOff()
+                    )
+            );
+
     public static final DeferredBlock<Block> SAL_AMMONIAC_ORE =
             BLOCKS.register("sal_ammoniac_ore", () -> new DropExperienceBlock(
                     UniformInt.of(2, 5),

@@ -632,7 +632,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
     private void addSalts() {
         //Salt source names used in automatic name rendering
         this.addDerivativeSource(SaltRegistry.MINERAL, "Minerals");
-        this.addDerivativeSource(SaltRegistry.CROPS, "Crops");
+        this.addDerivativeSource(SaltRegistry.PLANT, "Plants");
         this.addDerivativeSource(SaltRegistry.STRATA, "Strata");
         this.addExtendedTooltip(SaltRegistry.STRATA.get()::asItem,
                 "Salt extracted from the strata, that is, sedimentary rock, soil, clay and so on.");

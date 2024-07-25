@@ -4,7 +4,7 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "c:crops"
+        "tag": "minecraft:saplings"
       }
     }
   ],
@@ -13,13 +13,13 @@
   "ingredient": {
     "count": 1,
     "ingredient": {
-      "tag": "c:crops"
+      "tag": "minecraft:saplings"
     }
   },
   "result": {
     "type": "theurgy:item",
     "count": 1,
-    "id": "theurgy:alchemical_salt_crops"
+    "id": "theurgy:alchemical_salt_plant"
   },
   "time": 100
 }

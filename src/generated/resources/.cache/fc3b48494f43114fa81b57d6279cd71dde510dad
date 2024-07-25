@@ -1,4 +1,4 @@
-// 1.21	2024-07-24T15:14:11.828205	Incubation Recipes
+// 1.21	2024-07-25T10:07:57.4411482	Incubation Recipes
 f3fe522000c36c0b30dd19cba6df36dba0552511 data/theurgy/recipe/incubation/coals_from_alchemical_sulfur_coals.json
 e498dca7ec2a0211f35875187365303a149467da data/theurgy/recipe/incubation/dusts_redstone_from_alchemical_sulfur_redstone.json
 56514eaee58348c92ef738a19e0da67e12ce0de4 data/theurgy/recipe/incubation/gems_amethyst_from_alchemical_sulfur_amethyst.json
@@ -40,4 +40,4 @@ fe0cc0c749521f80b28a53860cc13cf8245ed038 data/theurgy/recipe/incubation/ingots_u
 5f09a613c48130dd7e09d06c6c1e1536d1967d12 data/theurgy/recipe/incubation/ingots_uranium_from_alchemical_sulfur_uranium.json
 3b11e33b798f5286b2bdaed8cbdd0d7373ef8010 data/theurgy/recipe/incubation/ingots_vibranium_from_alchemical_sulfur_vibranium.json
 848bc4a53261b2d87c1b16986512172b6c562fd0 data/theurgy/recipe/incubation/ingots_zinc_from_alchemical_sulfur_zinc.json
-8f97793cfc389e196099658000d75adf3cc1b533 data/theurgy/recipe/incubation/wheat.json
+1544cc4bb2914166a1b6bf0a791b2db406c43374 data/theurgy/recipe/incubation/wheat.json

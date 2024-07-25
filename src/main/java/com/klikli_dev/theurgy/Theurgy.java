@@ -51,6 +51,7 @@ import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.client.renderer.item.ItemProperties;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.ItemStack;
@@ -231,13 +232,13 @@ public class Theurgy {
         public static void onRecipesUpdated(RecipesUpdatedEvent event) {
             //now disable rendering of sulfurs that have no recipe in modonomicon -> otherwise we see "no source" sulfurs in tag recipes
             //See also JeiPlugin.registerRecipes
-            var registryAccess = Minecraft.getInstance().level.registryAccess();
             var liquefactionRecipes = event.getRecipeManager().getAllRecipesFor(RecipeTypeRegistry.LIQUEFACTION.get());
 
+            //noinspection ConstantValue
             SulfurRegistry.SULFURS.getEntries().stream()
                     .map(DeferredHolder::get)
                     .map(AlchemicalSulfurItem.class::cast)
-                    .filter(sulfur -> liquefactionRecipes.stream().noneMatch(r -> r.value().getResultItem(registryAccess) != null && r.value().getResultItem(registryAccess).getItem() == sulfur)).map(ItemStack::new).forEach(PageRendererRegistry::registerItemStackNotToRender);
+                    .filter(sulfur -> liquefactionRecipes.stream().noneMatch(r -> r.value().getResultItem(RegistryAccess.EMPTY) != null && r.value().getResultItem(RegistryAccess.EMPTY).getItem() == sulfur)).map(ItemStack::new).forEach(PageRendererRegistry::registerItemStackNotToRender);
         }
 
         public static void registerTooltipDataProviders(FMLClientSetupEvent event) {

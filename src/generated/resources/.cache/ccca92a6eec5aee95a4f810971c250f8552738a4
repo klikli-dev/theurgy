@@ -1,4 +1,4 @@
-// 1.21	2024-07-24T16:14:02.9520022	Item Models: theurgy
+// 1.21	2024-07-25T10:07:57.4421479	Item Models: theurgy
 e0f7b66a84e6588f01abbbce75b1803ffe5d46e2 assets/theurgy/models/item/alchemical_niter_gems_abundant.json
 e0f7b66a84e6588f01abbbce75b1803ffe5d46e2 assets/theurgy/models/item/alchemical_niter_gems_common.json
 e0f7b66a84e6588f01abbbce75b1803ffe5d46e2 assets/theurgy/models/item/alchemical_niter_gems_precious.json
@@ -13,8 +13,8 @@ e0f7b66a84e6588f01abbbce75b1803ffe5d46e2 assets/theurgy/models/item/alchemical_n
 e0f7b66a84e6588f01abbbce75b1803ffe5d46e2 assets/theurgy/models/item/alchemical_niter_other_minerals_precious.json
 e0f7b66a84e6588f01abbbce75b1803ffe5d46e2 assets/theurgy/models/item/alchemical_niter_other_minerals_rare.json
 a402a05d887ec6d271a9350944338d29e1233318 assets/theurgy/models/item/alchemical_salt.json
-9fd173e362b6644716da98ba0d15809f85879e78 assets/theurgy/models/item/alchemical_salt_crops.json
 9fd173e362b6644716da98ba0d15809f85879e78 assets/theurgy/models/item/alchemical_salt_mineral.json
+9fd173e362b6644716da98ba0d15809f85879e78 assets/theurgy/models/item/alchemical_salt_plant.json
 9fd173e362b6644716da98ba0d15809f85879e78 assets/theurgy/models/item/alchemical_salt_strata.json
 e0f7b66a84e6588f01abbbce75b1803ffe5d46e2 assets/theurgy/models/item/alchemical_sulfur_acacia_log.json
 e0f7b66a84e6588f01abbbce75b1803ffe5d46e2 assets/theurgy/models/item/alchemical_sulfur_allthemodium.json

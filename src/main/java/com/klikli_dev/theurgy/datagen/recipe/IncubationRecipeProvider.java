@@ -32,7 +32,7 @@ public class IncubationRecipeProvider extends JsonRecipeProvider {
 
     @Override
     public void buildRecipes(BiConsumer<ResourceLocation, JsonObject> recipeConsumer) {
-        this.makeRecipe(Items.WHEAT, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.CROPS.get(), SulfurRegistry.WHEAT.get());
+        this.makeRecipe(Items.WHEAT, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.PLANT.get(), SulfurRegistry.WHEAT.get());
 
         //metal ingots from sulfurs
         this.makeRecipe(Tags.Items.INGOTS_IRON, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.IRON.get());

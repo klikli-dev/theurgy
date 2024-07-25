@@ -45,8 +45,11 @@ public class CalcinationRecipeProvider extends JsonRecipeProvider {
         this.makeRecipe("_from_ingots", new Builder(SaltRegistry.MINERAL, 2).sizedIngredient(Tags.Items.INGOTS));
         this.makeRecipe("_from_gems", new Builder(SaltRegistry.MINERAL, 2).sizedIngredient(Tags.Items.GEMS));
         this.makeRecipe("_from_other_minerals", new Builder(SaltRegistry.MINERAL, 2).sizedIngredient(ItemTagRegistry.OTHER_MINERALS));
-        this.makeRecipe("", new Builder(SaltRegistry.MINERAL).sizedIngredient(SaltRegistry.STRATA.get(), 20));
-        this.makeRecipe("", new Builder(SaltRegistry.CROPS).sizedIngredient(Tags.Items.CROPS));
+        this.makeRecipe("_from_strata_salt", new Builder(SaltRegistry.MINERAL).sizedIngredient(SaltRegistry.STRATA.get(), 20));
+        this.makeRecipe("_from_crops", new Builder(SaltRegistry.PLANT).sizedIngredient(Tags.Items.CROPS));
+        this.makeRecipe("_from_logs", new Builder(SaltRegistry.PLANT).sizedIngredient(ItemTags.LOGS));
+        this.makeRecipe("_from_leaves", new Builder(SaltRegistry.PLANT).sizedIngredient(ItemTags.LEAVES));
+        this.makeRecipe("_from_saplings", new Builder(SaltRegistry.PLANT).sizedIngredient(ItemTags.SAPLINGS));
     }
 
 

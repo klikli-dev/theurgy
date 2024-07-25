@@ -195,7 +195,33 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
 //        this.makeNiterToNiterRecipe(NiterRegistry.LOGS_ABUNDANT.get(), 2, NiterRegistry.OTHER_MINERALS_ABUNDANT.get(), 1);
 
         //but the reverse is fine
-        this.makeNiterToNiterRecipe(NiterRegistry.OTHER_MINERALS_ABUNDANT.get(), 1, NiterRegistry.LOGS_ABUNDANT.get(), 2);
+        this.makeNiterToNiterRecipe(NiterRegistry.OTHER_MINERALS_ABUNDANT.get(), 1, NiterRegistry.LOGS_ABUNDANT.get(), 1);
+        this.makeNiterToNiterRecipe(NiterRegistry.METALS_ABUNDANT.get(), 1, NiterRegistry.LOGS_ABUNDANT.get(), 2);
+        this.makeNiterToNiterRecipe(NiterRegistry.GEMS_ABUNDANT.get(), 1, NiterRegistry.LOGS_ABUNDANT.get(), 4);
+    }
+
+    private void crops() {
+        //Add conversion from the niter (representing the whole tier) to the single specific sulfurs
+        //This enables conversion between tiers by way of digestion
+        this.makeNiterToSulfurRecipe(NiterRegistry.CROPS_ABUNDANT.get(), SulfurMappings.cropsAbundant());
+
+        //Also allow direct conversion between specific sulfurs of the same tier
+        var cropsFromCrops = List.of(
+                Pair.of(SulfurMappings.cropsAbundant(), ItemTagRegistry.ALCHEMICAL_SULFURS_CROPS_ABUNDANT)
+        );
+        this.makeXtoXRecipes(cropsFromCrops);
+
+        //Further, allow conversion between types
+        this.makeNiterToNiterRecipe(NiterRegistry.LOGS_ABUNDANT.get(), 2, NiterRegistry.CROPS_ABUNDANT.get(), 1);
+        this.makeNiterToNiterRecipe(NiterRegistry.CROPS_ABUNDANT.get(), 2, NiterRegistry.LOGS_ABUNDANT.get(), 1);
+
+        //crops should not convert to minerals, we have crop->log reformation, and log->coal furnace recipes to enable that
+//        this.makeNiterToNiterRecipe(NiterRegistry.CROPS_ABUNDANT.get(), 2, NiterRegistry.OTHER_MINERALS_ABUNDANT.get(), 1);
+
+        //minerals to crops is fine though
+        this.makeNiterToNiterRecipe(NiterRegistry.OTHER_MINERALS_ABUNDANT.get(), 1, NiterRegistry.CROPS_ABUNDANT.get(), 1);
+        this.makeNiterToNiterRecipe(NiterRegistry.METALS_ABUNDANT.get(), 1, NiterRegistry.CROPS_ABUNDANT.get(), 2);
+        this.makeNiterToNiterRecipe(NiterRegistry.GEMS_ABUNDANT.get(), 1, NiterRegistry.CROPS_ABUNDANT.get(), 4);
     }
 
     @Override
@@ -212,6 +238,7 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
         this.gems();
         this.otherMinerals();
         this.logs();
+        this.crops();
 
         //now flush cache.
         this.recipeCache.forEach(recipeConsumer);

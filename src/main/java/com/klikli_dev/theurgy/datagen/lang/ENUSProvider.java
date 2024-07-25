@@ -9,9 +9,9 @@ import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.content.behaviour.filter.attribute.*;
 import com.klikli_dev.theurgy.content.item.salt.AlchemicalSaltItem;
+import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalDerivativeTier;
 import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalNiterItem;
 import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurItem;
-import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalDerivativeTier;
 import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurType;
 import com.klikli_dev.theurgy.registry.*;
 import net.minecraft.ChatFormatting;
@@ -182,6 +182,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_COMMON, "Alchemical Sulfurs: Common Other Minerals");
         this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_LOGS, "Alchemical Sulfurs: Logs");
         this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_LOGS_ABUNDANT, "Alchemical Sulfurs: Abundant Logs");
+        this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_CROPS, "Alchemical Sulfurs: Crops");
+        this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_CROPS_ABUNDANT, "Alchemical Sulfurs: Abundant Crops");
 
         this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_PRECIOUS, "Alchemical Sulfurs: Precious");
         this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_RARE, "Alchemical Sulfurs: Rare");
@@ -206,14 +208,14 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.addFluidTag(FluidTagRegistry.SAL_AMMONIAC, "Sal Ammoniac");
         this.addFluidTag(FluidTagRegistry.SOLVENT, "Solvent");
 
-        this.add("emi.category.theurgy.calcination","Calcination");
-        this.add("emi.category.theurgy.accumulation","Accumulation");
-        this.add("emi.category.theurgy.digestion","Digestion");
-        this.add("emi.category.theurgy.distillation","Distillation");
-        this.add("emi.category.theurgy.fermentation","Fermentation");
-        this.add("emi.category.theurgy.incubation","Incubation");
-        this.add("emi.category.theurgy.liquefaction","Liquefaction");
-        this.add("emi.category.theurgy.reformation","Reformation");
+        this.add("emi.category.theurgy.calcination", "Calcination");
+        this.add("emi.category.theurgy.accumulation", "Accumulation");
+        this.add("emi.category.theurgy.digestion", "Digestion");
+        this.add("emi.category.theurgy.distillation", "Distillation");
+        this.add("emi.category.theurgy.fermentation", "Fermentation");
+        this.add("emi.category.theurgy.incubation", "Incubation");
+        this.add("emi.category.theurgy.liquefaction", "Liquefaction");
+        this.add("emi.category.theurgy.reformation", "Reformation");
 
         this.add(TheurgyConstants.I18n.Gui.SMELTING_TIME_SECONDS, "%ss");
     }
@@ -515,6 +517,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.addDerivativeSource(NiterRegistry.OTHER_MINERALS_PRECIOUS, "Precious Other Minerals");
 
         this.addDerivativeSource(NiterRegistry.LOGS_ABUNDANT, "Abundant Logs");
+        this.addDerivativeSource(NiterRegistry.CROPS_ABUNDANT, "Abundant Crops");
 
         //Sources for Sulfurs with {@link AlchemicalDerivativeItem#useCustomSourceName}
         this.addDerivativeSource(SulfurRegistry.OAK_LOG, "Oak");
@@ -580,6 +583,99 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.addDerivativeSource(SulfurRegistry.GRONGLE_LOG, "Grongle");
         this.addDerivativeSource(SulfurRegistry.RUBBERWOOD_LOG, "Rubberwood");
         this.addDerivativeSource(SulfurRegistry.OTHERWORLD_LOG, "Otherworld");
+
+        //Add source names for crop sulfurs:
+        this.addDerivativeSource(SulfurRegistry.BEETROOT, "Beetroot");
+        this.addDerivativeSource(SulfurRegistry.CARROT, "Carrot");
+        this.addDerivativeSource(SulfurRegistry.POTATO, "Potato");
+        this.addDerivativeSource(SulfurRegistry.WHEAT, "Wheat");
+        this.addDerivativeSource(SulfurRegistry.APPLE, "Apple");
+        this.addDerivativeSource(SulfurRegistry.COCOA, "Cocoa");
+        this.addDerivativeSource(SulfurRegistry.NETHER_WART, "Nether Wart");
+        this.addDerivativeSource(SulfurRegistry.ARTICHOKE, "Artichoke");
+        this.addDerivativeSource(SulfurRegistry.ASPARAGUS, "Asparagus");
+        this.addDerivativeSource(SulfurRegistry.BARLEY, "Barley");
+        this.addDerivativeSource(SulfurRegistry.BASIL, "Basil");
+        this.addDerivativeSource(SulfurRegistry.BELLPEPPER, "Bell Pepper");
+        this.addDerivativeSource(SulfurRegistry.BLACKBEAN, "Black Bean");
+        this.addDerivativeSource(SulfurRegistry.BLACKBERRY, "Blackberry");
+        this.addDerivativeSource(SulfurRegistry.BLUEBERRY, "Blueberry");
+        this.addDerivativeSource(SulfurRegistry.BROCCOLI, "Broccoli");
+        this.addDerivativeSource(SulfurRegistry.CABBAGE, "Cabbage");
+        this.addDerivativeSource(SulfurRegistry.CANTALOUPE, "Cantaloupe");
+        this.addDerivativeSource(SulfurRegistry.CAULIFLOWER, "Cauliflower");
+        this.addDerivativeSource(SulfurRegistry.CELERY, "Celery");
+        this.addDerivativeSource(SulfurRegistry.CHILE_PEPPER, "Chile Pepper");
+        this.addDerivativeSource(SulfurRegistry.COFFEE_BEANS, "Coffee Beans");
+        this.addDerivativeSource(SulfurRegistry.CORN, "Corn");
+        this.addDerivativeSource(SulfurRegistry.CRANBERRY, "Cranberry");
+        this.addDerivativeSource(SulfurRegistry.CUCUMBER, "Cucumber");
+        this.addDerivativeSource(SulfurRegistry.CURRANT, "Currant");
+        this.addDerivativeSource(SulfurRegistry.EGGPLANT, "Eggplant");
+        this.addDerivativeSource(SulfurRegistry.ELDERBERRY, "Elderberry");
+        this.addDerivativeSource(SulfurRegistry.GARLIC, "Garlic");
+        this.addDerivativeSource(SulfurRegistry.GINGER, "Ginger");
+        this.addDerivativeSource(SulfurRegistry.GRAPE, "Grape");
+        this.addDerivativeSource(SulfurRegistry.GREENBEAN, "Green Bean");
+        this.addDerivativeSource(SulfurRegistry.GREENONION, "Green Onion");
+        this.addDerivativeSource(SulfurRegistry.HONEYDEW, "Honeydew");
+        this.addDerivativeSource(SulfurRegistry.HOPS, "Hops");
+        this.addDerivativeSource(SulfurRegistry.KALE, "Kale");
+        this.addDerivativeSource(SulfurRegistry.KIWI, "Kiwi");
+        this.addDerivativeSource(SulfurRegistry.LEEK, "Leek");
+        this.addDerivativeSource(SulfurRegistry.LETTUCE, "Lettuce");
+        this.addDerivativeSource(SulfurRegistry.MUSTARD, "Mustard");
+        this.addDerivativeSource(SulfurRegistry.OAT, "Oat");
+        this.addDerivativeSource(SulfurRegistry.OLIVE, "Olive");
+        this.addDerivativeSource(SulfurRegistry.ONION, "Onion");
+        this.addDerivativeSource(SulfurRegistry.PEANUT, "Peanut");
+        this.addDerivativeSource(SulfurRegistry.PEPPER, "Pepper");
+        this.addDerivativeSource(SulfurRegistry.PINEAPPLE, "Pineapple");
+        this.addDerivativeSource(SulfurRegistry.RADISH, "Radish");
+        this.addDerivativeSource(SulfurRegistry.RASPBERRY, "Raspberry");
+        this.addDerivativeSource(SulfurRegistry.RHUBARB, "Rhubarb");
+        this.addDerivativeSource(SulfurRegistry.RICE, "Rice");
+        this.addDerivativeSource(SulfurRegistry.RUTABAGA, "Rutabaga");
+        this.addDerivativeSource(SulfurRegistry.SAGUARO, "Saguaro");
+        this.addDerivativeSource(SulfurRegistry.SOYBEAN, "Soybean");
+        this.addDerivativeSource(SulfurRegistry.SPINACH, "Spinach");
+        this.addDerivativeSource(SulfurRegistry.SQUASH, "Squash");
+        this.addDerivativeSource(SulfurRegistry.STRAWBERRY, "Strawberry");
+        this.addDerivativeSource(SulfurRegistry.SWEETPOTATO, "Sweet Potato");
+        this.addDerivativeSource(SulfurRegistry.TEA_LEAVES, "Tea Leaves");
+        this.addDerivativeSource(SulfurRegistry.TOMATILLO, "Tomatillo");
+        this.addDerivativeSource(SulfurRegistry.TOMATO, "Tomato");
+        this.addDerivativeSource(SulfurRegistry.TURMERIC, "Turmeric");
+        this.addDerivativeSource(SulfurRegistry.TURNIP, "Turnip");
+        this.addDerivativeSource(SulfurRegistry.VANILLA, "Vanilla");
+        this.addDerivativeSource(SulfurRegistry.YAM, "Yam");
+        this.addDerivativeSource(SulfurRegistry.ZUCCHINI, "Zucchini");
+        this.addDerivativeSource(SulfurRegistry.FLAX, "Flax");
+        this.addDerivativeSource(SulfurRegistry.JUNIPERBERRY, "Juniperberry");
+        this.addDerivativeSource(SulfurRegistry.ALMOND, "Almond");
+        this.addDerivativeSource(SulfurRegistry.APRICOT, "Apricot");
+        this.addDerivativeSource(SulfurRegistry.AVOCADO, "Avocado");
+        this.addDerivativeSource(SulfurRegistry.BANANA, "Banana");
+        this.addDerivativeSource(SulfurRegistry.CASHEW, "Cashew");
+        this.addDerivativeSource(SulfurRegistry.CHERRY, "Cherry");
+        this.addDerivativeSource(SulfurRegistry.COCONUT, "Coconut");
+        this.addDerivativeSource(SulfurRegistry.DATE, "Date");
+        this.addDerivativeSource(SulfurRegistry.DRAGONFRUIT, "Dragonfruit");
+        this.addDerivativeSource(SulfurRegistry.FIG, "Fig");
+        this.addDerivativeSource(SulfurRegistry.GRAPEFRUIT, "Grapefruit");
+        this.addDerivativeSource(SulfurRegistry.KUMQUAT, "Kumquat");
+        this.addDerivativeSource(SulfurRegistry.LEMON, "Lemon");
+        this.addDerivativeSource(SulfurRegistry.LIME, "Lime");
+        this.addDerivativeSource(SulfurRegistry.MANDARIN, "Mandarin");
+        this.addDerivativeSource(SulfurRegistry.MANGO, "Mango");
+        this.addDerivativeSource(SulfurRegistry.NECTARINE, "Nectarine");
+        this.addDerivativeSource(SulfurRegistry.NUTMEG, "Nutmeg");
+        this.addDerivativeSource(SulfurRegistry.ORANGE, "Orange");
+        this.addDerivativeSource(SulfurRegistry.PEACH, "Peach");
+        this.addDerivativeSource(SulfurRegistry.PEAR, "Pear");
+        this.addDerivativeSource(SulfurRegistry.PECAN, "Pecan");
+        this.addDerivativeSource(SulfurRegistry.PERSIMMON, "Persimmon");
+        this.addDerivativeSource(SulfurRegistry.PLUM, "Plum");
 
         //Common Metals
         this.addDerivativeSource(SulfurRegistry.IRON, "Iron");
@@ -966,7 +1062,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.addConfig("misc", "Misc Settings");
     }
 
-    private void addConfig(String key, String name){
+    private void addConfig(String key, String name) {
         this.add(Theurgy.MODID + ".configuration." + key, name);
     }
 

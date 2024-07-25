@@ -37,6 +37,7 @@ public class NiterRegistry {
     public static final DeferredItem<AlchemicalNiterItem> OTHER_MINERALS_PRECIOUS = register("other_minerals_precious", ItemRegistry.OTHER_MINERALS_PRECIOUS_ICON, AlchemicalDerivativeTier.PRECIOUS);
 
     public static final DeferredItem<AlchemicalNiterItem> LOGS_ABUNDANT = register("logs_abundant", Items.OAK_LOG, AlchemicalDerivativeTier.ABUNDANT);
+    public static final DeferredItem<AlchemicalNiterItem> CROPS_ABUNDANT = register("crops_abundant", Items.WHEAT, AlchemicalDerivativeTier.ABUNDANT);
 
     public static DeferredItem<AlchemicalNiterItem> register(String name, TagKey<Item> source, AlchemicalDerivativeTier tier) {
         return register(name, () -> new AlchemicalNiterItem(new Item.Properties().component(

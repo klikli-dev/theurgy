@@ -1,0 +1,19 @@
+{
+  "type": "theurgy:liquefaction",
+  "category": "misc",
+  "ingredient": {
+    "item": "minecraft:nether_wart"
+  },
+  "result": {
+    "type": "theurgy:item",
+    "count": 1,
+    "id": "theurgy:alchemical_sulfur_nether_wart"
+  },
+  "solvent": {
+    "amount": 10,
+    "ingredient": {
+      "fluid": "theurgy:sal_ammoniac"
+    }
+  },
+  "time": 100
+}

@@ -1,4 +1,6 @@
-// 1.21	2024-07-25T10:20:39.5134385	Fermentation Recipes
+// 1.21	2024-07-25T11:49:24.3698387	Fermentation Recipes
+426b32804da7a7a2463a97659cd65dd980a088be data/theurgy/recipe/fermentation/alchemical_niter_crops_abundant_using_crops.json
+cf30a3b6880534abba2eb88017d1e5935a16fedf data/theurgy/recipe/fermentation/alchemical_niter_crops_abundant_using_sugars.json
 055d2bb0afc06a9639207f49c65fcd8b7372adf8 data/theurgy/recipe/fermentation/alchemical_niter_gems_abundant_using_crops.json
 400883779195ba41adc6bce64cc375ff590bc3c7 data/theurgy/recipe/fermentation/alchemical_niter_gems_abundant_using_sugars.json
 c7a6063ee88142f86ad3a0db2e79223c08615cc7 data/theurgy/recipe/fermentation/alchemical_niter_gems_common_using_crops.json

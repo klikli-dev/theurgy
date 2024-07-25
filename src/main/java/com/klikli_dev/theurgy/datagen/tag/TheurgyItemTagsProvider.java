@@ -84,6 +84,9 @@ public class TheurgyItemTagsProvider extends ItemTagsProvider {
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_LOGS)
                 .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_LOGS_ABUNDANT);
 
+        this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_CROPS)
+                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_CROPS_ABUNDANT);
+
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_ABUNDANT);
         SulfurMappings.metalsAbundant().forEach(sulfur -> {
             this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_ABUNDANT).add(sulfur);
@@ -149,11 +152,17 @@ public class TheurgyItemTagsProvider extends ItemTagsProvider {
             this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_LOGS_ABUNDANT).add(sulfur);
         });
 
+        this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_CROPS_ABUNDANT);
+        SulfurMappings.cropsAbundant().forEach(sulfur -> {
+            this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_CROPS_ABUNDANT).add(sulfur);
+        });
+
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_ABUNDANT)
                 .addTag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_ABUNDANT)
                 .addTag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_ABUNDANT)
                 .addTag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_ABUNDANT)
                 .addTag(ItemTagRegistry.ALCHEMICAL_SULFURS_LOGS_ABUNDANT)
+                .addTag(ItemTagRegistry.ALCHEMICAL_SULFURS_CROPS_ABUNDANT)
         ;
 
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_COMMON)

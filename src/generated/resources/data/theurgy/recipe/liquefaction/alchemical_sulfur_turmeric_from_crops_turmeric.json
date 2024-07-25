@@ -1,0 +1,28 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:crops/turmeric"
+      }
+    }
+  ],
+  "type": "theurgy:liquefaction",
+  "category": "misc",
+  "ingredient": {
+    "tag": "c:crops/turmeric"
+  },
+  "result": {
+    "type": "theurgy:item",
+    "count": 1,
+    "id": "theurgy:alchemical_sulfur_turmeric"
+  },
+  "solvent": {
+    "amount": 10,
+    "ingredient": {
+      "fluid": "theurgy:sal_ammoniac"
+    }
+  },
+  "time": 100
+}

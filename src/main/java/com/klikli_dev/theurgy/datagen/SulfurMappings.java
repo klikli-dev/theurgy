@@ -29,6 +29,7 @@ public class SulfurMappings {
     private static List<AlchemicalSulfurItem> OTHER_MINERALS_PRECIOUS;
 
     private static List<AlchemicalSulfurItem> LOGS_ABUNDANT;
+    private static List<AlchemicalSulfurItem> CROPS_ABUNDANT;
 
     public static List<AlchemicalSulfurItem> gemsAbundant() {
         if (GEMS_ABUNDANT != null) {
@@ -157,6 +158,16 @@ public class SulfurMappings {
         LOGS_ABUNDANT = find(AlchemicalSulfurType.LOGS, AlchemicalDerivativeTier.ABUNDANT);
 
         return LOGS_ABUNDANT;
+    }
+
+    public static List<AlchemicalSulfurItem> cropsAbundant() {
+        if (CROPS_ABUNDANT != null) {
+            return CROPS_ABUNDANT;
+        }
+
+        CROPS_ABUNDANT = find(AlchemicalSulfurType.CROPS, AlchemicalDerivativeTier.ABUNDANT);
+
+        return CROPS_ABUNDANT;
     }
 
     private static List<AlchemicalSulfurItem> find(AlchemicalSulfurType type, AlchemicalDerivativeTier tier) {

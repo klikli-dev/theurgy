@@ -16,12 +16,12 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.level.block.AbstractFurnaceBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.items.IItemHandler;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -98,14 +98,14 @@ public abstract class LogisticsItemConnectorBlockEntity extends BlockEntity impl
     }
 
     @Override
-    public void loadAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
+    public void loadAdditional(@NotNull CompoundTag pTag, HolderLookup.@NotNull Provider pRegistries) {
         super.loadAdditional(pTag, pRegistries);
         this.leafNode().loadAdditional(pTag, pRegistries);
         this.filter().loadAdditional(pTag, pRegistries);
     }
 
     @Override
-    protected void saveAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
+    protected void saveAdditional(@NotNull CompoundTag pTag, HolderLookup.@NotNull Provider pRegistries) {
         super.saveAdditional(pTag, pRegistries);
         this.leafNode().saveAdditional(pTag, pRegistries);
         this.filter().saveAdditional(pTag, pRegistries);
@@ -118,7 +118,7 @@ public abstract class LogisticsItemConnectorBlockEntity extends BlockEntity impl
 
     protected void updateBlockStateToMatchFilter() {
         var isEmpty = !this.getBlockState().getValue(LogisticsItemConnectorBlock.HAS_FILTER);
-        if(this.filter().filter().isEmpty() != isEmpty){
+        if (this.filter().filter().isEmpty() != isEmpty) {
             var newState = this.getBlockState().setValue(LogisticsItemConnectorBlock.HAS_FILTER, !this.filter().filter().isEmpty());
             this.level.setBlock(this.getBlockPos(), newState, Block.UPDATE_ALL);
         }

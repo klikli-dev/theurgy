@@ -133,7 +133,7 @@ public class LogisticsItemExtractorBehaviour extends ExtractorNodeBehaviour<IIte
         if (insertTarget == null)
             return;
 
-        var extractTarget = this.extractTargets.get(0); //we only support one target
+        var extractTarget = this.extractTargets.getFirst(); //we only support one target
         if (extractTarget == null)
             return;
 

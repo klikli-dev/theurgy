@@ -14,6 +14,7 @@ import net.minecraft.nbt.Tag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
+import net.neoforged.neoforge.fluids.FluidStack;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -85,6 +86,12 @@ public class AttributeFilter extends Filter {
                 return false;
         }
 
+        return false;
+    }
+
+    @Override
+    public boolean test(Level level, FluidStack stack, boolean matchDataComponents) {
+        //Does not support fluids currently
         return false;
     }
 

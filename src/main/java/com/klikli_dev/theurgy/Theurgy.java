@@ -292,7 +292,7 @@ public class Theurgy {
         }
 
         public static void onRegisterClientExtensions(RegisterClientExtensionsEvent event) {
-            var sulfurExtension = new IClientItemExtensions() {
+            var alchemicalDerivativeItemExtension = new IClientItemExtensions() {
                 @Override
                 public @NotNull BlockEntityWithoutLevelRenderer getCustomRenderer() {
                     return AlchemicalDerivativeBEWLR.get();
@@ -300,8 +300,13 @@ public class Theurgy {
             };
 
             SulfurRegistry.SULFURS.getEntries().forEach(sulfur -> {
-                event.registerItem(sulfurExtension, sulfur.get());
+                event.registerItem(alchemicalDerivativeItemExtension, sulfur.get());
             });
+
+            NiterRegistry.NITERS.getEntries().forEach(niter -> {
+                event.registerItem(alchemicalDerivativeItemExtension, niter.get());
+            });
+
 
             event.registerItem(new IClientItemExtensions() {
                 @Override

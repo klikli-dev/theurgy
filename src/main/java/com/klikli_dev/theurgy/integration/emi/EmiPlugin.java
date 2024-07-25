@@ -4,12 +4,25 @@
 
 package com.klikli_dev.theurgy.integration.emi;
 
+import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurItem;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
+import com.klikli_dev.theurgy.registry.SulfurRegistry;
 import dev.emi.emi.api.EmiEntrypoint;
+import dev.emi.emi.api.EmiInitRegistry;
 import dev.emi.emi.api.EmiRegistry;
 import dev.emi.emi.api.recipe.EmiRecipeCategory;
 import dev.emi.emi.api.stack.EmiStack;
+import mezz.jei.api.constants.VanillaTypes;
+import net.minecraft.client.Minecraft;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeManager;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.fml.loading.FMLEnvironment;
+import net.neoforged.neoforge.registries.DeferredHolder;
+
+import java.util.stream.Collectors;
 
 @EmiEntrypoint
 public class EmiPlugin implements dev.emi.emi.api.EmiPlugin {
@@ -86,6 +99,34 @@ public class EmiPlugin implements dev.emi.emi.api.EmiPlugin {
         registry.addWorkstation(REFORMATION_CATEGORY, REFORMATION_ICON);
         for (var recipe : registry.getRecipeManager().getAllRecipesFor(RecipeTypeRegistry.REFORMATION.get())) {
             registry.addRecipe(new ReformationEmiRecipe(recipe));
+        }
+    }
+
+    @Override
+    public void initialize(EmiInitRegistry registry) {
+        var recipeManager = getRecipeManager();
+
+        //now remove sulfurs that have no recipe -> otherwise we see "no source" sulfurs in tag recipes
+        //See also Theurgy.Client#onRecipesUpdated
+        var liquefactionRecipes = recipeManager.getAllRecipesFor(RecipeTypeRegistry.LIQUEFACTION.get());
+        var sulfursWithoutRecipe = SulfurRegistry.SULFURS.getEntries().stream()
+                .map(DeferredHolder::get)
+                .map(AlchemicalSulfurItem.class::cast)
+                .filter(sulfur -> liquefactionRecipes.stream().noneMatch(r -> r.value().getResultItem(RegistryAccess.EMPTY) != null && r.value().getResultItem(RegistryAccess.EMPTY).getItem() == sulfur)).map(EmiStack::of).toList();
+
+        sulfursWithoutRecipe.forEach(registry::disableStack);
+    }
+
+    public static RecipeManager getRecipeManager(){
+        if (FMLEnvironment.dist == Dist.CLIENT) {
+            return DistHelper.getRecipeManager();
+        }
+        return null;
+    }
+
+    public static class DistHelper{
+        public static RecipeManager getRecipeManager(){
+            return Minecraft.getInstance().level.getRecipeManager();
         }
     }
 }

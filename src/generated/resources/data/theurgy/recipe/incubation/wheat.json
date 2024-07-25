@@ -10,7 +10,7 @@
     "id": "minecraft:wheat"
   },
   "salt": {
-    "item": "theurgy:alchemical_salt_crops"
+    "item": "theurgy:alchemical_salt_plant"
   },
   "sulfur": {
     "item": "theurgy:alchemical_sulfur_wheat"

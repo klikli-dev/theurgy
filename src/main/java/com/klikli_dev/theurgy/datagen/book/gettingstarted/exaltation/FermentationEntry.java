@@ -11,6 +11,7 @@ import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.klikli_dev.theurgy.datagen.book.GettingStartedCategoryProvider;
+import com.klikli_dev.theurgy.registry.NiterRegistry;
 import com.klikli_dev.theurgy.registry.SulfurRegistry;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -35,12 +36,12 @@ public class FermentationEntry extends EntryProvider {
                         \\
                         We do not need a target niter, because we will create the Rare Metals Niter using Digestion and will use Reformation only for the creation of Gold Sulfur.
                         """,
-                this.itemLink("Alchemical Niter: Common Metals", SulfurRegistry.METALS_COMMON.get())
+                this.itemLink("Alchemical Niter: Common Metals", NiterRegistry.METALS_COMMON.get())
         );
 
 
         this.page("metals", () -> BookSpotlightPageModel.create()
-                .withItem(Ingredient.of(SulfurRegistry.METALS_COMMON.get()))
+                .withItem(Ingredient.of(NiterRegistry.METALS_COMMON.get()))
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
         );
@@ -69,7 +70,7 @@ public class FermentationEntry extends EntryProvider {
 
     @Override
     protected BookIconModel entryIcon() {
-        return BookIconModel.create(SulfurRegistry.METALS_COMMON.get());
+        return BookIconModel.create(NiterRegistry.METALS_COMMON.get());
     }
 
     @Override

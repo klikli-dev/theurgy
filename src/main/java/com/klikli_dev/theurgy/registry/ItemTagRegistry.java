@@ -9,7 +9,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
-import net.neoforged.neoforge.common.Tags;
 
 public class ItemTagRegistry {
 
@@ -34,6 +33,12 @@ public class ItemTagRegistry {
     public static final TagKey<Item> ALCHEMICAL_SULFURS_OTHER_MINERALS_COMMON = tag("alchemical_sulfurs/other_minerals/common");
     public static final TagKey<Item> ALCHEMICAL_SULFURS_OTHER_MINERALS_RARE = tag("alchemical_sulfurs/other_minerals/rare");
     public static final TagKey<Item> ALCHEMICAL_SULFURS_OTHER_MINERALS_PRECIOUS = tag("alchemical_sulfurs/other_minerals/precious");
+
+    public static final TagKey<Item> ALCHEMICAL_SULFURS_LOGS = tag("alchemical_sulfurs/logs");
+    public static final TagKey<Item> ALCHEMICAL_SULFURS_LOGS_ABUNDANT = tag("alchemical_sulfurs/logs/abundant");
+
+    public static final TagKey<Item> ALCHEMICAL_SULFURS_CROPS = tag("alchemical_sulfurs/crops");
+    public static final TagKey<Item> ALCHEMICAL_SULFURS_CROPS_ABUNDANT = tag("alchemical_sulfurs/crops/abundant");
 
     public static final TagKey<Item> ALCHEMICAL_SULFURS_ABUNDANT = tag("alchemical_sulfurs/abundant");
     public static final TagKey<Item> ALCHEMICAL_SULFURS_COMMON = tag("alchemical_sulfurs/common");
@@ -67,6 +72,152 @@ public class ItemTagRegistry {
     public static final TagKey<Item> ORES_SAL_AMMONIAC = cTag("ores/sal_ammoniac");
 
     //Common tags for other mods start here:
+
+    //Common Crops
+    public static final TagKey<Item> CROPS_ARTICHOKE = cTag("crops/artichoke");
+    public static final TagKey<Item> CROPS_ASPARAGUS = cTag("crops/asparagus");
+    public static final TagKey<Item> CROPS_BARLEY = cTag("crops/barley");
+    public static final TagKey<Item> CROPS_BASIL = cTag("crops/basil");
+    public static final TagKey<Item> CROPS_BELLPEPPER = cTag("crops/bellpepper");
+    public static final TagKey<Item> CROPS_BLACKBEAN = cTag("crops/blackbean");
+    public static final TagKey<Item> CROPS_BLACKBERRY = cTag("crops/blackberry");
+    public static final TagKey<Item> CROPS_BLUEBERRY = cTag("crops/blueberry");
+    public static final TagKey<Item> CROPS_BROCCOLI = cTag("crops/broccoli");
+    public static final TagKey<Item> CROPS_CABBAGE = cTag("crops/cabbage");
+    public static final TagKey<Item> CROPS_CANTALOUPE = cTag("crops/cantaloupe");
+    public static final TagKey<Item> CROPS_CAULIFLOWER = cTag("crops/cauliflower");
+    public static final TagKey<Item> CROPS_CELERY = cTag("crops/celery");
+    public static final TagKey<Item> CROPS_CHILE_PEPPER = cTag("crops/chile_pepper");
+    public static final TagKey<Item> CROPS_COFFEE_BEANS = cTag("crops/coffee_beans");
+    public static final TagKey<Item> CROPS_CORN = cTag("crops/corn");
+    public static final TagKey<Item> CROPS_CRANBERRY = cTag("crops/cranberry");
+    public static final TagKey<Item> CROPS_CUCUMBER = cTag("crops/cucumber");
+    public static final TagKey<Item> CROPS_CURRANT = cTag("crops/currant");
+    public static final TagKey<Item> CROPS_EGGPLANT = cTag("crops/eggplant");
+    public static final TagKey<Item> CROPS_ELDERBERRY = cTag("crops/elderberry");
+    public static final TagKey<Item> CROPS_GARLIC = cTag("crops/garlic");
+    public static final TagKey<Item> CROPS_GINGER = cTag("crops/ginger");
+    public static final TagKey<Item> CROPS_GRAPE = cTag("crops/grape");
+    public static final TagKey<Item> CROPS_GREENBEAN = cTag("crops/greenbean");
+    public static final TagKey<Item> CROPS_GREENONION = cTag("crops/greenonion");
+    public static final TagKey<Item> CROPS_HONEYDEW = cTag("crops/honeydew");
+    public static final TagKey<Item> CROPS_HOPS = cTag("crops/hops");
+    public static final TagKey<Item> CROPS_KALE = cTag("crops/kale");
+    public static final TagKey<Item> CROPS_KIWI = cTag("crops/kiwi");
+    public static final TagKey<Item> CROPS_LEEK = cTag("crops/leek");
+    public static final TagKey<Item> CROPS_LETTUCE = cTag("crops/lettuce");
+    public static final TagKey<Item> CROPS_MUSTARD = cTag("crops/mustard");
+    public static final TagKey<Item> CROPS_OAT = cTag("crops/oat");
+    public static final TagKey<Item> CROPS_OLIVE = cTag("crops/olive");
+    public static final TagKey<Item> CROPS_ONION = cTag("crops/onion");
+    public static final TagKey<Item> CROPS_PEANUT = cTag("crops/peanut");
+    public static final TagKey<Item> CROPS_PEPPER = cTag("crops/pepper");
+    public static final TagKey<Item> CROPS_PINEAPPLE = cTag("crops/pineapple");
+    public static final TagKey<Item> CROPS_RADISH = cTag("crops/radish");
+    public static final TagKey<Item> CROPS_RASPBERRY = cTag("crops/raspberry");
+    public static final TagKey<Item> CROPS_RHUBARB = cTag("crops/rhubarb");
+    public static final TagKey<Item> CROPS_RICE = cTag("crops/rice");
+    public static final TagKey<Item> CROPS_RUTABAGA = cTag("crops/rutabaga");
+    public static final TagKey<Item> CROPS_SAGUARO = cTag("crops/saguaro");
+    public static final TagKey<Item> CROPS_SOYBEAN = cTag("crops/soybean");
+    public static final TagKey<Item> CROPS_SPINACH = cTag("crops/spinach");
+    public static final TagKey<Item> CROPS_SQUASH = cTag("crops/squash");
+    public static final TagKey<Item> CROPS_STRAWBERRY = cTag("crops/strawberry");
+    public static final TagKey<Item> CROPS_SWEETPOTATO = cTag("crops/sweetpotato");
+    public static final TagKey<Item> CROPS_TEA_LEAVES = cTag("crops/tea_leaves");
+    public static final TagKey<Item> CROPS_TOMATILLO = cTag("crops/tomatillo");
+    public static final TagKey<Item> CROPS_TOMATO = cTag("crops/tomato");
+    public static final TagKey<Item> CROPS_TURMERIC = cTag("crops/turmeric");
+    public static final TagKey<Item> CROPS_TURNIP = cTag("crops/turnip");
+    public static final TagKey<Item> CROPS_VANILLA = cTag("crops/vanilla");
+    public static final TagKey<Item> CROPS_YAM = cTag("crops/yam");
+    public static final TagKey<Item> CROPS_ZUCCHINI = cTag("crops/zucchini");
+    public static final TagKey<Item> CROPS_FLAX = cTag("crops/flax");
+    public static final TagKey<Item> CROPS_JUNIPERBERRY = cTag("crops/juniper");
+    public static final TagKey<Item> CROPS_ALMOND = cTag("crops/almond");
+    public static final TagKey<Item> CROPS_APPLE = cTag("crops/apple");
+    public static final TagKey<Item> CROPS_APRICOT = cTag("crops/apricot");
+    public static final TagKey<Item> CROPS_AVOCADO = cTag("crops/avocado");
+    public static final TagKey<Item> CROPS_BANANA = cTag("crops/banana");
+    public static final TagKey<Item> CROPS_CASHEW = cTag("crops/cashew");
+    public static final TagKey<Item> CROPS_CHERRY = cTag("crops/cherry");
+    public static final TagKey<Item> CROPS_COCONUT = cTag("crops/coconut");
+    public static final TagKey<Item> CROPS_DATE = cTag("crops/date");
+    public static final TagKey<Item> CROPS_DRAGONFRUIT = cTag("crops/dragonfruit");
+    public static final TagKey<Item> CROPS_FIG = cTag("crops/fig");
+    public static final TagKey<Item> CROPS_GRAPEFRUIT = cTag("crops/grapefruit");
+    public static final TagKey<Item> CROPS_KUMQUAT = cTag("crops/kumquat");
+    public static final TagKey<Item> CROPS_LEMON = cTag("crops/lemon");
+    public static final TagKey<Item> CROPS_LIME = cTag("crops/lime");
+    public static final TagKey<Item> CROPS_MANDARIN = cTag("crops/mandarin");
+    public static final TagKey<Item> CROPS_MANGO = cTag("crops/mango");
+    public static final TagKey<Item> CROPS_NECTARINE = cTag("crops/nectarine");
+    public static final TagKey<Item> CROPS_NUTMEG = cTag("crops/nutmeg");
+    public static final TagKey<Item> CROPS_ORANGE = cTag("crops/orange");
+    public static final TagKey<Item> CROPS_PEACH = cTag("crops/peach");
+    public static final TagKey<Item> CROPS_PEAR = cTag("crops/pear");
+    public static final TagKey<Item> CROPS_PECAN = cTag("crops/pecan");
+    public static final TagKey<Item> CROPS_PERSIMMON = cTag("crops/persimmon");
+    public static final TagKey<Item> CROPS_PLUM = cTag("crops/plum");
+    public static final TagKey<Item> CROPS_POMELO = cTag("crops/pomelo");
+    public static final TagKey<Item> CROPS_STARFRUIT = cTag("crops/starfruit");
+    public static final TagKey<Item> CROPS_WALNUT = cTag("crops/walnut");
+
+    //Common Logs
+    public static final TagKey<Item> LOGS_ROWAN = cTag("logs/rowan");
+    public static final TagKey<Item> LOGS_FIR = cTag("logs/fir");
+    public static final TagKey<Item> LOGS_REDWOOD = cTag("logs/redwood");
+    public static final TagKey<Item> LOGS_MAHOGANY = cTag("logs/mahogany");
+    public static final TagKey<Item> LOGS_JACARANDA = cTag("logs/jacaranda");
+    public static final TagKey<Item> LOGS_PALM = cTag("logs/palm");
+    public static final TagKey<Item> LOGS_WILLOW = cTag("logs/willow");
+    public static final TagKey<Item> LOGS_DEAD = cTag("logs/dead"); //biomes o plenty
+    public static final TagKey<Item> LOGS_MAGIC = cTag("logs/magic"); //biomes o plenty
+    public static final TagKey<Item> LOGS_UMBRAN = cTag("logs/umbran");
+    public static final TagKey<Item> LOGS_HELLBARK = cTag("logs/hellbark");
+    public static final TagKey<Item> LOGS_CINNAMON = cTag("logs/cinnamon");
+    public static final TagKey<Item> LOGS_GLACIAN = cTag("logs/glacian");
+    public static final TagKey<Item> LOGS_ARCHWOOD = cTag("logs/archwood");
+    public static final TagKey<Item> LOGS_BLUEBRIGHT = cTag("logs/bluebright");
+    public static final TagKey<Item> LOGS_STARLIT = cTag("logs/starlit");
+    public static final TagKey<Item> LOGS_FROSTBRIGHT = cTag("logs/frostbright");
+    public static final TagKey<Item> LOGS_COMET = cTag("logs/comet");
+    public static final TagKey<Item> LOGS_LUNAR = cTag("logs/lunar");
+    public static final TagKey<Item> LOGS_DUSK = cTag("logs/dusk");
+    public static final TagKey<Item> LOGS_MAPLE = cTag("logs/maple");
+    public static final TagKey<Item> LOGS_CRYSTALLIZED = cTag("logs/crystallized");
+    public static final TagKey<Item> LOGS_LIVINGWOOD = cTag("logs/livingwood");
+    public static final TagKey<Item> LOGS_GLIMMERING_LIVINGWOOD = cTag("logs/glimmering_livingwood");
+    public static final TagKey<Item> LOGS_DREAMWOOD = cTag("logs/dreamwood");
+    public static final TagKey<Item> LOGS_DREAMWOOD_GLIMMERING = cTag("logs/glimmering_dreamwood");
+    public static final TagKey<Item> LOGS_WALNUT = cTag("logs/walnut");
+    public static final TagKey<Item> LOGS_FIG = cTag("logs/fig");
+    public static final TagKey<Item> LOGS_WOLFBERRY = cTag("logs/wolfberry");
+    public static final TagKey<Item> LOGS_ECHO = cTag("logs/echo");
+    public static final TagKey<Item> LOGS_ILLWOOD = cTag("logs/illwood");
+    public static final TagKey<Item> LOGS_UNDEAD = cTag("logs/undead");
+    public static final TagKey<Item> LOGS_AURUM = cTag("logs/aurum");
+    public static final TagKey<Item> LOGS_MENRIL = cTag("logs/menril");
+    //productive trees are skipped as the mod provides the means to create all its trees
+    public static final TagKey<Item> LOGS_ASHEN = cTag("logs/ashen");
+    public static final TagKey<Item> LOGS_AZALEA = cTag("logs/azalea");
+    public static final TagKey<Item> LOGS_TRUMPET = cTag("logs/trumpet");
+    public static final TagKey<Item> LOGS_NETHERWOOD = cTag("logs/netherwood");
+    public static final TagKey<Item> LOGS_SKYROOT = cTag("logs/skyroot");
+    public static final TagKey<Item> LOGS_GOLDEN_OAK = cTag("logs/golden_oak");
+    public static final TagKey<Item> LOGS_TWILIGHT_OAK = cTag("logs/twilight_oak");
+    public static final TagKey<Item> LOGS_CANOPY_TREE = cTag("logs/canopy_tree");
+    public static final TagKey<Item> LOGS_DARKWOOD = cTag("logs/darkwood");
+    public static final TagKey<Item> LOGS_TIMEWOOD = cTag("logs/timewood");
+    public static final TagKey<Item> LOGS_TRANSWOOD = cTag("logs/transwood");
+    public static final TagKey<Item> LOGS_SORTINGWOOD = cTag("logs/sortingwood");
+    public static final TagKey<Item> LOGS_MINEWOOD = cTag("logs/minewood");
+    public static final TagKey<Item> LOGS_SMOGSTEM = cTag("logs/smogstem");
+    public static final TagKey<Item> LOGS_WIGGLEWOOD = cTag("logs/wigglewood");
+    public static final TagKey<Item> LOGS_GRONGLE = cTag("logs/grongle");
+    public static final TagKey<Item> LOGS_RUBBERWOOD = cTag("logs/rubberwood");
+    public static final TagKey<Item> LOGS_OTHERWORLD = cTag("logs/otherworld");
+
 
     //Common Metal Ores
     public static final TagKey<Item> ORES_URANIUM = cTag("ores/uranium");

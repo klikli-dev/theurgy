@@ -5,43 +5,38 @@
 package com.klikli_dev.theurgy.datagen;
 
 import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurItem;
-import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurTier;
+import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalDerivativeTier;
 import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurType;
 import com.klikli_dev.theurgy.registry.SulfurRegistry;
+import net.neoforged.neoforge.registries.DeferredHolder;
 
 import java.util.List;
 
 public class SulfurMappings {
     private static List<AlchemicalSulfurItem> GEMS_ABUNDANT;
-
     private static List<AlchemicalSulfurItem> GEMS_COMMON;
-
     private static List<AlchemicalSulfurItem> GEMS_RARE;
-
     private static List<AlchemicalSulfurItem> GEMS_PRECIOUS;
 
     private static List<AlchemicalSulfurItem> METALS_ABUNDANT;
-
-
     private static List<AlchemicalSulfurItem> METALS_COMMON;
-
-
     private static List<AlchemicalSulfurItem> METALS_RARE;
-
     private static List<AlchemicalSulfurItem> METALS_PRECIOUS;
 
     private static List<AlchemicalSulfurItem> OTHER_MINERALS_ABUNDANT;
     private static List<AlchemicalSulfurItem> OTHER_MINERALS_COMMON;
-
     private static List<AlchemicalSulfurItem> OTHER_MINERALS_RARE;
     private static List<AlchemicalSulfurItem> OTHER_MINERALS_PRECIOUS;
+
+    private static List<AlchemicalSulfurItem> LOGS_ABUNDANT;
+    private static List<AlchemicalSulfurItem> CROPS_ABUNDANT;
 
     public static List<AlchemicalSulfurItem> gemsAbundant() {
         if (GEMS_ABUNDANT != null) {
             return GEMS_ABUNDANT;
         }
 
-        GEMS_ABUNDANT = find(AlchemicalSulfurType.GEMS, AlchemicalSulfurTier.ABUNDANT);
+        GEMS_ABUNDANT = find(AlchemicalSulfurType.GEMS, AlchemicalDerivativeTier.ABUNDANT);
 
         return GEMS_ABUNDANT;
     }
@@ -51,7 +46,7 @@ public class SulfurMappings {
             return GEMS_COMMON;
         }
 
-        GEMS_COMMON = find(AlchemicalSulfurType.GEMS, AlchemicalSulfurTier.COMMON);
+        GEMS_COMMON = find(AlchemicalSulfurType.GEMS, AlchemicalDerivativeTier.COMMON);
 
         return GEMS_COMMON;
     }
@@ -61,7 +56,7 @@ public class SulfurMappings {
             return GEMS_RARE;
         }
 
-        GEMS_RARE = find(AlchemicalSulfurType.GEMS, AlchemicalSulfurTier.RARE);
+        GEMS_RARE = find(AlchemicalSulfurType.GEMS, AlchemicalDerivativeTier.RARE);
 
         return GEMS_RARE;
     }
@@ -71,7 +66,7 @@ public class SulfurMappings {
             return GEMS_PRECIOUS;
         }
 
-        GEMS_PRECIOUS = find(AlchemicalSulfurType.GEMS, AlchemicalSulfurTier.PRECIOUS);
+        GEMS_PRECIOUS = find(AlchemicalSulfurType.GEMS, AlchemicalDerivativeTier.PRECIOUS);
 
         return GEMS_PRECIOUS;
     }
@@ -81,7 +76,7 @@ public class SulfurMappings {
             return METALS_ABUNDANT;
         }
 
-        METALS_ABUNDANT = find(AlchemicalSulfurType.METALS, AlchemicalSulfurTier.ABUNDANT);
+        METALS_ABUNDANT = find(AlchemicalSulfurType.METALS, AlchemicalDerivativeTier.ABUNDANT);
         return METALS_ABUNDANT;
     }
 
@@ -90,7 +85,7 @@ public class SulfurMappings {
             return METALS_COMMON;
         }
 
-        METALS_COMMON = find(AlchemicalSulfurType.METALS, AlchemicalSulfurTier.COMMON);
+        METALS_COMMON = find(AlchemicalSulfurType.METALS, AlchemicalDerivativeTier.COMMON);
 
         return METALS_COMMON;
     }
@@ -100,7 +95,7 @@ public class SulfurMappings {
             return METALS_RARE;
         }
 
-        METALS_RARE = find(AlchemicalSulfurType.METALS, AlchemicalSulfurTier.RARE);
+        METALS_RARE = find(AlchemicalSulfurType.METALS, AlchemicalDerivativeTier.RARE);
 
         return METALS_RARE;
     }
@@ -110,7 +105,7 @@ public class SulfurMappings {
             return METALS_PRECIOUS;
         }
 
-        METALS_PRECIOUS = find(AlchemicalSulfurType.METALS, AlchemicalSulfurTier.PRECIOUS);
+        METALS_PRECIOUS = find(AlchemicalSulfurType.METALS, AlchemicalDerivativeTier.PRECIOUS);
 
         return METALS_PRECIOUS;
     }
@@ -120,7 +115,7 @@ public class SulfurMappings {
             return OTHER_MINERALS_ABUNDANT;
         }
 
-        OTHER_MINERALS_ABUNDANT = find(AlchemicalSulfurType.OTHER_MINERALS, AlchemicalSulfurTier.ABUNDANT);
+        OTHER_MINERALS_ABUNDANT = find(AlchemicalSulfurType.OTHER_MINERALS, AlchemicalDerivativeTier.ABUNDANT);
 
         return OTHER_MINERALS_ABUNDANT;
     }
@@ -130,7 +125,7 @@ public class SulfurMappings {
             return OTHER_MINERALS_COMMON;
         }
 
-        OTHER_MINERALS_COMMON = find(AlchemicalSulfurType.OTHER_MINERALS, AlchemicalSulfurTier.COMMON);
+        OTHER_MINERALS_COMMON = find(AlchemicalSulfurType.OTHER_MINERALS, AlchemicalDerivativeTier.COMMON);
 
         return OTHER_MINERALS_COMMON;
     }
@@ -140,7 +135,7 @@ public class SulfurMappings {
             return OTHER_MINERALS_RARE;
         }
 
-        OTHER_MINERALS_RARE = find(AlchemicalSulfurType.OTHER_MINERALS, AlchemicalSulfurTier.RARE);
+        OTHER_MINERALS_RARE = find(AlchemicalSulfurType.OTHER_MINERALS, AlchemicalDerivativeTier.RARE);
 
         return OTHER_MINERALS_RARE;
     }
@@ -150,14 +145,34 @@ public class SulfurMappings {
             return OTHER_MINERALS_PRECIOUS;
         }
 
-        OTHER_MINERALS_PRECIOUS = find(AlchemicalSulfurType.OTHER_MINERALS, AlchemicalSulfurTier.PRECIOUS);
+        OTHER_MINERALS_PRECIOUS = find(AlchemicalSulfurType.OTHER_MINERALS, AlchemicalDerivativeTier.PRECIOUS);
 
         return OTHER_MINERALS_PRECIOUS;
     }
 
-    private static List<AlchemicalSulfurItem> find(AlchemicalSulfurType type, AlchemicalSulfurTier tier) {
+    public static List<AlchemicalSulfurItem> logsAbundant() {
+        if (LOGS_ABUNDANT != null) {
+            return LOGS_ABUNDANT;
+        }
+
+        LOGS_ABUNDANT = find(AlchemicalSulfurType.LOGS, AlchemicalDerivativeTier.ABUNDANT);
+
+        return LOGS_ABUNDANT;
+    }
+
+    public static List<AlchemicalSulfurItem> cropsAbundant() {
+        if (CROPS_ABUNDANT != null) {
+            return CROPS_ABUNDANT;
+        }
+
+        CROPS_ABUNDANT = find(AlchemicalSulfurType.CROPS, AlchemicalDerivativeTier.ABUNDANT);
+
+        return CROPS_ABUNDANT;
+    }
+
+    private static List<AlchemicalSulfurItem> find(AlchemicalSulfurType type, AlchemicalDerivativeTier tier) {
         return SulfurRegistry.SULFURS.getEntries().stream()
-                .map(entry -> entry.get())
+                .map(DeferredHolder::get)
                 .filter(entry -> entry instanceof AlchemicalSulfurItem)
                 .map(entry -> (AlchemicalSulfurItem) entry)
                 .filter(entry -> entry.type() == type)

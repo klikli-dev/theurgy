@@ -1,0 +1,19 @@
+{
+  "type": "theurgy:liquefaction",
+  "category": "misc",
+  "ingredient": {
+    "item": "minecraft:dark_oak_log"
+  },
+  "result": {
+    "type": "theurgy:item",
+    "count": 1,
+    "id": "theurgy:alchemical_sulfur_dark_oak_log"
+  },
+  "solvent": {
+    "amount": 10,
+    "ingredient": {
+      "fluid": "theurgy:sal_ammoniac"
+    }
+  },
+  "time": 100
+}

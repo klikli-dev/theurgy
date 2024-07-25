@@ -1,0 +1,36 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:crops/apricot"
+      }
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:crops/apricot"
+      }
+    }
+  ],
+  "type": "theurgy:reformation",
+  "category": "misc",
+  "mercuryFlux": 50,
+  "result": {
+    "type": "theurgy:item",
+    "count": 1,
+    "id": "theurgy:alchemical_sulfur_apricot"
+  },
+  "sources": [
+    {
+      "count": 1,
+      "item": "theurgy:alchemical_niter_crops_abundant"
+    }
+  ],
+  "target": {
+    "item": "theurgy:alchemical_sulfur_apricot"
+  },
+  "time": 100
+}

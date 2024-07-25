@@ -1,0 +1,28 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "minecraft:coals"
+      }
+    }
+  ],
+  "type": "theurgy:incubation",
+  "category": "misc",
+  "mercury": {
+    "item": "theurgy:mercury_shard"
+  },
+  "result": {
+    "type": "theurgy:tag",
+    "count": 1,
+    "tag": "minecraft:coals"
+  },
+  "salt": {
+    "item": "theurgy:alchemical_salt_mineral"
+  },
+  "sulfur": {
+    "item": "theurgy:alchemical_sulfur_coals"
+  },
+  "time": 100
+}

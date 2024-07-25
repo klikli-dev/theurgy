@@ -74,13 +74,11 @@ public class JeiPlugin implements IModPlugin {
         var accumulationRecipes = recipeManager.getAllRecipesFor(RecipeTypeRegistry.ACCUMULATION.get());
         registration.addRecipes(JeiRecipeTypes.ACCUMULATION, accumulationRecipes);
 
-        //TODO: Test if this works -> sulfur registry onBuildCreativeModTabs changed!
         //now remove sulfurs that have no recipe -> otherwise we see "no source" sulfurs in tag recipes
         //See also Theurgy.Client#onRecipesUpdated
         var sulfursWithoutRecipe = SulfurRegistry.SULFURS.getEntries().stream()
                 .map(DeferredHolder::get)
                 .map(AlchemicalSulfurItem.class::cast)
-                .filter(sulfur -> !SulfurRegistry.keepInItemLists(sulfur))
                 .filter(sulfur -> liquefactionRecipes.stream().noneMatch(r -> r.value().getResultItem(level.registryAccess()) != null && r.value().getResultItem(level.registryAccess()).getItem() == sulfur)).map(ItemStack::new).toList();
         registration.getIngredientManager().removeIngredientsAtRuntime(VanillaTypes.ITEM_STACK, sulfursWithoutRecipe);
 

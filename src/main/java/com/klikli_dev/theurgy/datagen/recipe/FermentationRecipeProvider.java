@@ -8,12 +8,10 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.content.recipe.FermentationRecipe;
-import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.registry.ItemTagRegistry;
+import com.klikli_dev.theurgy.registry.NiterRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
-import com.klikli_dev.theurgy.registry.SulfurRegistry;
 import com.mojang.serialization.JsonOps;
-import net.minecraft.core.Holder;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -49,62 +47,75 @@ public class FermentationRecipeProvider extends JsonRecipeProvider {
         this.makeRecipe(Fluids.WATER, 125, List.of(
                 ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_ABUNDANT,
                 cropTag
-        ), SulfurRegistry.GEMS_ABUNDANT.get(), 1, TIME, "_using_" + this.name(cropTag));
+        ), NiterRegistry.GEMS_ABUNDANT.get(), 1, TIME, "_using_" + this.name(cropTag));
 
         this.makeRecipe(Fluids.WATER, 250, List.of(
                 ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_COMMON,
                 cropTag
-        ), SulfurRegistry.GEMS_COMMON.get(), 1, TIME, "_using_" + this.name(cropTag));
+        ), NiterRegistry.GEMS_COMMON.get(), 1, TIME, "_using_" + this.name(cropTag));
 
         this.makeRecipe(Fluids.WATER, 500, List.of(
                 ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_RARE,
                 cropTag
-        ), SulfurRegistry.GEMS_RARE.get(), 1, TIME, "_using_" + this.name(cropTag));
+        ), NiterRegistry.GEMS_RARE.get(), 1, TIME, "_using_" + this.name(cropTag));
 
         this.makeRecipe(Fluids.WATER, 1000, List.of(
                 ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_PRECIOUS,
                 cropTag
-        ), SulfurRegistry.GEMS_PRECIOUS.get(), 1, TIME, "_using_" + this.name(cropTag));
+        ), NiterRegistry.GEMS_PRECIOUS.get(), 1, TIME, "_using_" + this.name(cropTag));
 
         this.makeRecipe(Fluids.WATER, 125, List.of(
                 ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_ABUNDANT,
                 cropTag
-        ), SulfurRegistry.METALS_ABUNDANT.get(), 1, TIME, "_using_" + this.name(cropTag));
+        ), NiterRegistry.METALS_ABUNDANT.get(), 1, TIME, "_using_" + this.name(cropTag));
 
         this.makeRecipe(Fluids.WATER, 250, List.of(
                 ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_COMMON,
                 cropTag
-        ), SulfurRegistry.METALS_COMMON.get(), 1, TIME, "_using_" + this.name(cropTag));
+        ), NiterRegistry.METALS_COMMON.get(), 1, TIME, "_using_" + this.name(cropTag));
 
         this.makeRecipe(Fluids.WATER, 500, List.of(
                 ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_RARE,
                 cropTag
-        ), SulfurRegistry.METALS_RARE.get(), 1, TIME, "_using_" + this.name(cropTag));
+        ), NiterRegistry.METALS_RARE.get(), 1, TIME, "_using_" + this.name(cropTag));
 
         this.makeRecipe(Fluids.WATER, 1000, List.of(
                 ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_PRECIOUS,
                 cropTag
-        ), SulfurRegistry.METALS_PRECIOUS.get(), 1, TIME, "_using_" + this.name(cropTag));
+        ), NiterRegistry.METALS_PRECIOUS.get(), 1, TIME, "_using_" + this.name(cropTag));
 
         this.makeRecipe(Fluids.WATER, 125, List.of(
                 ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_ABUNDANT,
                 cropTag
-        ), SulfurRegistry.OTHER_MINERALS_ABUNDANT.get(), 1, TIME, "_using_" + this.name(cropTag));
+        ), NiterRegistry.OTHER_MINERALS_ABUNDANT.get(), 1, TIME, "_using_" + this.name(cropTag));
 
         this.makeRecipe(Fluids.WATER, 250, List.of(
                 ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_COMMON,
                 cropTag
-        ), SulfurRegistry.OTHER_MINERALS_COMMON.get(), 1, TIME, "_using_" + this.name(cropTag));
+        ), NiterRegistry.OTHER_MINERALS_COMMON.get(), 1, TIME, "_using_" + this.name(cropTag));
 
         this.makeRecipe(Fluids.WATER, 500, List.of(
                 ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_RARE,
                 cropTag
-        ), SulfurRegistry.OTHER_MINERALS_RARE.get(), 1, TIME, "_using_" + this.name(cropTag));
+        ), NiterRegistry.OTHER_MINERALS_RARE.get(), 1, TIME, "_using_" + this.name(cropTag));
 
         this.makeRecipe(Fluids.WATER, 1000, List.of(
                 ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_PRECIOUS,
                 cropTag
-        ), SulfurRegistry.OTHER_MINERALS_PRECIOUS.get(), 1, TIME, "_using_" + this.name(cropTag));
+        ), NiterRegistry.OTHER_MINERALS_PRECIOUS.get(), 1, TIME, "_using_" + this.name(cropTag));
+
+
+        this.makeRecipe("_using_" + this.name(cropTag), new Builder(NiterRegistry.LOGS_ABUNDANT)
+                .fluid(Fluids.WATER, 125)
+                .ingredients(ItemTagRegistry.ALCHEMICAL_SULFURS_LOGS_ABUNDANT)
+                        .ingredients(cropTag)
+                .time(TIME));
+
+        this.makeRecipe("_using_" + this.name(cropTag), new Builder(NiterRegistry.CROPS_ABUNDANT)
+                .fluid(Fluids.WATER, 125)
+                .ingredients(ItemTagRegistry.ALCHEMICAL_SULFURS_CROPS_ABUNDANT)
+                .ingredients(cropTag)
+                .time(TIME));
     }
 
     public void makeRecipe(Fluid fluid, int fluidAmount, List<TagKey<Item>> ingredients, Item result, int resultCount, int time) {
@@ -126,16 +137,31 @@ public class FermentationRecipeProvider extends JsonRecipeProvider {
         this.recipeConsumer.accept(this.modLoc(name), recipe.build());
     }
 
+    protected void makeRecipe(String suffix, Builder recipe) {
+        this.recipeConsumer.accept(this.modLoc(this.name(recipe.result()) + suffix), recipe.build());
+    }
+
     @Override
     public @NotNull String getName() {
         return "Fermentation Recipes";
     }
 
     protected static class Builder extends RecipeBuilder<Builder> {
+        private final ItemStack result;
+
+        protected Builder(ItemLike result) {
+            this(new ItemStack(result, 1));
+        }
+
         protected Builder(ItemStack result) {
             super(RecipeTypeRegistry.FERMENTATION);
             this.result(result);
+            this.result = result;
             this.time(TIME);
+        }
+
+        public ItemStack result() {
+            return this.result;
         }
 
         public Builder fluid(TagKey<Fluid> tag, int amount) {

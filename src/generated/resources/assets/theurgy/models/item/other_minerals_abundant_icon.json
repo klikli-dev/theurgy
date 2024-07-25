@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "theurgy:item/sulfurs/other_minerals_abundant"
+    "layer0": "theurgy:item/niters/other_minerals_abundant"
   }
 }

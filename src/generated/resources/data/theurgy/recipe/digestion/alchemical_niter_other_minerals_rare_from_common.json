@@ -1,0 +1,30 @@
+{
+  "type": "theurgy:digestion",
+  "category": "misc",
+  "fluid": {
+    "amount": 15,
+    "ingredient": {
+      "fluid": "theurgy:sal_ammoniac"
+    }
+  },
+  "ingredients": [
+    {
+      "count": 4,
+      "ingredient": {
+        "item": "theurgy:alchemical_niter_other_minerals_common"
+      }
+    },
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "theurgy:purified_gold"
+      }
+    }
+  ],
+  "result": {
+    "type": "theurgy:item",
+    "count": 1,
+    "id": "theurgy:alchemical_niter_other_minerals_rare"
+  },
+  "time": 1000
+}

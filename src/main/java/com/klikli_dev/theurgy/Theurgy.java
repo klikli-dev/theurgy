@@ -27,8 +27,9 @@ import com.klikli_dev.theurgy.content.item.divinationrod.DivinationRodItem;
 import com.klikli_dev.theurgy.content.item.filter.AttributeFilterScreen;
 import com.klikli_dev.theurgy.content.item.filter.ListFilterScreen;
 import com.klikli_dev.theurgy.content.item.salt.AlchemicalSaltItem;
+import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalDerivativeItem;
 import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurItem;
-import com.klikli_dev.theurgy.content.item.sulfur.render.AlchemicalSulfurBEWLR;
+import com.klikli_dev.theurgy.content.item.sulfur.render.AlchemicalDerivativeBEWLR;
 import com.klikli_dev.theurgy.content.render.*;
 import com.klikli_dev.theurgy.content.render.itemhud.ItemHUD;
 import com.klikli_dev.theurgy.content.render.outliner.Outliner;
@@ -50,6 +51,7 @@ import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.client.renderer.item.ItemProperties;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.ItemStack;
@@ -95,6 +97,7 @@ public class Theurgy {
         ItemRegistry.ITEMS.register(modEventBus);
         CreativeModeTabRegistry.CREATIVE_MODE_TABS.register(modEventBus);
         SulfurRegistry.SULFURS.register(modEventBus);
+        NiterRegistry.NITERS.register(modEventBus);
         SaltRegistry.SALTS.register(modEventBus);
         BlockRegistry.BLOCKS.register(modEventBus);
         BlockEntityRegistry.BLOCKS.register(modEventBus);
@@ -119,6 +122,7 @@ public class Theurgy {
 
         modEventBus.addListener(TheurgyRegistries::onRegisterRegistries);
         modEventBus.addListener(SulfurRegistry::onBuildCreativeModTabs);
+        modEventBus.addListener(NiterRegistry::onBuildCreativeModTabs);
         modEventBus.addListener(SaltRegistry::onBuildCreativeModTabs);
         modEventBus.addListener(CapabilityRegistry::onRegisterCapabilities);
 
@@ -228,22 +232,27 @@ public class Theurgy {
         public static void onRecipesUpdated(RecipesUpdatedEvent event) {
             //now disable rendering of sulfurs that have no recipe in modonomicon -> otherwise we see "no source" sulfurs in tag recipes
             //See also JeiPlugin.registerRecipes
-            var registryAccess = Minecraft.getInstance().level.registryAccess();
             var liquefactionRecipes = event.getRecipeManager().getAllRecipesFor(RecipeTypeRegistry.LIQUEFACTION.get());
 
+            //noinspection ConstantValue
             SulfurRegistry.SULFURS.getEntries().stream()
                     .map(DeferredHolder::get)
                     .map(AlchemicalSulfurItem.class::cast)
-                    .filter(sulfur -> !SulfurRegistry.keepInItemLists(sulfur))
-                    .filter(sulfur -> liquefactionRecipes.stream().noneMatch(r -> r.value().getResultItem(registryAccess) != null && r.value().getResultItem(registryAccess).getItem() == sulfur)).map(ItemStack::new).forEach(PageRendererRegistry::registerItemStackNotToRender);
+                    .filter(sulfur -> liquefactionRecipes.stream().noneMatch(r -> r.value().getResultItem(RegistryAccess.EMPTY) != null && r.value().getResultItem(RegistryAccess.EMPTY).getItem() == sulfur)).map(ItemStack::new).forEach(PageRendererRegistry::registerItemStackNotToRender);
         }
 
         public static void registerTooltipDataProviders(FMLClientSetupEvent event) {
             TooltipHandler.registerNamespaceToListenTo(MODID);
 
-            SulfurRegistry.SULFURS.getEntries().stream().map(DeferredHolder::get).map(AlchemicalSulfurItem.class::cast).forEach(sulfur -> {
-                if (sulfur.provideAutomaticTooltipData) {
-                    TooltipHandler.registerTooltipDataProvider(sulfur, AlchemicalSulfurItem::getTooltipData);
+            SulfurRegistry.SULFURS.getEntries().stream().map(DeferredHolder::get).map(AlchemicalDerivativeItem.class::cast).forEach(derivative -> {
+                if (derivative.provideAutomaticTooltipData) {
+                    TooltipHandler.registerTooltipDataProvider(derivative, derivative::getTooltipData);
+                }
+            });
+
+            NiterRegistry.NITERS.getEntries().stream().map(DeferredHolder::get).map(AlchemicalDerivativeItem.class::cast).forEach(derivative -> {
+                if (derivative.provideAutomaticTooltipData) {
+                    TooltipHandler.registerTooltipDataProvider(derivative, derivative::getTooltipData);
                 }
             });
 
@@ -284,16 +293,21 @@ public class Theurgy {
         }
 
         public static void onRegisterClientExtensions(RegisterClientExtensionsEvent event) {
-            var sulfurExtension = new IClientItemExtensions() {
+            var alchemicalDerivativeItemExtension = new IClientItemExtensions() {
                 @Override
                 public @NotNull BlockEntityWithoutLevelRenderer getCustomRenderer() {
-                    return AlchemicalSulfurBEWLR.get();
+                    return AlchemicalDerivativeBEWLR.get();
                 }
             };
 
             SulfurRegistry.SULFURS.getEntries().forEach(sulfur -> {
-                event.registerItem(sulfurExtension, sulfur.get());
+                event.registerItem(alchemicalDerivativeItemExtension, sulfur.get());
             });
+
+            NiterRegistry.NITERS.getEntries().forEach(niter -> {
+                event.registerItem(alchemicalDerivativeItemExtension, niter.get());
+            });
+
 
             event.registerItem(new IClientItemExtensions() {
                 @Override

@@ -1,0 +1,28 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:crops/pear"
+      }
+    }
+  ],
+  "type": "theurgy:incubation",
+  "category": "misc",
+  "mercury": {
+    "item": "theurgy:mercury_shard"
+  },
+  "result": {
+    "type": "theurgy:tag",
+    "count": 1,
+    "tag": "c:crops/pear"
+  },
+  "salt": {
+    "item": "theurgy:alchemical_salt_plant"
+  },
+  "sulfur": {
+    "item": "theurgy:alchemical_sulfur_pear"
+  },
+  "time": 100
+}

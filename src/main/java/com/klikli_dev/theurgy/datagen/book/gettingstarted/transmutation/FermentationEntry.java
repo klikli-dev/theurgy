@@ -11,6 +11,7 @@ import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
+import com.klikli_dev.theurgy.registry.NiterRegistry;
 import com.klikli_dev.theurgy.registry.SulfurRegistry;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.world.item.Items;
@@ -33,12 +34,12 @@ public class FermentationEntry extends EntryProvider {
         this.pageText("""
                         We need two different Niters: some {0} as source that we want to convert and at least one {1} as conversion target.
                         """,
-                this.itemLink("Alchemical Niter: Common Gems", SulfurRegistry.GEMS_COMMON.get()),
-                this.itemLink("Alchemical Niter: Common Metals", SulfurRegistry.METALS_COMMON.get())
+                this.itemLink("Alchemical Niter: Common Gems", NiterRegistry.GEMS_COMMON.get()),
+                this.itemLink("Alchemical Niter: Common Metals", NiterRegistry.METALS_COMMON.get())
         );
 
         this.page("gems", () -> BookSpotlightPageModel.create()
-                .withItem(Ingredient.of(SulfurRegistry.GEMS_COMMON.get()))
+                .withItem(Ingredient.of(NiterRegistry.GEMS_COMMON.get()))
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
         );
@@ -58,7 +59,7 @@ public class FermentationEntry extends EntryProvider {
         );
 
         this.page("metals", () -> BookSpotlightPageModel.create()
-                .withItem(Ingredient.of(SulfurRegistry.METALS_COMMON.get()))
+                .withItem(Ingredient.of(NiterRegistry.METALS_COMMON.get()))
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
         );
@@ -92,7 +93,7 @@ public class FermentationEntry extends EntryProvider {
                         [#]($INPUT)Right-click[#]() with an empty hand to retrieve the {1}.
                         """,
                 this.itemLink(ItemRegistry.FERMENTATION_VAT.get()),
-                this.itemLink("Alchemical Niter: Common Gems", SulfurRegistry.GEMS_COMMON.get())
+                this.itemLink("Alchemical Niter: Common Gems", NiterRegistry.GEMS_COMMON.get())
         );
 
 
@@ -138,7 +139,7 @@ public class FermentationEntry extends EntryProvider {
 
     @Override
     protected BookIconModel entryIcon() {
-        return BookIconModel.create(SulfurRegistry.GEMS_COMMON.get());
+        return BookIconModel.create(NiterRegistry.GEMS_COMMON.get());
     }
 
     @Override

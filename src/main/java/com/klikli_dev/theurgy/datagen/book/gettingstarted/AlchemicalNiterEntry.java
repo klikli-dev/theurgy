@@ -11,6 +11,7 @@ import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
+import com.klikli_dev.theurgy.registry.NiterRegistry;
 import com.klikli_dev.theurgy.registry.SulfurRegistry;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -52,7 +53,7 @@ public class AlchemicalNiterEntry extends EntryProvider {
         );
 
         this.page("niter", () -> BookSpotlightPageModel.create()
-                .withItem(Ingredient.of(SulfurRegistry.METALS_COMMON.get()))
+                .withItem(Ingredient.of(NiterRegistry.METALS_COMMON.get()))
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
         );

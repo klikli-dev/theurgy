@@ -6,8 +6,10 @@ package com.klikli_dev.theurgy.datagen.model;
 
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.TheurgyConstants;
+import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalNiterItem;
 import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurItem;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
+import com.klikli_dev.theurgy.registry.NiterRegistry;
 import com.klikli_dev.theurgy.registry.SaltRegistry;
 import com.klikli_dev.theurgy.registry.SulfurRegistry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -124,27 +126,37 @@ public class TheurgyItemModelProvider extends net.neoforged.neoforge.client.mode
 
     protected void registerSulfurs() {
         //alchemical sulfur models
-
         SulfurRegistry.SULFURS.getEntries().stream().map(DeferredHolder::get).map(AlchemicalSulfurItem.class::cast).forEach(sulfur -> {
             if (sulfur.useAutomaticIconRendering) {
                 this.registerItemBuiltinEntity(this.name(sulfur));
             }
         });
+    }
 
-        this.registerItemGenerated(this.name(ItemRegistry.GEMS_ABUNDANT_ICON.get()), "sulfurs/gems_abundant");
-        this.registerItemGenerated(this.name(ItemRegistry.GEMS_COMMON_ICON.get()), "sulfurs/gems_common");
-        this.registerItemGenerated(this.name(ItemRegistry.GEMS_RARE_ICON.get()), "sulfurs/gems_rare");
-        this.registerItemGenerated(this.name(ItemRegistry.GEMS_PRECIOUS_ICON.get()), "sulfurs/gems_precious");
+    protected void registerNiters() {
+        //alchemical niter models
 
-        this.registerItemGenerated(this.name(ItemRegistry.METALS_ABUNDANT_ICON.get()), "sulfurs/metals_abundant");
-        this.registerItemGenerated(this.name(ItemRegistry.METALS_COMMON_ICON.get()), "sulfurs/metals_common");
-        this.registerItemGenerated(this.name(ItemRegistry.METALS_RARE_ICON.get()), "sulfurs/metals_rare");
-        this.registerItemGenerated(this.name(ItemRegistry.METALS_PRECIOUS_ICON.get()), "sulfurs/metals_precious");
+        NiterRegistry.NITERS.getEntries().stream().map(DeferredHolder::get).map(AlchemicalNiterItem.class::cast).forEach(niter -> {
+            if (niter.useAutomaticIconRendering) {
+                this.registerItemBuiltinEntity(this.name(niter));
+            }
+        });
 
-        this.registerItemGenerated(this.name(ItemRegistry.OTHER_MINERALS_ABUNDANT_ICON.get()), "sulfurs/other_minerals_abundant");
-        this.registerItemGenerated(this.name(ItemRegistry.OTHER_MINERALS_COMMON_ICON.get()), "sulfurs/other_minerals_common");
-        this.registerItemGenerated(this.name(ItemRegistry.OTHER_MINERALS_RARE_ICON.get()), "sulfurs/other_minerals_rare");
-        this.registerItemGenerated(this.name(ItemRegistry.OTHER_MINERALS_PRECIOUS_ICON.get()), "sulfurs/other_minerals_precious");
+        //register the source icons for those niters that don't use an actual item as source icon
+        this.registerItemGenerated(this.name(ItemRegistry.GEMS_ABUNDANT_ICON.get()), "niters/gems_abundant");
+        this.registerItemGenerated(this.name(ItemRegistry.GEMS_COMMON_ICON.get()), "niters/gems_common");
+        this.registerItemGenerated(this.name(ItemRegistry.GEMS_RARE_ICON.get()), "niters/gems_rare");
+        this.registerItemGenerated(this.name(ItemRegistry.GEMS_PRECIOUS_ICON.get()), "niters/gems_precious");
+
+        this.registerItemGenerated(this.name(ItemRegistry.METALS_ABUNDANT_ICON.get()), "niters/metals_abundant");
+        this.registerItemGenerated(this.name(ItemRegistry.METALS_COMMON_ICON.get()), "niters/metals_common");
+        this.registerItemGenerated(this.name(ItemRegistry.METALS_RARE_ICON.get()), "niters/metals_rare");
+        this.registerItemGenerated(this.name(ItemRegistry.METALS_PRECIOUS_ICON.get()), "niters/metals_precious");
+
+        this.registerItemGenerated(this.name(ItemRegistry.OTHER_MINERALS_ABUNDANT_ICON.get()), "niters/other_minerals_abundant");
+        this.registerItemGenerated(this.name(ItemRegistry.OTHER_MINERALS_COMMON_ICON.get()), "niters/other_minerals_common");
+        this.registerItemGenerated(this.name(ItemRegistry.OTHER_MINERALS_RARE_ICON.get()), "niters/other_minerals_rare");
+        this.registerItemGenerated(this.name(ItemRegistry.OTHER_MINERALS_PRECIOUS_ICON.get()), "niters/other_minerals_precious");
     }
 
     protected void registerSalts() {
@@ -171,6 +183,7 @@ public class TheurgyItemModelProvider extends net.neoforged.neoforge.client.mode
         this.registerItemGenerated(this.name(ItemRegistry.JAR_LABEL_FRAME_PRECIOUS_ICON.get()), "jar_label_frame_precious");
 
         this.registerSulfurs();
+        this.registerNiters();
         this.registerSalts();
 
         this.registerItemGenerated(this.name(ItemRegistry.MERCURY_SHARD.get()));

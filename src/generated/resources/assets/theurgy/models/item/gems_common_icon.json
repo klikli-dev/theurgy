@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "theurgy:item/sulfurs/gems_common"
+    "layer0": "theurgy:item/niters/gems_common"
   }
 }

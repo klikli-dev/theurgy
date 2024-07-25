@@ -39,7 +39,7 @@
         "type": "modonomicon:none"
       },
       "item": {
-        "item": "theurgy:alchemical_sulfur_metals_common"
+        "item": "theurgy:alchemical_niter_metals_common"
       },
       "text": "book.theurgy.the_hermetica.getting_started.alchemical_niter.niter.text",
       "title": "book.theurgy.the_hermetica.getting_started.alchemical_niter.niter.title"

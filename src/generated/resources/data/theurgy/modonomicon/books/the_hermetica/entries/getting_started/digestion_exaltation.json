@@ -5,7 +5,7 @@
   "description": "book.theurgy.the_hermetica.getting_started.digestion_exaltation.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "theurgy:alchemical_sulfur_metals_rare"
+    "item": "theurgy:alchemical_niter_metals_rare"
   },
   "name": "book.theurgy.the_hermetica.getting_started.digestion_exaltation.name",
   "pages": [
@@ -27,7 +27,7 @@
         "type": "modonomicon:none"
       },
       "item": {
-        "item": "theurgy:alchemical_sulfur_metals_rare"
+        "item": "theurgy:alchemical_niter_metals_rare"
       },
       "text": "book.theurgy.the_hermetica.getting_started.digestion_exaltation.metals.text",
       "title": "book.theurgy.the_hermetica.getting_started.digestion_exaltation.metals.title"

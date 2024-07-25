@@ -136,11 +136,12 @@ public class LogisticsFluidExtractorBehaviour extends ExtractorNodeBehaviour<IFl
     }
 
     protected void performExtraction(IFluidHandler extractCap, Filter extractFilter, IFluidHandler insertCap, Filter insertFilter) {
-        //TODO: Filter
-
         //first simulate extraction, this tells us how much we can extract
         var extractStack = extractCap.drain(this.extractionAmount, IFluidHandler.FluidAction.SIMULATE);
         if (extractStack.isEmpty())
+            return;
+
+        if(!extractFilter.test(this.level(), extractStack) || !insertFilter.test(this.level(), extractStack))
             return;
 
         //and insertion

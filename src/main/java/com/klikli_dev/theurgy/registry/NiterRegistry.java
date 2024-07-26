@@ -39,6 +39,15 @@ public class NiterRegistry {
     public static final DeferredItem<AlchemicalNiterItem> LOGS_ABUNDANT = register("logs_abundant", Items.OAK_LOG, AlchemicalDerivativeTier.ABUNDANT);
     public static final DeferredItem<AlchemicalNiterItem> CROPS_ABUNDANT = register("crops_abundant", Items.WHEAT, AlchemicalDerivativeTier.ABUNDANT);
 
+    //https://minecraft.fandom.com/wiki/Drops
+    public static final DeferredItem<AlchemicalNiterItem> ANIMALS_ABUNDANT = register("animals_abundant", Items.BEEF, AlchemicalDerivativeTier.ABUNDANT);
+    public static final DeferredItem<AlchemicalNiterItem> ANIMALS_COMMON = register("animals_common", Items.LEATHER, AlchemicalDerivativeTier.COMMON);
+
+    public static final DeferredItem<AlchemicalNiterItem> MOBS_ABUNDANT = register("mobs_abundant", Items.ROTTEN_FLESH, AlchemicalDerivativeTier.ABUNDANT);
+    public static final DeferredItem<AlchemicalNiterItem> MOBS_COMMON = register("mobs_commond", Items.BLAZE_ROD, AlchemicalDerivativeTier.COMMON);
+    public static final DeferredItem<AlchemicalNiterItem> MOBS_RARE = register("mobs_rare", Items.WITHER_SKELETON_SKULL, AlchemicalDerivativeTier.RARE);
+    public static final DeferredItem<AlchemicalNiterItem> MOBS_PRECIOUS = register("mobs_precious", Items.NETHER_STAR, AlchemicalDerivativeTier.PRECIOUS);
+
     public static DeferredItem<AlchemicalNiterItem> register(String name, TagKey<Item> source, AlchemicalDerivativeTier tier) {
         return register(name, () -> new AlchemicalNiterItem(new Item.Properties().component(
                 DataComponentRegistry.SOURCE_TAG,

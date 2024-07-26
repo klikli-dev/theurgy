@@ -1,0 +1,81 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "theurgy:logistics",
+  "description": "book.theurgy.the_hermetica.logistics.fluid_inserter.description",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "theurgy:logistics_fluid_inserter"
+  },
+  "name": "book.theurgy.the_hermetica.logistics.fluid_inserter.name",
+  "pages": [
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "item": {
+        "item": "theurgy:logistics_fluid_inserter"
+      },
+      "text": "book.theurgy.the_hermetica.logistics.fluid_inserter.inserter.text",
+      "title": ""
+    },
+    {
+      "type": "modonomicon:crafting_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "theurgy:crafting/shaped/logistics_fluid_inserter",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.logistics.fluid_inserter.usage.text",
+      "title": "book.theurgy.the_hermetica.logistics.fluid_inserter.usage.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.logistics.fluid_inserter.identification.text",
+      "title": "book.theurgy.the_hermetica.logistics.fluid_inserter.identification.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.logistics.fluid_inserter.direction.text",
+      "title": "book.theurgy.the_hermetica.logistics.fluid_inserter.direction.title",
+      "use_markdown_in_title": false
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "theurgy:logistics/fluid_extractor",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "sort_number": 12,
+  "x": 13,
+  "y": -4
+}

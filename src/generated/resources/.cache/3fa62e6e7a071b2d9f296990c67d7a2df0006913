@@ -1,4 +1,4 @@
-// 1.21	2024-07-24T15:14:11.8162045	Books: theurgy
+// 1.21	2024-07-26T10:42:29.0514339	Books: theurgy
 c473bf5aa94f847c736c37f1a9f85c86b8bce95d data/theurgy/modonomicon/books/the_hermetica/book.json
 74a2622bcd8dc6316c5977cbea5a026d81dcff87 data/theurgy/modonomicon/books/the_hermetica/categories/apparatus.json
 6f877a9734359091748cca949c8e6c569ad2d67e data/theurgy/modonomicon/books/the_hermetica/categories/getting_started.json
@@ -78,6 +78,9 @@ e1beb3a9b62ecf8e7caa3a64270a3c65633e3f0c data/theurgy/modonomicon/books/the_herm
 e64f9e374f40c8cbaec0dea1c22e9a653bd673df data/theurgy/modonomicon/books/the_hermetica/entries/getting_started/target_pedestal.json
 0009b0e7d1d159fe4fc13da9aa3cc1c1dc39d56e data/theurgy/modonomicon/books/the_hermetica/entries/logistics/attribute_filter.json
 a4d4ee8172f7c14580d3a7759544aac51a44890e data/theurgy/modonomicon/books/the_hermetica/entries/logistics/connection_node.json
+0274d66ed16745ded77d250a1c56dbf39c5aaa1c data/theurgy/modonomicon/books/the_hermetica/entries/logistics/fluid_extractor.json
+6d62ce4e0096792528694237cbc82b33a60789d0 data/theurgy/modonomicon/books/the_hermetica/entries/logistics/fluid_inserter.json
+6adaef39802575c21adb85ba0da617db4f004e89 data/theurgy/modonomicon/books/the_hermetica/entries/logistics/fluid_list_filter.json
 76190f81026244531738ae77cda192c9d8db6201 data/theurgy/modonomicon/books/the_hermetica/entries/logistics/frequency.json
 2297ec1995a7c83573b45b91a2df7814767bc9ad data/theurgy/modonomicon/books/the_hermetica/entries/logistics/intro.json
 53a9b9e65867567ac0b8d413d0d0c47478b9cc2c data/theurgy/modonomicon/books/the_hermetica/entries/logistics/item_extractor.json

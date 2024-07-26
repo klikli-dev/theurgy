@@ -17,36 +17,36 @@ import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.world.item.crafting.Ingredient;
 
-public class ItemInserterEntry extends EntryProvider {
-    public static final String ENTRY_ID = "item_inserter";
+public class FluidExtractorEntry extends EntryProvider {
+    public static final String ENTRY_ID = "fluid_extractor";
 
-    public ItemInserterEntry(CategoryProvider parent) {
+    public FluidExtractorEntry(CategoryProvider parent) {
         super(parent);
     }
 
     @Override
     protected void generatePages() {
-        this.page("inserter", () -> BookSpotlightPageModel.create()
-                .withItem(Ingredient.of(ItemRegistry.LOGISTICS_ITEM_INSERTER.get()))
+        this.page("extractor", () -> BookSpotlightPageModel.create()
+                .withItem(Ingredient.of(ItemRegistry.LOGISTICS_FLUID_EXTRACTOR.get()))
                 .withText(this.context().pageText()));
         this.pageText("""
-                When attached to a block, the inserter will insert items from the Mercurial Logistics System into the block. The items will be extracted from blocks that have extractors attached to them, if the extractors are part of the same network.
+                When attached to a block, the extractor will extract fluids from the block into the Mercurial Logistics System. The fluids will be inserted into blocks that have inserters attached to them, if the inserters are part of the same network.
                 """
         );
 
         this.page("recipe", () -> BookCraftingRecipePageModel.create()
-                .withRecipeId1(Theurgy.loc("crafting/shaped/logistics_item_inserter")));
+                .withRecipeId1(Theurgy.loc("crafting/shaped/logistics_fluid_extractor")));
 
         this.page("usage", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Usage");
         this.pageText("""
-               Right-click a block that has an inventory to attach the inserter to it.
+               Right-click a block that has a tank to attach the extractor to it.
                \\
                \\
-               The inserter will by default insert into the face it is attached to. E.g. if it is attached to the side of a furnace, it will insert into the fuel slot.
-                """
+               The extractor will by default extract from the face it is attached to. This only matters if the block has multiple fluid tanks accessible from different block faces.
+               """
         );
 
         this.page("identification", () -> BookTextPageModel.create()
@@ -54,8 +54,8 @@ public class ItemInserterEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Identification");
         this.pageText("""
-               The inserter features a green band on the side attached to the target block.
-                """
+               The extractor features a red band on the side attached to the target block.
+               """
         );
 
         this.page("direction", () -> BookTextPageModel.create()
@@ -63,8 +63,7 @@ public class ItemInserterEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Changing Direction");
         this.pageText("""
-               Inserters can also insert into faces they are not attached to. Use the {0} in the "Select Direction" mode to cycle through the insert directions.\\
-               E.g. an inserter attached to the top of a furnace can be configured to insert fuel into furnace from the side (instead of into the input slot from the top).
+               Extractors can also extract from faces they are not attached to. Use the {0} in the "Select Direction" mode to cycle through the extract directions.
                 """,
                 this.entryLink("Mercurial Wand", LogisticsCategory.CATEGORY_ID, MercurialWandEntry.ENTRY_ID)
         );
@@ -72,12 +71,12 @@ public class ItemInserterEntry extends EntryProvider {
 
     @Override
     protected String entryName() {
-        return "Mercurial Item Inserter";
+        return "Mercurial Fluid Extractor";
     }
 
     @Override
     protected String entryDescription() {
-        return "Inserting items into Blocks from the Mercurial Logistics System.";
+        return "Extracting fluids from Blocks into the Mercurial Logistics System.";
     }
 
     @Override
@@ -87,7 +86,7 @@ public class ItemInserterEntry extends EntryProvider {
 
     @Override
     protected BookIconModel entryIcon() {
-        return BookIconModel.create(ItemRegistry.LOGISTICS_ITEM_INSERTER.get());
+        return BookIconModel.create(ItemRegistry.LOGISTICS_FLUID_EXTRACTOR.get());
     }
 
     @Override

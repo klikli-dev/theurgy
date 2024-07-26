@@ -15,6 +15,8 @@ import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorMercuryVessel
 import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorSaltVesselBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorSulfurVesselBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron.LiquefactionCauldronBlockEntity;
+import com.klikli_dev.theurgy.content.apparatus.logisticsfluidconnector.extractor.LogisticsFluidExtractorBlockEntity;
+import com.klikli_dev.theurgy.content.apparatus.logisticsfluidconnector.inserter.LogisticsFluidInserterBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector.extractor.LogisticsItemExtractorBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector.inserter.LogisticsItemInserterBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.mercurycatalyst.MercuryCatalystBlockEntity;
@@ -114,12 +116,12 @@ public class BlockEntityRegistry {
             BLOCKS.register(BlockRegistry.LOGISTICS_ITEM_EXTRACTOR.getId().getPath(), () ->
                     BlockEntityType.Builder.of(LogisticsItemExtractorBlockEntity::new, BlockRegistry.LOGISTICS_ITEM_EXTRACTOR.get()).build(null));
 
-    public static final Supplier<BlockEntityType<LogisticsItemInserterBlockEntity>> LOGISTICS_FLUID_INSERTER =
+    public static final Supplier<BlockEntityType<LogisticsFluidInserterBlockEntity>> LOGISTICS_FLUID_INSERTER =
             BLOCKS.register(BlockRegistry.LOGISTICS_FLUID_INSERTER.getId().getPath(), () ->
-                    BlockEntityType.Builder.of(LogisticsItemInserterBlockEntity::new, BlockRegistry.LOGISTICS_FLUID_INSERTER.get()).build(null));
+                    BlockEntityType.Builder.of(LogisticsFluidInserterBlockEntity::new, BlockRegistry.LOGISTICS_FLUID_INSERTER.get()).build(null));
 
-    public static final Supplier<BlockEntityType<LogisticsItemExtractorBlockEntity>> LOGISTICS_FLUID_EXTRACTOR =
+    public static final Supplier<BlockEntityType<LogisticsFluidExtractorBlockEntity>> LOGISTICS_FLUID_EXTRACTOR =
             BLOCKS.register(BlockRegistry.LOGISTICS_FLUID_EXTRACTOR.getId().getPath(), () ->
-                    BlockEntityType.Builder.of(LogisticsItemExtractorBlockEntity::new, BlockRegistry.LOGISTICS_FLUID_EXTRACTOR.get()).build(null));
+                    BlockEntityType.Builder.of(LogisticsFluidExtractorBlockEntity::new, BlockRegistry.LOGISTICS_FLUID_EXTRACTOR.get()).build(null));
 
 }

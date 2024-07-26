@@ -12,6 +12,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class LogisticsFluidConnectorBlockItem extends BlockItem {
@@ -20,7 +21,7 @@ public class LogisticsFluidConnectorBlockItem extends BlockItem {
     }
 
     @Override
-    protected boolean updateCustomBlockEntityTag(BlockPos pPos, Level pLevel, @Nullable Player pPlayer, ItemStack pStack, BlockState pState) {
+    protected boolean updateCustomBlockEntityTag(@NotNull BlockPos pPos, Level pLevel, @Nullable Player pPlayer, @NotNull ItemStack pStack, @NotNull BlockState pState) {
         if (pLevel.getBlockEntity(pPos) instanceof LogisticsFluidConnectorBlockEntity connector) {
             var direction = pState.getValue(BlockStateProperties.FACING).getOpposite();
             connector.leafNode().targets().add(pPos.relative(direction));

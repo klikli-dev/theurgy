@@ -73,6 +73,11 @@ public class CreativeModeTabRegistry {
                 output.accept(ItemRegistry.LOGISTICS_ITEM_EXTRACTOR.get());
                 output.accept(ItemRegistry.LOGISTICS_CONNECTION_NODE.get());
 
+                output.accept(ItemRegistry.LOGISTICS_FLUID_INSERTER.get());
+                output.accept(ItemRegistry.LOGISTICS_FLUID_EXTRACTOR.get());
+
+                output.accept(ItemRegistry.LIST_FILTER.get());
+                output.accept(ItemRegistry.ATTRIBUTE_FILTER.get());
             }).build());
 
 }

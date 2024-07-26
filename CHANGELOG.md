@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21-1.33.0] - 2024-07-26
+### :sparkles: New Features
+- [`7abafbb`](https://github.com/klikli-dev/theurgy/commit/7abafbbc5e4176934f2346932914fa456e1b54f9) - fluid support for logistics system *(PR [#208](https://github.com/klikli-dev/theurgy/pull/208) by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`ccab104`](https://github.com/klikli-dev/theurgy/commit/ccab1049cb432787672834fbe94cc90116320f85) - cleanup item connector block and blockentity code a bit *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21-1.32.0] - 2024-07-25
 ### :sparkles: New Features
 - [`563fa19`](https://github.com/klikli-dev/theurgy/commit/563fa19606c2926d8c238c13448ffdb12c5ec7a5) - add crop and log sulfurs and niters *(PR [#207](https://github.com/klikli-dev/theurgy/pull/207) by [@klikli-dev](https://github.com/klikli-dev))*
@@ -788,3 +796,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21-1.30.2]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.30.1...release/v1.21-1.30.2
 [release/v1.21-1.31.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.30.2...release/v1.21-1.31.0
 [release/v1.21-1.32.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.31.0...release/v1.21-1.32.0
+[release/v1.21-1.33.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.32.0...release/v1.21-1.33.0

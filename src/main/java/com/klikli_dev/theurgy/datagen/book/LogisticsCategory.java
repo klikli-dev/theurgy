@@ -23,11 +23,11 @@ public class LogisticsCategory extends CategoryProvider {
     @Override
     protected String[] generateEntryMap() {
         return new String[]{
+                "______________________________ô___",
                 "__________________________________",
+                "______________________________ì___",
                 "__________________________________",
-                "__________________________________",
-                "__________________________________",
-                "________________l___í_____ƒ_______",
+                "________________l___í_____ƒ___è___",
                 "__________________________________",
                 "________________i_____ŵ_n_ň_______",
                 "__________________________________",
@@ -75,6 +75,15 @@ public class LogisticsCategory extends CategoryProvider {
 
         var frequencyEntry = new FrequencyEntry(this).generate('ƒ');
         frequencyEntry.withParent(nodeEntry);
+
+        var fluidExtractorEntry = new FluidExtractorEntry(this).generate('è');
+        fluidExtractorEntry.withParent(nodeEntry);
+
+        var fluidInserterEntry = new FluidInserterEntry(this).generate('ì');
+        fluidInserterEntry.withParent(fluidExtractorEntry);
+
+        var fluidListFilterEntry = new FluidListFilterEntry(this).generate('ô');
+        fluidListFilterEntry.withParent(fluidInserterEntry);
     }
 
     @Override

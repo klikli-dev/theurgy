@@ -11,6 +11,7 @@ import net.minecraft.nbt.NbtOps;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.common.util.INBTSerializable;
+import net.neoforged.neoforge.fluids.FluidStack;
 import org.jetbrains.annotations.NotNull;
 
 public abstract class Filter implements INBTSerializable<CompoundTag> {
@@ -50,6 +51,12 @@ public abstract class Filter implements INBTSerializable<CompoundTag> {
     }
 
     public abstract boolean test(Level level, ItemStack stack, boolean matchDataComponents);
+
+    public boolean test(Level level, FluidStack stack) {
+        return this.test(level, stack, false);
+    }
+
+    public abstract boolean test(Level level, FluidStack stack, boolean matchDataComponents);
 
     public abstract boolean isEmpty();
 

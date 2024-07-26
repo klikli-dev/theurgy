@@ -15,6 +15,8 @@ import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorMercuryVessel
 import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorSaltVesselBlock;
 import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorSulfurVesselBlock;
 import com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron.LiquefactionCauldronBlock;
+import com.klikli_dev.theurgy.content.apparatus.logisticsfluidconnector.extractor.LogisticsFluidExtractorBlock;
+import com.klikli_dev.theurgy.content.apparatus.logisticsfluidconnector.inserter.LogisticsFluidInserterBlock;
 import com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector.extractor.LogisticsItemExtractorBlock;
 import com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector.inserter.LogisticsItemInserterBlock;
 import com.klikli_dev.theurgy.content.apparatus.logisticsconnectionnode.LogisticsConnectionNodeBlock;
@@ -192,6 +194,22 @@ public class BlockRegistry {
 
     public static final DeferredBlock<LogisticsItemExtractorBlock> LOGISTICS_ITEM_EXTRACTOR =
             BLOCKS.register("logistics_item_extractor", () -> new LogisticsItemExtractorBlock(BlockBehaviour.Properties.of()
+                            .strength(0.1f)
+                            .noOcclusion()
+                            .forceSolidOff()
+                    )
+            );
+
+    public static final DeferredBlock<LogisticsFluidInserterBlock> LOGISTICS_FLUID_INSERTER =
+            BLOCKS.register("logistics_fluid_inserter", () -> new LogisticsFluidInserterBlock(BlockBehaviour.Properties.of()
+                            .strength(0.1f)
+                            .noOcclusion()
+                            .forceSolidOff()
+                    )
+            );
+
+    public static final DeferredBlock<LogisticsFluidExtractorBlock> LOGISTICS_FLUID_EXTRACTOR =
+            BLOCKS.register("logistics_fluid_extractor", () -> new LogisticsFluidExtractorBlock(BlockBehaviour.Properties.of()
                             .strength(0.1f)
                             .noOcclusion()
                             .forceSolidOff()

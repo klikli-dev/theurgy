@@ -8,6 +8,8 @@ import com.klikli_dev.theurgy.registry.DataComponentRegistry;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.fluids.FluidStack;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +17,7 @@ import java.util.List;
 public class ListFilter extends Filter {
 
     public List<ItemStack> filterItems;
+    public List<FluidStack> filterFluids;
     public boolean shouldRespectDataComponents;
     public boolean isDenyList;
 
@@ -41,6 +44,33 @@ public class ListFilter extends Filter {
     }
 
     @Override
+    public boolean test(Level level, FluidStack stack, boolean matchDataComponents) {
+        this.resolveFluids();
+
+        for (var filterFluidStack : this.filterFluids) {
+            if (this.testFilterFluidStack(filterFluidStack, stack, this.shouldRespectDataComponents))
+                return !this.isDenyList;
+        }
+
+        return this.isDenyList;
+    }
+
+    private void resolveFluids() {
+        if (this.filterFluids != null)
+            return;
+
+        this.filterFluids = new ArrayList<>();
+
+        for (var filterItem : this.filterItems) {
+            var capability = filterItem.getCapability(Capabilities.FluidHandler.ITEM);
+            if (capability == null)
+                continue;
+
+            this.filterFluids.add(capability.getFluidInTank(0).copyWithAmount(1));
+        }
+    }
+
+    @Override
     public boolean isEmpty() {
         return this.filterItems.isEmpty();
     }
@@ -50,6 +80,14 @@ public class ListFilter extends Filter {
             return ItemStack.isSameItemSameComponents(filterItemStack, stackToTest);
         } else {
             return ItemStack.isSameItem(filterItemStack, stackToTest);
+        }
+    }
+
+    private boolean testFilterFluidStack(FluidStack filterFluidStack, FluidStack stackToTest, boolean matchDataComponents) {
+        if (matchDataComponents) {
+            return FluidStack.matches(filterFluidStack, stackToTest);
+        } else {
+            return FluidStack.isSameFluid(filterFluidStack, stackToTest);
         }
     }
 

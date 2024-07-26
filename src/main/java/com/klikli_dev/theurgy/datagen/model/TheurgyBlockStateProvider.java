@@ -20,10 +20,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.PipeBlock;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
-import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
-import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
-import net.neoforged.neoforge.client.model.generators.ModelFile;
-import net.neoforged.neoforge.client.model.generators.MultiPartBlockStateBuilder;
+import net.neoforged.neoforge.client.model.generators.*;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
 
@@ -59,6 +56,8 @@ public class TheurgyBlockStateProvider extends BlockStateProvider {
         var filter = this.makeLogisticsFilterModel();
         this.registerLogisticsItemInserter(filter);
         this.registerLogisticsItemExtractor(filter);
+        this.registerLogisticsFluidInserter(filter);
+        this.registerLogisticsFluidExtractor(filter);
         this.registerLogisticsNode();
 
         this.simpleBlockWithItem(BlockRegistry.SAL_AMMONIAC_ORE.get(), this.cubeAll(BlockRegistry.SAL_AMMONIAC_ORE.get()));
@@ -73,18 +72,87 @@ public class TheurgyBlockStateProvider extends BlockStateProvider {
                 .texture("particle", this.mcLoc("block/iron_block"));
     }
 
+    protected void registerLogisticsFluidInserter(ModelFile filter) {
+        var model = this.models().withExistingParent("logistics_fluid_inserter", this.modLoc("block/logistics_connector_template"))
+                .ao(false)
+                //blockbench spits out garbage textures by losing the folder name so we fix them here
+                .texture("texture", this.modLoc("block/logistics_fluid_inserter"))
+                .texture("particle", this.mcLoc("block/copper_block"));
+
+        //build blockstate
+        MultiPartBlockStateBuilder builder = this.getMultipartBuilder(BlockRegistry.LOGISTICS_FLUID_INSERTER.get());
+
+        var angleOffset = 180;
+        for (var state : BlockRegistry.LOGISTICS_FLUID_INSERTER.get().getStateDefinition().getPossibleStates()) {
+            Direction dir = state.getValue(BlockStateProperties.FACING);
+
+            //For reasons only the gods know the filter (the outer model) has to come first, otherwise the inner model has no texture.
+            builder.part().modelFile(filter)
+                    .rotationX(dir == Direction.DOWN ? 180 : dir.getAxis().isHorizontal() ? 90 : 0)
+                    .rotationY(dir.getAxis().isVertical() ? 0 : (((int) dir.toYRot()) + angleOffset) % 360)
+                    .addModel()
+                    .condition(BlockStateProperties.FACING, dir)
+                    .condition(LogisticsItemConnectorBlock.HAS_FILTER, true)
+                    .end();
+
+            builder.part().modelFile(model)
+                    .rotationX(dir == Direction.DOWN ? 180 : dir.getAxis().isHorizontal() ? 90 : 0)
+                    .rotationY(dir.getAxis().isVertical() ? 0 : (((int) dir.toYRot()) + angleOffset) % 360)
+                    .addModel()
+                    .condition(BlockStateProperties.FACING, dir)
+                    .end();
+        }
+
+        this.setupLogisticsConnectorItemModelTransforms(this.itemModels().getBuilder(this.key(BlockRegistry.LOGISTICS_FLUID_INSERTER.get()).getPath()).parent(model));
+    }
+
+    protected void registerLogisticsFluidExtractor(ModelFile filter) {
+        var model = this.models().withExistingParent("logistics_fluid_extractor", this.modLoc("block/logistics_connector_template"))
+                .ao(false)
+                //blockbench spits out garbage textures by losing the folder name so we fix them here
+                .texture("texture", this.modLoc("block/logistics_fluid_extractor"))
+                .texture("particle", this.mcLoc("block/copper_block"));
+
+
+        //build blockstate
+        MultiPartBlockStateBuilder builder = this.getMultipartBuilder(BlockRegistry.LOGISTICS_FLUID_EXTRACTOR.get());
+
+        var angleOffset = 180;
+        for (var state : BlockRegistry.LOGISTICS_FLUID_EXTRACTOR.get().getStateDefinition().getPossibleStates()) {
+            Direction dir = state.getValue(BlockStateProperties.FACING);
+
+            //For reasons only the gods know the filter (the outer model) has to come first, otherwise the inner model has no texture.
+            builder.part().modelFile(filter)
+                    .rotationX(dir == Direction.DOWN ? 180 : dir.getAxis().isHorizontal() ? 90 : 0)
+                    .rotationY(dir.getAxis().isVertical() ? 0 : (((int) dir.toYRot()) + angleOffset) % 360)
+                    .addModel()
+                    .condition(BlockStateProperties.FACING, dir)
+                    .condition(LogisticsItemConnectorBlock.HAS_FILTER, true)
+                    .end();
+
+            builder.part().modelFile(model)
+                    .rotationX(dir == Direction.DOWN ? 180 : dir.getAxis().isHorizontal() ? 90 : 0)
+                    .rotationY(dir.getAxis().isVertical() ? 0 : (((int) dir.toYRot()) + angleOffset) % 360)
+                    .addModel()
+                    .condition(BlockStateProperties.FACING, dir)
+                    .end();
+        }
+
+        this.setupLogisticsConnectorItemModelTransforms(this.itemModels().getBuilder(this.key(BlockRegistry.LOGISTICS_FLUID_EXTRACTOR.get()).getPath()).parent(model));
+    }
+
     protected void registerLogisticsItemInserter(ModelFile filter) {
         var model = this.models().withExistingParent("logistics_item_inserter", this.modLoc("block/logistics_connector_template"))
                 .ao(false)
                 //blockbench spits out garbage textures by losing the folder name so we fix them here
-                .texture("texture", this.modLoc("block/logistics_inserter"))
+                .texture("texture", this.modLoc("block/logistics_item_inserter"))
                 .texture("particle", this.mcLoc("block/copper_block"));
 
         //build blockstate
         MultiPartBlockStateBuilder builder = this.getMultipartBuilder(BlockRegistry.LOGISTICS_ITEM_INSERTER.get());
 
         var angleOffset = 180;
-        for(var state: BlockRegistry.LOGISTICS_ITEM_INSERTER.get().getStateDefinition().getPossibleStates()){
+        for (var state : BlockRegistry.LOGISTICS_ITEM_INSERTER.get().getStateDefinition().getPossibleStates()) {
             Direction dir = state.getValue(BlockStateProperties.FACING);
 
             //For reasons only the gods know the filter (the outer model) has to come first, otherwise the inner model has no texture.
@@ -105,51 +173,14 @@ public class TheurgyBlockStateProvider extends BlockStateProvider {
 
         }
 
-        this.itemModels().getBuilder(this.key(BlockRegistry.LOGISTICS_ITEM_INSERTER.get()).getPath())
-                .parent(model)
-                .transforms()
-                .transform(ItemDisplayContext.GUI)
-                .rotation(30, 225, 0)
-                .translation(0, 4, 0)
-                .scale(1)
-                .end()
-                .transform(ItemDisplayContext.GROUND)
-                .rotation(0, 0, 0)
-                .translation(0, 5, 0)
-                .scale(0.5f)
-                .end()
-                .transform(ItemDisplayContext.FIXED)
-                .rotation(0, 0, 0)
-                .translation(0, 3, 0)
-                .scale(0.5f)
-                .end()
-                .transform(ItemDisplayContext.THIRD_PERSON_RIGHT_HAND)
-                .rotation(0, 0, 0)
-                .translation(0, 6, 0)
-                .scale(0.7f)
-                .end()
-                .transform(ItemDisplayContext.FIRST_PERSON_RIGHT_HAND)
-                .rotation(0, 0, 0)
-                .translation(0, 6, 0)
-                .scale(0.7f)
-                .end()
-                .transform(ItemDisplayContext.THIRD_PERSON_LEFT_HAND)
-                .rotation(0, 0, 0)
-                .translation(0, 6, 0)
-                .scale(0.7f)
-                .end()
-                .transform(ItemDisplayContext.FIRST_PERSON_LEFT_HAND)
-                .rotation(0, 225, 0)
-                .translation(0, 6, 0)
-                .scale(0.7f)
-                .end();
+        this.setupLogisticsConnectorItemModelTransforms(this.itemModels().getBuilder(this.key(BlockRegistry.LOGISTICS_ITEM_INSERTER.get()).getPath()).parent(model));
     }
 
     protected void registerLogisticsItemExtractor(ModelFile filter) {
         var model = this.models().withExistingParent("logistics_item_extractor", this.modLoc("block/logistics_connector_template"))
                 .ao(false)
                 //blockbench spits out garbage textures by losing the folder name so we fix them here
-                .texture("texture", this.modLoc("block/logistics_extractor"))
+                .texture("texture", this.modLoc("block/logistics_item_extractor"))
                 .texture("particle", this.mcLoc("block/copper_block"));
 
 
@@ -157,7 +188,7 @@ public class TheurgyBlockStateProvider extends BlockStateProvider {
         MultiPartBlockStateBuilder builder = this.getMultipartBuilder(BlockRegistry.LOGISTICS_ITEM_EXTRACTOR.get());
 
         var angleOffset = 180;
-        for(var state: BlockRegistry.LOGISTICS_ITEM_EXTRACTOR.get().getStateDefinition().getPossibleStates()){
+        for (var state : BlockRegistry.LOGISTICS_ITEM_EXTRACTOR.get().getStateDefinition().getPossibleStates()) {
             Direction dir = state.getValue(BlockStateProperties.FACING);
 
             //For reasons only the gods know the filter (the outer model) has to come first, otherwise the inner model has no texture.
@@ -178,8 +209,11 @@ public class TheurgyBlockStateProvider extends BlockStateProvider {
 
         }
 
-        this.itemModels().getBuilder(this.key(BlockRegistry.LOGISTICS_ITEM_EXTRACTOR.get()).getPath())
-                .parent(model)
+        this.setupLogisticsConnectorItemModelTransforms(this.itemModels().getBuilder(this.key(BlockRegistry.LOGISTICS_ITEM_EXTRACTOR.get()).getPath()).parent(model));
+    }
+
+    protected void setupLogisticsConnectorItemModelTransforms(ModelBuilder<?> builder) {
+        builder
                 .transforms()
                 .transform(ItemDisplayContext.GUI)
                 .rotation(30, 225, 0)
@@ -398,7 +432,7 @@ public class TheurgyBlockStateProvider extends BlockStateProvider {
     protected void registerCaloricFluxEmitter() {
         var model = this.models().withExistingParent("caloric_flux_emitter", this.modLoc("block/caloric_flux_emitter_template"))
                 .ao(false)
-                .renderType(ResourceLocation.fromNamespaceAndPath("minecraft",  "translucent"))
+                .renderType(ResourceLocation.fromNamespaceAndPath("minecraft", "translucent"))
                 //blockbench spits out garbage textures by losing the folder name so we fix them here
                 .texture("emitter", this.modLoc("block/caloric_flux_emitter"))
                 .texture("socket", this.modLoc("block/emitter_socket"))
@@ -413,7 +447,7 @@ public class TheurgyBlockStateProvider extends BlockStateProvider {
         //we re-use the caloric flux emitter model
         var model = this.models().withExistingParent("sulfuric_flux_emitter", this.modLoc("block/sulfuric_flux_emitter_template"))
                 .ao(false)
-                .renderType(ResourceLocation.fromNamespaceAndPath("minecraft",  "translucent"))
+                .renderType(ResourceLocation.fromNamespaceAndPath("minecraft", "translucent"))
                 //blockbench spits out garbage textures by losing the folder name so we fix them here
                 .texture("emitter", this.modLoc("block/sulfuric_flux_emitter"))
                 .texture("socket", this.modLoc("block/emitter_socket"))
@@ -452,7 +486,7 @@ public class TheurgyBlockStateProvider extends BlockStateProvider {
     protected void registerMercuryCatalyst() {
         var model = this.models().withExistingParent("mercury_catalyst", this.modLoc("block/mercury_catalyst_template"))
                 .ao(false)
-                .renderType(ResourceLocation.fromNamespaceAndPath("minecraft",  "translucent"))
+                .renderType(ResourceLocation.fromNamespaceAndPath("minecraft", "translucent"))
                 //blockbench spits out garbage textures by losing the folder name so we fix them here
                 .texture("texture", this.modLoc("block/mercury_catalyst"))
                 .texture("particle", this.mcLoc("block/iron_block"));

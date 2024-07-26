@@ -8,6 +8,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.neoforged.neoforge.fluids.FluidStack;
 
 public class EmptyFilter extends Filter {
     protected EmptyFilter() {
@@ -21,6 +22,11 @@ public class EmptyFilter extends Filter {
 
     @Override
     public boolean test(Level level, ItemStack stack, boolean matchDataComponents) {
+        return true;
+    }
+
+    @Override
+    public boolean test(Level level, FluidStack stack, boolean matchDataComponents) {
         return true;
     }
 

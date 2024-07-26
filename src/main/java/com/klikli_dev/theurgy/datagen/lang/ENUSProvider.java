@@ -421,7 +421,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.addBlock(BlockRegistry.LOGISTICS_ITEM_INSERTER, "Mercurial Item Inserter");
         this.addTooltip(BlockRegistry.LOGISTICS_ITEM_INSERTER.get()::asItem,
                 "Allows to insert items into a block from a Mercurial Logistics Network",
-                "Can be used to insert or extract items from a block.",
+                null,
                 this.f(
                         """
                                 {0} the target block with the inserter to place it.
@@ -434,7 +434,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.addBlock(BlockRegistry.LOGISTICS_ITEM_EXTRACTOR, "Mercurial Item Extractor");
         this.addTooltip(BlockRegistry.LOGISTICS_ITEM_EXTRACTOR.get()::asItem,
                 "Allows to extract items from a block into a Mercurial Logistics Network",
-                "Can be used to insert or extract items from a block.",
+                null,
                 this.f(
                         """
                                 {0} the target block with the extractor to place it.
@@ -447,10 +447,36 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.addBlock(BlockRegistry.LOGISTICS_CONNECTION_NODE, "Mercurial Connection Node");
         this.addTooltip(BlockRegistry.LOGISTICS_CONNECTION_NODE.get()::asItem,
                 "Allows to connect multiple wires in a Mercurial Logistics Network",
-                "Can be used to insert or extract items from a block.",
+                null,
                 this.f(
                         """
                                 Place the connection node, then use wires to connect it with other connection nodes, or other mercurial logistics blocks.
+                                """,
+                        this.green("Right-Click")
+                )
+        );
+
+        this.addBlock(BlockRegistry.LOGISTICS_FLUID_INSERTER, "Mercurial Fluid Inserter");
+        this.addTooltip(BlockRegistry.LOGISTICS_FLUID_INSERTER.get()::asItem,
+                "Allows to insert fluids into a block from a Mercurial Logistics Network",
+                null,
+                this.f(
+                        """
+                                {0} the target block with the inserter to place it.
+                                Then {0} the inserter with a cable to connect it to the network.
+                                """,
+                        this.green("Right-Click")
+                )
+        );
+
+        this.addBlock(BlockRegistry.LOGISTICS_FLUID_EXTRACTOR, "Mercurial Fluid Extractor");
+        this.addTooltip(BlockRegistry.LOGISTICS_FLUID_EXTRACTOR.get()::asItem,
+                "Allows to extract fluids from a block into a Mercurial Logistics Network",
+                null,
+                this.f(
+                        """
+                                {0} the target block with the extractor to place it.
+                                Then {0} the extractor with a cable to connect it to the network.
                                 """,
                         this.green("Right-Click")
                 )
@@ -494,9 +520,6 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
                                 "\n\n" + ChatFormatting.ITALIC + "Hint: Sulfurs crafted from different states of the same material (such as from Ore or Ingots) are interchangeable." + ChatFormatting.RESET);
             }
         });
-
-        //TODO: Register logs stuff
-        //TODO: Register coals
 
         NiterRegistry.NITERS.getEntries().stream().map(DeferredHolder::get).map(AlchemicalNiterItem.class::cast).forEach(this::addNiter);
 
@@ -971,8 +994,25 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.add(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_SET_SELECTED_FREQUENCY_SUCCESS, "Set frequency to %s");
 
         this.addItem(ItemRegistry.LIST_FILTER, "Mercurial List Filter");
+        this.addUsageTooltip(ItemRegistry.LIST_FILTER,
+                this.f("""
+                        {0} the air to open the filter GUI and add items.
+                        {0} a logistics inserter or extractor to apply the filter.
+                        {0} a filtered block with an empty hand to remove the filter.
+                        """,
+                        this.green("Right-Click")
+                )
+        );
         this.addItem(ItemRegistry.ATTRIBUTE_FILTER, "Mercurial Attribute Filter");
-
+        this.addUsageTooltip(ItemRegistry.ATTRIBUTE_FILTER,
+                this.f("""
+                        {0} the air to open the filter GUI and add items.
+                        {0} a logistics inserter or extractor to apply the filter.
+                        {0} a filtered block with an empty hand to remove the filter.
+                        """,
+                        this.green("Right-Click")
+                )
+        );
 
         this.addItem(ItemRegistry.MERCURY_SHARD, "Mercury Shard");
         this.addExtendedTooltip(ItemRegistry.MERCURY_SHARD,

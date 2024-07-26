@@ -18,6 +18,8 @@ import com.mojang.datafixers.util.Pair;
 import net.minecraft.world.item.crafting.Ingredient;
 
 public class ItemExtractorEntry extends EntryProvider {
+    public static final String ENTRY_ID = "item_extractor";
+
     public ItemExtractorEntry(CategoryProvider parent) {
         super(parent);
     }
@@ -90,6 +92,6 @@ public class ItemExtractorEntry extends EntryProvider {
 
     @Override
     protected String entryId() {
-        return "item_extractor";
+        return ENTRY_ID;
     }
 }

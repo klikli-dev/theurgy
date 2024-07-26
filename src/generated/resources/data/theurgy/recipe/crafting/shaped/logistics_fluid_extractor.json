@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "c": {
+      "tag": "c:ingots/copper"
+    },
+    "d": {
+      "tag": "c:dyes/blue"
+    },
+    "m": {
+      "item": "theurgy:mercury_shard"
+    }
+  },
+  "pattern": [
+    "d",
+    "c",
+    "m"
+  ],
+  "result": {
+    "count": 1,
+    "id": "theurgy:logistics_fluid_extractor"
+  }
+}

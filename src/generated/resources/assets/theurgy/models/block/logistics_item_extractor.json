@@ -3,6 +3,6 @@
   "ambientocclusion": false,
   "textures": {
     "particle": "minecraft:block/copper_block",
-    "texture": "theurgy:block/logistics_extractor"
+    "texture": "theurgy:block/logistics_item_extractor"
   }
 }

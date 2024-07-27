@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21-1.34.1] - 2024-07-27
+### :bug: Bug Fixes
+- [`dec9705`](https://github.com/klikli-dev/theurgy/commit/dec970594c97781467c5e48282c4d71f0d35d684) - recipe path in book *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`66c26d3`](https://github.com/klikli-dev/theurgy/commit/66c26d38594698a69b33177370112ec43c6e6c98) - set mod version *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`f4efdc7`](https://github.com/klikli-dev/theurgy/commit/f4efdc7fe401bf58e14b94465d25e6e5123ac516) - remove empty line *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21-1.34.0] - 2024-07-27
 ### :wrench: Chores
 - [`a003213`](https://github.com/klikli-dev/theurgy/commit/a00321319128e4bd8d74a12c26bd039cf9e5da75) - refactor sulfur/niter packages *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -803,3 +812,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21-1.32.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.31.0...release/v1.21-1.32.0
 [release/v1.21-1.33.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.32.0...release/v1.21-1.33.0
 [release/v1.21-1.34.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.33.0...release/v1.21-1.34.0
+[release/v1.21-1.34.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.34.0...release/v1.21-1.34.1

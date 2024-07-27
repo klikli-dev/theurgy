@@ -2,10 +2,12 @@
 //
 // SPDX-License-Identifier: MIT
 
-package com.klikli_dev.theurgy.content.item.sulfur;
+package com.klikli_dev.theurgy.content.item.niter;
 
 import com.google.common.base.Suppliers;
 import com.klikli_dev.theurgy.TheurgyConstants;
+import com.klikli_dev.theurgy.content.item.derivative.AlchemicalDerivativeItem;
+import com.klikli_dev.theurgy.content.item.derivative.AlchemicalDerivativeTier;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;

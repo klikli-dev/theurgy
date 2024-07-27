@@ -6,7 +6,7 @@ package com.klikli_dev.theurgy.datagen.model;
 
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.TheurgyConstants;
-import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalNiterItem;
+import com.klikli_dev.theurgy.content.item.niter.AlchemicalNiterItem;
 import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurItem;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.registry.NiterRegistry;

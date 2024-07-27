@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: MIT
 
-package com.klikli_dev.theurgy.content.item.sulfur;
+package com.klikli_dev.theurgy.content.item.derivative;
 
 import com.google.common.base.Suppliers;
 import com.klikli_dev.theurgy.TheurgyConstants;
@@ -10,7 +10,6 @@ import com.klikli_dev.theurgy.registry.DataComponentRegistry;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.util.TagUtil;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
-import net.minecraft.Util;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.ComponentUtils;

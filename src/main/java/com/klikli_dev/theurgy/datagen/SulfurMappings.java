@@ -5,7 +5,7 @@
 package com.klikli_dev.theurgy.datagen;
 
 import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurItem;
-import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalDerivativeTier;
+import com.klikli_dev.theurgy.content.item.derivative.AlchemicalDerivativeTier;
 import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurType;
 import com.klikli_dev.theurgy.registry.SulfurRegistry;
 import net.neoforged.neoforge.registries.DeferredHolder;

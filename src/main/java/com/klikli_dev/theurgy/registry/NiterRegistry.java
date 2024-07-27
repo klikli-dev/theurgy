@@ -5,8 +5,8 @@
 package com.klikli_dev.theurgy.registry;
 
 import com.klikli_dev.theurgy.Theurgy;
-import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalDerivativeTier;
-import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalNiterItem;
+import com.klikli_dev.theurgy.content.item.derivative.AlchemicalDerivativeTier;
+import com.klikli_dev.theurgy.content.item.niter.AlchemicalNiterItem;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;

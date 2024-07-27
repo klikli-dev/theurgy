@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: MIT
 
-package com.klikli_dev.theurgy.content.item.sulfur;
+package com.klikli_dev.theurgy.content.item.derivative;
 
 import com.klikli_dev.theurgy.Theurgy;
 

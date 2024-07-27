@@ -4,6 +4,8 @@
 
 package com.klikli_dev.theurgy.content.item.sulfur;
 
+import com.klikli_dev.theurgy.content.item.derivative.AlchemicalDerivativeItem;
+import com.klikli_dev.theurgy.content.item.derivative.AlchemicalDerivativeTier;
 import com.klikli_dev.theurgy.registry.DataComponentRegistry;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;

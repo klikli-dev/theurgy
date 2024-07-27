@@ -101,7 +101,6 @@ repositories {
             includeGroup "maven.modrinth"
         }
     }
-
     maven {
         name = "TerraformersMC (emi)"
         url = "https://maven.terraformersmc.com/"

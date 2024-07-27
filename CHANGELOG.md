@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21-1.34.0] - 2024-07-27
+### :wrench: Chores
+- [`a003213`](https://github.com/klikli-dev/theurgy/commit/a00321319128e4bd8d74a12c26bd039cf9e5da75) - refactor sulfur/niter packages *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21-1.33.0] - 2024-07-26
 ### :sparkles: New Features
 - [`7abafbb`](https://github.com/klikli-dev/theurgy/commit/7abafbbc5e4176934f2346932914fa456e1b54f9) - fluid support for logistics system *(PR [#208](https://github.com/klikli-dev/theurgy/pull/208) by [@klikli-dev](https://github.com/klikli-dev))*
@@ -797,3 +802,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21-1.31.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.30.2...release/v1.21-1.31.0
 [release/v1.21-1.32.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.31.0...release/v1.21-1.32.0
 [release/v1.21-1.33.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.32.0...release/v1.21-1.33.0
+[release/v1.21-1.34.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.33.0...release/v1.21-1.34.0

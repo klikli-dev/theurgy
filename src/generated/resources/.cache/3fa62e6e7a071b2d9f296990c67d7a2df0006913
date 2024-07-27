@@ -1,4 +1,4 @@
-// 1.21	2024-07-26T10:42:29.0514339	Books: theurgy
+// 1.21	2024-07-27T12:23:44.7035793	Books: theurgy
 c473bf5aa94f847c736c37f1a9f85c86b8bce95d data/theurgy/modonomicon/books/the_hermetica/book.json
 74a2622bcd8dc6316c5977cbea5a026d81dcff87 data/theurgy/modonomicon/books/the_hermetica/categories/apparatus.json
 6f877a9734359091748cca949c8e6c569ad2d67e data/theurgy/modonomicon/books/the_hermetica/categories/getting_started.json
@@ -69,7 +69,7 @@ edaf08230cc2e05fff59060f7e0f579eb4f40160 data/theurgy/modonomicon/books/the_herm
 04bac4636e62a88881cd3f665563a4b010e516b8 data/theurgy/modonomicon/books/the_hermetica/entries/getting_started/result_pedestal.json
 bd912037ad6f0d9f1509ace04dddd8ecf13a52a1 data/theurgy/modonomicon/books/the_hermetica/entries/getting_started/source_pedestal.json
 e3caca68c7f07f21b6e8ec22b84551405109d60b data/theurgy/modonomicon/books/the_hermetica/entries/getting_started/spagyrics.json
-d347ae9b14e4167884a56e867d8e6c48f55b2060 data/theurgy/modonomicon/books/the_hermetica/entries/getting_started/strata_recycling.json
+21f77885dda5406e7909a35ab00892f76e5356ee data/theurgy/modonomicon/books/the_hermetica/entries/getting_started/strata_recycling.json
 afaef6f0e88e94ac16d80e9ae621904813fc90e6 data/theurgy/modonomicon/books/the_hermetica/entries/getting_started/sulfuric_flux_emitter.json
 038badb08ad8d44a3bc9227366952bae5c099feb data/theurgy/modonomicon/books/the_hermetica/entries/getting_started/t1_divination_rod.json
 1c8c8bb0f77fa076662d050536c3014e5060575e data/theurgy/modonomicon/books/the_hermetica/entries/getting_started/t2_divination_rod.json

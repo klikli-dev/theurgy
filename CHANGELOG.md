@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21-1.35.0] - 2024-07-29
+### :sparkles: New Features
+- [`f48e8af`](https://github.com/klikli-dev/theurgy/commit/f48e8af462bc204ead995392b899879fe256bf69) - add zh_cn translation ([#209](https://github.com/klikli-dev/theurgy/pull/209)) - thanks @skyraah! *(commit by [@skyraah](https://github.com/skyraah))*
+
+
 ## [release/v1.21-1.34.1] - 2024-07-27
 ### :bug: Bug Fixes
 - [`dec9705`](https://github.com/klikli-dev/theurgy/commit/dec970594c97781467c5e48282c4d71f0d35d684) - recipe path in book *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -813,3 +818,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21-1.33.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.32.0...release/v1.21-1.33.0
 [release/v1.21-1.34.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.33.0...release/v1.21-1.34.0
 [release/v1.21-1.34.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.34.0...release/v1.21-1.34.1
+[release/v1.21-1.35.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.34.1...release/v1.21-1.35.0

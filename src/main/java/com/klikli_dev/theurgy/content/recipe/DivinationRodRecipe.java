@@ -67,7 +67,7 @@ public class DivinationRodRecipe extends ShapedRecipe {
                 var sourceBlockTag = this.translateTagToBlock(sourceItemTag.location().toString());
 
                 if (sourceBlockTag != null) {
-                    result.set(DataComponentRegistry.DIVINATION_LINKED_TAG, BlockTags.create(ResourceLocation.parse(sourceBlockTag)));
+                    result.set(DataComponentRegistry.DIVINATION_LINKED_TAG, BlockTags.create(sourceBlockTag));
                 }
                 break;
             }
@@ -76,11 +76,11 @@ public class DivinationRodRecipe extends ShapedRecipe {
         return result;
     }
 
-    public @Nullable String translateTagToBlock(@NotNull String sourceTag) {
+    public @Nullable ResourceLocation translateTagToBlock(@NotNull String sourceTag) {
         //first we check if we have a manual override mapping
         var mapped = ServerConfig.get().recipes.sulfurSourceToBlockMapping.get().get(sourceTag);
         if (mapped != null)
-            return mapped;
+            return ResourceLocation.parse(mapped);
 
         //if not we use generic logic to translate ingot, storage block, nugget, raw, ore, dust to (ore)block.
         //even though likely not all of these will be used to create sulfur its good to handle them.
@@ -95,8 +95,8 @@ public class DivinationRodRecipe extends ShapedRecipe {
         //c:gems/iron
 
         //special handling for coal items as they are none of the above
-        if (sourceTag.equals("#minecraft:coals"))
-            return "#c:ores/coal";
+        if (sourceTag.equals("minecraft:coals"))
+            return ResourceLocation.parse("c:ores/coal");
 
         var parts = sourceTag.split(":");
         var namespace = parts[0];
@@ -116,9 +116,9 @@ public class DivinationRodRecipe extends ShapedRecipe {
             translatedPath = translatedPath.replace("gems/", "ores/");
         }
 
-        var translatedTag = ResourceLocation.parse(namespace.substring(1) + ":" + translatedPath);
+        var translatedTag = ResourceLocation.parse(namespace + ":" + translatedPath);
         if (BuiltInRegistries.BLOCK.getTag(TagKey.create(Registries.BLOCK, translatedTag)).isPresent())
-            return "#" + translatedTag;
+            return translatedTag;
 
         Theurgy.LOGGER.warn("Could not find an appropriate block tag for sulfur source ttag: " + sourceTag + ", tried tag: #" + translatedTag);
         return null;

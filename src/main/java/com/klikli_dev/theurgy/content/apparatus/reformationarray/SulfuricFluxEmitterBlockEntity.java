@@ -79,6 +79,7 @@ public class SulfuricFluxEmitterBlockEntity extends BlockEntity {
         //check if any valid source pedestals remain.
         var hasRemainingPedestals = this.sourcePedestals.stream()
                 .filter(p -> !p.getBlockPos().equals(pedestal.getBlockPos())) //skip the one that is being removed
+                .filter(p -> this.level.isLoaded(p.getBlockPos()))
                 .map(p -> this.level.getBlockEntity(p.getBlockPos()))
                 .anyMatch(e -> e instanceof ReformationSourcePedestalBlockEntity);
 
@@ -178,7 +179,12 @@ public class SulfuricFluxEmitterBlockEntity extends BlockEntity {
 
     public IItemHandlerModifiable getOutputInventory() {
         var pos = this.resultPedestal.getBlockPos();
+
+        if(!this.level.isLoaded(pos))
+            return null;
+
         var blockEntity = this.level.getBlockEntity(pos);
+
         if (blockEntity instanceof ReformationResultPedestalBlockEntity pedestal) {
             return pedestal.outputInventory;
         }

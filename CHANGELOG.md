@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21-1.36.0] - 2024-07-31
+### :bug: Bug Fixes
+- [`c598edc`](https://github.com/klikli-dev/theurgy/commit/c598edc051d31d6d926ba29ad7b883049399985c) - endless saving in some edge cases *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`a9faf4c`](https://github.com/klikli-dev/theurgy/commit/a9faf4c6cc2109a2244e90dcc6b90e880190702b) - guard against possible chunk unloading issue with sulfuric flux emitter *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`b793f47`](https://github.com/klikli-dev/theurgy/commit/b793f478078bb5671e1594c9ff529dd64f9123bf) - update to latest neo *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21-1.35.2] - 2024-07-31
 ### :bug: Bug Fixes
 - [`5b620ae`](https://github.com/klikli-dev/theurgy/commit/5b620aef7eca13c20f13dd1d9f9c2f313b71908d) - fluid logistics transfer logic *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -831,3 +840,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21-1.35.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.34.1...release/v1.21-1.35.0
 [release/v1.21-1.35.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.35.0...release/v1.21-1.35.1
 [release/v1.21-1.35.2]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.35.1...release/v1.21-1.35.2
+[release/v1.21-1.36.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.35.2...release/v1.21-1.36.0

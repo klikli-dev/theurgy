@@ -188,6 +188,9 @@ public class Logistics extends SavedData {
                 return null;
             }
 
+            if(!level.isLoaded(pos.pos()))
+                return null;
+
             var blockEntity = level.getBlockEntity(pos.pos());
             if (blockEntity instanceof HasLeafNodeBehaviour<?, ?> hasLeafNode && (capability == null || hasLeafNode.leafNode().capabilityType().equals(capability))) {
                 //noinspection unchecked -> we know it is the right type because we check!
@@ -210,6 +213,9 @@ public class Logistics extends SavedData {
         if (level == null) {
             return false;
         }
+
+        if(!level.isLoaded(pos.pos()))
+            return false;
 
         var blockEntity = level.getBlockEntity(pos.pos());
         return blockEntity instanceof LogisticsNode;

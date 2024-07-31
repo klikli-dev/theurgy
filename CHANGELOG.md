@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21-1.35.2] - 2024-07-31
+### :bug: Bug Fixes
+- [`5b620ae`](https://github.com/klikli-dev/theurgy/commit/5b620aef7eca13c20f13dd1d9f9c2f313b71908d) - fluid logistics transfer logic *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21-1.35.1] - 2024-07-30
 ### :bug: Bug Fixes
 - [`f6bbff5`](https://github.com/klikli-dev/theurgy/commit/f6bbff5d357dfef0a0c7c24ed5a625b2beaf1e1c) - sulfur based divination rods *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -825,3 +830,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21-1.34.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.34.0...release/v1.21-1.34.1
 [release/v1.21-1.35.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.34.1...release/v1.21-1.35.0
 [release/v1.21-1.35.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.35.0...release/v1.21-1.35.1
+[release/v1.21-1.35.2]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.35.1...release/v1.21-1.35.2

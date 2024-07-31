@@ -148,9 +148,9 @@ public class LogisticsFluidExtractorBehaviour extends ExtractorNodeBehaviour<IFl
         var inserted = insertCap.fill(extractStack, IFluidHandler.FluidAction.SIMULATE);
 
         //then if anything was inserted during the simulation, perform the real extraction and insertion
-        if (inserted != extractStack.getAmount()) {
-            var remaining = insertCap.fill(extractStack, IFluidHandler.FluidAction.EXECUTE);
-            extractCap.drain(extractStack.getAmount() - remaining, IFluidHandler.FluidAction.EXECUTE);
+        if (inserted > 0) {
+            inserted = insertCap.fill(extractStack, IFluidHandler.FluidAction.EXECUTE);
+            extractCap.drain(inserted, IFluidHandler.FluidAction.EXECUTE);
         }
     }
 }

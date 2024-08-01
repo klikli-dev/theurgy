@@ -21,7 +21,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Optional;
 import java.util.function.Supplier;
 
-public abstract class CraftingBehaviour<W extends RecipeInput, R extends Recipe<W >, C extends RecipeManager.CachedCheck<W, R>> {
+public abstract class CraftingBehaviour<W extends RecipeInput, R extends Recipe<W>, C extends RecipeManager.CachedCheck<W, R>> {
     protected BlockEntity blockEntity;
     protected Supplier<W> recipeWrapperSupplier;
     protected Supplier<IItemHandlerModifiable> inputInventorySupplier;
@@ -31,6 +31,7 @@ public abstract class CraftingBehaviour<W extends RecipeInput, R extends Recipe<
     protected int progress;
     protected int totalTime;
     protected boolean isProcessing;
+    protected boolean couldCraftLastTick;
 
 
     public CraftingBehaviour(BlockEntity blockEntity, Supplier<W> ItemHandlerRecipeInput, Supplier<IItemHandlerModifiable> inputInventorySupplier, Supplier<IItemHandlerModifiable> outputInventorySupplier, C recipeCachedCheck) {
@@ -43,6 +44,10 @@ public abstract class CraftingBehaviour<W extends RecipeInput, R extends Recipe<
 
     public boolean isProcessing() {
         return this.isProcessing;
+    }
+
+    public boolean couldCraftLastTick() {
+        return this.couldCraftLastTick;
     }
 
     public void readNetwork(CompoundTag tag, HolderLookup.Provider pRegistries) {
@@ -85,8 +90,10 @@ public abstract class CraftingBehaviour<W extends RecipeInput, R extends Recipe<
             //only even check for recipe if we have input to avoid unnecessary lookups
             var recipe = this.getRecipe().orElse(null);
 
+            this.couldCraftLastTick = this.canCraft(recipe);
+
             //if we are lit and have a recipe, update progress
-            if (canProcess && this.canCraft(recipe)) {
+            if (canProcess && this.couldCraftLastTick) {
                 this.tryStartProcessing();
 
                 this.progress++;
@@ -135,6 +142,7 @@ public abstract class CraftingBehaviour<W extends RecipeInput, R extends Recipe<
         //only do state updates if we actually changed something
         if (this.progress != 0 || this.isProcessing) {
             this.isProcessing = false;
+            this.couldCraftLastTick = false;
             this.progress = 0;
             this.sendBlockUpdated();
             //no need to setChanged() as the BE does that on inventory change.

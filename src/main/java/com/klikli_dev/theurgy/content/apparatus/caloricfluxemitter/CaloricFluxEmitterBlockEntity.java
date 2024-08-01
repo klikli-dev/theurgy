@@ -70,6 +70,9 @@ public class CaloricFluxEmitterBlockEntity extends BlockEntity {
         if (this.mercuryFluxStorage.getEnergyStored() >= FLUX_PER_HEAT) {
             var heatReceiver = this.level.getCapability(CapabilityRegistry.HEAT_RECEIVER, selectedPoint.getBlockPos(), null);
 
+            if(!heatReceiver.readyToReceive())
+                return;
+
             if (heatReceiver.getIsHotUntil() > this.getLevel().getGameTime() + TICK_INTERVAL)
                 return; //target block is still hot until next tick so do nothing
 

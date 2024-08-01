@@ -126,8 +126,11 @@ public class MercuryCatalystCraftingBehaviour extends CraftingBehaviour<ItemHand
             //if we have no flux available, consume more mercury
             var recipe = this.recipeCachedCheck.getRecipeFor(this.recipeWrapperSupplier.get(), this.blockEntity.getLevel()).orElse(null);
 
+
+            this.couldCraftLastTick = this.canCraft(recipe);
+
             //if we are lit and have a recipe, update progress
-            if (canProcess && this.canCraft(recipe)) {
+            if (canProcess && this.couldCraftLastTick) {
                 this.craft(recipe);
             }
         }

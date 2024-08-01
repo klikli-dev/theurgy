@@ -33,4 +33,9 @@ public class DefaultHeatReceiver implements HeatReceiver, INBTSerializable<Tag> 
     public long getIsHotUntil() {
         return this.isHotUntil;
     }
+
+    @Override
+    public boolean readyToReceive() {
+        return true;
+    }
 }

@@ -5,8 +5,11 @@
 package com.klikli_dev.theurgy.content.apparatus.calcinationoven;
 
 import com.klikli_dev.theurgy.content.behaviour.animation.AnimationBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.crafting.HasCraftingBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.heat.HeatConsumerBehaviour;
-import com.klikli_dev.theurgy.content.capability.DefaultHeatReceiver;
+import com.klikli_dev.theurgy.content.capability.CraftingHeatReceiver;
+import com.klikli_dev.theurgy.content.recipe.CalcinationRecipe;
+import com.klikli_dev.theurgy.content.recipe.input.ItemHandlerRecipeInput;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -17,6 +20,7 @@ import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoBlockEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
@@ -24,12 +28,11 @@ import software.bernie.geckolib.animation.AnimatableManager;
 import software.bernie.geckolib.animation.AnimationController;
 
 
-public class CalcinationOvenBlockEntity extends BlockEntity implements GeoBlockEntity {
+public class CalcinationOvenBlockEntity extends BlockEntity implements GeoBlockEntity, HasCraftingBehaviour<ItemHandlerRecipeInput, CalcinationRecipe, CalcinationCachedCheck> {
 
-    public DefaultHeatReceiver heatReceiver;
+    public CraftingHeatReceiver heatReceiver;
 
     public CalcinationStorageBehaviour storageBehaviour;
-
 
     protected CalcinationCraftingBehaviour craftingBehaviour;
     protected HeatConsumerBehaviour heatConsumerBehaviour;
@@ -41,7 +44,7 @@ public class CalcinationOvenBlockEntity extends BlockEntity implements GeoBlockE
 
         this.storageBehaviour = new CalcinationStorageBehaviour(this, () -> this.craftingBehaviour);
 
-        this.heatReceiver = new DefaultHeatReceiver();
+        this.heatReceiver = new CraftingHeatReceiver(this);
 
         this.craftingBehaviour = new CalcinationCraftingBehaviour(this, () -> this.storageBehaviour.inputInventory, () -> this.storageBehaviour.outputInventory);
         this.heatConsumerBehaviour = new HeatConsumerBehaviour(this);
@@ -49,14 +52,14 @@ public class CalcinationOvenBlockEntity extends BlockEntity implements GeoBlockE
     }
 
     @Override
-    public CompoundTag getUpdateTag(HolderLookup.Provider pRegistries) {
+    public @NotNull CompoundTag getUpdateTag(HolderLookup.@NotNull Provider pRegistries) {
         var tag = new CompoundTag();
         this.writeNetwork(tag, pRegistries);
         return tag;
     }
 
     @Override
-    public void handleUpdateTag(CompoundTag tag, HolderLookup.Provider pRegistries) {
+    public void handleUpdateTag(@NotNull CompoundTag tag, HolderLookup.@NotNull Provider pRegistries) {
         this.readNetwork(tag, pRegistries);
     }
 
@@ -67,7 +70,7 @@ public class CalcinationOvenBlockEntity extends BlockEntity implements GeoBlockE
     }
 
     @Override
-    public void onDataPacket(Connection connection, ClientboundBlockEntityDataPacket packet, HolderLookup.Provider pRegistries) {
+    public void onDataPacket(@NotNull Connection connection, ClientboundBlockEntityDataPacket packet, HolderLookup.@NotNull Provider pRegistries) {
         var tag = packet.getTag();
         if (tag != null) {
             this.readNetwork(tag, pRegistries);
@@ -92,7 +95,7 @@ public class CalcinationOvenBlockEntity extends BlockEntity implements GeoBlockE
     }
 
     @Override
-    protected void saveAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
+    protected void saveAdditional(@NotNull CompoundTag pTag, HolderLookup.@NotNull Provider pRegistries) {
         super.saveAdditional(pTag, pRegistries);
 
         pTag.put("heatReceiver", this.heatReceiver.serializeNBT(pRegistries));
@@ -102,7 +105,7 @@ public class CalcinationOvenBlockEntity extends BlockEntity implements GeoBlockE
     }
 
     @Override
-    public void loadAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
+    public void loadAdditional(@NotNull CompoundTag pTag, HolderLookup.@NotNull Provider pRegistries) {
         super.loadAdditional(pTag, pRegistries);
 
         if (pTag.contains("heatReceiver"))
@@ -120,5 +123,10 @@ public class CalcinationOvenBlockEntity extends BlockEntity implements GeoBlockE
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {
         return this.animationBehaviour.getAnimatableInstanceCache();
+    }
+
+    @Override
+    public CalcinationCraftingBehaviour craftingBehaviour() {
+        return this.craftingBehaviour;
     }
 }

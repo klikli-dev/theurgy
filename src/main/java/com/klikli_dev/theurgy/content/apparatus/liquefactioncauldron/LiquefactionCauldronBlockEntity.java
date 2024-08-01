@@ -4,10 +4,15 @@
 
 package com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron;
 
+import com.klikli_dev.theurgy.content.behaviour.crafting.CraftingBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.crafting.HasCraftingBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.heat.HeatConsumerBehaviour;
+import com.klikli_dev.theurgy.content.capability.CraftingHeatReceiver;
 import com.klikli_dev.theurgy.content.capability.DefaultHeatReceiver;
 import com.klikli_dev.theurgy.content.particle.ParticleColor;
 import com.klikli_dev.theurgy.content.particle.coloredbubble.ColoredBubbleParticleProvider;
+import com.klikli_dev.theurgy.content.recipe.LiquefactionRecipe;
+import com.klikli_dev.theurgy.content.recipe.input.ItemHandlerWithFluidRecipeInput;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -22,9 +27,9 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
 
-public class LiquefactionCauldronBlockEntity extends BlockEntity {
+public class LiquefactionCauldronBlockEntity extends BlockEntity implements HasCraftingBehaviour<ItemHandlerWithFluidRecipeInput, LiquefactionRecipe, LiquefactionCachedCheck> {
 
-    public DefaultHeatReceiver heatReceiver;
+    public CraftingHeatReceiver heatReceiver;
 
     public LiquefactionStorageBehaviour storageBehaviour;
 
@@ -37,7 +42,7 @@ public class LiquefactionCauldronBlockEntity extends BlockEntity {
 
         this.storageBehaviour = new LiquefactionStorageBehaviour(this, () -> this.craftingBehaviour);
 
-        this.heatReceiver = new DefaultHeatReceiver();
+        this.heatReceiver = new CraftingHeatReceiver(this);
 
         this.craftingBehaviour = new LiquefactionCraftingBehaviour(this, () -> this.storageBehaviour.inputInventory, () -> this.storageBehaviour.outputInventory, () -> this.storageBehaviour.solventTank);
         this.heatConsumerBehaviour = new HeatConsumerBehaviour(this);
@@ -127,5 +132,10 @@ public class LiquefactionCauldronBlockEntity extends BlockEntity {
 
         this.storageBehaviour.loadAdditional(pTag, pRegistries);
         this.craftingBehaviour.loadAdditional(pTag, pRegistries);
+    }
+
+    @Override
+    public CraftingBehaviour<ItemHandlerWithFluidRecipeInput, LiquefactionRecipe, LiquefactionCachedCheck> craftingBehaviour() {
+        return this.craftingBehaviour;
     }
 }

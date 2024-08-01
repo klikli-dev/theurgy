@@ -8,4 +8,6 @@ public interface HeatReceiver {
     void setHotUntil(long gameTime);
 
     long getIsHotUntil();
+
+    boolean readyToReceive();
 }

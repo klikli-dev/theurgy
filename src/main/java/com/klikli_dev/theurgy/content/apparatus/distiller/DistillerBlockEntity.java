@@ -5,8 +5,13 @@
 package com.klikli_dev.theurgy.content.apparatus.distiller;
 
 import com.klikli_dev.theurgy.content.behaviour.animation.AnimationBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.crafting.CraftingBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.crafting.HasCraftingBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.heat.HeatConsumerBehaviour;
+import com.klikli_dev.theurgy.content.capability.CraftingHeatReceiver;
 import com.klikli_dev.theurgy.content.capability.DefaultHeatReceiver;
+import com.klikli_dev.theurgy.content.recipe.DistillationRecipe;
+import com.klikli_dev.theurgy.content.recipe.input.ItemHandlerRecipeInput;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -24,9 +29,9 @@ import software.bernie.geckolib.animation.AnimatableManager;
 import software.bernie.geckolib.animation.AnimationController;
 
 
-public class DistillerBlockEntity extends BlockEntity implements GeoBlockEntity {
+public class DistillerBlockEntity extends BlockEntity implements GeoBlockEntity, HasCraftingBehaviour<ItemHandlerRecipeInput, DistillationRecipe, DistillationCachedCheck> {
 
-    public DefaultHeatReceiver heatReceiver;
+    public CraftingHeatReceiver heatReceiver;
 
     public DistillationStorageBehaviour storageBehaviour;
 
@@ -40,7 +45,7 @@ public class DistillerBlockEntity extends BlockEntity implements GeoBlockEntity 
 
         this.storageBehaviour = new DistillationStorageBehaviour(this, () -> this.craftingBehaviour);
 
-        this.heatReceiver = new DefaultHeatReceiver();
+        this.heatReceiver = new CraftingHeatReceiver(this);
 
         this.craftingBehaviour = new DistillationCraftingBehaviour(this, () -> this.storageBehaviour.inputInventory, () -> this.storageBehaviour.outputInventory);
         this.heatConsumerBehaviour = new HeatConsumerBehaviour(this);
@@ -120,5 +125,10 @@ public class DistillerBlockEntity extends BlockEntity implements GeoBlockEntity 
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {
         return this.animationBehaviour.getAnimatableInstanceCache();
+    }
+
+    @Override
+    public CraftingBehaviour<ItemHandlerRecipeInput, DistillationRecipe, DistillationCachedCheck> craftingBehaviour() {
+        return this.craftingBehaviour;
     }
 }

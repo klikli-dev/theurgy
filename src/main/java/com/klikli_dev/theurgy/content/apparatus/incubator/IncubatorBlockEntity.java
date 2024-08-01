@@ -5,8 +5,11 @@
 package com.klikli_dev.theurgy.content.apparatus.incubator;
 
 import com.klikli_dev.theurgy.content.behaviour.crafting.CraftingBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.crafting.HasCraftingBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.heat.HeatConsumerBehaviour;
+import com.klikli_dev.theurgy.content.capability.CraftingHeatReceiver;
 import com.klikli_dev.theurgy.content.capability.DefaultHeatReceiver;
+import com.klikli_dev.theurgy.content.recipe.IncubationRecipe;
 import com.klikli_dev.theurgy.content.recipe.input.IncubatorRecipeInput;
 import com.klikli_dev.theurgy.content.storage.MonitoredItemStackHandler;
 import com.klikli_dev.theurgy.content.storage.PreventInsertWrapper;
@@ -21,6 +24,7 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -28,7 +32,7 @@ import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.Nullable;
 
 
-public class IncubatorBlockEntity extends BlockEntity {
+public class IncubatorBlockEntity extends BlockEntity implements HasCraftingBehaviour<IncubatorRecipeInput, IncubationRecipe, RecipeManager.CachedCheck<IncubatorRecipeInput, IncubationRecipe>> {
     public IncubatorMercuryVesselBlockEntity mercuryVessel;
     public IncubatorSulfurVesselBlockEntity sulfurVessel;
     public IncubatorSaltVesselBlockEntity saltVessel;
@@ -44,11 +48,11 @@ public class IncubatorBlockEntity extends BlockEntity {
 
     public IncubatorRecipeInput ItemHandlerRecipeInput;
 
-    public DefaultHeatReceiver heatReceiver;
+    public CraftingHeatReceiver heatReceiver;
 
     public boolean isValidMultiblock;
 
-    protected CraftingBehaviour<?, ?, ?> craftingBehaviour;
+    protected IncubatorCraftingBehaviour craftingBehaviour;
     protected HeatConsumerBehaviour heatConsumerBehaviour;
     protected boolean checkValidMultiblockOnNextQuery;
 
@@ -59,7 +63,7 @@ public class IncubatorBlockEntity extends BlockEntity {
         this.outputInventoryTakeOnlyWrapper = new PreventInsertWrapper(this.outputInventory);
         this.checkValidMultiblockOnNextQuery = true;
 
-        this.heatReceiver = new DefaultHeatReceiver();
+        this.heatReceiver = new CraftingHeatReceiver(this);
 
         this.craftingBehaviour = new IncubatorCraftingBehaviour(this, () -> this.ItemHandlerRecipeInput, () -> null, () -> this.outputInventory);
         this.heatConsumerBehaviour = new HeatConsumerBehaviour(this);
@@ -230,6 +234,11 @@ public class IncubatorBlockEntity extends BlockEntity {
             this.validateMultiblock();
         }
         return this.isValidMultiblock;
+    }
+
+    @Override
+    public IncubatorCraftingBehaviour craftingBehaviour() {
+        return this.craftingBehaviour;
     }
 
     public class OutputInventory extends MonitoredItemStackHandler {

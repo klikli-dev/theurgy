@@ -78,8 +78,7 @@ public class DigestionEmiRecipe implements EmiRecipe {
         for (var sizedIngredient : this.recipe.value().getSizedIngredients()) {
             int x = 1 + (index % 2) * 18;
             int y = 1 + (index / 2) * 18;
-            widgets.addSlot(EmiIngredient.of(Arrays.stream(sizedIngredient.ingredient().getItems())
-                    .map(item -> EmiStack.of(item, sizedIngredient.count())).toList()), x, y);
+            widgets.addSlot(EmiIngredient.of(sizedIngredient.ingredient(), sizedIngredient.count()), x, y);
             index++;
         }
 

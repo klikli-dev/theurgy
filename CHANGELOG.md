@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21-1.36.1] - 2024-08-01
+### :bug: Bug Fixes
+- [`ff8d862`](https://github.com/klikli-dev/theurgy/commit/ff8d862e84d27818c8c2dd4bed7a0d811af78b42) - let emi show ingredient count for calcination recipes *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`1dc69bf`](https://github.com/klikli-dev/theurgy/commit/1dc69bffc79e07603488841742a192922e8ea1f1) - allow inserting < 20 strata salt at once into calcination oven *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`de31e3b`](https://github.com/klikli-dev/theurgy/commit/de31e3ba2cf453bca4a80c08d6485440008bb366) - increase mod version *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`c0e3b82`](https://github.com/klikli-dev/theurgy/commit/c0e3b82190dd542df253cadfe8730ac9e3c9b311) - streamline sized ingredient usage for emi in digestion recipe *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21-1.36.0] - 2024-07-31
 ### :bug: Bug Fixes
 - [`c598edc`](https://github.com/klikli-dev/theurgy/commit/c598edc051d31d6d926ba29ad7b883049399985c) - endless saving in some edge cases *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -841,3 +851,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21-1.35.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.35.0...release/v1.21-1.35.1
 [release/v1.21-1.35.2]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.35.1...release/v1.21-1.35.2
 [release/v1.21-1.36.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.35.2...release/v1.21-1.36.0
+[release/v1.21-1.36.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.36.0...release/v1.21-1.36.1

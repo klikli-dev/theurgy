@@ -69,8 +69,7 @@ public class CalcinationEmiRecipe implements EmiRecipe {
     public void addWidgets(WidgetHolder widgets) {
         widgets.addTexture(EmiTexture.EMPTY_ARROW, 24, 8);
 
-        widgets.addSlot(EmiIngredient.of(Arrays.stream(this.recipe.value().getIngredients().getFirst().getItems())
-                .map(EmiStack::of).toList()), 1, 1);
+        widgets.addSlot(EmiIngredient.of(this.recipe.value().sizedIngredient().ingredient(), this.recipe.value().sizedIngredient().count()), 1, 1);
 
         widgets.addSlot(EmiStack.of(this.recipe.value().getResultItem(RegistryAccess.EMPTY)), 61, 9).recipeContext(this);
 

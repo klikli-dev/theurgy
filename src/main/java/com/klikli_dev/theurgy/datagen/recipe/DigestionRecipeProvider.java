@@ -41,11 +41,11 @@ public class DigestionRecipeProvider extends JsonRecipeProvider {
         this.makeRecipe(FluidRegistry.SAL_AMMONIAC.get(), salAmmoniacAmount, List.of(
                 Pair.of(lower, conversionFactor),
                 Pair.of(ItemRegistry.PURIFIED_GOLD.get(), 1)
-        ), higher, 1, TIME * 5, "_from_" + lower.tier().name().toLowerCase());
+        ), higher, 1, TIME * 2, "_from_" + lower.tier().name().toLowerCase());
 
         this.makeRecipe(FluidRegistry.SAL_AMMONIAC.get(), salAmmoniacAmount, List.of(
                 Pair.of(higher, 1)
-        ), lower, conversionFactor, TIME * 5, "_from_" + higher.tier().name().toLowerCase());
+        ), lower, conversionFactor, TIME, "_from_" + higher.tier().name().toLowerCase());
     }
 
     @Override
@@ -53,7 +53,7 @@ public class DigestionRecipeProvider extends JsonRecipeProvider {
         this.makeRecipeWithTags(Fluids.WATER, 1000, List.of(
                 Tags.Items.INGOTS_GOLD,
                 ItemTagRegistry.ALCHEMICAL_SALTS
-        ), ItemRegistry.PURIFIED_GOLD.get(), 20, TIME * 5);
+        ), ItemRegistry.PURIFIED_GOLD.get(), 20, TIME * 2);
 
         this.makeTierConversion(NiterRegistry.GEMS_ABUNDANT.get(), NiterRegistry.GEMS_COMMON.get(), 4, 10);
         this.makeTierConversion(NiterRegistry.GEMS_COMMON.get(), NiterRegistry.GEMS_RARE.get(), 4, 15);

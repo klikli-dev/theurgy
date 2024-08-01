@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21-1.38.0] - 2024-08-01
+### :sparkles: New Features
+- [`038b7a0`](https://github.com/klikli-dev/theurgy/commit/038b7a098fe58dd525688f7e3112c03d14ba731b) - adjust digestion recipe times *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21-1.37.0] - 2024-08-01
 ### :sparkles: New Features
 - [`120775a`](https://github.com/klikli-dev/theurgy/commit/120775a41399048028fe5dc9d1316c0c9c6b8fa1) - make caloric flux emitter emit only, if the target block is ready to craft *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -858,3 +863,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21-1.36.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.35.2...release/v1.21-1.36.0
 [release/v1.21-1.36.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.36.0...release/v1.21-1.36.1
 [release/v1.21-1.37.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.36.1...release/v1.21-1.37.0
+[release/v1.21-1.38.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.37.0...release/v1.21-1.38.0

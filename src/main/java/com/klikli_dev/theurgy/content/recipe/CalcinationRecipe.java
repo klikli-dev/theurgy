@@ -25,8 +25,6 @@ import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.common.crafting.SizedIngredient;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
-
 
 public class CalcinationRecipe implements Recipe<ItemHandlerRecipeInput> {
 
@@ -57,6 +55,10 @@ public class CalcinationRecipe implements Recipe<ItemHandlerRecipeInput> {
         this.ingredient = pIngredient;
         this.result = pResult;
         this.time = time;
+    }
+
+    public SizedIngredient sizedIngredient(){
+        return this.ingredient;
     }
 
     public int getIngredientCount() {

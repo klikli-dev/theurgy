@@ -10,22 +10,20 @@ import com.klikli_dev.theurgy.content.recipe.input.ItemHandlerRecipeInput;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
-import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.common.util.Lazy;
 import net.neoforged.neoforge.items.IItemHandlerModifiable;
-import net.neoforged.neoforge.items.ItemStackHandler;
 
 import java.util.Objects;
 import java.util.function.Supplier;
 
-public class CalcinationCraftingBehaviour extends CraftingBehaviour<ItemHandlerRecipeInput, CalcinationRecipe, RecipeManager.CachedCheck<ItemHandlerRecipeInput, CalcinationRecipe>> {
+public class CalcinationCraftingBehaviour extends CraftingBehaviour<ItemHandlerRecipeInput, CalcinationRecipe, CalcinationCachedCheck> {
     public CalcinationCraftingBehaviour(BlockEntity blockEntity, Supplier<IItemHandlerModifiable> inputInventorySupplier, Supplier<IItemHandlerModifiable> outputInventorySupplier) {
         super(blockEntity,
                 Lazy.of(() -> new ItemHandlerRecipeInput(inputInventorySupplier.get())),
                 inputInventorySupplier,
                 outputInventorySupplier,
-                RecipeManager.createCheck(RecipeTypeRegistry.CALCINATION.get()));
+                new CalcinationCachedCheck(RecipeTypeRegistry.CALCINATION.get()));
     }
 
     @Override
@@ -33,11 +31,7 @@ public class CalcinationCraftingBehaviour extends CraftingBehaviour<ItemHandlerR
         if (ItemStack.isSameItemSameComponents(stack, this.inputInventorySupplier.get().getStackInSlot(0)))
             return true; //early out if we are already processing this type of item
 
-        var tempInv = new ItemStackHandler(1);
-        tempInv.setStackInSlot(0, stack);
-        var tempInput = new ItemHandlerRecipeInput(tempInv);
-
-        return this.recipeCachedCheck.getRecipeFor(tempInput, Objects.requireNonNull(this.blockEntity.getLevel())).isPresent();
+        return this.recipeCachedCheck.getRecipeFor(stack, Objects.requireNonNull(this.blockEntity.getLevel())).isPresent();
     }
 
     @Override

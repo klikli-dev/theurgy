@@ -52,12 +52,12 @@ public class DigestionCachedCheck implements RecipeManager.CachedCheck<ItemHandl
 
             var recipe = recipeManager.byKeyTyped(this.type, lastRecipe);
             //test only the fluid without the (separate) item ingredients check that the recipe.matches() would.
-            if (recipe != null && recipe.value().getFluid().test(stack)) {
+            if (recipe != null && recipe.value().getFluid().ingredient().test(stack)) {
                 return Optional.of(recipe);
             }
         }
 
-        return recipeManager.byType(this.type).stream().filter((entry) -> entry.value().getFluid().test(stack)).findFirst();
+        return recipeManager.byType(this.type).stream().filter((entry) -> entry.value().getFluid().ingredient().test(stack)).findFirst();
     }
 
     /**

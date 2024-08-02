@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21-1.38.2] - 2024-08-02
+### :bug: Bug Fixes
+- [`19b084b`](https://github.com/klikli-dev/theurgy/commit/19b084b22dc24f76fac3f1ce746ed83cff68e8c0) - vats do not allow inserting fluids unless it is enough to fulfill a recipe *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21-1.38.1] - 2024-08-02
 ### :bug: Bug Fixes
 - [`d62d6bc`](https://github.com/klikli-dev/theurgy/commit/d62d6bcdcdcdf672ec010f1ed9649be1c8ddbfb0) - destroying a logistics connection node does not remove the wires *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -870,3 +875,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21-1.37.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.36.1...release/v1.21-1.37.0
 [release/v1.21-1.38.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.37.0...release/v1.21-1.38.0
 [release/v1.21-1.38.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.38.0...release/v1.21-1.38.1
+[release/v1.21-1.38.2]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.38.1...release/v1.21-1.38.2

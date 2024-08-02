@@ -89,7 +89,7 @@ public class LogisticsConnectionNodeBlock extends DirectionalBlock implements Ha
     public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pMovedByPiston) {
         super.onRemove(pState, pLevel, pPos, pNewState, pMovedByPiston);
 
-        if (pState.hasBlockEntity() && (!pState.is(pNewState.getBlock()) || !pNewState.hasBlockEntity())) {
+        if (!pState.is(pNewState.getBlock()) || !pNewState.hasBlockEntity()) {
             //Note: Adding is not necessary, because when using the wire it adds the two connection points.
             var removedWires = Wires.get(pLevel).removeWiresFor(pPos);
 

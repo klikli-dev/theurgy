@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21-1.38.4] - 2024-08-03
+### :bug: Bug Fixes
+- [`f56e2c8`](https://github.com/klikli-dev/theurgy/commit/f56e2c89289e68b4b0a60d3a99490749d87493a3) - graph edge loading *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`557b209`](https://github.com/klikli-dev/theurgy/commit/557b209110b2503b2553dd8a5558adac491002e3) - increase fluid extraction rate in logistics networks *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21-1.38.3] - 2024-08-03
 ### :bug: Bug Fixes
 - [`2747802`](https://github.com/klikli-dev/theurgy/commit/2747802be375e3a93e87ed90e9c1f8e3ea18127b) - sal ammoniac ore does not use stone background texture *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -885,3 +893,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21-1.38.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.38.0...release/v1.21-1.38.1
 [release/v1.21-1.38.2]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.38.1...release/v1.21-1.38.2
 [release/v1.21-1.38.3]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.38.2...release/v1.21-1.38.3
+[release/v1.21-1.38.4]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.38.3...release/v1.21-1.38.4

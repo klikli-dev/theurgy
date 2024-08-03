@@ -421,9 +421,20 @@ public class Logistics extends SavedData {
         return this.graphNodes;
     }
 
-    private Iterable<GlobalPos> getConnected(GlobalPos start) {
+    private Iterable<GlobalPos> getConnected(GlobalPos start){
+        return this.getConnected(start, false);
+    }
+
+    /**
+     * Gets all nodes connected to the given node.
+     * @param start the node to get connections fore
+     * @param force if false, only traverse graph if this.graphNodes() contains the start node. if true, always traverse. This risks an exception if the graph does not contain the node.
+     * @return all nodes connected to the given node.
+     */
+    private Iterable<GlobalPos> getConnected(GlobalPos start, boolean force) {
         var traverser = Traverser.forGraph(this.graph());
-        if (this.graphNodes().contains(start))
+
+        if (force || this.graphNodes().contains(start))
             return traverser.breadthFirst(start);
 
         return List.of();
@@ -443,7 +454,8 @@ public class Logistics extends SavedData {
             }
 
             //now get all nodes connected to this one and create a network for them
-            var connected = this.getConnected(node);
+            //we force get the connected nodes, because the graph is guaranteed to contain the node, as we are traversing it.
+            var connected = this.getConnected(node, true);
 
             this.buildNetwork(node, connected, this.graphNodes::add);
             //last param: we add both the root node and the connected nodes to graphNodes to ensure we don't do unnecessary double-checks

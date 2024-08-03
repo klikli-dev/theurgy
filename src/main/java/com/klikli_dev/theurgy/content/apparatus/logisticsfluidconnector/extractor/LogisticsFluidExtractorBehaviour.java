@@ -25,7 +25,7 @@ import org.jetbrains.annotations.Nullable;
 public class LogisticsFluidExtractorBehaviour extends ExtractorNodeBehaviour<IFluidHandler, @Nullable Direction> {
 
     public static final int EXTRACTION_EVERY_N_TICKS = 20; // 1 second
-    public static final int MAX_EXTRACTION_AMOUNT = 100; //how many items to extract per extraction tick
+    public static final int MAX_EXTRACTION_AMOUNT = 250; //how much fluid to extract per extraction tick
     private final int slowTickRandomOffset = (int) (Math.random() * 20);
     private int extractionAmount = MAX_EXTRACTION_AMOUNT;
     private Direction directionOverride = null;

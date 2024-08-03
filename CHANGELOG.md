@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.20.1] - 2024-08-03
+### :bug: Bug Fixes
+- [`e8afd67`](https://github.com/klikli-dev/theurgy/commit/e8afd67d069391929f959c6287d42fc836b30007) - sal ammoniac ore does not use stone background texture *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.1-1.20.0] - 2024-07-29
 ### :sparkles: New Features
 - [`57b5ae2`](https://github.com/klikli-dev/theurgy/commit/57b5ae2b13c61f5ca770bec8c14e759f56a90e59) - add zh_cn translation ([#209](https://github.com/klikli-dev/theurgy/pull/209)) - thanks @skyraah! *(commit by [@skyraah](https://github.com/skyraah))*
@@ -503,3 +508,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.19.2]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.19.1...release/v1.20.1-1.19.2
 [release/v1.20.1-1.19.3]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.19.2...release/v1.20.1-1.19.3
 [release/v1.20.1-1.20.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.19.3...release/v1.20.1-1.20.0
+[release/v1.20.1-1.20.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.20.0...release/v1.20.1-1.20.1

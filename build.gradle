@@ -165,6 +165,8 @@ jar {
     }
 }
 
+jar { exclude ".cache" }
+
 publishing {
     publications {
         mavenJava(MavenPublication) {

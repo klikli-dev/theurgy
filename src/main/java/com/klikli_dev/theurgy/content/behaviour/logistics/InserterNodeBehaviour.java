@@ -109,7 +109,12 @@ public abstract class InserterNodeBehaviour<T, C> extends LeafNodeBehaviour<T, C
      * @return
      */
     public List<BlockCapabilityCache<T, C>> availableTargetCapabilities() {
-        return this.targetCapabilities.stream().filter(cache -> this.level().isLoaded(cache.pos()) && this.level().getBlockEntity(cache.pos()) != null).toList();
+        return this.targetCapabilities.stream().filter(cache ->
+                this.level().isLoaded(cache.pos()) &&
+                        //instead of querying the BE, we query the cap.
+                        //because some caps come without BE, and even our own double-height blocks don't have a BE for the upper part.
+                        this.level().getCapability(this.capabilityType(), cache.pos(), cache.context()) != null
+        ).toList();
     }
 
     /**

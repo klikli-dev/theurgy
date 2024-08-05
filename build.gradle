@@ -160,7 +160,8 @@ dependencies {
     implementation "com.klikli_dev:modonomicon-${minecraft_version}-neoforge:${modonomicon_version}"
 
     //occultism
-    implementation "com.klikli_dev:occultism-${minecraft_version}-neoforge:${occultism_version}"
+    compileOnly "com.klikli_dev:occultism-${minecraft_version}-neoforge:${occultism_version}"
+//    runtimeOnly "com.klikli_dev:occultism-${minecraft_version}-neoforge:${occultism_version}"
 
     //Jade (Hwyla/Waila)
     implementation "maven.modrinth:jade:${jade_version}+neoforge"

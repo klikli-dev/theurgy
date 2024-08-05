@@ -24,7 +24,7 @@ import org.jetbrains.annotations.Nullable;
 public class LogisticsItemExtractorBehaviour extends ExtractorNodeBehaviour<IItemHandler, @Nullable Direction> {
 
     public static final int EXTRACTION_EVERY_N_TICKS = 20; // 1 second
-    public static final int MAX_EXTRACTION_AMOUNT = 10; //how many items to extract per extraction tick
+    public static final int MAX_EXTRACTION_AMOUNT = 64; //how many items to extract per extraction tick
     private final int slowTickRandomOffset = (int) (Math.random() * 20);
     private int extractionAmount = MAX_EXTRACTION_AMOUNT;
     private Direction directionOverride = null;
@@ -32,20 +32,6 @@ public class LogisticsItemExtractorBehaviour extends ExtractorNodeBehaviour<IIte
 
     public LogisticsItemExtractorBehaviour(BlockEntity blockEntity) {
         super(blockEntity, Capabilities.ItemHandler.BLOCK);
-    }
-
-    protected static int getFirstMatchingSlot(Level level, IItemHandler handler, Filter extractFilter, Filter insertFilter) {
-        return getFirstMatchingSlotAfter(level, handler, -1, extractFilter, insertFilter);
-    }
-
-    protected static int getFirstMatchingSlotAfter(Level level, IItemHandler handler, int slot, Filter extractFilter, Filter insertFilter) {
-        for (int i = slot + 1; i < handler.getSlots(); i++) {
-            var stack = handler.getStackInSlot(i);
-            if (!stack.isEmpty() && extractFilter.test(level, stack) && insertFilter.test(level, stack)) {
-                return i;
-            }
-        }
-        return -1;
     }
 
     @Override
@@ -117,8 +103,6 @@ public class LogisticsItemExtractorBehaviour extends ExtractorNodeBehaviour<IIte
 
     @Override
     public void tickServer() {
-        //TODO: extraction should happen on a low tick, and in bulk.
-
         if (!this.enabled)
             return;
 
@@ -149,31 +133,33 @@ public class LogisticsItemExtractorBehaviour extends ExtractorNodeBehaviour<IIte
     }
 
     protected void performExtraction(IItemHandler extractCap, Filter extractFilter, IItemHandler insertCap, Filter insertFilter) {
-        int extractSlot = getFirstMatchingSlot(this.level(), extractCap, extractFilter, insertFilter);
-        if (extractSlot == -1)
-            return; //nothing found to extract
+        var level = this.level();
 
-        //first simulate extraction, this tells us how much we can extract
-        var extractStack = extractCap.extractItem(extractSlot, this.extractionAmount, true);
-        if (extractStack.isEmpty())
-            return;
+        //iterate over all slots in the extract inventory, but only extract from the first matching slot.
+        for (int extractSlot = 0; extractSlot < extractCap.getSlots(); extractSlot++) {
 
-        //TODO: better round robin distribution that works with extraction amounts > 1?
-        //  Simulate extract to get available
-        //  Simulate insert on each to get available space
-        //  Split evenly and take care of remainder
-        //  Then insert/extract
-        //  BUUUT: we should move that logic into the distributor
-        //  and: figure out if we do round robin only within a single tick, or if we do it across ticks
-        //      we probably need both depending on the transferred amount
+            //the extract slot must match the filters both on the extractor and inserter.
+            var stack = extractCap.getStackInSlot(extractSlot);
+            if (!stack.isEmpty() && extractFilter.test(level, stack) && insertFilter.test(level, stack)) {
 
-        //and insertion
-        ItemStack inserted = ItemHandlerHelper.insertItemStacked(insertCap, extractStack, true);
+                //first simulate extraction, this tells us how much we can extract
+                var extractStack = extractCap.extractItem(extractSlot, this.extractionAmount, true);
+                if (extractStack.isEmpty()) //that should never be true, as we already checked emptiness above.
+                    continue;
 
-        //then if anything was inserted during the simulation, perform the real extraction and insertion
-        if (inserted.getCount() != extractStack.getCount()) {
-            ItemStack remaining = ItemHandlerHelper.insertItemStacked(insertCap, extractStack, false);
-            extractCap.extractItem(extractSlot, extractStack.getCount() - remaining.getCount(), false);
+                //and insertion
+                ItemStack inserted = ItemHandlerHelper.insertItemStacked(insertCap, extractStack, true);
+                //TODO(optimization): does it make sense to cache "failed to insert" stacks?
+                //      1) use our own insert code instead of ItemHandlerHelper.insertItemStacked that the first sequence of full slots?
+                //      2) store itemstack + component (but not count) that failed to insert at all (not even 1 inserted in entire target container)
+
+                //then if anything was inserted during the simulation, perform the real extraction and insertion
+                if (inserted.getCount() != extractStack.getCount()) {
+                    ItemStack remaining = ItemHandlerHelper.insertItemStacked(insertCap, extractStack, false);
+                    extractCap.extractItem(extractSlot, extractStack.getCount() - remaining.getCount(), false);
+                    break; //we transfer maximum one stack per iteration
+                }
+            }
         }
     }
 }

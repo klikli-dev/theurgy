@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21-1.40.3] - 2024-08-05
+### :sparkles: New Features
+- [`5f6cd4e`](https://github.com/klikli-dev/theurgy/commit/5f6cd4e15a048c882669c9d833633666e430afd3) - add fermentation recipes using other organics *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :bug: Bug Fixes
+- [`fbb9d54`](https://github.com/klikli-dev/theurgy/commit/fbb9d54a0d00bc56a1465cb499eaaf5d10dd8287) - failed datagen *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21-1.40.2] - 2024-08-05
 ### :sparkles: New Features
 - [`6705f5d`](https://github.com/klikli-dev/theurgy/commit/6705f5dbd92757c3ff226f359bf36d42c1789c42) - increase salt output from ores *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -925,3 +933,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21-1.40.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.39.0...release/v1.21-1.40.0
 [release/v1.21-1.40.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.40.0...release/v1.21-1.40.1
 [release/v1.21-1.40.2]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.40.1...release/v1.21-1.40.2
+[release/v1.21-1.40.3]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.40.2...release/v1.21-1.40.3

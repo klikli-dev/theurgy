@@ -4,37 +4,37 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "theurgy:alchemical_sulfurs/metals/common"
+        "tag": "theurgy:alchemical_sulfurs/gems/precious"
       }
     },
     {
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "c:eggs"
+        "tag": "minecraft:logs"
       }
     }
   ],
   "type": "theurgy:fermentation",
   "category": "misc",
   "fluid": {
-    "amount": 250,
+    "amount": 1000,
     "ingredient": {
       "fluid": "minecraft:water"
     }
   },
   "ingredients": [
     {
-      "tag": "theurgy:alchemical_sulfurs/metals/common"
+      "tag": "theurgy:alchemical_sulfurs/gems/precious"
     },
     {
-      "tag": "c:eggs"
+      "tag": "minecraft:logs"
     }
   ],
   "result": {
     "type": "theurgy:item",
     "count": 1,
-    "id": "theurgy:alchemical_niter_metals_common"
+    "id": "theurgy:alchemical_niter_gems_precious"
   },
   "time": 200
 }

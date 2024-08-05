@@ -11,7 +11,7 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "c:eggs"
+        "tag": "minecraft:logs"
       }
     }
   ],
@@ -28,7 +28,7 @@
       "tag": "theurgy:alchemical_sulfurs/metals/common"
     },
     {
-      "tag": "c:eggs"
+      "tag": "minecraft:logs"
     }
   ],
   "result": {

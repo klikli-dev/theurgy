@@ -46,7 +46,6 @@ public class FermentationRecipeProvider extends JsonRecipeProvider {
         this.makeRecipesForCropTag(ItemTags.SAPLINGS);
         this.makeRecipesForCropTag(ItemTags.FLOWERS);
         this.makeRecipesForCropTag(Tags.Items.EGGS);
-        this.makeRecipesForCropTag(ItemTags.FLOWERS);
         this.makeRecipesForCropTag(ItemTags.LOGS);
         this.makeRecipesForCropTag(ItemTags.PLANKS);
     }

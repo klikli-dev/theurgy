@@ -45,15 +45,22 @@ public class OccultismIntegrationImpl implements OccultismIntegration {
             var filterItems = extractFilter.filterItems();
 
             for (var filterItem : filterItems) {
-                var key = new ItemStackKey(filterItem);
+                var key = ItemStackKey.of(filterItem);
+                var extractStack =
+                        extractFilter.shouldRespectDataComponents() ?
+                        extractCap.extractItem(key, extractionAmount, true)
+                                //if we ignore data components, we let the storage system find the first matching stack for us
+                        : extractCap.extractItemIgnoreComponents(key.stack(), extractionAmount, true);
 
-                var extractStack = extractCap.extractItem(key, extractionAmount, true);
                 if (!extractStack.isEmpty() && insertFilter.test(level, extractStack)) {
                     var inserted = ItemHandlerHelper.insertItemStacked(insertCap, extractStack, true);
 
                     if (inserted.getCount() != extractStack.getCount()) {
                         ItemStack remaining = ItemHandlerHelper.insertItemStacked(insertCap, extractStack, false);
-                        extractCap.extractItem(key, extractStack.getCount() - remaining.getCount(), false);
+                        extractCap.extractItem(
+                                //if we ignore data components, we build a new key from the actual extracted stack
+                                extractFilter.shouldRespectDataComponents() ? key : ItemStackKey.of(extractStack),
+                                extractStack.getCount() - remaining.getCount(), false);
                         return true;
                     }
                 }

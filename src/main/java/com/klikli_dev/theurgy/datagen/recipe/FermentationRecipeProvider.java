@@ -14,6 +14,7 @@ import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import com.mojang.serialization.JsonOps;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -41,6 +42,13 @@ public class FermentationRecipeProvider extends JsonRecipeProvider {
     public void buildRecipes(BiConsumer<ResourceLocation, JsonObject> recipeConsumer) {
         this.makeRecipesForCropTag(ItemTagRegistry.SUGARS);
         this.makeRecipesForCropTag(Tags.Items.CROPS);
+        this.makeRecipesForCropTag(Tags.Items.SEEDS);
+        this.makeRecipesForCropTag(ItemTags.SAPLINGS);
+        this.makeRecipesForCropTag(ItemTags.FLOWERS);
+        this.makeRecipesForCropTag(Tags.Items.EGGS);
+        this.makeRecipesForCropTag(ItemTags.FLOWERS);
+        this.makeRecipesForCropTag(ItemTags.LOGS);
+        this.makeRecipesForCropTag(ItemTags.PLANKS);
     }
 
     public void makeRecipesForCropTag(TagKey<Item> cropTag) {

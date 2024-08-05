@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21-1.40.2] - 2024-08-05
+### :sparkles: New Features
+- [`6705f5d`](https://github.com/klikli-dev/theurgy/commit/6705f5dbd92757c3ff226f359bf36d42c1789c42) - increase salt output from ores *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :bug: Bug Fixes
+- [`f840523`](https://github.com/klikli-dev/theurgy/commit/f84052304ce5f44ca73f9d397e2f7a439306d63f) - logistics cannot interact with upper parts of double-high machines *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21-1.40.1] - 2024-08-05
 ### :bug: Bug Fixes
 - [`fc79c84`](https://github.com/klikli-dev/theurgy/commit/fc79c843a2659e33933be44aa5a4fb23934413a2) - fluix, niter and certus liquefaction recipes *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -916,3 +924,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21-1.39.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.38.4...release/v1.21-1.39.0
 [release/v1.21-1.40.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.39.0...release/v1.21-1.40.0
 [release/v1.21-1.40.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.40.0...release/v1.21-1.40.1
+[release/v1.21-1.40.2]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.40.1...release/v1.21-1.40.2

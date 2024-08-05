@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21-1.39.0] - 2024-08-05
+### :sparkles: New Features
+- [`e6bf271`](https://github.com/klikli-dev/theurgy/commit/e6bf2719f2a3a9bb34e1f0267c9daa243a97b259) - improve item extractor behaviour *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`53d4dad`](https://github.com/klikli-dev/theurgy/commit/53d4dadfbf5bd25fb74c07a5ad243ce74920f905) - add occultism storage integration for optimized extraction *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`649c9e6`](https://github.com/klikli-dev/theurgy/commit/649c9e6ebea5f5da08ee3559532cad97b34a0a66) - make occultism dep compile only *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21-1.38.4] - 2024-08-03
 ### :bug: Bug Fixes
 - [`f56e2c8`](https://github.com/klikli-dev/theurgy/commit/f56e2c89289e68b4b0a60d3a99490749d87493a3) - graph edge loading *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -894,3 +903,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21-1.38.2]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.38.1...release/v1.21-1.38.2
 [release/v1.21-1.38.3]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.38.2...release/v1.21-1.38.3
 [release/v1.21-1.38.4]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.38.3...release/v1.21-1.38.4
+[release/v1.21-1.39.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.38.4...release/v1.21-1.39.0

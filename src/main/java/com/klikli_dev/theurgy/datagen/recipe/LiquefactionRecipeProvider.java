@@ -302,9 +302,9 @@ public class LiquefactionRecipeProvider extends JsonRecipeProvider {
         this.makeRecipe(SulfurRegistry.FLUORITE.get(), 1, ItemTagRegistry.GEMS_FLUORITE, salAmmoniac, 10);
         this.makeRecipe(SulfurRegistry.SAPPHIRE.get(), 1, ItemTagRegistry.GEMS_SAPPHIRE, salAmmoniac, 15);
         this.makeRecipe(SulfurRegistry.SAL_AMMONIAC.get(), 1, ItemTagRegistry.GEMS_SAL_AMMONIAC, salAmmoniac, 15);
-        this.makeRecipe(SulfurRegistry.CERTUS_QUARTZ.get(), 6, ItemTagRegistry.GEMS_CERTUS_QUARTZ, salAmmoniac, 15);
-        this.makeRecipe(SulfurRegistry.FLUIX.get(), 6, ItemTagRegistry.GEMS_FLUIX, salAmmoniac, 15);
-        this.makeRecipe(SulfurRegistry.NITER.get(), 6, ItemTagRegistry.GEMS_NITER, salAmmoniac, 15);
+        this.makeRecipe(SulfurRegistry.CERTUS_QUARTZ.get(), 1, ItemTagRegistry.GEMS_CERTUS_QUARTZ, salAmmoniac, 15);
+        this.makeRecipe(SulfurRegistry.FLUIX.get(), 1, ItemTagRegistry.GEMS_FLUIX, salAmmoniac, 15);
+        this.makeRecipe(SulfurRegistry.NITER.get(), 1, ItemTagRegistry.GEMS_NITER, salAmmoniac, 15);
 
         //Other Common Minerals Sulfurs
         this.makeRecipe(SulfurRegistry.REDSTONE.get(), 1, Tags.Items.DUSTS_REDSTONE, salAmmoniac, 10);

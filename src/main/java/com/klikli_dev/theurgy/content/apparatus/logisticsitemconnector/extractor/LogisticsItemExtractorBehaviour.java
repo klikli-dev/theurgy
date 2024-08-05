@@ -4,15 +4,15 @@
 
 package com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector.extractor;
 
+import com.klikli_dev.theurgy.content.behaviour.filter.Filter;
 import com.klikli_dev.theurgy.content.behaviour.logistics.ExtractorNodeBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.logistics.LeafNodeBehaviour;
-import com.klikli_dev.theurgy.content.behaviour.filter.Filter;
+import com.klikli_dev.theurgy.integration.occultism.OccultismIntegration;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.neoforged.neoforge.capabilities.BlockCapabilityCache;
@@ -127,6 +127,9 @@ public class LogisticsItemExtractorBehaviour extends ExtractorNodeBehaviour<IIte
 
         var extractCap = extractTarget.getCapability();
         if (extractCap == null)
+            return;
+
+        if (OccultismIntegration.get().tryPerformStorageActuatorExtraction(this.level(), extractCap, this.filter(), insertCap, insertTarget.inserter().filter(), this.extractionAmount))
             return;
 
         this.performExtraction(extractCap, this.filter(), insertCap, insertTarget.inserter().filter());

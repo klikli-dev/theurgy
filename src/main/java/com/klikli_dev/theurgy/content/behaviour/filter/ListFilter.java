@@ -16,13 +16,29 @@ import java.util.List;
 
 public class ListFilter extends Filter {
 
-    public List<ItemStack> filterItems;
-    public List<FluidStack> filterFluids;
-    public boolean shouldRespectDataComponents;
-    public boolean isDenyList;
+    protected List<ItemStack> filterItems;
+    protected List<FluidStack> filterFluids;
+    protected boolean shouldRespectDataComponents;
+    protected boolean isDenyList;
 
     protected ListFilter(HolderLookup.Provider provider, ItemStack filter) {
         super(provider, filter);
+    }
+
+    public List<ItemStack> filterItems(){
+        return this.filterItems;
+    }
+
+    public List<FluidStack> filterFluids(){
+        return this.filterFluids;
+    }
+
+    public boolean shouldRespectDataComponents(){
+        return this.shouldRespectDataComponents;
+    }
+
+    public boolean isDenyList(){
+        return this.isDenyList;
     }
 
     @Override

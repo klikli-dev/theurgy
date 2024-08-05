@@ -89,6 +89,34 @@ repositories {
         }
     }
     maven {
+        name = "OctoStudios (Curios Api Contiunation)"
+        url = uri("https://maven.octo-studios.com/releases")
+        content {
+            includeGroup "top.theillusivec4.curios"
+        }
+    }
+    maven {
+        name = "SBL Maven"
+        url "https://dl.cloudsmith.io/public/tslat/sbl/maven/"
+        content {
+            includeGroup "net.tslat.smartbrainlib"
+        }
+    }
+    maven {
+        // Shedaniel's maven (Architectury API)
+        url = "https://maven.architectury.dev"
+        content {
+            includeGroup "dev.architectury"
+        }
+    }
+    maven {
+        // saps.dev Maven (KubeJS and Rhino)
+        url = "https://maven.saps.dev/releases"
+        content {
+            includeGroup "dev.latvian.mods"
+        }
+    }
+    maven {
         url "https://cursemaven.com"
         content {
             includeGroup "curse.maven"
@@ -130,6 +158,9 @@ dependencies {
 
     //modonomicon
     implementation "com.klikli_dev:modonomicon-${minecraft_version}-neoforge:${modonomicon_version}"
+
+    //occultism
+    implementation "com.klikli_dev:occultism-${minecraft_version}-neoforge:${occultism_version}"
 
     //Jade (Hwyla/Waila)
     implementation "maven.modrinth:jade:${jade_version}+neoforge"

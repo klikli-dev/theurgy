@@ -30,6 +30,7 @@ public class CatalysationRecipeProvider extends JsonRecipeProvider {
         //that means we should make one shard give mercury flux equivalent to 8000 FE
         //let's assume a conversion factor of 1:10 and give 800
         this.makeRecipe("mercury_flux_from_mercury_shard", Ingredient.of(ItemRegistry.MERCURY_SHARD.get()), 800, PER_TICK);
+        this.makeRecipe("mercury_flux_from_mercury_crystal", Ingredient.of(ItemRegistry.MERCURY_CRYSTAL.get()), 800 * 4, PER_TICK);
     }
 
     public void makeRecipe(String name, Ingredient ingredient, int totalMercuryFlux, int mercuryFluxPerTick) {

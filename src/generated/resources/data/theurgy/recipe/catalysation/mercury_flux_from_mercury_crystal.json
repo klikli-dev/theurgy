@@ -1,0 +1,9 @@
+{
+  "type": "theurgy:catalysation",
+  "category": "misc",
+  "ingredient": {
+    "item": "theurgy:mercury_crystal"
+  },
+  "mercuryFluxPerTick": 20,
+  "totalMercuryFlux": 3200
+}

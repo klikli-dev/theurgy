@@ -53,6 +53,18 @@ public class ShapelessRecipeProvider extends JsonRecipeProvider {
                 new ShapelessRecipeBuilder(ItemRegistry.LOGISTICS_ITEM_INSERTER.get(), 1)
                         .requires(ItemRegistry.LOGISTICS_ITEM_EXTRACTOR.get())
         );
+
+        this.makeRecipe(
+                new ShapelessRecipeBuilder(ItemRegistry.MERCURY_SHARD.get(), 4)
+                        .requires(ItemRegistry.MERCURY_CRYSTAL.get())
+        );
+        this.makeRecipe(
+                new ShapelessRecipeBuilder(ItemRegistry.MERCURY_CRYSTAL.get(), 1)
+                        .requires(ItemRegistry.MERCURY_SHARD.get())
+                        .requires(ItemRegistry.MERCURY_SHARD.get())
+                        .requires(ItemRegistry.MERCURY_SHARD.get())
+                        .requires(ItemRegistry.MERCURY_SHARD.get())
+        );
     }
 
     protected void makeRecipe(ShapelessRecipeBuilder recipe) {

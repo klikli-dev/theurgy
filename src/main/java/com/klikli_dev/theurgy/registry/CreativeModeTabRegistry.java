@@ -45,6 +45,7 @@ public class CreativeModeTabRegistry {
                 output.accept(ItemRegistry.SAL_AMMONIAC_ORE.get());
                 output.accept(ItemRegistry.DEEPSLATE_SAL_AMMONIAC_ORE.get());
                 output.accept(ItemRegistry.PURIFIED_GOLD.get());
+                output.accept(ItemRegistry.FERMENTATION_STARTER.get());
 
                 output.accept(ItemRegistry.CALCINATION_OVEN.get());
                 output.accept(ItemRegistry.PYROMANTIC_BRAZIER.get());

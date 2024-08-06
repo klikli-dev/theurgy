@@ -62,6 +62,9 @@ public class TheurgyItemTagsProvider extends ItemTagsProvider {
         this.tag(ItemTagRegistry.SUGARS)
                 .add(Items.SUGAR);
 
+        this.tag(ItemTagRegistry.FERMENTATION_STARTERS)
+                .add(ItemRegistry.FERMENTATION_STARTER.get());
+
         //add the tier tags into the material tag
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS)
                 .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_ABUNDANT)

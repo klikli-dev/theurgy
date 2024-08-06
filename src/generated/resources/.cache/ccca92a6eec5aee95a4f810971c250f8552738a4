@@ -1,4 +1,4 @@
-// 1.21	2024-08-06T07:10:30.9668218	Item Models: theurgy
+// 1.21	2024-08-06T09:30:12.4943175	Item Models: theurgy
 e0f7b66a84e6588f01abbbce75b1803ffe5d46e2 assets/theurgy/models/item/alchemical_niter_crops_abundant.json
 e0f7b66a84e6588f01abbbce75b1803ffe5d46e2 assets/theurgy/models/item/alchemical_niter_gems_abundant.json
 e0f7b66a84e6588f01abbbce75b1803ffe5d46e2 assets/theurgy/models/item/alchemical_niter_gems_common.json
@@ -269,6 +269,7 @@ c55c36b94f98fda4216160d396842ec26f016f0c assets/theurgy/models/item/divination_r
 e0d7667ce794b40e193ecf66945c505733faf3f8 assets/theurgy/models/item/empty_jar_icon.json
 6ab59f4b86f40e6ffcfc2eedf7463c369c3bd822 assets/theurgy/models/item/empty_jar_iron_band_icon.json
 c7428fa39a7d54d5b732ad9dbe9f78ac26eb0f85 assets/theurgy/models/item/empty_jar_labeled_icon.json
+cc5220c8d7622c165dcea60f70e36efc20329a08 assets/theurgy/models/item/fermentation_starter.json
 eddc5aef2a2b6c9ed965ad5337a3f96a34424160 assets/theurgy/models/item/gems_abundant_icon.json
 90feea0791911c84668a1ca20b7212ac3126af49 assets/theurgy/models/item/gems_common_icon.json
 b32d347016f479613cb50b20d248bde222a414b9 assets/theurgy/models/item/gems_precious_icon.json

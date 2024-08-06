@@ -1,4 +1,4 @@
-// 1.21	2024-08-06T07:10:30.9688241	Tags for minecraft:item mod id theurgy
+// 1.21	2024-08-06T10:38:15.2265608	Tags for minecraft:item mod id theurgy
 f41150cbf3906d7eb1284a3f289d93bb80e57b9f data/c/tags/item/gems.json
 9a414088a384ea8077655b79eb53ac263aaae5e3 data/c/tags/item/gems/sal_ammoniac.json
 2a6db3eadd0ca532bb90db84dde920e689ea0e24 data/c/tags/item/ores.json
@@ -34,6 +34,7 @@ fd201c0e24e029cf75ee399b44961843afa4ad90 data/theurgy/tags/item/alchemical_sulfu
 a60fef1f5fe3c9aab793de4942e301732c51df6a data/theurgy/tags/item/alchemical_sulfurs/precious.json
 214fcce95acb2086d5fd0fd4247b8445aaf55efd data/theurgy/tags/item/alchemical_sulfurs/rare.json
 3bd13300b62d36e233ff4d34de69f118e502d263 data/theurgy/tags/item/alchemical_sulfurs_and_niters.json
+ca783578a81550e836f6993ea9aadd15907b388f data/theurgy/tags/item/fermentation_starters.json
 524efa3a8dcc24905b98159b1337b51391ec167f data/theurgy/tags/item/gems/mercury/high.json
 e873104df27d6faa558b42db26e56a3f0b9f8a59 data/theurgy/tags/item/gems/mercury/low.json
 d1e03d28eb707840e17f308c160dbf73077b84d1 data/theurgy/tags/item/gems/mercury/medium.json

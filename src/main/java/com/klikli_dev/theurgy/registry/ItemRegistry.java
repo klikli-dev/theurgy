@@ -154,6 +154,8 @@ public class ItemRegistry {
             ITEMS.register("sal_ammoniac_crystal", () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> PURIFIED_GOLD =
             ITEMS.register("purified_gold", () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> FERMENTATION_STARTER =
+            ITEMS.register("fermentation_starter", () -> new Item(new Item.Properties()));
 
     //Blocks
     public static final DeferredItem<Item> SAL_AMMONIAC_ORE =

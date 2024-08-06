@@ -12,6 +12,8 @@ import net.minecraft.world.item.Item;
 
 public class ItemTagRegistry {
 
+    public static final TagKey<Item> FERMENTATION_STARTERS = tag("fermentation_starters");
+
     //complementary tag to Tags.Items.ORES, Tags.Items.RAW_MATERIALS, Tags.Items.INGOTS and Tags.Items.GEMS
     public static final TagKey<Item> OTHER_MINERALS = tag("other_minerals");
 

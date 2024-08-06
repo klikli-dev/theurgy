@@ -1,0 +1,40 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:eggs"
+      }
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:sugars"
+      }
+    }
+  ],
+  "type": "theurgy:fermentation",
+  "category": "misc",
+  "fluid": {
+    "amount": 100,
+    "ingredient": {
+      "fluid": "theurgy:sal_ammoniac"
+    }
+  },
+  "ingredients": [
+    {
+      "tag": "c:eggs"
+    },
+    {
+      "tag": "c:sugars"
+    }
+  ],
+  "result": {
+    "type": "theurgy:item",
+    "count": 20,
+    "id": "theurgy:fermentation_starter"
+  },
+  "time": 200
+}

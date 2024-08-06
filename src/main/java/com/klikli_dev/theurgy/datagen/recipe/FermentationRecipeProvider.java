@@ -7,10 +7,9 @@ package com.klikli_dev.theurgy.datagen.recipe;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.klikli_dev.theurgy.Theurgy;
+import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurItem;
 import com.klikli_dev.theurgy.content.recipe.FermentationRecipe;
-import com.klikli_dev.theurgy.registry.ItemTagRegistry;
-import com.klikli_dev.theurgy.registry.NiterRegistry;
-import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
+import com.klikli_dev.theurgy.registry.*;
 import com.mojang.serialization.JsonOps;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
@@ -40,6 +39,15 @@ public class FermentationRecipeProvider extends JsonRecipeProvider {
 
     @Override
     public void buildRecipes(BiConsumer<ResourceLocation, JsonObject> recipeConsumer) {
+        this.makeFermentationStarterRecipeForTag(Tags.Items.CROPS);
+        this.makeFermentationStarterRecipeForTag(Tags.Items.SEEDS);
+        this.makeFermentationStarterRecipeForTag(ItemTags.SAPLINGS);
+        this.makeFermentationStarterRecipeForTag(ItemTags.FLOWERS);
+        this.makeFermentationStarterRecipeForTag(Tags.Items.EGGS);
+        this.makeFermentationStarterRecipeForTag(ItemTags.LOGS);
+        this.makeFermentationStarterRecipeForTag(ItemTags.PLANKS);
+
+        this.makeRecipesForCropTag(ItemTagRegistry.FERMENTATION_STARTERS);
         this.makeRecipesForCropTag(ItemTagRegistry.SUGARS);
         this.makeRecipesForCropTag(Tags.Items.CROPS);
         this.makeRecipesForCropTag(Tags.Items.SEEDS);
@@ -48,6 +56,16 @@ public class FermentationRecipeProvider extends JsonRecipeProvider {
         this.makeRecipesForCropTag(Tags.Items.EGGS);
         this.makeRecipesForCropTag(ItemTags.LOGS);
         this.makeRecipesForCropTag(ItemTags.PLANKS);
+    }
+
+    public void makeFermentationStarterRecipeForTag(TagKey<Item> cropTag) {
+        var recipe = new Builder(new ItemStack(ItemRegistry.FERMENTATION_STARTER.get(), 20))
+                .fluid(FluidRegistry.SAL_AMMONIAC.get(), 100)
+                .ingredients(cropTag)
+                .ingredients(ItemTagRegistry.SUGARS)
+                .time(TIME);
+
+        this.makeRecipe("_from_" + this.name(cropTag), recipe);
     }
 
     public void makeRecipesForCropTag(TagKey<Item> cropTag) {
@@ -147,6 +165,7 @@ public class FermentationRecipeProvider extends JsonRecipeProvider {
     protected void makeRecipe(String suffix, Builder recipe) {
         this.recipeConsumer.accept(this.modLoc(this.name(recipe.result()) + suffix), recipe.build());
     }
+
 
     @Override
     public @NotNull String getName() {

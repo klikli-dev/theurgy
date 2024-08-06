@@ -1042,6 +1042,14 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
                         """,
                 "Acts as a catalysator, enabling various alchemical processes."
         );
+
+        this.addItem(ItemRegistry.FERMENTATION_STARTER, "Fermentation Starter");
+        this.addTooltip(ItemRegistry.FERMENTATION_STARTER,
+                "Fermentation aid for recipes in the Fermentation Vat.",
+                """
+                        An extract of sugar and plant material that exhibits a high fermentation potential. Can be used as a more efficient alternative to raw sugar or crops in the Fermentation Vat.
+                        """
+        );
     }
 
     protected void addItemAttributes() {

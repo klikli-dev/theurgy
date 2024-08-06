@@ -233,6 +233,7 @@ public class SulfurRegistry {
     public static final DeferredItem<AlchemicalSulfurItem> REDSTONE = registerForSourceTag(Tags.Items.DUSTS_REDSTONE, AlchemicalDerivativeTier.COMMON, AlchemicalSulfurType.OTHER_MINERALS);
     public static final DeferredItem<AlchemicalSulfurItem> COAL = registerForSourceTag(ItemTags.COALS, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.OTHER_MINERALS);
     public static final DeferredItem<AlchemicalSulfurItem> SULFUR = registerForSourceTag(ItemTagRegistry.GEMS_SULFUR, AlchemicalDerivativeTier.COMMON, AlchemicalSulfurType.OTHER_MINERALS);
+    public static final DeferredItem<AlchemicalSulfurItem> GLOWSTONE = registerForSourceTag(Tags.Items.DUSTS_GLOWSTONE, AlchemicalDerivativeTier.COMMON, AlchemicalSulfurType.OTHER_MINERALS);
 
 
     /**

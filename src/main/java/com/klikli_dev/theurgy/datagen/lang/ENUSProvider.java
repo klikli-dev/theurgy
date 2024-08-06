@@ -746,6 +746,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.addDerivativeSource(SulfurRegistry.REDSTONE, "Redstone");
         this.addDerivativeSource(SulfurRegistry.COAL, "Coal");
         this.addDerivativeSource(SulfurRegistry.SULFUR, "Sulfur");
+        this.addDerivativeSource(SulfurRegistry.GLOWSTONE, "Glowstone");
     }
 
     private void addSalts() {

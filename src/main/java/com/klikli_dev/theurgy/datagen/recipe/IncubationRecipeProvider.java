@@ -236,6 +236,7 @@ public class IncubationRecipeProvider extends JsonRecipeProvider {
         this.makeRecipe(Tags.Items.DUSTS_REDSTONE, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.REDSTONE.get());
         this.makeRecipe(ItemTags.COALS, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.COAL.get());
         this.makeRecipe(ItemTagRegistry.GEMS_SULFUR, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.SULFUR.get());
+        this.makeRecipe(Tags.Items.DUSTS_GLOWSTONE, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.GLOWSTONE.get());
     }
 
     public void makeRecipe(TagKey<Item> result, Item mercury, AlchemicalSaltItem salt, AlchemicalSulfurItem sulfur) {

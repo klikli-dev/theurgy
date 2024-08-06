@@ -1,0 +1,43 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:dusts/glowstone"
+      }
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:dusts/glowstone"
+      }
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "theurgy:alchemical_sulfurs/other_minerals/common"
+      }
+    }
+  ],
+  "type": "theurgy:reformation",
+  "category": "misc",
+  "mercuryFlux": 100,
+  "result": {
+    "type": "theurgy:item",
+    "count": 1,
+    "id": "theurgy:alchemical_sulfur_glowstone"
+  },
+  "sources": [
+    {
+      "count": 1,
+      "tag": "theurgy:alchemical_sulfurs/other_minerals/common"
+    }
+  ],
+  "target": {
+    "item": "theurgy:alchemical_sulfur_glowstone"
+  },
+  "time": 100
+}

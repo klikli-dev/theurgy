@@ -1,4 +1,4 @@
-// 1.21	2024-07-25T13:00:32.04296	Incubation Recipes
+// 1.21	2024-08-06T07:10:30.9658219	Incubation Recipes
 3dd54c17ea0d5e84b20ad3de406c65f23a2ea0a0 data/theurgy/recipe/incubation/acacia_log.json
 7f376e93947a0d23b71c21dcc84a8e45b6f0b4e0 data/theurgy/recipe/incubation/apple.json
 eb17ad8b7af9d2b9010014aa33f926974794751d data/theurgy/recipe/incubation/beetroot.json
@@ -93,6 +93,7 @@ e6d8cdbbaab0b2a1a4123957308f8593ee0f9ba2 data/theurgy/recipe/incubation/crops_tu
 8123921398bce38b435231c3b14bd42f7497f973 data/theurgy/recipe/incubation/crops_yam_from_alchemical_sulfur_yam.json
 21b8bf172179d4b77857719e3673571ccf623e41 data/theurgy/recipe/incubation/crops_zucchini_from_alchemical_sulfur_zucchini.json
 c376cb47af27e8d6bbe49d70a5aad9af6ef68e89 data/theurgy/recipe/incubation/dark_oak_log.json
+77b954858b82b25dcc97940dd38ce9b2d859e712 data/theurgy/recipe/incubation/dusts_glowstone_from_alchemical_sulfur_glowstone.json
 e498dca7ec2a0211f35875187365303a149467da data/theurgy/recipe/incubation/dusts_redstone_from_alchemical_sulfur_redstone.json
 56514eaee58348c92ef738a19e0da67e12ce0de4 data/theurgy/recipe/incubation/gems_amethyst_from_alchemical_sulfur_amethyst.json
 d6695b7b8cff7ee84aa6cea3997e54a363414a40 data/theurgy/recipe/incubation/gems_apatite_from_alchemical_sulfur_apatite.json

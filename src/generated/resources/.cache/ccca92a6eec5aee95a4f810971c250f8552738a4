@@ -1,4 +1,4 @@
-// 1.21	2024-07-25T11:49:24.3828651	Item Models: theurgy
+// 1.21	2024-08-06T07:10:30.9668218	Item Models: theurgy
 e0f7b66a84e6588f01abbbce75b1803ffe5d46e2 assets/theurgy/models/item/alchemical_niter_crops_abundant.json
 e0f7b66a84e6588f01abbbce75b1803ffe5d46e2 assets/theurgy/models/item/alchemical_niter_gems_abundant.json
 e0f7b66a84e6588f01abbbce75b1803ffe5d46e2 assets/theurgy/models/item/alchemical_niter_gems_common.json
@@ -94,6 +94,7 @@ e0f7b66a84e6588f01abbbce75b1803ffe5d46e2 assets/theurgy/models/item/alchemical_s
 e0f7b66a84e6588f01abbbce75b1803ffe5d46e2 assets/theurgy/models/item/alchemical_sulfur_glacian.json
 e0f7b66a84e6588f01abbbce75b1803ffe5d46e2 assets/theurgy/models/item/alchemical_sulfur_glimmering_dreamwood.json
 e0f7b66a84e6588f01abbbce75b1803ffe5d46e2 assets/theurgy/models/item/alchemical_sulfur_glimmering_livingwood.json
+e0f7b66a84e6588f01abbbce75b1803ffe5d46e2 assets/theurgy/models/item/alchemical_sulfur_glowstone.json
 e0f7b66a84e6588f01abbbce75b1803ffe5d46e2 assets/theurgy/models/item/alchemical_sulfur_gold.json
 e0f7b66a84e6588f01abbbce75b1803ffe5d46e2 assets/theurgy/models/item/alchemical_sulfur_golden_oak.json
 e0f7b66a84e6588f01abbbce75b1803ffe5d46e2 assets/theurgy/models/item/alchemical_sulfur_grape.json

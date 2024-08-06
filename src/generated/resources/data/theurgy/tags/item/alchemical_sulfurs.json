@@ -193,6 +193,7 @@
     "theurgy:alchemical_sulfur_niter",
     "theurgy:alchemical_sulfur_redstone",
     "theurgy:alchemical_sulfur_coals",
-    "theurgy:alchemical_sulfur_sulfur"
+    "theurgy:alchemical_sulfur_sulfur",
+    "theurgy:alchemical_sulfur_glowstone"
   ]
 }

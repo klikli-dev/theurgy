@@ -310,6 +310,7 @@ public class LiquefactionRecipeProvider extends JsonRecipeProvider {
         this.makeRecipe(SulfurRegistry.REDSTONE.get(), 1, Tags.Items.DUSTS_REDSTONE, salAmmoniac, 10);
         this.makeRecipe(SulfurRegistry.COAL.get(), 1, ItemTags.COALS, salAmmoniac, 10);
         this.makeRecipe(SulfurRegistry.SULFUR.get(), 1, ItemTagRegistry.GEMS_SULFUR, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.GLOWSTONE.get(), 1, Tags.Items.DUSTS_GLOWSTONE, salAmmoniac, 10);
     }
 
 

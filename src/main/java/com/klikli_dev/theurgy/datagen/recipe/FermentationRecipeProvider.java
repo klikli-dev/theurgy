@@ -59,7 +59,7 @@ public class FermentationRecipeProvider extends JsonRecipeProvider {
     }
 
     public void makeFermentationStarterRecipeForTag(TagKey<Item> cropTag) {
-        var recipe = new Builder(new ItemStack(ItemRegistry.FERMENTATION_STARTER.get(), 40))
+        var recipe = new Builder(new ItemStack(ItemRegistry.FERMENTATION_STARTER.get(), 20))
                 .fluid(FluidRegistry.SAL_AMMONIAC.get(), 100)
                 .ingredients(cropTag)
                 .ingredients(ItemTagRegistry.SUGARS)

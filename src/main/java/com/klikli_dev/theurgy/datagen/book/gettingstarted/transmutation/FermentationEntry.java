@@ -48,14 +48,15 @@ public class FermentationEntry extends EntryProvider {
                         [#]($INPUT)Right-click[#]() the {0} with the ingredients to place them inside:
                         - {1}
                         - {2}
-                        - {3} or any Crops
+                        - {3} or any Crops, or better: {4}
                                         
-                        (Check JEI for more recipes)
+                        (Check JEI/EMI for more recipes)
                         """,
                 this.itemLink(ItemRegistry.FERMENTATION_VAT.get()),
                 this.itemLink("Alchemical Sulfur: Quartz", SulfurRegistry.QUARTZ.get()),
                 this.itemLink(Items.WATER_BUCKET),
-                this.itemLink(Items.SUGAR)
+                this.itemLink(Items.SUGAR),
+                this.itemLink(ItemRegistry.FERMENTATION_STARTER)
         );
 
         this.page("metals", () -> BookSpotlightPageModel.create()

@@ -51,7 +51,7 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
                 "___________________________________",
                 "______________o_____________ř______",
                 "___________________________________",
-                "______________ó___________ț________",
+                "______________ó___________ț_ẗ______",
                 "___________________________________",
                 "____________ő_ò___ǒ_____ť_ţ_ƭ_ʈ_ṫ_ṭ",
                 "___________________________________",
@@ -166,6 +166,9 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
 
         var fermentationTransmutation = new FermentationEntry(this).generate('ƭ');
         fermentationTransmutation.withParent(fermentationVatEntry);
+
+        var fermentationStarter = new FermentationStarterEntry(this).generate('ẗ');
+        fermentationStarter.withParent(fermentationTransmutation);
 
         var niterToNiterReformation = new NiterToNiterReformationEntry(this).generate('ʈ');
         niterToNiterReformation.withParent(fermentationTransmutation);

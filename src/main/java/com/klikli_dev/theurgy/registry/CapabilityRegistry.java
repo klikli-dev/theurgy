@@ -102,13 +102,12 @@ public class CapabilityRegistry {
                 Capabilities.ItemHandler.BLOCK,
                 BlockEntityRegistry.DIGESTION_VAT.get(),
                 (blockEntity, side) -> {
-                    var isOpen = blockEntity.getBlockState().getValue(BlockStateProperties.OPEN);
                     if (side == Direction.UP) {
-                        return isOpen ? blockEntity.storageBehaviour.inputInventory : blockEntity.storageBehaviour.inputInventoryReadOnlyWrapper;
+                        return blockEntity.storageBehaviour.inputInventoryOpenCloseAwareWrapper;
                     } else if (side == Direction.DOWN) {
-                        return isOpen ? blockEntity.storageBehaviour.outputInventoryExtractOnlyWrapper : blockEntity.storageBehaviour.outputInventoryReadOnlyWrapper;
+                        return blockEntity.storageBehaviour.outputInventoryOpenCloseAwareWrapper;
                     } else {
-                        return isOpen ? blockEntity.storageBehaviour.inventory : blockEntity.storageBehaviour.inventoryReadOnlyWrapper;
+                        return blockEntity.storageBehaviour.inventoryOpenCloseAwareWrapper;
                     }
                 }
         );
@@ -116,10 +115,7 @@ public class CapabilityRegistry {
         event.registerBlockEntity(
                 Capabilities.FluidHandler.BLOCK,
                 BlockEntityRegistry.DIGESTION_VAT.get(),
-                (blockEntity, side) -> {
-                    var isOpen = blockEntity.getBlockState().getValue(BlockStateProperties.OPEN);
-                    return isOpen ? blockEntity.storageBehaviour.fluidTank : blockEntity.storageBehaviour.fluidTankReadOnlyWrapper;
-                }
+                (blockEntity, side) -> blockEntity.storageBehaviour.fluidTankCloseAwareWrapper
         );
     }
 
@@ -152,13 +148,12 @@ public class CapabilityRegistry {
                 Capabilities.ItemHandler.BLOCK,
                 BlockEntityRegistry.FERMENTATION_VAT.get(),
                 (blockEntity, side) -> {
-                    var isOpen = blockEntity.getBlockState().getValue(BlockStateProperties.OPEN);
                     if (side == Direction.UP) {
-                        return isOpen ? blockEntity.storageBehaviour.inputInventory : blockEntity.storageBehaviour.inputInventoryReadOnlyWrapper;
+                        return blockEntity.storageBehaviour.inputInventoryOpenCloseAwareWrapper;
                     } else if (side == Direction.DOWN) {
-                        return isOpen ? blockEntity.storageBehaviour.outputInventoryExtractOnlyWrapper : blockEntity.storageBehaviour.outputInventoryReadOnlyWrapper;
+                        return blockEntity.storageBehaviour.outputInventoryOpenCloseAwareWrapper;
                     } else {
-                        return isOpen ? blockEntity.storageBehaviour.inventory : blockEntity.storageBehaviour.inventoryReadOnlyWrapper;
+                        return blockEntity.storageBehaviour.inventoryOpenCloseAwareWrapper;
                     }
                 }
         );
@@ -166,10 +161,7 @@ public class CapabilityRegistry {
         event.registerBlockEntity(
                 Capabilities.FluidHandler.BLOCK,
                 BlockEntityRegistry.FERMENTATION_VAT.get(),
-                (blockEntity, side) -> {
-                    var isOpen = blockEntity.getBlockState().getValue(BlockStateProperties.OPEN);
-                    return isOpen ? blockEntity.storageBehaviour.fluidTank : blockEntity.storageBehaviour.fluidTankReadOnlyWrapper;
-                }
+                (blockEntity, side) -> blockEntity.storageBehaviour.fluidTankCloseAwareWrapper
         );
     }
 
@@ -182,7 +174,7 @@ public class CapabilityRegistry {
                         ),
                 BlockRegistry.INCUBATOR.get()
         );
-        
+
         event.registerBlockEntity(
                 HEAT_RECEIVER,
                 BlockEntityRegistry.INCUBATOR.get(),

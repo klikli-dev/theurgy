@@ -11,15 +11,16 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.FluidType;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.IItemHandlerModifiable;
-import net.neoforged.neoforge.items.ItemHandlerHelper;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import net.neoforged.neoforge.items.wrapper.CombinedInvWrapper;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Predicate;
 import java.util.function.Supplier;
@@ -27,7 +28,11 @@ import java.util.function.Supplier;
 public class DigestionStorageBehaviour extends StorageBehaviour<DigestionStorageBehaviour> implements OutputStorageBehaviour {
 
     public ItemStackHandler inputInventory;
-    public IItemHandler inputInventoryReadOnlyWrapper;
+    public IItemHandlerModifiable inputInventoryReadOnlyWrapper;
+    /**
+     * Depending on the state of the vat returns either a read only, or an extractable handler.
+     */
+    public SelectItemHandlerWrapper inputInventoryOpenCloseAwareWrapper;
 
     /**
      * The underlying outputInventory which allows inserting too - we use this when crafting.
@@ -40,12 +45,25 @@ public class DigestionStorageBehaviour extends StorageBehaviour<DigestionStorage
     /**
      * A capability wrapper for the outputInventory that allows neither inserting nor extracting
      */
-    public IItemHandler outputInventoryReadOnlyWrapper;
+    public IItemHandlerModifiable outputInventoryReadOnlyWrapper;
+    /**
+     * Depending on the state of the vat returns either a read only, or an extractable handler.
+     */
+    public SelectItemHandlerWrapper outputInventoryOpenCloseAwareWrapper;
 
     public CombinedInvWrapper inventory;
-    public IItemHandler inventoryReadOnlyWrapper;
+    public IItemHandlerModifiable inventoryReadOnlyWrapper;
+    /**
+     * Depending on the state of the vat returns either a read only, or an extractable handler.
+     */
+    public SelectItemHandlerWrapper inventoryOpenCloseAwareWrapper;
+
     public FluidTank fluidTank;
     public IFluidHandler fluidTankReadOnlyWrapper;
+    /**
+     * Depending on the state of the vat returns either a read only, or an extractable handler.
+     */
+    public SelectFluidHandlerWrapper fluidTankCloseAwareWrapper;
 
     public Supplier<DigestionCraftingBehaviour> craftingBehaviour;
 
@@ -56,22 +74,32 @@ public class DigestionStorageBehaviour extends StorageBehaviour<DigestionStorage
 
         this.inputInventory = new InputInventory();
         this.inputInventoryReadOnlyWrapper = new PreventInsertExtractWrapper(this.inputInventory);
+        this.inputInventoryOpenCloseAwareWrapper = new SelectItemHandlerWrapper(this.selectHandler(), this.inputInventory, this.inputInventoryReadOnlyWrapper);
 
         this.outputInventory = new OutputInventory();
         this.outputInventoryExtractOnlyWrapper = new PreventInsertWrapper(this.outputInventory);
         this.outputInventoryReadOnlyWrapper = new PreventInsertExtractWrapper(this.outputInventory);
+        this.outputInventoryOpenCloseAwareWrapper = new SelectItemHandlerWrapper(this.selectHandler(), this.outputInventoryExtractOnlyWrapper, this.outputInventoryReadOnlyWrapper);
 
         this.inventory = new CombinedInvWrapper(this.inputInventory, this.outputInventoryExtractOnlyWrapper);
         this.inventoryReadOnlyWrapper = new PreventInsertExtractWrapper(this.inventory);
+        this.inventoryOpenCloseAwareWrapper = new SelectItemHandlerWrapper(this.selectHandler(), this.inventory, this.inventoryReadOnlyWrapper);
 
         this.fluidTank = new WaterTank(FluidType.BUCKET_VOLUME * 10, f -> this.craftingBehaviour.get().canProcess(f));
         this.fluidTankReadOnlyWrapper = new PreventInsertExtractFluidWrapper(this.fluidTank);
+        this.fluidTankCloseAwareWrapper = new SelectFluidHandlerWrapper(this.selectHandler(), this.fluidTank, this.fluidTankReadOnlyWrapper);
+    }
+
+    private Supplier<Integer> selectHandler() {
+        return () -> this.blockEntity.getBlockState().getValue(BlockStateProperties.OPEN) ? 0 : 1;
     }
 
     @Override
     public void readNetwork(CompoundTag pTag, HolderLookup.Provider pRegistries) {
-        if (pTag.contains("inputInventory")) this.inputInventory.deserializeNBT(pRegistries, pTag.getCompound("inputInventory"));
-        if (pTag.contains("outputInventory")) this.outputInventory.deserializeNBT(pRegistries, pTag.getCompound("outputInventory"));
+        if (pTag.contains("inputInventory"))
+            this.inputInventory.deserializeNBT(pRegistries, pTag.getCompound("inputInventory"));
+        if (pTag.contains("outputInventory"))
+            this.outputInventory.deserializeNBT(pRegistries, pTag.getCompound("outputInventory"));
         if (pTag.contains("fluidTank")) this.fluidTank.readFromNBT(pRegistries, pTag.getCompound("fluidTank"));
     }
 
@@ -135,7 +163,7 @@ public class DigestionStorageBehaviour extends StorageBehaviour<DigestionStorage
         }
 
         @Override
-        public boolean isItemValid(int slot, ItemStack stack) {
+        public boolean isItemValid(int slot, @NotNull ItemStack stack) {
             //we only allow one item type to fill maximum one slot, so if another slot has the stack, return false.
             for (int i = 0; i < this.getSlots(); i++) {
                 if (i != slot && ItemStack.isSameItemSameComponents(stack, this.getStackInSlot(i))) {

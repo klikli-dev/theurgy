@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21-1.42.1] - 2024-08-06
+### :bug: Bug Fixes
+- [`cf41a61`](https://github.com/klikli-dev/theurgy/commit/cf41a6197aa12415e27d46cc571215bd0ddc19bc) - logistics systems that use blockentitycaches can insert into closed vats *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`935dee9`](https://github.com/klikli-dev/theurgy/commit/935dee9d27face5a795dac8dd7e9079660ef240f) - reduce fermentation starter crafting amount *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21-1.42.0] - 2024-08-06
 ### :sparkles: New Features
 - [`a53b92b`](https://github.com/klikli-dev/theurgy/commit/a53b92b93e67d9a9a34d732214a781e35efc1217) - add fermentation starter for more efficient fermentation recipes *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -951,3 +959,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21-1.40.3]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.40.2...release/v1.21-1.40.3
 [release/v1.21-1.41.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.40.3...release/v1.21-1.41.0
 [release/v1.21-1.42.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.41.0...release/v1.21-1.42.0
+[release/v1.21-1.42.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.42.0...release/v1.21-1.42.1

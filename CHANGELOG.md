@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21-1.41.0] - 2024-08-06
+### :sparkles: New Features
+- [`9c6e2e2`](https://github.com/klikli-dev/theurgy/commit/9c6e2e222d0e4893d5d9499f949ce1bda6d8adea) - add glowstone dust alchemy recipes *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`16334a6`](https://github.com/klikli-dev/theurgy/commit/16334a6af8b85618ebe10b52c2ef65c8649ec70e) - add mercury crystal <-> shard recipes 1:4 *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21-1.40.3] - 2024-08-05
 ### :sparkles: New Features
 - [`5f6cd4e`](https://github.com/klikli-dev/theurgy/commit/5f6cd4e15a048c882669c9d833633666e430afd3) - add fermentation recipes using other organics *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -934,3 +940,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21-1.40.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.40.0...release/v1.21-1.40.1
 [release/v1.21-1.40.2]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.40.1...release/v1.21-1.40.2
 [release/v1.21-1.40.3]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.40.2...release/v1.21-1.40.3
+[release/v1.21-1.41.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.40.3...release/v1.21-1.41.0

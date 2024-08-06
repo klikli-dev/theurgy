@@ -33,7 +33,7 @@
   ],
   "result": {
     "type": "theurgy:item",
-    "count": 20,
+    "count": 40,
     "id": "theurgy:fermentation_starter"
   },
   "time": 200

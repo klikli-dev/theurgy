@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21-1.42.0] - 2024-08-06
+### :sparkles: New Features
+- [`a53b92b`](https://github.com/klikli-dev/theurgy/commit/a53b92b93e67d9a9a34d732214a781e35efc1217) - add fermentation starter for more efficient fermentation recipes *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`620adca`](https://github.com/klikli-dev/theurgy/commit/620adca6d9d8793dd43b9d1c8eeb398a5d87cf6d) - add hermetica content for fermentation starter *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`af764a3`](https://github.com/klikli-dev/theurgy/commit/af764a303143c3dd5b19ea648af9482b2094dcc4) - adjust fermentation recipe output *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21-1.41.0] - 2024-08-06
 ### :sparkles: New Features
 - [`9c6e2e2`](https://github.com/klikli-dev/theurgy/commit/9c6e2e222d0e4893d5d9499f949ce1bda6d8adea) - add glowstone dust alchemy recipes *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -941,3 +950,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21-1.40.2]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.40.1...release/v1.21-1.40.2
 [release/v1.21-1.40.3]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.40.2...release/v1.21-1.40.3
 [release/v1.21-1.41.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.40.3...release/v1.21-1.41.0
+[release/v1.21-1.42.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.41.0...release/v1.21-1.42.0

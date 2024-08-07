@@ -13,6 +13,9 @@
     "theurgy:alchemical_niter_other_minerals_rare",
     "theurgy:alchemical_niter_other_minerals_precious",
     "theurgy:alchemical_niter_logs_abundant",
-    "theurgy:alchemical_niter_crops_abundant"
+    "theurgy:alchemical_niter_crops_abundant",
+    "theurgy:alchemical_niter_animals_abundant",
+    "theurgy:alchemical_niter_animals_common",
+    "theurgy:alchemical_niter_animals_rare"
   ]
 }

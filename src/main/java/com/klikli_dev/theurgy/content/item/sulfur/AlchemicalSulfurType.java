@@ -12,7 +12,9 @@ public enum AlchemicalSulfurType {
     METALS(),
     OTHER_MINERALS(),
     LOGS(),
-    CROPS();
+    CROPS(),
+    ANIMALS(),
+    MOBS();
 
     public final String descriptionId;
 

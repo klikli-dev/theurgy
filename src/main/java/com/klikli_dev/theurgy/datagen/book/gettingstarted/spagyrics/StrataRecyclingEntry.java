@@ -62,7 +62,7 @@ public class StrataRecyclingEntry extends EntryProvider {
                 """
                         This is a two-step process:
                         1. First we calcinate the Strata to obtain {0}.
-                        2. Then we calcinate 20 of these again to receive a small amount of {1}.
+                        2. Then we calcinate 5 of these again to receive a small amount of {1}.
                         """,
                 this.itemLink("Alchemical Salt - Strata", SaltRegistry.STRATA.get()),
                 this.itemLink("Alchemical Salt - Minerals", SaltRegistry.MINERAL.get())
@@ -71,11 +71,25 @@ public class StrataRecyclingEntry extends EntryProvider {
         this.page("recipe1", () -> BookCalcinationRecipePageModel.create()
                 .withRecipeId1("theurgy:calcination/alchemical_salt_strata_from_cobblestone")
                 .withRecipeId2("theurgy:calcination/alchemical_salt_mineral_from_strata_salt")
-                .withText(this.context().pageText()));
-        this.pageText(
-                """
-                        Sample extraction from Cobblestone.
-                        """
+        );
+
+        this.page("recipe2", () -> BookCalcinationRecipePageModel.create()
+                .withRecipeId1("theurgy:calcination/alchemical_salt_strata_from_sand")
+                .withRecipeId2("theurgy:calcination/alchemical_salt_strata_from_sandstone")
+        );
+
+        this.page("recipe3", () -> BookCalcinationRecipePageModel.create()
+                .withRecipeId1("theurgy:calcination/alchemical_salt_strata_from_dirt")
+                .withRecipeId2("theurgy:calcination/alchemical_salt_strata_from_gravel")
+        );
+
+        this.page("recipe4", () -> BookCalcinationRecipePageModel.create()
+                .withRecipeId1("theurgy:calcination/alchemical_salt_strata_from_clay")
+                .withRecipeId2("theurgy:calcination/alchemical_salt_strata_from_clay_ball")
+        );
+
+        this.page("recipe5", () -> BookCalcinationRecipePageModel.create()
+                .withRecipeId1("theurgy:calcination/alchemical_salt_strata_from_stone")
         );
     }
 

@@ -3,6 +3,18 @@
     {
       "id": "#theurgy:alchemical_sulfurs/crops/abundant",
       "required": false
+    },
+    {
+      "id": "#theurgy:alchemical_sulfurs/crops/common",
+      "required": false
+    },
+    {
+      "id": "#theurgy:alchemical_sulfurs/crops/rare",
+      "required": false
+    },
+    {
+      "id": "#theurgy:alchemical_sulfurs/crops/precious",
+      "required": false
     }
   ]
 }

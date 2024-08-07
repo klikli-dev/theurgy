@@ -1,0 +1,20 @@
+{
+  "values": [
+    {
+      "id": "#theurgy:alchemical_sulfurs/animals/abundant",
+      "required": false
+    },
+    {
+      "id": "#theurgy:alchemical_sulfurs/animals/common",
+      "required": false
+    },
+    {
+      "id": "#theurgy:alchemical_sulfurs/animals/rare",
+      "required": false
+    },
+    {
+      "id": "#theurgy:alchemical_sulfurs/animals/precious",
+      "required": false
+    }
+  ]
+}

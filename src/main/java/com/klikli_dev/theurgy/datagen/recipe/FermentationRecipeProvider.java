@@ -141,6 +141,22 @@ public class FermentationRecipeProvider extends JsonRecipeProvider {
                 .ingredients(ItemTagRegistry.ALCHEMICAL_SULFURS_CROPS_ABUNDANT)
                 .ingredients(cropTag)
                 .time(TIME));
+
+        this.makeRecipe("_using_" + this.name(cropTag), new Builder(NiterRegistry.ANIMALS_ABUNDANT)
+                .fluid(Fluids.WATER, 125)
+                .ingredients(ItemTagRegistry.ALCHEMICAL_SULFURS_ANIMALS_ABUNDANT)
+                .ingredients(cropTag)
+                .time(TIME));
+        this.makeRecipe("_using_" + this.name(cropTag), new Builder(NiterRegistry.ANIMALS_COMMON)
+                .fluid(Fluids.WATER, 250)
+                .ingredients(ItemTagRegistry.ALCHEMICAL_SULFURS_ANIMALS_COMMON)
+                .ingredients(cropTag)
+                .time(TIME));
+        this.makeRecipe("_using_" + this.name(cropTag), new Builder(NiterRegistry.ANIMALS_RARE)
+                .fluid(Fluids.WATER, 500)
+                .ingredients(ItemTagRegistry.ALCHEMICAL_SULFURS_ANIMALS_RARE)
+                .ingredients(cropTag)
+                .time(TIME));
     }
 
     public void makeRecipe(Fluid fluid, int fluidAmount, List<TagKey<Item>> ingredients, Item result, int resultCount, int time) {

@@ -161,33 +161,52 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.addItemTag(ItemTagRegistry.GEMS_SAL_AMMONIAC, "Sal Ammoniac Gems");
         this.addItemTag(ItemTagRegistry.ORES_SAL_AMMONIAC, "Sal Ammoniac Ores");
         this.addItemTag(ItemTagRegistry.SUGARS, "Sugars");
+
         this.addItemTag(ItemTagRegistry.ALCHEMICAL_MERCURIES, "Alchemical Mercuries");
         this.addItemTag(ItemTagRegistry.ALCHEMICAL_NITERS, "Alchemical Niters");
         this.addItemTag(ItemTagRegistry.ALCHEMICAL_SALTS, "Alchemical Salts");
+        this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_AND_NITERS, "Alchemical Sulfurs and Niters");
+
         this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS, "Alchemical Sulfurs");
         this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_ABUNDANT, "Alchemical Sulfurs: Abundant");
         this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_COMMON, "Alchemical Sulfurs: Common");
+        this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_RARE, "Alchemical Sulfurs: Rare");
+        this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_PRECIOUS, "Alchemical Sulfurs: Precious");
+
         this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS, "Alchemical Sulfurs: Gems");
         this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_ABUNDANT, "Alchemical Sulfurs: Abundant Gems");
         this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_COMMON, "Alchemical Sulfurs: Common Gems");
         this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_PRECIOUS, "Alchemical Sulfurs: Precious Gems");
         this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_RARE, "Alchemical Sulfurs: Rare Gems");
+
         this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS, "Alchemical Sulfurs: Metals");
         this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_ABUNDANT, "Alchemical Sulfurs: Abundant Metals");
         this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_COMMON, "Alchemical Sulfurs: Common Metals");
         this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_PRECIOUS, "Alchemical Sulfurs: Precious Metals");
         this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_RARE, "Alchemical Sulfurs: Rare Metals");
+
         this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS, "Alchemical Sulfurs: Other Minerals");
         this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_ABUNDANT, "Alchemical Sulfurs: Abundant Other Minerals");
         this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_COMMON, "Alchemical Sulfurs: Common Other Minerals");
+        this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_RARE, "Alchemical Sulfurs: Rare Other Minerals");
+        this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_PRECIOUS, "Alchemical Sulfurs: Precious Other Minerals");
+
         this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_LOGS, "Alchemical Sulfurs: Logs");
         this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_LOGS_ABUNDANT, "Alchemical Sulfurs: Abundant Logs");
-        this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_CROPS, "Alchemical Sulfurs: Crops");
+        this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_LOGS_COMMON, "Alchemical Sulfurs: Common Logs");
+        this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_LOGS_RARE, "Alchemical Sulfurs: Rare Logs");
+        this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_LOGS_PRECIOUS, "Alchemical Sulfurs: Precious Logs");
+        
         this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_CROPS_ABUNDANT, "Alchemical Sulfurs: Abundant Crops");
+        this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_CROPS_COMMON, "Alchemical Sulfurs: Common Crops");
+        this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_CROPS_RARE, "Alchemical Sulfurs: Rare Crops");
+        this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_CROPS_PRECIOUS, "Alchemical Sulfurs: Precious Crops");
 
-        this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_PRECIOUS, "Alchemical Sulfurs: Precious");
-        this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_RARE, "Alchemical Sulfurs: Rare");
-        this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_AND_NITERS, "Alchemical Sulfurs and Niters");
+        this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_ANIMALS_ABUNDANT, "Alchemical Sulfurs: Abundant Animal Parts");
+        this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_ANIMALS_COMMON, "Alchemical Sulfurs: Common Animal Parts");
+        this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_ANIMALS_RARE, "Alchemical Sulfurs: Rare Animal Parts");
+        this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_ANIMALS_PRECIOUS, "Alchemical Sulfurs: Precious Animal Parts");
+
         this.addItemTag(ItemTagRegistry.HIGH_MERCURY_GEMS, "High Mercury Gems");
         this.addItemTag(ItemTagRegistry.LOW_MERCURY_GEMS, "Low Mercury Gems");
         this.addItemTag(ItemTagRegistry.MEDIUM_MERCURY_GEMS, "Medium Mercury Gems");
@@ -542,6 +561,11 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.addDerivativeSource(NiterRegistry.LOGS_ABUNDANT, "Abundant Logs");
         this.addDerivativeSource(NiterRegistry.CROPS_ABUNDANT, "Abundant Crops");
 
+        this.addDerivativeSource(NiterRegistry.ANIMALS_ABUNDANT, "Abundant Animal Parts");
+        this.addDerivativeSource(NiterRegistry.ANIMALS_COMMON, "Common Animal Parts");
+        this.addDerivativeSource(NiterRegistry.ANIMALS_RARE, "Rare Animal Parts");
+
+
         //Sources for Sulfurs with {@link AlchemicalDerivativeItem#useCustomSourceName}
         this.addDerivativeSource(SulfurRegistry.OAK_LOG, "Oak");
         this.addDerivativeSource(SulfurRegistry.SPRUCE_LOG, "Spruce");
@@ -700,6 +724,28 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.addDerivativeSource(SulfurRegistry.PERSIMMON, "Persimmon");
         this.addDerivativeSource(SulfurRegistry.PLUM, "Plum");
 
+        //Creature Parts
+        this.addDerivativeSource(SulfurRegistry.PORKCHOP, "Porkchop");
+        this.addDerivativeSource(SulfurRegistry.BEEF, "Beef");
+        this.addDerivativeSource(SulfurRegistry.MUTTON, "Mutton");
+        this.addDerivativeSource(SulfurRegistry.CHICKEN, "Chicken");
+        this.addDerivativeSource(SulfurRegistry.EGG, "Egg");
+        this.addDerivativeSource(SulfurRegistry.INK_SAC, "Ink Sac");
+        this.addDerivativeSource(SulfurRegistry.GLOW_INK_SAC, "Glow Ink Sac");
+        this.addDerivativeSource(SulfurRegistry.RABBIT, "Rabbit");
+        this.addDerivativeSource(SulfurRegistry.RABBIT_HIDE, "Rabbit Hide");
+        this.addDerivativeSource(SulfurRegistry.RABBIT_FOOT, "Rabbit Foot");
+        this.addDerivativeSource(SulfurRegistry.LEATHER, "Leather");
+        this.addDerivativeSource(SulfurRegistry.FEATHER, "Feather");
+        this.addDerivativeSource(SulfurRegistry.WOOL, "Wool");
+        this.addDerivativeSource(SulfurRegistry.COD, "Cod");
+        this.addDerivativeSource(SulfurRegistry.SALMON, "Salmon");
+        this.addDerivativeSource(SulfurRegistry.TROPICAL_FISH, "Tropical Fish");
+        this.addDerivativeSource(SulfurRegistry.PUFFERFISH, "Pufferfish");
+        this.addDerivativeSource(SulfurRegistry.TURTLE_SCUTE, "Turtle Scute");
+        this.addDerivativeSource(SulfurRegistry.ARMADILLO_SCUTE, "Armadillo Scute");
+
+
         //Common Metals
         this.addDerivativeSource(SulfurRegistry.IRON, "Iron");
         this.addDerivativeSource(SulfurRegistry.COPPER, "Copper");
@@ -756,6 +802,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.addDerivativeSource(SaltRegistry.STRATA, "Strata");
         this.addExtendedTooltip(SaltRegistry.STRATA.get()::asItem,
                 "Salt extracted from the strata, that is, sedimentary rock, soil, clay and so on.");
+        this.addDerivativeSource(SaltRegistry.CREATURE, "Creatures");
 
         //Automatic salt name rendering
         SaltRegistry.SALTS.getEntries().stream().map(DeferredHolder::get).map(AlchemicalSaltItem.class::cast).forEach(salt -> {

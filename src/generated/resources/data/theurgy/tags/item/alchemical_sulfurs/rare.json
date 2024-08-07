@@ -1,7 +1,28 @@
 {
   "values": [
-    "#theurgy:alchemical_sulfurs/metals/rare",
-    "#theurgy:alchemical_sulfurs/gems/rare",
-    "#theurgy:alchemical_sulfurs/other_minerals/rare"
+    {
+      "id": "#theurgy:alchemical_sulfurs/metals/rare",
+      "required": false
+    },
+    {
+      "id": "#theurgy:alchemical_sulfurs/gems/rare",
+      "required": false
+    },
+    {
+      "id": "#theurgy:alchemical_sulfurs/other_minerals/rare",
+      "required": false
+    },
+    {
+      "id": "#theurgy:alchemical_sulfurs/logs/rare",
+      "required": false
+    },
+    {
+      "id": "#theurgy:alchemical_sulfurs/crops/rare",
+      "required": false
+    },
+    {
+      "id": "#theurgy:alchemical_sulfurs/animals/rare",
+      "required": false
+    }
   ]
 }

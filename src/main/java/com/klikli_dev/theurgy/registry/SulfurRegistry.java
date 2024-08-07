@@ -24,6 +24,27 @@ import java.util.function.Supplier;
 public class SulfurRegistry {
     public static final DeferredRegister.Items SULFURS = DeferredRegister.createItems(Theurgy.MODID);
 
+    //Animal stuff
+    public static final DeferredItem<AlchemicalSulfurItem> PORKCHOP = registerForSourceItem(Items.PORKCHOP, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.ANIMALS);
+    public static final DeferredItem<AlchemicalSulfurItem> BEEF = registerForSourceItem(Items.BEEF, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.ANIMALS);
+    public static final DeferredItem<AlchemicalSulfurItem> MUTTON = registerForSourceItem(Items.MUTTON, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.ANIMALS);
+    public static final DeferredItem<AlchemicalSulfurItem> CHICKEN = registerForSourceItem(Items.CHICKEN, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.ANIMALS);
+    public static final DeferredItem<AlchemicalSulfurItem> EGG = registerForSourceItem(Items.EGG, AlchemicalDerivativeTier.COMMON, AlchemicalSulfurType.ANIMALS);
+    public static final DeferredItem<AlchemicalSulfurItem> INK_SAC = registerForSourceItem(Items.INK_SAC, AlchemicalDerivativeTier.COMMON, AlchemicalSulfurType.ANIMALS);
+    public static final DeferredItem<AlchemicalSulfurItem> GLOW_INK_SAC = registerForSourceItem(Items.GLOW_INK_SAC, AlchemicalDerivativeTier.COMMON, AlchemicalSulfurType.ANIMALS);
+    public static final DeferredItem<AlchemicalSulfurItem> RABBIT = registerForSourceItem(Items.RABBIT, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.ANIMALS);
+    public static final DeferredItem<AlchemicalSulfurItem> RABBIT_HIDE = registerForSourceItem(Items.RABBIT_HIDE, AlchemicalDerivativeTier.COMMON, AlchemicalSulfurType.ANIMALS);
+    public static final DeferredItem<AlchemicalSulfurItem> RABBIT_FOOT = registerForSourceItem(Items.RABBIT_FOOT, AlchemicalDerivativeTier.RARE, AlchemicalSulfurType.ANIMALS);
+    public static final DeferredItem<AlchemicalSulfurItem> LEATHER = registerForSourceItem(Items.LEATHER, AlchemicalDerivativeTier.COMMON, AlchemicalSulfurType.ANIMALS);
+    public static final DeferredItem<AlchemicalSulfurItem> FEATHER = registerForSourceItem(Items.FEATHER, AlchemicalDerivativeTier.COMMON, AlchemicalSulfurType.ANIMALS);
+    public static final DeferredItem<AlchemicalSulfurItem> WOOL = registerForSourceItem(Items.WHITE_WOOL, AlchemicalDerivativeTier.COMMON, AlchemicalSulfurType.ANIMALS);
+    public static final DeferredItem<AlchemicalSulfurItem> COD = registerForSourceItem(Items.COD, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.ANIMALS);
+    public static final DeferredItem<AlchemicalSulfurItem> SALMON = registerForSourceItem(Items.SALMON, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.ANIMALS);
+    public static final DeferredItem<AlchemicalSulfurItem> TROPICAL_FISH = registerForSourceItem(Items.TROPICAL_FISH, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.ANIMALS);
+    public static final DeferredItem<AlchemicalSulfurItem> PUFFERFISH = registerForSourceItem(Items.PUFFERFISH, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.ANIMALS);
+    public static final DeferredItem<AlchemicalSulfurItem> TURTLE_SCUTE = registerForSourceItem(Items.TURTLE_SCUTE, AlchemicalDerivativeTier.RARE, AlchemicalSulfurType.ANIMALS);
+    public static final DeferredItem<AlchemicalSulfurItem> ARMADILLO_SCUTE = registerForSourceItem(Items.ARMADILLO_SCUTE, AlchemicalDerivativeTier.COMMON, AlchemicalSulfurType.ANIMALS);
+
     //Crops
     public static final DeferredItem<AlchemicalSulfurItem> BEETROOT = registerForSourceItem(Items.BEETROOT, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.CROPS);
     public static final DeferredItem<AlchemicalSulfurItem> CARROT = registerForSourceItem(Items.CARROT, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.CROPS);

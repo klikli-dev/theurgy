@@ -1,0 +1,16 @@
+{
+  "type": "theurgy:calcination",
+  "category": "misc",
+  "ingredient": {
+    "count": 2,
+    "ingredient": {
+      "item": "theurgy:alchemical_salt_plant"
+    }
+  },
+  "result": {
+    "type": "theurgy:item",
+    "count": 1,
+    "id": "theurgy:alchemical_salt_creature"
+  },
+  "time": 100
+}

@@ -195,6 +195,27 @@ public class LiquefactionRecipeProvider extends JsonRecipeProvider {
         this.makeRecipe(SulfurRegistry.PERSIMMON.get(), ItemTagRegistry.CROPS_PERSIMMON, salAmmoniac, 10);
         this.makeRecipe(SulfurRegistry.PLUM.get(), ItemTagRegistry.CROPS_PLUM, salAmmoniac, 10);
 
+        //Common Creature Parts
+        this.makeRecipe(SulfurRegistry.PORKCHOP.get(), Items.PORKCHOP, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.BEEF.get(), Items.BEEF, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.MUTTON.get(), Items.MUTTON, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.CHICKEN.get(), Items.CHICKEN, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.EGG.get(), Items.EGG, salAmmoniac, 15);
+        this.makeRecipe(SulfurRegistry.INK_SAC.get(), Items.INK_SAC, salAmmoniac, 15);
+        this.makeRecipe(SulfurRegistry.GLOW_INK_SAC.get(), Items.GLOW_INK_SAC, salAmmoniac, 15);
+        this.makeRecipe(SulfurRegistry.RABBIT.get(), Items.RABBIT, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.RABBIT_HIDE.get(), Items.RABBIT_HIDE, salAmmoniac, 15);
+        this.makeRecipe(SulfurRegistry.RABBIT_FOOT.get(), Items.RABBIT_FOOT, salAmmoniac, 20);
+        this.makeRecipe(SulfurRegistry.LEATHER.get(), Items.LEATHER, salAmmoniac, 15);
+        this.makeRecipe(SulfurRegistry.FEATHER.get(), Items.FEATHER, salAmmoniac, 15);
+        this.makeRecipe(SulfurRegistry.WOOL.get(), Items.WHITE_WOOL, salAmmoniac, 15);
+        this.makeRecipe(SulfurRegistry.COD.get(), Items.COD, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.SALMON.get(), Items.SALMON, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.TROPICAL_FISH.get(), Items.TROPICAL_FISH, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.PUFFERFISH.get(), Items.PUFFERFISH, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.TURTLE_SCUTE.get(), Items.TURTLE_SCUTE, salAmmoniac, 20);
+        this.makeRecipe(SulfurRegistry.ARMADILLO_SCUTE.get(), Items.ARMADILLO_SCUTE, salAmmoniac, 15);
+
         //Common Metals Ore Sulfurs
         this.makeRecipe(SulfurRegistry.IRON.get(), 5, Tags.Items.ORES_IRON, salAmmoniac, 10);
         this.makeRecipe(SulfurRegistry.COPPER.get(), 5, Tags.Items.ORES_COPPER, salAmmoniac, 10);

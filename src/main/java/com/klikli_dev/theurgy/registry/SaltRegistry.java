@@ -26,9 +26,10 @@ public class SaltRegistry {
             register("strata");
     public static final DeferredItem<AlchemicalSaltItem> MINERAL =
             register("mineral");
-
     public static final DeferredItem<AlchemicalSaltItem> PLANT =
             register("plant");
+    public static final DeferredItem<AlchemicalSaltItem> CREATURE =
+            register("creature");
 
     public static <T extends Item> DeferredItem<AlchemicalSaltItem> register(String name) {
         return register(name, () -> new AlchemicalSaltItem(new Item.Properties()));

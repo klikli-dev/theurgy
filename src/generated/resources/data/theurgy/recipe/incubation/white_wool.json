@@ -10,7 +10,7 @@
     "id": "minecraft:white_wool"
   },
   "salt": {
-    "item": "theurgy:alchemical_salt_creatures"
+    "item": "theurgy:alchemical_salt_creature"
   },
   "sulfur": {
     "item": "theurgy:alchemical_sulfur_white_wool"

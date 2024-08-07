@@ -202,10 +202,10 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_CROPS_RARE, "Alchemical Sulfurs: Rare Crops");
         this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_CROPS_PRECIOUS, "Alchemical Sulfurs: Precious Crops");
 
-        this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_ANIMALS_ABUNDANT, "Alchemical Sulfurs: Abundant Animals");
-        this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_ANIMALS_COMMON, "Alchemical Sulfurs: Common Animals");
-        this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_ANIMALS_RARE, "Alchemical Sulfurs: Rare Animals");
-        this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_ANIMALS_PRECIOUS, "Alchemical Sulfurs: Precious Animals");
+        this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_ANIMALS_ABUNDANT, "Alchemical Sulfurs: Abundant Animal Parts");
+        this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_ANIMALS_COMMON, "Alchemical Sulfurs: Common Animal Parts");
+        this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_ANIMALS_RARE, "Alchemical Sulfurs: Rare Animal Parts");
+        this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_ANIMALS_PRECIOUS, "Alchemical Sulfurs: Precious Animal Parts");
 
         this.addItemTag(ItemTagRegistry.HIGH_MERCURY_GEMS, "High Mercury Gems");
         this.addItemTag(ItemTagRegistry.LOW_MERCURY_GEMS, "Low Mercury Gems");
@@ -802,6 +802,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.addDerivativeSource(SaltRegistry.STRATA, "Strata");
         this.addExtendedTooltip(SaltRegistry.STRATA.get()::asItem,
                 "Salt extracted from the strata, that is, sedimentary rock, soil, clay and so on.");
+        this.addDerivativeSource(SaltRegistry.CREATURE, "Creatures");
 
         //Automatic salt name rendering
         SaltRegistry.SALTS.getEntries().stream().map(DeferredHolder::get).map(AlchemicalSaltItem.class::cast).forEach(salt -> {

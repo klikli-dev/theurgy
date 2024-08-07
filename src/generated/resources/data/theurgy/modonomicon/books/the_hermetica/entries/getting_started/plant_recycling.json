@@ -1,0 +1,83 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "theurgy:getting_started",
+  "description": "book.theurgy.the_hermetica.getting_started.plant_recycling.description",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "theurgy:alchemical_salt_plant"
+  },
+  "name": "book.theurgy.the_hermetica.getting_started.plant_recycling.name",
+  "pages": [
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "item": {
+        "item": "theurgy:alchemical_salt_mineral"
+      },
+      "text": "book.theurgy.the_hermetica.getting_started.plant_recycling.intro.text",
+      "title": ""
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.getting_started.plant_recycling.refining.text",
+      "title": "book.theurgy.the_hermetica.getting_started.plant_recycling.refining.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "theurgy:calcination_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "theurgy:calcination/alchemical_salt_plant_from_crops",
+      "recipe_id_2": "theurgy:calcination/alchemical_salt_creature_from_plant_salt",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    },
+    {
+      "type": "theurgy:calcination_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "theurgy:calcination/alchemical_salt_plant_from_logs",
+      "recipe_id_2": "theurgy:calcination/alchemical_salt_plant_from_leaves",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    },
+    {
+      "type": "theurgy:calcination_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "theurgy:calcination/alchemical_salt_plant_from_saplings",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "theurgy:getting_started/strata_recycling",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "sort_number": 19,
+  "x": 1,
+  "y": 10
+}

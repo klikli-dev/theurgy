@@ -10,12 +10,9 @@ import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
-import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.integration.modonomicon.page.calcination.BookCalcinationRecipePageModel;
-import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.registry.SaltRegistry;
 import com.mojang.datafixers.util.Pair;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 
 public class PlantRecyclingEntry extends EntryProvider {
@@ -31,52 +28,42 @@ public class PlantRecyclingEntry extends EntryProvider {
         this.page("intro", () -> BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(SaltRegistry.MINERAL.get()))
                 .withText(this.context().pageText()));
-        this.pageTitle("Expensive Salt");
+        this.pageTitle("Recycling Plants");
         this.pageText(
                 """
-                        As discovered in the previous entry, alchemical processes that should create Metals (or Gems) need Alchemical Salt created from these types of matter - Minerals. This, of course, is somewhat expensive, as it consumes valuable Minerals that we could use otherwise.
-                        """
-        );
-
-        this.page("solution", () -> BookTextPageModel.create()
-                .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText()));
-        this.pageTitle("Recycling Strata");
-        this.pageText(
-                """
-                        Sedimentary Strata, such as {0}, {1}, {2} but also {3} and many others, contains trace amounts of minerals.
-                        \\
-                        \\
-                        With the right process, we can obtain Alchemical Salt from them.
+                        Like {0}, {1} can be made more useful by refining it into a somewhat more desirable Alchemical Salt: {2}.
                         """,
-                this.itemLink(Items.DIRT),
-                this.itemLink(Items.COBBLESTONE),
-                this.itemLink(Items.SAND),
-                this.itemLink(Items.CLAY)
+                this.itemLink("Strata Salt", SaltRegistry.STRATA.get()),
+                this.itemLink("Plant Salt", SaltRegistry.PLANT.get()),
+                this.itemLink("Creature Salt", SaltRegistry.CREATURE.get())
         );
 
         this.page("refining", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
-        this.pageTitle("Refining Strata Salt");
+        this.pageTitle("Refining Plant Salt");
         this.pageText(
                 """
                         This is a two-step process:
-                        1. First we calcinate the Strata to obtain {0}.
-                        2. Then we calcinate 20 of these again to receive a small amount of {1}.
+                        1. First we calcinate Plants such as Crops or Trees to obtain {0}.
+                        2. Then we calcinate 2 of these again to receive a small amount of {1}.
                         """,
-                this.itemLink("Alchemical Salt - Strata", SaltRegistry.STRATA.get()),
-                this.itemLink("Alchemical Salt - Minerals", SaltRegistry.MINERAL.get())
+                this.itemLink("Alchemical Salt - Plants", SaltRegistry.PLANT.get()),
+                this.itemLink("Alchemical Salt - Creatures", SaltRegistry.CREATURE.get())
         );
 
         this.page("recipe1", () -> BookCalcinationRecipePageModel.create()
-                .withRecipeId1("theurgy:calcination/alchemical_salt_strata_from_cobblestone")
-                .withRecipeId2("theurgy:calcination/alchemical_salt_mineral_from_strata_salt")
-                .withText(this.context().pageText()));
-        this.pageText(
-                """
-                        Sample extraction from Cobblestone.
-                        """
+                .withRecipeId1("theurgy:calcination/alchemical_salt_plant_from_crops")
+                .withRecipeId2("theurgy:calcination/alchemical_salt_creature_from_plant_salt")
+                );
+
+        this.page("recipe2", () -> BookCalcinationRecipePageModel.create()
+                .withRecipeId1("theurgy:calcination/alchemical_salt_plant_from_logs")
+                .withRecipeId2("theurgy:calcination/alchemical_salt_plant_from_leaves")
+        );
+
+        this.page("recipe3", () -> BookCalcinationRecipePageModel.create()
+                .withRecipeId1("theurgy:calcination/alchemical_salt_plant_from_saplings")
         );
     }
 

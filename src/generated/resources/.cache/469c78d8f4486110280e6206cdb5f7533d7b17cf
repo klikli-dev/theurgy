@@ -1,4 +1,4 @@
-// 1.21	2024-08-07T19:36:01.53803	Tags for minecraft:item mod id theurgy
+// 1.21	2024-08-07T19:45:36.5858444	Tags for minecraft:item mod id theurgy
 f41150cbf3906d7eb1284a3f289d93bb80e57b9f data/c/tags/item/gems.json
 9a414088a384ea8077655b79eb53ac263aaae5e3 data/c/tags/item/gems/sal_ammoniac.json
 2a6db3eadd0ca532bb90db84dde920e689ea0e24 data/c/tags/item/ores.json
@@ -8,7 +8,7 @@ f8295983ffdb0c42c6c8b12788a5b63c1eb43f72 data/c/tags/item/ores_in_ground/stone.j
 e801bdef0719e27dd7decd88269ada7c5740348e data/c/tags/item/sugars.json
 c1ae367d1f7b1391996652acb8c12cfbe63abfc8 data/theurgy/tags/item/alchemical_mercuries.json
 8541d9dee1c4f1aa26041bee5e4b93e1a23a22b8 data/theurgy/tags/item/alchemical_niters.json
-687d4085512df2ca3daece8e95673ad06200e527 data/theurgy/tags/item/alchemical_salts.json
+fc621fad0374e095b3d515bf5bfd1ee61fa90bf5 data/theurgy/tags/item/alchemical_salts.json
 06ebb1be5887ef38d8b682bf28cb1a9b9fb9b440 data/theurgy/tags/item/alchemical_sulfurs.json
 d3445ff0a2b1a662dc0e220a4ca8f8276c3a967d data/theurgy/tags/item/alchemical_sulfurs/abundant.json
 25c27d686c1106f461a17bb0cbe0832bbe48915f data/theurgy/tags/item/alchemical_sulfurs/animals.json

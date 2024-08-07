@@ -191,25 +191,25 @@ public class IncubationRecipeProvider extends JsonRecipeProvider {
         this.makeRecipe(ItemTagRegistry.CROPS_PLUM, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.PLANT.get(), SulfurRegistry.PLUM.get());
 
         //creature parts
-        this.makeRecipe(Items.PORKCHOP, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.CREATURES.get(), SulfurRegistry.PORKCHOP.get());
-        this.makeRecipe(Items.BEEF, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.CREATURES.get(), SulfurRegistry.BEEF.get());
-        this.makeRecipe(Items.MUTTON, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.CREATURES.get(), SulfurRegistry.MUTTON.get());
-        this.makeRecipe(Items.CHICKEN, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.CREATURES.get(), SulfurRegistry.CHICKEN.get());
-        this.makeRecipe(Items.EGG, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.CREATURES.get(), SulfurRegistry.EGG.get());
-        this.makeRecipe(Items.INK_SAC, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.CREATURES.get(), SulfurRegistry.INK_SAC.get());
-        this.makeRecipe(Items.GLOW_INK_SAC, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.CREATURES.get(), SulfurRegistry.GLOW_INK_SAC.get());
-        this.makeRecipe(Items.RABBIT, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.CREATURES.get(), SulfurRegistry.RABBIT.get());
-        this.makeRecipe(Items.RABBIT_HIDE, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.CREATURES.get(), SulfurRegistry.RABBIT_HIDE.get());
-        this.makeRecipe(Items.RABBIT_FOOT, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.CREATURES.get(), SulfurRegistry.RABBIT_FOOT.get());
-        this.makeRecipe(Items.LEATHER, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.CREATURES.get(), SulfurRegistry.LEATHER.get());
-        this.makeRecipe(Items.FEATHER, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.CREATURES.get(), SulfurRegistry.FEATHER.get());
-        this.makeRecipe(Items.WHITE_WOOL, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.CREATURES.get(), SulfurRegistry.WOOL.get());
-        this.makeRecipe(Items.COD, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.CREATURES.get(), SulfurRegistry.COD.get());
-        this.makeRecipe(Items.SALMON, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.CREATURES.get(), SulfurRegistry.SALMON.get());
-        this.makeRecipe(Items.TROPICAL_FISH, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.CREATURES.get(), SulfurRegistry.TROPICAL_FISH.get());
-        this.makeRecipe(Items.PUFFERFISH, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.CREATURES.get(), SulfurRegistry.PUFFERFISH.get());
-        this.makeRecipe(Items.TURTLE_SCUTE, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.CREATURES.get(), SulfurRegistry.TURTLE_SCUTE.get());
-        this.makeRecipe(Items.ARMADILLO_SCUTE, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.CREATURES.get(), SulfurRegistry.ARMADILLO_SCUTE.get());
+        this.makeRecipe(Items.PORKCHOP, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.CREATURE.get(), SulfurRegistry.PORKCHOP.get());
+        this.makeRecipe(Items.BEEF, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.CREATURE.get(), SulfurRegistry.BEEF.get());
+        this.makeRecipe(Items.MUTTON, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.CREATURE.get(), SulfurRegistry.MUTTON.get());
+        this.makeRecipe(Items.CHICKEN, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.CREATURE.get(), SulfurRegistry.CHICKEN.get());
+        this.makeRecipe(Items.EGG, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.CREATURE.get(), SulfurRegistry.EGG.get());
+        this.makeRecipe(Items.INK_SAC, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.CREATURE.get(), SulfurRegistry.INK_SAC.get());
+        this.makeRecipe(Items.GLOW_INK_SAC, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.CREATURE.get(), SulfurRegistry.GLOW_INK_SAC.get());
+        this.makeRecipe(Items.RABBIT, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.CREATURE.get(), SulfurRegistry.RABBIT.get());
+        this.makeRecipe(Items.RABBIT_HIDE, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.CREATURE.get(), SulfurRegistry.RABBIT_HIDE.get());
+        this.makeRecipe(Items.RABBIT_FOOT, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.CREATURE.get(), SulfurRegistry.RABBIT_FOOT.get());
+        this.makeRecipe(Items.LEATHER, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.CREATURE.get(), SulfurRegistry.LEATHER.get());
+        this.makeRecipe(Items.FEATHER, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.CREATURE.get(), SulfurRegistry.FEATHER.get());
+        this.makeRecipe(Items.WHITE_WOOL, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.CREATURE.get(), SulfurRegistry.WOOL.get());
+        this.makeRecipe(Items.COD, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.CREATURE.get(), SulfurRegistry.COD.get());
+        this.makeRecipe(Items.SALMON, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.CREATURE.get(), SulfurRegistry.SALMON.get());
+        this.makeRecipe(Items.TROPICAL_FISH, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.CREATURE.get(), SulfurRegistry.TROPICAL_FISH.get());
+        this.makeRecipe(Items.PUFFERFISH, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.CREATURE.get(), SulfurRegistry.PUFFERFISH.get());
+        this.makeRecipe(Items.TURTLE_SCUTE, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.CREATURE.get(), SulfurRegistry.TURTLE_SCUTE.get());
+        this.makeRecipe(Items.ARMADILLO_SCUTE, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.CREATURE.get(), SulfurRegistry.ARMADILLO_SCUTE.get());
 
 
         //metal ingots from sulfurs

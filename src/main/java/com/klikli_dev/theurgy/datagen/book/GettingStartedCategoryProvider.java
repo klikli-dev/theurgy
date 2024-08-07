@@ -59,7 +59,7 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
                 "___________________________________",
                 "______________õ_________é_è_ë_ē_ė_ę",
                 "___________________________________",
-                "________________________ƒ__________"
+                "__________________Õ_____ƒ__________"
         };
     }
 
@@ -220,6 +220,8 @@ public class GettingStartedCategoryProvider extends CategoryProvider {
         createSalt.withParent(neededApparatus);
         var recycleStrata = new StrataRecyclingEntry(this).generate('ơ');
         recycleStrata.withParent(createSalt);
+        var recyclePlants = new PlantRecyclingEntry(this).generate('Õ');
+        recyclePlants.withParent(recycleStrata);
         var createMercury = new CreateMercuryEntry(this).generate('ò');
         createMercury.withParent(neededApparatus);
         var logistics = new LogisticsEntry(this).generate('ǒ');

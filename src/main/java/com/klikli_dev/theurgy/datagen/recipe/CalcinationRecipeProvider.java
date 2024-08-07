@@ -51,7 +51,7 @@ public class CalcinationRecipeProvider extends JsonRecipeProvider {
         this.makeRecipe("_from_leaves", new Builder(SaltRegistry.PLANT).sizedIngredient(ItemTags.LEAVES));
         this.makeRecipe("_from_saplings", new Builder(SaltRegistry.PLANT).sizedIngredient(ItemTags.SAPLINGS));
 
-        this.makeRecipe("_from_plant_salt", new Builder(SaltRegistry.CREATURES).sizedIngredient(SaltRegistry.PLANT.get(), 2));
+        this.makeRecipe("_from_plant_salt", new Builder(SaltRegistry.CREATURE).sizedIngredient(SaltRegistry.PLANT.get(), 2));
     }
 
 

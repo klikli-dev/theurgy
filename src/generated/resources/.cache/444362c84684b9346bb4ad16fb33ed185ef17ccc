@@ -1,5 +1,5 @@
-// 1.21	2024-08-07T19:36:01.5360289	Calcination Recipes
-4290c9f7a221581ffccee8939132354296b03ac9 data/theurgy/recipe/calcination/alchemical_salt_creatures_from_plant_salt.json
+// 1.21	2024-08-07T19:45:36.580847	Calcination Recipes
+472b41f69c7bb9bc380907d1161ab5296ab2336d data/theurgy/recipe/calcination/alchemical_salt_creature_from_plant_salt.json
 5e12dcda7293f3a90af81edad031c57875233f91 data/theurgy/recipe/calcination/alchemical_salt_mineral_from_gems.json
 209b01991b265e4a4e0f5ec22bfd974034fa68cb data/theurgy/recipe/calcination/alchemical_salt_mineral_from_ingots.json
 94842939e17e25e9873b5137e3fc02f08843b0e7 data/theurgy/recipe/calcination/alchemical_salt_mineral_from_ores.json

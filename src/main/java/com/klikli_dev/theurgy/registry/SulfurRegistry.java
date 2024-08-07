@@ -29,33 +29,21 @@ public class SulfurRegistry {
     public static final DeferredItem<AlchemicalSulfurItem> BEEF = registerForSourceItem(Items.BEEF, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.ANIMALS);
     public static final DeferredItem<AlchemicalSulfurItem> MUTTON = registerForSourceItem(Items.MUTTON, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.ANIMALS);
     public static final DeferredItem<AlchemicalSulfurItem> CHICKEN = registerForSourceItem(Items.CHICKEN, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.ANIMALS);
-    public static final DeferredItem<AlchemicalSulfurItem> EGG = registerForSourceItem(Items.EGG, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.ANIMALS);
-    public static final DeferredItem<AlchemicalSulfurItem> INK_SAC = registerForSourceItem(Items.INK_SAC, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.ANIMALS);
+    public static final DeferredItem<AlchemicalSulfurItem> EGG = registerForSourceItem(Items.EGG, AlchemicalDerivativeTier.COMMON, AlchemicalSulfurType.ANIMALS);
+    public static final DeferredItem<AlchemicalSulfurItem> INK_SAC = registerForSourceItem(Items.INK_SAC, AlchemicalDerivativeTier.COMMON, AlchemicalSulfurType.ANIMALS);
     public static final DeferredItem<AlchemicalSulfurItem> GLOW_INK_SAC = registerForSourceItem(Items.GLOW_INK_SAC, AlchemicalDerivativeTier.COMMON, AlchemicalSulfurType.ANIMALS);
-    public static final DeferredItem<AlchemicalSulfurItem> RABBIT = registerForSourceItem(Items.RABBIT, AlchemicalDerivativeTier.COMMON, AlchemicalSulfurType.ANIMALS);
+    public static final DeferredItem<AlchemicalSulfurItem> RABBIT = registerForSourceItem(Items.RABBIT, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.ANIMALS);
     public static final DeferredItem<AlchemicalSulfurItem> RABBIT_HIDE = registerForSourceItem(Items.RABBIT_HIDE, AlchemicalDerivativeTier.COMMON, AlchemicalSulfurType.ANIMALS);
-
-
+    public static final DeferredItem<AlchemicalSulfurItem> RABBIT_FOOT = registerForSourceItem(Items.RABBIT_FOOT, AlchemicalDerivativeTier.RARE, AlchemicalSulfurType.ANIMALS);
     public static final DeferredItem<AlchemicalSulfurItem> LEATHER = registerForSourceItem(Items.LEATHER, AlchemicalDerivativeTier.COMMON, AlchemicalSulfurType.ANIMALS);
     public static final DeferredItem<AlchemicalSulfurItem> FEATHER = registerForSourceItem(Items.FEATHER, AlchemicalDerivativeTier.COMMON, AlchemicalSulfurType.ANIMALS);
-
-    public static final DeferredItem<AlchemicalSulfurItem> BLACK_WOOL = registerForSourceItem(Items.BLACK_WOOL, AlchemicalDerivativeTier.COMMON, AlchemicalSulfurType.ANIMALS);
-    public static final DeferredItem<AlchemicalSulfurItem> BLUE_WOOL = registerForSourceItem(Items.BLUE_WOOL, AlchemicalDerivativeTier.COMMON, AlchemicalSulfurType.ANIMALS);
-    public static final DeferredItem<AlchemicalSulfurItem> BROWN_WOOL = registerForSourceItem(Items.BROWN_WOOL, AlchemicalDerivativeTier.COMMON, AlchemicalSulfurType.ANIMALS);
-    public static final DeferredItem<AlchemicalSulfurItem> CYAN_WOOL = registerForSourceItem(Items.CYAN_WOOL, AlchemicalDerivativeTier.COMMON, AlchemicalSulfurType.ANIMALS);
-    public static final DeferredItem<AlchemicalSulfurItem> GRAY_WOOL = registerForSourceItem(Items.GRAY_WOOL, AlchemicalDerivativeTier.COMMON, AlchemicalSulfurType.ANIMALS);
-    public static final DeferredItem<AlchemicalSulfurItem> GREEN_WOOL = registerForSourceItem(Items.GREEN_WOOL, AlchemicalDerivativeTier.COMMON, AlchemicalSulfurType.ANIMALS);
-    public static final DeferredItem<AlchemicalSulfurItem> LIGHT_BLUE_WOOL = registerForSourceItem(Items.LIGHT_BLUE_WOOL, AlchemicalDerivativeTier.COMMON, AlchemicalSulfurType.ANIMALS);
-    public static final DeferredItem<AlchemicalSulfurItem> LIGHT_GRAY_WOOL = registerForSourceItem(Items.LIGHT_GRAY_WOOL, AlchemicalDerivativeTier.COMMON, AlchemicalSulfurType.ANIMALS);
-    public static final DeferredItem<AlchemicalSulfurItem> LIME_WOOL = registerForSourceItem(Items.LIME_WOOL, AlchemicalDerivativeTier.COMMON, AlchemicalSulfurType.ANIMALS);
-    public static final DeferredItem<AlchemicalSulfurItem> MAGENTA_WOOL = registerForSourceItem(Items.MAGENTA_WOOL, AlchemicalDerivativeTier.COMMON, AlchemicalSulfurType.ANIMALS);
-    public static final DeferredItem<AlchemicalSulfurItem> ORANGE_WOOL = registerForSourceItem(Items.ORANGE_WOOL, AlchemicalDerivativeTier.COMMON, AlchemicalSulfurType.ANIMALS);
-    public static final DeferredItem<AlchemicalSulfurItem> PINK_WOOL = registerForSourceItem(Items.PINK_WOOL, AlchemicalDerivativeTier.COMMON, AlchemicalSulfurType.ANIMALS);
-    public static final DeferredItem<AlchemicalSulfurItem> PURPLE_WOOL = registerForSourceItem(Items.PURPLE_WOOL, AlchemicalDerivativeTier.COMMON, AlchemicalSulfurType.ANIMALS);
-    public static final DeferredItem<AlchemicalSulfurItem> RED_WOOL = registerForSourceItem(Items.RED_WOOL, AlchemicalDerivativeTier.COMMON, AlchemicalSulfurType.ANIMALS);
-    public static final DeferredItem<AlchemicalSulfurItem> WHITE_WOOL = registerForSourceItem(Items.WHITE_WOOL, AlchemicalDerivativeTier.COMMON, AlchemicalSulfurType.ANIMALS);
-    public static final DeferredItem<AlchemicalSulfurItem> YELLOW_WOOL = registerForSourceItem(Items.YELLOW_WOOL, AlchemicalDerivativeTier.COMMON, AlchemicalSulfurType.ANIMALS);
-
+    public static final DeferredItem<AlchemicalSulfurItem> WOOL = registerForSourceItem(Items.WHITE_WOOL, AlchemicalDerivativeTier.COMMON, AlchemicalSulfurType.ANIMALS);
+    public static final DeferredItem<AlchemicalSulfurItem> COD = registerForSourceItem(Items.COD, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.ANIMALS);
+    public static final DeferredItem<AlchemicalSulfurItem> SALMON = registerForSourceItem(Items.SALMON, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.ANIMALS);
+    public static final DeferredItem<AlchemicalSulfurItem> TROPICAL_FISH = registerForSourceItem(Items.TROPICAL_FISH, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.ANIMALS);
+    public static final DeferredItem<AlchemicalSulfurItem> PUFFERFISH = registerForSourceItem(Items.PUFFERFISH, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.ANIMALS);
+    public static final DeferredItem<AlchemicalSulfurItem> TURTLE_SCUTE = registerForSourceItem(Items.TURTLE_SCUTE, AlchemicalDerivativeTier.RARE, AlchemicalSulfurType.ANIMALS);
+    public static final DeferredItem<AlchemicalSulfurItem> ARMADILLO_SCUTE = registerForSourceItem(Items.ARMADILLO_SCUTE, AlchemicalDerivativeTier.COMMON, AlchemicalSulfurType.ANIMALS);
 
     //Crops
     public static final DeferredItem<AlchemicalSulfurItem> BEETROOT = registerForSourceItem(Items.BEETROOT, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.CROPS);

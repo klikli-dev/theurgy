@@ -1,7 +1,28 @@
 {
   "values": [
-    "#theurgy:alchemical_sulfurs/metals/common",
-    "#theurgy:alchemical_sulfurs/gems/common",
-    "#theurgy:alchemical_sulfurs/other_minerals/common"
+    {
+      "id": "#theurgy:alchemical_sulfurs/metals/common",
+      "required": false
+    },
+    {
+      "id": "#theurgy:alchemical_sulfurs/gems/common",
+      "required": false
+    },
+    {
+      "id": "#theurgy:alchemical_sulfurs/other_minerals/common",
+      "required": false
+    },
+    {
+      "id": "#theurgy:alchemical_sulfurs/logs/common",
+      "required": false
+    },
+    {
+      "id": "#theurgy:alchemical_sulfurs/crops/common",
+      "required": false
+    },
+    {
+      "id": "#theurgy:alchemical_sulfurs/animals/common",
+      "required": false
+    }
   ]
 }

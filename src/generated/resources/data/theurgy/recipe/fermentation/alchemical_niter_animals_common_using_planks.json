@@ -1,0 +1,40 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "theurgy:alchemical_sulfurs/animals/common"
+      }
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "minecraft:planks"
+      }
+    }
+  ],
+  "type": "theurgy:fermentation",
+  "category": "misc",
+  "fluid": {
+    "amount": 250,
+    "ingredient": {
+      "fluid": "minecraft:water"
+    }
+  },
+  "ingredients": [
+    {
+      "tag": "theurgy:alchemical_sulfurs/animals/common"
+    },
+    {
+      "tag": "minecraft:planks"
+    }
+  ],
+  "result": {
+    "type": "theurgy:item",
+    "count": 1,
+    "id": "theurgy:alchemical_niter_animals_common"
+  },
+  "time": 200
+}

@@ -58,33 +58,21 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
         });
     }
 
-    /**
-     * Convert N of the tag to 1 sulfur
-     */
-    private void makeNYtoXRecipes(int n, List<Pair<List<AlchemicalSulfurItem>, TagKey<Item>>> sulfurToTag) {
-        sulfurToTag.forEach((entry) -> {
-            entry.getFirst().stream().filter(s -> !this.noAutomaticRecipesFor.contains(s))
-                    .forEach((sulfur) -> {
-                        this.makeTagRecipe(sulfur, Collections.nCopies(n, entry.getSecond()), this.getFlux(sulfur));
-                    });
-        });
+    private void makeNiterToSulfurRecipe(AlchemicalNiterItem source, AlchemicalSulfurItem target) {
+        this.makeNiterToSulfurRecipe(source, 1, List.of(target), 1);
     }
 
-    /**
-     * Convert 1 of the tag to N sulfur
-     */
-    private void makeYtoNXRecipes(int n, List<Pair<List<AlchemicalSulfurItem>, TagKey<Item>>> sulfurToTag) {
-        sulfurToTag.forEach((entry) -> {
-            entry.getFirst().stream().filter(s -> !this.noAutomaticRecipesFor.contains(s))
-                    .forEach((sulfur) -> {
-                        this.makeTagRecipe(sulfur, n, entry.getSecond(), this.getFlux(sulfur));
-                    });
-        });
+    private void makeNiterToSulfurRecipe(AlchemicalNiterItem source, int sourceCount, AlchemicalSulfurItem target, int targetCount) {
+        this.makeNiterToSulfurRecipe(source, sourceCount, List.of(target), targetCount);
     }
 
     private void makeNiterToSulfurRecipe(AlchemicalNiterItem source, List<AlchemicalSulfurItem> targets) {
+        this.makeNiterToSulfurRecipe(source, 1, targets, 1);
+    }
+
+    private void makeNiterToSulfurRecipe(AlchemicalNiterItem source, int sourceCount, List<AlchemicalSulfurItem> targets, int targetCount) {
         targets.stream().filter(t -> !this.noAutomaticRecipesFor.contains(t)).forEach((target) -> {
-            this.makeRecipe(target, source, this.getFlux(target));
+            this.makeRecipe(target, targetCount, source, sourceCount, this.getFlux(target));
         });
     }
 
@@ -198,6 +186,8 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
         this.makeNiterToNiterRecipe(NiterRegistry.OTHER_MINERALS_ABUNDANT.get(), 1, NiterRegistry.LOGS_ABUNDANT.get(), 1);
         this.makeNiterToNiterRecipe(NiterRegistry.METALS_ABUNDANT.get(), 1, NiterRegistry.LOGS_ABUNDANT.get(), 2);
         this.makeNiterToNiterRecipe(NiterRegistry.GEMS_ABUNDANT.get(), 1, NiterRegistry.LOGS_ABUNDANT.get(), 4);
+        this.makeNiterToNiterRecipe(NiterRegistry.CROPS_ABUNDANT.get(), 1, NiterRegistry.LOGS_ABUNDANT.get(), 1);
+        this.makeNiterToNiterRecipe(NiterRegistry.ANIMALS_ABUNDANT.get(), 1, NiterRegistry.LOGS_ABUNDANT.get(), 2);
     }
 
     private void crops() {
@@ -212,16 +202,51 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
         this.makeXtoXRecipes(cropsFromCrops);
 
         //Further, allow conversion between types
-        this.makeNiterToNiterRecipe(NiterRegistry.LOGS_ABUNDANT.get(), 2, NiterRegistry.CROPS_ABUNDANT.get(), 1);
-        this.makeNiterToNiterRecipe(NiterRegistry.CROPS_ABUNDANT.get(), 2, NiterRegistry.LOGS_ABUNDANT.get(), 1);
+        this.makeNiterToNiterRecipe(NiterRegistry.LOGS_ABUNDANT.get(), 1, NiterRegistry.CROPS_ABUNDANT.get(), 1);
+        this.makeNiterToNiterRecipe(NiterRegistry.ANIMALS_ABUNDANT.get(), 1, NiterRegistry.CROPS_ABUNDANT.get(), 2);
+
 
         //crops should not convert to minerals, we have crop->log reformation, and log->coal furnace recipes to enable that
 //        this.makeNiterToNiterRecipe(NiterRegistry.CROPS_ABUNDANT.get(), 2, NiterRegistry.OTHER_MINERALS_ABUNDANT.get(), 1);
 
         //minerals to crops is fine though
-        this.makeNiterToNiterRecipe(NiterRegistry.OTHER_MINERALS_ABUNDANT.get(), 1, NiterRegistry.CROPS_ABUNDANT.get(), 1);
-        this.makeNiterToNiterRecipe(NiterRegistry.METALS_ABUNDANT.get(), 1, NiterRegistry.CROPS_ABUNDANT.get(), 2);
-        this.makeNiterToNiterRecipe(NiterRegistry.GEMS_ABUNDANT.get(), 1, NiterRegistry.CROPS_ABUNDANT.get(), 4);
+        this.makeNiterToNiterRecipe(NiterRegistry.OTHER_MINERALS_ABUNDANT.get(), 1, NiterRegistry.CROPS_ABUNDANT.get(), 2);
+        this.makeNiterToNiterRecipe(NiterRegistry.METALS_ABUNDANT.get(), 1, NiterRegistry.CROPS_ABUNDANT.get(), 4);
+        this.makeNiterToNiterRecipe(NiterRegistry.GEMS_ABUNDANT.get(), 1, NiterRegistry.CROPS_ABUNDANT.get(), 8);
+    }
+
+    private void animals(){
+        //Add conversion from the niter (representing the whole tier) to the single specific sulfurs
+        //This enables conversion between tiers by way of digestion
+        this.makeNiterToSulfurRecipe(NiterRegistry.ANIMALS_ABUNDANT.get(), SulfurMappings.animalsAbundant());
+        this.makeNiterToSulfurRecipe(NiterRegistry.ANIMALS_COMMON.get(), SulfurMappings.animalsCommon());
+        this.makeNiterToSulfurRecipe(NiterRegistry.ANIMALS_RARE.get(), SulfurMappings.animalsRare());
+
+        //Also allow direct conversion between specific sulfurs of the same tier
+        var animalsFromAnimal = List.of(
+                Pair.of(SulfurMappings.animalsAbundant(), ItemTagRegistry.ALCHEMICAL_SULFURS_ANIMALS_ABUNDANT),
+                Pair.of(SulfurMappings.animalsCommon(), ItemTagRegistry.ALCHEMICAL_SULFURS_ANIMALS_COMMON),
+                Pair.of(SulfurMappings.animalsRare(), ItemTagRegistry.ALCHEMICAL_SULFURS_ANIMALS_RARE)
+        );
+        this.makeXtoXRecipes(animalsFromAnimal);
+
+        //Further, allow conversion between types
+        //Note: Animals -> Minerals is covered via Animals -> Logs -> (Charcoal in Furnace) -> Minerals, only the reverse is via reformation
+
+        this.makeNiterToNiterRecipe(NiterRegistry.CROPS_ABUNDANT.get(), 2, NiterRegistry.ANIMALS_ABUNDANT.get(), 1);
+        this.makeNiterToNiterRecipe(NiterRegistry.LOGS_ABUNDANT.get(), 2, NiterRegistry.ANIMALS_ABUNDANT.get(), 1);
+
+        this.makeNiterToNiterRecipe(NiterRegistry.OTHER_MINERALS_ABUNDANT.get(), 1, NiterRegistry.ANIMALS_ABUNDANT.get(), 1);
+        this.makeNiterToNiterRecipe(NiterRegistry.OTHER_MINERALS_COMMON.get(), 1, NiterRegistry.ANIMALS_COMMON.get(), 1);
+        this.makeNiterToNiterRecipe(NiterRegistry.OTHER_MINERALS_RARE.get(), 1, NiterRegistry.ANIMALS_RARE.get(), 1);
+
+        this.makeNiterToNiterRecipe(NiterRegistry.METALS_ABUNDANT.get(), 1, NiterRegistry.ANIMALS_ABUNDANT.get(), 2);
+        this.makeNiterToNiterRecipe(NiterRegistry.METALS_COMMON.get(), 1, NiterRegistry.ANIMALS_COMMON.get(), 2);
+        this.makeNiterToNiterRecipe(NiterRegistry.METALS_RARE.get(), 1, NiterRegistry.ANIMALS_RARE.get(), 2);
+
+        this.makeNiterToNiterRecipe(NiterRegistry.GEMS_ABUNDANT.get(), 1, NiterRegistry.ANIMALS_ABUNDANT.get(), 4);
+        this.makeNiterToNiterRecipe(NiterRegistry.GEMS_COMMON.get(), 1, NiterRegistry.ANIMALS_COMMON.get(), 4);
+        this.makeNiterToNiterRecipe(NiterRegistry.GEMS_RARE.get(), 1, NiterRegistry.ANIMALS_RARE.get(), 4);
     }
 
     @Override
@@ -239,6 +264,7 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
         this.otherMinerals();
         this.logs();
         this.crops();
+        this.animals();
 
         //now flush cache.
         this.recipeCache.forEach(recipeConsumer);

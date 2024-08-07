@@ -85,26 +85,38 @@ public class TheurgyItemTagsProvider extends ItemTagsProvider {
                 .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_PRECIOUS);
 
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_LOGS)
-                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_LOGS_ABUNDANT);
+                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_LOGS_ABUNDANT)
+                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_LOGS_COMMON)
+                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_LOGS_RARE)
+                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_LOGS_PRECIOUS)
+        ;
 
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_CROPS)
-                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_CROPS_ABUNDANT);
+                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_CROPS_ABUNDANT)
+                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_CROPS_COMMON)
+                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_CROPS_RARE)
+                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_CROPS_PRECIOUS)
+        ;
+
+        this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_ANIMALS)
+                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_ANIMALS_ABUNDANT)
+                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_ANIMALS_COMMON)
+                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_ANIMALS_RARE)
+                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_ANIMALS_PRECIOUS)
+        ;
 
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_ABUNDANT);
         SulfurMappings.metalsAbundant().forEach(sulfur -> {
             this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_ABUNDANT).add(sulfur);
         });
-
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_COMMON);
         SulfurMappings.metalsCommon().forEach(sulfur -> {
             this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_COMMON).add(sulfur);
         });
-
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_RARE);
         SulfurMappings.metalsRare().forEach(sulfur -> {
             this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_RARE).add(sulfur);
         });
-
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_PRECIOUS);
         SulfurMappings.metalsPrecious().forEach(sulfur -> {
             this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_PRECIOUS).add(sulfur);
@@ -114,17 +126,14 @@ public class TheurgyItemTagsProvider extends ItemTagsProvider {
         SulfurMappings.gemsAbundant().forEach(sulfur -> {
             this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_ABUNDANT).add(sulfur);
         });
-
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_COMMON);
         SulfurMappings.gemsCommon().forEach(sulfur -> {
             this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_COMMON).add(sulfur);
         });
-
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_RARE);
         SulfurMappings.gemsRare().forEach(sulfur -> {
             this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_RARE).add(sulfur);
         });
-
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_PRECIOUS);
         SulfurMappings.gemsPrecious().forEach(sulfur -> {
             this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_PRECIOUS).add(sulfur);
@@ -134,17 +143,14 @@ public class TheurgyItemTagsProvider extends ItemTagsProvider {
         SulfurMappings.otherMineralsAbundant().forEach(sulfur -> {
             this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_ABUNDANT).add(sulfur);
         });
-
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_COMMON);
         SulfurMappings.otherMineralsCommon().forEach(sulfur -> {
             this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_COMMON).add(sulfur);
         });
-
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_RARE);
         SulfurMappings.otherMineralsRare().forEach(sulfur -> {
             this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_RARE).add(sulfur);
         });
-
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_PRECIOUS);
         SulfurMappings.otherMineralsPrecious().forEach(sulfur -> {
             this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_PRECIOUS).add(sulfur);
@@ -160,30 +166,54 @@ public class TheurgyItemTagsProvider extends ItemTagsProvider {
             this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_CROPS_ABUNDANT).add(sulfur);
         });
 
+        this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_ANIMALS_ABUNDANT);
+        SulfurMappings.animalsAbundant().forEach(sulfur -> {
+            this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_ANIMALS_ABUNDANT).add(sulfur);
+        });
+        this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_ANIMALS_COMMON);
+        SulfurMappings.animalsCommon().forEach(sulfur -> {
+            this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_ANIMALS_COMMON).add(sulfur);
+        });
+        this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_ANIMALS_RARE);
+        SulfurMappings.animalsRare().forEach(sulfur -> {
+            this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_ANIMALS_RARE).add(sulfur);
+        });
+
+
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_ABUNDANT)
-                .addTag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_ABUNDANT)
-                .addTag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_ABUNDANT)
-                .addTag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_ABUNDANT)
-                .addTag(ItemTagRegistry.ALCHEMICAL_SULFURS_LOGS_ABUNDANT)
-                .addTag(ItemTagRegistry.ALCHEMICAL_SULFURS_CROPS_ABUNDANT)
+                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_ABUNDANT)
+                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_ABUNDANT)
+                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_ABUNDANT)
+                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_LOGS_ABUNDANT)
+                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_CROPS_ABUNDANT)
+                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_ANIMALS_ABUNDANT)
         ;
 
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_COMMON)
-                .addTag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_COMMON)
-                .addTag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_COMMON)
-                .addTag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_COMMON)
+                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_COMMON)
+                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_COMMON)
+                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_COMMON)
+                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_LOGS_COMMON)
+                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_CROPS_COMMON)
+                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_ANIMALS_COMMON)
         ;
 
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_RARE)
-                .addTag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_RARE)
-                .addTag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_RARE)
-                .addTag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_RARE)
+                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_RARE)
+                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_RARE)
+                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_RARE)
+                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_LOGS_RARE)
+                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_CROPS_RARE)
+                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_ANIMALS_RARE)
         ;
 
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_PRECIOUS)
-                .addTag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_PRECIOUS)
-                .addTag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_PRECIOUS)
-                .addTag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_PRECIOUS)
+                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_PRECIOUS)
+                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_PRECIOUS)
+                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_PRECIOUS)
+                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_LOGS_PRECIOUS)
+                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_CROPS_PRECIOUS)
+                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_ANIMALS_PRECIOUS)
         ;
 
         this.tag(ItemTagRegistry.LOW_MERCURY_ORES)

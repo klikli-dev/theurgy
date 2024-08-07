@@ -2,6 +2,7 @@
   "values": [
     "theurgy:alchemical_salt_strata",
     "theurgy:alchemical_salt_mineral",
-    "theurgy:alchemical_salt_plant"
+    "theurgy:alchemical_salt_plant",
+    "theurgy:alchemical_salt_creatures"
   ]
 }

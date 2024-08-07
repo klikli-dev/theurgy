@@ -38,9 +38,27 @@ public class ItemTagRegistry {
 
     public static final TagKey<Item> ALCHEMICAL_SULFURS_LOGS = tag("alchemical_sulfurs/logs");
     public static final TagKey<Item> ALCHEMICAL_SULFURS_LOGS_ABUNDANT = tag("alchemical_sulfurs/logs/abundant");
+    public static final TagKey<Item> ALCHEMICAL_SULFURS_LOGS_COMMON = tag("alchemical_sulfurs/logs/common");
+    public static final TagKey<Item> ALCHEMICAL_SULFURS_LOGS_RARE = tag("alchemical_sulfurs/logs/rare");
+    public static final TagKey<Item> ALCHEMICAL_SULFURS_LOGS_PRECIOUS = tag("alchemical_sulfurs/logs/precious");
 
     public static final TagKey<Item> ALCHEMICAL_SULFURS_CROPS = tag("alchemical_sulfurs/crops");
     public static final TagKey<Item> ALCHEMICAL_SULFURS_CROPS_ABUNDANT = tag("alchemical_sulfurs/crops/abundant");
+    public static final TagKey<Item> ALCHEMICAL_SULFURS_CROPS_COMMON = tag("alchemical_sulfurs/crops/common");
+    public static final TagKey<Item> ALCHEMICAL_SULFURS_CROPS_RARE = tag("alchemical_sulfurs/crops/rare");
+    public static final TagKey<Item> ALCHEMICAL_SULFURS_CROPS_PRECIOUS = tag("alchemical_sulfurs/crops/precious");
+
+    public static final TagKey<Item> ALCHEMICAL_SULFURS_ANIMALS = tag("alchemical_sulfurs/animals");
+    public static final TagKey<Item> ALCHEMICAL_SULFURS_ANIMALS_ABUNDANT = tag("alchemical_sulfurs/animals/abundant");
+    public static final TagKey<Item> ALCHEMICAL_SULFURS_ANIMALS_COMMON = tag("alchemical_sulfurs/animals/common");
+    public static final TagKey<Item> ALCHEMICAL_SULFURS_ANIMALS_RARE = tag("alchemical_sulfurs/animals/rare");
+    public static final TagKey<Item> ALCHEMICAL_SULFURS_ANIMALS_PRECIOUS = tag("alchemical_sulfurs/animals/precious");
+
+    public static final TagKey<Item> ALCHEMICAL_SULFURS_MOBS = tag("alchemical_sulfurs/mobs");
+    public static final TagKey<Item> ALCHEMICAL_SULFURS_MOBS_ABUNDANT = tag("alchemical_sulfurs/mobs/abundant");
+    public static final TagKey<Item> ALCHEMICAL_SULFURS_MOBS_COMMON = tag("alchemical_sulfurs/mobs/common");
+    public static final TagKey<Item> ALCHEMICAL_SULFURS_MOBS_RARE = tag("alchemical_sulfurs/mobs/rare");
+    public static final TagKey<Item> ALCHEMICAL_SULFURS_MOBS_PRECIOUS = tag("alchemical_sulfurs/mobs/precious");
 
     public static final TagKey<Item> ALCHEMICAL_SULFURS_ABUNDANT = tag("alchemical_sulfurs/abundant");
     public static final TagKey<Item> ALCHEMICAL_SULFURS_COMMON = tag("alchemical_sulfurs/common");

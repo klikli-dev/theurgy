@@ -31,6 +31,10 @@ public class SulfurMappings {
     private static List<AlchemicalSulfurItem> LOGS_ABUNDANT;
     private static List<AlchemicalSulfurItem> CROPS_ABUNDANT;
 
+    private static List<AlchemicalSulfurItem> ANIMALS_ABUNDANT;
+    private static List<AlchemicalSulfurItem> ANIMALS_COMMON;
+    private static List<AlchemicalSulfurItem> ANIMALS_RARE;
+
     public static List<AlchemicalSulfurItem> gemsAbundant() {
         if (GEMS_ABUNDANT != null) {
             return GEMS_ABUNDANT;
@@ -168,6 +172,36 @@ public class SulfurMappings {
         CROPS_ABUNDANT = find(AlchemicalSulfurType.CROPS, AlchemicalDerivativeTier.ABUNDANT);
 
         return CROPS_ABUNDANT;
+    }
+
+    public static List<AlchemicalSulfurItem> animalsAbundant() {
+        if (ANIMALS_ABUNDANT != null) {
+            return ANIMALS_ABUNDANT;
+        }
+
+        ANIMALS_ABUNDANT = find(AlchemicalSulfurType.ANIMALS, AlchemicalDerivativeTier.ABUNDANT);
+
+        return ANIMALS_ABUNDANT;
+    }
+
+    public static List<AlchemicalSulfurItem> animalsCommon() {
+        if (ANIMALS_COMMON != null) {
+            return ANIMALS_COMMON;
+        }
+
+        ANIMALS_COMMON = find(AlchemicalSulfurType.ANIMALS, AlchemicalDerivativeTier.COMMON);
+
+        return ANIMALS_COMMON;
+    }
+
+    public static List<AlchemicalSulfurItem> animalsRare() {
+        if (ANIMALS_RARE != null) {
+            return ANIMALS_RARE;
+        }
+
+        ANIMALS_RARE = find(AlchemicalSulfurType.ANIMALS, AlchemicalDerivativeTier.RARE);
+
+        return ANIMALS_RARE;
     }
 
     private static List<AlchemicalSulfurItem> find(AlchemicalSulfurType type, AlchemicalDerivativeTier tier) {

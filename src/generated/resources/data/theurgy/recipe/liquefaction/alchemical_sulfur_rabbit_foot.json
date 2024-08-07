@@ -1,0 +1,19 @@
+{
+  "type": "theurgy:liquefaction",
+  "category": "misc",
+  "ingredient": {
+    "item": "minecraft:rabbit_foot"
+  },
+  "result": {
+    "type": "theurgy:item",
+    "count": 1,
+    "id": "theurgy:alchemical_sulfur_rabbit_foot"
+  },
+  "solvent": {
+    "amount": 20,
+    "ingredient": {
+      "fluid": "theurgy:sal_ammoniac"
+    }
+  },
+  "time": 100
+}

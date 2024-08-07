@@ -2,7 +2,7 @@
   "type": "theurgy:calcination",
   "category": "misc",
   "ingredient": {
-    "count": 20,
+    "count": 5,
     "ingredient": {
       "item": "theurgy:alchemical_salt_strata"
     }

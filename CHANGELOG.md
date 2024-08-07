@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21-1.43.0] - 2024-08-07
+### :sparkles: New Features
+- [`fb77453`](https://github.com/klikli-dev/theurgy/commit/fb77453960ad3ba9ce517ac8c08899b62bfbe9de) - animal sulfurs and conversions *(PR [#214](https://github.com/klikli-dev/theurgy/pull/214) by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`653ca02`](https://github.com/klikli-dev/theurgy/commit/653ca02bffe66c2ca3bcbda5881a687ba4e7b972) - re-establish REUSE compliance *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21-1.42.1] - 2024-08-06
 ### :bug: Bug Fixes
 - [`cf41a61`](https://github.com/klikli-dev/theurgy/commit/cf41a6197aa12415e27d46cc571215bd0ddc19bc) - logistics systems that use blockentitycaches can insert into closed vats *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -960,3 +968,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21-1.41.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.40.3...release/v1.21-1.41.0
 [release/v1.21-1.42.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.41.0...release/v1.21-1.42.0
 [release/v1.21-1.42.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.42.0...release/v1.21-1.42.1
+[release/v1.21-1.43.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.42.1...release/v1.21-1.43.0

@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21-1.44.1] - 2024-08-11
+### :bug: Bug Fixes
+- [`89854c8`](https://github.com/klikli-dev/theurgy/commit/89854c88884b144370650283e9528d91e7e251ce) - machine multiblocks should not be previewed in world *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21-1.44.0] - 2024-08-11
 ### :sparkles: New Features
 - [`fb6f077`](https://github.com/klikli-dev/theurgy/commit/fb6f0779c70c59c65aee9809d02e4f30487893ce) - add uraninite and dark gem compat *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -978,3 +983,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21-1.42.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.42.0...release/v1.21-1.42.1
 [release/v1.21-1.43.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.42.1...release/v1.21-1.43.0
 [release/v1.21-1.44.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.43.0...release/v1.21-1.44.0
+[release/v1.21-1.44.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.44.0...release/v1.21-1.44.1

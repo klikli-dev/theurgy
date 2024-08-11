@@ -36,6 +36,7 @@ public class SalAmmoniacAccumulatorEntry extends EntryProvider {
         );
 
         this.page("multiblock", () -> BookMultiblockPageModel.create()
+                .withVisualizeButton(false)
                 .withMultiblockId(Theurgy.loc("placement/sal_ammoniac_accumulator")));
 
         //TODO: link to spagyrics solvent entry, mention that the recipes and all is there

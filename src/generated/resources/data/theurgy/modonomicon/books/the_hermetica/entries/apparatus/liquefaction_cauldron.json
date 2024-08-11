@@ -29,7 +29,7 @@
       },
       "multiblock_id": "theurgy:placement/liquefaction_cauldron",
       "multiblock_name": "",
-      "show_visualize_button": true,
+      "show_visualize_button": false,
       "text": ""
     },
     {

@@ -38,6 +38,7 @@ public class DistillerEntry extends EntryProvider {
 
 
         this.page("multiblock", () -> BookMultiblockPageModel.create()
+                .withVisualizeButton(false)
                 .withMultiblockId(Theurgy.loc("placement/distiller")));
 
         this.page("usage", () -> BookTextPageModel.create()

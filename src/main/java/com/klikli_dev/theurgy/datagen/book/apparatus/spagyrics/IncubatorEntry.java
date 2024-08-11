@@ -34,6 +34,7 @@ public class IncubatorEntry extends EntryProvider {
         );
 
         this.page("multiblock", () -> BookMultiblockPageModel.create()
+                .withVisualizeButton(false)
                 .withMultiblockId(Theurgy.loc("placement/incubator")));
 
         this.page("usage", () -> BookTextPageModel.create()

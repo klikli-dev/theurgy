@@ -34,6 +34,7 @@ public class CalcinationOvenEntry extends EntryProvider {
         );
 
         this.page("multiblock", () -> BookMultiblockPageModel.create()
+                .withVisualizeButton(false)
                 .withMultiblockId(Theurgy.loc("placement/calcination_oven")));
 
         this.page("usage", () -> BookTextPageModel.create()

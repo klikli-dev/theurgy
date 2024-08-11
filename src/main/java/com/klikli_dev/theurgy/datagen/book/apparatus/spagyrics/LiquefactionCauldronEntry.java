@@ -32,6 +32,7 @@ public class LiquefactionCauldronEntry extends EntryProvider {
                 """);
 
         this.page("multiblock", () -> BookMultiblockPageModel.create()
+                .withVisualizeButton(false)
                 .withMultiblockId(Theurgy.loc("placement/liquefaction_cauldron")));
 
         this.page("usage", () -> BookTextPageModel.create()

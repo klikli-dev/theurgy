@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21-1.44.0] - 2024-08-11
+### :sparkles: New Features
+- [`fb6f077`](https://github.com/klikli-dev/theurgy/commit/fb6f0779c70c59c65aee9809d02e4f30487893ce) - add uraninite and dark gem compat *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`d340de0`](https://github.com/klikli-dev/theurgy/commit/d340de076f546b6afdf861084229c1be0f3edad6) - add 1.21.1 to publish workflow *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21-1.43.0] - 2024-08-07
 ### :sparkles: New Features
 - [`fb77453`](https://github.com/klikli-dev/theurgy/commit/fb77453960ad3ba9ce517ac8c08899b62bfbe9de) - animal sulfurs and conversions *(PR [#214](https://github.com/klikli-dev/theurgy/pull/214) by [@klikli-dev](https://github.com/klikli-dev))*
@@ -969,3 +977,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21-1.42.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.41.0...release/v1.21-1.42.0
 [release/v1.21-1.42.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.42.0...release/v1.21-1.42.1
 [release/v1.21-1.43.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.42.1...release/v1.21-1.43.0
+[release/v1.21-1.44.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.43.0...release/v1.21-1.44.0

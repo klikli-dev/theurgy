@@ -213,6 +213,7 @@ public class SulfurRegistry {
 
     public static final DeferredItem<AlchemicalSulfurItem> NETHERITE = registerForSourceTag(Tags.Items.INGOTS_NETHERITE, AlchemicalDerivativeTier.PRECIOUS, AlchemicalSulfurType.METALS);
     public static final DeferredItem<AlchemicalSulfurItem> URANIUM = registerForSourceTag(ItemTagRegistry.INGOTS_URANIUM, AlchemicalDerivativeTier.RARE, AlchemicalSulfurType.METALS);
+    public static final DeferredItem<AlchemicalSulfurItem> URANINITE = registerForSourceTag(ItemTagRegistry.INGOTS_URANINITE, AlchemicalDerivativeTier.RARE, AlchemicalSulfurType.METALS);
 
     public static final DeferredItem<AlchemicalSulfurItem> AZURE_SILVER = registerForSourceTag(ItemTagRegistry.INGOTS_AZURE_SILVER, AlchemicalDerivativeTier.RARE, AlchemicalSulfurType.METALS);
     public static final DeferredItem<AlchemicalSulfurItem> ZINC = registerForSourceTag(ItemTagRegistry.INGOTS_ZINC, AlchemicalDerivativeTier.COMMON, AlchemicalSulfurType.METALS);
@@ -245,6 +246,7 @@ public class SulfurRegistry {
     public static final DeferredItem<AlchemicalSulfurItem> PERIDOT = registerForSourceTag(ItemTagRegistry.GEMS_PERIDOT, AlchemicalDerivativeTier.RARE, AlchemicalSulfurType.GEMS);
     public static final DeferredItem<AlchemicalSulfurItem> FLUORITE = registerForSourceTag(ItemTagRegistry.GEMS_FLUORITE, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.GEMS);
     public static final DeferredItem<AlchemicalSulfurItem> SAPPHIRE = registerForSourceTag(ItemTagRegistry.GEMS_SAPPHIRE, AlchemicalDerivativeTier.RARE, AlchemicalSulfurType.GEMS);
+    public static final DeferredItem<AlchemicalSulfurItem> DARK_GEM = registerForSourceTag(ItemTagRegistry.GEMS_DARK, AlchemicalDerivativeTier.RARE, AlchemicalSulfurType.GEMS);
     public static final DeferredItem<AlchemicalSulfurItem> SAL_AMMONIAC = registerForSourceTag(ItemTagRegistry.GEMS_SAL_AMMONIAC, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.GEMS);
     public static final DeferredItem<AlchemicalSulfurItem> CERTUS_QUARTZ = registerForSourceTag(ItemTagRegistry.GEMS_CERTUS_QUARTZ, AlchemicalDerivativeTier.COMMON, AlchemicalSulfurType.GEMS);
     public static final DeferredItem<AlchemicalSulfurItem> FLUIX = registerForSourceTag(ItemTagRegistry.GEMS_FLUIX, AlchemicalDerivativeTier.RARE, AlchemicalSulfurType.GEMS);

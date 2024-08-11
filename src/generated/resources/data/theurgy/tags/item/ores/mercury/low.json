@@ -37,6 +37,10 @@
     {
       "id": "#c:ores/sulfur",
       "required": false
+    },
+    {
+      "id": "#c:ores/uraninite_poor",
+      "required": false
     }
   ]
 }

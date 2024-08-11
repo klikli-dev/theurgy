@@ -231,6 +231,7 @@ public class TheurgyItemTagsProvider extends ItemTagsProvider {
                 .addOptionalTag(ItemTagRegistry.ORES_CINNABAR)
                 .addOptionalTag(ItemTagRegistry.ORES_APATITE)
                 .addOptionalTag(ItemTagRegistry.ORES_SULFUR)
+                .addOptionalTag(ItemTagRegistry.ORES_URANINITE_POOR)
         ;
 
         this.tag(ItemTagRegistry.MEDIUM_MERCURY_ORES)
@@ -238,6 +239,7 @@ public class TheurgyItemTagsProvider extends ItemTagsProvider {
                 .addOptionalTag(ItemTagRegistry.ORES_AZURE_SILVER)
                 .addOptionalTag(ItemTagRegistry.ORES_SILVER)
                 .addOptionalTag(ItemTagRegistry.ORES_URANIUM)
+                .addOptionalTag(ItemTagRegistry.ORES_URANINITE_REGULAR)
                 .addOptionalTag(ItemTagRegistry.ORES_IRIDIUM)
                 .addOptionalTag(ItemTagRegistry.ORES_PLATINUM)
                 .addOptionalTag(ItemTagRegistry.ORES_CRIMSON_IRON)
@@ -251,6 +253,7 @@ public class TheurgyItemTagsProvider extends ItemTagsProvider {
                 .addTag(Tags.Items.ORES_DIAMOND)
                 .addTag(Tags.Items.ORES_EMERALD)
                 .addTag(Tags.Items.ORES_NETHERITE_SCRAP)
+                .addOptionalTag(ItemTagRegistry.ORES_URANINITE_DENSE)
                 .addOptionalTag(ItemTagRegistry.ORES_ALLTHEMODIUM)
                 .addOptionalTag(ItemTagRegistry.ORES_UNOBTAINIUM)
                 .addOptionalTag(ItemTagRegistry.ORES_VIBRANIUM)
@@ -298,6 +301,7 @@ public class TheurgyItemTagsProvider extends ItemTagsProvider {
         this.tag(ItemTagRegistry.MEDIUM_MERCURY_METALS)
                 .addTag(Tags.Items.INGOTS_GOLD)
                 .addOptionalTag(ItemTagRegistry.INGOTS_URANIUM)
+                .addOptionalTag(ItemTagRegistry.INGOTS_URANINITE)
                 .addOptionalTag(ItemTagRegistry.INGOTS_SILVER)
                 .addOptionalTag(ItemTagRegistry.INGOTS_AZURE_SILVER)
                 .addOptionalTag(ItemTagRegistry.INGOTS_IRIDIUM)
@@ -351,6 +355,17 @@ public class TheurgyItemTagsProvider extends ItemTagsProvider {
         //  .addOptionalTag(ItemTagRegistry.GEMS_SULFUR) sulfur is classified as a gem, so its handled in the Tags.Items.GEMS
         ;
 
+
+        //Set up tags for other mods that may not properly tag their mats
+        this.tag(ItemTagRegistry.INGOTS_URANINITE)
+                .addOptional(this.rl("powah:uraninite")); //powah adds ore tags and raw material tags but not ingot tags
+
+        this.tag(ItemTagRegistry.ORES_DARK_GEM)
+                .addOptionalTag(this.rl("evilcraft:dark_ores"))
+                .addOptionalTag(this.rl("evilcraft:ores/dark_gem")); //does not exist as of 1.21, but if they unify the pattern it will
+
+        this.tag(ItemTagRegistry.GEMS_DARK)
+                .addOptionalTag(this.rl("evilcraft:gems/dark"));
     }
 
     public ResourceLocation rl(String tag) {

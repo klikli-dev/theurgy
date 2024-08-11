@@ -223,6 +223,9 @@ public class LiquefactionRecipeProvider extends JsonRecipeProvider {
         //netherite has a custom recipe in vanilla, 4 scraps per ingot, so we only do 1 sulfur here to avoid insane duplication rates
         this.makeRecipe(SulfurRegistry.NETHERITE.get(), 1, Tags.Items.ORES_NETHERITE_SCRAP, salAmmoniac, 100);
         this.makeRecipe(SulfurRegistry.URANIUM.get(), 5, ItemTagRegistry.ORES_URANIUM, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.URANINITE.get(), 5, ItemTagRegistry.ORES_URANINITE_POOR, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.URANINITE.get(), 7, ItemTagRegistry.ORES_URANINITE_REGULAR, salAmmoniac, 15);
+        this.makeRecipe(SulfurRegistry.URANINITE.get(), 13, ItemTagRegistry.ORES_URANINITE_DENSE, salAmmoniac, 20);
         this.makeRecipe(SulfurRegistry.SILVER.get(), 5, ItemTagRegistry.ORES_SILVER, salAmmoniac, 10);
         this.makeRecipe(SulfurRegistry.AZURE_SILVER.get(), 5, ItemTagRegistry.ORES_AZURE_SILVER, salAmmoniac, 10);
         this.makeRecipe(SulfurRegistry.ZINC.get(), 5, ItemTagRegistry.ORES_ZINC, salAmmoniac, 10);
@@ -252,6 +255,7 @@ public class LiquefactionRecipeProvider extends JsonRecipeProvider {
         this.makeRecipe(SulfurRegistry.PERIDOT.get(), 8, ItemTagRegistry.ORES_PERIDOT, salAmmoniac, 15);
         this.makeRecipe(SulfurRegistry.FLUORITE.get(), 8, ItemTagRegistry.ORES_FLUORITE, salAmmoniac, 10);
         this.makeRecipe(SulfurRegistry.SAPPHIRE.get(), 8, ItemTagRegistry.ORES_SAPPHIRE, salAmmoniac, 15);
+        this.makeRecipe(SulfurRegistry.DARK_GEM.get(), 6, ItemTagRegistry.ORES_DARK_GEM, salAmmoniac, 15);
         this.makeRecipe(SulfurRegistry.SAL_AMMONIAC.get(), 6, ItemTagRegistry.ORES_SAL_AMMONIAC, salAmmoniac, 15);
         this.makeRecipe(SulfurRegistry.CERTUS_QUARTZ.get(), 6, ItemTagRegistry.ORES_CERTUS_QUARTZ, salAmmoniac, 15);
         this.makeRecipe(SulfurRegistry.NITER.get(), 6, ItemTagRegistry.ORES_NITER, salAmmoniac, 15);
@@ -291,6 +295,7 @@ public class LiquefactionRecipeProvider extends JsonRecipeProvider {
         this.makeRecipe(SulfurRegistry.GOLD.get(), 1, Tags.Items.INGOTS_GOLD, salAmmoniac, 15);
         this.makeRecipe(SulfurRegistry.NETHERITE.get(), 1, Tags.Items.INGOTS_NETHERITE, salAmmoniac, 100);
         this.makeRecipe(SulfurRegistry.URANIUM.get(), 1, ItemTagRegistry.INGOTS_URANIUM, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.URANINITE.get(), 1, ItemTagRegistry.INGOTS_URANINITE, salAmmoniac, 10);
         this.makeRecipe(SulfurRegistry.SILVER.get(), 1, ItemTagRegistry.INGOTS_SILVER, salAmmoniac, 10);
         this.makeRecipe(SulfurRegistry.AZURE_SILVER.get(), 1, ItemTagRegistry.INGOTS_AZURE_SILVER, salAmmoniac, 10);
         this.makeRecipe(SulfurRegistry.ZINC.get(), 1, ItemTagRegistry.INGOTS_ZINC, salAmmoniac, 10);
@@ -322,6 +327,7 @@ public class LiquefactionRecipeProvider extends JsonRecipeProvider {
         this.makeRecipe(SulfurRegistry.PERIDOT.get(), 1, ItemTagRegistry.GEMS_PERIDOT, salAmmoniac, 15);
         this.makeRecipe(SulfurRegistry.FLUORITE.get(), 1, ItemTagRegistry.GEMS_FLUORITE, salAmmoniac, 10);
         this.makeRecipe(SulfurRegistry.SAPPHIRE.get(), 1, ItemTagRegistry.GEMS_SAPPHIRE, salAmmoniac, 15);
+        this.makeRecipe(SulfurRegistry.DARK_GEM.get(), 1, ItemTagRegistry.GEMS_DARK, salAmmoniac, 15);
         this.makeRecipe(SulfurRegistry.SAL_AMMONIAC.get(), 1, ItemTagRegistry.GEMS_SAL_AMMONIAC, salAmmoniac, 15);
         this.makeRecipe(SulfurRegistry.CERTUS_QUARTZ.get(), 1, ItemTagRegistry.GEMS_CERTUS_QUARTZ, salAmmoniac, 15);
         this.makeRecipe(SulfurRegistry.FLUIX.get(), 1, ItemTagRegistry.GEMS_FLUIX, salAmmoniac, 15);

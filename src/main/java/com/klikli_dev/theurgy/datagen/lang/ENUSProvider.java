@@ -753,6 +753,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.addDerivativeSource(SulfurRegistry.GOLD, "Gold");
         this.addDerivativeSource(SulfurRegistry.NETHERITE, "Netherite");
         this.addDerivativeSource(SulfurRegistry.URANIUM, "Uranium");
+        this.addDerivativeSource(SulfurRegistry.URANINITE, "Uraninite");
         this.addDerivativeSource(SulfurRegistry.AZURE_SILVER, "Azure Silver");
         this.addDerivativeSource(SulfurRegistry.ZINC, "Zinc");
         this.addDerivativeSource(SulfurRegistry.OSMIUM, "Osmium");
@@ -783,6 +784,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.addDerivativeSource(SulfurRegistry.PERIDOT, "Peridot");
         this.addDerivativeSource(SulfurRegistry.FLUORITE, "Fluorite");
         this.addDerivativeSource(SulfurRegistry.SAPPHIRE, "Sapphire");
+        this.addDerivativeSource(SulfurRegistry.DARK_GEM, "Dark Gem");
         this.addDerivativeSource(SulfurRegistry.SAL_AMMONIAC, "Sal Ammoniac");
         this.addDerivativeSource(SulfurRegistry.CERTUS_QUARTZ, "Certus Quartz");
         this.addDerivativeSource(SulfurRegistry.FLUIX, "Fluix");

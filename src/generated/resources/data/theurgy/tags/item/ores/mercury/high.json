@@ -4,6 +4,10 @@
     "#c:ores/emerald",
     "#c:ores/netherite_scrap",
     {
+      "id": "#c:ores/uraninite_dense",
+      "required": false
+    },
+    {
       "id": "#c:ores/allthemodium",
       "required": false
     },

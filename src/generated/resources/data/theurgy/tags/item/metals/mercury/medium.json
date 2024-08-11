@@ -6,6 +6,10 @@
       "required": false
     },
     {
+      "id": "#c:ingots/uraninite",
+      "required": false
+    },
+    {
       "id": "#c:ingots/silver",
       "required": false
     },

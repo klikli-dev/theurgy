@@ -241,6 +241,9 @@ public class ItemTagRegistry {
 
     //Common Metal Ores
     public static final TagKey<Item> ORES_URANIUM = cTag("ores/uranium");
+    public static final TagKey<Item> ORES_URANINITE_POOR = cTag("ores/uraninite_poor");
+    public static final TagKey<Item> ORES_URANINITE_REGULAR = cTag("ores/uraninite_regular");
+    public static final TagKey<Item> ORES_URANINITE_DENSE = cTag("ores/uraninite_dense");
     public static final TagKey<Item> ORES_SILVER = cTag("ores/silver");
     public static final TagKey<Item> ORES_AZURE_SILVER = cTag("ores/azure_silver");
     public static final TagKey<Item> ORES_ZINC = cTag("ores/zinc");
@@ -267,6 +270,7 @@ public class ItemTagRegistry {
     public static final TagKey<Item> ORES_PERIDOT = cTag("ores/peridot");
     public static final TagKey<Item> ORES_FLUORITE = cTag("ores/fluorite");
     public static final TagKey<Item> ORES_SAPPHIRE = cTag("ores/sapphire");
+    public static final TagKey<Item> ORES_DARK_GEM = cTag("ores/dark_gem");
 
     public static final TagKey<Item> ORES_NITER = cTag("ores/niter");
     public static final TagKey<Item> ORES_CERTUS_QUARTZ = cTag("ores/certus_quartz");
@@ -300,6 +304,7 @@ public class ItemTagRegistry {
 
     //Common Metal Ingots
     public static final TagKey<Item> INGOTS_URANIUM = cTag("ingots/uranium");
+    public static final TagKey<Item> INGOTS_URANINITE = cTag("ingots/uraninite");
     public static final TagKey<Item> INGOTS_SILVER = cTag("ingots/silver");
     public static final TagKey<Item> INGOTS_AZURE_SILVER = cTag("ingots/azure_silver");
     public static final TagKey<Item> INGOTS_ZINC = cTag("ingots/zinc");
@@ -325,6 +330,7 @@ public class ItemTagRegistry {
     public static final TagKey<Item> GEMS_PERIDOT = cTag("gems/peridot");
     public static final TagKey<Item> GEMS_FLUORITE = cTag("gems/fluorite");
     public static final TagKey<Item> GEMS_SAPPHIRE = cTag("gems/sapphire");
+    public static final TagKey<Item> GEMS_DARK = cTag("gems/dark");
     public static final TagKey<Item> GEMS_NITER = cTag("gems/niter");
     public static final TagKey<Item> GEMS_CERTUS_QUARTZ = cTag("gems/certus_quartz");
     public static final TagKey<Item> GEMS_FLUIX = cTag("gems/fluix");

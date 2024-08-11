@@ -1,0 +1,28 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:ores/uraninite_dense"
+      }
+    }
+  ],
+  "type": "theurgy:liquefaction",
+  "category": "misc",
+  "ingredient": {
+    "tag": "c:ores/uraninite_dense"
+  },
+  "result": {
+    "type": "theurgy:item",
+    "count": 13,
+    "id": "theurgy:alchemical_sulfur_uraninite"
+  },
+  "solvent": {
+    "amount": 20,
+    "ingredient": {
+      "fluid": "theurgy:sal_ammoniac"
+    }
+  },
+  "time": 100
+}

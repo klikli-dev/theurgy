@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.21.0] - 2024-08-15
+### :sparkles: New Features
+- [`23e6429`](https://github.com/klikli-dev/theurgy/commit/23e6429e502d8d511546f6af87741ad3f73dad19) - add chimerite and demonite support *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.1-1.20.1] - 2024-08-03
 ### :bug: Bug Fixes
 - [`e8afd67`](https://github.com/klikli-dev/theurgy/commit/e8afd67d069391929f959c6287d42fc836b30007) - sal ammoniac ore does not use stone background texture *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -509,3 +514,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.19.3]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.19.2...release/v1.20.1-1.19.3
 [release/v1.20.1-1.20.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.19.3...release/v1.20.1-1.20.0
 [release/v1.20.1-1.20.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.20.0...release/v1.20.1-1.20.1
+[release/v1.20.1-1.21.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.20.1...release/v1.20.1-1.21.0

@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.21.1] - 2024-08-15
+### :bug: Bug Fixes
+- [`aaced9b`](https://github.com/klikli-dev/theurgy/commit/aaced9b8624bd4ba2db4d6cc730933fff0aed244) - certus quartz recipe *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`4742cbc`](https://github.com/klikli-dev/theurgy/commit/4742cbc4c22c9790713b628a1688c29f57e15ab1) - some ingot recipes use ore multipliers *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.1-1.21.0] - 2024-08-15
 ### :sparkles: New Features
 - [`23e6429`](https://github.com/klikli-dev/theurgy/commit/23e6429e502d8d511546f6af87741ad3f73dad19) - add chimerite and demonite support *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -515,3 +521,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.20.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.19.3...release/v1.20.1-1.20.0
 [release/v1.20.1-1.20.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.20.0...release/v1.20.1-1.20.1
 [release/v1.20.1-1.21.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.20.1...release/v1.20.1-1.21.0
+[release/v1.20.1-1.21.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.21.0...release/v1.20.1-1.21.1

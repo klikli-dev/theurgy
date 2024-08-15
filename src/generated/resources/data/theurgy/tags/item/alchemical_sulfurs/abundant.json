@@ -23,6 +23,10 @@
     {
       "id": "#theurgy:alchemical_sulfurs/animals/abundant",
       "required": false
+    },
+    {
+      "id": "#theurgy:alchemical_sulfurs/mobs/abundant",
+      "required": false
     }
   ]
 }

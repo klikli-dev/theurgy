@@ -1,0 +1,80 @@
+{
+  "type": "theurgy:reformation",
+  "category": "misc",
+  "mercuryFlux": 150,
+  "result": {
+    "type": "theurgy:item",
+    "count": 1,
+    "id": "theurgy:alchemical_niter_mobs_rare"
+  },
+  "sources": [
+    {
+      "count": 1,
+      "item": "theurgy:alchemical_niter_gems_rare"
+    },
+    {
+      "count": 1,
+      "item": "theurgy:alchemical_niter_gems_rare"
+    },
+    {
+      "count": 1,
+      "item": "theurgy:alchemical_niter_gems_rare"
+    },
+    {
+      "count": 1,
+      "item": "theurgy:alchemical_niter_gems_rare"
+    },
+    {
+      "count": 1,
+      "item": "theurgy:alchemical_niter_gems_rare"
+    },
+    {
+      "count": 1,
+      "item": "theurgy:alchemical_niter_gems_rare"
+    },
+    {
+      "count": 1,
+      "item": "theurgy:alchemical_niter_gems_rare"
+    },
+    {
+      "count": 1,
+      "item": "theurgy:alchemical_niter_gems_rare"
+    },
+    {
+      "count": 1,
+      "item": "theurgy:alchemical_niter_gems_rare"
+    },
+    {
+      "count": 1,
+      "item": "theurgy:alchemical_niter_gems_rare"
+    },
+    {
+      "count": 1,
+      "item": "theurgy:alchemical_niter_gems_rare"
+    },
+    {
+      "count": 1,
+      "item": "theurgy:alchemical_niter_gems_rare"
+    },
+    {
+      "count": 1,
+      "item": "theurgy:alchemical_niter_gems_rare"
+    },
+    {
+      "count": 1,
+      "item": "theurgy:alchemical_niter_gems_rare"
+    },
+    {
+      "count": 1,
+      "item": "theurgy:alchemical_niter_gems_rare"
+    },
+    {
+      "count": 1,
+      "item": "theurgy:alchemical_niter_gems_rare"
+    }
+  ],
+  "target": {
+    "item": "theurgy:alchemical_niter_mobs_rare"
+  },
+  "time": 100
+}

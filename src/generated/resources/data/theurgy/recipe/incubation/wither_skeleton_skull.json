@@ -1,0 +1,19 @@
+{
+  "type": "theurgy:incubation",
+  "category": "misc",
+  "mercury": {
+    "item": "theurgy:mercury_shard"
+  },
+  "result": {
+    "type": "theurgy:item",
+    "count": 1,
+    "id": "minecraft:wither_skeleton_skull"
+  },
+  "salt": {
+    "item": "theurgy:alchemical_salt_creature"
+  },
+  "sulfur": {
+    "item": "theurgy:alchemical_sulfur_wither_skeleton_skull"
+  },
+  "time": 100
+}

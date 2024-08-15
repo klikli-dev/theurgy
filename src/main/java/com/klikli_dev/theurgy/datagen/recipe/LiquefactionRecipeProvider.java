@@ -195,6 +195,28 @@ public class LiquefactionRecipeProvider extends JsonRecipeProvider {
         this.makeRecipe(SulfurRegistry.PERSIMMON.get(), ItemTagRegistry.CROPS_PERSIMMON, salAmmoniac, 10);
         this.makeRecipe(SulfurRegistry.PLUM.get(), ItemTagRegistry.CROPS_PLUM, salAmmoniac, 10);
 
+        //Common Mob Drops
+        this.makeRecipe(SulfurRegistry.ROTTEN_FLESH.get(), Items.ROTTEN_FLESH, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.SPIDER_EYE.get(), Items.SPIDER_EYE, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.STRING.get(), Items.STRING, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.GUNPOWDER.get(), Items.GUNPOWDER, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.BONE.get(), Items.BONE, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.ARROW.get(), Items.ARROW, salAmmoniac, 15);
+        this.makeRecipe(SulfurRegistry.SLIMEBALL.get(), Items.SLIME_BALL, salAmmoniac, 15);
+        this.makeRecipe(SulfurRegistry.ENDER_PEARL.get(), Items.ENDER_PEARL, salAmmoniac, 15);
+        this.makeRecipe(SulfurRegistry.BLAZE_ROD.get(), Items.BLAZE_ROD, salAmmoniac, 15);
+        this.makeRecipe(SulfurRegistry.PRISMARINE_SHARD.get(), Items.PRISMARINE_SHARD, salAmmoniac, 15);
+        this.makeRecipe(SulfurRegistry.PHANTOM_MEMBRANE.get(), Items.PHANTOM_MEMBRANE, salAmmoniac, 15);
+        this.makeRecipe(SulfurRegistry.MAGMA_CREAM.get(), Items.MAGMA_CREAM, salAmmoniac, 15);
+        this.makeRecipe(SulfurRegistry.SKELETON_SKULL.get(), Items.SKELETON_SKULL, salAmmoniac, 15);
+        this.makeRecipe(SulfurRegistry.WITHER_SKELETON_SKULL.get(), Items.WITHER_SKELETON_SKULL, salAmmoniac, 20);
+        this.makeRecipe(SulfurRegistry.GHAST_TEAR.get(), Items.GHAST_TEAR, salAmmoniac, 20);
+        this.makeRecipe(SulfurRegistry.SHULKER_SHELL.get(), Items.SHULKER_SHELL, salAmmoniac, 20);
+        this.makeRecipe(SulfurRegistry.ELYTRA.get(), Items.ELYTRA, salAmmoniac, 20);
+        this.makeRecipe(SulfurRegistry.NETHER_STAR.get(), Items.NETHER_STAR, salAmmoniac, 100);
+        this.makeRecipe(SulfurRegistry.DRAGON_EGG.get(), Items.DRAGON_EGG, salAmmoniac, 100);
+        this.makeRecipe(SulfurRegistry.HEART_OF_THE_SEA.get(), Items.HEART_OF_THE_SEA, salAmmoniac, 100);
+
         //Common Creature Parts
         this.makeRecipe(SulfurRegistry.PORKCHOP.get(), Items.PORKCHOP, salAmmoniac, 10);
         this.makeRecipe(SulfurRegistry.BEEF.get(), Items.BEEF, salAmmoniac, 10);

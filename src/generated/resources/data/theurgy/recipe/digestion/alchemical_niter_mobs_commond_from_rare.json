@@ -1,0 +1,24 @@
+{
+  "type": "theurgy:digestion",
+  "category": "misc",
+  "fluid": {
+    "amount": 15,
+    "ingredient": {
+      "fluid": "theurgy:sal_ammoniac"
+    }
+  },
+  "ingredients": [
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "theurgy:alchemical_niter_mobs_rare"
+      }
+    }
+  ],
+  "result": {
+    "type": "theurgy:item",
+    "count": 8,
+    "id": "theurgy:alchemical_niter_mobs_commond"
+  },
+  "time": 200
+}

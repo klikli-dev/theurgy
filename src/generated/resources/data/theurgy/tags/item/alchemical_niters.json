@@ -16,6 +16,10 @@
     "theurgy:alchemical_niter_crops_abundant",
     "theurgy:alchemical_niter_animals_abundant",
     "theurgy:alchemical_niter_animals_common",
-    "theurgy:alchemical_niter_animals_rare"
+    "theurgy:alchemical_niter_animals_rare",
+    "theurgy:alchemical_niter_mobs_abundant",
+    "theurgy:alchemical_niter_mobs_commond",
+    "theurgy:alchemical_niter_mobs_rare",
+    "theurgy:alchemical_niter_mobs_precious"
   ]
 }

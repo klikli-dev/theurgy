@@ -4,7 +4,6 @@
 
 package com.klikli_dev.theurgy.registry;
 
-import com.klikli_dev.modonomicon.registry.RegistryObject;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.content.item.derivative.AlchemicalDerivativeTier;
 import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurItem;
@@ -20,10 +19,36 @@ import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
+import java.util.Set;
 import java.util.function.Supplier;
 
 public class SulfurRegistry {
     public static final DeferredRegister.Items SULFURS = DeferredRegister.createItems(Theurgy.MODID);
+
+    public static final DeferredItem<AlchemicalSulfurItem> ROTTEN_FLESH = registerForSourceItem(Items.ROTTEN_FLESH, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.MOBS);
+    public static final DeferredItem<AlchemicalSulfurItem> SPIDER_EYE = registerForSourceItem(Items.SPIDER_EYE, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.MOBS);
+    public static final DeferredItem<AlchemicalSulfurItem> STRING = registerForSourceItem(Items.STRING, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.MOBS);
+    public static final DeferredItem<AlchemicalSulfurItem> GUNPOWDER = registerForSourceItem(Items.GUNPOWDER, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.MOBS);
+    public static final DeferredItem<AlchemicalSulfurItem> BONE = registerForSourceItem(Items.BONE, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.MOBS);
+
+    public static final DeferredItem<AlchemicalSulfurItem> ARROW = registerForSourceItem(Items.ARROW, AlchemicalDerivativeTier.COMMON, AlchemicalSulfurType.MOBS);
+    public static final DeferredItem<AlchemicalSulfurItem> SLIMEBALL = registerForSourceItem(Items.SLIME_BALL, AlchemicalDerivativeTier.COMMON, AlchemicalSulfurType.MOBS);
+    public static final DeferredItem<AlchemicalSulfurItem> ENDER_PEARL = registerForSourceItem(Items.ENDER_PEARL, AlchemicalDerivativeTier.COMMON, AlchemicalSulfurType.MOBS);
+    public static final DeferredItem<AlchemicalSulfurItem> BLAZE_ROD = registerForSourceItem(Items.BLAZE_ROD, AlchemicalDerivativeTier.COMMON, AlchemicalSulfurType.MOBS);
+    public static final DeferredItem<AlchemicalSulfurItem> PRISMARINE_SHARD = registerForSourceItem(Items.PRISMARINE_SHARD, AlchemicalDerivativeTier.COMMON, AlchemicalSulfurType.MOBS);
+    public static final DeferredItem<AlchemicalSulfurItem> PHANTOM_MEMBRANE = registerForSourceItem(Items.PHANTOM_MEMBRANE, AlchemicalDerivativeTier.COMMON, AlchemicalSulfurType.MOBS);
+    public static final DeferredItem<AlchemicalSulfurItem> MAGMA_CREAM = registerForSourceItem(Items.MAGMA_CREAM, AlchemicalDerivativeTier.COMMON, AlchemicalSulfurType.MOBS);
+    public static final DeferredItem<AlchemicalSulfurItem> SKELETON_SKULL = registerForSourceItem(Items.SKELETON_SKULL, AlchemicalDerivativeTier.COMMON, AlchemicalSulfurType.MOBS);
+
+    public static final DeferredItem<AlchemicalSulfurItem> WITHER_SKELETON_SKULL = registerForSourceItem(Items.WITHER_SKELETON_SKULL, AlchemicalDerivativeTier.RARE, AlchemicalSulfurType.MOBS);
+    public static final DeferredItem<AlchemicalSulfurItem> GHAST_TEAR = registerForSourceItem(Items.GHAST_TEAR, AlchemicalDerivativeTier.RARE, AlchemicalSulfurType.MOBS);
+    public static final DeferredItem<AlchemicalSulfurItem> SHULKER_SHELL = registerForSourceItem(Items.SHULKER_SHELL, AlchemicalDerivativeTier.RARE, AlchemicalSulfurType.MOBS);
+    public static final DeferredItem<AlchemicalSulfurItem> ELYTRA = registerForSourceItem(Items.ELYTRA, AlchemicalDerivativeTier.RARE, AlchemicalSulfurType.MOBS);
+
+    public static final DeferredItem<AlchemicalSulfurItem> NETHER_STAR = registerForSourceItem(Items.NETHER_STAR, AlchemicalDerivativeTier.PRECIOUS, AlchemicalSulfurType.MOBS);
+    public static final DeferredItem<AlchemicalSulfurItem> DRAGON_EGG = registerForSourceItem(Items.DRAGON_EGG, AlchemicalDerivativeTier.PRECIOUS, AlchemicalSulfurType.MOBS);
+    public static final DeferredItem<AlchemicalSulfurItem> HEART_OF_THE_SEA = registerForSourceItem(Items.HEART_OF_THE_SEA, AlchemicalDerivativeTier.PRECIOUS, AlchemicalSulfurType.MOBS);
+
 
     //Animal stuff
     public static final DeferredItem<AlchemicalSulfurItem> PORKCHOP = registerForSourceItem(Items.PORKCHOP, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.ANIMALS);

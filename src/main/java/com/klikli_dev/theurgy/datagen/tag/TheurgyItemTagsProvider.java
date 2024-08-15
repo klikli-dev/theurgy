@@ -186,6 +186,43 @@ public class TheurgyItemTagsProvider extends ItemTagsProvider {
             this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_ANIMALS_RARE).add(sulfur);
         });
 
+        this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_MOBS_ABUNDANT);
+        SulfurMappings.mobsAbundant().forEach(sulfur -> {
+            this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_MOBS_ABUNDANT).add(sulfur);
+        });
+        this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_MOBS_COMMON);
+        SulfurMappings.mobsCommon().forEach(sulfur -> {
+            this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_MOBS_COMMON).add(sulfur);
+        });
+        this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_MOBS_COMMON_FOR_AUTOMATIC_RECIPES);
+        SulfurMappings.mobsPrecious()
+                .stream()
+                .filter(sulfur -> !SulfurMappings.noAutomaticRecipesFor().contains(sulfur))
+                .forEach(sulfur -> {
+                    this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_MOBS_COMMON_FOR_AUTOMATIC_RECIPES).add(sulfur);
+                });
+        this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_MOBS_RARE);
+        SulfurMappings.mobsRare().forEach(sulfur -> {
+            this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_MOBS_RARE).add(sulfur);
+        });
+        this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_MOBS_RARE_FOR_AUTOMATIC_RECIPES);
+        SulfurMappings.mobsPrecious()
+                .stream()
+                .filter(sulfur -> !SulfurMappings.noAutomaticRecipesFor().contains(sulfur))
+                .forEach(sulfur -> {
+                    this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_MOBS_RARE_FOR_AUTOMATIC_RECIPES).add(sulfur);
+                });
+        this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_MOBS_PRECIOUS);
+        SulfurMappings.mobsPrecious().forEach(sulfur -> {
+            this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_MOBS_PRECIOUS).add(sulfur);
+        });
+        this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_MOBS_PRECIOUS_FOR_AUTOMATIC_RECIPES);
+        SulfurMappings.mobsPrecious()
+                .stream()
+                .filter(sulfur -> !SulfurMappings.noAutomaticRecipesFor().contains(sulfur))
+                .forEach(sulfur -> {
+                    this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_MOBS_PRECIOUS_FOR_AUTOMATIC_RECIPES).add(sulfur);
+                });
 
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_ABUNDANT)
                 .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_ABUNDANT)

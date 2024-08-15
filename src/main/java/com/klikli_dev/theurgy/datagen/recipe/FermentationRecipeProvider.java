@@ -166,19 +166,57 @@ public class FermentationRecipeProvider extends JsonRecipeProvider {
                 .time(TIME));
         this.makeRecipe("_using_" + this.name(cropTag), new Builder(NiterRegistry.MOBS_COMMON)
                 .fluid(Fluids.WATER, 250)
-                .ingredients(ItemTagRegistry.ALCHEMICAL_SULFURS_MOBS_COMMON)
+                .ingredients(ItemTagRegistry.ALCHEMICAL_SULFURS_MOBS_COMMON_FOR_AUTOMATIC_RECIPES)
                 .ingredients(cropTag)
                 .time(TIME));
+        this.makeRecipe("_from" + this.name(SulfurRegistry.SKELETON_SKULL.get()) + "_using_" + this.name(cropTag), new Builder(NiterRegistry.MOBS_COMMON, 2)
+                .fluid(Fluids.WATER, 250)
+                .ingredients(SulfurRegistry.SKELETON_SKULL.get())
+                .ingredients(cropTag)
+                .time(TIME));
+
         this.makeRecipe("_using_" + this.name(cropTag), new Builder(NiterRegistry.MOBS_RARE)
                 .fluid(Fluids.WATER, 500)
-                .ingredients(ItemTagRegistry.ALCHEMICAL_SULFURS_MOBS_RARE)
+                .ingredients(ItemTagRegistry.ALCHEMICAL_SULFURS_MOBS_RARE_FOR_AUTOMATIC_RECIPES)
                 .ingredients(cropTag)
                 .time(TIME));
+        this.makeRecipe("_from" + this.name(SulfurRegistry.WITHER_SKELETON_SKULL.get()) + "_using_" + this.name(cropTag), new Builder(NiterRegistry.MOBS_RARE, 2)
+                .fluid(Fluids.WATER, 500)
+                .ingredients(SulfurRegistry.WITHER_SKELETON_SKULL.get())
+                .ingredients(cropTag)
+                .time(TIME));
+        this.makeRecipe("_from" + this.name(SulfurRegistry.GHAST_TEAR.get()) + "_using_" + this.name(cropTag), new Builder(NiterRegistry.MOBS_RARE, 2)
+                .fluid(Fluids.WATER, 500)
+                .ingredients(SulfurRegistry.GHAST_TEAR.get())
+                .ingredients(cropTag)
+                .time(TIME));
+        this.makeRecipe("_from" + this.name(SulfurRegistry.SHULKER_SHELL.get()) + "_using_" + this.name(cropTag), new Builder(NiterRegistry.MOBS_RARE, 2)
+                .fluid(Fluids.WATER, 500)
+                .ingredients(SulfurRegistry.SHULKER_SHELL.get())
+                .ingredients(cropTag)
+                .time(TIME));
+
         this.makeRecipe("_using_" + this.name(cropTag), new Builder(NiterRegistry.MOBS_PRECIOUS)
                 .fluid(Fluids.WATER, 1000)
-                .ingredients(ItemTagRegistry.ALCHEMICAL_SULFURS_MOBS_PRECIOUS)
+                .ingredients(ItemTagRegistry.ALCHEMICAL_SULFURS_MOBS_PRECIOUS_FOR_AUTOMATIC_RECIPES)
                 .ingredients(cropTag)
                 .time(TIME));
+        this.makeRecipe("_from" + this.name(SulfurRegistry.NETHER_STAR.get()) + "_using_" + this.name(cropTag), new Builder(NiterRegistry.MOBS_PRECIOUS, 2)
+                .fluid(Fluids.WATER, 1000)
+                .ingredients(SulfurRegistry.NETHER_STAR.get())
+                .ingredients(cropTag)
+                .time(TIME));
+        this.makeRecipe("_from" + this.name(SulfurRegistry.HEART_OF_THE_SEA.get()) + "_using_" + this.name(cropTag), new Builder(NiterRegistry.MOBS_PRECIOUS, 2)
+                .fluid(Fluids.WATER, 1000)
+                .ingredients(SulfurRegistry.HEART_OF_THE_SEA.get())
+                .ingredients(cropTag)
+                .time(TIME));
+        this.makeRecipe("_from" + this.name(SulfurRegistry.DRAGON_EGG.get()) + "_using_" + this.name(cropTag), new Builder(NiterRegistry.MOBS_PRECIOUS, 4)
+                .fluid(Fluids.WATER, 1000)
+                .ingredients(SulfurRegistry.DRAGON_EGG.get())
+                .ingredients(cropTag)
+                .time(TIME));
+
     }
 
     public void makeRecipe(Fluid fluid, int fluidAmount, List<TagKey<Item>> ingredients, Item result, int resultCount, int time) {
@@ -214,7 +252,11 @@ public class FermentationRecipeProvider extends JsonRecipeProvider {
         private final ItemStack result;
 
         protected Builder(ItemLike result) {
-            this(new ItemStack(result, 1));
+            this(result, 1);
+        }
+
+        protected Builder(ItemLike result, int count) {
+            this(new ItemStack(result, count));
         }
 
         protected Builder(ItemStack result) {

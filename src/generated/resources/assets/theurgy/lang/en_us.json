@@ -233,7 +233,7 @@
   "book.theurgy.the_hermetica.apparatus.source_pedestal.name": "Reformation Source Pedestal",
   "book.theurgy.the_hermetica.apparatus.source_pedestal.structure.text": "Reformation recipes require one or more source sulfurs. Correspondingly, your reformation array needs at least one source pedestal, but if the recipe requires more sources, you need to place more.\n",
   "book.theurgy.the_hermetica.apparatus.source_pedestal.structure.title": "Structure",
-  "book.theurgy.the_hermetica.apparatus.source_pedestal.sulfur_consumption.text": "If a reformation recipe requires more than one sulfur - even if it is the same type - you need one pedestal per sulfur. Each crafting process will take a maximum of one sulfur from each source pedestal.\n",
+  "book.theurgy.the_hermetica.apparatus.source_pedestal.sulfur_consumption.text": "JEI and EMI will show exactly how many source sulfurs need to be placed per pedestal and how many pedestals are required. \\\nUsually one sulfur is consumed per pedestal. However, for very expensive recipes that use a total of 8 pedestals, it is possible that more than one sulfur must be placed per pedestal.\n",
   "book.theurgy.the_hermetica.apparatus.source_pedestal.sulfur_consumption.title": "Sulfur consumption",
   "book.theurgy.the_hermetica.apparatus.source_pedestal.usage.text": "Place the pedestal on the ground.\\\nThen right-click it with the sulfur you want to use as a source.\n",
   "book.theurgy.the_hermetica.apparatus.source_pedestal.usage.title": "Usage",

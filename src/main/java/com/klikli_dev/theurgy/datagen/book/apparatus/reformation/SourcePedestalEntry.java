@@ -53,7 +53,8 @@ public class SourcePedestalEntry extends EntryProvider {
         this.add(this.context().pageTitle(), "Sulfur consumption");
         this.add(this.context().pageText(),
                 """
-                        If a reformation recipe requires more than one sulfur - even if it is the same type - you need one pedestal per sulfur. Each crafting process will take a maximum of one sulfur from each source pedestal.
+                        JEI and EMI will show exactly how many source sulfurs need to be placed per pedestal and how many pedestals are required. \\
+                        Usually one sulfur is consumed per pedestal. However, for very expensive recipes that use a total of 8 pedestals, it is possible that more than one sulfur must be placed per pedestal.
                         """
         );
 

@@ -312,6 +312,14 @@ public class TheurgyItemTagsProvider extends ItemTagsProvider {
         //.addOptionalTag(this.rl("forge:gems/sulfur")) sulfur is classified as a gem, so its handled in the Tags.Items.GEMS
         ;
 
+
+        this.tag(ItemTagRegistry.RAW_MATERIALS_DEMONITE)
+                .addOptional(this.rl("bloodmagic:rawdemonite"));
+        this.tag(ItemTagRegistry.INGOTS_DEMONITE)
+                .addOptional(this.rl("bloodmagic:ingot_hellforged"));
+
+        this.tag(ItemTagRegistry.GEMS_CHIMERITE)
+                .addOptional(this.rl("mna:chimerite_gem"));
     }
 
     public ResourceLocation rl(String tag) {

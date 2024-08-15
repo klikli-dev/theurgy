@@ -81,6 +81,8 @@ public class SulfurRegistry {
     public static final RegistryObject<AlchemicalSulfurItem> CALORITE = registerWithSourceNameOverride("calorite", AlchemicalSulfurTier.PRECIOUS, AlchemicalSulfurType.METALS);
     public static final RegistryObject<AlchemicalSulfurItem> IESNIUM = registerWithSourceNameOverride("iesnium", AlchemicalSulfurTier.PRECIOUS, AlchemicalSulfurType.METALS);
 
+    public static final RegistryObject<AlchemicalSulfurItem> DEMONITE = registerWithSourceNameOverride("demonite", AlchemicalSulfurTier.PRECIOUS, AlchemicalSulfurType.METALS);
+
     //Common Gems
 
     public static final RegistryObject<AlchemicalSulfurItem> DIAMOND = registerWithSourceNameOverride("diamond", AlchemicalSulfurTier.PRECIOUS, AlchemicalSulfurType.GEMS);
@@ -99,6 +101,8 @@ public class SulfurRegistry {
     public static final RegistryObject<AlchemicalSulfurItem> CERTUS_QUARTZ = registerWithSourceNameOverride("certus_quartz", AlchemicalSulfurTier.COMMON, AlchemicalSulfurType.GEMS);
     public static final RegistryObject<AlchemicalSulfurItem> FLUIX = registerWithSourceNameOverride("fluix", AlchemicalSulfurTier.RARE, AlchemicalSulfurType.GEMS);
     public static final RegistryObject<AlchemicalSulfurItem> NITER = registerWithSourceNameOverride("niter", AlchemicalSulfurTier.COMMON, AlchemicalSulfurType.GEMS);
+
+    public static final RegistryObject<AlchemicalSulfurItem> CHIMERITE = registerWithSourceNameOverride("chimerite", AlchemicalSulfurTier.PRECIOUS, AlchemicalSulfurType.GEMS);
 
     //Other Common Minerals
     public static final RegistryObject<AlchemicalSulfurItem> REDSTONE = registerWithSourceNameOverride("redstone", AlchemicalSulfurTier.COMMON, AlchemicalSulfurType.OTHER_MINERALS);

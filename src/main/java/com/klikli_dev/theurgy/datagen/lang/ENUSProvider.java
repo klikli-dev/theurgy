@@ -413,6 +413,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.addSulfurSource(SulfurRegistry.CERTUS_QUARTZ, "Certus Quartz");
         this.addSulfurSource(SulfurRegistry.FLUIX, "Fluix");
         this.addSulfurSource(SulfurRegistry.NITER, "Niter");
+        this.addSulfurSource(SulfurRegistry.CHIMERITE, "Chimerite");
+        this.addSulfurSource(SulfurRegistry.DEMONITE, "Demonite");
 
         //Other Common Minerals
         this.addSulfurSource(SulfurRegistry.REDSTONE, "Redstone");

@@ -5,23 +5,23 @@
       "type": "forge:not",
       "value": {
         "type": "forge:tag_empty",
-        "tag": "forge:gems/niter"
+        "tag": "forge:raw_materials/demonite"
       }
     }
   ],
   "ingredient": {
-    "tag": "forge:gems/niter"
+    "tag": "forge:raw_materials/demonite"
   },
   "liquefaction_time": 100,
   "result": {
-    "count": 1,
-    "item": "theurgy:alchemical_sulfur_niter",
+    "count": 3,
+    "item": "theurgy:alchemical_sulfur_demonite",
     "nbt": {
-      "theurgy:sulfur.source.id": "#forge:gems/niter"
+      "theurgy:sulfur.source.id": "#forge:raw_materials/demonite"
     }
   },
   "solvent": {
     "fluid": "theurgy:sal_ammoniac"
   },
-  "solvent_amount": 15
+  "solvent_amount": 50
 }

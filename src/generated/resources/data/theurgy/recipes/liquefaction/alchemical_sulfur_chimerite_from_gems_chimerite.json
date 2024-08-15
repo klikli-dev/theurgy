@@ -5,23 +5,23 @@
       "type": "forge:not",
       "value": {
         "type": "forge:tag_empty",
-        "tag": "forge:gems/niter"
+        "tag": "forge:gems/chimerite"
       }
     }
   ],
   "ingredient": {
-    "tag": "forge:gems/niter"
+    "tag": "forge:gems/chimerite"
   },
   "liquefaction_time": 100,
   "result": {
     "count": 1,
-    "item": "theurgy:alchemical_sulfur_niter",
+    "item": "theurgy:alchemical_sulfur_chimerite",
     "nbt": {
-      "theurgy:sulfur.source.id": "#forge:gems/niter"
+      "theurgy:sulfur.source.id": "#forge:gems/chimerite"
     }
   },
   "solvent": {
     "fluid": "theurgy:sal_ammoniac"
   },
-  "solvent_amount": 15
+  "solvent_amount": 100
 }

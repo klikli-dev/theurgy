@@ -111,6 +111,7 @@ public class LiquefactionRecipeProvider extends JsonRecipeProvider {
         this.makeRecipe(SulfurRegistry.OSTRUM.get(), 5, ItemTagRegistry.RAW_MATERIALS_OSTRUM, salAmmoniac, 10);
         this.makeRecipe(SulfurRegistry.CALORITE.get(), 5, ItemTagRegistry.RAW_MATERIALS_CALORITE, salAmmoniac, 50);
         this.makeRecipe(SulfurRegistry.IESNIUM.get(), 5, ItemTagRegistry.RAW_MATERIALS_IESNIUM, salAmmoniac, 50);
+        this.makeRecipe(SulfurRegistry.DEMONITE.get(), 3, ItemTagRegistry.RAW_MATERIALS_DEMONITE, salAmmoniac, 50);
 
         //Common Metal Ingots sulfurs
         this.makeRecipe(SulfurRegistry.IRON.get(), 1, Tags.Items.INGOTS_IRON, salAmmoniac, 10);
@@ -136,6 +137,7 @@ public class LiquefactionRecipeProvider extends JsonRecipeProvider {
         this.makeRecipe(SulfurRegistry.OSTRUM.get(), 5, ItemTagRegistry.INGOTS_OSTRUM, salAmmoniac, 10);
         this.makeRecipe(SulfurRegistry.CALORITE.get(), 5, ItemTagRegistry.INGOTS_CALORITE, salAmmoniac, 50);
         this.makeRecipe(SulfurRegistry.IESNIUM.get(), 5, ItemTagRegistry.INGOTS_IESNIUM, salAmmoniac, 50);
+        this.makeRecipe(SulfurRegistry.DEMONITE.get(), 1, ItemTagRegistry.INGOTS_DEMONITE, salAmmoniac, 50);
 
         //Common Gems Sulfurs
         this.makeRecipe(SulfurRegistry.DIAMOND.get(), 1, Tags.Items.GEMS_DIAMOND, salAmmoniac, 100);
@@ -151,8 +153,9 @@ public class LiquefactionRecipeProvider extends JsonRecipeProvider {
         this.makeRecipe(SulfurRegistry.SAPPHIRE.get(), 1, ItemTagRegistry.GEMS_SAPPHIRE, salAmmoniac, 15);
         this.makeRecipe(SulfurRegistry.SAL_AMMONIAC.get(), 1, ItemTagRegistry.GEMS_SAL_AMMONIAC, salAmmoniac, 15);
         this.makeRecipe(SulfurRegistry.CERTUS_QUARTZ.get(), 6, ItemTagRegistry.GEMS_CERTUS_QUARTZ, salAmmoniac, 15);
-        this.makeRecipe(SulfurRegistry.FLUIX.get(), 6, ItemTagRegistry.GEMS_FLUIX, salAmmoniac, 15);
-        this.makeRecipe(SulfurRegistry.NITER.get(), 6, ItemTagRegistry.GEMS_NITER, salAmmoniac, 15);
+        this.makeRecipe(SulfurRegistry.FLUIX.get(), 1, ItemTagRegistry.GEMS_FLUIX, salAmmoniac, 15);
+        this.makeRecipe(SulfurRegistry.NITER.get(), 1, ItemTagRegistry.GEMS_NITER, salAmmoniac, 15);
+        this.makeRecipe(SulfurRegistry.CHIMERITE.get(), 1, ItemTagRegistry.GEMS_CHIMERITE, salAmmoniac, 100);
 
         //Other Common Minerals Sulfurs
         this.makeRecipe(SulfurRegistry.REDSTONE.get(), 1, Tags.Items.DUSTS_REDSTONE, salAmmoniac, 10);

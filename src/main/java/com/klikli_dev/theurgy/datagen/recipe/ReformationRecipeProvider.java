@@ -65,16 +65,20 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
         this.makeNiterToSulfurRecipe(source, 1, List.of(target), 1);
     }
 
-    private void makeNiterToSulfurRecipe(AlchemicalNiterItem source, int sourceCount, AlchemicalSulfurItem target, int targetCount) {
-        this.makeNiterToSulfurRecipe(source, sourceCount, List.of(target), targetCount);
+    private void makeNiterToSulfurRecipe(AlchemicalNiterItem source, int sourceCount, AlchemicalSulfurItem target, int targetCount, boolean respectNoAutomaticRecipes) {
+        this.makeNiterToSulfurRecipe(source, sourceCount, List.of(target), targetCount, respectNoAutomaticRecipes);
     }
 
     private void makeNiterToSulfurRecipe(AlchemicalNiterItem source, List<AlchemicalSulfurItem> targets) {
         this.makeNiterToSulfurRecipe(source, 1, targets, 1);
     }
 
-    private void makeNiterToSulfurRecipe(AlchemicalNiterItem source, int sourceCount, List<AlchemicalSulfurItem> targets, int targetCount) {
-        targets.stream().filter(t -> !this.noAutomaticRecipesFor.contains(t)).forEach((target) -> {
+    private void makeNiterToSulfurRecipe(AlchemicalNiterItem source, int sourceCount, List<AlchemicalSulfurItem> targets, int targetCount){
+        this.makeNiterToSulfurRecipe(source, sourceCount, targets, targetCount, true);
+    }
+
+    private void makeNiterToSulfurRecipe(AlchemicalNiterItem source, int sourceCount, List<AlchemicalSulfurItem> targets, int targetCount, boolean respectNoAutomaticRecipes) {
+        targets.stream().filter(t -> !respectNoAutomaticRecipes || !this.noAutomaticRecipesFor.contains(t)).forEach((target) -> {
             this.makeRecipe(target, targetCount, source, sourceCount, this.getFlux(target));
         });
     }
@@ -275,13 +279,13 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
         this.makeNiterToSulfurRecipe(NiterRegistry.MOBS_PRECIOUS.get(), SulfurMappings.mobsPrecious());
 
         //For some items we add a special conversion with different multipliers
-        this.makeNiterToSulfurRecipe(NiterRegistry.MOBS_COMMON.get(), 2, SulfurRegistry.SKELETON_SKULL.get(), 1);
-        this.makeNiterToSulfurRecipe(NiterRegistry.MOBS_RARE.get(), 2, SulfurRegistry.WITHER_SKELETON_SKULL.get(), 1);
-        this.makeNiterToSulfurRecipe(NiterRegistry.MOBS_RARE.get(), 2, SulfurRegistry.GHAST_TEAR.get(), 1);
-        this.makeNiterToSulfurRecipe(NiterRegistry.MOBS_RARE.get(), 2, SulfurRegistry.SHULKER_SHELL.get(), 1);
-        this.makeNiterToSulfurRecipe(NiterRegistry.MOBS_PRECIOUS.get(), 2, SulfurRegistry.NETHER_STAR.get(), 1);
-        this.makeNiterToSulfurRecipe(NiterRegistry.MOBS_PRECIOUS.get(), 4, SulfurRegistry.DRAGON_EGG.get(), 1);
-        this.makeNiterToSulfurRecipe(NiterRegistry.MOBS_PRECIOUS.get(), 2, SulfurRegistry.HEART_OF_THE_SEA.get(), 1);
+        this.makeNiterToSulfurRecipe(NiterRegistry.MOBS_COMMON.get(), 2, SulfurRegistry.SKELETON_SKULL.get(), 1, false);
+        this.makeNiterToSulfurRecipe(NiterRegistry.MOBS_RARE.get(), 2, SulfurRegistry.WITHER_SKELETON_SKULL.get(), 1, false);
+        this.makeNiterToSulfurRecipe(NiterRegistry.MOBS_RARE.get(), 2, SulfurRegistry.GHAST_TEAR.get(), 1, false);
+        this.makeNiterToSulfurRecipe(NiterRegistry.MOBS_RARE.get(), 2, SulfurRegistry.SHULKER_SHELL.get(), 1, false);
+        this.makeNiterToSulfurRecipe(NiterRegistry.MOBS_PRECIOUS.get(), 2, SulfurRegistry.NETHER_STAR.get(), 1, false);
+        this.makeNiterToSulfurRecipe(NiterRegistry.MOBS_PRECIOUS.get(), 4, SulfurRegistry.DRAGON_EGG.get(), 1, false);
+        this.makeNiterToSulfurRecipe(NiterRegistry.MOBS_PRECIOUS.get(), 2, SulfurRegistry.HEART_OF_THE_SEA.get(), 1, false);
 
         //Also allow direct conversion between specific sulfurs of the same tier
         var mobsFromMob = List.of(

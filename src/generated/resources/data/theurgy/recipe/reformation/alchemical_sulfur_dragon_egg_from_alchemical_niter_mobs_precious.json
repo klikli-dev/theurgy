@@ -1,0 +1,40 @@
+{
+  "type": "theurgy:reformation",
+  "category": "misc",
+  "mercuryFlux": 200,
+  "result": {
+    "type": "theurgy:item",
+    "count": 1,
+    "id": "theurgy:alchemical_sulfur_dragon_egg"
+  },
+  "sources": [
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "theurgy:alchemical_niter_mobs_precious"
+      }
+    },
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "theurgy:alchemical_niter_mobs_precious"
+      }
+    },
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "theurgy:alchemical_niter_mobs_precious"
+      }
+    },
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "theurgy:alchemical_niter_mobs_precious"
+      }
+    }
+  ],
+  "target": {
+    "item": "theurgy:alchemical_sulfur_dragon_egg"
+  },
+  "time": 100
+}

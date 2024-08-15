@@ -1,0 +1,28 @@
+{
+  "type": "theurgy:reformation",
+  "category": "misc",
+  "mercuryFlux": 200,
+  "result": {
+    "type": "theurgy:item",
+    "count": 1,
+    "id": "theurgy:alchemical_sulfur_heart_of_the_sea"
+  },
+  "sources": [
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "theurgy:alchemical_niter_mobs_precious"
+      }
+    },
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "theurgy:alchemical_niter_mobs_precious"
+      }
+    }
+  ],
+  "target": {
+    "item": "theurgy:alchemical_sulfur_heart_of_the_sea"
+  },
+  "time": 100
+}

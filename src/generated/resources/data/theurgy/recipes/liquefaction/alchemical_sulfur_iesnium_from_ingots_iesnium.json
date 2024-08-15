@@ -14,7 +14,7 @@
   },
   "liquefaction_time": 100,
   "result": {
-    "count": 5,
+    "count": 1,
     "item": "theurgy:alchemical_sulfur_iesnium",
     "nbt": {
       "theurgy:sulfur.source.id": "#forge:ingots/iesnium"

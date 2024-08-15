@@ -133,10 +133,10 @@ public class LiquefactionRecipeProvider extends JsonRecipeProvider {
         this.makeRecipe(SulfurRegistry.CRIMSON_IRON.get(), 1, ItemTagRegistry.INGOTS_CRIMSON_IRON, salAmmoniac, 20);
         this.makeRecipe(SulfurRegistry.PLATINUM.get(), 1, ItemTagRegistry.INGOTS_PLATINUM, salAmmoniac, 20);
         this.makeRecipe(SulfurRegistry.VIBRANIUM.get(), 1, ItemTagRegistry.INGOTS_VIBRANIUM, salAmmoniac, 20);
-        this.makeRecipe(SulfurRegistry.DESH.get(), 5, ItemTagRegistry.INGOTS_DESH, salAmmoniac, 10);
-        this.makeRecipe(SulfurRegistry.OSTRUM.get(), 5, ItemTagRegistry.INGOTS_OSTRUM, salAmmoniac, 10);
-        this.makeRecipe(SulfurRegistry.CALORITE.get(), 5, ItemTagRegistry.INGOTS_CALORITE, salAmmoniac, 50);
-        this.makeRecipe(SulfurRegistry.IESNIUM.get(), 5, ItemTagRegistry.INGOTS_IESNIUM, salAmmoniac, 50);
+        this.makeRecipe(SulfurRegistry.DESH.get(), 1, ItemTagRegistry.INGOTS_DESH, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.OSTRUM.get(), 1, ItemTagRegistry.INGOTS_OSTRUM, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.CALORITE.get(), 1, ItemTagRegistry.INGOTS_CALORITE, salAmmoniac, 50);
+        this.makeRecipe(SulfurRegistry.IESNIUM.get(), 1, ItemTagRegistry.INGOTS_IESNIUM, salAmmoniac, 50);
         this.makeRecipe(SulfurRegistry.DEMONITE.get(), 1, ItemTagRegistry.INGOTS_DEMONITE, salAmmoniac, 50);
 
         //Common Gems Sulfurs

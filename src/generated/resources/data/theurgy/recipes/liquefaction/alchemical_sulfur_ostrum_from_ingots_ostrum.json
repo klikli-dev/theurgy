@@ -14,7 +14,7 @@
   },
   "liquefaction_time": 100,
   "result": {
-    "count": 5,
+    "count": 1,
     "item": "theurgy:alchemical_sulfur_ostrum",
     "nbt": {
       "theurgy:sulfur.source.id": "#forge:ingots/ostrum"

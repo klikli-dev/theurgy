@@ -43,10 +43,10 @@ public class NiterRegistry {
     public static final DeferredItem<AlchemicalNiterItem> ANIMALS_COMMON = register("animals_common", Items.LEATHER, AlchemicalDerivativeTier.COMMON);
     public static final DeferredItem<AlchemicalNiterItem> ANIMALS_RARE = register("animals_rare", Items.RABBIT_FOOT, AlchemicalDerivativeTier.COMMON);
 
-//    public static final DeferredItem<AlchemicalNiterItem> MOBS_ABUNDANT = register("mobs_abundant", Items.ROTTEN_FLESH, AlchemicalDerivativeTier.ABUNDANT);
-//    public static final DeferredItem<AlchemicalNiterItem> MOBS_COMMON = register("mobs_commond", Items.BLAZE_ROD, AlchemicalDerivativeTier.COMMON);
-//    public static final DeferredItem<AlchemicalNiterItem> MOBS_RARE = register("mobs_rare", Items.WITHER_SKELETON_SKULL, AlchemicalDerivativeTier.RARE);
-//    public static final DeferredItem<AlchemicalNiterItem> MOBS_PRECIOUS = register("mobs_precious", Items.NETHER_STAR, AlchemicalDerivativeTier.PRECIOUS);
+    public static final DeferredItem<AlchemicalNiterItem> MOBS_ABUNDANT = register("mobs_abundant", Items.ROTTEN_FLESH, AlchemicalDerivativeTier.ABUNDANT);
+    public static final DeferredItem<AlchemicalNiterItem> MOBS_COMMON = register("mobs_commond", Items.BLAZE_ROD, AlchemicalDerivativeTier.COMMON);
+    public static final DeferredItem<AlchemicalNiterItem> MOBS_RARE = register("mobs_rare", Items.WITHER_SKELETON_SKULL, AlchemicalDerivativeTier.RARE);
+    public static final DeferredItem<AlchemicalNiterItem> MOBS_PRECIOUS = register("mobs_precious", Items.NETHER_STAR, AlchemicalDerivativeTier.PRECIOUS);
 
     public static DeferredItem<AlchemicalNiterItem> register(String name, TagKey<Item> source, AlchemicalDerivativeTier tier) {
         return register(name, () -> new AlchemicalNiterItem(new Item.Properties().component(

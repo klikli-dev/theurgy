@@ -157,6 +157,28 @@ public class FermentationRecipeProvider extends JsonRecipeProvider {
                 .ingredients(ItemTagRegistry.ALCHEMICAL_SULFURS_ANIMALS_RARE)
                 .ingredients(cropTag)
                 .time(TIME));
+
+
+        this.makeRecipe("_using_" + this.name(cropTag), new Builder(NiterRegistry.MOBS_ABUNDANT)
+                .fluid(Fluids.WATER, 125)
+                .ingredients(ItemTagRegistry.ALCHEMICAL_SULFURS_MOBS_ABUNDANT)
+                .ingredients(cropTag)
+                .time(TIME));
+        this.makeRecipe("_using_" + this.name(cropTag), new Builder(NiterRegistry.MOBS_COMMON)
+                .fluid(Fluids.WATER, 250)
+                .ingredients(ItemTagRegistry.ALCHEMICAL_SULFURS_MOBS_COMMON)
+                .ingredients(cropTag)
+                .time(TIME));
+        this.makeRecipe("_using_" + this.name(cropTag), new Builder(NiterRegistry.MOBS_RARE)
+                .fluid(Fluids.WATER, 500)
+                .ingredients(ItemTagRegistry.ALCHEMICAL_SULFURS_MOBS_RARE)
+                .ingredients(cropTag)
+                .time(TIME));
+        this.makeRecipe("_using_" + this.name(cropTag), new Builder(NiterRegistry.MOBS_PRECIOUS)
+                .fluid(Fluids.WATER, 1000)
+                .ingredients(ItemTagRegistry.ALCHEMICAL_SULFURS_MOBS_PRECIOUS)
+                .ingredients(cropTag)
+                .time(TIME));
     }
 
     public void makeRecipe(Fluid fluid, int fluidAmount, List<TagKey<Item>> ingredients, Item result, int resultCount, int time) {

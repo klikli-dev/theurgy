@@ -69,6 +69,10 @@ public class DigestionRecipeProvider extends JsonRecipeProvider {
 
         this.makeTierConversion(NiterRegistry.ANIMALS_ABUNDANT.get(), NiterRegistry.ANIMALS_COMMON.get(), 4, 10);
         this.makeTierConversion(NiterRegistry.ANIMALS_COMMON.get(), NiterRegistry.ANIMALS_RARE.get(), 4, 15);
+
+        this.makeTierConversion(NiterRegistry.MOBS_ABUNDANT.get(), NiterRegistry.MOBS_COMMON.get(), 4, 10);
+        this.makeTierConversion(NiterRegistry.MOBS_COMMON.get(), NiterRegistry.MOBS_RARE.get(), 4, 15);
+        this.makeTierConversion(NiterRegistry.MOBS_RARE.get(), NiterRegistry.MOBS_PRECIOUS.get(), 4, 50);
     }
 
     public void makeRecipe(Fluid fluid, int fluidAmount, List<Pair<Item, Integer>> ingredients, Item result, int resultCount, int time, String postFix) {

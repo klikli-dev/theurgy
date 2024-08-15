@@ -566,6 +566,11 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.addDerivativeSource(NiterRegistry.ANIMALS_RARE, "Rare Animal Parts");
 
 
+        this.addDerivativeSource(NiterRegistry.MOBS_ABUNDANT, "Abundant Mob Drops");
+        this.addDerivativeSource(NiterRegistry.MOBS_COMMON, "Common Mob Drops");
+        this.addDerivativeSource(NiterRegistry.MOBS_RARE, "Rare Mob Drops");
+        this.addDerivativeSource(NiterRegistry.MOBS_PRECIOUS, "Precious Mob Drops");
+
         //Sources for Sulfurs with {@link AlchemicalDerivativeItem#useCustomSourceName}
         this.addDerivativeSource(SulfurRegistry.OAK_LOG, "Oak");
         this.addDerivativeSource(SulfurRegistry.SPRUCE_LOG, "Spruce");

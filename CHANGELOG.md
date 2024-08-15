@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21-1.45.0] - 2024-08-15
+### :sparkles: New Features
+- [`f45a7a5`](https://github.com/klikli-dev/theurgy/commit/f45a7a52b079e693b50ff8701ae638abe3b623cf) - add chimerite and demonite support *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`f8fcebe`](https://github.com/klikli-dev/theurgy/commit/f8fcebe46ccabea15f33d70f837102176f345a44) - update neogradle *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21-1.44.1] - 2024-08-11
 ### :bug: Bug Fixes
 - [`89854c8`](https://github.com/klikli-dev/theurgy/commit/89854c88884b144370650283e9528d91e7e251ce) - machine multiblocks should not be previewed in world *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -984,3 +992,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21-1.43.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.42.1...release/v1.21-1.43.0
 [release/v1.21-1.44.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.43.0...release/v1.21-1.44.0
 [release/v1.21-1.44.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.44.0...release/v1.21-1.44.1
+[release/v1.21-1.45.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.44.1...release/v1.21-1.45.0

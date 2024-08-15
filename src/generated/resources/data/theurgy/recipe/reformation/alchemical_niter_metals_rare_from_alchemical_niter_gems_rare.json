@@ -10,7 +10,9 @@
   "sources": [
     {
       "count": 1,
-      "item": "theurgy:alchemical_niter_gems_rare"
+      "ingredient": {
+        "item": "theurgy:alchemical_niter_gems_rare"
+      }
     }
   ],
   "target": {

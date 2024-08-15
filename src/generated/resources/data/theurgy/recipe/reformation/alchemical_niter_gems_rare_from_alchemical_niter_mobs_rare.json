@@ -10,35 +10,51 @@
   "sources": [
     {
       "count": 1,
-      "item": "theurgy:alchemical_niter_mobs_rare"
+      "ingredient": {
+        "item": "theurgy:alchemical_niter_mobs_rare"
+      }
     },
     {
       "count": 1,
-      "item": "theurgy:alchemical_niter_mobs_rare"
+      "ingredient": {
+        "item": "theurgy:alchemical_niter_mobs_rare"
+      }
     },
     {
       "count": 1,
-      "item": "theurgy:alchemical_niter_mobs_rare"
+      "ingredient": {
+        "item": "theurgy:alchemical_niter_mobs_rare"
+      }
     },
     {
       "count": 1,
-      "item": "theurgy:alchemical_niter_mobs_rare"
+      "ingredient": {
+        "item": "theurgy:alchemical_niter_mobs_rare"
+      }
     },
     {
       "count": 1,
-      "item": "theurgy:alchemical_niter_mobs_rare"
+      "ingredient": {
+        "item": "theurgy:alchemical_niter_mobs_rare"
+      }
     },
     {
       "count": 1,
-      "item": "theurgy:alchemical_niter_mobs_rare"
+      "ingredient": {
+        "item": "theurgy:alchemical_niter_mobs_rare"
+      }
     },
     {
       "count": 1,
-      "item": "theurgy:alchemical_niter_mobs_rare"
+      "ingredient": {
+        "item": "theurgy:alchemical_niter_mobs_rare"
+      }
     },
     {
       "count": 1,
-      "item": "theurgy:alchemical_niter_mobs_rare"
+      "ingredient": {
+        "item": "theurgy:alchemical_niter_mobs_rare"
+      }
     }
   ],
   "target": {

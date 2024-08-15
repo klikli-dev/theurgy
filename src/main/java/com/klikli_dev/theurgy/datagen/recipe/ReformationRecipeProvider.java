@@ -35,7 +35,7 @@ import java.util.function.BiConsumer;
 public class ReformationRecipeProvider extends JsonRecipeProvider {
 
     public static final int TIME = ReformationRecipe.DEFAULT_TIME;
-    private final Map<AlchemicalDerivativeTier, Integer> fluxPerTier = Map.of(
+    private static final Map<AlchemicalDerivativeTier, Integer> fluxPerTier = Map.of(
             AlchemicalDerivativeTier.ABUNDANT, 50,
             AlchemicalDerivativeTier.COMMON, 100,
             AlchemicalDerivativeTier.RARE, 150,
@@ -48,8 +48,8 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
         super(packOutput, Theurgy.MODID, "reformation");
     }
 
-    private int getFlux(AlchemicalDerivativeItem item) {
-        return this.fluxPerTier.get(item.tier());
+    private static int getFlux(AlchemicalDerivativeItem item) {
+        return fluxPerTier.get(item.tier());
     }
 
     private void makeXtoXRecipes(List<Pair<List<AlchemicalSulfurItem>, TagKey<Item>>> sulfurToTag) {
@@ -142,7 +142,16 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
         this.makeNiterToNiterRecipe(NiterRegistry.MOBS_ABUNDANT.get(), 2, NiterRegistry.GEMS_ABUNDANT.get(), 1);
         this.makeNiterToNiterRecipe(NiterRegistry.MOBS_COMMON.get(), 4, NiterRegistry.GEMS_COMMON.get(), 1);
         this.makeNiterToNiterRecipe(NiterRegistry.MOBS_RARE.get(), 8, NiterRegistry.GEMS_RARE.get(), 1);
-        this.makeNiterToNiterRecipe(NiterRegistry.MOBS_PRECIOUS.get(), 32, NiterRegistry.GEMS_PRECIOUS.get(), 1);
+        this.makeRecipe("", new Builder(new ItemStack(NiterRegistry.GEMS_PRECIOUS.get(), 1))
+                .time(TIME)
+                .sources(NiterRegistry.MOBS_PRECIOUS.get(), 4)
+                .sources(NiterRegistry.MOBS_PRECIOUS.get(), 4)
+                .sources(NiterRegistry.MOBS_PRECIOUS.get(), 4)
+                .sources(NiterRegistry.MOBS_PRECIOUS.get(), 4)
+                .sources(NiterRegistry.MOBS_PRECIOUS.get(), 4)
+                .sources(NiterRegistry.MOBS_PRECIOUS.get(), 4)
+                .sources(NiterRegistry.MOBS_PRECIOUS.get(), 4)
+                .sources(NiterRegistry.MOBS_PRECIOUS.get(), 4));
     }
 
     private void otherMinerals() {
@@ -287,9 +296,32 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
         //with mob drops that is super complicated, so try with this for now.
         this.makeNiterToNiterRecipe(NiterRegistry.GEMS_ABUNDANT.get(), 4, NiterRegistry.MOBS_ABUNDANT.get(), 1);
         this.makeNiterToNiterRecipe(NiterRegistry.GEMS_COMMON.get(), 8, NiterRegistry.MOBS_COMMON.get(), 1);
-        this.makeNiterToNiterRecipe(NiterRegistry.GEMS_RARE.get(), 16, NiterRegistry.MOBS_RARE.get(), 1);
-        this.makeNiterToNiterRecipe(NiterRegistry.GEMS_PRECIOUS.get(), 64, NiterRegistry.MOBS_PRECIOUS.get(), 1);
-        //TODO: over eight not properly displayed
+
+//        this.makeNiterToNiterRecipe(NiterRegistry.GEMS_RARE.get(), 16, NiterRegistry.MOBS_RARE.get(), 1);
+        //        this.makeNiterToNiterRecipe(NiterRegistry.GEMS_PRECIOUS.get(), 64, NiterRegistry.MOBS_PRECIOUS.get(), 1);
+        this.makeRecipe("", new Builder(new ItemStack(NiterRegistry.MOBS_RARE.get(), 1))
+                .time(TIME)
+                .sources(NiterRegistry.GEMS_RARE.get(), 2)
+                .sources(NiterRegistry.GEMS_RARE.get(), 2)
+                .sources(NiterRegistry.GEMS_RARE.get(), 2)
+                .sources(NiterRegistry.GEMS_RARE.get(), 2)
+                .sources(NiterRegistry.GEMS_RARE.get(), 2)
+                .sources(NiterRegistry.GEMS_RARE.get(), 2)
+                .sources(NiterRegistry.GEMS_RARE.get(), 2)
+                .sources(NiterRegistry.GEMS_RARE.get(), 2));
+
+//        this.makeNiterToNiterRecipe(NiterRegistry.GEMS_PRECIOUS.get(), 64, NiterRegistry.MOBS_PRECIOUS.get(), 1);
+        this.makeRecipe("", new Builder(new ItemStack(NiterRegistry.MOBS_PRECIOUS.get(), 1))
+                .time(TIME)
+                .sources(NiterRegistry.GEMS_PRECIOUS.get(), 8)
+                .sources(NiterRegistry.GEMS_PRECIOUS.get(), 8)
+                .sources(NiterRegistry.GEMS_PRECIOUS.get(), 8)
+                .sources(NiterRegistry.GEMS_PRECIOUS.get(), 8)
+                .sources(NiterRegistry.GEMS_PRECIOUS.get(), 8)
+                .sources(NiterRegistry.GEMS_PRECIOUS.get(), 8)
+                .sources(NiterRegistry.GEMS_PRECIOUS.get(), 8)
+                .sources(NiterRegistry.GEMS_PRECIOUS.get(), 8));
+
         //TODO: niter -> sulfur recipes not available apprently
     }
 
@@ -360,6 +392,10 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
         this.recipeCache.put(this.modLoc(recipeName), recipe.build());
     }
 
+    protected void makeRecipe(String suffix, Builder recipe) {
+        this.recipeConsumer.accept(this.modLoc(this.name(recipe.result()) + suffix), recipe.build());
+    }
+
     @Override
     public @NotNull String getName() {
         return "Reformation Recipes";
@@ -367,10 +403,20 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
 
 
     protected static class Builder extends RecipeBuilder<Builder> {
+        private final ItemStack result;
+
         protected Builder(ItemStack result) {
             super(RecipeTypeRegistry.REFORMATION);
             this.result(result);
+            this.result = result;
+            this.target(result.getItem());
+            if(result.getItem() instanceof AlchemicalDerivativeItem derivativeItem)
+                this.mercuryFlux(getFlux(derivativeItem));
             this.time(TIME);
+        }
+
+        public ItemStack result() {
+            return this.result;
         }
 
         @Override

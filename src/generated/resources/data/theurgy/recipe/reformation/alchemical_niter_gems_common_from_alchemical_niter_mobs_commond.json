@@ -10,19 +10,27 @@
   "sources": [
     {
       "count": 1,
-      "item": "theurgy:alchemical_niter_mobs_commond"
+      "ingredient": {
+        "item": "theurgy:alchemical_niter_mobs_commond"
+      }
     },
     {
       "count": 1,
-      "item": "theurgy:alchemical_niter_mobs_commond"
+      "ingredient": {
+        "item": "theurgy:alchemical_niter_mobs_commond"
+      }
     },
     {
       "count": 1,
-      "item": "theurgy:alchemical_niter_mobs_commond"
+      "ingredient": {
+        "item": "theurgy:alchemical_niter_mobs_commond"
+      }
     },
     {
       "count": 1,
-      "item": "theurgy:alchemical_niter_mobs_commond"
+      "ingredient": {
+        "item": "theurgy:alchemical_niter_mobs_commond"
+      }
     }
   ],
   "target": {

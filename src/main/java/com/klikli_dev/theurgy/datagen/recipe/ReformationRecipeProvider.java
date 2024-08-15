@@ -15,15 +15,18 @@ import com.klikli_dev.theurgy.content.recipe.ReformationRecipe;
 import com.klikli_dev.theurgy.datagen.SulfurMappings;
 import com.klikli_dev.theurgy.registry.*;
 import com.mojang.datafixers.util.Pair;
+import com.mojang.serialization.JsonOps;
 import net.minecraft.core.Holder;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.neoforged.neoforge.common.conditions.NotCondition;
 import net.neoforged.neoforge.common.conditions.TagEmptyCondition;
+import net.neoforged.neoforge.common.crafting.SizedIngredient;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
@@ -286,6 +289,8 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
         this.makeNiterToNiterRecipe(NiterRegistry.GEMS_COMMON.get(), 8, NiterRegistry.MOBS_COMMON.get(), 1);
         this.makeNiterToNiterRecipe(NiterRegistry.GEMS_RARE.get(), 16, NiterRegistry.MOBS_RARE.get(), 1);
         this.makeNiterToNiterRecipe(NiterRegistry.GEMS_PRECIOUS.get(), 64, NiterRegistry.MOBS_PRECIOUS.get(), 1);
+        //TODO: over eight not properly displayed
+        //TODO: niter -> sulfur recipes not available apprently
     }
 
     @Override
@@ -373,6 +378,7 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
             if(result.getItem() instanceof AlchemicalSulfurItem sulfur) {
                 if(result.has(DataComponentRegistry.SOURCE_TAG)){
                     var sourceTag = result.get(DataComponentRegistry.SOURCE_TAG);
+                    //noinspection DataFlowIssue
                     this.condition(new NotCondition(new TagEmptyCondition(sourceTag)));
                 }
             }
@@ -385,6 +391,7 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
                 var stack = new ItemStack(sulfur);
                 if(stack.has(DataComponentRegistry.SOURCE_TAG)){
                     var sourceTag = stack.get(DataComponentRegistry.SOURCE_TAG);
+                    //noinspection DataFlowIssue
                     this.condition(new NotCondition(new TagEmptyCondition(sourceTag)));
                 }
             }
@@ -398,34 +405,21 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
         }
 
         public Builder sources(ItemLike item) {
-            //noinspection deprecation
-            return this.sources(item.asItem().builtInRegistryHolder());
+            return this.sources(item, 1);
         }
 
         public Builder sources(ItemLike item, int count) {
-            //noinspection deprecation
-            return this.sources(item.asItem().builtInRegistryHolder(), count);
-        }
-
-        public Builder sources(Holder<Item> itemHolder) {
-            return this.sources(itemHolder, 1);
-        }
-
-        public Builder sources(Holder<Item> itemHolder, int count) {
             if (!this.recipe.has("sources"))
                 this.recipe.add("sources", new JsonArray());
 
-            JsonObject jsonobject = new JsonObject();
-            //noinspection OptionalGetWithoutIsPresent
-            jsonobject.addProperty("item", itemHolder.unwrapKey().get().location().toString());
-            jsonobject.addProperty("count", count);
+            this.recipe.getAsJsonArray("sources").add(
+                    SizedIngredient.NESTED_CODEC.encodeStart(JsonOps.INSTANCE, SizedIngredient.of(item, count)).getOrThrow());
 
-            this.recipe.getAsJsonArray("sources").add(jsonobject);
-
-            if(itemHolder.value() instanceof AlchemicalSulfurItem sulfur) {
+            if(item instanceof AlchemicalSulfurItem sulfur) {
                 var stack = new ItemStack(sulfur);
                 if(stack.has(DataComponentRegistry.SOURCE_TAG)){
                     var sourceTag = stack.get(DataComponentRegistry.SOURCE_TAG);
+                    //noinspection DataFlowIssue
                     this.condition(new NotCondition(new TagEmptyCondition(sourceTag)));
                 }
             }
@@ -434,16 +428,13 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
         }
 
 
-        public Builder sources(TagKey<?> tag, int count) {
+        public Builder sources(TagKey<Item> tag, int count) {
             if (!this.recipe.has("sources"))
                 this.recipe.add("sources", new JsonArray());
 
-            JsonObject jsonobject = new JsonObject();
-            jsonobject.addProperty("tag", tag.location().toString());
-            if (count > -1)
-                jsonobject.addProperty("count", count);
 
-            this.recipe.getAsJsonArray("sources").add(jsonobject);
+            this.recipe.getAsJsonArray("sources").add(
+                    SizedIngredient.NESTED_CODEC.encodeStart(JsonOps.INSTANCE, SizedIngredient.of(tag, count)).getOrThrow());
 
             this.condition(new NotCondition(new TagEmptyCondition(tag.location().toString())));
 

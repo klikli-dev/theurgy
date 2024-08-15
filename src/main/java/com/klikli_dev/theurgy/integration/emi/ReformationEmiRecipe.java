@@ -52,7 +52,7 @@ public class ReformationEmiRecipe implements EmiRecipe {
     @Override
     public List<EmiIngredient> getInputs() {
         var inputs = new ArrayList<EmiIngredient>();
-        this.recipe.value().getSources().forEach(source -> inputs.add(EmiIngredient.of(source)));
+        this.recipe.value().getSources().forEach(source -> inputs.add(EmiIngredient.of(source.ingredient(), source.count())));
         return inputs;
     }
 
@@ -106,7 +106,8 @@ public class ReformationEmiRecipe implements EmiRecipe {
 
         for (int i = 0; i < 8; i++) {
             if (i < recipe.value().getSources().size()){
-                widgets.addSlot(EmiIngredient.of(this.recipe.value().getSources().get(i)), sourceSlotX, sourceSlotY);
+                var ingredient = recipe.value().getSources().get(i);
+                widgets.addSlot(EmiIngredient.of(ingredient.ingredient(), ingredient.count()), sourceSlotX, sourceSlotY);
             } else {
                 widgets.addSlot(sourceSlotX, sourceSlotY);
             }

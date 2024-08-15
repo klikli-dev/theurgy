@@ -64,7 +64,7 @@ public class ReformationArrayCraftingBehaviour extends CraftingBehaviour<Reforma
                     // Add this source inventory to the set of used inventories
                     usedInventories.add(sourceInventory);
 
-                    sourceInventory.extractItem(0, 1, false);
+                    sourceInventory.extractItem(0, source.count(), false);
                     break;
                 }
             }

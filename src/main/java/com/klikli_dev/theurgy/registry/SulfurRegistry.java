@@ -4,6 +4,7 @@
 
 package com.klikli_dev.theurgy.registry;
 
+import com.klikli_dev.modonomicon.registry.RegistryObject;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.content.item.derivative.AlchemicalDerivativeTier;
 import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurItem;
@@ -233,6 +234,8 @@ public class SulfurRegistry {
     public static final DeferredItem<AlchemicalSulfurItem> CALORITE = registerForSourceTag(ItemTagRegistry.INGOTS_CALORITE, AlchemicalDerivativeTier.PRECIOUS, AlchemicalSulfurType.METALS);
     public static final DeferredItem<AlchemicalSulfurItem> IESNIUM = registerForSourceTag(ItemTagRegistry.INGOTS_IESNIUM, AlchemicalDerivativeTier.PRECIOUS, AlchemicalSulfurType.METALS);
 
+    public static final DeferredItem<AlchemicalSulfurItem> DEMONITE = registerForSourceTag(ItemTagRegistry.INGOTS_DEMONITE, AlchemicalDerivativeTier.PRECIOUS, AlchemicalSulfurType.METALS);
+
     //Common Gems
 
     public static final DeferredItem<AlchemicalSulfurItem> DIAMOND = registerForSourceTag(Tags.Items.GEMS_DIAMOND, AlchemicalDerivativeTier.PRECIOUS, AlchemicalSulfurType.GEMS);
@@ -251,6 +254,8 @@ public class SulfurRegistry {
     public static final DeferredItem<AlchemicalSulfurItem> CERTUS_QUARTZ = registerForSourceTag(ItemTagRegistry.GEMS_CERTUS_QUARTZ, AlchemicalDerivativeTier.COMMON, AlchemicalSulfurType.GEMS);
     public static final DeferredItem<AlchemicalSulfurItem> FLUIX = registerForSourceTag(ItemTagRegistry.GEMS_FLUIX, AlchemicalDerivativeTier.RARE, AlchemicalSulfurType.GEMS);
     public static final DeferredItem<AlchemicalSulfurItem> NITER = registerForSourceTag(ItemTagRegistry.GEMS_NITER, AlchemicalDerivativeTier.COMMON, AlchemicalSulfurType.GEMS);
+
+    public static final DeferredItem<AlchemicalSulfurItem> CHIMERITE = registerForSourceTag(ItemTagRegistry.GEMS_CHIMERITE, AlchemicalDerivativeTier.PRECIOUS, AlchemicalSulfurType.GEMS);
 
     //Other Common Minerals
     public static final DeferredItem<AlchemicalSulfurItem> REDSTONE = registerForSourceTag(Tags.Items.DUSTS_REDSTONE, AlchemicalDerivativeTier.COMMON, AlchemicalSulfurType.OTHER_MINERALS);

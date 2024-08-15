@@ -789,6 +789,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.addDerivativeSource(SulfurRegistry.CERTUS_QUARTZ, "Certus Quartz");
         this.addDerivativeSource(SulfurRegistry.FLUIX, "Fluix");
         this.addDerivativeSource(SulfurRegistry.NITER, "Niter");
+        this.addDerivativeSource(SulfurRegistry.CHIMERITE, "Chimerite");
+        this.addDerivativeSource(SulfurRegistry.DEMONITE, "Demonite");
 
         //Other Common Minerals
         this.addDerivativeSource(SulfurRegistry.REDSTONE, "Redstone");

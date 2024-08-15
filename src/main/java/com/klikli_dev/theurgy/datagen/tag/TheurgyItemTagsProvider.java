@@ -366,6 +366,14 @@ public class TheurgyItemTagsProvider extends ItemTagsProvider {
 
         this.tag(ItemTagRegistry.GEMS_DARK)
                 .addOptionalTag(this.rl("evilcraft:gems/dark"));
+
+        this.tag(ItemTagRegistry.RAW_MATERIALS_DEMONITE)
+                .addOptional(this.rl("bloodmagic:rawdemonite"));
+        this.tag(ItemTagRegistry.INGOTS_DEMONITE)
+                .addOptional(this.rl("bloodmagic:ingot_hellforged"));
+
+        this.tag(ItemTagRegistry.GEMS_CHIMERITE)
+                .addOptional(this.rl("mna:chimerite_gem"));
     }
 
     public ResourceLocation rl(String tag) {

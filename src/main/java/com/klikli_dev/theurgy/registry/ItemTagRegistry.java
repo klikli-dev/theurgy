@@ -296,6 +296,7 @@ public class ItemTagRegistry {
     public static final TagKey<Item> RAW_MATERIALS_CRIMSON_IRON = cTag("raw_materials/crimson_iron");
     public static final TagKey<Item> RAW_MATERIALS_PLATINUM = cTag("raw_materials/platinum");
     public static final TagKey<Item> RAW_MATERIALS_VIBRANIUM = cTag("raw_materials/vibranium");
+    public static final TagKey<Item> RAW_MATERIALS_DEMONITE = cTag("raw_materials/demonite");
 
     public static final TagKey<Item> RAW_MATERIALS_DESH = cTag("raw_materials/desh");
     public static final TagKey<Item> RAW_MATERIALS_OSTRUM = cTag("raw_materials/ostrum");
@@ -323,6 +324,7 @@ public class ItemTagRegistry {
     public static final TagKey<Item> INGOTS_OSTRUM = cTag("ingots/ostrum");
     public static final TagKey<Item> INGOTS_CALORITE = cTag("ingots/calorite");
     public static final TagKey<Item> INGOTS_IESNIUM = cTag("ingots/iesnium");
+    public static final TagKey<Item> INGOTS_DEMONITE = cTag("ingots/demonite");
 
     //Common Gems
     public static final TagKey<Item> GEMS_RUBY = cTag("gems/ruby");
@@ -334,7 +336,7 @@ public class ItemTagRegistry {
     public static final TagKey<Item> GEMS_NITER = cTag("gems/niter");
     public static final TagKey<Item> GEMS_CERTUS_QUARTZ = cTag("gems/certus_quartz");
     public static final TagKey<Item> GEMS_FLUIX = cTag("gems/fluix");
-
+    public static final TagKey<Item> GEMS_CHIMERITE = cTag("gems/chimerite");
 
     //Other Common Minerals
     public static final TagKey<Item> GEMS_SULFUR = cTag("gems/sulfur");

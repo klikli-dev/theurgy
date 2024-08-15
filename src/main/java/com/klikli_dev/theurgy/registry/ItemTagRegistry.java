@@ -57,8 +57,23 @@ public class ItemTagRegistry {
     public static final TagKey<Item> ALCHEMICAL_SULFURS_MOBS = tag("alchemical_sulfurs/mobs");
     public static final TagKey<Item> ALCHEMICAL_SULFURS_MOBS_ABUNDANT = tag("alchemical_sulfurs/mobs/abundant");
     public static final TagKey<Item> ALCHEMICAL_SULFURS_MOBS_COMMON = tag("alchemical_sulfurs/mobs/common");
+    /**
+     * A special tag where we store all sulfurs that have a 1:1 conversion to niter.
+     * This is only needed if other sulfurs of the same type may have different conversion rates.
+     */
+    public static final TagKey<Item> ALCHEMICAL_SULFURS_MOBS_COMMON_FOR_AUTOMATIC_RECIPES = tag("alchemical_sulfurs/mobs/common/automatic_recipes");
     public static final TagKey<Item> ALCHEMICAL_SULFURS_MOBS_RARE = tag("alchemical_sulfurs/mobs/rare");
+    /**
+     * A special tag where we store all sulfurs that have a 1:1 conversion to niter.
+     * This is only needed if other sulfurs of the same type may have different conversion rates.
+     */
+    public static final TagKey<Item> ALCHEMICAL_SULFURS_MOBS_RARE_FOR_AUTOMATIC_RECIPES = tag("alchemical_sulfurs/mobs/rare/automatic_recipes");
     public static final TagKey<Item> ALCHEMICAL_SULFURS_MOBS_PRECIOUS = tag("alchemical_sulfurs/mobs/precious");
+    /**
+     * A special tag where we store all sulfurs that have a 1:1 conversion to niter.
+     * This is only needed if other sulfurs of the same type may have different conversion rates.
+     */
+    public static final TagKey<Item> ALCHEMICAL_SULFURS_MOBS_PRECIOUS_FOR_AUTOMATIC_RECIPES = tag("alchemical_sulfurs/mobs/precious/automatic_recipes");
 
     public static final TagKey<Item> ALCHEMICAL_SULFURS_ABUNDANT = tag("alchemical_sulfurs/abundant");
     public static final TagKey<Item> ALCHEMICAL_SULFURS_COMMON = tag("alchemical_sulfurs/common");

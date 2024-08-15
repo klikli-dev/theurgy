@@ -18,6 +18,13 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
+        "tag": "c:crops/kiwi"
+      }
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
         "tag": "theurgy:alchemical_sulfurs/crops/abundant"
       }
     }
@@ -33,7 +40,9 @@
   "sources": [
     {
       "count": 1,
-      "tag": "theurgy:alchemical_sulfurs/crops/abundant"
+      "ingredient": {
+        "tag": "theurgy:alchemical_sulfurs/crops/abundant"
+      }
     }
   ],
   "target": {

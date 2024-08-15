@@ -1,0 +1,19 @@
+{
+  "type": "theurgy:incubation",
+  "category": "misc",
+  "mercury": {
+    "item": "theurgy:mercury_shard"
+  },
+  "result": {
+    "type": "theurgy:item",
+    "count": 1,
+    "id": "minecraft:ghast_tear"
+  },
+  "salt": {
+    "item": "theurgy:alchemical_salt_creature"
+  },
+  "sulfur": {
+    "item": "theurgy:alchemical_sulfur_ghast_tear"
+  },
+  "time": 100
+}

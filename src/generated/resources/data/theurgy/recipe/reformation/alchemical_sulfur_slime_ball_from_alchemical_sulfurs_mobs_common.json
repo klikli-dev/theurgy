@@ -1,0 +1,31 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "theurgy:alchemical_sulfurs/mobs/common"
+      }
+    }
+  ],
+  "type": "theurgy:reformation",
+  "category": "misc",
+  "mercuryFlux": 100,
+  "result": {
+    "type": "theurgy:item",
+    "count": 1,
+    "id": "theurgy:alchemical_sulfur_slime_ball"
+  },
+  "sources": [
+    {
+      "count": 1,
+      "ingredient": {
+        "tag": "theurgy:alchemical_sulfurs/mobs/common"
+      }
+    }
+  ],
+  "target": {
+    "item": "theurgy:alchemical_sulfur_slime_ball"
+  },
+  "time": 100
+}

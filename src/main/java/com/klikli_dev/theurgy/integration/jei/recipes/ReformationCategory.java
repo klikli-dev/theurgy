@@ -15,6 +15,7 @@ import com.klikli_dev.theurgy.integration.jei.JeiRecipeTypes;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.mojang.blaze3d.systems.RenderSystem;
+import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.drawable.IDrawableAnimated;
@@ -35,6 +36,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static mezz.jei.api.recipe.RecipeIngredientRole.INPUT;
@@ -160,8 +162,10 @@ public class ReformationCategory implements IRecipeCategory<RecipeHolder<Reforma
         for (int i = 0; i < 8; i++) {
             var slot = builder.addSlot(INPUT, sourceSlotX, sourceSlotY).setBackground(JeiDrawables.INPUT_SLOT, -1, -1);
 
-            if (i < recipe.value().getSources().size())
-                slot.addIngredients(recipe.value().getSources().get(i));
+            if (i < recipe.value().getSources().size()){
+                var ingredient = recipe.value().getSources().get(i);
+                slot.addIngredients(VanillaTypes.ITEM_STACK, Arrays.stream(ingredient.ingredient().getItems()).map(stack -> stack.copyWithCount(ingredient.count())).toList());
+            }
 
             sourceSlotY -= 18; // Move upwards
             if (i % 4 == 3) {

@@ -13,6 +13,13 @@
         "type": "neoforge:tag_empty",
         "tag": "c:logs/skyroot"
       }
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:logs/skyroot"
+      }
     }
   ],
   "type": "theurgy:reformation",
@@ -26,7 +33,9 @@
   "sources": [
     {
       "count": 1,
-      "item": "theurgy:alchemical_niter_logs_abundant"
+      "ingredient": {
+        "item": "theurgy:alchemical_niter_logs_abundant"
+      }
     }
   ],
   "target": {

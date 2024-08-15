@@ -17,6 +17,7 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
@@ -157,6 +158,66 @@ public class FermentationRecipeProvider extends JsonRecipeProvider {
                 .ingredients(ItemTagRegistry.ALCHEMICAL_SULFURS_ANIMALS_RARE)
                 .ingredients(cropTag)
                 .time(TIME));
+
+
+        this.makeRecipe("_using_" + this.name(cropTag), new Builder(NiterRegistry.MOBS_ABUNDANT)
+                .fluid(Fluids.WATER, 125)
+                .ingredients(ItemTagRegistry.ALCHEMICAL_SULFURS_MOBS_ABUNDANT)
+                .ingredients(cropTag)
+                .time(TIME));
+        this.makeRecipe("_using_" + this.name(cropTag), new Builder(NiterRegistry.MOBS_COMMON)
+                .fluid(Fluids.WATER, 250)
+                .ingredients(ItemTagRegistry.ALCHEMICAL_SULFURS_MOBS_COMMON_FOR_AUTOMATIC_RECIPES)
+                .ingredients(cropTag)
+                .time(TIME));
+        this.makeRecipe("_from_" + this.name(SulfurRegistry.SKELETON_SKULL.get()) + "_using_" + this.name(cropTag), new Builder(NiterRegistry.MOBS_COMMON, 2)
+                .fluid(Fluids.WATER, 250)
+                .ingredients(SulfurRegistry.SKELETON_SKULL.get())
+                .ingredients(cropTag)
+                .time(TIME));
+
+        this.makeRecipe("_using_" + this.name(cropTag), new Builder(NiterRegistry.MOBS_RARE)
+                .fluid(Fluids.WATER, 500)
+                .ingredients(ItemTagRegistry.ALCHEMICAL_SULFURS_MOBS_RARE_FOR_AUTOMATIC_RECIPES)
+                .ingredients(cropTag)
+                .time(TIME));
+        this.makeRecipe("_from_" + this.name(SulfurRegistry.WITHER_SKELETON_SKULL.get()) + "_using_" + this.name(cropTag), new Builder(NiterRegistry.MOBS_RARE, 2)
+                .fluid(Fluids.WATER, 500)
+                .ingredients(SulfurRegistry.WITHER_SKELETON_SKULL.get())
+                .ingredients(cropTag)
+                .time(TIME));
+        this.makeRecipe("_from_" + this.name(SulfurRegistry.GHAST_TEAR.get()) + "_using_" + this.name(cropTag), new Builder(NiterRegistry.MOBS_RARE, 2)
+                .fluid(Fluids.WATER, 500)
+                .ingredients(SulfurRegistry.GHAST_TEAR.get())
+                .ingredients(cropTag)
+                .time(TIME));
+        this.makeRecipe("_from_" + this.name(SulfurRegistry.SHULKER_SHELL.get()) + "_using_" + this.name(cropTag), new Builder(NiterRegistry.MOBS_RARE, 2)
+                .fluid(Fluids.WATER, 500)
+                .ingredients(SulfurRegistry.SHULKER_SHELL.get())
+                .ingredients(cropTag)
+                .time(TIME));
+
+        this.makeRecipe("_using_" + this.name(cropTag), new Builder(NiterRegistry.MOBS_PRECIOUS)
+                .fluid(Fluids.WATER, 1000)
+                .ingredients(ItemTagRegistry.ALCHEMICAL_SULFURS_MOBS_PRECIOUS_FOR_AUTOMATIC_RECIPES)
+                .ingredients(cropTag)
+                .time(TIME));
+        this.makeRecipe("_from_" + this.name(SulfurRegistry.NETHER_STAR.get()) + "_using_" + this.name(cropTag), new Builder(NiterRegistry.MOBS_PRECIOUS, 2)
+                .fluid(Fluids.WATER, 1000)
+                .ingredients(SulfurRegistry.NETHER_STAR.get())
+                .ingredients(cropTag)
+                .time(TIME));
+        this.makeRecipe("_from_" + this.name(SulfurRegistry.HEART_OF_THE_SEA.get()) + "_using_" + this.name(cropTag), new Builder(NiterRegistry.MOBS_PRECIOUS, 2)
+                .fluid(Fluids.WATER, 1000)
+                .ingredients(SulfurRegistry.HEART_OF_THE_SEA.get())
+                .ingredients(cropTag)
+                .time(TIME));
+        this.makeRecipe("_from_" + this.name(SulfurRegistry.DRAGON_EGG.get()) + "_using_" + this.name(cropTag), new Builder(NiterRegistry.MOBS_PRECIOUS, 4)
+                .fluid(Fluids.WATER, 1000)
+                .ingredients(SulfurRegistry.DRAGON_EGG.get())
+                .ingredients(cropTag)
+                .time(TIME));
+
     }
 
     public void makeRecipe(Fluid fluid, int fluidAmount, List<TagKey<Item>> ingredients, Item result, int resultCount, int time) {
@@ -192,7 +253,11 @@ public class FermentationRecipeProvider extends JsonRecipeProvider {
         private final ItemStack result;
 
         protected Builder(ItemLike result) {
-            this(new ItemStack(result, 1));
+            this(result, 1);
+        }
+
+        protected Builder(ItemLike result, int count) {
+            this(new ItemStack(result, count));
         }
 
         protected Builder(ItemStack result) {
@@ -214,29 +279,13 @@ public class FermentationRecipeProvider extends JsonRecipeProvider {
             return this.sizedFluidIngredient("fluid", fluid, amount);
         }
 
-        public Builder ingredients(ItemLike item) {
-            //noinspection deprecation
-            return this.ingredients(item, 1);
-        }
 
-        public Builder ingredients(ItemLike item, int count) {
+        public Builder ingredients(ItemLike item) {
             if (!this.recipe.has("ingredients"))
                 this.recipe.add("ingredients", new JsonArray());
 
             this.recipe.getAsJsonArray("ingredients").add(
-                    SizedIngredient.NESTED_CODEC.encodeStart(JsonOps.INSTANCE, SizedIngredient.of(item, count)).getOrThrow());
-            return this.getThis();
-        }
-
-
-        public Builder ingredients(TagKey<Item> tag, int count) {
-            if (!this.recipe.has("ingredients"))
-                this.recipe.add("ingredients", new JsonArray());
-
-            this.recipe.getAsJsonArray("ingredients").add(SizedIngredient.NESTED_CODEC.encodeStart(JsonOps.INSTANCE, SizedIngredient.of(tag, count)).getOrThrow());
-
-            this.condition(new NotCondition(new TagEmptyCondition(tag.location().toString())));
-
+                    Ingredient.CODEC.encodeStart(JsonOps.INSTANCE, Ingredient.of(item)).getOrThrow());
             return this.getThis();
         }
 

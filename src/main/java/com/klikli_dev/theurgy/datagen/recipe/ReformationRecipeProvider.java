@@ -15,15 +15,18 @@ import com.klikli_dev.theurgy.content.recipe.ReformationRecipe;
 import com.klikli_dev.theurgy.datagen.SulfurMappings;
 import com.klikli_dev.theurgy.registry.*;
 import com.mojang.datafixers.util.Pair;
+import com.mojang.serialization.JsonOps;
 import net.minecraft.core.Holder;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.neoforged.neoforge.common.conditions.NotCondition;
 import net.neoforged.neoforge.common.conditions.TagEmptyCondition;
+import net.neoforged.neoforge.common.crafting.SizedIngredient;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
@@ -32,7 +35,7 @@ import java.util.function.BiConsumer;
 public class ReformationRecipeProvider extends JsonRecipeProvider {
 
     public static final int TIME = ReformationRecipe.DEFAULT_TIME;
-    private final Map<AlchemicalDerivativeTier, Integer> fluxPerTier = Map.of(
+    private static final Map<AlchemicalDerivativeTier, Integer> fluxPerTier = Map.of(
             AlchemicalDerivativeTier.ABUNDANT, 50,
             AlchemicalDerivativeTier.COMMON, 100,
             AlchemicalDerivativeTier.RARE, 150,
@@ -45,8 +48,8 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
         super(packOutput, Theurgy.MODID, "reformation");
     }
 
-    private int getFlux(AlchemicalDerivativeItem item) {
-        return this.fluxPerTier.get(item.tier());
+    private static int getFlux(AlchemicalDerivativeItem item) {
+        return fluxPerTier.get(item.tier());
     }
 
     private void makeXtoXRecipes(List<Pair<List<AlchemicalSulfurItem>, TagKey<Item>>> sulfurToTag) {
@@ -62,16 +65,20 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
         this.makeNiterToSulfurRecipe(source, 1, List.of(target), 1);
     }
 
-    private void makeNiterToSulfurRecipe(AlchemicalNiterItem source, int sourceCount, AlchemicalSulfurItem target, int targetCount) {
-        this.makeNiterToSulfurRecipe(source, sourceCount, List.of(target), targetCount);
+    private void makeNiterToSulfurRecipe(AlchemicalNiterItem source, int sourceCount, AlchemicalSulfurItem target, int targetCount, boolean respectNoAutomaticRecipes) {
+        this.makeNiterToSulfurRecipe(source, sourceCount, List.of(target), targetCount, respectNoAutomaticRecipes);
     }
 
     private void makeNiterToSulfurRecipe(AlchemicalNiterItem source, List<AlchemicalSulfurItem> targets) {
         this.makeNiterToSulfurRecipe(source, 1, targets, 1);
     }
 
-    private void makeNiterToSulfurRecipe(AlchemicalNiterItem source, int sourceCount, List<AlchemicalSulfurItem> targets, int targetCount) {
-        targets.stream().filter(t -> !this.noAutomaticRecipesFor.contains(t)).forEach((target) -> {
+    private void makeNiterToSulfurRecipe(AlchemicalNiterItem source, int sourceCount, List<AlchemicalSulfurItem> targets, int targetCount){
+        this.makeNiterToSulfurRecipe(source, sourceCount, targets, targetCount, true);
+    }
+
+    private void makeNiterToSulfurRecipe(AlchemicalNiterItem source, int sourceCount, List<AlchemicalSulfurItem> targets, int targetCount, boolean respectNoAutomaticRecipes) {
+        targets.stream().filter(t -> !respectNoAutomaticRecipes || !this.noAutomaticRecipesFor.contains(t)).forEach((target) -> {
             this.makeRecipe(target, targetCount, source, sourceCount, this.getFlux(target));
         });
     }
@@ -135,6 +142,20 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
         this.makeNiterToNiterRecipe(NiterRegistry.OTHER_MINERALS_COMMON.get(), 4, NiterRegistry.GEMS_COMMON.get(), 1);
         this.makeNiterToNiterRecipe(NiterRegistry.OTHER_MINERALS_RARE.get(), 4, NiterRegistry.GEMS_RARE.get(), 1);
         this.makeNiterToNiterRecipe(NiterRegistry.OTHER_MINERALS_PRECIOUS.get(), 4, NiterRegistry.GEMS_PRECIOUS.get(), 1);
+
+        this.makeNiterToNiterRecipe(NiterRegistry.MOBS_ABUNDANT.get(), 2, NiterRegistry.GEMS_ABUNDANT.get(), 1);
+        this.makeNiterToNiterRecipe(NiterRegistry.MOBS_COMMON.get(), 4, NiterRegistry.GEMS_COMMON.get(), 1);
+        this.makeNiterToNiterRecipe(NiterRegistry.MOBS_RARE.get(), 8, NiterRegistry.GEMS_RARE.get(), 1);
+        this.makeRecipe("", new Builder(new ItemStack(NiterRegistry.GEMS_PRECIOUS.get(), 1))
+                .time(TIME)
+                .sources(NiterRegistry.MOBS_PRECIOUS.get(), 4)
+                .sources(NiterRegistry.MOBS_PRECIOUS.get(), 4)
+                .sources(NiterRegistry.MOBS_PRECIOUS.get(), 4)
+                .sources(NiterRegistry.MOBS_PRECIOUS.get(), 4)
+                .sources(NiterRegistry.MOBS_PRECIOUS.get(), 4)
+                .sources(NiterRegistry.MOBS_PRECIOUS.get(), 4)
+                .sources(NiterRegistry.MOBS_PRECIOUS.get(), 4)
+                .sources(NiterRegistry.MOBS_PRECIOUS.get(), 4));
     }
 
     private void otherMinerals() {
@@ -249,15 +270,70 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
         this.makeNiterToNiterRecipe(NiterRegistry.GEMS_RARE.get(), 1, NiterRegistry.ANIMALS_RARE.get(), 4);
     }
 
+    private void mobs(){
+        //Add conversion from the niter (representing the whole tier) to the single specific sulfurs
+        //This enables conversion between tiers by way of digestion
+        this.makeNiterToSulfurRecipe(NiterRegistry.MOBS_ABUNDANT.get(), SulfurMappings.mobsAbundant());
+        this.makeNiterToSulfurRecipe(NiterRegistry.MOBS_COMMON.get(), SulfurMappings.mobsCommon());
+        this.makeNiterToSulfurRecipe(NiterRegistry.MOBS_RARE.get(), SulfurMappings.mobsRare());
+        this.makeNiterToSulfurRecipe(NiterRegistry.MOBS_PRECIOUS.get(), SulfurMappings.mobsPrecious());
+
+        //For some items we add a special conversion with different multipliers
+        this.makeNiterToSulfurRecipe(NiterRegistry.MOBS_COMMON.get(), 2, SulfurRegistry.SKELETON_SKULL.get(), 1, false);
+        this.makeNiterToSulfurRecipe(NiterRegistry.MOBS_RARE.get(), 2, SulfurRegistry.WITHER_SKELETON_SKULL.get(), 1, false);
+        this.makeNiterToSulfurRecipe(NiterRegistry.MOBS_RARE.get(), 2, SulfurRegistry.GHAST_TEAR.get(), 1, false);
+        this.makeNiterToSulfurRecipe(NiterRegistry.MOBS_RARE.get(), 2, SulfurRegistry.SHULKER_SHELL.get(), 1, false);
+        this.makeNiterToSulfurRecipe(NiterRegistry.MOBS_PRECIOUS.get(), 2, SulfurRegistry.NETHER_STAR.get(), 1, false);
+        this.makeNiterToSulfurRecipe(NiterRegistry.MOBS_PRECIOUS.get(), 4, SulfurRegistry.DRAGON_EGG.get(), 1, false);
+        this.makeNiterToSulfurRecipe(NiterRegistry.MOBS_PRECIOUS.get(), 2, SulfurRegistry.HEART_OF_THE_SEA.get(), 1, false);
+
+        //Also allow direct conversion between specific sulfurs of the same tier
+        var mobsFromMob = List.of(
+                Pair.of(SulfurMappings.mobsAbundant(), ItemTagRegistry.ALCHEMICAL_SULFURS_MOBS_ABUNDANT),
+                Pair.of(SulfurMappings.mobsCommon(), ItemTagRegistry.ALCHEMICAL_SULFURS_MOBS_COMMON),
+                Pair.of(SulfurMappings.mobsRare(), ItemTagRegistry.ALCHEMICAL_SULFURS_MOBS_RARE),
+                Pair.of(SulfurMappings.mobsPrecious(), ItemTagRegistry.ALCHEMICAL_SULFURS_MOBS_PRECIOUS)
+        );
+        this.makeXtoXRecipes(mobsFromMob);
+
+        //Further, allow (some) conversion between types
+        //with mob drops that is super complicated, so try with this for now.
+        this.makeNiterToNiterRecipe(NiterRegistry.GEMS_ABUNDANT.get(), 4, NiterRegistry.MOBS_ABUNDANT.get(), 1);
+        this.makeNiterToNiterRecipe(NiterRegistry.GEMS_COMMON.get(), 8, NiterRegistry.MOBS_COMMON.get(), 1);
+
+//        this.makeNiterToNiterRecipe(NiterRegistry.GEMS_RARE.get(), 16, NiterRegistry.MOBS_RARE.get(), 1);
+        //        this.makeNiterToNiterRecipe(NiterRegistry.GEMS_PRECIOUS.get(), 64, NiterRegistry.MOBS_PRECIOUS.get(), 1);
+        this.makeRecipe("", new Builder(new ItemStack(NiterRegistry.MOBS_RARE.get(), 1))
+                .time(TIME)
+                .sources(NiterRegistry.GEMS_RARE.get(), 2)
+                .sources(NiterRegistry.GEMS_RARE.get(), 2)
+                .sources(NiterRegistry.GEMS_RARE.get(), 2)
+                .sources(NiterRegistry.GEMS_RARE.get(), 2)
+                .sources(NiterRegistry.GEMS_RARE.get(), 2)
+                .sources(NiterRegistry.GEMS_RARE.get(), 2)
+                .sources(NiterRegistry.GEMS_RARE.get(), 2)
+                .sources(NiterRegistry.GEMS_RARE.get(), 2));
+
+//        this.makeNiterToNiterRecipe(NiterRegistry.GEMS_PRECIOUS.get(), 64, NiterRegistry.MOBS_PRECIOUS.get(), 1);
+        this.makeRecipe("", new Builder(new ItemStack(NiterRegistry.MOBS_PRECIOUS.get(), 1))
+                .time(TIME)
+                .sources(NiterRegistry.GEMS_PRECIOUS.get(), 8)
+                .sources(NiterRegistry.GEMS_PRECIOUS.get(), 8)
+                .sources(NiterRegistry.GEMS_PRECIOUS.get(), 8)
+                .sources(NiterRegistry.GEMS_PRECIOUS.get(), 8)
+                .sources(NiterRegistry.GEMS_PRECIOUS.get(), 8)
+                .sources(NiterRegistry.GEMS_PRECIOUS.get(), 8)
+                .sources(NiterRegistry.GEMS_PRECIOUS.get(), 8)
+                .sources(NiterRegistry.GEMS_PRECIOUS.get(), 8));
+
+        //TODO: niter -> sulfur recipes not available apprently
+    }
+
     @Override
     public void buildRecipes(BiConsumer<ResourceLocation, JsonObject> recipeConsumer) {
 
         //Set up materials that should not get the automatic conversion rates
-        this.noAutomaticRecipesFor = Set.of(
-                SulfurRegistry.ALLTHEMODIUM.get(),
-                SulfurRegistry.UNOBTAINIUM.get(),
-                SulfurRegistry.VIBRANIUM.get()
-        );
+        this.noAutomaticRecipesFor = SulfurMappings.noAutomaticRecipesFor();
 
         this.metals();
         this.gems();
@@ -265,6 +341,7 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
         this.logs();
         this.crops();
         this.animals();
+        this.mobs();
 
         //now flush cache.
         this.recipeCache.forEach(recipeConsumer);
@@ -319,6 +396,10 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
         this.recipeCache.put(this.modLoc(recipeName), recipe.build());
     }
 
+    protected void makeRecipe(String suffix, Builder recipe) {
+        this.recipeConsumer.accept(this.modLoc(this.name(recipe.result()) + suffix), recipe.build());
+    }
+
     @Override
     public @NotNull String getName() {
         return "Reformation Recipes";
@@ -326,10 +407,20 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
 
 
     protected static class Builder extends RecipeBuilder<Builder> {
+        private final ItemStack result;
+
         protected Builder(ItemStack result) {
             super(RecipeTypeRegistry.REFORMATION);
             this.result(result);
+            this.result = result;
+            this.target(result.getItem());
+            if(result.getItem() instanceof AlchemicalDerivativeItem derivativeItem)
+                this.mercuryFlux(getFlux(derivativeItem));
             this.time(TIME);
+        }
+
+        public ItemStack result() {
+            return this.result;
         }
 
         @Override
@@ -337,6 +428,7 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
             if(result.getItem() instanceof AlchemicalSulfurItem sulfur) {
                 if(result.has(DataComponentRegistry.SOURCE_TAG)){
                     var sourceTag = result.get(DataComponentRegistry.SOURCE_TAG);
+                    //noinspection DataFlowIssue
                     this.condition(new NotCondition(new TagEmptyCondition(sourceTag)));
                 }
             }
@@ -349,6 +441,7 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
                 var stack = new ItemStack(sulfur);
                 if(stack.has(DataComponentRegistry.SOURCE_TAG)){
                     var sourceTag = stack.get(DataComponentRegistry.SOURCE_TAG);
+                    //noinspection DataFlowIssue
                     this.condition(new NotCondition(new TagEmptyCondition(sourceTag)));
                 }
             }
@@ -362,34 +455,21 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
         }
 
         public Builder sources(ItemLike item) {
-            //noinspection deprecation
-            return this.sources(item.asItem().builtInRegistryHolder());
+            return this.sources(item, 1);
         }
 
         public Builder sources(ItemLike item, int count) {
-            //noinspection deprecation
-            return this.sources(item.asItem().builtInRegistryHolder(), count);
-        }
-
-        public Builder sources(Holder<Item> itemHolder) {
-            return this.sources(itemHolder, 1);
-        }
-
-        public Builder sources(Holder<Item> itemHolder, int count) {
             if (!this.recipe.has("sources"))
                 this.recipe.add("sources", new JsonArray());
 
-            JsonObject jsonobject = new JsonObject();
-            //noinspection OptionalGetWithoutIsPresent
-            jsonobject.addProperty("item", itemHolder.unwrapKey().get().location().toString());
-            jsonobject.addProperty("count", count);
+            this.recipe.getAsJsonArray("sources").add(
+                    SizedIngredient.NESTED_CODEC.encodeStart(JsonOps.INSTANCE, SizedIngredient.of(item, count)).getOrThrow());
 
-            this.recipe.getAsJsonArray("sources").add(jsonobject);
-
-            if(itemHolder.value() instanceof AlchemicalSulfurItem sulfur) {
+            if(item instanceof AlchemicalSulfurItem sulfur) {
                 var stack = new ItemStack(sulfur);
                 if(stack.has(DataComponentRegistry.SOURCE_TAG)){
                     var sourceTag = stack.get(DataComponentRegistry.SOURCE_TAG);
+                    //noinspection DataFlowIssue
                     this.condition(new NotCondition(new TagEmptyCondition(sourceTag)));
                 }
             }
@@ -398,16 +478,13 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
         }
 
 
-        public Builder sources(TagKey<?> tag, int count) {
+        public Builder sources(TagKey<Item> tag, int count) {
             if (!this.recipe.has("sources"))
                 this.recipe.add("sources", new JsonArray());
 
-            JsonObject jsonobject = new JsonObject();
-            jsonobject.addProperty("tag", tag.location().toString());
-            if (count > -1)
-                jsonobject.addProperty("count", count);
 
-            this.recipe.getAsJsonArray("sources").add(jsonobject);
+            this.recipe.getAsJsonArray("sources").add(
+                    SizedIngredient.NESTED_CODEC.encodeStart(JsonOps.INSTANCE, SizedIngredient.of(tag, count)).getOrThrow());
 
             this.condition(new NotCondition(new TagEmptyCondition(tag.location().toString())));
 

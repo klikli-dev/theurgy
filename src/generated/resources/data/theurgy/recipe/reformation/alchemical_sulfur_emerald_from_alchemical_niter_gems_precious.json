@@ -13,6 +13,13 @@
         "type": "neoforge:tag_empty",
         "tag": "c:gems/emerald"
       }
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:gems/emerald"
+      }
     }
   ],
   "type": "theurgy:reformation",
@@ -26,7 +33,9 @@
   "sources": [
     {
       "count": 1,
-      "item": "theurgy:alchemical_niter_gems_precious"
+      "ingredient": {
+        "item": "theurgy:alchemical_niter_gems_precious"
+      }
     }
   ],
   "target": {

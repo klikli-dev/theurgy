@@ -1,0 +1,28 @@
+{
+  "type": "theurgy:reformation",
+  "category": "misc",
+  "mercuryFlux": 150,
+  "result": {
+    "type": "theurgy:item",
+    "count": 1,
+    "id": "theurgy:alchemical_sulfur_wither_skeleton_skull"
+  },
+  "sources": [
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "theurgy:alchemical_niter_mobs_rare"
+      }
+    },
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "theurgy:alchemical_niter_mobs_rare"
+      }
+    }
+  ],
+  "target": {
+    "item": "theurgy:alchemical_sulfur_wither_skeleton_skull"
+  },
+  "time": 100
+}

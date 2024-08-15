@@ -13,6 +13,13 @@
         "type": "neoforge:tag_empty",
         "tag": "c:crops/cantaloupe"
       }
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:crops/cantaloupe"
+      }
     }
   ],
   "type": "theurgy:reformation",
@@ -26,7 +33,9 @@
   "sources": [
     {
       "count": 1,
-      "item": "theurgy:alchemical_niter_crops_abundant"
+      "ingredient": {
+        "item": "theurgy:alchemical_niter_crops_abundant"
+      }
     }
   ],
   "target": {

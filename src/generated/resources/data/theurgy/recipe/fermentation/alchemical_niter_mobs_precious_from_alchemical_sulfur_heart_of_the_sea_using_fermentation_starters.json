@@ -1,0 +1,33 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "theurgy:fermentation_starters"
+      }
+    }
+  ],
+  "type": "theurgy:fermentation",
+  "category": "misc",
+  "fluid": {
+    "amount": 1000,
+    "ingredient": {
+      "fluid": "minecraft:water"
+    }
+  },
+  "ingredients": [
+    {
+      "item": "theurgy:alchemical_sulfur_heart_of_the_sea"
+    },
+    {
+      "tag": "theurgy:fermentation_starters"
+    }
+  ],
+  "result": {
+    "type": "theurgy:item",
+    "count": 2,
+    "id": "theurgy:alchemical_niter_mobs_precious"
+  },
+  "time": 200
+}

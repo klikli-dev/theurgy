@@ -4,6 +4,7 @@
 
 package com.klikli_dev.theurgy.datagen;
 
+import com.klikli_dev.theurgy.content.item.derivative.AlchemicalDerivativeItem;
 import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurItem;
 import com.klikli_dev.theurgy.content.item.derivative.AlchemicalDerivativeTier;
 import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurType;
@@ -11,8 +12,11 @@ import com.klikli_dev.theurgy.registry.SulfurRegistry;
 import net.neoforged.neoforge.registries.DeferredHolder;
 
 import java.util.List;
+import java.util.Set;
 
 public class SulfurMappings {
+    private static Set<AlchemicalDerivativeItem> NO_AUTOMATIC_RECIPES_FOR;
+
     private static List<AlchemicalSulfurItem> GEMS_ABUNDANT;
     private static List<AlchemicalSulfurItem> GEMS_COMMON;
     private static List<AlchemicalSulfurItem> GEMS_RARE;
@@ -34,6 +38,11 @@ public class SulfurMappings {
     private static List<AlchemicalSulfurItem> ANIMALS_ABUNDANT;
     private static List<AlchemicalSulfurItem> ANIMALS_COMMON;
     private static List<AlchemicalSulfurItem> ANIMALS_RARE;
+
+    private static List<AlchemicalSulfurItem> MOBS_ABUNDANT;
+    private static List<AlchemicalSulfurItem> MOBS_COMMON;
+    private static List<AlchemicalSulfurItem> MOBS_RARE;
+    private static List<AlchemicalSulfurItem> MOBS_PRECIOUS;
 
     public static List<AlchemicalSulfurItem> gemsAbundant() {
         if (GEMS_ABUNDANT != null) {
@@ -202,6 +211,71 @@ public class SulfurMappings {
         ANIMALS_RARE = find(AlchemicalSulfurType.ANIMALS, AlchemicalDerivativeTier.RARE);
 
         return ANIMALS_RARE;
+    }
+
+    public static List<AlchemicalSulfurItem> mobsAbundant() {
+        if (MOBS_ABUNDANT != null) {
+            return MOBS_ABUNDANT;
+        }
+
+        MOBS_ABUNDANT = find(AlchemicalSulfurType.MOBS, AlchemicalDerivativeTier.ABUNDANT);
+
+        return MOBS_ABUNDANT;
+    }
+
+    public static List<AlchemicalSulfurItem> mobsCommon() {
+        if (MOBS_COMMON != null) {
+            return MOBS_COMMON;
+        }
+
+        MOBS_COMMON = find(AlchemicalSulfurType.MOBS, AlchemicalDerivativeTier.COMMON);
+
+        return MOBS_COMMON;
+    }
+
+    public static List<AlchemicalSulfurItem> mobsRare() {
+        if (MOBS_RARE != null) {
+            return MOBS_RARE;
+        }
+
+        MOBS_RARE = find(AlchemicalSulfurType.MOBS, AlchemicalDerivativeTier.RARE);
+
+        return MOBS_RARE;
+    }
+
+    public static List<AlchemicalSulfurItem> mobsPrecious() {
+        if (MOBS_PRECIOUS != null) {
+            return MOBS_PRECIOUS;
+        }
+
+        MOBS_PRECIOUS = find(AlchemicalSulfurType.MOBS, AlchemicalDerivativeTier.PRECIOUS);
+
+        return MOBS_PRECIOUS;
+    }
+
+    public static Set<AlchemicalDerivativeItem> noAutomaticRecipesFor(){
+        if (NO_AUTOMATIC_RECIPES_FOR != null) {
+            return NO_AUTOMATIC_RECIPES_FOR;
+        }
+
+        NO_AUTOMATIC_RECIPES_FOR = Set.of(
+                //Metals
+                SulfurRegistry.ALLTHEMODIUM.get(),
+                SulfurRegistry.UNOBTAINIUM.get(),
+                SulfurRegistry.VIBRANIUM.get(),
+
+                //Drops
+                SulfurRegistry.SKELETON_SKULL.get(),
+                SulfurRegistry.WITHER_SKELETON_SKULL.get(),
+                SulfurRegistry.GHAST_TEAR.get(),
+                SulfurRegistry.SHULKER_SHELL.get(),
+                SulfurRegistry.NETHER_STAR.get(),
+                SulfurRegistry.ELYTRA.get(),
+                SulfurRegistry.DRAGON_EGG.get(),
+                SulfurRegistry.HEART_OF_THE_SEA.get()
+        );
+
+        return NO_AUTOMATIC_RECIPES_FOR;
     }
 
     private static List<AlchemicalSulfurItem> find(AlchemicalSulfurType type, AlchemicalDerivativeTier tier) {

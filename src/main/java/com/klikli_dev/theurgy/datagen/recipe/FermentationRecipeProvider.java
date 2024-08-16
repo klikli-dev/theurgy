@@ -70,6 +70,17 @@ public class FermentationRecipeProvider extends JsonRecipeProvider {
     }
 
     public void makeRecipesForCropTag(TagKey<Item> cropTag) {
+        this.makeRecipe("_using_" + this.name(cropTag), new Builder(NiterRegistry.EARTHEN_MATTERS_ABUNDANT)
+                .fluid(Fluids.WATER, 125)
+                .ingredients(ItemTagRegistry.ALCHEMICAL_SULFURS_EARTHEN_MATTERS_ABUNDANT)
+                .ingredients(cropTag)
+                .time(TIME));
+        this.makeRecipe("_using_" + this.name(cropTag), new Builder(NiterRegistry.EARTHEN_MATTERS_COMMON)
+                .fluid(Fluids.WATER, 250)
+                .ingredients(ItemTagRegistry.ALCHEMICAL_SULFURS_EARTHEN_MATTERS_COMMON)
+                .ingredients(cropTag)
+                .time(TIME));
+
         this.makeRecipe(Fluids.WATER, 125, List.of(
                 ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_ABUNDANT,
                 cropTag

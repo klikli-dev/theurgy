@@ -55,6 +55,8 @@ public class DigestionRecipeProvider extends JsonRecipeProvider {
                 ItemTagRegistry.ALCHEMICAL_SALTS
         ), ItemRegistry.PURIFIED_GOLD.get(), 20, TIME * 2);
 
+        this.makeTierConversion(NiterRegistry.EARTHEN_MATTERS_ABUNDANT.get(), NiterRegistry.EARTHEN_MATTERS_COMMON.get(), 4, 10);
+
         this.makeTierConversion(NiterRegistry.GEMS_ABUNDANT.get(), NiterRegistry.GEMS_COMMON.get(), 4, 10);
         this.makeTierConversion(NiterRegistry.GEMS_COMMON.get(), NiterRegistry.GEMS_RARE.get(), 4, 15);
         this.makeTierConversion(NiterRegistry.GEMS_RARE.get(), NiterRegistry.GEMS_PRECIOUS.get(), 4, 50);

@@ -1,0 +1,32 @@
+{
+  "values": [
+    "theurgy:alchemical_sulfur_dirt",
+    "theurgy:alchemical_sulfur_coarse_dirt",
+    "theurgy:alchemical_sulfur_podzol",
+    "theurgy:alchemical_sulfur_grass_block",
+    "theurgy:alchemical_sulfur_rooted_dirt",
+    "theurgy:alchemical_sulfur_moss_block",
+    "theurgy:alchemical_sulfur_mud",
+    "theurgy:alchemical_sulfur_muddy_mangrove_roots",
+    "theurgy:alchemical_sulfur_colorless",
+    "theurgy:alchemical_sulfur_red",
+    "theurgy:alchemical_sulfur_gravel",
+    "theurgy:alchemical_sulfur_netherrack",
+    "theurgy:alchemical_sulfur_soul_sand",
+    "theurgy:alchemical_sulfur_soul_soil",
+    "theurgy:alchemical_sulfur_stone",
+    "theurgy:alchemical_sulfur_infested_stone",
+    "theurgy:alchemical_sulfur_normal",
+    "theurgy:alchemical_sulfur_infested",
+    "theurgy:alchemical_sulfur_mossy",
+    "theurgy:alchemical_sulfur_deepslate",
+    "theurgy:alchemical_sulfur_cobbled_deepslate",
+    "theurgy:alchemical_sulfur_granite",
+    "theurgy:alchemical_sulfur_diorite",
+    "theurgy:alchemical_sulfur_andesite",
+    "theurgy:alchemical_sulfur_blackstone",
+    "theurgy:alchemical_sulfur_basalt",
+    "theurgy:alchemical_sulfur_sandstone",
+    "theurgy:alchemical_sulfur_red_sandstone"
+  ]
+}

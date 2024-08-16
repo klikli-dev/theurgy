@@ -19,7 +19,6 @@ import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
-import java.util.Set;
 import java.util.function.Supplier;
 
 public class SulfurRegistry {
@@ -229,6 +228,48 @@ public class SulfurRegistry {
     public static final DeferredItem<AlchemicalSulfurItem> RUBBERWOOD_LOG = registerForSourceTag(ItemTagRegistry.LOGS_RUBBERWOOD, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.LOGS);
     public static final DeferredItem<AlchemicalSulfurItem> OTHERWORLD_LOG = registerForSourceTag(ItemTagRegistry.LOGS_OTHERWORLD, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.LOGS);
 
+    //Common Earthen Matter
+    public static final DeferredItem<AlchemicalSulfurItem> DIRT = registerForSourceItem(Items.DIRT, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.EARTHEN_MATTERS);
+    public static final DeferredItem<AlchemicalSulfurItem> COARSE_DIRT = registerForSourceItem(Items.COARSE_DIRT, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.EARTHEN_MATTERS);
+    public static final DeferredItem<AlchemicalSulfurItem> PODZOL = registerForSourceItem(Items.PODZOL, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.EARTHEN_MATTERS);
+    public static final DeferredItem<AlchemicalSulfurItem> GRASS_BLOCK = registerForSourceItem(Items.GRASS_BLOCK, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.EARTHEN_MATTERS);
+    public static final DeferredItem<AlchemicalSulfurItem> ROOTED_DIRT = registerForSourceItem(Items.ROOTED_DIRT, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.EARTHEN_MATTERS);
+    public static final DeferredItem<AlchemicalSulfurItem> MOSS_BLOCK = registerForSourceItem(Items.MOSS_BLOCK, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.EARTHEN_MATTERS);
+    public static final DeferredItem<AlchemicalSulfurItem> MUD = registerForSourceItem(Items.MUD, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.EARTHEN_MATTERS);
+    public static final DeferredItem<AlchemicalSulfurItem> MUDDY_MANGROVE_ROOTS = registerForSourceItem(Items.MUDDY_MANGROVE_ROOTS, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.EARTHEN_MATTERS);
+
+    public static final DeferredItem<AlchemicalSulfurItem> SAND = registerForSourceTag(Tags.Items.SANDS_COLORLESS, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.EARTHEN_MATTERS);
+    public static final DeferredItem<AlchemicalSulfurItem> RED_SAND = registerForSourceTag(Tags.Items.SANDS_RED, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.EARTHEN_MATTERS);
+    public static final DeferredItem<AlchemicalSulfurItem> GRAVEL = registerForSourceItem(Items.GRAVEL, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.EARTHEN_MATTERS);
+    public static final DeferredItem<AlchemicalSulfurItem> NETHERRACK = registerForSourceItem(Items.NETHERRACK, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.EARTHEN_MATTERS);
+    public static final DeferredItem<AlchemicalSulfurItem> SOUL_SAND = registerForSourceItem(Items.SOUL_SAND, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.EARTHEN_MATTERS);
+    public static final DeferredItem<AlchemicalSulfurItem> SOUL_SOIL = registerForSourceItem(Items.SOUL_SOIL, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.EARTHEN_MATTERS);
+
+    public static final DeferredItem<AlchemicalSulfurItem> STONE = registerForSourceItem(Items.STONE, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.EARTHEN_MATTERS);
+    public static final DeferredItem<AlchemicalSulfurItem> INFESTED_STONE = registerForSourceItem(Items.INFESTED_STONE, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.EARTHEN_MATTERS);
+    public static final DeferredItem<AlchemicalSulfurItem> COBBLESTONE = registerForSourceTag(Tags.Items.COBBLESTONES_NORMAL, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.EARTHEN_MATTERS);
+    public static final DeferredItem<AlchemicalSulfurItem> COBBLESTONE_MOSSY = registerForSourceTag(Tags.Items.COBBLESTONES_INFESTED, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.EARTHEN_MATTERS);
+    public static final DeferredItem<AlchemicalSulfurItem> COBBLESTONES_INFESTED = registerForSourceTag(Tags.Items.COBBLESTONES_MOSSY, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.EARTHEN_MATTERS);
+
+    public static final DeferredItem<AlchemicalSulfurItem> DEEPSLATE = registerForSourceItem(Items.DEEPSLATE, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.EARTHEN_MATTERS);
+    public static final DeferredItem<AlchemicalSulfurItem> COBBLESTONE_DEEPSLATE = registerForSourceItem(Items.COBBLED_DEEPSLATE, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.EARTHEN_MATTERS);
+    public static final DeferredItem<AlchemicalSulfurItem> GRANITE = registerForSourceItem(Items.GRANITE, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.EARTHEN_MATTERS);
+    public static final DeferredItem<AlchemicalSulfurItem> DIORITE = registerForSourceItem(Items.DIORITE, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.EARTHEN_MATTERS);
+    public static final DeferredItem<AlchemicalSulfurItem> ANDESITE = registerForSourceItem(Items.ANDESITE, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.EARTHEN_MATTERS);
+    public static final DeferredItem<AlchemicalSulfurItem> BLACKSTONE = registerForSourceItem(Items.BLACKSTONE, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.EARTHEN_MATTERS);
+    public static final DeferredItem<AlchemicalSulfurItem> BASALT = registerForSourceItem(Items.BASALT, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.EARTHEN_MATTERS);
+
+    public static final DeferredItem<AlchemicalSulfurItem> SANDSTONE = registerForSourceItem(Items.SANDSTONE, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.EARTHEN_MATTERS);
+    public static final DeferredItem<AlchemicalSulfurItem> RED_SANDSTONE = registerForSourceItem(Items.RED_SANDSTONE, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.EARTHEN_MATTERS);
+
+    public static final DeferredItem<AlchemicalSulfurItem> CLAY = registerForSourceItem(Items.CLAY_BALL, AlchemicalDerivativeTier.COMMON, AlchemicalSulfurType.EARTHEN_MATTERS);
+    public static final DeferredItem<AlchemicalSulfurItem> TERRACOTTA = registerForSourceItem(Items.TERRACOTTA, AlchemicalDerivativeTier.COMMON, AlchemicalSulfurType.EARTHEN_MATTERS);
+    public static final DeferredItem<AlchemicalSulfurItem> CRIMSON_NYLIUM = registerForSourceItem(Items.CRIMSON_NYLIUM, AlchemicalDerivativeTier.COMMON, AlchemicalSulfurType.EARTHEN_MATTERS);
+    public static final DeferredItem<AlchemicalSulfurItem> WARPED_NYLIUM = registerForSourceItem(Items.WARPED_NYLIUM, AlchemicalDerivativeTier.COMMON, AlchemicalSulfurType.EARTHEN_MATTERS);
+    public static final DeferredItem<AlchemicalSulfurItem> END_STONE = registerForSourceItem(Items.END_STONE, AlchemicalDerivativeTier.COMMON, AlchemicalSulfurType.EARTHEN_MATTERS);
+    public static final DeferredItem<AlchemicalSulfurItem> PURPUR_BLOCK = registerForSourceItem(Items.PURPUR_BLOCK, AlchemicalDerivativeTier.COMMON, AlchemicalSulfurType.EARTHEN_MATTERS);
+    public static final DeferredItem<AlchemicalSulfurItem> MYCELIUM = registerForSourceItem(Items.MYCELIUM, AlchemicalDerivativeTier.COMMON, AlchemicalSulfurType.EARTHEN_MATTERS);
+
     //Common Metals
     public static final DeferredItem<AlchemicalSulfurItem> IRON = registerForSourceTag(Tags.Items.INGOTS_IRON, AlchemicalDerivativeTier.COMMON, AlchemicalSulfurType.METALS);
     public static final DeferredItem<AlchemicalSulfurItem> COPPER = registerForSourceTag(Tags.Items.INGOTS_COPPER, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.METALS);
@@ -262,7 +303,6 @@ public class SulfurRegistry {
     public static final DeferredItem<AlchemicalSulfurItem> DEMONITE = registerForSourceTag(ItemTagRegistry.INGOTS_DEMONITE, AlchemicalDerivativeTier.PRECIOUS, AlchemicalSulfurType.METALS);
 
     //Common Gems
-
     public static final DeferredItem<AlchemicalSulfurItem> DIAMOND = registerForSourceTag(Tags.Items.GEMS_DIAMOND, AlchemicalDerivativeTier.PRECIOUS, AlchemicalSulfurType.GEMS);
     public static final DeferredItem<AlchemicalSulfurItem> EMERALD = registerForSourceTag(Tags.Items.GEMS_EMERALD, AlchemicalDerivativeTier.PRECIOUS, AlchemicalSulfurType.GEMS);
     public static final DeferredItem<AlchemicalSulfurItem> LAPIS = registerForSourceTag(Tags.Items.GEMS_LAPIS, AlchemicalDerivativeTier.COMMON, AlchemicalSulfurType.GEMS);

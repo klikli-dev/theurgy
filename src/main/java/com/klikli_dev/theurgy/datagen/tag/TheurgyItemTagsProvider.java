@@ -66,6 +66,12 @@ public class TheurgyItemTagsProvider extends ItemTagsProvider {
                 .add(ItemRegistry.FERMENTATION_STARTER.get());
 
         //add the tier tags into the material tag
+        this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_EARTHEN_MATTERS)
+                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_EARTHEN_MATTERS_ABUNDANT)
+                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_EARTHEN_MATTERS_COMMON)
+                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_EARTHEN_MATTERS_RARE)
+                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_EARTHEN_MATTERS_PRECIOUS);
+
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS)
                 .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_ABUNDANT)
                 .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_COMMON)
@@ -111,6 +117,15 @@ public class TheurgyItemTagsProvider extends ItemTagsProvider {
                 .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_MOBS_RARE)
                 .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_MOBS_PRECIOUS)
         ;
+
+        this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_EARTHEN_MATTERS_ABUNDANT);
+        SulfurMappings.earthenMattersAbundant().forEach(sulfur -> {
+            this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_EARTHEN_MATTERS_ABUNDANT).add(sulfur);
+        });
+        this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_EARTHEN_MATTERS_COMMON);
+        SulfurMappings.earthenMattersCommon().forEach(sulfur -> {
+            this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_EARTHEN_MATTERS_COMMON).add(sulfur);
+        });
 
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_METALS_ABUNDANT);
         SulfurMappings.metalsAbundant().forEach(sulfur -> {

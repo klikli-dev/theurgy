@@ -1,0 +1,19 @@
+{
+  "type": "theurgy:incubation",
+  "category": "misc",
+  "mercury": {
+    "item": "theurgy:mercury_shard"
+  },
+  "result": {
+    "type": "theurgy:item",
+    "count": 1,
+    "id": "minecraft:soul_sand"
+  },
+  "salt": {
+    "item": "theurgy:alchemical_salt_mineral"
+  },
+  "sulfur": {
+    "item": "theurgy:alchemical_sulfur_soul_sand"
+  },
+  "time": 100
+}

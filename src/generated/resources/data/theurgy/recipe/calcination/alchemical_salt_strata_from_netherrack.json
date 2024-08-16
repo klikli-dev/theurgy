@@ -1,0 +1,25 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:netherracks"
+      }
+    }
+  ],
+  "type": "theurgy:calcination",
+  "category": "misc",
+  "ingredient": {
+    "count": 1,
+    "ingredient": {
+      "tag": "c:netherracks"
+    }
+  },
+  "result": {
+    "type": "theurgy:item",
+    "count": 1,
+    "id": "theurgy:alchemical_salt_strata"
+  },
+  "time": 100
+}

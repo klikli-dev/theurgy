@@ -1,0 +1,31 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "theurgy:alchemical_sulfurs/earthen_matters/abundant"
+      }
+    }
+  ],
+  "type": "theurgy:reformation",
+  "category": "misc",
+  "mercuryFlux": 50,
+  "result": {
+    "type": "theurgy:item",
+    "count": 1,
+    "id": "theurgy:alchemical_sulfur_soul_soil"
+  },
+  "sources": [
+    {
+      "count": 1,
+      "ingredient": {
+        "tag": "theurgy:alchemical_sulfurs/earthen_matters/abundant"
+      }
+    }
+  ],
+  "target": {
+    "item": "theurgy:alchemical_sulfur_soul_soil"
+  },
+  "time": 100
+}

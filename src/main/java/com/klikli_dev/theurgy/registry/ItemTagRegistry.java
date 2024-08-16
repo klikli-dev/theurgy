@@ -20,6 +20,13 @@ public class ItemTagRegistry {
     public static final TagKey<Item> ALCHEMICAL_SULFURS_AND_NITERS = tag("alchemical_sulfurs_and_niters");
     public static final TagKey<Item> ALCHEMICAL_NITERS = tag("alchemical_niters");
     public static final TagKey<Item> ALCHEMICAL_SULFURS = tag("alchemical_sulfurs");
+
+    public static final TagKey<Item> ALCHEMICAL_SULFURS_EARTHEN_MATTERS = tag("alchemical_sulfurs/earthen_matters");
+    public static final TagKey<Item> ALCHEMICAL_SULFURS_EARTHEN_MATTERS_ABUNDANT = tag("alchemical_sulfurs/earthen_matters/abundant");
+    public static final TagKey<Item> ALCHEMICAL_SULFURS_EARTHEN_MATTERS_COMMON = tag("alchemical_sulfurs/earthen_matters/common");
+    public static final TagKey<Item> ALCHEMICAL_SULFURS_EARTHEN_MATTERS_RARE = tag("alchemical_sulfurs/earthen_matters/rare");
+    public static final TagKey<Item> ALCHEMICAL_SULFURS_EARTHEN_MATTERS_PRECIOUS = tag("alchemical_sulfurs/earthen_matters/precious");
+
     public static final TagKey<Item> ALCHEMICAL_SULFURS_METALS = tag("alchemical_sulfurs/metals");
     public static final TagKey<Item> ALCHEMICAL_SULFURS_METALS_ABUNDANT = tag("alchemical_sulfurs/metals/abundant");
     public static final TagKey<Item> ALCHEMICAL_SULFURS_METALS_COMMON = tag("alchemical_sulfurs/metals/common");

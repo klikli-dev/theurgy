@@ -1,0 +1,20 @@
+{
+  "values": [
+    {
+      "id": "#theurgy:alchemical_sulfurs/earthen_matters/abundant",
+      "required": false
+    },
+    {
+      "id": "#theurgy:alchemical_sulfurs/earthen_matters/common",
+      "required": false
+    },
+    {
+      "id": "#theurgy:alchemical_sulfurs/earthen_matters/rare",
+      "required": false
+    },
+    {
+      "id": "#theurgy:alchemical_sulfurs/earthen_matters/precious",
+      "required": false
+    }
+  ]
+}

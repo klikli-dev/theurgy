@@ -1,0 +1,19 @@
+{
+  "type": "theurgy:liquefaction",
+  "category": "misc",
+  "ingredient": {
+    "item": "minecraft:warped_nylium"
+  },
+  "result": {
+    "type": "theurgy:item",
+    "count": 1,
+    "id": "theurgy:alchemical_sulfur_warped_nylium"
+  },
+  "solvent": {
+    "amount": 1,
+    "ingredient": {
+      "fluid": "theurgy:sal_ammoniac"
+    }
+  },
+  "time": 100
+}

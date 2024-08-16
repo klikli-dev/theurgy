@@ -21,6 +21,9 @@ import java.util.function.Supplier;
 public class NiterRegistry {
     public static final DeferredRegister.Items NITERS = DeferredRegister.createItems(Theurgy.MODID);
 
+    public static final DeferredItem<AlchemicalNiterItem> EARTHEN_MATTERS_ABUNDANT = register("earthen_matters_abundant", Items.DIRT, AlchemicalDerivativeTier.ABUNDANT);
+    public static final DeferredItem<AlchemicalNiterItem> EARTHEN_MATTERS_COMMON = register("earthen_matters_common", Items.CLAY_BALL, AlchemicalDerivativeTier.COMMON);
+
     public static final DeferredItem<AlchemicalNiterItem> GEMS_ABUNDANT = register("gems_abundant", ItemRegistry.GEMS_ABUNDANT_ICON, AlchemicalDerivativeTier.ABUNDANT);
     public static final DeferredItem<AlchemicalNiterItem> GEMS_COMMON = register("gems_common", ItemRegistry.GEMS_COMMON_ICON, AlchemicalDerivativeTier.COMMON);
     public static final DeferredItem<AlchemicalNiterItem> GEMS_RARE = register("gems_rare", ItemRegistry.GEMS_RARE_ICON, AlchemicalDerivativeTier.RARE);

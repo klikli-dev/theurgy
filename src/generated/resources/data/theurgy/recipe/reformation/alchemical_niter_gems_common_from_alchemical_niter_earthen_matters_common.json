@@ -1,0 +1,112 @@
+{
+  "type": "theurgy:reformation",
+  "category": "misc",
+  "mercuryFlux": 100,
+  "result": {
+    "type": "theurgy:item",
+    "count": 1,
+    "id": "theurgy:alchemical_niter_gems_common"
+  },
+  "sources": [
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "theurgy:alchemical_niter_earthen_matters_common"
+      }
+    },
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "theurgy:alchemical_niter_earthen_matters_common"
+      }
+    },
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "theurgy:alchemical_niter_earthen_matters_common"
+      }
+    },
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "theurgy:alchemical_niter_earthen_matters_common"
+      }
+    },
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "theurgy:alchemical_niter_earthen_matters_common"
+      }
+    },
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "theurgy:alchemical_niter_earthen_matters_common"
+      }
+    },
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "theurgy:alchemical_niter_earthen_matters_common"
+      }
+    },
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "theurgy:alchemical_niter_earthen_matters_common"
+      }
+    },
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "theurgy:alchemical_niter_earthen_matters_common"
+      }
+    },
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "theurgy:alchemical_niter_earthen_matters_common"
+      }
+    },
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "theurgy:alchemical_niter_earthen_matters_common"
+      }
+    },
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "theurgy:alchemical_niter_earthen_matters_common"
+      }
+    },
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "theurgy:alchemical_niter_earthen_matters_common"
+      }
+    },
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "theurgy:alchemical_niter_earthen_matters_common"
+      }
+    },
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "theurgy:alchemical_niter_earthen_matters_common"
+      }
+    },
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "theurgy:alchemical_niter_earthen_matters_common"
+      }
+    }
+  ],
+  "target": {
+    "item": "theurgy:alchemical_niter_gems_common"
+  },
+  "time": 100
+}

@@ -17,6 +17,9 @@ import java.util.Set;
 public class SulfurMappings {
     private static Set<AlchemicalDerivativeItem> NO_AUTOMATIC_RECIPES_FOR;
 
+    private static List<AlchemicalSulfurItem> EARTHEN_MATTERS_ABUNDANT;
+    private static List<AlchemicalSulfurItem> EARTHEN_MATTERS_COMMON;
+
     private static List<AlchemicalSulfurItem> GEMS_ABUNDANT;
     private static List<AlchemicalSulfurItem> GEMS_COMMON;
     private static List<AlchemicalSulfurItem> GEMS_RARE;
@@ -43,6 +46,25 @@ public class SulfurMappings {
     private static List<AlchemicalSulfurItem> MOBS_COMMON;
     private static List<AlchemicalSulfurItem> MOBS_RARE;
     private static List<AlchemicalSulfurItem> MOBS_PRECIOUS;
+
+    public static List<AlchemicalSulfurItem> earthenMattersAbundant() {
+        if (EARTHEN_MATTERS_ABUNDANT != null) {
+            return EARTHEN_MATTERS_ABUNDANT;
+        }
+
+        EARTHEN_MATTERS_ABUNDANT = find(AlchemicalSulfurType.EARTHEN_MATTERS, AlchemicalDerivativeTier.ABUNDANT);
+        return EARTHEN_MATTERS_ABUNDANT;
+    }
+
+    public static List<AlchemicalSulfurItem> earthenMattersCommon() {
+        if (EARTHEN_MATTERS_COMMON != null) {
+            return EARTHEN_MATTERS_COMMON;
+        }
+
+        EARTHEN_MATTERS_COMMON = find(AlchemicalSulfurType.EARTHEN_MATTERS, AlchemicalDerivativeTier.COMMON);
+
+        return EARTHEN_MATTERS_COMMON;
+    }
 
     public static List<AlchemicalSulfurItem> gemsAbundant() {
         if (GEMS_ABUNDANT != null) {

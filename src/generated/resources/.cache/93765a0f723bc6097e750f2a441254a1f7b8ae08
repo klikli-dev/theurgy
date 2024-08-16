@@ -1,4 +1,4 @@
-// 1.21	2024-08-06T09:30:12.5003165	Shapeless Crafting Recipes
+// 1.21.1	2024-08-16T15:38:30.3637586	Shapeless Crafting Recipes
 bf019ef86f1737ea26c863fb7d617fc1ae9a0652 data/theurgy/recipe/crafting/shapeless/logistics_item_extractor_from_inserter.json
 448aaffabb948293fd8896689b18634112f43d59 data/theurgy/recipe/crafting/shapeless/logistics_item_inserter_from_extractor.json
 32c24cfdf426e41ffe4a4d17bbf42aa1e2dfd6b7 data/theurgy/recipe/crafting/shapeless/mercury_crystal.json

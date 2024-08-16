@@ -174,6 +174,11 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_RARE, "Alchemical Sulfurs: Rare");
         this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_PRECIOUS, "Alchemical Sulfurs: Precious");
 
+        this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_EARTHEN_MATTERS, "Alchemical Sulfurs: Earthen Matters");
+        this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_EARTHEN_MATTERS_ABUNDANT, "Alchemical Sulfurs: Abundant Earthen Matters");
+        this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_EARTHEN_MATTERS_COMMON, "Alchemical Sulfurs: Common Earthen Matters");
+        this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_EARTHEN_MATTERS_RARE, "Alchemical Sulfurs: Rare Earthen Matters");
+
         this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS, "Alchemical Sulfurs: Gems");
         this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_ABUNDANT, "Alchemical Sulfurs: Abundant Gems");
         this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_COMMON, "Alchemical Sulfurs: Common Gems");
@@ -531,12 +536,15 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.add(AlchemicalDerivativeTier.PRECIOUS.descriptionId(), "Precious");
 
         this.add(AlchemicalSulfurType.MISC.descriptionId(), "Misc");
+        this.add(AlchemicalSulfurType.EARTHEN_MATTERS.descriptionId(), "Earthen Matters");
         this.add(AlchemicalSulfurType.METALS.descriptionId(), "Metals");
         this.add(AlchemicalSulfurType.GEMS.descriptionId(), "Gems");
         this.add(AlchemicalSulfurType.OTHER_MINERALS.descriptionId(), "Other Minerals");
         this.add(AlchemicalSulfurType.LOGS.descriptionId(), "Logs");
-        this.add(TheurgyConstants.I18n.Item.ALCHEMICAL_DERIVATIVE_TYPE_NITER, "NITER");
-
+        this.add(AlchemicalSulfurType.CROPS.descriptionId(), "Crops");
+        this.add(AlchemicalSulfurType.ANIMALS.descriptionId(), "Animal Parts");
+        this.add(AlchemicalSulfurType.MOBS.descriptionId(), "Mob Drops");
+        this.add(TheurgyConstants.I18n.Item.ALCHEMICAL_DERIVATIVE_TYPE_NITER, "Niter");
 
         //Automatic sulfur name rendering
         SulfurRegistry.SULFURS.getEntries().stream().map(DeferredHolder::get).map(AlchemicalSulfurItem.class::cast).forEach(sulfur -> {
@@ -762,6 +770,48 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.addDerivativeSource(SulfurRegistry.TURTLE_SCUTE, "Turtle Scute");
         this.addDerivativeSource(SulfurRegistry.ARMADILLO_SCUTE, "Armadillo Scute");
 
+        //Earthly Matters
+        this.addDerivativeSource(SulfurRegistry.DIRT, "Dirt");
+        this.addDerivativeSource(SulfurRegistry.COARSE_DIRT, "Coarse Dirt");
+        this.addDerivativeSource(SulfurRegistry.PODZOL, "Podzol");
+        this.addDerivativeSource(SulfurRegistry.GRASS_BLOCK, "Grass Block");
+        this.addDerivativeSource(SulfurRegistry.ROOTED_DIRT, "Rooted Dirt");
+        this.addDerivativeSource(SulfurRegistry.MOSS_BLOCK, "Moss Block");
+        this.addDerivativeSource(SulfurRegistry.MUD, "Mud");
+        this.addDerivativeSource(SulfurRegistry.MUDDY_MANGROVE_ROOTS, "Muddy Mangrove Roots");
+
+        this.addDerivativeSource(SulfurRegistry.SAND, "Sand");
+        this.addDerivativeSource(SulfurRegistry.RED_SAND, "Red Sand");
+        this.addDerivativeSource(SulfurRegistry.GRAVEL, "Gravel");
+        this.addDerivativeSource(SulfurRegistry.NETHERRACK, "Netherrack");
+        this.addDerivativeSource(SulfurRegistry.SOUL_SAND, "Soul Sand");
+        this.addDerivativeSource(SulfurRegistry.SOUL_SOIL, "Soul Soil");
+
+        this.addDerivativeSource(SulfurRegistry.STONE, "Stone");
+        this.addDerivativeSource(SulfurRegistry.INFESTED_STONE, "Infested Stone");
+        this.addDerivativeSource(SulfurRegistry.COBBLESTONE, "Cobblestone");
+        this.addDerivativeSource(SulfurRegistry.COBBLESTONE_MOSSY, "Mossy Cobblestone");
+        this.addDerivativeSource(SulfurRegistry.COBBLESTONES_INFESTED, "Infested Cobblestone");
+
+        this.addDerivativeSource(SulfurRegistry.DEEPSLATE, "Deepslate");
+        this.addDerivativeSource(SulfurRegistry.COBBLESTONE_DEEPSLATE, "Deepslate Cobblestone");
+
+        this.addDerivativeSource(SulfurRegistry.GRANITE, "Granite");
+        this.addDerivativeSource(SulfurRegistry.DIORITE, "Diorite");
+        this.addDerivativeSource(SulfurRegistry.ANDESITE, "Andesite");
+        this.addDerivativeSource(SulfurRegistry.BLACKSTONE, "Blackstone");
+        this.addDerivativeSource(SulfurRegistry.BASALT, "Basalt");
+
+        this.addDerivativeSource(SulfurRegistry.SANDSTONE, "Sandstone");
+        this.addDerivativeSource(SulfurRegistry.RED_SANDSTONE, "Red Sandstone");
+
+        this.addDerivativeSource(SulfurRegistry.CLAY, "Clay");
+        this.addDerivativeSource(SulfurRegistry.TERRACOTTA, "Terracotta");
+        this.addDerivativeSource(SulfurRegistry.CRIMSON_NYLIUM, "Crimson Nylium");
+        this.addDerivativeSource(SulfurRegistry.WARPED_NYLIUM, "Warped Nylium");
+        this.addDerivativeSource(SulfurRegistry.END_STONE, "End Stone");
+        this.addDerivativeSource(SulfurRegistry.PURPUR_BLOCK, "Purpur Block");
+        this.addDerivativeSource(SulfurRegistry.MYCELIUM, "Mycelium");
 
         //Common Metals
         this.addDerivativeSource(SulfurRegistry.IRON, "Iron");

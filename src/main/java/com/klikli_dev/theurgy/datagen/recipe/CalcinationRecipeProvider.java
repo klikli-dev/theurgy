@@ -40,6 +40,17 @@ public class CalcinationRecipeProvider extends JsonRecipeProvider {
         this.makeRecipe("_from_gravel", new Builder(SaltRegistry.STRATA).sizedIngredient(Items.GRAVEL));
         this.makeRecipe("_from_clay", new Builder(SaltRegistry.STRATA, 4).sizedIngredient(Items.CLAY));
         this.makeRecipe("_from_clay_ball", new Builder(SaltRegistry.STRATA).sizedIngredient(Items.CLAY_BALL));
+        this.makeRecipe("_from_netherrack", new Builder(SaltRegistry.STRATA).sizedIngredient(Tags.Items.NETHERRACKS));
+        this.makeRecipe("_from_soul_sand", new Builder(SaltRegistry.STRATA).sizedIngredient(Items.SOUL_SAND));
+        this.makeRecipe("_from_soul_soil", new Builder(SaltRegistry.STRATA).sizedIngredient(Items.SOUL_SOIL));
+        this.makeRecipe("_from_blackstone", new Builder(SaltRegistry.STRATA).sizedIngredient(Items.BLACKSTONE));
+        this.makeRecipe("_from_terracotta", new Builder(SaltRegistry.STRATA, 2).sizedIngredient(Items.TERRACOTTA));
+        this.makeRecipe("_from_concrete", new Builder(SaltRegistry.STRATA, 2).sizedIngredient(Tags.Items.CONCRETES));
+        this.makeRecipe("_from_crimson_nylium", new Builder(SaltRegistry.STRATA, 2).sizedIngredient(Items.CRIMSON_NYLIUM));
+        this.makeRecipe("_from_warped_nylium", new Builder(SaltRegistry.STRATA, 2).sizedIngredient(Items.WARPED_NYLIUM));
+        this.makeRecipe("_from_end_stone", new Builder(SaltRegistry.STRATA, 2).sizedIngredient(Items.END_STONE));
+        this.makeRecipe("_from_purpur_block", new Builder(SaltRegistry.STRATA, 2).sizedIngredient(Items.PURPUR_BLOCK));
+        this.makeRecipe("_from_mycelium", new Builder(SaltRegistry.STRATA, 2).sizedIngredient(Items.MYCELIUM));
         this.makeRecipe("_from_ores", new Builder(SaltRegistry.MINERAL, 3).sizedIngredient(Tags.Items.ORES));
         this.makeRecipe("_from_raw_materials", new Builder(SaltRegistry.MINERAL).sizedIngredient(Tags.Items.RAW_MATERIALS));
         this.makeRecipe("_from_ingots", new Builder(SaltRegistry.MINERAL, 2).sizedIngredient(Tags.Items.INGOTS));
@@ -50,7 +61,6 @@ public class CalcinationRecipeProvider extends JsonRecipeProvider {
         this.makeRecipe("_from_logs", new Builder(SaltRegistry.PLANT).sizedIngredient(ItemTags.LOGS));
         this.makeRecipe("_from_leaves", new Builder(SaltRegistry.PLANT).sizedIngredient(ItemTags.LEAVES));
         this.makeRecipe("_from_saplings", new Builder(SaltRegistry.PLANT).sizedIngredient(ItemTags.SAPLINGS));
-
         this.makeRecipe("_from_plant_salt", new Builder(SaltRegistry.CREATURE).sizedIngredient(SaltRegistry.PLANT.get(), 2));
     }
 

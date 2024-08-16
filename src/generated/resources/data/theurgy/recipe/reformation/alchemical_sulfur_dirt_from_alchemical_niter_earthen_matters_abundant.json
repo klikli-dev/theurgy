@@ -1,0 +1,22 @@
+{
+  "type": "theurgy:reformation",
+  "category": "misc",
+  "mercuryFlux": 50,
+  "result": {
+    "type": "theurgy:item",
+    "count": 1,
+    "id": "theurgy:alchemical_sulfur_dirt"
+  },
+  "sources": [
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "theurgy:alchemical_niter_earthen_matters_abundant"
+      }
+    }
+  ],
+  "target": {
+    "item": "theurgy:alchemical_sulfur_dirt"
+  },
+  "time": 100
+}

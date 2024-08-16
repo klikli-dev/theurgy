@@ -1,0 +1,45 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:sands/red"
+      }
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:sands/red"
+      }
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:sands/red"
+      }
+    }
+  ],
+  "type": "theurgy:reformation",
+  "category": "misc",
+  "mercuryFlux": 50,
+  "result": {
+    "type": "theurgy:item",
+    "count": 1,
+    "id": "theurgy:alchemical_sulfur_red"
+  },
+  "sources": [
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "theurgy:alchemical_niter_earthen_matters_abundant"
+      }
+    }
+  ],
+  "target": {
+    "item": "theurgy:alchemical_sulfur_red"
+  },
+  "time": 100
+}

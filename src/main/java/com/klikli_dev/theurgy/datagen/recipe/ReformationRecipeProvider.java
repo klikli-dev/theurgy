@@ -16,13 +16,11 @@ import com.klikli_dev.theurgy.datagen.SulfurMappings;
 import com.klikli_dev.theurgy.registry.*;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.JsonOps;
-import net.minecraft.core.Holder;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.neoforged.neoforge.common.conditions.NotCondition;
 import net.neoforged.neoforge.common.conditions.TagEmptyCondition;
@@ -87,6 +85,34 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
         this.makeRecipe(target, targetCount, source, sourceCount, this.getFlux(target));
     }
 
+    private void earthenMatters() {
+        //Add conversion from the niter (representing the whole tier) to the single specific sulfurs
+        //This enables conversion between tiers by way of digestion
+        this.makeNiterToSulfurRecipe(NiterRegistry.EARTHEN_MATTERS_ABUNDANT.get(), SulfurMappings.earthenMattersAbundant());
+        this.makeNiterToSulfurRecipe(NiterRegistry.EARTHEN_MATTERS_COMMON.get(), SulfurMappings.earthenMattersCommon());
+
+        //Also allow direct conversion between specific sulfurs of the same tier
+        var earthenMattersFromEarthenMatters = List.of(
+                Pair.of(SulfurMappings.earthenMattersAbundant(), ItemTagRegistry.ALCHEMICAL_SULFURS_EARTHEN_MATTERS_ABUNDANT),
+                Pair.of(SulfurMappings.earthenMattersCommon(), ItemTagRegistry.ALCHEMICAL_SULFURS_EARTHEN_MATTERS_COMMON)
+        );
+        this.makeXtoXRecipes(earthenMattersFromEarthenMatters);
+
+        //Further, allow conversion between types
+        this.makeNiterToNiterRecipe(NiterRegistry.OTHER_MINERALS_ABUNDANT.get(), 1, NiterRegistry.EARTHEN_MATTERS_ABUNDANT.get(), 4);
+        this.makeNiterToNiterRecipe(NiterRegistry.OTHER_MINERALS_COMMON.get(), 1, NiterRegistry.EARTHEN_MATTERS_COMMON.get(), 4);
+
+        this.makeNiterToNiterRecipe(NiterRegistry.METALS_ABUNDANT.get(), 1, NiterRegistry.EARTHEN_MATTERS_ABUNDANT.get(), 8);
+        this.makeNiterToNiterRecipe(NiterRegistry.METALS_COMMON.get(), 1, NiterRegistry.EARTHEN_MATTERS_COMMON.get(), 8);
+
+        this.makeNiterToNiterRecipe(NiterRegistry.GEMS_ABUNDANT.get(), 1, NiterRegistry.EARTHEN_MATTERS_ABUNDANT.get(), 16);
+        this.makeNiterToNiterRecipe(NiterRegistry.GEMS_COMMON.get(), 1, NiterRegistry.EARTHEN_MATTERS_COMMON.get(), 16);
+
+        this.makeNiterToNiterRecipe(NiterRegistry.LOGS_ABUNDANT.get(), 1, NiterRegistry.EARTHEN_MATTERS_ABUNDANT.get(), 4);
+        this.makeNiterToNiterRecipe(NiterRegistry.CROPS_ABUNDANT.get(), 2, NiterRegistry.EARTHEN_MATTERS_ABUNDANT.get(), 4);
+        this.makeNiterToNiterRecipe(NiterRegistry.ANIMALS_ABUNDANT.get(), 1, NiterRegistry.EARTHEN_MATTERS_ABUNDANT.get(), 8);
+    }
+
     private void metals() {
         //Add conversion from the niter (representing the whole tier) to the single specific sulfurs
         //This enables conversion between tiers by way of digestion
@@ -113,6 +139,9 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
         this.makeNiterToNiterRecipe(NiterRegistry.GEMS_COMMON.get(), 1, NiterRegistry.METALS_COMMON.get(), 2);
         this.makeNiterToNiterRecipe(NiterRegistry.GEMS_RARE.get(), 1, NiterRegistry.METALS_RARE.get(), 2);
         this.makeNiterToNiterRecipe(NiterRegistry.GEMS_PRECIOUS.get(), 1, NiterRegistry.METALS_PRECIOUS.get(), 2);
+
+        this.makeNiterToNiterRecipe(NiterRegistry.EARTHEN_MATTERS_ABUNDANT.get(), 8, NiterRegistry.METALS_ABUNDANT.get(), 1);
+        this.makeNiterToNiterRecipe(NiterRegistry.EARTHEN_MATTERS_COMMON.get(), 8, NiterRegistry.METALS_COMMON.get(), 1);
     }
 
     private void gems() {
@@ -156,6 +185,9 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
                 .sources(NiterRegistry.MOBS_PRECIOUS.get(), 4)
                 .sources(NiterRegistry.MOBS_PRECIOUS.get(), 4)
                 .sources(NiterRegistry.MOBS_PRECIOUS.get(), 4));
+
+        this.makeNiterToNiterRecipe(NiterRegistry.EARTHEN_MATTERS_ABUNDANT.get(), 16, NiterRegistry.GEMS_ABUNDANT.get(), 1);
+        this.makeNiterToNiterRecipe(NiterRegistry.EARTHEN_MATTERS_COMMON.get(), 16, NiterRegistry.GEMS_COMMON.get(), 1);
     }
 
     private void otherMinerals() {
@@ -185,6 +217,9 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
         this.makeNiterToNiterRecipe(NiterRegistry.GEMS_COMMON.get(), 1, NiterRegistry.OTHER_MINERALS_COMMON.get(), 4);
         this.makeNiterToNiterRecipe(NiterRegistry.GEMS_RARE.get(), 1, NiterRegistry.OTHER_MINERALS_RARE.get(), 4);
         this.makeNiterToNiterRecipe(NiterRegistry.GEMS_PRECIOUS.get(), 1, NiterRegistry.OTHER_MINERALS_PRECIOUS.get(), 4);
+
+        this.makeNiterToNiterRecipe(NiterRegistry.EARTHEN_MATTERS_ABUNDANT.get(), 4, NiterRegistry.OTHER_MINERALS_ABUNDANT.get(), 1);
+        this.makeNiterToNiterRecipe(NiterRegistry.EARTHEN_MATTERS_COMMON.get(), 4, NiterRegistry.OTHER_MINERALS_COMMON.get(), 1);
     }
 
     private void logs() {
@@ -209,6 +244,8 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
         this.makeNiterToNiterRecipe(NiterRegistry.GEMS_ABUNDANT.get(), 1, NiterRegistry.LOGS_ABUNDANT.get(), 4);
         this.makeNiterToNiterRecipe(NiterRegistry.CROPS_ABUNDANT.get(), 1, NiterRegistry.LOGS_ABUNDANT.get(), 1);
         this.makeNiterToNiterRecipe(NiterRegistry.ANIMALS_ABUNDANT.get(), 1, NiterRegistry.LOGS_ABUNDANT.get(), 2);
+
+        this.makeNiterToNiterRecipe(NiterRegistry.EARTHEN_MATTERS_ABUNDANT.get(), 4, NiterRegistry.LOGS_ABUNDANT.get(), 1);
     }
 
     private void crops() {
@@ -234,6 +271,7 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
         this.makeNiterToNiterRecipe(NiterRegistry.OTHER_MINERALS_ABUNDANT.get(), 1, NiterRegistry.CROPS_ABUNDANT.get(), 2);
         this.makeNiterToNiterRecipe(NiterRegistry.METALS_ABUNDANT.get(), 1, NiterRegistry.CROPS_ABUNDANT.get(), 4);
         this.makeNiterToNiterRecipe(NiterRegistry.GEMS_ABUNDANT.get(), 1, NiterRegistry.CROPS_ABUNDANT.get(), 8);
+        this.makeNiterToNiterRecipe(NiterRegistry.EARTHEN_MATTERS_ABUNDANT.get(), 4, NiterRegistry.CROPS_ABUNDANT.get(), 2);
     }
 
     private void animals(){
@@ -256,6 +294,7 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
 
         this.makeNiterToNiterRecipe(NiterRegistry.CROPS_ABUNDANT.get(), 2, NiterRegistry.ANIMALS_ABUNDANT.get(), 1);
         this.makeNiterToNiterRecipe(NiterRegistry.LOGS_ABUNDANT.get(), 2, NiterRegistry.ANIMALS_ABUNDANT.get(), 1);
+        this.makeNiterToNiterRecipe(NiterRegistry.EARTHEN_MATTERS_ABUNDANT.get(), 8, NiterRegistry.ANIMALS_ABUNDANT.get(), 1);
 
         this.makeNiterToNiterRecipe(NiterRegistry.OTHER_MINERALS_ABUNDANT.get(), 1, NiterRegistry.ANIMALS_ABUNDANT.get(), 1);
         this.makeNiterToNiterRecipe(NiterRegistry.OTHER_MINERALS_COMMON.get(), 1, NiterRegistry.ANIMALS_COMMON.get(), 1);
@@ -335,6 +374,7 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
         //Set up materials that should not get the automatic conversion rates
         this.noAutomaticRecipesFor = SulfurMappings.noAutomaticRecipesFor();
 
+        this.earthenMatters();
         this.metals();
         this.gems();
         this.otherMinerals();

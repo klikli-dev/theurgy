@@ -8,6 +8,7 @@ import com.klikli_dev.theurgy.Theurgy;
 
 public enum AlchemicalSulfurType {
     MISC(),
+    EARTHEN_MATTERS(),
     GEMS(),
     METALS(),
     OTHER_MINERALS(),

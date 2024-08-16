@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21.1-1.47.0] - 2024-08-16
+### :sparkles: New Features
+- [`4ab680f`](https://github.com/klikli-dev/theurgy/commit/4ab680f5ee32c55ef11ef12eba704a55f67a29e8) - add support for earthen materials *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`581ad3f`](https://github.com/klikli-dev/theurgy/commit/581ad3f7362cde68b98231a886c698ca8d496de9) - updated deprecated JEI methods *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :bug: Bug Fixes
+- [`27bea40`](https://github.com/klikli-dev/theurgy/commit/27bea4081c98a250c27173122b7b2edb1787438f) - add missing translations *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`62352aa`](https://github.com/klikli-dev/theurgy/commit/62352aa42e7dcbabd670d73948129a5dd47d3a01) - update to latest occultism *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`3885d19`](https://github.com/klikli-dev/theurgy/commit/3885d19e1478fffbb6422f076952601e4c1422fe) - update to latest occultism *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`15ce096`](https://github.com/klikli-dev/theurgy/commit/15ce096d3fca2d6904853dfd9a3898916c4d5437) - avoid dev env transitive jei shenanigans from occultism *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21.1-1.46.0] - 2024-08-16
 ### :sparkles: New Features
 - [`67ae12e`](https://github.com/klikli-dev/theurgy/commit/67ae12e870ac5df09e4286c7b643f0bca7610bd6) - Add mob sulfurs *(PR [#217](https://github.com/klikli-dev/theurgy/pull/217) by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1006,3 +1020,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21-1.45.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.44.1...release/v1.21-1.45.0
 [release/v1.21-1.45.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.45.0...release/v1.21-1.45.1
 [release/v1.21.1-1.46.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-0.0.0...release/v1.21.1-1.46.0
+[release/v1.21.1-1.47.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.46.0...release/v1.21.1-1.47.0

@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21.1-1.46.0] - 2024-08-16
+### :sparkles: New Features
+- [`67ae12e`](https://github.com/klikli-dev/theurgy/commit/67ae12e870ac5df09e4286c7b643f0bca7610bd6) - Add mob sulfurs *(PR [#217](https://github.com/klikli-dev/theurgy/pull/217) by [@klikli-dev](https://github.com/klikli-dev))*
+- [`f270eb2`](https://github.com/klikli-dev/theurgy/commit/f270eb2a98cdfbe9f8335d083767a610576ad084) - update to 1.21.1 while keeping backwards compat *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21-1.45.1] - 2024-08-15
 ### :bug: Bug Fixes
 - [`63da890`](https://github.com/klikli-dev/theurgy/commit/63da8906ddb283925cbadf59309a808bad96e0b9) - some ingot recipes use ore multipliers *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -999,3 +1005,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21-1.44.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.44.0...release/v1.21-1.44.1
 [release/v1.21-1.45.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.44.1...release/v1.21-1.45.0
 [release/v1.21-1.45.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.21-1.45.0...release/v1.21-1.45.1
+[release/v1.21.1-1.46.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-0.0.0...release/v1.21.1-1.46.0

@@ -17,6 +17,7 @@ import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.mojang.blaze3d.systems.RenderSystem;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
+import mezz.jei.api.gui.builder.ITooltipBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.drawable.IDrawableAnimated;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
@@ -37,7 +38,6 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
-import java.util.List;
 
 import static mezz.jei.api.recipe.RecipeIngredientRole.INPUT;
 import static mezz.jei.api.recipe.RecipeIngredientRole.OUTPUT;
@@ -162,7 +162,7 @@ public class ReformationCategory implements IRecipeCategory<RecipeHolder<Reforma
         for (int i = 0; i < 8; i++) {
             var slot = builder.addSlot(INPUT, sourceSlotX, sourceSlotY).setBackground(JeiDrawables.INPUT_SLOT, -1, -1);
 
-            if (i < recipe.value().getSources().size()){
+            if (i < recipe.value().getSources().size()) {
                 var ingredient = recipe.value().getSources().get(i);
                 slot.addIngredients(VanillaTypes.ITEM_STACK, Arrays.stream(ingredient.ingredient().getItems()).map(stack -> stack.copyWithCount(ingredient.count())).toList());
             }
@@ -191,13 +191,11 @@ public class ReformationCategory implements IRecipeCategory<RecipeHolder<Reforma
     }
 
     @Override
-    public @NotNull List<Component> getTooltipStrings(@NotNull RecipeHolder<ReformationRecipe> recipe, @NotNull IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
+    public void getTooltip(@NotNull ITooltipBuilder tooltip, @NotNull RecipeHolder<ReformationRecipe> recipe, @NotNull IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
+        IRecipeCategory.super.getTooltip(tooltip, recipe, recipeSlotsView, mouseX, mouseY);
 
-        // builder.addSlot(RecipeIngredientRole.RENDER_ONLY, 45, 1)
         if (mouseX > 45 && mouseX < 45 + 18 && mouseY > 1 && mouseY < 1 + 18) {
-            return List.of(Component.translatable(TheurgyConstants.I18n.JEI.TARGET_SULFUR_TOOLTIP).withStyle(ChatFormatting.ITALIC));
+            tooltip.add(Component.translatable(TheurgyConstants.I18n.JEI.TARGET_SULFUR_TOOLTIP).withStyle(ChatFormatting.ITALIC));
         }
-
-        return IRecipeCategory.super.getTooltipStrings(recipe, recipeSlotsView, mouseX, mouseY);
     }
 }

@@ -28,6 +28,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -58,7 +59,7 @@ public class IncubationCategory implements IRecipeCategory<RecipeHolder<Incubati
                 .maximumSize(25)
                 .build(new CacheLoader<>() {
                     @Override
-                    public IDrawableAnimated load(Integer cookTime) {
+                    public @NotNull IDrawableAnimated load(@NotNull Integer cookTime) {
                         return JeiDrawables.asAnimatedDrawable(guiHelper, GuiTextures.JEI_ARROW_RIGHT_FULL, cookTime, IDrawableAnimated.StartDirection.LEFT, false);
                     }
                 });
@@ -73,7 +74,7 @@ public class IncubationCategory implements IRecipeCategory<RecipeHolder<Incubati
     }
 
     @Override
-    public IDrawable getBackground() {
+    public @NotNull IDrawable getBackground() {
         return this.background;
     }
 
@@ -83,7 +84,7 @@ public class IncubationCategory implements IRecipeCategory<RecipeHolder<Incubati
     }
 
     @Override
-    public void draw(RecipeHolder<IncubationRecipe> recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+    public void draw(@NotNull RecipeHolder<IncubationRecipe> recipe, @NotNull IRecipeSlotsView recipeSlotsView, @NotNull GuiGraphics guiGraphics, double mouseX, double mouseY) {
         GuiTextures.JEI_FIRE_EMPTY.render(guiGraphics, 28, 44);
         this.animatedFire.draw(guiGraphics, 28, 44);
 
@@ -106,13 +107,13 @@ public class IncubationCategory implements IRecipeCategory<RecipeHolder<Incubati
     }
 
     @Override
-    public Component getTitle() {
+    public @NotNull Component getTitle() {
         return this.localizedName;
     }
 
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder builder, RecipeHolder<IncubationRecipe> recipe, IFocusGroup focuses) {
+    public void setRecipe(IRecipeLayoutBuilder builder, RecipeHolder<IncubationRecipe> recipe, @NotNull IFocusGroup focuses) {
         builder.addSlot(INPUT, 1, 1)
                 .setBackground(JeiDrawables.INPUT_SLOT, -1, -1)
                 .addIngredients(recipe.value().getMercury());
@@ -131,7 +132,7 @@ public class IncubationCategory implements IRecipeCategory<RecipeHolder<Incubati
     }
 
     @Override
-    public RecipeType<RecipeHolder<IncubationRecipe>> getRecipeType() {
+    public @NotNull RecipeType<RecipeHolder<IncubationRecipe>> getRecipeType() {
         return JeiRecipeTypes.INCUBATION;
     }
 }

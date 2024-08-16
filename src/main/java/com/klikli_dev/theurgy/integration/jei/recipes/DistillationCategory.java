@@ -10,7 +10,6 @@ import com.google.common.cache.LoadingCache;
 import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.content.gui.GuiTextures;
 import com.klikli_dev.theurgy.content.recipe.DistillationRecipe;
-import com.klikli_dev.theurgy.content.recipe.DistillationRecipe;
 import com.klikli_dev.theurgy.integration.jei.JeiDrawables;
 import com.klikli_dev.theurgy.integration.jei.JeiRecipeTypes;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
@@ -30,6 +29,7 @@ import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 
@@ -56,7 +56,7 @@ public class DistillationCategory implements IRecipeCategory<RecipeHolder<Distil
                 .maximumSize(25)
                 .build(new CacheLoader<>() {
                     @Override
-                    public IDrawableAnimated load(Integer cookTime) {
+                    public @NotNull IDrawableAnimated load(@NotNull Integer cookTime) {
                         return JeiDrawables.asAnimatedDrawable(guiHelper, GuiTextures.JEI_ARROW_RIGHT_FULL, cookTime, IDrawableAnimated.StartDirection.LEFT, false);
                     }
                 });
@@ -81,7 +81,7 @@ public class DistillationCategory implements IRecipeCategory<RecipeHolder<Distil
     }
 
     @Override
-    public void draw(RecipeHolder<DistillationRecipe> recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+    public void draw(@NotNull RecipeHolder<DistillationRecipe> recipe, @NotNull IRecipeSlotsView recipeSlotsView, @NotNull GuiGraphics guiGraphics, double mouseX, double mouseY) {
         GuiTextures.JEI_FIRE_EMPTY.render(guiGraphics, 1, 20);
         this.animatedFire.draw(guiGraphics, 1, 20);
 
@@ -104,12 +104,12 @@ public class DistillationCategory implements IRecipeCategory<RecipeHolder<Distil
     }
 
     @Override
-    public Component getTitle() {
+    public @NotNull Component getTitle() {
         return this.localizedName;
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder builder, RecipeHolder<DistillationRecipe> recipe, IFocusGroup focuses) {
+    public void setRecipe(IRecipeLayoutBuilder builder, RecipeHolder<DistillationRecipe> recipe, @NotNull IFocusGroup focuses) {
         builder.addSlot(INPUT, 1, 1)
                 .setBackground(JeiDrawables.INPUT_SLOT, -1, -1)
                 .addIngredients(VanillaTypes.ITEM_STACK, Arrays.stream(recipe.value().getIngredient().getItems()).map(i -> i.copyWithCount(recipe.value().getIngredientCount())).toList());
@@ -120,7 +120,7 @@ public class DistillationCategory implements IRecipeCategory<RecipeHolder<Distil
     }
 
     @Override
-    public RecipeType<RecipeHolder<DistillationRecipe>> getRecipeType() {
+    public @NotNull RecipeType<RecipeHolder<DistillationRecipe>> getRecipeType() {
         return JeiRecipeTypes.DISTILLATION;
     }
 }

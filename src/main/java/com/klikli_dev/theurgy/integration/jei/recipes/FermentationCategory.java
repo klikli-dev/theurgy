@@ -16,7 +16,7 @@ import com.klikli_dev.theurgy.registry.BlockRegistry;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.drawable.IDrawableAnimated;
-import mezz.jei.api.gui.ingredient.IRecipeSlotTooltipCallback;
+import mezz.jei.api.gui.ingredient.IRecipeSlotRichTooltipCallback;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.neoforge.NeoForgeTypes;
@@ -32,6 +32,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.neoforged.neoforge.fluids.FluidStack;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 import java.util.List;
@@ -56,13 +57,13 @@ public class FermentationCategory implements IRecipeCategory<RecipeHolder<Fermen
                 .maximumSize(25)
                 .build(new CacheLoader<>() {
                     @Override
-                    public IDrawableAnimated load(Integer cookTime) {
+                    public @NotNull IDrawableAnimated load(@NotNull Integer cookTime) {
                         return JeiDrawables.asAnimatedDrawable(guiHelper, GuiTextures.JEI_ARROW_RIGHT_FULL, cookTime, IDrawableAnimated.StartDirection.LEFT, false);
                     }
                 });
     }
 
-    public static IRecipeSlotTooltipCallback addFluidTooltip(int overrideAmount) {
+    public static IRecipeSlotRichTooltipCallback addFluidTooltip(int overrideAmount) {
         return (view, tooltip) -> {
             var displayed = view.getDisplayedIngredient(NeoForgeTypes.FLUID_STACK);
             if (displayed.isEmpty())
@@ -72,13 +73,8 @@ public class FermentationCategory implements IRecipeCategory<RecipeHolder<Fermen
 
             var amount = overrideAmount == -1 ? fluidStack.getAmount() : overrideAmount;
             var text = Component.translatable(TheurgyConstants.I18n.Misc.UNIT_MILLIBUCKETS, amount).withStyle(ChatFormatting.GOLD);
-            if (tooltip.isEmpty())
-                tooltip.add(0, text);
-            else {
-                List<Component> siblings = tooltip.get(0).getSiblings();
-                siblings.add(Component.literal(" "));
-                siblings.add(text);
-            }
+
+            tooltip.add(text);
         };
     }
 
@@ -91,7 +87,7 @@ public class FermentationCategory implements IRecipeCategory<RecipeHolder<Fermen
     }
 
     @Override
-    public IDrawable getBackground() {
+    public @NotNull IDrawable getBackground() {
         return this.background;
     }
 
@@ -101,7 +97,7 @@ public class FermentationCategory implements IRecipeCategory<RecipeHolder<Fermen
     }
 
     @Override
-    public void draw(RecipeHolder<FermentationRecipe> recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+    public void draw(@NotNull RecipeHolder<FermentationRecipe> recipe, @NotNull IRecipeSlotsView recipeSlotsView, @NotNull GuiGraphics guiGraphics, double mouseX, double mouseY) {
         GuiTextures.JEI_ARROW_RIGHT_EMPTY.render(guiGraphics, 45, 8);
         this.getAnimatedArrow(recipe).draw(guiGraphics, 45, 8);
 
@@ -121,12 +117,12 @@ public class FermentationCategory implements IRecipeCategory<RecipeHolder<Fermen
     }
 
     @Override
-    public Component getTitle() {
+    public @NotNull Component getTitle() {
         return this.localizedName;
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder builder, RecipeHolder<FermentationRecipe> recipe, IFocusGroup focuses) {
+    public void setRecipe(IRecipeLayoutBuilder builder, RecipeHolder<FermentationRecipe> recipe, @NotNull IFocusGroup focuses) {
         var topLeft = builder.addSlot(INPUT, 1, 1)
                 .setBackground(JeiDrawables.INPUT_SLOT, -1, -1);
         var topRight = builder.addSlot(INPUT, 1 + 18, 1)
@@ -151,7 +147,7 @@ public class FermentationCategory implements IRecipeCategory<RecipeHolder<Fermen
                 .setBackground(JeiDrawables.INPUT_SLOT, -1, -1)
                 .addIngredients(NeoForgeTypes.FLUID_STACK, this.getFluids(recipe))
                 .setFluidRenderer(1000, false, 16, 16)
-                .addTooltipCallback(addFluidTooltip(recipe.value().getFluidAmount()));
+                .addRichTooltipCallback(addFluidTooltip(recipe.value().getFluidAmount()));
 
         //now add the bucket to the recipe lookup for the output fluid
         builder.addInvisibleIngredients(INPUT).addItemStacks(Arrays.stream(recipe.value().getFluid().getFluids()).map(f -> new ItemStack(f.getFluid().getBucket())).toList());
@@ -167,7 +163,7 @@ public class FermentationCategory implements IRecipeCategory<RecipeHolder<Fermen
     }
 
     @Override
-    public RecipeType<RecipeHolder<FermentationRecipe>> getRecipeType() {
+    public @NotNull RecipeType<RecipeHolder<FermentationRecipe>> getRecipeType() {
         return JeiRecipeTypes.FERMENTATION;
     }
 

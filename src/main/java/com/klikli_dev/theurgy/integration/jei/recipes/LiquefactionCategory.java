@@ -16,7 +16,7 @@ import com.klikli_dev.theurgy.registry.BlockRegistry;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.drawable.IDrawableAnimated;
-import mezz.jei.api.gui.ingredient.IRecipeSlotTooltipCallback;
+import mezz.jei.api.gui.ingredient.IRecipeSlotRichTooltipCallback;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.neoforge.NeoForgeTypes;
@@ -66,7 +66,7 @@ public class LiquefactionCategory implements IRecipeCategory<RecipeHolder<Liquef
                 });
     }
 
-    public static IRecipeSlotTooltipCallback addFluidTooltip(int overrideAmount) {
+    public static IRecipeSlotRichTooltipCallback addFluidTooltip(int overrideAmount) {
         return (view, tooltip) -> {
             var displayed = view.getDisplayedIngredient(NeoForgeTypes.FLUID_STACK);
             if (displayed.isEmpty())
@@ -76,13 +76,8 @@ public class LiquefactionCategory implements IRecipeCategory<RecipeHolder<Liquef
 
             var amount = overrideAmount == -1 ? fluidStack.getAmount() : overrideAmount;
             var text = Component.translatable(TheurgyConstants.I18n.Misc.UNIT_MILLIBUCKETS, amount).withStyle(ChatFormatting.GOLD);
-            if (tooltip.isEmpty())
-                tooltip.add(0, text);
-            else {
-                List<Component> siblings = tooltip.get(0).getSiblings();
-                siblings.add(Component.literal(" "));
-                siblings.add(text);
-            }
+
+            tooltip.add(text);
         };
     }
 
@@ -138,7 +133,7 @@ public class LiquefactionCategory implements IRecipeCategory<RecipeHolder<Liquef
                 .setBackground(JeiDrawables.INPUT_SLOT, -1, -1)
                 .addIngredients(NeoForgeTypes.FLUID_STACK, this.getFluids(recipe))
                 .setFluidRenderer(1000, false, 16, 16)
-                .addTooltipCallback(addFluidTooltip(recipe.value().getSolventAmount()));
+                .addRichTooltipCallback(addFluidTooltip(recipe.value().getSolventAmount()));
 
         builder.addSlot(INPUT, 19, 1)
                 .setBackground(JeiDrawables.INPUT_SLOT, -1, -1)

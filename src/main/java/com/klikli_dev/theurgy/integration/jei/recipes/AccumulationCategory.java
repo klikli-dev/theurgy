@@ -16,7 +16,7 @@ import com.klikli_dev.theurgy.registry.BlockRegistry;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.drawable.IDrawableAnimated;
-import mezz.jei.api.gui.ingredient.IRecipeSlotTooltipCallback;
+import mezz.jei.api.gui.ingredient.IRecipeSlotRichTooltipCallback;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.neoforge.NeoForgeTypes;
@@ -33,7 +33,6 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
-import java.util.List;
 
 import static mezz.jei.api.recipe.RecipeIngredientRole.INPUT;
 import static mezz.jei.api.recipe.RecipeIngredientRole.OUTPUT;
@@ -61,7 +60,7 @@ public class AccumulationCategory implements IRecipeCategory<RecipeHolder<Accumu
                 });
     }
 
-    public static IRecipeSlotTooltipCallback addFluidTooltip(int overrideAmount) {
+    public static IRecipeSlotRichTooltipCallback addFluidTooltip(int overrideAmount) {
         return (view, tooltip) -> {
             var displayed = view.getDisplayedIngredient(NeoForgeTypes.FLUID_STACK);
             if (displayed.isEmpty())
@@ -71,13 +70,7 @@ public class AccumulationCategory implements IRecipeCategory<RecipeHolder<Accumu
 
             var amount = overrideAmount == -1 ? fluidStack.getAmount() : overrideAmount;
             var text = Component.translatable(TheurgyConstants.I18n.Misc.UNIT_MILLIBUCKETS, amount).withStyle(ChatFormatting.GOLD);
-            if (tooltip.isEmpty())
-                tooltip.addFirst(text);
-            else {
-                List<Component> siblings = tooltip.getFirst().getSiblings();
-                siblings.add(Component.literal(" "));
-                siblings.add(text);
-            }
+            tooltip.add(text);
         };
     }
 
@@ -130,7 +123,7 @@ public class AccumulationCategory implements IRecipeCategory<RecipeHolder<Accumu
                 .setBackground(JeiDrawables.INPUT_SLOT, -1, -1)
                 .addIngredients(NeoForgeTypes.FLUID_STACK, Arrays.stream(recipe.value().getEvaporant().getFluids()).toList())
                 .setFluidRenderer(1000, false, 16, 16)
-                .addTooltipCallback(addFluidTooltip(recipe.value().getEvaporantAmount()));
+                .addRichTooltipCallback(addFluidTooltip(recipe.value().getEvaporantAmount()));
 
         if (recipe.value().hasSolute()) {
             assert recipe.value().getSolute() != null;
@@ -142,7 +135,7 @@ public class AccumulationCategory implements IRecipeCategory<RecipeHolder<Accumu
         builder.addSlot(OUTPUT, 56, 1)
                 .setBackground(JeiDrawables.INPUT_SLOT, -1, -1)
                 .addFluidStack(recipe.value().getResult().getFluid(), recipe.value().getResult().getAmount())
-                .addTooltipCallback(addFluidTooltip(recipe.value().getResult().getAmount()));
+                .addRichTooltipCallback(addFluidTooltip(recipe.value().getResult().getAmount()));
 
         //now add the bucket to the recipe lookup for the output fluid
         builder.addInvisibleIngredients(OUTPUT).addItemStack(new ItemStack(recipe.value().getResult().getFluid().getBucket()));

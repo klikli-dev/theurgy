@@ -6,7 +6,7 @@ package com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron;
 
 import com.klikli_dev.theurgy.content.behaviour.fluidhandler.FluidHandlerBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.fluidhandler.OneTankFluidHandlerBehaviour;
-import com.klikli_dev.theurgy.content.behaviour.itemhandler.ItemHandlerBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.itemhandler.HasItemHandlerBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.itemhandler.TwoSlotItemHandlerBehaviour;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
@@ -39,12 +39,10 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-
-import net.neoforged.neoforge.items.wrapper.RecipeWrapper;
 import org.jetbrains.annotations.Nullable;
 
 
-public class LiquefactionCauldronBlock extends Block implements EntityBlock {
+public class LiquefactionCauldronBlock extends Block implements EntityBlock, HasItemHandlerBehaviour<TwoSlotItemHandlerBehaviour> {
 
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
 
@@ -52,7 +50,7 @@ public class LiquefactionCauldronBlock extends Block implements EntityBlock {
     protected static final VoxelShape TOP = Block.box(1, 0, 1, 15, 6, 15);
     protected static final VoxelShape BOTTOM = Shapes.block();
 
-    protected ItemHandlerBehaviour itemHandlerBehaviour;
+    protected TwoSlotItemHandlerBehaviour itemHandlerBehaviour;
     protected FluidHandlerBehaviour fluidHandlerBehaviour;
 
     public LiquefactionCauldronBlock(Properties pProperties) {
@@ -192,5 +190,10 @@ public class LiquefactionCauldronBlock extends Block implements EntityBlock {
                 blockEntity.tickServer();
             }
         };
+    }
+
+    @Override
+    public TwoSlotItemHandlerBehaviour itemHandlerBehaviour() {
+        return this.itemHandlerBehaviour;
     }
 }

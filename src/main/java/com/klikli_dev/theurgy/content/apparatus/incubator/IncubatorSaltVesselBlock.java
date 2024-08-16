@@ -4,13 +4,12 @@
 
 package com.klikli_dev.theurgy.content.apparatus.incubator;
 
-import com.klikli_dev.theurgy.content.behaviour.itemhandler.ItemHandlerBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.itemhandler.HasItemHandlerBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.itemhandler.OneSlotItemHandlerBehaviour;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -21,13 +20,11 @@ import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
-
-import net.neoforged.neoforge.items.wrapper.RecipeWrapper;
 import org.jetbrains.annotations.Nullable;
 
-public class IncubatorSaltVesselBlock extends Block implements EntityBlock {
+public class IncubatorSaltVesselBlock extends Block implements EntityBlock, HasItemHandlerBehaviour<OneSlotItemHandlerBehaviour> {
 
-    protected ItemHandlerBehaviour itemHandlerBehaviour;
+    protected OneSlotItemHandlerBehaviour itemHandlerBehaviour;
 
     public IncubatorSaltVesselBlock(Properties pProperties) {
         super(pProperties);
@@ -71,5 +68,10 @@ public class IncubatorSaltVesselBlock extends Block implements EntityBlock {
     @Override
     public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
         return BlockEntityRegistry.INCUBATOR_SALT_VESSEL.get().create(pPos, pState);
+    }
+
+    @Override
+    public OneSlotItemHandlerBehaviour itemHandlerBehaviour() {
+        return this.itemHandlerBehaviour;
     }
 }

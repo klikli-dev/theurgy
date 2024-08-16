@@ -30,7 +30,7 @@ public class DynamicOneOutputSlotItemHandlerBehaviour implements ItemHandlerBeha
      * Default interaction for blocks that have a block entity with an input and an output inventory, where the output inventory has one slot and the input inventory a dynamic acmount of slots, made available as combined inventory with inputs on slot 0 to n-2 and output on slot n-1.
      */
     @Override
-    public ItemInteractionResult useItemOn(ItemStack pStack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHitResult) {
+    public ItemInteractionResult useItemOn(ItemStack pStack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHitResult, boolean simulate) {
         if (pHand != InteractionHand.MAIN_HAND)
             return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 
@@ -46,25 +46,34 @@ public class DynamicOneOutputSlotItemHandlerBehaviour implements ItemHandlerBeha
 
         if (stackInHand.isEmpty()) {
             //with empty hand first try take output
-            var extracted = blockItemHandler.extractItem(outputSlot, blockItemHandler.getSlotLimit(outputSlot), false);
+            var extracted = blockItemHandler.extractItem(outputSlot, blockItemHandler.getSlotLimit(outputSlot), simulate);
             if (!extracted.isEmpty()) {
-                pPlayer.getInventory().placeItemBackInInventory(extracted);
+
+                if (!simulate)
+                    pPlayer.getInventory().placeItemBackInInventory(extracted);
+
                 return ItemInteractionResult.SUCCESS;
             }
 
             //if no output, try take input
             for (int inputSlot = 0; inputSlot <= maxInputSlot; inputSlot++) {
-                extracted = blockItemHandler.extractItem(inputSlot, blockItemHandler.getSlotLimit(inputSlot), false);
+                extracted = blockItemHandler.extractItem(inputSlot, blockItemHandler.getSlotLimit(inputSlot), simulate);
                 if (!extracted.isEmpty()) {
-                    pPlayer.getInventory().placeItemBackInInventory(extracted);
+
+                    if (!simulate)
+                        pPlayer.getInventory().placeItemBackInInventory(extracted);
+
                     return ItemInteractionResult.SUCCESS;
                 }
             }
         } else {
             for (int inputSlot = 0; inputSlot <= maxInputSlot; inputSlot++) {
                 //if we have an item in hand, try to insert
-                var remainder = blockItemHandler.insertItem(inputSlot, stackInHand, false);
-                pPlayer.setItemInHand(pHand, remainder);
+                var remainder = blockItemHandler.insertItem(inputSlot, stackInHand, simulate);
+
+                if (!simulate)
+                    pPlayer.setItemInHand(pHand, remainder);
+
                 if (remainder.getCount() != stackInHand.getCount()) {
                     return ItemInteractionResult.SUCCESS;
                 }

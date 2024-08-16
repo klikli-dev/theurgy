@@ -8,7 +8,7 @@ import com.klikli_dev.theurgy.content.behaviour.fluidhandler.FluidHandlerBehavio
 import com.klikli_dev.theurgy.content.behaviour.fluidhandler.OneTankFluidHandlerBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.interaction.InteractionBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.itemhandler.DynamicOneOutputSlotItemHandlerBehaviour;
-import com.klikli_dev.theurgy.content.behaviour.itemhandler.ItemHandlerBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.itemhandler.HasItemHandlerBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.redstone.VatAnalogSignalOutputBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.redstone.VatRedstoneChangeOpenCloseLidBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.redstone.VatRedstoneHasOutputBehaviour;
@@ -44,11 +44,11 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 
-public class DigestionVatBlock extends Block implements EntityBlock {
+public class DigestionVatBlock extends Block implements EntityBlock, HasItemHandlerBehaviour<DynamicOneOutputSlotItemHandlerBehaviour> {
     public static final BooleanProperty OPEN = BlockStateProperties.OPEN;
     private static final VoxelShape BOUNDING_BOX = Block.box(1.0D, 0.0D, 1.0D, 15.0D, 16.0D, 15.0D);
     private static final DirectionProperty HORIZONTAL_FACING = BlockStateProperties.HORIZONTAL_FACING;
-    protected ItemHandlerBehaviour itemHandlerBehaviour;
+    protected DynamicOneOutputSlotItemHandlerBehaviour itemHandlerBehaviour;
     protected FluidHandlerBehaviour fluidHandlerBehaviour;
     protected InteractionBehaviour interactionBehaviour;
     protected VatRedstoneChangeOpenCloseLidBehaviour<DigestionRecipe> redstoneInputBehaviour;
@@ -181,5 +181,10 @@ public class DigestionVatBlock extends Block implements EntityBlock {
                 blockEntity.tickServer();
             }
         };
+    }
+
+    @Override
+    public DynamicOneOutputSlotItemHandlerBehaviour itemHandlerBehaviour() {
+        return this.itemHandlerBehaviour;
     }
 }

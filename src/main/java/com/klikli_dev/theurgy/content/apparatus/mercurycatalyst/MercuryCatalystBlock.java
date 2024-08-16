@@ -4,7 +4,7 @@
 
 package com.klikli_dev.theurgy.content.apparatus.mercurycatalyst;
 
-import com.klikli_dev.theurgy.content.behaviour.itemhandler.ItemHandlerBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.itemhandler.HasItemHandlerBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.itemhandler.OneSlotItemHandlerBehaviour;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.DataComponentRegistry;
@@ -29,11 +29,11 @@ import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
 
-public class MercuryCatalystBlock extends Block implements EntityBlock {
+public class MercuryCatalystBlock extends Block implements EntityBlock, HasItemHandlerBehaviour<OneSlotItemHandlerBehaviour> {
 
     public static final BooleanProperty ENABLED = BlockStateProperties.ENABLED;
 
-    protected ItemHandlerBehaviour itemHandlerBehaviour;
+    protected OneSlotItemHandlerBehaviour itemHandlerBehaviour;
 
     public MercuryCatalystBlock(Properties pProperties) {
         super(pProperties);
@@ -148,5 +148,10 @@ public class MercuryCatalystBlock extends Block implements EntityBlock {
                 blockEntity.tickServer();
             }
         };
+    }
+
+    @Override
+    public OneSlotItemHandlerBehaviour itemHandlerBehaviour() {
+        return this.itemHandlerBehaviour;
     }
 }

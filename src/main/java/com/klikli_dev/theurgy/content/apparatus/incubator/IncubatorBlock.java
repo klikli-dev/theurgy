@@ -4,6 +4,7 @@
 
 package com.klikli_dev.theurgy.content.apparatus.incubator;
 
+import com.klikli_dev.theurgy.content.behaviour.itemhandler.HasItemHandlerBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.itemhandler.ItemHandlerBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.itemhandler.OneSlotItemHandlerBehaviour;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
@@ -43,7 +44,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
 
-public class IncubatorBlock extends Block implements EntityBlock {
+public class IncubatorBlock extends Block implements EntityBlock, HasItemHandlerBehaviour<OneSlotItemHandlerBehaviour> {
     public static final BooleanProperty NORTH = PipeBlock.NORTH;
     public static final BooleanProperty EAST = PipeBlock.EAST;
     public static final BooleanProperty SOUTH = PipeBlock.SOUTH;
@@ -63,7 +64,7 @@ public class IncubatorBlock extends Block implements EntityBlock {
             Block.box(1, 10, 1, 15, 16, 15)
     );
 
-    protected ItemHandlerBehaviour itemHandlerBehaviour;
+    protected OneSlotItemHandlerBehaviour itemHandlerBehaviour;
 
     public IncubatorBlock(Properties pProperties) {
         super(pProperties);
@@ -225,5 +226,10 @@ public class IncubatorBlock extends Block implements EntityBlock {
 
     public boolean isVessel(BlockState pState) {
         return pState.is(BlockTagRegistry.INCUBATOR_VESSELS);
+    }
+
+    @Override
+    public OneSlotItemHandlerBehaviour itemHandlerBehaviour() {
+        return this.itemHandlerBehaviour;
     }
 }

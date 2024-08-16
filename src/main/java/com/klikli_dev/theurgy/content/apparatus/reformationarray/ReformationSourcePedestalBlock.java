@@ -4,6 +4,7 @@
 
 package com.klikli_dev.theurgy.content.apparatus.reformationarray;
 
+import com.klikli_dev.theurgy.content.behaviour.itemhandler.HasItemHandlerBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.itemhandler.ItemHandlerBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.itemhandler.OneSlotItemHandlerBehaviour;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
@@ -26,8 +27,8 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.neoforged.neoforge.items.wrapper.RecipeWrapper;
 import org.jetbrains.annotations.Nullable;
 
-public class ReformationSourcePedestalBlock extends Block implements EntityBlock {
-    private final ItemHandlerBehaviour itemHandlerBehaviour;
+public class ReformationSourcePedestalBlock extends Block implements EntityBlock, HasItemHandlerBehaviour<OneSlotItemHandlerBehaviour> {
+    private final OneSlotItemHandlerBehaviour itemHandlerBehaviour;
 
     public ReformationSourcePedestalBlock(Properties pProperties) {
         super(pProperties);
@@ -79,5 +80,10 @@ public class ReformationSourcePedestalBlock extends Block implements EntityBlock
     @Override
     public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
         return BlockEntityRegistry.REFORMATION_SOURCE_PEDESTAL.get().create(pPos, pState);
+    }
+
+    @Override
+    public OneSlotItemHandlerBehaviour itemHandlerBehaviour() {
+        return this.itemHandlerBehaviour;
     }
 }

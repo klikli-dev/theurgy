@@ -4,6 +4,7 @@
 
 package com.klikli_dev.theurgy.content.apparatus.calcinationoven;
 
+import com.klikli_dev.theurgy.content.behaviour.itemhandler.HasItemHandlerBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.itemhandler.ItemHandlerBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.itemhandler.TwoSlotItemHandlerBehaviour;
 import com.klikli_dev.theurgy.content.recipe.input.ItemHandlerRecipeInput;
@@ -41,14 +42,14 @@ import net.neoforged.neoforge.items.wrapper.RecipeWrapper;
 import org.jetbrains.annotations.Nullable;
 
 
-public class CalcinationOvenBlock extends Block implements EntityBlock {
+public class CalcinationOvenBlock extends Block implements EntityBlock, HasItemHandlerBehaviour<TwoSlotItemHandlerBehaviour> {
 
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
     public static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
     protected static final VoxelShape TOP = Block.box(0, 0, 0, 16, 5, 16);
     protected static final VoxelShape BOTTOM = Shapes.block();
 
-    protected ItemHandlerBehaviour itemHandlerBehaviour;
+    protected TwoSlotItemHandlerBehaviour itemHandlerBehaviour;
 
     public CalcinationOvenBlock(Properties pProperties) {
         super(pProperties);
@@ -183,5 +184,10 @@ public class CalcinationOvenBlock extends Block implements EntityBlock {
                 blockEntity.tickServer();
             }
         };
+    }
+
+    @Override
+    public TwoSlotItemHandlerBehaviour itemHandlerBehaviour() {
+        return this.itemHandlerBehaviour;
     }
 }

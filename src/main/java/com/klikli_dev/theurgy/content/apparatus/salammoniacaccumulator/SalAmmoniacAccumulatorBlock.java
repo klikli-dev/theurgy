@@ -6,6 +6,7 @@ package com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator;
 
 import com.klikli_dev.theurgy.content.behaviour.fluidhandler.FluidHandlerBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.fluidhandler.OneTankFluidHandlerBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.itemhandler.HasItemHandlerBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.itemhandler.ItemHandlerBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.itemhandler.OneSlotItemHandlerBehaviour;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
@@ -32,10 +33,10 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.neoforged.neoforge.items.wrapper.RecipeWrapper;
 import org.jetbrains.annotations.Nullable;
 
-public class SalAmmoniacAccumulatorBlock extends Block implements EntityBlock {
+public class SalAmmoniacAccumulatorBlock extends Block implements EntityBlock, HasItemHandlerBehaviour<OneSlotItemHandlerBehaviour> {
 
     protected static final VoxelShape SHAPE = Block.box(1, 0, 1, 16, 6, 16);
-    protected ItemHandlerBehaviour itemHandlerBehaviour;
+    protected OneSlotItemHandlerBehaviour itemHandlerBehaviour;
     protected FluidHandlerBehaviour fluidHandlerBehaviour;
 
     public SalAmmoniacAccumulatorBlock(Properties pProperties) {
@@ -115,5 +116,10 @@ public class SalAmmoniacAccumulatorBlock extends Block implements EntityBlock {
                 blockEntity.tickServer();
             }
         };
+    }
+
+    @Override
+    public OneSlotItemHandlerBehaviour itemHandlerBehaviour() {
+        return this.itemHandlerBehaviour;
     }
 }

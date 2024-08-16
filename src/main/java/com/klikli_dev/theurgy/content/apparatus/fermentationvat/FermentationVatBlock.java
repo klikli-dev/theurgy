@@ -9,6 +9,7 @@ import com.klikli_dev.theurgy.content.behaviour.fluidhandler.FluidHandlerBehavio
 import com.klikli_dev.theurgy.content.behaviour.fluidhandler.OneTankFluidHandlerBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.interaction.InteractionBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.itemhandler.DynamicOneOutputSlotItemHandlerBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.itemhandler.HasItemHandlerBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.itemhandler.ItemHandlerBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.redstone.VatAnalogSignalOutputBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.redstone.VatRedstoneChangeOpenCloseLidBehaviour;
@@ -44,12 +45,12 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 
-public class FermentationVatBlock extends Block implements EntityBlock {
+public class FermentationVatBlock extends Block implements EntityBlock, HasItemHandlerBehaviour<DynamicOneOutputSlotItemHandlerBehaviour> {
     public static final DirectionProperty HORIZONTAL_FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final BooleanProperty OPEN = BlockStateProperties.OPEN;
     public static final BooleanProperty HAS_OUTPUT = BooleanProperty.create("has_output");
 
-    protected ItemHandlerBehaviour itemHandlerBehaviour;
+    protected DynamicOneOutputSlotItemHandlerBehaviour itemHandlerBehaviour;
     protected FluidHandlerBehaviour fluidHandlerBehaviour;
     protected InteractionBehaviour interactionBehaviour;
 
@@ -177,5 +178,10 @@ public class FermentationVatBlock extends Block implements EntityBlock {
                 blockEntity.tickServer();
             }
         };
+    }
+
+    @Override
+    public DynamicOneOutputSlotItemHandlerBehaviour itemHandlerBehaviour() {
+        return this.itemHandlerBehaviour;
     }
 }

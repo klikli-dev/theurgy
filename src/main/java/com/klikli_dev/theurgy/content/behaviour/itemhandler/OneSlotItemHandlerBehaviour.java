@@ -23,7 +23,7 @@ public class OneSlotItemHandlerBehaviour implements ItemHandlerBehaviour {
      * Default interaction for blocks that have a block entity with an in/output inventory with one slot.
      */
     @Override
-    public ItemInteractionResult useItemOn(ItemStack pStack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHitResult) {
+    public ItemInteractionResult useItemOn(ItemStack pStack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHitResult, boolean simulate) {
         if (pHand != InteractionHand.MAIN_HAND)
             return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 
@@ -36,15 +36,21 @@ public class OneSlotItemHandlerBehaviour implements ItemHandlerBehaviour {
 
         if (stackInHand.isEmpty()) {
             //with empty hand, try to take out
-            var extracted = blockItemHandler.extractItem(SLOT, blockItemHandler.getSlotLimit(SLOT), false);
+            var extracted = blockItemHandler.extractItem(SLOT, blockItemHandler.getSlotLimit(SLOT), simulate);
             if (!extracted.isEmpty()) {
-                pPlayer.getInventory().placeItemBackInInventory(extracted);
+
+                if (!simulate)
+                    pPlayer.getInventory().placeItemBackInInventory(extracted);
+
                 return ItemInteractionResult.SUCCESS;
             }
         } else {
             //if we have an item in hand, try to insert
-            var remainder = blockItemHandler.insertItem(SLOT, stackInHand, false);
-            pPlayer.setItemInHand(pHand, remainder);
+            var remainder = blockItemHandler.insertItem(SLOT, stackInHand, simulate);
+
+            if (!simulate)
+                pPlayer.setItemInHand(pHand, remainder);
+
             if (remainder.getCount() != stackInHand.getCount()) {
                 return ItemInteractionResult.SUCCESS;
             }

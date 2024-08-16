@@ -32,6 +32,7 @@ import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurItem;
 import com.klikli_dev.theurgy.content.item.derivative.render.AlchemicalDerivativeBEWLR;
 import com.klikli_dev.theurgy.content.item.wire.WireItem;
 import com.klikli_dev.theurgy.content.render.*;
+import com.klikli_dev.theurgy.content.render.itemhud.ApparatusInsertItemHUD;
 import com.klikli_dev.theurgy.content.render.itemhud.ItemHUD;
 import com.klikli_dev.theurgy.content.render.outliner.Outliner;
 import com.klikli_dev.theurgy.datagen.TheurgyDataGenerators;
@@ -208,10 +209,9 @@ public class Theurgy {
             Player player = Minecraft.getInstance().player;
 
             Outliner.get().tick();
-            BlockRegistry.CALORIC_FLUX_EMITTER.get().selectionBehaviour().tick(player);
-            BlockRegistry.SULFURIC_FLUX_EMITTER.get().selectionBehaviour().tick(player);
-
-
+            BlockRegistry.CALORIC_FLUX_EMITTER.get().selectionBehaviour().tick(Minecraft.getInstance().player);
+            BlockRegistry.SULFURIC_FLUX_EMITTER.get().selectionBehaviour().tick(Minecraft.getInstance().player);
+            ApparatusInsertItemHUD.get().tick(Minecraft.getInstance().player);
             WireItem.onClientTick(player);
         }
 

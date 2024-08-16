@@ -154,26 +154,21 @@ dependencies {
 //    implementation "com.almostreliable.mods:almostunified-forge:${minecraft_version}-${almost_unified_version}"
 
     //Geckolib
-    implementation "software.bernie.geckolib:geckolib-neoforge-${geckolib_minecraft_version}:${geckolib_version}"
+    implementation "software.bernie.geckolib:geckolib-neoforge-${minecraft_version_major}:${geckolib_version}"
 
     //modonomicon
     implementation "com.klikli_dev:modonomicon-${minecraft_version}-neoforge:${modonomicon_version}"
 
     //occultism
-    compileOnly "com.klikli_dev:occultism-${minecraft_version}-neoforge:${occultism_version}"
-    runtimeOnly "com.klikli_dev:occultism-${minecraft_version}-neoforge:${occultism_version}"
+    compileOnly "com.klikli_dev:occultism-${minecraft_version_major}-neoforge:${occultism_version}"
+    runtimeOnly "com.klikli_dev:occultism-${minecraft_version_major}-neoforge:${occultism_version}"
 
     //Jade (Hwyla/Waila)
     implementation "maven.modrinth:jade:${jade_version}+neoforge"
 
     //EMI
-    compileOnly "dev.emi:emi-neoforge:${emi_version}+${minecraft_version}:api"
-    runtimeOnly "dev.emi:emi-neoforge:${emi_version}+${minecraft_version}"
-
-    //REI (if jei is not available, for convenience)
-//    runtimeOnly "maven.modrinth:rei:${rei_version}+neoforge"
-//    runtimeOnly "maven.modrinth:architectury-api:${architectury_version}+neoforge"
-//    runtimeOnly "maven.modrinth:cloth-config:${cloth_config_version}+neoforge"
+    compileOnly "dev.emi:emi-neoforge:${emi_version}+${minecraft_version_major}:api"
+    runtimeOnly "dev.emi:emi-neoforge:${emi_version}+${minecraft_version_major}"
 }
 
 processResources {

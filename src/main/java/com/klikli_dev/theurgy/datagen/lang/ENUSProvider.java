@@ -563,6 +563,9 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         NiterRegistry.NITERS.getEntries().stream().map(DeferredHolder::get).map(AlchemicalNiterItem.class::cast).forEach(this::addNiter);
 
         //Sources for Niters
+        this.addDerivativeSource(NiterRegistry.EARTHEN_MATTERS_ABUNDANT, "Abundant Earthen Matters");
+        this.addDerivativeSource(NiterRegistry.EARTHEN_MATTERS_COMMON, "Common Earthen Matters");
+
         this.addDerivativeSource(NiterRegistry.GEMS_ABUNDANT, "Abundant Gems");
         this.addDerivativeSource(NiterRegistry.GEMS_COMMON, "Common Gems");
         this.addDerivativeSource(NiterRegistry.GEMS_RARE, "Rare Gems");

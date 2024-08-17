@@ -157,6 +157,10 @@ public abstract class CraftingBehaviour<W extends RecipeInput, R extends Recipe<
         return IntStream.range(0, this.inputInventorySupplier.get().getSlots()).anyMatch(i -> ItemStack.isSameItemSameComponents(stack, this.inputInventorySupplier.get().getStackInSlot(i)));
     }
 
+    public boolean canProcess(FluidStack stack) {
+        return false;
+    }
+
     /**
      * If progress has reached 100%, craft the item and reset progress.
      */

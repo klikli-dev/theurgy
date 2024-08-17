@@ -5,7 +5,10 @@
 package com.klikli_dev.theurgy.content.apparatus.mercurycatalyst;
 
 import com.klikli_dev.theurgy.content.behaviour.crafting.CraftingBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.crafting.HasCraftingBehaviour;
 import com.klikli_dev.theurgy.content.capability.DefaultMercuryFluxStorage;
+import com.klikli_dev.theurgy.content.recipe.CatalysationRecipe;
+import com.klikli_dev.theurgy.content.recipe.input.ItemHandlerRecipeInput;
 import com.klikli_dev.theurgy.content.storage.MonitoredItemStackHandler;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.CapabilityRegistry;
@@ -21,6 +24,7 @@ import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -29,7 +33,7 @@ import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.Nullable;
 
 
-public class MercuryCatalystBlockEntity extends BlockEntity {
+public class MercuryCatalystBlockEntity extends BlockEntity implements HasCraftingBehaviour<ItemHandlerRecipeInput, CatalysationRecipe, RecipeManager.CachedCheck<ItemHandlerRecipeInput, CatalysationRecipe>> {
 
     public static final int CAPACITY = 50000;
 
@@ -39,7 +43,7 @@ public class MercuryCatalystBlockEntity extends BlockEntity {
     public ItemStackHandler inventory;
     public MercuryCatalystMercuryFluxStorage mercuryFluxStorage;
 
-    protected CraftingBehaviour<?, ?, ?> craftingBehaviour;
+    protected MercuryCatalystCraftingBehaviour craftingBehaviour;
 
     public MercuryCatalystBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(BlockEntityRegistry.MERCURY_CATALYST.get(), pPos, pBlockState);
@@ -176,6 +180,11 @@ public class MercuryCatalystBlockEntity extends BlockEntity {
         pComponents.set(DataComponentRegistry.MERCURY_CATALYST_INVENTORY, CustomData.of(this.inventory.serializeNBT(this.level.registryAccess())));
 
         this.craftingBehaviour.collectImplicitComponents(pComponents);
+    }
+
+    @Override
+    public CraftingBehaviour<ItemHandlerRecipeInput, CatalysationRecipe, RecipeManager.CachedCheck<ItemHandlerRecipeInput, CatalysationRecipe>> craftingBehaviour() {
+        return this.craftingBehaviour;
     }
 
     private class Inventory extends MonitoredItemStackHandler {

@@ -20,7 +20,7 @@ import java.util.Optional;
 /**
  * A custom cached check
  */
-class SalAmmoniacAccumulatorCachedCheck implements RecipeManager.CachedCheck<ItemHandlerWithFluidRecipeInput, AccumulationRecipe> {
+public class SalAmmoniacAccumulatorCachedCheck implements RecipeManager.CachedCheck<ItemHandlerWithFluidRecipeInput, AccumulationRecipe> {
 
     private final RecipeType<AccumulationRecipe> type;
     private final RecipeManager.CachedCheck<ItemHandlerWithFluidRecipeInput, AccumulationRecipe> internal;

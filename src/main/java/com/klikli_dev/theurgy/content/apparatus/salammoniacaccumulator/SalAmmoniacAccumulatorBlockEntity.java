@@ -4,8 +4,12 @@
 
 package com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator;
 
+import com.klikli_dev.theurgy.content.behaviour.crafting.CraftingBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.crafting.HasCraftingBehaviour;
 import com.klikli_dev.theurgy.content.particle.ParticleColor;
 import com.klikli_dev.theurgy.content.particle.coloredbubble.ColoredBubbleParticleProvider;
+import com.klikli_dev.theurgy.content.recipe.AccumulationRecipe;
+import com.klikli_dev.theurgy.content.recipe.input.ItemHandlerWithFluidRecipeInput;
 import com.klikli_dev.theurgy.content.storage.MonitoredItemStackHandler;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.ItemTagRegistry;
@@ -36,7 +40,7 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.function.Predicate;
 
-public class SalAmmoniacAccumulatorBlockEntity extends BlockEntity implements GeoBlockEntity {
+public class SalAmmoniacAccumulatorBlockEntity extends BlockEntity implements GeoBlockEntity, HasCraftingBehaviour<ItemHandlerWithFluidRecipeInput, AccumulationRecipe, SalAmmoniacAccumulatorCachedCheck> {
 
     protected final AnimatableInstanceCache animatableInstanceCache = GeckoLibUtil.createInstanceCache(this);
 
@@ -202,6 +206,11 @@ public class SalAmmoniacAccumulatorBlockEntity extends BlockEntity implements Ge
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {
         return this.animatableInstanceCache;
+    }
+
+    @Override
+    public CraftingBehaviour<ItemHandlerWithFluidRecipeInput, AccumulationRecipe, SalAmmoniacAccumulatorCachedCheck> craftingBehaviour() {
+        return this.craftingBehaviour;
     }
 
     public class WaterTank extends FluidTank {

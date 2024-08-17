@@ -331,12 +331,14 @@ public class TheurgyItemTagsProvider extends ItemTagsProvider {
                 .addOptionalTag(ItemTagRegistry.RAW_MATERIALS_NICKEL)
                 .addOptionalTag(ItemTagRegistry.RAW_MATERIALS_LEAD)
                 .addOptionalTag(ItemTagRegistry.RAW_MATERIALS_TIN)
+                .addOptionalTag(ItemTagRegistry.RAW_MATERIALS_ALUMINUM)
                 .addOptionalTag(ItemTagRegistry.RAW_MATERIALS_CINNABAR)
         ;
 
         this.tag(ItemTagRegistry.MEDIUM_MERCURY_RAW_MATERIALS)
                 .addTag(Tags.Items.RAW_MATERIALS_GOLD)
                 .addOptionalTag(ItemTagRegistry.RAW_MATERIALS_URANIUM)
+                .addOptionalTag(ItemTagRegistry.RAW_MATERIALS_URANINITE)
                 .addOptionalTag(ItemTagRegistry.RAW_MATERIALS_SILVER)
                 .addOptionalTag(ItemTagRegistry.RAW_MATERIALS_AZURE_SILVER)
                 .addOptionalTag(ItemTagRegistry.RAW_MATERIALS_IRIDIUM)

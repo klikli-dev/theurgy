@@ -62,6 +62,7 @@ public class DistillationRecipeProvider extends JsonRecipeProvider {
         this.makeMercuryShardRecipe(10, ItemTagRegistry.HIGH_MERCURY_OTHER_MINERALS, 1);
 
         this.makeMercuryShardRecipe(1, Tags.Items.CROPS, 3);
+        this.makeMercuryShardRecipe(1, Tags.Items.SEEDS, 3);
         this.makeMercuryShardRecipe(1, Tags.Items.DYES, 3);
         this.makeMercuryShardRecipe(1, Items.PORKCHOP, 2);
         this.makeMercuryShardRecipe(1, Items.COOKED_PORKCHOP, 1);

@@ -6,6 +6,10 @@
       "required": false
     },
     {
+      "id": "#c:raw_materials/uraninite",
+      "required": false
+    },
+    {
       "id": "#c:raw_materials/silver",
       "required": false
     },

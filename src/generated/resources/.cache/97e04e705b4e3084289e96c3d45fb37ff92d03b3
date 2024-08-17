@@ -1,4 +1,4 @@
-// 1.21.1	2024-08-16T15:38:30.3657556	Distillation Recipes
+// 1.21.1	2024-08-17T21:16:01.4048151	Distillation Recipes
 de3eabbc2b162a18c61258f9c826632bcc827c31 data/theurgy/recipe/distillation/beef.json
 3d60a592cb7374ed811619c57cbe4a06ea3515a2 data/theurgy/recipe/distillation/bread.json
 66df016add0272205cebf425114bbbf23f42bfb8 data/theurgy/recipe/distillation/chicken.json
@@ -40,6 +40,7 @@ ddee27ca5bb2dd86dd4556ada9cde9206e12b390 data/theurgy/recipe/distillation/raw_ma
 bd9568ef8833fa797bbafa3bb37943a794e60a7f data/theurgy/recipe/distillation/sands.json
 e39ab92bdfa024bca2b45fadcf2f0ae5945afe60 data/theurgy/recipe/distillation/sandstone.blocks.json
 560f300c3d97f5344248e79aaab5b0ae89f4065f data/theurgy/recipe/distillation/saplings.json
+d6b63f58bafdd659d880d65c136def12596eecd3 data/theurgy/recipe/distillation/seeds.json
 021fc6f6e96940e9876fe10c5281acc3cdf9093a data/theurgy/recipe/distillation/stones.json
 6a27621011326ce8ec29c773bbc2e60eb8c48107 data/theurgy/recipe/distillation/stone_bricks.json
 52dd400ff2c5869d2831a448712d3dac728b98a7 data/theurgy/recipe/distillation/wool.json

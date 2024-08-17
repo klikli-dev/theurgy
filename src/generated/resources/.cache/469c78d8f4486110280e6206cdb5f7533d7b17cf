@@ -1,4 +1,4 @@
-// 1.21.1	2024-08-17T19:41:08.6613202	Tags for minecraft:item mod id theurgy
+// 1.21.1	2024-08-17T21:13:49.3173356	Tags for minecraft:item mod id theurgy
 f41150cbf3906d7eb1284a3f289d93bb80e57b9f data/c/tags/item/gems.json
 9d7e0673ca0bd8f1eb04c0813860ac8b7ec5d981 data/c/tags/item/gems/chimerite.json
 f17805722ccaefbf3d1c1b6e6b4f54f30f9af17c data/c/tags/item/gems/dark.json
@@ -70,5 +70,5 @@ c5e13a871dcf746d7fc2c995f5faab375b5c6a73 data/theurgy/tags/item/other_minerals.j
 c5e13a871dcf746d7fc2c995f5faab375b5c6a73 data/theurgy/tags/item/other_minerals/mercury/low.json
 650fc77d16cbeb336f968ea9bdc195eed6932d45 data/theurgy/tags/item/other_minerals/mercury/medium.json
 f6bd9b8ac59118fc0c44c71a5bc8c2ba93089ecc data/theurgy/tags/item/raw_materials/mercury/high.json
-dffb7087e34e4e1964d7497a6b9363e6abbc03e4 data/theurgy/tags/item/raw_materials/mercury/low.json
-41b5e0086cd263c053383bed48ca5ca700c573d4 data/theurgy/tags/item/raw_materials/mercury/medium.json
+9c02e6a56b8745d324ee895327dc983bc8358d7e data/theurgy/tags/item/raw_materials/mercury/low.json
+6dd49980d30af36fb3abbcbd57bf42dbf6467e21 data/theurgy/tags/item/raw_materials/mercury/medium.json

@@ -16,7 +16,7 @@ import com.klikli_dev.theurgy.registry.BlockRegistry;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.drawable.IDrawableAnimated;
-import mezz.jei.api.gui.ingredient.IRecipeSlotRichTooltipCallback;
+import mezz.jei.api.gui.ingredient.IRecipeSlotTooltipCallback;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.neoforge.NeoForgeTypes;
@@ -63,7 +63,7 @@ public class FermentationCategory implements IRecipeCategory<RecipeHolder<Fermen
                 });
     }
 
-    public static IRecipeSlotRichTooltipCallback addFluidTooltip(int overrideAmount) {
+    public static IRecipeSlotTooltipCallback addFluidTooltip(int overrideAmount) {
         return (view, tooltip) -> {
             var displayed = view.getDisplayedIngredient(NeoForgeTypes.FLUID_STACK);
             if (displayed.isEmpty())
@@ -147,7 +147,7 @@ public class FermentationCategory implements IRecipeCategory<RecipeHolder<Fermen
                 .setBackground(JeiDrawables.INPUT_SLOT, -1, -1)
                 .addIngredients(NeoForgeTypes.FLUID_STACK, this.getFluids(recipe))
                 .setFluidRenderer(1000, false, 16, 16)
-                .addRichTooltipCallback(addFluidTooltip(recipe.value().getFluidAmount()));
+                .addTooltipCallback(addFluidTooltip(recipe.value().getFluidAmount()));
 
         //now add the bucket to the recipe lookup for the output fluid
         builder.addInvisibleIngredients(INPUT).addItemStacks(Arrays.stream(recipe.value().getFluid().getFluids()).map(f -> new ItemStack(f.getFluid().getBucket())).toList());

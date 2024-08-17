@@ -16,7 +16,7 @@ import com.klikli_dev.theurgy.registry.BlockRegistry;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.drawable.IDrawableAnimated;
-import mezz.jei.api.gui.ingredient.IRecipeSlotRichTooltipCallback;
+import mezz.jei.api.gui.ingredient.IRecipeSlotTooltipCallback;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.neoforge.NeoForgeTypes;
@@ -60,7 +60,7 @@ public class AccumulationCategory implements IRecipeCategory<RecipeHolder<Accumu
                 });
     }
 
-    public static IRecipeSlotRichTooltipCallback addFluidTooltip(int overrideAmount) {
+    public static IRecipeSlotTooltipCallback addFluidTooltip(int overrideAmount) {
         return (view, tooltip) -> {
             var displayed = view.getDisplayedIngredient(NeoForgeTypes.FLUID_STACK);
             if (displayed.isEmpty())
@@ -123,7 +123,7 @@ public class AccumulationCategory implements IRecipeCategory<RecipeHolder<Accumu
                 .setBackground(JeiDrawables.INPUT_SLOT, -1, -1)
                 .addIngredients(NeoForgeTypes.FLUID_STACK, Arrays.stream(recipe.value().getEvaporant().getFluids()).toList())
                 .setFluidRenderer(1000, false, 16, 16)
-                .addRichTooltipCallback(addFluidTooltip(recipe.value().getEvaporantAmount()));
+                .addTooltipCallback(addFluidTooltip(recipe.value().getEvaporantAmount()));
 
         if (recipe.value().hasSolute()) {
             assert recipe.value().getSolute() != null;
@@ -135,7 +135,7 @@ public class AccumulationCategory implements IRecipeCategory<RecipeHolder<Accumu
         builder.addSlot(OUTPUT, 56, 1)
                 .setBackground(JeiDrawables.INPUT_SLOT, -1, -1)
                 .addFluidStack(recipe.value().getResult().getFluid(), recipe.value().getResult().getAmount())
-                .addRichTooltipCallback(addFluidTooltip(recipe.value().getResult().getAmount()));
+                .addTooltipCallback(addFluidTooltip(recipe.value().getResult().getAmount()));
 
         //now add the bucket to the recipe lookup for the output fluid
         builder.addInvisibleIngredients(OUTPUT).addItemStack(new ItemStack(recipe.value().getResult().getFluid().getBucket()));

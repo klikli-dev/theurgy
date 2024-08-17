@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21.1-1.49.2] - 2024-08-17
+### :bug: Bug Fixes
+- [`dded4a5`](https://github.com/klikli-dev/theurgy/commit/dded4a52f2989cc9095a4c6506b2b66aade5179d) - missing mercury crafting for some materials *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21.1-1.49.1] - 2024-08-17
 ### :bug: Bug Fixes
 - [`a580ed5`](https://github.com/klikli-dev/theurgy/commit/a580ed589ae7bf27820fc49e99c455c50b0f95db) - raw uraninite not liquefiable *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1045,3 +1050,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21.1-1.48.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.47.1...release/v1.21.1-1.48.0
 [release/v1.21.1-1.49.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.48.0...release/v1.21.1-1.49.0
 [release/v1.21.1-1.49.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.49.0...release/v1.21.1-1.49.1
+[release/v1.21.1-1.49.2]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.49.1...release/v1.21.1-1.49.2

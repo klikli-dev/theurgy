@@ -305,6 +305,7 @@ public class ItemTagRegistry {
 
     //Common Raw Materials
     public static final TagKey<Item> RAW_MATERIALS_URANIUM = cTag("raw_materials/uranium");
+    public static final TagKey<Item> RAW_MATERIALS_URANINITE = cTag("raw_materials/uraninite");
     public static final TagKey<Item> RAW_MATERIALS_AZURE_SILVER = cTag("raw_materials/azure_silver");
     public static final TagKey<Item> RAW_MATERIALS_SILVER = cTag("raw_materials/silver");
     public static final TagKey<Item> RAW_MATERIALS_ZINC = cTag("raw_materials/zinc");

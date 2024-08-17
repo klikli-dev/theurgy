@@ -276,6 +276,7 @@ public class ItemTagRegistry {
     public static final TagKey<Item> ORES_UNOBTAINIUM = cTag("ores/unobtainium");
     public static final TagKey<Item> ORES_IRIDIUM = cTag("ores/iridium");
     public static final TagKey<Item> ORES_TIN = cTag("ores/tin");
+    public static final TagKey<Item> ORES_ALUMINUM = cTag("ores/aluminum");
     public static final TagKey<Item> ORES_CINNABAR = cTag("ores/cinnabar");
     public static final TagKey<Item> ORES_CRIMSON_IRON = cTag("ores/crimson_iron");
     public static final TagKey<Item> ORES_PLATINUM = cTag("ores/platinum");
@@ -314,6 +315,7 @@ public class ItemTagRegistry {
     public static final TagKey<Item> RAW_MATERIALS_UNOBTAINIUM = cTag("raw_materials/unobtainium");
     public static final TagKey<Item> RAW_MATERIALS_IRIDIUM = cTag("raw_materials/iridium");
     public static final TagKey<Item> RAW_MATERIALS_TIN = cTag("raw_materials/tin");
+    public static final TagKey<Item> RAW_MATERIALS_ALUMINUM = cTag("raw_materials/aluminum");
     public static final TagKey<Item> RAW_MATERIALS_CINNABAR = cTag("raw_materials/cinnabar");
     public static final TagKey<Item> RAW_MATERIALS_CRIMSON_IRON = cTag("raw_materials/crimson_iron");
     public static final TagKey<Item> RAW_MATERIALS_PLATINUM = cTag("raw_materials/platinum");
@@ -338,6 +340,7 @@ public class ItemTagRegistry {
     public static final TagKey<Item> INGOTS_UNOBTAINIUM = cTag("ingots/unobtainium");
     public static final TagKey<Item> INGOTS_IRIDIUM = cTag("ingots/iridium");
     public static final TagKey<Item> INGOTS_TIN = cTag("ingots/tin");
+    public static final TagKey<Item> INGOTS_ALUMINUM = cTag("ingots/aluminum");
     public static final TagKey<Item> INGOTS_CINNABAR = cTag("ingots/cinnabar");
     public static final TagKey<Item> INGOTS_CRIMSON_IRON = cTag("ingots/crimson_iron");
     public static final TagKey<Item> INGOTS_PLATINUM = cTag("ingots/platinum");

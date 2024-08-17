@@ -301,6 +301,7 @@ public class LiquefactionRecipeProvider extends JsonRecipeProvider {
         this.makeRecipe(SulfurRegistry.UNOBTAINIUM.get(), 5, ItemTagRegistry.ORES_UNOBTAINIUM, salAmmoniac, 100);
         this.makeRecipe(SulfurRegistry.IRIDIUM.get(), 5, ItemTagRegistry.ORES_IRIDIUM, salAmmoniac, 10);
         this.makeRecipe(SulfurRegistry.TIN.get(), 5, ItemTagRegistry.ORES_TIN, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.ALUMINUM.get(), 5, ItemTagRegistry.ORES_ALUMINUM, salAmmoniac, 10);
         this.makeRecipe(SulfurRegistry.CINNABAR.get(), 5, ItemTagRegistry.ORES_CINNABAR, salAmmoniac, 10);
         this.makeRecipe(SulfurRegistry.CRIMSON_IRON.get(), 5, ItemTagRegistry.ORES_CRIMSON_IRON, salAmmoniac, 20);
         this.makeRecipe(SulfurRegistry.PLATINUM.get(), 5, ItemTagRegistry.ORES_PLATINUM, salAmmoniac, 20);
@@ -345,6 +346,7 @@ public class LiquefactionRecipeProvider extends JsonRecipeProvider {
         this.makeRecipe(SulfurRegistry.UNOBTAINIUM.get(), 3, ItemTagRegistry.RAW_MATERIALS_UNOBTAINIUM, salAmmoniac, 100);
         this.makeRecipe(SulfurRegistry.IRIDIUM.get(), 3, ItemTagRegistry.RAW_MATERIALS_IRIDIUM, salAmmoniac, 10);
         this.makeRecipe(SulfurRegistry.TIN.get(), 3, ItemTagRegistry.RAW_MATERIALS_TIN, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.ALUMINUM.get(), 3, ItemTagRegistry.RAW_MATERIALS_ALUMINUM, salAmmoniac, 10);
         this.makeRecipe(SulfurRegistry.CINNABAR.get(), 3, ItemTagRegistry.RAW_MATERIALS_CINNABAR, salAmmoniac, 10);
         this.makeRecipe(SulfurRegistry.CRIMSON_IRON.get(), 3, ItemTagRegistry.RAW_MATERIALS_CRIMSON_IRON, salAmmoniac, 20);
         this.makeRecipe(SulfurRegistry.PLATINUM.get(), 3, ItemTagRegistry.RAW_MATERIALS_PLATINUM, salAmmoniac, 20);
@@ -372,6 +374,7 @@ public class LiquefactionRecipeProvider extends JsonRecipeProvider {
         this.makeRecipe(SulfurRegistry.UNOBTAINIUM.get(), 1, ItemTagRegistry.INGOTS_UNOBTAINIUM, salAmmoniac, 100);
         this.makeRecipe(SulfurRegistry.IRIDIUM.get(), 1, ItemTagRegistry.INGOTS_IRIDIUM, salAmmoniac, 10);
         this.makeRecipe(SulfurRegistry.TIN.get(), 1, ItemTagRegistry.INGOTS_TIN, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.ALUMINUM.get(), 1, ItemTagRegistry.INGOTS_ALUMINUM, salAmmoniac, 10);
         this.makeRecipe(SulfurRegistry.CINNABAR.get(), 1, ItemTagRegistry.INGOTS_CINNABAR, salAmmoniac, 10);
         this.makeRecipe(SulfurRegistry.CRIMSON_IRON.get(), 1, ItemTagRegistry.INGOTS_CRIMSON_IRON, salAmmoniac, 20);
         this.makeRecipe(SulfurRegistry.PLATINUM.get(), 1, ItemTagRegistry.INGOTS_PLATINUM, salAmmoniac, 20);

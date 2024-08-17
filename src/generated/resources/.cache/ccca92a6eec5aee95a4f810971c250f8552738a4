@@ -1,4 +1,4 @@
-// 1.21.1	2024-08-16T15:38:30.3592432	Item Models: theurgy
+// 1.21.1	2024-08-17T19:41:08.6583204	Item Models: theurgy
 e0f7b66a84e6588f01abbbce75b1803ffe5d46e2 assets/theurgy/models/item/alchemical_niter_animals_abundant.json
 e0f7b66a84e6588f01abbbce75b1803ffe5d46e2 assets/theurgy/models/item/alchemical_niter_animals_common.json
 e0f7b66a84e6588f01abbbce75b1803ffe5d46e2 assets/theurgy/models/item/alchemical_niter_animals_rare.json
@@ -30,6 +30,7 @@ a402a05d887ec6d271a9350944338d29e1233318 assets/theurgy/models/item/alchemical_s
 e0f7b66a84e6588f01abbbce75b1803ffe5d46e2 assets/theurgy/models/item/alchemical_sulfur_acacia_log.json
 e0f7b66a84e6588f01abbbce75b1803ffe5d46e2 assets/theurgy/models/item/alchemical_sulfur_allthemodium.json
 e0f7b66a84e6588f01abbbce75b1803ffe5d46e2 assets/theurgy/models/item/alchemical_sulfur_almond.json
+e0f7b66a84e6588f01abbbce75b1803ffe5d46e2 assets/theurgy/models/item/alchemical_sulfur_aluminum.json
 e0f7b66a84e6588f01abbbce75b1803ffe5d46e2 assets/theurgy/models/item/alchemical_sulfur_amethyst.json
 e0f7b66a84e6588f01abbbce75b1803ffe5d46e2 assets/theurgy/models/item/alchemical_sulfur_andesite.json
 e0f7b66a84e6588f01abbbce75b1803ffe5d46e2 assets/theurgy/models/item/alchemical_sulfur_apatite.json

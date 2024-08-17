@@ -833,6 +833,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.addDerivativeSource(SulfurRegistry.UNOBTAINIUM, "Unobtainium");
         this.addDerivativeSource(SulfurRegistry.IRIDIUM, "Iridium");
         this.addDerivativeSource(SulfurRegistry.TIN, "Tin");
+        this.addDerivativeSource(SulfurRegistry.ALUMINUM, "Aluminum");
         this.addDerivativeSource(SulfurRegistry.CINNABAR, "Cinnabar");
         this.addDerivativeSource(SulfurRegistry.CRIMSON_IRON, "Crimson Iron");
         this.addDerivativeSource(SulfurRegistry.PLATINUM, "Platinum");

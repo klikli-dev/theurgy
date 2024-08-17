@@ -23,6 +23,10 @@
       "required": false
     },
     {
+      "id": "#c:ingots/aluminum",
+      "required": false
+    },
+    {
       "id": "#c:ingots/cinnabar",
       "required": false
     }

@@ -291,6 +291,7 @@ public class SulfurRegistry {
     public static final DeferredItem<AlchemicalSulfurItem> UNOBTAINIUM = registerForSourceTag(ItemTagRegistry.INGOTS_UNOBTAINIUM, AlchemicalDerivativeTier.PRECIOUS, AlchemicalSulfurType.METALS);
     public static final DeferredItem<AlchemicalSulfurItem> IRIDIUM = registerForSourceTag(ItemTagRegistry.INGOTS_IRIDIUM, AlchemicalDerivativeTier.RARE, AlchemicalSulfurType.METALS);
     public static final DeferredItem<AlchemicalSulfurItem> TIN = registerForSourceTag(ItemTagRegistry.INGOTS_TIN, AlchemicalDerivativeTier.COMMON, AlchemicalSulfurType.METALS);
+    public static final DeferredItem<AlchemicalSulfurItem> ALUMINUM = registerForSourceTag(ItemTagRegistry.INGOTS_ALUMINUM, AlchemicalDerivativeTier.COMMON, AlchemicalSulfurType.METALS);
     public static final DeferredItem<AlchemicalSulfurItem> CINNABAR = registerForSourceTag(ItemTagRegistry.INGOTS_CINNABAR, AlchemicalDerivativeTier.COMMON, AlchemicalSulfurType.METALS);
     public static final DeferredItem<AlchemicalSulfurItem> CRIMSON_IRON = registerForSourceTag(ItemTagRegistry.INGOTS_CRIMSON_IRON, AlchemicalDerivativeTier.RARE, AlchemicalSulfurType.METALS);
     public static final DeferredItem<AlchemicalSulfurItem> PLATINUM = registerForSourceTag(ItemTagRegistry.INGOTS_PLATINUM, AlchemicalDerivativeTier.RARE, AlchemicalSulfurType.METALS);

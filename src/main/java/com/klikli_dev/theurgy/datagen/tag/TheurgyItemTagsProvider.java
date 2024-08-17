@@ -358,6 +358,7 @@ public class TheurgyItemTagsProvider extends ItemTagsProvider {
                 .addOptionalTag(ItemTagRegistry.INGOTS_NICKEL)
                 .addOptionalTag(ItemTagRegistry.INGOTS_LEAD)
                 .addOptionalTag(ItemTagRegistry.INGOTS_TIN)
+                .addOptionalTag(ItemTagRegistry.INGOTS_ALUMINUM)
                 .addOptionalTag(ItemTagRegistry.INGOTS_CINNABAR)
         ;
 

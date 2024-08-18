@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21.1-1.50.0] - 2024-08-18
+### :sparkles: New Features
+- [`7218627`](https://github.com/klikli-dev/theurgy/commit/7218627bfe153d16a3cbb84a7604b87f89464a97) - add crystallized fluids *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`e3481a0`](https://github.com/klikli-dev/theurgy/commit/e3481a0d52d9b9c1e9e946b89cbf0c5266fa4cc1) - add support for water, ice, snow, magma, lava, obsidian *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`2216ee5`](https://github.com/klikli-dev/theurgy/commit/2216ee5efe31dd041f65318d9f7c7081dee58a94) - add EMI info for fluid buckets *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`03cfe29`](https://github.com/klikli-dev/theurgy/commit/03cfe297cb761b0c5cf959977b1c7c1e0b2e1bf6) - update to newer neogradle, fixes parchment *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21.1-1.49.2] - 2024-08-17
 ### :bug: Bug Fixes
 - [`dded4a5`](https://github.com/klikli-dev/theurgy/commit/dded4a52f2989cc9095a4c6506b2b66aade5179d) - missing mercury crafting for some materials *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1051,3 +1061,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21.1-1.49.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.48.0...release/v1.21.1-1.49.0
 [release/v1.21.1-1.49.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.49.0...release/v1.21.1-1.49.1
 [release/v1.21.1-1.49.2]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.49.1...release/v1.21.1-1.49.2
+[release/v1.21.1-1.50.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.49.2...release/v1.21.1-1.50.0

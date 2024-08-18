@@ -4,6 +4,8 @@
 
 package com.klikli_dev.theurgy.integration.emi;
 
+import com.klikli_dev.theurgy.Theurgy;
+import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurItem;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
@@ -11,17 +13,24 @@ import com.klikli_dev.theurgy.registry.SulfurRegistry;
 import dev.emi.emi.api.EmiEntrypoint;
 import dev.emi.emi.api.EmiInitRegistry;
 import dev.emi.emi.api.EmiRegistry;
+import dev.emi.emi.api.recipe.EmiInfoRecipe;
 import dev.emi.emi.api.recipe.EmiRecipeCategory;
 import dev.emi.emi.api.stack.EmiStack;
 import mezz.jei.api.constants.VanillaTypes;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.RegistryAccess;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.registries.DeferredHolder;
+import org.apache.logging.log4j.core.tools.picocli.CommandLine;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 @EmiEntrypoint
@@ -100,6 +109,37 @@ public class EmiPlugin implements dev.emi.emi.api.EmiPlugin {
         for (var recipe : registry.getRecipeManager().getAllRecipesFor(RecipeTypeRegistry.REFORMATION.get())) {
             registry.addRecipe(new ReformationEmiRecipe(recipe));
         }
+
+        registry.addRecipe(new EmiInfoRecipe(
+                List.of(EmiStack.of(Items.LAVA_BUCKET)),
+                List.of(
+                        Component.translatable(TheurgyConstants.I18n.EMI.HEADER).withStyle(ChatFormatting.BOLD),
+                        Component.translatable(TheurgyConstants.I18n.EMI.INFO_LAVA_BUCKET)
+                ),
+                Theurgy.loc("emi/laval_bucket")
+                )
+        );
+
+        registry.addRecipe(new EmiInfoRecipe(
+                        List.of(EmiStack.of(Items.WATER_BUCKET)),
+                        List.of(
+                                Component.translatable(TheurgyConstants.I18n.EMI.HEADER).withStyle(ChatFormatting.BOLD),
+                                Component.translatable(TheurgyConstants.I18n.EMI.INFO_WATER_BUCKET)
+                        ),
+                        Theurgy.loc("emi/water_bucket")
+                )
+        );
+
+        registry.addRecipe(new EmiInfoRecipe(
+                        List.of(EmiStack.of(ItemRegistry.SAL_AMMONIAC_BUCKET)),
+                        List.of(
+                                Component.translatable(TheurgyConstants.I18n.EMI.HEADER).withStyle(ChatFormatting.BOLD),
+                                Component.translatable(TheurgyConstants.I18n.EMI.INFO_SAL_AMMONIAC_BUCKET)
+                        ),
+                        Theurgy.loc("emi/sal_ammoniac_bucket")
+                )
+        );
+
     }
 
     @Override

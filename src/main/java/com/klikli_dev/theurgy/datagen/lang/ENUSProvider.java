@@ -253,6 +253,11 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.add("emi.category.theurgy.liquefaction", "Liquefaction");
         this.add("emi.category.theurgy.reformation", "Reformation");
 
+        this.add(TheurgyConstants.I18n.EMI.HEADER, "Theurgy");
+        this.add(TheurgyConstants.I18n.EMI.INFO_WATER_BUCKET, "In Theurgy, Lava Buckets can be obtained by inserting Crystallized Lava into a Sal Ammoniac Accumulator placed on top of a Sal Ammoniac Tank. The tank fills with Lava slowly, which can then be extracted by clicking it with an Empty Bucket.");
+        this.add(TheurgyConstants.I18n.EMI.INFO_LAVA_BUCKET, "In Theurgy, Water Buckets can be obtained by inserting Crystallized Water into a Sal Ammoniac Accumulator placed on top of a Sal Ammoniac Tank. The tank fills with Water slowly, which can then be extracted by clicking it with an Empty Bucket.");
+        this.add(TheurgyConstants.I18n.EMI.INFO_SAL_AMMONIAC_BUCKET, "In Theurgy, Sal Ammoniac Buckets can be obtained by inserting either just Water or Water and Sal Ammoniac Crystals into a Sal Ammoniac Accumulator placed on top of a Sal Ammoniac Tank. The tank fills with Sal Ammoniac slowly, which can then be extracted by clicking it with an Empty Bucket.");
+
         this.add(TheurgyConstants.I18n.Gui.SMELTING_TIME_SECONDS, "%ss");
     }
 

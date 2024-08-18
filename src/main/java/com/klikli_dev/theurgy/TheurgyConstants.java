@@ -97,6 +97,14 @@ public class TheurgyConstants {
             public static final String TARGET_SULFUR_TOOLTIP = PREFIX + "misc.source_sulfur.tooltip";
         }
 
+        public static class EMI {
+            public static final String PREFIX = Theurgy.MODID + ".emi.";
+            public static final String HEADER = PREFIX + "header";
+            public static final String INFO_LAVA_BUCKET = PREFIX + "info.lava_bucket";
+            public static final String INFO_WATER_BUCKET = PREFIX + "info.water_bucket";
+            public static final String INFO_SAL_AMMONIAC_BUCKET = PREFIX + "info.sal_ammoniac_bucket";
+        }
+
         public static class Misc {
             public static final String PREFIX = Theurgy.MODID + ".misc.";
 

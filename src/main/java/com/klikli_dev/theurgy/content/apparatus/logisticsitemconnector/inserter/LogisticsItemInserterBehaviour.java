@@ -25,10 +25,12 @@ public class LogisticsItemInserterBehaviour extends InserterNodeBehaviour<IItemH
         super(blockEntity, Capabilities.ItemHandler.BLOCK);
     }
 
+    @Override
     public boolean enabled() {
         return this.enabled;
     }
 
+    @Override
     public void enabled(boolean enabled) {
         this.enabled = enabled;
         this.onEnabledChanged();

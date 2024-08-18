@@ -25,10 +25,12 @@ public class LogisticsFluidInserterBehaviour extends InserterNodeBehaviour<IFlui
         super(blockEntity, Capabilities.FluidHandler.BLOCK);
     }
 
+    @Override
     public boolean enabled() {
         return this.enabled;
     }
 
+    @Override
     public void enabled(boolean enabled) {
         this.enabled = enabled;
         this.onEnabledChanged();

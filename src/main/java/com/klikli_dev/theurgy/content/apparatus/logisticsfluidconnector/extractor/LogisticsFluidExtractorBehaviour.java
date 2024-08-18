@@ -47,10 +47,12 @@ public class LogisticsFluidExtractorBehaviour extends ExtractorNodeBehaviour<IFl
                 this.blockEntity.getBlockState().getValue(BlockStateProperties.FACING);
     }
 
+    @Override
     public boolean enabled() {
         return this.enabled;
     }
 
+    @Override
     public void enabled(boolean enabled) {
         this.enabled = enabled;
     }
@@ -117,7 +119,7 @@ public class LogisticsFluidExtractorBehaviour extends ExtractorNodeBehaviour<IFl
         this.distributor.tick(); //moved from super.tickServer() here because otherwise the distributor keeps moving targets despite not moving items
 
         var insertTarget = this.distributor.target();
-        if (insertTarget == null)
+        if (insertTarget == null || !insertTarget.inserter().enabled()) //TODO: this should be improved, disabled targets should be skipped by the distributor
             return;
 
         var extractTarget = this.extractTargets.getFirst(); //we only support one target

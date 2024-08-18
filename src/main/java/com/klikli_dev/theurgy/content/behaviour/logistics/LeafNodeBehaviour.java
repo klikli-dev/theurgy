@@ -65,6 +65,10 @@ public abstract class LeafNodeBehaviour<T, C> {
         this.filter = filter;
     }
 
+    public abstract boolean enabled();
+
+    public abstract void enabled(boolean enabled);
+
     /**
      * Gets the capability type of this node.
      */

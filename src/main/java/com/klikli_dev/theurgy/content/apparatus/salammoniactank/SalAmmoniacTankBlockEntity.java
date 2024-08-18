@@ -5,7 +5,6 @@
 package com.klikli_dev.theurgy.content.apparatus.salammoniactank;
 
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
-import com.klikli_dev.theurgy.registry.FluidTagRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
@@ -19,6 +18,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.FluidType;
 import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoBlockEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
@@ -36,18 +36,18 @@ public class SalAmmoniacTankBlockEntity extends BlockEntity implements GeoBlockE
     public SalAmmoniacTankBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(BlockEntityRegistry.SAL_AMMONIAC_TANK.get(), pPos, pBlockState);
 
-        this.tank = new Tank(FluidType.BUCKET_VOLUME * 2, (fluidStack -> fluidStack.getFluid().is(FluidTagRegistry.SAL_AMMONIAC)));
+        this.tank = new Tank(FluidType.BUCKET_VOLUME * 2, e -> true);
     }
 
     @Override
-    public CompoundTag getUpdateTag(HolderLookup.Provider pRegistries) {
+    public @NotNull CompoundTag getUpdateTag(HolderLookup.@NotNull Provider pRegistries) {
         var tag = new CompoundTag();
         this.writeNetwork(tag, pRegistries);
         return tag;
     }
 
     @Override
-    public void handleUpdateTag(CompoundTag tag, HolderLookup.Provider pRegistries) {
+    public void handleUpdateTag(@NotNull CompoundTag tag, HolderLookup.@NotNull Provider pRegistries) {
         this.readNetwork(tag, pRegistries);
     }
 
@@ -58,7 +58,7 @@ public class SalAmmoniacTankBlockEntity extends BlockEntity implements GeoBlockE
     }
 
     @Override
-    public void onDataPacket(Connection connection, ClientboundBlockEntityDataPacket packet, HolderLookup.Provider pRegistries) {
+    public void onDataPacket(@NotNull Connection connection, ClientboundBlockEntityDataPacket packet, HolderLookup.@NotNull Provider pRegistries) {
         var tag = packet.getTag();
         if (tag != null) {
             this.readNetwork(tag, pRegistries);
@@ -81,13 +81,13 @@ public class SalAmmoniacTankBlockEntity extends BlockEntity implements GeoBlockE
     }
 
     @Override
-    protected void saveAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
+    protected void saveAdditional(@NotNull CompoundTag pTag, HolderLookup.@NotNull Provider pRegistries) {
         super.saveAdditional(pTag, pRegistries);
         pTag.put("tank", this.tank.writeToNBT(pRegistries, new CompoundTag()));
     }
 
     @Override
-    public void loadAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
+    public void loadAdditional(@NotNull CompoundTag pTag, HolderLookup.@NotNull Provider pRegistries) {
         super.loadAdditional(pTag, pRegistries);
 
         if (pTag.contains("tank")) {

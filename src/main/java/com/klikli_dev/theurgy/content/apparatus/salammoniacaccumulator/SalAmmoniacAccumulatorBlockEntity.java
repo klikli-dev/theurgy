@@ -27,6 +27,7 @@ import net.neoforged.neoforge.fluids.FluidType;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
 import net.neoforged.neoforge.items.ItemStackHandler;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoBlockEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
@@ -61,14 +62,14 @@ public class SalAmmoniacAccumulatorBlockEntity extends BlockEntity implements Ge
     }
 
     @Override
-    public CompoundTag getUpdateTag(HolderLookup.Provider pRegistries) {
+    public @NotNull CompoundTag getUpdateTag(HolderLookup.@NotNull Provider pRegistries) {
         var tag = new CompoundTag();
         this.writeNetwork(tag, pRegistries);
         return tag;
     }
 
     @Override
-    public void handleUpdateTag(CompoundTag tag, HolderLookup.Provider pRegistries) {
+    public void handleUpdateTag(@NotNull CompoundTag tag, HolderLookup.@NotNull Provider pRegistries) {
         this.readNetwork(tag, pRegistries);
     }
 
@@ -79,7 +80,7 @@ public class SalAmmoniacAccumulatorBlockEntity extends BlockEntity implements Ge
     }
 
     @Override
-    public void onDataPacket(Connection connection, ClientboundBlockEntityDataPacket packet, HolderLookup.Provider pRegistries) {
+    public void onDataPacket(@NotNull Connection connection, ClientboundBlockEntityDataPacket packet, HolderLookup.@NotNull Provider pRegistries) {
         var tag = packet.getTag();
         if (tag != null) {
             this.readNetwork(tag, pRegistries);
@@ -115,7 +116,7 @@ public class SalAmmoniacAccumulatorBlockEntity extends BlockEntity implements Ge
             return;
         }
 
-        boolean hasInput = !this.waterTank.isEmpty();
+        boolean hasInput = !this.waterTank.isEmpty() || !this.inventory.getStackInSlot(0).isEmpty();
 
         this.craftingBehaviour.tickServer(true, hasInput); //does not need heat
     }
@@ -171,7 +172,7 @@ public class SalAmmoniacAccumulatorBlockEntity extends BlockEntity implements Ge
     }
 
     @Override
-    protected void saveAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
+    protected void saveAdditional(@NotNull CompoundTag pTag, HolderLookup.@NotNull Provider pRegistries) {
         super.saveAdditional(pTag, pRegistries);
 
         pTag.put("inventory", this.inventory.serializeNBT(pRegistries));
@@ -181,7 +182,7 @@ public class SalAmmoniacAccumulatorBlockEntity extends BlockEntity implements Ge
     }
 
     @Override
-    public void loadAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
+    public void loadAdditional(@NotNull CompoundTag pTag, HolderLookup.@NotNull Provider pRegistries) {
         super.loadAdditional(pTag, pRegistries);
 
         if (pTag.contains("inventory")) this.inventory.deserializeNBT(pRegistries, pTag.getCompound("inventory"));
@@ -230,7 +231,7 @@ public class SalAmmoniacAccumulatorBlockEntity extends BlockEntity implements Ge
         }
 
         @Override
-        public boolean isItemValid(int slot, ItemStack stack) {
+        public boolean isItemValid(int slot, @NotNull ItemStack stack) {
             return SalAmmoniacAccumulatorBlockEntity.this.craftingBehaviour.canProcess(stack) && super.isItemValid(slot, stack);
         }
 

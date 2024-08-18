@@ -35,28 +35,29 @@ public class AccumulationRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
     public static final int DEFAULT_TIME = 100;
 
     public static final MapCodec<AccumulationRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-                    SizedFluidIngredient.NESTED_CODEC.fieldOf("evaporant").forGetter((r) -> r.evaporant),
+                    SizedFluidIngredient.NESTED_CODEC.optionalFieldOf("evaporant").forGetter((r) -> Optional.ofNullable(r.evaporant)),
                     Ingredient.CODEC.optionalFieldOf("solute").forGetter(r -> Optional.ofNullable(r.solute)),
                     FluidStack.CODEC.fieldOf("result").forGetter(r -> r.result),
                     Codec.INT.optionalFieldOf("time", DEFAULT_TIME).forGetter(r -> r.time)
-            ).apply(instance, (evaporant, solute, result, accumulation_time) -> new AccumulationRecipe(evaporant, solute.orElse(null), result, accumulation_time))
+            ).apply(instance, (evaporant, solute, result, accumulation_time) -> new AccumulationRecipe(evaporant.orElse(null), solute.orElse(null), result, accumulation_time))
     );
 
     public static final StreamCodec<RegistryFriendlyByteBuf, AccumulationRecipe> STREAM_CODEC = StreamCodec.composite(
-            SizedFluidIngredient.STREAM_CODEC,
-            r -> r.evaporant,
+            ByteBufCodecs.optional(SizedFluidIngredient.STREAM_CODEC),
+            r -> Optional.ofNullable(r.evaporant),
             ByteBufCodecs.optional(Ingredient.CONTENTS_STREAM_CODEC),
             r -> Optional.ofNullable(r.solute),
             FluidStack.STREAM_CODEC,
             r -> r.result,
             ByteBufCodecs.INT,
             r -> r.time,
-            (evaporant, solute, result, accumulation_time) -> new AccumulationRecipe(evaporant, solute.orElse(null), result, accumulation_time)
+            (evaporant, solute, result, accumulation_time) -> new AccumulationRecipe(evaporant.orElse(null), solute.orElse(null), result, accumulation_time)
     );
 
     /**
-     * The fluid to evaporate to obtain the result.
+     * The (optional) fluid to evaporate to obtain the result.
      */
+    @Nullable
     protected final SizedFluidIngredient evaporant;
     /**
      * The (optional) item to dissolve in the evaporant to obtain the result.
@@ -69,7 +70,7 @@ public class AccumulationRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
     protected final FluidStack result;
     protected final int time;
 
-    public AccumulationRecipe(SizedFluidIngredient evaporant, @Nullable Ingredient solute, FluidStack result, int time) {
+    public AccumulationRecipe(@Nullable SizedFluidIngredient evaporant, @Nullable Ingredient solute, FluidStack result, int time) {
         this.evaporant = evaporant;
         this.solute = solute;
         this.result = result;
@@ -89,7 +90,7 @@ public class AccumulationRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
     @Override
     public boolean matches(@NotNull ItemHandlerWithFluidRecipeInput pContainer, @NotNull Level pLevel) {
         var fluid = pContainer.getTank().getFluidInTank(0);
-        boolean evaporantMatches = this.evaporant.test(fluid);
+        boolean evaporantMatches = !this.hasEvaporant() || this.evaporant.test(fluid);
         //noinspection DataFlowIssue: we are checking this.hasSolute so solute is not null!
         boolean soluteMatches =
                 pContainer.getItem(0).isEmpty() && !this.hasSolute() || //if recipe requires no solute and container does not have one we're ok
@@ -141,12 +142,13 @@ public class AccumulationRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
         return this.time;
     }
 
+    @Nullable
     public SizedFluidIngredient getEvaporant() {
         return this.evaporant;
     }
 
     public int getEvaporantAmount() {
-        return this.evaporant.amount();
+        return this.hasEvaporant() ? this.evaporant.amount() : 0;
     }
 
     @Nullable
@@ -156,6 +158,10 @@ public class AccumulationRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
 
     public boolean hasSolute() {
         return this.solute != null;
+    }
+
+    public boolean hasEvaporant() {
+        return this.evaporant != null;
     }
 
     public FluidStack getResult() {

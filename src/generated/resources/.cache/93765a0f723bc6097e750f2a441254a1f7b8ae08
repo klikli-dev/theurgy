@@ -1,7 +1,11 @@
-// 1.21.1	2024-08-16T15:38:30.3637586	Shapeless Crafting Recipes
+// 1.21.1	2024-08-18T09:57:01.0419595	Shapeless Crafting Recipes
+6af8f69459ca98839fdf7626801a017450558c44 data/theurgy/recipe/crafting/shapeless/crystallized_lava.json
+22db52195d6138a1947e4b234205b76eba5829c5 data/theurgy/recipe/crafting/shapeless/crystallized_water.json
+ec121201b6e5d4edd68657382b3a7fe893f9179e data/theurgy/recipe/crafting/shapeless/lava_bucket.json
 bf019ef86f1737ea26c863fb7d617fc1ae9a0652 data/theurgy/recipe/crafting/shapeless/logistics_item_extractor_from_inserter.json
 448aaffabb948293fd8896689b18634112f43d59 data/theurgy/recipe/crafting/shapeless/logistics_item_inserter_from_extractor.json
 32c24cfdf426e41ffe4a4d17bbf42aa1e2dfd6b7 data/theurgy/recipe/crafting/shapeless/mercury_crystal.json
 7e74b1481958b5349585096b996611202b2753bd data/theurgy/recipe/crafting/shapeless/mercury_shard.json
 a1027af9e7554a8f6573fc6bf47c85f2abf91619 data/theurgy/recipe/crafting/shapeless/sal_ammoniac_crystal_from_sal_ammoniac_bucket.json
 aa1ab27e7d5e3fff0108e5725a57cde594559ae5 data/theurgy/recipe/crafting/shapeless/the_hermetica.json
+88a053c953ce1395aafdf434d4288952674d0044 data/theurgy/recipe/crafting/shapeless/water_bucket.json

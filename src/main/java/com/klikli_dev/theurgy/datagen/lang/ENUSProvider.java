@@ -1172,6 +1172,11 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
                         An extract of sugar and plant material that exhibits a high fermentation potential. Can be used as a more efficient alternative to raw sugar or crops in the Fermentation Vat.
                         """
         );
+
+        this.addItem(ItemRegistry.CRYSTALLIZED_WATER, "Crystallized Water");
+        this.addTooltip(ItemRegistry.CRYSTALLIZED_WATER, "Water in solid form for easy transportation, and alchemical processing.");
+        this.addItem(ItemRegistry.CRYSTALLIZED_LAVA, "Crystallized Lava");
+        this.addTooltip(ItemRegistry.CRYSTALLIZED_LAVA, "Lava in solid form for easy transportation, and alchemical processing.");
     }
 
     protected void addItemAttributes() {

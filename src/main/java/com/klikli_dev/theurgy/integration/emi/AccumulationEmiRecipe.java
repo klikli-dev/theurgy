@@ -47,8 +47,9 @@ public class AccumulationEmiRecipe implements EmiRecipe {
         if (this.recipe.value().hasSolute())
             inputs.add(EmiIngredient.of(this.recipe.value().getSolute()));
 
-        inputs.add(EmiIngredient.of(Arrays.stream(this.recipe.value().getEvaporant().getFluids())
-                .map(f -> EmiStack.of(f.getFluid(), f.getAmount())).toList()));
+        if (this.recipe.value().hasEvaporant())
+            inputs.add(EmiIngredient.of(Arrays.stream(this.recipe.value().getEvaporant().getFluids())
+                    .map(f -> EmiStack.of(f.getFluid(), f.getAmount())).toList()));
 
         return inputs;
     }
@@ -74,8 +75,10 @@ public class AccumulationEmiRecipe implements EmiRecipe {
     public void addWidgets(WidgetHolder widgets) {
         widgets.addTexture(EmiTexture.EMPTY_ARROW, 24, 2);
 
-        widgets.addSlot(EmiIngredient.of(Arrays.stream(this.recipe.value().getEvaporant().getFluids())
-                .map(f -> EmiStack.of(f.getFluid(), f.getAmount())).toList()), 1, 1);
+        if (this.recipe.value().hasEvaporant()) {
+            widgets.addSlot(EmiIngredient.of(Arrays.stream(this.recipe.value().getEvaporant().getFluids())
+                    .map(f -> EmiStack.of(f.getFluid(), f.getAmount())).toList()), 1, 1);
+        }
 
         if (this.recipe.value().hasSolute()) {
             widgets.addSlot(EmiIngredient.of(this.recipe.value().getSolute()), 1, 21);

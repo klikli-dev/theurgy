@@ -8,6 +8,7 @@ import com.google.gson.JsonObject;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.content.recipe.AccumulationRecipe;
 import com.klikli_dev.theurgy.registry.FluidRegistry;
+import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.registry.ItemTagRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import net.minecraft.data.PackOutput;
@@ -15,7 +16,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.Fluids;
 import net.neoforged.neoforge.fluids.FluidStack;
 
 import java.util.function.BiConsumer;
@@ -42,6 +45,16 @@ public class AccumulationRecipeProvider extends JsonRecipeProvider {
                         .evaporant(FluidTags.WATER, 1000)
                         .solute(ItemTagRegistry.GEMS_SAL_AMMONIAC)
                         .time(TIME));
+
+        this.makeRecipe("water_from_crystallized_water",
+                new Builder(new FluidStack(Fluids.WATER, 1000))
+                        .solute(ItemRegistry.CRYSTALLIZED_WATER)
+                        .time(TIME));
+
+        this.makeRecipe("lava_from_crystallized_lava",
+                new Builder(new FluidStack(Fluids.LAVA, 1000))
+                        .solute(ItemRegistry.CRYSTALLIZED_LAVA)
+                        .time(TIME));
     }
 
     protected void makeRecipe(String name, Builder recipe) {
@@ -67,6 +80,10 @@ public class AccumulationRecipeProvider extends JsonRecipeProvider {
 
         public Builder solute(TagKey<Item> tag) {
             return this.ingredient("solute", tag);
+        }
+
+        public Builder solute(ItemLike item) {
+            return this.ingredient("solute", item);
         }
     }
 }

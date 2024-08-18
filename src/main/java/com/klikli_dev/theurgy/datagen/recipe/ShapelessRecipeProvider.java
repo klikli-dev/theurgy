@@ -9,6 +9,7 @@ import com.google.gson.JsonObject;
 import com.klikli_dev.modonomicon.registry.DataComponentRegistry;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
+import com.klikli_dev.theurgy.registry.ItemTagRegistry;
 import com.mojang.serialization.JsonOps;
 import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -64,6 +65,27 @@ public class ShapelessRecipeProvider extends JsonRecipeProvider {
                         .requires(ItemRegistry.MERCURY_SHARD.get())
                         .requires(ItemRegistry.MERCURY_SHARD.get())
                         .requires(ItemRegistry.MERCURY_SHARD.get())
+        );
+
+        this.makeRecipe(
+                new ShapelessRecipeBuilder(ItemRegistry.CRYSTALLIZED_WATER.get(), 1)
+                        .requires(ItemTagRegistry.ALCHEMICAL_SALTS)
+                        .requires(Items.WATER_BUCKET)
+        );
+        this.makeRecipe(
+                new ShapelessRecipeBuilder(ItemRegistry.CRYSTALLIZED_LAVA.get(), 1)
+                        .requires(ItemTagRegistry.ALCHEMICAL_SALTS)
+                        .requires(Items.LAVA_BUCKET)
+        );
+        this.makeRecipe(
+                new ShapelessRecipeBuilder(Items.WATER_BUCKET, 1)
+                        .requires(ItemRegistry.CRYSTALLIZED_WATER.get())
+                        .requires(Items.BUCKET)
+        );
+        this.makeRecipe(
+                new ShapelessRecipeBuilder(Items.LAVA_BUCKET, 1)
+                        .requires(ItemRegistry.CRYSTALLIZED_LAVA.get())
+                        .requires(Items.BUCKET)
         );
     }
 

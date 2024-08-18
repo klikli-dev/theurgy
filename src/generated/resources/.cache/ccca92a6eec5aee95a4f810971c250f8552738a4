@@ -1,4 +1,4 @@
-// 1.21.1	2024-08-17T19:41:08.6583204	Item Models: theurgy
+// 1.21.1	2024-08-18T09:43:15.4181393	Item Models: theurgy
 e0f7b66a84e6588f01abbbce75b1803ffe5d46e2 assets/theurgy/models/item/alchemical_niter_animals_abundant.json
 e0f7b66a84e6588f01abbbce75b1803ffe5d46e2 assets/theurgy/models/item/alchemical_niter_animals_common.json
 e0f7b66a84e6588f01abbbce75b1803ffe5d46e2 assets/theurgy/models/item/alchemical_niter_animals_rare.json
@@ -313,6 +313,8 @@ cb932aae64df4367bae90a210a4c219667b296d5 assets/theurgy/models/item/amethyst_div
 506a58dad530b0611c44a40752a3e92d2ac8bed9 assets/theurgy/models/item/amethyst_divination_rod/searching.json
 83ca7ce35e88eaa1f1f8a25080785ed047df3815 assets/theurgy/models/item/attribute_filter.json
 33873ebca7a89182e367495bbf766215c7fea8f8 assets/theurgy/models/item/copper_wire.json
+b5d7bf43ff19fcb1078785436a1f392974a1faec assets/theurgy/models/item/crystallized_lava.json
+6e2b38c5805df92b21e99918bfa49859520e7e5c assets/theurgy/models/item/crystallized_water.json
 a544904dc7c08099dacc58898f0b16a21fca8e35 assets/theurgy/models/item/divination_rod_t1.json
 a3ce39925a8f95304d56e1671dd5c8bc9beb6286 assets/theurgy/models/item/divination_rod_t1/0.json
 4399ee1b721ed55d26c0e65fccd250a956a41e24 assets/theurgy/models/item/divination_rod_t1/1.json

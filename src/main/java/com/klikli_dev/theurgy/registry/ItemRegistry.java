@@ -157,6 +157,11 @@ public class ItemRegistry {
     public static final DeferredItem<Item> FERMENTATION_STARTER =
             ITEMS.register("fermentation_starter", () -> new Item(new Item.Properties()));
 
+    public static final DeferredItem<Item> CRYSTALLIZED_WATER =
+            ITEMS.register("crystallized_water", () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> CRYSTALLIZED_LAVA =
+            ITEMS.register("crystallized_lava", () -> new Item(new Item.Properties()));
+
     //Blocks
     public static final DeferredItem<Item> SAL_AMMONIAC_ORE =
             ITEMS.register("sal_ammoniac_ore", () -> new BlockItem(BlockRegistry.SAL_AMMONIAC_ORE.get(), new Item.Properties()));

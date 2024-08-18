@@ -107,7 +107,9 @@ public class SalAmmoniacAccumulatorCraftingBehaviour extends CraftingBehaviour<I
             this.inputInventorySupplier.get().extractItem(0, this.getIngredientCount(pRecipe), false);
         }
 
-        this.waterTankSupplier.get().drain(pRecipe.value().getEvaporantAmount(), IFluidHandler.FluidAction.EXECUTE);
+        if(pRecipe.value().hasEvaporant()){
+            this.waterTankSupplier.get().drain(pRecipe.value().getEvaporantAmount(), IFluidHandler.FluidAction.EXECUTE);
+        }
 
         return true;
     }

@@ -9,6 +9,7 @@ import com.klikli_dev.theurgy.content.item.derivative.AlchemicalDerivativeTier;
 import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurItem;
 import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurType;
 import com.klikli_dev.theurgy.util.LevelUtil;
+import net.minecraft.core.Holder;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.CreativeModeTab;
@@ -269,6 +270,16 @@ public class SulfurRegistry {
     public static final DeferredItem<AlchemicalSulfurItem> END_STONE = registerForSourceItem(Items.END_STONE, AlchemicalDerivativeTier.COMMON, AlchemicalSulfurType.EARTHEN_MATTERS);
     public static final DeferredItem<AlchemicalSulfurItem> PURPUR_BLOCK = registerForSourceItem(Items.PURPUR_BLOCK, AlchemicalDerivativeTier.COMMON, AlchemicalSulfurType.EARTHEN_MATTERS);
     public static final DeferredItem<AlchemicalSulfurItem> MYCELIUM = registerForSourceItem(Items.MYCELIUM, AlchemicalDerivativeTier.COMMON, AlchemicalSulfurType.EARTHEN_MATTERS);
+    public static final DeferredItem<AlchemicalSulfurItem> OBSIDIAN = registerForSourceItem(Items.OBSIDIAN, AlchemicalDerivativeTier.COMMON, AlchemicalSulfurType.EARTHEN_MATTERS);
+    public static final DeferredItem<AlchemicalSulfurItem> CRYING_OBSIDIAN = registerForSourceItem(Items.CRYING_OBSIDIAN, AlchemicalDerivativeTier.COMMON, AlchemicalSulfurType.EARTHEN_MATTERS);
+
+
+    public static final DeferredItem<AlchemicalSulfurItem> SNOW = registerForSourceItem(Items.SNOWBALL, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.EARTHEN_MATTERS);
+    public static final DeferredItem<AlchemicalSulfurItem> ICE = registerForSourceItem(Items.ICE, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.EARTHEN_MATTERS);
+    public static final DeferredItem<AlchemicalSulfurItem> MAGMA = registerForSourceItem(Items.MAGMA_BLOCK, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.EARTHEN_MATTERS);
+
+    public static final DeferredItem<AlchemicalSulfurItem> WATER = registerForSourceItem(ItemRegistry.CRYSTALLIZED_WATER, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.EARTHEN_MATTERS);
+    public static final DeferredItem<AlchemicalSulfurItem> LAVA = registerForSourceItem(ItemRegistry.CRYSTALLIZED_LAVA, AlchemicalDerivativeTier.COMMON, AlchemicalSulfurType.EARTHEN_MATTERS);
 
     //Common Metals
     public static final DeferredItem<AlchemicalSulfurItem> IRON = registerForSourceTag(Tags.Items.INGOTS_IRON, AlchemicalDerivativeTier.COMMON, AlchemicalSulfurType.METALS);
@@ -341,6 +352,10 @@ public class SulfurRegistry {
         return register(name(source), () -> AlchemicalSulfurItem.ofSource(source, tier, type));
     }
 
+    public static DeferredItem<AlchemicalSulfurItem> registerForSourceItem(Holder<Item> source, AlchemicalDerivativeTier tier, AlchemicalSulfurType type) {
+        return register(name(source), () -> AlchemicalSulfurItem.ofSource(source, tier, type));
+    }
+
     public static <T extends Item> DeferredItem<T> register(String name, Supplier<T> sup) {
         return SULFURS.register("alchemical_sulfur_" + name, sup);
     }
@@ -352,7 +367,11 @@ public class SulfurRegistry {
 
     private static String name(Item source) {
         //noinspection deprecation
-        var namePath = source.builtInRegistryHolder().key().location().getPath();
+        return name(source.builtInRegistryHolder());
+    }
+
+    private static String name(Holder<Item> source) {
+        var namePath = source.unwrapKey().get().location().getPath();
         var slashIndex = namePath.lastIndexOf("/");
         return namePath.substring(slashIndex + 1);
     }

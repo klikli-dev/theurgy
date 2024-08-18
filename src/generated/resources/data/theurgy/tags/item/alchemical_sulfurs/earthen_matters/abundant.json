@@ -27,6 +27,10 @@
     "theurgy:alchemical_sulfur_blackstone",
     "theurgy:alchemical_sulfur_basalt",
     "theurgy:alchemical_sulfur_sandstone",
-    "theurgy:alchemical_sulfur_red_sandstone"
+    "theurgy:alchemical_sulfur_red_sandstone",
+    "theurgy:alchemical_sulfur_snowball",
+    "theurgy:alchemical_sulfur_ice",
+    "theurgy:alchemical_sulfur_magma_block",
+    "theurgy:alchemical_sulfur_crystallized_water"
   ]
 }

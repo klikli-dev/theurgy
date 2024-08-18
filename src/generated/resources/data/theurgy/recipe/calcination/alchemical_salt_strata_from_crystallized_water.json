@@ -1,0 +1,16 @@
+{
+  "type": "theurgy:calcination",
+  "category": "misc",
+  "ingredient": {
+    "count": 1,
+    "ingredient": {
+      "item": "theurgy:crystallized_water"
+    }
+  },
+  "result": {
+    "type": "theurgy:item",
+    "count": 4,
+    "id": "theurgy:alchemical_salt_strata"
+  },
+  "time": 100
+}

@@ -815,6 +815,15 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.addDerivativeSource(SulfurRegistry.END_STONE, "End Stone");
         this.addDerivativeSource(SulfurRegistry.PURPUR_BLOCK, "Purpur Block");
         this.addDerivativeSource(SulfurRegistry.MYCELIUM, "Mycelium");
+        this.addDerivativeSource(SulfurRegistry.OBSIDIAN, "Obsidian");
+        this.addDerivativeSource(SulfurRegistry.CRYING_OBSIDIAN, "Crying Obsidian");
+
+        this.addDerivativeSource(SulfurRegistry.SNOW, "Snow");
+        this.addDerivativeSource(SulfurRegistry.ICE, "Ice");
+        this.addDerivativeSource(SulfurRegistry.MAGMA, "Magma");
+        this.addDerivativeSource(SulfurRegistry.WATER, "Water");
+        this.addDerivativeSource(SulfurRegistry.LAVA, "Lava");
+
 
         //Common Metals
         this.addDerivativeSource(SulfurRegistry.IRON, "Iron");

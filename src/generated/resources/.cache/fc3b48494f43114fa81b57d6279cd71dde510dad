@@ -1,4 +1,4 @@
-// 1.21.1	2024-08-17T19:41:08.656321	Incubation Recipes
+// 1.21.1	2024-08-18T10:41:15.738208	Incubation Recipes
 3dd54c17ea0d5e84b20ad3de406c65f23a2ea0a0 data/theurgy/recipe/incubation/acacia_log.json
 3c3196b8eb3850eb1450b924727b50fff6743b28 data/theurgy/recipe/incubation/andesite.json
 7f376e93947a0d23b71c21dcc84a8e45b6f0b4e0 data/theurgy/recipe/incubation/apple.json
@@ -107,6 +107,9 @@ e6d8cdbbaab0b2a1a4123957308f8593ee0f9ba2 data/theurgy/recipe/incubation/crops_tu
 4e5cb5d217a910ede47c1791153b8bea1c2dd1b5 data/theurgy/recipe/incubation/crops_vanilla_from_alchemical_sulfur_vanilla.json
 8123921398bce38b435231c3b14bd42f7497f973 data/theurgy/recipe/incubation/crops_yam_from_alchemical_sulfur_yam.json
 21b8bf172179d4b77857719e3673571ccf623e41 data/theurgy/recipe/incubation/crops_zucchini_from_alchemical_sulfur_zucchini.json
+283a9e4295ac41f0e88d423ea3bba33638e01e42 data/theurgy/recipe/incubation/crying_obsidian.json
+faac7e8fe5cad8e460b25cfc1a87edc2560b5a27 data/theurgy/recipe/incubation/crystallized_lava.json
+b7a50e3b5b49a560fdf970b57cb90f823481a308 data/theurgy/recipe/incubation/crystallized_water.json
 c376cb47af27e8d6bbe49d70a5aad9af6ef68e89 data/theurgy/recipe/incubation/dark_oak_log.json
 421e64766810cdc31dda36b5bbbffdb35551648b data/theurgy/recipe/incubation/deepslate.json
 a46a3044c39e378dc641a43cfb56ad23b5098f8a data/theurgy/recipe/incubation/diorite.json
@@ -144,6 +147,7 @@ bc29510058cce8de862139db761a4e5c3f711de1 data/theurgy/recipe/incubation/grass_bl
 ac36eee1c733a5ff176338fc1de2a71483068781 data/theurgy/recipe/incubation/gravel.json
 f8a8d2c6c3ea377114e07410550019709dab8b96 data/theurgy/recipe/incubation/gunpowder.json
 ec9ec0b59416937f444f3571bbb594fa3ccae042 data/theurgy/recipe/incubation/heart_of_the_sea.json
+dd3ca2045043e19d3f2f151fd817eb41851eb3c6 data/theurgy/recipe/incubation/ice.json
 0f41594eb30fe5f6afd1d135323020202225bfc1 data/theurgy/recipe/incubation/infested_cobblestone.json
 597e4f6d968778d8bd9b28d4dc67e13ebd620d0b data/theurgy/recipe/incubation/infested_stone.json
 2c653c4cb370b4670725b12167a54a061e11d147 data/theurgy/recipe/incubation/ingots_allthemodium_from_alchemical_sulfur_allthemodium.json
@@ -227,6 +231,7 @@ b0f88743349405a597e6f3271be67497257d7a40 data/theurgy/recipe/incubation/logs_tru
 4a3c8834cbdf03e935fc186d408138234906e268 data/theurgy/recipe/incubation/logs_wigglewood_from_alchemical_sulfur_wigglewood.json
 d9f8d32857b6a6e040d93f3db3bd353e32e4170d data/theurgy/recipe/incubation/logs_willow_from_alchemical_sulfur_willow.json
 7f92df0353d41e57a706c1820a749edbcc758b7d data/theurgy/recipe/incubation/logs_wolfberry_from_alchemical_sulfur_wolfberry.json
+b06d73001247043c48dd89b1e94b98d272901a34 data/theurgy/recipe/incubation/magma_block.json
 1349b18c3c6c3a840d5ecbb2b7e6237740dcbce0 data/theurgy/recipe/incubation/magma_cream.json
 14e4173d2e98763e90df7d6f0c2f62d76c136bc7 data/theurgy/recipe/incubation/mangrove_log.json
 e5997053df694cae0e5f3993667854b0bcfd180e data/theurgy/recipe/incubation/mossy_cobblestone.json
@@ -239,6 +244,7 @@ e150e9c81946bf951e60ce4e2132df1317800195 data/theurgy/recipe/incubation/mycelium
 3fba825acf29978b57534961f5a810cf98e80597 data/theurgy/recipe/incubation/nether_star.json
 43b9700745f94cf638fd9a243afc41813a1866cf data/theurgy/recipe/incubation/nether_wart.json
 861f01effbcc5804f477e53a0e5d8db22cc1addc data/theurgy/recipe/incubation/oak_log.json
+8956578a4b7fabea3f29b3b8977f85f4697252a4 data/theurgy/recipe/incubation/obsidian.json
 314467b8c4ed621b7fe4b7f41eee9b209683a1da data/theurgy/recipe/incubation/phantom_membrane.json
 bf415d03fb53c7d63616a81add07802cf54762a4 data/theurgy/recipe/incubation/podzol.json
 0d9498c44abc7c1ba43434385737879b5ce2661f data/theurgy/recipe/incubation/porkchop.json
@@ -259,6 +265,7 @@ ebe30ed92b23aa1e630cc3af286f3c8d724e45dd data/theurgy/recipe/incubation/sand.jso
 89b0a21d1e810e0b68385d1e133db7de4c6465e3 data/theurgy/recipe/incubation/shulker_shell.json
 e72369952b497a0ec9074ce62c9afec416e72cfd data/theurgy/recipe/incubation/skeleton_skull.json
 79012917e245f46fd772b164bb48fc8a4f3bdd55 data/theurgy/recipe/incubation/slime_ball.json
+bc0f1deb02f5fa7f1cbef65a8d3149fe0414800d data/theurgy/recipe/incubation/snowball.json
 4837be8aec5f84b62728f14879350336aebfe4be data/theurgy/recipe/incubation/soul_sand.json
 d55ab3f2bbf787781b24413328cfcf56a5fa24db data/theurgy/recipe/incubation/soul_soil.json
 10b7e614051e5b9d8f620466389a8fcfeba00de2 data/theurgy/recipe/incubation/spider_eye.json

@@ -8,10 +8,7 @@ import com.google.gson.JsonObject;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.content.recipe.LiquefactionRecipe;
 import com.klikli_dev.theurgy.content.recipe.result.RecipeResult;
-import com.klikli_dev.theurgy.registry.FluidRegistry;
-import com.klikli_dev.theurgy.registry.ItemTagRegistry;
-import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
-import com.klikli_dev.theurgy.registry.SulfurRegistry;
+import com.klikli_dev.theurgy.registry.*;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
@@ -239,47 +236,56 @@ public class LiquefactionRecipeProvider extends JsonRecipeProvider {
         this.makeRecipe(SulfurRegistry.ARMADILLO_SCUTE.get(), Items.ARMADILLO_SCUTE, salAmmoniac, 15);
 
         //Common Earthen Materials
-        this.makeRecipe(SulfurRegistry.DIRT.get(), Items.DIRT, salAmmoniac, 1);
-        this.makeRecipe(SulfurRegistry.COARSE_DIRT.get(), Items.COARSE_DIRT, salAmmoniac, 1);
-        this.makeRecipe(SulfurRegistry.PODZOL.get(), Items.PODZOL, salAmmoniac, 1);
-        this.makeRecipe(SulfurRegistry.GRASS_BLOCK.get(), Items.GRASS_BLOCK, salAmmoniac, 1);
-        this.makeRecipe(SulfurRegistry.ROOTED_DIRT.get(), Items.ROOTED_DIRT, salAmmoniac, 1);
-        this.makeRecipe(SulfurRegistry.MOSS_BLOCK.get(), Items.MOSS_BLOCK, salAmmoniac, 1);
-        this.makeRecipe(SulfurRegistry.MUD.get(), Items.MUD, salAmmoniac, 1);
-        this.makeRecipe(SulfurRegistry.MUDDY_MANGROVE_ROOTS.get(), Items.MUDDY_MANGROVE_ROOTS, salAmmoniac, 1);
+        this.makeRecipe(SulfurRegistry.DIRT.get(), Items.DIRT, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.COARSE_DIRT.get(), Items.COARSE_DIRT, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.PODZOL.get(), Items.PODZOL, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.GRASS_BLOCK.get(), Items.GRASS_BLOCK, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.ROOTED_DIRT.get(), Items.ROOTED_DIRT, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.MOSS_BLOCK.get(), Items.MOSS_BLOCK, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.MUD.get(), Items.MUD, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.MUDDY_MANGROVE_ROOTS.get(), Items.MUDDY_MANGROVE_ROOTS, salAmmoniac, 10);
 
-        this.makeRecipe(SulfurRegistry.SAND.get(), Tags.Items.SANDS_COLORLESS, salAmmoniac, 1);
-        this.makeRecipe(SulfurRegistry.RED_SAND.get(), Tags.Items.SANDS_RED, salAmmoniac, 1);
-        this.makeRecipe(SulfurRegistry.GRAVEL.get(), Items.GRAVEL, salAmmoniac, 1);
-        this.makeRecipe(SulfurRegistry.NETHERRACK.get(), Tags.Items.NETHERRACKS, salAmmoniac, 1);
-        this.makeRecipe(SulfurRegistry.SOUL_SAND.get(), Items.SOUL_SAND, salAmmoniac, 1);
-        this.makeRecipe(SulfurRegistry.SOUL_SOIL.get(), Items.SOUL_SOIL, salAmmoniac, 1);
+        this.makeRecipe(SulfurRegistry.SAND.get(), Tags.Items.SANDS_COLORLESS, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.RED_SAND.get(), Tags.Items.SANDS_RED, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.GRAVEL.get(), Items.GRAVEL, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.NETHERRACK.get(), Tags.Items.NETHERRACKS, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.SOUL_SAND.get(), Items.SOUL_SAND, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.SOUL_SOIL.get(), Items.SOUL_SOIL, salAmmoniac, 10);
 
-        this.makeRecipe(SulfurRegistry.STONE.get(), Items.STONE, salAmmoniac, 1);
-        this.makeRecipe(SulfurRegistry.INFESTED_STONE.get(), Items.INFESTED_STONE, salAmmoniac, 1);
-        this.makeRecipe(SulfurRegistry.COBBLESTONE.get(), Tags.Items.COBBLESTONES_NORMAL, salAmmoniac, 1);
-        this.makeRecipe(SulfurRegistry.COBBLESTONE_MOSSY.get(), Tags.Items.COBBLESTONES_INFESTED, salAmmoniac, 1);
-        this.makeRecipe(SulfurRegistry.COBBLESTONES_INFESTED.get(), Tags.Items.COBBLESTONES_MOSSY, salAmmoniac, 1);
+        this.makeRecipe(SulfurRegistry.STONE.get(), Items.STONE, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.INFESTED_STONE.get(), Items.INFESTED_STONE, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.COBBLESTONE.get(), Tags.Items.COBBLESTONES_NORMAL, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.COBBLESTONE_MOSSY.get(), Tags.Items.COBBLESTONES_INFESTED, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.COBBLESTONES_INFESTED.get(), Tags.Items.COBBLESTONES_MOSSY, salAmmoniac, 10);
 
-        this.makeRecipe(SulfurRegistry.DEEPSLATE.get(), Items.DEEPSLATE, salAmmoniac, 1);
-        this.makeRecipe(SulfurRegistry.COBBLESTONE_DEEPSLATE.get(), Tags.Items.COBBLESTONES_DEEPSLATE, salAmmoniac, 1);
+        this.makeRecipe(SulfurRegistry.DEEPSLATE.get(), Items.DEEPSLATE, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.COBBLESTONE_DEEPSLATE.get(), Tags.Items.COBBLESTONES_DEEPSLATE, salAmmoniac, 10);
 
-        this.makeRecipe(SulfurRegistry.GRANITE.get(), Items.GRANITE, salAmmoniac, 1);
-        this.makeRecipe(SulfurRegistry.DIORITE.get(), Items.DIORITE, salAmmoniac, 1);
-        this.makeRecipe(SulfurRegistry.ANDESITE.get(), Items.ANDESITE, salAmmoniac, 1);
-        this.makeRecipe(SulfurRegistry.BLACKSTONE.get(), Items.BLACKSTONE, salAmmoniac, 1);
-        this.makeRecipe(SulfurRegistry.BASALT.get(), Items.BASALT, salAmmoniac, 1);
+        this.makeRecipe(SulfurRegistry.GRANITE.get(), Items.GRANITE, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.DIORITE.get(), Items.DIORITE, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.ANDESITE.get(), Items.ANDESITE, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.BLACKSTONE.get(), Items.BLACKSTONE, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.BASALT.get(), Items.BASALT, salAmmoniac, 10);
 
-        this.makeRecipe(SulfurRegistry.SANDSTONE.get(), Items.SANDSTONE, salAmmoniac, 1);
-        this.makeRecipe(SulfurRegistry.RED_SANDSTONE.get(), Items.RED_SANDSTONE, salAmmoniac, 1);
+        this.makeRecipe(SulfurRegistry.SANDSTONE.get(), Items.SANDSTONE, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.RED_SANDSTONE.get(), Items.RED_SANDSTONE, salAmmoniac, 10);
 
-        this.makeRecipe(SulfurRegistry.CLAY.get(), Items.CLAY_BALL, salAmmoniac, 1);
-        this.makeRecipe(SulfurRegistry.TERRACOTTA.get(), ItemTags.TERRACOTTA, salAmmoniac, 1);
-        this.makeRecipe(SulfurRegistry.CRIMSON_NYLIUM.get(), Items.CRIMSON_NYLIUM, salAmmoniac, 1);
-        this.makeRecipe(SulfurRegistry.WARPED_NYLIUM.get(), Items.WARPED_NYLIUM, salAmmoniac, 1);
-        this.makeRecipe(SulfurRegistry.END_STONE.get(), Tags.Items.END_STONES, salAmmoniac, 1);
-        this.makeRecipe(SulfurRegistry.PURPUR_BLOCK.get(), Items.PURPUR_BLOCK, salAmmoniac, 1);
-        this.makeRecipe(SulfurRegistry.MYCELIUM.get(), Items.MYCELIUM, salAmmoniac, 1);
+        this.makeRecipe(SulfurRegistry.CLAY.get(), Items.CLAY_BALL, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.TERRACOTTA.get(), ItemTags.TERRACOTTA, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.CRIMSON_NYLIUM.get(), Items.CRIMSON_NYLIUM, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.WARPED_NYLIUM.get(), Items.WARPED_NYLIUM, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.END_STONE.get(), Tags.Items.END_STONES, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.PURPUR_BLOCK.get(), Items.PURPUR_BLOCK, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.MYCELIUM.get(), Items.MYCELIUM, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.OBSIDIAN.get(), Items.OBSIDIAN, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.CRYING_OBSIDIAN.get(), Items.CRYING_OBSIDIAN, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.SNOW.get(), Items.SNOW, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.ICE.get(), Items.ICE, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.ICE.get(), 9, Items.PACKED_ICE, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.ICE.get(), 64, Items.BLUE_ICE, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.MAGMA.get(), 1, Items.MAGMA_BLOCK, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.WATER.get(), 1, ItemRegistry.CRYSTALLIZED_WATER.get(), salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.LAVA.get(), 1, ItemRegistry.CRYSTALLIZED_LAVA.get(), salAmmoniac, 10);
 
         //Common Metals Ore Sulfurs
         this.makeRecipe(SulfurRegistry.IRON.get(), 5, Tags.Items.ORES_IRON, salAmmoniac, 10);
@@ -426,7 +432,7 @@ public class LiquefactionRecipeProvider extends JsonRecipeProvider {
     }
 
     public void makeRecipe(Item sulfur, int resultCount, Item ingredient, Fluid solvent, int solventAmount, int liquefactionTime) {
-        var name = this.name(sulfur);
+        var name = this.name(sulfur) + "_from_" + this.name(ingredient);
 
         var recipe = new Builder(RecipeResult.of(new ItemStack(sulfur, resultCount)))
                 .solvent(solvent, solventAmount)

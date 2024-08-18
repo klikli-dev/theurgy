@@ -19,7 +19,7 @@
     "id": "theurgy:alchemical_sulfur_cobbled_deepslate"
   },
   "solvent": {
-    "amount": 1,
+    "amount": 10,
     "ingredient": {
       "fluid": "theurgy:sal_ammoniac"
     }

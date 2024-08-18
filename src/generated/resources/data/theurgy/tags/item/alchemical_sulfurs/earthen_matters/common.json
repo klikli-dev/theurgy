@@ -6,6 +6,9 @@
     "theurgy:alchemical_sulfur_warped_nylium",
     "theurgy:alchemical_sulfur_end_stone",
     "theurgy:alchemical_sulfur_purpur_block",
-    "theurgy:alchemical_sulfur_mycelium"
+    "theurgy:alchemical_sulfur_mycelium",
+    "theurgy:alchemical_sulfur_obsidian",
+    "theurgy:alchemical_sulfur_crying_obsidian",
+    "theurgy:alchemical_sulfur_crystallized_lava"
   ]
 }

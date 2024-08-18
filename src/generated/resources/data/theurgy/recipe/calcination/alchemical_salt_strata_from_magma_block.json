@@ -1,0 +1,16 @@
+{
+  "type": "theurgy:calcination",
+  "category": "misc",
+  "ingredient": {
+    "count": 1,
+    "ingredient": {
+      "item": "minecraft:magma_block"
+    }
+  },
+  "result": {
+    "type": "theurgy:item",
+    "count": 2,
+    "id": "theurgy:alchemical_salt_strata"
+  },
+  "time": 100
+}

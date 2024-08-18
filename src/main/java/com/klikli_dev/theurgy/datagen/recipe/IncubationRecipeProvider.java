@@ -310,6 +310,13 @@ public class IncubationRecipeProvider extends JsonRecipeProvider {
         this.makeRecipe(Items.END_STONE, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.END_STONE.get());
         this.makeRecipe(Items.PURPUR_BLOCK, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.PURPUR_BLOCK.get());
         this.makeRecipe(Items.MYCELIUM, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.MYCELIUM.get());
+        this.makeRecipe(Items.OBSIDIAN, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.OBSIDIAN.get());
+        this.makeRecipe(Items.CRYING_OBSIDIAN, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.CRYING_OBSIDIAN.get());
+        this.makeRecipe(Items.SNOWBALL, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.SNOW.get());
+        this.makeRecipe(Items.ICE, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.ICE.get());
+        this.makeRecipe(Items.MAGMA_BLOCK, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.MAGMA.get());
+        this.makeRecipe(ItemRegistry.CRYSTALLIZED_WATER.get(), ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.WATER.get());
+        this.makeRecipe(ItemRegistry.CRYSTALLIZED_LAVA.get(), ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.LAVA.get());
 
         //metal ingots from sulfurs
         this.makeRecipe(Tags.Items.INGOTS_IRON, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.IRON.get());

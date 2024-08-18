@@ -7,6 +7,7 @@ package com.klikli_dev.theurgy.datagen.recipe;
 import com.google.gson.JsonObject;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.content.recipe.CalcinationRecipe;
+import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.registry.ItemTagRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import com.klikli_dev.theurgy.registry.SaltRegistry;
@@ -51,6 +52,16 @@ public class CalcinationRecipeProvider extends JsonRecipeProvider {
         this.makeRecipe("_from_end_stone", new Builder(SaltRegistry.STRATA, 2).sizedIngredient(Items.END_STONE));
         this.makeRecipe("_from_purpur_block", new Builder(SaltRegistry.STRATA, 2).sizedIngredient(Items.PURPUR_BLOCK));
         this.makeRecipe("_from_mycelium", new Builder(SaltRegistry.STRATA, 2).sizedIngredient(Items.MYCELIUM));
+        this.makeRecipe("_from_obsidian", new Builder(SaltRegistry.STRATA, 2).sizedIngredient(Items.OBSIDIAN));
+        this.makeRecipe("_from_crying_obsidian", new Builder(SaltRegistry.STRATA, 3).sizedIngredient(Items.CRYING_OBSIDIAN));
+        this.makeRecipe("_from_snowball", new Builder(SaltRegistry.STRATA).sizedIngredient(Items.SNOWBALL));
+        this.makeRecipe("_from_ice", new Builder(SaltRegistry.STRATA).sizedIngredient(Items.ICE));
+        this.makeRecipe("_from_packed_ice", new Builder(SaltRegistry.STRATA, 9).sizedIngredient(Items.PACKED_ICE));
+        this.makeRecipe("_from_blue_ice", new Builder(SaltRegistry.STRATA, 64).sizedIngredient(Items.BLUE_ICE));
+        this.makeRecipe("_from_magma_block", new Builder(SaltRegistry.STRATA, 2).sizedIngredient(Items.MAGMA_BLOCK));
+        this.makeRecipe("_from_crystallized_water", new Builder(SaltRegistry.STRATA, 4).sizedIngredient(ItemRegistry.CRYSTALLIZED_WATER));
+        this.makeRecipe("_from_crystallized_lava", new Builder(SaltRegistry.STRATA, 8).sizedIngredient(ItemRegistry.CRYSTALLIZED_LAVA));
+
         this.makeRecipe("_from_ores", new Builder(SaltRegistry.MINERAL, 3).sizedIngredient(Tags.Items.ORES));
         this.makeRecipe("_from_raw_materials", new Builder(SaltRegistry.MINERAL).sizedIngredient(Tags.Items.RAW_MATERIALS));
         this.makeRecipe("_from_ingots", new Builder(SaltRegistry.MINERAL, 2).sizedIngredient(Tags.Items.INGOTS));

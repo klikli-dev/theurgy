@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21.1-1.50.1] - 2024-08-18
+### :bug: Bug Fixes
+- [`895426e`](https://github.com/klikli-dev/theurgy/commit/895426e628f9b264a03b543c6767b4f7d9559fcc) - logistics inserters ignore their enabled/disabled state *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21.1-1.50.0] - 2024-08-18
 ### :sparkles: New Features
 - [`7218627`](https://github.com/klikli-dev/theurgy/commit/7218627bfe153d16a3cbb84a7604b87f89464a97) - add crystallized fluids *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1062,3 +1067,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21.1-1.49.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.49.0...release/v1.21.1-1.49.1
 [release/v1.21.1-1.49.2]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.49.1...release/v1.21.1-1.49.2
 [release/v1.21.1-1.50.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.49.2...release/v1.21.1-1.50.0
+[release/v1.21.1-1.50.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.50.0...release/v1.21.1-1.50.1

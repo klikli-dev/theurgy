@@ -73,6 +73,9 @@ public class FilterBehaviour {
     }
 
     public @NotNull ItemInteractionResult useItemOn(@NotNull ItemStack pStack, @NotNull BlockState pState, @NotNull Level pLevel, @NotNull BlockPos pPos, Player pPlayer, @NotNull InteractionHand pHand, @NotNull BlockHitResult pHitResult) {
+        if(pHand != InteractionHand.MAIN_HAND)
+            return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+
         if (this.filter().isEmpty()) {
             //if we have an empty filter, we can try to set one from the item in hand.
 
@@ -88,7 +91,7 @@ public class FilterBehaviour {
             }
 
             return ItemInteractionResult.sidedSuccess(pLevel.isClientSide);
-        } else if (pStack.isEmpty()) {
+        } else if (pStack.isEmpty() && pPlayer.isShiftKeyDown()) {
             //if we have a filter and an empty hand we take the filter
             var stack = this.filter().item().copy();
 

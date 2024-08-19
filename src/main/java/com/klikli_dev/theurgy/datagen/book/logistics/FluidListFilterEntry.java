@@ -54,7 +54,7 @@ public class FluidListFilterEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Removal");
         this.pageText("""
-               1. Right-click with an empty hand on an inserter or extractor to remove the filter.
+               1. Shift-right-click with an empty hand on an inserter or extractor to remove the filter.
                2. The filter will be returned to the player's inventory.
                """
         );

@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21.1-1.51.1] - 2024-08-19
+### :bug: Bug Fixes
+- [`87a65f0`](https://github.com/klikli-dev/theurgy/commit/87a65f0b4f5faf5093f6343d3c6400c61db898b0) - mercurial wand mode change ignores scroll direction *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21.1-1.51.0] - 2024-08-19
 ### :sparkles: New Features
 - [`031cfe9`](https://github.com/klikli-dev/theurgy/commit/031cfe9bfbe600d1f502f9cbf1fb5c876908916c) - improve wire behaviour *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1081,3 +1086,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21.1-1.50.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.49.2...release/v1.21.1-1.50.0
 [release/v1.21.1-1.50.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.50.0...release/v1.21.1-1.50.1
 [release/v1.21.1-1.51.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.50.1...release/v1.21.1-1.51.0
+[release/v1.21.1-1.51.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.51.0...release/v1.21.1-1.51.1

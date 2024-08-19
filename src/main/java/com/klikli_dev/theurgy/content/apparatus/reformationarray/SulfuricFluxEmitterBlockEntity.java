@@ -35,7 +35,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SulfuricFluxEmitterBlockEntity extends BlockEntity {
+public class
+SulfuricFluxEmitterBlockEntity extends BlockEntity {
 
     public static final int CAPACITY = 1000;
     public MercuryFluxStorage mercuryFluxStorage;

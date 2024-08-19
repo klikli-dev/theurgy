@@ -25,7 +25,7 @@ import java.util.List;
  *
  * @param <T>
  */
-public abstract class SelectionBehaviour<T extends SelectedPoint> {
+public abstract class SelectionBehaviour<T extends SelectedPoint<?>> {
 
     protected List<T> selectedPoints = new ArrayList<>();
     protected ItemStack currentItem;

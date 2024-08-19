@@ -11,6 +11,10 @@ import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -23,6 +27,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
@@ -32,9 +37,8 @@ import java.util.Map;
 
 public class CaloricFluxEmitterBlock extends DirectionalBlock implements EntityBlock {
 
-    public static final MapCodec<CaloricFluxEmitterBlock> CODEC = simpleCodec(CaloricFluxEmitterBlock::new);
-
     public static final BooleanProperty ENABLED = BlockStateProperties.ENABLED;
+    public static final MapCodec<CaloricFluxEmitterBlock> CODEC = simpleCodec(CaloricFluxEmitterBlock::new);
     private static final int SHAPE_LENGTH = 4;
     private static final Map<Direction, VoxelShape> SHAPES = Maps.newEnumMap(
             ImmutableMap.<Direction, VoxelShape>builder()
@@ -47,10 +51,14 @@ public class CaloricFluxEmitterBlock extends DirectionalBlock implements EntityB
                     .build()
     );
     protected SelectionBehaviour<CaloricFluxEmitterSelectedPoint> selectionBehaviour;
+    protected CaloricFluxEmitterInteractionBehaviour interactionBehaviour;
 
-    public CaloricFluxEmitterBlock(Properties pProperties) {
+    public CaloricFluxEmitterBlock(@NotNull Properties pProperties) {
         super(pProperties);
+
         this.selectionBehaviour = new CaloricFluxEmitterSelectionBehaviour();
+        this.interactionBehaviour = new CaloricFluxEmitterInteractionBehaviour();
+
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.UP).setValue(ENABLED, true));
     }
 
@@ -58,15 +66,23 @@ public class CaloricFluxEmitterBlock extends DirectionalBlock implements EntityB
         return this.selectionBehaviour;
     }
 
-    @SuppressWarnings("deprecation")
+    public CaloricFluxEmitterInteractionBehaviour interactionBehaviour() {
+        return this.interactionBehaviour;
+    }
+
     @Override
-    public @NotNull VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
+    public @NotNull VoxelShape getShape(@NotNull BlockState pState, @NotNull BlockGetter pLevel, @NotNull BlockPos pPos, @NotNull CollisionContext pContext) {
         return SHAPES.get(pState.getValue(FACING));
+    }
+
+    @Override
+    protected @NotNull ItemInteractionResult useItemOn(@NotNull ItemStack pStack, @NotNull BlockState pState, @NotNull Level pLevel, @NotNull BlockPos pPos, @NotNull Player pPlayer, @NotNull InteractionHand pHand, @NotNull BlockHitResult pHitResult) {
+        return this.interactionBehaviour.useItemOn(pStack, pState, pLevel, pPos, pPlayer, pHand, pHitResult);
     }
 
     @Nullable
     @Override
-    public BlockState getStateForPlacement(BlockPlaceContext pContext) {
+    public BlockState getStateForPlacement(@NotNull BlockPlaceContext pContext) {
         Direction direction = pContext.getClickedFace();
         BlockState oppositeState = pContext.getLevel().getBlockState(pContext.getClickedPos().relative(direction.getOpposite()));
 
@@ -77,9 +93,8 @@ public class CaloricFluxEmitterBlock extends DirectionalBlock implements EntityB
     }
 
 
-    @SuppressWarnings("deprecation")
     @Override
-    public void neighborChanged(BlockState pState, Level pLevel, BlockPos pPos, Block pBlock, BlockPos pFromPos, boolean pIsMoving) {
+    public void neighborChanged(@NotNull BlockState pState, @NotNull Level pLevel, @NotNull BlockPos pPos, @NotNull Block pBlock, @NotNull BlockPos pFromPos, boolean pIsMoving) {
         super.neighborChanged(pState, pLevel, pPos, pBlock, pFromPos, pIsMoving);
         this.checkPoweredState(pLevel, pPos, pState, Block.UPDATE_INVISIBLE);
 
@@ -88,23 +103,21 @@ public class CaloricFluxEmitterBlock extends DirectionalBlock implements EntityB
         }
     }
 
-    @SuppressWarnings("deprecation")
     @Override
-    public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) {
+    public boolean canSurvive(@NotNull BlockState pState, @NotNull LevelReader pLevel, @NotNull BlockPos pPos) {
         var facing = pState.getValue(FACING);
         var facingNeighborState = pLevel.getBlockState(pPos.relative(facing.getOpposite()));
         return facingNeighborState.isFaceSturdy(pLevel, pPos, facing);
     }
 
-    @SuppressWarnings("deprecation")
     @Override
-    public void onPlace(BlockState pState, Level pLevel, BlockPos pPos, BlockState pOldState, boolean pIsMoving) {
+    public void onPlace(@NotNull BlockState pState, @NotNull Level pLevel, @NotNull BlockPos pPos, @NotNull BlockState pOldState, boolean pIsMoving) {
         if (!pOldState.is(pState.getBlock())) {
             this.checkPoweredState(pLevel, pPos, pState, Block.UPDATE_CLIENTS);
         }
     }
 
-    private void checkPoweredState(Level pLevel, BlockPos pPos, BlockState pState, int pFlags) {
+    private void checkPoweredState(@NotNull Level pLevel, @NotNull BlockPos pPos, @NotNull BlockState pState, int pFlags) {
         boolean enabled = !pLevel.hasNeighborSignal(pPos);
         if (enabled != pState.getValue(ENABLED)) {
             pLevel.setBlock(pPos, pState.setValue(ENABLED, enabled), pFlags);
@@ -114,30 +127,30 @@ public class CaloricFluxEmitterBlock extends DirectionalBlock implements EntityB
 
     @SuppressWarnings("deprecation")
     @Override
-    public @NotNull BlockState rotate(BlockState state, Rotation rot) {
+    public @NotNull BlockState rotate(@NotNull BlockState state, @NotNull Rotation rot) {
         return state.setValue(FACING, rot.rotate(state.getValue(FACING)));
     }
 
     @SuppressWarnings("deprecation")
     @Override
-    public @NotNull BlockState mirror(BlockState state, Mirror mirrorIn) {
+    public @NotNull BlockState mirror(@NotNull BlockState state, @NotNull Mirror mirrorIn) {
         return state.setValue(FACING, mirrorIn.mirror(state.getValue(FACING)));
     }
 
     @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
+    protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> pBuilder) {
         pBuilder.add(FACING, ENABLED);
     }
 
     @Nullable
     @Override
-    public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
+    public BlockEntity newBlockEntity(@NotNull BlockPos pPos, @NotNull BlockState pState) {
         return BlockEntityRegistry.CALORIC_FLUX_EMITTER.get().create(pPos, pState);
     }
 
     @Nullable
     @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(@NotNull Level pLevel, @NotNull BlockState pState, @NotNull BlockEntityType<T> pBlockEntityType) {
         if (pLevel.isClientSide()) {
             return null;
         }
@@ -149,7 +162,7 @@ public class CaloricFluxEmitterBlock extends DirectionalBlock implements EntityB
     }
 
     @Override
-    protected MapCodec<? extends DirectionalBlock> codec() {
+    protected @NotNull MapCodec<? extends DirectionalBlock> codec() {
         return CODEC;
     }
 }

@@ -23,9 +23,11 @@ import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class CaloricFluxEmitterBlockEntity extends BlockEntity {
     public static final int CAPACITY = 1000;
@@ -53,7 +55,7 @@ public class CaloricFluxEmitterBlockEntity extends BlockEntity {
     }
 
     public void tickServer() {
-        if (this.getLevel().getGameTime() % TICK_INTERVAL != 0)
+        if (Objects.requireNonNull(this.getLevel()).getGameTime() % TICK_INTERVAL != 0)
             return; //slow tick
 
         if (!this.getBlockState().getValue(BlockStateProperties.ENABLED))
@@ -62,15 +64,15 @@ public class CaloricFluxEmitterBlockEntity extends BlockEntity {
         if (this.selectedPoints.isEmpty())
             return;
 
-        var selectedPoint = this.selectedPoints.get(0); //we only have one target point
+        var selectedPoint = this.selectedPoints.getFirst(); //we only have one target point
         if (!this.getSelectionBehaviour().isValid(selectedPoint)) {
             return;
         }
 
         if (this.mercuryFluxStorage.getEnergyStored() >= FLUX_PER_HEAT) {
-            var heatReceiver = this.level.getCapability(CapabilityRegistry.HEAT_RECEIVER, selectedPoint.getBlockPos(), null);
+            var heatReceiver = Objects.requireNonNull(this.level).getCapability(CapabilityRegistry.HEAT_RECEIVER, selectedPoint.getBlockPos(), selectedPoint.getBlockState(), null, null);
 
-            if(!heatReceiver.readyToReceive())
+            if (!Objects.requireNonNull(heatReceiver).readyToReceive())
                 return;
 
             if (heatReceiver.getIsHotUntil() > this.getLevel().getGameTime() + TICK_INTERVAL)
@@ -85,7 +87,7 @@ public class CaloricFluxEmitterBlockEntity extends BlockEntity {
 
 
     @Override
-    protected void saveAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
+    protected void saveAdditional(@NotNull CompoundTag pTag, HolderLookup.@NotNull Provider pRegistries) {
         super.saveAdditional(pTag, pRegistries);
 
         pTag.put("mercuryFluxStorage", this.mercuryFluxStorage.serializeNBT(pRegistries));
@@ -93,11 +95,12 @@ public class CaloricFluxEmitterBlockEntity extends BlockEntity {
     }
 
     @Override
-    public void loadAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
+    public void loadAdditional(@NotNull CompoundTag pTag, @NotNull HolderLookup.Provider pRegistries) {
         super.loadAdditional(pTag, pRegistries);
 
         if (pTag.contains("mercuryFluxStorage"))
             //get instead of getCompound here because the storage serializes as int tag
+            //noinspection DataFlowIssue
             this.mercuryFluxStorage.deserializeNBT(pRegistries, pTag.get("mercuryFluxStorage"));
 
         if (pTag.contains("selectedPoints")) {
@@ -106,15 +109,16 @@ public class CaloricFluxEmitterBlockEntity extends BlockEntity {
     }
 
     @Override
-    protected void applyImplicitComponents(BlockEntity.DataComponentInput pComponentInput) {
+    protected void applyImplicitComponents(BlockEntity.@NotNull DataComponentInput pComponentInput) {
         super.applyImplicitComponents(pComponentInput);
 
         if (pComponentInput.get(DataComponentRegistry.MERCURY_FLUX_STORAGE) != null)
+            //noinspection DataFlowIssue
             this.mercuryFluxStorage.setEnergyStored(pComponentInput.get(DataComponentRegistry.MERCURY_FLUX_STORAGE));
     }
 
     @Override
-    protected void collectImplicitComponents(DataComponentMap.Builder pComponents) {
+    protected void collectImplicitComponents(DataComponentMap.@NotNull Builder pComponents) {
         super.collectImplicitComponents(pComponents);
 
         pComponents.set(DataComponentRegistry.MERCURY_FLUX_STORAGE, this.mercuryFluxStorage.getEnergyStored());
@@ -128,6 +132,13 @@ public class CaloricFluxEmitterBlockEntity extends BlockEntity {
         this.selectedPoints = selectedPoints;
         this.selectedPoints.removeIf(p -> !p.getBlockPos().closerThan(this.getBlockPos(), this.getSelectionBehaviour().getBlockRange()));
         this.setChanged();
+    }
+
+    /**
+     * client-side variant that does no checks
+     */
+    public void setSelectedPointsClient(List<CaloricFluxEmitterSelectedPoint> selectedPoints) {
+        this.selectedPoints = selectedPoints;
     }
 
     public class MercuryFluxStorage extends DefaultMercuryFluxStorage {

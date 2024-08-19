@@ -16,7 +16,6 @@ import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ClickType;
@@ -73,7 +72,7 @@ public class AttributeFilterMenu extends AbstractFilterMenu {
         this.addSlot(new SlotItemHandler(this.ghostInventory, 0, 16, 24));
         this.addSlot(new SlotItemHandler(this.ghostInventory, 1, 22, 59) {
             @Override
-            public boolean mayPickup(Player playerIn) {
+            public boolean mayPickup(@NotNull Player playerIn) {
                 return false;
             }
         });
@@ -162,5 +161,10 @@ public class AttributeFilterMenu extends AbstractFilterMenu {
         var tag = new CompoundTag();
         tag.put("MatchedAttributes", attributes);
         contentHolder.set(DataComponentRegistry.FILTER_ATTRIBUTES, CustomData.of(tag));
+    }
+
+    @Override
+    public void clearContents() {
+        this.selectedAttributes.clear();
     }
 }

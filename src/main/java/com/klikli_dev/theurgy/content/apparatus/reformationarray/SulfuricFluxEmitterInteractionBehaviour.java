@@ -28,6 +28,9 @@ public class SulfuricFluxEmitterInteractionBehaviour implements InteractionBehav
 
     @Override
     public ItemInteractionResult useItemOn(ItemStack pStack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHitResult) {
+        if(pHand != InteractionHand.MAIN_HAND)
+            return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+
         var blockEntity = pLevel.getBlockEntity(pPos);
 
         if (!(blockEntity instanceof SulfuricFluxEmitterBlockEntity sulfuricFluxEmitter))

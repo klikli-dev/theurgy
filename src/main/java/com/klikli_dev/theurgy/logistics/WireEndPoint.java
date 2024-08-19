@@ -17,6 +17,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.Nullable;
 
 public record WireEndPoint(BlockPos pos, ResourceKey<Level> level) {
 
@@ -39,7 +40,7 @@ public record WireEndPoint(BlockPos pos, ResourceKey<Level> level) {
         return new WireEndPoint(BlockPos.of(tag.getLong("pos")), ResourceKey.create(Registries.DIMENSION, ResourceLocation.parse(tag.getString("level"))));
     }
 
-    public static WireEndPoint load(ItemStack stack) {
+    public static @Nullable WireEndPoint load(ItemStack stack) {
         return stack.get(DataComponentRegistry.WIRE_END_POINT.get());
     }
 

@@ -22,11 +22,13 @@ import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.saveddata.SavedData;
 import net.neoforged.neoforge.event.level.LevelEvent;
+import org.jetbrains.annotations.Nullable;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Wires extends SavedData {
@@ -73,7 +75,7 @@ public class Wires extends SavedData {
     public Wires(Set<Wire> wires, boolean isClient) {
         this(isClient);
 
-        if(!isClient){
+        if (!isClient) {
             this.wires.addAll(wires);
 
             //restore chunkToWires and wiresToChunk and blockPosToWire
@@ -88,27 +90,6 @@ public class Wires extends SavedData {
             });
         }
 
-    }
-
-    /**
-     * Gets all wires connected to the given block pos
-     */
-    public Set<Wire> getWires(BlockPos pos){
-        return this.blockPosToWire.get(pos);
-    }
-
-    /**
-     * Gets all wires in a chunk
-     */
-    public Set<Wire> getWires(ChunkPos chunk){
-        return this.chunkToWires.get(chunk);
-    }
-
-    /**
-     * Gets all chunks a wire is in
-     */
-    public Set<ChunkPos> getChunks(Wire wire){
-        return this.wiresToChunk.get(wire);
     }
 
     public static Wires get(Level level) {
@@ -164,6 +145,64 @@ public class Wires extends SavedData {
         return CODEC.parse(pRegistries.createSerializationContext(NbtOps.INSTANCE), pCompoundTag.get(NBT_TAG)).result().orElseThrow();
     }
 
+    /**
+     * Gets all wires connected to the given block pos
+     */
+    public Set<Wire> getWires(BlockPos pos) {
+        if (this.isClient)
+            return this.getClientWires(pos);
+
+        return this.blockPosToWire.get(pos);
+    }
+
+    /**
+     * For item interactions with wires we may need to check if a wire exists return the correct interaction result.
+     * The client does not keep a high-performance full cache of the wires, so we have to search the full list in the renderer.
+     */
+    public Set<Wire> getClientWires(BlockPos pos) {
+        return WireRenderer.get().wires.stream().filter(wire -> wire.from().equals(pos) || wire.to().equals(pos)).collect(Collectors.toSet());
+    }
+
+    public @Nullable Wire getWire(BlockPos a, BlockPos b) {
+        if (this.isClient)
+            return this.getClientWire(a, b);
+
+        var wires = this.getWires(a);
+        for (Wire wire : wires) {
+            if (wire.from().equals(a) && wire.to().equals(b) || wire.from().equals(b) && wire.to().equals(a)) {
+                return wire;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * For item interactions with wires we may need to check if a wire exists return the correct interaction result.
+     * The client does not keep a high-performance full cache of the wires, so we have to search the full list in the renderer.
+     */
+    private @Nullable Wire getClientWire(BlockPos a, BlockPos b) {
+        return WireRenderer.get().wires.stream().filter(wire -> wire.from().equals(a) && wire.to().equals(b) || wire.from().equals(b) && wire.to().equals(a)).findFirst().orElse(null);
+    }
+
+    /**
+     * Gets all wires in a chunk
+     */
+    public Set<Wire> getWires(ChunkPos chunk) {
+        if(this.isClient)
+            throw new UnsupportedOperationException("Cannot get all wires in a chunk on the client");
+        return this.chunkToWires.get(chunk);
+    }
+
+    /**
+     * Gets all chunks a wire is in
+     */
+    public Set<ChunkPos> getChunks(Wire wire) {
+        if(this.isClient)
+            throw new UnsupportedOperationException("Cannot get all chunks a wire is in on the client");
+        return this.wiresToChunk.get(wire);
+    }
+
     Stream<ChunkPos> calculateChunkPosForWire(Wire wire) {
         return Arrays.stream(WireSlackHelper.getInterpolatedPoints(wire.from().getCenter(), wire.to().getCenter())).map(pos -> new ChunkPos(
                 SectionPos.blockToSectionCoord(pos.x()),
@@ -194,7 +233,7 @@ public class Wires extends SavedData {
         this.setDirty();
     }
 
-    public int removeWiresFor(BlockPos pos){
+    public int removeWiresFor(BlockPos pos) {
         var wires = this.getWires(pos);
         var copy = new ArrayList<>(wires); //removeWires modifies the underlying set so we can't iterate on it
         copy.forEach(this::removeWire);

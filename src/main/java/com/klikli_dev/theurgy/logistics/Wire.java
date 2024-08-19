@@ -4,14 +4,12 @@
 
 package com.klikli_dev.theurgy.logistics;
 
-import com.klikli_dev.modonomicon.networking.ClickCommandLinkMessage;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.resources.ResourceLocation;
 
 public record Wire(BlockPos from, BlockPos to) {
     public static final Codec<Wire> CODEC = RecordCodecBuilder.create(instance -> instance.group(
@@ -26,6 +24,11 @@ public record Wire(BlockPos from, BlockPos to) {
             (w) -> w.to,
             Wire::new
     );
+
+    public Wire(BlockPos from, BlockPos to) {
+        this.from = from.immutable();
+        this.to = to.immutable();
+    }
 
     public static Wire load(CompoundTag tag) {
         return new Wire(BlockPos.of(tag.getLong("from")), BlockPos.of(tag.getLong("to")));

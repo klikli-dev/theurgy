@@ -1088,7 +1088,20 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
                 "Can be used to connect different parts of Mercurial Logistics Networks.",
                 """
                         Right-click one connector, then right-click another connector to connect them with the wire.
+                        Repeat the process to disconnect them.
                         """
+        );
+        this.addDynamicTooltip(ItemRegistry.COPPER_WIRE,
+            this.f("""
+            Linked to %1$s (Highlighted in yellow in the world).
+            
+            {0} another connector block to create wire connection.
+            {1} the air or a non-connector block to unlink.
+            {0} another connector block already wired to %1$s to remove the wire.
+            """,
+                    this.green("Right-Click"),
+                    this.green("Shift-Right-Click")
+            )
         );
 
         this.addItem(ItemRegistry.MERCURIAL_WAND, "Mercurial Wand");

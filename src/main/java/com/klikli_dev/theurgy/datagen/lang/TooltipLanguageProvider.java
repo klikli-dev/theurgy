@@ -40,4 +40,13 @@ public interface TooltipLanguageProvider {
     default void addUsageTooltip(Supplier<? extends Item> key, String usageTooltip) {
         this.addTooltip(key, null, null, usageTooltip);
     }
+
+    default void addDynamicTooltip(Supplier<? extends Item> key, String tooltip) {
+        this.addDynamicTooltip(key, "", tooltip);
+    }
+
+    default void addDynamicTooltip(Supplier<? extends Item> key, String keySuffix, String tooltip) {
+        if (tooltip != null)
+            this.add(key.get().getDescriptionId() + TheurgyConstants.I18n.Tooltip.DYNMIC_SUFFIX + keySuffix, tooltip);
+    }
 }

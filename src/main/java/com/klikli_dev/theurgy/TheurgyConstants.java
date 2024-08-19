@@ -58,6 +58,7 @@ public class TheurgyConstants {
             public static final String SUFFIX = ".tooltip";
             public static final String EXTENDED_SUFFIX = ".tooltip.extended";
             public static final String USAGE_SUFFIX = ".tooltip.usage";
+            public static final String DYNMIC_SUFFIX = ".tooltip.dynamic";
             private static final String PREFIX = "tooltip." + Theurgy.MODID + ".";
             public static final String DIVINATION_ROD_LINKED_TO = PREFIX + ".divination_rod.linked_to";
             public static final String DIVINATION_ROD_NO_LINK = PREFIX + ".divination_rod.no_link";

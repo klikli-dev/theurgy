@@ -269,7 +269,7 @@ public class LogisticsNetwork {
                     this.onUnloadExtractNode(node.asExtractor());
                 }
                 if (node.mode() == LeafNodeMode.INSERT) {
-                    //no need to call unload here as it just notifies the extractors, which we reset anyay
+                    //no need to call unload here as it just notifies the extractors, which we reset anyway
                     //this.onUnloadInsertNode(node.asInserter());
                 }
             }

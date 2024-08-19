@@ -30,6 +30,7 @@ import com.klikli_dev.theurgy.content.item.salt.AlchemicalSaltItem;
 import com.klikli_dev.theurgy.content.item.derivative.AlchemicalDerivativeItem;
 import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurItem;
 import com.klikli_dev.theurgy.content.item.derivative.render.AlchemicalDerivativeBEWLR;
+import com.klikli_dev.theurgy.content.item.wire.WireItem;
 import com.klikli_dev.theurgy.content.render.*;
 import com.klikli_dev.theurgy.content.render.itemhud.ItemHUD;
 import com.klikli_dev.theurgy.content.render.outliner.Outliner;
@@ -54,6 +55,7 @@ import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
@@ -203,9 +205,14 @@ public class Theurgy {
             if (Minecraft.getInstance().level == null || Minecraft.getInstance().player == null)
                 return;
 
+            Player player = Minecraft.getInstance().player;
+
             Outliner.get().tick();
-            BlockRegistry.CALORIC_FLUX_EMITTER.get().selectionBehaviour().tick(Minecraft.getInstance().player);
-            BlockRegistry.SULFURIC_FLUX_EMITTER.get().selectionBehaviour().tick(Minecraft.getInstance().player);
+            BlockRegistry.CALORIC_FLUX_EMITTER.get().selectionBehaviour().tick(player);
+            BlockRegistry.SULFURIC_FLUX_EMITTER.get().selectionBehaviour().tick(player);
+
+
+            WireItem.onClientTick(player);
         }
 
         public static void onRenderLevelStage(RenderLevelStageEvent event) {

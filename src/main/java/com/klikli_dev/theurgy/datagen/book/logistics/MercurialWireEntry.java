@@ -52,6 +52,9 @@ public class MercurialWireEntry extends EntryProvider {
         this.pageTitle("Removing Wires");
         this.pageText("""
                To remove a wire, break one of the blocks the wire is connected to.
+               \\
+               \\
+               Alternatively, click both blocks connected by the wire with the wire item once more to remove just the one wire.
                 """
         );
     }

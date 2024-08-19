@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21.1-1.51.0] - 2024-08-19
+### :sparkles: New Features
+- [`031cfe9`](https://github.com/klikli-dev/theurgy/commit/031cfe9bfbe600d1f502f9cbf1fb5c876908916c) - improve wire behaviour *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`0b2cd5f`](https://github.com/klikli-dev/theurgy/commit/0b2cd5ffbe056d54b04ef99af52d51041bad5a86) - add right-click status to caloric emitter *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`b3d8e5f`](https://github.com/klikli-dev/theurgy/commit/b3d8e5f3a703fa9a8ce2bd745da43e994aa9420e) - filters will only be removed with empty hand + shift click, not normal click *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :bug: Bug Fixes
+- [`e6414a6`](https://github.com/klikli-dev/theurgy/commit/e6414a61f32e1021ecefb02fb5fdc2f11cb3224d) - filter out non-main hand interactions *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`189fd04`](https://github.com/klikli-dev/theurgy/commit/189fd04e737a3ed0caee21c32148215b4992e50e) - item tooltips in list filters *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`2a393ac`](https://github.com/klikli-dev/theurgy/commit/2a393acd1bdd8e9ba426358bebe0dae96f489444) - attribute filter not clearing attributes *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21.1-1.50.1] - 2024-08-18
 ### :bug: Bug Fixes
 - [`895426e`](https://github.com/klikli-dev/theurgy/commit/895426e628f9b264a03b543c6767b4f7d9559fcc) - logistics inserters ignore their enabled/disabled state *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1068,3 +1080,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21.1-1.49.2]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.49.1...release/v1.21.1-1.49.2
 [release/v1.21.1-1.50.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.49.2...release/v1.21.1-1.50.0
 [release/v1.21.1-1.50.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.50.0...release/v1.21.1-1.50.1
+[release/v1.21.1-1.51.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.50.1...release/v1.21.1-1.51.0

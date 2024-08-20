@@ -37,14 +37,13 @@ public class SalAmmoniacAccumulatorCraftingBehaviour extends CraftingBehaviour<I
 
     @Override
     public boolean canProcess(ItemStack stack) {
-        if (ItemStack.isSameItemSameComponents(stack, this.inputInventorySupplier.get().getStackInSlot(0)))
+        if (this.alreadyHasInput(stack))
             return true; //early out if we are already processing this type of item
-
 
         return this.recipeCachedCheck.getRecipeFor(stack, this.blockEntity.getLevel()).isPresent();
     }
 
-
+    @Override
     public boolean canProcess(FluidStack stack) {
         if (FluidStack.isSameFluidSameComponents(this.waterTankSupplier.get().getFluidInTank(0), stack))
             return true; //early out if we are already processing this type of fluid

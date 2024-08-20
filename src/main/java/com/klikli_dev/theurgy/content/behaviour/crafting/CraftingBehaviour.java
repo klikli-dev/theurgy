@@ -14,12 +14,14 @@ import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.items.IItemHandlerModifiable;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 import java.util.function.Supplier;
+import java.util.stream.IntStream;
 
 public abstract class CraftingBehaviour<W extends RecipeInput, R extends Recipe<W>, C extends RecipeManager.CachedCheck<W, R>> {
     protected BlockEntity blockEntity;
@@ -113,6 +115,18 @@ public abstract class CraftingBehaviour<W extends RecipeInput, R extends Recipe<
     }
 
     public abstract boolean canProcess(ItemStack stack);
+
+    public boolean canProcess(FluidStack stack) {
+        return false;
+    }
+
+    /**
+     * Returns true if the input inventory already contains a stack matching the given stack.
+     * This allows us to early out of canProcess.
+     */
+    protected boolean alreadyHasInput(ItemStack stack) {
+        return IntStream.range(0, this.inputInventorySupplier.get().getSlots()).anyMatch(i -> ItemStack.isSameItemSameComponents(stack, this.inputInventorySupplier.get().getStackInSlot(i)));
+    }
 
     /**
      * If progress has reached 100%, craft the item and reset progress.

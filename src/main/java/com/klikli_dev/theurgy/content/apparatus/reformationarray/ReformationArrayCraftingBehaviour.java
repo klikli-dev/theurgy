@@ -36,7 +36,7 @@ public class ReformationArrayCraftingBehaviour extends CraftingBehaviour<Reforma
 
     @Override
     public boolean canProcess(ItemStack stack) {
-        if (ItemStack.isSameItemSameComponents(stack, this.inputInventorySupplier.get().getStackInSlot(0)))
+        if (this.alreadyHasInput(stack))
             return true; //early out if we are already processing this type of item
 
         return this.recipeCachedCheck.getRecipeFor(this.recipeWrapperSupplier.get(), this.blockEntity.getLevel()).isPresent();

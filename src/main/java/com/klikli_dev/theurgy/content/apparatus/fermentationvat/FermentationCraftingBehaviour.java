@@ -18,6 +18,7 @@ import net.neoforged.neoforge.items.IItemHandlerModifiable;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 
 import java.util.function.Supplier;
+import java.util.stream.IntStream;
 
 public class FermentationCraftingBehaviour extends CraftingBehaviour<ItemHandlerWithFluidRecipeInput, FermentationRecipe, FermentationCachedCheck> {
 
@@ -35,14 +36,16 @@ public class FermentationCraftingBehaviour extends CraftingBehaviour<ItemHandler
 
     @Override
     public boolean canProcess(ItemStack stack) {
-        if (ItemStack.isSameItemSameComponents(stack, this.inputInventorySupplier.get().getStackInSlot(0)))
+        if (this.alreadyHasInput(stack))
             return true; //early out if we are already processing this type of item
-
+        //TODO:
+        //  if we already have a recipe and new item does not fit -> deny
+        // if we do not have a recipe, but already have an item and they are not common part of any recipe -> deny
 
         return this.recipeCachedCheck.getRecipeFor(stack, this.blockEntity.getLevel()).isPresent();
     }
 
-
+    @Override
     public boolean canProcess(FluidStack stack) {
         if (FluidStack.isSameFluidSameComponents(this.fluidTankSupplier.get().getFluidInTank(0), stack))
             return true; //early out if we are already processing this type of fluid

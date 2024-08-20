@@ -43,7 +43,7 @@ public class DigestionCraftingBehaviour extends CraftingBehaviour<ItemHandlerWit
         return this.recipeCachedCheck.getRecipeFor(stack, this.blockEntity.getLevel()).isPresent();
     }
 
-
+    @Override
     public boolean canProcess(FluidStack stack) {
         if (FluidStack.isSameFluidSameComponents(this.fluidTankSupplier.get().getFluidInTank(0), stack))
             return true; //early out if we are already processing this type of fluid

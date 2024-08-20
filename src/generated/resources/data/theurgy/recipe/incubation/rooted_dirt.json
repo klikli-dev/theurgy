@@ -10,7 +10,7 @@
     "id": "minecraft:rooted_dirt"
   },
   "salt": {
-    "item": "theurgy:alchemical_salt_mineral"
+    "item": "theurgy:alchemical_salt_strata"
   },
   "sulfur": {
     "item": "theurgy:alchemical_sulfur_rooted_dirt"

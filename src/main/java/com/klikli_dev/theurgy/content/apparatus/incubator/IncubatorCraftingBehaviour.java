@@ -38,7 +38,7 @@ public class IncubatorCraftingBehaviour extends CraftingBehaviour<IncubatorRecip
 
     @Override
     protected boolean craft(RecipeHolder<IncubationRecipe> pRecipe) {
-        var ItemHandlerRecipeInput = this.recipeWrapperSupplier.get();
+        var ItemHandlerRecipeInput = this.recipeInputSupplier.get();
         var assembledStack = pRecipe.value().assemble(ItemHandlerRecipeInput, this.blockEntity.getLevel().registryAccess());
 
         // Safely insert the assembledStack into the outputInventory and update the input stack.
@@ -68,6 +68,6 @@ public class IncubatorCraftingBehaviour extends CraftingBehaviour<IncubatorRecip
 
     @Override
     protected int getTotalTime() {
-        return this.recipeWrapperSupplier.get() != null ? super.getTotalTime() : this.getDefaultCraftingTime();
+        return this.recipeInputSupplier.get() != null ? super.getTotalTime() : this.getDefaultCraftingTime();
     }
 }

@@ -70,7 +70,7 @@ public class DigestionCraftingBehaviour extends CraftingBehaviour<ItemHandlerWit
 
     @Override
     protected boolean craft(RecipeHolder<DigestionRecipe> pRecipe) {
-        var assembledStack = pRecipe.value().assemble(this.recipeWrapperSupplier.get(), Objects.requireNonNull(this.blockEntity.getLevel()).registryAccess());
+        var assembledStack = pRecipe.value().assemble(this.recipeInputSupplier.get(), Objects.requireNonNull(this.blockEntity.getLevel()).registryAccess());
 
         // Safely insert the assembledStack into the outputInventory and update the input stack.
         ItemHandlerHelper.insertItemStacked(this.outputInventorySupplier.get(), assembledStack, false);

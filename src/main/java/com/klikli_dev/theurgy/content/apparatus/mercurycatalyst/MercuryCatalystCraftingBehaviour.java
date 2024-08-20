@@ -121,7 +121,7 @@ public class MercuryCatalystCraftingBehaviour extends CraftingBehaviour<ItemHand
             //only even check for recipe if we have input to avoid unnecessary lookups
 
             //if we have no flux available, consume more mercury
-            var recipe = this.recipeCachedCheck.getRecipeFor(this.recipeWrapperSupplier.get(), this.blockEntity.getLevel()).orElse(null);
+            var recipe = this.recipeCachedCheck.getRecipeFor(this.recipeInputSupplier.get(), this.blockEntity.getLevel()).orElse(null);
 
 
             this.couldCraftLastTick = this.canCraft(recipe);

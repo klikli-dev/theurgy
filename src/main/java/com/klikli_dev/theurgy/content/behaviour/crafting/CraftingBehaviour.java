@@ -25,7 +25,7 @@ import java.util.stream.IntStream;
 
 public abstract class CraftingBehaviour<W extends RecipeInput, R extends Recipe<W>, C extends RecipeManager.CachedCheck<W, R>> {
     protected BlockEntity blockEntity;
-    protected Supplier<W> recipeWrapperSupplier;
+    protected Supplier<W> recipeInputSupplier;
     protected Supplier<IItemHandlerModifiable> inputInventorySupplier;
     protected Supplier<IItemHandlerModifiable> outputInventorySupplier;
     protected C recipeCachedCheck;
@@ -36,9 +36,9 @@ public abstract class CraftingBehaviour<W extends RecipeInput, R extends Recipe<
     protected boolean couldCraftLastTick;
 
 
-    public CraftingBehaviour(BlockEntity blockEntity, Supplier<W> ItemHandlerRecipeInput, Supplier<IItemHandlerModifiable> inputInventorySupplier, Supplier<IItemHandlerModifiable> outputInventorySupplier, C recipeCachedCheck) {
+    public CraftingBehaviour(BlockEntity blockEntity, Supplier<W> recipeInputSupplier, Supplier<IItemHandlerModifiable> inputInventorySupplier, Supplier<IItemHandlerModifiable> outputInventorySupplier, C recipeCachedCheck) {
         this.blockEntity = blockEntity;
-        this.recipeWrapperSupplier = ItemHandlerRecipeInput;
+        this.recipeInputSupplier = recipeInputSupplier;
         this.inputInventorySupplier = inputInventorySupplier;
         this.outputInventorySupplier = outputInventorySupplier;
         this.recipeCachedCheck = recipeCachedCheck;
@@ -78,7 +78,7 @@ public abstract class CraftingBehaviour<W extends RecipeInput, R extends Recipe<
     }
 
     public Optional<RecipeHolder<R>> getRecipe() {
-        return this.recipeCachedCheck.getRecipeFor(this.recipeWrapperSupplier.get(), this.blockEntity.getLevel());
+        return this.recipeCachedCheck.getRecipeFor(this.recipeInputSupplier.get(), this.blockEntity.getLevel());
     }
 
     /**
@@ -198,7 +198,7 @@ public abstract class CraftingBehaviour<W extends RecipeInput, R extends Recipe<
         if (pRecipe == null)
             return false;
 
-        var assembledStack = pRecipe.value().assemble(this.recipeWrapperSupplier.get(), this.blockEntity.getLevel().registryAccess());
+        var assembledStack = pRecipe.value().assemble(this.recipeInputSupplier.get(), this.blockEntity.getLevel().registryAccess());
         if (assembledStack.isEmpty()) {
             return false;
         } else {
@@ -208,7 +208,7 @@ public abstract class CraftingBehaviour<W extends RecipeInput, R extends Recipe<
     }
 
     protected boolean craft(RecipeHolder<R> pRecipe) {
-        var assembledStack = pRecipe.value().assemble(this.recipeWrapperSupplier.get(), this.blockEntity.getLevel().registryAccess());
+        var assembledStack = pRecipe.value().assemble(this.recipeInputSupplier.get(), this.blockEntity.getLevel().registryAccess());
 
         // Safely insert the assembledStack into the outputInventory and update the input stack.
         ItemHandlerHelper.insertItemStacked(this.outputInventorySupplier.get(), assembledStack, false);
@@ -221,7 +221,7 @@ public abstract class CraftingBehaviour<W extends RecipeInput, R extends Recipe<
 
 
     protected int getTotalTime() {
-        return this.recipeCachedCheck.getRecipeFor(this.recipeWrapperSupplier.get(), this.blockEntity.getLevel())
+        return this.recipeCachedCheck.getRecipeFor(this.recipeInputSupplier.get(), this.blockEntity.getLevel())
                 .map(this::getCraftingTime)
                 .orElse(this.getDefaultCraftingTime());
     }

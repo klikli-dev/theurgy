@@ -73,7 +73,7 @@ public class SalAmmoniacAccumulatorCraftingBehaviour extends CraftingBehaviour<I
     public boolean canCraft(@Nullable RecipeHolder<AccumulationRecipe> pRecipe) {
         if (pRecipe == null) return false;
 
-        var assembledStack = pRecipe.value().assembleFluid(this.recipeWrapperSupplier.get(), this.blockEntity.getLevel().registryAccess());
+        var assembledStack = pRecipe.value().assembleFluid(this.recipeInputSupplier.get(), this.blockEntity.getLevel().registryAccess());
         if (assembledStack.isEmpty()) {
             return false;
         } else {
@@ -97,7 +97,7 @@ public class SalAmmoniacAccumulatorCraftingBehaviour extends CraftingBehaviour<I
 
     @Override
     protected boolean craft(RecipeHolder<AccumulationRecipe> pRecipe) {
-        var assembledFluid = pRecipe.value().assembleFluid(this.recipeWrapperSupplier.get(), this.blockEntity.getLevel().registryAccess());
+        var assembledFluid = pRecipe.value().assembleFluid(this.recipeInputSupplier.get(), this.blockEntity.getLevel().registryAccess());
         var outputFluidTank = this.outputTankSupplier.get();
 
         outputFluidTank.fill(assembledFluid, IFluidHandler.FluidAction.EXECUTE);

@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21.1-1.51.3] - 2024-08-20
+### :bug: Bug Fixes
+- [`82969ca`](https://github.com/klikli-dev/theurgy/commit/82969ca147ba96dcd479466ac3d17f0d9aa2d6b1) - earthen materials incubation recipes use mineral instead of strata salt *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21.1-1.51.2] - 2024-08-20
 ### :bug: Bug Fixes
 - [`3ac5af5`](https://github.com/klikli-dev/theurgy/commit/3ac5af59f37e290b2ce796f84e3cb7a8e6bfd0d4) - cannot insert fluid into sal ammoniac accumulator *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1093,3 +1098,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21.1-1.51.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.50.1...release/v1.21.1-1.51.0
 [release/v1.21.1-1.51.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.51.0...release/v1.21.1-1.51.1
 [release/v1.21.1-1.51.2]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.51.1...release/v1.21.1-1.51.2
+[release/v1.21.1-1.51.3]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.51.2...release/v1.21.1-1.51.3

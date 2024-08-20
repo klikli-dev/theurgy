@@ -38,9 +38,6 @@ public class FermentationCraftingBehaviour extends CraftingBehaviour<ItemHandler
     public boolean canProcess(ItemStack stack) {
         if (this.alreadyHasInput(stack))
             return true; //early out if we are already processing this type of item
-        //TODO:
-        //  if we already have a recipe and new item does not fit -> deny
-        // if we do not have a recipe, but already have an item and they are not common part of any recipe -> deny
 
         return this.recipeCachedCheck.getRecipeFor(stack, this.blockEntity.getLevel()).isPresent();
     }

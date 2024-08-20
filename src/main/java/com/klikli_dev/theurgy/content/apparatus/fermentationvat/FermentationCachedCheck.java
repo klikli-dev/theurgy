@@ -13,9 +13,16 @@ import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.items.IItemHandlerModifiable;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 /**
  * A custom cached check
@@ -30,6 +37,29 @@ public class FermentationCachedCheck implements RecipeManager.CachedCheck<ItemHa
     public FermentationCachedCheck(RecipeType<FermentationRecipe> type) {
         this.type = type;
         this.internal = RecipeManager.createCheck(type);
+    }
+
+    private boolean matchesRecipe(RecipeHolder<FermentationRecipe> recipe, Collection<ItemStack> input) {
+        var ingredients = recipe.value().getIngredients();
+
+        // Check if every input ItemStack matches at least one ingredient in the recipe
+        return input.stream().allMatch(stack ->
+                ingredients.stream().anyMatch(ingredient -> ingredient.test(stack))
+        );
+    }
+
+    private Optional<RecipeHolder<FermentationRecipe>> getRecipeFor(Collection<ItemStack> input, Level level, @Nullable ResourceLocation lastRecipe) {
+        var recipeManager = level.getRecipeManager();
+
+        if (lastRecipe != null) {
+            var recipe = recipeManager.byKeyTyped(this.type, lastRecipe);
+            //test only the ingredient without the (separate) fluid ingredient check that the recipe.matches() would.
+            if (recipe != null && this.matchesRecipe(recipe, input)) {
+                return Optional.of(recipe);
+            }
+        }
+
+        return recipeManager.byType(this.type).stream().filter((entry) -> this.matchesRecipe(entry, input)).findFirst();
     }
 
     private Optional<RecipeHolder<FermentationRecipe>> getRecipeFor(ItemStack stack, Level level, @Nullable ResourceLocation lastRecipe) {
@@ -58,6 +88,20 @@ public class FermentationCachedCheck implements RecipeManager.CachedCheck<ItemHa
         }
 
         return recipeManager.byType(this.type).stream().filter((entry) -> entry.value().getFluid().ingredient().test(stack)).findFirst();
+    }
+
+    /**
+     * This only checks ingredients, including ingredients already present, not fluids
+     */
+    public Optional<RecipeHolder<FermentationRecipe>> getRecipeFor(Collection<ItemStack> input, Level level) {
+        var optional = this.getRecipeFor(input, level, this.lastRecipe);
+        if (optional.isPresent()) {
+            var recipeHolder = optional.get();
+            this.lastRecipe = recipeHolder.id();
+            return optional;
+        } else {
+            return Optional.empty();
+        }
     }
 
     /**

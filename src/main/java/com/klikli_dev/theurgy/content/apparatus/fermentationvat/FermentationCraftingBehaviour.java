@@ -18,6 +18,9 @@ import net.neoforged.neoforge.items.IItemHandlerModifiable;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class FermentationCraftingBehaviour extends CraftingBehaviour<ItemHandlerWithFluidRecipeInput, FermentationRecipe, FermentationCachedCheck> {
 
@@ -31,6 +34,31 @@ public class FermentationCraftingBehaviour extends CraftingBehaviour<ItemHandler
                 new FermentationCachedCheck(RecipeTypeRegistry.FERMENTATION.get()));
 
         this.fluidTankSupplier = fluidTankSupplier;
+    }
+
+    @Override
+    public boolean canProcess(ItemStack stack) {
+        if (this.alreadyHasInput(stack))
+            return true; //early out if we are already processing this type of item
+
+        var currentRecipe = this.getRecipe();
+        if (currentRecipe.isPresent()) {
+            //if we currently have a recipe we determine process-ability based on if the item is part of the recipe
+            return currentRecipe.get().value().getIngredients().stream().anyMatch(ingredient -> ingredient.test(stack));
+        }
+
+        var ingredientsList = Stream.concat(
+                IntStream.range(0, this.inputInventorySupplier.get().getSlots()).filter(i -> !this.inputInventorySupplier.get().getStackInSlot(i).isEmpty()).mapToObj(i -> this.inputInventorySupplier.get().getStackInSlot(i)),
+                Stream.of(stack)
+        ).toList();
+
+        if (ingredientsList.size() > 1) {
+            //if we have any items in the input inventory (= more simulated ingredients than one, which is the one we are checking), we can only process items that share a recipe with already existing items
+            return this.recipeCachedCheck.getRecipeFor(ingredientsList, this.blockEntity.getLevel()).isPresent();
+        }
+
+        //finally if we have an empty inventory we do a simple check if the item is an ingredient of any recipe
+        return this.isIngredient(stack);
     }
 
     @Override

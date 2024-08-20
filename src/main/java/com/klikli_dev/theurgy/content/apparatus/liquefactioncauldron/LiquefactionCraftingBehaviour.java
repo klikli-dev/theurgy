@@ -32,11 +32,7 @@ public class LiquefactionCraftingBehaviour extends CraftingBehaviour<ItemHandler
     }
 
     @Override
-    public boolean canProcess(ItemStack stack) {
-        if (this.alreadyHasInput(stack))
-            return true; //early out if we are already processing this type of item
-
-
+    public boolean isIngredient(ItemStack stack) {
         return this.recipeCachedCheck.getRecipeFor(stack, this.blockEntity.getLevel()).isPresent();
     }
 

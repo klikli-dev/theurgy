@@ -36,10 +36,7 @@ public class SalAmmoniacAccumulatorCraftingBehaviour extends CraftingBehaviour<I
     }
 
     @Override
-    public boolean canProcess(ItemStack stack) {
-        if (this.alreadyHasInput(stack))
-            return true; //early out if we are already processing this type of item
-
+    public boolean isIngredient(ItemStack stack) {
         return this.recipeCachedCheck.getRecipeFor(stack, this.blockEntity.getLevel()).isPresent();
     }
 
@@ -49,6 +46,11 @@ public class SalAmmoniacAccumulatorCraftingBehaviour extends CraftingBehaviour<I
             return true; //early out if we are already processing this type of fluid
 
         //now we use our custom cached check that checks only liquids:
+        return this.isIngredient(stack);
+    }
+
+    @Override
+    public boolean isIngredient(FluidStack stack) {
         return this.recipeCachedCheck.getRecipeFor(stack, this.blockEntity.getLevel()).isPresent();
     }
 
@@ -106,7 +108,7 @@ public class SalAmmoniacAccumulatorCraftingBehaviour extends CraftingBehaviour<I
             this.inputInventorySupplier.get().extractItem(0, this.getIngredientCount(pRecipe), false);
         }
 
-        if(pRecipe.value().hasEvaporant()){
+        if (pRecipe.value().hasEvaporant()) {
             this.waterTankSupplier.get().drain(pRecipe.value().getEvaporantAmount(), IFluidHandler.FluidAction.EXECUTE);
         }
 

@@ -32,6 +32,11 @@ public class IncubatorCraftingBehaviour extends CraftingBehaviour<IncubatorRecip
     }
 
     @Override
+    public boolean isIngredient(ItemStack stack) {
+        return true; //not used because the vessels handle their input on their own.
+    }
+
+    @Override
     protected boolean craft(RecipeHolder<IncubationRecipe> pRecipe) {
         var ItemHandlerRecipeInput = this.recipeWrapperSupplier.get();
         var assembledStack = pRecipe.value().assemble(ItemHandlerRecipeInput, this.blockEntity.getLevel().registryAccess());

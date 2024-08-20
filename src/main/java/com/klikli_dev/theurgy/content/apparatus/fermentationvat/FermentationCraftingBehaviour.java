@@ -18,7 +18,6 @@ import net.neoforged.neoforge.items.IItemHandlerModifiable;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 
 import java.util.function.Supplier;
-import java.util.stream.IntStream;
 
 public class FermentationCraftingBehaviour extends CraftingBehaviour<ItemHandlerWithFluidRecipeInput, FermentationRecipe, FermentationCachedCheck> {
 
@@ -35,10 +34,7 @@ public class FermentationCraftingBehaviour extends CraftingBehaviour<ItemHandler
     }
 
     @Override
-    public boolean canProcess(ItemStack stack) {
-        if (this.alreadyHasInput(stack))
-            return true; //early out if we are already processing this type of item
-
+    public boolean isIngredient(ItemStack stack) {
         return this.recipeCachedCheck.getRecipeFor(stack, this.blockEntity.getLevel()).isPresent();
     }
 
@@ -48,6 +44,11 @@ public class FermentationCraftingBehaviour extends CraftingBehaviour<ItemHandler
             return true; //early out if we are already processing this type of fluid
 
         //now we use our custom cached check that checks only liquids:
+        return this.isIngredient(stack);
+    }
+
+    @Override
+    public boolean isIngredient(FluidStack stack) {
         return this.recipeCachedCheck.getRecipeFor(stack, this.blockEntity.getLevel()).isPresent();
     }
 

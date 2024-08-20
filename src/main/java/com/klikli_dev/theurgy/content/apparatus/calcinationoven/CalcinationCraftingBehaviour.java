@@ -27,10 +27,7 @@ public class CalcinationCraftingBehaviour extends CraftingBehaviour<ItemHandlerR
     }
 
     @Override
-    public boolean canProcess(ItemStack stack) {
-        if (this.alreadyHasInput(stack))
-            return true; //early out if we are already processing this type of item
-
+    public boolean isIngredient(ItemStack stack) {
         return this.recipeCachedCheck.getRecipeFor(stack, Objects.requireNonNull(this.blockEntity.getLevel())).isPresent();
     }
 

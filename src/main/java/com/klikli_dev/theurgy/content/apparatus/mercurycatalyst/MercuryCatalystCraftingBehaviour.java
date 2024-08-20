@@ -45,10 +45,7 @@ public class MercuryCatalystCraftingBehaviour extends CraftingBehaviour<ItemHand
     }
 
     @Override
-    public boolean canProcess(ItemStack stack) {
-        if (this.alreadyHasInput(stack))
-            return true; //early out if we are already processing this type of item
-
+    public boolean isIngredient(ItemStack stack) {
         var tempInv = new ItemStackHandler(NonNullList.of(ItemStack.EMPTY, stack));
         var tempRecipeWrapper = new ItemHandlerRecipeInput(tempInv);
 

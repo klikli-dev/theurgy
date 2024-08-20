@@ -114,9 +114,38 @@ public abstract class CraftingBehaviour<W extends RecipeInput, R extends Recipe<
         this.progress = 0;
     }
 
-    public abstract boolean canProcess(ItemStack stack);
+    /**
+     * Returns true if the crafting behaviour can currently process the given stack.
+     * It might return false even for a valid ingredient, e.g. if another recipe is already being processed.
+     */
+    public boolean canProcess(ItemStack stack) {
+        if (this.alreadyHasInput(stack))
+            return true; //early out if we are already processing this type of item
 
+        return this.isIngredient(stack);
+    }
+
+    /**
+     * Returns true if the crafting behaviour can *generally* process the given stack.
+     * This is used for visual indicators, e.g. to highlight fitting items.
+     * Returning true does not mean that the item can be processed right now, as it might be blocked by other factors.
+     */
+    public abstract boolean isIngredient(ItemStack stack);
+
+    /**
+     * Returns true if the crafting behaviour can currently process the given fluid stack.
+     * It might return false even for a valid ingredient, e.g. if another recipe is already being processed.
+     */
     public boolean canProcess(FluidStack stack) {
+        return false;
+    }
+
+    /**
+     * Returns true if the crafting behaviour can *generally* process the given fluid stack.
+     * This is used for visual indicators, e.g. to highlight fitting items.
+     * Returning true does not mean that the fluid can be processed right now, as it might be blocked by other factors.
+     */
+    public boolean isIngredient(FluidStack stack) {
         return false;
     }
 

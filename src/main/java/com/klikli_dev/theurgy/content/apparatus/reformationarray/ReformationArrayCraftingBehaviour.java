@@ -35,10 +35,7 @@ public class ReformationArrayCraftingBehaviour extends CraftingBehaviour<Reforma
     }
 
     @Override
-    public boolean canProcess(ItemStack stack) {
-        if (this.alreadyHasInput(stack))
-            return true; //early out if we are already processing this type of item
-
+    public boolean isIngredient(ItemStack stack) {
         return this.recipeCachedCheck.getRecipeFor(this.recipeWrapperSupplier.get(), this.blockEntity.getLevel()).isPresent();
     }
 

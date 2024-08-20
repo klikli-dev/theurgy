@@ -35,11 +35,7 @@ public class DigestionCraftingBehaviour extends CraftingBehaviour<ItemHandlerWit
     }
 
     @Override
-    public boolean canProcess(ItemStack stack) {
-        if (ItemStack.isSameItemSameComponents(stack, this.inputInventorySupplier.get().getStackInSlot(0)))
-            return true; //early out if we are already processing this type of item
-
-
+    public boolean isIngredient(ItemStack stack) {
         return this.recipeCachedCheck.getRecipeFor(stack, this.blockEntity.getLevel()).isPresent();
     }
 
@@ -49,6 +45,11 @@ public class DigestionCraftingBehaviour extends CraftingBehaviour<ItemHandlerWit
             return true; //early out if we are already processing this type of fluid
 
         //now we use our custom cached check that checks only liquids:
+        return this.isIngredient(stack);
+    }
+
+    @Override
+    public boolean isIngredient(FluidStack stack) {
         return this.recipeCachedCheck.getRecipeFor(stack, this.blockEntity.getLevel()).isPresent();
     }
 

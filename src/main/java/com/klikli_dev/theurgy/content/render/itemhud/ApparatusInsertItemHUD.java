@@ -49,7 +49,7 @@ public class ApparatusInsertItemHUD {
                 if (!blockPos.equals(this.lastHitBlockPos) || !ItemStack.isSameItemSameComponents(stack, this.lastStack)) {
                     this.lastHitBlockPos = blockPos;
                     this.lastStack = stack;
-                    this.lastCanProcess = this.canProcess(hasCraftingBehaviour.craftingBehaviour(), stack);
+                    this.lastCanProcess = this.isIngredient(hasCraftingBehaviour.craftingBehaviour(), stack);
                 }
             }
             //TODO: here handle theurgy blocks without a crafting behaviour
@@ -80,8 +80,8 @@ public class ApparatusInsertItemHUD {
         }
     }
 
-    private boolean canProcess(CraftingBehaviour<?, ?, ?> craftingBehaviour, ItemStack stack) {
-        if (craftingBehaviour.canProcess(stack))
+    private boolean isIngredient(CraftingBehaviour<?, ?, ?> craftingBehaviour, ItemStack stack) {
+        if (craftingBehaviour.isIngredient(stack))
             return true;
 
         var fluidHandler = stack.getCapability(Capabilities.FluidHandler.ITEM);
@@ -92,7 +92,7 @@ public class ApparatusInsertItemHUD {
         if (fluidStack.isEmpty())
             return false;
 
-        return craftingBehaviour.canProcess(fluidStack);
+        return craftingBehaviour.isIngredient(fluidStack);
     }
 
     private void reset() {

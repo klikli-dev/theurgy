@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21.1-1.53.0] - 2024-08-21
+### :sparkles: New Features
+- [`3e7e994`](https://github.com/klikli-dev/theurgy/commit/3e7e99463d652d977bc5fc06604fe9b811c68bea) - support ingredient notation in item recipe results *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21.1-1.52.1] - 2024-08-20
 ### :bug: Bug Fixes
 - [`59f2b5e`](https://github.com/klikli-dev/theurgy/commit/59f2b5e982229137614ef724436d2efb9f05fd92) - missing mob niter recipes *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1117,3 +1122,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21.1-1.51.3]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.51.2...release/v1.21.1-1.51.3
 [release/v1.21.1-1.52.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.51.3...release/v1.21.1-1.52.0
 [release/v1.21.1-1.52.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.52.0...release/v1.21.1-1.52.1
+[release/v1.21.1-1.53.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.52.1...release/v1.21.1-1.53.0

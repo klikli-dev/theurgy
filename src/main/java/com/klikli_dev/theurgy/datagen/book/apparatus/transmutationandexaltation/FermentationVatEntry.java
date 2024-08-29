@@ -84,36 +84,6 @@ public class FermentationVatEntry extends EntryProvider {
                         Both items and fluids can also be piped in and out of the vat, or hoppers can be used.
                         """
         );
-
-        this.page("redstone_control", () -> BookTextPageModel.create()
-                .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText()));
-        this.add(this.context().pageTitle(), "Redstone Control");
-        this.add(this.context().pageText(),
-                """
-                        The vat can be closed by applying a redstone signal (if a valid recipe is present).\\
-                        If a redstone signal is applied and ingredients for a valid recipe are inserted, the vat will automatically close.\\
-                        Please note that the 
-                        \\
-                        \\
-                        If the redstone signal is turned off the vat will open again.
-                        """
-        );
-
-        this.page("redstone_output", () -> BookTextPageModel.create()
-                .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText()));
-        this.add(this.context().pageTitle(), "Redstone Output");
-        this.add(this.context().pageText(),
-                """
-                        The vat can be closed by applying a redstone signal (if a valid recipe is present).\\
-                        If a redstone signal is applied and ingredients for a valid recipe are inserted, the vat will automatically close.
-                        \\
-                        \\
-                        If the redstone signal is turned off the vat will open again.
-                        """
-        );
-
     }
 
     @Override

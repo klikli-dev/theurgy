@@ -75,28 +75,6 @@
       "text": "book.theurgy.the_hermetica.apparatus.fermentation_vat.usage2.text",
       "title": "book.theurgy.the_hermetica.apparatus.fermentation_vat.usage2.title",
       "use_markdown_in_title": false
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.apparatus.fermentation_vat.redstone_control.text",
-      "title": "book.theurgy.the_hermetica.apparatus.fermentation_vat.redstone_control.title",
-      "use_markdown_in_title": false
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.theurgy.the_hermetica.apparatus.fermentation_vat.redstone_output.text",
-      "title": "book.theurgy.the_hermetica.apparatus.fermentation_vat.redstone_output.title",
-      "use_markdown_in_title": false
     }
   ],
   "parents": [

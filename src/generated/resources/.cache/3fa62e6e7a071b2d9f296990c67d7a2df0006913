@@ -1,4 +1,4 @@
-// 1.21.1	2024-08-16T15:38:30.3386581	Books: theurgy
+// 1.21.1	2024-08-29T18:41:12.7572969	Books: theurgy
 c473bf5aa94f847c736c37f1a9f85c86b8bce95d data/theurgy/modonomicon/books/the_hermetica/book.json
 74a2622bcd8dc6316c5977cbea5a026d81dcff87 data/theurgy/modonomicon/books/the_hermetica/categories/apparatus.json
 6f877a9734359091748cca949c8e6c569ad2d67e data/theurgy/modonomicon/books/the_hermetica/categories/getting_started.json
@@ -6,9 +6,9 @@ c901ff2af9083916a51d916567c4d9475469ce80 data/theurgy/modonomicon/books/the_herm
 b566a66d301147d1840b1ffd152d40d67b1213d4 data/theurgy/modonomicon/books/the_hermetica/entries/apparatus/basic_vat_automation.json
 1a046a57dc23b1db493fb013bb8969bdcad25cf7 data/theurgy/modonomicon/books/the_hermetica/entries/apparatus/calcination_oven.json
 6a4cf4119c1339960918069c955dd1db251d7a59 data/theurgy/modonomicon/books/the_hermetica/entries/apparatus/caloric_flux_emitter.json
-37e64e777d28f29d7f93a367ec34bbc26d1e1382 data/theurgy/modonomicon/books/the_hermetica/entries/apparatus/digestion_vat.json
+6e24d9f5f1baa3a9baf4c11e09cc1eab19abb62f data/theurgy/modonomicon/books/the_hermetica/entries/apparatus/digestion_vat.json
 48a7044e487fb09077768c0db0d3ed43521fa644 data/theurgy/modonomicon/books/the_hermetica/entries/apparatus/distiller.json
-19914c0b4232ec532259e83f59f8f6d99b30fdc4 data/theurgy/modonomicon/books/the_hermetica/entries/apparatus/fermentation_vat.json
+e6bed2f0f9fe593643d576d290659a22eb6144e2 data/theurgy/modonomicon/books/the_hermetica/entries/apparatus/fermentation_vat.json
 6029216b2e7451d17f6b01aff7bceb4c0c2fb169 data/theurgy/modonomicon/books/the_hermetica/entries/apparatus/how_to.json
 bc3437956682996470624842db82e9e476de4a3e data/theurgy/modonomicon/books/the_hermetica/entries/apparatus/incubator.json
 87b2f0e43694c7737da5aca929a619af194bd357 data/theurgy/modonomicon/books/the_hermetica/entries/apparatus/intro.json

@@ -1,4 +1,4 @@
-// 1.21.1	2024-08-18T10:41:15.7432107	Tags for minecraft:item mod id theurgy
+// 1.21.1	2024-08-20T20:07:01.1176887	Tags for minecraft:item mod id theurgy
 f41150cbf3906d7eb1284a3f289d93bb80e57b9f data/c/tags/item/gems.json
 9d7e0673ca0bd8f1eb04c0813860ac8b7ec5d981 data/c/tags/item/gems/chimerite.json
 f17805722ccaefbf3d1c1b6e6b4f54f30f9af17c data/c/tags/item/gems/dark.json
@@ -42,7 +42,7 @@ b6ad7e4e0e0d2cfdac2db3fba60954abc6ac27f6 data/theurgy/tags/item/alchemical_sulfu
 a87612fd16487cc1b2d87d90f89029e1192c6ec7 data/theurgy/tags/item/alchemical_sulfurs/mobs.json
 8b9950ed06e09f1dff7ce81e6ca2f682ad2257bb data/theurgy/tags/item/alchemical_sulfurs/mobs/abundant.json
 dfc1f995b552c4f98052bdcbf27f2bf33840c498 data/theurgy/tags/item/alchemical_sulfurs/mobs/common.json
-35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/theurgy/tags/item/alchemical_sulfurs/mobs/common/automatic_recipes.json
+70e3d493dcb8ccec20b01981b7454049ab1819b7 data/theurgy/tags/item/alchemical_sulfurs/mobs/common/automatic_recipes.json
 6e7c018111e43af99571ad8e2b45c19535dac716 data/theurgy/tags/item/alchemical_sulfurs/mobs/precious.json
 35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/theurgy/tags/item/alchemical_sulfurs/mobs/precious/automatic_recipes.json
 dade3979da1fdb923d078790f39d021deef64c24 data/theurgy/tags/item/alchemical_sulfurs/mobs/rare.json

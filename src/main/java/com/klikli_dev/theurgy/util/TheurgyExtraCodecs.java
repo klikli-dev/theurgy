@@ -6,7 +6,9 @@ package com.klikli_dev.theurgy.util;
 
 import com.google.common.graph.EndpointPair;
 import com.google.common.graph.MutableGraph;
+import com.mojang.datafixers.util.Either;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import io.netty.buffer.ByteBuf;
 import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
@@ -37,6 +39,16 @@ public class TheurgyExtraCodecs {
     public static final Codec<Tiers> TIERS_CODEC = Codec.stringResolver(Tiers::name, TIERS::get);
 
     public static final Codec<FluidStack> SINGLE_FLUID_CODEC = BuiltInRegistries.FLUID.byNameCodec().xmap(fluid -> new FluidStack(fluid, 1), FluidStack::getFluid);
+
+    public static <T> MapCodec<T> mapWithAlternative(final MapCodec<T> primary, final MapCodec<? extends T> alternative) {
+        return Codec.mapEither(
+                primary,
+                alternative
+        ).xmap(
+                Either::unwrap,
+                Either::left
+        );
+    }
 
     @SuppressWarnings("UnstableApiUsage")
     public static <V> Codec<MutableGraph<V>> graph(Codec<V> elementCodec, Supplier<MutableGraph<V>> graphSupplier) {

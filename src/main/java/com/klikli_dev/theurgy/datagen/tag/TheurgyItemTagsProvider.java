@@ -210,7 +210,7 @@ public class TheurgyItemTagsProvider extends ItemTagsProvider {
             this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_MOBS_COMMON).add(sulfur);
         });
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_MOBS_COMMON_FOR_AUTOMATIC_RECIPES);
-        SulfurMappings.mobsPrecious()
+        SulfurMappings.mobsCommon()
                 .stream()
                 .filter(sulfur -> !SulfurMappings.noAutomaticRecipesFor().contains(sulfur))
                 .forEach(sulfur -> {
@@ -221,7 +221,7 @@ public class TheurgyItemTagsProvider extends ItemTagsProvider {
             this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_MOBS_RARE).add(sulfur);
         });
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_MOBS_RARE_FOR_AUTOMATIC_RECIPES);
-        SulfurMappings.mobsPrecious()
+        SulfurMappings.mobsRare()
                 .stream()
                 .filter(sulfur -> !SulfurMappings.noAutomaticRecipesFor().contains(sulfur))
                 .forEach(sulfur -> {

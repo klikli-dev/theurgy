@@ -4,6 +4,35 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21.1-1.53.1] - 2024-08-29
+### :bug: Bug Fixes
+- [`14e11a6`](https://github.com/klikli-dev/theurgy/commit/14e11a6b28c73d0376089b18968bb7030088ec19) - remove duplicate book content *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`e76ec74`](https://github.com/klikli-dev/theurgy/commit/e76ec74c858e52f568154a4a4aa3def2dab0d320) - ensure mod_version in resource files is not cached *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
+## [release/v1.21.1-1.53.0] - 2024-08-21
+### :sparkles: New Features
+- [`3e7e994`](https://github.com/klikli-dev/theurgy/commit/3e7e99463d652d977bc5fc06604fe9b811c68bea) - support ingredient notation in item recipe results *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
+## [release/v1.21.1-1.52.1] - 2024-08-20
+### :bug: Bug Fixes
+- [`59f2b5e`](https://github.com/klikli-dev/theurgy/commit/59f2b5e982229137614ef724436d2efb9f05fd92) - missing mob niter recipes *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
+## [release/v1.21.1-1.52.0] - 2024-08-20
+### :sparkles: New Features
+- [`ff60029`](https://github.com/klikli-dev/theurgy/commit/ff600295b04c6e055827674b868cb7028fe80468) - make vats not accept ingredients if there are already ingredients of another recipe present *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`524647b`](https://github.com/klikli-dev/theurgy/commit/524647b4553a4cdb47290b7bac874607f5d144fa) - clean up crafting behaviour *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`5c5bdd8`](https://github.com/klikli-dev/theurgy/commit/5c5bdd89094cfd716c8ca92460199777ffdcf556) - remove todo *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`0b8a717`](https://github.com/klikli-dev/theurgy/commit/0b8a71782b8de02997f8e112557ac438fa6b74f2) - simplify canProcess and extract isIngredient *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`c2af7ad`](https://github.com/klikli-dev/theurgy/commit/c2af7adb73ce5367b2658d6fddf4ec725ae23e63) - rename variables to fit new vanilla conventions *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21.1-1.51.3] - 2024-08-20
 ### :bug: Bug Fixes
 - [`82969ca`](https://github.com/klikli-dev/theurgy/commit/82969ca147ba96dcd479466ac3d17f0d9aa2d6b1) - earthen materials incubation recipes use mineral instead of strata salt *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1099,3 +1128,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21.1-1.51.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.51.0...release/v1.21.1-1.51.1
 [release/v1.21.1-1.51.2]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.51.1...release/v1.21.1-1.51.2
 [release/v1.21.1-1.51.3]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.51.2...release/v1.21.1-1.51.3
+[release/v1.21.1-1.52.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.51.3...release/v1.21.1-1.52.0
+[release/v1.21.1-1.52.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.52.0...release/v1.21.1-1.52.1
+[release/v1.21.1-1.53.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.52.1...release/v1.21.1-1.53.0
+[release/v1.21.1-1.53.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.53.0...release/v1.21.1-1.53.1

@@ -28,6 +28,14 @@
     {
       "id": "#c:raw_materials/platinum",
       "required": false
+    },
+    {
+      "id": "#c:raw_materials/titanium",
+      "required": false
+    },
+    {
+      "id": "#c:raw_materials/tungsten",
+      "required": false
     }
   ]
 }

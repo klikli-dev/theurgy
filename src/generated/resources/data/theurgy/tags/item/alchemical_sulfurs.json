@@ -260,6 +260,9 @@
     "theurgy:alchemical_sulfur_calorite",
     "theurgy:alchemical_sulfur_iesnium",
     "theurgy:alchemical_sulfur_demonite",
+    "theurgy:alchemical_sulfur_antimony",
+    "theurgy:alchemical_sulfur_titanium",
+    "theurgy:alchemical_sulfur_tungsten",
     "theurgy:alchemical_sulfur_diamond",
     "theurgy:alchemical_sulfur_emerald",
     "theurgy:alchemical_sulfur_lapis",
@@ -280,6 +283,9 @@
     "theurgy:alchemical_sulfur_redstone",
     "theurgy:alchemical_sulfur_coals",
     "theurgy:alchemical_sulfur_sulfur",
-    "theurgy:alchemical_sulfur_glowstone"
+    "theurgy:alchemical_sulfur_glowstone",
+    "theurgy:alchemical_sulfur_lignite_coal",
+    "theurgy:alchemical_sulfur_monazite",
+    "theurgy:alchemical_sulfur_bauxite"
   ]
 }

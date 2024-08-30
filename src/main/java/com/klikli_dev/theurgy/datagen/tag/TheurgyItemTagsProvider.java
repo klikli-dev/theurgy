@@ -295,6 +295,7 @@ public class TheurgyItemTagsProvider extends ItemTagsProvider {
                 .addOptionalTag(ItemTagRegistry.ORES_APATITE)
                 .addOptionalTag(ItemTagRegistry.ORES_SULFUR)
                 .addOptionalTag(ItemTagRegistry.ORES_URANINITE_POOR)
+                .addOptionalTag(ItemTagRegistry.ORES_LIGNITE_COAL)
         ;
 
         this.tag(ItemTagRegistry.MEDIUM_MERCURY_ORES)
@@ -310,6 +311,11 @@ public class TheurgyItemTagsProvider extends ItemTagsProvider {
                 .addOptionalTag(ItemTagRegistry.ORES_PERIDOT)
                 .addOptionalTag(ItemTagRegistry.ORES_FLUORITE)
                 .addOptionalTag(ItemTagRegistry.ORES_SAPPHIRE)
+                .addOptionalTag(ItemTagRegistry.ORES_TITANIUM)
+                .addOptionalTag(ItemTagRegistry.ORES_TUNGSTEN)
+                .addOptionalTag(ItemTagRegistry.ORES_BAUXITE)
+                .addOptionalTag(ItemTagRegistry.ORES_ANTIMONY)
+                .addOptionalTag(ItemTagRegistry.ORES_MONAZITE)
         ;
 
         this.tag(ItemTagRegistry.HIGH_MERCURY_ORES)
@@ -344,6 +350,8 @@ public class TheurgyItemTagsProvider extends ItemTagsProvider {
                 .addOptionalTag(ItemTagRegistry.RAW_MATERIALS_IRIDIUM)
                 .addOptionalTag(ItemTagRegistry.RAW_MATERIALS_CRIMSON_IRON)
                 .addOptionalTag(ItemTagRegistry.RAW_MATERIALS_PLATINUM)
+                .addOptionalTag(ItemTagRegistry.RAW_MATERIALS_TITANIUM)
+                .addOptionalTag(ItemTagRegistry.RAW_MATERIALS_TUNGSTEN)
         ;
 
         this.tag(ItemTagRegistry.HIGH_MERCURY_RAW_MATERIALS)

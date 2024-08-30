@@ -4,7 +4,7 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "minecraft:coals"
+        "tag": "c:ingots/antimony"
       }
     }
   ],
@@ -16,13 +16,13 @@
   "result": {
     "type": "theurgy:tag",
     "count": 1,
-    "tag": "minecraft:coals"
+    "tag": "c:ingots/antimony"
   },
   "salt": {
     "item": "theurgy:alchemical_salt_mineral"
   },
   "sulfur": {
-    "item": "theurgy:alchemical_sulfur_coals"
+    "item": "theurgy:alchemical_sulfur_antimony"
   },
   "time": 100
 }

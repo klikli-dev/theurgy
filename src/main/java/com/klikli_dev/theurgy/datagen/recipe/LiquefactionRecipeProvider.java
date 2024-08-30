@@ -334,8 +334,11 @@ public class LiquefactionRecipeProvider extends JsonRecipeProvider {
 
         //Other Common Mineral Ores
         this.makeRecipe(SulfurRegistry.REDSTONE.get(), 9, Tags.Items.ORES_REDSTONE, salAmmoniac, 10);
-        this.makeRecipe(SulfurRegistry.COAL.get(), 4, Tags.Items.ORES_COAL, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.COAL.get(), 4, Items.COAL_ORE, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.COAL.get(), 4, Items.DEEPSLATE_COAL_ORE, salAmmoniac, 10);
         this.makeRecipe(SulfurRegistry.SULFUR.get(), 6, ItemTagRegistry.ORES_SULFUR, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.BAUXITE.get(), 1, ItemTagRegistry.ORES_BAUXITE, salAmmoniac, 15);
+        this.makeRecipe(SulfurRegistry.MONAZITE.get(), 1, ItemTagRegistry.ORES_MONAZITE, salAmmoniac, 20);
 
         //Common Raw Materials Sulfurs
         this.makeRecipe(SulfurRegistry.IRON.get(), 3, Tags.Items.RAW_MATERIALS_IRON, salAmmoniac, 10);
@@ -413,9 +416,13 @@ public class LiquefactionRecipeProvider extends JsonRecipeProvider {
 
         //Other Common Minerals Sulfurs
         this.makeRecipe(SulfurRegistry.REDSTONE.get(), 1, Tags.Items.DUSTS_REDSTONE, salAmmoniac, 10);
-        this.makeRecipe(SulfurRegistry.COAL.get(), 1, ItemTags.COALS, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.COAL.get(), 1, Items.COAL, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.COAL.get(), 1, Items.CHARCOAL, salAmmoniac, 10);
         this.makeRecipe(SulfurRegistry.SULFUR.get(), 1, ItemTagRegistry.GEMS_SULFUR, salAmmoniac, 10);
         this.makeRecipe(SulfurRegistry.GLOWSTONE.get(), 1, Tags.Items.DUSTS_GLOWSTONE, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.LIGNITE_COAL.get(), 1, ItemTagRegistry.GEMS_LIGNITE_COAL, salAmmoniac, 10);
+        this.makeRecipe(SulfurRegistry.MONAZITE.get(), 1, ItemTagRegistry.DUSTS_MONAZITE, salAmmoniac, 20);
+        this.makeRecipe(SulfurRegistry.BAUXITE.get(), 1, ItemTagRegistry.DUSTS_BAUXITE, salAmmoniac, 15);
     }
 
 

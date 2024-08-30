@@ -1,17 +1,8 @@
 {
-  "neoforge:conditions": [
-    {
-      "type": "neoforge:not",
-      "value": {
-        "type": "neoforge:tag_empty",
-        "tag": "c:ores/coal"
-      }
-    }
-  ],
   "type": "theurgy:liquefaction",
   "category": "misc",
   "ingredient": {
-    "tag": "c:ores/coal"
+    "item": "minecraft:deepslate_coal_ore"
   },
   "result": {
     "type": "theurgy:item",

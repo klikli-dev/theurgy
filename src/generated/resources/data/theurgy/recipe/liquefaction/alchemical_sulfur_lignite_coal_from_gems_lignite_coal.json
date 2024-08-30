@@ -4,19 +4,19 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "minecraft:coals"
+        "tag": "c:gems/lignite_coal"
       }
     }
   ],
   "type": "theurgy:liquefaction",
   "category": "misc",
   "ingredient": {
-    "tag": "minecraft:coals"
+    "tag": "c:gems/lignite_coal"
   },
   "result": {
     "type": "theurgy:item",
     "count": 1,
-    "id": "theurgy:alchemical_sulfur_coals"
+    "id": "theurgy:alchemical_sulfur_lignite_coal"
   },
   "solvent": {
     "amount": 10,

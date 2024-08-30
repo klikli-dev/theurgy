@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21.1-1.55.1] - 2024-08-30
+### :bug: Bug Fixes
+- [`a0ee479`](https://github.com/klikli-dev/theurgy/commit/a0ee479a4ac578dc015c406fd35b2d5f40354662) - github tag version not used in jar versioning *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21.1-1.55.0] - 2024-08-30
 ### :sparkles: New Features
 - [`9edcffa`](https://github.com/klikli-dev/theurgy/commit/9edcffa4816f7a8c3046b94b3afb5ac478df668e) - support more materials *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1144,3 +1149,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21.1-1.53.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.53.0...release/v1.21.1-1.53.1
 [release/v1.21.1-1.54.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.53.1...release/v1.21.1-1.54.0
 [release/v1.21.1-1.55.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.54.0...release/v1.21.1-1.55.0
+[release/v1.21.1-1.55.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.55.0...release/v1.21.1-1.55.1

@@ -14,6 +14,7 @@ import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.fluids.FluidStack;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
@@ -27,7 +28,11 @@ public class DigestionCachedCheck implements RecipeManager.CachedCheck<ItemHandl
     private final RecipeType<DigestionRecipe> type;
     private final RecipeManager.CachedCheck<ItemHandlerWithFluidRecipeInput, DigestionRecipe> internal;
     @Nullable
-    private ResourceLocation lastRecipe;
+    private ResourceLocation lastRecipeForFluidStack;
+    @Nullable
+    private ResourceLocation lastRecipeForItemStack;
+    @Nullable
+    private ResourceLocation lastRecipeForItemStackCollection;
 
     public DigestionCachedCheck(RecipeType<DigestionRecipe> type) {
         this.type = type;
@@ -90,10 +95,10 @@ public class DigestionCachedCheck implements RecipeManager.CachedCheck<ItemHandl
      * This only checks ingredients, including ingredients already present, not fluids
      */
     public Optional<RecipeHolder<DigestionRecipe>> getRecipeFor(Collection<ItemStack> input, Level level) {
-        var optional = this.getRecipeFor(input, level, this.lastRecipe);
+        var optional = this.getRecipeFor(input, level, this.lastRecipeForItemStackCollection);
         if (optional.isPresent()) {
             var recipeHolder = optional.get();
-            this.lastRecipe = recipeHolder.id();
+            this.lastRecipeForItemStackCollection = recipeHolder.id();
             return optional;
         } else {
             return Optional.empty();
@@ -104,10 +109,10 @@ public class DigestionCachedCheck implements RecipeManager.CachedCheck<ItemHandl
      * This only checks ingredients, not fluids
      */
     public Optional<RecipeHolder<DigestionRecipe>> getRecipeFor(ItemStack stack, Level level) {
-        var optional = this.getRecipeFor(stack, level, this.lastRecipe);
+        var optional = this.getRecipeFor(stack, level, this.lastRecipeForItemStack);
         if (optional.isPresent()) {
             var recipeHolder = optional.get();
-            this.lastRecipe = recipeHolder.id();
+            this.lastRecipeForItemStack = recipeHolder.id();
             return optional;
         } else {
             return Optional.empty();
@@ -118,10 +123,10 @@ public class DigestionCachedCheck implements RecipeManager.CachedCheck<ItemHandl
      * This only checks fluids, not ingredients
      */
     public Optional<RecipeHolder<DigestionRecipe>> getRecipeFor(FluidStack stack, Level level) {
-        var optional = this.getRecipeFor(stack, level, this.lastRecipe);
+        var optional = this.getRecipeFor(stack, level, this.lastRecipeForFluidStack);
         if (optional.isPresent()) {
             var recipeHolder = optional.get();
-            this.lastRecipe = recipeHolder.id();
+            this.lastRecipeForFluidStack = recipeHolder.id();
             return optional;
         } else {
             return Optional.empty();
@@ -132,12 +137,7 @@ public class DigestionCachedCheck implements RecipeManager.CachedCheck<ItemHandl
      * This checks full recipe validity: ingredients + fluids
      */
     @Override
-    public Optional<RecipeHolder<DigestionRecipe>> getRecipeFor(ItemHandlerWithFluidRecipeInput container, Level level) {
-        var recipe = this.internal.getRecipeFor(container, level);
-        if (recipe.isPresent()) {
-            this.lastRecipe = recipe.get().id();
-        }
-
-        return recipe;
+    public @NotNull Optional<RecipeHolder<DigestionRecipe>> getRecipeFor(@NotNull ItemHandlerWithFluidRecipeInput container, @NotNull Level level) {
+        return this.internal.getRecipeFor(container, level);
     }
 }

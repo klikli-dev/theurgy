@@ -14,6 +14,7 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.items.IItemHandlerModifiable;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
@@ -32,7 +33,11 @@ public class FermentationCachedCheck implements RecipeManager.CachedCheck<ItemHa
     private final RecipeType<FermentationRecipe> type;
     private final RecipeManager.CachedCheck<ItemHandlerWithFluidRecipeInput, FermentationRecipe> internal;
     @Nullable
-    private ResourceLocation lastRecipe;
+    private ResourceLocation lastRecipeForFluidStack;
+    @Nullable
+    private ResourceLocation lastRecipeForItemStack;
+    @Nullable
+    private ResourceLocation lastRecipeForItemStackCollection;
 
     public FermentationCachedCheck(RecipeType<FermentationRecipe> type) {
         this.type = type;
@@ -94,10 +99,10 @@ public class FermentationCachedCheck implements RecipeManager.CachedCheck<ItemHa
      * This only checks ingredients, including ingredients already present, not fluids
      */
     public Optional<RecipeHolder<FermentationRecipe>> getRecipeFor(Collection<ItemStack> input, Level level) {
-        var optional = this.getRecipeFor(input, level, this.lastRecipe);
+        var optional = this.getRecipeFor(input, level, this.lastRecipeForItemStackCollection);
         if (optional.isPresent()) {
             var recipeHolder = optional.get();
-            this.lastRecipe = recipeHolder.id();
+            this.lastRecipeForItemStackCollection = recipeHolder.id();
             return optional;
         } else {
             return Optional.empty();
@@ -108,10 +113,10 @@ public class FermentationCachedCheck implements RecipeManager.CachedCheck<ItemHa
      * This only checks ingredients, not fluids
      */
     public Optional<RecipeHolder<FermentationRecipe>> getRecipeFor(ItemStack stack, Level level) {
-        var optional = this.getRecipeFor(stack, level, this.lastRecipe);
+        var optional = this.getRecipeFor(stack, level, this.lastRecipeForItemStack);
         if (optional.isPresent()) {
             var recipeHolder = optional.get();
-            this.lastRecipe = recipeHolder.id();
+            this.lastRecipeForItemStack = recipeHolder.id();
             return optional;
         } else {
             return Optional.empty();
@@ -122,10 +127,10 @@ public class FermentationCachedCheck implements RecipeManager.CachedCheck<ItemHa
      * This only checks fluids, not ingredients
      */
     public Optional<RecipeHolder<FermentationRecipe>> getRecipeFor(FluidStack stack, Level level) {
-        var optional = this.getRecipeFor(stack, level, this.lastRecipe);
+        var optional = this.getRecipeFor(stack, level, this.lastRecipeForFluidStack);
         if (optional.isPresent()) {
             var recipeHolder = optional.get();
-            this.lastRecipe = recipeHolder.id();
+            this.lastRecipeForFluidStack = recipeHolder.id();
             return optional;
         } else {
             return Optional.empty();
@@ -136,12 +141,7 @@ public class FermentationCachedCheck implements RecipeManager.CachedCheck<ItemHa
      * This checks full recipe validity: ingredients + fluids
      */
     @Override
-    public Optional<RecipeHolder<FermentationRecipe>> getRecipeFor(ItemHandlerWithFluidRecipeInput container, Level level) {
-        var recipe = this.internal.getRecipeFor(container, level);
-        if (recipe.isPresent()) {
-            this.lastRecipe = recipe.get().id();
-        }
-
-        return recipe;
+    public @NotNull Optional<RecipeHolder<FermentationRecipe>> getRecipeFor(@NotNull ItemHandlerWithFluidRecipeInput container, @NotNull Level level) {
+        return this.internal.getRecipeFor(container, level);
     }
 }

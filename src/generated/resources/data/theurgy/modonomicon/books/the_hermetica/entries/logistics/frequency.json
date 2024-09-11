@@ -1,7 +1,7 @@
 {
   "background_u_index": 0,
   "background_v_index": 0,
-  "category": "theurgy:logistics",
+  "category": "logistics",
   "description": "book.theurgy.the_hermetica.logistics.frequency.description",
   "hide_while_locked": false,
   "icon": {
@@ -57,7 +57,7 @@
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "theurgy:logistics/connection_node",
+      "entry": "logistics/connection_node",
       "line_enabled": true,
       "line_reversed": false
     }

@@ -4,6 +4,29 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21.1-1.56.0] - 2024-09-11
+### :sparkles: New Features
+- [`047bd5e`](https://github.com/klikli-dev/theurgy/commit/047bd5e0215354204478d1434af247605b34bc7c) - update to latest modonomicon *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`3349100`](https://github.com/klikli-dev/theurgy/commit/3349100f27019fa747ba53dc1c77c336109efd90) - drop dual version support *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
+## [release/v1.21.1-1.55.1] - 2024-08-30
+### :bug: Bug Fixes
+- [`a0ee479`](https://github.com/klikli-dev/theurgy/commit/a0ee479a4ac578dc015c406fd35b2d5f40354662) - github tag version not used in jar versioning *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
+## [release/v1.21.1-1.55.0] - 2024-08-30
+### :sparkles: New Features
+- [`9edcffa`](https://github.com/klikli-dev/theurgy/commit/9edcffa4816f7a8c3046b94b3afb5ac478df668e) - support more materials *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
+## [release/v1.21.1-1.54.0] - 2024-08-30
+### :sparkles: New Features
+- [`9adeb79`](https://github.com/klikli-dev/theurgy/commit/9adeb791518bbc3439aa0bb7df303b4e34c2a46c) - improve vat recipe lookup performance *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21.1-1.53.1] - 2024-08-29
 ### :bug: Bug Fixes
 - [`14e11a6`](https://github.com/klikli-dev/theurgy/commit/14e11a6b28c73d0376089b18968bb7030088ec19) - remove duplicate book content *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1132,3 +1155,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21.1-1.52.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.52.0...release/v1.21.1-1.52.1
 [release/v1.21.1-1.53.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.52.1...release/v1.21.1-1.53.0
 [release/v1.21.1-1.53.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.53.0...release/v1.21.1-1.53.1
+[release/v1.21.1-1.54.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.53.1...release/v1.21.1-1.54.0
+[release/v1.21.1-1.55.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.54.0...release/v1.21.1-1.55.0
+[release/v1.21.1-1.55.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.55.0...release/v1.21.1-1.55.1
+[release/v1.21.1-1.56.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.55.1...release/v1.21.1-1.56.0

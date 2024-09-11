@@ -856,6 +856,9 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.addDerivativeSource(SulfurRegistry.OSTRUM, "Ostrum");
         this.addDerivativeSource(SulfurRegistry.CALORITE, "Calorite");
         this.addDerivativeSource(SulfurRegistry.IESNIUM, "Iesnium");
+        this.addDerivativeSource(SulfurRegistry.ANTIMONY, "Antimony");
+        this.addDerivativeSource(SulfurRegistry.TITANIUM, "Titanium");
+        this.addDerivativeSource(SulfurRegistry.TUNGSTEN, "Tungsten");
 
         //Common Gems
         this.addDerivativeSource(SulfurRegistry.DIAMOND, "Diamond");
@@ -882,6 +885,11 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.addDerivativeSource(SulfurRegistry.COAL, "Coal");
         this.addDerivativeSource(SulfurRegistry.SULFUR, "Sulfur");
         this.addDerivativeSource(SulfurRegistry.GLOWSTONE, "Glowstone");
+        this.addDerivativeSource(SulfurRegistry.LIGNITE_COAL, "Lignite Coal");
+        this.addDerivativeSource(SulfurRegistry.MONAZITE, "Monazite");
+        this.addDerivativeSource(SulfurRegistry.BAUXITE, "Bauxite");
+
+
     }
 
     private void addSalts() {

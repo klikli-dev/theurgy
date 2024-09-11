@@ -303,6 +303,9 @@ public class IncubationRecipeProvider extends JsonRecipeProvider {
         this.makeRecipe(ItemTagRegistry.INGOTS_CALORITE, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.CALORITE.get());
         this.makeRecipe(ItemTagRegistry.INGOTS_IESNIUM, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.IESNIUM.get());
         this.makeRecipe(ItemTagRegistry.INGOTS_DEMONITE, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.DEMONITE.get());
+        this.makeRecipe(ItemTagRegistry.INGOTS_ANTIMONY, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.ANTIMONY.get());
+        this.makeRecipe(ItemTagRegistry.INGOTS_TUNGSTEN, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.TUNGSTEN.get());
+        this.makeRecipe(ItemTagRegistry.INGOTS_TITANIUM, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.TITANIUM.get());
 
         //gems from sulfurs
         this.makeRecipe(Tags.Items.GEMS_DIAMOND, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.DIAMOND.get());
@@ -325,9 +328,13 @@ public class IncubationRecipeProvider extends JsonRecipeProvider {
 
         //other common minerals from sulfur
         this.makeRecipe(Tags.Items.DUSTS_REDSTONE, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.REDSTONE.get());
-        this.makeRecipe(ItemTags.COALS, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.COAL.get());
+        this.makeRecipe(Items.COAL, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.COAL.get());
         this.makeRecipe(ItemTagRegistry.GEMS_SULFUR, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.SULFUR.get());
         this.makeRecipe(Tags.Items.DUSTS_GLOWSTONE, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.GLOWSTONE.get());
+
+        this.makeRecipe(ItemTagRegistry.GEMS_LIGNITE_COAL, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.LIGNITE_COAL.get());
+        this.makeRecipe(ItemTagRegistry.DUSTS_MONAZITE, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.MONAZITE.get());
+        this.makeRecipe(ItemTagRegistry.DUSTS_BAUXITE, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.BAUXITE.get());
     }
 
     public void makeRecipe(TagKey<Item> result, Item mercury, AlchemicalSaltItem salt, AlchemicalSulfurItem sulfur) {

@@ -2,6 +2,7 @@
   "values": [
     "theurgy:alchemical_sulfur_redstone",
     "theurgy:alchemical_sulfur_sulfur",
-    "theurgy:alchemical_sulfur_glowstone"
+    "theurgy:alchemical_sulfur_glowstone",
+    "theurgy:alchemical_sulfur_bauxite"
   ]
 }

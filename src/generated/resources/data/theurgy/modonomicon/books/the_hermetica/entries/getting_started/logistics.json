@@ -1,7 +1,7 @@
 {
   "background_u_index": 1,
   "background_v_index": 1,
-  "category": "theurgy:getting_started",
+  "category": "getting_started",
   "description": "book.theurgy.the_hermetica.getting_started.logistics.description",
   "hide_while_locked": false,
   "icon": {
@@ -24,7 +24,7 @@
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "theurgy:getting_started/create_mercury",
+      "entry": "getting_started/create_mercury",
       "line_enabled": true,
       "line_reversed": false
     }

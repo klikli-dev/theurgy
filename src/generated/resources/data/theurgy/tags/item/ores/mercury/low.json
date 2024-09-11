@@ -41,6 +41,10 @@
     {
       "id": "#c:ores/uraninite_poor",
       "required": false
+    },
+    {
+      "id": "#c:ores/lignite_coal",
+      "required": false
     }
   ]
 }

@@ -1,7 +1,7 @@
 {
   "background_u_index": 0,
   "background_v_index": 0,
-  "category": "theurgy:getting_started",
+  "category": "getting_started",
   "description": "book.theurgy.the_hermetica.getting_started.plant_recycling.description",
   "hide_while_locked": false,
   "icon": {
@@ -71,7 +71,7 @@
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "theurgy:getting_started/strata_recycling",
+      "entry": "getting_started/strata_recycling",
       "line_enabled": true,
       "line_reversed": false
     }

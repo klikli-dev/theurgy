@@ -313,6 +313,9 @@ public class SulfurRegistry {
     public static final DeferredItem<AlchemicalSulfurItem> IESNIUM = registerForSourceTag(ItemTagRegistry.INGOTS_IESNIUM, AlchemicalDerivativeTier.PRECIOUS, AlchemicalSulfurType.METALS);
 
     public static final DeferredItem<AlchemicalSulfurItem> DEMONITE = registerForSourceTag(ItemTagRegistry.INGOTS_DEMONITE, AlchemicalDerivativeTier.PRECIOUS, AlchemicalSulfurType.METALS);
+    public static final DeferredItem<AlchemicalSulfurItem> ANTIMONY = registerForSourceTag(ItemTagRegistry.INGOTS_ANTIMONY, AlchemicalDerivativeTier.COMMON, AlchemicalSulfurType.METALS);
+    public static final DeferredItem<AlchemicalSulfurItem> TITANIUM = registerForSourceTag(ItemTagRegistry.INGOTS_TITANIUM, AlchemicalDerivativeTier.RARE, AlchemicalSulfurType.METALS);
+    public static final DeferredItem<AlchemicalSulfurItem> TUNGSTEN = registerForSourceTag(ItemTagRegistry.INGOTS_TUNGSTEN, AlchemicalDerivativeTier.RARE, AlchemicalSulfurType.METALS);
 
     //Common Gems
     public static final DeferredItem<AlchemicalSulfurItem> DIAMOND = registerForSourceTag(Tags.Items.GEMS_DIAMOND, AlchemicalDerivativeTier.PRECIOUS, AlchemicalSulfurType.GEMS);
@@ -339,6 +342,9 @@ public class SulfurRegistry {
     public static final DeferredItem<AlchemicalSulfurItem> COAL = registerForSourceTag(ItemTags.COALS, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.OTHER_MINERALS);
     public static final DeferredItem<AlchemicalSulfurItem> SULFUR = registerForSourceTag(ItemTagRegistry.GEMS_SULFUR, AlchemicalDerivativeTier.COMMON, AlchemicalSulfurType.OTHER_MINERALS);
     public static final DeferredItem<AlchemicalSulfurItem> GLOWSTONE = registerForSourceTag(Tags.Items.DUSTS_GLOWSTONE, AlchemicalDerivativeTier.COMMON, AlchemicalSulfurType.OTHER_MINERALS);
+    public static final DeferredItem<AlchemicalSulfurItem> LIGNITE_COAL = registerForSourceTag(ItemTagRegistry.GEMS_LIGNITE_COAL, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.OTHER_MINERALS);
+    public static final DeferredItem<AlchemicalSulfurItem> MONAZITE = registerForSourceTag(ItemTagRegistry.DUSTS_MONAZITE, AlchemicalDerivativeTier.RARE, AlchemicalSulfurType.OTHER_MINERALS);
+    public static final DeferredItem<AlchemicalSulfurItem> BAUXITE = registerForSourceTag(ItemTagRegistry.DUSTS_BAUXITE, AlchemicalDerivativeTier.COMMON, AlchemicalSulfurType.OTHER_MINERALS);
 
 
     /**

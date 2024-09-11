@@ -1,4 +1,4 @@
-// 1.21.1	2024-08-20T20:07:01.1176887	Tags for minecraft:item mod id theurgy
+// 1.21.1	2024-08-30T11:49:06.6633703	Tags for minecraft:item mod id theurgy
 f41150cbf3906d7eb1284a3f289d93bb80e57b9f data/c/tags/item/gems.json
 9d7e0673ca0bd8f1eb04c0813860ac8b7ec5d981 data/c/tags/item/gems/chimerite.json
 f17805722ccaefbf3d1c1b6e6b4f54f30f9af17c data/c/tags/item/gems/dark.json
@@ -15,7 +15,7 @@ e801bdef0719e27dd7decd88269ada7c5740348e data/c/tags/item/sugars.json
 c1ae367d1f7b1391996652acb8c12cfbe63abfc8 data/theurgy/tags/item/alchemical_mercuries.json
 29d24100bada4deb48ad34b126598cdc60a21dce data/theurgy/tags/item/alchemical_niters.json
 fc621fad0374e095b3d515bf5bfd1ee61fa90bf5 data/theurgy/tags/item/alchemical_salts.json
-84f2f1eb08af01a11591d102971a3c656f2bb0cc data/theurgy/tags/item/alchemical_sulfurs.json
+387333739b55f86b68f578338df42f7344948ea3 data/theurgy/tags/item/alchemical_sulfurs.json
 678cb95aa9c8d26d1df539b8fcd2f95fa747581c data/theurgy/tags/item/alchemical_sulfurs/abundant.json
 25c27d686c1106f461a17bb0cbe0832bbe48915f data/theurgy/tags/item/alchemical_sulfurs/animals.json
 3a05700dad92d9192cc83fec4b4beedcd00715d1 data/theurgy/tags/item/alchemical_sulfurs/animals/abundant.json
@@ -36,9 +36,9 @@ c56c45e99c36f27b6ef540c401e5cf5a60f277cd data/theurgy/tags/item/alchemical_sulfu
 293e608c98d8d39a615ba4940c727e22985b76d7 data/theurgy/tags/item/alchemical_sulfurs/logs/abundant.json
 3fbcd6156c7403e016aedcf8bbef778ce64e75d2 data/theurgy/tags/item/alchemical_sulfurs/metals.json
 90b2123e0734b83147c7faf3a7772e3b0a20788b data/theurgy/tags/item/alchemical_sulfurs/metals/abundant.json
-35fe7607c353114aea2568af520e67ba1404b91e data/theurgy/tags/item/alchemical_sulfurs/metals/common.json
+639376deb788707f6464c58071c90749093acba5 data/theurgy/tags/item/alchemical_sulfurs/metals/common.json
 502bfd0f4c89832e552c5891ab10d1b899ac53ff data/theurgy/tags/item/alchemical_sulfurs/metals/precious.json
-b6ad7e4e0e0d2cfdac2db3fba60954abc6ac27f6 data/theurgy/tags/item/alchemical_sulfurs/metals/rare.json
+67e1c8e63196c6a042fc9d47f233ea3f747773f8 data/theurgy/tags/item/alchemical_sulfurs/metals/rare.json
 a87612fd16487cc1b2d87d90f89029e1192c6ec7 data/theurgy/tags/item/alchemical_sulfurs/mobs.json
 8b9950ed06e09f1dff7ce81e6ca2f682ad2257bb data/theurgy/tags/item/alchemical_sulfurs/mobs/abundant.json
 dfc1f995b552c4f98052bdcbf27f2bf33840c498 data/theurgy/tags/item/alchemical_sulfurs/mobs/common.json
@@ -48,10 +48,10 @@ dfc1f995b552c4f98052bdcbf27f2bf33840c498 data/theurgy/tags/item/alchemical_sulfu
 dade3979da1fdb923d078790f39d021deef64c24 data/theurgy/tags/item/alchemical_sulfurs/mobs/rare.json
 35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/theurgy/tags/item/alchemical_sulfurs/mobs/rare/automatic_recipes.json
 75c922d072696062be2074a5680b2557f1641cef data/theurgy/tags/item/alchemical_sulfurs/other_minerals.json
-e0a75026bb1d467b51628b3ccbbd4361dcbedb80 data/theurgy/tags/item/alchemical_sulfurs/other_minerals/abundant.json
-fd201c0e24e029cf75ee399b44961843afa4ad90 data/theurgy/tags/item/alchemical_sulfurs/other_minerals/common.json
+351854f079318955f49377165af96532346d5215 data/theurgy/tags/item/alchemical_sulfurs/other_minerals/abundant.json
+0a92945fef2b7a5f21a72fa2fb877d7cf45bea81 data/theurgy/tags/item/alchemical_sulfurs/other_minerals/common.json
 35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/theurgy/tags/item/alchemical_sulfurs/other_minerals/precious.json
-35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/theurgy/tags/item/alchemical_sulfurs/other_minerals/rare.json
+67dc0b71760428907ff0089494925a29d53b8af2 data/theurgy/tags/item/alchemical_sulfurs/other_minerals/rare.json
 4822ef3bd216f229711f1e08c25ea32f47a971a3 data/theurgy/tags/item/alchemical_sulfurs/precious.json
 4b114ee34dff7e74c89a6153e24f4ecb04282650 data/theurgy/tags/item/alchemical_sulfurs/rare.json
 3bd13300b62d36e233ff4d34de69f118e502d263 data/theurgy/tags/item/alchemical_sulfurs_and_niters.json
@@ -63,12 +63,12 @@ d1e03d28eb707840e17f308c160dbf73077b84d1 data/theurgy/tags/item/gems/mercury/med
 54b3e5b9644f579671f2ea6bffcf6aa37996e96f data/theurgy/tags/item/metals/mercury/low.json
 00b056c444a71fe0986b9c26983bbb4dfbdea64e data/theurgy/tags/item/metals/mercury/medium.json
 0467c81197dabdc5a80e092c46ed44ce80a705a7 data/theurgy/tags/item/ores/mercury/high.json
-9363e3433089c307d4489af192e42e79295ffb6b data/theurgy/tags/item/ores/mercury/low.json
-60206c73d05d824b4b430190bda8182a27f7a17f data/theurgy/tags/item/ores/mercury/medium.json
+5574de951c2ad31bdf8a41f122aaaeed0ef7d1e7 data/theurgy/tags/item/ores/mercury/low.json
+c7d3f27d91f10ee1466e63f3c4f3932a05e33e7d data/theurgy/tags/item/ores/mercury/medium.json
 c5e13a871dcf746d7fc2c995f5faab375b5c6a73 data/theurgy/tags/item/other_minerals.json
 35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/theurgy/tags/item/other_minerals/mercury/high.json
 c5e13a871dcf746d7fc2c995f5faab375b5c6a73 data/theurgy/tags/item/other_minerals/mercury/low.json
 650fc77d16cbeb336f968ea9bdc195eed6932d45 data/theurgy/tags/item/other_minerals/mercury/medium.json
 f6bd9b8ac59118fc0c44c71a5bc8c2ba93089ecc data/theurgy/tags/item/raw_materials/mercury/high.json
 9c02e6a56b8745d324ee895327dc983bc8358d7e data/theurgy/tags/item/raw_materials/mercury/low.json
-6dd49980d30af36fb3abbcbd57bf42dbf6467e21 data/theurgy/tags/item/raw_materials/mercury/medium.json
+43e281caddad3c789d2fb56b078944e8f5118f87 data/theurgy/tags/item/raw_materials/mercury/medium.json

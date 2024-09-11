@@ -1,10 +1,10 @@
 {
   "background_u_index": 0,
   "background_v_index": 2,
-  "category": "theurgy:getting_started",
+  "category": "getting_started",
   "condition": {
     "type": "modonomicon:entry_read",
-    "entry_id": "theurgy:getting_started/incubation_after_reformation"
+    "entry_id": "getting_started/incubation_after_reformation"
   },
   "description": "book.theurgy.the_hermetica.getting_started.convert_to_other_type.description",
   "hide_while_locked": true,
@@ -85,7 +85,7 @@
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "theurgy:getting_started/convert_within_type_and_tier",
+      "entry": "getting_started/convert_within_type_and_tier",
       "line_enabled": true,
       "line_reversed": false
     }

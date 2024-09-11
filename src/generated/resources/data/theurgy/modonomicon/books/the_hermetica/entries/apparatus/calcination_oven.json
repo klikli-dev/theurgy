@@ -1,7 +1,7 @@
 {
   "background_u_index": 0,
   "background_v_index": 0,
-  "category": "theurgy:apparatus",
+  "category": "apparatus",
   "description": "book.theurgy.the_hermetica.apparatus.calcination_oven.description",
   "hide_while_locked": false,
   "icon": {
@@ -27,7 +27,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "multiblock_id": "theurgy:placement/calcination_oven",
+      "multiblock_id": "placement/calcination_oven",
       "multiblock_name": "",
       "show_visualize_button": false,
       "text": ""
@@ -72,7 +72,7 @@
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "theurgy:apparatus/spagyrics",
+      "entry": "apparatus/spagyrics",
       "line_enabled": true,
       "line_reversed": false
     }

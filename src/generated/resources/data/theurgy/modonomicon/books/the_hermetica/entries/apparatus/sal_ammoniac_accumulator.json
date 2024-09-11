@@ -1,7 +1,7 @@
 {
   "background_u_index": 0,
   "background_v_index": 0,
-  "category": "theurgy:apparatus",
+  "category": "apparatus",
   "description": "book.theurgy.the_hermetica.apparatus.sal_ammoniac_accumulator.description",
   "hide_while_locked": false,
   "icon": {
@@ -27,7 +27,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "multiblock_id": "theurgy:placement/sal_ammoniac_accumulator",
+      "multiblock_id": "placement/sal_ammoniac_accumulator",
       "multiblock_name": "",
       "show_visualize_button": false,
       "text": ""
@@ -72,7 +72,7 @@
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "theurgy:apparatus/sal_ammoniac_tank",
+      "entry": "apparatus/sal_ammoniac_tank",
       "line_enabled": true,
       "line_reversed": false
     }

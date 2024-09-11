@@ -1,7 +1,7 @@
 {
   "background_u_index": 0,
   "background_v_index": 0,
-  "category": "theurgy:logistics",
+  "category": "logistics",
   "description": "book.theurgy.the_hermetica.logistics.fluid_list_filter.description",
   "hide_while_locked": false,
   "icon": {
@@ -58,7 +58,7 @@
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "theurgy:logistics/fluid_inserter",
+      "entry": "logistics/fluid_inserter",
       "line_enabled": true,
       "line_reversed": false
     }

@@ -1,7 +1,7 @@
 {
   "background_u_index": 0,
   "background_v_index": 0,
-  "category": "theurgy:getting_started",
+  "category": "getting_started",
   "description": "book.theurgy.the_hermetica.getting_started.about_divination_rods.description",
   "hide_while_locked": false,
   "icon": {
@@ -69,7 +69,7 @@
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "theurgy:getting_started/about_mod",
+      "entry": "getting_started/about_mod",
       "line_enabled": true,
       "line_reversed": false
     }

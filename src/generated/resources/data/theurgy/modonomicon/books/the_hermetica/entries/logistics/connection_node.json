@@ -1,7 +1,7 @@
 {
   "background_u_index": 0,
   "background_v_index": 0,
-  "category": "theurgy:logistics",
+  "category": "logistics",
   "description": "book.theurgy.the_hermetica.logistics.connection_node.description",
   "hide_while_locked": false,
   "icon": {
@@ -72,7 +72,7 @@
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "theurgy:logistics/logistics_network",
+      "entry": "logistics/logistics_network",
       "line_enabled": true,
       "line_reversed": false
     }

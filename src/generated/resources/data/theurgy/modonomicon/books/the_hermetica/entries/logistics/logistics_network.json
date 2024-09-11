@@ -1,7 +1,7 @@
 {
   "background_u_index": 0,
   "background_v_index": 0,
-  "category": "theurgy:logistics",
+  "category": "logistics",
   "description": "book.theurgy.the_hermetica.logistics.logistics_network.description",
   "hide_while_locked": false,
   "icon": {
@@ -84,19 +84,19 @@
   "parents": [
     {
       "draw_arrow": true,
-      "entry": "theurgy:logistics/mercurial_wire",
+      "entry": "logistics/mercurial_wire",
       "line_enabled": true,
       "line_reversed": false
     },
     {
       "draw_arrow": true,
-      "entry": "theurgy:logistics/item_extractor",
+      "entry": "logistics/item_extractor",
       "line_enabled": true,
       "line_reversed": false
     },
     {
       "draw_arrow": true,
-      "entry": "theurgy:logistics/item_inserter",
+      "entry": "logistics/item_inserter",
       "line_enabled": true,
       "line_reversed": false
     }

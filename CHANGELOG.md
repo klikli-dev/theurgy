@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.21.2] - 2024-09-28
+### :bug: Bug Fixes
+- [`a30121b`](https://github.com/klikli-dev/theurgy/commit/a30121ba107811ebf79d9f799ad6a77258314837) - reformation recipes for sulfur showing empty tags on server *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.1-1.21.1] - 2024-08-15
 ### :bug: Bug Fixes
 - [`aaced9b`](https://github.com/klikli-dev/theurgy/commit/aaced9b8624bd4ba2db4d6cc730933fff0aed244) - certus quartz recipe *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -522,3 +527,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.20.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.20.0...release/v1.20.1-1.20.1
 [release/v1.20.1-1.21.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.20.1...release/v1.20.1-1.21.0
 [release/v1.20.1-1.21.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.21.0...release/v1.20.1-1.21.1
+[release/v1.20.1-1.21.2]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.21.1...release/v1.20.1-1.21.2

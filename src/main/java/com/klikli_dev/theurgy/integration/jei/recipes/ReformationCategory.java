@@ -15,6 +15,8 @@ import com.klikli_dev.theurgy.integration.jei.JeiDrawables;
 import com.klikli_dev.theurgy.integration.jei.JeiRecipeTypes;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
+import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
+import com.klikli_dev.theurgy.util.RecipeUtil;
 import com.mojang.blaze3d.systems.RenderSystem;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -32,6 +34,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 
 import java.util.List;
 
@@ -45,6 +48,9 @@ public class ReformationCategory implements IRecipeCategory<ReformationRecipe> {
     private final LoadingCache<Integer, IDrawableAnimated> cachedAnimatedArrow;
 
     public ReformationCategory(IGuiHelper guiHelper) {
+        Ingredient.invalidateAll();
+        RecipeUtil.getRecipeManager().getAllRecipesFor(RecipeTypeRegistry.REFORMATION.get()).forEach(recipe -> recipe.getIngredients().forEach(ingredient -> ingredient.checkInvalidation()));
+
         this.background = guiHelper.createBlankDrawable(180, 100);
 
         this.icon = guiHelper.createDrawableItemStack(new ItemStack(BlockRegistry.REFORMATION_RESULT_PEDESTAL.get()));

@@ -31,6 +31,7 @@ import com.klikli_dev.theurgy.integration.modonomicon.PageRenderers;
 import com.klikli_dev.theurgy.network.Networking;
 import com.klikli_dev.theurgy.registry.*;
 import com.klikli_dev.theurgy.tooltips.TooltipHandler;
+import com.klikli_dev.theurgy.util.RecipeUtil;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.logging.LogUtils;
@@ -38,7 +39,9 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
@@ -48,6 +51,7 @@ import net.minecraftforge.client.event.RenderLevelStageEvent;
 import net.minecraftforge.client.model.DynamicFluidContainerModel;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -104,6 +108,7 @@ public class Theurgy {
         modEventBus.addListener(RecipeSerializerRegistry::onRegisterRecipeSerializers);
 
         MinecraftForge.EVENT_BUS.addListener(TooltipHandler::onItemTooltipEvent);
+        MinecraftForge.EVENT_BUS.addListener(this::onEntityJoinLevel);
 
         if (FMLEnvironment.dist == Dist.CLIENT) {
             modEventBus.addListener(ParticleRegistry::registerFactories);
@@ -136,6 +141,14 @@ public class Theurgy {
 
     public void onServerSetup(FMLDedicatedServerSetupEvent event) {
         LOGGER.info("Dedicated server setup complete.");
+    }
+
+    public void onEntityJoinLevel(EntityJoinLevelEvent event) {
+        if (!(event.getEntity() instanceof Player))
+            return;
+
+        Ingredient.invalidateAll();
+        event.getLevel().getRecipeManager().getAllRecipesFor(RecipeTypeRegistry.REFORMATION.get()).forEach(recipe -> recipe.getIngredients().forEach(ingredient -> ingredient.checkInvalidation()));
     }
 
     public static class Client {

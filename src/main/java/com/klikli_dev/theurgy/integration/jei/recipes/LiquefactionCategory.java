@@ -13,6 +13,8 @@ import com.klikli_dev.theurgy.content.recipe.LiquefactionRecipe;
 import com.klikli_dev.theurgy.integration.jei.JeiDrawables;
 import com.klikli_dev.theurgy.integration.jei.JeiRecipeTypes;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
+import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
+import com.klikli_dev.theurgy.util.RecipeUtil;
 import mezz.jei.api.forge.ForgeTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -29,6 +31,7 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.fluids.FluidStack;
 
 import java.util.Arrays;

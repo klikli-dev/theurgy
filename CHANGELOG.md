@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21.1-1.56.1] - 2024-10-24
+### :bug: Bug Fixes
+- [`57b48e8`](https://github.com/klikli-dev/theurgy/commit/57b48e8d2ffe1b86dab3da4e3c3e92bd2b6f4cad) - show caloric flux particles only if player is nearby *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21.1-1.56.0] - 2024-09-11
 ### :sparkles: New Features
 - [`047bd5e`](https://github.com/klikli-dev/theurgy/commit/047bd5e0215354204478d1434af247605b34bc7c) - update to latest modonomicon *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1159,3 +1164,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21.1-1.55.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.54.0...release/v1.21.1-1.55.0
 [release/v1.21.1-1.55.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.55.0...release/v1.21.1-1.55.1
 [release/v1.21.1-1.56.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.55.1...release/v1.21.1-1.56.0
+[release/v1.21.1-1.56.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.56.0...release/v1.21.1-1.56.1

@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.22.0] - 2024-10-27
+### :sparkles: New Features
+- [`06add39`](https://github.com/klikli-dev/theurgy/commit/06add39b8b1ff62e379de7e1f786bfd3a68f1523) - add serverconfig additionalTooltipHandlerNamespaces *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
+## [release/v1.20.1-1.21.3] - 2024-10-25
+### :bug: Bug Fixes
+- [`cb84073`](https://github.com/klikli-dev/theurgy/commit/cb840732142517c8d2a4f0595ae3b69599f7e0df) - make caloric flux emitter target blockstate caching lazy *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.1-1.21.2] - 2024-09-28
 ### :bug: Bug Fixes
 - [`a30121b`](https://github.com/klikli-dev/theurgy/commit/a30121ba107811ebf79d9f799ad6a77258314837) - reformation recipes for sulfur showing empty tags on server *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -528,3 +538,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.21.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.20.1...release/v1.20.1-1.21.0
 [release/v1.20.1-1.21.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.21.0...release/v1.20.1-1.21.1
 [release/v1.20.1-1.21.2]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.21.1...release/v1.20.1-1.21.2
+[release/v1.20.1-1.21.3]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.21.2...release/v1.20.1-1.21.3
+[release/v1.20.1-1.22.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.21.3...release/v1.20.1-1.22.0

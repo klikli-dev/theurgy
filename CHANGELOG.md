@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21.1-1.57.0] - 2024-10-27
+### :sparkles: New Features
+- [`7ad7a16`](https://github.com/klikli-dev/theurgy/commit/7ad7a16f0340f3fd2cd083532bbb8cdd79dca411) - add serverconfig additionalTooltipHandlerNamespaces *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
+## [release/v1.21.1-1.56.2] - 2024-10-25
+### :bug: Bug Fixes
+- [`2fad089`](https://github.com/klikli-dev/theurgy/commit/2fad08908aa83d3752fdfa255fd11d97f363d1f2) - make caloric flux emitter target blockstate caching lazy *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21.1-1.56.1] - 2024-10-24
 ### :bug: Bug Fixes
 - [`57b48e8`](https://github.com/klikli-dev/theurgy/commit/57b48e8d2ffe1b86dab3da4e3c3e92bd2b6f4cad) - show caloric flux particles only if player is nearby *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1165,3 +1175,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21.1-1.55.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.55.0...release/v1.21.1-1.55.1
 [release/v1.21.1-1.56.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.55.1...release/v1.21.1-1.56.0
 [release/v1.21.1-1.56.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.56.0...release/v1.21.1-1.56.1
+[release/v1.21.1-1.56.2]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.56.1...release/v1.21.1-1.56.2
+[release/v1.21.1-1.57.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.56.2...release/v1.21.1-1.57.0

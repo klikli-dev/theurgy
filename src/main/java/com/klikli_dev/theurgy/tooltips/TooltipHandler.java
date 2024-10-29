@@ -6,6 +6,7 @@ package com.klikli_dev.theurgy.tooltips;
 
 import com.google.common.collect.ImmutableList;
 import com.klikli_dev.theurgy.TheurgyConstants;
+import com.klikli_dev.theurgy.config.ServerConfig;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.resources.language.I18n;
@@ -32,7 +33,7 @@ public class TooltipHandler {
 
         var itemId = BuiltInRegistries.ITEM.getKey(stack.getItem());
         //only run for enabled namespaces to easily improve performance
-        if (namespacesToListenFor.contains(itemId.getNamespace())) {
+        if (namespacesToListenFor.contains(itemId.getNamespace()) || ServerConfig.get().tooltipHandler.additionalTooltipHandlerNamespaces.get().contains(itemId.getNamespace())) {
             String tooltipKey = stack.getDescriptionId() + TheurgyConstants.I18n.Tooltip.SUFFIX;
             String extendedTooltipKey = stack.getDescriptionId() + TheurgyConstants.I18n.Tooltip.EXTENDED_SUFFIX;
             String usageTooltipKey = stack.getDescriptionId() + TheurgyConstants.I18n.Tooltip.USAGE_SUFFIX;

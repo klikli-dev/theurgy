@@ -16,16 +16,36 @@ public class ServerConfig {
 
     private static final ServerConfig instance = new ServerConfig();
     public final Recipes recipes;
+    public final TooltipHandler tooltipHandler;
     public final ModConfigSpec spec;
 
     private ServerConfig() {
         ModConfigSpec.Builder builder = new ModConfigSpec.Builder();
         this.recipes = new Recipes(builder);
+        this.tooltipHandler = new TooltipHandler(builder);
         this.spec = builder.build();
     }
 
     public static ServerConfig get() {
         return instance;
+    }
+
+    public static class TooltipHandler {
+        public ModConfigSpec.ConfigValue<List<? extends String>> additionalTooltipHandlerNamespaces;
+
+        public TooltipHandler(ModConfigSpec.Builder builder) {
+            builder.comment("Tooltip Handler Settings").push("tooltipHandler");
+
+            this.additionalTooltipHandlerNamespaces = builder
+                    .comment(
+                            "Theurgy automatically adds tooltips for sulfur items.",
+                            "When adding a sulfur that is not in the 'theurgy' or 'kubejs' namespace, the namespace needs to be added to this list in order for the tooltip to show.",
+                            "Format is: [\"<my_mod_namespace>\", \"<my_modpack_namespace>\", ...]"
+                    )
+                    .defineList("additionalTooltipHandlerNamespaces", List.of(), e -> true);
+
+            builder.pop();
+        }
     }
 
     public static class Recipes {

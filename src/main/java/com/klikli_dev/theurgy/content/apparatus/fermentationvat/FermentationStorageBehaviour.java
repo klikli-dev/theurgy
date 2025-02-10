@@ -4,6 +4,7 @@
 
 package com.klikli_dev.theurgy.content.apparatus.fermentationvat;
 
+import com.klikli_dev.theurgy.content.apparatus.digestionvat.DigestionStorageBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.storage.OutputStorageBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.storage.StorageBehaviour;
 import com.klikli_dev.theurgy.content.storage.*;
@@ -138,6 +139,7 @@ public class FermentationStorageBehaviour extends StorageBehaviour<FermentationS
 
         @Override
         protected void onContentsChanged() {
+            FermentationStorageBehaviour.this.craftingBehaviour.get().onInputChanged();
             //on any content change mark for saving to disk
             FermentationStorageBehaviour.this.setChanged();
         }
@@ -176,6 +178,7 @@ public class FermentationStorageBehaviour extends StorageBehaviour<FermentationS
 
         @Override
         protected void onContentsChanged(int slot) {
+            FermentationStorageBehaviour.this.craftingBehaviour.get().onInputChanged();
             FermentationStorageBehaviour.this.setChanged();
         }
     }

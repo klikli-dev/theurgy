@@ -19,6 +19,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
@@ -39,9 +40,28 @@ public class FermentationCachedCheck implements RecipeManager.CachedCheck<ItemHa
     @Nullable
     private ResourceLocation lastRecipeForItemStackCollection;
 
+    private boolean noRecipeForLastItemStackCollectionInput;
+    private boolean noRecipeForLastItemStackInput;
+    private boolean noRecipeForLastFluidStackInput;
+    /**
+     * This flag works differently from the others - we don't compare the entire item handler, instead we reset this flag if the item handler content changes.
+     */
+    private boolean noRecipeForLastItemHandlerInput;
+
+    private Collection<ItemStack> lastItemStackCollectionInput;
+    private ItemStack lastItemStackInput;
+    private FluidStack lastFluidStackInput;
+
     public FermentationCachedCheck(RecipeType<FermentationRecipe> type) {
         this.type = type;
         this.internal = RecipeManager.createCheck(type);
+    }
+
+    /**
+     * Call this when the content of the item handler handed to {@link #getRecipeFor(ItemHandlerWithFluidRecipeInput, Level)} changes.
+     */
+    public void resetNoRecipeForLastItemHandlerInput() {
+        this.noRecipeForLastItemHandlerInput = false;
     }
 
     private boolean matchesRecipe(RecipeHolder<FermentationRecipe> recipe, Collection<ItemStack> input) {
@@ -51,6 +71,18 @@ public class FermentationCachedCheck implements RecipeManager.CachedCheck<ItemHa
         return input.stream().allMatch(stack ->
                 ingredients.stream().anyMatch(ingredient -> ingredient.test(stack))
         );
+    }
+
+    private boolean isSameInput(Collection<ItemStack> input) {
+        return Objects.equals(this.lastItemStackCollectionInput, input);
+    }
+
+    private boolean isSameInput(ItemStack input) {
+        return ItemStack.matches(this.lastItemStackInput, input);
+    }
+
+    private boolean isSameInput(FluidStack input) {
+        return FluidStack.matches(this.lastFluidStackInput, input);
     }
 
     private Optional<RecipeHolder<FermentationRecipe>> getRecipeFor(Collection<ItemStack> input, Level level, @Nullable ResourceLocation lastRecipe) {
@@ -99,12 +131,20 @@ public class FermentationCachedCheck implements RecipeManager.CachedCheck<ItemHa
      * This only checks ingredients, including ingredients already present, not fluids
      */
     public Optional<RecipeHolder<FermentationRecipe>> getRecipeFor(Collection<ItemStack> input, Level level) {
+        if (this.noRecipeForLastItemStackCollectionInput && this.isSameInput(input)) {
+            return Optional.empty();
+        }
+
         var optional = this.getRecipeFor(input, level, this.lastRecipeForItemStackCollection);
         if (optional.isPresent()) {
             var recipeHolder = optional.get();
             this.lastRecipeForItemStackCollection = recipeHolder.id();
+            this.noRecipeForLastItemStackCollectionInput = false;
+            this.lastItemStackCollectionInput = input;
             return optional;
         } else {
+            this.noRecipeForLastItemStackCollectionInput = true;
+            this.lastItemStackCollectionInput = input;
             return Optional.empty();
         }
     }
@@ -113,12 +153,20 @@ public class FermentationCachedCheck implements RecipeManager.CachedCheck<ItemHa
      * This only checks ingredients, not fluids
      */
     public Optional<RecipeHolder<FermentationRecipe>> getRecipeFor(ItemStack stack, Level level) {
+        if (this.noRecipeForLastItemStackInput && this.isSameInput(stack)) {
+            return Optional.empty();
+        }
+
         var optional = this.getRecipeFor(stack, level, this.lastRecipeForItemStack);
         if (optional.isPresent()) {
             var recipeHolder = optional.get();
             this.lastRecipeForItemStack = recipeHolder.id();
+            this.noRecipeForLastItemStackInput = false;
+            this.lastItemStackInput = stack;
             return optional;
         } else {
+            this.noRecipeForLastItemStackInput = true;
+            this.lastItemStackInput = stack;
             return Optional.empty();
         }
     }
@@ -127,12 +175,20 @@ public class FermentationCachedCheck implements RecipeManager.CachedCheck<ItemHa
      * This only checks fluids, not ingredients
      */
     public Optional<RecipeHolder<FermentationRecipe>> getRecipeFor(FluidStack stack, Level level) {
+        if (this.noRecipeForLastFluidStackInput && this.isSameInput(stack)) {
+            return Optional.empty();
+        }
+
         var optional = this.getRecipeFor(stack, level, this.lastRecipeForFluidStack);
         if (optional.isPresent()) {
             var recipeHolder = optional.get();
             this.lastRecipeForFluidStack = recipeHolder.id();
+            this.noRecipeForLastFluidStackInput = false;
+            this.lastFluidStackInput = stack;
             return optional;
         } else {
+            this.noRecipeForLastFluidStackInput = true;
+            this.lastFluidStackInput = stack;
             return Optional.empty();
         }
     }
@@ -142,6 +198,17 @@ public class FermentationCachedCheck implements RecipeManager.CachedCheck<ItemHa
      */
     @Override
     public @NotNull Optional<RecipeHolder<FermentationRecipe>> getRecipeFor(@NotNull ItemHandlerWithFluidRecipeInput container, @NotNull Level level) {
-        return this.internal.getRecipeFor(container, level);
+        if(this.noRecipeForLastItemHandlerInput) {
+            return Optional.empty();
+        }
+
+        var optional = this.internal.getRecipeFor(container, level);
+        if (optional.isPresent()) {
+            this.noRecipeForLastItemHandlerInput = false;
+            return optional;
+        } else {
+            this.noRecipeForLastItemHandlerInput = true;
+            return Optional.empty();
+        }
     }
 }

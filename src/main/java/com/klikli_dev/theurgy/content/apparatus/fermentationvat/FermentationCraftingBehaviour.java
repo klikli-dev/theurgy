@@ -61,6 +61,10 @@ public class FermentationCraftingBehaviour extends CraftingBehaviour<ItemHandler
         return this.isIngredient(stack);
     }
 
+    public void onInputChanged(){
+        this.recipeCachedCheck.resetNoRecipeForLastItemHandlerInput();
+    }
+
     @Override
     public boolean isIngredient(ItemStack stack) {
         return this.recipeCachedCheck.getRecipeFor(stack, this.blockEntity.getLevel()).isPresent();

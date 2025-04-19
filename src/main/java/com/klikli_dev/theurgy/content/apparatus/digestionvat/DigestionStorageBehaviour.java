@@ -138,6 +138,7 @@ public class DigestionStorageBehaviour extends StorageBehaviour<DigestionStorage
 
         @Override
         protected void onContentsChanged() {
+            DigestionStorageBehaviour.this.craftingBehaviour.get().onInputChanged();
             //on any content change mark for saving to disk
             DigestionStorageBehaviour.this.setChanged();
         }
@@ -176,6 +177,7 @@ public class DigestionStorageBehaviour extends StorageBehaviour<DigestionStorage
 
         @Override
         protected void onContentsChanged(int slot) {
+            DigestionStorageBehaviour.this.craftingBehaviour.get().onInputChanged();
             DigestionStorageBehaviour.this.setChanged();
         }
     }

@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21.1-1.60.0] - 2025-02-10
+### :sparkles: New Features
+- [`6040dd8`](https://github.com/klikli-dev/theurgy/commit/6040dd8017074c65f74cf745aea32bbbb1b742e9) - cache "no recipe found" state in vat recipe cached checks *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`504b6f4`](https://github.com/klikli-dev/theurgy/commit/504b6f4d5f5b6d528b45dec2a0206bafd364c515) - prepare changes for wires rendering in distance *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21.1-1.59.0] - 2025-02-05
 ### :sparkles: New Features
 - [`18e617a`](https://github.com/klikli-dev/theurgy/commit/18e617a0870db00b4ea5cab5a04de8c39128e87b) - increase fluid extraction speed to align more to tech mod standards *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1207,3 +1215,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21.1-1.58.2]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.58.1...release/v1.21.1-1.58.2
 [release/v1.21.1-1.58.5]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.58.4...release/v1.21.1-1.58.5
 [release/v1.21.1-1.59.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.58.5...release/v1.21.1-1.59.0
+[release/v1.21.1-1.60.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.59.0...release/v1.21.1-1.60.0

@@ -368,9 +368,7 @@ public class TheurgyItemTagsProvider extends ItemTagsProvider {
                 .addOptionalTag(ItemTagRegistry.INGOTS_NICKEL)
                 .addOptionalTag(ItemTagRegistry.INGOTS_LEAD)
                 .addOptionalTag(ItemTagRegistry.INGOTS_TIN)
-                .addOptionalTag(ItemTagRegistry.INGOTS_ALUMINUM)
-                .addOptionalTag(ItemTagRegistry.INGOTS_CINNABAR)
-        ;
+                .addOptionalTag(ItemTagRegistry.INGOTS_ALUMINUM);
 
         this.tag(ItemTagRegistry.MEDIUM_MERCURY_METALS)
                 .addTag(Tags.Items.INGOTS_GOLD)
@@ -394,6 +392,7 @@ public class TheurgyItemTagsProvider extends ItemTagsProvider {
                 .addTag(Tags.Items.GEMS_LAPIS)
                 .addTag(Tags.Items.GEMS_QUARTZ)
                 .addOptionalTag(ItemTagRegistry.GEMS_APATITE)
+                .addOptionalTag(ItemTagRegistry.GEMS_CINNABAR)
         ;
 
         this.tag(ItemTagRegistry.MEDIUM_MERCURY_GEMS)

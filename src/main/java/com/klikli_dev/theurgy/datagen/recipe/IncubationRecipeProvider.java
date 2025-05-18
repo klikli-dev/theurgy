@@ -294,7 +294,6 @@ public class IncubationRecipeProvider extends JsonRecipeProvider {
         this.makeRecipe(ItemTagRegistry.INGOTS_IRIDIUM, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.IRIDIUM.get());
         this.makeRecipe(ItemTagRegistry.INGOTS_TIN, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.TIN.get());
         this.makeRecipe(ItemTagRegistry.INGOTS_ALUMINUM, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.ALUMINUM.get());
-        this.makeRecipe(ItemTagRegistry.INGOTS_CINNABAR, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.CINNABAR.get());
         this.makeRecipe(ItemTagRegistry.INGOTS_CRIMSON_IRON, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.CRIMSON_IRON.get());
         this.makeRecipe(ItemTagRegistry.INGOTS_PLATINUM, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.PLATINUM.get());
         this.makeRecipe(ItemTagRegistry.INGOTS_VIBRANIUM, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.VIBRANIUM.get());
@@ -325,6 +324,7 @@ public class IncubationRecipeProvider extends JsonRecipeProvider {
         this.makeRecipe(ItemTagRegistry.GEMS_FLUIX, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.FLUIX.get());
         this.makeRecipe(ItemTagRegistry.GEMS_NITER, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.NITER.get());
         this.makeRecipe(ItemTagRegistry.GEMS_CHIMERITE, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.CHIMERITE.get());
+        this.makeRecipe(ItemTagRegistry.GEMS_CINNABAR, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.CINNABAR.get());
 
         //other common minerals from sulfur
         this.makeRecipe(Tags.Items.DUSTS_REDSTONE, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.MINERAL.get(), SulfurRegistry.REDSTONE.get());

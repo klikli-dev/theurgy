@@ -353,7 +353,6 @@ public class ItemTagRegistry {
     public static final TagKey<Item> INGOTS_IRIDIUM = cTag("ingots/iridium");
     public static final TagKey<Item> INGOTS_TIN = cTag("ingots/tin");
     public static final TagKey<Item> INGOTS_ALUMINUM = cTag("ingots/aluminum");
-    public static final TagKey<Item> INGOTS_CINNABAR = cTag("ingots/cinnabar");
     public static final TagKey<Item> INGOTS_CRIMSON_IRON = cTag("ingots/crimson_iron");
     public static final TagKey<Item> INGOTS_PLATINUM = cTag("ingots/platinum");
     public static final TagKey<Item> INGOTS_VIBRANIUM = cTag("ingots/vibranium");
@@ -377,6 +376,7 @@ public class ItemTagRegistry {
     public static final TagKey<Item> GEMS_CERTUS_QUARTZ = cTag("gems/certus_quartz");
     public static final TagKey<Item> GEMS_FLUIX = cTag("gems/fluix");
     public static final TagKey<Item> GEMS_CHIMERITE = cTag("gems/chimerite");
+    public static final TagKey<Item> GEMS_CINNABAR = cTag("gems/cinnabar");
 
     //Other Common Minerals
     public static final TagKey<Item> GEMS_SULFUR = cTag("gems/sulfur");

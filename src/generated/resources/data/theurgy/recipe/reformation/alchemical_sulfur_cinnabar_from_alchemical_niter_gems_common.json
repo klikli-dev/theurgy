@@ -4,21 +4,21 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "c:ingots/cinnabar"
+        "tag": "c:gems/cinnabar"
       }
     },
     {
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "c:ingots/cinnabar"
+        "tag": "c:gems/cinnabar"
       }
     },
     {
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "c:ingots/cinnabar"
+        "tag": "c:gems/cinnabar"
       }
     }
   ],
@@ -34,7 +34,7 @@
     {
       "count": 1,
       "ingredient": {
-        "item": "theurgy:alchemical_niter_metals_common"
+        "item": "theurgy:alchemical_niter_gems_common"
       }
     }
   ],

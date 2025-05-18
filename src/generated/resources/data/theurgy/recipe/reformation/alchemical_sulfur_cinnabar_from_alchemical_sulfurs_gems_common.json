@@ -4,28 +4,28 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "c:ingots/cinnabar"
+        "tag": "c:gems/cinnabar"
       }
     },
     {
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "c:ingots/cinnabar"
+        "tag": "c:gems/cinnabar"
       }
     },
     {
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "c:ingots/cinnabar"
+        "tag": "c:gems/cinnabar"
       }
     },
     {
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "theurgy:alchemical_sulfurs/metals/common"
+        "tag": "theurgy:alchemical_sulfurs/gems/common"
       }
     }
   ],
@@ -41,7 +41,7 @@
     {
       "count": 1,
       "ingredient": {
-        "tag": "theurgy:alchemical_sulfurs/metals/common"
+        "tag": "theurgy:alchemical_sulfurs/gems/common"
       }
     }
   ],

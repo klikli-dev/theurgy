@@ -4,14 +4,14 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "c:ingots/cinnabar"
+        "tag": "c:gems/cinnabar"
       }
     }
   ],
   "type": "theurgy:liquefaction",
   "category": "misc",
   "ingredient": {
-    "tag": "c:ingots/cinnabar"
+    "tag": "c:gems/cinnabar"
   },
   "result": {
     "type": "theurgy:item",

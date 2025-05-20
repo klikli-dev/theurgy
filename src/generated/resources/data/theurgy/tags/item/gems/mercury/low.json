@@ -5,6 +5,10 @@
     {
       "id": "#c:gems/apatite",
       "required": false
+    },
+    {
+      "id": "#c:gems/cinnabar",
+      "required": false
     }
   ]
 }

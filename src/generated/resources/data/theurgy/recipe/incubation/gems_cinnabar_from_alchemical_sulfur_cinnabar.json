@@ -4,7 +4,7 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "c:ingots/cinnabar"
+        "tag": "c:gems/cinnabar"
       }
     }
   ],
@@ -16,7 +16,7 @@
   "result": {
     "type": "theurgy:tag",
     "count": 1,
-    "tag": "c:ingots/cinnabar"
+    "tag": "c:gems/cinnabar"
   },
   "salt": {
     "item": "theurgy:alchemical_salt_mineral"

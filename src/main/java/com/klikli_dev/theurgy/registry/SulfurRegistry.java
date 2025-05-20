@@ -303,7 +303,6 @@ public class SulfurRegistry {
     public static final DeferredItem<AlchemicalSulfurItem> IRIDIUM = registerForSourceTag(ItemTagRegistry.INGOTS_IRIDIUM, AlchemicalDerivativeTier.RARE, AlchemicalSulfurType.METALS);
     public static final DeferredItem<AlchemicalSulfurItem> TIN = registerForSourceTag(ItemTagRegistry.INGOTS_TIN, AlchemicalDerivativeTier.COMMON, AlchemicalSulfurType.METALS);
     public static final DeferredItem<AlchemicalSulfurItem> ALUMINUM = registerForSourceTag(ItemTagRegistry.INGOTS_ALUMINUM, AlchemicalDerivativeTier.COMMON, AlchemicalSulfurType.METALS);
-    public static final DeferredItem<AlchemicalSulfurItem> CINNABAR = registerForSourceTag(ItemTagRegistry.INGOTS_CINNABAR, AlchemicalDerivativeTier.COMMON, AlchemicalSulfurType.METALS);
     public static final DeferredItem<AlchemicalSulfurItem> CRIMSON_IRON = registerForSourceTag(ItemTagRegistry.INGOTS_CRIMSON_IRON, AlchemicalDerivativeTier.RARE, AlchemicalSulfurType.METALS);
     public static final DeferredItem<AlchemicalSulfurItem> PLATINUM = registerForSourceTag(ItemTagRegistry.INGOTS_PLATINUM, AlchemicalDerivativeTier.RARE, AlchemicalSulfurType.METALS);
     public static final DeferredItem<AlchemicalSulfurItem> VIBRANIUM = registerForSourceTag(ItemTagRegistry.INGOTS_VIBRANIUM, AlchemicalDerivativeTier.PRECIOUS, AlchemicalSulfurType.METALS);
@@ -336,6 +335,7 @@ public class SulfurRegistry {
     public static final DeferredItem<AlchemicalSulfurItem> NITER = registerForSourceTag(ItemTagRegistry.GEMS_NITER, AlchemicalDerivativeTier.COMMON, AlchemicalSulfurType.GEMS);
 
     public static final DeferredItem<AlchemicalSulfurItem> CHIMERITE = registerForSourceTag(ItemTagRegistry.GEMS_CHIMERITE, AlchemicalDerivativeTier.PRECIOUS, AlchemicalSulfurType.GEMS);
+    public static final DeferredItem<AlchemicalSulfurItem> CINNABAR = registerForSourceTag(ItemTagRegistry.GEMS_CINNABAR, AlchemicalDerivativeTier.COMMON, AlchemicalSulfurType.GEMS);
 
     //Other Common Minerals
     public static final DeferredItem<AlchemicalSulfurItem> REDSTONE = registerForSourceTag(Tags.Items.DUSTS_REDSTONE, AlchemicalDerivativeTier.COMMON, AlchemicalSulfurType.OTHER_MINERALS);

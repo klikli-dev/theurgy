@@ -108,7 +108,7 @@ public class LogisticsFluidExtractorBehaviour extends ExtractorNodeBehaviour<IFl
     public void tickServer() {
         //TODO: extraction should happen on a low tick, and in bulk.
 
-        if (!this.enabled)
+        if (!this.enabled || this.extractTargets.isEmpty())
             return;
 
         super.tickServer();

@@ -105,7 +105,7 @@ public class LogisticsItemExtractorBehaviour extends ExtractorNodeBehaviour<IIte
 
     @Override
     public void tickServer() {
-        if (!this.enabled)
+        if (!this.enabled || this.extractTargets.isEmpty())
             return;
 
         super.tickServer();

@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21.1-1.61.1] - 2025-06-27
+### :bug: Bug Fixes
+- [`4ce6acf`](https://github.com/klikli-dev/theurgy/commit/4ce6acf6e3754068c6b312b8f5410749c9be1f28) - cinnabar should be considered a gem *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`bfa9b56`](https://github.com/klikli-dev/theurgy/commit/bfa9b56676cd014a5edb258448cdf26cd801782a) - crash in edge case where extractors still exist but extraction target is gone *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`22b7d6d`](https://github.com/klikli-dev/theurgy/commit/22b7d6d3cc3c43c12341ae27fc2cdb332c355b40) - crash with mercurial filter for enchanted items *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21.1-1.60.0] - 2025-02-10
 ### :sparkles: New Features
 - [`6040dd8`](https://github.com/klikli-dev/theurgy/commit/6040dd8017074c65f74cf745aea32bbbb1b742e9) - cache "no recipe found" state in vat recipe cached checks *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1216,3 +1223,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21.1-1.58.5]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.58.4...release/v1.21.1-1.58.5
 [release/v1.21.1-1.59.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.58.5...release/v1.21.1-1.59.0
 [release/v1.21.1-1.60.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.59.0...release/v1.21.1-1.60.0
+[release/v1.21.1-1.61.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.60.0...release/v1.21.1-1.61.1

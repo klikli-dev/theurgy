@@ -66,7 +66,9 @@ public enum StandardAttributes implements ItemAttribute {
     private static boolean maxEnchanted(ItemStack s, Level level) {
         return s.getAllEnchantments(level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT)).entrySet()
                 .stream()
-                .anyMatch(e -> e.getKey().unwrap().right().get().getMaxLevel() <= e.getIntValue());
+                .anyMatch(e -> {
+                    return e.getKey().value().getMaxLevel() <= e.getIntValue();
+                });
     }
 
     @Override

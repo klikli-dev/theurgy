@@ -69,8 +69,11 @@ public class TheurgyBlockTagsProvider extends BlockTagsProvider {
         this.tag(BlockTagRegistry.SAL_AMMONIAC_ORES)
                 .add(BlockRegistry.SAL_AMMONIAC_ORE.get())
                 .add(BlockRegistry.DEEPSLATE_SAL_AMMONIAC_ORE.get());
+        this.tag(BlockTagRegistry.ANCIENT_DEBRIS_ORES)
+                .add(Blocks.ANCIENT_DEBRIS);
 
         this.tag(Tags.Blocks.ORES).addTag(BlockTagRegistry.SAL_AMMONIAC_ORES);
+        this.tag(Tags.Blocks.ORES).addTag(BlockTagRegistry.ANCIENT_DEBRIS_ORES); //this allows divination rods to translate netherite ingot tag to ancient debris ores tag, which the c namespace doesn't usually have.
         this.tag(Tags.Blocks.ORES_IN_GROUND_STONE).add(BlockRegistry.SAL_AMMONIAC_ORE.get());
         this.tag(Tags.Blocks.ORES_IN_GROUND_DEEPSLATE).add(BlockRegistry.DEEPSLATE_SAL_AMMONIAC_ORE.get());
         this.tag(BlockTags.MINEABLE_WITH_PICKAXE).addTag(BlockTagRegistry.SAL_AMMONIAC_ORES);

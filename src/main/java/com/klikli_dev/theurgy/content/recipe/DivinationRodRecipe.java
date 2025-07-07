@@ -94,6 +94,8 @@ public class DivinationRodRecipe extends ShapedRecipe {
         //c:storage_blocks/iron
         //c:gems/iron
 
+        //c:ingots/netherite
+
         //special handling for coal items as they are none of the above
         if (sourceTag.equals("minecraft:coals"))
             return ResourceLocation.parse("c:ores/coal");
@@ -116,11 +118,15 @@ public class DivinationRodRecipe extends ShapedRecipe {
             translatedPath = translatedPath.replace("gems/", "ores/");
         }
 
+        if (path.contains("/netherite")){
+            translatedPath = translatedPath.replace("/netherite", "/ancient_debris");
+        }
+
         var translatedTag = ResourceLocation.parse(namespace + ":" + translatedPath);
         if (BuiltInRegistries.BLOCK.getTag(TagKey.create(Registries.BLOCK, translatedTag)).isPresent())
             return translatedTag;
 
-        Theurgy.LOGGER.warn("Could not find an appropriate block tag for sulfur source ttag: " + sourceTag + ", tried tag: #" + translatedTag);
+        Theurgy.LOGGER.warn("Could not find an appropriate block tag for sulfur source tag: " + sourceTag + ", tried tag: #" + translatedTag);
         return null;
     }
 

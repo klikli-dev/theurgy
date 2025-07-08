@@ -34,6 +34,7 @@ public class BlockTagRegistry {
     public static final TagKey<Block> REFORMATION_PEDESTALS = tag("reformation_pedestals");
 
     public static final TagKey<Block> SAL_AMMONIAC_ORES = cTag("ores/sal_ammoniac");
+    public static final TagKey<Block> ANCIENT_DEBRIS_ORES = cTag("ores/ancient_debris");
 
 
     public static TagKey<Block> tag(String id) {

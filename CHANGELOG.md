@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21.1-1.61.3] - 2025-07-28
+### :wrench: Chores
+- [`d8c094d`](https://github.com/klikli-dev/theurgy/commit/d8c094dd83a8b76926f440f9c075d47f61be42f3) - update divination rod netherite compat to use neoforge default tag *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21.1-1.61.2] - 2025-07-07
 ### :bug: Bug Fixes
 - [`945f486`](https://github.com/klikli-dev/theurgy/commit/945f486968d851c9bab379794177467654e4bd65) - attuning divination rods to netherite *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1230,3 +1235,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21.1-1.60.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.59.0...release/v1.21.1-1.60.0
 [release/v1.21.1-1.61.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.60.0...release/v1.21.1-1.61.1
 [release/v1.21.1-1.61.2]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.61.1...release/v1.21.1-1.61.2
+[release/v1.21.1-1.61.3]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.61.2...release/v1.21.1-1.61.3

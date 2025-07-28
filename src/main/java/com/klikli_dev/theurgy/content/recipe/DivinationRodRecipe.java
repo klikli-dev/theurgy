@@ -23,6 +23,7 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
+import net.neoforged.neoforge.common.Tags;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -118,8 +119,9 @@ public class DivinationRodRecipe extends ShapedRecipe {
             translatedPath = translatedPath.replace("gems/", "ores/");
         }
 
+        //netherite is a special case
         if (path.contains("/netherite")){
-            translatedPath = translatedPath.replace("/netherite", "/ancient_debris");
+            translatedPath = translatedPath.replace("/netherite", "/netherite_scrap");
         }
 
         var translatedTag = ResourceLocation.parse(namespace + ":" + translatedPath);

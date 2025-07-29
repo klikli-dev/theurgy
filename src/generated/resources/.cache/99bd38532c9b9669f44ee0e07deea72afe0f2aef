@@ -1,6 +1,5 @@
-// 1.21.1	2025-07-07T18:25:08.3677665	Tags for minecraft:block mod id theurgy
-df89279aba411ca4417980de303365497002d7e6 data/c/tags/block/ores.json
-19b073a7559571c409a9e82de27bfabac67ee6ac data/c/tags/block/ores/ancient_debris.json
+// 1.21.1	2025-07-28T12:12:57.6066594	Tags for minecraft:block mod id theurgy
+2a6db3eadd0ca532bb90db84dde920e689ea0e24 data/c/tags/block/ores.json
 04abd356cb9b230f4d1adcf90db05571e8a17d05 data/c/tags/block/ores/sal_ammoniac.json
 9148832ee4e83df2b37e23918707fd8046f26ff7 data/c/tags/block/ores_in_ground/deepslate.json
 f8295983ffdb0c42c6c8b12788a5b63c1eb43f72 data/c/tags/block/ores_in_ground/stone.json

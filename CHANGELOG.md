@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21.1-1.63.0] - 2025-07-30
+### :sparkles: New Features
+- [`a597f64`](https://github.com/klikli-dev/theurgy/commit/a597f64115534d6586098eb0a30938a77910b93e) - Updated PT_BR localization *(PR [#256](https://github.com/klikli-dev/theurgy/pull/256) by [@PrincessStelllar](https://github.com/PrincessStelllar))*
+
+
 ## [release/v1.21.1-1.62.0] - 2025-07-30
 ### :sparkles: New Features
 - [`9394bb7`](https://github.com/klikli-dev/theurgy/commit/9394bb772388cf2034f4d0e6ea7d945b9f87c453) - Updated PT_BR localization *(PR [#254](https://github.com/klikli-dev/theurgy/pull/254) by [@PrincessStelllar](https://github.com/PrincessStelllar))*
@@ -1242,3 +1247,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21.1-1.61.2]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.61.1...release/v1.21.1-1.61.2
 [release/v1.21.1-1.61.3]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.61.2...release/v1.21.1-1.61.3
 [release/v1.21.1-1.62.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.61.3...release/v1.21.1-1.62.0
+[release/v1.21.1-1.63.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.62.0...release/v1.21.1-1.63.0

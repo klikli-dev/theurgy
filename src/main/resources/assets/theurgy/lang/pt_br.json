@@ -2754,7 +2754,7 @@
   "tooltip.theurgy..divination_rod.linked_to": "A varinha de adivinhação está sintonizada com %s",
   "tooltip.theurgy..divination_rod.no_link": "A varinha de adivinhação §cnão está sintonizada§r com nenhum material.",
   "tooltip.theurgy.extended_heading": "§6[§7DETALHES:§6]",
-  "tooltip.theurgy.show_extended": "§7Segure §6[§dSHIFT §7para mostrar mais detalhes§6]",
-  "tooltip.theurgy.show_usage": "§7Segure §6[§dCTRL §7para mostrar uso§6]",
+  "tooltip.theurgy.show_extended": "§7Segure §6[§dSHIFT§6] §7para mostrar mais detalhes",
+  "tooltip.theurgy.show_usage": "§7Segure §6[§dCTRL§6] §7para mostrar uso",
   "tooltip.theurgy.usage_heading": "§6[§7USO:§6]"
 }

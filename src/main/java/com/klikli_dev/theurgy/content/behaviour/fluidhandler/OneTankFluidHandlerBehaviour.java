@@ -15,6 +15,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidUtil;
+import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 
 public class OneTankFluidHandlerBehaviour implements FluidHandlerBehaviour {
@@ -54,18 +55,33 @@ public class OneTankFluidHandlerBehaviour implements FluidHandlerBehaviour {
             return InteractionResult.PASS;
         var itemFluidHandler = itemFluidHandlerCap.orElse(null);
 
-        //first we try to insert
-        var transferredFluid = FluidUtil.tryFluidTransfer(blockFluidHandler, itemFluidHandler,
-                Integer.MAX_VALUE, true);
-        if (this.updateFluidContainerInHand(pPlayer, pHand, stackInHand, itemFluidHandler, transferredFluid))
-            return InteractionResult.SUCCESS;
+        //first we try to insert from item to block
+        //Use a simulated drain first to check what fluid is available, ignoring NBT
+        var simulatedDrain = itemFluidHandler.drain(Integer.MAX_VALUE, IFluidHandler.FluidAction.SIMULATE);
+        if (!simulatedDrain.isEmpty()) {
+            //Now try to fill the block with this fluid type (without NBT comparison)
+            var amountFilled = blockFluidHandler.fill(simulatedDrain, IFluidHandler.FluidAction.EXECUTE);
+            if (amountFilled > 0) {
+                //Actually drain from the item now
+                itemFluidHandler.drain(amountFilled, IFluidHandler.FluidAction.EXECUTE);
+                if (this.updateFluidContainerInHand(pPlayer, pHand, stackInHand, itemFluidHandler, new FluidStack(simulatedDrain.getFluid(), amountFilled)))
+                    return InteractionResult.SUCCESS;
+            }
+        }
 
-        //if that fails, try to extract
-        transferredFluid = FluidUtil.tryFluidTransfer(itemFluidHandler, blockFluidHandler,
-                Integer.MAX_VALUE, true);
-        if (this.updateFluidContainerInHand(pPlayer, pHand, stackInHand, itemFluidHandler, transferredFluid))
-            return InteractionResult.SUCCESS;
-
+        //if that fails, try to extract from block to item
+        //Use a simulated drain from block first
+        var blockSimulatedDrain = blockFluidHandler.drain(Integer.MAX_VALUE, IFluidHandler.FluidAction.SIMULATE);
+        if (!blockSimulatedDrain.isEmpty()) {
+            //Try to fill the item with this fluid
+            var amountFilled = itemFluidHandler.fill(blockSimulatedDrain, IFluidHandler.FluidAction.EXECUTE);
+            if (amountFilled > 0) {
+                //Actually drain from the block now
+                blockFluidHandler.drain(amountFilled, IFluidHandler.FluidAction.EXECUTE);
+                if (this.updateFluidContainerInHand(pPlayer, pHand, stackInHand, itemFluidHandler, new FluidStack(blockSimulatedDrain.getFluid(), amountFilled)))
+                    return InteractionResult.SUCCESS;
+            }
+        }
 
         return InteractionResult.PASS;
     }

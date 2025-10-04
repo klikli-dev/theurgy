@@ -206,6 +206,22 @@ public class FluidIngredient extends Ingredient {
         }
     }
 
+    public boolean testIgnoreNbt(FluidStack fluidStack) {
+        if (fluidStack == null) {
+            return false;
+        } else if (this.isEmpty()) {
+            return fluidStack.isEmpty();
+        } else {
+            for (var fluid : this.getFluids()) {
+                //does not test for amount (just like ingredient)
+                if (fluidStack.getFluid() == fluid.getFluid()) {
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
+
     @Override
     public IIngredientSerializer<? extends Ingredient> getSerializer() {
         return Serializer.INSTANCE;

@@ -46,7 +46,9 @@ public class SalAmmoniacAccumulatorCraftingBehaviour extends CraftingBehaviour<R
 
 
     public boolean canProcess(FluidStack stack) {
-        if (this.waterTankSupplier.get().getFluidInTank(0).isFluidEqual(stack))
+        //we intentionally avoid isFluidEqual() because it also checks fluid nbt.
+        //some mods change water, but we still want to allow processing it.
+        if (this.waterTankSupplier.get().getFluidInTank(0).getFluid() == stack.getFluid())
             return true; //early out if we are already processing this type of fluid
 
         //now we use our custom cached check that checks only liquids:

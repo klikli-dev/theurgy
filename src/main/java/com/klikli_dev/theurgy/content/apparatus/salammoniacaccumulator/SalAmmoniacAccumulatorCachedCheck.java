@@ -54,12 +54,12 @@ class SalAmmoniacAccumulatorCachedCheck implements RecipeManager.CachedCheck<Rec
         if (lastRecipe != null) {
             var recipe = map.get(lastRecipe);
             //test only the fluid without the (separate) solute item ingredient check that the recipe.matches() would.
-            if (recipe != null && recipe.getEvaporant().test(stack)) {
+            if (recipe != null && recipe.getEvaporant().testIgnoreNbt(stack)) {
                 return Optional.of(Pair.of(lastRecipe, recipe));
             }
         }
 
-        return map.entrySet().stream().filter((entry) -> entry.getValue().getEvaporant().test(stack)).findFirst().map((entry) -> Pair.of(entry.getKey(), entry.getValue()));
+        return map.entrySet().stream().filter((entry) -> entry.getValue().getEvaporant().testIgnoreNbt(stack)).findFirst().map((entry) -> Pair.of(entry.getKey(), entry.getValue()));
     }
 
     /**

@@ -113,8 +113,8 @@ public class TheurgyConstants {
         }
 
         public static class Key {
-            public static final String PREFIX = Theurgy.MODID + ".key.";
-            public static final String CATEGORY = PREFIX + "theurgy.category";
+            public static final String PREFIX = "key." + Theurgy.MODID + ".";
+            public static final String CATEGORY = PREFIX + "category";
             public static final String CHANGE_ITEM_MODE = PREFIX + "change_item_mode";
         }
 

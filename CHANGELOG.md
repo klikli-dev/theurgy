@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.25.0] - 2025-10-04
+### :sparkles: New Features
+- [`1661e15`](https://github.com/klikli-dev/theurgy/commit/1661e15d24f0460d4a52d0a53e407eb2012c2971) - allow inserting fluid variants with nbt *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.1-1.24.0] - 2025-10-04
 ### :sparkles: New Features
 - [`f5ae11b`](https://github.com/klikli-dev/theurgy/commit/f5ae11beea45b54ab4af9b9cb9b277aefc37547e) - Update zh_cn for 1.20.1 *(PR [#231](https://github.com/klikli-dev/theurgy/pull/231) by [@ChuijkYahus](https://github.com/ChuijkYahus))*
@@ -576,3 +581,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.23.3]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.23.2...release/v1.20.1-1.23.3
 [release/v1.20.1-1.23.4]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.23.3...release/v1.20.1-1.23.4
 [release/v1.20.1-1.24.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.23.4...release/v1.20.1-1.24.0
+[release/v1.20.1-1.25.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.24.0...release/v1.20.1-1.25.0

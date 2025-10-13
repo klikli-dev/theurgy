@@ -38,6 +38,8 @@ public class SulfurMappings {
     private static List<AlchemicalSulfurItem> LOGS_ABUNDANT;
     private static List<AlchemicalSulfurItem> CROPS_ABUNDANT;
 
+    private static List<AlchemicalSulfurItem> HERBS_ABUNDANT;
+
     private static List<AlchemicalSulfurItem> ANIMALS_ABUNDANT;
     private static List<AlchemicalSulfurItem> ANIMALS_COMMON;
     private static List<AlchemicalSulfurItem> ANIMALS_RARE;
@@ -203,6 +205,16 @@ public class SulfurMappings {
         CROPS_ABUNDANT = find(AlchemicalSulfurType.CROPS, AlchemicalDerivativeTier.ABUNDANT);
 
         return CROPS_ABUNDANT;
+    }
+
+    public static List<AlchemicalSulfurItem> herbsAbundant() {
+        if (HERBS_ABUNDANT != null) {
+            return HERBS_ABUNDANT;
+        }
+
+        HERBS_ABUNDANT = find(AlchemicalSulfurType.HERBS, AlchemicalDerivativeTier.ABUNDANT);
+
+        return HERBS_ABUNDANT;
     }
 
     public static List<AlchemicalSulfurItem> animalsAbundant() {

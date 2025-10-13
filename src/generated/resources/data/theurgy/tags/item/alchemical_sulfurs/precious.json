@@ -21,6 +21,10 @@
       "required": false
     },
     {
+      "id": "#theurgy:alchemical_sulfurs/crops/precious",
+      "required": false
+    },
+    {
       "id": "#theurgy:alchemical_sulfurs/animals/precious",
       "required": false
     },

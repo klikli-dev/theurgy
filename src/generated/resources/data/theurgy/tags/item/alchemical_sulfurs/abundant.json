@@ -21,6 +21,10 @@
       "required": false
     },
     {
+      "id": "#theurgy:alchemical_sulfurs/herbs/abundant",
+      "required": false
+    },
+    {
       "id": "#theurgy:alchemical_sulfurs/animals/abundant",
       "required": false
     },

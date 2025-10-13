@@ -209,6 +209,12 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_CROPS_RARE, "Alchemical Sulfurs: Rare Crops");
         this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_CROPS_PRECIOUS, "Alchemical Sulfurs: Precious Crops");
 
+        this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_HERBS, "Alchemical Sulfurs: Herbs");
+        this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_HERBS_ABUNDANT, "Alchemical Sulfurs: Abundant Herbs");
+        this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_HERBS_COMMON, "Alchemical Sulfurs: Common Herbs");
+        this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_HERBS_RARE, "Alchemical Sulfurs: Rare Herbs");
+        this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_HERBS_PRECIOUS, "Alchemical Sulfurs: Precious Herbs");
+
         this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_ANIMALS, "Alchemical Sulfurs: Animal Parts");
         this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_ANIMALS_ABUNDANT, "Alchemical Sulfurs: Abundant Animal Parts");
         this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_ANIMALS_COMMON, "Alchemical Sulfurs: Common Animal Parts");

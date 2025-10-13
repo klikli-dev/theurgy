@@ -55,6 +55,12 @@ public class ItemTagRegistry {
     public static final TagKey<Item> ALCHEMICAL_SULFURS_CROPS_RARE = tag("alchemical_sulfurs/crops/rare");
     public static final TagKey<Item> ALCHEMICAL_SULFURS_CROPS_PRECIOUS = tag("alchemical_sulfurs/crops/precious");
 
+    public static final TagKey<Item> ALCHEMICAL_SULFURS_HERBS = tag("alchemical_sulfurs/herbs");
+    public static final TagKey<Item> ALCHEMICAL_SULFURS_HERBS_ABUNDANT = tag("alchemical_sulfurs/herbs/abundant");
+    public static final TagKey<Item> ALCHEMICAL_SULFURS_HERBS_COMMON = tag("alchemical_sulfurs/herbs/common");
+    public static final TagKey<Item> ALCHEMICAL_SULFURS_HERBS_RARE = tag("alchemical_sulfurs/herbs/rare");
+    public static final TagKey<Item> ALCHEMICAL_SULFURS_HERBS_PRECIOUS = tag("alchemical_sulfurs/herbs/precious");
+
     public static final TagKey<Item> ALCHEMICAL_SULFURS_ANIMALS = tag("alchemical_sulfurs/animals");
     public static final TagKey<Item> ALCHEMICAL_SULFURS_ANIMALS_ABUNDANT = tag("alchemical_sulfurs/animals/abundant");
     public static final TagKey<Item> ALCHEMICAL_SULFURS_ANIMALS_COMMON = tag("alchemical_sulfurs/animals/common");

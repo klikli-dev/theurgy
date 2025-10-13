@@ -21,6 +21,10 @@
       "required": false
     },
     {
+      "id": "#theurgy:alchemical_sulfurs/herbs/common",
+      "required": false
+    },
+    {
       "id": "#theurgy:alchemical_sulfurs/animals/common",
       "required": false
     },

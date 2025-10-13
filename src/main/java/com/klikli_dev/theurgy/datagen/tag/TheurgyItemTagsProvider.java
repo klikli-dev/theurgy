@@ -104,6 +104,13 @@ public class TheurgyItemTagsProvider extends ItemTagsProvider {
                 .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_CROPS_PRECIOUS)
         ;
 
+        this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_HERBS)
+                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_HERBS_ABUNDANT)
+                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_HERBS_COMMON)
+                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_HERBS_RARE)
+                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_HERBS_PRECIOUS)
+        ;
+
         this.tag(ItemTagRegistry.ALCHEMICAL_SULFURS_ANIMALS)
                 .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_ANIMALS_ABUNDANT)
                 .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_ANIMALS_COMMON)
@@ -245,6 +252,7 @@ public class TheurgyItemTagsProvider extends ItemTagsProvider {
                 .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_ABUNDANT)
                 .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_LOGS_ABUNDANT)
                 .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_CROPS_ABUNDANT)
+                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_HERBS_ABUNDANT)
                 .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_ANIMALS_ABUNDANT)
                 .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_MOBS_ABUNDANT)
         ;
@@ -255,6 +263,7 @@ public class TheurgyItemTagsProvider extends ItemTagsProvider {
                 .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_COMMON)
                 .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_LOGS_COMMON)
                 .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_CROPS_COMMON)
+                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_HERBS_COMMON)
                 .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_ANIMALS_COMMON)
                 .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_MOBS_COMMON)
         ;
@@ -265,6 +274,7 @@ public class TheurgyItemTagsProvider extends ItemTagsProvider {
                 .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_RARE)
                 .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_LOGS_RARE)
                 .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_CROPS_RARE)
+                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_HERBS_RARE)
                 .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_ANIMALS_RARE)
                 .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_MOBS_RARE)
         ;
@@ -274,6 +284,7 @@ public class TheurgyItemTagsProvider extends ItemTagsProvider {
                 .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_GEMS_PRECIOUS)
                 .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_OTHER_MINERALS_PRECIOUS)
                 .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_LOGS_PRECIOUS)
+                .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_CROPS_PRECIOUS)
                 .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_CROPS_PRECIOUS)
                 .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_ANIMALS_PRECIOUS)
                 .addOptionalTag(ItemTagRegistry.ALCHEMICAL_SULFURS_MOBS_PRECIOUS)

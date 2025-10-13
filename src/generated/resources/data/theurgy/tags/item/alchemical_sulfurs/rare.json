@@ -21,6 +21,10 @@
       "required": false
     },
     {
+      "id": "#theurgy:alchemical_sulfurs/herbs/rare",
+      "required": false
+    },
+    {
       "id": "#theurgy:alchemical_sulfurs/animals/rare",
       "required": false
     },

@@ -14,6 +14,7 @@ public enum AlchemicalSulfurType {
     OTHER_MINERALS(),
     LOGS(),
     CROPS(),
+    HERBS(),
     ANIMALS(),
     MOBS();
 

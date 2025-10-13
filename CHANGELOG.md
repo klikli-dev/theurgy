@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21.1-1.65.0] - 2025-10-13
+### :sparkles: New Features
+- [`b0f294c`](https://github.com/klikli-dev/theurgy/commit/b0f294c5d9067422795ef2e1d2466a49d96d2a25) - Update zh_cn for 1.21.1 *(PR [#232](https://github.com/klikli-dev/theurgy/pull/232) by [@ChuijkYahus](https://github.com/ChuijkYahus))*
+- [`9adcdd1`](https://github.com/klikli-dev/theurgy/commit/9adcdd1b50bba78e2e5a48402df8960007d784e9) - ru_ru translate *(PR [#259](https://github.com/klikli-dev/theurgy/pull/259) by [@Mhlanc](https://github.com/Mhlanc))*
+- [`61b81cd`](https://github.com/klikli-dev/theurgy/commit/61b81cdcb4597021e59bd5f09aa9db93d6411c52) - add sulfur type herbs for mod integrations *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :bug: Bug Fixes
+- [`f1d91ff`](https://github.com/klikli-dev/theurgy/commit/f1d91ffb67f5c87c6a680b0262e8ae6105fcdd41) - [#260](https://github.com/klikli-dev/theurgy/pull/260) *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`4e10023`](https://github.com/klikli-dev/theurgy/commit/4e1002383f43934b3bc606176058f5d0c8256353) - **licensing**: add missing license info *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21.1-1.63.1] - 2025-08-20
 ### :bug: Bug Fixes
 - [`854d8b5`](https://github.com/klikli-dev/theurgy/commit/854d8b55f31d41948a49935c44b9a99f429e8846) - Fix PT_BR lang *(PR [#257](https://github.com/klikli-dev/theurgy/pull/257) by [@PrincessStelllar](https://github.com/PrincessStelllar))*
@@ -1254,3 +1265,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21.1-1.62.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.61.3...release/v1.21.1-1.62.0
 [release/v1.21.1-1.63.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.62.0...release/v1.21.1-1.63.0
 [release/v1.21.1-1.63.1]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.63.0...release/v1.21.1-1.63.1
+[release/v1.21.1-1.65.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.63.1...release/v1.21.1-1.65.0

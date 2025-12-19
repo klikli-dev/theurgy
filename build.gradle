@@ -17,6 +17,8 @@ base {
 sourceSets {
     main {
         java {
+            // Temporarily disable occultism integration implementation until 1.21.3 artifact is available
+            exclude '**/integration/occultism/impl/**'
             exclude '**/AlmostUnifiedIntegrationImpl.java'
 //            exclude '**/jade/**/*.java'
 //            exclude '**/jei/**/*.java'
@@ -161,7 +163,7 @@ dependencies {
     implementation ("com.klikli_dev:modonomicon-${minecraft_version}-neoforge:${modonomicon_version}") {transitive=false}
 
     //occultism
-    compileOnly ("com.klikli_dev:occultism-${minecraft_version}-neoforge:${occultism_version}") {transitive=false}
+//    compileOnly ("com.klikli_dev:occultism-${minecraft_version}-neoforge:${occultism_version}") {transitive=false}
 //    runtimeOnly ("com.klikli_dev:occultism-${minecraft_version}-neoforge:${occultism_version}")
 
     //Jade (Hwyla/Waila)

@@ -13,7 +13,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -43,7 +43,7 @@ public class PyromanticBrazierBlock extends Block implements EntityBlock {
     }
 
     @Override
-    protected ItemInteractionResult useItemOn(ItemStack pStack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHitResult) {
+    protected InteractionResult useItemOn(ItemStack pStack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHitResult) {
         //We do not check for client side because
         // a) returning success causes https://github.com/klikli-dev/theurgy/issues/158
         // b) client side BEs are separate objects even in SP, so modification in our behaviours is safe
@@ -59,19 +59,19 @@ public class PyromanticBrazierBlock extends Block implements EntityBlock {
                 if (!inputStack.isEmpty()) {
                     pPlayer.getInventory().placeItemBackInInventory(inputStack);
                     blockEntity.inventory.setStackInSlot(0, ItemStack.EMPTY);
-                    return ItemInteractionResult.SUCCESS;
+                    return InteractionResult.SUCCESS;
                 }
             } else {
                 var remainder = blockEntity.inventory.insertItem(0, stackInHand, false);
                 pPlayer.setItemInHand(pHand, remainder);
                 if (remainder.getCount() != stackInHand.getCount()) {
-                    return ItemInteractionResult.SUCCESS;
+                    return InteractionResult.SUCCESS;
                 }
-                return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+                return InteractionResult.PASS;
             }
         }
 
-        return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        return InteractionResult.PASS;
     }
 
     @Nullable

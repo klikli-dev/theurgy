@@ -15,7 +15,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -28,24 +28,24 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 public class CaloricFluxEmitterInteractionBehaviour implements InteractionBehaviour {
 
     @Override
-    public ItemInteractionResult useItemOn(ItemStack pStack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHitResult) {
+    public InteractionResult useItemOn(ItemStack pStack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHitResult) {
         if(pHand != InteractionHand.MAIN_HAND)
-            return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+            return InteractionResult.PASS;
 
         var blockEntity = pLevel.getBlockEntity(pPos);
 
         if (!(blockEntity instanceof CaloricFluxEmitterBlockEntity caloricFluxEmitter))
-            return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+            return InteractionResult.PASS;
 
         if (pLevel.isClientSide)
-            return ItemInteractionResult.SUCCESS;
+            return InteractionResult.SUCCESS;
 
         Networking.sendTo((ServerPlayer) pPlayer, new MessageShowCaloricFluxEmitterStatus(
                 pPos,
                 caloricFluxEmitter.selectedPoints
         ));
 
-        return ItemInteractionResult.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 
     public void showStatus(Level level, BlockPos pos, Player player) {

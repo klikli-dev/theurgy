@@ -10,7 +10,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -72,16 +72,16 @@ public class FilterBehaviour {
         this.filter(Filter.of(pRegistries, pTag.getCompound("filter")));
     }
 
-    public @NotNull ItemInteractionResult useItemOn(@NotNull ItemStack pStack, @NotNull BlockState pState, @NotNull Level pLevel, @NotNull BlockPos pPos, Player pPlayer, @NotNull InteractionHand pHand, @NotNull BlockHitResult pHitResult) {
+    public @NotNull InteractionResult useItemOn(@NotNull ItemStack pStack, @NotNull BlockState pState, @NotNull Level pLevel, @NotNull BlockPos pPos, Player pPlayer, @NotNull InteractionHand pHand, @NotNull BlockHitResult pHitResult) {
         if(pHand != InteractionHand.MAIN_HAND)
-            return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+            return InteractionResult.PASS;
 
         if (this.filter().isEmpty()) {
             //if we have an empty filter, we can try to set one from the item in hand.
 
             //if the item is hand is empty, we pass back to other interaction behaviours
             if (pStack.isEmpty() || !(pStack.getItem() instanceof FilterItem))
-                return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+                return InteractionResult.PASS;
 
             var filter = Filter.of(pPlayer.registryAccess(), pStack.copyWithCount(1));
 
@@ -90,7 +90,7 @@ public class FilterBehaviour {
                 pStack.consume(1, pPlayer);
             }
 
-            return ItemInteractionResult.sidedSuccess(pLevel.isClientSide);
+            return InteractionResult.sidedSuccess(pLevel.isClientSide);
         } else if (pStack.isEmpty() && pPlayer.isShiftKeyDown()) {
             //if we have a filter and an empty hand we take the filter
             var stack = this.filter().item().copy();
@@ -99,10 +99,10 @@ public class FilterBehaviour {
 
             ItemHandlerHelper.giveItemToPlayer(pPlayer, stack);
 
-            return ItemInteractionResult.sidedSuccess(pLevel.isClientSide);
+            return InteractionResult.sidedSuccess(pLevel.isClientSide);
         }
 
-        return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        return InteractionResult.PASS;
     }
 
     public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {

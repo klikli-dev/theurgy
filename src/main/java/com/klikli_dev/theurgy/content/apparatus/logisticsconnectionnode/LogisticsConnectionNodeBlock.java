@@ -18,7 +18,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -64,7 +64,7 @@ public class LogisticsConnectionNodeBlock extends DirectionalBlock implements Ha
     }
 
     @Override
-    protected ItemInteractionResult useItemOn(ItemStack pStack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHitResult) {
+    protected InteractionResult useItemOn(ItemStack pStack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHitResult) {
         if(!pLevel.isClientSide() && pHand == InteractionHand.MAIN_HAND && pPlayer.getMainHandItem().isEmpty()){
             List<Pair<BlockPos, Integer>> result = new ArrayList<>();
             var connected = Logistics.get().getNetwork(GlobalPos.of(pLevel.dimension(), pPos));
@@ -78,11 +78,11 @@ public class LogisticsConnectionNodeBlock extends DirectionalBlock implements Ha
                 Networking.sendTo((ServerPlayer) pPlayer, new MessageShowLogisticsNodeStatus(result));
 
             }
-            return ItemInteractionResult.SUCCESS;
-
+            return InteractionResult.SUCCESS;
         }
 
-        return super.useItemOn(pStack, pState, pLevel, pPos, pPlayer, pHand, pHitResult);
+        return InteractionResult.PASS;
+    }
     }
 
     @Override

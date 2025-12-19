@@ -15,7 +15,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -48,24 +48,24 @@ public abstract class LogisticsItemConnectorBlock extends DirectionalBlock imple
     }
 
     @Override
-    protected @NotNull ItemInteractionResult useItemOn(@NotNull ItemStack pStack, @NotNull BlockState pState, @NotNull Level pLevel, @NotNull BlockPos pPos, @NotNull Player pPlayer, @NotNull InteractionHand pHand, @NotNull BlockHitResult pHitResult) {
+    protected @NotNull InteractionResult useItemOn(@NotNull ItemStack pStack, @NotNull BlockState pState, @NotNull Level pLevel, @NotNull BlockPos pPos, @NotNull Player pPlayer, @NotNull InteractionHand pHand, @NotNull BlockHitResult pHitResult) {
         if (!(pLevel.getBlockEntity(pPos) instanceof LogisticsItemConnectorBlockEntity blockEntity)) {
-            return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+            return InteractionResult.PASS;
         }
 
         var result = blockEntity.filter().useItemOn(pStack, pState, pLevel, pPos, pPlayer, pHand, pHitResult);
-        if (result != ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION)
+        if (result != InteractionResult.PASS)
             return result;
 
         if (!pPlayer.getItemInHand(pHand).isEmpty())
-            return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+            return InteractionResult.PASS;
 
-        if (pLevel.isClientSide)
-            return ItemInteractionResult.SUCCESS;
+        if (pLevel.isClientSide) {
+            return InteractionResult.SUCCESS;
+        }
 
-        Networking.sendTo((ServerPlayer) pPlayer, new MessageShowLogisticsNodeStatus(blockEntity.getStatusHighlights()));
-
-        return ItemInteractionResult.SUCCESS;
+        pPlayer.openMenu(blockEntity, pPos);
+        return InteractionResult.SUCCESS;
     }
 
     @Override

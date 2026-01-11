@@ -12,7 +12,7 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
 import net.minecraft.core.Direction.AxisDirection;
-import net.minecraft.util.FastColor;
+import net.minecraft.util.ARGB;
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
@@ -284,10 +284,10 @@ public class CubeModelRenderer {
                                  float x2, float y2, float z2,
                                  float x3, float y3, float z3,
                                  float x4, float y4, float z4) {
-        int red = FastColor.ARGB32.red(argb);
-        int green = FastColor.ARGB32.green(argb);
-        int blue = FastColor.ARGB32.blue(argb);
-        int alpha = FastColor.ARGB32.alpha(argb);
+        int red = ARGB.red(argb);
+        int green = ARGB.green(argb);
+        int blue = ARGB.blue(argb);
+        int alpha = ARGB.alpha(argb);
         if (faceDisplay.front) {
             buffer.addVertex(matrix, x1, y1, z1).setColor(red, green, blue, alpha).setUv(minU, maxV).setOverlay(overlay).setLight(light).setNormal(setNormal.front.x(), setNormal.front.y(), setNormal.front.z());
             buffer.addVertex(matrix, x2, y2, z2).setColor(red, green, blue, alpha).setUv(minU, minV).setOverlay(overlay).setLight(light).setNormal(setNormal.front.x(), setNormal.front.y(), setNormal.front.z());

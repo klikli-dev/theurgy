@@ -10,9 +10,10 @@ import io.netty.buffer.ByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.ByIdMap;
-import net.minecraft.world.item.Tiers;
+import net.minecraft.world.item.ToolMaterial;
 import net.minecraft.world.phys.Vec3;
 
+import java.util.List;
 import java.util.function.Function;
 import java.util.function.IntFunction;
 
@@ -29,8 +30,17 @@ public class TheurgyExtraStreamCodecs {
             buf.writeFloat((float) vec.z);
         }
     };
-    private static final IntFunction<Tiers> TIERS_BY_ID = ByIdMap.continuous(Enum::ordinal, Tiers.values(), ByIdMap.OutOfBoundsStrategy.WRAP);
-    public static final StreamCodec<ByteBuf, Tiers> TIERS_STREAM_CODEC = ByteBufCodecs.idMapper(TIERS_BY_ID, Tiers::ordinal);
+    
+    private static final List<ToolMaterial> MATERIALS = List.of(
+            ToolMaterial.WOOD,
+            ToolMaterial.STONE,
+            ToolMaterial.IRON,
+            ToolMaterial.DIAMOND,
+            ToolMaterial.GOLD,
+            ToolMaterial.NETHERITE
+    );
+    private static final IntFunction<ToolMaterial> MATERIALS_BY_ID = id -> MATERIALS.get(id % MATERIALS.size());
+    public static final StreamCodec<ByteBuf, ToolMaterial> TIERS_STREAM_CODEC = ByteBufCodecs.idMapper(MATERIALS_BY_ID, MATERIALS::indexOf);
 
     public static <B, F, S> StreamCodec<B, Pair<F, S>> pair(StreamCodec<B, F> firstCodec, StreamCodec<B, S> secondCodec) {
         return StreamCodec.composite(

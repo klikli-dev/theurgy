@@ -16,7 +16,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.ByIdMap;
-import net.minecraft.world.item.Tiers;
+import net.minecraft.world.item.ToolMaterial;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.neoforged.neoforge.fluids.FluidStack;
 
@@ -27,16 +27,16 @@ import java.util.function.IntFunction;
 import java.util.function.Supplier;
 
 public class TheurgyExtraCodecs {
-    private static final Map<String, Tiers> TIERS = Map.of(
-            "wood", Tiers.WOOD,
-            "stone", Tiers.STONE,
-            "iron", Tiers.IRON,
-            "diamond", Tiers.DIAMOND,
-            "gold", Tiers.GOLD,
-            "netherite", Tiers.NETHERITE
+    private static final com.google.common.collect.BiMap<String, ToolMaterial> TIERS = com.google.common.collect.ImmutableBiMap.of(
+            "wood", ToolMaterial.WOOD,
+            "stone", ToolMaterial.STONE,
+            "iron", ToolMaterial.IRON,
+            "diamond", ToolMaterial.DIAMOND,
+            "gold", ToolMaterial.GOLD,
+            "netherite", ToolMaterial.NETHERITE
     );
 
-    public static final Codec<Tiers> TIERS_CODEC = Codec.stringResolver(Tiers::name, TIERS::get);
+    public static final Codec<ToolMaterial> TIERS_CODEC = Codec.stringResolver(TIERS.inverse()::get, TIERS::get);
 
     public static final Codec<FluidStack> SINGLE_FLUID_CODEC = BuiltInRegistries.FLUID.byNameCodec().xmap(fluid -> new FluidStack(fluid, 1), FluidStack::getFluid);
 

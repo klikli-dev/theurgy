@@ -264,7 +264,7 @@ public class DivinationRodItem extends Item {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+    public InteractionResult use(Level level, Player player, InteractionHand hand) {
         var stack = player.getItemInHand(hand);
 
         if (!player.isShiftKeyDown()) {
@@ -293,7 +293,7 @@ public class DivinationRodItem extends Item {
             }
         }
 
-        return new InteractionResultHolder<>(InteractionResult.SUCCESS, stack);
+        return InteractionResult.SUCCESS;
     }
 
     @Override

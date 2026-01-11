@@ -91,20 +91,15 @@ public class IncubationRecipe implements Recipe<IncubatorRecipeInput> {
         return this.result.getStack().copy();
     }
 
-    @Override
-    public RecipeBookCategory recipeBookCategory() {
-        return RecipeBookCategories.CRAFTING_MISC;
-    }
+//    @Override
+//    public RecipeBookCategory recipeBookCategory() {
+//        return RecipeBookCategories.CRAFTING_MISC;
+//    }
 
-    @Override
-    public PlacementInfo placementInfo() {
-        return PlacementInfo.create(this.getIngredients());
-    }
-
-    @Override
-    public RecipeBookCategory recipeBookCategory() {
-        return RecipeBookCategories.CRAFTING_MISC;
-    }
+//    @Override
+//    public PlacementInfo placementInfo() {
+//        return PlacementInfo.create(this.getIngredients());
+//    }
 
     public @NotNull ItemStack getResultItem(@NotNull HolderLookup.Provider pRegistries) {
         return this.result.getStack();

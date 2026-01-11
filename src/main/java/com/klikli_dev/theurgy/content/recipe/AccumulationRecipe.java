@@ -104,29 +104,29 @@ public class AccumulationRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
         return ItemStack.EMPTY;
     }
 
-    @Override
-    public boolean canCraftInDimensions(int pWidth, int pHeight) {
-        return true;
-    }
+//    @Override
+//    public boolean canCraftInDimensions(int pWidth, int pHeight) {
+//        return true;
+//    }
 
     @Override
     public @NotNull ItemStack getResultItem(HolderLookup.@NotNull Provider pRegistries) {
         return ItemStack.EMPTY;
     }
 
-    @Override
-    public PlacementInfo placementInfo() {
-        return PlacementInfo.create(this.solute != null ? this.solute : Ingredient.of());
-    }
+//    @Override
+//    public PlacementInfo placementInfo() {
+//        return PlacementInfo.create(this.solute != null ? this.solute : Ingredient.of());
+//    }
 
     public @NotNull FluidStack assembleFluid(@NotNull ItemHandlerWithFluidRecipeInput pInv, @NotNull HolderLookup.Provider pRegistries) {
         return this.result.copy();
     }
 
-    @Override
-    public RecipeBookCategory recipeBookCategory() {
-        return RecipeBookCategories.CRAFTING_MISC;
-    }
+//    @Override
+//    public RecipeBookCategory recipeBookCategory() {
+//        return RecipeBookCategories.CRAFTING_MISC;
+//    }
 
     @Override
     public @NotNull ItemStack getToastSymbol() {

@@ -94,20 +94,20 @@ public class CatalysationRecipe implements Recipe<ItemHandlerRecipeInput> {
         return ItemStack.EMPTY;
     }
 
-    @Override
-    public boolean canCraftInDimensions(int pWidth, int pHeight) {
-        return true;
-    }
+//    @Override
+//    public boolean canCraftInDimensions(int pWidth, int pHeight) {
+//        return true;
+//    }
 
     @Override
     public @NotNull ItemStack getResultItem(HolderLookup.@NotNull Provider pRegistries) {
         return ItemStack.EMPTY;
     }
 
-    @Override
-    public PlacementInfo placementInfo() {
-        return PlacementInfo.create(this.ingredient);
-    }
+//    @Override
+//    public PlacementInfo placementInfo() {
+//        return PlacementInfo.create(this.ingredient);
+//    }
 
     @Override
     public RecipeBookCategory recipeBookCategory() {

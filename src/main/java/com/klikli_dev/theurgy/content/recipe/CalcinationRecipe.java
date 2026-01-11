@@ -86,24 +86,19 @@ public class CalcinationRecipe implements Recipe<ItemHandlerRecipeInput> {
     }
 
     @Override
-    public boolean canCraftInDimensions(int pWidth, int pHeight) {
-        return true;
-    }
-
-    @Override
     public @NotNull ItemStack getResultItem(HolderLookup.@NotNull Provider pRegistries) {
         return this.result;
     }
 
-    @Override
-    public RecipeBookCategory recipeBookCategory() {
-        return RecipeBookCategories.CRAFTING_MISC;
-    }
+//    @Override
+//    public RecipeBookCategory recipeBookCategory() {
+//        return RecipeBookCategories.CRAFTING_MISC;
+//    }
 
-    @Override
-    public PlacementInfo placementInfo() {
-        return PlacementInfo.create(this.ingredient.ingredient());
-    }
+//    @Override
+//    public PlacementInfo placementInfo() {
+//        return PlacementInfo.create(this.ingredient.ingredient());
+//    }
 
     @Override
     public @NotNull NonNullList<Ingredient> getIngredients() {

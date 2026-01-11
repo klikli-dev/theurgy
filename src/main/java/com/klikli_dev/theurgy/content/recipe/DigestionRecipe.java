@@ -123,15 +123,15 @@ public class DigestionRecipe implements Recipe<ItemHandlerWithFluidRecipeInput> 
         return this.result.copy();
     }
 
-    @Override
-    public RecipeBookCategory recipeBookCategory() {
-        return RecipeBookCategories.CRAFTING_MISC;
-    }
+//    @Override
+//    public RecipeBookCategory recipeBookCategory() {
+//        return RecipeBookCategories.CRAFTING_MISC;
+//    }
 
-    @Override
-    public PlacementInfo placementInfo() {
-        return PlacementInfo.create(this.ingredients);
-    }
+//    @Override
+//    public PlacementInfo placementInfo() {
+//        return PlacementInfo.create(this.ingredients);
+//    }
 
     public @NotNull ItemStack getResultItem(HolderLookup.@NotNull Provider pRegistries) {
         return this.result;

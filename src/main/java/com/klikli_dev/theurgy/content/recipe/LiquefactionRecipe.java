@@ -79,29 +79,24 @@ public class LiquefactionRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
     }
 
     @Override
-    public boolean canCraftInDimensions(int pWidth, int pHeight) {
-        return true;
-    }
-
-    @Override
     public @NotNull ItemStack getResultItem(HolderLookup.@NotNull Provider pRegistries) {
         return this.result;
     }
 
-    @Override
-    public PlacementInfo placementInfo() {
-        return PlacementInfo.create(this.ingredient);
-    }
+//    @Override
+//    public PlacementInfo placementInfo() {
+//        return PlacementInfo.create(this.ingredient);
+//    }
 
     @Override
     public @NotNull ItemStack assemble(@NotNull ItemHandlerWithFluidRecipeInput pCraftingContainer, @NotNull HolderLookup.Provider pRegistries) {
         return this.result.copy();
     }
 
-    @Override
-    public RecipeBookCategory recipeBookCategory() {
-        return RecipeBookCategories.CRAFTING_MISC;
-    }
+//    @Override
+//    public RecipeBookCategory recipeBookCategory() {
+//        return RecipeBookCategories.CRAFTING_MISC;
+//    }
 
     @Override
     public @NotNull ItemStack getToastSymbol() {

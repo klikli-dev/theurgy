@@ -12,7 +12,7 @@ import com.mojang.blaze3d.vertex.VertexFormat;
 import net.minecraft.Util;
 import net.minecraft.client.renderer.RenderStateShard;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.ShaderInstance;
+import net.minecraft.client.renderer.ShaderProgram;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.resources.ResourceLocation;
 
@@ -21,7 +21,7 @@ import java.util.function.Function;
 
 public class RenderTypes extends RenderStateShard {
 
-    public static ShaderInstance rendertypeDistanceLines;
+    public static ShaderProgram rendertypeDistanceLines;
     protected static final ShaderStateShard RENDERTYPE_DISTANCE_LINES_SHADER = new ShaderStateShard(() -> rendertypeDistanceLines);
 
     protected static final RenderType DISTANCE_LINES = RenderType.create(

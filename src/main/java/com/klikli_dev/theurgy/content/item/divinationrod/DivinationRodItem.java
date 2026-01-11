@@ -205,7 +205,7 @@ public class DivinationRodItem extends Item {
 
             BlockState state = level.getBlockState(pos);
             if (!state.isAir()) {
-                if (state.is(tier.getIncorrectBlocksForDrops())) {
+                if (state.is(tier.incorrectBlocksForDrops())) {
                     if (!level.isClientSide) {
                         player.displayClientMessage(
                                 Component.translatable(
@@ -476,7 +476,7 @@ public class DivinationRodItem extends Item {
         }
     }
 
-    public Tier getMiningTier(ItemStack stack) {
+    public ToolMaterial getMiningTier(ItemStack stack) {
         return stack.getOrDefault(DataComponentRegistry.DIVINATION_SETTINGS_TIER, this.defaultTier);
     }
 

@@ -26,6 +26,8 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.RecipeBookCategory;
 import net.minecraft.world.item.crafting.RecipeBookCategories;
+import net.minecraft.world.item.crafting.RecipeBookCategory;
+import net.minecraft.world.item.crafting.RecipeBookCategories;
 import net.minecraft.world.item.crafting.PlacementInfo;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.common.crafting.SizedIngredient;
@@ -118,11 +120,18 @@ public class DigestionRecipe implements Recipe<ItemHandlerWithFluidRecipeInput> 
         return true;
     }
 
-    @Override
-    public @NotNull ItemStack assemble(@NotNull ItemHandlerWithFluidRecipeInput pInv, HolderLookup.@NotNull Provider pRegistries) {
+    public ItemStack assemble(ItemHandlerWithFluidRecipeInput pInv, HolderLookup.Provider pRegistries) {
         return this.result.copy();
     }
+    @Override
+    public RecipeBookCategory recipeBookCategory() {
+        return RecipeBookCategories.CRAFTING_MISC;
+    }
 
+    @Override
+    public PlacementInfo placementInfo() {
+        return PlacementInfo.NOT_PLACEABLE;
+    }
 //    @Override
 //    public RecipeBookCategory recipeBookCategory() {
 //        return RecipeBookCategories.CRAFTING_MISC;

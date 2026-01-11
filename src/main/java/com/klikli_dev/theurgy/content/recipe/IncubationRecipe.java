@@ -21,6 +21,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.RecipeBookCategory;
+import net.minecraft.world.item.crafting.RecipeBookCategories;
 import net.minecraft.world.item.crafting.RecipeBookCategory;
 import net.minecraft.world.item.crafting.RecipeBookCategories;
 import net.minecraft.world.item.crafting.PlacementInfo;
@@ -86,22 +89,21 @@ public class IncubationRecipe implements Recipe<IncubatorRecipeInput> {
                 this.sulfur.test(pContainer.getSulfurVesselInv().getStackInSlot(0));
     }
 
-    @Override
-    public @NotNull ItemStack assemble(@NotNull IncubatorRecipeInput pInv, @NotNull HolderLookup.Provider pRegistries) {
+    public ItemStack assemble(IncubatorRecipeInput pInv, HolderLookup.Provider pRegistries) {
         return this.result.getStack().copy();
     }
 
-//    @Override
-//    public RecipeBookCategory recipeBookCategory() {
-//        return RecipeBookCategories.CRAFTING_MISC;
-//    }
+    @Override
+    public RecipeBookCategory recipeBookCategory() {
+        return RecipeBookCategories.CRAFTING_MISC;
+    }
 
-//    @Override
-//    public PlacementInfo placementInfo() {
-//        return PlacementInfo.create(this.getIngredients());
-//    }
+    @Override
+    public PlacementInfo placementInfo() {
+        return PlacementInfo.create(this.getIngredients());
+    }
 
-    public @NotNull ItemStack getResultItem(@NotNull HolderLookup.Provider pRegistries) {
+    public ItemStack getResultItem(HolderLookup.Provider pRegistries) {
         return this.result.getStack();
     }
 

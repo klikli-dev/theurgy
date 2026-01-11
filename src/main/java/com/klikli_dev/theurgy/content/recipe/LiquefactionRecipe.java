@@ -6,6 +6,7 @@ package com.klikli_dev.theurgy.content.recipe;
 
 
 import com.klikli_dev.theurgy.content.recipe.input.ItemHandlerWithFluidRecipeInput;
+import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.RecipeSerializerRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
@@ -78,8 +79,7 @@ public class LiquefactionRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
         return this.ingredient.test(pContainer.getItem(0)) && this.solvent.test(fluid);
     }
 
-    @Override
-    public @NotNull ItemStack getResultItem(HolderLookup.@NotNull Provider pRegistries) {
+    public ItemStack getResultItem(HolderLookup.Provider pRegistries) {
         return this.result;
     }
 
@@ -88,18 +88,21 @@ public class LiquefactionRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
 //        return PlacementInfo.create(this.ingredient);
 //    }
 
-    @Override
-    public @NotNull ItemStack assemble(@NotNull ItemHandlerWithFluidRecipeInput pCraftingContainer, @NotNull HolderLookup.Provider pRegistries) {
+    public ItemStack assemble(ItemHandlerWithFluidRecipeInput pCraftingContainer, HolderLookup.Provider pRegistries) {
         return this.result.copy();
     }
 
-//    @Override
-//    public RecipeBookCategory recipeBookCategory() {
-//        return RecipeBookCategories.CRAFTING_MISC;
-//    }
+    @Override
+    public RecipeBookCategory recipeBookCategory() {
+        return RecipeBookCategories.CRAFTING_MISC;
+    }
 
     @Override
-    public @NotNull ItemStack getToastSymbol() {
+    public PlacementInfo placementInfo() {
+        return PlacementInfo.NOT_PLACEABLE;
+    }
+
+    public ItemStack getToastSymbol() {
         return new ItemStack(ItemRegistry.LIQUEFACTION_CAULDRON.get());
     }
 

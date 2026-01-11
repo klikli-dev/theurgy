@@ -23,6 +23,8 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.RecipeBookCategory;
 import net.minecraft.world.item.crafting.RecipeBookCategories;
+import net.minecraft.world.item.crafting.RecipeBookCategory;
+import net.minecraft.world.item.crafting.RecipeBookCategories;
 import net.minecraft.world.item.crafting.PlacementInfo;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.common.crafting.SizedIngredient;
@@ -70,22 +72,21 @@ public class DistillationRecipe implements Recipe<ItemHandlerRecipeInput> {
         return this.ingredient.test(stack);
     }
 
-    @Override
-    public @NotNull ItemStack assemble(@NotNull ItemHandlerRecipeInput pInv, HolderLookup.@NotNull Provider pRegistries) {
+    public ItemStack assemble(ItemHandlerRecipeInput pCraftingContainer, HolderLookup.Provider pRegistries) {
         return this.result.copy();
     }
 
-//    @Override
-//    public RecipeBookCategory recipeBookCategory() {
-//        return RecipeBookCategories.CRAFTING_MISC;
-//    }
+    @Override
+    public RecipeBookCategory recipeBookCategory() {
+        return RecipeBookCategories.CRAFTING_MISC;
+    }
 
-//    @Override
-//    public PlacementInfo placementInfo() {
-//        return PlacementInfo.create(this.ingredient.ingredient());
-//    }
+    @Override
+    public PlacementInfo placementInfo() {
+        return PlacementInfo.create(this.ingredient.ingredient());
+    }
 
-    public @NotNull ItemStack getResultItem(HolderLookup.@NotNull Provider pRegistries) {
+    public ItemStack getResultItem(HolderLookup.Provider pRegistries) {
         return this.result;
     }
 

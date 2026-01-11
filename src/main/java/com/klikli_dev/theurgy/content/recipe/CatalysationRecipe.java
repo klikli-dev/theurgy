@@ -89,8 +89,7 @@ public class CatalysationRecipe implements Recipe<ItemHandlerRecipeInput> {
         return this.ingredient.test(stack);
     }
 
-    @Override
-    public @NotNull ItemStack assemble(@NotNull ItemHandlerRecipeInput pCraftingContainer, HolderLookup.@NotNull Provider pRegistries) {
+    public ItemStack assemble(ItemHandlerRecipeInput pCraftingContainer, HolderLookup.Provider pRegistries) {
         return ItemStack.EMPTY;
     }
 
@@ -99,19 +98,18 @@ public class CatalysationRecipe implements Recipe<ItemHandlerRecipeInput> {
 //        return true;
 //    }
 
-    @Override
-    public @NotNull ItemStack getResultItem(HolderLookup.@NotNull Provider pRegistries) {
+    public ItemStack getResultItem(HolderLookup.Provider pRegistries) {
         return ItemStack.EMPTY;
     }
-
-//    @Override
-//    public PlacementInfo placementInfo() {
-//        return PlacementInfo.create(this.ingredient);
-//    }
 
     @Override
     public RecipeBookCategory recipeBookCategory() {
         return RecipeBookCategories.CRAFTING_MISC;
+    }
+
+    @Override
+    public PlacementInfo placementInfo() {
+        return PlacementInfo.NOT_PLACEABLE;
     }
 
     public @NotNull NonNullList<Ingredient> getIngredients() {

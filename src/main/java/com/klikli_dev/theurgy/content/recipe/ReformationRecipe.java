@@ -23,6 +23,8 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.RecipeBookCategory;
 import net.minecraft.world.item.crafting.RecipeBookCategories;
+import net.minecraft.world.item.crafting.RecipeBookCategory;
+import net.minecraft.world.item.crafting.RecipeBookCategories;
 import net.minecraft.world.item.crafting.PlacementInfo;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.common.crafting.SizedIngredient;
@@ -133,8 +135,7 @@ public class ReformationRecipe implements Recipe<ReformationArrayRecipeInput> {
         return true;
     }
 
-    @Override
-    public @NotNull ItemStack assemble(@NotNull ReformationArrayRecipeInput pCraftingContainer, @NotNull HolderLookup.Provider pRegistries) {
+    public ItemStack assemble(ReformationArrayRecipeInput pCraftingContainer, HolderLookup.Provider pRegistries) {
         var result = this.result.copy();
         //TODO: the tag copy should be an option in the recipe json
         var targetItem = pCraftingContainer.getTargetPedestalInv().getStackInSlot(0);
@@ -145,20 +146,19 @@ public class ReformationRecipe implements Recipe<ReformationArrayRecipeInput> {
         return result;
     }
 
-    @Override
-    public @NotNull ItemStack getResultItem(HolderLookup.@NotNull Provider pRegistries) {
+    public ItemStack getResultItem(HolderLookup.Provider pRegistries) {
         return this.result;
     }
 
-//    @Override
-//    public PlacementInfo placementInfo() {
-//        return PlacementInfo.create(this.getIngredients());
-//    }
+    @Override
+    public PlacementInfo placementInfo() {
+        return PlacementInfo.NOT_PLACEABLE;
+    }
 
-//    @Override
-//    public RecipeBookCategory recipeBookCategory() {
-//        return RecipeBookCategories.CRAFTING_MISC;
-//    }
+    @Override
+    public RecipeBookCategory recipeBookCategory() {
+        return RecipeBookCategories.CRAFTING_MISC;
+    }
 
 
     public @NotNull NonNullList<Ingredient> getIngredients() {

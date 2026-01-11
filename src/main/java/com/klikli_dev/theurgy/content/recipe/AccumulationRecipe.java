@@ -99,8 +99,7 @@ public class AccumulationRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
         return soluteMatches && evaporantMatches;
     }
 
-    @Override
-    public @NotNull ItemStack assemble(@NotNull ItemHandlerWithFluidRecipeInput pInv, @NotNull HolderLookup.Provider pRegistries) {
+    public ItemStack assemble(ItemHandlerWithFluidRecipeInput pInv, HolderLookup.Provider pRegistries) {
         return ItemStack.EMPTY;
     }
 
@@ -109,27 +108,25 @@ public class AccumulationRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
 //        return true;
 //    }
 
-    @Override
-    public @NotNull ItemStack getResultItem(HolderLookup.@NotNull Provider pRegistries) {
+    public ItemStack getResultItem(HolderLookup.Provider pRegistries) {
         return ItemStack.EMPTY;
     }
 
-//    @Override
-//    public PlacementInfo placementInfo() {
-//        return PlacementInfo.create(this.solute != null ? this.solute : Ingredient.of());
-//    }
+    @Override
+    public PlacementInfo placementInfo() {
+        return PlacementInfo.NOT_PLACEABLE;
+    }
 
     public @NotNull FluidStack assembleFluid(@NotNull ItemHandlerWithFluidRecipeInput pInv, @NotNull HolderLookup.Provider pRegistries) {
         return this.result.copy();
     }
 
-//    @Override
-//    public RecipeBookCategory recipeBookCategory() {
-//        return RecipeBookCategories.CRAFTING_MISC;
-//    }
-
     @Override
-    public @NotNull ItemStack getToastSymbol() {
+    public RecipeBookCategory recipeBookCategory() {
+        return RecipeBookCategories.CRAFTING_MISC;
+    }
+
+    public ItemStack getToastSymbol() {
         return new ItemStack(ItemRegistry.SAL_AMMONIAC_ACCUMULATOR.get());
     }
 

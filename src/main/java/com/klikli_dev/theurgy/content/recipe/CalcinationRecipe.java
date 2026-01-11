@@ -80,34 +80,30 @@ public class CalcinationRecipe implements Recipe<ItemHandlerRecipeInput> {
         return this.ingredient.test(stack);
     }
 
-    @Override
-    public @NotNull ItemStack assemble(@NotNull ItemHandlerRecipeInput input, HolderLookup.@NotNull Provider pRegistries) {
+    public ItemStack assemble(ItemHandlerRecipeInput input, HolderLookup.Provider pRegistries) {
         return this.result.copy();
     }
 
-    @Override
-    public @NotNull ItemStack getResultItem(HolderLookup.@NotNull Provider pRegistries) {
+    public ItemStack getResultItem(HolderLookup.Provider pRegistries) {
         return this.result;
     }
 
-//    @Override
-//    public RecipeBookCategory recipeBookCategory() {
-//        return RecipeBookCategories.CRAFTING_MISC;
-//    }
-
-//    @Override
-//    public PlacementInfo placementInfo() {
-//        return PlacementInfo.create(this.ingredient.ingredient());
-//    }
+    @Override
+    public RecipeBookCategory recipeBookCategory() {
+        return RecipeBookCategories.CRAFTING_MISC;
+    }
 
     @Override
-    public @NotNull NonNullList<Ingredient> getIngredients() {
+    public PlacementInfo placementInfo() {
+        return PlacementInfo.NOT_PLACEABLE;
+    }
+
+    public NonNullList<Ingredient> getIngredients() {
         NonNullList<Ingredient> nonnulllist = NonNullList.create();
         nonnulllist.add(this.ingredient.ingredient());
         return nonnulllist;
     }
 
-    @Override
     public @NotNull ItemStack getToastSymbol() {
         return new ItemStack(BlockRegistry.CALCINATION_OVEN.get());
     }

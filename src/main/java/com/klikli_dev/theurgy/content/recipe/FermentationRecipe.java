@@ -68,13 +68,9 @@ public class FermentationRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
         this.time = time;
     }
 
-    @Override
-    public boolean isSpecial() {
-        return true;
-    }
 
     @Override
-    public @NotNull RecipeType<?> getType() {
+    public @NotNull RecipeType<FermentationRecipe> getType() {
         return RecipeTypeRegistry.FERMENTATION.get();
     }
 

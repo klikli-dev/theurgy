@@ -65,10 +65,6 @@ public class CalcinationRecipe implements Recipe<ItemHandlerRecipeInput> {
         return this.ingredient.count();
     }
 
-    @Override
-    public boolean isSpecial() {
-        return true;
-    }
 
     @Override
     public @NotNull RecipeType<?> getType() {

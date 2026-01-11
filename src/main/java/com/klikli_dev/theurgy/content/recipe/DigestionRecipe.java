@@ -69,10 +69,6 @@ public class DigestionRecipe implements Recipe<ItemHandlerWithFluidRecipeInput> 
         this.time = time;
     }
 
-    @Override
-    public boolean isSpecial() {
-        return true;
-    }
 
     @Override
     public @NotNull RecipeType<?> getType() {

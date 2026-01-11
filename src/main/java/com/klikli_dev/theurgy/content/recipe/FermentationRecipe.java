@@ -91,18 +91,14 @@ public class FermentationRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
             var itemstack = pContainer.getItem(j);
             if (!itemstack.isEmpty()) {
                 containerItemsCount++;
-                if (this.hasOnlySimpleIngredients)
-                    stackedcontents.accountStack(itemstack, 1);
-                else inputs.add(itemstack);
+                inputs.add(itemstack);
             }
         }
 
         if (containerItemsCount != this.ingredients.size())
             return false;
 
-        return this.hasOnlySimpleIngredients ?
-                stackedcontents.canCraft(this, null) :
-                net.neoforged.neoforge.common.util.RecipeMatcher.findMatches(inputs, this.ingredients) != null;
+        return net.neoforged.neoforge.common.util.RecipeMatcher.findMatches(inputs, this.ingredients) != null;
     }
 
     @Override

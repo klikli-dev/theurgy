@@ -36,51 +36,51 @@ public class TheurgyAdvancementSubProvider implements AdvancementProvider.Advanc
                 Advancement.Builder.advancement()
                         .parent(bookRoot)
                         .requirements(AdvancementRequirements.Strategy.OR)
-                        .addCriterion("has_t1_rod", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(ItemRegistry.DIVINATION_ROD_T1.get()).build()))
-                        .addCriterion("has_abundant_rod", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_ABUNDANT.get()).build()))
-                        .addCriterion("has_common_rod", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_COMMON.get()).build()))
+                        .addCriterion("has_t1_rod", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.DIVINATION_ROD_T1.get()))
+                        .addCriterion("has_abundant_rod", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_ABUNDANT.get()))
+                        .addCriterion("has_common_rod", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_COMMON.get()))
                         .build(this.modLoc("has_basic_rod"))
         );
 
         var hasAmethystRod = this.add(
                 Advancement.Builder.advancement()
                         .parent(bookRoot)
-                        .addCriterion("has_amethyst_rod", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(ItemRegistry.AMETHYST_DIVINATION_ROD.get()).build()))
+                        .addCriterion("has_amethyst_rod", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.AMETHYST_DIVINATION_ROD.get()))
                         .build(this.modLoc("has_amethyst_rod"))
         );
 
         var hasT2Rod = this.add(
                 Advancement.Builder.advancement()
                         .parent(bookRoot)
-                        .addCriterion("has_t2_rod", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(ItemRegistry.DIVINATION_ROD_T2.get()).build()))
+                        .addCriterion("has_t2_rod", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.DIVINATION_ROD_T2.get()))
                         .build(this.modLoc("has_t2_rod"))
         );
 
         var hasT3Rod = this.add(
                 Advancement.Builder.advancement()
                         .parent(bookRoot)
-                        .addCriterion("has_t3_rod", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(ItemRegistry.DIVINATION_ROD_T3.get()).build()))
+                        .addCriterion("has_t3_rod", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.DIVINATION_ROD_T3.get()))
                         .build(this.modLoc("has_t3_rod"))
         );
 
         var hasT4Rod = this.add(
                 Advancement.Builder.advancement()
                         .parent(bookRoot)
-                        .addCriterion("has_t4_rod", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(ItemRegistry.DIVINATION_ROD_T4.get()).build()))
+                        .addCriterion("has_t4_rod", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.DIVINATION_ROD_T4.get()))
                         .build(this.modLoc("has_t4_rod"))
         );
 
         var hasRareRod = this.add(
                 Advancement.Builder.advancement()
                         .parent(bookRoot)
-                        .addCriterion("has_rare_rod", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_RARE.get()).build()))
+                        .addCriterion("has_rare_rod", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_RARE.get()))
                         .build(this.modLoc("has_rare_rod"))
         );
 
         var hasPreciousRod = this.add(
                 Advancement.Builder.advancement()
                         .parent(bookRoot)
-                        .addCriterion("has_precious_rod", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_PRECIOUS.get()).build()))
+                        .addCriterion("has_precious_rod", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_PRECIOUS.get()))
                         .build(this.modLoc("has_precious_rod"))
         );
 
@@ -88,7 +88,7 @@ public class TheurgyAdvancementSubProvider implements AdvancementProvider.Advanc
         var hasLiquefactionCauldron = this.add(
                 Advancement.Builder.advancement()
                         .parent(bookRoot)
-                        .addCriterion("has_liquefaction_cauldron", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(ItemRegistry.LIQUEFACTION_CAULDRON.get()).build()))
+                        .addCriterion("has_liquefaction_cauldron", InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.LIQUEFACTION_CAULDRON.get()))
                         .build(this.modLoc("has_liquefaction_cauldron"))
         );
 

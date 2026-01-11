@@ -90,7 +90,7 @@ public class FilterBehaviour {
                 pStack.consume(1, pPlayer);
             }
 
-            return InteractionResult.sidedSuccess(pLevel.isClientSide);
+            return InteractionResult.SUCCESS;
         } else if (pStack.isEmpty() && pPlayer.isShiftKeyDown()) {
             //if we have a filter and an empty hand we take the filter
             var stack = this.filter().item().copy();
@@ -99,7 +99,7 @@ public class FilterBehaviour {
 
             ItemHandlerHelper.giveItemToPlayer(pPlayer, stack);
 
-            return InteractionResult.sidedSuccess(pLevel.isClientSide);
+            return InteractionResult.SUCCESS;
         }
 
         return InteractionResult.PASS;

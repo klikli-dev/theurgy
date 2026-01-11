@@ -27,7 +27,7 @@ public class LiquefactionCauldronRenderer implements BlockEntityRenderer<Liquefa
 
     private static void putVertex(VertexConsumer builder, PoseStack ms, float x, float y, float z, int color, float u, float v, Direction face, int light) {
 
-        Vec3i normal = face.getNormal();
+        Vec3i normal = face.getUnitVec3i();
         PoseStack.Pose peek = ms.last();
         int a = color >> 24 & 0xff;
         int r = color >> 16 & 0xff;

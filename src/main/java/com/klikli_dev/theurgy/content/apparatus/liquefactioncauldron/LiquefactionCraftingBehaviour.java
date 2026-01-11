@@ -33,7 +33,8 @@ public class LiquefactionCraftingBehaviour extends CraftingBehaviour<ItemHandler
 
     @Override
     public boolean isIngredient(ItemStack stack) {
-        return this.recipeCachedCheck.getRecipeFor(stack, this.blockEntity.getLevel()).isPresent();
+        if (this.blockEntity.getLevel().isClientSide) return false;
+        return this.recipeCachedCheck.getRecipeFor(stack, (ServerLevel)this.blockEntity.getLevel()).isPresent();
     }
 
     @Override

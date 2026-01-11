@@ -8,6 +8,7 @@ package com.klikli_dev.theurgy.content.gui;
 import com.klikli_dev.theurgy.Theurgy;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 
 /**
@@ -69,6 +70,6 @@ public enum GuiTextures implements ScreenElement {
     @Override
     public void render(GuiGraphics guiGraphics, int x, int y) {
         RenderSystem.enableBlend();
-        guiGraphics.blit(this.location, x, y, 0, this.x, this.y, this.width, this.height, this.textureWidth, this.textureHeight);
+        guiGraphics.blit(RenderType::guiTextured, this.location, x, y, (float)this.x, (float)this.y, this.width, this.height, this.textureWidth, this.textureHeight);
     }
 }

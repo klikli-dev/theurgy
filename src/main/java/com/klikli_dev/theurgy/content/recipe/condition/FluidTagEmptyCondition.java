@@ -40,7 +40,7 @@ public record FluidTagEmptyCondition(TagKey<Fluid> tag) implements ICondition {
         if(KubeJsIntegration.get().isLoaded())
             return KubeJsIntegration.get().isEmpty(this.tag);
 
-        return context.getTag(this.tag).isEmpty();
+        return false; // TODO: Fix getTag
     }
 
     @Override

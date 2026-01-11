@@ -72,7 +72,6 @@ public class LiquefactionCauldronBlock extends Block implements EntityBlock {
 
     @Override
     @SuppressWarnings("deprecation")
-    @Override
     public BlockState updateShape(BlockState pState, LevelReader pLevel, ScheduledTickAccess pTickAccess, BlockPos pCurrentPos, Direction pFacing, BlockPos pFacingPos, BlockState pFacingState, RandomSource pRandom) {
         //destroy both blocks if one is mined
         var half = pState.getValue(HALF);

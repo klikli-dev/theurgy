@@ -28,6 +28,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.Mirror;
 import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.redstone.Orientation;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -91,8 +92,8 @@ public class DigestionVatBlock extends Block implements EntityBlock {
     }
 
     @Override
-    public void neighborChanged(@NotNull BlockState pState, @NotNull Level pLevel, @NotNull BlockPos pPos, @NotNull Block pBlock, @NotNull BlockPos pFromPos, boolean pIsMoving) {
-        this.redstoneInputBehaviour.neighborChanged(pState, pLevel, pPos, pBlock, pFromPos, pIsMoving);
+    public void neighborChanged(@NotNull BlockState pState, @NotNull Level pLevel, @NotNull BlockPos pPos, @NotNull Block pBlock, @javax.annotation.Nullable Orientation pOrientation, boolean pIsMoving) {
+        this.redstoneInputBehaviour.neighborChanged(pState, pLevel, pPos, pBlock, pOrientation, pIsMoving);
     }
 
     @SuppressWarnings("deprecation")

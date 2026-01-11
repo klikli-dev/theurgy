@@ -26,6 +26,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.level.redstone.Orientation;
 import org.jetbrains.annotations.Nullable;
 
 
@@ -103,8 +104,8 @@ public class MercuryCatalystBlock extends Block implements EntityBlock {
 
     @SuppressWarnings("deprecation")
     @Override
-    public void neighborChanged(BlockState pState, Level pLevel, BlockPos pPos, Block pBlock, BlockPos pFromPos, boolean pIsMoving) {
-        super.neighborChanged(pState, pLevel, pPos, pBlock, pFromPos, pIsMoving);
+    public void neighborChanged(BlockState pState, Level pLevel, BlockPos pPos, Block pBlock, @Nullable Orientation pOrientation, boolean pIsMoving) {
+        super.neighborChanged(pState, pLevel, pPos, pBlock, pOrientation, pIsMoving);
 
         this.checkPoweredState(pLevel, pPos, pState, Block.UPDATE_INVISIBLE);
     }

@@ -30,6 +30,7 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraft.world.level.redstone.Orientation;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -94,8 +95,8 @@ public class CaloricFluxEmitterBlock extends DirectionalBlock implements EntityB
 
 
     @Override
-    public void neighborChanged(@NotNull BlockState pState, @NotNull Level pLevel, @NotNull BlockPos pPos, @NotNull Block pBlock, @NotNull BlockPos pFromPos, boolean pIsMoving) {
-        super.neighborChanged(pState, pLevel, pPos, pBlock, pFromPos, pIsMoving);
+    public void neighborChanged(@NotNull BlockState pState, @NotNull Level pLevel, @NotNull BlockPos pPos, @NotNull Block pBlock, @javax.annotation.Nullable Orientation pOrientation, boolean pIsMoving) {
+        super.neighborChanged(pState, pLevel, pPos, pBlock, pOrientation, pIsMoving);
         this.checkPoweredState(pLevel, pPos, pState, Block.UPDATE_INVISIBLE);
 
         if (!this.canSurvive(pState, pLevel, pPos)) {

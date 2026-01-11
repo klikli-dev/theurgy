@@ -13,7 +13,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.redstone.Orientation;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * A behaviour that opens or closes the lid if the redstone signal changes.
@@ -24,7 +26,7 @@ public class VatRedstoneChangeOpenCloseLidBehaviour<R extends Recipe<?>> {
 
     }
 
-    public void neighborChanged(BlockState pState, Level pLevel, @NotNull BlockPos pPos, @NotNull Block pBlock, @NotNull BlockPos pFromPos, boolean pIsMoving) {
+    public void neighborChanged(BlockState pState, Level pLevel, @NotNull BlockPos pPos, @NotNull Block pBlock, @Nullable Orientation pOrientation, boolean pIsMoving) {
         //Closed = is processing
         //has signal -> should be processing -> close
 

@@ -50,8 +50,8 @@ public class SaltRegistry {
                 return;
             }
 
-            var recipeManager = level.getRecipeManager();
-            var calcinationRecipes = recipeManager.getAllRecipesFor(RecipeTypeRegistry.CALCINATION.get());
+            var recipeManager = LevelUtil.getRecipeManager(level);
+            var calcinationRecipes = LevelUtil.getRecipesByType(recipeManager, RecipeTypeRegistry.CALCINATION.get());
 
             //From: EventHooks#onCreativeModeTabBuildContents
             //we need to use it here to test before inserting, because event.getEntries().contains uses a different hashing strategy and is thus not reliable

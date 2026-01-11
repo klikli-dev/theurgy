@@ -18,6 +18,7 @@ import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import mezz.jei.api.registration.ISubtypeRegistration;
+import com.klikli_dev.theurgy.util.LevelUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
@@ -57,21 +58,21 @@ public class JeiPlugin implements IModPlugin {
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
         var level = Minecraft.getInstance().level;
-        var recipeManager = level.getRecipeManager();
+        var recipeManager = LevelUtil.getRecipeManager(level);
 
-        var calcinationRecipes = recipeManager.byType(RecipeTypeRegistry.CALCINATION.get());
+        var calcinationRecipes = LevelUtil.getRecipesByType(recipeManager, RecipeTypeRegistry.CALCINATION.get());
         registration.addRecipes(JeiRecipeTypes.CALCINATION, calcinationRecipes);
 
-        var liquefactionRecipes = recipeManager.byType(RecipeTypeRegistry.LIQUEFACTION.get());
+        var liquefactionRecipes = LevelUtil.getRecipesByType(recipeManager, RecipeTypeRegistry.LIQUEFACTION.get());
         registration.addRecipes(JeiRecipeTypes.LIQUEFACTION, liquefactionRecipes);
 
-        var distillationRecipes = recipeManager.byType(RecipeTypeRegistry.DISTILLATION.get());
+        var distillationRecipes = LevelUtil.getRecipesByType(recipeManager, RecipeTypeRegistry.DISTILLATION.get());
         registration.addRecipes(JeiRecipeTypes.DISTILLATION, distillationRecipes);
 
-        var incubationRecipes = recipeManager.byType(RecipeTypeRegistry.INCUBATION.get());
+        var incubationRecipes = LevelUtil.getRecipesByType(recipeManager, RecipeTypeRegistry.INCUBATION.get());
         registration.addRecipes(JeiRecipeTypes.INCUBATION, incubationRecipes);
 
-        var accumulationRecipes = recipeManager.byType(RecipeTypeRegistry.ACCUMULATION.get());
+        var accumulationRecipes = LevelUtil.getRecipesByType(recipeManager, RecipeTypeRegistry.ACCUMULATION.get());
         registration.addRecipes(JeiRecipeTypes.ACCUMULATION, accumulationRecipes);
 
         //now remove sulfurs that have no recipe -> otherwise we see "no source" sulfurs in tag recipes
@@ -83,7 +84,7 @@ public class JeiPlugin implements IModPlugin {
         registration.getIngredientManager().removeIngredientsAtRuntime(VanillaTypes.ITEM_STACK, sulfursWithoutRecipe);
 
         //filter reformation recipes to exclude those that are for sulfurs without recipe
-        var reformationRecipes = recipeManager.getAllRecipesFor(RecipeTypeRegistry.REFORMATION.get()).stream()
+        var reformationRecipes = LevelUtil.getRecipesByType(recipeManager, RecipeTypeRegistry.REFORMATION.get()).stream()
                 .filter(r -> r.value().getResultItem(level.registryAccess()) != null)
                 .filter(r -> sulfursWithoutRecipe.stream().noneMatch(s -> s.getItem() == r.value().getResultItem(level.registryAccess()).getItem()))
                 .toList();
@@ -95,10 +96,10 @@ public class JeiPlugin implements IModPlugin {
         //that filter is too naive, it would also exclude recipes that use a sulfur tag as input and only one item in that tag is unavailable
         //IF we even need that filter we instead need to check if ALL items in the tag are unavailable
 //                .toList();
-        var fermentationRecipes = recipeManager.getAllRecipesFor(RecipeTypeRegistry.FERMENTATION.get());
+        var fermentationRecipes = LevelUtil.getRecipesByType(recipeManager, RecipeTypeRegistry.FERMENTATION.get());
         registration.addRecipes(JeiRecipeTypes.FERMENTATION, fermentationRecipes);
 
-        var digestionRecipes = recipeManager.getAllRecipesFor(RecipeTypeRegistry.DIGESTION.get());
+        var digestionRecipes = LevelUtil.getRecipesByType(recipeManager, RecipeTypeRegistry.DIGESTION.get());
         registration.addRecipes(JeiRecipeTypes.DIGESTION, digestionRecipes);
 
         this.registerIngredientInfo(registration, ItemRegistry.SAL_AMMONIAC_CRYSTAL.get());

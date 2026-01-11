@@ -37,7 +37,9 @@ public class LevelUtil {
         }
         
         private static net.minecraft.world.item.crafting.RecipeManager getRecipeManager() {
-            return Minecraft.getInstance().getConnection().getRecipeManager();
+            //In 1.21.3 ClientPacketListener does not expose getRecipeManager() publically (or removed).
+            //Level has recipeAccess() which returns RecipeAccess, implemented by RecipeManager.
+            return (net.minecraft.world.item.crafting.RecipeManager) Minecraft.getInstance().level.recipeAccess();
         }
     }
     
@@ -47,5 +49,12 @@ public class LevelUtil {
          } else {
              return ((net.minecraft.server.level.ServerLevel)level).getServer().getRecipeManager();
          }
+    }
+
+    public static <C extends net.minecraft.world.item.crafting.RecipeInput, T extends net.minecraft.world.item.crafting.Recipe<C>> java.util.List<net.minecraft.world.item.crafting.RecipeHolder<T>> getRecipesByType(net.minecraft.world.item.crafting.RecipeManager manager, net.minecraft.world.item.crafting.RecipeType<T> type) {
+        return manager.getRecipes().stream()
+                .filter(recipe -> recipe.value().getType() == type)
+                .map(recipe -> (net.minecraft.world.item.crafting.RecipeHolder<T>) recipe)
+                .toList();
     }
 }

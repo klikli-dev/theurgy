@@ -393,8 +393,8 @@ public class SulfurRegistry {
                 return;
             }
 
-            var recipeManager = level.getRecipeManager();
-            var liquefactionRecipes = recipeManager.getAllRecipesFor(RecipeTypeRegistry.LIQUEFACTION.get());
+            var recipeManager = LevelUtil.getRecipeManager(level);
+            var liquefactionRecipes = LevelUtil.getRecipesByType(recipeManager, RecipeTypeRegistry.LIQUEFACTION.get());
 
             //Register only sulfurs that have a liquefaction recipe
             liquefactionRecipes.forEach(r -> {

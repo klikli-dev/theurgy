@@ -60,7 +60,7 @@ public class DistillationRecipe implements Recipe<ItemHandlerRecipeInput> {
     }
 
     @Override
-    public @NotNull RecipeType<?> getType() {
+    public @NotNull RecipeType<DistillationRecipe> getType() {
         return RecipeTypeRegistry.DISTILLATION.get();
     }
 

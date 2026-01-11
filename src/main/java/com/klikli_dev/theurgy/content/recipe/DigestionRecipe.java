@@ -74,7 +74,7 @@ public class DigestionRecipe implements Recipe<ItemHandlerWithFluidRecipeInput> 
 
 
     @Override
-    public @NotNull RecipeType<?> getType() {
+    public @NotNull RecipeType<DigestionRecipe> getType() {
         return RecipeTypeRegistry.DIGESTION.get();
     }
 

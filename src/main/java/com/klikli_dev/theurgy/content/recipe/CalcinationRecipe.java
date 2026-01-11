@@ -70,7 +70,7 @@ public class CalcinationRecipe implements Recipe<ItemHandlerRecipeInput> {
 
 
     @Override
-    public @NotNull RecipeType<?> getType() {
+    public @NotNull RecipeType<CalcinationRecipe> getType() {
         return RecipeTypeRegistry.CALCINATION.get();
     }
 

@@ -83,7 +83,6 @@ public class LogisticsConnectionNodeBlock extends DirectionalBlock implements Ha
 
         return InteractionResult.PASS;
     }
-    }
 
     @Override
     public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pMovedByPiston) {

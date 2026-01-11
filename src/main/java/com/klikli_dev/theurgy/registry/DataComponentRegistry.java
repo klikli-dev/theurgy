@@ -30,7 +30,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 
 public class DataComponentRegistry {
 
-    public static final DeferredRegister.DataComponents DATA_COMPONENTS = DeferredRegister.createDataComponents(Theurgy.MODID);
+    public static final DeferredRegister.DataComponents DATA_COMPONENTS = DeferredRegister.createDataComponents(Registries.DATA_COMPONENT_TYPE, Theurgy.MODID);
 
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> MERCURY_FLUX_STORAGE = DATA_COMPONENTS.registerComponentType("mercury_flux_storage", builder -> builder
             .persistent(Codec.INT)

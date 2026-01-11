@@ -38,90 +38,90 @@ public class BlockEntityRegistry {
 
     public static final Supplier<BlockEntityType<CalcinationOvenBlockEntity>> CALCINATION_OVEN =
             BLOCKS.register("calcination_oven", () ->
-                    BlockEntityType.Builder.of(CalcinationOvenBlockEntity::new, BlockRegistry.CALCINATION_OVEN.get()).build(null));
+                    new BlockEntityType<>(CalcinationOvenBlockEntity::new, java.util.Set.of(BlockRegistry.CALCINATION_OVEN.get())));
 
     public static final Supplier<BlockEntityType<PyromanticBrazierBlockEntity>> PYROMANTIC_BRAZIER =
             BLOCKS.register("pyromantic_brazier", () ->
-                    BlockEntityType.Builder.of(PyromanticBrazierBlockEntity::new, BlockRegistry.PYROMANTIC_BRAZIER.get()).build(null));
+                    new BlockEntityType<>(PyromanticBrazierBlockEntity::new, java.util.Set.of(BlockRegistry.PYROMANTIC_BRAZIER.get())));
 
     public static final Supplier<BlockEntityType<LiquefactionCauldronBlockEntity>> LIQUEFACTION_CAULDRON =
             BLOCKS.register("liquefaction_cauldron", () ->
-                    BlockEntityType.Builder.of(LiquefactionCauldronBlockEntity::new, BlockRegistry.LIQUEFACTION_CAULDRON.get()).build(null));
+                    new BlockEntityType<>(LiquefactionCauldronBlockEntity::new, java.util.Set.of(BlockRegistry.LIQUEFACTION_CAULDRON.get())));
 
     public static final Supplier<BlockEntityType<DistillerBlockEntity>> DISTILLER =
             BLOCKS.register("distiller", () ->
-                    BlockEntityType.Builder.of(DistillerBlockEntity::new, BlockRegistry.DISTILLER.get()).build(null));
+                    new BlockEntityType<>(DistillerBlockEntity::new, java.util.Set.of(BlockRegistry.DISTILLER.get())));
 
     public static final Supplier<BlockEntityType<IncubatorBlockEntity>> INCUBATOR =
             BLOCKS.register("incubator", () ->
-                    BlockEntityType.Builder.of(IncubatorBlockEntity::new, BlockRegistry.INCUBATOR.get()).build(null));
+                    new BlockEntityType<>(IncubatorBlockEntity::new, java.util.Set.of(BlockRegistry.INCUBATOR.get())));
 
     public static final Supplier<BlockEntityType<IncubatorMercuryVesselBlockEntity>> INCUBATOR_MERCURY_VESSEL =
             BLOCKS.register("incubator_mercury_vessel", () ->
-                    BlockEntityType.Builder.of(IncubatorMercuryVesselBlockEntity::new, BlockRegistry.INCUBATOR_MERCURY_VESSEL.get()).build(null));
+                    new BlockEntityType<>(IncubatorMercuryVesselBlockEntity::new, java.util.Set.of(BlockRegistry.INCUBATOR_MERCURY_VESSEL.get())));
 
     public static final Supplier<BlockEntityType<IncubatorSaltVesselBlockEntity>> INCUBATOR_SALT_VESSEL =
             BLOCKS.register("incubator_salt_vessel", () ->
-                    BlockEntityType.Builder.of(IncubatorSaltVesselBlockEntity::new, BlockRegistry.INCUBATOR_SALT_VESSEL.get()).build(null));
+                    new BlockEntityType<>(IncubatorSaltVesselBlockEntity::new, java.util.Set.of(BlockRegistry.INCUBATOR_SALT_VESSEL.get())));
 
     public static final Supplier<BlockEntityType<IncubatorSulfurVesselBlockEntity>> INCUBATOR_SULFUR_VESSEL =
             BLOCKS.register("incubator_sulfur_vessel", () ->
-                    BlockEntityType.Builder.of(IncubatorSulfurVesselBlockEntity::new, BlockRegistry.INCUBATOR_SULFUR_VESSEL.get()).build(null));
+                    new BlockEntityType<>(IncubatorSulfurVesselBlockEntity::new, java.util.Set.of(BlockRegistry.INCUBATOR_SULFUR_VESSEL.get())));
 
     public static final Supplier<BlockEntityType<SalAmmoniacTankBlockEntity>> SAL_AMMONIAC_TANK =
             BLOCKS.register("sal_ammoniac_tank", () ->
-                    BlockEntityType.Builder.of(SalAmmoniacTankBlockEntity::new, BlockRegistry.SAL_AMMONIAC_TANK.get()).build(null));
+                    new BlockEntityType<>(SalAmmoniacTankBlockEntity::new, java.util.Set.of(BlockRegistry.SAL_AMMONIAC_TANK.get())));
 
     public static final Supplier<BlockEntityType<SalAmmoniacAccumulatorBlockEntity>> SAL_AMMONIAC_ACCUMULATOR =
             BLOCKS.register("sal_ammoniac_accumulator", () ->
-                    BlockEntityType.Builder.of(SalAmmoniacAccumulatorBlockEntity::new, BlockRegistry.SAL_AMMONIAC_ACCUMULATOR.get()).build(null));
+                    new BlockEntityType<>(SalAmmoniacAccumulatorBlockEntity::new, java.util.Set.of(BlockRegistry.SAL_AMMONIAC_ACCUMULATOR.get())));
 
     public static final Supplier<BlockEntityType<MercuryCatalystBlockEntity>> MERCURY_CATALYST =
             BLOCKS.register("mercury_catalyst", () ->
-                    BlockEntityType.Builder.of(MercuryCatalystBlockEntity::new, BlockRegistry.MERCURY_CATALYST.get()).build(null));
+                    new BlockEntityType<>(MercuryCatalystBlockEntity::new, java.util.Set.of(BlockRegistry.MERCURY_CATALYST.get())));
 
     public static final Supplier<BlockEntityType<CaloricFluxEmitterBlockEntity>> CALORIC_FLUX_EMITTER =
             BLOCKS.register("caloric_flux_emitter", () ->
-                    BlockEntityType.Builder.of(CaloricFluxEmitterBlockEntity::new, BlockRegistry.CALORIC_FLUX_EMITTER.get()).build(null));
+                    new BlockEntityType<>(CaloricFluxEmitterBlockEntity::new, java.util.Set.of(BlockRegistry.CALORIC_FLUX_EMITTER.get())));
 
     public static final Supplier<BlockEntityType<ReformationSourcePedestalBlockEntity>> REFORMATION_SOURCE_PEDESTAL =
             BLOCKS.register("reformation_source_pedestal", () ->
-                    BlockEntityType.Builder.of(ReformationSourcePedestalBlockEntity::new, BlockRegistry.REFORMATION_SOURCE_PEDESTAL.get()).build(null));
+                    new BlockEntityType<>(ReformationSourcePedestalBlockEntity::new, java.util.Set.of(BlockRegistry.REFORMATION_SOURCE_PEDESTAL.get())));
 
     public static final Supplier<BlockEntityType<ReformationTargetPedestalBlockEntity>> REFORMATION_TARGET_PEDESTAL =
             BLOCKS.register("reformation_target_pedestal", () ->
-                    BlockEntityType.Builder.of(ReformationTargetPedestalBlockEntity::new, BlockRegistry.REFORMATION_TARGET_PEDESTAL.get()).build(null));
+                    new BlockEntityType<>(ReformationTargetPedestalBlockEntity::new, java.util.Set.of(BlockRegistry.REFORMATION_TARGET_PEDESTAL.get())));
 
     public static final Supplier<BlockEntityType<ReformationResultPedestalBlockEntity>> REFORMATION_RESULT_PEDESTAL =
             BLOCKS.register("reformation_result_pedestal", () ->
-                    BlockEntityType.Builder.of(ReformationResultPedestalBlockEntity::new, BlockRegistry.REFORMATION_RESULT_PEDESTAL.get()).build(null));
+                    new BlockEntityType<>(ReformationResultPedestalBlockEntity::new, java.util.Set.of(BlockRegistry.REFORMATION_RESULT_PEDESTAL.get())));
 
     public static final Supplier<BlockEntityType<SulfuricFluxEmitterBlockEntity>> SULFURIC_FLUX_EMITTER =
             BLOCKS.register("sulfuric_flux_emitter", () ->
-                    BlockEntityType.Builder.of(SulfuricFluxEmitterBlockEntity::new, BlockRegistry.SULFURIC_FLUX_EMITTER.get()).build(null));
+                    new BlockEntityType<>(SulfuricFluxEmitterBlockEntity::new, java.util.Set.of(BlockRegistry.SULFURIC_FLUX_EMITTER.get())));
 
     public static final Supplier<BlockEntityType<FermentationVatBlockEntity>> FERMENTATION_VAT =
             BLOCKS.register("fermentation_vat", () ->
-                    BlockEntityType.Builder.of(FermentationVatBlockEntity::new, BlockRegistry.FERMENTATION_VAT.get()).build(null));
+                    new BlockEntityType<>(FermentationVatBlockEntity::new, java.util.Set.of(BlockRegistry.FERMENTATION_VAT.get())));
 
     public static final Supplier<BlockEntityType<DigestionVatBlockEntity>> DIGESTION_VAT =
             BLOCKS.register("digestion_vat", () ->
-                    BlockEntityType.Builder.of(DigestionVatBlockEntity::new, BlockRegistry.DIGESTION_VAT.get()).build(null));
+                    new BlockEntityType<>(DigestionVatBlockEntity::new, java.util.Set.of(BlockRegistry.DIGESTION_VAT.get())));
 
     public static final Supplier<BlockEntityType<LogisticsItemInserterBlockEntity>> LOGISTICS_ITEM_INSERTER =
             BLOCKS.register(BlockRegistry.LOGISTICS_ITEM_INSERTER.getId().getPath(), () ->
-                    BlockEntityType.Builder.of(LogisticsItemInserterBlockEntity::new, BlockRegistry.LOGISTICS_ITEM_INSERTER.get()).build(null));
+                    new BlockEntityType<>(LogisticsItemInserterBlockEntity::new, java.util.Set.of(BlockRegistry.LOGISTICS_ITEM_INSERTER.get())));
 
     public static final Supplier<BlockEntityType<LogisticsItemExtractorBlockEntity>> LOGISTICS_ITEM_EXTRACTOR =
             BLOCKS.register(BlockRegistry.LOGISTICS_ITEM_EXTRACTOR.getId().getPath(), () ->
-                    BlockEntityType.Builder.of(LogisticsItemExtractorBlockEntity::new, BlockRegistry.LOGISTICS_ITEM_EXTRACTOR.get()).build(null));
+                    new BlockEntityType<>(LogisticsItemExtractorBlockEntity::new, java.util.Set.of(BlockRegistry.LOGISTICS_ITEM_EXTRACTOR.get())));
 
     public static final Supplier<BlockEntityType<LogisticsFluidInserterBlockEntity>> LOGISTICS_FLUID_INSERTER =
             BLOCKS.register(BlockRegistry.LOGISTICS_FLUID_INSERTER.getId().getPath(), () ->
-                    BlockEntityType.Builder.of(LogisticsFluidInserterBlockEntity::new, BlockRegistry.LOGISTICS_FLUID_INSERTER.get()).build(null));
+                    new BlockEntityType<>(LogisticsFluidInserterBlockEntity::new, java.util.Set.of(BlockRegistry.LOGISTICS_FLUID_INSERTER.get())));
 
     public static final Supplier<BlockEntityType<LogisticsFluidExtractorBlockEntity>> LOGISTICS_FLUID_EXTRACTOR =
             BLOCKS.register(BlockRegistry.LOGISTICS_FLUID_EXTRACTOR.getId().getPath(), () ->
-                    BlockEntityType.Builder.of(LogisticsFluidExtractorBlockEntity::new, BlockRegistry.LOGISTICS_FLUID_EXTRACTOR.get()).build(null));
+                    new BlockEntityType<>(LogisticsFluidExtractorBlockEntity::new, java.util.Set.of(BlockRegistry.LOGISTICS_FLUID_EXTRACTOR.get())));
 
 }

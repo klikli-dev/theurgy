@@ -51,7 +51,7 @@ class SalAmmoniacAccumulatorCachedCheck implements RecipeManager.CachedCheck<Ite
              }
         }
 
-        return recipeManager.byType(this.type).stream().filter((entry) -> entry.value().hasSolute() && entry.value().getSolute().test(stack)).findFirst();
+        return recipeManager.getAllRecipesFor(this.type).stream().filter((entry) -> entry.value().hasSolute() && entry.value().getSolute().test(stack)).findFirst();
     }
 
     private Optional<RecipeHolder<AccumulationRecipe>> getRecipeFor(FluidStack stack, ServerLevel level, @Nullable ResourceKey<Recipe<?>> lastRecipe) {
@@ -71,7 +71,7 @@ class SalAmmoniacAccumulatorCachedCheck implements RecipeManager.CachedCheck<Ite
              }
         }
 
-        return recipeManager.byType(this.type).stream().filter((entry) -> entry.value().hasEvaporant() && entry.value().getEvaporant().ingredient().test(stack)).findFirst();
+        return recipeManager.getAllRecipesFor(this.type).stream().filter((entry) -> entry.value().hasEvaporant() && entry.value().getEvaporant().ingredient().test(stack)).findFirst();
     }
 
     /**

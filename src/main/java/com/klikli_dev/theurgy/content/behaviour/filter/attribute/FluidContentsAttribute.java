@@ -11,6 +11,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.Fluids;
 import net.neoforged.neoforge.capabilities.Capabilities;
 
 import javax.annotation.Nullable;
@@ -63,7 +64,7 @@ public class FluidContentsAttribute implements ItemAttribute {
 
     @Override
     public ItemAttribute readNBT(HolderLookup.Provider pRegistries, CompoundTag nbt) {
-        return nbt.contains("id") ? new FluidContentsAttribute(BuiltInRegistries.FLUID.get(ResourceLocation.tryParse(nbt.getString("id")))) : EMPTY;
+        return nbt.contains("id") ? new FluidContentsAttribute(BuiltInRegistries.FLUID.get(ResourceLocation.tryParse(nbt.getString("id"))).map(net.minecraft.core.Holder::value).orElse(Fluids.EMPTY)) : EMPTY;
     }
 
     private List<Fluid> extractFluids(ItemStack stack) {

@@ -6,13 +6,14 @@ package com.klikli_dev.theurgy.content.apparatus.calcinationoven;
 
 import com.klikli_dev.theurgy.content.recipe.CalcinationRecipe;
 import com.klikli_dev.theurgy.content.recipe.input.ItemHandlerRecipeInput;
+import com.klikli_dev.theurgy.util.LevelUtil;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.level.Level;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -26,25 +27,24 @@ class CalcinationCachedCheck implements RecipeManager.CachedCheck<ItemHandlerRec
     private final RecipeType<CalcinationRecipe> type;
     private final RecipeManager.CachedCheck<ItemHandlerRecipeInput, CalcinationRecipe> internal;
     @Nullable
-    private ResourceLocation lastRecipe;
+    private net.minecraft.resources.ResourceKey<net.minecraft.world.item.crafting.Recipe<?>> lastRecipe;
 
     public CalcinationCachedCheck(RecipeType<CalcinationRecipe> type) {
         this.type = type;
         this.internal = RecipeManager.createCheck(type);
     }
 
-    private Optional<RecipeHolder<CalcinationRecipe>> getRecipeFor(ItemStack stack, ServerLevel level, @Nullable ResourceLocation lastRecipe) {
-        var recipeManager = level.getRecipeManager();
+    private Optional<RecipeHolder<CalcinationRecipe>> getRecipeFor(ItemStack stack, ServerLevel level, @Nullable net.minecraft.resources.ResourceKey<net.minecraft.world.item.crafting.Recipe<?>> lastRecipe) {
+        var recipeManager = level.getServer().getRecipeManager();
         if (lastRecipe != null) {
-
-            var recipe = recipeManager.byKeyTyped(this.type, lastRecipe);
+            var recipe = recipeManager.byKey(lastRecipe).orElse(null);
             //test only the ingredient within the sized ingredient to allow to find recipes even for too small stack sizes
-            if (recipe != null && recipe.value().sizedIngredient().ingredient().test(stack)) {
-                return Optional.of(recipe);
+            if (recipe != null && recipe.value().getType() == this.type && ((CalcinationRecipe)recipe.value()).sizedIngredient().ingredient().test(stack)) {
+                return Optional.of((RecipeHolder<CalcinationRecipe>) (Object) recipe);
             }
         }
 
-        return recipeManager.byType(this.type).stream().filter((entry) -> entry.value().sizedIngredient().ingredient().test(stack)).findFirst();
+        return LevelUtil.getRecipesByType(recipeManager, this.type).stream().filter((entry) -> entry.value().sizedIngredient().ingredient().test(stack)).findFirst();
     }
 
     /**

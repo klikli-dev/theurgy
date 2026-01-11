@@ -201,7 +201,7 @@ public class DigestionCachedCheck implements RecipeManager.CachedCheck<ItemHandl
      * This checks full recipe validity: ingredients + fluids
      */
     @Override
-    public @NotNull Optional<RecipeHolder<DigestionRecipe>> getRecipeFor(@NotNull ItemHandlerWithFluidRecipeInput container, @NotNull Level level) {
+    public @NotNull Optional<RecipeHolder<DigestionRecipe>> getRecipeFor(@NotNull ItemHandlerWithFluidRecipeInput container, @NotNull net.minecraft.server.level.ServerLevel level) {
         if(this.noRecipeForLastItemHandlerInput) {
             return Optional.empty();
         }

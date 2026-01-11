@@ -28,22 +28,22 @@ class DistillationCachedCheck implements RecipeManager.CachedCheck<ItemHandlerRe
     private final RecipeType<DistillationRecipe> type;
     private final RecipeManager.CachedCheck<ItemHandlerRecipeInput, DistillationRecipe> internal;
     @Nullable
-    private ResourceLocation lastRecipe;
+    private net.minecraft.resources.ResourceKey<net.minecraft.world.item.crafting.Recipe<?>> lastRecipe;
 
     public DistillationCachedCheck(RecipeType<DistillationRecipe> type) {
         this.type = type;
         this.internal = RecipeManager.createCheck(type);
     }
 
-    private Optional<RecipeHolder<DistillationRecipe>> getRecipeFor(ItemStack stack, ServerLevel level, @Nullable ResourceLocation lastRecipe) {
+    private Optional<RecipeHolder<DistillationRecipe>> getRecipeFor(ItemStack stack, ServerLevel level, @Nullable net.minecraft.resources.ResourceKey<net.minecraft.world.item.crafting.Recipe<?>> lastRecipe) {
         var recipeManager = LevelUtil.getRecipeManager(level);
         if (lastRecipe != null) {
 
-            var recipe = recipeManager.byKeyTyped(this.type, lastRecipe);
+            var recipe = recipeManager.byKey(lastRecipe).orElse(null);
             //test only the ingredient without the (separate) ingredient count check that the recipe.matches() would.
             //that means we call ingredient().test() instead of .test() (which would also match the count)
-            if (recipe != null && recipe.value().getIngredient().ingredient().test(stack)) {
-                return Optional.of(recipe);
+            if (recipe != null && recipe.value().getType() == this.type && ((DistillationRecipe)recipe.value()).getIngredient().ingredient().test(stack)) {
+                return Optional.of((RecipeHolder<DistillationRecipe>)(Object)recipe);
             }
         }
 

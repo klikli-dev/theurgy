@@ -24,8 +24,8 @@ import java.util.List;
 
 public abstract class ItemMode implements ItemHUDProvider {
 
-    public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
-        return InteractionResultHolder.pass(pPlayer.getItemInHand(pUsedHand));
+    public InteractionResult use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
+        return InteractionResult.PASS;
     }
 
     public InteractionResult onItemUseFirst(ItemStack stack, UseOnContext context) {

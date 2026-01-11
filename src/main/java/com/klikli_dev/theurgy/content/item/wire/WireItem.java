@@ -83,10 +83,10 @@ public class WireItem extends Item {
     }
 
     @Override
-    public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level level, @NotNull Player player, @NotNull InteractionHand usedHand) {
+    public @NotNull InteractionResult use(@NotNull Level level, @NotNull Player player, @NotNull InteractionHand usedHand) {
         if (usedHand == InteractionHand.MAIN_HAND && player.isShiftKeyDown()) {
             WireEndPoint.removeFrom(player.getMainHandItem());
-            return InteractionResultHolder.sidedSuccess(player.getMainHandItem(), level.isClientSide());
+            return InteractionResult.SUCCESS;
         }
 
         return super.use(level, player, usedHand);
@@ -185,6 +185,6 @@ public class WireItem extends Item {
         var wirePoint = new WireEndPoint(pContext.getClickedPos(), pContext.getLevel().dimension());
         wirePoint.save(stack);
 
-        return InteractionResult.sidedSuccess(pContext.getLevel().isClientSide);
+        return InteractionResult.SUCCESS;
     }
 }

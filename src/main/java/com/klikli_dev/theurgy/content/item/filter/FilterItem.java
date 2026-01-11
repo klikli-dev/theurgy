@@ -31,11 +31,11 @@ public abstract class FilterItem extends Item implements MenuProvider {
     public @NotNull InteractionResult useOn(UseOnContext pContext) {
         if (pContext.getPlayer() == null)
             return InteractionResult.PASS;
-        return this.use(pContext.getLevel(), pContext.getPlayer(), pContext.getHand()).getResult();
+        return this.use(pContext.getLevel(), pContext.getPlayer(), pContext.getHand());
     }
 
     @Override
-    public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level pLevel, Player pPlayer, @NotNull InteractionHand pUsedHand) {
+    public @NotNull InteractionResult use(@NotNull Level pLevel, Player pPlayer, @NotNull InteractionHand pUsedHand) {
         ItemStack heldItem = pPlayer.getItemInHand(pUsedHand);
 
         if (!pPlayer.isShiftKeyDown() && pUsedHand == InteractionHand.MAIN_HAND) {
@@ -43,10 +43,10 @@ public abstract class FilterItem extends Item implements MenuProvider {
                 serverPlayer.openMenu(this, buf -> {
                     ItemStack.STREAM_CODEC.encode(buf, heldItem);
                 });
-            return InteractionResultHolder.success(heldItem);
+            return InteractionResult.SUCCESS;
         }
 
-        return InteractionResultHolder.pass(heldItem);
+        return InteractionResult.PASS;
     }
 
     @Override

@@ -93,7 +93,7 @@ public class SelectFrequencyMode extends MercurialWandItemMode {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
+    public InteractionResult use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
         if (pUsedHand != InteractionHand.MAIN_HAND)
             return super.use(pLevel, pPlayer, pUsedHand);
 
@@ -107,6 +107,6 @@ public class SelectFrequencyMode extends MercurialWandItemMode {
                 Component.literal(String.valueOf(newFrequency)).withStyle(ChatFormatting.GREEN)
         ), true);
 
-        return InteractionResultHolder.success(pPlayer.getItemInHand(pUsedHand));
+        return InteractionResult.SUCCESS;
     }
 }

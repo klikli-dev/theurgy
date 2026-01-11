@@ -39,7 +39,7 @@ public enum StandardAttributes implements ItemAttribute {
     BADLY_DAMAGED(s -> s.isDamaged() && (float) s.getDamageValue() / s.getMaxDamage() > 3 / 4f),
     NOT_STACKABLE(((Predicate<ItemStack>) ItemStack::isStackable).negate()),
     EQUIPABLE(s -> s.has(DataComponents.EQUIPPABLE)),
-    FURNACE_FUEL(s -> s.getBurnTime(RecipeType.SMELTING) > 0),
+    FURNACE_FUEL(s -> s.getBurnTime(RecipeType.SMELTING, null) > 0),
     SMELTABLE((s, w) -> testRecipe(s, w, RecipeType.SMELTING)),
     SMOKABLE((s, w) -> testRecipe(s, w, RecipeType.SMOKING)),
     BLASTABLE((s, w) -> testRecipe(s, w, RecipeType.BLASTING)),

@@ -50,7 +50,7 @@ class LiquefactionCachedCheck implements RecipeManager.CachedCheck<ItemHandlerWi
             }
         }
 
-        return recipeManager.getAllRecipesFor(this.type).stream().filter((entry) -> entry.value().getIngredient().test(stack)).findFirst();
+        return recipeManager.byType(this.type).stream().filter((entry) -> entry.value().getIngredient().test(stack)).findFirst();
     }
 
     /**

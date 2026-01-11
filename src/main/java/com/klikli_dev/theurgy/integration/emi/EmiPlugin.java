@@ -64,49 +64,49 @@ public class EmiPlugin implements dev.emi.emi.api.EmiPlugin {
     public void register(EmiRegistry registry) {
         registry.addCategory(ACCUMULATION_CATEGORY);
         registry.addWorkstation(ACCUMULATION_CATEGORY, ACCUMULATION_ICON);
-        for (var recipe : registry.getRecipeManager().getAllRecipesFor(RecipeTypeRegistry.ACCUMULATION.get())) {
+        for (var recipe : registry.getRecipeManager().byType(RecipeTypeRegistry.ACCUMULATION.get())) {
             registry.addRecipe(new AccumulationEmiRecipe(recipe));
         }
 
         registry.addCategory(CALCINATION_CATEGORY);
         registry.addWorkstation(CALCINATION_CATEGORY, CALCINATION_ICON);
-        for (var recipe : registry.getRecipeManager().getAllRecipesFor(RecipeTypeRegistry.CALCINATION.get())) {
+        for (var recipe : registry.getRecipeManager().byType(RecipeTypeRegistry.CALCINATION.get())) {
             registry.addRecipe(new CalcinationEmiRecipe(recipe));
         }
 
         registry.addCategory(DIGESTION_CATEGORY);
         registry.addWorkstation(DIGESTION_CATEGORY, DIGESTION_ICON);
-        for (var recipe : registry.getRecipeManager().getAllRecipesFor(RecipeTypeRegistry.DIGESTION.get())) {
+        for (var recipe : registry.getRecipeManager().byType(RecipeTypeRegistry.DIGESTION.get())) {
             registry.addRecipe(new DigestionEmiRecipe(recipe));
         }
 
         registry.addCategory(DISTILLATION_CATEGORY);
         registry.addWorkstation(DISTILLATION_CATEGORY, DISTILLATION_ICON);
-        for (var recipe : registry.getRecipeManager().getAllRecipesFor(RecipeTypeRegistry.DISTILLATION.get())) {
+        for (var recipe : registry.getRecipeManager().byType(RecipeTypeRegistry.DISTILLATION.get())) {
             registry.addRecipe(new DistillationEmiRecipe(recipe));
         }
 
         registry.addCategory(FERMENTATION_CATEGORY);
         registry.addWorkstation(FERMENTATION_CATEGORY, FERMENTATION_ICON);
-        for (var recipe : registry.getRecipeManager().getAllRecipesFor(RecipeTypeRegistry.FERMENTATION.get())) {
+        for (var recipe : registry.getRecipeManager().byType(RecipeTypeRegistry.FERMENTATION.get())) {
             registry.addRecipe(new FermentationEmiRecipe(recipe));
         }
 
         registry.addCategory(INCUBATION_CATEGORY);
         registry.addWorkstation(INCUBATION_CATEGORY, INCUBATION_ICON);
-        for (var recipe : registry.getRecipeManager().getAllRecipesFor(RecipeTypeRegistry.INCUBATION.get())) {
+        for (var recipe : registry.getRecipeManager().byType(RecipeTypeRegistry.INCUBATION.get())) {
             registry.addRecipe(new IncubationEmiRecipe(recipe));
         }
 
         registry.addCategory(LIQUEFACTION_CATEGORY);
         registry.addWorkstation(LIQUEFACTION_CATEGORY, LIQUEFACTION_ICON);
-        for (var recipe : registry.getRecipeManager().getAllRecipesFor(RecipeTypeRegistry.LIQUEFACTION.get())) {
+        for (var recipe : registry.getRecipeManager().byType(RecipeTypeRegistry.LIQUEFACTION.get())) {
             registry.addRecipe(new LiquefactionEmiRecipe(recipe));
         }
 
         registry.addCategory(REFORMATION_CATEGORY);
         registry.addWorkstation(REFORMATION_CATEGORY, REFORMATION_ICON);
-        for (var recipe : registry.getRecipeManager().getAllRecipesFor(RecipeTypeRegistry.REFORMATION.get())) {
+        for (var recipe : registry.getRecipeManager().byType(RecipeTypeRegistry.REFORMATION.get())) {
             registry.addRecipe(new ReformationEmiRecipe(recipe));
         }
 
@@ -148,7 +148,7 @@ public class EmiPlugin implements dev.emi.emi.api.EmiPlugin {
 
         //now remove sulfurs that have no recipe -> otherwise we see "no source" sulfurs in tag recipes
         //See also Theurgy.Client#onRecipesUpdated
-        var liquefactionRecipes = recipeManager.getAllRecipesFor(RecipeTypeRegistry.LIQUEFACTION.get());
+        var liquefactionRecipes = recipeManager.byType(RecipeTypeRegistry.LIQUEFACTION.get());
         var sulfursWithoutRecipe = SulfurRegistry.SULFURS.getEntries().stream()
                 .map(DeferredHolder::get)
                 .map(AlchemicalSulfurItem.class::cast)

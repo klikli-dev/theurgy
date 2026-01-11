@@ -57,21 +57,21 @@ public class JeiPlugin implements IModPlugin {
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
         var level = Minecraft.getInstance().level;
-        var recipeManager = Minecraft.getInstance().getConnection().getRecipeManager();
+        var recipeManager = level.getRecipeManager();
 
-        var calcinationRecipes = recipeManager.getAllRecipesFor(RecipeTypeRegistry.CALCINATION.get());
+        var calcinationRecipes = recipeManager.byType(RecipeTypeRegistry.CALCINATION.get());
         registration.addRecipes(JeiRecipeTypes.CALCINATION, calcinationRecipes);
 
-        var liquefactionRecipes = recipeManager.getAllRecipesFor(RecipeTypeRegistry.LIQUEFACTION.get());
+        var liquefactionRecipes = recipeManager.byType(RecipeTypeRegistry.LIQUEFACTION.get());
         registration.addRecipes(JeiRecipeTypes.LIQUEFACTION, liquefactionRecipes);
 
-        var distillationRecipes = recipeManager.getAllRecipesFor(RecipeTypeRegistry.DISTILLATION.get());
+        var distillationRecipes = recipeManager.byType(RecipeTypeRegistry.DISTILLATION.get());
         registration.addRecipes(JeiRecipeTypes.DISTILLATION, distillationRecipes);
 
-        var incubationRecipes = recipeManager.getAllRecipesFor(RecipeTypeRegistry.INCUBATION.get());
+        var incubationRecipes = recipeManager.byType(RecipeTypeRegistry.INCUBATION.get());
         registration.addRecipes(JeiRecipeTypes.INCUBATION, incubationRecipes);
 
-        var accumulationRecipes = recipeManager.getAllRecipesFor(RecipeTypeRegistry.ACCUMULATION.get());
+        var accumulationRecipes = recipeManager.byType(RecipeTypeRegistry.ACCUMULATION.get());
         registration.addRecipes(JeiRecipeTypes.ACCUMULATION, accumulationRecipes);
 
         //now remove sulfurs that have no recipe -> otherwise we see "no source" sulfurs in tag recipes

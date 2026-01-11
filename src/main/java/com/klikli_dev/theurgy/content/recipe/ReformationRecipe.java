@@ -162,7 +162,7 @@ public class ReformationRecipe implements Recipe<ReformationArrayRecipeInput> {
 
     @Override
     public @NotNull RecipeSerializer<ReformationRecipe> getSerializer() {
-        return RecipeSerializerRegistry.REFORMATION.get();
+        return (RecipeSerializer<ReformationRecipe>) RecipeSerializerRegistry.REFORMATION.get();
     }
 
     @Override

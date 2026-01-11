@@ -24,6 +24,9 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.RecipeBookCategory;
+import net.minecraft.world.item.crafting.RecipeBookCategories;
+import net.minecraft.world.item.crafting.PlacementInfo;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.common.crafting.SizedIngredient;
 import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
@@ -121,16 +124,19 @@ public class DigestionRecipe implements Recipe<ItemHandlerWithFluidRecipeInput> 
     }
 
     @Override
-    public boolean canCraftInDimensions(int pWidth, int pHeight) {
-        return true;
+    public RecipeBookCategory recipeBookCategory() {
+        return RecipeBookCategories.CRAFTING_MISC;
     }
 
     @Override
+    public PlacementInfo placementInfo() {
+        return PlacementInfo.create(this.ingredients);
+    }
+
     public @NotNull ItemStack getResultItem(HolderLookup.@NotNull Provider pRegistries) {
         return this.result;
     }
 
-    @Override
     public @NotNull NonNullList<Ingredient> getIngredients() {
         return this.ingredients;
     }
@@ -139,14 +145,13 @@ public class DigestionRecipe implements Recipe<ItemHandlerWithFluidRecipeInput> 
         return this.sizedIngredients;
     }
 
-    @Override
     public @NotNull ItemStack getToastSymbol() {
         return new ItemStack(ItemRegistry.DIGESTION_VAT.get());
     }
 
     @Override
-    public @NotNull RecipeSerializer<?> getSerializer() {
-        return RecipeSerializerRegistry.DIGESTION.get();
+    public @NotNull RecipeSerializer<DigestionRecipe> getSerializer() {
+        return (RecipeSerializer<DigestionRecipe>) RecipeSerializerRegistry.DIGESTION.get();
     }
 
     public SizedFluidIngredient getFluid() {

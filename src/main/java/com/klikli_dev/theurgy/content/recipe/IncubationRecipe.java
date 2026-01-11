@@ -102,11 +102,10 @@ public class IncubationRecipe implements Recipe<IncubatorRecipeInput> {
     }
 
     @Override
-    public boolean canCraftInDimensions(int pWidth, int pHeight) {
-        return true;
+    public RecipeBookCategory recipeBookCategory() {
+        return RecipeBookCategories.CRAFTING_MISC;
     }
 
-    @Override
     public @NotNull ItemStack getResultItem(@NotNull HolderLookup.Provider pRegistries) {
         return this.result.getStack();
     }
@@ -115,7 +114,6 @@ public class IncubationRecipe implements Recipe<IncubatorRecipeInput> {
         return this.result;
     }
 
-    @Override
     public @NotNull NonNullList<Ingredient> getIngredients() {
         NonNullList<Ingredient> nonnulllist = NonNullList.create();
         nonnulllist.add(this.mercury);
@@ -124,7 +122,6 @@ public class IncubationRecipe implements Recipe<IncubatorRecipeInput> {
         return nonnulllist;
     }
 
-    @Override
     public @NotNull ItemStack getToastSymbol() {
         return new ItemStack(BlockRegistry.INCUBATOR.get());
     }

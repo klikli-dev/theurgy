@@ -21,6 +21,9 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.RecipeBookCategory;
+import net.minecraft.world.item.crafting.RecipeBookCategories;
+import net.minecraft.world.item.crafting.PlacementInfo;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.common.crafting.SizedIngredient;
 import org.jetbrains.annotations.NotNull;
@@ -93,6 +96,16 @@ public class CalcinationRecipe implements Recipe<ItemHandlerRecipeInput> {
     }
 
     @Override
+    public RecipeBookCategory recipeBookCategory() {
+        return RecipeBookCategories.CRAFTING_MISC;
+    }
+
+    @Override
+    public PlacementInfo placementInfo() {
+        return PlacementInfo.create(this.ingredient.ingredient());
+    }
+
+    @Override
     public @NotNull NonNullList<Ingredient> getIngredients() {
         NonNullList<Ingredient> nonnulllist = NonNullList.create();
         nonnulllist.add(this.ingredient.ingredient());
@@ -105,8 +118,8 @@ public class CalcinationRecipe implements Recipe<ItemHandlerRecipeInput> {
     }
 
     @Override
-    public @NotNull RecipeSerializer<?> getSerializer() {
-        return RecipeSerializerRegistry.CALCINATION.get();
+    public @NotNull RecipeSerializer<CalcinationRecipe> getSerializer() {
+        return (RecipeSerializer<CalcinationRecipe>) RecipeSerializerRegistry.CALCINATION.get();
     }
 
     public int getTime() {

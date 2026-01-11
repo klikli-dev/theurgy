@@ -23,6 +23,9 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.RecipeBookCategory;
+import net.minecraft.world.item.crafting.RecipeBookCategories;
+import net.minecraft.world.item.crafting.PlacementInfo;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 import org.jetbrains.annotations.NotNull;
@@ -81,8 +84,6 @@ public class FermentationRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
         if (!fluidMatches)
             return false;
 
-        //logic from shapeless recipe to match ingredients without double-dipping
-        var stackedcontents = new StackedContents();
         List<ItemStack> inputs = new ArrayList<>();
         int containerItemsCount = 0;
 
@@ -115,23 +116,30 @@ public class FermentationRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
     }
 
     @Override
+    public RecipeBookCategory recipeBookCategory() {
+        return RecipeBookCategories.CRAFTING_MISC;
+    }
+
+    @Override
+    public PlacementInfo placementInfo() {
+        return PlacementInfo.create(this.ingredients);
+    }
+
     public @NotNull ItemStack getResultItem(HolderLookup.@NotNull Provider pRegistries) {
         return this.result;
     }
 
-    @Override
     public @NotNull NonNullList<Ingredient> getIngredients() {
         return this.ingredients;
     }
 
-    @Override
     public @NotNull ItemStack getToastSymbol() {
         return new ItemStack(ItemRegistry.FERMENTATION_VAT.get());
     }
 
     @Override
-    public @NotNull RecipeSerializer<?> getSerializer() {
-        return RecipeSerializerRegistry.FERMENTATION.get();
+    public @NotNull RecipeSerializer<FermentationRecipe> getSerializer() {
+        return (RecipeSerializer<FermentationRecipe>) RecipeSerializerRegistry.FERMENTATION.get();
     }
 
     public SizedFluidIngredient getFluid() {

@@ -105,6 +105,16 @@ public class AccumulationRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
     }
 
     @Override
+    public boolean canCraftInDimensions(int pWidth, int pHeight) {
+        return true;
+    }
+
+    @Override
+    public @NotNull ItemStack getResultItem(HolderLookup.@NotNull Provider pRegistries) {
+        return ItemStack.EMPTY;
+    }
+
+    @Override
     public PlacementInfo placementInfo() {
         return PlacementInfo.create(this.solute != null ? this.solute : Ingredient.of());
     }
@@ -118,6 +128,11 @@ public class AccumulationRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
         return RecipeBookCategories.CRAFTING_MISC;
     }
 
+    @Override
+    public @NotNull ItemStack getToastSymbol() {
+        return new ItemStack(ItemRegistry.SAL_AMMONIAC_ACCUMULATOR.get());
+    }
+
     public @NotNull NonNullList<Ingredient> getIngredients() {
         NonNullList<Ingredient> nonnulllist = NonNullList.create();
         if (this.solute != null)
@@ -127,7 +142,7 @@ public class AccumulationRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
 
     @Override
     public @NotNull RecipeSerializer<AccumulationRecipe> getSerializer() {
-        return RecipeSerializerRegistry.ACCUMULATION.get();
+        return (RecipeSerializer<AccumulationRecipe>) RecipeSerializerRegistry.ACCUMULATION.get();
     }
 
     public int getTime() {

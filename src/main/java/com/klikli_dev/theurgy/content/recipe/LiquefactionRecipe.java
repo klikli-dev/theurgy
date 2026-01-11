@@ -79,6 +79,16 @@ public class LiquefactionRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
     }
 
     @Override
+    public boolean canCraftInDimensions(int pWidth, int pHeight) {
+        return true;
+    }
+
+    @Override
+    public @NotNull ItemStack getResultItem(HolderLookup.@NotNull Provider pRegistries) {
+        return this.result;
+    }
+
+    @Override
     public PlacementInfo placementInfo() {
         return PlacementInfo.create(this.ingredient);
     }
@@ -93,6 +103,11 @@ public class LiquefactionRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
         return RecipeBookCategories.CRAFTING_MISC;
     }
 
+    @Override
+    public @NotNull ItemStack getToastSymbol() {
+        return new ItemStack(ItemRegistry.LIQUEFACTION_CAULDRON.get());
+    }
+
     public @NotNull NonNullList<Ingredient> getIngredients() {
         NonNullList<Ingredient> nonnulllist = NonNullList.create();
         nonnulllist.add(this.ingredient);
@@ -101,7 +116,7 @@ public class LiquefactionRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
 
     @Override
     public @NotNull RecipeSerializer<LiquefactionRecipe> getSerializer() {
-        return RecipeSerializerRegistry.LIQUEFACTION.get();
+        return (RecipeSerializer<LiquefactionRecipe>) RecipeSerializerRegistry.LIQUEFACTION.get();
     }
 
     public int getTime() {

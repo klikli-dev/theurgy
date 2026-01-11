@@ -95,6 +95,16 @@ public class CatalysationRecipe implements Recipe<ItemHandlerRecipeInput> {
     }
 
     @Override
+    public boolean canCraftInDimensions(int pWidth, int pHeight) {
+        return true;
+    }
+
+    @Override
+    public @NotNull ItemStack getResultItem(HolderLookup.@NotNull Provider pRegistries) {
+        return ItemStack.EMPTY;
+    }
+
+    @Override
     public PlacementInfo placementInfo() {
         return PlacementInfo.create(this.ingredient);
     }
@@ -112,7 +122,7 @@ public class CatalysationRecipe implements Recipe<ItemHandlerRecipeInput> {
 
     @Override
     public @NotNull RecipeSerializer<CatalysationRecipe> getSerializer() {
-        return RecipeSerializerRegistry.CATALYSATION.get();
+        return (RecipeSerializer<CatalysationRecipe>) RecipeSerializerRegistry.CATALYSATION.get();
     }
 
     public static class Serializer implements RecipeSerializer<CatalysationRecipe> {

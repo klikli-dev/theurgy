@@ -64,6 +64,6 @@ public abstract class FilterItem extends Item implements MenuProvider {
 
     @Override
     public @NotNull Component getDisplayName() {
-        return this.getDescription();
+        return Component.translatable(this.getDescriptionId());
     }
 }

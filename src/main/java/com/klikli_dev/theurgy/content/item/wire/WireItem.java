@@ -99,7 +99,7 @@ public class WireItem extends Item {
         var wirePoint = WireEndPoint.load(stack);
         if (wirePoint != null) {
             tooltipComponents.add(Component.translatable(
-                    stack.getDescriptionId() + TheurgyConstants.I18n.Tooltip.DYNMIC_SUFFIX,
+                    stack.getItem().getDescriptionId() + TheurgyConstants.I18n.Tooltip.DYNMIC_SUFFIX,
                     Component.literal("[" + wirePoint.pos().toShortString() + "]").withStyle(ChatFormatting.GREEN)
             ).withStyle(ChatFormatting.GRAY));
         }

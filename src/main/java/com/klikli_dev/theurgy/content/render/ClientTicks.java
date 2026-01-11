@@ -37,6 +37,7 @@ public class ClientTicks {
 
     public static float getPartialTicksHandlePause() {
         Minecraft mc = Minecraft.getInstance();
-        return mc.getTimer().getGameTimeDeltaPartialTick(mc.isPaused());
+        return 0.0f; // TODO: Fix getTimer()
+        //return mc.getTimer().getGameTimeDeltaPartialTick(mc.isPaused());
     }
 }

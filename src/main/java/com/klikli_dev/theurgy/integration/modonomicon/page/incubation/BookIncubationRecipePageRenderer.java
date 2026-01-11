@@ -9,6 +9,7 @@ import com.klikli_dev.modonomicon.client.render.page.BookRecipePageRenderer;
 import com.klikli_dev.theurgy.content.gui.GuiTextures;
 import com.klikli_dev.theurgy.content.recipe.IncubationRecipe;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
@@ -36,13 +37,13 @@ public class BookIncubationRecipePageRenderer extends BookRecipePageRenderer<Inc
         super.onBeginDisplayPage(parentScreen, left, top);
 
         if (this.page.getRecipe1() != null)
-            this.renderableSulfurIngredients.put(this.page.getRecipe1().id(), this.getRenderableSulfurIngredients(this.page.getRecipe1()));
+            this.renderableSulfurIngredients.put(this.page.getRecipe1().id().location(), this.getRenderableSulfurIngredients(this.page.getRecipe1()));
         if (this.page.getRecipe2() != null)
-            this.renderableSulfurIngredients.put(this.page.getRecipe2().id(), this.getRenderableSulfurIngredients(this.page.getRecipe2()));
+            this.renderableSulfurIngredients.put(this.page.getRecipe2().id().location(), this.getRenderableSulfurIngredients(this.page.getRecipe2()));
     }
 
     protected ItemStack[] getRenderableSulfurIngredients(RecipeHolder<IncubationRecipe> recipe) {
-        return Arrays.stream(recipe.value().getSulfur().getItems()).map(sulfur -> sulfur.copyWithCount(1)).toArray(ItemStack[]::new);
+        return recipe.value().getSulfur().items().stream().map(h -> new ItemStack(h.value())).toArray(ItemStack[]::new);
     }
 
     @Override

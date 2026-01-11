@@ -143,15 +143,13 @@ public class LiquefactionCategory implements IRecipeCategory<RecipeHolder<Liquef
                 .addItemStack(recipe.value().getResultItem(RegistryAccess.EMPTY));
 
         //now add the bucket to the recipe lookup for the output fluid
-        builder.addInvisibleIngredients(INPUT).addItemStacks(recipe.value().getSolvent().fluid().getStacks().stream().map(f -> new ItemStack(f.getFluid().getBucket())).toList());
+        builder.addInvisibleIngredients(INPUT).addItemStacks(recipe.value().getSolvent().ingredient().fluids().stream().map(f -> new ItemStack(f.value().getBucket())).toList());
     }
 
     public List<FluidStack> getFluids(RecipeHolder<LiquefactionRecipe> recipe) {
-        return recipe.value().getSolvent().fluid().getStacks().stream()
+        return recipe.value().getSolvent().ingredient().fluids().stream()
                 .map(f -> {
-                    var stack = f.copy();
-                    stack.setAmount(recipe.value().getSolventAmount());
-                    return stack;
+                    return new FluidStack(f.value(), recipe.value().getSolventAmount());
                 }).toList();
     }
 

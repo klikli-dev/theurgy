@@ -33,6 +33,11 @@ public class TagUtil {
                         .orElse(null);
     }
 
+    public static ItemStack getItemStackForTag(TagKey<Item> tag) {
+        var item = getItemForTag(tag);
+        return item != null ? new ItemStack(item) : ItemStack.EMPTY;
+    }
+
     public static ItemStack getItemStackForBlockTag(TagKey<Block> tag) {
         var item = getBlockForTag(tag);
         return item != null ? new ItemStack(item) : ItemStack.EMPTY;

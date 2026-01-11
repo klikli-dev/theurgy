@@ -35,6 +35,8 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraft.world.ticks.ScheduledTickAccess;
+import net.minecraft.util.RandomSource;
 
 import net.neoforged.neoforge.items.wrapper.RecipeWrapper;
 import org.jetbrains.annotations.Nullable;
@@ -70,7 +72,7 @@ public class DistillerBlock extends Block implements EntityBlock {
 
     @Override
     @SuppressWarnings("deprecation")
-    public BlockState updateShape(BlockState pState, Direction pFacing, BlockState pFacingState, LevelAccessor pLevel, BlockPos pCurrentPos, BlockPos pFacingPos) {
+    public BlockState updateShape(BlockState pState, LevelReader pLevel, ScheduledTickAccess pTickAccess, BlockPos pCurrentPos, Direction pFacing, BlockPos pFacingPos, BlockState pFacingState, RandomSource pRandom) {
         //destroy both blocks if one is mined
         var half = pState.getValue(HALF);
         if (pFacing.getAxis() == Direction.Axis.Y && half == DoubleBlockHalf.LOWER == (pFacing == Direction.UP)) {
@@ -82,7 +84,7 @@ public class DistillerBlock extends Block implements EntityBlock {
                     && pFacing == Direction.DOWN
                     && !pState.canSurvive(pLevel, pCurrentPos) ?
                     Blocks.AIR.defaultBlockState() :
-                    super.updateShape(pState, pFacing, pFacingState, pLevel, pCurrentPos, pFacingPos);
+                    super.updateShape(pState, pLevel, pTickAccess, pCurrentPos, pFacing, pFacingPos, pFacingState, pRandom);
         }
     }
 
@@ -110,7 +112,7 @@ public class DistillerBlock extends Block implements EntityBlock {
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {
         BlockPos blockpos = pContext.getClickedPos();
         Level level = pContext.getLevel();
-        if (blockpos.getY() < level.getMaxBuildHeight() - 1 && level.getBlockState(blockpos.above()).canBeReplaced(pContext)) {
+        if (level.isInWorldBounds(blockpos.above()) && level.getBlockState(blockpos.above()).canBeReplaced(pContext)) {
             return this.defaultBlockState().setValue(HALF, DoubleBlockHalf.LOWER).setValue(LIT, false);
         } else {
             return null;

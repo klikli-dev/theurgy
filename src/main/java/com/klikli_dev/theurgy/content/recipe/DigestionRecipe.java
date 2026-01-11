@@ -39,7 +39,7 @@ public class DigestionRecipe implements Recipe<ItemHandlerWithFluidRecipeInput> 
 
     public static final MapCodec<DigestionRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
                     SizedFluidIngredient.CODEC.fieldOf("fluid").forGetter((r) -> r.fluid),
-                    SizedIngredient.CODEC.listOf().fieldOf("ingredients").forGetter(r -> r.sizedIngredients),
+                    SizedIngredient.NESTED_CODEC.listOf().fieldOf("ingredients").forGetter(r -> r.sizedIngredients),
                     ItemStack.CODEC.fieldOf("result").forGetter(r -> r.result),
                     Codec.INT.optionalFieldOf("time", DEFAULT_TIME).forGetter(r -> r.time)
             ).apply(instance, DigestionRecipe::new)

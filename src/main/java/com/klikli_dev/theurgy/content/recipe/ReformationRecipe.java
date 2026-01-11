@@ -37,7 +37,7 @@ public class ReformationRecipe implements Recipe<ReformationArrayRecipeInput> {
 
     public static final MapCodec<ReformationRecipe> CODEC = RecordCodecBuilder.mapCodec(
             instance -> instance.group(
-                    SizedIngredient.CODEC.listOf().fieldOf("sources").forGetter(r -> r.sources),
+                    SizedIngredient.NESTED_CODEC.listOf().fieldOf("sources").forGetter(r -> r.sources),
                     Ingredient.CODEC.fieldOf("target").forGetter(r -> r.target),
                     ItemStack.CODEC.fieldOf("result").forGetter(r -> r.result),
                     Codec.INT.fieldOf("mercuryFlux").forGetter(r -> r.mercuryFlux),

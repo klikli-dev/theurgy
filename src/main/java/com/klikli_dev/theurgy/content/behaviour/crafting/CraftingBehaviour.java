@@ -12,6 +12,7 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeManager;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.fluids.FluidStack;
@@ -78,7 +79,7 @@ public abstract class CraftingBehaviour<W extends RecipeInput, R extends Recipe<
     }
 
     public Optional<RecipeHolder<R>> getRecipe() {
-        return this.recipeCachedCheck.getRecipeFor(this.recipeInputSupplier.get(), this.blockEntity.getLevel());
+        return this.recipeCachedCheck.getRecipeFor(this.recipeInputSupplier.get(), (ServerLevel) this.blockEntity.getLevel());
     }
 
     /**
@@ -221,7 +222,7 @@ public abstract class CraftingBehaviour<W extends RecipeInput, R extends Recipe<
 
 
     protected int getTotalTime() {
-        return this.recipeCachedCheck.getRecipeFor(this.recipeInputSupplier.get(), this.blockEntity.getLevel())
+        return this.recipeCachedCheck.getRecipeFor(this.recipeInputSupplier.get(), (ServerLevel) this.blockEntity.getLevel())
                 .map(this::getCraftingTime)
                 .orElse(this.getDefaultCraftingTime());
     }

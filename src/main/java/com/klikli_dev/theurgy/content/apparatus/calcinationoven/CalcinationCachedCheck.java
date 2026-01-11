@@ -12,6 +12,7 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
+import net.minecraft.server.level.ServerLevel;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -32,7 +33,7 @@ class CalcinationCachedCheck implements RecipeManager.CachedCheck<ItemHandlerRec
         this.internal = RecipeManager.createCheck(type);
     }
 
-    private Optional<RecipeHolder<CalcinationRecipe>> getRecipeFor(ItemStack stack, Level level, @Nullable ResourceLocation lastRecipe) {
+    private Optional<RecipeHolder<CalcinationRecipe>> getRecipeFor(ItemStack stack, ServerLevel level, @Nullable ResourceLocation lastRecipe) {
         var recipeManager = level.getRecipeManager();
         if (lastRecipe != null) {
 
@@ -49,7 +50,7 @@ class CalcinationCachedCheck implements RecipeManager.CachedCheck<ItemHandlerRec
     /**
      * This only checks itemstacks independent of count (ignoring the size of sized ingredients)
      */
-    public Optional<RecipeHolder<CalcinationRecipe>> getRecipeFor(ItemStack stack, Level level) {
+    public Optional<RecipeHolder<CalcinationRecipe>> getRecipeFor(ItemStack stack, ServerLevel level) {
         var optional = this.getRecipeFor(stack, level, this.lastRecipe);
         if (optional.isPresent()) {
             var recipeHolder = optional.get();
@@ -64,7 +65,7 @@ class CalcinationCachedCheck implements RecipeManager.CachedCheck<ItemHandlerRec
      * This checks full recipe validity (including sized ingredients)
      */
     @Override
-    public @NotNull Optional<RecipeHolder<CalcinationRecipe>> getRecipeFor(@NotNull ItemHandlerRecipeInput container, @NotNull Level level) {
+    public @NotNull Optional<RecipeHolder<CalcinationRecipe>> getRecipeFor(@NotNull ItemHandlerRecipeInput container, @NotNull ServerLevel level) {
         var recipe = this.internal.getRecipeFor(container, level);
         if (recipe.isPresent()) {
             this.lastRecipe = recipe.get().id();

@@ -13,6 +13,7 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
+import net.minecraft.server.level.ServerLevel;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -33,7 +34,7 @@ class DistillationCachedCheck implements RecipeManager.CachedCheck<ItemHandlerRe
         this.internal = RecipeManager.createCheck(type);
     }
 
-    private Optional<RecipeHolder<DistillationRecipe>> getRecipeFor(ItemStack stack, Level level, @Nullable ResourceLocation lastRecipe) {
+    private Optional<RecipeHolder<DistillationRecipe>> getRecipeFor(ItemStack stack, ServerLevel level, @Nullable ResourceLocation lastRecipe) {
         var recipeManager = level.getRecipeManager();
         if (lastRecipe != null) {
 
@@ -51,7 +52,7 @@ class DistillationCachedCheck implements RecipeManager.CachedCheck<ItemHandlerRe
     /**
      * This checks only the ingredient, not the ingredient count
      */
-    public Optional<RecipeHolder<DistillationRecipe>> getRecipeFor(ItemStack stack, Level level) {
+    public Optional<RecipeHolder<DistillationRecipe>> getRecipeFor(ItemStack stack, ServerLevel level) {
         var optional = this.getRecipeFor(stack, level, this.lastRecipe);
         if (optional.isPresent()) {
             var recipeHolder = optional.get();
@@ -66,7 +67,7 @@ class DistillationCachedCheck implements RecipeManager.CachedCheck<ItemHandlerRe
      * This checks full recipe validity: ingredients + ingredient count
      */
     @Override
-    public Optional<RecipeHolder<DistillationRecipe>> getRecipeFor(ItemHandlerRecipeInput container, Level level) {
+    public Optional<RecipeHolder<DistillationRecipe>> getRecipeFor(ItemHandlerRecipeInput container, ServerLevel level) {
         var recipe = this.internal.getRecipeFor(container, level);
         if (recipe.isPresent()) {
             this.lastRecipe = recipe.get().id();

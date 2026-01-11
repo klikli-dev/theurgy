@@ -67,7 +67,7 @@ public class DivinationRodRecipe extends ShapedRecipe {
 
                 if (sourceBlock != null) {
                     var blockKey = ResourceKey.create(Registries.BLOCK, ResourceLocation.parse(sourceBlock));
-                    result.set(DataComponentRegistry.DIVINATION_LINKED_BLOCK, BuiltInRegistries.BLOCK.getHolder(blockKey).get());
+                    result.set(DataComponentRegistry.DIVINATION_LINKED_BLOCK, BuiltInRegistries.BLOCK.get(blockKey).get());
                 }
                 break;
             }

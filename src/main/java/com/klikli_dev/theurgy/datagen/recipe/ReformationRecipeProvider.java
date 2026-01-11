@@ -16,11 +16,13 @@ import com.klikli_dev.theurgy.datagen.SulfurMappings;
 import com.klikli_dev.theurgy.registry.*;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.JsonOps;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.neoforged.neoforge.common.conditions.NotCondition;
 import net.neoforged.neoforge.common.conditions.TagEmptyCondition;
@@ -525,7 +527,7 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
 
 
             this.recipe.getAsJsonArray("sources").add(
-SizedIngredient.CODEC.encodeStart(JsonOps.INSTANCE, SizedIngredient.of(tag, count)).getOrThrow());
+SizedIngredient.NESTED_CODEC.encodeStart(JsonOps.INSTANCE, new SizedIngredient(Ingredient.of(BuiltInRegistries.ITEM.get(tag).orElseThrow()), count)).getOrThrow());
 
             this.condition(new NotCondition(new TagEmptyCondition(tag.location().toString())));
 

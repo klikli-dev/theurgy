@@ -188,7 +188,7 @@ public abstract class JsonRecipeProvider implements DataProvider {
         }
 
         public T ingredient(String propertyName, TagKey<Item> tag) {
-            this.recipe.add(propertyName, Ingredient.CODEC.encodeStart(JsonOps.INSTANCE, Ingredient.of(tag)).getOrThrow());
+            this.recipe.add(propertyName, Ingredient.CODEC.encodeStart(JsonOps.INSTANCE, Ingredient.of(BuiltInRegistries.ITEM.get(tag).orElseThrow())).getOrThrow());
 
             this.condition(new NotCondition(new TagEmptyCondition(tag.location().toString())));
 
@@ -209,18 +209,18 @@ public abstract class JsonRecipeProvider implements DataProvider {
         }
 
         public T sizedIngredient(String propertyName, TagKey<Item> item, int amount) {
-            this.recipe.add(propertyName, SizedIngredient.CODEC.encodeStart(JsonOps.INSTANCE, SizedIngredient.of(item, amount)).getOrThrow());
+            this.recipe.add(propertyName, SizedIngredient.NESTED_CODEC.encodeStart(JsonOps.INSTANCE, new SizedIngredient(Ingredient.of(BuiltInRegistries.ITEM.get(item).orElseThrow()), amount)).getOrThrow());
             this.condition(new NotCondition(new TagEmptyCondition(item.location().toString())));
             return this.getThis();
         }
 
         public T sizedIngredient(String propertyName, ItemLike item, int amount) {
-            this.recipe.add(propertyName, SizedIngredient.CODEC.encodeStart(JsonOps.INSTANCE, SizedIngredient.of(item, amount)).getOrThrow());
+            this.recipe.add(propertyName, SizedIngredient.NESTED_CODEC.encodeStart(JsonOps.INSTANCE, new SizedIngredient(Ingredient.of(item), amount)).getOrThrow());
             return this.getThis();
         }
 
         public T sizedFluidIngredient(String propertyName, TagKey<Fluid> fluid, int amount) {
-            this.recipe.add(propertyName, SizedFluidIngredient.CODEC.encodeStart(JsonOps.INSTANCE, SizedFluidIngredient.of(fluid, amount)).getOrThrow());
+            this.recipe.add(propertyName, SizedFluidIngredient.CODEC.encodeStart(JsonOps.INSTANCE, new SizedFluidIngredient(FluidIngredient.of(BuiltInRegistries.FLUID.get(fluid).orElseThrow()), amount)).getOrThrow());
             //TODO: enable once kubejs offers fluid tag cache access
 //            this.condition(new NotCondition(new FluidTagEmptyCondition(fluid.location().toString())));
             return this.getThis();

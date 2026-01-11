@@ -23,6 +23,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.RecipeBookCategory;
 import net.minecraft.world.item.crafting.RecipeBookCategories;
+import net.minecraft.world.item.crafting.RecipePlacementInfo;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.common.crafting.SizedIngredient;
 import org.jetbrains.annotations.NotNull;
@@ -36,7 +37,7 @@ public class ReformationRecipe implements Recipe<ReformationArrayRecipeInput> {
 
     public static final MapCodec<ReformationRecipe> CODEC = RecordCodecBuilder.mapCodec(
             instance -> instance.group(
-                    SizedIngredient.CODEC.listOf().fieldOf("sources").forGetter(r -> r.sources),
+                    SizedIngredient.FLAT_CODEC.listOf().fieldOf("sources").forGetter(r -> r.sources),
                     Ingredient.CODEC.fieldOf("target").forGetter(r -> r.target),
                     ItemStack.STRICT_CODEC.fieldOf("result").forGetter(r -> r.result),
                     Codec.INT.fieldOf("mercuryFlux").forGetter(r -> r.mercuryFlux),
@@ -144,6 +145,10 @@ public class ReformationRecipe implements Recipe<ReformationArrayRecipeInput> {
         return result;
     }
 
+    @Override
+    public RecipePlacementInfo placementInfo() {
+        return RecipePlacementInfo.create(this.getIngredients());
+    }
 
     @Override
     public RecipeBookCategory recipeBookCategory() {

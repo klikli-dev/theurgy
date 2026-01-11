@@ -37,10 +37,10 @@ public class RecipeSerializerRegistry {
     public static final Supplier<RecipeSerializer<CatalysationRecipe>> CATALYSATION = RECIPE_SERIALIZERS.register("catalysation",
             CatalysationRecipe.Serializer::new);
 
-    public static final Supplier<RecipeSerializer<?>> REFORMATION = RECIPE_SERIALIZERS.register("reformation", ReformationRecipe.Serializer::new);
+    public static final Supplier<RecipeSerializer<ReformationRecipe>> REFORMATION = RECIPE_SERIALIZERS.register("reformation", ReformationRecipe.Serializer::new);
 
-    public static final Supplier<RecipeSerializer<?>> FERMENTATION = RECIPE_SERIALIZERS.register("fermentation", FermentationRecipe.Serializer::new);
+    public static final Supplier<RecipeSerializer<FermentationRecipe>> FERMENTATION = RECIPE_SERIALIZERS.register("fermentation", FermentationRecipe.Serializer::new);
 
-    public static final Supplier<RecipeSerializer<?>> DIGESTION = RECIPE_SERIALIZERS.register("digestion", DigestionRecipe.Serializer::new);
+    public static final Supplier<RecipeSerializer<DigestionRecipe>> DIGESTION = RECIPE_SERIALIZERS.register("digestion", DigestionRecipe.Serializer::new);
 
 }

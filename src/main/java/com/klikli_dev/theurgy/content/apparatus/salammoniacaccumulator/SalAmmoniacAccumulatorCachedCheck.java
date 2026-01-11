@@ -36,7 +36,7 @@ class SalAmmoniacAccumulatorCachedCheck implements RecipeManager.CachedCheck<Ite
     }
 
     private Optional<RecipeHolder<AccumulationRecipe>> getRecipeFor(ItemStack stack, ServerLevel level, @Nullable ResourceKey<Recipe<?>> lastRecipe) {
-        var recipeManager = level.getRecipeManager();
+        var recipeManager = level.getServer().getRecipeManager();
         if (lastRecipe != null) {
             var recipeOptional = recipeManager.byKey(lastRecipe);
              if(recipeOptional.isPresent()){
@@ -55,7 +55,7 @@ class SalAmmoniacAccumulatorCachedCheck implements RecipeManager.CachedCheck<Ite
     }
 
     private Optional<RecipeHolder<AccumulationRecipe>> getRecipeFor(FluidStack stack, ServerLevel level, @Nullable ResourceKey<Recipe<?>> lastRecipe) {
-        var recipeManager = level.getRecipeManager();
+        var recipeManager = level.getServer().getRecipeManager();
          if (lastRecipe != null) {
             var recipeOptional = recipeManager.byKey(lastRecipe);
              if(recipeOptional.isPresent()){

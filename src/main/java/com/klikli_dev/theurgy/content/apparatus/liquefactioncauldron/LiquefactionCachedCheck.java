@@ -35,7 +35,7 @@ class LiquefactionCachedCheck implements RecipeManager.CachedCheck<ItemHandlerWi
     }
 
     private Optional<RecipeHolder<LiquefactionRecipe>> getRecipeFor(ItemStack stack, ServerLevel level, @Nullable ResourceKey<Recipe<?>> lastRecipe) {
-        var recipeManager = level.getRecipeManager();
+        var recipeManager = level.getServer().getRecipeManager();
         if (lastRecipe != null) {
             var recipeOptional = recipeManager.byKey(lastRecipe);
             if (recipeOptional.isPresent()) {

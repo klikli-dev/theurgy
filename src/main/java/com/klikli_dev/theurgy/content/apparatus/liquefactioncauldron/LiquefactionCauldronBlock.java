@@ -113,7 +113,7 @@ public class LiquefactionCauldronBlock extends Block implements EntityBlock {
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {
         BlockPos blockpos = pContext.getClickedPos();
         Level level = pContext.getLevel();
-        if (blockpos.getY() < level.getMaxBuildHeight() - 1 && level.getBlockState(blockpos.above()).canBeReplaced(pContext)) {
+        if (blockpos.getY() < level.getMaxY() - 1 && level.getBlockState(blockpos.above()).canBeReplaced(pContext)) {
             return this.defaultBlockState().setValue(HALF, DoubleBlockHalf.LOWER).setValue(LIT, false);
         } else {
             return null;

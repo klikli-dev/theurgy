@@ -21,7 +21,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.RecipeBookCategory;
+import net.minecraft.world.item.crafting.RecipeBookCategories;
+import net.minecraft.world.item.crafting.RecipePlacementInfo;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
@@ -73,7 +75,7 @@ public class IncubationRecipe implements Recipe<IncubatorRecipeInput> {
     }
 
     @Override
-    public @NotNull RecipeType<?> getType() {
+    public @NotNull RecipeType<IncubationRecipe> getType() {
         return RecipeTypeRegistry.INCUBATION.get();
     }
 
@@ -87,6 +89,16 @@ public class IncubationRecipe implements Recipe<IncubatorRecipeInput> {
     @Override
     public @NotNull ItemStack assemble(@NotNull IncubatorRecipeInput pInv, @NotNull HolderLookup.Provider pRegistries) {
         return this.result.getStack().copy();
+    }
+
+    @Override
+    public RecipeBookCategory recipeBookCategory() {
+        return RecipeBookCategories.CRAFTING_MISC;
+    }
+
+    @Override
+    public RecipePlacementInfo placementInfo() {
+        return RecipePlacementInfo.create(this.getIngredients());
     }
 
     @Override
@@ -118,7 +130,7 @@ public class IncubationRecipe implements Recipe<IncubatorRecipeInput> {
     }
 
     @Override
-    public @NotNull RecipeSerializer<?> getSerializer() {
+    public @NotNull RecipeSerializer<IncubationRecipe> getSerializer() {
         return RecipeSerializerRegistry.INCUBATION.get();
     }
 

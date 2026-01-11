@@ -120,7 +120,7 @@ public class IncubationCategory implements IRecipeCategory<RecipeHolder<Incubati
 
         builder.addSlot(INPUT, 1, 21)
                 .setBackground(JeiDrawables.INPUT_SLOT, -1, -1)
-                .addItemStacks(Arrays.asList(recipe.value().getSulfur().getItems()));
+                .addItemStacks(recipe.value().getSulfur().items().stream().map(ItemStack::new).toList());
 
         builder.addSlot(INPUT, 1, 42)
                 .setBackground(JeiDrawables.INPUT_SLOT, -1, -1)

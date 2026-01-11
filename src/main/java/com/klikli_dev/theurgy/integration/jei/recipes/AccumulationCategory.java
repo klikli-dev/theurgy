@@ -122,7 +122,8 @@ public class AccumulationCategory implements IRecipeCategory<RecipeHolder<Accumu
         if (recipe.value().hasEvaporant()) {
             builder.addSlot(INPUT, 1, 1)
                     .setBackground(JeiDrawables.INPUT_SLOT, -1, -1)
-                    .addIngredients(NeoForgeTypes.FLUID_STACK, Arrays.stream(recipe.value().getEvaporant().getFluids()).toList())
+                    .addIngredients(NeoForgeTypes.FLUID_STACK, recipe.value().getEvaporant().getStacks().stream()
+                            .map(f -> new FluidStack(f.getFluid(), recipe.value().getEvaporantAmount())).toList())
                     .setFluidRenderer(1000, false, 16, 16)
                     .addTooltipCallback(addFluidTooltip(recipe.value().getEvaporantAmount()));
         }

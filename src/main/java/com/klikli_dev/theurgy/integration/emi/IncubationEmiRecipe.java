@@ -38,14 +38,14 @@ public class IncubationEmiRecipe implements EmiRecipe {
 
     @Override
     public @Nullable ResourceLocation getId() {
-        return this.recipe.id();
+        return this.recipe.id().location();
     }
 
     @Override
     public List<EmiIngredient> getInputs() {
         return Arrays.asList(
                 EmiIngredient.of(this.recipe.value().getMercury()),
-                EmiIngredient.of(Arrays.stream(this.recipe.value().getSulfur().getItems()).map(EmiStack::of).toList()),
+                EmiIngredient.of(this.recipe.value().getSulfur()),
                 EmiIngredient.of(this.recipe.value().getSalt())
         );
     }
@@ -80,7 +80,7 @@ public class IncubationEmiRecipe implements EmiRecipe {
         widgets.addTexture(EmiTexture.EMPTY_FLAME, 28, 44);
 
         widgets.addSlot(EmiIngredient.of(this.recipe.value().getMercury()), 1, 1);
-        widgets.addSlot(EmiIngredient.of(Arrays.stream(this.recipe.value().getSulfur().getItems()).map(EmiStack::of).toList()), 1, 21);
+        widgets.addSlot(EmiIngredient.of(this.recipe.value().getSulfur()), 1, 21);
         widgets.addSlot(EmiIngredient.of(this.recipe.value().getSalt()), 1, 42);
 
         widgets.addSlot(EmiIngredient.of(Arrays.stream(this.recipe.value().getResult().getStacks())

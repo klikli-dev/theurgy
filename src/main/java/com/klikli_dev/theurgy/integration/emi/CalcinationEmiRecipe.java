@@ -39,13 +39,13 @@ public class CalcinationEmiRecipe implements EmiRecipe {
 
     @Override
     public @Nullable ResourceLocation getId() {
-        return this.recipe.id();
+        return this.recipe.id().location();
     }
 
     @Override
     public List<EmiIngredient> getInputs() {
         var inputs = new ArrayList<EmiIngredient>();
-        inputs.add(EmiIngredient.of(Arrays.stream(this.recipe.value().getIngredients().getFirst().getItems())
+        inputs.add(EmiIngredient.of(this.recipe.value().getIngredients().getFirst().items().stream().map(net.minecraft.world.item.ItemStack::new)
                 .map(EmiStack::of).toList()));
         return inputs;
     }

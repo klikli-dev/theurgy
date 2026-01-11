@@ -112,7 +112,7 @@ public class CalcinationCategory implements IRecipeCategory<RecipeHolder<Calcina
     public void setRecipe(IRecipeLayoutBuilder builder, RecipeHolder<CalcinationRecipe> recipe, @NotNull IFocusGroup focuses) {
         builder.addSlot(INPUT, 1, 1)
                 .setBackground(JeiDrawables.INPUT_SLOT, -1, -1)
-                .addIngredients(VanillaTypes.ITEM_STACK, Arrays.stream(recipe.value().getIngredients().getFirst().getItems()).map(i -> i.copyWithCount(recipe.value().getIngredientCount())).toList());
+                .addIngredients(VanillaTypes.ITEM_STACK, recipe.value().getIngredients().getFirst().items().stream().map(ItemStack::new).map(i -> i.copyWithCount(recipe.value().getIngredientCount())).toList());
 
         builder.addSlot(OUTPUT, 61, 9)
                 .setBackground(JeiDrawables.OUTPUT_SLOT, -5, -5)

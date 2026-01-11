@@ -46,7 +46,7 @@ public class ReformationEmiRecipe implements EmiRecipe {
 
     @Override
     public @Nullable ResourceLocation getId() {
-        return this.recipe.id();
+        return this.recipe.id().location();
     }
 
     @Override

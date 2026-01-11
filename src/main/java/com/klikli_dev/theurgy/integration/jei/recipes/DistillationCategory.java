@@ -112,7 +112,7 @@ public class DistillationCategory implements IRecipeCategory<RecipeHolder<Distil
     public void setRecipe(IRecipeLayoutBuilder builder, RecipeHolder<DistillationRecipe> recipe, @NotNull IFocusGroup focuses) {
         builder.addSlot(INPUT, 1, 1)
                 .setBackground(JeiDrawables.INPUT_SLOT, -1, -1)
-                .addIngredients(VanillaTypes.ITEM_STACK, Arrays.stream(recipe.value().getIngredient().getItems()).map(i -> i.copyWithCount(recipe.value().getIngredientCount())).toList());
+                .addIngredients(VanillaTypes.ITEM_STACK, recipe.value().getIngredient().ingredient().items().stream().map(ItemStack::new).map(i -> i.copyWithCount(recipe.value().getIngredientCount())).toList());
 
         builder.addSlot(OUTPUT, 61, 9)
                 .setBackground(JeiDrawables.OUTPUT_SLOT, -5, -5)

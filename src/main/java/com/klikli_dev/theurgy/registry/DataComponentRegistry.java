@@ -21,7 +21,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Tiers;
+import net.minecraft.world.item.ToolMaterial;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.component.ItemContainerContents;
 import net.minecraft.world.level.block.Block;
@@ -80,7 +80,7 @@ public class DataComponentRegistry {
             .cacheEncoding()
     );
 
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Tiers>> DIVINATION_SETTINGS_TIER = DATA_COMPONENTS.registerComponentType("divination_settings_tier", builder -> builder
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<ToolMaterial>> DIVINATION_SETTINGS_TIER = DATA_COMPONENTS.registerComponentType("divination_settings_tier", builder -> builder
             .persistent(TheurgyExtraCodecs.TIERS_CODEC)
             .networkSynchronized(TheurgyExtraStreamCodecs.TIERS_STREAM_CODEC)
             .cacheEncoding()

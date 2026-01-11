@@ -22,7 +22,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.Tiers;
+import net.minecraft.world.item.ToolMaterial;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
@@ -424,7 +424,7 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
         return this.makeDivinationRodSettings(rodItem.defaultTier, rodItem.defaultAllowedBlocksTag, rodItem.defaultDisallowedBlocksTag, rodItem.defaultRange, rodItem.defaultDuration, rodItem.defaultDurability);
     }
 
-    public DataComponentPatch.Builder makeDivinationRodSettings(Tiers defaultTier, TagKey<Block> defaultAllowedBlocksTag, TagKey<Block> defaultDisallowedBlocksTag, int defaultRange, int defaultDuration, int defaultDurability) {
+    public DataComponentPatch.Builder makeDivinationRodSettings(ToolMaterial defaultTier, TagKey<Block> defaultAllowedBlocksTag, TagKey<Block> defaultDisallowedBlocksTag, int defaultRange, int defaultDuration, int defaultDurability) {
         return DataComponentPatch.builder()
                 .set(DataComponentRegistry.DIVINATION_SETTINGS_TIER.get(), defaultTier)
                 .set(DataComponentRegistry.DIVINATION_SETTINGS_ALLOWED_BLOCKS_TAG.get(), defaultAllowedBlocksTag)

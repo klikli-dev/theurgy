@@ -30,7 +30,7 @@ public class DistillationRecipe implements Recipe<ItemHandlerRecipeInput> {
     public static final int DEFAULT_TIME = 100;
 
     public static final MapCodec<DistillationRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-            SizedIngredient.NESTED_CODEC.fieldOf("ingredient").forGetter((r) -> r.ingredient),
+            SizedIngredient.CODEC.fieldOf("ingredient").forGetter((r) -> r.ingredient),
                     ItemStack.STRICT_CODEC.fieldOf("result").forGetter(r -> r.result),
                     Codec.INT.optionalFieldOf("time", DEFAULT_TIME).forGetter(r -> r.time)
             ).apply(instance, DistillationRecipe::new)

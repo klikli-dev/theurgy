@@ -209,25 +209,25 @@ public abstract class JsonRecipeProvider implements DataProvider {
         }
 
         public T sizedIngredient(String propertyName, TagKey<Item> item, int amount) {
-            this.recipe.add(propertyName, SizedIngredient.NESTED_CODEC.encodeStart(JsonOps.INSTANCE, SizedIngredient.of(item, amount)).getOrThrow());
+            this.recipe.add(propertyName, SizedIngredient.CODEC.encodeStart(JsonOps.INSTANCE, SizedIngredient.of(item, amount)).getOrThrow());
             this.condition(new NotCondition(new TagEmptyCondition(item.location().toString())));
             return this.getThis();
         }
 
         public T sizedIngredient(String propertyName, ItemLike item, int amount) {
-            this.recipe.add(propertyName, SizedIngredient.NESTED_CODEC.encodeStart(JsonOps.INSTANCE, SizedIngredient.of(item, amount)).getOrThrow());
+            this.recipe.add(propertyName, SizedIngredient.CODEC.encodeStart(JsonOps.INSTANCE, SizedIngredient.of(item, amount)).getOrThrow());
             return this.getThis();
         }
 
         public T sizedFluidIngredient(String propertyName, TagKey<Fluid> fluid, int amount) {
-            this.recipe.add(propertyName, SizedFluidIngredient.NESTED_CODEC.encodeStart(JsonOps.INSTANCE, SizedFluidIngredient.of(fluid, amount)).getOrThrow());
+            this.recipe.add(propertyName, SizedFluidIngredient.CODEC.encodeStart(JsonOps.INSTANCE, SizedFluidIngredient.of(fluid, amount)).getOrThrow());
             //TODO: enable once kubejs offers fluid tag cache access
 //            this.condition(new NotCondition(new FluidTagEmptyCondition(fluid.location().toString())));
             return this.getThis();
         }
 
         public T sizedFluidIngredient(String propertyName, Fluid fluid, int amount) {
-            this.recipe.add(propertyName, SizedFluidIngredient.NESTED_CODEC.encodeStart(JsonOps.INSTANCE, SizedFluidIngredient.of(fluid, amount)).getOrThrow());
+            this.recipe.add(propertyName, SizedFluidIngredient.CODEC.encodeStart(JsonOps.INSTANCE, SizedFluidIngredient.of(fluid, amount)).getOrThrow());
             return this.getThis();
         }
 

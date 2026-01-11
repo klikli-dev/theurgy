@@ -24,7 +24,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.RecipeBookCategory;
 import net.minecraft.world.item.crafting.RecipeBookCategories;
-import net.minecraft.world.item.crafting.RecipePlacementInfo;
+import net.minecraft.world.item.crafting.PlacementInfo;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.crafting.FluidIngredient;
@@ -105,8 +105,8 @@ public class AccumulationRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
     }
 
     @Override
-    public RecipePlacementInfo placementInfo() {
-        return RecipePlacementInfo.create(this.solute != null ? this.solute : Ingredient.EMPTY);
+    public PlacementInfo placementInfo() {
+        return PlacementInfo.create(this.solute != null ? this.solute : Ingredient.of());
     }
 
     public @NotNull FluidStack assembleFluid(@NotNull ItemHandlerWithFluidRecipeInput pInv, @NotNull HolderLookup.Provider pRegistries) {

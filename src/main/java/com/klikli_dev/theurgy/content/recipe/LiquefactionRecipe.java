@@ -24,7 +24,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.RecipeBookCategory;
 import net.minecraft.world.item.crafting.RecipeBookCategories;
-import net.minecraft.world.item.crafting.RecipePlacementInfo;
+import net.minecraft.world.item.crafting.PlacementInfo;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.fluids.crafting.FluidIngredient;
 import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
@@ -79,8 +79,8 @@ public class LiquefactionRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
     }
 
     @Override
-    public RecipePlacementInfo placementInfo() {
-        return RecipePlacementInfo.create(this.ingredient);
+    public PlacementInfo placementInfo() {
+        return PlacementInfo.create(this.ingredient);
     }
 
     @Override

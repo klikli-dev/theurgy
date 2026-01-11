@@ -525,7 +525,7 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
 
 
             this.recipe.getAsJsonArray("sources").add(
-                    SizedIngredient.NESTED_CODEC.encodeStart(JsonOps.INSTANCE, SizedIngredient.of(tag, count)).getOrThrow());
+SizedIngredient.CODEC.encodeStart(JsonOps.INSTANCE, SizedIngredient.of(tag, count)).getOrThrow());
 
             this.condition(new NotCondition(new TagEmptyCondition(tag.location().toString())));
 

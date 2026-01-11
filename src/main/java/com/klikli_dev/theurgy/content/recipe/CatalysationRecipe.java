@@ -23,7 +23,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.RecipeBookCategory;
 import net.minecraft.world.item.crafting.RecipeBookCategories;
-import net.minecraft.world.item.crafting.RecipePlacementInfo;
+import net.minecraft.world.item.crafting.PlacementInfo;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
@@ -95,8 +95,8 @@ public class CatalysationRecipe implements Recipe<ItemHandlerRecipeInput> {
     }
 
     @Override
-    public RecipePlacementInfo placementInfo() {
-        return RecipePlacementInfo.create(this.ingredient);
+    public PlacementInfo placementInfo() {
+        return PlacementInfo.create(this.ingredient);
     }
 
     @Override

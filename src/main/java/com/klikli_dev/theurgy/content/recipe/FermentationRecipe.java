@@ -34,9 +34,9 @@ public class FermentationRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
     public static final int DEFAULT_TIME = 200;
 
     public static final MapCodec<FermentationRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-                    SizedFluidIngredient.NESTED_CODEC.fieldOf("fluid").forGetter((r) -> r.fluid),
+                    SizedFluidIngredient.CODEC.fieldOf("fluid").forGetter((r) -> r.fluid),
                     Ingredient.CODEC.listOf().fieldOf("ingredients").forGetter(r -> r.ingredients),
-                    ItemStack.STRICT_CODEC.fieldOf("result").forGetter(r -> r.result),
+                    ItemStack.CODEC.fieldOf("result").forGetter(r -> r.result),
                     Codec.INT.optionalFieldOf("time", DEFAULT_TIME).forGetter(r -> r.time)
             ).apply(instance, FermentationRecipe::new)
     );
@@ -45,7 +45,7 @@ public class FermentationRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
             r -> r.fluid,
             Ingredient.CONTENTS_STREAM_CODEC.apply(ByteBufCodecs.list()),
             r -> r.ingredients,
-            ItemStack.OPTIONAL_STREAM_CODEC,
+            ItemStack.STREAM_CODEC,
             r -> r.result,
             ByteBufCodecs.INT,
             r -> r.time,

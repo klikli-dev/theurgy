@@ -39,7 +39,7 @@ public class ReformationRecipe implements Recipe<ReformationArrayRecipeInput> {
             instance -> instance.group(
                     SizedIngredient.CODEC.listOf().fieldOf("sources").forGetter(r -> r.sources),
                     Ingredient.CODEC.fieldOf("target").forGetter(r -> r.target),
-                    ItemStack.STRICT_CODEC.fieldOf("result").forGetter(r -> r.result),
+                    ItemStack.CODEC.fieldOf("result").forGetter(r -> r.result),
                     Codec.INT.fieldOf("mercuryFlux").forGetter(r -> r.mercuryFlux),
                     Codec.INT.optionalFieldOf("time", DEFAULT_TIME).forGetter(r -> r.time)
             ).apply(instance, ReformationRecipe::new)
@@ -50,7 +50,7 @@ public class ReformationRecipe implements Recipe<ReformationArrayRecipeInput> {
             r -> r.sources,
             Ingredient.CONTENTS_STREAM_CODEC,
             r -> r.target,
-            ItemStack.OPTIONAL_STREAM_CODEC,
+            ItemStack.STREAM_CODEC,
             r -> r.result,
             ByteBufCodecs.INT,
             r -> r.mercuryFlux,

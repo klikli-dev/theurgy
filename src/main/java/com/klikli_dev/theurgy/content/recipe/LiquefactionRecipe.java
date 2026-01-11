@@ -48,7 +48,7 @@ public class LiquefactionRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
             r -> r.ingredient,
             SizedFluidIngredient.STREAM_CODEC,
             r -> r.solvent,
-            ItemStack.OPTIONAL_STREAM_CODEC,
+            ItemStack.STREAM_CODEC,
             r -> r.result,
             ByteBufCodecs.INT,
             r -> r.time,

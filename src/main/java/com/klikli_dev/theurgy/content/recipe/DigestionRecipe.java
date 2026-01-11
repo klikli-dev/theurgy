@@ -35,9 +35,9 @@ public class DigestionRecipe implements Recipe<ItemHandlerWithFluidRecipeInput> 
     public static final int DEFAULT_TIME = 200;
 
     public static final MapCodec<DigestionRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-                    SizedFluidIngredient.NESTED_CODEC.fieldOf("fluid").forGetter((r) -> r.fluid),
-                    SizedIngredient.NESTED_CODEC.listOf().fieldOf("ingredients").forGetter(r -> r.sizedIngredients),
-                    ItemStack.STRICT_CODEC.fieldOf("result").forGetter(r -> r.result),
+                    SizedFluidIngredient.CODEC.fieldOf("fluid").forGetter((r) -> r.fluid),
+                    SizedIngredient.CODEC.listOf().fieldOf("ingredients").forGetter(r -> r.sizedIngredients),
+                    ItemStack.CODEC.fieldOf("result").forGetter(r -> r.result),
                     Codec.INT.optionalFieldOf("time", DEFAULT_TIME).forGetter(r -> r.time)
             ).apply(instance, DigestionRecipe::new)
     );
@@ -47,7 +47,7 @@ public class DigestionRecipe implements Recipe<ItemHandlerWithFluidRecipeInput> 
             r -> r.fluid,
             SizedIngredient.STREAM_CODEC.apply(ByteBufCodecs.list()),
             r -> r.sizedIngredients,
-            ItemStack.OPTIONAL_STREAM_CODEC,
+            ItemStack.STREAM_CODEC,
             r -> r.result,
             ByteBufCodecs.INT,
             r -> r.time,

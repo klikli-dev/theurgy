@@ -20,13 +20,18 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class LogisticsFluidConnectorBlockEntity extends BlockEntity implements HasLeafNodeBehaviour<IFluidHandler, @Nullable Direction>, HasFilterBehaviour, TargetDirectionSetter, EnabledSetter, FrequencySetter {
+public abstract class LogisticsFluidConnectorBlockEntity extends BlockEntity implements MenuProvider, HasLeafNodeBehaviour<IFluidHandler, @Nullable Direction>, HasFilterBehaviour, TargetDirectionSetter, EnabledSetter, FrequencySetter {
 
     protected LeafNodeBehaviour<IFluidHandler, @Nullable Direction> leafNodeBehaviour;
     protected FilterBehaviour filterBehaviour;
@@ -113,6 +118,17 @@ public abstract class LogisticsFluidConnectorBlockEntity extends BlockEntity imp
     @Override
     public LeafNodeBehaviour<IFluidHandler, @Nullable Direction> leafNode() {
         return this.leafNodeBehaviour;
+    }
+
+    @Override
+    public Component getDisplayName() {
+        return Component.translatable(this.getBlockState().getBlock().getDescriptionId());
+    }
+
+    @Nullable
+    @Override
+    public AbstractContainerMenu createMenu(int pContainerId, Inventory pPlayerInventory, Player pPlayer) {
+        return null;
     }
 
     protected void updateBlockStateToMatchFilter() {

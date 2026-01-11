@@ -22,6 +22,8 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.RecipeBookCategory;
+import net.minecraft.world.item.crafting.RecipeBookCategories;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.crafting.FluidIngredient;
@@ -35,7 +37,7 @@ public class AccumulationRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
     public static final int DEFAULT_TIME = 100;
 
     public static final MapCodec<AccumulationRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-                    SizedFluidIngredient.NESTED_CODEC.optionalFieldOf("evaporant").forGetter((r) -> Optional.ofNullable(r.evaporant)),
+                    SizedFluidIngredient.CODEC.optionalFieldOf("evaporant").forGetter((r) -> Optional.ofNullable(r.evaporant)),
                     Ingredient.CODEC.optionalFieldOf("solute").forGetter(r -> Optional.ofNullable(r.solute)),
                     FluidStack.CODEC.fieldOf("result").forGetter(r -> r.result),
                     Codec.INT.optionalFieldOf("time", DEFAULT_TIME).forGetter(r -> r.time)
@@ -78,12 +80,7 @@ public class AccumulationRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
     }
 
     @Override
-    public boolean isSpecial() {
-        return true;
-    }
-
-    @Override
-    public @NotNull RecipeType<?> getType() {
+    public @NotNull RecipeType<AccumulationRecipe> getType() {
         return RecipeTypeRegistry.ACCUMULATION.get();
     }
 
@@ -111,16 +108,10 @@ public class AccumulationRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
     }
 
     @Override
-    public boolean canCraftInDimensions(int pWidth, int pHeight) {
-        return true;
+    public RecipeBookCategory recipeBookCategory() {
+        return RecipeBookCategories.CRAFTING_MISC;
     }
 
-    @Override
-    public @NotNull ItemStack getResultItem(HolderLookup.@NotNull Provider pRegistries) {
-        return ItemStack.EMPTY;
-    }
-
-    @Override
     public @NotNull NonNullList<Ingredient> getIngredients() {
         NonNullList<Ingredient> nonnulllist = NonNullList.create();
         if (this.solute != null)
@@ -129,12 +120,7 @@ public class AccumulationRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
     }
 
     @Override
-    public @NotNull ItemStack getToastSymbol() {
-        return new ItemStack(ItemRegistry.SAL_AMMONIAC_ACCUMULATOR.get());
-    }
-
-    @Override
-    public @NotNull RecipeSerializer<?> getSerializer() {
+    public @NotNull RecipeSerializer<AccumulationRecipe> getSerializer() {
         return RecipeSerializerRegistry.ACCUMULATION.get();
     }
 

@@ -21,6 +21,8 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.RecipeBookCategory;
+import net.minecraft.world.item.crafting.RecipeBookCategories;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
@@ -76,12 +78,7 @@ public class CatalysationRecipe implements Recipe<ItemHandlerRecipeInput> {
     }
 
     @Override
-    public boolean isSpecial() {
-        return true;
-    }
-
-    @Override
-    public @NotNull RecipeType<?> getType() {
+    public @NotNull RecipeType<CatalysationRecipe> getType() {
         return RecipeTypeRegistry.CATALYSATION.get();
     }
 
@@ -97,27 +94,18 @@ public class CatalysationRecipe implements Recipe<ItemHandlerRecipeInput> {
     }
 
     @Override
-    public boolean canCraftInDimensions(int pWidth, int pHeight) {
-        return true;
+    public RecipeBookCategory recipeBookCategory() {
+        return RecipeBookCategories.CRAFTING_MISC;
     }
 
-    @Override
-    public @NotNull ItemStack getResultItem(HolderLookup.@NotNull Provider pRegistries) {
-        return ItemStack.EMPTY;
-    }
-
-    @Override
     public @NotNull NonNullList<Ingredient> getIngredients() {
-        return NonNullList.of(Ingredient.EMPTY, this.ingredient);
+        NonNullList<Ingredient> list = NonNullList.create();
+        list.add(this.ingredient);
+        return list;
     }
 
     @Override
-    public @NotNull ItemStack getToastSymbol() {
-        return new ItemStack(ItemRegistry.MERCURY_CATALYST.get());
-    }
-
-    @Override
-    public @NotNull RecipeSerializer<?> getSerializer() {
+    public @NotNull RecipeSerializer<CatalysationRecipe> getSerializer() {
         return RecipeSerializerRegistry.CATALYSATION.get();
     }
 

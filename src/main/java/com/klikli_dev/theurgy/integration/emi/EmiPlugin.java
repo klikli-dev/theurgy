@@ -166,7 +166,7 @@ public class EmiPlugin implements dev.emi.emi.api.EmiPlugin {
 
     public static class DistHelper{
         public static RecipeManager getRecipeManager(){
-            return Minecraft.getInstance().level.getRecipeManager();
+            return Minecraft.getInstance().getConnection().getRecipeManager();
         }
     }
 }

@@ -57,7 +57,7 @@ public class JeiPlugin implements IModPlugin {
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
         var level = Minecraft.getInstance().level;
-        var recipeManager = level.getRecipeManager();
+        var recipeManager = Minecraft.getInstance().getConnection().getRecipeManager();
 
         var calcinationRecipes = recipeManager.getAllRecipesFor(RecipeTypeRegistry.CALCINATION.get());
         registration.addRecipes(JeiRecipeTypes.CALCINATION, calcinationRecipes);

@@ -35,5 +35,17 @@ public class LevelUtil {
         private static Level getClientLevel() {
             return Minecraft.getInstance().level;
         }
+        
+        private static net.minecraft.world.item.crafting.RecipeManager getRecipeManager() {
+            return Minecraft.getInstance().getConnection().getRecipeManager();
+        }
+    }
+    
+    public static net.minecraft.world.item.crafting.RecipeManager getRecipeManager(Level level) {
+         if (level.isClientSide) {
+             return DistHelper.getRecipeManager();
+         } else {
+             return ((net.minecraft.server.level.ServerLevel)level).getServer().getRecipeManager();
+         }
     }
 }

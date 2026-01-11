@@ -6,6 +6,9 @@ package com.klikli_dev.theurgy.content.apparatus.fermentationvat;
 
 import com.klikli_dev.theurgy.content.recipe.FermentationRecipe;
 import com.klikli_dev.theurgy.content.recipe.input.ItemHandlerWithFluidRecipeInput;
+import com.klikli_dev.theurgy.util.LevelUtil;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
@@ -35,11 +38,11 @@ public class FermentationCachedCheck implements RecipeManager.CachedCheck<ItemHa
     private final RecipeType<FermentationRecipe> type;
     private final RecipeManager.CachedCheck<ItemHandlerWithFluidRecipeInput, FermentationRecipe> internal;
     @Nullable
-    private ResourceLocation lastRecipeForFluidStack;
+    private ResourceKey<Recipe<?>> lastRecipeForFluidStack;
     @Nullable
-    private ResourceLocation lastRecipeForItemStack;
+    private ResourceKey<Recipe<?>> lastRecipeForItemStack;
     @Nullable
-    private ResourceLocation lastRecipeForItemStackCollection;
+    private ResourceKey<Recipe<?>> lastRecipeForItemStackCollection;
 
     private boolean noRecipeForLastItemStackCollectionInput;
     private boolean noRecipeForLastItemStackInput;
@@ -86,46 +89,53 @@ public class FermentationCachedCheck implements RecipeManager.CachedCheck<ItemHa
         return FluidStack.matches(this.lastFluidStackInput, input);
     }
 
-    private Optional<RecipeHolder<FermentationRecipe>> getRecipeFor(Collection<ItemStack> input, Level level, @Nullable ResourceLocation lastRecipe) {
-        var recipeManager = level.getRecipeManager();
+    private Optional<RecipeHolder<FermentationRecipe>> getRecipeFor(Collection<ItemStack> input, Level level, @Nullable ResourceKey<Recipe<?>> lastRecipe) {
+        var recipeManager = LevelUtil.getRecipeManager(level);
 
         if (lastRecipe != null) {
-            var recipe = recipeManager.byKeyTyped(this.type, lastRecipe);
-            //test only the ingredient without the (separate) fluid ingredient check that the recipe.matches() would.
-            if (recipe != null && this.matchesRecipe(recipe, input)) {
-                return Optional.of(recipe);
+            var recipeOptional = recipeManager.byKey(lastRecipe);
+            if (recipeOptional.isPresent() && recipeOptional.get().value().getType() == this.type) {
+                @SuppressWarnings("unchecked")
+                var recipe = (RecipeHolder<FermentationRecipe>) (Object) recipeOptional.get();
+                if (this.matchesRecipe(recipe, input)) {
+                    return Optional.of(recipe);
+                }
             }
         }
 
-        return recipeManager.byType(this.type).stream().filter((entry) -> this.matchesRecipe(entry, input)).findFirst();
+        return LevelUtil.getRecipesByType(recipeManager, this.type).stream().filter((entry) -> this.matchesRecipe(entry, input)).findFirst();
     }
 
-    private Optional<RecipeHolder<FermentationRecipe>> getRecipeFor(ItemStack stack, Level level, @Nullable ResourceLocation lastRecipe) {
-        var recipeManager = level.getRecipeManager();
+    private Optional<RecipeHolder<FermentationRecipe>> getRecipeFor(ItemStack stack, Level level, @Nullable ResourceKey<Recipe<?>> lastRecipe) {
+        var recipeManager = LevelUtil.getRecipeManager(level);
         if (lastRecipe != null) {
-
-            var recipe = recipeManager.byKeyTyped(this.type, lastRecipe);
-            //test only the ingredient without the (separate) fluid ingredient check that the recipe.matches() would.
-            if (recipe != null && recipe.value().getIngredients().stream().anyMatch(i -> i.test(stack))) {
-                return Optional.of(recipe);
+            var recipeOptional = recipeManager.byKey(lastRecipe);
+            if (recipeOptional.isPresent() && recipeOptional.get().value().getType() == this.type) {
+                @SuppressWarnings("unchecked")
+                var recipe = (RecipeHolder<FermentationRecipe>) (Object) recipeOptional.get();
+                if (recipe.value().getIngredients().stream().anyMatch(i -> i.test(stack))) {
+                    return Optional.of(recipe);
+                }
             }
         }
 
-        return recipeManager.byType(this.type).stream().filter((entry) -> entry.value().getIngredients().stream().anyMatch(i -> i.test(stack))).findFirst();
+        return LevelUtil.getRecipesByType(recipeManager, this.type).stream().filter((entry) -> entry.value().getIngredients().stream().anyMatch(i -> i.test(stack))).findFirst();
     }
 
-    private Optional<RecipeHolder<FermentationRecipe>> getRecipeFor(FluidStack stack, Level level, @Nullable ResourceLocation lastRecipe) {
-        var recipeManager = level.getRecipeManager();
+    private Optional<RecipeHolder<FermentationRecipe>> getRecipeFor(FluidStack stack, Level level, @Nullable ResourceKey<Recipe<?>> lastRecipe) {
+        var recipeManager = LevelUtil.getRecipeManager(level);
         if (lastRecipe != null) {
-
-            var recipe = recipeManager.byKeyTyped(this.type, lastRecipe);
-            //test only the fluid without the (separate) item ingredients check that the recipe.matches() would.
-            if (recipe != null && recipe.value().getFluid().ingredient().test(stack)) {
-                return Optional.of(recipe);
+            var recipeOptional = recipeManager.byKey(lastRecipe);
+            if (recipeOptional.isPresent() && recipeOptional.get().value().getType() == this.type) {
+                @SuppressWarnings("unchecked")
+                var recipe = (RecipeHolder<FermentationRecipe>) (Object) recipeOptional.get();
+                if (recipe.value().getFluid().ingredient().test(stack)) {
+                    return Optional.of(recipe);
+                }
             }
         }
 
-        return recipeManager.byType(this.type).stream().filter((entry) -> entry.value().getFluid().ingredient().test(stack)).findFirst();
+        return LevelUtil.getRecipesByType(recipeManager, this.type).stream().filter((entry) -> entry.value().getFluid().ingredient().test(stack)).findFirst();
     }
 
     /**

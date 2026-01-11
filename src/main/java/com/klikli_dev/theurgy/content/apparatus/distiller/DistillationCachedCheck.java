@@ -6,6 +6,7 @@ package com.klikli_dev.theurgy.content.apparatus.distiller;
 
 import com.klikli_dev.theurgy.content.recipe.DistillationRecipe;
 import com.klikli_dev.theurgy.content.recipe.input.ItemHandlerRecipeInput;
+import com.klikli_dev.theurgy.util.LevelUtil;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -35,7 +36,7 @@ class DistillationCachedCheck implements RecipeManager.CachedCheck<ItemHandlerRe
     }
 
     private Optional<RecipeHolder<DistillationRecipe>> getRecipeFor(ItemStack stack, ServerLevel level, @Nullable ResourceLocation lastRecipe) {
-        var recipeManager = level.getRecipeManager();
+        var recipeManager = LevelUtil.getRecipeManager(level);
         if (lastRecipe != null) {
 
             var recipe = recipeManager.byKeyTyped(this.type, lastRecipe);
@@ -46,7 +47,7 @@ class DistillationCachedCheck implements RecipeManager.CachedCheck<ItemHandlerRe
             }
         }
 
-        return recipeManager.byType(this.type).stream().filter((entry) -> entry.value().getIngredient().test(stack)).findFirst();
+        return LevelUtil.getRecipesByType(recipeManager, this.type).stream().filter((entry) -> entry.value().getIngredient().test(stack)).findFirst();
     }
 
     /**

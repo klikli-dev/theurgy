@@ -28,8 +28,8 @@ import java.util.function.BiConsumer;
 
 public class ShapelessRecipeProvider extends JsonRecipeProvider {
 
-    public ShapelessRecipeProvider(PackOutput packOutput) {
-        super(packOutput, Theurgy.MODID, "crafting/shapeless");
+    public ShapelessRecipeProvider(PackOutput packOutput, java.util.concurrent.CompletableFuture<net.minecraft.core.HolderLookup.Provider> lookupProvider) {
+        super(packOutput, lookupProvider, Theurgy.MODID, "crafting/shapeless");
     }
 
     @Override

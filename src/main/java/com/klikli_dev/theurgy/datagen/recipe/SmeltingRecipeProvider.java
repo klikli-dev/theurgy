@@ -22,8 +22,8 @@ import java.util.function.BiConsumer;
 
 public class SmeltingRecipeProvider extends JsonRecipeProvider {
 
-    public SmeltingRecipeProvider(PackOutput packOutput) {
-        super(packOutput, Theurgy.MODID, "smelting");
+    public SmeltingRecipeProvider(PackOutput packOutput, java.util.concurrent.CompletableFuture<net.minecraft.core.HolderLookup.Provider> lookupProvider) {
+        super(packOutput, lookupProvider, Theurgy.MODID, "smelting");
     }
 
     @Override

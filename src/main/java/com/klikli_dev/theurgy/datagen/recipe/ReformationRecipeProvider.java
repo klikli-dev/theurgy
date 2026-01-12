@@ -44,8 +44,8 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
     private final Map<ResourceLocation, JsonObject> recipeCache = new HashMap<>();
     private Set<AlchemicalDerivativeItem> noAutomaticRecipesFor = Set.of();
 
-    public ReformationRecipeProvider(PackOutput packOutput) {
-        super(packOutput, Theurgy.MODID, "reformation");
+    public ReformationRecipeProvider(PackOutput packOutput, java.util.concurrent.CompletableFuture<net.minecraft.core.HolderLookup.Provider> lookupProvider) {
+        super(packOutput, lookupProvider, Theurgy.MODID, "reformation");
     }
 
     private static int getFlux(AlchemicalDerivativeItem item) {
@@ -449,7 +449,7 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
     }
 
 
-    protected static class Builder extends RecipeBuilder<Builder> {
+    protected class Builder extends RecipeBuilder<Builder> {
         private final ItemStack result;
 
         protected Builder(ItemStack result) {

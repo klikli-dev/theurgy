@@ -13,6 +13,8 @@ import com.klikli_dev.theurgy.content.recipe.result.RecipeResult;
 import com.klikli_dev.theurgy.content.recipe.result.TagRecipeResult;
 import com.mojang.serialization.JsonOps;
 import net.minecraft.core.Holder;
+import net.minecraft.core.HolderGetter;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.CachedOutput;
@@ -44,19 +46,23 @@ import java.util.function.BiConsumer;
 
 public abstract class JsonRecipeProvider implements DataProvider {
 
+    protected final CompletableFuture<HolderLookup.Provider> lookupProvider;
+    protected HolderLookup.Provider registries;
+    private HolderGetter<Item> items;
     protected final PackOutput.PathProvider recipePathProvider;
     protected String modid;
 
     protected BiConsumer<ResourceLocation, JsonObject> recipeConsumer;
 
-    public JsonRecipeProvider(PackOutput packOutput, String modid) {
-        this(packOutput, modid, "");
+    public JsonRecipeProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider, String modid) {
+        this(packOutput, lookupProvider, modid, "");
     }
 
     /**
      * Creates a new recipe provider with the given sub path.
      */
-    public JsonRecipeProvider(PackOutput packOutput, String modid, String recipeSubPath) {
+    public JsonRecipeProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider, String modid, String recipeSubPath) {
+        this.lookupProvider = lookupProvider;
         this.recipePathProvider = packOutput.createPathProvider(PackOutput.Target.DATA_PACK, "recipe/" + recipeSubPath);
         this.modid = modid;
     }
@@ -66,7 +72,7 @@ public abstract class JsonRecipeProvider implements DataProvider {
     }
 
     protected String name(ItemLike item) {
-        return BuiltInRegistries.ITEM.getKey(item.asItem()).getPath();
+        return item.asItem().builtInRegistryHolder().getKey().location().getPath();
     }
 
     protected String name(TagKey<Item> tag) {
@@ -82,7 +88,7 @@ public abstract class JsonRecipeProvider implements DataProvider {
     }
 
     public ResourceLocation locFor(ItemLike itemLike) {
-        return BuiltInRegistries.ITEM.getKey(itemLike.asItem());
+        return itemLike.asItem().builtInRegistryHolder().getKey().location();
     }
 
     public ResourceLocation locFor(Fluid fluid) {
@@ -107,25 +113,30 @@ public abstract class JsonRecipeProvider implements DataProvider {
 
     @Override
     public @NotNull CompletableFuture<?> run(@NotNull CachedOutput pOutput) {
-        Set<ResourceLocation> set = Sets.newHashSet();
-        List<CompletableFuture<?>> futures = new ArrayList<>();
-        this.recipeConsumer = (id, recipe) -> {
-            if (!recipe.has("category"))
-                recipe.addProperty("category", CraftingBookCategory.MISC.getSerializedName());
+        return this.lookupProvider.thenCompose(provider -> {
+            this.registries = provider;
+            this.items = this.registries.lookupOrThrow(Registries.ITEM);
 
-            if (!set.add(id)) {
-                throw new IllegalStateException("Duplicate recipe " + id);
-            } else {
-                futures.add(DataProvider.saveStable(pOutput, recipe, this.recipePathProvider.json(id)));
-            }
-        };
-        this.buildRecipes(this.recipeConsumer);
-        return CompletableFuture.allOf(futures.toArray(CompletableFuture[]::new));
+            Set<ResourceLocation> set = Sets.newHashSet();
+            List<CompletableFuture<?>> futures = new ArrayList<>();
+            this.recipeConsumer = (id, recipe) -> {
+                if (!recipe.has("category"))
+                    recipe.addProperty("category", CraftingBookCategory.MISC.getSerializedName());
+
+                if (!set.add(id)) {
+                    throw new IllegalStateException("Duplicate recipe " + id);
+                } else {
+                    futures.add(DataProvider.saveStable(pOutput, recipe, this.recipePathProvider.json(id)));
+                }
+            };
+            this.buildRecipes(this.recipeConsumer);
+            return CompletableFuture.allOf(futures.toArray(CompletableFuture[]::new));
+        });
     }
 
     public abstract void buildRecipes(BiConsumer<ResourceLocation, JsonObject> recipeConsumer);
 
-    protected static abstract class RecipeBuilder<T extends RecipeBuilder<T>> {
+    protected abstract class RecipeBuilder<T extends RecipeBuilder<T>> {
 
         protected JsonObject recipe = new JsonObject();
 
@@ -188,7 +199,7 @@ public abstract class JsonRecipeProvider implements DataProvider {
         }
 
         public T ingredient(String propertyName, TagKey<Item> tag) {
-            this.recipe.add(propertyName, Ingredient.CODEC.encodeStart(JsonOps.INSTANCE, Ingredient.of(BuiltInRegistries.ITEM.get(tag).orElseThrow())).getOrThrow());
+            this.recipe.add(propertyName, Ingredient.CODEC.encodeStart(JsonOps.INSTANCE, Ingredient.of(JsonRecipeProvider.this.items.get(tag).orElseThrow())).getOrThrow());
 
             this.condition(new NotCondition(new TagEmptyCondition(tag.location().toString())));
 
@@ -209,7 +220,7 @@ public abstract class JsonRecipeProvider implements DataProvider {
         }
 
         public T sizedIngredient(String propertyName, TagKey<Item> item, int amount) {
-            this.recipe.add(propertyName, SizedIngredient.NESTED_CODEC.encodeStart(JsonOps.INSTANCE, new SizedIngredient(Ingredient.of(BuiltInRegistries.ITEM.get(item).orElseThrow()), amount)).getOrThrow());
+            this.recipe.add(propertyName, SizedIngredient.NESTED_CODEC.encodeStart(JsonOps.INSTANCE, new SizedIngredient(Ingredient.of(JsonRecipeProvider.this.items.getOrThrow(item)), amount)).getOrThrow());
             this.condition(new NotCondition(new TagEmptyCondition(item.location().toString())));
             return this.getThis();
         }

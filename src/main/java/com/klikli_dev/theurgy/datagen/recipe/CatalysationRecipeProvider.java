@@ -13,14 +13,15 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Ingredient;
 
+import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
 
 public class CatalysationRecipeProvider extends JsonRecipeProvider {
 
     public static final int PER_TICK = CatalysationRecipe.DEFAULT_MERCURY_FLUX_PER_TICK;
 
-    public CatalysationRecipeProvider(PackOutput packOutput) {
-        super(packOutput, Theurgy.MODID, "catalysation");
+    public CatalysationRecipeProvider(PackOutput packOutput, CompletableFuture<net.minecraft.core.HolderLookup.Provider> lookupProvider) {
+        super(packOutput, lookupProvider, Theurgy.MODID, "catalysation");
     }
 
     @Override

@@ -34,8 +34,8 @@ public class FermentationRecipeProvider extends JsonRecipeProvider {
 
     public static final int TIME = FermentationRecipe.DEFAULT_TIME;
 
-    public FermentationRecipeProvider(PackOutput packOutput) {
-        super(packOutput, Theurgy.MODID, "fermentation");
+    public FermentationRecipeProvider(PackOutput packOutput, java.util.concurrent.CompletableFuture<net.minecraft.core.HolderLookup.Provider> lookupProvider) {
+        super(packOutput, lookupProvider, Theurgy.MODID, "fermentation");
     }
 
     @Override
@@ -265,7 +265,7 @@ public class FermentationRecipeProvider extends JsonRecipeProvider {
         return "Fermentation Recipes";
     }
 
-    protected static class Builder extends RecipeBuilder<Builder> {
+    protected class Builder extends RecipeBuilder<Builder> {
         private final ItemStack result;
 
         protected Builder(ItemLike result) {

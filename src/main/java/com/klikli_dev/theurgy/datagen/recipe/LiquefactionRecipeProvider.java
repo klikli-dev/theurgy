@@ -19,14 +19,15 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.material.Fluid;
 import net.neoforged.neoforge.common.Tags;
 
+import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
 
 public class LiquefactionRecipeProvider extends JsonRecipeProvider {
 
     public static final int TIME = LiquefactionRecipe.DEFAULT_TIME;
 
-    public LiquefactionRecipeProvider(PackOutput packOutput) {
-        super(packOutput, Theurgy.MODID, "liquefaction");
+    public LiquefactionRecipeProvider(PackOutput packOutput, CompletableFuture<net.minecraft.core.HolderLookup.Provider> lookupProvider) {
+        super(packOutput, lookupProvider, Theurgy.MODID, "liquefaction");
     }
 
     @Override
@@ -485,7 +486,7 @@ public class LiquefactionRecipeProvider extends JsonRecipeProvider {
         return "Liquefaction Recipes";
     }
 
-    protected static class Builder extends RecipeBuilder<Builder> {
+    protected class Builder extends RecipeBuilder<Builder> {
         protected Builder(RecipeResult result) {
             super(RecipeTypeRegistry.LIQUEFACTION);
             this.result(result);

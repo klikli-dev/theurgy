@@ -20,14 +20,15 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.neoforged.neoforge.common.Tags;
 
+import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
 
 public class IncubationRecipeProvider extends JsonRecipeProvider {
 
     public static final int TIME = IncubationRecipe.DEFAULT_TIME;
 
-    public IncubationRecipeProvider(PackOutput packOutput) {
-        super(packOutput, Theurgy.MODID, "incubation");
+    public IncubationRecipeProvider(PackOutput packOutput, CompletableFuture<net.minecraft.core.HolderLookup.Provider> lookupProvider) {
+        super(packOutput, lookupProvider, Theurgy.MODID, "incubation");
     }
 
     @Override
@@ -403,7 +404,7 @@ public class IncubationRecipeProvider extends JsonRecipeProvider {
         return "Incubation Recipes";
     }
 
-    protected static class Builder extends RecipeBuilder<Builder> {
+    protected class Builder extends RecipeBuilder<Builder> {
         protected Builder(RecipeResult result) {
             super(RecipeTypeRegistry.INCUBATION);
             this.result(result);

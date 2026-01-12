@@ -21,14 +21,15 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 import net.neoforged.neoforge.common.Tags;
 
+import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
 
 public class CalcinationRecipeProvider extends JsonRecipeProvider {
 
     public static final int TIME = CalcinationRecipe.DEFAULT_TIME;
 
-    public CalcinationRecipeProvider(PackOutput packOutput) {
-        super(packOutput, Theurgy.MODID, "calcination");
+    public CalcinationRecipeProvider(PackOutput packOutput, CompletableFuture<net.minecraft.core.HolderLookup.Provider> lookupProvider) {
+        super(packOutput, lookupProvider, Theurgy.MODID, "calcination");
     }
 
     @Override
@@ -85,7 +86,7 @@ public class CalcinationRecipeProvider extends JsonRecipeProvider {
         return "Calcination Recipes";
     }
 
-    protected static class Builder extends RecipeBuilder<Builder> {
+    protected class Builder extends RecipeBuilder<Builder> {
 
         private final ItemStack result;
 

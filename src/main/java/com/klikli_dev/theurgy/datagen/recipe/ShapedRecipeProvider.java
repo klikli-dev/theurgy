@@ -31,12 +31,13 @@ import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.common.Tags;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
 
 public class ShapedRecipeProvider extends JsonRecipeProvider {
 
-    public ShapedRecipeProvider(PackOutput packOutput) {
-        super(packOutput, Theurgy.MODID, "crafting/shaped");
+    public ShapedRecipeProvider(PackOutput packOutput, CompletableFuture<net.minecraft.core.HolderLookup.Provider> lookupProvider) {
+        super(packOutput, lookupProvider, Theurgy.MODID, "crafting/shaped");
     }
 
     @Override

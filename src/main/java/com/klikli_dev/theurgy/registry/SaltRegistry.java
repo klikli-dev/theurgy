@@ -14,6 +14,7 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 public class SaltRegistry {
@@ -32,11 +33,11 @@ public class SaltRegistry {
             register("creature");
 
     public static <T extends Item> DeferredItem<AlchemicalSaltItem> register(String name) {
-        return register(name, () -> new AlchemicalSaltItem(new Item.Properties()));
+        return register(name, AlchemicalSaltItem::new);
     }
 
-    public static <T extends Item> DeferredItem<T> register(String name, Supplier<T> sup) {
-        return SALTS.register("alchemical_salt_" + name, sup);
+    public static <T extends Item> DeferredItem<T> register(String name, Function<Item.Properties, ? extends T> func) {
+        return SALTS.registerItem("alchemical_salt_" + name, func);
     }
 
     /**

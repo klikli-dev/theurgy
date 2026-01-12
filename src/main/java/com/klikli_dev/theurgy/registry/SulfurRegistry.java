@@ -20,6 +20,7 @@ import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 public class SulfurRegistry {
@@ -148,7 +149,7 @@ public class SulfurRegistry {
     public static final DeferredItem<AlchemicalSulfurItem> COCONUT = registerForSourceTag(ItemTagRegistry.CROPS_COCONUT, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.CROPS);
     public static final DeferredItem<AlchemicalSulfurItem> DATE = registerForSourceTag(ItemTagRegistry.CROPS_DATE, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.CROPS);
     public static final DeferredItem<AlchemicalSulfurItem> DRAGONFRUIT = registerForSourceTag(ItemTagRegistry.CROPS_DRAGONFRUIT, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.CROPS);
-    public static final DeferredItem<AlchemicalSulfurItem> FIG = register("crops_fig", () -> AlchemicalSulfurItem.ofSource(ItemTagRegistry.CROPS_FIG, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.CROPS));
+    public static final DeferredItem<AlchemicalSulfurItem> FIG = register("crops_fig", (p) -> AlchemicalSulfurItem.ofSource(p, ItemTagRegistry.CROPS_FIG, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.CROPS));
     public static final DeferredItem<AlchemicalSulfurItem> GRAPEFRUIT = registerForSourceTag(ItemTagRegistry.CROPS_GRAPEFRUIT, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.CROPS);
     public static final DeferredItem<AlchemicalSulfurItem> KUMQUAT = registerForSourceTag(ItemTagRegistry.CROPS_KUMQUAT, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.CROPS);
     public static final DeferredItem<AlchemicalSulfurItem> LEMON = registerForSourceTag(ItemTagRegistry.CROPS_LEMON, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.CROPS);
@@ -203,7 +204,7 @@ public class SulfurRegistry {
     public static final DeferredItem<AlchemicalSulfurItem> DREAMWOOD_LOG = registerForSourceTag(ItemTagRegistry.LOGS_DREAMWOOD, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.LOGS);
     public static final DeferredItem<AlchemicalSulfurItem> GLIMMERING_DREAMWOOD_LOG = registerForSourceTag(ItemTagRegistry.LOGS_DREAMWOOD_GLIMMERING, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.LOGS);
     public static final DeferredItem<AlchemicalSulfurItem> WALNUT_LOG = registerForSourceTag(ItemTagRegistry.LOGS_WALNUT, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.LOGS);
-    public static final DeferredItem<AlchemicalSulfurItem> FIG_LOG = register("logs_fig", () -> AlchemicalSulfurItem.ofSource(ItemTagRegistry.LOGS_FIG, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.LOGS));
+    public static final DeferredItem<AlchemicalSulfurItem> FIG_LOG = register("logs_fig", (p) -> AlchemicalSulfurItem.ofSource(p, ItemTagRegistry.LOGS_FIG, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.LOGS));
     public static final DeferredItem<AlchemicalSulfurItem> WOLFBERRY_LOG = registerForSourceTag(ItemTagRegistry.LOGS_WOLFBERRY, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.LOGS);
     public static final DeferredItem<AlchemicalSulfurItem> ECHO_LOG = registerForSourceTag(ItemTagRegistry.LOGS_ECHO, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.LOGS);
     public static final DeferredItem<AlchemicalSulfurItem> ILLWOOD_LOG = registerForSourceTag(ItemTagRegistry.LOGS_ILLWOOD, AlchemicalDerivativeTier.ABUNDANT, AlchemicalSulfurType.LOGS);
@@ -351,19 +352,19 @@ public class SulfurRegistry {
      * The source tag does not need to cover all possible sources (e.g. a "uranium" tag that covers ore, raw metal, ingot, ...) but rather one possible source that should be used to get the icon from.
      */
     public static DeferredItem<AlchemicalSulfurItem> registerForSourceTag(TagKey<Item> source, AlchemicalDerivativeTier tier, AlchemicalSulfurType type) {
-        return register(name(source), () -> AlchemicalSulfurItem.ofSource(source, tier, type));
+        return register(name(source), (p) -> AlchemicalSulfurItem.ofSource(p, source, tier, type));
     }
 
     public static DeferredItem<AlchemicalSulfurItem> registerForSourceItem(Item source, AlchemicalDerivativeTier tier, AlchemicalSulfurType type) {
-        return register(name(source), () -> AlchemicalSulfurItem.ofSource(source, tier, type));
+        return register(name(source), (p) -> AlchemicalSulfurItem.ofSource(p, source, tier, type));
     }
 
     public static DeferredItem<AlchemicalSulfurItem> registerForSourceItem(Holder<Item> source, AlchemicalDerivativeTier tier, AlchemicalSulfurType type) {
-        return register(name(source), () -> AlchemicalSulfurItem.ofSource(source, tier, type));
+        return register(name(source), (p) -> AlchemicalSulfurItem.ofSource(p, source, tier, type));
     }
 
-    public static <T extends Item> DeferredItem<T> register(String name, Supplier<T> sup) {
-        return SULFURS.register("alchemical_sulfur_" + name, sup);
+    public static <T extends Item> DeferredItem<T> register(String name, Function<Item.Properties, ? extends T> func) {
+        return SULFURS.registerItem("alchemical_sulfur_" + name, func);
     }
 
     private static String name(TagKey<Item> source) {

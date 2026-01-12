@@ -1,6 +1,6 @@
 {
-    "vertex": "rendertype_lines",
-    "fragment": "rendertype_lines",
+    "vertex": "theurgy:core/rendertype_distance_lines",
+    "fragment": "theurgy:core/rendertype_distance_lines",
     "samplers": [
     ],
     "uniforms": [

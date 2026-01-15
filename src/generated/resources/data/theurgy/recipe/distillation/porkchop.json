@@ -3,9 +3,7 @@
   "category": "misc",
   "ingredient": {
     "count": 2,
-    "ingredient": {
-      "item": "minecraft:porkchop"
-    }
+    "ingredient": "minecraft:porkchop"
   },
   "result": {
     "type": "theurgy:item",

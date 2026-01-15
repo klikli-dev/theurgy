@@ -19,17 +19,11 @@
   "category": "misc",
   "fluid": {
     "amount": 125,
-    "ingredient": {
-      "fluid": "minecraft:water"
-    }
+    "ingredient": "minecraft:water"
   },
   "ingredients": [
-    {
-      "tag": "theurgy:alchemical_sulfurs/gems/abundant"
-    },
-    {
-      "tag": "minecraft:saplings"
-    }
+    "#theurgy:alchemical_sulfurs/gems/abundant",
+    "#minecraft:saplings"
   ],
   "result": {
     "type": "theurgy:item",

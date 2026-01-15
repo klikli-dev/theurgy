@@ -5,8 +5,6 @@
     "amount": 1000,
     "id": "minecraft:lava"
   },
-  "solute": {
-    "item": "theurgy:crystallized_lava"
-  },
+  "solute": "theurgy:crystallized_lava",
   "time": 100
 }

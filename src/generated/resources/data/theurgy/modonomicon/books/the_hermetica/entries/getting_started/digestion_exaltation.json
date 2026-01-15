@@ -26,9 +26,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "theurgy:alchemical_niter_metals_rare"
-      },
+      "item": "theurgy:alchemical_niter_metals_rare",
       "text": "book.theurgy.the_hermetica.getting_started.digestion_exaltation.metals.text",
       "title": "book.theurgy.the_hermetica.getting_started.digestion_exaltation.metals.title"
     },

@@ -15,9 +15,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "theurgy:copper_wire"
-      },
+      "item": "theurgy:copper_wire",
       "text": "book.theurgy.the_hermetica.logistics.mercurial_wire.wire.text",
       "title": ""
     },

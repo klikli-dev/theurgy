@@ -3,9 +3,7 @@
   "category": "misc",
   "ingredient": {
     "count": 1,
-    "ingredient": {
-      "item": "minecraft:clay_ball"
-    }
+    "ingredient": "minecraft:clay_ball"
   },
   "result": {
     "type": "theurgy:item",

@@ -3,9 +3,7 @@
   "category": "misc",
   "ingredient": {
     "count": 1,
-    "ingredient": {
-      "item": "minecraft:snowball"
-    }
+    "ingredient": "minecraft:snowball"
   },
   "result": {
     "type": "theurgy:item",

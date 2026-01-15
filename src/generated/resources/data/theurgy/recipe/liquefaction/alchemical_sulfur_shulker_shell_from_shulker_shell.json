@@ -1,9 +1,7 @@
 {
   "type": "theurgy:liquefaction",
   "category": "misc",
-  "ingredient": {
-    "item": "minecraft:shulker_shell"
-  },
+  "ingredient": "minecraft:shulker_shell",
   "result": {
     "type": "theurgy:item",
     "count": 1,
@@ -11,9 +9,7 @@
   },
   "solvent": {
     "amount": 20,
-    "ingredient": {
-      "fluid": "theurgy:sal_ammoniac"
-    }
+    "ingredient": "theurgy:sal_ammoniac"
   },
   "time": 100
 }

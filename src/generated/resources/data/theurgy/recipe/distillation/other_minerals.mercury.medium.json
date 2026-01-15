@@ -12,9 +12,7 @@
   "category": "misc",
   "ingredient": {
     "count": 1,
-    "ingredient": {
-      "tag": "theurgy:other_minerals/mercury/medium"
-    }
+    "ingredient": "#theurgy:other_minerals/mercury/medium"
   },
   "result": {
     "type": "theurgy:item",

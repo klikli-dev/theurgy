@@ -19,17 +19,11 @@
   "category": "misc",
   "fluid": {
     "amount": 250,
-    "ingredient": {
-      "fluid": "minecraft:water"
-    }
+    "ingredient": "minecraft:water"
   },
   "ingredients": [
-    {
-      "tag": "theurgy:alchemical_sulfurs/other_minerals/common"
-    },
-    {
-      "tag": "minecraft:logs"
-    }
+    "#theurgy:alchemical_sulfurs/other_minerals/common",
+    "#minecraft:logs"
   ],
   "result": {
     "type": "theurgy:item",

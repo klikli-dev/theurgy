@@ -12,17 +12,11 @@
   "category": "misc",
   "fluid": {
     "amount": 250,
-    "ingredient": {
-      "fluid": "minecraft:water"
-    }
+    "ingredient": "minecraft:water"
   },
   "ingredients": [
-    {
-      "item": "theurgy:alchemical_sulfur_skeleton_skull"
-    },
-    {
-      "tag": "minecraft:planks"
-    }
+    "theurgy:alchemical_sulfur_skeleton_skull",
+    "#minecraft:planks"
   ],
   "result": {
     "type": "theurgy:item",

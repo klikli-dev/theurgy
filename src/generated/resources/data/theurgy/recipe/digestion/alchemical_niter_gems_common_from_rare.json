@@ -3,16 +3,12 @@
   "category": "misc",
   "fluid": {
     "amount": 15,
-    "ingredient": {
-      "fluid": "theurgy:sal_ammoniac"
-    }
+    "ingredient": "theurgy:sal_ammoniac"
   },
   "ingredients": [
     {
       "count": 1,
-      "ingredient": {
-        "item": "theurgy:alchemical_niter_gems_rare"
-      }
+      "ingredient": "theurgy:alchemical_niter_gems_rare"
     }
   ],
   "result": {

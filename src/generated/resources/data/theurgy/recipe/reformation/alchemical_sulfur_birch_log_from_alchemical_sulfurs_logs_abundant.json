@@ -19,9 +19,7 @@
   "sources": [
     {
       "count": 1,
-      "ingredient": {
-        "tag": "theurgy:alchemical_sulfurs/logs/abundant"
-      }
+      "ingredient": "#theurgy:alchemical_sulfurs/logs/abundant"
     }
   ],
   "target": {

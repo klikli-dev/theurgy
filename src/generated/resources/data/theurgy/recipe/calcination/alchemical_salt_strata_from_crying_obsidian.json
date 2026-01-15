@@ -3,9 +3,7 @@
   "category": "misc",
   "ingredient": {
     "count": 1,
-    "ingredient": {
-      "item": "minecraft:crying_obsidian"
-    }
+    "ingredient": "minecraft:crying_obsidian"
   },
   "result": {
     "type": "theurgy:item",

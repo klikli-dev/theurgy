@@ -12,9 +12,7 @@
   "category": "misc",
   "ingredient": {
     "count": 1,
-    "ingredient": {
-      "tag": "c:cobblestones"
-    }
+    "ingredient": "#c:cobblestones"
   },
   "result": {
     "type": "theurgy:item",

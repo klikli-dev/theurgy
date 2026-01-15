@@ -12,17 +12,11 @@
   "category": "misc",
   "fluid": {
     "amount": 1000,
-    "ingredient": {
-      "fluid": "minecraft:water"
-    }
+    "ingredient": "minecraft:water"
   },
   "ingredients": [
-    {
-      "item": "theurgy:alchemical_sulfur_nether_star"
-    },
-    {
-      "tag": "theurgy:fermentation_starters"
-    }
+    "theurgy:alchemical_sulfur_nether_star",
+    "#theurgy:fermentation_starters"
   ],
   "result": {
     "type": "theurgy:item",

@@ -12,9 +12,7 @@
   "category": "misc",
   "ingredient": {
     "count": 1,
-    "ingredient": {
-      "tag": "theurgy:metals/mercury/high"
-    }
+    "ingredient": "#theurgy:metals/mercury/high"
   },
   "result": {
     "type": "theurgy:item",

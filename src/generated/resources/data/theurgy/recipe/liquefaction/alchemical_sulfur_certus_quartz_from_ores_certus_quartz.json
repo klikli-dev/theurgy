@@ -10,9 +10,7 @@
   ],
   "type": "theurgy:liquefaction",
   "category": "misc",
-  "ingredient": {
-    "tag": "c:ores/certus_quartz"
-  },
+  "ingredient": "#c:ores/certus_quartz",
   "result": {
     "type": "theurgy:item",
     "count": 6,
@@ -20,9 +18,7 @@
   },
   "solvent": {
     "amount": 15,
-    "ingredient": {
-      "fluid": "theurgy:sal_ammoniac"
-    }
+    "ingredient": "theurgy:sal_ammoniac"
   },
   "time": 100
 }

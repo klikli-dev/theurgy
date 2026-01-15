@@ -15,9 +15,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "theurgy:reformation_target_pedestal"
-      },
+      "item": "theurgy:reformation_target_pedestal",
       "text": "book.theurgy.the_hermetica.apparatus.target_pedestal.intro.text",
       "title": ""
     },

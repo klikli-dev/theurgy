@@ -15,9 +15,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "theurgy:purified_gold"
-      },
+      "item": "theurgy:purified_gold",
       "text": "book.theurgy.the_hermetica.getting_started.purified_gold.gold.text",
       "title": ""
     },
@@ -38,9 +36,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "theurgy:digestion_vat"
-      },
+      "item": "theurgy:digestion_vat",
       "text": "book.theurgy.the_hermetica.getting_started.purified_gold.digestion.text",
       "title": "book.theurgy.the_hermetica.getting_started.purified_gold.digestion.title"
     },

@@ -15,9 +15,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "theurgy:alchemical_sulfur_lapis"
-      },
+      "item": "theurgy:alchemical_sulfur_lapis",
       "text": "book.theurgy.the_hermetica.getting_started.required_items.source.text",
       "title": "book.theurgy.the_hermetica.getting_started.required_items.source.title"
     },
@@ -38,9 +36,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "theurgy:alchemical_sulfur_quartz"
-      },
+      "item": "theurgy:alchemical_sulfur_quartz",
       "text": "book.theurgy.the_hermetica.getting_started.required_items.target.text",
       "title": "book.theurgy.the_hermetica.getting_started.required_items.target.title"
     }

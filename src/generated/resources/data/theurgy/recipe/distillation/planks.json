@@ -12,9 +12,7 @@
   "category": "misc",
   "ingredient": {
     "count": 8,
-    "ingredient": {
-      "tag": "minecraft:planks"
-    }
+    "ingredient": "#minecraft:planks"
   },
   "result": {
     "type": "theurgy:item",

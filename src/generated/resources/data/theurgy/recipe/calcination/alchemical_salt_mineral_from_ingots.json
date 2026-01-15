@@ -12,9 +12,7 @@
   "category": "misc",
   "ingredient": {
     "count": 1,
-    "ingredient": {
-      "tag": "c:ingots"
-    }
+    "ingredient": "#c:ingots"
   },
   "result": {
     "type": "theurgy:item",

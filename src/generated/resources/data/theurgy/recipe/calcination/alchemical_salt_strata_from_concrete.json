@@ -12,9 +12,7 @@
   "category": "misc",
   "ingredient": {
     "count": 1,
-    "ingredient": {
-      "tag": "c:concretes"
-    }
+    "ingredient": "#c:concretes"
   },
   "result": {
     "type": "theurgy:item",

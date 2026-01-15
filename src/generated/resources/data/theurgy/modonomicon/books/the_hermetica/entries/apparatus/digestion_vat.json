@@ -15,9 +15,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "theurgy:digestion_vat"
-      },
+      "item": "theurgy:digestion_vat",
       "text": "book.theurgy.the_hermetica.apparatus.digestion_vat.intro.text",
       "title": ""
     },

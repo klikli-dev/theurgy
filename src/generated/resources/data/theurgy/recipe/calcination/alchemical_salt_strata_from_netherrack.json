@@ -12,9 +12,7 @@
   "category": "misc",
   "ingredient": {
     "count": 1,
-    "ingredient": {
-      "tag": "c:netherracks"
-    }
+    "ingredient": "#c:netherracks"
   },
   "result": {
     "type": "theurgy:item",

@@ -12,9 +12,7 @@
   "category": "misc",
   "ingredient": {
     "count": 1,
-    "ingredient": {
-      "tag": "minecraft:leaves"
-    }
+    "ingredient": "#minecraft:leaves"
   },
   "result": {
     "type": "theurgy:item",

@@ -12,9 +12,7 @@
   "category": "misc",
   "ingredient": {
     "count": 3,
-    "ingredient": {
-      "tag": "minecraft:flowers"
-    }
+    "ingredient": "#minecraft:flowers"
   },
   "result": {
     "type": "theurgy:item",

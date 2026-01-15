@@ -12,17 +12,11 @@
   "category": "misc",
   "fluid": {
     "amount": 500,
-    "ingredient": {
-      "fluid": "minecraft:water"
-    }
+    "ingredient": "minecraft:water"
   },
   "ingredients": [
-    {
-      "item": "theurgy:alchemical_sulfur_ghast_tear"
-    },
-    {
-      "tag": "minecraft:flowers"
-    }
+    "theurgy:alchemical_sulfur_ghast_tear",
+    "#minecraft:flowers"
   ],
   "result": {
     "type": "theurgy:item",

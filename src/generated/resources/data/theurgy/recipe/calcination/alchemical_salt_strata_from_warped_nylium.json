@@ -3,9 +3,7 @@
   "category": "misc",
   "ingredient": {
     "count": 1,
-    "ingredient": {
-      "item": "minecraft:warped_nylium"
-    }
+    "ingredient": "minecraft:warped_nylium"
   },
   "result": {
     "type": "theurgy:item",

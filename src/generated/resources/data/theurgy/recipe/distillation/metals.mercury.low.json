@@ -12,9 +12,7 @@
   "category": "misc",
   "ingredient": {
     "count": 1,
-    "ingredient": {
-      "tag": "theurgy:metals/mercury/low"
-    }
+    "ingredient": "#theurgy:metals/mercury/low"
   },
   "result": {
     "type": "theurgy:item",

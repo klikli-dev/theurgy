@@ -3,9 +3,7 @@
   "category": "misc",
   "ingredient": {
     "count": 1,
-    "ingredient": {
-      "item": "minecraft:cooked_salmon"
-    }
+    "ingredient": "minecraft:cooked_salmon"
   },
   "result": {
     "type": "theurgy:item",

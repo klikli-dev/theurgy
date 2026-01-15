@@ -12,9 +12,7 @@
   "category": "misc",
   "ingredient": {
     "count": 1,
-    "ingredient": {
-      "tag": "theurgy:other_minerals"
-    }
+    "ingredient": "#theurgy:other_minerals"
   },
   "result": {
     "type": "theurgy:item",

@@ -15,9 +15,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "theurgy:attribute_filter"
-      },
+      "item": "theurgy:attribute_filter",
       "text": "book.theurgy.the_hermetica.logistics.attribute_filter.filter.text",
       "title": ""
     },

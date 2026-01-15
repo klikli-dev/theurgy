@@ -3,9 +3,7 @@
   "category": "misc",
   "ingredient": {
     "count": 2,
-    "ingredient": {
-      "item": "theurgy:alchemical_salt_plant"
-    }
+    "ingredient": "theurgy:alchemical_salt_plant"
   },
   "result": {
     "type": "theurgy:item",

@@ -19,17 +19,11 @@
   "category": "misc",
   "fluid": {
     "amount": 125,
-    "ingredient": {
-      "fluid": "minecraft:water"
-    }
+    "ingredient": "minecraft:water"
   },
   "ingredients": [
-    {
-      "tag": "theurgy:alchemical_sulfurs/earthen_matters/abundant"
-    },
-    {
-      "tag": "c:sugars"
-    }
+    "#theurgy:alchemical_sulfurs/earthen_matters/abundant",
+    "#c:sugars"
   ],
   "result": {
     "type": "theurgy:item",

@@ -15,9 +15,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "theurgy:distiller"
-      },
+      "item": "theurgy:distiller",
       "text": "book.theurgy.the_hermetica.apparatus.distiller.intro.text",
       "title": ""
     },

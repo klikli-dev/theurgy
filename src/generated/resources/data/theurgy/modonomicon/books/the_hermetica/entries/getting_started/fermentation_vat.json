@@ -37,9 +37,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "theurgy:fermentation_vat"
-      },
+      "item": "theurgy:fermentation_vat",
       "text": "book.theurgy.the_hermetica.getting_started.fermentation_vat.fermentation_vat.text",
       "title": ""
     }

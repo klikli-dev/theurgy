@@ -12,9 +12,7 @@
   "category": "misc",
   "ingredient": {
     "count": 3,
-    "ingredient": {
-      "tag": "c:dyes"
-    }
+    "ingredient": "#c:dyes"
   },
   "result": {
     "type": "theurgy:item",

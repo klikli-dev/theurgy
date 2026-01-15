@@ -15,9 +15,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "theurgy:mercury_catalyst"
-      },
+      "item": "theurgy:mercury_catalyst",
       "text": "book.theurgy.the_hermetica.apparatus.mercury_catalyst.intro.text",
       "title": ""
     },

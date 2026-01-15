@@ -3,9 +3,7 @@
   "category": "misc",
   "ingredient": {
     "count": 1,
-    "ingredient": {
-      "item": "minecraft:obsidian"
-    }
+    "ingredient": "minecraft:obsidian"
   },
   "result": {
     "type": "theurgy:item",

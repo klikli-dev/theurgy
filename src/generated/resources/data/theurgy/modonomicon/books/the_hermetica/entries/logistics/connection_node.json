@@ -15,9 +15,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "theurgy:logistics_connector_node"
-      },
+      "item": "theurgy:logistics_connector_node",
       "text": "book.theurgy.the_hermetica.logistics.connection_node.node.text",
       "title": ""
     },

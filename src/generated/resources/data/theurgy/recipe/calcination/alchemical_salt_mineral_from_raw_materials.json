@@ -12,9 +12,7 @@
   "category": "misc",
   "ingredient": {
     "count": 1,
-    "ingredient": {
-      "tag": "c:raw_materials"
-    }
+    "ingredient": "#c:raw_materials"
   },
   "result": {
     "type": "theurgy:item",

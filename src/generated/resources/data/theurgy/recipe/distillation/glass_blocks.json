@@ -12,9 +12,7 @@
   "category": "misc",
   "ingredient": {
     "count": 10,
-    "ingredient": {
-      "tag": "c:glass_blocks"
-    }
+    "ingredient": "#c:glass_blocks"
   },
   "result": {
     "type": "theurgy:item",

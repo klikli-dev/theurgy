@@ -12,9 +12,7 @@
   "category": "misc",
   "ingredient": {
     "count": 3,
-    "ingredient": {
-      "tag": "c:seeds"
-    }
+    "ingredient": "#c:seeds"
   },
   "result": {
     "type": "theurgy:item",

@@ -10,15 +10,11 @@
   "sources": [
     {
       "count": 1,
-      "ingredient": {
-        "item": "theurgy:alchemical_niter_mobs_precious"
-      }
+      "ingredient": "theurgy:alchemical_niter_mobs_precious"
     },
     {
       "count": 1,
-      "ingredient": {
-        "item": "theurgy:alchemical_niter_mobs_precious"
-      }
+      "ingredient": "theurgy:alchemical_niter_mobs_precious"
     }
   ],
   "target": {

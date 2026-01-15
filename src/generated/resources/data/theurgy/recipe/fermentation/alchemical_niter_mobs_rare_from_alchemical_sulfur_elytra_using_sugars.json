@@ -12,17 +12,11 @@
   "category": "misc",
   "fluid": {
     "amount": 500,
-    "ingredient": {
-      "fluid": "minecraft:water"
-    }
+    "ingredient": "minecraft:water"
   },
   "ingredients": [
-    {
-      "item": "theurgy:alchemical_sulfur_elytra"
-    },
-    {
-      "tag": "c:sugars"
-    }
+    "theurgy:alchemical_sulfur_elytra",
+    "#c:sugars"
   ],
   "result": {
     "type": "theurgy:item",

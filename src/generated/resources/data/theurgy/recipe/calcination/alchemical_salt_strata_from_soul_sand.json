@@ -3,9 +3,7 @@
   "category": "misc",
   "ingredient": {
     "count": 1,
-    "ingredient": {
-      "item": "minecraft:soul_sand"
-    }
+    "ingredient": "minecraft:soul_sand"
   },
   "result": {
     "type": "theurgy:item",

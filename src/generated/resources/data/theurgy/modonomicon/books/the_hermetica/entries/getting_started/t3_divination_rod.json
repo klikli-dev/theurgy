@@ -15,9 +15,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "theurgy:divination_rod_t3"
-      },
+      "item": "theurgy:divination_rod_t3",
       "text": "book.theurgy.the_hermetica.getting_started.t3_divination_rod.intro.text",
       "title": ""
     },

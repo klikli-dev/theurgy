@@ -19,17 +19,11 @@
   "category": "misc",
   "fluid": {
     "amount": 100,
-    "ingredient": {
-      "fluid": "theurgy:sal_ammoniac"
-    }
+    "ingredient": "theurgy:sal_ammoniac"
   },
   "ingredients": [
-    {
-      "tag": "minecraft:planks"
-    },
-    {
-      "tag": "c:sugars"
-    }
+    "#minecraft:planks",
+    "#c:sugars"
   ],
   "result": {
     "type": "theurgy:item",

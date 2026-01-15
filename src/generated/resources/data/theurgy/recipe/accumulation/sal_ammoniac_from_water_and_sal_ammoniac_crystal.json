@@ -12,16 +12,12 @@
   "category": "misc",
   "evaporant": {
     "amount": 1000,
-    "ingredient": {
-      "tag": "minecraft:water"
-    }
+    "ingredient": "#minecraft:water"
   },
   "result": {
     "amount": 1000,
     "id": "theurgy:sal_ammoniac"
   },
-  "solute": {
-    "tag": "c:gems/sal_ammoniac"
-  },
+  "solute": "#c:gems/sal_ammoniac",
   "time": 100
 }

@@ -10,51 +10,35 @@
   "sources": [
     {
       "count": 2,
-      "ingredient": {
-        "item": "theurgy:alchemical_niter_gems_rare"
-      }
+      "ingredient": "theurgy:alchemical_niter_gems_rare"
     },
     {
       "count": 2,
-      "ingredient": {
-        "item": "theurgy:alchemical_niter_gems_rare"
-      }
+      "ingredient": "theurgy:alchemical_niter_gems_rare"
     },
     {
       "count": 2,
-      "ingredient": {
-        "item": "theurgy:alchemical_niter_gems_rare"
-      }
+      "ingredient": "theurgy:alchemical_niter_gems_rare"
     },
     {
       "count": 2,
-      "ingredient": {
-        "item": "theurgy:alchemical_niter_gems_rare"
-      }
+      "ingredient": "theurgy:alchemical_niter_gems_rare"
     },
     {
       "count": 2,
-      "ingredient": {
-        "item": "theurgy:alchemical_niter_gems_rare"
-      }
+      "ingredient": "theurgy:alchemical_niter_gems_rare"
     },
     {
       "count": 2,
-      "ingredient": {
-        "item": "theurgy:alchemical_niter_gems_rare"
-      }
+      "ingredient": "theurgy:alchemical_niter_gems_rare"
     },
     {
       "count": 2,
-      "ingredient": {
-        "item": "theurgy:alchemical_niter_gems_rare"
-      }
+      "ingredient": "theurgy:alchemical_niter_gems_rare"
     },
     {
       "count": 2,
-      "ingredient": {
-        "item": "theurgy:alchemical_niter_gems_rare"
-      }
+      "ingredient": "theurgy:alchemical_niter_gems_rare"
     }
   ],
   "target": {

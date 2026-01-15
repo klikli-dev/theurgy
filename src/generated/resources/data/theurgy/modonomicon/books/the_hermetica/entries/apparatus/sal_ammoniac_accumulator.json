@@ -15,9 +15,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "theurgy:sal_ammoniac_accumulator"
-      },
+      "item": "theurgy:sal_ammoniac_accumulator",
       "text": "book.theurgy.the_hermetica.apparatus.sal_ammoniac_accumulator.intro.text",
       "title": ""
     },

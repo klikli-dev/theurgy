@@ -19,17 +19,11 @@
   "category": "misc",
   "fluid": {
     "amount": 100,
-    "ingredient": {
-      "fluid": "theurgy:sal_ammoniac"
-    }
+    "ingredient": "theurgy:sal_ammoniac"
   },
   "ingredients": [
-    {
-      "tag": "minecraft:saplings"
-    },
-    {
-      "tag": "c:sugars"
-    }
+    "#minecraft:saplings",
+    "#c:sugars"
   ],
   "result": {
     "type": "theurgy:item",

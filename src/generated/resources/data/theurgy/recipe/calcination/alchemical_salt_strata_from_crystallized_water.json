@@ -3,9 +3,7 @@
   "category": "misc",
   "ingredient": {
     "count": 1,
-    "ingredient": {
-      "item": "theurgy:crystallized_water"
-    }
+    "ingredient": "theurgy:crystallized_water"
   },
   "result": {
     "type": "theurgy:item",

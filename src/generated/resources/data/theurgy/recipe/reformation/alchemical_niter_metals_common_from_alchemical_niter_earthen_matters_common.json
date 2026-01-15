@@ -10,51 +10,35 @@
   "sources": [
     {
       "count": 1,
-      "ingredient": {
-        "item": "theurgy:alchemical_niter_earthen_matters_common"
-      }
+      "ingredient": "theurgy:alchemical_niter_earthen_matters_common"
     },
     {
       "count": 1,
-      "ingredient": {
-        "item": "theurgy:alchemical_niter_earthen_matters_common"
-      }
+      "ingredient": "theurgy:alchemical_niter_earthen_matters_common"
     },
     {
       "count": 1,
-      "ingredient": {
-        "item": "theurgy:alchemical_niter_earthen_matters_common"
-      }
+      "ingredient": "theurgy:alchemical_niter_earthen_matters_common"
     },
     {
       "count": 1,
-      "ingredient": {
-        "item": "theurgy:alchemical_niter_earthen_matters_common"
-      }
+      "ingredient": "theurgy:alchemical_niter_earthen_matters_common"
     },
     {
       "count": 1,
-      "ingredient": {
-        "item": "theurgy:alchemical_niter_earthen_matters_common"
-      }
+      "ingredient": "theurgy:alchemical_niter_earthen_matters_common"
     },
     {
       "count": 1,
-      "ingredient": {
-        "item": "theurgy:alchemical_niter_earthen_matters_common"
-      }
+      "ingredient": "theurgy:alchemical_niter_earthen_matters_common"
     },
     {
       "count": 1,
-      "ingredient": {
-        "item": "theurgy:alchemical_niter_earthen_matters_common"
-      }
+      "ingredient": "theurgy:alchemical_niter_earthen_matters_common"
     },
     {
       "count": 1,
-      "ingredient": {
-        "item": "theurgy:alchemical_niter_earthen_matters_common"
-      }
+      "ingredient": "theurgy:alchemical_niter_earthen_matters_common"
     }
   ],
   "target": {

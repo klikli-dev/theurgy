@@ -12,9 +12,7 @@
   "category": "misc",
   "ingredient": {
     "count": 1,
-    "ingredient": {
-      "tag": "minecraft:dirt"
-    }
+    "ingredient": "#minecraft:dirt"
   },
   "result": {
     "type": "theurgy:item",

@@ -26,9 +26,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "theurgy:alchemical_niter_metals_common"
-      },
+      "item": "theurgy:alchemical_niter_metals_common",
       "text": "book.theurgy.the_hermetica.getting_started.fermentation_exaltation.metals.text",
       "title": "book.theurgy.the_hermetica.getting_started.fermentation_exaltation.metals.title"
     }

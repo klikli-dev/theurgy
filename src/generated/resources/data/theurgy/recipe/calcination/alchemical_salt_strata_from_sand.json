@@ -12,9 +12,7 @@
   "category": "misc",
   "ingredient": {
     "count": 1,
-    "ingredient": {
-      "tag": "minecraft:sand"
-    }
+    "ingredient": "#minecraft:sand"
   },
   "result": {
     "type": "theurgy:item",

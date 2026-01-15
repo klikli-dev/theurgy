@@ -12,9 +12,7 @@
   "category": "misc",
   "ingredient": {
     "count": 15,
-    "ingredient": {
-      "tag": "c:gravels"
-    }
+    "ingredient": "#c:gravels"
   },
   "result": {
     "type": "theurgy:item",

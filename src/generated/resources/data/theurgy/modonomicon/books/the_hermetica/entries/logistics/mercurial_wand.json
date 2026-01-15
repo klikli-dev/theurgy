@@ -15,9 +15,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "theurgy:mercurial_wand"
-      },
+      "item": "theurgy:mercurial_wand",
       "text": "book.theurgy.the_hermetica.logistics.mercurial_wand.conversion.text",
       "title": ""
     },

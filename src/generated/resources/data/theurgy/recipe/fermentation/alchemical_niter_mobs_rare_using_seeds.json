@@ -19,17 +19,11 @@
   "category": "misc",
   "fluid": {
     "amount": 500,
-    "ingredient": {
-      "fluid": "minecraft:water"
-    }
+    "ingredient": "minecraft:water"
   },
   "ingredients": [
-    {
-      "tag": "theurgy:alchemical_sulfurs/mobs/rare/automatic_recipes"
-    },
-    {
-      "tag": "c:seeds"
-    }
+    "#theurgy:alchemical_sulfurs/mobs/rare/automatic_recipes",
+    "#c:seeds"
   ],
   "result": {
     "type": "theurgy:item",

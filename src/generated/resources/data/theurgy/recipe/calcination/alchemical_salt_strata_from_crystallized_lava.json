@@ -3,9 +3,7 @@
   "category": "misc",
   "ingredient": {
     "count": 1,
-    "ingredient": {
-      "item": "theurgy:crystallized_lava"
-    }
+    "ingredient": "theurgy:crystallized_lava"
   },
   "result": {
     "type": "theurgy:item",

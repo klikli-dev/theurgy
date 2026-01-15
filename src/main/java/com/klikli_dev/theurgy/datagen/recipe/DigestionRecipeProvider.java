@@ -143,7 +143,7 @@ public class DigestionRecipeProvider extends JsonRecipeProvider {
                 this.recipe.add("ingredients", new JsonArray());
 
             this.recipe.getAsJsonArray("ingredients").add(
-                    SizedIngredient.NESTED_CODEC.encodeStart(JsonOps.INSTANCE, new SizedIngredient(Ingredient.of(item), count)).getOrThrow());
+                    SizedIngredient.NESTED_CODEC.encodeStart(DigestionRecipeProvider.this.registryOps, SizedIngredient.of(item, count)).getOrThrow());
 
             return this.getThis();
         }
@@ -153,7 +153,7 @@ public class DigestionRecipeProvider extends JsonRecipeProvider {
                 this.recipe.add("ingredients", new JsonArray());
 
             this.recipe.getAsJsonArray("ingredients").add(
-                    SizedIngredient.NESTED_CODEC.encodeStart(JsonOps.INSTANCE, new SizedIngredient(Ingredient.of(BuiltInRegistries.ITEM.get(tag).orElseThrow()), count)).getOrThrow());
+                    SizedIngredient.NESTED_CODEC.encodeStart(DigestionRecipeProvider.this.registryOps, new SizedIngredient(Ingredient.of(DigestionRecipeProvider.this.items.get(tag).orElseThrow()), count)).getOrThrow());
 
             this.condition(new NotCondition(new TagEmptyCondition(tag.location().toString())));
 

@@ -11,6 +11,7 @@ import com.klikli_dev.theurgy.content.recipe.condition.FluidTagEmptyCondition;
 import com.klikli_dev.theurgy.content.recipe.result.ItemRecipeResult;
 import com.klikli_dev.theurgy.content.recipe.result.RecipeResult;
 import com.klikli_dev.theurgy.content.recipe.result.TagRecipeResult;
+import com.google.gson.JsonElement;
 import com.mojang.serialization.JsonOps;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
@@ -50,7 +51,9 @@ public abstract class JsonRecipeProvider implements DataProvider {
 
     protected final CompletableFuture<HolderLookup.Provider> lookupProvider;
     protected HolderLookup.Provider registries;
-    private HolderGetter<Item> items;
+    protected RegistryOps<JsonElement> registryOps;
+    protected HolderGetter<Item> items;
+    protected HolderGetter<Fluid> fluids;
     protected final PackOutput.PathProvider recipePathProvider;
     protected String modid;
 
@@ -117,7 +120,9 @@ public abstract class JsonRecipeProvider implements DataProvider {
     public @NotNull CompletableFuture<?> run(@NotNull CachedOutput pOutput) {
         return this.lookupProvider.thenCompose(provider -> {
             this.registries = provider;
+            this.registryOps = this.registries.createSerializationContext(JsonOps.INSTANCE);
             this.items = this.registries.lookupOrThrow(Registries.ITEM);
+            this.fluids = this.registries.lookupOrThrow(Registries.FLUID);
 
             Set<ResourceLocation> set = Sets.newHashSet();
             List<CompletableFuture<?>> futures = new ArrayList<>();
@@ -170,7 +175,7 @@ public abstract class JsonRecipeProvider implements DataProvider {
         }
 
         public T result(String propertyName, RecipeResult result) {
-            this.recipe.add(propertyName, RecipeResult.CODEC.encodeStart(RegistryOps.create(JsonOps.INSTANCE, JsonRecipeProvider.this.registries), result).getOrThrow());
+            this.recipe.add(propertyName, RecipeResult.CODEC.encodeStart(JsonRecipeProvider.this.registryOps, result).getOrThrow());
 
             if (result instanceof TagRecipeResult tagRecipeResult) {
                 this.condition(new NotCondition(new TagEmptyCondition(tagRecipeResult.tag().location().toString())));
@@ -184,7 +189,7 @@ public abstract class JsonRecipeProvider implements DataProvider {
         }
 
         public T result(String propertyName, FluidStack result) {
-            this.recipe.add(propertyName, FluidStack.CODEC.encodeStart(RegistryOps.create(JsonOps.INSTANCE, JsonRecipeProvider.this.registries), result).getOrThrow());
+            this.recipe.add(propertyName, FluidStack.CODEC.encodeStart(JsonRecipeProvider.this.registryOps, result).getOrThrow());
             return this.getThis();
         }
 
@@ -201,7 +206,7 @@ public abstract class JsonRecipeProvider implements DataProvider {
         }
 
         public T ingredient(String propertyName, TagKey<Item> tag) {
-            this.recipe.add(propertyName, Ingredient.CODEC.encodeStart(RegistryOps.create(JsonOps.INSTANCE, JsonRecipeProvider.this.registries), Ingredient.of(JsonRecipeProvider.this.items.get(tag).orElseThrow())).getOrThrow());
+            this.recipe.add(propertyName, Ingredient.CODEC.encodeStart(JsonRecipeProvider.this.registryOps, Ingredient.of(JsonRecipeProvider.this.items.get(tag).orElseThrow())).getOrThrow());
 
             this.condition(new NotCondition(new TagEmptyCondition(tag.location().toString())));
 
@@ -217,35 +222,35 @@ public abstract class JsonRecipeProvider implements DataProvider {
         }
 
         public T ingredient(String propertyName, Ingredient ingredient) {
-            this.recipe.add(propertyName, Ingredient.CODEC.encodeStart(RegistryOps.create(JsonOps.INSTANCE, JsonRecipeProvider.this.registries), ingredient).getOrThrow());
+            this.recipe.add(propertyName, Ingredient.CODEC.encodeStart(JsonRecipeProvider.this.registryOps, ingredient).getOrThrow());
             return this.getThis();
         }
 
         public T sizedIngredient(String propertyName, TagKey<Item> item, int amount) {
-            this.recipe.add(propertyName, SizedIngredient.NESTED_CODEC.encodeStart(RegistryOps.create(JsonOps.INSTANCE, JsonRecipeProvider.this.registries), new SizedIngredient(Ingredient.of(JsonRecipeProvider.this.items.getOrThrow(item)), amount)).getOrThrow());
+            this.recipe.add(propertyName, SizedIngredient.NESTED_CODEC.encodeStart(JsonRecipeProvider.this.registryOps, new SizedIngredient(Ingredient.of(JsonRecipeProvider.this.items.getOrThrow(item)), amount)).getOrThrow());
             this.condition(new NotCondition(new TagEmptyCondition(item.location().toString())));
             return this.getThis();
         }
 
         public T sizedIngredient(String propertyName, ItemLike item, int amount) {
-            this.recipe.add(propertyName, SizedIngredient.NESTED_CODEC.encodeStart(RegistryOps.create(JsonOps.INSTANCE, JsonRecipeProvider.this.registries), new SizedIngredient(Ingredient.of(item), amount)).getOrThrow());
+            this.recipe.add(propertyName, SizedIngredient.NESTED_CODEC.encodeStart(JsonRecipeProvider.this.registryOps, new SizedIngredient(Ingredient.of(item), amount)).getOrThrow());
             return this.getThis();
         }
 
         public T sizedFluidIngredient(String propertyName, TagKey<Fluid> fluid, int amount) {
-            this.recipe.add(propertyName, SizedFluidIngredient.CODEC.encodeStart(RegistryOps.create(JsonOps.INSTANCE, JsonRecipeProvider.this.registries), new SizedFluidIngredient(FluidIngredient.of(BuiltInRegistries.FLUID.get(fluid).orElseThrow()), amount)).getOrThrow());
+            this.recipe.add(propertyName, SizedFluidIngredient.CODEC.encodeStart(JsonRecipeProvider.this.registryOps, new SizedFluidIngredient(FluidIngredient.of(JsonRecipeProvider.this.fluids.get(fluid).orElseThrow()), amount)).getOrThrow());
             //TODO: enable once kubejs offers fluid tag cache access
 //            this.condition(new NotCondition(new FluidTagEmptyCondition(fluid.location().toString())));
             return this.getThis();
         }
 
         public T sizedFluidIngredient(String propertyName, Fluid fluid, int amount) {
-            this.recipe.add(propertyName, SizedFluidIngredient.CODEC.encodeStart(RegistryOps.create(JsonOps.INSTANCE, JsonRecipeProvider.this.registries), SizedFluidIngredient.of(fluid, amount)).getOrThrow());
+            this.recipe.add(propertyName, SizedFluidIngredient.CODEC.encodeStart(JsonRecipeProvider.this.registryOps, SizedFluidIngredient.of(fluid, amount)).getOrThrow());
             return this.getThis();
         }
 
         public T fluidIngredient(String propertyName, Fluid fluid) {
-            this.recipe.add(propertyName, FluidIngredient.CODEC.encodeStart(RegistryOps.create(JsonOps.INSTANCE, JsonRecipeProvider.this.registries), FluidIngredient.of(fluid)).getOrThrow());
+            this.recipe.add(propertyName, FluidIngredient.CODEC.encodeStart(JsonRecipeProvider.this.registryOps, FluidIngredient.of(fluid)).getOrThrow());
             return this.getThis();
         }
 
@@ -267,7 +272,7 @@ public abstract class JsonRecipeProvider implements DataProvider {
                 this.recipe.add("neoforge:conditions", new JsonArray());
 
             this.recipe.getAsJsonArray("neoforge:conditions").add(
-                    ICondition.CODEC.encodeStart(RegistryOps.create(JsonOps.INSTANCE, JsonRecipeProvider.this.registries), condition).getOrThrow()
+                    ICondition.CODEC.encodeStart(JsonRecipeProvider.this.registryOps, condition).getOrThrow()
             );
             return this.getThis();
         }

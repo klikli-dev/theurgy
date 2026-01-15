@@ -169,25 +169,6 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
         this.makeNiterToNiterRecipe(NiterRegistry.METALS_RARE.get(), 2, NiterRegistry.GEMS_RARE.get(), 1);
         this.makeNiterToNiterRecipe(NiterRegistry.METALS_PRECIOUS.get(), 2, NiterRegistry.GEMS_PRECIOUS.get(), 1);
 
-        this.makeNiterToNiterRecipe(NiterRegistry.OTHER_MINERALS_ABUNDANT.get(), 4, NiterRegistry.GEMS_ABUNDANT.get(), 1);
-        this.makeNiterToNiterRecipe(NiterRegistry.OTHER_MINERALS_COMMON.get(), 4, NiterRegistry.GEMS_COMMON.get(), 1);
-        this.makeNiterToNiterRecipe(NiterRegistry.OTHER_MINERALS_RARE.get(), 4, NiterRegistry.GEMS_RARE.get(), 1);
-        this.makeNiterToNiterRecipe(NiterRegistry.OTHER_MINERALS_PRECIOUS.get(), 4, NiterRegistry.GEMS_PRECIOUS.get(), 1);
-
-        this.makeNiterToNiterRecipe(NiterRegistry.MOBS_ABUNDANT.get(), 2, NiterRegistry.GEMS_ABUNDANT.get(), 1);
-        this.makeNiterToNiterRecipe(NiterRegistry.MOBS_COMMON.get(), 4, NiterRegistry.GEMS_COMMON.get(), 1);
-        this.makeNiterToNiterRecipe(NiterRegistry.MOBS_RARE.get(), 8, NiterRegistry.GEMS_RARE.get(), 1);
-        this.makeRecipe("", new Builder(new ItemStack(NiterRegistry.GEMS_PRECIOUS.get(), 1))
-                .time(TIME)
-                .sources(NiterRegistry.MOBS_PRECIOUS.get(), 4)
-                .sources(NiterRegistry.MOBS_PRECIOUS.get(), 4)
-                .sources(NiterRegistry.MOBS_PRECIOUS.get(), 4)
-                .sources(NiterRegistry.MOBS_PRECIOUS.get(), 4)
-                .sources(NiterRegistry.MOBS_PRECIOUS.get(), 4)
-                .sources(NiterRegistry.MOBS_PRECIOUS.get(), 4)
-                .sources(NiterRegistry.MOBS_PRECIOUS.get(), 4)
-                .sources(NiterRegistry.MOBS_PRECIOUS.get(), 4));
-
         this.makeNiterToNiterRecipe(NiterRegistry.EARTHEN_MATTERS_ABUNDANT.get(), 16, NiterRegistry.GEMS_ABUNDANT.get(), 1);
         this.makeNiterToNiterRecipe(NiterRegistry.EARTHEN_MATTERS_COMMON.get(), 16, NiterRegistry.GEMS_COMMON.get(), 1);
     }
@@ -506,7 +487,7 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
                 this.recipe.add("sources", new JsonArray());
 
             this.recipe.getAsJsonArray("sources").add(
-                    SizedIngredient.NESTED_CODEC.encodeStart(JsonOps.INSTANCE, SizedIngredient.of(item, count)).getOrThrow());
+                    SizedIngredient.NESTED_CODEC.encodeStart(ReformationRecipeProvider.this.registryOps, SizedIngredient.of(item, count)).getOrThrow());
 
             if(item instanceof AlchemicalSulfurItem sulfur) {
                 var stack = new ItemStack(sulfur);
@@ -527,7 +508,7 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
 
 
             this.recipe.getAsJsonArray("sources").add(
-SizedIngredient.NESTED_CODEC.encodeStart(JsonOps.INSTANCE, new SizedIngredient(Ingredient.of(BuiltInRegistries.ITEM.get(tag).orElseThrow()), count)).getOrThrow());
+SizedIngredient.NESTED_CODEC.encodeStart(ReformationRecipeProvider.this.registryOps, new SizedIngredient(Ingredient.of(ReformationRecipeProvider.this.items.get(tag).orElseThrow()), count)).getOrThrow());
 
             this.condition(new NotCondition(new TagEmptyCondition(tag.location().toString())));
 

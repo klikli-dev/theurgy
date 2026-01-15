@@ -452,7 +452,7 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
         return "Shaped Crafting Recipes";
     }
 
-    protected static class ShapedRecipeBuilder {
+    protected class ShapedRecipeBuilder {
 
         private final JsonObject recipe;
         private final ItemStack result;
@@ -498,7 +498,7 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
             this.result = result;
             this.recipe = new JsonObject();
             this.recipe.addProperty("type", recipeType);
-            this.recipe.add("result", ItemStack.STRICT_CODEC.encodeStart(JsonOps.INSTANCE, result).getOrThrow());
+            this.recipe.add("result", ItemStack.STRICT_CODEC.encodeStart(ShapedRecipeProvider.this.registryOps, result).getOrThrow());
             this.recipe.add("key", new JsonObject());
             this.recipe.add("pattern", new JsonArray());
         }

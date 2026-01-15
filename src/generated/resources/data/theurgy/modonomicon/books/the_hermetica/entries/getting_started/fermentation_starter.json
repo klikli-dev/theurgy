@@ -15,9 +15,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "theurgy:fermentation_starter"
-      },
+      "item": "theurgy:fermentation_starter",
       "text": "book.theurgy.the_hermetica.getting_started.fermentation_starter.fermentation_starter.text",
       "title": ""
     },

@@ -6,6 +6,7 @@ package com.klikli_dev.theurgy.content.recipe;
 
 
 import com.klikli_dev.theurgy.content.recipe.input.ItemHandlerWithFluidRecipeInput;
+import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.RecipeSerializerRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
@@ -22,6 +23,9 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.RecipeBookCategory;
+import net.minecraft.world.item.crafting.RecipeBookCategories;
+import net.minecraft.world.item.crafting.PlacementInfo;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.fluids.crafting.FluidIngredient;
 import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
@@ -34,8 +38,8 @@ public class LiquefactionRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
 
     public static final MapCodec<LiquefactionRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
                     Ingredient.CODEC.fieldOf("ingredient").forGetter((r) -> r.ingredient),
-                    SizedFluidIngredient.NESTED_CODEC.fieldOf("solvent").forGetter((r) -> r.solvent),
-                    ItemStack.STRICT_CODEC.fieldOf("result").forGetter(r -> r.result),
+                    SizedFluidIngredient.CODEC.fieldOf("solvent").forGetter((r) -> r.solvent),
+                    ItemStack.CODEC.fieldOf("result").forGetter(r -> r.result),
                     Codec.INT.optionalFieldOf("time", DEFAULT_TIME).forGetter(r -> r.time)
             ).apply(instance, LiquefactionRecipe::new)
     );
@@ -45,7 +49,7 @@ public class LiquefactionRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
             r -> r.ingredient,
             SizedFluidIngredient.STREAM_CODEC,
             r -> r.solvent,
-            ItemStack.OPTIONAL_STREAM_CODEC,
+            ItemStack.STREAM_CODEC,
             r -> r.result,
             ByteBufCodecs.INT,
             r -> r.time,
@@ -65,12 +69,7 @@ public class LiquefactionRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
     }
 
     @Override
-    public boolean isSpecial() {
-        return true;
-    }
-
-    @Override
-    public @NotNull RecipeType<?> getType() {
+    public @NotNull RecipeType<LiquefactionRecipe> getType() {
         return RecipeTypeRegistry.LIQUEFACTION.get();
     }
 
@@ -80,22 +79,33 @@ public class LiquefactionRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
         return this.ingredient.test(pContainer.getItem(0)) && this.solvent.test(fluid);
     }
 
-    @Override
-    public @NotNull ItemStack assemble(@NotNull ItemHandlerWithFluidRecipeInput pCraftingContainer, @NotNull HolderLookup.Provider pRegistries) {
+    public ItemStack getResultItem(HolderLookup.Provider pRegistries) {
+        return this.result;
+    }
+
+//    @Override
+//    public PlacementInfo placementInfo() {
+//        return PlacementInfo.create(this.ingredient);
+//    }
+
+    public ItemStack assemble(ItemHandlerWithFluidRecipeInput pCraftingContainer, HolderLookup.Provider pRegistries) {
         return this.result.copy();
     }
 
     @Override
-    public boolean canCraftInDimensions(int pWidth, int pHeight) {
-        return true;
+    public RecipeBookCategory recipeBookCategory() {
+        return RecipeBookCategories.CRAFTING_MISC;
     }
 
     @Override
-    public @NotNull ItemStack getResultItem(@NotNull HolderLookup.Provider pRegistries) {
-        return this.result;
+    public PlacementInfo placementInfo() {
+        return PlacementInfo.NOT_PLACEABLE;
     }
 
-    @Override
+    public ItemStack getToastSymbol() {
+        return new ItemStack(ItemRegistry.LIQUEFACTION_CAULDRON.get());
+    }
+
     public @NotNull NonNullList<Ingredient> getIngredients() {
         NonNullList<Ingredient> nonnulllist = NonNullList.create();
         nonnulllist.add(this.ingredient);
@@ -103,13 +113,8 @@ public class LiquefactionRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
     }
 
     @Override
-    public @NotNull ItemStack getToastSymbol() {
-        return new ItemStack(BlockRegistry.LIQUEFACTION_CAULDRON.get());
-    }
-
-    @Override
-    public @NotNull RecipeSerializer<?> getSerializer() {
-        return RecipeSerializerRegistry.LIQUEFACTION.get();
+    public @NotNull RecipeSerializer<LiquefactionRecipe> getSerializer() {
+        return (RecipeSerializer<LiquefactionRecipe>) RecipeSerializerRegistry.LIQUEFACTION.get();
     }
 
     public int getTime() {

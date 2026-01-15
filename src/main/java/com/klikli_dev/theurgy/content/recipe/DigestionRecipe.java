@@ -24,6 +24,11 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.RecipeBookCategory;
+import net.minecraft.world.item.crafting.RecipeBookCategories;
+import net.minecraft.world.item.crafting.RecipeBookCategory;
+import net.minecraft.world.item.crafting.RecipeBookCategories;
+import net.minecraft.world.item.crafting.PlacementInfo;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.common.crafting.SizedIngredient;
 import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
@@ -35,9 +40,9 @@ public class DigestionRecipe implements Recipe<ItemHandlerWithFluidRecipeInput> 
     public static final int DEFAULT_TIME = 200;
 
     public static final MapCodec<DigestionRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-                    SizedFluidIngredient.NESTED_CODEC.fieldOf("fluid").forGetter((r) -> r.fluid),
+                    SizedFluidIngredient.CODEC.fieldOf("fluid").forGetter((r) -> r.fluid),
                     SizedIngredient.NESTED_CODEC.listOf().fieldOf("ingredients").forGetter(r -> r.sizedIngredients),
-                    ItemStack.STRICT_CODEC.fieldOf("result").forGetter(r -> r.result),
+                    ItemStack.CODEC.fieldOf("result").forGetter(r -> r.result),
                     Codec.INT.optionalFieldOf("time", DEFAULT_TIME).forGetter(r -> r.time)
             ).apply(instance, DigestionRecipe::new)
     );
@@ -47,7 +52,7 @@ public class DigestionRecipe implements Recipe<ItemHandlerWithFluidRecipeInput> 
             r -> r.fluid,
             SizedIngredient.STREAM_CODEC.apply(ByteBufCodecs.list()),
             r -> r.sizedIngredients,
-            ItemStack.OPTIONAL_STREAM_CODEC,
+            ItemStack.STREAM_CODEC,
             r -> r.result,
             ByteBufCodecs.INT,
             r -> r.time,
@@ -69,13 +74,9 @@ public class DigestionRecipe implements Recipe<ItemHandlerWithFluidRecipeInput> 
         this.time = time;
     }
 
-    @Override
-    public boolean isSpecial() {
-        return true;
-    }
 
     @Override
-    public @NotNull RecipeType<?> getType() {
+    public @NotNull RecipeType<DigestionRecipe> getType() {
         return RecipeTypeRegistry.DIGESTION.get();
     }
 
@@ -119,22 +120,32 @@ public class DigestionRecipe implements Recipe<ItemHandlerWithFluidRecipeInput> 
         return true;
     }
 
-    @Override
-    public @NotNull ItemStack assemble(@NotNull ItemHandlerWithFluidRecipeInput pInv, HolderLookup.@NotNull Provider pRegistries) {
+    public ItemStack assemble(ItemHandlerWithFluidRecipeInput pInv, HolderLookup.Provider pRegistries) {
         return this.result.copy();
     }
-
     @Override
-    public boolean canCraftInDimensions(int pWidth, int pHeight) {
-        return true;
+    public RecipeBookCategory recipeBookCategory() {
+        return RecipeBookCategories.CRAFTING_MISC;
     }
 
     @Override
+    public PlacementInfo placementInfo() {
+        return PlacementInfo.NOT_PLACEABLE;
+    }
+//    @Override
+//    public RecipeBookCategory recipeBookCategory() {
+//        return RecipeBookCategories.CRAFTING_MISC;
+//    }
+
+//    @Override
+//    public PlacementInfo placementInfo() {
+//        return PlacementInfo.create(this.ingredients);
+//    }
+
     public @NotNull ItemStack getResultItem(HolderLookup.@NotNull Provider pRegistries) {
         return this.result;
     }
 
-    @Override
     public @NotNull NonNullList<Ingredient> getIngredients() {
         return this.ingredients;
     }
@@ -143,14 +154,13 @@ public class DigestionRecipe implements Recipe<ItemHandlerWithFluidRecipeInput> 
         return this.sizedIngredients;
     }
 
-    @Override
     public @NotNull ItemStack getToastSymbol() {
         return new ItemStack(ItemRegistry.DIGESTION_VAT.get());
     }
 
     @Override
-    public @NotNull RecipeSerializer<?> getSerializer() {
-        return RecipeSerializerRegistry.DIGESTION.get();
+    public @NotNull RecipeSerializer<DigestionRecipe> getSerializer() {
+        return (RecipeSerializer<DigestionRecipe>) RecipeSerializerRegistry.DIGESTION.get();
     }
 
     public SizedFluidIngredient getFluid() {

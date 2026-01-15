@@ -1,5 +1,5 @@
-// 1.21.1	2024-08-18T09:57:01.0429603	Accumulation Recipes
-49da97b13d6ce3b85b9669622f397f17c01d6515 data/theurgy/recipe/accumulation/lava_from_crystallized_lava.json
-71ce6a8b453865dd2e285fe62e8f8014d0882f75 data/theurgy/recipe/accumulation/sal_ammoniac_from_water.json
-47ca3ffde6ab517559ef29100ab059a6b3771a94 data/theurgy/recipe/accumulation/sal_ammoniac_from_water_and_sal_ammoniac_crystal.json
-b2d37d5eb49c4bfcacb379174f662ead7891fd6f data/theurgy/recipe/accumulation/water_from_crystallized_water.json
+// 1.21.3	2026-01-15T15:27:48.0463115	Accumulation Recipes
+ea26beeb82b8bbca9a064f4c75e5516f9faf5beb data/theurgy/recipe/accumulation/lava_from_crystallized_lava.json
+ad19040c761360a64c40a5bd07a2d091d6043e5b data/theurgy/recipe/accumulation/sal_ammoniac_from_water.json
+fb4148ce3848e7f9cde07e42dcb688f1be672d5b data/theurgy/recipe/accumulation/sal_ammoniac_from_water_and_sal_ammoniac_crystal.json
+7bf4ba2caad38e440b2b0a92ddf16b679314a3cc data/theurgy/recipe/accumulation/water_from_crystallized_water.json

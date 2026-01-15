@@ -12,17 +12,11 @@
   "category": "misc",
   "fluid": {
     "amount": 1000,
-    "ingredient": {
-      "fluid": "minecraft:water"
-    }
+    "ingredient": "minecraft:water"
   },
   "ingredients": [
-    {
-      "item": "theurgy:alchemical_sulfur_heart_of_the_sea"
-    },
-    {
-      "tag": "minecraft:flowers"
-    }
+    "theurgy:alchemical_sulfur_heart_of_the_sea",
+    "#minecraft:flowers"
   ],
   "result": {
     "type": "theurgy:item",

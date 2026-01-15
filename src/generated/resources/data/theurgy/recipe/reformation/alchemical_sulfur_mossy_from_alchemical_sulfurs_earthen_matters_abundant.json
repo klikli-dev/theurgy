@@ -40,9 +40,7 @@
   "sources": [
     {
       "count": 1,
-      "ingredient": {
-        "tag": "theurgy:alchemical_sulfurs/earthen_matters/abundant"
-      }
+      "ingredient": "#theurgy:alchemical_sulfurs/earthen_matters/abundant"
     }
   ],
   "target": {

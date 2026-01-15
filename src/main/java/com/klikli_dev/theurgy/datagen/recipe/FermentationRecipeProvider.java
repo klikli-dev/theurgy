@@ -34,8 +34,8 @@ public class FermentationRecipeProvider extends JsonRecipeProvider {
 
     public static final int TIME = FermentationRecipe.DEFAULT_TIME;
 
-    public FermentationRecipeProvider(PackOutput packOutput) {
-        super(packOutput, Theurgy.MODID, "fermentation");
+    public FermentationRecipeProvider(PackOutput packOutput, java.util.concurrent.CompletableFuture<net.minecraft.core.HolderLookup.Provider> lookupProvider) {
+        super(packOutput, lookupProvider, Theurgy.MODID, "fermentation");
     }
 
     @Override
@@ -265,7 +265,7 @@ public class FermentationRecipeProvider extends JsonRecipeProvider {
         return "Fermentation Recipes";
     }
 
-    protected static class Builder extends RecipeBuilder<Builder> {
+    protected class Builder extends RecipeBuilder<Builder> {
         private final ItemStack result;
 
         protected Builder(ItemLike result) {
@@ -301,7 +301,7 @@ public class FermentationRecipeProvider extends JsonRecipeProvider {
                 this.recipe.add("ingredients", new JsonArray());
 
             this.recipe.getAsJsonArray("ingredients").add(
-                    Ingredient.CODEC.encodeStart(JsonOps.INSTANCE, Ingredient.of(item)).getOrThrow());
+                    Ingredient.CODEC.encodeStart(FermentationRecipeProvider.this.registryOps, Ingredient.of(item)).getOrThrow());
             return this.getThis();
         }
 
@@ -309,10 +309,9 @@ public class FermentationRecipeProvider extends JsonRecipeProvider {
             if (!this.recipe.has("ingredients"))
                 this.recipe.add("ingredients", new JsonArray());
 
-            JsonObject jsonobject = new JsonObject();
-            jsonobject.addProperty("tag", tag.location().toString());
-
-            this.recipe.getAsJsonArray("ingredients").add(jsonobject);
+            this.recipe.getAsJsonArray("ingredients").add(
+                Ingredient.CODEC.encodeStart(FermentationRecipeProvider.this.registryOps, Ingredient.of(FermentationRecipeProvider.this.items.get(tag).orElseThrow())).getOrThrow()
+            );
 
             this.condition(new NotCondition(new TagEmptyCondition(tag.location().toString())));
 

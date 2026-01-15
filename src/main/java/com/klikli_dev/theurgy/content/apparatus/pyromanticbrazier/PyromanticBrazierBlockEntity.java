@@ -85,7 +85,7 @@ public class PyromanticBrazierBlockEntity extends BlockEntity {
         if (pFuel.isEmpty()) {
             return 0;
         } else {
-            return pFuel.getBurnTime(RecipeTypeRegistry.PYROMANTIC_BRAZIER.get());
+            return pFuel.getBurnTime(RecipeTypeRegistry.PYROMANTIC_BRAZIER.get(), null);
         }
     }
 
@@ -119,13 +119,13 @@ public class PyromanticBrazierBlockEntity extends BlockEntity {
             if (this.isLit()) {
                 wasTurnedOnDuringThisTick = true;
                 //handle lava bucket
-                if (fuelStack.hasCraftingRemainingItem())
-                    this.inventory.setStackInSlot(0, fuelStack.getCraftingRemainingItem());
+                if (!fuelStack.getCraftingRemainder().isEmpty())
+                    this.inventory.setStackInSlot(0, fuelStack.getCraftingRemainder());
                     //handle all other fuel items
                 else if (hasFuel) {
                     fuelStack.shrink(1);
                     if (fuelStack.isEmpty()) {
-                        this.inventory.setStackInSlot(0, fuelStack.getCraftingRemainingItem());
+                        this.inventory.setStackInSlot(0, fuelStack.getCraftingRemainder());
                     }
                 }
             }

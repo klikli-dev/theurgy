@@ -149,7 +149,7 @@ public class Theurgy {
             modEventBus.addListener(ShaderRegistry::onRegisterShaders);
             NeoForge.EVENT_BUS.addListener(Client::onRenderLevelStage);
             NeoForge.EVENT_BUS.addListener(Client::onClientTick);
-            NeoForge.EVENT_BUS.addListener(Client::onRecipesUpdated);
+            // NeoForge.EVENT_BUS.addListener(Client::onRecipesUpdated);
             NeoForge.EVENT_BUS.addListener(Client::onMouseScrolling);
             NeoForge.EVENT_BUS.addListener(Client::onRightClick);
             NeoForge.EVENT_BUS.addListener(Client::onLeftClick);
@@ -237,17 +237,17 @@ public class Theurgy {
             WireRenderer.get().onRenderLevelStage(event);
         }
 
-        public static void onRecipesUpdated(RecipesUpdatedEvent event) {
-            //now disable rendering of sulfurs that have no recipe in modonomicon -> otherwise we see "no source" sulfurs in tag recipes
-            //See also JeiPlugin.registerRecipes
-            var liquefactionRecipes = event.getRecipeManager().getAllRecipesFor(RecipeTypeRegistry.LIQUEFACTION.get());
-
-            //noinspection ConstantValue
-            SulfurRegistry.SULFURS.getEntries().stream()
-                    .map(DeferredHolder::get)
-                    .map(AlchemicalSulfurItem.class::cast)
-                    .filter(sulfur -> liquefactionRecipes.stream().noneMatch(r -> r.value().getResultItem(RegistryAccess.EMPTY) != null && r.value().getResultItem(RegistryAccess.EMPTY).getItem() == sulfur)).map(ItemStack::new).forEach(PageRendererRegistry::registerItemStackNotToRender);
-        }
+//        public static void onRecipesUpdated(RecipesUpdatedEvent event) {
+//            //now disable rendering of sulfurs that have no recipe in modonomicon -> otherwise we see "no source" sulfurs in tag recipes
+//            //See also JeiPlugin.registerRecipes
+//            var liquefactionRecipes = event.getRecipeManager().getAllRecipesFor(RecipeTypeRegistry.LIQUEFACTION.get());
+//
+//            //noinspection ConstantValue
+//            SulfurRegistry.SULFURS.getEntries().stream()
+//                    .map(DeferredHolder::get)
+//                    .map(AlchemicalSulfurItem.class::cast)
+//                    .filter(sulfur -> liquefactionRecipes.stream().noneMatch(r -> r.value().getResultItem(RegistryAccess.EMPTY) != null && r.value().getResultItem(RegistryAccess.EMPTY).getItem() == sulfur)).map(ItemStack::new).forEach(PageRendererRegistry::registerItemStackNotToRender);
+//        }
 
         public static void registerTooltipDataProviders(FMLClientSetupEvent event) {
             TooltipHandler.registerNamespaceToListenTo(MODID);

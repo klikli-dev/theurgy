@@ -3,9 +3,7 @@
   "category": "misc",
   "ingredient": {
     "count": 1,
-    "ingredient": {
-      "item": "minecraft:terracotta"
-    }
+    "ingredient": "minecraft:terracotta"
   },
   "result": {
     "type": "theurgy:item",

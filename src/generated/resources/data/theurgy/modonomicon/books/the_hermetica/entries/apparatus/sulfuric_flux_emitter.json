@@ -15,9 +15,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "theurgy:sulfuric_flux_emitter"
-      },
+      "item": "theurgy:sulfuric_flux_emitter",
       "text": "book.theurgy.the_hermetica.apparatus.sulfuric_flux_emitter.intro.text",
       "title": ""
     },

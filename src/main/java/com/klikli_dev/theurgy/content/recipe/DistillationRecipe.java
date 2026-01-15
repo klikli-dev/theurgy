@@ -21,6 +21,11 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.RecipeBookCategory;
+import net.minecraft.world.item.crafting.RecipeBookCategories;
+import net.minecraft.world.item.crafting.RecipeBookCategory;
+import net.minecraft.world.item.crafting.RecipeBookCategories;
+import net.minecraft.world.item.crafting.PlacementInfo;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.common.crafting.SizedIngredient;
 import org.jetbrains.annotations.NotNull;
@@ -31,7 +36,7 @@ public class DistillationRecipe implements Recipe<ItemHandlerRecipeInput> {
 
     public static final MapCodec<DistillationRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             SizedIngredient.NESTED_CODEC.fieldOf("ingredient").forGetter((r) -> r.ingredient),
-                    ItemStack.STRICT_CODEC.fieldOf("result").forGetter(r -> r.result),
+                    ItemStack.CODEC.fieldOf("result").forGetter(r -> r.result),
                     Codec.INT.optionalFieldOf("time", DEFAULT_TIME).forGetter(r -> r.time)
             ).apply(instance, DistillationRecipe::new)
     );
@@ -39,7 +44,7 @@ public class DistillationRecipe implements Recipe<ItemHandlerRecipeInput> {
     public static final StreamCodec<RegistryFriendlyByteBuf, DistillationRecipe> STREAM_CODEC = StreamCodec.composite(
             SizedIngredient.STREAM_CODEC,
             r -> r.ingredient,
-            ItemStack.OPTIONAL_STREAM_CODEC,
+            ItemStack.STREAM_CODEC,
             r -> r.result,
             ByteBufCodecs.INT,
             r -> r.time,
@@ -57,12 +62,7 @@ public class DistillationRecipe implements Recipe<ItemHandlerRecipeInput> {
     }
 
     @Override
-    public boolean isSpecial() {
-        return true;
-    }
-
-    @Override
-    public @NotNull RecipeType<?> getType() {
+    public @NotNull RecipeType<DistillationRecipe> getType() {
         return RecipeTypeRegistry.DISTILLATION.get();
     }
 
@@ -72,22 +72,24 @@ public class DistillationRecipe implements Recipe<ItemHandlerRecipeInput> {
         return this.ingredient.test(stack);
     }
 
-    @Override
-    public @NotNull ItemStack assemble(@NotNull ItemHandlerRecipeInput pInv, HolderLookup.@NotNull Provider pRegistries) {
+    public ItemStack assemble(ItemHandlerRecipeInput pCraftingContainer, HolderLookup.Provider pRegistries) {
         return this.result.copy();
     }
 
     @Override
-    public boolean canCraftInDimensions(int pWidth, int pHeight) {
-        return true;
+    public RecipeBookCategory recipeBookCategory() {
+        return RecipeBookCategories.CRAFTING_MISC;
     }
 
     @Override
-    public @NotNull ItemStack getResultItem(HolderLookup.@NotNull Provider pRegistries) {
+    public PlacementInfo placementInfo() {
+        return PlacementInfo.create(this.ingredient.ingredient());
+    }
+
+    public ItemStack getResultItem(HolderLookup.Provider pRegistries) {
         return this.result;
     }
 
-    @Override
     public @NotNull NonNullList<Ingredient> getIngredients() {
         NonNullList<Ingredient> nonnulllist = NonNullList.create();
         nonnulllist.add(this.ingredient.ingredient());
@@ -102,14 +104,13 @@ public class DistillationRecipe implements Recipe<ItemHandlerRecipeInput> {
         return this.ingredient.count();
     }
 
-    @Override
     public @NotNull ItemStack getToastSymbol() {
         return new ItemStack(BlockRegistry.DISTILLER.get());
     }
 
     @Override
-    public @NotNull RecipeSerializer<?> getSerializer() {
-        return RecipeSerializerRegistry.DISTILLATION.get();
+    public @NotNull RecipeSerializer<DistillationRecipe> getSerializer() {
+        return (RecipeSerializer<DistillationRecipe>) RecipeSerializerRegistry.DISTILLATION.get();
     }
 
     public int getTime() {

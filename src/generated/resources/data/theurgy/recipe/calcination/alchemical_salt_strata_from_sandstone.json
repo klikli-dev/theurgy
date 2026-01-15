@@ -12,9 +12,7 @@
   "category": "misc",
   "ingredient": {
     "count": 1,
-    "ingredient": {
-      "tag": "c:sandstone/blocks"
-    }
+    "ingredient": "#c:sandstone/blocks"
   },
   "result": {
     "type": "theurgy:item",

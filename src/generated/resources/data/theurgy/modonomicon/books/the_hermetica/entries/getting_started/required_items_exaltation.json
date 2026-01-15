@@ -15,9 +15,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "theurgy:alchemical_sulfur_iron"
-      },
+      "item": "theurgy:alchemical_sulfur_iron",
       "text": "book.theurgy.the_hermetica.getting_started.required_items_exaltation.source.text",
       "title": "book.theurgy.the_hermetica.getting_started.required_items_exaltation.source.title"
     },
@@ -38,9 +36,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "theurgy:alchemical_sulfur_gold"
-      },
+      "item": "theurgy:alchemical_sulfur_gold",
       "text": "book.theurgy.the_hermetica.getting_started.required_items_exaltation.target.text",
       "title": "book.theurgy.the_hermetica.getting_started.required_items_exaltation.target.title"
     },
@@ -61,9 +57,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "theurgy:purified_gold"
-      },
+      "item": "theurgy:purified_gold",
       "text": "book.theurgy.the_hermetica.getting_started.required_items_exaltation.catalyst.text",
       "title": "book.theurgy.the_hermetica.getting_started.required_items_exaltation.catalyst.title"
     }

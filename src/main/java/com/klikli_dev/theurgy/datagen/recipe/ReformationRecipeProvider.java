@@ -16,11 +16,13 @@ import com.klikli_dev.theurgy.datagen.SulfurMappings;
 import com.klikli_dev.theurgy.registry.*;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.JsonOps;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.neoforged.neoforge.common.conditions.NotCondition;
 import net.neoforged.neoforge.common.conditions.TagEmptyCondition;
@@ -42,8 +44,8 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
     private final Map<ResourceLocation, JsonObject> recipeCache = new HashMap<>();
     private Set<AlchemicalDerivativeItem> noAutomaticRecipesFor = Set.of();
 
-    public ReformationRecipeProvider(PackOutput packOutput) {
-        super(packOutput, Theurgy.MODID, "reformation");
+    public ReformationRecipeProvider(PackOutput packOutput, java.util.concurrent.CompletableFuture<net.minecraft.core.HolderLookup.Provider> lookupProvider) {
+        super(packOutput, lookupProvider, Theurgy.MODID, "reformation");
     }
 
     private static int getFlux(AlchemicalDerivativeItem item) {
@@ -166,25 +168,6 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
         this.makeNiterToNiterRecipe(NiterRegistry.METALS_COMMON.get(), 2, NiterRegistry.GEMS_COMMON.get(), 1);
         this.makeNiterToNiterRecipe(NiterRegistry.METALS_RARE.get(), 2, NiterRegistry.GEMS_RARE.get(), 1);
         this.makeNiterToNiterRecipe(NiterRegistry.METALS_PRECIOUS.get(), 2, NiterRegistry.GEMS_PRECIOUS.get(), 1);
-
-        this.makeNiterToNiterRecipe(NiterRegistry.OTHER_MINERALS_ABUNDANT.get(), 4, NiterRegistry.GEMS_ABUNDANT.get(), 1);
-        this.makeNiterToNiterRecipe(NiterRegistry.OTHER_MINERALS_COMMON.get(), 4, NiterRegistry.GEMS_COMMON.get(), 1);
-        this.makeNiterToNiterRecipe(NiterRegistry.OTHER_MINERALS_RARE.get(), 4, NiterRegistry.GEMS_RARE.get(), 1);
-        this.makeNiterToNiterRecipe(NiterRegistry.OTHER_MINERALS_PRECIOUS.get(), 4, NiterRegistry.GEMS_PRECIOUS.get(), 1);
-
-        this.makeNiterToNiterRecipe(NiterRegistry.MOBS_ABUNDANT.get(), 2, NiterRegistry.GEMS_ABUNDANT.get(), 1);
-        this.makeNiterToNiterRecipe(NiterRegistry.MOBS_COMMON.get(), 4, NiterRegistry.GEMS_COMMON.get(), 1);
-        this.makeNiterToNiterRecipe(NiterRegistry.MOBS_RARE.get(), 8, NiterRegistry.GEMS_RARE.get(), 1);
-        this.makeRecipe("", new Builder(new ItemStack(NiterRegistry.GEMS_PRECIOUS.get(), 1))
-                .time(TIME)
-                .sources(NiterRegistry.MOBS_PRECIOUS.get(), 4)
-                .sources(NiterRegistry.MOBS_PRECIOUS.get(), 4)
-                .sources(NiterRegistry.MOBS_PRECIOUS.get(), 4)
-                .sources(NiterRegistry.MOBS_PRECIOUS.get(), 4)
-                .sources(NiterRegistry.MOBS_PRECIOUS.get(), 4)
-                .sources(NiterRegistry.MOBS_PRECIOUS.get(), 4)
-                .sources(NiterRegistry.MOBS_PRECIOUS.get(), 4)
-                .sources(NiterRegistry.MOBS_PRECIOUS.get(), 4));
 
         this.makeNiterToNiterRecipe(NiterRegistry.EARTHEN_MATTERS_ABUNDANT.get(), 16, NiterRegistry.GEMS_ABUNDANT.get(), 1);
         this.makeNiterToNiterRecipe(NiterRegistry.EARTHEN_MATTERS_COMMON.get(), 16, NiterRegistry.GEMS_COMMON.get(), 1);
@@ -447,7 +430,7 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
     }
 
 
-    protected static class Builder extends RecipeBuilder<Builder> {
+    protected class Builder extends RecipeBuilder<Builder> {
         private final ItemStack result;
 
         protected Builder(ItemStack result) {
@@ -504,7 +487,7 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
                 this.recipe.add("sources", new JsonArray());
 
             this.recipe.getAsJsonArray("sources").add(
-                    SizedIngredient.NESTED_CODEC.encodeStart(JsonOps.INSTANCE, SizedIngredient.of(item, count)).getOrThrow());
+                    SizedIngredient.NESTED_CODEC.encodeStart(ReformationRecipeProvider.this.registryOps, SizedIngredient.of(item, count)).getOrThrow());
 
             if(item instanceof AlchemicalSulfurItem sulfur) {
                 var stack = new ItemStack(sulfur);
@@ -525,7 +508,7 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
 
 
             this.recipe.getAsJsonArray("sources").add(
-                    SizedIngredient.NESTED_CODEC.encodeStart(JsonOps.INSTANCE, SizedIngredient.of(tag, count)).getOrThrow());
+SizedIngredient.NESTED_CODEC.encodeStart(ReformationRecipeProvider.this.registryOps, new SizedIngredient(Ingredient.of(ReformationRecipeProvider.this.items.get(tag).orElseThrow()), count)).getOrThrow());
 
             this.condition(new NotCondition(new TagEmptyCondition(tag.location().toString())));
 

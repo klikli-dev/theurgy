@@ -12,17 +12,11 @@
   "category": "misc",
   "fluid": {
     "amount": 500,
-    "ingredient": {
-      "fluid": "minecraft:water"
-    }
+    "ingredient": "minecraft:water"
   },
   "ingredients": [
-    {
-      "item": "theurgy:alchemical_sulfur_ghast_tear"
-    },
-    {
-      "tag": "minecraft:saplings"
-    }
+    "theurgy:alchemical_sulfur_ghast_tear",
+    "#minecraft:saplings"
   ],
   "result": {
     "type": "theurgy:item",

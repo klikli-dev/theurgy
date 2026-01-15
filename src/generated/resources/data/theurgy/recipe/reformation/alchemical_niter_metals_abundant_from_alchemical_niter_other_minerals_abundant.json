@@ -10,15 +10,11 @@
   "sources": [
     {
       "count": 1,
-      "ingredient": {
-        "item": "theurgy:alchemical_niter_other_minerals_abundant"
-      }
+      "ingredient": "theurgy:alchemical_niter_other_minerals_abundant"
     },
     {
       "count": 1,
-      "ingredient": {
-        "item": "theurgy:alchemical_niter_other_minerals_abundant"
-      }
+      "ingredient": "theurgy:alchemical_niter_other_minerals_abundant"
     }
   ],
   "target": {

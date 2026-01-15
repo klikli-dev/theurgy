@@ -39,13 +39,13 @@ public class LiquefactionEmiRecipe implements EmiRecipe {
 
     @Override
     public @Nullable ResourceLocation getId() {
-        return this.recipe.id();
+        return this.recipe.id().location();
     }
 
     @Override
     public List<EmiIngredient> getInputs() {
-        var inputs = new ArrayList<EmiIngredient>(Arrays.stream(this.recipe.value().getSolvent().getFluids())
-                .map(f -> EmiStack.of(f.getFluid(), this.recipe.value().getSolventAmount())).toList());
+        var inputs = new ArrayList<EmiIngredient>(this.recipe.value().getSolvent().ingredient().fluids()
+                .stream().map(f -> EmiStack.of(f.value(), this.recipe.value().getSolvent().amount())).toList());
         inputs.add(EmiIngredient.of(this.recipe.value().getIngredients().getFirst()));
         return inputs;
     }
@@ -70,8 +70,8 @@ public class LiquefactionEmiRecipe implements EmiRecipe {
         widgets.addTexture(EmiTexture.EMPTY_ARROW, 45, 8);
 //        widgets.addTexture(EmiPlugin.LIQUEFACTION_ICON, 12, 20);
 
-        widgets.addSlot(EmiIngredient.of(Arrays.stream(this.recipe.value().getSolvent().getFluids())
-                .map(f -> EmiStack.of(f.getFluid(), this.recipe.value().getSolventAmount())).toList()), 1, 1);
+        widgets.addSlot(EmiIngredient.of(this.recipe.value().getSolvent().ingredient().fluids()
+                .stream().map(f -> EmiStack.of(f.value(), this.recipe.value().getSolvent().amount())).toList()), 1, 1);
 
         widgets.addSlot(EmiIngredient.of(this.recipe.value().getIngredients().getFirst()), 19, 1);
 

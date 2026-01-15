@@ -1,9 +1,7 @@
 {
   "type": "theurgy:liquefaction",
   "category": "misc",
-  "ingredient": {
-    "item": "minecraft:coal_ore"
-  },
+  "ingredient": "minecraft:coal_ore",
   "result": {
     "type": "theurgy:item",
     "count": 4,
@@ -11,9 +9,7 @@
   },
   "solvent": {
     "amount": 10,
-    "ingredient": {
-      "fluid": "theurgy:sal_ammoniac"
-    }
+    "ingredient": "theurgy:sal_ammoniac"
   },
   "time": 100
 }

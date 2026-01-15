@@ -10,7 +10,7 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.Equipable;
+import net.minecraft.world.item.equipment.Equippable;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -30,7 +30,7 @@ public enum StandardAttributes implements ItemAttribute {
 
     DUMMY(s -> false),
     PLACEABLE(s -> s.getItem() instanceof BlockItem),
-    CONSUMABLE(s -> s.getFoodProperties(null) != null),
+    CONSUMABLE(s -> s.has(DataComponents.FOOD)),
     FLUID_CONTAINER(s -> s.getCapability(Capabilities.FluidHandler.ITEM) != null),
     ENCHANTED(ItemStack::isEnchanted),
     MAX_ENCHANTED(StandardAttributes::maxEnchanted),
@@ -38,8 +38,8 @@ public enum StandardAttributes implements ItemAttribute {
     DAMAGED(ItemStack::isDamaged),
     BADLY_DAMAGED(s -> s.isDamaged() && (float) s.getDamageValue() / s.getMaxDamage() > 3 / 4f),
     NOT_STACKABLE(((Predicate<ItemStack>) ItemStack::isStackable).negate()),
-    EQUIPABLE(s -> Equipable.get(s) != null),
-    FURNACE_FUEL(AbstractFurnaceBlockEntity::isFuel),
+    EQUIPABLE(s -> s.has(DataComponents.EQUIPPABLE)),
+    FURNACE_FUEL(s -> s.getBurnTime(RecipeType.SMELTING, null) > 0),
     SMELTABLE((s, w) -> testRecipe(s, w, RecipeType.SMELTING)),
     SMOKABLE((s, w) -> testRecipe(s, w, RecipeType.SMOKING)),
     BLASTABLE((s, w) -> testRecipe(s, w, RecipeType.BLASTING)),
@@ -58,8 +58,8 @@ public enum StandardAttributes implements ItemAttribute {
 
     private static boolean testRecipe(ItemStack s, Level level, RecipeType<? extends Recipe<SingleRecipeInput>> type) {
         var input = new SingleRecipeInput(s);
-        return level.getRecipeManager()
-                .getRecipeFor(type, input, level)
+        return ((net.minecraft.server.level.ServerLevel)level).getServer().getRecipeManager()
+                .getRecipeFor(type, input, (net.minecraft.server.level.ServerLevel)level)
                 .isPresent();
     }
 

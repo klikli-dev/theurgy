@@ -10,9 +10,7 @@
   ],
   "type": "theurgy:liquefaction",
   "category": "misc",
-  "ingredient": {
-    "tag": "c:ores/diamond"
-  },
+  "ingredient": "#c:ores/diamond",
   "result": {
     "type": "theurgy:item",
     "count": 4,
@@ -20,9 +18,7 @@
   },
   "solvent": {
     "amount": 100,
-    "ingredient": {
-      "fluid": "theurgy:sal_ammoniac"
-    }
+    "ingredient": "theurgy:sal_ammoniac"
   },
   "time": 100
 }

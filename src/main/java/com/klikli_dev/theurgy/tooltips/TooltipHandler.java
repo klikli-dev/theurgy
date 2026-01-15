@@ -34,9 +34,9 @@ public class TooltipHandler {
         var itemId = BuiltInRegistries.ITEM.getKey(stack.getItem());
         //only run for enabled namespaces to easily improve performance
         if (namespacesToListenFor.contains(itemId.getNamespace()) || ServerConfig.get().tooltipHandler.additionalTooltipHandlerNamespaces.get().contains(itemId.getNamespace())) {
-            String tooltipKey = stack.getDescriptionId() + TheurgyConstants.I18n.Tooltip.SUFFIX;
-            String extendedTooltipKey = stack.getDescriptionId() + TheurgyConstants.I18n.Tooltip.EXTENDED_SUFFIX;
-            String usageTooltipKey = stack.getDescriptionId() + TheurgyConstants.I18n.Tooltip.USAGE_SUFFIX;
+            String tooltipKey = stack.getItem().getDescriptionId() + TheurgyConstants.I18n.Tooltip.SUFFIX;
+            String extendedTooltipKey = stack.getItem().getDescriptionId() + TheurgyConstants.I18n.Tooltip.EXTENDED_SUFFIX;
+            String usageTooltipKey = stack.getItem().getDescriptionId() + TheurgyConstants.I18n.Tooltip.USAGE_SUFFIX;
 
             boolean tooltipExists = I18n.exists(tooltipKey);
             boolean extendedTooltipExists = I18n.exists(extendedTooltipKey);

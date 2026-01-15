@@ -33,9 +33,7 @@
   "sources": [
     {
       "count": 1,
-      "ingredient": {
-        "item": "theurgy:alchemical_niter_metals_common"
-      }
+      "ingredient": "theurgy:alchemical_niter_metals_common"
     }
   ],
   "target": {

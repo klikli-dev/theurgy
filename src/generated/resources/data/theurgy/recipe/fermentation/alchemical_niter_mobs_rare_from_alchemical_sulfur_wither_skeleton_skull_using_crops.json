@@ -12,17 +12,11 @@
   "category": "misc",
   "fluid": {
     "amount": 500,
-    "ingredient": {
-      "fluid": "minecraft:water"
-    }
+    "ingredient": "minecraft:water"
   },
   "ingredients": [
-    {
-      "item": "theurgy:alchemical_sulfur_wither_skeleton_skull"
-    },
-    {
-      "tag": "c:crops"
-    }
+    "theurgy:alchemical_sulfur_wither_skeleton_skull",
+    "#c:crops"
   ],
   "result": {
     "type": "theurgy:item",

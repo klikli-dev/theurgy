@@ -15,9 +15,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "theurgy:mercury_shard"
-      },
+      "item": "theurgy:mercury_shard",
       "text": "book.theurgy.the_hermetica.getting_started.create_mercury.intro.text",
       "title": ""
     },

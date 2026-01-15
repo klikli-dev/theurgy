@@ -18,7 +18,6 @@ import net.minecraft.core.GlobalPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -83,10 +82,10 @@ public class WireItem extends Item {
     }
 
     @Override
-    public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level level, @NotNull Player player, @NotNull InteractionHand usedHand) {
+    public @NotNull InteractionResult use(@NotNull Level level, @NotNull Player player, @NotNull InteractionHand usedHand) {
         if (usedHand == InteractionHand.MAIN_HAND && player.isShiftKeyDown()) {
             WireEndPoint.removeFrom(player.getMainHandItem());
-            return InteractionResultHolder.sidedSuccess(player.getMainHandItem(), level.isClientSide());
+            return InteractionResult.SUCCESS;
         }
 
         return super.use(level, player, usedHand);
@@ -99,7 +98,7 @@ public class WireItem extends Item {
         var wirePoint = WireEndPoint.load(stack);
         if (wirePoint != null) {
             tooltipComponents.add(Component.translatable(
-                    stack.getDescriptionId() + TheurgyConstants.I18n.Tooltip.DYNMIC_SUFFIX,
+                    stack.getItem().getDescriptionId() + TheurgyConstants.I18n.Tooltip.DYNMIC_SUFFIX,
                     Component.literal("[" + wirePoint.pos().toShortString() + "]").withStyle(ChatFormatting.GREEN)
             ).withStyle(ChatFormatting.GRAY));
         }
@@ -185,6 +184,6 @@ public class WireItem extends Item {
         var wirePoint = new WireEndPoint(pContext.getClickedPos(), pContext.getLevel().dimension());
         wirePoint.save(stack);
 
-        return InteractionResult.sidedSuccess(pContext.getLevel().isClientSide);
+        return InteractionResult.SUCCESS;
     }
 }

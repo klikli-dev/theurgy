@@ -39,18 +39,18 @@ public class DigestionEmiRecipe implements EmiRecipe {
 
     @Override
     public @Nullable ResourceLocation getId() {
-        return this.recipe.id();
+        return this.recipe.id().location();
     }
 
     @Override
     public List<EmiIngredient> getInputs() {
         var inputs = new ArrayList<EmiIngredient>();
         this.recipe.value().getSizedIngredients().forEach(sizedIngredient ->
-                inputs.add(EmiIngredient.of(Arrays.stream(sizedIngredient.ingredient().getItems())
+                inputs.add(EmiIngredient.of(sizedIngredient.ingredient().items().stream().map(net.minecraft.world.item.ItemStack::new)
                         .map(item -> EmiStack.of(item, sizedIngredient.count())).toList())));
 
-        inputs.add(EmiIngredient.of(Arrays.stream(this.recipe.value().getFluid().getFluids())
-                .map(f -> EmiStack.of(f.getFluid(), this.recipe.value().getFluidAmount())).toList()));
+        inputs.add(EmiIngredient.of(this.recipe.value().getFluid().ingredient().fluids()
+                .stream().map(f -> EmiStack.of(f.value(), this.recipe.value().getFluidAmount())).toList()));
 
         return inputs;
     }
@@ -82,8 +82,8 @@ public class DigestionEmiRecipe implements EmiRecipe {
             index++;
         }
 
-        widgets.addSlot(EmiIngredient.of(Arrays.stream(this.recipe.value().getFluid().getFluids())
-                .map(f -> EmiStack.of(f.getFluid(), this.recipe.value().getFluidAmount())).toList()), 1 + 18, 1 + 18);
+        widgets.addSlot(EmiIngredient.of(this.recipe.value().getFluid().ingredient().fluids()
+                .stream().map(f -> EmiStack.of(f.value(), this.recipe.value().getFluidAmount())).toList()), 1 + 18, 1 + 18);
 
         widgets.addSlot(EmiStack.of(this.recipe.value().getResultItem(RegistryAccess.EMPTY)), 81, 9).recipeContext(this);
 

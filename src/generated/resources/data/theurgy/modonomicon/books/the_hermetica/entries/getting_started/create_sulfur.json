@@ -15,9 +15,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "theurgy:alchemical_sulfur_iron"
-      },
+      "item": "theurgy:alchemical_sulfur_iron",
       "text": "book.theurgy.the_hermetica.getting_started.create_sulfur.intro.text",
       "title": ""
     },

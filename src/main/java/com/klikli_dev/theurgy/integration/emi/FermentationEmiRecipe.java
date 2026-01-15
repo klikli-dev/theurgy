@@ -39,7 +39,7 @@ public class FermentationEmiRecipe implements EmiRecipe {
 
     @Override
     public @Nullable ResourceLocation getId() {
-        return this.recipe.id();
+        return this.recipe.id().location();
     }
 
     @Override
@@ -47,9 +47,9 @@ public class FermentationEmiRecipe implements EmiRecipe {
         var inputs = new ArrayList<EmiIngredient>();
 
         this.recipe.value().getIngredients().forEach(ingredient -> inputs.add(EmiIngredient.of(ingredient)));
-        inputs.add(EmiIngredient.of(Arrays.stream(this.recipe.value().getFluid().getFluids())
-                .map(f ->
-                        EmiStack.of(f.getFluid(), this.recipe.value().getFluidAmount())
+        inputs.add(EmiIngredient.of(this.recipe.value().getFluid().ingredient().fluids()
+                .stream().map(f ->
+                        EmiStack.of(f.value(), this.recipe.value().getFluidAmount())
                 )
                 .toList()));
         return inputs;
@@ -82,9 +82,9 @@ public class FermentationEmiRecipe implements EmiRecipe {
             index++;
         }
 
-        widgets.addSlot(EmiIngredient.of(Arrays.stream(this.recipe.value().getFluid().getFluids())
-                .map(f ->
-                        EmiStack.of(f.getFluid(), this.recipe.value().getFluidAmount())
+        widgets.addSlot(EmiIngredient.of(this.recipe.value().getFluid().ingredient().fluids()
+                .stream().map(f ->
+                        EmiStack.of(f.value(), this.recipe.value().getFluidAmount())
                 )
                 .toList()), 1 + 18, 1 + 18);
 

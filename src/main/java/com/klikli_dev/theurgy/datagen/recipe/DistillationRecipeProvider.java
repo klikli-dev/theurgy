@@ -20,14 +20,15 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.neoforged.neoforge.common.Tags;
 
+import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
 
 public class DistillationRecipeProvider extends JsonRecipeProvider {
 
     public static final int TIME = DistillationRecipe.DEFAULT_TIME;
 
-    public DistillationRecipeProvider(PackOutput packOutput) {
-        super(packOutput, Theurgy.MODID, "distillation");
+    public DistillationRecipeProvider(PackOutput packOutput, CompletableFuture<net.minecraft.core.HolderLookup.Provider> lookupProvider) {
+        super(packOutput, lookupProvider, Theurgy.MODID, "distillation");
     }
 
     @Override
@@ -125,7 +126,7 @@ public class DistillationRecipeProvider extends JsonRecipeProvider {
         return "Distillation Recipes";
     }
 
-    protected static class Builder extends RecipeBuilder<Builder> {
+    protected class Builder extends RecipeBuilder<Builder> {
         protected Builder(ItemStack result) {
             super(RecipeTypeRegistry.DISTILLATION);
             this.result(result);

@@ -15,9 +15,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "theurgy:alchemical_salt_mineral"
-      },
+      "item": "theurgy:alchemical_salt_mineral",
       "text": "book.theurgy.the_hermetica.getting_started.plant_recycling.intro.text",
       "title": ""
     },

@@ -13,7 +13,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -36,6 +35,8 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraft.world.level.ScheduledTickAccess;
+import net.minecraft.util.RandomSource;
 
 import net.neoforged.neoforge.items.wrapper.RecipeWrapper;
 import org.jetbrains.annotations.Nullable;
@@ -71,7 +72,7 @@ public class DistillerBlock extends Block implements EntityBlock {
 
     @Override
     @SuppressWarnings("deprecation")
-    public BlockState updateShape(BlockState pState, Direction pFacing, BlockState pFacingState, LevelAccessor pLevel, BlockPos pCurrentPos, BlockPos pFacingPos) {
+    public BlockState updateShape(BlockState pState, LevelReader pLevel, ScheduledTickAccess pTickAccess, BlockPos pCurrentPos, Direction pFacing, BlockPos pFacingPos, BlockState pFacingState, RandomSource pRandom) {
         //destroy both blocks if one is mined
         var half = pState.getValue(HALF);
         if (pFacing.getAxis() == Direction.Axis.Y && half == DoubleBlockHalf.LOWER == (pFacing == Direction.UP)) {
@@ -83,7 +84,7 @@ public class DistillerBlock extends Block implements EntityBlock {
                     && pFacing == Direction.DOWN
                     && !pState.canSurvive(pLevel, pCurrentPos) ?
                     Blocks.AIR.defaultBlockState() :
-                    super.updateShape(pState, pFacing, pFacingState, pLevel, pCurrentPos, pFacingPos);
+                    super.updateShape(pState, pLevel, pTickAccess, pCurrentPos, pFacing, pFacingPos, pFacingState, pRandom);
         }
     }
 
@@ -111,7 +112,7 @@ public class DistillerBlock extends Block implements EntityBlock {
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {
         BlockPos blockpos = pContext.getClickedPos();
         Level level = pContext.getLevel();
-        if (blockpos.getY() < level.getMaxBuildHeight() - 1 && level.getBlockState(blockpos.above()).canBeReplaced(pContext)) {
+        if (level.isInWorldBounds(blockpos.above()) && level.getBlockState(blockpos.above()).canBeReplaced(pContext)) {
             return this.defaultBlockState().setValue(HALF, DoubleBlockHalf.LOWER).setValue(LIT, false);
         } else {
             return null;
@@ -132,7 +133,7 @@ public class DistillerBlock extends Block implements EntityBlock {
     }
 
     @Override
-    protected ItemInteractionResult useItemOn(ItemStack pStack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHitResult) {
+    protected InteractionResult useItemOn(ItemStack pStack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHitResult) {
         //We do not check for client side because
         // a) returning success causes https://github.com/klikli-dev/theurgy/issues/158
         // b) client side BEs are separate objects even in SP, so modification in our behaviours is safe
@@ -140,11 +141,11 @@ public class DistillerBlock extends Block implements EntityBlock {
         //handle top block
         pPos = pState.getValue(HALF) == DoubleBlockHalf.UPPER ? pPos.below() : pPos;
 
-        if (this.itemHandlerBehaviour.useItemOn(pStack, pState, pLevel, pPos, pPlayer, pHand, pHitResult) == ItemInteractionResult.SUCCESS) {
-            return ItemInteractionResult.SUCCESS;
+        if (this.itemHandlerBehaviour.useItemOn(pStack, pState, pLevel, pPos, pPlayer, pHand, pHitResult) == InteractionResult.SUCCESS) {
+            return InteractionResult.SUCCESS;
         }
 
-        return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        return InteractionResult.PASS;
     }
 
     @Override

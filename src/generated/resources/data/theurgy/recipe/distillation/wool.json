@@ -12,9 +12,7 @@
   "category": "misc",
   "ingredient": {
     "count": 1,
-    "ingredient": {
-      "tag": "minecraft:wool"
-    }
+    "ingredient": "#minecraft:wool"
   },
   "result": {
     "type": "theurgy:item",

@@ -15,9 +15,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "theurgy:logistics_fluid_extractor"
-      },
+      "item": "theurgy:logistics_fluid_extractor",
       "text": "book.theurgy.the_hermetica.logistics.fluid_extractor.extractor.text",
       "title": ""
     },

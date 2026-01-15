@@ -10,27 +10,19 @@
   "sources": [
     {
       "count": 1,
-      "ingredient": {
-        "item": "theurgy:alchemical_niter_gems_abundant"
-      }
+      "ingredient": "theurgy:alchemical_niter_gems_abundant"
     },
     {
       "count": 1,
-      "ingredient": {
-        "item": "theurgy:alchemical_niter_gems_abundant"
-      }
+      "ingredient": "theurgy:alchemical_niter_gems_abundant"
     },
     {
       "count": 1,
-      "ingredient": {
-        "item": "theurgy:alchemical_niter_gems_abundant"
-      }
+      "ingredient": "theurgy:alchemical_niter_gems_abundant"
     },
     {
       "count": 1,
-      "ingredient": {
-        "item": "theurgy:alchemical_niter_gems_abundant"
-      }
+      "ingredient": "theurgy:alchemical_niter_gems_abundant"
     }
   ],
   "target": {

@@ -21,14 +21,15 @@ import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
 import net.neoforged.neoforge.fluids.FluidStack;
 
+import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
 
 public class AccumulationRecipeProvider extends JsonRecipeProvider {
 
     public static final int TIME = AccumulationRecipe.DEFAULT_TIME;
 
-    public AccumulationRecipeProvider(PackOutput packOutput) {
-        super(packOutput, Theurgy.MODID, "accumulation");
+    public AccumulationRecipeProvider(PackOutput packOutput, CompletableFuture<net.minecraft.core.HolderLookup.Provider> lookupProvider) {
+        super(packOutput, lookupProvider, Theurgy.MODID, "accumulation");
     }
 
     @Override
@@ -68,7 +69,7 @@ public class AccumulationRecipeProvider extends JsonRecipeProvider {
     }
 
 
-    protected static class Builder extends RecipeBuilder<Builder> {
+    protected class Builder extends RecipeBuilder<Builder> {
         protected Builder(FluidStack result) {
             super(RecipeTypeRegistry.ACCUMULATION);
             this.result(result);

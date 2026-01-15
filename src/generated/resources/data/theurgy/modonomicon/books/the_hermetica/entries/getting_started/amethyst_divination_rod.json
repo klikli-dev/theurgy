@@ -15,9 +15,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "theurgy:amethyst_divination_rod"
-      },
+      "item": "theurgy:amethyst_divination_rod",
       "text": "book.theurgy.the_hermetica.getting_started.amethyst_divination_rod.intro.text",
       "title": ""
     },

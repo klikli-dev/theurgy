@@ -11,13 +11,17 @@ import com.klikli_dev.theurgy.content.recipe.condition.FluidTagEmptyCondition;
 import com.klikli_dev.theurgy.content.recipe.result.ItemRecipeResult;
 import com.klikli_dev.theurgy.content.recipe.result.RecipeResult;
 import com.klikli_dev.theurgy.content.recipe.result.TagRecipeResult;
+import com.google.gson.JsonElement;
 import com.mojang.serialization.JsonOps;
 import net.minecraft.core.Holder;
+import net.minecraft.core.HolderGetter;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
+import net.minecraft.resources.RegistryOps;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
@@ -40,23 +44,30 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import java.util.function.BiConsumer;
 
 public abstract class JsonRecipeProvider implements DataProvider {
 
+    protected final CompletableFuture<HolderLookup.Provider> lookupProvider;
+    protected HolderLookup.Provider registries;
+    protected RegistryOps<JsonElement> registryOps;
+    protected HolderGetter<Item> items;
+    protected HolderGetter<Fluid> fluids;
     protected final PackOutput.PathProvider recipePathProvider;
     protected String modid;
 
     protected BiConsumer<ResourceLocation, JsonObject> recipeConsumer;
 
-    public JsonRecipeProvider(PackOutput packOutput, String modid) {
-        this(packOutput, modid, "");
+    public JsonRecipeProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider, String modid) {
+        this(packOutput, lookupProvider, modid, "");
     }
 
     /**
      * Creates a new recipe provider with the given sub path.
      */
-    public JsonRecipeProvider(PackOutput packOutput, String modid, String recipeSubPath) {
+    public JsonRecipeProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider, String modid, String recipeSubPath) {
+        this.lookupProvider = lookupProvider;
         this.recipePathProvider = packOutput.createPathProvider(PackOutput.Target.DATA_PACK, "recipe/" + recipeSubPath);
         this.modid = modid;
     }
@@ -66,7 +77,7 @@ public abstract class JsonRecipeProvider implements DataProvider {
     }
 
     protected String name(ItemLike item) {
-        return BuiltInRegistries.ITEM.getKey(item.asItem()).getPath();
+        return item.asItem().builtInRegistryHolder().getKey().location().getPath();
     }
 
     protected String name(TagKey<Item> tag) {
@@ -82,7 +93,7 @@ public abstract class JsonRecipeProvider implements DataProvider {
     }
 
     public ResourceLocation locFor(ItemLike itemLike) {
-        return BuiltInRegistries.ITEM.getKey(itemLike.asItem());
+        return itemLike.asItem().builtInRegistryHolder().getKey().location();
     }
 
     public ResourceLocation locFor(Fluid fluid) {
@@ -107,25 +118,32 @@ public abstract class JsonRecipeProvider implements DataProvider {
 
     @Override
     public @NotNull CompletableFuture<?> run(@NotNull CachedOutput pOutput) {
-        Set<ResourceLocation> set = Sets.newHashSet();
-        List<CompletableFuture<?>> futures = new ArrayList<>();
-        this.recipeConsumer = (id, recipe) -> {
-            if (!recipe.has("category"))
-                recipe.addProperty("category", CraftingBookCategory.MISC.getSerializedName());
+        return this.lookupProvider.thenCompose(provider -> {
+            this.registries = provider;
+            this.registryOps = this.registries.createSerializationContext(JsonOps.INSTANCE);
+            this.items = this.registries.lookupOrThrow(Registries.ITEM);
+            this.fluids = this.registries.lookupOrThrow(Registries.FLUID);
 
-            if (!set.add(id)) {
-                throw new IllegalStateException("Duplicate recipe " + id);
-            } else {
-                futures.add(DataProvider.saveStable(pOutput, recipe, this.recipePathProvider.json(id)));
-            }
-        };
-        this.buildRecipes(this.recipeConsumer);
-        return CompletableFuture.allOf(futures.toArray(CompletableFuture[]::new));
+            Set<ResourceLocation> set = Sets.newHashSet();
+            List<CompletableFuture<?>> futures = new ArrayList<>();
+            this.recipeConsumer = (id, recipe) -> {
+                if (!recipe.has("category"))
+                    recipe.addProperty("category", CraftingBookCategory.MISC.getSerializedName());
+
+                if (!set.add(id)) {
+                    throw new IllegalStateException("Duplicate recipe " + id);
+                } else {
+                    futures.add(DataProvider.saveStable(pOutput, recipe, this.recipePathProvider.json(id)));
+                }
+            };
+            this.buildRecipes(this.recipeConsumer);
+            return CompletableFuture.allOf(futures.toArray(CompletableFuture[]::new));
+        });
     }
 
     public abstract void buildRecipes(BiConsumer<ResourceLocation, JsonObject> recipeConsumer);
 
-    protected static abstract class RecipeBuilder<T extends RecipeBuilder<T>> {
+    protected abstract class RecipeBuilder<T extends RecipeBuilder<T>> {
 
         protected JsonObject recipe = new JsonObject();
 
@@ -157,7 +175,7 @@ public abstract class JsonRecipeProvider implements DataProvider {
         }
 
         public T result(String propertyName, RecipeResult result) {
-            this.recipe.add(propertyName, RecipeResult.CODEC.encodeStart(JsonOps.INSTANCE, result).getOrThrow());
+            this.recipe.add(propertyName, RecipeResult.CODEC.encodeStart(JsonRecipeProvider.this.registryOps, result).getOrThrow());
 
             if (result instanceof TagRecipeResult tagRecipeResult) {
                 this.condition(new NotCondition(new TagEmptyCondition(tagRecipeResult.tag().location().toString())));
@@ -171,7 +189,7 @@ public abstract class JsonRecipeProvider implements DataProvider {
         }
 
         public T result(String propertyName, FluidStack result) {
-            this.recipe.add(propertyName, FluidStack.CODEC.encodeStart(JsonOps.INSTANCE, result).getOrThrow());
+            this.recipe.add(propertyName, FluidStack.CODEC.encodeStart(JsonRecipeProvider.this.registryOps, result).getOrThrow());
             return this.getThis();
         }
 
@@ -188,7 +206,7 @@ public abstract class JsonRecipeProvider implements DataProvider {
         }
 
         public T ingredient(String propertyName, TagKey<Item> tag) {
-            this.recipe.add(propertyName, Ingredient.CODEC.encodeStart(JsonOps.INSTANCE, Ingredient.of(tag)).getOrThrow());
+            this.recipe.add(propertyName, Ingredient.CODEC.encodeStart(JsonRecipeProvider.this.registryOps, Ingredient.of(JsonRecipeProvider.this.items.get(tag).orElseThrow())).getOrThrow());
 
             this.condition(new NotCondition(new TagEmptyCondition(tag.location().toString())));
 
@@ -204,35 +222,35 @@ public abstract class JsonRecipeProvider implements DataProvider {
         }
 
         public T ingredient(String propertyName, Ingredient ingredient) {
-            this.recipe.add(propertyName, Ingredient.CODEC.encodeStart(JsonOps.INSTANCE, ingredient).getOrThrow());
+            this.recipe.add(propertyName, Ingredient.CODEC.encodeStart(JsonRecipeProvider.this.registryOps, ingredient).getOrThrow());
             return this.getThis();
         }
 
         public T sizedIngredient(String propertyName, TagKey<Item> item, int amount) {
-            this.recipe.add(propertyName, SizedIngredient.NESTED_CODEC.encodeStart(JsonOps.INSTANCE, SizedIngredient.of(item, amount)).getOrThrow());
+            this.recipe.add(propertyName, SizedIngredient.NESTED_CODEC.encodeStart(JsonRecipeProvider.this.registryOps, new SizedIngredient(Ingredient.of(JsonRecipeProvider.this.items.getOrThrow(item)), amount)).getOrThrow());
             this.condition(new NotCondition(new TagEmptyCondition(item.location().toString())));
             return this.getThis();
         }
 
         public T sizedIngredient(String propertyName, ItemLike item, int amount) {
-            this.recipe.add(propertyName, SizedIngredient.NESTED_CODEC.encodeStart(JsonOps.INSTANCE, SizedIngredient.of(item, amount)).getOrThrow());
+            this.recipe.add(propertyName, SizedIngredient.NESTED_CODEC.encodeStart(JsonRecipeProvider.this.registryOps, new SizedIngredient(Ingredient.of(item), amount)).getOrThrow());
             return this.getThis();
         }
 
         public T sizedFluidIngredient(String propertyName, TagKey<Fluid> fluid, int amount) {
-            this.recipe.add(propertyName, SizedFluidIngredient.NESTED_CODEC.encodeStart(JsonOps.INSTANCE, SizedFluidIngredient.of(fluid, amount)).getOrThrow());
+            this.recipe.add(propertyName, SizedFluidIngredient.CODEC.encodeStart(JsonRecipeProvider.this.registryOps, new SizedFluidIngredient(FluidIngredient.of(JsonRecipeProvider.this.fluids.get(fluid).orElseThrow()), amount)).getOrThrow());
             //TODO: enable once kubejs offers fluid tag cache access
 //            this.condition(new NotCondition(new FluidTagEmptyCondition(fluid.location().toString())));
             return this.getThis();
         }
 
         public T sizedFluidIngredient(String propertyName, Fluid fluid, int amount) {
-            this.recipe.add(propertyName, SizedFluidIngredient.NESTED_CODEC.encodeStart(JsonOps.INSTANCE, SizedFluidIngredient.of(fluid, amount)).getOrThrow());
+            this.recipe.add(propertyName, SizedFluidIngredient.CODEC.encodeStart(JsonRecipeProvider.this.registryOps, SizedFluidIngredient.of(fluid, amount)).getOrThrow());
             return this.getThis();
         }
 
         public T fluidIngredient(String propertyName, Fluid fluid) {
-            this.recipe.add(propertyName, FluidIngredient.CODEC.encodeStart(JsonOps.INSTANCE, FluidIngredient.of(fluid)).getOrThrow());
+            this.recipe.add(propertyName, FluidIngredient.CODEC.encodeStart(JsonRecipeProvider.this.registryOps, FluidIngredient.of(fluid)).getOrThrow());
             return this.getThis();
         }
 
@@ -254,7 +272,7 @@ public abstract class JsonRecipeProvider implements DataProvider {
                 this.recipe.add("neoforge:conditions", new JsonArray());
 
             this.recipe.getAsJsonArray("neoforge:conditions").add(
-                    ICondition.CODEC.encodeStart(JsonOps.INSTANCE, condition).getOrThrow()
+                    ICondition.CODEC.encodeStart(JsonRecipeProvider.this.registryOps, condition).getOrThrow()
             );
             return this.getThis();
         }

@@ -16,12 +16,8 @@
         "type": "modonomicon:none"
       },
       "item": [
-        {
-          "item": "theurgy:sulfur_attuned_divination_rod_abundant"
-        },
-        {
-          "item": "theurgy:sulfur_attuned_divination_rod_common"
-        }
+        "theurgy:sulfur_attuned_divination_rod_abundant",
+        "theurgy:sulfur_attuned_divination_rod_common"
       ],
       "text": "book.theurgy.the_hermetica.getting_started.abundant_and_common_sulfur_attuned_divination_rod.intro.text",
       "title": ""

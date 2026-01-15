@@ -26,9 +26,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "theurgy:reformation_target_pedestal"
-      },
+      "item": "theurgy:reformation_target_pedestal",
       "text": "book.theurgy.the_hermetica.getting_started.reformation_array.target.text",
       "title": ""
     },
@@ -38,9 +36,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "theurgy:reformation_result_pedestal"
-      },
+      "item": "theurgy:reformation_result_pedestal",
       "text": "book.theurgy.the_hermetica.getting_started.reformation_array.result.text",
       "title": ""
     },
@@ -50,9 +46,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "theurgy:reformation_source_pedestal"
-      },
+      "item": "theurgy:reformation_source_pedestal",
       "text": "book.theurgy.the_hermetica.getting_started.reformation_array.source.text",
       "title": ""
     },
@@ -62,9 +56,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "theurgy:sulfuric_flux_emitter"
-      },
+      "item": "theurgy:sulfuric_flux_emitter",
       "text": "book.theurgy.the_hermetica.getting_started.reformation_array.emitter.text",
       "title": ""
     },

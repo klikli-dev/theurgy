@@ -19,17 +19,11 @@
   "category": "misc",
   "fluid": {
     "amount": 250,
-    "ingredient": {
-      "fluid": "minecraft:water"
-    }
+    "ingredient": "minecraft:water"
   },
   "ingredients": [
-    {
-      "tag": "theurgy:alchemical_sulfurs/other_minerals/common"
-    },
-    {
-      "tag": "c:sugars"
-    }
+    "#theurgy:alchemical_sulfurs/other_minerals/common",
+    "#c:sugars"
   ],
   "result": {
     "type": "theurgy:item",

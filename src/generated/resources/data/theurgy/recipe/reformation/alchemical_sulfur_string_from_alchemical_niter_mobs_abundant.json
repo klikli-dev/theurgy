@@ -10,9 +10,7 @@
   "sources": [
     {
       "count": 1,
-      "ingredient": {
-        "item": "theurgy:alchemical_niter_mobs_abundant"
-      }
+      "ingredient": "theurgy:alchemical_niter_mobs_abundant"
     }
   ],
   "target": {

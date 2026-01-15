@@ -22,8 +22,8 @@ import java.util.function.BiConsumer;
 
 public class SmeltingRecipeProvider extends JsonRecipeProvider {
 
-    public SmeltingRecipeProvider(PackOutput packOutput) {
-        super(packOutput, Theurgy.MODID, "smelting");
+    public SmeltingRecipeProvider(PackOutput packOutput, java.util.concurrent.CompletableFuture<net.minecraft.core.HolderLookup.Provider> lookupProvider) {
+        super(packOutput, lookupProvider, Theurgy.MODID, "smelting");
     }
 
     @Override
@@ -75,7 +75,7 @@ public class SmeltingRecipeProvider extends JsonRecipeProvider {
             //noinspection DataFlowIssue
             this.recipe.addProperty("type",
                     BuiltInRegistries.RECIPE_SERIALIZER.getKey(RecipeSerializer.SMELTING_RECIPE).toString());
-            this.recipe.add("result", ItemStack.STRICT_CODEC.encodeStart(JsonOps.INSTANCE, result).getOrThrow());
+            this.recipe.add("result", ItemStack.STRICT_CODEC.encodeStart(SmeltingRecipeProvider.this.registryOps, result).getOrThrow());
             this.recipe.addProperty("cookingtime", 200);
             this.recipe.addProperty("experience", 0.7f);
         }

@@ -10,9 +10,7 @@
   "sources": [
     {
       "count": 1,
-      "ingredient": {
-        "item": "theurgy:alchemical_niter_animals_common"
-      }
+      "ingredient": "theurgy:alchemical_niter_animals_common"
     }
   ],
   "target": {

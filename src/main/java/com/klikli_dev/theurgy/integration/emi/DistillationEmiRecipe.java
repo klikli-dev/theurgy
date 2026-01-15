@@ -38,13 +38,12 @@ public class DistillationEmiRecipe implements EmiRecipe {
 
     @Override
     public @Nullable ResourceLocation getId() {
-        return this.recipe.id();
+        return this.recipe.id().location();
     }
 
     @Override
     public List<EmiIngredient> getInputs() {
-        return List.of(EmiIngredient.of(Arrays.stream(this.recipe.value().getIngredient().getItems())
-                .map(i -> EmiStack.of(i.getItem(), this.recipe.value().getIngredientCount())).toList()));
+        return List.of(EmiIngredient.of(this.recipe.value().getIngredient().ingredient(), this.recipe.value().getIngredientCount()));
     }
 
     @Override
@@ -66,8 +65,7 @@ public class DistillationEmiRecipe implements EmiRecipe {
     public void addWidgets(WidgetHolder widgets) {
         widgets.addTexture(EmiTexture.EMPTY_ARROW, 24, 8);
 
-        widgets.addSlot(EmiIngredient.of(Arrays.stream(this.recipe.value().getIngredient().getItems())
-                .map(i -> EmiStack.of(i.getItem(), this.recipe.value().getIngredientCount())).toList()), 1, 1);
+        widgets.addSlot(EmiIngredient.of(this.recipe.value().getIngredient().ingredient(), this.recipe.value().getIngredientCount()), 1, 1);
 
         widgets.addSlot(EmiStack.of(this.recipe.value().getResultItem(RegistryAccess.EMPTY)), 61, 9).recipeContext(this);
 

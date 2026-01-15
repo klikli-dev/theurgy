@@ -12,9 +12,7 @@
   "category": "misc",
   "ingredient": {
     "count": 15,
-    "ingredient": {
-      "tag": "c:sands"
-    }
+    "ingredient": "#c:sands"
   },
   "result": {
     "type": "theurgy:item",

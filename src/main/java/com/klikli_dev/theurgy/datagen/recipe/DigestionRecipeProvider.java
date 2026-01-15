@@ -12,11 +12,14 @@ import com.klikli_dev.theurgy.content.recipe.FermentationRecipe;
 import com.klikli_dev.theurgy.registry.*;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.JsonOps;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
@@ -32,8 +35,8 @@ public class DigestionRecipeProvider extends JsonRecipeProvider {
 
     public static final int TIME = FermentationRecipe.DEFAULT_TIME;
 
-    public DigestionRecipeProvider(PackOutput packOutput) {
-        super(packOutput, Theurgy.MODID, "digestion");
+    public DigestionRecipeProvider(PackOutput packOutput, java.util.concurrent.CompletableFuture<net.minecraft.core.HolderLookup.Provider> lookupProvider) {
+        super(packOutput, lookupProvider, Theurgy.MODID, "digestion");
     }
 
 
@@ -116,7 +119,7 @@ public class DigestionRecipeProvider extends JsonRecipeProvider {
         return "Digestion Recipes";
     }
 
-    protected static class Builder extends RecipeBuilder<Builder> {
+    protected class Builder extends RecipeBuilder<Builder> {
         protected Builder(ItemStack result) {
             super(RecipeTypeRegistry.DIGESTION);
             this.result(result);
@@ -140,7 +143,7 @@ public class DigestionRecipeProvider extends JsonRecipeProvider {
                 this.recipe.add("ingredients", new JsonArray());
 
             this.recipe.getAsJsonArray("ingredients").add(
-                    SizedIngredient.NESTED_CODEC.encodeStart(JsonOps.INSTANCE, SizedIngredient.of(item, count)).getOrThrow());
+                    SizedIngredient.NESTED_CODEC.encodeStart(DigestionRecipeProvider.this.registryOps, SizedIngredient.of(item, count)).getOrThrow());
 
             return this.getThis();
         }
@@ -149,7 +152,8 @@ public class DigestionRecipeProvider extends JsonRecipeProvider {
             if (!this.recipe.has("ingredients"))
                 this.recipe.add("ingredients", new JsonArray());
 
-            this.recipe.getAsJsonArray("ingredients").add(SizedIngredient.NESTED_CODEC.encodeStart(JsonOps.INSTANCE, SizedIngredient.of(tag, count)).getOrThrow());
+            this.recipe.getAsJsonArray("ingredients").add(
+                    SizedIngredient.NESTED_CODEC.encodeStart(DigestionRecipeProvider.this.registryOps, new SizedIngredient(Ingredient.of(DigestionRecipeProvider.this.items.get(tag).orElseThrow()), count)).getOrThrow());
 
             this.condition(new NotCondition(new TagEmptyCondition(tag.location().toString())));
 

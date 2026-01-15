@@ -22,6 +22,11 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.RecipeBookCategory;
+import net.minecraft.world.item.crafting.RecipeBookCategories;
+import net.minecraft.world.item.crafting.RecipeBookCategory;
+import net.minecraft.world.item.crafting.RecipeBookCategories;
+import net.minecraft.world.item.crafting.PlacementInfo;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
@@ -73,7 +78,7 @@ public class IncubationRecipe implements Recipe<IncubatorRecipeInput> {
     }
 
     @Override
-    public @NotNull RecipeType<?> getType() {
+    public @NotNull RecipeType<IncubationRecipe> getType() {
         return RecipeTypeRegistry.INCUBATION.get();
     }
 
@@ -84,18 +89,21 @@ public class IncubationRecipe implements Recipe<IncubatorRecipeInput> {
                 this.sulfur.test(pContainer.getSulfurVesselInv().getStackInSlot(0));
     }
 
-    @Override
-    public @NotNull ItemStack assemble(@NotNull IncubatorRecipeInput pInv, @NotNull HolderLookup.Provider pRegistries) {
+    public ItemStack assemble(IncubatorRecipeInput pInv, HolderLookup.Provider pRegistries) {
         return this.result.getStack().copy();
     }
 
     @Override
-    public boolean canCraftInDimensions(int pWidth, int pHeight) {
-        return true;
+    public RecipeBookCategory recipeBookCategory() {
+        return RecipeBookCategories.CRAFTING_MISC;
     }
 
     @Override
-    public @NotNull ItemStack getResultItem(@NotNull HolderLookup.Provider pRegistries) {
+    public PlacementInfo placementInfo() {
+        return PlacementInfo.create(this.getIngredients());
+    }
+
+    public ItemStack getResultItem(HolderLookup.Provider pRegistries) {
         return this.result.getStack();
     }
 
@@ -103,7 +111,6 @@ public class IncubationRecipe implements Recipe<IncubatorRecipeInput> {
         return this.result;
     }
 
-    @Override
     public @NotNull NonNullList<Ingredient> getIngredients() {
         NonNullList<Ingredient> nonnulllist = NonNullList.create();
         nonnulllist.add(this.mercury);
@@ -112,13 +119,12 @@ public class IncubationRecipe implements Recipe<IncubatorRecipeInput> {
         return nonnulllist;
     }
 
-    @Override
     public @NotNull ItemStack getToastSymbol() {
         return new ItemStack(BlockRegistry.INCUBATOR.get());
     }
 
     @Override
-    public @NotNull RecipeSerializer<?> getSerializer() {
+    public @NotNull RecipeSerializer<IncubationRecipe> getSerializer() {
         return RecipeSerializerRegistry.INCUBATION.get();
     }
 

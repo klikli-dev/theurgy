@@ -164,7 +164,7 @@ public class ReformationCategory implements IRecipeCategory<RecipeHolder<Reforma
 
             if (i < recipe.value().getSources().size()) {
                 var ingredient = recipe.value().getSources().get(i);
-                slot.addIngredients(VanillaTypes.ITEM_STACK, Arrays.stream(ingredient.ingredient().getItems()).map(stack -> stack.copyWithCount(ingredient.count())).toList());
+                slot.addIngredients(VanillaTypes.ITEM_STACK, ingredient.ingredient().items().stream().map(ItemStack::new).map(stack -> stack.copyWithCount(ingredient.count())).toList());
             }
 
             sourceSlotY -= 18; // Move upwards

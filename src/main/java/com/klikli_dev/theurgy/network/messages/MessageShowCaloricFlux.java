@@ -50,7 +50,7 @@ public class MessageShowCaloricFlux implements Message {
     @Override
     public void onClientReceived(Minecraft minecraft, Player player) {
         var level = player.level();
-        var normal = Vec3.atLowerCornerOf(this.emitterDirection.getNormal());
+        var normal = Vec3.atLowerCornerOf(this.emitterDirection.getUnitVec3i());
         var from = Vec3.atCenterOf(this.from).subtract(normal.scale(0.5));
         var to = Vec3.atCenterOf(this.to);
 

@@ -14,7 +14,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
@@ -93,7 +92,7 @@ public class SelectFrequencyMode extends MercurialWandItemMode {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
+    public InteractionResult use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
         if (pUsedHand != InteractionHand.MAIN_HAND)
             return super.use(pLevel, pPlayer, pUsedHand);
 
@@ -107,6 +106,6 @@ public class SelectFrequencyMode extends MercurialWandItemMode {
                 Component.literal(String.valueOf(newFrequency)).withStyle(ChatFormatting.GREEN)
         ), true);
 
-        return InteractionResultHolder.success(pPlayer.getItemInHand(pUsedHand));
+        return InteractionResult.SUCCESS;
     }
 }

@@ -6,8 +6,12 @@ package com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron;
 
 import com.klikli_dev.theurgy.content.recipe.LiquefactionRecipe;
 import com.klikli_dev.theurgy.content.recipe.input.ItemHandlerWithFluidRecipeInput;
+import com.klikli_dev.theurgy.util.LevelUtil;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -24,31 +28,36 @@ class LiquefactionCachedCheck implements RecipeManager.CachedCheck<ItemHandlerWi
     private final RecipeType<LiquefactionRecipe> type;
     private final RecipeManager.CachedCheck<ItemHandlerWithFluidRecipeInput, LiquefactionRecipe> internal;
     @Nullable
-    private ResourceLocation lastRecipe;
+    private ResourceKey<Recipe<?>> lastRecipe;
 
     public LiquefactionCachedCheck(RecipeType<LiquefactionRecipe> type) {
         this.type = type;
         this.internal = RecipeManager.createCheck(type);
     }
 
-    private Optional<RecipeHolder<LiquefactionRecipe>> getRecipeFor(ItemStack stack, Level level, @Nullable ResourceLocation lastRecipe) {
-        var recipeManager = level.getRecipeManager();
+    private Optional<RecipeHolder<LiquefactionRecipe>> getRecipeFor(ItemStack stack, ServerLevel level, @Nullable ResourceKey<Recipe<?>> lastRecipe) {
+        var recipeManager = level.getServer().getRecipeManager();
         if (lastRecipe != null) {
-
-            var recipe = recipeManager.byKeyTyped(this.type, lastRecipe);
-            //test only the ingredient without the (separate) solvent fluid ingredient check that the recipe.matches() would.
-            if (recipe != null && recipe.value().getIngredient().test(stack)) {
-                return Optional.of(recipe);
+            var recipeOptional = recipeManager.byKey(lastRecipe);
+            if (recipeOptional.isPresent()) {
+                var recipe = recipeOptional.get();
+                if (recipe.value().getType() == this.type) {
+                     @SuppressWarnings("unchecked")
+                     var typedRecipe = (RecipeHolder<LiquefactionRecipe>) (Object) recipe;
+                     if (typedRecipe.value().getIngredient().test(stack)) {
+                         return Optional.of(typedRecipe);
+                     }
+                }
             }
         }
 
-        return recipeManager.byType(this.type).stream().filter((entry) -> entry.value().getIngredient().test(stack)).findFirst();
+        return LevelUtil.getRecipesByType(recipeManager, this.type).stream().filter((entry) -> entry.value().getIngredient().test(stack)).findFirst();
     }
 
     /**
      * This only checks ingredients, not fluids
      */
-    public Optional<RecipeHolder<LiquefactionRecipe>> getRecipeFor(ItemStack stack, Level level) {
+    public Optional<RecipeHolder<LiquefactionRecipe>> getRecipeFor(ItemStack stack, ServerLevel level) {
         var optional = this.getRecipeFor(stack, level, this.lastRecipe);
         if (optional.isPresent()) {
             var recipeHolder = optional.get();
@@ -63,7 +72,7 @@ class LiquefactionCachedCheck implements RecipeManager.CachedCheck<ItemHandlerWi
      * This checks full recipe validity: ingredients + fluids
      */
     @Override
-    public Optional<RecipeHolder<LiquefactionRecipe>> getRecipeFor(ItemHandlerWithFluidRecipeInput container, Level level) {
+    public Optional<RecipeHolder<LiquefactionRecipe>> getRecipeFor(ItemHandlerWithFluidRecipeInput container, ServerLevel level) {
         var recipe = this.internal.getRecipeFor(container, level);
         if (recipe.isPresent()) {
             this.lastRecipe = recipe.get().id();

@@ -175,7 +175,7 @@ public class AlchemicalDerivativeItem extends Item {
     public MutableComponent getSourceName(ItemStack pStack) {
         //If we have a source name set, we use that
         if (this.useCustomSourceName) {
-            return this.formatSourceName(Component.translatable(pStack.getDescriptionId() + TheurgyConstants.I18n.Item.ALCHEMICAL_DERIVATIVE_SOURCE_SUFFIX), this.tier);
+            return this.formatSourceName(Component.translatable(pStack.getItem().getDescriptionId() + TheurgyConstants.I18n.Item.ALCHEMICAL_DERIVATIVE_SOURCE_SUFFIX), this.tier);
         }
 
         //finally, fall back to getting a stack
@@ -227,7 +227,7 @@ public class AlchemicalDerivativeItem extends Item {
     public @NotNull Component getName(@NotNull ItemStack pStack) {
         if (this.useAutomaticNameRendering) {
             var translationArgs = this.getNameData(pStack);
-            return Component.translatable(this.getDescriptionId(pStack), translationArgs.toArray());
+            return Component.translatable(this.getDescriptionId(), translationArgs.toArray());
         }
         return super.getName(pStack);
     }

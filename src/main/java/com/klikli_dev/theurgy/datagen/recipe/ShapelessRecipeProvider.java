@@ -28,8 +28,8 @@ import java.util.function.BiConsumer;
 
 public class ShapelessRecipeProvider extends JsonRecipeProvider {
 
-    public ShapelessRecipeProvider(PackOutput packOutput) {
-        super(packOutput, Theurgy.MODID, "crafting/shapeless");
+    public ShapelessRecipeProvider(PackOutput packOutput, java.util.concurrent.CompletableFuture<net.minecraft.core.HolderLookup.Provider> lookupProvider) {
+        super(packOutput, lookupProvider, Theurgy.MODID, "crafting/shapeless");
     }
 
     @Override
@@ -106,7 +106,7 @@ public class ShapelessRecipeProvider extends JsonRecipeProvider {
         return "Shapeless Crafting Recipes";
     }
 
-    protected static class ShapelessRecipeBuilder {
+    protected class ShapelessRecipeBuilder {
 
         private final JsonObject recipe;
         private final ItemStack result;
@@ -130,7 +130,7 @@ public class ShapelessRecipeProvider extends JsonRecipeProvider {
             //noinspection DataFlowIssue
             this.recipe.addProperty("type",
                     BuiltInRegistries.RECIPE_SERIALIZER.getKey(RecipeSerializer.SHAPELESS_RECIPE).toString());
-            this.recipe.add("result", ItemStack.STRICT_CODEC.encodeStart(JsonOps.INSTANCE, result).getOrThrow());
+            this.recipe.add("result", ItemStack.STRICT_CODEC.encodeStart(ShapelessRecipeProvider.this.registryOps, result).getOrThrow());
             this.recipe.add("ingredients", new JsonArray());
         }
 

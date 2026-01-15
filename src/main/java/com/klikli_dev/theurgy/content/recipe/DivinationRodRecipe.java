@@ -18,6 +18,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
@@ -29,22 +30,28 @@ import org.jetbrains.annotations.Nullable;
 
 
 public class DivinationRodRecipe extends ShapedRecipe {
+    protected final String group;
+    protected final ShapedRecipePattern pattern;
+    protected final ItemStack result;
 
     public DivinationRodRecipe(@NotNull String pGroup, @NotNull ShapedRecipePattern pPattern, @NotNull ItemStack pResult, boolean pShowNotification) {
         super(pGroup, CraftingBookCategory.MISC, pPattern, pResult, pShowNotification);
+        this.group = pGroup;
+        this.pattern = pPattern;
+        this.result = pResult;
     }
 
     @Override
-    public @NotNull RecipeSerializer<?> getSerializer() {
+    public @NotNull RecipeSerializer<? extends ShapedRecipe> getSerializer() {
         return RecipeSerializerRegistry.DIVINATION_ROD.get();
     }
 
     @SuppressWarnings({"DataFlowIssue", "OptionalGetWithoutIsPresent"})
     @Override
     public @NotNull ItemStack assemble(@NotNull CraftingInput pInv, HolderLookup.@NotNull Provider pRegistries) {
-        var result = this.getResultItem(pRegistries).copy();
+        var result = this.result.copy();
 
-        if (result.has(DataComponentRegistry.DIVINATION_LINKED_BLOCK) || result.has(DataComponentRegistry.DIVINATION_LINKED_TAG))
+        if (result.has(DataComponentRegistry.DIVINATION_LINKED_BLOCK.get()) || result.has(DataComponentRegistry.DIVINATION_LINKED_TAG.get()))
             return result;
 
         //check pInv for ingredients with sulfur source id, if so, find the appropriate block id based on it and set it on the result item
@@ -59,7 +66,8 @@ public class DivinationRodRecipe extends ShapedRecipe {
                 var sourceBlock = this.translateToBlock(sourceItem.unwrapKey().get().location().toString());
 
                 if (sourceBlock != null) {
-                    result.set(DataComponentRegistry.DIVINATION_LINKED_BLOCK, BuiltInRegistries.BLOCK.getHolder(ResourceLocation.parse(sourceBlock)).get());
+                    var blockKey = ResourceKey.create(Registries.BLOCK, ResourceLocation.parse(sourceBlock));
+                    result.set(DataComponentRegistry.DIVINATION_LINKED_BLOCK, BuiltInRegistries.BLOCK.get(blockKey).get());
                 }
                 break;
             }
@@ -125,7 +133,7 @@ public class DivinationRodRecipe extends ShapedRecipe {
         }
 
         var translatedTag = ResourceLocation.parse(namespace + ":" + translatedPath);
-        if (BuiltInRegistries.BLOCK.getTag(TagKey.create(Registries.BLOCK, translatedTag)).isPresent())
+        if (BuiltInRegistries.BLOCK.get(TagKey.create(Registries.BLOCK, translatedTag)).isPresent())
             return translatedTag;
 
         Theurgy.LOGGER.warn("Could not find an appropriate block tag for sulfur source tag: " + sourceTag + ", tried tag: #" + translatedTag);
@@ -191,21 +199,21 @@ public class DivinationRodRecipe extends ShapedRecipe {
 
         //copied from ShapedRecipe.Serializer because xMapping it somehow causes a json null thingy error
         public static final MapCodec<DivinationRodRecipe> CODEC = RecordCodecBuilder.mapCodec(
-                p_340778_ -> p_340778_.group(
-                                Codec.STRING.optionalFieldOf("group", "").forGetter(ShapedRecipe::getGroup),
-                                ShapedRecipePattern.MAP_CODEC.forGetter(p_311733_ -> p_311733_.pattern),
-                                ItemStack.STRICT_CODEC.fieldOf("result").forGetter(p_311730_ -> p_311730_.getResultItem(RegistryAccess.EMPTY)),
+                instance -> instance.group(
+                                Codec.STRING.optionalFieldOf("group", "").forGetter(r -> r.group),
+                                ShapedRecipePattern.MAP_CODEC.forGetter(r -> r.pattern),
+                                ItemStack.CODEC.fieldOf("result").forGetter(r -> r.result),
                                 Codec.BOOL.optionalFieldOf("show_notification", true).forGetter(ShapedRecipe::showNotification)
                         )
-                        .apply(p_340778_, DivinationRodRecipe::new)
+                        .apply(instance, DivinationRodRecipe::new)
         );
         public static final StreamCodec<RegistryFriendlyByteBuf, DivinationRodRecipe> STREAM_CODEC = StreamCodec.composite(
                 ByteBufCodecs.STRING_UTF8,
-                ShapedRecipe::getGroup,
+                r -> r.group,
                 ShapedRecipePattern.STREAM_CODEC,
                 r -> r.pattern,
-                ItemStack.OPTIONAL_STREAM_CODEC,
-                r -> r.getResultItem(RegistryAccess.EMPTY),
+                ItemStack.STREAM_CODEC,
+                r -> r.result,
                 ByteBufCodecs.BOOL,
                 ShapedRecipe::showNotification,
                 DivinationRodRecipe::new

@@ -15,9 +15,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "theurgy:sulfur_attuned_divination_rod_rare"
-      },
+      "item": "theurgy:sulfur_attuned_divination_rod_rare",
       "text": "book.theurgy.the_hermetica.getting_started.rare_sulfur_attuned_divination_rod.intro.text",
       "title": ""
     },

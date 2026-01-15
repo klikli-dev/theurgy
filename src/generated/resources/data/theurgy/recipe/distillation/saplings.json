@@ -12,9 +12,7 @@
   "category": "misc",
   "ingredient": {
     "count": 3,
-    "ingredient": {
-      "tag": "minecraft:saplings"
-    }
+    "ingredient": "#minecraft:saplings"
   },
   "result": {
     "type": "theurgy:item",

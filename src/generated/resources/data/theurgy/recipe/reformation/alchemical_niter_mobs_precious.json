@@ -10,51 +10,35 @@
   "sources": [
     {
       "count": 8,
-      "ingredient": {
-        "item": "theurgy:alchemical_niter_gems_precious"
-      }
+      "ingredient": "theurgy:alchemical_niter_gems_precious"
     },
     {
       "count": 8,
-      "ingredient": {
-        "item": "theurgy:alchemical_niter_gems_precious"
-      }
+      "ingredient": "theurgy:alchemical_niter_gems_precious"
     },
     {
       "count": 8,
-      "ingredient": {
-        "item": "theurgy:alchemical_niter_gems_precious"
-      }
+      "ingredient": "theurgy:alchemical_niter_gems_precious"
     },
     {
       "count": 8,
-      "ingredient": {
-        "item": "theurgy:alchemical_niter_gems_precious"
-      }
+      "ingredient": "theurgy:alchemical_niter_gems_precious"
     },
     {
       "count": 8,
-      "ingredient": {
-        "item": "theurgy:alchemical_niter_gems_precious"
-      }
+      "ingredient": "theurgy:alchemical_niter_gems_precious"
     },
     {
       "count": 8,
-      "ingredient": {
-        "item": "theurgy:alchemical_niter_gems_precious"
-      }
+      "ingredient": "theurgy:alchemical_niter_gems_precious"
     },
     {
       "count": 8,
-      "ingredient": {
-        "item": "theurgy:alchemical_niter_gems_precious"
-      }
+      "ingredient": "theurgy:alchemical_niter_gems_precious"
     },
     {
       "count": 8,
-      "ingredient": {
-        "item": "theurgy:alchemical_niter_gems_precious"
-      }
+      "ingredient": "theurgy:alchemical_niter_gems_precious"
     }
   ],
   "target": {

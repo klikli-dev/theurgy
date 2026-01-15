@@ -22,7 +22,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.Tiers;
+import net.minecraft.world.item.ToolMaterial;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
@@ -31,12 +31,13 @@ import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.common.Tags;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
 
 public class ShapedRecipeProvider extends JsonRecipeProvider {
 
-    public ShapedRecipeProvider(PackOutput packOutput) {
-        super(packOutput, Theurgy.MODID, "crafting/shaped");
+    public ShapedRecipeProvider(PackOutput packOutput, CompletableFuture<net.minecraft.core.HolderLookup.Provider> lookupProvider) {
+        super(packOutput, lookupProvider, Theurgy.MODID, "crafting/shaped");
     }
 
     @Override
@@ -424,7 +425,7 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
         return this.makeDivinationRodSettings(rodItem.defaultTier, rodItem.defaultAllowedBlocksTag, rodItem.defaultDisallowedBlocksTag, rodItem.defaultRange, rodItem.defaultDuration, rodItem.defaultDurability);
     }
 
-    public DataComponentPatch.Builder makeDivinationRodSettings(Tiers defaultTier, TagKey<Block> defaultAllowedBlocksTag, TagKey<Block> defaultDisallowedBlocksTag, int defaultRange, int defaultDuration, int defaultDurability) {
+    public DataComponentPatch.Builder makeDivinationRodSettings(ToolMaterial defaultTier, TagKey<Block> defaultAllowedBlocksTag, TagKey<Block> defaultDisallowedBlocksTag, int defaultRange, int defaultDuration, int defaultDurability) {
         return DataComponentPatch.builder()
                 .set(DataComponentRegistry.DIVINATION_SETTINGS_TIER.get(), defaultTier)
                 .set(DataComponentRegistry.DIVINATION_SETTINGS_ALLOWED_BLOCKS_TAG.get(), defaultAllowedBlocksTag)
@@ -451,7 +452,7 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
         return "Shaped Crafting Recipes";
     }
 
-    protected static class ShapedRecipeBuilder {
+    protected class ShapedRecipeBuilder {
 
         private final JsonObject recipe;
         private final ItemStack result;
@@ -497,7 +498,7 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
             this.result = result;
             this.recipe = new JsonObject();
             this.recipe.addProperty("type", recipeType);
-            this.recipe.add("result", ItemStack.STRICT_CODEC.encodeStart(JsonOps.INSTANCE, result).getOrThrow());
+            this.recipe.add("result", ItemStack.STRICT_CODEC.encodeStart(ShapedRecipeProvider.this.registryOps, result).getOrThrow());
             this.recipe.add("key", new JsonObject());
             this.recipe.add("pattern", new JsonArray());
         }

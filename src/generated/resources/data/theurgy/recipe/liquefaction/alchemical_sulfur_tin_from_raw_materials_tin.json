@@ -10,9 +10,7 @@
   ],
   "type": "theurgy:liquefaction",
   "category": "misc",
-  "ingredient": {
-    "tag": "c:raw_materials/tin"
-  },
+  "ingredient": "#c:raw_materials/tin",
   "result": {
     "type": "theurgy:item",
     "count": 3,
@@ -20,9 +18,7 @@
   },
   "solvent": {
     "amount": 10,
-    "ingredient": {
-      "fluid": "theurgy:sal_ammoniac"
-    }
+    "ingredient": "theurgy:sal_ammoniac"
   },
   "time": 100
 }

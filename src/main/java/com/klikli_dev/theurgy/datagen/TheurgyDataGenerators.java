@@ -18,9 +18,12 @@ import com.klikli_dev.theurgy.datagen.tag.TheurgyBlockTagsProvider;
 import com.klikli_dev.theurgy.datagen.tag.TheurgyFluidTagsProvider;
 import com.klikli_dev.theurgy.datagen.tag.TheurgyItemTagsProvider;
 import com.klikli_dev.theurgy.datagen.worldgen.TheurgyRegistries;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
+import net.minecraft.data.PackOutput;
 import net.minecraft.data.loot.LootTableProvider;
+import net.minecraft.data.recipes.packs.VanillaRecipeProvider;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.neoforged.neoforge.common.data.AdvancementProvider;
 import net.neoforged.neoforge.common.data.DatapackBuiltinEntriesProvider;
@@ -28,6 +31,8 @@ import net.neoforged.neoforge.data.event.GatherDataEvent;
 
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.CompletableFuture;
+import java.util.function.BiFunction;
 
 public class TheurgyDataGenerators {
 
@@ -58,18 +63,18 @@ public class TheurgyDataGenerators {
         generator.addProvider(event.includeClient(), new TheurgyItemModelProvider(generator.getPackOutput(), event.getExistingFileHelper()));
 
         generator.addProvider(event.includeServer(), new TheurgyBlockStateProvider(generator.getPackOutput(), event.getExistingFileHelper()));
-        generator.addProvider(event.includeServer(), new ShapedRecipeProvider(generator.getPackOutput()));
-        generator.addProvider(event.includeServer(), new ShapelessRecipeProvider(generator.getPackOutput()));
-        generator.addProvider(event.includeServer(), new SmeltingRecipeProvider(generator.getPackOutput()));
-        generator.addProvider(event.includeServer(), new CalcinationRecipeProvider(generator.getPackOutput()));
-        generator.addProvider(event.includeServer(), new LiquefactionRecipeProvider(generator.getPackOutput()));
-        generator.addProvider(event.includeServer(), new DistillationRecipeProvider(generator.getPackOutput()));
-        generator.addProvider(event.includeServer(), new IncubationRecipeProvider(generator.getPackOutput()));
-        generator.addProvider(event.includeServer(), new AccumulationRecipeProvider(generator.getPackOutput()));
-        generator.addProvider(event.includeServer(), new CatalysationRecipeProvider(generator.getPackOutput()));
-        generator.addProvider(event.includeServer(), new ReformationRecipeProvider(generator.getPackOutput()));
-        generator.addProvider(event.includeServer(), new FermentationRecipeProvider(generator.getPackOutput()));
-        generator.addProvider(event.includeServer(), new DigestionRecipeProvider(generator.getPackOutput()));
+        generator.addProvider(event.includeServer(), new ShapedRecipeProvider(generator.getPackOutput(), event.getLookupProvider()));
+        generator.addProvider(event.includeServer(), new ShapelessRecipeProvider(generator.getPackOutput(), event.getLookupProvider()));
+        generator.addProvider(event.includeServer(), new SmeltingRecipeProvider(generator.getPackOutput(), event.getLookupProvider()));
+        generator.addProvider(event.includeServer(), new CalcinationRecipeProvider(generator.getPackOutput(), event.getLookupProvider()));
+        generator.addProvider(event.includeServer(), new LiquefactionRecipeProvider(generator.getPackOutput(), event.getLookupProvider()));
+        generator.addProvider(event.includeServer(), new DistillationRecipeProvider(generator.getPackOutput(), event.getLookupProvider()));
+        generator.addProvider(event.includeServer(), new IncubationRecipeProvider(generator.getPackOutput(), event.getLookupProvider()));
+        generator.addProvider(event.includeServer(), new AccumulationRecipeProvider(generator.getPackOutput(), event.getLookupProvider()));
+        generator.addProvider(event.includeServer(), new CatalysationRecipeProvider(generator.getPackOutput(), event.getLookupProvider()));
+        generator.addProvider(event.includeServer(), new ReformationRecipeProvider(generator.getPackOutput(), event.getLookupProvider()));
+        generator.addProvider(event.includeServer(), new FermentationRecipeProvider(generator.getPackOutput(), event.getLookupProvider()));
+        generator.addProvider(event.includeServer(), new DigestionRecipeProvider(generator.getPackOutput(), event.getLookupProvider()));
 
         generator.addProvider(event.includeServer(), new TheurgyMultiblockProvider(generator.getPackOutput()));
 

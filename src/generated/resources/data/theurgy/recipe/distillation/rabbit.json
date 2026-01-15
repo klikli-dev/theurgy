@@ -3,9 +3,7 @@
   "category": "misc",
   "ingredient": {
     "count": 2,
-    "ingredient": {
-      "item": "minecraft:rabbit"
-    }
+    "ingredient": "minecraft:rabbit"
   },
   "result": {
     "type": "theurgy:item",

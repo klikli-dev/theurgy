@@ -10,9 +10,7 @@
   ],
   "type": "theurgy:liquefaction",
   "category": "misc",
-  "ingredient": {
-    "tag": "c:crops/mandarin"
-  },
+  "ingredient": "#c:crops/mandarin",
   "result": {
     "type": "theurgy:item",
     "count": 1,
@@ -20,9 +18,7 @@
   },
   "solvent": {
     "amount": 10,
-    "ingredient": {
-      "fluid": "theurgy:sal_ammoniac"
-    }
+    "ingredient": "theurgy:sal_ammoniac"
   },
   "time": 100
 }

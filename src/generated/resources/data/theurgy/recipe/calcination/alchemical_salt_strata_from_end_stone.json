@@ -3,9 +3,7 @@
   "category": "misc",
   "ingredient": {
     "count": 1,
-    "ingredient": {
-      "item": "minecraft:end_stone"
-    }
+    "ingredient": "minecraft:end_stone"
   },
   "result": {
     "type": "theurgy:item",

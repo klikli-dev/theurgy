@@ -129,7 +129,7 @@ public class DigestionCategory implements IRecipeCategory<RecipeHolder<Digestion
 
         var ingredient = ingredients.get(ingredientIndex);
 
-        builder.addIngredients(VanillaTypes.ITEM_STACK, Arrays.stream(ingredient.ingredient().getItems()).map(i -> i.copyWithCount(ingredient.count())).toList());
+        builder.addIngredients(VanillaTypes.ITEM_STACK, ingredient.ingredient().items().stream().map(ItemStack::new).map(i -> i.copyWithCount(ingredient.count())).toList());
     }
 
     @Override
@@ -157,15 +157,13 @@ public class DigestionCategory implements IRecipeCategory<RecipeHolder<Digestion
                 .addTooltipCallback(addFluidTooltip(recipe.value().getFluidAmount()));
 
         //now add the bucket to the recipe lookup for the output fluid
-        builder.addInvisibleIngredients(INPUT).addItemStacks(Arrays.stream(recipe.value().getFluid().getFluids()).map(f -> new ItemStack(f.getFluid().getBucket())).toList());
+        builder.addInvisibleIngredients(INPUT).addItemStacks(recipe.value().getFluid().ingredient().fluids().stream().map(f -> new ItemStack(f.value().getBucket())).toList());
     }
 
     public List<FluidStack> getFluids(RecipeHolder<DigestionRecipe> recipe) {
-        return Arrays.stream(recipe.value().getFluid().getFluids())
+        return recipe.value().getFluid().ingredient().fluids().stream()
                 .map(f -> {
-                    var stack = f.copy();
-                    f.setAmount(recipe.value().getFluidAmount());
-                    return stack;
+                    return new FluidStack(f.value(), recipe.value().getFluidAmount());
                 }).toList();
     }
 

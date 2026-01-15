@@ -3,9 +3,7 @@
   "category": "misc",
   "evaporant": {
     "amount": 1000,
-    "ingredient": {
-      "tag": "minecraft:water"
-    }
+    "ingredient": "#minecraft:water"
   },
   "result": {
     "amount": 100,

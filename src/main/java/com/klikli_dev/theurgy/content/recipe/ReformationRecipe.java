@@ -21,6 +21,11 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.RecipeBookCategory;
+import net.minecraft.world.item.crafting.RecipeBookCategories;
+import net.minecraft.world.item.crafting.RecipeBookCategory;
+import net.minecraft.world.item.crafting.RecipeBookCategories;
+import net.minecraft.world.item.crafting.PlacementInfo;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.common.crafting.SizedIngredient;
 import org.jetbrains.annotations.NotNull;
@@ -36,7 +41,7 @@ public class ReformationRecipe implements Recipe<ReformationArrayRecipeInput> {
             instance -> instance.group(
                     SizedIngredient.NESTED_CODEC.listOf().fieldOf("sources").forGetter(r -> r.sources),
                     Ingredient.CODEC.fieldOf("target").forGetter(r -> r.target),
-                    ItemStack.STRICT_CODEC.fieldOf("result").forGetter(r -> r.result),
+                    ItemStack.CODEC.fieldOf("result").forGetter(r -> r.result),
                     Codec.INT.fieldOf("mercuryFlux").forGetter(r -> r.mercuryFlux),
                     Codec.INT.optionalFieldOf("time", DEFAULT_TIME).forGetter(r -> r.time)
             ).apply(instance, ReformationRecipe::new)
@@ -47,7 +52,7 @@ public class ReformationRecipe implements Recipe<ReformationArrayRecipeInput> {
             r -> r.sources,
             Ingredient.CONTENTS_STREAM_CODEC,
             r -> r.target,
-            ItemStack.OPTIONAL_STREAM_CODEC,
+            ItemStack.STREAM_CODEC,
             r -> r.result,
             ByteBufCodecs.INT,
             r -> r.mercuryFlux,
@@ -93,11 +98,6 @@ public class ReformationRecipe implements Recipe<ReformationArrayRecipeInput> {
     }
 
     @Override
-    public boolean isSpecial() {
-        return true;
-    }
-
-    @Override
     public boolean matches(ReformationArrayRecipeInput pContainer, @NotNull Level pLevel) {
 
         //if we do not have enough flux, exit early
@@ -135,8 +135,7 @@ public class ReformationRecipe implements Recipe<ReformationArrayRecipeInput> {
         return true;
     }
 
-    @Override
-    public @NotNull ItemStack assemble(@NotNull ReformationArrayRecipeInput pCraftingContainer, @NotNull HolderLookup.Provider pRegistries) {
+    public ItemStack assemble(ReformationArrayRecipeInput pCraftingContainer, HolderLookup.Provider pRegistries) {
         var result = this.result.copy();
         //TODO: the tag copy should be an option in the recipe json
         var targetItem = pCraftingContainer.getTargetPedestalInv().getStackInSlot(0);
@@ -147,35 +146,32 @@ public class ReformationRecipe implements Recipe<ReformationArrayRecipeInput> {
         return result;
     }
 
-
-    @Override
-    public boolean canCraftInDimensions(int pWidth, int pHeight) {
-        return true;
-    }
-
-
-    @Override
-    public @NotNull ItemStack getResultItem(@NotNull HolderLookup.Provider pRegistries) {
+    public ItemStack getResultItem(HolderLookup.Provider pRegistries) {
         return this.result;
     }
 
     @Override
+    public PlacementInfo placementInfo() {
+        return PlacementInfo.NOT_PLACEABLE;
+    }
+
+    @Override
+    public RecipeBookCategory recipeBookCategory() {
+        return RecipeBookCategories.CRAFTING_MISC;
+    }
+
+
     public @NotNull NonNullList<Ingredient> getIngredients() {
         return this.sourcesNonNullList;
     }
 
     @Override
-    public @NotNull ItemStack getToastSymbol() {
-        return new ItemStack(BlockRegistry.REFORMATION_RESULT_PEDESTAL.get());
+    public @NotNull RecipeSerializer<ReformationRecipe> getSerializer() {
+        return (RecipeSerializer<ReformationRecipe>) RecipeSerializerRegistry.REFORMATION.get();
     }
 
     @Override
-    public @NotNull RecipeSerializer<?> getSerializer() {
-        return RecipeSerializerRegistry.REFORMATION.get();
-    }
-
-    @Override
-    public @NotNull RecipeType<?> getType() {
+    public @NotNull RecipeType<ReformationRecipe> getType() {
         return RecipeTypeRegistry.REFORMATION.get();
     }
 

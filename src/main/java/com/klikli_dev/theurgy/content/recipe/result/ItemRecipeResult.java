@@ -4,6 +4,7 @@
 
 package com.klikli_dev.theurgy.content.recipe.result;
 
+import net.minecraft.core.registries.BuiltInRegistries;
 import com.klikli_dev.theurgy.registry.RecipeResultRegistry;
 import com.klikli_dev.theurgy.util.TheurgyExtraCodecs;
 import com.mojang.serialization.Codec;
@@ -21,9 +22,9 @@ import org.jetbrains.annotations.Nullable;
 public class ItemRecipeResult extends RecipeResult {
 
     public static final MapCodec<ItemRecipeResult> INGREDIENT_COMPAT_CODEC = RecordCodecBuilder.mapCodec((builder) -> builder.group(
-            ItemStack.ITEM_NON_AIR_CODEC.fieldOf("item").forGetter(t -> t.stack.getItemHolder()),
-            Codec.INT.fieldOf("count").forGetter(t -> t.stack.getCount()),
-            DataComponentPatch.CODEC.optionalFieldOf("components", DataComponentPatch.EMPTY).forGetter(t -> t.stack.getComponentsPatch())
+            BuiltInRegistries.ITEM.holderByNameCodec().fieldOf("item").forGetter((ItemRecipeResult t) -> t.getStack().getItemHolder()),
+            Codec.INT.fieldOf("count").forGetter((ItemRecipeResult t) -> t.getStack().getCount()),
+            DataComponentPatch.CODEC.optionalFieldOf("components", DataComponentPatch.EMPTY).forGetter((ItemRecipeResult t) -> t.getStack().getComponentsPatch())
     ).apply(builder, (item, count, components) -> new ItemRecipeResult(new ItemStack(item, count, components))));
 
     public static final MapCodec<ItemRecipeResult> ITEM_STACK_COMPAT_CODEC = MapCodec.assumeMapUnsafe(ItemStack.STRICT_CODEC.xmap(ItemRecipeResult::new, ItemRecipeResult::getStack));

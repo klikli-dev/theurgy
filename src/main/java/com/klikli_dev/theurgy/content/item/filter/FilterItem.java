@@ -10,7 +10,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -31,11 +30,11 @@ public abstract class FilterItem extends Item implements MenuProvider {
     public @NotNull InteractionResult useOn(UseOnContext pContext) {
         if (pContext.getPlayer() == null)
             return InteractionResult.PASS;
-        return this.use(pContext.getLevel(), pContext.getPlayer(), pContext.getHand()).getResult();
+        return this.use(pContext.getLevel(), pContext.getPlayer(), pContext.getHand());
     }
 
     @Override
-    public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level pLevel, Player pPlayer, @NotNull InteractionHand pUsedHand) {
+    public @NotNull InteractionResult use(@NotNull Level pLevel, Player pPlayer, @NotNull InteractionHand pUsedHand) {
         ItemStack heldItem = pPlayer.getItemInHand(pUsedHand);
 
         if (!pPlayer.isShiftKeyDown() && pUsedHand == InteractionHand.MAIN_HAND) {
@@ -43,10 +42,10 @@ public abstract class FilterItem extends Item implements MenuProvider {
                 serverPlayer.openMenu(this, buf -> {
                     ItemStack.STREAM_CODEC.encode(buf, heldItem);
                 });
-            return InteractionResultHolder.success(heldItem);
+            return InteractionResult.SUCCESS;
         }
 
-        return InteractionResultHolder.pass(heldItem);
+        return InteractionResult.PASS;
     }
 
     @Override
@@ -64,6 +63,6 @@ public abstract class FilterItem extends Item implements MenuProvider {
 
     @Override
     public @NotNull Component getDisplayName() {
-        return this.getDescription();
+        return Component.translatable(this.getDescriptionId());
     }
 }

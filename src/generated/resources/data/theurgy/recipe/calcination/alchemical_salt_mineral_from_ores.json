@@ -12,9 +12,7 @@
   "category": "misc",
   "ingredient": {
     "count": 1,
-    "ingredient": {
-      "tag": "c:ores"
-    }
+    "ingredient": "#c:ores"
   },
   "result": {
     "type": "theurgy:item",

@@ -6,6 +6,9 @@ package com.klikli_dev.theurgy.content.gui;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.network.chat.Component;
 
 public class IconButton extends AbstractButton {
 
@@ -31,7 +34,7 @@ public class IconButton extends AbstractButton {
             RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 
             //draw button background
-            pGuiGraphics.blit(button.location, this.getX(), this.getY(), button.x, button.y, button.width, button.height);
+            pGuiGraphics.blit(RenderType::guiTextured, button.location, this.getX(), this.getY(), (float)button.x, (float)button.y, button.width, button.height, 256, 256);
             this.icon.render(pGuiGraphics, this.getX() + 1, this.getY() + 1);
         }
     }

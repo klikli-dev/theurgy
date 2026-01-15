@@ -38,7 +38,7 @@ public class AccumulationEmiRecipe implements EmiRecipe {
 
     @Override
     public @Nullable ResourceLocation getId() {
-        return this.recipe.id();
+        return this.recipe.id().location();
     }
 
     @Override
@@ -48,8 +48,8 @@ public class AccumulationEmiRecipe implements EmiRecipe {
             inputs.add(EmiIngredient.of(this.recipe.value().getSolute()));
 
         if (this.recipe.value().hasEvaporant())
-            inputs.add(EmiIngredient.of(Arrays.stream(this.recipe.value().getEvaporant().getFluids())
-                    .map(f -> EmiStack.of(f.getFluid(), f.getAmount())).toList()));
+            inputs.add(EmiIngredient.of(this.recipe.value().getEvaporant().ingredient().fluids()
+.stream().map(f -> EmiStack.of(f.value(), this.recipe.value().getEvaporant().amount())).toList()));
 
         return inputs;
     }
@@ -76,8 +76,8 @@ public class AccumulationEmiRecipe implements EmiRecipe {
         widgets.addTexture(EmiTexture.EMPTY_ARROW, 24, 2);
 
         if (this.recipe.value().hasEvaporant()) {
-            widgets.addSlot(EmiIngredient.of(Arrays.stream(this.recipe.value().getEvaporant().getFluids())
-                    .map(f -> EmiStack.of(f.getFluid(), f.getAmount())).toList()), 1, 1);
+            widgets.addSlot(EmiIngredient.of(this.recipe.value().getEvaporant().ingredient().fluids()
+                        .stream().map(f -> EmiStack.of(f.value(), this.recipe.value().getEvaporant().amount())).toList()), 1, 1);
         }
 
         if (this.recipe.value().hasSolute()) {

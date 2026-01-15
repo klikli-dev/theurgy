@@ -3,9 +3,7 @@
   "category": "misc",
   "ingredient": {
     "count": 1,
-    "ingredient": {
-      "item": "minecraft:mycelium"
-    }
+    "ingredient": "minecraft:mycelium"
   },
   "result": {
     "type": "theurgy:item",

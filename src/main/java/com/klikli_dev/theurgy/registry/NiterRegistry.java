@@ -16,6 +16,7 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 public class NiterRegistry {
@@ -52,14 +53,14 @@ public class NiterRegistry {
     public static final DeferredItem<AlchemicalNiterItem> MOBS_PRECIOUS = register("mobs_precious", Items.NETHER_STAR, AlchemicalDerivativeTier.PRECIOUS);
 
     public static DeferredItem<AlchemicalNiterItem> register(String name, TagKey<Item> source, AlchemicalDerivativeTier tier) {
-        return register(name, () -> new AlchemicalNiterItem(new Item.Properties().component(
+        return register(name, (p) -> new AlchemicalNiterItem(p.component(
                 DataComponentRegistry.SOURCE_TAG,
                 source
         ), tier));
     }
 
     public static DeferredItem<AlchemicalNiterItem> register(String name, DeferredItem<?> source, AlchemicalDerivativeTier tier) {
-        return register(name, () -> new AlchemicalNiterItem(new Item.Properties().component(
+        return register(name, (p) -> new AlchemicalNiterItem(p.component(
                 DataComponentRegistry.SOURCE_ITEM,
                 DeferredHolder.create(Registries.ITEM, source.getId())
         ), tier));
@@ -67,14 +68,14 @@ public class NiterRegistry {
 
     public static DeferredItem<AlchemicalNiterItem> register(String name, Item source, AlchemicalDerivativeTier tier) {
         //noinspection deprecation
-        return register(name, () -> new AlchemicalNiterItem(new Item.Properties().component(
+        return register(name, (p) -> new AlchemicalNiterItem(p.component(
                 DataComponentRegistry.SOURCE_ITEM,
                 source.builtInRegistryHolder()
         ), tier));
     }
 
-    public static <T extends Item> DeferredItem<T> register(String name, Supplier<T> sup) {
-        return NITERS.register("alchemical_niter_" + name, sup);
+    public static <T extends Item> DeferredItem<T> register(String name, Function<Item.Properties, ? extends T> func) {
+        return NITERS.registerItem("alchemical_niter_" + name, func);
     }
 
     /**

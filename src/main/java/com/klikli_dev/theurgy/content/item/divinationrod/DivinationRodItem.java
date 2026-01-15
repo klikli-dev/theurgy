@@ -19,6 +19,7 @@ import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.renderer.item.ItemPropertyFunction;
 import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.component.DataComponents;
@@ -27,12 +28,12 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.*;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.InteractionResultHolder;
+
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
@@ -55,7 +56,7 @@ public class DivinationRodItem extends Item {
     public static final float NOT_FOUND = 7.0f;
     public static final float SEARCHING = 8.0f;
 
-    public Tiers defaultTier;
+    public ToolMaterial defaultTier;
     public TagKey<Block> defaultAllowedBlocksTag;
     public TagKey<Block> defaultDisallowedBlocksTag;
 
@@ -64,7 +65,7 @@ public class DivinationRodItem extends Item {
     public int defaultDurability;
     public boolean defaultAllowAttuning;
 
-    public DivinationRodItem(Properties pProperties, Tiers defaultTier, TagKey<Block> defaultAllowedBlocksTag, TagKey<Block> defaultDisallowedBlocksTag, int defaultRange, int defaultDuration, int defaultDurability, boolean defaultAllowAttuning) {
+    public DivinationRodItem(Properties pProperties, ToolMaterial defaultTier, TagKey<Block> defaultAllowedBlocksTag, TagKey<Block> defaultDisallowedBlocksTag, int defaultRange, int defaultDuration, int defaultDurability, boolean defaultAllowAttuning) {
         super(pProperties
                 .component(DataComponentRegistry.DIVINATION_SETTINGS_TIER, defaultTier)
                 .component(DataComponentRegistry.DIVINATION_SETTINGS_ALLOWED_BLOCKS_TAG, defaultAllowedBlocksTag)
@@ -103,7 +104,7 @@ public class DivinationRodItem extends Item {
     }
 
     private static void scanLinkedTag(Player player, TagKey<Block> tagKey, int range, int duration) {
-        var blocks = BuiltInRegistries.BLOCK.getTag(tagKey)
+        var blocks = BuiltInRegistries.BLOCK.get(tagKey)
                 .map(tag -> tag.stream().map(Holder::value).collect(Collectors.toSet()))
                 .orElse(Collections.emptySet());
 
@@ -115,20 +116,22 @@ public class DivinationRodItem extends Item {
     public static Set<Block> getScanTargetsForId(ResourceLocation linkedBlockId) {
         //First: try to get a tag for the given block.
         var tagKey = TagKey.create(Registries.BLOCK, getOreTagFromBlockId(linkedBlockId));
-        var tag = BuiltInRegistries.BLOCK.getTag(tagKey);
+        var tag = BuiltInRegistries.BLOCK.get(tagKey);
 
         if (tag.map(HolderSet.ListBacked::size).orElse(0) > 0)
             return tag.map(t -> t.stream().map(Holder::value).collect(Collectors.toSet())).orElse(Collections.emptySet());
 
         //If no fitting tag succeeds, try to get block + deepslate variant
-        var block = BuiltInRegistries.BLOCK.get(linkedBlockId);
+        var blockKey = ResourceKey.create(Registries.BLOCK, linkedBlockId);
+        var block = BuiltInRegistries.BLOCK.get(blockKey).map(Holder::value).orElse(null);
         if (block != null) {
             Block deepslateBlock = null;
 
             //also search for deepslate ores
             if (linkedBlockId.getPath().contains("_ore") && !linkedBlockId.getPath().contains("deepslate_")) {
                 var deepslateId = ResourceLocation.fromNamespaceAndPath(linkedBlockId.getNamespace(),  "deepslate_" + linkedBlockId.getPath());
-                deepslateBlock = BuiltInRegistries.BLOCK.get(deepslateId);
+                 var deepslateKey = ResourceKey.create(Registries.BLOCK, deepslateId);
+                deepslateBlock = BuiltInRegistries.BLOCK.get(deepslateKey).map(Holder::value).orElse(null);
             }
 
             //finally, only add deepslate variant, if it is not air
@@ -153,12 +156,15 @@ public class DivinationRodItem extends Item {
     public static void registerCreativeModeTabs(DivinationRodItem item, CreativeModeTab.Output output) {
         var level = LevelUtil.getLevelWithoutContext();
         if (level != null) {
-            var recipeManager = level.getRecipeManager();
+            //var recipeManager = level.getRecipeManager();
+            //FIXME: 1.21.3 Update - RecipeManager handling
+            /*
             recipeManager.getRecipes().forEach((recipe) -> {
                 if (recipe.value().getResultItem(level.registryAccess()) != null && recipe.value().getResultItem(level.registryAccess()).getItem() == item) {
                     output.accept(recipe.value().getResultItem(level.registryAccess()).copy());
                 }
             });
+            */
         }
     }
 
@@ -189,8 +195,9 @@ public class DivinationRodItem extends Item {
 
             if (!stack.getOrDefault(DataComponentRegistry.DIVINATION_SETTINGS_ALLOW_ATTUNING, false)) {
                 if (!level.isClientSide) {
-                    player.sendSystemMessage(
-                            Component.translatable(TheurgyConstants.I18n.Message.DIVINATION_ROD_ATTUNING_NOT_ALLOWED)
+                    player.displayClientMessage(
+                            Component.translatable(TheurgyConstants.I18n.Message.DIVINATION_ROD_ATTUNING_NOT_ALLOWED),
+                            true
                     );
                 }
                 return InteractionResult.FAIL;
@@ -198,33 +205,36 @@ public class DivinationRodItem extends Item {
 
             BlockState state = level.getBlockState(pos);
             if (!state.isAir()) {
-                if (state.is(tier.getIncorrectBlocksForDrops())) {
+                if (state.is(tier.incorrectBlocksForDrops())) {
                     if (!level.isClientSide) {
-                        player.sendSystemMessage(
+                        player.displayClientMessage(
                                 Component.translatable(
                                         TheurgyConstants.I18n.Message.DIVINATION_ROD_TIER_TOO_LOW,
                                         this.getBlockDisplayComponent(state.getBlock())
-                                )
+                                ),
+                                true
                         );
                     }
                     return InteractionResult.FAIL;
                 } else if (!state.is(allowedBlocksTag)) {
                     if (!level.isClientSide) {
-                        player.sendSystemMessage(
+                        player.displayClientMessage(
                                 Component.translatable(
                                         TheurgyConstants.I18n.Message.DIVINATION_ROD_BLOCK_NOT_ALLOWED,
                                         this.getBlockDisplayComponent(state.getBlock())
-                                )
+                                ),
+                                true
                         );
                     }
                     return InteractionResult.FAIL;
                 } else if (state.is(disallowedBlocksTag)) {
                     if (!level.isClientSide) {
-                        player.sendSystemMessage(
+                        player.displayClientMessage(
                                 Component.translatable(
                                         TheurgyConstants.I18n.Message.DIVINATION_ROD_BLOCK_DISALLOWED,
                                         this.getBlockDisplayComponent(state.getBlock())
-                                )
+                                ),
+                                true
                         );
                     }
                     return InteractionResult.FAIL;
@@ -232,11 +242,12 @@ public class DivinationRodItem extends Item {
                     if (!level.isClientSide) {
                         stack.set(DataComponentRegistry.DIVINATION_LINKED_BLOCK, state.getBlockHolder());
 
-                        player.sendSystemMessage(
+                        player.displayClientMessage(
                                 Component.translatable(
                                         TheurgyConstants.I18n.Message.DIVINATION_ROD_LINKED,
                                         this.getBlockDisplayComponent(state.getBlock())
-                                )
+                                ),
+                                true
                         );
                     }
 
@@ -252,7 +263,7 @@ public class DivinationRodItem extends Item {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+    public InteractionResult use(Level level, Player player, InteractionHand hand) {
         var stack = player.getItemInHand(hand);
 
         if (!player.isShiftKeyDown()) {
@@ -277,11 +288,11 @@ public class DivinationRodItem extends Item {
                     }
                 }
             } else if (!level.isClientSide) {
-                player.sendSystemMessage(Component.translatable(TheurgyConstants.I18n.Message.DIVINATION_ROD_NO_LINK));
+                player.displayClientMessage(Component.translatable(TheurgyConstants.I18n.Message.DIVINATION_ROD_NO_LINK), true);
             }
         }
 
-        return new InteractionResultHolder<>(InteractionResult.SUCCESS, stack);
+        return InteractionResult.SUCCESS;
     }
 
     @Override
@@ -299,7 +310,7 @@ public class DivinationRodItem extends Item {
             return stack;
         }
 
-        player.getCooldowns().addCooldown(this, stack.getOrDefault(DataComponentRegistry.DIVINATION_SETTINGS_DURATION, this.defaultDuration));
+        player.getCooldowns().addCooldown(stack, stack.getOrDefault(DataComponentRegistry.DIVINATION_SETTINGS_DURATION, this.defaultDuration));
 
         stack.set(DataComponentRegistry.DIVINATION_DISTANCE, NOT_FOUND);
 
@@ -330,7 +341,7 @@ public class DivinationRodItem extends Item {
     }
 
     @Override
-    public void releaseUsing(ItemStack stack, Level level, LivingEntity pLivingEntity, int pTimeCharged) {
+    public boolean releaseUsing(ItemStack stack, Level level, LivingEntity pLivingEntity, int pTimeCharged) {
         if(!stack.has(DataComponentRegistry.DIVINATION_POS))
             //player interrupted, so we can safely set not found on server, if we don't have a previous result
             stack.set(DataComponentRegistry.DIVINATION_DISTANCE, NOT_FOUND);
@@ -350,7 +361,7 @@ public class DivinationRodItem extends Item {
                 this.spawnResultParticle(stack.get(DataComponentRegistry.DIVINATION_POS), level, pLivingEntity);
             }
         }
-        super.releaseUsing(stack, level, pLivingEntity, pTimeCharged);
+        return super.releaseUsing(stack, level, pLivingEntity, pTimeCharged);
     }
 
     @Override
@@ -465,7 +476,7 @@ public class DivinationRodItem extends Item {
         }
     }
 
-    public Tier getMiningTier(ItemStack stack) {
+    public ToolMaterial getMiningTier(ItemStack stack) {
         return stack.getOrDefault(DataComponentRegistry.DIVINATION_SETTINGS_TIER, this.defaultTier);
     }
 

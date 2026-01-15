@@ -42,194 +42,173 @@ public class BlockRegistry {
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(Theurgy.MODID);
 
     public static final DeferredBlock<CalcinationOvenBlock> CALCINATION_OVEN =
-            BLOCKS.register("calcination_oven", () -> new CalcinationOvenBlock(BlockBehaviour.Properties.of()
+            BLOCKS.registerBlock("calcination_oven", CalcinationOvenBlock::new, BlockBehaviour.Properties.of()
                     .mapColor(MapColor.METAL)
                     .noOcclusion()
                     .sound(SoundType.COPPER)
-                    .strength(1.0f)));
+                    .strength(1.0f));
 
     public static final DeferredBlock<PyromanticBrazierBlock> PYROMANTIC_BRAZIER =
-            BLOCKS.register("pyromantic_brazier", () -> new PyromanticBrazierBlock(BlockBehaviour.Properties.of()
+            BLOCKS.registerBlock("pyromantic_brazier", PyromanticBrazierBlock::new, BlockBehaviour.Properties.of()
                     .mapColor(MapColor.METAL)
                     .noOcclusion()
                     .sound(SoundType.COPPER)
                     .strength(1.0f)
-                    .lightLevel((state) -> state.getValue(BlockStateProperties.LIT) ? 14 : 0)));
+                    .lightLevel((state) -> state.getValue(BlockStateProperties.LIT) ? 14 : 0));
 
     public static final DeferredBlock<LiquefactionCauldronBlock> LIQUEFACTION_CAULDRON =
-            BLOCKS.register("liquefaction_cauldron", () -> new LiquefactionCauldronBlock(BlockBehaviour.Properties.of()
+            BLOCKS.registerBlock("liquefaction_cauldron", LiquefactionCauldronBlock::new, BlockBehaviour.Properties.of()
                     .mapColor(MapColor.METAL)
                     .noOcclusion()
                     .sound(SoundType.COPPER)
-                    .strength(1.0f)));
+                    .strength(1.0f));
 
     public static final DeferredBlock<DistillerBlock> DISTILLER =
-            BLOCKS.register("distiller", () -> new DistillerBlock(BlockBehaviour.Properties.of()
+            BLOCKS.registerBlock("distiller", DistillerBlock::new, BlockBehaviour.Properties.of()
                     .mapColor(MapColor.METAL)
                     .noOcclusion()
                     .sound(SoundType.COPPER)
-                    .strength(1.0f)));
+                    .strength(1.0f));
 
     public static final DeferredBlock<IncubatorBlock> INCUBATOR =
-            BLOCKS.register("incubator", () -> new IncubatorBlock(BlockBehaviour.Properties.of()
+            BLOCKS.registerBlock("incubator", IncubatorBlock::new, BlockBehaviour.Properties.of()
                     .mapColor(MapColor.METAL)
                     .noOcclusion()
                     .sound(SoundType.WOOD)
-                    .strength(1.0f)));
+                    .strength(1.0f));
 
     public static final DeferredBlock<IncubatorMercuryVesselBlock> INCUBATOR_MERCURY_VESSEL =
-            BLOCKS.register("incubator_mercury_vessel", () -> new IncubatorMercuryVesselBlock(BlockBehaviour.Properties.of()
+            BLOCKS.registerBlock("incubator_mercury_vessel", IncubatorMercuryVesselBlock::new, BlockBehaviour.Properties.of()
                     .mapColor(MapColor.METAL)
                     .noOcclusion()
                     .sound(SoundType.WOOD)
-                    .strength(1.0f)));
+                    .strength(1.0f));
 
     public static final DeferredBlock<IncubatorSaltVesselBlock> INCUBATOR_SALT_VESSEL =
-            BLOCKS.register("incubator_salt_vessel", () -> new IncubatorSaltVesselBlock(BlockBehaviour.Properties.of()
+            BLOCKS.registerBlock("incubator_salt_vessel", IncubatorSaltVesselBlock::new, BlockBehaviour.Properties.of()
                     .mapColor(MapColor.METAL)
                     .noOcclusion()
                     .sound(SoundType.WOOD)
-                    .strength(1.0f)));
+                    .strength(1.0f));
 
     public static final DeferredBlock<IncubatorSulfurVesselBlock> INCUBATOR_SULFUR_VESSEL =
-            BLOCKS.register("incubator_sulfur_vessel", () -> new IncubatorSulfurVesselBlock(BlockBehaviour.Properties.of()
+            BLOCKS.registerBlock("incubator_sulfur_vessel", IncubatorSulfurVesselBlock::new, BlockBehaviour.Properties.of()
                     .mapColor(MapColor.METAL)
                     .noOcclusion()
                     .sound(SoundType.WOOD)
-                    .strength(1.0f)));
+                    .strength(1.0f));
 
     public static final DeferredBlock<SalAmmoniacAccumulatorBlock> SAL_AMMONIAC_ACCUMULATOR =
-            BLOCKS.register("sal_ammoniac_accumulator", () -> new SalAmmoniacAccumulatorBlock(BlockBehaviour.Properties.of()
+            BLOCKS.registerBlock("sal_ammoniac_accumulator", SalAmmoniacAccumulatorBlock::new, BlockBehaviour.Properties.of()
                     .mapColor(MapColor.METAL)
                     .noOcclusion()
                     .sound(SoundType.COPPER)
-                    .strength(1.0f)));
+                    .strength(1.0f));
 
     public static final DeferredBlock<SalAmmoniacTankBlock> SAL_AMMONIAC_TANK =
-            BLOCKS.register("sal_ammoniac_tank", () -> new SalAmmoniacTankBlock(BlockBehaviour.Properties.of()
+            BLOCKS.registerBlock("sal_ammoniac_tank", SalAmmoniacTankBlock::new, BlockBehaviour.Properties.of()
                     .mapColor(MapColor.METAL)
                     .noOcclusion()
                     .sound(SoundType.COPPER)
-                    .strength(1.0f)));
+                    .strength(1.0f));
 
     public static final DeferredBlock<MercuryCatalystBlock> MERCURY_CATALYST =
-            BLOCKS.register("mercury_catalyst", () -> new MercuryCatalystBlock(BlockBehaviour.Properties.of()
+            BLOCKS.registerBlock("mercury_catalyst", MercuryCatalystBlock::new, BlockBehaviour.Properties.of()
                     .mapColor(MapColor.METAL)
                     .noOcclusion()
                     .sound(SoundType.METAL)
-                    .strength(1.0f)));
+                    .strength(1.0f));
 
     public static final DeferredBlock<CaloricFluxEmitterBlock> CALORIC_FLUX_EMITTER =
-            BLOCKS.register("caloric_flux_emitter", () -> new CaloricFluxEmitterBlock(BlockBehaviour.Properties.of()
+            BLOCKS.registerBlock("caloric_flux_emitter", CaloricFluxEmitterBlock::new, BlockBehaviour.Properties.of()
                     .mapColor(MapColor.METAL)
                     .noOcclusion()
                     .sound(SoundType.METAL)
-                    .strength(1.0f))
-            );
+                    .strength(1.0f));
 
     public static final DeferredBlock<SulfuricFluxEmitterBlock> SULFURIC_FLUX_EMITTER =
-            BLOCKS.register("sulfuric_flux_emitter", () -> new SulfuricFluxEmitterBlock(BlockBehaviour.Properties.of()
+            BLOCKS.registerBlock("sulfuric_flux_emitter", SulfuricFluxEmitterBlock::new, BlockBehaviour.Properties.of()
                             .mapColor(MapColor.METAL)
                             .noOcclusion()
                             .sound(SoundType.METAL)
-                            .strength(1.0f)
-
-                    )
-            );
+                            .strength(1.0f));
 
     public static final DeferredBlock<ReformationSourcePedestalBlock> REFORMATION_SOURCE_PEDESTAL =
-            BLOCKS.register("reformation_source_pedestal", () -> new ReformationSourcePedestalBlock(BlockBehaviour.Properties.of()
+            BLOCKS.registerBlock("reformation_source_pedestal", ReformationSourcePedestalBlock::new, BlockBehaviour.Properties.of()
                     .mapColor(MapColor.METAL)
                     .noOcclusion()
                     .sound(SoundType.STONE)
-                    .strength(1.0f))
-            );
+                    .strength(1.0f));
 
     public static final DeferredBlock<ReformationTargetPedestalBlock> REFORMATION_TARGET_PEDESTAL =
-            BLOCKS.register("reformation_target_pedestal", () -> new ReformationTargetPedestalBlock(BlockBehaviour.Properties.of()
+            BLOCKS.registerBlock("reformation_target_pedestal", ReformationTargetPedestalBlock::new, BlockBehaviour.Properties.of()
                     .mapColor(MapColor.METAL)
                     .noOcclusion()
                     .sound(SoundType.STONE)
-                    .strength(1.0f))
-            );
+                    .strength(1.0f));
 
     public static final DeferredBlock<ReformationResultPedestalBlock> REFORMATION_RESULT_PEDESTAL =
-            BLOCKS.register("reformation_result_pedestal", () -> new ReformationResultPedestalBlock(BlockBehaviour.Properties.of()
+            BLOCKS.registerBlock("reformation_result_pedestal", ReformationResultPedestalBlock::new, BlockBehaviour.Properties.of()
                     .mapColor(MapColor.METAL)
                     .noOcclusion()
                     .sound(SoundType.STONE)
-                    .strength(1.0f))
-            );
+                    .strength(1.0f));
 
     public static final DeferredBlock<FermentationVatBlock> FERMENTATION_VAT =
-            BLOCKS.register("fermentation_vat", () -> new FermentationVatBlock(BlockBehaviour.Properties.of()
+            BLOCKS.registerBlock("fermentation_vat", FermentationVatBlock::new, BlockBehaviour.Properties.of()
                     .mapColor(MapColor.METAL)
                     .sound(SoundType.METAL)
-                    .strength(1.0f))
-            );
+                    .strength(1.0f));
 
     public static final DeferredBlock<DigestionVatBlock> DIGESTION_VAT =
-            BLOCKS.register("digestion_vat", () -> new DigestionVatBlock(BlockBehaviour.Properties.of()
+            BLOCKS.registerBlock("digestion_vat", DigestionVatBlock::new, BlockBehaviour.Properties.of()
                     .noOcclusion()
                     .mapColor(MapColor.CLAY)
                     .sound(SoundType.DECORATED_POT)
-                    .strength(1.0f))
-            );
+                    .strength(1.0f));
 
     public static final DeferredBlock<LogisticsConnectionNodeBlock> LOGISTICS_CONNECTION_NODE =
-            BLOCKS.register("logistics_connector_node", () -> new LogisticsConnectionNodeBlock(BlockBehaviour.Properties.of()
+            BLOCKS.registerBlock("logistics_connector_node", LogisticsConnectionNodeBlock::new, BlockBehaviour.Properties.of()
                             .strength(0.1f)
                             .noOcclusion()
-                            .forceSolidOff()
-                    )
-            );
+                            .forceSolidOff());
 
     public static final DeferredBlock<LogisticsItemInserterBlock> LOGISTICS_ITEM_INSERTER =
-            BLOCKS.register("logistics_item_inserter", () -> new LogisticsItemInserterBlock(BlockBehaviour.Properties.of()
+            BLOCKS.registerBlock("logistics_item_inserter", LogisticsItemInserterBlock::new, BlockBehaviour.Properties.of()
                             .strength(0.1f)
                             .noOcclusion()
-                            .forceSolidOff()
-                    )
-            );
+                            .forceSolidOff());
 
     public static final DeferredBlock<LogisticsItemExtractorBlock> LOGISTICS_ITEM_EXTRACTOR =
-            BLOCKS.register("logistics_item_extractor", () -> new LogisticsItemExtractorBlock(BlockBehaviour.Properties.of()
+            BLOCKS.registerBlock("logistics_item_extractor", LogisticsItemExtractorBlock::new, BlockBehaviour.Properties.of()
                             .strength(0.1f)
                             .noOcclusion()
-                            .forceSolidOff()
-                    )
-            );
+                            .forceSolidOff());
 
     public static final DeferredBlock<LogisticsFluidInserterBlock> LOGISTICS_FLUID_INSERTER =
-            BLOCKS.register("logistics_fluid_inserter", () -> new LogisticsFluidInserterBlock(BlockBehaviour.Properties.of()
+            BLOCKS.registerBlock("logistics_fluid_inserter", LogisticsFluidInserterBlock::new, BlockBehaviour.Properties.of()
                             .strength(0.1f)
                             .noOcclusion()
-                            .forceSolidOff()
-                    )
-            );
+                            .forceSolidOff());
 
     public static final DeferredBlock<LogisticsFluidExtractorBlock> LOGISTICS_FLUID_EXTRACTOR =
-            BLOCKS.register("logistics_fluid_extractor", () -> new LogisticsFluidExtractorBlock(BlockBehaviour.Properties.of()
+            BLOCKS.registerBlock("logistics_fluid_extractor", LogisticsFluidExtractorBlock::new, BlockBehaviour.Properties.of()
                             .strength(0.1f)
                             .noOcclusion()
-                            .forceSolidOff()
-                    )
-            );
+                            .forceSolidOff());
 
     public static final DeferredBlock<Block> SAL_AMMONIAC_ORE =
-            BLOCKS.register("sal_ammoniac_ore", () -> new DropExperienceBlock(
-                    UniformInt.of(2, 5),
+            BLOCKS.registerBlock("sal_ammoniac_ore", p -> new DropExperienceBlock(
+                    UniformInt.of(2, 5), p),
                     BlockBehaviour.Properties.of()
                             .requiresCorrectToolForDrops()
-                            .strength(3.0F, 3.0F))
-            );
+                            .strength(3.0F, 3.0F));
 
     public static final DeferredBlock<Block> DEEPSLATE_SAL_AMMONIAC_ORE =
-            BLOCKS.register("deepslate_sal_ammoniac_ore", () -> new DropExperienceBlock(
-                    UniformInt.of(2, 5),
-                    BlockBehaviour.Properties.ofLegacyCopy(SAL_AMMONIAC_ORE.get())
+            BLOCKS.registerBlock("deepslate_sal_ammoniac_ore", (p) -> new DropExperienceBlock(
+                    UniformInt.of(2, 5), p),
+                    BlockBehaviour.Properties.of()
                             .mapColor(MapColor.DEEPSLATE)
                             .strength(4.5f, 3.0f)
-                            .sound(SoundType.DEEPSLATE))
-            );
+                            .sound(SoundType.DEEPSLATE));
 }

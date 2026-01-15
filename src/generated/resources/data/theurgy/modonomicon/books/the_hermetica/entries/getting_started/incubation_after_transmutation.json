@@ -15,9 +15,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "minecraft:iron_ingot"
-      },
+      "item": "minecraft:iron_ingot",
       "text": "book.theurgy.the_hermetica.getting_started.incubation_after_transmutation.intro.text",
       "title": "book.theurgy.the_hermetica.getting_started.incubation_after_transmutation.intro.title"
     }

@@ -3,22 +3,16 @@
   "category": "misc",
   "fluid": {
     "amount": 10,
-    "ingredient": {
-      "fluid": "theurgy:sal_ammoniac"
-    }
+    "ingredient": "theurgy:sal_ammoniac"
   },
   "ingredients": [
     {
       "count": 4,
-      "ingredient": {
-        "item": "theurgy:alchemical_niter_metals_abundant"
-      }
+      "ingredient": "theurgy:alchemical_niter_metals_abundant"
     },
     {
       "count": 1,
-      "ingredient": {
-        "item": "theurgy:purified_gold"
-      }
+      "ingredient": "theurgy:purified_gold"
     }
   ],
   "result": {

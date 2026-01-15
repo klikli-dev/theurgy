@@ -15,9 +15,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "theurgy:liquefaction_cauldron"
-      },
+      "item": "theurgy:liquefaction_cauldron",
       "text": "book.theurgy.the_hermetica.apparatus.liquefaction_cauldron.intro.text",
       "title": ""
     },

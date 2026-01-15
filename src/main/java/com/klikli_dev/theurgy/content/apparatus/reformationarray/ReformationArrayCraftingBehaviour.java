@@ -9,6 +9,7 @@ import com.klikli_dev.theurgy.content.capability.MercuryFluxStorage;
 import com.klikli_dev.theurgy.content.recipe.ReformationRecipe;
 import com.klikli_dev.theurgy.content.recipe.input.ReformationArrayRecipeInput;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
@@ -36,7 +37,8 @@ public class ReformationArrayCraftingBehaviour extends CraftingBehaviour<Reforma
 
     @Override
     public boolean isIngredient(ItemStack stack) {
-        return this.recipeCachedCheck.getRecipeFor(this.recipeInputSupplier.get(), this.blockEntity.getLevel()).isPresent();
+        if (this.blockEntity.getLevel().isClientSide) return false;
+        return this.recipeCachedCheck.getRecipeFor(this.recipeInputSupplier.get(), (ServerLevel)this.blockEntity.getLevel()).isPresent();
     }
 
     @Override

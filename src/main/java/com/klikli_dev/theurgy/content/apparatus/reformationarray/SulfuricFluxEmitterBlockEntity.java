@@ -374,7 +374,7 @@ SulfuricFluxEmitterBlockEntity extends BlockEntity {
     public static class DistHelper {
 
         static void sendTargetProjectile(SulfuricFluxEmitterBlockEntity emitter) {
-            var normal = Vec3.atLowerCornerOf(emitter.getBlockState().getValue(BlockStateProperties.FACING).getNormal());
+            var normal = Vec3.atLowerCornerOf(emitter.getBlockState().getValue(BlockStateProperties.FACING).getUnitVec3i());
             var from = Vec3.atCenterOf(emitter.getBlockPos()).subtract(normal.scale(0.5));
             var to = Vec3.atCenterOf(emitter.targetPedestal.getBlockPos()).add(0, 0.5, 0);
 

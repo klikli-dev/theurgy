@@ -19,17 +19,11 @@
   "category": "misc",
   "fluid": {
     "amount": 1000,
-    "ingredient": {
-      "fluid": "minecraft:water"
-    }
+    "ingredient": "minecraft:water"
   },
   "ingredients": [
-    {
-      "tag": "theurgy:alchemical_sulfurs/mobs/precious/automatic_recipes"
-    },
-    {
-      "tag": "c:eggs"
-    }
+    "#theurgy:alchemical_sulfurs/mobs/precious/automatic_recipes",
+    "#c:eggs"
   ],
   "result": {
     "type": "theurgy:item",

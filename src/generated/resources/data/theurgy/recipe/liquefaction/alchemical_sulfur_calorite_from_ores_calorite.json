@@ -10,9 +10,7 @@
   ],
   "type": "theurgy:liquefaction",
   "category": "misc",
-  "ingredient": {
-    "tag": "c:ores/calorite"
-  },
+  "ingredient": "#c:ores/calorite",
   "result": {
     "type": "theurgy:item",
     "count": 5,
@@ -20,9 +18,7 @@
   },
   "solvent": {
     "amount": 50,
-    "ingredient": {
-      "fluid": "theurgy:sal_ammoniac"
-    }
+    "ingredient": "theurgy:sal_ammoniac"
   },
   "time": 100
 }

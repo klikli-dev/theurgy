@@ -15,9 +15,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "theurgy:sal_ammoniac_tank"
-      },
+      "item": "theurgy:sal_ammoniac_tank",
       "text": "book.theurgy.the_hermetica.apparatus.sal_ammoniac_tank.intro.text",
       "title": ""
     },

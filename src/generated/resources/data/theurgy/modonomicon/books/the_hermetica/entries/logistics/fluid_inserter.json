@@ -15,9 +15,7 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "item": {
-        "item": "theurgy:logistics_fluid_inserter"
-      },
+      "item": "theurgy:logistics_fluid_inserter",
       "text": "book.theurgy.the_hermetica.logistics.fluid_inserter.inserter.text",
       "title": ""
     },

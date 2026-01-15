@@ -12,17 +12,11 @@
   "category": "misc",
   "fluid": {
     "amount": 1000,
-    "ingredient": {
-      "fluid": "minecraft:water"
-    }
+    "ingredient": "minecraft:water"
   },
   "ingredients": [
-    {
-      "item": "theurgy:alchemical_sulfur_dragon_egg"
-    },
-    {
-      "tag": "c:sugars"
-    }
+    "theurgy:alchemical_sulfur_dragon_egg",
+    "#c:sugars"
   ],
   "result": {
     "type": "theurgy:item",

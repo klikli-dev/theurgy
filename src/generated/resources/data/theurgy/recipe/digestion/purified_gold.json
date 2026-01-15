@@ -19,22 +19,16 @@
   "category": "misc",
   "fluid": {
     "amount": 1000,
-    "ingredient": {
-      "fluid": "minecraft:water"
-    }
+    "ingredient": "minecraft:water"
   },
   "ingredients": [
     {
       "count": 1,
-      "ingredient": {
-        "tag": "c:ingots/gold"
-      }
+      "ingredient": "#c:ingots/gold"
     },
     {
       "count": 1,
-      "ingredient": {
-        "tag": "theurgy:alchemical_salts"
-      }
+      "ingredient": "#theurgy:alchemical_salts"
     }
   ],
   "result": {

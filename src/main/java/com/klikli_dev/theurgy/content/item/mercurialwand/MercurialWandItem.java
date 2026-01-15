@@ -15,7 +15,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -52,12 +52,12 @@ public class MercurialWandItem extends Item implements ItemHUDProvider, ModeItem
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
+    public InteractionResult use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
         var stack = pPlayer.getItemInHand(pUsedHand);
         var mode = stack.get(DataComponentRegistry.MERCURIAL_WAND_ITEM_MODE.get());
 
         var result = mode.use(pLevel, pPlayer, pUsedHand);
-        if (result.getResult() != InteractionResult.PASS) {
+        if (result != InteractionResult.PASS) {
             return result;
         }
 

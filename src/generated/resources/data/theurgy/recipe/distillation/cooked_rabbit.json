@@ -3,9 +3,7 @@
   "category": "misc",
   "ingredient": {
     "count": 1,
-    "ingredient": {
-      "item": "minecraft:cooked_rabbit"
-    }
+    "ingredient": "minecraft:cooked_rabbit"
   },
   "result": {
     "type": "theurgy:item",

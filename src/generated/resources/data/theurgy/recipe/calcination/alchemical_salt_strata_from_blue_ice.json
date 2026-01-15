@@ -3,9 +3,7 @@
   "category": "misc",
   "ingredient": {
     "count": 1,
-    "ingredient": {
-      "item": "minecraft:blue_ice"
-    }
+    "ingredient": "minecraft:blue_ice"
   },
   "result": {
     "type": "theurgy:item",

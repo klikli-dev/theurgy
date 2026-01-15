@@ -8,6 +8,7 @@ import com.klikli_dev.theurgy.content.item.derivative.AlchemicalDerivativeItem;
 import com.klikli_dev.theurgy.content.item.derivative.AlchemicalDerivativeTier;
 import com.klikli_dev.theurgy.registry.DataComponentRegistry;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.ComponentUtils;
@@ -35,8 +36,8 @@ public class AlchemicalSulfurItem extends AlchemicalDerivativeItem {
         return AlchemicalSulfurType.MISC;
     }
 
-    public static AlchemicalSulfurItem ofSource(TagKey<Item> source, AlchemicalDerivativeTier tier, AlchemicalSulfurType type) {
-        var item = new AlchemicalSulfurItem(new Item.Properties()
+    public static AlchemicalSulfurItem ofSource(Item.Properties prop, TagKey<Item> source, AlchemicalDerivativeTier tier, AlchemicalSulfurType type) {
+        var item = new AlchemicalSulfurItem(prop
                 .component(
                         DataComponentRegistry.SOURCE_TAG,
                         source
@@ -48,13 +49,13 @@ public class AlchemicalSulfurItem extends AlchemicalDerivativeItem {
         return item;
     }
 
-    public static AlchemicalSulfurItem ofSource(Item sourceStack, AlchemicalDerivativeTier tier, AlchemicalSulfurType type) {
+    public static AlchemicalSulfurItem ofSource(Item.Properties prop, Item sourceStack, AlchemicalDerivativeTier tier, AlchemicalSulfurType type) {
         //noinspection deprecation
-        return ofSource(sourceStack.builtInRegistryHolder(), tier, type);
+        return ofSource(prop, sourceStack.builtInRegistryHolder(), tier, type);
     }
 
-    public static AlchemicalSulfurItem ofSource(Holder<Item> sourceStack, AlchemicalDerivativeTier tier, AlchemicalSulfurType type) {
-        var item = new AlchemicalSulfurItem(new Item.Properties()
+    public static AlchemicalSulfurItem ofSource(Item.Properties prop,  Holder<Item> sourceStack, AlchemicalDerivativeTier tier, AlchemicalSulfurType type) {
+        var item = new AlchemicalSulfurItem(prop
                 .component(
                         DataComponentRegistry.SOURCE_ITEM,
                         sourceStack

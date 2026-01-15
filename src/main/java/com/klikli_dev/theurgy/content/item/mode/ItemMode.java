@@ -12,7 +12,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
@@ -24,8 +23,8 @@ import java.util.List;
 
 public abstract class ItemMode implements ItemHUDProvider {
 
-    public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
-        return InteractionResultHolder.pass(pPlayer.getItemInHand(pUsedHand));
+    public InteractionResult use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
+        return InteractionResult.PASS;
     }
 
     public InteractionResult onItemUseFirst(ItemStack stack, UseOnContext context) {

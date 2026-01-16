@@ -4,8 +4,6 @@
 
 package com.klikli_dev.theurgy.content.apparatus.calcinationoven;
 
-import com.klikli_dev.theurgy.content.apparatus.calcinationoven.render.CalcinationOvenBEWLR;
-import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;

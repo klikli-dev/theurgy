@@ -8,35 +8,26 @@ import com.klikli_dev.modonomicon.client.render.page.PageRendererRegistry;
 import com.klikli_dev.theurgy.config.ClientConfig;
 import com.klikli_dev.theurgy.config.CommonConfig;
 import com.klikli_dev.theurgy.config.ServerConfig;
-import com.klikli_dev.theurgy.content.apparatus.calcinationoven.render.CalcinationOvenBEWLR;
 import com.klikli_dev.theurgy.content.apparatus.calcinationoven.render.CalcinationOvenRenderer;
-import com.klikli_dev.theurgy.content.apparatus.digestionvat.DigestionVatBEWLR;
 import com.klikli_dev.theurgy.content.apparatus.digestionvat.DigestionVatRenderer;
-import com.klikli_dev.theurgy.content.apparatus.distiller.render.DistillerBEWLR;
 import com.klikli_dev.theurgy.content.apparatus.distiller.render.DistillerRenderer;
-import com.klikli_dev.theurgy.content.apparatus.incubator.render.*;
+//import com.klikli_dev.theurgy.content.apparatus.incubator.render.*;
+import com.klikli_dev.theurgy.content.apparatus.incubator.render.IncubatorMercuryVesselRenderer;
+import com.klikli_dev.theurgy.content.apparatus.incubator.render.IncubatorSaltVesselRenderer;
+import com.klikli_dev.theurgy.content.apparatus.incubator.render.IncubatorSulfurVesselRenderer;
+
 import com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron.render.LiquefactionCauldronRenderer;
 import com.klikli_dev.theurgy.content.apparatus.mercurycatalyst.MercuryCatalystBlock;
-import com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator.render.SalAmmoniacAccumulatorBEWLR;
 import com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator.render.SalAmmoniacAccumulatorRenderer;
-import com.klikli_dev.theurgy.content.apparatus.salammoniactank.render.SalAmmoniacTankBEWLR;
 import com.klikli_dev.theurgy.content.apparatus.salammoniactank.render.SalAmmoniacTankRenderer;
-import com.klikli_dev.theurgy.content.item.HandlesOnLeftClick;
-import com.klikli_dev.theurgy.content.item.HandlesOnScroll;
-import com.klikli_dev.theurgy.content.item.divinationrod.DivinationRodItem;
-import com.klikli_dev.theurgy.content.item.filter.AttributeFilterScreen;
-import com.klikli_dev.theurgy.content.item.filter.ListFilterScreen;
-import com.klikli_dev.theurgy.content.item.salt.AlchemicalSaltItem;
-import com.klikli_dev.theurgy.content.item.derivative.AlchemicalDerivativeItem;
-import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurItem;
-import com.klikli_dev.theurgy.content.item.derivative.render.AlchemicalDerivativeBEWLR;
+//import com.klikli_dev.theurgy.content.item.derivative.render.AlchemicalDerivativeBEWLR;
 import com.klikli_dev.theurgy.content.item.wire.WireItem;
 import com.klikli_dev.theurgy.content.render.*;
 import com.klikli_dev.theurgy.content.render.itemhud.ItemHUD;
 import com.klikli_dev.theurgy.content.render.outliner.Outliner;
-import com.klikli_dev.theurgy.datagen.TheurgyDataGenerators;
-import com.klikli_dev.theurgy.integration.modonomicon.PageLoaders;
-import com.klikli_dev.theurgy.integration.modonomicon.PageRenderers;
+//import com.klikli_dev.theurgy.datagen.TheurgyDataGenerators;
+//import com.klikli_dev.theurgy.integration.modonomicon.PageLoaders;
+//import com.klikli_dev.theurgy.integration.modonomicon.PageRenderers;
 import com.klikli_dev.theurgy.logistics.Logistics;
 import com.klikli_dev.theurgy.logistics.WireRenderer;
 import com.klikli_dev.theurgy.logistics.WireSync;
@@ -50,8 +41,12 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
-import net.minecraft.client.renderer.item.ItemProperties;
+//import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
+//import net.minecraft.client.renderer.item.ItemProperties;
+import com.klikli_dev.theurgy.content.item.derivative.AlchemicalDerivativeItem;
+import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurItem;
+import com.klikli_dev.theurgy.content.item.salt.AlchemicalSaltItem;
+import com.klikli_dev.theurgy.content.item.divinationrod.DivinationRodItem;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionResult;
@@ -68,13 +63,16 @@ import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLDedicatedServerSetupEvent;
 import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.client.event.*;
+//import net.neoforged.neoforge.client.event.RegisterItemColorHandlersEvent;
+//import net.neoforged.neoforge.client.event.RegisterBlockColorHandlersEvent;
+
 import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
-import net.neoforged.neoforge.client.model.DynamicFluidContainerModel;
+//import net.neoforged.neoforge.client.model.DynamicFluidContainerModel;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -140,8 +138,8 @@ public class Theurgy {
             modEventBus.addListener(Client::onRegisterEntityRendererLayerDefinitions);
             modEventBus.addListener(Client::onRegisterEntityRenderers);
             modEventBus.addListener(Client::onRegisterClientExtensions);
-            modEventBus.addListener(Client::onRegisterItemColors);
-            modEventBus.addListener(Client::onRegisterBlockColors);
+            //modEventBus.addListener(Client::onRegisterItemColors);
+            //modEventBus.addListener(Client::onRegisterBlockColors);
             modEventBus.addListener(Client::onRegisterGuiOverlays);
             modEventBus.addListener(Client::onRegisterMenuScreens);
             modEventBus.addListener(BlockOverlays::onTextureAtlasStitched);
@@ -289,6 +287,7 @@ public class Theurgy {
 
         public static void registerItemProperties(FMLClientSetupEvent event) {
             //Not safe to call during parallel load, so register to run threadsafe
+            /*
             event.enqueueWork(() -> {
                 ItemRegistry.ITEMS.getEntries().stream().filter(item -> item.get() instanceof DivinationRodItem).forEach(item -> {
                     ItemProperties.register(item.get(),
@@ -298,9 +297,11 @@ public class Theurgy {
 
                 LOGGER.debug("Finished registering Item Properties.");
             });
+            */
         }
 
         public static void onRegisterClientExtensions(RegisterClientExtensionsEvent event) {
+            /* //TODO: Update to SpecialModelRenderer
             var alchemicalDerivativeItemExtension = new IClientItemExtensions() {
                 @Override
                 public @NotNull BlockEntityWithoutLevelRenderer getCustomRenderer() {
@@ -374,7 +375,7 @@ public class Theurgy {
                     return DistillerBEWLR.get();
                 }
             }, ItemRegistry.DISTILLER.get());
-
+            */
 
             event.registerFluidType(new IClientFluidTypeExtensions() {
                 @Override
@@ -399,22 +400,22 @@ public class Theurgy {
             }, FluidTypeRegistry.SAL_AMMONIAC.get());
         }
 
-        public static void onRegisterItemColors(RegisterColorHandlersEvent.Item event) {
-            event.register(new DynamicFluidContainerModel.Colors(), ItemRegistry.SAL_AMMONIAC_BUCKET.get());
+        /* public static void onRegisterItemColors(RegisterItemColorHandlersEvent event) {
+            //event.register(new DynamicFluidContainerModel.Colors(), ItemRegistry.SAL_AMMONIAC_BUCKET.get());
             event.register(MercuryCatalystBlock::getItemColor, ItemRegistry.MERCURY_CATALYST.get());
-        }
+        } */
 
-        public static void onRegisterBlockColors(RegisterColorHandlersEvent.Block event) {
+        /* public static void onRegisterBlockColors(RegisterBlockColorHandlersEvent event) {
             event.register(MercuryCatalystBlock::getBlockColor, BlockRegistry.MERCURY_CATALYST.get());
-        }
+        } */
 
         public static void onRegisterGuiOverlays(RegisterGuiLayersEvent event) {
             event.registerAbove(VanillaGuiLayers.HOTBAR, Theurgy.loc("item_hud"), ItemHUD.get());
         }
 
         public static void onRegisterMenuScreens(RegisterMenuScreensEvent event) {
-            event.register(MenuTypeRegistry.LIST_FILTER.get(), ListFilterScreen::new);
-            event.register(MenuTypeRegistry.ATTRIBUTE_FILTER.get(), AttributeFilterScreen::new);
+            //event.register(MenuTypeRegistry.LIST_FILTER.get(), ListFilterScreen::new);
+            //event.register(MenuTypeRegistry.ATTRIBUTE_FILTER.get(), AttributeFilterScreen::new);
         }
 
         public static void onMouseScrolling(InputEvent.MouseScrollingEvent event) {
@@ -423,13 +424,14 @@ public class Theurgy {
                 double delta = event.getScrollDeltaY();
                 var stack = minecraft.player.getMainHandItem();
 
+                /*
                 if (delta != 0 && stack.getItem() instanceof HandlesOnScroll scrollableItem) {
                     int shift = ScrollHelper.scroll(delta);
                     if (shift != 0) {
                         scrollableItem.onScroll(minecraft.player, stack, shift);
                     }
                     event.setCanceled(true);
-                }
+                }*/
             }
         }
 
@@ -457,21 +459,24 @@ public class Theurgy {
             }
 
             //filter for "abort" to avoid constant calls while held down
+            /*
             if (event.getAction() == PlayerInteractEvent.LeftClickBlock.Action.ABORT &&
                     event.getItemStack().getItem() instanceof HandlesOnLeftClick leftClickableItem) {
                 if (leftClickableItem.onLeftClickBlock(event.getLevel(), event.getEntity(), event.getHand(), event.getPos(), event.getFace())) {
                     event.setCanceled(true);
                 }
-            }
+            }*/
         }
 
         public static void onLeftClickEmpty(PlayerInteractEvent.LeftClickEmpty event) {
+            /*
             if (event.getItemStack().getItem() instanceof HandlesOnLeftClick leftClickableItem) {
                 leftClickableItem.onLeftClickEmpty(event.getLevel(), event.getEntity(), event.getHand());
 
                 //this event is only called on client, so we send it to the server if we have a left clickable item
                 Networking.sendToServer(new MessageOnLeftClickEmpty(event.getHand()));
             }
+            */
         }
     }
 }

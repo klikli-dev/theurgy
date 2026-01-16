@@ -2,38 +2,34 @@
 //
 // SPDX-License-Identifier: MIT
 
-package com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator.render;
+package com.klikli_dev.theurgy.content.apparatus.incubator.render;
 
+import com.klikli_dev.theurgy.content.apparatus.calcinationoven.CalcinationOvenBlockItem;
 import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorMercuryVesselBlockItem;
-import com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator.SalAmmoniacAccumulatorBlockItem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.model.ItemTransform;
 import net.minecraft.world.item.ItemDisplayContext;
+import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 import software.bernie.geckolib.cache.object.BakedGeoModel;
 import software.bernie.geckolib.renderer.GeoItemRenderer;
 
-public class SalAmmoniacAccumulatorBEWLR extends GeoItemRenderer<SalAmmoniacAccumulatorBlockItem> {
+public class IncubatorMercuryVesselItemRenderer extends GeoItemRenderer<IncubatorMercuryVesselBlockItem> {
 
-    private static final SalAmmoniacAccumulatorBEWLR instance = new SalAmmoniacAccumulatorBEWLR();
     private final ItemTransform transform;
 
-    public SalAmmoniacAccumulatorBEWLR() {
-        super(new SalAmmoniacAccumulatorModel());
+    public IncubatorMercuryVesselItemRenderer() {
+        super(new IncubatorMercuryVesselModel());
         this.withScale(0.5f);
-        this.transform = new ItemTransform(new Vector3f(30, 255, 0), new Vector3f(0, 0, 0), new Vector3f(1, 1, 1));
-    }
-
-    public static SalAmmoniacAccumulatorBEWLR get() {
-        return instance;
+        this.transform = new ItemTransform(new Vector3f(30, 225, 0), new Vector3f(0, 0, 0), new Vector3f(1, 1, 1));
     }
 
     @Override
-    public void preRender(PoseStack poseStack, SalAmmoniacAccumulatorBlockItem animatable, BakedGeoModel model, @Nullable MultiBufferSource bufferSource, @Nullable VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, int colour) {
+    public void preRender(PoseStack poseStack, IncubatorMercuryVesselBlockItem animatable, BakedGeoModel model, @Nullable MultiBufferSource bufferSource, @Nullable VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, int colour) {
 //        super.preRender(poseStack, animatable, model, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, colour);
         if (isReRender)
             return;
@@ -53,4 +49,22 @@ public class SalAmmoniacAccumulatorBEWLR extends GeoItemRenderer<SalAmmoniacAccu
             this.transform.apply(false, poseStack);
         }
     }
+
+    public record Unbaked() implements net.minecraft.client.renderer.special.SpecialModelRenderer.Unbaked {
+        public static final com.mojang.serialization.MapCodec<Unbaked> MAP_CODEC = com.mojang.serialization.MapCodec.unit(new Unbaked());
+
+        @Override
+        public net.minecraft.client.renderer.special.SpecialModelRenderer<?> bake(net.minecraft.client.model.geom.EntityModelSet modelSet) {
+            return (net.minecraft.client.renderer.special.SpecialModelRenderer<?>) new IncubatorMercuryVesselItemRenderer();
+        }
+
+        @Override
+        public com.mojang.serialization.MapCodec<? extends net.minecraft.client.renderer.special.SpecialModelRenderer.Unbaked> type() {
+            return MAP_CODEC;
+        }
+    }
+
+    
+
+    
 }

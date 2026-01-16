@@ -11,25 +11,21 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.model.ItemTransform;
 import net.minecraft.world.item.ItemDisplayContext;
+import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 import software.bernie.geckolib.cache.object.BakedGeoModel;
 import software.bernie.geckolib.renderer.GeoItemRenderer;
 
-public class DistillerBEWLR extends GeoItemRenderer<DistillerBlockItem> {
+public class DistillerItemRenderer extends GeoItemRenderer<DistillerBlockItem> {
 
-    private static final DistillerBEWLR instance = new DistillerBEWLR();
     private final ItemTransform transform;
 
-    public DistillerBEWLR() {
+    public DistillerItemRenderer() {
         super(new DistillerModel());
         this.withScale(0.35f);
         this.transform = new ItemTransform(new Vector3f(30, 255, 0), new Vector3f(0, 0, 0), new Vector3f(1, 1, 1));
-    }
-
-    public static DistillerBEWLR get() {
-        return instance;
     }
 
     @Override
@@ -54,4 +50,22 @@ public class DistillerBEWLR extends GeoItemRenderer<DistillerBlockItem> {
             this.transform.apply(false, poseStack);
         }
     }
+
+    public record Unbaked() implements net.minecraft.client.renderer.special.SpecialModelRenderer.Unbaked {
+        public static final com.mojang.serialization.MapCodec<Unbaked> MAP_CODEC = com.mojang.serialization.MapCodec.unit(new Unbaked());
+
+        @Override
+        public net.minecraft.client.renderer.special.SpecialModelRenderer<?> bake(net.minecraft.client.model.geom.EntityModelSet modelSet) {
+            return (net.minecraft.client.renderer.special.SpecialModelRenderer<?>) new DistillerItemRenderer();
+        }
+
+        @Override
+        public com.mojang.serialization.MapCodec<? extends net.minecraft.client.renderer.special.SpecialModelRenderer.Unbaked> type() {
+            return MAP_CODEC;
+        }
+    }
+
+    
+
+    
 }

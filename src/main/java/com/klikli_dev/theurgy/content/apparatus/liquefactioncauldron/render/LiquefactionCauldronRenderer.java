@@ -56,7 +56,7 @@ public class LiquefactionCauldronRenderer implements BlockEntityRenderer<Liquefa
         var fluidClientExtension = IClientFluidTypeExtensions.of(fluid);
 
         TextureAtlasSprite fluidTexture = Minecraft.getInstance()
-                .getTextureAtlas(InventoryMenu.BLOCK_ATLAS)
+                .getTextureAtlas(net.minecraft.client.renderer.texture.TextureAtlas.LOCATION_BLOCKS)
                 .apply(fluidClientExtension.getStillTexture(fluidStack));
 
         int color = fluidClientExtension.getTintColor(fluidStack);

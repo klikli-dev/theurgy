@@ -172,6 +172,17 @@ public class AccumulationRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
         return this.result;
     }
 
+    @Override
+    public java.util.List<net.minecraft.world.item.crafting.display.RecipeDisplay> display() {
+        return java.util.List.of(new com.klikli_dev.theurgy.content.recipe.display.AccumulationRecipeDisplay(
+                java.util.Optional.ofNullable(this.evaporant),
+                java.util.Optional.ofNullable(this.solute).map(net.minecraft.world.item.crafting.Ingredient::display),
+                this.result,
+                this.time,
+                new net.minecraft.world.item.crafting.display.SlotDisplay.ItemSlotDisplay(com.klikli_dev.theurgy.registry.BlockRegistry.SAL_AMMONIAC_ACCUMULATOR.get().asItem())
+        ));
+    }
+
     public static class Serializer implements RecipeSerializer<AccumulationRecipe> {
 
         @Override

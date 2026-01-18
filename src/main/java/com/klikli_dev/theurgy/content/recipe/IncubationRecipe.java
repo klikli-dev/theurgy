@@ -144,6 +144,18 @@ public class IncubationRecipe implements Recipe<IncubatorRecipeInput> {
         return this.sulfur;
     }
 
+    @Override
+    public java.util.List<net.minecraft.world.item.crafting.display.RecipeDisplay> display() {
+        return java.util.List.of(new com.klikli_dev.theurgy.content.recipe.display.IncubationRecipeDisplay(
+                this.mercury,
+                this.salt,
+                this.sulfur,
+                this.result,
+                this.time,
+                new net.minecraft.world.item.crafting.display.SlotDisplay.ItemSlotDisplay(com.klikli_dev.theurgy.registry.BlockRegistry.INCUBATOR.get().asItem())
+        ));
+    }
+
     public static class Serializer implements RecipeSerializer<IncubationRecipe> {
 
         @Override

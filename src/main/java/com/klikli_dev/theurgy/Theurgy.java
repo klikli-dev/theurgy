@@ -107,6 +107,7 @@ public class Theurgy {
         RecipeTypeRegistry.RECIPE_TYPES.register(modEventBus);
         ConditionRegistry.CONDITION_SERIALIZERS.register(modEventBus);
         RecipeResultRegistry.RECIPE_RESULT_TYPES.register(modEventBus);
+        RecipeDisplayRegistry.RECIPE_DISPLAYS.register(modEventBus);
         DataComponentRegistry.DATA_COMPONENTS.register(modEventBus);
         MenuTypeRegistry.MENU_TYPES.register(modEventBus);
 

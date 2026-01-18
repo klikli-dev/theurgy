@@ -117,6 +117,16 @@ public class CalcinationRecipe implements Recipe<ItemHandlerRecipeInput> {
         return this.time;
     }
 
+    @Override
+    public java.util.List<net.minecraft.world.item.crafting.display.RecipeDisplay> display() {
+        return java.util.List.of(new com.klikli_dev.theurgy.content.recipe.display.CalcinationRecipeDisplay(
+                this.ingredient,
+                this.result,
+                this.time,
+                new net.minecraft.world.item.crafting.display.SlotDisplay.ItemSlotDisplay(com.klikli_dev.theurgy.registry.BlockRegistry.CALCINATION_OVEN.get().asItem())
+        ));
+    }
+
     public static class Serializer implements RecipeSerializer<CalcinationRecipe> {
         @Override
         public @NotNull MapCodec<CalcinationRecipe> codec() {

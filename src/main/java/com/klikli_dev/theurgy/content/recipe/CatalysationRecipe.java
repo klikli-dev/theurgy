@@ -123,6 +123,16 @@ public class CatalysationRecipe implements Recipe<ItemHandlerRecipeInput> {
         return (RecipeSerializer<CatalysationRecipe>) RecipeSerializerRegistry.CATALYSATION.get();
     }
 
+    @Override
+    public java.util.List<net.minecraft.world.item.crafting.display.RecipeDisplay> display() {
+        return java.util.List.of(new com.klikli_dev.theurgy.content.recipe.display.CatalysationRecipeDisplay(
+                this.ingredient,
+                this.totalMercuryFlux,
+                this.mercuryFluxPerTick,
+                new net.minecraft.world.item.crafting.display.SlotDisplay.ItemSlotDisplay(com.klikli_dev.theurgy.registry.BlockRegistry.MERCURY_CATALYST.get().asItem())
+        ));
+    }
+
     public static class Serializer implements RecipeSerializer<CatalysationRecipe> {
 
         @Override

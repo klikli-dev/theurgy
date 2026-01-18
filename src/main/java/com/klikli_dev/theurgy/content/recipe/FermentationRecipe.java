@@ -154,6 +154,17 @@ public class FermentationRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
         return this.time;
     }
 
+    @Override
+    public java.util.List<net.minecraft.world.item.crafting.display.RecipeDisplay> display() {
+        return java.util.List.of(new com.klikli_dev.theurgy.content.recipe.display.FermentationRecipeDisplay(
+                this.fluid,
+                this.ingredients,
+                this.result,
+                this.time,
+                new net.minecraft.world.item.crafting.display.SlotDisplay.ItemSlotDisplay(com.klikli_dev.theurgy.registry.BlockRegistry.FERMENTATION_VAT.get().asItem())
+        ));
+    }
+
     public static class Serializer implements RecipeSerializer<FermentationRecipe> {
 
         @Override

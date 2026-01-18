@@ -175,6 +175,18 @@ public class ReformationRecipe implements Recipe<ReformationArrayRecipeInput> {
         return RecipeTypeRegistry.REFORMATION.get();
     }
 
+    @Override
+    public java.util.List<net.minecraft.world.item.crafting.display.RecipeDisplay> display() {
+        return java.util.List.of(new com.klikli_dev.theurgy.content.recipe.display.ReformationRecipeDisplay(
+                this.sources,
+                this.target,
+                this.result,
+                this.mercuryFlux,
+                this.time,
+                new net.minecraft.world.item.crafting.display.SlotDisplay.ItemSlotDisplay(com.klikli_dev.theurgy.registry.BlockRegistry.REFORMATION_RESULT_PEDESTAL.get().asItem())
+        ));
+    }
+
     public static class Serializer implements RecipeSerializer<ReformationRecipe> {
 
         @Override

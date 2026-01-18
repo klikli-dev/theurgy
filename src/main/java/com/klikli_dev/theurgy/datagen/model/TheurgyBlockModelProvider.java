@@ -13,7 +13,13 @@ import com.klikli_dev.theurgy.registry.BlockRegistry;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.ModelProvider;
-import net.minecraft.client.data.models.blockstates.*;
+import net.minecraft.client.data.models.blockstates.BlockStateGenerator;
+import net.minecraft.client.data.models.blockstates.Condition;
+import net.minecraft.client.data.models.blockstates.MultiPartGenerator;
+import net.minecraft.client.data.models.blockstates.MultiVariantGenerator;
+import net.minecraft.client.data.models.blockstates.PropertyDispatch;
+import net.minecraft.client.data.models.blockstates.Variant;
+import net.minecraft.client.data.models.blockstates.VariantProperties;
 import net.minecraft.client.data.models.model.*;
 import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
@@ -241,8 +247,11 @@ public class TheurgyBlockModelProvider extends ModelProvider {
 
         ResourceLocation model = template.create(BlockRegistry.CALORIC_FLUX_EMITTER.get(), map, blockModels.modelOutput);
 
-        blockModels.blockStateOutput.accept(MultiVariantGenerator.dispatch(BlockRegistry.CALORIC_FLUX_EMITTER.get(),
-                BlockModelGenerators.createHorizontalFacingDispatchAlt(model)));
+        blockModels.blockStateOutput.accept(MultiVariantGenerator.multiVariant(BlockRegistry.CALORIC_FLUX_EMITTER.get())
+                .with(createDirectionalDispatch(model))
+                .with(PropertyDispatch.property(com.klikli_dev.theurgy.content.apparatus.caloricfluxemitter.CaloricFluxEmitterBlock.ENABLED)
+                        .select(true, Variant.variant())
+                        .select(false, Variant.variant())));
     }
 
     private void registerSulfuricFluxEmitter(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
@@ -254,8 +263,18 @@ public class TheurgyBlockModelProvider extends ModelProvider {
 
         ResourceLocation model = template.create(BlockRegistry.SULFURIC_FLUX_EMITTER.get(), map, blockModels.modelOutput);
 
-        blockModels.blockStateOutput.accept(MultiVariantGenerator.dispatch(BlockRegistry.SULFURIC_FLUX_EMITTER.get(),
-                BlockModelGenerators.createHorizontalFacingDispatchAlt(model)));
+        blockModels.blockStateOutput.accept(MultiVariantGenerator.multiVariant(BlockRegistry.SULFURIC_FLUX_EMITTER.get())
+                .with(createDirectionalDispatch(model)));
+    }
+
+    private PropertyDispatch createDirectionalDispatch(ResourceLocation model) {
+        return PropertyDispatch.property(BlockStateProperties.FACING)
+                .select(Direction.DOWN, Variant.variant().with(VariantProperties.MODEL, model).with(VariantProperties.X_ROT, VariantProperties.Rotation.R90))
+                .select(Direction.UP, Variant.variant().with(VariantProperties.MODEL, model).with(VariantProperties.X_ROT, VariantProperties.Rotation.R270))
+                .select(Direction.NORTH, Variant.variant().with(VariantProperties.MODEL, model))
+                .select(Direction.SOUTH, Variant.variant().with(VariantProperties.MODEL, model).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180))
+                .select(Direction.WEST, Variant.variant().with(VariantProperties.MODEL, model).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270))
+                .select(Direction.EAST, Variant.variant().with(VariantProperties.MODEL, model).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90));
     }
 
     private void registerIncubator(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
@@ -274,16 +293,16 @@ public class TheurgyBlockModelProvider extends ModelProvider {
                         .put(TextureSlot.PARTICLE, mcLoc("block/copper_block")), blockModels.modelOutput);
 
         MultiPartGenerator generator = MultiPartGenerator.multiPart(BlockRegistry.INCUBATOR.get())
-                .with(Condition.condition().term(IncubatorBlock.HALF, DoubleBlockHalf.LOWER), BlockModelGenerators.variant(lowerHalfModel))
-                .with(Condition.condition().term(IncubatorBlock.HALF, DoubleBlockHalf.UPPER), BlockModelGenerators.variant(upperHalfModel));
+                .with(Condition.condition().term(IncubatorBlock.HALF, DoubleBlockHalf.LOWER), Variant.variant().with(VariantProperties.MODEL, lowerHalfModel))
+                .with(Condition.condition().term(IncubatorBlock.HALF, DoubleBlockHalf.UPPER), Variant.variant().with(VariantProperties.MODEL, upperHalfModel));
 
         for (Direction dir : Direction.Plane.HORIZONTAL) {
             generator.with(Condition.and(
                             Condition.condition().term(PipeBlock.PROPERTY_BY_DIRECTION.get(dir), true),
                             Condition.condition().term(IncubatorBlock.HALF, DoubleBlockHalf.LOWER)
                     ),
-                    BlockModelGenerators.variant(pipeModel)
-                            .with(VariantProperties.Y_ROT, VariantProperties.Rotation.fromDegrees((int) dir.toYRot() + 180))
+                    Variant.variant().with(VariantProperties.MODEL, pipeModel)
+                            .with(VariantProperties.Y_ROT, getRotation((int) dir.toYRot() + 180))
                             .with(VariantProperties.UV_LOCK, true)
             );
         }
@@ -328,7 +347,7 @@ public class TheurgyBlockModelProvider extends ModelProvider {
                             .term(FermentationVatBlock.HAS_OUTPUT, output),
                             Variant.variant()
                                     .with(VariantProperties.MODEL, model)
-                                    .with(VariantProperties.Y_ROT, VariantProperties.Rotation.fromDegrees((int) dir.toYRot())));
+                                    .with(VariantProperties.Y_ROT, getRotation((int) dir.toYRot())));
                 }
             }
         }
@@ -375,7 +394,7 @@ public class TheurgyBlockModelProvider extends ModelProvider {
             int yRot = dir.getAxis().isVertical() ? 0 : (((int) dir.toYRot()) + 180) % 360;
 
             generator.with(Condition.condition().term(BlockStateProperties.FACING, dir),
-                    BlockModelGenerators.variant(model)
+                    Variant.variant().with(VariantProperties.MODEL, model)
                             .with(VariantProperties.X_ROT, getRotation(xRot))
                             .with(VariantProperties.Y_ROT, getRotation(yRot))
             );
@@ -384,7 +403,7 @@ public class TheurgyBlockModelProvider extends ModelProvider {
                             Condition.condition().term(BlockStateProperties.FACING, dir),
                             Condition.condition().term(LogisticsItemConnectorBlock.HAS_FILTER, true)
                     ),
-                    BlockModelGenerators.variant(filter)
+                    Variant.variant().with(VariantProperties.MODEL, filter)
                             .with(VariantProperties.X_ROT, getRotation(xRot))
                             .with(VariantProperties.Y_ROT, getRotation(yRot))
             );
@@ -427,7 +446,7 @@ public class TheurgyBlockModelProvider extends ModelProvider {
             int yRot = dir.getAxis().isVertical() ? 0 : (((int) dir.toYRot()) + 180) % 360;
 
              generator.with(Condition.condition().term(BlockStateProperties.FACING, dir),
-                    BlockModelGenerators.variant(model)
+                    Variant.variant().with(VariantProperties.MODEL, model)
                             .with(VariantProperties.X_ROT, getRotation(xRot))
                             .with(VariantProperties.Y_ROT, getRotation(yRot))
             );

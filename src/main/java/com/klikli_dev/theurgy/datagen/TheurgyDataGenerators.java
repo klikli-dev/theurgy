@@ -11,19 +11,16 @@ import com.klikli_dev.theurgy.datagen.book.TheurgyBookProvider;
 import com.klikli_dev.theurgy.datagen.lang.ENUSProvider;
 import com.klikli_dev.theurgy.datagen.loot.TheurgyBlockLootSubProvider;
 import com.klikli_dev.theurgy.datagen.model.TheurgyBlockStateProvider;
-import com.klikli_dev.theurgy.datagen.model.TheurgyItemModelProvider;
+import com.klikli_dev.theurgy.datagen.model.TheurgyModelProvider;
 import com.klikli_dev.theurgy.datagen.multiblock.TheurgyMultiblockProvider;
 import com.klikli_dev.theurgy.datagen.recipe.*;
 import com.klikli_dev.theurgy.datagen.tag.TheurgyBlockTagsProvider;
 import com.klikli_dev.theurgy.datagen.tag.TheurgyFluidTagsProvider;
 import com.klikli_dev.theurgy.datagen.tag.TheurgyItemTagsProvider;
 import com.klikli_dev.theurgy.datagen.worldgen.TheurgyRegistries;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
-import net.minecraft.data.PackOutput;
 import net.minecraft.data.loot.LootTableProvider;
-import net.minecraft.data.recipes.packs.VanillaRecipeProvider;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.neoforged.neoforge.common.data.AdvancementProvider;
 import net.neoforged.neoforge.common.data.DatapackBuiltinEntriesProvider;
@@ -31,21 +28,19 @@ import net.neoforged.neoforge.data.event.GatherDataEvent;
 
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.CompletableFuture;
-import java.util.function.BiFunction;
 
 public class TheurgyDataGenerators {
 
-    public static void onGatherData(GatherDataEvent event) {
+    public static void onGatherData(GatherDataEvent.Client event) {
         DataGenerator generator = event.getGenerator();
 
-        var blockTagsProvider = new TheurgyBlockTagsProvider(generator.getPackOutput(), event.getLookupProvider(), event.getExistingFileHelper());
+        var blockTagsProvider = new TheurgyBlockTagsProvider(generator.getPackOutput(), event.getLookupProvider());
 
-        generator.addProvider(event.includeServer(), blockTagsProvider);
-        generator.addProvider(event.includeServer(), new TheurgyFluidTagsProvider(generator.getPackOutput(), event.getLookupProvider(), event.getExistingFileHelper()));
-        generator.addProvider(event.includeServer(), new TheurgyItemTagsProvider(generator.getPackOutput(), event.getLookupProvider(), blockTagsProvider.contentsGetter(), event.getExistingFileHelper()));
+        generator.addProvider(true, blockTagsProvider);
+        generator.addProvider(true, new TheurgyFluidTagsProvider(generator.getPackOutput(), event.getLookupProvider()));
+        generator.addProvider(true, new TheurgyItemTagsProvider(generator.getPackOutput(), event.getLookupProvider(), blockTagsProvider.contentsGetter()));
 
-        generator.addProvider(event.includeServer(), new LootTableProvider(
+        generator.addProvider(true, new LootTableProvider(
                         generator.getPackOutput(),
                         Set.of(),
                         List.of(
@@ -55,40 +50,40 @@ public class TheurgyDataGenerators {
                 )
         );
 
-        generator.addProvider(event.includeServer(),
-                new AdvancementProvider(generator.getPackOutput(), event.getLookupProvider(), event.getExistingFileHelper(), List.of(
+        generator.addProvider(true,
+                new AdvancementProvider(generator.getPackOutput(), event.getLookupProvider(), List.of(
                         new TheurgyAdvancementSubProvider()
                 )));
 
-        generator.addProvider(event.includeClient(), new TheurgyItemModelProvider(generator.getPackOutput(), event.getExistingFileHelper()));
+        generator.addProvider(true, new TheurgyModelProvider(generator.getPackOutput()));
 
-        generator.addProvider(event.includeServer(), new TheurgyBlockStateProvider(generator.getPackOutput(), event.getExistingFileHelper()));
-        generator.addProvider(event.includeServer(), new ShapedRecipeProvider(generator.getPackOutput(), event.getLookupProvider()));
-        generator.addProvider(event.includeServer(), new ShapelessRecipeProvider(generator.getPackOutput(), event.getLookupProvider()));
-        generator.addProvider(event.includeServer(), new SmeltingRecipeProvider(generator.getPackOutput(), event.getLookupProvider()));
-        generator.addProvider(event.includeServer(), new CalcinationRecipeProvider(generator.getPackOutput(), event.getLookupProvider()));
-        generator.addProvider(event.includeServer(), new LiquefactionRecipeProvider(generator.getPackOutput(), event.getLookupProvider()));
-        generator.addProvider(event.includeServer(), new DistillationRecipeProvider(generator.getPackOutput(), event.getLookupProvider()));
-        generator.addProvider(event.includeServer(), new IncubationRecipeProvider(generator.getPackOutput(), event.getLookupProvider()));
-        generator.addProvider(event.includeServer(), new AccumulationRecipeProvider(generator.getPackOutput(), event.getLookupProvider()));
-        generator.addProvider(event.includeServer(), new CatalysationRecipeProvider(generator.getPackOutput(), event.getLookupProvider()));
-        generator.addProvider(event.includeServer(), new ReformationRecipeProvider(generator.getPackOutput(), event.getLookupProvider()));
-        generator.addProvider(event.includeServer(), new FermentationRecipeProvider(generator.getPackOutput(), event.getLookupProvider()));
-        generator.addProvider(event.includeServer(), new DigestionRecipeProvider(generator.getPackOutput(), event.getLookupProvider()));
+        generator.addProvider(true, new TheurgyBlockStateProvider(generator.getPackOutput()));
+        generator.addProvider(true, new ShapedRecipeProvider(generator.getPackOutput(), event.getLookupProvider()));
+        generator.addProvider(true, new ShapelessRecipeProvider(generator.getPackOutput(), event.getLookupProvider()));
+        generator.addProvider(true, new SmeltingRecipeProvider(generator.getPackOutput(), event.getLookupProvider()));
+        generator.addProvider(true, new CalcinationRecipeProvider(generator.getPackOutput(), event.getLookupProvider()));
+        generator.addProvider(true, new LiquefactionRecipeProvider(generator.getPackOutput(), event.getLookupProvider()));
+        generator.addProvider(true, new DistillationRecipeProvider(generator.getPackOutput(), event.getLookupProvider()));
+        generator.addProvider(true, new IncubationRecipeProvider(generator.getPackOutput(), event.getLookupProvider()));
+        generator.addProvider(true, new AccumulationRecipeProvider(generator.getPackOutput(), event.getLookupProvider()));
+        generator.addProvider(true, new CatalysationRecipeProvider(generator.getPackOutput(), event.getLookupProvider()));
+        generator.addProvider(true, new ReformationRecipeProvider(generator.getPackOutput(), event.getLookupProvider()));
+        generator.addProvider(true, new FermentationRecipeProvider(generator.getPackOutput(), event.getLookupProvider()));
+        generator.addProvider(true, new DigestionRecipeProvider(generator.getPackOutput(), event.getLookupProvider()));
 
-        generator.addProvider(event.includeServer(), new TheurgyMultiblockProvider(generator.getPackOutput()));
+        generator.addProvider(true, new TheurgyMultiblockProvider(generator.getPackOutput()));
 
         var enUSProvider = new ENUSProvider(generator.getPackOutput());
-        generator.addProvider(event.includeServer(),
+        generator.addProvider(true,
                 new BookProvider(generator.getPackOutput(), event.getLookupProvider(), Theurgy.MODID, List.of(
                         new TheurgyBookProvider(enUSProvider))
                 )
         );
 
         //Important: Lang provider (in this case enus) needs to be added after the book provider to process the texts added by the book provider
-        generator.addProvider(event.includeClient(), enUSProvider);
+        generator.addProvider(true, enUSProvider);
 
-        event.getGenerator().addProvider(event.includeServer(),
+        event.getGenerator().addProvider(true,
                 (DataProvider.Factory<DatapackBuiltinEntriesProvider>) output ->
                         new DatapackBuiltinEntriesProvider(output, event.getLookupProvider(), TheurgyRegistries.BUILDER, Set.of(Theurgy.MODID)));
 

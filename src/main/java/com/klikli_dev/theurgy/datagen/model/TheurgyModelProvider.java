@@ -12,18 +12,17 @@ import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.registry.NiterRegistry;
 import com.klikli_dev.theurgy.registry.SaltRegistry;
 import com.klikli_dev.theurgy.registry.SulfurRegistry;
+import net.minecraft.client.data.models.BlockModelGenerators;
+import net.minecraft.client.data.models.ItemModelGenerators;
+import net.minecraft.client.data.models.ModelProvider;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.Item;
-import net.neoforged.neoforge.client.model.generators.ItemModelBuilder;
-import net.neoforged.neoforge.client.model.generators.ModelFile;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.registries.DeferredHolder;
 
-
-public class TheurgyItemModelProvider extends net.neoforged.neoforge.client.model.generators.ItemModelProvider {
-    public TheurgyItemModelProvider(PackOutput packOutput, ExistingFileHelper existingFileHelper) {
-        super(packOutput, Theurgy.MODID, existingFileHelper);
+public class TheurgyItemModelProvider extends ModelProvider {
+    public TheurgyItemModelProvider(PackOutput packOutput) {
+        super(packOutput, Theurgy.MODID);
     }
 
     protected String name(Item item) {
@@ -169,7 +168,38 @@ public class TheurgyItemModelProvider extends net.neoforged.neoforge.client.mode
     }
 
     @Override
-    protected void registerModels() {
+    protected void registerModels(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
+        //Examples:
+//        // The most common item
+//        // item/generated with the layer0 texture as the item name
+//        itemModels.generateFlatItem(MyItemsClass.EXAMPLE_ITEM.get(), ModelTemplates.FLAT_ITEM);
+//
+//        // A bow-like item
+//        ItemModel.Unbaked bow = ItemModelUtils.plainModel(ModelLocationUtils.getModelLocation(MyItemsClass.EXAMPLE_ITEM.get()));
+//        ItemModel.Unbaked pullingBow0 = ItemModelUtils.plainModel(itemModels.createFlatItemModel(MyItemsClass.EXAMPLE_ITEM.get(), "_pulling_0", ModelTemplates.BOW));
+//        ItemModel.Unbaked pullingBow1 = ItemModelUtils.plainModel(itemModels.createFlatItemModel(MyItemsClass.EXAMPLE_ITEM.get(), "_pulling_1", ModelTemplates.BOW));
+//        ItemModel.Unbaked pullingBow2 = ItemModelUtils.plainModel(itemModels.createFlatItemModel(MyItemsClass.EXAMPLE_ITEM.get(), "_pulling_2", ModelTemplates.BOW));
+//        this.itemModelOutput.accept(
+//                MyItemsClass.EXAMPLE_ITEM.get(),
+//                // Conditional model for item
+//                ItemModelUtils.conditional(
+//                        // Checks if item is being used
+//                        ItemModelUtils.isUsingItem(),
+//                        // When true, select model based on use duration
+//                        ItemModelUtils.rangeSelect(
+//                                new UseDuration(false),
+//                                // Scalar to apply to the thresholds
+//                                0.05F,
+//                                pullingBow0,
+//                                // Threshold when 0.65
+//                                ItemModelUtils.override(pullingBow1, 0.65F),
+//                                // Threshold when 0.9
+//                                ItemModelUtils.override(pullingBow2, 0.9F)
+//                        ),
+//                        // When false, use the base bow model
+//                        bow
+//                )
+//        );
         this.registerItemGenerated(this.name(ItemRegistry.THE_HERMETICA_ICON.get()), "the_hermetica");
         this.registerItemGenerated(this.name(ItemRegistry.EMPTY_JAR_ICON.get()), "empty_jar");
         this.registerItemGenerated(this.name(ItemRegistry.EMPTY_JAR_IRON_BAND_ICON.get()), "empty_jar_iron_band");

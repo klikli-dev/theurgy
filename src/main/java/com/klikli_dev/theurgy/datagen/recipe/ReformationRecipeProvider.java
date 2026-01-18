@@ -494,7 +494,7 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
                 if(stack.has(DataComponentRegistry.SOURCE_TAG)){
                     var sourceTag = stack.get(DataComponentRegistry.SOURCE_TAG);
                     //noinspection DataFlowIssue
-                    this.condition(new NotCondition(new TagEmptyCondition(sourceTag)));
+                    this.condition(new NotCondition(new TagEmptyCondition<>(sourceTag)));
                 }
             }
 

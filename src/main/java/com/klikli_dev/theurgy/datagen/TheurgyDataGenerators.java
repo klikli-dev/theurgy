@@ -10,6 +10,7 @@ import com.klikli_dev.theurgy.datagen.advancement.TheurgyAdvancementSubProvider;
 import com.klikli_dev.theurgy.datagen.book.TheurgyBookProvider;
 import com.klikli_dev.theurgy.datagen.lang.ENUSProvider;
 import com.klikli_dev.theurgy.datagen.loot.TheurgyBlockLootSubProvider;
+import com.klikli_dev.theurgy.datagen.model.TheurgyBlockModelProvider;
 import com.klikli_dev.theurgy.datagen.model.TheurgyBlockStateProvider;
 import com.klikli_dev.theurgy.datagen.model.TheurgyItemModelProvider;
 import com.klikli_dev.theurgy.datagen.multiblock.TheurgyMultiblockProvider;
@@ -57,7 +58,7 @@ public class TheurgyDataGenerators {
 
         generator.addProvider(true, new TheurgyItemModelProvider(generator.getPackOutput()));
 
-        generator.addProvider(true, new TheurgyBlockStateProvider(generator.getPackOutput()));
+        generator.addProvider(true, new TheurgyBlockModelProvider(generator.getPackOutput()));
         generator.addProvider(true, new ShapedRecipeProvider(generator.getPackOutput(), event.getLookupProvider()));
         generator.addProvider(true, new ShapelessRecipeProvider(generator.getPackOutput(), event.getLookupProvider()));
         generator.addProvider(true, new SmeltingRecipeProvider(generator.getPackOutput(), event.getLookupProvider()));

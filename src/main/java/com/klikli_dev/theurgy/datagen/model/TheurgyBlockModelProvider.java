@@ -159,23 +159,18 @@ public class TheurgyBlockModelProvider extends ModelProvider {
     }
 
     private void registerPyromanticBrazier(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
-        ModelTemplate template = new ModelTemplate(Optional.of(loc("block/pyromantic_brazier_template")), Optional.empty(), TEXTURE, TextureSlot.PARTICLE);
-        TextureMapping map = new TextureMapping()
-                .put(TEXTURE, loc("block/pyromantic_brazier"))
-                .put(TextureSlot.PARTICLE, mcLoc("block/copper_block"));
-        ResourceLocation model = template.create(BlockRegistry.PYROMANTIC_BRAZIER.get(), map, blockModels.modelOutput);
+        var unlit = new ModelTemplate(Optional.of(loc("block/pyromantic_brazier_template")), Optional.empty(), BASE, EMITTER)
+                .create(BlockRegistry.PYROMANTIC_BRAZIER.get(), new TextureMapping()
+                        .put(BASE, loc("block/pyromantic_brazier_base"))
+                        .put(EMITTER, loc("block/pyromantic_brazier_bowl")), blockModels.modelOutput);
+        
+        var lit = new ModelTemplate(Optional.of(loc("block/pyromantic_brazier_template")), Optional.empty(), BASE, EMITTER)
+                .createWithSuffix(BlockRegistry.PYROMANTIC_BRAZIER.get(), "_lit", new TextureMapping()
+                        .put(BASE, loc("block/pyromantic_brazier_base"))
+                        .put(EMITTER, loc("block/pyromantic_brazier_fire")), blockModels.modelOutput);
 
-        ModelTemplate templateLit = new ModelTemplate(Optional.of(loc("block/pyromantic_brazier_lit_template")), Optional.of("_lit"), TEXTURE, TextureSlot.PARTICLE, FIRE);
-        TextureMapping mapLit = new TextureMapping()
-                .put(TEXTURE, loc("block/pyromantic_brazier_lit"))
-                .put(TextureSlot.PARTICLE, mcLoc("block/copper_block"))
-                .put(FIRE, mcLoc("block/campfire_fire"));
-        ResourceLocation modelLit = templateLit.create(BlockRegistry.PYROMANTIC_BRAZIER.get(), mapLit, blockModels.modelOutput);
-
-        blockModels.blockStateOutput.accept(MultiVariantGenerator.multiVariant(BlockRegistry.PYROMANTIC_BRAZIER.get(),
-                Condition.condition().term(BlockStateProperties.LIT, false), Variant.variant().with(VariantProperties.MODEL,model),
-                Condition.condition().term(BlockStateProperties.LIT, true), Variant.variant().with(VariantProperties.MODEL, modelLit)
-        ));
+        blockModels.blockStateOutput.accept(
+            MultiVariantGenerator.multiVariant(BlockRegistry.PYROMANTIC_BRAZIER.get()).with(BlockModelGenerators.createBooleanModelDispatch(BlockStateProperties.LIT, lit, unlit)));
     }
 
     private void registerLiquefactionCauldron(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
@@ -190,10 +185,11 @@ public class TheurgyBlockModelProvider extends ModelProvider {
                 .put(TextureSlot.PARTICLE, mcLoc("block/copper_block"));
         ResourceLocation upperModel = upperTemplate.create(BlockRegistry.LIQUEFACTION_CAULDRON.get(), upperMap, blockModels.modelOutput);
 
-        blockModels.blockStateOutput.accept(MultiVariantGenerator.dispatch(BlockRegistry.LIQUEFACTION_CAULDRON.get(),
-                BlockModelGenerators.condition().term(LiquefactionCauldronBlock.HALF, DoubleBlockHalf.LOWER), BlockModelGenerators.variant(lowerModel),
-                BlockModelGenerators.condition().term(LiquefactionCauldronBlock.HALF, DoubleBlockHalf.UPPER), BlockModelGenerators.variant(upperModel)
-        ));
+        blockModels.blockStateOutput.accept(
+            MultiVariantGenerator.multiVariant(BlockRegistry.LIQUEFACTION_CAULDRON.get()).with(
+            PropertyDispatch.property(LiquefactionCauldronBlock.HALF)
+                .select(DoubleBlockHalf.LOWER, Variant.variant().with(VariantProperties.MODEL, lowerModel))
+                .select(DoubleBlockHalf.UPPER, Variant.variant().with(VariantProperties.MODEL, upperModel))));
     }
 
     private void registerReformationSourcePedestal(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
@@ -319,34 +315,25 @@ public class TheurgyBlockModelProvider extends ModelProvider {
         ModelTemplate templateOpenActive = new ModelTemplate(Optional.of(modelOpen), Optional.empty(), TextureSlot.SOUTH);
         ResourceLocation modelOpenActive = templateOpenActive.createWithSuffix(BlockRegistry.FERMENTATION_VAT.get(), "_open_active", mapActive, blockModels.modelOutput);
 
-        List<PropertyDispatch.Entry> entries = new ArrayList<>();
+        MultiPartGenerator generator = MultiPartGenerator.multiPart(BlockRegistry.FERMENTATION_VAT.get());
         
         for (Direction dir : Direction.Plane.HORIZONTAL) {
             for (boolean open : List.of(false, true)) {
                 for (boolean output : List.of(false, true)) {
-                    ResourceLocation model;
-                    if (open) {
-                        model = output ? modelOpenActive : modelOpen;
-                    } else {
-                        model = output ? modelClosedActive : modelClosed;
-                    }
+                    ResourceLocation model = open ? (output ? modelOpenActive : modelOpen) : (output ? modelClosedActive : modelClosed);
                     
-                    Condition cond = Condition.and(
-                            Condition.condition().term(BlockStateProperties.HORIZONTAL_FACING, dir),
-                            Condition.condition().term(BlockStateProperties.OPEN, open),
-                            Condition.condition().term(FermentationVatBlock.HAS_OUTPUT, output)
-                    );
-                    
-                    entries.add(new PropertyDispatch.Entry(
-                        cond, 
-                        List.of(BlockModelGenerators.variant(model)
-                                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.fromDegrees((int) dir.toYRot())))
-                    ));
+                    generator.with(Condition.condition()
+                            .term(BlockStateProperties.HORIZONTAL_FACING, dir)
+                            .term(BlockStateProperties.OPEN, open)
+                            .term(FermentationVatBlock.HAS_OUTPUT, output),
+                            Variant.variant()
+                                    .with(VariantProperties.MODEL, model)
+                                    .with(VariantProperties.Y_ROT, VariantProperties.Rotation.fromDegrees((int) dir.toYRot())));
                 }
             }
         }
         
-        blockModels.blockStateOutput.accept(MultiVariantGenerator.dispatch(BlockRegistry.FERMENTATION_VAT.get(), entries.toArray(new PropertyDispatch.Entry[0])));
+        blockModels.blockStateOutput.accept(generator);
 
         new ModelTemplate(Optional.of(modelClosed), Optional.empty()).create(BlockRegistry.FERMENTATION_VAT.get().asItem(), new TextureMapping(), itemModels.modelOutput);
     }

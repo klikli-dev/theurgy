@@ -19,11 +19,14 @@ import net.minecraft.client.data.models.model.ItemModelUtils;
 import net.minecraft.client.data.models.model.ModelLocationUtils;
 import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.client.data.models.model.TextureMapping;
+import net.minecraft.client.renderer.item.ItemModel;
+import net.minecraft.client.renderer.item.RangeSelectItemModel; // Import
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.neoforged.neoforge.registries.DeferredHolder;
+import com.klikli_dev.theurgy.content.item.renderer.DivinationDistanceProperty; // Import
 
 public class TheurgyItemModelProvider extends ModelProvider {
     public TheurgyItemModelProvider(PackOutput packOutput) {
@@ -80,68 +83,22 @@ public class TheurgyItemModelProvider extends ModelProvider {
         ResourceLocation variant7 = this.createItemHandheldVariant(itemModels, name + "/7", name + "/divination_rod_7");
         ResourceLocation searchingVariant = this.createItemHandheldVariant(itemModels, name + "/searching", name + "/divination_rod_searching");
 
-        //Main item model - just use variant0 for now until we implement the conditional logic
-        //TODO: Implement RangeSelect equivalent for custom property DIVINATION_DISTANCE
-        /*
-        ItemModel.Unbaked model = ItemModelUtils.conditional(
-                //Predicate for property?
-                //ItemModelUtils.rangeSelect(...)
-                ItemModelUtils.plainModel(variant0)
+        //Main item model with range select
+        ItemModel.Unbaked model = ItemModelUtils.rangeSelect(
+                new DivinationDistanceProperty(),
+                ItemModelUtils.plainModel(variant7), // Fallback
+                new RangeSelectItemModel.Entry(0.0f, ItemModelUtils.plainModel(variant7)),
+                new RangeSelectItemModel.Entry(1.0f, ItemModelUtils.plainModel(variant6)),
+                new RangeSelectItemModel.Entry(2.0f, ItemModelUtils.plainModel(variant5)),
+                new RangeSelectItemModel.Entry(3.0f, ItemModelUtils.plainModel(variant4)),
+                new RangeSelectItemModel.Entry(4.0f, ItemModelUtils.plainModel(variant3)),
+                new RangeSelectItemModel.Entry(5.0f, ItemModelUtils.plainModel(variant2)),
+                new RangeSelectItemModel.Entry(6.0f, ItemModelUtils.plainModel(variant1)),
+                new RangeSelectItemModel.Entry(7.0f, ItemModelUtils.plainModel(variant0)),
+                new RangeSelectItemModel.Entry(8.0f, ItemModelUtils.plainModel(searchingVariant))
         );
+        
         itemModels.itemModelOutput.accept(divinationRodItem, model);
-        */
-        //Fallback:
-//        itemModels.itemModelOutput.accept(divinationRodItem, ItemModelUtils.plainModel(variant0));
-
-        //<= 1.21.3 way:
-        //    var name = this.name(divinationRodItem);
-        //        this.getBuilder(name)
-        //                .parent(variant0)
-        //
-        //                .override()
-        //                .model(variant7)
-        //                .predicate(TheurgyConstants.ItemProperty.DIVINATION_DISTANCE, 0.0f)
-        //                .end()
-        //
-        //                .override()
-        //                .model(variant6)
-        //                .predicate(TheurgyConstants.ItemProperty.DIVINATION_DISTANCE, 1.0f)
-        //                .end()
-        //
-        //                .override()
-        //                .model(variant5)
-        //                .predicate(TheurgyConstants.ItemProperty.DIVINATION_DISTANCE, 2.0f)
-        //                .end()
-        //
-        //                .override()
-        //                .model(variant4)
-        //                .predicate(TheurgyConstants.ItemProperty.DIVINATION_DISTANCE, 3.0f)
-        //                .end()
-        //
-        //                .override()
-        //                .model(variant3)
-        //                .predicate(TheurgyConstants.ItemProperty.DIVINATION_DISTANCE, 4.0f)
-        //                .end()
-        //
-        //                .override()
-        //                .model(variant2)
-        //                .predicate(TheurgyConstants.ItemProperty.DIVINATION_DISTANCE, 5.0f)
-        //                .end()
-        //
-        //                .override()
-        //                .model(variant1)
-        //                .predicate(TheurgyConstants.ItemProperty.DIVINATION_DISTANCE, 6.0f)
-        //                .end()
-        //
-        //                .override()
-        //                .model(variant0)
-        //                .predicate(TheurgyConstants.ItemProperty.DIVINATION_DISTANCE, 7.0f)
-        //                .end()
-        //
-        //                .override()
-        //                .model(searchingVariant)
-        //                .predicate(TheurgyConstants.ItemProperty.DIVINATION_DISTANCE, 8.0f)
-        //                .end();
     }
 
     protected void registerSulfurs(ItemModelGenerators itemModels) {

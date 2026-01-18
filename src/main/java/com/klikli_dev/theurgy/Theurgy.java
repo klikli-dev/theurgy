@@ -4,7 +4,6 @@
 
 package com.klikli_dev.theurgy;
 
-import com.klikli_dev.modonomicon.client.render.page.PageRendererRegistry;
 import com.klikli_dev.theurgy.config.ClientConfig;
 import com.klikli_dev.theurgy.config.CommonConfig;
 import com.klikli_dev.theurgy.config.ServerConfig;
@@ -17,7 +16,6 @@ import com.klikli_dev.theurgy.content.apparatus.incubator.render.IncubatorSaltVe
 import com.klikli_dev.theurgy.content.apparatus.incubator.render.IncubatorSulfurVesselRenderer;
 
 import com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron.render.LiquefactionCauldronRenderer;
-import com.klikli_dev.theurgy.content.apparatus.mercurycatalyst.MercuryCatalystBlock;
 import com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator.render.SalAmmoniacAccumulatorRenderer;
 import com.klikli_dev.theurgy.content.apparatus.salammoniactank.render.SalAmmoniacTankRenderer;
 //import com.klikli_dev.theurgy.content.item.derivative.render.AlchemicalDerivativeBEWLR;
@@ -28,15 +26,16 @@ import com.klikli_dev.theurgy.content.render.outliner.Outliner;
 //import com.klikli_dev.theurgy.datagen.TheurgyDataGenerators;
 //import com.klikli_dev.theurgy.integration.modonomicon.PageLoaders;
 //import com.klikli_dev.theurgy.integration.modonomicon.PageRenderers;
+import com.klikli_dev.theurgy.datagen.TheurgyDataGenerators;
+import com.klikli_dev.theurgy.integration.modonomicon.PageLoaders;
+import com.klikli_dev.theurgy.integration.modonomicon.PageRenderers;
 import com.klikli_dev.theurgy.logistics.Logistics;
 import com.klikli_dev.theurgy.logistics.WireRenderer;
 import com.klikli_dev.theurgy.logistics.WireSync;
 import com.klikli_dev.theurgy.logistics.Wires;
 import com.klikli_dev.theurgy.network.Networking;
-import com.klikli_dev.theurgy.network.messages.MessageOnLeftClickEmpty;
 import com.klikli_dev.theurgy.registry.*;
 import com.klikli_dev.theurgy.tooltips.TooltipHandler;
-import com.klikli_dev.theurgy.util.ScrollHelper;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.logging.LogUtils;
@@ -44,14 +43,10 @@ import net.minecraft.client.Minecraft;
 //import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 //import net.minecraft.client.renderer.item.ItemProperties;
 import com.klikli_dev.theurgy.content.item.derivative.AlchemicalDerivativeItem;
-import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurItem;
 import com.klikli_dev.theurgy.content.item.salt.AlchemicalSaltItem;
-import com.klikli_dev.theurgy.content.item.divinationrod.DivinationRodItem;
-import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
@@ -67,7 +62,6 @@ import net.neoforged.neoforge.client.event.*;
 //import net.neoforged.neoforge.client.event.RegisterBlockColorHandlersEvent;
 
 import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
-import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
@@ -79,6 +73,8 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 
+
+import com.klikli_dev.theurgy.content.item.renderer.DivinationDistanceProperty;
 
 @Mod(Theurgy.MODID)
 public class Theurgy {
@@ -145,6 +141,7 @@ public class Theurgy {
             modEventBus.addListener(BlockOverlays::onTextureAtlasStitched);
             modEventBus.addListener(KeyMappingsRegistry::onRegisterKeyMappings);
             modEventBus.addListener(ShaderRegistry::onRegisterShaders);
+            modEventBus.addListener(Client::onRegisterItemProperties);
             NeoForge.EVENT_BUS.addListener(Client::onRenderLevelStage);
             NeoForge.EVENT_BUS.addListener(Client::onClientTick);
             // NeoForge.EVENT_BUS.addListener(Client::onRecipesUpdated);
@@ -178,8 +175,6 @@ public class Theurgy {
         public static void onClientSetup(FMLClientSetupEvent event) {
 
             registerTooltipDataProviders(event);
-            registerItemProperties(event);
-
             PageRenderers.onClientSetup(event);
 
             NeoForge.EVENT_BUS.addListener((ClientTickEvent.Post e) -> {
@@ -285,19 +280,8 @@ public class Theurgy {
             event.registerBlockEntityRenderer(BlockEntityRegistry.DIGESTION_VAT.get(), DigestionVatRenderer::new);
         }
 
-        public static void registerItemProperties(FMLClientSetupEvent event) {
-            //Not safe to call during parallel load, so register to run threadsafe
-            /*
-            event.enqueueWork(() -> {
-                ItemRegistry.ITEMS.getEntries().stream().filter(item -> item.get() instanceof DivinationRodItem).forEach(item -> {
-                    ItemProperties.register(item.get(),
-                            TheurgyConstants.ItemProperty.DIVINATION_DISTANCE, DivinationRodItem.DistHelper.DIVINATION_DISTANCE);
-                    LOGGER.debug("Registered Divination Rod Properties for: {}", item.getKey());
-                });
-
-                LOGGER.debug("Finished registering Item Properties.");
-            });
-            */
+        public static void onRegisterItemProperties(RegisterRangeSelectItemModelPropertyEvent  event) {
+            event.register(Theurgy.loc("divination_distance"), DivinationDistanceProperty.MAP_CODEC);
         }
 
         public static void onRegisterClientExtensions(RegisterClientExtensionsEvent event) {

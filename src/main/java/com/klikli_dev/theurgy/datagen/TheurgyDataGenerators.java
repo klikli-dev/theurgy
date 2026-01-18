@@ -11,7 +11,7 @@ import com.klikli_dev.theurgy.datagen.book.TheurgyBookProvider;
 import com.klikli_dev.theurgy.datagen.lang.ENUSProvider;
 import com.klikli_dev.theurgy.datagen.loot.TheurgyBlockLootSubProvider;
 import com.klikli_dev.theurgy.datagen.model.TheurgyBlockStateProvider;
-import com.klikli_dev.theurgy.datagen.model.TheurgyModelProvider;
+import com.klikli_dev.theurgy.datagen.model.TheurgyItemModelProvider;
 import com.klikli_dev.theurgy.datagen.multiblock.TheurgyMultiblockProvider;
 import com.klikli_dev.theurgy.datagen.recipe.*;
 import com.klikli_dev.theurgy.datagen.tag.TheurgyBlockTagsProvider;
@@ -20,9 +20,9 @@ import com.klikli_dev.theurgy.datagen.tag.TheurgyItemTagsProvider;
 import com.klikli_dev.theurgy.datagen.worldgen.TheurgyRegistries;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
+import net.minecraft.data.advancements.AdvancementProvider;
 import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
-import net.neoforged.neoforge.common.data.AdvancementProvider;
 import net.neoforged.neoforge.common.data.DatapackBuiltinEntriesProvider;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 
@@ -55,7 +55,7 @@ public class TheurgyDataGenerators {
                         new TheurgyAdvancementSubProvider()
                 )));
 
-        generator.addProvider(true, new TheurgyModelProvider(generator.getPackOutput()));
+        generator.addProvider(true, new TheurgyItemModelProvider(generator.getPackOutput()));
 
         generator.addProvider(true, new TheurgyBlockStateProvider(generator.getPackOutput()));
         generator.addProvider(true, new ShapedRecipeProvider(generator.getPackOutput(), event.getLookupProvider()));

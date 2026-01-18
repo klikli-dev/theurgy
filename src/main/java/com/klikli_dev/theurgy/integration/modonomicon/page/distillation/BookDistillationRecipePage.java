@@ -20,26 +20,24 @@ import net.minecraft.util.GsonHelper;
 
 
 public class BookDistillationRecipePage extends BookProcessingRecipePage<DistillationRecipe> {
-    public BookDistillationRecipePage(BookTextHolder title1, ResourceLocation recipeId1, BookTextHolder title2, ResourceLocation recipeId2, BookTextHolder text, String anchor, BookCondition condition) {
-        super(RecipeTypeRegistry.DISTILLATION.get(), title1, recipeId1, title2, recipeId2, text, anchor, condition);
+    public BookDistillationRecipePage(JsonDataHolder common) {
+        super(common);
+    }
+
+    public BookDistillationRecipePage(NetworkDataHolder common) {
+        super(common);
     }
 
     public static BookDistillationRecipePage fromJson(ResourceLocation entryId, JsonObject json, HolderLookup.Provider provider) {
-        var common = BookRecipePage.commonFromJson(json, provider);
-        var anchor = GsonHelper.getAsString(json, "anchor", "");
-        var condition = json.has("condition")
-                ? BookCondition.fromJson(entryId, json.getAsJsonObject("condition"), provider)
-                : new BookNoneCondition();
-        return new BookDistillationRecipePage(common.title1(), common.recipeId1(), common.title2(), common.recipeId2(), common.text(), anchor, condition);
+        var common = BookRecipePage.commonFromJson(entryId, json, provider);
+        return new BookDistillationRecipePage(common);
     }
 
     public static BookDistillationRecipePage fromNetwork(RegistryFriendlyByteBuf buffer) {
         var common = BookRecipePage.commonFromNetwork(buffer);
-        var anchor = buffer.readUtf();
-        var condition = BookCondition.fromNetwork(buffer);
-        return new BookDistillationRecipePage(common.title1(), common.recipeId1(), common.title2(), common.recipeId2(), common.text(), anchor, condition);
+        return new BookDistillationRecipePage(common);
     }
-
+    
     @Override
     public ResourceLocation getType() {
         return TheurgyModonomiconConstants.Page.DISTILLATION_RECIPE;

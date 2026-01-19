@@ -25,9 +25,10 @@ public class SaltRegistry {
             register("strata");
     public static final RegistryObject<AlchemicalSaltItem> MINERAL =
             register("mineral");
-
-    public static final RegistryObject<AlchemicalSaltItem> CROPS =
-            register("crops");
+    public static final RegistryObject<AlchemicalSaltItem> PLANT =
+            register("plant");
+    public static final RegistryObject<AlchemicalSaltItem> CREATURE =
+            register("creature");
 
     public static <T extends Item> RegistryObject<AlchemicalSaltItem> register(String name) {
         return register(name, () -> new AlchemicalSaltItem(new Item.Properties()));

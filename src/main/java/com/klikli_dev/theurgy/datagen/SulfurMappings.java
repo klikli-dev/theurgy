@@ -13,29 +13,57 @@ import java.util.List;
 import java.util.stream.Stream;
 
 public class SulfurMappings {
+
+    private static List<AlchemicalSulfurItem> EARTHEN_MATTERS_ABUNDANT;
+    private static List<AlchemicalSulfurItem> EARTHEN_MATTERS_COMMON;
+
     private static List<AlchemicalSulfurItem> GEMS_ABUNDANT;
-
     private static List<AlchemicalSulfurItem> GEMS_COMMON;
-
     private static List<AlchemicalSulfurItem> GEMS_RARE;
-
     private static List<AlchemicalSulfurItem> GEMS_PRECIOUS;
 
     private static List<AlchemicalSulfurItem> METALS_ABUNDANT;
-
-
     private static List<AlchemicalSulfurItem> METALS_COMMON;
-
-
     private static List<AlchemicalSulfurItem> METALS_RARE;
-
     private static List<AlchemicalSulfurItem> METALS_PRECIOUS;
 
     private static List<AlchemicalSulfurItem> OTHER_MINERALS_ABUNDANT;
     private static List<AlchemicalSulfurItem> OTHER_MINERALS_COMMON;
-
     private static List<AlchemicalSulfurItem> OTHER_MINERALS_RARE;
     private static List<AlchemicalSulfurItem> OTHER_MINERALS_PRECIOUS;
+
+    private static List<AlchemicalSulfurItem> LOGS_ABUNDANT;
+    private static List<AlchemicalSulfurItem> CROPS_ABUNDANT;
+
+    private static List<AlchemicalSulfurItem> HERBS_ABUNDANT;
+
+    private static List<AlchemicalSulfurItem> ANIMALS_ABUNDANT;
+    private static List<AlchemicalSulfurItem> ANIMALS_COMMON;
+    private static List<AlchemicalSulfurItem> ANIMALS_RARE;
+
+    private static List<AlchemicalSulfurItem> MOBS_ABUNDANT;
+    private static List<AlchemicalSulfurItem> MOBS_COMMON;
+    private static List<AlchemicalSulfurItem> MOBS_RARE;
+    private static List<AlchemicalSulfurItem> MOBS_PRECIOUS;
+
+    public static List<AlchemicalSulfurItem> earthenMattersAbundant() {
+        if (EARTHEN_MATTERS_ABUNDANT != null) {
+            return EARTHEN_MATTERS_ABUNDANT;
+        }
+
+        EARTHEN_MATTERS_ABUNDANT = find(AlchemicalSulfurType.EARTHEN_MATTERS, AlchemicalSulfurTier.ABUNDANT);
+        return EARTHEN_MATTERS_ABUNDANT;
+    }
+
+    public static List<AlchemicalSulfurItem> earthenMattersCommon() {
+        if (EARTHEN_MATTERS_COMMON != null) {
+            return EARTHEN_MATTERS_COMMON;
+        }
+
+        EARTHEN_MATTERS_COMMON = find(AlchemicalSulfurType.EARTHEN_MATTERS, AlchemicalSulfurTier.COMMON);
+
+        return EARTHEN_MATTERS_COMMON;
+    }
 
     public static List<AlchemicalSulfurItem> gemsAbundant(){
         if(GEMS_ABUNDANT != null){
@@ -43,7 +71,6 @@ public class SulfurMappings {
         }
 
         GEMS_ABUNDANT = find(AlchemicalSulfurType.GEMS, AlchemicalSulfurTier.ABUNDANT);
-
         return GEMS_ABUNDANT;
     }
 
@@ -53,7 +80,6 @@ public class SulfurMappings {
         }
 
         GEMS_COMMON = find(AlchemicalSulfurType.GEMS, AlchemicalSulfurTier.COMMON);
-
         return GEMS_COMMON;
     }
 
@@ -63,7 +89,6 @@ public class SulfurMappings {
         }
 
         GEMS_RARE = find(AlchemicalSulfurType.GEMS, AlchemicalSulfurTier.RARE);
-
         return GEMS_RARE;
     }
 
@@ -73,7 +98,6 @@ public class SulfurMappings {
         }
 
         GEMS_PRECIOUS = find(AlchemicalSulfurType.GEMS, AlchemicalSulfurTier.PRECIOUS);
-
         return GEMS_PRECIOUS;
     }
 
@@ -92,7 +116,6 @@ public class SulfurMappings {
         }
 
         METALS_COMMON = find(AlchemicalSulfurType.METALS, AlchemicalSulfurTier.COMMON);
-
         return METALS_COMMON;
     }
 
@@ -102,7 +125,6 @@ public class SulfurMappings {
         }
 
         METALS_RARE = find(AlchemicalSulfurType.METALS, AlchemicalSulfurTier.RARE);
-
         return METALS_RARE;
     }
 
@@ -112,7 +134,6 @@ public class SulfurMappings {
         }
 
         METALS_PRECIOUS = find(AlchemicalSulfurType.METALS, AlchemicalSulfurTier.PRECIOUS);
-
         return METALS_PRECIOUS;
     }
 
@@ -122,7 +143,6 @@ public class SulfurMappings {
         }
 
         OTHER_MINERALS_ABUNDANT = find(AlchemicalSulfurType.OTHER_MINERALS, AlchemicalSulfurTier.ABUNDANT);
-
         return OTHER_MINERALS_ABUNDANT;
     }
 
@@ -132,7 +152,6 @@ public class SulfurMappings {
         }
 
         OTHER_MINERALS_COMMON = find(AlchemicalSulfurType.OTHER_MINERALS, AlchemicalSulfurTier.COMMON);
-
         return OTHER_MINERALS_COMMON;
     }
 
@@ -142,7 +161,6 @@ public class SulfurMappings {
         }
 
         OTHER_MINERALS_RARE = find(AlchemicalSulfurType.OTHER_MINERALS, AlchemicalSulfurTier.RARE);
-
         return OTHER_MINERALS_RARE;
     }
 
@@ -152,8 +170,107 @@ public class SulfurMappings {
         }
 
         OTHER_MINERALS_PRECIOUS = find(AlchemicalSulfurType.OTHER_MINERALS, AlchemicalSulfurTier.PRECIOUS);
-
         return OTHER_MINERALS_PRECIOUS;
+    }
+
+    public static List<AlchemicalSulfurItem> logsAbundant() {
+        if (LOGS_ABUNDANT != null) {
+            return LOGS_ABUNDANT;
+        }
+
+        LOGS_ABUNDANT = find(AlchemicalSulfurType.LOGS, AlchemicalSulfurTier.ABUNDANT);
+
+        return LOGS_ABUNDANT;
+    }
+
+    public static List<AlchemicalSulfurItem> cropsAbundant() {
+        if (CROPS_ABUNDANT != null) {
+            return CROPS_ABUNDANT;
+        }
+
+        CROPS_ABUNDANT = find(AlchemicalSulfurType.CROPS, AlchemicalSulfurTier.ABUNDANT);
+
+        return CROPS_ABUNDANT;
+    }
+
+    public static List<AlchemicalSulfurItem> herbsAbundant() {
+        if (HERBS_ABUNDANT != null) {
+            return HERBS_ABUNDANT;
+        }
+
+        HERBS_ABUNDANT = find(AlchemicalSulfurType.HERBS, AlchemicalSulfurTier.ABUNDANT);
+
+        return HERBS_ABUNDANT;
+    }
+
+    public static List<AlchemicalSulfurItem> animalsAbundant() {
+        if (ANIMALS_ABUNDANT != null) {
+            return ANIMALS_ABUNDANT;
+        }
+
+        ANIMALS_ABUNDANT = find(AlchemicalSulfurType.ANIMALS, AlchemicalSulfurTier.ABUNDANT);
+
+        return ANIMALS_ABUNDANT;
+    }
+
+    public static List<AlchemicalSulfurItem> animalsCommon() {
+        if (ANIMALS_COMMON != null) {
+            return ANIMALS_COMMON;
+        }
+
+        ANIMALS_COMMON = find(AlchemicalSulfurType.ANIMALS, AlchemicalSulfurTier.COMMON);
+
+        return ANIMALS_COMMON;
+    }
+
+    public static List<AlchemicalSulfurItem> animalsRare() {
+        if (ANIMALS_RARE != null) {
+            return ANIMALS_RARE;
+        }
+
+        ANIMALS_RARE = find(AlchemicalSulfurType.ANIMALS, AlchemicalSulfurTier.RARE);
+
+        return ANIMALS_RARE;
+    }
+
+    public static List<AlchemicalSulfurItem> mobsAbundant() {
+        if (MOBS_ABUNDANT != null) {
+            return MOBS_ABUNDANT;
+        }
+
+        MOBS_ABUNDANT = find(AlchemicalSulfurType.MOBS, AlchemicalSulfurTier.ABUNDANT);
+
+        return MOBS_ABUNDANT;
+    }
+
+    public static List<AlchemicalSulfurItem> mobsCommon() {
+        if (MOBS_COMMON != null) {
+            return MOBS_COMMON;
+        }
+
+        MOBS_COMMON = find(AlchemicalSulfurType.MOBS, AlchemicalSulfurTier.COMMON);
+
+        return MOBS_COMMON;
+    }
+
+    public static List<AlchemicalSulfurItem> mobsRare() {
+        if (MOBS_RARE != null) {
+            return MOBS_RARE;
+        }
+
+        MOBS_RARE = find(AlchemicalSulfurType.MOBS, AlchemicalSulfurTier.RARE);
+
+        return MOBS_RARE;
+    }
+
+    public static List<AlchemicalSulfurItem> mobsPrecious() {
+        if (MOBS_PRECIOUS != null) {
+            return MOBS_PRECIOUS;
+        }
+
+        MOBS_PRECIOUS = find(AlchemicalSulfurType.MOBS, AlchemicalSulfurTier.PRECIOUS);
+
+        return MOBS_PRECIOUS;
     }
 
     private static List<AlchemicalSulfurItem> find(AlchemicalSulfurType type, AlchemicalSulfurTier tier){

@@ -7,7 +7,9 @@ package com.klikli_dev.theurgy.datagen.recipe;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.klikli_dev.theurgy.Theurgy;
+import com.klikli_dev.theurgy.content.item.AlchemicalSaltItem;
 import com.klikli_dev.theurgy.content.recipe.CalcinationRecipe;
+import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.registry.ItemTagRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import com.klikli_dev.theurgy.registry.SaltRegistry;
@@ -18,6 +20,8 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraftforge.common.Tags;
+import net.minecraftforge.registries.RegistryObject;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.function.BiConsumer;
 
@@ -39,13 +43,41 @@ public class CalcinationRecipeProvider extends JsonRecipeProvider {
         this.makeRecipe(SaltRegistry.STRATA.get(), "from_gravel", 1, Items.GRAVEL, 1, TIME);
         this.makeRecipe(SaltRegistry.STRATA.get(), "from_clay", 4, Items.CLAY, 1, TIME);
         this.makeRecipe(SaltRegistry.STRATA.get(), "from_clay_ball", 1, Items.CLAY_BALL, 1, TIME);
+        this.makeRecipe(SaltRegistry.STRATA.get(), "_from_netherrack", 1, Tags.Items.NETHERRACK, 1, TIME);
+        this.makeRecipe(SaltRegistry.STRATA.get(), "_from_soul_sand", 1, Items.SOUL_SAND, 1, TIME);
+        this.makeRecipe(SaltRegistry.STRATA.get(), "_from_soul_soil", 1, Items.SOUL_SOIL, 1, TIME);
+        this.makeRecipe(SaltRegistry.STRATA.get(), "_from_blackstone", 1, Items.BLACKSTONE, 1, TIME);
+        this.makeRecipe(SaltRegistry.STRATA.get(), "_from_terracotta", 2, Items.TERRACOTTA, 1, TIME);
+        // CONCRETES tag did not exist in 1.20, workaround needed
+        //this.makeRecipe(SaltRegistry.STRATA.get(), "_from_concrete", 2, Tags.Items.CONCRETES, 1, TIME);
+        this.makeRecipe(SaltRegistry.STRATA.get(), "_from_crimson_nylium", 2, Items.CRIMSON_NYLIUM, 1, TIME);
+        this.makeRecipe(SaltRegistry.STRATA.get(), "_from_warped_nylium", 2, Items.WARPED_NYLIUM, 1, TIME);
+        this.makeRecipe(SaltRegistry.STRATA.get(), "_from_end_stone", 2, Items.END_STONE, 1, TIME);
+        this.makeRecipe(SaltRegistry.STRATA.get(), "_from_purpur_block", 2, Items.PURPUR_BLOCK, 1, TIME);
+        this.makeRecipe(SaltRegistry.STRATA.get(), "_from_mycelium", 2, Items.MYCELIUM, 1, TIME);
+        this.makeRecipe(SaltRegistry.STRATA.get(), "_from_obsidian", 2, Items.OBSIDIAN, 1, TIME);
+        this.makeRecipe(SaltRegistry.STRATA.get(), "_from_crying_obsidian", 3, Items.CRYING_OBSIDIAN, 1, TIME);
+        this.makeRecipe(SaltRegistry.STRATA.get(), "_from_snowball", 1, Items.SNOWBALL, 1, TIME);
+        this.makeRecipe(SaltRegistry.STRATA.get(), "_from_ice", 1, Items.ICE, 1, TIME);
+        this.makeRecipe(SaltRegistry.STRATA.get(), "_from_packed_ice", 9, Items.PACKED_ICE, 1, TIME);
+        this.makeRecipe(SaltRegistry.STRATA.get(), "_from_blue_ice", 64, Items.BLUE_ICE, 1, TIME);
+        this.makeRecipe(SaltRegistry.STRATA.get(), "_from_magma_block", 2, Items.MAGMA_BLOCK, 1, TIME);
+        this.makeRecipe(SaltRegistry.STRATA.get(), "_from_crystallized_water", 4, ItemRegistry.CRYSTALLIZED_WATER.get(), 1, TIME);
+        this.makeRecipe(SaltRegistry.STRATA.get(), "_from_crystallized_lava", 8, ItemRegistry.CRYSTALLIZED_LAVA.get(), 1, TIME);
+
         this.makeRecipe(SaltRegistry.MINERAL.get(), "from_ores", Tags.Items.ORES);
         this.makeRecipe(SaltRegistry.MINERAL.get(), "from_raw_materials", Tags.Items.RAW_MATERIALS);
         this.makeRecipe(SaltRegistry.MINERAL.get(), "from_ingots", 2, Tags.Items.INGOTS);
         this.makeRecipe(SaltRegistry.MINERAL.get(), "from_gems", 2, Tags.Items.GEMS);
         this.makeRecipe(SaltRegistry.MINERAL.get(), "from_other_minerals", 2, ItemTagRegistry.OTHER_MINERALS);
-        this.makeRecipe(SaltRegistry.CROPS.get(), "", Tags.Items.CROPS);
-        this.makeRecipe(SaltRegistry.MINERAL.get(), "", 1, SaltRegistry.STRATA.get(), 20, TIME);
+        this.makeRecipe(SaltRegistry.MINERAL.get(), "_from_strata_salt", 1, SaltRegistry.STRATA.get(), 5, TIME);
+
+        this.makeRecipe(SaltRegistry.PLANT.get(), "from_crops", Tags.Items.CROPS);
+        this.makeRecipe(SaltRegistry.PLANT.get(), "from_logs", ItemTags.LOGS);
+        this.makeRecipe(SaltRegistry.PLANT.get(), "_from_leaves", ItemTags.LEAVES);
+        this.makeRecipe(SaltRegistry.PLANT.get(), "_from_saplings", ItemTags.SAPLINGS);
+
+        this.makeRecipe(SaltRegistry.CREATURE.get(), "_from_plant_salt", 1, SaltRegistry.PLANT.get(), 2, TIME);
     }
 
 

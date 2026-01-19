@@ -131,6 +131,13 @@ public class ItemRegistry {
             ITEMS.register("sal_ammoniac_crystal", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> PURIFIED_GOLD =
             ITEMS.register("purified_gold", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> FERMENTATION_STARTER =
+            ITEMS.register("fermentation_starter", () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> CRYSTALLIZED_WATER =
+            ITEMS.register("crystallized_water", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> CRYSTALLIZED_LAVA =
+            ITEMS.register("crystallized_lava", () -> new Item(new Item.Properties()));
 
     //Blocks
     public static final RegistryObject<Item> SAL_AMMONIAC_ORE =

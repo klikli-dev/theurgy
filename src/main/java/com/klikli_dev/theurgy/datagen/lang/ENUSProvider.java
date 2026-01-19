@@ -315,9 +315,14 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.add(AlchemicalSulfurTier.PRECIOUS.descriptionId(), "Precious");
 
         this.add(AlchemicalSulfurType.MISC.descriptionId(), "Misc");
+        this.add(AlchemicalSulfurType.EARTHEN_MATTERS.descriptionId(), "Earthen Matters");
         this.add(AlchemicalSulfurType.METALS.descriptionId(), "Metals");
         this.add(AlchemicalSulfurType.GEMS.descriptionId(), "Gems");
         this.add(AlchemicalSulfurType.OTHER_MINERALS.descriptionId(), "Other Minerals");
+        this.add(AlchemicalSulfurType.LOGS.descriptionId(), "Logs");
+        this.add(AlchemicalSulfurType.CROPS.descriptionId(), "Crops");
+        this.add(AlchemicalSulfurType.ANIMALS.descriptionId(), "Animal Parts");
+        this.add(AlchemicalSulfurType.MOBS.descriptionId(), "Mob Drops");
         this.add(AlchemicalSulfurType.NITER.descriptionId(), "Niter");
 
 
@@ -344,6 +349,11 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
 
 
         //Names for generic sulfurs
+        this.addSulfurSource(SulfurRegistry.EARTHEN_MATTERS_ABUNDANT, "Abundant Earthen Matters");
+        this.addGenericSulfur(SulfurRegistry.EARTHEN_MATTERS_ABUNDANT.get());
+        this.addSulfurSource(SulfurRegistry.EARTHEN_MATTERS_COMMON, "Common Earthen Matters");
+        this.addGenericSulfur(SulfurRegistry.EARTHEN_MATTERS_COMMON.get());
+
         this.addSulfurSource(SulfurRegistry.GEMS_ABUNDANT, "Abundant Gems");
         this.addGenericSulfur(SulfurRegistry.GEMS_ABUNDANT.get());
         this.addSulfurSource(SulfurRegistry.GEMS_COMMON, "Common Gems");
@@ -371,7 +381,279 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.addSulfurSource(SulfurRegistry.OTHER_MINERALS_PRECIOUS, "Precious Other Minerals");
         this.addGenericSulfur(SulfurRegistry.OTHER_MINERALS_PRECIOUS.get());
 
+        this.addSulfurSource(SulfurRegistry.LOGS_ABUNDANT, "Abundant Logs");
+        this.addGenericSulfur(SulfurRegistry.LOGS_ABUNDANT.get());
+        this.addSulfurSource(SulfurRegistry.CROPS_ABUNDANT, "Abundant Crops");
+        this.addGenericSulfur(SulfurRegistry.CROPS_ABUNDANT.get());
+
+        this.addSulfurSource(SulfurRegistry.ANIMALS_ABUNDANT, "Abundant Animal Parts");
+        this.addGenericSulfur(SulfurRegistry.ANIMALS_ABUNDANT.get());
+        this.addSulfurSource(SulfurRegistry.ANIMALS_COMMON, "Common Animal Parts");
+        this.addGenericSulfur(SulfurRegistry.ANIMALS_COMMON.get());
+        this.addSulfurSource(SulfurRegistry.ANIMALS_RARE, "Rare Animal Parts");
+        this.addGenericSulfur(SulfurRegistry.ANIMALS_RARE.get());
+
+
+        this.addSulfurSource(SulfurRegistry.MOBS_ABUNDANT, "Abundant Mob Drops");
+        this.addGenericSulfur(SulfurRegistry.MOBS_ABUNDANT.get());
+        this.addSulfurSource(SulfurRegistry.MOBS_COMMON, "Common Mob Drops");
+        this.addGenericSulfur(SulfurRegistry.MOBS_COMMON.get());
+        this.addSulfurSource(SulfurRegistry.MOBS_RARE, "Rare Mob Drops");
+        this.addGenericSulfur(SulfurRegistry.MOBS_RARE.get());
+        this.addSulfurSource(SulfurRegistry.MOBS_PRECIOUS, "Precious Mob Drops");
+        this.addGenericSulfur(SulfurRegistry.MOBS_PRECIOUS.get());
+
         //Names for Sulfurs with overrideSourceName
+        this.addSulfurSource(SulfurRegistry.OAK_LOG, "Oak");
+        this.addSulfurSource(SulfurRegistry.SPRUCE_LOG, "Spruce");
+        this.addSulfurSource(SulfurRegistry.BIRCH_LOG, "Birch");
+        this.addSulfurSource(SulfurRegistry.JUNGLE_LOG, "Jungle");
+        this.addSulfurSource(SulfurRegistry.ACACIA_LOG, "Acacia");
+        this.addSulfurSource(SulfurRegistry.CHERRY_LOG, "Cherry");
+        this.addSulfurSource(SulfurRegistry.DARK_OAK_LOG, "Dark Oak");
+        this.addSulfurSource(SulfurRegistry.MANGROVE_LOG, "Mangrove");
+        this.addSulfurSource(SulfurRegistry.CRIMSON_STEM, "Crimson");
+        this.addSulfurSource(SulfurRegistry.WARPED_STEM, "Warped");
+
+        this.addSulfurSource(SulfurRegistry.ROWAN_LOG, "Rowan");
+        this.addSulfurSource(SulfurRegistry.FIR_LOG, "Fir");
+        this.addSulfurSource(SulfurRegistry.REDWOOD_LOG, "Redwood");
+        this.addSulfurSource(SulfurRegistry.MAHOGANY_LOG, "Mahogany");
+        this.addSulfurSource(SulfurRegistry.JACARANDA_LOG, "Jacaranda");
+        this.addSulfurSource(SulfurRegistry.PALM_LOG, "Palm");
+        this.addSulfurSource(SulfurRegistry.WILLOW_LOG, "Willow");
+        this.addSulfurSource(SulfurRegistry.DEAD_LOG, "Dead");
+        this.addSulfurSource(SulfurRegistry.MAGIC_LOG, "Magic");
+        this.addSulfurSource(SulfurRegistry.UMBRAN_LOG, "Umbran");
+        this.addSulfurSource(SulfurRegistry.HELLBARK_LOG, "Hellbark");
+        this.addSulfurSource(SulfurRegistry.CINNAMON_LOG, "Cinnamon");
+        this.addSulfurSource(SulfurRegistry.GLACIAN_LOG, "Glacian");
+        this.addSulfurSource(SulfurRegistry.ARCHWOOD_LOG, "Archwood");
+        this.addSulfurSource(SulfurRegistry.BLUEBRIGHT_LOG, "Bluebright");
+        this.addSulfurSource(SulfurRegistry.STARLIT_LOG, "Starlit");
+        this.addSulfurSource(SulfurRegistry.FROSTBRIGHT_LOG, "Frostbright");
+        this.addSulfurSource(SulfurRegistry.COMET_LOG, "Comet");
+        this.addSulfurSource(SulfurRegistry.LUNAR_LOG, "Lunar");
+        this.addSulfurSource(SulfurRegistry.DUSK_LOG, "Dusk");
+        this.addSulfurSource(SulfurRegistry.MAPLE_LOG, "Maple");
+        this.addSulfurSource(SulfurRegistry.CRYSTALLIZED_LOG, "Crystallized");
+        this.addSulfurSource(SulfurRegistry.LIVINGWOOD_LOG, "Livingwood");
+        this.addSulfurSource(SulfurRegistry.GLIMMERING_LIVINGWOOD_LOG, "Glimmering Livingwood");
+        this.addSulfurSource(SulfurRegistry.DREAMWOOD_LOG, "Dreamwood");
+        this.addSulfurSource(SulfurRegistry.GLIMMERING_DREAMWOOD_LOG, "Glimmering Dreamwood");
+        this.addSulfurSource(SulfurRegistry.WALNUT_LOG, "Walnut");
+        this.addSulfurSource(SulfurRegistry.FIG_LOG, "Fig");
+        this.addSulfurSource(SulfurRegistry.WOLFBERRY_LOG, "Wolfberry");
+        this.addSulfurSource(SulfurRegistry.ECHO_LOG, "Echo");
+        this.addSulfurSource(SulfurRegistry.ILLWOOD_LOG, "Illwood");
+        this.addSulfurSource(SulfurRegistry.UNDEAD_LOG, "Undead");
+        this.addSulfurSource(SulfurRegistry.AURUM_LOG, "Aurum");
+        this.addSulfurSource(SulfurRegistry.MENRIL_LOG, "Menril");
+        this.addSulfurSource(SulfurRegistry.ASHEN_LOG, "Ashen");
+        this.addSulfurSource(SulfurRegistry.AZALEA_LOG, "Azalea");
+        this.addSulfurSource(SulfurRegistry.TRUMPET_LOG, "Trumpet");
+        this.addSulfurSource(SulfurRegistry.NETHERWOOD_LOG, "Netherwood");
+        this.addSulfurSource(SulfurRegistry.SKYROOT_LOG, "Skyroot");
+        this.addSulfurSource(SulfurRegistry.GOLDEN_OAK_LOG, "Golden Oak");
+        this.addSulfurSource(SulfurRegistry.TWILIGHT_OAK_LOG, "Twilight Oak");
+        this.addSulfurSource(SulfurRegistry.CANOPY_TREE_LOG, "Canopy Tree");
+        this.addSulfurSource(SulfurRegistry.DARKWOOD_LOG, "Darkwood");
+        this.addSulfurSource(SulfurRegistry.TIMEWOOD_LOG, "Timewood");
+        this.addSulfurSource(SulfurRegistry.TRANSWOOD_LOG, "Transwood");
+        this.addSulfurSource(SulfurRegistry.SORTINGWOOD_LOG, "Sortingwood");
+        this.addSulfurSource(SulfurRegistry.MINEWOOD_LOG, "Minewood");
+        this.addSulfurSource(SulfurRegistry.SMOGSTEM_LOG, "Smogstem");
+        this.addSulfurSource(SulfurRegistry.WIGGLEWOOD_LOG, "Wigglewood");
+        this.addSulfurSource(SulfurRegistry.GRONGLE_LOG, "Grongle");
+        this.addSulfurSource(SulfurRegistry.RUBBERWOOD_LOG, "Rubberwood");
+        this.addSulfurSource(SulfurRegistry.OTHERWORLD_LOG, "Otherworld");
+
+        //Add source names for crop sulfurs:
+        this.addSulfurSource(SulfurRegistry.BEETROOT, "Beetroot");
+        this.addSulfurSource(SulfurRegistry.CARROT, "Carrot");
+        this.addSulfurSource(SulfurRegistry.POTATO, "Potato");
+        this.addSulfurSource(SulfurRegistry.WHEAT, "Wheat");
+        this.addSulfurSource(SulfurRegistry.APPLE, "Apple");
+        this.addSulfurSource(SulfurRegistry.COCOA, "Cocoa");
+        this.addSulfurSource(SulfurRegistry.NETHER_WART, "Nether Wart");
+        this.addSulfurSource(SulfurRegistry.ARTICHOKE, "Artichoke");
+        this.addSulfurSource(SulfurRegistry.ASPARAGUS, "Asparagus");
+        this.addSulfurSource(SulfurRegistry.BARLEY, "Barley");
+        this.addSulfurSource(SulfurRegistry.BASIL, "Basil");
+        this.addSulfurSource(SulfurRegistry.BELLPEPPER, "Bell Pepper");
+        this.addSulfurSource(SulfurRegistry.BLACKBEAN, "Black Bean");
+        this.addSulfurSource(SulfurRegistry.BLACKBERRY, "Blackberry");
+        this.addSulfurSource(SulfurRegistry.BLUEBERRY, "Blueberry");
+        this.addSulfurSource(SulfurRegistry.BROCCOLI, "Broccoli");
+        this.addSulfurSource(SulfurRegistry.CABBAGE, "Cabbage");
+        this.addSulfurSource(SulfurRegistry.CANTALOUPE, "Cantaloupe");
+        this.addSulfurSource(SulfurRegistry.CAULIFLOWER, "Cauliflower");
+        this.addSulfurSource(SulfurRegistry.CELERY, "Celery");
+        this.addSulfurSource(SulfurRegistry.CHILE_PEPPER, "Chile Pepper");
+        this.addSulfurSource(SulfurRegistry.COFFEE_BEANS, "Coffee Beans");
+        this.addSulfurSource(SulfurRegistry.CORN, "Corn");
+        this.addSulfurSource(SulfurRegistry.CRANBERRY, "Cranberry");
+        this.addSulfurSource(SulfurRegistry.CUCUMBER, "Cucumber");
+        this.addSulfurSource(SulfurRegistry.CURRANT, "Currant");
+        this.addSulfurSource(SulfurRegistry.EGGPLANT, "Eggplant");
+        this.addSulfurSource(SulfurRegistry.ELDERBERRY, "Elderberry");
+        this.addSulfurSource(SulfurRegistry.GARLIC, "Garlic");
+        this.addSulfurSource(SulfurRegistry.GINGER, "Ginger");
+        this.addSulfurSource(SulfurRegistry.GRAPE, "Grape");
+        this.addSulfurSource(SulfurRegistry.GREENBEAN, "Green Bean");
+        this.addSulfurSource(SulfurRegistry.GREENONION, "Green Onion");
+        this.addSulfurSource(SulfurRegistry.HONEYDEW, "Honeydew");
+        this.addSulfurSource(SulfurRegistry.HOPS, "Hops");
+        this.addSulfurSource(SulfurRegistry.KALE, "Kale");
+        this.addSulfurSource(SulfurRegistry.KIWI, "Kiwi");
+        this.addSulfurSource(SulfurRegistry.LEEK, "Leek");
+        this.addSulfurSource(SulfurRegistry.LETTUCE, "Lettuce");
+        this.addSulfurSource(SulfurRegistry.MUSTARD, "Mustard");
+        this.addSulfurSource(SulfurRegistry.OAT, "Oat");
+        this.addSulfurSource(SulfurRegistry.OLIVE, "Olive");
+        this.addSulfurSource(SulfurRegistry.ONION, "Onion");
+        this.addSulfurSource(SulfurRegistry.PEANUT, "Peanut");
+        this.addSulfurSource(SulfurRegistry.PEPPER, "Pepper");
+        this.addSulfurSource(SulfurRegistry.PINEAPPLE, "Pineapple");
+        this.addSulfurSource(SulfurRegistry.RADISH, "Radish");
+        this.addSulfurSource(SulfurRegistry.RASPBERRY, "Raspberry");
+        this.addSulfurSource(SulfurRegistry.RHUBARB, "Rhubarb");
+        this.addSulfurSource(SulfurRegistry.RICE, "Rice");
+        this.addSulfurSource(SulfurRegistry.RUTABAGA, "Rutabaga");
+        this.addSulfurSource(SulfurRegistry.SAGUARO, "Saguaro");
+        this.addSulfurSource(SulfurRegistry.SOYBEAN, "Soybean");
+        this.addSulfurSource(SulfurRegistry.SPINACH, "Spinach");
+        this.addSulfurSource(SulfurRegistry.SQUASH, "Squash");
+        this.addSulfurSource(SulfurRegistry.STRAWBERRY, "Strawberry");
+        this.addSulfurSource(SulfurRegistry.SWEETPOTATO, "Sweet Potato");
+        this.addSulfurSource(SulfurRegistry.TEA_LEAVES, "Tea Leaves");
+        this.addSulfurSource(SulfurRegistry.TOMATILLO, "Tomatillo");
+        this.addSulfurSource(SulfurRegistry.TOMATO, "Tomato");
+        this.addSulfurSource(SulfurRegistry.TURMERIC, "Turmeric");
+        this.addSulfurSource(SulfurRegistry.TURNIP, "Turnip");
+        this.addSulfurSource(SulfurRegistry.VANILLA, "Vanilla");
+        this.addSulfurSource(SulfurRegistry.YAM, "Yam");
+        this.addSulfurSource(SulfurRegistry.ZUCCHINI, "Zucchini");
+        this.addSulfurSource(SulfurRegistry.FLAX, "Flax");
+        this.addSulfurSource(SulfurRegistry.JUNIPERBERRY, "Juniperberry");
+        this.addSulfurSource(SulfurRegistry.ALMOND, "Almond");
+        this.addSulfurSource(SulfurRegistry.APRICOT, "Apricot");
+        this.addSulfurSource(SulfurRegistry.AVOCADO, "Avocado");
+        this.addSulfurSource(SulfurRegistry.BANANA, "Banana");
+        this.addSulfurSource(SulfurRegistry.CASHEW, "Cashew");
+        this.addSulfurSource(SulfurRegistry.CHERRY, "Cherry");
+        this.addSulfurSource(SulfurRegistry.COCONUT, "Coconut");
+        this.addSulfurSource(SulfurRegistry.DATE, "Date");
+        this.addSulfurSource(SulfurRegistry.DRAGONFRUIT, "Dragonfruit");
+        this.addSulfurSource(SulfurRegistry.FIG, "Fig");
+        this.addSulfurSource(SulfurRegistry.GRAPEFRUIT, "Grapefruit");
+        this.addSulfurSource(SulfurRegistry.KUMQUAT, "Kumquat");
+        this.addSulfurSource(SulfurRegistry.LEMON, "Lemon");
+        this.addSulfurSource(SulfurRegistry.LIME, "Lime");
+        this.addSulfurSource(SulfurRegistry.MANDARIN, "Mandarin");
+        this.addSulfurSource(SulfurRegistry.MANGO, "Mango");
+        this.addSulfurSource(SulfurRegistry.NECTARINE, "Nectarine");
+        this.addSulfurSource(SulfurRegistry.NUTMEG, "Nutmeg");
+        this.addSulfurSource(SulfurRegistry.ORANGE, "Orange");
+        this.addSulfurSource(SulfurRegistry.PEACH, "Peach");
+        this.addSulfurSource(SulfurRegistry.PEAR, "Pear");
+        this.addSulfurSource(SulfurRegistry.PECAN, "Pecan");
+        this.addSulfurSource(SulfurRegistry.PERSIMMON, "Persimmon");
+        this.addSulfurSource(SulfurRegistry.PLUM, "Plum");
+
+        //Mob Drops
+        this.addSulfurSource(SulfurRegistry.ROTTEN_FLESH, "Rotten Flesh");
+        this.addSulfurSource(SulfurRegistry.SPIDER_EYE, "Spider Eye");
+        this.addSulfurSource(SulfurRegistry.STRING, "String");
+        this.addSulfurSource(SulfurRegistry.GUNPOWDER, "Gunpowder");
+        this.addSulfurSource(SulfurRegistry.BONE, "Bone");
+        this.addSulfurSource(SulfurRegistry.ARROW, "Arrow");
+        this.addSulfurSource(SulfurRegistry.SLIMEBALL, "Slimeball");
+        this.addSulfurSource(SulfurRegistry.ENDER_PEARL, "Ender Pearl");
+        this.addSulfurSource(SulfurRegistry.BLAZE_ROD, "Blaze Rod");
+        this.addSulfurSource(SulfurRegistry.PRISMARINE_SHARD, "Prismarine Shard");
+        this.addSulfurSource(SulfurRegistry.PHANTOM_MEMBRANE, "Phantom Membrane");
+        this.addSulfurSource(SulfurRegistry.MAGMA_CREAM, "Magma cream");
+        this.addSulfurSource(SulfurRegistry.SKELETON_SKULL, "Skeleton Skull");
+        this.addSulfurSource(SulfurRegistry.WITHER_SKELETON_SKULL, "Wither Skeleton Skull");
+        this.addSulfurSource(SulfurRegistry.GHAST_TEAR, "Ghast Tear");
+        this.addSulfurSource(SulfurRegistry.SHULKER_SHELL, "Shulker Shell");
+        this.addSulfurSource(SulfurRegistry.ELYTRA, "Elytra");
+        this.addSulfurSource(SulfurRegistry.NETHER_STAR, "Nether Star");
+        this.addSulfurSource(SulfurRegistry.DRAGON_EGG, "Dragon Egg");
+        this.addSulfurSource(SulfurRegistry.HEART_OF_THE_SEA, "Heart Of The Sea");
+
+        //Creature Parts
+        this.addSulfurSource(SulfurRegistry.PORKCHOP, "Porkchop");
+        this.addSulfurSource(SulfurRegistry.BEEF, "Beef");
+        this.addSulfurSource(SulfurRegistry.MUTTON, "Mutton");
+        this.addSulfurSource(SulfurRegistry.CHICKEN, "Chicken");
+        this.addSulfurSource(SulfurRegistry.EGG, "Egg");
+        this.addSulfurSource(SulfurRegistry.INK_SAC, "Ink Sac");
+        this.addSulfurSource(SulfurRegistry.GLOW_INK_SAC, "Glow Ink Sac");
+        this.addSulfurSource(SulfurRegistry.RABBIT, "Rabbit");
+        this.addSulfurSource(SulfurRegistry.RABBIT_HIDE, "Rabbit Hide");
+        this.addSulfurSource(SulfurRegistry.RABBIT_FOOT, "Rabbit Foot");
+        this.addSulfurSource(SulfurRegistry.LEATHER, "Leather");
+        this.addSulfurSource(SulfurRegistry.FEATHER, "Feather");
+        this.addSulfurSource(SulfurRegistry.WOOL, "Wool");
+        this.addSulfurSource(SulfurRegistry.COD, "Cod");
+        this.addSulfurSource(SulfurRegistry.SALMON, "Salmon");
+        this.addSulfurSource(SulfurRegistry.TROPICAL_FISH, "Tropical Fish");
+        this.addSulfurSource(SulfurRegistry.PUFFERFISH, "Pufferfish");
+        this.addSulfurSource(SulfurRegistry.TURTLE_SCUTE, "Turtle Scute");
+
+        //Earthly Matters
+        this.addSulfurSource(SulfurRegistry.DIRT, "Dirt");
+        this.addSulfurSource(SulfurRegistry.COARSE_DIRT, "Coarse Dirt");
+        this.addSulfurSource(SulfurRegistry.PODZOL, "Podzol");
+        this.addSulfurSource(SulfurRegistry.GRASS_BLOCK, "Grass Block");
+        this.addSulfurSource(SulfurRegistry.ROOTED_DIRT, "Rooted Dirt");
+        this.addSulfurSource(SulfurRegistry.MOSS_BLOCK, "Moss Block");
+        this.addSulfurSource(SulfurRegistry.MUD, "Mud");
+        this.addSulfurSource(SulfurRegistry.MUDDY_MANGROVE_ROOTS, "Muddy Mangrove Roots");
+
+        this.addSulfurSource(SulfurRegistry.SAND, "Sand");
+        this.addSulfurSource(SulfurRegistry.RED_SAND, "Red Sand");
+        this.addSulfurSource(SulfurRegistry.GRAVEL, "Gravel");
+        this.addSulfurSource(SulfurRegistry.NETHERRACK, "Netherrack");
+        this.addSulfurSource(SulfurRegistry.SOUL_SAND, "Soul Sand");
+        this.addSulfurSource(SulfurRegistry.SOUL_SOIL, "Soul Soil");
+
+        this.addSulfurSource(SulfurRegistry.STONE, "Stone");
+        this.addSulfurSource(SulfurRegistry.INFESTED_STONE, "Infested Stone");
+        this.addSulfurSource(SulfurRegistry.COBBLESTONE, "Cobblestone");
+        this.addSulfurSource(SulfurRegistry.COBBLESTONE_MOSSY, "Mossy Cobblestone");
+        this.addSulfurSource(SulfurRegistry.COBBLESTONE_INFESTED, "Infested Cobblestone");
+
+        this.addSulfurSource(SulfurRegistry.DEEPSLATE, "Deepslate");
+        this.addSulfurSource(SulfurRegistry.COBBLESTONE_DEEPSLATE, "Deepslate Cobblestone");
+
+        this.addSulfurSource(SulfurRegistry.GRANITE, "Granite");
+        this.addSulfurSource(SulfurRegistry.DIORITE, "Diorite");
+        this.addSulfurSource(SulfurRegistry.ANDESITE, "Andesite");
+        this.addSulfurSource(SulfurRegistry.BLACKSTONE, "Blackstone");
+        this.addSulfurSource(SulfurRegistry.BASALT, "Basalt");
+
+        this.addSulfurSource(SulfurRegistry.SANDSTONE, "Sandstone");
+        this.addSulfurSource(SulfurRegistry.RED_SANDSTONE, "Red Sandstone");
+
+        this.addSulfurSource(SulfurRegistry.CLAY, "Clay");
+        this.addSulfurSource(SulfurRegistry.TERRACOTTA, "Terracotta");
+        this.addSulfurSource(SulfurRegistry.CRIMSON_NYLIUM, "Crimson Nylium");
+        this.addSulfurSource(SulfurRegistry.WARPED_NYLIUM, "Warped Nylium");
+        this.addSulfurSource(SulfurRegistry.END_STONE, "End Stone");
+        this.addSulfurSource(SulfurRegistry.PURPUR_BLOCK, "Purpur Block");
+        this.addSulfurSource(SulfurRegistry.MYCELIUM, "Mycelium");
+        this.addSulfurSource(SulfurRegistry.OBSIDIAN, "Obsidian");
+        this.addSulfurSource(SulfurRegistry.CRYING_OBSIDIAN, "Crying Obsidian");
+
+        this.addSulfurSource(SulfurRegistry.SNOW, "Snow");
+        this.addSulfurSource(SulfurRegistry.ICE, "Ice");
+        this.addSulfurSource(SulfurRegistry.MAGMA, "Magma");
+        this.addSulfurSource(SulfurRegistry.WATER, "Water");
+        this.addSulfurSource(SulfurRegistry.LAVA, "Lava");
+        
         //Common Metals
         this.addSulfurSource(SulfurRegistry.IRON, "Iron");
         this.addSulfurSource(SulfurRegistry.COPPER, "Copper");
@@ -396,6 +678,9 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.addSulfurSource(SulfurRegistry.OSTRUM, "Ostrum");
         this.addSulfurSource(SulfurRegistry.CALORITE, "Calorite");
         this.addSulfurSource(SulfurRegistry.IESNIUM, "Iesnium");
+        this.addSulfurSource(SulfurRegistry.ANTIMONY, "Antimony");
+        this.addSulfurSource(SulfurRegistry.TITANIUM, "Titanium");
+        this.addSulfurSource(SulfurRegistry.TUNGSTEN, "Tungsten");
 
         //Common Gems
         this.addSulfurSource(SulfurRegistry.DIAMOND, "Diamond");
@@ -420,15 +705,20 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.addSulfurSource(SulfurRegistry.REDSTONE, "Redstone");
         this.addSulfurSource(SulfurRegistry.COAL, "Coal");
         this.addSulfurSource(SulfurRegistry.SULFUR, "Sulfur");
+        this.addSulfurSource(SulfurRegistry.GLOWSTONE, "Glowstone");
+        this.addSulfurSource(SulfurRegistry.LIGNITE_COAL, "Lignite Coal");
+        this.addSulfurSource(SulfurRegistry.MONAZITE, "Monazite");
+        this.addSulfurSource(SulfurRegistry.BAUXITE, "Bauxite");
     }
 
     private void addSalts() {
         //Salt source names used in automatic name rendering
         this.addSaltSource(SaltRegistry.MINERAL, "Minerals");
-        this.addSaltSource(SaltRegistry.CROPS, "Crops");
+        this.addSaltSource(SaltRegistry.PLANT, "Plants");
         this.addSaltSource(SaltRegistry.STRATA, "Strata");
         this.addExtendedTooltip(SaltRegistry.STRATA.get()::asItem,
                 "Salt extracted from the strata, that is, sedimentary rock, soil, clay and so on.");
+        this.addSaltSource(SaltRegistry.CREATURE, "Creatures");
 
         //Automatic salt name rendering
         SaltRegistry.SALTS.getEntries().stream().map(RegistryObject::get).map(AlchemicalSaltItem.class::cast).forEach(salt -> {
@@ -652,6 +942,19 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
                         """,
                 "Acts as a catalysator, enabling various alchemical processes."
         );
+
+        this.addItem(ItemRegistry.FERMENTATION_STARTER, "Fermentation Starter");
+        this.addTooltip(ItemRegistry.FERMENTATION_STARTER,
+                "Fermentation aid for recipes in the Fermentation Vat.",
+                """
+                        An extract of sugar and plant material that exhibits a high fermentation potential. Can be used as a more efficient alternative to raw sugar or crops in the Fermentation Vat.
+                        """
+        );
+
+        this.addItem(ItemRegistry.CRYSTALLIZED_WATER, "Crystallized Water");
+        this.addTooltip(ItemRegistry.CRYSTALLIZED_WATER, "Water in solid form for easy transportation, and alchemical processing.");
+        this.addItem(ItemRegistry.CRYSTALLIZED_LAVA, "Crystallized Lava");
+        this.addTooltip(ItemRegistry.CRYSTALLIZED_LAVA, "Lava in solid form for easy transportation, and alchemical processing.");
     }
 
     @Override

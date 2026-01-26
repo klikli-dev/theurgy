@@ -1,0 +1,27 @@
+{
+  "type": "theurgy:liquefaction",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:crops/tea_leaves"
+      }
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:crops/tea_leaves"
+  },
+  "liquefaction_time": 100,
+  "result": {
+    "count": 1,
+    "item": "theurgy:alchemical_sulfur_tea_leaves",
+    "nbt": {
+      "theurgy:sulfur.source.id": "#forge:crops/tea_leaves"
+    }
+  },
+  "solvent": {
+    "fluid": "theurgy:sal_ammoniac"
+  },
+  "solvent_amount": 10
+}

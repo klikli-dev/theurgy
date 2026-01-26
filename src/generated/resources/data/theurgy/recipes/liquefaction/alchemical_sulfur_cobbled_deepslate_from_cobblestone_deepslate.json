@@ -1,0 +1,27 @@
+{
+  "type": "theurgy:liquefaction",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:cobblestone/deepslate"
+      }
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:cobblestone/deepslate"
+  },
+  "liquefaction_time": 100,
+  "result": {
+    "count": 1,
+    "item": "theurgy:alchemical_sulfur_cobbled_deepslate",
+    "nbt": {
+      "theurgy:sulfur.source.id": "#forge:cobblestone/deepslate"
+    }
+  },
+  "solvent": {
+    "fluid": "theurgy:sal_ammoniac"
+  },
+  "solvent_amount": 10
+}

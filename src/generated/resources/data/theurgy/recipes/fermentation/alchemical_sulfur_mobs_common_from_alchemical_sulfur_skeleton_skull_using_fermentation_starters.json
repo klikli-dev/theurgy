@@ -1,0 +1,29 @@
+{
+  "type": "theurgy:fermentation",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "theurgy:fermentation_starters"
+      }
+    }
+  ],
+  "fluid": {
+    "tag": "minecraft:water"
+  },
+  "fluidAmount": 250,
+  "ingredients": [
+    {
+      "item": "theurgy:alchemical_sulfur_skeleton_skull"
+    },
+    {
+      "tag": "theurgy:fermentation_starters"
+    }
+  ],
+  "result": {
+    "Count": 2,
+    "id": "theurgy:alchemical_sulfur_mobs_common"
+  },
+  "time": 200
+}

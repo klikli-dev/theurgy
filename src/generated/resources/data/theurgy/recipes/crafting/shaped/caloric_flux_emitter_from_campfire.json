@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "g": {
+      "tag": "forge:ingots/gold"
+    },
+    "h": {
+      "item": "minecraft:campfire"
+    },
+    "m": {
+      "tag": "theurgy:alchemical_mercuries"
+    },
+    "s": {
+      "tag": "forge:stone"
+    }
+  },
+  "pattern": [
+    " h ",
+    "gmg",
+    "sss"
+  ],
+  "result": {
+    "count": 1,
+    "item": "theurgy:caloric_flux_emitter"
+  }
+}

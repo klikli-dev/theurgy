@@ -1,0 +1,26 @@
+{
+  "type": "theurgy:reformation",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "theurgy:alchemical_sulfurs/gems/rare"
+      }
+    }
+  ],
+  "mercury_flux": 150,
+  "reformation_time": 100,
+  "result": {
+    "Count": 1,
+    "id": "theurgy:alchemical_sulfur_amethyst"
+  },
+  "sources": [
+    {
+      "tag": "theurgy:alchemical_sulfurs/gems/rare"
+    }
+  ],
+  "target": {
+    "item": "theurgy:alchemical_sulfur_amethyst"
+  }
+}

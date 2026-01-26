@@ -1,0 +1,18 @@
+{
+  "type": "theurgy:digestion",
+  "fluid": {
+    "tag": "theurgy:sal_ammoniac"
+  },
+  "fluidAmount": 50,
+  "ingredients": [
+    {
+      "count": 1,
+      "item": "theurgy:alchemical_sulfur_other_minerals_precious"
+    }
+  ],
+  "result": {
+    "Count": 4,
+    "id": "theurgy:alchemical_sulfur_other_minerals_rare"
+  },
+  "time": 1000
+}

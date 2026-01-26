@@ -1,0 +1,18 @@
+{
+  "type": "theurgy:liquefaction",
+  "ingredient": {
+    "item": "minecraft:magma_block"
+  },
+  "liquefaction_time": 100,
+  "result": {
+    "count": 1,
+    "item": "theurgy:alchemical_sulfur_magma_block",
+    "nbt": {
+      "theurgy:sulfur.source.id": "minecraft:magma_block"
+    }
+  },
+  "solvent": {
+    "fluid": "theurgy:sal_ammoniac"
+  },
+  "solvent_amount": 10
+}

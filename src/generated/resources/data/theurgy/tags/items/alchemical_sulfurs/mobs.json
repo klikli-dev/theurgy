@@ -1,0 +1,20 @@
+{
+  "values": [
+    {
+      "id": "#theurgy:alchemical_sulfurs/mobs/abundant",
+      "required": false
+    },
+    {
+      "id": "#theurgy:alchemical_sulfurs/mobs/common",
+      "required": false
+    },
+    {
+      "id": "#theurgy:alchemical_sulfurs/mobs/rare",
+      "required": false
+    },
+    {
+      "id": "#theurgy:alchemical_sulfurs/mobs/precious",
+      "required": false
+    }
+  ]
+}

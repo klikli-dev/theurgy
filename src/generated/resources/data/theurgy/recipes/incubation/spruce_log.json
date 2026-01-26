@@ -1,0 +1,17 @@
+{
+  "type": "theurgy:incubation",
+  "incubation_time": 100,
+  "mercury": {
+    "item": "theurgy:mercury_shard"
+  },
+  "result": {
+    "count": 1,
+    "item": "minecraft:spruce_log"
+  },
+  "salt": {
+    "item": "theurgy:alchemical_salt_plant"
+  },
+  "sulfur": {
+    "item": "theurgy:alchemical_sulfur_spruce_log"
+  }
+}

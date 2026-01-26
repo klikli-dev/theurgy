@@ -1,0 +1,27 @@
+{
+  "type": "theurgy:liquefaction",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:crops/grape"
+      }
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:crops/grape"
+  },
+  "liquefaction_time": 100,
+  "result": {
+    "count": 1,
+    "item": "theurgy:alchemical_sulfur_grape",
+    "nbt": {
+      "theurgy:sulfur.source.id": "#forge:crops/grape"
+    }
+  },
+  "solvent": {
+    "fluid": "theurgy:sal_ammoniac"
+  },
+  "solvent_amount": 10
+}

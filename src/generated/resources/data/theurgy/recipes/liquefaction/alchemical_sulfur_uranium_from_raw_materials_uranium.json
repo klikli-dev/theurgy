@@ -1,0 +1,27 @@
+{
+  "type": "theurgy:liquefaction",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:raw_materials/uranium"
+      }
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:raw_materials/uranium"
+  },
+  "liquefaction_time": 100,
+  "result": {
+    "count": 3,
+    "item": "theurgy:alchemical_sulfur_uranium",
+    "nbt": {
+      "theurgy:sulfur.source.id": "#forge:raw_materials/uranium"
+    }
+  },
+  "solvent": {
+    "fluid": "theurgy:sal_ammoniac"
+  },
+  "solvent_amount": 10
+}

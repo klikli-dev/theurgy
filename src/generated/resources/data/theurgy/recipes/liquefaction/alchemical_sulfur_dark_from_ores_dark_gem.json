@@ -1,0 +1,27 @@
+{
+  "type": "theurgy:liquefaction",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:ores/dark_gem"
+      }
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:ores/dark_gem"
+  },
+  "liquefaction_time": 100,
+  "result": {
+    "count": 6,
+    "item": "theurgy:alchemical_sulfur_dark",
+    "nbt": {
+      "theurgy:sulfur.source.id": "#forge:ores/dark_gem"
+    }
+  },
+  "solvent": {
+    "fluid": "theurgy:sal_ammoniac"
+  },
+  "solvent_amount": 15
+}

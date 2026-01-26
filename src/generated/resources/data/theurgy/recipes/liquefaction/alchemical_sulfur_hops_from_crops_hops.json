@@ -1,0 +1,27 @@
+{
+  "type": "theurgy:liquefaction",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:crops/hops"
+      }
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:crops/hops"
+  },
+  "liquefaction_time": 100,
+  "result": {
+    "count": 1,
+    "item": "theurgy:alchemical_sulfur_hops",
+    "nbt": {
+      "theurgy:sulfur.source.id": "#forge:crops/hops"
+    }
+  },
+  "solvent": {
+    "fluid": "theurgy:sal_ammoniac"
+  },
+  "solvent_amount": 10
+}

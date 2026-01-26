@@ -1,0 +1,36 @@
+{
+  "values": [
+    {
+      "id": "#theurgy:alchemical_sulfurs/metals/precious",
+      "required": false
+    },
+    {
+      "id": "#theurgy:alchemical_sulfurs/gems/precious",
+      "required": false
+    },
+    {
+      "id": "#theurgy:alchemical_sulfurs/other_minerals/precious",
+      "required": false
+    },
+    {
+      "id": "#theurgy:alchemical_sulfurs/logs/abundant",
+      "required": false
+    },
+    {
+      "id": "#theurgy:alchemical_sulfurs/crops/abundant",
+      "required": false
+    },
+    {
+      "id": "#theurgy:alchemical_sulfurs/herbs/abundant",
+      "required": false
+    },
+    {
+      "id": "#theurgy:alchemical_sulfurs/animals/abundant",
+      "required": false
+    },
+    {
+      "id": "#theurgy:alchemical_sulfurs/mobs/abundant",
+      "required": false
+    }
+  ]
+}

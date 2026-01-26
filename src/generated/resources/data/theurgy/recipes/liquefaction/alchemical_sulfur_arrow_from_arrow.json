@@ -1,0 +1,18 @@
+{
+  "type": "theurgy:liquefaction",
+  "ingredient": {
+    "item": "minecraft:arrow"
+  },
+  "liquefaction_time": 100,
+  "result": {
+    "count": 1,
+    "item": "theurgy:alchemical_sulfur_arrow",
+    "nbt": {
+      "theurgy:sulfur.source.id": "minecraft:arrow"
+    }
+  },
+  "solvent": {
+    "fluid": "theurgy:sal_ammoniac"
+  },
+  "solvent_amount": 15
+}

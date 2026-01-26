@@ -1,0 +1,36 @@
+{
+  "type": "theurgy:fermentation",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "theurgy:alchemical_sulfurs/mobs/rare/automatic_recipes"
+      }
+    },
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "minecraft:saplings"
+      }
+    }
+  ],
+  "fluid": {
+    "tag": "minecraft:water"
+  },
+  "fluidAmount": 500,
+  "ingredients": [
+    {
+      "tag": "theurgy:alchemical_sulfurs/mobs/rare/automatic_recipes"
+    },
+    {
+      "tag": "minecraft:saplings"
+    }
+  ],
+  "result": {
+    "Count": 1,
+    "id": "theurgy:alchemical_sulfur_mobs_rare"
+  },
+  "time": 200
+}

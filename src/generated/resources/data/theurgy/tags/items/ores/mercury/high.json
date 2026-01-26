@@ -1,0 +1,23 @@
+{
+  "values": [
+    "#forge:ores/diamond",
+    "#forge:ores/emerald",
+    "#forge:ores/netherite_scrap",
+    {
+      "id": "#forge:ores/uraninite_dense",
+      "required": false
+    },
+    {
+      "id": "#forge:ores/allthemodium",
+      "required": false
+    },
+    {
+      "id": "#forge:ores/unobtainium",
+      "required": false
+    },
+    {
+      "id": "#forge:ores/vibranium",
+      "required": false
+    }
+  ]
+}

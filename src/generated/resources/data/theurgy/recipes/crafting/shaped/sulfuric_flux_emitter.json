@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "S": {
+      "tag": "theurgy:alchemical_sulfurs"
+    },
+    "a": {
+      "tag": "forge:gems/sal_ammoniac"
+    },
+    "g": {
+      "tag": "forge:ingots/gold"
+    },
+    "s": {
+      "tag": "forge:stone"
+    }
+  },
+  "pattern": [
+    " a ",
+    "gSg",
+    "sss"
+  ],
+  "result": {
+    "count": 1,
+    "item": "theurgy:sulfuric_flux_emitter"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "type": "theurgy:reformation",
+  "mercury_flux": 150,
+  "reformation_time": 100,
+  "result": {
+    "Count": 1,
+    "id": "theurgy:alchemical_sulfur_uranium"
+  },
+  "sources": [
+    {
+      "item": "theurgy:alchemical_sulfur_metals_rare"
+    }
+  ],
+  "target": {
+    "item": "theurgy:alchemical_sulfur_uranium"
+  }
+}

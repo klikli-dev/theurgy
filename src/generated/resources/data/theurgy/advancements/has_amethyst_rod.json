@@ -1,0 +1,23 @@
+{
+  "parent": "theurgy:book_root",
+  "criteria": {
+    "has_amethyst_rod": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "theurgy:amethyst_divination_rod"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_amethyst_rod"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

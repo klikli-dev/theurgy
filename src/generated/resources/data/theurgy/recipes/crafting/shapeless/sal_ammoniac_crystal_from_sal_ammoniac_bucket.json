@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "theurgy:sal_ammoniac_bucket"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "item": "theurgy:sal_ammoniac_crystal"
+  }
+}

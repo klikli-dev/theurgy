@@ -1,0 +1,27 @@
+{
+  "values": [
+    "theurgy:alchemical_sulfur_earthen_matters_abundant",
+    "theurgy:alchemical_sulfur_earthen_matters_common",
+    "theurgy:alchemical_sulfur_gems_abundant",
+    "theurgy:alchemical_sulfur_gems_common",
+    "theurgy:alchemical_sulfur_gems_rare",
+    "theurgy:alchemical_sulfur_gems_precious",
+    "theurgy:alchemical_sulfur_metals_abundant",
+    "theurgy:alchemical_sulfur_metals_common",
+    "theurgy:alchemical_sulfur_metals_rare",
+    "theurgy:alchemical_sulfur_metals_precious",
+    "theurgy:alchemical_sulfur_other_minerals_abundant",
+    "theurgy:alchemical_sulfur_other_minerals_common",
+    "theurgy:alchemical_sulfur_other_minerals_rare",
+    "theurgy:alchemical_sulfur_other_minerals_precious",
+    "theurgy:alchemical_sulfur_logs_abundant",
+    "theurgy:alchemical_sulfur_crops_abundant",
+    "theurgy:alchemical_sulfur_animals_abundant",
+    "theurgy:alchemical_sulfur_animals_common",
+    "theurgy:alchemical_sulfur_animals_rare",
+    "theurgy:alchemical_sulfur_mobs_abundant",
+    "theurgy:alchemical_sulfur_mobs_common",
+    "theurgy:alchemical_sulfur_mobs_rare",
+    "theurgy:alchemical_sulfur_mobs_precious"
+  ]
+}

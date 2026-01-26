@@ -1,0 +1,49 @@
+{
+  "parent": "theurgy:book_root",
+  "criteria": {
+    "has_abundant_rod": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "theurgy:sulfur_attuned_divination_rod_abundant"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_common_rod": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "theurgy:sulfur_attuned_divination_rod_common"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_t1_rod": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "theurgy:divination_rod_t1"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_t1_rod",
+      "has_abundant_rod",
+      "has_common_rod"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

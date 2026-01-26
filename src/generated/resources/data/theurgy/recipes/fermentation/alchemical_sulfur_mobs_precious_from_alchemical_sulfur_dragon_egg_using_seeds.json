@@ -1,0 +1,29 @@
+{
+  "type": "theurgy:fermentation",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:seeds"
+      }
+    }
+  ],
+  "fluid": {
+    "tag": "minecraft:water"
+  },
+  "fluidAmount": 1000,
+  "ingredients": [
+    {
+      "item": "theurgy:alchemical_sulfur_dragon_egg"
+    },
+    {
+      "tag": "forge:seeds"
+    }
+  ],
+  "result": {
+    "Count": 2,
+    "id": "theurgy:alchemical_sulfur_mobs_precious"
+  },
+  "time": 200
+}

@@ -1,0 +1,36 @@
+{
+  "type": "theurgy:fermentation",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:sugars"
+      }
+    },
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "minecraft:planks"
+      }
+    }
+  ],
+  "fluid": {
+    "tag": "theurgy:sal_ammoniac"
+  },
+  "fluidAmount": 100,
+  "ingredients": [
+    {
+      "tag": "forge:sugars"
+    },
+    {
+      "tag": "minecraft:planks"
+    }
+  ],
+  "result": {
+    "Count": 20,
+    "id": "theurgy:fermentation_starter"
+  },
+  "time": 200
+}

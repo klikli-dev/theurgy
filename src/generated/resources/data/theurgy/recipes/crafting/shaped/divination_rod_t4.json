@@ -1,0 +1,34 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "A": {
+      "tag": "forge:gems/amethyst"
+    },
+    "G": {
+      "tag": "forge:glass"
+    },
+    "M": {
+      "tag": "forge:ores/netherite_scrap"
+    },
+    "R": {
+      "tag": "forge:rods/blaze"
+    }
+  },
+  "pattern": [
+    " GM",
+    " RG",
+    "A  "
+  ],
+  "result": {
+    "count": 1,
+    "item": "theurgy:divination_rod_t4",
+    "nbt": {
+      "theurgy:divination.setting.allowed_blocks_tag": "theurgy:divination_rod_t4_allowed_blocks",
+      "theurgy:divination.setting.disallowed_blocks_tag": "theurgy:divination_rod_t4_disallowed_blocks",
+      "theurgy:divination.setting.duration": 40,
+      "theurgy:divination.setting.max_damage": 128,
+      "theurgy:divination.setting.range": 96,
+      "theurgy:divination.setting.tier": "minecraft:netherite"
+    }
+  }
+}

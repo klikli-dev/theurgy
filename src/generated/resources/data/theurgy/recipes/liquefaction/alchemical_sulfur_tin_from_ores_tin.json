@@ -1,0 +1,27 @@
+{
+  "type": "theurgy:liquefaction",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:ores/tin"
+      }
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:ores/tin"
+  },
+  "liquefaction_time": 100,
+  "result": {
+    "count": 5,
+    "item": "theurgy:alchemical_sulfur_tin",
+    "nbt": {
+      "theurgy:sulfur.source.id": "#forge:ores/tin"
+    }
+  },
+  "solvent": {
+    "fluid": "theurgy:sal_ammoniac"
+  },
+  "solvent_amount": 10
+}

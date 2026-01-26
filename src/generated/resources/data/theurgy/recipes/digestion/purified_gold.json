@@ -1,0 +1,38 @@
+{
+  "type": "theurgy:digestion",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:ingots/gold"
+      }
+    },
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "theurgy:alchemical_salts"
+      }
+    }
+  ],
+  "fluid": {
+    "tag": "minecraft:water"
+  },
+  "fluidAmount": 1000,
+  "ingredients": [
+    {
+      "count": 1,
+      "tag": "forge:ingots/gold"
+    },
+    {
+      "count": 1,
+      "tag": "theurgy:alchemical_salts"
+    }
+  ],
+  "result": {
+    "Count": 20,
+    "id": "theurgy:purified_gold"
+  },
+  "time": 1000
+}

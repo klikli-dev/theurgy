@@ -1,0 +1,18 @@
+{
+  "type": "theurgy:liquefaction",
+  "ingredient": {
+    "item": "minecraft:blue_ice"
+  },
+  "liquefaction_time": 100,
+  "result": {
+    "count": 64,
+    "item": "theurgy:alchemical_sulfur_ice",
+    "nbt": {
+      "theurgy:sulfur.source.id": "minecraft:blue_ice"
+    }
+  },
+  "solvent": {
+    "fluid": "theurgy:sal_ammoniac"
+  },
+  "solvent_amount": 10
+}

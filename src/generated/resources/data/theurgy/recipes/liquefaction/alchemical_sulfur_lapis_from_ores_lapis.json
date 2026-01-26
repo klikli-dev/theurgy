@@ -1,0 +1,27 @@
+{
+  "type": "theurgy:liquefaction",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:ores/lapis"
+      }
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:ores/lapis"
+  },
+  "liquefaction_time": 100,
+  "result": {
+    "count": 12,
+    "item": "theurgy:alchemical_sulfur_lapis",
+    "nbt": {
+      "theurgy:sulfur.source.id": "#forge:ores/lapis"
+    }
+  },
+  "solvent": {
+    "fluid": "theurgy:sal_ammoniac"
+  },
+  "solvent_amount": 10
+}

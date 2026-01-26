@@ -1,0 +1,17 @@
+{
+  "type": "theurgy:reformation",
+  "mercury_flux": 50,
+  "reformation_time": 100,
+  "result": {
+    "Count": 1,
+    "id": "theurgy:alchemical_sulfur_sal_ammoniac"
+  },
+  "sources": [
+    {
+      "item": "theurgy:alchemical_sulfur_gems_abundant"
+    }
+  ],
+  "target": {
+    "item": "theurgy:alchemical_sulfur_sal_ammoniac"
+  }
+}

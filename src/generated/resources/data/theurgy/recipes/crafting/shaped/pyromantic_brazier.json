@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "C": {
+      "tag": "forge:ingots/copper"
+    },
+    "S": {
+      "tag": "forge:stone"
+    }
+  },
+  "pattern": [
+    "CCC",
+    "CSC",
+    "SSS"
+  ],
+  "result": {
+    "count": 1,
+    "item": "theurgy:pyromantic_brazier"
+  }
+}

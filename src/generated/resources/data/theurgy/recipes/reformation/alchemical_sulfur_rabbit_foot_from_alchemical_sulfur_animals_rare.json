@@ -1,0 +1,17 @@
+{
+  "type": "theurgy:reformation",
+  "mercury_flux": 150,
+  "reformation_time": 100,
+  "result": {
+    "Count": 1,
+    "id": "theurgy:alchemical_sulfur_rabbit_foot"
+  },
+  "sources": [
+    {
+      "item": "theurgy:alchemical_sulfur_animals_rare"
+    }
+  ],
+  "target": {
+    "item": "theurgy:alchemical_sulfur_rabbit_foot"
+  }
+}

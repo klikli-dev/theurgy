@@ -1,0 +1,27 @@
+{
+  "type": "theurgy:liquefaction",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:raw_materials/demonite"
+      }
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:raw_materials/demonite"
+  },
+  "liquefaction_time": 100,
+  "result": {
+    "count": 3,
+    "item": "theurgy:alchemical_sulfur_demonite",
+    "nbt": {
+      "theurgy:sulfur.source.id": "#forge:raw_materials/demonite"
+    }
+  },
+  "solvent": {
+    "fluid": "theurgy:sal_ammoniac"
+  },
+  "solvent_amount": 50
+}

@@ -1,0 +1,27 @@
+{
+  "type": "theurgy:liquefaction",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:ores/calorite"
+      }
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:ores/calorite"
+  },
+  "liquefaction_time": 100,
+  "result": {
+    "count": 5,
+    "item": "theurgy:alchemical_sulfur_calorite",
+    "nbt": {
+      "theurgy:sulfur.source.id": "#forge:ores/calorite"
+    }
+  },
+  "solvent": {
+    "fluid": "theurgy:sal_ammoniac"
+  },
+  "solvent_amount": 50
+}

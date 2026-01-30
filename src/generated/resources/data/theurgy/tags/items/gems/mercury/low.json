@@ -3,11 +3,11 @@
     "#forge:gems/lapis",
     "#forge:gems/quartz",
     {
-      "id": "#forge:gems/cinnabar",
+      "id": "#forge:gems/apatite",
       "required": false
     },
     {
-      "id": "#forge:gems/apatite",
+      "id": "#forge:gems/cinnabar",
       "required": false
     }
   ]

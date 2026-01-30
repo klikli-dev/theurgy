@@ -1,0 +1,27 @@
+{
+  "type": "theurgy:liquefaction",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:ores/uraninite_regular"
+      }
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:ores/uraninite_regular"
+  },
+  "liquefaction_time": 100,
+  "result": {
+    "count": 7,
+    "item": "theurgy:alchemical_sulfur_uraninite",
+    "nbt": {
+      "theurgy:sulfur.source.id": "#forge:ores/uraninite_regular"
+    }
+  },
+  "solvent": {
+    "fluid": "theurgy:sal_ammoniac"
+  },
+  "solvent_amount": 15
+}

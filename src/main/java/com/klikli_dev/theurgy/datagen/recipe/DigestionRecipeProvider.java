@@ -48,6 +48,8 @@ public class DigestionRecipeProvider extends JsonRecipeProvider {
                 ItemTagRegistry.ALCHEMICAL_SALTS
         ), ItemRegistry.PURIFIED_GOLD.get(), 20, TIME * 5);
 
+        this.makeTierConversion(SulfurRegistry.EARTHEN_MATTERS_ABUNDANT.get(), SulfurRegistry.EARTHEN_MATTERS_COMMON.get(), 4, 10);
+
         this.makeTierConversion(SulfurRegistry.GEMS_ABUNDANT.get(), SulfurRegistry.GEMS_COMMON.get(), 4, 10);
         this.makeTierConversion(SulfurRegistry.GEMS_COMMON.get(), SulfurRegistry.GEMS_RARE.get(), 4, 15);
         this.makeTierConversion(SulfurRegistry.GEMS_RARE.get(), SulfurRegistry.GEMS_PRECIOUS.get(), 4, 50);
@@ -59,6 +61,13 @@ public class DigestionRecipeProvider extends JsonRecipeProvider {
         this.makeTierConversion(SulfurRegistry.OTHER_MINERALS_ABUNDANT.get(), SulfurRegistry.OTHER_MINERALS_COMMON.get(), 4, 10);
         this.makeTierConversion(SulfurRegistry.OTHER_MINERALS_COMMON.get(), SulfurRegistry.OTHER_MINERALS_RARE.get(), 4, 15);
         this.makeTierConversion(SulfurRegistry.OTHER_MINERALS_RARE.get(), SulfurRegistry.OTHER_MINERALS_PRECIOUS.get(), 4, 50);
+
+        this.makeTierConversion(SulfurRegistry.ANIMALS_ABUNDANT.get(), SulfurRegistry.ANIMALS_COMMON.get(), 4, 10);
+        this.makeTierConversion(SulfurRegistry.ANIMALS_COMMON.get(), SulfurRegistry.ANIMALS_RARE.get(), 4, 15);
+
+        this.makeTierConversion(SulfurRegistry.MOBS_ABUNDANT.get(), SulfurRegistry.MOBS_COMMON.get(), 4, 10);
+        this.makeTierConversion(SulfurRegistry.MOBS_COMMON.get(), SulfurRegistry.MOBS_RARE.get(), 8, 15);
+        this.makeTierConversion(SulfurRegistry.MOBS_RARE.get(), SulfurRegistry.MOBS_PRECIOUS.get(), 16, 50);
     }
 
     public void makeRecipe(Fluid fluid, int fluidAmount, List<Pair<Item, Integer>> ingredients, Item result, int resultCount, int time, String postFix) {

@@ -1,0 +1,18 @@
+{
+  "type": "theurgy:digestion",
+  "fluid": {
+    "tag": "theurgy:sal_ammoniac"
+  },
+  "fluidAmount": 15,
+  "ingredients": [
+    {
+      "count": 1,
+      "item": "theurgy:alchemical_sulfur_mobs_rare"
+    }
+  ],
+  "result": {
+    "Count": 8,
+    "id": "theurgy:alchemical_sulfur_mobs_common"
+  },
+  "time": 1000
+}

@@ -37,6 +37,14 @@
     {
       "id": "#forge:ores/sulfur",
       "required": false
+    },
+    {
+      "id": "#forge:ores/uraninite_poor",
+      "required": false
+    },
+    {
+      "id": "#forge:ores/lignite_coal",
+      "required": false
     }
   ]
 }

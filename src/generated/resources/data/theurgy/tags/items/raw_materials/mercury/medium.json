@@ -6,6 +6,10 @@
       "required": false
     },
     {
+      "id": "#forge:raw_materials/uraninite",
+      "required": false
+    },
+    {
       "id": "#forge:raw_materials/silver",
       "required": false
     },
@@ -23,6 +27,14 @@
     },
     {
       "id": "#forge:raw_materials/platinum",
+      "required": false
+    },
+    {
+      "id": "#forge:raw_materials/titanium",
+      "required": false
+    },
+    {
+      "id": "#forge:raw_materials/tungsten",
       "required": false
     }
   ]

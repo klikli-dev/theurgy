@@ -171,6 +171,9 @@ public class TheurgyItemModelProvider extends net.minecraftforge.client.model.ge
         this.registerItemGenerated(this.name(ItemRegistry.MERCURY_CRYSTAL.get()));
         this.registerItemGenerated(this.name(ItemRegistry.SAL_AMMONIAC_CRYSTAL.get()));
         this.registerItemGenerated(this.name(ItemRegistry.PURIFIED_GOLD.get()));
+        this.registerItemGenerated(this.name(ItemRegistry.FERMENTATION_STARTER.get()));
+        this.registerItemGenerated(this.name(ItemRegistry.CRYSTALLIZED_WATER.get()));
+        this.registerItemGenerated(this.name(ItemRegistry.CRYSTALLIZED_LAVA.get()));
 
         this.registerDivinationRod(ItemRegistry.DIVINATION_ROD_T1.get());
         this.registerDivinationRod(ItemRegistry.DIVINATION_ROD_T2.get());

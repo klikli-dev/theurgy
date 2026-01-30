@@ -6,6 +6,10 @@
       "required": false
     },
     {
+      "id": "#forge:ingots/uraninite",
+      "required": false
+    },
+    {
       "id": "#forge:ingots/silver",
       "required": false
     },

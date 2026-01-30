@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "theurgy:mercury_shard"
+    },
+    {
+      "item": "theurgy:mercury_shard"
+    },
+    {
+      "item": "theurgy:mercury_shard"
+    },
+    {
+      "item": "theurgy:mercury_shard"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "item": "theurgy:mercury_crystal"
+  }
+}

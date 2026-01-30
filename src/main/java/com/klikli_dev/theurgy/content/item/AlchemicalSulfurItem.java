@@ -282,6 +282,7 @@ public class AlchemicalSulfurItem extends Item {
     }
 
     public AlchemicalSulfurItem overrideTagSourceName(boolean value) {
+        this.overrideSourceName = value;
         this.overrideTagSourceName = value;
         return this;
     }

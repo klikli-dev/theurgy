@@ -1,0 +1,29 @@
+{
+  "type": "theurgy:fermentation",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "minecraft:planks"
+      }
+    }
+  ],
+  "fluid": {
+    "tag": "minecraft:water"
+  },
+  "fluidAmount": 500,
+  "ingredients": [
+    {
+      "item": "theurgy:alchemical_sulfur_ghast_tear"
+    },
+    {
+      "tag": "minecraft:planks"
+    }
+  ],
+  "result": {
+    "Count": 2,
+    "id": "theurgy:alchemical_sulfur_mobs_rare"
+  },
+  "time": 200
+}

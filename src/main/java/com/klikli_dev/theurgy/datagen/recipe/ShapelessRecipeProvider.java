@@ -8,6 +8,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
+import com.klikli_dev.theurgy.registry.ItemTagRegistry;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -41,6 +42,43 @@ public class ShapelessRecipeProvider extends JsonRecipeProvider {
         this.makeRecipe("sal_ammoniac_crystal_from_sal_ammoniac_bucket",
                 new RecipeBuilder(ItemRegistry.SAL_AMMONIAC_CRYSTAL.get(), 1)
                         .requires(ItemRegistry.SAL_AMMONIAC_BUCKET.get())
+        );
+
+        this.makeRecipe("mercury_shards_from_mercury_crystal",
+                new RecipeBuilder(ItemRegistry.MERCURY_SHARD.get(), 4)
+                        .requires(ItemRegistry.MERCURY_CRYSTAL.get())
+        );
+
+        this.makeRecipe("mercury_crystal_from_mercury_shards",
+                new RecipeBuilder(ItemRegistry.MERCURY_CRYSTAL.get(), 1)
+                        .requires(ItemRegistry.MERCURY_SHARD.get())
+                        .requires(ItemRegistry.MERCURY_SHARD.get())
+                        .requires(ItemRegistry.MERCURY_SHARD.get())
+                        .requires(ItemRegistry.MERCURY_SHARD.get())
+        );
+
+        this.makeRecipe("crystallized_water_from_water_bucket",
+                new RecipeBuilder(ItemRegistry.CRYSTALLIZED_WATER.get(), 1)
+                        .requires(ItemTagRegistry.ALCHEMICAL_SALTS)
+                        .requires(Items.WATER_BUCKET)
+        );
+
+        this.makeRecipe("crystallized_lava_from_lava_bucket",
+                new RecipeBuilder(ItemRegistry.CRYSTALLIZED_LAVA.get(), 1)
+                        .requires(ItemTagRegistry.ALCHEMICAL_SALTS)
+                        .requires(Items.LAVA_BUCKET)
+        );
+
+        this.makeRecipe("water_bucket_from_crystallized_water",
+                new RecipeBuilder(Items.WATER_BUCKET, 1)
+                        .requires(ItemRegistry.CRYSTALLIZED_WATER.get())
+                        .requires(Items.BUCKET)
+        );
+
+        this.makeRecipe("lava_bucket_from_crystallized_lava",
+                new RecipeBuilder(Items.LAVA_BUCKET, 1)
+                        .requires(ItemRegistry.CRYSTALLIZED_LAVA.get())
+                        .requires(Items.BUCKET)
         );
     }
 

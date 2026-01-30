@@ -1,0 +1,27 @@
+{
+  "type": "theurgy:liquefaction",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:logs/hellbark"
+      }
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:logs/hellbark"
+  },
+  "liquefaction_time": 100,
+  "result": {
+    "count": 1,
+    "item": "theurgy:alchemical_sulfur_hellbark",
+    "nbt": {
+      "theurgy:sulfur.source.id": "#forge:logs/hellbark"
+    }
+  },
+  "solvent": {
+    "fluid": "theurgy:sal_ammoniac"
+  },
+  "solvent_amount": 10
+}

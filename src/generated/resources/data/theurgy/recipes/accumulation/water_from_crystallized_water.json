@@ -1,0 +1,11 @@
+{
+  "type": "theurgy:accumulation",
+  "accumulationTime": 100,
+  "result": {
+    "Amount": 1000,
+    "FluidName": "minecraft:water"
+  },
+  "solute": {
+    "item": "theurgy:crystallized_water"
+  }
+}

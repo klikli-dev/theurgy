@@ -1,0 +1,12 @@
+{
+  "type": "theurgy:calcination",
+  "calcination_time": 100,
+  "ingredient": {
+    "item": "minecraft:crying_obsidian"
+  },
+  "ingredient_count": 1,
+  "result": {
+    "count": 3,
+    "item": "theurgy:alchemical_salt_strata"
+  }
+}

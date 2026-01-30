@@ -1,0 +1,27 @@
+{
+  "type": "theurgy:liquefaction",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:crops/cantaloupe"
+      }
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:crops/cantaloupe"
+  },
+  "liquefaction_time": 100,
+  "result": {
+    "count": 1,
+    "item": "theurgy:alchemical_sulfur_cantaloupe",
+    "nbt": {
+      "theurgy:sulfur.source.id": "#forge:crops/cantaloupe"
+    }
+  },
+  "solvent": {
+    "fluid": "theurgy:sal_ammoniac"
+  },
+  "solvent_amount": 10
+}

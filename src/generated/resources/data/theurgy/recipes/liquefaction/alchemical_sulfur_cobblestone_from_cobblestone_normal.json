@@ -1,0 +1,27 @@
+{
+  "type": "theurgy:liquefaction",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:cobblestone/normal"
+      }
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:cobblestone/normal"
+  },
+  "liquefaction_time": 100,
+  "result": {
+    "count": 1,
+    "item": "theurgy:alchemical_sulfur_cobblestone",
+    "nbt": {
+      "theurgy:sulfur.source.id": "#forge:cobblestone/normal"
+    }
+  },
+  "solvent": {
+    "fluid": "theurgy:sal_ammoniac"
+  },
+  "solvent_amount": 10
+}

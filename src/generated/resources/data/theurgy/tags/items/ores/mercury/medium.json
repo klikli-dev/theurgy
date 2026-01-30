@@ -14,6 +14,10 @@
       "required": false
     },
     {
+      "id": "#forge:ores/uraninite_regular",
+      "required": false
+    },
+    {
       "id": "#forge:ores/iridium",
       "required": false
     },
@@ -39,6 +43,26 @@
     },
     {
       "id": "#forge:ores/sapphire",
+      "required": false
+    },
+    {
+      "id": "#forge:ores/titanium",
+      "required": false
+    },
+    {
+      "id": "#forge:ores/tungsten",
+      "required": false
+    },
+    {
+      "id": "#forge:ores/bauxite",
+      "required": false
+    },
+    {
+      "id": "#forge:ores/antimony",
+      "required": false
+    },
+    {
+      "id": "#forge:ores/monazite",
       "required": false
     }
   ]

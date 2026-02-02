@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.26.0] - 2026-01-30
+### :sparkles: New Features
+- [`8abfb82`](https://github.com/klikli-dev/theurgy/commit/8abfb82e7360542c50c0fd2876e8371741e4d7f8) - Update Sulfurs and Niters to match 1.21 version *(commit by [@The-Arcanian](https://github.com/The-Arcanian))*
+
+### :bug: Bug Fixes
+- [`ae90bdd`](https://github.com/klikli-dev/theurgy/commit/ae90bdd500c51f8fa8a7e7b4297ab5ee2a2d4222) - **licensing**: add missing licensing information and update to new reuse meta format *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`fa930b8`](https://github.com/klikli-dev/theurgy/commit/fa930b84550e4b06f238e6b901f624301318b2e2) - update to latest reuse action *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.1-1.25.0] - 2025-10-04
 ### :sparkles: New Features
 - [`1661e15`](https://github.com/klikli-dev/theurgy/commit/1661e15d24f0460d4a52d0a53e407eb2012c2971) - allow inserting fluid variants with nbt *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -582,3 +593,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.23.4]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.23.3...release/v1.20.1-1.23.4
 [release/v1.20.1-1.24.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.23.4...release/v1.20.1-1.24.0
 [release/v1.20.1-1.25.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.24.0...release/v1.20.1-1.25.0
+[release/v1.20.1-1.26.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.25.0...release/v1.20.1-1.26.0

@@ -51,6 +51,8 @@ public class DivinationRodItem extends Item {
 
     public static final float NOT_FOUND = 7.0f;
     public static final float SEARCHING = 8.0f;
+    private static final Pattern SINGLE_WORD_ORE_PATTERN = Pattern.compile("([a-z]+)_ore");
+    private static final Pattern DOUBLE_WORD_ORE_PATTERN = Pattern.compile("([a-z]+_[a-z]+)_ore");
 
     public Tier defaultTier;
     public TagKey<Block> defaultAllowedBlocksTag;
@@ -146,8 +148,7 @@ public class DivinationRodItem extends Item {
         var path = blockId.getPath();
 
         //extract single word ore name, I.E. 'iron' from any Block ID containing 'iron_ore'
-        Pattern pattern = Pattern.compile("([a-z]*)_ore");
-        Matcher matcher = pattern.matcher(path);
+        Matcher matcher = SINGLE_WORD_ORE_PATTERN.matcher(path);
 
         //if an ore name is found, check if a matching ore tag exists, and return it if so.
         if (matcher.find()) {
@@ -158,8 +159,7 @@ public class DivinationRodItem extends Item {
         }
 
         //extract double word ore name, I.E. 'sal_ammoniac', from any Block ID containing 'sal_ammoniac_ore'
-        pattern = Pattern.compile("([a-z]*_[a-z]*)_ore");
-        matcher = pattern.matcher(path);
+        matcher = DOUBLE_WORD_ORE_PATTERN.matcher(path);
 
         //if an ore name is found, check if a matching ore tag exists, and return it if so.
         if (matcher.find()) {

@@ -64,7 +64,7 @@ public class SalAmmoniacAccumulatorCraftingBehaviour extends CraftingBehaviour<I
 
     @Override
     protected int getCraftingTime(RecipeHolder<AccumulationRecipe> recipe) {
-        return recipe.value().getTime();
+        return recipe.value().time();
     }
 
     @Override

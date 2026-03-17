@@ -21,7 +21,7 @@ import java.util.Optional;
 public record AccumulationRecipeDisplay(
         Optional<SizedFluidIngredient> evaporant,
         Optional<SlotDisplay> solute,
-        FluidStack result,
+        FluidStack resultFluidStack,
         int time,
         SlotDisplay craftingStation
 ) implements RecipeDisplay {
@@ -29,7 +29,7 @@ public record AccumulationRecipeDisplay(
     public static final MapCodec<AccumulationRecipeDisplay> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             SizedFluidIngredient.CODEC.optionalFieldOf("evaporant").forGetter(AccumulationRecipeDisplay::evaporant),
             SlotDisplay.CODEC.optionalFieldOf("solute").forGetter(AccumulationRecipeDisplay::solute),
-            FluidStack.CODEC.fieldOf("result").forGetter(AccumulationRecipeDisplay::result),
+            FluidStack.CODEC.fieldOf("result").forGetter(AccumulationRecipeDisplay::resultFluidStack),
             Codec.INT.fieldOf("time").forGetter(AccumulationRecipeDisplay::time),
             SlotDisplay.CODEC.fieldOf("craftingStation").forGetter(AccumulationRecipeDisplay::craftingStation)
     ).apply(instance, AccumulationRecipeDisplay::new));
@@ -40,7 +40,7 @@ public record AccumulationRecipeDisplay(
             ByteBufCodecs.optional(SlotDisplay.STREAM_CODEC),
             AccumulationRecipeDisplay::solute,
             FluidStack.STREAM_CODEC,
-            AccumulationRecipeDisplay::result,
+            AccumulationRecipeDisplay::resultFluidStack,
             ByteBufCodecs.INT,
             AccumulationRecipeDisplay::time,
             SlotDisplay.STREAM_CODEC,

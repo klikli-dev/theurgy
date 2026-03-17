@@ -5,7 +5,9 @@
 package com.klikli_dev.theurgy.content.recipe;
 
 
+import com.klikli_dev.theurgy.content.recipe.display.AccumulationRecipeDisplay;
 import com.klikli_dev.theurgy.content.recipe.input.ItemHandlerWithFluidRecipeInput;
+import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.registry.RecipeSerializerRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
@@ -18,23 +20,25 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.item.crafting.RecipeBookCategory;
-import net.minecraft.world.item.crafting.RecipeBookCategories;
-import net.minecraft.world.item.crafting.PlacementInfo;
+import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.item.crafting.display.RecipeDisplay;
+import net.minecraft.world.item.crafting.display.SlotDisplay;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.fluids.FluidStack;
-import net.neoforged.neoforge.fluids.crafting.FluidIngredient;
 import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
 import java.util.Optional;
 
-public class AccumulationRecipe implements Recipe<ItemHandlerWithFluidRecipeInput> {
+/**
+ * @param evaporant The (optional) fluid to evaporate to obtain the result.
+ * @param solute    The (optional) item to dissolve in the evaporant to obtain the result.
+ * @param result    The result of the recipe.
+ */
+public record AccumulationRecipe(@Nullable SizedFluidIngredient evaporant, @Nullable Ingredient solute,
+                                 FluidStack result, int time) implements Recipe<ItemHandlerWithFluidRecipeInput> {
     public static final int DEFAULT_TIME = 100;
 
     public static final MapCodec<AccumulationRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
@@ -56,29 +60,6 @@ public class AccumulationRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
             r -> r.time,
             (evaporant, solute, result, accumulation_time) -> new AccumulationRecipe(evaporant.orElse(null), solute.orElse(null), result, accumulation_time)
     );
-
-    /**
-     * The (optional) fluid to evaporate to obtain the result.
-     */
-    @Nullable
-    protected final SizedFluidIngredient evaporant;
-    /**
-     * The (optional) item to dissolve in the evaporant to obtain the result.
-     */
-    @Nullable
-    protected final Ingredient solute;
-    /**
-     * The result of the recipe.
-     */
-    protected final FluidStack result;
-    protected final int time;
-
-    public AccumulationRecipe(@Nullable SizedFluidIngredient evaporant, @Nullable Ingredient solute, FluidStack result, int time) {
-        this.evaporant = evaporant;
-        this.solute = solute;
-        this.result = result;
-        this.time = time;
-    }
 
     @Override
     public @NotNull RecipeType<AccumulationRecipe> getType() {
@@ -139,25 +120,11 @@ public class AccumulationRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
 
     @Override
     public @NotNull RecipeSerializer<AccumulationRecipe> getSerializer() {
-        return (RecipeSerializer<AccumulationRecipe>) RecipeSerializerRegistry.ACCUMULATION.get();
-    }
-
-    public int getTime() {
-        return this.time;
-    }
-
-    @Nullable
-    public SizedFluidIngredient getEvaporant() {
-        return this.evaporant;
+        return RecipeSerializerRegistry.ACCUMULATION.get();
     }
 
     public int getEvaporantAmount() {
         return this.hasEvaporant() ? this.evaporant.amount() : 0;
-    }
-
-    @Nullable
-    public Ingredient getSolute() {
-        return this.solute;
     }
 
     public boolean hasSolute() {
@@ -168,18 +135,14 @@ public class AccumulationRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
         return this.evaporant != null;
     }
 
-    public FluidStack getResult() {
-        return this.result;
-    }
-
     @Override
-    public java.util.List<net.minecraft.world.item.crafting.display.RecipeDisplay> display() {
-        return java.util.List.of(new com.klikli_dev.theurgy.content.recipe.display.AccumulationRecipeDisplay(
-                java.util.Optional.ofNullable(this.evaporant),
-                java.util.Optional.ofNullable(this.solute).map(net.minecraft.world.item.crafting.Ingredient::display),
+    public List<RecipeDisplay> display() {
+        return List.of(new AccumulationRecipeDisplay(
+                Optional.ofNullable(this.evaporant),
+                Optional.ofNullable(this.solute).map(Ingredient::display),
                 this.result,
                 this.time,
-                new net.minecraft.world.item.crafting.display.SlotDisplay.ItemSlotDisplay(com.klikli_dev.theurgy.registry.BlockRegistry.SAL_AMMONIAC_ACCUMULATOR.get().asItem())
+                new SlotDisplay.ItemSlotDisplay(BlockRegistry.SAL_AMMONIAC_ACCUMULATOR.get().asItem())
         ));
     }
 

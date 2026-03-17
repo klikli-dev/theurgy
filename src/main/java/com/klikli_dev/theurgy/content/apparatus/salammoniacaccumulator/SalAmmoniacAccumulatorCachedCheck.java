@@ -9,14 +9,11 @@ import com.klikli_dev.theurgy.content.recipe.input.ItemHandlerWithFluidRecipeInp
 import net.minecraft.resources.ResourceKey;
 import com.klikli_dev.theurgy.util.LevelUtil;
 import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.fluids.FluidStack;
 import org.jetbrains.annotations.Nullable;
 
@@ -46,14 +43,14 @@ class SalAmmoniacAccumulatorCachedCheck implements RecipeManager.CachedCheck<Ite
                 if(recipe.value().getType() == this.type) {
                      @SuppressWarnings("unchecked")
                      var typedRecipe = (RecipeHolder<AccumulationRecipe>) (Object) recipe;
-                     if (typedRecipe.value().hasSolute() && typedRecipe.value().getSolute().test(stack)) {
+                     if (typedRecipe.value().hasSolute() && typedRecipe.value().solute().test(stack)) {
                          return Optional.of(typedRecipe);
                      }
                 }
              }
         }
 
-        return LevelUtil.getRecipesByType(recipeManager, this.type).stream().filter((entry) -> entry.value().hasSolute() && entry.value().getSolute().test(stack)).findFirst();
+        return LevelUtil.getRecipesByType(recipeManager, this.type).stream().filter((entry) -> entry.value().hasSolute() && entry.value().solute().test(stack)).findFirst();
     }
 
     private Optional<RecipeHolder<AccumulationRecipe>> getRecipeFor(FluidStack stack, ServerLevel level, @Nullable ResourceKey<Recipe<?>> lastRecipe) {
@@ -66,14 +63,14 @@ class SalAmmoniacAccumulatorCachedCheck implements RecipeManager.CachedCheck<Ite
                      @SuppressWarnings("unchecked")
                      var typedRecipe = (RecipeHolder<AccumulationRecipe>) (Object) recipe;
                      //test only the fluid without the (separate) solute item ingredient check that the recipe.matches() would.
-                    if (typedRecipe.value().hasEvaporant()  && typedRecipe.value().getEvaporant().ingredient().test(stack)) {
+                    if (typedRecipe.value().hasEvaporant()  && typedRecipe.value().evaporant().ingredient().test(stack)) {
                         return Optional.of(typedRecipe);
                     }
                 }
              }
         }
 
-        return LevelUtil.getRecipesByType(recipeManager, this.type).stream().filter((entry) -> entry.value().hasEvaporant() && entry.value().getEvaporant().ingredient().test(stack)).findFirst();
+        return LevelUtil.getRecipesByType(recipeManager, this.type).stream().filter((entry) -> entry.value().hasEvaporant() && entry.value().evaporant().ingredient().test(stack)).findFirst();
     }
 
     /**

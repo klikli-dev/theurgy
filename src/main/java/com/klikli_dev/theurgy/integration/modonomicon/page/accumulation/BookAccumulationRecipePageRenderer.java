@@ -7,15 +7,15 @@ package com.klikli_dev.theurgy.integration.modonomicon.page.accumulation;
 import com.klikli_dev.modonomicon.book.page.BookRecipePage;
 import com.klikli_dev.modonomicon.client.gui.book.entry.BookEntryScreen;
 import com.klikli_dev.modonomicon.client.render.page.BookRecipePageRenderer;
-import com.klikli_dev.modonomicon.fluid.FluidHolder;
 import com.klikli_dev.modonomicon.fluid.NeoFluidHolder;
 import com.klikli_dev.theurgy.content.gui.GuiTextures;
 import com.klikli_dev.theurgy.content.recipe.AccumulationRecipe;
+import com.klikli_dev.theurgy.content.recipe.display.AccumulationRecipeDisplay;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.display.RecipeDisplayEntry;
+import net.minecraft.world.item.crafting.display.SlotDisplayContext;
 import net.neoforged.neoforge.fluids.FluidType;
-
-import java.util.Arrays;
 
 public class BookAccumulationRecipePageRenderer extends BookRecipePageRenderer<AccumulationRecipe, BookRecipePage<AccumulationRecipe>> {
     public BookAccumulationRecipePageRenderer(BookAccumulationRecipePage page) {
@@ -28,10 +28,11 @@ public class BookAccumulationRecipePageRenderer extends BookRecipePageRenderer<A
     }
 
     @Override
-    protected void drawRecipe(GuiGraphics guiGraphics, RecipeHolder<AccumulationRecipe> recipeHolder, int recipeX, int recipeY, int mouseX, int mouseY, boolean second) {
+    protected void drawRecipe(GuiGraphics guiGraphics, RecipeDisplayEntry recipeDisplayEntry, int recipeX, int recipeY, int mouseX, int mouseY, boolean second) {
         recipeY += 10;
 
-        var recipe = recipeHolder.value();
+        if (!(recipeDisplayEntry.display() instanceof AccumulationRecipeDisplay display))
+            return;
 
         if (!second) {
             if (!this.page.getTitle1().isEmpty()) {
@@ -44,20 +45,20 @@ public class BookAccumulationRecipePageRenderer extends BookRecipePageRenderer<A
             }
         }
 
-        if (recipe.hasEvaporant()) {
-            GuiTextures.MODONOMICON_SLOT.render(guiGraphics, recipeX, recipeY); //render the fluid input slot
-            this.parentScreen.renderFluidStacks(guiGraphics, recipeX + 2, recipeY + 2, mouseX, mouseY, recipe.getEvaporant().ingredient().fluids().stream().map(f -> (FluidHolder) new NeoFluidHolder(new net.neoforged.neoforge.fluids.FluidStack(f.value(), recipe.getEvaporantAmount()))).toList(), FluidType.BUCKET_VOLUME);
+        if (display.evaporant().isPresent()) {
+            GuiTextures.MODONOMICON_SLOT.render(guiGraphics, recipeX, recipeY); //render the fluid input slot            this.parentScreen.renderFluidStacks(guiGraphics, recipeX + 2, recipeY + 2, mouseX, mouseY, display.evaporant().ingredient().fluids().stream().map(f -> (FluidHolder) new NeoFluidHolder(new net.neoforged.neoforge.fluids.FluidStack(f.value(), display.evaporantAmount()))).toList(), FluidType.BUCKET_VOLUME);;
         }
 
-        if (recipe.hasSolute()) {
+        if (display.solute().isPresent()) {
             GuiTextures.MODONOMICON_SLOT.render(guiGraphics, recipeX, recipeY + 24); //render the item input slot
-            this.parentScreen.renderIngredient(guiGraphics, recipeX + 3, recipeY + 24 + 3, mouseX, mouseY, recipe.getSolute());
+            this.parentScreen.renderItemStacks(guiGraphics, recipeX + 3, recipeY + 24 + 3, mouseX, mouseY, display.solute().get().resolveForStacks(SlotDisplayContext.fromLevel(Minecraft.getInstance().level)));
         }
 
         GuiTextures.MODONOMICON_SLOT.render(guiGraphics, recipeX + 61, recipeY); //render the fluid output slot
-        this.parentScreen.renderFluidStack(guiGraphics, recipeX + 61 + 2, recipeY + 2, mouseX, mouseY, new NeoFluidHolder(recipe.getResult()), FluidType.BUCKET_VOLUME);
+        this.parentScreen.renderFluidStack(guiGraphics, recipeX + 61 + 2, recipeY + 2, mouseX, mouseY, new NeoFluidHolder(
+                display.resultFluidStack()), FluidType.BUCKET_VOLUME);
 
         GuiTextures.MODONOMICON_ARROW_RIGHT.render(guiGraphics, recipeX + 40, recipeY + 7); //render the arrow
-        this.parentScreen.renderItemStack(guiGraphics, recipeX + 36, recipeY + 20, mouseX, mouseY, recipe.getToastSymbol());
+        this.parentScreen.renderItemStack(guiGraphics, recipeX + 36, recipeY + 20, mouseX, mouseY, display.craftingStation().resolveForFirstStack(SlotDisplayContext.fromLevel(Minecraft.getInstance().level)));
     }
 }

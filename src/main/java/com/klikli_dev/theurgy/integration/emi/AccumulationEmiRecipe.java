@@ -20,7 +20,6 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class AccumulationEmiRecipe implements EmiRecipe {
@@ -45,11 +44,11 @@ public class AccumulationEmiRecipe implements EmiRecipe {
     public List<EmiIngredient> getInputs() {
         var inputs = new ArrayList<EmiIngredient>();
         if (this.recipe.value().hasSolute())
-            inputs.add(EmiIngredient.of(this.recipe.value().getSolute()));
+            inputs.add(EmiIngredient.of(this.recipe.value().solute()));
 
         if (this.recipe.value().hasEvaporant())
-            inputs.add(EmiIngredient.of(this.recipe.value().getEvaporant().ingredient().fluids()
-.stream().map(f -> EmiStack.of(f.value(), this.recipe.value().getEvaporant().amount())).toList()));
+            inputs.add(EmiIngredient.of(this.recipe.value().evaporant().ingredient().fluids()
+.stream().map(f -> EmiStack.of(f.value(), this.recipe.value().evaporant().amount())).toList()));
 
         return inputs;
     }
@@ -57,7 +56,7 @@ public class AccumulationEmiRecipe implements EmiRecipe {
     @Override
     public List<EmiStack> getOutputs() {
         return List.of(
-                EmiStack.of(this.recipe.value().getResult().getFluid(), this.recipe.value().getResult().getAmount())
+                EmiStack.of(this.recipe.value().result().getFluid(), this.recipe.value().result().getAmount())
         );
     }
 
@@ -76,17 +75,17 @@ public class AccumulationEmiRecipe implements EmiRecipe {
         widgets.addTexture(EmiTexture.EMPTY_ARROW, 24, 2);
 
         if (this.recipe.value().hasEvaporant()) {
-            widgets.addSlot(EmiIngredient.of(this.recipe.value().getEvaporant().ingredient().fluids()
-                        .stream().map(f -> EmiStack.of(f.value(), this.recipe.value().getEvaporant().amount())).toList()), 1, 1);
+            widgets.addSlot(EmiIngredient.of(this.recipe.value().evaporant().ingredient().fluids()
+                        .stream().map(f -> EmiStack.of(f.value(), this.recipe.value().evaporant().amount())).toList()), 1, 1);
         }
 
         if (this.recipe.value().hasSolute()) {
-            widgets.addSlot(EmiIngredient.of(this.recipe.value().getSolute()), 1, 21);
+            widgets.addSlot(EmiIngredient.of(this.recipe.value().solute()), 1, 21);
         }
 
-        widgets.addSlot(EmiStack.of(this.recipe.value().getResult().getFluid(), this.recipe.value().getResult().getAmount()), 56, 1).recipeContext(this);
+        widgets.addSlot(EmiStack.of(this.recipe.value().result().getFluid(), this.recipe.value().result().getAmount()), 56, 1).recipeContext(this);
 
-        int cookTime = this.recipe.value().getTime();
+        int cookTime = this.recipe.value().time();
         if (cookTime > 0) {
             int cookTimeSeconds = cookTime / 20;
             Component timeString = Component.translatable(TheurgyConstants.I18n.Gui.SMELTING_TIME_SECONDS, cookTimeSeconds);

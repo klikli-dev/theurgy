@@ -11,7 +11,6 @@ import com.klikli_dev.theurgy.datagen.book.TheurgyBookProvider;
 import com.klikli_dev.theurgy.datagen.lang.ENUSProvider;
 import com.klikli_dev.theurgy.datagen.loot.TheurgyBlockLootSubProvider;
 import com.klikli_dev.theurgy.datagen.model.TheurgyBlockModelProvider;
-import com.klikli_dev.theurgy.datagen.model.TheurgyBlockStateProvider;
 import com.klikli_dev.theurgy.datagen.model.TheurgyItemModelProvider;
 import com.klikli_dev.theurgy.datagen.multiblock.TheurgyMultiblockProvider;
 import com.klikli_dev.theurgy.datagen.recipe.*;

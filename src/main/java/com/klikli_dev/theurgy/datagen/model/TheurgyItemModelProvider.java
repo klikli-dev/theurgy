@@ -5,8 +5,8 @@
 package com.klikli_dev.theurgy.datagen.model;
 
 import com.klikli_dev.theurgy.Theurgy;
-import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.content.item.niter.AlchemicalNiterItem;
+import com.klikli_dev.theurgy.content.item.renderer.DivinationDistanceProperty;
 import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurItem;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.registry.NiterRegistry;
@@ -20,17 +20,22 @@ import net.minecraft.client.data.models.model.ModelLocationUtils;
 import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.client.data.models.model.TextureMapping;
 import net.minecraft.client.renderer.item.ItemModel;
-import net.minecraft.client.renderer.item.RangeSelectItemModel; // Import
+import net.minecraft.client.renderer.item.RangeSelectItemModel;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.neoforged.neoforge.registries.DeferredHolder;
-import com.klikli_dev.theurgy.content.item.renderer.DivinationDistanceProperty; // Import
+import org.jetbrains.annotations.NotNull;
 
 public class TheurgyItemModelProvider extends ModelProvider {
     public TheurgyItemModelProvider(PackOutput packOutput) {
         super(packOutput, Theurgy.MODID);
+    }
+
+    @Override
+    public @NotNull String getName() {
+        return "Item Model Definitions - " + this.modId;
     }
 
     protected String name(Item item) {
@@ -44,7 +49,7 @@ public class TheurgyItemModelProvider extends ModelProvider {
         //But assuming "item/alchemical_salt" is a manually created model file or generated elsewhere.
         //If it's generated here:
         //this.registerItemGenerated("alchemical_salt");
-        
+
         //If we want to use "item/alchemical_salt" as parent for the item:
         //We can use a custom template or just point to it.
         //However, in vanilla ItemModelGenerators, we typically generate a flat item model.
@@ -64,7 +69,7 @@ public class TheurgyItemModelProvider extends ModelProvider {
     private void registerItemHandheld(ItemModelGenerators itemModels, Item item) {
         itemModels.generateFlatItem(item, ModelTemplates.FLAT_HANDHELD_ITEM);
     }
-    
+
     //Helper to create a model for a variant but not assign it to the item directly (used for divination rod)
     private ResourceLocation createItemHandheldVariant(ItemModelGenerators itemModels, String modelName, String texture) {
         return ModelTemplates.FLAT_HANDHELD_ITEM.create(Theurgy.loc("item/" + modelName), TextureMapping.layer0(Theurgy.loc("item/" + texture)), itemModels.modelOutput);
@@ -97,7 +102,7 @@ public class TheurgyItemModelProvider extends ModelProvider {
                 new RangeSelectItemModel.Entry(7.0f, ItemModelUtils.plainModel(variant0)),
                 new RangeSelectItemModel.Entry(8.0f, ItemModelUtils.plainModel(searchingVariant))
         );
-        
+
         itemModels.itemModelOutput.accept(divinationRodItem, model);
     }
 
@@ -115,8 +120,8 @@ public class TheurgyItemModelProvider extends ModelProvider {
     protected void registerNiters(ItemModelGenerators itemModels) {
         NiterRegistry.NITERS.getEntries().stream().map(DeferredHolder::get).map(AlchemicalNiterItem.class::cast).forEach(niter -> {
             if (niter.useAutomaticIconRendering) {
-                 //this.registerItemBuiltinEntity(itemModels, niter);
-                 itemModels.generateFlatItem(niter, ModelTemplates.FLAT_ITEM);
+                //this.registerItemBuiltinEntity(itemModels, niter);
+                itemModels.generateFlatItem(niter, ModelTemplates.FLAT_ITEM);
             }
         });
 

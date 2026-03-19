@@ -6,46 +6,38 @@ package com.klikli_dev.theurgy.content.apparatus.calcinationoven.render;
 
 import com.klikli_dev.theurgy.content.apparatus.calcinationoven.CalcinationOvenBlockItem;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.model.ItemTransform;
 import net.minecraft.world.item.ItemDisplayContext;
-import net.minecraft.world.item.ItemStack;
-import org.jetbrains.annotations.Nullable;
-import org.joml.Matrix4f;
 import org.joml.Vector3f;
 import software.bernie.geckolib.cache.object.BakedGeoModel;
+import software.bernie.geckolib.constant.DataTickets;
 import software.bernie.geckolib.renderer.GeoItemRenderer;
+import software.bernie.geckolib.renderer.base.GeoRenderState;
 
 public class CalcinationOvenItemRenderer extends GeoItemRenderer<CalcinationOvenBlockItem> {
 
     private final ItemTransform transform;
 
     public CalcinationOvenItemRenderer() {
-        super(new CalcinationOvenModel());
+        super(new CalcinationOvenModel<>());
         this.withScale(0.5f);
         this.transform = new ItemTransform(new Vector3f(30, 225, 0), new Vector3f(0, 0, 0), new Vector3f(1, 1, 1));
     }
 
     @Override
-    public void preRender(PoseStack poseStack, CalcinationOvenBlockItem animatable, BakedGeoModel model, @Nullable MultiBufferSource bufferSource, @Nullable VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, int colour) {
-//        super.preRender(poseStack, animatable, model, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, colour);
-        if (isReRender)
-            return;
+    public void adjustPositionForRender(GeoRenderState renderState, PoseStack poseStack, BakedGeoModel model, boolean isReRender) {
+        super.adjustPositionForRender(renderState, poseStack, model, isReRender);
 
-        //copied from parent, but fixed to also center the model when scaling
-        this.itemRenderTranslations = new Matrix4f(poseStack.last().pose());
+        if (isReRender) {
+            return;
+        }
 
         if (this.scaleWidth != 1 && this.scaleHeight != 1) {
-            poseStack.scale(this.scaleWidth, this.scaleHeight, this.scaleWidth);
-
-            //this is not as clean as I would like it - but it exactly centers the model for 0.5 scale :D
             poseStack.translate(this.scaleWidth / 0.5 - 0.5, -0.1, this.scaleWidth / 0.5 - 0.5);
         }
-        poseStack.translate(0.5f, 0.51f, 0.5f);
 
-        if (this.renderPerspective == ItemDisplayContext.GUI) {
-            this.transform.apply(false, poseStack);
+        if (renderState.getOrDefaultGeckolibData(DataTickets.ITEM_RENDER_PERSPECTIVE, ItemDisplayContext.NONE) == ItemDisplayContext.GUI) {
+            this.transform.apply(false, poseStack.last());
         }
     }
 
@@ -62,8 +54,4 @@ public class CalcinationOvenItemRenderer extends GeoItemRenderer<CalcinationOven
             return MAP_CODEC;
         }
     }
-
-    
-
-    
 }

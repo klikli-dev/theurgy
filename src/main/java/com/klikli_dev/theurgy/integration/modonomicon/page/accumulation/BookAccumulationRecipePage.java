@@ -8,6 +8,7 @@ import com.google.gson.JsonObject;
 import com.klikli_dev.modonomicon.book.BookTextHolder;
 import com.klikli_dev.modonomicon.book.entries.BookContentEntry;
 import com.klikli_dev.modonomicon.book.page.BookRecipePage;
+import com.klikli_dev.modonomicon.Modonomicon;
 import com.klikli_dev.theurgy.content.recipe.AccumulationRecipe;
 import com.klikli_dev.theurgy.content.recipe.display.AccumulationRecipeDisplay;
 import com.klikli_dev.theurgy.integration.modonomicon.TheurgyModonomiconConstants;
@@ -20,6 +21,8 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.display.RecipeDisplayEntry;
 import net.minecraft.world.level.Level;
+
+import java.util.ArrayList;
 
 
 public class BookAccumulationRecipePage extends BookRecipePage<AccumulationRecipe> {
@@ -57,8 +60,8 @@ public class BookAccumulationRecipePage extends BookRecipePage<AccumulationRecip
         //copy from parent and modify so we can use the fluid name as title, instead of the non existent recipe output.
 
         if (level instanceof ServerLevel serverLevel) {
-            this.recipeDisplayEntry1 = this.getRecipeDisplayEntry(serverLevel, this.recipeKey1);
-            this.recipeDisplayEntry2 = this.getRecipeDisplayEntry(serverLevel, this.recipeKey2);
+            this.recipeDisplayEntry1 = this.getRecipeDisplayEntryOrNull(serverLevel, this.recipeKey1);
+            this.recipeDisplayEntry2 = this.getRecipeDisplayEntryOrNull(serverLevel, this.recipeKey2);
         }
 
         if (this.recipeDisplayEntry1 == null && this.recipeDisplayEntry2 != null) {
@@ -96,6 +99,22 @@ public class BookAccumulationRecipePage extends BookRecipePage<AccumulationRecip
     @Override
     protected ItemStack getRecipeOutput(Level level, RecipeDisplayEntry recipeDisplayEntry) {
         return ItemStack.EMPTY;
+    }
+
+    private RecipeDisplayEntry getRecipeDisplayEntryOrNull(ServerLevel serverLevel, net.minecraft.resources.ResourceKey<net.minecraft.world.item.crafting.Recipe<?>> key) {
+        if (key == null) {
+            return null;
+        }
+
+        var entries = new ArrayList<RecipeDisplayEntry>();
+        serverLevel.recipeAccess().listDisplaysForRecipe(key, entries::add);
+        var entry = entries.stream().findFirst().orElse(null);
+
+        if (entry == null) {
+            Modonomicon.LOG.warn("Recipe {} not found.", key);
+        }
+
+        return entry;
     }
 
 }

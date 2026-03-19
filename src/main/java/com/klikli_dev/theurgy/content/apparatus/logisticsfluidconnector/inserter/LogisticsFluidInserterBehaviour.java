@@ -92,10 +92,10 @@ public class LogisticsFluidInserterBehaviour extends InserterNodeBehaviour<IFlui
         super.readNetwork(pTag, pRegistries);
 
         if (pTag.contains("directionOverride")) {
-            this.directionOverride = Direction.from3DDataValue(pTag.getInt("directionOverride"));
+            this.directionOverride = Direction.from3DDataValue(pTag.getInt("directionOverride").orElse(Direction.NORTH.get3DDataValue()));
         }
         if (pTag.contains("enabled")) {
-            this.enabled = pTag.getBoolean("enabled");
+            this.enabled = pTag.getBoolean("enabled").orElse(this.enabled);
         }
     }
 }

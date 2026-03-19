@@ -30,6 +30,6 @@ public class DefaultHeatProvider implements HeatProvider, INBTSerializable<Tag> 
     public void deserializeNBT(HolderLookup.Provider pRegistries, Tag nbt) {
         if (!(nbt instanceof ByteTag byteNbt))
             throw new IllegalArgumentException("Can not deserialize to an instance that isn't the default implementation");
-        this.isHot = byteNbt.getAsByte() != 0;
+        this.isHot = byteNbt.value() != 0;
     }
 }

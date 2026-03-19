@@ -18,7 +18,7 @@ public class RenderTypes {
 
     protected static final RenderType DISTANCE_LINES = RenderType.lines();
 
-    protected static final Function<ResourceLocation, RenderType> ENTITY_TRANSLUCENT_CULL_NO_DEPTH = Util.memoize(RenderType::entityTranslucentCull);
+    protected static final Function<ResourceLocation, RenderType> ENTITY_TRANSLUCENT_CULL_NO_DEPTH = Util.memoize((ResourceLocation texture) -> RenderType.entityTranslucent(texture));
 
     public static RenderType entityTranslucentCullNoDepth(ResourceLocation pLocation) {
         return ENTITY_TRANSLUCENT_CULL_NO_DEPTH.apply(pLocation);
@@ -32,7 +32,7 @@ public class RenderTypes {
 
     private static final RenderType FLUID = RenderType.itemEntityTranslucentCull(TextureAtlas.LOCATION_BLOCKS);
     private static final RenderType OUTLINE_SOLID = RenderType.entitySolid(BLANK_TEXTURE);
-    private static final Function<ResourceLocation, RenderType> SRC_MINUS_ONE = Util.memoize(RenderType::entityTranslucent);
+    private static final Function<ResourceLocation, RenderType> SRC_MINUS_ONE = Util.memoize((ResourceLocation texture) -> RenderType.entityTranslucent(texture));
 
     private RenderTypes() {
     }
@@ -42,7 +42,7 @@ public class RenderTypes {
     }
 
     public static RenderType outlineTranslucent(ResourceLocation texture, boolean cull) {
-        return cull ? RenderType.entityTranslucentCull(texture) : RenderType.entityTranslucent(texture);
+        return RenderType.entityTranslucent(texture);
     }
 
     public static RenderType fluid() {

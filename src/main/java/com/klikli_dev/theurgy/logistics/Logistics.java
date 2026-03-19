@@ -15,13 +15,11 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import net.minecraft.core.GlobalPos;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.NbtOps;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.datafix.DataFixTypes;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.saveddata.SavedData;
+import net.minecraft.world.level.saveddata.SavedDataType;
 import net.neoforged.neoforge.capabilities.BlockCapability;
 import net.neoforged.neoforge.event.level.LevelEvent;
 import net.neoforged.neoforge.server.ServerLifecycleHooks;
@@ -41,7 +39,7 @@ public class Logistics extends SavedData {
     public static final Codec<Logistics> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             TheurgyExtraCodecs.graph(GlobalPos.CODEC, GRAPH_SUPPLIER).fieldOf("graph").forGetter(Logistics::graph)
     ).apply(instance, Logistics::new));
-    private static final String NBT_TAG = "theurgy:logistics";
+    private static final SavedDataType<Logistics> TYPE = new SavedDataType<>(Logistics.ID, Logistics::new, Logistics.CODEC, DataFixTypes.LEVEL);
     private static Logistics cachedLogistics;
 
     private final MutableGraph<GlobalPos> graph;
@@ -74,10 +72,6 @@ public class Logistics extends SavedData {
         this.rebuildGraph();
     }
 
-    public static Logistics load(CompoundTag pCompoundTag, HolderLookup.Provider pRegistries) {
-        return CODEC.parse(pRegistries.createSerializationContext(NbtOps.INSTANCE), pCompoundTag.get(NBT_TAG)).result().orElseThrow();
-    }
-
     private static MinecraftServer server() {
         return ServerLifecycleHooks.getCurrentServer();
     }
@@ -87,10 +81,7 @@ public class Logistics extends SavedData {
             var server = server();
 
             if (server != null) {
-                var logistics = server.overworld().getDataStorage().computeIfAbsent(
-                        new SavedData.Factory<>(Logistics::new, Logistics::load, DataFixTypes.LEVEL),
-                        Logistics.ID
-                );
+                var logistics = server.overworld().getDataStorage().computeIfAbsent(TYPE);
 
                 cachedLogistics = logistics;
             } else {
@@ -407,11 +398,6 @@ public class Logistics extends SavedData {
         }
     }
 
-    @Override
-    public CompoundTag save(CompoundTag pCompoundTag, HolderLookup.Provider pRegistries) {
-        pCompoundTag.put(NBT_TAG, CODEC.encodeStart(pRegistries.createSerializationContext(NbtOps.INSTANCE), this).result().orElseThrow());
-        return pCompoundTag;
-    }
 
     private MutableGraph<GlobalPos> graph() {
         return this.graph;

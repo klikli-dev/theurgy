@@ -12,15 +12,13 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.SectionPos;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.NbtOps;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.datafix.DataFixTypes;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.saveddata.SavedData;
+import net.minecraft.world.level.saveddata.SavedDataType;
 import net.neoforged.neoforge.event.level.LevelEvent;
 import org.jetbrains.annotations.Nullable;
 
@@ -38,7 +36,7 @@ public class Wires extends SavedData {
             Codecs.set(Wire.CODEC).fieldOf("wireConnections").forGetter(wires -> wires.wires),
             Codec.BOOL.fieldOf("isClient").forGetter(wires -> wires.isClient)
     ).apply(instance, Wires::new));
-    private static final String NBT_TAG = "theurgy:wires";
+    private static final SavedDataType<Wires> TYPE = new SavedDataType<>(Wires.ID, () -> new Wires(false), Wires.CODEC, DataFixTypes.LEVEL);
 
     private static WeakReference<ServerLevel> cachedServerLevel = new WeakReference<>(null);
     private static WeakReference<Wires> cachedServerWires = new WeakReference<>(null);
@@ -99,10 +97,7 @@ public class Wires extends SavedData {
                     return cachedServerWires.get();
             }
 
-            var wires = serverLevel.getDataStorage().computeIfAbsent(
-                    new SavedData.Factory<>(() -> new Wires(false), Wires::load, DataFixTypes.LEVEL),
-                    Wires.ID
-            );
+            var wires = serverLevel.getDataStorage().computeIfAbsent(TYPE);
 
             cachedServerLevel = new WeakReference<>(serverLevel);
             cachedServerWires = new WeakReference<>(wires);
@@ -139,10 +134,6 @@ public class Wires extends SavedData {
             cachedClientWires = new WeakReference<>(null);
             WireRenderer.get().wires.clear();
         }
-    }
-
-    public static Wires load(CompoundTag pCompoundTag, HolderLookup.Provider pRegistries) {
-        return CODEC.parse(pRegistries.createSerializationContext(NbtOps.INSTANCE), pCompoundTag.get(NBT_TAG)).result().orElseThrow();
     }
 
     /**
@@ -261,9 +252,4 @@ public class Wires extends SavedData {
         this.setDirty();
     }
 
-    @Override
-    public CompoundTag save(CompoundTag pCompoundTag, HolderLookup.Provider pRegistries) {
-        pCompoundTag.put(NBT_TAG, CODEC.encodeStart(pRegistries.createSerializationContext(NbtOps.INSTANCE), this).result().orElseThrow());
-        return pCompoundTag;
-    }
 }

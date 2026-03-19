@@ -16,6 +16,7 @@ import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.world.Containers;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -169,6 +170,17 @@ public class SalAmmoniacAccumulatorBlockEntity extends BlockEntity implements Ge
             this.validateOutputTank();
         }
         return this.hasOutputTank;
+    }
+
+    @Override
+    public void preRemoveSideEffects(BlockPos pPos, BlockState pState) {
+        super.preRemoveSideEffects(pPos, pState);
+
+        if (this.level != null) {
+            for (int i = 0; i < this.inventory.getSlots(); i++) {
+                Containers.dropItemStack(this.level, pPos.getX(), pPos.getY(), pPos.getZ(), this.inventory.getStackInSlot(i));
+            }
+        }
     }
 
     @Override

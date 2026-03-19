@@ -21,6 +21,7 @@ import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.world.Containers;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -109,6 +110,17 @@ public class LiquefactionCauldronBlockEntity extends BlockEntity implements HasC
                         0.0D, 0.015D, 0.0D
 
                 );
+            }
+        }
+    }
+
+    @Override
+    public void preRemoveSideEffects(BlockPos pPos, BlockState pState) {
+        super.preRemoveSideEffects(pPos, pState);
+
+        if (this.level != null) {
+            for (int i = 0; i < this.storageBehaviour.inventory.getSlots(); i++) {
+                Containers.dropItemStack(this.level, pPos.getX(), pPos.getY(), pPos.getZ(), this.storageBehaviour.inventory.getStackInSlot(i));
             }
         }
     }

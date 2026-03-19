@@ -14,6 +14,7 @@ import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.world.Containers;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -75,6 +76,17 @@ public class IncubatorMercuryVesselBlockEntity extends BlockEntity implements Ge
 
     public void writeNetwork(CompoundTag pTag, HolderLookup.Provider pRegistries) {
         pTag.put("inputInventory", this.inputInventory.serializeNBT(pRegistries));
+    }
+
+    @Override
+    public void preRemoveSideEffects(BlockPos pPos, BlockState pState) {
+        super.preRemoveSideEffects(pPos, pState);
+
+        if (this.level != null) {
+            for (int i = 0; i < this.inputInventory.getSlots(); i++) {
+                Containers.dropItemStack(this.level, pPos.getX(), pPos.getY(), pPos.getZ(), this.inputInventory.getStackInSlot(i));
+            }
+        }
     }
 
     @Override

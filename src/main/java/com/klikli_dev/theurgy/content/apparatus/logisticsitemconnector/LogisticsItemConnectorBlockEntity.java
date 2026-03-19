@@ -16,6 +16,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.Containers;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -26,6 +27,8 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.neoforged.neoforge.items.IItemHandler;
+import com.klikli_dev.theurgy.logistics.Wires;
+import com.klikli_dev.theurgy.registry.ItemRegistry;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -137,6 +140,20 @@ public abstract class LogisticsItemConnectorBlockEntity extends BlockEntity impl
         if (this.filter().filter().isEmpty() != isEmpty) {
             var newState = this.getBlockState().setValue(LogisticsItemConnectorBlock.HAS_FILTER, !this.filter().filter().isEmpty());
             this.level.setBlock(this.getBlockPos(), newState, Block.UPDATE_ALL);
+        }
+    }
+
+    @Override
+    public void preRemoveSideEffects(BlockPos pPos, BlockState pState) {
+        super.preRemoveSideEffects(pPos, pState);
+
+        if (this.level != null) {
+            this.filter().onRemove(pState, this.level, pPos, pState, false);
+
+            var removedWires = Wires.get(this.level).removeWiresFor(pPos);
+            Block.popResource(this.level, pPos, new net.minecraft.world.item.ItemStack(ItemRegistry.COPPER_WIRE.get(), removedWires));
+
+            this.leafNode().onDestroyed();
         }
     }
 

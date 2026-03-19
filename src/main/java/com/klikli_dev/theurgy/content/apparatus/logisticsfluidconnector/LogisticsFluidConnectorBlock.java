@@ -14,7 +14,9 @@ import com.klikli_dev.theurgy.network.messages.MessageShowLogisticsNodeStatus;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -75,28 +77,8 @@ public abstract class LogisticsFluidConnectorBlock extends DirectionalBlock impl
     }
 
     @Override
-    public void onRemove(BlockState pState, @NotNull Level pLevel, @NotNull BlockPos pPos, BlockState pNewState, boolean pMovedByPiston) {
-        //Drop filter
-        if (!pState.is(pNewState.getBlock())) {
-            if (pLevel.getBlockEntity(pPos) instanceof HasFilterBehaviour hasFilterBehaviour) {
-                hasFilterBehaviour.filter().onRemove(pState, pLevel, pPos, pNewState, pMovedByPiston);
-            }
-        }
-
-        //drop wires
-        if (pState.hasBlockEntity() && (!pState.is(pNewState.getBlock()) || !pNewState.hasBlockEntity())) {
-            var removedWires = Wires.get(pLevel).removeWiresFor(pPos);
-            if (pLevel.isClientSide)
-                return;
-
-            Block.popResource(pLevel, pPos, new ItemStack(ItemRegistry.COPPER_WIRE.get(), removedWires));
-
-            if (pLevel.getBlockEntity(pPos) instanceof LogisticsFluidConnectorBlockEntity blockEntity) {
-                blockEntity.leafNode().onDestroyed();
-            }
-        }
-
-        super.onRemove(pState, pLevel, pPos, pNewState, pMovedByPiston);
+    protected void affectNeighborsAfterRemoval(BlockState pState, @NotNull ServerLevel pLevel, @NotNull BlockPos pPos, boolean pMovedByPiston) {
+        Containers.updateNeighboursAfterDestroy(pState, pLevel, pPos);
     }
 
     @Override

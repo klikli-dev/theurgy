@@ -16,7 +16,9 @@ import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.GlobalPos;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -85,19 +87,12 @@ public class LogisticsConnectionNodeBlock extends DirectionalBlock implements Ha
     }
 
     @Override
-    public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pMovedByPiston) {
-        super.onRemove(pState, pLevel, pPos, pNewState, pMovedByPiston);
+    protected void affectNeighborsAfterRemoval(BlockState pState, ServerLevel pLevel, BlockPos pPos, boolean pMovedByPiston) {
+        Containers.updateNeighboursAfterDestroy(pState, pLevel, pPos);
 
-        if (!pState.is(pNewState.getBlock()) || !pNewState.hasBlockEntity()) {
-            //Note: Adding is not necessary, because when using the wire it adds the two connection points.
-            var removedWires = Wires.get(pLevel).removeWiresFor(pPos);
-
-            if (pLevel.isClientSide)
-                return;
-
-            Block.popResource(pLevel, pPos, new ItemStack(ItemRegistry.COPPER_WIRE.get(), removedWires));
-            Logistics.get().remove(GlobalPos.of(pLevel.dimension(), pPos));
-        }
+        var removedWires = Wires.get(pLevel).removeWiresFor(pPos);
+        Block.popResource(pLevel, pPos, new ItemStack(ItemRegistry.COPPER_WIRE.get(), removedWires));
+        Logistics.get().remove(GlobalPos.of(pLevel.dimension(), pPos));
     }
 
     @Override

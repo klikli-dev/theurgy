@@ -1,4 +1,4 @@
-// 1.21.3	2026-01-15T15:27:48.0473129	Distillation Recipes
+// 1.21.4	2026-03-19T09:37:07.2728115	Distillation Recipes
 21fc61811cbe916772d12a3d926962a358e13c0d data/theurgy/recipe/distillation/beef.json
 3d0a2171511d3e5973faf2a3e8efa0ee28c7f562 data/theurgy/recipe/distillation/bread.json
 ad3f814a56c7edad67b0ee9ed8c01ea219e644ba data/theurgy/recipe/distillation/chicken.json
@@ -13,7 +13,6 @@ ec2a62ff0946dbabba1889948ec3c2ca7f528122 data/theurgy/recipe/distillation/cooked
 c24897bd5a30a42bd09ac843351385862ca4c950 data/theurgy/recipe/distillation/crops.json
 ab07adaf2f8ddb675f3e8a637f6e8f258d467f1e data/theurgy/recipe/distillation/dirt.json
 ec391cd49fe65b84636b539bebcac8da00a6c9d3 data/theurgy/recipe/distillation/dyes.json
-52ad37dd548788f76e7d943fcb45de69abc680fe data/theurgy/recipe/distillation/flowers.json
 5194d4526f83b36ccaacb4a4f2377d32b2849c85 data/theurgy/recipe/distillation/gems.mercury.high.json
 4ebe34706a189da84cfca9a94c79e7ec6ac994f5 data/theurgy/recipe/distillation/gems.mercury.low.json
 eeff319385468c90ee1639d1001aab6a2d6f97f0 data/theurgy/recipe/distillation/gems.mercury.medium.json
@@ -41,6 +40,7 @@ c988d9d04855ba4314163ecd4c52db649d10c259 data/theurgy/recipe/distillation/raw_ma
 b4a643185b554823558bfcdce57bbac2cf0ea8ca data/theurgy/recipe/distillation/sandstone.blocks.json
 62ca7734d218017c2bb9e8c0cb34874a7a5b1c58 data/theurgy/recipe/distillation/saplings.json
 d2f685d0ee86163da2baeea466d9cb8cb5bfbfc3 data/theurgy/recipe/distillation/seeds.json
+bde36797b38392e7e683e186c1aae0dcf6474a86 data/theurgy/recipe/distillation/small_flowers.json
 877514a5718ee760dac716beab90ff51c1e33ead data/theurgy/recipe/distillation/stones.json
 76afa5841c24a885acc55460a872d45ce1cbbcef data/theurgy/recipe/distillation/stone_bricks.json
 dbc9bfc411dac08c91f43ceafb1ade99ceb6636c data/theurgy/recipe/distillation/wool.json

@@ -178,7 +178,7 @@ public abstract class JsonRecipeProvider implements DataProvider {
             this.recipe.add(propertyName, RecipeResult.CODEC.encodeStart(JsonRecipeProvider.this.registryOps, result).getOrThrow());
 
             if (result instanceof TagRecipeResult tagRecipeResult) {
-                this.condition(new NotCondition(new TagEmptyCondition(tagRecipeResult.tag().location().toString())));
+                this.condition(new NotCondition(new TagEmptyCondition<>(tagRecipeResult.tag())));
             }
 
             return this.getThis();
@@ -208,7 +208,7 @@ public abstract class JsonRecipeProvider implements DataProvider {
         public T ingredient(String propertyName, TagKey<Item> tag) {
             this.recipe.add(propertyName, Ingredient.CODEC.encodeStart(JsonRecipeProvider.this.registryOps, Ingredient.of(JsonRecipeProvider.this.items.get(tag).orElseThrow())).getOrThrow());
 
-            this.condition(new NotCondition(new TagEmptyCondition(tag.location().toString())));
+            this.condition(new NotCondition(new TagEmptyCondition<>(tag)));
 
             return this.getThis();
         }
@@ -226,9 +226,9 @@ public abstract class JsonRecipeProvider implements DataProvider {
             return this.getThis();
         }
 
-        public T sizedIngredient(String propertyName, TagKey<Item> item, int amount) {
-            this.recipe.add(propertyName, SizedIngredient.NESTED_CODEC.encodeStart(JsonRecipeProvider.this.registryOps, new SizedIngredient(Ingredient.of(JsonRecipeProvider.this.items.getOrThrow(item)), amount)).getOrThrow());
-            this.condition(new NotCondition(new TagEmptyCondition(item.location().toString())));
+        public T sizedIngredient(String propertyName, TagKey<Item> tag, int amount) {
+            this.recipe.add(propertyName, SizedIngredient.NESTED_CODEC.encodeStart(JsonRecipeProvider.this.registryOps, new SizedIngredient(Ingredient.of(JsonRecipeProvider.this.items.getOrThrow(tag)), amount)).getOrThrow());
+            this.condition(new NotCondition(new TagEmptyCondition<>(tag)));
             return this.getThis();
         }
 

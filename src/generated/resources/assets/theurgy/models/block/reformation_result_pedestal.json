@@ -1,6 +1,5 @@
 {
   "parent": "theurgy:block/reformation_result_pedestal_template",
-  "ambientocclusion": false,
   "textures": {
     "particle": "minecraft:block/copper_block",
     "texture": "theurgy:block/reformation_result_pedestal"

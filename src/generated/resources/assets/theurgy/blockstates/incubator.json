@@ -2,7 +2,7 @@
   "multipart": [
     {
       "apply": {
-        "model": "theurgy:block/incubator_lower"
+        "model": "theurgy:block/incubator"
       },
       "when": {
         "half": "lower"
@@ -19,11 +19,35 @@
     {
       "apply": {
         "model": "theurgy:block/incubator_pipe",
-        "uvlock": true
+        "uvlock": true,
+        "y": 0
       },
       "when": {
-        "half": "lower",
-        "north": "true"
+        "AND": [
+          {
+            "north": "true"
+          },
+          {
+            "half": "lower"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "theurgy:block/incubator_pipe",
+        "uvlock": true,
+        "y": 0
+      },
+      "when": {
+        "AND": [
+          {
+            "east": "true"
+          },
+          {
+            "half": "lower"
+          }
+        ]
       }
     },
     {
@@ -33,8 +57,14 @@
         "y": 180
       },
       "when": {
-        "half": "lower",
-        "south": "true"
+        "AND": [
+          {
+            "south": "true"
+          },
+          {
+            "half": "lower"
+          }
+        ]
       }
     },
     {
@@ -44,19 +74,14 @@
         "y": 270
       },
       "when": {
-        "half": "lower",
-        "west": "true"
-      }
-    },
-    {
-      "apply": {
-        "model": "theurgy:block/incubator_pipe",
-        "uvlock": true,
-        "y": 90
-      },
-      "when": {
-        "east": "true",
-        "half": "lower"
+        "AND": [
+          {
+            "west": "true"
+          },
+          {
+            "half": "lower"
+          }
+        ]
       }
     }
   ]

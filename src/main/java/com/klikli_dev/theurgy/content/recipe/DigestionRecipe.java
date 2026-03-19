@@ -179,6 +179,17 @@ public class DigestionRecipe implements Recipe<ItemHandlerWithFluidRecipeInput> 
         return this.time;
     }
 
+    @Override
+    public java.util.List<net.minecraft.world.item.crafting.display.RecipeDisplay> display() {
+        return java.util.List.of(new com.klikli_dev.theurgy.content.recipe.display.DigestionRecipeDisplay(
+                this.fluid,
+                this.sizedIngredients,
+                this.result,
+                this.time,
+                new net.minecraft.world.item.crafting.display.SlotDisplay.ItemSlotDisplay(com.klikli_dev.theurgy.registry.BlockRegistry.DIGESTION_VAT.get().asItem())
+        ));
+    }
+
     public static class Serializer implements RecipeSerializer<DigestionRecipe> {
         @Override
         public @NotNull MapCodec<DigestionRecipe> codec() {

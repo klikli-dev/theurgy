@@ -63,7 +63,7 @@ public class IncubatorSaltVesselBlock extends Block implements EntityBlock {
     @SuppressWarnings("deprecation")
     public RenderShape getRenderShape(BlockState pState) {
         //Why model for the top? because then we get the particle texture from destroying it.
-        return RenderShape.ENTITYBLOCK_ANIMATED;
+        return RenderShape.INVISIBLE;
     }
 
     @Nullable

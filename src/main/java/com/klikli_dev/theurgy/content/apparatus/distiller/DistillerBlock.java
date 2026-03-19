@@ -67,7 +67,7 @@ public class DistillerBlock extends Block implements EntityBlock {
     @SuppressWarnings("deprecation")
     public RenderShape getRenderShape(BlockState pState) {
         //Why model for the top? because then we get the particle texture from destroying it.
-        return pState.getValue(HALF) == DoubleBlockHalf.LOWER ? RenderShape.ENTITYBLOCK_ANIMATED : RenderShape.MODEL;
+        return pState.getValue(HALF) == DoubleBlockHalf.LOWER ? RenderShape.INVISIBLE : RenderShape.MODEL;
     }
 
     @Override

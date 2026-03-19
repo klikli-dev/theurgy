@@ -10,15 +10,13 @@ import com.klikli_dev.theurgy.registry.FluidTagRegistry;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.FluidTagsProvider;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.concurrent.CompletableFuture;
 
 public class TheurgyFluidTagsProvider extends FluidTagsProvider {
 
-    public TheurgyFluidTagsProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, @Nullable ExistingFileHelper existingFileHelper) {
-        super(output, lookupProvider, Theurgy.MODID, existingFileHelper);
+    public TheurgyFluidTagsProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+        super(output, lookupProvider, Theurgy.MODID);
     }
 
     protected void addTags(HolderLookup.Provider pProvider) {

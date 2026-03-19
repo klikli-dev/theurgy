@@ -59,7 +59,7 @@ public class FluidRenderer {
         FluidType fluidAttributes = fluid.getFluidType();
 
         TextureAtlasSprite fluidTexture = Minecraft.getInstance()
-                .getTextureAtlas(InventoryMenu.BLOCK_ATLAS)
+                .getTextureAtlas(net.minecraft.client.renderer.texture.TextureAtlas.LOCATION_BLOCKS)
                 .apply(clientFluid.getStillTexture(fluidStack));
 
         int color = clientFluid.getTintColor(fluidStack);

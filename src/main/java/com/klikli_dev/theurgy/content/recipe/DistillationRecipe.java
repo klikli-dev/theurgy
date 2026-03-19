@@ -117,6 +117,16 @@ public class DistillationRecipe implements Recipe<ItemHandlerRecipeInput> {
         return this.time;
     }
 
+    @Override
+    public java.util.List<net.minecraft.world.item.crafting.display.RecipeDisplay> display() {
+        return java.util.List.of(new com.klikli_dev.theurgy.content.recipe.display.DistillationRecipeDisplay(
+                this.ingredient,
+                this.result,
+                this.time,
+                new net.minecraft.world.item.crafting.display.SlotDisplay.ItemSlotDisplay(com.klikli_dev.theurgy.registry.BlockRegistry.DISTILLER.get().asItem())
+        ));
+    }
+
     public static class Serializer implements RecipeSerializer<DistillationRecipe> {
 
         @Override

@@ -8,20 +8,16 @@ import com.klikli_dev.modonomicon.client.gui.book.entry.BookEntryScreen;
 import com.klikli_dev.modonomicon.client.render.page.BookRecipePageRenderer;
 import com.klikli_dev.theurgy.content.gui.GuiTextures;
 import com.klikli_dev.theurgy.content.recipe.IncubationRecipe;
+import com.klikli_dev.theurgy.content.recipe.display.IncubationRecipeDisplay;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.core.Holder;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.display.RecipeDisplayEntry;
+import net.minecraft.world.item.crafting.display.SlotDisplayContext;
 
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class BookIncubationRecipePageRenderer extends BookRecipePageRenderer<IncubationRecipe, BookIncubationRecipePage> {
-
-    protected Map<ResourceLocation, ItemStack[]> renderableSulfurIngredients = new HashMap<>();
 
     public BookIncubationRecipePageRenderer(BookIncubationRecipePage page) {
         super(page);
@@ -33,23 +29,11 @@ public class BookIncubationRecipePageRenderer extends BookRecipePageRenderer<Inc
     }
 
     @Override
-    public void onBeginDisplayPage(BookEntryScreen parentScreen, int left, int top) {
-        super.onBeginDisplayPage(parentScreen, left, top);
-
-        if (this.page.getRecipe1() != null)
-            this.renderableSulfurIngredients.put(this.page.getRecipe1().id().location(), this.getRenderableSulfurIngredients(this.page.getRecipe1()));
-        if (this.page.getRecipe2() != null)
-            this.renderableSulfurIngredients.put(this.page.getRecipe2().id().location(), this.getRenderableSulfurIngredients(this.page.getRecipe2()));
-    }
-
-    protected ItemStack[] getRenderableSulfurIngredients(RecipeHolder<IncubationRecipe> recipe) {
-        return recipe.value().getSulfur().items().stream().map(h -> new ItemStack(h.value())).toArray(ItemStack[]::new);
-    }
-
-    @Override
-    protected void drawRecipe(GuiGraphics guiGraphics, RecipeHolder<IncubationRecipe> recipeHolder, int recipeX, int recipeY, int mouseX, int mouseY, boolean second) {
+    protected void drawRecipe(GuiGraphics guiGraphics, RecipeDisplayEntry recipeDisplayEntry, int recipeX, int recipeY, int mouseX, int mouseY, boolean second) {
         recipeY += 10;
-        var recipe = recipeHolder.value();
+
+        if (!(recipeDisplayEntry.display() instanceof IncubationRecipeDisplay display))
+            return;
 
         if (!second) {
             if (!this.page.getTitle1().isEmpty()) {
@@ -64,22 +48,24 @@ public class BookIncubationRecipePageRenderer extends BookRecipePageRenderer<Inc
 
 
         GuiTextures.MODONOMICON_SLOT.render(guiGraphics, recipeX, recipeY); //render the mercury input slot
-        this.parentScreen.renderIngredient(guiGraphics, recipeX + 3, recipeY + 3, mouseX, mouseY, recipe.getMercury());
+        this.parentScreen.renderIngredient(guiGraphics, recipeX + 3, recipeY + 3, mouseX, mouseY, display.mercury());
 
         GuiTextures.MODONOMICON_SLOT.render(guiGraphics, recipeX + 24, recipeY); //render the salt input slot
-        this.parentScreen.renderIngredient(guiGraphics, recipeX + 24 + 3, recipeY + 3, mouseX, mouseY, recipe.getSalt());
+        this.parentScreen.renderIngredient(guiGraphics, recipeX + 24 + 3, recipeY + 3, mouseX, mouseY, display.salt());
 
         GuiTextures.MODONOMICON_SLOT.render(guiGraphics, recipeX, recipeY + 24); //render the sulfur input slot
-        var sulfurs = this.renderableSulfurIngredients.get(recipeHolder.id());
+        ItemStack[] sulfurs = display.sulfur().items().map(ItemStack::new).toArray(ItemStack[]::new);
         if (sulfurs != null && sulfurs.length > 0) {
             this.parentScreen.renderItemStacks(guiGraphics, recipeX + 3, recipeY + 24 + 3, mouseX, mouseY, List.of(sulfurs));
         }
 
 
         GuiTextures.MODONOMICON_SLOT.render(guiGraphics, recipeX + 61 + 14, recipeY); //render the output slot
-        this.parentScreen.renderItemStack(guiGraphics, recipeX + 61 + 3 + 14, recipeY + 3, mouseX, mouseY, recipe.getResultItem(this.parentScreen.getMinecraft().level.registryAccess()));
+        this.parentScreen.renderItemStack(guiGraphics, recipeX + 61 + 3 + 14, recipeY + 3, mouseX, mouseY, display.output().getStack());
 
         GuiTextures.MODONOMICON_ARROW_RIGHT.render(guiGraphics, recipeX + 40 + 16, recipeY + 7); //render the arrow
-        this.parentScreen.renderItemStack(guiGraphics, recipeX + 36 + 16, recipeY + 24, mouseX, mouseY, recipe.getToastSymbol());
+        var level = Minecraft.getInstance().level;
+        ItemStack craftingStation = level != null ? display.craftingStation().resolveForFirstStack(SlotDisplayContext.fromLevel(level)) : ItemStack.EMPTY;
+        this.parentScreen.renderItemStack(guiGraphics, recipeX + 36 + 16, recipeY + 24, mouseX, mouseY, craftingStation);
     }
 }

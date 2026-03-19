@@ -43,7 +43,7 @@ public class FermentationRecipeProvider extends JsonRecipeProvider {
         this.makeFermentationStarterRecipeForTag(Tags.Items.CROPS);
         this.makeFermentationStarterRecipeForTag(Tags.Items.SEEDS);
         this.makeFermentationStarterRecipeForTag(ItemTags.SAPLINGS);
-        this.makeFermentationStarterRecipeForTag(ItemTags.FLOWERS);
+        this.makeFermentationStarterRecipeForTag(ItemTags.SMALL_FLOWERS);
         this.makeFermentationStarterRecipeForTag(Tags.Items.EGGS);
         this.makeFermentationStarterRecipeForTag(ItemTags.LOGS);
         this.makeFermentationStarterRecipeForTag(ItemTags.PLANKS);
@@ -53,7 +53,7 @@ public class FermentationRecipeProvider extends JsonRecipeProvider {
         this.makeRecipesForCropTag(Tags.Items.CROPS);
         this.makeRecipesForCropTag(Tags.Items.SEEDS);
         this.makeRecipesForCropTag(ItemTags.SAPLINGS);
-        this.makeRecipesForCropTag(ItemTags.FLOWERS);
+        this.makeRecipesForCropTag(ItemTags.SMALL_FLOWERS);
         this.makeRecipesForCropTag(Tags.Items.EGGS);
         this.makeRecipesForCropTag(ItemTags.LOGS);
         this.makeRecipesForCropTag(ItemTags.PLANKS);
@@ -313,7 +313,7 @@ public class FermentationRecipeProvider extends JsonRecipeProvider {
                 Ingredient.CODEC.encodeStart(FermentationRecipeProvider.this.registryOps, Ingredient.of(FermentationRecipeProvider.this.items.get(tag).orElseThrow())).getOrThrow()
             );
 
-            this.condition(new NotCondition(new TagEmptyCondition(tag.location().toString())));
+            this.condition(new NotCondition(new TagEmptyCondition<>(tag)));
 
             return this.getThis();
         }

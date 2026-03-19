@@ -32,8 +32,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Arrays;
-
 import static mezz.jei.api.recipe.RecipeIngredientRole.INPUT;
 import static mezz.jei.api.recipe.RecipeIngredientRole.OUTPUT;
 
@@ -75,7 +73,7 @@ public class AccumulationCategory implements IRecipeCategory<RecipeHolder<Accumu
     }
 
     protected IDrawableAnimated getAnimatedArrow(RecipeHolder<AccumulationRecipe> recipe) {
-        int cookTime = recipe.value().getTime();
+        int cookTime = recipe.value().time();
         if (cookTime <= 0) {
             cookTime = AccumulationRecipe.DEFAULT_TIME;
         }
@@ -101,7 +99,7 @@ public class AccumulationCategory implements IRecipeCategory<RecipeHolder<Accumu
     }
 
     protected void drawCookTime(RecipeHolder<AccumulationRecipe> recipe, GuiGraphics guiGraphics, int y) {
-        int cookTime = recipe.value().getTime();
+        int cookTime = recipe.value().time();
         if (cookTime > 0) {
             int cookTimeSeconds = cookTime / 20;
             Component timeString = Component.translatable(TheurgyConstants.I18n.Gui.SMELTING_TIME_SECONDS, cookTimeSeconds);
@@ -122,26 +120,26 @@ public class AccumulationCategory implements IRecipeCategory<RecipeHolder<Accumu
         if (recipe.value().hasEvaporant()) {
             builder.addSlot(INPUT, 1, 1)
                     .setBackground(JeiDrawables.INPUT_SLOT, -1, -1)
-                    .addIngredients(NeoForgeTypes.FLUID_STACK, recipe.value().getEvaporant().ingredient().fluids().stream()
+                    .addIngredients(NeoForgeTypes.FLUID_STACK, recipe.value().evaporant().ingredient().fluids().stream()
                             .map(f -> new net.neoforged.neoforge.fluids.FluidStack(f.value(), recipe.value().getEvaporantAmount())).toList())
                     .setFluidRenderer(1000, false, 16, 16)
                     .addTooltipCallback(addFluidTooltip(recipe.value().getEvaporantAmount()));
         }
 
         if (recipe.value().hasSolute()) {
-            assert recipe.value().getSolute() != null;
+            assert recipe.value().solute() != null;
             builder.addSlot(INPUT, 1, 21)
                     .setBackground(JeiDrawables.INPUT_SLOT, -1, -1)
-                    .addIngredients(recipe.value().getSolute());
+                    .addIngredients(recipe.value().solute());
         }
 
         builder.addSlot(OUTPUT, 56, 1)
                 .setBackground(JeiDrawables.INPUT_SLOT, -1, -1)
-                .addFluidStack(recipe.value().getResult().getFluid(), recipe.value().getResult().getAmount())
-                .addTooltipCallback(addFluidTooltip(recipe.value().getResult().getAmount()));
+                .addFluidStack(recipe.value().result().getFluid(), recipe.value().result().getAmount())
+                .addTooltipCallback(addFluidTooltip(recipe.value().result().getAmount()));
 
         //now add the bucket to the recipe lookup for the output fluid
-        builder.addInvisibleIngredients(OUTPUT).addItemStack(new ItemStack(recipe.value().getResult().getFluid().getBucket()));
+        builder.addInvisibleIngredients(OUTPUT).addItemStack(new ItemStack(recipe.value().result().getFluid().getBucket()));
     }
 
     @Override

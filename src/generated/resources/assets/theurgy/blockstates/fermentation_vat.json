@@ -1,64 +1,180 @@
 {
-  "variants": {
-    "facing=east,has_output=false,open=false": {
-      "model": "theurgy:block/fermentation_vat",
-      "y": 90
+  "multipart": [
+    {
+      "apply": {
+        "model": "theurgy:block/fermentation_vat",
+        "y": 180
+      },
+      "when": {
+        "facing": "north",
+        "has_output": "false",
+        "open": "false"
+      }
     },
-    "facing=east,has_output=false,open=true": {
-      "model": "theurgy:block/fermentation_vat_open",
-      "y": 90
+    {
+      "apply": {
+        "model": "theurgy:block/fermentation_vat_active",
+        "y": 180
+      },
+      "when": {
+        "facing": "north",
+        "has_output": "true",
+        "open": "false"
+      }
     },
-    "facing=east,has_output=true,open=false": {
-      "model": "theurgy:block/fermentation_vat_active",
-      "y": 90
+    {
+      "apply": {
+        "model": "theurgy:block/fermentation_vat_open",
+        "y": 180
+      },
+      "when": {
+        "facing": "north",
+        "has_output": "false",
+        "open": "true"
+      }
     },
-    "facing=east,has_output=true,open=true": {
-      "model": "theurgy:block/fermentation_vat_open_active",
-      "y": 90
+    {
+      "apply": {
+        "model": "theurgy:block/fermentation_vat_open_active",
+        "y": 180
+      },
+      "when": {
+        "facing": "north",
+        "has_output": "true",
+        "open": "true"
+      }
     },
-    "facing=north,has_output=false,open=false": {
-      "model": "theurgy:block/fermentation_vat"
+    {
+      "apply": {
+        "model": "theurgy:block/fermentation_vat",
+        "y": 270
+      },
+      "when": {
+        "facing": "east",
+        "has_output": "false",
+        "open": "false"
+      }
     },
-    "facing=north,has_output=false,open=true": {
-      "model": "theurgy:block/fermentation_vat_open"
+    {
+      "apply": {
+        "model": "theurgy:block/fermentation_vat_active",
+        "y": 270
+      },
+      "when": {
+        "facing": "east",
+        "has_output": "true",
+        "open": "false"
+      }
     },
-    "facing=north,has_output=true,open=false": {
-      "model": "theurgy:block/fermentation_vat_active"
+    {
+      "apply": {
+        "model": "theurgy:block/fermentation_vat_open",
+        "y": 270
+      },
+      "when": {
+        "facing": "east",
+        "has_output": "false",
+        "open": "true"
+      }
     },
-    "facing=north,has_output=true,open=true": {
-      "model": "theurgy:block/fermentation_vat_open_active"
+    {
+      "apply": {
+        "model": "theurgy:block/fermentation_vat_open_active",
+        "y": 270
+      },
+      "when": {
+        "facing": "east",
+        "has_output": "true",
+        "open": "true"
+      }
     },
-    "facing=south,has_output=false,open=false": {
-      "model": "theurgy:block/fermentation_vat",
-      "y": 180
+    {
+      "apply": {
+        "model": "theurgy:block/fermentation_vat",
+        "y": 0
+      },
+      "when": {
+        "facing": "south",
+        "has_output": "false",
+        "open": "false"
+      }
     },
-    "facing=south,has_output=false,open=true": {
-      "model": "theurgy:block/fermentation_vat_open",
-      "y": 180
+    {
+      "apply": {
+        "model": "theurgy:block/fermentation_vat_active",
+        "y": 0
+      },
+      "when": {
+        "facing": "south",
+        "has_output": "true",
+        "open": "false"
+      }
     },
-    "facing=south,has_output=true,open=false": {
-      "model": "theurgy:block/fermentation_vat_active",
-      "y": 180
+    {
+      "apply": {
+        "model": "theurgy:block/fermentation_vat_open",
+        "y": 0
+      },
+      "when": {
+        "facing": "south",
+        "has_output": "false",
+        "open": "true"
+      }
     },
-    "facing=south,has_output=true,open=true": {
-      "model": "theurgy:block/fermentation_vat_open_active",
-      "y": 180
+    {
+      "apply": {
+        "model": "theurgy:block/fermentation_vat_open_active",
+        "y": 0
+      },
+      "when": {
+        "facing": "south",
+        "has_output": "true",
+        "open": "true"
+      }
     },
-    "facing=west,has_output=false,open=false": {
-      "model": "theurgy:block/fermentation_vat",
-      "y": 270
+    {
+      "apply": {
+        "model": "theurgy:block/fermentation_vat",
+        "y": 90
+      },
+      "when": {
+        "facing": "west",
+        "has_output": "false",
+        "open": "false"
+      }
     },
-    "facing=west,has_output=false,open=true": {
-      "model": "theurgy:block/fermentation_vat_open",
-      "y": 270
+    {
+      "apply": {
+        "model": "theurgy:block/fermentation_vat_active",
+        "y": 90
+      },
+      "when": {
+        "facing": "west",
+        "has_output": "true",
+        "open": "false"
+      }
     },
-    "facing=west,has_output=true,open=false": {
-      "model": "theurgy:block/fermentation_vat_active",
-      "y": 270
+    {
+      "apply": {
+        "model": "theurgy:block/fermentation_vat_open",
+        "y": 90
+      },
+      "when": {
+        "facing": "west",
+        "has_output": "false",
+        "open": "true"
+      }
     },
-    "facing=west,has_output=true,open=true": {
-      "model": "theurgy:block/fermentation_vat_open_active",
-      "y": 270
+    {
+      "apply": {
+        "model": "theurgy:block/fermentation_vat_open_active",
+        "y": 90
+      },
+      "when": {
+        "facing": "west",
+        "has_output": "true",
+        "open": "true"
+      }
     }
-  }
+  ]
 }

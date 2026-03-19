@@ -5,6 +5,8 @@
 
 package com.klikli_dev.theurgy.content.behaviour.filter.attribute;
 
+import net.minecraft.core.registries.BuiltInRegistries;
+
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
@@ -27,14 +29,12 @@ public class AddedByAttribute implements ItemAttribute {
 
     @Override
     public boolean appliesTo(ItemStack stack) {
-        return this.modId.equals(stack.getItem()
-                .getCreatorModId(stack));
+        return this.modId.equals(BuiltInRegistries.ITEM.getKey(stack.getItem()).getNamespace());
     }
 
     @Override
     public List<ItemAttribute> listAttributesOf(ItemStack stack) {
-        String id = stack.getItem()
-                .getCreatorModId(stack);
+        String id = BuiltInRegistries.ITEM.getKey(stack.getItem()).getNamespace();
         return id == null ? Collections.emptyList() : List.of(new AddedByAttribute(id));
     }
 

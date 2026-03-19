@@ -11,6 +11,7 @@ import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import net.minecraft.Util;
 import net.minecraft.client.renderer.RenderStateShard;
+import net.minecraft.client.renderer.CoreShaders;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.ShaderProgram;
 import net.minecraft.client.renderer.texture.TextureAtlas;
@@ -21,6 +22,41 @@ import java.util.OptionalDouble;
 import java.util.function.Function;
 
 public class RenderTypes extends RenderStateShard {
+
+    public static final RenderType EMBER = RenderType.create(
+            Theurgy.loc("ember").toString(),
+            DefaultVertexFormat.PARTICLE,
+            VertexFormat.Mode.QUADS,
+            256,
+            false,
+            false,
+            RenderType.CompositeState.builder()
+                    .setShaderState(new RenderStateShard.ShaderStateShard(CoreShaders.PARTICLE))
+                    .setTextureState(new RenderStateShard.TextureStateShard(TextureAtlas.LOCATION_PARTICLES, TriState.FALSE, false))
+                    .setTransparencyState(TRANSLUCENT_TRANSPARENCY)
+                    .setCullState(CULL)
+                    .setLightmapState(LIGHTMAP)
+                    .setWriteMaskState(COLOR_WRITE)
+                    .createCompositeState(false)
+    );
+
+    public static final RenderType EMBER_NO_MASK = RenderType.create(
+            Theurgy.loc("ember_no_mask").toString(),
+            DefaultVertexFormat.PARTICLE,
+            VertexFormat.Mode.QUADS,
+            256,
+            false,
+            false,
+            RenderType.CompositeState.builder()
+                    .setShaderState(new RenderStateShard.ShaderStateShard(CoreShaders.PARTICLE))
+                    .setTextureState(new RenderStateShard.TextureStateShard(TextureAtlas.LOCATION_PARTICLES, TriState.FALSE, false))
+                    .setTransparencyState(TRANSLUCENT_TRANSPARENCY)
+                    .setCullState(CULL)
+                    .setDepthTestState(NO_DEPTH_TEST)
+                    .setLightmapState(LIGHTMAP)
+                    .setWriteMaskState(COLOR_WRITE)
+                    .createCompositeState(false)
+    );
 
     //public static ShaderProgram rendertypeDistanceLines;
     //protected static final ShaderStateShard RENDERTYPE_DISTANCE_LINES_SHADER = new ShaderStateShard(() -> rendertypeDistanceLines);
@@ -67,7 +103,7 @@ public class RenderTypes extends RenderStateShard {
         return TRANSLUCENT_CULL_NO_DEPTH_BLOCK_SHEET;
     }
 
-    protected static final TransparencyStateShard SRC_MINUS_ONE_TRANSPARENCY = new TransparencyStateShard(Theurgy.loc("src_minus_one").toString(),
+    public static final TransparencyStateShard SRC_MINUS_ONE_TRANSPARENCY = new TransparencyStateShard(Theurgy.loc("src_minus_one").toString(),
             () -> {
                 RenderSystem.enableDepthTest();
                 RenderSystem.depthMask(false);
@@ -100,7 +136,7 @@ public class RenderTypes extends RenderStateShard {
         var rendertype = RenderType.CompositeState.builder()
                 .setShaderState(RENDERTYPE_ENTITY_TRANSLUCENT_SHADER)
                 .setTextureState(new TextureStateShard(location, TriState.FALSE, false))
-                .setTransparencyState(SRC_MINUS_ONE_TRANSPARENCY)
+                .setTransparencyState(TRANSLUCENT_TRANSPARENCY)
                 .setCullState(NO_CULL)
                 .setLightmapState(LIGHTMAP)
                 .setOverlayState(OVERLAY)

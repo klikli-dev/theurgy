@@ -453,7 +453,7 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
                 if(result.has(DataComponentRegistry.SOURCE_TAG)){
                     var sourceTag = result.get(DataComponentRegistry.SOURCE_TAG);
                     //noinspection DataFlowIssue
-                    this.condition(new NotCondition(new TagEmptyCondition(sourceTag)));
+                    this.condition(new NotCondition(new TagEmptyCondition<>(sourceTag)));
                 }
             }
 
@@ -466,7 +466,7 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
                 if(stack.has(DataComponentRegistry.SOURCE_TAG)){
                     var sourceTag = stack.get(DataComponentRegistry.SOURCE_TAG);
                     //noinspection DataFlowIssue
-                    this.condition(new NotCondition(new TagEmptyCondition(sourceTag)));
+                    this.condition(new NotCondition(new TagEmptyCondition<>(sourceTag)));
                 }
             }
 
@@ -494,7 +494,7 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
                 if(stack.has(DataComponentRegistry.SOURCE_TAG)){
                     var sourceTag = stack.get(DataComponentRegistry.SOURCE_TAG);
                     //noinspection DataFlowIssue
-                    this.condition(new NotCondition(new TagEmptyCondition(sourceTag)));
+                    this.condition(new NotCondition(new TagEmptyCondition<>(sourceTag)));
                 }
             }
 
@@ -510,7 +510,7 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
             this.recipe.getAsJsonArray("sources").add(
 SizedIngredient.NESTED_CODEC.encodeStart(ReformationRecipeProvider.this.registryOps, new SizedIngredient(Ingredient.of(ReformationRecipeProvider.this.items.get(tag).orElseThrow()), count)).getOrThrow());
 
-            this.condition(new NotCondition(new TagEmptyCondition(tag.location().toString())));
+            this.condition(new NotCondition(new TagEmptyCondition<>(tag)));
 
             return this.getThis();
         }

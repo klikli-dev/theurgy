@@ -1,0 +1,27 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "minecraft:small_flowers"
+      }
+    }
+  ],
+  "type": "theurgy:fermentation",
+  "category": "misc",
+  "fluid": {
+    "amount": 500,
+    "ingredient": "minecraft:water"
+  },
+  "ingredients": [
+    "theurgy:alchemical_sulfur_ghast_tear",
+    "#minecraft:small_flowers"
+  ],
+  "result": {
+    "type": "theurgy:item",
+    "count": 2,
+    "id": "theurgy:alchemical_niter_mobs_rare"
+  },
+  "time": 200
+}

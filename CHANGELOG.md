@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21.3-1.70.0] - 2026-01-15
+### :sparkles: New Features
+- [`4127ff5`](https://github.com/klikli-dev/theurgy/commit/4127ff5a26068871620229b24545db0250b9d273) - update to 1.21.3 *(PR [#268](https://github.com/klikli-dev/theurgy/pull/268) by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21.1-1.68.0] - 2025-11-08
 ### :sparkles: New Features
 - [`8a6b51b`](https://github.com/klikli-dev/theurgy/commit/8a6b51b18322eca696159ff0ca62350d6259edb6) - zh_cn lang update *(PR [#266](https://github.com/klikli-dev/theurgy/pull/266) by [@ChuijkYahus](https://github.com/ChuijkYahus))*
@@ -1287,3 +1292,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21.1-1.66.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.65.0...release/v1.21.1-1.66.0
 [release/v1.21.1-1.67.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.66.0...release/v1.21.1-1.67.0
 [release/v1.21.1-1.68.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.67.0...release/v1.21.1-1.68.0
+[release/v1.21.3-1.70.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.3-0.0.0...release/v1.21.3-1.70.0

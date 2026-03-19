@@ -1,0 +1,75 @@
+{
+  "model": {
+    "type": "minecraft:range_dispatch",
+    "entries": [
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "theurgy:item/divination_rod_t2/7"
+        },
+        "threshold": 0.0
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "theurgy:item/divination_rod_t2/6"
+        },
+        "threshold": 1.0
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "theurgy:item/divination_rod_t2/5"
+        },
+        "threshold": 2.0
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "theurgy:item/divination_rod_t2/4"
+        },
+        "threshold": 3.0
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "theurgy:item/divination_rod_t2/3"
+        },
+        "threshold": 4.0
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "theurgy:item/divination_rod_t2/2"
+        },
+        "threshold": 5.0
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "theurgy:item/divination_rod_t2/1"
+        },
+        "threshold": 6.0
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "theurgy:item/divination_rod_t2/0"
+        },
+        "threshold": 7.0
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "theurgy:item/divination_rod_t2/searching"
+        },
+        "threshold": 8.0
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "theurgy:item/divination_rod_t2/7"
+    },
+    "property": "theurgy:divination_distance"
+  }
+}

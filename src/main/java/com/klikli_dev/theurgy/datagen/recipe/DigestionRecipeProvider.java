@@ -155,7 +155,7 @@ public class DigestionRecipeProvider extends JsonRecipeProvider {
             this.recipe.getAsJsonArray("ingredients").add(
                     SizedIngredient.NESTED_CODEC.encodeStart(DigestionRecipeProvider.this.registryOps, new SizedIngredient(Ingredient.of(DigestionRecipeProvider.this.items.get(tag).orElseThrow()), count)).getOrThrow());
 
-            this.condition(new NotCondition(new TagEmptyCondition(tag.location().toString())));
+            this.condition(new NotCondition(new TagEmptyCondition<>(tag)));
 
             return this.getThis();
         }

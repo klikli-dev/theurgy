@@ -1,0 +1,34 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "minecraft:small_flowers"
+      }
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:sugars"
+      }
+    }
+  ],
+  "type": "theurgy:fermentation",
+  "category": "misc",
+  "fluid": {
+    "amount": 100,
+    "ingredient": "theurgy:sal_ammoniac"
+  },
+  "ingredients": [
+    "#minecraft:small_flowers",
+    "#c:sugars"
+  ],
+  "result": {
+    "type": "theurgy:item",
+    "count": 20,
+    "id": "theurgy:fermentation_starter"
+  },
+  "time": 200
+}

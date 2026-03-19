@@ -8,8 +8,12 @@ import com.klikli_dev.modonomicon.client.gui.book.entry.BookEntryScreen;
 import com.klikli_dev.modonomicon.client.render.page.BookRecipePageRenderer;
 import com.klikli_dev.theurgy.content.gui.GuiTextures;
 import com.klikli_dev.theurgy.content.recipe.DistillationRecipe;
+import com.klikli_dev.theurgy.content.recipe.display.DistillationRecipeDisplay;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.display.RecipeDisplayEntry;
+import net.minecraft.world.item.crafting.display.SlotDisplayContext;
 
 public class BookDistillationRecipePageRenderer extends BookRecipePageRenderer<DistillationRecipe, BookDistillationRecipePage> {
     public BookDistillationRecipePageRenderer(BookDistillationRecipePage page) {
@@ -22,9 +26,11 @@ public class BookDistillationRecipePageRenderer extends BookRecipePageRenderer<D
     }
 
     @Override
-    protected void drawRecipe(GuiGraphics guiGraphics, RecipeHolder<DistillationRecipe> recipeHolder, int recipeX, int recipeY, int mouseX, int mouseY, boolean second) {
+    protected void drawRecipe(GuiGraphics guiGraphics, RecipeDisplayEntry recipeDisplayEntry, int recipeX, int recipeY, int mouseX, int mouseY, boolean second) {
         recipeY += 10;
-        var recipe = recipeHolder.value();
+
+        if (!(recipeDisplayEntry.display() instanceof DistillationRecipeDisplay display))
+            return;
 
         if (!second) {
             if (!this.page.getTitle1().isEmpty()) {
@@ -38,12 +44,14 @@ public class BookDistillationRecipePageRenderer extends BookRecipePageRenderer<D
         }
 
         GuiTextures.MODONOMICON_SLOT.render(guiGraphics, recipeX, recipeY); //render the input slot
-        this.parentScreen.renderIngredient(guiGraphics, recipeX + 3, recipeY + 3, mouseX, mouseY, recipe.getIngredients().get(0), recipe.getIngredientCount());
+        this.parentScreen.renderIngredient(guiGraphics, recipeX + 3, recipeY + 3, mouseX, mouseY, display.ingredient().ingredient(), display.ingredient().count());
 
         GuiTextures.MODONOMICON_SLOT.render(guiGraphics, recipeX + 61, recipeY); //render the output slot
-        this.parentScreen.renderItemStack(guiGraphics, recipeX + 61 + 3, recipeY + 3, mouseX, mouseY, recipe.getResultItem(this.parentScreen.getMinecraft().level.registryAccess()));
+        this.parentScreen.renderItemStack(guiGraphics, recipeX + 61 + 3, recipeY + 3, mouseX, mouseY, display.output());
 
         GuiTextures.MODONOMICON_ARROW_RIGHT.render(guiGraphics, recipeX + 40, recipeY + 7); //render the arrow
-        this.parentScreen.renderItemStack(guiGraphics, recipeX + 36, recipeY + 20, mouseX, mouseY, recipe.getToastSymbol());
+        var level = Minecraft.getInstance().level;
+        ItemStack craftingStation = level != null ? display.craftingStation().resolveForFirstStack(SlotDisplayContext.fromLevel(level)) : ItemStack.EMPTY;
+        this.parentScreen.renderItemStack(guiGraphics, recipeX + 36, recipeY + 20, mouseX, mouseY, craftingStation);
     }
 }

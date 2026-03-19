@@ -17,7 +17,7 @@ import com.klikli_dev.theurgy.util.LevelUtil;
 import com.klikli_dev.theurgy.util.TagUtil;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.renderer.item.ItemPropertyFunction;
+//import net.minecraft.client.renderer.item.ItemPropertyFunction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.core.Holder;
@@ -493,10 +493,13 @@ public class DivinationRodItem extends Item {
      */
     public static class DistHelper {
         @SuppressWarnings("deprecation")
+        /*
         public static ItemPropertyFunction DIVINATION_DISTANCE = (stack, world, entity, i) -> {
             if (stack.getOrDefault(DataComponentRegistry.DIVINATION_DISTANCE, -1.0f) < 0)
                 return NOT_FOUND;
             return stack.get(DataComponentRegistry.DIVINATION_DISTANCE);
         };
+        */
+        public static void todo() {} // Placeholder
     }
 }

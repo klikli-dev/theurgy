@@ -133,6 +133,17 @@ public class LiquefactionRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
         return this.ingredient;
     }
 
+    @Override
+    public java.util.List<net.minecraft.world.item.crafting.display.RecipeDisplay> display() {
+        return java.util.List.of(new com.klikli_dev.theurgy.content.recipe.display.LiquefactionRecipeDisplay(
+                this.ingredient,
+                this.solvent,
+                this.result,
+                this.time,
+                new net.minecraft.world.item.crafting.display.SlotDisplay.ItemSlotDisplay(com.klikli_dev.theurgy.registry.BlockRegistry.LIQUEFACTION_CAULDRON.get().asItem())
+        ));
+    }
+
     public static class Serializer implements RecipeSerializer<LiquefactionRecipe> {
 
         @Override

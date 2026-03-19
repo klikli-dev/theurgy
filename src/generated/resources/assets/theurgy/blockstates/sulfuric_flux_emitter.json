@@ -2,28 +2,25 @@
   "variants": {
     "facing=down": {
       "model": "theurgy:block/sulfuric_flux_emitter",
-      "x": 180
+      "x": 90
     },
     "facing=east": {
       "model": "theurgy:block/sulfuric_flux_emitter",
-      "x": 90,
       "y": 90
     },
     "facing=north": {
-      "model": "theurgy:block/sulfuric_flux_emitter",
-      "x": 90
+      "model": "theurgy:block/sulfuric_flux_emitter"
     },
     "facing=south": {
       "model": "theurgy:block/sulfuric_flux_emitter",
-      "x": 90,
       "y": 180
     },
     "facing=up": {
-      "model": "theurgy:block/sulfuric_flux_emitter"
+      "model": "theurgy:block/sulfuric_flux_emitter",
+      "x": 270
     },
     "facing=west": {
       "model": "theurgy:block/sulfuric_flux_emitter",
-      "x": 90,
       "y": 270
     }
   }

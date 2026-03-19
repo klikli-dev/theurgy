@@ -371,7 +371,7 @@ public class TheurgyBlockModelSubProvider {
                 .create(block, new TextureMapping()
                         .put(TEXTURE, this.loc(texturePath))
                         .put(TextureSlot.PARTICLE, this.mcLoc("block/copper_block")), blockModels.modelOutput);
-        var hasFilter = block instanceof LogisticsFluidConnectorBlock ? LogisticsFluidConnectorBlock.HAS_FILTER : LogisticsItemConnectorBlock.HAS_FILTER;
+        var hasFilter = LogisticsItemConnectorBlock.HAS_FILTER;
 
         MultiPartGenerator generator = MultiPartGenerator.multiPart(block);
 

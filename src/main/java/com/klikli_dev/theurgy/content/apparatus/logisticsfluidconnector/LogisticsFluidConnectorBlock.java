@@ -5,6 +5,7 @@
 package com.klikli_dev.theurgy.content.apparatus.logisticsfluidconnector;
 
 import com.klikli_dev.theurgy.content.apparatus.DirectionalBlockShape;
+import com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector.LogisticsItemConnectorBlock;
 import com.klikli_dev.theurgy.content.behaviour.filter.HasFilterBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.logistics.HasWireEndPoint;
 import com.klikli_dev.theurgy.logistics.Wires;
@@ -37,7 +38,7 @@ import org.jetbrains.annotations.NotNull;
 
 public abstract class LogisticsFluidConnectorBlock extends DirectionalBlock implements EntityBlock, HasWireEndPoint {
 
-    public static final BooleanProperty HAS_FILTER = BooleanProperty.create("has_filter");
+    public static final BooleanProperty HAS_FILTER = LogisticsItemConnectorBlock.HAS_FILTER;
 
     public static final DirectionalBlockShape SHAPE = new DirectionalBlockShape(2, 2, 8);
 

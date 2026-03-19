@@ -22,6 +22,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -29,6 +30,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Consumer;
 
 public class WireItem extends Item {
 
@@ -92,12 +94,12 @@ public class WireItem extends Item {
     }
 
     @Override
-    public void appendHoverText(@NotNull ItemStack stack, @NotNull TooltipContext context, @NotNull List<Component> tooltipComponents, @NotNull TooltipFlag tooltipFlag) {
-        super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
+    public void appendHoverText(@NotNull ItemStack stack, @NotNull TooltipContext context, @NotNull TooltipDisplay tooltipDisplay, @NotNull Consumer<Component> tooltipAdder, @NotNull TooltipFlag tooltipFlag) {
+        super.appendHoverText(stack, context, tooltipDisplay, tooltipAdder, tooltipFlag);
 
         var wirePoint = WireEndPoint.load(stack);
         if (wirePoint != null) {
-            tooltipComponents.add(Component.translatable(
+            tooltipAdder.accept(Component.translatable(
                     stack.getItem().getDescriptionId() + TheurgyConstants.I18n.Tooltip.DYNMIC_SUFFIX,
                     Component.literal("[" + wirePoint.pos().toShortString() + "]").withStyle(ChatFormatting.GREEN)
             ).withStyle(ChatFormatting.GRAY));

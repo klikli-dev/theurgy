@@ -8,10 +8,7 @@ import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.content.item.niter.AlchemicalNiterItem;
 import com.klikli_dev.theurgy.content.item.renderer.DivinationDistanceProperty;
 import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurItem;
-import com.klikli_dev.theurgy.registry.ItemRegistry;
-import com.klikli_dev.theurgy.registry.NiterRegistry;
-import com.klikli_dev.theurgy.registry.SaltRegistry;
-import com.klikli_dev.theurgy.registry.SulfurRegistry;
+import com.klikli_dev.theurgy.registry.*;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.model.ItemModelUtils;
 import net.minecraft.client.data.models.model.ModelLocationUtils;
@@ -22,7 +19,10 @@ import net.minecraft.client.renderer.item.RangeSelectItemModel;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
+import net.neoforged.neoforge.client.model.item.DynamicFluidContainerModel;
 import net.neoforged.neoforge.registries.DeferredHolder;
+
+import java.util.Optional;
 
 public class TheurgyItemModelSubProvider {
 
@@ -51,7 +51,8 @@ public class TheurgyItemModelSubProvider {
 
     private void registerItemGenerated(ItemModelGenerators itemModels, Item item, String texture) {
         //Generate model with custom texture
-        ModelTemplates.FLAT_ITEM.create(ModelLocationUtils.getModelLocation(item), TextureMapping.layer0(Theurgy.loc("item/" + texture)), itemModels.modelOutput);
+        itemModels.itemModelOutput.accept(item, ItemModelUtils.plainModel( ModelTemplates.FLAT_ITEM.create(ModelLocationUtils.getModelLocation(item), TextureMapping.layer0(Theurgy.loc("item/" + texture)), itemModels.modelOutput)));
+
     }
 
     private void registerItemHandheld(ItemModelGenerators itemModels, Item item) {
@@ -137,6 +138,50 @@ public class TheurgyItemModelSubProvider {
         });
     }
 
+    protected void registerSalAmmoniacBucket(ItemModelGenerators itemModels){
+        itemModels.itemModelOutput.accept(
+                ItemRegistry.SAL_AMMONIAC_BUCKET.get(),
+                new DynamicFluidContainerModel.Unbaked(
+                        // The textures used to construct the container
+                        // These are in reference to the block atlas, so they are relative to the `textures` directory
+                        new DynamicFluidContainerModel.Textures(
+                                // Sets the model particle sprite
+                                // If not set, uses the first texture that is not null:
+                                // - Fluid still texture
+                                // - Container base texture
+                                // - Container cover texture, if not used as a mask
+                                // Points to 'assets/minecraft/textures/item/bucket.png'
+                                Optional.of(ResourceLocation.withDefaultNamespace("item/bucket")),
+                                // Sets the texture to use on the first layer, generally the container of the fluid
+                                // If not set, the layer will not be added
+                                // Points to 'assets/minecraft/textures/item/bucket.png'
+                                Optional.of(ResourceLocation.withDefaultNamespace("item/bucket")),
+                                // Sets the texture to use as the mask for the still fluid texture
+                                // Areas where the fluid is seen should be pure white
+                                // If not set or the fluid is empty, then the layer is not rendered
+                                // Points to 'assets/neoforge/textures/item/mask/bucket_fluid.png'
+                                Optional.of(ResourceLocation.fromNamespaceAndPath("neoforge", "item/mask/bucket_fluid")),
+                                // Sets the texture to use as either
+                                // - The overlay texture when 'cover_is_mask' is false
+                                // - The mask to apply to the base texture (should be pure white to see) when 'cover_is_mask' is true
+                                // If not set or no base texture is set when 'cover_is_mask' is true, then the layer is not rendered
+                                // Points to 'assets/neoforge/textures/item/mask/bucket_fluid_cover.png'
+                                Optional.of(ResourceLocation.fromNamespaceAndPath("neoforge", "item/mask/bucket_fluid_cover"))
+                        ),
+                        FluidRegistry.SAL_AMMONIAC.get(),
+                        // When true, rotates the model 180 degrees
+                        // Defaults to false
+                        false,
+                        // When true, uses the cover texture as a mask for the base texture
+                        // Defaults to true
+                        true,
+                        // When true, sets the lightmap of the fluid texture layer to its max value
+                        // Defaults to true
+                        true
+                )
+        );
+    }
+
     public void registerModels(ItemModelGenerators itemModels) {
         this.registerItemGenerated(itemModels, ItemRegistry.THE_HERMETICA_ICON.get(), "the_hermetica");
         this.registerItemGenerated(itemModels, ItemRegistry.EMPTY_JAR_ICON.get(), "empty_jar");
@@ -176,6 +221,8 @@ public class TheurgyItemModelSubProvider {
         this.registerItemHandheld(itemModels, ItemRegistry.MERCURIAL_WAND.get());
         this.registerItemGenerated(itemModels, ItemRegistry.LIST_FILTER.get());
         this.registerItemGenerated(itemModels, ItemRegistry.ATTRIBUTE_FILTER.get());
+
+        this.registerSalAmmoniacBucket(itemModels);
     }
 }
 

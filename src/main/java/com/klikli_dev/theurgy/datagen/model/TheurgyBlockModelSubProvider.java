@@ -12,25 +12,22 @@ import com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector.Logistics
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
-import net.minecraft.client.data.models.ModelProvider;
 import net.minecraft.client.data.models.blockstates.*;
 import net.minecraft.client.data.models.model.ModelTemplate;
 import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.client.data.models.model.TextureMapping;
 import net.minecraft.client.data.models.model.TextureSlot;
 import net.minecraft.core.Direction;
-import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.PipeBlock;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.Optional;
 
-public class TheurgyBlockModelProvider extends ModelProvider {
+public class TheurgyBlockModelSubProvider {
 
     public static final TextureSlot TEXTURE = TextureSlot.create("texture");
     public static final TextureSlot EMITTER = TextureSlot.create("emitter");
@@ -39,17 +36,7 @@ public class TheurgyBlockModelProvider extends ModelProvider {
     public static final TextureSlot BASE = TextureSlot.create("base");
     public static final TextureSlot FIRE = TextureSlot.create("fire");
 
-    public TheurgyBlockModelProvider(PackOutput packOutput) {
-        super(packOutput, Theurgy.MODID);
-    }
-
-    @Override
-    public @NotNull String getName() {
-        return "Block Model Definitions - " + this.modId;
-    }
-
-    @Override
-    protected void registerModels(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
+    public void registerModels(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
         this.registerCalcinationOven(blockModels, itemModels);
         this.registerPyromanticBrazier(blockModels, itemModels);
         this.registerLiquefactionCauldron(blockModels, itemModels);
@@ -458,3 +445,4 @@ public class TheurgyBlockModelProvider extends ModelProvider {
         new ModelTemplate(Optional.of(model), Optional.empty()).create(BlockRegistry.LOGISTICS_CONNECTION_NODE.get().asItem(), new TextureMapping(), itemModels.modelOutput);
     }
 }
+

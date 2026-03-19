@@ -12,9 +12,7 @@ import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.registry.NiterRegistry;
 import com.klikli_dev.theurgy.registry.SaltRegistry;
 import com.klikli_dev.theurgy.registry.SulfurRegistry;
-import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
-import net.minecraft.client.data.models.ModelProvider;
 import net.minecraft.client.data.models.model.ItemModelUtils;
 import net.minecraft.client.data.models.model.ModelLocationUtils;
 import net.minecraft.client.data.models.model.ModelTemplates;
@@ -22,21 +20,11 @@ import net.minecraft.client.data.models.model.TextureMapping;
 import net.minecraft.client.renderer.item.ItemModel;
 import net.minecraft.client.renderer.item.RangeSelectItemModel;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.neoforged.neoforge.registries.DeferredHolder;
-import org.jetbrains.annotations.NotNull;
 
-public class TheurgyItemModelProvider extends ModelProvider {
-    public TheurgyItemModelProvider(PackOutput packOutput) {
-        super(packOutput, Theurgy.MODID);
-    }
-
-    @Override
-    public @NotNull String getName() {
-        return "Item Model Definitions - " + this.modId;
-    }
+public class TheurgyItemModelSubProvider {
 
     protected String name(Item item) {
         return BuiltInRegistries.ITEM.getKey(item).getPath();
@@ -149,8 +137,7 @@ public class TheurgyItemModelProvider extends ModelProvider {
         });
     }
 
-    @Override
-    protected void registerModels(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
+    public void registerModels(ItemModelGenerators itemModels) {
         this.registerItemGenerated(itemModels, ItemRegistry.THE_HERMETICA_ICON.get(), "the_hermetica");
         this.registerItemGenerated(itemModels, ItemRegistry.EMPTY_JAR_ICON.get(), "empty_jar");
         this.registerItemGenerated(itemModels, ItemRegistry.EMPTY_JAR_IRON_BAND_ICON.get(), "empty_jar_iron_band");
@@ -191,3 +178,4 @@ public class TheurgyItemModelProvider extends ModelProvider {
         this.registerItemGenerated(itemModels, ItemRegistry.ATTRIBUTE_FILTER.get());
     }
 }
+

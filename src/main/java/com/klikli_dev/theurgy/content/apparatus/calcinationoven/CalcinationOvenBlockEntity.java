@@ -24,8 +24,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoBlockEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.AnimatableManager;
-import software.bernie.geckolib.animation.AnimationController;
+import software.bernie.geckolib.animatable.manager.AnimatableManager;
+import software.bernie.geckolib.animatable.processing.AnimationController;
 
 
 public class CalcinationOvenBlockEntity extends BlockEntity implements GeoBlockEntity, HasCraftingBehaviour<ItemHandlerRecipeInput, CalcinationRecipe, CalcinationCachedCheck> {
@@ -36,7 +36,7 @@ public class CalcinationOvenBlockEntity extends BlockEntity implements GeoBlockE
 
     protected CalcinationCraftingBehaviour craftingBehaviour;
     protected HeatConsumerBehaviour heatConsumerBehaviour;
-    protected AnimationBehaviour<?> animationBehaviour;
+    protected AnimationBehaviour<CalcinationOvenBlockEntity> animationBehaviour;
 
 
     public CalcinationOvenBlockEntity(BlockPos pPos, BlockState pBlockState) {
@@ -117,7 +117,7 @@ public class CalcinationOvenBlockEntity extends BlockEntity implements GeoBlockE
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-        controllerRegistrar.add(new AnimationController<GeoBlockEntity>(this, "controller", 10, this.animationBehaviour::animationHandler));
+        controllerRegistrar.add(new AnimationController<CalcinationOvenBlockEntity>("controller", 10, this.animationBehaviour::animationHandler));
     }
 
     @Override

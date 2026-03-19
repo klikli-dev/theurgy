@@ -1,6 +1,5 @@
 {
   "parent": "theurgy:block/logistics_connector_template",
-  "ambientocclusion": false,
   "textures": {
     "particle": "minecraft:block/copper_block",
     "texture": "theurgy:block/logistics_item_inserter"

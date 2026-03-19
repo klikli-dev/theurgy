@@ -1,3 +1,6 @@
 {
-  "parent": "minecraft:builtin/entity"
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "theurgy:item/alchemical_sulfur_chile_pepper"
+  }
 }

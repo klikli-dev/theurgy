@@ -1,0 +1,75 @@
+{
+  "model": {
+    "type": "minecraft:range_dispatch",
+    "entries": [
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "theurgy:item/amethyst_divination_rod/7"
+        },
+        "threshold": 0.0
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "theurgy:item/amethyst_divination_rod/6"
+        },
+        "threshold": 1.0
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "theurgy:item/amethyst_divination_rod/5"
+        },
+        "threshold": 2.0
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "theurgy:item/amethyst_divination_rod/4"
+        },
+        "threshold": 3.0
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "theurgy:item/amethyst_divination_rod/3"
+        },
+        "threshold": 4.0
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "theurgy:item/amethyst_divination_rod/2"
+        },
+        "threshold": 5.0
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "theurgy:item/amethyst_divination_rod/1"
+        },
+        "threshold": 6.0
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "theurgy:item/amethyst_divination_rod/0"
+        },
+        "threshold": 7.0
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "theurgy:item/amethyst_divination_rod/searching"
+        },
+        "threshold": 8.0
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "theurgy:item/amethyst_divination_rod/7"
+    },
+    "property": "theurgy:divination_distance"
+  }
+}

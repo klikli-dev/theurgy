@@ -8,7 +8,6 @@ import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.content.apparatus.fermentationvat.FermentationVatBlock;
 import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorBlock;
 import com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron.LiquefactionCauldronBlock;
-import com.klikli_dev.theurgy.content.apparatus.logisticsfluidconnector.LogisticsFluidConnectorBlock;
 import com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector.LogisticsItemConnectorBlock;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import net.minecraft.client.data.models.BlockModelGenerators;
@@ -61,8 +60,8 @@ public class TheurgyBlockModelSubProvider {
         this.registerLogisticsFluidExtractor(blockModels, itemModels, logisticsFilter);
         this.registerLogisticsNode(blockModels, itemModels);
 
-        this.simpleBlockWithItem(blockModels, BlockRegistry.SAL_AMMONIAC_ORE.get());
-        this.simpleBlockWithItem(blockModels, BlockRegistry.DEEPSLATE_SAL_AMMONIAC_ORE.get());
+        this.registerSimpleCubeBlock(blockModels, itemModels, BlockRegistry.SAL_AMMONIAC_ORE.get());
+        this.registerSimpleCubeBlock(blockModels, itemModels, BlockRegistry.DEEPSLATE_SAL_AMMONIAC_ORE.get());
     }
 
     private ResourceLocation loc(String path) {
@@ -73,8 +72,10 @@ public class TheurgyBlockModelSubProvider {
         return ResourceLocation.withDefaultNamespace(path);
     }
 
-    private void simpleBlockWithItem(BlockModelGenerators blockModels, Block block) {
-        blockModels.createTrivialCube(block);
+    private void registerSimpleCubeBlock(BlockModelGenerators blockModels, ItemModelGenerators itemModels, Block block) {
+        ResourceLocation resourcelocation = TexturedModel.CUBE.create(block, blockModels.modelOutput);
+        blockModels.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(block, resourcelocation));
+        itemModels.itemModelOutput.accept(block.asItem(), ItemModelUtils.plainModel(resourcelocation));
     }
 
     private void simpleBlockWithItem(BlockModelGenerators blockModels, Block block, ResourceLocation modelLocation) {
@@ -162,6 +163,7 @@ public class TheurgyBlockModelSubProvider {
 
         blockModels.blockStateOutput.accept(
                 MultiVariantGenerator.multiVariant(BlockRegistry.PYROMANTIC_BRAZIER.get()).with(BlockModelGenerators.createBooleanModelDispatch(BlockStateProperties.LIT, lit, unlit)));
+        this.registerPlainBlockItemModel(itemModels, BlockRegistry.PYROMANTIC_BRAZIER.get(), unlit);
     }
 
     private void registerLiquefactionCauldron(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
@@ -181,6 +183,7 @@ public class TheurgyBlockModelSubProvider {
                         PropertyDispatch.property(LiquefactionCauldronBlock.HALF)
                                 .select(DoubleBlockHalf.LOWER, Variant.variant().with(VariantProperties.MODEL, lowerModel))
                                 .select(DoubleBlockHalf.UPPER, Variant.variant().with(VariantProperties.MODEL, upperModel))));
+        this.registerPlainBlockItemModel(itemModels, BlockRegistry.LIQUEFACTION_CAULDRON.get(), lowerModel);
     }
 
     private void registerReformationSourcePedestal(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
@@ -191,6 +194,7 @@ public class TheurgyBlockModelSubProvider {
         ResourceLocation model = template.create(BlockRegistry.REFORMATION_SOURCE_PEDESTAL.get(), map, blockModels.modelOutput);
 
         this.simpleBlockWithItem(blockModels, BlockRegistry.REFORMATION_SOURCE_PEDESTAL.get(), model);
+        this.registerPlainBlockItemModel(itemModels, BlockRegistry.REFORMATION_SOURCE_PEDESTAL.get(), model);
     }
 
     private void registerReformationTargetPedestal(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
@@ -201,6 +205,7 @@ public class TheurgyBlockModelSubProvider {
         ResourceLocation model = template.create(BlockRegistry.REFORMATION_TARGET_PEDESTAL.get(), map, blockModels.modelOutput);
 
         this.simpleBlockWithItem(blockModels, BlockRegistry.REFORMATION_TARGET_PEDESTAL.get(), model);
+        this.registerPlainBlockItemModel(itemModels, BlockRegistry.REFORMATION_TARGET_PEDESTAL.get(), model);
     }
 
     private void registerReformationResultPedestal(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
@@ -211,6 +216,7 @@ public class TheurgyBlockModelSubProvider {
         ResourceLocation model = template.create(BlockRegistry.REFORMATION_RESULT_PEDESTAL.get(), map, blockModels.modelOutput);
 
         this.simpleBlockWithItem(blockModels, BlockRegistry.REFORMATION_RESULT_PEDESTAL.get(), model);
+        this.registerPlainBlockItemModel(itemModels, BlockRegistry.REFORMATION_RESULT_PEDESTAL.get(), model);
     }
 
     private void registerMercuryCatalyst(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
@@ -221,6 +227,7 @@ public class TheurgyBlockModelSubProvider {
         ResourceLocation model = template.create(BlockRegistry.MERCURY_CATALYST.get(), map, blockModels.modelOutput);
 
         this.simpleBlockWithItem(blockModels, BlockRegistry.MERCURY_CATALYST.get(), model);
+        this.registerPlainBlockItemModel(itemModels, BlockRegistry.MERCURY_CATALYST.get(), model);
     }
 
     private void registerCaloricFluxEmitter(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
@@ -237,6 +244,8 @@ public class TheurgyBlockModelSubProvider {
                 .with(PropertyDispatch.property(com.klikli_dev.theurgy.content.apparatus.caloricfluxemitter.CaloricFluxEmitterBlock.ENABLED)
                         .select(true, Variant.variant())
                         .select(false, Variant.variant())));
+
+        this.registerPlainBlockItemModel(itemModels, BlockRegistry.CALORIC_FLUX_EMITTER.get(), model);
     }
 
     private void registerSulfuricFluxEmitter(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
@@ -250,6 +259,7 @@ public class TheurgyBlockModelSubProvider {
 
         blockModels.blockStateOutput.accept(MultiVariantGenerator.multiVariant(BlockRegistry.SULFURIC_FLUX_EMITTER.get())
                 .with(this.createDirectionalDispatch(model)));
+        this.registerPlainBlockItemModel(itemModels, BlockRegistry.SULFURIC_FLUX_EMITTER.get(), model);
     }
 
     private PropertyDispatch createDirectionalDispatch(ResourceLocation model) {

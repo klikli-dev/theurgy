@@ -89,11 +89,11 @@ public class SalAmmoniacAccumulatorBlockEntity extends BlockEntity implements Ge
 
     public void readNetwork(CompoundTag tag, HolderLookup.Provider pRegistries) {
         if (tag.contains("waterTank")) {
-            this.waterTank.readFromNBT(pRegistries, tag.getCompound("waterTank"));
+            tag.getCompound("waterTank").ifPresent(tankTag -> this.waterTank.readFromNBT(pRegistries, tankTag));
         }
 
         if (tag.contains("inventory")) {
-            this.inventory.deserializeNBT(pRegistries, tag.getCompound("inventory"));
+            tag.getCompound("inventory").ifPresent(inventoryTag -> this.inventory.deserializeNBT(pRegistries, inventoryTag));
         }
 
         this.craftingBehaviour.readNetwork(tag, pRegistries);
@@ -185,10 +185,10 @@ public class SalAmmoniacAccumulatorBlockEntity extends BlockEntity implements Ge
     public void loadAdditional(@NotNull CompoundTag pTag, HolderLookup.@NotNull Provider pRegistries) {
         super.loadAdditional(pTag, pRegistries);
 
-        if (pTag.contains("inventory")) this.inventory.deserializeNBT(pRegistries, pTag.getCompound("inventory"));
+        if (pTag.contains("inventory")) pTag.getCompound("inventory").ifPresent(tag -> this.inventory.deserializeNBT(pRegistries, tag));
 
         if (pTag.contains("waterTank")) {
-            this.waterTank.readFromNBT(pRegistries, pTag.getCompound("waterTank"));
+            pTag.getCompound("waterTank").ifPresent(tag -> this.waterTank.readFromNBT(pRegistries, tag));
         }
 
         this.craftingBehaviour.loadAdditional(pTag, pRegistries);

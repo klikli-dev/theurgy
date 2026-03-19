@@ -15,6 +15,7 @@ import com.klikli_dev.theurgy.registry.DataComponentRegistry;
 import io.netty.handler.codec.EncoderException;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponentGetter;
 import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
@@ -109,12 +110,12 @@ public class CaloricFluxEmitterBlockEntity extends BlockEntity {
     }
 
     @Override
-    protected void applyImplicitComponents(BlockEntity.@NotNull DataComponentInput pComponentInput) {
+    protected void applyImplicitComponents(DataComponentGetter pComponentInput) {
         super.applyImplicitComponents(pComponentInput);
 
-        if (pComponentInput.get(DataComponentRegistry.MERCURY_FLUX_STORAGE) != null)
+        if (pComponentInput.get(DataComponentRegistry.MERCURY_FLUX_STORAGE.get()) != null)
             //noinspection DataFlowIssue
-            this.mercuryFluxStorage.setEnergyStored(pComponentInput.get(DataComponentRegistry.MERCURY_FLUX_STORAGE));
+            this.mercuryFluxStorage.setEnergyStored(pComponentInput.get(DataComponentRegistry.MERCURY_FLUX_STORAGE.get()));
     }
 
     @Override

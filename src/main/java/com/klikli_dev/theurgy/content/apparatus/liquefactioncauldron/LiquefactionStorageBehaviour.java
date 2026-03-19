@@ -53,9 +53,9 @@ public class LiquefactionStorageBehaviour extends StorageBehaviour<LiquefactionS
 
     @Override
     public void readNetwork(CompoundTag pTag, HolderLookup.Provider pRegistries) {
-        if (pTag.contains("inputInventory")) this.inputInventory.deserializeNBT(pRegistries, pTag.getCompound("inputInventory"));
-        if (pTag.contains("outputInventory")) this.outputInventory.deserializeNBT(pRegistries, pTag.getCompound("outputInventory"));
-        if (pTag.contains("solventTank")) this.solventTank.readFromNBT(pRegistries, pTag.getCompound("solventTank"));
+        pTag.getCompound("inputInventory").ifPresent(tag -> this.inputInventory.deserializeNBT(pRegistries, tag));
+        pTag.getCompound("outputInventory").ifPresent(tag -> this.outputInventory.deserializeNBT(pRegistries, tag));
+        pTag.getCompound("solventTank").ifPresent(tag -> this.solventTank.readFromNBT(pRegistries, tag));
     }
 
     @Override

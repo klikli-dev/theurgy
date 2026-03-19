@@ -60,7 +60,7 @@ public class AddedByAttribute implements ItemAttribute {
 
     @Override
     public ItemAttribute readNBT(HolderLookup.Provider pRegistries,CompoundTag nbt) {
-        return new AddedByAttribute(nbt.getString("id"));
+        return new AddedByAttribute(nbt.getString("id").orElse(""));
     }
 
 }

@@ -13,6 +13,7 @@ import com.klikli_dev.theurgy.registry.DataComponentRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponentGetter;
 import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
@@ -144,7 +145,7 @@ public class MercuryCatalystBlockEntity extends BlockEntity {
         super.loadAdditional(pTag, pRegistries);
 
         if (pTag.contains("inventory"))
-            this.inventory.deserializeNBT(pRegistries, pTag.getCompound("inventory"));
+            pTag.getCompound("inventory").ifPresent(tag -> this.inventory.deserializeNBT(pRegistries, tag));
 
         if (pTag.contains("mercuryFluxStorage"))
             //get instead of getCompound here because the storage serializes as int tag
@@ -154,15 +155,15 @@ public class MercuryCatalystBlockEntity extends BlockEntity {
     }
 
     @Override
-    protected void applyImplicitComponents(BlockEntity.DataComponentInput pComponentInput) {
+    protected void applyImplicitComponents(DataComponentGetter pComponentInput) {
         super.applyImplicitComponents(pComponentInput);
 
-        if (pComponentInput.get(DataComponentRegistry.MERCURY_FLUX_STORAGE) != null)
+        if (pComponentInput.get(DataComponentRegistry.MERCURY_FLUX_STORAGE.get()) != null)
             //noinspection DataFlowIssue
-            this.mercuryFluxStorage.setEnergyStored(pComponentInput.get(DataComponentRegistry.MERCURY_FLUX_STORAGE));
+            this.mercuryFluxStorage.setEnergyStored(pComponentInput.get(DataComponentRegistry.MERCURY_FLUX_STORAGE.get()));
 
-        if (pComponentInput.get(DataComponentRegistry.MERCURY_CATALYST_INVENTORY) != null)
-            this.inventory.deserializeNBT(this.level.registryAccess(), pComponentInput.get(DataComponentRegistry.MERCURY_CATALYST_INVENTORY).getUnsafe());
+        if (pComponentInput.get(DataComponentRegistry.MERCURY_CATALYST_INVENTORY.get()) != null)
+            this.inventory.deserializeNBT(this.level.registryAccess(), pComponentInput.get(DataComponentRegistry.MERCURY_CATALYST_INVENTORY.get()).getUnsafe());
 
         this.craftingBehaviour.applyImplicitComponents(pComponentInput);
     }

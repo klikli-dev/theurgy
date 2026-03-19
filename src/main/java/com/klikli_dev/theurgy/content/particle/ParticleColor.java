@@ -58,7 +58,7 @@ public class ParticleColor implements Cloneable {
     public static ParticleColor deserialize(CompoundTag tag) {
         if (tag == null || tag.isEmpty())
             return defaultParticleColor();
-        return new ParticleColor(tag.getInt("r"), tag.getInt("g"), tag.getInt("b"));
+        return new ParticleColor(tag.getInt("r").orElse(255), tag.getInt("g").orElse(25), tag.getInt("b").orElse(180));
     }
 
     public float getRed() {

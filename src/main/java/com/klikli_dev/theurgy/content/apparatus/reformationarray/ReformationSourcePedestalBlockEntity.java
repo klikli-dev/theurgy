@@ -105,9 +105,9 @@ public class ReformationSourcePedestalBlockEntity extends BlockEntity {
     }
 
     public void readNetwork(CompoundTag pTag, HolderLookup.Provider pRegistries) {
-        if (pTag.contains("showParticles")) this.showParticles = pTag.getBoolean("showParticles");
+        if (pTag.contains("showParticles")) this.showParticles = pTag.getBoolean("showParticles").orElse(false);
 
-        if (pTag.contains("inputInventory")) this.inputInventory.deserializeNBT(pRegistries, pTag.getCompound("inputInventory"));
+        if (pTag.contains("inputInventory")) pTag.getCompound("inputInventory").ifPresent(tag -> this.inputInventory.deserializeNBT(pRegistries, tag));
     }
 
     public void writeNetwork(CompoundTag pTag, HolderLookup.Provider pRegistries) {

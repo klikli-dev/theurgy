@@ -68,6 +68,6 @@ public class EnchantAttribute implements ItemAttribute {
     @Override
     public ItemAttribute readNBT(HolderLookup.Provider pRegistries, CompoundTag nbt) {
         return nbt.contains("id") ? new EnchantAttribute(
-                pRegistries.lookupOrThrow(Registries.ENCHANTMENT).get(ResourceKey.create(Registries.ENCHANTMENT, ResourceLocation.tryParse(nbt.getString("id")))).get()) : EMPTY;
+                pRegistries.lookupOrThrow(Registries.ENCHANTMENT).get(ResourceKey.create(Registries.ENCHANTMENT, ResourceLocation.tryParse(nbt.getString("id").orElse("minecraft:air")))).get()) : EMPTY;
     }
 }

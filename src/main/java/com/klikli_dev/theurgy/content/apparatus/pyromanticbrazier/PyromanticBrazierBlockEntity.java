@@ -74,7 +74,7 @@ public class PyromanticBrazierBlockEntity extends BlockEntity {
 
     public void readNetwork(CompoundTag pTag, HolderLookup.Provider pRegistries) {
         if (pTag.contains("inventory"))
-            this.inventory.deserializeNBT(pRegistries, pTag.getCompound("inventory"));
+            pTag.getCompound("inventory").ifPresent(tag -> this.inventory.deserializeNBT(pRegistries, tag));
     }
 
     public void writeNetwork(CompoundTag pTag, HolderLookup.Provider pRegistries) {
@@ -157,7 +157,7 @@ public class PyromanticBrazierBlockEntity extends BlockEntity {
         super.loadAdditional(pTag, pRegistries);
 
         if (pTag.contains("remainingLitTime"))
-            this.remainingLitTime = pTag.getShort("remainingLitTime");
+            this.remainingLitTime = pTag.getShort("remainingLitTime").orElse((short) 0);
 
         this.readNetwork(pTag, pRegistries);
     }

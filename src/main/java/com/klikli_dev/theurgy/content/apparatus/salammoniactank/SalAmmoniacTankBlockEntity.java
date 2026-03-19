@@ -67,7 +67,7 @@ public class SalAmmoniacTankBlockEntity extends BlockEntity implements GeoBlockE
 
     public void readNetwork(CompoundTag tag, HolderLookup.Provider pRegistries) {
         if (tag.contains("tank")) {
-            this.tank.readFromNBT(pRegistries, tag.getCompound("tank"));
+            tag.getCompound("tank").ifPresent(tankTag -> this.tank.readFromNBT(pRegistries, tankTag));
         }
     }
 
@@ -91,7 +91,7 @@ public class SalAmmoniacTankBlockEntity extends BlockEntity implements GeoBlockE
         super.loadAdditional(pTag, pRegistries);
 
         if (pTag.contains("tank")) {
-            this.tank.readFromNBT(pRegistries, pTag.getCompound("tank"));
+            pTag.getCompound("tank").ifPresent(tag -> this.tank.readFromNBT(pRegistries, tag));
         }
     }
 

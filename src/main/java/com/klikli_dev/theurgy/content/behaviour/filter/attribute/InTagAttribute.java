@@ -56,7 +56,7 @@ public class InTagAttribute implements ItemAttribute {
 
     @Override
     public ItemAttribute readNBT(HolderLookup.Provider pRegistries, CompoundTag nbt) {
-        return new InTagAttribute(ItemTags.create(ResourceLocation.fromNamespaceAndPath(nbt.getString("space"), nbt.getString("path"))));
+        return new InTagAttribute(ItemTags.create(ResourceLocation.fromNamespaceAndPath(nbt.getString("space").orElse("minecraft"), nbt.getString("path").orElse("dirt"))));
     }
 
 }

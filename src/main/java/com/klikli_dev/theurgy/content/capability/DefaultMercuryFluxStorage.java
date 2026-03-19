@@ -93,6 +93,6 @@ public class DefaultMercuryFluxStorage implements MercuryFluxStorage, INBTSerial
     public void deserializeNBT(HolderLookup.Provider pRegistries, Tag nbt) {
         if (!(nbt instanceof IntTag intNbt))
             throw new IllegalArgumentException("Can not deserialize to an instance that isn't the default implementation");
-        this.energy = intNbt.getAsInt();
+        this.energy = intNbt.value();
     }
 }

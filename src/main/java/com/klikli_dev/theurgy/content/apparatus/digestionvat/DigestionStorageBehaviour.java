@@ -96,11 +96,9 @@ public class DigestionStorageBehaviour extends StorageBehaviour<DigestionStorage
 
     @Override
     public void readNetwork(CompoundTag pTag, HolderLookup.Provider pRegistries) {
-        if (pTag.contains("inputInventory"))
-            this.inputInventory.deserializeNBT(pRegistries, pTag.getCompound("inputInventory"));
-        if (pTag.contains("outputInventory"))
-            this.outputInventory.deserializeNBT(pRegistries, pTag.getCompound("outputInventory"));
-        if (pTag.contains("fluidTank")) this.fluidTank.readFromNBT(pRegistries, pTag.getCompound("fluidTank"));
+        pTag.getCompound("inputInventory").ifPresent(tag -> this.inputInventory.deserializeNBT(pRegistries, tag));
+        pTag.getCompound("outputInventory").ifPresent(tag -> this.outputInventory.deserializeNBT(pRegistries, tag));
+        pTag.getCompound("fluidTank").ifPresent(tag -> this.fluidTank.readFromNBT(pRegistries, tag));
     }
 
     @Override

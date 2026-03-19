@@ -31,7 +31,7 @@ public record Wire(BlockPos from, BlockPos to) {
     }
 
     public static Wire load(CompoundTag tag) {
-        return new Wire(BlockPos.of(tag.getLong("from")), BlockPos.of(tag.getLong("to")));
+        return new Wire(BlockPos.of(tag.getLong("from").orElse(0L)), BlockPos.of(tag.getLong("to").orElse(0L)));
     }
 
     public CompoundTag save(CompoundTag tag) {

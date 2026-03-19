@@ -101,8 +101,7 @@ public class IncubatorBlockEntity extends BlockEntity implements HasCraftingBeha
     }
 
     public void readNetwork(CompoundTag pTag, HolderLookup.Provider pRegistries) {
-        if (pTag.contains("outputInventory"))
-            this.outputInventory.deserializeNBT(pRegistries, pTag.getCompound("outputInventory"));
+        pTag.getCompound("outputInventory").ifPresent(tag -> this.outputInventory.deserializeNBT(pRegistries, tag));
 
         this.craftingBehaviour.readNetwork(pTag, pRegistries);
     }

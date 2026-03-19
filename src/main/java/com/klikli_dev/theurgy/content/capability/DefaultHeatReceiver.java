@@ -21,7 +21,7 @@ public class DefaultHeatReceiver implements HeatReceiver, INBTSerializable<Tag> 
     public void deserializeNBT(HolderLookup.Provider provider, Tag nbt) {
         if (!(nbt instanceof LongTag longTag))
             throw new IllegalArgumentException("Can not deserialize to an instance that isn't the default implementation");
-        this.isHotUntil = longTag.getAsLong();
+        this.isHotUntil = longTag.value();
     }
 
     @Override

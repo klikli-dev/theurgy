@@ -36,7 +36,7 @@ public interface ItemAttribute {
     static ItemAttribute of(HolderLookup.Provider pRegistries, CompoundTag nbt) {
         for (ItemAttribute itemAttribute : types)
             if (itemAttribute.canRead(nbt))
-                return itemAttribute.readNBT(pRegistries, nbt.getCompound(itemAttribute.getNBTKey()));
+                return nbt.getCompound(itemAttribute.getNBTKey()).map(tag -> itemAttribute.readNBT(pRegistries, tag)).orElse(null);
         return null;
     }
 

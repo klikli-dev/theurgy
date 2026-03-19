@@ -8,15 +8,13 @@ import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.content.apparatus.fermentationvat.FermentationVatBlock;
 import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorBlock;
 import com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron.LiquefactionCauldronBlock;
+import com.klikli_dev.theurgy.content.apparatus.logisticsfluidconnector.LogisticsFluidConnectorBlock;
 import com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector.LogisticsItemConnectorBlock;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.blockstates.*;
-import net.minecraft.client.data.models.model.ModelTemplate;
-import net.minecraft.client.data.models.model.ModelTemplates;
-import net.minecraft.client.data.models.model.TextureMapping;
-import net.minecraft.client.data.models.model.TextureSlot;
+import net.minecraft.client.data.models.model.*;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
@@ -83,6 +81,10 @@ public class TheurgyBlockModelSubProvider {
         blockModels.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(block, modelLocation));
     }
 
+    private void registerPlainBlockItemModel(ItemModelGenerators itemModels, Block block, ResourceLocation parentModel) {
+        itemModels.itemModelOutput.accept(block.asItem(), ItemModelUtils.plainModel(new ModelTemplate(Optional.of(parentModel), Optional.empty()).create(block.asItem(), new TextureMapping(), itemModels.modelOutput)));
+    }
+
     private void registerCalcinationOven(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
         var model = new ModelTemplate(Optional.empty(), Optional.empty(), TextureSlot.PARTICLE);
         var texture = new TextureMapping().put(TextureSlot.PARTICLE, this.mcLoc("block/copper_block"));
@@ -90,8 +92,7 @@ public class TheurgyBlockModelSubProvider {
 
         blockModels.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(BlockRegistry.CALCINATION_OVEN.get(), modelLoc));
 
-        ModelTemplate itemTemplate = new ModelTemplate(Optional.of(this.mcLoc("builtin/entity")), Optional.empty());
-        itemTemplate.create(BlockRegistry.CALCINATION_OVEN.get().asItem(), new TextureMapping(), itemModels.modelOutput);
+        this.registerPlainBlockItemModel(itemModels, BlockRegistry.CALCINATION_OVEN.get(), this.mcLoc("builtin/entity"));
     }
 
     private void registerDistiller(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
@@ -101,8 +102,7 @@ public class TheurgyBlockModelSubProvider {
 
         blockModels.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(BlockRegistry.DISTILLER.get(), modelLoc));
 
-        ModelTemplate itemTemplate = new ModelTemplate(Optional.of(this.mcLoc("builtin/entity")), Optional.empty());
-        itemTemplate.create(BlockRegistry.DISTILLER.get().asItem(), new TextureMapping(), itemModels.modelOutput);
+        this.registerPlainBlockItemModel(itemModels, BlockRegistry.DISTILLER.get(), this.mcLoc("builtin/entity"));
     }
 
     private void registerSalAmmoniacAccumulator(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
@@ -112,8 +112,7 @@ public class TheurgyBlockModelSubProvider {
 
         blockModels.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(BlockRegistry.SAL_AMMONIAC_ACCUMULATOR.get(), modelLoc));
 
-        ModelTemplate itemTemplate = new ModelTemplate(Optional.of(this.mcLoc("builtin/entity")), Optional.empty());
-        itemTemplate.create(BlockRegistry.SAL_AMMONIAC_ACCUMULATOR.get().asItem(), new TextureMapping(), itemModels.modelOutput);
+        this.registerPlainBlockItemModel(itemModels, BlockRegistry.SAL_AMMONIAC_ACCUMULATOR.get(), this.mcLoc("builtin/entity"));
     }
 
     private void registerSalAmmoniacTank(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
@@ -123,8 +122,7 @@ public class TheurgyBlockModelSubProvider {
 
         blockModels.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(BlockRegistry.SAL_AMMONIAC_TANK.get(), modelLoc));
 
-        ModelTemplate itemTemplate = new ModelTemplate(Optional.of(this.mcLoc("builtin/entity")), Optional.empty());
-        itemTemplate.create(BlockRegistry.SAL_AMMONIAC_TANK.get().asItem(), new TextureMapping(), itemModels.modelOutput);
+        this.registerPlainBlockItemModel(itemModels, BlockRegistry.SAL_AMMONIAC_TANK.get(), this.mcLoc("builtin/entity"));
     }
 
     private void registerIncubatorVessels(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
@@ -136,10 +134,9 @@ public class TheurgyBlockModelSubProvider {
         blockModels.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(BlockRegistry.INCUBATOR_SALT_VESSEL.get(), modelLoc));
         blockModels.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(BlockRegistry.INCUBATOR_SULFUR_VESSEL.get(), modelLoc));
 
-        ModelTemplate itemTemplate = new ModelTemplate(Optional.of(this.mcLoc("builtin/entity")), Optional.empty());
-        itemTemplate.create(BlockRegistry.INCUBATOR_MERCURY_VESSEL.get().asItem(), new TextureMapping(), itemModels.modelOutput);
-        itemTemplate.create(BlockRegistry.INCUBATOR_SALT_VESSEL.get().asItem(), new TextureMapping(), itemModels.modelOutput);
-        itemTemplate.create(BlockRegistry.INCUBATOR_SULFUR_VESSEL.get().asItem(), new TextureMapping(), itemModels.modelOutput);
+        this.registerPlainBlockItemModel(itemModels, BlockRegistry.INCUBATOR_MERCURY_VESSEL.get(), this.mcLoc("builtin/entity"));
+        this.registerPlainBlockItemModel(itemModels, BlockRegistry.INCUBATOR_SALT_VESSEL.get(), this.mcLoc("builtin/entity"));
+        this.registerPlainBlockItemModel(itemModels, BlockRegistry.INCUBATOR_SULFUR_VESSEL.get(), this.mcLoc("builtin/entity"));
     }
 
     private void registerDigestionVat(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
@@ -149,8 +146,7 @@ public class TheurgyBlockModelSubProvider {
 
         blockModels.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(BlockRegistry.DIGESTION_VAT.get(), modelLoc));
 
-        ModelTemplate itemTemplate = new ModelTemplate(Optional.of(this.mcLoc("builtin/entity")), Optional.empty());
-        itemTemplate.create(BlockRegistry.DIGESTION_VAT.get().asItem(), new TextureMapping(), itemModels.modelOutput);
+        this.registerPlainBlockItemModel(itemModels, BlockRegistry.DIGESTION_VAT.get(), this.mcLoc("builtin/entity"));
     }
 
     private void registerPyromanticBrazier(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
@@ -298,7 +294,7 @@ public class TheurgyBlockModelSubProvider {
 
         blockModels.blockStateOutput.accept(generator);
 
-        new ModelTemplate(Optional.of(lowerHalfModel), Optional.empty()).create(BlockRegistry.INCUBATOR.get().asItem(), new TextureMapping(), itemModels.modelOutput);
+        this.registerPlainBlockItemModel(itemModels, BlockRegistry.INCUBATOR.get(), lowerHalfModel);
     }
 
     private void registerFermentationVat(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
@@ -343,7 +339,7 @@ public class TheurgyBlockModelSubProvider {
 
         blockModels.blockStateOutput.accept(generator);
 
-        new ModelTemplate(Optional.of(modelClosed), Optional.empty()).create(BlockRegistry.FERMENTATION_VAT.get().asItem(), new TextureMapping(), itemModels.modelOutput);
+        this.registerPlainBlockItemModel(itemModels, BlockRegistry.FERMENTATION_VAT.get(), modelClosed);
     }
 
     private ResourceLocation registerLogisticsFilterModel(BlockModelGenerators blockModels) {
@@ -375,6 +371,7 @@ public class TheurgyBlockModelSubProvider {
                 .create(block, new TextureMapping()
                         .put(TEXTURE, this.loc(texturePath))
                         .put(TextureSlot.PARTICLE, this.mcLoc("block/copper_block")), blockModels.modelOutput);
+        var hasFilter = block instanceof LogisticsFluidConnectorBlock ? LogisticsFluidConnectorBlock.HAS_FILTER : LogisticsItemConnectorBlock.HAS_FILTER;
 
         MultiPartGenerator generator = MultiPartGenerator.multiPart(block);
 
@@ -390,7 +387,7 @@ public class TheurgyBlockModelSubProvider {
 
             generator.with(Condition.and(
                             Condition.condition().term(BlockStateProperties.FACING, dir),
-                            Condition.condition().term(LogisticsItemConnectorBlock.HAS_FILTER, true)
+                            Condition.condition().term(hasFilter, true)
                     ),
                     Variant.variant().with(VariantProperties.MODEL, filter)
                             .with(VariantProperties.X_ROT, this.getRotation(xRot))
@@ -400,7 +397,7 @@ public class TheurgyBlockModelSubProvider {
 
         blockModels.blockStateOutput.accept(generator);
 
-        new ModelTemplate(Optional.of(model), Optional.empty()).create(block.asItem(), new TextureMapping(), itemModels.modelOutput);
+        this.registerPlainBlockItemModel(itemModels, block, model);
     }
 
     private VariantProperties.Rotation getRotation(int degrees) {
@@ -442,7 +439,7 @@ public class TheurgyBlockModelSubProvider {
         }
         blockModels.blockStateOutput.accept(generator);
 
-        new ModelTemplate(Optional.of(model), Optional.empty()).create(BlockRegistry.LOGISTICS_CONNECTION_NODE.get().asItem(), new TextureMapping(), itemModels.modelOutput);
+        this.registerPlainBlockItemModel(itemModels, BlockRegistry.LOGISTICS_CONNECTION_NODE.get(), model);
     }
 }
 

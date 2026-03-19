@@ -17,6 +17,7 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
 import net.minecraft.world.inventory.InventoryMenu;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
 
 
@@ -46,7 +47,7 @@ public class LiquefactionCauldronRenderer implements BlockEntityRenderer<Liquefa
      * Based on com.simibubi.create.content.contraptions.fluids.tank.FluidTankR
      */
     @Override
-    public void render(LiquefactionCauldronBlockEntity pBlockEntity, float pPartialTick, PoseStack pPoseStack, MultiBufferSource pBufferSource, int pPackedLight, int pPackedOverlay) {
+    public void render(LiquefactionCauldronBlockEntity pBlockEntity, float pPartialTick, PoseStack pPoseStack, MultiBufferSource pBufferSource, int pPackedLight, int pPackedOverlay, Vec3 pCameraPosition) {
         if (pBlockEntity.storageBehaviour.solventTank.isEmpty())
             return;
 

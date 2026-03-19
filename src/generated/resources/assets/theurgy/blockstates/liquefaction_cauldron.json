@@ -1,10 +1,20 @@
 {
-  "variants": {
-    "half=lower": {
-      "model": "theurgy:block/liquefaction_cauldron_lower"
+  "multipart": [
+    {
+      "apply": {
+        "model": "theurgy:block/liquefaction_cauldron_lower"
+      },
+      "when": {
+        "half": "lower"
+      }
     },
-    "half=upper": {
-      "model": "theurgy:block/liquefaction_cauldron_upper"
+    {
+      "apply": {
+        "model": "theurgy:block/liquefaction_cauldron_upper"
+      },
+      "when": {
+        "half": "upper"
+      }
     }
-  }
+  ]
 }

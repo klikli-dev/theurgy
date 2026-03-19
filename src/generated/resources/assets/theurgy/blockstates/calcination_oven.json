@@ -1,7 +1,9 @@
 {
-  "variants": {
-    "": {
-      "model": "theurgy:block/calcination_oven"
+  "multipart": [
+    {
+      "apply": {
+        "model": "theurgy:block/calcination_oven"
+      }
     }
-  }
+  ]
 }

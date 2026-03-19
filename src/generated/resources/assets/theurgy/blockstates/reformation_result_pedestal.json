@@ -1,7 +1,9 @@
 {
-  "variants": {
-    "": {
-      "model": "theurgy:block/reformation_result_pedestal"
+  "multipart": [
+    {
+      "apply": {
+        "model": "theurgy:block/reformation_result_pedestal"
+      }
     }
-  }
+  ]
 }

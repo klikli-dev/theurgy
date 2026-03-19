@@ -19,35 +19,21 @@
     {
       "apply": {
         "model": "theurgy:block/incubator_pipe",
-        "uvlock": true,
-        "y": 0
+        "uvlock": true
       },
       "when": {
-        "AND": [
-          {
-            "north": "true"
-          },
-          {
-            "half": "lower"
-          }
-        ]
+        "half": "lower",
+        "north": "true"
       }
     },
     {
       "apply": {
         "model": "theurgy:block/incubator_pipe",
-        "uvlock": true,
-        "y": 0
+        "uvlock": true
       },
       "when": {
-        "AND": [
-          {
-            "east": "true"
-          },
-          {
-            "half": "lower"
-          }
-        ]
+        "east": "true",
+        "half": "lower"
       }
     },
     {
@@ -57,14 +43,8 @@
         "y": 180
       },
       "when": {
-        "AND": [
-          {
-            "south": "true"
-          },
-          {
-            "half": "lower"
-          }
-        ]
+        "half": "lower",
+        "south": "true"
       }
     },
     {
@@ -74,14 +54,8 @@
         "y": 270
       },
       "when": {
-        "AND": [
-          {
-            "west": "true"
-          },
-          {
-            "half": "lower"
-          }
-        ]
+        "half": "lower",
+        "west": "true"
       }
     }
   ]

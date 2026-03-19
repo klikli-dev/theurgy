@@ -1,7 +1,9 @@
 {
-  "variants": {
-    "": {
-      "model": "theurgy:block/sal_ammoniac_accumulator"
+  "multipart": [
+    {
+      "apply": {
+        "model": "theurgy:block/sal_ammoniac_accumulator"
+      }
     }
-  }
+  ]
 }

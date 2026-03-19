@@ -90,8 +90,7 @@
     },
     {
       "apply": {
-        "model": "theurgy:block/fermentation_vat",
-        "y": 0
+        "model": "theurgy:block/fermentation_vat"
       },
       "when": {
         "facing": "south",
@@ -101,8 +100,7 @@
     },
     {
       "apply": {
-        "model": "theurgy:block/fermentation_vat_active",
-        "y": 0
+        "model": "theurgy:block/fermentation_vat_active"
       },
       "when": {
         "facing": "south",
@@ -112,8 +110,7 @@
     },
     {
       "apply": {
-        "model": "theurgy:block/fermentation_vat_open",
-        "y": 0
+        "model": "theurgy:block/fermentation_vat_open"
       },
       "when": {
         "facing": "south",
@@ -123,8 +120,7 @@
     },
     {
       "apply": {
-        "model": "theurgy:block/fermentation_vat_open_active",
-        "y": 0
+        "model": "theurgy:block/fermentation_vat_open_active"
       },
       "when": {
         "facing": "south",

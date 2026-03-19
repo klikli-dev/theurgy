@@ -1,10 +1,20 @@
 {
-  "variants": {
-    "lit=false": {
-      "model": "theurgy:block/pyromantic_brazier"
+  "multipart": [
+    {
+      "apply": {
+        "model": "theurgy:block/pyromantic_brazier"
+      },
+      "when": {
+        "lit": "false"
+      }
     },
-    "lit=true": {
-      "model": "theurgy:block/pyromantic_brazier_lit"
+    {
+      "apply": {
+        "model": "theurgy:block/pyromantic_brazier_lit"
+      },
+      "when": {
+        "lit": "true"
+      }
     }
-  }
+  ]
 }

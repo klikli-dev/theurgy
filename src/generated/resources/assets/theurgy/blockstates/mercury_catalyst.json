@@ -1,7 +1,9 @@
 {
-  "variants": {
-    "": {
-      "model": "theurgy:block/mercury_catalyst"
+  "multipart": [
+    {
+      "apply": {
+        "model": "theurgy:block/mercury_catalyst"
+      }
     }
-  }
+  ]
 }

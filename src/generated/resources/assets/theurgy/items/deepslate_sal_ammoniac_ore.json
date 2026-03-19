@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "theurgy:block/deepslate_sal_ammoniac_ore"
+    "model": "theurgy:item/deepslate_sal_ammoniac_ore"
   }
 }

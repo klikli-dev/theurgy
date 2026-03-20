@@ -27,7 +27,7 @@ sourceSets {
     }
 }
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+java.toolchain.languageVersion = JavaLanguageVersion.of(25)
 java.withSourcesJar()
 
 if (file('src/main/resources/META-INF/accesstransformer.cfg').exists()) {
@@ -89,7 +89,7 @@ repositories {
         name = 'GeckoLib'
         url = 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'
         content {
-            includeGroup "software.bernie.geckolib"
+            includeGroup "com.geckolib"
         }
     }
     maven {
@@ -158,7 +158,7 @@ dependencies {
 //    implementation "com.almostreliable.mods:almostunified-forge:${minecraft_version}-${almost_unified_version}"
 
     //Geckolib
-    implementation ("software.bernie.geckolib:geckolib-neoforge-${minecraft_version}:${geckolib_version}") {transitive=false}
+    implementation ("com.geckolib:geckolib-neoforge-${minecraft_version}:${geckolib_version}") {transitive=false}
 
     //modonomicon
     implementation ("com.klikli_dev:modonomicon-${minecraft_version}-neoforge:${modonomicon_version}") {transitive=false}

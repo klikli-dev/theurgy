@@ -14,6 +14,7 @@ import net.minecraft.client.data.models.model.ItemModelUtils;
 import net.minecraft.client.data.models.model.ModelLocationUtils;
 import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.client.data.models.model.TextureMapping;
+import net.minecraft.client.resources.model.sprite.Material;
 import net.minecraft.client.renderer.item.ItemModel;
 import net.minecraft.client.renderer.item.RangeSelectItemModel;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -51,7 +52,7 @@ public class TheurgyItemModelSubProvider {
 
     private void registerItemGenerated(ItemModelGenerators itemModels, Item item, String texture) {
         //Generate model with custom texture
-        itemModels.itemModelOutput.accept(item, ItemModelUtils.plainModel( ModelTemplates.FLAT_ITEM.create(ModelLocationUtils.getModelLocation(item), TextureMapping.layer0(Theurgy.loc("item/" + texture)), itemModels.modelOutput)));
+        itemModels.itemModelOutput.accept(item, ItemModelUtils.plainModel(ModelTemplates.FLAT_ITEM.create(ModelLocationUtils.getModelLocation(item), TextureMapping.layer0(new Material(Theurgy.loc("item/" + texture))), itemModels.modelOutput)));
 
     }
 
@@ -61,7 +62,7 @@ public class TheurgyItemModelSubProvider {
 
     //Helper to create a model for a variant but not assign it to the item directly (used for divination rod)
     private Identifier createItemHandheldVariant(ItemModelGenerators itemModels, String modelName, String texture) {
-        return ModelTemplates.FLAT_HANDHELD_ITEM.create(Theurgy.loc("item/" + modelName), TextureMapping.layer0(Theurgy.loc("item/" + texture)), itemModels.modelOutput);
+        return ModelTemplates.FLAT_HANDHELD_ITEM.create(Theurgy.loc("item/" + modelName), TextureMapping.layer0(new Material(Theurgy.loc("item/" + texture))), itemModels.modelOutput);
     }
 
     private void registerDivinationRod(ItemModelGenerators itemModels, Item divinationRodItem) {
@@ -151,22 +152,22 @@ public class TheurgyItemModelSubProvider {
                                 // - Container base texture
                                 // - Container cover texture, if not used as a mask
                                 // Points to 'assets/minecraft/textures/item/bucket.png'
-                                Optional.of(Identifier.withDefaultNamespace("item/bucket")),
+                                Optional.of(new Material(Identifier.withDefaultNamespace("item/bucket"))),
                                 // Sets the texture to use on the first layer, generally the container of the fluid
                                 // If not set, the layer will not be added
                                 // Points to 'assets/minecraft/textures/item/bucket.png'
-                                Optional.of(Identifier.withDefaultNamespace("item/bucket")),
+                                Optional.of(new Material(Identifier.withDefaultNamespace("item/bucket"))),
                                 // Sets the texture to use as the mask for the still fluid texture
                                 // Areas where the fluid is seen should be pure white
                                 // If not set or the fluid is empty, then the layer is not rendered
                                 // Points to 'assets/neoforge/textures/item/mask/bucket_fluid.png'
-                                Optional.of(Identifier.fromNamespaceAndPath("neoforge", "item/mask/bucket_fluid")),
+                                Optional.of(new Material(Identifier.fromNamespaceAndPath("neoforge", "item/mask/bucket_fluid"))),
                                 // Sets the texture to use as either
                                 // - The overlay texture when 'cover_is_mask' is false
                                 // - The mask to apply to the base texture (should be pure white to see) when 'cover_is_mask' is true
                                 // If not set or no base texture is set when 'cover_is_mask' is true, then the layer is not rendered
                                 // Points to 'assets/neoforge/textures/item/mask/bucket_fluid_cover.png'
-                                Optional.of(Identifier.fromNamespaceAndPath("neoforge", "item/mask/bucket_fluid_cover"))
+                                Optional.of(new Material(Identifier.fromNamespaceAndPath("neoforge", "item/mask/bucket_fluid_cover")))
                         ),
                         FluidRegistry.SAL_AMMONIAC.get(),
                         // When true, rotates the model 180 degrees

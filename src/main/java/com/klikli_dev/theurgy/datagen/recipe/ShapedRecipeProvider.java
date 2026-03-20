@@ -487,7 +487,7 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
 
         public ShapedRecipeBuilder(Holder<Item> result, int count, DataComponentPatch patch) {
             //noinspection DataFlowIssue
-            this(BuiltInRegistries.RECIPE_SERIALIZER.getKey(RecipeSerializer.SHAPED_RECIPE).toString(), result, count, patch);
+            this("minecraft:crafting_shaped", result, count, patch);
         }
 
         public ShapedRecipeBuilder(String recipeType, Holder<Item> result, int count, DataComponentPatch patch) {
@@ -498,7 +498,7 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
             this.result = result;
             this.recipe = new JsonObject();
             this.recipe.addProperty("type", recipeType);
-            this.recipe.add("result", ItemStack.STRICT_CODEC.encodeStart(ShapedRecipeProvider.this.registryOps, result).getOrThrow());
+            this.recipe.add("result", ItemStack.CODEC.encodeStart(ShapedRecipeProvider.this.registryOps, result).getOrThrow());
             this.recipe.add("key", new JsonObject());
             this.recipe.add("pattern", new JsonArray());
         }

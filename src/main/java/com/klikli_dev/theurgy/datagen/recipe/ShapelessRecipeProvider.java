@@ -129,8 +129,8 @@ public class ShapelessRecipeProvider extends JsonRecipeProvider {
             this.recipe = new JsonObject();
             //noinspection DataFlowIssue
             this.recipe.addProperty("type",
-                    BuiltInRegistries.RECIPE_SERIALIZER.getKey(RecipeSerializer.SHAPELESS_RECIPE).toString());
-            this.recipe.add("result", ItemStack.STRICT_CODEC.encodeStart(ShapelessRecipeProvider.this.registryOps, result).getOrThrow());
+                    "minecraft:crafting_shapeless");
+            this.recipe.add("result", ItemStack.CODEC.encodeStart(ShapelessRecipeProvider.this.registryOps, result).getOrThrow());
             this.recipe.add("ingredients", new JsonArray());
         }
 

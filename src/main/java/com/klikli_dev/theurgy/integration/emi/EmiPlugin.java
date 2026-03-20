@@ -26,8 +26,6 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeManager;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import org.apache.logging.log4j.core.tools.picocli.CommandLine;
 
@@ -159,7 +157,7 @@ public class EmiPlugin implements dev.emi.emi.api.EmiPlugin {
     }
 
     public static RecipeManager getRecipeManager(){
-        if (FMLEnvironment.dist == Dist.CLIENT) {
+        if (Theurgy.isClientEnvironment()) {
             return DistHelper.getRecipeManager();
         }
         return null;

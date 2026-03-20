@@ -378,7 +378,7 @@ public class SulfurRegistry {
     }
 
     private static String name(Holder<Item> source) {
-        var namePath = source.unwrapKey().get().location().getPath();
+        var namePath = source.unwrapKey().get().identifier().getPath();
         var slashIndex = namePath.lastIndexOf("/");
         return namePath.substring(slashIndex + 1);
     }

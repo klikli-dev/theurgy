@@ -36,9 +36,9 @@ public class WireRenderer {
         var poseStack = event.getPoseStack();
 
         EntityRenderDispatcher erd = Minecraft.getInstance().getEntityRenderDispatcher();
-        double renderPosX = erd.camera.getPosition().x();
-        double renderPosY = erd.camera.getPosition().y();
-        double renderPosZ = erd.camera.getPosition().z();
+        double renderPosX = erd.camera.position().x();
+        double renderPosY = erd.camera.position().y();
+        double renderPosZ = erd.camera.position().z();
 
         poseStack.pushPose();
         poseStack.translate(-renderPosX, -renderPosY, -renderPosZ);

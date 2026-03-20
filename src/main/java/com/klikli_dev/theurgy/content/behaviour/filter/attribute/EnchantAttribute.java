@@ -59,7 +59,7 @@ public class EnchantAttribute implements ItemAttribute {
     public void writeNBT(HolderLookup.Provider pRegistries, CompoundTag nbt) {
         if (this.enchantment == null)
             return;
-        Identifier id = this.enchantment.unwrapKey().get().location();
+        Identifier id = this.enchantment.unwrapKey().get().identifier();
         if (id == null)
             return;
         nbt.putString("id", id.toString());

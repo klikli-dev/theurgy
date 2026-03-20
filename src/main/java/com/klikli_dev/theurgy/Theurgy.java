@@ -242,7 +242,7 @@ public class Theurgy {
             var buffer = Minecraft.getInstance().renderBuffers().bufferSource();
             float partialTicks = ClientTicks.getPartialTicksHandlePause();
             Vec3 camera = Minecraft.getInstance().gameRenderer.getMainCamera()
-                    .getPosition();
+                    .position();
 
             Outliner.get().render(ms, buffer, camera, partialTicks);
 

@@ -516,7 +516,7 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
         private JsonObject ingredient(ItemLike item) {
             JsonObject jsonobject = new JsonObject();
             //noinspection deprecation,OptionalGetWithoutIsPresent
-            jsonobject.addProperty("item", item.asItem().builtInRegistryHolder().unwrapKey().get().location().toString());
+            jsonobject.addProperty("item", item.asItem().builtInRegistryHolder().unwrapKey().get().identifier().toString());
             return jsonobject;
         }
 

@@ -57,7 +57,7 @@ public record WireEndPoint(BlockPos pos, ResourceKey<Level> level) {
 
     public CompoundTag save(CompoundTag tag) {
         tag.putLong("pos", this.pos.asLong());
-        tag.putString("level", this.level.location().toString());
+        tag.putString("level", this.level.identifier().toString());
         return tag;
     }
 }

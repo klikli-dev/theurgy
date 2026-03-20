@@ -67,8 +67,9 @@ public class DivinationRodRecipe extends ShapedRecipe {
     }
 
     @Override
-    public @NotNull RecipeSerializer<? extends ShapedRecipe> getSerializer() {
-        return RecipeSerializerRegistry.DIVINATION_ROD.get();
+    @SuppressWarnings("unchecked")
+    public @NotNull RecipeSerializer<ShapedRecipe> getSerializer() {
+        return (RecipeSerializer<ShapedRecipe>) (RecipeSerializer<?>) RecipeSerializerRegistry.DIVINATION_ROD.get();
     }
 
     @SuppressWarnings({"DataFlowIssue", "OptionalGetWithoutIsPresent"})
@@ -88,7 +89,7 @@ public class DivinationRodRecipe extends ShapedRecipe {
                 if (sourceItemKey.isEmpty())
                     continue;
 
-                var sourceBlock = this.translateToBlock(sourceItem.unwrapKey().get().location().toString());
+                var sourceBlock = this.translateToBlock(sourceItem.unwrapKey().get().identifier().toString());
 
                 if (sourceBlock != null) {
                     var blockKey = ResourceKey.create(Registries.BLOCK, Identifier.parse(sourceBlock));

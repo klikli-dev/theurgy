@@ -77,7 +77,7 @@ public abstract class JsonRecipeProvider implements DataProvider {
     }
 
     protected String name(ItemLike item) {
-        return item.asItem().builtInRegistryHolder().getKey().location().getPath();
+        return item.asItem().builtInRegistryHolder().key().identifier().getPath();
     }
 
     protected String name(TagKey<Item> tag) {
@@ -93,7 +93,7 @@ public abstract class JsonRecipeProvider implements DataProvider {
     }
 
     public Identifier locFor(ItemLike itemLike) {
-        return itemLike.asItem().builtInRegistryHolder().getKey().location();
+        return itemLike.asItem().builtInRegistryHolder().key().identifier();
     }
 
     public Identifier locFor(Fluid fluid) {
@@ -149,7 +149,7 @@ public abstract class JsonRecipeProvider implements DataProvider {
 
         protected RecipeBuilder(Holder<RecipeType<?>> type) {
             //noinspection OptionalGetWithoutIsPresent
-            this.recipe.addProperty("type", type.unwrapKey().get().location().toString());
+            this.recipe.addProperty("type", type.unwrapKey().get().identifier().toString());
         }
 
         public T getThis() {
@@ -262,7 +262,7 @@ public abstract class JsonRecipeProvider implements DataProvider {
         public T ingredient(String propertyName, Holder<Item> itemHolder) {
             JsonObject jsonobject = new JsonObject();
             //noinspection OptionalGetWithoutIsPresent
-            jsonobject.addProperty("item", itemHolder.unwrapKey().get().location().toString());
+            jsonobject.addProperty("item", itemHolder.unwrapKey().get().identifier().toString());
             this.recipe.add(propertyName, jsonobject);
             return this.getThis();
         }

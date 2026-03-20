@@ -101,7 +101,7 @@ public class DivinationRodItem extends Item {
     }
 
     private static void scanLinkedBlock(Player player, Holder<Block> blockHolder, int range, int duration) {
-        var blocks = getScanTargetsForId(blockHolder.unwrapKey().get().location());
+        var blocks = getScanTargetsForId(blockHolder.unwrapKey().get().identifier());
         ScanManager.get().beginScan(player, blocks, range, duration);
     }
 

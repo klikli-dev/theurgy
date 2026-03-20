@@ -48,7 +48,7 @@ public class CycleSelectedDirectionModeRenderHandler extends ItemModeRenderHandl
             //      specifically, it stops them from rendering, os the transparent highlight renders the world behind the bock.
             //      If we want to play with it again, use     public final static Color GREEN = new Color(0, 255, 0, 155).setImmutable();
 
-            Vec3 viewPosition = camera.getPosition();
+            Vec3 viewPosition = camera.position();
             ps.pushPose();
             ps.translate(targetPos.getX() - viewPosition.x, targetPos.getY() - viewPosition.y, targetPos.getZ() - viewPosition.z);
             CubeModelRenderer.renderCube(

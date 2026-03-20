@@ -19,7 +19,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.ComposterBlock;
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import net.neoforged.neoforge.capabilities.Capabilities;
-import net.neoforged.neoforge.fluids.FluidUtil;
+import net.neoforged.neoforge.transfer.access.ItemAccess;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +32,7 @@ public enum StandardAttributes implements ItemAttribute {
     DUMMY(s -> false),
     PLACEABLE(s -> s.getItem() instanceof BlockItem),
     CONSUMABLE(s -> s.has(DataComponents.FOOD)),
-    FLUID_CONTAINER(s -> FluidUtil.getFluidHandler(s).isPresent()),
+    FLUID_CONTAINER(s -> ItemAccess.forStack(s).oneByOne().getCapability(Capabilities.Fluid.ITEM) != null),
     ENCHANTED(ItemStack::isEnchanted),
     MAX_ENCHANTED(StandardAttributes::maxEnchanted),
     RENAMED(s -> s.has(DataComponents.CUSTOM_NAME)),

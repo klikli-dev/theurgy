@@ -47,6 +47,7 @@ public class CatalysationRecipe implements Recipe<ItemHandlerRecipeInput> {
             r -> r.mercuryFluxPerTick,
             CatalysationRecipe::new
     );
+    public static final RecipeSerializer<CatalysationRecipe> SERIALIZER = new RecipeSerializer<>(CODEC, STREAM_CODEC);
     protected final Ingredient ingredient;
 
     /**
@@ -89,8 +90,19 @@ public class CatalysationRecipe implements Recipe<ItemHandlerRecipeInput> {
         return this.ingredient.test(stack);
     }
 
-    public ItemStack assemble(ItemHandlerRecipeInput pCraftingContainer, HolderLookup.Provider pRegistries) {
+    @Override
+    public ItemStack assemble(ItemHandlerRecipeInput pCraftingContainer) {
         return ItemStack.EMPTY;
+    }
+
+    @Override
+    public boolean showNotification() {
+        return true;
+    }
+
+    @Override
+    public String group() {
+        return "";
     }
 
 //    @Override
@@ -133,16 +145,4 @@ public class CatalysationRecipe implements Recipe<ItemHandlerRecipeInput> {
         ));
     }
 
-    public static class Serializer implements RecipeSerializer<CatalysationRecipe> {
-
-        @Override
-        public @NotNull MapCodec<CatalysationRecipe> codec() {
-            return CODEC;
-        }
-
-        @Override
-        public @NotNull StreamCodec<RegistryFriendlyByteBuf, CatalysationRecipe> streamCodec() {
-            return STREAM_CODEC;
-        }
-    }
 }

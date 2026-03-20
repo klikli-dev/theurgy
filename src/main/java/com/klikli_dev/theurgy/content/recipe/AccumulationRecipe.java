@@ -61,6 +61,8 @@ public record AccumulationRecipe(@Nullable SizedFluidIngredient evaporant, @Null
             (evaporant, solute, result, accumulation_time) -> new AccumulationRecipe(evaporant.orElse(null), solute.orElse(null), result, accumulation_time)
     );
 
+    public static final RecipeSerializer<AccumulationRecipe> SERIALIZER = new RecipeSerializer<>(CODEC, STREAM_CODEC);
+
     @Override
     public @NotNull RecipeType<AccumulationRecipe> getType() {
         return RecipeTypeRegistry.ACCUMULATION.get();
@@ -80,8 +82,19 @@ public record AccumulationRecipe(@Nullable SizedFluidIngredient evaporant, @Null
         return soluteMatches && evaporantMatches;
     }
 
-    public ItemStack assemble(ItemHandlerWithFluidRecipeInput pInv, HolderLookup.Provider pRegistries) {
+    @Override
+    public ItemStack assemble(ItemHandlerWithFluidRecipeInput pInv) {
         return ItemStack.EMPTY;
+    }
+
+    @Override
+    public boolean showNotification() {
+        return true;
+    }
+
+    @Override
+    public String group() {
+        return "";
     }
 
 //    @Override
@@ -146,16 +159,4 @@ public record AccumulationRecipe(@Nullable SizedFluidIngredient evaporant, @Null
         ));
     }
 
-    public static class Serializer implements RecipeSerializer<AccumulationRecipe> {
-
-        @Override
-        public @NotNull MapCodec<AccumulationRecipe> codec() {
-            return CODEC;
-        }
-
-        @Override
-        public @NotNull StreamCodec<RegistryFriendlyByteBuf, AccumulationRecipe> streamCodec() {
-            return STREAM_CODEC;
-        }
-    }
 }

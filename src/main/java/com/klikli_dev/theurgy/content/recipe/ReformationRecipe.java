@@ -61,6 +61,8 @@ public class ReformationRecipe implements Recipe<ReformationArrayRecipeInput> {
             ReformationRecipe::new
     );
 
+    public static final RecipeSerializer<ReformationRecipe> SERIALIZER = new RecipeSerializer<>(CODEC, STREAM_CODEC);
+
     protected final List<SizedIngredient> sources;
     protected final NonNullList<Ingredient> sourcesNonNullList;
     protected final Ingredient target;
@@ -135,7 +137,8 @@ public class ReformationRecipe implements Recipe<ReformationArrayRecipeInput> {
         return true;
     }
 
-    public ItemStack assemble(ReformationArrayRecipeInput pCraftingContainer, HolderLookup.Provider pRegistries) {
+    @Override
+    public ItemStack assemble(ReformationArrayRecipeInput pCraftingContainer) {
         var result = this.result.copy();
         //TODO: the tag copy should be an option in the recipe json
         var targetItem = pCraftingContainer.getTargetPedestalInv().getStackInSlot(0);
@@ -144,6 +147,16 @@ public class ReformationRecipe implements Recipe<ReformationArrayRecipeInput> {
             result.applyComponents(targetItem.getComponents());
 
         return result;
+    }
+
+    @Override
+    public boolean showNotification() {
+        return true;
+    }
+
+    @Override
+    public String group() {
+        return "";
     }
 
     public ItemStack getResultItem(HolderLookup.Provider pRegistries) {
@@ -187,16 +200,4 @@ public class ReformationRecipe implements Recipe<ReformationArrayRecipeInput> {
         ));
     }
 
-    public static class Serializer implements RecipeSerializer<ReformationRecipe> {
-
-        @Override
-        public @NotNull MapCodec<ReformationRecipe> codec() {
-            return CODEC;
-        }
-
-        @Override
-        public @NotNull StreamCodec<RegistryFriendlyByteBuf, ReformationRecipe> streamCodec() {
-            return STREAM_CODEC;
-        }
-    }
 }

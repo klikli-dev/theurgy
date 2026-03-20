@@ -57,6 +57,8 @@ public class FermentationRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
             FermentationRecipe::new
     );
 
+    public static final RecipeSerializer<FermentationRecipe> SERIALIZER = new RecipeSerializer<>(CODEC, STREAM_CODEC);
+
 
     protected final SizedFluidIngredient fluid;
 
@@ -103,8 +105,19 @@ public class FermentationRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
         return net.neoforged.neoforge.common.util.RecipeMatcher.findMatches(inputs, this.ingredients) != null;
     }
 
-    public ItemStack assemble(ItemHandlerWithFluidRecipeInput pInv, HolderLookup.Provider pRegistries) {
+    @Override
+    public ItemStack assemble(ItemHandlerWithFluidRecipeInput pInv) {
         return this.result.copy();
+    }
+
+    @Override
+    public boolean showNotification() {
+        return true;
+    }
+
+    @Override
+    public String group() {
+        return "";
     }
 
     public boolean canCraftInDimensions(int pWidth, int pHeight) {
@@ -165,17 +178,4 @@ public class FermentationRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
         ));
     }
 
-    public static class Serializer implements RecipeSerializer<FermentationRecipe> {
-
-        @Override
-        public @NotNull MapCodec<FermentationRecipe> codec() {
-            return CODEC;
-        }
-
-        @Override
-        public @NotNull StreamCodec<RegistryFriendlyByteBuf, FermentationRecipe> streamCodec() {
-            return STREAM_CODEC;
-        }
-
-    }
 }

@@ -57,6 +57,8 @@ public class IncubationRecipe implements Recipe<IncubatorRecipeInput> {
             IncubationRecipe::new
     );
 
+    public static final RecipeSerializer<IncubationRecipe> SERIALIZER = new RecipeSerializer<>(CODEC, STREAM_CODEC);
+
     protected final Ingredient mercury;
     protected final Ingredient salt;
     protected final Ingredient sulfur;
@@ -89,8 +91,19 @@ public class IncubationRecipe implements Recipe<IncubatorRecipeInput> {
                 this.sulfur.test(pContainer.getSulfurVesselInv().getStackInSlot(0));
     }
 
-    public ItemStack assemble(IncubatorRecipeInput pInv, HolderLookup.Provider pRegistries) {
+    @Override
+    public ItemStack assemble(IncubatorRecipeInput pInv) {
         return this.result.getStack().copy();
+    }
+
+    @Override
+    public boolean showNotification() {
+        return true;
+    }
+
+    @Override
+    public String group() {
+        return "";
     }
 
     @Override
@@ -156,16 +169,4 @@ public class IncubationRecipe implements Recipe<IncubatorRecipeInput> {
         ));
     }
 
-    public static class Serializer implements RecipeSerializer<IncubationRecipe> {
-
-        @Override
-        public @NotNull MapCodec<IncubationRecipe> codec() {
-            return CODEC;
-        }
-
-        @Override
-        public @NotNull StreamCodec<RegistryFriendlyByteBuf, IncubationRecipe> streamCodec() {
-            return STREAM_CODEC;
-        }
-    }
 }

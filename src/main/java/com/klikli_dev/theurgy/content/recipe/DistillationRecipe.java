@@ -51,6 +51,8 @@ public class DistillationRecipe implements Recipe<ItemHandlerRecipeInput> {
             DistillationRecipe::new
     );
 
+    public static final RecipeSerializer<DistillationRecipe> SERIALIZER = new RecipeSerializer<>(CODEC, STREAM_CODEC);
+
     protected final SizedIngredient ingredient;
     protected final ItemStack result;
     protected final int time;
@@ -72,8 +74,19 @@ public class DistillationRecipe implements Recipe<ItemHandlerRecipeInput> {
         return this.ingredient.test(stack);
     }
 
-    public ItemStack assemble(ItemHandlerRecipeInput pCraftingContainer, HolderLookup.Provider pRegistries) {
+    @Override
+    public ItemStack assemble(ItemHandlerRecipeInput pCraftingContainer) {
         return this.result.copy();
+    }
+
+    @Override
+    public boolean showNotification() {
+        return true;
+    }
+
+    @Override
+    public String group() {
+        return "";
     }
 
     @Override
@@ -127,16 +140,4 @@ public class DistillationRecipe implements Recipe<ItemHandlerRecipeInput> {
         ));
     }
 
-    public static class Serializer implements RecipeSerializer<DistillationRecipe> {
-
-        @Override
-        public @NotNull MapCodec<DistillationRecipe> codec() {
-            return CODEC;
-        }
-
-        @Override
-        public @NotNull StreamCodec<RegistryFriendlyByteBuf, DistillationRecipe> streamCodec() {
-            return STREAM_CODEC;
-        }
-    }
 }

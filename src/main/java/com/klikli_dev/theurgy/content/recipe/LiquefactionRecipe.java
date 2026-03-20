@@ -56,6 +56,8 @@ public class LiquefactionRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
             LiquefactionRecipe::new
     );
 
+    public static final RecipeSerializer<LiquefactionRecipe> SERIALIZER = new RecipeSerializer<>(CODEC, STREAM_CODEC);
+
     protected final Ingredient ingredient;
     protected final SizedFluidIngredient solvent;
     protected final ItemStack result;
@@ -88,8 +90,19 @@ public class LiquefactionRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
 //        return PlacementInfo.create(this.ingredient);
 //    }
 
-    public ItemStack assemble(ItemHandlerWithFluidRecipeInput pCraftingContainer, HolderLookup.Provider pRegistries) {
+    @Override
+    public ItemStack assemble(ItemHandlerWithFluidRecipeInput pCraftingContainer) {
         return this.result.copy();
+    }
+
+    @Override
+    public boolean showNotification() {
+        return true;
+    }
+
+    @Override
+    public String group() {
+        return "";
     }
 
     @Override
@@ -144,16 +157,4 @@ public class LiquefactionRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
         ));
     }
 
-    public static class Serializer implements RecipeSerializer<LiquefactionRecipe> {
-
-        @Override
-        public @NotNull MapCodec<LiquefactionRecipe> codec() {
-            return CODEC;
-        }
-
-        @Override
-        public @NotNull StreamCodec<RegistryFriendlyByteBuf, LiquefactionRecipe> streamCodec() {
-            return STREAM_CODEC;
-        }
-    }
 }

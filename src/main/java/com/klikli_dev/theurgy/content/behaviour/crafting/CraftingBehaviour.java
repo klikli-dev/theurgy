@@ -201,7 +201,7 @@ public abstract class CraftingBehaviour<W extends RecipeInput, R extends Recipe<
         if (pRecipe == null)
             return false;
 
-        var assembledStack = pRecipe.value().assemble(this.recipeInputSupplier.get(), this.blockEntity.getLevel().registryAccess());
+        var assembledStack = pRecipe.value().assemble(this.recipeInputSupplier.get());
         if (assembledStack.isEmpty()) {
             return false;
         } else {
@@ -211,7 +211,7 @@ public abstract class CraftingBehaviour<W extends RecipeInput, R extends Recipe<
     }
 
     protected boolean craft(RecipeHolder<R> pRecipe) {
-        var assembledStack = pRecipe.value().assemble(this.recipeInputSupplier.get(), this.blockEntity.getLevel().registryAccess());
+        var assembledStack = pRecipe.value().assemble(this.recipeInputSupplier.get());
 
         // Safely insert the assembledStack into the outputInventory and update the input stack.
         ItemHandlerHelper.insertItemStacked(this.outputInventorySupplier.get(), assembledStack, false);
@@ -230,7 +230,7 @@ public abstract class CraftingBehaviour<W extends RecipeInput, R extends Recipe<
     }
 
     protected void sendBlockUpdated() {
-        if (this.blockEntity.getLevel() != null && !this.blockEntity.getLevel().isClientSide)
+        if (this.blockEntity.getLevel() != null && !this.blockEntity.getLevel().isClientSide())
             this.blockEntity.getLevel().sendBlockUpdated(this.blockEntity.getBlockPos(), this.blockEntity.getBlockState(), this.blockEntity.getBlockState(), Block.UPDATE_CLIENTS);
     }
 

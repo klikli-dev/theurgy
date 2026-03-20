@@ -50,6 +50,8 @@ public class CalcinationRecipe implements Recipe<ItemHandlerRecipeInput> {
             CalcinationRecipe::new
     );
 
+    public static final RecipeSerializer<CalcinationRecipe> SERIALIZER = new RecipeSerializer<>(CODEC, STREAM_CODEC);
+
     protected final SizedIngredient ingredient;
     protected final ItemStack result;
     protected final int time;
@@ -80,8 +82,19 @@ public class CalcinationRecipe implements Recipe<ItemHandlerRecipeInput> {
         return this.ingredient.test(stack);
     }
 
-    public ItemStack assemble(ItemHandlerRecipeInput input, HolderLookup.Provider pRegistries) {
+    @Override
+    public ItemStack assemble(ItemHandlerRecipeInput input) {
         return this.result.copy();
+    }
+
+    @Override
+    public boolean showNotification() {
+        return true;
+    }
+
+    @Override
+    public String group() {
+        return "";
     }
 
     public ItemStack getResultItem(HolderLookup.Provider pRegistries) {
@@ -127,15 +140,4 @@ public class CalcinationRecipe implements Recipe<ItemHandlerRecipeInput> {
         ));
     }
 
-    public static class Serializer implements RecipeSerializer<CalcinationRecipe> {
-        @Override
-        public @NotNull MapCodec<CalcinationRecipe> codec() {
-            return CODEC;
-        }
-
-        @Override
-        public @NotNull StreamCodec<RegistryFriendlyByteBuf, CalcinationRecipe> streamCodec() {
-            return STREAM_CODEC;
-        }
-    }
 }

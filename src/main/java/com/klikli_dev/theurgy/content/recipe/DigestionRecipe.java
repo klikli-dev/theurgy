@@ -59,6 +59,8 @@ public class DigestionRecipe implements Recipe<ItemHandlerWithFluidRecipeInput> 
             DigestionRecipe::new
     );
 
+    public static final RecipeSerializer<DigestionRecipe> SERIALIZER = new RecipeSerializer<>(CODEC, STREAM_CODEC);
+
     protected final SizedFluidIngredient fluid;
 
     protected final List<SizedIngredient> sizedIngredients;
@@ -120,8 +122,19 @@ public class DigestionRecipe implements Recipe<ItemHandlerWithFluidRecipeInput> 
         return true;
     }
 
-    public ItemStack assemble(ItemHandlerWithFluidRecipeInput pInv, HolderLookup.Provider pRegistries) {
+    @Override
+    public ItemStack assemble(ItemHandlerWithFluidRecipeInput pInv) {
         return this.result.copy();
+    }
+
+    @Override
+    public boolean showNotification() {
+        return true;
+    }
+
+    @Override
+    public String group() {
+        return "";
     }
     @Override
     public RecipeBookCategory recipeBookCategory() {
@@ -190,15 +203,4 @@ public class DigestionRecipe implements Recipe<ItemHandlerWithFluidRecipeInput> 
         ));
     }
 
-    public static class Serializer implements RecipeSerializer<DigestionRecipe> {
-        @Override
-        public @NotNull MapCodec<DigestionRecipe> codec() {
-            return CODEC;
-        }
-
-        @Override
-        public @NotNull StreamCodec<RegistryFriendlyByteBuf, DigestionRecipe> streamCodec() {
-            return STREAM_CODEC;
-        }
-    }
 }

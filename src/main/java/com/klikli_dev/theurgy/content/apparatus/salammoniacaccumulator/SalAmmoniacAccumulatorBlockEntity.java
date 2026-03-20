@@ -7,6 +7,7 @@ package com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator;
 import com.klikli_dev.theurgy.content.particle.ParticleColor;
 import com.klikli_dev.theurgy.content.particle.coloredbubble.ColoredBubbleParticleProvider;
 import com.klikli_dev.theurgy.content.storage.MonitoredItemStackHandler;
+import com.klikli_dev.theurgy.util.ValueIOUtils;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.ItemTagRegistry;
 import net.minecraft.core.BlockPos;
@@ -21,6 +22,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.neoforged.neoforge.fluids.FluidStack;
@@ -64,14 +67,12 @@ public class SalAmmoniacAccumulatorBlockEntity extends BlockEntity implements Ge
 
     @Override
     public @NotNull CompoundTag getUpdateTag(HolderLookup.@NotNull Provider pRegistries) {
-        var tag = new CompoundTag();
-        this.writeNetwork(tag, pRegistries);
-        return tag;
+        return ValueIOUtils.serialize(pRegistries, this::writeNetwork);
     }
 
     @Override
-    public void handleUpdateTag(@NotNull CompoundTag tag, HolderLookup.@NotNull Provider pRegistries) {
-        this.readNetwork(tag, pRegistries);
+    public void handleUpdateTag(@NotNull ValueInput input) {
+        this.readNetwork(input);
     }
 
     @Nullable
@@ -81,30 +82,30 @@ public class SalAmmoniacAccumulatorBlockEntity extends BlockEntity implements Ge
     }
 
     @Override
-    public void onDataPacket(@NotNull Connection connection, ClientboundBlockEntityDataPacket packet, HolderLookup.@NotNull Provider pRegistries) {
-        var tag = packet.getTag();
-        if (tag != null) {
-            this.readNetwork(tag, pRegistries);
-        }
+    public void onDataPacket(@NotNull Connection connection, @NotNull ValueInput input) {
+        this.readNetwork(input);
     }
 
-    public void readNetwork(CompoundTag tag, HolderLookup.Provider pRegistries) {
-        if (tag.contains("waterTank")) {
-            tag.getCompound("waterTank").ifPresent(tankTag -> this.waterTank.readFromNBT(pRegistries, tankTag));
-        }
-
-        if (tag.contains("inventory")) {
-            tag.getCompound("inventory").ifPresent(inventoryTag -> this.inventory.deserializeNBT(pRegistries, inventoryTag));
-        }
-
-        this.craftingBehaviour.readNetwork(tag, pRegistries);
+    public void readNetwork(ValueInput input) {
+        input.child("waterTank").ifPresent(this.waterTank::deserialize);
+        input.child("inventory").ifPresent(this.inventory::deserialize);
+        this.craftingBehaviour.readNetwork(input);
     }
 
-    public void writeNetwork(CompoundTag tag, HolderLookup.Provider pRegistries) {
-        tag.put("waterTank", this.waterTank.writeToNBT(pRegistries, new CompoundTag()));
-        tag.put("inventory", this.inventory.serializeNBT(pRegistries));
+    public void writeNetwork(ValueOutput output) {
+        ValueOutput waterTankOutput = output.child("waterTank");
+        this.waterTank.serialize(waterTankOutput);
+        if (waterTankOutput.isEmpty()) {
+            output.discard("waterTank");
+        }
 
-        this.craftingBehaviour.writeNetwork(tag, pRegistries);;
+        ValueOutput inventoryOutput = output.child("inventory");
+        this.inventory.serialize(inventoryOutput);
+        if (inventoryOutput.isEmpty()) {
+            output.discard("inventory");
+        }
+
+        this.craftingBehaviour.writeNetwork(output);
     }
 
     public void sendBlockUpdated() {
@@ -184,26 +185,17 @@ public class SalAmmoniacAccumulatorBlockEntity extends BlockEntity implements Ge
     }
 
     @Override
-    protected void saveAdditional(@NotNull CompoundTag pTag, HolderLookup.@NotNull Provider pRegistries) {
-        super.saveAdditional(pTag, pRegistries);
-
-        pTag.put("inventory", this.inventory.serializeNBT(pRegistries));
-        pTag.put("waterTank", this.waterTank.writeToNBT(pRegistries, new CompoundTag()));
-
-        this.craftingBehaviour.saveAdditional(pTag, pRegistries);
+    protected void saveAdditional(@NotNull ValueOutput output) {
+        super.saveAdditional(output);
+        this.writeNetwork(output);
+        this.craftingBehaviour.saveAdditional(output);
     }
 
     @Override
-    public void loadAdditional(@NotNull CompoundTag pTag, HolderLookup.@NotNull Provider pRegistries) {
-        super.loadAdditional(pTag, pRegistries);
-
-        if (pTag.contains("inventory")) pTag.getCompound("inventory").ifPresent(tag -> this.inventory.deserializeNBT(pRegistries, tag));
-
-        if (pTag.contains("waterTank")) {
-            pTag.getCompound("waterTank").ifPresent(tag -> this.waterTank.readFromNBT(pRegistries, tag));
-        }
-
-        this.craftingBehaviour.loadAdditional(pTag, pRegistries);
+    public void loadAdditional(@NotNull ValueInput input) {
+        super.loadAdditional(input);
+        this.readNetwork(input);
+        this.craftingBehaviour.loadAdditional(input);
     }
 
     @Override

@@ -5,6 +5,7 @@
 package com.klikli_dev.theurgy.content.apparatus.salammoniactank;
 
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
+import com.klikli_dev.theurgy.util.ValueIOUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
@@ -15,6 +16,8 @@ import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.FluidType;
 import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
@@ -41,14 +44,12 @@ public class SalAmmoniacTankBlockEntity extends BlockEntity implements GeoBlockE
 
     @Override
     public @NotNull CompoundTag getUpdateTag(HolderLookup.@NotNull Provider pRegistries) {
-        var tag = new CompoundTag();
-        this.writeNetwork(tag, pRegistries);
-        return tag;
+        return ValueIOUtils.serialize(pRegistries, this::writeNetwork);
     }
 
     @Override
-    public void handleUpdateTag(@NotNull CompoundTag tag, HolderLookup.@NotNull Provider pRegistries) {
-        this.readNetwork(tag, pRegistries);
+    public void handleUpdateTag(@NotNull ValueInput input) {
+        this.readNetwork(input);
     }
 
     @Nullable
@@ -58,21 +59,20 @@ public class SalAmmoniacTankBlockEntity extends BlockEntity implements GeoBlockE
     }
 
     @Override
-    public void onDataPacket(@NotNull Connection connection, ClientboundBlockEntityDataPacket packet, HolderLookup.@NotNull Provider pRegistries) {
-        var tag = packet.getTag();
-        if (tag != null) {
-            this.readNetwork(tag, pRegistries);
-        }
+    public void onDataPacket(@NotNull Connection connection, @NotNull ValueInput input) {
+        this.readNetwork(input);
     }
 
-    public void readNetwork(CompoundTag tag, HolderLookup.Provider pRegistries) {
-        if (tag.contains("tank")) {
-            tag.getCompound("tank").ifPresent(tankTag -> this.tank.readFromNBT(pRegistries, tankTag));
-        }
+    public void readNetwork(ValueInput input) {
+        input.child("tank").ifPresent(this.tank::deserialize);
     }
 
-    public void writeNetwork(CompoundTag tag, HolderLookup.Provider pRegistries) {
-        tag.put("tank", this.tank.writeToNBT(pRegistries, new CompoundTag()));
+    public void writeNetwork(ValueOutput output) {
+        ValueOutput tankOutput = output.child("tank");
+        this.tank.serialize(tankOutput);
+        if (tankOutput.isEmpty()) {
+            output.discard("tank");
+        }
     }
 
     public void sendBlockUpdated() {
@@ -81,18 +81,15 @@ public class SalAmmoniacTankBlockEntity extends BlockEntity implements GeoBlockE
     }
 
     @Override
-    protected void saveAdditional(@NotNull CompoundTag pTag, HolderLookup.@NotNull Provider pRegistries) {
-        super.saveAdditional(pTag, pRegistries);
-        pTag.put("tank", this.tank.writeToNBT(pRegistries, new CompoundTag()));
+    protected void saveAdditional(@NotNull ValueOutput output) {
+        super.saveAdditional(output);
+        this.writeNetwork(output);
     }
 
     @Override
-    public void loadAdditional(@NotNull CompoundTag pTag, HolderLookup.@NotNull Provider pRegistries) {
-        super.loadAdditional(pTag, pRegistries);
-
-        if (pTag.contains("tank")) {
-            pTag.getCompound("tank").ifPresent(tag -> this.tank.readFromNBT(pRegistries, tag));
-        }
+    public void loadAdditional(@NotNull ValueInput input) {
+        super.loadAdditional(input);
+        this.readNetwork(input);
     }
 
     @Override

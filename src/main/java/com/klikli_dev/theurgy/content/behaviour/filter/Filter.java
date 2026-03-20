@@ -4,17 +4,17 @@
 
 package com.klikli_dev.theurgy.content.behaviour.filter;
 
+import com.klikli_dev.theurgy.util.NBTSerializable;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.neoforged.neoforge.common.util.INBTSerializable;
 import net.neoforged.neoforge.fluids.FluidStack;
 import org.jetbrains.annotations.NotNull;
 
-public abstract class Filter implements INBTSerializable<CompoundTag> {
+public abstract class Filter implements NBTSerializable<CompoundTag> {
     protected ItemStack filterItemStack;
 
     protected Filter(HolderLookup.Provider provider, ItemStack filter) {

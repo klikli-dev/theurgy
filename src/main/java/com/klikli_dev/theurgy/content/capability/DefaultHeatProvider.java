@@ -4,12 +4,15 @@
 
 package com.klikli_dev.theurgy.content.capability;
 
+import com.klikli_dev.theurgy.util.NBTSerializable;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.ByteTag;
 import net.minecraft.nbt.Tag;
-import net.neoforged.neoforge.common.util.INBTSerializable;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
+import net.neoforged.neoforge.common.util.ValueIOSerializable;
 
-public class DefaultHeatProvider implements HeatProvider, INBTSerializable<Tag> {
+public class DefaultHeatProvider implements HeatProvider, NBTSerializable<Tag>, ValueIOSerializable {
     protected boolean isHot;
 
     @Override
@@ -31,5 +34,15 @@ public class DefaultHeatProvider implements HeatProvider, INBTSerializable<Tag> 
         if (!(nbt instanceof ByteTag byteNbt))
             throw new IllegalArgumentException("Can not deserialize to an instance that isn't the default implementation");
         this.isHot = byteNbt.value() != 0;
+    }
+
+    @Override
+    public void serialize(ValueOutput output) {
+        output.putBoolean("value", this.isHot);
+    }
+
+    @Override
+    public void deserialize(ValueInput input) {
+        this.isHot = input.getBooleanOr("value", false);
     }
 }

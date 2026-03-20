@@ -117,7 +117,7 @@ public class DigestionVatBlock extends Block implements EntityBlock {
 
     @SuppressWarnings("deprecation")
     @Override
-    protected int getAnalogOutputSignal(@NotNull BlockState pBlockState, @NotNull Level pLevel, @NotNull BlockPos pPos) {
+    protected int getAnalogOutputSignal(@NotNull BlockState pBlockState, @NotNull Level pLevel, @NotNull BlockPos pPos, @NotNull Direction pDirection) {
         return this.analogSignalOutputBehaviour.getAnalogOutputSignal(pBlockState, pLevel, pPos);
     }
 

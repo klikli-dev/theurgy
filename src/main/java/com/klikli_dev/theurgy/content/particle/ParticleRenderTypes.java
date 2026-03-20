@@ -5,9 +5,9 @@
 
 package com.klikli_dev.theurgy.content.particle;
 
-import net.minecraft.client.particle.ParticleRenderType;
+import net.minecraft.client.particle.SingleQuadParticle;
 
 public class ParticleRenderTypes {
-    public static final ParticleRenderType EMBER_RENDER = ParticleRenderType.PARTICLE_SHEET_TRANSLUCENT;
-    public static final ParticleRenderType EMBER_RENDER_NO_MASK = ParticleRenderType.PARTICLE_SHEET_TRANSLUCENT;
+    public static final SingleQuadParticle.Layer EMBER_RENDER = SingleQuadParticle.Layer.TRANSLUCENT;
+    public static final SingleQuadParticle.Layer EMBER_RENDER_NO_MASK = SingleQuadParticle.Layer.TRANSLUCENT;
 }

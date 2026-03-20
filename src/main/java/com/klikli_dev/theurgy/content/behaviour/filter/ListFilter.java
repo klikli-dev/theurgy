@@ -10,6 +10,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.FluidUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,7 +79,7 @@ public class ListFilter extends Filter {
         this.filterFluids = new ArrayList<>();
 
         for (var filterItem : this.filterItems) {
-            var capability = filterItem.getCapability(Capabilities.FluidHandler.ITEM);
+            var capability = FluidUtil.getFluidHandler(filterItem).orElse(null);
             if (capability == null)
                 continue;
 

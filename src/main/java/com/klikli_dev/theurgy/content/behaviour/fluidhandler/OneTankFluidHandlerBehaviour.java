@@ -4,6 +4,7 @@
 
 package com.klikli_dev.theurgy.content.behaviour.fluidhandler;
 
+import com.klikli_dev.theurgy.registry.CapabilityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -31,7 +32,7 @@ public class OneTankFluidHandlerBehaviour implements FluidHandlerBehaviour {
         var stackInHand = pPlayer.getItemInHand(pHand);
         var fillStack = stackInHand.copyWithCount(1); //necessary to handle stacks of containers, because FluidUtil only can handle one item at a time
 
-        var blockFluidHandler = pLevel.getCapability(Capabilities.FluidHandler.BLOCK, pPos, null);
+        var blockFluidHandler = pLevel.getCapability(CapabilityRegistry.FLUID_HANDLER, pPos, null);
         //a block without fluid handler is of no interest
         if (blockFluidHandler == null)
             return InteractionResult.PASS;
@@ -42,7 +43,7 @@ public class OneTankFluidHandlerBehaviour implements FluidHandlerBehaviour {
             return InteractionResult.SUCCESS;
         }
 
-        var itemFluidHandler = fillStack.getCapability(Capabilities.FluidHandler.ITEM);
+        var itemFluidHandler = FluidUtil.getFluidHandler(fillStack).orElse(null);
 
         //if our item does not have a fluid handler we cannot interact further
         if (itemFluidHandler == null)

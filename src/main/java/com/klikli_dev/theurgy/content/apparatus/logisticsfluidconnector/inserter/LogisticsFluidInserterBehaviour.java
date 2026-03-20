@@ -4,6 +4,7 @@
 
 package com.klikli_dev.theurgy.content.apparatus.logisticsfluidconnector.inserter;
 
+import com.klikli_dev.theurgy.registry.CapabilityRegistry;
 import com.klikli_dev.theurgy.content.behaviour.logistics.InserterNodeBehaviour;
 import com.klikli_dev.theurgy.logistics.Logistics;
 import net.minecraft.core.BlockPos;
@@ -22,7 +23,7 @@ public class LogisticsFluidInserterBehaviour extends InserterNodeBehaviour<IFlui
     private boolean enabled = true;
 
     public LogisticsFluidInserterBehaviour(BlockEntity blockEntity) {
-        super(blockEntity, Capabilities.FluidHandler.BLOCK);
+        super(blockEntity, CapabilityRegistry.FLUID_HANDLER);
     }
 
     @Override

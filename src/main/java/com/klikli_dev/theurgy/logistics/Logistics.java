@@ -15,6 +15,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import net.minecraft.core.GlobalPos;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.datafix.DataFixTypes;
 import net.minecraft.world.level.Level;
@@ -39,7 +40,7 @@ public class Logistics extends SavedData {
     public static final Codec<Logistics> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             TheurgyExtraCodecs.graph(GlobalPos.CODEC, GRAPH_SUPPLIER).fieldOf("graph").forGetter(Logistics::graph)
     ).apply(instance, Logistics::new));
-    private static final SavedDataType<Logistics> TYPE = new SavedDataType<>(Logistics.ID, Logistics::new, Logistics.CODEC, DataFixTypes.LEVEL);
+    private static final SavedDataType<Logistics> TYPE = new SavedDataType<>(Identifier.parse(Logistics.ID), Logistics::new, Logistics.CODEC, DataFixTypes.LEVEL);
     private static Logistics cachedLogistics;
 
     private final MutableGraph<GlobalPos> graph;

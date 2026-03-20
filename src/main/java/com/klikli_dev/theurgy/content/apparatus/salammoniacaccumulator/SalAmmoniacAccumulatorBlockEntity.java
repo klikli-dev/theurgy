@@ -4,6 +4,7 @@
 
 package com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator;
 
+import com.klikli_dev.theurgy.registry.CapabilityRegistry;
 import com.klikli_dev.theurgy.content.particle.ParticleColor;
 import com.klikli_dev.theurgy.content.particle.coloredbubble.ColoredBubbleParticleProvider;
 import com.klikli_dev.theurgy.content.storage.MonitoredItemStackHandler;
@@ -157,12 +158,12 @@ public class SalAmmoniacAccumulatorBlockEntity extends BlockEntity implements Ge
     public IFluidHandler getOutputTank() {
         var below = this.getBlockPos().below();
 
-        return this.level.getCapability(Capabilities.FluidHandler.BLOCK, below, null);
+        return this.level.getCapability(CapabilityRegistry.FLUID_HANDLER, below, null);
     }
 
     public void validateOutputTank() {
         var below = this.getBlockPos().below();
-        this.hasOutputTank = this.level.getCapability(Capabilities.FluidHandler.BLOCK, below, null) != null;
+        this.hasOutputTank = this.level.getCapability(CapabilityRegistry.FLUID_HANDLER, below, null) != null;
     }
 
     public boolean hasOutputTank() {

@@ -4,6 +4,7 @@
 
 package com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector.extractor;
 
+import com.klikli_dev.theurgy.registry.CapabilityRegistry;
 import com.klikli_dev.theurgy.content.behaviour.filter.Filter;
 import com.klikli_dev.theurgy.content.behaviour.logistics.ExtractorNodeBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.logistics.LeafNodeBehaviour;
@@ -31,7 +32,7 @@ public class LogisticsItemExtractorBehaviour extends ExtractorNodeBehaviour<IIte
     private boolean enabled = true;
 
     public LogisticsItemExtractorBehaviour(BlockEntity blockEntity) {
-        super(blockEntity, Capabilities.ItemHandler.BLOCK);
+        super(blockEntity, CapabilityRegistry.ITEM_HANDLER);
     }
 
     @Override

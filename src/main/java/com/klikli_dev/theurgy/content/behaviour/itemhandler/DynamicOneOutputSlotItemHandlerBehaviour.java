@@ -4,6 +4,7 @@
 
 package com.klikli_dev.theurgy.content.behaviour.itemhandler;
 
+import com.klikli_dev.theurgy.registry.CapabilityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -34,7 +35,7 @@ public class DynamicOneOutputSlotItemHandlerBehaviour implements ItemHandlerBeha
         if (pHand != InteractionHand.MAIN_HAND)
             return InteractionResult.PASS;
 
-        var blockItemHandler = pLevel.getCapability(Capabilities.ItemHandler.BLOCK, pPos, null);
+        var blockItemHandler = pLevel.getCapability(CapabilityRegistry.ITEM_HANDLER, pPos, null);
         //a block without item handler is of no interest
         if (blockItemHandler == null)
             return InteractionResult.PASS;

@@ -6,18 +6,17 @@
 package com.klikli_dev.theurgy.content.particle.glow;
 
 
-import com.klikli_dev.theurgy.content.particle.ParticleRenderTypes;
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.particle.ParticleRenderType;
+import net.minecraft.client.particle.SingleQuadParticle;
 import net.minecraft.client.particle.SpriteSet;
-import net.minecraft.client.particle.TextureSheetParticle;
+import net.minecraft.util.LightCoordsUtil;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
 import java.util.Random;
 
 @OnlyIn(Dist.CLIENT)
-public class GlowParticle extends TextureSheetParticle {
+public class GlowParticle extends SingleQuadParticle {
     public float colorR = 0;
     public float colorG = 0;
     public float colorB = 0;
@@ -25,9 +24,10 @@ public class GlowParticle extends TextureSheetParticle {
     public float initAlpha = 0;
 
     public boolean disableDepthTest;
+    private final SpriteSet spriteSet;
 
     public GlowParticle(ClientLevel worldIn, double x, double y, double z, double vx, double vy, double vz, float r, float g, float b, float a, float scale, int lifetime, SpriteSet sprite, boolean disableDepthTest) {
-        super(worldIn, x, y, z, 0, 0, 0);
+        super(worldIn, x, y, z, 0, 0, 0, sprite.first());
         this.hasPhysics = false;
 
         this.colorR = r;
@@ -50,18 +50,19 @@ public class GlowParticle extends TextureSheetParticle {
         this.yd = vy * 2.0f;
         this.zd = vz * 2.0f;
         this.initAlpha = a;
-        this.pickSprite(sprite);
+        this.spriteSet = sprite;
+        this.setSpriteFromAge(sprite);
         this.disableDepthTest = disableDepthTest;
     }
 
     @Override
-    public ParticleRenderType getRenderType() {
-        return this.disableDepthTest ? ParticleRenderTypes.EMBER_RENDER_NO_MASK : ParticleRenderTypes.EMBER_RENDER;
+    public SingleQuadParticle.Layer getLayer() {
+        return SingleQuadParticle.Layer.TRANSLUCENT;
     }
 
     @Override
-    public int getLightColor(float pTicks) {
-        return 255;
+    public int getLightCoords(float pTicks) {
+        return LightCoordsUtil.FULL_BRIGHT;
     }
 
 
@@ -78,6 +79,7 @@ public class GlowParticle extends TextureSheetParticle {
 
         this.oRoll = this.roll;
         this.roll += 1.0f;
+        this.setSpriteFromAge(this.spriteSet);
     }
 
     @Override

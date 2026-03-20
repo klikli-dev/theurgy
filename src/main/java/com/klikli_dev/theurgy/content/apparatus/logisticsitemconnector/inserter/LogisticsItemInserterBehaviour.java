@@ -4,6 +4,7 @@
 
 package com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector.inserter;
 
+import com.klikli_dev.theurgy.registry.CapabilityRegistry;
 import com.klikli_dev.theurgy.content.behaviour.logistics.InserterNodeBehaviour;
 import com.klikli_dev.theurgy.logistics.Logistics;
 import net.minecraft.core.BlockPos;
@@ -22,7 +23,7 @@ public class LogisticsItemInserterBehaviour extends InserterNodeBehaviour<IItemH
     private boolean enabled = true;
 
     public LogisticsItemInserterBehaviour(BlockEntity blockEntity) {
-        super(blockEntity, Capabilities.ItemHandler.BLOCK);
+        super(blockEntity, CapabilityRegistry.ITEM_HANDLER);
     }
 
     @Override

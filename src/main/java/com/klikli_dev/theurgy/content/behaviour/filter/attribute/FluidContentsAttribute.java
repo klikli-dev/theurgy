@@ -13,6 +13,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
 import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.fluids.FluidUtil;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -70,8 +71,7 @@ public class FluidContentsAttribute implements ItemAttribute {
     private List<Fluid> extractFluids(ItemStack stack) {
         List<Fluid> fluids = new ArrayList<>();
 
-        var capability =
-                stack.getCapability(Capabilities.FluidHandler.ITEM);
+        var capability = FluidUtil.getFluidHandler(stack).orElse(null);
 
         if (capability != null) {
             for (int i = 0; i < capability.getTanks(); i++) {

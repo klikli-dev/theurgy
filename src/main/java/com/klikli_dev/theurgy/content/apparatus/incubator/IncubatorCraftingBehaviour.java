@@ -39,7 +39,7 @@ public class IncubatorCraftingBehaviour extends CraftingBehaviour<IncubatorRecip
     @Override
     protected boolean craft(RecipeHolder<IncubationRecipe> pRecipe) {
         var ItemHandlerRecipeInput = this.recipeInputSupplier.get();
-        var assembledStack = pRecipe.value().assemble(ItemHandlerRecipeInput, this.blockEntity.getLevel().registryAccess());
+        var assembledStack = pRecipe.value().assemble(ItemHandlerRecipeInput);
 
         // Safely insert the assembledStack into the outputInventory and update the input stack.
         ItemHandlerHelper.insertItemStacked(this.outputInventorySupplier.get(), assembledStack, false);

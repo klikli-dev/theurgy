@@ -368,14 +368,14 @@ public class DivinationRodItem extends Item {
                 var blockComponent = ComponentUtils.wrapInSquareBrackets(
                                 Component.empty().append(stack.getHoverName()).withStyle(Style.EMPTY.withColor(ChatFormatting.GREEN).withItalic(true))
                         )
-                        .withStyle((style) -> style.withHoverEvent(new HoverEvent.ShowItem(stack)));
+                        .withStyle((style) -> style.withHoverEvent(new HoverEvent.ShowItem(ItemStackTemplate.fromNonEmptyStack(stack))));
                 return Component.translatable(this.getDescriptionId() + ".linked", blockComponent);
             } else {
                 //in case the block is not found, we indicate something went wrong
                 var blockComponent = ComponentUtils.wrapInSquareBrackets(
                                 Component.translatable(TheurgyConstants.I18n.Item.DIVINATION_ROD_UNKNOWN_LINKED_BLOCK).withStyle(Style.EMPTY.withColor(ChatFormatting.RED).withItalic(true))
                         )
-                        .withStyle((style) -> style.withHoverEvent(new HoverEvent.ShowItem(stack)));
+                        .withStyle((style) -> style.withHoverEvent(new HoverEvent.ShowItem(ItemStackTemplate.fromNonEmptyStack(stack))));
                 return Component.translatable(this.getDescriptionId() + ".linked", blockComponent);
             }
         }
@@ -390,7 +390,7 @@ public class DivinationRodItem extends Item {
             if (!stack.isEmpty()) {
                 var blockComponent = Component.empty().append(stack.getHoverName())
                         .withStyle(ChatFormatting.GREEN)
-                        .withStyle((style) -> style.withHoverEvent(new HoverEvent.ShowItem(stack)));
+                        .withStyle((style) -> style.withHoverEvent(new HoverEvent.ShowItem(ItemStackTemplate.fromNonEmptyStack(stack))));
 
                 this.getBlockDisplayComponent(stack);
                 pTooltipAdder.accept(
@@ -455,7 +455,7 @@ public class DivinationRodItem extends Item {
         var displayName = stack.getHoverName();
         return ComponentUtils.wrapInSquareBrackets(displayName)
                 .withStyle(ChatFormatting.GREEN)
-                .withStyle((style) -> style.withHoverEvent(new HoverEvent.ShowItem(stack)));
+                .withStyle((style) -> style.withHoverEvent(new HoverEvent.ShowItem(ItemStackTemplate.fromNonEmptyStack(stack))));
     }
 
     protected void spawnResultParticle(BlockPos result, Level level, LivingEntity entity) {

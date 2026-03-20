@@ -4,6 +4,7 @@
 
 package com.klikli_dev.theurgy.content.apparatus.logisticsfluidconnector.extractor;
 
+import com.klikli_dev.theurgy.registry.CapabilityRegistry;
 import com.klikli_dev.theurgy.content.behaviour.filter.Filter;
 import com.klikli_dev.theurgy.content.behaviour.logistics.ExtractorNodeBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.logistics.LeafNodeBehaviour;
@@ -32,7 +33,7 @@ public class LogisticsFluidExtractorBehaviour extends ExtractorNodeBehaviour<IFl
     private boolean enabled = true;
 
     public LogisticsFluidExtractorBehaviour(BlockEntity blockEntity) {
-        super(blockEntity, Capabilities.FluidHandler.BLOCK);
+        super(blockEntity, CapabilityRegistry.FLUID_HANDLER);
     }
 
     @Override

@@ -130,13 +130,13 @@ public class PyromanticBrazierBlockEntity extends BlockEntity {
             if (this.isLit()) {
                 wasTurnedOnDuringThisTick = true;
                 //handle lava bucket
-                if (!fuelStack.getCraftingRemainder().isEmpty())
-                    this.inventory.setStackInSlot(0, fuelStack.getCraftingRemainder());
+                if (fuelStack.getCraftingRemainder() != null)
+                    this.inventory.setStackInSlot(0, fuelStack.getCraftingRemainder().create());
                     //handle all other fuel items
                 else if (hasFuel) {
                     fuelStack.shrink(1);
                     if (fuelStack.isEmpty()) {
-                        this.inventory.setStackInSlot(0, fuelStack.getCraftingRemainder());
+                        this.inventory.setStackInSlot(0, ItemStack.EMPTY);
                     }
                 }
             }

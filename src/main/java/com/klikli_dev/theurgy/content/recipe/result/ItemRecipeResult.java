@@ -22,12 +22,12 @@ import org.jetbrains.annotations.Nullable;
 public class ItemRecipeResult extends RecipeResult {
 
     public static final MapCodec<ItemRecipeResult> INGREDIENT_COMPAT_CODEC = RecordCodecBuilder.mapCodec((builder) -> builder.group(
-            BuiltInRegistries.ITEM.holderByNameCodec().fieldOf("item").forGetter((ItemRecipeResult t) -> t.getStack().getItemHolder()),
+            BuiltInRegistries.ITEM.holderByNameCodec().fieldOf("item").forGetter((ItemRecipeResult t) -> t.getStack().typeHolder()),
             Codec.INT.fieldOf("count").forGetter((ItemRecipeResult t) -> t.getStack().getCount()),
             DataComponentPatch.CODEC.optionalFieldOf("components", DataComponentPatch.EMPTY).forGetter((ItemRecipeResult t) -> t.getStack().getComponentsPatch())
     ).apply(builder, (item, count, components) -> new ItemRecipeResult(new ItemStack(item, count, components))));
 
-    public static final MapCodec<ItemRecipeResult> ITEM_STACK_COMPAT_CODEC = MapCodec.assumeMapUnsafe(ItemStack.STRICT_CODEC.xmap(ItemRecipeResult::new, ItemRecipeResult::getStack));
+    public static final MapCodec<ItemRecipeResult> ITEM_STACK_COMPAT_CODEC = MapCodec.assumeMapUnsafe(ItemStack.CODEC.xmap(ItemRecipeResult::new, ItemRecipeResult::getStack));
 
     public static final MapCodec<ItemRecipeResult> CODEC = TheurgyExtraCodecs.mapWithAlternative(
             ITEM_STACK_COMPAT_CODEC,

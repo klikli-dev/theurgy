@@ -7,15 +7,14 @@ package com.klikli_dev.theurgy.content.particle.coloredbubble;
 
 
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.particle.ParticleRenderType;
+import net.minecraft.client.particle.SingleQuadParticle;
 import net.minecraft.client.particle.SpriteSet;
-import net.minecraft.client.particle.TextureSheetParticle;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import org.joml.Math;
 
 @OnlyIn(Dist.CLIENT)
-public class ColoredBubbleParticle extends TextureSheetParticle {
+public class ColoredBubbleParticle extends SingleQuadParticle {
 
     private final SpriteSet sprite;
     public float colorR;
@@ -24,7 +23,7 @@ public class ColoredBubbleParticle extends TextureSheetParticle {
 
 
     public ColoredBubbleParticle(ClientLevel worldIn, double x, double y, double z, double vx, double vy, double vz, float r, float g, float b, SpriteSet sprite) {
-        super(worldIn, x, y, z, 0, 0, 0);
+        super(worldIn, x, y, z, 0, 0, 0, sprite.first());
         this.hasPhysics = false;
 
         this.colorR = r;
@@ -50,12 +49,12 @@ public class ColoredBubbleParticle extends TextureSheetParticle {
         this.zd = vz;
 
         this.sprite = sprite;
-        this.pickSprite(this.sprite);
+        this.setSpriteFromAge(this.sprite);
     }
 
     @Override
-    public ParticleRenderType getRenderType() {
-        return ParticleRenderType.PARTICLE_SHEET_TRANSLUCENT;
+    public SingleQuadParticle.Layer getLayer() {
+        return SingleQuadParticle.Layer.TRANSLUCENT;
     }
 
 

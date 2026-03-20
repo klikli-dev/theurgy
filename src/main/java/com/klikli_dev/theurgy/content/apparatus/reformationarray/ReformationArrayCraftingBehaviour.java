@@ -44,7 +44,7 @@ public class ReformationArrayCraftingBehaviour extends CraftingBehaviour<Reforma
     @Override
     protected boolean craft(RecipeHolder<ReformationRecipe> pRecipe) {
         var ItemHandlerRecipeInput = this.recipeInputSupplier.get();
-        var assembledStack = pRecipe.value().assemble(ItemHandlerRecipeInput, this.blockEntity.getLevel().registryAccess());
+        var assembledStack = pRecipe.value().assemble(ItemHandlerRecipeInput);
 
         //consume energy
         this.mercuryFluxStorageSupplier.get().extractEnergy(pRecipe.value().getMercuryFlux(), false);

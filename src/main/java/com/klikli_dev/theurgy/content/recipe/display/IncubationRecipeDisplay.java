@@ -57,6 +57,6 @@ public record IncubationRecipeDisplay(
 
     @Override
     public SlotDisplay result() {
-        return new SlotDisplay.ItemStackSlotDisplay(this.output.getStack());
+        return new SlotDisplay.ItemStackSlotDisplay(ItemStackTemplate.fromNonEmptyStack(this.output.getStack()));
     }
 }

@@ -101,7 +101,7 @@ public class FermentationCraftingBehaviour extends CraftingBehaviour<ItemHandler
 
     @Override
     protected boolean craft(RecipeHolder<FermentationRecipe> pRecipe) {
-        var assembledStack = pRecipe.value().assemble(this.recipeInputSupplier.get(), this.blockEntity.getLevel().registryAccess());
+        var assembledStack = pRecipe.value().assemble(this.recipeInputSupplier.get());
 
         // Safely insert the assembledStack into the outputInventory and update the input stack.
         ItemHandlerHelper.insertItemStacked(this.outputInventorySupplier.get(), assembledStack, false);

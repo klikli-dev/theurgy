@@ -3,6 +3,7 @@
 ## General
 - Read `build.gradle` and `gradle.properties`, and `src/main/resources/META-INF/neoforge.mods.toml` to find the current minecraft version used.
 - For updating to new minecraft versions, consult `.claude/skills/neoforge-updater/SKILL.md` and its version primers first.
+- When updating, **never** change `gradle.properties`, a human will update it before you start work.
 - Do not guess vanilla API changes; verify them.
 
 ## Minecraft source lookups

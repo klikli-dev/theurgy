@@ -12,6 +12,8 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.capabilities.BlockCapability;
 import net.neoforged.neoforge.common.util.Lazy;
 
@@ -125,23 +127,23 @@ public abstract class LeafNodeBehaviour<T, C> {
         Logistics.get().remove(this, true);
     }
 
-    public void saveAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
-        this.writeNetwork(pTag, pRegistries);
+    public void saveAdditional(ValueOutput output) {
+        this.writeNetwork(output);
     }
 
-    public void loadAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
-        this.readNetwork(pTag, pRegistries);
+    public void loadAdditional(ValueInput input) {
+        this.readNetwork(input);
     }
 
-    public void writeNetwork(CompoundTag pTag, HolderLookup.Provider pRegistries) {
-        pTag.putInt("frequency", this.frequency);
-        pTag.putLongArray("targets", this.targets.stream().mapToLong(BlockPos::asLong).toArray());
+    public void writeNetwork(ValueOutput output) {
+        output.putInt("frequency", this.frequency);
+        output.putLongArray("targets", this.targets.stream().mapToLong(BlockPos::asLong).toArray());
     }
 
-    public void readNetwork(CompoundTag pTag, HolderLookup.Provider pRegistries) {
-        this.frequency = pTag.getInt("frequency").orElse(0);
+    public void readNetwork(ValueInput input) {
+        this.frequency = input.getIntOr("frequency", 0);
         this.targets = new ArrayList<>();
-        for (long target : pTag.getLongArray("targets").orElseGet(() -> new long[0])) {
+        for (long target : input.getLongArray("targets").orElseGet(() -> new long[0])) {
             this.targets.add(BlockPos.of(target));
         }
     }

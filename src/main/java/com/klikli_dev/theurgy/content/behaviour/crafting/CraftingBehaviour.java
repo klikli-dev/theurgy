@@ -16,6 +16,8 @@ import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.items.IItemHandlerModifiable;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
@@ -54,21 +56,20 @@ public abstract class CraftingBehaviour<W extends RecipeInput, R extends Recipe<
         return this.couldCraftLastTick;
     }
 
-    public void readNetwork(CompoundTag tag, HolderLookup.Provider pRegistries) {
-        this.isProcessing = tag.getBoolean("isProcessing").orElse(false);
+    public void readNetwork(ValueInput input) {
+        this.isProcessing = input.getBooleanOr("isProcessing", false);
     }
 
-    public void writeNetwork(CompoundTag tag, HolderLookup.Provider pRegistries) {
-        tag.putBoolean("isProcessing", this.isProcessing);
+    public void writeNetwork(ValueOutput output) {
+        output.putBoolean("isProcessing", this.isProcessing);
     }
 
-    public void saveAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
-        pTag.putShort("progress", (short) this.progress);
+    public void saveAdditional(ValueOutput output) {
+        output.putShort("progress", (short) this.progress);
     }
 
-    public void loadAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
-        if (pTag.contains("progress"))
-            this.progress = pTag.getShort("progress").orElse((short) 0);
+    public void loadAdditional(ValueInput input) {
+        this.progress = input.getShortOr("progress", (short) 0);
     }
 
     public void applyImplicitComponents(DataComponentGetter pComponentGetter) {

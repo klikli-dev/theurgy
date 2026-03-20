@@ -10,6 +10,8 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.items.IItemHandler;
 
@@ -59,13 +61,13 @@ public abstract class StorageBehaviour<S extends StorageBehaviour<?>> {
         return (S) this;
     }
 
-    public abstract void readNetwork(CompoundTag pTag, HolderLookup.Provider pRegistries);
+    public abstract void readNetwork(ValueInput input);
 
-    public abstract void writeNetwork(CompoundTag pTag, HolderLookup.Provider pRegistries);
+    public abstract void writeNetwork(ValueOutput output);
 
-    public abstract void saveAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries);
+    public abstract void saveAdditional(ValueOutput output);
 
-    public abstract void loadAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries);
+    public abstract void loadAdditional(ValueInput input);
 
     protected void sendBlockUpdated() {
         if (this.blockEntity.getLevel() != null && !this.blockEntity.getLevel().isClientSide)

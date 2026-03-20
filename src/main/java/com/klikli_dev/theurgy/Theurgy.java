@@ -85,30 +85,6 @@ public class Theurgy {
 
     public static Theurgy INSTANCE;
 
-    public static boolean isClientEnvironment() {
-        for (var field : FMLEnvironment.class.getDeclaredFields()) {
-            if (Modifier.isStatic(field.getModifiers()) && Dist.class.isAssignableFrom(field.getType())) {
-                try {
-                    field.setAccessible(true);
-                    return ((Dist) field.get(null)).isClient();
-                } catch (IllegalAccessException ignored) {
-                }
-            }
-        }
-
-        for (var method : FMLEnvironment.class.getDeclaredMethods()) {
-            if (Modifier.isStatic(method.getModifiers()) && method.getParameterCount() == 0 && Dist.class.isAssignableFrom(method.getReturnType())) {
-                try {
-                    method.setAccessible(true);
-                    return ((Dist) method.invoke(null)).isClient();
-                } catch (ReflectiveOperationException ignored) {
-                }
-            }
-        }
-
-        return false;
-    }
-
     public Theurgy(IEventBus modEventBus, ModContainer modContainer) {
         INSTANCE = this;
 
@@ -155,7 +131,7 @@ public class Theurgy {
         NeoForge.EVENT_BUS.addListener(WireSync.get()::onChunkWatch);
         NeoForge.EVENT_BUS.addListener(WireSync.get()::onChunkUnWatch);
 
-        if (isClientEnvironment()) {
+        if (FMLEnvironment.getDist() == Dist.CLIENT) {
             modEventBus.addListener(ParticleRegistry::registerFactories);
             modEventBus.addListener(Client::onClientSetup);
             modEventBus.addListener(Client::onRegisterEntityRendererLayerDefinitions);

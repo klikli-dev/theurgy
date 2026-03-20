@@ -18,7 +18,7 @@ public class RenderTypes {
 
     protected static final RenderType DISTANCE_LINES = net.minecraft.client.renderer.rendertype.RenderTypes.lines();
 
-    protected static final Function<Identifier, RenderType> ENTITY_TRANSLUCENT_CULL_NO_DEPTH = Util.memoize(net.minecraft.client.renderer.rendertype.RenderTypes::entityTranslucent);
+    protected static final Function<Identifier, RenderType> ENTITY_TRANSLUCENT_CULL_NO_DEPTH = Util.memoize((Identifier texture) -> net.minecraft.client.renderer.rendertype.RenderTypes.entityTranslucent(texture));
 
     public static RenderType entityTranslucentCullNoDepth(Identifier pLocation) {
         return ENTITY_TRANSLUCENT_CULL_NO_DEPTH.apply(pLocation);
@@ -32,7 +32,7 @@ public class RenderTypes {
 
     private static final RenderType FLUID = net.minecraft.client.renderer.rendertype.RenderTypes.itemTranslucent(TextureAtlas.LOCATION_BLOCKS);
     private static final RenderType OUTLINE_SOLID = net.minecraft.client.renderer.rendertype.RenderTypes.entitySolid(BLANK_TEXTURE);
-    private static final Function<Identifier, RenderType> SRC_MINUS_ONE = Util.memoize(net.minecraft.client.renderer.rendertype.RenderTypes::entityTranslucent);
+    private static final Function<Identifier, RenderType> SRC_MINUS_ONE = Util.memoize((Identifier texture) -> net.minecraft.client.renderer.rendertype.RenderTypes.entityTranslucent(texture));
 
     private RenderTypes() {
     }

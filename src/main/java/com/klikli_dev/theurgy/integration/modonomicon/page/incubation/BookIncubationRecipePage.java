@@ -11,7 +11,7 @@ import com.klikli_dev.theurgy.content.recipe.IncubationRecipe;
 import com.klikli_dev.theurgy.integration.modonomicon.TheurgyModonomiconConstants;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 
 public class BookIncubationRecipePage extends BookProcessingRecipePage<IncubationRecipe> {
@@ -23,7 +23,7 @@ public class BookIncubationRecipePage extends BookProcessingRecipePage<Incubatio
         super(common);
     }
 
-    public static BookIncubationRecipePage fromJson(ResourceLocation entryId, JsonObject json, HolderLookup.Provider provider) {
+    public static BookIncubationRecipePage fromJson(Identifier entryId, JsonObject json, HolderLookup.Provider provider) {
         var common = BookRecipePage.commonFromJson(entryId, json, provider);
          return new BookIncubationRecipePage(common);
     }
@@ -34,7 +34,7 @@ public class BookIncubationRecipePage extends BookProcessingRecipePage<Incubatio
     }
 
     @Override
-    public ResourceLocation getType() {
+    public Identifier getType() {
         return TheurgyModonomiconConstants.Page.INCUBATION_RECIPE;
     }
 

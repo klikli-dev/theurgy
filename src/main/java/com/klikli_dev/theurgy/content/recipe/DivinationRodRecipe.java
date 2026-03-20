@@ -19,7 +19,7 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.ItemStack;
@@ -66,7 +66,7 @@ public class DivinationRodRecipe extends ShapedRecipe {
                 var sourceBlock = this.translateToBlock(sourceItem.unwrapKey().get().location().toString());
 
                 if (sourceBlock != null) {
-                    var blockKey = ResourceKey.create(Registries.BLOCK, ResourceLocation.parse(sourceBlock));
+                    var blockKey = ResourceKey.create(Registries.BLOCK, Identifier.parse(sourceBlock));
                     result.set(DataComponentRegistry.DIVINATION_LINKED_BLOCK, BuiltInRegistries.BLOCK.get(blockKey).get());
                 }
                 break;
@@ -85,11 +85,11 @@ public class DivinationRodRecipe extends ShapedRecipe {
         return result;
     }
 
-    public @Nullable ResourceLocation translateTagToBlock(@NotNull String sourceTag) {
+    public @Nullable Identifier translateTagToBlock(@NotNull String sourceTag) {
         //first we check if we have a manual override mapping
         var mapped = ServerConfig.get().recipes.sulfurSourceToBlockMapping.get().get(sourceTag);
         if (mapped != null)
-            return ResourceLocation.parse(mapped);
+            return Identifier.parse(mapped);
 
         //if not we use generic logic to translate ingot, storage block, nugget, raw, ore, dust to (ore)block.
         //even though likely not all of these will be used to create sulfur its good to handle them.
@@ -107,7 +107,7 @@ public class DivinationRodRecipe extends ShapedRecipe {
 
         //special handling for coal items as they are none of the above
         if (sourceTag.equals("minecraft:coals"))
-            return ResourceLocation.parse("c:ores/coal");
+            return Identifier.parse("c:ores/coal");
 
         var parts = sourceTag.split(":");
         var namespace = parts[0];
@@ -132,7 +132,7 @@ public class DivinationRodRecipe extends ShapedRecipe {
             translatedPath = translatedPath.replace("/netherite", "/netherite_scrap");
         }
 
-        var translatedTag = ResourceLocation.parse(namespace + ":" + translatedPath);
+        var translatedTag = Identifier.parse(namespace + ":" + translatedPath);
         if (BuiltInRegistries.BLOCK.get(TagKey.create(Registries.BLOCK, translatedTag)).isPresent())
             return translatedTag;
 
@@ -179,7 +179,7 @@ public class DivinationRodRecipe extends ShapedRecipe {
         }
 
         translatedPath = translatedPath + "_ore";
-        var translatedRL = ResourceLocation.parse(namespace + ":" + translatedPath);
+        var translatedRL = Identifier.parse(namespace + ":" + translatedPath);
         if (BuiltInRegistries.BLOCK.containsKey(translatedRL)) {
             return translatedRL.toString();
         }

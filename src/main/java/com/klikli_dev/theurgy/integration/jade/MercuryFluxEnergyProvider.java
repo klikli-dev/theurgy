@@ -7,7 +7,7 @@ package com.klikli_dev.theurgy.integration.jade;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.registry.CapabilityRegistry;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import org.jetbrains.annotations.Nullable;
 import snownee.jade.api.Accessor;
@@ -19,7 +19,7 @@ import java.util.Objects;
 
 public class MercuryFluxEnergyProvider implements IServerExtensionProvider<CompoundTag>, IClientExtensionProvider<CompoundTag, EnergyView> {
 
-    public static final ResourceLocation ID = Theurgy.loc("mercury_flux");
+    public static final Identifier ID = Theurgy.loc("mercury_flux");
     private static final MercuryFluxEnergyProvider instance = new MercuryFluxEnergyProvider();
 
     public static MercuryFluxEnergyProvider get() {
@@ -46,7 +46,7 @@ public class MercuryFluxEnergyProvider implements IServerExtensionProvider<Compo
     }
 
     @Override
-    public ResourceLocation getUid() {
+    public Identifier getUid() {
         return ID;
     }
 

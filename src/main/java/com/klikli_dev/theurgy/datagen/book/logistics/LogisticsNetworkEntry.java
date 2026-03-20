@@ -16,7 +16,7 @@ import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.datagen.book.LogisticsCategory;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.mojang.datafixers.util.Pair;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.crafting.Ingredient;
 
 public class LogisticsNetworkEntry extends EntryProvider {

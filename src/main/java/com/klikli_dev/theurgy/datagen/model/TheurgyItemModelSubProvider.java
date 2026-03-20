@@ -17,7 +17,7 @@ import net.minecraft.client.data.models.model.TextureMapping;
 import net.minecraft.client.renderer.item.ItemModel;
 import net.minecraft.client.renderer.item.RangeSelectItemModel;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.neoforged.neoforge.client.model.item.DynamicFluidContainerModel;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -60,22 +60,22 @@ public class TheurgyItemModelSubProvider {
     }
 
     //Helper to create a model for a variant but not assign it to the item directly (used for divination rod)
-    private ResourceLocation createItemHandheldVariant(ItemModelGenerators itemModels, String modelName, String texture) {
+    private Identifier createItemHandheldVariant(ItemModelGenerators itemModels, String modelName, String texture) {
         return ModelTemplates.FLAT_HANDHELD_ITEM.create(Theurgy.loc("item/" + modelName), TextureMapping.layer0(Theurgy.loc("item/" + texture)), itemModels.modelOutput);
     }
 
     private void registerDivinationRod(ItemModelGenerators itemModels, Item divinationRodItem) {
         String name = this.name(divinationRodItem);
         //Generate variant models
-        ResourceLocation variant0 = this.createItemHandheldVariant(itemModels, name + "/0", name + "/divination_rod_0");
-        ResourceLocation variant1 = this.createItemHandheldVariant(itemModels, name + "/1", name + "/divination_rod_1");
-        ResourceLocation variant2 = this.createItemHandheldVariant(itemModels, name + "/2", name + "/divination_rod_2");
-        ResourceLocation variant3 = this.createItemHandheldVariant(itemModels, name + "/3", name + "/divination_rod_3");
-        ResourceLocation variant4 = this.createItemHandheldVariant(itemModels, name + "/4", name + "/divination_rod_4");
-        ResourceLocation variant5 = this.createItemHandheldVariant(itemModels, name + "/5", name + "/divination_rod_5");
-        ResourceLocation variant6 = this.createItemHandheldVariant(itemModels, name + "/6", name + "/divination_rod_6");
-        ResourceLocation variant7 = this.createItemHandheldVariant(itemModels, name + "/7", name + "/divination_rod_7");
-        ResourceLocation searchingVariant = this.createItemHandheldVariant(itemModels, name + "/searching", name + "/divination_rod_searching");
+        Identifier variant0 = this.createItemHandheldVariant(itemModels, name + "/0", name + "/divination_rod_0");
+        Identifier variant1 = this.createItemHandheldVariant(itemModels, name + "/1", name + "/divination_rod_1");
+        Identifier variant2 = this.createItemHandheldVariant(itemModels, name + "/2", name + "/divination_rod_2");
+        Identifier variant3 = this.createItemHandheldVariant(itemModels, name + "/3", name + "/divination_rod_3");
+        Identifier variant4 = this.createItemHandheldVariant(itemModels, name + "/4", name + "/divination_rod_4");
+        Identifier variant5 = this.createItemHandheldVariant(itemModels, name + "/5", name + "/divination_rod_5");
+        Identifier variant6 = this.createItemHandheldVariant(itemModels, name + "/6", name + "/divination_rod_6");
+        Identifier variant7 = this.createItemHandheldVariant(itemModels, name + "/7", name + "/divination_rod_7");
+        Identifier searchingVariant = this.createItemHandheldVariant(itemModels, name + "/searching", name + "/divination_rod_searching");
 
         //Main item model with range select
         ItemModel.Unbaked model = ItemModelUtils.rangeSelect(
@@ -151,22 +151,22 @@ public class TheurgyItemModelSubProvider {
                                 // - Container base texture
                                 // - Container cover texture, if not used as a mask
                                 // Points to 'assets/minecraft/textures/item/bucket.png'
-                                Optional.of(ResourceLocation.withDefaultNamespace("item/bucket")),
+                                Optional.of(Identifier.withDefaultNamespace("item/bucket")),
                                 // Sets the texture to use on the first layer, generally the container of the fluid
                                 // If not set, the layer will not be added
                                 // Points to 'assets/minecraft/textures/item/bucket.png'
-                                Optional.of(ResourceLocation.withDefaultNamespace("item/bucket")),
+                                Optional.of(Identifier.withDefaultNamespace("item/bucket")),
                                 // Sets the texture to use as the mask for the still fluid texture
                                 // Areas where the fluid is seen should be pure white
                                 // If not set or the fluid is empty, then the layer is not rendered
                                 // Points to 'assets/neoforge/textures/item/mask/bucket_fluid.png'
-                                Optional.of(ResourceLocation.fromNamespaceAndPath("neoforge", "item/mask/bucket_fluid")),
+                                Optional.of(Identifier.fromNamespaceAndPath("neoforge", "item/mask/bucket_fluid")),
                                 // Sets the texture to use as either
                                 // - The overlay texture when 'cover_is_mask' is false
                                 // - The mask to apply to the base texture (should be pure white to see) when 'cover_is_mask' is true
                                 // If not set or no base texture is set when 'cover_is_mask' is true, then the layer is not rendered
                                 // Points to 'assets/neoforge/textures/item/mask/bucket_fluid_cover.png'
-                                Optional.of(ResourceLocation.fromNamespaceAndPath("neoforge", "item/mask/bucket_fluid_cover"))
+                                Optional.of(Identifier.fromNamespaceAndPath("neoforge", "item/mask/bucket_fluid_cover"))
                         ),
                         FluidRegistry.SAL_AMMONIAC.get(),
                         // When true, rotates the model 180 degrees

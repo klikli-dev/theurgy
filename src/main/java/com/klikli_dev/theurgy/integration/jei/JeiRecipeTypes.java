@@ -7,7 +7,7 @@ package com.klikli_dev.theurgy.integration.jei;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.content.recipe.*;
 import mezz.jei.api.recipe.RecipeType;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
 
@@ -22,7 +22,7 @@ public class JeiRecipeTypes {
     public static final RecipeType<RecipeHolder<DigestionRecipe>> DIGESTION = create(Theurgy.MODID, "digestion", DigestionRecipe.class);
 
     public static <R extends Recipe<?>> RecipeType<RecipeHolder<R>> create(String modid, String name, Class<? extends R> recipeClass) {
-        ResourceLocation uid = ResourceLocation.fromNamespaceAndPath(modid,  name);
+        Identifier uid = Identifier.fromNamespaceAndPath(modid,  name);
         @SuppressWarnings({"unchecked", "RedundantCast"})
         Class<? extends RecipeHolder<R>> holderClass = (Class<? extends RecipeHolder<R>>) (Object) RecipeHolder.class;
         return new RecipeType<>(uid, holderClass);

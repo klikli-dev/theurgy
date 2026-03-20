@@ -8,7 +8,7 @@ package com.klikli_dev.theurgy.content.behaviour.filter.attribute;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
@@ -55,7 +55,7 @@ public class FluidContentsAttribute implements ItemAttribute {
     public void writeNBT(HolderLookup.Provider pRegistries, CompoundTag nbt) {
         if (this.fluid == null)
             return;
-        ResourceLocation id = BuiltInRegistries.FLUID.getKey(this.fluid);
+        Identifier id = BuiltInRegistries.FLUID.getKey(this.fluid);
 
         if (id == null)
             return;
@@ -64,7 +64,7 @@ public class FluidContentsAttribute implements ItemAttribute {
 
     @Override
     public ItemAttribute readNBT(HolderLookup.Provider pRegistries, CompoundTag nbt) {
-        return nbt.contains("id") ? new FluidContentsAttribute(BuiltInRegistries.FLUID.get(ResourceLocation.tryParse(nbt.getString("id").orElse("minecraft:empty"))).map(net.minecraft.core.Holder::value).orElse(Fluids.EMPTY)) : EMPTY;
+        return nbt.contains("id") ? new FluidContentsAttribute(BuiltInRegistries.FLUID.get(Identifier.tryParse(nbt.getString("id").orElse("minecraft:empty"))).map(net.minecraft.core.Holder::value).orElse(Fluids.EMPTY)) : EMPTY;
     }
 
     private List<Fluid> extractFluids(ItemStack stack) {

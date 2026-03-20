@@ -17,7 +17,7 @@ import com.klikli_dev.theurgy.registry.*;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.material.Fluid;
@@ -48,7 +48,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.add(TheurgyConstants.I18n.Key.CHANGE_ITEM_MODE, "Change Item Mode");
     }
 
-    private void addItemTag(ResourceLocation resourceLocation, String string) {
+    private void addItemTag(Identifier resourceLocation, String string) {
         this.add("tag.item." + resourceLocation.getNamespace() + "." + resourceLocation.getPath().replace("/", "."), string);
     }
 
@@ -56,7 +56,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.addItemTag(item.location(), string);
     }
 
-    private void addFluidTag(ResourceLocation resourceLocation, String string) {
+    private void addFluidTag(Identifier resourceLocation, String string) {
         this.add("tag.fluid." + resourceLocation.getNamespace() + "." + resourceLocation.getPath().replace("/", "."), string);
     }
 

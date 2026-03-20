@@ -14,7 +14,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
@@ -39,7 +39,7 @@ public record WireEndPoint(BlockPos pos, ResourceKey<Level> level) {
     public static WireEndPoint load(CompoundTag tag) {
         return new WireEndPoint(
                 BlockPos.of(tag.getLong("pos").orElse(0L)),
-                ResourceKey.create(Registries.DIMENSION, ResourceLocation.parse(tag.getString("level").orElse("minecraft:overworld")))
+                ResourceKey.create(Registries.DIMENSION, Identifier.parse(tag.getString("level").orElse("minecraft:overworld")))
         );
     }
 

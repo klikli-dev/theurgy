@@ -11,7 +11,7 @@ import com.klikli_dev.theurgy.content.recipe.DistillationRecipe;
 import com.klikli_dev.theurgy.integration.modonomicon.TheurgyModonomiconConstants;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 
 public class BookDistillationRecipePage extends BookProcessingRecipePage<DistillationRecipe> {
@@ -23,7 +23,7 @@ public class BookDistillationRecipePage extends BookProcessingRecipePage<Distill
         super(common);
     }
 
-    public static BookDistillationRecipePage fromJson(ResourceLocation entryId, JsonObject json, HolderLookup.Provider provider) {
+    public static BookDistillationRecipePage fromJson(Identifier entryId, JsonObject json, HolderLookup.Provider provider) {
         var common = BookRecipePage.commonFromJson(entryId, json, provider);
         return new BookDistillationRecipePage(common);
     }
@@ -34,7 +34,7 @@ public class BookDistillationRecipePage extends BookProcessingRecipePage<Distill
     }
     
     @Override
-    public ResourceLocation getType() {
+    public Identifier getType() {
         return TheurgyModonomiconConstants.Page.DISTILLATION_RECIPE;
     }
 

@@ -21,7 +21,7 @@ import net.minecraft.client.renderer.block.model.Variant;
 import net.minecraft.client.renderer.block.model.VariantMutator;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.PipeBlock;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -32,7 +32,7 @@ import java.util.function.BiConsumer;
 
 public class TheurgyBlockModelSubProvider {
 
-    private static final ResourceLocation BUILTIN_ENTITY = ResourceLocation.withDefaultNamespace("builtin/entity");
+    private static final Identifier BUILTIN_ENTITY = Identifier.withDefaultNamespace("builtin/entity");
 
     public void registerModels(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
         this.registerCalcinationOven(blockModels, itemModels);
@@ -48,15 +48,15 @@ public class TheurgyBlockModelSubProvider {
         this.registerSulfuricFluxEmitter(blockModels, itemModels);
         this.registerSimpleTemplateBlock(blockModels, itemModels, BlockRegistry.REFORMATION_SOURCE_PEDESTAL.get(), "block/reformation_source_pedestal_template", Map.of(
                 "texture", Theurgy.loc("block/reformation_source_pedestal"),
-                "particle", ResourceLocation.withDefaultNamespace("block/copper_block")
+                "particle", Identifier.withDefaultNamespace("block/copper_block")
         ));
         this.registerSimpleTemplateBlock(blockModels, itemModels, BlockRegistry.REFORMATION_TARGET_PEDESTAL.get(), "block/reformation_target_pedestal_template", Map.of(
                 "texture", Theurgy.loc("block/reformation_target_pedestal"),
-                "particle", ResourceLocation.withDefaultNamespace("block/copper_block")
+                "particle", Identifier.withDefaultNamespace("block/copper_block")
         ));
         this.registerSimpleTemplateBlock(blockModels, itemModels, BlockRegistry.REFORMATION_RESULT_PEDESTAL.get(), "block/reformation_result_pedestal_template", Map.of(
                 "texture", Theurgy.loc("block/reformation_result_pedestal"),
-                "particle", ResourceLocation.withDefaultNamespace("block/copper_block")
+                "particle", Identifier.withDefaultNamespace("block/copper_block")
         ));
         this.registerFermentationVat(blockModels, itemModels);
         this.registerDigestionVat(blockModels, itemModels);
@@ -71,7 +71,7 @@ public class TheurgyBlockModelSubProvider {
     }
 
     private void registerCalcinationOven(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
-        this.emitParticleModel(blockModels.modelOutput, this.blockModel(BlockRegistry.CALCINATION_OVEN.get()), ResourceLocation.withDefaultNamespace("block/copper_block"));
+        this.emitParticleModel(blockModels.modelOutput, this.blockModel(BlockRegistry.CALCINATION_OVEN.get()), Identifier.withDefaultNamespace("block/copper_block"));
         this.registerSingleStateBlock(blockModels, BlockRegistry.CALCINATION_OVEN.get(), this.blockModel(BlockRegistry.CALCINATION_OVEN.get()));
         this.registerBuiltinEntityItem(itemModels, BlockRegistry.CALCINATION_OVEN.get());
     }
@@ -79,12 +79,12 @@ public class TheurgyBlockModelSubProvider {
     private void registerPyromanticBrazier(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
         this.emitParentModel(blockModels.modelOutput, this.blockModel(BlockRegistry.PYROMANTIC_BRAZIER.get()), Theurgy.loc("block/pyromantic_brazier_template"), Map.of(
                 "texture", Theurgy.loc("block/pyromantic_brazier"),
-                "particle", ResourceLocation.withDefaultNamespace("block/copper_block")
+                "particle", Identifier.withDefaultNamespace("block/copper_block")
         ));
         this.emitParentModel(blockModels.modelOutput, Theurgy.loc("block/pyromantic_brazier_lit"), Theurgy.loc("block/pyromantic_brazier_lit_template"), Map.of(
                 "texture", Theurgy.loc("block/pyromantic_brazier_lit"),
-                "particle", ResourceLocation.withDefaultNamespace("block/copper_block"),
-                "fire", ResourceLocation.withDefaultNamespace("block/campfire_fire")
+                "particle", Identifier.withDefaultNamespace("block/copper_block"),
+                "fire", Identifier.withDefaultNamespace("block/campfire_fire")
         ));
 
         MultiPartGenerator generator = MultiPartGenerator.multiPart(BlockRegistry.PYROMANTIC_BRAZIER.get());
@@ -104,9 +104,9 @@ public class TheurgyBlockModelSubProvider {
     private void registerLiquefactionCauldron(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
         this.emitParentModel(blockModels.modelOutput, Theurgy.loc("block/liquefaction_cauldron_lower"), Theurgy.loc("block/liquefaction_cauldron_template"), Map.of(
                 "texture", Theurgy.loc("block/liquefaction_cauldron"),
-                "particle", ResourceLocation.withDefaultNamespace("block/copper_block")
+                "particle", Identifier.withDefaultNamespace("block/copper_block")
         ));
-        this.emitParticleModel(blockModels.modelOutput, Theurgy.loc("block/liquefaction_cauldron_upper"), ResourceLocation.withDefaultNamespace("block/copper_block"));
+        this.emitParticleModel(blockModels.modelOutput, Theurgy.loc("block/liquefaction_cauldron_upper"), Identifier.withDefaultNamespace("block/copper_block"));
 
         MultiPartGenerator generator = MultiPartGenerator.multiPart(BlockRegistry.LIQUEFACTION_CAULDRON.get());
         generator = generator.with(
@@ -123,7 +123,7 @@ public class TheurgyBlockModelSubProvider {
     }
 
     private void registerDistiller(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
-        this.emitParticleModel(blockModels.modelOutput, this.blockModel(BlockRegistry.DISTILLER.get()), ResourceLocation.withDefaultNamespace("block/copper_block"));
+        this.emitParticleModel(blockModels.modelOutput, this.blockModel(BlockRegistry.DISTILLER.get()), Identifier.withDefaultNamespace("block/copper_block"));
         this.registerSingleStateBlock(blockModels, BlockRegistry.DISTILLER.get(), this.blockModel(BlockRegistry.DISTILLER.get()));
         this.registerBuiltinEntityItem(itemModels, BlockRegistry.DISTILLER.get());
     }
@@ -131,12 +131,12 @@ public class TheurgyBlockModelSubProvider {
     private void registerIncubator(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
         this.emitParentModel(blockModels.modelOutput, this.blockModel(BlockRegistry.INCUBATOR.get()), Theurgy.loc("block/incubator_template"), Map.of(
                 "texture", Theurgy.loc("block/incubator_gold"),
-                "particle", ResourceLocation.withDefaultNamespace("block/copper_block")
+                "particle", Identifier.withDefaultNamespace("block/copper_block")
         ));
-        this.emitParticleModel(blockModels.modelOutput, Theurgy.loc("block/incubator_upper"), ResourceLocation.withDefaultNamespace("block/copper_block"));
+        this.emitParticleModel(blockModels.modelOutput, Theurgy.loc("block/incubator_upper"), Identifier.withDefaultNamespace("block/copper_block"));
         this.emitParentModel(blockModels.modelOutput, Theurgy.loc("block/incubator_pipe"), Theurgy.loc("block/incubator_pipe_template"), Map.of(
                 "texture", Theurgy.loc("block/incubator_pipe"),
-                "particle", ResourceLocation.withDefaultNamespace("block/copper_block")
+                "particle", Identifier.withDefaultNamespace("block/copper_block")
         ));
 
         MultiPartGenerator generator = MultiPartGenerator.multiPart(BlockRegistry.INCUBATOR.get());
@@ -168,8 +168,8 @@ public class TheurgyBlockModelSubProvider {
     }
 
     private void registerIncubatorVessels(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
-        ResourceLocation vesselModel = Theurgy.loc("block/incubator_vessel");
-        this.emitParticleModel(blockModels.modelOutput, vesselModel, ResourceLocation.withDefaultNamespace("block/copper_block"));
+        Identifier vesselModel = Theurgy.loc("block/incubator_vessel");
+        this.emitParticleModel(blockModels.modelOutput, vesselModel, Identifier.withDefaultNamespace("block/copper_block"));
         this.registerSingleStateBlock(blockModels, BlockRegistry.INCUBATOR_MERCURY_VESSEL.get(), vesselModel);
         this.registerSingleStateBlock(blockModels, BlockRegistry.INCUBATOR_SALT_VESSEL.get(), vesselModel);
         this.registerSingleStateBlock(blockModels, BlockRegistry.INCUBATOR_SULFUR_VESSEL.get(), vesselModel);
@@ -179,13 +179,13 @@ public class TheurgyBlockModelSubProvider {
     }
 
     private void registerSalAmmoniacAccumulator(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
-        this.emitParticleModel(blockModels.modelOutput, this.blockModel(BlockRegistry.SAL_AMMONIAC_ACCUMULATOR.get()), ResourceLocation.withDefaultNamespace("block/copper_block"));
+        this.emitParticleModel(blockModels.modelOutput, this.blockModel(BlockRegistry.SAL_AMMONIAC_ACCUMULATOR.get()), Identifier.withDefaultNamespace("block/copper_block"));
         this.registerSingleStateBlock(blockModels, BlockRegistry.SAL_AMMONIAC_ACCUMULATOR.get(), this.blockModel(BlockRegistry.SAL_AMMONIAC_ACCUMULATOR.get()));
         this.registerBuiltinEntityItem(itemModels, BlockRegistry.SAL_AMMONIAC_ACCUMULATOR.get());
     }
 
     private void registerSalAmmoniacTank(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
-        this.emitParticleModel(blockModels.modelOutput, this.blockModel(BlockRegistry.SAL_AMMONIAC_TANK.get()), ResourceLocation.withDefaultNamespace("block/copper_block"));
+        this.emitParticleModel(blockModels.modelOutput, this.blockModel(BlockRegistry.SAL_AMMONIAC_TANK.get()), Identifier.withDefaultNamespace("block/copper_block"));
         this.registerSingleStateBlock(blockModels, BlockRegistry.SAL_AMMONIAC_TANK.get(), this.blockModel(BlockRegistry.SAL_AMMONIAC_TANK.get()));
         this.registerBuiltinEntityItem(itemModels, BlockRegistry.SAL_AMMONIAC_TANK.get());
     }
@@ -193,7 +193,7 @@ public class TheurgyBlockModelSubProvider {
     private void registerMercuryCatalyst(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
         this.registerSimpleTemplateBlock(blockModels, itemModels, BlockRegistry.MERCURY_CATALYST.get(), "block/mercury_catalyst_template", Map.of(
                 "texture", Theurgy.loc("block/mercury_catalyst"),
-                "particle", ResourceLocation.withDefaultNamespace("block/iron_block")
+                "particle", Identifier.withDefaultNamespace("block/iron_block")
         ));
     }
 
@@ -205,7 +205,7 @@ public class TheurgyBlockModelSubProvider {
         this.registerEmitter(blockModels, itemModels, BlockRegistry.SULFURIC_FLUX_EMITTER.get(), "block/sulfuric_flux_emitter_template", Theurgy.loc("block/sulfuric_flux_emitter"));
     }
 
-    private void registerEmitter(BlockModelGenerators blockModels, ItemModelGenerators itemModels, Block block, String parentPath, ResourceLocation emitterTexture) {
+    private void registerEmitter(BlockModelGenerators blockModels, ItemModelGenerators itemModels, Block block, String parentPath, Identifier emitterTexture) {
         this.emitParentModel(blockModels.modelOutput, this.blockModel(block), Theurgy.loc(parentPath), Map.of(
                 "emitter", emitterTexture,
                 "socket", Theurgy.loc("block/emitter_socket"),
@@ -224,14 +224,14 @@ public class TheurgyBlockModelSubProvider {
         this.registerParentedItemModel(itemModels, block, this.blockModel(block));
     }
 
-    private void registerSimpleTemplateBlock(BlockModelGenerators blockModels, ItemModelGenerators itemModels, Block block, String parentPath, Map<String, ResourceLocation> textures) {
+    private void registerSimpleTemplateBlock(BlockModelGenerators blockModels, ItemModelGenerators itemModels, Block block, String parentPath, Map<String, Identifier> textures) {
         this.emitParentModel(blockModels.modelOutput, this.blockModel(block), Theurgy.loc(parentPath), textures);
         this.registerSingleStateBlock(blockModels, block, this.blockModel(block));
         this.registerParentedItemModel(itemModels, block, this.blockModel(block));
     }
 
     private void registerFermentationVat(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
-        this.emitParentModel(blockModels.modelOutput, this.blockModel(BlockRegistry.FERMENTATION_VAT.get()), ResourceLocation.withDefaultNamespace("block/cube"), Map.of(
+        this.emitParentModel(blockModels.modelOutput, this.blockModel(BlockRegistry.FERMENTATION_VAT.get()), Identifier.withDefaultNamespace("block/cube"), Map.of(
                 "up", Theurgy.loc("block/fermentation_vat_top"),
                 "down", Theurgy.loc("block/fermentation_vat_bottom"),
                 "south", Theurgy.loc("block/fermentation_vat_side_front"),
@@ -270,7 +270,7 @@ public class TheurgyBlockModelSubProvider {
         this.registerParentedItemModel(itemModels, BlockRegistry.FERMENTATION_VAT.get(), this.blockModel(BlockRegistry.FERMENTATION_VAT.get()));
     }
 
-    private MultiPartGenerator addFermentationState(MultiPartGenerator generator, Direction direction, boolean hasOutput, boolean open, ResourceLocation model, int yRotation) {
+    private MultiPartGenerator addFermentationState(MultiPartGenerator generator, Direction direction, boolean hasOutput, boolean open, Identifier model, int yRotation) {
         return generator.with(
                 BlockModelGenerators.condition()
                         .term(BlockStateProperties.HORIZONTAL_FACING, direction)
@@ -281,7 +281,7 @@ public class TheurgyBlockModelSubProvider {
     }
 
     private void registerDigestionVat(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
-        this.emitParticleModel(blockModels.modelOutput, this.blockModel(BlockRegistry.DIGESTION_VAT.get()), ResourceLocation.withDefaultNamespace("block/blue_terracotta"));
+        this.emitParticleModel(blockModels.modelOutput, this.blockModel(BlockRegistry.DIGESTION_VAT.get()), Identifier.withDefaultNamespace("block/blue_terracotta"));
         this.registerSingleStateBlock(blockModels, BlockRegistry.DIGESTION_VAT.get(), this.blockModel(BlockRegistry.DIGESTION_VAT.get()));
         this.registerBuiltinEntityItem(itemModels, BlockRegistry.DIGESTION_VAT.get());
     }
@@ -289,14 +289,14 @@ public class TheurgyBlockModelSubProvider {
     private void registerLogisticsConnectorFilter(BlockModelGenerators blockModels) {
         this.emitParentModel(blockModels.modelOutput, Theurgy.loc("block/logistics_connector_filter"), Theurgy.loc("block/logistics_connector_filter_template"), Map.of(
                 "texture", Theurgy.loc("block/logistics_connector_filter"),
-                "particle", ResourceLocation.withDefaultNamespace("block/iron_block")
+                "particle", Identifier.withDefaultNamespace("block/iron_block")
         ));
     }
 
-    private void registerLogisticsConnector(BlockModelGenerators blockModels, ItemModelGenerators itemModels, Block block, ResourceLocation texture) {
+    private void registerLogisticsConnector(BlockModelGenerators blockModels, ItemModelGenerators itemModels, Block block, Identifier texture) {
         this.emitParentModel(blockModels.modelOutput, this.blockModel(block), Theurgy.loc("block/logistics_connector_template"), Map.of(
                 "texture", texture,
-                "particle", ResourceLocation.withDefaultNamespace("block/copper_block")
+                "particle", Identifier.withDefaultNamespace("block/copper_block")
         ));
 
         MultiPartGenerator generator = MultiPartGenerator.multiPart(block);
@@ -319,7 +319,7 @@ public class TheurgyBlockModelSubProvider {
         this.emitParentModel(blockModels.modelOutput, this.blockModel(BlockRegistry.LOGISTICS_CONNECTION_NODE.get()), Theurgy.loc("block/logistics_node_template"), Map.of(
                 "connector", Theurgy.loc("block/logistics_node_connector"),
                 "base", Theurgy.loc("block/logistics_node_base"),
-                "particle", ResourceLocation.withDefaultNamespace("block/terracotta")
+                "particle", Identifier.withDefaultNamespace("block/terracotta")
         ));
 
         MultiPartGenerator generator = MultiPartGenerator.multiPart(BlockRegistry.LOGISTICS_CONNECTION_NODE.get());
@@ -343,7 +343,7 @@ public class TheurgyBlockModelSubProvider {
         };
     }
 
-    private MultiPartGenerator addFacingVariant(MultiPartGenerator generator, net.minecraft.world.level.block.state.properties.Property<Direction> property, Direction facing, ResourceLocation model, int xRotation, int yRotation, boolean uvLock) {
+    private MultiPartGenerator addFacingVariant(MultiPartGenerator generator, net.minecraft.world.level.block.state.properties.Property<Direction> property, Direction facing, Identifier model, int xRotation, int yRotation, boolean uvLock) {
         return generator.with(
                 BlockModelGenerators.condition().term(property, facing),
                 BlockModelGenerators.variant(this.variant(model, xRotation, yRotation, uvLock))
@@ -351,18 +351,18 @@ public class TheurgyBlockModelSubProvider {
     }
 
     private void registerCubeAll(BlockModelGenerators blockModels, ItemModelGenerators itemModels, Block block) {
-        this.emitParentModel(blockModels.modelOutput, this.blockModel(block), ResourceLocation.withDefaultNamespace("block/cube_all"), Map.of(
+        this.emitParentModel(blockModels.modelOutput, this.blockModel(block), Identifier.withDefaultNamespace("block/cube_all"), Map.of(
                 "all", Theurgy.loc("block/" + this.name(block))
         ));
         this.registerSingleStateBlock(blockModels, block, this.blockModel(block));
         this.registerParentedItemModel(itemModels, block, this.blockModel(block));
     }
 
-    private void registerSingleStateBlock(BlockModelGenerators blockModels, Block block, ResourceLocation model) {
+    private void registerSingleStateBlock(BlockModelGenerators blockModels, Block block, Identifier model) {
         blockModels.blockStateOutput.accept(MultiPartGenerator.multiPart(block).with(BlockModelGenerators.variant(new Variant(model))));
     }
 
-    private void registerParentedItemModel(ItemModelGenerators itemModels, Block block, ResourceLocation parentModel) {
+    private void registerParentedItemModel(ItemModelGenerators itemModels, Block block, Identifier parentModel) {
         this.emitParentModel(itemModels.modelOutput, this.itemModel(block), parentModel, Map.of());
         itemModels.itemModelOutput.accept(block.asItem(), ItemModelUtils.plainModel(this.itemModel(block)));
     }
@@ -372,7 +372,7 @@ public class TheurgyBlockModelSubProvider {
         itemModels.itemModelOutput.accept(block.asItem(), ItemModelUtils.plainModel(this.itemModel(block)));
     }
 
-    private Variant variant(ResourceLocation model, int xRotation, int yRotation, boolean uvLock) {
+    private Variant variant(Identifier model, int xRotation, int yRotation, boolean uvLock) {
         Variant variant = new Variant(model);
         if (xRotation != 0) {
             variant = variant.with(VariantMutator.X_ROT.withValue(this.quadrant(xRotation)));
@@ -396,11 +396,11 @@ public class TheurgyBlockModelSubProvider {
         };
     }
 
-    private void emitParticleModel(BiConsumer<ResourceLocation, ModelInstance> output, ResourceLocation modelLocation, ResourceLocation particleTexture) {
+    private void emitParticleModel(BiConsumer<Identifier, ModelInstance> output, Identifier modelLocation, Identifier particleTexture) {
         this.emitParentModel(output, modelLocation, null, Map.of("particle", particleTexture));
     }
 
-    private void emitParentModel(BiConsumer<ResourceLocation, ModelInstance> output, ResourceLocation modelLocation, ResourceLocation parent, Map<String, ResourceLocation> textures) {
+    private void emitParentModel(BiConsumer<Identifier, ModelInstance> output, Identifier modelLocation, Identifier parent, Map<String, Identifier> textures) {
         output.accept(modelLocation, () -> {
             JsonObject json = new JsonObject();
             if (parent != null) {
@@ -415,11 +415,11 @@ public class TheurgyBlockModelSubProvider {
         });
     }
 
-    private ResourceLocation blockModel(Block block) {
+    private Identifier blockModel(Block block) {
         return Theurgy.loc("block/" + this.name(block));
     }
 
-    private ResourceLocation itemModel(Block block) {
+    private Identifier itemModel(Block block) {
         return Theurgy.loc("item/" + this.name(block));
     }
 

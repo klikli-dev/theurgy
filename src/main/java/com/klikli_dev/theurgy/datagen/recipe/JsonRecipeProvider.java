@@ -22,7 +22,7 @@ import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.RegistryOps;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -57,7 +57,7 @@ public abstract class JsonRecipeProvider implements DataProvider {
     protected final PackOutput.PathProvider recipePathProvider;
     protected String modid;
 
-    protected BiConsumer<ResourceLocation, JsonObject> recipeConsumer;
+    protected BiConsumer<Identifier, JsonObject> recipeConsumer;
 
     public JsonRecipeProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider, String modid) {
         this(packOutput, lookupProvider, modid, "");
@@ -88,32 +88,32 @@ public abstract class JsonRecipeProvider implements DataProvider {
         return tags.stream().distinct().map(this::name).reduce("", (a, b) -> a + "_and_" + b).replaceFirst("_and_", "");
     }
 
-    public ResourceLocation locFor(TagKey<Item> tag) {
+    public Identifier locFor(TagKey<Item> tag) {
         return tag.location();
     }
 
-    public ResourceLocation locFor(ItemLike itemLike) {
+    public Identifier locFor(ItemLike itemLike) {
         return itemLike.asItem().builtInRegistryHolder().getKey().location();
     }
 
-    public ResourceLocation locFor(Fluid fluid) {
+    public Identifier locFor(Fluid fluid) {
         return BuiltInRegistries.FLUID.getKey(fluid);
     }
 
     public TagKey<Item> tag(String tag) {
-        return this.tag(ResourceLocation.parse(tag));
+        return this.tag(Identifier.parse(tag));
     }
 
-    public TagKey<Item> tag(ResourceLocation tag) {
+    public TagKey<Item> tag(Identifier tag) {
         return TagKey.create(Registries.ITEM, tag);
     }
 
-    public ResourceLocation modLoc(String name) {
-        return ResourceLocation.fromNamespaceAndPath(this.modid, name);
+    public Identifier modLoc(String name) {
+        return Identifier.fromNamespaceAndPath(this.modid, name);
     }
 
-    public ResourceLocation mcLoc(String name) {
-        return ResourceLocation.parse(name);
+    public Identifier mcLoc(String name) {
+        return Identifier.parse(name);
     }
 
     @Override
@@ -124,7 +124,7 @@ public abstract class JsonRecipeProvider implements DataProvider {
             this.items = this.registries.lookupOrThrow(Registries.ITEM);
             this.fluids = this.registries.lookupOrThrow(Registries.FLUID);
 
-            Set<ResourceLocation> set = Sets.newHashSet();
+            Set<Identifier> set = Sets.newHashSet();
             List<CompletableFuture<?>> futures = new ArrayList<>();
             this.recipeConsumer = (id, recipe) -> {
                 if (!recipe.has("category"))
@@ -141,7 +141,7 @@ public abstract class JsonRecipeProvider implements DataProvider {
         });
     }
 
-    public abstract void buildRecipes(BiConsumer<ResourceLocation, JsonObject> recipeConsumer);
+    public abstract void buildRecipes(BiConsumer<Identifier, JsonObject> recipeConsumer);
 
     protected abstract class RecipeBuilder<T extends RecipeBuilder<T>> {
 

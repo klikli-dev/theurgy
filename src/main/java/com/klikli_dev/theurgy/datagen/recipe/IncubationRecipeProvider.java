@@ -12,7 +12,7 @@ import com.klikli_dev.theurgy.content.recipe.IncubationRecipe;
 import com.klikli_dev.theurgy.content.recipe.result.RecipeResult;
 import com.klikli_dev.theurgy.registry.*;
 import net.minecraft.data.PackOutput;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
@@ -32,7 +32,7 @@ public class IncubationRecipeProvider extends JsonRecipeProvider {
     }
 
     @Override
-    public void buildRecipes(BiConsumer<ResourceLocation, JsonObject> recipeConsumer) {
+    public void buildRecipes(BiConsumer<Identifier, JsonObject> recipeConsumer) {
         //logs from sulfurs
         this.makeRecipe(Items.OAK_LOG, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.PLANT.get(), SulfurRegistry.OAK_LOG.get());
         this.makeRecipe(Items.SPRUCE_LOG, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.PLANT.get(), SulfurRegistry.SPRUCE_LOG.get());

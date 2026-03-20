@@ -13,14 +13,14 @@ import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.advancements.critereon.PlayerTrigger;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.advancements.AdvancementSubProvider;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Consumer;
 
 public class TheurgyAdvancementSubProvider implements AdvancementSubProvider {
 
-    protected ResourceLocation modLoc(String path) {
+    protected Identifier modLoc(String path) {
         return Theurgy.loc(path);
     }
 

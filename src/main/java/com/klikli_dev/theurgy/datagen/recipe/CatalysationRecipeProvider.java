@@ -10,7 +10,7 @@ import com.klikli_dev.theurgy.content.recipe.CatalysationRecipe;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.mojang.serialization.JsonOps;
 import net.minecraft.data.PackOutput;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.crafting.Ingredient;
 
 import java.util.concurrent.CompletableFuture;
@@ -25,7 +25,7 @@ public class CatalysationRecipeProvider extends JsonRecipeProvider {
     }
 
     @Override
-    public void buildRecipes(BiConsumer<ResourceLocation, JsonObject> recipeConsumer) {
+    public void buildRecipes(BiConsumer<Identifier, JsonObject> recipeConsumer) {
         //one coal = one mercury shard
         //one coal burns 200t in a furnace/generator and usually yields 40 FE / t = 8000FE
         //that means we should make one shard give mercury flux equivalent to 8000 FE

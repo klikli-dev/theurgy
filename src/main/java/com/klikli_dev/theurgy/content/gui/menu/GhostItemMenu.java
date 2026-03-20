@@ -7,7 +7,7 @@ package com.klikli_dev.theurgy.content.gui.menu;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.ClickType;
+import net.minecraft.world.inventory.ContainerInput;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
@@ -54,17 +54,17 @@ public abstract class GhostItemMenu<T> extends MenuBase<T> implements IClearable
     }
 
     @Override
-    public void clicked(int slotId, int dragType, @NotNull ClickType clickTypeIn, @NotNull Player player) {
+    public void clicked(int slotId, int dragType, @NotNull ContainerInput clickTypeIn, @NotNull Player player) {
         if (slotId < 36) {
             super.clicked(slotId, dragType, clickTypeIn, player);
             return;
         }
-        if (clickTypeIn == ClickType.THROW)
+        if (clickTypeIn == ContainerInput.THROW)
             return;
 
         ItemStack held = this.getCarried();
         int slot = slotId - 36;
-        if (clickTypeIn == ClickType.CLONE) {
+        if (clickTypeIn == ContainerInput.CLONE) {
             if (player.isCreative() && held.isEmpty()) {
                 ItemStack stackInSlot = this.ghostInventory.getStackInSlot(slot)
                         .copy();

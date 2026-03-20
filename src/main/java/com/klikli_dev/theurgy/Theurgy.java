@@ -44,7 +44,7 @@ import net.minecraft.client.Minecraft;
 //import net.minecraft.client.renderer.item.ItemProperties;
 import com.klikli_dev.theurgy.content.item.derivative.AlchemicalDerivativeItem;
 import com.klikli_dev.theurgy.content.item.salt.AlchemicalSaltItem;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
@@ -157,8 +157,8 @@ public class Theurgy {
         }
     }
 
-    public static ResourceLocation loc(String path) {
-        return ResourceLocation.fromNamespaceAndPath(MODID, path);
+    public static Identifier loc(String path) {
+        return Identifier.fromNamespaceAndPath(MODID, path);
     }
 
     public void onCommonSetup(FMLCommonSetupEvent event) {
@@ -359,17 +359,17 @@ public class Theurgy {
 
             event.registerFluidType(new IClientFluidTypeExtensions() {
                 @Override
-                public @NotNull ResourceLocation getStillTexture() {
+                public @NotNull Identifier getStillTexture() {
                     return FluidTypeRegistry.SAL_AMMONIAC.get().still;
                 }
 
                 @Override
-                public @NotNull ResourceLocation getFlowingTexture() {
+                public @NotNull Identifier getFlowingTexture() {
                     return FluidTypeRegistry.SAL_AMMONIAC.get().flowing;
                 }
 
                 @Override
-                public ResourceLocation getOverlayTexture() {
+                public Identifier getOverlayTexture() {
                     return FluidTypeRegistry.SAL_AMMONIAC.get().overlay;
                 }
 

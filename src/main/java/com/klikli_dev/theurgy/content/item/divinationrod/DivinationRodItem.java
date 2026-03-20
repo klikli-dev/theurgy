@@ -27,7 +27,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.*;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
@@ -115,7 +115,7 @@ public class DivinationRodItem extends Item {
         }
     }
 
-    public static Set<Block> getScanTargetsForId(ResourceLocation linkedBlockId) {
+    public static Set<Block> getScanTargetsForId(Identifier linkedBlockId) {
         //First: try to get a tag for the given block.
         var tagKey = TagKey.create(Registries.BLOCK, getOreTagFromBlockId(linkedBlockId));
         var tag = BuiltInRegistries.BLOCK.get(tagKey);
@@ -131,7 +131,7 @@ public class DivinationRodItem extends Item {
 
             //also search for deepslate ores
             if (linkedBlockId.getPath().contains("_ore") && !linkedBlockId.getPath().contains("deepslate_")) {
-                var deepslateId = ResourceLocation.fromNamespaceAndPath(linkedBlockId.getNamespace(),  "deepslate_" + linkedBlockId.getPath());
+                var deepslateId = Identifier.fromNamespaceAndPath(linkedBlockId.getNamespace(),  "deepslate_" + linkedBlockId.getPath());
                  var deepslateKey = ResourceKey.create(Registries.BLOCK, deepslateId);
                 deepslateBlock = BuiltInRegistries.BLOCK.get(deepslateKey).map(Holder::value).orElse(null);
             }
@@ -143,7 +143,7 @@ public class DivinationRodItem extends Item {
         return Set.of();
     }
 
-    public static ResourceLocation getOreTagFromBlockId(ResourceLocation blockId) {
+    public static Identifier getOreTagFromBlockId(Identifier blockId) {
         var path = blockId.getPath();
 
         String oreName = path
@@ -152,7 +152,7 @@ public class DivinationRodItem extends Item {
                 .replace("_deepslate", "")
                 .replace("deepslate_", "");
 
-        return ResourceLocation.parse("c:ores/" + oreName);
+        return Identifier.parse("c:ores/" + oreName);
     }
 
     public static void registerCreativeModeTabs(DivinationRodItem item, CreativeModeTab.Output output) {

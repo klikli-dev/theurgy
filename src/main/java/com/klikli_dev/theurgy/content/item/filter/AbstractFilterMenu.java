@@ -8,7 +8,7 @@ import com.klikli_dev.theurgy.content.gui.menu.GhostItemMenu;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.ClickType;
+import net.minecraft.world.inventory.ContainerInput;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.items.ComponentItemHandler;
@@ -54,8 +54,8 @@ public abstract class AbstractFilterMenu extends GhostItemMenu<ItemStack> {
     }
 
     @Override
-    public void clicked(int slotId, int dragType, @NotNull ClickType clickTypeIn, @NotNull Player player) {
-        if (slotId == this.playerInventory.getSelectedSlot() && clickTypeIn != ClickType.THROW)
+    public void clicked(int slotId, int dragType, @NotNull ContainerInput clickTypeIn, @NotNull Player player) {
+        if (slotId == this.playerInventory.getSelectedSlot() && clickTypeIn != ContainerInput.THROW)
             return;
         super.clicked(slotId, dragType, clickTypeIn, player);
     }

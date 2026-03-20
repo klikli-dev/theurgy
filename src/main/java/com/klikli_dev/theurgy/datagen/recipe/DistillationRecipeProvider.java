@@ -12,7 +12,7 @@ import com.klikli_dev.theurgy.registry.ItemTagRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
@@ -32,7 +32,7 @@ public class DistillationRecipeProvider extends JsonRecipeProvider {
     }
 
     @Override
-    public void buildRecipes(BiConsumer<ResourceLocation, JsonObject> recipeConsumer) {
+    public void buildRecipes(BiConsumer<Identifier, JsonObject> recipeConsumer) {
         this.makeMercuryShardRecipe(1, Tags.Items.STONES, 10);
         this.makeMercuryShardRecipe(1, Tags.Items.SANDSTONE_BLOCKS, 10);
         this.makeMercuryShardRecipe(1, ItemTags.STONE_BRICKS, 10);

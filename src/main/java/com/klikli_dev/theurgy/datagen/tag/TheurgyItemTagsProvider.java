@@ -13,7 +13,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.data.tags.TagAppender;
 import net.minecraft.data.tags.TagsProvider;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
@@ -468,8 +468,8 @@ public class TheurgyItemTagsProvider extends IntrinsicHolderTagsProvider<Item> {
                 .add(net.minecraft.tags.TagEntry.optionalElement(this.rl("mna:chimerite_gem")));
     }
 
-    public ResourceLocation rl(String tag) {
-        return ResourceLocation.parse(tag);
+    public Identifier rl(String tag) {
+        return Identifier.parse(tag);
     }
 
     private static class BlockToItemConverter implements TagAppender<Block, Block> {

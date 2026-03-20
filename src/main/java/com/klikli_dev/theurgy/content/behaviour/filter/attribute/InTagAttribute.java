@@ -7,7 +7,7 @@ package com.klikli_dev.theurgy.content.behaviour.filter.attribute;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
@@ -56,7 +56,7 @@ public class InTagAttribute implements ItemAttribute {
 
     @Override
     public ItemAttribute readNBT(HolderLookup.Provider pRegistries, CompoundTag nbt) {
-        return new InTagAttribute(ItemTags.create(ResourceLocation.fromNamespaceAndPath(nbt.getString("space").orElse("minecraft"), nbt.getString("path").orElse("dirt"))));
+        return new InTagAttribute(ItemTags.create(Identifier.fromNamespaceAndPath(nbt.getString("space").orElse("minecraft"), nbt.getString("path").orElse("dirt"))));
     }
 
 }

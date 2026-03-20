@@ -18,7 +18,7 @@ import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.JsonOps;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -41,7 +41,7 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
             AlchemicalDerivativeTier.RARE, 150,
             AlchemicalDerivativeTier.PRECIOUS, 200
     );
-    private final Map<ResourceLocation, JsonObject> recipeCache = new HashMap<>();
+    private final Map<Identifier, JsonObject> recipeCache = new HashMap<>();
     private Set<AlchemicalDerivativeItem> noAutomaticRecipesFor = Set.of();
 
     public ReformationRecipeProvider(PackOutput packOutput, java.util.concurrent.CompletableFuture<net.minecraft.core.HolderLookup.Provider> lookupProvider) {
@@ -353,7 +353,7 @@ public class ReformationRecipeProvider extends JsonRecipeProvider {
     }
 
     @Override
-    public void buildRecipes(BiConsumer<ResourceLocation, JsonObject> recipeConsumer) {
+    public void buildRecipes(BiConsumer<Identifier, JsonObject> recipeConsumer) {
 
         //Set up materials that should not get the automatic conversion rates
         this.noAutomaticRecipesFor = SulfurMappings.noAutomaticRecipesFor();

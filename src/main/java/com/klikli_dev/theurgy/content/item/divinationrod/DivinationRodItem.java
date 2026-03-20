@@ -35,6 +35,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
 
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.TooltipDisplay;
@@ -238,7 +239,7 @@ public class DivinationRodItem extends Item {
                     return InteractionResult.FAIL;
                 } else {
                     if (!level.isClientSide()) {
-                        stack.set(DataComponentRegistry.DIVINATION_LINKED_BLOCK, state.getBlockHolder());
+                        stack.set(DataComponentRegistry.DIVINATION_LINKED_BLOCK, state.getBlock().builtInRegistryHolder());
 
                         player.sendOverlayMessage(
                                 Component.translatable(
@@ -299,7 +300,7 @@ public class DivinationRodItem extends Item {
 
         if (stack.getDamageValue() >= stack.getMaxDamage()) {
             //if in the last usage cycle the item was used up, we now actually break it to avoid over-use
-            player.onEquippedItemBroken(stack.getItem(), LivingEntity.getSlotForHand(player.getUsedItemHand()));
+            player.onEquippedItemBroken(stack.getItem(), player.getUsedItemHand() == InteractionHand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND);
             var item = stack.getItem();
             stack.shrink(1);
             player.awardStat(Stats.ITEM_BROKEN.get(item));

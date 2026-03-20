@@ -33,7 +33,7 @@ public class InTagAttribute implements ItemAttribute {
 
     @Override
     public List<ItemAttribute> listAttributesOf(ItemStack stack) {
-        return stack.getTags()
+        return stack.getItem().builtInRegistryHolder().tags()
                 .map(InTagAttribute::new)
                 .collect(Collectors.toList());
     }

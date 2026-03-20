@@ -11,16 +11,13 @@ import com.klikli_dev.theurgy.registry.EntityDataSerializerRegistry;
 import com.klikli_dev.theurgy.registry.EntityRegistry;
 import com.klikli_dev.theurgy.registry.ParticleRegistry;
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.NbtOps;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.server.level.ServerEntity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
@@ -216,17 +213,17 @@ public class FollowProjectile extends ColoredProjectile {
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag compound) {
-        super.readAdditionalSaveData(compound);
-        this.entityData.set(FollowProjectile.FROM, Vec3.CODEC.parse(this.registryAccess().createSerializationContext(NbtOps.INSTANCE), compound.get("from")).result().get());
-        this.entityData.set(FollowProjectile.TO, Vec3.CODEC.parse(this.registryAccess().createSerializationContext(NbtOps.INSTANCE), compound.get("to")).result().get());
+    protected void readAdditionalSaveData(ValueInput input) {
+        super.readAdditionalSaveData(input);
+        this.entityData.set(FollowProjectile.FROM, input.read("from", Vec3.CODEC).orElse(this.entityData.get(FollowProjectile.FROM)));
+        this.entityData.set(FollowProjectile.TO, input.read("to", Vec3.CODEC).orElse(this.entityData.get(FollowProjectile.TO)));
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag compound) {
-        super.addAdditionalSaveData(compound);
-        Vec3.CODEC.encodeStart(this.registryAccess().createSerializationContext(NbtOps.INSTANCE), this.entityData.get(FollowProjectile.FROM)).result().ifPresent((e) -> compound.put("from", e));
-        Vec3.CODEC.encodeStart(this.registryAccess().createSerializationContext(NbtOps.INSTANCE), this.entityData.get(FollowProjectile.TO)).result().ifPresent((e) -> compound.put("to", e));
+    protected void addAdditionalSaveData(ValueOutput output) {
+        super.addAdditionalSaveData(output);
+        output.store("from", Vec3.CODEC, this.entityData.get(FollowProjectile.FROM));
+        output.store("to", Vec3.CODEC, this.entityData.get(FollowProjectile.TO));
     }
 
     @Override

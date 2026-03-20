@@ -5,7 +5,6 @@
 package com.klikli_dev.theurgy.content.entity;
 
 import com.klikli_dev.theurgy.content.particle.ParticleColor;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -14,6 +13,8 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
 
@@ -55,17 +56,15 @@ public abstract class ColoredProjectile extends Projectile {
     }
 
     @Override
-    public void load(CompoundTag compound) {
-        super.load(compound);
-        this.entityData.set(COLOR, compound.getInt("color").orElse(this.entityData.get(COLOR)));
-        this.entityData.set(FINAL_COLOR, compound.getInt("final_color").orElse(this.entityData.get(FINAL_COLOR)));
+    protected void readAdditionalSaveData(ValueInput input) {
+        this.entityData.set(COLOR, input.getIntOr("color", this.entityData.get(COLOR)));
+        this.entityData.set(FINAL_COLOR, input.getIntOr("final_color", this.entityData.get(FINAL_COLOR)));
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag compound) {
-        super.addAdditionalSaveData(compound);
-        compound.putInt("color", this.entityData.get(COLOR));
-        compound.putInt("final_color", this.entityData.get(FINAL_COLOR));
+    protected void addAdditionalSaveData(ValueOutput output) {
+        output.putInt("color", this.entityData.get(COLOR));
+        output.putInt("final_color", this.entityData.get(FINAL_COLOR));
     }
 
     @Override

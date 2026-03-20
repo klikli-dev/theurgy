@@ -11,6 +11,8 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import net.neoforged.neoforge.items.wrapper.CombinedInvWrapper;
 
@@ -44,25 +46,34 @@ public class DistillationStorageBehaviour extends StorageBehaviour<DistillationS
     }
 
     @Override
-    public void readNetwork(CompoundTag pTag, HolderLookup.Provider pRegistries) {
-        pTag.getCompound("inputInventory").ifPresent(tag -> this.inputInventory.deserializeNBT(pRegistries, tag));
-        pTag.getCompound("outputInventory").ifPresent(tag -> this.outputInventory.deserializeNBT(pRegistries, tag));
+    public void readNetwork(ValueInput input) {
+        input.child("inputInventory").ifPresent(tag -> this.inputInventory.deserialize(tag));
+        input.child("outputInventory").ifPresent(tag -> this.outputInventory.deserialize(tag));
     }
 
     @Override
-    public void writeNetwork(CompoundTag pTag, HolderLookup.Provider pRegistries) {
-        pTag.put("inputInventory", this.inputInventory.serializeNBT(pRegistries));
-        pTag.put("outputInventory", this.outputInventory.serializeNBT(pRegistries));
+    public void writeNetwork(ValueOutput output) {
+        this.saveAdditional(output);
     }
 
     @Override
-    public void saveAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
-        this.writeNetwork(pTag, pRegistries);
+    public void saveAdditional(ValueOutput output) {
+        ValueOutput inputInventoryOutput = output.child("inputInventory");
+        this.inputInventory.serialize(inputInventoryOutput);
+        if (inputInventoryOutput.isEmpty()) {
+            output.discard("inputInventory");
+        }
+
+        ValueOutput outputInventoryOutput = output.child("outputInventory");
+        this.outputInventory.serialize(outputInventoryOutput);
+        if (outputInventoryOutput.isEmpty()) {
+            output.discard("outputInventory");
+        }
     }
 
     @Override
-    public void loadAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
-        this.readNetwork(pTag, pRegistries);
+    public void loadAdditional(ValueInput input) {
+        this.readNetwork(input);
     }
 
     public class InputInventory extends MonitoredItemStackHandler {

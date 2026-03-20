@@ -6,10 +6,11 @@ package com.klikli_dev.theurgy.content.apparatus.calcinationoven.render;
 
 import com.klikli_dev.theurgy.content.apparatus.calcinationoven.CalcinationOvenBlockEntity;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
-import software.bernie.geckolib.renderer.GeoBlockRenderer;
+import net.minecraft.client.renderer.blockentity.state.BlockEntityRenderState;
+import com.geckolib.renderer.GeoBlockRenderer;
 
-public class CalcinationOvenRenderer extends GeoBlockRenderer<CalcinationOvenBlockEntity> {
+public class CalcinationOvenRenderer extends GeoBlockRenderer<CalcinationOvenBlockEntity, BlockEntityRenderState> {
     public CalcinationOvenRenderer(BlockEntityRendererProvider.Context pContext) {
-        super(new CalcinationOvenModel());
+        super(pContext, new CalcinationOvenModel());
     }
 }

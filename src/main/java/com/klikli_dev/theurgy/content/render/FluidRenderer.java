@@ -16,7 +16,7 @@ import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.level.material.Fluid;
@@ -33,7 +33,7 @@ public class FluidRenderer {
 
     public static TextureAtlasSprite getFluidTexture(@NotNull FluidStack fluidStack, @NotNull FluidTextureType type) {
         IClientFluidTypeExtensions properties = IClientFluidTypeExtensions.of(fluidStack.getFluid());
-        ResourceLocation spriteLocation;
+        Identifier spriteLocation;
         if (type == FluidTextureType.STILL) {
             spriteLocation = properties.getStillTexture(fluidStack);
         } else {

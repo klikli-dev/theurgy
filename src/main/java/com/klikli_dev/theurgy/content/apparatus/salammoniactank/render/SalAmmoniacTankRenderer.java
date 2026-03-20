@@ -9,15 +9,16 @@ import com.klikli_dev.theurgy.content.render.FluidRenderer;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.client.renderer.blockentity.state.BlockEntityRenderState;
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
-import software.bernie.geckolib.cache.object.BakedGeoModel;
-import software.bernie.geckolib.renderer.GeoBlockRenderer;
+import com.geckolib.cache.model.BakedGeoModel;
+import com.geckolib.renderer.GeoBlockRenderer;
 
 
-public class SalAmmoniacTankRenderer extends GeoBlockRenderer<SalAmmoniacTankBlockEntity> {
+public class SalAmmoniacTankRenderer extends GeoBlockRenderer<SalAmmoniacTankBlockEntity, BlockEntityRenderState> {
     public SalAmmoniacTankRenderer(BlockEntityRendererProvider.Context pContext) {
-        super(new SalAmmoniacTankModel());
+        super(pContext, new SalAmmoniacTankModel());
     }
 
 

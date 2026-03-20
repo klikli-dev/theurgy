@@ -12,7 +12,7 @@ import com.klikli_dev.theurgy.content.render.RenderTypes;
 import com.klikli_dev.theurgy.content.render.cube.CubeModel;
 import com.klikli_dev.theurgy.content.render.cube.CubeModelRenderer;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.LightTexture;
+import net.minecraft.util.Brightness;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.BlockHitResult;
@@ -55,12 +55,12 @@ public class CycleSelectedDirectionModeRenderHandler extends ItemModeRenderHandl
             ps.translate(targetPos.getX() - viewPosition.x, targetPos.getY() - viewPosition.y, targetPos.getZ() - viewPosition.z);
             CubeModelRenderer.renderCube(
                     CubeModel.getOverlayModel(newDirection, BlockOverlays.WHITE), ps, bufferSource.getBuffer(RenderTypes.translucentCullNoDepthBlockSheet()),
-                    Color.GREEN.getRGB(), LightTexture.FULL_BRIGHT, OverlayTexture.NO_OVERLAY, CubeModelRenderer.FaceDisplay.FRONT,
+                    Color.GREEN.getRGB(), Brightness.FULL_BRIGHT.pack(), OverlayTexture.NO_OVERLAY, CubeModelRenderer.FaceDisplay.FRONT,
                     camera);
             if (currentDirection != newDirection) {
                 CubeModelRenderer.renderCube(
                         CubeModel.getOverlayModel(currentDirection, BlockOverlays.WHITE), ps, bufferSource.getBuffer(RenderTypes.translucentCullNoDepthBlockSheet()),
-                        Color.YELLOW.getRGB(), LightTexture.FULL_BRIGHT, OverlayTexture.NO_OVERLAY, CubeModelRenderer.FaceDisplay.FRONT,
+                        Color.YELLOW.getRGB(), Brightness.FULL_BRIGHT.pack(), OverlayTexture.NO_OVERLAY, CubeModelRenderer.FaceDisplay.FRONT,
                         camera);
             }
             ps.popPose();

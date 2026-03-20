@@ -6,13 +6,13 @@ package com.klikli_dev.theurgy.content.apparatus.salammoniactank.render;
 
 import com.klikli_dev.theurgy.content.apparatus.salammoniactank.SalAmmoniacTankBlockItem;
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.renderer.block.model.ItemTransform;
+import net.minecraft.client.resources.model.cuboid.ItemTransform;
 import net.minecraft.world.item.ItemDisplayContext;
 import org.joml.Vector3f;
-import software.bernie.geckolib.cache.object.BakedGeoModel;
-import software.bernie.geckolib.constant.DataTickets;
-import software.bernie.geckolib.renderer.GeoItemRenderer;
-import software.bernie.geckolib.renderer.base.GeoRenderState;
+import com.geckolib.cache.model.BakedGeoModel;
+import com.geckolib.constant.DataTickets;
+import com.geckolib.renderer.GeoItemRenderer;
+import com.geckolib.renderer.base.GeoRenderState;
 
 public class SalAmmoniacTankItemRenderer extends GeoItemRenderer<SalAmmoniacTankBlockItem> {
 

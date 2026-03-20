@@ -7,28 +7,32 @@ package com.klikli_dev.theurgy.content.apparatus.digestionvat;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.content.render.TheurgyModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.client.renderer.blockentity.state.BlockEntityRenderState;
+import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
+import net.minecraft.client.renderer.rendertype.RenderType;
+import net.minecraft.client.renderer.state.level.CameraRenderState;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.Direction;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.Vec3;
+import org.jspecify.annotations.Nullable;
 
 import java.util.EnumSet;
 
-public class DigestionVatRenderer implements BlockEntityRenderer<DigestionVatBlockEntity> {
-    private static final ResourceLocation BASE_OPEN_TEXTURE = Theurgy.loc("textures/entity/digestion_vat/digestion_vat_base_open.png");
-    private static final ResourceLocation BASE_TEXTURE = Theurgy.loc("textures/entity/digestion_vat/digestion_vat_base.png");
-    private static final ResourceLocation SIDE_TEXTURE = Theurgy.loc("textures/entity/digestion_vat/digestion_vat_side.png");
-    private static final ResourceLocation FRONT_TEXTURE = Theurgy.loc("textures/entity/digestion_vat/digestion_vat_side_front.png");
-    private static final ResourceLocation FRONT_ACTIVE_TEXTURE = Theurgy.loc("textures/entity/digestion_vat/digestion_vat_side_front_active.png");
+public class DigestionVatRenderer implements BlockEntityRenderer<DigestionVatBlockEntity, DigestionVatRenderer.DigestionVatRenderState> {
+    private static final Identifier BASE_OPEN_TEXTURE = Theurgy.loc("textures/entity/digestion_vat/digestion_vat_base_open.png");
+    private static final Identifier BASE_TEXTURE = Theurgy.loc("textures/entity/digestion_vat/digestion_vat_base.png");
+    private static final Identifier SIDE_TEXTURE = Theurgy.loc("textures/entity/digestion_vat/digestion_vat_side.png");
+    private static final Identifier FRONT_TEXTURE = Theurgy.loc("textures/entity/digestion_vat/digestion_vat_side_front.png");
+    private static final Identifier FRONT_ACTIVE_TEXTURE = Theurgy.loc("textures/entity/digestion_vat/digestion_vat_side_front_active.png");
     private final ModelPart neck;
     private final ModelPart frontSide;
     private final ModelPart backSide;
@@ -73,37 +77,57 @@ public class DigestionVatRenderer implements BlockEntityRenderer<DigestionVatBlo
     }
 
     @Override
-    public void render(DigestionVatBlockEntity pBlockEntity, float pPartialTick, PoseStack pPoseStack, MultiBufferSource pBuffer, int pPackedLight, int pPackedOverlay, Vec3 pCameraPosition) {
+    public DigestionVatRenderState createRenderState() {
+        return new DigestionVatRenderState();
+    }
+
+    @Override
+    public void extractRenderState(
+            DigestionVatBlockEntity blockEntity,
+            DigestionVatRenderState state,
+            float partialTick,
+            Vec3 cameraPosition,
+            ModelFeatureRenderer.@Nullable CrumblingOverlay breakProgress
+    ) {
+        BlockEntityRenderer.super.extractRenderState(blockEntity, state, partialTick, cameraPosition, breakProgress);
+        state.direction = blockEntity.getDirection();
+        state.open = blockEntity.getBlockState().getValue(BlockStateProperties.OPEN);
+        state.active = blockEntity.storageBehaviour().hasOutput();
+    }
+
+    @Override
+    public void submit(DigestionVatRenderState state, PoseStack pPoseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState camera) {
         pPoseStack.pushPose();
-        Direction direction = pBlockEntity.getDirection();
+        Direction direction = state.direction;
         pPoseStack.translate(0.5D, 0.0D, 0.5D);
         pPoseStack.mulPose(Axis.YP.rotationDegrees(180.0F - direction.toYRot()));
         pPoseStack.translate(-0.5D, 0.0D, -0.5D);
 
-        var baseTexture = pBlockEntity.getBlockState().getValue(BlockStateProperties.OPEN) ? BASE_OPEN_TEXTURE : BASE_TEXTURE;
-        var baseRenderType = RenderType.entitySolid(baseTexture);
-//        VertexConsumer vertexconsumer = this.baseMaterial.buffer(pBuffer, RenderType::entitySolid);
-        VertexConsumer vertexconsumer = pBuffer.getBuffer(baseRenderType);
-        this.neck.render(pPoseStack, vertexconsumer, pPackedLight, pPackedOverlay);
-        this.top.render(pPoseStack, vertexconsumer, pPackedLight, pPackedOverlay);
-        this.bottom.render(pPoseStack, vertexconsumer, pPackedLight, pPackedOverlay);
-
-        var isActive = pBlockEntity.storageBehaviour().hasOutput();
-
-        this.renderFront(this.frontSide, pPoseStack, pBuffer, pPackedLight, pPackedOverlay, isActive);
-        this.renderSide(this.backSide, pPoseStack, pBuffer, pPackedLight, pPackedOverlay);
-        this.renderSide(this.leftSide, pPoseStack, pBuffer, pPackedLight, pPackedOverlay);
-        this.renderSide(this.rightSide, pPoseStack, pBuffer, pPackedLight, pPackedOverlay);
+        var baseTexture = state.open ? BASE_OPEN_TEXTURE : BASE_TEXTURE;
+        var baseRenderType = net.minecraft.client.renderer.rendertype.RenderTypes.entitySolid(baseTexture);
+        submitNodeCollector.submitModelPart(this.neck, pPoseStack, baseRenderType, state.lightCoords, OverlayTexture.NO_OVERLAY, null, -1, state.breakProgress);
+        submitNodeCollector.submitModelPart(this.top, pPoseStack, baseRenderType, state.lightCoords, OverlayTexture.NO_OVERLAY, null, -1, state.breakProgress);
+        submitNodeCollector.submitModelPart(this.bottom, pPoseStack, baseRenderType, state.lightCoords, OverlayTexture.NO_OVERLAY, null, -1, state.breakProgress);
+        this.submitFront(this.frontSide, pPoseStack, submitNodeCollector, state.lightCoords, state.breakProgress, state.active);
+        this.submitSide(this.backSide, pPoseStack, submitNodeCollector, state.lightCoords, state.breakProgress);
+        this.submitSide(this.leftSide, pPoseStack, submitNodeCollector, state.lightCoords, state.breakProgress);
+        this.submitSide(this.rightSide, pPoseStack, submitNodeCollector, state.lightCoords, state.breakProgress);
         pPoseStack.popPose();
     }
 
-    private void renderSide(ModelPart pModelPart, PoseStack pPoseStack, MultiBufferSource pBuffer, int pPackedLight, int pPackedOverlay) {
-        var renderType = RenderType.entitySolid(SIDE_TEXTURE);
-        pModelPart.render(pPoseStack, pBuffer.getBuffer(renderType), pPackedLight, pPackedOverlay);
+    private void submitSide(ModelPart pModelPart, PoseStack pPoseStack, SubmitNodeCollector submitNodeCollector, int packedLight, ModelFeatureRenderer.@Nullable CrumblingOverlay breakProgress) {
+        var renderType = net.minecraft.client.renderer.rendertype.RenderTypes.entitySolid(SIDE_TEXTURE);
+        submitNodeCollector.submitModelPart(pModelPart, pPoseStack, renderType, packedLight, OverlayTexture.NO_OVERLAY, null, -1, breakProgress);
     }
 
-    private void renderFront(ModelPart pModelPart, PoseStack pPoseStack, MultiBufferSource pBuffer, int pPackedLight, int pPackedOverlay, boolean isActive) {
-        var renderType = RenderType.entitySolid(isActive ? FRONT_ACTIVE_TEXTURE : FRONT_TEXTURE);
-        pModelPart.render(pPoseStack, pBuffer.getBuffer(renderType), pPackedLight, pPackedOverlay);
+    private void submitFront(ModelPart pModelPart, PoseStack pPoseStack, SubmitNodeCollector submitNodeCollector, int packedLight, ModelFeatureRenderer.@Nullable CrumblingOverlay breakProgress, boolean isActive) {
+        var renderType = net.minecraft.client.renderer.rendertype.RenderTypes.entitySolid(isActive ? FRONT_ACTIVE_TEXTURE : FRONT_TEXTURE);
+        submitNodeCollector.submitModelPart(pModelPart, pPoseStack, renderType, packedLight, OverlayTexture.NO_OVERLAY, null, -1, breakProgress);
+    }
+
+    public static class DigestionVatRenderState extends BlockEntityRenderState {
+        public Direction direction = Direction.NORTH;
+        public boolean open;
+        public boolean active;
     }
 }

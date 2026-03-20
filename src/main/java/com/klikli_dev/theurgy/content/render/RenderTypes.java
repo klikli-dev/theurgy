@@ -5,22 +5,22 @@
 package com.klikli_dev.theurgy.content.render;
 
 import com.klikli_dev.theurgy.Theurgy;
-import net.minecraft.Util;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.util.Util;
+import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.texture.TextureAtlas;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import java.util.function.Function;
 
 public class RenderTypes {
 
-    private static final ResourceLocation BLANK_TEXTURE = Theurgy.loc("textures/misc/blank.png");
+    private static final Identifier BLANK_TEXTURE = Theurgy.loc("textures/misc/blank.png");
 
-    protected static final RenderType DISTANCE_LINES = RenderType.lines();
+    protected static final RenderType DISTANCE_LINES = net.minecraft.client.renderer.rendertype.RenderTypes.lines();
 
-    protected static final Function<ResourceLocation, RenderType> ENTITY_TRANSLUCENT_CULL_NO_DEPTH = Util.memoize((ResourceLocation texture) -> RenderType.entityTranslucent(texture));
+    protected static final Function<Identifier, RenderType> ENTITY_TRANSLUCENT_CULL_NO_DEPTH = Util.memoize(net.minecraft.client.renderer.rendertype.RenderTypes::entityTranslucent);
 
-    public static RenderType entityTranslucentCullNoDepth(ResourceLocation pLocation) {
+    public static RenderType entityTranslucentCullNoDepth(Identifier pLocation) {
         return ENTITY_TRANSLUCENT_CULL_NO_DEPTH.apply(pLocation);
     }
 
@@ -30,9 +30,9 @@ public class RenderTypes {
         return TRANSLUCENT_CULL_NO_DEPTH_BLOCK_SHEET;
     }
 
-    private static final RenderType FLUID = RenderType.itemEntityTranslucentCull(TextureAtlas.LOCATION_BLOCKS);
-    private static final RenderType OUTLINE_SOLID = RenderType.entitySolid(BLANK_TEXTURE);
-    private static final Function<ResourceLocation, RenderType> SRC_MINUS_ONE = Util.memoize((ResourceLocation texture) -> RenderType.entityTranslucent(texture));
+    private static final RenderType FLUID = net.minecraft.client.renderer.rendertype.RenderTypes.itemTranslucent(TextureAtlas.LOCATION_BLOCKS);
+    private static final RenderType OUTLINE_SOLID = net.minecraft.client.renderer.rendertype.RenderTypes.entitySolid(BLANK_TEXTURE);
+    private static final Function<Identifier, RenderType> SRC_MINUS_ONE = Util.memoize(net.minecraft.client.renderer.rendertype.RenderTypes::entityTranslucent);
 
     private RenderTypes() {
     }
@@ -41,15 +41,15 @@ public class RenderTypes {
         return OUTLINE_SOLID;
     }
 
-    public static RenderType outlineTranslucent(ResourceLocation texture, boolean cull) {
-        return RenderType.entityTranslucent(texture);
+    public static RenderType outlineTranslucent(Identifier texture, boolean cull) {
+        return net.minecraft.client.renderer.rendertype.RenderTypes.entityTranslucent(texture);
     }
 
     public static RenderType fluid() {
         return FLUID;
     }
 
-    public static RenderType srcMinusOne(ResourceLocation location) {
+    public static RenderType srcMinusOne(Identifier location) {
         return SRC_MINUS_ONE.apply(location);
     }
 

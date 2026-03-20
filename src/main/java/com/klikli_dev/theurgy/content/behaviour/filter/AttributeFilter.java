@@ -37,12 +37,12 @@ public class AttributeFilter extends Filter {
         //noinspection deprecation
         var tag = filterItemStack.getOrDefault(DataComponentRegistry.FILTER_ATTRIBUTES, CustomData.EMPTY).getUnsafe();
 
-        ListTag attributes = tag.getList("MatchedAttributes", Tag.TAG_COMPOUND);
+        ListTag attributes = tag.getList("MatchedAttributes").orElseGet(ListTag::new);
         for (Tag inbt : attributes) {
             CompoundTag compound = (CompoundTag) inbt;
             ItemAttribute attribute = ItemAttribute.of(provider, compound);
             if (attribute != null)
-                this.attributeTests.add(Pair.of(attribute, compound.getBoolean("Inverted")));
+                this.attributeTests.add(Pair.of(attribute, compound.getBoolean("Inverted").orElse(false)));
         }
     }
 

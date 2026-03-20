@@ -50,12 +50,12 @@ public abstract class AbstractFilterMenu extends GhostItemMenu<ItemStack> {
 
     @Override
     public boolean stillValid(@NotNull Player player) {
-        return this.playerInventory.getSelected() == this.contentHolder;
+        return this.playerInventory.getSelectedItem() == this.contentHolder;
     }
 
     @Override
     public void clicked(int slotId, int dragType, @NotNull ClickType clickTypeIn, @NotNull Player player) {
-        if (slotId == this.playerInventory.selected && clickTypeIn != ClickType.THROW)
+        if (slotId == this.playerInventory.getSelectedSlot() && clickTypeIn != ClickType.THROW)
             return;
         super.clicked(slotId, dragType, clickTypeIn, player);
     }

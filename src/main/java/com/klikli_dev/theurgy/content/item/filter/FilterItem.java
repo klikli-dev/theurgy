@@ -15,11 +15,13 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 public abstract class FilterItem extends Item implements MenuProvider {
     public FilterItem(Properties pProperties) {
@@ -49,13 +51,13 @@ public abstract class FilterItem extends Item implements MenuProvider {
     }
 
     @Override
-    public void appendHoverText(@NotNull ItemStack pStack, @NotNull TooltipContext pContext, @NotNull List<Component> pTooltipComponents, @NotNull TooltipFlag pTooltipFlag) {
+    public void appendHoverText(@NotNull ItemStack pStack, @NotNull TooltipContext pContext, @NotNull TooltipDisplay pTooltipDisplay, @NotNull Consumer<Component> pTooltipAdder, @NotNull TooltipFlag pTooltipFlag) {
         if (!Screen.hasShiftDown()) {
             List<Component> makeSummary = this.makeSummary(pStack, pContext.registries());
             if (makeSummary.isEmpty())
                 return;
-            pTooltipComponents.add(Component.literal(" ")); //empty line.
-            pTooltipComponents.addAll(makeSummary);
+            pTooltipAdder.accept(Component.literal(" "));
+            makeSummary.forEach(pTooltipAdder);
         }
     }
 

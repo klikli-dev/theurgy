@@ -57,8 +57,8 @@ public abstract class ColoredProjectile extends Projectile {
     @Override
     public void load(CompoundTag compound) {
         super.load(compound);
-        this.entityData.set(COLOR, compound.getInt("color"));
-        this.entityData.set(FINAL_COLOR, compound.getInt("final_color"));
+        this.entityData.set(COLOR, compound.getInt("color").orElse(this.entityData.get(COLOR)));
+        this.entityData.set(FINAL_COLOR, compound.getInt("final_color").orElse(this.entityData.get(FINAL_COLOR)));
     }
 
     @Override

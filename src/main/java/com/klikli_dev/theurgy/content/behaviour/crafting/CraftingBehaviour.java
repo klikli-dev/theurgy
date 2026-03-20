@@ -5,6 +5,7 @@
 package com.klikli_dev.theurgy.content.behaviour.crafting;
 
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponentGetter;
 import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
@@ -54,7 +55,7 @@ public abstract class CraftingBehaviour<W extends RecipeInput, R extends Recipe<
     }
 
     public void readNetwork(CompoundTag tag, HolderLookup.Provider pRegistries) {
-        this.isProcessing = tag.getBoolean("isProcessing");
+        this.isProcessing = tag.getBoolean("isProcessing").orElse(false);
     }
 
     public void writeNetwork(CompoundTag tag, HolderLookup.Provider pRegistries) {
@@ -67,10 +68,10 @@ public abstract class CraftingBehaviour<W extends RecipeInput, R extends Recipe<
 
     public void loadAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
         if (pTag.contains("progress"))
-            this.progress = pTag.getShort("progress");
+            this.progress = pTag.getShort("progress").orElse((short) 0);
     }
 
-    public void applyImplicitComponents(BlockEntity.DataComponentInput pComponentInput) {
+    public void applyImplicitComponents(DataComponentGetter pComponentGetter) {
 
     }
 

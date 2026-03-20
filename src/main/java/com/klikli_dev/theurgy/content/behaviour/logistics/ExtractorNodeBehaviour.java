@@ -179,7 +179,7 @@ public abstract class ExtractorNodeBehaviour<T, C> extends LeafNodeBehaviour<T, 
 
         DistributionMode mode = DistributionMode.ROUND_ROBIN;
         if (pTag.contains("distributor")) {
-            mode = DistributionMode.values()[pTag.getByte("distributor")];
+            mode = DistributionMode.values()[pTag.getByte("distributor").orElse((byte) 0)];
         }
         this.distributor = DistributionMode.createDistributor(mode, this.insertTargets);
     }

@@ -5,9 +5,7 @@
 package com.klikli_dev.theurgy.content.apparatus.distiller;
 
 import com.klikli_dev.theurgy.content.behaviour.animation.AnimationBehaviour;
-import software.bernie.geckolib.animatable.GeoBlockEntity;
-import software.bernie.geckolib.animation.AnimationController;
-import software.bernie.geckolib.animation.AnimationState;
+import software.bernie.geckolib.animatable.processing.AnimationTest;
 import software.bernie.geckolib.animation.PlayState;
 import software.bernie.geckolib.animation.RawAnimation;
 
@@ -29,24 +27,17 @@ public class DistillerAnimationBehaviour extends AnimationBehaviour<DistillerBlo
     }
 
     @Override
-    public <E extends GeoBlockEntity> PlayState animationHandler(AnimationState<E> event) {
-
+    public PlayState animationHandler(AnimationTest<DistillerBlockEntity> event) {
         var isProcessing = this.blockEntity.craftingBehaviour.isProcessing();
 
-        if (this.wasProcessingLastTick && !isProcessing && event.getController().getAnimationState() != AnimationController.State.TRANSITIONING) {
-            event.getController().setAnimation(STOP_AND_OFF_ANIM);
-        }
-
-        if (!this.wasProcessingLastTick && isProcessing && event.getController().getAnimationState() != AnimationController.State.TRANSITIONING) {
-            event.getController().setAnimation(START_AND_ON_ANIM);
-        }
-
-        if (!this.wasProcessingLastTick && !isProcessing && event.getController().getAnimationState() != AnimationController.State.RUNNING) {
-            event.getController().setAnimation(OFF_ANIM);
-        }
-
-        if (this.wasProcessingLastTick && isProcessing && event.getController().getAnimationState() != AnimationController.State.RUNNING) {
-            event.getController().setAnimation(ON_ANIM);
+        if (this.wasProcessingLastTick && !isProcessing) {
+            event.setAnimation(STOP_AND_OFF_ANIM);
+        } else if (!this.wasProcessingLastTick && isProcessing) {
+            event.setAnimation(START_AND_ON_ANIM);
+        } else if (isProcessing) {
+            event.setAnimation(ON_ANIM);
+        } else {
+            event.setAnimation(OFF_ANIM);
         }
 
         this.wasProcessingLastTick = isProcessing;

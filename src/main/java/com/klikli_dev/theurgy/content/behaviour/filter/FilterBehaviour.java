@@ -69,7 +69,7 @@ public class FilterBehaviour {
     }
 
     public void readNetwork(CompoundTag pTag, HolderLookup.Provider pRegistries) {
-        this.filter(Filter.of(pRegistries, pTag.getCompound("filter")));
+        this.filter(Filter.of(pRegistries, pTag.getCompound("filter").orElseGet(CompoundTag::new)));
     }
 
     public @NotNull InteractionResult useItemOn(@NotNull ItemStack pStack, @NotNull BlockState pState, @NotNull Level pLevel, @NotNull BlockPos pPos, Player pPlayer, @NotNull InteractionHand pHand, @NotNull BlockHitResult pHitResult) {

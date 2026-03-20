@@ -8,6 +8,12 @@ SPDX-PackageSupplier = "klikli-dev"
 SPDX-PackageDownloadLocation = "https://github.com/klikli-dev/theurgy"
 
 [[annotations]]
+path = "AGENTS.md"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2026 klikli-dev"
+SPDX-License-Identifier = "CC0-1.0"
+
+[[annotations]]
 path = "src/main/resources/**"
 precedence = "aggregate"
 SPDX-FileCopyrightText = "2024 klikli-dev"

@@ -1,27 +1,57 @@
 {
-  "variants": {
-    "facing=down": {
-      "model": "theurgy:block/sulfuric_flux_emitter",
-      "x": 90
+  "multipart": [
+    {
+      "apply": {
+        "model": "theurgy:block/sulfuric_flux_emitter",
+        "x": 90
+      },
+      "when": {
+        "facing": "down"
+      }
     },
-    "facing=east": {
-      "model": "theurgy:block/sulfuric_flux_emitter",
-      "y": 90
+    {
+      "apply": {
+        "model": "theurgy:block/sulfuric_flux_emitter",
+        "y": 90
+      },
+      "when": {
+        "facing": "east"
+      }
     },
-    "facing=north": {
-      "model": "theurgy:block/sulfuric_flux_emitter"
+    {
+      "apply": {
+        "model": "theurgy:block/sulfuric_flux_emitter"
+      },
+      "when": {
+        "facing": "north"
+      }
     },
-    "facing=south": {
-      "model": "theurgy:block/sulfuric_flux_emitter",
-      "y": 180
+    {
+      "apply": {
+        "model": "theurgy:block/sulfuric_flux_emitter",
+        "y": 180
+      },
+      "when": {
+        "facing": "south"
+      }
     },
-    "facing=up": {
-      "model": "theurgy:block/sulfuric_flux_emitter",
-      "x": 270
+    {
+      "apply": {
+        "model": "theurgy:block/sulfuric_flux_emitter",
+        "x": 270
+      },
+      "when": {
+        "facing": "up"
+      }
     },
-    "facing=west": {
-      "model": "theurgy:block/sulfuric_flux_emitter",
-      "y": 270
+    {
+      "apply": {
+        "model": "theurgy:block/sulfuric_flux_emitter",
+        "y": 270
+      },
+      "when": {
+        "facing": "west"
+      }
     }
-  }
+  ]
 }

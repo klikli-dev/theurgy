@@ -1,50 +1,57 @@
 {
-  "variants": {
-    "enabled=false,facing=down": {
-      "model": "theurgy:block/caloric_flux_emitter",
-      "x": 90
+  "multipart": [
+    {
+      "apply": {
+        "model": "theurgy:block/caloric_flux_emitter",
+        "x": 90
+      },
+      "when": {
+        "facing": "down"
+      }
     },
-    "enabled=false,facing=east": {
-      "model": "theurgy:block/caloric_flux_emitter",
-      "y": 90
+    {
+      "apply": {
+        "model": "theurgy:block/caloric_flux_emitter",
+        "y": 90
+      },
+      "when": {
+        "facing": "east"
+      }
     },
-    "enabled=false,facing=north": {
-      "model": "theurgy:block/caloric_flux_emitter"
+    {
+      "apply": {
+        "model": "theurgy:block/caloric_flux_emitter"
+      },
+      "when": {
+        "facing": "north"
+      }
     },
-    "enabled=false,facing=south": {
-      "model": "theurgy:block/caloric_flux_emitter",
-      "y": 180
+    {
+      "apply": {
+        "model": "theurgy:block/caloric_flux_emitter",
+        "y": 180
+      },
+      "when": {
+        "facing": "south"
+      }
     },
-    "enabled=false,facing=up": {
-      "model": "theurgy:block/caloric_flux_emitter",
-      "x": 270
+    {
+      "apply": {
+        "model": "theurgy:block/caloric_flux_emitter",
+        "x": 270
+      },
+      "when": {
+        "facing": "up"
+      }
     },
-    "enabled=false,facing=west": {
-      "model": "theurgy:block/caloric_flux_emitter",
-      "y": 270
-    },
-    "enabled=true,facing=down": {
-      "model": "theurgy:block/caloric_flux_emitter",
-      "x": 90
-    },
-    "enabled=true,facing=east": {
-      "model": "theurgy:block/caloric_flux_emitter",
-      "y": 90
-    },
-    "enabled=true,facing=north": {
-      "model": "theurgy:block/caloric_flux_emitter"
-    },
-    "enabled=true,facing=south": {
-      "model": "theurgy:block/caloric_flux_emitter",
-      "y": 180
-    },
-    "enabled=true,facing=up": {
-      "model": "theurgy:block/caloric_flux_emitter",
-      "x": 270
-    },
-    "enabled=true,facing=west": {
-      "model": "theurgy:block/caloric_flux_emitter",
-      "y": 270
+    {
+      "apply": {
+        "model": "theurgy:block/caloric_flux_emitter",
+        "y": 270
+      },
+      "when": {
+        "facing": "west"
+      }
     }
-  }
+  ]
 }

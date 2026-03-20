@@ -18,14 +18,15 @@ import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.world.Containers;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoBlockEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.AnimatableManager;
-import software.bernie.geckolib.animation.AnimationController;
+import software.bernie.geckolib.animatable.manager.AnimatableManager;
+import software.bernie.geckolib.animatable.processing.AnimationController;
 
 
 public class CalcinationOvenBlockEntity extends BlockEntity implements GeoBlockEntity, HasCraftingBehaviour<ItemHandlerRecipeInput, CalcinationRecipe, CalcinationCachedCheck> {
@@ -36,7 +37,7 @@ public class CalcinationOvenBlockEntity extends BlockEntity implements GeoBlockE
 
     protected CalcinationCraftingBehaviour craftingBehaviour;
     protected HeatConsumerBehaviour heatConsumerBehaviour;
-    protected AnimationBehaviour<?> animationBehaviour;
+    protected AnimationBehaviour<CalcinationOvenBlockEntity> animationBehaviour;
 
 
     public CalcinationOvenBlockEntity(BlockPos pPos, BlockState pBlockState) {
@@ -95,6 +96,15 @@ public class CalcinationOvenBlockEntity extends BlockEntity implements GeoBlockE
     }
 
     @Override
+    public void preRemoveSideEffects(BlockPos pPos, BlockState pState) {
+        super.preRemoveSideEffects(pPos, pState);
+
+        for (int i = 0; i < this.storageBehaviour.inventory.getSlots(); i++) {
+            Containers.dropItemStack(this.level, pPos.getX(), pPos.getY(), pPos.getZ(), this.storageBehaviour.inventory.getStackInSlot(i));
+        }
+    }
+
+    @Override
     protected void saveAdditional(@NotNull CompoundTag pTag, HolderLookup.@NotNull Provider pRegistries) {
         super.saveAdditional(pTag, pRegistries);
 
@@ -117,7 +127,7 @@ public class CalcinationOvenBlockEntity extends BlockEntity implements GeoBlockE
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-        controllerRegistrar.add(new AnimationController<GeoBlockEntity>(this, "controller", 10, this.animationBehaviour::animationHandler));
+        controllerRegistrar.add(new AnimationController<CalcinationOvenBlockEntity>("controller", 10, this.animationBehaviour::animationHandler));
     }
 
     @Override

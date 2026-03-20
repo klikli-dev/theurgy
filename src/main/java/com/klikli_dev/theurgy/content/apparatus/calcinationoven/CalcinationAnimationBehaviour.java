@@ -5,9 +5,7 @@
 package com.klikli_dev.theurgy.content.apparatus.calcinationoven;
 
 import com.klikli_dev.theurgy.content.behaviour.animation.AnimationBehaviour;
-import software.bernie.geckolib.animatable.GeoBlockEntity;
-import software.bernie.geckolib.animation.AnimationController;
-import software.bernie.geckolib.animation.AnimationState;
+import software.bernie.geckolib.animatable.processing.AnimationTest;
 import software.bernie.geckolib.animation.PlayState;
 import software.bernie.geckolib.animation.RawAnimation;
 
@@ -34,20 +32,19 @@ public class CalcinationAnimationBehaviour extends AnimationBehaviour<Calcinatio
     }
 
     @Override
-    public <E extends GeoBlockEntity> PlayState animationHandler(AnimationState<E> event) {
-
+    public PlayState animationHandler(AnimationTest<CalcinationOvenBlockEntity> event) {
         var isProcessing = this.blockEntity.craftingBehaviour.isProcessing();
 
-        if (!this.wasProcessingLastTick && !isProcessing && event.getController().getAnimationState() == AnimationController.State.STOPPED) {
-            event.getController().setAnimation(PLACE_AND_OFF_ANIM);
-        } else if (this.wasProcessingLastTick && !isProcessing && event.getController().getAnimationState() != AnimationController.State.TRANSITIONING) {
-            event.getController().setAnimation(STOP_AND_OFF_ANIM);
-        } else if (!this.wasProcessingLastTick && isProcessing && event.getController().getAnimationState() != AnimationController.State.TRANSITIONING) {
-            event.getController().setAnimation(START_AND_ON_ANIM);
-        } else if (!this.wasProcessingLastTick && !isProcessing && event.getController().getAnimationState() != AnimationController.State.RUNNING) {
-            event.getController().setAnimation(OFF_ANIM);
-        } else if (this.wasProcessingLastTick && isProcessing && event.getController().getAnimationState() != AnimationController.State.RUNNING) {
-            event.getController().setAnimation(ON_ANIM);
+        if (this.wasProcessingLastTick && !isProcessing) {
+            event.setAnimation(STOP_AND_OFF_ANIM);
+        } else if (!this.wasProcessingLastTick && isProcessing) {
+            event.setAnimation(START_AND_ON_ANIM);
+        } else if (isProcessing) {
+            event.setAnimation(ON_ANIM);
+        } else if (!event.isCurrentAnimation(PLACE_AND_OFF_ANIM)) {
+            event.setAnimation(PLACE_AND_OFF_ANIM);
+        } else {
+            event.setAnimation(OFF_ANIM);
         }
 
         this.wasProcessingLastTick = isProcessing;

@@ -41,7 +41,6 @@ public class CaloricFluxEmitterBlockItem extends BlockItem {
         return super.updateCustomBlockEntityTag(pos, level, player, stack, state);
     }
 
-    @Override
     public boolean canAttackBlock(BlockState state, Level level, BlockPos pos, Player player) {
         return !this.getSelectionBehaviour().canCreate(level, pos, level.getBlockState(pos));
     }

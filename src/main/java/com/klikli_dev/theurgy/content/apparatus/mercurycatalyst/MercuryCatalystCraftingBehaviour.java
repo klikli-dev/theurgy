@@ -13,6 +13,7 @@ import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.component.DataComponentGetter;
 import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
@@ -63,19 +64,22 @@ public class MercuryCatalystCraftingBehaviour extends CraftingBehaviour<ItemHand
     @Override
     public void loadAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
         if (pTag.contains("mercuryFluxToConvert"))
-            this.mercuryFluxToConvert = pTag.getInt("mercuryFluxToConvert");
+            this.mercuryFluxToConvert = pTag.getInt("mercuryFluxToConvert").orElse(0);
 
         if (pTag.contains("currentMercuryFluxPerTick"))
-            this.currentMercuryFluxPerTick = pTag.getInt("currentMercuryFluxPerTick");
+            this.currentMercuryFluxPerTick = pTag.getInt("currentMercuryFluxPerTick").orElse(0);
     }
 
     @Override
-    public void applyImplicitComponents(BlockEntity.DataComponentInput pComponentInput) {
-        if (pComponentInput.get(DataComponentRegistry.MERCURY_FLUX_TO_CONVERT) != null)
-            this.mercuryFluxToConvert = pComponentInput.get(DataComponentRegistry.MERCURY_FLUX_TO_CONVERT);
+    public void applyImplicitComponents(DataComponentGetter pComponentGetter) {
+        Integer mercuryFluxToConvert = pComponentGetter.get(DataComponentRegistry.MERCURY_FLUX_TO_CONVERT.get());
+        Integer currentMercuryFluxPerTick = pComponentGetter.get(DataComponentRegistry.CURRENT_MERCURY_FLUX_PER_TICK.get());
 
-        if (pComponentInput.get(DataComponentRegistry.CURRENT_MERCURY_FLUX_PER_TICK) != null)
-            this.currentMercuryFluxPerTick = pComponentInput.get(DataComponentRegistry.CURRENT_MERCURY_FLUX_PER_TICK);
+        if (mercuryFluxToConvert != null)
+            this.mercuryFluxToConvert = mercuryFluxToConvert;
+
+        if (currentMercuryFluxPerTick != null)
+            this.currentMercuryFluxPerTick = currentMercuryFluxPerTick;
     }
 
     @Override

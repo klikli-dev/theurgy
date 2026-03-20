@@ -69,7 +69,6 @@ public enum GuiTextures implements ScreenElement {
 
     @Override
     public void render(GuiGraphics guiGraphics, int x, int y) {
-        RenderSystem.enableBlend();
         guiGraphics.blit(RenderType::guiTextured, this.location, x, y, (float)this.x, (float)this.y, this.width, this.height, this.textureWidth, this.textureHeight);
     }
 }

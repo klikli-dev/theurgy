@@ -10,9 +10,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.LongTag;
-import net.minecraft.nbt.Tag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.capabilities.BlockCapability;
@@ -138,19 +135,14 @@ public abstract class LeafNodeBehaviour<T, C> {
 
     public void writeNetwork(CompoundTag pTag, HolderLookup.Provider pRegistries) {
         pTag.putInt("frequency", this.frequency);
-        var list = new ListTag();
-        for (var target : this.targets) {
-            list.add(LongTag.valueOf(target.asLong()));
-        }
-        pTag.put("targets", list);
+        pTag.putLongArray("targets", this.targets.stream().mapToLong(BlockPos::asLong).toArray());
     }
 
     public void readNetwork(CompoundTag pTag, HolderLookup.Provider pRegistries) {
-        this.frequency = pTag.getInt("frequency");
+        this.frequency = pTag.getInt("frequency").orElse(0);
         this.targets = new ArrayList<>();
-        var list = pTag.getList("targets", Tag.TAG_LONG);
-        for (int i = 0; i < list.size(); i++) {
-            this.targets.add(BlockPos.of(((LongTag) list.get(i)).getAsLong()));
+        for (long target : pTag.getLongArray("targets").orElseGet(() -> new long[0])) {
+            this.targets.add(BlockPos.of(target));
         }
     }
 

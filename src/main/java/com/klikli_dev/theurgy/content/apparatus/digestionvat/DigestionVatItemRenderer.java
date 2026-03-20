@@ -13,13 +13,17 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.phys.Vec3;
 
 public class DigestionVatItemRenderer implements net.minecraft.client.renderer.special.SpecialModelRenderer<ItemStack> {
     private static final DigestionVatBlockEntity blockEntity = new DigestionVatBlockEntity(BlockPos.ZERO, BlockRegistry.DIGESTION_VAT.get().defaultBlockState());
 
     @Override
     public void render(@org.jetbrains.annotations.Nullable ItemStack stack, ItemDisplayContext displayContext, PoseStack poseStack, MultiBufferSource bufferSource, int light, int overlay, boolean hasFoil) {
-        var renderer = Minecraft.getInstance().getBlockEntityRenderDispatcher().getRenderer(blockEntity); if (renderer != null) renderer.render(blockEntity, 0, poseStack, bufferSource, light, overlay);
+        var renderer = Minecraft.getInstance().getBlockEntityRenderDispatcher().getRenderer(blockEntity);
+        if (renderer != null) {
+            renderer.render(blockEntity, 0, poseStack, bufferSource, light, overlay, Vec3.ZERO);
+        }
     }
 
     @Override

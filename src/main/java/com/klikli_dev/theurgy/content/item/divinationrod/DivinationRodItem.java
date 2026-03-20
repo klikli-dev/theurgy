@@ -37,6 +37,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -49,6 +50,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 public class DivinationRodItem extends Item {
@@ -364,7 +366,6 @@ public class DivinationRodItem extends Item {
         return super.releaseUsing(stack, level, pLivingEntity, pTimeCharged);
     }
 
-    @Override
     public Component getName(ItemStack pStack) {
         if (pStack.has(DataComponentRegistry.DIVINATION_LINKED_BLOCK) || pStack.has(DataComponentRegistry.DIVINATION_LINKED_TAG)) {
             var stack = getLinkedBlockStack(pStack);
@@ -372,14 +373,14 @@ public class DivinationRodItem extends Item {
                 var blockComponent = ComponentUtils.wrapInSquareBrackets(
                                 Component.empty().append(stack.getHoverName()).withStyle(Style.EMPTY.withColor(ChatFormatting.GREEN).withItalic(true))
                         )
-                        .withStyle((style) -> style.withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_ITEM, new HoverEvent.ItemStackInfo(stack))));
+                        .withStyle((style) -> style.withHoverEvent(new HoverEvent.ShowItem(stack)));
                 return Component.translatable(this.getDescriptionId() + ".linked", blockComponent);
             } else {
                 //in case the block is not found, we indicate something went wrong
                 var blockComponent = ComponentUtils.wrapInSquareBrackets(
                                 Component.translatable(TheurgyConstants.I18n.Item.DIVINATION_ROD_UNKNOWN_LINKED_BLOCK).withStyle(Style.EMPTY.withColor(ChatFormatting.RED).withItalic(true))
                         )
-                        .withStyle((style) -> style.withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_ITEM, new HoverEvent.ItemStackInfo(stack))));
+                        .withStyle((style) -> style.withHoverEvent(new HoverEvent.ShowItem(stack)));
                 return Component.translatable(this.getDescriptionId() + ".linked", blockComponent);
             }
         }
@@ -388,23 +389,23 @@ public class DivinationRodItem extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack pStack, TooltipContext pContext, List<Component> pTooltipComponents, TooltipFlag pTooltipFlag) {
+    public void appendHoverText(ItemStack pStack, TooltipContext pContext, TooltipDisplay pTooltipDisplay, Consumer<Component> pTooltipAdder, TooltipFlag pTooltipFlag) {
         if (pStack.has(DataComponentRegistry.DIVINATION_LINKED_BLOCK) || pStack.has(DataComponentRegistry.DIVINATION_LINKED_TAG)) {
             var stack = getLinkedBlockStack(pStack);
             if (!stack.isEmpty()) {
                 var blockComponent = Component.empty().append(stack.getHoverName())
                         .withStyle(ChatFormatting.GREEN)
-                        .withStyle((style) -> style.withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_ITEM, new HoverEvent.ItemStackInfo(stack))));
+                        .withStyle((style) -> style.withHoverEvent(new HoverEvent.ShowItem(stack)));
 
                 this.getBlockDisplayComponent(stack);
-                pTooltipComponents.add(
+                pTooltipAdder.accept(
                         Component.translatable(
                                 TheurgyConstants.I18n.Tooltip.DIVINATION_ROD_LINKED_TO,
                                 blockComponent
                         ).withStyle(ChatFormatting.GRAY));
 
                 if (pStack.has(DataComponentRegistry.DIVINATION_POS)) {
-                    pTooltipComponents.add(Component.translatable(TheurgyConstants.I18n.Tooltip.DIVINATION_ROD_LAST_RESULT,
+                    pTooltipAdder.accept(Component.translatable(TheurgyConstants.I18n.Tooltip.DIVINATION_ROD_LAST_RESULT,
                             blockComponent,
                             ComponentUtils.wrapInSquareBrackets(Component.literal(
                                     pStack.get(DataComponentRegistry.DIVINATION_POS).toShortString()
@@ -414,10 +415,10 @@ public class DivinationRodItem extends Item {
             }
 
         } else {
-            pTooltipComponents.add(Component.translatable(TheurgyConstants.I18n.Tooltip.DIVINATION_ROD_NO_LINK));
+            pTooltipAdder.accept(Component.translatable(TheurgyConstants.I18n.Tooltip.DIVINATION_ROD_NO_LINK));
         }
 
-        super.appendHoverText(pStack, pContext, pTooltipComponents, pTooltipFlag);
+        super.appendHoverText(pStack, pContext, pTooltipDisplay, pTooltipAdder, pTooltipFlag);
     }
 
     /**
@@ -459,7 +460,7 @@ public class DivinationRodItem extends Item {
         var displayName = stack.getHoverName();
         return ComponentUtils.wrapInSquareBrackets(displayName)
                 .withStyle(ChatFormatting.GREEN)
-                .withStyle((style) -> style.withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_ITEM, new HoverEvent.ItemStackInfo(stack))));
+                .withStyle((style) -> style.withHoverEvent(new HoverEvent.ShowItem(stack)));
     }
 
     protected void spawnResultParticle(BlockPos result, Level level, LivingEntity entity) {

@@ -3,8 +3,7 @@
     {
       "apply": {
         "model": "theurgy:block/logistics_connector_node",
-        "x": 180,
-        "y": 0
+        "x": 180
       },
       "when": {
         "facing": "down"
@@ -12,9 +11,7 @@
     },
     {
       "apply": {
-        "model": "theurgy:block/logistics_connector_node",
-        "x": 0,
-        "y": 0
+        "model": "theurgy:block/logistics_connector_node"
       },
       "when": {
         "facing": "up"
@@ -23,8 +20,7 @@
     {
       "apply": {
         "model": "theurgy:block/logistics_connector_node",
-        "x": 90,
-        "y": 0
+        "x": 90
       },
       "when": {
         "facing": "north"

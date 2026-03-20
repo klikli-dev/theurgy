@@ -37,7 +37,10 @@ public record WireEndPoint(BlockPos pos, ResourceKey<Level> level) {
 
 
     public static WireEndPoint load(CompoundTag tag) {
-        return new WireEndPoint(BlockPos.of(tag.getLong("pos")), ResourceKey.create(Registries.DIMENSION, ResourceLocation.parse(tag.getString("level"))));
+        return new WireEndPoint(
+                BlockPos.of(tag.getLong("pos").orElse(0L)),
+                ResourceKey.create(Registries.DIMENSION, ResourceLocation.parse(tag.getString("level").orElse("minecraft:overworld")))
+        );
     }
 
     public static @Nullable WireEndPoint load(ItemStack stack) {

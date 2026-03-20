@@ -49,14 +49,14 @@ public class AttributeFilterItem extends FilterItem {
         int count = 0;
         //noinspection deprecation
         var tag = filter.getOrDefault(DataComponentRegistry.FILTER_ATTRIBUTES, CustomData.EMPTY).getUnsafe();
-        ListTag attributes = tag.getList("MatchedAttributes", Tag.TAG_COMPOUND);
+        ListTag attributes = tag.getList("MatchedAttributes").orElseGet(ListTag::new);
 
         for (Tag inbt : attributes) {
             CompoundTag compound = (CompoundTag) inbt;
             ItemAttribute attribute = ItemAttribute.of(provider, compound);
             if (attribute == null)
                 continue;
-            boolean inverted = compound.getBoolean("Inverted");
+            boolean inverted = compound.getBoolean("Inverted").orElse(false);
             if (count > 3) {
                 list.add(Component.literal("- ...")
                         .withStyle(ChatFormatting.DARK_GRAY));

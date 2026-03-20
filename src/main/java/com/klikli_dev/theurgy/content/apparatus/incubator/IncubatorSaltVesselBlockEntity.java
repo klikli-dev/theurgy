@@ -14,6 +14,7 @@ import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.world.Containers;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -22,7 +23,7 @@ import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoBlockEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.AnimatableManager;
+import software.bernie.geckolib.animatable.manager.AnimatableManager;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 
@@ -72,12 +73,22 @@ public class IncubatorSaltVesselBlockEntity extends BlockEntity implements GeoBl
     }
 
     public void readNetwork(CompoundTag pTag, HolderLookup.Provider pRegistries) {
-        if (pTag.contains("inputInventory"))
-            this.inputInventory.deserializeNBT(pRegistries, pTag.getCompound("inputInventory"));
+        pTag.getCompound("inputInventory").ifPresent(tag -> this.inputInventory.deserializeNBT(pRegistries, tag));
     }
 
     public void writeNetwork(CompoundTag pTag, HolderLookup.Provider pRegistries) {
         pTag.put("inputInventory", this.inputInventory.serializeNBT(pRegistries));
+    }
+
+    @Override
+    public void preRemoveSideEffects(BlockPos pPos, BlockState pState) {
+        super.preRemoveSideEffects(pPos, pState);
+
+        if (this.level != null) {
+            for (int i = 0; i < this.inputInventory.getSlots(); i++) {
+                Containers.dropItemStack(this.level, pPos.getX(), pPos.getY(), pPos.getZ(), this.inputInventory.getStackInSlot(i));
+            }
+        }
     }
 
     @Override

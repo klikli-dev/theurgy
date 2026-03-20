@@ -1,7 +1,9 @@
 {
-  "variants": {
-    "": {
-      "model": "theurgy:block/digestion_vat"
+  "multipart": [
+    {
+      "apply": {
+        "model": "theurgy:block/digestion_vat"
+      }
     }
-  }
+  ]
 }

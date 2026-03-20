@@ -141,7 +141,6 @@ public class Theurgy {
             modEventBus.addListener(Client::onRegisterMenuScreens);
             modEventBus.addListener(BlockOverlays::onTextureAtlasStitched);
             modEventBus.addListener(KeyMappingsRegistry::onRegisterKeyMappings);
-            modEventBus.addListener(ShaderRegistry::onRegisterShaders);
             modEventBus.addListener(Client::onRegisterItemProperties);
             NeoForge.EVENT_BUS.addListener(Client::onRenderLevelStage);
             NeoForge.EVENT_BUS.addListener(Client::onClientTick);
@@ -225,7 +224,6 @@ public class Theurgy {
             Outliner.get().render(ms, buffer, camera, partialTicks);
 
             buffer.endBatch();
-            RenderSystem.enableCull();
             ms.popPose();
 
             WireRenderer.get().onRenderLevelStage(event);

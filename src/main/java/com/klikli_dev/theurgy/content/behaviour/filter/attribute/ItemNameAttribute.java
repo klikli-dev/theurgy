@@ -56,7 +56,7 @@ public class ItemNameAttribute implements ItemAttribute {
 
     @Override
     public ItemAttribute readNBT(HolderLookup.Provider pRegistries, CompoundTag nbt) {
-        return new ItemNameAttribute(nbt.getString("name"));
+        return new ItemNameAttribute(nbt.getString("name").orElse(""));
     }
 
     private String extractCustomName(ItemStack stack) {

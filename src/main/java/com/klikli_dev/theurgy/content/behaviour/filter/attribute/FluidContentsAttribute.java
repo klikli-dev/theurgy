@@ -64,7 +64,7 @@ public class FluidContentsAttribute implements ItemAttribute {
 
     @Override
     public ItemAttribute readNBT(HolderLookup.Provider pRegistries, CompoundTag nbt) {
-        return nbt.contains("id") ? new FluidContentsAttribute(BuiltInRegistries.FLUID.get(ResourceLocation.tryParse(nbt.getString("id"))).map(net.minecraft.core.Holder::value).orElse(Fluids.EMPTY)) : EMPTY;
+        return nbt.contains("id") ? new FluidContentsAttribute(BuiltInRegistries.FLUID.get(ResourceLocation.tryParse(nbt.getString("id").orElse("minecraft:empty"))).map(net.minecraft.core.Holder::value).orElse(Fluids.EMPTY)) : EMPTY;
     }
 
     private List<Fluid> extractFluids(ItemStack stack) {

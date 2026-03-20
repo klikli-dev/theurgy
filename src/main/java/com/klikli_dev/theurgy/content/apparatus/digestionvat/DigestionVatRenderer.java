@@ -19,6 +19,7 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.phys.Vec3;
 
 import java.util.EnumSet;
 
@@ -72,7 +73,7 @@ public class DigestionVatRenderer implements BlockEntityRenderer<DigestionVatBlo
     }
 
     @Override
-    public void render(DigestionVatBlockEntity pBlockEntity, float pPartialTick, PoseStack pPoseStack, MultiBufferSource pBuffer, int pPackedLight, int pPackedOverlay) {
+    public void render(DigestionVatBlockEntity pBlockEntity, float pPartialTick, PoseStack pPoseStack, MultiBufferSource pBuffer, int pPackedLight, int pPackedOverlay, Vec3 pCameraPosition) {
         pPoseStack.pushPose();
         Direction direction = pBlockEntity.getDirection();
         pPoseStack.translate(0.5D, 0.0D, 0.5D);

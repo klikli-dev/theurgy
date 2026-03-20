@@ -20,13 +20,14 @@ import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.world.Containers;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoBlockEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.AnimatableManager;
-import software.bernie.geckolib.animation.AnimationController;
+import software.bernie.geckolib.animatable.manager.AnimatableManager;
+import software.bernie.geckolib.animatable.processing.AnimationController;
 
 
 public class DistillerBlockEntity extends BlockEntity implements GeoBlockEntity, HasCraftingBehaviour<ItemHandlerRecipeInput, DistillationRecipe, DistillationCachedCheck> {
@@ -37,7 +38,7 @@ public class DistillerBlockEntity extends BlockEntity implements GeoBlockEntity,
 
     protected DistillationCraftingBehaviour craftingBehaviour;
     protected HeatConsumerBehaviour heatConsumerBehaviour;
-    protected AnimationBehaviour<?> animationBehaviour;
+    protected AnimationBehaviour<DistillerBlockEntity> animationBehaviour;
 
     public DistillerBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(BlockEntityRegistry.DISTILLER.get(), pPos, pBlockState);
@@ -96,6 +97,15 @@ public class DistillerBlockEntity extends BlockEntity implements GeoBlockEntity,
     }
 
     @Override
+    public void preRemoveSideEffects(BlockPos pPos, BlockState pState) {
+        super.preRemoveSideEffects(pPos, pState);
+
+        for (int i = 0; i < this.storageBehaviour.inventory.getSlots(); i++) {
+            Containers.dropItemStack(this.level, pPos.getX(), pPos.getY(), pPos.getZ(), this.storageBehaviour.inventory.getStackInSlot(i));
+        }
+    }
+
+    @Override
     protected void saveAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
         super.saveAdditional(pTag, pRegistries);
 
@@ -119,7 +129,7 @@ public class DistillerBlockEntity extends BlockEntity implements GeoBlockEntity,
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-        controllerRegistrar.add(new AnimationController<GeoBlockEntity>(this, "controller", 0, this.animationBehaviour::animationHandler));
+        controllerRegistrar.add(new AnimationController<DistillerBlockEntity>("controller", 0, this.animationBehaviour::animationHandler));
     }
 
     @Override

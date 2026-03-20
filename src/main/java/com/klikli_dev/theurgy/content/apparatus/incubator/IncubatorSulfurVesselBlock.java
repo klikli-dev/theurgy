@@ -8,6 +8,7 @@ import com.klikli_dev.theurgy.content.behaviour.itemhandler.ItemHandlerBehaviour
 import com.klikli_dev.theurgy.content.behaviour.itemhandler.OneSlotItemHandlerBehaviour;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -33,16 +34,8 @@ public class IncubatorSulfurVesselBlock extends Block implements EntityBlock {
     }
 
     @Override
-    @SuppressWarnings("deprecation")
-    public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
-        if (!pState.is(pNewState.getBlock())) {
-            if (pLevel.getBlockEntity(pPos) instanceof IncubatorSulfurVesselBlockEntity blockEntity) {
-                for (int i = 0; i < blockEntity.inputInventory.getSlots(); i++) {
-                    Containers.dropItemStack(pLevel, pPos.getX(), pPos.getY(), pPos.getZ(), blockEntity.inputInventory.getStackInSlot(i));
-                }
-            }
-        }
-        super.onRemove(pState, pLevel, pPos, pNewState, pIsMoving);
+    protected void affectNeighborsAfterRemoval(BlockState pState, ServerLevel pLevel, BlockPos pPos, boolean pMovedByPiston) {
+        Containers.updateNeighboursAfterDestroy(pState, pLevel, pPos);
     }
 
     @Override

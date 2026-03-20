@@ -1,7 +1,7 @@
 {
   "parent": "theurgy:block/pyromantic_brazier_template",
   "textures": {
-    "base": "theurgy:block/pyromantic_brazier_base",
-    "emitter": "theurgy:block/pyromantic_brazier_bowl"
+    "particle": "minecraft:block/copper_block",
+    "texture": "theurgy:block/pyromantic_brazier"
   }
 }

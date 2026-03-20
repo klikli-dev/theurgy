@@ -136,10 +136,10 @@ public class AttributeFilterMenu extends AbstractFilterMenu {
 
         //noinspection deprecation
         var tag = filterItem.getOrDefault(DataComponentRegistry.FILTER_ATTRIBUTES, CustomData.EMPTY).getUnsafe();
-        ListTag attributes = tag.getList("MatchedAttributes", Tag.TAG_COMPOUND);
+        ListTag attributes = tag.getList("MatchedAttributes").orElseGet(ListTag::new);
         attributes.forEach(inbt -> {
             CompoundTag compound = (CompoundTag) inbt;
-            this.selectedAttributes.add(Pair.of(ItemAttribute.of(this.player.registryAccess(), compound), compound.getBoolean("Inverted")));
+            this.selectedAttributes.add(Pair.of(ItemAttribute.of(this.player.registryAccess(), compound), compound.getBoolean("Inverted").orElse(false)));
         });
     }
 

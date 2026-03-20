@@ -4,6 +4,7 @@
 
 package com.klikli_dev.theurgy.content.behaviour.logistics;
 
+import com.mojang.serialization.Codec;
 import com.klikli_dev.theurgy.content.behaviour.filter.Filter;
 import com.klikli_dev.theurgy.logistics.Logistics;
 import net.minecraft.core.BlockPos;
@@ -137,13 +138,13 @@ public abstract class LeafNodeBehaviour<T, C> {
 
     public void writeNetwork(ValueOutput output) {
         output.putInt("frequency", this.frequency);
-        output.putLongArray("targets", this.targets.stream().mapToLong(BlockPos::asLong).toArray());
+        output.store("targets", Codec.LONG.listOf(), this.targets.stream().map(BlockPos::asLong).toList());
     }
 
     public void readNetwork(ValueInput input) {
         this.frequency = input.getIntOr("frequency", 0);
         this.targets = new ArrayList<>();
-        for (long target : input.getLongArray("targets").orElseGet(() -> new long[0])) {
+        for (long target : input.read("targets", Codec.LONG.listOf()).orElse(List.of())) {
             this.targets.add(BlockPos.of(target));
         }
     }

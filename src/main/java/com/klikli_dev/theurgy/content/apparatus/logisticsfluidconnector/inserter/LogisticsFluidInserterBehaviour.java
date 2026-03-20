@@ -8,10 +8,10 @@ import com.klikli_dev.theurgy.content.behaviour.logistics.InserterNodeBehaviour;
 import com.klikli_dev.theurgy.logistics.Logistics;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import org.jetbrains.annotations.Nullable;
@@ -69,33 +69,27 @@ public class LogisticsFluidInserterBehaviour extends InserterNodeBehaviour<IFlui
     }
 
     @Override
-    public void saveAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
-        super.saveAdditional(pTag, pRegistries);
+    public void saveAdditional(ValueOutput output) {
+        super.saveAdditional(output);
     }
 
     @Override
-    public void loadAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
-        super.loadAdditional(pTag, pRegistries);
+    public void loadAdditional(ValueInput input) {
+        super.loadAdditional(input);
     }
 
     @Override
-    public void writeNetwork(CompoundTag pTag, HolderLookup.Provider pRegistries) {
-        super.writeNetwork(pTag, pRegistries);
-
-        pTag.putBoolean("enabled", this.enabled);
+    public void writeNetwork(ValueOutput output) {
+        super.writeNetwork(output);
+        output.putBoolean("enabled", this.enabled);
         if (this.directionOverride != null)
-            pTag.putInt("directionOverride", this.directionOverride.get3DDataValue());
+            output.putInt("directionOverride", this.directionOverride.get3DDataValue());
     }
 
     @Override
-    public void readNetwork(CompoundTag pTag, HolderLookup.Provider pRegistries) {
-        super.readNetwork(pTag, pRegistries);
-
-        if (pTag.contains("directionOverride")) {
-            this.directionOverride = Direction.from3DDataValue(pTag.getInt("directionOverride").orElse(Direction.NORTH.get3DDataValue()));
-        }
-        if (pTag.contains("enabled")) {
-            this.enabled = pTag.getBoolean("enabled").orElse(this.enabled);
-        }
+    public void readNetwork(ValueInput input) {
+        super.readNetwork(input);
+        input.getInt("directionOverride").ifPresent(direction -> this.directionOverride = Direction.from3DDataValue(direction));
+        this.enabled = input.getBooleanOr("enabled", this.enabled);
     }
 }

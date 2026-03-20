@@ -14,8 +14,6 @@ import com.klikli_dev.theurgy.content.item.mode.TargetDirectionSetter;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.Containers;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -26,6 +24,8 @@ import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.items.IItemHandler;
 import com.klikli_dev.theurgy.logistics.Wires;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
@@ -106,17 +106,17 @@ public abstract class LogisticsItemConnectorBlockEntity extends BlockEntity impl
     }
 
     @Override
-    public void loadAdditional(@NotNull CompoundTag pTag, HolderLookup.@NotNull Provider pRegistries) {
-        super.loadAdditional(pTag, pRegistries);
-        this.leafNode().loadAdditional(pTag, pRegistries);
-        this.filter().loadAdditional(pTag, pRegistries);
+    public void loadAdditional(@NotNull ValueInput input) {
+        super.loadAdditional(input);
+        this.leafNode().loadAdditional(input);
+        this.filter().loadAdditional(input);
     }
 
     @Override
-    protected void saveAdditional(@NotNull CompoundTag pTag, HolderLookup.@NotNull Provider pRegistries) {
-        super.saveAdditional(pTag, pRegistries);
-        this.leafNode().saveAdditional(pTag, pRegistries);
-        this.filter().saveAdditional(pTag, pRegistries);
+    protected void saveAdditional(@NotNull ValueOutput output) {
+        super.saveAdditional(output);
+        this.leafNode().saveAdditional(output);
+        this.filter().saveAdditional(output);
     }
 
     @Override

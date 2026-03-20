@@ -5,6 +5,7 @@
 package com.klikli_dev.theurgy.content.apparatus.logisticsfluidconnector.inserter;
 
 import com.klikli_dev.theurgy.content.apparatus.logisticsfluidconnector.LogisticsFluidConnectorBlockEntity;
+import com.klikli_dev.theurgy.util.ValueIOUtils;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -16,6 +17,8 @@ import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -33,14 +36,12 @@ public class LogisticsFluidInserterBlockEntity extends LogisticsFluidConnectorBl
 
     @Override
     public @NotNull CompoundTag getUpdateTag(HolderLookup.@NotNull Provider pRegistries) {
-        var tag = new CompoundTag();
-        this.writeNetwork(tag, pRegistries);
-        return tag;
+        return ValueIOUtils.serialize(pRegistries, this::writeNetwork);
     }
 
     @Override
-    public void handleUpdateTag(@NotNull CompoundTag tag, HolderLookup.@NotNull Provider pRegistries) {
-        this.readNetwork(tag, pRegistries);
+    public void handleUpdateTag(@NotNull ValueInput input) {
+        this.readNetwork(input);
     }
 
     @Nullable
@@ -50,21 +51,18 @@ public class LogisticsFluidInserterBlockEntity extends LogisticsFluidConnectorBl
     }
 
     @Override
-    public void onDataPacket(@NotNull Connection connection, ClientboundBlockEntityDataPacket packet, HolderLookup.@NotNull Provider pRegistries) {
-        var tag = packet.getTag();
-        if (tag != null) {
-            this.readNetwork(tag, pRegistries);
-        }
+    public void onDataPacket(@NotNull Connection connection, @NotNull ValueInput input) {
+        this.readNetwork(input);
     }
 
-    public void readNetwork(CompoundTag tag, HolderLookup.Provider pRegistries) {
-        this.leafNode().readNetwork(tag, pRegistries);
-        this.filter().readNetwork(tag, pRegistries);
+    public void readNetwork(ValueInput input) {
+        this.leafNode().readNetwork(input);
+        this.filter().readNetwork(input);
     }
 
-    public void writeNetwork(CompoundTag tag, HolderLookup.Provider pRegistries) {
-        this.leafNode().writeNetwork(tag, pRegistries);
-        this.filter().writeNetwork(tag, pRegistries);
+    public void writeNetwork(ValueOutput output) {
+        this.leafNode().writeNetwork(output);
+        this.filter().writeNetwork(output);
     }
 
     protected void sendBlockUpdated() {

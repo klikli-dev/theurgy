@@ -80,7 +80,7 @@ public class CaloricFluxEmitterBlockEntity extends BlockEntity {
             this.mercuryFluxStorage.extractEnergy(FLUX_PER_HEAT, false);
             heatReceiver.setHotUntil(this.getLevel().getGameTime() + HEAT_TARGET_FOR_TICKS);
 
-            Networking.sendToTracking((ServerLevel) this.getLevel(), new ChunkPos(this.getBlockPos()), new MessageShowCaloricFlux(this.getBlockPos(), selectedPoint.getBlockPos(), this.getBlockState().getValue(CaloricFluxEmitterBlock.FACING)));
+            Networking.sendToTracking((ServerLevel) this.getLevel(), ChunkPos.containing(this.getBlockPos()), new MessageShowCaloricFlux(this.getBlockPos(), selectedPoint.getBlockPos(), this.getBlockState().getValue(CaloricFluxEmitterBlock.FACING)));
         }
     }
 

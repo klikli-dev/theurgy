@@ -177,7 +177,7 @@ public class DivinationRodItem extends Item {
 
     @Override
     public void onUseTick(Level pLevel, LivingEntity pLivingEntity, ItemStack pStack, int pRemainingUseDuration) {
-        if (pLivingEntity.level().isClientSide && pLivingEntity instanceof Player player) {
+        if (pLivingEntity.level().isClientSide() && pLivingEntity instanceof Player player) {
             ScanManager.get().updateScan(player, false);
         }
     }
@@ -196,7 +196,7 @@ public class DivinationRodItem extends Item {
         if (player.isShiftKeyDown()) {
 
             if (!stack.getOrDefault(DataComponentRegistry.DIVINATION_SETTINGS_ALLOW_ATTUNING, false)) {
-                if (!level.isClientSide) {
+                if (!level.isClientSide()) {
                     player.sendOverlayMessage(
                             Component.translatable(TheurgyConstants.I18n.Message.DIVINATION_ROD_ATTUNING_NOT_ALLOWED)
                     );
@@ -207,7 +207,7 @@ public class DivinationRodItem extends Item {
             BlockState state = level.getBlockState(pos);
             if (!state.isAir()) {
                 if (state.is(tier.incorrectBlocksForDrops())) {
-                    if (!level.isClientSide) {
+                    if (!level.isClientSide()) {
                         player.sendOverlayMessage(
                                 Component.translatable(
                                         TheurgyConstants.I18n.Message.DIVINATION_ROD_TIER_TOO_LOW,
@@ -217,7 +217,7 @@ public class DivinationRodItem extends Item {
                     }
                     return InteractionResult.FAIL;
                 } else if (!state.is(allowedBlocksTag)) {
-                    if (!level.isClientSide) {
+                    if (!level.isClientSide()) {
                         player.sendOverlayMessage(
                                 Component.translatable(
                                         TheurgyConstants.I18n.Message.DIVINATION_ROD_BLOCK_NOT_ALLOWED,
@@ -227,7 +227,7 @@ public class DivinationRodItem extends Item {
                     }
                     return InteractionResult.FAIL;
                 } else if (state.is(disallowedBlocksTag)) {
-                    if (!level.isClientSide) {
+                    if (!level.isClientSide()) {
                         player.sendOverlayMessage(
                                 Component.translatable(
                                         TheurgyConstants.I18n.Message.DIVINATION_ROD_BLOCK_DISALLOWED,
@@ -237,7 +237,7 @@ public class DivinationRodItem extends Item {
                     }
                     return InteractionResult.FAIL;
                 } else {
-                    if (!level.isClientSide) {
+                    if (!level.isClientSide()) {
                         stack.set(DataComponentRegistry.DIVINATION_LINKED_BLOCK, state.getBlockHolder());
 
                         player.sendOverlayMessage(
@@ -271,7 +271,7 @@ public class DivinationRodItem extends Item {
                 level.playSound(player, player.blockPosition(), SoundRegistry.TUNING_FORK.get(), SoundSource.PLAYERS,
                         1, 1);
 
-                if (level.isClientSide) {
+                if (level.isClientSide()) {
                     if (stack.has(DataComponentRegistry.DIVINATION_LINKED_TAG)) {
                         scanLinkedTag(player,
                                 stack.get(DataComponentRegistry.DIVINATION_LINKED_TAG),
@@ -284,7 +284,7 @@ public class DivinationRodItem extends Item {
                                 stack.getOrDefault(DataComponentRegistry.DIVINATION_SETTINGS_DURATION, this.defaultDuration));
                     }
                 }
-            } else if (!level.isClientSide) {
+            } else if (!level.isClientSide()) {
                 player.sendOverlayMessage(Component.translatable(TheurgyConstants.I18n.Message.DIVINATION_ROD_NO_LINK));
             }
         }
@@ -311,7 +311,7 @@ public class DivinationRodItem extends Item {
 
         stack.set(DataComponentRegistry.DIVINATION_DISTANCE, NOT_FOUND);
 
-        if (level.isClientSide) {
+        if (level.isClientSide()) {
             BlockPos result = ScanManager.get().finishScan(player);
             float distance = this.getDistance(player.position(), result);
             stack.set(DataComponentRegistry.DIVINATION_DISTANCE, distance);
@@ -350,7 +350,7 @@ public class DivinationRodItem extends Item {
         }
 
 
-        if (level.isClientSide) {
+        if (level.isClientSide()) {
             ScanManager.get().cancelScan();
 
             //re-use old result
@@ -466,7 +466,7 @@ public class DivinationRodItem extends Item {
         var dir = dist.normalize();
         var to = dist.length() <= visualizationRange ? resultVec : from.add(dir.scale(visualizationRange));
 
-        if (level.isLoaded(BlockPos.containing(to)) && level.isLoaded(BlockPos.containing(from)) && level.isClientSide) {
+        if (level.isLoaded(BlockPos.containing(to)) && level.isLoaded(BlockPos.containing(from)) && level.isClientSide()) {
             FollowProjectile aoeProjectile = new FollowProjectile(level, from, to, 255, 25, 180, 0.25f);
             EntityUtil.spawnEntityClientSide(level, aoeProjectile, true);
         }

@@ -40,7 +40,7 @@ public abstract class FilterItem extends Item implements MenuProvider {
         ItemStack heldItem = pPlayer.getItemInHand(pUsedHand);
 
         if (!pPlayer.isShiftKeyDown() && pUsedHand == InteractionHand.MAIN_HAND) {
-            if (!pLevel.isClientSide && pPlayer instanceof ServerPlayer serverPlayer)
+            if (!pLevel.isClientSide() && pPlayer instanceof ServerPlayer serverPlayer)
                 serverPlayer.openMenu(this, buf -> {
                     ItemStack.STREAM_CODEC.encode(buf, heldItem);
                 });

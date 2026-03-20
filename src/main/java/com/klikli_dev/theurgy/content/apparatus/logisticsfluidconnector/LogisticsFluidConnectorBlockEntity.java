@@ -88,7 +88,7 @@ public abstract class LogisticsFluidConnectorBlockEntity extends BlockEntity imp
     public void onLoad() {
         super.onLoad();
 
-        if (!this.level.isClientSide) {
+        if (!this.level.isClientSide()) {
             this.leafNode().onLoad();
 
             this.updateBlockStateToMatchFilter();
@@ -99,7 +99,7 @@ public abstract class LogisticsFluidConnectorBlockEntity extends BlockEntity imp
     public void onChunkUnloaded() {
         super.onChunkUnloaded();
 
-        if (!this.level.isClientSide) {
+        if (!this.level.isClientSide()) {
             this.leafNode().onChunkUnload();
         }
     }

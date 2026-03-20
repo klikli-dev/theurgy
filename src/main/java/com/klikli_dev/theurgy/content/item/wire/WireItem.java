@@ -142,7 +142,7 @@ public class WireItem extends Item {
 
         Wires.get(level).addWire(new Wire(wireEndPoint.pos(), pos));
 
-        if (!level.isClientSide) {
+        if (!level.isClientSide()) {
             var posA = GlobalPos.of(level.dimension(), pos);
             var posB = GlobalPos.of(wireEndPoint.level(), wireEndPoint.pos());
             Logistics.get().add(posA, posB);
@@ -171,7 +171,7 @@ public class WireItem extends Item {
         var level = pContext.getLevel();
 
         Wires.get(level).removeWire(wire);
-        if (!level.isClientSide) {
+        if (!level.isClientSide()) {
             var posA = GlobalPos.of(level.dimension(), wire.from());
             var posB = GlobalPos.of(level.dimension(), wire.to());
             Logistics.get().remove(posA, posB);

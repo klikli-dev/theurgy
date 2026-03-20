@@ -89,7 +89,7 @@ public abstract class LogisticsItemConnectorBlockEntity extends BlockEntity impl
     public void onLoad() {
         super.onLoad();
 
-        if (!this.level.isClientSide) {
+        if (!this.level.isClientSide()) {
             this.leafNode().onLoad();
 
             this.updateBlockStateToMatchFilter();
@@ -100,7 +100,7 @@ public abstract class LogisticsItemConnectorBlockEntity extends BlockEntity impl
     public void onChunkUnloaded() {
         super.onChunkUnloaded();
 
-        if (!this.level.isClientSide) {
+        if (!this.level.isClientSide()) {
             this.leafNode().onChunkUnload();
         }
     }

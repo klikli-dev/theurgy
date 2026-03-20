@@ -62,7 +62,7 @@ public abstract class LogisticsItemConnectorBlock extends DirectionalBlock imple
         if (!pPlayer.getItemInHand(pHand).isEmpty())
             return InteractionResult.PASS;
 
-        if (pLevel.isClientSide) {
+        if (pLevel.isClientSide()) {
             return InteractionResult.SUCCESS;
         }
 

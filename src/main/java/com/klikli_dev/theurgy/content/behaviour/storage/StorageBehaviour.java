@@ -70,7 +70,7 @@ public abstract class StorageBehaviour<S extends StorageBehaviour<?>> {
     public abstract void loadAdditional(ValueInput input);
 
     protected void sendBlockUpdated() {
-        if (this.blockEntity.getLevel() != null && !this.blockEntity.getLevel().isClientSide)
+        if (this.blockEntity.getLevel() != null && !this.blockEntity.getLevel().isClientSide())
             this.blockEntity.getLevel().sendBlockUpdated(this.blockEntity.getBlockPos(), this.blockEntity.getBlockState(), this.blockEntity.getBlockState(), Block.UPDATE_CLIENTS);
     }
 

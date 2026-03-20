@@ -50,7 +50,7 @@ public class MercuryCatalystCraftingBehaviour extends CraftingBehaviour<ItemHand
 
     @Override
     public boolean isIngredient(ItemStack stack) {
-        if (this.blockEntity.getLevel().isClientSide) return false;
+        if (this.blockEntity.getLevel().isClientSide()) return false;
         var tempInv = new ItemStackHandler(NonNullList.of(ItemStack.EMPTY, stack));
         var tempRecipeWrapper = new ItemHandlerRecipeInput(tempInv);
 
@@ -126,7 +126,7 @@ public class MercuryCatalystCraftingBehaviour extends CraftingBehaviour<ItemHand
             //only even check for recipe if we have input to avoid unnecessary lookups
 
             //if we have no flux available, consume more mercury
-            if(this.blockEntity.getLevel().isClientSide) return;
+            if(this.blockEntity.getLevel().isClientSide()) return;
             var recipe = this.recipeCachedCheck.getRecipeFor(this.recipeInputSupplier.get(), (ServerLevel)this.blockEntity.getLevel()).orElse(null);
 
 

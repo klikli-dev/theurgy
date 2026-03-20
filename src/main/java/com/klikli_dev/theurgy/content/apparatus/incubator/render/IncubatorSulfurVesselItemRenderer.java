@@ -6,13 +6,16 @@ package com.klikli_dev.theurgy.content.apparatus.incubator.render;
 
 import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorSulfurVesselBlockItem;
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.client.resources.model.cuboid.ItemTransform;
+import net.minecraft.client.renderer.special.SpecialModelRenderer;
 import net.minecraft.world.item.ItemDisplayContext;
 import org.joml.Vector3f;
-import com.geckolib.cache.model.BakedGeoModel;
 import com.geckolib.constant.DataTickets;
 import com.geckolib.renderer.GeoItemRenderer;
 import com.geckolib.renderer.base.GeoRenderState;
+import com.geckolib.renderer.base.RenderPassInfo;
+import com.geckolib.renderer.internal.GeckolibItemSpecialRenderer;
 
 public class IncubatorSulfurVesselItemRenderer extends GeoItemRenderer<IncubatorSulfurVesselBlockItem> {
 
@@ -25,32 +28,29 @@ public class IncubatorSulfurVesselItemRenderer extends GeoItemRenderer<Incubator
     }
 
     @Override
-    public void adjustPositionForRender(GeoRenderState renderState, PoseStack poseStack, BakedGeoModel model, boolean isReRender) {
-        super.adjustPositionForRender(renderState, poseStack, model, isReRender);
-
-        if (isReRender) {
-            return;
-        }
+    public void adjustRenderPose(RenderPassInfo<GeoRenderState> renderPassInfo) {
+        super.adjustRenderPose(renderPassInfo);
+        PoseStack poseStack = renderPassInfo.poseStack();
 
         if (this.scaleWidth != 1 && this.scaleHeight != 1) {
             poseStack.translate(this.scaleWidth / 0.5 - 0.5, -0.1, this.scaleWidth / 0.5 - 0.5);
         }
 
-        if (renderState.getOrDefaultGeckolibData(DataTickets.ITEM_RENDER_PERSPECTIVE, ItemDisplayContext.NONE) == ItemDisplayContext.GUI) {
+        if (renderPassInfo.renderState().getOrDefaultGeckolibData(DataTickets.ITEM_RENDER_PERSPECTIVE, ItemDisplayContext.NONE) == ItemDisplayContext.GUI) {
             this.transform.apply(false, poseStack.last());
         }
     }
 
-    public record Unbaked() implements net.minecraft.client.renderer.special.SpecialModelRenderer.Unbaked {
-        public static final com.mojang.serialization.MapCodec<Unbaked> MAP_CODEC = com.mojang.serialization.MapCodec.unit(new Unbaked());
+    public record Unbaked() implements SpecialModelRenderer.Unbaked<GeckolibItemSpecialRenderer.RenderData<IncubatorSulfurVesselBlockItem>> {
+        public static final MapCodec<Unbaked> MAP_CODEC = MapCodec.unit(new Unbaked());
 
         @Override
-        public net.minecraft.client.renderer.special.SpecialModelRenderer<?> bake(net.minecraft.client.model.geom.EntityModelSet modelSet) {
-            return (net.minecraft.client.renderer.special.SpecialModelRenderer<?>) new IncubatorSulfurVesselItemRenderer();
+        public SpecialModelRenderer<GeckolibItemSpecialRenderer.RenderData<IncubatorSulfurVesselBlockItem>> bake(SpecialModelRenderer.BakingContext context) {
+            return new GeckolibItemSpecialRenderer<>();
         }
 
         @Override
-        public com.mojang.serialization.MapCodec<? extends net.minecraft.client.renderer.special.SpecialModelRenderer.Unbaked> type() {
+        public MapCodec<? extends SpecialModelRenderer.Unbaked<GeckolibItemSpecialRenderer.RenderData<IncubatorSulfurVesselBlockItem>>> type() {
             return MAP_CODEC;
         }
     }

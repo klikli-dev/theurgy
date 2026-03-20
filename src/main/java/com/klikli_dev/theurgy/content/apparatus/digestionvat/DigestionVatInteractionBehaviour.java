@@ -33,12 +33,12 @@ public class DigestionVatInteractionBehaviour extends GenericVatInteractionBehav
 
     @Override
     protected void showNoRecipeMessage(Level level, Player player) {
-        player.displayClientMessage(Component.translatable(TheurgyConstants.I18n.Behaviour.INTERACTION_DIGESTION_VAT_NO_RECIPE).withStyle(ChatFormatting.RED), true);
+        player.sendOverlayMessage(Component.translatable(TheurgyConstants.I18n.Behaviour.INTERACTION_DIGESTION_VAT_NO_RECIPE).withStyle(ChatFormatting.RED));
     }
 
     @Override
     protected void showClosedMessage(Level level, Player player) {
-        player.displayClientMessage(Component.translatable(TheurgyConstants.I18n.Behaviour.INTERACTION_DIGESTION_VAT_CLOSED).withStyle(ChatFormatting.RED), true);
+        player.sendOverlayMessage(Component.translatable(TheurgyConstants.I18n.Behaviour.INTERACTION_DIGESTION_VAT_CLOSED).withStyle(ChatFormatting.RED));
     }
 
 

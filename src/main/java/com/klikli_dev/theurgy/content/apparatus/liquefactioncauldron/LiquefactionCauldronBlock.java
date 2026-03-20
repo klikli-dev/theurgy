@@ -101,7 +101,7 @@ public class LiquefactionCauldronBlock extends Block implements EntityBlock {
 
     @Override
     public BlockState playerWillDestroy(Level pLevel, BlockPos pPos, BlockState pState, Player pPlayer) {
-        if (!pLevel.isClientSide && pPlayer.isCreative()) {
+        if (!pLevel.isClientSide() && pPlayer.isCreative()) {
             DoublePlantBlock.preventDropFromBottomPart(pLevel, pPos, pState, pPlayer);
         }
 

@@ -38,7 +38,7 @@ public class SalAmmoniacAccumulatorCraftingBehaviour extends CraftingBehaviour<I
 
     @Override
     public boolean isIngredient(ItemStack stack) {
-        if (this.blockEntity.getLevel().isClientSide) return false;
+        if (this.blockEntity.getLevel().isClientSide()) return false;
         return this.recipeCachedCheck.getRecipeFor(stack, (ServerLevel)this.blockEntity.getLevel()).isPresent();
     }
 
@@ -53,7 +53,7 @@ public class SalAmmoniacAccumulatorCraftingBehaviour extends CraftingBehaviour<I
 
     @Override
     public boolean isIngredient(FluidStack stack) {
-        if (this.blockEntity.getLevel().isClientSide) return false;
+        if (this.blockEntity.getLevel().isClientSide()) return false;
         return this.recipeCachedCheck.getRecipeFor(stack, (ServerLevel)this.blockEntity.getLevel()).isPresent();
     }
 

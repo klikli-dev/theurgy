@@ -11,16 +11,17 @@ import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.model.geom.EntityModelSet;
-import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.SubmitNodeCollector;
+import net.minecraft.client.renderer.item.ItemStackRenderState;
 import net.minecraft.client.renderer.special.SpecialModelRenderer;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
+import org.joml.Vector3fc;
 
 import java.util.Map;
-import java.util.Set;
+import java.util.function.Consumer;
 
 public class AlchemicalDerivativeRenderer implements SpecialModelRenderer<ItemStack> {
 
@@ -33,28 +34,27 @@ public class AlchemicalDerivativeRenderer implements SpecialModelRenderer<ItemSt
     );
 
     @Override
-    public void render(@Nullable ItemStack stack, ItemDisplayContext displayContext, PoseStack poseStack, MultiBufferSource bufferSource, int light, int overlay, boolean hasFoil) {
+    public void submit(@Nullable ItemStack stack, ItemDisplayContext displayContext, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int light, int overlay, boolean hasFoil, int outlineColor) {
         if (stack == null || stack.isEmpty()) return;
 
         boolean renderSource = ClientConfig.get().rendering.renderSulfurSourceItem.get();
-        var itemRenderer = Minecraft.getInstance().getItemRenderer();
 
         var jarStack = renderSource ? AlchemicalDerivativeItem.getEmptyJarStack(stack) : labeledEmptyJarStack;
 
         // Render Jar
-        itemRenderer.renderStatic(jarStack, displayContext, light, overlay, poseStack, bufferSource, null, 0);
+        this.submitItem(jarStack, displayContext, poseStack, submitNodeCollector, light, overlay, outlineColor);
 
         // Render Frame
         // AlchemicalDerivativeItem.getTier is static
         var tierStack = tierToIconMap.get(AlchemicalDerivativeItem.getTier(stack));
         if (tierStack != null) {
-            itemRenderer.renderStatic(tierStack, displayContext, light, overlay, poseStack, bufferSource, null, 0);
+            this.submitItem(tierStack, displayContext, poseStack, submitNodeCollector, light, overlay, outlineColor);
         }
 
         if (renderSource) {
             // Render Label
             var labelStack = new ItemStack(ItemRegistry.JAR_LABEL_ICON.get());
-            itemRenderer.renderStatic(labelStack, displayContext, light, overlay, poseStack, bufferSource, null, 0);
+            this.submitItem(labelStack, displayContext, poseStack, submitNodeCollector, light, overlay, outlineColor);
 
             // Render Contained Item
             ItemStack containedStack = ItemStack.EMPTY;
@@ -73,11 +73,18 @@ public class AlchemicalDerivativeRenderer implements SpecialModelRenderer<ItemSt
                 poseStack.scale(0.74F, 0.74F, 0.01F);
 
 
-                itemRenderer.renderStatic(containedStack, displayContext, light, overlay, poseStack, bufferSource, null, 0);
+                this.submitItem(containedStack, displayContext, poseStack, submitNodeCollector, light, overlay, outlineColor);
 
                 poseStack.popPose();
             }
         }
+    }
+
+    private void submitItem(ItemStack itemStack, ItemDisplayContext displayContext, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int light, int overlay, int outlineColor) {
+        ItemStackRenderState renderState = new ItemStackRenderState();
+        Minecraft minecraft = Minecraft.getInstance();
+        minecraft.getItemModelResolver().updateForTopItem(renderState, itemStack, displayContext, minecraft.level, null, 0);
+        renderState.submit(poseStack, submitNodeCollector, light, overlay, outlineColor);
     }
 
     @Override
@@ -86,21 +93,21 @@ public class AlchemicalDerivativeRenderer implements SpecialModelRenderer<ItemSt
     }
 
     @Override
-    public void getExtents(Set<Vector3f> extents) {
-        extents.add(new Vector3f(-0.5f, -0.5f, -0.5f));
-        extents.add(new Vector3f(0.5f, 0.5f, 0.5f));
+    public void getExtents(Consumer<Vector3fc> output) {
+        output.accept(new Vector3f(-0.5f, -0.5f, -0.5f));
+        output.accept(new Vector3f(0.5f, 0.5f, 0.5f));
     }
 
-    public record Unbaked() implements SpecialModelRenderer.Unbaked {
+    public record Unbaked() implements SpecialModelRenderer.Unbaked<ItemStack> {
         public static final MapCodec<Unbaked> MAP_CODEC = MapCodec.unit(new Unbaked());
 
         @Override
-        public @Nullable SpecialModelRenderer<?> bake(EntityModelSet modelSet) {
+        public @Nullable SpecialModelRenderer<ItemStack> bake(SpecialModelRenderer.BakingContext context) {
             return new AlchemicalDerivativeRenderer();
         }
 
         @Override
-        public MapCodec<? extends SpecialModelRenderer.Unbaked> type() {
+        public MapCodec<? extends SpecialModelRenderer.Unbaked<ItemStack>> type() {
             return MAP_CODEC;
         }
     }

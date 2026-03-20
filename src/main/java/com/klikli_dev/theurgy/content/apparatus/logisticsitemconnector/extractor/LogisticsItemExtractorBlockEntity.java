@@ -85,7 +85,7 @@ public class LogisticsItemExtractorBlockEntity extends LogisticsItemConnectorBlo
     }
 
     protected void sendBlockUpdated() {
-        if (this.getLevel() != null && !this.getLevel().isClientSide)
+        if (this.getLevel() != null && !this.getLevel().isClientSide())
             this.getLevel().sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), Block.UPDATE_CLIENTS);
     }
 

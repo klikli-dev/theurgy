@@ -36,7 +36,7 @@ public class SulfuricFluxEmitterInteractionBehaviour implements InteractionBehav
         if (!(blockEntity instanceof SulfuricFluxEmitterBlockEntity sulfuricFluxEmitter))
             return InteractionResult.PASS;
 
-        if (pLevel.isClientSide)
+        if (pLevel.isClientSide())
             return InteractionResult.SUCCESS;
 
         Networking.sendTo((ServerPlayer) pPlayer, new MessageShowSulfuricFluxEmitterStatus(

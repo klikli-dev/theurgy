@@ -63,7 +63,7 @@ public abstract class LogisticsFluidConnectorBlock extends DirectionalBlock impl
         if (!pPlayer.getItemInHand(pHand).isEmpty())
             return InteractionResult.PASS;
 
-        if (pLevel.isClientSide) {
+        if (pLevel.isClientSide()) {
             return InteractionResult.SUCCESS;
         }
 

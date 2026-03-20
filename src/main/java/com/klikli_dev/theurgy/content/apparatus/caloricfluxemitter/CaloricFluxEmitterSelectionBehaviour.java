@@ -24,11 +24,11 @@ public class CaloricFluxEmitterSelectionBehaviour extends SelectionBehaviour<Cal
     @Override
     protected void displaySummary(BlockPos pos, Player player) {
         if (this.selectedPoints.isEmpty()) {
-            player.displayClientMessage(Component.translatable(TheurgyConstants.I18n.Behaviour.SELECTION_SUMMARY_CALORIC_FLUX_EMITTER_NO_SELECTION).withStyle(ChatFormatting.RED), true);
+            player.sendOverlayMessage(Component.translatable(TheurgyConstants.I18n.Behaviour.SELECTION_SUMMARY_CALORIC_FLUX_EMITTER_NO_SELECTION).withStyle(ChatFormatting.RED));
         } else {
             var target = this.selectedPoints.getFirst();
             var state = target.getBlockState();
-            player.displayClientMessage(Component.translatable(TheurgyConstants.I18n.Behaviour.SELECTION_SUMMARY_CALORIC_FLUX_EMITTER, state.getBlock().getName()).withStyle(ChatFormatting.WHITE), true);
+            player.sendOverlayMessage(Component.translatable(TheurgyConstants.I18n.Behaviour.SELECTION_SUMMARY_CALORIC_FLUX_EMITTER, state.getBlock().getName()).withStyle(ChatFormatting.WHITE));
         }
     }
 

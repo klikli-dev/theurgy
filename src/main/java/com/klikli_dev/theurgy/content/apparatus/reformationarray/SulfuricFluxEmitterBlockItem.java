@@ -35,7 +35,7 @@ public class SulfuricFluxEmitterBlockItem extends BlockItem {
 
     @Override
     protected boolean updateCustomBlockEntityTag(BlockPos pos, Level level, Player player, ItemStack stack, BlockState state) {
-        if (!level.isClientSide && player instanceof ServerPlayer serverPlayer)
+        if (!level.isClientSide() && player instanceof ServerPlayer serverPlayer)
             Networking.sendTo(serverPlayer, new MessageRequestSulfuricFluxEmitterSelection(pos));
 
         return super.updateCustomBlockEntityTag(pos, level, player, stack, state);

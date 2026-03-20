@@ -44,7 +44,7 @@ public class LevelUtil {
     }
     
     public static net.minecraft.world.item.crafting.RecipeManager getRecipeManager(Level level) {
-         if (level.isClientSide) {
+         if (level.isClientSide()) {
              return DistHelper.getRecipeManager();
          } else {
              return ((net.minecraft.server.level.ServerLevel)level).getServer().getRecipeManager();

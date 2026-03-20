@@ -347,7 +347,7 @@ SulfuricFluxEmitterBlockEntity extends BlockEntity {
             var from = Vec3.atCenterOf(emitter.getBlockPos()).subtract(normal.scale(0.5));
             var to = Vec3.atCenterOf(emitter.targetPedestal.getBlockPos()).add(0, 0.5, 0);
 
-            if (emitter.level.isLoaded(BlockPos.containing(to)) && emitter.level.isLoaded(BlockPos.containing(from)) && emitter.level.isClientSide) {
+            if (emitter.level.isLoaded(BlockPos.containing(to)) && emitter.level.isLoaded(BlockPos.containing(from)) && emitter.level.isClientSide()) {
                 FollowProjectile projectile = new FollowProjectile(emitter.level, from, to, new Color(0xffffff, false), new Color(0x0000ff, false), 0.1f, 0.3f, (targetProjectile) -> {
                     DistHelper.sendSourceProjectiles(targetProjectile, emitter);
                 });

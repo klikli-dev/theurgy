@@ -70,14 +70,14 @@ public class CycleSelectedDirectionMode extends MercurialWandItemMode {
 
         var blockEntity = level.getBlockEntity(blockPos);
         if (blockEntity instanceof TargetDirectionSetter directionSettable) {
-            if (!level.isClientSide) {
+            if (!level.isClientSide()) {
                 var currentDirection = directionSettable.targetDirection();
                 var newDirection = this.nextDirection(currentDirection);
                 directionSettable.targetDirection(newDirection);
 
-                context.getPlayer().displayClientMessage(Component.translatable(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_CYCLE_SELECTED_DIRECTION_SUCCESS,
+                context.getPlayer().sendOverlayMessage(Component.translatable(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_CYCLE_SELECTED_DIRECTION_SUCCESS,
                         Component.translatable(newDirection.getName()).withStyle(ChatFormatting.GREEN)
-                ), true);
+                ));
             }
             return InteractionResult.SUCCESS;
         }

@@ -197,9 +197,8 @@ public class DivinationRodItem extends Item {
 
             if (!stack.getOrDefault(DataComponentRegistry.DIVINATION_SETTINGS_ALLOW_ATTUNING, false)) {
                 if (!level.isClientSide) {
-                    player.displayClientMessage(
-                            Component.translatable(TheurgyConstants.I18n.Message.DIVINATION_ROD_ATTUNING_NOT_ALLOWED),
-                            true
+                    player.sendOverlayMessage(
+                            Component.translatable(TheurgyConstants.I18n.Message.DIVINATION_ROD_ATTUNING_NOT_ALLOWED)
                     );
                 }
                 return InteractionResult.FAIL;
@@ -209,34 +208,31 @@ public class DivinationRodItem extends Item {
             if (!state.isAir()) {
                 if (state.is(tier.incorrectBlocksForDrops())) {
                     if (!level.isClientSide) {
-                        player.displayClientMessage(
+                        player.sendOverlayMessage(
                                 Component.translatable(
                                         TheurgyConstants.I18n.Message.DIVINATION_ROD_TIER_TOO_LOW,
                                         this.getBlockDisplayComponent(state.getBlock())
-                                ),
-                                true
+                                )
                         );
                     }
                     return InteractionResult.FAIL;
                 } else if (!state.is(allowedBlocksTag)) {
                     if (!level.isClientSide) {
-                        player.displayClientMessage(
+                        player.sendOverlayMessage(
                                 Component.translatable(
                                         TheurgyConstants.I18n.Message.DIVINATION_ROD_BLOCK_NOT_ALLOWED,
                                         this.getBlockDisplayComponent(state.getBlock())
-                                ),
-                                true
+                                )
                         );
                     }
                     return InteractionResult.FAIL;
                 } else if (state.is(disallowedBlocksTag)) {
                     if (!level.isClientSide) {
-                        player.displayClientMessage(
+                        player.sendOverlayMessage(
                                 Component.translatable(
                                         TheurgyConstants.I18n.Message.DIVINATION_ROD_BLOCK_DISALLOWED,
                                         this.getBlockDisplayComponent(state.getBlock())
-                                ),
-                                true
+                                )
                         );
                     }
                     return InteractionResult.FAIL;
@@ -244,12 +240,11 @@ public class DivinationRodItem extends Item {
                     if (!level.isClientSide) {
                         stack.set(DataComponentRegistry.DIVINATION_LINKED_BLOCK, state.getBlockHolder());
 
-                        player.displayClientMessage(
+                        player.sendOverlayMessage(
                                 Component.translatable(
                                         TheurgyConstants.I18n.Message.DIVINATION_ROD_LINKED,
                                         this.getBlockDisplayComponent(state.getBlock())
-                                ),
-                                true
+                                )
                         );
                     }
 
@@ -290,7 +285,7 @@ public class DivinationRodItem extends Item {
                     }
                 }
             } else if (!level.isClientSide) {
-                player.displayClientMessage(Component.translatable(TheurgyConstants.I18n.Message.DIVINATION_ROD_NO_LINK), true);
+                player.sendOverlayMessage(Component.translatable(TheurgyConstants.I18n.Message.DIVINATION_ROD_NO_LINK));
             }
         }
 

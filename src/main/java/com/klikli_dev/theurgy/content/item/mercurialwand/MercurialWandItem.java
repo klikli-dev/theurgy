@@ -36,7 +36,7 @@ public class MercurialWandItem extends Item implements ItemHUDProvider, ModeItem
         var nextMode = stack.get(DataComponentRegistry.MERCURIAL_WAND_ITEM_MODE.get()).type().shift(shift).mode();
         stack.set(DataComponentRegistry.MERCURIAL_WAND_ITEM_MODE.get(), nextMode);
 
-        player.displayClientMessage(nextMode.description(stack, player.level()), true);
+        player.sendOverlayMessage(nextMode.description(stack, player.level()));
     }
 
     @Override

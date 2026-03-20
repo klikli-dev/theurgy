@@ -209,7 +209,7 @@ public class Theurgy {
             WireItem.onClientTick(player);
         }
 
-        public static void onRenderLevelStage(RenderLevelStageEvent.AfterParticles event) {
+        public static void onRenderLevelStage(RenderLevelStageEvent.AfterTranslucentParticles event) {
             PoseStack ms = event.getPoseStack();
             ms.pushPose();
 

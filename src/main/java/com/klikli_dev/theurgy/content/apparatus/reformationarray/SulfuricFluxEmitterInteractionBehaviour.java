@@ -102,7 +102,7 @@ public class SulfuricFluxEmitterInteractionBehaviour implements InteractionBehav
 
     private void showStatusMessage(Level level, Player player, SulfuricFluxEmitterBlockEntity sulfuricFluxEmitter) {
         if (sulfuricFluxEmitter.sourcePedestalsWithContents.isEmpty() && sulfuricFluxEmitter.targetPedestal == null && sulfuricFluxEmitter.resultPedestal == null) {
-            player.displayClientMessage(Component.translatable(TheurgyConstants.I18n.Behaviour.SELECTION_SUMMARY_SULFURIC_FLUX_EMITTER_NO_SELECTION).withStyle(ChatFormatting.RED), true);
+            player.sendOverlayMessage(Component.translatable(TheurgyConstants.I18n.Behaviour.SELECTION_SUMMARY_SULFURIC_FLUX_EMITTER_NO_SELECTION).withStyle(ChatFormatting.RED));
         } else {
             //here we actually check if the pedestals are valid
             var hasTarget = sulfuricFluxEmitter.targetPedestal != null && level.getBlockEntity(sulfuricFluxEmitter.targetPedestal.getBlockPos()) instanceof ReformationTargetPedestalBlockEntity;
@@ -114,22 +114,22 @@ public class SulfuricFluxEmitterInteractionBehaviour implements InteractionBehav
                     .count();
 
             if (!hasTarget) {
-                player.displayClientMessage(Component.translatable(TheurgyConstants.I18n.Behaviour.SELECTION_SUMMARY_SULFURIC_FLUX_EMITTER_NO_TARGET).withStyle(ChatFormatting.RED), true);
+                player.sendOverlayMessage(Component.translatable(TheurgyConstants.I18n.Behaviour.SELECTION_SUMMARY_SULFURIC_FLUX_EMITTER_NO_TARGET).withStyle(ChatFormatting.RED));
             }
             if (sources <= 0) {
-                player.displayClientMessage(Component.translatable(TheurgyConstants.I18n.Behaviour.SELECTION_SUMMARY_SULFURIC_FLUX_EMITTER_NO_SOURCES).withStyle(ChatFormatting.RED), true);
+                player.sendOverlayMessage(Component.translatable(TheurgyConstants.I18n.Behaviour.SELECTION_SUMMARY_SULFURIC_FLUX_EMITTER_NO_SOURCES).withStyle(ChatFormatting.RED));
             }
             if (!hasResult) {
-                player.displayClientMessage(Component.translatable(TheurgyConstants.I18n.Behaviour.SELECTION_SUMMARY_SULFURIC_FLUX_EMITTER_NO_RESULT).withStyle(ChatFormatting.RED), true);
+                player.sendOverlayMessage(Component.translatable(TheurgyConstants.I18n.Behaviour.SELECTION_SUMMARY_SULFURIC_FLUX_EMITTER_NO_RESULT).withStyle(ChatFormatting.RED));
             }
 
             if (hasTarget && sources > 0 && hasResult) {
-                player.displayClientMessage(Component.translatable(
+                player.sendOverlayMessage(Component.translatable(
                         TheurgyConstants.I18n.Behaviour.SELECTION_SUMMARY_SULFURIC_FLUX_EMITTER,
                         Component.literal(String.valueOf(sources)).withStyle(ChatFormatting.DARK_PURPLE),
                         Component.literal(String.valueOf(1)).withStyle(ChatFormatting.BLUE),
                         Component.literal(String.valueOf(1)).withStyle(ChatFormatting.GREEN)
-                ).withStyle(ChatFormatting.WHITE), true);
+                ).withStyle(ChatFormatting.WHITE));
             }
         }
     }

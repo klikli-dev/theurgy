@@ -76,11 +76,11 @@ public class SwitchLogisticsEnabledMode extends MercurialWandItemMode {
         var blockEntity = level.getBlockEntity(blockPos);
         if (blockEntity instanceof EnabledSetter enabledSetter) {
 
-            if (!level.isClientSide) {
+            if (!level.isClientSide()) {
                 enabledSetter.enabled(!enabledSetter.enabled());
                 var enabled = enabledSetter.enabled();
 
-                context.getPlayer().displayClientMessage(Component.translatable(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_SWITCH_LOGISTICS_ENABLED_SUCCESS,
+                context.getPlayer().sendOverlayMessage(Component.translatable(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_SWITCH_LOGISTICS_ENABLED_SUCCESS,
                         Component.translatable(
                                 enabled ? TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_ENABLED :
                                         TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_DISABLED
@@ -88,7 +88,7 @@ public class SwitchLogisticsEnabledMode extends MercurialWandItemMode {
                                 enabled ? ChatFormatting.GREEN :
                                         ChatFormatting.RED
                         )
-                ), true);
+                ));
             }
 
             return InteractionResult.SUCCESS;

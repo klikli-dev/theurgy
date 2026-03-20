@@ -7,6 +7,7 @@ package com.klikli_dev.theurgy.content.behaviour.selection;
 import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.content.render.outliner.Outliner;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -34,7 +35,7 @@ public abstract class SelectionBehaviour<T extends SelectedPoint<?>> {
         if (this.currentItem == null || player == null)
             return false;
 
-        if (!level.isClientSide)
+        if (!level.isClientSide())
             return false;
 
         if (player.isSpectator())
@@ -62,14 +63,14 @@ public abstract class SelectionBehaviour<T extends SelectedPoint<?>> {
         }
 
         //show the current mode + target block to player
-        player.displayClientMessage(this.getModeMessage(selected, state), true);
+        this.showClientOverlay(this.getModeMessage(selected, state));
         return true;
     }
 
     public boolean onLeftClickBlock(Level level, Player player, InteractionHand hand, BlockPos pos, Direction direction) {
         if (this.currentItem == null)
             return false;
-        if (!level.isClientSide)
+        if (!level.isClientSide())
             return false;
 
         //if we had a selected block we return true to have calling code cancel the event
@@ -88,7 +89,7 @@ public abstract class SelectionBehaviour<T extends SelectedPoint<?>> {
         }
 
         if (removed > 0) {
-            player.displayClientMessage(this.getOutsideRangeMessage(removed), true);
+            this.showClientOverlay(this.getOutsideRangeMessage(removed));
         } else {
             this.displaySummary(pos, player);
         }
@@ -167,6 +168,13 @@ public abstract class SelectionBehaviour<T extends SelectedPoint<?>> {
     protected Component getOutsideRangeMessage(int removed) {
         return Component.translatable(TheurgyConstants.I18n.Behaviour.SELECTION_OUTSIDE_RANGE, removed).withStyle(ChatFormatting.RED
         );
+    }
+
+    protected void showClientOverlay(Component message) {
+        Minecraft minecraft = Minecraft.getInstance();
+        if (minecraft.gui != null) {
+            minecraft.gui.setOverlayMessage(message, true);
+        }
     }
 
     /**

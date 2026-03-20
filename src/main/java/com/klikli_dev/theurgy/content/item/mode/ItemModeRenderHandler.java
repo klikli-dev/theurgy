@@ -4,7 +4,10 @@
 
 package com.klikli_dev.theurgy.content.item.mode;
 
-import net.neoforged.neoforge.client.event.RenderHighlightEvent;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.Camera;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.world.phys.BlockHitResult;
 
 public class ItemModeRenderHandler<T extends ItemMode> {
 
@@ -14,7 +17,7 @@ public class ItemModeRenderHandler<T extends ItemMode> {
     }
 
 
-    public void renderBlockHighlight(RenderHighlightEvent.Block event) {
+    public void renderBlockHighlight(BlockHitResult hitResult, PoseStack poseStack, MultiBufferSource.BufferSource bufferSource, Camera camera) {
 
     }
 }

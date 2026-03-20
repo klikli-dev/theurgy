@@ -134,8 +134,7 @@ public class AttributeFilterMenu extends AbstractFilterMenu {
 
         this.selectedAttributes = new ArrayList<>();
 
-        //noinspection deprecation
-        var tag = filterItem.getOrDefault(DataComponentRegistry.FILTER_ATTRIBUTES, CustomData.EMPTY).getUnsafe();
+        var tag = filterItem.getOrDefault(DataComponentRegistry.FILTER_ATTRIBUTES, CustomData.EMPTY).copyTag();
         ListTag attributes = tag.getList("MatchedAttributes").orElseGet(ListTag::new);
         attributes.forEach(inbt -> {
             CompoundTag compound = (CompoundTag) inbt;

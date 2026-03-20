@@ -47,8 +47,7 @@ public class AttributeFilterItem extends FilterItem {
                 : Component.translatable(TheurgyConstants.I18n.Gui.ATTRIBUTE_FILTER_DENY_LIST_BUTTON_TOOLTIP)).withStyle(ChatFormatting.GOLD));
 
         int count = 0;
-        //noinspection deprecation
-        var tag = filter.getOrDefault(DataComponentRegistry.FILTER_ATTRIBUTES, CustomData.EMPTY).getUnsafe();
+        var tag = filter.getOrDefault(DataComponentRegistry.FILTER_ATTRIBUTES, CustomData.EMPTY).copyTag();
         ListTag attributes = tag.getList("MatchedAttributes").orElseGet(ListTag::new);
 
         for (Tag inbt : attributes) {

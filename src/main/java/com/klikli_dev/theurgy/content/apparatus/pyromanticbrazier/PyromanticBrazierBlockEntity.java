@@ -7,6 +7,7 @@ package com.klikli_dev.theurgy.content.apparatus.pyromanticbrazier;
 import com.klikli_dev.theurgy.content.apparatus.calcinationoven.CalcinationOvenBlock;
 import com.klikli_dev.theurgy.content.capability.HeatProvider;
 import com.klikli_dev.theurgy.content.storage.MonitoredItemStackHandler;
+import com.klikli_dev.theurgy.util.ValueIOUtils;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import net.minecraft.core.BlockPos;
@@ -21,9 +22,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.common.CommonHooks;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.items.ItemStackHandler;
-import net.neoforged.neoforge.registries.datamaps.builtin.NeoForgeDataMaps;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -49,14 +50,12 @@ public class PyromanticBrazierBlockEntity extends BlockEntity {
 
     @Override
     public CompoundTag getUpdateTag(HolderLookup.Provider pRegistries) {
-        var tag = new CompoundTag();
-        this.writeNetwork(tag, pRegistries);
-        return tag;
+        return ValueIOUtils.serialize(pRegistries, this::writeNetwork);
     }
 
     @Override
-    public void handleUpdateTag(CompoundTag tag, HolderLookup.Provider pRegistries) {
-        this.readNetwork(tag, pRegistries);
+    public void handleUpdateTag(ValueInput input) {
+        this.readNetwork(input);
     }
 
     @Nullable
@@ -66,20 +65,20 @@ public class PyromanticBrazierBlockEntity extends BlockEntity {
     }
 
     @Override
-    public void onDataPacket(Connection connection, ClientboundBlockEntityDataPacket packet, HolderLookup.Provider pRegistries) {
-        var tag = packet.getTag();
-        if (tag != null) {
-            this.readNetwork(tag, pRegistries);
+    public void onDataPacket(Connection connection, ValueInput input) {
+        this.readNetwork(input);
+    }
+
+    public void readNetwork(ValueInput input) {
+        input.child("inventory").ifPresent(this.inventory::deserialize);
+    }
+
+    public void writeNetwork(ValueOutput output) {
+        ValueOutput inventoryOutput = output.child("inventory");
+        this.inventory.serialize(inventoryOutput);
+        if (inventoryOutput.isEmpty()) {
+            output.discard("inventory");
         }
-    }
-
-    public void readNetwork(CompoundTag pTag, HolderLookup.Provider pRegistries) {
-        if (pTag.contains("inventory"))
-            pTag.getCompound("inventory").ifPresent(tag -> this.inventory.deserializeNBT(pRegistries, tag));
-    }
-
-    public void writeNetwork(CompoundTag pTag, HolderLookup.Provider pRegistries) {
-        pTag.put("inventory", this.inventory.serializeNBT(pRegistries));
     }
 
     @Override
@@ -156,22 +155,17 @@ public class PyromanticBrazierBlockEntity extends BlockEntity {
     }
 
     @Override
-    protected void saveAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
-        super.saveAdditional(pTag, pRegistries);
-
-        pTag.putShort("remainingLitTime", (short) this.remainingLitTime);
-
-        this.writeNetwork(pTag, pRegistries);
+    protected void saveAdditional(ValueOutput output) {
+        super.saveAdditional(output);
+        output.putShort("remainingLitTime", (short) this.remainingLitTime);
+        this.writeNetwork(output);
     }
 
     @Override
-    public void loadAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
-        super.loadAdditional(pTag, pRegistries);
-
-        if (pTag.contains("remainingLitTime"))
-            this.remainingLitTime = pTag.getShort("remainingLitTime").orElse((short) 0);
-
-        this.readNetwork(pTag, pRegistries);
+    public void loadAdditional(ValueInput input) {
+        super.loadAdditional(input);
+        this.remainingLitTime = input.getShortOr("remainingLitTime", (short) 0);
+        this.readNetwork(input);
     }
 
     private class Inventory extends MonitoredItemStackHandler {

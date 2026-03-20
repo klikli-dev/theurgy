@@ -10,7 +10,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.fluids.FluidStack;
-import net.neoforged.neoforge.fluids.FluidUtil;
+import net.neoforged.neoforge.transfer.access.ItemAccess;
+import net.neoforged.neoforge.transfer.fluid.FluidUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,11 +80,11 @@ public class ListFilter extends Filter {
         this.filterFluids = new ArrayList<>();
 
         for (var filterItem : this.filterItems) {
-            var capability = FluidUtil.getFluidHandler(filterItem).orElse(null);
+            var capability = ItemAccess.forStack(filterItem).oneByOne().getCapability(Capabilities.Fluid.ITEM);
             if (capability == null)
                 continue;
 
-            this.filterFluids.add(capability.getFluidInTank(0).copyWithAmount(1));
+            this.filterFluids.add(FluidUtil.getStack(capability, 0).copyWithAmount(1));
         }
     }
 

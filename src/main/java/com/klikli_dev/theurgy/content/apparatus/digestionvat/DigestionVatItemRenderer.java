@@ -14,6 +14,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
+import org.joml.Vector3f;
+
+import java.util.Set;
 
 public class DigestionVatItemRenderer implements net.minecraft.client.renderer.special.SpecialModelRenderer<ItemStack> {
     private static final DigestionVatBlockEntity blockEntity = new DigestionVatBlockEntity(BlockPos.ZERO, BlockRegistry.DIGESTION_VAT.get().defaultBlockState());
@@ -29,6 +32,12 @@ public class DigestionVatItemRenderer implements net.minecraft.client.renderer.s
     @Override
     public @org.jetbrains.annotations.Nullable ItemStack extractArgument(ItemStack stack) {
         return stack;
+    }
+
+    @Override
+    public void getExtents(Set<Vector3f> extents) {
+        extents.add(new Vector3f(-0.5f, -0.5f, -0.5f));
+        extents.add(new Vector3f(0.5f, 0.5f, 0.5f));
     }
 
     public record Unbaked() implements net.minecraft.client.renderer.special.SpecialModelRenderer.Unbaked {

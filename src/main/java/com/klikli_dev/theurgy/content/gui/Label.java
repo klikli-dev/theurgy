@@ -4,12 +4,12 @@
 
 package com.klikli_dev.theurgy.content.gui;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.util.ARGB;
 import org.jetbrains.annotations.NotNull;
 
 public class Label extends AbstractButton {
@@ -76,11 +76,10 @@ public class Label extends AbstractButton {
         if (this.text == null || this.text.getString().isEmpty())
             return;
 
-        RenderSystem.setShaderColor(1, 1, 1, 1);
         MutableComponent copy = this.text.plainCopy();
         if (this.suffix != null && !this.suffix.isEmpty())
             copy.append(this.suffix);
 
-        pGuiGraphics.drawString(this.font, copy, this.getX(), this.getY(), this.color, this.hasShadow);
+        pGuiGraphics.drawString(this.font, copy, this.getX(), this.getY(), ARGB.opaque(this.color), this.hasShadow);
     }
 }

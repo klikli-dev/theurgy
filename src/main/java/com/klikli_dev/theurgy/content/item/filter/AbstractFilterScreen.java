@@ -105,7 +105,7 @@ public abstract class AbstractFilterScreen<T extends AbstractFilterMenu> extends
 
     public void renderPlayerInventory(GuiGraphics graphics, int x, int y) {
         GuiTextures.PLAYER_INVENTORY.render(graphics, x, y);
-        graphics.drawString(this.font, this.playerInventoryTitle, x + 8, y + 6, 0x404040, false);
+        graphics.drawString(this.font, this.playerInventoryTitle, x + 8, y + 6, 0xFF404040, false);
     }
 
     public void updateButtonState() {

@@ -8,6 +8,7 @@ import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.datagen.SulfurMappings;
 import com.klikli_dev.theurgy.registry.*;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
@@ -26,7 +27,7 @@ import java.util.concurrent.CompletableFuture;
 
 public class TheurgyItemTagsProvider extends IntrinsicHolderTagsProvider<Item> {
     public TheurgyItemTagsProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, CompletableFuture<TagsProvider.TagLookup<Block>> blockTagsProvider) {
-        super(output, Registries.ITEM, lookupProvider, item -> item.builtInRegistryHolder().key(), Theurgy.MODID);
+        super(output, Registries.ITEM, lookupProvider, item -> BuiltInRegistries.ITEM.wrapAsHolder(item).unwrapKey().orElseThrow(), Theurgy.MODID);
     }
 
     protected TagAppender<Block, Block> copy(TagKey<Block> blockTag, TagKey<Item> itemTag) {

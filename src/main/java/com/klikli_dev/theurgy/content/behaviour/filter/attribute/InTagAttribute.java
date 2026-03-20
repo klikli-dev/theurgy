@@ -6,6 +6,7 @@
 package com.klikli_dev.theurgy.content.behaviour.filter.attribute;
 
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.Identifier;
 import net.minecraft.tags.ItemTags;
@@ -33,7 +34,7 @@ public class InTagAttribute implements ItemAttribute {
 
     @Override
     public List<ItemAttribute> listAttributesOf(ItemStack stack) {
-        return stack.getItem().builtInRegistryHolder().tags()
+        return BuiltInRegistries.ITEM.wrapAsHolder(stack.getItem()).tags()
                 .map(InTagAttribute::new)
                 .collect(Collectors.toList());
     }

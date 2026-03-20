@@ -10,6 +10,7 @@ import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurItem;
 import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurType;
 import com.klikli_dev.theurgy.util.LevelUtil;
 import net.minecraft.core.Holder;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.CreativeModeTab;
@@ -373,8 +374,7 @@ public class SulfurRegistry {
     }
 
     private static String name(Item source) {
-        //noinspection deprecation
-        return name(source.builtInRegistryHolder());
+        return name(BuiltInRegistries.ITEM.wrapAsHolder(source));
     }
 
     private static String name(Holder<Item> source) {

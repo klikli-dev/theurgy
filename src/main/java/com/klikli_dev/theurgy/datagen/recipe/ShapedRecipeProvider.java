@@ -53,8 +53,7 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
         );
 
         var amethystDivinationRodSettings = this.makeDivinationRodSettings(ItemRegistry.AMETHYST_DIVINATION_ROD.get());
-        //noinspection deprecation
-        amethystDivinationRodSettings.set(DataComponentRegistry.DIVINATION_LINKED_BLOCK.get(), Blocks.BUDDING_AMETHYST.builtInRegistryHolder());
+        amethystDivinationRodSettings.set(DataComponentRegistry.DIVINATION_LINKED_BLOCK.get(), BuiltInRegistries.BLOCK.wrapAsHolder(Blocks.BUDDING_AMETHYST));
 
         this.makeRecipe(new ShapedRecipeBuilder(
                 ItemRegistry.AMETHYST_DIVINATION_ROD.get(), 1, amethystDivinationRodSettings.build())
@@ -458,23 +457,19 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
         private final ItemStack result;
 
         public ShapedRecipeBuilder(ItemLike result) {
-            //noinspection deprecation
-            this(result.asItem().builtInRegistryHolder());
+            this(result, 1);
         }
 
         public ShapedRecipeBuilder(ItemLike result, int count) {
-            //noinspection deprecation
-            this(result.asItem().builtInRegistryHolder(), count);
+            this(result, count, DataComponentPatch.EMPTY);
         }
 
         public ShapedRecipeBuilder(ItemLike result, int count, DataComponentPatch patch) {
-            //noinspection deprecation
-            this(result.asItem().builtInRegistryHolder(), count, patch);
+            this("minecraft:crafting_shaped", ShapedRecipeProvider.this.createItemStack(result, count, patch));
         }
 
         public ShapedRecipeBuilder(String recipeType, ItemLike result, int count, DataComponentPatch patch) {
-            //noinspection deprecation
-            this(recipeType, new ItemStack(result.asItem().builtInRegistryHolder(), count, patch));
+            this(recipeType, ShapedRecipeProvider.this.createItemStack(result, count, patch));
         }
 
         public ShapedRecipeBuilder(Holder<Item> result) {
@@ -515,8 +510,7 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
 
         private JsonObject ingredient(ItemLike item) {
             JsonObject jsonobject = new JsonObject();
-            //noinspection deprecation,OptionalGetWithoutIsPresent
-            jsonobject.addProperty("item", item.asItem().builtInRegistryHolder().unwrapKey().get().identifier().toString());
+            jsonobject.addProperty("item", BuiltInRegistries.ITEM.getKey(item.asItem()).toString());
             return jsonobject;
         }
 

@@ -16,6 +16,7 @@ import com.mojang.serialization.JsonOps;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.CachedOutput;
@@ -77,7 +78,7 @@ public abstract class JsonRecipeProvider implements DataProvider {
     }
 
     protected String name(ItemLike item) {
-        return item.asItem().builtInRegistryHolder().key().identifier().getPath();
+        return itemId(item).getPath();
     }
 
     protected String name(TagKey<Item> tag) {
@@ -93,7 +94,19 @@ public abstract class JsonRecipeProvider implements DataProvider {
     }
 
     public Identifier locFor(ItemLike itemLike) {
-        return itemLike.asItem().builtInRegistryHolder().key().identifier();
+        return itemId(itemLike);
+    }
+
+    protected Identifier itemId(ItemLike itemLike) {
+        return BuiltInRegistries.ITEM.getKey(itemLike.asItem());
+    }
+
+    protected ItemStack createItemStack(ItemLike itemLike, int count, DataComponentPatch patch) {
+        var stack = new ItemStack(itemLike, count);
+        if (patch != null) {
+            stack.applyComponentsAndValidate(patch);
+        }
+        return stack;
     }
 
     public Identifier locFor(Fluid fluid) {
@@ -255,8 +268,7 @@ public abstract class JsonRecipeProvider implements DataProvider {
         }
 
         public T ingredient(String propertyName, Item item) {
-            //noinspection deprecation
-            return this.ingredient(propertyName, item.builtInRegistryHolder());
+            return this.ingredient(propertyName, BuiltInRegistries.ITEM.wrapAsHolder(item));
         }
 
         public T ingredient(String propertyName, Holder<Item> itemHolder) {

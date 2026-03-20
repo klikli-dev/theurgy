@@ -65,8 +65,7 @@ public class SmeltingRecipeProvider extends JsonRecipeProvider {
         }
 
         public SmeltingRecipeBuilder(ItemLike result, int count, DataComponentPatch patch) {
-            //noinspection deprecation
-            this(new ItemStack(result.asItem().builtInRegistryHolder(), count, patch));
+            this(SmeltingRecipeProvider.this.createItemStack(result, count, patch));
         }
 
         public SmeltingRecipeBuilder(ItemStack result) {
@@ -102,8 +101,7 @@ public class SmeltingRecipeProvider extends JsonRecipeProvider {
 
         private JsonObject ingredient(ItemLike item) {
             JsonObject jsonobject = new JsonObject();
-            //noinspection deprecation,OptionalGetWithoutIsPresent
-            jsonobject.addProperty("item", item.asItem().builtInRegistryHolder().unwrapKey().get().identifier().toString());
+            jsonobject.addProperty("item", BuiltInRegistries.ITEM.getKey(item.asItem()).toString());
             return jsonobject;
         }
 

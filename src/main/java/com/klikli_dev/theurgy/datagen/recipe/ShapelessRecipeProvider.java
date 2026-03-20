@@ -120,8 +120,7 @@ public class ShapelessRecipeProvider extends JsonRecipeProvider {
         }
 
         public ShapelessRecipeBuilder(ItemLike result, int count, DataComponentPatch patch) {
-            //noinspection deprecation
-            this(new ItemStack(result.asItem().builtInRegistryHolder(), count, patch));
+            this(ShapelessRecipeProvider.this.createItemStack(result, count, patch));
         }
 
         public ShapelessRecipeBuilder(ItemStack result) {
@@ -162,8 +161,7 @@ public class ShapelessRecipeProvider extends JsonRecipeProvider {
 
         private JsonObject ingredient(ItemLike item) {
             JsonObject jsonobject = new JsonObject();
-            //noinspection deprecation,OptionalGetWithoutIsPresent
-            jsonobject.addProperty("item", item.asItem().builtInRegistryHolder().unwrapKey().get().identifier().toString());
+            jsonobject.addProperty("item", BuiltInRegistries.ITEM.getKey(item.asItem()).toString());
             return jsonobject;
         }
 

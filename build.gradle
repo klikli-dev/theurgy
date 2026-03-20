@@ -44,7 +44,7 @@ runs {
 
     client {
         systemProperty 'forge.enabledGameTestNamespaces', project.mod_id
-        programArgument "--username=Dev"
+        arguments.add "--username=Dev"
     }
 
     server {
@@ -72,7 +72,7 @@ configurations {
 repositories {
     mavenLocal()
     maven {
-        url "https://dl.cloudsmith.io/public/klikli-dev/mods/maven/"
+        url = "https://dl.cloudsmith.io/public/klikli-dev/mods/maven/"
         content {
             includeGroup "com.klikli_dev"
         }
@@ -101,7 +101,7 @@ repositories {
     }
     maven {
         name = "SBL Maven"
-        url "https://dl.cloudsmith.io/public/tslat/sbl/maven/"
+        url = "https://dl.cloudsmith.io/public/tslat/sbl/maven/"
         content {
             includeGroup "net.tslat.smartbrainlib"
         }
@@ -121,7 +121,7 @@ repositories {
         }
     }
     maven {
-        url "https://cursemaven.com"
+        url = "https://cursemaven.com"
         content {
             includeGroup "curse.maven"
         }
@@ -215,7 +215,7 @@ jar { exclude ".cache" }
 publishing {
     publications {
         mavenJava(MavenPublication) {
-            artifactId base.archivesName.get()
+            artifactId = base.archivesName.get()
 
             from components.java
 

@@ -10,6 +10,7 @@ import com.klikli_dev.theurgy.registry.DataComponentRegistry;
 import net.minecraft.ChatFormatting;
 //import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.core.Holder;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.ComponentUtils;
 import net.minecraft.network.chat.MutableComponent;
@@ -50,8 +51,7 @@ public class AlchemicalSulfurItem extends AlchemicalDerivativeItem {
     }
 
     public static AlchemicalSulfurItem ofSource(Item.Properties prop, Item sourceStack, AlchemicalDerivativeTier tier, AlchemicalSulfurType type) {
-        //noinspection deprecation
-        return ofSource(prop, sourceStack.builtInRegistryHolder(), tier, type);
+        return ofSource(prop, BuiltInRegistries.ITEM.wrapAsHolder(sourceStack), tier, type);
     }
 
     public static AlchemicalSulfurItem ofSource(Item.Properties prop,  Holder<Item> sourceStack, AlchemicalDerivativeTier tier, AlchemicalSulfurType type) {

@@ -239,7 +239,7 @@ public class DivinationRodItem extends Item {
                     return InteractionResult.FAIL;
                 } else {
                     if (!level.isClientSide()) {
-                        stack.set(DataComponentRegistry.DIVINATION_LINKED_BLOCK, state.getBlock().builtInRegistryHolder());
+                        stack.set(DataComponentRegistry.DIVINATION_LINKED_BLOCK, BuiltInRegistries.BLOCK.wrapAsHolder(state.getBlock()));
 
                         player.sendOverlayMessage(
                                 Component.translatable(

@@ -10,7 +10,6 @@ import com.klikli_dev.theurgy.content.behaviour.filter.attribute.ItemAttribute;
 import com.klikli_dev.theurgy.content.gui.*;
 import com.klikli_dev.theurgy.network.Networking;
 import com.klikli_dev.theurgy.network.messages.MessageSetListFilterScreenOption;
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -20,6 +19,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
+import org.joml.Matrix3x2fStack;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -184,12 +184,11 @@ public class AttributeFilterScreen extends AbstractFilterScreen<AttributeFilterM
         super.render(pGuiGraphics, pMouseX, pMouseY, pPartialTick);
 
         ItemStack stack = this.menu.ghostInventory.getStackInSlot(1);
-        PoseStack matrixStack = pGuiGraphics.pose();
-        matrixStack.pushPose();
-        matrixStack.translate(0, 0, 150);
+        Matrix3x2fStack matrixStack = pGuiGraphics.pose();
+        matrixStack.pushMatrix();
         pGuiGraphics.renderItemDecorations(this.font, stack, this.leftPos + 22, this.topPos + 59,
                 String.valueOf(this.selectedAttributes.size() - 1));
-        matrixStack.popPose();
+        matrixStack.popMatrix();
     }
 
     @Override
@@ -204,10 +203,10 @@ public class AttributeFilterScreen extends AbstractFilterScreen<AttributeFilterM
     protected void renderTooltip(@NotNull GuiGraphics graphics, int mouseX, int mouseY) {
         if (this.menu.getCarried().isEmpty() && this.hoveredSlot != null && this.hoveredSlot.hasItem()) {
             if (this.hoveredSlot.index == 37) {
-                graphics.renderComponentTooltip(this.font, this.selectedAttributes, mouseX, mouseY);
+                graphics.setComponentTooltipForNextFrame(this.font, this.selectedAttributes, mouseX, mouseY, this.hoveredSlot.getItem());
                 return;
             }
-            graphics.renderTooltip(this.font, this.hoveredSlot.getItem(), mouseX, mouseY);
+            graphics.setTooltipForNextFrame(this.font, this.hoveredSlot.getItem(), mouseX, mouseY);
         }
         super.renderTooltip(graphics, mouseX, mouseY);
     }

@@ -4,11 +4,8 @@
 
 package com.klikli_dev.theurgy.content.gui;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.network.chat.Component;
+import net.minecraft.client.renderer.RenderPipelines;
 
 public class IconButton extends AbstractButton {
 
@@ -31,10 +28,8 @@ public class IconButton extends AbstractButton {
             GuiTextures button = !this.active ? GuiTextures.BUTTON_DOWN
                     : this.isMouseOver(pMouseX, pMouseY) ? GuiTextures.BUTTON_HOVER : GuiTextures.BUTTON;
 
-            RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-
             //draw button background
-            pGuiGraphics.blit(RenderType::guiTextured, button.location, this.getX(), this.getY(), (float)button.x, (float)button.y, button.width, button.height, 256, 256);
+            pGuiGraphics.blit(RenderPipelines.GUI_TEXTURED, button.location, this.getX(), this.getY(), (float)button.x, (float)button.y, button.width, button.height, 256, 256);
             this.icon.render(pGuiGraphics, this.getX() + 1, this.getY() + 1);
         }
     }

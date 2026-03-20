@@ -13,6 +13,7 @@ import com.klikli_dev.theurgy.content.recipe.IncubationRecipe;
 import com.klikli_dev.theurgy.content.recipe.input.IncubatorRecipeInput;
 import com.klikli_dev.theurgy.content.storage.MonitoredItemStackHandler;
 import com.klikli_dev.theurgy.content.storage.PreventInsertWrapper;
+import com.klikli_dev.theurgy.util.ValueIOUtils;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -29,6 +30,8 @@ import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.Nullable;
 
@@ -77,14 +80,12 @@ public class IncubatorBlockEntity extends BlockEntity implements HasCraftingBeha
 
     @Override
     public CompoundTag getUpdateTag(HolderLookup.Provider pRegistries) {
-        var tag = new CompoundTag();
-        this.writeNetwork(tag, pRegistries);
-        return tag;
+        return ValueIOUtils.serialize(pRegistries, this::writeNetwork);
     }
 
     @Override
-    public void handleUpdateTag(CompoundTag tag, HolderLookup.Provider pRegistries) {
-        this.readNetwork(tag, pRegistries);
+    public void handleUpdateTag(ValueInput input) {
+        this.readNetwork(input);
     }
 
     @Nullable
@@ -94,23 +95,24 @@ public class IncubatorBlockEntity extends BlockEntity implements HasCraftingBeha
     }
 
     @Override
-    public void onDataPacket(Connection connection, ClientboundBlockEntityDataPacket packet, HolderLookup.Provider pRegistries) {
-        var tag = packet.getTag();
-        if (tag != null) {
-            this.readNetwork(tag, pRegistries);
+    public void onDataPacket(Connection connection, ValueInput input) {
+        this.readNetwork(input);
+    }
+
+    public void readNetwork(ValueInput input) {
+        input.child("outputInventory").ifPresent(tag -> this.outputInventory.deserialize(tag));
+
+        this.craftingBehaviour.readNetwork(input);
+    }
+
+    public void writeNetwork(ValueOutput output) {
+        ValueOutput outputInventoryOutput = output.child("outputInventory");
+        this.outputInventory.serialize(outputInventoryOutput);
+        if (outputInventoryOutput.isEmpty()) {
+            output.discard("outputInventory");
         }
-    }
 
-    public void readNetwork(CompoundTag pTag, HolderLookup.Provider pRegistries) {
-        pTag.getCompound("outputInventory").ifPresent(tag -> this.outputInventory.deserializeNBT(pRegistries, tag));
-
-        this.craftingBehaviour.readNetwork(pTag, pRegistries);
-    }
-
-    public void writeNetwork(CompoundTag pTag, HolderLookup.Provider pRegistries) {
-        pTag.put("outputInventory", this.outputInventory.serializeNBT(pRegistries));
-
-        this.craftingBehaviour.writeNetwork(pTag, pRegistries);
+        this.craftingBehaviour.writeNetwork(output);
     }
 
     public void tickServer() {
@@ -153,22 +155,25 @@ public class IncubatorBlockEntity extends BlockEntity implements HasCraftingBeha
     }
 
     @Override
-    protected void saveAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
-        super.saveAdditional(pTag, pRegistries);
+    protected void saveAdditional(ValueOutput output) {
+        super.saveAdditional(output);
 
-        pTag.put("heatReceiver", this.heatReceiver.serializeNBT(pRegistries));
+        ValueOutput heatReceiverOutput = output.child("heatReceiver");
+        this.heatReceiver.serialize(heatReceiverOutput);
+        if (heatReceiverOutput.isEmpty()) {
+            output.discard("heatReceiver");
+        }
 
-        this.writeNetwork(pTag, pRegistries);
+        this.writeNetwork(output);
     }
 
     @Override
-    public void loadAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
-        super.loadAdditional(pTag, pRegistries);
+    public void loadAdditional(ValueInput input) {
+        super.loadAdditional(input);
 
-        if (pTag.contains("heatReceiver"))
-            this.heatReceiver.deserializeNBT(pRegistries, pTag.get("heatReceiver"));
+        input.child("heatReceiver").ifPresent(this.heatReceiver::deserialize);
 
-        this.readNetwork(pTag, pRegistries);
+        this.readNetwork(input);
     }
 
     private void checkForVessel(BlockPos pos) {

@@ -12,6 +12,7 @@ import com.klikli_dev.theurgy.content.capability.CraftingHeatReceiver;
 import com.klikli_dev.theurgy.content.capability.DefaultHeatReceiver;
 import com.klikli_dev.theurgy.content.recipe.DistillationRecipe;
 import com.klikli_dev.theurgy.content.recipe.input.ItemHandlerRecipeInput;
+import com.klikli_dev.theurgy.util.ValueIOUtils;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -23,6 +24,8 @@ import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.Containers;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoBlockEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
@@ -55,14 +58,12 @@ public class DistillerBlockEntity extends BlockEntity implements GeoBlockEntity,
 
     @Override
     public CompoundTag getUpdateTag(HolderLookup.Provider pRegistries) {
-        var tag = new CompoundTag();
-        this.writeNetwork(tag, pRegistries);
-        return tag;
+        return ValueIOUtils.serialize(pRegistries, this::writeNetwork);
     }
 
     @Override
-    public void handleUpdateTag(CompoundTag tag, HolderLookup.Provider pRegistries) {
-        this.readNetwork(tag, pRegistries);
+    public void handleUpdateTag(ValueInput input) {
+        this.readNetwork(input);
     }
 
     @Nullable
@@ -72,21 +73,18 @@ public class DistillerBlockEntity extends BlockEntity implements GeoBlockEntity,
     }
 
     @Override
-    public void onDataPacket(Connection connection, ClientboundBlockEntityDataPacket packet, HolderLookup.Provider pRegistries) {
-        var tag = packet.getTag();
-        if (tag != null) {
-            this.readNetwork(tag, pRegistries);
-        }
+    public void onDataPacket(Connection connection, ValueInput input) {
+        this.readNetwork(input);
     }
 
-    public void readNetwork(CompoundTag tag, HolderLookup.Provider pRegistries) {
-        this.storageBehaviour.readNetwork(tag, pRegistries);
-        this.craftingBehaviour.readNetwork(tag, pRegistries);
+    public void readNetwork(ValueInput input) {
+        this.storageBehaviour.readNetwork(input);
+        this.craftingBehaviour.readNetwork(input);
     }
 
-    public void writeNetwork(CompoundTag tag, HolderLookup.Provider pRegistries) {
-        this.storageBehaviour.writeNetwork(tag, pRegistries);;
-        this.craftingBehaviour.writeNetwork(tag, pRegistries);;
+    public void writeNetwork(ValueOutput output) {
+        this.storageBehaviour.writeNetwork(output);
+        this.craftingBehaviour.writeNetwork(output);
     }
 
     public void tickServer() {
@@ -106,24 +104,27 @@ public class DistillerBlockEntity extends BlockEntity implements GeoBlockEntity,
     }
 
     @Override
-    protected void saveAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
-        super.saveAdditional(pTag, pRegistries);
+    protected void saveAdditional(ValueOutput output) {
+        super.saveAdditional(output);
 
-        pTag.put("heatReceiver", this.heatReceiver.serializeNBT(pRegistries));
+        ValueOutput heatReceiverOutput = output.child("heatReceiver");
+        this.heatReceiver.serialize(heatReceiverOutput);
+        if (heatReceiverOutput.isEmpty()) {
+            output.discard("heatReceiver");
+        }
 
-        this.storageBehaviour.saveAdditional(pTag, pRegistries);
-        this.craftingBehaviour.saveAdditional(pTag, pRegistries);
+        this.storageBehaviour.saveAdditional(output);
+        this.craftingBehaviour.saveAdditional(output);
     }
 
     @Override
-    public void loadAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
-        super.loadAdditional(pTag, pRegistries);
+    public void loadAdditional(ValueInput input) {
+        super.loadAdditional(input);
 
-        if (pTag.contains("heatReceiver"))
-            this.heatReceiver.deserializeNBT(pRegistries, pTag.get("heatReceiver"));
+        input.child("heatReceiver").ifPresent(this.heatReceiver::deserialize);
 
-        this.storageBehaviour.loadAdditional(pTag, pRegistries);
-        this.craftingBehaviour.loadAdditional(pTag, pRegistries);
+        this.storageBehaviour.loadAdditional(input);
+        this.craftingBehaviour.loadAdditional(input);
     }
 
 

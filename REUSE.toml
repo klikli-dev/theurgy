@@ -78,3 +78,22 @@ path = "CHANGELOG.md"
 precedence = "aggregate"
 SPDX-FileCopyrightText = "2022 klikli-dev"
 SPDX-License-Identifier = "CC0-1.0"
+
+[[annotations]]
+path = ".claude/skills/git-commit/SKILL.md"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "AungMyoKyaw"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ".claude/skills/neoforge-updater/SKILL.md"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2026 klikli-dev"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ".claude/skills/neoforge-updater/references/**/index.md"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "ChampionAsh5357"
+SPDX-License-Identifier = "CC-BY-4.0"
+

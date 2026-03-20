@@ -5,6 +5,7 @@
 package com.klikli_dev.theurgy.content.apparatus.incubator;
 
 import com.klikli_dev.theurgy.content.storage.MonitoredItemStackHandler;
+import com.klikli_dev.theurgy.util.ValueIOUtils;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.ItemTagRegistry;
 import net.minecraft.core.BlockPos;
@@ -19,6 +20,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoBlockEntity;
@@ -48,14 +51,12 @@ public class IncubatorSaltVesselBlockEntity extends BlockEntity implements GeoBl
 
     @Override
     public CompoundTag getUpdateTag(HolderLookup.Provider pRegistries) {
-        var tag = new CompoundTag();
-        this.writeNetwork(tag, pRegistries);
-        return tag;
+        return ValueIOUtils.serialize(pRegistries, this::writeNetwork);
     }
 
     @Override
-    public void handleUpdateTag(CompoundTag tag, HolderLookup.Provider pRegistries) {
-        this.readNetwork(tag, pRegistries);
+    public void handleUpdateTag(ValueInput input) {
+        this.readNetwork(input);
     }
 
     @Nullable
@@ -65,19 +66,20 @@ public class IncubatorSaltVesselBlockEntity extends BlockEntity implements GeoBl
     }
 
     @Override
-    public void onDataPacket(Connection connection, ClientboundBlockEntityDataPacket packet, HolderLookup.Provider pRegistries) {
-        var tag = packet.getTag();
-        if (tag != null) {
-            this.readNetwork(tag, pRegistries);
+    public void onDataPacket(Connection connection, ValueInput input) {
+        this.readNetwork(input);
+    }
+
+    public void readNetwork(ValueInput input) {
+        input.child("inputInventory").ifPresent(tag -> this.inputInventory.deserialize(tag));
+    }
+
+    public void writeNetwork(ValueOutput output) {
+        ValueOutput inputInventoryOutput = output.child("inputInventory");
+        this.inputInventory.serialize(inputInventoryOutput);
+        if (inputInventoryOutput.isEmpty()) {
+            output.discard("inputInventory");
         }
-    }
-
-    public void readNetwork(CompoundTag pTag, HolderLookup.Provider pRegistries) {
-        pTag.getCompound("inputInventory").ifPresent(tag -> this.inputInventory.deserializeNBT(pRegistries, tag));
-    }
-
-    public void writeNetwork(CompoundTag pTag, HolderLookup.Provider pRegistries) {
-        pTag.put("inputInventory", this.inputInventory.serializeNBT(pRegistries));
     }
 
     @Override
@@ -92,17 +94,17 @@ public class IncubatorSaltVesselBlockEntity extends BlockEntity implements GeoBl
     }
 
     @Override
-    protected void saveAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
-        super.saveAdditional(pTag, pRegistries);
+    protected void saveAdditional(ValueOutput output) {
+        super.saveAdditional(output);
 
-        this.writeNetwork(pTag, pRegistries);
+        this.writeNetwork(output);
     }
 
     @Override
-    public void loadAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
-        super.loadAdditional(pTag, pRegistries);
+    public void loadAdditional(ValueInput input) {
+        super.loadAdditional(input);
 
-        this.readNetwork(pTag, pRegistries);
+        this.readNetwork(input);
     }
 
     public void setIncubator(IncubatorBlockEntity incubator) {

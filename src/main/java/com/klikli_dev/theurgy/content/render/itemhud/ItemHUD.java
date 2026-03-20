@@ -8,20 +8,20 @@
 package com.klikli_dev.theurgy.content.render.itemhud;
 
 import com.klikli_dev.theurgy.config.ClientConfig;
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.LayeredDraw;
 import net.minecraft.network.chat.Component;
+import net.neoforged.neoforge.client.gui.GuiLayer;
+import org.joml.Matrix3x2fStack;
 
 import java.util.ArrayList;
 
 /**
  * Based on https://github.com/mekanism/Mekanism/blob/d22f6e2028009ed043f8b40c4ea1f7912be3002c/src/main/java/mekanism/client/render/HUDRenderer.java
  */
-public class ItemHUD implements LayeredDraw.Layer {
+public class ItemHUD implements GuiLayer {
 
     private static final ItemHUD instance = new ItemHUD();
 
@@ -53,9 +53,9 @@ public class ItemHUD implements LayeredDraw.Layer {
         int start = 2 + hudTexts.size() * 9; //where we start rendering at the bottom of the screen
         int y = yScale - start;
 
-        PoseStack pose = guiGraphics.pose();
-        pose.pushPose();
-        pose.scale(hudScale, hudScale, hudScale);
+        Matrix3x2fStack pose = guiGraphics.pose();
+        pose.pushMatrix();
+        pose.scale(hudScale, hudScale);
 
         for (Component text : hudTexts) {
             int x = 2;
@@ -63,6 +63,6 @@ public class ItemHUD implements LayeredDraw.Layer {
             y += 9;
         }
 
-        pose.popPose();
+        pose.popMatrix();
     }
 }

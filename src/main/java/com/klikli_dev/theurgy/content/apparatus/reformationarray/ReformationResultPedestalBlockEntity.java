@@ -8,6 +8,7 @@ import com.klikli_dev.theurgy.content.particle.ParticleColor;
 import com.klikli_dev.theurgy.content.particle.glow.GlowParticleProvider;
 import com.klikli_dev.theurgy.content.storage.MonitoredItemStackHandler;
 import com.klikli_dev.theurgy.content.storage.PreventInsertWrapper;
+import com.klikli_dev.theurgy.util.ValueIOUtils;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -21,6 +22,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.Nullable;
 
@@ -75,29 +78,25 @@ public class ReformationResultPedestalBlockEntity extends BlockEntity {
 
 
     @Override
-    protected void saveAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
-        super.saveAdditional(pTag, pRegistries);
-
-        this.writeNetwork(pTag, pRegistries);
+    protected void saveAdditional(ValueOutput output) {
+        super.saveAdditional(output);
+        this.writeNetwork(output);
     }
 
     @Override
-    public void loadAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
-        super.loadAdditional(pTag, pRegistries);
-
-        this.readNetwork(pTag, pRegistries);
+    public void loadAdditional(ValueInput input) {
+        super.loadAdditional(input);
+        this.readNetwork(input);
     }
 
     @Override
     public CompoundTag getUpdateTag(HolderLookup.Provider pRegistries) {
-        var tag = new CompoundTag();
-        this.writeNetwork(tag, pRegistries);
-        return tag;
+        return ValueIOUtils.serialize(pRegistries, this::writeNetwork);
     }
 
     @Override
-    public void handleUpdateTag(CompoundTag tag, HolderLookup.Provider pRegistries) {
-        this.readNetwork(tag, pRegistries);
+    public void handleUpdateTag(ValueInput input) {
+        this.readNetwork(input);
     }
 
     @Nullable
@@ -107,22 +106,24 @@ public class ReformationResultPedestalBlockEntity extends BlockEntity {
     }
 
     @Override
-    public void onDataPacket(Connection connection, ClientboundBlockEntityDataPacket packet, HolderLookup.Provider pRegistries) {
-        var tag = packet.getTag();
-        if (tag != null) {
-            this.readNetwork(tag, pRegistries);
-        }
+    public void onDataPacket(Connection connection, ValueInput input) {
+        this.readNetwork(input);
     }
 
-    public void readNetwork(CompoundTag pTag, HolderLookup.Provider pRegistries) {
-        if (pTag.contains("showParticles")) this.showParticles = pTag.getBoolean("showParticles").orElse(false);
-        if (pTag.contains("outputInventory")) pTag.getCompound("outputInventory").ifPresent(tag -> this.outputInventory.deserializeNBT(pRegistries, tag));
+    public void readNetwork(ValueInput input) {
+        this.showParticles = input.getBooleanOr("showParticles", false);
+        input.child("outputInventory").ifPresent(this.outputInventory::deserialize);
     }
 
-    public void writeNetwork(CompoundTag pTag, HolderLookup.Provider pRegistries) {
+    public void writeNetwork(ValueOutput output) {
         this.showParticles = !this.outputInventory.getStackInSlot(0).isEmpty();
-        pTag.putBoolean("showParticles", this.showParticles);
-        pTag.put("outputInventory", this.outputInventory.serializeNBT(pRegistries));
+        output.putBoolean("showParticles", this.showParticles);
+
+        ValueOutput outputInventoryOutput = output.child("outputInventory");
+        this.outputInventory.serialize(outputInventoryOutput);
+        if (outputInventoryOutput.isEmpty()) {
+            output.discard("outputInventory");
+        }
     }
 
     @Override

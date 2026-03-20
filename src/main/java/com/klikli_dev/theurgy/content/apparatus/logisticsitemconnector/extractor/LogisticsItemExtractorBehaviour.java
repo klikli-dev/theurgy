@@ -10,11 +10,11 @@ import com.klikli_dev.theurgy.content.behaviour.logistics.LeafNodeBehaviour;
 import com.klikli_dev.theurgy.integration.occultism.OccultismIntegration;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.capabilities.BlockCapabilityCache;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.items.IItemHandler;
@@ -66,41 +66,30 @@ public class LogisticsItemExtractorBehaviour extends ExtractorNodeBehaviour<IIte
     }
 
     @Override
-    public void saveAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
-        super.saveAdditional(pTag, pRegistries);
-
-        pTag.putInt("extractionAmount", this.extractionAmount);
+    public void saveAdditional(ValueOutput output) {
+        super.saveAdditional(output);
+        output.putInt("extractionAmount", this.extractionAmount);
     }
 
     @Override
-    public void loadAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
-        super.loadAdditional(pTag, pRegistries);
-
-        if (pTag.contains("extractionAmount")) {
-            this.extractionAmount = pTag.getInt("extractionAmount").orElse(this.extractionAmount);
-        }
-
+    public void loadAdditional(ValueInput input) {
+        super.loadAdditional(input);
+        this.extractionAmount = input.getIntOr("extractionAmount", this.extractionAmount);
     }
 
     @Override
-    public void writeNetwork(CompoundTag pTag, HolderLookup.Provider pRegistries) {
-        super.writeNetwork(pTag, pRegistries);
-
-        pTag.putBoolean("enabled", this.enabled);
+    public void writeNetwork(ValueOutput output) {
+        super.writeNetwork(output);
+        output.putBoolean("enabled", this.enabled);
         if (this.directionOverride != null)
-            pTag.putInt("directionOverride", this.directionOverride.get3DDataValue());
+            output.putInt("directionOverride", this.directionOverride.get3DDataValue());
     }
 
     @Override
-    public void readNetwork(CompoundTag pTag, HolderLookup.Provider pRegistries) {
-        super.readNetwork(pTag, pRegistries);
-
-        if (pTag.contains("directionOverride")) {
-            this.directionOverride = Direction.from3DDataValue(pTag.getInt("directionOverride").orElse(Direction.NORTH.get3DDataValue()));
-        }
-        if (pTag.contains("enabled")) {
-            this.enabled = pTag.getBoolean("enabled").orElse(this.enabled);
-        }
+    public void readNetwork(ValueInput input) {
+        super.readNetwork(input);
+        input.getInt("directionOverride").ifPresent(direction -> this.directionOverride = Direction.from3DDataValue(direction));
+        this.enabled = input.getBooleanOr("enabled", this.enabled);
     }
 
     @Override

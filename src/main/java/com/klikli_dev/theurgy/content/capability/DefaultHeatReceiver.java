@@ -4,12 +4,15 @@
 
 package com.klikli_dev.theurgy.content.capability;
 
+import com.klikli_dev.theurgy.util.NBTSerializable;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.LongTag;
 import net.minecraft.nbt.Tag;
-import net.neoforged.neoforge.common.util.INBTSerializable;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
+import net.neoforged.neoforge.common.util.ValueIOSerializable;
 
-public class DefaultHeatReceiver implements HeatReceiver, INBTSerializable<Tag> {
+public class DefaultHeatReceiver implements HeatReceiver, NBTSerializable<Tag>, ValueIOSerializable {
     protected long isHotUntil;
 
     @Override
@@ -22,6 +25,16 @@ public class DefaultHeatReceiver implements HeatReceiver, INBTSerializable<Tag> 
         if (!(nbt instanceof LongTag longTag))
             throw new IllegalArgumentException("Can not deserialize to an instance that isn't the default implementation");
         this.isHotUntil = longTag.value();
+    }
+
+    @Override
+    public void serialize(ValueOutput output) {
+        output.putLong("value", this.isHotUntil);
+    }
+
+    @Override
+    public void deserialize(ValueInput input) {
+        this.isHotUntil = input.getLongOr("value", 0L);
     }
 
     @Override

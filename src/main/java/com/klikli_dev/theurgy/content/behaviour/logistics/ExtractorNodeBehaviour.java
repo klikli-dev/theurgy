@@ -14,6 +14,8 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.capabilities.BlockCapability;
 import net.neoforged.neoforge.capabilities.BlockCapabilityCache;
 
@@ -168,19 +170,17 @@ public abstract class ExtractorNodeBehaviour<T, C> extends LeafNodeBehaviour<T, 
     }
 
     @Override
-    public void saveAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
-        super.saveAdditional(pTag, pRegistries);
-        pTag.putByte("distributor", (byte) this.distributor.mode().ordinal());
+    public void saveAdditional(ValueOutput output) {
+        super.saveAdditional(output);
+        output.putByte("distributor", (byte) this.distributor.mode().ordinal());
     }
 
     @Override
-    public void loadAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
-        super.loadAdditional(pTag, pRegistries);
+    public void loadAdditional(ValueInput input) {
+        super.loadAdditional(input);
 
         DistributionMode mode = DistributionMode.ROUND_ROBIN;
-        if (pTag.contains("distributor")) {
-            mode = DistributionMode.values()[pTag.getByte("distributor").orElse((byte) 0)];
-        }
+        mode = DistributionMode.values()[input.getByteOr("distributor", (byte) 0)];
         this.distributor = DistributionMode.createDistributor(mode, this.insertTargets);
     }
 

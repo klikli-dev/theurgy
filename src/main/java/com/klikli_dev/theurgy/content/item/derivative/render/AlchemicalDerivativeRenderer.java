@@ -17,8 +17,10 @@ import net.minecraft.client.renderer.special.SpecialModelRenderer;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
+import org.joml.Vector3f;
 
 import java.util.Map;
+import java.util.Set;
 
 public class AlchemicalDerivativeRenderer implements SpecialModelRenderer<ItemStack> {
 
@@ -81,6 +83,12 @@ public class AlchemicalDerivativeRenderer implements SpecialModelRenderer<ItemSt
     @Override
     public @Nullable ItemStack extractArgument(ItemStack stack) {
         return stack;
+    }
+
+    @Override
+    public void getExtents(Set<Vector3f> extents) {
+        extents.add(new Vector3f(-0.5f, -0.5f, -0.5f));
+        extents.add(new Vector3f(0.5f, 0.5f, 0.5f));
     }
 
     public record Unbaked() implements SpecialModelRenderer.Unbaked {

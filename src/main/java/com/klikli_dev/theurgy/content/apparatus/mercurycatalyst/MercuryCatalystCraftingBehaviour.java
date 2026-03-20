@@ -20,6 +20,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.common.util.Lazy;
 import net.neoforged.neoforge.items.IItemHandlerModifiable;
 import net.neoforged.neoforge.items.ItemStackHandler;
@@ -56,18 +58,15 @@ public class MercuryCatalystCraftingBehaviour extends CraftingBehaviour<ItemHand
     }
 
     @Override
-    public void saveAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
-        pTag.putInt("mercuryFluxToConvert", this.mercuryFluxToConvert);
-        pTag.putInt("currentMercuryFluxPerTick", this.currentMercuryFluxPerTick);
+    public void saveAdditional(ValueOutput output) {
+        output.putInt("mercuryFluxToConvert", this.mercuryFluxToConvert);
+        output.putInt("currentMercuryFluxPerTick", this.currentMercuryFluxPerTick);
     }
 
     @Override
-    public void loadAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
-        if (pTag.contains("mercuryFluxToConvert"))
-            this.mercuryFluxToConvert = pTag.getInt("mercuryFluxToConvert").orElse(0);
-
-        if (pTag.contains("currentMercuryFluxPerTick"))
-            this.currentMercuryFluxPerTick = pTag.getInt("currentMercuryFluxPerTick").orElse(0);
+    public void loadAdditional(ValueInput input) {
+        this.mercuryFluxToConvert = input.getIntOr("mercuryFluxToConvert", 0);
+        this.currentMercuryFluxPerTick = input.getIntOr("currentMercuryFluxPerTick", 0);
     }
 
     @Override

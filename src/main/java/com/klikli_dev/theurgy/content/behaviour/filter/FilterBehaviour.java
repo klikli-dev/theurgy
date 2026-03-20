@@ -16,6 +16,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.BlockHitResult;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 import org.jetbrains.annotations.NotNull;
@@ -56,20 +58,20 @@ public class FilterBehaviour {
         return this;
     }
 
-    public void saveAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
-        this.writeNetwork(pTag, pRegistries);
+    public void saveAdditional(ValueOutput output) {
+        this.writeNetwork(output);
     }
 
-    public void loadAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
-        this.readNetwork(pTag, pRegistries);
+    public void loadAdditional(ValueInput input) {
+        this.readNetwork(input);
     }
 
-    public void writeNetwork(CompoundTag pTag, HolderLookup.Provider pRegistries) {
-        pTag.put("filter", this.filter.serializeNBT(pRegistries));
+    public void writeNetwork(ValueOutput output) {
+        output.store("filter", ItemStack.OPTIONAL_CODEC, this.filter.item());
     }
 
-    public void readNetwork(CompoundTag pTag, HolderLookup.Provider pRegistries) {
-        this.filter(Filter.of(pRegistries, pTag.getCompound("filter").orElseGet(CompoundTag::new)));
+    public void readNetwork(ValueInput input) {
+        this.filter(Filter.of(input.lookup(), input.read("filter", ItemStack.OPTIONAL_CODEC).orElse(ItemStack.EMPTY)));
     }
 
     public @NotNull InteractionResult useItemOn(@NotNull ItemStack pStack, @NotNull BlockState pState, @NotNull Level pLevel, @NotNull BlockPos pPos, Player pPlayer, @NotNull InteractionHand pHand, @NotNull BlockHitResult pHitResult) {

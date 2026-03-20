@@ -7,6 +7,7 @@ package com.klikli_dev.theurgy.content.apparatus.mercurycatalyst;
 import com.klikli_dev.theurgy.content.behaviour.crafting.CraftingBehaviour;
 import com.klikli_dev.theurgy.content.capability.DefaultMercuryFluxStorage;
 import com.klikli_dev.theurgy.content.storage.MonitoredItemStackHandler;
+import com.klikli_dev.theurgy.util.ValueIOUtils;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.CapabilityRegistry;
 import com.klikli_dev.theurgy.registry.DataComponentRegistry;
@@ -26,6 +27,8 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.Nullable;
 
@@ -55,14 +58,12 @@ public class MercuryCatalystBlockEntity extends BlockEntity {
 
     @Override
     public CompoundTag getUpdateTag(HolderLookup.Provider pRegistries) {
-        var tag = new CompoundTag();
-        this.writeNetwork(tag, pRegistries);
-        return tag;
+        return ValueIOUtils.serialize(pRegistries, this::writeNetwork);
     }
 
     @Override
-    public void handleUpdateTag(CompoundTag tag, HolderLookup.Provider pRegistries) {
-        this.readNetwork(tag, pRegistries);
+    public void handleUpdateTag(ValueInput input) {
+        this.readNetwork(input);
     }
 
     @Nullable
@@ -72,25 +73,25 @@ public class MercuryCatalystBlockEntity extends BlockEntity {
     }
 
     @Override
-    public void onDataPacket(Connection connection, ClientboundBlockEntityDataPacket packet, HolderLookup.Provider pRegistries) {
-        var tag = packet.getTag();
-        if (tag != null) {
-            this.readNetwork(tag, pRegistries);
-        }
+    public void onDataPacket(Connection connection, ValueInput input) {
+        this.readNetwork(input);
     }
 
-    public void readNetwork(CompoundTag tag, HolderLookup.Provider pRegistries) {
-        if (tag.contains("mercuryFluxStorage")) {
-            //get instead of getCompound here because the storage serializes as int tag
-            this.mercuryFluxStorage.deserializeNBT(pRegistries, tag.get("mercuryFluxStorage"));
+    public void readNetwork(ValueInput input) {
+        input.child("mercuryFluxStorage").ifPresent(value -> {
+            this.mercuryFluxStorage.deserialize(value);
             if (this.level != null) {
                 this.level.sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), Block.UPDATE_IMMEDIATE);
             }
-        }
+        });
     }
 
-    public void writeNetwork(CompoundTag tag, HolderLookup.Provider pRegistries) {
-        tag.put("mercuryFluxStorage", this.mercuryFluxStorage.serializeNBT(pRegistries));
+    public void writeNetwork(ValueOutput output) {
+        ValueOutput fluxOutput = output.child("mercuryFluxStorage");
+        this.mercuryFluxStorage.serialize(fluxOutput);
+        if (fluxOutput.isEmpty()) {
+            output.discard("mercuryFluxStorage");
+        }
     }
 
     public void sendBlockUpdated() {
@@ -131,27 +132,32 @@ public class MercuryCatalystBlockEntity extends BlockEntity {
     }
 
     @Override
-    protected void saveAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
-        super.saveAdditional(pTag, pRegistries);
+    protected void saveAdditional(ValueOutput output) {
+        super.saveAdditional(output);
 
-        pTag.put("inventory", this.inventory.serializeNBT(pRegistries));
-        pTag.put("mercuryFluxStorage", this.mercuryFluxStorage.serializeNBT(pRegistries));
+        ValueOutput inventoryOutput = output.child("inventory");
+        this.inventory.serialize(inventoryOutput);
+        if (inventoryOutput.isEmpty()) {
+            output.discard("inventory");
+        }
 
-        this.craftingBehaviour.saveAdditional(pTag, pRegistries);
+        ValueOutput fluxOutput = output.child("mercuryFluxStorage");
+        this.mercuryFluxStorage.serialize(fluxOutput);
+        if (fluxOutput.isEmpty()) {
+            output.discard("mercuryFluxStorage");
+        }
+
+        this.craftingBehaviour.saveAdditional(output);
     }
 
     @Override
-    public void loadAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
-        super.loadAdditional(pTag, pRegistries);
+    public void loadAdditional(ValueInput input) {
+        super.loadAdditional(input);
 
-        if (pTag.contains("inventory"))
-            pTag.getCompound("inventory").ifPresent(tag -> this.inventory.deserializeNBT(pRegistries, tag));
+        input.child("inventory").ifPresent(this.inventory::deserialize);
+        input.child("mercuryFluxStorage").ifPresent(this.mercuryFluxStorage::deserialize);
 
-        if (pTag.contains("mercuryFluxStorage"))
-            //get instead of getCompound here because the storage serializes as int tag
-            this.mercuryFluxStorage.deserializeNBT(pRegistries, pTag.get("mercuryFluxStorage"));
-
-        this.craftingBehaviour.loadAdditional(pTag, pRegistries);
+        this.craftingBehaviour.loadAdditional(input);
     }
 
     @Override
@@ -163,7 +169,7 @@ public class MercuryCatalystBlockEntity extends BlockEntity {
             this.mercuryFluxStorage.setEnergyStored(pComponentInput.get(DataComponentRegistry.MERCURY_FLUX_STORAGE.get()));
 
         if (pComponentInput.get(DataComponentRegistry.MERCURY_CATALYST_INVENTORY.get()) != null)
-            this.inventory.deserializeNBT(this.level.registryAccess(), pComponentInput.get(DataComponentRegistry.MERCURY_CATALYST_INVENTORY.get()).getUnsafe());
+            ValueIOUtils.deserialize(this.level.registryAccess(), this.inventory, pComponentInput.get(DataComponentRegistry.MERCURY_CATALYST_INVENTORY.get()).getUnsafe());
 
         this.craftingBehaviour.applyImplicitComponents(pComponentInput);
     }
@@ -174,7 +180,7 @@ public class MercuryCatalystBlockEntity extends BlockEntity {
 
         pComponents.set(DataComponentRegistry.MERCURY_FLUX_STORAGE, this.mercuryFluxStorage.getEnergyStored());
 
-        pComponents.set(DataComponentRegistry.MERCURY_CATALYST_INVENTORY, CustomData.of(this.inventory.serializeNBT(this.level.registryAccess())));
+        pComponents.set(DataComponentRegistry.MERCURY_CATALYST_INVENTORY, CustomData.of(ValueIOUtils.serialize(this.level.registryAccess(), this.inventory)));
 
         this.craftingBehaviour.collectImplicitComponents(pComponents);
     }

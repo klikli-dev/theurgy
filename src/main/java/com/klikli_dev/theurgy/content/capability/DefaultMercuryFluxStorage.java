@@ -4,15 +4,18 @@
 
 package com.klikli_dev.theurgy.content.capability;
 
+import com.klikli_dev.theurgy.util.NBTSerializable;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.IntTag;
 import net.minecraft.nbt.Tag;
-import net.neoforged.neoforge.common.util.INBTSerializable;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
+import net.neoforged.neoforge.common.util.ValueIOSerializable;
 
 /**
  * Copy of EnergyStorage, separate to prevent conversion to/from FE
  */
-public class DefaultMercuryFluxStorage implements MercuryFluxStorage, INBTSerializable<Tag> {
+public class DefaultMercuryFluxStorage implements MercuryFluxStorage, NBTSerializable<Tag>, ValueIOSerializable {
     protected int energy;
     protected int capacity;
     protected int maxReceive;
@@ -94,5 +97,21 @@ public class DefaultMercuryFluxStorage implements MercuryFluxStorage, INBTSerial
         if (!(nbt instanceof IntTag intNbt))
             throw new IllegalArgumentException("Can not deserialize to an instance that isn't the default implementation");
         this.energy = intNbt.value();
+    }
+
+    @Override
+    public void serialize(ValueOutput output) {
+        output.putInt("energy", this.energy);
+        output.putInt("capacity", this.capacity);
+        output.putInt("maxReceive", this.maxReceive);
+        output.putInt("maxExtract", this.maxExtract);
+    }
+
+    @Override
+    public void deserialize(ValueInput input) {
+        this.capacity = input.getIntOr("capacity", this.capacity);
+        this.maxReceive = input.getIntOr("maxReceive", this.maxReceive);
+        this.maxExtract = input.getIntOr("maxExtract", this.maxExtract);
+        this.energy = Math.max(0, Math.min(this.capacity, input.getIntOr("energy", 0)));
     }
 }

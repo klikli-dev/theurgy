@@ -4,14 +4,14 @@
 
 package com.klikli_dev.theurgy.content.recipe.input;
 
+import com.klikli_dev.theurgy.content.storage.SettableItemStorage;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
-import net.neoforged.neoforge.items.IItemHandlerModifiable;
 
 public class ItemHandlerWithFluidRecipeInput extends ItemHandlerRecipeInput {
 
     private final IFluidHandler tank;
 
-    public ItemHandlerWithFluidRecipeInput(IItemHandlerModifiable inv, IFluidHandler tank) {
+    public ItemHandlerWithFluidRecipeInput(SettableItemStorage inv, IFluidHandler tank) {
         super(inv);
         this.tank = tank;
     }

@@ -4,6 +4,7 @@
 
 package com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector.extractor;
 
+import com.klikli_dev.theurgy.content.storage.ItemStorageHelper;
 import com.klikli_dev.theurgy.registry.CapabilityRegistry;
 import com.klikli_dev.theurgy.content.behaviour.filter.Filter;
 import com.klikli_dev.theurgy.content.behaviour.logistics.ExtractorNodeBehaviour;
@@ -18,11 +19,11 @@ import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.capabilities.BlockCapabilityCache;
 import net.neoforged.neoforge.capabilities.Capabilities;
-import net.neoforged.neoforge.items.IItemHandler;
-import net.neoforged.neoforge.items.ItemHandlerHelper;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
 import org.jetbrains.annotations.Nullable;
 
-public class LogisticsItemExtractorBehaviour extends ExtractorNodeBehaviour<IItemHandler, @Nullable Direction> {
+public class LogisticsItemExtractorBehaviour extends ExtractorNodeBehaviour<ResourceHandler<ItemResource>, @Nullable Direction> {
 
     public static final int EXTRACTION_EVERY_N_TICKS = 20; // 1 second
     public static final int MAX_EXTRACTION_AMOUNT = 64; //how many items to extract per extraction tick
@@ -36,7 +37,7 @@ public class LogisticsItemExtractorBehaviour extends ExtractorNodeBehaviour<IIte
     }
 
     @Override
-    protected boolean isValidInsertTarget(LeafNodeBehaviour<IItemHandler, @Nullable Direction> leafNode, BlockCapabilityCache<IItemHandler, @Nullable Direction> capability) {
+    protected boolean isValidInsertTarget(LeafNodeBehaviour<ResourceHandler<ItemResource>, @Nullable Direction> leafNode, BlockCapabilityCache<ResourceHandler<ItemResource>, @Nullable Direction> capability) {
         //any target we get is guaranteed to exist and have an item capability, so we just return true here.
         return true;
     }
@@ -127,31 +128,31 @@ public class LogisticsItemExtractorBehaviour extends ExtractorNodeBehaviour<IIte
         this.performExtraction(extractCap, this.filter(), insertCap, insertTarget.inserter().filter());
     }
 
-    protected void performExtraction(IItemHandler extractCap, Filter extractFilter, IItemHandler insertCap, Filter insertFilter) {
+    protected void performExtraction(ResourceHandler<ItemResource> extractCap, Filter extractFilter, ResourceHandler<ItemResource> insertCap, Filter insertFilter) {
         var level = this.level();
 
         //iterate over all slots in the extract inventory, but only extract from the first matching slot.
-        for (int extractSlot = 0; extractSlot < extractCap.getSlots(); extractSlot++) {
+        for (int extractSlot = 0; extractSlot < ItemStorageHelper.getSlots(extractCap); extractSlot++) {
 
             //the extract slot must match the filters both on the extractor and inserter.
-            var stack = extractCap.getStackInSlot(extractSlot);
+            var stack = ItemStorageHelper.getStackInSlot(extractCap, extractSlot);
             if (!stack.isEmpty() && extractFilter.test(level, stack) && insertFilter.test(level, stack)) {
 
                 //first simulate extraction, this tells us how much we can extract
-                var extractStack = extractCap.extractItem(extractSlot, this.extractionAmount, true);
+                var extractStack = ItemStorageHelper.extractItem(extractCap, extractSlot, this.extractionAmount, true);
                 if (extractStack.isEmpty()) //that should never be true, as we already checked emptiness above.
                     continue;
 
                 //and insertion
-                ItemStack inserted = ItemHandlerHelper.insertItemStacked(insertCap, extractStack, true);
+                ItemStack inserted = ItemStorageHelper.insertItemStacked(insertCap, extractStack, true);
                 //TODO(optimization): does it make sense to cache "failed to insert" stacks?
                 //      1) use our own insert code instead of ItemHandlerHelper.insertItemStacked that the first sequence of full slots?
                 //      2) store itemstack + component (but not count) that failed to insert at all (not even 1 inserted in entire target container)
 
                 //then if anything was inserted during the simulation, perform the real extraction and insertion
                 if (inserted.getCount() != extractStack.getCount()) {
-                    ItemStack remaining = ItemHandlerHelper.insertItemStacked(insertCap, extractStack, false);
-                    extractCap.extractItem(extractSlot, extractStack.getCount() - remaining.getCount(), false);
+                    ItemStack remaining = ItemStorageHelper.insertItemStacked(insertCap, extractStack, false);
+                    ItemStorageHelper.extractItem(extractCap, extractSlot, extractStack.getCount() - remaining.getCount(), false);
                     break; //we transfer maximum one stack per iteration
                 }
             }

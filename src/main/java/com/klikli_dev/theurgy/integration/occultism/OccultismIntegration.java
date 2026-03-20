@@ -8,7 +8,8 @@ package com.klikli_dev.theurgy.integration.occultism;
 
 import com.klikli_dev.theurgy.content.behaviour.filter.Filter;
 import net.minecraft.world.level.Level;
-import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
 
 public interface OccultismIntegration {
 
@@ -25,5 +26,5 @@ public interface OccultismIntegration {
      * The storage actuator stores items in a map of item stack -> count. This allows for faster extraction, if there is an allow list filter.
      * If there is a deny list filter, or an AttributeFilter this returns false to use normal extraction logic that loops through all entries.
      */
-    boolean tryPerformStorageActuatorExtraction(Level level, IItemHandler extractCap, Filter extractFilter, IItemHandler insertCap, Filter insertFilter, int extractionAmount);
+    boolean tryPerformStorageActuatorExtraction(Level level, ResourceHandler<ItemResource> extractCap, Filter extractFilter, ResourceHandler<ItemResource> insertCap, Filter insertFilter, int extractionAmount);
 }

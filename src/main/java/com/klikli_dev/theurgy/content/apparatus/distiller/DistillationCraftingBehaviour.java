@@ -7,20 +7,19 @@ package com.klikli_dev.theurgy.content.apparatus.distiller;
 import com.klikli_dev.theurgy.content.behaviour.crafting.CraftingBehaviour;
 import com.klikli_dev.theurgy.content.recipe.DistillationRecipe;
 import com.klikli_dev.theurgy.content.recipe.input.ItemHandlerRecipeInput;
+import com.klikli_dev.theurgy.content.storage.SettableItemStorage;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.common.util.Lazy;
-import net.neoforged.neoforge.items.IItemHandlerModifiable;
-import net.neoforged.neoforge.items.ItemHandlerHelper;
 
 
 import java.util.function.Supplier;
 
 public class DistillationCraftingBehaviour extends CraftingBehaviour<ItemHandlerRecipeInput, DistillationRecipe, DistillationCachedCheck> {
-    public DistillationCraftingBehaviour(BlockEntity blockEntity, Supplier<IItemHandlerModifiable> inputInventorySupplier, Supplier<IItemHandlerModifiable> outputInventorySupplier) {
+    public DistillationCraftingBehaviour(BlockEntity blockEntity, Supplier<SettableItemStorage> inputInventorySupplier, Supplier<SettableItemStorage> outputInventorySupplier) {
         super(blockEntity,
                 Lazy.of(() -> new ItemHandlerRecipeInput(inputInventorySupplier.get())),
                 inputInventorySupplier,

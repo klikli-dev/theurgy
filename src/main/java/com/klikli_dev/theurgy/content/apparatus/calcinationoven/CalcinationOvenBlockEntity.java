@@ -10,6 +10,7 @@ import com.klikli_dev.theurgy.content.behaviour.heat.HeatConsumerBehaviour;
 import com.klikli_dev.theurgy.content.capability.CraftingHeatReceiver;
 import com.klikli_dev.theurgy.content.recipe.CalcinationRecipe;
 import com.klikli_dev.theurgy.content.recipe.input.ItemHandlerRecipeInput;
+import com.klikli_dev.theurgy.content.storage.ItemStorageHelper;
 import com.klikli_dev.theurgy.util.ValueIOUtils;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
@@ -97,8 +98,8 @@ public class CalcinationOvenBlockEntity extends BlockEntity implements GeoBlockE
     public void preRemoveSideEffects(BlockPos pPos, BlockState pState) {
         super.preRemoveSideEffects(pPos, pState);
 
-        for (int i = 0; i < this.storageBehaviour.inventory.getSlots(); i++) {
-            Containers.dropItemStack(this.level, pPos.getX(), pPos.getY(), pPos.getZ(), this.storageBehaviour.inventory.getStackInSlot(i));
+        for (int i = 0; i < ItemStorageHelper.getSlots(this.storageBehaviour.inventory); i++) {
+            Containers.dropItemStack(this.level, pPos.getX(), pPos.getY(), pPos.getZ(), ItemStorageHelper.getStackInSlot(this.storageBehaviour.inventory, i));
         }
     }
 

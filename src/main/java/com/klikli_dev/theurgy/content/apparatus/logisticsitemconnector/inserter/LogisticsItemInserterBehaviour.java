@@ -14,10 +14,11 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.capabilities.Capabilities;
-import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
 import org.jetbrains.annotations.Nullable;
 
-public class LogisticsItemInserterBehaviour extends InserterNodeBehaviour<IItemHandler, @Nullable Direction> {
+public class LogisticsItemInserterBehaviour extends InserterNodeBehaviour<ResourceHandler<ItemResource>, @Nullable Direction> {
 
     private Direction directionOverride = null;
     private boolean enabled = true;

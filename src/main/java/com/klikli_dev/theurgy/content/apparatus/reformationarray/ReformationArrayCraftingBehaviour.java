@@ -8,14 +8,13 @@ import com.klikli_dev.theurgy.content.behaviour.crafting.CraftingBehaviour;
 import com.klikli_dev.theurgy.content.capability.MercuryFluxStorage;
 import com.klikli_dev.theurgy.content.recipe.ReformationRecipe;
 import com.klikli_dev.theurgy.content.recipe.input.ReformationArrayRecipeInput;
+import com.klikli_dev.theurgy.content.storage.SettableItemStorage;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.neoforged.neoforge.items.IItemHandlerModifiable;
-import net.neoforged.neoforge.items.ItemHandlerHelper;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -25,7 +24,7 @@ public class ReformationArrayCraftingBehaviour extends CraftingBehaviour<Reforma
 
     protected final Supplier<MercuryFluxStorage> mercuryFluxStorageSupplier;
 
-    public ReformationArrayCraftingBehaviour(BlockEntity blockEntity, Supplier<ReformationArrayRecipeInput> recipeWrapperSupplier, Supplier<IItemHandlerModifiable> inputInventorySupplier, Supplier<IItemHandlerModifiable> outputInventorySupplier, Supplier<MercuryFluxStorage> mercuryFluxStorageSupplier) {
+    public ReformationArrayCraftingBehaviour(BlockEntity blockEntity, Supplier<ReformationArrayRecipeInput> recipeWrapperSupplier, Supplier<SettableItemStorage> inputInventorySupplier, Supplier<SettableItemStorage> outputInventorySupplier, Supplier<MercuryFluxStorage> mercuryFluxStorageSupplier) {
         super(blockEntity,
                 recipeWrapperSupplier,
                 inputInventorySupplier,
@@ -50,7 +49,7 @@ public class ReformationArrayCraftingBehaviour extends CraftingBehaviour<Reforma
         this.mercuryFluxStorageSupplier.get().extractEnergy(pRecipe.value().getMercuryFlux(), false);
 
         // Loop through required sources of recipe and through source inventories and extract
-        Set<IItemHandlerModifiable> usedInventories = new HashSet<>();
+        Set<SettableItemStorage> usedInventories = new HashSet<>();
         for (var source : pRecipe.value().getSources()) {
             for (var sourceInventory : ItemHandlerRecipeInput.getSourcePedestalInvs()) {
                 // Skip this source inventory if it has already been used
@@ -70,7 +69,7 @@ public class ReformationArrayCraftingBehaviour extends CraftingBehaviour<Reforma
         }
 
         // Safely insert the assembledStack into the outputInventory and update the input stack.
-        ItemHandlerHelper.insertItemStacked(this.outputInventorySupplier.get(), assembledStack, false);
+        this.outputInventorySupplier.get().insertItemStacked(assembledStack, false);
 
         return true;
     }

@@ -22,7 +22,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.Nullable;
 import com.geckolib.animatable.GeoBlockEntity;
 import com.geckolib.animatable.instance.AnimatableInstanceCache;
@@ -36,7 +35,7 @@ public class IncubatorSulfurVesselBlockEntity extends BlockEntity implements Geo
 
     public IncubatorBlockEntity incubator;
 
-    public ItemStackHandler inputInventory;
+    public MonitoredItemStackHandler inputInventory;
 
     public IncubatorSulfurVesselBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(BlockEntityRegistry.INCUBATOR_SULFUR_VESSEL.get(), pPos, pBlockState);

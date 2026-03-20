@@ -8,6 +8,8 @@ import com.klikli_dev.theurgy.content.behaviour.crafting.CraftingBehaviour;
 import com.klikli_dev.theurgy.content.capability.MercuryFluxStorage;
 import com.klikli_dev.theurgy.content.recipe.CatalysationRecipe;
 import com.klikli_dev.theurgy.content.recipe.input.ItemHandlerRecipeInput;
+import com.klikli_dev.theurgy.content.storage.MonitoredItemStackHandler;
+import com.klikli_dev.theurgy.content.storage.SettableItemStorage;
 import com.klikli_dev.theurgy.registry.DataComponentRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import net.minecraft.server.level.ServerLevel;
@@ -23,8 +25,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.common.util.Lazy;
-import net.neoforged.neoforge.items.IItemHandlerModifiable;
-import net.neoforged.neoforge.items.ItemStackHandler;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -38,7 +38,7 @@ public class MercuryCatalystCraftingBehaviour extends CraftingBehaviour<ItemHand
     protected int currentMercuryFluxPerTick;
 
 
-    public MercuryCatalystCraftingBehaviour(BlockEntity blockEntity, Supplier<IItemHandlerModifiable> inputInventorySupplier, Supplier<IItemHandlerModifiable> outputInventorySupplier, Supplier<MercuryFluxStorage> mercuryFluxStorageSupplier) {
+    public MercuryCatalystCraftingBehaviour(BlockEntity blockEntity, Supplier<SettableItemStorage> inputInventorySupplier, Supplier<SettableItemStorage> outputInventorySupplier, Supplier<MercuryFluxStorage> mercuryFluxStorageSupplier) {
         super(blockEntity,
                 Lazy.of(() -> new ItemHandlerRecipeInput(inputInventorySupplier.get())),
                 inputInventorySupplier,
@@ -51,7 +51,8 @@ public class MercuryCatalystCraftingBehaviour extends CraftingBehaviour<ItemHand
     @Override
     public boolean isIngredient(ItemStack stack) {
         if (this.blockEntity.getLevel().isClientSide()) return false;
-        var tempInv = new ItemStackHandler(NonNullList.of(ItemStack.EMPTY, stack));
+        var tempInv = new MonitoredItemStackHandler(NonNullList.of(ItemStack.EMPTY, stack)) {
+        };
         var tempRecipeWrapper = new ItemHandlerRecipeInput(tempInv);
 
         return this.recipeCachedCheck.getRecipeFor(tempRecipeWrapper, (ServerLevel)this.blockEntity.getLevel()).isPresent();

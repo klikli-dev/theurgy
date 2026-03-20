@@ -29,7 +29,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.Nullable;
 
 
@@ -40,7 +39,7 @@ public class MercuryCatalystBlockEntity extends BlockEntity {
     public static final int PUSH_TICK_INTERVAL = 20;
     public static final int PUSH_RATE_PER_TICK = 2;
 
-    public ItemStackHandler inventory;
+    public MonitoredItemStackHandler inventory;
     public MercuryCatalystMercuryFluxStorage mercuryFluxStorage;
 
     protected CraftingBehaviour<?, ?, ?> craftingBehaviour;

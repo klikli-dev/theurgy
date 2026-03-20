@@ -32,7 +32,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.Nullable;
 
 
@@ -44,7 +43,7 @@ public class IncubatorBlockEntity extends BlockEntity implements HasCraftingBeha
     /**
      * The underlying outputInventory which allows inserting too - we use this when crafting.
      */
-    public ItemStackHandler outputInventory;
+    public MonitoredItemStackHandler outputInventory;
     /**
      * A wrapper that only allows taking from the outputInventory - this is what we show to the outside.
      */

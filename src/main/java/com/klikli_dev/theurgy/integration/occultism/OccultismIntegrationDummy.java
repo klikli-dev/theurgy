@@ -6,7 +6,8 @@ package com.klikli_dev.theurgy.integration.occultism;
 
 import com.klikli_dev.theurgy.content.behaviour.filter.Filter;
 import net.minecraft.world.level.Level;
-import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
 
 public class OccultismIntegrationDummy implements OccultismIntegration {
     @Override
@@ -15,7 +16,7 @@ public class OccultismIntegrationDummy implements OccultismIntegration {
     }
 
     @Override
-    public boolean tryPerformStorageActuatorExtraction(Level level, IItemHandler extractCap, Filter extractFilter, IItemHandler insertCap, Filter insertFilter, int extractionAmount) {
+    public boolean tryPerformStorageActuatorExtraction(Level level, ResourceHandler<ItemResource> extractCap, Filter extractFilter, ResourceHandler<ItemResource> insertCap, Filter insertFilter, int extractionAmount) {
         return false;
     }
 

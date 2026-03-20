@@ -8,11 +8,11 @@ import com.klikli_dev.theurgy.content.behaviour.storage.HasStorageBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.storage.OutputStorageBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.storage.StorageBehaviour;
 import net.minecraft.core.BlockPos;
-import net.minecraft.util.Mth;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.ResourceHandlerUtil;
+import net.neoforged.neoforge.transfer.item.ItemResource;
 
 import javax.annotation.Nullable;
 
@@ -28,22 +28,8 @@ public class VatAnalogSignalOutputBehaviour {
     /**
      * Taken from AbstractContainerMenu.getRedstoneSignalFromContainer and adapted for itemhandler
      */
-    public static int getRedstoneSignalFromContainer(@Nullable IItemHandler pContainer) {
-        if (pContainer == null) {
-            return 0;
-        } else {
-            float f = 0.0F;
-
-            for (int i = 0; i < pContainer.getSlots(); i++) {
-                ItemStack itemstack = pContainer.getStackInSlot(i);
-                if (!itemstack.isEmpty()) {
-                    f += (float) itemstack.getCount() / (float) Math.min(pContainer.getSlotLimit(i), itemstack.getMaxStackSize());
-                }
-            }
-
-            f /= (float) pContainer.getSlots();
-            return Mth.lerpDiscrete(f, 0, 15);
-        }
+    public static int getRedstoneSignalFromContainer(@Nullable ResourceHandler<ItemResource> pContainer) {
+        return pContainer == null ? 0 : ResourceHandlerUtil.getRedstoneSignalFromResourceHandler(pContainer);
     }
 
     public int getAnalogOutputSignal(BlockState pBlockState, Level pLevel, BlockPos pPos) {

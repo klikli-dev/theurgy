@@ -4,31 +4,32 @@
 
 package com.klikli_dev.theurgy.content.recipe.input;
 
-import net.neoforged.neoforge.items.IItemHandlerModifiable;
-import net.neoforged.neoforge.items.wrapper.CombinedInvWrapper;
+import com.klikli_dev.theurgy.content.storage.SettableItemStorage;
+import net.neoforged.neoforge.transfer.CombinedResourceHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
 
 public class IncubatorRecipeInput extends ItemHandlerRecipeInput {
-    private final IItemHandlerModifiable mercuryVesselInv;
-    private final IItemHandlerModifiable saltVesselInv;
-    private final IItemHandlerModifiable sulfurVesselInv;
+    private final SettableItemStorage mercuryVesselInv;
+    private final SettableItemStorage saltVesselInv;
+    private final SettableItemStorage sulfurVesselInv;
 
-    public IncubatorRecipeInput(IItemHandlerModifiable mercuryVesselInv, IItemHandlerModifiable saltVesselInv, IItemHandlerModifiable sulfurVesselInv) {
-        super(new CombinedInvWrapper(mercuryVesselInv, saltVesselInv, sulfurVesselInv));
+    public IncubatorRecipeInput(SettableItemStorage mercuryVesselInv, SettableItemStorage saltVesselInv, SettableItemStorage sulfurVesselInv) {
+        super(new CombinedResourceHandler<ItemResource>(mercuryVesselInv, saltVesselInv, sulfurVesselInv));
 
         this.mercuryVesselInv = mercuryVesselInv;
         this.saltVesselInv = saltVesselInv;
         this.sulfurVesselInv = sulfurVesselInv;
     }
 
-    public IItemHandlerModifiable getMercuryVesselInv() {
+    public SettableItemStorage getMercuryVesselInv() {
         return this.mercuryVesselInv;
     }
 
-    public IItemHandlerModifiable getSaltVesselInv() {
+    public SettableItemStorage getSaltVesselInv() {
         return this.saltVesselInv;
     }
 
-    public IItemHandlerModifiable getSulfurVesselInv() {
+    public SettableItemStorage getSulfurVesselInv() {
         return this.sulfurVesselInv;
     }
 }

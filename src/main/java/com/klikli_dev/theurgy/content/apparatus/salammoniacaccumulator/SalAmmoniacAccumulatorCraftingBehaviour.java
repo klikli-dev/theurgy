@@ -7,6 +7,7 @@ package com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator;
 import com.klikli_dev.theurgy.content.behaviour.crafting.CraftingBehaviour;
 import com.klikli_dev.theurgy.content.recipe.AccumulationRecipe;
 import com.klikli_dev.theurgy.content.recipe.input.ItemHandlerWithFluidRecipeInput;
+import com.klikli_dev.theurgy.content.storage.SettableItemStorage;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
@@ -15,7 +16,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.common.util.Lazy;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
-import net.neoforged.neoforge.items.IItemHandlerModifiable;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Supplier;
@@ -25,7 +25,7 @@ public class SalAmmoniacAccumulatorCraftingBehaviour extends CraftingBehaviour<I
     protected Supplier<IFluidHandler> waterTankSupplier;
     protected Supplier<IFluidHandler> outputTankSupplier;
 
-    public SalAmmoniacAccumulatorCraftingBehaviour(BlockEntity blockEntity, Supplier<IItemHandlerModifiable> inputInventorySupplier, Supplier<IItemHandlerModifiable> outputInventorySupplier, Supplier<IFluidHandler> waterTankSupplier, Supplier<IFluidHandler> outputTankSupplier) {
+    public SalAmmoniacAccumulatorCraftingBehaviour(BlockEntity blockEntity, Supplier<SettableItemStorage> inputInventorySupplier, Supplier<SettableItemStorage> outputInventorySupplier, Supplier<IFluidHandler> waterTankSupplier, Supplier<IFluidHandler> outputTankSupplier) {
         super(blockEntity,
                 Lazy.of(() -> new ItemHandlerWithFluidRecipeInput(inputInventorySupplier.get(), waterTankSupplier.get())),
                 inputInventorySupplier,

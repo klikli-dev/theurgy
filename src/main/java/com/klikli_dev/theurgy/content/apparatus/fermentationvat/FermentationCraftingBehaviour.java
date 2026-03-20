@@ -7,6 +7,7 @@ package com.klikli_dev.theurgy.content.apparatus.fermentationvat;
 import com.klikli_dev.theurgy.content.behaviour.crafting.CraftingBehaviour;
 import com.klikli_dev.theurgy.content.recipe.FermentationRecipe;
 import com.klikli_dev.theurgy.content.recipe.input.ItemHandlerWithFluidRecipeInput;
+import com.klikli_dev.theurgy.content.storage.SettableItemStorage;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
@@ -14,8 +15,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.common.util.Lazy;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
-import net.neoforged.neoforge.items.IItemHandlerModifiable;
-import net.neoforged.neoforge.items.ItemHandlerHelper;
 
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
@@ -26,7 +25,7 @@ public class FermentationCraftingBehaviour extends CraftingBehaviour<ItemHandler
 
     protected Supplier<IFluidHandler> fluidTankSupplier;
 
-    public FermentationCraftingBehaviour(BlockEntity blockEntity, Supplier<IItemHandlerModifiable> inputInventorySupplier, Supplier<IItemHandlerModifiable> outputInventorySupplier, Supplier<IFluidHandler> fluidTankSupplier) {
+    public FermentationCraftingBehaviour(BlockEntity blockEntity, Supplier<SettableItemStorage> inputInventorySupplier, Supplier<SettableItemStorage> outputInventorySupplier, Supplier<IFluidHandler> fluidTankSupplier) {
         super(blockEntity,
                 Lazy.of(() -> new ItemHandlerWithFluidRecipeInput(inputInventorySupplier.get(), fluidTankSupplier.get())),
                 inputInventorySupplier,
@@ -104,7 +103,7 @@ public class FermentationCraftingBehaviour extends CraftingBehaviour<ItemHandler
         var assembledStack = pRecipe.value().assemble(this.recipeInputSupplier.get());
 
         // Safely insert the assembledStack into the outputInventory and update the input stack.
-        ItemHandlerHelper.insertItemStacked(this.outputInventorySupplier.get(), assembledStack, false);
+        this.outputInventorySupplier.get().insertItemStacked(assembledStack, false);
 
         //consume the input stacks
         //the double loop may not be necessary, it may be OK to just take one from each slot (because recipe matches only if exact items match, not if more items are present)

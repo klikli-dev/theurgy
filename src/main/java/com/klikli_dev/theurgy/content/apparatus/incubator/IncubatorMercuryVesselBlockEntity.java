@@ -22,7 +22,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.Nullable;
 import com.geckolib.animatable.GeoBlockEntity;
 import com.geckolib.animatable.instance.AnimatableInstanceCache;
@@ -34,7 +33,7 @@ public class IncubatorMercuryVesselBlockEntity extends BlockEntity implements Ge
 
     protected final AnimatableInstanceCache animatableInstanceCache = GeckoLibUtil.createInstanceCache(this);
     public IncubatorBlockEntity incubator;
-    public ItemStackHandler inputInventory;
+    public MonitoredItemStackHandler inputInventory;
 
     public IncubatorMercuryVesselBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(BlockEntityRegistry.INCUBATOR_MERCURY_VESSEL.get(), pPos, pBlockState);

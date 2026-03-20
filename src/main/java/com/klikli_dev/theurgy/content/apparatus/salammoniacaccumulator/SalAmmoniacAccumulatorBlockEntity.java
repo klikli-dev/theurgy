@@ -45,7 +45,7 @@ public class SalAmmoniacAccumulatorBlockEntity extends BlockEntity implements Ge
 
     protected final AnimatableInstanceCache animatableInstanceCache = GeckoLibUtil.createInstanceCache(this);
 
-    public ItemStackHandler inventory;
+    public MonitoredItemStackHandler inventory;
 
     public FluidTank waterTank;
 

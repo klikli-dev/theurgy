@@ -24,14 +24,13 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.Nullable;
 
 import java.lang.ref.WeakReference;
 
 public class ReformationSourcePedestalBlockEntity extends BlockEntity {
 
-    public ItemStackHandler inputInventory;
+    public MonitoredItemStackHandler inputInventory;
 
     public WeakReference<SulfuricFluxEmitterBlockEntity> sulfuricFluxEmitter;
 

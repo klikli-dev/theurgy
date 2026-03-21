@@ -21,8 +21,8 @@ import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.neoforged.neoforge.capabilities.BlockCapability;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
-import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.fluid.FluidResource;
 import net.neoforged.neoforge.transfer.item.ItemResource;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -32,9 +32,7 @@ import java.util.function.BiFunction;
 public class CapabilityRegistry {
 
     public static final BlockCapability<ResourceHandler<ItemResource>, @Nullable Direction> ITEM_HANDLER = Capabilities.Item.BLOCK;
-    public static final BlockCapability<IFluidHandler, @Nullable Direction> FLUID_HANDLER = BlockCapability.createSided(
-            Theurgy.loc("fluid_handler"),
-            IFluidHandler.class);
+    public static final BlockCapability<ResourceHandler<FluidResource>, @Nullable Direction> FLUID_HANDLER = Capabilities.Fluid.BLOCK;
 
     public static final BlockCapability<MercuryFluxStorage, @Nullable Direction> MERCURY_FLUX_HANDLER = BlockCapability.createSided(
             Theurgy.loc("mercury_flux_handler"),

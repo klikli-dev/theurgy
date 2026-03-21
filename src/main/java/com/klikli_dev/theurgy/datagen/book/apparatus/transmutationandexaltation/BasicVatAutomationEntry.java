@@ -40,8 +40,8 @@ public class BasicVatAutomationEntry extends EntryProvider {
         );
 
         this.page("setup", () -> BookImagePageModel.create()
-                .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText()))
+                        .withTitle(this.context().pageTitle())
+                        .withText(this.context().pageText()))
                 .withImages(
                         this.modLoc("textures/gui/book/vat_automation_0.png"),
                         this.modLoc("textures/gui/book/vat_automation_1.png"),
@@ -49,7 +49,6 @@ public class BasicVatAutomationEntry extends EntryProvider {
                         this.modLoc("textures/gui/book/vat_automation_3.png")
                 );
 
-        ;
         this.add(this.context().pageTitle(), "Block Setup");
         this.add(this.context().pageText(),
                 """

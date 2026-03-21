@@ -40,7 +40,8 @@ import java.util.Optional;
  * @param result    The result of the recipe.
  */
 public record AccumulationRecipe(@Nullable SizedFluidIngredient evaporant, @Nullable Ingredient solute,
-                                 FluidStackTemplate result, int time) implements Recipe<ItemHandlerWithFluidRecipeInput> {
+                                 FluidStackTemplate result,
+                                 int time) implements Recipe<ItemHandlerWithFluidRecipeInput> {
     public static final int DEFAULT_TIME = 100;
 
     public static final MapCodec<AccumulationRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
@@ -50,7 +51,7 @@ public record AccumulationRecipe(@Nullable SizedFluidIngredient evaporant, @Null
                     Codec.INT.optionalFieldOf("time", DEFAULT_TIME).forGetter(r -> r.time)
             ).apply(instance, (evaporant, solute, result, accumulation_time) -> new AccumulationRecipe(evaporant.orElse(null), solute.orElse(null), result, accumulation_time))
     );
-
+    public static final RecipeSerializer<AccumulationRecipe> SERIALIZER = new RecipeSerializer<>(CODEC, STREAM_CODEC);
     public static final StreamCodec<RegistryFriendlyByteBuf, AccumulationRecipe> STREAM_CODEC = StreamCodec.composite(
             ByteBufCodecs.optional(SizedFluidIngredient.STREAM_CODEC),
             r -> Optional.ofNullable(r.evaporant),
@@ -62,8 +63,6 @@ public record AccumulationRecipe(@Nullable SizedFluidIngredient evaporant, @Null
             r -> r.time,
             (evaporant, solute, result, accumulation_time) -> new AccumulationRecipe(evaporant.orElse(null), solute.orElse(null), result, accumulation_time)
     );
-
-    public static final RecipeSerializer<AccumulationRecipe> SERIALIZER = new RecipeSerializer<>(CODEC, STREAM_CODEC);
 
     @Override
     public @NotNull RecipeType<AccumulationRecipe> getType() {

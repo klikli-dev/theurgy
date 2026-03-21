@@ -7,7 +7,6 @@ package com.klikli_dev.theurgy.content.apparatus.caloricfluxemitter;
 import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.content.behaviour.selection.SelectedPoint;
 import com.klikli_dev.theurgy.content.render.Color;
-import com.klikli_dev.theurgy.logistics.Wire;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;

@@ -42,7 +42,7 @@ public class CreateMercuryEntry extends EntryProvider {
                 """
                         Right-click the {0} with any mercury-yielding item, such as Crops, Food, Ores, Raw Metals, but also Stone, Sand, Glass, ...\\
                         For low-value items you may need to add multiple items at once to obtain even one {1}.
-                         """,
+                        """,
                 this.itemLink(ItemRegistry.DISTILLER.get()),
                 this.itemLink(ItemRegistry.MERCURY_SHARD.get())
         );

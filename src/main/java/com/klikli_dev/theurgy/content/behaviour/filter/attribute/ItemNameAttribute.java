@@ -25,15 +25,15 @@ public class ItemNameAttribute implements ItemAttribute {
 
     @Override
     public boolean appliesTo(ItemStack itemStack) {
-        return extractCustomName(itemStack).equals(itemName);
+        return this.extractCustomName(itemStack).equals(this.itemName);
     }
 
     @Override
     public List<ItemAttribute> listAttributesOf(ItemStack itemStack) {
-        String name = extractCustomName(itemStack);
+        String name = this.extractCustomName(itemStack);
 
         List<ItemAttribute> atts = new ArrayList<>();
-        if(name.length() > 0) {
+        if (name.length() > 0) {
             atts.add(new ItemNameAttribute(name));
         }
         return atts;
@@ -46,7 +46,7 @@ public class ItemNameAttribute implements ItemAttribute {
 
     @Override
     public Object[] getTranslationParameters() {
-        return new Object[] { itemName };
+        return new Object[]{this.itemName};
     }
 
     @Override

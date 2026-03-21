@@ -13,7 +13,6 @@ import com.klikli_dev.theurgy.content.recipe.IncubationRecipe;
 import com.klikli_dev.theurgy.integration.jei.JeiDrawables;
 import com.klikli_dev.theurgy.integration.jei.JeiRecipeTypes;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
-import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.drawable.IDrawableAnimated;
@@ -30,11 +29,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import static mezz.jei.api.recipe.RecipeIngredientRole.INPUT;
 import static mezz.jei.api.recipe.RecipeIngredientRole.OUTPUT;
@@ -66,7 +62,7 @@ public class IncubationCategory implements IRecipeCategory<RecipeHolder<Incubati
     }
 
     protected IDrawableAnimated getAnimatedArrow(RecipeHolder<IncubationRecipe> recipe) {
-        int cookTime = recipe.value().getTime();
+        int cookTime = recipe.value().time();
         if (cookTime <= 0) {
             cookTime = IncubationRecipe.DEFAULT_TIME;
         }
@@ -95,7 +91,7 @@ public class IncubationCategory implements IRecipeCategory<RecipeHolder<Incubati
     }
 
     protected void drawCookTime(RecipeHolder<IncubationRecipe> recipe, GuiGraphics guiGraphics, int y) {
-        int cookTime = recipe.value().getTime();
+        int cookTime = recipe.value().time();
         if (cookTime > 0) {
             int cookTimeSeconds = cookTime / 20;
             Component timeString = Component.translatable(TheurgyConstants.I18n.Gui.SMELTING_TIME_SECONDS, cookTimeSeconds);
@@ -116,19 +112,19 @@ public class IncubationCategory implements IRecipeCategory<RecipeHolder<Incubati
     public void setRecipe(IRecipeLayoutBuilder builder, RecipeHolder<IncubationRecipe> recipe, @NotNull IFocusGroup focuses) {
         builder.addSlot(INPUT, 1, 1)
                 .setBackground(JeiDrawables.INPUT_SLOT, -1, -1)
-                .addIngredients(recipe.value().getMercury());
+                .addIngredients(recipe.value().mercury());
 
         builder.addSlot(INPUT, 1, 21)
                 .setBackground(JeiDrawables.INPUT_SLOT, -1, -1)
-                .addItemStacks(recipe.value().getSulfur().items().stream().map(ItemStack::new).toList());
+                .addItemStacks(recipe.value().sulfur().items().stream().map(ItemStack::new).toList());
 
         builder.addSlot(INPUT, 1, 42)
                 .setBackground(JeiDrawables.INPUT_SLOT, -1, -1)
-                .addIngredients(recipe.value().getSalt());
+                .addIngredients(recipe.value().salt());
 
         builder.addSlot(OUTPUT, 61, 22)
                 .setBackground(JeiDrawables.OUTPUT_SLOT, -5, -5)
-                .addItemStacks(Arrays.asList(recipe.value().getResult().getStacks()));
+                .addItemStacks(Collections.singletonList(recipe.value().result().getStacks()));
     }
 
     @Override

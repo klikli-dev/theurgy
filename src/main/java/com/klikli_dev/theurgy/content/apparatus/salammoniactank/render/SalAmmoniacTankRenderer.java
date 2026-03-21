@@ -4,6 +4,7 @@
 
 package com.klikli_dev.theurgy.content.apparatus.salammoniactank.render;
 
+import com.geckolib.renderer.GeoBlockRenderer;
 import com.klikli_dev.theurgy.content.apparatus.salammoniactank.SalAmmoniacTankBlockEntity;
 import com.klikli_dev.theurgy.content.render.RenderTypes;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -19,7 +20,6 @@ import net.minecraft.core.Vec3i;
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
-import com.geckolib.renderer.GeoBlockRenderer;
 import org.jspecify.annotations.Nullable;
 
 
@@ -28,6 +28,20 @@ public class SalAmmoniacTankRenderer extends GeoBlockRenderer<SalAmmoniacTankBlo
         super(pContext, new SalAmmoniacTankModel());
     }
 
+    private static void putVertex(VertexConsumer builder, PoseStack.Pose pose, float x, float y, float z, int color, float u, float v, Direction face, int light) {
+        Vec3i normal = face.getUnitVec3i();
+        int a = color >> 24 & 0xff;
+        int r = color >> 16 & 0xff;
+        int g = color >> 8 & 0xff;
+        int b = color & 0xff;
+
+        builder.addVertex(pose.pose(), x, y, z)
+                .setColor(r, g, b, a)
+                .setUv(u, v)
+                .setOverlay(OverlayTexture.NO_OVERLAY)
+                .setLight(light)
+                .setNormal(pose, normal.getX(), normal.getY(), normal.getZ());
+    }
 
     /**
      * See com.simibubi.create.content.fluids.tank.FluidTankRenderer
@@ -99,21 +113,6 @@ public class SalAmmoniacTankRenderer extends GeoBlockRenderer<SalAmmoniacTankBlo
         });
 
         poseStack.popPose();
-    }
-
-    private static void putVertex(VertexConsumer builder, PoseStack.Pose pose, float x, float y, float z, int color, float u, float v, Direction face, int light) {
-        Vec3i normal = face.getUnitVec3i();
-        int a = color >> 24 & 0xff;
-        int r = color >> 16 & 0xff;
-        int g = color >> 8 & 0xff;
-        int b = color & 0xff;
-
-        builder.addVertex(pose.pose(), x, y, z)
-                .setColor(r, g, b, a)
-                .setUv(u, v)
-                .setOverlay(OverlayTexture.NO_OVERLAY)
-                .setLight(light)
-                .setNormal(pose, normal.getX(), normal.getY(), normal.getZ());
     }
 
     public static class RenderState extends BlockEntityRenderState {

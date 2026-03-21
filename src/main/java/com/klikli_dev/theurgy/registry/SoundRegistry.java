@@ -27,7 +27,7 @@ public class SoundRegistry {
      * @return the sound event.
      */
     private static SoundEvent loadSoundEvent(String name) {
-        Identifier location = Identifier.fromNamespaceAndPath(Theurgy.MODID,  name);
+        Identifier location = Identifier.fromNamespaceAndPath(Theurgy.MODID, name);
         return SoundEvent.createVariableRangeEvent(location);
     }
 }

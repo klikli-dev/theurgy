@@ -8,7 +8,10 @@ import com.google.common.graph.GraphBuilder;
 import com.google.common.graph.MutableGraph;
 import com.google.common.graph.Traverser;
 import com.klikli_dev.theurgy.Theurgy;
-import com.klikli_dev.theurgy.content.behaviour.logistics.*;
+import com.klikli_dev.theurgy.content.behaviour.logistics.HasLeafNodeBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.logistics.LeafNodeBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.logistics.LeafNodeMode;
+import com.klikli_dev.theurgy.content.behaviour.logistics.LogisticsNode;
 import com.klikli_dev.theurgy.util.TheurgyExtraCodecs;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -180,7 +183,7 @@ public class Logistics extends SavedData {
                 return null;
             }
 
-            if(!level.isLoaded(pos.pos()))
+            if (!level.isLoaded(pos.pos()))
                 return null;
 
             var blockEntity = level.getBlockEntity(pos.pos());
@@ -206,7 +209,7 @@ public class Logistics extends SavedData {
             return false;
         }
 
-        if(!level.isLoaded(pos.pos()))
+        if (!level.isLoaded(pos.pos()))
             return false;
 
         var blockEntity = level.getBlockEntity(pos.pos());
@@ -284,7 +287,7 @@ public class Logistics extends SavedData {
      */
     public void remove(GlobalPos destroyedBlock) {
         //This is a bit trickier than just removing an edge, because it can theoretically create multiple networks.
-        if(!this.graphNodes().contains(destroyedBlock)){
+        if (!this.graphNodes().contains(destroyedBlock)) {
             return;
         }
 
@@ -408,12 +411,13 @@ public class Logistics extends SavedData {
         return this.graphNodes;
     }
 
-    private Iterable<GlobalPos> getConnected(GlobalPos start){
+    private Iterable<GlobalPos> getConnected(GlobalPos start) {
         return this.getConnected(start, false);
     }
 
     /**
      * Gets all nodes connected to the given node.
+     *
      * @param start the node to get connections fore
      * @param force if false, only traverse graph if this.graphNodes() contains the start node. if true, always traverse. This risks an exception if the graph does not contain the node.
      * @return all nodes connected to the given node.

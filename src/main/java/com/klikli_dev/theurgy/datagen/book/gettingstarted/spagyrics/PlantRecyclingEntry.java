@@ -55,7 +55,7 @@ public class PlantRecyclingEntry extends EntryProvider {
         this.page("recipe1", () -> BookCalcinationRecipePageModel.create()
                 .withRecipeId1("theurgy:calcination/alchemical_salt_plant_from_crops")
                 .withRecipeId2("theurgy:calcination/alchemical_salt_creature_from_plant_salt")
-                );
+        );
 
         this.page("recipe2", () -> BookCalcinationRecipePageModel.create()
                 .withRecipeId1("theurgy:calcination/alchemical_salt_plant_from_logs")

@@ -15,11 +15,11 @@ import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorMercuryVessel
 import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorSaltVesselBlock;
 import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorSulfurVesselBlock;
 import com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron.LiquefactionCauldronBlock;
+import com.klikli_dev.theurgy.content.apparatus.logisticsconnectionnode.LogisticsConnectionNodeBlock;
 import com.klikli_dev.theurgy.content.apparatus.logisticsfluidconnector.extractor.LogisticsFluidExtractorBlock;
 import com.klikli_dev.theurgy.content.apparatus.logisticsfluidconnector.inserter.LogisticsFluidInserterBlock;
 import com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector.extractor.LogisticsItemExtractorBlock;
 import com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector.inserter.LogisticsItemInserterBlock;
-import com.klikli_dev.theurgy.content.apparatus.logisticsconnectionnode.LogisticsConnectionNodeBlock;
 import com.klikli_dev.theurgy.content.apparatus.mercurycatalyst.MercuryCatalystBlock;
 import com.klikli_dev.theurgy.content.apparatus.pyromanticbrazier.PyromanticBrazierBlock;
 import com.klikli_dev.theurgy.content.apparatus.reformationarray.ReformationResultPedestalBlock;
@@ -128,10 +128,10 @@ public class BlockRegistry {
 
     public static final DeferredBlock<SulfuricFluxEmitterBlock> SULFURIC_FLUX_EMITTER =
             BLOCKS.registerBlock("sulfuric_flux_emitter", SulfuricFluxEmitterBlock::new, () -> BlockBehaviour.Properties.of()
-                            .mapColor(MapColor.METAL)
-                            .noOcclusion()
-                            .sound(SoundType.METAL)
-                            .strength(1.0f));
+                    .mapColor(MapColor.METAL)
+                    .noOcclusion()
+                    .sound(SoundType.METAL)
+                    .strength(1.0f));
 
     public static final DeferredBlock<ReformationSourcePedestalBlock> REFORMATION_SOURCE_PEDESTAL =
             BLOCKS.registerBlock("reformation_source_pedestal", ReformationSourcePedestalBlock::new, () -> BlockBehaviour.Properties.of()
@@ -169,44 +169,44 @@ public class BlockRegistry {
 
     public static final DeferredBlock<LogisticsConnectionNodeBlock> LOGISTICS_CONNECTION_NODE =
             BLOCKS.registerBlock("logistics_connector_node", LogisticsConnectionNodeBlock::new, () -> BlockBehaviour.Properties.of()
-                            .strength(0.1f)
-                            .noOcclusion()
-                            .forceSolidOff());
+                    .strength(0.1f)
+                    .noOcclusion()
+                    .forceSolidOff());
 
     public static final DeferredBlock<LogisticsItemInserterBlock> LOGISTICS_ITEM_INSERTER =
             BLOCKS.registerBlock("logistics_item_inserter", LogisticsItemInserterBlock::new, () -> BlockBehaviour.Properties.of()
-                            .strength(0.1f)
-                            .noOcclusion()
-                            .forceSolidOff());
+                    .strength(0.1f)
+                    .noOcclusion()
+                    .forceSolidOff());
 
     public static final DeferredBlock<LogisticsItemExtractorBlock> LOGISTICS_ITEM_EXTRACTOR =
             BLOCKS.registerBlock("logistics_item_extractor", LogisticsItemExtractorBlock::new, () -> BlockBehaviour.Properties.of()
-                            .strength(0.1f)
-                            .noOcclusion()
-                            .forceSolidOff());
+                    .strength(0.1f)
+                    .noOcclusion()
+                    .forceSolidOff());
 
     public static final DeferredBlock<LogisticsFluidInserterBlock> LOGISTICS_FLUID_INSERTER =
             BLOCKS.registerBlock("logistics_fluid_inserter", LogisticsFluidInserterBlock::new, () -> BlockBehaviour.Properties.of()
-                            .strength(0.1f)
-                            .noOcclusion()
-                            .forceSolidOff());
+                    .strength(0.1f)
+                    .noOcclusion()
+                    .forceSolidOff());
 
     public static final DeferredBlock<LogisticsFluidExtractorBlock> LOGISTICS_FLUID_EXTRACTOR =
             BLOCKS.registerBlock("logistics_fluid_extractor", LogisticsFluidExtractorBlock::new, () -> BlockBehaviour.Properties.of()
-                            .strength(0.1f)
-                            .noOcclusion()
-                            .forceSolidOff());
+                    .strength(0.1f)
+                    .noOcclusion()
+                    .forceSolidOff());
 
     public static final DeferredBlock<Block> SAL_AMMONIAC_ORE =
             BLOCKS.registerBlock("sal_ammoniac_ore", p -> new DropExperienceBlock(
-                    UniformInt.of(2, 5), p),
+                            UniformInt.of(2, 5), p),
                     () -> BlockBehaviour.Properties.of()
                             .requiresCorrectToolForDrops()
                             .strength(3.0F, 3.0F));
 
     public static final DeferredBlock<Block> DEEPSLATE_SAL_AMMONIAC_ORE =
             BLOCKS.registerBlock("deepslate_sal_ammoniac_ore", (p) -> new DropExperienceBlock(
-                    UniformInt.of(2, 5), p),
+                            UniformInt.of(2, 5), p),
                     () -> BlockBehaviour.Properties.of()
                             .mapColor(MapColor.DEEPSLATE)
                             .strength(4.5f, 3.0f)

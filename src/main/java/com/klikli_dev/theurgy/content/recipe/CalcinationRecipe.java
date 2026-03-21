@@ -18,13 +18,7 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemStackTemplate;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.item.crafting.RecipeBookCategory;
-import net.minecraft.world.item.crafting.RecipeBookCategories;
-import net.minecraft.world.item.crafting.PlacementInfo;
+import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.common.crafting.SizedIngredient;
 import org.jetbrains.annotations.NotNull;
@@ -40,7 +34,7 @@ public class CalcinationRecipe implements Recipe<ItemHandlerRecipeInput> {
                     Codec.INT.optionalFieldOf("time", DEFAULT_TIME).forGetter(r -> r.time)
             ).apply(instance, CalcinationRecipe::new)
     );
-
+    public static final RecipeSerializer<CalcinationRecipe> SERIALIZER = new RecipeSerializer<>(CODEC, STREAM_CODEC);
     public static final StreamCodec<RegistryFriendlyByteBuf, CalcinationRecipe> STREAM_CODEC = StreamCodec.composite(
             SizedIngredient.STREAM_CODEC,
             r -> r.ingredient,
@@ -50,9 +44,6 @@ public class CalcinationRecipe implements Recipe<ItemHandlerRecipeInput> {
             r -> r.time,
             CalcinationRecipe::new
     );
-
-    public static final RecipeSerializer<CalcinationRecipe> SERIALIZER = new RecipeSerializer<>(CODEC, STREAM_CODEC);
-
     protected final SizedIngredient ingredient;
     protected final ItemStackTemplate result;
     protected final int time;
@@ -63,7 +54,7 @@ public class CalcinationRecipe implements Recipe<ItemHandlerRecipeInput> {
         this.time = time;
     }
 
-    public SizedIngredient sizedIngredient(){
+    public SizedIngredient sizedIngredient() {
         return this.ingredient;
     }
 
@@ -124,7 +115,7 @@ public class CalcinationRecipe implements Recipe<ItemHandlerRecipeInput> {
 
     @Override
     public @NotNull RecipeSerializer<CalcinationRecipe> getSerializer() {
-        return (RecipeSerializer<CalcinationRecipe>) RecipeSerializerRegistry.CALCINATION.get();
+        return RecipeSerializerRegistry.CALCINATION.get();
     }
 
     public int getTime() {

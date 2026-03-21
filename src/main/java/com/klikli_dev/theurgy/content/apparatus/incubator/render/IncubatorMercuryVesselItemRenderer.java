@@ -4,18 +4,18 @@
 
 package com.klikli_dev.theurgy.content.apparatus.incubator.render;
 
-import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorMercuryVesselBlockItem;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.serialization.MapCodec;
-import net.minecraft.client.resources.model.cuboid.ItemTransform;
-import net.minecraft.client.renderer.special.SpecialModelRenderer;
-import net.minecraft.world.item.ItemDisplayContext;
-import org.joml.Vector3f;
 import com.geckolib.constant.DataTickets;
 import com.geckolib.renderer.GeoItemRenderer;
 import com.geckolib.renderer.base.GeoRenderState;
 import com.geckolib.renderer.base.RenderPassInfo;
 import com.geckolib.renderer.internal.GeckolibItemSpecialRenderer;
+import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorMercuryVesselBlockItem;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.serialization.MapCodec;
+import net.minecraft.client.renderer.special.SpecialModelRenderer;
+import net.minecraft.client.resources.model.cuboid.ItemTransform;
+import net.minecraft.world.item.ItemDisplayContext;
+import org.joml.Vector3f;
 
 public class IncubatorMercuryVesselItemRenderer extends GeoItemRenderer<IncubatorMercuryVesselBlockItem> {
 

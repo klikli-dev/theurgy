@@ -8,7 +8,6 @@ import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.registry.CapabilityRegistry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.Identifier;
-import net.neoforged.neoforge.capabilities.Capabilities;
 import org.jetbrains.annotations.Nullable;
 import snownee.jade.api.Accessor;
 import snownee.jade.api.view.*;
@@ -37,6 +36,10 @@ public class MercuryFluxEnergyProvider implements IServerExtensionProvider<Compo
         }
     }
 
+    public static boolean hasDefaultMercuryFluxStorage(Accessor<?> accessor) {
+        return CommonProxy.hasDefaultStorage(accessor, CapabilityRegistry.MERCURY_FLUX_HANDLER, null);
+    }
+
     @Override
     public List<ClientViewGroup<EnergyView>> getClientGroups(Accessor<?> accessor, List<ViewGroup<CompoundTag>> groups) {
         return groups.stream().map($ -> {
@@ -57,9 +60,5 @@ public class MercuryFluxEnergyProvider implements IServerExtensionProvider<Compo
 
     public boolean shouldRequestData(Accessor<?> accessor) {
         return hasDefaultMercuryFluxStorage(accessor);
-    }
-
-    public static boolean hasDefaultMercuryFluxStorage(Accessor<?> accessor) {
-        return CommonProxy.hasDefaultStorage(accessor, CapabilityRegistry.MERCURY_FLUX_HANDLER, null);
     }
 }

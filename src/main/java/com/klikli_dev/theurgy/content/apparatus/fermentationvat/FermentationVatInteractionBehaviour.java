@@ -5,7 +5,6 @@
 package com.klikli_dev.theurgy.content.apparatus.fermentationvat;
 
 import com.klikli_dev.theurgy.TheurgyConstants;
-import com.klikli_dev.theurgy.content.apparatus.digestionvat.DigestionVatBlockEntity;
 import com.klikli_dev.theurgy.content.behaviour.interaction.GenericVatInteractionBehaviour;
 import com.klikli_dev.theurgy.content.recipe.FermentationRecipe;
 import net.minecraft.ChatFormatting;

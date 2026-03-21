@@ -4,12 +4,12 @@
 
 package com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator;
 
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.level.block.Block;
 import com.geckolib.animatable.GeoItem;
 import com.geckolib.animatable.instance.AnimatableInstanceCache;
 import com.geckolib.animatable.manager.AnimatableManager;
 import com.geckolib.util.GeckoLibUtil;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.level.block.Block;
 
 public class SalAmmoniacAccumulatorBlockItem extends BlockItem implements GeoItem {
 

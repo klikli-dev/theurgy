@@ -34,7 +34,7 @@ public class ReformationArrayEntry extends EntryProvider {
                         Reformation is the process of converting sulfurs into other Sulfurs of the same type and tier (such as common gems to common gems).\\
                         Further, it can be used to convert between different types of Niters of the same tier, and to convert Niters into Sulfurs.
                         The reformation array provides the necessary framework to perform this process.
-                         """
+                        """
         );
 
         this.page("about2", () -> BookTextPageModel.create()
@@ -44,7 +44,7 @@ public class ReformationArrayEntry extends EntryProvider {
         this.pageText(
                 """
                         The reformation array provides the necessary framework to perform this process.
-                         """
+                        """
         );
 
         this.page("structure", () -> BookTextPageModel.create()

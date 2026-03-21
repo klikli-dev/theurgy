@@ -37,7 +37,7 @@ public class ReformationArrayCraftingBehaviour extends CraftingBehaviour<Reforma
     @Override
     public boolean isIngredient(ItemStack stack) {
         if (this.blockEntity.getLevel().isClientSide()) return false;
-        return this.recipeCachedCheck.getRecipeFor(this.recipeInputSupplier.get(), (ServerLevel)this.blockEntity.getLevel()).isPresent();
+        return this.recipeCachedCheck.getRecipeFor(this.recipeInputSupplier.get(), (ServerLevel) this.blockEntity.getLevel()).isPresent();
     }
 
     @Override

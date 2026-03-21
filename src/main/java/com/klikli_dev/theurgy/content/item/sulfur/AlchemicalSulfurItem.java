@@ -8,7 +8,6 @@ import com.klikli_dev.theurgy.content.item.derivative.AlchemicalDerivativeItem;
 import com.klikli_dev.theurgy.content.item.derivative.AlchemicalDerivativeTier;
 import com.klikli_dev.theurgy.registry.DataComponentRegistry;
 import net.minecraft.ChatFormatting;
-//import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
@@ -55,16 +54,11 @@ public class AlchemicalSulfurItem extends AlchemicalDerivativeItem {
         return item;
     }
 
-    @Nullable
-    public TagKey<Item> sourceTag() {
-        return this.sourceTag;
-    }
-
     public static AlchemicalSulfurItem ofSource(Item.Properties prop, Item sourceStack, AlchemicalDerivativeTier tier, AlchemicalSulfurType type) {
         return ofSource(prop, BuiltInRegistries.ITEM.wrapAsHolder(sourceStack), tier, type);
     }
 
-    public static AlchemicalSulfurItem ofSource(Item.Properties prop,  Holder<Item> sourceStack, AlchemicalDerivativeTier tier, AlchemicalSulfurType type) {
+    public static AlchemicalSulfurItem ofSource(Item.Properties prop, Holder<Item> sourceStack, AlchemicalDerivativeTier tier, AlchemicalSulfurType type) {
         var item = new AlchemicalSulfurItem(prop
                 .component(
                         DataComponentRegistry.SOURCE_ITEM,
@@ -73,6 +67,11 @@ public class AlchemicalSulfurItem extends AlchemicalDerivativeItem {
         item.tier(tier);
         item.type(type);
         return item;
+    }
+
+    @Nullable
+    public TagKey<Item> sourceTag() {
+        return this.sourceTag;
     }
 
     @Override

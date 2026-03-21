@@ -32,7 +32,7 @@ public class PurifiedGoldEntry extends EntryProvider {
         );
         this.pageText("""
                 Purified Gold acts as a catalyst for Niter Digestion, making the already malleable Niter even more so. This allows Niter to be processed into a higher tier by combining it. The reverse process does not need a catalyst.
-                  """
+                """
         );
 
         this.page("purifying", () -> BookTextPageModel.create()
@@ -44,7 +44,7 @@ public class PurifiedGoldEntry extends EntryProvider {
                         \\
                         \\
                         Instead, any {1} can be used. The Salt will connect with the impurities in the Gold and draw them out.
-                         """,
+                        """,
                 this.itemLink(ItemRegistry.PURIFIED_GOLD.get()),
                 this.itemLink("Alchemical Salt", SaltRegistry.MINERAL.get())
         );

@@ -8,7 +8,6 @@ import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.content.entity.FollowProjectile;
 import com.klikli_dev.theurgy.network.Networking;
 import com.klikli_dev.theurgy.network.messages.MessageSetDivinationResult;
-import com.klikli_dev.theurgy.registry.BlockTagRegistry;
 import com.klikli_dev.theurgy.registry.DataComponentRegistry;
 import com.klikli_dev.theurgy.registry.SoundRegistry;
 import com.klikli_dev.theurgy.scanner.ScanManager;
@@ -17,25 +16,21 @@ import com.klikli_dev.theurgy.util.LevelUtil;
 import com.klikli_dev.theurgy.util.TagUtil;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.ChatFormatting;
-//import net.minecraft.client.renderer.item.ItemPropertyFunction;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.*;
 import net.minecraft.resources.Identifier;
-import net.minecraft.world.InteractionResult;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
-
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.TooltipDisplay;
@@ -45,10 +40,8 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.Collections;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Consumer;
@@ -58,16 +51,15 @@ public class DivinationRodItem extends Item {
 
     public static final float NOT_FOUND = 7.0f;
     public static final float SEARCHING = 8.0f;
-
+    private static final Map<Holder<Block>, ItemStack> linkedBlockCache = new Object2ObjectOpenHashMap<>();
+    private static final Map<TagKey<Block>, ItemStack> linkedTagCache = new Object2ObjectOpenHashMap<>();
     public ToolMaterial defaultTier;
     public TagKey<Block> defaultAllowedBlocksTag;
     public TagKey<Block> defaultDisallowedBlocksTag;
-
     public int defaultRange;
     public int defaultDuration;
     public int defaultDurability;
     public boolean defaultAllowAttuning;
-
     public DivinationRodItem(Properties pProperties, ToolMaterial defaultTier, TagKey<Block> defaultAllowedBlocksTag, TagKey<Block> defaultDisallowedBlocksTag, int defaultRange, int defaultDuration, int defaultDurability, boolean defaultAllowAttuning) {
         super(pProperties
                 .component(DataComponentRegistry.DIVINATION_SETTINGS_TIER, defaultTier)
@@ -86,9 +78,6 @@ public class DivinationRodItem extends Item {
         this.defaultDurability = defaultDurability;
         this.defaultAllowAttuning = defaultAllowAttuning;
     }
-
-    private static final Map<Holder<Block>, ItemStack> linkedBlockCache = new Object2ObjectOpenHashMap<>();
-    private static final Map<TagKey<Block>, ItemStack> linkedTagCache = new Object2ObjectOpenHashMap<>();
 
     public static ItemStack getLinkedBlockStack(ItemStack divinationRod) {
         if (divinationRod.has(DataComponentRegistry.DIVINATION_LINKED_BLOCK))
@@ -132,8 +121,8 @@ public class DivinationRodItem extends Item {
 
             //also search for deepslate ores
             if (linkedBlockId.getPath().contains("_ore") && !linkedBlockId.getPath().contains("deepslate_")) {
-                var deepslateId = Identifier.fromNamespaceAndPath(linkedBlockId.getNamespace(),  "deepslate_" + linkedBlockId.getPath());
-                 var deepslateKey = ResourceKey.create(Registries.BLOCK, deepslateId);
+                var deepslateId = Identifier.fromNamespaceAndPath(linkedBlockId.getNamespace(), "deepslate_" + linkedBlockId.getPath());
+                var deepslateKey = ResourceKey.create(Registries.BLOCK, deepslateId);
                 deepslateBlock = BuiltInRegistries.BLOCK.get(deepslateKey).map(Holder::value).orElse(null);
             }
 
@@ -278,7 +267,7 @@ public class DivinationRodItem extends Item {
                                 stack.get(DataComponentRegistry.DIVINATION_LINKED_TAG),
                                 stack.getOrDefault(DataComponentRegistry.DIVINATION_SETTINGS_RANGE, this.defaultRange),
                                 stack.getOrDefault(DataComponentRegistry.DIVINATION_SETTINGS_DURATION, this.defaultDuration));
-                    } else if(stack.has(DataComponentRegistry.DIVINATION_LINKED_BLOCK)){
+                    } else if (stack.has(DataComponentRegistry.DIVINATION_LINKED_BLOCK)) {
                         scanLinkedBlock(player,
                                 stack.get(DataComponentRegistry.DIVINATION_LINKED_BLOCK),
                                 stack.getOrDefault(DataComponentRegistry.DIVINATION_SETTINGS_RANGE, this.defaultRange),
@@ -340,7 +329,7 @@ public class DivinationRodItem extends Item {
 
     @Override
     public boolean releaseUsing(ItemStack stack, Level level, LivingEntity pLivingEntity, int pTimeCharged) {
-        if(!stack.has(DataComponentRegistry.DIVINATION_POS))
+        if (!stack.has(DataComponentRegistry.DIVINATION_POS))
             //player interrupted, so we can safely set not found on server, if we don't have a previous result
             stack.set(DataComponentRegistry.DIVINATION_DISTANCE, NOT_FOUND);
         else {
@@ -497,6 +486,7 @@ public class DivinationRodItem extends Item {
             return stack.get(DataComponentRegistry.DIVINATION_DISTANCE);
         };
         */
-        public static void todo() {} // Placeholder
+        public static void todo() {
+        } // Placeholder
     }
 }

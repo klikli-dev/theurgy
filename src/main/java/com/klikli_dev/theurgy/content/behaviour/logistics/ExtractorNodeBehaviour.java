@@ -8,8 +8,6 @@ import com.klikli_dev.theurgy.content.behaviour.logistics.distribution.Distribut
 import com.klikli_dev.theurgy.content.behaviour.logistics.distribution.Distributor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.GlobalPos;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
@@ -126,7 +124,7 @@ public abstract class ExtractorNodeBehaviour<T, C> extends LeafNodeBehaviour<T, 
 
     protected void addInsertTarget(InserterNodeBehaviour<T, C> inserter, BlockCapabilityCache<T, C> capability) {
         var insertTarget = new InsertTarget<>(inserter, capability);
-        if (!this.insertTargets().contains(insertTarget)){
+        if (!this.insertTargets().contains(insertTarget)) {
             this.insertTargets().add(insertTarget);
             this.distributor.onTargetsChanged();
         }
@@ -137,7 +135,7 @@ public abstract class ExtractorNodeBehaviour<T, C> extends LeafNodeBehaviour<T, 
     }
 
     protected void removeInsertTarget(ResourceKey<Level> dimension, BlockPos pos) {
-        if(this.insertTargets().removeIf(cached -> cached.capability().level().dimension().equals(dimension) && cached.capability().pos().equals(pos))){
+        if (this.insertTargets().removeIf(cached -> cached.capability().level().dimension().equals(dimension) && cached.capability().pos().equals(pos))) {
             this.distributor.onTargetsChanged();
         }
     }

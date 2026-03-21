@@ -8,9 +8,9 @@ import com.klikli_dev.modonomicon.api.datagen.AbstractModonomiconLanguageProvide
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.content.behaviour.filter.attribute.*;
-import com.klikli_dev.theurgy.content.item.salt.AlchemicalSaltItem;
 import com.klikli_dev.theurgy.content.item.derivative.AlchemicalDerivativeTier;
 import com.klikli_dev.theurgy.content.item.niter.AlchemicalNiterItem;
+import com.klikli_dev.theurgy.content.item.salt.AlchemicalSaltItem;
 import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurItem;
 import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurType;
 import com.klikli_dev.theurgy.registry.*;
@@ -202,7 +202,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_LOGS_COMMON, "Alchemical Sulfurs: Common Logs");
         this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_LOGS_RARE, "Alchemical Sulfurs: Rare Logs");
         this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_LOGS_PRECIOUS, "Alchemical Sulfurs: Precious Logs");
-        
+
         this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_CROPS, "Alchemical Sulfurs: Crops");
         this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_CROPS_ABUNDANT, "Alchemical Sulfurs: Abundant Crops");
         this.addItemTag(ItemTagRegistry.ALCHEMICAL_SULFURS_CROPS_COMMON, "Alchemical Sulfurs: Common Crops");
@@ -1106,16 +1106,16 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
                         """
         );
         this.addDynamicTooltip(ItemRegistry.COPPER_WIRE,
-            this.f("""
-            Linked to %1$s (Highlighted in yellow in the world).
-            
-            {0} another connector block to create wire connection.
-            {1} the air or a non-connector block to unlink.
-            {0} another connector block already wired to %1$s to remove the wire.
-            """,
-                    this.green("Right-Click"),
-                    this.green("Shift-Right-Click")
-            )
+                this.f("""
+                                Linked to %1$s (Highlighted in yellow in the world).
+                                
+                                {0} another connector block to create wire connection.
+                                {1} the air or a non-connector block to unlink.
+                                {0} another connector block already wired to %1$s to remove the wire.
+                                """,
+                        this.green("Right-Click"),
+                        this.green("Shift-Right-Click")
+                )
         );
 
         this.addItem(ItemRegistry.MERCURIAL_WAND, "Mercurial Wand");
@@ -1160,20 +1160,20 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.addItem(ItemRegistry.LIST_FILTER, "Mercurial List Filter");
         this.addUsageTooltip(ItemRegistry.LIST_FILTER,
                 this.f("""
-                        {0} the air to open the filter GUI and add items.
-                        {0} a logistics inserter or extractor to apply the filter.
-                        {0} a filtered block with an empty hand to remove the filter.
-                        """,
+                                {0} the air to open the filter GUI and add items.
+                                {0} a logistics inserter or extractor to apply the filter.
+                                {0} a filtered block with an empty hand to remove the filter.
+                                """,
                         this.green("Right-Click")
                 )
         );
         this.addItem(ItemRegistry.ATTRIBUTE_FILTER, "Mercurial Attribute Filter");
         this.addUsageTooltip(ItemRegistry.ATTRIBUTE_FILTER,
                 this.f("""
-                        {0} the air to open the filter GUI and add items.
-                        {0} a logistics inserter or extractor to apply the filter.
-                        {0} a filtered block with an empty hand to remove the filter.
-                        """,
+                                {0} the air to open the filter GUI and add items.
+                                {0} a logistics inserter or extractor to apply the filter.
+                                {0} a filtered block with an empty hand to remove the filter.
+                                """,
                         this.green("Right-Click")
                 )
         );

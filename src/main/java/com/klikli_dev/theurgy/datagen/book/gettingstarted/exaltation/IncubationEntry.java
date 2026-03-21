@@ -35,7 +35,7 @@ public class IncubationEntry extends EntryProvider {
                         \\
                         \\
                         Simply follow the steps you already know from {0}.
-                            """,
+                        """,
                 this.entryLink("Incubation", GettingStartedCategoryProvider.CATEGORY_ID, com.klikli_dev.theurgy.datagen.book.gettingstarted.spagyrics.IncubationEntry.ENTRY_ID)
         );
 

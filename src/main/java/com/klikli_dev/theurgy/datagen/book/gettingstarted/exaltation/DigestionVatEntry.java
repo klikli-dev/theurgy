@@ -36,7 +36,7 @@ public class DigestionVatEntry extends EntryProvider {
                         \\
                         \\
                         View the {0} Category on how to craft and use the required apparatus.
-                         """,
+                        """,
                 this.entryLink("Apparatus", ApparatusCategory.CATEGORY_ID, com.klikli_dev.theurgy.datagen.book.apparatus.transmutationandexaltation.TransmutationAndExaltationEntry.ENTRY_ID)
         );
 
@@ -46,7 +46,7 @@ public class DigestionVatEntry extends EntryProvider {
         this.pageTitle("Reformation Array");
         this.pageText("""
                         Once again you need to set up a reformation array, the usage was already discussed in the {0} and following entries.
-                         """,
+                        """,
                 this.entryLink("Reformation Array", GettingStartedCategoryProvider.CATEGORY_ID, ReformationArrayEntry.ENTRY_ID)
         );
 

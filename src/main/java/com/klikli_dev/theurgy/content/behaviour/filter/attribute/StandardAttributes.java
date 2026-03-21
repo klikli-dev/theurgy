@@ -10,14 +10,12 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.equipment.Equippable;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.ComposterBlock;
-import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.transfer.access.ItemAccess;
 
@@ -59,8 +57,8 @@ public enum StandardAttributes implements ItemAttribute {
 
     private static boolean testRecipe(ItemStack s, Level level, RecipeType<? extends Recipe<SingleRecipeInput>> type) {
         var input = new SingleRecipeInput(s);
-        return ((net.minecraft.server.level.ServerLevel)level).getServer().getRecipeManager()
-                .getRecipeFor(type, input, (net.minecraft.server.level.ServerLevel)level)
+        return ((net.minecraft.server.level.ServerLevel) level).getServer().getRecipeManager()
+                .getRecipeFor(type, input, level)
                 .isPresent();
     }
 

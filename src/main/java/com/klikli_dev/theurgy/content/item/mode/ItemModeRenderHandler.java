@@ -12,7 +12,8 @@ import net.minecraft.world.phys.BlockHitResult;
 public class ItemModeRenderHandler<T extends ItemMode> {
 
     protected final T mode;
-    public ItemModeRenderHandler(T mode){
+
+    public ItemModeRenderHandler(T mode) {
         this.mode = mode;
     }
 

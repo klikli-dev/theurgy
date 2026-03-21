@@ -13,7 +13,6 @@ import com.klikli_dev.theurgy.content.recipe.result.RecipeResult;
 import com.klikli_dev.theurgy.registry.*;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.Identifier;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStackTemplate;
@@ -233,7 +232,7 @@ public class IncubationRecipeProvider extends JsonRecipeProvider {
         this.makeRecipe(Items.PUFFERFISH, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.CREATURE.get(), SulfurRegistry.PUFFERFISH.get());
         this.makeRecipe(Items.TURTLE_SCUTE, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.CREATURE.get(), SulfurRegistry.TURTLE_SCUTE.get());
         this.makeRecipe(Items.ARMADILLO_SCUTE, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.CREATURE.get(), SulfurRegistry.ARMADILLO_SCUTE.get());
-        
+
         this.makeRecipe(Items.DIRT, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.STRATA.get(), SulfurRegistry.DIRT.get());
         this.makeRecipe(Items.COARSE_DIRT, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.STRATA.get(), SulfurRegistry.COARSE_DIRT.get());
         this.makeRecipe(Items.PODZOL, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.STRATA.get(), SulfurRegistry.PODZOL.get());

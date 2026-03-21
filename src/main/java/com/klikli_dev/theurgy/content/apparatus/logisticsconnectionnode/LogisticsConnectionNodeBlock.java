@@ -26,7 +26,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -36,7 +35,6 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,11 +65,11 @@ public class LogisticsConnectionNodeBlock extends DirectionalBlock implements Ha
 
     @Override
     protected InteractionResult useItemOn(ItemStack pStack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHitResult) {
-        if(!pLevel.isClientSide() && pHand == InteractionHand.MAIN_HAND && pPlayer.getMainHandItem().isEmpty()){
+        if (!pLevel.isClientSide() && pHand == InteractionHand.MAIN_HAND && pPlayer.getMainHandItem().isEmpty()) {
             List<Pair<BlockPos, Integer>> result = new ArrayList<>();
             var connected = Logistics.get().getNetwork(GlobalPos.of(pLevel.dimension(), pPos));
 
-            if(connected != null){
+            if (connected != null) {
                 for (var block : connected.nodes()) {
                     if (block.dimension().equals(pLevel.dimension())) {
                         result.add(Pair.of(block.pos(), 0xFFFFF00));

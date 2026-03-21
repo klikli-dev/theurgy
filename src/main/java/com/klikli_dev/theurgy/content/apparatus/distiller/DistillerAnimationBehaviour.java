@@ -4,10 +4,10 @@
 
 package com.klikli_dev.theurgy.content.apparatus.distiller;
 
-import com.klikli_dev.theurgy.content.behaviour.animation.AnimationBehaviour;
-import com.geckolib.animation.state.AnimationTest;
-import com.geckolib.animation.object.PlayState;
 import com.geckolib.animation.RawAnimation;
+import com.geckolib.animation.object.PlayState;
+import com.geckolib.animation.state.AnimationTest;
+import com.klikli_dev.theurgy.content.behaviour.animation.AnimationBehaviour;
 
 public class DistillerAnimationBehaviour extends AnimationBehaviour<DistillerBlockEntity> {
 

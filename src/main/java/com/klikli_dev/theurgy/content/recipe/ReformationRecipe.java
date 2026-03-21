@@ -5,7 +5,6 @@
 package com.klikli_dev.theurgy.content.recipe;
 
 import com.klikli_dev.theurgy.content.recipe.input.ReformationArrayRecipeInput;
-import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.RecipeSerializerRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import com.mojang.serialization.Codec;
@@ -18,15 +17,7 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemStackTemplate;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.item.crafting.RecipeBookCategory;
-import net.minecraft.world.item.crafting.RecipeBookCategories;
-import net.minecraft.world.item.crafting.RecipeBookCategory;
-import net.minecraft.world.item.crafting.RecipeBookCategories;
-import net.minecraft.world.item.crafting.PlacementInfo;
+import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.common.crafting.SizedIngredient;
 import org.jetbrains.annotations.NotNull;
@@ -47,7 +38,7 @@ public class ReformationRecipe implements Recipe<ReformationArrayRecipeInput> {
                     Codec.INT.optionalFieldOf("time", DEFAULT_TIME).forGetter(r -> r.time)
             ).apply(instance, ReformationRecipe::new)
     );
-
+    public static final RecipeSerializer<ReformationRecipe> SERIALIZER = new RecipeSerializer<>(CODEC, STREAM_CODEC);
     public static final StreamCodec<RegistryFriendlyByteBuf, ReformationRecipe> STREAM_CODEC = StreamCodec.composite(
             SizedIngredient.STREAM_CODEC.apply(ByteBufCodecs.list()),
             r -> r.sources,
@@ -61,9 +52,6 @@ public class ReformationRecipe implements Recipe<ReformationArrayRecipeInput> {
             r -> r.time,
             ReformationRecipe::new
     );
-
-    public static final RecipeSerializer<ReformationRecipe> SERIALIZER = new RecipeSerializer<>(CODEC, STREAM_CODEC);
-
     protected final List<SizedIngredient> sources;
     protected final NonNullList<Ingredient> sourcesNonNullList;
     protected final Ingredient target;
@@ -181,7 +169,7 @@ public class ReformationRecipe implements Recipe<ReformationArrayRecipeInput> {
 
     @Override
     public @NotNull RecipeSerializer<ReformationRecipe> getSerializer() {
-        return (RecipeSerializer<ReformationRecipe>) RecipeSerializerRegistry.REFORMATION.get();
+        return RecipeSerializerRegistry.REFORMATION.get();
     }
 
     @Override

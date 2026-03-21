@@ -8,7 +8,6 @@ package com.klikli_dev.theurgy.content.recipe;
 import com.klikli_dev.theurgy.content.recipe.input.ItemHandlerWithFluidRecipeInput;
 import com.klikli_dev.theurgy.content.storage.FluidStorageHelper;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
-import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.RecipeSerializerRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import com.mojang.serialization.Codec;
@@ -21,15 +20,8 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemStackTemplate;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.item.crafting.RecipeBookCategory;
-import net.minecraft.world.item.crafting.RecipeBookCategories;
-import net.minecraft.world.item.crafting.PlacementInfo;
+import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
-import net.neoforged.neoforge.fluids.crafting.FluidIngredient;
 import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 import org.jetbrains.annotations.NotNull;
 
@@ -45,7 +37,7 @@ public class LiquefactionRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
                     Codec.INT.optionalFieldOf("time", DEFAULT_TIME).forGetter(r -> r.time)
             ).apply(instance, LiquefactionRecipe::new)
     );
-
+    public static final RecipeSerializer<LiquefactionRecipe> SERIALIZER = new RecipeSerializer<>(CODEC, STREAM_CODEC);
     public static final StreamCodec<RegistryFriendlyByteBuf, LiquefactionRecipe> STREAM_CODEC = StreamCodec.composite(
             Ingredient.CONTENTS_STREAM_CODEC,
             r -> r.ingredient,
@@ -57,9 +49,6 @@ public class LiquefactionRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
             r -> r.time,
             LiquefactionRecipe::new
     );
-
-    public static final RecipeSerializer<LiquefactionRecipe> SERIALIZER = new RecipeSerializer<>(CODEC, STREAM_CODEC);
-
     protected final Ingredient ingredient;
     protected final SizedFluidIngredient solvent;
     protected final ItemStackTemplate result;
@@ -129,7 +118,7 @@ public class LiquefactionRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
 
     @Override
     public @NotNull RecipeSerializer<LiquefactionRecipe> getSerializer() {
-        return (RecipeSerializer<LiquefactionRecipe>) RecipeSerializerRegistry.LIQUEFACTION.get();
+        return RecipeSerializerRegistry.LIQUEFACTION.get();
     }
 
     public int getTime() {

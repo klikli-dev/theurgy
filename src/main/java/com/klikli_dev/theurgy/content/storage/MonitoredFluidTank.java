@@ -84,6 +84,19 @@ public class MonitoredFluidTank extends FluidStacksResourceHandler {
         return FluidStorageHelper.getFluidInTank(this, 0);
     }
 
+    public void setFluid(FluidStack newStack) {
+        var oldStack = this.getFluid().copy();
+
+        boolean sameFluid = FluidStack.isSameFluidSameComponents(newStack, oldStack);
+
+        super.set(0, FluidResource.of(newStack), newStack.getAmount());
+
+        this.onSetFluid(oldStack, newStack, sameFluid);
+        if (!sameFluid || oldStack.isEmpty() != newStack.isEmpty()) {
+            this.onContentTypeChanged(oldStack, newStack);
+        }
+    }
+
     public int getFluidAmount() {
         return this.getAmountAsInt(0);
     }
@@ -141,19 +154,6 @@ public class MonitoredFluidTank extends FluidStacksResourceHandler {
         }
 
         return FluidStorageHelper.drain(this, maxDrain, true);
-    }
-
-    public void setFluid(FluidStack newStack) {
-        var oldStack = this.getFluid().copy();
-
-        boolean sameFluid = FluidStack.isSameFluidSameComponents(newStack, oldStack);
-
-        super.set(0, FluidResource.of(newStack), newStack.getAmount());
-
-        this.onSetFluid(oldStack, newStack, sameFluid);
-        if (!sameFluid || oldStack.isEmpty() != newStack.isEmpty()) {
-            this.onContentTypeChanged(oldStack, newStack);
-        }
     }
 
     public boolean isEmpty() {

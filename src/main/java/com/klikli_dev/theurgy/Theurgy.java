@@ -10,22 +10,19 @@ import com.klikli_dev.theurgy.config.ServerConfig;
 import com.klikli_dev.theurgy.content.apparatus.calcinationoven.render.CalcinationOvenRenderer;
 import com.klikli_dev.theurgy.content.apparatus.digestionvat.DigestionVatRenderer;
 import com.klikli_dev.theurgy.content.apparatus.distiller.render.DistillerRenderer;
-//import com.klikli_dev.theurgy.content.apparatus.incubator.render.*;
 import com.klikli_dev.theurgy.content.apparatus.incubator.render.IncubatorMercuryVesselRenderer;
 import com.klikli_dev.theurgy.content.apparatus.incubator.render.IncubatorSaltVesselRenderer;
 import com.klikli_dev.theurgy.content.apparatus.incubator.render.IncubatorSulfurVesselRenderer;
-
 import com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron.render.LiquefactionCauldronRenderer;
 import com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator.render.SalAmmoniacAccumulatorRenderer;
 import com.klikli_dev.theurgy.content.apparatus.salammoniactank.render.SalAmmoniacTankRenderer;
-//import com.klikli_dev.theurgy.content.item.derivative.render.AlchemicalDerivativeBEWLR;
+import com.klikli_dev.theurgy.content.item.derivative.AlchemicalDerivativeItem;
+import com.klikli_dev.theurgy.content.item.renderer.DivinationDistanceProperty;
+import com.klikli_dev.theurgy.content.item.salt.AlchemicalSaltItem;
 import com.klikli_dev.theurgy.content.item.wire.WireItem;
 import com.klikli_dev.theurgy.content.render.*;
 import com.klikli_dev.theurgy.content.render.itemhud.ItemHUD;
 import com.klikli_dev.theurgy.content.render.outliner.Outliner;
-//import com.klikli_dev.theurgy.datagen.TheurgyDataGenerators;
-//import com.klikli_dev.theurgy.integration.modonomicon.PageLoaders;
-//import com.klikli_dev.theurgy.integration.modonomicon.PageRenderers;
 import com.klikli_dev.theurgy.datagen.TheurgyDataGenerators;
 import com.klikli_dev.theurgy.integration.modonomicon.PageLoaders;
 import com.klikli_dev.theurgy.integration.modonomicon.PageRenderers;
@@ -36,14 +33,9 @@ import com.klikli_dev.theurgy.logistics.Wires;
 import com.klikli_dev.theurgy.network.Networking;
 import com.klikli_dev.theurgy.registry.*;
 import com.klikli_dev.theurgy.tooltips.TooltipHandler;
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
-//import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
-//import net.minecraft.client.renderer.item.ItemProperties;
-import com.klikli_dev.theurgy.content.item.derivative.AlchemicalDerivativeItem;
-import com.klikli_dev.theurgy.content.item.salt.AlchemicalSaltItem;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -58,25 +50,16 @@ import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLDedicatedServerSetupEvent;
 import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.client.event.*;
-//import net.neoforged.neoforge.client.event.RegisterItemColorHandlersEvent;
-//import net.neoforged.neoforge.client.event.RegisterBlockColorHandlersEvent;
-
 import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
-//import net.neoforged.neoforge.client.model.DynamicFluidContainerModel;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
-
-
-import com.klikli_dev.theurgy.content.item.renderer.DivinationDistanceProperty;
-
-import java.lang.reflect.Modifier;
 
 @Mod(Theurgy.MODID)
 public class Theurgy {
@@ -279,7 +262,7 @@ public class Theurgy {
             event.registerBlockEntityRenderer(BlockEntityRegistry.DIGESTION_VAT.get(), DigestionVatRenderer::new);
         }
 
-        public static void onRegisterItemProperties(RegisterRangeSelectItemModelPropertyEvent  event) {
+        public static void onRegisterItemProperties(RegisterRangeSelectItemModelPropertyEvent event) {
             event.register(Theurgy.loc("divination_distance"), DivinationDistanceProperty.MAP_CODEC);
         }
 

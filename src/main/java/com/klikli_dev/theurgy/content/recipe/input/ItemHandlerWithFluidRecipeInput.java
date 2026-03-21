@@ -4,8 +4,8 @@
 
 package com.klikli_dev.theurgy.content.recipe.input;
 
-import com.klikli_dev.theurgy.content.storage.SettableItemStorage;
 import com.klikli_dev.theurgy.content.storage.FluidStorageHelper;
+import com.klikli_dev.theurgy.content.storage.SettableItemStorage;
 import net.neoforged.neoforge.transfer.ResourceHandler;
 import net.neoforged.neoforge.transfer.fluid.FluidResource;
 

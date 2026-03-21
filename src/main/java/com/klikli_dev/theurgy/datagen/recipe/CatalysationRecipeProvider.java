@@ -8,7 +8,6 @@ import com.google.gson.JsonObject;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.content.recipe.CatalysationRecipe;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
-import com.mojang.serialization.JsonOps;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.crafting.Ingredient;

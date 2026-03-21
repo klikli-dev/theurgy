@@ -32,7 +32,7 @@ public class BookDistillationRecipePage extends BookProcessingRecipePage<Distill
         var common = BookRecipePage.commonFromNetwork(buffer);
         return new BookDistillationRecipePage(common);
     }
-    
+
     @Override
     public Identifier getType() {
         return TheurgyModonomiconConstants.Page.DISTILLATION_RECIPE;

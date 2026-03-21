@@ -11,30 +11,23 @@ import com.klikli_dev.theurgy.registry.RecipeSerializerRegistry;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.*;
-import net.neoforged.neoforge.common.Tags;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 
 public class DivinationRodRecipe extends ShapedRecipe {
-    protected final String group;
-    protected final ShapedRecipePattern pattern;
-    protected final ItemStackTemplate result;
-
     public static final MapCodec<DivinationRodRecipe> CODEC = RecordCodecBuilder.mapCodec(
             instance -> instance.group(
                             Codec.STRING.optionalFieldOf("group", "").forGetter(r -> r.group),
@@ -44,7 +37,6 @@ public class DivinationRodRecipe extends ShapedRecipe {
                     )
                     .apply(instance, DivinationRodRecipe::new)
     );
-
     public static final StreamCodec<RegistryFriendlyByteBuf, DivinationRodRecipe> STREAM_CODEC = StreamCodec.composite(
             ByteBufCodecs.STRING_UTF8,
             r -> r.group,
@@ -56,8 +48,10 @@ public class DivinationRodRecipe extends ShapedRecipe {
             ShapedRecipe::showNotification,
             DivinationRodRecipe::new
     );
-
     public static final RecipeSerializer<DivinationRodRecipe> SERIALIZER = new RecipeSerializer<>(CODEC, STREAM_CODEC);
+    protected final String group;
+    protected final ShapedRecipePattern pattern;
+    protected final ItemStackTemplate result;
 
     public DivinationRodRecipe(@NotNull String pGroup, @NotNull ShapedRecipePattern pPattern, @NotNull ItemStackTemplate pResult, boolean pShowNotification) {
         super(new Recipe.CommonInfo(pShowNotification), new CraftingRecipe.CraftingBookInfo(CraftingBookCategory.MISC, pGroup), pPattern, pResult);
@@ -154,7 +148,7 @@ public class DivinationRodRecipe extends ShapedRecipe {
         }
 
         //netherite is a special case
-        if (path.contains("/netherite")){
+        if (path.contains("/netherite")) {
             translatedPath = translatedPath.replace("/netherite", "/netherite_scrap");
         }
 

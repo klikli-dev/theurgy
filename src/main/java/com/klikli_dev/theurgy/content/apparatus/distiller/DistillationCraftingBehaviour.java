@@ -15,7 +15,6 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.common.util.Lazy;
 
-
 import java.util.function.Supplier;
 
 public class DistillationCraftingBehaviour extends CraftingBehaviour<ItemHandlerRecipeInput, DistillationRecipe, DistillationCachedCheck> {

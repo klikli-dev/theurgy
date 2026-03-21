@@ -63,7 +63,7 @@ public class CalcinationOvenEntry extends EntryProvider {
         this.pageText(
                 """
                         If the {0} is working properly, it will show the orange rings moving slightly.
-                                      """,
+                        """,
                 this.itemLink(ItemRegistry.CALCINATION_OVEN.get())
         );
     }

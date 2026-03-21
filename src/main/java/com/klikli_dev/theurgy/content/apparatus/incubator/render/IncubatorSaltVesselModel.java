@@ -4,11 +4,11 @@
 
 package com.klikli_dev.theurgy.content.apparatus.incubator.render;
 
-import com.klikli_dev.theurgy.Theurgy;
-import net.minecraft.resources.Identifier;
 import com.geckolib.animatable.GeoAnimatable;
 import com.geckolib.model.GeoModel;
 import com.geckolib.renderer.base.GeoRenderState;
+import com.klikli_dev.theurgy.Theurgy;
+import net.minecraft.resources.Identifier;
 
 public class IncubatorSaltVesselModel<T extends GeoAnimatable> extends GeoModel<T> {
     @Override

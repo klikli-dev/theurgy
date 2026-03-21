@@ -9,7 +9,6 @@ import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
 import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookCraftingRecipePageModel;
-import com.klikli_dev.modonomicon.api.datagen.book.page.BookImagePageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.klikli_dev.theurgy.Theurgy;
@@ -42,11 +41,11 @@ public class ListFilterEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Usage");
         this.pageText("""
-               1. Right-click with the filter in hand to open the filter GUI.
-               2. Place items in the filter and set it to either allow or deny these items.
-               3. Optionally set the filter whether or not to match data components.
-               4. Right-click an inserter or extractor with the filter to apply it.
-               """
+                1. Right-click with the filter in hand to open the filter GUI.
+                2. Place items in the filter and set it to either allow or deny these items.
+                3. Optionally set the filter whether or not to match data components.
+                4. Right-click an inserter or extractor with the filter to apply it.
+                """
         );
 
         this.page("removal", () -> BookTextPageModel.create()
@@ -54,9 +53,9 @@ public class ListFilterEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Removal");
         this.pageText("""
-               1. Shift-right-click with an empty hand on an inserter or extractor to remove the filter.
-               2. The filter will be returned to the player's inventory.
-               """
+                1. Shift-right-click with an empty hand on an inserter or extractor to remove the filter.
+                2. The filter will be returned to the player's inventory.
+                """
         );
     }
 

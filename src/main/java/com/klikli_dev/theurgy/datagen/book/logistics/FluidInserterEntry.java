@@ -42,10 +42,10 @@ public class FluidInserterEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Usage");
         this.pageText("""
-               Right-click a block that has a fluid tank to attach the inserter to it.
-               \\
-               \\
-               The inserter will by default insert into the face it is attached to. This only matters if the block has multiple fluid tanks accessible from different block faces.
+                Right-click a block that has a fluid tank to attach the inserter to it.
+                \\
+                \\
+                The inserter will by default insert into the face it is attached to. This only matters if the block has multiple fluid tanks accessible from different block faces.
                 """
         );
 
@@ -54,7 +54,7 @@ public class FluidInserterEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Identification");
         this.pageText("""
-               The inserter features a green band on the side attached to the target block.
+                The inserter features a green band on the side attached to the target block.
                 """
         );
 
@@ -63,8 +63,8 @@ public class FluidInserterEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Changing Direction");
         this.pageText("""
-               Inserters can also insert into faces they are not attached to. Use the {0} in the "Select Direction" mode to cycle through the insert directions.
-                """,
+                        Inserters can also insert into faces they are not attached to. Use the {0} in the "Select Direction" mode to cycle through the insert directions.
+                        """,
                 this.entryLink("Mercurial Wand", LogisticsCategory.CATEGORY_ID, MercurialWandEntry.ENTRY_ID)
         );
     }

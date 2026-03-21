@@ -57,7 +57,7 @@ public class IncubatorCraftingBehaviour extends CraftingBehaviour<IncubatorRecip
 
     @Override
     protected int getCraftingTime(RecipeHolder<IncubationRecipe> recipe) {
-        return recipe.value().getTime();
+        return recipe.value().time();
     }
 
     @Override

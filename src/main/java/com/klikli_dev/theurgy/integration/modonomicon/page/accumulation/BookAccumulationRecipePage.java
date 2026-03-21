@@ -5,10 +5,10 @@
 package com.klikli_dev.theurgy.integration.modonomicon.page.accumulation;
 
 import com.google.gson.JsonObject;
+import com.klikli_dev.modonomicon.Modonomicon;
 import com.klikli_dev.modonomicon.book.BookTextHolder;
 import com.klikli_dev.modonomicon.book.entries.BookContentEntry;
 import com.klikli_dev.modonomicon.book.page.BookRecipePage;
-import com.klikli_dev.modonomicon.Modonomicon;
 import com.klikli_dev.theurgy.content.recipe.AccumulationRecipe;
 import com.klikli_dev.theurgy.content.recipe.display.AccumulationRecipeDisplay;
 import com.klikli_dev.theurgy.integration.modonomicon.TheurgyModonomiconConstants;

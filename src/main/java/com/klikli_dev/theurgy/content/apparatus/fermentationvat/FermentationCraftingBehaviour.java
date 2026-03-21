@@ -19,7 +19,6 @@ import net.neoforged.neoforge.transfer.ResourceHandler;
 import net.neoforged.neoforge.transfer.fluid.FluidResource;
 
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -62,7 +61,7 @@ public class FermentationCraftingBehaviour extends CraftingBehaviour<ItemHandler
         return this.isIngredient(stack);
     }
 
-    public void onInputChanged(){
+    public void onInputChanged() {
         this.recipeCachedCheck.resetNoRecipeForLastItemHandlerInput();
     }
 

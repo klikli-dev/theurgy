@@ -4,12 +4,12 @@
 
 package com.klikli_dev.theurgy.content.behaviour.animation;
 
-import net.minecraft.world.level.block.entity.BlockEntity;
 import com.geckolib.animatable.GeoBlockEntity;
 import com.geckolib.animatable.instance.AnimatableInstanceCache;
-import com.geckolib.animation.state.AnimationTest;
 import com.geckolib.animation.object.PlayState;
+import com.geckolib.animation.state.AnimationTest;
 import com.geckolib.util.GeckoLibUtil;
+import net.minecraft.world.level.block.entity.BlockEntity;
 
 public abstract class AnimationBehaviour<T extends BlockEntity & GeoBlockEntity> {
 

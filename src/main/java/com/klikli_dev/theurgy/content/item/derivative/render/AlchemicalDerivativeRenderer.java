@@ -83,8 +83,8 @@ public class AlchemicalDerivativeRenderer implements SpecialModelRenderer<ItemSt
                 // Mimic the transforms from BEWLR
                 float pixel = 1f / 16f;
                 // Original transform logic comment:
-                poseStack.translate(0, 0, pixel * 0.6); 
-                poseStack.translate(0, -pixel * 3.2, 0); 
+                poseStack.translate(0, 0, pixel * 0.6);
+                poseStack.translate(0, -pixel * 3.2, 0);
                 poseStack.scale(0.74F, 0.74F, 0.01F);
 
 

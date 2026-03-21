@@ -21,7 +21,7 @@ public class EntityUtil {
             if (level instanceof ClientLevel clientLevel) {
                 var sectionPos = SectionPos.asLong(entity.blockPosition());
                 var section = clientLevel.entityStorage.sectionStorage.getOrCreateSection(sectionPos);
-                if(onlyInTickingChunks && !section.getStatus().isTicking()){
+                if (onlyInTickingChunks && !section.getStatus().isTicking()) {
                     return;
                 }
                 clientLevel.addEntity(entity); //client only spawn of entity

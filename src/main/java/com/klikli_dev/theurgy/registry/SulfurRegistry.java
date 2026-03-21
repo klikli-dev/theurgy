@@ -22,7 +22,6 @@ import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.function.Function;
-import java.util.function.Supplier;
 
 public class SulfurRegistry {
     public static final DeferredRegister.Items SULFURS = DeferredRegister.createItems(Theurgy.MODID);

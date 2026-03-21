@@ -60,18 +60,17 @@ public class MessageSetListFilterScreenOption implements Message {
                 menu.respectDataComponents = false;
         }
 
-        if (player.containerMenu instanceof AttributeFilterMenu) {
-            AttributeFilterMenu c = (AttributeFilterMenu) player.containerMenu;
-            if (option == Option.ACCEPT_LIST)
+        if (player.containerMenu instanceof AttributeFilterMenu c) {
+            if (this.option == Option.ACCEPT_LIST)
                 c.filterMode = FilterMode.ACCEPT_LIST_OR;
-            if (option == Option.ACCEPT_LIST2)
+            if (this.option == Option.ACCEPT_LIST2)
                 c.filterMode = FilterMode.ACCEPT_LIST_AND;
-            if (option == Option.DENY_LIST)
+            if (this.option == Option.DENY_LIST)
                 c.filterMode = FilterMode.DENY_LIST;
-            if (option == Option.ADD_TAG)
-                c.selectedAttributes.add(Pair.of(ItemAttribute.of(player.registryAccess(), data), false));
-            if (option == Option.ADD_INVERTED_TAG)
-                c.selectedAttributes.add(Pair.of(ItemAttribute.of(player.registryAccess(), data), true));
+            if (this.option == Option.ADD_TAG)
+                c.selectedAttributes.add(Pair.of(ItemAttribute.of(player.registryAccess(), this.data), false));
+            if (this.option == Option.ADD_INVERTED_TAG)
+                c.selectedAttributes.add(Pair.of(ItemAttribute.of(player.registryAccess(), this.data), true));
         }
     }
 

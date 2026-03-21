@@ -19,12 +19,8 @@ public class RedstoneUtil {
             return true;
         } else if (ignore != Direction.SOUTH && level.getSignal(pPos.south(), Direction.SOUTH) > 0) {
             return true;
-        } else if(ignore != Direction.WEST && level.getSignal(pPos.west(), Direction.WEST) > 0) {
+        } else if (ignore != Direction.WEST && level.getSignal(pPos.west(), Direction.WEST) > 0) {
             return true;
-        } else if(ignore != Direction.EAST && level.getSignal(pPos.east(), Direction.EAST) > 0){
-            return true;
-        } else {
-            return false;
-        }
+        } else return ignore != Direction.EAST && level.getSignal(pPos.east(), Direction.EAST) > 0;
     }
 }

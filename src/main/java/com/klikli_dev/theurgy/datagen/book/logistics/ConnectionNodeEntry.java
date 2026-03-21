@@ -13,7 +13,6 @@ import com.klikli_dev.modonomicon.api.datagen.book.page.BookImagePageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.klikli_dev.theurgy.Theurgy;
-import com.klikli_dev.theurgy.datagen.book.LogisticsCategory;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -41,9 +40,9 @@ public class ConnectionNodeEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Usage");
         this.pageText("""
-               1. Right-click any block to attach the node to it.
-               2. Then connect the node to other blocks using wires.
-               3. Any block connected directly or indirectly will be part of the same network.
+                1. Right-click any block to attach the node to it.
+                2. Then connect the node to other blocks using wires.
+                3. Any block connected directly or indirectly will be part of the same network.
                 """
         );
 
@@ -57,13 +56,13 @@ public class ConnectionNodeEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Complex Networks");
         this.pageText("""
-               In networks with multiple inserters and extractors the default behaviour is round-robin. That means each extractor will attempt to split the items evenly between all connected inserters.
-               \\
-               \\
-               This behaviour can be modified with filters.\\
-               Further, you can create sub-networks by setting the frequency of inserters and extractors.\\
-               (see further entries in this category for more information on these feature).
-               """
+                In networks with multiple inserters and extractors the default behaviour is round-robin. That means each extractor will attempt to split the items evenly between all connected inserters.
+                \\
+                \\
+                This behaviour can be modified with filters.\\
+                Further, you can create sub-networks by setting the frequency of inserters and extractors.\\
+                (see further entries in this category for more information on these feature).
+                """
         );
     }
 

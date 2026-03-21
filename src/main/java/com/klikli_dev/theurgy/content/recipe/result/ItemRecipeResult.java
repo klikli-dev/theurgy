@@ -4,13 +4,13 @@
 
 package com.klikli_dev.theurgy.content.recipe.result;
 
-import net.minecraft.core.registries.BuiltInRegistries;
 import com.klikli_dev.theurgy.registry.RecipeResultRegistry;
 import com.klikli_dev.theurgy.util.TheurgyExtraCodecs;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.component.DataComponentPatch;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;

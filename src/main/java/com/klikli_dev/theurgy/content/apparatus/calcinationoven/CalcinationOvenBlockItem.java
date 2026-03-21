@@ -4,15 +4,12 @@
 
 package com.klikli_dev.theurgy.content.apparatus.calcinationoven;
 
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.level.block.Block;
-import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import com.geckolib.animatable.GeoItem;
 import com.geckolib.animatable.instance.AnimatableInstanceCache;
 import com.geckolib.animatable.manager.AnimatableManager;
 import com.geckolib.util.GeckoLibUtil;
-
-import java.util.function.Consumer;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.level.block.Block;
 
 public class CalcinationOvenBlockItem extends BlockItem implements GeoItem {
 

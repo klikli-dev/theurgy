@@ -5,7 +5,6 @@
 package com.klikli_dev.theurgy.content.behaviour.redstone;
 
 import com.klikli_dev.theurgy.content.behaviour.crafting.HasCraftingBehaviour;
-import com.klikli_dev.theurgy.content.recipe.DigestionRecipe;
 import com.klikli_dev.theurgy.util.RedstoneUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.crafting.Recipe;

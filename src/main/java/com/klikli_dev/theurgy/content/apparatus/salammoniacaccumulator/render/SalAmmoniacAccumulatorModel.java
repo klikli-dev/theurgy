@@ -4,11 +4,11 @@
 
 package com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator.render;
 
-import com.klikli_dev.theurgy.Theurgy;
-import net.minecraft.resources.Identifier;
 import com.geckolib.animatable.GeoAnimatable;
 import com.geckolib.model.GeoModel;
 import com.geckolib.renderer.base.GeoRenderState;
+import com.klikli_dev.theurgy.Theurgy;
+import net.minecraft.resources.Identifier;
 
 public class SalAmmoniacAccumulatorModel<T extends GeoAnimatable> extends GeoModel<T> {
     @Override

@@ -6,12 +6,10 @@ package com.klikli_dev.theurgy.datagen.recipe;
 
 import com.google.common.collect.Sets;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.klikli_dev.theurgy.content.recipe.condition.FluidTagEmptyCondition;
-import com.klikli_dev.theurgy.content.recipe.result.ItemRecipeResult;
 import com.klikli_dev.theurgy.content.recipe.result.RecipeResult;
 import com.klikli_dev.theurgy.content.recipe.result.TagRecipeResult;
-import com.google.gson.JsonElement;
 import com.mojang.serialization.JsonOps;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
@@ -22,11 +20,10 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
-import net.minecraft.resources.RegistryOps;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.RegistryOps;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -47,17 +44,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 import java.util.function.BiConsumer;
 
 public abstract class JsonRecipeProvider implements DataProvider {
 
     protected final CompletableFuture<HolderLookup.Provider> lookupProvider;
+    protected final PackOutput.PathProvider recipePathProvider;
     protected HolderLookup.Provider registries;
     protected RegistryOps<JsonElement> registryOps;
     protected HolderGetter<Item> items;
     protected HolderGetter<Fluid> fluids;
-    protected final PackOutput.PathProvider recipePathProvider;
     protected String modid;
 
     protected BiConsumer<Identifier, JsonObject> recipeConsumer;
@@ -84,7 +80,7 @@ public abstract class JsonRecipeProvider implements DataProvider {
     }
 
     protected String name(ItemLike item) {
-        return itemId(item).getPath();
+        return this.itemId(item).getPath();
     }
 
     protected String name(TagKey<Item> tag) {
@@ -100,7 +96,7 @@ public abstract class JsonRecipeProvider implements DataProvider {
     }
 
     public Identifier locFor(ItemLike itemLike) {
-        return itemId(itemLike);
+        return this.itemId(itemLike);
     }
 
     protected Identifier itemId(ItemLike itemLike) {

@@ -15,9 +15,9 @@ import net.minecraft.client.data.models.model.ItemModelUtils;
 import net.minecraft.client.data.models.model.ModelLocationUtils;
 import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.client.data.models.model.TextureMapping;
-import net.minecraft.client.resources.model.sprite.Material;
 import net.minecraft.client.renderer.item.ItemModel;
 import net.minecraft.client.renderer.item.RangeSelectItemModel;
+import net.minecraft.client.resources.model.sprite.Material;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
@@ -131,7 +131,7 @@ public class TheurgyItemModelSubProvider {
         });
     }
 
-    protected void registerSalAmmoniacBucket(ItemModelGenerators itemModels){
+    protected void registerSalAmmoniacBucket(ItemModelGenerators itemModels) {
         itemModels.itemModelOutput.accept(
                 ItemRegistry.SAL_AMMONIAC_BUCKET.get(),
                 new DynamicFluidContainerModel.Unbaked(

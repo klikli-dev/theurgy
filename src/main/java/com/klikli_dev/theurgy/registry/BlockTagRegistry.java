@@ -5,12 +5,9 @@
 package com.klikli_dev.theurgy.registry;
 
 import com.klikli_dev.theurgy.Theurgy;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 
 public class BlockTagRegistry {
@@ -39,12 +36,13 @@ public class BlockTagRegistry {
     public static TagKey<Block> tag(String id) {
         return BlockTags.create(Theurgy.loc(id));
     }
+
     public static TagKey<Block> tag(Identifier id) {
         return BlockTags.create(id);
     }
 
     private static TagKey<Block> cTag(String name) {
-        return BlockTags.create(Identifier.fromNamespaceAndPath("c",  name));
+        return BlockTags.create(Identifier.fromNamespaceAndPath("c", name));
     }
 
 }

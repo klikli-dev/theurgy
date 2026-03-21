@@ -182,7 +182,7 @@ SulfuricFluxEmitterBlockEntity extends BlockEntity {
     public SettableItemStorage getOutputInventory() {
         var pos = this.resultPedestal.getBlockPos();
 
-        if(!this.level.isLoaded(pos))
+        if (!this.level.isLoaded(pos))
             return null;
 
         var blockEntity = this.level.getBlockEntity(pos);

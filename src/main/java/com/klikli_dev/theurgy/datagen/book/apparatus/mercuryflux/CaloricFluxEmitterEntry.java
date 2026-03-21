@@ -31,7 +31,7 @@ public class CaloricFluxEmitterEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageText("""
                         This devices converts raw mercury flux into [#]($PURPLE)Caloric Flux[#](), or simply: transferable heat. It can be used to power other alchemical apparatuses that would usually need a {0} below them.
-                         """,
+                        """,
                 this.itemLink(ItemRegistry.PYROMANTIC_BRAZIER.get())
         );
 

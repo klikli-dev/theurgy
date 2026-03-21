@@ -7,10 +7,8 @@ package com.klikli_dev.theurgy.datagen.recipe;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.klikli_dev.theurgy.Theurgy;
-import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurItem;
 import com.klikli_dev.theurgy.content.recipe.FermentationRecipe;
 import com.klikli_dev.theurgy.registry.*;
-import com.mojang.serialization.JsonOps;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.Identifier;
 import net.minecraft.tags.ItemTags;
@@ -24,7 +22,6 @@ import net.minecraft.world.level.material.Fluids;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.conditions.NotCondition;
 import net.neoforged.neoforge.common.conditions.TagEmptyCondition;
-import net.neoforged.neoforge.common.crafting.SizedIngredient;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -145,7 +142,7 @@ public class FermentationRecipeProvider extends JsonRecipeProvider {
         this.makeRecipe("_using_" + this.name(cropTag), new Builder(NiterRegistry.LOGS_ABUNDANT)
                 .fluid(Fluids.WATER, 125)
                 .ingredients(ItemTagRegistry.ALCHEMICAL_SULFURS_LOGS_ABUNDANT)
-                        .ingredients(cropTag)
+                .ingredients(cropTag)
                 .time(TIME));
 
         this.makeRecipe("_using_" + this.name(cropTag), new Builder(NiterRegistry.CROPS_ABUNDANT)
@@ -310,7 +307,7 @@ public class FermentationRecipeProvider extends JsonRecipeProvider {
                 this.recipe.add("ingredients", new JsonArray());
 
             this.recipe.getAsJsonArray("ingredients").add(
-                Ingredient.CODEC.encodeStart(FermentationRecipeProvider.this.registryOps, Ingredient.of(FermentationRecipeProvider.this.items.get(tag).orElseThrow())).getOrThrow()
+                    Ingredient.CODEC.encodeStart(FermentationRecipeProvider.this.registryOps, Ingredient.of(FermentationRecipeProvider.this.items.get(tag).orElseThrow())).getOrThrow()
             );
 
             this.condition(new NotCondition(new TagEmptyCondition<>(tag)));

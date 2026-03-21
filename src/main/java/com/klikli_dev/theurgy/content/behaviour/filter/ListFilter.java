@@ -27,19 +27,19 @@ public class ListFilter extends Filter {
         super(provider, filter);
     }
 
-    public List<ItemStack> filterItems(){
+    public List<ItemStack> filterItems() {
         return this.filterItems;
     }
 
-    public List<FluidStack> filterFluids(){
+    public List<FluidStack> filterFluids() {
         return this.filterFluids;
     }
 
-    public boolean shouldRespectDataComponents(){
+    public boolean shouldRespectDataComponents() {
         return this.shouldRespectDataComponents;
     }
 
-    public boolean isDenyList(){
+    public boolean isDenyList() {
         return this.isDenyList;
     }
 

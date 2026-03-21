@@ -48,7 +48,7 @@ public class AccumulationEmiRecipe implements EmiRecipe {
 
         if (this.recipe.value().hasEvaporant())
             inputs.add(EmiIngredient.of(this.recipe.value().evaporant().ingredient().fluids()
-.stream().map(f -> EmiStack.of(f.value(), this.recipe.value().evaporant().amount())).toList()));
+                    .stream().map(f -> EmiStack.of(f.value(), this.recipe.value().evaporant().amount())).toList()));
 
         return inputs;
     }
@@ -76,7 +76,7 @@ public class AccumulationEmiRecipe implements EmiRecipe {
 
         if (this.recipe.value().hasEvaporant()) {
             widgets.addSlot(EmiIngredient.of(this.recipe.value().evaporant().ingredient().fluids()
-                        .stream().map(f -> EmiStack.of(f.value(), this.recipe.value().evaporant().amount())).toList()), 1, 1);
+                    .stream().map(f -> EmiStack.of(f.value(), this.recipe.value().evaporant().amount())).toList()), 1, 1);
         }
 
         if (this.recipe.value().hasSolute()) {

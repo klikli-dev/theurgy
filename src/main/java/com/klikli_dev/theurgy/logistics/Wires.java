@@ -181,7 +181,7 @@ public class Wires extends SavedData {
      * Gets all wires in a chunk
      */
     public Set<Wire> getWires(ChunkPos chunk) {
-        if(this.isClient)
+        if (this.isClient)
             throw new UnsupportedOperationException("Cannot get all wires in a chunk on the client");
         return this.chunkToWires.get(chunk);
     }
@@ -190,7 +190,7 @@ public class Wires extends SavedData {
      * Gets all chunks a wire is in
      */
     public Set<ChunkPos> getChunks(Wire wire) {
-        if(this.isClient)
+        if (this.isClient)
             throw new UnsupportedOperationException("Cannot get all chunks a wire is in on the client");
         return this.wiresToChunk.get(wire);
     }

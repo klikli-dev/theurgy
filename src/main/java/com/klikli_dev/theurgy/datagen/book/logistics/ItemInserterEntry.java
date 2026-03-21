@@ -42,10 +42,10 @@ public class ItemInserterEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Usage");
         this.pageText("""
-               Right-click a block that has an inventory to attach the inserter to it.
-               \\
-               \\
-               The inserter will by default insert into the face it is attached to. E.g. if it is attached to the side of a furnace, it will insert into the fuel slot.
+                Right-click a block that has an inventory to attach the inserter to it.
+                \\
+                \\
+                The inserter will by default insert into the face it is attached to. E.g. if it is attached to the side of a furnace, it will insert into the fuel slot.
                 """
         );
 
@@ -54,7 +54,7 @@ public class ItemInserterEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Identification");
         this.pageText("""
-               The inserter features a green band on the side attached to the target block.
+                The inserter features a green band on the side attached to the target block.
                 """
         );
 
@@ -63,9 +63,9 @@ public class ItemInserterEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Changing Direction");
         this.pageText("""
-               Inserters can also insert into faces they are not attached to. Use the {0} in the "Select Direction" mode to cycle through the insert directions.\\
-               E.g. an inserter attached to the top of a furnace can be configured to insert fuel into furnace from the side (instead of into the input slot from the top).
-                """,
+                        Inserters can also insert into faces they are not attached to. Use the {0} in the "Select Direction" mode to cycle through the insert directions.\\
+                        E.g. an inserter attached to the top of a furnace can be configured to insert fuel into furnace from the side (instead of into the input slot from the top).
+                        """,
                 this.entryLink("Mercurial Wand", LogisticsCategory.CATEGORY_ID, MercurialWandEntry.ENTRY_ID)
         );
     }

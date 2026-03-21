@@ -41,7 +41,7 @@ public class IncubationEntry extends EntryProvider {
         this.pageText(
                 """
                         [#]($INPUT)Right-click[#]() the {0}, {1} and {2} with the Sulfur, Salt and Mercury you obtained earlier respectively to fill them.
-                         """,
+                        """,
                 this.itemLink(ItemRegistry.INCUBATOR_SULFUR_VESSEL.get()),
                 this.itemLink(ItemRegistry.INCUBATOR_SALT_VESSEL.get()),
                 this.itemLink(ItemRegistry.INCUBATOR_MERCURY_VESSEL.get())

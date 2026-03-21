@@ -9,7 +9,6 @@ import com.klikli_dev.theurgy.content.item.mode.FrequencySetter;
 import com.klikli_dev.theurgy.content.item.mode.ItemModeRenderHandler;
 import com.klikli_dev.theurgy.registry.DataComponentRegistry;
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.InteractionResult;

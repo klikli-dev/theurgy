@@ -18,7 +18,7 @@ import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 
-public class MessageSetMode implements Message {
+public record MessageSetMode(byte shift) implements Message {
     public static final Type<MessageSetMode> TYPE = new Type<>(Theurgy.loc("set_mode"));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, MessageSetMode> STREAM_CODEC =
@@ -29,14 +29,8 @@ public class MessageSetMode implements Message {
             );
 
 
-    public final byte shift;
-
     public MessageSetMode(int shift) {
         this((byte) shift);
-    }
-
-    public MessageSetMode(byte shift) {
-        this.shift = shift;
     }
 
     @Override

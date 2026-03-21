@@ -8,14 +8,12 @@ import com.klikli_dev.theurgy.content.recipe.LiquefactionRecipe;
 import com.klikli_dev.theurgy.content.recipe.input.ItemHandlerWithFluidRecipeInput;
 import com.klikli_dev.theurgy.util.LevelUtil;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
@@ -42,11 +40,11 @@ class LiquefactionCachedCheck implements RecipeManager.CachedCheck<ItemHandlerWi
             if (recipeOptional.isPresent()) {
                 var recipe = recipeOptional.get();
                 if (recipe.value().getType() == this.type) {
-                     @SuppressWarnings("unchecked")
-                     var typedRecipe = (RecipeHolder<LiquefactionRecipe>) (Object) recipe;
-                     if (typedRecipe.value().getIngredient().test(stack)) {
-                         return Optional.of(typedRecipe);
-                     }
+                    @SuppressWarnings("unchecked")
+                    var typedRecipe = (RecipeHolder<LiquefactionRecipe>) recipe;
+                    if (typedRecipe.value().getIngredient().test(stack)) {
+                        return Optional.of(typedRecipe);
+                    }
                 }
             }
         }

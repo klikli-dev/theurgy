@@ -5,8 +5,8 @@
 package com.klikli_dev.theurgy.datagen;
 
 import com.klikli_dev.theurgy.content.item.derivative.AlchemicalDerivativeItem;
-import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurItem;
 import com.klikli_dev.theurgy.content.item.derivative.AlchemicalDerivativeTier;
+import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurItem;
 import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurType;
 import com.klikli_dev.theurgy.registry.SulfurRegistry;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -287,7 +287,7 @@ public class SulfurMappings {
         return MOBS_PRECIOUS;
     }
 
-    public static Set<AlchemicalDerivativeItem> noAutomaticRecipesFor(){
+    public static Set<AlchemicalDerivativeItem> noAutomaticRecipesFor() {
         if (NO_AUTOMATIC_RECIPES_FOR != null) {
             return NO_AUTOMATIC_RECIPES_FOR;
         }

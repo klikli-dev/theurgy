@@ -4,8 +4,8 @@
 
 package com.klikli_dev.theurgy.content.behaviour.filter;
 
-import com.klikli_dev.theurgy.util.NBTSerializable;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
+import com.klikli_dev.theurgy.util.NBTSerializable;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;

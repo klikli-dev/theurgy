@@ -4,12 +4,9 @@
 
 package com.klikli_dev.theurgy.content.apparatus.fermentationvat;
 
-import com.klikli_dev.theurgy.content.apparatus.digestionvat.DigestionStorageBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.storage.OutputStorageBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.storage.StorageBehaviour;
 import com.klikli_dev.theurgy.content.storage.*;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;

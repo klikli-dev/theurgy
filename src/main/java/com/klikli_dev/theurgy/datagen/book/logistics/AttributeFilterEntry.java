@@ -41,13 +41,13 @@ public class AttributeFilterEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Usage");
         this.pageText("""
-               1. Right-click with the filter in hand to open the filter GUI.
-               2. Place an item with the desired attribute in the filter.
-               3. Scroll to select the right attribute.
-               4. Click the "Add" or "Add Inverted" button to add the attribute or it's opposite to the filter.
-               5. Optionally repeat with the same or other items to combine multiple attributes.
-               6. Right-click an inserter or extractor with the filter to apply it.
-               """
+                1. Right-click with the filter in hand to open the filter GUI.
+                2. Place an item with the desired attribute in the filter.
+                3. Scroll to select the right attribute.
+                4. Click the "Add" or "Add Inverted" button to add the attribute or it's opposite to the filter.
+                5. Optionally repeat with the same or other items to combine multiple attributes.
+                6. Right-click an inserter or extractor with the filter to apply it.
+                """
         );
 
         this.page("removal", () -> BookTextPageModel.create()
@@ -55,9 +55,9 @@ public class AttributeFilterEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Removal");
         this.pageText("""
-               1. Shift-right-click with an empty hand on an inserter or extractor to remove the filter.
-               2. The filter will be returned to the player's inventory.
-               """
+                1. Shift-right-click with an empty hand on an inserter or extractor to remove the filter.
+                2. The filter will be returned to the player's inventory.
+                """
         );
     }
 

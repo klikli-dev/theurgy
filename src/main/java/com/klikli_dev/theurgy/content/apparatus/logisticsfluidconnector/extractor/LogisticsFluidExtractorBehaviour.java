@@ -4,15 +4,13 @@
 
 package com.klikli_dev.theurgy.content.apparatus.logisticsfluidconnector.extractor;
 
-import com.klikli_dev.theurgy.content.storage.FluidStorageHelper;
-import com.klikli_dev.theurgy.registry.CapabilityRegistry;
 import com.klikli_dev.theurgy.content.behaviour.filter.Filter;
 import com.klikli_dev.theurgy.content.behaviour.logistics.ExtractorNodeBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.logistics.LeafNodeBehaviour;
+import com.klikli_dev.theurgy.content.storage.FluidStorageHelper;
+import com.klikli_dev.theurgy.registry.CapabilityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.storage.ValueInput;
@@ -132,7 +130,7 @@ public class LogisticsFluidExtractorBehaviour extends ExtractorNodeBehaviour<Res
         if (extractStack.isEmpty())
             return;
 
-        if(!extractFilter.test(this.level(), extractStack) || !insertFilter.test(this.level(), extractStack))
+        if (!extractFilter.test(this.level(), extractStack) || !insertFilter.test(this.level(), extractStack))
             return;
 
         //and insertion

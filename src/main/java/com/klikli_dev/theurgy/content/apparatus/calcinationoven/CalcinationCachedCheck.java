@@ -7,13 +7,11 @@ package com.klikli_dev.theurgy.content.apparatus.calcinationoven;
 import com.klikli_dev.theurgy.content.recipe.CalcinationRecipe;
 import com.klikli_dev.theurgy.content.recipe.input.ItemHandlerRecipeInput;
 import com.klikli_dev.theurgy.util.LevelUtil;
-import net.minecraft.resources.Identifier;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -39,8 +37,8 @@ class CalcinationCachedCheck implements RecipeManager.CachedCheck<ItemHandlerRec
         if (lastRecipe != null) {
             var recipe = recipeManager.byKey(lastRecipe).orElse(null);
             //test only the ingredient within the sized ingredient to allow to find recipes even for too small stack sizes
-            if (recipe != null && recipe.value().getType() == this.type && ((CalcinationRecipe)recipe.value()).sizedIngredient().ingredient().test(stack)) {
-                return Optional.of((RecipeHolder<CalcinationRecipe>) (Object) recipe);
+            if (recipe != null && recipe.value().getType() == this.type && ((CalcinationRecipe) recipe.value()).sizedIngredient().ingredient().test(stack)) {
+                return Optional.of((RecipeHolder<CalcinationRecipe>) recipe);
             }
         }
 

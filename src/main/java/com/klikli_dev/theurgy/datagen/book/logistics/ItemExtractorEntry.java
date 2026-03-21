@@ -42,10 +42,10 @@ public class ItemExtractorEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Usage");
         this.pageText("""
-               Right-click a block that has an inventory to attach the extractor to it.
-               \\
-               \\
-               The extractor will by default extract from the face it is attached to. E.g. if it is attached to the bottom of a furnace, it will extract the output from the furnace.
+                Right-click a block that has an inventory to attach the extractor to it.
+                \\
+                \\
+                The extractor will by default extract from the face it is attached to. E.g. if it is attached to the bottom of a furnace, it will extract the output from the furnace.
                 """
         );
 
@@ -54,7 +54,7 @@ public class ItemExtractorEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Identification");
         this.pageText("""
-               The extractor features a red band on the side attached to the target block.
+                The extractor features a red band on the side attached to the target block.
                 """
         );
 
@@ -63,9 +63,9 @@ public class ItemExtractorEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Changing Direction");
         this.pageText("""
-               Extractors can also extract from faces they are not attached to. Use the {0} in the "Select Direction" mode to cycle through the extract directions.\\
-               E.g. an extractor attached to the top of a furnace can be configured to extract the output of the furnace from the bottom (instead of the input from the top).
-                """,
+                        Extractors can also extract from faces they are not attached to. Use the {0} in the "Select Direction" mode to cycle through the extract directions.\\
+                        E.g. an extractor attached to the top of a furnace can be configured to extract the output of the furnace from the bottom (instead of the input from the top).
+                        """,
                 this.entryLink("Mercurial Wand", LogisticsCategory.CATEGORY_ID, MercurialWandEntry.ENTRY_ID)
         );
     }

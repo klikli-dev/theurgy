@@ -7,7 +7,6 @@ package com.klikli_dev.theurgy.content.item.mode;
 import com.klikli_dev.theurgy.content.render.itemhud.ItemHUDProvider;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.InteractionHand;

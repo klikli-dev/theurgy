@@ -18,7 +18,6 @@ import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.transfer.ResourceHandler;
 import net.neoforged.neoforge.transfer.fluid.FluidResource;
 
-import java.util.Objects;
 import java.util.function.Supplier;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -62,7 +61,7 @@ public class DigestionCraftingBehaviour extends CraftingBehaviour<ItemHandlerWit
         return this.isIngredient(stack);
     }
 
-    public void onInputChanged(){
+    public void onInputChanged() {
         this.recipeCachedCheck.resetNoRecipeForLastItemHandlerInput();
     }
 

@@ -37,7 +37,7 @@ public class RequiredItemsEntry extends EntryProvider {
                 \\
                 \\
                 It is a good idea to collect a few of these in order to have a steady supply to convert.
-                  """
+                """
         );
 
         this.page("source2", () -> BookTextPageModel.create()
@@ -46,7 +46,7 @@ public class RequiredItemsEntry extends EntryProvider {
         this.pageTitle("Source Sulfur");
         this.pageText("""
                         View {0} to refresh how to obtain sulfur from an item, or use the Quartz Sulfur you obtained in the Reformation experiment.
-                         """,
+                        """,
                 this.entryLink("Extracting Sulfur", GettingStartedCategoryProvider.CATEGORY_ID, CreateSulfurEntry.ENTRY_ID)
         );
 
@@ -60,7 +60,7 @@ public class RequiredItemsEntry extends EntryProvider {
                 \\
                 \\
                 One sulfur that will be converted into Niter for our intermediate reformation and one sulfur for the final reformation of all our Niter into the target sulfur.
-                   """
+                """
         );
         this.page("target2", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
@@ -68,7 +68,7 @@ public class RequiredItemsEntry extends EntryProvider {
         this.pageTitle("Target Sulfur");
         this.pageText("""
                 For this demonstration we will use sulfur of iron.
-                   """
+                """
         );
     }
 

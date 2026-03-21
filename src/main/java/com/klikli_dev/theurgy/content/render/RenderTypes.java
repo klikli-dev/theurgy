@@ -5,36 +5,31 @@
 package com.klikli_dev.theurgy.content.render;
 
 import com.klikli_dev.theurgy.Theurgy;
-import net.minecraft.util.Util;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.resources.Identifier;
+import net.minecraft.util.Util;
 
 import java.util.function.Function;
 
 public class RenderTypes {
 
-    private static final Identifier BLANK_TEXTURE = Theurgy.loc("textures/misc/blank.png");
-
     protected static final RenderType DISTANCE_LINES = net.minecraft.client.renderer.rendertype.RenderTypes.lines();
-
     protected static final Function<Identifier, RenderType> ENTITY_TRANSLUCENT_CULL_NO_DEPTH = Util.memoize((Identifier texture) -> net.minecraft.client.renderer.rendertype.RenderTypes.entityTranslucent(texture));
+    protected static final RenderType TRANSLUCENT_CULL_NO_DEPTH_BLOCK_SHEET = entityTranslucentCullNoDepth(TextureAtlas.LOCATION_BLOCKS);
+    private static final Identifier BLANK_TEXTURE = Theurgy.loc("textures/misc/blank.png");
+    private static final RenderType FLUID = net.minecraft.client.renderer.rendertype.RenderTypes.itemTranslucent(TextureAtlas.LOCATION_BLOCKS);
+    private static final RenderType OUTLINE_SOLID = net.minecraft.client.renderer.rendertype.RenderTypes.entitySolid(BLANK_TEXTURE);
+    private static final Function<Identifier, RenderType> SRC_MINUS_ONE = Util.memoize((Identifier texture) -> net.minecraft.client.renderer.rendertype.RenderTypes.entityTranslucent(texture));
+    private RenderTypes() {
+    }
 
     public static RenderType entityTranslucentCullNoDepth(Identifier pLocation) {
         return ENTITY_TRANSLUCENT_CULL_NO_DEPTH.apply(pLocation);
     }
 
-    protected static final RenderType TRANSLUCENT_CULL_NO_DEPTH_BLOCK_SHEET = entityTranslucentCullNoDepth(TextureAtlas.LOCATION_BLOCKS);
-
     public static RenderType translucentCullNoDepthBlockSheet() {
         return TRANSLUCENT_CULL_NO_DEPTH_BLOCK_SHEET;
-    }
-
-    private static final RenderType FLUID = net.minecraft.client.renderer.rendertype.RenderTypes.itemTranslucent(TextureAtlas.LOCATION_BLOCKS);
-    private static final RenderType OUTLINE_SOLID = net.minecraft.client.renderer.rendertype.RenderTypes.entitySolid(BLANK_TEXTURE);
-    private static final Function<Identifier, RenderType> SRC_MINUS_ONE = Util.memoize((Identifier texture) -> net.minecraft.client.renderer.rendertype.RenderTypes.entityTranslucent(texture));
-
-    private RenderTypes() {
     }
 
     public static RenderType outlineSolid() {

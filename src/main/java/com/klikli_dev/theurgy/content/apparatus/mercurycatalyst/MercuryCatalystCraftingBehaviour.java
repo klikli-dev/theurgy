@@ -12,12 +12,10 @@ import com.klikli_dev.theurgy.content.storage.MonitoredItemStackHandler;
 import com.klikli_dev.theurgy.content.storage.SettableItemStorage;
 import com.klikli_dev.theurgy.registry.DataComponentRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.component.DataComponentGetter;
 import net.minecraft.core.component.DataComponentMap;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
@@ -25,7 +23,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.common.util.Lazy;
-
 import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Supplier;
@@ -55,7 +52,7 @@ public class MercuryCatalystCraftingBehaviour extends CraftingBehaviour<ItemHand
         };
         var tempRecipeWrapper = new ItemHandlerRecipeInput(tempInv);
 
-        return this.recipeCachedCheck.getRecipeFor(tempRecipeWrapper, (ServerLevel)this.blockEntity.getLevel()).isPresent();
+        return this.recipeCachedCheck.getRecipeFor(tempRecipeWrapper, (ServerLevel) this.blockEntity.getLevel()).isPresent();
     }
 
     @Override
@@ -108,7 +105,7 @@ public class MercuryCatalystCraftingBehaviour extends CraftingBehaviour<ItemHand
         if (pRecipe == null) return false;
 
         var storage = this.mercuryFluxStorageSupplier.get();
-        int fluxAccepted = storage.receiveEnergy(pRecipe.value().getTotalMercuryFlux(), true);
+        int fluxAccepted = storage.receiveEnergy(pRecipe.value().totalMercuryFlux(), true);
 
         return fluxAccepted > 0;
     }
@@ -127,8 +124,8 @@ public class MercuryCatalystCraftingBehaviour extends CraftingBehaviour<ItemHand
             //only even check for recipe if we have input to avoid unnecessary lookups
 
             //if we have no flux available, consume more mercury
-            if(this.blockEntity.getLevel().isClientSide()) return;
-            var recipe = this.recipeCachedCheck.getRecipeFor(this.recipeInputSupplier.get(), (ServerLevel)this.blockEntity.getLevel()).orElse(null);
+            if (this.blockEntity.getLevel().isClientSide()) return;
+            var recipe = this.recipeCachedCheck.getRecipeFor(this.recipeInputSupplier.get(), (ServerLevel) this.blockEntity.getLevel()).orElse(null);
 
 
             this.couldCraftLastTick = this.canCraft(recipe);
@@ -142,8 +139,8 @@ public class MercuryCatalystCraftingBehaviour extends CraftingBehaviour<ItemHand
 
     @Override
     protected boolean craft(@Nullable RecipeHolder<CatalysationRecipe> pRecipe) {
-        this.mercuryFluxToConvert = pRecipe.value().getTotalMercuryFlux();
-        this.currentMercuryFluxPerTick = pRecipe.value().getMercuryFluxPerTick();
+        this.mercuryFluxToConvert = pRecipe.value().totalMercuryFlux();
+        this.currentMercuryFluxPerTick = pRecipe.value().mercuryFluxPerTick();
 
         this.inputInventorySupplier.get().extractItem(0, this.getIngredientCount(pRecipe), false);
 

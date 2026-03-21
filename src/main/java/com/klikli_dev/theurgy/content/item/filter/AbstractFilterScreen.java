@@ -10,7 +10,6 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
@@ -87,7 +86,7 @@ public abstract class AbstractFilterScreen<T extends AbstractFilterMenu> extends
             this.menu.player.closeContainer();
 
         super.containerTick();
-        for (GuiEventListener listener : children()) {
+        for (GuiEventListener listener : this.children()) {
             if (listener instanceof TickableGuiEventListener tickable) {
                 tickable.tick();
             }

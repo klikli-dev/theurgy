@@ -25,7 +25,7 @@ public class BookIncubationRecipePage extends BookProcessingRecipePage<Incubatio
 
     public static BookIncubationRecipePage fromJson(Identifier entryId, JsonObject json, HolderLookup.Provider provider) {
         var common = BookRecipePage.commonFromJson(entryId, json, provider);
-         return new BookIncubationRecipePage(common);
+        return new BookIncubationRecipePage(common);
     }
 
     public static BookIncubationRecipePage fromNetwork(RegistryFriendlyByteBuf buffer) {

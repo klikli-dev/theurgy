@@ -42,11 +42,11 @@ public class FluidExtractorEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Usage");
         this.pageText("""
-               Right-click a block that has a tank to attach the extractor to it.
-               \\
-               \\
-               The extractor will by default extract from the face it is attached to. This only matters if the block has multiple fluid tanks accessible from different block faces.
-               """
+                Right-click a block that has a tank to attach the extractor to it.
+                \\
+                \\
+                The extractor will by default extract from the face it is attached to. This only matters if the block has multiple fluid tanks accessible from different block faces.
+                """
         );
 
         this.page("identification", () -> BookTextPageModel.create()
@@ -54,8 +54,8 @@ public class FluidExtractorEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Identification");
         this.pageText("""
-               The extractor features a red band on the side attached to the target block.
-               """
+                The extractor features a red band on the side attached to the target block.
+                """
         );
 
         this.page("direction", () -> BookTextPageModel.create()
@@ -63,8 +63,8 @@ public class FluidExtractorEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Changing Direction");
         this.pageText("""
-               Extractors can also extract from faces they are not attached to. Use the {0} in the "Select Direction" mode to cycle through the extract directions.
-                """,
+                        Extractors can also extract from faces they are not attached to. Use the {0} in the "Select Direction" mode to cycle through the extract directions.
+                        """,
                 this.entryLink("Mercurial Wand", LogisticsCategory.CATEGORY_ID, MercurialWandEntry.ENTRY_ID)
         );
     }

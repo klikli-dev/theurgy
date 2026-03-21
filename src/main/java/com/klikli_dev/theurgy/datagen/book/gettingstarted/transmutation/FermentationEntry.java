@@ -49,7 +49,7 @@ public class FermentationEntry extends EntryProvider {
                         - {1}
                         - {2}
                         - {3} or any Crops, or better: {4}
-                                        
+                        
                         (Check JEI/EMI for more recipes)
                         """,
                 this.itemLink(ItemRegistry.FERMENTATION_VAT.get()),
@@ -70,7 +70,7 @@ public class FermentationEntry extends EntryProvider {
                         - {1}
                         - {2}
                         - {3} or any Crops
-
+                        
                         (Check JEI for more recipes)
                         """,
                 this.itemLink(ItemRegistry.FERMENTATION_VAT.get()),

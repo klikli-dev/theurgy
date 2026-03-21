@@ -42,11 +42,11 @@ public class FluidListFilterEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Usage");
         this.pageText("""
-               1. Right-click with the filter in hand to open the filter GUI.
-               2. Place buckets with fluid in the filter and set it to either allow or deny these buckets.
-               3. Optionally set the filter whether or not to match data components.
-               4. Right-click an inserter or extractor with the filter to apply it.
-               """
+                1. Right-click with the filter in hand to open the filter GUI.
+                2. Place buckets with fluid in the filter and set it to either allow or deny these buckets.
+                3. Optionally set the filter whether or not to match data components.
+                4. Right-click an inserter or extractor with the filter to apply it.
+                """
         );
 
         this.page("removal", () -> BookTextPageModel.create()
@@ -54,9 +54,9 @@ public class FluidListFilterEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Removal");
         this.pageText("""
-               1. Shift-right-click with an empty hand on an inserter or extractor to remove the filter.
-               2. The filter will be returned to the player's inventory.
-               """
+                1. Shift-right-click with an empty hand on an inserter or extractor to remove the filter.
+                2. The filter will be returned to the player's inventory.
+                """
         );
     }
 

@@ -10,29 +10,24 @@ import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurItem;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import com.klikli_dev.theurgy.registry.SulfurRegistry;
+import com.klikli_dev.theurgy.util.LevelUtil;
 import dev.emi.emi.api.EmiEntrypoint;
 import dev.emi.emi.api.EmiInitRegistry;
 import dev.emi.emi.api.EmiRegistry;
 import dev.emi.emi.api.recipe.EmiInfoRecipe;
 import dev.emi.emi.api.recipe.EmiRecipeCategory;
 import dev.emi.emi.api.stack.EmiStack;
-import com.klikli_dev.theurgy.util.LevelUtil;
-import mezz.jei.api.constants.VanillaTypes;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.registries.DeferredHolder;
-import org.apache.logging.log4j.core.tools.picocli.CommandLine;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @EmiEntrypoint
 public class EmiPlugin implements dev.emi.emi.api.EmiPlugin {
@@ -60,6 +55,13 @@ public class EmiPlugin implements dev.emi.emi.api.EmiPlugin {
 
     public static final EmiStack REFORMATION_ICON = EmiStack.of(ItemRegistry.SULFURIC_FLUX_EMITTER.get());
     public static final EmiRecipeCategory REFORMATION_CATEGORY = new EmiRecipeCategory(RecipeTypeRegistry.REFORMATION.getId(), REFORMATION_ICON);
+
+    public static RecipeManager getRecipeManager() {
+        if (FMLEnvironment.getDist() == Dist.CLIENT) {
+            return DistHelper.getRecipeManager();
+        }
+        return null;
+    }
 
     @Override
     public void register(EmiRegistry registry) {
@@ -112,12 +114,12 @@ public class EmiPlugin implements dev.emi.emi.api.EmiPlugin {
         }
 
         registry.addRecipe(new EmiInfoRecipe(
-                List.of(EmiStack.of(Items.LAVA_BUCKET)),
-                List.of(
-                        Component.translatable(TheurgyConstants.I18n.EMI.HEADER).withStyle(ChatFormatting.BOLD),
-                        Component.translatable(TheurgyConstants.I18n.EMI.INFO_LAVA_BUCKET)
-                ),
-                Theurgy.loc("emi/laval_bucket")
+                        List.of(EmiStack.of(Items.LAVA_BUCKET)),
+                        List.of(
+                                Component.translatable(TheurgyConstants.I18n.EMI.HEADER).withStyle(ChatFormatting.BOLD),
+                                Component.translatable(TheurgyConstants.I18n.EMI.INFO_LAVA_BUCKET)
+                        ),
+                        Theurgy.loc("emi/laval_bucket")
                 )
         );
 
@@ -149,7 +151,7 @@ public class EmiPlugin implements dev.emi.emi.api.EmiPlugin {
 
         //now remove sulfurs that have no recipe -> otherwise we see "no source" sulfurs in tag recipes
         //See also Theurgy.Client#onRecipesUpdated
-            var liquefactionRecipes = LevelUtil.getRecipesByType(recipeManager, RecipeTypeRegistry.LIQUEFACTION.get());
+        var liquefactionRecipes = LevelUtil.getRecipesByType(recipeManager, RecipeTypeRegistry.LIQUEFACTION.get());
         var sulfursWithoutRecipe = SulfurRegistry.SULFURS.getEntries().stream()
                 .map(DeferredHolder::get)
                 .map(AlchemicalSulfurItem.class::cast)
@@ -158,15 +160,8 @@ public class EmiPlugin implements dev.emi.emi.api.EmiPlugin {
         sulfursWithoutRecipe.forEach(registry::disableStack);
     }
 
-    public static RecipeManager getRecipeManager(){
-        if (FMLEnvironment.getDist() == Dist.CLIENT) {
-            return DistHelper.getRecipeManager();
-        }
-        return null;
-    }
-
-    public static class DistHelper{
-        public static RecipeManager getRecipeManager(){
+    public static class DistHelper {
+        public static RecipeManager getRecipeManager() {
             return LevelUtil.getRecipeManager(Minecraft.getInstance().level);
         }
     }

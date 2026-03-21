@@ -20,6 +20,7 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -40,7 +41,7 @@ public class LiquefactionRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
     public static final MapCodec<LiquefactionRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
                     Ingredient.CODEC.fieldOf("ingredient").forGetter((r) -> r.ingredient),
                     SizedFluidIngredient.CODEC.fieldOf("solvent").forGetter((r) -> r.solvent),
-                    ItemStack.CODEC.fieldOf("result").forGetter(r -> r.result),
+                    ItemStackTemplate.CODEC.fieldOf("result").forGetter(r -> r.result),
                     Codec.INT.optionalFieldOf("time", DEFAULT_TIME).forGetter(r -> r.time)
             ).apply(instance, LiquefactionRecipe::new)
     );
@@ -50,7 +51,7 @@ public class LiquefactionRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
             r -> r.ingredient,
             SizedFluidIngredient.STREAM_CODEC,
             r -> r.solvent,
-            ItemStack.STREAM_CODEC,
+            ItemStackTemplate.STREAM_CODEC,
             r -> r.result,
             ByteBufCodecs.INT,
             r -> r.time,
@@ -61,10 +62,10 @@ public class LiquefactionRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
 
     protected final Ingredient ingredient;
     protected final SizedFluidIngredient solvent;
-    protected final ItemStack result;
+    protected final ItemStackTemplate result;
     protected final int time;
 
-    public LiquefactionRecipe(Ingredient pIngredient, SizedFluidIngredient pSolvent, ItemStack pResult, int time) {
+    public LiquefactionRecipe(Ingredient pIngredient, SizedFluidIngredient pSolvent, ItemStackTemplate pResult, int time) {
         this.ingredient = pIngredient;
         this.solvent = pSolvent;
         this.result = pResult;
@@ -83,7 +84,7 @@ public class LiquefactionRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
     }
 
     public ItemStack getResultItem(HolderLookup.Provider pRegistries) {
-        return this.result;
+        return this.result.create();
     }
 
 //    @Override
@@ -93,7 +94,7 @@ public class LiquefactionRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
 
     @Override
     public ItemStack assemble(ItemHandlerWithFluidRecipeInput pCraftingContainer) {
-        return this.result.copy();
+        return this.result.create();
     }
 
     @Override

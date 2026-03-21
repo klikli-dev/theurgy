@@ -17,6 +17,7 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -41,7 +42,7 @@ public class ReformationRecipe implements Recipe<ReformationArrayRecipeInput> {
             instance -> instance.group(
                     SizedIngredient.NESTED_CODEC.listOf().fieldOf("sources").forGetter(r -> r.sources),
                     Ingredient.CODEC.fieldOf("target").forGetter(r -> r.target),
-                    ItemStack.CODEC.fieldOf("result").forGetter(r -> r.result),
+                    ItemStackTemplate.CODEC.fieldOf("result").forGetter(r -> r.result),
                     Codec.INT.fieldOf("mercuryFlux").forGetter(r -> r.mercuryFlux),
                     Codec.INT.optionalFieldOf("time", DEFAULT_TIME).forGetter(r -> r.time)
             ).apply(instance, ReformationRecipe::new)
@@ -52,7 +53,7 @@ public class ReformationRecipe implements Recipe<ReformationArrayRecipeInput> {
             r -> r.sources,
             Ingredient.CONTENTS_STREAM_CODEC,
             r -> r.target,
-            ItemStack.STREAM_CODEC,
+            ItemStackTemplate.STREAM_CODEC,
             r -> r.result,
             ByteBufCodecs.INT,
             r -> r.mercuryFlux,
@@ -66,11 +67,11 @@ public class ReformationRecipe implements Recipe<ReformationArrayRecipeInput> {
     protected final List<SizedIngredient> sources;
     protected final NonNullList<Ingredient> sourcesNonNullList;
     protected final Ingredient target;
-    protected final ItemStack result;
+    protected final ItemStackTemplate result;
     protected final int mercuryFlux;
     protected final int time;
 
-    public ReformationRecipe(List<SizedIngredient> sources, Ingredient target, ItemStack result, int mercuryFlux, int time) {
+    public ReformationRecipe(List<SizedIngredient> sources, Ingredient target, ItemStackTemplate result, int mercuryFlux, int time) {
         this.sources = sources;
         this.sourcesNonNullList = NonNullList.copyOf(this.sources.stream().map(SizedIngredient::ingredient).toList());
         this.target = target;
@@ -87,7 +88,7 @@ public class ReformationRecipe implements Recipe<ReformationArrayRecipeInput> {
         return this.target;
     }
 
-    public ItemStack getResult() {
+    public ItemStackTemplate getResult() {
         return this.result;
     }
 
@@ -139,7 +140,7 @@ public class ReformationRecipe implements Recipe<ReformationArrayRecipeInput> {
 
     @Override
     public ItemStack assemble(ReformationArrayRecipeInput pCraftingContainer) {
-        var result = this.result.copy();
+        var result = this.result.create();
         //TODO: the tag copy should be an option in the recipe json
         var targetItem = pCraftingContainer.getTargetPedestalInv().getStackInSlot(0);
 
@@ -160,7 +161,7 @@ public class ReformationRecipe implements Recipe<ReformationArrayRecipeInput> {
     }
 
     public ItemStack getResultItem(HolderLookup.Provider pRegistries) {
-        return this.result;
+        return this.result.create();
     }
 
     @Override

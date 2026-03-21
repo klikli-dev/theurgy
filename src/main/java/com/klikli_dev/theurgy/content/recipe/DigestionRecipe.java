@@ -21,6 +21,7 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -43,7 +44,7 @@ public class DigestionRecipe implements Recipe<ItemHandlerWithFluidRecipeInput> 
     public static final MapCodec<DigestionRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
                     SizedFluidIngredient.CODEC.fieldOf("fluid").forGetter((r) -> r.fluid),
                     SizedIngredient.NESTED_CODEC.listOf().fieldOf("ingredients").forGetter(r -> r.sizedIngredients),
-                    ItemStack.CODEC.fieldOf("result").forGetter(r -> r.result),
+                    ItemStackTemplate.CODEC.fieldOf("result").forGetter(r -> r.result),
                     Codec.INT.optionalFieldOf("time", DEFAULT_TIME).forGetter(r -> r.time)
             ).apply(instance, DigestionRecipe::new)
     );
@@ -53,7 +54,7 @@ public class DigestionRecipe implements Recipe<ItemHandlerWithFluidRecipeInput> 
             r -> r.fluid,
             SizedIngredient.STREAM_CODEC.apply(ByteBufCodecs.list()),
             r -> r.sizedIngredients,
-            ItemStack.STREAM_CODEC,
+            ItemStackTemplate.STREAM_CODEC,
             r -> r.result,
             ByteBufCodecs.INT,
             r -> r.time,
@@ -66,10 +67,10 @@ public class DigestionRecipe implements Recipe<ItemHandlerWithFluidRecipeInput> 
 
     protected final List<SizedIngredient> sizedIngredients;
     protected final NonNullList<Ingredient> ingredients;
-    protected final ItemStack result;
+    protected final ItemStackTemplate result;
     protected final int time;
 
-    public DigestionRecipe(SizedFluidIngredient fluid, List<SizedIngredient> sizedIngredients, ItemStack result, int time) {
+    public DigestionRecipe(SizedFluidIngredient fluid, List<SizedIngredient> sizedIngredients, ItemStackTemplate result, int time) {
         this.fluid = fluid;
         this.sizedIngredients = sizedIngredients;
         this.ingredients = sizedIngredients.stream().map(SizedIngredient::ingredient).collect(NonNullList::create, NonNullList::add, NonNullList::addAll);
@@ -125,7 +126,7 @@ public class DigestionRecipe implements Recipe<ItemHandlerWithFluidRecipeInput> 
 
     @Override
     public ItemStack assemble(ItemHandlerWithFluidRecipeInput pInv) {
-        return this.result.copy();
+        return this.result.create();
     }
 
     @Override
@@ -157,7 +158,7 @@ public class DigestionRecipe implements Recipe<ItemHandlerWithFluidRecipeInput> 
 //    }
 
     public @NotNull ItemStack getResultItem(HolderLookup.@NotNull Provider pRegistries) {
-        return this.result;
+        return this.result.create();
     }
 
     public @NotNull NonNullList<Ingredient> getIngredients() {
@@ -185,7 +186,7 @@ public class DigestionRecipe implements Recipe<ItemHandlerWithFluidRecipeInput> 
         return this.fluid.amount();
     }
 
-    public ItemStack getResult() {
+    public ItemStackTemplate getResult() {
         return this.result;
     }
 

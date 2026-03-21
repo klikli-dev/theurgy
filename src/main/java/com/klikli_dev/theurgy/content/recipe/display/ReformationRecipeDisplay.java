@@ -23,7 +23,7 @@ import java.util.List;
 public record ReformationRecipeDisplay(
         List<SizedIngredient> sources,
         Ingredient target,
-        ItemStack output,
+        ItemStackTemplate output,
         int mercuryFlux,
         int time,
         SlotDisplay craftingStation
@@ -32,7 +32,7 @@ public record ReformationRecipeDisplay(
     public static final MapCodec<ReformationRecipeDisplay> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             SizedIngredient.NESTED_CODEC.listOf().fieldOf("sources").forGetter(ReformationRecipeDisplay::sources),
             Ingredient.CODEC.fieldOf("target").forGetter(ReformationRecipeDisplay::target),
-            ItemStack.CODEC.fieldOf("output").forGetter(ReformationRecipeDisplay::output),
+            ItemStackTemplate.CODEC.fieldOf("output").forGetter(ReformationRecipeDisplay::output),
             Codec.INT.fieldOf("mercuryFlux").forGetter(ReformationRecipeDisplay::mercuryFlux),
             Codec.INT.fieldOf("time").forGetter(ReformationRecipeDisplay::time),
             SlotDisplay.CODEC.fieldOf("craftingStation").forGetter(ReformationRecipeDisplay::craftingStation)
@@ -43,7 +43,7 @@ public record ReformationRecipeDisplay(
             ReformationRecipeDisplay::sources,
             Ingredient.CONTENTS_STREAM_CODEC,
             ReformationRecipeDisplay::target,
-            ItemStack.STREAM_CODEC,
+            ItemStackTemplate.STREAM_CODEC,
             ReformationRecipeDisplay::output,
             ByteBufCodecs.INT,
             ReformationRecipeDisplay::mercuryFlux,
@@ -61,6 +61,6 @@ public record ReformationRecipeDisplay(
 
     @Override
     public SlotDisplay result() {
-        return new SlotDisplay.ItemStackSlotDisplay(ItemStackTemplate.fromNonEmptyStack(this.output));
+        return new SlotDisplay.ItemStackSlotDisplay(this.output);
     }
 }

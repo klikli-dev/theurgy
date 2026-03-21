@@ -23,7 +23,7 @@ import java.util.List;
 public record DigestionRecipeDisplay(
         SizedFluidIngredient fluid,
         List<SizedIngredient> sizedIngredients,
-        ItemStack output,
+        ItemStackTemplate output,
         int time,
         SlotDisplay craftingStation
 ) implements RecipeDisplay {
@@ -31,7 +31,7 @@ public record DigestionRecipeDisplay(
     public static final MapCodec<DigestionRecipeDisplay> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             SizedFluidIngredient.CODEC.fieldOf("fluid").forGetter(DigestionRecipeDisplay::fluid),
             SizedIngredient.NESTED_CODEC.listOf().fieldOf("sizedIngredients").forGetter(DigestionRecipeDisplay::sizedIngredients),
-            ItemStack.CODEC.fieldOf("output").forGetter(DigestionRecipeDisplay::output),
+            ItemStackTemplate.CODEC.fieldOf("output").forGetter(DigestionRecipeDisplay::output),
             Codec.INT.fieldOf("time").forGetter(DigestionRecipeDisplay::time),
             SlotDisplay.CODEC.fieldOf("craftingStation").forGetter(DigestionRecipeDisplay::craftingStation)
     ).apply(instance, DigestionRecipeDisplay::new));
@@ -41,7 +41,7 @@ public record DigestionRecipeDisplay(
             DigestionRecipeDisplay::fluid,
             SizedIngredient.STREAM_CODEC.apply(ByteBufCodecs.list()),
             DigestionRecipeDisplay::sizedIngredients,
-            ItemStack.STREAM_CODEC,
+            ItemStackTemplate.STREAM_CODEC,
             DigestionRecipeDisplay::output,
             ByteBufCodecs.INT,
             DigestionRecipeDisplay::time,
@@ -57,6 +57,6 @@ public record DigestionRecipeDisplay(
 
     @Override
     public SlotDisplay result() {
-        return new SlotDisplay.ItemStackSlotDisplay(ItemStackTemplate.fromNonEmptyStack(this.output));
+        return new SlotDisplay.ItemStackSlotDisplay(this.output);
     }
 }

@@ -11,7 +11,6 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.display.RecipeDisplay;
@@ -21,7 +20,7 @@ import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 public record LiquefactionRecipeDisplay(
         Ingredient ingredient,
         SizedFluidIngredient solvent,
-        ItemStack output,
+        ItemStackTemplate output,
         int time,
         SlotDisplay craftingStation
 ) implements RecipeDisplay {
@@ -29,7 +28,7 @@ public record LiquefactionRecipeDisplay(
     public static final MapCodec<LiquefactionRecipeDisplay> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             Ingredient.CODEC.fieldOf("ingredient").forGetter(LiquefactionRecipeDisplay::ingredient),
             SizedFluidIngredient.CODEC.fieldOf("solvent").forGetter(LiquefactionRecipeDisplay::solvent),
-            ItemStack.CODEC.fieldOf("output").forGetter(LiquefactionRecipeDisplay::output),
+            ItemStackTemplate.CODEC.fieldOf("output").forGetter(LiquefactionRecipeDisplay::output),
             Codec.INT.fieldOf("time").forGetter(LiquefactionRecipeDisplay::time),
             SlotDisplay.CODEC.fieldOf("craftingStation").forGetter(LiquefactionRecipeDisplay::craftingStation)
     ).apply(instance, LiquefactionRecipeDisplay::new));
@@ -39,7 +38,7 @@ public record LiquefactionRecipeDisplay(
             LiquefactionRecipeDisplay::ingredient,
             SizedFluidIngredient.STREAM_CODEC,
             LiquefactionRecipeDisplay::solvent,
-            ItemStack.STREAM_CODEC,
+            ItemStackTemplate.STREAM_CODEC,
             LiquefactionRecipeDisplay::output,
             ByteBufCodecs.INT,
             LiquefactionRecipeDisplay::time,
@@ -55,6 +54,6 @@ public record LiquefactionRecipeDisplay(
 
     @Override
     public SlotDisplay result() {
-        return new SlotDisplay.ItemStackSlotDisplay(ItemStackTemplate.fromNonEmptyStack(this.output));
+        return new SlotDisplay.ItemStackSlotDisplay(this.output);
     }
 }

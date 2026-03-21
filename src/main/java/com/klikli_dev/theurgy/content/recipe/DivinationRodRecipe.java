@@ -33,13 +33,13 @@ import org.jetbrains.annotations.Nullable;
 public class DivinationRodRecipe extends ShapedRecipe {
     protected final String group;
     protected final ShapedRecipePattern pattern;
-    protected final ItemStack result;
+    protected final ItemStackTemplate result;
 
     public static final MapCodec<DivinationRodRecipe> CODEC = RecordCodecBuilder.mapCodec(
             instance -> instance.group(
                             Codec.STRING.optionalFieldOf("group", "").forGetter(r -> r.group),
                             ShapedRecipePattern.MAP_CODEC.forGetter(r -> r.pattern),
-                            ItemStack.CODEC.fieldOf("result").forGetter(r -> r.result),
+                            ItemStackTemplate.CODEC.fieldOf("result").forGetter(r -> r.result),
                             Codec.BOOL.optionalFieldOf("show_notification", true).forGetter(ShapedRecipe::showNotification)
                     )
                     .apply(instance, DivinationRodRecipe::new)
@@ -50,7 +50,7 @@ public class DivinationRodRecipe extends ShapedRecipe {
             r -> r.group,
             ShapedRecipePattern.STREAM_CODEC,
             r -> r.pattern,
-            ItemStack.STREAM_CODEC,
+            ItemStackTemplate.STREAM_CODEC,
             r -> r.result,
             ByteBufCodecs.BOOL,
             ShapedRecipe::showNotification,
@@ -59,8 +59,8 @@ public class DivinationRodRecipe extends ShapedRecipe {
 
     public static final RecipeSerializer<DivinationRodRecipe> SERIALIZER = new RecipeSerializer<>(CODEC, STREAM_CODEC);
 
-    public DivinationRodRecipe(@NotNull String pGroup, @NotNull ShapedRecipePattern pPattern, @NotNull ItemStack pResult, boolean pShowNotification) {
-        super(new Recipe.CommonInfo(pShowNotification), new CraftingRecipe.CraftingBookInfo(CraftingBookCategory.MISC, pGroup), pPattern, ItemStackTemplate.fromNonEmptyStack(pResult));
+    public DivinationRodRecipe(@NotNull String pGroup, @NotNull ShapedRecipePattern pPattern, @NotNull ItemStackTemplate pResult, boolean pShowNotification) {
+        super(new Recipe.CommonInfo(pShowNotification), new CraftingRecipe.CraftingBookInfo(CraftingBookCategory.MISC, pGroup), pPattern, pResult);
         this.group = pGroup;
         this.pattern = pPattern;
         this.result = pResult;
@@ -75,7 +75,7 @@ public class DivinationRodRecipe extends ShapedRecipe {
     @SuppressWarnings({"DataFlowIssue", "OptionalGetWithoutIsPresent"})
     @Override
     public @NotNull ItemStack assemble(@NotNull CraftingInput pInv) {
-        var result = this.result.copy();
+        var result = this.result.create();
 
         if (result.has(DataComponentRegistry.DIVINATION_LINKED_BLOCK.get()) || result.has(DataComponentRegistry.DIVINATION_LINKED_TAG.get()))
             return result;

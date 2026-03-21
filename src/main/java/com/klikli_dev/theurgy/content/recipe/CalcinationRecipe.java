@@ -17,6 +17,7 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -35,7 +36,7 @@ public class CalcinationRecipe implements Recipe<ItemHandlerRecipeInput> {
 
     public static final MapCodec<CalcinationRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
                     SizedIngredient.NESTED_CODEC.fieldOf("ingredient").forGetter((r) -> r.ingredient),
-                    ItemStack.CODEC.fieldOf("result").forGetter(r -> r.result),
+                    ItemStackTemplate.CODEC.fieldOf("result").forGetter(r -> r.result),
                     Codec.INT.optionalFieldOf("time", DEFAULT_TIME).forGetter(r -> r.time)
             ).apply(instance, CalcinationRecipe::new)
     );
@@ -43,7 +44,7 @@ public class CalcinationRecipe implements Recipe<ItemHandlerRecipeInput> {
     public static final StreamCodec<RegistryFriendlyByteBuf, CalcinationRecipe> STREAM_CODEC = StreamCodec.composite(
             SizedIngredient.STREAM_CODEC,
             r -> r.ingredient,
-            ItemStack.STREAM_CODEC,
+            ItemStackTemplate.STREAM_CODEC,
             r -> r.result,
             ByteBufCodecs.INT,
             r -> r.time,
@@ -53,10 +54,10 @@ public class CalcinationRecipe implements Recipe<ItemHandlerRecipeInput> {
     public static final RecipeSerializer<CalcinationRecipe> SERIALIZER = new RecipeSerializer<>(CODEC, STREAM_CODEC);
 
     protected final SizedIngredient ingredient;
-    protected final ItemStack result;
+    protected final ItemStackTemplate result;
     protected final int time;
 
-    public CalcinationRecipe(SizedIngredient pIngredient, ItemStack pResult, int time) {
+    public CalcinationRecipe(SizedIngredient pIngredient, ItemStackTemplate pResult, int time) {
         this.ingredient = pIngredient;
         this.result = pResult;
         this.time = time;
@@ -84,7 +85,7 @@ public class CalcinationRecipe implements Recipe<ItemHandlerRecipeInput> {
 
     @Override
     public ItemStack assemble(ItemHandlerRecipeInput input) {
-        return this.result.copy();
+        return this.result.create();
     }
 
     @Override
@@ -98,7 +99,7 @@ public class CalcinationRecipe implements Recipe<ItemHandlerRecipeInput> {
     }
 
     public ItemStack getResultItem(HolderLookup.Provider pRegistries) {
-        return this.result;
+        return this.result.create();
     }
 
     @Override

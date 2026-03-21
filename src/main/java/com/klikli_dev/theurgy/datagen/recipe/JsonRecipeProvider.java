@@ -182,7 +182,8 @@ public abstract class JsonRecipeProvider implements DataProvider {
         }
 
         public T result(String propertyName, ItemStackTemplate result) {
-            return this.result(propertyName, new ItemRecipeResult(result));
+            this.recipe.add(propertyName, ItemStackTemplate.CODEC.encodeStart(JsonRecipeProvider.this.registryOps, result).getOrThrow());
+            return this.getThis();
         }
 
         public T result(RecipeResult result) {

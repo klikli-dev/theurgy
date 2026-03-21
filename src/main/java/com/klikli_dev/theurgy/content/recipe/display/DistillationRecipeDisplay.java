@@ -19,14 +19,14 @@ import net.neoforged.neoforge.common.crafting.SizedIngredient;
 
 public record DistillationRecipeDisplay(
         SizedIngredient ingredient,
-        ItemStack output,
+        ItemStackTemplate output,
         int time,
         SlotDisplay craftingStation
 ) implements RecipeDisplay {
 
     public static final MapCodec<DistillationRecipeDisplay> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             SizedIngredient.NESTED_CODEC.fieldOf("ingredient").forGetter(DistillationRecipeDisplay::ingredient),
-            ItemStack.CODEC.fieldOf("output").forGetter(DistillationRecipeDisplay::output),
+            ItemStackTemplate.CODEC.fieldOf("output").forGetter(DistillationRecipeDisplay::output),
             Codec.INT.fieldOf("time").forGetter(DistillationRecipeDisplay::time),
             SlotDisplay.CODEC.fieldOf("craftingStation").forGetter(DistillationRecipeDisplay::craftingStation)
     ).apply(instance, DistillationRecipeDisplay::new));
@@ -34,7 +34,7 @@ public record DistillationRecipeDisplay(
     public static final StreamCodec<RegistryFriendlyByteBuf, DistillationRecipeDisplay> STREAM_CODEC = StreamCodec.composite(
             SizedIngredient.STREAM_CODEC,
             DistillationRecipeDisplay::ingredient,
-            ItemStack.STREAM_CODEC,
+            ItemStackTemplate.STREAM_CODEC,
             DistillationRecipeDisplay::output,
             ByteBufCodecs.INT,
             DistillationRecipeDisplay::time,
@@ -50,6 +50,6 @@ public record DistillationRecipeDisplay(
 
     @Override
     public SlotDisplay result() {
-        return new SlotDisplay.ItemStackSlotDisplay(ItemStackTemplate.fromNonEmptyStack(this.output));
+        return new SlotDisplay.ItemStackSlotDisplay(this.output);
     }
 }

@@ -9,11 +9,8 @@ package com.klikli_dev.theurgy.content.particle.coloredbubble;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.SingleQuadParticle;
 import net.minecraft.client.particle.SpriteSet;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import org.joml.Math;
 
-@OnlyIn(Dist.CLIENT)
 public class ColoredBubbleParticle extends SingleQuadParticle {
 
     private final SpriteSet sprite;

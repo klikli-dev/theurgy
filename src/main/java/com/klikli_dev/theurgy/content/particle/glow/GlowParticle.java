@@ -10,21 +10,17 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.SingleQuadParticle;
 import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.util.LightCoordsUtil;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 import java.util.Random;
 
-@OnlyIn(Dist.CLIENT)
 public class GlowParticle extends SingleQuadParticle {
+    private final SpriteSet spriteSet;
     public float colorR = 0;
     public float colorG = 0;
     public float colorB = 0;
     public float initScale = 0;
     public float initAlpha = 0;
-
     public boolean disableDepthTest;
-    private final SpriteSet spriteSet;
 
     public GlowParticle(ClientLevel worldIn, double x, double y, double z, double vx, double vy, double vz, float r, float g, float b, float a, float scale, int lifetime, SpriteSet sprite, boolean disableDepthTest) {
         super(worldIn, x, y, z, 0, 0, 0, sprite.first());

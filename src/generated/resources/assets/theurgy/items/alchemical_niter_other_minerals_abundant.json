@@ -1,6 +1,9 @@
 {
   "model": {
-    "type": "minecraft:model",
-    "model": "theurgy:item/alchemical_niter_other_minerals_abundant"
+    "type": "minecraft:special",
+    "base": "minecraft:builtin/entity",
+    "model": {
+      "type": "theurgy:alchemical_derivative"
+    }
   }
 }

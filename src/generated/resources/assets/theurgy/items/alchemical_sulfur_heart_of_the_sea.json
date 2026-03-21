@@ -1,6 +1,9 @@
 {
   "model": {
-    "type": "minecraft:model",
-    "model": "theurgy:item/alchemical_sulfur_heart_of_the_sea"
+    "type": "minecraft:special",
+    "base": "minecraft:builtin/entity",
+    "model": {
+      "type": "theurgy:alchemical_derivative"
+    }
   }
 }

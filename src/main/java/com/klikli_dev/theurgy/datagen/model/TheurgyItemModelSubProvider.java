@@ -5,6 +5,7 @@
 package com.klikli_dev.theurgy.datagen.model;
 
 import com.klikli_dev.theurgy.Theurgy;
+import com.klikli_dev.theurgy.content.item.derivative.render.AlchemicalDerivativeRenderer;
 import com.klikli_dev.theurgy.content.item.niter.AlchemicalNiterItem;
 import com.klikli_dev.theurgy.content.item.renderer.DivinationDistanceProperty;
 import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurItem;
@@ -32,18 +33,7 @@ public class TheurgyItemModelSubProvider {
     }
 
     private void registerAlchemicalSalt(ItemModelGenerators itemModels, Item item) {
-        //Alchemical salt has a custom model but here we just register it as a generated item with a specific texture?
-        //Original: parent(modLoc("item/alchemical_salt"))
-        //In 1.21.4 we can create a model with that parent.
-        //But assuming "item/alchemical_salt" is a manually created model file or generated elsewhere.
-        //If it's generated here:
-        //this.registerItemGenerated("alchemical_salt");
-
-        //If we want to use "item/alchemical_salt" as parent for the item:
-        //We can use a custom template or just point to it.
-        //However, in vanilla ItemModelGenerators, we typically generate a flat item model.
-        //If alchemical salts just use the texture:
-        itemModels.generateFlatItem(item, ModelTemplates.FLAT_ITEM);
+        this.registerItemGenerated(itemModels, item, "alchemical_salt");
     }
 
     private void registerItemGenerated(ItemModelGenerators itemModels, Item item) {
@@ -99,10 +89,10 @@ public class TheurgyItemModelSubProvider {
     protected void registerSulfurs(ItemModelGenerators itemModels) {
         SulfurRegistry.SULFURS.getEntries().stream().map(DeferredHolder::get).map(AlchemicalSulfurItem.class::cast).forEach(sulfur -> {
             if (sulfur.useAutomaticIconRendering) {
-                //this.registerItemBuiltinEntity(itemModels, sulfur);
-                //If it uses automatic rendering, it probably needs a model that supports it, or it is handled by the renderer.
-                //If it was "builtin/entity" before, usage:
-                itemModels.generateFlatItem(sulfur, ModelTemplates.FLAT_ITEM);
+                itemModels.itemModelOutput.accept(sulfur, ItemModelUtils.specialModel(
+                        Identifier.withDefaultNamespace("builtin/entity"),
+                        new AlchemicalDerivativeRenderer.Unbaked()
+                ));
             }
         });
     }
@@ -110,8 +100,10 @@ public class TheurgyItemModelSubProvider {
     protected void registerNiters(ItemModelGenerators itemModels) {
         NiterRegistry.NITERS.getEntries().stream().map(DeferredHolder::get).map(AlchemicalNiterItem.class::cast).forEach(niter -> {
             if (niter.useAutomaticIconRendering) {
-                //this.registerItemBuiltinEntity(itemModels, niter);
-                itemModels.generateFlatItem(niter, ModelTemplates.FLAT_ITEM);
+                itemModels.itemModelOutput.accept(niter, ItemModelUtils.specialModel(
+                        Identifier.withDefaultNamespace("builtin/entity"),
+                        new AlchemicalDerivativeRenderer.Unbaked()
+                ));
             }
         });
 

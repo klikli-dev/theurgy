@@ -1,6 +1,9 @@
 {
   "model": {
-    "type": "minecraft:model",
-    "model": "theurgy:item/alchemical_sulfur_purpur_block"
+    "type": "minecraft:special",
+    "base": "minecraft:builtin/entity",
+    "model": {
+      "type": "theurgy:alchemical_derivative"
+    }
   }
 }

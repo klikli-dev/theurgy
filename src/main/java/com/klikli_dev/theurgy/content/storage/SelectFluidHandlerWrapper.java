@@ -4,57 +4,57 @@
 
 package com.klikli_dev.theurgy.content.storage;
 
-import net.neoforged.neoforge.fluids.FluidStack;
-import net.neoforged.neoforge.fluids.capability.IFluidHandler;
-import org.jetbrains.annotations.NotNull;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.fluid.FluidResource;
 
 import java.util.function.Supplier;
 
 /**
  * A FluidHandler that wraps a list of fluid handlers, and conditionally returns one of them.
  */
-public class SelectFluidHandlerWrapper implements IFluidHandler {
+public class SelectFluidHandlerWrapper implements ResourceHandler<FluidResource> {
 
-    protected final IFluidHandler[] handlers;
+    protected final ResourceHandler<FluidResource>[] handlers;
     protected Supplier<Integer> selector;
 
-    public SelectFluidHandlerWrapper(Supplier<Integer> selector, IFluidHandler... handlers) {
+    @SafeVarargs
+    public SelectFluidHandlerWrapper(Supplier<Integer> selector, ResourceHandler<FluidResource>... handlers) {
         this.handlers = handlers;
         this.selector = selector;
     }
 
     @Override
-    public int getTanks() {
-        return this.handlers[this.selector.get()].getTanks();
+    public int size() {
+        return this.handlers[this.selector.get()].size();
     }
 
     @Override
-    public @NotNull FluidStack getFluidInTank(int tank) {
-        return this.handlers[this.selector.get()].getFluidInTank(tank);
+    public FluidResource getResource(int index) {
+        return this.handlers[this.selector.get()].getResource(index);
     }
 
     @Override
-    public int getTankCapacity(int tank) {
-        return this.handlers[this.selector.get()].getTankCapacity(tank);
+    public long getAmountAsLong(int index) {
+        return this.handlers[this.selector.get()].getAmountAsLong(index);
     }
 
     @Override
-    public boolean isFluidValid(int tank, @NotNull FluidStack stack) {
-        return this.handlers[this.selector.get()].isFluidValid(tank, stack);
+    public long getCapacityAsLong(int index, FluidResource resource) {
+        return this.handlers[this.selector.get()].getCapacityAsLong(index, resource);
     }
 
     @Override
-    public int fill(@NotNull FluidStack resource, @NotNull FluidAction action) {
-        return this.handlers[this.selector.get()].fill(resource, action);
+    public boolean isValid(int index, FluidResource resource) {
+        return this.handlers[this.selector.get()].isValid(index, resource);
     }
 
     @Override
-    public @NotNull FluidStack drain(@NotNull FluidStack resource, @NotNull FluidAction action) {
-        return this.handlers[this.selector.get()].drain(resource, action);
+    public int insert(int index, FluidResource resource, int amount, net.neoforged.neoforge.transfer.transaction.TransactionContext transaction) {
+        return this.handlers[this.selector.get()].insert(index, resource, amount, transaction);
     }
 
     @Override
-    public @NotNull FluidStack drain(int maxDrain, @NotNull FluidAction action) {
-        return this.handlers[this.selector.get()].drain(maxDrain, action);
+    public int extract(int index, FluidResource resource, int amount, net.neoforged.neoforge.transfer.transaction.TransactionContext transaction) {
+        return this.handlers[this.selector.get()].extract(index, resource, amount, transaction);
     }
 }

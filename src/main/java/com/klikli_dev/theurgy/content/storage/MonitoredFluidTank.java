@@ -4,19 +4,26 @@
 
 package com.klikli_dev.theurgy.content.storage;
 
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.fluids.FluidStack;
-import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
+import net.neoforged.neoforge.fluids.FluidType;
+import net.neoforged.neoforge.transfer.fluid.FluidResource;
+import net.neoforged.neoforge.transfer.fluid.FluidStacksResourceHandler;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Predicate;
 
-public class MonitoredFluidTank extends FluidTank {
+public class MonitoredFluidTank extends FluidStacksResourceHandler {
+    protected final Predicate<FluidStack> validator;
+
     public MonitoredFluidTank(int capacity) {
-        super(capacity);
+        this(capacity, e -> true);
     }
 
     public MonitoredFluidTank(int capacity, Predicate<FluidStack> validator) {
-        super(capacity, validator);
+        super(1, capacity);
+        this.validator = validator;
     }
 
     /**
@@ -39,13 +46,52 @@ public class MonitoredFluidTank extends FluidTank {
 
     }
 
+    protected void onContentsChanged() {
+
+    }
+
     @Override
-    public int fill(FluidStack toInsert, FluidAction action) {
-        if (action != FluidAction.SIMULATE) {
+    public boolean isValid(int index, FluidResource resource) {
+        return resource.isEmpty() || this.isFluidValid(resource.toStack(FluidType.BUCKET_VOLUME));
+    }
+
+    @Override
+    protected void onContentsChanged(int index, FluidStack previousContents) {
+        this.onContentsChanged();
+    }
+
+    @Override
+    public void deserialize(ValueInput input) {
+        this.setFluid(input.read("Fluid", FluidStack.CODEC).orElse(FluidStack.EMPTY));
+    }
+
+    @Override
+    public void serialize(ValueOutput output) {
+        if (!this.isEmpty()) {
+            output.store("Fluid", FluidStack.CODEC, this.getFluid());
+        }
+    }
+
+    public boolean isFluidValid(FluidStack stack) {
+        return this.validator.test(stack);
+    }
+
+    public int getCapacity() {
+        return this.capacity;
+    }
+
+    public FluidStack getFluid() {
+        return FluidStorageHelper.getFluidInTank(this, 0);
+    }
+
+    public int getFluidAmount() {
+        return this.getAmountAsInt(0);
+    }
+
+    public int fill(FluidStack toInsert, boolean simulate) {
+        if (!simulate) {
             var oldStack = this.getFluid().copy();
-
-            var accepted = super.fill(toInsert, action);
-
+            var accepted = FluidStorageHelper.fill(this, toInsert, false);
             var newStack = this.getFluid();
 
             this.onFill(oldStack, newStack, toInsert, accepted, toInsert.getAmount() - accepted);
@@ -56,15 +102,15 @@ public class MonitoredFluidTank extends FluidTank {
 
             return accepted;
         }
-        return super.fill(toInsert, action);
+
+        return FluidStorageHelper.fill(this, toInsert, true);
     }
 
     //amount of fluid removed
-    @Override
-    public @NotNull FluidStack drain(FluidStack resource, FluidAction action) {
-        if (action != FluidAction.SIMULATE) {
+    public @NotNull FluidStack drain(FluidStack resource, boolean simulate) {
+        if (!simulate) {
             var oldStack = this.getFluid().copy();
-            var extracted = super.drain(resource, action);
+            var extracted = FluidStorageHelper.drain(this, resource, false);
             var newStack = this.getFluid();
 
             this.onDrain(oldStack, newStack, extracted);
@@ -75,14 +121,14 @@ public class MonitoredFluidTank extends FluidTank {
 
             return extracted;
         }
-        return super.drain(resource, action);
+
+        return FluidStorageHelper.drain(this, resource, true);
     }
 
-    @Override
-    public @NotNull FluidStack drain(int maxDrain, FluidAction action) {
-        if (action != FluidAction.SIMULATE) {
+    public @NotNull FluidStack drain(int maxDrain, boolean simulate) {
+        if (!simulate) {
             var oldStack = this.getFluid().copy();
-            var extracted = super.drain(maxDrain, action);
+            var extracted = FluidStorageHelper.drain(this, maxDrain, false);
             var newStack = this.getFluid();
 
             this.onDrain(oldStack, newStack, extracted);
@@ -93,20 +139,28 @@ public class MonitoredFluidTank extends FluidTank {
 
             return extracted;
         }
-        return super.drain(maxDrain, action);
+
+        return FluidStorageHelper.drain(this, maxDrain, true);
     }
 
-    @Override
     public void setFluid(FluidStack newStack) {
-        var oldStack = this.getFluid();
+        var oldStack = this.getFluid().copy();
 
         boolean sameFluid = FluidStack.isSameFluidSameComponents(newStack, oldStack);
 
-        super.setFluid(newStack);
+        super.set(0, FluidResource.of(newStack), newStack.getAmount());
 
         this.onSetFluid(oldStack, newStack, sameFluid);
         if (!sameFluid || oldStack.isEmpty() != newStack.isEmpty()) {
             this.onContentTypeChanged(oldStack, newStack);
         }
+    }
+
+    public boolean isEmpty() {
+        return this.getFluid().isEmpty();
+    }
+
+    public int getSpace() {
+        return Math.max(0, this.capacity - this.getFluidAmount());
     }
 }

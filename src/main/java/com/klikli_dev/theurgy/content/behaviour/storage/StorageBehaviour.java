@@ -5,15 +5,13 @@
 package com.klikli_dev.theurgy.content.behaviour.storage;
 
 import com.klikli_dev.theurgy.util.TetraConsumer;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.fluid.FluidResource;
 import net.neoforged.neoforge.transfer.item.ItemResource;
 
 import java.util.function.BiConsumer;
@@ -23,7 +21,7 @@ public abstract class StorageBehaviour<S extends StorageBehaviour<?>> {
     protected BlockEntity blockEntity;
     protected TetraConsumer<ResourceHandler<ItemResource>, Integer, ItemStack, ItemStack> onContentTypeChanged;
     protected BiConsumer<ResourceHandler<ItemResource>, Integer> onContentsChanged;
-    protected Consumer<IFluidHandler> onFluidContentsChanged;
+    protected Consumer<ResourceHandler<FluidResource>> onFluidContentsChanged;
 
     public StorageBehaviour(BlockEntity blockEntity) {
         this.blockEntity = blockEntity;
@@ -39,7 +37,7 @@ public abstract class StorageBehaviour<S extends StorageBehaviour<?>> {
             this.onContentTypeChanged.accept(handler, slot, oldStack, newStack);
     }
 
-    protected void onFluidContentsChanged(IFluidHandler handler) {
+    protected void onFluidContentsChanged(ResourceHandler<FluidResource> handler) {
         if (this.onFluidContentsChanged != null)
             this.onFluidContentsChanged.accept(handler);
     }
@@ -56,7 +54,7 @@ public abstract class StorageBehaviour<S extends StorageBehaviour<?>> {
         return (S) this;
     }
 
-    public S onFluidContentsChanged(Consumer<IFluidHandler> onFluidContentsChanged) {
+    public S onFluidContentsChanged(Consumer<ResourceHandler<FluidResource>> onFluidContentsChanged) {
         this.onFluidContentsChanged = onFluidContentsChanged;
         //noinspection unchecked
         return (S) this;

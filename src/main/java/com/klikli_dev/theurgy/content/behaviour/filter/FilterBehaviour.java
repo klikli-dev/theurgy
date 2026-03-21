@@ -99,7 +99,7 @@ public class FilterBehaviour {
 
             this.filter(Filter.empty());
 
-            ItemHandlerHelper.giveItemToPlayer(pPlayer, stack);
+            pPlayer.getInventory().placeItemBackInInventory(stack);
 
             return InteractionResult.SUCCESS;
         }

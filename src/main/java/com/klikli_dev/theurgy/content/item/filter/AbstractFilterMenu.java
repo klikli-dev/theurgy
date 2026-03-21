@@ -5,13 +5,13 @@
 package com.klikli_dev.theurgy.content.item.filter;
 
 import com.klikli_dev.theurgy.content.gui.menu.GhostItemMenu;
+import com.klikli_dev.theurgy.content.storage.SettableItemStorage;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ContainerInput;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.items.ComponentItemHandler;
 import org.jetbrains.annotations.NotNull;
 
 public abstract class AbstractFilterMenu extends GhostItemMenu<ItemStack> {
@@ -25,7 +25,7 @@ public abstract class AbstractFilterMenu extends GhostItemMenu<ItemStack> {
     }
 
     @Override
-    protected abstract ComponentItemHandler createGhostInventory();
+    protected abstract SettableItemStorage createGhostInventory();
 
     @Override
     protected boolean allowRepeats() {

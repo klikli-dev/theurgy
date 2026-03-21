@@ -4,6 +4,7 @@
 
 package com.klikli_dev.theurgy.content.gui.menu;
 
+import com.klikli_dev.theurgy.content.storage.SettableItemStorage;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -11,12 +12,11 @@ import net.minecraft.world.inventory.ContainerInput;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.items.IItemHandlerModifiable;
 import org.jetbrains.annotations.NotNull;
 
 public abstract class GhostItemMenu<T> extends MenuBase<T> implements IClearableMenu {
 
-    public IItemHandlerModifiable ghostInventory;
+    public SettableItemStorage ghostInventory;
 
     protected GhostItemMenu(MenuType<?> type, int id, Inventory inv, RegistryFriendlyByteBuf extraData) {
         super(type, id, inv, extraData);
@@ -26,7 +26,7 @@ public abstract class GhostItemMenu<T> extends MenuBase<T> implements IClearable
         super(type, id, inv, contentHolder);
     }
 
-    protected abstract IItemHandlerModifiable createGhostInventory();
+    protected abstract SettableItemStorage createGhostInventory();
 
     protected abstract boolean allowRepeats();
 

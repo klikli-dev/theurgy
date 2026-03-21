@@ -6,6 +6,7 @@ package com.klikli_dev.theurgy.content.item.filter;
 
 import com.klikli_dev.theurgy.content.behaviour.filter.FilterMode;
 import com.klikli_dev.theurgy.content.behaviour.filter.attribute.ItemAttribute;
+import com.klikli_dev.theurgy.content.storage.ComponentItemStorage;
 import com.klikli_dev.theurgy.registry.DataComponentRegistry;
 import com.klikli_dev.theurgy.registry.MenuTypeRegistry;
 import com.mojang.datafixers.util.Pair;
@@ -24,8 +25,8 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.CustomData;
-import net.neoforged.neoforge.items.ComponentItemHandler;
-import net.neoforged.neoforge.items.SlotItemHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.item.ResourceHandlerSlot;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -53,8 +54,8 @@ public class AttributeFilterMenu extends AbstractFilterMenu {
     }
 
     @Override
-    protected ComponentItemHandler createGhostInventory() {
-        return new ComponentItemHandler(this.contentHolder, DataComponentRegistry.FILTER_ITEMS.get(), 2);
+    protected ComponentItemStorage createGhostInventory() {
+        return new ComponentItemStorage(this.contentHolder, DataComponentRegistry.FILTER_ITEMS.get(), 2);
     }
 
     @Override
@@ -69,8 +70,8 @@ public class AttributeFilterMenu extends AbstractFilterMenu {
 
     @Override
     protected void addFilterSlots() {
-        this.addSlot(new SlotItemHandler(this.ghostInventory, 0, 16, 24));
-        this.addSlot(new SlotItemHandler(this.ghostInventory, 1, 22, 59) {
+        this.addSlot(new ResourceHandlerSlot(this.ghostInventory, (slot, resource, amount) -> this.ghostInventory.setStackInSlot(slot, resource.toStack(amount)), 0, 16, 24));
+        this.addSlot(new ResourceHandlerSlot(this.ghostInventory, (slot, resource, amount) -> this.ghostInventory.setStackInSlot(slot, resource.toStack(amount)), 1, 22, 59) {
             @Override
             public boolean mayPickup(@NotNull Player playerIn) {
                 return false;

@@ -13,11 +13,11 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import net.neoforged.neoforge.capabilities.Capabilities;
-import net.neoforged.neoforge.fluids.capability.IFluidHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.fluid.FluidResource;
 import org.jetbrains.annotations.Nullable;
 
-public class LogisticsFluidInserterBehaviour extends InserterNodeBehaviour<IFluidHandler, @Nullable Direction> {
+public class LogisticsFluidInserterBehaviour extends InserterNodeBehaviour<ResourceHandler<FluidResource>, @Nullable Direction> {
 
     private Direction directionOverride = null;
     private boolean enabled = true;

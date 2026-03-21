@@ -26,7 +26,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import net.neoforged.neoforge.fluids.capability.IFluidHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.fluid.FluidResource;
 import com.klikli_dev.theurgy.logistics.Wires;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import org.jetbrains.annotations.Nullable;
@@ -34,9 +35,9 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class LogisticsFluidConnectorBlockEntity extends BlockEntity implements MenuProvider, HasLeafNodeBehaviour<IFluidHandler, @Nullable Direction>, HasFilterBehaviour, TargetDirectionSetter, EnabledSetter, FrequencySetter {
+public abstract class LogisticsFluidConnectorBlockEntity extends BlockEntity implements MenuProvider, HasLeafNodeBehaviour<ResourceHandler<FluidResource>, @Nullable Direction>, HasFilterBehaviour, TargetDirectionSetter, EnabledSetter, FrequencySetter {
 
-    protected LeafNodeBehaviour<IFluidHandler, @Nullable Direction> leafNodeBehaviour;
+    protected LeafNodeBehaviour<ResourceHandler<FluidResource>, @Nullable Direction> leafNodeBehaviour;
     protected FilterBehaviour filterBehaviour;
 
     protected LogisticsFluidConnectorBlockEntity(BlockEntityType<?> pType, BlockPos pPos, BlockState pBlockState) {
@@ -119,7 +120,7 @@ public abstract class LogisticsFluidConnectorBlockEntity extends BlockEntity imp
     }
 
     @Override
-    public LeafNodeBehaviour<IFluidHandler, @Nullable Direction> leafNode() {
+    public LeafNodeBehaviour<ResourceHandler<FluidResource>, @Nullable Direction> leafNode() {
         return this.leafNodeBehaviour;
     }
 

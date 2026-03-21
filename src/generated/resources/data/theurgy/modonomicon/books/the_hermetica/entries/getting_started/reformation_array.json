@@ -5,7 +5,7 @@
   "description": "book.theurgy.the_hermetica.getting_started.reformation_array.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "theurgy:reformation_result_pedestal"
+    "id": "theurgy:reformation_result_pedestal"
   },
   "name": "book.theurgy.the_hermetica.getting_started.reformation_array.name",
   "pages": [

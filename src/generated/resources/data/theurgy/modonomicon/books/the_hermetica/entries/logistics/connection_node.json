@@ -5,7 +5,7 @@
   "description": "book.theurgy.the_hermetica.logistics.connection_node.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "theurgy:logistics_connector_node"
+    "id": "theurgy:logistics_connector_node"
   },
   "name": "book.theurgy.the_hermetica.logistics.connection_node.name",
   "pages": [

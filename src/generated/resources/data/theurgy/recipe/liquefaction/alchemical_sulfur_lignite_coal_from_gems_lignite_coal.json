@@ -13,7 +13,6 @@
   "ingredient": "#c:gems/lignite_coal",
   "result": {
     "type": "theurgy:item",
-    "count": 1,
     "id": "theurgy:alchemical_sulfur_lignite_coal"
   },
   "solvent": {

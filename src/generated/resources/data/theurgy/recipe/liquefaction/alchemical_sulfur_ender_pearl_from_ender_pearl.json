@@ -4,7 +4,6 @@
   "ingredient": "minecraft:ender_pearl",
   "result": {
     "type": "theurgy:item",
-    "count": 1,
     "id": "theurgy:alchemical_sulfur_ender_pearl"
   },
   "solvent": {

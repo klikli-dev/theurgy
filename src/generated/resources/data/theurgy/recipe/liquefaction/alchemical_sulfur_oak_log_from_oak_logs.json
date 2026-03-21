@@ -13,7 +13,6 @@
   "ingredient": "#minecraft:oak_logs",
   "result": {
     "type": "theurgy:item",
-    "count": 1,
     "id": "theurgy:alchemical_sulfur_oak_log"
   },
   "solvent": {

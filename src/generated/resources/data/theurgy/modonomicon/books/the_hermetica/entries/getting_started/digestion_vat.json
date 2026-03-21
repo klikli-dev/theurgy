@@ -5,7 +5,7 @@
   "description": "book.theurgy.the_hermetica.getting_started.digestion_vat.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "theurgy:digestion_vat"
+    "id": "theurgy:digestion_vat"
   },
   "name": "book.theurgy.the_hermetica.getting_started.digestion_vat.name",
   "pages": [

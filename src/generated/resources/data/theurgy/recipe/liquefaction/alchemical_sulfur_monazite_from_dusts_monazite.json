@@ -13,7 +13,6 @@
   "ingredient": "#c:dusts/monazite",
   "result": {
     "type": "theurgy:item",
-    "count": 1,
     "id": "theurgy:alchemical_sulfur_monazite"
   },
   "solvent": {

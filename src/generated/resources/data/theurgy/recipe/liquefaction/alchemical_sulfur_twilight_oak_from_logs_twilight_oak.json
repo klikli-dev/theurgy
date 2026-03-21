@@ -13,7 +13,6 @@
   "ingredient": "#c:logs/twilight_oak",
   "result": {
     "type": "theurgy:item",
-    "count": 1,
     "id": "theurgy:alchemical_sulfur_twilight_oak"
   },
   "solvent": {

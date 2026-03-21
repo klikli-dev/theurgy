@@ -13,7 +13,6 @@
   "ingredient": "#c:ingots/iesnium",
   "result": {
     "type": "theurgy:item",
-    "count": 1,
     "id": "theurgy:alchemical_sulfur_iesnium"
   },
   "solvent": {

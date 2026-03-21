@@ -18,15 +18,19 @@ import net.minecraft.network.chat.Style;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
 public class AlchemicalSulfurItem extends AlchemicalDerivativeItem {
     public AlchemicalSulfurType type;
+    @Nullable
+    private TagKey<Item> sourceTag;
 
     public AlchemicalSulfurItem(Properties pProperties) {
         super(pProperties);
         this.type = AlchemicalSulfurType.MISC;
+        this.sourceTag = null;
     }
 
     public static AlchemicalSulfurType getType(ItemStack sulfurStack) {
@@ -43,11 +47,17 @@ public class AlchemicalSulfurItem extends AlchemicalDerivativeItem {
                         DataComponentRegistry.SOURCE_TAG,
                         source
                 ));
+        item.sourceTag = source;
         //tags need to override the source name
         item.useCustomSourceName(true);
         item.tier(tier);
         item.type(type);
         return item;
+    }
+
+    @Nullable
+    public TagKey<Item> sourceTag() {
+        return this.sourceTag;
     }
 
     public static AlchemicalSulfurItem ofSource(Item.Properties prop, Item sourceStack, AlchemicalDerivativeTier tier, AlchemicalSulfurType type) {

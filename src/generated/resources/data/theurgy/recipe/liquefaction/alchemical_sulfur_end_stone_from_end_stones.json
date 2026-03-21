@@ -13,7 +13,6 @@
   "ingredient": "#c:end_stones",
   "result": {
     "type": "theurgy:item",
-    "count": 1,
     "id": "theurgy:alchemical_sulfur_end_stone"
   },
   "solvent": {

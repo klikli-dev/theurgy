@@ -17,7 +17,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
@@ -90,7 +90,7 @@ public class DigestionRecipeProvider extends JsonRecipeProvider {
 
     public void makeRecipe(String name, Fluid fluid, int fluidAmount, List<Pair<Item, Integer>> ingredients, Item result, int resultCount, int time) {
 
-        var recipe = new Builder(new ItemStack(result, resultCount))
+        var recipe = new Builder(new ItemStackTemplate(result, resultCount))
                 .fluid(fluid, fluidAmount)
                 .time(time);
 
@@ -105,7 +105,7 @@ public class DigestionRecipeProvider extends JsonRecipeProvider {
 
     public void makeRecipeWithTags(String name, Fluid fluid, int fluidAmount, List<TagKey<Item>> ingredients, Item result, int resultCount, int time) {
 
-        var recipe = new Builder(new ItemStack(result, resultCount))
+        var recipe = new Builder(new ItemStackTemplate(result, resultCount))
                 .fluid(fluid, fluidAmount)
                 .time(time);
 
@@ -120,7 +120,7 @@ public class DigestionRecipeProvider extends JsonRecipeProvider {
     }
 
     protected class Builder extends RecipeBuilder<Builder> {
-        protected Builder(ItemStack result) {
+        protected Builder(ItemStackTemplate result) {
             super(RecipeTypeRegistry.DIGESTION);
             this.result(result);
             this.time(TIME);

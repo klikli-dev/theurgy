@@ -13,7 +13,6 @@
   "ingredient": "#c:logs/archwood",
   "result": {
     "type": "theurgy:item",
-    "count": 1,
     "id": "theurgy:alchemical_sulfur_archwood"
   },
   "solvent": {

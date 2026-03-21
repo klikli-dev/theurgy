@@ -21,6 +21,7 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.ToolMaterial;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
@@ -454,7 +455,7 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
     protected class ShapedRecipeBuilder {
 
         private final JsonObject recipe;
-        private final ItemStack result;
+        private final ItemStackTemplate result;
 
         public ShapedRecipeBuilder(ItemLike result) {
             this(result, 1);
@@ -486,14 +487,14 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
         }
 
         public ShapedRecipeBuilder(String recipeType, Holder<Item> result, int count, DataComponentPatch patch) {
-            this(recipeType, new ItemStack(result, count, patch));
+            this(recipeType, new ItemStackTemplate(result, count, patch));
         }
 
-        public ShapedRecipeBuilder(String recipeType, ItemStack result) {
+        public ShapedRecipeBuilder(String recipeType, ItemStackTemplate result) {
             this.result = result;
             this.recipe = new JsonObject();
             this.recipe.addProperty("type", recipeType);
-            this.recipe.add("result", ItemStack.CODEC.encodeStart(ShapedRecipeProvider.this.registryOps, result).getOrThrow());
+            this.recipe.add("result", ItemStackTemplate.CODEC.encodeStart(ShapedRecipeProvider.this.registryOps, result).getOrThrow());
             this.recipe.add("key", new JsonObject());
             this.recipe.add("pattern", new JsonArray());
         }
@@ -539,7 +540,7 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
             return this.recipe;
         }
 
-        public ItemStack result() {
+        public ItemStackTemplate result() {
             return this.result;
         }
     }

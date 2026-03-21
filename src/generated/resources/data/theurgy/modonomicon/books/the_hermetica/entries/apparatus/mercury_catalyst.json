@@ -5,7 +5,7 @@
   "description": "book.theurgy.the_hermetica.apparatus.mercury_catalyst.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "theurgy:mercury_catalyst"
+    "id": "theurgy:mercury_catalyst"
   },
   "name": "book.theurgy.the_hermetica.apparatus.mercury_catalyst.name",
   "pages": [

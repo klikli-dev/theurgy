@@ -16,7 +16,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.neoforged.neoforge.common.Tags;
 
@@ -98,7 +98,7 @@ public class DistillationRecipeProvider extends JsonRecipeProvider {
     public void makeMercuryShardRecipe(String recipeName, int resultCount, TagKey<Item> ingredient, int ingredientCount, int distillationTime) {
         this.recipeConsumer.accept(
                 this.modLoc(recipeName),
-                new Builder(new ItemStack(ItemRegistry.MERCURY_SHARD.get(), resultCount))
+                new Builder(new ItemStackTemplate(ItemRegistry.MERCURY_SHARD.get(), resultCount))
                         .sizedIngredient(ingredient, ingredientCount)
                         .time(distillationTime)
                         .build());
@@ -115,7 +115,7 @@ public class DistillationRecipeProvider extends JsonRecipeProvider {
     public void makeMercuryShardRecipe(String recipeName, int resultCount, Item ingredient, int ingredientCount, int distillationTime) {
         this.recipeConsumer.accept(
                 this.modLoc(recipeName),
-                new Builder(new ItemStack(ItemRegistry.MERCURY_SHARD.get(), resultCount))
+                new Builder(new ItemStackTemplate(ItemRegistry.MERCURY_SHARD.get(), resultCount))
                         .sizedIngredient(ingredient, ingredientCount)
                         .time(distillationTime)
                         .build());
@@ -127,7 +127,7 @@ public class DistillationRecipeProvider extends JsonRecipeProvider {
     }
 
     protected class Builder extends RecipeBuilder<Builder> {
-        protected Builder(ItemStack result) {
+        protected Builder(ItemStackTemplate result) {
             super(RecipeTypeRegistry.DISTILLATION);
             this.result(result);
             this.time(TIME);

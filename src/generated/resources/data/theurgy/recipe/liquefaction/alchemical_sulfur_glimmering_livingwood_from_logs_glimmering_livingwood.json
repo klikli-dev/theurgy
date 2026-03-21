@@ -13,7 +13,6 @@
   "ingredient": "#c:logs/glimmering_livingwood",
   "result": {
     "type": "theurgy:item",
-    "count": 1,
     "id": "theurgy:alchemical_sulfur_glimmering_livingwood"
   },
   "solvent": {

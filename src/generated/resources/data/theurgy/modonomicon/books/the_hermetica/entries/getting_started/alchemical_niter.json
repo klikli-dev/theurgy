@@ -5,7 +5,7 @@
   "description": "book.theurgy.the_hermetica.getting_started.alchemical_niter.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "theurgy:empty_ceramic_jar_labeled_icon"
+    "id": "theurgy:empty_ceramic_jar_labeled_icon"
   },
   "name": "book.theurgy.the_hermetica.getting_started.alchemical_niter.name",
   "pages": [

@@ -5,7 +5,7 @@
   "description": "book.theurgy.the_hermetica.logistics.lore.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "theurgy:mercury_shard"
+    "id": "theurgy:mercury_shard"
   },
   "name": "book.theurgy.the_hermetica.logistics.lore.name",
   "pages": [

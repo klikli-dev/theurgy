@@ -21,7 +21,14 @@
     "R  "
   ],
   "result": {
-    "count": 1,
+    "components": {
+      "theurgy:divination_settings_allowed_blocks_tag": "theurgy:divination_rod_t2_allowed_blocks",
+      "theurgy:divination_settings_disallowed_blocks_tag": "theurgy:divination_rod_t2_disallowed_blocks",
+      "theurgy:divination_settings_duration": 40,
+      "theurgy:divination_settings_max_damage": 16,
+      "theurgy:divination_settings_range": 96,
+      "theurgy:divination_settings_tier": "iron"
+    },
     "id": "theurgy:divination_rod_t2"
   }
 }

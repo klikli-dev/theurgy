@@ -4,7 +4,6 @@
   "ingredient": "minecraft:magma_block",
   "result": {
     "type": "theurgy:item",
-    "count": 1,
     "id": "theurgy:alchemical_sulfur_magma_block"
   },
   "solvent": {

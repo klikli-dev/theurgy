@@ -4,7 +4,6 @@
   "ingredient": "minecraft:crimson_nylium",
   "result": {
     "type": "theurgy:item",
-    "count": 1,
     "id": "theurgy:alchemical_sulfur_crimson_nylium"
   },
   "solvent": {

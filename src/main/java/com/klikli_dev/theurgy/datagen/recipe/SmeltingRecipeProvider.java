@@ -14,6 +14,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
@@ -35,7 +36,7 @@ public class SmeltingRecipeProvider extends JsonRecipeProvider {
     }
 
     protected void makeRecipe(SmeltingRecipeBuilder recipe) {
-        this.makeRecipe(this.name(recipe.result.getItem()), recipe);
+        this.makeRecipe(this.name(recipe.result), recipe);
     }
 
     protected void makeRecipe(ItemLike result, SmeltingRecipeBuilder recipe) {
@@ -54,7 +55,7 @@ public class SmeltingRecipeProvider extends JsonRecipeProvider {
     protected class SmeltingRecipeBuilder {
 
         private final JsonObject recipe;
-        private final ItemStack result;
+        private final ItemStackTemplate result;
 
         public SmeltingRecipeBuilder(ItemLike result) {
             this(result, 1);
@@ -68,13 +69,13 @@ public class SmeltingRecipeProvider extends JsonRecipeProvider {
             this(SmeltingRecipeProvider.this.createItemStack(result, count, patch));
         }
 
-        public SmeltingRecipeBuilder(ItemStack result) {
+        public SmeltingRecipeBuilder(ItemStackTemplate result) {
             this.result = result;
             this.recipe = new JsonObject();
             //noinspection DataFlowIssue
             this.recipe.addProperty("type",
                     "minecraft:smelting");
-            this.recipe.add("result", ItemStack.CODEC.encodeStart(SmeltingRecipeProvider.this.registryOps, result).getOrThrow());
+            this.recipe.add("result", ItemStackTemplate.CODEC.encodeStart(SmeltingRecipeProvider.this.registryOps, result).getOrThrow());
             this.recipe.addProperty("cookingtime", 200);
             this.recipe.addProperty("experience", 0.7f);
         }
@@ -121,7 +122,7 @@ public class SmeltingRecipeProvider extends JsonRecipeProvider {
             return this.recipe;
         }
 
-        public ItemStack result() {
+        public ItemStackTemplate result() {
             return this.result;
         }
     }

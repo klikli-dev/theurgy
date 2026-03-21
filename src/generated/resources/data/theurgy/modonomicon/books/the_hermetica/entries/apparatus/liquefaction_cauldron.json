@@ -5,7 +5,7 @@
   "description": "book.theurgy.the_hermetica.apparatus.liquefaction_cauldron.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "theurgy:liquefaction_cauldron"
+    "id": "theurgy:liquefaction_cauldron"
   },
   "name": "book.theurgy.the_hermetica.apparatus.liquefaction_cauldron.name",
   "pages": [

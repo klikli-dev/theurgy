@@ -5,7 +5,7 @@
   "description": "book.theurgy.the_hermetica.apparatus.incubator.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "theurgy:incubator"
+    "id": "theurgy:incubator"
   },
   "name": "book.theurgy.the_hermetica.apparatus.incubator.name",
   "pages": [

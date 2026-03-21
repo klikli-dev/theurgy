@@ -5,7 +5,7 @@
   "description": "book.theurgy.the_hermetica.getting_started.logistics.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "theurgy:mercurial_wand"
+    "id": "theurgy:mercurial_wand"
   },
   "name": "book.theurgy.the_hermetica.getting_started.logistics.name",
   "pages": [

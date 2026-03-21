@@ -5,7 +5,7 @@
   "description": "book.theurgy.the_hermetica.getting_started.source_pedestal.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "theurgy:alchemical_sulfur_lapis"
+    "id": "theurgy:alchemical_sulfur_lapis"
   },
   "name": "book.theurgy.the_hermetica.getting_started.source_pedestal.name",
   "pages": [

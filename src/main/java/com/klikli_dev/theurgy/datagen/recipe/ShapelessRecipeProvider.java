@@ -18,6 +18,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -109,7 +110,7 @@ public class ShapelessRecipeProvider extends JsonRecipeProvider {
     protected class ShapelessRecipeBuilder {
 
         private final JsonObject recipe;
-        private final ItemStack result;
+        private final ItemStackTemplate result;
 
         public ShapelessRecipeBuilder(ItemLike result) {
             this(result, 1);
@@ -123,13 +124,13 @@ public class ShapelessRecipeProvider extends JsonRecipeProvider {
             this(ShapelessRecipeProvider.this.createItemStack(result, count, patch));
         }
 
-        public ShapelessRecipeBuilder(ItemStack result) {
+        public ShapelessRecipeBuilder(ItemStackTemplate result) {
             this.result = result;
             this.recipe = new JsonObject();
             //noinspection DataFlowIssue
             this.recipe.addProperty("type",
                     "minecraft:crafting_shapeless");
-            this.recipe.add("result", ItemStack.CODEC.encodeStart(ShapelessRecipeProvider.this.registryOps, result).getOrThrow());
+            this.recipe.add("result", ItemStackTemplate.CODEC.encodeStart(ShapelessRecipeProvider.this.registryOps, result).getOrThrow());
             this.recipe.add("ingredients", new JsonArray());
         }
 
@@ -181,7 +182,7 @@ public class ShapelessRecipeProvider extends JsonRecipeProvider {
             return this.recipe;
         }
 
-        public ItemStack result() {
+        public ItemStackTemplate result() {
             return this.result;
         }
     }

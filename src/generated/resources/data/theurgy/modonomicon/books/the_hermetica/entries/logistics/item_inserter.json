@@ -5,7 +5,7 @@
   "description": "book.theurgy.the_hermetica.logistics.item_inserter.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "theurgy:logistics_item_inserter"
+    "id": "theurgy:logistics_item_inserter"
   },
   "name": "book.theurgy.the_hermetica.logistics.item_inserter.name",
   "pages": [

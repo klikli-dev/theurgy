@@ -5,7 +5,7 @@
   "description": "book.theurgy.the_hermetica.getting_started.niter_to_sulfur_reformation.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "theurgy:alchemical_sulfur_iron"
+    "id": "theurgy:alchemical_sulfur_iron"
   },
   "name": "book.theurgy.the_hermetica.getting_started.niter_to_sulfur_reformation.name",
   "pages": [

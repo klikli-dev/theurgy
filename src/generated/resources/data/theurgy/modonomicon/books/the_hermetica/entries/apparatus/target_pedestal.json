@@ -5,7 +5,7 @@
   "description": "book.theurgy.the_hermetica.apparatus.target_pedestal.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "theurgy:reformation_target_pedestal"
+    "id": "theurgy:reformation_target_pedestal"
   },
   "name": "book.theurgy.the_hermetica.apparatus.target_pedestal.name",
   "pages": [

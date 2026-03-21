@@ -13,7 +13,6 @@
   "ingredient": "#c:logs/illwood",
   "result": {
     "type": "theurgy:item",
-    "count": 1,
     "id": "theurgy:alchemical_sulfur_illwood"
   },
   "solvent": {

@@ -5,7 +5,7 @@
   "description": "book.theurgy.the_hermetica.getting_started.fermentation_starter.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "theurgy:fermentation_starter"
+    "id": "theurgy:fermentation_starter"
   },
   "name": "book.theurgy.the_hermetica.getting_started.fermentation_starter.name",
   "pages": [

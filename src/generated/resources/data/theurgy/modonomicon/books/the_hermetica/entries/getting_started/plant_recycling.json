@@ -5,7 +5,7 @@
   "description": "book.theurgy.the_hermetica.getting_started.plant_recycling.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "theurgy:alchemical_salt_plant"
+    "id": "theurgy:alchemical_salt_plant"
   },
   "name": "book.theurgy.the_hermetica.getting_started.plant_recycling.name",
   "pages": [

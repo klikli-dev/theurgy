@@ -16,7 +16,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.material.Fluid;
@@ -60,7 +60,7 @@ public class FermentationRecipeProvider extends JsonRecipeProvider {
     }
 
     public void makeFermentationStarterRecipeForTag(TagKey<Item> cropTag) {
-        var recipe = new Builder(new ItemStack(ItemRegistry.FERMENTATION_STARTER.get(), 20))
+        var recipe = new Builder(new ItemStackTemplate(ItemRegistry.FERMENTATION_STARTER.get(), 20))
                 .fluid(FluidRegistry.SAL_AMMONIAC.get(), 100)
                 .ingredients(cropTag)
                 .ingredients(ItemTagRegistry.SUGARS)
@@ -246,7 +246,7 @@ public class FermentationRecipeProvider extends JsonRecipeProvider {
 
     public void makeRecipe(String name, Fluid fluid, int fluidAmount, List<TagKey<Item>> ingredients, Item result, int resultCount, int time) {
 
-        var recipe = new Builder(new ItemStack(result, resultCount))
+        var recipe = new Builder(new ItemStackTemplate(result, resultCount))
                 .fluid(fluid, fluidAmount)
                 .time(time);
 
@@ -266,24 +266,24 @@ public class FermentationRecipeProvider extends JsonRecipeProvider {
     }
 
     protected class Builder extends RecipeBuilder<Builder> {
-        private final ItemStack result;
+        private final ItemStackTemplate result;
 
         protected Builder(ItemLike result) {
             this(result, 1);
         }
 
         protected Builder(ItemLike result, int count) {
-            this(new ItemStack(result, count));
+            this(new ItemStackTemplate(result.asItem(), count));
         }
 
-        protected Builder(ItemStack result) {
+        protected Builder(ItemStackTemplate result) {
             super(RecipeTypeRegistry.FERMENTATION);
             this.result(result);
             this.result = result;
             this.time(TIME);
         }
 
-        public ItemStack result() {
+        public ItemStackTemplate result() {
             return this.result;
         }
 

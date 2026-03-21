@@ -13,7 +13,6 @@
   "ingredient": "#c:logs/skyroot",
   "result": {
     "type": "theurgy:item",
-    "count": 1,
     "id": "theurgy:alchemical_sulfur_skyroot"
   },
   "solvent": {

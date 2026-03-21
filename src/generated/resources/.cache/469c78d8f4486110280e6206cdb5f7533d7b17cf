@@ -1,4 +1,4 @@
-// 1.21.5	2026-03-19T23:20:45.9541865	Tags for minecraft:item mod id theurgy
+// 26.1-snapshot-11	2026-03-21T11:36:48.5042401	Tags for minecraft:item mod id theurgy
 f41150cbf3906d7eb1284a3f289d93bb80e57b9f data/c/tags/item/gems.json
 9d7e0673ca0bd8f1eb04c0813860ac8b7ec5d981 data/c/tags/item/gems/chimerite.json
 f17805722ccaefbf3d1c1b6e6b4f54f30f9af17c data/c/tags/item/gems/dark.json
@@ -7,9 +7,9 @@ b1ff2a3c4880585cd8258fc957607953ef8b5e0f data/c/tags/item/ingots/demonite.json
 d98197052c711f528a2969cd0788b981688ac346 data/c/tags/item/ingots/uraninite.json
 2a6db3eadd0ca532bb90db84dde920e689ea0e24 data/c/tags/item/ores.json
 42a10b4d97599ff3b275891b7a1095e18819e31a data/c/tags/item/ores/dark_gem.json
-04abd356cb9b230f4d1adcf90db05571e8a17d05 data/c/tags/item/ores/sal_ammoniac.json
-9148832ee4e83df2b37e23918707fd8046f26ff7 data/c/tags/item/ores_in_ground/deepslate.json
-f8295983ffdb0c42c6c8b12788a5b63c1eb43f72 data/c/tags/item/ores_in_ground/stone.json
+2a6db3eadd0ca532bb90db84dde920e689ea0e24 data/c/tags/item/ores/sal_ammoniac.json
+86093a61750c8eb2d209d5e23f6722cdee024bc5 data/c/tags/item/ores_in_ground/deepslate.json
+be9348102195c2c68cdc00b815c0d662caa29a98 data/c/tags/item/ores_in_ground/stone.json
 535258ca12e8af6ced6639333ece9113837588ef data/c/tags/item/raw_materials/demonite.json
 e801bdef0719e27dd7decd88269ada7c5740348e data/c/tags/item/sugars.json
 c1ae367d1f7b1391996652acb8c12cfbe63abfc8 data/theurgy/tags/item/alchemical_mercuries.json

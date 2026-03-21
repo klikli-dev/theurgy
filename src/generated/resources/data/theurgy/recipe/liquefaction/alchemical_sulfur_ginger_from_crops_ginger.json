@@ -13,7 +13,6 @@
   "ingredient": "#c:crops/ginger",
   "result": {
     "type": "theurgy:item",
-    "count": 1,
     "id": "theurgy:alchemical_sulfur_ginger"
   },
   "solvent": {

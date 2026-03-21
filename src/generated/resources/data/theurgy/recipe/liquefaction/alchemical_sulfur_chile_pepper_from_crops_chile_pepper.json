@@ -13,7 +13,6 @@
   "ingredient": "#c:crops/chile_pepper",
   "result": {
     "type": "theurgy:item",
-    "count": 1,
     "id": "theurgy:alchemical_sulfur_chile_pepper"
   },
   "solvent": {

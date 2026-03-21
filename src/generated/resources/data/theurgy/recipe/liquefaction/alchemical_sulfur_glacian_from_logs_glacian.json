@@ -13,7 +13,6 @@
   "ingredient": "#c:logs/glacian",
   "result": {
     "type": "theurgy:item",
-    "count": 1,
     "id": "theurgy:alchemical_sulfur_glacian"
   },
   "solvent": {

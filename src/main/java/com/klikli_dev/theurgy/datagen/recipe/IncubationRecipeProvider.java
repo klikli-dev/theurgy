@@ -16,7 +16,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.neoforged.neoforge.common.Tags;
 
@@ -385,7 +385,7 @@ public class IncubationRecipeProvider extends JsonRecipeProvider {
     }
 
     public void makeRecipe(String recipeName, Item result, int resultCount, Item mercury, AlchemicalSaltItem salt, AlchemicalSulfurItem sulfur, int incubationTime) {
-        var recipe = new Builder(RecipeResult.of(new ItemStack(result, resultCount)))
+        var recipe = new Builder(RecipeResult.of(new ItemStackTemplate(result, resultCount)))
                 .mercury(mercury)
                 .salt(salt)
                 .sulfur(sulfur)

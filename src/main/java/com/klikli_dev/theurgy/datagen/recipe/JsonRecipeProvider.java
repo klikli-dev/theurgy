@@ -27,6 +27,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -37,6 +38,7 @@ import net.neoforged.neoforge.common.conditions.NotCondition;
 import net.neoforged.neoforge.common.conditions.TagEmptyCondition;
 import net.neoforged.neoforge.common.crafting.SizedIngredient;
 import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.FluidStackTemplate;
 import net.neoforged.neoforge.fluids.crafting.FluidIngredient;
 import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 import org.jetbrains.annotations.NotNull;
@@ -73,8 +75,12 @@ public abstract class JsonRecipeProvider implements DataProvider {
         this.modid = modid;
     }
 
-    protected String name(ItemStack item) {
-        return this.name(item.getItem());
+    protected String name(ItemStackTemplate item) {
+        return this.name(item.item());
+    }
+
+    protected String name(Holder<Item> item) {
+        return BuiltInRegistries.ITEM.getKey(item.value()).getPath();
     }
 
     protected String name(ItemLike item) {
@@ -101,12 +107,8 @@ public abstract class JsonRecipeProvider implements DataProvider {
         return BuiltInRegistries.ITEM.getKey(itemLike.asItem());
     }
 
-    protected ItemStack createItemStack(ItemLike itemLike, int count, DataComponentPatch patch) {
-        var stack = new ItemStack(itemLike, count);
-        if (patch != null) {
-            stack.applyComponentsAndValidate(patch);
-        }
-        return stack;
+    protected ItemStackTemplate createItemStack(ItemLike itemLike, int count, DataComponentPatch patch) {
+        return new ItemStackTemplate(itemLike.asItem().builtInRegistryHolder(), count, patch);
     }
 
     public Identifier locFor(Fluid fluid) {
@@ -175,11 +177,11 @@ public abstract class JsonRecipeProvider implements DataProvider {
             return this.getThis();
         }
 
-        public T result(ItemStack result) {
+        public T result(ItemStackTemplate result) {
             return this.result("result", result);
         }
 
-        public T result(String propertyName, ItemStack result) {
+        public T result(String propertyName, ItemStackTemplate result) {
             return this.result(propertyName, new ItemRecipeResult(result));
         }
 
@@ -201,8 +203,17 @@ public abstract class JsonRecipeProvider implements DataProvider {
             return this.result("result", result);
         }
 
+        public T result(FluidStackTemplate result) {
+            return this.result("result", result);
+        }
+
         public T result(String propertyName, FluidStack result) {
             this.recipe.add(propertyName, FluidStack.CODEC.encodeStart(JsonRecipeProvider.this.registryOps, result).getOrThrow());
+            return this.getThis();
+        }
+
+        public T result(String propertyName, FluidStackTemplate result) {
+            this.recipe.add(propertyName, FluidStackTemplate.CODEC.encodeStart(JsonRecipeProvider.this.registryOps, result).getOrThrow());
             return this.getThis();
         }
 

@@ -5,7 +5,7 @@
   "description": "book.theurgy.the_hermetica.getting_started.t1_divination_rod.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "theurgy:divination_rod_t1"
+    "id": "theurgy:divination_rod_t1"
   },
   "name": "book.theurgy.the_hermetica.getting_started.t1_divination_rod.name",
   "pages": [

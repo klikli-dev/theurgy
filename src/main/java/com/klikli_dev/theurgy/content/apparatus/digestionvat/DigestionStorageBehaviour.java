@@ -16,9 +16,8 @@ import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.FluidType;
-import net.neoforged.neoforge.fluids.capability.IFluidHandler;
-import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
 import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.fluid.FluidResource;
 import net.neoforged.neoforge.transfer.item.ItemResource;
 import org.jetbrains.annotations.NotNull;
 
@@ -58,8 +57,8 @@ public class DigestionStorageBehaviour extends StorageBehaviour<DigestionStorage
      */
     public SelectItemHandlerWrapper inventoryOpenCloseAwareWrapper;
 
-    public FluidTank fluidTank;
-    public IFluidHandler fluidTankReadOnlyWrapper;
+    public WaterTank fluidTank;
+    public ResourceHandler<FluidResource> fluidTankReadOnlyWrapper;
     /**
      * Depending on the state of the vat returns either a read only, or an extractable handler.
      */

@@ -6,6 +6,7 @@ package com.klikli_dev.theurgy.content.recipe;
 
 
 import com.klikli_dev.theurgy.content.recipe.input.ItemHandlerWithFluidRecipeInput;
+import com.klikli_dev.theurgy.content.storage.FluidStorageHelper;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.RecipeSerializerRegistry;
@@ -77,7 +78,7 @@ public class LiquefactionRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
 
     @Override
     public boolean matches(@NotNull ItemHandlerWithFluidRecipeInput pContainer, @NotNull Level pLevel) {
-        var fluid = pContainer.getTank().getFluidInTank(0);
+        var fluid = FluidStorageHelper.getFluidInTank(pContainer.getTank(), 0);
         return this.ingredient.test(pContainer.getItem(0)) && this.solvent.test(fluid);
     }
 

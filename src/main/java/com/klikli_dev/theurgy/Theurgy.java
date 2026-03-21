@@ -136,6 +136,7 @@ public class Theurgy {
             modEventBus.addListener(Client::onClientSetup);
             modEventBus.addListener(Client::onRegisterEntityRendererLayerDefinitions);
             modEventBus.addListener(Client::onRegisterEntityRenderers);
+            modEventBus.addListener(TheurgySpecialModelRenderers::onRegisterSpecialModelRenderers);
             modEventBus.addListener(Client::onRegisterClientExtensions);
             //modEventBus.addListener(Client::onRegisterItemColors);
             //modEventBus.addListener(Client::onRegisterBlockColors);

@@ -18,15 +18,11 @@ import com.klikli_dev.theurgy.content.apparatus.incubator.render.IncubatorSulfur
 import net.minecraft.client.renderer.special.SpecialModelRenderers;
 import net.minecraft.resources.Identifier;
 import net.neoforged.api.distmarker.Dist;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.RegisterSpecialModelRendererEvent;
 
-@EventBusSubscriber(modid = Theurgy.MODID, value = Dist.CLIENT)
 public class TheurgySpecialModelRenderers {
 
-    @SubscribeEvent
     public static void onRegisterSpecialModelRenderers(RegisterSpecialModelRendererEvent event) {
         event.register(Identifier.fromNamespaceAndPath(Theurgy.MODID, "distiller"), DistillerItemRenderer.Unbaked.MAP_CODEC);
         event.register(Identifier.fromNamespaceAndPath(Theurgy.MODID, "calcination_oven"), CalcinationOvenItemRenderer.Unbaked.MAP_CODEC);

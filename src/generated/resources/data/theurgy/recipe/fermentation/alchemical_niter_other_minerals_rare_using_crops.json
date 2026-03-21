@@ -26,7 +26,6 @@
     "#c:crops"
   ],
   "result": {
-    "type": "theurgy:item",
     "id": "theurgy:alchemical_niter_other_minerals_rare"
   },
   "time": 200

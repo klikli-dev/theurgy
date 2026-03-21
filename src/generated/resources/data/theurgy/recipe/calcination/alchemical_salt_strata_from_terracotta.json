@@ -6,7 +6,6 @@
     "ingredient": "minecraft:terracotta"
   },
   "result": {
-    "type": "theurgy:item",
     "count": 2,
     "id": "theurgy:alchemical_salt_strata"
   },

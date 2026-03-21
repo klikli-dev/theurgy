@@ -26,7 +26,6 @@
     "#minecraft:logs"
   ],
   "result": {
-    "type": "theurgy:item",
     "id": "theurgy:alchemical_niter_animals_common"
   },
   "time": 200

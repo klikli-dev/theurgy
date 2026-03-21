@@ -26,7 +26,6 @@
     "#c:crops"
   ],
   "result": {
-    "type": "theurgy:item",
     "id": "theurgy:alchemical_niter_animals_rare"
   },
   "time": 200

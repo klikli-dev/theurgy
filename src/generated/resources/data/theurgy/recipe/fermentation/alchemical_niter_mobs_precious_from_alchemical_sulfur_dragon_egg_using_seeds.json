@@ -19,7 +19,6 @@
     "#c:seeds"
   ],
   "result": {
-    "type": "theurgy:item",
     "count": 4,
     "id": "theurgy:alchemical_niter_mobs_precious"
   },

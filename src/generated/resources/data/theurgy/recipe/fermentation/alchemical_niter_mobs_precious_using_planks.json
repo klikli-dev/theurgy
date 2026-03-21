@@ -26,7 +26,6 @@
     "#minecraft:planks"
   ],
   "result": {
-    "type": "theurgy:item",
     "id": "theurgy:alchemical_niter_mobs_precious"
   },
   "time": 200

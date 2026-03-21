@@ -15,7 +15,6 @@
     "ingredient": "#c:raw_materials"
   },
   "result": {
-    "type": "theurgy:item",
     "id": "theurgy:alchemical_salt_mineral"
   },
   "time": 100

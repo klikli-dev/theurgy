@@ -26,7 +26,6 @@
     "#minecraft:planks"
   ],
   "result": {
-    "type": "theurgy:item",
     "id": "theurgy:alchemical_niter_logs_abundant"
   },
   "time": 200

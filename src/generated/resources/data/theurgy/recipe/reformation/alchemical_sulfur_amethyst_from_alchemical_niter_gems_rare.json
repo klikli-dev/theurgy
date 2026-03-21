@@ -26,7 +26,6 @@
   "category": "misc",
   "mercuryFlux": 150,
   "result": {
-    "type": "theurgy:item",
     "id": "theurgy:alchemical_sulfur_amethyst"
   },
   "sources": [

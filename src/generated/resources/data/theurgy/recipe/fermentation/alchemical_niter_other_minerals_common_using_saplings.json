@@ -26,7 +26,6 @@
     "#minecraft:saplings"
   ],
   "result": {
-    "type": "theurgy:item",
     "id": "theurgy:alchemical_niter_other_minerals_common"
   },
   "time": 200

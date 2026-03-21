@@ -6,7 +6,6 @@
     "ingredient": "minecraft:rabbit"
   },
   "result": {
-    "type": "theurgy:item",
     "id": "theurgy:mercury_shard"
   },
   "time": 100

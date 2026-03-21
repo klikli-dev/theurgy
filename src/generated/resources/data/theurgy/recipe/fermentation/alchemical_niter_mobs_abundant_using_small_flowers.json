@@ -26,7 +26,6 @@
     "#minecraft:small_flowers"
   ],
   "result": {
-    "type": "theurgy:item",
     "id": "theurgy:alchemical_niter_mobs_abundant"
   },
   "time": 200

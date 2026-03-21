@@ -6,7 +6,6 @@
     "ingredient": "minecraft:crying_obsidian"
   },
   "result": {
-    "type": "theurgy:item",
     "count": 3,
     "id": "theurgy:alchemical_salt_strata"
   },

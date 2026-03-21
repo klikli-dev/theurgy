@@ -15,7 +15,6 @@
     "ingredient": "#minecraft:dirt"
   },
   "result": {
-    "type": "theurgy:item",
     "id": "theurgy:alchemical_salt_strata"
   },
   "time": 100

@@ -26,7 +26,6 @@
     "#c:sugars"
   ],
   "result": {
-    "type": "theurgy:item",
     "id": "theurgy:alchemical_niter_metals_abundant"
   },
   "time": 200

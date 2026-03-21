@@ -6,7 +6,6 @@
     "ingredient": "minecraft:cooked_beef"
   },
   "result": {
-    "type": "theurgy:item",
     "id": "theurgy:mercury_shard"
   },
   "time": 100

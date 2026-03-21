@@ -6,7 +6,6 @@
     "ingredient": "minecraft:snowball"
   },
   "result": {
-    "type": "theurgy:item",
     "id": "theurgy:alchemical_salt_strata"
   },
   "time": 100

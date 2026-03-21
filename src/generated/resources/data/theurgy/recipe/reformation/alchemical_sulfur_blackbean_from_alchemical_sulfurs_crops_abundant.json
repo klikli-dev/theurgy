@@ -33,7 +33,6 @@
   "category": "misc",
   "mercuryFlux": 50,
   "result": {
-    "type": "theurgy:item",
     "id": "theurgy:alchemical_sulfur_blackbean"
   },
   "sources": [

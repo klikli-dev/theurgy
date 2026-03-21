@@ -15,7 +15,6 @@
     "ingredient": "#theurgy:other_minerals"
   },
   "result": {
-    "type": "theurgy:item",
     "count": 2,
     "id": "theurgy:alchemical_salt_mineral"
   },

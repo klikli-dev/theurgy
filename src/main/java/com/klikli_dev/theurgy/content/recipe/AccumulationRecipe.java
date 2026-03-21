@@ -26,6 +26,7 @@ import net.minecraft.world.item.crafting.display.RecipeDisplay;
 import net.minecraft.world.item.crafting.display.SlotDisplay;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.FluidStackTemplate;
 import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -39,13 +40,13 @@ import java.util.Optional;
  * @param result    The result of the recipe.
  */
 public record AccumulationRecipe(@Nullable SizedFluidIngredient evaporant, @Nullable Ingredient solute,
-                                 FluidStack result, int time) implements Recipe<ItemHandlerWithFluidRecipeInput> {
+                                 FluidStackTemplate result, int time) implements Recipe<ItemHandlerWithFluidRecipeInput> {
     public static final int DEFAULT_TIME = 100;
 
     public static final MapCodec<AccumulationRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
                     SizedFluidIngredient.CODEC.optionalFieldOf("evaporant").forGetter((r) -> Optional.ofNullable(r.evaporant)),
                     Ingredient.CODEC.optionalFieldOf("solute").forGetter(r -> Optional.ofNullable(r.solute)),
-                    FluidStack.CODEC.fieldOf("result").forGetter(r -> r.result),
+                    FluidStackTemplate.CODEC.fieldOf("result").forGetter(r -> r.result),
                     Codec.INT.optionalFieldOf("time", DEFAULT_TIME).forGetter(r -> r.time)
             ).apply(instance, (evaporant, solute, result, accumulation_time) -> new AccumulationRecipe(evaporant.orElse(null), solute.orElse(null), result, accumulation_time))
     );
@@ -55,7 +56,7 @@ public record AccumulationRecipe(@Nullable SizedFluidIngredient evaporant, @Null
             r -> Optional.ofNullable(r.evaporant),
             ByteBufCodecs.optional(Ingredient.CONTENTS_STREAM_CODEC),
             r -> Optional.ofNullable(r.solute),
-            FluidStack.STREAM_CODEC,
+            FluidStackTemplate.STREAM_CODEC,
             r -> r.result,
             ByteBufCodecs.INT,
             r -> r.time,
@@ -113,7 +114,7 @@ public record AccumulationRecipe(@Nullable SizedFluidIngredient evaporant, @Null
     }
 
     public @NotNull FluidStack assembleFluid(@NotNull ItemHandlerWithFluidRecipeInput pInv, @NotNull HolderLookup.Provider pRegistries) {
-        return this.result.copy();
+        return this.result.create();
     }
 
     @Override
@@ -154,7 +155,7 @@ public record AccumulationRecipe(@Nullable SizedFluidIngredient evaporant, @Null
         return List.of(new AccumulationRecipeDisplay(
                 Optional.ofNullable(this.evaporant),
                 Optional.ofNullable(this.solute).map(Ingredient::display),
-                this.result,
+                this.result.create(),
                 this.time,
                 new SlotDisplay.ItemSlotDisplay(BlockRegistry.SAL_AMMONIAC_ACCUMULATOR.get().asItem())
         ));

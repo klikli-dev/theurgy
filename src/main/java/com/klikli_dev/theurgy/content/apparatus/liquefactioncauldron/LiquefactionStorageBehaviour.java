@@ -6,6 +6,7 @@ package com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron;
 
 import com.klikli_dev.theurgy.content.behaviour.storage.StorageBehaviour;
 import com.klikli_dev.theurgy.content.storage.CombinedItemStorage;
+import com.klikli_dev.theurgy.content.storage.MonitoredFluidTank;
 import com.klikli_dev.theurgy.content.storage.MonitoredItemStackHandler;
 import com.klikli_dev.theurgy.content.storage.PreventInsertWrapper;
 import com.klikli_dev.theurgy.registry.FluidTagRegistry;
@@ -17,7 +18,6 @@ import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.FluidType;
-import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
 
 import java.util.function.Predicate;
 import java.util.function.Supplier;
@@ -36,7 +36,7 @@ public class LiquefactionStorageBehaviour extends StorageBehaviour<LiquefactionS
 
     public CombinedItemStorage inventory;
 
-    public FluidTank solventTank;
+    public SolventTank solventTank;
 
     public Supplier<LiquefactionCraftingBehaviour> craftingBehaviour;
 
@@ -49,7 +49,7 @@ public class LiquefactionStorageBehaviour extends StorageBehaviour<LiquefactionS
         this.outputInventory = new OutputInventory();
         this.outputInventoryTakeOnlyWrapper = new PreventInsertWrapper(this.outputInventory);
         this.inventory = new CombinedItemStorage(this.inputInventory, this.outputInventoryTakeOnlyWrapper);
-        this.solventTank = new SolventTank(FluidType.BUCKET_VOLUME * 2, (fluidStack -> fluidStack.getFluid().is(FluidTagRegistry.SOLVENT)));
+        this.solventTank = new SolventTank(FluidType.BUCKET_VOLUME * 2, fluidStack -> fluidStack.typeHolder().is(FluidTagRegistry.SOLVENT));
     }
 
     @Override
@@ -90,7 +90,7 @@ public class LiquefactionStorageBehaviour extends StorageBehaviour<LiquefactionS
         this.readNetwork(input);
     }
 
-    public class SolventTank extends FluidTank {
+    public class SolventTank extends MonitoredFluidTank {
 
         public SolventTank(int capacity, Predicate<FluidStack> validator) {
             super(capacity, validator);

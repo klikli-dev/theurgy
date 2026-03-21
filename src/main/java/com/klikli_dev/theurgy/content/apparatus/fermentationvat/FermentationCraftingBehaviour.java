@@ -7,6 +7,7 @@ package com.klikli_dev.theurgy.content.apparatus.fermentationvat;
 import com.klikli_dev.theurgy.content.behaviour.crafting.CraftingBehaviour;
 import com.klikli_dev.theurgy.content.recipe.FermentationRecipe;
 import com.klikli_dev.theurgy.content.recipe.input.ItemHandlerWithFluidRecipeInput;
+import com.klikli_dev.theurgy.content.storage.FluidStorageHelper;
 import com.klikli_dev.theurgy.content.storage.SettableItemStorage;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import net.minecraft.world.item.ItemStack;
@@ -14,7 +15,8 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.common.util.Lazy;
 import net.neoforged.neoforge.fluids.FluidStack;
-import net.neoforged.neoforge.fluids.capability.IFluidHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.fluid.FluidResource;
 
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
@@ -23,9 +25,9 @@ import java.util.stream.Stream;
 
 public class FermentationCraftingBehaviour extends CraftingBehaviour<ItemHandlerWithFluidRecipeInput, FermentationRecipe, FermentationCachedCheck> {
 
-    protected Supplier<IFluidHandler> fluidTankSupplier;
+    protected Supplier<ResourceHandler<FluidResource>> fluidTankSupplier;
 
-    public FermentationCraftingBehaviour(BlockEntity blockEntity, Supplier<SettableItemStorage> inputInventorySupplier, Supplier<SettableItemStorage> outputInventorySupplier, Supplier<IFluidHandler> fluidTankSupplier) {
+    public FermentationCraftingBehaviour(BlockEntity blockEntity, Supplier<SettableItemStorage> inputInventorySupplier, Supplier<SettableItemStorage> outputInventorySupplier, Supplier<ResourceHandler<FluidResource>> fluidTankSupplier) {
         super(blockEntity,
                 Lazy.of(() -> new ItemHandlerWithFluidRecipeInput(inputInventorySupplier.get(), fluidTankSupplier.get())),
                 inputInventorySupplier,
@@ -71,7 +73,7 @@ public class FermentationCraftingBehaviour extends CraftingBehaviour<ItemHandler
 
     @Override
     public boolean canProcess(FluidStack stack) {
-        if (FluidStack.isSameFluidSameComponents(this.fluidTankSupplier.get().getFluidInTank(0), stack))
+        if (FluidStack.isSameFluidSameComponents(FluidStorageHelper.getFluidInTank(this.fluidTankSupplier.get(), 0), stack))
             return true; //early out if we are already processing this type of fluid
 
         //now we use our custom cached check that checks only liquids:
@@ -118,7 +120,7 @@ public class FermentationCraftingBehaviour extends CraftingBehaviour<ItemHandler
         }
 
         //then drain the fluid
-        this.fluidTankSupplier.get().drain(pRecipe.value().getFluidAmount(), IFluidHandler.FluidAction.EXECUTE);
+        FluidStorageHelper.drain(this.fluidTankSupplier.get(), pRecipe.value().getFluidAmount(), false);
 
         return true;
     }

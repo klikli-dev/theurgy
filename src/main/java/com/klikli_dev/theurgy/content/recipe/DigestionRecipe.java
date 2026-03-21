@@ -40,7 +40,6 @@ public class DigestionRecipe implements Recipe<ItemHandlerWithFluidRecipeInput> 
                     Codec.INT.optionalFieldOf("time", DEFAULT_TIME).forGetter(r -> r.time)
             ).apply(instance, DigestionRecipe::new)
     );
-    public static final RecipeSerializer<DigestionRecipe> SERIALIZER = new RecipeSerializer<>(CODEC, STREAM_CODEC);
     public static final StreamCodec<RegistryFriendlyByteBuf, DigestionRecipe> STREAM_CODEC = StreamCodec.composite(
             SizedFluidIngredient.STREAM_CODEC,
             r -> r.fluid,
@@ -53,6 +52,7 @@ public class DigestionRecipe implements Recipe<ItemHandlerWithFluidRecipeInput> 
             DigestionRecipe::new
     );
     protected final SizedFluidIngredient fluid;
+    public static final RecipeSerializer<DigestionRecipe> SERIALIZER = new RecipeSerializer<>(CODEC, STREAM_CODEC);
 
     protected final List<SizedIngredient> sizedIngredients;
     protected final NonNullList<Ingredient> ingredients;

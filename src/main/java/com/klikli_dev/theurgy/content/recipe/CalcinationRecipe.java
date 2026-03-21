@@ -34,7 +34,6 @@ public class CalcinationRecipe implements Recipe<ItemHandlerRecipeInput> {
                     Codec.INT.optionalFieldOf("time", DEFAULT_TIME).forGetter(r -> r.time)
             ).apply(instance, CalcinationRecipe::new)
     );
-    public static final RecipeSerializer<CalcinationRecipe> SERIALIZER = new RecipeSerializer<>(CODEC, STREAM_CODEC);
     public static final StreamCodec<RegistryFriendlyByteBuf, CalcinationRecipe> STREAM_CODEC = StreamCodec.composite(
             SizedIngredient.STREAM_CODEC,
             r -> r.ingredient,
@@ -45,6 +44,7 @@ public class CalcinationRecipe implements Recipe<ItemHandlerRecipeInput> {
             CalcinationRecipe::new
     );
     protected final SizedIngredient ingredient;
+    public static final RecipeSerializer<CalcinationRecipe> SERIALIZER = new RecipeSerializer<>(CODEC, STREAM_CODEC);
     protected final ItemStackTemplate result;
     protected final int time;
 

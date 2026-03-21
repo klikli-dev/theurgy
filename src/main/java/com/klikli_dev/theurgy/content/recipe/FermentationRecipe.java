@@ -38,7 +38,6 @@ public class FermentationRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
                     Codec.INT.optionalFieldOf("time", DEFAULT_TIME).forGetter(r -> r.time)
             ).apply(instance, FermentationRecipe::new)
     );
-    public static final RecipeSerializer<FermentationRecipe> SERIALIZER = new RecipeSerializer<>(CODEC, STREAM_CODEC);
     public static final StreamCodec<RegistryFriendlyByteBuf, FermentationRecipe> STREAM_CODEC = StreamCodec.composite(
             SizedFluidIngredient.STREAM_CODEC,
             r -> r.fluid,
@@ -51,6 +50,7 @@ public class FermentationRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
             FermentationRecipe::new
     );
     protected final SizedFluidIngredient fluid;
+    public static final RecipeSerializer<FermentationRecipe> SERIALIZER = new RecipeSerializer<>(CODEC, STREAM_CODEC);
 
     protected final NonNullList<Ingredient> ingredients;
     protected final ItemStackTemplate result;

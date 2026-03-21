@@ -21,8 +21,6 @@
       "ingredient": "#theurgy:alchemical_sulfurs/earthen_matters/common"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_crying_obsidian"
-  },
+  "target": "theurgy:alchemical_sulfur_crying_obsidian",
   "time": 100
 }

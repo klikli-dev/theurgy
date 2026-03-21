@@ -21,8 +21,6 @@
       "ingredient": "#theurgy:alchemical_sulfurs/animals/rare"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_rabbit_foot"
-  },
+  "target": "theurgy:alchemical_sulfur_rabbit_foot",
   "time": 100
 }

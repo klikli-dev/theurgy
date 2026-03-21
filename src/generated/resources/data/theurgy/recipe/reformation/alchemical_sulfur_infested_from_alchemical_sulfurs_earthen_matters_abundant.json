@@ -42,8 +42,6 @@
       "ingredient": "#theurgy:alchemical_sulfurs/earthen_matters/abundant"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_infested"
-  },
+  "target": "theurgy:alchemical_sulfur_infested",
   "time": 100
 }

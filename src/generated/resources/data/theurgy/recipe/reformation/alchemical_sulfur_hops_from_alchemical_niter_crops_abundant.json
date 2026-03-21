@@ -35,8 +35,6 @@
       "ingredient": "theurgy:alchemical_niter_crops_abundant"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_hops"
-  },
+  "target": "theurgy:alchemical_sulfur_hops",
   "time": 100
 }

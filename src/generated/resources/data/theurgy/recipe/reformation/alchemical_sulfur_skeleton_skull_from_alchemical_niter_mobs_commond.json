@@ -16,8 +16,6 @@
       "ingredient": "theurgy:alchemical_niter_mobs_commond"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_skeleton_skull"
-  },
+  "target": "theurgy:alchemical_sulfur_skeleton_skull",
   "time": 100
 }

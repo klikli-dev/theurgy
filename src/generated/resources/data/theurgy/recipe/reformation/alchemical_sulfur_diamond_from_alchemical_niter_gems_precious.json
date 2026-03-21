@@ -35,8 +35,6 @@
       "ingredient": "theurgy:alchemical_niter_gems_precious"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_diamond"
-  },
+  "target": "theurgy:alchemical_sulfur_diamond",
   "time": 100
 }

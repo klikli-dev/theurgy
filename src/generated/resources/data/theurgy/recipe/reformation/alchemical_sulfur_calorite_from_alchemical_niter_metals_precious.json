@@ -35,8 +35,6 @@
       "ingredient": "theurgy:alchemical_niter_metals_precious"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_calorite"
-  },
+  "target": "theurgy:alchemical_sulfur_calorite",
   "time": 100
 }

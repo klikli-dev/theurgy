@@ -12,8 +12,6 @@
       "ingredient": "theurgy:alchemical_niter_mobs_commond"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_phantom_membrane"
-  },
+  "target": "theurgy:alchemical_sulfur_phantom_membrane",
   "time": 100
 }

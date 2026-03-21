@@ -35,8 +35,6 @@
       "ingredient": "theurgy:alchemical_niter_crops_abundant"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_coffee_beans"
-  },
+  "target": "theurgy:alchemical_sulfur_coffee_beans",
   "time": 100
 }

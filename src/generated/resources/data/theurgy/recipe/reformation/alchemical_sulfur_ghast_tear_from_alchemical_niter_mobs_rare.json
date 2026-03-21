@@ -16,8 +16,6 @@
       "ingredient": "theurgy:alchemical_niter_mobs_rare"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_ghast_tear"
-  },
+  "target": "theurgy:alchemical_sulfur_ghast_tear",
   "time": 100
 }

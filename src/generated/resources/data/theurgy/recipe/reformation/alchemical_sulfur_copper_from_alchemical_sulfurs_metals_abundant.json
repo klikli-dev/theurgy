@@ -42,8 +42,6 @@
       "ingredient": "#theurgy:alchemical_sulfurs/metals/abundant"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_copper"
-  },
+  "target": "theurgy:alchemical_sulfur_copper",
   "time": 100
 }

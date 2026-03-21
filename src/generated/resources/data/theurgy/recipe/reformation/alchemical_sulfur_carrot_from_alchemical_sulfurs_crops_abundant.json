@@ -21,8 +21,6 @@
       "ingredient": "#theurgy:alchemical_sulfurs/crops/abundant"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_carrot"
-  },
+  "target": "theurgy:alchemical_sulfur_carrot",
   "time": 100
 }

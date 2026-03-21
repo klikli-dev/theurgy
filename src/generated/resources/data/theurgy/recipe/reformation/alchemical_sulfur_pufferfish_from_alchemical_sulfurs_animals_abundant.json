@@ -21,8 +21,6 @@
       "ingredient": "#theurgy:alchemical_sulfurs/animals/abundant"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_pufferfish"
-  },
+  "target": "theurgy:alchemical_sulfur_pufferfish",
   "time": 100
 }

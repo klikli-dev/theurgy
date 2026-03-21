@@ -42,8 +42,6 @@
       "ingredient": "#theurgy:alchemical_sulfurs/gems/precious"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_diamond"
-  },
+  "target": "theurgy:alchemical_sulfur_diamond",
   "time": 100
 }

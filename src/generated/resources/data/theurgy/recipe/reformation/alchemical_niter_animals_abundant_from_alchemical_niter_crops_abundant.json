@@ -16,8 +16,6 @@
       "ingredient": "theurgy:alchemical_niter_crops_abundant"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_niter_animals_abundant"
-  },
+  "target": "theurgy:alchemical_niter_animals_abundant",
   "time": 100
 }

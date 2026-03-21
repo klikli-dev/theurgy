@@ -35,8 +35,6 @@
       "ingredient": "theurgy:alchemical_niter_crops_abundant"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_rice"
-  },
+  "target": "theurgy:alchemical_sulfur_rice",
   "time": 100
 }

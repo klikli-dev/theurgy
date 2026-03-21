@@ -2,12 +2,8 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "item": "theurgy:crystallized_lava"
-    },
-    {
-      "item": "minecraft:bucket"
-    }
+    "theurgy:crystallized_lava",
+    "minecraft:bucket"
   ],
   "result": {
     "id": "minecraft:lava_bucket"

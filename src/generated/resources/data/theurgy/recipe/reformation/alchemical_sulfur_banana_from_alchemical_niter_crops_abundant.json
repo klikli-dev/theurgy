@@ -35,8 +35,6 @@
       "ingredient": "theurgy:alchemical_niter_crops_abundant"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_banana"
-  },
+  "target": "theurgy:alchemical_sulfur_banana",
   "time": 100
 }

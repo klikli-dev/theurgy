@@ -35,8 +35,6 @@
       "ingredient": "theurgy:alchemical_niter_logs_abundant"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_menril"
-  },
+  "target": "theurgy:alchemical_sulfur_menril",
   "time": 100
 }

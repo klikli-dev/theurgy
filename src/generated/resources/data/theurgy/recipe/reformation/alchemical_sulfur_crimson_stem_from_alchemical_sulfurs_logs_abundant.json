@@ -21,8 +21,6 @@
       "ingredient": "#theurgy:alchemical_sulfurs/logs/abundant"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_crimson_stem"
-  },
+  "target": "theurgy:alchemical_sulfur_crimson_stem",
   "time": 100
 }

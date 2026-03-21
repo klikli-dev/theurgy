@@ -12,8 +12,6 @@
       "ingredient": "theurgy:alchemical_niter_crops_abundant"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_nether_wart"
-  },
+  "target": "theurgy:alchemical_sulfur_nether_wart",
   "time": 100
 }

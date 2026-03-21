@@ -35,8 +35,6 @@
       "ingredient": "theurgy:alchemical_niter_metals_rare"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_ostrum"
-  },
+  "target": "theurgy:alchemical_sulfur_ostrum",
   "time": 100
 }

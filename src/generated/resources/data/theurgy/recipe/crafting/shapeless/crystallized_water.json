@@ -2,12 +2,8 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "tag": "theurgy:alchemical_salts"
-    },
-    {
-      "item": "minecraft:water_bucket"
-    }
+    "#theurgy:alchemical_salts",
+    "minecraft:water_bucket"
   ],
   "result": {
     "id": "theurgy:crystallized_water"

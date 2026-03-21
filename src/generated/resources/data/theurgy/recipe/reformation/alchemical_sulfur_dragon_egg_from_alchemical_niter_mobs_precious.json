@@ -24,8 +24,6 @@
       "ingredient": "theurgy:alchemical_niter_mobs_precious"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_dragon_egg"
-  },
+  "target": "theurgy:alchemical_sulfur_dragon_egg",
   "time": 100
 }

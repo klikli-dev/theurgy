@@ -21,8 +21,6 @@
       "ingredient": "#theurgy:alchemical_sulfurs/animals/common"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_leather"
-  },
+  "target": "theurgy:alchemical_sulfur_leather",
   "time": 100
 }

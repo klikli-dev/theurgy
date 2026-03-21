@@ -21,8 +21,6 @@
       "ingredient": "#theurgy:alchemical_sulfurs/animals/abundant"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_salmon"
-  },
+  "target": "theurgy:alchemical_sulfur_salmon",
   "time": 100
 }

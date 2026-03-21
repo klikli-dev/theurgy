@@ -35,8 +35,6 @@
       "ingredient": "theurgy:alchemical_niter_gems_precious"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_emerald"
-  },
+  "target": "theurgy:alchemical_sulfur_emerald",
   "time": 100
 }

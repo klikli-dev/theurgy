@@ -35,8 +35,6 @@
       "ingredient": "theurgy:alchemical_niter_metals_rare"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_platinum"
-  },
+  "target": "theurgy:alchemical_sulfur_platinum",
   "time": 100
 }

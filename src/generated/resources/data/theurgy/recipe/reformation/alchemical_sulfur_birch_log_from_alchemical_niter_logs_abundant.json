@@ -12,8 +12,6 @@
       "ingredient": "theurgy:alchemical_niter_logs_abundant"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_birch_log"
-  },
+  "target": "theurgy:alchemical_sulfur_birch_log",
   "time": 100
 }

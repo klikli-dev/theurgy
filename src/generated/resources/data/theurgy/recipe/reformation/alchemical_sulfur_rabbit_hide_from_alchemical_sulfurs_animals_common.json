@@ -21,8 +21,6 @@
       "ingredient": "#theurgy:alchemical_sulfurs/animals/common"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_rabbit_hide"
-  },
+  "target": "theurgy:alchemical_sulfur_rabbit_hide",
   "time": 100
 }

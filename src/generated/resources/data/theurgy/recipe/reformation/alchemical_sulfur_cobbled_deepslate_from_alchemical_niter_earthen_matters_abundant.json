@@ -12,8 +12,6 @@
       "ingredient": "theurgy:alchemical_niter_earthen_matters_abundant"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_cobbled_deepslate"
-  },
+  "target": "theurgy:alchemical_sulfur_cobbled_deepslate",
   "time": 100
 }

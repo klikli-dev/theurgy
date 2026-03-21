@@ -35,8 +35,6 @@
       "ingredient": "theurgy:alchemical_niter_gems_common"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_lapis"
-  },
+  "target": "theurgy:alchemical_sulfur_lapis",
   "time": 100
 }

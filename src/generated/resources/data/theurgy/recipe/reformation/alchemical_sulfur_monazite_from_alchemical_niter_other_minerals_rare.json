@@ -35,8 +35,6 @@
       "ingredient": "theurgy:alchemical_niter_other_minerals_rare"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_monazite"
-  },
+  "target": "theurgy:alchemical_sulfur_monazite",
   "time": 100
 }

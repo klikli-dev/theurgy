@@ -35,8 +35,6 @@
       "ingredient": "theurgy:alchemical_niter_logs_abundant"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_dusk"
-  },
+  "target": "theurgy:alchemical_sulfur_dusk",
   "time": 100
 }

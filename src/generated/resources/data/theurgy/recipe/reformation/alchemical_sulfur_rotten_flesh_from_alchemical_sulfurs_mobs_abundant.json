@@ -21,8 +21,6 @@
       "ingredient": "#theurgy:alchemical_sulfurs/mobs/abundant"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_rotten_flesh"
-  },
+  "target": "theurgy:alchemical_sulfur_rotten_flesh",
   "time": 100
 }

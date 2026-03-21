@@ -12,8 +12,6 @@
       "ingredient": "theurgy:alchemical_niter_crops_abundant"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_niter_logs_abundant"
-  },
+  "target": "theurgy:alchemical_niter_logs_abundant",
   "time": 100
 }

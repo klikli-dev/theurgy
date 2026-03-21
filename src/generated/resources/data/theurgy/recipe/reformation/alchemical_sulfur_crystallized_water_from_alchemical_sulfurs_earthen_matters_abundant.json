@@ -21,8 +21,6 @@
       "ingredient": "#theurgy:alchemical_sulfurs/earthen_matters/abundant"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_crystallized_water"
-  },
+  "target": "theurgy:alchemical_sulfur_crystallized_water",
   "time": 100
 }

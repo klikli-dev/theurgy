@@ -21,8 +21,6 @@
       "ingredient": "#theurgy:alchemical_sulfurs/animals/common"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_ink_sac"
-  },
+  "target": "theurgy:alchemical_sulfur_ink_sac",
   "time": 100
 }

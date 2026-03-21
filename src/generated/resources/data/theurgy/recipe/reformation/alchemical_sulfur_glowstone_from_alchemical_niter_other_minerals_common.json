@@ -35,8 +35,6 @@
       "ingredient": "theurgy:alchemical_niter_other_minerals_common"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_glowstone"
-  },
+  "target": "theurgy:alchemical_sulfur_glowstone",
   "time": 100
 }

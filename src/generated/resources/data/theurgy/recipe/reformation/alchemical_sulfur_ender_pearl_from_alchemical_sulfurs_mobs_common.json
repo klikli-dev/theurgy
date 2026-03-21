@@ -21,8 +21,6 @@
       "ingredient": "#theurgy:alchemical_sulfurs/mobs/common"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_ender_pearl"
-  },
+  "target": "theurgy:alchemical_sulfur_ender_pearl",
   "time": 100
 }

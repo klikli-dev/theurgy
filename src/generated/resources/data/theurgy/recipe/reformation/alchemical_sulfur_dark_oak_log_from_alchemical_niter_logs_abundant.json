@@ -12,8 +12,6 @@
       "ingredient": "theurgy:alchemical_niter_logs_abundant"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_dark_oak_log"
-  },
+  "target": "theurgy:alchemical_sulfur_dark_oak_log",
   "time": 100
 }

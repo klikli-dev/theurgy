@@ -35,8 +35,6 @@
       "ingredient": "theurgy:alchemical_niter_crops_abundant"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_turnip"
-  },
+  "target": "theurgy:alchemical_sulfur_turnip",
   "time": 100
 }

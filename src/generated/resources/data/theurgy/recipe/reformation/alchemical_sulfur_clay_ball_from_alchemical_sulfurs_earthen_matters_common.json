@@ -21,8 +21,6 @@
       "ingredient": "#theurgy:alchemical_sulfurs/earthen_matters/common"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_clay_ball"
-  },
+  "target": "theurgy:alchemical_sulfur_clay_ball",
   "time": 100
 }

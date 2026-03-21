@@ -2,15 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "G": {
-      "tag": "c:glass_blocks"
-    },
-    "P": {
-      "tag": "c:dyes/purple"
-    },
-    "R": {
-      "tag": "c:rods/wooden"
-    }
+    "G": "#c:glass_blocks",
+    "P": "#c:dyes/purple",
+    "R": "#c:rods/wooden"
   },
   "pattern": [
     " GP",

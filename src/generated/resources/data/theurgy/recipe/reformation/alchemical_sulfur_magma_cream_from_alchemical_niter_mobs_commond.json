@@ -12,8 +12,6 @@
       "ingredient": "theurgy:alchemical_niter_mobs_commond"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_magma_cream"
-  },
+  "target": "theurgy:alchemical_sulfur_magma_cream",
   "time": 100
 }

@@ -13,8 +13,6 @@
       "ingredient": "theurgy:alchemical_niter_metals_common"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_niter_animals_common"
-  },
+  "target": "theurgy:alchemical_niter_animals_common",
   "time": 100
 }

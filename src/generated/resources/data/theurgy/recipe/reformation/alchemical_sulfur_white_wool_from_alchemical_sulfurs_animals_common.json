@@ -21,8 +21,6 @@
       "ingredient": "#theurgy:alchemical_sulfurs/animals/common"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_white_wool"
-  },
+  "target": "theurgy:alchemical_sulfur_white_wool",
   "time": 100
 }

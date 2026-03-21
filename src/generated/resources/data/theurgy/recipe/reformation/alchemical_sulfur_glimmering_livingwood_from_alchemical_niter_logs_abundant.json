@@ -35,8 +35,6 @@
       "ingredient": "theurgy:alchemical_niter_logs_abundant"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_glimmering_livingwood"
-  },
+  "target": "theurgy:alchemical_sulfur_glimmering_livingwood",
   "time": 100
 }

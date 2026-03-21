@@ -42,8 +42,6 @@
       "ingredient": "#theurgy:alchemical_sulfurs/crops/abundant"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_date"
-  },
+  "target": "theurgy:alchemical_sulfur_date",
   "time": 100
 }

@@ -42,8 +42,6 @@
       "ingredient": "#theurgy:alchemical_sulfurs/crops/abundant"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_ginger"
-  },
+  "target": "theurgy:alchemical_sulfur_ginger",
   "time": 100
 }

@@ -35,8 +35,6 @@
       "ingredient": "theurgy:alchemical_niter_crops_abundant"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_basil"
-  },
+  "target": "theurgy:alchemical_sulfur_basil",
   "time": 100
 }

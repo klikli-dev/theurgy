@@ -21,8 +21,6 @@
       "ingredient": "#theurgy:alchemical_sulfurs/earthen_matters/abundant"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_granite"
-  },
+  "target": "theurgy:alchemical_sulfur_granite",
   "time": 100
 }

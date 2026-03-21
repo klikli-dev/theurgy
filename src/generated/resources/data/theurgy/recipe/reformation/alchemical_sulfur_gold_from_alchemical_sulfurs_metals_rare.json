@@ -42,8 +42,6 @@
       "ingredient": "#theurgy:alchemical_sulfurs/metals/rare"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_gold"
-  },
+  "target": "theurgy:alchemical_sulfur_gold",
   "time": 100
 }

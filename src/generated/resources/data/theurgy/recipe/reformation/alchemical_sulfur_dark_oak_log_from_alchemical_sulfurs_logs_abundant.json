@@ -21,8 +21,6 @@
       "ingredient": "#theurgy:alchemical_sulfurs/logs/abundant"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_dark_oak_log"
-  },
+  "target": "theurgy:alchemical_sulfur_dark_oak_log",
   "time": 100
 }

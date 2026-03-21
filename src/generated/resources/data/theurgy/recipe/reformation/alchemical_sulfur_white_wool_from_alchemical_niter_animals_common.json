@@ -12,8 +12,6 @@
       "ingredient": "theurgy:alchemical_niter_animals_common"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_white_wool"
-  },
+  "target": "theurgy:alchemical_sulfur_white_wool",
   "time": 100
 }

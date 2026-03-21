@@ -13,8 +13,6 @@
       "ingredient": "theurgy:alchemical_niter_metals_rare"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_niter_other_minerals_rare"
-  },
+  "target": "theurgy:alchemical_niter_other_minerals_rare",
   "time": 100
 }

@@ -35,8 +35,6 @@
       "ingredient": "theurgy:alchemical_niter_metals_abundant"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_copper"
-  },
+  "target": "theurgy:alchemical_sulfur_copper",
   "time": 100
 }

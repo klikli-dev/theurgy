@@ -21,8 +21,6 @@
       "ingredient": "#theurgy:alchemical_sulfurs/earthen_matters/common"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_end_stone"
-  },
+  "target": "theurgy:alchemical_sulfur_end_stone",
   "time": 100
 }

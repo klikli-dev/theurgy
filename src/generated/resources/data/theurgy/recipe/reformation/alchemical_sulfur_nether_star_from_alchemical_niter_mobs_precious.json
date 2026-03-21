@@ -16,8 +16,6 @@
       "ingredient": "theurgy:alchemical_niter_mobs_precious"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_nether_star"
-  },
+  "target": "theurgy:alchemical_sulfur_nether_star",
   "time": 100
 }

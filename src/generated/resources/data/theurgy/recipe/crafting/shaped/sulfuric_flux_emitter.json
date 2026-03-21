@@ -2,18 +2,10 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "S": {
-      "tag": "theurgy:alchemical_sulfurs"
-    },
-    "a": {
-      "tag": "c:gems/sal_ammoniac"
-    },
-    "g": {
-      "tag": "c:ingots/gold"
-    },
-    "s": {
-      "tag": "c:stones"
-    }
+    "S": "#theurgy:alchemical_sulfurs",
+    "a": "#c:gems/sal_ammoniac",
+    "g": "#c:ingots/gold",
+    "s": "#c:stones"
   },
   "pattern": [
     " a ",

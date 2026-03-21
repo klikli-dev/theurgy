@@ -42,8 +42,6 @@
       "ingredient": "#theurgy:alchemical_sulfurs/metals/precious"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_calorite"
-  },
+  "target": "theurgy:alchemical_sulfur_calorite",
   "time": 100
 }

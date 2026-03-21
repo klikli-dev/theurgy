@@ -21,8 +21,6 @@
       "ingredient": "#theurgy:alchemical_sulfurs/earthen_matters/common"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_crystallized_lava"
-  },
+  "target": "theurgy:alchemical_sulfur_crystallized_lava",
   "time": 100
 }

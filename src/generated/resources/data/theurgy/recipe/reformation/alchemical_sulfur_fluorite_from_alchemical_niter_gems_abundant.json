@@ -35,8 +35,6 @@
       "ingredient": "theurgy:alchemical_niter_gems_abundant"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_fluorite"
-  },
+  "target": "theurgy:alchemical_sulfur_fluorite",
   "time": 100
 }

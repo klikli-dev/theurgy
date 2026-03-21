@@ -13,8 +13,6 @@
       "ingredient": "theurgy:alchemical_niter_metals_abundant"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_niter_earthen_matters_abundant"
-  },
+  "target": "theurgy:alchemical_niter_earthen_matters_abundant",
   "time": 100
 }

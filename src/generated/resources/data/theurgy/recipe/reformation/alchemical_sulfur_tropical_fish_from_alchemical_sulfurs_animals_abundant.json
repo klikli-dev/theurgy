@@ -21,8 +21,6 @@
       "ingredient": "#theurgy:alchemical_sulfurs/animals/abundant"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_tropical_fish"
-  },
+  "target": "theurgy:alchemical_sulfur_tropical_fish",
   "time": 100
 }

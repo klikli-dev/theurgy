@@ -35,8 +35,6 @@
       "ingredient": "theurgy:alchemical_niter_gems_common"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_cinnabar"
-  },
+  "target": "theurgy:alchemical_sulfur_cinnabar",
   "time": 100
 }

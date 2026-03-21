@@ -21,8 +21,6 @@
       "ingredient": "#theurgy:alchemical_sulfurs/mobs/common"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_magma_cream"
-  },
+  "target": "theurgy:alchemical_sulfur_magma_cream",
   "time": 100
 }

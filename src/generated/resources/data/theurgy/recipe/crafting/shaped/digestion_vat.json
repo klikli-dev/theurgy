@@ -2,18 +2,10 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "S": {
-      "tag": "c:sandstone/blocks"
-    },
-    "g": {
-      "tag": "c:ingots/gold"
-    },
-    "p": {
-      "item": "minecraft:decorated_pot"
-    },
-    "s": {
-      "tag": "c:gems/sal_ammoniac"
-    }
+    "S": "#c:sandstone/blocks",
+    "g": "#c:ingots/gold",
+    "p": "minecraft:decorated_pot",
+    "s": "#c:gems/sal_ammoniac"
   },
   "pattern": [
     " s ",

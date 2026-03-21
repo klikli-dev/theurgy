@@ -16,8 +16,6 @@
       "ingredient": "theurgy:alchemical_niter_mobs_rare"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_elytra"
-  },
+  "target": "theurgy:alchemical_sulfur_elytra",
   "time": 100
 }

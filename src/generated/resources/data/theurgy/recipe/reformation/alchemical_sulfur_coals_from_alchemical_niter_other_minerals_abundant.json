@@ -35,8 +35,6 @@
       "ingredient": "theurgy:alchemical_niter_other_minerals_abundant"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_coals"
-  },
+  "target": "theurgy:alchemical_sulfur_coals",
   "time": 100
 }

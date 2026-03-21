@@ -35,8 +35,6 @@
       "ingredient": "theurgy:alchemical_niter_crops_abundant"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_persimmon"
-  },
+  "target": "theurgy:alchemical_sulfur_persimmon",
   "time": 100
 }

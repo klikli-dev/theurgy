@@ -42,8 +42,6 @@
       "ingredient": "#theurgy:alchemical_sulfurs/other_minerals/abundant"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_lignite_coal"
-  },
+  "target": "theurgy:alchemical_sulfur_lignite_coal",
   "time": 100
 }

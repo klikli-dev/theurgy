@@ -42,8 +42,6 @@
       "ingredient": "#theurgy:alchemical_sulfurs/crops/abundant"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_cranberry"
-  },
+  "target": "theurgy:alchemical_sulfur_cranberry",
   "time": 100
 }

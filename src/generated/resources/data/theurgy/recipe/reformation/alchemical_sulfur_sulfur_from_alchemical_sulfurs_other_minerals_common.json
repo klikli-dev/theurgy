@@ -42,8 +42,6 @@
       "ingredient": "#theurgy:alchemical_sulfurs/other_minerals/common"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_sulfur"
-  },
+  "target": "theurgy:alchemical_sulfur_sulfur",
   "time": 100
 }

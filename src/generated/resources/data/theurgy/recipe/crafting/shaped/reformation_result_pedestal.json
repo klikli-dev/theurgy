@@ -2,15 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "S": {
-      "tag": "theurgy:alchemical_sulfurs"
-    },
-    "g": {
-      "tag": "c:ingots/gold"
-    },
-    "s": {
-      "item": "minecraft:blackstone"
-    }
+    "S": "#theurgy:alchemical_sulfurs",
+    "g": "#c:ingots/gold",
+    "s": "minecraft:blackstone"
   },
   "pattern": [
     "ggg",

@@ -35,8 +35,6 @@
       "ingredient": "theurgy:alchemical_niter_crops_abundant"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_zucchini"
-  },
+  "target": "theurgy:alchemical_sulfur_zucchini",
   "time": 100
 }

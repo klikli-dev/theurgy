@@ -42,8 +42,6 @@
       "ingredient": "#theurgy:alchemical_sulfurs/metals/rare"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_ostrum"
-  },
+  "target": "theurgy:alchemical_sulfur_ostrum",
   "time": 100
 }

@@ -42,8 +42,6 @@
       "ingredient": "#theurgy:alchemical_sulfurs/logs/abundant"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_starlit"
-  },
+  "target": "theurgy:alchemical_sulfur_starlit",
   "time": 100
 }

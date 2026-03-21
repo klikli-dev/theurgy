@@ -2,12 +2,8 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "c": {
-      "tag": "c:ingots/copper"
-    },
-    "m": {
-      "item": "theurgy:mercury_shard"
-    }
+    "c": "#c:ingots/copper",
+    "m": "theurgy:mercury_shard"
   },
   "pattern": [
     "c",

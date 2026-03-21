@@ -42,8 +42,6 @@
       "ingredient": "#theurgy:alchemical_sulfurs/gems/abundant"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_apatite"
-  },
+  "target": "theurgy:alchemical_sulfur_apatite",
   "time": 100
 }

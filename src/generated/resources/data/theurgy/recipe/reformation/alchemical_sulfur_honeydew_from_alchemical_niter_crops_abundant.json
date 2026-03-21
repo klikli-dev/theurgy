@@ -35,8 +35,6 @@
       "ingredient": "theurgy:alchemical_niter_crops_abundant"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_honeydew"
-  },
+  "target": "theurgy:alchemical_sulfur_honeydew",
   "time": 100
 }

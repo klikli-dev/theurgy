@@ -35,8 +35,6 @@
       "ingredient": "theurgy:alchemical_niter_metals_rare"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_uranium"
-  },
+  "target": "theurgy:alchemical_sulfur_uranium",
   "time": 100
 }

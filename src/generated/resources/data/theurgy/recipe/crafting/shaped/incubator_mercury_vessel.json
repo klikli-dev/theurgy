@@ -2,15 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "M": {
-      "tag": "theurgy:alchemical_mercuries"
-    },
-    "S": {
-      "tag": "c:stones"
-    },
-    "c": {
-      "tag": "c:ingots/copper"
-    }
+    "M": "#theurgy:alchemical_mercuries",
+    "S": "#c:stones",
+    "c": "#c:ingots/copper"
   },
   "pattern": [
     "cMc",

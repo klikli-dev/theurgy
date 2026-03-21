@@ -1,18 +1,12 @@
 {
   "type": "theurgy:incubation",
   "category": "misc",
-  "mercury": {
-    "item": "theurgy:mercury_shard"
-  },
+  "mercury": "theurgy:mercury_shard",
   "result": {
     "type": "theurgy:item",
     "id": "minecraft:cherry_log"
   },
-  "salt": {
-    "item": "theurgy:alchemical_salt_plant"
-  },
-  "sulfur": {
-    "item": "theurgy:alchemical_sulfur_cherry_log"
-  },
+  "salt": "theurgy:alchemical_salt_plant",
+  "sulfur": "theurgy:alchemical_sulfur_cherry_log",
   "time": 100
 }

@@ -42,8 +42,6 @@
       "ingredient": "#theurgy:alchemical_sulfurs/metals/rare"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_silver"
-  },
+  "target": "theurgy:alchemical_sulfur_silver",
   "time": 100
 }

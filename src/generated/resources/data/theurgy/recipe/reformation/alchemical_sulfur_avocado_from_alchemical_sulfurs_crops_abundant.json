@@ -42,8 +42,6 @@
       "ingredient": "#theurgy:alchemical_sulfurs/crops/abundant"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_avocado"
-  },
+  "target": "theurgy:alchemical_sulfur_avocado",
   "time": 100
 }

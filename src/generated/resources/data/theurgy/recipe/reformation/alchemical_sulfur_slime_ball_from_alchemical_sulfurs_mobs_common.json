@@ -21,8 +21,6 @@
       "ingredient": "#theurgy:alchemical_sulfurs/mobs/common"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_slime_ball"
-  },
+  "target": "theurgy:alchemical_sulfur_slime_ball",
   "time": 100
 }

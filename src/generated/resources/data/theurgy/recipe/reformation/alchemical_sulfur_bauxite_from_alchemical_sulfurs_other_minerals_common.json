@@ -42,8 +42,6 @@
       "ingredient": "#theurgy:alchemical_sulfurs/other_minerals/common"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_bauxite"
-  },
+  "target": "theurgy:alchemical_sulfur_bauxite",
   "time": 100
 }

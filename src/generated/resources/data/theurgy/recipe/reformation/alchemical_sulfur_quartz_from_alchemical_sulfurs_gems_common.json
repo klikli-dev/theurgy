@@ -42,8 +42,6 @@
       "ingredient": "#theurgy:alchemical_sulfurs/gems/common"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_quartz"
-  },
+  "target": "theurgy:alchemical_sulfur_quartz",
   "time": 100
 }

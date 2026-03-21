@@ -35,8 +35,6 @@
       "ingredient": "theurgy:alchemical_niter_gems_precious"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_chimerite"
-  },
+  "target": "theurgy:alchemical_sulfur_chimerite",
   "time": 100
 }

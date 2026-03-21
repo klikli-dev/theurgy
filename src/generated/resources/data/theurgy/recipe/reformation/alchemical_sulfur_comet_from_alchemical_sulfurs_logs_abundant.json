@@ -42,8 +42,6 @@
       "ingredient": "#theurgy:alchemical_sulfurs/logs/abundant"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_comet"
-  },
+  "target": "theurgy:alchemical_sulfur_comet",
   "time": 100
 }

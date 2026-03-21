@@ -35,8 +35,6 @@
       "ingredient": "theurgy:alchemical_niter_gems_rare"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_fluix"
-  },
+  "target": "theurgy:alchemical_sulfur_fluix",
   "time": 100
 }

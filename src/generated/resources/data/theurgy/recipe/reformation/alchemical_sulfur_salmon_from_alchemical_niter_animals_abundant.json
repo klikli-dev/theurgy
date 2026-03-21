@@ -12,8 +12,6 @@
       "ingredient": "theurgy:alchemical_niter_animals_abundant"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_salmon"
-  },
+  "target": "theurgy:alchemical_sulfur_salmon",
   "time": 100
 }

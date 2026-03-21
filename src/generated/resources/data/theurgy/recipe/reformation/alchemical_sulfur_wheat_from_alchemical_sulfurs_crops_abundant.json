@@ -21,8 +21,6 @@
       "ingredient": "#theurgy:alchemical_sulfurs/crops/abundant"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_wheat"
-  },
+  "target": "theurgy:alchemical_sulfur_wheat",
   "time": 100
 }

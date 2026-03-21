@@ -21,8 +21,6 @@
       "ingredient": "#theurgy:alchemical_sulfurs/animals/abundant"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_cod"
-  },
+  "target": "theurgy:alchemical_sulfur_cod",
   "time": 100
 }

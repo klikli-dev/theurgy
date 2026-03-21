@@ -21,8 +21,6 @@
       "ingredient": "#theurgy:alchemical_sulfurs/animals/rare"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_turtle_scute"
-  },
+  "target": "theurgy:alchemical_sulfur_turtle_scute",
   "time": 100
 }

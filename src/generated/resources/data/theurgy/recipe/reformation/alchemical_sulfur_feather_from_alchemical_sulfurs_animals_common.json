@@ -21,8 +21,6 @@
       "ingredient": "#theurgy:alchemical_sulfurs/animals/common"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_feather"
-  },
+  "target": "theurgy:alchemical_sulfur_feather",
   "time": 100
 }

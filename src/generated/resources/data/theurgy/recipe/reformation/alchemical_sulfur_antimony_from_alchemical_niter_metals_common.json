@@ -35,8 +35,6 @@
       "ingredient": "theurgy:alchemical_niter_metals_common"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_antimony"
-  },
+  "target": "theurgy:alchemical_sulfur_antimony",
   "time": 100
 }

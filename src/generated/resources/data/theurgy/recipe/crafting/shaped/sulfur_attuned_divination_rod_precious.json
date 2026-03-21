@@ -2,18 +2,10 @@
   "type": "theurgy:divination_rod",
   "category": "misc",
   "key": {
-    "A": {
-      "tag": "c:gems/amethyst"
-    },
-    "D": {
-      "tag": "c:gems/diamond"
-    },
-    "G": {
-      "tag": "c:glass_blocks"
-    },
-    "S": {
-      "tag": "theurgy:alchemical_sulfurs/precious"
-    }
+    "A": "#c:gems/amethyst",
+    "D": "#c:gems/diamond",
+    "G": "#c:glass_blocks",
+    "S": "#theurgy:alchemical_sulfurs/precious"
   },
   "pattern": [
     " GS",

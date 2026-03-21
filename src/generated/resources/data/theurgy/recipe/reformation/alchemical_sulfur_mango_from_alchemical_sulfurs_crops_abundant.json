@@ -42,8 +42,6 @@
       "ingredient": "#theurgy:alchemical_sulfurs/crops/abundant"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_mango"
-  },
+  "target": "theurgy:alchemical_sulfur_mango",
   "time": 100
 }

@@ -21,8 +21,6 @@
       "ingredient": "#theurgy:alchemical_sulfurs/earthen_matters/abundant"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_ice"
-  },
+  "target": "theurgy:alchemical_sulfur_ice",
   "time": 100
 }

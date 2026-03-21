@@ -21,8 +21,6 @@
       "ingredient": "#theurgy:alchemical_sulfurs/earthen_matters/common"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_warped_nylium"
-  },
+  "target": "theurgy:alchemical_sulfur_warped_nylium",
   "time": 100
 }

@@ -16,8 +16,6 @@
       "ingredient": "theurgy:alchemical_niter_mobs_rare"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_shulker_shell"
-  },
+  "target": "theurgy:alchemical_sulfur_shulker_shell",
   "time": 100
 }

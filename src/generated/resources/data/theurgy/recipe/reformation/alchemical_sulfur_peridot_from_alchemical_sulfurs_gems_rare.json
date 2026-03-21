@@ -42,8 +42,6 @@
       "ingredient": "#theurgy:alchemical_sulfurs/gems/rare"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_peridot"
-  },
+  "target": "theurgy:alchemical_sulfur_peridot",
   "time": 100
 }

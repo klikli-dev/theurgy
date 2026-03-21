@@ -16,8 +16,6 @@
       "ingredient": "theurgy:alchemical_niter_mobs_rare"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_wither_skeleton_skull"
-  },
+  "target": "theurgy:alchemical_sulfur_wither_skeleton_skull",
   "time": 100
 }

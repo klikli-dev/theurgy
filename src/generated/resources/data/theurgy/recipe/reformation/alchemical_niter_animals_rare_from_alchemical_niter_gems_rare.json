@@ -13,8 +13,6 @@
       "ingredient": "theurgy:alchemical_niter_gems_rare"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_niter_animals_rare"
-  },
+  "target": "theurgy:alchemical_niter_animals_rare",
   "time": 100
 }

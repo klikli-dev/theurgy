@@ -12,8 +12,6 @@
       "ingredient": "theurgy:alchemical_niter_earthen_matters_common"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_purpur_block"
-  },
+  "target": "theurgy:alchemical_sulfur_purpur_block",
   "time": 100
 }

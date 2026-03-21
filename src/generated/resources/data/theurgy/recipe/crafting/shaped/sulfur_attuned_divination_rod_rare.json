@@ -2,18 +2,10 @@
   "type": "theurgy:divination_rod",
   "category": "misc",
   "key": {
-    "A": {
-      "tag": "c:gems/amethyst"
-    },
-    "G": {
-      "tag": "c:glass_blocks"
-    },
-    "R": {
-      "tag": "c:rods/wooden"
-    },
-    "S": {
-      "tag": "theurgy:alchemical_sulfurs/rare"
-    }
+    "A": "#c:gems/amethyst",
+    "G": "#c:glass_blocks",
+    "R": "#c:rods/wooden",
+    "S": "#theurgy:alchemical_sulfurs/rare"
   },
   "pattern": [
     " GS",

@@ -42,8 +42,6 @@
       "ingredient": "#theurgy:alchemical_sulfurs/logs/abundant"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_bluebright"
-  },
+  "target": "theurgy:alchemical_sulfur_bluebright",
   "time": 100
 }

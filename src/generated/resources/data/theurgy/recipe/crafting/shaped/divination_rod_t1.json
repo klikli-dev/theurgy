@@ -2,12 +2,8 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "G": {
-      "tag": "c:glass_blocks"
-    },
-    "R": {
-      "tag": "c:rods/wooden"
-    }
+    "G": "#c:glass_blocks",
+    "R": "#c:rods/wooden"
   },
   "pattern": [
     " GR",

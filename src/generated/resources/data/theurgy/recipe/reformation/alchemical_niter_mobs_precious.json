@@ -40,8 +40,6 @@
       "ingredient": "theurgy:alchemical_niter_gems_precious"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_niter_mobs_precious"
-  },
+  "target": "theurgy:alchemical_niter_mobs_precious",
   "time": 100
 }

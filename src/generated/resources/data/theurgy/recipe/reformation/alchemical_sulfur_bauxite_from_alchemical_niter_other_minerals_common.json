@@ -35,8 +35,6 @@
       "ingredient": "theurgy:alchemical_niter_other_minerals_common"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_bauxite"
-  },
+  "target": "theurgy:alchemical_sulfur_bauxite",
   "time": 100
 }

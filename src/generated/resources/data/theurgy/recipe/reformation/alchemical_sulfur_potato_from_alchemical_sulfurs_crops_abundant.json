@@ -21,8 +21,6 @@
       "ingredient": "#theurgy:alchemical_sulfurs/crops/abundant"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_potato"
-  },
+  "target": "theurgy:alchemical_sulfur_potato",
   "time": 100
 }

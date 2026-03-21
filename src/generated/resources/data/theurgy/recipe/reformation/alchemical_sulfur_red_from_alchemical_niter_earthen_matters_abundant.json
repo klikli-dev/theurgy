@@ -35,8 +35,6 @@
       "ingredient": "theurgy:alchemical_niter_earthen_matters_abundant"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_red"
-  },
+  "target": "theurgy:alchemical_sulfur_red",
   "time": 100
 }

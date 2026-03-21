@@ -35,8 +35,6 @@
       "ingredient": "theurgy:alchemical_niter_gems_abundant"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_apatite"
-  },
+  "target": "theurgy:alchemical_sulfur_apatite",
   "time": 100
 }

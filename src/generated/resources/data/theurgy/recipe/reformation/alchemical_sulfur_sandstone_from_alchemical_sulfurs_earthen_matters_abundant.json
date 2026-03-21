@@ -21,8 +21,6 @@
       "ingredient": "#theurgy:alchemical_sulfurs/earthen_matters/abundant"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_sandstone"
-  },
+  "target": "theurgy:alchemical_sulfur_sandstone",
   "time": 100
 }

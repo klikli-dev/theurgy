@@ -42,8 +42,6 @@
       "ingredient": "#theurgy:alchemical_sulfurs/crops/abundant"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_cucumber"
-  },
+  "target": "theurgy:alchemical_sulfur_cucumber",
   "time": 100
 }

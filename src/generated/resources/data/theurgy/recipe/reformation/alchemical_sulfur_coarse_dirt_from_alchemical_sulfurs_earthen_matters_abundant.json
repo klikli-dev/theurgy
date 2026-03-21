@@ -21,8 +21,6 @@
       "ingredient": "#theurgy:alchemical_sulfurs/earthen_matters/abundant"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_coarse_dirt"
-  },
+  "target": "theurgy:alchemical_sulfur_coarse_dirt",
   "time": 100
 }

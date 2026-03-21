@@ -21,8 +21,6 @@
       "ingredient": "#theurgy:alchemical_sulfurs/mobs/abundant"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_gunpowder"
-  },
+  "target": "theurgy:alchemical_sulfur_gunpowder",
   "time": 100
 }

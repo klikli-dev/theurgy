@@ -42,8 +42,6 @@
       "ingredient": "#theurgy:alchemical_sulfurs/gems/common"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_niter"
-  },
+  "target": "theurgy:alchemical_sulfur_niter",
   "time": 100
 }

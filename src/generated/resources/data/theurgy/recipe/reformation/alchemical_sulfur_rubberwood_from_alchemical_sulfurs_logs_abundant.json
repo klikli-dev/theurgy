@@ -42,8 +42,6 @@
       "ingredient": "#theurgy:alchemical_sulfurs/logs/abundant"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_rubberwood"
-  },
+  "target": "theurgy:alchemical_sulfur_rubberwood",
   "time": 100
 }

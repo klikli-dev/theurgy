@@ -16,8 +16,6 @@
       "ingredient": "theurgy:alchemical_niter_metals_abundant"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_niter_gems_abundant"
-  },
+  "target": "theurgy:alchemical_niter_gems_abundant",
   "time": 100
 }

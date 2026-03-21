@@ -2,9 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "item": "theurgy:logistics_item_extractor"
-    }
+    "theurgy:logistics_item_extractor"
   ],
   "result": {
     "id": "theurgy:logistics_item_inserter"

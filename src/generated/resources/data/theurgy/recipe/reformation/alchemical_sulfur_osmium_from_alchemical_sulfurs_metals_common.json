@@ -42,8 +42,6 @@
       "ingredient": "#theurgy:alchemical_sulfurs/metals/common"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_osmium"
-  },
+  "target": "theurgy:alchemical_sulfur_osmium",
   "time": 100
 }

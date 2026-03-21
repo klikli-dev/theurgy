@@ -40,8 +40,6 @@
       "ingredient": "theurgy:alchemical_niter_gems_common"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_niter_mobs_commond"
-  },
+  "target": "theurgy:alchemical_niter_mobs_commond",
   "time": 100
 }

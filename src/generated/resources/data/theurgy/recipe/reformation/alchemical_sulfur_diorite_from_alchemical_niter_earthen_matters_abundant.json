@@ -12,8 +12,6 @@
       "ingredient": "theurgy:alchemical_niter_earthen_matters_abundant"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_diorite"
-  },
+  "target": "theurgy:alchemical_sulfur_diorite",
   "time": 100
 }

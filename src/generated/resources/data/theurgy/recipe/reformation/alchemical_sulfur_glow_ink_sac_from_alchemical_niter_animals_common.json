@@ -12,8 +12,6 @@
       "ingredient": "theurgy:alchemical_niter_animals_common"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_glow_ink_sac"
-  },
+  "target": "theurgy:alchemical_sulfur_glow_ink_sac",
   "time": 100
 }

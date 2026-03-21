@@ -42,8 +42,6 @@
       "ingredient": "#theurgy:alchemical_sulfurs/other_minerals/abundant"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_coals"
-  },
+  "target": "theurgy:alchemical_sulfur_coals",
   "time": 100
 }

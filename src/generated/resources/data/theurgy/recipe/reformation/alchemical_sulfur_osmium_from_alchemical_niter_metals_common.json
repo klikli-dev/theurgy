@@ -35,8 +35,6 @@
       "ingredient": "theurgy:alchemical_niter_metals_common"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_osmium"
-  },
+  "target": "theurgy:alchemical_sulfur_osmium",
   "time": 100
 }

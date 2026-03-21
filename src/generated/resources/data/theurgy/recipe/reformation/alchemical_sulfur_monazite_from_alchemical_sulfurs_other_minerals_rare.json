@@ -42,8 +42,6 @@
       "ingredient": "#theurgy:alchemical_sulfurs/other_minerals/rare"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_monazite"
-  },
+  "target": "theurgy:alchemical_sulfur_monazite",
   "time": 100
 }

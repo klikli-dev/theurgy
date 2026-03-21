@@ -22,16 +22,31 @@ import org.joml.Vector3fc;
 
 import java.util.Map;
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 public class AlchemicalDerivativeRenderer implements SpecialModelRenderer<ItemStack> {
 
-    private static final ItemStack labeledEmptyJarStack = new ItemStack(ItemRegistry.EMPTY_JAR_LABELED_ICON.get());
-    private static final Map<AlchemicalDerivativeTier, ItemStack> tierToIconMap = Map.of(
+    private static final Supplier<ItemStack> labeledEmptyJarStack = lazy(() -> new ItemStack(ItemRegistry.EMPTY_JAR_LABELED_ICON.get()));
+    private static final Supplier<Map<AlchemicalDerivativeTier, ItemStack>> tierToIconMap = lazy(() -> Map.of(
             AlchemicalDerivativeTier.ABUNDANT, new ItemStack(ItemRegistry.JAR_LABEL_FRAME_ABUNDANT_ICON.get()),
             AlchemicalDerivativeTier.COMMON, new ItemStack(ItemRegistry.JAR_LABEL_FRAME_COMMON_ICON.get()),
             AlchemicalDerivativeTier.RARE, new ItemStack(ItemRegistry.JAR_LABEL_FRAME_RARE_ICON.get()),
             AlchemicalDerivativeTier.PRECIOUS, new ItemStack(ItemRegistry.JAR_LABEL_FRAME_PRECIOUS_ICON.get())
-    );
+    ));
+
+    private static <T> Supplier<T> lazy(Supplier<T> supplier) {
+        return new Supplier<>() {
+            private T value;
+
+            @Override
+            public T get() {
+                if (this.value == null) {
+                    this.value = supplier.get();
+                }
+                return this.value;
+            }
+        };
+    }
 
     @Override
     public void submit(@Nullable ItemStack stack, ItemDisplayContext displayContext, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int light, int overlay, boolean hasFoil, int outlineColor) {
@@ -39,14 +54,14 @@ public class AlchemicalDerivativeRenderer implements SpecialModelRenderer<ItemSt
 
         boolean renderSource = ClientConfig.get().rendering.renderSulfurSourceItem.get();
 
-        var jarStack = renderSource ? AlchemicalDerivativeItem.getEmptyJarStack(stack) : labeledEmptyJarStack;
+        var jarStack = renderSource ? AlchemicalDerivativeItem.getEmptyJarStack(stack) : labeledEmptyJarStack.get();
 
         // Render Jar
         this.submitItem(jarStack, displayContext, poseStack, submitNodeCollector, light, overlay, outlineColor);
 
         // Render Frame
         // AlchemicalDerivativeItem.getTier is static
-        var tierStack = tierToIconMap.get(AlchemicalDerivativeItem.getTier(stack));
+        var tierStack = tierToIconMap.get().get(AlchemicalDerivativeItem.getTier(stack));
         if (tierStack != null) {
             this.submitItem(tierStack, displayContext, poseStack, submitNodeCollector, light, overlay, outlineColor);
         }

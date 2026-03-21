@@ -283,11 +283,7 @@ public abstract class JsonRecipeProvider implements DataProvider {
         }
 
         public T ingredient(String propertyName, Holder<Item> itemHolder) {
-            JsonObject jsonobject = new JsonObject();
-            //noinspection OptionalGetWithoutIsPresent
-            jsonobject.addProperty("item", itemHolder.unwrapKey().get().identifier().toString());
-            this.recipe.add(propertyName, jsonobject);
-            return this.getThis();
+            return this.ingredient(propertyName, Ingredient.of(net.minecraft.core.HolderSet.direct(itemHolder)));
         }
 
         public T condition(ICondition condition) {

@@ -5,6 +5,7 @@
 package com.klikli_dev.theurgy.datagen.recipe;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.klikli_dev.modonomicon.registry.DataComponentRegistry;
 import com.klikli_dev.theurgy.Theurgy;
@@ -21,6 +22,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
 import net.neoforged.neoforge.common.Tags;
@@ -142,10 +144,8 @@ public class ShapelessRecipeProvider extends JsonRecipeProvider {
             return this;
         }
 
-        private JsonObject ingredient(TagKey<Item> tag) {
-            JsonObject jsonobject = new JsonObject();
-            jsonobject.addProperty("tag", tag.location().toString());
-            return jsonobject;
+        private JsonElement ingredient(TagKey<Item> tag) {
+            return Ingredient.CODEC.encodeStart(ShapelessRecipeProvider.this.registryOps, Ingredient.of(ShapelessRecipeProvider.this.items.getOrThrow(tag))).getOrThrow();
         }
 
         public ShapelessRecipeBuilder requires(TagKey<Item> tag) {
@@ -160,17 +160,15 @@ public class ShapelessRecipeProvider extends JsonRecipeProvider {
             return this;
         }
 
-        private JsonObject ingredient(ItemLike item) {
-            JsonObject jsonobject = new JsonObject();
-            jsonobject.addProperty("item", BuiltInRegistries.ITEM.getKey(item.asItem()).toString());
-            return jsonobject;
+        private JsonElement ingredient(ItemLike item) {
+            return Ingredient.CODEC.encodeStart(ShapelessRecipeProvider.this.registryOps, Ingredient.of(item)).getOrThrow();
         }
 
         public ShapelessRecipeBuilder requires(ItemLike item) {
             return this.requires(this.ingredient(item));
         }
 
-        public ShapelessRecipeBuilder requires(JsonObject ingredient) {
+        public ShapelessRecipeBuilder requires(JsonElement ingredient) {
             this.recipe.getAsJsonArray("ingredients").add(ingredient);
             return this;
         }

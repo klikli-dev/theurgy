@@ -5,6 +5,7 @@
 package com.klikli_dev.theurgy.datagen.recipe;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.content.item.divinationrod.DivinationRodItem;
@@ -25,6 +26,7 @@ import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.ToolMaterial;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
@@ -499,27 +501,23 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
             this.recipe.add("pattern", new JsonArray());
         }
 
-        private JsonObject ingredient(TagKey<Item> tag) {
-            JsonObject jsonobject = new JsonObject();
-            jsonobject.addProperty("tag", tag.location().toString());
-            return jsonobject;
+        private JsonElement ingredient(TagKey<Item> tag) {
+            return Ingredient.CODEC.encodeStart(ShapedRecipeProvider.this.registryOps, Ingredient.of(ShapedRecipeProvider.this.items.getOrThrow(tag))).getOrThrow();
         }
 
         public ShapedRecipeBuilder define(char key, TagKey<Item> tag) {
             return this.define(key, this.ingredient(tag));
         }
 
-        private JsonObject ingredient(ItemLike item) {
-            JsonObject jsonobject = new JsonObject();
-            jsonobject.addProperty("item", BuiltInRegistries.ITEM.getKey(item.asItem()).toString());
-            return jsonobject;
+        private JsonElement ingredient(ItemLike item) {
+            return Ingredient.CODEC.encodeStart(ShapedRecipeProvider.this.registryOps, Ingredient.of(item)).getOrThrow();
         }
 
         public ShapedRecipeBuilder define(char key, ItemLike item) {
             return this.define(key, this.ingredient(item));
         }
 
-        public ShapedRecipeBuilder define(char key, JsonObject ingredient) {
+        public ShapedRecipeBuilder define(char key, JsonElement ingredient) {
             var keyString = String.valueOf(key);
             var keys = this.recipe.getAsJsonObject("key");
             if (keys.has(keyString))

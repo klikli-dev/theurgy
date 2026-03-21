@@ -72,7 +72,33 @@ public class TheurgyBlockTagsProvider extends BlockTagsProvider {
 
         this.tag(Tags.Blocks.ORES_IN_GROUND_STONE).add(BlockRegistry.SAL_AMMONIAC_ORE.get());
         this.tag(Tags.Blocks.ORES_IN_GROUND_DEEPSLATE).add(BlockRegistry.DEEPSLATE_SAL_AMMONIAC_ORE.get());
-        this.tag(BlockTags.MINEABLE_WITH_PICKAXE).addTag(BlockTagRegistry.SAL_AMMONIAC_ORES);
+        this.tag(BlockTags.MINEABLE_WITH_PICKAXE)
+                .addTag(BlockTagRegistry.SAL_AMMONIAC_ORES)
+                //apparatus blocks
+                .add(BlockRegistry.CALCINATION_OVEN.get())
+                .add(BlockRegistry.PYROMANTIC_BRAZIER.get())
+                .add(BlockRegistry.LIQUEFACTION_CAULDRON.get())
+                .add(BlockRegistry.DISTILLER.get())
+                .add(BlockRegistry.INCUBATOR.get())
+                .add(BlockRegistry.INCUBATOR_MERCURY_VESSEL.get())
+                .add(BlockRegistry.INCUBATOR_SALT_VESSEL.get())
+                .add(BlockRegistry.INCUBATOR_SULFUR_VESSEL.get())
+                .add(BlockRegistry.SAL_AMMONIAC_ACCUMULATOR.get())
+                .add(BlockRegistry.SAL_AMMONIAC_TANK.get())
+                .add(BlockRegistry.MERCURY_CATALYST.get())
+                .add(BlockRegistry.CALORIC_FLUX_EMITTER.get())
+                .add(BlockRegistry.SULFURIC_FLUX_EMITTER.get())
+                .add(BlockRegistry.REFORMATION_SOURCE_PEDESTAL.get())
+                .add(BlockRegistry.REFORMATION_TARGET_PEDESTAL.get())
+                .add(BlockRegistry.REFORMATION_RESULT_PEDESTAL.get())
+                .add(BlockRegistry.FERMENTATION_VAT.get())
+                .add(BlockRegistry.DIGESTION_VAT.get())
+                //logistics blocks
+                .add(BlockRegistry.LOGISTICS_CONNECTION_NODE.get())
+                .add(BlockRegistry.LOGISTICS_ITEM_INSERTER.get())
+                .add(BlockRegistry.LOGISTICS_ITEM_EXTRACTOR.get())
+                .add(BlockRegistry.LOGISTICS_FLUID_INSERTER.get())
+                .add(BlockRegistry.LOGISTICS_FLUID_EXTRACTOR.get());
         this.tag(BlockTags.NEEDS_STONE_TOOL).addTag(BlockTagRegistry.SAL_AMMONIAC_ORES);
     }
 }

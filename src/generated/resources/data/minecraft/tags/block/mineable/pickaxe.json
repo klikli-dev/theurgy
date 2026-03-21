@@ -1,5 +1,28 @@
 {
   "values": [
-    "#c:ores/sal_ammoniac"
+    "#c:ores/sal_ammoniac",
+    "theurgy:calcination_oven",
+    "theurgy:pyromantic_brazier",
+    "theurgy:liquefaction_cauldron",
+    "theurgy:distiller",
+    "theurgy:incubator",
+    "theurgy:incubator_mercury_vessel",
+    "theurgy:incubator_salt_vessel",
+    "theurgy:incubator_sulfur_vessel",
+    "theurgy:sal_ammoniac_accumulator",
+    "theurgy:sal_ammoniac_tank",
+    "theurgy:mercury_catalyst",
+    "theurgy:caloric_flux_emitter",
+    "theurgy:sulfuric_flux_emitter",
+    "theurgy:reformation_source_pedestal",
+    "theurgy:reformation_target_pedestal",
+    "theurgy:reformation_result_pedestal",
+    "theurgy:fermentation_vat",
+    "theurgy:digestion_vat",
+    "theurgy:logistics_connector_node",
+    "theurgy:logistics_item_inserter",
+    "theurgy:logistics_item_extractor",
+    "theurgy:logistics_fluid_inserter",
+    "theurgy:logistics_fluid_extractor"
   ]
 }

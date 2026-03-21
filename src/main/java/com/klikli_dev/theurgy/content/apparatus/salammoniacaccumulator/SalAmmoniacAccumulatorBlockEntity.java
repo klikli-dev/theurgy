@@ -7,6 +7,7 @@ package com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator;
 import com.klikli_dev.theurgy.registry.CapabilityRegistry;
 import com.klikli_dev.theurgy.content.particle.ParticleColor;
 import com.klikli_dev.theurgy.content.particle.coloredbubble.ColoredBubbleParticleProvider;
+import com.klikli_dev.theurgy.content.storage.MonitoredFluidTank;
 import com.klikli_dev.theurgy.content.storage.MonitoredItemStackHandler;
 import com.klikli_dev.theurgy.util.ValueIOUtils;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
@@ -25,13 +26,11 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.FluidType;
-import net.neoforged.neoforge.fluids.capability.IFluidHandler;
-import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
-import net.neoforged.neoforge.items.ItemStackHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.fluid.FluidResource;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import com.geckolib.animatable.GeoBlockEntity;
@@ -47,7 +46,7 @@ public class SalAmmoniacAccumulatorBlockEntity extends BlockEntity implements Ge
 
     public MonitoredItemStackHandler inventory;
 
-    public FluidTank waterTank;
+    public WaterTank waterTank;
 
     protected SalAmmoniacAccumulatorCraftingBehaviour craftingBehaviour;
 
@@ -155,7 +154,7 @@ public class SalAmmoniacAccumulatorBlockEntity extends BlockEntity implements Ge
         }
     }
 
-    public IFluidHandler getOutputTank() {
+    public ResourceHandler<FluidResource> getOutputTank() {
         var below = this.getBlockPos().below();
 
         return this.level.getCapability(CapabilityRegistry.FLUID_HANDLER, below, null);
@@ -209,7 +208,7 @@ public class SalAmmoniacAccumulatorBlockEntity extends BlockEntity implements Ge
         return this.animatableInstanceCache;
     }
 
-    public class WaterTank extends FluidTank {
+    public class WaterTank extends MonitoredFluidTank {
         public WaterTank(int capacity, Predicate<FluidStack> validator) {
             super(capacity, validator);
         }

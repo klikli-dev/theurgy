@@ -1,0 +1,20 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "theurgy:block/pyromantic_brazier"
+      },
+      "when": {
+        "lit": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "theurgy:block/pyromantic_brazier_lit"
+      },
+      "when": {
+        "lit": "true"
+      }
+    }
+  ]
+}

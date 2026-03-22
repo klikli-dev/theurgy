@@ -1,0 +1,14 @@
+{
+  "type": "theurgy:liquefaction",
+  "category": "misc",
+  "ingredient": "minecraft:heart_of_the_sea",
+  "result": {
+    "type": "theurgy:item",
+    "id": "theurgy:alchemical_sulfur_heart_of_the_sea"
+  },
+  "solvent": {
+    "amount": 100,
+    "ingredient": "theurgy:sal_ammoniac"
+  },
+  "time": 100
+}

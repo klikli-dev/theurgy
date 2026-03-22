@@ -1,0 +1,80 @@
+// SPDX-FileCopyrightText: 2023 klikli-dev
+//
+// SPDX-License-Identifier: MIT
+
+package com.klikli_dev.theurgy.util;
+
+import com.google.common.graph.EndpointPair;
+import com.google.common.graph.MutableGraph;
+import com.mojang.datafixers.util.Either;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.world.item.ToolMaterial;
+import net.neoforged.neoforge.fluids.FluidStack;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Supplier;
+
+public class TheurgyExtraCodecs {
+    public static final Codec<FluidStack> SINGLE_FLUID_CODEC = BuiltInRegistries.FLUID.byNameCodec().xmap(fluid -> new FluidStack(fluid, 1), FluidStack::getFluid);
+    private static final com.google.common.collect.BiMap<String, ToolMaterial> TIERS = com.google.common.collect.ImmutableBiMap.of(
+            "wood", ToolMaterial.WOOD,
+            "stone", ToolMaterial.STONE,
+            "iron", ToolMaterial.IRON,
+            "diamond", ToolMaterial.DIAMOND,
+            "gold", ToolMaterial.GOLD,
+            "netherite", ToolMaterial.NETHERITE
+    );
+    public static final Codec<ToolMaterial> TIERS_CODEC = Codec.stringResolver(TIERS.inverse()::get, TIERS::get);
+
+    public static <T> MapCodec<T> mapWithAlternative(final MapCodec<T> primary, final MapCodec<? extends T> alternative) {
+        return Codec.mapEither(
+                primary,
+                alternative
+        ).xmap(
+                Either::unwrap,
+                Either::left
+        );
+    }
+
+    @SuppressWarnings("UnstableApiUsage")
+    public static <V> Codec<MutableGraph<V>> graph(Codec<V> elementCodec, Supplier<MutableGraph<V>> graphSupplier) {
+        return internalGraph(elementCodec).xmap(
+                internalGraph -> {
+                    MutableGraph<V> g = graphSupplier.get();
+                    internalGraph.nodes().forEach(g::addNode);
+                    internalGraph.edges().forEach(g::putEdge);
+                    return g;
+                },
+                graph -> {
+                    List<V> nodes = new ArrayList<>(graph.nodes());
+                    List<EndpointPair<V>> edges = new ArrayList<>(graph.edges());
+                    return new InternalGraph<>(nodes, edges);
+                }
+        );
+    }
+
+    @SuppressWarnings("UnstableApiUsage")
+    private static <V> Codec<EndpointPair<V>> unorderedEndpointPair(Codec<V> elementCodec) {
+        return RecordCodecBuilder.create(instance -> instance.group(
+                elementCodec.fieldOf("nodeU").forGetter(EndpointPair::nodeU),
+                elementCodec.fieldOf("nodeV").forGetter(EndpointPair::nodeV)
+        ).apply(instance, EndpointPair::unordered));
+    }
+
+    @SuppressWarnings("UnstableApiUsage")
+    private static <V> Codec<InternalGraph<V>> internalGraph(Codec<V> elementCodec) {
+        return RecordCodecBuilder.create(instance -> instance.group(
+                Codec.list(elementCodec).fieldOf("nodes").forGetter(InternalGraph::nodes),
+                Codec.list(unorderedEndpointPair(elementCodec)).fieldOf("edges").forGetter(InternalGraph::edges)
+        ).apply(instance, InternalGraph::new));
+    }
+
+    @SuppressWarnings("UnstableApiUsage")
+    private record InternalGraph<V>(List<V> nodes, List<EndpointPair<V>> edges) {
+
+    }
+}

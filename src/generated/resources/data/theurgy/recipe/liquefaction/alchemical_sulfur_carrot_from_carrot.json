@@ -1,0 +1,14 @@
+{
+  "type": "theurgy:liquefaction",
+  "category": "misc",
+  "ingredient": "minecraft:carrot",
+  "result": {
+    "type": "theurgy:item",
+    "id": "theurgy:alchemical_sulfur_carrot"
+  },
+  "solvent": {
+    "amount": 10,
+    "ingredient": "theurgy:sal_ammoniac"
+  },
+  "time": 100
+}

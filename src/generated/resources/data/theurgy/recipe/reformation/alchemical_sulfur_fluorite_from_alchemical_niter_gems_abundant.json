@@ -1,0 +1,39 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:gems/fluorite"
+      }
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:gems/fluorite"
+      }
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:gems/fluorite"
+      }
+    }
+  ],
+  "type": "theurgy:reformation",
+  "category": "misc",
+  "mercuryFlux": 50,
+  "result": {
+    "id": "theurgy:alchemical_sulfur_fluorite"
+  },
+  "sources": [
+    {
+      "count": 1,
+      "ingredient": "theurgy:alchemical_niter_gems_abundant"
+    }
+  ],
+  "target": "theurgy:alchemical_sulfur_fluorite",
+  "time": 100
+}

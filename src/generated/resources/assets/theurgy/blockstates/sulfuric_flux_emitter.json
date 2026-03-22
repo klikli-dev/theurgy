@@ -1,0 +1,57 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "theurgy:block/sulfuric_flux_emitter",
+        "x": 90
+      },
+      "when": {
+        "facing": "down"
+      }
+    },
+    {
+      "apply": {
+        "model": "theurgy:block/sulfuric_flux_emitter",
+        "y": 90
+      },
+      "when": {
+        "facing": "east"
+      }
+    },
+    {
+      "apply": {
+        "model": "theurgy:block/sulfuric_flux_emitter"
+      },
+      "when": {
+        "facing": "north"
+      }
+    },
+    {
+      "apply": {
+        "model": "theurgy:block/sulfuric_flux_emitter",
+        "y": 180
+      },
+      "when": {
+        "facing": "south"
+      }
+    },
+    {
+      "apply": {
+        "model": "theurgy:block/sulfuric_flux_emitter",
+        "x": 270
+      },
+      "when": {
+        "facing": "up"
+      }
+    },
+    {
+      "apply": {
+        "model": "theurgy:block/sulfuric_flux_emitter",
+        "y": 270
+      },
+      "when": {
+        "facing": "west"
+      }
+    }
+  ]
+}

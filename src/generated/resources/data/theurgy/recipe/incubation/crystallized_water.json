@@ -1,0 +1,12 @@
+{
+  "type": "theurgy:incubation",
+  "category": "misc",
+  "mercury": "theurgy:mercury_shard",
+  "result": {
+    "type": "theurgy:item",
+    "id": "theurgy:crystallized_water"
+  },
+  "salt": "theurgy:alchemical_salt_strata",
+  "sulfur": "theurgy:alchemical_sulfur_crystallized_water",
+  "time": 100
+}

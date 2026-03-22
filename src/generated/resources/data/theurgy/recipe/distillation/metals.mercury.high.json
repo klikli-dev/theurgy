@@ -1,0 +1,22 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "theurgy:metals/mercury/high"
+      }
+    }
+  ],
+  "type": "theurgy:distillation",
+  "category": "misc",
+  "ingredient": {
+    "count": 1,
+    "ingredient": "#theurgy:metals/mercury/high"
+  },
+  "result": {
+    "count": 10,
+    "id": "theurgy:mercury_shard"
+  },
+  "time": 100
+}

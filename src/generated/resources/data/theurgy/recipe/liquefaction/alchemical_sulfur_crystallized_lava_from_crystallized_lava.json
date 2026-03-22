@@ -1,0 +1,14 @@
+{
+  "type": "theurgy:liquefaction",
+  "category": "misc",
+  "ingredient": "theurgy:crystallized_lava",
+  "result": {
+    "type": "theurgy:item",
+    "id": "theurgy:alchemical_sulfur_crystallized_lava"
+  },
+  "solvent": {
+    "amount": 10,
+    "ingredient": "theurgy:sal_ammoniac"
+  },
+  "time": 100
+}

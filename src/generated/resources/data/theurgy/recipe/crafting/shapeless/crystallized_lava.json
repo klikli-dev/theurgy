@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "#theurgy:alchemical_salts",
+    "minecraft:lava_bucket"
+  ],
+  "result": {
+    "id": "theurgy:crystallized_lava"
+  }
+}

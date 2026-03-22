@@ -1,0 +1,25 @@
+{
+  "type": "theurgy:divination_rod",
+  "category": "misc",
+  "key": {
+    "G": "#c:glass_blocks",
+    "R": "#c:rods/wooden",
+    "S": "#theurgy:alchemical_sulfurs/abundant"
+  },
+  "pattern": [
+    " GS",
+    " RG",
+    "R  "
+  ],
+  "result": {
+    "components": {
+      "theurgy:divination_settings_allowed_blocks_tag": "theurgy:divination_rod_t1_allowed_blocks",
+      "theurgy:divination_settings_disallowed_blocks_tag": "theurgy:divination_rod_t1_disallowed_blocks",
+      "theurgy:divination_settings_duration": 40,
+      "theurgy:divination_settings_max_damage": 16,
+      "theurgy:divination_settings_range": 96,
+      "theurgy:divination_settings_tier": "stone"
+    },
+    "id": "theurgy:sulfur_attuned_divination_rod_abundant"
+  }
+}

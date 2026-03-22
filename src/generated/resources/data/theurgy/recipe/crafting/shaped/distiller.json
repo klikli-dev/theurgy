@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": "#c:storage_blocks/copper",
+    "I": "#c:ingots/iron",
+    "S": "#c:stones"
+  },
+  "pattern": [
+    " I ",
+    "ICI",
+    "SSS"
+  ],
+  "result": {
+    "id": "theurgy:distiller"
+  }
+}

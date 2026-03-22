@@ -1,0 +1,22 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:crops/coffee_beans"
+      }
+    }
+  ],
+  "type": "theurgy:incubation",
+  "category": "misc",
+  "mercury": "theurgy:mercury_shard",
+  "result": {
+    "type": "theurgy:tag",
+    "count": 1,
+    "tag": "c:crops/coffee_beans"
+  },
+  "salt": "theurgy:alchemical_salt_plant",
+  "sulfur": "theurgy:alchemical_sulfur_coffee_beans",
+  "time": 100
+}

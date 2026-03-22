@@ -1,0 +1,21 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:glass_blocks"
+      }
+    }
+  ],
+  "type": "theurgy:distillation",
+  "category": "misc",
+  "ingredient": {
+    "count": 10,
+    "ingredient": "#c:glass_blocks"
+  },
+  "result": {
+    "id": "theurgy:mercury_shard"
+  },
+  "time": 100
+}

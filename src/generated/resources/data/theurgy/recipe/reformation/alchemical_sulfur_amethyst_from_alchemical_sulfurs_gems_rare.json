@@ -1,0 +1,46 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:gems/amethyst"
+      }
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:gems/amethyst"
+      }
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:gems/amethyst"
+      }
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "theurgy:alchemical_sulfurs/gems/rare"
+      }
+    }
+  ],
+  "type": "theurgy:reformation",
+  "category": "misc",
+  "mercuryFlux": 150,
+  "result": {
+    "id": "theurgy:alchemical_sulfur_amethyst"
+  },
+  "sources": [
+    {
+      "count": 1,
+      "ingredient": "#theurgy:alchemical_sulfurs/gems/rare"
+    }
+  ],
+  "target": "theurgy:alchemical_sulfur_amethyst",
+  "time": 100
+}

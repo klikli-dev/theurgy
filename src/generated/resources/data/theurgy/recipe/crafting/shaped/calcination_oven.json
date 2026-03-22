@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": "#c:storage_blocks/copper",
+    "I": "#c:ingots/iron"
+  },
+  "pattern": [
+    " I ",
+    "ICI",
+    " I "
+  ],
+  "result": {
+    "id": "theurgy:calcination_oven"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "type": "theurgy:incubation",
+  "category": "misc",
+  "mercury": "theurgy:mercury_shard",
+  "result": {
+    "type": "theurgy:item",
+    "id": "minecraft:magma_cream"
+  },
+  "salt": "theurgy:alchemical_salt_creature",
+  "sulfur": "theurgy:alchemical_sulfur_magma_cream",
+  "time": 100
+}

@@ -1,0 +1,22 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:crops/currant"
+      }
+    }
+  ],
+  "type": "theurgy:incubation",
+  "category": "misc",
+  "mercury": "theurgy:mercury_shard",
+  "result": {
+    "type": "theurgy:tag",
+    "count": 1,
+    "tag": "c:crops/currant"
+  },
+  "salt": "theurgy:alchemical_salt_plant",
+  "sulfur": "theurgy:alchemical_sulfur_currant",
+  "time": 100
+}

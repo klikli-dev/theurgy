@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "S": "#c:sandstone/blocks",
+    "g": "#c:ingots/gold",
+    "p": "minecraft:decorated_pot",
+    "s": "#c:gems/sal_ammoniac"
+  },
+  "pattern": [
+    " s ",
+    "gpg",
+    "SSS"
+  ],
+  "result": {
+    "id": "theurgy:digestion_vat"
+  }
+}

@@ -1,0 +1,70 @@
+// SPDX-FileCopyrightText: 2024 klikli-dev
+//
+// SPDX-License-Identifier: MIT
+
+package com.klikli_dev.theurgy.content.item.filter;
+
+import net.minecraft.client.Minecraft;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
+import java.util.function.Consumer;
+
+public abstract class FilterItem extends Item implements MenuProvider {
+    public FilterItem(Properties pProperties) {
+        super(pProperties);
+    }
+
+    @Override
+    public @NotNull InteractionResult useOn(UseOnContext pContext) {
+        if (pContext.getPlayer() == null)
+            return InteractionResult.PASS;
+        return this.use(pContext.getLevel(), pContext.getPlayer(), pContext.getHand());
+    }
+
+    @Override
+    public @NotNull InteractionResult use(@NotNull Level pLevel, Player pPlayer, @NotNull InteractionHand pUsedHand) {
+        ItemStack heldItem = pPlayer.getItemInHand(pUsedHand);
+
+        if (!pPlayer.isShiftKeyDown() && pUsedHand == InteractionHand.MAIN_HAND) {
+            if (!pLevel.isClientSide() && pPlayer instanceof ServerPlayer serverPlayer)
+                serverPlayer.openMenu(this, buf -> {
+                    ItemStack.STREAM_CODEC.encode(buf, heldItem);
+                });
+            return InteractionResult.SUCCESS;
+        }
+
+        return InteractionResult.PASS;
+    }
+
+    @Override
+    public void appendHoverText(@NotNull ItemStack pStack, @NotNull TooltipContext pContext, @NotNull TooltipDisplay pTooltipDisplay, @NotNull Consumer<Component> pTooltipAdder, @NotNull TooltipFlag pTooltipFlag) {
+        if (!Minecraft.getInstance().hasShiftDown()) {
+            List<Component> makeSummary = this.makeSummary(pStack, pContext.registries());
+            if (makeSummary.isEmpty())
+                return;
+            pTooltipAdder.accept(Component.literal(" "));
+            makeSummary.forEach(pTooltipAdder);
+        }
+    }
+
+    protected abstract List<Component> makeSummary(ItemStack filter, HolderLookup.Provider registryAccess);
+
+    @Override
+    public @NotNull Component getDisplayName() {
+        return Component.translatable(this.getDescriptionId());
+    }
+}

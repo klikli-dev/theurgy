@@ -1,0 +1,14 @@
+{
+  "type": "theurgy:liquefaction",
+  "category": "misc",
+  "ingredient": "minecraft:egg",
+  "result": {
+    "type": "theurgy:item",
+    "id": "theurgy:alchemical_sulfur_egg"
+  },
+  "solvent": {
+    "amount": 15,
+    "ingredient": "theurgy:sal_ammoniac"
+  },
+  "time": 100
+}

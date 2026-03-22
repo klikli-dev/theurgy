@@ -1,0 +1,98 @@
+// SPDX-FileCopyrightText: 2024 klikli-dev
+//
+// SPDX-License-Identifier: MIT
+
+package com.klikli_dev.theurgy.integration.emi;
+
+import com.klikli_dev.theurgy.TheurgyConstants;
+import com.klikli_dev.theurgy.content.recipe.AccumulationRecipe;
+import dev.emi.emi.api.recipe.EmiRecipe;
+import dev.emi.emi.api.recipe.EmiRecipeCategory;
+import dev.emi.emi.api.render.EmiTexture;
+import dev.emi.emi.api.stack.EmiIngredient;
+import dev.emi.emi.api.stack.EmiStack;
+import dev.emi.emi.api.widget.WidgetHolder;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class AccumulationEmiRecipe implements EmiRecipe {
+
+    private final RecipeHolder<AccumulationRecipe> recipe;
+
+    public AccumulationEmiRecipe(RecipeHolder<AccumulationRecipe> recipe) {
+        this.recipe = recipe;
+    }
+
+    @Override
+    public EmiRecipeCategory getCategory() {
+        return EmiPlugin.ACCUMULATION_CATEGORY;
+    }
+
+    @Override
+    public @Nullable Identifier getId() {
+        return this.recipe.id().location();
+    }
+
+    @Override
+    public List<EmiIngredient> getInputs() {
+        var inputs = new ArrayList<EmiIngredient>();
+        if (this.recipe.value().hasSolute())
+            inputs.add(EmiIngredient.of(this.recipe.value().solute()));
+
+        if (this.recipe.value().hasEvaporant())
+            inputs.add(EmiIngredient.of(this.recipe.value().evaporant().ingredient().fluids()
+                    .stream().map(f -> EmiStack.of(f.value(), this.recipe.value().evaporant().amount())).toList()));
+
+        return inputs;
+    }
+
+    @Override
+    public List<EmiStack> getOutputs() {
+        return List.of(
+                EmiStack.of(this.recipe.value().result().getFluid(), this.recipe.value().result().getAmount())
+        );
+    }
+
+    @Override
+    public int getDisplayWidth() {
+        return 82;
+    }
+
+    @Override
+    public int getDisplayHeight() {
+        return 40;
+    }
+
+    @Override
+    public void addWidgets(WidgetHolder widgets) {
+        widgets.addTexture(EmiTexture.EMPTY_ARROW, 24, 2);
+
+        if (this.recipe.value().hasEvaporant()) {
+            widgets.addSlot(EmiIngredient.of(this.recipe.value().evaporant().ingredient().fluids()
+                    .stream().map(f -> EmiStack.of(f.value(), this.recipe.value().evaporant().amount())).toList()), 1, 1);
+        }
+
+        if (this.recipe.value().hasSolute()) {
+            widgets.addSlot(EmiIngredient.of(this.recipe.value().solute()), 1, 21);
+        }
+
+        widgets.addSlot(EmiStack.of(this.recipe.value().result().getFluid(), this.recipe.value().result().getAmount()), 56, 1).recipeContext(this);
+
+        int cookTime = this.recipe.value().time();
+        if (cookTime > 0) {
+            int cookTimeSeconds = cookTime / 20;
+            Component timeString = Component.translatable(TheurgyConstants.I18n.Gui.SMELTING_TIME_SECONDS, cookTimeSeconds);
+            Minecraft minecraft = Minecraft.getInstance();
+            Font font = minecraft.font;
+            int stringWidth = font.width(timeString);
+            widgets.addText(timeString, this.getDisplayWidth() - stringWidth, 29, 0xFF808080, false);
+        }
+    }
+}

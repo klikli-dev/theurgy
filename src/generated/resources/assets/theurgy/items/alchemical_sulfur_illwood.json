@@ -1,0 +1,9 @@
+{
+  "model": {
+    "type": "minecraft:special",
+    "base": "minecraft:builtin/entity",
+    "model": {
+      "type": "theurgy:alchemical_derivative"
+    }
+  }
+}

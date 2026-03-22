@@ -1,0 +1,24 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:ores/crimson_iron"
+      }
+    }
+  ],
+  "type": "theurgy:liquefaction",
+  "category": "misc",
+  "ingredient": "#c:ores/crimson_iron",
+  "result": {
+    "type": "theurgy:item",
+    "count": 5,
+    "id": "theurgy:alchemical_sulfur_crimson_iron"
+  },
+  "solvent": {
+    "amount": 20,
+    "ingredient": "theurgy:sal_ammoniac"
+  },
+  "time": 100
+}

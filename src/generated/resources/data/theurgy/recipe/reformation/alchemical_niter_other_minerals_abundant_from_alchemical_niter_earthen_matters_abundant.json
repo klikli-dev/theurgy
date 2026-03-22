@@ -1,0 +1,28 @@
+{
+  "type": "theurgy:reformation",
+  "category": "misc",
+  "mercuryFlux": 50,
+  "result": {
+    "id": "theurgy:alchemical_niter_other_minerals_abundant"
+  },
+  "sources": [
+    {
+      "count": 1,
+      "ingredient": "theurgy:alchemical_niter_earthen_matters_abundant"
+    },
+    {
+      "count": 1,
+      "ingredient": "theurgy:alchemical_niter_earthen_matters_abundant"
+    },
+    {
+      "count": 1,
+      "ingredient": "theurgy:alchemical_niter_earthen_matters_abundant"
+    },
+    {
+      "count": 1,
+      "ingredient": "theurgy:alchemical_niter_earthen_matters_abundant"
+    }
+  ],
+  "target": "theurgy:alchemical_niter_other_minerals_abundant",
+  "time": 100
+}

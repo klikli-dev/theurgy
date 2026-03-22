@@ -1,0 +1,39 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:logs/redwood"
+      }
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:logs/redwood"
+      }
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:logs/redwood"
+      }
+    }
+  ],
+  "type": "theurgy:reformation",
+  "category": "misc",
+  "mercuryFlux": 50,
+  "result": {
+    "id": "theurgy:alchemical_sulfur_redwood"
+  },
+  "sources": [
+    {
+      "count": 1,
+      "ingredient": "theurgy:alchemical_niter_logs_abundant"
+    }
+  ],
+  "target": "theurgy:alchemical_sulfur_redwood",
+  "time": 100
+}

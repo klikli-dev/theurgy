@@ -1,0 +1,21 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:raw_materials"
+      }
+    }
+  ],
+  "type": "theurgy:calcination",
+  "category": "misc",
+  "ingredient": {
+    "count": 1,
+    "ingredient": "#c:raw_materials"
+  },
+  "result": {
+    "id": "theurgy:alchemical_salt_mineral"
+  },
+  "time": 100
+}

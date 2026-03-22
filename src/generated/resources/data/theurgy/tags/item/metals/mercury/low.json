@@ -1,0 +1,30 @@
+{
+  "values": [
+    "#c:ingots/iron",
+    "#c:ingots/copper",
+    {
+      "id": "#c:ingots/zinc",
+      "required": false
+    },
+    {
+      "id": "#c:ingots/osmium",
+      "required": false
+    },
+    {
+      "id": "#c:ingots/nickel",
+      "required": false
+    },
+    {
+      "id": "#c:ingots/lead",
+      "required": false
+    },
+    {
+      "id": "#c:ingots/tin",
+      "required": false
+    },
+    {
+      "id": "#c:ingots/aluminum",
+      "required": false
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "type": "theurgy:reformation",
+  "category": "misc",
+  "mercuryFlux": 100,
+  "result": {
+    "id": "theurgy:alchemical_sulfur_clay_ball"
+  },
+  "sources": [
+    {
+      "count": 1,
+      "ingredient": "theurgy:alchemical_niter_earthen_matters_common"
+    }
+  ],
+  "target": "theurgy:alchemical_sulfur_clay_ball",
+  "time": 100
+}

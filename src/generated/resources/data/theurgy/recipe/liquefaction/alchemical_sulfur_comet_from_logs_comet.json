@@ -1,0 +1,23 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:logs/comet"
+      }
+    }
+  ],
+  "type": "theurgy:liquefaction",
+  "category": "misc",
+  "ingredient": "#c:logs/comet",
+  "result": {
+    "type": "theurgy:item",
+    "id": "theurgy:alchemical_sulfur_comet"
+  },
+  "solvent": {
+    "amount": 10,
+    "ingredient": "theurgy:sal_ammoniac"
+  },
+  "time": 100
+}

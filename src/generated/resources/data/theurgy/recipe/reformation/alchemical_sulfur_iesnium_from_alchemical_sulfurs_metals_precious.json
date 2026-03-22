@@ -1,0 +1,46 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:ingots/iesnium"
+      }
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:ingots/iesnium"
+      }
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:ingots/iesnium"
+      }
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "theurgy:alchemical_sulfurs/metals/precious"
+      }
+    }
+  ],
+  "type": "theurgy:reformation",
+  "category": "misc",
+  "mercuryFlux": 200,
+  "result": {
+    "id": "theurgy:alchemical_sulfur_iesnium"
+  },
+  "sources": [
+    {
+      "count": 1,
+      "ingredient": "#theurgy:alchemical_sulfurs/metals/precious"
+    }
+  ],
+  "target": "theurgy:alchemical_sulfur_iesnium",
+  "time": 100
+}

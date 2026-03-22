@@ -1,0 +1,15 @@
+{
+  "type": "theurgy:liquefaction",
+  "category": "misc",
+  "ingredient": "minecraft:packed_ice",
+  "result": {
+    "type": "theurgy:item",
+    "count": 9,
+    "id": "theurgy:alchemical_sulfur_ice"
+  },
+  "solvent": {
+    "amount": 10,
+    "ingredient": "theurgy:sal_ammoniac"
+  },
+  "time": 100
+}

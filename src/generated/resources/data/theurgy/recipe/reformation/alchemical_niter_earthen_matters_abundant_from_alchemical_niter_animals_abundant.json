@@ -1,0 +1,17 @@
+{
+  "type": "theurgy:reformation",
+  "category": "misc",
+  "mercuryFlux": 50,
+  "result": {
+    "count": 8,
+    "id": "theurgy:alchemical_niter_earthen_matters_abundant"
+  },
+  "sources": [
+    {
+      "count": 1,
+      "ingredient": "theurgy:alchemical_niter_animals_abundant"
+    }
+  ],
+  "target": "theurgy:alchemical_niter_earthen_matters_abundant",
+  "time": 100
+}

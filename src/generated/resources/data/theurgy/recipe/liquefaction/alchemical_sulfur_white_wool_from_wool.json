@@ -1,0 +1,23 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "minecraft:wool"
+      }
+    }
+  ],
+  "type": "theurgy:liquefaction",
+  "category": "misc",
+  "ingredient": "#minecraft:wool",
+  "result": {
+    "type": "theurgy:item",
+    "id": "theurgy:alchemical_sulfur_white_wool"
+  },
+  "solvent": {
+    "amount": 15,
+    "ingredient": "theurgy:sal_ammoniac"
+  },
+  "time": 100
+}

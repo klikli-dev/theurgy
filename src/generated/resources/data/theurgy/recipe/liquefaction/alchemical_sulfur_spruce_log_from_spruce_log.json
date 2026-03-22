@@ -1,0 +1,14 @@
+{
+  "type": "theurgy:liquefaction",
+  "category": "misc",
+  "ingredient": "minecraft:spruce_log",
+  "result": {
+    "type": "theurgy:item",
+    "id": "theurgy:alchemical_sulfur_spruce_log"
+  },
+  "solvent": {
+    "amount": 10,
+    "ingredient": "theurgy:sal_ammoniac"
+  },
+  "time": 100
+}

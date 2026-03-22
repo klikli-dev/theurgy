@@ -1,0 +1,23 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:gems/emerald"
+      }
+    }
+  ],
+  "type": "theurgy:liquefaction",
+  "category": "misc",
+  "ingredient": "#c:gems/emerald",
+  "result": {
+    "type": "theurgy:item",
+    "id": "theurgy:alchemical_sulfur_emerald"
+  },
+  "solvent": {
+    "amount": 100,
+    "ingredient": "theurgy:sal_ammoniac"
+  },
+  "time": 100
+}

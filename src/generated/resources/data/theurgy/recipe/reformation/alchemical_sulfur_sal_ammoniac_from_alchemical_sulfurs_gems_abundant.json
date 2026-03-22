@@ -1,0 +1,46 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:gems/sal_ammoniac"
+      }
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:gems/sal_ammoniac"
+      }
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:gems/sal_ammoniac"
+      }
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "theurgy:alchemical_sulfurs/gems/abundant"
+      }
+    }
+  ],
+  "type": "theurgy:reformation",
+  "category": "misc",
+  "mercuryFlux": 50,
+  "result": {
+    "id": "theurgy:alchemical_sulfur_sal_ammoniac"
+  },
+  "sources": [
+    {
+      "count": 1,
+      "ingredient": "#theurgy:alchemical_sulfurs/gems/abundant"
+    }
+  ],
+  "target": "theurgy:alchemical_sulfur_sal_ammoniac",
+  "time": 100
+}

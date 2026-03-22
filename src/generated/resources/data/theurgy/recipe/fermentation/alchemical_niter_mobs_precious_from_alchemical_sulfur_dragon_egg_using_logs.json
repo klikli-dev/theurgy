@@ -1,0 +1,26 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "minecraft:logs"
+      }
+    }
+  ],
+  "type": "theurgy:fermentation",
+  "category": "misc",
+  "fluid": {
+    "amount": 1000,
+    "ingredient": "minecraft:water"
+  },
+  "ingredients": [
+    "theurgy:alchemical_sulfur_dragon_egg",
+    "#minecraft:logs"
+  ],
+  "result": {
+    "count": 4,
+    "id": "theurgy:alchemical_niter_mobs_precious"
+  },
+  "time": 200
+}

@@ -1,0 +1,22 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:crops/radish"
+      }
+    }
+  ],
+  "type": "theurgy:incubation",
+  "category": "misc",
+  "mercury": "theurgy:mercury_shard",
+  "result": {
+    "type": "theurgy:tag",
+    "count": 1,
+    "tag": "c:crops/radish"
+  },
+  "salt": "theurgy:alchemical_salt_plant",
+  "sulfur": "theurgy:alchemical_sulfur_radish",
+  "time": 100
+}

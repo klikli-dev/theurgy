@@ -1,0 +1,38 @@
+{
+  "type": "modonomicon:dense",
+  "mapping": {
+    "*": {
+      "type": "modonomicon:display",
+      "display": "minecraft:basalt"
+    },
+    "+": {
+      "type": "modonomicon:display",
+      "display": "minecraft:stone"
+    },
+    "0": {
+      "type": "modonomicon:block",
+      "block": "theurgy:calcination_oven"
+    },
+    "b": {
+      "type": "modonomicon:block",
+      "block": "theurgy:pyromantic_brazier"
+    }
+  },
+  "pattern": [
+    [
+      "___",
+      "_0_",
+      "___"
+    ],
+    [
+      "___",
+      "_b_",
+      "___"
+    ],
+    [
+      "*+*",
+      "+*+",
+      "*+*"
+    ]
+  ]
+}

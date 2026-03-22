@@ -1,0 +1,22 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "theurgy:ores/mercury/medium"
+      }
+    }
+  ],
+  "type": "theurgy:distillation",
+  "category": "misc",
+  "ingredient": {
+    "count": 1,
+    "ingredient": "#theurgy:ores/mercury/medium"
+  },
+  "result": {
+    "count": 25,
+    "id": "theurgy:mercury_shard"
+  },
+  "time": 100
+}

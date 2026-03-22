@@ -1,0 +1,16 @@
+{
+  "type": "theurgy:reformation",
+  "category": "misc",
+  "mercuryFlux": 100,
+  "result": {
+    "id": "theurgy:alchemical_sulfur_blaze_rod"
+  },
+  "sources": [
+    {
+      "count": 1,
+      "ingredient": "theurgy:alchemical_niter_mobs_commond"
+    }
+  ],
+  "target": "theurgy:alchemical_sulfur_blaze_rod",
+  "time": 100
+}

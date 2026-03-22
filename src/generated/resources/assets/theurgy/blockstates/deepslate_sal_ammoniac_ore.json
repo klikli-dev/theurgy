@@ -1,0 +1,9 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "theurgy:block/deepslate_sal_ammoniac_ore"
+      }
+    }
+  ]
+}

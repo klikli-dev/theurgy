@@ -1,0 +1,12 @@
+{
+  "type": "theurgy:incubation",
+  "category": "misc",
+  "mercury": "theurgy:mercury_shard",
+  "result": {
+    "type": "theurgy:item",
+    "id": "minecraft:tropical_fish"
+  },
+  "salt": "theurgy:alchemical_salt_creature",
+  "sulfur": "theurgy:alchemical_sulfur_tropical_fish",
+  "time": 100
+}

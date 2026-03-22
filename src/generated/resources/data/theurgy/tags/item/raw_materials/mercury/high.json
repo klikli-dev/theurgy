@@ -1,0 +1,16 @@
+{
+  "values": [
+    {
+      "id": "#c:raw_materials/allthemodium",
+      "required": false
+    },
+    {
+      "id": "#c:raw_materials/unobtainium",
+      "required": false
+    },
+    {
+      "id": "#c:raw_materials/vibranium",
+      "required": false
+    }
+  ]
+}

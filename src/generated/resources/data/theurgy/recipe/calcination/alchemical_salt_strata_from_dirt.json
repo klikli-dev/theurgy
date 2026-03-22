@@ -1,0 +1,21 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "minecraft:dirt"
+      }
+    }
+  ],
+  "type": "theurgy:calcination",
+  "category": "misc",
+  "ingredient": {
+    "count": 1,
+    "ingredient": "#minecraft:dirt"
+  },
+  "result": {
+    "id": "theurgy:alchemical_salt_strata"
+  },
+  "time": 100
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "theurgy:block/fermentation_vat_open",
+  "textures": {
+    "south": "theurgy:block/fermentation_vat_side_front_active"
+  }
+}

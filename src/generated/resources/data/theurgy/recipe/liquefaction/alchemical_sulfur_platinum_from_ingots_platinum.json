@@ -1,0 +1,23 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:ingots/platinum"
+      }
+    }
+  ],
+  "type": "theurgy:liquefaction",
+  "category": "misc",
+  "ingredient": "#c:ingots/platinum",
+  "result": {
+    "type": "theurgy:item",
+    "id": "theurgy:alchemical_sulfur_platinum"
+  },
+  "solvent": {
+    "amount": 20,
+    "ingredient": "theurgy:sal_ammoniac"
+  },
+  "time": 100
+}

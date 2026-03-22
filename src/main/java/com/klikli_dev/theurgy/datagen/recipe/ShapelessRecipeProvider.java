@@ -1,0 +1,183 @@
+// SPDX-FileCopyrightText: 2023 klikli-dev
+//
+// SPDX-License-Identifier: MIT
+
+package com.klikli_dev.theurgy.datagen.recipe;
+
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.klikli_dev.modonomicon.registry.DataComponentRegistry;
+import com.klikli_dev.theurgy.Theurgy;
+import com.klikli_dev.theurgy.registry.ItemRegistry;
+import com.klikli_dev.theurgy.registry.ItemTagRegistry;
+import net.minecraft.core.component.DataComponentPatch;
+import net.minecraft.data.PackOutput;
+import net.minecraft.resources.Identifier;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStackTemplate;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.CraftingBookCategory;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.ItemLike;
+import net.neoforged.neoforge.common.Tags;
+
+import java.util.function.BiConsumer;
+
+public class ShapelessRecipeProvider extends JsonRecipeProvider {
+
+    public ShapelessRecipeProvider(PackOutput packOutput, java.util.concurrent.CompletableFuture<net.minecraft.core.HolderLookup.Provider> lookupProvider) {
+        super(packOutput, lookupProvider, Theurgy.MODID, "crafting/shapeless");
+    }
+
+    @Override
+    public void buildRecipes(BiConsumer<Identifier, JsonObject> recipeConsumer) {
+        this.makeRecipe("the_hermetica",
+                new ShapelessRecipeBuilder(com.klikli_dev.modonomicon.registry.ItemRegistry.MODONOMICON.get(), 1, DataComponentPatch.builder().set(DataComponentRegistry.BOOK_ID.get(), Theurgy.loc("the_hermetica")).build())
+                        .requires(Items.BOOK)
+                        .requires(Tags.Items.SANDS, 2)
+        );
+
+        this.makeRecipe("sal_ammoniac_crystal_from_sal_ammoniac_bucket",
+                new ShapelessRecipeBuilder(ItemRegistry.SAL_AMMONIAC_CRYSTAL.get(), 1)
+                        .requires(ItemRegistry.SAL_AMMONIAC_BUCKET.get())
+        );
+
+        this.makeRecipe("logistics_item_extractor_from_inserter",
+                new ShapelessRecipeBuilder(ItemRegistry.LOGISTICS_ITEM_EXTRACTOR.get(), 1)
+                        .requires(ItemRegistry.LOGISTICS_ITEM_INSERTER.get())
+        );
+
+        this.makeRecipe("logistics_item_inserter_from_extractor",
+                new ShapelessRecipeBuilder(ItemRegistry.LOGISTICS_ITEM_INSERTER.get(), 1)
+                        .requires(ItemRegistry.LOGISTICS_ITEM_EXTRACTOR.get())
+        );
+
+        this.makeRecipe(
+                new ShapelessRecipeBuilder(ItemRegistry.MERCURY_SHARD.get(), 4)
+                        .requires(ItemRegistry.MERCURY_CRYSTAL.get())
+        );
+        this.makeRecipe(
+                new ShapelessRecipeBuilder(ItemRegistry.MERCURY_CRYSTAL.get(), 1)
+                        .requires(ItemRegistry.MERCURY_SHARD.get())
+                        .requires(ItemRegistry.MERCURY_SHARD.get())
+                        .requires(ItemRegistry.MERCURY_SHARD.get())
+                        .requires(ItemRegistry.MERCURY_SHARD.get())
+        );
+
+        this.makeRecipe(
+                new ShapelessRecipeBuilder(ItemRegistry.CRYSTALLIZED_WATER.get(), 1)
+                        .requires(ItemTagRegistry.ALCHEMICAL_SALTS)
+                        .requires(Items.WATER_BUCKET)
+        );
+        this.makeRecipe(
+                new ShapelessRecipeBuilder(ItemRegistry.CRYSTALLIZED_LAVA.get(), 1)
+                        .requires(ItemTagRegistry.ALCHEMICAL_SALTS)
+                        .requires(Items.LAVA_BUCKET)
+        );
+        this.makeRecipe(
+                new ShapelessRecipeBuilder(Items.WATER_BUCKET, 1)
+                        .requires(ItemRegistry.CRYSTALLIZED_WATER.get())
+                        .requires(Items.BUCKET)
+        );
+        this.makeRecipe(
+                new ShapelessRecipeBuilder(Items.LAVA_BUCKET, 1)
+                        .requires(ItemRegistry.CRYSTALLIZED_LAVA.get())
+                        .requires(Items.BUCKET)
+        );
+    }
+
+    protected void makeRecipe(ShapelessRecipeBuilder recipe) {
+        this.makeRecipe(this.name(recipe.result()), recipe);
+    }
+
+    protected void makeRecipe(ItemLike result, ShapelessRecipeBuilder recipe) {
+        this.makeRecipe(this.name(result), recipe);
+    }
+
+    protected void makeRecipe(String name, ShapelessRecipeBuilder recipe) {
+        this.recipeConsumer.accept(this.modLoc(name), recipe.build());
+    }
+
+    @Override
+    public String getName() {
+        return "Shapeless Crafting Recipes";
+    }
+
+    protected class ShapelessRecipeBuilder {
+
+        private final JsonObject recipe;
+        private final ItemStackTemplate result;
+
+        public ShapelessRecipeBuilder(ItemLike result) {
+            this(result, 1);
+        }
+
+        public ShapelessRecipeBuilder(ItemLike result, int count) {
+            this(result, count, DataComponentPatch.EMPTY);
+        }
+
+        public ShapelessRecipeBuilder(ItemLike result, int count, DataComponentPatch patch) {
+            this(ShapelessRecipeProvider.this.createItemStack(result, count, patch));
+        }
+
+        public ShapelessRecipeBuilder(ItemStackTemplate result) {
+            this.result = result;
+            this.recipe = new JsonObject();
+            //noinspection DataFlowIssue
+            this.recipe.addProperty("type",
+                    "minecraft:crafting_shapeless");
+            this.recipe.add("result", ItemStackTemplate.CODEC.encodeStart(ShapelessRecipeProvider.this.registryOps, result).getOrThrow());
+            this.recipe.add("ingredients", new JsonArray());
+        }
+
+        public ShapelessRecipeBuilder requires(TagKey<Item> tag, int count) {
+            for (int i = 0; i < count; ++i) {
+                this.requires(tag);
+            }
+
+            return this;
+        }
+
+        private JsonElement ingredient(TagKey<Item> tag) {
+            return Ingredient.CODEC.encodeStart(ShapelessRecipeProvider.this.registryOps, Ingredient.of(ShapelessRecipeProvider.this.items.getOrThrow(tag))).getOrThrow();
+        }
+
+        public ShapelessRecipeBuilder requires(TagKey<Item> tag) {
+            return this.requires(this.ingredient(tag));
+        }
+
+        public ShapelessRecipeBuilder requires(ItemLike item, int count) {
+            for (int i = 0; i < count; ++i) {
+                this.requires(item);
+            }
+
+            return this;
+        }
+
+        private JsonElement ingredient(ItemLike item) {
+            return Ingredient.CODEC.encodeStart(ShapelessRecipeProvider.this.registryOps, Ingredient.of(item)).getOrThrow();
+        }
+
+        public ShapelessRecipeBuilder requires(ItemLike item) {
+            return this.requires(this.ingredient(item));
+        }
+
+        public ShapelessRecipeBuilder requires(JsonElement ingredient) {
+            this.recipe.getAsJsonArray("ingredients").add(ingredient);
+            return this;
+        }
+
+        public JsonObject build() {
+            if (!this.recipe.has("category"))
+                this.recipe.addProperty("category", CraftingBookCategory.MISC.getSerializedName());
+
+            return this.recipe;
+        }
+
+        public ItemStackTemplate result() {
+            return this.result;
+        }
+    }
+}

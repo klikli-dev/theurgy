@@ -1,0 +1,32 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "theurgy:alchemical_sulfurs/earthen_matters/abundant"
+      }
+    },
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:crops"
+      }
+    }
+  ],
+  "type": "theurgy:fermentation",
+  "category": "misc",
+  "fluid": {
+    "amount": 125,
+    "ingredient": "minecraft:water"
+  },
+  "ingredients": [
+    "#theurgy:alchemical_sulfurs/earthen_matters/abundant",
+    "#c:crops"
+  ],
+  "result": {
+    "id": "theurgy:alchemical_niter_earthen_matters_abundant"
+  },
+  "time": 200
+}

@@ -1,0 +1,9 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "theurgy:block/mercury_catalyst"
+      }
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "m": "theurgy:mercury_shard",
+    "p": "minecraft:paper"
+  },
+  "pattern": [
+    "ppp",
+    "pmp",
+    "ppp"
+  ],
+  "result": {
+    "count": 9,
+    "id": "theurgy:list_filter"
+  }
+}

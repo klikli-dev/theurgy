@@ -1,0 +1,12 @@
+{
+  "type": "theurgy:incubation",
+  "category": "misc",
+  "mercury": "theurgy:mercury_shard",
+  "result": {
+    "type": "theurgy:item",
+    "id": "minecraft:jungle_log"
+  },
+  "salt": "theurgy:alchemical_salt_plant",
+  "sulfur": "theurgy:alchemical_sulfur_jungle_log",
+  "time": 100
+}

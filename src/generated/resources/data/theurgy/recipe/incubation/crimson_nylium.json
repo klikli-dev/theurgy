@@ -1,0 +1,12 @@
+{
+  "type": "theurgy:incubation",
+  "category": "misc",
+  "mercury": "theurgy:mercury_shard",
+  "result": {
+    "type": "theurgy:item",
+    "id": "minecraft:crimson_nylium"
+  },
+  "salt": "theurgy:alchemical_salt_strata",
+  "sulfur": "theurgy:alchemical_sulfur_crimson_nylium",
+  "time": 100
+}

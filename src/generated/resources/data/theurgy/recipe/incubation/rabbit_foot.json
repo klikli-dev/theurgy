@@ -1,0 +1,12 @@
+{
+  "type": "theurgy:incubation",
+  "category": "misc",
+  "mercury": "theurgy:mercury_shard",
+  "result": {
+    "type": "theurgy:item",
+    "id": "minecraft:rabbit_foot"
+  },
+  "salt": "theurgy:alchemical_salt_creature",
+  "sulfur": "theurgy:alchemical_sulfur_rabbit_foot",
+  "time": 100
+}

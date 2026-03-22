@@ -1,0 +1,41 @@
+{
+  "values": [
+    "#c:raw_materials/gold",
+    {
+      "id": "#c:raw_materials/uranium",
+      "required": false
+    },
+    {
+      "id": "#c:raw_materials/uraninite",
+      "required": false
+    },
+    {
+      "id": "#c:raw_materials/silver",
+      "required": false
+    },
+    {
+      "id": "#c:raw_materials/azure_silver",
+      "required": false
+    },
+    {
+      "id": "#c:raw_materials/iridium",
+      "required": false
+    },
+    {
+      "id": "#c:raw_materials/crimson_iron",
+      "required": false
+    },
+    {
+      "id": "#c:raw_materials/platinum",
+      "required": false
+    },
+    {
+      "id": "#c:raw_materials/titanium",
+      "required": false
+    },
+    {
+      "id": "#c:raw_materials/tungsten",
+      "required": false
+    }
+  ]
+}

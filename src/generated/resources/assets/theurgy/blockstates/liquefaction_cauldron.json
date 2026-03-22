@@ -1,0 +1,20 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "theurgy:block/liquefaction_cauldron_lower"
+      },
+      "when": {
+        "half": "lower"
+      }
+    },
+    {
+      "apply": {
+        "model": "theurgy:block/liquefaction_cauldron_upper"
+      },
+      "when": {
+        "half": "upper"
+      }
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "type": "theurgy:calcination",
+  "category": "misc",
+  "ingredient": {
+    "count": 1,
+    "ingredient": "minecraft:blackstone"
+  },
+  "result": {
+    "id": "theurgy:alchemical_salt_strata"
+  },
+  "time": 100
+}

@@ -1,0 +1,21 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "minecraft:saplings"
+      }
+    }
+  ],
+  "type": "theurgy:distillation",
+  "category": "misc",
+  "ingredient": {
+    "count": 3,
+    "ingredient": "#minecraft:saplings"
+  },
+  "result": {
+    "id": "theurgy:mercury_shard"
+  },
+  "time": 100
+}

@@ -1,0 +1,7 @@
+{
+  "parent": "theurgy:block/mercury_catalyst_template",
+  "textures": {
+    "particle": "minecraft:block/iron_block",
+    "texture": "theurgy:block/mercury_catalyst"
+  }
+}

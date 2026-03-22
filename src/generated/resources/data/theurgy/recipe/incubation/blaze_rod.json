@@ -1,0 +1,12 @@
+{
+  "type": "theurgy:incubation",
+  "category": "misc",
+  "mercury": "theurgy:mercury_shard",
+  "result": {
+    "type": "theurgy:item",
+    "id": "minecraft:blaze_rod"
+  },
+  "salt": "theurgy:alchemical_salt_creature",
+  "sulfur": "theurgy:alchemical_sulfur_blaze_rod",
+  "time": 100
+}

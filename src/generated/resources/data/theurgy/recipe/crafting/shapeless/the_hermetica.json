@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:book",
+    "#c:sands",
+    "#c:sands"
+  ],
+  "result": {
+    "components": {
+      "modonomicon:book_id": "theurgy:the_hermetica"
+    },
+    "id": "modonomicon:modonomicon"
+  }
+}

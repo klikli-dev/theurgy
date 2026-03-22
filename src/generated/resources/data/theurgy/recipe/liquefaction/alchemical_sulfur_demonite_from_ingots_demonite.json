@@ -1,0 +1,23 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:ingots/demonite"
+      }
+    }
+  ],
+  "type": "theurgy:liquefaction",
+  "category": "misc",
+  "ingredient": "#c:ingots/demonite",
+  "result": {
+    "type": "theurgy:item",
+    "id": "theurgy:alchemical_sulfur_demonite"
+  },
+  "solvent": {
+    "amount": 50,
+    "ingredient": "theurgy:sal_ammoniac"
+  },
+  "time": 100
+}

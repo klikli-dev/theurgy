@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "c": "#c:ingots/copper",
+    "d": "#c:dyes/blue",
+    "m": "theurgy:mercury_shard"
+  },
+  "pattern": [
+    "d",
+    "m",
+    "c"
+  ],
+  "result": {
+    "id": "theurgy:logistics_fluid_inserter"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "type": "theurgy:liquefaction",
+  "category": "misc",
+  "ingredient": "minecraft:phantom_membrane",
+  "result": {
+    "type": "theurgy:item",
+    "id": "theurgy:alchemical_sulfur_phantom_membrane"
+  },
+  "solvent": {
+    "amount": 15,
+    "ingredient": "theurgy:sal_ammoniac"
+  },
+  "time": 100
+}

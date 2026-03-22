@@ -1,0 +1,20 @@
+{
+  "type": "theurgy:reformation",
+  "category": "misc",
+  "mercuryFlux": 100,
+  "result": {
+    "id": "theurgy:alchemical_niter_gems_common"
+  },
+  "sources": [
+    {
+      "count": 1,
+      "ingredient": "theurgy:alchemical_niter_metals_common"
+    },
+    {
+      "count": 1,
+      "ingredient": "theurgy:alchemical_niter_metals_common"
+    }
+  ],
+  "target": "theurgy:alchemical_niter_gems_common",
+  "time": 100
+}

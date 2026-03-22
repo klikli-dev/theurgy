@@ -1,0 +1,6 @@
+{
+  "parent": "theurgy:block/fermentation_vat",
+  "textures": {
+    "up": "theurgy:block/fermentation_vat_top_open"
+  }
+}

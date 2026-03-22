@@ -1,0 +1,171 @@
+// SPDX-FileCopyrightText: 2024 klikli-dev
+//
+// SPDX-License-Identifier: MIT
+
+package com.klikli_dev.theurgy.content.apparatus.reformationarray;
+
+import com.klikli_dev.theurgy.content.particle.ParticleColor;
+import com.klikli_dev.theurgy.content.particle.glow.GlowParticleProvider;
+import com.klikli_dev.theurgy.content.storage.MonitoredItemStackHandler;
+import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
+import com.klikli_dev.theurgy.registry.ItemTagRegistry;
+import com.klikli_dev.theurgy.util.ValueIOUtils;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.Connection;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.world.Containers;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
+import org.jetbrains.annotations.Nullable;
+
+import java.lang.ref.WeakReference;
+
+public class ReformationSourcePedestalBlockEntity extends BlockEntity {
+
+    public MonitoredItemStackHandler inputInventory;
+
+    public WeakReference<SulfuricFluxEmitterBlockEntity> sulfuricFluxEmitter;
+
+    protected boolean showParticles;
+
+    public ReformationSourcePedestalBlockEntity(BlockPos pPos, BlockState pBlockState) {
+        super(BlockEntityRegistry.REFORMATION_SOURCE_PEDESTAL.get(), pPos, pBlockState);
+
+        this.inputInventory = new InputInventory();
+    }
+
+    public void setSulfuricFluxEmitter(SulfuricFluxEmitterBlockEntity sulfuricFluxEmitter) {
+        this.sulfuricFluxEmitter = new WeakReference<>(sulfuricFluxEmitter);
+    }
+
+    public void tickClient() {
+        if (this.showParticles && this.level.getRandom().nextFloat() < 0.07f) {
+            var pos = this.getBlockPos();
+            this.level.addParticle(GlowParticleProvider.createOptions(
+                    ParticleColor.fromInt(0xFF00FF),
+                    0.5f,
+                    0.75f,
+                    200), pos.getX() + 0.5f, pos.getY() + 1.0f, pos.getZ() + 0.5f, 0, 0, 0);
+        }
+    }
+
+    @Override
+    public void setRemoved() {
+        if (this.sulfuricFluxEmitter != null && this.sulfuricFluxEmitter.get() != null) {
+            this.sulfuricFluxEmitter.get().removeSourcePedestal(this);
+            this.sulfuricFluxEmitter.clear();
+        }
+
+        super.setRemoved();
+    }
+
+    @Override
+    protected void saveAdditional(ValueOutput output) {
+        super.saveAdditional(output);
+        this.writeNetwork(output);
+    }
+
+    @Override
+    public void loadAdditional(ValueInput input) {
+        super.loadAdditional(input);
+        this.readNetwork(input);
+    }
+
+    @Override
+    public CompoundTag getUpdateTag(HolderLookup.Provider pRegistries) {
+        return ValueIOUtils.serialize(pRegistries, this::writeNetwork);
+    }
+
+    @Override
+    public void handleUpdateTag(ValueInput input) {
+        this.readNetwork(input);
+    }
+
+    @Nullable
+    @Override
+    public Packet<ClientGamePacketListener> getUpdatePacket() {
+        return ClientboundBlockEntityDataPacket.create(this);
+    }
+
+    @Override
+    public void onDataPacket(Connection connection, ValueInput input) {
+        this.readNetwork(input);
+    }
+
+    public void readNetwork(ValueInput input) {
+        this.showParticles = input.getBooleanOr("showParticles", false);
+        input.child("inputInventory").ifPresent(this.inputInventory::deserialize);
+    }
+
+    public void writeNetwork(ValueOutput output) {
+        this.showParticles = !this.inputInventory.getStackInSlot(0).isEmpty();
+        output.putBoolean("showParticles", this.showParticles);
+
+        ValueOutput inputInventoryOutput = output.child("inputInventory");
+        this.inputInventory.serialize(inputInventoryOutput);
+        if (inputInventoryOutput.isEmpty()) {
+            output.discard("inputInventory");
+        }
+    }
+
+    @Override
+    public void preRemoveSideEffects(BlockPos pPos, BlockState pState) {
+        super.preRemoveSideEffects(pPos, pState);
+
+        if (this.level != null) {
+            for (int i = 0; i < this.inputInventory.getSlots(); i++) {
+                Containers.dropItemStack(this.level, pPos.getX(), pPos.getY(), pPos.getZ(), this.inputInventory.getStackInSlot(i));
+            }
+        }
+    }
+
+    public void sendBlockUpdated() {
+        if (this.level != null && !this.level.isClientSide())
+            this.level.sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), Block.UPDATE_CLIENTS);
+    }
+
+    /**
+     * Notification behaviour:
+     * if the inventory becomes empty or non-empty or item type changes, do a network update
+     * otherwise just setChanged() -> handled via onContentsChanged
+     */
+    public class InputInventory extends MonitoredItemStackHandler {
+
+        public InputInventory() {
+            super(1);
+        }
+
+        protected SulfuricFluxEmitterBlockEntity emitter() {
+            var emitter = ReformationSourcePedestalBlockEntity.this.sulfuricFluxEmitter;
+            return emitter != null ? emitter.get() : null;
+        }
+
+        @Override
+        protected void onContentTypeChanged(int slot, ItemStack oldStack, ItemStack newStack) {
+            ReformationSourcePedestalBlockEntity.this.sendBlockUpdated();
+            if (this.emitter() != null)
+                this.emitter().craftingBehaviour.onInputItemChanged(oldStack, newStack);
+        }
+
+        @Override
+        public boolean isItemValid(int slot, ItemStack stack) {
+            return stack.is(ItemTagRegistry.ALCHEMICAL_SULFURS_AND_NITERS) && super.isItemValid(slot, stack);
+        }
+
+        @Override
+        protected void onContentsChanged(int slot) {
+            ReformationSourcePedestalBlockEntity.this.setChanged();
+
+            if (this.emitter() != null)
+                this.emitter().onSourcePedestalContentChange(ReformationSourcePedestalBlockEntity.this);
+        }
+    }
+}

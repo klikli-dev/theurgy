@@ -49,24 +49,32 @@ neoForge {
     }
     
     runs {
-        configureEach {
-            systemProperty 'forge.logging.markers', 'REGISTRIES'
-            systemProperty 'forge.logging.console.level', 'debug'
-            jvmArguments.addAll('-XX:+AllowEnhancedClassRedefinition', '-XX:+IgnoreUnrecognizedVMOptions')
-        }
-
         client {
-            systemProperty 'forge.enabledGameTestNamespaces', project.mod_id
+            client()
+            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
             programArguments.add "--username=Dev"
         }
 
         server {
-            systemProperty 'forge.enabledGameTestNamespaces', project.mod_id
-//            programArguments.add '--nogui'
+            server()
+            programArgument '--nogui'
+            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+        }
+
+        gameTestServer {
+            type = "gameTestServer"
+            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
         }
 
         data {
+            clientData()
             programArguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
+        }
+
+        configureEach {
+            systemProperty 'forge.logging.markers', 'REGISTRIES'
+            logLevel = org.slf4j.event.Level.DEBUG
+            jvmArguments.addAll('-XX:+AllowEnhancedClassRedefinition', '-XX:+IgnoreUnrecognizedVMOptions')
         }
     }
 }
@@ -188,25 +196,38 @@ dependencies {
 //    runtimeOnly ("dev.emi:emi-neoforge:${emi_version}+${minecraft_version_major}") {transitive=false}
 }
 
-processResources {
-    def props = new HashMap<>(project.properties)
-    def keys = new ArrayList<String>(props.keySet()) //to avoid concurrent modification exception
-
-    for (String key : keys) {
-        if (!(props.get(key) instanceof String) && !(props.get(key) instanceof Integer)) {
-            props.remove(key)
-        }
-    }
-
-    if (System.getenv('MOD_VERSION') != null) {
-        props.put('mod_version', System.getenv('MOD_VERSION'))
-    }
-
-    filesMatching(['META-INF/neoforge.mods.toml']) {
-        expand props
-    }
-    getInputs().properties(props)
+// This block expands declared replace properties in the specified resource targets.
+// A missing property will result in an error. Properties are expanded using ${} Groovy notation.
+// The neoforge.mods.toml template lives in src/main/templates and is generated into
+// build/generated/sources/modMetadata/ — the original file must NOT exist in src/main/resources.
+var generateModMetadata = tasks.register("generateModMetadata", ProcessResources) {
+    var replaceProperties = [
+            minecraft_version            : minecraft_version,
+            minecraft_version_range      : minecraft_version_range,
+            neo_version                  : neo_version,
+            neo_version_range            : neo_version_range,
+            neo_loader_version_range     : neo_loader_version_range,
+            mod_id                       : mod_id,
+            mod_name                     : mod_name,
+            mod_license                  : mod_license,
+            mod_version                  : version as String,
+            mod_authors                  : mod_authors,
+            mod_description              : mod_description,
+            modonomicon_version_range    : modonomicon_version_range,
+            almost_unified_version_range : almost_unified_version_range,
+            geckolib_version_range       : geckolib_version_range,
+            jei_version_range            : jei_version_range,
+            jade_version_range           : jade_version_range,
+    ]
+    inputs.properties replaceProperties
+    expand replaceProperties
+    from "src/main/templates"
+    into "build/generated/sources/modMetadata"
 }
+// Include generateModMetadata output as an input resource directory
+sourceSets.main.resources.srcDir generateModMetadata
+// Auto-run on every IDE project reload
+neoForge.ideSyncTask generateModMetadata
 
 // Example for how to get properties into the manifest for reading at runtime.
 jar {
@@ -222,8 +243,6 @@ jar {
         ])
     }
 }
-
-jar { exclude ".cache" }
 
 publishing {
     publications {

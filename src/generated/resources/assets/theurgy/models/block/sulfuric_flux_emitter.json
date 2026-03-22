@@ -1,8 +1,0 @@
-{
-  "parent": "theurgy:block/sulfuric_flux_emitter_template",
-  "textures": {
-    "emitter": "theurgy:block/sulfuric_flux_emitter",
-    "particle": "theurgy:block/emitter_socket",
-    "socket": "theurgy:block/emitter_socket"
-  }
-}

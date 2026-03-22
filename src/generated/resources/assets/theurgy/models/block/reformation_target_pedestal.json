@@ -1,7 +1,0 @@
-{
-  "parent": "theurgy:block/reformation_target_pedestal_template",
-  "textures": {
-    "particle": "minecraft:block/copper_block",
-    "texture": "theurgy:block/reformation_target_pedestal"
-  }
-}

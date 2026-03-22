@@ -1,8 +1,0 @@
-{
-  "parent": "theurgy:block/pyromantic_brazier_lit_template",
-  "textures": {
-    "fire": "minecraft:block/campfire_fire",
-    "particle": "minecraft:block/copper_block",
-    "texture": "theurgy:block/pyromantic_brazier_lit"
-  }
-}

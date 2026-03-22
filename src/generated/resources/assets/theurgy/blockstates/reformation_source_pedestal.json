@@ -1,9 +1,0 @@
-{
-  "multipart": [
-    {
-      "apply": {
-        "model": "theurgy:block/reformation_source_pedestal"
-      }
-    }
-  ]
-}

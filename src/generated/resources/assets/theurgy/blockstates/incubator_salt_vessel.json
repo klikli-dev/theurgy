@@ -1,9 +1,0 @@
-{
-  "multipart": [
-    {
-      "apply": {
-        "model": "theurgy:block/incubator_vessel"
-      }
-    }
-  ]
-}

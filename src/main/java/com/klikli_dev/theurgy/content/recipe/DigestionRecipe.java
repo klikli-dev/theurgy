@@ -134,6 +134,11 @@ public class DigestionRecipe implements Recipe<ItemHandlerWithFluidRecipeInput> 
     }
 
     @Override
+    public boolean isSpecial() {
+        return true;
+    }
+
+    @Override
     public PlacementInfo placementInfo() {
         return PlacementInfo.NOT_PLACEABLE;
     }

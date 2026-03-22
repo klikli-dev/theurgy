@@ -120,6 +120,11 @@ public class FermentationRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
     }
 
     @Override
+    public boolean isSpecial() {
+        return true;
+    }
+
+    @Override
     public PlacementInfo placementInfo() {
         return PlacementInfo.NOT_PLACEABLE;
     }

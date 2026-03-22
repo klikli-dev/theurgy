@@ -76,6 +76,11 @@ public class LiquefactionRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
         return this.result.create();
     }
 
+    @Override
+    public boolean isSpecial() {
+        return true;
+    }
+
 //    @Override
 //    public PlacementInfo placementInfo() {
 //        return PlacementInfo.create(this.ingredient);

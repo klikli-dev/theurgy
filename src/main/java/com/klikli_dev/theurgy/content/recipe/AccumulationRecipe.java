@@ -108,6 +108,11 @@ public record AccumulationRecipe(@Nullable SizedFluidIngredient evaporant, @Null
     }
 
     @Override
+    public boolean isSpecial() {
+        return true;
+    }
+
+    @Override
     public PlacementInfo placementInfo() {
         return PlacementInfo.NOT_PLACEABLE;
     }

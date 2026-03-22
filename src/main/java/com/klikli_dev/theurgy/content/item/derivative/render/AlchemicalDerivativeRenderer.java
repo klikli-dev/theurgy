@@ -16,6 +16,7 @@ import net.minecraft.client.renderer.item.ItemStackRenderState;
 import net.minecraft.client.renderer.special.SpecialModelRenderer;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
+import net.neoforged.neoforge.common.util.Lazy;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
 import org.joml.Vector3fc;
@@ -26,27 +27,13 @@ import java.util.function.Supplier;
 
 public class AlchemicalDerivativeRenderer implements SpecialModelRenderer<ItemStack> {
 
-    private static final Supplier<ItemStack> labeledEmptyJarStack = lazy(() -> new ItemStack(ItemRegistry.EMPTY_JAR_LABELED_ICON.get()));
-    private static final Supplier<Map<AlchemicalDerivativeTier, ItemStack>> tierToIconMap = lazy(() -> Map.of(
+    private static final Supplier<ItemStack> labeledEmptyJarStack = Lazy.of(() -> new ItemStack(ItemRegistry.EMPTY_JAR_LABELED_ICON.get()));
+    private static final Supplier<Map<AlchemicalDerivativeTier, ItemStack>> tierToIconMap = Lazy.of(() -> Map.of(
             AlchemicalDerivativeTier.ABUNDANT, new ItemStack(ItemRegistry.JAR_LABEL_FRAME_ABUNDANT_ICON.get()),
             AlchemicalDerivativeTier.COMMON, new ItemStack(ItemRegistry.JAR_LABEL_FRAME_COMMON_ICON.get()),
             AlchemicalDerivativeTier.RARE, new ItemStack(ItemRegistry.JAR_LABEL_FRAME_RARE_ICON.get()),
             AlchemicalDerivativeTier.PRECIOUS, new ItemStack(ItemRegistry.JAR_LABEL_FRAME_PRECIOUS_ICON.get())
     ));
-
-    private static <T> Supplier<T> lazy(Supplier<T> supplier) {
-        return new Supplier<>() {
-            private T value;
-
-            @Override
-            public T get() {
-                if (this.value == null) {
-                    this.value = supplier.get();
-                }
-                return this.value;
-            }
-        };
-    }
 
     @Override
     public void submit(@Nullable ItemStack stack, ItemDisplayContext displayContext, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int light, int overlay, boolean hasFoil, int outlineColor) {
@@ -57,6 +44,7 @@ public class AlchemicalDerivativeRenderer implements SpecialModelRenderer<ItemSt
         poseStack.translate(0.5f, 0.5f, 0.5f);
 
         boolean renderSource = ClientConfig.get().rendering.renderSulfurSourceItem.get();
+
 
         var jarStack = renderSource ? AlchemicalDerivativeItem.getEmptyJarStack(stack) : labeledEmptyJarStack.get();
 

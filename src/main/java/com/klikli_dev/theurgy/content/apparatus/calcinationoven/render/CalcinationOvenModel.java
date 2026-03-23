@@ -9,21 +9,22 @@ import com.geckolib.model.GeoModel;
 import com.geckolib.renderer.base.GeoRenderState;
 import com.klikli_dev.theurgy.Theurgy;
 import net.minecraft.resources.Identifier;
+import org.jspecify.annotations.NonNull;
 
 public class CalcinationOvenModel<T extends GeoAnimatable> extends GeoModel<T> {
 
     @Override
-    public Identifier getModelResource(GeoRenderState renderState) {
-        return Theurgy.loc("geo/calcination_oven.geo.json");
+    public @NonNull Identifier getModelResource(@NonNull GeoRenderState renderState) {
+        return Theurgy.loc("block/calcination_oven");
     }
 
     @Override
-    public Identifier getTextureResource(GeoRenderState renderState) {
+    public @NonNull Identifier getTextureResource(@NonNull GeoRenderState renderState) {
         return Theurgy.loc("textures/block/calcination_oven.png");
     }
 
     @Override
-    public Identifier getAnimationResource(T animatable) {
-        return Theurgy.loc("animations/calcination_oven.animation.json");
+    public @NonNull Identifier getAnimationResource(T animatable) {
+        return Theurgy.loc("block/calcination_oven.animation.json");
     }
 }

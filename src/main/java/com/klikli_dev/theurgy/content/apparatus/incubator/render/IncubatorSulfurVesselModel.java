@@ -9,20 +9,21 @@ import com.geckolib.model.GeoModel;
 import com.geckolib.renderer.base.GeoRenderState;
 import com.klikli_dev.theurgy.Theurgy;
 import net.minecraft.resources.Identifier;
+import org.jspecify.annotations.NonNull;
 
 public class IncubatorSulfurVesselModel<T extends GeoAnimatable> extends GeoModel<T> {
     @Override
-    public Identifier getModelResource(GeoRenderState renderState) {
-        return Theurgy.loc("geo/incubator_vessel.geo.json");
+    public @NonNull Identifier getModelResource(@NonNull GeoRenderState renderState) {
+        return Theurgy.loc("block/incubator_vessel");
     }
 
     @Override
-    public Identifier getTextureResource(GeoRenderState renderState) {
+    public @NonNull Identifier getTextureResource(@NonNull GeoRenderState renderState) {
         return Theurgy.loc("textures/block/incubator_vessel_iron.png");
     }
 
     @Override
-    public Identifier getAnimationResource(T animatable) {
+    public @NonNull Identifier getAnimationResource(T animatable) {
         return Theurgy.loc("");
     }
 }

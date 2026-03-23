@@ -18,6 +18,7 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.common.util.Lazy;
 import org.jetbrains.annotations.Nullable;
+import org.joml.Quaternionf;
 import org.joml.Vector3f;
 import org.joml.Vector3fc;
 
@@ -46,10 +47,13 @@ public class AlchemicalDerivativeRenderer implements SpecialModelRenderer<ItemSt
         boolean renderSource = ClientConfig.get().rendering.renderSulfurSourceItem.get();
 
         // If shift is down in GUI, just render the contained item in full size
+        // Note 2026.03.23: This does not yet work to show the "shift" version of the item
+        // It seems submit is NOT called regularly for the item in the inventory, so this is never reached.
         if (displayContext == ItemDisplayContext.GUI && Minecraft.getInstance().hasShiftDown()) {
             this.renderContainedItemFull(stack, displayContext, poseStack, submitNodeCollector, light, overlay, outlineColor);
             return;
         }
+
 
         // If we do not render the source we show a simplified labeled icon with pixels representing fictional text
         var jarStack = renderSource ? AlchemicalDerivativeItem.getEmptyJarStack(stack) : labeledEmptyJarStack.get();
@@ -62,9 +66,10 @@ public class AlchemicalDerivativeRenderer implements SpecialModelRenderer<ItemSt
         if (tierStack != null) {
             float pixel = 1f / 16f;
             poseStack.pushPose();
+            // Compensate for the jar using actual display context transforms while overlays use GUI
+            this.applyOverlayContextCompensation(displayContext, displayContext.leftHand(), poseStack);
             poseStack.translate(0, 0, pixel * 0.5); // move it in front of the jar
             poseStack.scale(1F, 1F, 0.01F); // flatten
-            // Render as GUI so overlay stays flat (matching old BEWLR: render with GUI after applyTransform)
             this.submitItem(tierStack, ItemDisplayContext.GUI, poseStack, submitNodeCollector, light, overlay, outlineColor);
             poseStack.popPose();
         }
@@ -74,9 +79,9 @@ public class AlchemicalDerivativeRenderer implements SpecialModelRenderer<ItemSt
             var labelStack = new ItemStack(ItemRegistry.JAR_LABEL_ICON.get());
             float pixel = 1f / 16f;
             poseStack.pushPose();
+            this.applyOverlayContextCompensation(displayContext, displayContext.leftHand(), poseStack);
             poseStack.translate(0, 0, pixel * 0.5); // move it in front of the jar
             poseStack.scale(1F, 1F, 0.01F); // flatten
-            // Render as GUI so overlay stays flat
             this.submitItem(labelStack, ItemDisplayContext.GUI, poseStack, submitNodeCollector, light, overlay, outlineColor);
             poseStack.popPose();
 
@@ -88,6 +93,7 @@ public class AlchemicalDerivativeRenderer implements SpecialModelRenderer<ItemSt
 
             if (!containedStack.isEmpty()) {
                 poseStack.pushPose();
+                this.applyOverlayContextCompensation(displayContext, displayContext.leftHand(), poseStack);
 
                 // Restore the transform chain from the old BEWLR:
                 // 1. Move in front of the label (z-axis)
@@ -100,7 +106,6 @@ public class AlchemicalDerivativeRenderer implements SpecialModelRenderer<ItemSt
                 // 4. Flatten the item
                 poseStack.scale(0.74F, 0.74F, 0.01F);
 
-                // Render as GUI so overlay stays flat
                 this.submitItem(containedStack, ItemDisplayContext.GUI, poseStack, submitNodeCollector, light, overlay, outlineColor);
 
                 poseStack.popPose();
@@ -126,6 +131,52 @@ public class AlchemicalDerivativeRenderer implements SpecialModelRenderer<ItemSt
         Minecraft minecraft = Minecraft.getInstance();
         minecraft.getItemModelResolver().updateForTopItem(renderState, itemStack, displayContext, minecraft.level, null, 0);
         renderState.submit(poseStack, submitNodeCollector, light, overlay, outlineColor);
+    }
+
+    /**
+     * Applies the item/generated display transforms (translation, rotation, scale) for the given context
+     * to the PoseStack. This compensates for the fact that overlays are rendered with GUI context
+     * (which has identity transforms) while the jar uses the actual display context.
+     * <p>
+     * The values here match the "display" block from minecraft:models/item/generated.json.
+     * Translation values are pre-divided by 16 (as done by ItemTransform deserialization).
+     */
+    private void applyOverlayContextCompensation(ItemDisplayContext displayContext, boolean leftHand, PoseStack poseStack) {
+        switch (displayContext) {
+            case GROUND -> {
+                // ground: translation [0, 2, 0], rotation [0, 0, 0], scale [0.5, 0.5, 0.5]
+                poseStack.translate(0, 2f / 16f, 0);
+                poseStack.scale(0.5f, 0.5f, 0.5f);
+            }
+            case THIRD_PERSON_LEFT_HAND, THIRD_PERSON_RIGHT_HAND -> {
+                // thirdperson: translation [0, 3, 1], rotation [0, 0, 0], scale [0.55, 0.55, 0.55]
+                poseStack.translate(0, 3f / 16f, 1f / 16f);
+                poseStack.scale(0.55f, 0.55f, 0.55f);
+            }
+            case FIRST_PERSON_LEFT_HAND, FIRST_PERSON_RIGHT_HAND -> {
+                // firstperson: translation [1.13, 3.2, 1.13], rotation [0, -90, 25], scale [0.68, 0.68, 0.68]
+                float tx = leftHand ? -(1.13f / 16f) : (1.13f / 16f);
+                float rotY = leftHand ? 90f : -90f;
+                float rotZ = leftHand ? -25f : 25f;
+                poseStack.translate(tx, 3.2f / 16f, 1.13f / 16f);
+                poseStack.mulPose(new Quaternionf().rotationXYZ(0, rotY * 0.017453292f, rotZ * 0.017453292f));
+                poseStack.scale(0.68f, 0.68f, 0.68f);
+            }
+            case HEAD -> {
+                // head: translation [0, 13, 7], rotation [0, 180, 0], scale [1, 1, 1]
+                poseStack.translate(0, 13f / 16f, 7f / 16f);
+                float rotY = leftHand ? -180f : 180f;
+                poseStack.mulPose(new Quaternionf().rotationXYZ(0, rotY * 0.017453292f, 0));
+            }
+            case FIXED -> {
+                // fixed: rotation [0, 180, 0], scale [1, 1, 1]
+                float rotY = leftHand ? -180f : 180f;
+                poseStack.mulPose(new Quaternionf().rotationXYZ(0, rotY * 0.017453292f, 0));
+            }
+            // GUI and NONE: no compensation needed (identity transforms)
+            default -> {
+            }
+        }
     }
 
     @Override

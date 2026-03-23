@@ -12,6 +12,7 @@ import com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron.Liquefactio
 import com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector.LogisticsItemConnectorBlock;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.mojang.math.Quadrant;
+import com.mojang.math.Transformation;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.blockstates.MultiPartGenerator;
@@ -19,6 +20,7 @@ import net.minecraft.client.data.models.model.ItemModelUtils;
 import net.minecraft.client.data.models.model.ModelInstance;
 import net.minecraft.client.renderer.block.dispatch.Variant;
 import net.minecraft.client.renderer.block.dispatch.VariantMutator;
+import net.minecraft.client.renderer.item.CuboidItemModelWrapper;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
@@ -26,8 +28,11 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.PipeBlock;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
+import org.joml.Vector3f;
 
+import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.BiConsumer;
 
 public class TheurgyBlockModelSubProvider {
@@ -119,7 +124,30 @@ public class TheurgyBlockModelSubProvider {
         );
         blockModels.blockStateOutput.accept(generator);
 
-        this.registerParentedItemModel(itemModels, BlockRegistry.LIQUEFACTION_CAULDRON.get(), Theurgy.loc("block/liquefaction_cauldron_lower"));
+        this.registerLiquefactionCauldronItemModel(itemModels, BlockRegistry.LIQUEFACTION_CAULDRON.get());
+    }
+
+    private void registerLiquefactionCauldronItemModel(ItemModelGenerators itemModels, Block block) {
+        Identifier modelId = this.itemModel(block);
+        Identifier parentModel = Theurgy.loc("block/liquefaction_cauldron_lower");
+
+
+        // Emit the item model JSON with just the parent reference
+        this.emitParentModel(itemModels.modelOutput, modelId, parentModel, Map.of());
+
+        // Scale down the item to match the 1.21.1 appearance (renders too large otherwise)
+        // The old display transform was: rotation(30, 225, 0), translation(0, -2, 0), scale(0.5)
+        var transformation = new Transformation(
+                new Vector3f(0, -2f / 16f, 0), // translation (converted from display units to block units)
+                null,
+                new Vector3f(0.625f, 0.625f, 0.625f), // scale down to 62.5% (matching block default * 0.5/0.5 reduction)
+                null
+        );
+
+        itemModels.itemModelOutput.accept(
+                block.asItem(),
+                new CuboidItemModelWrapper.Unbaked(modelId, Optional.of(transformation), List.of())
+        );
     }
 
     private void registerDistiller(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {

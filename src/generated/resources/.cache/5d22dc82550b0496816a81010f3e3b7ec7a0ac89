@@ -1,4 +1,4 @@
-// 26.1-snapshot-11	2026-03-23T13:56:42.6291067	Model Definitions - theurgy
+// 26.1-snapshot-11	2026-03-23T14:41:48.352621	Model Definitions - theurgy
 7910d2fc53a06b4b9a6ba52773c4c680cd5fc0c0 assets/theurgy/blockstates/calcination_oven.json
 5513cf609d790e91c4a0e8e9055c4e48a2722150 assets/theurgy/blockstates/caloric_flux_emitter.json
 00405e738007e59f195d2d897262c8fc85b1c759 assets/theurgy/blockstates/deepslate_sal_ammoniac_ore.json
@@ -372,7 +372,7 @@ b59a762f0a0cf6a1c80357b347d810d8f80a0477 assets/theurgy/items/jar_label_frame_ab
 fd2370799fb1f0ff9b4ef9da7f6f34192da44a4d assets/theurgy/items/jar_label_frame_precious_icon.json
 6fe425c15e70f9764e0247289e7a0fa74ad7f279 assets/theurgy/items/jar_label_frame_rare_icon.json
 28fc7995f40d46cc13f7430c07847bf40c624066 assets/theurgy/items/jar_label_icon.json
-235e3ced8f39b7a93b8153d60fa540c78a34e36e assets/theurgy/items/liquefaction_cauldron.json
+00f9457b68235e320df4a8168ff4d000f1717348 assets/theurgy/items/liquefaction_cauldron.json
 763744cc8515e271eac097339b7d02fac986fe31 assets/theurgy/items/list_filter.json
 3c903708f64d08816ac85d020b241e67e0273e42 assets/theurgy/items/logistics_connector_node.json
 ee3aad3a610d9a33099f01d1d9d62ad9cbd3488c assets/theurgy/items/logistics_fluid_extractor.json

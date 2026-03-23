@@ -79,7 +79,7 @@ public class TheurgyBlockModelSubProvider {
     private void registerCalcinationOven(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
         this.emitParticleModel(blockModels.modelOutput, this.blockModel(BlockRegistry.CALCINATION_OVEN.get()), Identifier.withDefaultNamespace("block/copper_block"));
         this.registerSingleStateBlock(blockModels, BlockRegistry.CALCINATION_OVEN.get(), this.blockModel(BlockRegistry.CALCINATION_OVEN.get()));
-        this.registerGeckolibItem(itemModels, BlockRegistry.CALCINATION_OVEN.get());
+        this.registerGeckolibItem(itemModels, BlockRegistry.CALCINATION_OVEN.get(), Identifier.withDefaultNamespace("block/copper_block"));
     }
 
     private void registerPyromanticBrazier(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
@@ -147,7 +147,7 @@ public class TheurgyBlockModelSubProvider {
     private void registerDistiller(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
         this.emitParticleModel(blockModels.modelOutput, this.blockModel(BlockRegistry.DISTILLER.get()), Identifier.withDefaultNamespace("block/copper_block"));
         this.registerSingleStateBlock(blockModels, BlockRegistry.DISTILLER.get(), this.blockModel(BlockRegistry.DISTILLER.get()));
-        this.registerGeckolibItem(itemModels, BlockRegistry.DISTILLER.get());
+        this.registerGeckolibItem(itemModels, BlockRegistry.DISTILLER.get(), Identifier.withDefaultNamespace("block/copper_block"));
     }
 
     private void registerIncubator(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
@@ -196,26 +196,28 @@ public class TheurgyBlockModelSubProvider {
     }
 
     private void registerIncubatorVessels(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
-        Identifier vesselModel = Theurgy.loc("block/incubator_vessel");
-        this.emitParticleModel(blockModels.modelOutput, vesselModel, Identifier.withDefaultNamespace("block/copper_block"));
-        this.registerSingleStateBlock(blockModels, BlockRegistry.INCUBATOR_MERCURY_VESSEL.get(), vesselModel);
-        this.registerSingleStateBlock(blockModels, BlockRegistry.INCUBATOR_SALT_VESSEL.get(), vesselModel);
-        this.registerSingleStateBlock(blockModels, BlockRegistry.INCUBATOR_SULFUR_VESSEL.get(), vesselModel);
-        this.registerGeckolibItem(itemModels, BlockRegistry.INCUBATOR_MERCURY_VESSEL.get());
-        this.registerGeckolibItem(itemModels, BlockRegistry.INCUBATOR_SALT_VESSEL.get());
-        this.registerGeckolibItem(itemModels, BlockRegistry.INCUBATOR_SULFUR_VESSEL.get());
+        Identifier particleTexture = Identifier.withDefaultNamespace("block/copper_block");
+        this.emitParticleModel(blockModels.modelOutput, this.blockModel(BlockRegistry.INCUBATOR_MERCURY_VESSEL.get()), particleTexture);
+        this.emitParticleModel(blockModels.modelOutput, this.blockModel(BlockRegistry.INCUBATOR_SALT_VESSEL.get()), particleTexture);
+        this.emitParticleModel(blockModels.modelOutput, this.blockModel(BlockRegistry.INCUBATOR_SULFUR_VESSEL.get()), particleTexture);
+        this.registerSingleStateBlock(blockModels, BlockRegistry.INCUBATOR_MERCURY_VESSEL.get(), this.blockModel(BlockRegistry.INCUBATOR_MERCURY_VESSEL.get()));
+        this.registerSingleStateBlock(blockModels, BlockRegistry.INCUBATOR_SALT_VESSEL.get(), this.blockModel(BlockRegistry.INCUBATOR_SALT_VESSEL.get()));
+        this.registerSingleStateBlock(blockModels, BlockRegistry.INCUBATOR_SULFUR_VESSEL.get(), this.blockModel(BlockRegistry.INCUBATOR_SULFUR_VESSEL.get()));
+        this.registerGeckolibItem(itemModels, BlockRegistry.INCUBATOR_MERCURY_VESSEL.get(), particleTexture);
+        this.registerGeckolibItem(itemModels, BlockRegistry.INCUBATOR_SALT_VESSEL.get(), particleTexture);
+        this.registerGeckolibItem(itemModels, BlockRegistry.INCUBATOR_SULFUR_VESSEL.get(), particleTexture);
     }
 
     private void registerSalAmmoniacAccumulator(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
         this.emitParticleModel(blockModels.modelOutput, this.blockModel(BlockRegistry.SAL_AMMONIAC_ACCUMULATOR.get()), Identifier.withDefaultNamespace("block/copper_block"));
         this.registerSingleStateBlock(blockModels, BlockRegistry.SAL_AMMONIAC_ACCUMULATOR.get(), this.blockModel(BlockRegistry.SAL_AMMONIAC_ACCUMULATOR.get()));
-        this.registerGeckolibItem(itemModels, BlockRegistry.SAL_AMMONIAC_ACCUMULATOR.get());
+        this.registerGeckolibItem(itemModels, BlockRegistry.SAL_AMMONIAC_ACCUMULATOR.get(), Identifier.withDefaultNamespace("block/copper_block"));
     }
 
     private void registerSalAmmoniacTank(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
         this.emitParticleModel(blockModels.modelOutput, this.blockModel(BlockRegistry.SAL_AMMONIAC_TANK.get()), Identifier.withDefaultNamespace("block/copper_block"));
         this.registerSingleStateBlock(blockModels, BlockRegistry.SAL_AMMONIAC_TANK.get(), this.blockModel(BlockRegistry.SAL_AMMONIAC_TANK.get()));
-        this.registerGeckolibItem(itemModels, BlockRegistry.SAL_AMMONIAC_TANK.get());
+        this.registerGeckolibItem(itemModels, BlockRegistry.SAL_AMMONIAC_TANK.get(), Identifier.withDefaultNamespace("block/copper_block"));
     }
 
     private void registerMercuryCatalyst(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
@@ -312,7 +314,7 @@ public class TheurgyBlockModelSubProvider {
         this.emitParticleModel(blockModels.modelOutput, this.blockModel(BlockRegistry.DIGESTION_VAT.get()), Identifier.withDefaultNamespace("block/blue_terracotta"));
         this.registerSingleStateBlock(blockModels, BlockRegistry.DIGESTION_VAT.get(), this.blockModel(BlockRegistry.DIGESTION_VAT.get()));
 
-        this.registerBuiltinEntityItem(itemModels, BlockRegistry.DIGESTION_VAT.get());
+        this.registerBuiltinEntityItem(itemModels, BlockRegistry.DIGESTION_VAT.get(), Identifier.withDefaultNamespace("block/blue_terracotta"));
         itemModels.itemModelOutput.accept(BlockRegistry.DIGESTION_VAT.get().asItem(), ItemModelUtils.specialModel(this.itemModel(BlockRegistry.DIGESTION_VAT.get()), new DigestionVatItemRenderer.Unbaked()));
     }
 
@@ -406,13 +408,13 @@ public class TheurgyBlockModelSubProvider {
         );
     }
 
-    private void registerGeckolibItem(ItemModelGenerators itemModels, Block block) {
-        this.emitBuiltinEntityModel(itemModels.modelOutput, this.itemModel(block));
+    private void registerGeckolibItem(ItemModelGenerators itemModels, Block block, Identifier particleTexture) {
+        this.emitBuiltinEntityModel(itemModels.modelOutput, this.itemModel(block), particleTexture);
         itemModels.itemModelOutput.accept(block.asItem(), ItemModelUtils.specialModel(this.itemModel(block), new GeckolibItemSpecialRenderer.Unbaked()));
     }
 
-    private void registerBuiltinEntityItem(ItemModelGenerators itemModels, Block block) {
-        this.emitBuiltinEntityModel(itemModels.modelOutput, this.itemModel(block));
+    private void registerBuiltinEntityItem(ItemModelGenerators itemModels, Block block, Identifier particleTexture) {
+        this.emitBuiltinEntityModel(itemModels.modelOutput, this.itemModel(block), particleTexture);
     }
 
     private Variant variant(Identifier model, int xRotation, int yRotation, boolean uvLock) {
@@ -463,9 +465,13 @@ public class TheurgyBlockModelSubProvider {
      * (GeckoLib, custom SpecialModelRenderer). Provides the correct isometric appearance
      * in inventory/GUI and proper transforms for all other display contexts.
      */
-    private void emitBuiltinEntityModel(BiConsumer<Identifier, ModelInstance> output, Identifier modelLocation) {
+    private void emitBuiltinEntityModel(BiConsumer<Identifier, ModelInstance> output, Identifier modelLocation, Identifier particleTexture) {
         output.accept(modelLocation, () -> {
             JsonObject json = new JsonObject();
+
+            JsonObject textures = new JsonObject();
+            textures.addProperty("particle", particleTexture.toString());
+            json.add("textures", textures);
 
             JsonObject display = new JsonObject();
             display.add("gui", displayTransform(30, 45, 0, 0, 0, 0, 0.625f));

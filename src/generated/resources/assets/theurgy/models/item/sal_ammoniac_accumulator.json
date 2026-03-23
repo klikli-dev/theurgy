@@ -102,5 +102,8 @@
         0.0
       ]
     }
+  },
+  "textures": {
+    "particle": "minecraft:block/copper_block"
   }
 }

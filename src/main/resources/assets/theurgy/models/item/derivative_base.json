@@ -1,3 +1,6 @@
 {
-  "gui_light": "front"
+  "gui_light": "front",
+  "textures": {
+    "particle": "theurgy:item/alchemical_salt"
+  }
 }

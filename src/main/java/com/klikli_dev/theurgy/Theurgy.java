@@ -16,6 +16,8 @@ import com.klikli_dev.theurgy.content.apparatus.incubator.render.IncubatorSulfur
 import com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron.render.LiquefactionCauldronRenderer;
 import com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator.render.SalAmmoniacAccumulatorRenderer;
 import com.klikli_dev.theurgy.content.apparatus.salammoniactank.render.SalAmmoniacTankRenderer;
+import com.klikli_dev.theurgy.content.item.filter.AttributeFilterScreen;
+import com.klikli_dev.theurgy.content.item.filter.ListFilterScreen;
 import com.klikli_dev.theurgy.content.item.derivative.AlchemicalDerivativeItem;
 import com.klikli_dev.theurgy.content.item.renderer.DivinationDistanceProperty;
 import com.klikli_dev.theurgy.content.item.salt.AlchemicalSaltItem;
@@ -380,8 +382,8 @@ public class Theurgy {
         }
 
         public static void onRegisterMenuScreens(RegisterMenuScreensEvent event) {
-            //event.register(MenuTypeRegistry.LIST_FILTER.get(), ListFilterScreen::new);
-            //event.register(MenuTypeRegistry.ATTRIBUTE_FILTER.get(), AttributeFilterScreen::new);
+            event.register(MenuTypeRegistry.LIST_FILTER.get(), ListFilterScreen::new);
+            event.register(MenuTypeRegistry.ATTRIBUTE_FILTER.get(), AttributeFilterScreen::new);
         }
 
         public static void onMouseScrolling(InputEvent.MouseScrollingEvent event) {

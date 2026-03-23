@@ -139,9 +139,9 @@ public class TheurgyBlockModelSubProvider {
         // Scale down the item to match the 1.21.1 appearance (renders too large otherwise)
         // The old display transform was: rotation(30, 225, 0), translation(0, -2, 0), scale(0.5)
         var transformation = new Transformation(
-                new Vector3f(0, -2f / 16f, 0), // translation (converted from display units to block units)
+                new Vector3f(1/16f * 6, 1/16f, 0), // nudge left and up to center the model
                 null,
-                new Vector3f(0.625f, 0.625f, 0.625f), // scale down to 62.5% (matching block default * 0.5/0.5 reduction)
+                new Vector3f(0.625f, 0.625f, 0.625f), // scale down to 62.5%
                 null
         );
 
@@ -154,7 +154,7 @@ public class TheurgyBlockModelSubProvider {
     private void registerDistiller(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
         this.emitParticleModel(blockModels.modelOutput, this.blockModel(BlockRegistry.DISTILLER.get()), Identifier.withDefaultNamespace("block/copper_block"));
         this.registerSingleStateBlock(blockModels, BlockRegistry.DISTILLER.get(), this.blockModel(BlockRegistry.DISTILLER.get()));
-        this.registerBuiltinEntityItem(itemModels, BlockRegistry.DISTILLER.get());
+        this.registerGeckolibItem(itemModels, BlockRegistry.DISTILLER.get());
     }
 
     private void registerIncubator(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {

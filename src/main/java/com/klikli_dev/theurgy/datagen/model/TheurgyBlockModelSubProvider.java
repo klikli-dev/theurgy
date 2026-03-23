@@ -4,6 +4,7 @@
 
 package com.klikli_dev.theurgy.datagen.model;
 
+import com.geckolib.renderer.internal.GeckolibItemSpecialRenderer;
 import com.google.gson.JsonObject;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.content.apparatus.fermentationvat.FermentationVatBlock;
@@ -78,7 +79,7 @@ public class TheurgyBlockModelSubProvider {
     private void registerCalcinationOven(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
         this.emitParticleModel(blockModels.modelOutput, this.blockModel(BlockRegistry.CALCINATION_OVEN.get()), Identifier.withDefaultNamespace("block/copper_block"));
         this.registerSingleStateBlock(blockModels, BlockRegistry.CALCINATION_OVEN.get(), this.blockModel(BlockRegistry.CALCINATION_OVEN.get()));
-        this.registerBuiltinEntityItem(itemModels, BlockRegistry.CALCINATION_OVEN.get());
+        this.registerGeckolibItem(itemModels, BlockRegistry.CALCINATION_OVEN.get());
     }
 
     private void registerPyromanticBrazier(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
@@ -201,21 +202,21 @@ public class TheurgyBlockModelSubProvider {
         this.registerSingleStateBlock(blockModels, BlockRegistry.INCUBATOR_MERCURY_VESSEL.get(), vesselModel);
         this.registerSingleStateBlock(blockModels, BlockRegistry.INCUBATOR_SALT_VESSEL.get(), vesselModel);
         this.registerSingleStateBlock(blockModels, BlockRegistry.INCUBATOR_SULFUR_VESSEL.get(), vesselModel);
-        this.registerBuiltinEntityItem(itemModels, BlockRegistry.INCUBATOR_MERCURY_VESSEL.get());
-        this.registerBuiltinEntityItem(itemModels, BlockRegistry.INCUBATOR_SALT_VESSEL.get());
-        this.registerBuiltinEntityItem(itemModels, BlockRegistry.INCUBATOR_SULFUR_VESSEL.get());
+        this.registerGeckolibItem(itemModels, BlockRegistry.INCUBATOR_MERCURY_VESSEL.get());
+        this.registerGeckolibItem(itemModels, BlockRegistry.INCUBATOR_SALT_VESSEL.get());
+        this.registerGeckolibItem(itemModels, BlockRegistry.INCUBATOR_SULFUR_VESSEL.get());
     }
 
     private void registerSalAmmoniacAccumulator(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
         this.emitParticleModel(blockModels.modelOutput, this.blockModel(BlockRegistry.SAL_AMMONIAC_ACCUMULATOR.get()), Identifier.withDefaultNamespace("block/copper_block"));
         this.registerSingleStateBlock(blockModels, BlockRegistry.SAL_AMMONIAC_ACCUMULATOR.get(), this.blockModel(BlockRegistry.SAL_AMMONIAC_ACCUMULATOR.get()));
-        this.registerBuiltinEntityItem(itemModels, BlockRegistry.SAL_AMMONIAC_ACCUMULATOR.get());
+        this.registerGeckolibItem(itemModels, BlockRegistry.SAL_AMMONIAC_ACCUMULATOR.get());
     }
 
     private void registerSalAmmoniacTank(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
         this.emitParticleModel(blockModels.modelOutput, this.blockModel(BlockRegistry.SAL_AMMONIAC_TANK.get()), Identifier.withDefaultNamespace("block/copper_block"));
         this.registerSingleStateBlock(blockModels, BlockRegistry.SAL_AMMONIAC_TANK.get(), this.blockModel(BlockRegistry.SAL_AMMONIAC_TANK.get()));
-        this.registerBuiltinEntityItem(itemModels, BlockRegistry.SAL_AMMONIAC_TANK.get());
+        this.registerGeckolibItem(itemModels, BlockRegistry.SAL_AMMONIAC_TANK.get());
     }
 
     private void registerMercuryCatalyst(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
@@ -398,6 +399,11 @@ public class TheurgyBlockModelSubProvider {
     private void registerBuiltinEntityItem(ItemModelGenerators itemModels, Block block) {
         this.emitParentModel(itemModels.modelOutput, this.itemModel(block), BUILTIN_ENTITY, Map.of());
         itemModels.itemModelOutput.accept(block.asItem(), ItemModelUtils.plainModel(this.itemModel(block)));
+    }
+
+    private void registerGeckolibItem(ItemModelGenerators itemModels, Block block) {
+        this.emitParentModel(itemModels.modelOutput, this.itemModel(block), BUILTIN_ENTITY, Map.of("particle", Theurgy.loc("item/" + this.name(block))));
+        itemModels.itemModelOutput.accept(block.asItem(), ItemModelUtils.specialModel(this.itemModel(block), new GeckolibItemSpecialRenderer.Unbaked()));
     }
 
     private Variant variant(Identifier model, int xRotation, int yRotation, boolean uvLock) {

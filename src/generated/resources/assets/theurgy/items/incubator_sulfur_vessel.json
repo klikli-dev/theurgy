@@ -1,6 +1,9 @@
 {
   "model": {
-    "type": "minecraft:model",
-    "model": "theurgy:item/incubator_sulfur_vessel"
+    "type": "minecraft:special",
+    "base": "theurgy:item/incubator_sulfur_vessel",
+    "model": {
+      "type": "geckolib:geckolib"
+    }
   }
 }

@@ -1,6 +1,9 @@
 {
   "model": {
-    "type": "minecraft:model",
-    "model": "theurgy:item/distiller"
+    "type": "minecraft:special",
+    "base": "theurgy:item/distiller",
+    "model": {
+      "type": "geckolib:geckolib"
+    }
   }
 }

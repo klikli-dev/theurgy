@@ -5,11 +5,20 @@
 package com.klikli_dev.theurgy.content.apparatus.calcinationoven;
 
 import com.geckolib.animatable.GeoItem;
+import com.geckolib.animatable.client.GeoRenderProvider;
 import com.geckolib.animatable.instance.AnimatableInstanceCache;
 import com.geckolib.animatable.manager.AnimatableManager;
+import com.geckolib.renderer.GeoItemRenderer;
 import com.geckolib.util.GeckoLibUtil;
+import com.google.common.base.Suppliers;
+import com.klikli_dev.theurgy.content.apparatus.calcinationoven.render.CalcinationOvenItemRenderer;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.block.Block;
+import org.jspecify.annotations.NonNull;
+
+import javax.annotation.Nullable;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 public class CalcinationOvenBlockItem extends BlockItem implements GeoItem {
 
@@ -20,12 +29,24 @@ public class CalcinationOvenBlockItem extends BlockItem implements GeoItem {
     }
 
     @Override
-    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
+    public void registerControllers(AnimatableManager.@NonNull ControllerRegistrar controllerRegistrar) {
         //do not show anims on item
     }
 
     @Override
-    public AnimatableInstanceCache getAnimatableInstanceCache() {
+    public @NonNull AnimatableInstanceCache getAnimatableInstanceCache() {
         return this.cache;
+    }
+
+    @Override
+    public void createGeoRenderer(Consumer<GeoRenderProvider> consumer) {
+        consumer.accept(new GeoRenderProvider() {
+            private final Supplier<GeoItemRenderer<CalcinationOvenBlockItem>> renderer = Suppliers.memoize(CalcinationOvenItemRenderer::new);
+
+            @Override
+            public @Nullable GeoItemRenderer<CalcinationOvenBlockItem> getGeoItemRenderer() {
+                return this.renderer.get();
+            }
+        });
     }
 }

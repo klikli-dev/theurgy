@@ -1,6 +1,9 @@
 {
   "model": {
-    "type": "minecraft:model",
-    "model": "theurgy:item/sal_ammoniac_tank"
+    "type": "minecraft:special",
+    "base": "theurgy:item/sal_ammoniac_tank",
+    "model": {
+      "type": "geckolib:geckolib"
+    }
   }
 }

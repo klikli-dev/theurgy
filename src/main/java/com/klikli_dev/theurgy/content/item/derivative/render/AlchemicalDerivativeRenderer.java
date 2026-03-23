@@ -40,7 +40,7 @@ public class AlchemicalDerivativeRenderer implements SpecialModelRenderer<ItemSt
     public void submit(@Nullable ItemStack stack, ItemDisplayContext displayContext, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int light, int overlay, boolean hasFoil, int outlineColor) {
         if (stack == null || stack.isEmpty()) return;
 
-        // Counteract the -0.5 translation applied by ItemTransform.NO_TRANSFORM (from the builtin/entity base model)
+        // Counteract the -0.5 translation applied by ItemTransform.NO_TRANSFORM (from the derivative_base model)
         // so that our sub-items render centered rather than offset to the bottom-left corner of the slot.
         poseStack.translate(0.5f, 0.5f, 0.5f);
 

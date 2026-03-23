@@ -7,7 +7,9 @@ package com.klikli_dev.theurgy.content.item.derivative.render;
 import com.klikli_dev.theurgy.config.ClientConfig;
 import com.klikli_dev.theurgy.content.item.derivative.AlchemicalDerivativeItem;
 import com.klikli_dev.theurgy.content.item.derivative.AlchemicalDerivativeTier;
+import com.klikli_dev.theurgy.registry.DataComponentRegistry;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
+import com.klikli_dev.theurgy.util.TagUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.client.Minecraft;
@@ -26,7 +28,7 @@ import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-public class AlchemicalDerivativeRenderer implements SpecialModelRenderer<ItemStack> {
+public class AlchemicalDerivativeRenderer implements SpecialModelRenderer<AlchemicalDerivativeRenderState> {
 
     private static final Supplier<ItemStack> labeledEmptyJarStack = Lazy.of(() -> new ItemStack(ItemRegistry.EMPTY_JAR_LABELED_ICON.get()));
     private static final Supplier<Map<AlchemicalDerivativeTier, ItemStack>> tierToIconMap = Lazy.of(() -> Map.of(
@@ -37,32 +39,34 @@ public class AlchemicalDerivativeRenderer implements SpecialModelRenderer<ItemSt
     ));
 
     @Override
-    public void submit(@Nullable ItemStack stack, ItemDisplayContext displayContext, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int light, int overlay, boolean hasFoil, int outlineColor) {
-        if (stack == null || stack.isEmpty()) return;
+    public void submit(@Nullable AlchemicalDerivativeRenderState state, ItemDisplayContext displayContext, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int light, int overlay, boolean hasFoil, int outlineColor) {
+        if (state == null) return;
 
         // Counteract the -0.5 translation applied by ItemTransform.NO_TRANSFORM (from the derivative_base model)
         // so that our sub-items render centered rather than offset to the bottom-left corner of the slot.
         poseStack.translate(0.5f, 0.5f, 0.5f);
 
-        boolean renderSource = ClientConfig.get().rendering.renderSulfurSourceItem.get();
+        // Resolve the source stack from the render state
+        ItemStack sourceStack = this.resolveSourceStack(state);
 
         // If shift is down in GUI, just render the contained item in full size
-        // Note 2026.03.23: This does not yet work to show the "shift" version of the item
-        // It seems submit is NOT called regularly for the item in the inventory, so this is never reached.
-        if (displayContext == ItemDisplayContext.GUI && Minecraft.getInstance().hasShiftDown()) {
-            this.renderContainedItemFull(stack, displayContext, poseStack, submitNodeCollector, light, overlay, outlineColor);
+        if (displayContext == ItemDisplayContext.GUI && state.shiftDown()) {
+            if (!sourceStack.isEmpty()) {
+                this.submitItem(sourceStack, displayContext, poseStack, submitNodeCollector, light, overlay, outlineColor);
+            }
             return;
         }
 
+        boolean renderSource = state.renderSource();
 
         // If we do not render the source we show a simplified labeled icon with pixels representing fictional text
-        var jarStack = renderSource ? AlchemicalDerivativeItem.getEmptyJarStack(stack) : labeledEmptyJarStack.get();
+        var jarStack = renderSource ? new ItemStack(state.jarIconItem()) : labeledEmptyJarStack.get();
 
         // Render Jar
         this.submitItem(jarStack, displayContext, poseStack, submitNodeCollector, light, overlay, outlineColor);
 
         // Render Frame
-        var tierStack = tierToIconMap.get().get(AlchemicalDerivativeItem.getTier(stack));
+        var tierStack = tierToIconMap.get().get(state.tier());
         if (tierStack != null) {
             float pixel = 1f / 16f;
             poseStack.pushPose();
@@ -86,12 +90,7 @@ public class AlchemicalDerivativeRenderer implements SpecialModelRenderer<ItemSt
             poseStack.popPose();
 
             // Render Contained Item
-            ItemStack containedStack = ItemStack.EMPTY;
-            if (stack.getItem() instanceof AlchemicalDerivativeItem item) {
-                containedStack = item.getSourceStack(stack);
-            }
-
-            if (!containedStack.isEmpty()) {
+            if (!sourceStack.isEmpty()) {
                 poseStack.pushPose();
                 this.applyOverlayContextCompensation(displayContext, displayContext.leftHand(), poseStack);
 
@@ -106,7 +105,7 @@ public class AlchemicalDerivativeRenderer implements SpecialModelRenderer<ItemSt
                 // 4. Flatten the item
                 poseStack.scale(0.74F, 0.74F, 0.01F);
 
-                this.submitItem(containedStack, ItemDisplayContext.GUI, poseStack, submitNodeCollector, light, overlay, outlineColor);
+                this.submitItem(sourceStack, ItemDisplayContext.GUI, poseStack, submitNodeCollector, light, overlay, outlineColor);
 
                 poseStack.popPose();
             }
@@ -114,16 +113,16 @@ public class AlchemicalDerivativeRenderer implements SpecialModelRenderer<ItemSt
     }
 
     /**
-     * Renders the contained item at full size when Shift is held in GUI.
+     * Resolves the source ItemStack from the render state's non-level-owned data.
      */
-    private void renderContainedItemFull(ItemStack stack, ItemDisplayContext displayContext, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int light, int overlay, int outlineColor) {
-        if (!(stack.getItem() instanceof AlchemicalDerivativeItem item))
-            return;
-
-        var containedStack = item.getSourceStack(stack);
-        if (!containedStack.isEmpty()) {
-            this.submitItem(containedStack, displayContext, poseStack, submitNodeCollector, light, overlay, outlineColor);
+    private ItemStack resolveSourceStack(AlchemicalDerivativeRenderState state) {
+        if (state.sourceItem() != null) {
+            return new ItemStack(state.sourceItem());
         }
+        if (state.sourceTag() != null) {
+            return TagUtil.getItemStackForTag(state.sourceTag());
+        }
+        return ItemStack.EMPTY;
     }
 
     private void submitItem(ItemStack itemStack, ItemDisplayContext displayContext, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int light, int overlay, int outlineColor) {
@@ -180,8 +179,20 @@ public class AlchemicalDerivativeRenderer implements SpecialModelRenderer<ItemSt
     }
 
     @Override
-    public @Nullable ItemStack extractArgument(ItemStack stack) {
-        return stack;
+    public @Nullable AlchemicalDerivativeRenderState extractArgument(ItemStack stack) {
+        if (stack.isEmpty()) return null;
+
+        var item = stack.getItem();
+        if (!(item instanceof AlchemicalDerivativeItem derivativeItem)) return null;
+
+        var sourceItem = stack.get(DataComponentRegistry.SOURCE_ITEM);
+        var sourceTag = stack.get(DataComponentRegistry.SOURCE_TAG);
+        var tier = derivativeItem.tier();
+        var jarIconItem = derivativeItem.emptyJarStackSupplier.get().getItem();
+        var renderSource = ClientConfig.get().rendering.renderSulfurSourceItem.get();
+        var shiftDown = Minecraft.getInstance().hasShiftDown();
+
+        return new AlchemicalDerivativeRenderState(sourceItem, sourceTag, tier, jarIconItem, renderSource, shiftDown);
     }
 
     @Override
@@ -190,16 +201,16 @@ public class AlchemicalDerivativeRenderer implements SpecialModelRenderer<ItemSt
         output.accept(new Vector3f(0.5f, 0.5f, 0.5f));
     }
 
-    public record Unbaked() implements SpecialModelRenderer.Unbaked<ItemStack> {
+    public record Unbaked() implements SpecialModelRenderer.Unbaked<AlchemicalDerivativeRenderState> {
         public static final MapCodec<Unbaked> MAP_CODEC = MapCodec.unit(new Unbaked());
 
         @Override
-        public @Nullable SpecialModelRenderer<ItemStack> bake(SpecialModelRenderer.BakingContext context) {
+        public @Nullable SpecialModelRenderer<AlchemicalDerivativeRenderState> bake(SpecialModelRenderer.BakingContext context) {
             return new AlchemicalDerivativeRenderer();
         }
 
         @Override
-        public MapCodec<? extends SpecialModelRenderer.Unbaked<ItemStack>> type() {
+        public MapCodec<? extends SpecialModelRenderer.Unbaked<AlchemicalDerivativeRenderState>> type() {
             return MAP_CODEC;
         }
     }

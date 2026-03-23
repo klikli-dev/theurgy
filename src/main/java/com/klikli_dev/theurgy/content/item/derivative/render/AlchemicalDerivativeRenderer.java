@@ -45,23 +45,38 @@ public class AlchemicalDerivativeRenderer implements SpecialModelRenderer<ItemSt
 
         boolean renderSource = ClientConfig.get().rendering.renderSulfurSourceItem.get();
 
+        // If shift is down in GUI, just render the contained item in full size
+        if (displayContext == ItemDisplayContext.GUI && Minecraft.getInstance().hasShiftDown()) {
+            this.renderContainedItemFull(stack, displayContext, poseStack, submitNodeCollector, light, overlay, outlineColor);
+            return;
+        }
 
+        // If we do not render the source we show a simplified labeled icon with pixels representing fictional text
         var jarStack = renderSource ? AlchemicalDerivativeItem.getEmptyJarStack(stack) : labeledEmptyJarStack.get();
 
         // Render Jar
         this.submitItem(jarStack, displayContext, poseStack, submitNodeCollector, light, overlay, outlineColor);
 
         // Render Frame
-        // AlchemicalDerivativeItem.getTier is static
         var tierStack = tierToIconMap.get().get(AlchemicalDerivativeItem.getTier(stack));
         if (tierStack != null) {
+            float pixel = 1f / 16f;
+            poseStack.pushPose();
+            poseStack.translate(0, 0, pixel * 0.5); // move it in front of the jar
+            poseStack.scale(1F, 1F, 0.01F); // flatten
             this.submitItem(tierStack, displayContext, poseStack, submitNodeCollector, light, overlay, outlineColor);
+            poseStack.popPose();
         }
 
         if (renderSource) {
             // Render Label
             var labelStack = new ItemStack(ItemRegistry.JAR_LABEL_ICON.get());
+            float pixel = 1f / 16f;
+            poseStack.pushPose();
+            poseStack.translate(0, 0, pixel * 0.5); // move it in front of the jar
+            poseStack.scale(1F, 1F, 0.01F); // flatten
             this.submitItem(labelStack, displayContext, poseStack, submitNodeCollector, light, overlay, outlineColor);
+            poseStack.popPose();
 
             // Render Contained Item
             ItemStack containedStack = ItemStack.EMPTY;
@@ -72,18 +87,34 @@ public class AlchemicalDerivativeRenderer implements SpecialModelRenderer<ItemSt
             if (!containedStack.isEmpty()) {
                 poseStack.pushPose();
 
-                // Mimic the transforms from BEWLR
-                float pixel = 1f / 16f;
-                // Original transform logic comment:
+                // Restore the transform chain from the old BEWLR:
+                // 1. Move in front of the label (z-axis)
                 poseStack.translate(0, 0, pixel * 0.6);
+                // 2. Pre-scale to make the contained item small
+                var scale = 0.36f;
+                poseStack.scale(scale, scale, scale);
+                // 3. Position it on the label area (in scaled coordinates)
                 poseStack.translate(0, -pixel * 3.2, 0);
+                // 4. Flatten the item
                 poseStack.scale(0.74F, 0.74F, 0.01F);
-
 
                 this.submitItem(containedStack, displayContext, poseStack, submitNodeCollector, light, overlay, outlineColor);
 
                 poseStack.popPose();
             }
+        }
+    }
+
+    /**
+     * Renders the contained item at full size when Shift is held in GUI.
+     */
+    private void renderContainedItemFull(ItemStack stack, ItemDisplayContext displayContext, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int light, int overlay, int outlineColor) {
+        if (!(stack.getItem() instanceof AlchemicalDerivativeItem item))
+            return;
+
+        var containedStack = item.getSourceStack(stack);
+        if (!containedStack.isEmpty()) {
+            this.submitItem(containedStack, displayContext, poseStack, submitNodeCollector, light, overlay, outlineColor);
         }
     }
 

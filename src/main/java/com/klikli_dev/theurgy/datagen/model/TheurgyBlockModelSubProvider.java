@@ -106,7 +106,13 @@ public class TheurgyBlockModelSubProvider {
         );
         blockModels.blockStateOutput.accept(generator);
 
-        this.registerParentedItemModel(itemModels, BlockRegistry.PYROMANTIC_BRAZIER.get(), this.blockModel(BlockRegistry.PYROMANTIC_BRAZIER.get()));
+        this.registerScaledParentedItemModel(itemModels, BlockRegistry.PYROMANTIC_BRAZIER.get(), this.blockModel(BlockRegistry.PYROMANTIC_BRAZIER.get()),
+                new Transformation(
+                        new Vector3f(1/16f * 1.6f, 1/16f * 1.6f, 1/16f * 1.6f), // compensate for scale shifting model towards origin
+                        null,
+                        new Vector3f(0.8f, 0.8f, 0.8f), // scale down to 80%
+                        null
+                ));
     }
 
     private void registerLiquefactionCauldron(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
@@ -131,26 +137,13 @@ public class TheurgyBlockModelSubProvider {
     }
 
     private void registerLiquefactionCauldronItemModel(ItemModelGenerators itemModels, Block block) {
-        Identifier modelId = this.itemModel(block);
-        Identifier parentModel = Theurgy.loc("block/liquefaction_cauldron_lower");
-
-
-        // Emit the item model JSON with just the parent reference
-        this.emitParentModel(itemModels.modelOutput, modelId, parentModel, Map.of());
-
-        // Scale down the item to match the 1.21.1 appearance (renders too large otherwise)
-        // The old display transform was: rotation(30, 225, 0), translation(0, -2, 0), scale(0.5)
-        var transformation = new Transformation(
-                new Vector3f(1/16f * 6, 1/16f, 0), // nudge left and up to center the model
-                null,
-                new Vector3f(0.625f, 0.625f, 0.625f), // scale down to 62.5%
-                null
-        );
-
-        itemModels.itemModelOutput.accept(
-                block.asItem(),
-                new CuboidItemModelWrapper.Unbaked(modelId, Optional.of(transformation), List.of())
-        );
+        this.registerScaledParentedItemModel(itemModels, block, Theurgy.loc("block/liquefaction_cauldron_lower"),
+                new Transformation(
+                        new Vector3f(1/16f * 6, 1/16f, 0), // nudge left and up to center the model
+                        null,
+                        new Vector3f(0.625f, 0.625f, 0.625f), // scale down to 62.5%
+                        null
+                ));
     }
 
     private void registerDistiller(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
@@ -186,7 +179,13 @@ public class TheurgyBlockModelSubProvider {
         generator = this.addIncubatorPipe(generator, Direction.WEST, 270);
         blockModels.blockStateOutput.accept(generator);
 
-        this.registerParentedItemModel(itemModels, BlockRegistry.INCUBATOR.get(), this.blockModel(BlockRegistry.INCUBATOR.get()));
+        this.registerScaledParentedItemModel(itemModels, BlockRegistry.INCUBATOR.get(), this.blockModel(BlockRegistry.INCUBATOR.get()),
+                new Transformation(
+                        new Vector3f(1/16f * 3f, 1/16f * -3f, 1/16f * 3f), // compensate for scale shifting the tall model towards origin
+                        null,
+                        new Vector3f(0.625f, 0.625f, 0.625f), // scale down to 62.5% (model extends to Y=30, nearly 2 blocks tall)
+                        null
+                ));
     }
 
     private MultiPartGenerator addIncubatorPipe(MultiPartGenerator generator, Direction direction, int yRotation) {
@@ -398,6 +397,15 @@ public class TheurgyBlockModelSubProvider {
     private void registerParentedItemModel(ItemModelGenerators itemModels, Block block, Identifier parentModel) {
         this.emitParentModel(itemModels.modelOutput, this.itemModel(block), parentModel, Map.of());
         itemModels.itemModelOutput.accept(block.asItem(), ItemModelUtils.plainModel(this.itemModel(block)));
+    }
+
+    private void registerScaledParentedItemModel(ItemModelGenerators itemModels, Block block, Identifier parentModel, Transformation transformation) {
+        Identifier modelId = this.itemModel(block);
+        this.emitParentModel(itemModels.modelOutput, modelId, parentModel, Map.of());
+        itemModels.itemModelOutput.accept(
+                block.asItem(),
+                new CuboidItemModelWrapper.Unbaked(modelId, Optional.of(transformation), List.of())
+        );
     }
 
     private void registerGeckolibItem(ItemModelGenerators itemModels, Block block) {

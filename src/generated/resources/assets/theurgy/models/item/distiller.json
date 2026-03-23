@@ -1,6 +1,3 @@
 {
-  "parent": "minecraft:builtin/entity",
-  "textures": {
-    "particle": "theurgy:item/distiller"
-  }
+  "parent": "minecraft:builtin/entity"
 }

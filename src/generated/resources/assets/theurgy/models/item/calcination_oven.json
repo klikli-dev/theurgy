@@ -1,6 +1,3 @@
 {
-  "parent": "minecraft:builtin/entity",
-  "textures": {
-    "particle": "theurgy:item/calcination_oven"
-  }
+  "parent": "minecraft:builtin/entity"
 }

@@ -1,6 +1,3 @@
 {
-  "parent": "minecraft:builtin/entity",
-  "textures": {
-    "particle": "theurgy:item/incubator_sulfur_vessel"
-  }
+  "parent": "minecraft:builtin/entity"
 }

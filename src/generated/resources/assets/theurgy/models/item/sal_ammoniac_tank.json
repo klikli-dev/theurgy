@@ -1,6 +1,3 @@
 {
-  "parent": "minecraft:builtin/entity",
-  "textures": {
-    "particle": "theurgy:item/sal_ammoniac_tank"
-  }
+  "parent": "minecraft:builtin/entity"
 }

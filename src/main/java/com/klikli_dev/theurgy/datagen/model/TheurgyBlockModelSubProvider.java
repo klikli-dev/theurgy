@@ -399,13 +399,8 @@ public class TheurgyBlockModelSubProvider {
         itemModels.itemModelOutput.accept(block.asItem(), ItemModelUtils.plainModel(this.itemModel(block)));
     }
 
-    private void registerBuiltinEntityItem(ItemModelGenerators itemModels, Block block) {
-        this.emitParentModel(itemModels.modelOutput, this.itemModel(block), BUILTIN_ENTITY, Map.of());
-        itemModels.itemModelOutput.accept(block.asItem(), ItemModelUtils.plainModel(this.itemModel(block)));
-    }
-
     private void registerGeckolibItem(ItemModelGenerators itemModels, Block block) {
-        this.emitParentModel(itemModels.modelOutput, this.itemModel(block), BUILTIN_ENTITY, Map.of("particle", Theurgy.loc("item/" + this.name(block))));
+        this.emitParentModel(itemModels.modelOutput, this.itemModel(block), BUILTIN_ENTITY, Map.of());
         itemModels.itemModelOutput.accept(block.asItem(), ItemModelUtils.specialModel(this.itemModel(block), new GeckolibItemSpecialRenderer.Unbaked()));
     }
 

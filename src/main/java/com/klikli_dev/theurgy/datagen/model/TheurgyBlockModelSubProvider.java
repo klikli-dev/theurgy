@@ -7,6 +7,7 @@ package com.klikli_dev.theurgy.datagen.model;
 import com.geckolib.renderer.internal.GeckolibItemSpecialRenderer;
 import com.google.gson.JsonObject;
 import com.klikli_dev.theurgy.Theurgy;
+import com.klikli_dev.theurgy.content.apparatus.digestionvat.DigestionVatItemRenderer;
 import com.klikli_dev.theurgy.content.apparatus.fermentationvat.FermentationVatBlock;
 import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorBlock;
 import com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron.LiquefactionCauldronBlock;
@@ -312,7 +313,9 @@ public class TheurgyBlockModelSubProvider {
     private void registerDigestionVat(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
         this.emitParticleModel(blockModels.modelOutput, this.blockModel(BlockRegistry.DIGESTION_VAT.get()), Identifier.withDefaultNamespace("block/blue_terracotta"));
         this.registerSingleStateBlock(blockModels, BlockRegistry.DIGESTION_VAT.get(), this.blockModel(BlockRegistry.DIGESTION_VAT.get()));
-        this.registerBuiltinEntityItem(itemModels, BlockRegistry.DIGESTION_VAT.get());
+
+
+        itemModels.itemModelOutput.accept(BlockRegistry.DIGESTION_VAT.get().asItem(), ItemModelUtils.specialModel(this.itemModel(BlockRegistry.DIGESTION_VAT.get()), new DigestionVatItemRenderer.Unbaked()));
     }
 
     private void registerLogisticsConnectorFilter(BlockModelGenerators blockModels) {

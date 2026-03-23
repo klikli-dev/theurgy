@@ -64,7 +64,8 @@ public class AlchemicalDerivativeRenderer implements SpecialModelRenderer<ItemSt
             poseStack.pushPose();
             poseStack.translate(0, 0, pixel * 0.5); // move it in front of the jar
             poseStack.scale(1F, 1F, 0.01F); // flatten
-            this.submitItem(tierStack, displayContext, poseStack, submitNodeCollector, light, overlay, outlineColor);
+            // Render as GUI so overlay stays flat (matching old BEWLR: render with GUI after applyTransform)
+            this.submitItem(tierStack, ItemDisplayContext.GUI, poseStack, submitNodeCollector, light, overlay, outlineColor);
             poseStack.popPose();
         }
 
@@ -75,7 +76,8 @@ public class AlchemicalDerivativeRenderer implements SpecialModelRenderer<ItemSt
             poseStack.pushPose();
             poseStack.translate(0, 0, pixel * 0.5); // move it in front of the jar
             poseStack.scale(1F, 1F, 0.01F); // flatten
-            this.submitItem(labelStack, displayContext, poseStack, submitNodeCollector, light, overlay, outlineColor);
+            // Render as GUI so overlay stays flat
+            this.submitItem(labelStack, ItemDisplayContext.GUI, poseStack, submitNodeCollector, light, overlay, outlineColor);
             poseStack.popPose();
 
             // Render Contained Item
@@ -98,7 +100,8 @@ public class AlchemicalDerivativeRenderer implements SpecialModelRenderer<ItemSt
                 // 4. Flatten the item
                 poseStack.scale(0.74F, 0.74F, 0.01F);
 
-                this.submitItem(containedStack, displayContext, poseStack, submitNodeCollector, light, overlay, outlineColor);
+                // Render as GUI so overlay stays flat
+                this.submitItem(containedStack, ItemDisplayContext.GUI, poseStack, submitNodeCollector, light, overlay, outlineColor);
 
                 poseStack.popPose();
             }

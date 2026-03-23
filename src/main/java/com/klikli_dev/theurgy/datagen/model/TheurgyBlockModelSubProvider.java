@@ -40,8 +40,6 @@ import java.util.function.BiConsumer;
 
 public class TheurgyBlockModelSubProvider {
 
-    private static final Identifier BUILTIN_ENTITY = Identifier.withDefaultNamespace("builtin/entity");
-
     public void registerModels(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
         this.registerCalcinationOven(blockModels, itemModels);
         this.registerPyromanticBrazier(blockModels, itemModels);
@@ -461,25 +459,23 @@ public class TheurgyBlockModelSubProvider {
     }
 
     /**
-     * Emits a builtin/entity model JSON with the standard display transforms matching vanilla's template_chest.
-     * This gives special-rendered items (GeckoLib, custom SpecialModelRenderer) the correct isometric appearance
+     * Emits a special item model JSON with display transforms for special-rendered items
+     * (GeckoLib, custom SpecialModelRenderer). Provides the correct isometric appearance
      * in inventory/GUI and proper transforms for all other display contexts.
      */
     private void emitBuiltinEntityModel(BiConsumer<Identifier, ModelInstance> output, Identifier modelLocation) {
         output.accept(modelLocation, () -> {
             JsonObject json = new JsonObject();
-            json.addProperty("parent", BUILTIN_ENTITY.toString());
 
             JsonObject display = new JsonObject();
-
             display.add("gui", displayTransform(30, 45, 0, 0, 0, 0, 0.625f));
             display.add("ground", displayTransform(0, 0, 0, 0, 3, 0, 0.25f));
             display.add("head", displayTransform(0, 180, 0, 0, 0, 0, 1.0f));
             display.add("fixed", displayTransform(0, 180, 0, 0, 0, 0, 0.5f));
             display.add("thirdperson_righthand", displayTransform(75, 315, 0, 0, 2.5f, 0, 0.375f));
             display.add("firstperson_righthand", displayTransform(0, 315, 0, 0, 0, 0, 0.4f));
-
             json.add("display", display);
+
             return json;
         });
     }

@@ -1,4 +1,3 @@
 {
-  "parent": "minecraft:builtin/entity",
   "gui_light": "front"
 }

@@ -16,9 +16,11 @@ public class FluidRegistry {
     public static final DeferredRegister<Fluid> FLUIDS = DeferredRegister.create(BuiltInRegistries.FLUID, Theurgy.MODID);
 
     private static BaseFlowingFluid.Properties salAmmoniacProperties() {
-        return new BaseFlowingFluid.Properties(FluidTypeRegistry.SAL_AMMONIAC, SAL_AMMONIAC, SAL_AMMONIAC_FLOWING).bucket(ItemRegistry.SAL_AMMONIAC_BUCKET);
+        return new BaseFlowingFluid.Properties(FluidTypeRegistry.SAL_AMMONIAC, SAL_AMMONIAC, SAL_AMMONIAC_FLOWING)
+                .bucket(ItemRegistry.SAL_AMMONIAC_BUCKET)
+                .block(BlockRegistry.SAL_AMMONIAC_FLUID);
     }
 
-    public static final DeferredHolder<Fluid, Fluid> SAL_AMMONIAC = FLUIDS.register("sal_ammoniac", () -> new BaseFlowingFluid.Source(salAmmoniacProperties()));
+    public static final DeferredHolder<Fluid, FlowingFluid> SAL_AMMONIAC = FLUIDS.register("sal_ammoniac", () -> new BaseFlowingFluid.Source(salAmmoniacProperties()));
     public static final DeferredHolder<Fluid, FlowingFluid> SAL_AMMONIAC_FLOWING = FLUIDS.register("sal_ammoniac_flowing", () -> new BaseFlowingFluid.Flowing(salAmmoniacProperties()));
 }

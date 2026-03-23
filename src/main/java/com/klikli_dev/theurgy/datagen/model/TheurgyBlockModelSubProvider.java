@@ -74,6 +74,7 @@ public class TheurgyBlockModelSubProvider {
         this.registerLogisticsNode(blockModels, itemModels);
         this.registerCubeAll(blockModels, itemModels, BlockRegistry.SAL_AMMONIAC_ORE.get());
         this.registerCubeAll(blockModels, itemModels, BlockRegistry.DEEPSLATE_SAL_AMMONIAC_ORE.get());
+        this.registerSalAmmoniacFluid(blockModels);
     }
 
     private void registerCalcinationOven(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
@@ -392,6 +393,12 @@ public class TheurgyBlockModelSubProvider {
 
     private void registerSingleStateBlock(BlockModelGenerators blockModels, Block block, Identifier model) {
         blockModels.blockStateOutput.accept(MultiPartGenerator.multiPart(block).with(BlockModelGenerators.variant(new Variant(model))));
+    }
+
+    private void registerSalAmmoniacFluid(BlockModelGenerators blockModels) {
+        Block block = BlockRegistry.SAL_AMMONIAC_FLUID.get();
+        this.emitParticleModel(blockModels.modelOutput, this.blockModel(block), Theurgy.loc("block/sal_ammoniac/still"));
+        this.registerSingleStateBlock(blockModels, block, this.blockModel(block));
     }
 
     private void registerParentedItemModel(ItemModelGenerators itemModels, Block block, Identifier parentModel) {

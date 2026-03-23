@@ -31,10 +31,12 @@ import com.klikli_dev.theurgy.content.apparatus.salammoniactank.SalAmmoniacTankB
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DropExperienceBlock;
+import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.material.PushReaction;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -196,6 +198,18 @@ public class BlockRegistry {
                     .strength(0.1f)
                     .noOcclusion()
                     .forceSolidOff());
+
+    public static final DeferredBlock<LiquidBlock> SAL_AMMONIAC_FLUID =
+            BLOCKS.registerBlock("sal_ammoniac", p -> new LiquidBlock(FluidRegistry.SAL_AMMONIAC.get(), p),
+                    () -> BlockBehaviour.Properties.of()
+                            .mapColor(MapColor.WATER)
+                            .replaceable()
+                            .noCollision()
+                            .strength(100.0F)
+                            .pushReaction(PushReaction.DESTROY)
+                            .noLootTable()
+                            .liquid()
+                            .sound(SoundType.EMPTY));
 
     public static final DeferredBlock<Block> SAL_AMMONIAC_ORE =
             BLOCKS.registerBlock("sal_ammoniac_ore", p -> new DropExperienceBlock(

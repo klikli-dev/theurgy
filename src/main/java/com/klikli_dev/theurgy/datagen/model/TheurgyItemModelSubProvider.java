@@ -90,7 +90,7 @@ public class TheurgyItemModelSubProvider {
         SulfurRegistry.SULFURS.getEntries().stream().map(DeferredHolder::get).map(AlchemicalSulfurItem.class::cast).forEach(sulfur -> {
             if (sulfur.useAutomaticIconRendering) {
                 itemModels.itemModelOutput.accept(sulfur, ItemModelUtils.specialModel(
-                        Identifier.withDefaultNamespace("builtin/entity"),
+                        Theurgy.loc("item/derivative_base"),
                         new AlchemicalDerivativeRenderer.Unbaked()
                 ));
             }
@@ -101,7 +101,7 @@ public class TheurgyItemModelSubProvider {
         NiterRegistry.NITERS.getEntries().stream().map(DeferredHolder::get).map(AlchemicalNiterItem.class::cast).forEach(niter -> {
             if (niter.useAutomaticIconRendering) {
                 itemModels.itemModelOutput.accept(niter, ItemModelUtils.specialModel(
-                        Identifier.withDefaultNamespace("builtin/entity"),
+                        Theurgy.loc("item/derivative_base"),
                         new AlchemicalDerivativeRenderer.Unbaked()
                 ));
             }

@@ -26,7 +26,6 @@ public class TheurgySpecialModelRenderers {
         event.register(Identifier.fromNamespaceAndPath(Theurgy.MODID, "sal_ammoniac_accumulator"), SalAmmoniacAccumulatorItemRenderer.Unbaked.MAP_CODEC);
         event.register(Identifier.fromNamespaceAndPath(Theurgy.MODID, "sal_ammoniac_tank"), SalAmmoniacTankItemRenderer.Unbaked.MAP_CODEC);
         event.register(Identifier.fromNamespaceAndPath(Theurgy.MODID, "incubator_mercury_vessel"), IncubatorMercuryVesselItemRenderer.Unbaked.MAP_CODEC);
-        event.register(Identifier.fromNamespaceAndPath(Theurgy.MODID, "incubator_salt_vessel"), IncubatorSaltVesselItemRenderer.Unbaked.MAP_CODEC);
         event.register(Identifier.fromNamespaceAndPath(Theurgy.MODID, "incubator_sulfur_vessel"), IncubatorSulfurVesselItemRenderer.Unbaked.MAP_CODEC);
         event.register(Identifier.fromNamespaceAndPath(Theurgy.MODID, "alchemical_derivative"), AlchemicalDerivativeRenderer.Unbaked.MAP_CODEC);
     }

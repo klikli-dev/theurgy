@@ -4,7 +4,6 @@
   "ingredient": "minecraft:bone",
   "result": {
     "type": "theurgy:item",
-    "count": 1,
     "id": "theurgy:alchemical_sulfur_bone"
   },
   "solvent": {

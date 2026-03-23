@@ -12,11 +12,10 @@ import com.klikli_dev.theurgy.content.recipe.IncubationRecipe;
 import com.klikli_dev.theurgy.content.recipe.result.RecipeResult;
 import com.klikli_dev.theurgy.registry.*;
 import net.minecraft.data.PackOutput;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.ItemTags;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.neoforged.neoforge.common.Tags;
 
@@ -32,7 +31,7 @@ public class IncubationRecipeProvider extends JsonRecipeProvider {
     }
 
     @Override
-    public void buildRecipes(BiConsumer<ResourceLocation, JsonObject> recipeConsumer) {
+    public void buildRecipes(BiConsumer<Identifier, JsonObject> recipeConsumer) {
         //logs from sulfurs
         this.makeRecipe(Items.OAK_LOG, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.PLANT.get(), SulfurRegistry.OAK_LOG.get());
         this.makeRecipe(Items.SPRUCE_LOG, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.PLANT.get(), SulfurRegistry.SPRUCE_LOG.get());
@@ -233,7 +232,7 @@ public class IncubationRecipeProvider extends JsonRecipeProvider {
         this.makeRecipe(Items.PUFFERFISH, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.CREATURE.get(), SulfurRegistry.PUFFERFISH.get());
         this.makeRecipe(Items.TURTLE_SCUTE, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.CREATURE.get(), SulfurRegistry.TURTLE_SCUTE.get());
         this.makeRecipe(Items.ARMADILLO_SCUTE, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.CREATURE.get(), SulfurRegistry.ARMADILLO_SCUTE.get());
-        
+
         this.makeRecipe(Items.DIRT, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.STRATA.get(), SulfurRegistry.DIRT.get());
         this.makeRecipe(Items.COARSE_DIRT, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.STRATA.get(), SulfurRegistry.COARSE_DIRT.get());
         this.makeRecipe(Items.PODZOL, ItemRegistry.MERCURY_SHARD.get(), SaltRegistry.STRATA.get(), SulfurRegistry.PODZOL.get());
@@ -385,7 +384,7 @@ public class IncubationRecipeProvider extends JsonRecipeProvider {
     }
 
     public void makeRecipe(String recipeName, Item result, int resultCount, Item mercury, AlchemicalSaltItem salt, AlchemicalSulfurItem sulfur, int incubationTime) {
-        var recipe = new Builder(RecipeResult.of(new ItemStack(result, resultCount)))
+        var recipe = new Builder(RecipeResult.of(new ItemStackTemplate(result, resultCount)))
                 .mercury(mercury)
                 .salt(salt)
                 .sulfur(sulfur)

@@ -12,8 +12,6 @@
   "category": "misc",
   "mercuryFlux": 100,
   "result": {
-    "type": "theurgy:item",
-    "count": 1,
     "id": "theurgy:alchemical_sulfur_crying_obsidian"
   },
   "sources": [
@@ -22,8 +20,6 @@
       "ingredient": "#theurgy:alchemical_sulfurs/earthen_matters/common"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_crying_obsidian"
-  },
+  "target": "theurgy:alchemical_sulfur_crying_obsidian",
   "time": 100
 }

@@ -2,12 +2,8 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "G": {
-      "tag": "c:glass_blocks"
-    },
-    "R": {
-      "tag": "c:rods/wooden"
-    }
+    "G": "#c:glass_blocks",
+    "R": "#c:rods/wooden"
   },
   "pattern": [
     " GR",
@@ -15,7 +11,14 @@
     "R  "
   ],
   "result": {
-    "count": 1,
+    "components": {
+      "theurgy:divination_settings_allowed_blocks_tag": "theurgy:divination_rod_t1_allowed_blocks",
+      "theurgy:divination_settings_disallowed_blocks_tag": "theurgy:divination_rod_t1_disallowed_blocks",
+      "theurgy:divination_settings_duration": 40,
+      "theurgy:divination_settings_max_damage": 8,
+      "theurgy:divination_settings_range": 96,
+      "theurgy:divination_settings_tier": "stone"
+    },
     "id": "theurgy:divination_rod_t1"
   }
 }

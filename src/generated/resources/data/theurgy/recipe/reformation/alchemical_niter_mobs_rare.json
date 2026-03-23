@@ -3,8 +3,6 @@
   "category": "misc",
   "mercuryFlux": 150,
   "result": {
-    "type": "theurgy:item",
-    "count": 1,
     "id": "theurgy:alchemical_niter_mobs_rare"
   },
   "sources": [
@@ -41,8 +39,6 @@
       "ingredient": "theurgy:alchemical_niter_gems_rare"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_niter_mobs_rare"
-  },
+  "target": "theurgy:alchemical_niter_mobs_rare",
   "time": 100
 }

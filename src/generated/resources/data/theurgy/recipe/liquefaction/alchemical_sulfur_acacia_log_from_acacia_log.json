@@ -4,7 +4,6 @@
   "ingredient": "minecraft:acacia_log",
   "result": {
     "type": "theurgy:item",
-    "count": 1,
     "id": "theurgy:alchemical_sulfur_acacia_log"
   },
   "solvent": {

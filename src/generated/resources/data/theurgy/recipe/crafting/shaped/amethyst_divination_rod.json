@@ -2,15 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "G": {
-      "tag": "c:glass_blocks"
-    },
-    "P": {
-      "tag": "c:dyes/purple"
-    },
-    "R": {
-      "tag": "c:rods/wooden"
-    }
+    "G": "#c:glass_blocks",
+    "P": "#c:dyes/purple",
+    "R": "#c:rods/wooden"
   },
   "pattern": [
     " GP",
@@ -19,9 +13,14 @@
   ],
   "result": {
     "components": {
-      "theurgy:divination_linked_block": "minecraft:budding_amethyst"
+      "theurgy:divination_linked_block": "minecraft:budding_amethyst",
+      "theurgy:divination_settings_allowed_blocks_tag": "theurgy:divination_rod_t1_allowed_blocks",
+      "theurgy:divination_settings_disallowed_blocks_tag": "theurgy:divination_rod_t1_disallowed_blocks",
+      "theurgy:divination_settings_duration": 40,
+      "theurgy:divination_settings_max_damage": 16,
+      "theurgy:divination_settings_range": 96,
+      "theurgy:divination_settings_tier": "stone"
     },
-    "count": 1,
     "id": "theurgy:amethyst_divination_rod"
   }
 }

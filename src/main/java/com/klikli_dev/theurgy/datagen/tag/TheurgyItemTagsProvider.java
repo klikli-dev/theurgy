@@ -8,36 +8,38 @@ import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.datagen.SulfurMappings;
 import com.klikli_dev.theurgy.registry.*;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
-import net.minecraft.data.tags.TagAppender;
 import net.minecraft.data.tags.TagsProvider;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.Tags;
 
-import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 
 public class TheurgyItemTagsProvider extends IntrinsicHolderTagsProvider<Item> {
     public TheurgyItemTagsProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, CompletableFuture<TagsProvider.TagLookup<Block>> blockTagsProvider) {
-        super(output, Registries.ITEM, lookupProvider, item -> item.builtInRegistryHolder().key(), Theurgy.MODID);
-    }
-
-    protected TagAppender<Block, Block> copy(TagKey<Block> blockTag, TagKey<Item> itemTag) {
-        return new BlockToItemConverter(this.tag(itemTag)).addTag(blockTag);
+        super(output, Registries.ITEM, lookupProvider, item -> BuiltInRegistries.ITEM.wrapAsHolder(item).unwrapKey().orElseThrow(), Theurgy.MODID);
     }
 
     @Override
     protected void addTags(HolderLookup.Provider pProvider) {
-        this.copy(BlockTagRegistry.SAL_AMMONIAC_ORES, ItemTagRegistry.ORES_SAL_AMMONIAC);
-        this.copy(Tags.Blocks.ORES_IN_GROUND_STONE, Tags.Items.ORES_IN_GROUND_STONE);
-        this.copy(Tags.Blocks.ORES_IN_GROUND_DEEPSLATE, Tags.Items.ORES_IN_GROUND_DEEPSLATE);
+        //Note: we cannot use this.copy() here because our custom copy converts the block tag to an item
+        //tag with the same location and adds it as a tag reference - which creates a self-reference
+        //for tags that share the same path (e.g. c:ores/sal_ammoniac exists as both block and item tag).
+        //Instead, we directly add the items to mirror what the block tag provider does.
+        this.tag(ItemTagRegistry.ORES_SAL_AMMONIAC)
+                .add(BlockRegistry.SAL_AMMONIAC_ORE.get().asItem())
+                .add(BlockRegistry.DEEPSLATE_SAL_AMMONIAC_ORE.get().asItem());
+        this.tag(Tags.Items.ORES_IN_GROUND_STONE)
+                .add(BlockRegistry.SAL_AMMONIAC_ORE.get().asItem());
+        this.tag(Tags.Items.ORES_IN_GROUND_DEEPSLATE)
+                .add(BlockRegistry.DEEPSLATE_SAL_AMMONIAC_ORE.get().asItem());
 
         this.tag(Tags.Items.ORES).addTag(ItemTagRegistry.ORES_SAL_AMMONIAC);
 
@@ -468,67 +470,7 @@ public class TheurgyItemTagsProvider extends IntrinsicHolderTagsProvider<Item> {
                 .add(net.minecraft.tags.TagEntry.optionalElement(this.rl("mna:chimerite_gem")));
     }
 
-    public ResourceLocation rl(String tag) {
-        return ResourceLocation.parse(tag);
-    }
-
-    private static class BlockToItemConverter implements TagAppender<Block, Block> {
-        private final TagAppender<Item, Item> itemAppender;
-
-        private BlockToItemConverter(TagAppender<Item, Item> itemAppender) {
-            this.itemAppender = itemAppender;
-        }
-
-        private static TagKey<Item> blockTagToItemTag(TagKey<Block> blockTag) {
-            return TagKey.create(Registries.ITEM, blockTag.location());
-        }
-
-        @Override
-        public TagAppender<Block, Block> add(Block block) {
-            this.itemAppender.add(Objects.requireNonNull(block.asItem()));
-            return this;
-        }
-
-        @Override
-        public TagAppender<Block, Block> addOptional(Block block) {
-            this.itemAppender.addOptional(Objects.requireNonNull(block.asItem()));
-            return this;
-        }
-
-        @Override
-        public TagAppender<Block, Block> addTag(TagKey<Block> tag) {
-            this.itemAppender.addTag(blockTagToItemTag(tag));
-            return this;
-        }
-
-        @Override
-        public TagAppender<Block, Block> addOptionalTag(TagKey<Block> tag) {
-            this.itemAppender.addOptionalTag(blockTagToItemTag(tag));
-            return this;
-        }
-
-        @Override
-        public TagAppender<Block, Block> add(net.minecraft.tags.TagEntry entry) {
-            this.itemAppender.add(entry);
-            return this;
-        }
-
-        @Override
-        public TagAppender<Block, Block> replace(boolean value) {
-            this.itemAppender.replace(value);
-            return this;
-        }
-
-        @Override
-        public TagAppender<Block, Block> remove(Block block) {
-            this.itemAppender.remove(Objects.requireNonNull(block.asItem()));
-            return this;
-        }
-
-        @Override
-        public TagAppender<Block, Block> remove(TagKey<Block> tag) {
-            this.itemAppender.remove(blockTagToItemTag(tag));
-            return this;
-        }
+    public Identifier rl(String tag) {
+        return Identifier.parse(tag);
     }
 }

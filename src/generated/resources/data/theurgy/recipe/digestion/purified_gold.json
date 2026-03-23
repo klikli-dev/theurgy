@@ -32,7 +32,6 @@
     }
   ],
   "result": {
-    "type": "theurgy:item",
     "count": 20,
     "id": "theurgy:purified_gold"
   },

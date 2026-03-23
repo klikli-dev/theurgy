@@ -28,7 +28,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.shapes.Shapes;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
 
@@ -142,7 +141,7 @@ public class WireItem extends Item {
 
         Wires.get(level).addWire(new Wire(wireEndPoint.pos(), pos));
 
-        if (!level.isClientSide) {
+        if (!level.isClientSide()) {
             var posA = GlobalPos.of(level.dimension(), pos);
             var posB = GlobalPos.of(wireEndPoint.level(), wireEndPoint.pos());
             Logistics.get().add(posA, posB);
@@ -171,7 +170,7 @@ public class WireItem extends Item {
         var level = pContext.getLevel();
 
         Wires.get(level).removeWire(wire);
-        if (!level.isClientSide) {
+        if (!level.isClientSide()) {
             var posA = GlobalPos.of(level.dimension(), wire.from());
             var posB = GlobalPos.of(level.dimension(), wire.to());
             Logistics.get().remove(posA, posB);

@@ -41,7 +41,7 @@ public abstract class GenericVatInteractionBehaviour<R extends Recipe<?>> implem
             return InteractionResult.PASS;
         }
 
-        if (pLevel.isClientSide)
+        if (pLevel.isClientSide())
             return InteractionResult.SUCCESS;
 
         var craftingBehaviour = vat.craftingBehaviour();

@@ -5,7 +5,7 @@
   "description": "book.theurgy.the_hermetica.getting_started.caloric_flux_emitter.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "theurgy:caloric_flux_emitter"
+    "id": "theurgy:caloric_flux_emitter"
   },
   "name": "book.theurgy.the_hermetica.getting_started.caloric_flux_emitter.name",
   "pages": [

@@ -2,18 +2,10 @@
   "type": "theurgy:divination_rod",
   "category": "misc",
   "key": {
-    "A": {
-      "tag": "c:gems/amethyst"
-    },
-    "D": {
-      "tag": "c:gems/diamond"
-    },
-    "G": {
-      "tag": "c:glass_blocks"
-    },
-    "S": {
-      "tag": "theurgy:alchemical_sulfurs/precious"
-    }
+    "A": "#c:gems/amethyst",
+    "D": "#c:gems/diamond",
+    "G": "#c:glass_blocks",
+    "S": "#theurgy:alchemical_sulfurs/precious"
   },
   "pattern": [
     " GS",
@@ -21,7 +13,14 @@
     "A  "
   ],
   "result": {
-    "count": 1,
+    "components": {
+      "theurgy:divination_settings_allowed_blocks_tag": "theurgy:divination_rod_t3_allowed_blocks",
+      "theurgy:divination_settings_disallowed_blocks_tag": "theurgy:divination_rod_t3_disallowed_blocks",
+      "theurgy:divination_settings_duration": 40,
+      "theurgy:divination_settings_max_damage": 32,
+      "theurgy:divination_settings_range": 96,
+      "theurgy:divination_settings_tier": "stone"
+    },
     "id": "theurgy:sulfur_attuned_divination_rod_precious"
   }
 }

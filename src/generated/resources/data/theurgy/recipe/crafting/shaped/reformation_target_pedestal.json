@@ -2,18 +2,10 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "S": {
-      "tag": "theurgy:alchemical_sulfurs"
-    },
-    "c": {
-      "tag": "c:ingots/copper"
-    },
-    "d": {
-      "tag": "c:gems/diamond"
-    },
-    "s": {
-      "item": "minecraft:blackstone"
-    }
+    "S": "#theurgy:alchemical_sulfurs",
+    "c": "#c:ingots/copper",
+    "d": "#c:gems/diamond",
+    "s": "minecraft:blackstone"
   },
   "pattern": [
     "cSc",
@@ -21,7 +13,6 @@
     "sss"
   ],
   "result": {
-    "count": 1,
     "id": "theurgy:reformation_target_pedestal"
   }
 }

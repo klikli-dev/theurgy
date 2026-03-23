@@ -7,26 +7,26 @@ package com.klikli_dev.theurgy.content.apparatus.digestionvat;
 import com.klikli_dev.theurgy.content.behaviour.crafting.CraftingBehaviour;
 import com.klikli_dev.theurgy.content.recipe.DigestionRecipe;
 import com.klikli_dev.theurgy.content.recipe.input.ItemHandlerWithFluidRecipeInput;
+import com.klikli_dev.theurgy.content.storage.FluidStorageHelper;
+import com.klikli_dev.theurgy.content.storage.SettableItemStorage;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.common.util.Lazy;
 import net.neoforged.neoforge.fluids.FluidStack;
-import net.neoforged.neoforge.fluids.capability.IFluidHandler;
-import net.neoforged.neoforge.items.IItemHandlerModifiable;
-import net.neoforged.neoforge.items.ItemHandlerHelper;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.fluid.FluidResource;
 
-import java.util.Objects;
 import java.util.function.Supplier;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class DigestionCraftingBehaviour extends CraftingBehaviour<ItemHandlerWithFluidRecipeInput, DigestionRecipe, DigestionCachedCheck> {
 
-    protected Supplier<IFluidHandler> fluidTankSupplier;
+    protected Supplier<ResourceHandler<FluidResource>> fluidTankSupplier;
 
-    public DigestionCraftingBehaviour(BlockEntity blockEntity, Supplier<IItemHandlerModifiable> inputInventorySupplier, Supplier<IItemHandlerModifiable> outputInventorySupplier, Supplier<IFluidHandler> fluidTankSupplier) {
+    public DigestionCraftingBehaviour(BlockEntity blockEntity, Supplier<SettableItemStorage> inputInventorySupplier, Supplier<SettableItemStorage> outputInventorySupplier, Supplier<ResourceHandler<FluidResource>> fluidTankSupplier) {
         super(blockEntity,
                 Lazy.of(() -> new ItemHandlerWithFluidRecipeInput(inputInventorySupplier.get(), fluidTankSupplier.get())),
                 inputInventorySupplier,
@@ -61,7 +61,7 @@ public class DigestionCraftingBehaviour extends CraftingBehaviour<ItemHandlerWit
         return this.isIngredient(stack);
     }
 
-    public void onInputChanged(){
+    public void onInputChanged() {
         this.recipeCachedCheck.resetNoRecipeForLastItemHandlerInput();
     }
 
@@ -72,7 +72,7 @@ public class DigestionCraftingBehaviour extends CraftingBehaviour<ItemHandlerWit
 
     @Override
     public boolean canProcess(FluidStack stack) {
-        if (FluidStack.isSameFluidSameComponents(this.fluidTankSupplier.get().getFluidInTank(0), stack))
+        if (FluidStack.isSameFluidSameComponents(FluidStorageHelper.getFluidInTank(this.fluidTankSupplier.get(), 0), stack))
             return true; //early out if we are already processing this type of fluid
 
         //now we use our custom cached check that checks only liquids:
@@ -101,10 +101,10 @@ public class DigestionCraftingBehaviour extends CraftingBehaviour<ItemHandlerWit
 
     @Override
     protected boolean craft(RecipeHolder<DigestionRecipe> pRecipe) {
-        var assembledStack = pRecipe.value().assemble(this.recipeInputSupplier.get(), Objects.requireNonNull(this.blockEntity.getLevel()).registryAccess());
+        var assembledStack = pRecipe.value().assemble(this.recipeInputSupplier.get());
 
         // Safely insert the assembledStack into the outputInventory and update the input stack.
-        ItemHandlerHelper.insertItemStacked(this.outputInventorySupplier.get(), assembledStack, false);
+        this.outputInventorySupplier.get().insertItemStacked(assembledStack, false);
 
         //consume the input stacks
         //the double loop may not be necessary, it may be OK to just take one from each slot (because recipe matches only if exact items match, not if more items are present)
@@ -119,7 +119,7 @@ public class DigestionCraftingBehaviour extends CraftingBehaviour<ItemHandlerWit
         }
 
         //then drain the fluid
-        this.fluidTankSupplier.get().drain(pRecipe.value().getFluidAmount(), IFluidHandler.FluidAction.EXECUTE);
+        FluidStorageHelper.drain(this.fluidTankSupplier.get(), pRecipe.value().getFluidAmount(), false);
 
         return true;
     }

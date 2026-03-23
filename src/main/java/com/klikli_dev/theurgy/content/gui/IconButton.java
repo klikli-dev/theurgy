@@ -29,7 +29,7 @@ public class IconButton extends AbstractButton {
                     : this.isMouseOver(pMouseX, pMouseY) ? GuiTextures.BUTTON_HOVER : GuiTextures.BUTTON;
 
             //draw button background
-            pGuiGraphics.blit(RenderPipelines.GUI_TEXTURED, button.location, this.getX(), this.getY(), (float)button.x, (float)button.y, button.width, button.height, 256, 256);
+            pGuiGraphics.blit(RenderPipelines.GUI_TEXTURED, button.location, this.getX(), this.getY(), (float) button.x, (float) button.y, button.width, button.height, 256, 256);
             this.icon.render(pGuiGraphics, this.getX() + 1, this.getY() + 1);
         }
     }

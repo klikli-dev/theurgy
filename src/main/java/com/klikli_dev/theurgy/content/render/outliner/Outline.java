@@ -10,11 +10,11 @@ import com.klikli_dev.theurgy.content.render.Color;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
-import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.Direction;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
+import net.minecraft.util.Brightness;
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
 import org.joml.*;
@@ -483,8 +483,8 @@ public abstract class Outline {
     }
 
     public static class OutlineParams {
-        protected Optional<ResourceLocation> faceTexture;
-        protected Optional<ResourceLocation> hightlightedFaceTexture;
+        protected Optional<Identifier> faceTexture;
+        protected Optional<Identifier> hightlightedFaceTexture;
         protected Direction highlightedFace;
         protected boolean fadeLineWidth;
         protected boolean disableCull;
@@ -500,7 +500,7 @@ public abstract class Outline {
             this.lineWidth = 1 / 32f;
             this.fadeLineWidth = true;
             this.rgb = Color.WHITE;
-            this.lightmap = LightTexture.FULL_BRIGHT;
+            this.lightmap = Brightness.FULL_BRIGHT.pack();
         }
 
         // builder
@@ -525,7 +525,7 @@ public abstract class Outline {
             return this;
         }
 
-        public OutlineParams withFaceTexture(ResourceLocation texture) {
+        public OutlineParams withFaceTexture(Identifier texture) {
             this.faceTexture = Optional.ofNullable(texture);
             return this;
         }
@@ -534,7 +534,7 @@ public abstract class Outline {
             return this.withFaceTextures(null, null);
         }
 
-        public OutlineParams withFaceTextures(ResourceLocation texture, ResourceLocation highlightTexture) {
+        public OutlineParams withFaceTextures(Identifier texture, Identifier highlightTexture) {
             this.faceTexture = Optional.ofNullable(texture);
             this.hightlightedFaceTexture = Optional.ofNullable(highlightTexture);
             return this;

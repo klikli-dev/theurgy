@@ -4,14 +4,19 @@
 
 package com.klikli_dev.theurgy.content.apparatus.calcinationoven;
 
+import com.geckolib.animatable.GeoBlockEntity;
+import com.geckolib.animatable.instance.AnimatableInstanceCache;
+import com.geckolib.animatable.manager.AnimatableManager;
+import com.geckolib.animation.AnimationController;
 import com.klikli_dev.theurgy.content.behaviour.animation.AnimationBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.crafting.HasCraftingBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.heat.HeatConsumerBehaviour;
 import com.klikli_dev.theurgy.content.capability.CraftingHeatReceiver;
 import com.klikli_dev.theurgy.content.recipe.CalcinationRecipe;
 import com.klikli_dev.theurgy.content.recipe.input.ItemHandlerRecipeInput;
-import com.klikli_dev.theurgy.util.ValueIOUtils;
+import com.klikli_dev.theurgy.content.storage.ItemStorageHelper;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
+import com.klikli_dev.theurgy.util.ValueIOUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
@@ -26,10 +31,6 @@ import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import software.bernie.geckolib.animatable.GeoBlockEntity;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animatable.manager.AnimatableManager;
-import software.bernie.geckolib.animatable.processing.AnimationController;
 
 
 public class CalcinationOvenBlockEntity extends BlockEntity implements GeoBlockEntity, HasCraftingBehaviour<ItemHandlerRecipeInput, CalcinationRecipe, CalcinationCachedCheck> {
@@ -97,8 +98,8 @@ public class CalcinationOvenBlockEntity extends BlockEntity implements GeoBlockE
     public void preRemoveSideEffects(BlockPos pPos, BlockState pState) {
         super.preRemoveSideEffects(pPos, pState);
 
-        for (int i = 0; i < this.storageBehaviour.inventory.getSlots(); i++) {
-            Containers.dropItemStack(this.level, pPos.getX(), pPos.getY(), pPos.getZ(), this.storageBehaviour.inventory.getStackInSlot(i));
+        for (int i = 0; i < ItemStorageHelper.getSlots(this.storageBehaviour.inventory); i++) {
+            Containers.dropItemStack(this.level, pPos.getX(), pPos.getY(), pPos.getZ(), ItemStorageHelper.getStackInSlot(this.storageBehaviour.inventory, i));
         }
     }
 

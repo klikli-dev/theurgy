@@ -4,6 +4,7 @@
 
 package com.klikli_dev.theurgy.content.recipe;
 
+import com.klikli_dev.theurgy.content.recipe.display.IncubationRecipeDisplay;
 import com.klikli_dev.theurgy.content.recipe.input.IncubatorRecipeInput;
 import com.klikli_dev.theurgy.content.recipe.result.RecipeResult;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
@@ -18,20 +19,17 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.item.crafting.RecipeBookCategory;
-import net.minecraft.world.item.crafting.RecipeBookCategories;
-import net.minecraft.world.item.crafting.RecipeBookCategory;
-import net.minecraft.world.item.crafting.RecipeBookCategories;
-import net.minecraft.world.item.crafting.PlacementInfo;
+import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.item.crafting.display.RecipeDisplay;
+import net.minecraft.world.item.crafting.display.SlotDisplay;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
 
-public class IncubationRecipe implements Recipe<IncubatorRecipeInput> {
+
+public record IncubationRecipe(Ingredient mercury, Ingredient salt, Ingredient sulfur, RecipeResult result,
+                               int time) implements Recipe<IncubatorRecipeInput> {
 
     public static final int DEFAULT_TIME = 100;
 
@@ -42,7 +40,6 @@ public class IncubationRecipe implements Recipe<IncubatorRecipeInput> {
             RecipeResult.CODEC.fieldOf("result").forGetter(r -> r.result),
             Codec.INT.optionalFieldOf("time", DEFAULT_TIME).forGetter(r -> r.time)
     ).apply(instance, IncubationRecipe::new));
-
     public static final StreamCodec<RegistryFriendlyByteBuf, IncubationRecipe> STREAM_CODEC = StreamCodec.composite(
             Ingredient.CONTENTS_STREAM_CODEC,
             r -> r.mercury,
@@ -57,21 +54,7 @@ public class IncubationRecipe implements Recipe<IncubatorRecipeInput> {
             IncubationRecipe::new
     );
 
-    protected final Ingredient mercury;
-    protected final Ingredient salt;
-    protected final Ingredient sulfur;
-
-    protected final RecipeResult result;
-    protected final int time;
-
-    public IncubationRecipe(Ingredient mercury, Ingredient salt, Ingredient sulfur, RecipeResult pResult, int time) {
-        this.mercury = mercury;
-        this.salt = salt;
-        this.sulfur = sulfur;
-        this.result = pResult;
-        this.time = time;
-    }
-
+    public static final RecipeSerializer<IncubationRecipe> SERIALIZER = new RecipeSerializer<>(CODEC, STREAM_CODEC);
     @Override
     public boolean isSpecial() {
         return true;
@@ -89,8 +72,19 @@ public class IncubationRecipe implements Recipe<IncubatorRecipeInput> {
                 this.sulfur.test(pContainer.getSulfurVesselInv().getStackInSlot(0));
     }
 
-    public ItemStack assemble(IncubatorRecipeInput pInv, HolderLookup.Provider pRegistries) {
+    @Override
+    public ItemStack assemble(IncubatorRecipeInput pInv) {
         return this.result.getStack().copy();
+    }
+
+    @Override
+    public boolean showNotification() {
+        return true;
+    }
+
+    @Override
+    public String group() {
+        return "";
     }
 
     @Override
@@ -105,10 +99,6 @@ public class IncubationRecipe implements Recipe<IncubatorRecipeInput> {
 
     public ItemStack getResultItem(HolderLookup.Provider pRegistries) {
         return this.result.getStack();
-    }
-
-    public RecipeResult getResult() {
-        return this.result;
     }
 
     public @NotNull NonNullList<Ingredient> getIngredients() {
@@ -128,44 +118,16 @@ public class IncubationRecipe implements Recipe<IncubatorRecipeInput> {
         return RecipeSerializerRegistry.INCUBATION.get();
     }
 
-    public int getTime() {
-        return this.time;
-    }
-
-    public Ingredient getMercury() {
-        return this.mercury;
-    }
-
-    public Ingredient getSalt() {
-        return this.salt;
-    }
-
-    public Ingredient getSulfur() {
-        return this.sulfur;
-    }
-
     @Override
-    public java.util.List<net.minecraft.world.item.crafting.display.RecipeDisplay> display() {
-        return java.util.List.of(new com.klikli_dev.theurgy.content.recipe.display.IncubationRecipeDisplay(
+    public List<RecipeDisplay> display() {
+        return List.of(new IncubationRecipeDisplay(
                 this.mercury,
                 this.salt,
                 this.sulfur,
                 this.result,
                 this.time,
-                new net.minecraft.world.item.crafting.display.SlotDisplay.ItemSlotDisplay(com.klikli_dev.theurgy.registry.BlockRegistry.INCUBATOR.get().asItem())
+                new SlotDisplay.ItemSlotDisplay(BlockRegistry.INCUBATOR.get().asItem())
         ));
     }
 
-    public static class Serializer implements RecipeSerializer<IncubationRecipe> {
-
-        @Override
-        public @NotNull MapCodec<IncubationRecipe> codec() {
-            return CODEC;
-        }
-
-        @Override
-        public @NotNull StreamCodec<RegistryFriendlyByteBuf, IncubationRecipe> streamCodec() {
-            return STREAM_CODEC;
-        }
-    }
 }

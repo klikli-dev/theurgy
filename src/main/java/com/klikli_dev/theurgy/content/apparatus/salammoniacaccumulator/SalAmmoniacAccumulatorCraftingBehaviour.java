@@ -7,6 +7,8 @@ package com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator;
 import com.klikli_dev.theurgy.content.behaviour.crafting.CraftingBehaviour;
 import com.klikli_dev.theurgy.content.recipe.AccumulationRecipe;
 import com.klikli_dev.theurgy.content.recipe.input.ItemHandlerWithFluidRecipeInput;
+import com.klikli_dev.theurgy.content.storage.FluidStorageHelper;
+import com.klikli_dev.theurgy.content.storage.SettableItemStorage;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
@@ -14,18 +16,18 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.common.util.Lazy;
 import net.neoforged.neoforge.fluids.FluidStack;
-import net.neoforged.neoforge.fluids.capability.IFluidHandler;
-import net.neoforged.neoforge.items.IItemHandlerModifiable;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.fluid.FluidResource;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Supplier;
 
 public class SalAmmoniacAccumulatorCraftingBehaviour extends CraftingBehaviour<ItemHandlerWithFluidRecipeInput, AccumulationRecipe, SalAmmoniacAccumulatorCachedCheck> {
 
-    protected Supplier<IFluidHandler> waterTankSupplier;
-    protected Supplier<IFluidHandler> outputTankSupplier;
+    protected Supplier<ResourceHandler<FluidResource>> waterTankSupplier;
+    protected Supplier<ResourceHandler<FluidResource>> outputTankSupplier;
 
-    public SalAmmoniacAccumulatorCraftingBehaviour(BlockEntity blockEntity, Supplier<IItemHandlerModifiable> inputInventorySupplier, Supplier<IItemHandlerModifiable> outputInventorySupplier, Supplier<IFluidHandler> waterTankSupplier, Supplier<IFluidHandler> outputTankSupplier) {
+    public SalAmmoniacAccumulatorCraftingBehaviour(BlockEntity blockEntity, Supplier<SettableItemStorage> inputInventorySupplier, Supplier<SettableItemStorage> outputInventorySupplier, Supplier<ResourceHandler<FluidResource>> waterTankSupplier, Supplier<ResourceHandler<FluidResource>> outputTankSupplier) {
         super(blockEntity,
                 Lazy.of(() -> new ItemHandlerWithFluidRecipeInput(inputInventorySupplier.get(), waterTankSupplier.get())),
                 inputInventorySupplier,
@@ -38,13 +40,13 @@ public class SalAmmoniacAccumulatorCraftingBehaviour extends CraftingBehaviour<I
 
     @Override
     public boolean isIngredient(ItemStack stack) {
-        if (this.blockEntity.getLevel().isClientSide) return false;
-        return this.recipeCachedCheck.getRecipeFor(stack, (ServerLevel)this.blockEntity.getLevel()).isPresent();
+        if (this.blockEntity.getLevel().isClientSide()) return false;
+        return this.recipeCachedCheck.getRecipeFor(stack, (ServerLevel) this.blockEntity.getLevel()).isPresent();
     }
 
     @Override
     public boolean canProcess(FluidStack stack) {
-        if (FluidStack.isSameFluidSameComponents(this.waterTankSupplier.get().getFluidInTank(0), stack))
+        if (FluidStack.isSameFluidSameComponents(FluidStorageHelper.getFluidInTank(this.waterTankSupplier.get(), 0), stack))
             return true; //early out if we are already processing this type of fluid
 
         //now we use our custom cached check that checks only liquids:
@@ -53,8 +55,8 @@ public class SalAmmoniacAccumulatorCraftingBehaviour extends CraftingBehaviour<I
 
     @Override
     public boolean isIngredient(FluidStack stack) {
-        if (this.blockEntity.getLevel().isClientSide) return false;
-        return this.recipeCachedCheck.getRecipeFor(stack, (ServerLevel)this.blockEntity.getLevel()).isPresent();
+        if (this.blockEntity.getLevel().isClientSide()) return false;
+        return this.recipeCachedCheck.getRecipeFor(stack, (ServerLevel) this.blockEntity.getLevel()).isPresent();
     }
 
     @Override
@@ -81,7 +83,7 @@ public class SalAmmoniacAccumulatorCraftingBehaviour extends CraftingBehaviour<I
             return false;
         } else {
             var tank = this.outputTankSupplier.get();
-            int fluidAccepted = tank.fill(assembledStack, IFluidHandler.FluidAction.SIMULATE);
+            int fluidAccepted = FluidStorageHelper.fill(tank, assembledStack, true);
 
             //Note: Disregard the below comment, we extended the capacity of the tank to avoid this issue.
             //  the solution to void some fluid is not great because if pipes remove e.g.
@@ -103,7 +105,7 @@ public class SalAmmoniacAccumulatorCraftingBehaviour extends CraftingBehaviour<I
         var assembledFluid = pRecipe.value().assembleFluid(this.recipeInputSupplier.get(), this.blockEntity.getLevel().registryAccess());
         var outputFluidTank = this.outputTankSupplier.get();
 
-        outputFluidTank.fill(assembledFluid, IFluidHandler.FluidAction.EXECUTE);
+        FluidStorageHelper.fill(outputFluidTank, assembledFluid, false);
 
         //only consume the solid solute, if the recipe requires it.
         //this avoids accidentally consuming a solute when a "water only" recipe is running while the solute is added.
@@ -112,7 +114,7 @@ public class SalAmmoniacAccumulatorCraftingBehaviour extends CraftingBehaviour<I
         }
 
         if (pRecipe.value().hasEvaporant()) {
-            this.waterTankSupplier.get().drain(pRecipe.value().getEvaporantAmount(), IFluidHandler.FluidAction.EXECUTE);
+            FluidStorageHelper.drain(this.waterTankSupplier.get(), pRecipe.value().getEvaporantAmount(), false);
         }
 
         return true;

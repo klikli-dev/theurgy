@@ -10,6 +10,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.transfer.access.ItemAccess;
+import net.neoforged.neoforge.transfer.fluid.FluidUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,19 +27,19 @@ public class ListFilter extends Filter {
         super(provider, filter);
     }
 
-    public List<ItemStack> filterItems(){
+    public List<ItemStack> filterItems() {
         return this.filterItems;
     }
 
-    public List<FluidStack> filterFluids(){
+    public List<FluidStack> filterFluids() {
         return this.filterFluids;
     }
 
-    public boolean shouldRespectDataComponents(){
+    public boolean shouldRespectDataComponents() {
         return this.shouldRespectDataComponents;
     }
 
-    public boolean isDenyList(){
+    public boolean isDenyList() {
         return this.isDenyList;
     }
 
@@ -78,11 +80,11 @@ public class ListFilter extends Filter {
         this.filterFluids = new ArrayList<>();
 
         for (var filterItem : this.filterItems) {
-            var capability = filterItem.getCapability(Capabilities.FluidHandler.ITEM);
+            var capability = ItemAccess.forStack(filterItem).oneByOne().getCapability(Capabilities.Fluid.ITEM);
             if (capability == null)
                 continue;
 
-            this.filterFluids.add(capability.getFluidInTank(0).copyWithAmount(1));
+            this.filterFluids.add(FluidUtil.getStack(capability, 0).copyWithAmount(1));
         }
     }
 

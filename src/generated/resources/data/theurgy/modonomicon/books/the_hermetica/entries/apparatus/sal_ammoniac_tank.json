@@ -5,7 +5,7 @@
   "description": "book.theurgy.the_hermetica.apparatus.sal_ammoniac_tank.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "theurgy:sal_ammoniac_tank"
+    "id": "theurgy:sal_ammoniac_tank"
   },
   "name": "book.theurgy.the_hermetica.apparatus.sal_ammoniac_tank.name",
   "pages": [

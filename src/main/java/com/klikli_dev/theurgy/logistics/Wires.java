@@ -13,6 +13,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.SectionPos;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.datafix.DataFixTypes;
 import net.minecraft.world.level.ChunkPos;
@@ -36,7 +37,7 @@ public class Wires extends SavedData {
             Codecs.set(Wire.CODEC).fieldOf("wireConnections").forGetter(wires -> wires.wires),
             Codec.BOOL.fieldOf("isClient").forGetter(wires -> wires.isClient)
     ).apply(instance, Wires::new));
-    private static final SavedDataType<Wires> TYPE = new SavedDataType<>(Wires.ID, () -> new Wires(false), Wires.CODEC, DataFixTypes.LEVEL);
+    private static final SavedDataType<Wires> TYPE = new SavedDataType<>(Identifier.parse(Wires.ID), () -> new Wires(false), Wires.CODEC, DataFixTypes.LEVEL);
 
     private static WeakReference<ServerLevel> cachedServerLevel = new WeakReference<>(null);
     private static WeakReference<Wires> cachedServerWires = new WeakReference<>(null);
@@ -180,7 +181,7 @@ public class Wires extends SavedData {
      * Gets all wires in a chunk
      */
     public Set<Wire> getWires(ChunkPos chunk) {
-        if(this.isClient)
+        if (this.isClient)
             throw new UnsupportedOperationException("Cannot get all wires in a chunk on the client");
         return this.chunkToWires.get(chunk);
     }
@@ -189,7 +190,7 @@ public class Wires extends SavedData {
      * Gets all chunks a wire is in
      */
     public Set<ChunkPos> getChunks(Wire wire) {
-        if(this.isClient)
+        if (this.isClient)
             throw new UnsupportedOperationException("Cannot get all chunks a wire is in on the client");
         return this.wiresToChunk.get(wire);
     }

@@ -2,18 +2,10 @@
   "type": "theurgy:divination_rod",
   "category": "misc",
   "key": {
-    "A": {
-      "tag": "c:gems/amethyst"
-    },
-    "G": {
-      "tag": "c:glass_blocks"
-    },
-    "R": {
-      "tag": "c:rods/wooden"
-    },
-    "S": {
-      "tag": "theurgy:alchemical_sulfurs/rare"
-    }
+    "A": "#c:gems/amethyst",
+    "G": "#c:glass_blocks",
+    "R": "#c:rods/wooden",
+    "S": "#theurgy:alchemical_sulfurs/rare"
   },
   "pattern": [
     " GS",
@@ -21,7 +13,14 @@
     "R  "
   ],
   "result": {
-    "count": 1,
+    "components": {
+      "theurgy:divination_settings_allowed_blocks_tag": "theurgy:divination_rod_t2_allowed_blocks",
+      "theurgy:divination_settings_disallowed_blocks_tag": "theurgy:divination_rod_t2_disallowed_blocks",
+      "theurgy:divination_settings_duration": 40,
+      "theurgy:divination_settings_max_damage": 32,
+      "theurgy:divination_settings_range": 96,
+      "theurgy:divination_settings_tier": "stone"
+    },
     "id": "theurgy:sulfur_attuned_divination_rod_rare"
   }
 }

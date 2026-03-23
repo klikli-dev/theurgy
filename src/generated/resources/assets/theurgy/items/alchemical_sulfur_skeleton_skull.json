@@ -1,6 +1,9 @@
 {
   "model": {
-    "type": "minecraft:model",
-    "model": "theurgy:item/alchemical_sulfur_skeleton_skull"
+    "type": "minecraft:special",
+    "base": "theurgy:item/derivative_base",
+    "model": {
+      "type": "theurgy:alchemical_derivative"
+    }
   }
 }

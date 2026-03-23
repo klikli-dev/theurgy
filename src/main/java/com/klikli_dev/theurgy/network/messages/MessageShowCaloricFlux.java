@@ -55,7 +55,7 @@ public class MessageShowCaloricFlux implements Message {
         var to = Vec3.atCenterOf(this.to);
 
         //discard the message if source/target are not loaded or if the player is too far
-        if (level.isLoaded(this.to) && level.isLoaded(this.from) && level.isClientSide && player.getOnPos().distSqr(this.from) < 15 * 15) {
+        if (level.isLoaded(this.to) && level.isLoaded(this.from) && level.isClientSide() && player.getOnPos().distSqr(this.from) < 15 * 15) {
             FollowProjectile projectile = new FollowProjectile(level, from, to, COLOR, 0.1f);
             projectile.setDeltaMovement(normal.scale(0.3f));
 

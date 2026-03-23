@@ -4,6 +4,8 @@
 
 package com.klikli_dev.theurgy.content.behaviour.itemhandler;
 
+import com.klikli_dev.theurgy.content.storage.ItemStorageHelper;
+import com.klikli_dev.theurgy.registry.CapabilityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -12,7 +14,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
-import net.neoforged.neoforge.capabilities.Capabilities;
 
 
 public class TwoSlotItemHandlerBehaviour implements ItemHandlerBehaviour {
@@ -28,7 +29,7 @@ public class TwoSlotItemHandlerBehaviour implements ItemHandlerBehaviour {
         if (pHand != InteractionHand.MAIN_HAND)
             return InteractionResult.PASS;
 
-        var blockItemHandler = pLevel.getCapability(Capabilities.ItemHandler.BLOCK, pPos, null);
+        var blockItemHandler = pLevel.getCapability(CapabilityRegistry.ITEM_HANDLER, pPos, null);
         //a block without item handler is of no interest
         if (blockItemHandler == null)
             return InteractionResult.PASS;
@@ -37,21 +38,21 @@ public class TwoSlotItemHandlerBehaviour implements ItemHandlerBehaviour {
 
         if (stackInHand.isEmpty()) {
             //with empty hand first try take output
-            var extracted = blockItemHandler.extractItem(OUTPUT_SLOT, blockItemHandler.getSlotLimit(OUTPUT_SLOT), false);
+            var extracted = ItemStorageHelper.extractItem(blockItemHandler, OUTPUT_SLOT, ItemStorageHelper.getSlotLimit(blockItemHandler, OUTPUT_SLOT), false);
             if (!extracted.isEmpty()) {
                 pPlayer.getInventory().placeItemBackInInventory(extracted);
                 return InteractionResult.SUCCESS;
             }
 
             //if no output, try take input
-            extracted = blockItemHandler.extractItem(INPUT_SLOT, blockItemHandler.getSlotLimit(INPUT_SLOT), false);
+            extracted = ItemStorageHelper.extractItem(blockItemHandler, INPUT_SLOT, ItemStorageHelper.getSlotLimit(blockItemHandler, INPUT_SLOT), false);
             if (!extracted.isEmpty()) {
                 pPlayer.getInventory().placeItemBackInInventory(extracted);
                 return InteractionResult.SUCCESS;
             }
         } else {
             //if we have an item in hand, try to insert
-            var remainder = blockItemHandler.insertItem(INPUT_SLOT, stackInHand, false);
+            var remainder = ItemStorageHelper.insertItem(blockItemHandler, INPUT_SLOT, stackInHand, false);
             pPlayer.setItemInHand(pHand, remainder);
             if (remainder.getCount() != stackInHand.getCount()) {
                 return InteractionResult.SUCCESS;

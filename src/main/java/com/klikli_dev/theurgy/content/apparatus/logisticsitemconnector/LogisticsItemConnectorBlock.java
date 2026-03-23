@@ -5,16 +5,10 @@
 package com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector;
 
 import com.klikli_dev.theurgy.content.apparatus.DirectionalBlockShape;
-import com.klikli_dev.theurgy.content.behaviour.filter.HasFilterBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.logistics.HasWireEndPoint;
-import com.klikli_dev.theurgy.logistics.Wires;
-import com.klikli_dev.theurgy.network.Networking;
-import com.klikli_dev.theurgy.network.messages.MessageShowLogisticsNodeStatus;
-import com.klikli_dev.theurgy.registry.ItemRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -23,7 +17,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -62,7 +55,7 @@ public abstract class LogisticsItemConnectorBlock extends DirectionalBlock imple
         if (!pPlayer.getItemInHand(pHand).isEmpty())
             return InteractionResult.PASS;
 
-        if (pLevel.isClientSide) {
+        if (pLevel.isClientSide()) {
             return InteractionResult.SUCCESS;
         }
 

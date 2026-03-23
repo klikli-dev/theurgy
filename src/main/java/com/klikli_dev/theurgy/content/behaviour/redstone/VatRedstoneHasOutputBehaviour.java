@@ -6,7 +6,6 @@ package com.klikli_dev.theurgy.content.behaviour.redstone;
 
 import com.klikli_dev.theurgy.content.behaviour.storage.HasStorageBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.storage.OutputStorageBehaviour;
-import com.klikli_dev.theurgy.content.behaviour.storage.StorageBehaviour;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.BlockGetter;
@@ -17,14 +16,14 @@ import org.jetbrains.annotations.NotNull;
 /**
  * A behaviour that opens or closes the lid if the redstone signal changes.
  */
-public class VatRedstoneHasOutputBehaviour{
+public class VatRedstoneHasOutputBehaviour {
 
     public VatRedstoneHasOutputBehaviour() {
 
     }
 
     public int getSignal(@NotNull BlockState pState, BlockGetter pLevel, @NotNull BlockPos pPos, @NotNull Direction pDirection) {
-        if(!pState.hasProperty(BlockStateProperties.HORIZONTAL_FACING) || pDirection != pState.getValue(BlockStateProperties.HORIZONTAL_FACING))
+        if (!pState.hasProperty(BlockStateProperties.HORIZONTAL_FACING) || pDirection != pState.getValue(BlockStateProperties.HORIZONTAL_FACING))
             return 0;
 
         var blockEntity = pLevel.getBlockEntity(pPos);

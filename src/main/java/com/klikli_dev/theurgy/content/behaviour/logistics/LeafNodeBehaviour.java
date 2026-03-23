@@ -4,13 +4,11 @@
 
 package com.klikli_dev.theurgy.content.behaviour.logistics;
 
-import com.mojang.serialization.Codec;
 import com.klikli_dev.theurgy.content.behaviour.filter.Filter;
 import com.klikli_dev.theurgy.logistics.Logistics;
+import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.GlobalPos;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.storage.ValueInput;
@@ -33,7 +31,7 @@ public abstract class LeafNodeBehaviour<T, C> {
     /**
      * The block this node makes accessible to the network (e.g. by being attached to a block).
      * Child node behaviours can e.g. build insert/extract target lists from this list.
-     *
+     * <p>
      * For the most basic leaf nodes the target list is simply the block they are attached to.
      */
     protected List<BlockPos> targets;
@@ -57,11 +55,11 @@ public abstract class LeafNodeBehaviour<T, C> {
         return this.globalPos.get();
     }
 
-    public Filter filter(){
+    public Filter filter() {
         return this.filter;
     }
 
-    public void filter(Filter filter){
+    public void filter(Filter filter) {
         this.filter = filter;
     }
 

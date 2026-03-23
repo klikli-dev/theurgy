@@ -4,12 +4,13 @@
 
 package com.klikli_dev.theurgy.content.apparatus.incubator.render;
 
+import com.geckolib.renderer.GeoBlockRenderer;
 import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorSaltVesselBlockEntity;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
-import software.bernie.geckolib.renderer.GeoBlockRenderer;
+import net.minecraft.client.renderer.blockentity.state.BlockEntityRenderState;
 
-public class IncubatorSaltVesselRenderer extends GeoBlockRenderer<IncubatorSaltVesselBlockEntity> {
+public class IncubatorSaltVesselRenderer extends GeoBlockRenderer<IncubatorSaltVesselBlockEntity, BlockEntityRenderState> {
     public IncubatorSaltVesselRenderer(BlockEntityRendererProvider.Context pContext) {
-        super(new IncubatorSaltVesselModel());
+        super(pContext, new IncubatorSaltVesselModel());
     }
 }

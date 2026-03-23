@@ -10,6 +10,7 @@ import com.klikli_dev.theurgy.content.capability.DefaultMercuryFluxStorage;
 import com.klikli_dev.theurgy.content.entity.FollowProjectile;
 import com.klikli_dev.theurgy.content.recipe.input.ReformationArrayRecipeInput;
 import com.klikli_dev.theurgy.content.render.Color;
+import com.klikli_dev.theurgy.content.storage.SettableItemStorage;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.DataComponentRegistry;
@@ -31,7 +32,6 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.items.IItemHandlerModifiable;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -166,8 +166,7 @@ SulfuricFluxEmitterBlockEntity extends BlockEntity {
                 .filter(e -> e instanceof ReformationSourcePedestalBlockEntity) //filter out potentially (currently) null ones
                 .map(e -> (ReformationSourcePedestalBlockEntity) e)
                 .peek(e -> e.setSulfuricFluxEmitter(this))
-                .map(e -> e.inputInventory)
-                .map(e -> (IItemHandlerModifiable) e)
+                .map(e -> (SettableItemStorage) e.inputInventory)
                 .toList();
 
         this.onSourcePedestalContentChange(null); //only call it once as we don't need to call it on each
@@ -180,10 +179,10 @@ SulfuricFluxEmitterBlockEntity extends BlockEntity {
         this.ItemHandlerRecipeInput = null;
     }
 
-    public IItemHandlerModifiable getOutputInventory() {
+    public SettableItemStorage getOutputInventory() {
         var pos = this.resultPedestal.getBlockPos();
 
-        if(!this.level.isLoaded(pos))
+        if (!this.level.isLoaded(pos))
             return null;
 
         var blockEntity = this.level.getBlockEntity(pos);
@@ -347,7 +346,7 @@ SulfuricFluxEmitterBlockEntity extends BlockEntity {
             var from = Vec3.atCenterOf(emitter.getBlockPos()).subtract(normal.scale(0.5));
             var to = Vec3.atCenterOf(emitter.targetPedestal.getBlockPos()).add(0, 0.5, 0);
 
-            if (emitter.level.isLoaded(BlockPos.containing(to)) && emitter.level.isLoaded(BlockPos.containing(from)) && emitter.level.isClientSide) {
+            if (emitter.level.isLoaded(BlockPos.containing(to)) && emitter.level.isLoaded(BlockPos.containing(from)) && emitter.level.isClientSide()) {
                 FollowProjectile projectile = new FollowProjectile(emitter.level, from, to, new Color(0xffffff, false), new Color(0x0000ff, false), 0.1f, 0.3f, (targetProjectile) -> {
                     DistHelper.sendSourceProjectiles(targetProjectile, emitter);
                 });

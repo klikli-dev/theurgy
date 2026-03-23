@@ -8,27 +8,20 @@ import com.klikli_dev.theurgy.content.recipe.FermentationRecipe;
 import com.klikli_dev.theurgy.content.recipe.input.ItemHandlerWithFluidRecipeInput;
 import com.klikli_dev.theurgy.util.LevelUtil;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
-import net.minecraft.server.level.ServerLevel;
 import net.neoforged.neoforge.fluids.FluidStack;
-import net.neoforged.neoforge.items.IItemHandlerModifiable;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.function.Supplier;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 /**
  * A custom cached check
@@ -96,7 +89,7 @@ public class FermentationCachedCheck implements RecipeManager.CachedCheck<ItemHa
             var recipeOptional = recipeManager.byKey(lastRecipe);
             if (recipeOptional.isPresent() && recipeOptional.get().value().getType() == this.type) {
                 @SuppressWarnings("unchecked")
-                var recipe = (RecipeHolder<FermentationRecipe>) (Object) recipeOptional.get();
+                var recipe = (RecipeHolder<FermentationRecipe>) recipeOptional.get();
                 if (this.matchesRecipe(recipe, input)) {
                     return Optional.of(recipe);
                 }
@@ -112,7 +105,7 @@ public class FermentationCachedCheck implements RecipeManager.CachedCheck<ItemHa
             var recipeOptional = recipeManager.byKey(lastRecipe);
             if (recipeOptional.isPresent() && recipeOptional.get().value().getType() == this.type) {
                 @SuppressWarnings("unchecked")
-                var recipe = (RecipeHolder<FermentationRecipe>) (Object) recipeOptional.get();
+                var recipe = (RecipeHolder<FermentationRecipe>) recipeOptional.get();
                 if (recipe.value().getIngredients().stream().anyMatch(i -> i.test(stack))) {
                     return Optional.of(recipe);
                 }
@@ -128,7 +121,7 @@ public class FermentationCachedCheck implements RecipeManager.CachedCheck<ItemHa
             var recipeOptional = recipeManager.byKey(lastRecipe);
             if (recipeOptional.isPresent() && recipeOptional.get().value().getType() == this.type) {
                 @SuppressWarnings("unchecked")
-                var recipe = (RecipeHolder<FermentationRecipe>) (Object) recipeOptional.get();
+                var recipe = (RecipeHolder<FermentationRecipe>) recipeOptional.get();
                 if (recipe.value().getFluid().ingredient().test(stack)) {
                     return Optional.of(recipe);
                 }
@@ -209,7 +202,7 @@ public class FermentationCachedCheck implements RecipeManager.CachedCheck<ItemHa
      */
     @Override
     public @NotNull Optional<RecipeHolder<FermentationRecipe>> getRecipeFor(@NotNull ItemHandlerWithFluidRecipeInput container, @NotNull ServerLevel level) {
-        if(this.noRecipeForLastItemHandlerInput) {
+        if (this.noRecipeForLastItemHandlerInput) {
             return Optional.empty();
         }
 

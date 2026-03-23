@@ -3,8 +3,6 @@
   "category": "misc",
   "mercuryFlux": 100,
   "result": {
-    "type": "theurgy:item",
-    "count": 1,
     "id": "theurgy:alchemical_sulfur_skeleton_skull"
   },
   "sources": [
@@ -17,8 +15,6 @@
       "ingredient": "theurgy:alchemical_niter_mobs_commond"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_skeleton_skull"
-  },
+  "target": "theurgy:alchemical_sulfur_skeleton_skull",
   "time": 100
 }

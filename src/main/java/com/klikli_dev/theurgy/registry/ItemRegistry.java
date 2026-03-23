@@ -164,63 +164,63 @@ public class ItemRegistry {
 
     //Blocks
     public static final DeferredItem<BlockItem> SAL_AMMONIAC_ORE =
-            ITEMS.registerSimpleBlockItem(BlockRegistry.SAL_AMMONIAC_ORE);
+            ITEMS.registerItem("sal_ammoniac_ore", p -> new BlockItem(BlockRegistry.SAL_AMMONIAC_ORE.get(), p.useBlockDescriptionPrefix()));
     public static final DeferredItem<BlockItem> DEEPSLATE_SAL_AMMONIAC_ORE =
-            ITEMS.registerSimpleBlockItem(BlockRegistry.DEEPSLATE_SAL_AMMONIAC_ORE);
+            ITEMS.registerItem("deepslate_sal_ammoniac_ore", p -> new BlockItem(BlockRegistry.DEEPSLATE_SAL_AMMONIAC_ORE.get(), p.useBlockDescriptionPrefix()));
     public static final DeferredItem<BlockItem> CALCINATION_OVEN =
-            ITEMS.registerItem("calcination_oven", p -> new CalcinationOvenBlockItem(BlockRegistry.CALCINATION_OVEN.get(), p));
+            ITEMS.registerItem("calcination_oven", p -> new CalcinationOvenBlockItem(BlockRegistry.CALCINATION_OVEN.get(), p.useBlockDescriptionPrefix()));
     public static final DeferredItem<BlockItem> PYROMANTIC_BRAZIER =
-            ITEMS.registerItem("pyromantic_brazier", p -> new BlockItem(BlockRegistry.PYROMANTIC_BRAZIER.get(), p));
+            ITEMS.registerItem("pyromantic_brazier", p -> new BlockItem(BlockRegistry.PYROMANTIC_BRAZIER.get(), p.useBlockDescriptionPrefix()));
     public static final DeferredItem<BlockItem> LIQUEFACTION_CAULDRON =
-            ITEMS.registerItem("liquefaction_cauldron", p -> new BlockItem(BlockRegistry.LIQUEFACTION_CAULDRON.get(), p));
+            ITEMS.registerItem("liquefaction_cauldron", p -> new BlockItem(BlockRegistry.LIQUEFACTION_CAULDRON.get(), p.useBlockDescriptionPrefix()));
     public static final DeferredItem<BlockItem> DISTILLER =
-            ITEMS.registerItem("distiller", p -> new DistillerBlockItem(BlockRegistry.DISTILLER.get(), p));
+            ITEMS.registerItem("distiller", p -> new DistillerBlockItem(BlockRegistry.DISTILLER.get(), p.useBlockDescriptionPrefix()));
     public static final DeferredItem<BlockItem> INCUBATOR =
-            ITEMS.registerItem("incubator", p -> new BlockItem(BlockRegistry.INCUBATOR.get(), p));
+            ITEMS.registerItem("incubator", p -> new BlockItem(BlockRegistry.INCUBATOR.get(), p.useBlockDescriptionPrefix()));
     public static final DeferredItem<BlockItem> INCUBATOR_MERCURY_VESSEL =
-            ITEMS.registerItem("incubator_mercury_vessel", p -> new IncubatorMercuryVesselBlockItem(BlockRegistry.INCUBATOR_MERCURY_VESSEL.get(), p));
+            ITEMS.registerItem("incubator_mercury_vessel", p -> new IncubatorMercuryVesselBlockItem(BlockRegistry.INCUBATOR_MERCURY_VESSEL.get(), p.useBlockDescriptionPrefix()));
     public static final DeferredItem<BlockItem> INCUBATOR_SALT_VESSEL =
-            ITEMS.registerItem("incubator_salt_vessel", p -> new IncubatorSaltVesselBlockItem(BlockRegistry.INCUBATOR_SALT_VESSEL.get(), p));
+            ITEMS.registerItem("incubator_salt_vessel", p -> new IncubatorSaltVesselBlockItem(BlockRegistry.INCUBATOR_SALT_VESSEL.get(), p.useBlockDescriptionPrefix()));
     public static final DeferredItem<BlockItem> INCUBATOR_SULFUR_VESSEL =
-            ITEMS.registerItem("incubator_sulfur_vessel", p -> new IncubatorSulfurVesselBlockItem(BlockRegistry.INCUBATOR_SULFUR_VESSEL.get(), p));
+            ITEMS.registerItem("incubator_sulfur_vessel", p -> new IncubatorSulfurVesselBlockItem(BlockRegistry.INCUBATOR_SULFUR_VESSEL.get(), p.useBlockDescriptionPrefix()));
     public static final DeferredItem<BlockItem> SAL_AMMONIAC_ACCUMULATOR =
-            ITEMS.registerItem("sal_ammoniac_accumulator", p -> new SalAmmoniacAccumulatorBlockItem(BlockRegistry.SAL_AMMONIAC_ACCUMULATOR.get(), p));
+            ITEMS.registerItem("sal_ammoniac_accumulator", p -> new SalAmmoniacAccumulatorBlockItem(BlockRegistry.SAL_AMMONIAC_ACCUMULATOR.get(), p.useBlockDescriptionPrefix()));
     public static final DeferredItem<BlockItem> SAL_AMMONIAC_TANK =
-            ITEMS.registerItem("sal_ammoniac_tank", p -> new SalAmmoniacTankBlockItem(BlockRegistry.SAL_AMMONIAC_TANK.get(), p));
+            ITEMS.registerItem("sal_ammoniac_tank", p -> new SalAmmoniacTankBlockItem(BlockRegistry.SAL_AMMONIAC_TANK.get(), p.useBlockDescriptionPrefix()));
     public static final DeferredItem<BlockItem> MERCURY_CATALYST =
-            ITEMS.registerItem("mercury_catalyst", p -> new BlockItem(BlockRegistry.MERCURY_CATALYST.get(), p));
+            ITEMS.registerItem("mercury_catalyst", p -> new BlockItem(BlockRegistry.MERCURY_CATALYST.get(), p.useBlockDescriptionPrefix()));
     public static final DeferredItem<CaloricFluxEmitterBlockItem> CALORIC_FLUX_EMITTER =
             ITEMS.registerItem("caloric_flux_emitter", p -> new CaloricFluxEmitterBlockItem(BlockRegistry.CALORIC_FLUX_EMITTER.get(), p));
     public static final DeferredItem<SulfuricFluxEmitterBlockItem> SULFURIC_FLUX_EMITTER =
             ITEMS.registerItem("sulfuric_flux_emitter", p -> new SulfuricFluxEmitterBlockItem(BlockRegistry.SULFURIC_FLUX_EMITTER.get(), p));
 
     public static final DeferredItem<BlockItem> REFORMATION_SOURCE_PEDESTAL =
-            ITEMS.registerItem("reformation_source_pedestal", p -> new BlockItem(BlockRegistry.REFORMATION_SOURCE_PEDESTAL.get(), p));
+            ITEMS.registerItem("reformation_source_pedestal", p -> new BlockItem(BlockRegistry.REFORMATION_SOURCE_PEDESTAL.get(), p.useBlockDescriptionPrefix()));
 
     public static final DeferredItem<BlockItem> REFORMATION_TARGET_PEDESTAL =
-            ITEMS.registerItem("reformation_target_pedestal", p -> new BlockItem(BlockRegistry.REFORMATION_TARGET_PEDESTAL.get(), p));
+            ITEMS.registerItem("reformation_target_pedestal", p -> new BlockItem(BlockRegistry.REFORMATION_TARGET_PEDESTAL.get(), p.useBlockDescriptionPrefix()));
 
     public static final DeferredItem<BlockItem> REFORMATION_RESULT_PEDESTAL =
-            ITEMS.registerItem("reformation_result_pedestal", p -> new BlockItem(BlockRegistry.REFORMATION_RESULT_PEDESTAL.get(), p));
+            ITEMS.registerItem("reformation_result_pedestal", p -> new BlockItem(BlockRegistry.REFORMATION_RESULT_PEDESTAL.get(), p.useBlockDescriptionPrefix()));
 
     public static final DeferredItem<BlockItem> FERMENTATION_VAT =
-            ITEMS.registerItem("fermentation_vat", p -> new BlockItem(BlockRegistry.FERMENTATION_VAT.get(), p));
+            ITEMS.registerItem("fermentation_vat", p -> new BlockItem(BlockRegistry.FERMENTATION_VAT.get(), p.useBlockDescriptionPrefix()));
 
     public static final DeferredItem<BlockItem> DIGESTION_VAT =
-            ITEMS.registerItem("digestion_vat", p -> new BlockItem(BlockRegistry.DIGESTION_VAT.get(), p));
+            ITEMS.registerItem("digestion_vat", p -> new BlockItem(BlockRegistry.DIGESTION_VAT.get(), p.useBlockDescriptionPrefix()));
 
     public static final DeferredItem<BlockItem> LOGISTICS_CONNECTION_NODE =
-            ITEMS.registerItem(BlockRegistry.LOGISTICS_CONNECTION_NODE.getId().getPath(), p -> new BlockItem(BlockRegistry.LOGISTICS_CONNECTION_NODE.get(), p));
+            ITEMS.registerItem(BlockRegistry.LOGISTICS_CONNECTION_NODE.getId().getPath(), p -> new BlockItem(BlockRegistry.LOGISTICS_CONNECTION_NODE.get(), p.useBlockDescriptionPrefix()));
 
     public static final DeferredItem<BlockItem> LOGISTICS_ITEM_INSERTER =
-            ITEMS.registerItem(BlockRegistry.LOGISTICS_ITEM_INSERTER.getId().getPath(), p -> new LogisticsItemConnectorBlockItem(BlockRegistry.LOGISTICS_ITEM_INSERTER.get(), p));
+            ITEMS.registerItem(BlockRegistry.LOGISTICS_ITEM_INSERTER.getId().getPath(), p -> new LogisticsItemConnectorBlockItem(BlockRegistry.LOGISTICS_ITEM_INSERTER.get(), p.useBlockDescriptionPrefix()));
 
     public static final DeferredItem<BlockItem> LOGISTICS_ITEM_EXTRACTOR =
-            ITEMS.registerItem(BlockRegistry.LOGISTICS_ITEM_EXTRACTOR.getId().getPath(), p -> new LogisticsItemConnectorBlockItem(BlockRegistry.LOGISTICS_ITEM_EXTRACTOR.get(), p));
+            ITEMS.registerItem(BlockRegistry.LOGISTICS_ITEM_EXTRACTOR.getId().getPath(), p -> new LogisticsItemConnectorBlockItem(BlockRegistry.LOGISTICS_ITEM_EXTRACTOR.get(), p.useBlockDescriptionPrefix()));
 
     public static final DeferredItem<BlockItem> LOGISTICS_FLUID_INSERTER =
-            ITEMS.registerItem(BlockRegistry.LOGISTICS_FLUID_INSERTER.getId().getPath(), p -> new LogisticsFluidConnectorBlockItem(BlockRegistry.LOGISTICS_FLUID_INSERTER.get(), p));
+            ITEMS.registerItem(BlockRegistry.LOGISTICS_FLUID_INSERTER.getId().getPath(), p -> new LogisticsFluidConnectorBlockItem(BlockRegistry.LOGISTICS_FLUID_INSERTER.get(), p.useBlockDescriptionPrefix()));
 
     public static final DeferredItem<BlockItem> LOGISTICS_FLUID_EXTRACTOR =
-            ITEMS.registerItem(BlockRegistry.LOGISTICS_FLUID_EXTRACTOR.getId().getPath(), p -> new LogisticsFluidConnectorBlockItem(BlockRegistry.LOGISTICS_FLUID_EXTRACTOR.get(), p));
+            ITEMS.registerItem(BlockRegistry.LOGISTICS_FLUID_EXTRACTOR.getId().getPath(), p -> new LogisticsFluidConnectorBlockItem(BlockRegistry.LOGISTICS_FLUID_EXTRACTOR.get(), p.useBlockDescriptionPrefix()));
 }

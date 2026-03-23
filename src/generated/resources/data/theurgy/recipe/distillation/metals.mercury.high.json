@@ -15,7 +15,6 @@
     "ingredient": "#theurgy:metals/mercury/high"
   },
   "result": {
-    "type": "theurgy:item",
     "count": 10,
     "id": "theurgy:mercury_shard"
   },

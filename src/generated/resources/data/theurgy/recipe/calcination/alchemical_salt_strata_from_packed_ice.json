@@ -6,7 +6,6 @@
     "ingredient": "minecraft:packed_ice"
   },
   "result": {
-    "type": "theurgy:item",
     "count": 9,
     "id": "theurgy:alchemical_salt_strata"
   },

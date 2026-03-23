@@ -15,7 +15,7 @@ import dev.emi.emi.api.widget.WidgetHolder;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import org.jetbrains.annotations.Nullable;
 
@@ -36,7 +36,7 @@ public class AccumulationEmiRecipe implements EmiRecipe {
     }
 
     @Override
-    public @Nullable ResourceLocation getId() {
+    public @Nullable Identifier getId() {
         return this.recipe.id().location();
     }
 
@@ -48,7 +48,7 @@ public class AccumulationEmiRecipe implements EmiRecipe {
 
         if (this.recipe.value().hasEvaporant())
             inputs.add(EmiIngredient.of(this.recipe.value().evaporant().ingredient().fluids()
-.stream().map(f -> EmiStack.of(f.value(), this.recipe.value().evaporant().amount())).toList()));
+                    .stream().map(f -> EmiStack.of(f.value(), this.recipe.value().evaporant().amount())).toList()));
 
         return inputs;
     }
@@ -76,7 +76,7 @@ public class AccumulationEmiRecipe implements EmiRecipe {
 
         if (this.recipe.value().hasEvaporant()) {
             widgets.addSlot(EmiIngredient.of(this.recipe.value().evaporant().ingredient().fluids()
-                        .stream().map(f -> EmiStack.of(f.value(), this.recipe.value().evaporant().amount())).toList()), 1, 1);
+                    .stream().map(f -> EmiStack.of(f.value(), this.recipe.value().evaporant().amount())).toList()), 1, 1);
         }
 
         if (this.recipe.value().hasSolute()) {

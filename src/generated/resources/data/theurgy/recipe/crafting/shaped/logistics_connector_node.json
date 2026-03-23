@@ -2,15 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "b": {
-      "tag": "c:bricks/normal"
-    },
-    "i": {
-      "tag": "c:ingots/iron"
-    },
-    "m": {
-      "item": "theurgy:mercury_shard"
-    }
+    "b": "#c:bricks/normal",
+    "i": "#c:ingots/iron",
+    "m": "theurgy:mercury_shard"
   },
   "pattern": [
     " m ",

@@ -3,7 +3,6 @@
   "category": "misc",
   "mercuryFlux": 100,
   "result": {
-    "type": "theurgy:item",
     "count": 2,
     "id": "theurgy:alchemical_niter_metals_common"
   },
@@ -13,8 +12,6 @@
       "ingredient": "theurgy:alchemical_niter_gems_common"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_niter_metals_common"
-  },
+  "target": "theurgy:alchemical_niter_metals_common",
   "time": 100
 }

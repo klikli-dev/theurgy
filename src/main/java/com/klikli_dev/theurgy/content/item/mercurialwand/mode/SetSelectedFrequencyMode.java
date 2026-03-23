@@ -9,7 +9,6 @@ import com.klikli_dev.theurgy.content.item.mode.FrequencySetter;
 import com.klikli_dev.theurgy.content.item.mode.ItemModeRenderHandler;
 import com.klikli_dev.theurgy.registry.DataComponentRegistry;
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.InteractionResult;
@@ -80,14 +79,14 @@ public class SetSelectedFrequencyMode extends MercurialWandItemMode {
 
         var blockEntity = level.getBlockEntity(blockPos);
         if (blockEntity instanceof FrequencySetter frequencySettable) {
-            if (!level.isClientSide) {
+            if (!level.isClientSide()) {
                 var currentFrequency = frequencySettable.frequency();
                 var newFrequency = stack.getOrDefault(DataComponentRegistry.SELECTED_FREQUENCY.get(), 0);
                 frequencySettable.frequency(newFrequency);
 
-                context.getPlayer().displayClientMessage(Component.translatable(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_SET_SELECTED_FREQUENCY_SUCCESS,
+                context.getPlayer().sendOverlayMessage(Component.translatable(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_SET_SELECTED_FREQUENCY_SUCCESS,
                         Component.literal(String.valueOf(newFrequency)).withStyle(ChatFormatting.GREEN)
-                ), true);
+                ));
             }
             return InteractionResult.SUCCESS;
         }

@@ -5,22 +5,21 @@
 package com.klikli_dev.theurgy.datagen.recipe;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.klikli_dev.modonomicon.registry.DataComponentRegistry;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.registry.ItemTagRegistry;
-import com.mojang.serialization.JsonOps;
 import net.minecraft.core.component.DataComponentPatch;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
-import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.neoforged.neoforge.common.Tags;
 
@@ -33,7 +32,7 @@ public class ShapelessRecipeProvider extends JsonRecipeProvider {
     }
 
     @Override
-    public void buildRecipes(BiConsumer<ResourceLocation, JsonObject> recipeConsumer) {
+    public void buildRecipes(BiConsumer<Identifier, JsonObject> recipeConsumer) {
         this.makeRecipe("the_hermetica",
                 new ShapelessRecipeBuilder(com.klikli_dev.modonomicon.registry.ItemRegistry.MODONOMICON.get(), 1, DataComponentPatch.builder().set(DataComponentRegistry.BOOK_ID.get(), Theurgy.loc("the_hermetica")).build())
                         .requires(Items.BOOK)
@@ -109,7 +108,7 @@ public class ShapelessRecipeProvider extends JsonRecipeProvider {
     protected class ShapelessRecipeBuilder {
 
         private final JsonObject recipe;
-        private final ItemStack result;
+        private final ItemStackTemplate result;
 
         public ShapelessRecipeBuilder(ItemLike result) {
             this(result, 1);
@@ -120,17 +119,16 @@ public class ShapelessRecipeProvider extends JsonRecipeProvider {
         }
 
         public ShapelessRecipeBuilder(ItemLike result, int count, DataComponentPatch patch) {
-            //noinspection deprecation
-            this(new ItemStack(result.asItem().builtInRegistryHolder(), count, patch));
+            this(ShapelessRecipeProvider.this.createItemStack(result, count, patch));
         }
 
-        public ShapelessRecipeBuilder(ItemStack result) {
+        public ShapelessRecipeBuilder(ItemStackTemplate result) {
             this.result = result;
             this.recipe = new JsonObject();
             //noinspection DataFlowIssue
             this.recipe.addProperty("type",
-                    BuiltInRegistries.RECIPE_SERIALIZER.getKey(RecipeSerializer.SHAPELESS_RECIPE).toString());
-            this.recipe.add("result", ItemStack.STRICT_CODEC.encodeStart(ShapelessRecipeProvider.this.registryOps, result).getOrThrow());
+                    "minecraft:crafting_shapeless");
+            this.recipe.add("result", ItemStackTemplate.CODEC.encodeStart(ShapelessRecipeProvider.this.registryOps, result).getOrThrow());
             this.recipe.add("ingredients", new JsonArray());
         }
 
@@ -142,10 +140,8 @@ public class ShapelessRecipeProvider extends JsonRecipeProvider {
             return this;
         }
 
-        private JsonObject ingredient(TagKey<Item> tag) {
-            JsonObject jsonobject = new JsonObject();
-            jsonobject.addProperty("tag", tag.location().toString());
-            return jsonobject;
+        private JsonElement ingredient(TagKey<Item> tag) {
+            return Ingredient.CODEC.encodeStart(ShapelessRecipeProvider.this.registryOps, Ingredient.of(ShapelessRecipeProvider.this.items.getOrThrow(tag))).getOrThrow();
         }
 
         public ShapelessRecipeBuilder requires(TagKey<Item> tag) {
@@ -160,18 +156,15 @@ public class ShapelessRecipeProvider extends JsonRecipeProvider {
             return this;
         }
 
-        private JsonObject ingredient(ItemLike item) {
-            JsonObject jsonobject = new JsonObject();
-            //noinspection deprecation,OptionalGetWithoutIsPresent
-            jsonobject.addProperty("item", item.asItem().builtInRegistryHolder().unwrapKey().get().location().toString());
-            return jsonobject;
+        private JsonElement ingredient(ItemLike item) {
+            return Ingredient.CODEC.encodeStart(ShapelessRecipeProvider.this.registryOps, Ingredient.of(item)).getOrThrow();
         }
 
         public ShapelessRecipeBuilder requires(ItemLike item) {
             return this.requires(this.ingredient(item));
         }
 
-        public ShapelessRecipeBuilder requires(JsonObject ingredient) {
+        public ShapelessRecipeBuilder requires(JsonElement ingredient) {
             this.recipe.getAsJsonArray("ingredients").add(ingredient);
             return this;
         }
@@ -183,7 +176,7 @@ public class ShapelessRecipeProvider extends JsonRecipeProvider {
             return this.recipe;
         }
 
-        public ItemStack result() {
+        public ItemStackTemplate result() {
             return this.result;
         }
     }

@@ -33,8 +33,6 @@
   "category": "misc",
   "mercuryFlux": 50,
   "result": {
-    "type": "theurgy:item",
-    "count": 1,
     "id": "theurgy:alchemical_sulfur_plum"
   },
   "sources": [
@@ -43,8 +41,6 @@
       "ingredient": "#theurgy:alchemical_sulfurs/crops/abundant"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_plum"
-  },
+  "target": "theurgy:alchemical_sulfur_plum",
   "time": 100
 }

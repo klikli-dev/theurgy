@@ -4,6 +4,8 @@
 
 package com.klikli_dev.theurgy.content.behaviour.itemhandler;
 
+import com.klikli_dev.theurgy.content.storage.ItemStorageHelper;
+import com.klikli_dev.theurgy.registry.CapabilityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -12,18 +14,18 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
-import net.neoforged.neoforge.capabilities.Capabilities;
-import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
 
 
 public class DynamicOneOutputSlotItemHandlerBehaviour implements ItemHandlerBehaviour {
 
-    protected int getOutputSlot(IItemHandler handler) {
-        return handler.getSlots() - 1;
+    protected int getOutputSlot(ResourceHandler<ItemResource> handler) {
+        return ItemStorageHelper.getSlots(handler) - 1;
     }
 
-    protected int getMaxInputSlot(IItemHandler handler) {
-        return handler.getSlots() - 2;
+    protected int getMaxInputSlot(ResourceHandler<ItemResource> handler) {
+        return ItemStorageHelper.getSlots(handler) - 2;
     }
 
     /**
@@ -34,7 +36,7 @@ public class DynamicOneOutputSlotItemHandlerBehaviour implements ItemHandlerBeha
         if (pHand != InteractionHand.MAIN_HAND)
             return InteractionResult.PASS;
 
-        var blockItemHandler = pLevel.getCapability(Capabilities.ItemHandler.BLOCK, pPos, null);
+        var blockItemHandler = pLevel.getCapability(CapabilityRegistry.ITEM_HANDLER, pPos, null);
         //a block without item handler is of no interest
         if (blockItemHandler == null)
             return InteractionResult.PASS;
@@ -46,7 +48,7 @@ public class DynamicOneOutputSlotItemHandlerBehaviour implements ItemHandlerBeha
 
         if (stackInHand.isEmpty()) {
             //with empty hand first try take output
-            var extracted = blockItemHandler.extractItem(outputSlot, blockItemHandler.getSlotLimit(outputSlot), false);
+            var extracted = ItemStorageHelper.extractItem(blockItemHandler, outputSlot, ItemStorageHelper.getSlotLimit(blockItemHandler, outputSlot), false);
             if (!extracted.isEmpty()) {
                 pPlayer.getInventory().placeItemBackInInventory(extracted);
                 return InteractionResult.SUCCESS;
@@ -54,7 +56,7 @@ public class DynamicOneOutputSlotItemHandlerBehaviour implements ItemHandlerBeha
 
             //if no output, try take input
             for (int inputSlot = 0; inputSlot <= maxInputSlot; inputSlot++) {
-                extracted = blockItemHandler.extractItem(inputSlot, blockItemHandler.getSlotLimit(inputSlot), false);
+                extracted = ItemStorageHelper.extractItem(blockItemHandler, inputSlot, ItemStorageHelper.getSlotLimit(blockItemHandler, inputSlot), false);
                 if (!extracted.isEmpty()) {
                     pPlayer.getInventory().placeItemBackInInventory(extracted);
                     return InteractionResult.SUCCESS;
@@ -63,7 +65,7 @@ public class DynamicOneOutputSlotItemHandlerBehaviour implements ItemHandlerBeha
         } else {
             for (int inputSlot = 0; inputSlot <= maxInputSlot; inputSlot++) {
                 //if we have an item in hand, try to insert
-                var remainder = blockItemHandler.insertItem(inputSlot, stackInHand, false);
+                var remainder = ItemStorageHelper.insertItem(blockItemHandler, inputSlot, stackInHand, false);
                 pPlayer.setItemInHand(pHand, remainder);
                 if (remainder.getCount() != stackInHand.getCount()) {
                     return InteractionResult.SUCCESS;

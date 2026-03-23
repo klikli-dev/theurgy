@@ -7,6 +7,7 @@ package com.klikli_dev.theurgy.content.recipe;
 
 import com.klikli_dev.theurgy.content.recipe.display.AccumulationRecipeDisplay;
 import com.klikli_dev.theurgy.content.recipe.input.ItemHandlerWithFluidRecipeInput;
+import com.klikli_dev.theurgy.content.storage.FluidStorageHelper;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.registry.RecipeSerializerRegistry;
@@ -25,6 +26,7 @@ import net.minecraft.world.item.crafting.display.RecipeDisplay;
 import net.minecraft.world.item.crafting.display.SlotDisplay;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.FluidStackTemplate;
 import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -38,29 +40,30 @@ import java.util.Optional;
  * @param result    The result of the recipe.
  */
 public record AccumulationRecipe(@Nullable SizedFluidIngredient evaporant, @Nullable Ingredient solute,
-                                 FluidStack result, int time) implements Recipe<ItemHandlerWithFluidRecipeInput> {
+                                 FluidStackTemplate result,
+                                 int time) implements Recipe<ItemHandlerWithFluidRecipeInput> {
     public static final int DEFAULT_TIME = 100;
 
     public static final MapCodec<AccumulationRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
                     SizedFluidIngredient.CODEC.optionalFieldOf("evaporant").forGetter((r) -> Optional.ofNullable(r.evaporant)),
                     Ingredient.CODEC.optionalFieldOf("solute").forGetter(r -> Optional.ofNullable(r.solute)),
-                    FluidStack.CODEC.fieldOf("result").forGetter(r -> r.result),
+                    FluidStackTemplate.CODEC.fieldOf("result").forGetter(r -> r.result),
                     Codec.INT.optionalFieldOf("time", DEFAULT_TIME).forGetter(r -> r.time)
             ).apply(instance, (evaporant, solute, result, accumulation_time) -> new AccumulationRecipe(evaporant.orElse(null), solute.orElse(null), result, accumulation_time))
     );
-
     public static final StreamCodec<RegistryFriendlyByteBuf, AccumulationRecipe> STREAM_CODEC = StreamCodec.composite(
             ByteBufCodecs.optional(SizedFluidIngredient.STREAM_CODEC),
             r -> Optional.ofNullable(r.evaporant),
             ByteBufCodecs.optional(Ingredient.CONTENTS_STREAM_CODEC),
             r -> Optional.ofNullable(r.solute),
-            FluidStack.STREAM_CODEC,
+            FluidStackTemplate.STREAM_CODEC,
             r -> r.result,
             ByteBufCodecs.INT,
             r -> r.time,
             (evaporant, solute, result, accumulation_time) -> new AccumulationRecipe(evaporant.orElse(null), solute.orElse(null), result, accumulation_time)
     );
 
+    public static final RecipeSerializer<AccumulationRecipe> SERIALIZER = new RecipeSerializer<>(CODEC, STREAM_CODEC);
     @Override
     public @NotNull RecipeType<AccumulationRecipe> getType() {
         return RecipeTypeRegistry.ACCUMULATION.get();
@@ -68,7 +71,7 @@ public record AccumulationRecipe(@Nullable SizedFluidIngredient evaporant, @Null
 
     @Override
     public boolean matches(@NotNull ItemHandlerWithFluidRecipeInput pContainer, @NotNull Level pLevel) {
-        var fluid = pContainer.getTank().getFluidInTank(0);
+        var fluid = FluidStorageHelper.getFluidInTank(pContainer.getTank(), 0);
         boolean evaporantMatches = !this.hasEvaporant() || this.evaporant.test(fluid);
         //noinspection DataFlowIssue: we are checking this.hasSolute so solute is not null!
         boolean soluteMatches =
@@ -80,8 +83,19 @@ public record AccumulationRecipe(@Nullable SizedFluidIngredient evaporant, @Null
         return soluteMatches && evaporantMatches;
     }
 
-    public ItemStack assemble(ItemHandlerWithFluidRecipeInput pInv, HolderLookup.Provider pRegistries) {
+    @Override
+    public ItemStack assemble(ItemHandlerWithFluidRecipeInput pInv) {
         return ItemStack.EMPTY;
+    }
+
+    @Override
+    public boolean showNotification() {
+        return true;
+    }
+
+    @Override
+    public String group() {
+        return "";
     }
 
 //    @Override
@@ -94,12 +108,17 @@ public record AccumulationRecipe(@Nullable SizedFluidIngredient evaporant, @Null
     }
 
     @Override
+    public boolean isSpecial() {
+        return true;
+    }
+
+    @Override
     public PlacementInfo placementInfo() {
         return PlacementInfo.NOT_PLACEABLE;
     }
 
     public @NotNull FluidStack assembleFluid(@NotNull ItemHandlerWithFluidRecipeInput pInv, @NotNull HolderLookup.Provider pRegistries) {
-        return this.result.copy();
+        return this.result.create();
     }
 
     @Override
@@ -140,22 +159,10 @@ public record AccumulationRecipe(@Nullable SizedFluidIngredient evaporant, @Null
         return List.of(new AccumulationRecipeDisplay(
                 Optional.ofNullable(this.evaporant),
                 Optional.ofNullable(this.solute).map(Ingredient::display),
-                this.result,
+                this.result.create(),
                 this.time,
                 new SlotDisplay.ItemSlotDisplay(BlockRegistry.SAL_AMMONIAC_ACCUMULATOR.get().asItem())
         ));
     }
 
-    public static class Serializer implements RecipeSerializer<AccumulationRecipe> {
-
-        @Override
-        public @NotNull MapCodec<AccumulationRecipe> codec() {
-            return CODEC;
-        }
-
-        @Override
-        public @NotNull StreamCodec<RegistryFriendlyByteBuf, AccumulationRecipe> streamCodec() {
-            return STREAM_CODEC;
-        }
-    }
 }

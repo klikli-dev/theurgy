@@ -13,7 +13,6 @@
   "ingredient": "#c:ingots/netherite",
   "result": {
     "type": "theurgy:item",
-    "count": 1,
     "id": "theurgy:alchemical_sulfur_netherite"
   },
   "solvent": {

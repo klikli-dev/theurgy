@@ -9,10 +9,10 @@ import com.klikli_dev.theurgy.network.messages.MessageClearMenu;
 
 public interface IClearableMenu {
 
-	default void sendClearPacket() {
-		Networking.sendToServer(MessageClearMenu.INSTANCE);
-	}
+    default void sendClearPacket() {
+        Networking.sendToServer(MessageClearMenu.INSTANCE);
+    }
 
-	public void clearContents();
+    void clearContents();
 
 }

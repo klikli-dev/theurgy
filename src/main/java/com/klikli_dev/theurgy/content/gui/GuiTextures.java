@@ -8,7 +8,7 @@ package com.klikli_dev.theurgy.content.gui;
 import com.klikli_dev.theurgy.Theurgy;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.RenderPipelines;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 /**
  * Based on com.simibubi.create.foundation.gui.AllGuiTextures from Create
@@ -22,8 +22,8 @@ public enum GuiTextures implements ScreenElement {
     JEI_ARROW_RIGHT_EMPTY("jei/recipe_gui", 0, 26, 22, 16),
     JEI_ARROW_RIGHT_FULL("jei/recipe_gui", 22, 26, 22, 16),
 
-    MODONOMICON_ARROW_RIGHT(ResourceLocation.fromNamespaceAndPath("modonomicon", "textures/gui/crafting_textures.png"), 71, 205, 9, 9, 128, 256),
-    MODONOMICON_SLOT(ResourceLocation.fromNamespaceAndPath("modonomicon", "textures/gui/crafting_textures.png"), 84, 198, 22, 22, 128, 256),
+    MODONOMICON_ARROW_RIGHT(Identifier.fromNamespaceAndPath("modonomicon", "textures/gui/crafting_textures.png"), 71, 205, 9, 9, 128, 256),
+    MODONOMICON_SLOT(Identifier.fromNamespaceAndPath("modonomicon", "textures/gui/crafting_textures.png"), 84, 198, 22, 22, 128, 256),
 
     BUTTON("widgets", 18, 18),
     BUTTON_HOVER("widgets", 18, 0, 18, 18),
@@ -40,7 +40,7 @@ public enum GuiTextures implements ScreenElement {
     FILTER("filters", 214, 99),
     ATTRIBUTE_FILTER("filters", 0, 99, 241, 85);
 
-    public final ResourceLocation location;
+    public final Identifier location;
     public final int textureHeight;
     public final int textureWidth;
     public final int width;
@@ -56,7 +56,7 @@ public enum GuiTextures implements ScreenElement {
         this(Theurgy.loc("textures/gui/" + name + ".png"), x, y, width, height, 256, 256);
     }
 
-    GuiTextures(ResourceLocation location, int x, int y, int width, int height, int textureWidth, int textureHeight) {
+    GuiTextures(Identifier location, int x, int y, int width, int height, int textureWidth, int textureHeight) {
         this.location = location;
         this.textureWidth = textureWidth;
         this.textureHeight = textureHeight;
@@ -68,6 +68,6 @@ public enum GuiTextures implements ScreenElement {
 
     @Override
     public void render(GuiGraphics guiGraphics, int x, int y) {
-        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, this.location, x, y, (float)this.x, (float)this.y, this.width, this.height, this.textureWidth, this.textureHeight);
+        guiGraphics.blit(RenderPipelines.GUI_TEXTURED, this.location, x, y, (float) this.x, (float) this.y, this.width, this.height, this.textureWidth, this.textureHeight);
     }
 }

@@ -4,7 +4,6 @@
   "ingredient": "minecraft:crying_obsidian",
   "result": {
     "type": "theurgy:item",
-    "count": 1,
     "id": "theurgy:alchemical_sulfur_crying_obsidian"
   },
   "solvent": {

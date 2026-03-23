@@ -2,12 +2,9 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "item": "theurgy:sal_ammoniac_bucket"
-    }
+    "theurgy:sal_ammoniac_bucket"
   ],
   "result": {
-    "count": 1,
     "id": "theurgy:sal_ammoniac_crystal"
   }
 }

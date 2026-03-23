@@ -9,7 +9,6 @@ import com.mojang.datafixers.util.Pair;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.util.ByIdMap;
 import net.minecraft.world.item.ToolMaterial;
 import net.minecraft.world.phys.Vec3;
 
@@ -30,7 +29,7 @@ public class TheurgyExtraStreamCodecs {
             buf.writeFloat((float) vec.z);
         }
     };
-    
+
     private static final List<ToolMaterial> MATERIALS = List.of(
             ToolMaterial.WOOD,
             ToolMaterial.STONE,

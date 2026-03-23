@@ -4,26 +4,28 @@
 
 package com.klikli_dev.theurgy.content.recipe.input;
 
-import net.neoforged.neoforge.fluids.capability.IFluidHandler;
-import net.neoforged.neoforge.items.IItemHandlerModifiable;
+import com.klikli_dev.theurgy.content.storage.FluidStorageHelper;
+import com.klikli_dev.theurgy.content.storage.SettableItemStorage;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.fluid.FluidResource;
 
 public class ItemHandlerWithFluidRecipeInput extends ItemHandlerRecipeInput {
 
-    private final IFluidHandler tank;
+    private final ResourceHandler<FluidResource> tank;
 
-    public ItemHandlerWithFluidRecipeInput(IItemHandlerModifiable inv, IFluidHandler tank) {
+    public ItemHandlerWithFluidRecipeInput(SettableItemStorage inv, ResourceHandler<FluidResource> tank) {
         super(inv);
         this.tank = tank;
     }
 
-    public IFluidHandler getTank() {
+    public ResourceHandler<FluidResource> getTank() {
         return this.tank;
     }
 
     @Override
     public boolean isEmpty() {
-        for (int i = 0; i < this.getTank().getTanks(); i++) {
-            if (!this.getTank().getFluidInTank(i).isEmpty()) {
+        for (int i = 0; i < FluidStorageHelper.getTanks(this.getTank()); i++) {
+            if (!FluidStorageHelper.getFluidInTank(this.getTank(), i).isEmpty()) {
                 return false;
             }
         }

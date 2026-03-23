@@ -26,8 +26,6 @@
     "#minecraft:planks"
   ],
   "result": {
-    "type": "theurgy:item",
-    "count": 1,
     "id": "theurgy:alchemical_niter_earthen_matters_common"
   },
   "time": 200

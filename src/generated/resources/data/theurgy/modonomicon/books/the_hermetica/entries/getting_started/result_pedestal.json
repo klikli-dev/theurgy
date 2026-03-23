@@ -5,7 +5,7 @@
   "description": "book.theurgy.the_hermetica.getting_started.result_pedestal.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "theurgy:alchemical_sulfur_quartz"
+    "id": "theurgy:alchemical_sulfur_quartz"
   },
   "name": "book.theurgy.the_hermetica.getting_started.result_pedestal.name",
   "pages": [

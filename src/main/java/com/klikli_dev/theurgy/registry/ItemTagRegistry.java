@@ -5,7 +5,7 @@
 package com.klikli_dev.theurgy.registry;
 
 import com.klikli_dev.theurgy.Theurgy;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
@@ -397,6 +397,6 @@ public class ItemTagRegistry {
     }
 
     private static TagKey<Item> cTag(String name) {
-        return ItemTags.create(ResourceLocation.fromNamespaceAndPath("c",  name));
+        return ItemTags.create(Identifier.fromNamespaceAndPath("c", name));
     }
 }

@@ -95,7 +95,7 @@ public class DivinationRodEntryProvider extends CategoryProvider {
         this.add(this.context().pageText(),
                 """
                         Divination Rods, also known as Dowsing Rods, are a valuable instrument used to locate ores and other valuable blocks. In order to show the location of a block, it must first be "attuned" to it.
-                                 """);
+                        """);
 
         this.context().page("intro2");
         var intro2 = BookTextPageModel.create()
@@ -108,7 +108,7 @@ public class DivinationRodEntryProvider extends CategoryProvider {
                         \\
                         \\
                         Attuning a rod to a block will cause it to point towards the nearest block of that type.
-                            """);
+                        """);
 
         this.context().page("sulfur_attuned_rods");
         var sulfurAttunedRods = BookTextPageModel.create()
@@ -121,7 +121,7 @@ public class DivinationRodEntryProvider extends CategoryProvider {
                         \\
                         \\
                         Research {0} (specifically, *Liquefaction*) to continue on this path.
-                            """, this.entryLink("Spagyrics", GettingStartedCategoryProvider.CATEGORY_ID, "spagyrics"));
+                        """, this.entryLink("Spagyrics", GettingStartedCategoryProvider.CATEGORY_ID, "spagyrics"));
 
 
         this.context().page("usage");
@@ -144,7 +144,7 @@ public class DivinationRodEntryProvider extends CategoryProvider {
         this.add(this.context().pageText(),
                 """
                         The rod will indicate that it found a block by *changing color* to be partially or fully purple, and by emitting a *glowing ball* that will fly towards the block, when right-clicked without holding.
-                           """);
+                        """);
 
 
         return this.entry(location)
@@ -172,7 +172,7 @@ public class DivinationRodEntryProvider extends CategoryProvider {
         this.add(this.context().pageText(),
                 """
                         This divination rod is the most basic variant of attunable rods. It does not require Alchemical Sulfur and can be attuned to a variety of blocks by using it on them, even after it has previously been attuned. However, it has a lower durability than pre-attuned rods.
-                                 """);
+                        """);
 
         this.context().page("supported_blocks");
         var supportedBlocks = BookTextPageModel.create()
@@ -182,7 +182,7 @@ public class DivinationRodEntryProvider extends CategoryProvider {
         this.add(this.context().pageText(),
                 """
                         Rods can be attuned to a wide variety of useful blocks, including various types of ores and wood. Basic divination rods will be sufficient to locate common ores such as {0} or {1}, but more rare and precious materials such as {2} and {3} will require a higher tier rod to detect.
-                         """,
+                        """,
                 this.itemLink("iron", Items.IRON_ORE),
                 this.itemLink("coal", Items.COAL_ORE),
                 this.itemLink("gold", Items.GOLD_ORE),
@@ -196,7 +196,7 @@ public class DivinationRodEntryProvider extends CategoryProvider {
         this.add(this.context().pageText(),
                 """
                         The most basic tier of divination rods, brittle and limited in it's application, but powerful nonetheless.
-                           """);
+                        """);
 
         return this.entry(location)
                 .withIcon(ItemRegistry.DIVINATION_ROD_T1.get())
@@ -221,7 +221,7 @@ public class DivinationRodEntryProvider extends CategoryProvider {
         this.add(this.context().pageText(),
                 """
                         This divination rod is the most basic variant of pre-attuned rod. While it cannot be attuned to a new block after crafting, it has a much higher durability, and is generally more convenient to use.
-                                 """);
+                        """);
 
         this.context().page("sulfur");
         var sulfur = BookTextPageModel.create()
@@ -231,7 +231,7 @@ public class DivinationRodEntryProvider extends CategoryProvider {
         this.add(this.context().pageText(),
                 """
                         To obtain sulfur for crafting this rod you first need to obtain an ore, ingot or gem of the type of material you want the rod to be attuned to. Then, you need to obtain it''s sulfur by melting it down in a {0}.
-                                 """, this.entryLink("Liquefaction Cauldron", ApparatusCategory.CATEGORY_ID, LiquefactionCauldronEntry.ENTRY_ID));
+                        """, this.entryLink("Liquefaction Cauldron", ApparatusCategory.CATEGORY_ID, LiquefactionCauldronEntry.ENTRY_ID));
 
 
         this.context().page("recipe_abundant");
@@ -241,7 +241,7 @@ public class DivinationRodEntryProvider extends CategoryProvider {
         this.add(this.context().pageText(),
                 """
                         A rod pre-attuned to abundant ores, such as {0} or {1}.
-                               """, this.itemLink("copper", Items.COPPER_ORE), this.itemLink("coal", Items.COAL_ORE));
+                        """, this.itemLink("copper", Items.COPPER_ORE), this.itemLink("coal", Items.COAL_ORE));
 
         this.context().page("recipe_common");
         var recipe_common = BookCraftingRecipePageModel.create()
@@ -250,7 +250,7 @@ public class DivinationRodEntryProvider extends CategoryProvider {
         this.add(this.context().pageText(),
                 """
                         A rod pre-attuned to common ores, such as {0} or {1}.
-                               """, this.itemLink("iron", Items.IRON_ORE), this.itemLink("lapis", Items.LAPIS_ORE));
+                        """, this.itemLink("iron", Items.IRON_ORE), this.itemLink("lapis", Items.LAPIS_ORE));
 
         return this.entry(location)
                 .withIcon(ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_ABUNDANT.get())
@@ -285,7 +285,7 @@ public class DivinationRodEntryProvider extends CategoryProvider {
         this.add(this.context().pageText(),
                 """
                         A pre-attuned rod that only finds {0}.
-                               """, this.itemLink("amethyst", Items.BUDDING_AMETHYST));
+                        """, this.itemLink("amethyst", Items.BUDDING_AMETHYST));
 
         return this.entry(location)
                 .withIcon(ItemRegistry.AMETHYST_DIVINATION_ROD.get())
@@ -309,7 +309,7 @@ public class DivinationRodEntryProvider extends CategoryProvider {
         this.add(this.context().pageText(),
                 """
                         An improved attunable divination rod to locate higher tier ores, such as {0}.
-                                 """,
+                        """,
                 this.itemLink("gold", Items.GOLD_ORE)
         );
 
@@ -320,7 +320,7 @@ public class DivinationRodEntryProvider extends CategoryProvider {
         this.add(this.context().pageText(),
                 """
                         An improved attunable divination rod, more durable and broader in it's application.
-                           """);
+                        """);
 
         return this.entry(location)
                 .withIcon(ItemRegistry.DIVINATION_ROD_T2.get())
@@ -344,7 +344,7 @@ public class DivinationRodEntryProvider extends CategoryProvider {
         this.add(this.context().pageText(),
                 """
                         A further improved attunable divination rod to locate high tier ores, such as {0}.
-                                 """,
+                        """,
                 this.itemLink("diamond", Items.DIAMOND_ORE)
         );
 
@@ -355,7 +355,7 @@ public class DivinationRodEntryProvider extends CategoryProvider {
         this.add(this.context().pageText(),
                 """
                         A further improved attunable divination rod, much more durable and able to detect most ores.
-                           """);
+                        """);
 
         return this.entry(location)
                 .withIcon(ItemRegistry.DIVINATION_ROD_T3.get())
@@ -379,7 +379,7 @@ public class DivinationRodEntryProvider extends CategoryProvider {
         this.add(this.context().pageText(),
                 """
                         The very high durability attunable divination rod to locate ores of any tier, such as {0}.
-                                 """,
+                        """,
                 this.itemLink("diamond", Items.DIAMOND_ORE)
         );
 
@@ -390,7 +390,7 @@ public class DivinationRodEntryProvider extends CategoryProvider {
         this.add(this.context().pageText(),
                 """
                         The highest tier attunable divination rod, incredibly durable and able to detect all ores.
-                           """);
+                        """);
 
         return this.entry(location)
                 .withIcon(ItemRegistry.DIVINATION_ROD_T4.get())
@@ -414,7 +414,7 @@ public class DivinationRodEntryProvider extends CategoryProvider {
         this.add(this.context().pageText(),
                 """
                         This divination rod is an improved variant of pre-attuned rod that is more durable allows to locate rare ores, such as {0}.
-                                 """,
+                        """,
                 this.itemLink("gold", Items.GOLD_ORE)
         );
 
@@ -425,7 +425,7 @@ public class DivinationRodEntryProvider extends CategoryProvider {
         this.add(this.context().pageText(),
                 """
                         A rod pre-attuned to rare ores, such as {0}.
-                               """, this.itemLink("gold", Items.GOLD_ORE));
+                        """, this.itemLink("gold", Items.GOLD_ORE));
 
         return this.entry(location)
                 .withIcon(ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_RARE.get())
@@ -449,7 +449,7 @@ public class DivinationRodEntryProvider extends CategoryProvider {
         this.add(this.context().pageText(),
                 """
                         This divination rod is the most powerful variant of pre-attuned rod, it is highly durable and allows to locate precious ores, such as {0}.
-                                 """,
+                        """,
                 this.itemLink("diamond", Items.DIAMOND_ORE)
         );
 
@@ -460,7 +460,7 @@ public class DivinationRodEntryProvider extends CategoryProvider {
         this.add(this.context().pageText(),
                 """
                         A rod pre-attuned to precious ores, such as {0}.
-                               """, this.itemLink("diamond", Items.DIAMOND_ORE));
+                        """, this.itemLink("diamond", Items.DIAMOND_ORE));
 
         return this.entry(location)
                 .withIcon(ItemRegistry.SULFUR_ATTUNED_DIVINATION_ROD_PRECIOUS.get())

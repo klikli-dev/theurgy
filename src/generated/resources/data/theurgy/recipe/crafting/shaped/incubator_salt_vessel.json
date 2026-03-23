@@ -2,15 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "S": {
-      "tag": "c:stones"
-    },
-    "c": {
-      "tag": "c:ingots/copper"
-    },
-    "s": {
-      "tag": "theurgy:alchemical_salts"
-    }
+    "S": "#c:stones",
+    "c": "#c:ingots/copper",
+    "s": "#theurgy:alchemical_salts"
   },
   "pattern": [
     "csc",
@@ -18,7 +12,6 @@
     "SSS"
   ],
   "result": {
-    "count": 1,
     "id": "theurgy:incubator_salt_vessel"
   }
 }

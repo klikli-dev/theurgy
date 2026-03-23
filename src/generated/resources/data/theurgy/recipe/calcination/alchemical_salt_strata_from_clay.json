@@ -6,7 +6,6 @@
     "ingredient": "minecraft:clay"
   },
   "result": {
-    "type": "theurgy:item",
     "count": 4,
     "id": "theurgy:alchemical_salt_strata"
   },

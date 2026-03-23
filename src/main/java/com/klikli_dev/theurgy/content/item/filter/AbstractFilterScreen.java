@@ -10,7 +10,6 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
@@ -26,16 +25,15 @@ public abstract class AbstractFilterScreen<T extends AbstractFilterMenu> extends
     protected IconButton confirmButton;
 
     public AbstractFilterScreen(T pMenu, Inventory pPlayerInventory, Component pTitle, GuiTextures background) {
-        super(pMenu, pPlayerInventory, pTitle);
+        super(pMenu, pPlayerInventory, pTitle,
+                Math.max(background.width, GuiTextures.PLAYER_INVENTORY.width),
+                background.height + 4 + GuiTextures.PLAYER_INVENTORY.height);
 
         this.background = background;
     }
 
     @Override
     protected void init() {
-        //set width and height before super init so the left/top pos are calculated correctly
-        this.imageWidth = Math.max(this.background.width, GuiTextures.PLAYER_INVENTORY.width);
-        this.imageHeight = this.background.height + 4 + GuiTextures.PLAYER_INVENTORY.height;
         super.init();
 
         int x = this.leftPos;
@@ -88,7 +86,7 @@ public abstract class AbstractFilterScreen<T extends AbstractFilterMenu> extends
             this.menu.player.closeContainer();
 
         super.containerTick();
-        for (GuiEventListener listener : children()) {
+        for (GuiEventListener listener : this.children()) {
             if (listener instanceof TickableGuiEventListener tickable) {
                 tickable.tick();
             }

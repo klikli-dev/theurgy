@@ -8,13 +8,12 @@ import com.klikli_dev.theurgy.content.behaviour.crafting.CraftingBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.crafting.HasCraftingBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.heat.HeatConsumerBehaviour;
 import com.klikli_dev.theurgy.content.capability.CraftingHeatReceiver;
-import com.klikli_dev.theurgy.content.capability.DefaultHeatReceiver;
 import com.klikli_dev.theurgy.content.particle.ParticleColor;
 import com.klikli_dev.theurgy.content.particle.coloredbubble.ColoredBubbleParticleProvider;
 import com.klikli_dev.theurgy.content.recipe.LiquefactionRecipe;
 import com.klikli_dev.theurgy.content.recipe.input.ItemHandlerWithFluidRecipeInput;
-import com.klikli_dev.theurgy.util.ValueIOUtils;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
+import com.klikli_dev.theurgy.util.ValueIOUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
@@ -84,7 +83,7 @@ public class LiquefactionCauldronBlockEntity extends BlockEntity implements HasC
     }
 
     public void sendBlockUpdated() {
-        if (this.level != null && !this.level.isClientSide)
+        if (this.level != null && !this.level.isClientSide())
             this.level.sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), Block.UPDATE_CLIENTS);
     }
 

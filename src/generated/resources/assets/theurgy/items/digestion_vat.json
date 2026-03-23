@@ -1,6 +1,9 @@
 {
   "model": {
-    "type": "minecraft:model",
-    "model": "theurgy:item/digestion_vat"
+    "type": "minecraft:special",
+    "base": "theurgy:item/digestion_vat",
+    "model": {
+      "type": "theurgy:digestion_vat"
+    }
   }
 }

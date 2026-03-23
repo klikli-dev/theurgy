@@ -19,7 +19,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Set;
 
-public class MessageAddWires implements Message {
+public record MessageAddWires(Set<Wire> wires) implements Message {
 
     public static final Type<MessageAddWires> TYPE = new Type<>(Theurgy.loc("add_wires"));
     public static final StreamCodec<RegistryFriendlyByteBuf, MessageAddWires> STREAM_CODEC =
@@ -28,12 +28,6 @@ public class MessageAddWires implements Message {
                     (m) -> m.wires,
                     MessageAddWires::new
             );
-
-    public final Set<Wire> wires;
-
-    public MessageAddWires(Set<Wire> wires) {
-        this.wires = wires;
-    }
 
     @Override
     public @NotNull Type<? extends CustomPacketPayload> type() {

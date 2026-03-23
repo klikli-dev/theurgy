@@ -26,8 +26,6 @@
   "category": "misc",
   "mercuryFlux": 50,
   "result": {
-    "type": "theurgy:item",
-    "count": 1,
     "id": "theurgy:alchemical_sulfur_lignite_coal"
   },
   "sources": [
@@ -36,8 +34,6 @@
       "ingredient": "theurgy:alchemical_niter_other_minerals_abundant"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_lignite_coal"
-  },
+  "target": "theurgy:alchemical_sulfur_lignite_coal",
   "time": 100
 }

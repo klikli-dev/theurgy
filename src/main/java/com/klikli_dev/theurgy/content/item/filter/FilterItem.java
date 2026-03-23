@@ -4,7 +4,7 @@
 
 package com.klikli_dev.theurgy.content.item.filter;
 
-import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -40,7 +40,7 @@ public abstract class FilterItem extends Item implements MenuProvider {
         ItemStack heldItem = pPlayer.getItemInHand(pUsedHand);
 
         if (!pPlayer.isShiftKeyDown() && pUsedHand == InteractionHand.MAIN_HAND) {
-            if (!pLevel.isClientSide && pPlayer instanceof ServerPlayer serverPlayer)
+            if (!pLevel.isClientSide() && pPlayer instanceof ServerPlayer serverPlayer)
                 serverPlayer.openMenu(this, buf -> {
                     ItemStack.STREAM_CODEC.encode(buf, heldItem);
                 });
@@ -52,7 +52,7 @@ public abstract class FilterItem extends Item implements MenuProvider {
 
     @Override
     public void appendHoverText(@NotNull ItemStack pStack, @NotNull TooltipContext pContext, @NotNull TooltipDisplay pTooltipDisplay, @NotNull Consumer<Component> pTooltipAdder, @NotNull TooltipFlag pTooltipFlag) {
-        if (!Screen.hasShiftDown()) {
+        if (!Minecraft.getInstance().hasShiftDown()) {
             List<Component> makeSummary = this.makeSummary(pStack, pContext.registries());
             if (makeSummary.isEmpty())
                 return;

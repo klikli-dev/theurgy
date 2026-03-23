@@ -32,7 +32,7 @@ public class CaloricFluxEmitterEntry extends EntryProvider {
                         Using coal as a heat is positively *barbaric*. Alchemists can do better.
                         To heat your apparatus more efficiently and even from a distance, you can use a Caloric Flux Emitter.
                         The following pages list all the needed machinery.
-                         """,
+                        """,
                 this.entryLink("Caloric Flux Emitter", ApparatusCategory.CATEGORY_ID, CaloricFluxEmitterEntry.ENTRY_ID),
                 this.categoryLink("Apparatus", ApparatusCategory.CATEGORY_ID)
         );
@@ -43,7 +43,7 @@ public class CaloricFluxEmitterEntry extends EntryProvider {
         this.pageTitle("Caloric Flux Emitter");
         this.pageText("""
                         View {0} in the {1} Category on how to craft and use them.
-                         """,
+                        """,
                 this.entryLink("Caloric Flux Emitter", ApparatusCategory.CATEGORY_ID, CaloricFluxEmitterEntry.ENTRY_ID),
                 this.categoryLink("Apparatus", ApparatusCategory.CATEGORY_ID)
         );

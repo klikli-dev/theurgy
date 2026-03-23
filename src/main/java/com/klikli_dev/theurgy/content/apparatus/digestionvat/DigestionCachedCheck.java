@@ -8,9 +8,8 @@ import com.klikli_dev.theurgy.content.recipe.DigestionRecipe;
 import com.klikli_dev.theurgy.content.recipe.input.ItemHandlerWithFluidRecipeInput;
 import com.klikli_dev.theurgy.util.LevelUtil;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -88,7 +87,7 @@ public class DigestionCachedCheck implements RecipeManager.CachedCheck<ItemHandl
             var recipeOptional = recipeManager.byKey(lastRecipe);
             if (recipeOptional.isPresent() && recipeOptional.get().value().getType() == this.type) {
                 @SuppressWarnings("unchecked")
-                var recipe = (RecipeHolder<DigestionRecipe>) (Object) recipeOptional.get();
+                var recipe = (RecipeHolder<DigestionRecipe>) recipeOptional.get();
                 if (this.matchesRecipe(recipe, input)) {
                     return Optional.of(recipe);
                 }
@@ -104,7 +103,7 @@ public class DigestionCachedCheck implements RecipeManager.CachedCheck<ItemHandl
             var recipeOptional = recipeManager.byKey(lastRecipe);
             if (recipeOptional.isPresent() && recipeOptional.get().value().getType() == this.type) {
                 @SuppressWarnings("unchecked")
-                var recipe = (RecipeHolder<DigestionRecipe>) (Object) recipeOptional.get();
+                var recipe = (RecipeHolder<DigestionRecipe>) recipeOptional.get();
                 if (recipe.value().getIngredients().stream().anyMatch(i -> i.test(stack))) {
                     return Optional.of(recipe);
                 }
@@ -120,7 +119,7 @@ public class DigestionCachedCheck implements RecipeManager.CachedCheck<ItemHandl
             var recipeOptional = recipeManager.byKey(lastRecipe);
             if (recipeOptional.isPresent() && recipeOptional.get().value().getType() == this.type) {
                 @SuppressWarnings("unchecked")
-                var recipe = (RecipeHolder<DigestionRecipe>) (Object) recipeOptional.get();
+                var recipe = (RecipeHolder<DigestionRecipe>) recipeOptional.get();
                 if (recipe.value().getFluid().ingredient().test(stack)) {
                     return Optional.of(recipe);
                 }
@@ -202,7 +201,7 @@ public class DigestionCachedCheck implements RecipeManager.CachedCheck<ItemHandl
      */
     @Override
     public @NotNull Optional<RecipeHolder<DigestionRecipe>> getRecipeFor(@NotNull ItemHandlerWithFluidRecipeInput container, @NotNull net.minecraft.server.level.ServerLevel level) {
-        if(this.noRecipeForLastItemHandlerInput) {
+        if (this.noRecipeForLastItemHandlerInput) {
             return Optional.empty();
         }
 

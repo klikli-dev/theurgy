@@ -2,19 +2,14 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "c": {
-      "tag": "c:ingots/copper"
-    },
-    "m": {
-      "item": "theurgy:mercury_shard"
-    }
+    "c": "#c:ingots/copper",
+    "m": "theurgy:mercury_shard"
   },
   "pattern": [
     "c",
     "m"
   ],
   "result": {
-    "count": 1,
     "id": "theurgy:logistics_item_extractor"
   }
 }

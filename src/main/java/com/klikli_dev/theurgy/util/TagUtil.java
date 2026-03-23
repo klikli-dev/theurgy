@@ -25,12 +25,13 @@ public class TagUtil {
                         .flatMap(t -> t.stream().map(Holder::value).findFirst())
                         .orElse(null);
     }
-// ...
+
+    // ...
     @Nullable
     public static Block getBlockForTag(TagKey<Block> tag) {
         return BuiltInRegistries.BLOCK.get(tag)
-                        .flatMap(t -> t.stream().map(Holder::value).findFirst())
-                        .orElse(null);
+                .flatMap(t -> t.stream().map(Holder::value).findFirst())
+                .orElse(null);
     }
 
     public static ItemStack getItemStackForTag(TagKey<Item> tag) {

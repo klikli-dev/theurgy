@@ -1,6 +1,9 @@
 {
   "model": {
-    "type": "minecraft:model",
-    "model": "theurgy:item/calcination_oven"
+    "type": "minecraft:special",
+    "base": "theurgy:item/calcination_oven",
+    "model": {
+      "type": "geckolib:geckolib"
+    }
   }
 }

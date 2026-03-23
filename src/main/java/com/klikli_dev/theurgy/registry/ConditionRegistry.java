@@ -6,7 +6,6 @@ package com.klikli_dev.theurgy.registry;
 
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.content.recipe.condition.FluidTagEmptyCondition;
-import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import net.neoforged.neoforge.common.conditions.ICondition;
 import net.neoforged.neoforge.registries.DeferredHolder;

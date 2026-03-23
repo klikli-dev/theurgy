@@ -13,7 +13,6 @@
   "ingredient": "#c:crops/peanut",
   "result": {
     "type": "theurgy:item",
-    "count": 1,
     "id": "theurgy:alchemical_sulfur_peanut"
   },
   "solvent": {

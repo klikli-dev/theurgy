@@ -42,7 +42,7 @@ public class ServerConfig {
                             "When adding a sulfur that is not in the 'theurgy' or 'kubejs' namespace, the namespace needs to be added to this list in order for the tooltip to show.",
                             "Format is: [\"<my_mod_namespace>\", \"<my_modpack_namespace>\", ...]"
                     )
-                    .defineList("additionalTooltipHandlerNamespaces", List.of(), e -> true);
+                    .defineListAllowEmpty("additionalTooltipHandlerNamespaces", List.of(), () -> "namespace", e -> true);
 
             builder.pop();
         }

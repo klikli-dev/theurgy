@@ -21,12 +21,18 @@ import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.neoforged.neoforge.capabilities.BlockCapability;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.fluid.FluidResource;
+import net.neoforged.neoforge.transfer.item.ItemResource;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.function.BiFunction;
 
 public class CapabilityRegistry {
+
+    public static final BlockCapability<ResourceHandler<ItemResource>, @Nullable Direction> ITEM_HANDLER = Capabilities.Item.BLOCK;
+    public static final BlockCapability<ResourceHandler<FluidResource>, @Nullable Direction> FLUID_HANDLER = Capabilities.Fluid.BLOCK;
 
     public static final BlockCapability<MercuryFluxStorage, @Nullable Direction> MERCURY_FLUX_HANDLER = BlockCapability.createSided(
             Theurgy.loc("mercury_flux_handler"),
@@ -68,7 +74,7 @@ public class CapabilityRegistry {
 
     public static void registerCalcinationOven(RegisterCapabilitiesEvent event) {
         event.registerBlock(
-                Capabilities.ItemHandler.BLOCK,
+                ITEM_HANDLER,
                 (level, pos, state, be, context) ->
                         doubleBlockCapability(level, pos, be, context, CalcinationOvenBlockEntity.class,
                                 (blockEntity, side) -> {
@@ -99,7 +105,7 @@ public class CapabilityRegistry {
 
     public static void registerDigestionVat(RegisterCapabilitiesEvent event) {
         event.registerBlockEntity(
-                Capabilities.ItemHandler.BLOCK,
+                ITEM_HANDLER,
                 BlockEntityRegistry.DIGESTION_VAT.get(),
                 (blockEntity, side) -> {
                     if (side == Direction.UP) {
@@ -113,7 +119,7 @@ public class CapabilityRegistry {
         );
 
         event.registerBlockEntity(
-                Capabilities.FluidHandler.BLOCK,
+                FLUID_HANDLER,
                 BlockEntityRegistry.DIGESTION_VAT.get(),
                 (blockEntity, side) -> blockEntity.storageBehaviour.fluidTankCloseAwareWrapper
         );
@@ -121,7 +127,7 @@ public class CapabilityRegistry {
 
     public static void registerDistiller(RegisterCapabilitiesEvent event) {
         event.registerBlock(
-                Capabilities.ItemHandler.BLOCK,
+                ITEM_HANDLER,
                 (level, pos, state, be, context) ->
                         doubleBlockCapability(level, pos, be, context, DistillerBlockEntity.class,
                                 (blockEntity, side) -> {
@@ -145,7 +151,7 @@ public class CapabilityRegistry {
 
     public static void registerFermentationVat(RegisterCapabilitiesEvent event) {
         event.registerBlockEntity(
-                Capabilities.ItemHandler.BLOCK,
+                ITEM_HANDLER,
                 BlockEntityRegistry.FERMENTATION_VAT.get(),
                 (blockEntity, side) -> {
                     if (side == Direction.UP) {
@@ -159,7 +165,7 @@ public class CapabilityRegistry {
         );
 
         event.registerBlockEntity(
-                Capabilities.FluidHandler.BLOCK,
+                FLUID_HANDLER,
                 BlockEntityRegistry.FERMENTATION_VAT.get(),
                 (blockEntity, side) -> blockEntity.storageBehaviour.fluidTankCloseAwareWrapper
         );
@@ -167,7 +173,7 @@ public class CapabilityRegistry {
 
     public static void registerIncubator(RegisterCapabilitiesEvent event) {
         event.registerBlock(
-                Capabilities.ItemHandler.BLOCK,
+                ITEM_HANDLER,
                 (level, pos, state, be, context) ->
                         doubleBlockCapability(level, pos, be, context, IncubatorBlockEntity.class,
                                 (blockEntity, side) -> blockEntity.outputInventoryTakeOnlyWrapper
@@ -181,17 +187,17 @@ public class CapabilityRegistry {
                 (blockEntity, side) -> blockEntity.heatReceiver);
 
         event.registerBlockEntity(
-                Capabilities.ItemHandler.BLOCK,
+                ITEM_HANDLER,
                 BlockEntityRegistry.INCUBATOR_SULFUR_VESSEL.get(),
                 (blockEntity, side) -> blockEntity.inputInventory);
 
         event.registerBlockEntity(
-                Capabilities.ItemHandler.BLOCK,
+                ITEM_HANDLER,
                 BlockEntityRegistry.INCUBATOR_SALT_VESSEL.get(),
                 (blockEntity, side) -> blockEntity.inputInventory);
 
         event.registerBlockEntity(
-                Capabilities.ItemHandler.BLOCK,
+                ITEM_HANDLER,
                 BlockEntityRegistry.INCUBATOR_MERCURY_VESSEL.get(),
                 (blockEntity, side) -> blockEntity.inputInventory);
     }
@@ -203,7 +209,7 @@ public class CapabilityRegistry {
                 (blockEntity, side) -> blockEntity.heatReceiver);
 
         event.registerBlock(
-                Capabilities.ItemHandler.BLOCK,
+                ITEM_HANDLER,
                 (level, pos, state, be, context) ->
                         doubleBlockCapability(level, pos, be, context, LiquefactionCauldronBlockEntity.class, (blockEntity, side) -> {
                                     if (side == Direction.UP) {
@@ -219,7 +225,7 @@ public class CapabilityRegistry {
         );
 
         event.registerBlock(
-                Capabilities.FluidHandler.BLOCK,
+                FLUID_HANDLER,
                 (level, pos, state, be, context) ->
                         doubleBlockCapability(level, pos, be, context, LiquefactionCauldronBlockEntity.class, (blockEntity, c) -> blockEntity.storageBehaviour.solventTank),
                 BlockRegistry.LIQUEFACTION_CAULDRON.get()
@@ -233,14 +239,14 @@ public class CapabilityRegistry {
                 (blockEntity, side) -> blockEntity.mercuryFluxStorage);
 
         event.registerBlockEntity(
-                Capabilities.ItemHandler.BLOCK,
+                ITEM_HANDLER,
                 BlockEntityRegistry.MERCURY_CATALYST.get(),
                 (blockEntity, side) -> blockEntity.inventory);
     }
 
     public static void registerPyromanticBrazier(RegisterCapabilitiesEvent event) {
         event.registerBlockEntity(
-                Capabilities.ItemHandler.BLOCK,
+                ITEM_HANDLER,
                 BlockEntityRegistry.PYROMANTIC_BRAZIER.get(),
                 (blockEntity, side) -> blockEntity.inventory);
         event.registerBlockEntity(
@@ -256,36 +262,36 @@ public class CapabilityRegistry {
                 (blockEntity, side) -> blockEntity.mercuryFluxStorage);
 
         event.registerBlockEntity(
-                Capabilities.ItemHandler.BLOCK,
+                ITEM_HANDLER,
                 BlockEntityRegistry.REFORMATION_RESULT_PEDESTAL.get(),
                 (blockEntity, side) -> blockEntity.outputInventoryTakeOnlyWrapper);
 
         event.registerBlockEntity(
-                Capabilities.ItemHandler.BLOCK,
+                ITEM_HANDLER,
                 BlockEntityRegistry.REFORMATION_TARGET_PEDESTAL.get(),
                 (blockEntity, side) -> blockEntity.inputInventory);
 
         event.registerBlockEntity(
-                Capabilities.ItemHandler.BLOCK,
+                ITEM_HANDLER,
                 BlockEntityRegistry.REFORMATION_SOURCE_PEDESTAL.get(),
                 (blockEntity, side) -> blockEntity.inputInventory);
     }
 
     public static void registerSalAmmoniacAccumulator(RegisterCapabilitiesEvent event) {
         event.registerBlockEntity(
-                Capabilities.ItemHandler.BLOCK,
+                ITEM_HANDLER,
                 BlockEntityRegistry.SAL_AMMONIAC_ACCUMULATOR.get(),
                 (blockEntity, side) -> blockEntity.inventory);
 
         event.registerBlockEntity(
-                Capabilities.FluidHandler.BLOCK,
+                FLUID_HANDLER,
                 BlockEntityRegistry.SAL_AMMONIAC_ACCUMULATOR.get(),
                 (blockEntity, side) -> blockEntity.waterTank);
     }
 
     public static void registerSalAmmoniacTank(RegisterCapabilitiesEvent event) {
         event.registerBlockEntity(
-                Capabilities.FluidHandler.BLOCK,
+                FLUID_HANDLER,
                 BlockEntityRegistry.SAL_AMMONIAC_TANK.get(),
                 (blockEntity, side) -> blockEntity.tank);
     }

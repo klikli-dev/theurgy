@@ -29,7 +29,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.Mirror;
 import net.minecraft.world.level.block.Rotation;
-import net.minecraft.world.level.redstone.Orientation;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -39,6 +38,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.pathfinder.PathComputationType;
+import net.minecraft.world.level.redstone.Orientation;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -117,7 +117,7 @@ public class DigestionVatBlock extends Block implements EntityBlock {
 
     @SuppressWarnings("deprecation")
     @Override
-    protected int getAnalogOutputSignal(@NotNull BlockState pBlockState, @NotNull Level pLevel, @NotNull BlockPos pPos) {
+    protected int getAnalogOutputSignal(@NotNull BlockState pBlockState, @NotNull Level pLevel, @NotNull BlockPos pPos, @NotNull Direction pDirection) {
         return this.analogSignalOutputBehaviour.getAnalogOutputSignal(pBlockState, pLevel, pPos);
     }
 

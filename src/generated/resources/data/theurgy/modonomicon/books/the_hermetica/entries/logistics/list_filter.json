@@ -5,7 +5,7 @@
   "description": "book.theurgy.the_hermetica.logistics.list_filter.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "theurgy:list_filter"
+    "id": "theurgy:list_filter"
   },
   "name": "book.theurgy.the_hermetica.logistics.list_filter.name",
   "pages": [

@@ -26,8 +26,6 @@
   "category": "misc",
   "mercuryFlux": 200,
   "result": {
-    "type": "theurgy:item",
-    "count": 1,
     "id": "theurgy:alchemical_sulfur_diamond"
   },
   "sources": [
@@ -36,8 +34,6 @@
       "ingredient": "theurgy:alchemical_niter_gems_precious"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_diamond"
-  },
+  "target": "theurgy:alchemical_sulfur_diamond",
   "time": 100
 }

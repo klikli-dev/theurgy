@@ -4,17 +4,15 @@
 
 package com.klikli_dev.theurgy.content.apparatus.incubator;
 
-import com.klikli_dev.theurgy.content.behaviour.crafting.CraftingBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.crafting.HasCraftingBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.heat.HeatConsumerBehaviour;
 import com.klikli_dev.theurgy.content.capability.CraftingHeatReceiver;
-import com.klikli_dev.theurgy.content.capability.DefaultHeatReceiver;
 import com.klikli_dev.theurgy.content.recipe.IncubationRecipe;
 import com.klikli_dev.theurgy.content.recipe.input.IncubatorRecipeInput;
 import com.klikli_dev.theurgy.content.storage.MonitoredItemStackHandler;
 import com.klikli_dev.theurgy.content.storage.PreventInsertWrapper;
-import com.klikli_dev.theurgy.util.ValueIOUtils;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
+import com.klikli_dev.theurgy.util.ValueIOUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -32,7 +30,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.Nullable;
 
 
@@ -44,7 +41,7 @@ public class IncubatorBlockEntity extends BlockEntity implements HasCraftingBeha
     /**
      * The underlying outputInventory which allows inserting too - we use this when crafting.
      */
-    public ItemStackHandler outputInventory;
+    public MonitoredItemStackHandler outputInventory;
     /**
      * A wrapper that only allows taking from the outputInventory - this is what we show to the outside.
      */
@@ -74,7 +71,7 @@ public class IncubatorBlockEntity extends BlockEntity implements HasCraftingBeha
     }
 
     public void sendBlockUpdated() {
-        if (this.level != null && !this.level.isClientSide)
+        if (this.level != null && !this.level.isClientSide())
             this.level.sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), Block.UPDATE_CLIENTS);
     }
 

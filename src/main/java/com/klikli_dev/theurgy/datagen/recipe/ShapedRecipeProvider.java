@@ -5,26 +5,26 @@
 package com.klikli_dev.theurgy.datagen.recipe;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.content.item.divinationrod.DivinationRodItem;
 import com.klikli_dev.theurgy.registry.DataComponentRegistry;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.registry.ItemTagRegistry;
-import com.mojang.serialization.JsonOps;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.ToolMaterial;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
-import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -41,7 +41,7 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
     }
 
     @Override
-    public void buildRecipes(BiConsumer<ResourceLocation, JsonObject> recipeConsumer) {
+    public void buildRecipes(BiConsumer<Identifier, JsonObject> recipeConsumer) {
         //Divination Rods
         this.makeRecipe(new ShapedRecipeBuilder(
                 ItemRegistry.DIVINATION_ROD_T1.get(), 1, this.makeDivinationRodSettings(ItemRegistry.DIVINATION_ROD_T1.get()).build())
@@ -53,8 +53,7 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
         );
 
         var amethystDivinationRodSettings = this.makeDivinationRodSettings(ItemRegistry.AMETHYST_DIVINATION_ROD.get());
-        //noinspection deprecation
-        amethystDivinationRodSettings.set(DataComponentRegistry.DIVINATION_LINKED_BLOCK.get(), Blocks.BUDDING_AMETHYST.builtInRegistryHolder());
+        amethystDivinationRodSettings.set(DataComponentRegistry.DIVINATION_LINKED_BLOCK.get(), BuiltInRegistries.BLOCK.wrapAsHolder(Blocks.BUDDING_AMETHYST));
 
         this.makeRecipe(new ShapedRecipeBuilder(
                 ItemRegistry.AMETHYST_DIVINATION_ROD.get(), 1, amethystDivinationRodSettings.build())
@@ -455,26 +454,22 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
     protected class ShapedRecipeBuilder {
 
         private final JsonObject recipe;
-        private final ItemStack result;
+        private final ItemStackTemplate result;
 
         public ShapedRecipeBuilder(ItemLike result) {
-            //noinspection deprecation
-            this(result.asItem().builtInRegistryHolder());
+            this(result, 1);
         }
 
         public ShapedRecipeBuilder(ItemLike result, int count) {
-            //noinspection deprecation
-            this(result.asItem().builtInRegistryHolder(), count);
+            this(result, count, DataComponentPatch.EMPTY);
         }
 
         public ShapedRecipeBuilder(ItemLike result, int count, DataComponentPatch patch) {
-            //noinspection deprecation
-            this(result.asItem().builtInRegistryHolder(), count, patch);
+            this("minecraft:crafting_shaped", ShapedRecipeProvider.this.createItemStack(result, count, patch));
         }
 
         public ShapedRecipeBuilder(String recipeType, ItemLike result, int count, DataComponentPatch patch) {
-            //noinspection deprecation
-            this(recipeType, new ItemStack(result.asItem().builtInRegistryHolder(), count, patch));
+            this(recipeType, ShapedRecipeProvider.this.createItemStack(result, count, patch));
         }
 
         public ShapedRecipeBuilder(Holder<Item> result) {
@@ -487,44 +482,39 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
 
         public ShapedRecipeBuilder(Holder<Item> result, int count, DataComponentPatch patch) {
             //noinspection DataFlowIssue
-            this(BuiltInRegistries.RECIPE_SERIALIZER.getKey(RecipeSerializer.SHAPED_RECIPE).toString(), result, count, patch);
+            this("minecraft:crafting_shaped", result, count, patch);
         }
 
         public ShapedRecipeBuilder(String recipeType, Holder<Item> result, int count, DataComponentPatch patch) {
-            this(recipeType, new ItemStack(result, count, patch));
+            this(recipeType, new ItemStackTemplate(result, count, patch));
         }
 
-        public ShapedRecipeBuilder(String recipeType, ItemStack result) {
+        public ShapedRecipeBuilder(String recipeType, ItemStackTemplate result) {
             this.result = result;
             this.recipe = new JsonObject();
             this.recipe.addProperty("type", recipeType);
-            this.recipe.add("result", ItemStack.STRICT_CODEC.encodeStart(ShapedRecipeProvider.this.registryOps, result).getOrThrow());
+            this.recipe.add("result", ItemStackTemplate.CODEC.encodeStart(ShapedRecipeProvider.this.registryOps, result).getOrThrow());
             this.recipe.add("key", new JsonObject());
             this.recipe.add("pattern", new JsonArray());
         }
 
-        private JsonObject ingredient(TagKey<Item> tag) {
-            JsonObject jsonobject = new JsonObject();
-            jsonobject.addProperty("tag", tag.location().toString());
-            return jsonobject;
+        private JsonElement ingredient(TagKey<Item> tag) {
+            return Ingredient.CODEC.encodeStart(ShapedRecipeProvider.this.registryOps, Ingredient.of(ShapedRecipeProvider.this.items.getOrThrow(tag))).getOrThrow();
         }
 
         public ShapedRecipeBuilder define(char key, TagKey<Item> tag) {
             return this.define(key, this.ingredient(tag));
         }
 
-        private JsonObject ingredient(ItemLike item) {
-            JsonObject jsonobject = new JsonObject();
-            //noinspection deprecation,OptionalGetWithoutIsPresent
-            jsonobject.addProperty("item", item.asItem().builtInRegistryHolder().unwrapKey().get().location().toString());
-            return jsonobject;
+        private JsonElement ingredient(ItemLike item) {
+            return Ingredient.CODEC.encodeStart(ShapedRecipeProvider.this.registryOps, Ingredient.of(item)).getOrThrow();
         }
 
         public ShapedRecipeBuilder define(char key, ItemLike item) {
             return this.define(key, this.ingredient(item));
         }
 
-        public ShapedRecipeBuilder define(char key, JsonObject ingredient) {
+        public ShapedRecipeBuilder define(char key, JsonElement ingredient) {
             var keyString = String.valueOf(key);
             var keys = this.recipe.getAsJsonObject("key");
             if (keys.has(keyString))
@@ -545,7 +535,7 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
             return this.recipe;
         }
 
-        public ItemStack result() {
+        public ItemStackTemplate result() {
             return this.result;
         }
     }

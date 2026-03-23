@@ -5,7 +5,7 @@
   "description": "book.theurgy.the_hermetica.logistics.fluid_extractor.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "theurgy:logistics_fluid_extractor"
+    "id": "theurgy:logistics_fluid_extractor"
   },
   "name": "book.theurgy.the_hermetica.logistics.fluid_extractor.name",
   "pages": [

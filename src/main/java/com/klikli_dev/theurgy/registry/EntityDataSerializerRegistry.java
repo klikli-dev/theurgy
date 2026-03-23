@@ -6,12 +6,10 @@ package com.klikli_dev.theurgy.registry;
 
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.util.TheurgyExtraStreamCodecs;
-import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.syncher.EntityDataSerializer;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
-import org.joml.Vector3f;
 
 import java.util.function.Supplier;
 

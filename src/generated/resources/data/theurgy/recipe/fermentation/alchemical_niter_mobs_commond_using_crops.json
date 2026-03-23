@@ -26,8 +26,6 @@
     "#c:crops"
   ],
   "result": {
-    "type": "theurgy:item",
-    "count": 1,
     "id": "theurgy:alchemical_niter_mobs_commond"
   },
   "time": 200

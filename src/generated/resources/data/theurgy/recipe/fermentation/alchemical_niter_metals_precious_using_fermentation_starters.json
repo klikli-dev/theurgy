@@ -26,8 +26,6 @@
     "#theurgy:fermentation_starters"
   ],
   "result": {
-    "type": "theurgy:item",
-    "count": 1,
     "id": "theurgy:alchemical_niter_metals_precious"
   },
   "time": 200

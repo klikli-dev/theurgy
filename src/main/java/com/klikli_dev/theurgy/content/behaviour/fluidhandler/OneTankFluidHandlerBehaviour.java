@@ -4,6 +4,8 @@
 
 package com.klikli_dev.theurgy.content.behaviour.fluidhandler;
 
+import com.klikli_dev.theurgy.content.storage.FluidStorageHelper;
+import com.klikli_dev.theurgy.registry.CapabilityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -12,10 +14,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
-import net.neoforged.neoforge.capabilities.Capabilities;
-import net.neoforged.neoforge.fluids.FluidStack;
-import net.neoforged.neoforge.fluids.FluidUtil;
-import net.neoforged.neoforge.fluids.capability.IFluidHandlerItem;
+import net.neoforged.neoforge.transfer.fluid.FluidUtil;
 
 
 public class OneTankFluidHandlerBehaviour implements FluidHandlerBehaviour {
@@ -29,55 +28,24 @@ public class OneTankFluidHandlerBehaviour implements FluidHandlerBehaviour {
             return InteractionResult.PASS;
 
         var stackInHand = pPlayer.getItemInHand(pHand);
-        var fillStack = stackInHand.copyWithCount(1); //necessary to handle stacks of containers, because FluidUtil only can handle one item at a time
 
-        var blockFluidHandler = pLevel.getCapability(Capabilities.FluidHandler.BLOCK, pPos, null);
+        var blockFluidHandler = pLevel.getCapability(CapabilityRegistry.FLUID_HANDLER, pPos, null);
         //a block without fluid handler is of no interest
         if (blockFluidHandler == null)
             return InteractionResult.PASS;
 
         if (stackInHand.isEmpty() && pPlayer.isShiftKeyDown()) {
             //sneaking with empty hand means we're trying to void the liquid
-            blockFluidHandler.drain(Integer.MAX_VALUE, IFluidHandlerItem.FluidAction.EXECUTE);
+            FluidStorageHelper.drain(blockFluidHandler, Integer.MAX_VALUE, false);
             return InteractionResult.SUCCESS;
         }
 
-        var itemFluidHandler = fillStack.getCapability(Capabilities.FluidHandler.ITEM);
-
-        //if our item does not have a fluid handler we cannot interact further
-        if (itemFluidHandler == null)
-            return InteractionResult.PASS;
-
-        //first we try to insert
-        var transferredFluid = FluidUtil.tryFluidTransfer(blockFluidHandler, itemFluidHandler,
-                Integer.MAX_VALUE, true);
-        if (this.updateFluidContainerInHand(pPlayer, pHand, stackInHand, itemFluidHandler, transferredFluid))
+        if (FluidUtil.interactWithFluidHandler(pPlayer, pHand, pPos, blockFluidHandler)) {
             return InteractionResult.SUCCESS;
-
-        //if that fails, try to extract
-        transferredFluid = FluidUtil.tryFluidTransfer(itemFluidHandler, blockFluidHandler,
-                Integer.MAX_VALUE, true);
-        if (this.updateFluidContainerInHand(pPlayer, pHand, stackInHand, itemFluidHandler, transferredFluid))
-            return InteractionResult.SUCCESS;
+        }
 
 
         return InteractionResult.PASS;
-    }
-
-    private boolean updateFluidContainerInHand(Player pPlayer, InteractionHand pHand, ItemStack stackInHand, IFluidHandlerItem itemFluidHandler, FluidStack transferredFluid) {
-        if (!transferredFluid.isEmpty()) {
-            //handle bucket stacking correctly
-            stackInHand.shrink(1);
-            if (stackInHand.isEmpty()) {
-                pPlayer.setItemInHand(pHand, itemFluidHandler.getContainer()); //always set to container to handle e.g. empty bucket correctly
-            } else {
-                pPlayer.setItemInHand(pHand, stackInHand);
-                pPlayer.getInventory().placeItemBackInInventory(itemFluidHandler.getContainer());
-            }
-
-            return true;
-        }
-        return false;
     }
 
 

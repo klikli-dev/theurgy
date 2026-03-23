@@ -16,7 +16,7 @@ import dev.emi.emi.api.widget.WidgetHolder;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import org.jetbrains.annotations.Nullable;
 
@@ -37,22 +37,22 @@ public class IncubationEmiRecipe implements EmiRecipe {
     }
 
     @Override
-    public @Nullable ResourceLocation getId() {
+    public @Nullable Identifier getId() {
         return this.recipe.id().location();
     }
 
     @Override
     public List<EmiIngredient> getInputs() {
         return Arrays.asList(
-                EmiIngredient.of(this.recipe.value().getMercury()),
-                EmiIngredient.of(this.recipe.value().getSulfur()),
-                EmiIngredient.of(this.recipe.value().getSalt())
+                EmiIngredient.of(this.recipe.value().mercury()),
+                EmiIngredient.of(this.recipe.value().sulfur()),
+                EmiIngredient.of(this.recipe.value().salt())
         );
     }
 
     @Override
     public List<EmiStack> getOutputs() {
-        return Arrays.stream(this.recipe.value().getResult().getStacks()).map(EmiStack::of).toList();
+        return Arrays.stream(this.recipe.value().result().getStacks()).map(EmiStack::of).toList();
     }
 
     @Override
@@ -79,17 +79,17 @@ public class IncubationEmiRecipe implements EmiRecipe {
         widgets.addTexture(EmiTexture.EMPTY_ARROW, 24, 22);
         widgets.addTexture(EmiTexture.EMPTY_FLAME, 28, 44);
 
-        widgets.addSlot(EmiIngredient.of(this.recipe.value().getMercury()), 1, 1);
-        widgets.addSlot(EmiIngredient.of(this.recipe.value().getSulfur()), 1, 21);
-        widgets.addSlot(EmiIngredient.of(this.recipe.value().getSalt()), 1, 42);
+        widgets.addSlot(EmiIngredient.of(this.recipe.value().mercury()), 1, 1);
+        widgets.addSlot(EmiIngredient.of(this.recipe.value().sulfur()), 1, 21);
+        widgets.addSlot(EmiIngredient.of(this.recipe.value().salt()), 1, 42);
 
-        widgets.addSlot(EmiIngredient.of(Arrays.stream(this.recipe.value().getResult().getStacks())
+        widgets.addSlot(EmiIngredient.of(Arrays.stream(this.recipe.value().result().getStacks())
                 .map(
                         i -> EmiStack.of(i.getItem(), i.getCount())
                 )
                 .toList()), 61, 22).recipeContext(this);
 
-        int cookTime = this.recipe.value().getTime();
+        int cookTime = this.recipe.value().time();
         if (cookTime > 0) {
             int cookTimeSeconds = cookTime / 20;
             Component timeString = Component.translatable(TheurgyConstants.I18n.Gui.SMELTING_TIME_SECONDS, cookTimeSeconds);

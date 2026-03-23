@@ -39,7 +39,7 @@ public class RequiredItemsEntry extends EntryProvider {
                 \\
                 \\
                 We need 4 iron sulfur per 1 gold sulfur we want to create.
-                  """
+                """
         );
 
         this.page("source2", () -> BookTextPageModel.create()
@@ -51,7 +51,7 @@ public class RequiredItemsEntry extends EntryProvider {
                         \\
                         \\
                         View {0} to refresh how to obtain sulfur from an item, or use the Iron Sulfur you obtained in the Transmutation experiment.
-                         """,
+                        """,
                 this.entryLink("Extracting Sulfur", GettingStartedCategoryProvider.CATEGORY_ID, CreateSulfurEntry.ENTRY_ID)
         );
 
@@ -65,7 +65,7 @@ public class RequiredItemsEntry extends EntryProvider {
                 \\
                 \\
                 It will be used for the final reformation of all our Niter into the target sulfur.
-                   """
+                """
         );
         this.page("target2", () -> BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
@@ -76,7 +76,7 @@ public class RequiredItemsEntry extends EntryProvider {
                 \\
                 \\
                 *Note: If you want to switch both tier and type you will need two sulfurs of the target type, like in the previous experiment.*
-                       """
+                """
         );
 
         this.page("catalyst", () -> BookSpotlightPageModel.create()

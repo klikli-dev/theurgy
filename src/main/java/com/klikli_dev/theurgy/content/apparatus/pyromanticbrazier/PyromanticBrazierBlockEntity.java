@@ -7,9 +7,9 @@ package com.klikli_dev.theurgy.content.apparatus.pyromanticbrazier;
 import com.klikli_dev.theurgy.content.apparatus.calcinationoven.CalcinationOvenBlock;
 import com.klikli_dev.theurgy.content.capability.HeatProvider;
 import com.klikli_dev.theurgy.content.storage.MonitoredItemStackHandler;
-import com.klikli_dev.theurgy.util.ValueIOUtils;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
+import com.klikli_dev.theurgy.util.ValueIOUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
@@ -24,13 +24,12 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 
 public class PyromanticBrazierBlockEntity extends BlockEntity {
-    public ItemStackHandler inventory;
+    public MonitoredItemStackHandler inventory;
 
     public HeatProvider heatProvider;
 
@@ -44,7 +43,7 @@ public class PyromanticBrazierBlockEntity extends BlockEntity {
     }
 
     public void sendBlockUpdated() {
-        if (this.level != null && !this.level.isClientSide)
+        if (this.level != null && !this.level.isClientSide())
             this.level.sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), Block.UPDATE_CLIENTS);
     }
 
@@ -130,13 +129,13 @@ public class PyromanticBrazierBlockEntity extends BlockEntity {
             if (this.isLit()) {
                 wasTurnedOnDuringThisTick = true;
                 //handle lava bucket
-                if (!fuelStack.getCraftingRemainder().isEmpty())
-                    this.inventory.setStackInSlot(0, fuelStack.getCraftingRemainder());
+                if (fuelStack.getCraftingRemainder() != null)
+                    this.inventory.setStackInSlot(0, fuelStack.getCraftingRemainder().create());
                     //handle all other fuel items
                 else if (hasFuel) {
                     fuelStack.shrink(1);
                     if (fuelStack.isEmpty()) {
-                        this.inventory.setStackInSlot(0, fuelStack.getCraftingRemainder());
+                        this.inventory.setStackInSlot(0, ItemStack.EMPTY);
                     }
                 }
             }

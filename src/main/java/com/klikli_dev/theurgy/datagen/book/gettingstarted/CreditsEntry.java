@@ -5,11 +5,9 @@
 package com.klikli_dev.theurgy.datagen.book.gettingstarted;
 
 import com.klikli_dev.modonomicon.api.datagen.CategoryProvider;
-import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
 import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
-import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.world.item.Items;
 
@@ -47,11 +45,11 @@ public class CreditsEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Thank you, Creators of Create!");
         this.pageText("""
-               Filter functionality, including all textures, is largely based on the Filters found in the Mod "Create". [Click here to learn more about Create](https://github.com/Creators-of-Create/Create).
-               \\
-               \\
-               This adaption is possible due to Create being Open Source, licensed under the MIT License. A sincere thank you to the creators of create for their foundational work.
-               """
+                Filter functionality, including all textures, is largely based on the Filters found in the Mod "Create". [Click here to learn more about Create](https://github.com/Creators-of-Create/Create).
+                \\
+                \\
+                This adaption is possible due to Create being Open Source, licensed under the MIT License. A sincere thank you to the creators of create for their foundational work.
+                """
         );
     }
 

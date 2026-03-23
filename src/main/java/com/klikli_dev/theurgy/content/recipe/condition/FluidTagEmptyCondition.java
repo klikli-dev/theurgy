@@ -5,11 +5,10 @@
 package com.klikli_dev.theurgy.content.recipe.condition;
 
 import com.klikli_dev.theurgy.integration.kubejs.KubeJsIntegration;
-import com.klikli_dev.theurgy.integration.kubejs.KubeJsIntegrationImpl;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.material.Fluid;
 import net.neoforged.neoforge.common.conditions.ICondition;
@@ -20,24 +19,24 @@ public record FluidTagEmptyCondition(TagKey<Fluid> tag) implements ICondition {
     public static final MapCodec<FluidTagEmptyCondition> CODEC = RecordCodecBuilder.mapCodec(
             builder -> builder
                     .group(
-                            ResourceLocation.CODEC.xmap(loc -> TagKey.create(Registries.FLUID, loc), TagKey::location).fieldOf("tag").forGetter(FluidTagEmptyCondition::tag))
+                            Identifier.CODEC.xmap(loc -> TagKey.create(Registries.FLUID, loc), TagKey::location).fieldOf("tag").forGetter(FluidTagEmptyCondition::tag))
                     .apply(builder, FluidTagEmptyCondition::new));
 
     public FluidTagEmptyCondition(String location) {
-        this(ResourceLocation.parse(location));
+        this(Identifier.parse(location));
     }
 
     public FluidTagEmptyCondition(String namespace, String path) {
-        this(ResourceLocation.fromNamespaceAndPath(namespace, path));
+        this(Identifier.fromNamespaceAndPath(namespace, path));
     }
 
-    public FluidTagEmptyCondition(ResourceLocation tag) {
+    public FluidTagEmptyCondition(Identifier tag) {
         this(TagKey.create(Registries.FLUID, tag));
     }
 
     @Override
     public boolean test(ICondition.IContext context) {
-        if(KubeJsIntegration.get().isLoaded())
+        if (KubeJsIntegration.get().isLoaded())
             return KubeJsIntegration.get().isEmpty(this.tag);
 
         return false; // TODO: Fix getTag

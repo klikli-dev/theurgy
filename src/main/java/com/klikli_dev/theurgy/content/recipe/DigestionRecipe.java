@@ -6,6 +6,7 @@ package com.klikli_dev.theurgy.content.recipe;
 
 
 import com.klikli_dev.theurgy.content.recipe.input.ItemHandlerWithFluidRecipeInput;
+import com.klikli_dev.theurgy.content.storage.FluidStorageHelper;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.registry.RecipeSerializerRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
@@ -20,15 +21,8 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.item.crafting.RecipeBookCategory;
-import net.minecraft.world.item.crafting.RecipeBookCategories;
-import net.minecraft.world.item.crafting.RecipeBookCategory;
-import net.minecraft.world.item.crafting.RecipeBookCategories;
-import net.minecraft.world.item.crafting.PlacementInfo;
+import net.minecraft.world.item.ItemStackTemplate;
+import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.common.crafting.SizedIngredient;
 import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
@@ -42,31 +36,30 @@ public class DigestionRecipe implements Recipe<ItemHandlerWithFluidRecipeInput> 
     public static final MapCodec<DigestionRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
                     SizedFluidIngredient.CODEC.fieldOf("fluid").forGetter((r) -> r.fluid),
                     SizedIngredient.NESTED_CODEC.listOf().fieldOf("ingredients").forGetter(r -> r.sizedIngredients),
-                    ItemStack.CODEC.fieldOf("result").forGetter(r -> r.result),
+                    ItemStackTemplate.CODEC.fieldOf("result").forGetter(r -> r.result),
                     Codec.INT.optionalFieldOf("time", DEFAULT_TIME).forGetter(r -> r.time)
             ).apply(instance, DigestionRecipe::new)
     );
-
     public static final StreamCodec<RegistryFriendlyByteBuf, DigestionRecipe> STREAM_CODEC = StreamCodec.composite(
             SizedFluidIngredient.STREAM_CODEC,
             r -> r.fluid,
             SizedIngredient.STREAM_CODEC.apply(ByteBufCodecs.list()),
             r -> r.sizedIngredients,
-            ItemStack.STREAM_CODEC,
+            ItemStackTemplate.STREAM_CODEC,
             r -> r.result,
             ByteBufCodecs.INT,
             r -> r.time,
             DigestionRecipe::new
     );
-
     protected final SizedFluidIngredient fluid;
+    public static final RecipeSerializer<DigestionRecipe> SERIALIZER = new RecipeSerializer<>(CODEC, STREAM_CODEC);
 
     protected final List<SizedIngredient> sizedIngredients;
     protected final NonNullList<Ingredient> ingredients;
-    protected final ItemStack result;
+    protected final ItemStackTemplate result;
     protected final int time;
 
-    public DigestionRecipe(SizedFluidIngredient fluid, List<SizedIngredient> sizedIngredients, ItemStack result, int time) {
+    public DigestionRecipe(SizedFluidIngredient fluid, List<SizedIngredient> sizedIngredients, ItemStackTemplate result, int time) {
         this.fluid = fluid;
         this.sizedIngredients = sizedIngredients;
         this.ingredients = sizedIngredients.stream().map(SizedIngredient::ingredient).collect(NonNullList::create, NonNullList::add, NonNullList::addAll);
@@ -82,7 +75,7 @@ public class DigestionRecipe implements Recipe<ItemHandlerWithFluidRecipeInput> 
 
     @Override
     public boolean matches(ItemHandlerWithFluidRecipeInput pContainer, @NotNull Level pLevel) {
-        var fluid = pContainer.getTank().getFluidInTank(0);
+        var fluid = FluidStorageHelper.getFluidInTank(pContainer.getTank(), 0);
         var fluidMatches = this.fluid.test(fluid);
         if (!fluidMatches)
             return false;
@@ -120,12 +113,29 @@ public class DigestionRecipe implements Recipe<ItemHandlerWithFluidRecipeInput> 
         return true;
     }
 
-    public ItemStack assemble(ItemHandlerWithFluidRecipeInput pInv, HolderLookup.Provider pRegistries) {
-        return this.result.copy();
+    @Override
+    public ItemStack assemble(ItemHandlerWithFluidRecipeInput pInv) {
+        return this.result.create();
     }
+
+    @Override
+    public boolean showNotification() {
+        return true;
+    }
+
+    @Override
+    public String group() {
+        return "";
+    }
+
     @Override
     public RecipeBookCategory recipeBookCategory() {
         return RecipeBookCategories.CRAFTING_MISC;
+    }
+
+    @Override
+    public boolean isSpecial() {
+        return true;
     }
 
     @Override
@@ -143,7 +153,7 @@ public class DigestionRecipe implements Recipe<ItemHandlerWithFluidRecipeInput> 
 //    }
 
     public @NotNull ItemStack getResultItem(HolderLookup.@NotNull Provider pRegistries) {
-        return this.result;
+        return this.result.create();
     }
 
     public @NotNull NonNullList<Ingredient> getIngredients() {
@@ -160,7 +170,7 @@ public class DigestionRecipe implements Recipe<ItemHandlerWithFluidRecipeInput> 
 
     @Override
     public @NotNull RecipeSerializer<DigestionRecipe> getSerializer() {
-        return (RecipeSerializer<DigestionRecipe>) RecipeSerializerRegistry.DIGESTION.get();
+        return RecipeSerializerRegistry.DIGESTION.get();
     }
 
     public SizedFluidIngredient getFluid() {
@@ -171,7 +181,7 @@ public class DigestionRecipe implements Recipe<ItemHandlerWithFluidRecipeInput> 
         return this.fluid.amount();
     }
 
-    public ItemStack getResult() {
+    public ItemStackTemplate getResult() {
         return this.result;
     }
 
@@ -190,15 +200,4 @@ public class DigestionRecipe implements Recipe<ItemHandlerWithFluidRecipeInput> 
         ));
     }
 
-    public static class Serializer implements RecipeSerializer<DigestionRecipe> {
-        @Override
-        public @NotNull MapCodec<DigestionRecipe> codec() {
-            return CODEC;
-        }
-
-        @Override
-        public @NotNull StreamCodec<RegistryFriendlyByteBuf, DigestionRecipe> streamCodec() {
-            return STREAM_CODEC;
-        }
-    }
 }

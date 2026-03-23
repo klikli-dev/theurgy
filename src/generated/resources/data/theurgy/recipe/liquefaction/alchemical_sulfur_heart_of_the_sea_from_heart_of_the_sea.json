@@ -4,7 +4,6 @@
   "ingredient": "minecraft:heart_of_the_sea",
   "result": {
     "type": "theurgy:item",
-    "count": 1,
     "id": "theurgy:alchemical_sulfur_heart_of_the_sea"
   },
   "solvent": {

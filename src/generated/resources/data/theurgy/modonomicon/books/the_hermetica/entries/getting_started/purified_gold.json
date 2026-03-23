@@ -5,7 +5,7 @@
   "description": "book.theurgy.the_hermetica.getting_started.purified_gold.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "theurgy:purified_gold"
+    "id": "theurgy:purified_gold"
   },
   "name": "book.theurgy.the_hermetica.getting_started.purified_gold.name",
   "pages": [

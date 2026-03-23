@@ -7,15 +7,11 @@ package com.klikli_dev.theurgy.content.apparatus.distiller;
 import com.klikli_dev.theurgy.content.recipe.DistillationRecipe;
 import com.klikli_dev.theurgy.content.recipe.input.ItemHandlerRecipeInput;
 import com.klikli_dev.theurgy.util.LevelUtil;
-import com.mojang.datafixers.util.Pair;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.level.Level;
-import net.minecraft.server.level.ServerLevel;
-
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
@@ -42,8 +38,8 @@ class DistillationCachedCheck implements RecipeManager.CachedCheck<ItemHandlerRe
             var recipe = recipeManager.byKey(lastRecipe).orElse(null);
             //test only the ingredient without the (separate) ingredient count check that the recipe.matches() would.
             //that means we call ingredient().test() instead of .test() (which would also match the count)
-            if (recipe != null && recipe.value().getType() == this.type && ((DistillationRecipe)recipe.value()).getIngredient().ingredient().test(stack)) {
-                return Optional.of((RecipeHolder<DistillationRecipe>)(Object)recipe);
+            if (recipe != null && recipe.value().getType() == this.type && ((DistillationRecipe) recipe.value()).getIngredient().ingredient().test(stack)) {
+                return Optional.of((RecipeHolder<DistillationRecipe>) recipe);
             }
         }
 

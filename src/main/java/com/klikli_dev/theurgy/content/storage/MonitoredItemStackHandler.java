@@ -6,16 +6,17 @@ package com.klikli_dev.theurgy.content.storage;
 
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.items.ItemStackHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
 import org.jetbrains.annotations.NotNull;
 
 
 /**
  * A stack handler that provides additional functionality for monitoring changes.
  */
-public abstract class MonitoredItemStackHandler extends ItemStackHandler {
+public abstract class MonitoredItemStackHandler extends ItemStacksResourceHandler implements SettableItemStorage {
     public MonitoredItemStackHandler() {
-        super();
+        super(1);
     }
 
     public MonitoredItemStackHandler(int size) {
@@ -47,13 +48,22 @@ public abstract class MonitoredItemStackHandler extends ItemStackHandler {
 
     }
 
+    protected void onContentsChanged(int slot) {
+
+    }
+
+    @Override
+    protected void onContentsChanged(int slot, ItemStack previousContents) {
+        this.onContentsChanged(slot);
+    }
+
     @Override
     public void setStackInSlot(int slot, @NotNull ItemStack newStack) {
         var oldStack = this.getStackInSlot(slot).copy();
 
         boolean sameItem = ItemStack.isSameItemSameComponents(newStack, oldStack);
 
-        super.setStackInSlot(slot, newStack);
+        this.set(slot, ItemResource.of(newStack), newStack.getCount());
 
         this.onSetStackInSlot(slot, oldStack, newStack, sameItem);
         if (!sameItem) {
@@ -66,7 +76,7 @@ public abstract class MonitoredItemStackHandler extends ItemStackHandler {
     public @NotNull ItemStack insertItem(int slot, @NotNull ItemStack toInsert, boolean simulate) {
         if (!simulate) {
             var oldStack = this.getStackInSlot(slot).copy();
-            var remaining = super.insertItem(slot, toInsert, simulate);
+            var remaining = SettableItemStorage.super.insertItem(slot, toInsert, false);
             var newStack = this.getStackInSlot(slot);
 
             this.onInsertItem(slot, oldStack, newStack, toInsert, remaining);
@@ -75,14 +85,14 @@ public abstract class MonitoredItemStackHandler extends ItemStackHandler {
             }
             return remaining;
         }
-        return super.insertItem(slot, toInsert, simulate);
+        return SettableItemStorage.super.insertItem(slot, toInsert, true);
     }
 
     @Override
     public @NotNull ItemStack extractItem(int slot, int amount, boolean simulate) {
         if (!simulate) {
             var oldStack = this.getStackInSlot(slot).copy();
-            var extracted = super.extractItem(slot, amount, simulate);
+            var extracted = SettableItemStorage.super.extractItem(slot, amount, false);
             var newStack = this.getStackInSlot(slot);
 
             this.onExtractItem(slot, oldStack, newStack, extracted);
@@ -92,6 +102,6 @@ public abstract class MonitoredItemStackHandler extends ItemStackHandler {
 
             return extracted;
         }
-        return super.extractItem(slot, amount, simulate);
+        return SettableItemStorage.super.extractItem(slot, amount, true);
     }
 }

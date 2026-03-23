@@ -12,23 +12,23 @@ import net.minecraft.world.level.block.state.BlockState;
 public abstract class BlockEntityBehaviour {
     protected BlockEntity blockEntity;
 
-    public BlockEntityBehaviour(BlockEntity blockEntity){
+    public BlockEntityBehaviour(BlockEntity blockEntity) {
         this.blockEntity = blockEntity;
     }
 
-    public BlockEntity blockEntity(){
+    public BlockEntity blockEntity() {
         return this.blockEntity;
     }
 
-    protected Level level(){
+    protected Level level() {
         return this.blockEntity.getLevel();
     }
 
-    protected BlockPos getBlockPos(){
+    protected BlockPos getBlockPos() {
         return this.blockEntity.getBlockPos();
     }
 
-    protected BlockState getBlockState(){
+    protected BlockState getBlockState() {
         return this.blockEntity.getBlockState();
     }
 }

@@ -29,7 +29,7 @@ public class CaloricFluxEmitterInteractionBehaviour implements InteractionBehavi
 
     @Override
     public InteractionResult useItemOn(ItemStack pStack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHitResult) {
-        if(pHand != InteractionHand.MAIN_HAND)
+        if (pHand != InteractionHand.MAIN_HAND)
             return InteractionResult.PASS;
 
         var blockEntity = pLevel.getBlockEntity(pPos);
@@ -37,7 +37,7 @@ public class CaloricFluxEmitterInteractionBehaviour implements InteractionBehavi
         if (!(blockEntity instanceof CaloricFluxEmitterBlockEntity caloricFluxEmitter))
             return InteractionResult.PASS;
 
-        if (pLevel.isClientSide)
+        if (pLevel.isClientSide())
             return InteractionResult.SUCCESS;
 
         Networking.sendTo((ServerPlayer) pPlayer, new MessageShowCaloricFluxEmitterStatus(
@@ -74,11 +74,11 @@ public class CaloricFluxEmitterInteractionBehaviour implements InteractionBehavi
 
     private void showStatusMessage(Level level, Player player, CaloricFluxEmitterBlockEntity caloricFluxEmitter) {
         if (caloricFluxEmitter.selectedPoints.isEmpty()) {
-            player.displayClientMessage(Component.translatable(TheurgyConstants.I18n.Behaviour.SELECTION_SUMMARY_CALORIC_FLUX_EMITTER_NO_SELECTION).withStyle(ChatFormatting.RED), true);
+            player.sendOverlayMessage(Component.translatable(TheurgyConstants.I18n.Behaviour.SELECTION_SUMMARY_CALORIC_FLUX_EMITTER_NO_SELECTION).withStyle(ChatFormatting.RED));
         } else {
             var target = caloricFluxEmitter.selectedPoints.getFirst();
             var state = target.getBlockState();
-            player.displayClientMessage(Component.translatable(TheurgyConstants.I18n.Behaviour.SELECTION_SUMMARY_CALORIC_FLUX_EMITTER, state.getBlock().getName()).withStyle(ChatFormatting.WHITE), true);
+            player.sendOverlayMessage(Component.translatable(TheurgyConstants.I18n.Behaviour.SELECTION_SUMMARY_CALORIC_FLUX_EMITTER, state.getBlock().getName()).withStyle(ChatFormatting.WHITE));
         }
     }
 }

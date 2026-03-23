@@ -7,31 +7,29 @@ package com.klikli_dev.theurgy.content.apparatus.calcinationoven;
 import com.klikli_dev.theurgy.content.behaviour.storage.StorageBehaviour;
 import com.klikli_dev.theurgy.content.storage.MonitoredItemStackHandler;
 import com.klikli_dev.theurgy.content.storage.PreventInsertWrapper;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import net.neoforged.neoforge.items.ItemStackHandler;
-import net.neoforged.neoforge.items.wrapper.CombinedInvWrapper;
+import net.neoforged.neoforge.transfer.CombinedResourceHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
 
 import java.util.function.Supplier;
 
 public class CalcinationStorageBehaviour extends StorageBehaviour<CalcinationStorageBehaviour> {
 
-    public ItemStackHandler inputInventory;
+    public InputInventory inputInventory;
 
     /**
      * The underlying outputInventory which allows inserting too - we use this when crafting.
      */
-    public ItemStackHandler outputInventory;
+    public OutputInventory outputInventory;
     /**
      * A wrapper that only allows taking from the outputInventory - this is what we show to the outside.
      */
     public PreventInsertWrapper outputInventoryExtractOnlyWrapper;
 
-    public CombinedInvWrapper inventory;
+    public CombinedResourceHandler<ItemResource> inventory;
 
     public Supplier<CalcinationCraftingBehaviour> craftingBehaviour;
 
@@ -45,7 +43,7 @@ public class CalcinationStorageBehaviour extends StorageBehaviour<CalcinationSto
         this.outputInventory = new OutputInventory();
         this.outputInventoryExtractOnlyWrapper = new PreventInsertWrapper(this.outputInventory);
 
-        this.inventory = new CombinedInvWrapper(this.inputInventory, this.outputInventoryExtractOnlyWrapper);
+        this.inventory = new CombinedResourceHandler<>(this.inputInventory, this.outputInventoryExtractOnlyWrapper);
     }
 
     @Override

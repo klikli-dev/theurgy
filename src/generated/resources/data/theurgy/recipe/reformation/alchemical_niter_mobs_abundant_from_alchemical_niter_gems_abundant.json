@@ -3,8 +3,6 @@
   "category": "misc",
   "mercuryFlux": 50,
   "result": {
-    "type": "theurgy:item",
-    "count": 1,
     "id": "theurgy:alchemical_niter_mobs_abundant"
   },
   "sources": [
@@ -25,8 +23,6 @@
       "ingredient": "theurgy:alchemical_niter_gems_abundant"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_niter_mobs_abundant"
-  },
+  "target": "theurgy:alchemical_niter_mobs_abundant",
   "time": 100
 }

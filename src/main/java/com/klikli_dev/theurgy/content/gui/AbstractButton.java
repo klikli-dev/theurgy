@@ -8,6 +8,7 @@ import com.klikli_dev.theurgy.util.TriConsumer;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
+import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.network.chat.Component;
 import org.jetbrains.annotations.NotNull;
 
@@ -63,8 +64,8 @@ public abstract class AbstractButton extends AbstractWidget {
     }
 
     @Override
-    public void onClick(double mouseX, double mouseY, int button) {
-        this.onClick.accept(mouseX, mouseY, button);
+    public void onClick(MouseButtonEvent event, boolean doubleClick) {
+        this.onClick.accept(event.x(), event.y(), event.buttonInfo().button());
     }
 
     @Override

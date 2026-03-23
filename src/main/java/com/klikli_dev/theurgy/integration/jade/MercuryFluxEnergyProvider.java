@@ -7,8 +7,7 @@ package com.klikli_dev.theurgy.integration.jade;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.registry.CapabilityRegistry;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
-import net.neoforged.neoforge.capabilities.Capabilities;
+import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.Nullable;
 import snownee.jade.api.Accessor;
 import snownee.jade.api.view.*;
@@ -19,7 +18,7 @@ import java.util.Objects;
 
 public class MercuryFluxEnergyProvider implements IServerExtensionProvider<CompoundTag>, IClientExtensionProvider<CompoundTag, EnergyView> {
 
-    public static final ResourceLocation ID = Theurgy.loc("mercury_flux");
+    public static final Identifier ID = Theurgy.loc("mercury_flux");
     private static final MercuryFluxEnergyProvider instance = new MercuryFluxEnergyProvider();
 
     public static MercuryFluxEnergyProvider get() {
@@ -37,6 +36,10 @@ public class MercuryFluxEnergyProvider implements IServerExtensionProvider<Compo
         }
     }
 
+    public static boolean hasDefaultMercuryFluxStorage(Accessor<?> accessor) {
+        return CommonProxy.hasDefaultStorage(accessor, CapabilityRegistry.MERCURY_FLUX_HANDLER, null);
+    }
+
     @Override
     public List<ClientViewGroup<EnergyView>> getClientGroups(Accessor<?> accessor, List<ViewGroup<CompoundTag>> groups) {
         return groups.stream().map($ -> {
@@ -46,7 +49,7 @@ public class MercuryFluxEnergyProvider implements IServerExtensionProvider<Compo
     }
 
     @Override
-    public ResourceLocation getUid() {
+    public Identifier getUid() {
         return ID;
     }
 
@@ -57,9 +60,5 @@ public class MercuryFluxEnergyProvider implements IServerExtensionProvider<Compo
 
     public boolean shouldRequestData(Accessor<?> accessor) {
         return hasDefaultMercuryFluxStorage(accessor);
-    }
-
-    public static boolean hasDefaultMercuryFluxStorage(Accessor<?> accessor) {
-        return CommonProxy.hasDefaultStorage(accessor, CapabilityRegistry.MERCURY_FLUX_HANDLER, null);
     }
 }

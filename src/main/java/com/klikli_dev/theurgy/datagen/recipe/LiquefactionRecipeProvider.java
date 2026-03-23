@@ -10,11 +10,11 @@ import com.klikli_dev.theurgy.content.recipe.LiquefactionRecipe;
 import com.klikli_dev.theurgy.content.recipe.result.RecipeResult;
 import com.klikli_dev.theurgy.registry.*;
 import net.minecraft.data.PackOutput;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.material.Fluid;
 import net.neoforged.neoforge.common.Tags;
@@ -31,7 +31,7 @@ public class LiquefactionRecipeProvider extends JsonRecipeProvider {
     }
 
     @Override
-    public void buildRecipes(BiConsumer<ResourceLocation, JsonObject> recipeConsumer) {
+    public void buildRecipes(BiConsumer<Identifier, JsonObject> recipeConsumer) {
         var salAmmoniac = FluidRegistry.SAL_AMMONIAC.get();
 
         //Logs
@@ -442,7 +442,7 @@ public class LiquefactionRecipeProvider extends JsonRecipeProvider {
     public void makeRecipe(Item sulfur, int resultCount, Item ingredient, Fluid solvent, int solventAmount, int liquefactionTime) {
         var name = this.name(sulfur) + "_from_" + this.name(ingredient);
 
-        var recipe = new Builder(RecipeResult.of(new ItemStack(sulfur, resultCount)))
+        var recipe = new Builder(RecipeResult.of(new ItemStackTemplate(sulfur, resultCount)))
                 .solvent(solvent, solventAmount)
                 .ingredient(ingredient)
                 .time(liquefactionTime)
@@ -469,7 +469,7 @@ public class LiquefactionRecipeProvider extends JsonRecipeProvider {
     public void makeRecipe(Item sulfur, int resultCount, TagKey<Item> ingredient, Fluid solvent, int solventAmount, int liquefactionTime) {
         var name = this.name(sulfur) + "_from_" + this.name(ingredient);
 
-        var recipe = new Builder(RecipeResult.of(new ItemStack(sulfur, resultCount)))
+        var recipe = new Builder(RecipeResult.of(new ItemStackTemplate(sulfur, resultCount)))
                 .solvent(solvent, solventAmount)
                 .ingredient(ingredient)
                 .time(liquefactionTime)

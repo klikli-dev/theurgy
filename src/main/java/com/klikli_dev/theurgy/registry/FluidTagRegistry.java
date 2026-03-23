@@ -6,7 +6,7 @@ package com.klikli_dev.theurgy.registry;
 
 import com.klikli_dev.theurgy.Theurgy;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.material.Fluid;
 
@@ -18,7 +18,7 @@ public class FluidTagRegistry {
         return tag(Theurgy.loc(id));
     }
 
-    public static TagKey<Fluid> tag(ResourceLocation id) {
+    public static TagKey<Fluid> tag(Identifier id) {
         return TagKey.create(Registries.FLUID, id);
     }
 }

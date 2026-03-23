@@ -3,8 +3,6 @@
   "category": "misc",
   "mercuryFlux": 50,
   "result": {
-    "type": "theurgy:item",
-    "count": 1,
     "id": "theurgy:alchemical_sulfur_wheat"
   },
   "sources": [
@@ -13,8 +11,6 @@
       "ingredient": "theurgy:alchemical_niter_crops_abundant"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_wheat"
-  },
+  "target": "theurgy:alchemical_sulfur_wheat",
   "time": 100
 }

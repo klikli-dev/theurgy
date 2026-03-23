@@ -5,7 +5,7 @@
   "description": "book.theurgy.the_hermetica.getting_started.fermentation_vat.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "theurgy:fermentation_vat"
+    "id": "theurgy:fermentation_vat"
   },
   "name": "book.theurgy.the_hermetica.getting_started.fermentation_vat.name",
   "pages": [

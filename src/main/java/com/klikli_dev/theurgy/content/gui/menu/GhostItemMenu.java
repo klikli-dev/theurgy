@@ -4,19 +4,19 @@
 
 package com.klikli_dev.theurgy.content.gui.menu;
 
+import com.klikli_dev.theurgy.content.storage.SettableItemStorage;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.ClickType;
+import net.minecraft.world.inventory.ContainerInput;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.items.IItemHandlerModifiable;
 import org.jetbrains.annotations.NotNull;
 
 public abstract class GhostItemMenu<T> extends MenuBase<T> implements IClearableMenu {
 
-    public IItemHandlerModifiable ghostInventory;
+    public SettableItemStorage ghostInventory;
 
     protected GhostItemMenu(MenuType<?> type, int id, Inventory inv, RegistryFriendlyByteBuf extraData) {
         super(type, id, inv, extraData);
@@ -26,7 +26,7 @@ public abstract class GhostItemMenu<T> extends MenuBase<T> implements IClearable
         super(type, id, inv, contentHolder);
     }
 
-    protected abstract IItemHandlerModifiable createGhostInventory();
+    protected abstract SettableItemStorage createGhostInventory();
 
     protected abstract boolean allowRepeats();
 
@@ -54,17 +54,17 @@ public abstract class GhostItemMenu<T> extends MenuBase<T> implements IClearable
     }
 
     @Override
-    public void clicked(int slotId, int dragType, @NotNull ClickType clickTypeIn, @NotNull Player player) {
+    public void clicked(int slotId, int dragType, @NotNull ContainerInput clickTypeIn, @NotNull Player player) {
         if (slotId < 36) {
             super.clicked(slotId, dragType, clickTypeIn, player);
             return;
         }
-        if (clickTypeIn == ClickType.THROW)
+        if (clickTypeIn == ContainerInput.THROW)
             return;
 
         ItemStack held = this.getCarried();
         int slot = slotId - 36;
-        if (clickTypeIn == ClickType.CLONE) {
+        if (clickTypeIn == ContainerInput.CLONE) {
             if (player.isCreative() && held.isEmpty()) {
                 ItemStack stackInSlot = this.ghostInventory.getStackInSlot(slot)
                         .copy();

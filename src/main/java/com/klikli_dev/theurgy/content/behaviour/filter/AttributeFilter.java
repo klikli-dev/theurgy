@@ -34,8 +34,7 @@ public class AttributeFilter extends Filter {
         this.attributeTests = new ArrayList<>();
         this.filterMode = filterItemStack.getOrDefault(DataComponentRegistry.FILTER_MODE, FilterMode.ACCEPT_LIST_OR);
 
-        //noinspection deprecation
-        var tag = filterItemStack.getOrDefault(DataComponentRegistry.FILTER_ATTRIBUTES, CustomData.EMPTY).getUnsafe();
+        var tag = filterItemStack.getOrDefault(DataComponentRegistry.FILTER_ATTRIBUTES, CustomData.EMPTY).copyTag();
 
         ListTag attributes = tag.getList("MatchedAttributes").orElseGet(ListTag::new);
         for (Tag inbt : attributes) {

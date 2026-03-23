@@ -13,7 +13,6 @@
   "ingredient": "#c:logs/glimmering_dreamwood",
   "result": {
     "type": "theurgy:item",
-    "count": 1,
     "id": "theurgy:alchemical_sulfur_glimmering_dreamwood"
   },
   "solvent": {

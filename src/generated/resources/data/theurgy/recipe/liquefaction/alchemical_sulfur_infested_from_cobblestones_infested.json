@@ -13,7 +13,6 @@
   "ingredient": "#c:cobblestones/infested",
   "result": {
     "type": "theurgy:item",
-    "count": 1,
     "id": "theurgy:alchemical_sulfur_infested"
   },
   "solvent": {

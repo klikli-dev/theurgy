@@ -11,7 +11,7 @@ import com.klikli_dev.theurgy.content.recipe.LiquefactionRecipe;
 import com.klikli_dev.theurgy.integration.modonomicon.TheurgyModonomiconConstants;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 
 public class BookLiquefactionRecipePage extends BookProcessingRecipePage<LiquefactionRecipe> {
@@ -23,7 +23,7 @@ public class BookLiquefactionRecipePage extends BookProcessingRecipePage<Liquefa
         super(common);
     }
 
-    public static BookLiquefactionRecipePage fromJson(ResourceLocation entryId, JsonObject json, HolderLookup.Provider provider) {
+    public static BookLiquefactionRecipePage fromJson(Identifier entryId, JsonObject json, HolderLookup.Provider provider) {
         var common = BookRecipePage.commonFromJson(entryId, json, provider);
         return new BookLiquefactionRecipePage(common);
     }
@@ -34,7 +34,7 @@ public class BookLiquefactionRecipePage extends BookProcessingRecipePage<Liquefa
     }
 
     @Override
-    public ResourceLocation getType() {
+    public Identifier getType() {
         return TheurgyModonomiconConstants.Page.LIQUEFACTION_RECIPE;
     }
 }

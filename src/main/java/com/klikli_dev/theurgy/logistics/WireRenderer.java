@@ -12,7 +12,6 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
@@ -36,9 +35,9 @@ public class WireRenderer {
         var poseStack = event.getPoseStack();
 
         EntityRenderDispatcher erd = Minecraft.getInstance().getEntityRenderDispatcher();
-        double renderPosX = erd.camera.getPosition().x();
-        double renderPosY = erd.camera.getPosition().y();
-        double renderPosZ = erd.camera.getPosition().z();
+        double renderPosX = erd.camera.position().x();
+        double renderPosY = erd.camera.position().y();
+        double renderPosZ = erd.camera.position().z();
 
         poseStack.pushPose();
         poseStack.translate(-renderPosX, -renderPosY, -renderPosZ);

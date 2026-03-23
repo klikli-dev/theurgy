@@ -16,7 +16,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
  * A behaviour that automatically closes the vat if a redstone signal is present and a valid recipe is present.
  * It does not need a redstone change to be triggered.
  */
-public class VatRedstoneAutoCloseBehaviour<R extends Recipe<?>> extends BlockEntityBehaviour{
+public class VatRedstoneAutoCloseBehaviour<R extends Recipe<?>> extends BlockEntityBehaviour {
     //Ensure slow ticks are not all on the same tick for all block entities
     protected int randomSlowTickOffset = (int) (Math.random() * 20);
 
@@ -25,7 +25,7 @@ public class VatRedstoneAutoCloseBehaviour<R extends Recipe<?>> extends BlockEnt
     public VatRedstoneAutoCloseBehaviour(BlockEntity blockEntity) {
         super(blockEntity);
 
-        if(!(blockEntity instanceof HasCraftingBehaviour)){
+        if (!(blockEntity instanceof HasCraftingBehaviour)) {
             throw new IllegalArgumentException("Block entity must implement HasCraftingBehaviour");
         }
 
@@ -34,7 +34,7 @@ public class VatRedstoneAutoCloseBehaviour<R extends Recipe<?>> extends BlockEnt
     }
 
     public void tickServer() {
-        if((this.level().getGameTime() + this.randomSlowTickOffset) % 20 == 0) {
+        if ((this.level().getGameTime() + this.randomSlowTickOffset) % 20 == 0) {
             this.tryAutoClose();
         }
     }
@@ -42,7 +42,7 @@ public class VatRedstoneAutoCloseBehaviour<R extends Recipe<?>> extends BlockEnt
     /**
      * If a redstone signal is present, the vat is open, and we have a valid recipe, then close.
      */
-    protected void tryAutoClose(){
+    protected void tryAutoClose() {
         boolean hasSignal = RedstoneUtil.hasNeighborSignal(this.level(), this.getBlockPos(), this.getBlockState().getValue(BlockStateProperties.HORIZONTAL_FACING).getOpposite());
         boolean wasOpen = this.getBlockState().getValue(BlockStateProperties.OPEN);
         if (hasSignal && wasOpen) {

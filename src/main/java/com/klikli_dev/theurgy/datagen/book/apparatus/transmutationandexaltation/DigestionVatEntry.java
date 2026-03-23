@@ -33,7 +33,7 @@ public class DigestionVatEntry extends EntryProvider {
                 """
                         Digestion vats are required for Alchemical Digestion, whereby Alchemical Niters can be converted into higher or lower tiers.\\
                         This is required to convert objects of different value into each other, such as Iron into Gold - also known as [#]($PURPLE)Exaltation[#]().
-                         """
+                        """
         );
 
         //TODO: create an entry about pure gold in the category/entry/graph that discusses exaltation

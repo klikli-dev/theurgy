@@ -2,15 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "I": {
-      "tag": "c:ingots/iron"
-    },
-    "R": {
-      "tag": "c:rods/wooden"
-    },
-    "S": {
-      "tag": "c:stones"
-    }
+    "I": "#c:ingots/iron",
+    "R": "#c:rods/wooden",
+    "S": "#c:stones"
   },
   "pattern": [
     "SSS",
@@ -18,7 +12,6 @@
     "R R"
   ],
   "result": {
-    "count": 1,
     "id": "theurgy:sal_ammoniac_accumulator"
   }
 }

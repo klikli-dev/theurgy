@@ -4,10 +4,11 @@
 
 package com.klikli_dev.theurgy.content.behaviour.storage;
 
-import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
 
 public interface OutputStorageBehaviour {
-    IItemHandler outputInventory();
+    ResourceHandler<ItemResource> outputInventory();
 
     boolean hasOutput();
 }

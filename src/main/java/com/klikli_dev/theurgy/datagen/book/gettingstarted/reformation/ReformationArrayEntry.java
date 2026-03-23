@@ -34,7 +34,7 @@ public class ReformationArrayEntry extends EntryProvider {
                         \\
                         \\
                         View the {0} Category on how to craft and use the required apparatus.
-                         """,
+                        """,
                 this.entryLink("Apparatus", ApparatusCategory.CATEGORY_ID, com.klikli_dev.theurgy.datagen.book.apparatus.reformation.ReformationArrayEntry.ENTRY_ID)
         );
 

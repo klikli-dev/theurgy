@@ -19,7 +19,6 @@
     "#minecraft:planks"
   ],
   "result": {
-    "type": "theurgy:item",
     "count": 2,
     "id": "theurgy:alchemical_niter_mobs_precious"
   },

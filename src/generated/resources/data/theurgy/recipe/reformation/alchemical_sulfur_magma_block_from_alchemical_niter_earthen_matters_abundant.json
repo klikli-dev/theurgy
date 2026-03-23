@@ -3,8 +3,6 @@
   "category": "misc",
   "mercuryFlux": 50,
   "result": {
-    "type": "theurgy:item",
-    "count": 1,
     "id": "theurgy:alchemical_sulfur_magma_block"
   },
   "sources": [
@@ -13,8 +11,6 @@
       "ingredient": "theurgy:alchemical_niter_earthen_matters_abundant"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_magma_block"
-  },
+  "target": "theurgy:alchemical_sulfur_magma_block",
   "time": 100
 }

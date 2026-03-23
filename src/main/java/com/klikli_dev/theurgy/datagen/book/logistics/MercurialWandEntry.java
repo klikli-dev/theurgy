@@ -19,6 +19,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 public class MercurialWandEntry extends EntryProvider {
 
     public static final String ENTRY_ID = "mercurial_wand";
+
     public MercurialWandEntry(CategoryProvider parent) {
         super(parent);
     }
@@ -41,10 +42,10 @@ public class MercurialWandEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Usage");
         this.pageText("""
-               Crouch and Scroll to change the mode of the wand.
-               \\
-               \\
-               Right-click to interact with the target apparatus/block.
+                Crouch and Scroll to change the mode of the wand.
+                \\
+                \\
+                Right-click to interact with the target apparatus/block.
                 """
         );
 
@@ -53,13 +54,13 @@ public class MercurialWandEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Cycle Selected Direction");
         this.pageText("""
-               With this mode, right-clicking on a block will cycle the selected direction of the target block.
-               \\
-               \\
-               The "selected direction" is the direction the block will insert/extract to/from.
-               \\
-               \\
-               The default selected direction is the face the block is attached to.
+                With this mode, right-clicking on a block will cycle the selected direction of the target block.
+                \\
+                \\
+                The "selected direction" is the direction the block will insert/extract to/from.
+                \\
+                \\
+                The default selected direction is the face the block is attached to.
                 """
         );
 
@@ -68,11 +69,11 @@ public class MercurialWandEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Cycle Selected Direction");
         this.pageText("""
-               When looking at a logistics block with this mode selected, the block will highlight the selected direction on its target block.
-               \\
-               \\
-               Yellow is the current direction, green is the direction that will be set if you right-click.\\
-               Make sure that the side you want to insert/extract from is yellow!
+                When looking at a logistics block with this mode selected, the block will highlight the selected direction on its target block.
+                \\
+                \\
+                Yellow is the current direction, green is the direction that will be set if you right-click.\\
+                Make sure that the side you want to insert/extract from is yellow!
                 """
         );
 
@@ -81,10 +82,10 @@ public class MercurialWandEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Enable/Disable");
         this.pageText("""
-               With this mode, right-clicking on a block will enable or disable it.
-               \\
-               \\
-               A disabled block will no longer insert or extract from the block it is attached to.
+                With this mode, right-clicking on a block will enable or disable it.
+                \\
+                \\
+                A disabled block will no longer insert or extract from the block it is attached to.
                 """
         );
     }

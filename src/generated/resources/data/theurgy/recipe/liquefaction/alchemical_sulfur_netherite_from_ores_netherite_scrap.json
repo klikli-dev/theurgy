@@ -13,7 +13,6 @@
   "ingredient": "#c:ores/netherite_scrap",
   "result": {
     "type": "theurgy:item",
-    "count": 1,
     "id": "theurgy:alchemical_sulfur_netherite"
   },
   "solvent": {

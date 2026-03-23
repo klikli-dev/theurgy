@@ -4,25 +4,26 @@
 
 package com.klikli_dev.theurgy.content.apparatus.incubator.render;
 
+import com.geckolib.animatable.GeoAnimatable;
+import com.geckolib.model.GeoModel;
+import com.geckolib.renderer.base.GeoRenderState;
 import com.klikli_dev.theurgy.Theurgy;
-import net.minecraft.resources.ResourceLocation;
-import software.bernie.geckolib.animatable.GeoAnimatable;
-import software.bernie.geckolib.model.GeoModel;
-import software.bernie.geckolib.renderer.base.GeoRenderState;
+import net.minecraft.resources.Identifier;
+import org.jspecify.annotations.NonNull;
 
 public class IncubatorSaltVesselModel<T extends GeoAnimatable> extends GeoModel<T> {
     @Override
-    public ResourceLocation getModelResource(GeoRenderState renderState) {
-        return Theurgy.loc("geo/incubator_vessel.geo.json");
+    public @NonNull Identifier getModelResource(@NonNull GeoRenderState renderState) {
+        return Theurgy.loc("block/incubator_vessel");
     }
 
     @Override
-    public ResourceLocation getTextureResource(GeoRenderState renderState) {
+    public @NonNull Identifier getTextureResource(@NonNull GeoRenderState renderState) {
         return Theurgy.loc("textures/block/incubator_vessel_bronze.png");
     }
 
     @Override
-    public ResourceLocation getAnimationResource(T animatable) {
+    public @NonNull Identifier getAnimationResource(T animatable) {
         return Theurgy.loc("");
     }
 }

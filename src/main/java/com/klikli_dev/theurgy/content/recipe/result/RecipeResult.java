@@ -13,6 +13,7 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 
 
 public abstract class RecipeResult {
@@ -21,8 +22,12 @@ public abstract class RecipeResult {
 
     public static final StreamCodec<RegistryFriendlyByteBuf, RecipeResult> STREAM_CODEC = ByteBufCodecs.registry(TheurgyRegistries.Keys.RECIPE_RESULT_TYPES).dispatch(RecipeResult::getType, RecipeResultType::streamCodec);
 
-    public static RecipeResult of(ItemStack stack) {
+    public static RecipeResult of(ItemStackTemplate stack) {
         return new ItemRecipeResult(stack);
+    }
+
+    public static RecipeResult of(ItemStack stack) {
+        return new ItemRecipeResult(ItemStackTemplate.fromNonEmptyStack(stack));
     }
 
     public static RecipeResult of(TagKey<Item> tag) {

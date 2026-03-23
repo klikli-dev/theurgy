@@ -4,12 +4,18 @@
 
 package com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator;
 
+import com.geckolib.animatable.GeoBlockEntity;
+import com.geckolib.animatable.instance.AnimatableInstanceCache;
+import com.geckolib.animatable.manager.AnimatableManager;
+import com.geckolib.util.GeckoLibUtil;
 import com.klikli_dev.theurgy.content.particle.ParticleColor;
 import com.klikli_dev.theurgy.content.particle.coloredbubble.ColoredBubbleParticleProvider;
+import com.klikli_dev.theurgy.content.storage.MonitoredFluidTank;
 import com.klikli_dev.theurgy.content.storage.MonitoredItemStackHandler;
-import com.klikli_dev.theurgy.util.ValueIOUtils;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
+import com.klikli_dev.theurgy.registry.CapabilityRegistry;
 import com.klikli_dev.theurgy.registry.ItemTagRegistry;
+import com.klikli_dev.theurgy.util.ValueIOUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
@@ -24,19 +30,13 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.FluidType;
-import net.neoforged.neoforge.fluids.capability.IFluidHandler;
-import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
-import net.neoforged.neoforge.items.ItemStackHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.fluid.FluidResource;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import software.bernie.geckolib.animatable.GeoBlockEntity;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animatable.manager.AnimatableManager;
-import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.function.Predicate;
 
@@ -44,9 +44,9 @@ public class SalAmmoniacAccumulatorBlockEntity extends BlockEntity implements Ge
 
     protected final AnimatableInstanceCache animatableInstanceCache = GeckoLibUtil.createInstanceCache(this);
 
-    public ItemStackHandler inventory;
+    public MonitoredItemStackHandler inventory;
 
-    public FluidTank waterTank;
+    public WaterTank waterTank;
 
     protected SalAmmoniacAccumulatorCraftingBehaviour craftingBehaviour;
 
@@ -109,7 +109,7 @@ public class SalAmmoniacAccumulatorBlockEntity extends BlockEntity implements Ge
     }
 
     public void sendBlockUpdated() {
-        if (this.level != null && !this.level.isClientSide)
+        if (this.level != null && !this.level.isClientSide())
             this.level.sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), Block.UPDATE_CLIENTS);
     }
 
@@ -154,15 +154,15 @@ public class SalAmmoniacAccumulatorBlockEntity extends BlockEntity implements Ge
         }
     }
 
-    public IFluidHandler getOutputTank() {
+    public ResourceHandler<FluidResource> getOutputTank() {
         var below = this.getBlockPos().below();
 
-        return this.level.getCapability(Capabilities.FluidHandler.BLOCK, below, null);
+        return this.level.getCapability(CapabilityRegistry.FLUID_HANDLER, below, null);
     }
 
     public void validateOutputTank() {
         var below = this.getBlockPos().below();
-        this.hasOutputTank = this.level.getCapability(Capabilities.FluidHandler.BLOCK, below, null) != null;
+        this.hasOutputTank = this.level.getCapability(CapabilityRegistry.FLUID_HANDLER, below, null) != null;
     }
 
     public boolean hasOutputTank() {
@@ -208,7 +208,7 @@ public class SalAmmoniacAccumulatorBlockEntity extends BlockEntity implements Ge
         return this.animatableInstanceCache;
     }
 
-    public class WaterTank extends FluidTank {
+    public class WaterTank extends MonitoredFluidTank {
         public WaterTank(int capacity, Predicate<FluidStack> validator) {
             super(capacity, validator);
         }

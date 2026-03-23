@@ -16,9 +16,8 @@ import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
-import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
@@ -33,13 +32,13 @@ public class FluidRenderer {
 
     public static TextureAtlasSprite getFluidTexture(@NotNull FluidStack fluidStack, @NotNull FluidTextureType type) {
         IClientFluidTypeExtensions properties = IClientFluidTypeExtensions.of(fluidStack.getFluid());
-        ResourceLocation spriteLocation;
+        Identifier spriteLocation;
         if (type == FluidTextureType.STILL) {
             spriteLocation = properties.getStillTexture(fluidStack);
         } else {
             spriteLocation = properties.getFlowingTexture(fluidStack);
         }
-        return Minecraft.getInstance().getTextureAtlas(TextureAtlas.LOCATION_BLOCKS).apply(spriteLocation);
+        return ((TextureAtlas) Minecraft.getInstance().getTextureManager().getTexture(TextureAtlas.LOCATION_BLOCKS)).getSprite(spriteLocation);
     }
 
     public static VertexConsumer getFluidBuilder(MultiBufferSource buffer) {
@@ -58,9 +57,8 @@ public class FluidRenderer {
         IClientFluidTypeExtensions clientFluid = IClientFluidTypeExtensions.of(fluid);
         FluidType fluidAttributes = fluid.getFluidType();
 
-        TextureAtlasSprite fluidTexture = Minecraft.getInstance()
-                .getTextureAtlas(net.minecraft.client.renderer.texture.TextureAtlas.LOCATION_BLOCKS)
-                .apply(clientFluid.getStillTexture(fluidStack));
+        TextureAtlasSprite fluidTexture = ((TextureAtlas) Minecraft.getInstance().getTextureManager().getTexture(TextureAtlas.LOCATION_BLOCKS))
+                .getSprite(clientFluid.getStillTexture(fluidStack));
 
         int color = clientFluid.getTintColor(fluidStack);
         int blockLightIn = (light >> 4) & 0xF;
@@ -105,7 +103,7 @@ public class FluidRenderer {
                 .isHorizontal();
         boolean x = dir.getAxis() == Direction.Axis.X;
 
-        float shrink = texture.uvShrinkRatio() * 0.25f * textureScale;
+        float shrink = 0.0f;
         float centerU = texture.getU0() + (texture.getU1() - texture.getU0()) * 0.5f * textureScale;
         float centerV = texture.getV0() + (texture.getV1() - texture.getV0()) * 0.5f * textureScale;
 

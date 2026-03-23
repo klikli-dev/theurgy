@@ -18,7 +18,7 @@
   "description": "book.theurgy.the_hermetica.apparatus.vat_redstone.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "minecraft:redstone_torch"
+    "id": "minecraft:redstone_torch"
   },
   "name": "book.theurgy.the_hermetica.apparatus.vat_redstone.name",
   "pages": [

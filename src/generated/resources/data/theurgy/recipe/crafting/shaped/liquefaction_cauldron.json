@@ -2,15 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "B": {
-      "item": "minecraft:cauldron"
-    },
-    "C": {
-      "tag": "c:ingots/copper"
-    },
-    "S": {
-      "tag": "c:stones"
-    }
+    "B": "minecraft:cauldron",
+    "C": "#c:ingots/copper",
+    "S": "#c:stones"
   },
   "pattern": [
     "CCC",
@@ -18,7 +12,6 @@
     "SSS"
   ],
   "result": {
-    "count": 1,
     "id": "theurgy:liquefaction_cauldron"
   }
 }

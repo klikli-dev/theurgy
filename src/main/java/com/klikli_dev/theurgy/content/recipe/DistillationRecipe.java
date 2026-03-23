@@ -17,15 +17,8 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.item.crafting.RecipeBookCategory;
-import net.minecraft.world.item.crafting.RecipeBookCategories;
-import net.minecraft.world.item.crafting.RecipeBookCategory;
-import net.minecraft.world.item.crafting.RecipeBookCategories;
-import net.minecraft.world.item.crafting.PlacementInfo;
+import net.minecraft.world.item.ItemStackTemplate;
+import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.common.crafting.SizedIngredient;
 import org.jetbrains.annotations.NotNull;
@@ -35,27 +28,26 @@ public class DistillationRecipe implements Recipe<ItemHandlerRecipeInput> {
     public static final int DEFAULT_TIME = 100;
 
     public static final MapCodec<DistillationRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-            SizedIngredient.NESTED_CODEC.fieldOf("ingredient").forGetter((r) -> r.ingredient),
-                    ItemStack.CODEC.fieldOf("result").forGetter(r -> r.result),
+                    SizedIngredient.NESTED_CODEC.fieldOf("ingredient").forGetter((r) -> r.ingredient),
+                    ItemStackTemplate.CODEC.fieldOf("result").forGetter(r -> r.result),
                     Codec.INT.optionalFieldOf("time", DEFAULT_TIME).forGetter(r -> r.time)
             ).apply(instance, DistillationRecipe::new)
     );
-
     public static final StreamCodec<RegistryFriendlyByteBuf, DistillationRecipe> STREAM_CODEC = StreamCodec.composite(
             SizedIngredient.STREAM_CODEC,
             r -> r.ingredient,
-            ItemStack.STREAM_CODEC,
+            ItemStackTemplate.STREAM_CODEC,
             r -> r.result,
             ByteBufCodecs.INT,
             r -> r.time,
             DistillationRecipe::new
     );
-
     protected final SizedIngredient ingredient;
-    protected final ItemStack result;
+    public static final RecipeSerializer<DistillationRecipe> SERIALIZER = new RecipeSerializer<>(CODEC, STREAM_CODEC);
+    protected final ItemStackTemplate result;
     protected final int time;
 
-    public DistillationRecipe(SizedIngredient pIngredient, ItemStack pResult, int time) {
+    public DistillationRecipe(SizedIngredient pIngredient, ItemStackTemplate pResult, int time) {
         this.ingredient = pIngredient;
         this.result = pResult;
         this.time = time;
@@ -72,8 +64,19 @@ public class DistillationRecipe implements Recipe<ItemHandlerRecipeInput> {
         return this.ingredient.test(stack);
     }
 
-    public ItemStack assemble(ItemHandlerRecipeInput pCraftingContainer, HolderLookup.Provider pRegistries) {
-        return this.result.copy();
+    @Override
+    public ItemStack assemble(ItemHandlerRecipeInput pCraftingContainer) {
+        return this.result.create();
+    }
+
+    @Override
+    public boolean showNotification() {
+        return true;
+    }
+
+    @Override
+    public String group() {
+        return "";
     }
 
     @Override
@@ -82,12 +85,17 @@ public class DistillationRecipe implements Recipe<ItemHandlerRecipeInput> {
     }
 
     @Override
+    public boolean isSpecial() {
+        return true;
+    }
+
+    @Override
     public PlacementInfo placementInfo() {
         return PlacementInfo.create(this.ingredient.ingredient());
     }
 
     public ItemStack getResultItem(HolderLookup.Provider pRegistries) {
-        return this.result;
+        return this.result.create();
     }
 
     public @NotNull NonNullList<Ingredient> getIngredients() {
@@ -110,7 +118,7 @@ public class DistillationRecipe implements Recipe<ItemHandlerRecipeInput> {
 
     @Override
     public @NotNull RecipeSerializer<DistillationRecipe> getSerializer() {
-        return (RecipeSerializer<DistillationRecipe>) RecipeSerializerRegistry.DISTILLATION.get();
+        return RecipeSerializerRegistry.DISTILLATION.get();
     }
 
     public int getTime() {
@@ -127,16 +135,4 @@ public class DistillationRecipe implements Recipe<ItemHandlerRecipeInput> {
         ));
     }
 
-    public static class Serializer implements RecipeSerializer<DistillationRecipe> {
-
-        @Override
-        public @NotNull MapCodec<DistillationRecipe> codec() {
-            return CODEC;
-        }
-
-        @Override
-        public @NotNull StreamCodec<RegistryFriendlyByteBuf, DistillationRecipe> streamCodec() {
-            return STREAM_CODEC;
-        }
-    }
 }

@@ -2,7 +2,7 @@
   "multipart": [
     {
       "apply": {
-        "model": "theurgy:block/incubator_vessel"
+        "model": "theurgy:block/incubator_salt_vessel"
       }
     }
   ]

@@ -61,15 +61,15 @@ public class SelectFrequencyMode extends MercurialWandItemMode {
         if (hand != InteractionHand.MAIN_HAND)
             return false;
 
-        if (level.isClientSide)
+        if (level.isClientSide())
             return false;
 
         this.changeFrequency(player.getMainHandItem(), -1);
 
         var newFrequency = player.getMainHandItem().getOrDefault(DataComponentRegistry.SELECTED_FREQUENCY.get(), 0);
-        player.displayClientMessage(Component.translatable(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_SELECT_FREQUENCY,
+        player.sendOverlayMessage(Component.translatable(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_SELECT_FREQUENCY,
                 Component.literal(String.valueOf(newFrequency)).withStyle(ChatFormatting.GREEN)
-        ), true);
+        ));
 
         return true;
     }
@@ -84,9 +84,9 @@ public class SelectFrequencyMode extends MercurialWandItemMode {
         this.changeFrequency(stack, 1);
 
         var newFrequency = stack.getOrDefault(DataComponentRegistry.SELECTED_FREQUENCY.get(), 0);
-        context.getPlayer().displayClientMessage(Component.translatable(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_SELECT_FREQUENCY,
+        context.getPlayer().sendOverlayMessage(Component.translatable(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_SELECT_FREQUENCY,
                 Component.literal(String.valueOf(newFrequency)).withStyle(ChatFormatting.GREEN)
-        ), true);
+        ));
 
         return InteractionResult.SUCCESS;
     }
@@ -96,15 +96,15 @@ public class SelectFrequencyMode extends MercurialWandItemMode {
         if (pUsedHand != InteractionHand.MAIN_HAND)
             return super.use(pLevel, pPlayer, pUsedHand);
 
-        if (pLevel.isClientSide)
+        if (pLevel.isClientSide())
             return super.use(pLevel, pPlayer, pUsedHand);
 
         this.changeFrequency(pPlayer.getMainHandItem(), 1);
 
         var newFrequency = pPlayer.getMainHandItem().getOrDefault(DataComponentRegistry.SELECTED_FREQUENCY.get(), 0);
-        pPlayer.displayClientMessage(Component.translatable(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_SELECT_FREQUENCY,
+        pPlayer.sendOverlayMessage(Component.translatable(TheurgyConstants.I18n.Item.Mode.MERCURIAL_WAND_SELECT_FREQUENCY,
                 Component.literal(String.valueOf(newFrequency)).withStyle(ChatFormatting.GREEN)
-        ), true);
+        ));
 
         return InteractionResult.SUCCESS;
     }

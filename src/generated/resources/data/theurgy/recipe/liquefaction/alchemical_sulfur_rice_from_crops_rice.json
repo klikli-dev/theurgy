@@ -13,7 +13,6 @@
   "ingredient": "#c:crops/rice",
   "result": {
     "type": "theurgy:item",
-    "count": 1,
     "id": "theurgy:alchemical_sulfur_rice"
   },
   "solvent": {

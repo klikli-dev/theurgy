@@ -5,8 +5,8 @@
 package com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector.inserter;
 
 import com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector.LogisticsItemConnectorBlockEntity;
-import com.klikli_dev.theurgy.util.ValueIOUtils;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
+import com.klikli_dev.theurgy.util.ValueIOUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -66,7 +66,7 @@ public class LogisticsItemInserterBlockEntity extends LogisticsItemConnectorBloc
     }
 
     protected void sendBlockUpdated() {
-        if (this.getLevel() != null && !this.getLevel().isClientSide)
+        if (this.getLevel() != null && !this.getLevel().isClientSide())
             this.getLevel().sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), Block.UPDATE_CLIENTS);
     }
 

@@ -5,10 +5,10 @@
 package com.klikli_dev.theurgy.integration.modonomicon.page.accumulation;
 
 import com.google.gson.JsonObject;
+import com.klikli_dev.modonomicon.Modonomicon;
 import com.klikli_dev.modonomicon.book.BookTextHolder;
 import com.klikli_dev.modonomicon.book.entries.BookContentEntry;
 import com.klikli_dev.modonomicon.book.page.BookRecipePage;
-import com.klikli_dev.modonomicon.Modonomicon;
 import com.klikli_dev.theurgy.content.recipe.AccumulationRecipe;
 import com.klikli_dev.theurgy.content.recipe.display.AccumulationRecipeDisplay;
 import com.klikli_dev.theurgy.integration.modonomicon.TheurgyModonomiconConstants;
@@ -16,7 +16,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.display.RecipeDisplayEntry;
@@ -35,7 +35,7 @@ public class BookAccumulationRecipePage extends BookRecipePage<AccumulationRecip
         super(common);
     }
 
-    public static BookAccumulationRecipePage fromJson(ResourceLocation entryId, JsonObject json, HolderLookup.Provider provider) {
+    public static BookAccumulationRecipePage fromJson(Identifier entryId, JsonObject json, HolderLookup.Provider provider) {
         var common = BookRecipePage.commonFromJson(entryId, json, provider);
         return new BookAccumulationRecipePage(common);
     }
@@ -46,7 +46,7 @@ public class BookAccumulationRecipePage extends BookRecipePage<AccumulationRecip
     }
 
     @Override
-    public ResourceLocation getType() {
+    public Identifier getType() {
         return TheurgyModonomiconConstants.Page.ACCUMULATION_RECIPE;
     }
 

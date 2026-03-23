@@ -4,12 +4,9 @@
 
 package com.klikli_dev.theurgy.content.apparatus.fermentationvat;
 
-import com.klikli_dev.theurgy.content.apparatus.digestionvat.DigestionStorageBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.storage.OutputStorageBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.storage.StorageBehaviour;
 import com.klikli_dev.theurgy.content.storage.*;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -17,12 +14,9 @@ import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.FluidType;
-import net.neoforged.neoforge.fluids.capability.IFluidHandler;
-import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
-import net.neoforged.neoforge.items.IItemHandler;
-import net.neoforged.neoforge.items.IItemHandlerModifiable;
-import net.neoforged.neoforge.items.ItemStackHandler;
-import net.neoforged.neoforge.items.wrapper.CombinedInvWrapper;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.fluid.FluidResource;
+import net.neoforged.neoforge.transfer.item.ItemResource;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Predicate;
@@ -30,8 +24,8 @@ import java.util.function.Supplier;
 
 public class FermentationStorageBehaviour extends StorageBehaviour<FermentationStorageBehaviour> implements OutputStorageBehaviour {
 
-    public ItemStackHandler inputInventory;
-    public IItemHandlerModifiable inputInventoryReadOnlyWrapper;
+    public InputInventory inputInventory;
+    public SettableItemStorage inputInventoryReadOnlyWrapper;
     /**
      * Depending on the state of the vat returns either a read only, or an extractable handler.
      */
@@ -40,29 +34,29 @@ public class FermentationStorageBehaviour extends StorageBehaviour<FermentationS
     /**
      * The underlying outputInventory which allows inserting too - we use this when crafting.
      */
-    public ItemStackHandler outputInventory;
+    public OutputInventory outputInventory;
     /**
      * A capability wrapper for the outputInventory that only allows extracting.
      */
-    public IItemHandlerModifiable outputInventoryExtractOnlyWrapper;
+    public SettableItemStorage outputInventoryExtractOnlyWrapper;
     /**
      * A capability wrapper for the outputInventory that allows neither inserting nor extracting
      */
-    public IItemHandlerModifiable outputInventoryReadOnlyWrapper;
+    public SettableItemStorage outputInventoryReadOnlyWrapper;
     /**
      * Depending on the state of the vat returns either a read only, or an extractable handler.
      */
     public SelectItemHandlerWrapper outputInventoryOpenCloseAwareWrapper;
 
-    public CombinedInvWrapper inventory;
-    public IItemHandlerModifiable inventoryReadOnlyWrapper;
+    public CombinedItemStorage inventory;
+    public SettableItemStorage inventoryReadOnlyWrapper;
     /**
      * Depending on the state of the vat returns either a read only, or an extractable handler.
      */
     public SelectItemHandlerWrapper inventoryOpenCloseAwareWrapper;
 
-    public FluidTank fluidTank;
-    public IFluidHandler fluidTankReadOnlyWrapper;
+    public WaterTank fluidTank;
+    public ResourceHandler<FluidResource> fluidTankReadOnlyWrapper;
     /**
      * Depending on the state of the vat returns either a read only, or an extractable handler.
      */
@@ -84,7 +78,7 @@ public class FermentationStorageBehaviour extends StorageBehaviour<FermentationS
         this.outputInventoryReadOnlyWrapper = new PreventInsertExtractWrapper(this.outputInventory);
         this.outputInventoryOpenCloseAwareWrapper = new SelectItemHandlerWrapper(this.selectHandler(), this.outputInventoryExtractOnlyWrapper, this.outputInventoryReadOnlyWrapper);
 
-        this.inventory = new CombinedInvWrapper(this.inputInventory, this.outputInventoryExtractOnlyWrapper);
+        this.inventory = new CombinedItemStorage(this.inputInventory, this.outputInventoryExtractOnlyWrapper);
         this.inventoryReadOnlyWrapper = new PreventInsertExtractWrapper(this.inventory);
         this.inventoryOpenCloseAwareWrapper = new SelectItemHandlerWrapper(this.selectHandler(), this.inventory, this.inventoryReadOnlyWrapper);
 
@@ -141,7 +135,7 @@ public class FermentationStorageBehaviour extends StorageBehaviour<FermentationS
     }
 
     @Override
-    public IItemHandler outputInventory() {
+    public ResourceHandler<ItemResource> outputInventory() {
         return this.outputInventory;
     }
 

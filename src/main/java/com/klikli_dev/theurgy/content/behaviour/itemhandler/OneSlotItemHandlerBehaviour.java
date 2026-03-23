@@ -4,6 +4,8 @@
 
 package com.klikli_dev.theurgy.content.behaviour.itemhandler;
 
+import com.klikli_dev.theurgy.content.storage.ItemStorageHelper;
+import com.klikli_dev.theurgy.registry.CapabilityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -12,7 +14,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
-import net.neoforged.neoforge.capabilities.Capabilities;
 
 
 public class OneSlotItemHandlerBehaviour implements ItemHandlerBehaviour {
@@ -27,7 +28,7 @@ public class OneSlotItemHandlerBehaviour implements ItemHandlerBehaviour {
         if (pHand != InteractionHand.MAIN_HAND)
             return InteractionResult.PASS;
 
-        var blockItemHandler = pLevel.getCapability(Capabilities.ItemHandler.BLOCK, pPos, null);
+        var blockItemHandler = pLevel.getCapability(CapabilityRegistry.ITEM_HANDLER, pPos, null);
         //a block without item handler is of no interest
         if (blockItemHandler == null)
             return InteractionResult.PASS;
@@ -36,14 +37,14 @@ public class OneSlotItemHandlerBehaviour implements ItemHandlerBehaviour {
 
         if (stackInHand.isEmpty()) {
             //with empty hand, try to take out
-            var extracted = blockItemHandler.extractItem(SLOT, blockItemHandler.getSlotLimit(SLOT), false);
+            var extracted = ItemStorageHelper.extractItem(blockItemHandler, SLOT, ItemStorageHelper.getSlotLimit(blockItemHandler, SLOT), false);
             if (!extracted.isEmpty()) {
                 pPlayer.getInventory().placeItemBackInInventory(extracted);
                 return InteractionResult.SUCCESS;
             }
         } else {
             //if we have an item in hand, try to insert
-            var remainder = blockItemHandler.insertItem(SLOT, stackInHand, false);
+            var remainder = ItemStorageHelper.insertItem(blockItemHandler, SLOT, stackInHand, false);
             pPlayer.setItemInHand(pHand, remainder);
             if (remainder.getCount() != stackInHand.getCount()) {
                 return InteractionResult.SUCCESS;

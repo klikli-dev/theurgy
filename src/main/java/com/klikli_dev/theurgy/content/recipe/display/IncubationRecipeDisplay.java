@@ -12,6 +12,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.display.RecipeDisplay;
 import net.minecraft.world.item.crafting.display.SlotDisplay;
@@ -57,6 +58,6 @@ public record IncubationRecipeDisplay(
 
     @Override
     public SlotDisplay result() {
-        return new SlotDisplay.ItemStackSlotDisplay(this.output.getStack());
+        return new SlotDisplay.ItemStackSlotDisplay(ItemStackTemplate.fromNonEmptyStack(this.output.getStack()));
     }
 }

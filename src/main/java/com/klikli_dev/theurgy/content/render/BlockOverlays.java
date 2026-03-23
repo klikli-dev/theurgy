@@ -12,7 +12,7 @@ import net.neoforged.neoforge.client.event.TextureAtlasStitchedEvent;
 public class BlockOverlays {
     public static TextureAtlasSprite WHITE;
 
-    public static void onTextureAtlasStitched(TextureAtlasStitchedEvent event){
+    public static void onTextureAtlasStitched(TextureAtlasStitchedEvent event) {
         TextureAtlas map = event.getAtlas();
         if (!map.location().equals(TextureAtlas.LOCATION_BLOCKS)) {
             return;

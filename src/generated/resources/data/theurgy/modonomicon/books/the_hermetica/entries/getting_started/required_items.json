@@ -5,7 +5,7 @@
   "description": "book.theurgy.the_hermetica.getting_started.required_items.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "minecraft:lapis_lazuli"
+    "id": "minecraft:lapis_lazuli"
   },
   "name": "book.theurgy.the_hermetica.getting_started.required_items.name",
   "pages": [

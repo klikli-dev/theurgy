@@ -1,6 +1,30 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "theurgy:item/liquefaction_cauldron"
+    "model": "theurgy:item/liquefaction_cauldron",
+    "transformation": {
+      "left_rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "right_rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        0.625,
+        0.625,
+        0.625
+      ],
+      "translation": [
+        0.375,
+        0.0625,
+        0.0
+      ]
+    }
   }
 }

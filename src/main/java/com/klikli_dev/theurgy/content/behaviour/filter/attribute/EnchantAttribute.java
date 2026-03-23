@@ -9,8 +9,8 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.Level;
@@ -59,7 +59,7 @@ public class EnchantAttribute implements ItemAttribute {
     public void writeNBT(HolderLookup.Provider pRegistries, CompoundTag nbt) {
         if (this.enchantment == null)
             return;
-        ResourceLocation id = this.enchantment.unwrapKey().get().location();
+        Identifier id = this.enchantment.unwrapKey().get().identifier();
         if (id == null)
             return;
         nbt.putString("id", id.toString());
@@ -68,6 +68,6 @@ public class EnchantAttribute implements ItemAttribute {
     @Override
     public ItemAttribute readNBT(HolderLookup.Provider pRegistries, CompoundTag nbt) {
         return nbt.contains("id") ? new EnchantAttribute(
-                pRegistries.lookupOrThrow(Registries.ENCHANTMENT).get(ResourceKey.create(Registries.ENCHANTMENT, ResourceLocation.tryParse(nbt.getString("id").orElse("minecraft:air")))).get()) : EMPTY;
+                pRegistries.lookupOrThrow(Registries.ENCHANTMENT).get(ResourceKey.create(Registries.ENCHANTMENT, Identifier.tryParse(nbt.getString("id").orElse("minecraft:air")))).get()) : EMPTY;
     }
 }

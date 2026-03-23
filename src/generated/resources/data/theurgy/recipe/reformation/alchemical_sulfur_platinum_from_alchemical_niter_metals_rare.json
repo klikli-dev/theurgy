@@ -26,8 +26,6 @@
   "category": "misc",
   "mercuryFlux": 150,
   "result": {
-    "type": "theurgy:item",
-    "count": 1,
     "id": "theurgy:alchemical_sulfur_platinum"
   },
   "sources": [
@@ -36,8 +34,6 @@
       "ingredient": "theurgy:alchemical_niter_metals_rare"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_platinum"
-  },
+  "target": "theurgy:alchemical_sulfur_platinum",
   "time": 100
 }

@@ -6,15 +6,14 @@ package com.klikli_dev.theurgy.logistics;
 
 import com.klikli_dev.theurgy.registry.DataComponentRegistry;
 import com.mojang.serialization.Codec;
-import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
@@ -39,7 +38,7 @@ public record WireEndPoint(BlockPos pos, ResourceKey<Level> level) {
     public static WireEndPoint load(CompoundTag tag) {
         return new WireEndPoint(
                 BlockPos.of(tag.getLong("pos").orElse(0L)),
-                ResourceKey.create(Registries.DIMENSION, ResourceLocation.parse(tag.getString("level").orElse("minecraft:overworld")))
+                ResourceKey.create(Registries.DIMENSION, Identifier.parse(tag.getString("level").orElse("minecraft:overworld")))
         );
     }
 
@@ -57,7 +56,7 @@ public record WireEndPoint(BlockPos pos, ResourceKey<Level> level) {
 
     public CompoundTag save(CompoundTag tag) {
         tag.putLong("pos", this.pos.asLong());
-        tag.putString("level", this.level.location().toString());
+        tag.putString("level", this.level.identifier().toString());
         return tag;
     }
 }

@@ -8,7 +8,7 @@
   "description": "book.theurgy.the_hermetica.apparatus.mercury_flux.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "theurgy:mercury_shard"
+    "id": "theurgy:mercury_shard"
   },
   "name": "book.theurgy.the_hermetica.apparatus.mercury_flux.name",
   "pages": [

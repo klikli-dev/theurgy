@@ -6,8 +6,6 @@ package com.klikli_dev.theurgy.content.behaviour.filter;
 
 import com.klikli_dev.theurgy.content.item.filter.FilterItem;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -19,7 +17,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.BlockHitResult;
-import net.neoforged.neoforge.items.ItemHandlerHelper;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Consumer;
@@ -71,11 +68,16 @@ public class FilterBehaviour {
     }
 
     public void readNetwork(ValueInput input) {
-        this.filter(Filter.of(input.lookup(), input.read("filter", ItemStack.OPTIONAL_CODEC).orElse(ItemStack.EMPTY)));
+        var registryAccess = this.blockEntity.getLevel() != null ? this.blockEntity.getLevel().registryAccess() : null;
+        if (registryAccess == null) {
+            throw new IllegalStateException("FilterBehaviour requires registry access to deserialize its filter state.");
+        }
+
+        this.filter(Filter.of(registryAccess, input.read("filter", ItemStack.OPTIONAL_CODEC).orElse(ItemStack.EMPTY)));
     }
 
     public @NotNull InteractionResult useItemOn(@NotNull ItemStack pStack, @NotNull BlockState pState, @NotNull Level pLevel, @NotNull BlockPos pPos, Player pPlayer, @NotNull InteractionHand pHand, @NotNull BlockHitResult pHitResult) {
-        if(pHand != InteractionHand.MAIN_HAND)
+        if (pHand != InteractionHand.MAIN_HAND)
             return InteractionResult.PASS;
 
         if (this.filter().isEmpty()) {
@@ -99,7 +101,7 @@ public class FilterBehaviour {
 
             this.filter(Filter.empty());
 
-            ItemHandlerHelper.giveItemToPlayer(pPlayer, stack);
+            pPlayer.getInventory().placeItemBackInInventory(stack);
 
             return InteractionResult.SUCCESS;
         }

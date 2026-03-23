@@ -15,8 +15,6 @@
     "ingredient": "#minecraft:sand"
   },
   "result": {
-    "type": "theurgy:item",
-    "count": 1,
     "id": "theurgy:alchemical_salt_strata"
   },
   "time": 100

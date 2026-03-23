@@ -39,10 +39,10 @@ public class MercurialWireEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Usage");
         this.pageText("""
-               Right-click one block, then right-click another block to connect them with the wire.
-               \\
-               \\
-               Only mercurial logistics blocks, such as inserters, extractors or connection nodes, can be connected with wires.
+                Right-click one block, then right-click another block to connect them with the wire.
+                \\
+                \\
+                Only mercurial logistics blocks, such as inserters, extractors or connection nodes, can be connected with wires.
                 """
         );
 
@@ -51,10 +51,10 @@ public class MercurialWireEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Removing Wires");
         this.pageText("""
-               To remove a wire, break one of the blocks the wire is connected to.
-               \\
-               \\
-               Alternatively, click both blocks connected by the wire with the wire item once more to remove just the one wire.
+                To remove a wire, break one of the blocks the wire is connected to.
+                \\
+                \\
+                Alternatively, click both blocks connected by the wire with the wire item once more to remove just the one wire.
                 """
         );
     }

@@ -6,7 +6,6 @@
     "ingredient": "theurgy:crystallized_lava"
   },
   "result": {
-    "type": "theurgy:item",
     "count": 8,
     "id": "theurgy:alchemical_salt_strata"
   },

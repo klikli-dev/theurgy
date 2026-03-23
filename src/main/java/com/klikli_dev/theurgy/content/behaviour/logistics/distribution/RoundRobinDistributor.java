@@ -5,11 +5,10 @@
 package com.klikli_dev.theurgy.content.behaviour.logistics.distribution;
 
 import com.klikli_dev.theurgy.content.behaviour.logistics.InsertTarget;
-import net.neoforged.neoforge.capabilities.BlockCapabilityCache;
 
 import java.util.List;
 
-public class RoundRobinDistributor<T, C> extends Distributor<T, C>{
+public class RoundRobinDistributor<T, C> extends Distributor<T, C> {
     protected int currentTargetIndex;
     protected InsertTarget<T, C> cachedTarget;
 
@@ -31,14 +30,14 @@ public class RoundRobinDistributor<T, C> extends Distributor<T, C>{
     public void tick() {
         var oldIndex = this.currentTargetIndex;
 
-        if(this.targets.isEmpty()) {
+        if (this.targets.isEmpty()) {
             this.currentTargetIndex = -1;
         } else {
             this.currentTargetIndex = (this.currentTargetIndex + 1) % this.targets.size();
         }
 
-        if(oldIndex != this.currentTargetIndex || this.cachedTarget == null){
-            if(this.currentTargetIndex >= 0 && this.currentTargetIndex < this.targets.size()) {
+        if (oldIndex != this.currentTargetIndex || this.cachedTarget == null) {
+            if (this.currentTargetIndex >= 0 && this.currentTargetIndex < this.targets.size()) {
                 this.cachedTarget = this.targets.get(this.currentTargetIndex);
             } else {
                 this.cachedTarget = null;
@@ -50,9 +49,9 @@ public class RoundRobinDistributor<T, C> extends Distributor<T, C>{
     @Override
     public void onTargetsChanged() {
         this.cachedTarget = null;
-        if(this.targets.isEmpty()) {
+        if (this.targets.isEmpty()) {
             this.currentTargetIndex = -1;
-        } else if(this.currentTargetIndex >= this.targets.size()) {
+        } else if (this.currentTargetIndex >= this.targets.size()) {
             this.currentTargetIndex = 0;
         }
     }

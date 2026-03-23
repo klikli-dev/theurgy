@@ -4,7 +4,6 @@
     "fluid": "theurgy:sal_ammoniac",
     "textures": {
       "base": "minecraft:item/bucket",
-      "cover": "neoforge:item/mask/bucket_fluid_cover",
       "fluid": "neoforge:item/mask/bucket_fluid",
       "particle": "minecraft:item/bucket"
     }

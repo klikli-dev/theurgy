@@ -11,7 +11,7 @@ import com.klikli_dev.theurgy.content.recipe.CalcinationRecipe;
 import com.klikli_dev.theurgy.integration.modonomicon.TheurgyModonomiconConstants;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 
 public class BookCalcinationRecipePage extends BookProcessingRecipePage<CalcinationRecipe> {
@@ -23,7 +23,7 @@ public class BookCalcinationRecipePage extends BookProcessingRecipePage<Calcinat
         super(common);
     }
 
-    public static BookCalcinationRecipePage fromJson(ResourceLocation entryId, JsonObject json, HolderLookup.Provider provider) {
+    public static BookCalcinationRecipePage fromJson(Identifier entryId, JsonObject json, HolderLookup.Provider provider) {
         var common = BookRecipePage.commonFromJson(entryId, json, provider);
         return new BookCalcinationRecipePage(common);
     }
@@ -34,7 +34,7 @@ public class BookCalcinationRecipePage extends BookProcessingRecipePage<Calcinat
     }
 
     @Override
-    public ResourceLocation getType() {
+    public Identifier getType() {
         return TheurgyModonomiconConstants.Page.CALCINATION_RECIPE;
     }
 

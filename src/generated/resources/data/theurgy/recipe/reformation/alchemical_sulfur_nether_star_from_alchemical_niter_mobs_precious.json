@@ -3,8 +3,6 @@
   "category": "misc",
   "mercuryFlux": 200,
   "result": {
-    "type": "theurgy:item",
-    "count": 1,
     "id": "theurgy:alchemical_sulfur_nether_star"
   },
   "sources": [
@@ -17,8 +15,6 @@
       "ingredient": "theurgy:alchemical_niter_mobs_precious"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_nether_star"
-  },
+  "target": "theurgy:alchemical_sulfur_nether_star",
   "time": 100
 }

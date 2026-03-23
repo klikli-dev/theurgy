@@ -2,15 +2,10 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "tag": "theurgy:alchemical_salts"
-    },
-    {
-      "item": "minecraft:lava_bucket"
-    }
+    "#theurgy:alchemical_salts",
+    "minecraft:lava_bucket"
   ],
   "result": {
-    "count": 1,
     "id": "theurgy:crystallized_lava"
   }
 }

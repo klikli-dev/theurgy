@@ -33,7 +33,7 @@ public class LoreEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageTitle("Mercury Wires");
         this.pageText("""
-               Interestingly, this conversion can be persisted. If the Alchemical Mercury is in contact with an appropriate metal wire, the matter will remain in its mercurial form and flow along the wire, as if it were energy.
+                Interestingly, this conversion can be persisted. If the Alchemical Mercury is in contact with an appropriate metal wire, the matter will remain in its mercurial form and flow along the wire, as if it were energy.
                 """
         );
 

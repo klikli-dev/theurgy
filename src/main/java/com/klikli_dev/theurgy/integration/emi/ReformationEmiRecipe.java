@@ -6,7 +6,6 @@ package com.klikli_dev.theurgy.integration.emi;
 
 import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.content.recipe.ReformationRecipe;
-import com.klikli_dev.theurgy.integration.jei.JeiDrawables;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import dev.emi.emi.api.recipe.EmiRecipe;
 import dev.emi.emi.api.recipe.EmiRecipeCategory;
@@ -18,18 +17,13 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.core.RegistryAccess;
-import net.minecraft.core.component.DataComponentPatch;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.Items;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static mezz.jei.api.recipe.RecipeIngredientRole.INPUT;
 
 public class ReformationEmiRecipe implements EmiRecipe {
 
@@ -45,7 +39,7 @@ public class ReformationEmiRecipe implements EmiRecipe {
     }
 
     @Override
-    public @Nullable ResourceLocation getId() {
+    public @Nullable Identifier getId() {
         return this.recipe.id().location();
     }
 
@@ -105,8 +99,8 @@ public class ReformationEmiRecipe implements EmiRecipe {
         int sourceSlotY = startY; // Start from the bottom
 
         for (int i = 0; i < 8; i++) {
-            if (i < recipe.value().getSources().size()){
-                var ingredient = recipe.value().getSources().get(i);
+            if (i < this.recipe.value().getSources().size()) {
+                var ingredient = this.recipe.value().getSources().get(i);
                 widgets.addSlot(EmiIngredient.of(ingredient.ingredient(), ingredient.count()), sourceSlotX, sourceSlotY);
             } else {
                 widgets.addSlot(sourceSlotX, sourceSlotY);
@@ -120,12 +114,12 @@ public class ReformationEmiRecipe implements EmiRecipe {
         }
 
         //draw mercury flux
-        int flux = recipe.value().getMercuryFlux();
+        int flux = this.recipe.value().getMercuryFlux();
         Component mercuryFluxComponent = Component.translatable(TheurgyConstants.I18n.JEI.MERCURY_FLUX, flux);
         widgets.addText(mercuryFluxComponent, 1, 90, 0xFF808080, false);
 
         //draw source pedestal count
-        int count = recipe.value().getSources().size();
+        int count = this.recipe.value().getSources().size();
         Component sourcePedestalComponent = Component.translatable(TheurgyConstants.I18n.JEI.SOURCE_PEDESTAL_COUNT, count);
         widgets.addText(sourcePedestalComponent, 95 - font.width(sourcePedestalComponent), 78, 0xFF808080, false);
 

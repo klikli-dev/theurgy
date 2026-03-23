@@ -4,13 +4,13 @@
 
 package com.klikli_dev.theurgy;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public class TheurgyConstants {
 
     public static class ItemProperty {
 
-        public static final ResourceLocation DIVINATION_DISTANCE = Theurgy.loc("divination_distance");
+        public static final Identifier DIVINATION_DISTANCE = Theurgy.loc("divination_distance");
 
     }
 

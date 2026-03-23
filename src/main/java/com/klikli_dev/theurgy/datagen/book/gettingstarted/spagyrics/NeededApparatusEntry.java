@@ -37,7 +37,7 @@ public class NeededApparatusEntry extends EntryProvider {
                 \\
                 \\
                 View the {0} Category on how to craft and use them.
-                 """, this.categoryLink("Apparatus", ApparatusCategory.CATEGORY_ID));
+                """, this.categoryLink("Apparatus", ApparatusCategory.CATEGORY_ID));
 
         this.page("pyromantic_brazier", () -> BookSpotlightPageModel.create()
                 .withItem(Ingredient.of(ItemRegistry.PYROMANTIC_BRAZIER.get()))

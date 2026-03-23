@@ -11,7 +11,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.display.RecipeDisplay;
 import net.minecraft.world.item.crafting.display.SlotDisplay;
@@ -22,7 +22,7 @@ import java.util.List;
 public record ReformationRecipeDisplay(
         List<SizedIngredient> sources,
         Ingredient target,
-        ItemStack output,
+        ItemStackTemplate output,
         int mercuryFlux,
         int time,
         SlotDisplay craftingStation
@@ -31,7 +31,7 @@ public record ReformationRecipeDisplay(
     public static final MapCodec<ReformationRecipeDisplay> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             SizedIngredient.NESTED_CODEC.listOf().fieldOf("sources").forGetter(ReformationRecipeDisplay::sources),
             Ingredient.CODEC.fieldOf("target").forGetter(ReformationRecipeDisplay::target),
-            ItemStack.CODEC.fieldOf("output").forGetter(ReformationRecipeDisplay::output),
+            ItemStackTemplate.CODEC.fieldOf("output").forGetter(ReformationRecipeDisplay::output),
             Codec.INT.fieldOf("mercuryFlux").forGetter(ReformationRecipeDisplay::mercuryFlux),
             Codec.INT.fieldOf("time").forGetter(ReformationRecipeDisplay::time),
             SlotDisplay.CODEC.fieldOf("craftingStation").forGetter(ReformationRecipeDisplay::craftingStation)
@@ -42,7 +42,7 @@ public record ReformationRecipeDisplay(
             ReformationRecipeDisplay::sources,
             Ingredient.CONTENTS_STREAM_CODEC,
             ReformationRecipeDisplay::target,
-            ItemStack.STREAM_CODEC,
+            ItemStackTemplate.STREAM_CODEC,
             ReformationRecipeDisplay::output,
             ByteBufCodecs.INT,
             ReformationRecipeDisplay::mercuryFlux,

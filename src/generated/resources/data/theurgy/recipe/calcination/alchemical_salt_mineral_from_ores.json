@@ -15,7 +15,6 @@
     "ingredient": "#c:ores"
   },
   "result": {
-    "type": "theurgy:item",
     "count": 3,
     "id": "theurgy:alchemical_salt_mineral"
   },

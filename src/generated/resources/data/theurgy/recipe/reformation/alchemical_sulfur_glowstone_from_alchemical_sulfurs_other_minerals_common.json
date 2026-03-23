@@ -33,8 +33,6 @@
   "category": "misc",
   "mercuryFlux": 100,
   "result": {
-    "type": "theurgy:item",
-    "count": 1,
     "id": "theurgy:alchemical_sulfur_glowstone"
   },
   "sources": [
@@ -43,8 +41,6 @@
       "ingredient": "#theurgy:alchemical_sulfurs/other_minerals/common"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_glowstone"
-  },
+  "target": "theurgy:alchemical_sulfur_glowstone",
   "time": 100
 }

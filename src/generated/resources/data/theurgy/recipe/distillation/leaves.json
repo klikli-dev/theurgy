@@ -15,8 +15,6 @@
     "ingredient": "#minecraft:leaves"
   },
   "result": {
-    "type": "theurgy:item",
-    "count": 1,
     "id": "theurgy:mercury_shard"
   },
   "time": 100

@@ -8,16 +8,10 @@ import com.klikli_dev.modonomicon.api.datagen.CategoryProvider;
 import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
 import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
-import com.klikli_dev.modonomicon.api.datagen.book.page.BookCraftingRecipePageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookImagePageModel;
-import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.klikli_dev.theurgy.Theurgy;
-import com.klikli_dev.theurgy.datagen.book.LogisticsCategory;
-import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.mojang.datafixers.util.Pair;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.crafting.Ingredient;
 
 public class LogisticsNetworkEntry extends EntryProvider {
     public static final String ENTRY_ID = "logistics_network";

@@ -15,7 +15,6 @@
     "ingredient": "#theurgy:ores/mercury/medium"
   },
   "result": {
-    "type": "theurgy:item",
     "count": 25,
     "id": "theurgy:mercury_shard"
   },

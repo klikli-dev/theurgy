@@ -26,8 +26,6 @@
   "category": "misc",
   "mercuryFlux": 50,
   "result": {
-    "type": "theurgy:item",
-    "count": 1,
     "id": "theurgy:alchemical_sulfur_undead"
   },
   "sources": [
@@ -36,8 +34,6 @@
       "ingredient": "theurgy:alchemical_niter_logs_abundant"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_undead"
-  },
+  "target": "theurgy:alchemical_sulfur_undead",
   "time": 100
 }

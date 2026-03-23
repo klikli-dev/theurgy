@@ -12,8 +12,6 @@
   "category": "misc",
   "mercuryFlux": 100,
   "result": {
-    "type": "theurgy:item",
-    "count": 1,
     "id": "theurgy:alchemical_sulfur_egg"
   },
   "sources": [
@@ -22,8 +20,6 @@
       "ingredient": "#theurgy:alchemical_sulfurs/animals/common"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_egg"
-  },
+  "target": "theurgy:alchemical_sulfur_egg",
   "time": 100
 }

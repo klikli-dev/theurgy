@@ -11,33 +11,33 @@ import com.klikli_dev.theurgy.content.behaviour.logistics.LeafNodeBehaviour;
 import com.klikli_dev.theurgy.content.item.mode.EnabledSetter;
 import com.klikli_dev.theurgy.content.item.mode.FrequencySetter;
 import com.klikli_dev.theurgy.content.item.mode.TargetDirectionSetter;
+import com.klikli_dev.theurgy.logistics.Wires;
+import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.world.Containers;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import net.neoforged.neoforge.items.IItemHandler;
-import com.klikli_dev.theurgy.logistics.Wires;
-import com.klikli_dev.theurgy.registry.ItemRegistry;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class LogisticsItemConnectorBlockEntity extends BlockEntity implements MenuProvider, HasLeafNodeBehaviour<IItemHandler, @Nullable Direction>, HasFilterBehaviour, TargetDirectionSetter, EnabledSetter, FrequencySetter {
+public abstract class LogisticsItemConnectorBlockEntity extends BlockEntity implements MenuProvider, HasLeafNodeBehaviour<ResourceHandler<ItemResource>, @Nullable Direction>, HasFilterBehaviour, TargetDirectionSetter, EnabledSetter, FrequencySetter {
 
-    protected LeafNodeBehaviour<IItemHandler, @Nullable Direction> leafNodeBehaviour;
+    protected LeafNodeBehaviour<ResourceHandler<ItemResource>, @Nullable Direction> leafNodeBehaviour;
     protected FilterBehaviour filterBehaviour;
 
     protected LogisticsItemConnectorBlockEntity(BlockEntityType<?> pType, BlockPos pPos, BlockState pBlockState) {
@@ -89,7 +89,7 @@ public abstract class LogisticsItemConnectorBlockEntity extends BlockEntity impl
     public void onLoad() {
         super.onLoad();
 
-        if (!this.level.isClientSide) {
+        if (!this.level.isClientSide()) {
             this.leafNode().onLoad();
 
             this.updateBlockStateToMatchFilter();
@@ -100,7 +100,7 @@ public abstract class LogisticsItemConnectorBlockEntity extends BlockEntity impl
     public void onChunkUnloaded() {
         super.onChunkUnloaded();
 
-        if (!this.level.isClientSide) {
+        if (!this.level.isClientSide()) {
             this.leafNode().onChunkUnload();
         }
     }
@@ -120,7 +120,7 @@ public abstract class LogisticsItemConnectorBlockEntity extends BlockEntity impl
     }
 
     @Override
-    public LeafNodeBehaviour<IItemHandler, @Nullable Direction> leafNode() {
+    public LeafNodeBehaviour<ResourceHandler<ItemResource>, @Nullable Direction> leafNode() {
         return this.leafNodeBehaviour;
     }
 

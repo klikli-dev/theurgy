@@ -4,49 +4,48 @@
 
 package com.klikli_dev.theurgy.content.storage;
 
-import net.neoforged.neoforge.fluids.FluidStack;
-import net.neoforged.neoforge.fluids.capability.IFluidHandler;
-import org.jetbrains.annotations.NotNull;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.fluid.FluidResource;
 
-public class PreventInsertExtractFluidWrapper implements IFluidHandler {
-    protected final IFluidHandler compose;
+public class PreventInsertExtractFluidWrapper implements ResourceHandler<FluidResource> {
+    protected final ResourceHandler<FluidResource> compose;
 
-    public PreventInsertExtractFluidWrapper(IFluidHandler compose) {
+    public PreventInsertExtractFluidWrapper(ResourceHandler<FluidResource> compose) {
         this.compose = compose;
     }
 
     @Override
-    public int getTanks() {
-        return this.compose.getTanks();
+    public int size() {
+        return this.compose.size();
     }
 
     @Override
-    public @NotNull FluidStack getFluidInTank(int tank) {
-        return this.compose.getFluidInTank(tank);
+    public FluidResource getResource(int index) {
+        return this.compose.getResource(index);
     }
 
     @Override
-    public int getTankCapacity(int tank) {
-        return this.compose.getTankCapacity(tank);
+    public long getAmountAsLong(int index) {
+        return this.compose.getAmountAsLong(index);
     }
 
     @Override
-    public boolean isFluidValid(int tank, @NotNull FluidStack stack) {
+    public long getCapacityAsLong(int index, FluidResource resource) {
+        return this.compose.getCapacityAsLong(index, resource);
+    }
+
+    @Override
+    public boolean isValid(int index, FluidResource resource) {
         return false;
     }
 
     @Override
-    public int fill(FluidStack resource, FluidAction action) {
+    public int insert(int index, FluidResource resource, int amount, net.neoforged.neoforge.transfer.transaction.TransactionContext transaction) {
         return 0;
     }
 
     @Override
-    public @NotNull FluidStack drain(FluidStack resource, FluidAction action) {
-        return FluidStack.EMPTY;
-    }
-
-    @Override
-    public @NotNull FluidStack drain(int maxDrain, FluidAction action) {
-        return FluidStack.EMPTY;
+    public int extract(int index, FluidResource resource, int amount, net.neoforged.neoforge.transfer.transaction.TransactionContext transaction) {
+        return 0;
     }
 }

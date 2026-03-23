@@ -15,7 +15,6 @@ import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.function.Function;
-import java.util.function.Supplier;
 
 public class SaltRegistry {
     public static final DeferredRegister.Items SALTS = DeferredRegister.createItems(Theurgy.MODID);
@@ -66,7 +65,7 @@ public class SaltRegistry {
                                 .forEach(recipe -> {
                                     var stack = recipe.value().getResultItem(level.registryAccess()).copyWithCount(1);
                                     if (searchDupes.add(stack)) {
-                                        event.accept(stack, event.getTabKey() == CreativeModeTabs.SEARCH ? CreativeModeTab.TabVisibility.SEARCH_TAB_ONLY : CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);;
+                                        event.accept(stack, event.getTabKey() == CreativeModeTabs.SEARCH ? CreativeModeTab.TabVisibility.SEARCH_TAB_ONLY : CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
                                     }
                                 });
                     });

@@ -6,7 +6,7 @@ package com.klikli_dev.theurgy.registry;
 
 import com.klikli_dev.theurgy.Theurgy;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvent;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -27,7 +27,7 @@ public class SoundRegistry {
      * @return the sound event.
      */
     private static SoundEvent loadSoundEvent(String name) {
-        ResourceLocation location = ResourceLocation.fromNamespaceAndPath(Theurgy.MODID,  name);
+        Identifier location = Identifier.fromNamespaceAndPath(Theurgy.MODID, name);
         return SoundEvent.createVariableRangeEvent(location);
     }
 }

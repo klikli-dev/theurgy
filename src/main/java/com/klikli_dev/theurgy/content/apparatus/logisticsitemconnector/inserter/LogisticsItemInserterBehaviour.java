@@ -6,23 +6,24 @@ package com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector.inserter
 
 import com.klikli_dev.theurgy.content.behaviour.logistics.InserterNodeBehaviour;
 import com.klikli_dev.theurgy.logistics.Logistics;
+import com.klikli_dev.theurgy.registry.CapabilityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import net.neoforged.neoforge.capabilities.Capabilities;
-import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
 import org.jetbrains.annotations.Nullable;
 
-public class LogisticsItemInserterBehaviour extends InserterNodeBehaviour<IItemHandler, @Nullable Direction> {
+public class LogisticsItemInserterBehaviour extends InserterNodeBehaviour<ResourceHandler<ItemResource>, @Nullable Direction> {
 
     private Direction directionOverride = null;
     private boolean enabled = true;
 
     public LogisticsItemInserterBehaviour(BlockEntity blockEntity) {
-        super(blockEntity, Capabilities.ItemHandler.BLOCK);
+        super(blockEntity, CapabilityRegistry.ITEM_HANDLER);
     }
 
     @Override

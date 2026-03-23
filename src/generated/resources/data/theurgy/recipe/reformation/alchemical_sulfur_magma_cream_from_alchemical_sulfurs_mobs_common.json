@@ -12,8 +12,6 @@
   "category": "misc",
   "mercuryFlux": 100,
   "result": {
-    "type": "theurgy:item",
-    "count": 1,
     "id": "theurgy:alchemical_sulfur_magma_cream"
   },
   "sources": [
@@ -22,8 +20,6 @@
       "ingredient": "#theurgy:alchemical_sulfurs/mobs/common"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_magma_cream"
-  },
+  "target": "theurgy:alchemical_sulfur_magma_cream",
   "time": 100
 }

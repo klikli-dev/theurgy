@@ -5,18 +5,14 @@
 package com.klikli_dev.theurgy.network.messages;
 
 import com.klikli_dev.theurgy.Theurgy;
-import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.content.item.divinationrod.DivinationRodItem;
 import com.klikli_dev.theurgy.network.Message;
 import com.klikli_dev.theurgy.registry.DataComponentRegistry;
-import io.netty.buffer.ByteBuf;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -26,7 +22,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Optional;
 
 
-public class MessageSetDivinationResult implements Message {
+public record MessageSetDivinationResult(BlockPos pos, byte distance) implements Message {
     public static final Type<MessageSetDivinationResult> TYPE = new Type<>(Theurgy.loc("set_divination_result"));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, MessageSetDivinationResult> STREAM_CODEC =
@@ -38,12 +34,8 @@ public class MessageSetDivinationResult implements Message {
                     (pos, distance) -> new MessageSetDivinationResult(pos.orElse(null), distance)
             );
 
-    public final BlockPos pos;
-    public final byte distance;
-
     public MessageSetDivinationResult(BlockPos pos, float distance) {
-        this.pos = pos;
-        this.distance = (byte) Math.min(256, distance);
+        this(pos, (byte) Math.min(256, distance));
     }
 
     @Override
@@ -51,7 +43,7 @@ public class MessageSetDivinationResult implements Message {
         ItemStack stack = player.getItemInHand(InteractionHand.MAIN_HAND);
         if (stack.getItem() instanceof DivinationRodItem) {
 
-            stack.set(DataComponentRegistry.DIVINATION_DISTANCE.get(), (float)this.distance);
+            stack.set(DataComponentRegistry.DIVINATION_DISTANCE.get(), (float) this.distance);
             stack.set(DataComponentRegistry.DIVINATION_POS.get(), this.pos);
 
             player.inventoryMenu.broadcastChanges();

@@ -7,22 +7,24 @@ package com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron;
 import com.klikli_dev.theurgy.content.behaviour.crafting.CraftingBehaviour;
 import com.klikli_dev.theurgy.content.recipe.LiquefactionRecipe;
 import com.klikli_dev.theurgy.content.recipe.input.ItemHandlerWithFluidRecipeInput;
+import com.klikli_dev.theurgy.content.storage.FluidStorageHelper;
+import com.klikli_dev.theurgy.content.storage.SettableItemStorage;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.common.util.Lazy;
-import net.neoforged.neoforge.fluids.capability.IFluidHandler;
-import net.neoforged.neoforge.items.IItemHandlerModifiable;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.fluid.FluidResource;
 
 import java.util.function.Supplier;
 
 public class LiquefactionCraftingBehaviour extends CraftingBehaviour<ItemHandlerWithFluidRecipeInput, LiquefactionRecipe, LiquefactionCachedCheck> {
 
-    protected Supplier<IFluidHandler> solventTankSupplier;
+    protected Supplier<ResourceHandler<FluidResource>> solventTankSupplier;
 
-    public LiquefactionCraftingBehaviour(BlockEntity blockEntity, Supplier<IItemHandlerModifiable> inputInventorySupplier, Supplier<IItemHandlerModifiable> outputInventorySupplier, Supplier<IFluidHandler> solventTankSupplier) {
+    public LiquefactionCraftingBehaviour(BlockEntity blockEntity, Supplier<SettableItemStorage> inputInventorySupplier, Supplier<SettableItemStorage> outputInventorySupplier, Supplier<ResourceHandler<FluidResource>> solventTankSupplier) {
         super(blockEntity,
                 Lazy.of(() -> new ItemHandlerWithFluidRecipeInput(inputInventorySupplier.get(), solventTankSupplier.get())),
                 inputInventorySupplier,
@@ -34,8 +36,8 @@ public class LiquefactionCraftingBehaviour extends CraftingBehaviour<ItemHandler
 
     @Override
     public boolean isIngredient(ItemStack stack) {
-        if (this.blockEntity.getLevel().isClientSide) return false;
-        return this.recipeCachedCheck.getRecipeFor(stack, (ServerLevel)this.blockEntity.getLevel()).isPresent();
+        if (this.blockEntity.getLevel().isClientSide()) return false;
+        return this.recipeCachedCheck.getRecipeFor(stack, (ServerLevel) this.blockEntity.getLevel()).isPresent();
     }
 
     @Override
@@ -59,7 +61,7 @@ public class LiquefactionCraftingBehaviour extends CraftingBehaviour<ItemHandler
             return false;
 
         //then drain the solvent
-        this.solventTankSupplier.get().drain(pRecipe.value().getSolventAmount(), IFluidHandler.FluidAction.EXECUTE);
+        FluidStorageHelper.drain(this.solventTankSupplier.get(), pRecipe.value().getSolventAmount(), false);
 
         return true;
     }

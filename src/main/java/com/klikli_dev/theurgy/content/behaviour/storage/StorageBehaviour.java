@@ -5,57 +5,56 @@
 package com.klikli_dev.theurgy.content.behaviour.storage;
 
 import com.klikli_dev.theurgy.util.TetraConsumer;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import net.neoforged.neoforge.fluids.capability.IFluidHandler;
-import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.fluid.FluidResource;
+import net.neoforged.neoforge.transfer.item.ItemResource;
 
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 public abstract class StorageBehaviour<S extends StorageBehaviour<?>> {
     protected BlockEntity blockEntity;
-    protected TetraConsumer<IItemHandler, Integer, ItemStack, ItemStack> onContentTypeChanged;
-    protected BiConsumer<IItemHandler, Integer> onContentsChanged;
-    protected Consumer<IFluidHandler> onFluidContentsChanged;
+    protected TetraConsumer<ResourceHandler<ItemResource>, Integer, ItemStack, ItemStack> onContentTypeChanged;
+    protected BiConsumer<ResourceHandler<ItemResource>, Integer> onContentsChanged;
+    protected Consumer<ResourceHandler<FluidResource>> onFluidContentsChanged;
 
     public StorageBehaviour(BlockEntity blockEntity) {
         this.blockEntity = blockEntity;
     }
 
-    protected void onContentsChanged(IItemHandler handler, int slot) {
+    protected void onContentsChanged(ResourceHandler<ItemResource> handler, int slot) {
         if (this.onContentsChanged != null)
             this.onContentsChanged.accept(handler, slot);
     }
 
-    protected void onContentTypeChanged(IItemHandler handler, int slot, ItemStack oldStack, ItemStack newStack) {
+    protected void onContentTypeChanged(ResourceHandler<ItemResource> handler, int slot, ItemStack oldStack, ItemStack newStack) {
         if (this.onContentTypeChanged != null)
             this.onContentTypeChanged.accept(handler, slot, oldStack, newStack);
     }
 
-    protected void onFluidContentsChanged(IFluidHandler handler) {
+    protected void onFluidContentsChanged(ResourceHandler<FluidResource> handler) {
         if (this.onFluidContentsChanged != null)
             this.onFluidContentsChanged.accept(handler);
     }
 
-    public S withOnContentTypeChanged(TetraConsumer<IItemHandler, Integer, ItemStack, ItemStack> onContentTypeChanged) {
+    public S withOnContentTypeChanged(TetraConsumer<ResourceHandler<ItemResource>, Integer, ItemStack, ItemStack> onContentTypeChanged) {
         this.onContentTypeChanged = onContentTypeChanged;
         //noinspection unchecked
         return (S) this;
     }
 
-    public S withOnContentsChanged(BiConsumer<IItemHandler, Integer> onContentsChanged) {
+    public S withOnContentsChanged(BiConsumer<ResourceHandler<ItemResource>, Integer> onContentsChanged) {
         this.onContentsChanged = onContentsChanged;
         //noinspection unchecked
         return (S) this;
     }
 
-    public S onFluidContentsChanged(Consumer<IFluidHandler> onFluidContentsChanged) {
+    public S onFluidContentsChanged(Consumer<ResourceHandler<FluidResource>> onFluidContentsChanged) {
         this.onFluidContentsChanged = onFluidContentsChanged;
         //noinspection unchecked
         return (S) this;
@@ -70,7 +69,7 @@ public abstract class StorageBehaviour<S extends StorageBehaviour<?>> {
     public abstract void loadAdditional(ValueInput input);
 
     protected void sendBlockUpdated() {
-        if (this.blockEntity.getLevel() != null && !this.blockEntity.getLevel().isClientSide)
+        if (this.blockEntity.getLevel() != null && !this.blockEntity.getLevel().isClientSide())
             this.blockEntity.getLevel().sendBlockUpdated(this.blockEntity.getBlockPos(), this.blockEntity.getBlockState(), this.blockEntity.getBlockState(), Block.UPDATE_CLIENTS);
     }
 

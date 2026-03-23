@@ -3,7 +3,6 @@
   "category": "misc",
   "mercuryFlux": 50,
   "result": {
-    "type": "theurgy:item",
     "count": 2,
     "id": "theurgy:alchemical_niter_crops_abundant"
   },
@@ -25,8 +24,6 @@
       "ingredient": "theurgy:alchemical_niter_earthen_matters_abundant"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_niter_crops_abundant"
-  },
+  "target": "theurgy:alchemical_niter_crops_abundant",
   "time": 100
 }

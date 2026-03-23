@@ -5,7 +5,7 @@
   "description": "book.theurgy.the_hermetica.apparatus.calcination_oven.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "theurgy:calcination_oven"
+    "id": "theurgy:calcination_oven"
   },
   "name": "book.theurgy.the_hermetica.apparatus.calcination_oven.name",
   "pages": [

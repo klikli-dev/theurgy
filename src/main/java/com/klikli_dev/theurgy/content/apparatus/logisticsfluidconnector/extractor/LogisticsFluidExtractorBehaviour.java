@@ -7,22 +7,20 @@ package com.klikli_dev.theurgy.content.apparatus.logisticsfluidconnector.extract
 import com.klikli_dev.theurgy.content.behaviour.filter.Filter;
 import com.klikli_dev.theurgy.content.behaviour.logistics.ExtractorNodeBehaviour;
 import com.klikli_dev.theurgy.content.behaviour.logistics.LeafNodeBehaviour;
+import com.klikli_dev.theurgy.content.storage.FluidStorageHelper;
+import com.klikli_dev.theurgy.registry.CapabilityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.capabilities.BlockCapabilityCache;
-import net.neoforged.neoforge.capabilities.Capabilities;
-import net.neoforged.neoforge.fluids.capability.IFluidHandler;
-import net.neoforged.neoforge.items.IItemHandler;
-import net.neoforged.neoforge.items.ItemHandlerHelper;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.fluid.FluidResource;
 import org.jetbrains.annotations.Nullable;
 
-public class LogisticsFluidExtractorBehaviour extends ExtractorNodeBehaviour<IFluidHandler, @Nullable Direction> {
+public class LogisticsFluidExtractorBehaviour extends ExtractorNodeBehaviour<ResourceHandler<FluidResource>, @Nullable Direction> {
 
     public static final int EXTRACTION_EVERY_N_TICKS = 20; // 1 second
     public static final int MAX_EXTRACTION_AMOUNT = 1000 * 5; //how much fluid to extract per extraction tick
@@ -32,11 +30,11 @@ public class LogisticsFluidExtractorBehaviour extends ExtractorNodeBehaviour<IFl
     private boolean enabled = true;
 
     public LogisticsFluidExtractorBehaviour(BlockEntity blockEntity) {
-        super(blockEntity, Capabilities.FluidHandler.BLOCK);
+        super(blockEntity, CapabilityRegistry.FLUID_HANDLER);
     }
 
     @Override
-    protected boolean isValidInsertTarget(LeafNodeBehaviour<IFluidHandler, @Nullable Direction> leafNode, BlockCapabilityCache<IFluidHandler, @Nullable Direction> capability) {
+    protected boolean isValidInsertTarget(LeafNodeBehaviour<ResourceHandler<FluidResource>, @Nullable Direction> leafNode, BlockCapabilityCache<ResourceHandler<FluidResource>, @Nullable Direction> capability) {
         //any target we get is guaranteed to exist and have a fluid capability, so we just return true here.
         return true;
     }
@@ -126,22 +124,22 @@ public class LogisticsFluidExtractorBehaviour extends ExtractorNodeBehaviour<IFl
         this.performExtraction(extractCap, this.filter(), insertCap, insertTarget.inserter().filter());
     }
 
-    protected void performExtraction(IFluidHandler extractCap, Filter extractFilter, IFluidHandler insertCap, Filter insertFilter) {
+    protected void performExtraction(ResourceHandler<FluidResource> extractCap, Filter extractFilter, ResourceHandler<FluidResource> insertCap, Filter insertFilter) {
         //first simulate extraction, this tells us how much we can extract
-        var extractStack = extractCap.drain(this.extractionAmount, IFluidHandler.FluidAction.SIMULATE);
+        var extractStack = FluidStorageHelper.drain(extractCap, this.extractionAmount, true);
         if (extractStack.isEmpty())
             return;
 
-        if(!extractFilter.test(this.level(), extractStack) || !insertFilter.test(this.level(), extractStack))
+        if (!extractFilter.test(this.level(), extractStack) || !insertFilter.test(this.level(), extractStack))
             return;
 
         //and insertion
-        var inserted = insertCap.fill(extractStack, IFluidHandler.FluidAction.SIMULATE);
+        var inserted = FluidStorageHelper.fill(insertCap, extractStack, true);
 
         //then if anything was inserted during the simulation, perform the real extraction and insertion
         if (inserted > 0) {
-            inserted = insertCap.fill(extractStack, IFluidHandler.FluidAction.EXECUTE);
-            extractCap.drain(inserted, IFluidHandler.FluidAction.EXECUTE);
+            inserted = FluidStorageHelper.fill(insertCap, extractStack, false);
+            FluidStorageHelper.drain(extractCap, inserted, false);
         }
     }
 }

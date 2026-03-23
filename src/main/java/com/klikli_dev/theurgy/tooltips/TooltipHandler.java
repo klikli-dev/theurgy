@@ -8,7 +8,7 @@ import com.google.common.collect.ImmutableList;
 import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.config.ServerConfig;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
@@ -51,7 +51,7 @@ public class TooltipHandler {
             //The (conditional) literal " "'s are a hack to add newlines between the additional tooltips headings/"show ..." hints and the text.
             //These newlines are conditional because e.g. they should not appear if there are just two "show ..." hints after each other
             if (extendedTooltipExists) {
-                if (Screen.hasShiftDown()) {
+                if (Minecraft.getInstance().hasShiftDown()) {
                     event.getToolTip().add(Component.literal(" "));
                     event.getToolTip().add(Component.translatable(TheurgyConstants.I18n.Tooltip.EXTENDED_HEADING, additionalTooltipData.toArray()));
                     event.getToolTip().add(Component.translatable(extendedTooltipKey, additionalTooltipData.toArray()).withStyle(Style.EMPTY.withColor(ChatFormatting.GRAY)));
@@ -62,13 +62,13 @@ public class TooltipHandler {
             }
 
             if (usageTooltipExists) {
-                if (Screen.hasControlDown()) {
-                    if (!extendedTooltipExists || Screen.hasShiftDown())
+                if (Minecraft.getInstance().hasControlDown()) {
+                    if (!extendedTooltipExists || Minecraft.getInstance().hasShiftDown())
                         event.getToolTip().add(Component.literal(" "));
                     event.getToolTip().add(Component.translatable(TheurgyConstants.I18n.Tooltip.USAGE_HEADING, additionalTooltipData.toArray()));
                     event.getToolTip().add(Component.translatable(usageTooltipKey, additionalTooltipData.toArray()).withStyle(Style.EMPTY.withColor(ChatFormatting.GRAY)));
                 } else {
-                    if (!extendedTooltipExists || Screen.hasShiftDown())
+                    if (!extendedTooltipExists || Minecraft.getInstance().hasShiftDown())
                         event.getToolTip().add(Component.literal(" "));
                     event.getToolTip().add(Component.translatable(TheurgyConstants.I18n.Tooltip.SHOW_USAGE, additionalTooltipData.toArray()));
                 }

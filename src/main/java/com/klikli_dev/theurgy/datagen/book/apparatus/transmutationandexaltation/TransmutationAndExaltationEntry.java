@@ -31,7 +31,7 @@ public class TransmutationAndExaltationEntry extends EntryProvider {
                 """
                         [#]($PURPLE)Transmutation[#]() is the process of converting sulfurs into other types (such as gems to metals),
                         [#]($PURPLE)Exaltation[#]() into different tiers (such as common to rare).
-                          """
+                        """
         );
 
         this.page("transmutation", () -> BookTextPageModel.create()

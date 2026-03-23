@@ -149,7 +149,7 @@ public class FollowProjectile extends ColoredProjectile {
                 || (maxMotion >= arrivalDistance && maxMotion + Math.sqrt(this.position().distanceToSqr(to)) < arrivalDistance)
                 || this.age > 1000 ||
                 Math.sqrt(this.position().distanceToSqr(to)) > this.entityData.get(DESPAWN_DISTANCE)) {
-            if (this.level().isClientSide && this.entityData.get(SPAWN_TOUCH)) {
+            if (this.level().isClientSide() && this.entityData.get(SPAWN_TOUCH)) {
                 //no interpolation here as we are at the end
                 ParticleRegistry.spawnTouch((ClientLevel) this.level(), this.getOnPos(), ParticleColor.fromInt(this.finalColor()));
             }
@@ -184,7 +184,7 @@ public class FollowProjectile extends ColoredProjectile {
         var speed = 1.0f; //entity speed
         this.setDeltaMovement(this.getDeltaMovement().scale(speed));
 
-        if (this.level().isClientSide && this.age > 1) {
+        if (this.level().isClientSide() && this.age > 1) {
             int particleAge = 50; //increase to make tracing the particle easier
             double deltaX = this.getX() - this.xOld;
             double deltaY = this.getY() - this.yOld;

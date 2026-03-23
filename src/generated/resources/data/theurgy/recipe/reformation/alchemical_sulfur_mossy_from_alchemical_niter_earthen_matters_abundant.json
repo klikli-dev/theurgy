@@ -26,8 +26,6 @@
   "category": "misc",
   "mercuryFlux": 50,
   "result": {
-    "type": "theurgy:item",
-    "count": 1,
     "id": "theurgy:alchemical_sulfur_mossy"
   },
   "sources": [
@@ -36,8 +34,6 @@
       "ingredient": "theurgy:alchemical_niter_earthen_matters_abundant"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_mossy"
-  },
+  "target": "theurgy:alchemical_sulfur_mossy",
   "time": 100
 }

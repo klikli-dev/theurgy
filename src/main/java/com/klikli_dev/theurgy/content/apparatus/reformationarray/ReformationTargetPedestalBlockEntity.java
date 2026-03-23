@@ -7,9 +7,9 @@ package com.klikli_dev.theurgy.content.apparatus.reformationarray;
 import com.klikli_dev.theurgy.content.particle.ParticleColor;
 import com.klikli_dev.theurgy.content.particle.glow.GlowParticleProvider;
 import com.klikli_dev.theurgy.content.storage.MonitoredItemStackHandler;
-import com.klikli_dev.theurgy.util.ValueIOUtils;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.ItemTagRegistry;
+import com.klikli_dev.theurgy.util.ValueIOUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
@@ -24,14 +24,13 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.Nullable;
 
 import java.lang.ref.WeakReference;
 
 public class ReformationTargetPedestalBlockEntity extends BlockEntity {
 
-    public ItemStackHandler inputInventory;
+    public MonitoredItemStackHandler inputInventory;
 
     public WeakReference<SulfuricFluxEmitterBlockEntity> sulfuricFluxEmitter;
 
@@ -129,7 +128,7 @@ public class ReformationTargetPedestalBlockEntity extends BlockEntity {
     }
 
     public void sendBlockUpdated() {
-        if (this.level != null && !this.level.isClientSide)
+        if (this.level != null && !this.level.isClientSide())
             this.level.sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), Block.UPDATE_CLIENTS);
     }
 

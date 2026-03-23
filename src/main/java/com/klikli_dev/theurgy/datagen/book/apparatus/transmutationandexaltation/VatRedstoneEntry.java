@@ -8,17 +8,10 @@ import com.klikli_dev.modonomicon.api.datagen.CategoryProvider;
 import com.klikli_dev.modonomicon.api.datagen.EntryBackground;
 import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
-import com.klikli_dev.modonomicon.api.datagen.book.page.BookCraftingRecipePageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookImagePageModel;
-import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
-import com.klikli_dev.modonomicon.book.page.BookImagePage;
-import com.klikli_dev.theurgy.Theurgy;
-import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.mojang.datafixers.util.Pair;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.Ingredient;
 
 public class VatRedstoneEntry extends EntryProvider {
 
@@ -45,14 +38,13 @@ public class VatRedstoneEntry extends EntryProvider {
         );
 
         this.page("sides", () -> BookImagePageModel.create()
-                .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText()))
+                        .withTitle(this.context().pageTitle())
+                        .withText(this.context().pageText()))
                 .withImages(
                         this.modLoc("textures/gui/book/redstone_digestion_vat.png"),
                         this.modLoc("textures/gui/book/redstone_fermentation_vat.png")
                 );
 
-        ;
         this.add(this.context().pageTitle(), "Sided Behaviour");
         this.add(this.context().pageText(),
                 """

@@ -5,24 +5,24 @@
 package com.klikli_dev.theurgy.integration.jei;
 
 import com.klikli_dev.theurgy.Theurgy;
-import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurItem;
 import com.klikli_dev.theurgy.content.item.divinationrod.DivinationRodItem;
+import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurItem;
 import com.klikli_dev.theurgy.integration.jei.recipes.*;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import com.klikli_dev.theurgy.registry.SulfurRegistry;
+import com.klikli_dev.theurgy.util.LevelUtil;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import mezz.jei.api.registration.ISubtypeRegistration;
-import com.klikli_dev.theurgy.util.LevelUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -31,7 +31,7 @@ import org.jetbrains.annotations.NotNull;
 @mezz.jei.api.JeiPlugin
 public class JeiPlugin implements IModPlugin {
     @Override
-    public @NotNull ResourceLocation getPluginUid() {
+    public @NotNull Identifier getPluginUid() {
         return Theurgy.loc("jei_plugin");
     }
 

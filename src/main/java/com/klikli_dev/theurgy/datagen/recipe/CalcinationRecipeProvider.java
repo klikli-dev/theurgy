@@ -12,11 +12,11 @@ import com.klikli_dev.theurgy.registry.ItemTagRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import com.klikli_dev.theurgy.registry.SaltRegistry;
 import net.minecraft.data.PackOutput;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 import net.neoforged.neoforge.common.Tags;
@@ -33,7 +33,7 @@ public class CalcinationRecipeProvider extends JsonRecipeProvider {
     }
 
     @Override
-    public void buildRecipes(BiConsumer<ResourceLocation, JsonObject> recipeConsumer) {
+    public void buildRecipes(BiConsumer<Identifier, JsonObject> recipeConsumer) {
         this.makeRecipe("_from_stone", new Builder(SaltRegistry.STRATA).sizedIngredient(Tags.Items.STONES));
         this.makeRecipe("_from_sandstone", new Builder(SaltRegistry.STRATA).sizedIngredient(Tags.Items.SANDSTONE_BLOCKS));
         this.makeRecipe("_from_cobblestone", new Builder(SaltRegistry.STRATA).sizedIngredient(Tags.Items.COBBLESTONES));
@@ -88,24 +88,24 @@ public class CalcinationRecipeProvider extends JsonRecipeProvider {
 
     protected class Builder extends RecipeBuilder<Builder> {
 
-        private final ItemStack result;
+        private final ItemStackTemplate result;
 
         protected Builder(ItemLike result) {
             this(result, 1);
         }
 
         protected Builder(ItemLike result, int count) {
-            this(new ItemStack(result, count));
+            this(new ItemStackTemplate(result.asItem(), count));
         }
 
-        protected Builder(ItemStack result) {
+        protected Builder(ItemStackTemplate result) {
             super(RecipeTypeRegistry.CALCINATION);
             this.result(result);
             this.time(TIME);
             this.result = result;
         }
 
-        public ItemStack result() {
+        public ItemStackTemplate result() {
             return this.result;
         }
 

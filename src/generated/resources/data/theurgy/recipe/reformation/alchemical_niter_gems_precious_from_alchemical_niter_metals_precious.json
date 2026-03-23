@@ -3,8 +3,6 @@
   "category": "misc",
   "mercuryFlux": 200,
   "result": {
-    "type": "theurgy:item",
-    "count": 1,
     "id": "theurgy:alchemical_niter_gems_precious"
   },
   "sources": [
@@ -17,8 +15,6 @@
       "ingredient": "theurgy:alchemical_niter_metals_precious"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_niter_gems_precious"
-  },
+  "target": "theurgy:alchemical_niter_gems_precious",
   "time": 100
 }

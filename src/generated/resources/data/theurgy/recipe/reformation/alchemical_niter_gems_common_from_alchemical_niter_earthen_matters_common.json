@@ -3,8 +3,6 @@
   "category": "misc",
   "mercuryFlux": 100,
   "result": {
-    "type": "theurgy:item",
-    "count": 1,
     "id": "theurgy:alchemical_niter_gems_common"
   },
   "sources": [
@@ -73,8 +71,6 @@
       "ingredient": "theurgy:alchemical_niter_earthen_matters_common"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_niter_gems_common"
-  },
+  "target": "theurgy:alchemical_niter_gems_common",
   "time": 100
 }

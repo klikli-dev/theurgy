@@ -23,15 +23,19 @@ public class MessageHandler {
     }
 
     public static <T extends Message> void handleServer(T message, IPayloadContext ctx) {
-        MinecraftServer server = ctx.player().getServer();
-        message.onServerReceived(server, (ServerPlayer) ctx.player());
+        ctx.enqueueWork(() -> {
+            MinecraftServer server = ctx.player().level().getServer();
+            message.onServerReceived(server, (ServerPlayer) ctx.player());
+        });
     }
 
     public static class ClientMessageHandler {
 
         public static <T extends Message> void handleClient(T message, IPayloadContext ctx) {
-            Minecraft minecraft = Minecraft.getInstance();
-            message.onClientReceived(minecraft, minecraft.player);
+            ctx.enqueueWork(() -> {
+                Minecraft minecraft = Minecraft.getInstance();
+                message.onClientReceived(minecraft, minecraft.player);
+            });
         }
     }
 }

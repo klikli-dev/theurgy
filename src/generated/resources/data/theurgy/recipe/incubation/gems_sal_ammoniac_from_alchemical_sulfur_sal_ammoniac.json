@@ -10,19 +10,13 @@
   ],
   "type": "theurgy:incubation",
   "category": "misc",
-  "mercury": {
-    "item": "theurgy:mercury_shard"
-  },
+  "mercury": "theurgy:mercury_shard",
   "result": {
     "type": "theurgy:tag",
     "count": 1,
     "tag": "c:gems/sal_ammoniac"
   },
-  "salt": {
-    "item": "theurgy:alchemical_salt_mineral"
-  },
-  "sulfur": {
-    "item": "theurgy:alchemical_sulfur_sal_ammoniac"
-  },
+  "salt": "theurgy:alchemical_salt_mineral",
+  "sulfur": "theurgy:alchemical_sulfur_sal_ammoniac",
   "time": 100
 }

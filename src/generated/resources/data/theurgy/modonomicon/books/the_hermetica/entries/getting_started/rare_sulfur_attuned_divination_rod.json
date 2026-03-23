@@ -5,7 +5,7 @@
   "description": "book.theurgy.the_hermetica.getting_started.rare_sulfur_attuned_divination_rod.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "theurgy:sulfur_attuned_divination_rod_rare"
+    "id": "theurgy:sulfur_attuned_divination_rod_rare"
   },
   "name": "book.theurgy.the_hermetica.getting_started.rare_sulfur_attuned_divination_rod.name",
   "pages": [

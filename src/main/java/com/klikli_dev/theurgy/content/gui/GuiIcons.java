@@ -7,7 +7,7 @@ package com.klikli_dev.theurgy.content.gui;
 import com.klikli_dev.theurgy.Theurgy;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.RenderPipelines;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public class GuiIcons implements ScreenElement {
 
@@ -24,8 +24,8 @@ public class GuiIcons implements ScreenElement {
 
     public static final GuiIcons ADD = new GuiIcons(0, 0);
     public static final GuiIcons ADD_INVERTED = new GuiIcons(4, 7);
-    
-    private static final ResourceLocation TEXTURE = Theurgy.loc("textures/gui/icons.png");
+
+    private static final Identifier TEXTURE = Theurgy.loc("textures/gui/icons.png");
     private final int iconX;
     private final int iconY;
 
@@ -37,7 +37,7 @@ public class GuiIcons implements ScreenElement {
 
     @Override
     public void render(GuiGraphics graphics, int x, int y) {
-        graphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, x, y, (float)this.iconX, (float)this.iconY, 16, 16, 256, 256);
+        graphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, x, y, (float) this.iconX, (float) this.iconY, 16, 16, 256, 256);
     }
 
 }

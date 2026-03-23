@@ -6,8 +6,6 @@
     "ingredient": "theurgy:alchemical_salt_strata"
   },
   "result": {
-    "type": "theurgy:item",
-    "count": 1,
     "id": "theurgy:alchemical_salt_mineral"
   },
   "time": 100

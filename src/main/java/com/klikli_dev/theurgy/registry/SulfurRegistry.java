@@ -10,6 +10,7 @@ import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurItem;
 import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurType;
 import com.klikli_dev.theurgy.util.LevelUtil;
 import net.minecraft.core.Holder;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.CreativeModeTab;
@@ -21,7 +22,6 @@ import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.function.Function;
-import java.util.function.Supplier;
 
 public class SulfurRegistry {
     public static final DeferredRegister.Items SULFURS = DeferredRegister.createItems(Theurgy.MODID);
@@ -373,12 +373,11 @@ public class SulfurRegistry {
     }
 
     private static String name(Item source) {
-        //noinspection deprecation
-        return name(source.builtInRegistryHolder());
+        return name(BuiltInRegistries.ITEM.wrapAsHolder(source));
     }
 
     private static String name(Holder<Item> source) {
-        var namePath = source.unwrapKey().get().location().getPath();
+        var namePath = source.unwrapKey().get().identifier().getPath();
         var slashIndex = namePath.lastIndexOf("/");
         return namePath.substring(slashIndex + 1);
     }

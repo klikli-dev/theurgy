@@ -5,7 +5,6 @@
 package com.klikli_dev.theurgy.content.recipe;
 
 import com.klikli_dev.theurgy.content.recipe.input.ReformationArrayRecipeInput;
-import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.RecipeSerializerRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import com.mojang.serialization.Codec;
@@ -17,15 +16,8 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.item.crafting.RecipeBookCategory;
-import net.minecraft.world.item.crafting.RecipeBookCategories;
-import net.minecraft.world.item.crafting.RecipeBookCategory;
-import net.minecraft.world.item.crafting.RecipeBookCategories;
-import net.minecraft.world.item.crafting.PlacementInfo;
+import net.minecraft.world.item.ItemStackTemplate;
+import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.common.crafting.SizedIngredient;
 import org.jetbrains.annotations.NotNull;
@@ -41,18 +33,17 @@ public class ReformationRecipe implements Recipe<ReformationArrayRecipeInput> {
             instance -> instance.group(
                     SizedIngredient.NESTED_CODEC.listOf().fieldOf("sources").forGetter(r -> r.sources),
                     Ingredient.CODEC.fieldOf("target").forGetter(r -> r.target),
-                    ItemStack.CODEC.fieldOf("result").forGetter(r -> r.result),
+                    ItemStackTemplate.CODEC.fieldOf("result").forGetter(r -> r.result),
                     Codec.INT.fieldOf("mercuryFlux").forGetter(r -> r.mercuryFlux),
                     Codec.INT.optionalFieldOf("time", DEFAULT_TIME).forGetter(r -> r.time)
             ).apply(instance, ReformationRecipe::new)
     );
-
     public static final StreamCodec<RegistryFriendlyByteBuf, ReformationRecipe> STREAM_CODEC = StreamCodec.composite(
             SizedIngredient.STREAM_CODEC.apply(ByteBufCodecs.list()),
             r -> r.sources,
             Ingredient.CONTENTS_STREAM_CODEC,
             r -> r.target,
-            ItemStack.STREAM_CODEC,
+            ItemStackTemplate.STREAM_CODEC,
             r -> r.result,
             ByteBufCodecs.INT,
             r -> r.mercuryFlux,
@@ -60,15 +51,15 @@ public class ReformationRecipe implements Recipe<ReformationArrayRecipeInput> {
             r -> r.time,
             ReformationRecipe::new
     );
-
     protected final List<SizedIngredient> sources;
+    public static final RecipeSerializer<ReformationRecipe> SERIALIZER = new RecipeSerializer<>(CODEC, STREAM_CODEC);
     protected final NonNullList<Ingredient> sourcesNonNullList;
     protected final Ingredient target;
-    protected final ItemStack result;
+    protected final ItemStackTemplate result;
     protected final int mercuryFlux;
     protected final int time;
 
-    public ReformationRecipe(List<SizedIngredient> sources, Ingredient target, ItemStack result, int mercuryFlux, int time) {
+    public ReformationRecipe(List<SizedIngredient> sources, Ingredient target, ItemStackTemplate result, int mercuryFlux, int time) {
         this.sources = sources;
         this.sourcesNonNullList = NonNullList.copyOf(this.sources.stream().map(SizedIngredient::ingredient).toList());
         this.target = target;
@@ -85,7 +76,7 @@ public class ReformationRecipe implements Recipe<ReformationArrayRecipeInput> {
         return this.target;
     }
 
-    public ItemStack getResult() {
+    public ItemStackTemplate getResult() {
         return this.result;
     }
 
@@ -135,8 +126,9 @@ public class ReformationRecipe implements Recipe<ReformationArrayRecipeInput> {
         return true;
     }
 
-    public ItemStack assemble(ReformationArrayRecipeInput pCraftingContainer, HolderLookup.Provider pRegistries) {
-        var result = this.result.copy();
+    @Override
+    public ItemStack assemble(ReformationArrayRecipeInput pCraftingContainer) {
+        var result = this.result.create();
         //TODO: the tag copy should be an option in the recipe json
         var targetItem = pCraftingContainer.getTargetPedestalInv().getStackInSlot(0);
 
@@ -146,8 +138,23 @@ public class ReformationRecipe implements Recipe<ReformationArrayRecipeInput> {
         return result;
     }
 
+    @Override
+    public boolean showNotification() {
+        return true;
+    }
+
+    @Override
+    public String group() {
+        return "";
+    }
+
     public ItemStack getResultItem(HolderLookup.Provider pRegistries) {
-        return this.result;
+        return this.result.create();
+    }
+
+    @Override
+    public boolean isSpecial() {
+        return true;
     }
 
     @Override
@@ -167,7 +174,7 @@ public class ReformationRecipe implements Recipe<ReformationArrayRecipeInput> {
 
     @Override
     public @NotNull RecipeSerializer<ReformationRecipe> getSerializer() {
-        return (RecipeSerializer<ReformationRecipe>) RecipeSerializerRegistry.REFORMATION.get();
+        return RecipeSerializerRegistry.REFORMATION.get();
     }
 
     @Override
@@ -187,16 +194,4 @@ public class ReformationRecipe implements Recipe<ReformationArrayRecipeInput> {
         ));
     }
 
-    public static class Serializer implements RecipeSerializer<ReformationRecipe> {
-
-        @Override
-        public @NotNull MapCodec<ReformationRecipe> codec() {
-            return CODEC;
-        }
-
-        @Override
-        public @NotNull StreamCodec<RegistryFriendlyByteBuf, ReformationRecipe> streamCodec() {
-            return STREAM_CODEC;
-        }
-    }
 }

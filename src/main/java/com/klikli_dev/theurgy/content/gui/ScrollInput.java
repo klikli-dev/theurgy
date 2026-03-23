@@ -9,7 +9,6 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Tooltip;
-import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -130,14 +129,15 @@ public class ScrollInput extends AbstractButton implements TickableGuiEventListe
         if (this.inverted)
             pScrollY *= -1;
 
+        Minecraft minecraft = Minecraft.getInstance();
         StepContext context = new StepContext();
-        context.control = Screen.hasControlDown();
-        context.shift = Screen.hasShiftDown();
+        context.control = minecraft.hasControlDown();
+        context.shift = minecraft.hasShiftDown();
         context.currentValue = this.state;
         context.forward = pScrollY > 0;
 
         int priorState = this.state;
-        boolean shifted = Screen.hasShiftDown();
+        boolean shifted = minecraft.hasShiftDown();
         int step = (int) Math.signum(pScrollY) * this.step.apply(context);
 
         this.state += step;

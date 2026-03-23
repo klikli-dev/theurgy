@@ -4,7 +4,6 @@
 
 package com.klikli_dev.theurgy.content.particle.coloredbubble;
 
-import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.network.RegistryFriendlyByteBuf;

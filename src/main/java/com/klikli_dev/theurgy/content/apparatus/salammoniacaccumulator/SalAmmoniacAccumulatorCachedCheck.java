@@ -6,11 +6,11 @@ package com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator;
 
 import com.klikli_dev.theurgy.content.recipe.AccumulationRecipe;
 import com.klikli_dev.theurgy.content.recipe.input.ItemHandlerWithFluidRecipeInput;
-import net.minecraft.resources.ResourceKey;
 import com.klikli_dev.theurgy.util.LevelUtil;
-import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -38,16 +38,16 @@ class SalAmmoniacAccumulatorCachedCheck implements RecipeManager.CachedCheck<Ite
         var recipeManager = level.getServer().getRecipeManager();
         if (lastRecipe != null) {
             var recipeOptional = recipeManager.byKey(lastRecipe);
-             if(recipeOptional.isPresent()){
+            if (recipeOptional.isPresent()) {
                 var recipe = recipeOptional.get();
-                if(recipe.value().getType() == this.type) {
-                     @SuppressWarnings("unchecked")
-                     var typedRecipe = (RecipeHolder<AccumulationRecipe>) (Object) recipe;
-                     if (typedRecipe.value().hasSolute() && typedRecipe.value().solute().test(stack)) {
-                         return Optional.of(typedRecipe);
-                     }
+                if (recipe.value().getType() == this.type) {
+                    @SuppressWarnings("unchecked")
+                    var typedRecipe = (RecipeHolder<AccumulationRecipe>) recipe;
+                    if (typedRecipe.value().hasSolute() && typedRecipe.value().solute().test(stack)) {
+                        return Optional.of(typedRecipe);
+                    }
                 }
-             }
+            }
         }
 
         return LevelUtil.getRecipesByType(recipeManager, this.type).stream().filter((entry) -> entry.value().hasSolute() && entry.value().solute().test(stack)).findFirst();
@@ -55,19 +55,19 @@ class SalAmmoniacAccumulatorCachedCheck implements RecipeManager.CachedCheck<Ite
 
     private Optional<RecipeHolder<AccumulationRecipe>> getRecipeFor(FluidStack stack, ServerLevel level, @Nullable ResourceKey<Recipe<?>> lastRecipe) {
         var recipeManager = level.getServer().getRecipeManager();
-         if (lastRecipe != null) {
+        if (lastRecipe != null) {
             var recipeOptional = recipeManager.byKey(lastRecipe);
-             if(recipeOptional.isPresent()){
+            if (recipeOptional.isPresent()) {
                 var recipe = recipeOptional.get();
-                if(recipe.value().getType() == this.type) {
-                     @SuppressWarnings("unchecked")
-                     var typedRecipe = (RecipeHolder<AccumulationRecipe>) (Object) recipe;
-                     //test only the fluid without the (separate) solute item ingredient check that the recipe.matches() would.
-                    if (typedRecipe.value().hasEvaporant()  && typedRecipe.value().evaporant().ingredient().test(stack)) {
+                if (recipe.value().getType() == this.type) {
+                    @SuppressWarnings("unchecked")
+                    var typedRecipe = (RecipeHolder<AccumulationRecipe>) recipe;
+                    //test only the fluid without the (separate) solute item ingredient check that the recipe.matches() would.
+                    if (typedRecipe.value().hasEvaporant() && typedRecipe.value().evaporant().ingredient().test(stack)) {
                         return Optional.of(typedRecipe);
                     }
                 }
-             }
+            }
         }
 
         return LevelUtil.getRecipesByType(recipeManager, this.type).stream().filter((entry) -> entry.value().hasEvaporant() && entry.value().evaporant().ingredient().test(stack)).findFirst();

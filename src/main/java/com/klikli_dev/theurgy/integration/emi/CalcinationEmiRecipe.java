@@ -16,12 +16,11 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class CalcinationEmiRecipe implements EmiRecipe {
@@ -38,7 +37,7 @@ public class CalcinationEmiRecipe implements EmiRecipe {
     }
 
     @Override
-    public @Nullable ResourceLocation getId() {
+    public @Nullable Identifier getId() {
         return this.recipe.id().location();
     }
 

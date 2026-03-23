@@ -12,7 +12,6 @@ import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.klikli_dev.theurgy.datagen.book.GettingStartedCategoryProvider;
 import com.klikli_dev.theurgy.datagen.book.gettingstarted.reformation.ConvertWithinTypeAndTierEntry;
 import com.klikli_dev.theurgy.registry.NiterRegistry;
-import com.klikli_dev.theurgy.registry.SulfurRegistry;
 import com.mojang.datafixers.util.Pair;
 
 public class NiterToNiterReformationEntry extends EntryProvider {

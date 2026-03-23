@@ -4,23 +4,20 @@
 
 package com.klikli_dev.theurgy.content.behaviour.crafting;
 
-import net.minecraft.core.HolderLookup;
+import com.klikli_dev.theurgy.content.storage.SettableItemStorage;
 import net.minecraft.core.component.DataComponentGetter;
 import net.minecraft.core.component.DataComponentMap;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeManager;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.fluids.FluidStack;
-import net.neoforged.neoforge.items.IItemHandlerModifiable;
-import net.neoforged.neoforge.items.ItemHandlerHelper;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
@@ -30,8 +27,8 @@ import java.util.stream.IntStream;
 public abstract class CraftingBehaviour<W extends RecipeInput, R extends Recipe<W>, C extends RecipeManager.CachedCheck<W, R>> {
     protected BlockEntity blockEntity;
     protected Supplier<W> recipeInputSupplier;
-    protected Supplier<IItemHandlerModifiable> inputInventorySupplier;
-    protected Supplier<IItemHandlerModifiable> outputInventorySupplier;
+    protected Supplier<SettableItemStorage> inputInventorySupplier;
+    protected Supplier<SettableItemStorage> outputInventorySupplier;
     protected C recipeCachedCheck;
 
     protected int progress;
@@ -40,7 +37,7 @@ public abstract class CraftingBehaviour<W extends RecipeInput, R extends Recipe<
     protected boolean couldCraftLastTick;
 
 
-    public CraftingBehaviour(BlockEntity blockEntity, Supplier<W> recipeInputSupplier, Supplier<IItemHandlerModifiable> inputInventorySupplier, Supplier<IItemHandlerModifiable> outputInventorySupplier, C recipeCachedCheck) {
+    public CraftingBehaviour(BlockEntity blockEntity, Supplier<W> recipeInputSupplier, Supplier<SettableItemStorage> inputInventorySupplier, Supplier<SettableItemStorage> outputInventorySupplier, C recipeCachedCheck) {
         this.blockEntity = blockEntity;
         this.recipeInputSupplier = recipeInputSupplier;
         this.inputInventorySupplier = inputInventorySupplier;
@@ -201,20 +198,20 @@ public abstract class CraftingBehaviour<W extends RecipeInput, R extends Recipe<
         if (pRecipe == null)
             return false;
 
-        var assembledStack = pRecipe.value().assemble(this.recipeInputSupplier.get(), this.blockEntity.getLevel().registryAccess());
+        var assembledStack = pRecipe.value().assemble(this.recipeInputSupplier.get());
         if (assembledStack.isEmpty()) {
             return false;
         } else {
-            var remainingStack = ItemHandlerHelper.insertItemStacked(this.outputInventorySupplier.get(), assembledStack, true);
+            var remainingStack = this.outputInventorySupplier.get().insertItemStacked(assembledStack, true);
             return remainingStack.isEmpty(); //only allow crafting if we have room for the full output
         }
     }
 
     protected boolean craft(RecipeHolder<R> pRecipe) {
-        var assembledStack = pRecipe.value().assemble(this.recipeInputSupplier.get(), this.blockEntity.getLevel().registryAccess());
+        var assembledStack = pRecipe.value().assemble(this.recipeInputSupplier.get());
 
         // Safely insert the assembledStack into the outputInventory and update the input stack.
-        ItemHandlerHelper.insertItemStacked(this.outputInventorySupplier.get(), assembledStack, false);
+        this.outputInventorySupplier.get().insertItemStacked(assembledStack, false);
 
         //consume the input stack
         this.inputInventorySupplier.get().extractItem(0, this.getIngredientCount(pRecipe), false);
@@ -230,7 +227,7 @@ public abstract class CraftingBehaviour<W extends RecipeInput, R extends Recipe<
     }
 
     protected void sendBlockUpdated() {
-        if (this.blockEntity.getLevel() != null && !this.blockEntity.getLevel().isClientSide)
+        if (this.blockEntity.getLevel() != null && !this.blockEntity.getLevel().isClientSide())
             this.blockEntity.getLevel().sendBlockUpdated(this.blockEntity.getBlockPos(), this.blockEntity.getBlockState(), this.blockEntity.getBlockState(), Block.UPDATE_CLIENTS);
     }
 

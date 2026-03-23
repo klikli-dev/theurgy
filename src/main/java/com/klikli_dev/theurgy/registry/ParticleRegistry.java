@@ -39,7 +39,7 @@ public class ParticleRegistry {
             double d0 = loc.getX() + 0.5;
             double d1 = loc.getY() + 1.0;
             double d2 = loc.getZ() + .5;
-            world.addParticle(GlowParticleProvider.createOptions(particleColor), d0, d1, d2, (world.random.nextFloat() * 1 - 0.5) / 5, (world.random.nextFloat() * 1 - 0.5) / 5, (world.random.nextFloat() * 1 - 0.5) / 5);
+            world.addParticle(GlowParticleProvider.createOptions(particleColor), d0, d1, d2, (world.getRandom().nextFloat() * 1 - 0.5) / 5, (world.getRandom().nextFloat() * 1 - 0.5) / 5, (world.getRandom().nextFloat() * 1 - 0.5) / 5);
         }
     }
 

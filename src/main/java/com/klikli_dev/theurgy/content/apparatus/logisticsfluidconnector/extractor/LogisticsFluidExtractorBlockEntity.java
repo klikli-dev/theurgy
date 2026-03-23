@@ -5,8 +5,8 @@
 package com.klikli_dev.theurgy.content.apparatus.logisticsfluidconnector.extractor;
 
 import com.klikli_dev.theurgy.content.apparatus.logisticsfluidconnector.LogisticsFluidConnectorBlockEntity;
-import com.klikli_dev.theurgy.util.ValueIOUtils;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
+import com.klikli_dev.theurgy.util.ValueIOUtils;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -84,7 +84,7 @@ public class LogisticsFluidExtractorBlockEntity extends LogisticsFluidConnectorB
     }
 
     protected void sendBlockUpdated() {
-        if (this.getLevel() != null && !this.getLevel().isClientSide)
+        if (this.getLevel() != null && !this.getLevel().isClientSide())
             this.getLevel().sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), Block.UPDATE_CLIENTS);
     }
 

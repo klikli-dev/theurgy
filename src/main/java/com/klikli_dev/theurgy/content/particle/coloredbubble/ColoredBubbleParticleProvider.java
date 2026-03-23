@@ -12,6 +12,7 @@ import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.util.RandomSource;
 
 public class ColoredBubbleParticleProvider implements ParticleProvider<ColoredBubbleParticleOptions> {
     private final SpriteSet spriteSet;
@@ -25,7 +26,7 @@ public class ColoredBubbleParticleProvider implements ParticleProvider<ColoredBu
     }
 
     @Override
-    public Particle createParticle(ColoredBubbleParticleOptions data, ClientLevel worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
+    public Particle createParticle(ColoredBubbleParticleOptions data, ClientLevel worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, RandomSource random) {
         return new ColoredBubbleParticle(worldIn, x, y, z, xSpeed, ySpeed, zSpeed, data.color.getRed(), data.color.getGreen(), data.color.getBlue(), this.spriteSet);
     }
 }

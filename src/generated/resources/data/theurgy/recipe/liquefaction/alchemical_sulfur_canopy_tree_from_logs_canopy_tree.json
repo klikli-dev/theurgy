@@ -13,7 +13,6 @@
   "ingredient": "#c:logs/canopy_tree",
   "result": {
     "type": "theurgy:item",
-    "count": 1,
     "id": "theurgy:alchemical_sulfur_canopy_tree"
   },
   "solvent": {

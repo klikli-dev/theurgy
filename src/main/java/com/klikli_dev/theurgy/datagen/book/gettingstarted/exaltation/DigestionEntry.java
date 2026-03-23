@@ -12,7 +12,6 @@ import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.registry.NiterRegistry;
-import com.klikli_dev.theurgy.registry.SulfurRegistry;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.world.item.crafting.Ingredient;
 
@@ -47,15 +46,15 @@ public class DigestionEntry extends EntryProvider {
         );
         this.pageTitle("Alchemical Niter: Rare Metals");
         this.pageText("""
-                [#]($INPUT)Right-click[#]() the {0} with the ingredients to place them inside:
-                - 4x {1}
-                - {2}
-                - {3} 
-                
-                _Gold is not needed for "downgrade", only for "upgrade"._
-                \\
-                (Check JEI for more recipes)
-                """,
+                        [#]($INPUT)Right-click[#]() the {0} with the ingredients to place them inside:
+                        - 4x {1}
+                        - {2}
+                        - {3} 
+                        
+                        _Gold is not needed for "downgrade", only for "upgrade"._
+                        \\
+                        (Check JEI for more recipes)
+                        """,
                 this.itemLink(ItemRegistry.DIGESTION_VAT.get()),
                 this.itemLink("Alchemical Niter: Common Metals", NiterRegistry.METALS_COMMON.get()),
                 this.itemLink(ItemRegistry.SAL_AMMONIAC_BUCKET.get()),

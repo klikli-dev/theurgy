@@ -28,7 +28,7 @@ public class KeyMappingsRegistry {
                 public boolean conflicts(IKeyConflictContext other) {
                     return this == other;
                 }
-            }, InputConstants.Type.KEYSYM.getOrCreate(GLFW.GLFW_KEY_UNKNOWN), "key.theurgy.category");
+            }, InputConstants.Type.KEYSYM.getOrCreate(GLFW.GLFW_KEY_UNKNOWN), KeyMapping.Category.GAMEPLAY);
 
     public static void onRegisterKeyMappings(RegisterKeyMappingsEvent event) {
         event.register(CHANGE_ITEM_MODE);

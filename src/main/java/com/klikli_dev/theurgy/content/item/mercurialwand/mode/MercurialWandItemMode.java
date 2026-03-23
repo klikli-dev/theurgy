@@ -11,7 +11,6 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.ByIdMap;
 import net.minecraft.util.StringRepresentable;
-import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.function.IntFunction;
@@ -39,7 +38,7 @@ public abstract class MercurialWandItemMode extends ItemMode {
 
 
     public enum Type implements StringRepresentable {
-        CYCLE_DIRECTION("cycle_direction",new CycleSelectedDirectionMode()),
+        CYCLE_DIRECTION("cycle_direction", new CycleSelectedDirectionMode()),
         SWITCH_LOGISTICS_ENABLED("switch_logistics_enabled", new SwitchLogisticsEnabledMode()),
         SELECT_FREQUENCY("select_frequency", new SelectFrequencyMode()),
         SET_SELECTED_FREQUENCY("set_selected_frequency", new SetSelectedFrequencyMode());

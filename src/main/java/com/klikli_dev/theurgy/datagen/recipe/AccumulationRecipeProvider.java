@@ -12,14 +12,14 @@ import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.registry.ItemTagRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import net.minecraft.data.PackOutput;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
-import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.FluidStackTemplate;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
@@ -33,27 +33,27 @@ public class AccumulationRecipeProvider extends JsonRecipeProvider {
     }
 
     @Override
-    public void buildRecipes(BiConsumer<ResourceLocation, JsonObject> recipeConsumer) {
+    public void buildRecipes(BiConsumer<Identifier, JsonObject> recipeConsumer) {
         var salAmmoniac = FluidRegistry.SAL_AMMONIAC.get();
 
         this.makeRecipe("sal_ammoniac_from_water",
-                new Builder(new FluidStack(salAmmoniac, 100))
+                new Builder(new FluidStackTemplate(salAmmoniac, 100))
                         .evaporant(FluidTags.WATER, 1000)
                         .time(TIME));
 
         this.makeRecipe("sal_ammoniac_from_water_and_sal_ammoniac_crystal",
-                new Builder(new FluidStack(salAmmoniac, 1000))
+                new Builder(new FluidStackTemplate(salAmmoniac, 1000))
                         .evaporant(FluidTags.WATER, 1000)
                         .solute(ItemTagRegistry.GEMS_SAL_AMMONIAC)
                         .time(TIME));
 
         this.makeRecipe("water_from_crystallized_water",
-                new Builder(new FluidStack(Fluids.WATER, 1000))
+                new Builder(new FluidStackTemplate(Fluids.WATER, 1000))
                         .solute(ItemRegistry.CRYSTALLIZED_WATER)
                         .time(TIME));
 
         this.makeRecipe("lava_from_crystallized_lava",
-                new Builder(new FluidStack(Fluids.LAVA, 1000))
+                new Builder(new FluidStackTemplate(Fluids.LAVA, 1000))
                         .solute(ItemRegistry.CRYSTALLIZED_LAVA)
                         .time(TIME));
     }
@@ -70,7 +70,7 @@ public class AccumulationRecipeProvider extends JsonRecipeProvider {
 
 
     protected class Builder extends RecipeBuilder<Builder> {
-        protected Builder(FluidStack result) {
+        protected Builder(FluidStackTemplate result) {
             super(RecipeTypeRegistry.ACCUMULATION);
             this.result(result);
         }

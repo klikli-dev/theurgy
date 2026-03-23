@@ -8,8 +8,8 @@ import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.content.entity.FollowProjectile;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -32,7 +32,7 @@ public class EntityRegistry {
     );
 
     static <T extends Entity> Supplier<EntityType<T>> register(String name, EntityType.Builder<T> builder) {
-        return ENTITIES.register(name, () -> builder.build(ResourceKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(Theurgy.MODID, name))));
+        return ENTITIES.register(name, () -> builder.build(ResourceKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath(Theurgy.MODID, name))));
     }
 
 

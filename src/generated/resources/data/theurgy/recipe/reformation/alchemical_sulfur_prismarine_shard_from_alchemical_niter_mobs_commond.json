@@ -3,8 +3,6 @@
   "category": "misc",
   "mercuryFlux": 100,
   "result": {
-    "type": "theurgy:item",
-    "count": 1,
     "id": "theurgy:alchemical_sulfur_prismarine_shard"
   },
   "sources": [
@@ -13,8 +11,6 @@
       "ingredient": "theurgy:alchemical_niter_mobs_commond"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_prismarine_shard"
-  },
+  "target": "theurgy:alchemical_sulfur_prismarine_shard",
   "time": 100
 }

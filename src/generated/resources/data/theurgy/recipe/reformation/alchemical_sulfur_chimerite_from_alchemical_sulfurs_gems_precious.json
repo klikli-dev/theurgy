@@ -33,8 +33,6 @@
   "category": "misc",
   "mercuryFlux": 200,
   "result": {
-    "type": "theurgy:item",
-    "count": 1,
     "id": "theurgy:alchemical_sulfur_chimerite"
   },
   "sources": [
@@ -43,8 +41,6 @@
       "ingredient": "#theurgy:alchemical_sulfurs/gems/precious"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_chimerite"
-  },
+  "target": "theurgy:alchemical_sulfur_chimerite",
   "time": 100
 }

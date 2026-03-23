@@ -6,26 +6,25 @@ package com.klikli_dev.theurgy.datagen.recipe;
 
 import com.google.common.collect.Sets;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.klikli_dev.theurgy.content.recipe.condition.FluidTagEmptyCondition;
-import com.klikli_dev.theurgy.content.recipe.result.ItemRecipeResult;
 import com.klikli_dev.theurgy.content.recipe.result.RecipeResult;
 import com.klikli_dev.theurgy.content.recipe.result.TagRecipeResult;
-import com.google.gson.JsonElement;
 import com.mojang.serialization.JsonOps;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
+import net.minecraft.resources.Identifier;
 import net.minecraft.resources.RegistryOps;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -36,6 +35,7 @@ import net.neoforged.neoforge.common.conditions.NotCondition;
 import net.neoforged.neoforge.common.conditions.TagEmptyCondition;
 import net.neoforged.neoforge.common.crafting.SizedIngredient;
 import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.FluidStackTemplate;
 import net.neoforged.neoforge.fluids.crafting.FluidIngredient;
 import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 import org.jetbrains.annotations.NotNull;
@@ -44,20 +44,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 import java.util.function.BiConsumer;
 
 public abstract class JsonRecipeProvider implements DataProvider {
 
     protected final CompletableFuture<HolderLookup.Provider> lookupProvider;
+    protected final PackOutput.PathProvider recipePathProvider;
     protected HolderLookup.Provider registries;
     protected RegistryOps<JsonElement> registryOps;
     protected HolderGetter<Item> items;
     protected HolderGetter<Fluid> fluids;
-    protected final PackOutput.PathProvider recipePathProvider;
     protected String modid;
 
-    protected BiConsumer<ResourceLocation, JsonObject> recipeConsumer;
+    protected BiConsumer<Identifier, JsonObject> recipeConsumer;
 
     public JsonRecipeProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider, String modid) {
         this(packOutput, lookupProvider, modid, "");
@@ -72,12 +71,16 @@ public abstract class JsonRecipeProvider implements DataProvider {
         this.modid = modid;
     }
 
-    protected String name(ItemStack item) {
-        return this.name(item.getItem());
+    protected String name(ItemStackTemplate item) {
+        return this.name(item.item());
+    }
+
+    protected String name(Holder<Item> item) {
+        return BuiltInRegistries.ITEM.getKey(item.value()).getPath();
     }
 
     protected String name(ItemLike item) {
-        return item.asItem().builtInRegistryHolder().getKey().location().getPath();
+        return this.itemId(item).getPath();
     }
 
     protected String name(TagKey<Item> tag) {
@@ -88,32 +91,40 @@ public abstract class JsonRecipeProvider implements DataProvider {
         return tags.stream().distinct().map(this::name).reduce("", (a, b) -> a + "_and_" + b).replaceFirst("_and_", "");
     }
 
-    public ResourceLocation locFor(TagKey<Item> tag) {
+    public Identifier locFor(TagKey<Item> tag) {
         return tag.location();
     }
 
-    public ResourceLocation locFor(ItemLike itemLike) {
-        return itemLike.asItem().builtInRegistryHolder().getKey().location();
+    public Identifier locFor(ItemLike itemLike) {
+        return this.itemId(itemLike);
     }
 
-    public ResourceLocation locFor(Fluid fluid) {
+    protected Identifier itemId(ItemLike itemLike) {
+        return BuiltInRegistries.ITEM.getKey(itemLike.asItem());
+    }
+
+    protected ItemStackTemplate createItemStack(ItemLike itemLike, int count, DataComponentPatch patch) {
+        return new ItemStackTemplate(itemLike.asItem().builtInRegistryHolder(), count, patch);
+    }
+
+    public Identifier locFor(Fluid fluid) {
         return BuiltInRegistries.FLUID.getKey(fluid);
     }
 
     public TagKey<Item> tag(String tag) {
-        return this.tag(ResourceLocation.parse(tag));
+        return this.tag(Identifier.parse(tag));
     }
 
-    public TagKey<Item> tag(ResourceLocation tag) {
+    public TagKey<Item> tag(Identifier tag) {
         return TagKey.create(Registries.ITEM, tag);
     }
 
-    public ResourceLocation modLoc(String name) {
-        return ResourceLocation.fromNamespaceAndPath(this.modid, name);
+    public Identifier modLoc(String name) {
+        return Identifier.fromNamespaceAndPath(this.modid, name);
     }
 
-    public ResourceLocation mcLoc(String name) {
-        return ResourceLocation.parse(name);
+    public Identifier mcLoc(String name) {
+        return Identifier.parse(name);
     }
 
     @Override
@@ -124,7 +135,7 @@ public abstract class JsonRecipeProvider implements DataProvider {
             this.items = this.registries.lookupOrThrow(Registries.ITEM);
             this.fluids = this.registries.lookupOrThrow(Registries.FLUID);
 
-            Set<ResourceLocation> set = Sets.newHashSet();
+            Set<Identifier> set = Sets.newHashSet();
             List<CompletableFuture<?>> futures = new ArrayList<>();
             this.recipeConsumer = (id, recipe) -> {
                 if (!recipe.has("category"))
@@ -141,7 +152,7 @@ public abstract class JsonRecipeProvider implements DataProvider {
         });
     }
 
-    public abstract void buildRecipes(BiConsumer<ResourceLocation, JsonObject> recipeConsumer);
+    public abstract void buildRecipes(BiConsumer<Identifier, JsonObject> recipeConsumer);
 
     protected abstract class RecipeBuilder<T extends RecipeBuilder<T>> {
 
@@ -149,7 +160,7 @@ public abstract class JsonRecipeProvider implements DataProvider {
 
         protected RecipeBuilder(Holder<RecipeType<?>> type) {
             //noinspection OptionalGetWithoutIsPresent
-            this.recipe.addProperty("type", type.unwrapKey().get().location().toString());
+            this.recipe.addProperty("type", type.unwrapKey().get().identifier().toString());
         }
 
         public T getThis() {
@@ -162,12 +173,13 @@ public abstract class JsonRecipeProvider implements DataProvider {
             return this.getThis();
         }
 
-        public T result(ItemStack result) {
+        public T result(ItemStackTemplate result) {
             return this.result("result", result);
         }
 
-        public T result(String propertyName, ItemStack result) {
-            return this.result(propertyName, new ItemRecipeResult(result));
+        public T result(String propertyName, ItemStackTemplate result) {
+            this.recipe.add(propertyName, ItemStackTemplate.CODEC.encodeStart(JsonRecipeProvider.this.registryOps, result).getOrThrow());
+            return this.getThis();
         }
 
         public T result(RecipeResult result) {
@@ -188,8 +200,17 @@ public abstract class JsonRecipeProvider implements DataProvider {
             return this.result("result", result);
         }
 
+        public T result(FluidStackTemplate result) {
+            return this.result("result", result);
+        }
+
         public T result(String propertyName, FluidStack result) {
             this.recipe.add(propertyName, FluidStack.CODEC.encodeStart(JsonRecipeProvider.this.registryOps, result).getOrThrow());
+            return this.getThis();
+        }
+
+        public T result(String propertyName, FluidStackTemplate result) {
+            this.recipe.add(propertyName, FluidStackTemplate.CODEC.encodeStart(JsonRecipeProvider.this.registryOps, result).getOrThrow());
             return this.getThis();
         }
 
@@ -255,16 +276,11 @@ public abstract class JsonRecipeProvider implements DataProvider {
         }
 
         public T ingredient(String propertyName, Item item) {
-            //noinspection deprecation
-            return this.ingredient(propertyName, item.builtInRegistryHolder());
+            return this.ingredient(propertyName, BuiltInRegistries.ITEM.wrapAsHolder(item));
         }
 
         public T ingredient(String propertyName, Holder<Item> itemHolder) {
-            JsonObject jsonobject = new JsonObject();
-            //noinspection OptionalGetWithoutIsPresent
-            jsonobject.addProperty("item", itemHolder.unwrapKey().get().location().toString());
-            this.recipe.add(propertyName, jsonobject);
-            return this.getThis();
+            return this.ingredient(propertyName, Ingredient.of(net.minecraft.core.HolderSet.direct(itemHolder)));
         }
 
         public T condition(ICondition condition) {

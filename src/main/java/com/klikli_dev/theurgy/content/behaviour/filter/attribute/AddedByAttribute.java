@@ -5,9 +5,8 @@
 
 package com.klikli_dev.theurgy.content.behaviour.filter.attribute;
 
-import net.minecraft.core.registries.BuiltInRegistries;
-
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.fml.ModContainer;
@@ -59,7 +58,7 @@ public class AddedByAttribute implements ItemAttribute {
     }
 
     @Override
-    public ItemAttribute readNBT(HolderLookup.Provider pRegistries,CompoundTag nbt) {
+    public ItemAttribute readNBT(HolderLookup.Provider pRegistries, CompoundTag nbt) {
         return new AddedByAttribute(nbt.getString("id").orElse(""));
     }
 

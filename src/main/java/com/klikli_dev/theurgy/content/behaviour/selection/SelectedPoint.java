@@ -41,7 +41,7 @@ public abstract class SelectedPoint<T extends SelectedPoint<T>> {
     }
 
     public BlockState getBlockState() {
-        if(this.blockState == null) {
+        if (this.blockState == null) {
             this.refreshBlockStateCache();
         }
         return this.blockState;

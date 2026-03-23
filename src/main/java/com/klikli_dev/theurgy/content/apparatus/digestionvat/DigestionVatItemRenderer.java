@@ -6,26 +6,30 @@ package com.klikli_dev.theurgy.content.apparatus.digestionvat;
 
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.client.Minecraft;
-//import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
+import net.minecraft.client.renderer.SubmitNodeCollector;
+import net.minecraft.client.renderer.special.SpecialModelRenderer;
+import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Vector3f;
+import org.joml.Vector3fc;
 
-import java.util.Set;
+import java.util.function.Consumer;
 
-public class DigestionVatItemRenderer implements net.minecraft.client.renderer.special.SpecialModelRenderer<ItemStack> {
+public class DigestionVatItemRenderer implements SpecialModelRenderer<ItemStack> {
     private static final DigestionVatBlockEntity blockEntity = new DigestionVatBlockEntity(BlockPos.ZERO, BlockRegistry.DIGESTION_VAT.get().defaultBlockState());
 
     @Override
-    public void render(@org.jetbrains.annotations.Nullable ItemStack stack, ItemDisplayContext displayContext, PoseStack poseStack, MultiBufferSource bufferSource, int light, int overlay, boolean hasFoil) {
+    public void submit(@org.jetbrains.annotations.Nullable ItemStack stack, ItemDisplayContext displayContext, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int light, int overlay, boolean hasFoil, int outlineColor) {
         var renderer = Minecraft.getInstance().getBlockEntityRenderDispatcher().getRenderer(blockEntity);
         if (renderer != null) {
-            renderer.render(blockEntity, 0, poseStack, bufferSource, light, overlay, Vec3.ZERO);
+            var renderState = renderer.createRenderState();
+            renderer.extractRenderState(blockEntity, renderState, Minecraft.getInstance().getDeltaTracker().getGameTimeDeltaPartialTick(true), Vec3.ZERO, null);
+            renderer.submit(renderState, poseStack, submitNodeCollector, new CameraRenderState());
         }
     }
 
@@ -35,21 +39,21 @@ public class DigestionVatItemRenderer implements net.minecraft.client.renderer.s
     }
 
     @Override
-    public void getExtents(Set<Vector3f> extents) {
-        extents.add(new Vector3f(-0.5f, -0.5f, -0.5f));
-        extents.add(new Vector3f(0.5f, 0.5f, 0.5f));
+    public void getExtents(Consumer<Vector3fc> output) {
+        output.accept(new Vector3f(-0.5f, -0.5f, -0.5f));
+        output.accept(new Vector3f(0.5f, 0.5f, 0.5f));
     }
 
-    public record Unbaked() implements net.minecraft.client.renderer.special.SpecialModelRenderer.Unbaked {
-        public static final com.mojang.serialization.MapCodec<Unbaked> MAP_CODEC = com.mojang.serialization.MapCodec.unit(new Unbaked());
+    public record Unbaked() implements SpecialModelRenderer.Unbaked<ItemStack> {
+        public static final MapCodec<Unbaked> MAP_CODEC = MapCodec.unit(new Unbaked());
 
         @Override
-        public net.minecraft.client.renderer.special.SpecialModelRenderer<?> bake(net.minecraft.client.model.geom.EntityModelSet modelSet) {
+        public SpecialModelRenderer<ItemStack> bake(BakingContext context) {
             return new DigestionVatItemRenderer();
         }
 
         @Override
-        public com.mojang.serialization.MapCodec<? extends net.minecraft.client.renderer.special.SpecialModelRenderer.Unbaked> type() {
+        public MapCodec<? extends SpecialModelRenderer.Unbaked<ItemStack>> type() {
             return MAP_CODEC;
         }
     }

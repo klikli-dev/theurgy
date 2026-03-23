@@ -37,8 +37,6 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Arrays;
-
 import static mezz.jei.api.recipe.RecipeIngredientRole.INPUT;
 import static mezz.jei.api.recipe.RecipeIngredientRole.OUTPUT;
 

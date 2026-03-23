@@ -53,7 +53,7 @@ public class BookLiquefactionRecipePageRenderer extends BookRecipePageRenderer<L
         this.parentScreen.renderIngredient(guiGraphics, recipeX + 3, recipeY + 24 + 3, mouseX, mouseY, display.ingredient());
 
         GuiTextures.MODONOMICON_SLOT.render(guiGraphics, recipeX + 61, recipeY); //render the output slot
-        this.parentScreen.renderItemStack(guiGraphics, recipeX + 61 + 3, recipeY + 3, mouseX, mouseY, display.output());
+        this.parentScreen.renderItemStack(guiGraphics, recipeX + 61 + 3, recipeY + 3, mouseX, mouseY, display.output().create());
 
         GuiTextures.MODONOMICON_ARROW_RIGHT.render(guiGraphics, recipeX + 40, recipeY + 7); //render the arrow
         var level = Minecraft.getInstance().level;

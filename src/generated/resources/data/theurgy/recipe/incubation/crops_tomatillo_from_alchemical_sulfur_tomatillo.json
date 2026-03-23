@@ -10,19 +10,13 @@
   ],
   "type": "theurgy:incubation",
   "category": "misc",
-  "mercury": {
-    "item": "theurgy:mercury_shard"
-  },
+  "mercury": "theurgy:mercury_shard",
   "result": {
     "type": "theurgy:tag",
     "count": 1,
     "tag": "c:crops/tomatillo"
   },
-  "salt": {
-    "item": "theurgy:alchemical_salt_plant"
-  },
-  "sulfur": {
-    "item": "theurgy:alchemical_sulfur_tomatillo"
-  },
+  "salt": "theurgy:alchemical_salt_plant",
+  "sulfur": "theurgy:alchemical_sulfur_tomatillo",
   "time": 100
 }

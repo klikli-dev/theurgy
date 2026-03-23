@@ -6,6 +6,7 @@ package com.klikli_dev.theurgy.content.recipe;
 
 
 import com.klikli_dev.theurgy.content.recipe.input.ItemHandlerWithFluidRecipeInput;
+import com.klikli_dev.theurgy.content.storage.FluidStorageHelper;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.registry.RecipeSerializerRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
@@ -17,17 +18,9 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.world.entity.player.StackedContents;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.item.crafting.RecipeBookCategory;
-import net.minecraft.world.item.crafting.RecipeBookCategories;
-import net.minecraft.world.item.crafting.RecipeBookCategory;
-import net.minecraft.world.item.crafting.RecipeBookCategories;
-import net.minecraft.world.item.crafting.PlacementInfo;
+import net.minecraft.world.item.ItemStackTemplate;
+import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 import org.jetbrains.annotations.NotNull;
@@ -41,7 +34,7 @@ public class FermentationRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
     public static final MapCodec<FermentationRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
                     SizedFluidIngredient.CODEC.fieldOf("fluid").forGetter((r) -> r.fluid),
                     Ingredient.CODEC.listOf().fieldOf("ingredients").forGetter(r -> r.ingredients),
-                    ItemStack.CODEC.fieldOf("result").forGetter(r -> r.result),
+                    ItemStackTemplate.CODEC.fieldOf("result").forGetter(r -> r.result),
                     Codec.INT.optionalFieldOf("time", DEFAULT_TIME).forGetter(r -> r.time)
             ).apply(instance, FermentationRecipe::new)
     );
@@ -50,22 +43,21 @@ public class FermentationRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
             r -> r.fluid,
             Ingredient.CONTENTS_STREAM_CODEC.apply(ByteBufCodecs.list()),
             r -> r.ingredients,
-            ItemStack.STREAM_CODEC,
+            ItemStackTemplate.STREAM_CODEC,
             r -> r.result,
             ByteBufCodecs.INT,
             r -> r.time,
             FermentationRecipe::new
     );
-
-
     protected final SizedFluidIngredient fluid;
+    public static final RecipeSerializer<FermentationRecipe> SERIALIZER = new RecipeSerializer<>(CODEC, STREAM_CODEC);
 
     protected final NonNullList<Ingredient> ingredients;
-    protected final ItemStack result;
+    protected final ItemStackTemplate result;
     protected final int time;
     private final boolean hasOnlySimpleIngredients;
 
-    public FermentationRecipe(SizedFluidIngredient fluid, List<Ingredient> ingredients, ItemStack result, int time) {
+    public FermentationRecipe(SizedFluidIngredient fluid, List<Ingredient> ingredients, ItemStackTemplate result, int time) {
         this.fluid = fluid;
         this.ingredients = ingredients.stream().collect(NonNullList::create, NonNullList::add, NonNullList::addAll);
         this.hasOnlySimpleIngredients = ingredients.stream().allMatch(Ingredient::isSimple);
@@ -81,7 +73,7 @@ public class FermentationRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
 
     @Override
     public boolean matches(ItemHandlerWithFluidRecipeInput pContainer, @NotNull Level pLevel) {
-        var fluid = pContainer.getTank().getFluidInTank(0);
+        var fluid = FluidStorageHelper.getFluidInTank(pContainer.getTank(), 0);
         var fluidMatches = this.fluid.test(fluid);
         if (!fluidMatches)
             return false;
@@ -103,8 +95,19 @@ public class FermentationRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
         return net.neoforged.neoforge.common.util.RecipeMatcher.findMatches(inputs, this.ingredients) != null;
     }
 
-    public ItemStack assemble(ItemHandlerWithFluidRecipeInput pInv, HolderLookup.Provider pRegistries) {
-        return this.result.copy();
+    @Override
+    public ItemStack assemble(ItemHandlerWithFluidRecipeInput pInv) {
+        return this.result.create();
+    }
+
+    @Override
+    public boolean showNotification() {
+        return true;
+    }
+
+    @Override
+    public String group() {
+        return "";
     }
 
     public boolean canCraftInDimensions(int pWidth, int pHeight) {
@@ -117,12 +120,17 @@ public class FermentationRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
     }
 
     @Override
+    public boolean isSpecial() {
+        return true;
+    }
+
+    @Override
     public PlacementInfo placementInfo() {
         return PlacementInfo.NOT_PLACEABLE;
     }
 
     public @NotNull ItemStack getResultItem(HolderLookup.@NotNull Provider pRegistries) {
-        return this.result;
+        return this.result.create();
     }
 
     public @NotNull NonNullList<Ingredient> getIngredients() {
@@ -135,7 +143,7 @@ public class FermentationRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
 
     @Override
     public @NotNull RecipeSerializer<FermentationRecipe> getSerializer() {
-        return (RecipeSerializer<FermentationRecipe>) RecipeSerializerRegistry.FERMENTATION.get();
+        return RecipeSerializerRegistry.FERMENTATION.get();
     }
 
     public SizedFluidIngredient getFluid() {
@@ -146,7 +154,7 @@ public class FermentationRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
         return this.fluid.amount();
     }
 
-    public ItemStack getResult() {
+    public ItemStackTemplate getResult() {
         return this.result;
     }
 
@@ -165,17 +173,4 @@ public class FermentationRecipe implements Recipe<ItemHandlerWithFluidRecipeInpu
         ));
     }
 
-    public static class Serializer implements RecipeSerializer<FermentationRecipe> {
-
-        @Override
-        public @NotNull MapCodec<FermentationRecipe> codec() {
-            return CODEC;
-        }
-
-        @Override
-        public @NotNull StreamCodec<RegistryFriendlyByteBuf, FermentationRecipe> streamCodec() {
-            return STREAM_CODEC;
-        }
-
-    }
 }

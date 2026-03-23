@@ -10,23 +10,16 @@ import com.mojang.datafixers.util.Either;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import io.netty.buffer.ByteBuf;
-import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.network.codec.ByteBufCodecs;
-import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.util.ByIdMap;
 import net.minecraft.world.item.ToolMaterial;
-import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.neoforged.neoforge.fluids.FluidStack;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.function.IntFunction;
 import java.util.function.Supplier;
 
 public class TheurgyExtraCodecs {
+    public static final Codec<FluidStack> SINGLE_FLUID_CODEC = BuiltInRegistries.FLUID.byNameCodec().xmap(fluid -> new FluidStack(fluid, 1), FluidStack::getFluid);
     private static final com.google.common.collect.BiMap<String, ToolMaterial> TIERS = com.google.common.collect.ImmutableBiMap.of(
             "wood", ToolMaterial.WOOD,
             "stone", ToolMaterial.STONE,
@@ -35,10 +28,7 @@ public class TheurgyExtraCodecs {
             "gold", ToolMaterial.GOLD,
             "netherite", ToolMaterial.NETHERITE
     );
-
     public static final Codec<ToolMaterial> TIERS_CODEC = Codec.stringResolver(TIERS.inverse()::get, TIERS::get);
-
-    public static final Codec<FluidStack> SINGLE_FLUID_CODEC = BuiltInRegistries.FLUID.byNameCodec().xmap(fluid -> new FluidStack(fluid, 1), FluidStack::getFluid);
 
     public static <T> MapCodec<T> mapWithAlternative(final MapCodec<T> primary, final MapCodec<? extends T> alternative) {
         return Codec.mapEither(

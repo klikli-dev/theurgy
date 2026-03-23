@@ -17,30 +17,30 @@ public class RecipeSerializerRegistry {
             BuiltInRegistries.RECIPE_SERIALIZER, Theurgy.MODID);
 
     public static final Supplier<RecipeSerializer<DivinationRodRecipe>> DIVINATION_ROD = RECIPE_SERIALIZERS.register("divination_rod",
-            DivinationRodRecipe.Serializer::new);
+            () -> DivinationRodRecipe.SERIALIZER);
 
     public static final Supplier<RecipeSerializer<CalcinationRecipe>> CALCINATION = RECIPE_SERIALIZERS.register("calcination",
-            CalcinationRecipe.Serializer::new);
+            () -> CalcinationRecipe.SERIALIZER);
 
     public static final Supplier<RecipeSerializer<LiquefactionRecipe>> LIQUEFACTION = RECIPE_SERIALIZERS.register("liquefaction",
-            LiquefactionRecipe.Serializer::new);
+            () -> LiquefactionRecipe.SERIALIZER);
 
     public static final Supplier<RecipeSerializer<DistillationRecipe>> DISTILLATION = RECIPE_SERIALIZERS.register("distillation",
-            DistillationRecipe.Serializer::new);
+            () -> DistillationRecipe.SERIALIZER);
 
     public static final Supplier<RecipeSerializer<IncubationRecipe>> INCUBATION = RECIPE_SERIALIZERS.register("incubation",
-            IncubationRecipe.Serializer::new);
+            () -> IncubationRecipe.SERIALIZER);
 
     public static final Supplier<RecipeSerializer<AccumulationRecipe>> ACCUMULATION = RECIPE_SERIALIZERS.register("accumulation",
-            AccumulationRecipe.Serializer::new);
+            () -> AccumulationRecipe.SERIALIZER);
 
     public static final Supplier<RecipeSerializer<CatalysationRecipe>> CATALYSATION = RECIPE_SERIALIZERS.register("catalysation",
-            CatalysationRecipe.Serializer::new);
+            () -> CatalysationRecipe.SERIALIZER);
 
-    public static final Supplier<RecipeSerializer<ReformationRecipe>> REFORMATION = RECIPE_SERIALIZERS.register("reformation", ReformationRecipe.Serializer::new);
+    public static final Supplier<RecipeSerializer<ReformationRecipe>> REFORMATION = RECIPE_SERIALIZERS.register("reformation", () -> ReformationRecipe.SERIALIZER);
 
-    public static final Supplier<RecipeSerializer<FermentationRecipe>> FERMENTATION = RECIPE_SERIALIZERS.register("fermentation", FermentationRecipe.Serializer::new);
+    public static final Supplier<RecipeSerializer<FermentationRecipe>> FERMENTATION = RECIPE_SERIALIZERS.register("fermentation", () -> FermentationRecipe.SERIALIZER);
 
-    public static final Supplier<RecipeSerializer<DigestionRecipe>> DIGESTION = RECIPE_SERIALIZERS.register("digestion", DigestionRecipe.Serializer::new);
+    public static final Supplier<RecipeSerializer<DigestionRecipe>> DIGESTION = RECIPE_SERIALIZERS.register("digestion", () -> DigestionRecipe.SERIALIZER);
 
 }

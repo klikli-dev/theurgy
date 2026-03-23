@@ -7,8 +7,6 @@ package com.klikli_dev.theurgy.network.messages;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.content.apparatus.caloricfluxemitter.CaloricFluxEmitterBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.caloricfluxemitter.CaloricFluxEmitterSelectedPoint;
-import com.klikli_dev.theurgy.content.apparatus.reformationarray.SulfuricFluxEmitterBlockEntity;
-import com.klikli_dev.theurgy.content.apparatus.reformationarray.SulfuricFluxEmitterSelectedPoint;
 import com.klikli_dev.theurgy.network.Message;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import net.minecraft.client.Minecraft;
@@ -23,7 +21,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
-import java.util.Optional;
 
 public class MessageShowCaloricFluxEmitterStatus implements Message {
     public static final Type<MessageShowCaloricFluxEmitterStatus> TYPE = new Type<>(Theurgy.loc("show_caloric_flux_emitter_status"));

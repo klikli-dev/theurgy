@@ -12,8 +12,6 @@
   "category": "misc",
   "mercuryFlux": 100,
   "result": {
-    "type": "theurgy:item",
-    "count": 1,
     "id": "theurgy:alchemical_sulfur_phantom_membrane"
   },
   "sources": [
@@ -22,8 +20,6 @@
       "ingredient": "#theurgy:alchemical_sulfurs/mobs/common"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_phantom_membrane"
-  },
+  "target": "theurgy:alchemical_sulfur_phantom_membrane",
   "time": 100
 }

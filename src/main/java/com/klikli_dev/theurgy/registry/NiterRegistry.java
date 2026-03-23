@@ -7,6 +7,7 @@ package com.klikli_dev.theurgy.registry;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.content.item.derivative.AlchemicalDerivativeTier;
 import com.klikli_dev.theurgy.content.item.niter.AlchemicalNiterItem;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
@@ -17,7 +18,6 @@ import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.function.Function;
-import java.util.function.Supplier;
 
 public class NiterRegistry {
     public static final DeferredRegister.Items NITERS = DeferredRegister.createItems(Theurgy.MODID);
@@ -67,10 +67,9 @@ public class NiterRegistry {
     }
 
     public static DeferredItem<AlchemicalNiterItem> register(String name, Item source, AlchemicalDerivativeTier tier) {
-        //noinspection deprecation
         return register(name, (p) -> new AlchemicalNiterItem(p.component(
                 DataComponentRegistry.SOURCE_ITEM,
-                source.builtInRegistryHolder()
+                BuiltInRegistries.ITEM.wrapAsHolder(source)
         ), tier));
     }
 

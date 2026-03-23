@@ -26,8 +26,6 @@
   "category": "misc",
   "mercuryFlux": 100,
   "result": {
-    "type": "theurgy:item",
-    "count": 1,
     "id": "theurgy:alchemical_sulfur_sulfur"
   },
   "sources": [
@@ -36,8 +34,6 @@
       "ingredient": "theurgy:alchemical_niter_other_minerals_common"
     }
   ],
-  "target": {
-    "item": "theurgy:alchemical_sulfur_sulfur"
-  },
+  "target": "theurgy:alchemical_sulfur_sulfur",
   "time": 100
 }

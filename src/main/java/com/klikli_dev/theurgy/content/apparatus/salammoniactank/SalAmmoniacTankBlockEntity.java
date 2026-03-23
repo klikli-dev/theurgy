@@ -4,6 +4,11 @@
 
 package com.klikli_dev.theurgy.content.apparatus.salammoniactank;
 
+import com.geckolib.animatable.GeoBlockEntity;
+import com.geckolib.animatable.instance.AnimatableInstanceCache;
+import com.geckolib.animatable.manager.AnimatableManager;
+import com.geckolib.util.GeckoLibUtil;
+import com.klikli_dev.theurgy.content.storage.MonitoredFluidTank;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.util.ValueIOUtils;
 import net.minecraft.core.BlockPos;
@@ -20,13 +25,8 @@ import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.FluidType;
-import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import software.bernie.geckolib.animatable.GeoBlockEntity;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animatable.manager.AnimatableManager;
-import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.function.Predicate;
 
@@ -34,7 +34,7 @@ public class SalAmmoniacTankBlockEntity extends BlockEntity implements GeoBlockE
 
     protected final AnimatableInstanceCache animatableInstanceCache = GeckoLibUtil.createInstanceCache(this);
 
-    public FluidTank tank;
+    public Tank tank;
 
     public SalAmmoniacTankBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(BlockEntityRegistry.SAL_AMMONIAC_TANK.get(), pPos, pBlockState);
@@ -76,7 +76,7 @@ public class SalAmmoniacTankBlockEntity extends BlockEntity implements GeoBlockE
     }
 
     public void sendBlockUpdated() {
-        if (this.level != null && !this.level.isClientSide)
+        if (this.level != null && !this.level.isClientSide())
             this.level.sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), Block.UPDATE_CLIENTS);
     }
 
@@ -102,7 +102,7 @@ public class SalAmmoniacTankBlockEntity extends BlockEntity implements GeoBlockE
         return this.animatableInstanceCache;
     }
 
-    public class Tank extends FluidTank {
+    public class Tank extends MonitoredFluidTank {
 
         public Tank(int capacity, Predicate<FluidStack> validator) {
             super(capacity, validator);

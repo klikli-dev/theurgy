@@ -5,7 +5,6 @@
 package com.klikli_dev.theurgy.content.behaviour.logistics.distribution;
 
 import com.klikli_dev.theurgy.content.behaviour.logistics.InsertTarget;
-import net.neoforged.neoforge.capabilities.BlockCapabilityCache;
 
 import java.util.List;
 

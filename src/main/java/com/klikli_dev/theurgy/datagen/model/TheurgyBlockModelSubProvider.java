@@ -5,6 +5,7 @@
 package com.klikli_dev.theurgy.datagen.model;
 
 import com.geckolib.renderer.internal.GeckolibItemSpecialRenderer;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.content.apparatus.digestionvat.DigestionVatItemRenderer;
@@ -314,7 +315,7 @@ public class TheurgyBlockModelSubProvider {
         this.emitParticleModel(blockModels.modelOutput, this.blockModel(BlockRegistry.DIGESTION_VAT.get()), Identifier.withDefaultNamespace("block/blue_terracotta"));
         this.registerSingleStateBlock(blockModels, BlockRegistry.DIGESTION_VAT.get(), this.blockModel(BlockRegistry.DIGESTION_VAT.get()));
 
-
+        this.registerBuiltinEntityItem(itemModels, BlockRegistry.DIGESTION_VAT.get());
         itemModels.itemModelOutput.accept(BlockRegistry.DIGESTION_VAT.get().asItem(), ItemModelUtils.specialModel(this.itemModel(BlockRegistry.DIGESTION_VAT.get()), new DigestionVatItemRenderer.Unbaked()));
     }
 
@@ -400,8 +401,12 @@ public class TheurgyBlockModelSubProvider {
     }
 
     private void registerGeckolibItem(ItemModelGenerators itemModels, Block block) {
-        this.emitParentModel(itemModels.modelOutput, this.itemModel(block), BUILTIN_ENTITY, Map.of());
+        this.emitBuiltinEntityModel(itemModels.modelOutput, this.itemModel(block));
         itemModels.itemModelOutput.accept(block.asItem(), ItemModelUtils.specialModel(this.itemModel(block), new GeckolibItemSpecialRenderer.Unbaked()));
+    }
+
+    private void registerBuiltinEntityItem(ItemModelGenerators itemModels, Block block) {
+        this.emitBuiltinEntityModel(itemModels.modelOutput, this.itemModel(block));
     }
 
     private Variant variant(Identifier model, int xRotation, int yRotation, boolean uvLock) {
@@ -445,6 +450,46 @@ public class TheurgyBlockModelSubProvider {
             }
             return json;
         });
+    }
+
+    /**
+     * Emits a builtin/entity model JSON with the standard display transforms matching vanilla's template_chest.
+     * This gives special-rendered items (GeckoLib, custom SpecialModelRenderer) the correct isometric appearance
+     * in inventory/GUI and proper transforms for all other display contexts.
+     */
+    private void emitBuiltinEntityModel(BiConsumer<Identifier, ModelInstance> output, Identifier modelLocation) {
+        output.accept(modelLocation, () -> {
+            JsonObject json = new JsonObject();
+            json.addProperty("parent", BUILTIN_ENTITY.toString());
+
+            JsonObject display = new JsonObject();
+
+            display.add("gui", displayTransform(30, 45, 0, 0, 0, 0, 0.625f));
+            display.add("ground", displayTransform(0, 0, 0, 0, 3, 0, 0.25f));
+            display.add("head", displayTransform(0, 180, 0, 0, 0, 0, 1.0f));
+            display.add("fixed", displayTransform(0, 180, 0, 0, 0, 0, 0.5f));
+            display.add("thirdperson_righthand", displayTransform(75, 315, 0, 0, 2.5f, 0, 0.375f));
+            display.add("firstperson_righthand", displayTransform(0, 315, 0, 0, 0, 0, 0.4f));
+
+            json.add("display", display);
+            return json;
+        });
+    }
+
+    private static JsonObject displayTransform(float rotX, float rotY, float rotZ, float transX, float transY, float transZ, float scale) {
+        JsonObject obj = new JsonObject();
+        obj.add("rotation", jsonArray(rotX, rotY, rotZ));
+        obj.add("translation", jsonArray(transX, transY, transZ));
+        obj.add("scale", jsonArray(scale, scale, scale));
+        return obj;
+    }
+
+    private static JsonArray jsonArray(float x, float y, float z) {
+        JsonArray arr = new JsonArray();
+        arr.add(x);
+        arr.add(y);
+        arr.add(z);
+        return arr;
     }
 
     private Identifier blockModel(Block block) {

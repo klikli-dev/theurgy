@@ -159,7 +159,8 @@ public class TheurgyItemModelSubProvider {
                                 // - The mask to apply to the base texture (should be pure white to see) when 'cover_is_mask' is true
                                 // If not set or no base texture is set when 'cover_is_mask' is true, then the layer is not rendered
                                 // Points to 'assets/neoforge/textures/item/mask/bucket_fluid_cover.png'
-                                Optional.of(new Material(Identifier.fromNamespaceAndPath("neoforge", "item/mask/bucket_fluid_cover")))
+//                                Optional.of(new Material(Identifier.fromNamespaceAndPath("neoforge", "item/mask/bucket_fluid_cover")))
+                                Optional.empty()
                         ),
                         FluidRegistry.SAL_AMMONIAC.get(),
                         // When true, rotates the model 180 degrees

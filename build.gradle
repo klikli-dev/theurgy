@@ -143,11 +143,13 @@ dependencies {
     //almostunified
 //    implementation "com.almostreliable.mods:almostunified-forge:${minecraft_version}-${almost_unified_version}"
 
+    //TODO: enable once available
     //Geckolib
-    implementation ("com.geckolib:geckolib-neoforge-${minecraft_version}:${geckolib_version}") {transitive=false}
+//    implementation ("com.geckolib:geckolib-neoforge-${minecraft_version}:${geckolib_version}") {transitive=false}
 
+    //TODO: enable once available
     //modonomicon
-    implementation ("com.klikli_dev:modonomicon-${minecraft_version}-neoforge:${modonomicon_version}") {transitive=false}
+//    implementation ("com.klikli_dev:modonomicon-${minecraft_version}-neoforge:${modonomicon_version}") {transitive=false}
 
     //occultism
 //    compileOnly ("com.klikli_dev:occultism-${minecraft_version}-neoforge:${occultism_version}") {transitive=false}

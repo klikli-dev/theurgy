@@ -5,6 +5,7 @@
 package com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron.render;
 
 import com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron.LiquefactionCauldronBlockEntity;
+import com.klikli_dev.theurgy.content.fluid.SolventFluidType;
 import com.klikli_dev.theurgy.content.render.RenderTypes;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -18,7 +19,6 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
 import org.jspecify.annotations.Nullable;
 
 
@@ -70,9 +70,12 @@ public class LiquefactionCauldronRenderer implements BlockEntityRenderer<Liquefa
         var fluidStack = blockEntity.storageBehaviour.solventTank.getFluid();
         var fluid = fluidStack.getFluid();
         var fluidType = fluid.getFluidType();
-        var fluidClientExtension = IClientFluidTypeExtensions.of(fluid);
 
-        state.color = fluidClientExtension.getTintColor(fluidStack);
+        if (fluidType instanceof SolventFluidType solventFluidType) {
+            state.color = solventFluidType.tint;
+        } else {
+            state.color = 0xFFFFFFFF;
+        }
         int blockLightIn = (state.lightCoords >> 4) & 0xF;
         int luminosity = Math.max(blockLightIn, fluidType.getLightLevel(fluidStack));
         state.fluidLight = (state.lightCoords & 0xF00000) | luminosity << 4;

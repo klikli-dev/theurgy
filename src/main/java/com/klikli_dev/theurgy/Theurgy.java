@@ -7,15 +7,15 @@ package com.klikli_dev.theurgy;
 import com.klikli_dev.theurgy.config.ClientConfig;
 import com.klikli_dev.theurgy.config.CommonConfig;
 import com.klikli_dev.theurgy.config.ServerConfig;
-import com.klikli_dev.theurgy.content.apparatus.calcinationoven.render.CalcinationOvenRenderer;
+//import com.klikli_dev.theurgy.content.apparatus.calcinationoven.render.CalcinationOvenRenderer; // TODO: re-enable when geckolib/modonomicon artifacts are available for pre-3
 import com.klikli_dev.theurgy.content.apparatus.digestionvat.DigestionVatRenderer;
-import com.klikli_dev.theurgy.content.apparatus.distiller.render.DistillerRenderer;
-import com.klikli_dev.theurgy.content.apparatus.incubator.render.IncubatorMercuryVesselRenderer;
-import com.klikli_dev.theurgy.content.apparatus.incubator.render.IncubatorSaltVesselRenderer;
-import com.klikli_dev.theurgy.content.apparatus.incubator.render.IncubatorSulfurVesselRenderer;
+//import com.klikli_dev.theurgy.content.apparatus.distiller.render.DistillerRenderer;
+//import com.klikli_dev.theurgy.content.apparatus.incubator.render.IncubatorMercuryVesselRenderer;
+//import com.klikli_dev.theurgy.content.apparatus.incubator.render.IncubatorSaltVesselRenderer;
+//import com.klikli_dev.theurgy.content.apparatus.incubator.render.IncubatorSulfurVesselRenderer;
 import com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron.render.LiquefactionCauldronRenderer;
-import com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator.render.SalAmmoniacAccumulatorRenderer;
-import com.klikli_dev.theurgy.content.apparatus.salammoniactank.render.SalAmmoniacTankRenderer;
+//import com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator.render.SalAmmoniacAccumulatorRenderer;
+//import com.klikli_dev.theurgy.content.apparatus.salammoniactank.render.SalAmmoniacTankRenderer;
 import com.klikli_dev.theurgy.content.item.filter.AttributeFilterScreen;
 import com.klikli_dev.theurgy.content.item.filter.ListFilterScreen;
 import com.klikli_dev.theurgy.content.item.derivative.AlchemicalDerivativeItem;
@@ -25,9 +25,9 @@ import com.klikli_dev.theurgy.content.item.wire.WireItem;
 import com.klikli_dev.theurgy.content.render.*;
 import com.klikli_dev.theurgy.content.render.itemhud.ItemHUD;
 import com.klikli_dev.theurgy.content.render.outliner.Outliner;
-import com.klikli_dev.theurgy.datagen.TheurgyDataGenerators;
-import com.klikli_dev.theurgy.integration.modonomicon.PageLoaders;
-import com.klikli_dev.theurgy.integration.modonomicon.PageRenderers;
+//import com.klikli_dev.theurgy.datagen.TheurgyDataGenerators;
+//import com.klikli_dev.theurgy.integration.modonomicon.PageLoaders;
+//import com.klikli_dev.theurgy.integration.modonomicon.PageRenderers;
 import com.klikli_dev.theurgy.logistics.Logistics;
 import com.klikli_dev.theurgy.logistics.WireRenderer;
 import com.klikli_dev.theurgy.logistics.WireSync;
@@ -102,7 +102,7 @@ public class Theurgy {
         modEventBus.addListener(this::onServerSetup);
         modEventBus.addListener(Networking::register);
 
-        modEventBus.addListener(TheurgyDataGenerators::onGatherData);
+        //modEventBus.addListener(TheurgyDataGenerators::onGatherData);
 
         modEventBus.addListener(TheurgyRegistries::onRegisterRegistries);
         modEventBus.addListener(SulfurRegistry::onBuildCreativeModTabs);
@@ -150,7 +150,7 @@ public class Theurgy {
     }
 
     public void onCommonSetup(FMLCommonSetupEvent event) {
-        PageLoaders.onCommonSetup(event);
+        //PageLoaders.onCommonSetup(event);
 
         LOGGER.info("Common setup complete.");
     }
@@ -163,7 +163,7 @@ public class Theurgy {
         public static void onClientSetup(FMLClientSetupEvent event) {
 
             registerTooltipDataProviders(event);
-            PageRenderers.onClientSetup(event);
+            //PageRenderers.onClientSetup(event);
 
             NeoForge.EVENT_BUS.addListener((ClientTickEvent.Post e) -> {
                 ClientTicks.endClientTick(Minecraft.getInstance());
@@ -254,13 +254,13 @@ public class Theurgy {
         public static void onRegisterEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
             event.registerEntityRenderer(EntityRegistry.FOLLOW_PROJECTILE.get(), BlankEntityRenderer::new);
             event.registerBlockEntityRenderer(BlockEntityRegistry.LIQUEFACTION_CAULDRON.get(), LiquefactionCauldronRenderer::new);
-            event.registerBlockEntityRenderer(BlockEntityRegistry.DISTILLER.get(), DistillerRenderer::new);
-            event.registerBlockEntityRenderer(BlockEntityRegistry.CALCINATION_OVEN.get(), CalcinationOvenRenderer::new);
-            event.registerBlockEntityRenderer(BlockEntityRegistry.SAL_AMMONIAC_ACCUMULATOR.get(), SalAmmoniacAccumulatorRenderer::new);
-            event.registerBlockEntityRenderer(BlockEntityRegistry.INCUBATOR_MERCURY_VESSEL.get(), IncubatorMercuryVesselRenderer::new);
-            event.registerBlockEntityRenderer(BlockEntityRegistry.INCUBATOR_SULFUR_VESSEL.get(), IncubatorSulfurVesselRenderer::new);
-            event.registerBlockEntityRenderer(BlockEntityRegistry.INCUBATOR_SALT_VESSEL.get(), IncubatorSaltVesselRenderer::new);
-            event.registerBlockEntityRenderer(BlockEntityRegistry.SAL_AMMONIAC_TANK.get(), SalAmmoniacTankRenderer::new);
+            //event.registerBlockEntityRenderer(BlockEntityRegistry.DISTILLER.get(), DistillerRenderer::new);
+            //event.registerBlockEntityRenderer(BlockEntityRegistry.CALCINATION_OVEN.get(), CalcinationOvenRenderer::new);
+            //event.registerBlockEntityRenderer(BlockEntityRegistry.SAL_AMMONIAC_ACCUMULATOR.get(), SalAmmoniacAccumulatorRenderer::new);
+            //event.registerBlockEntityRenderer(BlockEntityRegistry.INCUBATOR_MERCURY_VESSEL.get(), IncubatorMercuryVesselRenderer::new);
+            //event.registerBlockEntityRenderer(BlockEntityRegistry.INCUBATOR_SULFUR_VESSEL.get(), IncubatorSulfurVesselRenderer::new);
+            //event.registerBlockEntityRenderer(BlockEntityRegistry.INCUBATOR_SALT_VESSEL.get(), IncubatorSaltVesselRenderer::new);
+            //event.registerBlockEntityRenderer(BlockEntityRegistry.SAL_AMMONIAC_TANK.get(), SalAmmoniacTankRenderer::new);
             event.registerBlockEntityRenderer(BlockEntityRegistry.DIGESTION_VAT.get(), DigestionVatRenderer::new);
         }
 
@@ -346,25 +346,6 @@ public class Theurgy {
             */
 
             event.registerFluidType(new IClientFluidTypeExtensions() {
-                @Override
-                public @NotNull Identifier getStillTexture() {
-                    return FluidTypeRegistry.SAL_AMMONIAC.get().still;
-                }
-
-                @Override
-                public @NotNull Identifier getFlowingTexture() {
-                    return FluidTypeRegistry.SAL_AMMONIAC.get().flowing;
-                }
-
-                @Override
-                public Identifier getOverlayTexture() {
-                    return FluidTypeRegistry.SAL_AMMONIAC.get().overlay;
-                }
-
-                @Override
-                public int getTintColor() {
-                    return FluidTypeRegistry.SAL_AMMONIAC.get().tint;
-                }
             }, FluidTypeRegistry.SAL_AMMONIAC.get());
         }
 

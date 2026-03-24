@@ -7,7 +7,6 @@ package com.klikli_dev.theurgy.logistics;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimaps;
 import com.google.common.collect.SetMultimap;
-import com.klikli_dev.modonomicon.util.Codecs;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
@@ -34,7 +33,7 @@ public class Wires extends SavedData {
 
     public static final String ID = "theurgy.wires";
     public static final Codec<Wires> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-            Codecs.set(Wire.CODEC).fieldOf("wireConnections").forGetter(wires -> wires.wires),
+            Wire.CODEC.listOf().xmap(list -> (Set<Wire>) new ObjectOpenHashSet<>(list), set -> new ArrayList<>(set)).fieldOf("wireConnections").forGetter(wires -> wires.wires),
             Codec.BOOL.fieldOf("isClient").forGetter(wires -> wires.isClient)
     ).apply(instance, Wires::new));
     private static final SavedDataType<Wires> TYPE = new SavedDataType<>(Identifier.parse(Wires.ID), () -> new Wires(false), Wires.CODEC, DataFixTypes.LEVEL);

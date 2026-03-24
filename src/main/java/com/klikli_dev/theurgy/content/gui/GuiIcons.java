@@ -5,7 +5,7 @@
 package com.klikli_dev.theurgy.content.gui;
 
 import com.klikli_dev.theurgy.Theurgy;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.resources.Identifier;
 
@@ -36,7 +36,7 @@ public class GuiIcons implements ScreenElement {
 
 
     @Override
-    public void render(GuiGraphics graphics, int x, int y) {
+    public void render(GuiGraphicsExtractor graphics, int x, int y) {
         graphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, x, y, (float) this.iconX, (float) this.iconY, 16, 16, 256, 256);
     }
 

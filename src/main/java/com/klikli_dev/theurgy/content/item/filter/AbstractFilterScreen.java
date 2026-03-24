@@ -6,7 +6,7 @@ package com.klikli_dev.theurgy.content.item.filter;
 
 import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.content.gui.*;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
@@ -57,18 +57,18 @@ public abstract class AbstractFilterScreen<T extends AbstractFilterMenu> extends
     }
 
     @Override
-    public void render(@NotNull GuiGraphics pGuiGraphics, int pMouseX, int pMouseY, float pPartialTick) {
-        super.render(pGuiGraphics, pMouseX, pMouseY, pPartialTick);
-        this.renderTooltip(pGuiGraphics, pMouseX, pMouseY);
+    public void extractRenderState(@NotNull GuiGraphicsExtractor pGuiGraphics, int pMouseX, int pMouseY, float pPartialTick) {
+        super.extractRenderState(pGuiGraphics, pMouseX, pMouseY, pPartialTick);
+        this.extractTooltip(pGuiGraphics, pMouseX, pMouseY);
     }
 
     @Override
-    protected void renderLabels(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY) {
+    protected void extractLabels(GuiGraphicsExtractor pGuiGraphics, int pMouseX, int pMouseY) {
         //prevent automatic rendering of container title
     }
 
     @Override
-    protected void renderBg(GuiGraphics pGuiGraphics, float pPartialTick, int pMouseX, int pMouseY) {
+    public void extractContents(GuiGraphicsExtractor pGuiGraphics, int pMouseX, int pMouseY, float pPartialTick) {
         int invX = this.getLeftOfCentered(GuiTextures.PLAYER_INVENTORY.width);
         int invY = this.topPos + this.background.height + 4;
         this.renderPlayerInventory(pGuiGraphics, invX, invY);
@@ -77,7 +77,9 @@ public abstract class AbstractFilterScreen<T extends AbstractFilterMenu> extends
         int y = this.topPos;
 
         this.background.render(pGuiGraphics, x, y);
-        pGuiGraphics.drawString(this.font, this.title, x + (this.background.width - 8) / 2 - this.font.width(this.title) / 2, y + 4, this.getScreenTitleColor(), false);
+        pGuiGraphics.text(this.font, this.title, x + (this.background.width - 8) / 2 - this.font.width(this.title) / 2, y + 4, this.getScreenTitleColor(), false);
+
+        super.extractContents(pGuiGraphics, pMouseX, pMouseY, pPartialTick);
     }
 
     @Override
@@ -101,9 +103,9 @@ public abstract class AbstractFilterScreen<T extends AbstractFilterMenu> extends
         return this.leftPos + (this.imageWidth - textureWidth) / 2;
     }
 
-    public void renderPlayerInventory(GuiGraphics graphics, int x, int y) {
+    public void renderPlayerInventory(GuiGraphicsExtractor graphics, int x, int y) {
         GuiTextures.PLAYER_INVENTORY.render(graphics, x, y);
-        graphics.drawString(this.font, this.playerInventoryTitle, x + 8, y + 6, 0xFF404040, false);
+        graphics.text(this.font, this.playerInventoryTitle, x + 8, y + 6, 0xFF404040, false);
     }
 
     public void updateButtonState() {

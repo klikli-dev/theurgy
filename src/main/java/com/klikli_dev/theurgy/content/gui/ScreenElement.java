@@ -4,8 +4,8 @@
 
 package com.klikli_dev.theurgy.content.gui;
 
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 
 public interface ScreenElement {
-    void render(GuiGraphics graphics, int x, int y);
+    void render(GuiGraphicsExtractor graphics, int x, int y);
 }

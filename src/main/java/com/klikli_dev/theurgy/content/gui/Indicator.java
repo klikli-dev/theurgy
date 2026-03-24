@@ -4,7 +4,7 @@
 
 package com.klikli_dev.theurgy.content.gui;
 
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
 
 public class Indicator extends AbstractButton {
@@ -17,9 +17,7 @@ public class Indicator extends AbstractButton {
     }
 
     @Override
-    protected void renderWidget(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY, float pPartialTick) {
-        if (!this.visible)
-            return;
+    protected void extractWidgetRenderState(GuiGraphicsExtractor pGuiGraphics, int pMouseX, int pMouseY, float pPartialTick) {
         GuiTextures toDraw = switch (this.state) {
             case ON -> GuiTextures.INDICATOR_WHITE;
             case OFF -> GuiTextures.INDICATOR;

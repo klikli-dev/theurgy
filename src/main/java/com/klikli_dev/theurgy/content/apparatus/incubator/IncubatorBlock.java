@@ -85,9 +85,10 @@ public class IncubatorBlock extends Block implements EntityBlock {
     @SuppressWarnings("deprecation")
     public BlockState updateShape(BlockState pState, LevelReader pLevel, ScheduledTickAccess pTickAccess, BlockPos pCurrentPos, Direction pFacing, BlockPos pFacingPos, BlockState pFacingState, RandomSource pRandom) {
 
-        if (pLevel.getBlockEntity(pCurrentPos) instanceof IncubatorBlockEntity incubatorBlockEntity) {
-            incubatorBlockEntity.validateMultiblock();
-        }
+        // TODO: re-enable when geckolib artifacts are available for pre-3
+        //if (pLevel.getBlockEntity(pCurrentPos) instanceof IncubatorBlockEntity incubatorBlockEntity) {
+        //    incubatorBlockEntity.validateMultiblock();
+        //}
 
         //destroy both blocks if one is mined
         var half = pState.getValue(HALF);
@@ -190,7 +191,9 @@ public class IncubatorBlock extends Block implements EntityBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
-        return pState.getValue(HALF) == DoubleBlockHalf.LOWER ? BlockEntityRegistry.INCUBATOR.get().create(pPos, pState) : null;
+        // TODO: re-enable when geckolib artifacts are available for pre-3
+        //return pState.getValue(HALF) == DoubleBlockHalf.LOWER ? BlockEntityRegistry.INCUBATOR.get().create(pPos, pState) : null;
+        return null;
     }
 
     @Nullable
@@ -201,16 +204,18 @@ public class IncubatorBlock extends Block implements EntityBlock {
         }
         if (pLevel.isClientSide()) {
             return (lvl, pos, blockState, t) -> {
-                if (t instanceof IncubatorBlockEntity blockEntity) {
-                    blockEntity.tickClient();
-                }
+                // TODO: re-enable when geckolib artifacts are available for pre-3
+                //if (t instanceof IncubatorBlockEntity blockEntity) {
+                //    blockEntity.tickClient();
+                //}
             };
         }
 
         return (lvl, pos, blockState, t) -> {
-            if (t instanceof IncubatorBlockEntity blockEntity) {
-                blockEntity.tickServer();
-            }
+            // TODO: re-enable when geckolib artifacts are available for pre-3
+            //if (t instanceof IncubatorBlockEntity blockEntity) {
+            //    blockEntity.tickServer();
+            //}
         };
     }
 

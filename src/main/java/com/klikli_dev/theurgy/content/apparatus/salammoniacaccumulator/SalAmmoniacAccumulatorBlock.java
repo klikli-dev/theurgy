@@ -78,9 +78,10 @@ public class SalAmmoniacAccumulatorBlock extends Block implements EntityBlock {
     @SuppressWarnings("deprecation")
     public BlockState updateShape(BlockState pState, LevelReader pLevel, ScheduledTickAccess pTickAccess, BlockPos pCurrentPos, Direction pFacing, BlockPos pFacingPos, BlockState pFacingState, RandomSource pRandom) {
 
-        if (pLevel.getBlockEntity(pCurrentPos) instanceof SalAmmoniacAccumulatorBlockEntity accumulatorBlockEntity && pFacing == Direction.DOWN) {
-            accumulatorBlockEntity.validateOutputTank();
-        }
+        // TODO: re-enable when geckolib artifacts are available for pre-3
+        //if (pLevel.getBlockEntity(pCurrentPos) instanceof SalAmmoniacAccumulatorBlockEntity accumulatorBlockEntity && pFacing == Direction.DOWN) {
+        //    accumulatorBlockEntity.validateOutputTank();
+        //}
 
         return super.updateShape(pState, pLevel, pTickAccess, pCurrentPos, pFacing, pFacingPos, pFacingState, pRandom);
     }
@@ -88,7 +89,9 @@ public class SalAmmoniacAccumulatorBlock extends Block implements EntityBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
-        return BlockEntityRegistry.SAL_AMMONIAC_ACCUMULATOR.get().create(pPos, pState);
+        // TODO: re-enable when geckolib artifacts are available for pre-3
+        //return BlockEntityRegistry.SAL_AMMONIAC_ACCUMULATOR.get().create(pPos, pState);
+        return null;
     }
 
     @Nullable
@@ -97,15 +100,17 @@ public class SalAmmoniacAccumulatorBlock extends Block implements EntityBlock {
 
         if (pLevel.isClientSide()) {
             return (lvl, pos, blockState, t) -> {
-                if (t instanceof SalAmmoniacAccumulatorBlockEntity blockEntity) {
-                    blockEntity.tickClient();
-                }
+                // TODO: re-enable when geckolib artifacts are available for pre-3
+                //if (t instanceof SalAmmoniacAccumulatorBlockEntity blockEntity) {
+                //    blockEntity.tickClient();
+                //}
             };
         }
         return (lvl, pos, blockState, t) -> {
-            if (t instanceof SalAmmoniacAccumulatorBlockEntity blockEntity) {
-                blockEntity.tickServer();
-            }
+            // TODO: re-enable when geckolib artifacts are available for pre-3
+            //if (t instanceof SalAmmoniacAccumulatorBlockEntity blockEntity) {
+            //    blockEntity.tickServer();
+            //}
         };
     }
 }

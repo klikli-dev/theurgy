@@ -5,9 +5,9 @@
 package com.klikli_dev.theurgy.registry;
 
 import com.klikli_dev.theurgy.Theurgy;
-import com.klikli_dev.theurgy.content.apparatus.calcinationoven.CalcinationOvenBlockEntity;
-import com.klikli_dev.theurgy.content.apparatus.distiller.DistillerBlockEntity;
-import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorBlockEntity;
+//import com.klikli_dev.theurgy.content.apparatus.calcinationoven.CalcinationOvenBlockEntity; // TODO: re-enable when geckolib artifacts are available for pre-3
+//import com.klikli_dev.theurgy.content.apparatus.distiller.DistillerBlockEntity;
+//import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron.LiquefactionCauldronBlockEntity;
 import com.klikli_dev.theurgy.content.capability.HeatProvider;
 import com.klikli_dev.theurgy.content.capability.HeatReceiver;
@@ -58,42 +58,43 @@ public class CapabilityRegistry {
     }
 
     public static void onRegisterCapabilities(RegisterCapabilitiesEvent event) {
-        registerCalcinationOven(event);
+        //registerCalcinationOven(event);
         registerCaloricFluxEmitter(event);
         registerDigestionVat(event);
-        registerDistiller(event);
+        //registerDistiller(event);
         registerFermentationVat(event);
-        registerIncubator(event);
+        //registerIncubator(event);
         registerLiquefactionCauldron(event);
         registerMercuryCatalyst(event);
         registerPyromanticBrazier(event);
         registerReformationArray(event);
-        registerSalAmmoniacAccumulator(event);
-        registerSalAmmoniacTank(event);
+        //registerSalAmmoniacAccumulator(event);
+        //registerSalAmmoniacTank(event);
     }
 
     public static void registerCalcinationOven(RegisterCapabilitiesEvent event) {
-        event.registerBlock(
-                ITEM_HANDLER,
-                (level, pos, state, be, context) ->
-                        doubleBlockCapability(level, pos, be, context, CalcinationOvenBlockEntity.class,
-                                (blockEntity, side) -> {
-                                    if (side == Direction.UP) {
-                                        return blockEntity.storageBehaviour.inputInventory;
-                                    } else if (side == Direction.DOWN) {
-                                        return blockEntity.storageBehaviour.outputInventoryExtractOnlyWrapper;
-                                    } else {
-                                        return blockEntity.storageBehaviour.inventory;
-                                    }
-                                }
-                        ),
-                BlockRegistry.CALCINATION_OVEN.get()
-        );
+        // TODO: re-enable when geckolib artifacts are available for pre-3
+        //event.registerBlock(
+        //        ITEM_HANDLER,
+        //        (level, pos, state, be, context) ->
+        //                doubleBlockCapability(level, pos, be, context, CalcinationOvenBlockEntity.class,
+        //                        (blockEntity, side) -> {
+        //                            if (side == Direction.UP) {
+        //                                return blockEntity.storageBehaviour.inputInventory;
+        //                            } else if (side == Direction.DOWN) {
+        //                                return blockEntity.storageBehaviour.outputInventoryExtractOnlyWrapper;
+        //                            } else {
+        //                                return blockEntity.storageBehaviour.inventory;
+        //                            }
+        //                        }
+        //                ),
+        //        BlockRegistry.CALCINATION_OVEN.get()
+        //);
 
-        event.registerBlockEntity(
-                HEAT_RECEIVER,
-                BlockEntityRegistry.CALCINATION_OVEN.get(),
-                (blockEntity, side) -> blockEntity.heatReceiver);
+        //event.registerBlockEntity(
+        //        HEAT_RECEIVER,
+        //        BlockEntityRegistry.CALCINATION_OVEN.get(),
+        //        (blockEntity, side) -> blockEntity.heatReceiver);
     }
 
     public static void registerCaloricFluxEmitter(@NotNull RegisterCapabilitiesEvent event) {
@@ -126,27 +127,28 @@ public class CapabilityRegistry {
     }
 
     public static void registerDistiller(RegisterCapabilitiesEvent event) {
-        event.registerBlock(
-                ITEM_HANDLER,
-                (level, pos, state, be, context) ->
-                        doubleBlockCapability(level, pos, be, context, DistillerBlockEntity.class,
-                                (blockEntity, side) -> {
-                                    if (side == Direction.UP) {
-                                        return blockEntity.storageBehaviour.inputInventory;
-                                    } else if (side == Direction.DOWN) {
-                                        return blockEntity.storageBehaviour.outputInventoryExtractOnlyWrapper;
-                                    } else {
-                                        return blockEntity.storageBehaviour.inventory;
-                                    }
-                                }
-                        ),
-                BlockRegistry.DISTILLER.get()
-        );
+        // TODO: re-enable when geckolib artifacts are available for pre-3
+        //event.registerBlock(
+        //        ITEM_HANDLER,
+        //        (level, pos, state, be, context) ->
+        //                doubleBlockCapability(level, pos, be, context, DistillerBlockEntity.class,
+        //                        (blockEntity, side) -> {
+        //                            if (side == Direction.UP) {
+        //                                return blockEntity.storageBehaviour.inputInventory;
+        //                            } else if (side == Direction.DOWN) {
+        //                                return blockEntity.storageBehaviour.outputInventoryExtractOnlyWrapper;
+        //                            } else {
+        //                                return blockEntity.storageBehaviour.inventory;
+        //                            }
+        //                        }
+        //                ),
+        //        BlockRegistry.DISTILLER.get()
+        //);
 
-        event.registerBlockEntity(
-                HEAT_RECEIVER,
-                BlockEntityRegistry.DISTILLER.get(),
-                (blockEntity, side) -> blockEntity.heatReceiver);
+        //event.registerBlockEntity(
+        //        HEAT_RECEIVER,
+        //        BlockEntityRegistry.DISTILLER.get(),
+        //        (blockEntity, side) -> blockEntity.heatReceiver);
     }
 
     public static void registerFermentationVat(RegisterCapabilitiesEvent event) {
@@ -172,34 +174,35 @@ public class CapabilityRegistry {
     }
 
     public static void registerIncubator(RegisterCapabilitiesEvent event) {
-        event.registerBlock(
-                ITEM_HANDLER,
-                (level, pos, state, be, context) ->
-                        doubleBlockCapability(level, pos, be, context, IncubatorBlockEntity.class,
-                                (blockEntity, side) -> blockEntity.outputInventoryTakeOnlyWrapper
-                        ),
-                BlockRegistry.INCUBATOR.get()
-        );
+        // TODO: re-enable when geckolib artifacts are available for pre-3
+        //event.registerBlock(
+        //        ITEM_HANDLER,
+        //        (level, pos, state, be, context) ->
+        //                doubleBlockCapability(level, pos, be, context, IncubatorBlockEntity.class,
+        //                        (blockEntity, side) -> blockEntity.outputInventoryTakeOnlyWrapper
+        //                ),
+        //        BlockRegistry.INCUBATOR.get()
+        //);
 
-        event.registerBlockEntity(
-                HEAT_RECEIVER,
-                BlockEntityRegistry.INCUBATOR.get(),
-                (blockEntity, side) -> blockEntity.heatReceiver);
+        //event.registerBlockEntity(
+        //        HEAT_RECEIVER,
+        //        BlockEntityRegistry.INCUBATOR.get(),
+        //        (blockEntity, side) -> blockEntity.heatReceiver);
 
-        event.registerBlockEntity(
-                ITEM_HANDLER,
-                BlockEntityRegistry.INCUBATOR_SULFUR_VESSEL.get(),
-                (blockEntity, side) -> blockEntity.inputInventory);
+        //event.registerBlockEntity(
+        //        ITEM_HANDLER,
+        //        BlockEntityRegistry.INCUBATOR_SULFUR_VESSEL.get(),
+        //        (blockEntity, side) -> blockEntity.inputInventory);
 
-        event.registerBlockEntity(
-                ITEM_HANDLER,
-                BlockEntityRegistry.INCUBATOR_SALT_VESSEL.get(),
-                (blockEntity, side) -> blockEntity.inputInventory);
+        //event.registerBlockEntity(
+        //        ITEM_HANDLER,
+        //        BlockEntityRegistry.INCUBATOR_SALT_VESSEL.get(),
+        //        (blockEntity, side) -> blockEntity.inputInventory);
 
-        event.registerBlockEntity(
-                ITEM_HANDLER,
-                BlockEntityRegistry.INCUBATOR_MERCURY_VESSEL.get(),
-                (blockEntity, side) -> blockEntity.inputInventory);
+        //event.registerBlockEntity(
+        //        ITEM_HANDLER,
+        //        BlockEntityRegistry.INCUBATOR_MERCURY_VESSEL.get(),
+        //        (blockEntity, side) -> blockEntity.inputInventory);
     }
 
     public static void registerLiquefactionCauldron(RegisterCapabilitiesEvent event) {
@@ -278,22 +281,24 @@ public class CapabilityRegistry {
     }
 
     public static void registerSalAmmoniacAccumulator(RegisterCapabilitiesEvent event) {
-        event.registerBlockEntity(
-                ITEM_HANDLER,
-                BlockEntityRegistry.SAL_AMMONIAC_ACCUMULATOR.get(),
-                (blockEntity, side) -> blockEntity.inventory);
+        // TODO: re-enable when geckolib artifacts are available for pre-3
+        //event.registerBlockEntity(
+        //        ITEM_HANDLER,
+        //        BlockEntityRegistry.SAL_AMMONIAC_ACCUMULATOR.get(),
+        //        (blockEntity, side) -> blockEntity.inventory);
 
-        event.registerBlockEntity(
-                FLUID_HANDLER,
-                BlockEntityRegistry.SAL_AMMONIAC_ACCUMULATOR.get(),
-                (blockEntity, side) -> blockEntity.waterTank);
+        //event.registerBlockEntity(
+        //        FLUID_HANDLER,
+        //        BlockEntityRegistry.SAL_AMMONIAC_ACCUMULATOR.get(),
+        //        (blockEntity, side) -> blockEntity.waterTank);
     }
 
     public static void registerSalAmmoniacTank(RegisterCapabilitiesEvent event) {
-        event.registerBlockEntity(
-                FLUID_HANDLER,
-                BlockEntityRegistry.SAL_AMMONIAC_TANK.get(),
-                (blockEntity, side) -> blockEntity.tank);
+        // TODO: re-enable when geckolib artifacts are available for pre-3
+        //event.registerBlockEntity(
+        //        FLUID_HANDLER,
+        //        BlockEntityRegistry.SAL_AMMONIAC_TANK.get(),
+        //        (blockEntity, side) -> blockEntity.tank);
     }
 
 }

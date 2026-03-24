@@ -46,7 +46,9 @@ public class IncubatorMercuryVesselBlock extends Block implements EntityBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
-        return BlockEntityRegistry.INCUBATOR_MERCURY_VESSEL.get().create(pPos, pState);
+        // TODO: re-enable when geckolib artifacts are available for pre-3
+        //return BlockEntityRegistry.INCUBATOR_MERCURY_VESSEL.get().create(pPos, pState);
+        return null;
     }
 
     @Override

@@ -5,17 +5,17 @@
 package com.klikli_dev.theurgy.registry;
 
 import com.klikli_dev.theurgy.Theurgy;
-import com.klikli_dev.theurgy.content.apparatus.calcinationoven.CalcinationOvenBlockItem;
+//import com.klikli_dev.theurgy.content.apparatus.calcinationoven.CalcinationOvenBlockItem; // TODO: re-enable when geckolib artifacts are available for pre-3
 import com.klikli_dev.theurgy.content.apparatus.caloricfluxemitter.CaloricFluxEmitterBlockItem;
-import com.klikli_dev.theurgy.content.apparatus.distiller.DistillerBlockItem;
-import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorMercuryVesselBlockItem;
-import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorSaltVesselBlockItem;
-import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorSulfurVesselBlockItem;
+//import com.klikli_dev.theurgy.content.apparatus.distiller.DistillerBlockItem;
+//import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorMercuryVesselBlockItem;
+//import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorSaltVesselBlockItem;
+//import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorSulfurVesselBlockItem;
 import com.klikli_dev.theurgy.content.apparatus.logisticsfluidconnector.LogisticsFluidConnectorBlockItem;
 import com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector.LogisticsItemConnectorBlockItem;
 import com.klikli_dev.theurgy.content.apparatus.reformationarray.SulfuricFluxEmitterBlockItem;
-import com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator.SalAmmoniacAccumulatorBlockItem;
-import com.klikli_dev.theurgy.content.apparatus.salammoniactank.SalAmmoniacTankBlockItem;
+//import com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator.SalAmmoniacAccumulatorBlockItem;
+//import com.klikli_dev.theurgy.content.apparatus.salammoniactank.SalAmmoniacTankBlockItem;
 import com.klikli_dev.theurgy.content.item.divinationrod.DivinationRodItem;
 import com.klikli_dev.theurgy.content.item.filter.AttributeFilterItem;
 import com.klikli_dev.theurgy.content.item.filter.FilterItem;
@@ -168,25 +168,25 @@ public class ItemRegistry {
     public static final DeferredItem<BlockItem> DEEPSLATE_SAL_AMMONIAC_ORE =
             ITEMS.registerItem("deepslate_sal_ammoniac_ore", p -> new BlockItem(BlockRegistry.DEEPSLATE_SAL_AMMONIAC_ORE.get(), p.useBlockDescriptionPrefix()));
     public static final DeferredItem<BlockItem> CALCINATION_OVEN =
-            ITEMS.registerItem("calcination_oven", p -> new CalcinationOvenBlockItem(BlockRegistry.CALCINATION_OVEN.get(), p.useBlockDescriptionPrefix()));
+            ITEMS.registerItem("calcination_oven", p -> new BlockItem(BlockRegistry.CALCINATION_OVEN.get(), p.useBlockDescriptionPrefix()));
     public static final DeferredItem<BlockItem> PYROMANTIC_BRAZIER =
             ITEMS.registerItem("pyromantic_brazier", p -> new BlockItem(BlockRegistry.PYROMANTIC_BRAZIER.get(), p.useBlockDescriptionPrefix()));
     public static final DeferredItem<BlockItem> LIQUEFACTION_CAULDRON =
             ITEMS.registerItem("liquefaction_cauldron", p -> new BlockItem(BlockRegistry.LIQUEFACTION_CAULDRON.get(), p.useBlockDescriptionPrefix()));
     public static final DeferredItem<BlockItem> DISTILLER =
-            ITEMS.registerItem("distiller", p -> new DistillerBlockItem(BlockRegistry.DISTILLER.get(), p.useBlockDescriptionPrefix()));
+            ITEMS.registerItem("distiller", p -> new BlockItem(BlockRegistry.DISTILLER.get(), p.useBlockDescriptionPrefix()));
     public static final DeferredItem<BlockItem> INCUBATOR =
             ITEMS.registerItem("incubator", p -> new BlockItem(BlockRegistry.INCUBATOR.get(), p.useBlockDescriptionPrefix()));
     public static final DeferredItem<BlockItem> INCUBATOR_MERCURY_VESSEL =
-            ITEMS.registerItem("incubator_mercury_vessel", p -> new IncubatorMercuryVesselBlockItem(BlockRegistry.INCUBATOR_MERCURY_VESSEL.get(), p.useBlockDescriptionPrefix()));
+            ITEMS.registerItem("incubator_mercury_vessel", p -> new BlockItem(BlockRegistry.INCUBATOR_MERCURY_VESSEL.get(), p.useBlockDescriptionPrefix()));
     public static final DeferredItem<BlockItem> INCUBATOR_SALT_VESSEL =
-            ITEMS.registerItem("incubator_salt_vessel", p -> new IncubatorSaltVesselBlockItem(BlockRegistry.INCUBATOR_SALT_VESSEL.get(), p.useBlockDescriptionPrefix()));
+            ITEMS.registerItem("incubator_salt_vessel", p -> new BlockItem(BlockRegistry.INCUBATOR_SALT_VESSEL.get(), p.useBlockDescriptionPrefix()));
     public static final DeferredItem<BlockItem> INCUBATOR_SULFUR_VESSEL =
-            ITEMS.registerItem("incubator_sulfur_vessel", p -> new IncubatorSulfurVesselBlockItem(BlockRegistry.INCUBATOR_SULFUR_VESSEL.get(), p.useBlockDescriptionPrefix()));
+            ITEMS.registerItem("incubator_sulfur_vessel", p -> new BlockItem(BlockRegistry.INCUBATOR_SULFUR_VESSEL.get(), p.useBlockDescriptionPrefix()));
     public static final DeferredItem<BlockItem> SAL_AMMONIAC_ACCUMULATOR =
-            ITEMS.registerItem("sal_ammoniac_accumulator", p -> new SalAmmoniacAccumulatorBlockItem(BlockRegistry.SAL_AMMONIAC_ACCUMULATOR.get(), p.useBlockDescriptionPrefix()));
+            ITEMS.registerItem("sal_ammoniac_accumulator", p -> new BlockItem(BlockRegistry.SAL_AMMONIAC_ACCUMULATOR.get(), p.useBlockDescriptionPrefix()));
     public static final DeferredItem<BlockItem> SAL_AMMONIAC_TANK =
-            ITEMS.registerItem("sal_ammoniac_tank", p -> new SalAmmoniacTankBlockItem(BlockRegistry.SAL_AMMONIAC_TANK.get(), p.useBlockDescriptionPrefix()));
+            ITEMS.registerItem("sal_ammoniac_tank", p -> new BlockItem(BlockRegistry.SAL_AMMONIAC_TANK.get(), p.useBlockDescriptionPrefix()));
     public static final DeferredItem<BlockItem> MERCURY_CATALYST =
             ITEMS.registerItem("mercury_catalyst", p -> new BlockItem(BlockRegistry.MERCURY_CATALYST.get(), p.useBlockDescriptionPrefix()));
     public static final DeferredItem<CaloricFluxEmitterBlockItem> CALORIC_FLUX_EMITTER =

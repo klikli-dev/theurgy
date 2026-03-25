@@ -123,7 +123,7 @@ public class CalcinationOvenGameTests {
         });
 
         helper.succeedWhen(() -> {
-            helper.assertItemEntityPresent(Items.COBBLESTONE, OVEN_LOWER_POS, 2.0);
+            helper.assertItemCount(Items.COBBLESTONE, OVEN_LOWER_POS, 2.0, 3);
         });
     }
 

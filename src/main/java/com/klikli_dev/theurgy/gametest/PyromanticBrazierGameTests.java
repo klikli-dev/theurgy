@@ -164,8 +164,8 @@ public class PyromanticBrazierGameTests {
         });
 
         helper.succeedWhen(() -> {
-            // Verify coal items were dropped at the brazier position
-            helper.assertItemEntityPresent(Items.COAL, BRAZIER_POS, 2.0);
+            // Verify exact count of coal items dropped
+            helper.assertItemCount(Items.COAL, BRAZIER_POS, 2.0, 3);
         });
     }
 

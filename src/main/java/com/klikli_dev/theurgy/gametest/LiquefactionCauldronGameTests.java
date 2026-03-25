@@ -159,7 +159,7 @@ public class LiquefactionCauldronGameTests {
         });
 
         helper.succeedWhen(() -> {
-            helper.assertItemEntityPresent(Items.BONE, CAULDRON_LOWER_POS, 2.0);
+            helper.assertItemCount(Items.BONE, CAULDRON_LOWER_POS, 2.0, 3);
         });
     }
 
@@ -239,8 +239,8 @@ public class LiquefactionCauldronGameTests {
         helper.succeedWhen(() -> {
             var cauldron = helper.getBlockEntity(CAULDRON_LOWER_POS, LiquefactionCauldronBlockEntity.class);
             helper.assertTrue(
-                    cauldron.storageBehaviour.solventTank.getFluidAmount() < 1000,
-                    "Solvent tank should have less fluid after bucket extraction"
+                    cauldron.storageBehaviour.solventTank.getFluidAmount() == 0,
+                    "Solvent tank should be empty after bucket extraction"
             );
         });
     }

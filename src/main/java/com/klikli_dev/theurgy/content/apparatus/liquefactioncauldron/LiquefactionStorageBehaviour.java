@@ -16,6 +16,7 @@ import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.FluidType;
+import net.neoforged.neoforge.transfer.item.ItemResource;
 
 import java.util.function.Predicate;
 import java.util.function.Supplier;
@@ -116,8 +117,13 @@ public class LiquefactionStorageBehaviour extends StorageBehaviour<LiquefactionS
 
 
         @Override
+        public boolean isValid(int index, ItemResource resource) {
+            return LiquefactionStorageBehaviour.this.craftingBehaviour.get().canProcess(resource.toStack(1));
+        }
+
+        @Override
         public boolean isItemValid(int slot, ItemStack stack) {
-            return LiquefactionStorageBehaviour.this.craftingBehaviour.get().canProcess(stack) && super.isItemValid(slot, stack);
+            return LiquefactionStorageBehaviour.this.craftingBehaviour.get().canProcess(stack);
         }
 
         @Override

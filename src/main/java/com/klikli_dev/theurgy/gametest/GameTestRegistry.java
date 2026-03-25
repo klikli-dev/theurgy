@@ -36,34 +36,46 @@ public class GameTestRegistry {
     public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> DISABLED_CATALYST_STILL_GENERATES_FLUX =
             TEST_FUNCTIONS.register("mercury_catalyst_disabled_still_generates_flux", () -> MercuryCatalystGameTests::disabledCatalystStillGeneratesFlux);
 
-    // --- Pyromantic Brazier ---
+    // --- Liquefaction Cauldron ---
 
-    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> BRAZIER_PLACEMENT =
-            TEST_FUNCTIONS.register("pyromantic_brazier_placement", () -> PyromanticBrazierGameTests::placementAndDefaultState);
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> LC_PLACEMENT_CREATES_TWO_BLOCK_STRUCTURE =
+            TEST_FUNCTIONS.register("lc_placement_creates_two_block_structure", () -> LiquefactionCauldronGameTests::placementCreatesTwoBlockStructure);
 
-    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> BRAZIER_LIT_STATE_UPDATES =
-            TEST_FUNCTIONS.register("pyromantic_brazier_lit_state_updates", () -> PyromanticBrazierGameTests::litStateUpdatesWhenFuelInserted);
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> LC_BLOCK_ENTITY_ONLY_ON_LOWER_HALF =
+            TEST_FUNCTIONS.register("lc_block_entity_only_on_lower_half", () -> LiquefactionCauldronGameTests::blockEntityOnlyOnLowerHalf);
 
-    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> BRAZIER_INSERT_FUEL =
-            TEST_FUNCTIONS.register("pyromantic_brazier_insert_fuel", () -> PyromanticBrazierGameTests::insertFuelItem);
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> LC_BREAKING_LOWER_DESTROYS_UPPER =
+            TEST_FUNCTIONS.register("lc_breaking_lower_destroys_upper", () -> LiquefactionCauldronGameTests::breakingLowerDestroysUpper);
 
-    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> BRAZIER_REJECTS_NON_BURNABLE =
-            TEST_FUNCTIONS.register("pyromantic_brazier_rejects_non_burnable", () -> PyromanticBrazierGameTests::rejectsNonBurnableItems);
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> LC_BREAKING_UPPER_DESTROYS_LOWER =
+            TEST_FUNCTIONS.register("lc_breaking_upper_destroys_lower", () -> LiquefactionCauldronGameTests::breakingUpperDestroysLower);
 
-    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> BRAZIER_FUEL_CONSUMED =
-            TEST_FUNCTIONS.register("pyromantic_brazier_fuel_consumed", () -> PyromanticBrazierGameTests::fuelIsConsumedOverTime);
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> LC_INSERT_INPUT_ITEM =
+            TEST_FUNCTIONS.register("lc_insert_input_item", () -> LiquefactionCauldronGameTests::insertInputItem);
 
-    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> BRAZIER_HEAT_CALCINATION_OVEN =
-            TEST_FUNCTIONS.register("pyromantic_brazier_heat_calcination_oven", () -> PyromanticBrazierGameTests::providesHeatToCalcinationOven);
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> LC_INSERT_SOLVENT_FLUID =
+            TEST_FUNCTIONS.register("lc_insert_solvent_fluid", () -> LiquefactionCauldronGameTests::insertSolventFluid);
 
-    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> BRAZIER_HEAT_LIQUEFACTION_CAULDRON =
-            TEST_FUNCTIONS.register("pyromantic_brazier_heat_liquefaction_cauldron", () -> PyromanticBrazierGameTests::providesHeatToLiquefactionCauldron);
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> LC_EXTRACT_OUTPUT_ITEM =
+            TEST_FUNCTIONS.register("lc_extract_output_item", () -> LiquefactionCauldronGameTests::extractOutputItem);
 
-    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> BRAZIER_HEAT_DISTILLER =
-            TEST_FUNCTIONS.register("pyromantic_brazier_heat_distiller", () -> PyromanticBrazierGameTests::providesHeatToDistiller);
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> LC_PROCESSING_STARTS =
+            TEST_FUNCTIONS.register("lc_processing_starts", () -> LiquefactionCauldronGameTests::processingStartsWithHeatInputAndSolvent);
 
-    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> BRAZIER_STOPS_HEAT_NO_FUEL =
-            TEST_FUNCTIONS.register("pyromantic_brazier_stops_heat_no_fuel", () -> PyromanticBrazierGameTests::stopsProvidingHeatWhenFuelRunsOut);
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> LC_LIT_STATE_TRUE_DURING_PROCESSING =
+            TEST_FUNCTIONS.register("lc_lit_state_true_during_processing", () -> LiquefactionCauldronGameTests::litStateTrueDuringProcessing);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> LC_INPUT_CONSUMED_OUTPUT_PRODUCED =
+            TEST_FUNCTIONS.register("lc_input_consumed_output_produced", () -> LiquefactionCauldronGameTests::inputConsumedSolventDrainedOutputProduced);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> LC_PROCESSING_STOPS_WHEN_HEAT_REMOVED =
+            TEST_FUNCTIONS.register("lc_processing_stops_when_heat_removed", () -> LiquefactionCauldronGameTests::processingStopsWhenHeatRemoved);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> LC_PROCESSING_REQUIRES_INPUT =
+            TEST_FUNCTIONS.register("lc_processing_requires_input", () -> LiquefactionCauldronGameTests::processingRequiresInput);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> LC_PROCESSING_REQUIRES_SOLVENT =
+            TEST_FUNCTIONS.register("lc_processing_requires_solvent", () -> LiquefactionCauldronGameTests::processingRequiresSolvent);
 
     // --- Calcination Oven ---
 
@@ -100,10 +112,40 @@ public class GameTestRegistry {
     public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> OVEN_STOPS_WITHOUT_INPUT =
             TEST_FUNCTIONS.register("calcination_oven_stops_without_input", () -> CalcinationOvenGameTests::processingStopsWhenInputEmpty);
 
+    // --- Pyromantic Brazier ---
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> BRAZIER_PLACEMENT =
+            TEST_FUNCTIONS.register("pyromantic_brazier_placement", () -> PyromanticBrazierGameTests::placementAndDefaultState);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> BRAZIER_LIT_STATE_UPDATES =
+            TEST_FUNCTIONS.register("pyromantic_brazier_lit_state_updates", () -> PyromanticBrazierGameTests::litStateUpdatesWhenFuelInserted);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> BRAZIER_INSERT_FUEL =
+            TEST_FUNCTIONS.register("pyromantic_brazier_insert_fuel", () -> PyromanticBrazierGameTests::insertFuelItem);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> BRAZIER_REJECTS_NON_BURNABLE =
+            TEST_FUNCTIONS.register("pyromantic_brazier_rejects_non_burnable", () -> PyromanticBrazierGameTests::rejectsNonBurnableItems);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> BRAZIER_FUEL_CONSUMED =
+            TEST_FUNCTIONS.register("pyromantic_brazier_fuel_consumed", () -> PyromanticBrazierGameTests::fuelIsConsumedOverTime);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> BRAZIER_HEAT_CALCINATION_OVEN =
+            TEST_FUNCTIONS.register("pyromantic_brazier_heat_calcination_oven", () -> PyromanticBrazierGameTests::providesHeatToCalcinationOven);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> BRAZIER_HEAT_LIQUEFACTION_CAULDRON =
+            TEST_FUNCTIONS.register("pyromantic_brazier_heat_liquefaction_cauldron", () -> PyromanticBrazierGameTests::providesHeatToLiquefactionCauldron);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> BRAZIER_HEAT_DISTILLER =
+            TEST_FUNCTIONS.register("pyromantic_brazier_heat_distiller", () -> PyromanticBrazierGameTests::providesHeatToDistiller);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> BRAZIER_STOPS_HEAT_NO_FUEL =
+            TEST_FUNCTIONS.register("pyromantic_brazier_stops_heat_no_fuel", () -> PyromanticBrazierGameTests::stopsProvidingHeatWhenFuelRunsOut);
+
     public static void onRegisterGameTests(RegisterGameTestsEvent event) {
         registerMercuryCatalystTests(event);
-        registerPyromanticBrazierTests(event);
         registerCalcinationOvenTests(event);
+        registerPyromanticBrazierTests(event);
+        registerLiquefactionCauldronTests(event);
     }
 
     private static void registerMercuryCatalystTests(RegisterGameTestsEvent event) {
@@ -116,19 +158,23 @@ public class GameTestRegistry {
         registerTest(event, DISABLED_CATALYST_STILL_GENERATES_FLUX, environment, structure, 100, 0);
     }
 
-    private static void registerPyromanticBrazierTests(RegisterGameTestsEvent event) {
-        var environment = event.registerEnvironment(Theurgy.loc("pyromantic_brazier"));
-        var structure = Theurgy.loc("pyromantic_brazier_test");
+    private static void registerLiquefactionCauldronTests(RegisterGameTestsEvent event) {
+        var environment = event.registerEnvironment(Theurgy.loc("liquefaction_cauldron"));
+        var structure = Theurgy.loc("liquefaction_cauldron_test");
 
-        registerTest(event, BRAZIER_PLACEMENT, environment, structure, 40, 0);
-        registerTest(event, BRAZIER_LIT_STATE_UPDATES, environment, structure, 100, 0);
-        registerTest(event, BRAZIER_INSERT_FUEL, environment, structure, 40, 0);
-        registerTest(event, BRAZIER_REJECTS_NON_BURNABLE, environment, structure, 40, 0);
-        registerTest(event, BRAZIER_FUEL_CONSUMED, environment, structure, 200, 0);
-        registerTest(event, BRAZIER_HEAT_CALCINATION_OVEN, environment, structure, 100, 0);
-        registerTest(event, BRAZIER_HEAT_LIQUEFACTION_CAULDRON, environment, structure, 100, 0);
-        registerTest(event, BRAZIER_HEAT_DISTILLER, environment, structure, 100, 0);
-        registerTest(event, BRAZIER_STOPS_HEAT_NO_FUEL, environment, structure, 300, 0);
+        registerTest(event, LC_PLACEMENT_CREATES_TWO_BLOCK_STRUCTURE, environment, structure, 40, 0);
+        registerTest(event, LC_BLOCK_ENTITY_ONLY_ON_LOWER_HALF, environment, structure, 40, 0);
+        registerTest(event, LC_BREAKING_LOWER_DESTROYS_UPPER, environment, structure, 40, 0);
+        registerTest(event, LC_BREAKING_UPPER_DESTROYS_LOWER, environment, structure, 40, 0);
+        registerTest(event, LC_INSERT_INPUT_ITEM, environment, structure, 40, 0);
+        registerTest(event, LC_INSERT_SOLVENT_FLUID, environment, structure, 40, 0);
+        registerTest(event, LC_EXTRACT_OUTPUT_ITEM, environment, structure, 40, 0);
+        registerTest(event, LC_PROCESSING_STARTS, environment, structure, 200, 0);
+        registerTest(event, LC_LIT_STATE_TRUE_DURING_PROCESSING, environment, structure, 200, 0);
+        registerTest(event, LC_INPUT_CONSUMED_OUTPUT_PRODUCED, environment, structure, 300, 0);
+        registerTest(event, LC_PROCESSING_STOPS_WHEN_HEAT_REMOVED, environment, structure, 300, 0);
+        registerTest(event, LC_PROCESSING_REQUIRES_INPUT, environment, structure, 100, 0);
+        registerTest(event, LC_PROCESSING_REQUIRES_SOLVENT, environment, structure, 100, 0);
     }
 
     private static void registerCalcinationOvenTests(RegisterGameTestsEvent event) {
@@ -146,6 +192,21 @@ public class GameTestRegistry {
         registerTest(event, OVEN_INPUT_CONSUMED_OUTPUT_PRODUCED, environment, structure, 300, 0);
         registerTest(event, OVEN_STOPS_WITHOUT_HEAT, environment, structure, 400, 0);
         registerTest(event, OVEN_STOPS_WITHOUT_INPUT, environment, structure, 300, 0);
+    }
+
+    private static void registerPyromanticBrazierTests(RegisterGameTestsEvent event) {
+        var environment = event.registerEnvironment(Theurgy.loc("pyromantic_brazier"));
+        var structure = Theurgy.loc("pyromantic_brazier_test");
+
+        registerTest(event, BRAZIER_PLACEMENT, environment, structure, 40, 0);
+        registerTest(event, BRAZIER_LIT_STATE_UPDATES, environment, structure, 100, 0);
+        registerTest(event, BRAZIER_INSERT_FUEL, environment, structure, 40, 0);
+        registerTest(event, BRAZIER_REJECTS_NON_BURNABLE, environment, structure, 40, 0);
+        registerTest(event, BRAZIER_FUEL_CONSUMED, environment, structure, 200, 0);
+        registerTest(event, BRAZIER_HEAT_CALCINATION_OVEN, environment, structure, 100, 0);
+        registerTest(event, BRAZIER_HEAT_LIQUEFACTION_CAULDRON, environment, structure, 100, 0);
+        registerTest(event, BRAZIER_HEAT_DISTILLER, environment, structure, 100, 0);
+        registerTest(event, BRAZIER_STOPS_HEAT_NO_FUEL, environment, structure, 300, 0);
     }
 
     private static void registerTest(

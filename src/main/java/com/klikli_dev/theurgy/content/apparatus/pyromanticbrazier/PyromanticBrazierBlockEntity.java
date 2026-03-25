@@ -184,6 +184,11 @@ public class PyromanticBrazierBlockEntity extends BlockEntity {
         }
 
         @Override
+        public boolean isValid(int index, ItemResource resource) {
+            return this.isItemValid(index, resource.toStack(1));
+        }
+
+        @Override
         protected void onContentTypeChanged(int slot, ItemStack oldStack, ItemStack newStack) {
             //we also need to network sync our BE, because if the content type changes then the interaction behaviour client side changes
             PyromanticBrazierBlockEntity.this.sendBlockUpdated();

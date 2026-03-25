@@ -103,6 +103,19 @@ public class CalcinationStorageBehaviour extends StorageBehaviour<CalcinationSto
         }
 
         @Override
+        public boolean isItemValid(int slot, ItemStack stack) {
+            return CalcinationStorageBehaviour.this.craftingBehaviour.get().canProcess(stack);
+<<<<<<< HEAD
+=======
+        }
+
+        @Override
+        public boolean isValid(int index, ItemResource resource) {
+            return CalcinationStorageBehaviour.this.craftingBehaviour.get().canProcess(resource.toStack(1));
+>>>>>>> origin/version/26.1
+        }
+
+        @Override
         protected void onContentsChanged(int slot) {
             CalcinationStorageBehaviour.this.setChanged();
         }

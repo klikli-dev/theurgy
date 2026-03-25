@@ -244,6 +244,35 @@ public class GameTestRegistry {
     public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> INCUBATOR_STOPS_WITHOUT_HEAT =
             TEST_FUNCTIONS.register("incubator_stops_without_heat", () -> IncubatorGameTests::processingStopsWhenHeatRemoved);
 
+    // --- Fermentation Vat ---
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> FV_PLACEMENT =
+            TEST_FUNCTIONS.register("fermentation_vat_placement", () -> FermentationVatGameTests::placementAndDefaultState);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> FV_FACING =
+            TEST_FUNCTIONS.register("fermentation_vat_facing", () -> FermentationVatGameTests::placementWithFacing);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> FV_INSERT_INPUT =
+            TEST_FUNCTIONS.register("fermentation_vat_insert_input", () -> FermentationVatGameTests::insertInputItem);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> FV_INSERT_FLUID =
+            TEST_FUNCTIONS.register("fermentation_vat_insert_fluid", () -> FermentationVatGameTests::insertFluid);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> FV_EXTRACT_OUTPUT =
+            TEST_FUNCTIONS.register("fermentation_vat_extract_output", () -> FermentationVatGameTests::extractOutputItem);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> FV_LID_CLOSES =
+            TEST_FUNCTIONS.register("fermentation_vat_lid_closes", () -> FermentationVatGameTests::lidClosesWhenProcessingStarts);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> FV_HAS_OUTPUT_TRUE =
+            TEST_FUNCTIONS.register("fermentation_vat_has_output_true", () -> FermentationVatGameTests::hasOutputBecomesTrue);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> FV_HAS_OUTPUT_FALSE =
+            TEST_FUNCTIONS.register("fermentation_vat_has_output_false", () -> FermentationVatGameTests::hasOutputBecomesFalseWhenExtracted);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> FV_DROPS_ITEMS =
+            TEST_FUNCTIONS.register("fermentation_vat_drops_items", () -> FermentationVatGameTests::dropsItemsWhenBroken);
+
     public static void onRegisterGameTests(RegisterGameTestsEvent event) {
         registerMercuryCatalystTests(event);
         registerCalcinationOvenTests(event);
@@ -251,6 +280,7 @@ public class GameTestRegistry {
         registerLiquefactionCauldronTests(event);
         registerDistillerTests(event);
         registerIncubatorTests(event);
+        registerFermentationVatTests(event);
     }
 
     private static void registerMercuryCatalystTests(RegisterGameTestsEvent event) {
@@ -357,6 +387,21 @@ public class GameTestRegistry {
         registerTest(event, INCUBATOR_INPUTS_CONSUMED_OUTPUT_PRODUCED, environment, structure, 300, 0);
         registerTest(event, INCUBATOR_EXTRACT_OUTPUT, environment, structure, 40, 0);
         registerTest(event, INCUBATOR_STOPS_WITHOUT_HEAT, environment, structure, 400, 0);
+    }
+
+    private static void registerFermentationVatTests(RegisterGameTestsEvent event) {
+        var environment = event.registerEnvironment(Theurgy.loc("fermentation_vat"));
+        var structure = Theurgy.loc("fermentation_vat_test");
+
+        registerTest(event, FV_PLACEMENT, environment, structure, 40, 0);
+        registerTest(event, FV_FACING, environment, structure, 40, 0);
+        registerTest(event, FV_INSERT_INPUT, environment, structure, 40, 0);
+        registerTest(event, FV_INSERT_FLUID, environment, structure, 40, 0);
+        registerTest(event, FV_EXTRACT_OUTPUT, environment, structure, 40, 0);
+        registerTest(event, FV_LID_CLOSES, environment, structure, 40, 0);
+        registerTest(event, FV_HAS_OUTPUT_TRUE, environment, structure, 40, 0);
+        registerTest(event, FV_HAS_OUTPUT_FALSE, environment, structure, 40, 0);
+        registerTest(event, FV_DROPS_ITEMS, environment, structure, 40, 0);
     }
 
     private static void registerTest(

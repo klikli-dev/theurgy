@@ -61,9 +61,10 @@ import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLDedicatedServerSetupEvent;
 import net.neoforged.fml.loading.FMLEnvironment;
+import net.minecraft.client.renderer.block.FluidModel;
+import net.minecraft.client.resources.model.sprite.Material;
 import net.neoforged.neoforge.client.event.*;
-import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
-import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
+import net.neoforged.neoforge.client.fluid.FluidTintSources;
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
@@ -135,7 +136,7 @@ public class Theurgy {
             modEventBus.addListener(Client::onRegisterEntityRendererLayerDefinitions);
             modEventBus.addListener(Client::onRegisterEntityRenderers);
             modEventBus.addListener(TheurgySpecialModelRenderers::onRegisterSpecialModelRenderers);
-            modEventBus.addListener(Client::onRegisterClientExtensions);
+            modEventBus.addListener(Client::onRegisterFluidModels);
             modEventBus.addListener(Client::onRegisterItemColors);
             modEventBus.addListener(Client::onRegisterBlockColors);
             modEventBus.addListener(Client::onRegisterGuiOverlays);
@@ -297,9 +298,14 @@ public class Theurgy {
             event.register(Theurgy.loc("divination_distance"), DivinationDistanceProperty.MAP_CODEC);
         }
 
-        public static void onRegisterClientExtensions(RegisterClientExtensionsEvent event) {
-            event.registerFluidType(new IClientFluidTypeExtensions() {
-            }, FluidTypeRegistry.SAL_AMMONIAC.get());
+        public static void onRegisterFluidModels(RegisterFluidModelsEvent event) {
+            var salAmmoniac = FluidTypeRegistry.SAL_AMMONIAC.get();
+            event.register(new FluidModel.Unbaked(
+                    new Material(salAmmoniac.still),
+                    new Material(salAmmoniac.flowing),
+                    new Material(salAmmoniac.overlay),
+                    FluidTintSources.constant(salAmmoniac.tint)
+            ), FluidRegistry.SAL_AMMONIAC.get(), FluidRegistry.SAL_AMMONIAC_FLOWING.get());
         }
 
         public static void onRegisterItemColors(RegisterColorHandlersEvent.ItemTintSources event) {

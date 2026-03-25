@@ -24,6 +24,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
+import net.neoforged.neoforge.transfer.item.ItemResource;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -95,7 +96,7 @@ public class PyromanticBrazierBlockEntity extends BlockEntity {
         if (pFuel.isEmpty()) {
             return 0;
         } else {
-            return pFuel.getBurnTime(RecipeTypeRegistry.PYROMANTIC_BRAZIER.get(), null);
+            return pFuel.getBurnTime(RecipeTypeRegistry.PYROMANTIC_BRAZIER.get(), this.level.fuelValues());
         }
     }
 
@@ -175,6 +176,11 @@ public class PyromanticBrazierBlockEntity extends BlockEntity {
         @Override
         public boolean isItemValid(int slot, @NotNull ItemStack stack) {
             return PyromanticBrazierBlockEntity.this.getBurnDuration(stack) > 0;
+        }
+
+        @Override
+        public boolean isValid(int slot, ItemResource resource) {
+            return PyromanticBrazierBlockEntity.this.getBurnDuration(resource.toStack(1)) > 0;
         }
 
         @Override

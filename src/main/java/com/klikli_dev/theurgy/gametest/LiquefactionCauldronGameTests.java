@@ -269,8 +269,8 @@ public class LiquefactionCauldronGameTests {
 
             // Check solvent was partially drained (recipe uses 10mb out of 1000mb)
             helper.assertTrue(
-                    cauldron.storageBehaviour.solventTank.getFluidAmount() < 1000,
-                    "Solvent fluid should be partially consumed"
+                    cauldron.storageBehaviour.solventTank.getFluidAmount() == 990,
+                    "Solvent fluid should be consumed by 10mb, leaving 990mb"
             );
         });
     }

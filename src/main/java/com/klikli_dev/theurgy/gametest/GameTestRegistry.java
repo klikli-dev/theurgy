@@ -191,12 +191,66 @@ public class GameTestRegistry {
     public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> DISTILLER_DROPS_ITEMS_WHEN_BROKEN =
             TEST_FUNCTIONS.register("distiller_drops_items_when_broken", () -> DistillerGameTests::dropsItemsWhenBroken);
 
+    // --- Incubator ---
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> INCUBATOR_PLACEMENT =
+            TEST_FUNCTIONS.register("incubator_placement", () -> IncubatorGameTests::placementCreatesTwoBlockStructure);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> INCUBATOR_CONNECTION_STATES_DEFAULT_FALSE =
+            TEST_FUNCTIONS.register("incubator_connection_states_default_false", () -> IncubatorGameTests::connectionStatesDefaultFalse);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> INCUBATOR_BREAK_LOWER_DESTROYS_UPPER =
+            TEST_FUNCTIONS.register("incubator_break_lower_destroys_upper", () -> IncubatorGameTests::breakingLowerDestroysUpper);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> INCUBATOR_BREAK_UPPER_DESTROYS_LOWER =
+            TEST_FUNCTIONS.register("incubator_break_upper_destroys_lower", () -> IncubatorGameTests::breakingUpperDestroysLower);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> INCUBATOR_MERCURY_VESSEL_CONNECTION =
+            TEST_FUNCTIONS.register("incubator_mercury_vessel_connection", () -> IncubatorGameTests::placingMercuryVesselUpdatesConnection);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> INCUBATOR_SALT_VESSEL_CONNECTION =
+            TEST_FUNCTIONS.register("incubator_salt_vessel_connection", () -> IncubatorGameTests::placingSaltVesselUpdatesConnection);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> INCUBATOR_SULFUR_VESSEL_CONNECTION =
+            TEST_FUNCTIONS.register("incubator_sulfur_vessel_connection", () -> IncubatorGameTests::placingSulfurVesselUpdatesConnection);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> INCUBATOR_REMOVING_VESSEL_CONNECTION =
+            TEST_FUNCTIONS.register("incubator_removing_vessel_connection", () -> IncubatorGameTests::removingVesselUpdatesConnection);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> INCUBATOR_VALID_MULTIBLOCK =
+            TEST_FUNCTIONS.register("incubator_valid_multiblock", () -> IncubatorGameTests::allThreeVesselsCreateValidMultiblock);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> INCUBATOR_INSERT_MERCURY =
+            TEST_FUNCTIONS.register("incubator_insert_mercury", () -> IncubatorGameTests::insertMercuryItem);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> INCUBATOR_INSERT_SALT =
+            TEST_FUNCTIONS.register("incubator_insert_salt", () -> IncubatorGameTests::insertSaltItem);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> INCUBATOR_INSERT_SULFUR =
+            TEST_FUNCTIONS.register("incubator_insert_sulfur", () -> IncubatorGameTests::insertSulfurItem);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> INCUBATOR_EXTRACT_ITEMS =
+            TEST_FUNCTIONS.register("incubator_extract_items", () -> IncubatorGameTests::extractItemsFromVessels);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> INCUBATOR_PROCESSING_STARTS =
+            TEST_FUNCTIONS.register("incubator_processing_starts", () -> IncubatorGameTests::processingStartsWithHeatAndAllInputs);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> INCUBATOR_INPUTS_CONSUMED_OUTPUT_PRODUCED =
+            TEST_FUNCTIONS.register("incubator_inputs_consumed_output_produced", () -> IncubatorGameTests::inputsConsumedAndOutputProduced);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> INCUBATOR_EXTRACT_OUTPUT =
+            TEST_FUNCTIONS.register("incubator_extract_output", () -> IncubatorGameTests::extractOutputFromIncubator);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> INCUBATOR_STOPS_WITHOUT_HEAT =
+            TEST_FUNCTIONS.register("incubator_stops_without_heat", () -> IncubatorGameTests::processingStopsWhenHeatRemoved);
+
     public static void onRegisterGameTests(RegisterGameTestsEvent event) {
         registerMercuryCatalystTests(event);
         registerCalcinationOvenTests(event);
         registerPyromanticBrazierTests(event);
         registerLiquefactionCauldronTests(event);
         registerDistillerTests(event);
+        registerIncubatorTests(event);
     }
 
     private static void registerMercuryCatalystTests(RegisterGameTestsEvent event) {
@@ -280,6 +334,29 @@ public class GameTestRegistry {
         registerTest(event, DISTILLER_INPUT_CONSUMED_OUTPUT_PRODUCED, environment, structure, 300, 0);
         registerTest(event, DISTILLER_STOPS_WITHOUT_HEAT, environment, structure, 400, 0);
         registerTest(event, DISTILLER_DROPS_ITEMS_WHEN_BROKEN, environment, structure, 40, 0);
+    }
+
+    private static void registerIncubatorTests(RegisterGameTestsEvent event) {
+        var environment = event.registerEnvironment(Theurgy.loc("incubator"));
+        var structure = Theurgy.loc("incubator_test");
+
+        registerTest(event, INCUBATOR_PLACEMENT, environment, structure, 40, 0);
+        registerTest(event, INCUBATOR_CONNECTION_STATES_DEFAULT_FALSE, environment, structure, 40, 0);
+        registerTest(event, INCUBATOR_BREAK_LOWER_DESTROYS_UPPER, environment, structure, 40, 0);
+        registerTest(event, INCUBATOR_BREAK_UPPER_DESTROYS_LOWER, environment, structure, 40, 0);
+        registerTest(event, INCUBATOR_MERCURY_VESSEL_CONNECTION, environment, structure, 40, 0);
+        registerTest(event, INCUBATOR_SALT_VESSEL_CONNECTION, environment, structure, 40, 0);
+        registerTest(event, INCUBATOR_SULFUR_VESSEL_CONNECTION, environment, structure, 40, 0);
+        registerTest(event, INCUBATOR_REMOVING_VESSEL_CONNECTION, environment, structure, 40, 0);
+        registerTest(event, INCUBATOR_VALID_MULTIBLOCK, environment, structure, 40, 0);
+        registerTest(event, INCUBATOR_INSERT_MERCURY, environment, structure, 40, 0);
+        registerTest(event, INCUBATOR_INSERT_SALT, environment, structure, 40, 0);
+        registerTest(event, INCUBATOR_INSERT_SULFUR, environment, structure, 40, 0);
+        registerTest(event, INCUBATOR_EXTRACT_ITEMS, environment, structure, 40, 0);
+        registerTest(event, INCUBATOR_PROCESSING_STARTS, environment, structure, 200, 0);
+        registerTest(event, INCUBATOR_INPUTS_CONSUMED_OUTPUT_PRODUCED, environment, structure, 300, 0);
+        registerTest(event, INCUBATOR_EXTRACT_OUTPUT, environment, structure, 40, 0);
+        registerTest(event, INCUBATOR_STOPS_WITHOUT_HEAT, environment, structure, 400, 0);
     }
 
     private static void registerTest(

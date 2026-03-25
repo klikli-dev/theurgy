@@ -7,6 +7,7 @@ package com.klikli_dev.theurgy;
 import com.klikli_dev.theurgy.config.ClientConfig;
 import com.klikli_dev.theurgy.config.CommonConfig;
 import com.klikli_dev.theurgy.config.ServerConfig;
+import com.klikli_dev.theurgy.gametest.GameTestRegistry;
 import com.klikli_dev.theurgy.content.apparatus.calcinationoven.render.CalcinationOvenRenderer;
 import com.klikli_dev.theurgy.content.apparatus.digestionvat.DigestionVatRenderer;
 import com.klikli_dev.theurgy.content.apparatus.distiller.render.DistillerRenderer;
@@ -110,6 +111,7 @@ public class Theurgy {
         RecipeDisplayRegistry.RECIPE_DISPLAYS.register(modEventBus);
         DataComponentRegistry.DATA_COMPONENTS.register(modEventBus);
         MenuTypeRegistry.MENU_TYPES.register(modEventBus);
+        GameTestRegistry.TEST_FUNCTIONS.register(modEventBus);
 
         modEventBus.addListener(this::onCommonSetup);
         modEventBus.addListener(this::onServerSetup);
@@ -122,6 +124,7 @@ public class Theurgy {
         modEventBus.addListener(NiterRegistry::onBuildCreativeModTabs);
         modEventBus.addListener(SaltRegistry::onBuildCreativeModTabs);
         modEventBus.addListener(CapabilityRegistry::onRegisterCapabilities);
+        modEventBus.addListener(GameTestRegistry::onRegisterGameTests);
 
         NeoForge.EVENT_BUS.addListener(TooltipHandler::onItemTooltipEvent);
         NeoForge.EVENT_BUS.addListener(Logistics::onLevelUnload);

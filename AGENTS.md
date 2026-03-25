@@ -20,6 +20,7 @@
   - `./gradlew.bat runClient`
   - `./gradlew.bat runServer`
   - `./gradlew.bat runClientData`
+  - `./gradlew.bat runGameTestServer`
 - Keep changes minimal and validate edited code before finishing.
 
 ## Repo conventions

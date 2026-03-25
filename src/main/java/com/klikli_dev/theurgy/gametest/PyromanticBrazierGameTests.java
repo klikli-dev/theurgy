@@ -12,6 +12,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 public class PyromanticBrazierGameTests {
@@ -118,19 +119,17 @@ public class PyromanticBrazierGameTests {
     // --- Heat Provision ---
 
     /**
-     * Tests that the brazier provides heat to an adjacent Calcination Oven placed above it.
-     * The HeatConsumerBehaviour checks for a HEAT_PROVIDER capability on the block below.
+     * Helper method that tests the brazier provides heat to a given block placed above it.
      */
-    public static void providesHeatToCalcinationOven(GameTestHelper helper) {
+    private static void testProvidesHeatTo(GameTestHelper helper, Block blockToHeat, String blockName) {
         helper.setBlock(BRAZIER_POS, BlockRegistry.PYROMANTIC_BRAZIER.get());
-        helper.setBlock(ABOVE_BRAZIER_POS, BlockRegistry.CALCINATION_OVEN.get());
+        helper.setBlock(ABOVE_BRAZIER_POS, blockToHeat);
 
         helper.runAfterDelay(1, () -> {
             var blockEntity = helper.getBlockEntity(BRAZIER_POS, PyromanticBrazierBlockEntity.class);
             blockEntity.inventory.setStackInSlot(0, new ItemStack(Items.COAL, 64));
         });
 
-        // Wait for heat check interval (20 ticks) + some buffer
         helper.succeedWhen(() -> {
             var heatProvider = helper.getLevel().getCapability(
                     CapabilityRegistry.HEAT_PROVIDER,
@@ -139,59 +138,30 @@ public class PyromanticBrazierGameTests {
             );
             helper.assertTrue(
                     heatProvider != null && heatProvider.isHot(),
-                    "Brazier should provide heat when lit"
+                    "Brazier should provide heat to " + blockName + " when lit"
             );
         });
+    }
+
+    /**
+     * Tests that the brazier provides heat to an adjacent Calcination Oven placed above it.
+     */
+    public static void providesHeatToCalcinationOven(GameTestHelper helper) {
+        testProvidesHeatTo(helper, BlockRegistry.CALCINATION_OVEN.get(), "calcination oven");
     }
 
     /**
      * Tests that the brazier provides heat to an adjacent Liquefaction Cauldron placed above it.
      */
     public static void providesHeatToLiquefactionCauldron(GameTestHelper helper) {
-        helper.setBlock(BRAZIER_POS, BlockRegistry.PYROMANTIC_BRAZIER.get());
-        helper.setBlock(ABOVE_BRAZIER_POS, BlockRegistry.LIQUEFACTION_CAULDRON.get());
-
-        helper.runAfterDelay(1, () -> {
-            var blockEntity = helper.getBlockEntity(BRAZIER_POS, PyromanticBrazierBlockEntity.class);
-            blockEntity.inventory.setStackInSlot(0, new ItemStack(Items.COAL, 64));
-        });
-
-        helper.succeedWhen(() -> {
-            var heatProvider = helper.getLevel().getCapability(
-                    CapabilityRegistry.HEAT_PROVIDER,
-                    helper.absolutePos(BRAZIER_POS),
-                    Direction.UP
-            );
-            helper.assertTrue(
-                    heatProvider != null && heatProvider.isHot(),
-                    "Brazier should provide heat to liquefaction cauldron when lit"
-            );
-        });
+        testProvidesHeatTo(helper, BlockRegistry.LIQUEFACTION_CAULDRON.get(), "liquefaction cauldron");
     }
 
     /**
      * Tests that the brazier provides heat to an adjacent Distiller placed above it.
      */
     public static void providesHeatToDistiller(GameTestHelper helper) {
-        helper.setBlock(BRAZIER_POS, BlockRegistry.PYROMANTIC_BRAZIER.get());
-        helper.setBlock(ABOVE_BRAZIER_POS, BlockRegistry.DISTILLER.get());
-
-        helper.runAfterDelay(1, () -> {
-            var blockEntity = helper.getBlockEntity(BRAZIER_POS, PyromanticBrazierBlockEntity.class);
-            blockEntity.inventory.setStackInSlot(0, new ItemStack(Items.COAL, 64));
-        });
-
-        helper.succeedWhen(() -> {
-            var heatProvider = helper.getLevel().getCapability(
-                    CapabilityRegistry.HEAT_PROVIDER,
-                    helper.absolutePos(BRAZIER_POS),
-                    Direction.UP
-            );
-            helper.assertTrue(
-                    heatProvider != null && heatProvider.isHot(),
-                    "Brazier should provide heat to distiller when lit"
-            );
-        });
+        testProvidesHeatTo(helper, BlockRegistry.DISTILLER.get(), "distiller");
     }
 
     /**
@@ -217,6 +187,17 @@ public class PyromanticBrazierGameTests {
             );
             // Then verify the brazier is no longer lit
             helper.assertBlockProperty(BRAZIER_POS, BlockStateProperties.LIT, false);
+
+            // Finally, verify it's not providing heat
+            var heatProvider = helper.getLevel().getCapability(
+                    CapabilityRegistry.HEAT_PROVIDER,
+                    helper.absolutePos(BRAZIER_POS),
+                    Direction.UP
+            );
+            helper.assertTrue(
+                    heatProvider != null && !heatProvider.isHot(),
+                    "Brazier should stop providing heat when fuel runs out"
+            );
         });
     }
 }

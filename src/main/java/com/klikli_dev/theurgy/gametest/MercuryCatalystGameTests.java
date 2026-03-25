@@ -68,9 +68,10 @@ public class MercuryCatalystGameTests {
     }
 
     /**
-     * Tests that the Mercury Catalyst does not process when disabled via redstone (ENABLED = false).
+     * Tests that the Mercury Catalyst still generates flux internally when disabled (e.g. by redstone),
+     * even though it does not push it to neighbors.
      */
-    public static void disabledCatalystDoesNotPushFlux(GameTestHelper helper) {
+    public static void disabledCatalystStillGeneratesFlux(GameTestHelper helper) {
         helper.setBlock(CATALYST_POS, BlockRegistry.MERCURY_CATALYST.get()
                 .defaultBlockState().setValue(BlockStateProperties.ENABLED, false));
 

@@ -156,11 +156,47 @@ public class GameTestRegistry {
     public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> BRAZIER_DROPS_ITEMS_WHEN_BROKEN =
             TEST_FUNCTIONS.register("pyromantic_brazier_drops_items_when_broken", () -> PyromanticBrazierGameTests::dropsItemsWhenBroken);
 
+    // --- Distiller ---
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> DISTILLER_PLACEMENT =
+            TEST_FUNCTIONS.register("distiller_placement", () -> DistillerGameTests::placementCreatesTwoBlockStructure);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> DISTILLER_BE_ONLY_LOWER =
+            TEST_FUNCTIONS.register("distiller_be_only_lower", () -> DistillerGameTests::blockEntityOnlyOnLowerHalf);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> DISTILLER_BREAK_LOWER_DESTROYS_UPPER =
+            TEST_FUNCTIONS.register("distiller_break_lower_destroys_upper", () -> DistillerGameTests::breakingLowerDestroysUpper);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> DISTILLER_BREAK_UPPER_DESTROYS_LOWER =
+            TEST_FUNCTIONS.register("distiller_break_upper_destroys_lower", () -> DistillerGameTests::breakingUpperDestroysLower);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> DISTILLER_INSERT_INPUT =
+            TEST_FUNCTIONS.register("distiller_insert_input", () -> DistillerGameTests::insertInputItem);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> DISTILLER_EXTRACT_OUTPUT =
+            TEST_FUNCTIONS.register("distiller_extract_output", () -> DistillerGameTests::extractOutputItem);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> DISTILLER_PROCESSING_STARTS =
+            TEST_FUNCTIONS.register("distiller_processing_starts", () -> DistillerGameTests::processingStartsWithHeatAndInput);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> DISTILLER_LIT_DURING_PROCESSING =
+            TEST_FUNCTIONS.register("distiller_lit_during_processing", () -> DistillerGameTests::litStateTrueDuringProcessing);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> DISTILLER_INPUT_CONSUMED_OUTPUT_PRODUCED =
+            TEST_FUNCTIONS.register("distiller_input_consumed_output_produced", () -> DistillerGameTests::inputConsumedAndOutputProduced);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> DISTILLER_STOPS_WITHOUT_HEAT =
+            TEST_FUNCTIONS.register("distiller_stops_without_heat", () -> DistillerGameTests::processingStopsWhenHeatRemoved);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> DISTILLER_DROPS_ITEMS_WHEN_BROKEN =
+            TEST_FUNCTIONS.register("distiller_drops_items_when_broken", () -> DistillerGameTests::dropsItemsWhenBroken);
+
     public static void onRegisterGameTests(RegisterGameTestsEvent event) {
         registerMercuryCatalystTests(event);
         registerCalcinationOvenTests(event);
         registerPyromanticBrazierTests(event);
         registerLiquefactionCauldronTests(event);
+        registerDistillerTests(event);
     }
 
     private static void registerMercuryCatalystTests(RegisterGameTestsEvent event) {
@@ -227,6 +263,23 @@ public class GameTestRegistry {
         registerTest(event, BRAZIER_STOPS_HEAT_NO_FUEL, environment, structure, 300, 0);
         registerTest(event, BRAZIER_REMOVE_FUEL, environment, structure, 40, 0);
         registerTest(event, BRAZIER_DROPS_ITEMS_WHEN_BROKEN, environment, structure, 40, 0);
+    }
+
+    private static void registerDistillerTests(RegisterGameTestsEvent event) {
+        var environment = event.registerEnvironment(Theurgy.loc("distiller"));
+        var structure = Theurgy.loc("distiller_test");
+
+        registerTest(event, DISTILLER_PLACEMENT, environment, structure, 40, 0);
+        registerTest(event, DISTILLER_BE_ONLY_LOWER, environment, structure, 40, 0);
+        registerTest(event, DISTILLER_BREAK_LOWER_DESTROYS_UPPER, environment, structure, 40, 0);
+        registerTest(event, DISTILLER_BREAK_UPPER_DESTROYS_LOWER, environment, structure, 40, 0);
+        registerTest(event, DISTILLER_INSERT_INPUT, environment, structure, 100, 0);
+        registerTest(event, DISTILLER_EXTRACT_OUTPUT, environment, structure, 100, 0);
+        registerTest(event, DISTILLER_PROCESSING_STARTS, environment, structure, 200, 0);
+        registerTest(event, DISTILLER_LIT_DURING_PROCESSING, environment, structure, 200, 0);
+        registerTest(event, DISTILLER_INPUT_CONSUMED_OUTPUT_PRODUCED, environment, structure, 300, 0);
+        registerTest(event, DISTILLER_STOPS_WITHOUT_HEAT, environment, structure, 400, 0);
+        registerTest(event, DISTILLER_DROPS_ITEMS_WHEN_BROKEN, environment, structure, 40, 0);
     }
 
     private static void registerTest(

@@ -273,6 +273,102 @@ public class GameTestRegistry {
     public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> FV_DROPS_ITEMS =
             TEST_FUNCTIONS.register("fermentation_vat_drops_items", () -> FermentationVatGameTests::dropsItemsWhenBroken);
 
+    // --- Digestion Vat ---
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> DV_PLACEMENT =
+            TEST_FUNCTIONS.register("digestion_vat_placement", () -> DigestionVatGameTests::placementAndDefaultState);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> DV_FACING =
+            TEST_FUNCTIONS.register("digestion_vat_facing", () -> DigestionVatGameTests::placementWithFacing);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> DV_INSERT_INPUT =
+            TEST_FUNCTIONS.register("digestion_vat_insert_input", () -> DigestionVatGameTests::insertInputItem);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> DV_INSERT_FLUID =
+            TEST_FUNCTIONS.register("digestion_vat_insert_fluid", () -> DigestionVatGameTests::insertFluid);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> DV_EXTRACT_OUTPUT =
+            TEST_FUNCTIONS.register("digestion_vat_extract_output", () -> DigestionVatGameTests::extractOutputItem);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> DV_LID_CLOSES =
+            TEST_FUNCTIONS.register("digestion_vat_lid_closes", () -> DigestionVatGameTests::lidClosesWhenProcessingStarts);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> DV_DROPS_ITEMS =
+            TEST_FUNCTIONS.register("digestion_vat_drops_items", () -> DigestionVatGameTests::dropsItemsWhenBroken);
+
+    // --- Sal Ammoniac Accumulator ---
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> SAA_PLACEMENT =
+            TEST_FUNCTIONS.register("sal_ammoniac_accumulator_placement", () -> SalAmmoniacAccumulatorGameTests::placementAndDefaultState);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> SAA_INSERT_ITEM =
+            TEST_FUNCTIONS.register("sal_ammoniac_accumulator_insert_item", () -> SalAmmoniacAccumulatorGameTests::insertSalAmmoniacItem);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> SAA_INSERT_WATER =
+            TEST_FUNCTIONS.register("sal_ammoniac_accumulator_insert_water", () -> SalAmmoniacAccumulatorGameTests::insertWater);
+
+    // --- Sal Ammoniac Tank ---
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> SAT_PLACEMENT =
+            TEST_FUNCTIONS.register("sal_ammoniac_tank_placement", () -> SalAmmoniacTankGameTests::placementAndDefaultState);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> SAT_INSERT_FLUID =
+            TEST_FUNCTIONS.register("sal_ammoniac_tank_insert_fluid", () -> SalAmmoniacTankGameTests::insertSalAmmoniacFluid);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> SAT_EXTRACT_FLUID =
+            TEST_FUNCTIONS.register("sal_ammoniac_tank_extract_fluid", () -> SalAmmoniacTankGameTests::extractSalAmmoniacFluid);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> SAT_PERSISTENCE =
+            TEST_FUNCTIONS.register("sal_ammoniac_tank_persistence", () -> SalAmmoniacTankGameTests::fluidPersistence);
+
+    // --- Caloric Flux Emitter ---
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> CFE_PLACEMENT =
+            TEST_FUNCTIONS.register("caloric_flux_emitter_placement", () -> CaloricFluxEmitterGameTests::placementWithFacing);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> CFE_ENABLED =
+            TEST_FUNCTIONS.register("caloric_flux_emitter_enabled", () -> CaloricFluxEmitterGameTests::defaultEnabledState);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> CFE_REDSTONE =
+            TEST_FUNCTIONS.register("caloric_flux_emitter_redstone", () -> CaloricFluxEmitterGameTests::redstoneDisablesEmitter);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> CFE_ENERGY =
+            TEST_FUNCTIONS.register("caloric_flux_emitter_energy", () -> CaloricFluxEmitterGameTests::hasEnergyStorage);
+
+    // --- Reformation Pedestals ---
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> RP_SOURCE_PLACEMENT =
+            TEST_FUNCTIONS.register("reformation_source_placement", () -> ReformationPedestalGameTests::sourcePlacementAndDefaultState);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> RP_SOURCE_INSERT =
+            TEST_FUNCTIONS.register("reformation_source_insert", () -> ReformationPedestalGameTests::sourceInsertItem);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> RP_SOURCE_EXTRACT =
+            TEST_FUNCTIONS.register("reformation_source_extract", () -> ReformationPedestalGameTests::sourceExtractItem);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> RP_TARGET_PLACEMENT =
+            TEST_FUNCTIONS.register("reformation_target_placement", () -> ReformationPedestalGameTests::targetPlacementAndDefaultState);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> RP_TARGET_INSERT =
+            TEST_FUNCTIONS.register("reformation_target_insert", () -> ReformationPedestalGameTests::targetInsertItem);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> RP_RESULT_PLACEMENT =
+            TEST_FUNCTIONS.register("reformation_result_placement", () -> ReformationPedestalGameTests::resultPlacementAndDefaultState);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> RP_RESULT_EXTRACT =
+            TEST_FUNCTIONS.register("reformation_result_extract", () -> ReformationPedestalGameTests::resultExtractItem);
+
+    // --- Logistics ---
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> LOG_NODE_PLACEMENT =
+            TEST_FUNCTIONS.register("logistics_node_placement", () -> LogisticsGameTests::connectionNodePlacement);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> LOG_INSERTER_PLACEMENT =
+            TEST_FUNCTIONS.register("logistics_inserter_placement", () -> LogisticsGameTests::itemInserterPlacement);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> LOG_EXTRACTOR_PLACEMENT =
+            TEST_FUNCTIONS.register("logistics_extractor_placement", () -> LogisticsGameTests::itemExtractorPlacement);
+
     public static void onRegisterGameTests(RegisterGameTestsEvent event) {
         registerMercuryCatalystTests(event);
         registerCalcinationOvenTests(event);
@@ -281,6 +377,12 @@ public class GameTestRegistry {
         registerDistillerTests(event);
         registerIncubatorTests(event);
         registerFermentationVatTests(event);
+        registerDigestionVatTests(event);
+        registerSalAmmoniacAccumulatorTests(event);
+        registerSalAmmoniacTankTests(event);
+        registerCaloricFluxEmitterTests(event);
+        registerReformationPedestalTests(event);
+        registerLogisticsTests(event);
     }
 
     private static void registerMercuryCatalystTests(RegisterGameTestsEvent event) {
@@ -402,6 +504,70 @@ public class GameTestRegistry {
         registerTest(event, FV_HAS_OUTPUT_TRUE, environment, structure, 40, 0);
         registerTest(event, FV_HAS_OUTPUT_FALSE, environment, structure, 40, 0);
         registerTest(event, FV_DROPS_ITEMS, environment, structure, 40, 0);
+    }
+
+    private static void registerDigestionVatTests(RegisterGameTestsEvent event) {
+        var environment = event.registerEnvironment(Theurgy.loc("digestion_vat"));
+        var structure = Theurgy.loc("digestion_vat_test");
+
+        registerTest(event, DV_PLACEMENT, environment, structure, 40, 0);
+        registerTest(event, DV_FACING, environment, structure, 40, 0);
+        registerTest(event, DV_INSERT_INPUT, environment, structure, 40, 0);
+        registerTest(event, DV_INSERT_FLUID, environment, structure, 40, 0);
+        registerTest(event, DV_EXTRACT_OUTPUT, environment, structure, 40, 0);
+        registerTest(event, DV_LID_CLOSES, environment, structure, 40, 0);
+        registerTest(event, DV_DROPS_ITEMS, environment, structure, 40, 0);
+    }
+
+    private static void registerSalAmmoniacAccumulatorTests(RegisterGameTestsEvent event) {
+        var environment = event.registerEnvironment(Theurgy.loc("sal_ammoniac_accumulator"));
+        var structure = Theurgy.loc("sal_ammoniac_accumulator_test");
+
+        registerTest(event, SAA_PLACEMENT, environment, structure, 40, 0);
+        registerTest(event, SAA_INSERT_ITEM, environment, structure, 40, 0);
+        registerTest(event, SAA_INSERT_WATER, environment, structure, 40, 0);
+    }
+
+    private static void registerSalAmmoniacTankTests(RegisterGameTestsEvent event) {
+        var environment = event.registerEnvironment(Theurgy.loc("sal_ammoniac_tank"));
+        var structure = Theurgy.loc("sal_ammoniac_tank_test");
+
+        registerTest(event, SAT_PLACEMENT, environment, structure, 40, 0);
+        registerTest(event, SAT_INSERT_FLUID, environment, structure, 40, 0);
+        registerTest(event, SAT_EXTRACT_FLUID, environment, structure, 40, 0);
+        registerTest(event, SAT_PERSISTENCE, environment, structure, 40, 0);
+    }
+
+    private static void registerCaloricFluxEmitterTests(RegisterGameTestsEvent event) {
+        var environment = event.registerEnvironment(Theurgy.loc("caloric_flux_emitter"));
+        var structure = Theurgy.loc("caloric_flux_emitter_test");
+
+        registerTest(event, CFE_PLACEMENT, environment, structure, 40, 0);
+        registerTest(event, CFE_ENABLED, environment, structure, 40, 0);
+        registerTest(event, CFE_REDSTONE, environment, structure, 40, 0);
+        registerTest(event, CFE_ENERGY, environment, structure, 40, 0);
+    }
+
+    private static void registerReformationPedestalTests(RegisterGameTestsEvent event) {
+        var environment = event.registerEnvironment(Theurgy.loc("reformation_pedestal"));
+        var structure = Theurgy.loc("reformation_pedestal_test");
+
+        registerTest(event, RP_SOURCE_PLACEMENT, environment, structure, 40, 0);
+        registerTest(event, RP_SOURCE_INSERT, environment, structure, 40, 0);
+        registerTest(event, RP_SOURCE_EXTRACT, environment, structure, 40, 0);
+        registerTest(event, RP_TARGET_PLACEMENT, environment, structure, 40, 0);
+        registerTest(event, RP_TARGET_INSERT, environment, structure, 40, 0);
+        registerTest(event, RP_RESULT_PLACEMENT, environment, structure, 40, 0);
+        registerTest(event, RP_RESULT_EXTRACT, environment, structure, 40, 0);
+    }
+
+    private static void registerLogisticsTests(RegisterGameTestsEvent event) {
+        var environment = event.registerEnvironment(Theurgy.loc("logistics"));
+        var structure = Theurgy.loc("logistics_test");
+
+        registerTest(event, LOG_NODE_PLACEMENT, environment, structure, 40, 0);
+        registerTest(event, LOG_INSERTER_PLACEMENT, environment, structure, 40, 0);
+        registerTest(event, LOG_EXTRACTOR_PLACEMENT, environment, structure, 40, 0);
     }
 
     private static void registerTest(

@@ -179,8 +179,8 @@ public class PyromanticBrazierBlockEntity extends BlockEntity {
         }
 
         @Override
-        public boolean isValid(int slot, ItemResource resource) {
-            return PyromanticBrazierBlockEntity.this.getBurnDuration(resource.toStack(1)) > 0;
+        public boolean isValid(int index, ItemResource resource) {
+            return this.isItemValid(index, resource.toStack(1));
         }
 
         @Override

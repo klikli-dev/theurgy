@@ -22,6 +22,8 @@ public class GameTestRegistry {
     public static final DeferredRegister<Consumer<GameTestHelper>> TEST_FUNCTIONS =
             DeferredRegister.create(BuiltInRegistries.TEST_FUNCTION, Theurgy.MODID);
 
+    // --- Mercury Catalyst ---
+
     public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> PLACEMENT_AND_DEFAULT_STATE =
             TEST_FUNCTIONS.register("mercury_catalyst_placement", () -> MercuryCatalystGameTests::placementAndDefaultState);
 
@@ -63,9 +65,45 @@ public class GameTestRegistry {
     public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> BRAZIER_STOPS_HEAT_NO_FUEL =
             TEST_FUNCTIONS.register("pyromantic_brazier_stops_heat_no_fuel", () -> PyromanticBrazierGameTests::stopsProvidingHeatWhenFuelRunsOut);
 
+    // --- Calcination Oven ---
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> OVEN_PLACEMENT =
+            TEST_FUNCTIONS.register("calcination_oven_placement", () -> CalcinationOvenGameTests::placementCreatesTwoBlockStructure);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> OVEN_BE_ONLY_LOWER =
+            TEST_FUNCTIONS.register("calcination_oven_be_only_lower", () -> CalcinationOvenGameTests::blockEntityOnlyOnLowerHalf);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> OVEN_BREAK_LOWER_DESTROYS_UPPER =
+            TEST_FUNCTIONS.register("calcination_oven_break_lower_destroys_upper", () -> CalcinationOvenGameTests::breakingLowerDestroysUpper);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> OVEN_BREAK_UPPER_DESTROYS_LOWER =
+            TEST_FUNCTIONS.register("calcination_oven_break_upper_destroys_lower", () -> CalcinationOvenGameTests::breakingUpperDestroysLower);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> OVEN_INSERT_INPUT =
+            TEST_FUNCTIONS.register("calcination_oven_insert_input", () -> CalcinationOvenGameTests::insertInputItem);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> OVEN_EXTRACT_OUTPUT =
+            TEST_FUNCTIONS.register("calcination_oven_extract_output", () -> CalcinationOvenGameTests::extractOutputItem);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> OVEN_PROCESSING_STARTS =
+            TEST_FUNCTIONS.register("calcination_oven_processing_starts", () -> CalcinationOvenGameTests::processingStartsWithHeatAndInput);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> OVEN_LIT_DURING_PROCESSING =
+            TEST_FUNCTIONS.register("calcination_oven_lit_during_processing", () -> CalcinationOvenGameTests::litStateTrueDuringProcessing);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> OVEN_INPUT_CONSUMED_OUTPUT_PRODUCED =
+            TEST_FUNCTIONS.register("calcination_oven_input_consumed_output_produced", () -> CalcinationOvenGameTests::inputConsumedAndOutputProduced);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> OVEN_STOPS_WITHOUT_HEAT =
+            TEST_FUNCTIONS.register("calcination_oven_stops_without_heat", () -> CalcinationOvenGameTests::processingStopsWhenHeatRemoved);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> OVEN_STOPS_WITHOUT_INPUT =
+            TEST_FUNCTIONS.register("calcination_oven_stops_without_input", () -> CalcinationOvenGameTests::processingStopsWhenInputEmpty);
+
     public static void onRegisterGameTests(RegisterGameTestsEvent event) {
         registerMercuryCatalystTests(event);
         registerPyromanticBrazierTests(event);
+        registerCalcinationOvenTests(event);
     }
 
     private static void registerMercuryCatalystTests(RegisterGameTestsEvent event) {
@@ -91,6 +129,23 @@ public class GameTestRegistry {
         registerTest(event, BRAZIER_HEAT_LIQUEFACTION_CAULDRON, environment, structure, 100, 0);
         registerTest(event, BRAZIER_HEAT_DISTILLER, environment, structure, 100, 0);
         registerTest(event, BRAZIER_STOPS_HEAT_NO_FUEL, environment, structure, 300, 0);
+    }
+
+    private static void registerCalcinationOvenTests(RegisterGameTestsEvent event) {
+        var environment = event.registerEnvironment(Theurgy.loc("calcination_oven"));
+        var structure = Theurgy.loc("calcination_oven_test");
+
+        registerTest(event, OVEN_PLACEMENT, environment, structure, 40, 0);
+        registerTest(event, OVEN_BE_ONLY_LOWER, environment, structure, 40, 0);
+        registerTest(event, OVEN_BREAK_LOWER_DESTROYS_UPPER, environment, structure, 40, 0);
+        registerTest(event, OVEN_BREAK_UPPER_DESTROYS_LOWER, environment, structure, 40, 0);
+        registerTest(event, OVEN_INSERT_INPUT, environment, structure, 100, 0);
+        registerTest(event, OVEN_EXTRACT_OUTPUT, environment, structure, 100, 0);
+        registerTest(event, OVEN_PROCESSING_STARTS, environment, structure, 200, 0);
+        registerTest(event, OVEN_LIT_DURING_PROCESSING, environment, structure, 200, 0);
+        registerTest(event, OVEN_INPUT_CONSUMED_OUTPUT_PRODUCED, environment, structure, 300, 0);
+        registerTest(event, OVEN_STOPS_WITHOUT_HEAT, environment, structure, 400, 0);
+        registerTest(event, OVEN_STOPS_WITHOUT_INPUT, environment, structure, 300, 0);
     }
 
     private static void registerTest(

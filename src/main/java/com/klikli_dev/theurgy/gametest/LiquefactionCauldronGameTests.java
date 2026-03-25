@@ -231,9 +231,9 @@ public class LiquefactionCauldronGameTests {
 
         helper.runAfterDelay(2, () -> {
             // Simulate right-click with a bucket to extract fluid
-            var player = helper.createMockPlayer(GameType.SURVIVAL);
+            var player = helper.makeMockPlayer(GameType.SURVIVAL);
             player.getInventory().setItem(0, new ItemStack(Items.BUCKET));
-            helper.useBlock(player, CAULDRON_LOWER_POS);
+            helper.useBlock( helper.relativePos(CAULDRON_LOWER_POS), player);
         });
 
         helper.succeedWhen(() -> {

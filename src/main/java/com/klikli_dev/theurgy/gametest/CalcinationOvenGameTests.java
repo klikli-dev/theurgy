@@ -12,7 +12,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 
@@ -32,19 +31,9 @@ public class CalcinationOvenGameTests {
      * with the correct default states (LIT=false, correct HALF values).
      */
     public static void placementCreatesTwoBlockStructure(GameTestHelper helper) {
-        // Ensure space above is clear
-        helper.setBlock(OVEN_LOWER_POS, Blocks.AIR);
-        helper.setBlock(OVEN_UPPER_POS, Blocks.AIR);
-
-        helper.setBlock(OVEN_LOWER_POS, BlockRegistry.CALCINATION_OVEN.get());
+        placeOven(helper);
 
         helper.runAfterDelay(1, () -> {
-            // Simulate setPlacedBy which places the upper half
-            var level = helper.getLevel();
-            var absPos = helper.absolutePos(OVEN_LOWER_POS);
-            var lowerState = level.getBlockState(absPos);
-            level.setBlock(absPos.above(), lowerState.setValue(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.UPPER), 3);
-
             helper.assertBlockPresent(BlockRegistry.CALCINATION_OVEN.get(), OVEN_LOWER_POS);
             helper.assertBlockPresent(BlockRegistry.CALCINATION_OVEN.get(), OVEN_UPPER_POS);
             helper.assertBlockProperty(OVEN_LOWER_POS, BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.LOWER);
@@ -85,9 +74,8 @@ public class CalcinationOvenGameTests {
             helper.destroyBlock(OVEN_LOWER_POS);
         });
 
-        helper.runAfterDelay(3, () -> {
+        helper.succeedWhen(() -> {
             helper.assertBlockNotPresent(BlockRegistry.CALCINATION_OVEN.get(), OVEN_UPPER_POS);
-            helper.succeed();
         });
     }
 
@@ -101,9 +89,8 @@ public class CalcinationOvenGameTests {
             helper.destroyBlock(OVEN_UPPER_POS);
         });
 
-        helper.runAfterDelay(3, () -> {
+        helper.succeedWhen(() -> {
             helper.assertBlockNotPresent(BlockRegistry.CALCINATION_OVEN.get(), OVEN_LOWER_POS);
-            helper.succeed();
         });
     }
 

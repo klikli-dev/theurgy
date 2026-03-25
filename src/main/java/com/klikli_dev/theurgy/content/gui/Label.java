@@ -6,7 +6,7 @@ package com.klikli_dev.theurgy.content.gui;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.util.ARGB;
@@ -72,7 +72,7 @@ public class Label extends AbstractButton {
     }
 
     @Override
-    protected void renderWidget(@NotNull GuiGraphics pGuiGraphics, int pMouseX, int pMouseY, float pPartialTick) {
+    protected void extractWidgetRenderState(@NotNull GuiGraphicsExtractor pGuiGraphics, int pMouseX, int pMouseY, float pPartialTick) {
         if (this.text == null || this.text.getString().isEmpty())
             return;
 
@@ -80,6 +80,6 @@ public class Label extends AbstractButton {
         if (this.suffix != null && !this.suffix.isEmpty())
             copy.append(this.suffix);
 
-        pGuiGraphics.drawString(this.font, copy, this.getX(), this.getY(), ARGB.opaque(this.color), this.hasShadow);
+        pGuiGraphics.text(this.font, copy, this.getX(), this.getY(), ARGB.opaque(this.color), this.hasShadow);
     }
 }

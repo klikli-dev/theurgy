@@ -11,7 +11,7 @@ import com.klikli_dev.theurgy.config.ClientConfig;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
 import net.neoforged.neoforge.client.gui.GuiLayer;
 import org.joml.Matrix3x2fStack;
@@ -30,7 +30,7 @@ public class ItemHUD implements GuiLayer {
     }
 
     @Override
-    public void render(GuiGraphics guiGraphics, DeltaTracker deltaTracker) {
+    public void render(GuiGraphicsExtractor guiGraphics, DeltaTracker deltaTracker) {
         var minecraft = Minecraft.getInstance();
         if (minecraft.options.hideGui || minecraft.player == null || minecraft.player.isSpectator() || !ClientConfig.get().rendering.enableItemHUD.get())
             return;
@@ -59,7 +59,7 @@ public class ItemHUD implements GuiLayer {
 
         for (Component text : hudTexts) {
             int x = 2;
-            guiGraphics.drawString(font, text, x, y, 0xFFC8C8C8);
+            guiGraphics.text(font, text, x, y, 0xFFC8C8C8);
             y += 9;
         }
 

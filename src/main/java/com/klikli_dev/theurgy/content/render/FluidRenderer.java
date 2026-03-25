@@ -20,7 +20,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
+import com.klikli_dev.theurgy.content.fluid.SolventFluidType;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.FluidType;
 import org.jetbrains.annotations.NotNull;
@@ -31,12 +31,12 @@ import org.jetbrains.annotations.NotNull;
 public class FluidRenderer {
 
     public static TextureAtlasSprite getFluidTexture(@NotNull FluidStack fluidStack, @NotNull FluidTextureType type) {
-        IClientFluidTypeExtensions properties = IClientFluidTypeExtensions.of(fluidStack.getFluid());
+        FluidType fluidType = fluidStack.getFluid().getFluidType();
         Identifier spriteLocation;
-        if (type == FluidTextureType.STILL) {
-            spriteLocation = properties.getStillTexture(fluidStack);
+        if (fluidType instanceof SolventFluidType solventFluidType) {
+            spriteLocation = type == FluidTextureType.STILL ? solventFluidType.still : solventFluidType.flowing;
         } else {
-            spriteLocation = properties.getFlowingTexture(fluidStack);
+            spriteLocation = Identifier.withDefaultNamespace("block/water_still");
         }
         return ((TextureAtlas) Minecraft.getInstance().getTextureManager().getTexture(TextureAtlas.LOCATION_BLOCKS)).getSprite(spriteLocation);
     }
@@ -54,13 +54,20 @@ public class FluidRenderer {
     public static void renderFluidBox(FluidStack fluidStack, float xMin, float yMin, float zMin, float xMax, float yMax,
                                       float zMax, VertexConsumer builder, PoseStack ms, int light, boolean renderBottom) {
         Fluid fluid = fluidStack.getFluid();
-        IClientFluidTypeExtensions clientFluid = IClientFluidTypeExtensions.of(fluid);
         FluidType fluidAttributes = fluid.getFluidType();
 
-        TextureAtlasSprite fluidTexture = ((TextureAtlas) Minecraft.getInstance().getTextureManager().getTexture(TextureAtlas.LOCATION_BLOCKS))
-                .getSprite(clientFluid.getStillTexture(fluidStack));
+        Identifier stillTexture;
+        int color;
+        if (fluidAttributes instanceof SolventFluidType solventFluidType) {
+            stillTexture = solventFluidType.still;
+            color = solventFluidType.tint;
+        } else {
+            stillTexture = Identifier.withDefaultNamespace("block/water_still");
+            color = 0xFFFFFFFF;
+        }
 
-        int color = clientFluid.getTintColor(fluidStack);
+        TextureAtlasSprite fluidTexture = ((TextureAtlas) Minecraft.getInstance().getTextureManager().getTexture(TextureAtlas.LOCATION_BLOCKS))
+                .getSprite(stillTexture);
         int blockLightIn = (light >> 4) & 0xF;
         int luminosity = Math.max(blockLightIn, fluidAttributes.getLightLevel(fluidStack));
         light = (light & 0xF00000) | luminosity << 4;

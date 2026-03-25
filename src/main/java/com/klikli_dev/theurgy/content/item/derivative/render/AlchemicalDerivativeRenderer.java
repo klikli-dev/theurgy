@@ -39,7 +39,7 @@ public class AlchemicalDerivativeRenderer implements SpecialModelRenderer<Alchem
     ));
 
     @Override
-    public void submit(@Nullable AlchemicalDerivativeRenderState state, ItemDisplayContext displayContext, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int light, int overlay, boolean hasFoil, int outlineColor) {
+    public void submit(@Nullable AlchemicalDerivativeRenderState state, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int light, int overlay, boolean hasFoil, int outlineColor) {
         if (state == null) return;
 
         // Counteract the -0.5 translation applied by ItemTransform.NO_TRANSFORM (from the derivative_base model)
@@ -50,9 +50,9 @@ public class AlchemicalDerivativeRenderer implements SpecialModelRenderer<Alchem
         ItemStack sourceStack = this.resolveSourceStack(state);
 
         // If shift is down in GUI, just render the contained item in full size
-        if (displayContext == ItemDisplayContext.GUI && state.shiftDown()) {
+        if (state.shiftDown()) {
             if (!sourceStack.isEmpty()) {
-                this.submitItem(sourceStack, displayContext, poseStack, submitNodeCollector, light, overlay, outlineColor);
+                this.submitItem(sourceStack, ItemDisplayContext.NONE, poseStack, submitNodeCollector, light, overlay, outlineColor);
             }
             return;
         }
@@ -63,7 +63,7 @@ public class AlchemicalDerivativeRenderer implements SpecialModelRenderer<Alchem
         var jarStack = renderSource ? new ItemStack(state.jarIconItem()) : labeledEmptyJarStack.get();
 
         // Render Jar
-        this.submitItem(jarStack, displayContext, poseStack, submitNodeCollector, light, overlay, outlineColor);
+        this.submitItem(jarStack, ItemDisplayContext.NONE, poseStack, submitNodeCollector, light, overlay, outlineColor);
 
         // Render Frame
         var tierStack = tierToIconMap.get().get(state.tier());
@@ -71,7 +71,7 @@ public class AlchemicalDerivativeRenderer implements SpecialModelRenderer<Alchem
             float pixel = 1f / 16f;
             poseStack.pushPose();
             // Compensate for the jar using actual display context transforms while overlays use GUI
-            this.applyOverlayContextCompensation(displayContext, displayContext.leftHand(), poseStack);
+            this.applyOverlayContextCompensation(ItemDisplayContext.NONE, false, poseStack);
             poseStack.translate(0, 0, pixel * 0.5); // move it in front of the jar
             poseStack.scale(1F, 1F, 0.01F); // flatten
             this.submitItem(tierStack, ItemDisplayContext.GUI, poseStack, submitNodeCollector, light, overlay, outlineColor);
@@ -83,7 +83,7 @@ public class AlchemicalDerivativeRenderer implements SpecialModelRenderer<Alchem
             var labelStack = new ItemStack(ItemRegistry.JAR_LABEL_ICON.get());
             float pixel = 1f / 16f;
             poseStack.pushPose();
-            this.applyOverlayContextCompensation(displayContext, displayContext.leftHand(), poseStack);
+            this.applyOverlayContextCompensation(ItemDisplayContext.NONE, false, poseStack);
             poseStack.translate(0, 0, pixel * 0.5); // move it in front of the jar
             poseStack.scale(1F, 1F, 0.01F); // flatten
             this.submitItem(labelStack, ItemDisplayContext.GUI, poseStack, submitNodeCollector, light, overlay, outlineColor);
@@ -92,7 +92,7 @@ public class AlchemicalDerivativeRenderer implements SpecialModelRenderer<Alchem
             // Render Contained Item
             if (!sourceStack.isEmpty()) {
                 poseStack.pushPose();
-                this.applyOverlayContextCompensation(displayContext, displayContext.leftHand(), poseStack);
+                this.applyOverlayContextCompensation(ItemDisplayContext.NONE, false, poseStack);
 
                 // Restore the transform chain from the old BEWLR:
                 // 1. Move in front of the label (z-axis)

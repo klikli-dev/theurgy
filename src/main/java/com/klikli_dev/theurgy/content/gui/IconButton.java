@@ -4,7 +4,7 @@
 
 package com.klikli_dev.theurgy.content.gui;
 
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.RenderPipelines;
 
 public class IconButton extends AbstractButton {
@@ -21,16 +21,14 @@ public class IconButton extends AbstractButton {
     }
 
     @Override
-    protected void renderWidget(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY, float pPartialTick) {
-        if (this.visible) {
-            this.isHovered = pMouseX >= this.getX() && pMouseY >= this.getY() && pMouseX < this.getX() + this.width && pMouseY < this.getY() + this.height;
+    protected void extractWidgetRenderState(GuiGraphicsExtractor pGuiGraphics, int pMouseX, int pMouseY, float pPartialTick) {
+        this.isHovered = pMouseX >= this.getX() && pMouseY >= this.getY() && pMouseX < this.getX() + this.width && pMouseY < this.getY() + this.height;
 
-            GuiTextures button = !this.active ? GuiTextures.BUTTON_DOWN
-                    : this.isMouseOver(pMouseX, pMouseY) ? GuiTextures.BUTTON_HOVER : GuiTextures.BUTTON;
+        GuiTextures button = !this.active ? GuiTextures.BUTTON_DOWN
+                : this.isMouseOver(pMouseX, pMouseY) ? GuiTextures.BUTTON_HOVER : GuiTextures.BUTTON;
 
-            //draw button background
-            pGuiGraphics.blit(RenderPipelines.GUI_TEXTURED, button.location, this.getX(), this.getY(), (float) button.x, (float) button.y, button.width, button.height, 256, 256);
-            this.icon.render(pGuiGraphics, this.getX() + 1, this.getY() + 1);
-        }
+        //draw button background
+        pGuiGraphics.blit(RenderPipelines.GUI_TEXTURED, button.location, this.getX(), this.getY(), (float) button.x, (float) button.y, button.width, button.height, 256, 256);
+        this.icon.render(pGuiGraphics, this.getX() + 1, this.getY() + 1);
     }
 }

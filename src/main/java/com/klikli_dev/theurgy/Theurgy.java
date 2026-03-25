@@ -14,17 +14,22 @@ import com.klikli_dev.theurgy.content.apparatus.incubator.render.IncubatorMercur
 import com.klikli_dev.theurgy.content.apparatus.incubator.render.IncubatorSaltVesselRenderer;
 import com.klikli_dev.theurgy.content.apparatus.incubator.render.IncubatorSulfurVesselRenderer;
 import com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron.render.LiquefactionCauldronRenderer;
+import com.klikli_dev.theurgy.content.apparatus.mercurycatalyst.MercuryCatalystBlock;
 import com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator.render.SalAmmoniacAccumulatorRenderer;
 import com.klikli_dev.theurgy.content.apparatus.salammoniactank.render.SalAmmoniacTankRenderer;
+import com.klikli_dev.theurgy.content.item.HandlesOnLeftClick;
+import com.klikli_dev.theurgy.content.item.HandlesOnScroll;
 import com.klikli_dev.theurgy.content.item.filter.AttributeFilterScreen;
 import com.klikli_dev.theurgy.content.item.filter.ListFilterScreen;
 import com.klikli_dev.theurgy.content.item.derivative.AlchemicalDerivativeItem;
 import com.klikli_dev.theurgy.content.item.renderer.DivinationDistanceProperty;
 import com.klikli_dev.theurgy.content.item.salt.AlchemicalSaltItem;
+import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurItem;
 import com.klikli_dev.theurgy.content.item.wire.WireItem;
 import com.klikli_dev.theurgy.content.render.*;
 import com.klikli_dev.theurgy.content.render.itemhud.ItemHUD;
 import com.klikli_dev.theurgy.content.render.outliner.Outliner;
+import com.klikli_dev.theurgy.util.ScrollHelper;
 import com.klikli_dev.theurgy.datagen.TheurgyDataGenerators;
 import com.klikli_dev.theurgy.integration.modonomicon.PageLoaders;
 import com.klikli_dev.theurgy.integration.modonomicon.PageRenderers;
@@ -33,14 +38,19 @@ import com.klikli_dev.theurgy.logistics.WireRenderer;
 import com.klikli_dev.theurgy.logistics.WireSync;
 import com.klikli_dev.theurgy.logistics.Wires;
 import com.klikli_dev.theurgy.network.Networking;
+import com.klikli_dev.theurgy.network.messages.MessageOnLeftClickEmpty;
+import com.klikli_dev.theurgy.network.messages.MessageSyncSulfursWithoutRecipe;
 import com.klikli_dev.theurgy.registry.*;
 import com.klikli_dev.theurgy.tooltips.TooltipHandler;
+import com.klikli_dev.theurgy.util.LevelUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.Identifier;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
@@ -51,17 +61,20 @@ import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLDedicatedServerSetupEvent;
 import net.neoforged.fml.loading.FMLEnvironment;
+import net.minecraft.client.renderer.block.FluidModel;
+import net.minecraft.client.resources.model.sprite.Material;
 import net.neoforged.neoforge.client.event.*;
-import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
-import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
+import net.neoforged.neoforge.client.fluid.FluidTintSources;
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.OnDatapackSyncEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
-import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
+
+import java.util.List;
 
 @Mod(Theurgy.MODID)
 public class Theurgy {
@@ -115,6 +128,7 @@ public class Theurgy {
         NeoForge.EVENT_BUS.addListener(Wires::onLevelUnload);
         NeoForge.EVENT_BUS.addListener(WireSync.get()::onChunkWatch);
         NeoForge.EVENT_BUS.addListener(WireSync.get()::onChunkUnWatch);
+        NeoForge.EVENT_BUS.addListener(Theurgy::onDatapackSync);
 
         if (FMLEnvironment.getDist() == Dist.CLIENT) {
             modEventBus.addListener(ParticleRegistry::registerFactories);
@@ -122,9 +136,9 @@ public class Theurgy {
             modEventBus.addListener(Client::onRegisterEntityRendererLayerDefinitions);
             modEventBus.addListener(Client::onRegisterEntityRenderers);
             modEventBus.addListener(TheurgySpecialModelRenderers::onRegisterSpecialModelRenderers);
-            modEventBus.addListener(Client::onRegisterClientExtensions);
-            //modEventBus.addListener(Client::onRegisterItemColors);
-            //modEventBus.addListener(Client::onRegisterBlockColors);
+            modEventBus.addListener(Client::onRegisterFluidModels);
+            modEventBus.addListener(Client::onRegisterItemColors);
+            modEventBus.addListener(Client::onRegisterBlockColors);
             modEventBus.addListener(Client::onRegisterGuiOverlays);
             modEventBus.addListener(Client::onRegisterMenuScreens);
             modEventBus.addListener(BlockOverlays::onTextureAtlasStitched);
@@ -132,7 +146,6 @@ public class Theurgy {
             modEventBus.addListener(Client::onRegisterItemProperties);
             NeoForge.EVENT_BUS.addListener(Client::onRenderLevelStage);
             NeoForge.EVENT_BUS.addListener(Client::onClientTick);
-            // NeoForge.EVENT_BUS.addListener(Client::onRecipesUpdated);
             NeoForge.EVENT_BUS.addListener(Client::onMouseScrolling);
             NeoForge.EVENT_BUS.addListener(Client::onRightClick);
             NeoForge.EVENT_BUS.addListener(Client::onLeftClick);
@@ -157,6 +170,35 @@ public class Theurgy {
 
     public void onServerSetup(FMLDedicatedServerSetupEvent event) {
         LOGGER.info("Dedicated server setup complete.");
+    }
+
+    /**
+     * On datapack sync (player join or /reload), compute which sulfur items have no liquefaction recipe
+     * and send that list to the client so modonomicon can hide them from rendering.
+     */
+    public static void onDatapackSync(OnDatapackSyncEvent event) {
+        var server = event.getPlayerList().getServer();
+        var recipeManager = server.getRecipeManager();
+        var registryAccess = server.registryAccess();
+
+        var liquefactionRecipes = LevelUtil.getRecipesByType(recipeManager, RecipeTypeRegistry.LIQUEFACTION.get());
+
+        //find sulfurs that have no liquefaction recipe producing them -> these are "no source" sulfurs
+        //See also JeiPlugin.registerRecipes
+        var sulfursWithoutRecipe = SulfurRegistry.SULFURS.getEntries().stream()
+                .map(DeferredHolder::get)
+                .map(AlchemicalSulfurItem.class::cast)
+                .filter(sulfur -> liquefactionRecipes.stream().noneMatch(r -> {
+                    var resultItem = r.value().getResultItem(registryAccess);
+                    return resultItem != null && resultItem.getItem() == sulfur;
+                }))
+                .map(ItemStack::new)
+                .toList();
+
+        var message = new MessageSyncSulfursWithoutRecipe(sulfursWithoutRecipe);
+
+        //send to all relevant players (single player on join, all players on reload)
+        event.getRelevantPlayers().forEach(player -> Networking.sendTo(player, message));
     }
 
     public static class Client {
@@ -214,18 +256,6 @@ public class Theurgy {
             WireRenderer.get().onRenderLevelStage(event);
         }
 
-//        public static void onRecipesUpdated(RecipesUpdatedEvent event) {
-//            //now disable rendering of sulfurs that have no recipe in modonomicon -> otherwise we see "no source" sulfurs in tag recipes
-//            //See also JeiPlugin.registerRecipes
-//            var liquefactionRecipes = event.getRecipeManager().getAllRecipesFor(RecipeTypeRegistry.LIQUEFACTION.get());
-//
-//            //noinspection ConstantValue
-//            SulfurRegistry.SULFURS.getEntries().stream()
-//                    .map(DeferredHolder::get)
-//                    .map(AlchemicalSulfurItem.class::cast)
-//                    .filter(sulfur -> liquefactionRecipes.stream().noneMatch(r -> r.value().getResultItem(RegistryAccess.EMPTY) != null && r.value().getResultItem(RegistryAccess.EMPTY).getItem() == sulfur)).map(ItemStack::new).forEach(PageRendererRegistry::registerItemStackNotToRender);
-//        }
-
         public static void registerTooltipDataProviders(FMLClientSetupEvent event) {
             TooltipHandler.registerNamespaceToListenTo(MODID);
 
@@ -268,114 +298,24 @@ public class Theurgy {
             event.register(Theurgy.loc("divination_distance"), DivinationDistanceProperty.MAP_CODEC);
         }
 
-        public static void onRegisterClientExtensions(RegisterClientExtensionsEvent event) {
-            /* //TODO: Update to SpecialModelRenderer
-            var alchemicalDerivativeItemExtension = new IClientItemExtensions() {
-                @Override
-                public @NotNull BlockEntityWithoutLevelRenderer getCustomRenderer() {
-                    return AlchemicalDerivativeBEWLR.get();
-                }
-            };
-
-            SulfurRegistry.SULFURS.getEntries().forEach(sulfur -> {
-                event.registerItem(alchemicalDerivativeItemExtension, sulfur.get());
-            });
-
-            NiterRegistry.NITERS.getEntries().forEach(niter -> {
-                event.registerItem(alchemicalDerivativeItemExtension, niter.get());
-            });
-
-
-            event.registerItem(new IClientItemExtensions() {
-                @Override
-                public @NotNull BlockEntityWithoutLevelRenderer getCustomRenderer() {
-                    return IncubatorSaltVesselBEWLR.get();
-                }
-            }, ItemRegistry.INCUBATOR_SALT_VESSEL.get());
-
-            event.registerItem(new IClientItemExtensions() {
-                @Override
-                public @NotNull BlockEntityWithoutLevelRenderer getCustomRenderer() {
-                    return IncubatorMercuryVesselBEWLR.get();
-                }
-            }, ItemRegistry.INCUBATOR_MERCURY_VESSEL.get());
-
-            event.registerItem(new IClientItemExtensions() {
-                @Override
-                public @NotNull BlockEntityWithoutLevelRenderer getCustomRenderer() {
-                    return IncubatorSulfurVesselBEWLR.get();
-                }
-            }, ItemRegistry.INCUBATOR_SULFUR_VESSEL.get());
-
-
-            event.registerItem(new IClientItemExtensions() {
-                @Override
-                public @NotNull BlockEntityWithoutLevelRenderer getCustomRenderer() {
-                    return SalAmmoniacTankBEWLR.get();
-                }
-            }, ItemRegistry.SAL_AMMONIAC_TANK.get());
-
-            event.registerItem(new IClientItemExtensions() {
-                @Override
-                public @NotNull BlockEntityWithoutLevelRenderer getCustomRenderer() {
-                    return SalAmmoniacAccumulatorBEWLR.get();
-                }
-            }, ItemRegistry.SAL_AMMONIAC_ACCUMULATOR.get());
-
-            event.registerItem(new IClientItemExtensions() {
-
-                @Override
-                public @NotNull BlockEntityWithoutLevelRenderer getCustomRenderer() {
-                    return DigestionVatBEWLR.get();
-                }
-            }, ItemRegistry.DIGESTION_VAT.get());
-
-            event.registerItem(new IClientItemExtensions() {
-                @Override
-                public @NotNull BlockEntityWithoutLevelRenderer getCustomRenderer() {
-                    return CalcinationOvenBEWLR.get();
-                }
-            }, ItemRegistry.CALCINATION_OVEN.get());
-
-            event.registerItem(new IClientItemExtensions() {
-                @Override
-                public @NotNull BlockEntityWithoutLevelRenderer getCustomRenderer() {
-                    return DistillerBEWLR.get();
-                }
-            }, ItemRegistry.DISTILLER.get());
-            */
-
-            event.registerFluidType(new IClientFluidTypeExtensions() {
-                @Override
-                public @NotNull Identifier getStillTexture() {
-                    return FluidTypeRegistry.SAL_AMMONIAC.get().still;
-                }
-
-                @Override
-                public @NotNull Identifier getFlowingTexture() {
-                    return FluidTypeRegistry.SAL_AMMONIAC.get().flowing;
-                }
-
-                @Override
-                public Identifier getOverlayTexture() {
-                    return FluidTypeRegistry.SAL_AMMONIAC.get().overlay;
-                }
-
-                @Override
-                public int getTintColor() {
-                    return FluidTypeRegistry.SAL_AMMONIAC.get().tint;
-                }
-            }, FluidTypeRegistry.SAL_AMMONIAC.get());
+        public static void onRegisterFluidModels(RegisterFluidModelsEvent event) {
+            var salAmmoniac = FluidTypeRegistry.SAL_AMMONIAC.get();
+            event.register(new FluidModel.Unbaked(
+                    new Material(salAmmoniac.still),
+                    new Material(salAmmoniac.flowing),
+                    new Material(salAmmoniac.overlay),
+                    FluidTintSources.constant(salAmmoniac.tint)
+            ), FluidRegistry.SAL_AMMONIAC.get(), FluidRegistry.SAL_AMMONIAC_FLOWING.get());
         }
 
-        /* public static void onRegisterItemColors(RegisterItemColorHandlersEvent event) {
+        public static void onRegisterItemColors(RegisterColorHandlersEvent.ItemTintSources event) {
             //event.register(new DynamicFluidContainerModel.Colors(), ItemRegistry.SAL_AMMONIAC_BUCKET.get());
-            event.register(MercuryCatalystBlock::getItemColor, ItemRegistry.MERCURY_CATALYST.get());
-        } */
+            event.register(Theurgy.loc("mercury_catalyst_tint"), MercuryCatalystBlock.ItemTintSource.MAP_CODEC);
+        }
 
-        /* public static void onRegisterBlockColors(RegisterBlockColorHandlersEvent event) {
-            event.register(MercuryCatalystBlock::getBlockColor, BlockRegistry.MERCURY_CATALYST.get());
-        } */
+        public static void onRegisterBlockColors(RegisterColorHandlersEvent.BlockTintSources event) {
+            event.register(List.of(new MercuryCatalystBlock.BlockTintSource()), BlockRegistry.MERCURY_CATALYST.get());
+        }
 
         public static void onRegisterGuiOverlays(RegisterGuiLayersEvent event) {
             event.registerAbove(VanillaGuiLayers.HOTBAR, Theurgy.loc("item_hud"), ItemHUD.get());
@@ -392,14 +332,13 @@ public class Theurgy {
                 double delta = event.getScrollDeltaY();
                 var stack = minecraft.player.getMainHandItem();
 
-                /*
                 if (delta != 0 && stack.getItem() instanceof HandlesOnScroll scrollableItem) {
                     int shift = ScrollHelper.scroll(delta);
                     if (shift != 0) {
                         scrollableItem.onScroll(minecraft.player, stack, shift);
                     }
                     event.setCanceled(true);
-                }*/
+                }
             }
         }
 
@@ -427,24 +366,21 @@ public class Theurgy {
             }
 
             //filter for "abort" to avoid constant calls while held down
-            /*
             if (event.getAction() == PlayerInteractEvent.LeftClickBlock.Action.ABORT &&
                     event.getItemStack().getItem() instanceof HandlesOnLeftClick leftClickableItem) {
                 if (leftClickableItem.onLeftClickBlock(event.getLevel(), event.getEntity(), event.getHand(), event.getPos(), event.getFace())) {
                     event.setCanceled(true);
                 }
-            }*/
+            }
         }
 
         public static void onLeftClickEmpty(PlayerInteractEvent.LeftClickEmpty event) {
-            /*
             if (event.getItemStack().getItem() instanceof HandlesOnLeftClick leftClickableItem) {
                 leftClickableItem.onLeftClickEmpty(event.getLevel(), event.getEntity(), event.getHand());
 
                 //this event is only called on client, so we send it to the server if we have a left clickable item
                 Networking.sendToServer(new MessageOnLeftClickEmpty(event.getHand()));
             }
-            */
         }
     }
 }

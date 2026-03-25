@@ -13,6 +13,7 @@ import com.klikli_dev.theurgy.content.apparatus.fermentationvat.FermentationVatB
 import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorBlock;
 import com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron.LiquefactionCauldronBlock;
 import com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector.LogisticsItemConnectorBlock;
+import com.klikli_dev.theurgy.content.apparatus.mercurycatalyst.MercuryCatalystBlock;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.mojang.math.Quadrant;
 import com.mojang.math.Transformation;
@@ -222,10 +223,14 @@ public class TheurgyBlockModelSubProvider {
     }
 
     private void registerMercuryCatalyst(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
-        this.registerSimpleTemplateBlock(blockModels, itemModels, BlockRegistry.MERCURY_CATALYST.get(), "block/mercury_catalyst_template", Map.of(
+        var block = BlockRegistry.MERCURY_CATALYST.get();
+        this.emitParentModel(blockModels.modelOutput, this.blockModel(block), Theurgy.loc("block/mercury_catalyst_template"), Map.of(
                 "texture", Theurgy.loc("block/mercury_catalyst"),
                 "particle", Identifier.withDefaultNamespace("block/iron_block")
         ));
+        this.registerSingleStateBlock(blockModels, block, this.blockModel(block));
+        this.emitParentModel(itemModels.modelOutput, this.itemModel(block), this.blockModel(block), Map.of());
+        itemModels.itemModelOutput.accept(block.asItem(), ItemModelUtils.tintedModel(this.itemModel(block), MercuryCatalystBlock.ItemTintSource.INSTANCE));
     }
 
     private void registerCaloricFluxEmitter(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {

@@ -8,10 +8,13 @@ import com.klikli_dev.theurgy.content.behaviour.itemhandler.ItemHandlerBehaviour
 import com.klikli_dev.theurgy.content.behaviour.itemhandler.OneSlotItemHandlerBehaviour;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.DataComponentRegistry;
+import com.mojang.serialization.MapCodec;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.block.BlockAndTintGetter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -27,7 +30,9 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.redstone.Orientation;
 import net.minecraft.world.phys.BlockHitResult;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
 
 
 public class MercuryCatalystBlock extends Block implements EntityBlock {
@@ -43,10 +48,8 @@ public class MercuryCatalystBlock extends Block implements EntityBlock {
         this.registerDefaultState(this.stateDefinition.any().setValue(ENABLED, true));
     }
 
-    public static int getBlockColor(BlockState pState, BlockAndTintGetter pLevel, BlockPos pPos, int pTintIndex) {
-        //tint index 0 is default and thus used by particles
-        //our model has 1
-        if (pTintIndex != 0 && pLevel != null && pPos != null && pLevel.getBlockEntity(pPos) instanceof MercuryCatalystBlockEntity blockEntity) {
+    public static int getBlockColor(@NotNull BlockState pState, @NotNull BlockAndTintGetter pLevel, @NotNull BlockPos pPos) {
+        if (pLevel.getBlockEntity(pPos) instanceof MercuryCatalystBlockEntity blockEntity) {
             var fillLevel = blockEntity.mercuryFluxStorage.getEnergyStored() / (float) blockEntity.mercuryFluxStorage.getMaxEnergyStored();
 
             //if empty we return white, if full we should return blue: 0x0000FF
@@ -94,13 +97,11 @@ public class MercuryCatalystBlock extends Block implements EntityBlock {
         return InteractionResult.PASS;
     }
 
-
     @Nullable
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {
         return this.defaultBlockState().setValue(ENABLED, true);
     }
-
 
     @SuppressWarnings("deprecation")
     @Override
@@ -109,7 +110,6 @@ public class MercuryCatalystBlock extends Block implements EntityBlock {
 
         this.checkPoweredState(pLevel, pPos, pState, Block.UPDATE_INVISIBLE);
     }
-
 
     @SuppressWarnings("deprecation")
     @Override
@@ -149,5 +149,34 @@ public class MercuryCatalystBlock extends Block implements EntityBlock {
                 blockEntity.tickServer();
             }
         };
+    }
+
+    public static class ItemTintSource implements net.minecraft.client.color.item.ItemTintSource {
+
+        public static final ItemTintSource INSTANCE = new ItemTintSource();
+        public static final MapCodec<ItemTintSource> MAP_CODEC = MapCodec.unit(INSTANCE);
+
+        @Override
+        public int calculate(@NonNull ItemStack itemStack, @Nullable ClientLevel clientLevel, @Nullable LivingEntity livingEntity) {
+            return getItemColor(itemStack, 0);
+        }
+
+        @Override
+        public MapCodec<? extends net.minecraft.client.color.item.ItemTintSource> type() {
+            return MAP_CODEC;
+        }
+    }
+
+    public static class BlockTintSource implements net.minecraft.client.color.block.BlockTintSource {
+
+        @Override
+        public int color(@NonNull BlockState blockState) {
+            return 0xFFFFFF;
+        }
+
+        @Override
+        public int colorInWorld(@NonNull BlockState state, @NonNull BlockAndTintGetter level, @NonNull BlockPos pos) {
+            return getBlockColor(state, level, pos);
+        }
     }
 }

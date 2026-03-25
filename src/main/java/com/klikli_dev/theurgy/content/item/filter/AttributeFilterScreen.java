@@ -13,7 +13,7 @@ import com.klikli_dev.theurgy.network.messages.MessageSetListFilterScreenOption;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
@@ -180,13 +180,13 @@ public class AttributeFilterScreen extends AbstractFilterScreen<AttributeFilterM
     }
 
     @Override
-    public void render(@NotNull GuiGraphics pGuiGraphics, int pMouseX, int pMouseY, float pPartialTick) {
-        super.render(pGuiGraphics, pMouseX, pMouseY, pPartialTick);
+    public void extractRenderState(@NotNull GuiGraphicsExtractor pGuiGraphics, int pMouseX, int pMouseY, float pPartialTick) {
+        super.extractRenderState(pGuiGraphics, pMouseX, pMouseY, pPartialTick);
 
         ItemStack stack = this.menu.ghostInventory.getStackInSlot(1);
         Matrix3x2fStack matrixStack = pGuiGraphics.pose();
         matrixStack.pushMatrix();
-        pGuiGraphics.renderItemDecorations(this.font, stack, this.leftPos + 22, this.topPos + 59,
+        pGuiGraphics.itemDecorations(this.font, stack, this.leftPos + 22, this.topPos + 59,
                 String.valueOf(this.selectedAttributes.size() - 1));
         matrixStack.popMatrix();
     }
@@ -200,7 +200,7 @@ public class AttributeFilterScreen extends AbstractFilterScreen<AttributeFilterM
     }
 
     @Override
-    protected void renderTooltip(@NotNull GuiGraphics graphics, int mouseX, int mouseY) {
+    protected void extractTooltip(@NotNull GuiGraphicsExtractor graphics, int mouseX, int mouseY) {
         if (this.menu.getCarried().isEmpty() && this.hoveredSlot != null && this.hoveredSlot.hasItem()) {
             if (this.hoveredSlot.index == 37) {
                 graphics.setComponentTooltipForNextFrame(this.font, this.selectedAttributes, mouseX, mouseY, this.hoveredSlot.getItem());
@@ -208,7 +208,7 @@ public class AttributeFilterScreen extends AbstractFilterScreen<AttributeFilterM
             }
             graphics.setTooltipForNextFrame(this.font, this.hoveredSlot.getItem(), mouseX, mouseY);
         }
-        super.renderTooltip(graphics, mouseX, mouseY);
+        super.extractTooltip(graphics, mouseX, mouseY);
     }
 
     @Override

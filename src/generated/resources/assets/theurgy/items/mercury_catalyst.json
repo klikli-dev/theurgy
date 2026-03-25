@@ -1,6 +1,11 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "theurgy:item/mercury_catalyst"
+    "model": "theurgy:item/mercury_catalyst",
+    "tints": [
+      {
+        "type": "theurgy:mercury_catalyst_tint"
+      }
+    ]
   }
 }

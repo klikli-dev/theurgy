@@ -30,7 +30,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.FluidType;
 import net.neoforged.neoforge.transfer.ResourceHandler;
@@ -129,8 +128,7 @@ public class SalAmmoniacAccumulatorBlockEntity extends BlockEntity implements Ge
             if (this.getLevel().getGameTime() % 2 == 0) { // only spawn particles every 2 ticks
 
                 var fluidStack = this.waterTank.getFluid();
-                var fluidClientExtension = IClientFluidTypeExtensions.of(fluidStack.getFluid());
-                int waterColor = fluidClientExtension.getTintColor(fluidStack);
+                int waterColor = 0xFFFFFFFF; // SAL_AMMONIAC uses water base, default no-tint (IClientFluidTypeExtensions.getTintColor removed)
 
                 var particleColor = this.inventory.getStackInSlot(0).is(ItemTagRegistry.GEMS_SAL_AMMONIAC) ?
                         new ParticleColor(255, 192, 128) : ParticleColor.fromInt(waterColor);

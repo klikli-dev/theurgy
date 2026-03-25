@@ -107,6 +107,26 @@ public class CalcinationOvenGameTests {
         });
     }
 
+    /**
+     * Tests that items in the oven's inventory are dropped when the block is broken.
+     */
+    public static void dropsItemsWhenBroken(GameTestHelper helper) {
+        placeOven(helper);
+
+        helper.runAfterDelay(1, () -> {
+            var blockEntity = helper.getBlockEntity(OVEN_LOWER_POS, CalcinationOvenBlockEntity.class);
+            blockEntity.storageBehaviour.inputInventory.setStackInSlot(0, new ItemStack(Items.COBBLESTONE, 3));
+        });
+
+        helper.runAfterDelay(2, () -> {
+            helper.destroyBlock(OVEN_LOWER_POS);
+        });
+
+        helper.succeedWhen(() -> {
+            helper.assertItemEntityCountIs(Items.COBBLESTONE, OVEN_LOWER_POS, 2.0, 3);
+        });
+    }
+
     // --- Item Handling ---
 
     /**

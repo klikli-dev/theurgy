@@ -15,6 +15,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.neoforged.neoforge.fluids.FluidStack;
@@ -142,6 +143,26 @@ public class LiquefactionCauldronGameTests {
         });
     }
 
+    /**
+     * Tests that items in the cauldron's inventory are dropped when the block is broken.
+     */
+    public static void dropsItemsWhenBroken(GameTestHelper helper) {
+        placeCauldron(helper);
+
+        helper.runAfterDelay(1, () -> {
+            var cauldron = helper.getBlockEntity(CAULDRON_LOWER_POS, LiquefactionCauldronBlockEntity.class);
+            cauldron.storageBehaviour.inputInventory.setStackInSlot(0, new ItemStack(Items.BONE, 3));
+        });
+
+        helper.runAfterDelay(2, () -> {
+            helper.destroyBlock(CAULDRON_LOWER_POS);
+        });
+
+        helper.succeedWhen(() -> {
+            helper.assertItemEntityCountIs(Items.BONE, CAULDRON_LOWER_POS, 2.0, 3);
+        });
+    }
+
     // ==================== Item & Fluid Handling ====================
 
     /**
@@ -187,6 +208,40 @@ public class LiquefactionCauldronGameTests {
                     "Solvent tank should contain 500mb of sal ammoniac"
             );
             helper.succeed();
+        });
+    }
+
+    /**
+     * Tests that solvent fluid can be extracted from the cauldron using a bucket.
+     * The OneTankFluidHandlerBehaviour allows bucket interaction via FluidUtil.
+     */
+    public static void extractSolventFluid(GameTestHelper helper) {
+        placeCauldron(helper);
+
+        helper.runAfterDelay(1, () -> {
+            var cauldron = helper.getBlockEntity(CAULDRON_LOWER_POS, LiquefactionCauldronBlockEntity.class);
+            cauldron.storageBehaviour.solventTank.fill(
+                    new FluidStack(FluidRegistry.SAL_AMMONIAC.get(), 1000), false
+            );
+            helper.assertTrue(
+                    cauldron.storageBehaviour.solventTank.getFluidAmount() == 1000,
+                    "Solvent tank should contain 1000mb before extraction"
+            );
+        });
+
+        helper.runAfterDelay(2, () -> {
+            // Simulate right-click with a bucket to extract fluid
+            var player = helper.makeMockPlayer(GameType.SURVIVAL);
+            player.getInventory().setItem(0, new ItemStack(Items.BUCKET));
+            helper.useBlock( helper.relativePos(CAULDRON_LOWER_POS), player);
+        });
+
+        helper.succeedWhen(() -> {
+            var cauldron = helper.getBlockEntity(CAULDRON_LOWER_POS, LiquefactionCauldronBlockEntity.class);
+            helper.assertTrue(
+                    cauldron.storageBehaviour.solventTank.getFluidAmount() == 0,
+                    "Solvent tank should be empty after bucket extraction"
+            );
         });
     }
 

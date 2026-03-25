@@ -10,8 +10,10 @@ import com.klikli_dev.theurgy.registry.CapabilityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
@@ -113,6 +115,57 @@ public class PyromanticBrazierGameTests {
                     blockEntity.inventory.getStackInSlot(0).isEmpty(),
                     "Coal should be consumed after burning"
             );
+        });
+    }
+
+    /**
+     * Tests that fuel can be removed by right-clicking the brazier with an empty hand.
+     * The block's useItemOn handler ejects the fuel into the player's inventory.
+     */
+    public static void removeFuelViaEmptyHand(GameTestHelper helper) {
+        helper.setBlock(BRAZIER_POS, BlockRegistry.PYROMANTIC_BRAZIER.get());
+
+        helper.runAfterDelay(1, () -> {
+            var blockEntity = helper.getBlockEntity(BRAZIER_POS, PyromanticBrazierBlockEntity.class);
+            blockEntity.inventory.setStackInSlot(0, new ItemStack(Items.COAL, 1));
+            helper.assertTrue(
+                    !blockEntity.inventory.getStackInSlot(0).isEmpty(),
+                    "Brazier should contain coal before removal"
+            );
+        });
+
+        helper.runAfterDelay(2, () -> {
+            // Simulate right-click with empty hand (survival mode player)
+            helper.useBlock(BRAZIER_POS);
+        });
+
+        helper.succeedWhen(() -> {
+            var blockEntity = helper.getBlockEntity(BRAZIER_POS, PyromanticBrazierBlockEntity.class);
+            helper.assertTrue(
+                    blockEntity.inventory.getStackInSlot(0).isEmpty(),
+                    "Brazier inventory should be empty after removing fuel with empty hand"
+            );
+        });
+    }
+
+    /**
+     * Tests that fuel items are dropped as entities when the brazier is broken.
+     */
+    public static void dropsItemsWhenBroken(GameTestHelper helper) {
+        helper.setBlock(BRAZIER_POS, BlockRegistry.PYROMANTIC_BRAZIER.get());
+
+        helper.runAfterDelay(1, () -> {
+            var blockEntity = helper.getBlockEntity(BRAZIER_POS, PyromanticBrazierBlockEntity.class);
+            blockEntity.inventory.setStackInSlot(0, new ItemStack(Items.COAL, 3));
+        });
+
+        helper.runAfterDelay(2, () -> {
+            helper.destroyBlock(BRAZIER_POS);
+        });
+
+        helper.succeedWhen(() -> {
+            // Verify coal items were dropped at the brazier position
+            helper.assertItemEntityPresent(Items.COAL, BRAZIER_POS, 2.0);
         });
     }
 

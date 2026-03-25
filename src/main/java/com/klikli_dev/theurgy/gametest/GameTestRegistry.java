@@ -77,6 +77,12 @@ public class GameTestRegistry {
     public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> LC_PROCESSING_REQUIRES_SOLVENT =
             TEST_FUNCTIONS.register("lc_processing_requires_solvent", () -> LiquefactionCauldronGameTests::processingRequiresSolvent);
 
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> LC_DROPS_ITEMS_WHEN_BROKEN =
+            TEST_FUNCTIONS.register("lc_drops_items_when_broken", () -> LiquefactionCauldronGameTests::dropsItemsWhenBroken);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> LC_EXTRACT_SOLVENT_FLUID =
+            TEST_FUNCTIONS.register("lc_extract_solvent_fluid", () -> LiquefactionCauldronGameTests::extractSolventFluid);
+
     // --- Calcination Oven ---
 
     public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> OVEN_PLACEMENT =
@@ -112,6 +118,9 @@ public class GameTestRegistry {
     public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> OVEN_STOPS_WITHOUT_INPUT =
             TEST_FUNCTIONS.register("calcination_oven_stops_without_input", () -> CalcinationOvenGameTests::processingStopsWhenInputEmpty);
 
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> OVEN_DROPS_ITEMS_WHEN_BROKEN =
+            TEST_FUNCTIONS.register("calcination_oven_drops_items_when_broken", () -> CalcinationOvenGameTests::dropsItemsWhenBroken);
+
     // --- Pyromantic Brazier ---
 
     public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> BRAZIER_PLACEMENT =
@@ -140,6 +149,12 @@ public class GameTestRegistry {
 
     public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> BRAZIER_STOPS_HEAT_NO_FUEL =
             TEST_FUNCTIONS.register("pyromantic_brazier_stops_heat_no_fuel", () -> PyromanticBrazierGameTests::stopsProvidingHeatWhenFuelRunsOut);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> BRAZIER_REMOVE_FUEL =
+            TEST_FUNCTIONS.register("pyromantic_brazier_remove_fuel", () -> PyromanticBrazierGameTests::removeFuelViaEmptyHand);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> BRAZIER_DROPS_ITEMS_WHEN_BROKEN =
+            TEST_FUNCTIONS.register("pyromantic_brazier_drops_items_when_broken", () -> PyromanticBrazierGameTests::dropsItemsWhenBroken);
 
     public static void onRegisterGameTests(RegisterGameTestsEvent event) {
         registerMercuryCatalystTests(event);
@@ -175,6 +190,8 @@ public class GameTestRegistry {
         registerTest(event, LC_PROCESSING_STOPS_WHEN_HEAT_REMOVED, environment, structure, 300, 0);
         registerTest(event, LC_PROCESSING_REQUIRES_INPUT, environment, structure, 100, 0);
         registerTest(event, LC_PROCESSING_REQUIRES_SOLVENT, environment, structure, 100, 0);
+        registerTest(event, LC_DROPS_ITEMS_WHEN_BROKEN, environment, structure, 40, 0);
+        registerTest(event, LC_EXTRACT_SOLVENT_FLUID, environment, structure, 40, 0);
     }
 
     private static void registerCalcinationOvenTests(RegisterGameTestsEvent event) {
@@ -192,6 +209,7 @@ public class GameTestRegistry {
         registerTest(event, OVEN_INPUT_CONSUMED_OUTPUT_PRODUCED, environment, structure, 300, 0);
         registerTest(event, OVEN_STOPS_WITHOUT_HEAT, environment, structure, 400, 0);
         registerTest(event, OVEN_STOPS_WITHOUT_INPUT, environment, structure, 300, 0);
+        registerTest(event, OVEN_DROPS_ITEMS_WHEN_BROKEN, environment, structure, 40, 0);
     }
 
     private static void registerPyromanticBrazierTests(RegisterGameTestsEvent event) {
@@ -207,6 +225,8 @@ public class GameTestRegistry {
         registerTest(event, BRAZIER_HEAT_LIQUEFACTION_CAULDRON, environment, structure, 100, 0);
         registerTest(event, BRAZIER_HEAT_DISTILLER, environment, structure, 100, 0);
         registerTest(event, BRAZIER_STOPS_HEAT_NO_FUEL, environment, structure, 300, 0);
+        registerTest(event, BRAZIER_REMOVE_FUEL, environment, structure, 40, 0);
+        registerTest(event, BRAZIER_DROPS_ITEMS_WHEN_BROKEN, environment, structure, 40, 0);
     }
 
     private static void registerTest(

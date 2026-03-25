@@ -60,8 +60,6 @@ public class SalAmmoniacTankBlock extends Block implements EntityBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
-        // TODO: re-enable when geckolib artifacts are available for pre-3
-        //return BlockEntityRegistry.SAL_AMMONIAC_TANK.get().create(pPos, pState);
-        return null;
+        return BlockEntityRegistry.SAL_AMMONIAC_TANK.get().create(pPos, pState);
     }
 }

@@ -5,15 +5,15 @@
 package com.klikli_dev.theurgy.registry;
 
 import com.klikli_dev.theurgy.Theurgy;
-//import com.klikli_dev.theurgy.content.apparatus.calcinationoven.CalcinationOvenBlockEntity; // TODO: re-enable when geckolib artifacts are available for pre-3
+import com.klikli_dev.theurgy.content.apparatus.calcinationoven.CalcinationOvenBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.caloricfluxemitter.CaloricFluxEmitterBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.digestionvat.DigestionVatBlockEntity;
-//import com.klikli_dev.theurgy.content.apparatus.distiller.DistillerBlockEntity;
+import com.klikli_dev.theurgy.content.apparatus.distiller.DistillerBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.fermentationvat.FermentationVatBlockEntity;
-//import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorBlockEntity;
-//import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorMercuryVesselBlockEntity;
-//import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorSaltVesselBlockEntity;
-//import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorSulfurVesselBlockEntity;
+import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorBlockEntity;
+import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorMercuryVesselBlockEntity;
+import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorSaltVesselBlockEntity;
+import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorSulfurVesselBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron.LiquefactionCauldronBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.logisticsfluidconnector.extractor.LogisticsFluidExtractorBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.logisticsfluidconnector.inserter.LogisticsFluidInserterBlockEntity;
@@ -25,8 +25,8 @@ import com.klikli_dev.theurgy.content.apparatus.reformationarray.ReformationResu
 import com.klikli_dev.theurgy.content.apparatus.reformationarray.ReformationSourcePedestalBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.reformationarray.ReformationTargetPedestalBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.reformationarray.SulfuricFluxEmitterBlockEntity;
-//import com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator.SalAmmoniacAccumulatorBlockEntity;
-//import com.klikli_dev.theurgy.content.apparatus.salammoniactank.SalAmmoniacTankBlockEntity;
+import com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator.SalAmmoniacAccumulatorBlockEntity;
+import com.klikli_dev.theurgy.content.apparatus.salammoniactank.SalAmmoniacTankBlockEntity;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -36,9 +36,9 @@ import java.util.function.Supplier;
 public class BlockEntityRegistry {
     public static final DeferredRegister<BlockEntityType<?>> BLOCKS = DeferredRegister.create(BuiltInRegistries.BLOCK_ENTITY_TYPE, Theurgy.MODID);
 
-    //public static final Supplier<BlockEntityType<CalcinationOvenBlockEntity>> CALCINATION_OVEN =
-    //        BLOCKS.register("calcination_oven", () ->
-    //                new BlockEntityType<>(CalcinationOvenBlockEntity::new, java.util.Set.of(BlockRegistry.CALCINATION_OVEN.get())));
+    public static final Supplier<BlockEntityType<CalcinationOvenBlockEntity>> CALCINATION_OVEN =
+            BLOCKS.register("calcination_oven", () ->
+                    new BlockEntityType<>(CalcinationOvenBlockEntity::new, java.util.Set.of(BlockRegistry.CALCINATION_OVEN.get())));
 
     public static final Supplier<BlockEntityType<PyromanticBrazierBlockEntity>> PYROMANTIC_BRAZIER =
             BLOCKS.register("pyromantic_brazier", () ->
@@ -48,33 +48,33 @@ public class BlockEntityRegistry {
             BLOCKS.register("liquefaction_cauldron", () ->
                     new BlockEntityType<>(LiquefactionCauldronBlockEntity::new, java.util.Set.of(BlockRegistry.LIQUEFACTION_CAULDRON.get())));
 
-    //public static final Supplier<BlockEntityType<DistillerBlockEntity>> DISTILLER =
-    //        BLOCKS.register("distiller", () ->
-    //                new BlockEntityType<>(DistillerBlockEntity::new, java.util.Set.of(BlockRegistry.DISTILLER.get())));
+    public static final Supplier<BlockEntityType<DistillerBlockEntity>> DISTILLER =
+            BLOCKS.register("distiller", () ->
+                    new BlockEntityType<>(DistillerBlockEntity::new, java.util.Set.of(BlockRegistry.DISTILLER.get())));
 
-    //public static final Supplier<BlockEntityType<IncubatorBlockEntity>> INCUBATOR =
-    //        BLOCKS.register("incubator", () ->
-    //                new BlockEntityType<>(IncubatorBlockEntity::new, java.util.Set.of(BlockRegistry.INCUBATOR.get())));
+    public static final Supplier<BlockEntityType<IncubatorBlockEntity>> INCUBATOR =
+            BLOCKS.register("incubator", () ->
+                    new BlockEntityType<>(IncubatorBlockEntity::new, java.util.Set.of(BlockRegistry.INCUBATOR.get())));
 
-    //public static final Supplier<BlockEntityType<IncubatorMercuryVesselBlockEntity>> INCUBATOR_MERCURY_VESSEL =
-    //        BLOCKS.register("incubator_mercury_vessel", () ->
-    //                new BlockEntityType<>(IncubatorMercuryVesselBlockEntity::new, java.util.Set.of(BlockRegistry.INCUBATOR_MERCURY_VESSEL.get())));
+    public static final Supplier<BlockEntityType<IncubatorMercuryVesselBlockEntity>> INCUBATOR_MERCURY_VESSEL =
+            BLOCKS.register("incubator_mercury_vessel", () ->
+                    new BlockEntityType<>(IncubatorMercuryVesselBlockEntity::new, java.util.Set.of(BlockRegistry.INCUBATOR_MERCURY_VESSEL.get())));
 
-    //public static final Supplier<BlockEntityType<IncubatorSaltVesselBlockEntity>> INCUBATOR_SALT_VESSEL =
-    //        BLOCKS.register("incubator_salt_vessel", () ->
-    //                new BlockEntityType<>(IncubatorSaltVesselBlockEntity::new, java.util.Set.of(BlockRegistry.INCUBATOR_SALT_VESSEL.get())));
+    public static final Supplier<BlockEntityType<IncubatorSaltVesselBlockEntity>> INCUBATOR_SALT_VESSEL =
+            BLOCKS.register("incubator_salt_vessel", () ->
+                    new BlockEntityType<>(IncubatorSaltVesselBlockEntity::new, java.util.Set.of(BlockRegistry.INCUBATOR_SALT_VESSEL.get())));
 
-    //public static final Supplier<BlockEntityType<IncubatorSulfurVesselBlockEntity>> INCUBATOR_SULFUR_VESSEL =
-    //        BLOCKS.register("incubator_sulfur_vessel", () ->
-    //                new BlockEntityType<>(IncubatorSulfurVesselBlockEntity::new, java.util.Set.of(BlockRegistry.INCUBATOR_SULFUR_VESSEL.get())));
+    public static final Supplier<BlockEntityType<IncubatorSulfurVesselBlockEntity>> INCUBATOR_SULFUR_VESSEL =
+            BLOCKS.register("incubator_sulfur_vessel", () ->
+                    new BlockEntityType<>(IncubatorSulfurVesselBlockEntity::new, java.util.Set.of(BlockRegistry.INCUBATOR_SULFUR_VESSEL.get())));
 
-    //public static final Supplier<BlockEntityType<SalAmmoniacTankBlockEntity>> SAL_AMMONIAC_TANK =
-    //        BLOCKS.register("sal_ammoniac_tank", () ->
-    //                new BlockEntityType<>(SalAmmoniacTankBlockEntity::new, java.util.Set.of(BlockRegistry.SAL_AMMONIAC_TANK.get())));
+    public static final Supplier<BlockEntityType<SalAmmoniacTankBlockEntity>> SAL_AMMONIAC_TANK =
+            BLOCKS.register("sal_ammoniac_tank", () ->
+                    new BlockEntityType<>(SalAmmoniacTankBlockEntity::new, java.util.Set.of(BlockRegistry.SAL_AMMONIAC_TANK.get())));
 
-    //public static final Supplier<BlockEntityType<SalAmmoniacAccumulatorBlockEntity>> SAL_AMMONIAC_ACCUMULATOR =
-    //        BLOCKS.register("sal_ammoniac_accumulator", () ->
-    //                new BlockEntityType<>(SalAmmoniacAccumulatorBlockEntity::new, java.util.Set.of(BlockRegistry.SAL_AMMONIAC_ACCUMULATOR.get())));
+    public static final Supplier<BlockEntityType<SalAmmoniacAccumulatorBlockEntity>> SAL_AMMONIAC_ACCUMULATOR =
+            BLOCKS.register("sal_ammoniac_accumulator", () ->
+                    new BlockEntityType<>(SalAmmoniacAccumulatorBlockEntity::new, java.util.Set.of(BlockRegistry.SAL_AMMONIAC_ACCUMULATOR.get())));
 
     public static final Supplier<BlockEntityType<MercuryCatalystBlockEntity>> MERCURY_CATALYST =
             BLOCKS.register("mercury_catalyst", () ->

@@ -19,7 +19,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
+
 import org.jspecify.annotations.Nullable;
 
 
@@ -73,7 +73,6 @@ public class SalAmmoniacAccumulatorRenderer extends GeoBlockRenderer<SalAmmoniac
         var fluidStack = blockEntity.waterTank.getFluid();
         var fluid = fluidStack.getFluid();
         var fluidType = fluid.getFluidType();
-        var fluidClientExtension = IClientFluidTypeExtensions.of(fluid);
         var fluidHeight = fluidStack.getAmount() / (float) blockEntity.waterTank.getCapacity();
 
         float blockHeight = 12 / 16f - 2 / 128f;
@@ -84,7 +83,7 @@ public class SalAmmoniacAccumulatorRenderer extends GeoBlockRenderer<SalAmmoniac
         int blockLightIn = (state.lightCoords >> 4) & 0xF;
         int luminosity = Math.max(blockLightIn, fluidType.getLightLevel(fluidStack));
 
-        state.color = fluidClientExtension.getTintColor(fluidStack);
+        state.color = 0xFFFFFFFF; // SAL_AMMONIAC uses water base, default no-tint (IClientFluidTypeExtensions.getTintColor removed)
         state.fluidLight = (state.lightCoords & 0xF00000) | luminosity << 4;
         state.surfaceY = capHeight + minPuddleHeight + clampedLevel;
     }

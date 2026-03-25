@@ -12,7 +12,7 @@ import com.klikli_dev.theurgy.content.gui.GuiTextures;
 import com.klikli_dev.theurgy.content.recipe.AccumulationRecipe;
 import com.klikli_dev.theurgy.content.recipe.display.AccumulationRecipeDisplay;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.world.item.crafting.display.RecipeDisplayEntry;
 import net.minecraft.world.item.crafting.display.SlotDisplayContext;
 import net.neoforged.neoforge.fluids.FluidType;
@@ -28,7 +28,7 @@ public class BookAccumulationRecipePageRenderer extends BookRecipePageRenderer<A
     }
 
     @Override
-    protected void drawRecipe(GuiGraphics guiGraphics, RecipeDisplayEntry recipeDisplayEntry, int recipeX, int recipeY, int mouseX, int mouseY, boolean second) {
+    protected void drawRecipe(GuiGraphicsExtractor guiGraphics, RecipeDisplayEntry recipeDisplayEntry, int recipeX, int recipeY, int mouseX, int mouseY, boolean second) {
         recipeY += 10;
 
         if (!(recipeDisplayEntry.display() instanceof AccumulationRecipeDisplay display))

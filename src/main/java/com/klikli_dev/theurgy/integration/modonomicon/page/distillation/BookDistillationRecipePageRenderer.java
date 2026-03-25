@@ -10,7 +10,7 @@ import com.klikli_dev.theurgy.content.gui.GuiTextures;
 import com.klikli_dev.theurgy.content.recipe.DistillationRecipe;
 import com.klikli_dev.theurgy.content.recipe.display.DistillationRecipeDisplay;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.display.RecipeDisplayEntry;
 import net.minecraft.world.item.crafting.display.SlotDisplayContext;
@@ -26,7 +26,7 @@ public class BookDistillationRecipePageRenderer extends BookRecipePageRenderer<D
     }
 
     @Override
-    protected void drawRecipe(GuiGraphics guiGraphics, RecipeDisplayEntry recipeDisplayEntry, int recipeX, int recipeY, int mouseX, int mouseY, boolean second) {
+    protected void drawRecipe(GuiGraphicsExtractor guiGraphics, RecipeDisplayEntry recipeDisplayEntry, int recipeX, int recipeY, int mouseX, int mouseY, boolean second) {
         recipeY += 10;
 
         if (!(recipeDisplayEntry.display() instanceof DistillationRecipeDisplay display))

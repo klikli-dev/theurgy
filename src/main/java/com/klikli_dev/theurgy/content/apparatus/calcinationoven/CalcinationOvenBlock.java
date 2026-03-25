@@ -159,9 +159,7 @@ public class CalcinationOvenBlock extends Block implements EntityBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
-        // TODO: re-enable when geckolib artifacts are available for pre-3
-        //return pState.getValue(HALF) == DoubleBlockHalf.LOWER ? BlockEntityRegistry.CALCINATION_OVEN.get().create(pPos, pState) : null;
-        return null;
+        return pState.getValue(HALF) == DoubleBlockHalf.LOWER ? BlockEntityRegistry.CALCINATION_OVEN.get().create(pPos, pState) : null;
     }
 
     @Nullable
@@ -171,10 +169,9 @@ public class CalcinationOvenBlock extends Block implements EntityBlock {
             return null;
         }
         return (lvl, pos, blockState, t) -> {
-            // TODO: re-enable when geckolib artifacts are available for pre-3
-            //if (t instanceof CalcinationOvenBlockEntity blockEntity) {
-            //    blockEntity.tickServer();
-            //}
+            if (t instanceof CalcinationOvenBlockEntity blockEntity) {
+                blockEntity.tickServer();
+            }
         };
     }
 }

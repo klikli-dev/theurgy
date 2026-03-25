@@ -158,9 +158,7 @@ public class DistillerBlock extends Block implements EntityBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
-        // TODO: re-enable when geckolib artifacts are available for pre-3
-        //return pState.getValue(HALF) == DoubleBlockHalf.LOWER ? BlockEntityRegistry.DISTILLER.get().create(pPos, pState) : null;
-        return null;
+        return pState.getValue(HALF) == DoubleBlockHalf.LOWER ? BlockEntityRegistry.DISTILLER.get().create(pPos, pState) : null;
     }
 
     @Nullable
@@ -170,10 +168,9 @@ public class DistillerBlock extends Block implements EntityBlock {
             return null;
         }
         return (lvl, pos, blockState, t) -> {
-            // TODO: re-enable when geckolib artifacts are available for pre-3
-            //if (t instanceof DistillerBlockEntity blockEntity) {
-            //    blockEntity.tickServer();
-            //}
+            if (t instanceof DistillerBlockEntity blockEntity) {
+                blockEntity.tickServer();
+            }
         };
     }
 }

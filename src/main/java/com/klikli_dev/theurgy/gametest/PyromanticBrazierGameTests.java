@@ -165,7 +165,7 @@ public class PyromanticBrazierGameTests {
 
         helper.succeedWhen(() -> {
             // Verify exact count of coal items dropped
-            helper.assertItemCount(Items.COAL, BRAZIER_POS, 2.0, 3);
+            helper.assertItemEntityCountIs(Items.COAL, BRAZIER_POS, 2.0, 3);
         });
     }
 

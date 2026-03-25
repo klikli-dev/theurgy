@@ -159,7 +159,7 @@ public class LiquefactionCauldronGameTests {
         });
 
         helper.succeedWhen(() -> {
-            helper.assertItemCount(Items.BONE, CAULDRON_LOWER_POS, 2.0, 3);
+            helper.assertItemEntityCountIs(Items.BONE, CAULDRON_LOWER_POS, 2.0, 3);
         });
     }
 

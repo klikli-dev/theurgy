@@ -9,6 +9,7 @@ import com.klikli_dev.theurgy.registry.BlockRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 public class CaloricFluxEmitterGameTests {
@@ -37,11 +38,16 @@ public class CaloricFluxEmitterGameTests {
     // --- Redstone Interaction ---
 
     public static void redstoneDisablesEmitter(GameTestHelper helper) {
-        helper.setBlock(EMITTER_POS, BlockRegistry.CALORIC_FLUX_EMITTER.get()
-                .defaultBlockState().setValue(BlockStateProperties.ENABLED, false));
+        helper.setBlock(EMITTER_POS, BlockRegistry.CALORIC_FLUX_EMITTER.get());
+        helper.assertBlockProperty(EMITTER_POS, BlockStateProperties.ENABLED, true);
 
-        helper.assertBlockProperty(EMITTER_POS, BlockStateProperties.ENABLED, false);
-        helper.succeed();
+        helper.runAfterDelay(1, () -> {
+            helper.setBlock(EMITTER_POS.below(), Blocks.REDSTONE_BLOCK);
+        });
+
+        helper.succeedWhen(() -> {
+            helper.assertBlockProperty(EMITTER_POS, BlockStateProperties.ENABLED, false);
+        });
     }
 
     // --- Energy ---

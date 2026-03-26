@@ -47,7 +47,8 @@ public class SalAmmoniacAccumulatorGameTests {
             var filled = blockEntity.waterTank.fill(
                     new FluidStack(net.minecraft.world.level.material.Fluids.WATER, 1000), false
             );
-            helper.assertTrue(filled > 0, "Water tank should accept water");
+            helper.assertTrue(filled == 1000, "Water tank should accept 1000mb of water");
+            helper.assertTrue(blockEntity.waterTank.getFluidAmount() == 1000, "Water tank should contain 1000mb of water");
             helper.succeed();
         });
     }

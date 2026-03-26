@@ -83,10 +83,8 @@ public class FermentationVatGameTests {
                     new FluidStack(FluidRegistry.SAL_AMMONIAC.get(), 1000), false
             );
 
-            helper.assertTrue(
-                    filled > 0,
-                    "Fluid tank should accept fluid"
-            );
+            helper.assertTrue(filled == 1000, "Fluid tank should accept 1000mb of fluid");
+            helper.assertTrue(blockEntity.storageBehaviour.fluidTank.getFluidAmount() == 1000, "Fluid tank should contain 1000mb of fluid");
             helper.succeed();
         });
     }
@@ -121,10 +119,10 @@ public class FermentationVatGameTests {
     // --- Processing ---
 
     /**
-     * Tests that the lid closes (OPEN=false) when processing starts.
+     * Tests that the vat lid can be manually closed.
      * Processing requires the lid to be closed.
      */
-    public static void lidClosesWhenProcessingStarts(GameTestHelper helper) {
+    public static void vatCanBeClosed(GameTestHelper helper) {
         helper.setBlock(VAT_POS, BlockRegistry.FERMENTATION_VAT.get());
 
         helper.runAfterDelay(1, () -> {

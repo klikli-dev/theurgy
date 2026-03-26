@@ -262,7 +262,7 @@ public class GameTestRegistry {
             TEST_FUNCTIONS.register("fermentation_vat_extract_output", () -> FermentationVatGameTests::extractOutputItem);
 
     public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> FV_LID_CLOSES =
-            TEST_FUNCTIONS.register("fermentation_vat_lid_closes", () -> FermentationVatGameTests::lidClosesWhenProcessingStarts);
+            TEST_FUNCTIONS.register("fermentation_vat_lid_closes", () -> FermentationVatGameTests::vatCanBeClosed);
 
     public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> FV_HAS_OUTPUT_TRUE =
             TEST_FUNCTIONS.register("fermentation_vat_has_output_true", () -> FermentationVatGameTests::hasOutputBecomesTrue);
@@ -291,7 +291,7 @@ public class GameTestRegistry {
             TEST_FUNCTIONS.register("digestion_vat_extract_output", () -> DigestionVatGameTests::extractOutputItem);
 
     public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> DV_LID_CLOSES =
-            TEST_FUNCTIONS.register("digestion_vat_lid_closes", () -> DigestionVatGameTests::lidClosesWhenProcessingStarts);
+            TEST_FUNCTIONS.register("digestion_vat_lid_closes", () -> DigestionVatGameTests::vatCanBeClosed);
 
     public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> DV_DROPS_ITEMS =
             TEST_FUNCTIONS.register("digestion_vat_drops_items", () -> DigestionVatGameTests::dropsItemsWhenBroken);

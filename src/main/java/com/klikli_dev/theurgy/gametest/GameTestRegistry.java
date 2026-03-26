@@ -343,6 +343,12 @@ public class GameTestRegistry {
     public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> SFE_ENERGY =
             TEST_FUNCTIONS.register("sulfuric_flux_emitter_energy", () -> SulfuricFluxEmitterGameTests::hasEnergyStorage);
 
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> SFE_LINKING =
+            TEST_FUNCTIONS.register("sulfuric_flux_emitter_linking", () -> SulfuricFluxEmitterGameTests::linkPedestals);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> SFE_PROCESSING =
+            TEST_FUNCTIONS.register("sulfuric_flux_emitter_processing", () -> SulfuricFluxEmitterGameTests::reformationProcessing);
+
     // --- Reformation Pedestals ---
 
     public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> RP_SOURCE_PLACEMENT =
@@ -563,6 +569,8 @@ public class GameTestRegistry {
 
         registerTest(event, SFE_PLACEMENT, environment, structure, 40, 0);
         registerTest(event, SFE_ENERGY, environment, structure, 40, 0);
+        registerTest(event, SFE_LINKING, environment, structure, 40, 0);
+        registerTest(event, SFE_PROCESSING, environment, structure, 200, 0);
     }
 
     private static void registerReformationPedestalTests(RegisterGameTestsEvent event) {

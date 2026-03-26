@@ -15,8 +15,6 @@ import com.klikli_dev.theurgy.util.EntityUtil;
 import com.klikli_dev.theurgy.util.LevelUtil;
 import com.klikli_dev.theurgy.util.TagUtil;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.item.ItemPropertyFunction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
@@ -29,7 +27,6 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
@@ -41,16 +38,21 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.TierSortingRegistry;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.tags.ITag;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class DivinationRodItem extends Item {
 
     public static final float NOT_FOUND = 7.0f;
     public static final float SEARCHING = 8.0f;
+    private static final Pattern SINGLE_WORD_ORE_PATTERN = Pattern.compile("([a-z]+)_ore");
+    private static final Pattern DOUBLE_WORD_ORE_PATTERN = Pattern.compile("([a-z]+_[a-z]+)_ore");
 
     public Tier defaultTier;
     public TagKey<Block> defaultAllowedBlocksTag;
@@ -119,8 +121,7 @@ public class DivinationRodItem extends Item {
 
     public static Set<Block> getScanTargetsForId(ResourceLocation linkedBlockId) {
         //First: try to get a tag for the given block.
-        var tagKey = TagKey.create(Registries.BLOCK, getOreTagFromBlockId(linkedBlockId));
-        var tag = ForgeRegistries.BLOCKS.tags().getTag(tagKey);
+        var tag = getOreTagFromBlockId(linkedBlockId);
 
         if (!tag.isEmpty())
             return tag.stream().collect(Collectors.toSet());
@@ -143,16 +144,39 @@ public class DivinationRodItem extends Item {
         return Set.of();
     }
 
-    public static ResourceLocation getOreTagFromBlockId(ResourceLocation blockId) {
+    public static ITag<Block> getOreTagFromBlockId(ResourceLocation blockId) {
         var path = blockId.getPath();
 
-        String oreName = path
-                .replace("_ore", "")
-                .replace("ore_", "")
-                .replace("_deepslate", "")
-                .replace("deepslate_", "");
+        //extract single word ore name, I.E. 'iron' from any Block ID containing 'iron_ore'
+        Matcher matcher = SINGLE_WORD_ORE_PATTERN.matcher(path);
 
-        return new ResourceLocation("forge:ores/" + oreName);
+        //if an ore name is found, check if a matching ore tag exists, and return it if so.
+        if (matcher.find()) {
+            var tag = getOreTagFromOreName(matcher.group(1));
+            if (!tag.isEmpty()){
+                return tag;
+            }
+        }
+
+        //extract double word ore name, I.E. 'sal_ammoniac', from any Block ID containing 'sal_ammoniac_ore'
+        matcher = DOUBLE_WORD_ORE_PATTERN.matcher(path);
+
+        //if an ore name is found, check if a matching ore tag exists, and return it if so.
+        if (matcher.find()) {
+            var tag = getOreTagFromOreName(matcher.group(1));
+            if (!tag.isEmpty()){
+                return tag;
+            }
+        }
+
+        //If all else fails, just try returning a tag from the full Block ID, it will likely be empty.
+        return getOreTagFromOreName(path);
+    }
+
+    public static ITag<Block> getOreTagFromOreName(String name) {
+        ResourceLocation loc = new ResourceLocation("forge:ores/" + name);
+        var tagKey = TagKey.create(Registries.BLOCK, loc);
+        return ForgeRegistries.BLOCKS.tags().getTag(tagKey);
     }
 
     @Override

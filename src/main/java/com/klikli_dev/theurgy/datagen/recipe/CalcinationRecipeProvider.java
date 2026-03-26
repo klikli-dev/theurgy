@@ -49,7 +49,7 @@ public class CalcinationRecipeProvider extends JsonRecipeProvider {
         this.makeRecipe(SaltRegistry.STRATA.get(), "from_blackstone", 1, Items.BLACKSTONE, 1, TIME);
         this.makeRecipe(SaltRegistry.STRATA.get(), "from_terracotta", 2, Items.TERRACOTTA, 1, TIME);
         // CONCRETES tag did not exist in 1.20, workaround needed
-        //this.makeRecipe(SaltRegistry.STRATA.get(), "_from_concrete", 2, Tags.Items.CONCRETES, 1, TIME);
+        //this.makeRecipe(SaltRegistry.STRATA.get(), "from_concrete", 2, Tags.Items.CONCRETES, 1, TIME);
         this.makeRecipe(SaltRegistry.STRATA.get(), "from_crimson_nylium", 2, Items.CRIMSON_NYLIUM, 1, TIME);
         this.makeRecipe(SaltRegistry.STRATA.get(), "from_warped_nylium", 2, Items.WARPED_NYLIUM, 1, TIME);
         this.makeRecipe(SaltRegistry.STRATA.get(), "from_end_stone", 2, Items.END_STONE, 1, TIME);

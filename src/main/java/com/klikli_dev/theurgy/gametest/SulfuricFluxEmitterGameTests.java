@@ -31,12 +31,12 @@ public class SulfuricFluxEmitterGameTests {
     public static void hasEnergyStorage(GameTestHelper helper) {
         helper.setBlock(EMITTER_POS, BlockRegistry.SULFURIC_FLUX_EMITTER.get());
 
-        helper.runAfterDelay(1, () -> {
+        helper.succeedWhen(() -> {
             var blockEntity = helper.getBlockEntity(EMITTER_POS, SulfuricFluxEmitterBlockEntity.class);
             helper.assertTrue(blockEntity != null, "Block entity should exist");
-            helper.assertTrue(blockEntity.mercuryFluxStorage.getMaxEnergyStored() > 0, "Should have energy capacity");
-            helper.succeed();
+            helper.assertTrue(blockEntity.mercuryFluxStorage.getMaxEnergyStored() == SulfuricFluxEmitterBlockEntity.CAPACITY, "Should have correct energy capacity (" + SulfuricFluxEmitterBlockEntity.CAPACITY + ")");
         });
     }
 }
+
 

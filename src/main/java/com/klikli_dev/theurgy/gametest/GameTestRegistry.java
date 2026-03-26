@@ -340,12 +340,6 @@ public class GameTestRegistry {
     public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> SFE_PLACEMENT =
             TEST_FUNCTIONS.register("sulfuric_flux_emitter_placement", () -> SulfuricFluxEmitterGameTests::placementWithFacing);
 
-    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> SFE_ENABLED =
-            TEST_FUNCTIONS.register("sulfuric_flux_emitter_enabled", () -> SulfuricFluxEmitterGameTests::defaultEnabledState);
-
-    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> SFE_REDSTONE =
-            TEST_FUNCTIONS.register("sulfuric_flux_emitter_redstone", () -> SulfuricFluxEmitterGameTests::redstoneDisablesEmitter);
-
     public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> SFE_ENERGY =
             TEST_FUNCTIONS.register("sulfuric_flux_emitter_energy", () -> SulfuricFluxEmitterGameTests::hasEnergyStorage);
 
@@ -568,8 +562,6 @@ public class GameTestRegistry {
         var structure = Theurgy.loc("sulfuric_flux_emitter_test");
 
         registerTest(event, SFE_PLACEMENT, environment, structure, 40, 0);
-        registerTest(event, SFE_ENABLED, environment, structure, 40, 0);
-        registerTest(event, SFE_REDSTONE, environment, structure, 40, 0);
         registerTest(event, SFE_ENERGY, environment, structure, 40, 0);
     }
 

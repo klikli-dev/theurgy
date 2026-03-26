@@ -166,11 +166,15 @@ public class Theurgy {
     }
 
 
+
+
     public void onCommonSetup(FMLCommonSetupEvent event) {
         PageLoaders.onCommonSetup(event);
 
         LOGGER.info("Common setup complete.");
     }
+
+
 
 
     public void onServerSetup(FMLDedicatedServerSetupEvent event) {

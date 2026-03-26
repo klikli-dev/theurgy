@@ -211,16 +211,17 @@ public class IncubatorGameTests {
 
         helper.runAfterDelay(2, () -> {
             var vessel = helper.getBlockEntity(SALT_VESSEL_POS, IncubatorSaltVesselBlockEntity.class);
-            var remainder = vessel.inputInventory.insertItem(0, new ItemStack(SaltRegistry.CREATURE.get(), 1), false);
+            vessel.inputInventory.insertItem(0, new ItemStack(SaltRegistry.CREATURE.get(), 1), false);
+        });
+
+        helper.succeedWhen(() -> {
+            var vessel = helper.getBlockEntity(SALT_VESSEL_POS, IncubatorSaltVesselBlockEntity.class);
+            var expectedStack = new ItemStack(SaltRegistry.CREATURE.get(), 1);
+            var actualStack = vessel.inputInventory.getStackInSlot(0);
             helper.assertTrue(
-                    remainder.isEmpty(),
-                    "Alchemical salt should be accepted by salt vessel"
+                    ItemStack.matches(expectedStack, actualStack),
+                    "Salt vessel should contain the inserted alchemical salt"
             );
-            helper.assertTrue(
-                    !vessel.inputInventory.getStackInSlot(0).isEmpty(),
-                    "Salt vessel should contain the inserted item"
-            );
-            helper.succeed();
         });
     }
 

@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.28.0] - 2026-03-26
+### :sparkles: New Features
+- [`611411a`](https://github.com/klikli-dev/theurgy/commit/611411a000deb311c6b04025b97f53e5db90680a) - Generalize Divination Rod's ore tag detection to hopefully catch a larger variety of modded ores. *(PR [#272](https://github.com/klikli-dev/theurgy/pull/272) by [@The-Arcanian](https://github.com/The-Arcanian))*
+
+
 ## [release/v1.20.1-1.27.0] - 2026-03-22
 ### :sparkles: New Features
 - [`b29da32`](https://github.com/klikli-dev/theurgy/commit/b29da32283f96a7043458f25a7e19efa0fc34e80) - zh_cn lang update *(PR [#271](https://github.com/klikli-dev/theurgy/pull/271) by [@ChuijkYahus](https://github.com/ChuijkYahus))*
@@ -600,3 +605,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.1-1.25.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.24.0...release/v1.20.1-1.25.0
 [release/v1.20.1-1.26.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.25.0...release/v1.20.1-1.26.0
 [release/v1.20.1-1.27.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.26.0...release/v1.20.1-1.27.0
+[release/v1.20.1-1.28.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.20.1-1.27.0...release/v1.20.1-1.28.0

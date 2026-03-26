@@ -211,7 +211,7 @@ public class IncubatorGameTests {
 
         helper.runAfterDelay(2, () -> {
             var vessel = helper.getBlockEntity(SALT_VESSEL_POS, IncubatorSaltVesselBlockEntity.class);
-            var remainder = vessel.inputInventory.insertItem(0, new ItemStack(SaltRegistry.STRATA.get(), 1), false);
+            var remainder = vessel.inputInventory.insertItem(0, new ItemStack(SaltRegistry.CREATURE.get(), 1), false);
             helper.assertTrue(
                     remainder.isEmpty(),
                     "Alchemical salt should be accepted by salt vessel"
@@ -393,7 +393,7 @@ public class IncubatorGameTests {
             var sulfurVessel = helper.getBlockEntity(SULFUR_VESSEL_POS, IncubatorSulfurVesselBlockEntity.class);
 
             mercuryVessel.inputInventory.setStackInSlot(0, new ItemStack(ItemRegistry.MERCURY_SHARD.get(), 1));
-            saltVessel.inputInventory.setStackInSlot(0, new ItemStack(SaltRegistry.STRATA.get(), 1));
+            saltVessel.inputInventory.setStackInSlot(0, new ItemStack(SaltRegistry.CREATURE.get(), 1));
             sulfurVessel.inputInventory.setStackInSlot(0, new ItemStack(SulfurRegistry.BONE.get(), 1));
         });
     }

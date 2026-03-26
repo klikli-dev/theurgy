@@ -4,6 +4,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1-1.72.0] - 2026-03-26
+### :sparkles: New Features
+- [`35b2414`](https://github.com/klikli-dev/theurgy/commit/35b2414c682afe32b94d91acdb042b136f0c13bf) - add game tests for Mercury Catalyst *(PR [#292](https://github.com/klikli-dev/theurgy/pull/292) by [@klikli-dev](https://github.com/klikli-dev))*
+- [`ca9d195`](https://github.com/klikli-dev/theurgy/commit/ca9d195f60da8f2fe456d37e45ca9e0416572d24) - add game tests for Pyromantic Brazier *(PR [#294](https://github.com/klikli-dev/theurgy/pull/294) by [@klikli-dev](https://github.com/klikli-dev))*
+- [`bfcb82e`](https://github.com/klikli-dev/theurgy/commit/bfcb82e1922b5b5afabc1b2fabd4ac15988412e1) - add game tests for Calcination Oven *(PR [#295](https://github.com/klikli-dev/theurgy/pull/295) by [@klikli-dev](https://github.com/klikli-dev))*
+- [`f3e3371`](https://github.com/klikli-dev/theurgy/commit/f3e3371b24a130ba9e6ad518ba1e7837483257cd) - add game tests for Liquefaction Cauldron *(PR [#296](https://github.com/klikli-dev/theurgy/pull/296) by [@klikli-dev](https://github.com/klikli-dev))*
+- [`05ab952`](https://github.com/klikli-dev/theurgy/commit/05ab952309d08d00a64dcf78abeb8a2ffe29600e) - add remaining game tests for brazier, oven, and cauldron *(PR [#297](https://github.com/klikli-dev/theurgy/pull/297) by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :bug: Bug Fixes
+- [`bee20f2`](https://github.com/klikli-dev/theurgy/commit/bee20f22dfe9e6b64667876732e16768f8855707) - use correct salt type in incubator game tests *(PR [#299](https://github.com/klikli-dev/theurgy/pull/299) by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :white_check_mark: Tests
+- [`ed2f8ac`](https://github.com/klikli-dev/theurgy/commit/ed2f8ac77b8b024b8c6f7cf895c956c3b478af19) - add comprehensive block game tests *(PR [#298](https://github.com/klikli-dev/theurgy/pull/298) by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`51907d9`](https://github.com/klikli-dev/theurgy/commit/51907d96a5f82a2230d8caf2101b4756a29c0ddf) - update agent instructions *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.1-1.71.0] - 2026-03-25
 ### :sparkles: New Features
 - [`542d366`](https://github.com/klikli-dev/theurgy/commit/542d366c07ff8fa4dbf050ed7bbd5fb6ecfd9ccc) - agent update *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1309,3 +1327,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21.3-1.70.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.3-0.0.0...release/v1.21.3-1.70.0
 [release/v26.1-1.70.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1-0.0.0...release/v26.1-1.70.0
 [release/v26.1-1.71.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1-1.70.0...release/v26.1-1.71.0
+[release/v26.1-1.72.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1-1.71.0...release/v26.1-1.72.0

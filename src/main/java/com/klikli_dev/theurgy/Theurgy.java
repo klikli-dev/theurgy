@@ -165,11 +165,13 @@ public class Theurgy {
         return Identifier.fromNamespaceAndPath(MODID, path);
     }
 
+
     public void onCommonSetup(FMLCommonSetupEvent event) {
         PageLoaders.onCommonSetup(event);
 
         LOGGER.info("Common setup complete.");
     }
+
 
     public void onServerSetup(FMLDedicatedServerSetupEvent event) {
         LOGGER.info("Dedicated server setup complete.");

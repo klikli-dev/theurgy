@@ -68,8 +68,9 @@ public abstract class CraftingBehaviour<W extends RecipeInput, R extends Recipe<
 
     public void loadAdditional(ValueInput input) {
         this.progress = input.getShortOr("progress", (short) 0);
+        this.totalTime = input.getShortOr("totalTime", (short) 0);
         //totalTime is not saved in older versions, so we recalculate from recipe if we have progress
-        if (this.progress > 0) {
+        if (this.progress > 0 && this.totalTime == 0) {
             this.totalTime = this.getTotalTime();
         }
     }

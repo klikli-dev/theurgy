@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1-1.73.0] - 2026-03-27
+### :sparkles: New Features
+- [`822748f`](https://github.com/klikli-dev/theurgy/commit/822748fe1ce5c95f6ce78f06531412d683fc8ec0) - sulfuric flux emitter tests *(PR [#301](https://github.com/klikli-dev/theurgy/pull/301) by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.1-1.72.0] - 2026-03-26
 ### :sparkles: New Features
 - [`35b2414`](https://github.com/klikli-dev/theurgy/commit/35b2414c682afe32b94d91acdb042b136f0c13bf) - add game tests for Mercury Catalyst *(PR [#292](https://github.com/klikli-dev/theurgy/pull/292) by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1328,3 +1333,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1-1.70.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1-0.0.0...release/v26.1-1.70.0
 [release/v26.1-1.71.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1-1.70.0...release/v26.1-1.71.0
 [release/v26.1-1.72.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1-1.71.0...release/v26.1-1.72.0
+[release/v26.1-1.73.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1-1.72.0...release/v26.1-1.73.0

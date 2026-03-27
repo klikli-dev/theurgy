@@ -335,6 +335,20 @@ public class GameTestRegistry {
     public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> CFE_ENERGY =
             TEST_FUNCTIONS.register("caloric_flux_emitter_energy", () -> CaloricFluxEmitterGameTests::hasEnergyStorage);
 
+    // --- Sulfuric Flux Emitter ---
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> SFE_PLACEMENT =
+            TEST_FUNCTIONS.register("sulfuric_flux_emitter_placement", () -> SulfuricFluxEmitterGameTests::placementWithFacing);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> SFE_ENERGY =
+            TEST_FUNCTIONS.register("sulfuric_flux_emitter_energy", () -> SulfuricFluxEmitterGameTests::hasEnergyStorage);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> SFE_LINKING =
+            TEST_FUNCTIONS.register("sulfuric_flux_emitter_linking", () -> SulfuricFluxEmitterGameTests::linkPedestals);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> SFE_PROCESSING =
+            TEST_FUNCTIONS.register("sulfuric_flux_emitter_processing", () -> SulfuricFluxEmitterGameTests::reformationProcessing);
+
     // --- Reformation Pedestals ---
 
     public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> RP_SOURCE_PLACEMENT =
@@ -381,6 +395,7 @@ public class GameTestRegistry {
         registerSalAmmoniacAccumulatorTests(event);
         registerSalAmmoniacTankTests(event);
         registerCaloricFluxEmitterTests(event);
+        registerSulfuricFluxEmitterTests(event);
         registerReformationPedestalTests(event);
         registerLogisticsTests(event);
     }
@@ -546,6 +561,16 @@ public class GameTestRegistry {
         registerTest(event, CFE_ENABLED, environment, structure, 40, 0);
         registerTest(event, CFE_REDSTONE, environment, structure, 40, 0);
         registerTest(event, CFE_ENERGY, environment, structure, 40, 0);
+    }
+
+    private static void registerSulfuricFluxEmitterTests(RegisterGameTestsEvent event) {
+        var environment = event.registerEnvironment(Theurgy.loc("sulfuric_flux_emitter"));
+        var structure = Theurgy.loc("sulfuric_flux_emitter_test");
+
+        registerTest(event, SFE_PLACEMENT, environment, structure, 40, 0);
+        registerTest(event, SFE_ENERGY, environment, structure, 40, 0);
+        registerTest(event, SFE_LINKING, environment, structure, 40, 0);
+        registerTest(event, SFE_PROCESSING, environment, structure, 200, 0);
     }
 
     private static void registerReformationPedestalTests(RegisterGameTestsEvent event) {

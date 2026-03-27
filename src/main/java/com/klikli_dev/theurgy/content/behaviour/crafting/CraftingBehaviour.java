@@ -63,10 +63,15 @@ public abstract class CraftingBehaviour<W extends RecipeInput, R extends Recipe<
 
     public void saveAdditional(ValueOutput output) {
         output.putShort("progress", (short) this.progress);
+        output.putShort("totalTime", (short) this.totalTime);
     }
 
     public void loadAdditional(ValueInput input) {
         this.progress = input.getShortOr("progress", (short) 0);
+        //totalTime is not saved in older versions, so we recalculate from recipe if we have progress
+        if (this.progress > 0) {
+            this.totalTime = this.getTotalTime();
+        }
     }
 
     public void applyImplicitComponents(DataComponentGetter pComponentGetter) {

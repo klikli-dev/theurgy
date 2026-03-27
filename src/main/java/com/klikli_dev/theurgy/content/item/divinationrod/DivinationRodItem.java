@@ -137,25 +137,17 @@ public class DivinationRodItem extends Item {
     public static Optional<? extends HolderSet<Block>> getOreTagFromBlockId(Identifier blockId) {
         var path = blockId.getPath();
 
-        //extract single word ore name, I.E. 'iron' from any Block ID containing 'iron_ore'
-        Matcher matcher = SINGLE_WORD_ORE_PATTERN.matcher(path);
+        // It is important to check for double word ores first, to avoid partial matches from the single word pattern.
+        // E.g. for "sal_ammoniac_ore", the single word pattern would match "ammoniac".
+        var patterns = List.of(DOUBLE_WORD_ORE_PATTERN, SINGLE_WORD_ORE_PATTERN);
 
-        //if an ore name is found, check if a matching ore tag exists, and return it if so.
-        if (matcher.find()) {
-            var tag = getOreTagFromOreName(matcher.group(1));
-            if (tag.isPresent() && tag.get() instanceof HolderSet.ListBacked<Block> listBacked && listBacked.size() > 0) {
-                return tag;
-            }
-        }
-
-        //extract double word ore name, I.E. 'sal_ammoniac', from any Block ID containing 'sal_ammoniac_ore'
-        matcher = DOUBLE_WORD_ORE_PATTERN.matcher(path);
-
-        //if an ore name is found, check if a matching ore tag exists, and return it if so.
-        if (matcher.find()) {
-            var tag = getOreTagFromOreName(matcher.group(1));
-            if (tag.isPresent() && tag.get() instanceof HolderSet.ListBacked<Block> listBacked && listBacked.size() > 0) {
-                return tag;
+        for (Pattern pattern : patterns) {
+            Matcher matcher = pattern.matcher(path);
+            if (matcher.find()) {
+                var tag = getOreTagFromOreName(matcher.group(1));
+                if (tag.isPresent() && tag.get() instanceof HolderSet.ListBacked<Block> listBacked && listBacked.size() > 0) {
+                    return tag;
+                }
             }
         }
 

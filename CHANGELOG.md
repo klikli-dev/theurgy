@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1-1.74.0] - 2026-03-27
+### :sparkles: New Features
+- [`10cae47`](https://github.com/klikli-dev/theurgy/commit/10cae479325532aae8ca5b60e2601273cfacda05) - generalize divination rod ore tag detection *(PR [#304](https://github.com/klikli-dev/theurgy/pull/304) by [@klikli-dev](https://github.com/klikli-dev))*
+  - :arrow_lower_right: *addresses issue [#300](https://github.com/klikli-dev/theurgy/issues/300) opened by [@klikli-dev](https://github.com/klikli-dev)*
+
+### :bug: Bug Fixes
+- [`866f508`](https://github.com/klikli-dev/theurgy/commit/866f5081f4dfa029dcc6d133881253aa3b2c5b76) - prevent instant recipe completion in vats after Create contraption movement *(PR [#302](https://github.com/klikli-dev/theurgy/pull/302) by [@klikli-dev](https://github.com/klikli-dev))*
+  - :arrow_lower_right: *fixes issue [#258](https://github.com/klikli-dev/theurgy/issues/258) opened by [@weyermg](https://github.com/weyermg)*
+
+
 ## [release/v26.1-1.73.0] - 2026-03-27
 ### :sparkles: New Features
 - [`822748f`](https://github.com/klikli-dev/theurgy/commit/822748fe1ce5c95f6ce78f06531412d683fc8ec0) - sulfuric flux emitter tests *(PR [#301](https://github.com/klikli-dev/theurgy/pull/301) by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1334,3 +1344,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1-1.71.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1-1.70.0...release/v26.1-1.71.0
 [release/v26.1-1.72.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1-1.71.0...release/v26.1-1.72.0
 [release/v26.1-1.73.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1-1.72.0...release/v26.1-1.73.0
+[release/v26.1-1.74.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1-1.73.0...release/v26.1-1.74.0

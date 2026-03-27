@@ -71,6 +71,9 @@ public class ReformationArrayCraftingBehaviour extends CraftingBehaviour<Reforma
         // Safely insert the assembledStack into the outputInventory and update the input stack.
         this.outputInventorySupplier.get().insertItemStacked(assembledStack, false);
 
+        // Consume the target item
+        ItemHandlerRecipeInput.getTargetPedestalInv().extractItem(0, 1, false);
+
         return true;
     }
 

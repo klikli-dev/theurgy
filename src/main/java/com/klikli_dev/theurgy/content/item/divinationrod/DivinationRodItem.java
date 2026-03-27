@@ -41,16 +41,18 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
-import java.util.Collections;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Consumer;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class DivinationRodItem extends Item {
 
     public static final float NOT_FOUND = 7.0f;
     public static final float SEARCHING = 8.0f;
+    private static final Pattern SINGLE_WORD_ORE_PATTERN = Pattern.compile("([a-z]+)_ore");
+    private static final Pattern DOUBLE_WORD_ORE_PATTERN = Pattern.compile("([a-z]+_[a-z]+)_ore");
     private static final Map<Holder<Block>, ItemStack> linkedBlockCache = new Object2ObjectOpenHashMap<>();
     private static final Map<TagKey<Block>, ItemStack> linkedTagCache = new Object2ObjectOpenHashMap<>();
     public ToolMaterial defaultTier;
@@ -107,11 +109,10 @@ public class DivinationRodItem extends Item {
 
     public static Set<Block> getScanTargetsForId(Identifier linkedBlockId) {
         //First: try to get a tag for the given block.
-        var tagKey = TagKey.create(Registries.BLOCK, getOreTagFromBlockId(linkedBlockId));
-        var tag = BuiltInRegistries.BLOCK.get(tagKey);
+        var tag = getOreTagFromBlockId(linkedBlockId);
 
-        if (tag.map(HolderSet.ListBacked::size).orElse(0) > 0)
-            return tag.map(t -> t.stream().map(Holder::value).collect(Collectors.toSet())).orElse(Collections.emptySet());
+        if (tag.isPresent() && tag.get() instanceof HolderSet.ListBacked<Block> listBacked && listBacked.size() > 0)
+            return tag.get().stream().map(Holder::value).collect(Collectors.toSet());
 
         //If no fitting tag succeeds, try to get block + deepslate variant
         var blockKey = ResourceKey.create(Registries.BLOCK, linkedBlockId);
@@ -133,16 +134,30 @@ public class DivinationRodItem extends Item {
         return Set.of();
     }
 
-    public static Identifier getOreTagFromBlockId(Identifier blockId) {
+    public static Optional<? extends HolderSet<Block>> getOreTagFromBlockId(Identifier blockId) {
         var path = blockId.getPath();
 
-        String oreName = path
-                .replace("_ore", "")
-                .replace("ore_", "")
-                .replace("_deepslate", "")
-                .replace("deepslate_", "");
+        // It is important to check for double word ores first, to avoid partial matches from the single word pattern.
+        // E.g. for "sal_ammoniac_ore", the single word pattern would match "ammoniac".
+        var patterns = List.of(DOUBLE_WORD_ORE_PATTERN, SINGLE_WORD_ORE_PATTERN);
 
-        return Identifier.parse("c:ores/" + oreName);
+        for (Pattern pattern : patterns) {
+            Matcher matcher = pattern.matcher(path);
+            if (matcher.find()) {
+                var tag = getOreTagFromOreName(matcher.group(1));
+                if (tag.isPresent() && tag.get() instanceof HolderSet.ListBacked<Block> listBacked && listBacked.size() > 0) {
+                    return tag;
+                }
+            }
+        }
+
+        //If all else fails, just try returning a tag from the full Block ID, it will likely be empty.
+        return getOreTagFromOreName(path);
+    }
+
+    public static Optional<? extends HolderSet<Block>> getOreTagFromOreName(String name) {
+        var tagKey = TagKey.create(Registries.BLOCK, Identifier.parse("c:ores/" + name));
+        return BuiltInRegistries.BLOCK.get(tagKey);
     }
 
     public static void registerCreativeModeTabs(DivinationRodItem item, CreativeModeTab.Output output) {

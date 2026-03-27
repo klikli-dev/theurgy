@@ -62,11 +62,18 @@ public abstract class CraftingBehaviour<W extends RecipeInput, R extends Recipe<
 
     public void saveAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
         pTag.putShort("progress", (short) this.progress);
+        pTag.putShort("totalTime", (short) this.totalTime);
     }
 
     public void loadAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
         if (pTag.contains("progress"))
             this.progress = pTag.getShort("progress");
+        if (pTag.contains("totalTime"))
+            this.totalTime = pTag.getShort("totalTime");
+        //totalTime is not saved in older versions, so we recalculate from recipe if we have progress
+        if (this.progress > 0 && this.totalTime == 0) {
+            this.totalTime = this.getTotalTime();
+        }
     }
 
     public void applyImplicitComponents(BlockEntity.DataComponentInput pComponentInput) {

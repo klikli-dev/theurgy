@@ -72,3 +72,9 @@ path = "CHANGELOG.md"
 precedence = "aggregate"
 SPDX-FileCopyrightText = "2022 klikli-dev"
 SPDX-License-Identifier = "CC0-1.0"
+
+[[annotations]]
+path = "AGENTS.md"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2024 klikli-dev"
+SPDX-License-Identifier = "CC0-1.0"

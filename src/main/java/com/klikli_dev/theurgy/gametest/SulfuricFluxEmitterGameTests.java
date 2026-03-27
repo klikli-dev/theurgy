@@ -102,11 +102,13 @@ public class SulfuricFluxEmitterGameTests {
             var result = helper.getBlockEntity(RESULT_PEDESTAL_POS, ReformationResultPedestalBlockEntity.class);
             var resultStack = result.outputInventory.getStackInSlot(0);
 
-            helper.assertTrue(!resultStack.isEmpty(), "Result pedestal should contain a result");
-            helper.assertTrue(resultStack.is(SulfurRegistry.BONE.get()), "Result should be correctly produced");
+            helper.assertTrue(ItemStack.matches(resultStack, new ItemStack(SulfurRegistry.BONE.get())), "Result pedestal should contain one bone sulfur");
 
             var source = helper.getBlockEntity(SOURCE_PEDESTAL_POS, ReformationSourcePedestalBlockEntity.class);
             helper.assertTrue(source.inputInventory.getStackInSlot(0).isEmpty(), "Source item should be consumed");
+
+            var target = helper.getBlockEntity(TARGET_PEDESTAL_POS, ReformationTargetPedestalBlockEntity.class);
+            helper.assertTrue(target.inputInventory.getStackInSlot(0).isEmpty(), "Target item should be consumed");
         });
     }
 }

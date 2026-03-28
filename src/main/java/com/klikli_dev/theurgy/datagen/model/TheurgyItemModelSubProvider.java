@@ -8,6 +8,7 @@ import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.content.item.derivative.render.AlchemicalDerivativeRenderer;
 import com.klikli_dev.theurgy.content.item.niter.AlchemicalNiterItem;
 import com.klikli_dev.theurgy.content.item.renderer.DivinationDistanceProperty;
+import com.klikli_dev.theurgy.content.item.salt.render.AlchemicalSaltRenderer;
 import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurItem;
 import com.klikli_dev.theurgy.registry.*;
 import net.minecraft.client.data.models.ItemModelGenerators;
@@ -124,10 +125,11 @@ public class TheurgyItemModelSubProvider {
     }
 
     protected void registerSalts(ItemModelGenerators itemModels) {
-        //this.registerItemGenerated("alchemical_salt"); // Abstract parent not needed if we generate directly
-
         SaltRegistry.SALTS.getEntries().stream().map(DeferredHolder::get).forEach(salt -> {
-            this.registerAlchemicalSalt(itemModels, salt);
+            itemModels.itemModelOutput.accept(salt, ItemModelUtils.specialModel(
+                    Theurgy.loc("item/derivative_base"),
+                    new AlchemicalSaltRenderer.Unbaked()
+            ));
         });
     }
 
@@ -178,6 +180,7 @@ public class TheurgyItemModelSubProvider {
 
     public void registerModels(ItemModelGenerators itemModels) {
         this.registerItemGenerated(itemModels, ItemRegistry.THE_HERMETICA_ICON.get(), "the_hermetica");
+        this.registerItemGenerated(itemModels, ItemRegistry.SALT_ICON.get(), "alchemical_salt");
         this.registerItemGenerated(itemModels, ItemRegistry.EMPTY_JAR_ICON.get(), "empty_jar");
         this.registerItemGenerated(itemModels, ItemRegistry.EMPTY_JAR_IRON_BAND_ICON.get(), "empty_jar_iron_band");
         this.registerItemGenerated(itemModels, ItemRegistry.EMPTY_JAR_LABELED_ICON.get(), "empty_jar_labeled");

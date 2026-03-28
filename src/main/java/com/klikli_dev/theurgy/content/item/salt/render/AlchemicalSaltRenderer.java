@@ -6,6 +6,7 @@ package com.klikli_dev.theurgy.content.item.salt.render;
 
 import com.klikli_dev.theurgy.content.item.salt.AlchemicalSaltItem;
 import com.klikli_dev.theurgy.registry.DataComponentRegistry;
+import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.util.TagUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.serialization.MapCodec;
@@ -15,11 +16,13 @@ import net.minecraft.client.renderer.item.ItemStackRenderState;
 import net.minecraft.client.renderer.special.SpecialModelRenderer;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
+import net.neoforged.neoforge.common.util.Lazy;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
 import org.joml.Vector3fc;
 
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 /**
  * Simple renderer for alchemical salt items.
@@ -29,6 +32,8 @@ import java.util.function.Consumer;
  */
 public class AlchemicalSaltRenderer implements SpecialModelRenderer<AlchemicalSaltRenderState> {
 
+    private static final Supplier<ItemStack> saltIconStack = Lazy.of(() -> new ItemStack(ItemRegistry.SALT_ICON.get()));
+
     @Override
     public void submit(@Nullable AlchemicalSaltRenderState state, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int light, int overlay, boolean hasFoil, int outlineColor) {
         if (state == null) return;
@@ -37,14 +42,16 @@ public class AlchemicalSaltRenderer implements SpecialModelRenderer<AlchemicalSa
         // so that our sub-items render centered rather than offset to the bottom-left corner of the slot.
         poseStack.translate(0.5f, 0.5f, 0.5f);
 
-        // If shift is down, render the source item full size
         if (state.shiftDown()) {
+            // Shift is held: render the source item full size with GUI context for proper 3D transform
             ItemStack sourceStack = this.resolveSourceStack(state);
             if (!sourceStack.isEmpty()) {
-                this.submitItem(sourceStack, ItemDisplayContext.NONE, poseStack, submitNodeCollector, light, overlay, outlineColor);
+                this.submitItem(sourceStack, ItemDisplayContext.GUI, poseStack, submitNodeCollector, light, overlay, outlineColor);
             }
+        } else {
+            // Shift is not held: render the salt icon texture
+            this.submitItem(saltIconStack.get(), ItemDisplayContext.GUI, poseStack, submitNodeCollector, light, overlay, outlineColor);
         }
-        // When shift is not held, the default flat item model renders the salt texture - no special rendering needed.
     }
 
     /**

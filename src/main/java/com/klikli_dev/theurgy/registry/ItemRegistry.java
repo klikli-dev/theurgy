@@ -57,6 +57,9 @@ public class ItemRegistry {
     public static final DeferredItem<Item> THE_HERMETICA_ICON =
             ITEMS.registerItem("the_hermetica_icon", Item::new);
 
+    public static final DeferredItem<Item> SALT_ICON =
+            ITEMS.registerItem("salt_icon", Item::new);
+
 
     public static final DeferredItem<Item> GEMS_ABUNDANT_ICON = ITEMS.registerItem("gems_abundant_icon", Item::new);
     public static final DeferredItem<Item> GEMS_COMMON_ICON = ITEMS.registerItem("gems_common_icon", Item::new);

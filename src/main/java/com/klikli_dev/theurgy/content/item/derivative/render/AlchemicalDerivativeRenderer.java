@@ -52,7 +52,7 @@ public class AlchemicalDerivativeRenderer implements SpecialModelRenderer<Alchem
         // If shift is down in GUI, just render the contained item in full size
         if (state.shiftDown()) {
             if (!sourceStack.isEmpty()) {
-                this.submitItem(sourceStack, ItemDisplayContext.NONE, poseStack, submitNodeCollector, light, overlay, outlineColor);
+                this.submitItem(sourceStack, ItemDisplayContext.GUI, poseStack, submitNodeCollector, light, overlay, outlineColor);
             }
             return;
         }

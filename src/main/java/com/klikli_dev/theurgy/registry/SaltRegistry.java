@@ -8,6 +8,8 @@ import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.content.item.salt.AlchemicalSaltItem;
 import com.klikli_dev.theurgy.util.LevelUtil;
 import it.unimi.dsi.fastutil.objects.ObjectLinkedOpenCustomHashSet;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.*;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -23,16 +25,26 @@ public class SaltRegistry {
      * Geological term for sedimentary, rock, soil, etc. Here means Stone, Dirt, Sand, Gravel, Clay, etc
      */
     public static final DeferredItem<AlchemicalSaltItem> STRATA =
-            register("strata");
+            register("strata", ItemRegistry.OTHER_MINERALS_COMMON_ICON);
     public static final DeferredItem<AlchemicalSaltItem> MINERAL =
-            register("mineral");
+            register("mineral", ItemRegistry.METALS_COMMON_ICON);
     public static final DeferredItem<AlchemicalSaltItem> PLANT =
-            register("plant");
+            register("plant", Items.OAK_LOG);
     public static final DeferredItem<AlchemicalSaltItem> CREATURE =
-            register("creature");
+            register("creature", Items.BEEF);
 
-    public static <T extends Item> DeferredItem<AlchemicalSaltItem> register(String name) {
-        return register(name, AlchemicalSaltItem::new);
+    public static DeferredItem<AlchemicalSaltItem> register(String name, DeferredItem<?> source) {
+        return register(name, (p) -> new AlchemicalSaltItem(p.component(
+                DataComponentRegistry.SOURCE_ITEM,
+                DeferredHolder.create(Registries.ITEM, source.getId())
+        )));
+    }
+
+    public static DeferredItem<AlchemicalSaltItem> register(String name, Item source) {
+        return register(name, (p) -> new AlchemicalSaltItem(p.component(
+                DataComponentRegistry.SOURCE_ITEM,
+                BuiltInRegistries.ITEM.wrapAsHolder(source)
+        )));
     }
 
     public static <T extends Item> DeferredItem<T> register(String name, Function<Item.Properties, ? extends T> func) {

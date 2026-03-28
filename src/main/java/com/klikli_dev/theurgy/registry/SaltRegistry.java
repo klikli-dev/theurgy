@@ -24,13 +24,13 @@ public class SaltRegistry {
      * Geological term for sedimentary, rock, soil, etc. Here means Stone, Dirt, Sand, Gravel, Clay, etc
      */
     public static final DeferredItem<AlchemicalSaltItem> STRATA =
-            register("strata", Items.STONE);
+            register("strata", ItemRegistry.OTHER_MINERALS_COMMON_ICON.get());
     public static final DeferredItem<AlchemicalSaltItem> MINERAL =
-            register("mineral", Items.IRON_ORE);
+            register("mineral", ItemRegistry.METALS_COMMON_ICON.get());
     public static final DeferredItem<AlchemicalSaltItem> PLANT =
-            register("plant", Items.OAK_LOG);
+            register("plant", ItemRegistry.GEMS_COMMON_ICON.get());
     public static final DeferredItem<AlchemicalSaltItem> CREATURE =
-            register("creature", Items.BEEF);
+            register("creature", ItemRegistry.GEMS_COMMON_ICON.get());
 
     public static DeferredItem<AlchemicalSaltItem> register(String name, Item source) {
         return register(name, (p) -> new AlchemicalSaltItem(p.component(

@@ -13,9 +13,11 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.capabilities.BlockCapabilityCache;
+import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.transfer.ResourceHandler;
 import net.neoforged.neoforge.transfer.fluid.FluidResource;
 import org.jetbrains.annotations.Nullable;
@@ -117,11 +119,28 @@ public class LogisticsFluidExtractorBehaviour extends ExtractorNodeBehaviour<Res
         if (insertCap == null)
             return;
 
+        var extractPos = extractTarget.pos();
+        if (this.level().getBlockEntity(extractPos) == null && this.isInfiniteSourceFluid(extractPos)) {
+            this.performWorldExtraction(extractPos, this.filter(), insertCap, insertTarget.inserter().filter());
+            return;
+        }
+
         var extractCap = extractTarget.getCapability();
         if (extractCap == null)
             return;
 
         this.performExtraction(extractCap, this.filter(), insertCap, insertTarget.inserter().filter());
+    }
+
+    protected void performWorldExtraction(BlockPos extractPos, Filter extractFilter, ResourceHandler<FluidResource> insertCap, Filter insertFilter) {
+        var extractStack = this.getWorldExtractStack(extractPos);
+        if (extractStack.isEmpty())
+            return;
+
+        if (!extractFilter.test(this.level(), extractStack) || !insertFilter.test(this.level(), extractStack))
+            return;
+
+        FluidStorageHelper.fill(insertCap, extractStack, false);
     }
 
     protected void performExtraction(ResourceHandler<FluidResource> extractCap, Filter extractFilter, ResourceHandler<FluidResource> insertCap, Filter insertFilter) {
@@ -141,5 +160,19 @@ public class LogisticsFluidExtractorBehaviour extends ExtractorNodeBehaviour<Res
             inserted = FluidStorageHelper.fill(insertCap, extractStack, false);
             FluidStorageHelper.drain(extractCap, inserted, false);
         }
+    }
+
+    protected boolean isInfiniteSourceFluid(BlockPos targetPos) {
+        FluidState fluidState = this.level().getBlockState(targetPos).getFluidState();
+        return !fluidState.isEmpty() && fluidState.isSource();
+    }
+
+    protected FluidStack getWorldExtractStack(BlockPos targetPos) {
+        if (!this.isInfiniteSourceFluid(targetPos)) {
+            return FluidStack.EMPTY;
+        }
+
+        FluidState fluidState = this.level().getBlockState(targetPos).getFluidState();
+        return new FluidStack(fluidState.getType(), this.extractionAmount);
     }
 }

@@ -19,6 +19,7 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DirectionalBlock;
@@ -26,21 +27,25 @@ import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 
-public abstract class LogisticsFluidConnectorBlock extends DirectionalBlock implements EntityBlock, HasWireEndPoint {
+public abstract class LogisticsFluidConnectorBlock extends DirectionalBlock implements EntityBlock, HasWireEndPoint, SimpleWaterloggedBlock {
 
     public static final BooleanProperty HAS_FILTER = LogisticsItemConnectorBlock.HAS_FILTER;
+    public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
     public static final DirectionalBlockShape SHAPE = new DirectionalBlockShape(2, 2, 8);
 
     public LogisticsFluidConnectorBlock(Properties properties) {
         super(properties);
 
-        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.UP).setValue(HAS_FILTER, false));
+        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.UP).setValue(HAS_FILTER, false).setValue(WATERLOGGED, false));
     }
 
     @Override
@@ -76,16 +81,18 @@ public abstract class LogisticsFluidConnectorBlock extends DirectionalBlock impl
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
-        pBuilder.add(FACING, HAS_FILTER);
+        pBuilder.add(FACING, HAS_FILTER, WATERLOGGED);
     }
 
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {
         Direction direction = pContext.getClickedFace();
         BlockState blockstate = pContext.getLevel().getBlockState(pContext.getClickedPos().relative(direction.getOpposite()));
-        return blockstate.is(this) && blockstate.getValue(FACING) == direction
+        boolean waterlogged = pContext.getLevel().getFluidState(pContext.getClickedPos()).getType() == Fluids.WATER;
+        return (blockstate.is(this) && blockstate.getValue(FACING) == direction
                 ? this.defaultBlockState().setValue(FACING, direction.getOpposite())
-                : this.defaultBlockState().setValue(FACING, direction);
+                : this.defaultBlockState().setValue(FACING, direction))
+                .setValue(WATERLOGGED, waterlogged);
     }
 
     @Override
@@ -99,6 +106,15 @@ public abstract class LogisticsFluidConnectorBlock extends DirectionalBlock impl
 
     @Override
     public BlockState updateShape(BlockState pState, net.minecraft.world.level.LevelReader pLevel, net.minecraft.world.level.ScheduledTickAccess pTickAccess, BlockPos pCurrentPos, Direction pFacing, BlockPos pFacingPos, BlockState pFacingState, net.minecraft.util.RandomSource pRandom) {
+        if (pState.getValue(WATERLOGGED)) {
+            pTickAccess.scheduleTick(pCurrentPos, Fluids.WATER, Fluids.WATER.getTickDelay(pLevel));
+        }
+
         return pFacing.getOpposite() == pState.getValue(FACING) && !pState.canSurvive(pLevel, pCurrentPos) ? Blocks.AIR.defaultBlockState() : pState;
+    }
+
+    @Override
+    protected @NotNull FluidState getFluidState(BlockState pState) {
+        return pState.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(pState);
     }
 }

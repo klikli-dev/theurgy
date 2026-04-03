@@ -292,7 +292,7 @@ public class Logistics extends SavedData {
         }
 
         //first query the neighbors, because after removal we can't
-        var neighbors = this.graph().adjacentNodes(destroyedBlock);
+        var neighbors = new ArrayList<>(this.graph().adjacentNodes(destroyedBlock));
         this.graph().removeNode(destroyedBlock);
         this.graphNodes().remove(destroyedBlock);
         this.setDirty();

@@ -35,7 +35,7 @@ public record MessageRequestInWorldHUD(BlockPos pos) implements Message {
         ServerLevel level = (ServerLevel) player.level();
         InWorldHUDSnapshot snapshot = InWorldHUDSnapshot.EMPTY;
 
-        if (level.isLoaded(this.pos) && player.isWithinBlockInteractionRange(this.pos, 1.0) && this.isActuallyLookingAt(player, level)) {
+        if (level.isLoaded(this.pos) && this.isActuallyLookingAt(player, level)) {
             snapshot = InWorldHUDRegistry.gatherServerSnapshot(player, level, this.pos);
         }
 

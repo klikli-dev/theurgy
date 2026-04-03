@@ -82,17 +82,15 @@ public class InWorldHUDRegistry {
         BlockState state = level.getBlockState(pos);
         BlockEntity blockEntity = level.getBlockEntity(pos);
 
-        List<InWorldHUDProvider> blockProviders = BLOCK_PROVIDERS.getOrDefault(state.getBlock(), List.of());
-        if (blockProviders.isEmpty()) {
+        List<InWorldHUDProvider> applicableBlockProviders = BLOCK_PROVIDERS.getOrDefault(state.getBlock(), List.of()).stream()
+                .filter(provider -> provider.applies(level, pos, state, blockEntity))
+                .toList();
+
+        if (applicableBlockProviders.isEmpty()) {
             return List.of();
         }
 
-        List<InWorldHUDProvider> result = new ArrayList<>();
-        blockProviders.stream().filter(provider -> provider.applies(level, pos, state, blockEntity)).forEach(result::add);
-        if (result.isEmpty()) {
-            return List.of();
-        }
-
+        List<InWorldHUDProvider> result = new ArrayList<>(applicableBlockProviders);
         GENERIC_PROVIDERS.stream().filter(provider -> provider.applies(level, pos, state, blockEntity)).forEach(result::add);
         return result;
     }

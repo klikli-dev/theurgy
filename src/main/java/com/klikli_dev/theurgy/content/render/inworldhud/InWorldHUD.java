@@ -52,7 +52,7 @@ public class InWorldHUD implements GuiLayer {
         }
 
         if (!lookedAtPos.equals(this.currentPos)) {
-            this.currentPos = lookedAtPos.immutable();
+            this.currentPos = lookedAtPos;
             this.serverSnapshot = InWorldHUDSnapshot.EMPTY;
             this.nextRequestTick = 0;
         }

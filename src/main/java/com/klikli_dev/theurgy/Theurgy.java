@@ -28,6 +28,10 @@ import com.klikli_dev.theurgy.content.item.salt.AlchemicalSaltItem;
 import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurItem;
 import com.klikli_dev.theurgy.content.item.wire.WireItem;
 import com.klikli_dev.theurgy.content.render.*;
+import com.klikli_dev.theurgy.content.render.inworldhud.ClientItemStacksTooltip;
+import com.klikli_dev.theurgy.content.render.inworldhud.InWorldHUD;
+import com.klikli_dev.theurgy.content.render.inworldhud.InWorldHUDRegistry;
+import com.klikli_dev.theurgy.content.render.inworldhud.ItemStacksTooltip;
 import com.klikli_dev.theurgy.content.render.itemhud.ItemHUD;
 import com.klikli_dev.theurgy.content.render.outliner.Outliner;
 import com.klikli_dev.theurgy.util.ScrollHelper;
@@ -144,6 +148,7 @@ public class Theurgy {
             modEventBus.addListener(Client::onRegisterBlockColors);
             modEventBus.addListener(Client::onRegisterGuiOverlays);
             modEventBus.addListener(Client::onRegisterMenuScreens);
+            modEventBus.addListener(Client::onRegisterClientTooltipComponentFactories);
             modEventBus.addListener(BlockOverlays::onTextureAtlasStitched);
             modEventBus.addListener(KeyMappingsRegistry::onRegisterKeyMappings);
             modEventBus.addListener(Client::onRegisterItemProperties);
@@ -166,6 +171,7 @@ public class Theurgy {
     }
 
     public void onCommonSetup(FMLCommonSetupEvent event) {
+        event.enqueueWork(InWorldHUDRegistry::registerDefaults);
         PageLoaders.onCommonSetup(event);
 
         LOGGER.info("Common setup complete.");
@@ -234,6 +240,7 @@ public class Theurgy {
 
             Player player = Minecraft.getInstance().player;
 
+            InWorldHUD.get().tick(Minecraft.getInstance());
             Outliner.get().tick();
             BlockRegistry.CALORIC_FLUX_EMITTER.get().selectionBehaviour().tick(player);
             BlockRegistry.SULFURIC_FLUX_EMITTER.get().selectionBehaviour().tick(player);
@@ -321,7 +328,12 @@ public class Theurgy {
         }
 
         public static void onRegisterGuiOverlays(RegisterGuiLayersEvent event) {
+            event.registerAbove(VanillaGuiLayers.HOTBAR, Theurgy.loc("in_world_hud"), InWorldHUD.get());
             event.registerAbove(VanillaGuiLayers.HOTBAR, Theurgy.loc("item_hud"), ItemHUD.get());
+        }
+
+        public static void onRegisterClientTooltipComponentFactories(RegisterClientTooltipComponentFactoriesEvent event) {
+            event.register(ItemStacksTooltip.class, ClientItemStacksTooltip::new);
         }
 
         public static void onRegisterMenuScreens(RegisterMenuScreensEvent event) {

@@ -29,6 +29,7 @@ public class ClientConfig {
 
         public final BooleanValue renderSulfurSourceItem;
         public final BooleanValue enableItemHUD;
+        public final BooleanValue enableInWorldHUD;
         public final ModConfigSpec.DoubleValue itemHUDScale;
 
         public Rendering(ModConfigSpec.Builder builder) {
@@ -42,6 +43,10 @@ public class ClientConfig {
             this.enableItemHUD = builder
                     .comment("True to enable the item HUD, false to disable it.")
                     .define("enableItemHUD", true);
+
+            this.enableInWorldHUD = builder
+                    .comment("True to enable the in-world HUD when looking at supported machine blocks, false to disable it.")
+                    .define("enableInWorldHUD", true);
 
             this.itemHUDScale = builder
                     .comment("The scale of the Item HUD text (e.g. for the mercurial wand).")

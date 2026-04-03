@@ -1274,6 +1274,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.addConfig("rendering", "Rendering Settings");
         this.addConfig("renderSulfurSourceItem", "Render Sulfur Source Items");
         this.addConfig("enableItemHUD", "Enable Item HUD");
+        this.addConfig("enableInWorldHUD", "Enable In-World HUD");
         this.addConfig("hudScale", "HUD Scale");
 
         this.addConfig("misc", "Misc Settings");

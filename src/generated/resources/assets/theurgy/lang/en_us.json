@@ -2673,6 +2673,7 @@
   "theurgy.behaviour.selection.summary.sulfuric_flux_emitter.no_selection": "Sulfuric Flux Emitter has no linked pedestals.",
   "theurgy.behaviour.selection.summary.sulfuric_flux_emitter.no_sources": "Sulfuric Flux Emitter has no linked source pedestals.",
   "theurgy.behaviour.selection.summary.sulfuric_flux_emitter.no_target": "Sulfuric Flux Emitter has no linked target pedestal.",
+  "theurgy.configuration.enableInWorldHUD": "Enable In-World HUD",
   "theurgy.configuration.enableItemHUD": "Enable Item HUD",
   "theurgy.configuration.hudScale": "HUD Scale",
   "theurgy.configuration.misc": "Misc Settings",

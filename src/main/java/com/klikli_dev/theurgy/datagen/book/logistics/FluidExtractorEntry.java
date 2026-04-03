@@ -31,6 +31,9 @@ public class FluidExtractorEntry extends EntryProvider {
                 .withText(this.context().pageText()));
         this.pageText("""
                 When attached to a block, the extractor will extract fluids from the block into the Mercurial Logistics System. The fluids will be inserted into blocks that have inserters attached to them, if the inserters are part of the same network.
+                \
+                \
+                It can also extract directly from world fluid source blocks, such as water or lava, without consuming the source.
                 """
         );
 
@@ -43,6 +46,9 @@ public class FluidExtractorEntry extends EntryProvider {
         this.pageTitle("Usage");
         this.pageText("""
                 Right-click a block that has a tank to attach the extractor to it.
+                \\
+                \\
+                You can also place it against a fluid source block in the world to pump that source into the network.
                 \\
                 \\
                 The extractor will by default extract from the face it is attached to. This only matters if the block has multiple fluid tanks accessible from different block faces.

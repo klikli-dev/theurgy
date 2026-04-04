@@ -6,6 +6,8 @@ package com.klikli_dev.theurgy.content.apparatus.salammoniactank.render;
 
 import com.geckolib.renderer.GeoBlockRenderer;
 import com.klikli_dev.theurgy.content.apparatus.salammoniactank.SalAmmoniacTankBlockEntity;
+import com.klikli_dev.theurgy.content.fluid.SolventFluidType;
+import com.klikli_dev.theurgy.content.render.FluidRenderer;
 import com.klikli_dev.theurgy.content.render.RenderTypes;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -80,10 +82,19 @@ public class SalAmmoniacTankRenderer extends GeoBlockRenderer<SalAmmoniacTankBlo
         float clampedLevel = Mth.clamp(fluidHeight * totalHeight, 0, totalHeight);
         int blockLightIn = (state.lightCoords >> 4) & 0xF;
         int luminosity = Math.max(blockLightIn, fluidType.getLightLevel(fluidStack));
+        var sprite = FluidRenderer.getFluidTexture(fluidStack, FluidRenderer.FluidTextureType.STILL);
 
-        state.color = 0xFFFFFFFF; // SAL_AMMONIAC uses water base, default no-tint (IClientFluidTypeExtensions.getTintColor removed)
+        if (fluidType instanceof SolventFluidType solventFluidType) {
+            state.color = solventFluidType.tint;
+        } else {
+            state.color = 0xFFFFFFFF;
+        }
         state.fluidLight = (state.lightCoords & 0xF00000) | luminosity << 4;
         state.surfaceY = capHeight + minPuddleHeight + clampedLevel;
+        state.u0 = sprite.getU0();
+        state.u1 = sprite.getU1();
+        state.v0 = sprite.getV0();
+        state.v1 = sprite.getV1();
     }
 
     @Override
@@ -102,13 +113,12 @@ public class SalAmmoniacTankRenderer extends GeoBlockRenderer<SalAmmoniacTankBlo
         float zMax = zMin + blockWidth - 2 * tankHullWidth;
 
         poseStack.pushPose();
-        poseStack.translate(-0.5f, 0, -0.5f);
 
         submitNodeCollector.submitCustomGeometry(poseStack, RenderTypes.fluid(), (pose, builder) -> {
-            putVertex(builder, pose, xMin, state.surfaceY, zMin, state.color, 0.0f, 0.0f, Direction.UP, state.fluidLight);
-            putVertex(builder, pose, xMin, state.surfaceY, zMax, state.color, 0.0f, 1.0f, Direction.UP, state.fluidLight);
-            putVertex(builder, pose, xMax, state.surfaceY, zMax, state.color, 1.0f, 1.0f, Direction.UP, state.fluidLight);
-            putVertex(builder, pose, xMax, state.surfaceY, zMin, state.color, 1.0f, 0.0f, Direction.UP, state.fluidLight);
+            putVertex(builder, pose, xMin, state.surfaceY, zMin, state.color, state.u0, state.v0, Direction.UP, state.fluidLight);
+            putVertex(builder, pose, xMin, state.surfaceY, zMax, state.color, state.u0, state.v1, Direction.UP, state.fluidLight);
+            putVertex(builder, pose, xMax, state.surfaceY, zMax, state.color, state.u1, state.v1, Direction.UP, state.fluidLight);
+            putVertex(builder, pose, xMax, state.surfaceY, zMin, state.color, state.u1, state.v0, Direction.UP, state.fluidLight);
         });
 
         poseStack.popPose();
@@ -119,5 +129,9 @@ public class SalAmmoniacTankRenderer extends GeoBlockRenderer<SalAmmoniacTankBlo
         public int color;
         public int fluidLight;
         public float surfaceY;
+        public float u0;
+        public float u1;
+        public float v0;
+        public float v1;
     }
 }

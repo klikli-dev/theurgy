@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1-1.75.0] - 2026-04-04
+### :sparkles: New Features
+- [`4522e6a`](https://github.com/klikli-dev/theurgy/commit/4522e6a04e45b097a19df73b9c0e27b99bd2f4bf) - show salt source item on shift press *(PR [#305](https://github.com/klikli-dev/theurgy/pull/305) by [@klikli-dev](https://github.com/klikli-dev))*
+  - :arrow_lower_right: *addresses issue [#177](https://github.com/klikli-dev/theurgy/issues/177) opened by [@ChilledDayZ07](https://github.com/ChilledDayZ07)*
+- [`a4dc9de`](https://github.com/klikli-dev/theurgy/commit/a4dc9de0be924b29a88b0ba35e47a2ae9b464835) - add in-world mercury catalyst HUD *(PR [#307](https://github.com/klikli-dev/theurgy/pull/307) by [@klikli-dev](https://github.com/klikli-dev))*
+- [`1139a68`](https://github.com/klikli-dev/theurgy/commit/1139a689657f06072470037249c369d8038f6c9d) - support logistics extraction from world fluid sources *(PR [#309](https://github.com/klikli-dev/theurgy/pull/309) by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :bug: Bug Fixes
+- [`87e7b89`](https://github.com/klikli-dev/theurgy/commit/87e7b89ce5c3a8b371f3f86c84f1170337ef419f) - crash on wire render *(PR [#310](https://github.com/klikli-dev/theurgy/pull/310) by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.1-1.74.0] - 2026-03-27
 ### :sparkles: New Features
 - [`10cae47`](https://github.com/klikli-dev/theurgy/commit/10cae479325532aae8ca5b60e2601273cfacda05) - generalize divination rod ore tag detection *(PR [#304](https://github.com/klikli-dev/theurgy/pull/304) by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1345,3 +1356,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1-1.72.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1-1.71.0...release/v26.1-1.72.0
 [release/v26.1-1.73.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1-1.72.0...release/v26.1-1.73.0
 [release/v26.1-1.74.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1-1.73.0...release/v26.1-1.74.0
+[release/v26.1-1.75.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1-1.74.0...release/v26.1-1.75.0

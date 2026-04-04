@@ -6,11 +6,11 @@ package com.klikli_dev.theurgy.content.apparatus.salammoniactank.render;
 
 import com.geckolib.renderer.GeoBlockRenderer;
 import com.klikli_dev.theurgy.content.apparatus.salammoniactank.SalAmmoniacTankBlockEntity;
-import com.klikli_dev.theurgy.content.fluid.SolventFluidType;
 import com.klikli_dev.theurgy.content.render.FluidRenderer;
 import com.klikli_dev.theurgy.content.render.RenderTypes;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.blockentity.state.BlockEntityRenderState;
@@ -84,11 +84,9 @@ public class SalAmmoniacTankRenderer extends GeoBlockRenderer<SalAmmoniacTankBlo
         int luminosity = Math.max(blockLightIn, fluidType.getLightLevel(fluidStack));
         var sprite = FluidRenderer.getFluidTexture(fluidStack, FluidRenderer.FluidTextureType.STILL);
 
-        if (fluidType instanceof SolventFluidType solventFluidType) {
-            state.color = solventFluidType.tint;
-        } else {
-            state.color = 0xFFFFFFFF;
-        }
+        state.color = blockEntity.getLevel() instanceof ClientLevel clientLevel
+                ? FluidRenderer.getFluidColor(fluidStack, clientLevel, blockEntity.getBlockPos())
+                : FluidRenderer.getFluidColor(fluidStack);
         state.fluidLight = (state.lightCoords & 0xF00000) | luminosity << 4;
         state.surfaceY = capHeight + minPuddleHeight + clampedLevel;
         state.u0 = sprite.getU0();

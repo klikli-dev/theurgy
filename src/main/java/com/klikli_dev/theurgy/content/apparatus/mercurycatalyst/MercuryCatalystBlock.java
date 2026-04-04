@@ -29,6 +29,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.redstone.Orientation;
+import net.minecraft.util.ARGB;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -56,7 +57,7 @@ public class MercuryCatalystBlock extends Block implements EntityBlock {
             return getColorFromFillLevel(fillLevel);
         }
 
-        return 0xFFFFFF;
+        return ARGB.opaque(0xFFFFFF);
     }
 
     public static int getItemColor(ItemStack pStack, int pTintIndex) {
@@ -65,7 +66,7 @@ public class MercuryCatalystBlock extends Block implements EntityBlock {
             return getColorFromFillLevel(fillLevel);
         }
 
-        return 0xFFFFFF;
+        return ARGB.opaque(0xFFFFFF);
     }
 
     public static int getColorFromFillLevel(float fillLevel) {
@@ -81,7 +82,7 @@ public class MercuryCatalystBlock extends Block implements EntityBlock {
         // Combine the R, G, B values into a RGB integer
         int rgb = (r << 16) | (g << 8) | b;
 
-        return rgb;
+        return ARGB.opaque(rgb);
     }
 
     @Override
@@ -171,7 +172,7 @@ public class MercuryCatalystBlock extends Block implements EntityBlock {
 
         @Override
         public int color(@NonNull BlockState blockState) {
-            return 0xFFFFFF;
+            return ARGB.opaque(0xFFFFFF);
         }
 
         @Override

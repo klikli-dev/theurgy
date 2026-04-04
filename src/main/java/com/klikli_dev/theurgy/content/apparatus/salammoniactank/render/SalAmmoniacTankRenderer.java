@@ -48,28 +48,28 @@ public class SalAmmoniacTankRenderer extends GeoBlockRenderer<SalAmmoniacTankBlo
     ) {
         switch (face) {
             case NORTH -> {
-                putVertex(builder, pose, horizontalMin, yMax, depth, color, u0, vTop, face, light);
                 putVertex(builder, pose, horizontalMin, yMin, depth, color, u0, vBottom, face, light);
-                putVertex(builder, pose, horizontalMax, yMin, depth, color, u1, vBottom, face, light);
+                putVertex(builder, pose, horizontalMin, yMax, depth, color, u0, vTop, face, light);
                 putVertex(builder, pose, horizontalMax, yMax, depth, color, u1, vTop, face, light);
+                putVertex(builder, pose, horizontalMax, yMin, depth, color, u1, vBottom, face, light);
             }
             case SOUTH -> {
-                putVertex(builder, pose, horizontalMax, yMax, depth, color, u0, vTop, face, light);
                 putVertex(builder, pose, horizontalMax, yMin, depth, color, u0, vBottom, face, light);
-                putVertex(builder, pose, horizontalMin, yMin, depth, color, u1, vBottom, face, light);
+                putVertex(builder, pose, horizontalMax, yMax, depth, color, u0, vTop, face, light);
                 putVertex(builder, pose, horizontalMin, yMax, depth, color, u1, vTop, face, light);
+                putVertex(builder, pose, horizontalMin, yMin, depth, color, u1, vBottom, face, light);
             }
             case WEST -> {
-                putVertex(builder, pose, depth, yMax, horizontalMax, color, u0, vTop, face, light);
                 putVertex(builder, pose, depth, yMin, horizontalMax, color, u0, vBottom, face, light);
-                putVertex(builder, pose, depth, yMin, horizontalMin, color, u1, vBottom, face, light);
+                putVertex(builder, pose, depth, yMax, horizontalMax, color, u0, vTop, face, light);
                 putVertex(builder, pose, depth, yMax, horizontalMin, color, u1, vTop, face, light);
+                putVertex(builder, pose, depth, yMin, horizontalMin, color, u1, vBottom, face, light);
             }
             case EAST -> {
-                putVertex(builder, pose, depth, yMax, horizontalMin, color, u0, vTop, face, light);
                 putVertex(builder, pose, depth, yMin, horizontalMin, color, u0, vBottom, face, light);
-                putVertex(builder, pose, depth, yMin, horizontalMax, color, u1, vBottom, face, light);
+                putVertex(builder, pose, depth, yMax, horizontalMin, color, u0, vTop, face, light);
                 putVertex(builder, pose, depth, yMax, horizontalMax, color, u1, vTop, face, light);
+                putVertex(builder, pose, depth, yMin, horizontalMax, color, u1, vBottom, face, light);
             }
             default -> {
             }

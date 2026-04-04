@@ -10,6 +10,8 @@ import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.*;
 import com.klikli_dev.theurgy.Theurgy;
+import com.klikli_dev.theurgy.datagen.book.LogisticsCategory;
+import com.klikli_dev.theurgy.datagen.book.logistics.FluidExtractorEntry;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -50,11 +52,15 @@ public class SalAmmoniacAccumulatorEntry extends EntryProvider {
                         Place the {0} on top of a {1}, and fill it with water by right-clicking with a water bucket.
                         \\
                         \\
+                        Crystallized Water and Crystallized Lava can also be inserted here and will slowly turn into their fluid forms in the tank below. That fluid can then be automated with a {3}.
+                        \\
+                        \\
                         Optionally insert a {2} by right-clicking the cauldron with it to speed up the process.
                         """,
                 this.itemLink(ItemRegistry.SAL_AMMONIAC_ACCUMULATOR.get()),
                 this.itemLink(ItemRegistry.SAL_AMMONIAC_TANK.get()),
-                this.itemLink(ItemRegistry.SAL_AMMONIAC_CRYSTAL.get())
+                this.itemLink(ItemRegistry.SAL_AMMONIAC_CRYSTAL.get()),
+                this.entryLink("Mercurial Fluid Extractor", LogisticsCategory.CATEGORY_ID, FluidExtractorEntry.ENTRY_ID)
         );
 
         this.page("recipe1", () -> BookCraftingRecipePageModel.create()

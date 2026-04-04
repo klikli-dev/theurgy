@@ -12,7 +12,9 @@ import com.klikli_dev.modonomicon.api.datagen.book.page.BookCraftingRecipePageMo
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.klikli_dev.theurgy.datagen.book.ApparatusCategory;
+import com.klikli_dev.theurgy.datagen.book.LogisticsCategory;
 import com.klikli_dev.theurgy.datagen.book.apparatus.spagyrics.SalAmmoniacAccumulatorEntry;
+import com.klikli_dev.theurgy.datagen.book.logistics.FluidExtractorEntry;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -87,9 +89,10 @@ public class CreateSolventEntry extends EntryProvider {
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText()));
         this.pageTitle("Taking the Sal Ammoniac");
-        this.pageText("Once the {0} has filled up sufficiently, you can [#]($INPUT)right-click[#]() it with an empty bucket to obtain a {1}.",
+        this.pageText("Once the {0} has filled up sufficiently, you can [#]($INPUT)right-click[#]() it with an empty bucket to obtain a {1}. If you want to move the fluid automatically instead, attach a {2}.",
                 this.itemLink(ItemRegistry.SAL_AMMONIAC_TANK.get()),
-                this.itemLink(ItemRegistry.SAL_AMMONIAC_BUCKET.get())
+                this.itemLink(ItemRegistry.SAL_AMMONIAC_BUCKET.get()),
+                this.entryLink("Mercurial Fluid Extractor", LogisticsCategory.CATEGORY_ID, FluidExtractorEntry.ENTRY_ID)
         );
 
         this.page("recipe", () -> BookCraftingRecipePageModel.create()

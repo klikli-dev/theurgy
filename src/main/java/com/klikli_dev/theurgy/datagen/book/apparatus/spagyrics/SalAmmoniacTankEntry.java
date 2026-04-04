@@ -10,7 +10,10 @@ import com.klikli_dev.modonomicon.api.datagen.EntryProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookCraftingRecipePageModel;
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel;
+import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel;
 import com.klikli_dev.theurgy.Theurgy;
+import com.klikli_dev.theurgy.datagen.book.LogisticsCategory;
+import com.klikli_dev.theurgy.datagen.book.logistics.FluidExtractorEntry;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -38,6 +41,19 @@ public class SalAmmoniacTankEntry extends EntryProvider {
 
         this.page("recipe2", () -> BookCraftingRecipePageModel.create()
                 .withRecipeId1(Theurgy.loc("crafting/shaped/sal_ammoniac_tank")));
+
+        this.page("automation", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("Automation");
+        this.pageText("""
+                        The tank can hold the fluids produced from Crystallized Water and Crystallized Lava as well.
+                        \\
+                        \\
+                        To move those fluids out automatically, attach a {0} to the tank.
+                        """,
+                this.entryLink("Mercurial Fluid Extractor", LogisticsCategory.CATEGORY_ID, FluidExtractorEntry.ENTRY_ID)
+        );
     }
 
     @Override

@@ -10,20 +10,23 @@ package com.klikli_dev.theurgy.content.render;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.block.BlockAndTintGetter;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
-import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.Vec3;
 import com.klikli_dev.theurgy.content.fluid.SolventFluidType;
+import net.neoforged.neoforge.client.fluid.FluidTintSources;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.FluidType;
 import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.Nullable;
 
 /**
  * See com.simibubi.create.foundation.fluid.FluidRenderer
@@ -31,14 +34,35 @@ import org.jetbrains.annotations.NotNull;
 public class FluidRenderer {
 
     public static TextureAtlasSprite getFluidTexture(@NotNull FluidStack fluidStack, @NotNull FluidTextureType type) {
+        FluidState fluidState = fluidStack.getFluid().defaultFluidState();
+        var model = Minecraft.getInstance().getModelManager().getFluidStateModelSet().get(fluidState);
+        var material = type == FluidTextureType.STILL ? model.stillMaterial() : model.flowingMaterial();
+        return material.sprite();
+    }
+
+    public static int getFluidColor(@NotNull FluidStack fluidStack) {
+        return getFluidColor(fluidStack, null, null);
+    }
+
+    public static int getFluidColor(@NotNull FluidStack fluidStack, @Nullable BlockAndTintGetter level, @Nullable BlockPos pos) {
         FluidType fluidType = fluidStack.getFluid().getFluidType();
-        Identifier spriteLocation;
-        if (fluidType instanceof SolventFluidType solventFluidType) {
-            spriteLocation = type == FluidTextureType.STILL ? solventFluidType.still : solventFluidType.flowing;
-        } else {
-            spriteLocation = Identifier.withDefaultNamespace("block/water_still");
+        FluidState fluidState = fluidStack.getFluid().defaultFluidState();
+        var model = Minecraft.getInstance().getModelManager().getFluidStateModelSet().get(fluidState);
+        var tintSource = FluidTintSources.of(model.tintSource());
+
+        if (tintSource != null) {
+            if (level != null && pos != null) {
+                return tintSource.colorInWorld(fluidState, fluidState.createLegacyBlock(), level, pos);
+            }
+
+            return tintSource.colorAsStack(fluidStack);
         }
-        return ((TextureAtlas) Minecraft.getInstance().getTextureManager().getTexture(TextureAtlas.LOCATION_BLOCKS)).getSprite(spriteLocation);
+
+        if (fluidType instanceof SolventFluidType solventFluidType) {
+            return solventFluidType.tint;
+        }
+
+        return 0xFFFFFFFF;
     }
 
     public static VertexConsumer getFluidBuilder(MultiBufferSource buffer) {
@@ -56,18 +80,8 @@ public class FluidRenderer {
         Fluid fluid = fluidStack.getFluid();
         FluidType fluidAttributes = fluid.getFluidType();
 
-        Identifier stillTexture;
-        int color;
-        if (fluidAttributes instanceof SolventFluidType solventFluidType) {
-            stillTexture = solventFluidType.still;
-            color = solventFluidType.tint;
-        } else {
-            stillTexture = Identifier.withDefaultNamespace("block/water_still");
-            color = 0xFFFFFFFF;
-        }
-
-        TextureAtlasSprite fluidTexture = ((TextureAtlas) Minecraft.getInstance().getTextureManager().getTexture(TextureAtlas.LOCATION_BLOCKS))
-                .getSprite(stillTexture);
+        int color = getFluidColor(fluidStack);
+        TextureAtlasSprite fluidTexture = getFluidTexture(fluidStack, FluidTextureType.STILL);
         int blockLightIn = (light >> 4) & 0xF;
         int luminosity = Math.max(blockLightIn, fluidAttributes.getLightLevel(fluidStack));
         light = (light & 0xF00000) | luminosity << 4;
@@ -145,13 +159,6 @@ public class FluidRenderer {
                 }
                 v1 = Mth.lerp(shrink, v1, centerV);
                 v2 = Mth.lerp(shrink, v2, centerV);
-
-                //Hack: the UV calculation doesn't work on 1.20.4, so we just use the full texture for now
-                //TODO: fix this for 1.20.4
-                u1 = texture.getU0();
-                u2 = texture.getU1();
-                v1 = texture.getV0();
-                v2 = texture.getV1();
 
                 if (horizontal) {
                     if (x) {

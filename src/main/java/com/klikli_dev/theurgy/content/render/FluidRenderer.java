@@ -114,21 +114,11 @@ public class FluidRenderer {
 
     public static void renderStillTiledFace(Direction dir, float left, float down, float right, float up, float depth,
                                             VertexConsumer builder, PoseStack ms, int light, int color, TextureAtlasSprite texture) {
-        FluidRenderer.renderStillTiledFace(dir, left, down, right, up, depth, builder, ms.last(), light, color, texture);
-    }
-
-    public static void renderStillTiledFace(Direction dir, float left, float down, float right, float up, float depth,
-                                            VertexConsumer builder, PoseStack.Pose pose, int light, int color, TextureAtlasSprite texture) {
-        FluidRenderer.renderTiledFace(dir, left, down, right, up, depth, builder, pose, light, color, texture, 1);
+        FluidRenderer.renderTiledFace(dir, left, down, right, up, depth, builder, ms, light, color, texture, 1);
     }
 
     public static void renderTiledFace(Direction dir, float left, float down, float right, float up, float depth,
                                        VertexConsumer builder, PoseStack ms, int light, int color, TextureAtlasSprite texture, float textureScale) {
-        FluidRenderer.renderTiledFace(dir, left, down, right, up, depth, builder, ms.last(), light, color, texture, textureScale);
-    }
-
-    public static void renderTiledFace(Direction dir, float left, float down, float right, float up, float depth,
-                                       VertexConsumer builder, PoseStack.Pose pose, int light, int color, TextureAtlasSprite texture, float textureScale) {
         boolean positive = dir.getAxisDirection() == Direction.AxisDirection.POSITIVE;
         boolean horizontal = dir.getAxis()
                 .isHorizontal();
@@ -172,46 +162,42 @@ public class FluidRenderer {
 
                 if (horizontal) {
                     if (x) {
-                        putVertex(builder, pose, depth, y2, positive ? x2 : x1, color, u1, v1, dir, light);
-                        putVertex(builder, pose, depth, y1, positive ? x2 : x1, color, u1, v2, dir, light);
-                        putVertex(builder, pose, depth, y1, positive ? x1 : x2, color, u2, v2, dir, light);
-                        putVertex(builder, pose, depth, y2, positive ? x1 : x2, color, u2, v1, dir, light);
+                        putVertex(builder, ms, depth, y2, positive ? x2 : x1, color, u1, v1, dir, light);
+                        putVertex(builder, ms, depth, y1, positive ? x2 : x1, color, u1, v2, dir, light);
+                        putVertex(builder, ms, depth, y1, positive ? x1 : x2, color, u2, v2, dir, light);
+                        putVertex(builder, ms, depth, y2, positive ? x1 : x2, color, u2, v1, dir, light);
                     } else {
-                        putVertex(builder, pose, positive ? x1 : x2, y2, depth, color, u1, v1, dir, light);
-                        putVertex(builder, pose, positive ? x1 : x2, y1, depth, color, u1, v2, dir, light);
-                        putVertex(builder, pose, positive ? x2 : x1, y1, depth, color, u2, v2, dir, light);
-                        putVertex(builder, pose, positive ? x2 : x1, y2, depth, color, u2, v1, dir, light);
+                        putVertex(builder, ms, positive ? x1 : x2, y2, depth, color, u1, v1, dir, light);
+                        putVertex(builder, ms, positive ? x1 : x2, y1, depth, color, u1, v2, dir, light);
+                        putVertex(builder, ms, positive ? x2 : x1, y1, depth, color, u2, v2, dir, light);
+                        putVertex(builder, ms, positive ? x2 : x1, y2, depth, color, u2, v1, dir, light);
                     }
                 } else {
-                    putVertex(builder, pose, x1, depth, positive ? y1 : y2, color, u1, v1, dir, light);
-                    putVertex(builder, pose, x1, depth, positive ? y2 : y1, color, u1, v2, dir, light);
-                    putVertex(builder, pose, x2, depth, positive ? y2 : y1, color, u2, v2, dir, light);
-                    putVertex(builder, pose, x2, depth, positive ? y1 : y2, color, u2, v1, dir, light);
+                    putVertex(builder, ms, x1, depth, positive ? y1 : y2, color, u1, v1, dir, light);
+                    putVertex(builder, ms, x1, depth, positive ? y2 : y1, color, u1, v2, dir, light);
+                    putVertex(builder, ms, x2, depth, positive ? y2 : y1, color, u2, v2, dir, light);
+                    putVertex(builder, ms, x2, depth, positive ? y1 : y2, color, u2, v1, dir, light);
                 }
             }
         }
     }
 
-    private static void putVertex(VertexConsumer builder, PoseStack.Pose pose, float x, float y, float z, int color, float u,
+    private static void putVertex(VertexConsumer builder, PoseStack ms, float x, float y, float z, int color, float u,
                                   float v, Direction face, int light) {
 
         Vec3i normal = face.getUnitVec3i();
+        PoseStack.Pose peek = ms.last();
         int a = color >> 24 & 0xff;
         int r = color >> 16 & 0xff;
         int g = color >> 8 & 0xff;
         int b = color & 0xff;
 
-        builder.addVertex(pose.pose(), x, y, z)
+        builder.addVertex(peek.pose(), x, y, z)
                 .setColor(r, g, b, a)
                 .setUv(u, v)
                 .setOverlay(OverlayTexture.NO_OVERLAY)
                 .setLight(light)
-                .setNormal(pose, normal.getX(), normal.getY(), normal.getZ());
-    }
-
-    private static void putVertex(VertexConsumer builder, PoseStack ms, float x, float y, float z, int color, float u,
-                                  float v, Direction face, int light) {
-        putVertex(builder, ms.last(), x, y, z, color, u, v, face, light);
+                .setNormal(peek, normal.getX(), normal.getY(), normal.getZ());
     }
 
     public enum FluidTextureType {

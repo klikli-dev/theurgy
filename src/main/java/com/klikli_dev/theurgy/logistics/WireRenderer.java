@@ -15,7 +15,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
-import org.joml.Matrix4f;
 
 import java.util.Collections;
 import java.util.Set;
@@ -31,10 +30,12 @@ public class WireRenderer {
     }
 
     public void onRenderLevelStage(RenderLevelStageEvent event) {
-        var bufferSource = Minecraft.getInstance().renderBuffers().bufferSource();
+        var minecraft = Minecraft.getInstance();
+        var bufferSource = minecraft.renderBuffers().bufferSource();
         var poseStack = event.getPoseStack();
+        float lineWidth = minecraft.getWindow().getAppropriateLineWidth();
 
-        EntityRenderDispatcher erd = Minecraft.getInstance().getEntityRenderDispatcher();
+        EntityRenderDispatcher erd = minecraft.getEntityRenderDispatcher();
         double renderPosX = erd.camera.position().x();
         double renderPosY = erd.camera.position().y();
         double renderPosZ = erd.camera.position().z();
@@ -47,18 +48,14 @@ public class WireRenderer {
         for (var wire : this.wires) {
             poseStack.pushPose();
             poseStack.translate(wire.from().getX(), wire.from().getY(), wire.from().getZ());
-            this.renderWire(buffer, poseStack, wire.from().getCenter(), wire.to().getCenter());
+            this.renderWire(buffer, poseStack, wire.from().getCenter(), wire.to().getCenter(), lineWidth);
             poseStack.popPose();
         }
         poseStack.popPose();
-
-        //TODO: render cache?
-        //  look up wire in cache
-        //  render wires to cache, if not in cache.
-        //  clear cache if related wire is no longer rendered (probably should be done from Wires class)
+        bufferSource.endBatch(RenderTypes.distanceLines());
     }
 
-    private void renderWire(VertexConsumer vertexBuilder, PoseStack poseStack, Vec3 startPos, Vec3 endPos) {
+    private void renderWire(VertexConsumer vertexBuilder, PoseStack poseStack, Vec3 startPos, Vec3 endPos, float lineWidth) {
         poseStack.pushPose();
         {
 
@@ -85,7 +82,7 @@ public class WireRenderer {
             if (translateSwap) {
                 poseStack.translate(-dx, -dy, -dz);
             }
-            Matrix4f fourMatrix = poseStack.last().pose();
+            var pose = poseStack.last();
 
             Vec3[] points = WireSlackHelper.getInterpolatedDifferences(endPos.subtract(startPos));
 
@@ -97,13 +94,15 @@ public class WireRenderer {
                 Vec3 normal = secondPoint.subtract(firstPoint).normalize();
                 Vec3 reverseNormal = firstPoint.subtract(secondPoint).normalize();
 
-                vertexBuilder.addVertex(fourMatrix, (float) firstPoint.x(), (float) firstPoint.y(), (float) firstPoint.z())
+                vertexBuilder.addVertex(pose, (float) firstPoint.x(), (float) firstPoint.y(), (float) firstPoint.z())
                         .setColor(0, 0, 0, 255)
-                        .setNormal(poseStack.last(), (float) normal.x(), (float) normal.y(), (float) normal.z());
+                        .setNormal(pose, (float) normal.x(), (float) normal.y(), (float) normal.z())
+                        .setLineWidth(lineWidth);
 
-                vertexBuilder.addVertex(fourMatrix, (float) secondPoint.x(), (float) secondPoint.y(), (float) secondPoint.z())
+                vertexBuilder.addVertex(pose, (float) secondPoint.x(), (float) secondPoint.y(), (float) secondPoint.z())
                         .setColor(0, 0, 0, 255)
-                        .setNormal(poseStack.last(), (float) reverseNormal.x(), (float) reverseNormal.y(), (float) reverseNormal.z());
+                        .setNormal(pose, (float) reverseNormal.x(), (float) reverseNormal.y(), (float) reverseNormal.z())
+                        .setLineWidth(lineWidth);
             }
             poseStack.popPose();
 

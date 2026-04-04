@@ -134,7 +134,7 @@ public class SalAmmoniacTankRenderer extends GeoBlockRenderer<SalAmmoniacTankBlo
                 ? FluidRenderer.getFluidColor(fluidStack, clientLevel, blockEntity.getBlockPos())
                 : FluidRenderer.getFluidColor(fluidStack);
         state.fluidLight = (state.lightCoords & 0xF00000) | luminosity << 4;
-        state.bottomY = capHeight + minPuddleHeight;
+        state.bottomY = capHeight;
         state.surfaceY = capHeight + minPuddleHeight + clampedLevel;
         state.u0 = sprite.getU0();
         state.u1 = sprite.getU1();

@@ -163,16 +163,16 @@ public class LogisticsFluidExtractorBehaviour extends ExtractorNodeBehaviour<Res
     }
 
     protected boolean isInfiniteSourceFluid(BlockPos targetPos) {
-        FluidState fluidState = this.level().getBlockState(targetPos).getFluidState();
+        FluidState fluidState = this.level().getFluidState(targetPos);
         return !fluidState.isEmpty() && fluidState.isSource();
     }
 
     protected FluidStack getWorldExtractStack(BlockPos targetPos) {
-        if (!this.isInfiniteSourceFluid(targetPos)) {
+        FluidState fluidState = this.level().getFluidState(targetPos);
+        if (fluidState.isEmpty() || !fluidState.isSource()) {
             return FluidStack.EMPTY;
         }
 
-        FluidState fluidState = this.level().getBlockState(targetPos).getFluidState();
         return new FluidStack(fluidState.getType(), this.extractionAmount);
     }
 }

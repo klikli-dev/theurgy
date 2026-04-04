@@ -88,6 +88,7 @@ public class SalAmmoniacTankRenderer extends GeoBlockRenderer<SalAmmoniacTankBlo
                 ? FluidRenderer.getFluidColor(fluidStack, clientLevel, blockEntity.getBlockPos())
                 : FluidRenderer.getFluidColor(fluidStack);
         state.fluidLight = (state.lightCoords & 0xF00000) | luminosity << 4;
+        state.fluidStack = fluidStack.copy();
         state.surfaceY = capHeight + minPuddleHeight + clampedLevel;
         state.u0 = sprite.getU0();
         state.u1 = sprite.getU1();
@@ -109,14 +110,21 @@ public class SalAmmoniacTankRenderer extends GeoBlockRenderer<SalAmmoniacTankBlo
         float xMax = xMin + blockWidth - 2 * tankHullWidth;
         float zMin = tankHullWidth;
         float zMax = zMin + blockWidth - 2 * tankHullWidth;
+        float yMin = 1 / 4f + 1 / 16f;
 
         poseStack.pushPose();
 
+        var fluidTexture = FluidRenderer.getFluidTexture(state.fluidStack, FluidRenderer.FluidTextureType.STILL);
         submitNodeCollector.submitCustomGeometry(poseStack, RenderTypes.fluid(), (pose, builder) -> {
             putVertex(builder, pose, xMin, state.surfaceY, zMin, state.color, state.u0, state.v0, Direction.UP, state.fluidLight);
             putVertex(builder, pose, xMin, state.surfaceY, zMax, state.color, state.u0, state.v1, Direction.UP, state.fluidLight);
             putVertex(builder, pose, xMax, state.surfaceY, zMax, state.color, state.u1, state.v1, Direction.UP, state.fluidLight);
             putVertex(builder, pose, xMax, state.surfaceY, zMin, state.color, state.u1, state.v0, Direction.UP, state.fluidLight);
+
+            FluidRenderer.renderStillTiledFace(Direction.NORTH, xMin, yMin, xMax, state.surfaceY, zMin, builder, pose, state.fluidLight, state.color, fluidTexture);
+            FluidRenderer.renderStillTiledFace(Direction.SOUTH, xMin, yMin, xMax, state.surfaceY, zMax, builder, pose, state.fluidLight, state.color, fluidTexture);
+            FluidRenderer.renderStillTiledFace(Direction.WEST, zMin, yMin, zMax, state.surfaceY, xMin, builder, pose, state.fluidLight, state.color, fluidTexture);
+            FluidRenderer.renderStillTiledFace(Direction.EAST, zMin, yMin, zMax, state.surfaceY, xMax, builder, pose, state.fluidLight, state.color, fluidTexture);
         });
 
         poseStack.popPose();
@@ -126,6 +134,7 @@ public class SalAmmoniacTankRenderer extends GeoBlockRenderer<SalAmmoniacTankBlo
         public boolean empty = true;
         public int color;
         public int fluidLight;
+        public net.neoforged.neoforge.fluids.FluidStack fluidStack;
         public float surfaceY;
         public float u0;
         public float u1;

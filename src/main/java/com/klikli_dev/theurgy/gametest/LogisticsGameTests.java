@@ -9,13 +9,18 @@ import com.klikli_dev.theurgy.content.apparatus.logisticsfluidconnector.inserter
 import com.klikli_dev.theurgy.content.apparatus.salammoniactank.SalAmmoniacTankBlockEntity;
 import com.klikli_dev.theurgy.logistics.Logistics;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
+import com.klikli_dev.theurgy.registry.ItemRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.neoforged.neoforge.fluids.FluidType;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.item.ItemStack;
 
 public class LogisticsGameTests {
 
@@ -67,24 +72,32 @@ public class LogisticsGameTests {
         helper.setBlock(FLUID_SOURCE_POS.above(), Blocks.STONE);
         helper.setBlock(FLUID_SOURCE_POS.below(), Blocks.STONE);
         helper.setBlock(FLUID_SOURCE_POS, Blocks.WATER);
-        helper.setBlock(FLUID_EXTRACTOR_POS, BlockRegistry.LOGISTICS_FLUID_EXTRACTOR.get()
-                .defaultBlockState().setValue(BlockStateProperties.FACING, Direction.EAST));
         helper.setBlock(FLUID_INSERTER_POS, BlockRegistry.LOGISTICS_FLUID_INSERTER.get()
                 .defaultBlockState().setValue(BlockStateProperties.FACING, Direction.WEST));
         helper.setBlock(FLUID_TANK_POS, BlockRegistry.SAL_AMMONIAC_TANK.get());
 
         helper.runAfterDelay(1, () -> {
             var level = helper.getLevel();
+            var player = helper.makeMockPlayer(GameType.SURVIVAL);
+            player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(ItemRegistry.LOGISTICS_FLUID_EXTRACTOR.get()));
+            helper.useBlock(
+                    FLUID_SOURCE_POS,
+                    player,
+                    new BlockHitResult(Vec3.atCenterOf(helper.absolutePos(FLUID_SOURCE_POS)), Direction.EAST, helper.absolutePos(FLUID_SOURCE_POS), false)
+            );
+
             var extractorPos = helper.absolutePos(FLUID_EXTRACTOR_POS);
             var inserterPos = helper.absolutePos(FLUID_INSERTER_POS);
             var sourcePos = helper.absolutePos(FLUID_SOURCE_POS);
             var tankPos = helper.absolutePos(FLUID_TANK_POS);
 
+            helper.assertBlockPresent(BlockRegistry.LOGISTICS_FLUID_EXTRACTOR.get(), FLUID_EXTRACTOR_POS);
+            helper.assertTrue(level.getBlockState(sourcePos).is(Blocks.WATER), "Extractor placement should not replace the world water source");
+
             var extractor = helper.getBlockEntity(FLUID_EXTRACTOR_POS, LogisticsFluidExtractorBlockEntity.class);
             var inserter = helper.getBlockEntity(FLUID_INSERTER_POS, LogisticsFluidInserterBlockEntity.class);
             var tank = helper.getBlockEntity(FLUID_TANK_POS, SalAmmoniacTankBlockEntity.class);
 
-            extractor.leafNode().targets().add(sourcePos);
             extractor.leafNode().rebuildExtractTargets();
             inserter.leafNode().targets().add(tankPos);
             inserter.leafNode().directionOverride(Direction.WEST);

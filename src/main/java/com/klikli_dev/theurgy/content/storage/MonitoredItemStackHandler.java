@@ -80,7 +80,7 @@ public abstract class MonitoredItemStackHandler extends ItemStacksResourceHandle
             var newStack = this.getStackInSlot(slot);
 
             this.onInsertItem(slot, oldStack, newStack, toInsert, remaining);
-            if (remaining != toInsert) {
+            if (!ItemStack.isSameItemSameComponents(newStack, oldStack)) {
                 this.onContentTypeChanged(slot, oldStack, newStack);
             }
             return remaining;

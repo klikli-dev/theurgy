@@ -42,7 +42,7 @@ class DistillationCachedCheck implements RecipeManager.CachedCheck<ItemHandlerRe
             }
         }
 
-        return recipeManager.recipeMap().byType(this.type).stream().filter((entry) -> entry.value().getIngredient().test(stack)).findFirst();
+        return recipeManager.recipeMap().byType(this.type).stream().filter((entry) -> entry.value().getIngredient().ingredient().test(stack)).findFirst();
     }
 
     /**

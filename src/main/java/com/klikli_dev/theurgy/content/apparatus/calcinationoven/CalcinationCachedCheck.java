@@ -6,7 +6,6 @@ package com.klikli_dev.theurgy.content.apparatus.calcinationoven;
 
 import com.klikli_dev.theurgy.content.recipe.CalcinationRecipe;
 import com.klikli_dev.theurgy.content.recipe.input.ItemHandlerRecipeInput;
-import com.klikli_dev.theurgy.util.LevelUtil;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
@@ -42,7 +41,7 @@ class CalcinationCachedCheck implements RecipeManager.CachedCheck<ItemHandlerRec
             }
         }
 
-        return LevelUtil.getRecipesByType(recipeManager, this.type).stream().filter((entry) -> entry.value().sizedIngredient().ingredient().test(stack)).findFirst();
+        return recipeManager.recipeMap().byType(this.type).stream().filter((entry) -> entry.value().sizedIngredient().ingredient().test(stack)).findFirst();
     }
 
     /**

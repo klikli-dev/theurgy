@@ -6,7 +6,6 @@ package com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron;
 
 import com.klikli_dev.theurgy.content.recipe.LiquefactionRecipe;
 import com.klikli_dev.theurgy.content.recipe.input.ItemHandlerWithFluidRecipeInput;
-import com.klikli_dev.theurgy.util.LevelUtil;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
@@ -49,7 +48,7 @@ class LiquefactionCachedCheck implements RecipeManager.CachedCheck<ItemHandlerWi
             }
         }
 
-        return LevelUtil.getRecipesByType(recipeManager, this.type).stream().filter((entry) -> entry.value().getIngredient().test(stack)).findFirst();
+        return recipeManager.recipeMap().byType(this.type).stream().filter((entry) -> entry.value().getIngredient().test(stack)).findFirst();
     }
 
     /**

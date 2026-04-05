@@ -6,11 +6,13 @@ package com.klikli_dev.theurgy.content.apparatus.distiller;
 
 import com.klikli_dev.theurgy.content.recipe.DistillationRecipe;
 import com.klikli_dev.theurgy.content.recipe.input.ItemHandlerRecipeInput;
+import com.klikli_dev.theurgy.util.LevelUtil;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
@@ -30,8 +32,8 @@ class DistillationCachedCheck implements RecipeManager.CachedCheck<ItemHandlerRe
         this.internal = RecipeManager.createCheck(type);
     }
 
-    private Optional<RecipeHolder<DistillationRecipe>> getRecipeFor(ItemStack stack, ServerLevel level, @Nullable net.minecraft.resources.ResourceKey<net.minecraft.world.item.crafting.Recipe<?>> lastRecipe) {
-        var recipeManager = level.getServer().getRecipeManager();
+    private Optional<RecipeHolder<DistillationRecipe>> getRecipeFor(ItemStack stack, Level level, @Nullable net.minecraft.resources.ResourceKey<net.minecraft.world.item.crafting.Recipe<?>> lastRecipe) {
+        var recipeManager = LevelUtil.getRecipeManager(level);
         if (lastRecipe != null) {
 
             var recipe = recipeManager.byKey(lastRecipe).orElse(null);
@@ -48,7 +50,7 @@ class DistillationCachedCheck implements RecipeManager.CachedCheck<ItemHandlerRe
     /**
      * This checks only the ingredient, not the ingredient count
      */
-    public Optional<RecipeHolder<DistillationRecipe>> getRecipeFor(ItemStack stack, ServerLevel level) {
+    public Optional<RecipeHolder<DistillationRecipe>> getRecipeFor(ItemStack stack, Level level) {
         var optional = this.getRecipeFor(stack, level, this.lastRecipe);
         if (optional.isPresent()) {
             var recipeHolder = optional.get();

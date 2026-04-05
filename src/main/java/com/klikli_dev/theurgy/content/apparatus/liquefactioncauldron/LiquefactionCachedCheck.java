@@ -6,6 +6,7 @@ package com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron;
 
 import com.klikli_dev.theurgy.content.recipe.LiquefactionRecipe;
 import com.klikli_dev.theurgy.content.recipe.input.ItemHandlerWithFluidRecipeInput;
+import com.klikli_dev.theurgy.util.LevelUtil;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
@@ -13,6 +14,7 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
@@ -32,8 +34,8 @@ class LiquefactionCachedCheck implements RecipeManager.CachedCheck<ItemHandlerWi
         this.internal = RecipeManager.createCheck(type);
     }
 
-    private Optional<RecipeHolder<LiquefactionRecipe>> getRecipeFor(ItemStack stack, ServerLevel level, @Nullable ResourceKey<Recipe<?>> lastRecipe) {
-        var recipeManager = level.getServer().getRecipeManager();
+    private Optional<RecipeHolder<LiquefactionRecipe>> getRecipeFor(ItemStack stack, Level level, @Nullable ResourceKey<Recipe<?>> lastRecipe) {
+        var recipeManager = LevelUtil.getRecipeManager(level);
         if (lastRecipe != null) {
             var recipeOptional = recipeManager.byKey(lastRecipe);
             if (recipeOptional.isPresent()) {
@@ -54,7 +56,7 @@ class LiquefactionCachedCheck implements RecipeManager.CachedCheck<ItemHandlerWi
     /**
      * This only checks ingredients, not fluids
      */
-    public Optional<RecipeHolder<LiquefactionRecipe>> getRecipeFor(ItemStack stack, ServerLevel level) {
+    public Optional<RecipeHolder<LiquefactionRecipe>> getRecipeFor(ItemStack stack, Level level) {
         var optional = this.getRecipeFor(stack, level, this.lastRecipe);
         if (optional.isPresent()) {
             var recipeHolder = optional.get();

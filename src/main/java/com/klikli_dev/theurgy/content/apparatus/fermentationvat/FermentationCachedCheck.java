@@ -96,7 +96,7 @@ public class FermentationCachedCheck implements RecipeManager.CachedCheck<ItemHa
             }
         }
 
-        return LevelUtil.getRecipesByType(recipeManager, this.type).stream().filter((entry) -> this.matchesRecipe(entry, input)).findFirst();
+        return recipeManager.recipeMap().byType(this.type).stream().filter((entry) -> this.matchesRecipe(entry, input)).findFirst();
     }
 
     private Optional<RecipeHolder<FermentationRecipe>> getRecipeFor(ItemStack stack, Level level, @Nullable ResourceKey<Recipe<?>> lastRecipe) {
@@ -112,7 +112,7 @@ public class FermentationCachedCheck implements RecipeManager.CachedCheck<ItemHa
             }
         }
 
-        return LevelUtil.getRecipesByType(recipeManager, this.type).stream().filter((entry) -> entry.value().getIngredients().stream().anyMatch(i -> i.test(stack))).findFirst();
+        return recipeManager.recipeMap().byType(this.type).stream().filter((entry) -> entry.value().getIngredients().stream().anyMatch(i -> i.test(stack))).findFirst();
     }
 
     private Optional<RecipeHolder<FermentationRecipe>> getRecipeFor(FluidStack stack, Level level, @Nullable ResourceKey<Recipe<?>> lastRecipe) {
@@ -128,7 +128,7 @@ public class FermentationCachedCheck implements RecipeManager.CachedCheck<ItemHa
             }
         }
 
-        return LevelUtil.getRecipesByType(recipeManager, this.type).stream().filter((entry) -> entry.value().getFluid().ingredient().test(stack)).findFirst();
+        return recipeManager.recipeMap().byType(this.type).stream().filter((entry) -> entry.value().getFluid().ingredient().test(stack)).findFirst();
     }
 
     /**

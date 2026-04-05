@@ -6,7 +6,6 @@ package com.klikli_dev.theurgy.gametest;
 
 import com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator.SalAmmoniacAccumulatorBlockEntity;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
-import com.klikli_dev.theurgy.registry.FluidRegistry;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.gametest.framework.GameTestHelper;
@@ -16,7 +15,6 @@ import net.neoforged.neoforge.fluids.FluidStack;
 public class SalAmmoniacAccumulatorGameTests {
 
     private static final BlockPos ACCUMULATOR_POS = new BlockPos(2, 2, 2);
-
     // --- Placement & State ---
 
     public static void placementAndDefaultState(GameTestHelper helper) {
@@ -45,7 +43,8 @@ public class SalAmmoniacAccumulatorGameTests {
         helper.runAfterDelay(1, () -> {
             var blockEntity = helper.getBlockEntity(ACCUMULATOR_POS, SalAmmoniacAccumulatorBlockEntity.class);
             var filled = blockEntity.waterTank.fill(
-                    new FluidStack(net.minecraft.world.level.material.Fluids.WATER, 1000), false
+                    new FluidStack(net.minecraft.world.level.material.Fluids.WATER, 1000),
+                    false
             );
             helper.assertTrue(filled == 1000, "Water tank should accept 1000mb of water");
             helper.assertTrue(blockEntity.waterTank.getFluidAmount() == 1000, "Water tank should contain 1000mb of water");

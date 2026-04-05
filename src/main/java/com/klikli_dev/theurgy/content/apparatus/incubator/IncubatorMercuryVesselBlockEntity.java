@@ -8,6 +8,7 @@ import com.geckolib.animatable.GeoBlockEntity;
 import com.geckolib.animatable.instance.AnimatableInstanceCache;
 import com.geckolib.animatable.manager.AnimatableManager;
 import com.geckolib.util.GeckoLibUtil;
+import com.klikli_dev.theurgy.content.render.HeldStackFitProvider;
 import com.klikli_dev.theurgy.content.storage.MonitoredItemStackHandler;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.ItemTagRegistry;
@@ -29,7 +30,7 @@ import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.Nullable;
 
 
-public class IncubatorMercuryVesselBlockEntity extends BlockEntity implements GeoBlockEntity {
+public class IncubatorMercuryVesselBlockEntity extends BlockEntity implements GeoBlockEntity, HeldStackFitProvider {
 
     protected final AnimatableInstanceCache animatableInstanceCache = GeckoLibUtil.createInstanceCache(this);
     public IncubatorBlockEntity incubator;
@@ -142,5 +143,10 @@ public class IncubatorMercuryVesselBlockEntity extends BlockEntity implements Ge
         protected void onContentsChanged(int slot) {
             IncubatorMercuryVesselBlockEntity.this.setChanged();
         }
+    }
+
+    @Override
+    public boolean heldStackFits(ItemStack stack) {
+        return this.inputInventory.isItemValid(0, stack);
     }
 }

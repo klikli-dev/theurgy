@@ -247,6 +247,7 @@ public class Theurgy {
 
 
             WireItem.onClientTick(player);
+            HeldStackFitOutline.onClientTick(player);
         }
 
         public static void onRenderLevelStage(RenderLevelStageEvent.AfterTranslucentParticles event) {

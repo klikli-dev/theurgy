@@ -15,6 +15,7 @@ import com.klikli_dev.theurgy.content.behaviour.heat.HeatConsumerBehaviour;
 import com.klikli_dev.theurgy.content.capability.CraftingHeatReceiver;
 import com.klikli_dev.theurgy.content.recipe.DistillationRecipe;
 import com.klikli_dev.theurgy.content.recipe.input.ItemHandlerRecipeInput;
+import com.klikli_dev.theurgy.content.render.HeldStackFitProvider;
 import com.klikli_dev.theurgy.content.storage.ItemStorageHelper;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.util.ValueIOUtils;
@@ -33,7 +34,7 @@ import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.Nullable;
 
 
-public class DistillerBlockEntity extends BlockEntity implements GeoBlockEntity, HasCraftingBehaviour<ItemHandlerRecipeInput, DistillationRecipe, DistillationCachedCheck> {
+public class DistillerBlockEntity extends BlockEntity implements GeoBlockEntity, HasCraftingBehaviour<ItemHandlerRecipeInput, DistillationRecipe, DistillationCachedCheck>, HeldStackFitProvider {
 
     public CraftingHeatReceiver heatReceiver;
 
@@ -141,5 +142,10 @@ public class DistillerBlockEntity extends BlockEntity implements GeoBlockEntity,
     @Override
     public CraftingBehaviour<ItemHandlerRecipeInput, DistillationRecipe, DistillationCachedCheck> craftingBehaviour() {
         return this.craftingBehaviour;
+    }
+
+    @Override
+    public boolean heldStackFits(net.minecraft.world.item.ItemStack stack) {
+        return this.storageBehaviour.inputInventory.isItemValid(0, stack);
     }
 }

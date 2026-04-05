@@ -10,6 +10,7 @@ import com.geckolib.animatable.manager.AnimatableManager;
 import com.geckolib.util.GeckoLibUtil;
 import com.klikli_dev.theurgy.content.particle.ParticleColor;
 import com.klikli_dev.theurgy.content.particle.coloredbubble.ColoredBubbleParticleProvider;
+import com.klikli_dev.theurgy.content.render.HeldStackFitProvider;
 import com.klikli_dev.theurgy.content.storage.MonitoredFluidTank;
 import com.klikli_dev.theurgy.content.storage.MonitoredItemStackHandler;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
@@ -39,7 +40,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Predicate;
 
-public class SalAmmoniacAccumulatorBlockEntity extends BlockEntity implements GeoBlockEntity {
+public class SalAmmoniacAccumulatorBlockEntity extends BlockEntity implements GeoBlockEntity, HeldStackFitProvider {
 
     protected final AnimatableInstanceCache animatableInstanceCache = GeckoLibUtil.createInstanceCache(this);
 
@@ -242,6 +243,12 @@ public class SalAmmoniacAccumulatorBlockEntity extends BlockEntity implements Ge
             SalAmmoniacAccumulatorBlockEntity.this.setChanged();
             //network update only if presence of crystal chanced, stack size changes are irrelevant
         }
+    }
+
+    @Override
+    public boolean heldStackFits(ItemStack stack) {
+        var containedFluid = net.neoforged.neoforge.transfer.fluid.FluidUtil.getFirstStackContained(stack);
+        return this.inventory.isItemValid(0, stack) || !containedFluid.isEmpty() && this.waterTank.isFluidValid(containedFluid);
     }
 
 }

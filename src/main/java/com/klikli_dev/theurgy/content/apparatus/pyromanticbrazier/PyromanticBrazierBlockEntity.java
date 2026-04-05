@@ -6,6 +6,7 @@ package com.klikli_dev.theurgy.content.apparatus.pyromanticbrazier;
 
 import com.klikli_dev.theurgy.content.apparatus.calcinationoven.CalcinationOvenBlock;
 import com.klikli_dev.theurgy.content.capability.HeatProvider;
+import com.klikli_dev.theurgy.content.render.HeldStackFitProvider;
 import com.klikli_dev.theurgy.content.storage.MonitoredItemStackHandler;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
@@ -29,7 +30,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 
-public class PyromanticBrazierBlockEntity extends BlockEntity {
+public class PyromanticBrazierBlockEntity extends BlockEntity implements HeldStackFitProvider {
     public MonitoredItemStackHandler inventory;
 
     public HeatProvider heatProvider;
@@ -194,5 +195,10 @@ public class PyromanticBrazierBlockEntity extends BlockEntity {
         protected void onContentsChanged(int slot) {
             PyromanticBrazierBlockEntity.this.setChanged();
         }
+    }
+
+    @Override
+    public boolean heldStackFits(ItemStack stack) {
+        return this.inventory.isItemValid(0, stack);
     }
 }

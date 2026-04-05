@@ -12,6 +12,7 @@ import com.klikli_dev.modonomicon.api.datagen.book.condition.BookTrueConditionMo
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.datagen.book.apparatus.HowToEntry;
 import com.klikli_dev.theurgy.datagen.book.apparatus.IntroEntry;
+import com.klikli_dev.theurgy.datagen.book.apparatus.InsertHelperEntry;
 import com.klikli_dev.theurgy.datagen.book.apparatus.mercuryflux.CaloricFluxEmitterEntry;
 import com.klikli_dev.theurgy.datagen.book.apparatus.mercuryflux.MercuryCatalystEntry;
 import com.klikli_dev.theurgy.datagen.book.apparatus.mercuryflux.MercuryFluxEntry;
@@ -40,7 +41,7 @@ public class ApparatusCategory extends CategoryProvider {
                 "__________________________________",
                 "__________m_ì___i_________________",
                 "__________________________________",
-                "____________ș___h_________________",
+                "____________ș___h_p_______________",
                 "__________________________________",
                 "____________________f_é_ď_________",
                 "__________________________________",
@@ -58,6 +59,9 @@ public class ApparatusCategory extends CategoryProvider {
 
         var howToEntry = new HowToEntry(this).generate('h');
         howToEntry.addParent(this.parent(introEntry));
+
+        var insertHelperEntry = new InsertHelperEntry(this).generate('p');
+        insertHelperEntry.addParent(this.parent(howToEntry));
 
         this.spagyricsEntries(introEntry);
         this.mercuryFluxEntries(introEntry);

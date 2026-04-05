@@ -4,6 +4,7 @@
 
 package com.klikli_dev.theurgy.config;
 
+import com.klikli_dev.theurgy.content.render.HeldStackFitRenderMode;
 import net.neoforged.neoforge.common.ModConfigSpec;
 import net.neoforged.neoforge.common.ModConfigSpec.BooleanValue;
 
@@ -30,6 +31,8 @@ public class ClientConfig {
         public final BooleanValue renderSulfurSourceItem;
         public final BooleanValue enableItemHUD;
         public final BooleanValue enableInWorldHUD;
+        public final BooleanValue enableHeldStackFitOutline;
+        public final ModConfigSpec.EnumValue<HeldStackFitRenderMode> heldStackFitOutlineRenderMode;
         public final ModConfigSpec.DoubleValue itemHUDScale;
 
         public Rendering(ModConfigSpec.Builder builder) {
@@ -47,6 +50,14 @@ public class ClientConfig {
             this.enableInWorldHUD = builder
                     .comment("True to enable the in-world HUD when looking at supported machine blocks, false to disable it.")
                     .define("enableInWorldHUD", true);
+
+            this.enableHeldStackFitOutline = builder
+                    .comment("True to enable held-stack fit outlines on supported apparatuses, false to disable them.")
+                    .define("enableHeldStackFitOutline", true);
+
+            this.heldStackFitOutlineRenderMode = builder
+                    .comment("Controls whether held-stack fit outlines show only green for accepted items or also red for non-accepted items.")
+                    .defineEnum("heldStackFitOutlineRenderMode", HeldStackFitRenderMode.GREEN_ONLY);
 
             this.itemHUDScale = builder
                     .comment("The scale of the Item HUD text (e.g. for the mercurial wand).")

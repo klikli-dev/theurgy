@@ -5,9 +5,11 @@
 package com.klikli_dev.theurgy.content.render;
 
 import com.klikli_dev.theurgy.Theurgy;
+import com.klikli_dev.theurgy.config.ClientConfig;
 import com.klikli_dev.theurgy.content.render.outliner.Outliner;
 import com.klikli_dev.theurgy.network.Networking;
 import com.klikli_dev.theurgy.network.messages.MessageRequestHeldStackFit;
+import com.klikli_dev.theurgy.registry.KeyMappingsRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceKey;
@@ -34,6 +36,11 @@ public final class HeldStackFitOutline {
     }
 
     public static void onClientTick(Player player) {
+        if (!ClientConfig.get().rendering.enableHeldStackFitOutline.get() || !KeyMappingsRegistry.isHeldStackFitOutlineKeyActive()) {
+            clear();
+            return;
+        }
+
         ItemStack heldStack = player.getMainHandItem();
         if (heldStack.isEmpty()) {
             clear();
@@ -73,6 +80,11 @@ public final class HeldStackFitOutline {
         }
 
         if (currentFitStatus == null || currentFitStatus == HeldStackFitStatus.NOT_APPLICABLE) {
+            Outliner.get().remove(SLOT);
+            return;
+        }
+
+        if (currentFitStatus == HeldStackFitStatus.DOES_NOT_FIT && ClientConfig.get().rendering.heldStackFitOutlineRenderMode.get() == HeldStackFitRenderMode.GREEN_ONLY) {
             Outliner.get().remove(SLOT);
             return;
         }

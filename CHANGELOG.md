@@ -4,6 +4,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1-1.76.0] - 2026-04-05
+### :sparkles: New Features
+- [`fbba6f5`](https://github.com/klikli-dev/theurgy/commit/fbba6f54f8bce4705b3174ea0b98bd8e702602e8) - Add ja_jp.json (Japanese translation) *(PR [#316](https://github.com/klikli-dev/theurgy/pull/316) by [@Lily-Ray](https://github.com/Lily-Ray))*
+
+### :bug: Bug Fixes
+- [`2b0dfa3`](https://github.com/klikli-dev/theurgy/commit/2b0dfa36d62d51d51eb19b758a2b4d1367db0958) - mercury catalyst tint in 26.1 *(PR [#311](https://github.com/klikli-dev/theurgy/pull/311) by [@klikli-dev](https://github.com/klikli-dev))*
+  - :arrow_lower_right: *fixes issue [#308](https://github.com/klikli-dev/theurgy/issues/308) opened by [@klikli-dev](https://github.com/klikli-dev)*
+- [`65c1726`](https://github.com/klikli-dev/theurgy/commit/65c17261437dd1079fb1e36d2542ebc81c179385) - remove missing connector filter texture reference *(PR [#312](https://github.com/klikli-dev/theurgy/pull/312) by [@klikli-dev](https://github.com/klikli-dev))*
+  - :arrow_lower_right: *fixes issue [#288](https://github.com/klikli-dev/theurgy/issues/288) opened by [@klikli-dev](https://github.com/klikli-dev)*
+- [`3b14295`](https://github.com/klikli-dev/theurgy/commit/3b14295882bc63e8f4d04a7a4b65f2be21d09bb0) - correct Sal Ammoniac tank fluid rendering *(PR [#314](https://github.com/klikli-dev/theurgy/pull/314) by [@klikli-dev](https://github.com/klikli-dev))*
+  - :arrow_lower_right: *fixes issue [#313](https://github.com/klikli-dev/theurgy/issues/313) opened by [@klikli-dev](https://github.com/klikli-dev)*
+- [`205c843`](https://github.com/klikli-dev/theurgy/commit/205c84385a86b0bf8c63e44ea2ac0f922c810b16) - ignore fluid components in accumulator recipes *(PR [#315](https://github.com/klikli-dev/theurgy/pull/315) by [@klikli-dev](https://github.com/klikli-dev))*
+  - :arrow_lower_right: *fixes issue [#273](https://github.com/klikli-dev/theurgy/issues/273) opened by [@The-Arcanian](https://github.com/The-Arcanian)*
+- [`393c0ca`](https://github.com/klikli-dev/theurgy/commit/393c0cae19136aff00032cd942ed17cb2d7c4952) - use indexed cached recipe lookups *(PR [#317](https://github.com/klikli-dev/theurgy/pull/317) by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.1-1.75.0] - 2026-04-04
 ### :sparkles: New Features
 - [`4522e6a`](https://github.com/klikli-dev/theurgy/commit/4522e6a04e45b097a19df73b9c0e27b99bd2f4bf) - show salt source item on shift press *(PR [#305](https://github.com/klikli-dev/theurgy/pull/305) by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1357,3 +1373,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1-1.73.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1-1.72.0...release/v26.1-1.73.0
 [release/v26.1-1.74.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1-1.73.0...release/v26.1-1.74.0
 [release/v26.1-1.75.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1-1.74.0...release/v26.1-1.75.0
+[release/v26.1-1.76.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1-1.75.0...release/v26.1-1.76.0

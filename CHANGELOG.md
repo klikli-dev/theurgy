@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21.1-1.71.0] - 2026-04-05
+### :sparkles: New Features
+- [`429e232`](https://github.com/klikli-dev/theurgy/commit/429e23294592d7b28d55e37279ce43a70527a5ec) - Add ja_jp.json (Japanese translation) ([#316](https://github.com/klikli-dev/theurgy/pull/316)) *(PR [#318](https://github.com/klikli-dev/theurgy/pull/318) by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21.1-1.70.0] - 2026-03-27
 ### :bug: Bug Fixes
 - [`3f15692`](https://github.com/klikli-dev/theurgy/commit/3f156922f9b738e3d88dd5070c4270bbd4ee4f6f) - prevent instant recipe completion in vats after Create contraption movement *(PR [#303](https://github.com/klikli-dev/theurgy/pull/303) by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1293,3 +1298,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21.1-1.67.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.66.0...release/v1.21.1-1.67.0
 [release/v1.21.1-1.68.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.67.0...release/v1.21.1-1.68.0
 [release/v1.21.1-1.70.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.69.0...release/v1.21.1-1.70.0
+[release/v1.21.1-1.71.0]: https://github.com/klikli-dev/theurgy/compare/release/v1.21.1-1.70.0...release/v1.21.1-1.71.0

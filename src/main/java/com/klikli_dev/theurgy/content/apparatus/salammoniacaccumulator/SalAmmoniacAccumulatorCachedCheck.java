@@ -7,7 +7,6 @@ package com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator;
 import com.klikli_dev.theurgy.content.recipe.AccumulationRecipe;
 import com.klikli_dev.theurgy.content.recipe.input.ItemHandlerWithFluidRecipeInput;
 import com.klikli_dev.theurgy.content.storage.FluidStorageHelper;
-import com.klikli_dev.theurgy.util.LevelUtil;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
@@ -15,7 +14,6 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.fluids.FluidStack;
 import org.jetbrains.annotations.Nullable;
 
@@ -55,8 +53,8 @@ class SalAmmoniacAccumulatorCachedCheck implements RecipeManager.CachedCheck<Ite
         return soluteMatches && evaporantMatches;
     }
 
-    private Optional<RecipeHolder<AccumulationRecipe>> getRecipeFor(ItemStack stack, Level level, @Nullable ResourceKey<Recipe<?>> lastRecipe) {
-        var recipeManager = LevelUtil.getRecipeManager(level);
+    private Optional<RecipeHolder<AccumulationRecipe>> getRecipeFor(ItemStack stack, ServerLevel level, @Nullable ResourceKey<Recipe<?>> lastRecipe) {
+        var recipeManager = level.getServer().getRecipeManager();
         if (lastRecipe != null) {
             var recipeOptional = recipeManager.byKey(lastRecipe);
             if (recipeOptional.isPresent()) {
@@ -74,8 +72,8 @@ class SalAmmoniacAccumulatorCachedCheck implements RecipeManager.CachedCheck<Ite
         return recipeManager.recipeMap().byType(this.type).stream().filter((entry) -> entry.value().hasSolute() && entry.value().solute().test(stack)).findFirst();
     }
 
-    private Optional<RecipeHolder<AccumulationRecipe>> getRecipeFor(FluidStack stack, Level level, @Nullable ResourceKey<Recipe<?>> lastRecipe) {
-        var recipeManager = LevelUtil.getRecipeManager(level);
+    private Optional<RecipeHolder<AccumulationRecipe>> getRecipeFor(FluidStack stack, ServerLevel level, @Nullable ResourceKey<Recipe<?>> lastRecipe) {
+        var recipeManager = level.getServer().getRecipeManager();
         var normalizedStack = this.normalizeFluid(stack);
         if (lastRecipe != null) {
             var recipeOptional = recipeManager.byKey(lastRecipe);
@@ -98,7 +96,7 @@ class SalAmmoniacAccumulatorCachedCheck implements RecipeManager.CachedCheck<Ite
     /**
      * This only checks ingredients, not fluids
      */
-    public Optional<RecipeHolder<AccumulationRecipe>> getRecipeFor(ItemStack stack, Level level) {
+    public Optional<RecipeHolder<AccumulationRecipe>> getRecipeFor(ItemStack stack, ServerLevel level) {
         var optional = this.getRecipeFor(stack, level, this.lastRecipe);
         if (optional.isPresent()) {
             var recipeHolder = optional.get();
@@ -112,7 +110,7 @@ class SalAmmoniacAccumulatorCachedCheck implements RecipeManager.CachedCheck<Ite
     /**
      * This only checks fluids, not ingredients
      */
-    public Optional<RecipeHolder<AccumulationRecipe>> getRecipeFor(FluidStack stack, Level level) {
+    public Optional<RecipeHolder<AccumulationRecipe>> getRecipeFor(FluidStack stack, ServerLevel level) {
         var optional = this.getRecipeFor(stack, level, this.lastRecipe);
         if (optional.isPresent()) {
             var recipeHolder = optional.get();

@@ -41,6 +41,12 @@ public class DigestionCraftingBehaviour extends CraftingBehaviour<ItemHandlerWit
         if (this.alreadyHasInput(stack))
             return true; //early out if we are already processing this type of item
 
+        var currentRecipe = this.getRecipe();
+        if (currentRecipe.isPresent()) {
+            //if we currently have a recipe we determine process-ability based on if the item is part of the recipe
+            return currentRecipe.get().value().getIngredients().stream().anyMatch(ingredient -> ingredient.test(stack));
+        }
+
         var ingredientsList = Stream.concat(
                 IntStream.range(0, this.inputInventorySupplier.get().getSlots()).filter(i -> !this.inputInventorySupplier.get().getStackInSlot(i).isEmpty()).mapToObj(i -> this.inputInventorySupplier.get().getStackInSlot(i)),
                 Stream.of(stack)

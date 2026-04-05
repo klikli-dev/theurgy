@@ -8,10 +8,11 @@ import com.klikli_dev.theurgy.content.behaviour.crafting.CraftingBehaviour;
 import com.klikli_dev.theurgy.content.capability.MercuryFluxStorage;
 import com.klikli_dev.theurgy.content.recipe.CatalysationRecipe;
 import com.klikli_dev.theurgy.content.recipe.input.ItemHandlerRecipeInput;
+import com.klikli_dev.theurgy.content.storage.MonitoredItemStackHandler;
 import com.klikli_dev.theurgy.content.storage.SettableItemStorage;
 import com.klikli_dev.theurgy.registry.DataComponentRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
-import com.klikli_dev.theurgy.util.LevelUtil;
+import net.minecraft.core.NonNullList;
 import net.minecraft.core.component.DataComponentGetter;
 import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.server.level.ServerLevel;
@@ -46,13 +47,12 @@ public class MercuryCatalystCraftingBehaviour extends CraftingBehaviour<ItemHand
 
     @Override
     public boolean isIngredient(ItemStack stack) {
-        var level = this.blockEntity.getLevel();
-        if (level == null) {
-            return false;
-        }
+        if (this.blockEntity.getLevel().isClientSide()) return false;
+        var tempInv = new MonitoredItemStackHandler(NonNullList.of(ItemStack.EMPTY, stack)) {
+        };
+        var tempRecipeWrapper = new ItemHandlerRecipeInput(tempInv);
 
-        return LevelUtil.getRecipesByType(LevelUtil.getRecipeManager(level), RecipeTypeRegistry.CATALYSATION.get()).stream()
-                .anyMatch(recipe -> recipe.value().ingredient().test(stack));
+        return this.recipeCachedCheck.getRecipeFor(tempRecipeWrapper, (ServerLevel) this.blockEntity.getLevel()).isPresent();
     }
 
     @Override

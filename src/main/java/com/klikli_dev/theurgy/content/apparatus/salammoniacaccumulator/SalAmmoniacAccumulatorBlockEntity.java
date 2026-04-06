@@ -13,6 +13,7 @@ import com.klikli_dev.theurgy.content.particle.coloredbubble.ColoredBubblePartic
 import com.klikli_dev.theurgy.content.render.HeldStackFitProvider;
 import com.klikli_dev.theurgy.content.storage.MonitoredFluidTank;
 import com.klikli_dev.theurgy.content.storage.MonitoredItemStackHandler;
+import com.klikli_dev.theurgy.content.storage.SettableItemStorage;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.CapabilityRegistry;
 import com.klikli_dev.theurgy.registry.ItemTagRegistry;
@@ -38,6 +39,7 @@ import net.neoforged.neoforge.transfer.fluid.FluidResource;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
 import java.util.function.Predicate;
 
 public class SalAmmoniacAccumulatorBlockEntity extends BlockEntity implements GeoBlockEntity, HeldStackFitProvider {
@@ -246,9 +248,13 @@ public class SalAmmoniacAccumulatorBlockEntity extends BlockEntity implements Ge
     }
 
     @Override
-    public boolean heldStackFits(ItemStack stack) {
-        var containedFluid = net.neoforged.neoforge.transfer.fluid.FluidUtil.getFirstStackContained(stack);
-        return this.inventory.isItemValid(0, stack) || !containedFluid.isEmpty() && this.waterTank.isFluidValid(containedFluid);
+    public List<? extends SettableItemStorage> heldStackFitItemStorages() {
+        return List.of(this.inventory);
+    }
+
+    @Override
+    public List<? extends MonitoredFluidTank> heldStackFitFluidTanks() {
+        return List.of(this.waterTank);
     }
 
 }

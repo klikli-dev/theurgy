@@ -8,6 +8,7 @@ import com.klikli_dev.theurgy.content.apparatus.calcinationoven.CalcinationOvenB
 import com.klikli_dev.theurgy.content.capability.HeatProvider;
 import com.klikli_dev.theurgy.content.render.HeldStackFitProvider;
 import com.klikli_dev.theurgy.content.storage.MonitoredItemStackHandler;
+import com.klikli_dev.theurgy.content.storage.SettableItemStorage;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import com.klikli_dev.theurgy.util.ValueIOUtils;
@@ -28,6 +29,8 @@ import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.transfer.item.ItemResource;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 
 public class PyromanticBrazierBlockEntity extends BlockEntity implements HeldStackFitProvider {
@@ -198,7 +201,7 @@ public class PyromanticBrazierBlockEntity extends BlockEntity implements HeldSta
     }
 
     @Override
-    public boolean heldStackFits(ItemStack stack) {
-        return this.inventory.isItemValid(0, stack);
+    public List<? extends SettableItemStorage> heldStackFitItemStorages() {
+        return List.of(this.inventory);
     }
 }

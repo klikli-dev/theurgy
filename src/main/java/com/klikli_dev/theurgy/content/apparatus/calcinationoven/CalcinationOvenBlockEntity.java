@@ -16,6 +16,7 @@ import com.klikli_dev.theurgy.content.recipe.CalcinationRecipe;
 import com.klikli_dev.theurgy.content.recipe.input.ItemHandlerRecipeInput;
 import com.klikli_dev.theurgy.content.render.HeldStackFitProvider;
 import com.klikli_dev.theurgy.content.storage.ItemStorageHelper;
+import com.klikli_dev.theurgy.content.storage.SettableItemStorage;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.util.ValueIOUtils;
 import net.minecraft.core.BlockPos;
@@ -32,6 +33,8 @@ import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 
 public class CalcinationOvenBlockEntity extends BlockEntity implements GeoBlockEntity, HasCraftingBehaviour<ItemHandlerRecipeInput, CalcinationRecipe, CalcinationCachedCheck>, HeldStackFitProvider {
@@ -144,7 +147,7 @@ public class CalcinationOvenBlockEntity extends BlockEntity implements GeoBlockE
     }
 
     @Override
-    public boolean heldStackFits(net.minecraft.world.item.ItemStack stack) {
-        return this.storageBehaviour.inputInventory.isItemValid(0, stack);
+    public List<? extends SettableItemStorage> heldStackFitItemStorages() {
+        return List.of(this.storageBehaviour.inputInventory);
     }
 }

@@ -10,6 +10,8 @@ import com.klikli_dev.theurgy.content.behaviour.storage.HasStorageBehaviour;
 import com.klikli_dev.theurgy.content.recipe.DigestionRecipe;
 import com.klikli_dev.theurgy.content.recipe.input.ItemHandlerWithFluidRecipeInput;
 import com.klikli_dev.theurgy.content.render.HeldStackFitProvider;
+import com.klikli_dev.theurgy.content.storage.MonitoredFluidTank;
+import com.klikli_dev.theurgy.content.storage.SettableItemStorage;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.util.ValueIOUtils;
 import net.minecraft.core.BlockPos;
@@ -28,6 +30,8 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 public class DigestionVatBlockEntity extends BlockEntity implements HasCraftingBehaviour<ItemHandlerWithFluidRecipeInput, DigestionRecipe, DigestionCachedCheck>, HasStorageBehaviour<DigestionStorageBehaviour>, HeldStackFitProvider {
 
@@ -141,14 +145,12 @@ public class DigestionVatBlockEntity extends BlockEntity implements HasCraftingB
     }
 
     @Override
-    public boolean heldStackFits(net.minecraft.world.item.ItemStack stack) {
-        for (int i = 0; i < this.storageBehaviour.inputInventory.getSlots(); i++) {
-            if (this.storageBehaviour.inputInventory.isItemValid(i, stack)) {
-                return true;
-            }
-        }
+    public List<? extends SettableItemStorage> heldStackFitItemStorages() {
+        return List.of(this.storageBehaviour.inputInventory);
+    }
 
-        var containedFluid = net.neoforged.neoforge.transfer.fluid.FluidUtil.getFirstStackContained(stack);
-        return !containedFluid.isEmpty() && this.storageBehaviour.fluidTank.isFluidValid(containedFluid);
+    @Override
+    public List<? extends MonitoredFluidTank> heldStackFitFluidTanks() {
+        return List.of(this.storageBehaviour.fluidTank);
     }
 }

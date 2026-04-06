@@ -4,10 +4,10 @@
 
 package com.klikli_dev.theurgy.content.render.inworldhud;
 
+import com.klikli_dev.theurgy.content.render.inworldhud.provider.BlockTitleInWorldHUDProvider;
+import com.klikli_dev.theurgy.content.render.inworldhud.provider.FluidStorageInWorldHUDProvider;
 import com.klikli_dev.theurgy.content.render.inworldhud.provider.ItemStorageInWorldHUDProvider;
-import com.klikli_dev.theurgy.content.render.inworldhud.provider.MercuryCatalystInWorldHUDProvider;
 import com.klikli_dev.theurgy.content.render.inworldhud.provider.MercuryFluxStorageInWorldHUDProvider;
-import com.klikli_dev.theurgy.registry.BlockRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -33,8 +33,9 @@ public class InWorldHUDRegistry {
             return;
         }
 
-        registerBlockProvider(BlockRegistry.MERCURY_CATALYST.get(), new MercuryCatalystInWorldHUDProvider());
+        registerGenericProvider(new BlockTitleInWorldHUDProvider());
         registerGenericProvider(new MercuryFluxStorageInWorldHUDProvider());
+        registerGenericProvider(new FluidStorageInWorldHUDProvider());
         registerGenericProvider(new ItemStorageInWorldHUDProvider());
 
         defaultsRegistered = true;
@@ -82,16 +83,34 @@ public class InWorldHUDRegistry {
         BlockState state = level.getBlockState(pos);
         BlockEntity blockEntity = level.getBlockEntity(pos);
 
-        List<InWorldHUDProvider> applicableBlockProviders = BLOCK_PROVIDERS.getOrDefault(state.getBlock(), List.of()).stream()
-                .filter(provider -> provider.applies(level, pos, state, blockEntity))
-                .toList();
+        List<InWorldHUDProvider> applicableBlockProviders = new ArrayList<>();
+        boolean hasActivatingProvider = false;
 
-        if (applicableBlockProviders.isEmpty()) {
+        for (InWorldHUDProvider provider : BLOCK_PROVIDERS.getOrDefault(state.getBlock(), List.of())) {
+            if (!provider.applies(level, pos, state, blockEntity)) {
+                continue;
+            }
+
+            applicableBlockProviders.add(provider);
+            hasActivatingProvider |= provider.activatesHUD();
+        }
+
+        List<InWorldHUDProvider> applicableGenericProviders = new ArrayList<>();
+        for (InWorldHUDProvider provider : GENERIC_PROVIDERS) {
+            if (!provider.applies(level, pos, state, blockEntity)) {
+                continue;
+            }
+
+            applicableGenericProviders.add(provider);
+            hasActivatingProvider |= provider.activatesHUD();
+        }
+
+        if (!hasActivatingProvider) {
             return List.of();
         }
 
         List<InWorldHUDProvider> result = new ArrayList<>(applicableBlockProviders);
-        GENERIC_PROVIDERS.stream().filter(provider -> provider.applies(level, pos, state, blockEntity)).forEach(result::add);
+        result.addAll(applicableGenericProviders);
         return result;
     }
 }

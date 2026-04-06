@@ -2739,6 +2739,8 @@
   "theurgy.jei.misc.mercury_flux": "Mercury Flux: %s",
   "theurgy.jei.misc.source_pedestal_count": "%sx",
   "theurgy.jei.misc.source_sulfur.tooltip": "The Target Sulfur will not be consumed!\nYou can retrieve it after crafting is complete.",
+  "theurgy.misc.amount_capacity_millibuckets": "%1$s / %2$smB",
+  "theurgy.misc.empty": "Empty",
   "theurgy.misc.unit.millibuckets": "%smB",
   "theurgy.subtitle.tuning_fork": "Using Divination Rod",
   "theurgytheurgy.alchemical_tier.abundant": "Abundant",

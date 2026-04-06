@@ -82,6 +82,8 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
                 ChatFormatting.GRAY + "usage" +
                 ChatFormatting.GOLD + "]");
 
+        this.add(TheurgyConstants.I18n.Misc.AMOUNT_CAPACITY_MILLIBUCKETS, "%1$s / %2$smB");
+        this.add(TheurgyConstants.I18n.Misc.EMPTY, "Empty");
         this.add(TheurgyConstants.I18n.Misc.UNIT_MILLIBUCKETS, "%smB");
     }
 

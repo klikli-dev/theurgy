@@ -5,8 +5,7 @@
 package com.klikli_dev.theurgy.content.render.inworldhud.provider;
 
 import com.klikli_dev.theurgy.TheurgyConstants;
-import com.klikli_dev.theurgy.content.apparatus.calcinationoven.CalcinationOvenBlock;
-import com.klikli_dev.theurgy.content.apparatus.calcinationoven.CalcinationOvenBlockEntity;
+import com.klikli_dev.theurgy.content.behaviour.crafting.HasCraftingBehaviour;
 import com.klikli_dev.theurgy.content.render.inworldhud.InWorldHUDBuilder;
 import com.klikli_dev.theurgy.content.render.inworldhud.InWorldHUDProvider;
 import net.minecraft.ChatFormatting;
@@ -17,10 +16,11 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import org.jetbrains.annotations.Nullable;
 
-public class CalcinationOvenCraftingProgressInWorldHUDProvider implements InWorldHUDProvider {
+public class GenericCraftingProgressInWorldHUDProvider implements InWorldHUDProvider {
 
     private static final int BAR_WIDTH = 10;
     private static final String FILLED_SEGMENT = "█";
@@ -33,17 +33,17 @@ public class CalcinationOvenCraftingProgressInWorldHUDProvider implements InWorl
 
     @Override
     public boolean applies(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity) {
-        return state.getBlock() instanceof CalcinationOvenBlock;
+        return this.getCraftingBlockEntity(level, pos, state, blockEntity) != null;
     }
 
     @Override
     public void appendServerData(InWorldHUDBuilder builder, ServerPlayer player, ServerLevel level, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity) {
-        CalcinationOvenBlockEntity oven = this.getBlockEntity(level, pos, state, blockEntity);
-        if (oven == null || !oven.craftingBehaviour().isProcessing()) {
+        HasCraftingBehaviour<?, ?, ?> craftingBlockEntity = this.getCraftingBlockEntity(level, pos, state, blockEntity);
+        if (craftingBlockEntity == null || !craftingBlockEntity.craftingBehaviour().isProcessing()) {
             return;
         }
 
-        int progressPercent = oven.craftingBehaviour().progressPercent();
+        int progressPercent = craftingBlockEntity.craftingBehaviour().progressPercent();
 
         builder.addLine(Component.translatable(
                 TheurgyConstants.I18n.Misc.CRAFTING_PROGRESS,
@@ -57,15 +57,15 @@ public class CalcinationOvenCraftingProgressInWorldHUDProvider implements InWorl
         return FILLED_SEGMENT.repeat(filledSegments) + EMPTY_SEGMENT.repeat(BAR_WIDTH - filledSegments);
     }
 
-    private @Nullable CalcinationOvenBlockEntity getBlockEntity(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity) {
-        if (blockEntity instanceof CalcinationOvenBlockEntity oven) {
-            return oven;
+    private @Nullable HasCraftingBehaviour<?, ?, ?> getCraftingBlockEntity(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity) {
+        if (blockEntity instanceof HasCraftingBehaviour<?, ?, ?> craftingBlockEntity) {
+            return craftingBlockEntity;
         }
 
-        if (state.hasProperty(CalcinationOvenBlock.HALF) && state.getValue(CalcinationOvenBlock.HALF) == DoubleBlockHalf.UPPER) {
+        if (state.hasProperty(BlockStateProperties.DOUBLE_BLOCK_HALF) && state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.UPPER) {
             BlockEntity lowerBlockEntity = level.getBlockEntity(pos.below());
-            if (lowerBlockEntity instanceof CalcinationOvenBlockEntity oven) {
-                return oven;
+            if (lowerBlockEntity instanceof HasCraftingBehaviour<?, ?, ?> craftingBlockEntity) {
+                return craftingBlockEntity;
             }
         }
 

@@ -12,7 +12,6 @@ import com.klikli_dev.theurgy.content.storage.MonitoredItemStackHandler;
 import com.klikli_dev.theurgy.content.storage.SettableItemStorage;
 import com.klikli_dev.theurgy.registry.DataComponentRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
-import net.minecraft.core.NonNullList;
 import net.minecraft.core.component.DataComponentGetter;
 import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.server.level.ServerLevel;
@@ -30,6 +29,9 @@ import java.util.function.Supplier;
 public class MercuryCatalystCraftingBehaviour extends CraftingBehaviour<ItemHandlerRecipeInput, CatalysationRecipe, RecipeManager.CachedCheck<ItemHandlerRecipeInput, CatalysationRecipe>> {
 
     private final Supplier<MercuryFluxStorage> mercuryFluxStorageSupplier;
+    private final MonitoredItemStackHandler ingredientCheckInventory = new MonitoredItemStackHandler() {
+    };
+    private final ItemHandlerRecipeInput ingredientCheckInput = new ItemHandlerRecipeInput(this.ingredientCheckInventory);
 
     protected int mercuryFluxToConvert;
     protected int currentMercuryFluxPerTick;
@@ -47,12 +49,13 @@ public class MercuryCatalystCraftingBehaviour extends CraftingBehaviour<ItemHand
 
     @Override
     public boolean isIngredient(ItemStack stack) {
-        if (this.blockEntity.getLevel().isClientSide()) return false;
-        var tempInv = new MonitoredItemStackHandler(NonNullList.of(ItemStack.EMPTY, stack)) {
-        };
-        var tempRecipeWrapper = new ItemHandlerRecipeInput(tempInv);
+        if (!(this.blockEntity.getLevel() instanceof ServerLevel serverLevel)) {
+            return false;
+        }
 
-        return this.recipeCachedCheck.getRecipeFor(tempRecipeWrapper, (ServerLevel) this.blockEntity.getLevel()).isPresent();
+        this.ingredientCheckInventory.setStackInSlot(0, stack.copyWithCount(1));
+
+        return this.recipeCachedCheck.getRecipeFor(this.ingredientCheckInput, serverLevel).isPresent();
     }
 
     @Override

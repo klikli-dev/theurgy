@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1-1.78.0] - 2026-04-06
+### :sparkles: New Features
+- [`00c66e5`](https://github.com/klikli-dev/theurgy/commit/00c66e553e35d1443b6f24df86f21bcc90b16f3e) - show crafting progress in all in-world block huds *(PR [#329](https://github.com/klikli-dev/theurgy/pull/329) by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.1-1.77.0] - 2026-04-06
 ### :sparkles: New Features
 - [`743b0ae`](https://github.com/klikli-dev/theurgy/commit/743b0ae34d7cfdb2b7f1c30e37dac84474bb5f97) - preview held stack fit on apparatuses *(PR [#319](https://github.com/klikli-dev/theurgy/pull/319) by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1390,3 +1395,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1-1.75.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1-1.74.0...release/v26.1-1.75.0
 [release/v26.1-1.76.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1-1.75.0...release/v26.1-1.76.0
 [release/v26.1-1.77.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1-1.76.0...release/v26.1-1.77.0
+[release/v26.1-1.78.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1-1.77.0...release/v26.1-1.78.0

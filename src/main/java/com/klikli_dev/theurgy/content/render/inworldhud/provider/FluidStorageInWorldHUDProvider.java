@@ -44,7 +44,7 @@ public class FluidStorageInWorldHUDProvider implements InWorldHUDProvider {
             var fluidStack = FluidStorageHelper.getFluidInTank(fluidHandler, tank);
             int amount = fluidStack.getAmount();
             int capacity = FluidStorageHelper.getTankCapacity(fluidHandler, tank);
-            var displayName = fluidStack.isEmpty() ? Component.translatable("container.empty") : fluidStack.getHoverName();
+            var displayName = fluidStack.isEmpty() ? Component.translatable(TheurgyConstants.I18n.Misc.EMPTY) : fluidStack.getHoverName();
             var amountText = Component.translatable(TheurgyConstants.I18n.Misc.UNIT_MILLIBUCKETS, amount + " / " + capacity);
 
             builder.addLine(Component.empty()

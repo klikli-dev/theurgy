@@ -109,6 +109,7 @@ public class TheurgyConstants {
         public static class Misc {
             public static final String PREFIX = Theurgy.MODID + ".misc.";
 
+            public static final String EMPTY = PREFIX + "empty";
             public static final String UNIT_MILLIBUCKETS = PREFIX + "unit.millibuckets";
         }
 

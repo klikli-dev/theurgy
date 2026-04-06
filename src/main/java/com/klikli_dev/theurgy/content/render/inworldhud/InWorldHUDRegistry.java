@@ -83,16 +83,27 @@ public class InWorldHUDRegistry {
         BlockState state = level.getBlockState(pos);
         BlockEntity blockEntity = level.getBlockEntity(pos);
 
-        List<InWorldHUDProvider> applicableBlockProviders = BLOCK_PROVIDERS.getOrDefault(state.getBlock(), List.of()).stream()
-                .filter(provider -> provider.applies(level, pos, state, blockEntity))
-                .toList();
+        List<InWorldHUDProvider> applicableBlockProviders = new ArrayList<>();
+        boolean hasActivatingProvider = false;
 
-        List<InWorldHUDProvider> applicableGenericProviders = GENERIC_PROVIDERS.stream()
-                .filter(provider -> provider.applies(level, pos, state, blockEntity))
-                .toList();
+        for (InWorldHUDProvider provider : BLOCK_PROVIDERS.getOrDefault(state.getBlock(), List.of())) {
+            if (!provider.applies(level, pos, state, blockEntity)) {
+                continue;
+            }
 
-        boolean hasActivatingProvider = applicableBlockProviders.stream().anyMatch(InWorldHUDProvider::activatesHUD)
-                || applicableGenericProviders.stream().anyMatch(InWorldHUDProvider::activatesHUD);
+            applicableBlockProviders.add(provider);
+            hasActivatingProvider |= provider.activatesHUD();
+        }
+
+        List<InWorldHUDProvider> applicableGenericProviders = new ArrayList<>();
+        for (InWorldHUDProvider provider : GENERIC_PROVIDERS) {
+            if (!provider.applies(level, pos, state, blockEntity)) {
+                continue;
+            }
+
+            applicableGenericProviders.add(provider);
+            hasActivatingProvider |= provider.activatesHUD();
+        }
 
         if (!hasActivatingProvider) {
             return List.of();

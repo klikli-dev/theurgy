@@ -21,7 +21,8 @@ public class BlockTitleInWorldHUDProvider implements InWorldHUDProvider {
     public boolean applies(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity) {
         return Theurgy.MODID.equals(BuiltInRegistries.BLOCK.getKey(state.getBlock()).getNamespace())
                 && (level.getCapability(CapabilityRegistry.ITEM_HANDLER, pos, state, blockEntity, null) != null
-                || level.getCapability(CapabilityRegistry.FLUID_HANDLER, pos, state, blockEntity, null) != null);
+                || level.getCapability(CapabilityRegistry.FLUID_HANDLER, pos, state, blockEntity, null) != null
+                || level.getCapability(CapabilityRegistry.MERCURY_FLUX_HANDLER, pos, state, blockEntity, null) != null);
     }
 
     @Override

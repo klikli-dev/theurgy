@@ -24,6 +24,6 @@ public class DistillerModel<T extends GeoAnimatable> extends GeoModel<T> {
 
     @Override
     public @NonNull Identifier getAnimationResource(T animatable) {
-        return Theurgy.loc("block/distiller.animation.json");
+        return Theurgy.loc("block/distiller");
     }
 }

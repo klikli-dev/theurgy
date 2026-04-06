@@ -25,6 +25,6 @@ public class CalcinationOvenModel<T extends GeoAnimatable> extends GeoModel<T> {
 
     @Override
     public @NonNull Identifier getAnimationResource(T animatable) {
-        return Theurgy.loc("block/calcination_oven.animation.json");
+        return Theurgy.loc("block/calcination_oven");
     }
 }

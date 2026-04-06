@@ -33,17 +33,11 @@ public class DistillerAnimationBehaviour extends AnimationBehaviour<DistillerBlo
 
         if (this.wasProcessingLastTick && !isProcessing && !controller.isTransitioning()) {
             controller.setAnimation(STOP_AND_OFF_ANIM);
-        }
-
-        if (!this.wasProcessingLastTick && isProcessing && !controller.isTransitioning()) {
+        } else if (!this.wasProcessingLastTick && isProcessing && !controller.isTransitioning()) {
             controller.setAnimation(START_AND_ON_ANIM);
-        }
-
-        if (!this.wasProcessingLastTick && !isProcessing && !controller.isAnimatingBones()) {
+        } else if (!this.wasProcessingLastTick && !isProcessing && !controller.isAnimatingBones()) {
             controller.setAnimation(OFF_ANIM);
-        }
-
-        if (this.wasProcessingLastTick && isProcessing && !controller.isAnimatingBones()) {
+        } else if (this.wasProcessingLastTick && isProcessing && !controller.isAnimatingBones()) {
             controller.setAnimation(ON_ANIM);
         }
 

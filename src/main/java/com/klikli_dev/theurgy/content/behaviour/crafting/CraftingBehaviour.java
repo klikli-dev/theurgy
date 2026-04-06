@@ -53,6 +53,22 @@ public abstract class CraftingBehaviour<W extends RecipeInput, R extends Recipe<
         return this.couldCraftLastTick;
     }
 
+    public int progress() {
+        return this.progress;
+    }
+
+    public int totalTime() {
+        return this.totalTime;
+    }
+
+    public int progressPercent() {
+        if (this.totalTime <= 0) {
+            return 0;
+        }
+
+        return Math.clamp(this.progress * 100 / this.totalTime, 0, 100);
+    }
+
     public void readNetwork(ValueInput input) {
         this.isProcessing = input.getBooleanOr("isProcessing", false);
     }

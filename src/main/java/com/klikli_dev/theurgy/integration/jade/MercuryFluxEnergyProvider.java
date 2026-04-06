@@ -31,7 +31,6 @@ import snownee.jade.api.view.IClientExtensionProvider;
 import snownee.jade.api.view.IServerExtensionProvider;
 import snownee.jade.api.view.ProgressView;
 import snownee.jade.api.view.ViewGroup;
-import snownee.jade.impl.WailaClientRegistration;
 import snownee.jade.impl.WailaCommonRegistration;
 import snownee.jade.util.ClientProxy;
 import snownee.jade.util.CommonProxy;
@@ -106,7 +105,7 @@ public class MercuryFluxEnergyProvider<T extends Accessor<?>> implements StreamS
                     accessor,
                     ID,
                     STREAM_CODEC,
-                    WailaClientRegistration.instance().energyStorageProviders::get,
+                    uid -> Objects.equals(uid, Extension.INSTANCE.getUid()) ? Extension.INSTANCE : null,
                     tooltip
             );
             if (groups == null || groups.isEmpty()) {

@@ -22,6 +22,5 @@ public class JadePlugin implements IWailaPlugin {
     @Override
     public void registerClient(IWailaClientRegistration registration) {
         registration.registerBlockComponent(MercuryFluxEnergyProvider.Client.BLOCK, Block.class);
-        registration.registerEnergyStorageClient(MercuryFluxEnergyProvider.Extension.INSTANCE);
     }
 }

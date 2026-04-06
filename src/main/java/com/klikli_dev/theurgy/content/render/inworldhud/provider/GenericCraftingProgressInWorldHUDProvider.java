@@ -33,7 +33,8 @@ public class GenericCraftingProgressInWorldHUDProvider implements InWorldHUDProv
 
     @Override
     public boolean applies(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity) {
-        return this.getCraftingBlockEntity(level, pos, state, blockEntity) != null;
+        HasCraftingBehaviour<?, ?, ?> craftingBlockEntity = this.getCraftingBlockEntity(level, pos, state, blockEntity);
+        return craftingBlockEntity != null && craftingBlockEntity.craftingBehaviour().isProcessing();
     }
 
     @Override

@@ -4,6 +4,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1-1.77.0] - 2026-04-06
+### :sparkles: New Features
+- [`743b0ae`](https://github.com/klikli-dev/theurgy/commit/743b0ae34d7cfdb2b7f1c30e37dac84474bb5f97) - preview held stack fit on apparatuses *(PR [#319](https://github.com/klikli-dev/theurgy/pull/319) by [@klikli-dev](https://github.com/klikli-dev))*
+- [`15ecb20`](https://github.com/klikli-dev/theurgy/commit/15ecb20cc28a98b2598423df342b42227a61c70e) - [ImgBot] Optimize images *(PR [#321](https://github.com/klikli-dev/theurgy/pull/321) by [@imgbot[bot]](https://github.com/apps/imgbot))*
+- [`15cac53`](https://github.com/klikli-dev/theurgy/commit/15cac538578c1118b72f6ab5a297785e87190947) - show in-world hud for item and fluid containers *(PR [#322](https://github.com/klikli-dev/theurgy/pull/322) by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :bug: Bug Fixes
+- [`968d32f`](https://github.com/klikli-dev/theurgy/commit/968d32fd6de0eb02a497e8afeaae27bb5750167f) - only fire recipe monitor onContentTypeChanged if item is different *(PR [#320](https://github.com/klikli-dev/theurgy/pull/320) by [@amyavi](https://github.com/amyavi))*
+- [`4347e9c`](https://github.com/klikli-dev/theurgy/commit/4347e9ceade9669017b02136a4be3dd31dcd8339) - correct flux emitter model rotations *(PR [#326](https://github.com/klikli-dev/theurgy/pull/326) by [@klikli-dev](https://github.com/klikli-dev))*
+  - :arrow_lower_right: *fixes issue [#324](https://github.com/klikli-dev/theurgy/issues/324) opened by [@klikli-dev](https://github.com/klikli-dev)*
+- [`07ef22c`](https://github.com/klikli-dev/theurgy/commit/07ef22cddc7288844613cfc0dfec4cc1c4f662ee) - various issues *(PR [#327](https://github.com/klikli-dev/theurgy/pull/327) by [@klikli-dev](https://github.com/klikli-dev))*
+- [`be0ced7`](https://github.com/klikli-dev/theurgy/commit/be0ced79ded9327317619b43a65e093c2d73445a) - smooth calcination oven and distiller animation transitions *(PR [#328](https://github.com/klikli-dev/theurgy/pull/328) by [@klikli-dev](https://github.com/klikli-dev))*
+  - :arrow_lower_right: *fixes issue [#323](https://github.com/klikli-dev/theurgy/issues/323) opened by [@klikli-dev](https://github.com/klikli-dev)*
+
+
 ## [release/v26.1-1.76.0] - 2026-04-05
 ### :sparkles: New Features
 - [`fbba6f5`](https://github.com/klikli-dev/theurgy/commit/fbba6f54f8bce4705b3174ea0b98bd8e702602e8) - Add ja_jp.json (Japanese translation) *(PR [#316](https://github.com/klikli-dev/theurgy/pull/316) by [@Lily-Ray](https://github.com/Lily-Ray))*
@@ -1374,3 +1389,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1-1.74.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1-1.73.0...release/v26.1-1.74.0
 [release/v26.1-1.75.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1-1.74.0...release/v26.1-1.75.0
 [release/v26.1-1.76.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1-1.75.0...release/v26.1-1.76.0
+[release/v26.1-1.77.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1-1.76.0...release/v26.1-1.77.0

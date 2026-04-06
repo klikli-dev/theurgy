@@ -45,7 +45,6 @@ import com.klikli_dev.theurgy.logistics.WireSync;
 import com.klikli_dev.theurgy.logistics.Wires;
 import com.klikli_dev.theurgy.network.Networking;
 import com.klikli_dev.theurgy.network.messages.MessageOnLeftClickEmpty;
-import com.klikli_dev.theurgy.network.messages.MessageSyncSulfursWithoutRecipe;
 import com.klikli_dev.theurgy.registry.*;
 import com.klikli_dev.theurgy.tooltips.TooltipHandler;
 import com.klikli_dev.theurgy.util.LevelUtil;
@@ -53,10 +52,8 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.Identifier;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
@@ -75,7 +72,6 @@ import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.event.OnDatapackSyncEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import org.slf4j.Logger;
@@ -137,7 +133,6 @@ public class Theurgy {
         NeoForge.EVENT_BUS.addListener(WireSync.get()::onChunkWatch);
         NeoForge.EVENT_BUS.addListener(WireSync.get()::onChunkUnWatch);
         NeoForge.EVENT_BUS.addListener(TheurgyRecipeManager.get()::onDatapackSync);
-        NeoForge.EVENT_BUS.addListener(Theurgy::onDatapackSync);
 
         if (FMLEnvironment.getDist() == Dist.CLIENT) {
             modEventBus.addListener(ParticleRegistry::registerFactories);
@@ -183,35 +178,6 @@ public class Theurgy {
 
     public void onServerSetup(FMLDedicatedServerSetupEvent event) {
         LOGGER.info("Dedicated server setup complete.");
-    }
-
-    /**
-     * On datapack sync (player join or /reload), compute which sulfur items have no liquefaction recipe
-     * and send that list to the client so modonomicon can hide them from rendering.
-     */
-    public static void onDatapackSync(OnDatapackSyncEvent event) {
-        var server = event.getPlayerList().getServer();
-        var recipeManager = server.getRecipeManager();
-        var registryAccess = server.registryAccess();
-
-        var liquefactionRecipes = TheurgyRecipeManager.get().getRecipesByType(RecipeTypeRegistry.LIQUEFACTION.get(), server.overworld());
-
-        //find sulfurs that have no liquefaction recipe producing them -> these are "no source" sulfurs
-        //See also JeiPlugin.registerRecipes
-        var sulfursWithoutRecipe = SulfurRegistry.SULFURS.getEntries().stream()
-                .map(DeferredHolder::get)
-                .map(AlchemicalSulfurItem.class::cast)
-                .filter(sulfur -> liquefactionRecipes.stream().noneMatch(r -> {
-                    var resultItem = r.value().getResultItem(registryAccess);
-                    return resultItem != null && resultItem.getItem() == sulfur;
-                }))
-                .map(ItemStack::new)
-                .toList();
-
-        var message = new MessageSyncSulfursWithoutRecipe(sulfursWithoutRecipe);
-
-        //send to all relevant players (single player on join, all players on reload)
-        event.getRelevantPlayers().forEach(player -> Networking.sendTo(player, message));
     }
 
     public static class Client {

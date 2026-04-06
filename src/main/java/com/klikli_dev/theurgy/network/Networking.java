@@ -38,7 +38,6 @@ public class Networking {
         registrar.playToClient(MessageShowLogisticsNodeStatus.TYPE, MessageShowLogisticsNodeStatus.STREAM_CODEC, MessageHandler::handle);
         registrar.playToClient(MessageAddWires.TYPE, MessageAddWires.STREAM_CODEC, MessageHandler::handle);
         registrar.playToClient(MessageRemoveWires.TYPE, MessageRemoveWires.STREAM_CODEC, MessageHandler::handle);
-        registrar.playToClient(MessageSyncSulfursWithoutRecipe.TYPE, MessageSyncSulfursWithoutRecipe.STREAM_CODEC, MessageHandler::handle);
         registrar.playToClient(MessageSyncInWorldHUD.TYPE, MessageSyncInWorldHUD.STREAM_CODEC, MessageHandler::handle);
         registrar.playToClient(MessageSyncHeldStackFit.TYPE, MessageSyncHeldStackFit.STREAM_CODEC, MessageHandler::handle);
     }

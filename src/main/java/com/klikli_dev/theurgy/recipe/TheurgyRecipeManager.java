@@ -4,13 +4,19 @@
 
 package com.klikli_dev.theurgy.recipe;
 
+import com.klikli_dev.modonomicon.client.render.page.PageRendererRegistry;
+import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurItem;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
+import com.klikli_dev.theurgy.registry.SulfurRegistry;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.client.event.ClientPlayerNetworkEvent;
 import net.neoforged.neoforge.client.event.RecipesReceivedEvent;
+import net.neoforged.neoforge.common.util.Lazy;
 import net.neoforged.neoforge.event.OnDatapackSyncEvent;
+import net.neoforged.neoforge.registries.DeferredHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +26,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class TheurgyRecipeManager {
     private static final TheurgyRecipeManager INSTANCE = new TheurgyRecipeManager();
-    private static final List<RecipeType<?>> SYNCED_RECIPE_TYPES = List.of(
+    private static final Lazy<List<RecipeType<?>>> SYNCED_RECIPE_TYPES = Lazy.of(() -> List.of(
             RecipeTypeRegistry.CALCINATION.get(),
             RecipeTypeRegistry.LIQUEFACTION.get(),
             RecipeTypeRegistry.DISTILLATION.get(),
@@ -30,7 +36,7 @@ public class TheurgyRecipeManager {
             RecipeTypeRegistry.REFORMATION.get(),
             RecipeTypeRegistry.FERMENTATION.get(),
             RecipeTypeRegistry.DIGESTION.get()
-    );
+    ));
 
     private final Map<RecipeType<?>, List<RecipeHolder<?>>> clientRecipeCache = new ConcurrentHashMap<>();
     private final Map<RecipeType<?>, Map<ResourceKey<Recipe<?>>, RecipeHolder<?>>> clientRecipeByKeyCache = new ConcurrentHashMap<>();
@@ -41,6 +47,10 @@ public class TheurgyRecipeManager {
 
     public static TheurgyRecipeManager get() {
         return INSTANCE;
+    }
+
+    private List<RecipeType<?>> syncedRecipeTypes() {
+        return SYNCED_RECIPE_TYPES.get();
     }
 
     public long getRecipeGeneration() {
@@ -106,15 +116,17 @@ public class TheurgyRecipeManager {
 
     public void onDatapackSync(OnDatapackSyncEvent event) {
         this.recipeGeneration++;
-        SYNCED_RECIPE_TYPES.forEach(event::sendRecipes);
+        this.syncedRecipeTypes().forEach(event::sendRecipes);
     }
 
     public void onRecipesReceived(RecipesReceivedEvent event) {
         this.clearClientCache();
 
-        for (var type : SYNCED_RECIPE_TYPES) {
+        for (var type : this.syncedRecipeTypes()) {
             this.storeClientRecipesUnchecked(event.getRecipeMap(), type);
         }
+
+        this.hideSulfursWithoutLiquefactionRecipe(event.getRecipeMap());
     }
 
     public void onClientLogout(ClientPlayerNetworkEvent.LoggingOut event) {
@@ -147,5 +159,19 @@ public class TheurgyRecipeManager {
 
         this.clientRecipeCache.put(type, List.copyOf(recipeList));
         this.clientRecipeByKeyCache.put(type, recipesByKey);
+    }
+
+    private void hideSulfursWithoutLiquefactionRecipe(RecipeMap recipeMap) {
+        var liquefactionRecipes = recipeMap.byType(RecipeTypeRegistry.LIQUEFACTION.get());
+
+        SulfurRegistry.SULFURS.getEntries().stream()
+                .map(DeferredHolder::get)
+                .map(AlchemicalSulfurItem.class::cast)
+                .filter(sulfur -> liquefactionRecipes.stream().noneMatch(r -> {
+                    var resultItem = r.value().getResultItem(net.minecraft.core.RegistryAccess.EMPTY);
+                    return resultItem != null && resultItem.getItem() == sulfur;
+                }))
+                .map(ItemStack::new)
+                .forEach(PageRendererRegistry::registerItemStackNotToRender);
     }
 }

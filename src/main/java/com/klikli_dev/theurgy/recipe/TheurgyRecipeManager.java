@@ -19,6 +19,7 @@ import net.neoforged.neoforge.event.OnDatapackSyncEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -38,7 +39,7 @@ public class TheurgyRecipeManager {
             RecipeTypeRegistry.DIGESTION.get()
     ));
 
-    private final Map<RecipeType<?>, List<RecipeHolder<?>>> clientRecipeCache = new ConcurrentHashMap<>();
+    private final Map<RecipeType<?>, Collection<RecipeHolder<?>>> clientRecipeCache = new ConcurrentHashMap<>();
     private final Map<RecipeType<?>, Map<ResourceKey<Recipe<?>>, RecipeHolder<?>>> clientRecipeByKeyCache = new ConcurrentHashMap<>();
     private volatile long recipeGeneration;
 
@@ -57,17 +58,17 @@ public class TheurgyRecipeManager {
         return this.recipeGeneration;
     }
 
-    @SuppressWarnings("unchecked")
-    public <C extends RecipeInput, T extends Recipe<C>> List<RecipeHolder<T>> getRecipesByType(RecipeType<T> type, Level level) {
+    public <C extends RecipeInput, T extends Recipe<C>> Collection<RecipeHolder<T>> getRecipesByType(RecipeType<T> type, Level level) {
         if (level == null) {
             return List.of();
         }
 
         if (level.isClientSide()) {
-            return (List<RecipeHolder<T>>) (List<?>) this.clientRecipeCache.getOrDefault(type, List.of());
+            //noinspection unchecked
+            return (Collection<RecipeHolder<T>>) (Collection<?>) this.clientRecipeCache.getOrDefault(type, List.of());
         }
 
-        return new ArrayList<>(level.getServer().getRecipeManager().recipeMap().byType(type));
+        return level.getServer().getRecipeManager().recipeMap().byType(type);
     }
 
     public <C extends RecipeInput, T extends Recipe<C>> Optional<RecipeHolder<T>> getRecipeFor(RecipeType<T> type, C input, Level level) {

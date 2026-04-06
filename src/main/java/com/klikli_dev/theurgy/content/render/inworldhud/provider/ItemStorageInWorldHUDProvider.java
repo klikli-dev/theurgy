@@ -21,6 +21,11 @@ import org.jetbrains.annotations.Nullable;
 public class ItemStorageInWorldHUDProvider implements InWorldHUDProvider {
 
     @Override
+    public boolean activatesHUD() {
+        return false;
+    }
+
+    @Override
     public boolean applies(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity) {
         return level.getCapability(CapabilityRegistry.ITEM_HANDLER, pos, state, blockEntity, null) != null;
     }

@@ -16,6 +16,10 @@ public interface InWorldHUDProvider {
 
     boolean applies(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity);
 
+    default boolean activatesHUD() {
+        return true;
+    }
+
     default void appendClientData(InWorldHUDBuilder builder, Level level, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity) {
     }
 

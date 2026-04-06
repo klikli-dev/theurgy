@@ -4,10 +4,10 @@
 
 package com.klikli_dev.theurgy.content.render.inworldhud;
 
+import com.klikli_dev.theurgy.content.render.inworldhud.provider.BlockTitleInWorldHUDProvider;
+import com.klikli_dev.theurgy.content.render.inworldhud.provider.FluidStorageInWorldHUDProvider;
 import com.klikli_dev.theurgy.content.render.inworldhud.provider.ItemStorageInWorldHUDProvider;
-import com.klikli_dev.theurgy.content.render.inworldhud.provider.MercuryCatalystInWorldHUDProvider;
 import com.klikli_dev.theurgy.content.render.inworldhud.provider.MercuryFluxStorageInWorldHUDProvider;
-import com.klikli_dev.theurgy.registry.BlockRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -33,8 +33,9 @@ public class InWorldHUDRegistry {
             return;
         }
 
-        registerBlockProvider(BlockRegistry.MERCURY_CATALYST.get(), new MercuryCatalystInWorldHUDProvider());
+        registerGenericProvider(new BlockTitleInWorldHUDProvider());
         registerGenericProvider(new MercuryFluxStorageInWorldHUDProvider());
+        registerGenericProvider(new FluidStorageInWorldHUDProvider());
         registerGenericProvider(new ItemStorageInWorldHUDProvider());
 
         defaultsRegistered = true;
@@ -86,12 +87,19 @@ public class InWorldHUDRegistry {
                 .filter(provider -> provider.applies(level, pos, state, blockEntity))
                 .toList();
 
-        if (applicableBlockProviders.isEmpty()) {
+        List<InWorldHUDProvider> applicableGenericProviders = GENERIC_PROVIDERS.stream()
+                .filter(provider -> provider.applies(level, pos, state, blockEntity))
+                .toList();
+
+        boolean hasActivatingProvider = applicableBlockProviders.stream().anyMatch(InWorldHUDProvider::activatesHUD)
+                || applicableGenericProviders.stream().anyMatch(InWorldHUDProvider::activatesHUD);
+
+        if (!hasActivatingProvider) {
             return List.of();
         }
 
         List<InWorldHUDProvider> result = new ArrayList<>(applicableBlockProviders);
-        GENERIC_PROVIDERS.stream().filter(provider -> provider.applies(level, pos, state, blockEntity)).forEach(result::add);
+        result.addAll(applicableGenericProviders);
         return result;
     }
 }

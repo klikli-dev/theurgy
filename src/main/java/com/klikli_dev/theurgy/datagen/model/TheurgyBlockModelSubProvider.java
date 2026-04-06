@@ -249,12 +249,10 @@ public class TheurgyBlockModelSubProvider {
         ));
 
         MultiPartGenerator generator = MultiPartGenerator.multiPart(block);
-        generator = this.addFacingVariant(generator, BlockStateProperties.FACING, Direction.DOWN, this.blockModel(block), 90, 0, false);
-        generator = this.addFacingVariant(generator, BlockStateProperties.FACING, Direction.EAST, this.blockModel(block), 0, 90, false);
-        generator = this.addFacingVariant(generator, BlockStateProperties.FACING, Direction.NORTH, this.blockModel(block), 0, 0, false);
-        generator = this.addFacingVariant(generator, BlockStateProperties.FACING, Direction.SOUTH, this.blockModel(block), 0, 180, false);
-        generator = this.addFacingVariant(generator, BlockStateProperties.FACING, Direction.UP, this.blockModel(block), 270, 0, false);
-        generator = this.addFacingVariant(generator, BlockStateProperties.FACING, Direction.WEST, this.blockModel(block), 0, 270, false);
+        for (Direction direction : Direction.values()) {
+            Rotation rotation = this.connectorRotation(direction);
+            generator = this.addFacingVariant(generator, BlockStateProperties.FACING, direction, this.blockModel(block), rotation.xDegrees, rotation.yDegrees, false);
+        }
         blockModels.blockStateOutput.accept(generator);
 
         this.registerParentedItemModel(itemModels, block, this.blockModel(block));

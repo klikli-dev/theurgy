@@ -10,7 +10,6 @@ import com.klikli_dev.theurgy.content.recipe.input.ItemHandlerWithFluidRecipeInp
 import com.klikli_dev.theurgy.content.storage.FluidStorageHelper;
 import com.klikli_dev.theurgy.content.storage.SettableItemStorage;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -40,8 +39,7 @@ public class SalAmmoniacAccumulatorCraftingBehaviour extends CraftingBehaviour<I
 
     @Override
     public boolean isIngredient(ItemStack stack) {
-        if (this.blockEntity.getLevel().isClientSide()) return false;
-        return this.recipeCachedCheck.getRecipeFor(stack, (ServerLevel) this.blockEntity.getLevel()).isPresent();
+        return this.recipeCachedCheck.getRecipeFor(stack, this.blockEntity.getLevel()).isPresent();
     }
 
     @Override
@@ -55,8 +53,7 @@ public class SalAmmoniacAccumulatorCraftingBehaviour extends CraftingBehaviour<I
 
     @Override
     public boolean isIngredient(FluidStack stack) {
-        if (this.blockEntity.getLevel().isClientSide()) return false;
-        return this.recipeCachedCheck.getRecipeFor(stack, (ServerLevel) this.blockEntity.getLevel()).isPresent();
+        return this.recipeCachedCheck.getRecipeFor(stack, this.blockEntity.getLevel()).isPresent();
     }
 
     @Override

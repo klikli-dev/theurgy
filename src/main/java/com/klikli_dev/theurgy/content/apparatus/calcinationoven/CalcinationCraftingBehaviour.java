@@ -9,13 +9,11 @@ import com.klikli_dev.theurgy.content.recipe.CalcinationRecipe;
 import com.klikli_dev.theurgy.content.recipe.input.ItemHandlerRecipeInput;
 import com.klikli_dev.theurgy.content.storage.SettableItemStorage;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.common.util.Lazy;
 
-import java.util.Objects;
 import java.util.function.Supplier;
 
 public class CalcinationCraftingBehaviour extends CraftingBehaviour<ItemHandlerRecipeInput, CalcinationRecipe, CalcinationCachedCheck> {
@@ -29,7 +27,7 @@ public class CalcinationCraftingBehaviour extends CraftingBehaviour<ItemHandlerR
 
     @Override
     public boolean isIngredient(ItemStack stack) {
-        return this.recipeCachedCheck.getRecipeFor(stack, (ServerLevel) Objects.requireNonNull(this.blockEntity.getLevel())).isPresent();
+        return this.recipeCachedCheck.getRecipeFor(stack, this.blockEntity.getLevel()).isPresent();
     }
 
     @Override

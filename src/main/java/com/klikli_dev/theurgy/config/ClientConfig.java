@@ -48,7 +48,8 @@ public class ClientConfig {
                     .define("enableItemHUD", true);
 
             this.enableInWorldHUD = builder
-                    .comment("True to enable the in-world HUD when looking at supported machine blocks, false to disable it.")
+                    .comment("True to enable the in-world HUD when looking at supported machine blocks, false to disable it.",
+                            "Disable this if you use another overlay mod such as Jade and want it to provide the in-world block information instead.")
                     .define("enableInWorldHUD", true);
 
             this.enableHeldStackFitOutline = builder

@@ -8,6 +8,7 @@ import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.content.item.derivative.AlchemicalDerivativeTier;
 import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurItem;
 import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurType;
+import com.klikli_dev.theurgy.recipe.TheurgyRecipeManager;
 import com.klikli_dev.theurgy.util.LevelUtil;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -393,8 +394,7 @@ public class SulfurRegistry {
                 return;
             }
 
-            var recipeManager = LevelUtil.getRecipeManager(level);
-            var liquefactionRecipes = LevelUtil.getRecipesByType(recipeManager, RecipeTypeRegistry.LIQUEFACTION.get());
+            var liquefactionRecipes = TheurgyRecipeManager.get().getRecipesByType(RecipeTypeRegistry.LIQUEFACTION.get(), level);
 
             //Register only sulfurs that have a liquefaction recipe
             liquefactionRecipes.forEach(r -> {

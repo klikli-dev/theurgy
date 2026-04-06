@@ -83,6 +83,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
                 ChatFormatting.GOLD + "]");
 
         this.add(TheurgyConstants.I18n.Misc.AMOUNT_CAPACITY_MILLIBUCKETS, "%1$s / %2$smB");
+        this.add(TheurgyConstants.I18n.Misc.CRAFTING_PROGRESS, "Crafting: %1$s %2$s%%");
         this.add(TheurgyConstants.I18n.Misc.EMPTY, "Empty");
         this.add(TheurgyConstants.I18n.Misc.UNIT_MILLIBUCKETS, "%smB");
     }
@@ -412,7 +413,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
                 "Used to power a sulfur reformation array to replicate Alchemical Sulfur.",
                 "Sulfuric Flux allows to transfer, merge and manipulate Alchemical Sulfur.",
                 this.f("""
-                                 {0} on Source, Target and Reformation pedestals to set them as the targets for the emitter to form a reformation array.
+                                {0} on Source, Target and Reformation pedestals to set them as the targets for the emitter to form a reformation array.
                                 Then place the emitter on a Mercury Flux source, such as a Mercury Catalyst.
                                 View The Hermetica for more information.
                                 """,

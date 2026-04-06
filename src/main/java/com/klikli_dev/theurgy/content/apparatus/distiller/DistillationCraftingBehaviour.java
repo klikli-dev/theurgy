@@ -9,7 +9,6 @@ import com.klikli_dev.theurgy.content.recipe.DistillationRecipe;
 import com.klikli_dev.theurgy.content.recipe.input.ItemHandlerRecipeInput;
 import com.klikli_dev.theurgy.content.storage.SettableItemStorage;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -28,7 +27,7 @@ public class DistillationCraftingBehaviour extends CraftingBehaviour<ItemHandler
 
     @Override
     public boolean isIngredient(ItemStack stack) {
-        return this.recipeCachedCheck.getRecipeFor(stack, (ServerLevel) this.blockEntity.getLevel()).isPresent();
+        return this.recipeCachedCheck.getRecipeFor(stack, this.blockEntity.getLevel()).isPresent();
     }
 
     @Override

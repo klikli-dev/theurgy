@@ -7,6 +7,7 @@
 package com.klikli_dev.theurgy.integration.occultism;
 
 import com.klikli_dev.theurgy.content.behaviour.filter.Filter;
+import com.klikli_dev.theurgy.integration.occultism.impl.OccultismIntegrationImpl;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.transfer.ResourceHandler;
 import net.neoforged.neoforge.transfer.item.ItemResource;

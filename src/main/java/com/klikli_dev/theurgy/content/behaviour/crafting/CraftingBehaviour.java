@@ -7,12 +7,10 @@ package com.klikli_dev.theurgy.content.behaviour.crafting;
 import com.klikli_dev.theurgy.content.storage.SettableItemStorage;
 import net.minecraft.core.component.DataComponentGetter;
 import net.minecraft.core.component.DataComponentMap;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeInput;
-import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.storage.ValueInput;
@@ -24,7 +22,7 @@ import java.util.Optional;
 import java.util.function.Supplier;
 import java.util.stream.IntStream;
 
-public abstract class CraftingBehaviour<W extends RecipeInput, R extends Recipe<W>, C extends RecipeManager.CachedCheck<W, R>> {
+public abstract class CraftingBehaviour<W extends RecipeInput, R extends Recipe<W>, C extends LevelAwareRecipeCheck<W, R>> {
     protected BlockEntity blockEntity;
     protected Supplier<W> recipeInputSupplier;
     protected Supplier<SettableItemStorage> inputInventorySupplier;
@@ -51,6 +49,22 @@ public abstract class CraftingBehaviour<W extends RecipeInput, R extends Recipe<
 
     public boolean couldCraftLastTick() {
         return this.couldCraftLastTick;
+    }
+
+    public int progress() {
+        return this.progress;
+    }
+
+    public int totalTime() {
+        return this.totalTime;
+    }
+
+    public int progressPercent() {
+        if (this.totalTime <= 0) {
+            return 0;
+        }
+
+        return Math.clamp(this.progress * 100 / this.totalTime, 0, 100);
     }
 
     public void readNetwork(ValueInput input) {
@@ -84,7 +98,12 @@ public abstract class CraftingBehaviour<W extends RecipeInput, R extends Recipe<
     }
 
     public Optional<RecipeHolder<R>> getRecipe() {
-        return this.recipeCachedCheck.getRecipeFor(this.recipeInputSupplier.get(), (ServerLevel) this.blockEntity.getLevel());
+        var level = this.blockEntity.getLevel();
+        if (level == null) {
+            return Optional.empty();
+        }
+
+        return this.recipeCachedCheck.getRecipeFor(this.recipeInputSupplier.get(), level);
     }
 
     /**
@@ -227,7 +246,12 @@ public abstract class CraftingBehaviour<W extends RecipeInput, R extends Recipe<
 
 
     protected int getTotalTime() {
-        return this.recipeCachedCheck.getRecipeFor(this.recipeInputSupplier.get(), (ServerLevel) this.blockEntity.getLevel())
+        var level = this.blockEntity.getLevel();
+        if (level == null) {
+            return this.getDefaultCraftingTime();
+        }
+
+        return this.recipeCachedCheck.getRecipeFor(this.recipeInputSupplier.get(), level)
                 .map(this::getCraftingTime)
                 .orElse(this.getDefaultCraftingTime());
     }

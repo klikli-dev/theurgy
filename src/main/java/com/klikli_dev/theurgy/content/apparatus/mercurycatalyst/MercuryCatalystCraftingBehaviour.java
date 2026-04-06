@@ -5,6 +5,7 @@
 package com.klikli_dev.theurgy.content.apparatus.mercurycatalyst;
 
 import com.klikli_dev.theurgy.content.behaviour.crafting.CraftingBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.crafting.LevelAwareCachedCheck;
 import com.klikli_dev.theurgy.content.capability.MercuryFluxStorage;
 import com.klikli_dev.theurgy.content.recipe.CatalysationRecipe;
 import com.klikli_dev.theurgy.content.recipe.input.ItemHandlerRecipeInput;
@@ -14,10 +15,8 @@ import com.klikli_dev.theurgy.registry.DataComponentRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import net.minecraft.core.component.DataComponentGetter;
 import net.minecraft.core.component.DataComponentMap;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
-import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
@@ -26,7 +25,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Supplier;
 
-public class MercuryCatalystCraftingBehaviour extends CraftingBehaviour<ItemHandlerRecipeInput, CatalysationRecipe, RecipeManager.CachedCheck<ItemHandlerRecipeInput, CatalysationRecipe>> {
+public class MercuryCatalystCraftingBehaviour extends CraftingBehaviour<ItemHandlerRecipeInput, CatalysationRecipe, LevelAwareCachedCheck<ItemHandlerRecipeInput, CatalysationRecipe>> {
 
     private final Supplier<MercuryFluxStorage> mercuryFluxStorageSupplier;
     private final MonitoredItemStackHandler ingredientCheckInventory = new MonitoredItemStackHandler() {
@@ -42,20 +41,21 @@ public class MercuryCatalystCraftingBehaviour extends CraftingBehaviour<ItemHand
                 Lazy.of(() -> new ItemHandlerRecipeInput(inputInventorySupplier.get())),
                 inputInventorySupplier,
                 outputInventorySupplier,
-                RecipeManager.createCheck(RecipeTypeRegistry.CATALYSATION.get()));
+                new LevelAwareCachedCheck<>(RecipeTypeRegistry.CATALYSATION.get()));
 
         this.mercuryFluxStorageSupplier = mercuryFluxStorageSupplier;
     }
 
     @Override
     public boolean isIngredient(ItemStack stack) {
-        if (!(this.blockEntity.getLevel() instanceof ServerLevel serverLevel)) {
+        var level = this.blockEntity.getLevel();
+        if (level == null) {
             return false;
         }
 
         this.ingredientCheckInventory.setStackInSlot(0, stack.copyWithCount(1));
 
-        return this.recipeCachedCheck.getRecipeFor(this.ingredientCheckInput, serverLevel).isPresent();
+        return this.recipeCachedCheck.getRecipeFor(this.ingredientCheckInput, level).isPresent();
     }
 
     @Override
@@ -127,8 +127,9 @@ public class MercuryCatalystCraftingBehaviour extends CraftingBehaviour<ItemHand
             //only even check for recipe if we have input to avoid unnecessary lookups
 
             //if we have no flux available, consume more mercury
-            if (this.blockEntity.getLevel().isClientSide()) return;
-            var recipe = this.recipeCachedCheck.getRecipeFor(this.recipeInputSupplier.get(), (ServerLevel) this.blockEntity.getLevel()).orElse(null);
+            var level = this.blockEntity.getLevel();
+            if (level == null || level.isClientSide()) return;
+            var recipe = this.recipeCachedCheck.getRecipeFor(this.recipeInputSupplier.get(), level).orElse(null);
 
 
             this.couldCraftLastTick = this.canCraft(recipe);

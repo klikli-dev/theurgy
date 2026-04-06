@@ -4,6 +4,7 @@
 
 package com.klikli_dev.theurgy.integration.jade;
 
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import snownee.jade.api.IWailaClientRegistration;
 import snownee.jade.api.IWailaCommonRegistration;
@@ -14,11 +15,12 @@ import snownee.jade.api.WailaPlugin;
 public class JadePlugin implements IWailaPlugin {
     @Override
     public void register(IWailaCommonRegistration registration) {
-        registration.registerEnergyStorage(MercuryFluxEnergyProvider.get(), BlockEntity.class);
+        registration.registerBlockDataProvider(MercuryFluxEnergyProvider.BLOCK, Block.class);
+        registration.registerEnergyStorage(MercuryFluxEnergyProvider.Extension.INSTANCE, BlockEntity.class);
     }
 
     @Override
     public void registerClient(IWailaClientRegistration registration) {
-        registration.registerEnergyStorageClient(MercuryFluxEnergyProvider.get());
+        MercuryFluxEnergyClientProvider.register(registration);
     }
 }

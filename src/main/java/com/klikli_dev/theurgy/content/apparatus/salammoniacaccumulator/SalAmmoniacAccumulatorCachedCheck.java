@@ -4,9 +4,11 @@
 
 package com.klikli_dev.theurgy.content.apparatus.salammoniacaccumulator;
 
+import com.klikli_dev.theurgy.content.behaviour.crafting.LevelAwareRecipeCheck;
 import com.klikli_dev.theurgy.content.recipe.AccumulationRecipe;
 import com.klikli_dev.theurgy.content.recipe.input.ItemHandlerWithFluidRecipeInput;
 import com.klikli_dev.theurgy.content.storage.FluidStorageHelper;
+import com.klikli_dev.theurgy.recipe.TheurgyRecipeManager;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
@@ -14,6 +16,7 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.fluids.FluidStack;
 import org.jetbrains.annotations.Nullable;
 
@@ -22,7 +25,7 @@ import java.util.Optional;
 /**
  * A custom cached check
  */
-class SalAmmoniacAccumulatorCachedCheck implements RecipeManager.CachedCheck<ItemHandlerWithFluidRecipeInput, AccumulationRecipe> {
+class SalAmmoniacAccumulatorCachedCheck implements LevelAwareRecipeCheck<ItemHandlerWithFluidRecipeInput, AccumulationRecipe> {
 
     private final RecipeType<AccumulationRecipe> type;
     @Nullable
@@ -53,50 +56,40 @@ class SalAmmoniacAccumulatorCachedCheck implements RecipeManager.CachedCheck<Ite
         return soluteMatches && evaporantMatches;
     }
 
-    private Optional<RecipeHolder<AccumulationRecipe>> getRecipeFor(ItemStack stack, ServerLevel level, @Nullable ResourceKey<Recipe<?>> lastRecipe) {
-        var recipeManager = level.getServer().getRecipeManager();
+    private Optional<RecipeHolder<AccumulationRecipe>> getRecipeFor(ItemStack stack, Level level, @Nullable ResourceKey<Recipe<?>> lastRecipe) {
         if (lastRecipe != null) {
-            var recipeOptional = recipeManager.byKey(lastRecipe);
+            var recipeOptional = TheurgyRecipeManager.get().getRecipeByKey(this.type, lastRecipe, level);
             if (recipeOptional.isPresent()) {
                 var recipe = recipeOptional.get();
-                if (recipe.value().getType() == this.type) {
-                    @SuppressWarnings("unchecked")
-                    var typedRecipe = (RecipeHolder<AccumulationRecipe>) recipe;
-                    if (typedRecipe.value().hasSolute() && typedRecipe.value().solute().test(stack)) {
-                        return Optional.of(typedRecipe);
-                    }
+                if (recipe.value().hasSolute() && recipe.value().solute().test(stack)) {
+                    return Optional.of(recipe);
                 }
             }
         }
 
-        return recipeManager.recipeMap().byType(this.type).stream().filter((entry) -> entry.value().hasSolute() && entry.value().solute().test(stack)).findFirst();
+        return TheurgyRecipeManager.get().getRecipesByType(this.type, level).stream().filter((entry) -> entry.value().hasSolute() && entry.value().solute().test(stack)).findFirst();
     }
 
-    private Optional<RecipeHolder<AccumulationRecipe>> getRecipeFor(FluidStack stack, ServerLevel level, @Nullable ResourceKey<Recipe<?>> lastRecipe) {
-        var recipeManager = level.getServer().getRecipeManager();
+    private Optional<RecipeHolder<AccumulationRecipe>> getRecipeFor(FluidStack stack, Level level, @Nullable ResourceKey<Recipe<?>> lastRecipe) {
         var normalizedStack = this.normalizeFluid(stack);
         if (lastRecipe != null) {
-            var recipeOptional = recipeManager.byKey(lastRecipe);
+            var recipeOptional = TheurgyRecipeManager.get().getRecipeByKey(this.type, lastRecipe, level);
             if (recipeOptional.isPresent()) {
                 var recipe = recipeOptional.get();
-                if (recipe.value().getType() == this.type) {
-                    @SuppressWarnings("unchecked")
-                    var typedRecipe = (RecipeHolder<AccumulationRecipe>) recipe;
-                    //test only the fluid without the (separate) solute item ingredient check that the recipe.matches() would.
-                    if (this.matchesEvaporant(typedRecipe.value(), normalizedStack)) {
-                        return Optional.of(typedRecipe);
-                    }
+                //test only the fluid without the (separate) solute item ingredient check that the recipe.matches() would.
+                if (this.matchesEvaporant(recipe.value(), normalizedStack)) {
+                    return Optional.of(recipe);
                 }
             }
         }
 
-        return recipeManager.recipeMap().byType(this.type).stream().filter((entry) -> this.matchesEvaporant(entry.value(), normalizedStack)).findFirst();
+        return TheurgyRecipeManager.get().getRecipesByType(this.type, level).stream().filter((entry) -> this.matchesEvaporant(entry.value(), normalizedStack)).findFirst();
     }
 
     /**
      * This only checks ingredients, not fluids
      */
-    public Optional<RecipeHolder<AccumulationRecipe>> getRecipeFor(ItemStack stack, ServerLevel level) {
+    public Optional<RecipeHolder<AccumulationRecipe>> getRecipeFor(ItemStack stack, Level level) {
         var optional = this.getRecipeFor(stack, level, this.lastRecipe);
         if (optional.isPresent()) {
             var recipeHolder = optional.get();
@@ -110,7 +103,7 @@ class SalAmmoniacAccumulatorCachedCheck implements RecipeManager.CachedCheck<Ite
     /**
      * This only checks fluids, not ingredients
      */
-    public Optional<RecipeHolder<AccumulationRecipe>> getRecipeFor(FluidStack stack, ServerLevel level) {
+    public Optional<RecipeHolder<AccumulationRecipe>> getRecipeFor(FluidStack stack, Level level) {
         var optional = this.getRecipeFor(stack, level, this.lastRecipe);
         if (optional.isPresent()) {
             var recipeHolder = optional.get();
@@ -125,25 +118,20 @@ class SalAmmoniacAccumulatorCachedCheck implements RecipeManager.CachedCheck<Ite
      * This checks full recipe validity: ingredients + fluids
      */
     @Override
-    public Optional<RecipeHolder<AccumulationRecipe>> getRecipeFor(ItemHandlerWithFluidRecipeInput container, ServerLevel level) {
-        var recipeManager = level.getServer().getRecipeManager();
+    public Optional<RecipeHolder<AccumulationRecipe>> getRecipeFor(ItemHandlerWithFluidRecipeInput container, Level level) {
         var item = container.getItem(0);
         var fluid = this.normalizeFluid(FluidStorageHelper.getFluidInTank(container.getTank(), 0));
         if (this.lastRecipe != null) {
-            var recipeOptional = recipeManager.byKey(this.lastRecipe);
+            var recipeOptional = TheurgyRecipeManager.get().getRecipeByKey(this.type, this.lastRecipe, level);
             if (recipeOptional.isPresent()) {
                 var recipe = recipeOptional.get();
-                if (recipe.value().getType() == this.type) {
-                    @SuppressWarnings("unchecked")
-                    var typedRecipe = (RecipeHolder<AccumulationRecipe>) recipe;
-                    if (this.matches(item, fluid, typedRecipe.value())) {
-                        return Optional.of(typedRecipe);
-                    }
+                if (this.matches(item, fluid, recipe.value())) {
+                    return Optional.of(recipe);
                 }
             }
         }
 
-        var recipe = recipeManager.recipeMap().byType(this.type).stream().filter((entry) -> this.matches(item, fluid, entry.value())).findFirst();
+        var recipe = TheurgyRecipeManager.get().getRecipesByType(this.type, level).stream().filter((entry) -> this.matches(item, fluid, entry.value())).findFirst();
         recipe.ifPresent(value -> this.lastRecipe = value.id());
         return recipe;
     }

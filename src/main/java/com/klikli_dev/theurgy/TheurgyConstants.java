@@ -110,6 +110,7 @@ public class TheurgyConstants {
             public static final String PREFIX = Theurgy.MODID + ".misc.";
 
             public static final String AMOUNT_CAPACITY_MILLIBUCKETS = PREFIX + "amount_capacity_millibuckets";
+            public static final String CRAFTING_PROGRESS = PREFIX + "crafting_progress";
             public static final String EMPTY = PREFIX + "empty";
             public static final String UNIT_MILLIBUCKETS = PREFIX + "unit.millibuckets";
         }

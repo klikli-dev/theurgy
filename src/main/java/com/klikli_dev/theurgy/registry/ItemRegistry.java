@@ -193,9 +193,9 @@ public class ItemRegistry {
     public static final DeferredItem<BlockItem> MERCURY_CATALYST =
             ITEMS.registerItem("mercury_catalyst", p -> new BlockItem(BlockRegistry.MERCURY_CATALYST.get(), p.useBlockDescriptionPrefix()));
     public static final DeferredItem<CaloricFluxEmitterBlockItem> CALORIC_FLUX_EMITTER =
-            ITEMS.registerItem("caloric_flux_emitter", p -> new CaloricFluxEmitterBlockItem(BlockRegistry.CALORIC_FLUX_EMITTER.get(), p));
+            ITEMS.registerItem("caloric_flux_emitter", p -> new CaloricFluxEmitterBlockItem(BlockRegistry.CALORIC_FLUX_EMITTER.get(), p.useBlockDescriptionPrefix()));
     public static final DeferredItem<SulfuricFluxEmitterBlockItem> SULFURIC_FLUX_EMITTER =
-            ITEMS.registerItem("sulfuric_flux_emitter", p -> new SulfuricFluxEmitterBlockItem(BlockRegistry.SULFURIC_FLUX_EMITTER.get(), p));
+            ITEMS.registerItem("sulfuric_flux_emitter", p -> new SulfuricFluxEmitterBlockItem(BlockRegistry.SULFURIC_FLUX_EMITTER.get(), p.useBlockDescriptionPrefix()));
 
     public static final DeferredItem<BlockItem> REFORMATION_SOURCE_PEDESTAL =
             ITEMS.registerItem("reformation_source_pedestal", p -> new BlockItem(BlockRegistry.REFORMATION_SOURCE_PEDESTAL.get(), p.useBlockDescriptionPrefix()));

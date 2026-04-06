@@ -6,7 +6,9 @@ package com.klikli_dev.theurgy.content.apparatus.mercurycatalyst;
 
 import com.klikli_dev.theurgy.content.behaviour.crafting.CraftingBehaviour;
 import com.klikli_dev.theurgy.content.capability.DefaultMercuryFluxStorage;
+import com.klikli_dev.theurgy.content.render.HeldStackFitProvider;
 import com.klikli_dev.theurgy.content.storage.MonitoredItemStackHandler;
+import com.klikli_dev.theurgy.content.storage.SettableItemStorage;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.CapabilityRegistry;
 import com.klikli_dev.theurgy.registry.DataComponentRegistry;
@@ -31,8 +33,10 @@ import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
 
-public class MercuryCatalystBlockEntity extends BlockEntity {
+
+public class MercuryCatalystBlockEntity extends BlockEntity implements HeldStackFitProvider {
 
     public static final int CAPACITY = 50000;
 
@@ -247,5 +251,10 @@ public class MercuryCatalystBlockEntity extends BlockEntity {
                 MercuryCatalystBlockEntity.this.sendBlockUpdated();
             }
         }
+    }
+
+    @Override
+    public List<? extends SettableItemStorage> heldStackFitItemStorages() {
+        return List.of(this.inventory);
     }
 }

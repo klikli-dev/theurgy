@@ -46,6 +46,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
     private void addKeys() {
         this.add(TheurgyConstants.I18n.Key.CATEGORY, "Theurgy");
         this.add(TheurgyConstants.I18n.Key.CHANGE_ITEM_MODE, "Change Item Mode");
+        this.add(TheurgyConstants.I18n.Key.SHOW_HELD_STACK_FIT_OUTLINE, "Show Held Stack Fit Outline");
     }
 
     private void addItemTag(Identifier resourceLocation, String string) {
@@ -1270,11 +1271,15 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
     private void addConfigurationTranslations() {
         this.addConfig("recipes", "Recipe Settings");
         this.addConfig("sulfurSourceToBlockMapping", "Sulfur Source to Block Mapping");
+        this.addConfig("tooltipHandler", "Tooltip Handler Settings");
+        this.addConfig("additionalTooltipHandlerNamespaces", "Additional Tooltip Handler Namespaces");
 
         this.addConfig("rendering", "Rendering Settings");
         this.addConfig("renderSulfurSourceItem", "Render Sulfur Source Items");
         this.addConfig("enableItemHUD", "Enable Item HUD");
         this.addConfig("enableInWorldHUD", "Enable In-World HUD");
+        this.addConfig("enableHeldStackFitOutline", "Enable Held Stack Fit Outline");
+        this.addConfig("heldStackFitOutlineRenderMode", "Held Stack Fit Outline Render Mode");
         this.addConfig("hudScale", "HUD Scale");
 
         this.addConfig("misc", "Misc Settings");

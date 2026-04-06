@@ -6,7 +6,9 @@ package com.klikli_dev.theurgy.content.apparatus.pyromanticbrazier;
 
 import com.klikli_dev.theurgy.content.apparatus.calcinationoven.CalcinationOvenBlock;
 import com.klikli_dev.theurgy.content.capability.HeatProvider;
+import com.klikli_dev.theurgy.content.render.HeldStackFitProvider;
 import com.klikli_dev.theurgy.content.storage.MonitoredItemStackHandler;
+import com.klikli_dev.theurgy.content.storage.SettableItemStorage;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import com.klikli_dev.theurgy.util.ValueIOUtils;
@@ -28,8 +30,10 @@ import net.neoforged.neoforge.transfer.item.ItemResource;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
 
-public class PyromanticBrazierBlockEntity extends BlockEntity {
+
+public class PyromanticBrazierBlockEntity extends BlockEntity implements HeldStackFitProvider {
     public MonitoredItemStackHandler inventory;
 
     public HeatProvider heatProvider;
@@ -194,5 +198,10 @@ public class PyromanticBrazierBlockEntity extends BlockEntity {
         protected void onContentsChanged(int slot) {
             PyromanticBrazierBlockEntity.this.setChanged();
         }
+    }
+
+    @Override
+    public List<? extends SettableItemStorage> heldStackFitItemStorages() {
+        return List.of(this.inventory);
     }
 }

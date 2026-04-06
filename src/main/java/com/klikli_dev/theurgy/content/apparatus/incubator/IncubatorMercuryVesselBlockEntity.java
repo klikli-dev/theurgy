@@ -8,7 +8,9 @@ import com.geckolib.animatable.GeoBlockEntity;
 import com.geckolib.animatable.instance.AnimatableInstanceCache;
 import com.geckolib.animatable.manager.AnimatableManager;
 import com.geckolib.util.GeckoLibUtil;
+import com.klikli_dev.theurgy.content.render.HeldStackFitProvider;
 import com.klikli_dev.theurgy.content.storage.MonitoredItemStackHandler;
+import com.klikli_dev.theurgy.content.storage.SettableItemStorage;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.ItemTagRegistry;
 import com.klikli_dev.theurgy.util.ValueIOUtils;
@@ -28,8 +30,10 @@ import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
 
-public class IncubatorMercuryVesselBlockEntity extends BlockEntity implements GeoBlockEntity {
+
+public class IncubatorMercuryVesselBlockEntity extends BlockEntity implements GeoBlockEntity, HeldStackFitProvider {
 
     protected final AnimatableInstanceCache animatableInstanceCache = GeckoLibUtil.createInstanceCache(this);
     public IncubatorBlockEntity incubator;
@@ -142,5 +146,10 @@ public class IncubatorMercuryVesselBlockEntity extends BlockEntity implements Ge
         protected void onContentsChanged(int slot) {
             IncubatorMercuryVesselBlockEntity.this.setChanged();
         }
+    }
+
+    @Override
+    public List<? extends SettableItemStorage> heldStackFitItemStorages() {
+        return List.of(this.inputInventory);
     }
 }

@@ -10,6 +10,9 @@ import com.klikli_dev.theurgy.content.behaviour.storage.HasStorageBehaviour;
 import com.klikli_dev.theurgy.content.recipe.DigestionRecipe;
 import com.klikli_dev.theurgy.content.recipe.FermentationRecipe;
 import com.klikli_dev.theurgy.content.recipe.input.ItemHandlerWithFluidRecipeInput;
+import com.klikli_dev.theurgy.content.render.HeldStackFitProvider;
+import com.klikli_dev.theurgy.content.storage.MonitoredFluidTank;
+import com.klikli_dev.theurgy.content.storage.SettableItemStorage;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.util.ValueIOUtils;
 import net.minecraft.core.BlockPos;
@@ -28,7 +31,9 @@ import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.Nullable;
 
-public class FermentationVatBlockEntity extends BlockEntity implements HasCraftingBehaviour<ItemHandlerWithFluidRecipeInput, FermentationRecipe, FermentationCachedCheck>, HasStorageBehaviour<FermentationStorageBehaviour> {
+import java.util.List;
+
+public class FermentationVatBlockEntity extends BlockEntity implements HasCraftingBehaviour<ItemHandlerWithFluidRecipeInput, FermentationRecipe, FermentationCachedCheck>, HasStorageBehaviour<FermentationStorageBehaviour>, HeldStackFitProvider {
 
     public FermentationStorageBehaviour storageBehaviour;
     public FermentationCraftingBehaviour craftingBehaviour;
@@ -130,5 +135,15 @@ public class FermentationVatBlockEntity extends BlockEntity implements HasCrafti
     @Override
     public FermentationStorageBehaviour storageBehaviour() {
         return this.storageBehaviour;
+    }
+
+    @Override
+    public List<? extends SettableItemStorage> heldStackFitItemStorages() {
+        return List.of(this.storageBehaviour.inputInventory);
+    }
+
+    @Override
+    public List<? extends MonitoredFluidTank> heldStackFitFluidTanks() {
+        return List.of(this.storageBehaviour.fluidTank);
     }
 }

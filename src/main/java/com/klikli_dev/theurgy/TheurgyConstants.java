@@ -114,8 +114,9 @@ public class TheurgyConstants {
 
         public static class Key {
             public static final String PREFIX = "key." + Theurgy.MODID + ".";
-            public static final String CATEGORY = PREFIX + "category";
+            public static final String CATEGORY = "key.category." + Theurgy.MODID + ".keybindings";
             public static final String CHANGE_ITEM_MODE = PREFIX + "change_item_mode";
+            public static final String SHOW_HELD_STACK_FIT_OUTLINE = PREFIX + "show_held_stack_fit_outline";
         }
 
         public static class Behaviour {

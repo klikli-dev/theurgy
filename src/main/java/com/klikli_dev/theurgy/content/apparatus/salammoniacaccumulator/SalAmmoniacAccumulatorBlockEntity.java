@@ -10,8 +10,10 @@ import com.geckolib.animatable.manager.AnimatableManager;
 import com.geckolib.util.GeckoLibUtil;
 import com.klikli_dev.theurgy.content.particle.ParticleColor;
 import com.klikli_dev.theurgy.content.particle.coloredbubble.ColoredBubbleParticleProvider;
+import com.klikli_dev.theurgy.content.render.HeldStackFitProvider;
 import com.klikli_dev.theurgy.content.storage.MonitoredFluidTank;
 import com.klikli_dev.theurgy.content.storage.MonitoredItemStackHandler;
+import com.klikli_dev.theurgy.content.storage.SettableItemStorage;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.CapabilityRegistry;
 import com.klikli_dev.theurgy.registry.ItemTagRegistry;
@@ -37,9 +39,10 @@ import net.neoforged.neoforge.transfer.fluid.FluidResource;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
 import java.util.function.Predicate;
 
-public class SalAmmoniacAccumulatorBlockEntity extends BlockEntity implements GeoBlockEntity {
+public class SalAmmoniacAccumulatorBlockEntity extends BlockEntity implements GeoBlockEntity, HeldStackFitProvider {
 
     protected final AnimatableInstanceCache animatableInstanceCache = GeckoLibUtil.createInstanceCache(this);
 
@@ -242,6 +245,16 @@ public class SalAmmoniacAccumulatorBlockEntity extends BlockEntity implements Ge
             SalAmmoniacAccumulatorBlockEntity.this.setChanged();
             //network update only if presence of crystal chanced, stack size changes are irrelevant
         }
+    }
+
+    @Override
+    public List<? extends SettableItemStorage> heldStackFitItemStorages() {
+        return List.of(this.inventory);
+    }
+
+    @Override
+    public List<? extends MonitoredFluidTank> heldStackFitFluidTanks() {
+        return List.of(this.waterTank);
     }
 
 }

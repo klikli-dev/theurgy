@@ -6,7 +6,9 @@ package com.klikli_dev.theurgy.content.apparatus.reformationarray;
 
 import com.klikli_dev.theurgy.content.particle.ParticleColor;
 import com.klikli_dev.theurgy.content.particle.glow.GlowParticleProvider;
+import com.klikli_dev.theurgy.content.render.HeldStackFitProvider;
 import com.klikli_dev.theurgy.content.storage.MonitoredItemStackHandler;
+import com.klikli_dev.theurgy.content.storage.SettableItemStorage;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.ItemTagRegistry;
 import com.klikli_dev.theurgy.util.ValueIOUtils;
@@ -27,8 +29,9 @@ import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.Nullable;
 
 import java.lang.ref.WeakReference;
+import java.util.List;
 
-public class ReformationTargetPedestalBlockEntity extends BlockEntity {
+public class ReformationTargetPedestalBlockEntity extends BlockEntity implements HeldStackFitProvider {
 
     public MonitoredItemStackHandler inputInventory;
 
@@ -166,5 +169,10 @@ public class ReformationTargetPedestalBlockEntity extends BlockEntity {
             if (this.emitter() != null)
                 this.emitter().onTargetPedestalContentChange(ReformationTargetPedestalBlockEntity.this);
         }
+    }
+
+    @Override
+    public List<? extends SettableItemStorage> heldStackFitItemStorages() {
+        return List.of(this.inputInventory);
     }
 }

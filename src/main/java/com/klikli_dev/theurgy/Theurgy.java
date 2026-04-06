@@ -35,6 +35,7 @@ import com.klikli_dev.theurgy.content.render.inworldhud.ItemStacksTooltip;
 import com.klikli_dev.theurgy.content.render.itemhud.ItemHUD;
 import com.klikli_dev.theurgy.content.render.outliner.Outliner;
 import com.klikli_dev.theurgy.recipe.TheurgyRecipeManager;
+import com.klikli_dev.theurgy.recipe.TheurgyRecipeManagerClient;
 import com.klikli_dev.theurgy.util.ScrollHelper;
 import com.klikli_dev.theurgy.datagen.TheurgyDataGenerators;
 import com.klikli_dev.theurgy.integration.modonomicon.PageLoaders;
@@ -158,8 +159,8 @@ public class Theurgy {
             NeoForge.EVENT_BUS.addListener(BlockHighlightRenderer::onRenderBlockHighlight);
             NeoForge.EVENT_BUS.addListener(KeyMappingsRegistry::onKeyInput);
             NeoForge.EVENT_BUS.addListener(KeyMappingsRegistry::onMouseInput);
-            NeoForge.EVENT_BUS.addListener(TheurgyRecipeManager.get()::onRecipesReceived);
-            NeoForge.EVENT_BUS.addListener(TheurgyRecipeManager.get()::onClientLogout);
+            NeoForge.EVENT_BUS.addListener(TheurgyRecipeManagerClient::onRecipesReceived);
+            NeoForge.EVENT_BUS.addListener(TheurgyRecipeManagerClient::onClientLogout);
 
             Client.registerConfigScreen(modContainer);
         }

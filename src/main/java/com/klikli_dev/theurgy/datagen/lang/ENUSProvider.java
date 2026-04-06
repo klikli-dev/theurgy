@@ -413,7 +413,7 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
                 "Used to power a sulfur reformation array to replicate Alchemical Sulfur.",
                 "Sulfuric Flux allows to transfer, merge and manipulate Alchemical Sulfur.",
                 this.f("""
-                                 {0} on Source, Target and Reformation pedestals to set them as the targets for the emitter to form a reformation array.
+                                {0} on Source, Target and Reformation pedestals to set them as the targets for the emitter to form a reformation array.
                                 Then place the emitter on a Mercury Flux source, such as a Mercury Catalyst.
                                 View The Hermetica for more information.
                                 """,

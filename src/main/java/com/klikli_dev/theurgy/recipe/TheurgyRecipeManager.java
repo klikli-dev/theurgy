@@ -4,19 +4,12 @@
 
 package com.klikli_dev.theurgy.recipe;
 
-import com.klikli_dev.modonomicon.client.render.page.PageRendererRegistry;
-import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurItem;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
-import com.klikli_dev.theurgy.registry.SulfurRegistry;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
-import net.neoforged.neoforge.client.event.ClientPlayerNetworkEvent;
-import net.neoforged.neoforge.client.event.RecipesReceivedEvent;
 import net.neoforged.neoforge.common.util.Lazy;
 import net.neoforged.neoforge.event.OnDatapackSyncEvent;
-import net.neoforged.neoforge.registries.DeferredHolder;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -120,28 +113,14 @@ public class TheurgyRecipeManager {
         this.syncedRecipeTypes().forEach(event::sendRecipes);
     }
 
-    public void onRecipesReceived(RecipesReceivedEvent event) {
-        this.clearClientCache();
-
-        for (var type : this.syncedRecipeTypes()) {
-            this.storeClientRecipesUnchecked(event.getRecipeMap(), type);
-        }
-
-        this.hideSulfursWithoutLiquefactionRecipe(event.getRecipeMap());
-    }
-
-    public void onClientLogout(ClientPlayerNetworkEvent.LoggingOut event) {
-        this.clearClientCache();
-    }
-
-    private void clearClientCache() {
+    void clearClientCache() {
         this.recipeGeneration++;
         this.clientRecipeCache.clear();
         this.clientRecipeByKeyCache.clear();
     }
 
     @SuppressWarnings({"rawtypes", "unchecked"})
-    private void storeClientRecipesUnchecked(RecipeMap recipeMap, RecipeType<?> type) {
+    void storeClientRecipesUnchecked(RecipeMap recipeMap, RecipeType<?> type) {
         this.storeClientRecipes((RecipeMap) recipeMap, (RecipeType) type);
     }
 
@@ -160,19 +139,5 @@ public class TheurgyRecipeManager {
 
         this.clientRecipeCache.put(type, List.copyOf(recipeList));
         this.clientRecipeByKeyCache.put(type, recipesByKey);
-    }
-
-    private void hideSulfursWithoutLiquefactionRecipe(RecipeMap recipeMap) {
-        var liquefactionRecipes = recipeMap.byType(RecipeTypeRegistry.LIQUEFACTION.get());
-
-        SulfurRegistry.SULFURS.getEntries().stream()
-                .map(DeferredHolder::get)
-                .map(AlchemicalSulfurItem.class::cast)
-                .filter(sulfur -> liquefactionRecipes.stream().noneMatch(r -> {
-                    var resultItem = r.value().getResultItem(net.minecraft.core.RegistryAccess.EMPTY);
-                    return resultItem != null && resultItem.getItem() == sulfur;
-                }))
-                .map(ItemStack::new)
-                .forEach(PageRendererRegistry::registerItemStackNotToRender);
     }
 }

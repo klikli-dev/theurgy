@@ -79,7 +79,7 @@
   "block.theurgy.sulfuric_flux_emitter": "Sulfuric Flux Emitter",
   "block.theurgy.sulfuric_flux_emitter.tooltip": "Used to power a sulfur reformation array to replicate Alchemical Sulfur.",
   "block.theurgy.sulfuric_flux_emitter.tooltip.extended": "Sulfuric Flux allows to transfer, merge and manipulate Alchemical Sulfur.",
-  "block.theurgy.sulfuric_flux_emitter.tooltip.usage": " §aRight-Click§r§7 on Source, Target and Reformation pedestals to set them as the targets for the emitter to form a reformation array.\nThen place the emitter on a Mercury Flux source, such as a Mercury Catalyst.\nView The Hermetica for more information.\n",
+  "block.theurgy.sulfuric_flux_emitter.tooltip.usage": "§aRight-Click§r§7 on Source, Target and Reformation pedestals to set them as the targets for the emitter to form a reformation array.\nThen place the emitter on a Mercury Flux source, such as a Mercury Catalyst.\nView The Hermetica for more information.\n",
   "book.theurgy.the_hermetica.apparatus.basic_vat_automation.description": "Automate your vats with redstone signals",
   "book.theurgy.the_hermetica.apparatus.basic_vat_automation.hopper.text": "Hoppers can be used to insert and extract items from the vat, however the redstone setup needed might be more challenging, as the hopper will be powered (and thus locked) if any adjacent block has redstone. This leads to the problem that the vat powering the redstone diagonally above the hopper will lock the hopper.\n",
   "book.theurgy.the_hermetica.apparatus.basic_vat_automation.hopper.title": "A note on hoppers",

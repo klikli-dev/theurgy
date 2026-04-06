@@ -30,15 +30,16 @@ public class CalcinationAnimationBehaviour extends AnimationBehaviour<Calcinatio
     @Override
     public PlayState animationHandler(AnimationTest<CalcinationOvenBlockEntity> event) {
         var isProcessing = this.blockEntity.craftingBehaviour.isProcessing();
+        var controller = event.controller();
 
-        if (this.wasProcessingLastTick && !isProcessing) {
-            event.setAnimation(STOP_AND_OFF_ANIM);
-        } else if (!this.wasProcessingLastTick && isProcessing) {
-            event.setAnimation(START_AND_ON_ANIM);
-        } else if (isProcessing) {
-            event.setAnimation(ON_ANIM);
-        } else {
-            event.setAnimation(OFF_ANIM);
+        if (this.wasProcessingLastTick && !isProcessing && !controller.isTransitioning()) {
+            controller.setAnimation(STOP_AND_OFF_ANIM);
+        } else if (!this.wasProcessingLastTick && isProcessing && !controller.isTransitioning()) {
+            controller.setAnimation(START_AND_ON_ANIM);
+        } else if (!this.wasProcessingLastTick && !isProcessing && !controller.isAnimatingBones()) {
+            controller.setAnimation(OFF_ANIM);
+        } else if (this.wasProcessingLastTick && isProcessing && !controller.isAnimatingBones()) {
+            controller.setAnimation(ON_ANIM);
         }
 
         this.wasProcessingLastTick = isProcessing;

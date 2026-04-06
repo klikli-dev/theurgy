@@ -23,6 +23,17 @@
       "use_markdown_in_title": false
     },
     {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.theurgy.the_hermetica.apparatus.insert_helper.intro_config.text",
+      "title": "book.theurgy.the_hermetica.apparatus.insert_helper.intro_config.title",
+      "use_markdown_in_title": false
+    },
+    {
       "type": "modonomicon:image",
       "anchor": "",
       "border": true,

@@ -29,7 +29,15 @@ public class InsertHelperEntry extends EntryProvider {
                 When you look at a supported apparatus while holding an item or fluid container, a colored frame can preview whether that stack fits.
                 \
                 \
-                A green frame means the held stack is accepted by the targeted block. If red previews are enabled in the client config, a red frame means the held stack does not fit.
+                By default, only fitting items show a green overlay. Non-fitting items show no overlay unless you enable red rejection previews in the client config.
+                """);
+
+        this.page("intro_config", () -> BookTextPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText()));
+        this.pageTitle("Config and Keybind");
+        this.pageText("""
+                The client config can switch this helper between green-only and green-plus-red previews.
                 \
                 \
                 This helper only appears while the held-stack fit outline option is enabled. If you bind its key, the preview only appears while that key is held.

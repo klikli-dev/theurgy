@@ -156,7 +156,8 @@ dependencies {
 //    localRuntime ("com.klikli_dev:occultism-${minecraft_version}-neoforge:${occultism_version}")
 
     //Jade (Hwyla/Waila)
-    implementation ("maven.modrinth:jade:${jade_version}+neoforge") {transitive=false}
+    compileOnly ("maven.modrinth:jade:${jade_version}+neoforge") {transitive=false}
+//    localRuntime ("maven.modrinth:jade:${jade_version}+neoforge") {transitive=false}
 
     //EMI
 //    compileOnly ("dev.emi:emi-neoforge:${emi_version}+${minecraft_version_major}:api") {transitive=false}

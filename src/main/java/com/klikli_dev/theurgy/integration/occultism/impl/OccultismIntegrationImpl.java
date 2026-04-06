@@ -8,19 +8,20 @@ import com.klikli_dev.occultism.common.misc.ItemStackKey;
 import com.klikli_dev.occultism.common.misc.MapItemStackHandler;
 import com.klikli_dev.theurgy.content.behaviour.filter.Filter;
 import com.klikli_dev.theurgy.content.behaviour.filter.ListFilter;
+import com.klikli_dev.theurgy.content.storage.ItemStorageHelper;
 import com.klikli_dev.theurgy.integration.occultism.OccultismIntegration;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.neoforged.fml.ModList;
-import net.neoforged.neoforge.items.IItemHandler;
-import net.neoforged.neoforge.items.ItemHandlerHelper;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
 
 public class OccultismIntegrationImpl implements OccultismIntegration {
     public boolean isLoaded() {
         return ModList.get().isLoaded("occultism");
     }
 
-    public boolean tryPerformStorageActuatorExtraction(Level level, IItemHandler extractCap, Filter extractFilter, IItemHandler insertCap, Filter insertFilter, int extractionAmount) {
+    public boolean tryPerformStorageActuatorExtraction(Level level, ResourceHandler<ItemResource> extractCap, Filter extractFilter, ResourceHandler<ItemResource> insertCap, Filter insertFilter, int extractionAmount) {
         if (!this.isLoaded())
             return false;
 
@@ -29,7 +30,7 @@ public class OccultismIntegrationImpl implements OccultismIntegration {
 
     public static class OccultismHelper {
 
-        public static boolean tryPerformStorageActuatorExtraction(Level level, IItemHandler extractCap, Filter extractFilter, IItemHandler insertCap, Filter insertFilter, int extractionAmount) {
+        public static boolean tryPerformStorageActuatorExtraction(Level level, ResourceHandler<ItemResource> extractCap, Filter extractFilter, ResourceHandler<ItemResource> insertCap, Filter insertFilter, int extractionAmount) {
 
             if (!(extractCap instanceof MapItemStackHandler mapItemStackHandler) || !(extractFilter instanceof ListFilter listFilter))
                 return false;
@@ -41,7 +42,7 @@ public class OccultismIntegrationImpl implements OccultismIntegration {
 
         }
 
-        protected static boolean performExtraction(Level level, MapItemStackHandler extractCap, ListFilter extractFilter, IItemHandler insertCap, Filter insertFilter, int extractionAmount) {
+        protected static boolean performExtraction(Level level, MapItemStackHandler extractCap, ListFilter extractFilter, ResourceHandler<ItemResource> insertCap, Filter insertFilter, int extractionAmount) {
             var filterItems = extractFilter.filterItems();
 
             for (var filterItem : filterItems) {
@@ -53,10 +54,10 @@ public class OccultismIntegrationImpl implements OccultismIntegration {
                                 : extractCap.extractItemIgnoreComponents(key.stack(), extractionAmount, true);
 
                 if (!extractStack.isEmpty() && insertFilter.test(level, extractStack)) {
-                    var inserted = ItemHandlerHelper.insertItemStacked(insertCap, extractStack, true);
+                    var inserted = ItemStorageHelper.insertItemStacked(insertCap, extractStack, true);
 
                     if (inserted.getCount() != extractStack.getCount()) {
-                        ItemStack remaining = ItemHandlerHelper.insertItemStacked(insertCap, extractStack, false);
+                        ItemStack remaining = ItemStorageHelper.insertItemStacked(insertCap, extractStack, false);
                         extractCap.extractItem(
                                 //if we ignore data components, we build a new key from the actual extracted stack
                                 extractFilter.shouldRespectDataComponents() ? key : ItemStackKey.of(extractStack),

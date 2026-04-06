@@ -30,9 +30,9 @@ sourceSets {
     main {
         java {
             // Temporarily disable occultism integration implementation until 1.21.3 artifact is available
-            exclude '**/integration/occultism/impl/**'
+//            exclude '**/integration/occultism/impl/**'
             exclude '**/AlmostUnifiedIntegrationImpl.java'
-            exclude '**/jade/**/*.java'
+//            exclude '**/jade/**/*.java'
             exclude '**/jei/**/*.java'
             exclude '**/emi/**/*.java'
         }
@@ -152,8 +152,8 @@ dependencies {
     implementation ("com.klikli_dev:modonomicon-${minecraft_version}-neoforge:${modonomicon_version}") {transitive=false}
 
     //occultism
-//    compileOnly ("com.klikli_dev:occultism-${minecraft_version}-neoforge:${occultism_version}") {transitive=false}
-//    localRuntime ("com.klikli_dev:occultism-${minecraft_version}-neoforge:${occultism_version}")
+    compileOnly ("com.klikli_dev:occultism-${minecraft_version}-neoforge:${occultism_version}") {transitive=false}
+    localRuntime ("com.klikli_dev:occultism-${minecraft_version}-neoforge:${occultism_version}")
 
     //Jade (Hwyla/Waila)
     implementation ("maven.modrinth:jade:${jade_version}+neoforge") {transitive=false}
@@ -177,6 +177,17 @@ repositories {
         url = 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'
         content {
             includeGroup "com.geckolib"
+        }
+    }
+    exclusiveContent {
+        forRepository {
+            maven {
+                name = "Modrinth"
+                url = "https://api.modrinth.com/maven"
+            }
+        }
+        filter {
+            includeGroup "maven.modrinth"
         }
     }
 }

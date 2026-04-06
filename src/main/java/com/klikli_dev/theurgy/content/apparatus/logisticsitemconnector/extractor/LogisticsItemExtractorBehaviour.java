@@ -145,7 +145,7 @@ public class LogisticsItemExtractorBehaviour extends ExtractorNodeBehaviour<Reso
                 //and insertion
                 ItemStack inserted = ItemStorageHelper.insertItemStacked(insertCap, extractStack, true);
                 //TODO(optimization): does it make sense to cache "failed to insert" stacks?
-                //      1) use our own insert code instead of ItemHandlerHelper.insertItemStacked that the first sequence of full slots?
+                //      1) use a custom insert path instead of ItemStorageHelper.insertItemStacked that tries the first sequence of full slots?
                 //      2) store itemstack + component (but not count) that failed to insert at all (not even 1 inserted in entire target container)
 
                 //then if anything was inserted during the simulation, perform the real extraction and insertion

@@ -30,6 +30,16 @@ public class DistillerAnimationBehaviour extends AnimationBehaviour<DistillerBlo
     public PlayState animationHandler(AnimationTest<DistillerBlockEntity> event) {
         var isProcessing = this.blockEntity.craftingBehaviour.isProcessing();
 
+        if (isProcessing && event.isCurrentAnimation(START_AND_ON_ANIM)) {
+            this.wasProcessingLastTick = true;
+            return PlayState.CONTINUE;
+        }
+
+        if (!isProcessing && event.isCurrentAnimation(STOP_AND_OFF_ANIM)) {
+            this.wasProcessingLastTick = false;
+            return PlayState.CONTINUE;
+        }
+
         if (this.wasProcessingLastTick && !isProcessing) {
             event.setAnimation(STOP_AND_OFF_ANIM);
         } else if (!this.wasProcessingLastTick && isProcessing) {

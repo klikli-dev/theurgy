@@ -23,10 +23,6 @@ public class CalcinationAnimationBehaviour extends AnimationBehaviour<Calcinatio
     private static final RawAnimation ON_ANIM = RawAnimation.begin()
             .thenLoop("animation.calcination_oven.on");
 
-    private static final RawAnimation PLACE_AND_OFF_ANIM = RawAnimation.begin()
-            .thenPlay("animation.calcination_oven.place")
-            .thenLoop("animation.calcination_oven.off");
-
     public CalcinationAnimationBehaviour(CalcinationOvenBlockEntity blockEntity) {
         super(blockEntity);
     }
@@ -41,8 +37,6 @@ public class CalcinationAnimationBehaviour extends AnimationBehaviour<Calcinatio
             event.setAnimation(START_AND_ON_ANIM);
         } else if (isProcessing) {
             event.setAnimation(ON_ANIM);
-        } else if (!event.isCurrentAnimation(PLACE_AND_OFF_ANIM)) {
-            event.setAnimation(PLACE_AND_OFF_ANIM);
         } else {
             event.setAnimation(OFF_ANIM);
         }

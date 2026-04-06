@@ -3,7 +3,7 @@
     {
       "apply": {
         "model": "theurgy:block/caloric_flux_emitter",
-        "x": 90
+        "x": 180
       },
       "when": {
         "facing": "down"
@@ -11,16 +11,16 @@
     },
     {
       "apply": {
-        "model": "theurgy:block/caloric_flux_emitter",
-        "y": 90
+        "model": "theurgy:block/caloric_flux_emitter"
       },
       "when": {
-        "facing": "east"
+        "facing": "up"
       }
     },
     {
       "apply": {
-        "model": "theurgy:block/caloric_flux_emitter"
+        "model": "theurgy:block/caloric_flux_emitter",
+        "x": 90
       },
       "when": {
         "facing": "north"
@@ -29,6 +29,7 @@
     {
       "apply": {
         "model": "theurgy:block/caloric_flux_emitter",
+        "x": 90,
         "y": 180
       },
       "when": {
@@ -38,19 +39,21 @@
     {
       "apply": {
         "model": "theurgy:block/caloric_flux_emitter",
-        "x": 270
+        "x": 90,
+        "y": 270
       },
       "when": {
-        "facing": "up"
+        "facing": "west"
       }
     },
     {
       "apply": {
         "model": "theurgy:block/caloric_flux_emitter",
-        "y": 270
+        "x": 90,
+        "y": 90
       },
       "when": {
-        "facing": "west"
+        "facing": "east"
       }
     }
   ]

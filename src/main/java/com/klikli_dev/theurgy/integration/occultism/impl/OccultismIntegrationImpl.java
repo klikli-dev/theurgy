@@ -5,7 +5,7 @@
 package com.klikli_dev.theurgy.integration.occultism.impl;
 
 import com.klikli_dev.occultism.common.misc.ItemStackKey;
-import com.klikli_dev.occultism.common.misc.MapItemStackHandler;
+import com.klikli_dev.occultism.common.misc.MapItemResourceHandler;
 import com.klikli_dev.theurgy.content.behaviour.filter.Filter;
 import com.klikli_dev.theurgy.content.behaviour.filter.ListFilter;
 import com.klikli_dev.theurgy.content.storage.ItemStorageHelper;
@@ -32,7 +32,7 @@ public class OccultismIntegrationImpl implements OccultismIntegration {
 
         public static boolean tryPerformStorageActuatorExtraction(Level level, ResourceHandler<ItemResource> extractCap, Filter extractFilter, ResourceHandler<ItemResource> insertCap, Filter insertFilter, int extractionAmount) {
 
-            if (!(extractCap instanceof MapItemStackHandler mapItemStackHandler) || !(extractFilter instanceof ListFilter listFilter))
+            if (!(extractCap instanceof MapItemResourceHandler mapItemStackHandler) || !(extractFilter instanceof ListFilter listFilter))
                 return false;
 
             if (listFilter.isDenyList())
@@ -42,7 +42,7 @@ public class OccultismIntegrationImpl implements OccultismIntegration {
 
         }
 
-        protected static boolean performExtraction(Level level, MapItemStackHandler extractCap, ListFilter extractFilter, ResourceHandler<ItemResource> insertCap, Filter insertFilter, int extractionAmount) {
+        protected static boolean performExtraction(Level level, MapItemResourceHandler extractCap, ListFilter extractFilter, ResourceHandler<ItemResource> insertCap, Filter insertFilter, int extractionAmount) {
             var filterItems = extractFilter.filterItems();
 
             for (var filterItem : filterItems) {

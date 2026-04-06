@@ -14,7 +14,7 @@ import net.neoforged.neoforge.transfer.item.ItemResource;
 
 public interface OccultismIntegration {
 
-    OccultismIntegration instance = new OccultismIntegrationDummy();
+    OccultismIntegration instance = new OccultismIntegrationImpl();
 
     static OccultismIntegration get() {
         return instance;

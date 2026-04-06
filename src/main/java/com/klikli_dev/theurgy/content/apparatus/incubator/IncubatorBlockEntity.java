@@ -13,6 +13,7 @@ import com.klikli_dev.theurgy.content.storage.MonitoredItemStackHandler;
 import com.klikli_dev.theurgy.content.storage.PreventInsertWrapper;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.util.ValueIOUtils;
+import com.klikli_dev.theurgy.content.behaviour.crafting.LevelAwareCachedCheck;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -33,7 +34,7 @@ import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.Nullable;
 
 
-public class IncubatorBlockEntity extends BlockEntity implements HasCraftingBehaviour<IncubatorRecipeInput, IncubationRecipe, RecipeManager.CachedCheck<IncubatorRecipeInput, IncubationRecipe>> {
+public class IncubatorBlockEntity extends BlockEntity implements HasCraftingBehaviour<IncubatorRecipeInput, IncubationRecipe, LevelAwareCachedCheck<IncubatorRecipeInput, IncubationRecipe>> {
     public IncubatorMercuryVesselBlockEntity mercuryVessel;
     public IncubatorSulfurVesselBlockEntity sulfurVessel;
     public IncubatorSaltVesselBlockEntity saltVessel;

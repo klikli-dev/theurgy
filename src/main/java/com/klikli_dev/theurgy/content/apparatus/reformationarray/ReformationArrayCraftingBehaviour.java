@@ -5,22 +5,21 @@
 package com.klikli_dev.theurgy.content.apparatus.reformationarray;
 
 import com.klikli_dev.theurgy.content.behaviour.crafting.CraftingBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.crafting.LevelAwareCachedCheck;
 import com.klikli_dev.theurgy.content.capability.MercuryFluxStorage;
 import com.klikli_dev.theurgy.content.recipe.ReformationRecipe;
 import com.klikli_dev.theurgy.content.recipe.input.ReformationArrayRecipeInput;
 import com.klikli_dev.theurgy.content.storage.SettableItemStorage;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
-import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
 import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Supplier;
 
-public class ReformationArrayCraftingBehaviour extends CraftingBehaviour<ReformationArrayRecipeInput, ReformationRecipe, RecipeManager.CachedCheck<ReformationArrayRecipeInput, ReformationRecipe>> {
+public class ReformationArrayCraftingBehaviour extends CraftingBehaviour<ReformationArrayRecipeInput, ReformationRecipe, LevelAwareCachedCheck<ReformationArrayRecipeInput, ReformationRecipe>> {
 
     protected final Supplier<MercuryFluxStorage> mercuryFluxStorageSupplier;
 
@@ -29,15 +28,14 @@ public class ReformationArrayCraftingBehaviour extends CraftingBehaviour<Reforma
                 recipeWrapperSupplier,
                 inputInventorySupplier,
                 outputInventorySupplier,
-                RecipeManager.createCheck(RecipeTypeRegistry.REFORMATION.get()));
+                new LevelAwareCachedCheck<>(RecipeTypeRegistry.REFORMATION.get()));
 
         this.mercuryFluxStorageSupplier = mercuryFluxStorageSupplier;
     }
 
     @Override
     public boolean isIngredient(ItemStack stack) {
-        if (this.blockEntity.getLevel().isClientSide()) return false;
-        return this.recipeCachedCheck.getRecipeFor(this.recipeInputSupplier.get(), (ServerLevel) this.blockEntity.getLevel()).isPresent();
+        return this.recipeCachedCheck.getRecipeFor(this.recipeInputSupplier.get(), this.blockEntity.getLevel()).isPresent();
     }
 
     @Override

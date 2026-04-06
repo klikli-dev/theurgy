@@ -5,24 +5,24 @@
 package com.klikli_dev.theurgy.content.apparatus.incubator;
 
 import com.klikli_dev.theurgy.content.behaviour.crafting.CraftingBehaviour;
+import com.klikli_dev.theurgy.content.behaviour.crafting.LevelAwareCachedCheck;
 import com.klikli_dev.theurgy.content.recipe.IncubationRecipe;
 import com.klikli_dev.theurgy.content.recipe.input.IncubatorRecipeInput;
 import com.klikli_dev.theurgy.content.storage.SettableItemStorage;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
-import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
 import java.util.function.Supplier;
 
-public class IncubatorCraftingBehaviour extends CraftingBehaviour<IncubatorRecipeInput, IncubationRecipe, RecipeManager.CachedCheck<IncubatorRecipeInput, IncubationRecipe>> {
+public class IncubatorCraftingBehaviour extends CraftingBehaviour<IncubatorRecipeInput, IncubationRecipe, LevelAwareCachedCheck<IncubatorRecipeInput, IncubationRecipe>> {
     public IncubatorCraftingBehaviour(BlockEntity blockEntity, Supplier<IncubatorRecipeInput> recipeWrapperSupplier, Supplier<SettableItemStorage> inputInventorySupplier, Supplier<SettableItemStorage> outputInventorySupplier) {
         super(blockEntity,
                 recipeWrapperSupplier,
                 inputInventorySupplier,
                 outputInventorySupplier,
-                RecipeManager.createCheck(RecipeTypeRegistry.INCUBATION.get()));
+                new LevelAwareCachedCheck<>(RecipeTypeRegistry.INCUBATION.get()));
     }
 
     @Override

@@ -34,6 +34,7 @@ import com.klikli_dev.theurgy.content.render.inworldhud.InWorldHUDRegistry;
 import com.klikli_dev.theurgy.content.render.inworldhud.ItemStacksTooltip;
 import com.klikli_dev.theurgy.content.render.itemhud.ItemHUD;
 import com.klikli_dev.theurgy.content.render.outliner.Outliner;
+import com.klikli_dev.theurgy.recipe.TheurgyRecipeManager;
 import com.klikli_dev.theurgy.util.ScrollHelper;
 import com.klikli_dev.theurgy.datagen.TheurgyDataGenerators;
 import com.klikli_dev.theurgy.integration.modonomicon.PageLoaders;
@@ -135,6 +136,7 @@ public class Theurgy {
         NeoForge.EVENT_BUS.addListener(Wires::onLevelUnload);
         NeoForge.EVENT_BUS.addListener(WireSync.get()::onChunkWatch);
         NeoForge.EVENT_BUS.addListener(WireSync.get()::onChunkUnWatch);
+        NeoForge.EVENT_BUS.addListener(TheurgyRecipeManager.get()::onDatapackSync);
         NeoForge.EVENT_BUS.addListener(Theurgy::onDatapackSync);
 
         if (FMLEnvironment.getDist() == Dist.CLIENT) {
@@ -161,6 +163,8 @@ public class Theurgy {
             NeoForge.EVENT_BUS.addListener(BlockHighlightRenderer::onRenderBlockHighlight);
             NeoForge.EVENT_BUS.addListener(KeyMappingsRegistry::onKeyInput);
             NeoForge.EVENT_BUS.addListener(KeyMappingsRegistry::onMouseInput);
+            NeoForge.EVENT_BUS.addListener(TheurgyRecipeManager.get()::onRecipesReceived);
+            NeoForge.EVENT_BUS.addListener(TheurgyRecipeManager.get()::onClientLogout);
 
             Client.registerConfigScreen(modContainer);
         }
@@ -190,7 +194,7 @@ public class Theurgy {
         var recipeManager = server.getRecipeManager();
         var registryAccess = server.registryAccess();
 
-        var liquefactionRecipes = LevelUtil.getRecipesByType(recipeManager, RecipeTypeRegistry.LIQUEFACTION.get());
+        var liquefactionRecipes = TheurgyRecipeManager.get().getRecipesByType(RecipeTypeRegistry.LIQUEFACTION.get(), server.overworld());
 
         //find sulfurs that have no liquefaction recipe producing them -> these are "no source" sulfurs
         //See also JeiPlugin.registerRecipes

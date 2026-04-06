@@ -10,7 +10,7 @@ import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurItem;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import com.klikli_dev.theurgy.registry.SulfurRegistry;
-import com.klikli_dev.theurgy.util.LevelUtil;
+import com.klikli_dev.theurgy.recipe.TheurgyRecipeManager;
 import dev.emi.emi.api.EmiEntrypoint;
 import dev.emi.emi.api.EmiInitRegistry;
 import dev.emi.emi.api.EmiRegistry;
@@ -22,9 +22,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.RecipeManager;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.registries.DeferredHolder;
 
 import java.util.List;
@@ -56,60 +53,54 @@ public class EmiPlugin implements dev.emi.emi.api.EmiPlugin {
     public static final EmiStack REFORMATION_ICON = EmiStack.of(ItemRegistry.SULFURIC_FLUX_EMITTER.get());
     public static final EmiRecipeCategory REFORMATION_CATEGORY = new EmiRecipeCategory(RecipeTypeRegistry.REFORMATION.getId(), REFORMATION_ICON);
 
-    public static RecipeManager getRecipeManager() {
-        if (FMLEnvironment.getDist() == Dist.CLIENT) {
-            return DistHelper.getRecipeManager();
-        }
-        return null;
-    }
-
     @Override
     public void register(EmiRegistry registry) {
+        var level = Minecraft.getInstance().level;
         registry.addCategory(ACCUMULATION_CATEGORY);
         registry.addWorkstation(ACCUMULATION_CATEGORY, ACCUMULATION_ICON);
-        for (var recipe : LevelUtil.getRecipesByType(registry.getRecipeManager(), RecipeTypeRegistry.ACCUMULATION.get())) {
+        for (var recipe : TheurgyRecipeManager.get().getRecipesByType(RecipeTypeRegistry.ACCUMULATION.get(), level)) {
             registry.addRecipe(new AccumulationEmiRecipe(recipe));
         }
 
         registry.addCategory(CALCINATION_CATEGORY);
         registry.addWorkstation(CALCINATION_CATEGORY, CALCINATION_ICON);
-        for (var recipe : LevelUtil.getRecipesByType(registry.getRecipeManager(), RecipeTypeRegistry.CALCINATION.get())) {
+        for (var recipe : TheurgyRecipeManager.get().getRecipesByType(RecipeTypeRegistry.CALCINATION.get(), level)) {
             registry.addRecipe(new CalcinationEmiRecipe(recipe));
         }
 
         registry.addCategory(DIGESTION_CATEGORY);
         registry.addWorkstation(DIGESTION_CATEGORY, DIGESTION_ICON);
-        for (var recipe : LevelUtil.getRecipesByType(registry.getRecipeManager(), RecipeTypeRegistry.DIGESTION.get())) {
+        for (var recipe : TheurgyRecipeManager.get().getRecipesByType(RecipeTypeRegistry.DIGESTION.get(), level)) {
             registry.addRecipe(new DigestionEmiRecipe(recipe));
         }
 
         registry.addCategory(DISTILLATION_CATEGORY);
         registry.addWorkstation(DISTILLATION_CATEGORY, DISTILLATION_ICON);
-        for (var recipe : LevelUtil.getRecipesByType(registry.getRecipeManager(), RecipeTypeRegistry.DISTILLATION.get())) {
+        for (var recipe : TheurgyRecipeManager.get().getRecipesByType(RecipeTypeRegistry.DISTILLATION.get(), level)) {
             registry.addRecipe(new DistillationEmiRecipe(recipe));
         }
 
         registry.addCategory(FERMENTATION_CATEGORY);
         registry.addWorkstation(FERMENTATION_CATEGORY, FERMENTATION_ICON);
-        for (var recipe : LevelUtil.getRecipesByType(registry.getRecipeManager(), RecipeTypeRegistry.FERMENTATION.get())) {
+        for (var recipe : TheurgyRecipeManager.get().getRecipesByType(RecipeTypeRegistry.FERMENTATION.get(), level)) {
             registry.addRecipe(new FermentationEmiRecipe(recipe));
         }
 
         registry.addCategory(INCUBATION_CATEGORY);
         registry.addWorkstation(INCUBATION_CATEGORY, INCUBATION_ICON);
-        for (var recipe : LevelUtil.getRecipesByType(registry.getRecipeManager(), RecipeTypeRegistry.INCUBATION.get())) {
+        for (var recipe : TheurgyRecipeManager.get().getRecipesByType(RecipeTypeRegistry.INCUBATION.get(), level)) {
             registry.addRecipe(new IncubationEmiRecipe(recipe));
         }
 
         registry.addCategory(LIQUEFACTION_CATEGORY);
         registry.addWorkstation(LIQUEFACTION_CATEGORY, LIQUEFACTION_ICON);
-        for (var recipe : LevelUtil.getRecipesByType(registry.getRecipeManager(), RecipeTypeRegistry.LIQUEFACTION.get())) {
+        for (var recipe : TheurgyRecipeManager.get().getRecipesByType(RecipeTypeRegistry.LIQUEFACTION.get(), level)) {
             registry.addRecipe(new LiquefactionEmiRecipe(recipe));
         }
 
         registry.addCategory(REFORMATION_CATEGORY);
         registry.addWorkstation(REFORMATION_CATEGORY, REFORMATION_ICON);
-        for (var recipe : LevelUtil.getRecipesByType(registry.getRecipeManager(), RecipeTypeRegistry.REFORMATION.get())) {
+        for (var recipe : TheurgyRecipeManager.get().getRecipesByType(RecipeTypeRegistry.REFORMATION.get(), level)) {
             registry.addRecipe(new ReformationEmiRecipe(recipe));
         }
 
@@ -147,11 +138,11 @@ public class EmiPlugin implements dev.emi.emi.api.EmiPlugin {
 
     @Override
     public void initialize(EmiInitRegistry registry) {
-        var recipeManager = getRecipeManager();
+        var level = Minecraft.getInstance().level;
 
         //now remove sulfurs that have no recipe -> otherwise we see "no source" sulfurs in tag recipes
         //See also Theurgy.Client#onRecipesUpdated
-        var liquefactionRecipes = LevelUtil.getRecipesByType(recipeManager, RecipeTypeRegistry.LIQUEFACTION.get());
+        var liquefactionRecipes = TheurgyRecipeManager.get().getRecipesByType(RecipeTypeRegistry.LIQUEFACTION.get(), level);
         var sulfursWithoutRecipe = SulfurRegistry.SULFURS.getEntries().stream()
                 .map(DeferredHolder::get)
                 .map(AlchemicalSulfurItem.class::cast)
@@ -160,9 +151,4 @@ public class EmiPlugin implements dev.emi.emi.api.EmiPlugin {
         sulfursWithoutRecipe.forEach(registry::disableStack);
     }
 
-    public static class DistHelper {
-        public static RecipeManager getRecipeManager() {
-            return LevelUtil.getRecipeManager(Minecraft.getInstance().level);
-        }
-    }
 }

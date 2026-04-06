@@ -4,13 +4,16 @@
 
 package com.klikli_dev.theurgy.content.apparatus.calcinationoven;
 
+import com.klikli_dev.theurgy.content.behaviour.crafting.LevelAwareRecipeCheck;
 import com.klikli_dev.theurgy.content.recipe.CalcinationRecipe;
 import com.klikli_dev.theurgy.content.recipe.input.ItemHandlerRecipeInput;
+import com.klikli_dev.theurgy.recipe.TheurgyRecipeManager;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -19,7 +22,7 @@ import java.util.Optional;
 /**
  * A custom cached check
  */
-class CalcinationCachedCheck implements RecipeManager.CachedCheck<ItemHandlerRecipeInput, CalcinationRecipe> {
+class CalcinationCachedCheck implements LevelAwareRecipeCheck<ItemHandlerRecipeInput, CalcinationRecipe> {
 
     private final RecipeType<CalcinationRecipe> type;
     private final RecipeManager.CachedCheck<ItemHandlerRecipeInput, CalcinationRecipe> internal;
@@ -31,23 +34,22 @@ class CalcinationCachedCheck implements RecipeManager.CachedCheck<ItemHandlerRec
         this.internal = RecipeManager.createCheck(type);
     }
 
-    private Optional<RecipeHolder<CalcinationRecipe>> getRecipeFor(ItemStack stack, ServerLevel level, @Nullable net.minecraft.resources.ResourceKey<net.minecraft.world.item.crafting.Recipe<?>> lastRecipe) {
-        var recipeManager = level.getServer().getRecipeManager();
+    private Optional<RecipeHolder<CalcinationRecipe>> getRecipeFor(ItemStack stack, Level level, @Nullable net.minecraft.resources.ResourceKey<net.minecraft.world.item.crafting.Recipe<?>> lastRecipe) {
         if (lastRecipe != null) {
-            var recipe = recipeManager.byKey(lastRecipe).orElse(null);
+            var recipe = TheurgyRecipeManager.get().getRecipeByKey(this.type, lastRecipe, level).orElse(null);
             //test only the ingredient within the sized ingredient to allow to find recipes even for too small stack sizes
-            if (recipe != null && recipe.value().getType() == this.type && ((CalcinationRecipe) recipe.value()).sizedIngredient().ingredient().test(stack)) {
+            if (recipe != null && ((CalcinationRecipe) recipe.value()).sizedIngredient().ingredient().test(stack)) {
                 return Optional.of((RecipeHolder<CalcinationRecipe>) recipe);
             }
         }
 
-        return recipeManager.recipeMap().byType(this.type).stream().filter((entry) -> entry.value().sizedIngredient().ingredient().test(stack)).findFirst();
+        return TheurgyRecipeManager.get().getRecipesByType(this.type, level).stream().filter((entry) -> entry.value().sizedIngredient().ingredient().test(stack)).findFirst();
     }
 
     /**
      * This only checks itemstacks independent of count (ignoring the size of sized ingredients)
      */
-    public Optional<RecipeHolder<CalcinationRecipe>> getRecipeFor(ItemStack stack, ServerLevel level) {
+    public Optional<RecipeHolder<CalcinationRecipe>> getRecipeFor(ItemStack stack, Level level) {
         var optional = this.getRecipeFor(stack, level, this.lastRecipe);
         if (optional.isPresent()) {
             var recipeHolder = optional.get();
@@ -62,8 +64,14 @@ class CalcinationCachedCheck implements RecipeManager.CachedCheck<ItemHandlerRec
      * This checks full recipe validity (including sized ingredients)
      */
     @Override
-    public @NotNull Optional<RecipeHolder<CalcinationRecipe>> getRecipeFor(@NotNull ItemHandlerRecipeInput container, @NotNull ServerLevel level) {
-        var recipe = this.internal.getRecipeFor(container, level);
+    public @NotNull Optional<RecipeHolder<CalcinationRecipe>> getRecipeFor(@NotNull ItemHandlerRecipeInput container, @NotNull Level level) {
+        Optional<RecipeHolder<CalcinationRecipe>> recipe;
+        if (level instanceof ServerLevel serverLevel) {
+            recipe = this.internal.getRecipeFor(container, serverLevel);
+        } else {
+            recipe = TheurgyRecipeManager.get().getRecipeFor(this.type, container, level, this.lastRecipe);
+        }
+
         if (recipe.isPresent()) {
             this.lastRecipe = recipe.get().id();
         }

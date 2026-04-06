@@ -4,9 +4,10 @@
 
 package com.klikli_dev.theurgy.content.apparatus.fermentationvat;
 
+import com.klikli_dev.theurgy.content.behaviour.crafting.LevelAwareRecipeCheck;
 import com.klikli_dev.theurgy.content.recipe.FermentationRecipe;
 import com.klikli_dev.theurgy.content.recipe.input.ItemHandlerWithFluidRecipeInput;
-import com.klikli_dev.theurgy.util.LevelUtil;
+import com.klikli_dev.theurgy.recipe.TheurgyRecipeManager;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
@@ -26,7 +27,7 @@ import java.util.Optional;
 /**
  * A custom cached check
  */
-public class FermentationCachedCheck implements RecipeManager.CachedCheck<ItemHandlerWithFluidRecipeInput, FermentationRecipe> {
+public class FermentationCachedCheck implements LevelAwareRecipeCheck<ItemHandlerWithFluidRecipeInput, FermentationRecipe> {
 
     private final RecipeType<FermentationRecipe> type;
     private final RecipeManager.CachedCheck<ItemHandlerWithFluidRecipeInput, FermentationRecipe> internal;
@@ -36,6 +37,8 @@ public class FermentationCachedCheck implements RecipeManager.CachedCheck<ItemHa
     private ResourceKey<Recipe<?>> lastRecipeForItemStack;
     @Nullable
     private ResourceKey<Recipe<?>> lastRecipeForItemStackCollection;
+    @Nullable
+    private ResourceKey<Recipe<?>> lastRecipeForItemHandler;
 
     private boolean noRecipeForLastItemStackCollectionInput;
     private boolean noRecipeForLastItemStackInput;
@@ -48,6 +51,7 @@ public class FermentationCachedCheck implements RecipeManager.CachedCheck<ItemHa
     private Collection<ItemStack> lastItemStackCollectionInput;
     private ItemStack lastItemStackInput;
     private FluidStack lastFluidStackInput;
+    private long lastRecipeGeneration = -1;
 
     public FermentationCachedCheck(RecipeType<FermentationRecipe> type) {
         this.type = type;
@@ -59,6 +63,23 @@ public class FermentationCachedCheck implements RecipeManager.CachedCheck<ItemHa
      */
     public void resetNoRecipeForLastItemHandlerInput() {
         this.noRecipeForLastItemHandlerInput = false;
+    }
+
+    private void refreshForRecipeReload() {
+        var generation = TheurgyRecipeManager.get().getRecipeGeneration();
+        if (this.lastRecipeGeneration == generation) {
+            return;
+        }
+
+        this.lastRecipeGeneration = generation;
+        this.noRecipeForLastItemStackCollectionInput = false;
+        this.noRecipeForLastItemStackInput = false;
+        this.noRecipeForLastFluidStackInput = false;
+        this.noRecipeForLastItemHandlerInput = false;
+        this.lastRecipeForFluidStack = null;
+        this.lastRecipeForItemStack = null;
+        this.lastRecipeForItemStackCollection = null;
+        this.lastRecipeForItemHandler = null;
     }
 
     private boolean matchesRecipe(RecipeHolder<FermentationRecipe> recipe, Collection<ItemStack> input) {
@@ -83,58 +104,52 @@ public class FermentationCachedCheck implements RecipeManager.CachedCheck<ItemHa
     }
 
     private Optional<RecipeHolder<FermentationRecipe>> getRecipeFor(Collection<ItemStack> input, Level level, @Nullable ResourceKey<Recipe<?>> lastRecipe) {
-        var recipeManager = LevelUtil.getRecipeManager(level);
-
         if (lastRecipe != null) {
-            var recipeOptional = recipeManager.byKey(lastRecipe);
-            if (recipeOptional.isPresent() && recipeOptional.get().value().getType() == this.type) {
-                @SuppressWarnings("unchecked")
-                var recipe = (RecipeHolder<FermentationRecipe>) recipeOptional.get();
+            var recipeOptional = TheurgyRecipeManager.get().getRecipeByKey(this.type, lastRecipe, level);
+            if (recipeOptional.isPresent()) {
+                var recipe = recipeOptional.get();
                 if (this.matchesRecipe(recipe, input)) {
                     return Optional.of(recipe);
                 }
             }
         }
 
-        return recipeManager.recipeMap().byType(this.type).stream().filter((entry) -> this.matchesRecipe(entry, input)).findFirst();
+        return TheurgyRecipeManager.get().getRecipesByType(this.type, level).stream().filter((entry) -> this.matchesRecipe(entry, input)).findFirst();
     }
 
     private Optional<RecipeHolder<FermentationRecipe>> getRecipeFor(ItemStack stack, Level level, @Nullable ResourceKey<Recipe<?>> lastRecipe) {
-        var recipeManager = LevelUtil.getRecipeManager(level);
         if (lastRecipe != null) {
-            var recipeOptional = recipeManager.byKey(lastRecipe);
-            if (recipeOptional.isPresent() && recipeOptional.get().value().getType() == this.type) {
-                @SuppressWarnings("unchecked")
-                var recipe = (RecipeHolder<FermentationRecipe>) recipeOptional.get();
+            var recipeOptional = TheurgyRecipeManager.get().getRecipeByKey(this.type, lastRecipe, level);
+            if (recipeOptional.isPresent()) {
+                var recipe = recipeOptional.get();
                 if (recipe.value().getIngredients().stream().anyMatch(i -> i.test(stack))) {
                     return Optional.of(recipe);
                 }
             }
         }
 
-        return recipeManager.recipeMap().byType(this.type).stream().filter((entry) -> entry.value().getIngredients().stream().anyMatch(i -> i.test(stack))).findFirst();
+        return TheurgyRecipeManager.get().getRecipesByType(this.type, level).stream().filter((entry) -> entry.value().getIngredients().stream().anyMatch(i -> i.test(stack))).findFirst();
     }
 
     private Optional<RecipeHolder<FermentationRecipe>> getRecipeFor(FluidStack stack, Level level, @Nullable ResourceKey<Recipe<?>> lastRecipe) {
-        var recipeManager = LevelUtil.getRecipeManager(level);
         if (lastRecipe != null) {
-            var recipeOptional = recipeManager.byKey(lastRecipe);
-            if (recipeOptional.isPresent() && recipeOptional.get().value().getType() == this.type) {
-                @SuppressWarnings("unchecked")
-                var recipe = (RecipeHolder<FermentationRecipe>) recipeOptional.get();
+            var recipeOptional = TheurgyRecipeManager.get().getRecipeByKey(this.type, lastRecipe, level);
+            if (recipeOptional.isPresent()) {
+                var recipe = recipeOptional.get();
                 if (recipe.value().getFluid().ingredient().test(stack)) {
                     return Optional.of(recipe);
                 }
             }
         }
 
-        return recipeManager.recipeMap().byType(this.type).stream().filter((entry) -> entry.value().getFluid().ingredient().test(stack)).findFirst();
+        return TheurgyRecipeManager.get().getRecipesByType(this.type, level).stream().filter((entry) -> entry.value().getFluid().ingredient().test(stack)).findFirst();
     }
 
     /**
      * This only checks ingredients, including ingredients already present, not fluids
      */
     public Optional<RecipeHolder<FermentationRecipe>> getRecipeFor(Collection<ItemStack> input, Level level) {
+        this.refreshForRecipeReload();
         if (this.noRecipeForLastItemStackCollectionInput && this.isSameInput(input)) {
             return Optional.empty();
         }
@@ -157,6 +172,7 @@ public class FermentationCachedCheck implements RecipeManager.CachedCheck<ItemHa
      * This only checks ingredients, not fluids
      */
     public Optional<RecipeHolder<FermentationRecipe>> getRecipeFor(ItemStack stack, Level level) {
+        this.refreshForRecipeReload();
         if (this.noRecipeForLastItemStackInput && this.isSameInput(stack)) {
             return Optional.empty();
         }
@@ -179,6 +195,7 @@ public class FermentationCachedCheck implements RecipeManager.CachedCheck<ItemHa
      * This only checks fluids, not ingredients
      */
     public Optional<RecipeHolder<FermentationRecipe>> getRecipeFor(FluidStack stack, Level level) {
+        this.refreshForRecipeReload();
         if (this.noRecipeForLastFluidStackInput && this.isSameInput(stack)) {
             return Optional.empty();
         }
@@ -201,13 +218,21 @@ public class FermentationCachedCheck implements RecipeManager.CachedCheck<ItemHa
      * This checks full recipe validity: ingredients + fluids
      */
     @Override
-    public @NotNull Optional<RecipeHolder<FermentationRecipe>> getRecipeFor(@NotNull ItemHandlerWithFluidRecipeInput container, @NotNull ServerLevel level) {
+    public @NotNull Optional<RecipeHolder<FermentationRecipe>> getRecipeFor(@NotNull ItemHandlerWithFluidRecipeInput container, @NotNull Level level) {
+        this.refreshForRecipeReload();
         if (this.noRecipeForLastItemHandlerInput) {
             return Optional.empty();
         }
 
-        var optional = this.internal.getRecipeFor(container, level);
+        Optional<RecipeHolder<FermentationRecipe>> optional;
+        if (level instanceof ServerLevel serverLevel) {
+            optional = this.internal.getRecipeFor(container, serverLevel);
+        } else {
+            optional = TheurgyRecipeManager.get().getRecipeFor(this.type, container, level, this.lastRecipeForItemHandler);
+        }
+
         if (optional.isPresent()) {
+            this.lastRecipeForItemHandler = optional.get().id();
             this.noRecipeForLastItemHandlerInput = false;
             return optional;
         } else {

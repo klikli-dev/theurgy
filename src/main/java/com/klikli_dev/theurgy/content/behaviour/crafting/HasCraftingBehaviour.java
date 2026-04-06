@@ -9,6 +9,6 @@ import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeManager;
 
 
-public interface HasCraftingBehaviour<W extends RecipeInput, R extends Recipe<W>, C extends RecipeManager.CachedCheck<W, R>> {
+public interface HasCraftingBehaviour<W extends RecipeInput, R extends Recipe<W>, C extends LevelAwareRecipeCheck<W, R>> {
     CraftingBehaviour<W, R, C> craftingBehaviour();
 }

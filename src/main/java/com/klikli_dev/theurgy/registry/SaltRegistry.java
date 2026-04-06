@@ -6,6 +6,7 @@ package com.klikli_dev.theurgy.registry;
 
 import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.content.item.salt.AlchemicalSaltItem;
+import com.klikli_dev.theurgy.recipe.TheurgyRecipeManager;
 import com.klikli_dev.theurgy.util.LevelUtil;
 import it.unimi.dsi.fastutil.objects.ObjectLinkedOpenCustomHashSet;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -62,8 +63,7 @@ public class SaltRegistry {
                 return;
             }
 
-            var recipeManager = LevelUtil.getRecipeManager(level);
-            var calcinationRecipes = LevelUtil.getRecipesByType(recipeManager, RecipeTypeRegistry.CALCINATION.get());
+            var calcinationRecipes = TheurgyRecipeManager.get().getRecipesByType(RecipeTypeRegistry.CALCINATION.get(), level);
 
             //From: EventHooks#onCreativeModeTabBuildContents
             //we need to use it here to test before inserting, because event.getEntries().contains uses a different hashing strategy and is thus not reliable

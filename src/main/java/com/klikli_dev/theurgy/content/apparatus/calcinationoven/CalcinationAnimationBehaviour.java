@@ -23,10 +23,6 @@ public class CalcinationAnimationBehaviour extends AnimationBehaviour<Calcinatio
     private static final RawAnimation ON_ANIM = RawAnimation.begin()
             .thenLoop("animation.calcination_oven.on");
 
-    private static final RawAnimation PLACE_AND_OFF_ANIM = RawAnimation.begin()
-            .thenPlay("animation.calcination_oven.place")
-            .thenLoop("animation.calcination_oven.off");
-
     public CalcinationAnimationBehaviour(CalcinationOvenBlockEntity blockEntity) {
         super(blockEntity);
     }
@@ -34,17 +30,16 @@ public class CalcinationAnimationBehaviour extends AnimationBehaviour<Calcinatio
     @Override
     public PlayState animationHandler(AnimationTest<CalcinationOvenBlockEntity> event) {
         var isProcessing = this.blockEntity.craftingBehaviour.isProcessing();
+        var controller = event.controller();
 
-        if (this.wasProcessingLastTick && !isProcessing) {
-            event.setAnimation(STOP_AND_OFF_ANIM);
-        } else if (!this.wasProcessingLastTick && isProcessing) {
-            event.setAnimation(START_AND_ON_ANIM);
-        } else if (isProcessing) {
-            event.setAnimation(ON_ANIM);
-        } else if (!event.isCurrentAnimation(PLACE_AND_OFF_ANIM)) {
-            event.setAnimation(PLACE_AND_OFF_ANIM);
-        } else {
-            event.setAnimation(OFF_ANIM);
+        if (this.wasProcessingLastTick && !isProcessing && !controller.isTransitioning()) {
+            controller.setAnimation(STOP_AND_OFF_ANIM);
+        } else if (!this.wasProcessingLastTick && isProcessing && !controller.isTransitioning()) {
+            controller.setAnimation(START_AND_ON_ANIM);
+        } else if (!this.wasProcessingLastTick && !isProcessing && !controller.isAnimatingBones()) {
+            controller.setAnimation(OFF_ANIM);
+        } else if (this.wasProcessingLastTick && isProcessing && !controller.isAnimatingBones()) {
+            controller.setAnimation(ON_ANIM);
         }
 
         this.wasProcessingLastTick = isProcessing;

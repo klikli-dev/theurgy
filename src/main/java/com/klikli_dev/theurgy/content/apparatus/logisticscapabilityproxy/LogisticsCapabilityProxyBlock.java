@@ -41,16 +41,9 @@ public class LogisticsCapabilityProxyBlock extends DirectionalBlock implements E
     public static final MapCodec<LogisticsCapabilityProxyBlock> CODEC = simpleCodec(LogisticsCapabilityProxyBlock::new);
     public static final DirectionalBlockShape SHAPE = new DirectionalBlockShape(4, 4, 8);
 
-    protected final LogisticsCapabilityProxySelectionBehaviour selectionBehaviour;
-
     public LogisticsCapabilityProxyBlock(Properties properties) {
         super(properties);
-        this.selectionBehaviour = new LogisticsCapabilityProxySelectionBehaviour();
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.UP));
-    }
-
-    public LogisticsCapabilityProxySelectionBehaviour selectionBehaviour() {
-        return this.selectionBehaviour;
     }
 
     @Override

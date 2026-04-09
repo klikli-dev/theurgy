@@ -238,48 +238,34 @@ public class CapabilityRegistry {
         event.registerBlockEntity(
                 ITEM_HANDLER,
                 BlockEntityRegistry.LOGISTICS_CAPABILITY_PROXY.get(),
-                (blockEntity, side) -> blockEntity.pickLinkedProbe(probePos -> {
-                    var capability = com.klikli_dev.theurgy.content.apparatus.logisticscapabilityprobe.LogisticsCapabilityProbeBlock.resolveSidedCapability(blockEntity.getLevel(), probePos, ITEM_HANDLER);
-                    return capability == null ? null : new ProxyItemHandler(blockEntity.getLevel(), probePos);
-                })
+                (blockEntity, side) -> blockEntity.resolveSidedCapability(ITEM_HANDLER)
         );
 
         event.registerBlockEntity(
                 FLUID_HANDLER,
                 BlockEntityRegistry.LOGISTICS_CAPABILITY_PROXY.get(),
-                (blockEntity, side) -> blockEntity.pickLinkedProbe(probePos -> {
-                    var capability = com.klikli_dev.theurgy.content.apparatus.logisticscapabilityprobe.LogisticsCapabilityProbeBlock.resolveSidedCapability(blockEntity.getLevel(), probePos, FLUID_HANDLER);
-                    return capability == null ? null : new ProxyFluidHandler(blockEntity.getLevel(), probePos);
-                })
+                (blockEntity, side) -> blockEntity.resolveSidedCapability(FLUID_HANDLER)
         );
 
         event.registerBlockEntity(
                 MERCURY_FLUX_HANDLER,
                 BlockEntityRegistry.LOGISTICS_CAPABILITY_PROXY.get(),
-                (blockEntity, side) -> blockEntity.pickLinkedProbe(probePos -> {
-                    var capability = com.klikli_dev.theurgy.content.apparatus.logisticscapabilityprobe.LogisticsCapabilityProbeBlock.resolveSidedCapability(blockEntity.getLevel(), probePos, MERCURY_FLUX_HANDLER);
-                    return capability == null ? null : new ProxyMercuryFluxStorage(blockEntity.getLevel(), probePos);
-                })
+                (blockEntity, side) -> blockEntity.resolveSidedCapability(MERCURY_FLUX_HANDLER)
         );
 
         event.registerBlockEntity(
                 HEAT_PROVIDER,
                 BlockEntityRegistry.LOGISTICS_CAPABILITY_PROXY.get(),
-                (blockEntity, side) -> blockEntity.pickLinkedProbe(probePos -> {
-                    var capability = com.klikli_dev.theurgy.content.apparatus.logisticscapabilityprobe.LogisticsCapabilityProbeBlock.resolveSidedCapability(blockEntity.getLevel(), probePos, HEAT_PROVIDER);
-                    return capability == null ? null : new ProxyHeatProvider(blockEntity.getLevel(), probePos);
-                })
+                (blockEntity, side) -> blockEntity.resolveSidedCapability(HEAT_PROVIDER)
         );
 
         event.registerBlockEntity(
                 HEAT_RECEIVER,
                 BlockEntityRegistry.LOGISTICS_CAPABILITY_PROXY.get(),
-                (blockEntity, side) -> blockEntity.pickLinkedProbe(probePos -> {
-                    var capability = com.klikli_dev.theurgy.content.apparatus.logisticscapabilityprobe.LogisticsCapabilityProbeBlock.resolveSidedCapability(blockEntity.getLevel(), probePos, HEAT_RECEIVER);
-                    return capability == null ? null : new ProxyHeatReceiver(blockEntity.getLevel(), probePos);
-                })
+                (blockEntity, side) -> blockEntity.resolveSidedCapability(HEAT_RECEIVER)
         );
     }
+
 
     public static void registerMercuryCatalyst(RegisterCapabilitiesEvent event) {
         event.registerBlockEntity(

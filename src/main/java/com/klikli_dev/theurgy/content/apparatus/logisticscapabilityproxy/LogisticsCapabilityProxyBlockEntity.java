@@ -4,15 +4,17 @@
 
 package com.klikli_dev.theurgy.content.apparatus.logisticscapabilityproxy;
 
+import com.klikli_dev.theurgy.content.apparatus.logisticscapabilityprobe.LogisticsCapabilityProbeBlock;
 import com.klikli_dev.theurgy.content.behaviour.logistics.LogisticsNode;
 import com.klikli_dev.theurgy.logistics.Logistics;
 import com.klikli_dev.theurgy.logistics.Wires;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
+import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
 import com.klikli_dev.theurgy.util.ValueIOUtils;
 import com.mojang.datafixers.util.Pair;
-import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
@@ -25,76 +27,69 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
+import net.neoforged.neoforge.capabilities.BlockCapability;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.function.Function;
 
 public class LogisticsCapabilityProxyBlockEntity extends BlockEntity implements LogisticsNode {
 
-    protected List<BlockPos> linkedProbes = new ArrayList<>();
     protected int roundRobinIndex;
 
     public LogisticsCapabilityProxyBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(BlockEntityRegistry.LOGISTICS_CAPABILITY_PROXY.get(), pPos, pBlockState);
     }
 
-    public List<BlockPos> linkedProbes() {
-        return this.linkedProbes;
-    }
+    public List<BlockPos> getConnectedProbes() {
+        if (this.level == null || this.level.isClientSide()) {
+            return List.of();
+        }
 
-    public void setLinkedProbes(List<BlockPos> linkedProbes) {
-        var deduplicated = new LinkedHashSet<BlockPos>();
-        for (var linkedProbe : linkedProbes) {
-            if (linkedProbe == null || linkedProbe.equals(this.getBlockPos())) {
-                continue;
+        var network = Logistics.get().getNetwork(GlobalPos.of(this.level.dimension(), this.getBlockPos()));
+        if (network == null) {
+            return List.of();
+        }
+
+        List<BlockPos> probes = new ArrayList<>();
+        for (var nodePos : network.nodes()) {
+            if (nodePos.dimension() == this.level.dimension()) {
+                var state = this.level.getBlockState(nodePos.pos());
+                if (state.is(BlockRegistry.LOGISTICS_CAPABILITY_PROBE.get())) {
+                    probes.add(nodePos.pos());
+                }
             }
-
-            if (this.level != null && this.level.isLoaded(linkedProbe) && this.level.getBlockState(linkedProbe).is(com.klikli_dev.theurgy.registry.BlockRegistry.LOGISTICS_CAPABILITY_PROBE.get())) {
-                deduplicated.add(linkedProbe.immutable());
-            }
         }
-
-        this.linkedProbes = new ArrayList<>(deduplicated);
-        this.roundRobinIndex = 0;
-        this.setChanged();
-
-        if (this.level != null && !this.level.isClientSide()) {
-            this.sendBlockUpdated();
-            this.level.invalidateCapabilities(this.getBlockPos());
-        }
-    }
-
-    public @Nullable BlockPos selectProbeForQuery() {
-        if (this.linkedProbes.isEmpty()) {
-            return null;
-        }
-
-        int index = Math.floorMod(this.roundRobinIndex, this.linkedProbes.size());
-        this.roundRobinIndex = (index + 1) % this.linkedProbes.size();
-        return this.linkedProbes.get(index);
+        return probes;
     }
 
     public <T> @Nullable T pickLinkedProbe(Function<BlockPos, @Nullable T> resolver) {
-        if (this.linkedProbes.isEmpty()) {
+        var probes = this.getConnectedProbes();
+        if (probes.isEmpty()) {
             return null;
         }
 
-        int startIndex = Math.floorMod(this.roundRobinIndex, this.linkedProbes.size());
-        for (int offset = 0; offset < this.linkedProbes.size(); offset++) {
-            int index = (startIndex + offset) % this.linkedProbes.size();
-            var probePos = this.linkedProbes.get(index);
+        int startIndex = Math.floorMod(this.roundRobinIndex, probes.size());
+        for (int offset = 0; offset < probes.size(); offset++) {
+            int index = (startIndex + offset) % probes.size();
+            var probePos = probes.get(index);
             var resolved = resolver.apply(probePos);
             if (resolved != null) {
-                this.roundRobinIndex = (index + 1) % this.linkedProbes.size();
+                this.roundRobinIndex = (index + 1) % probes.size();
                 return resolved;
             }
         }
 
         return null;
+    }
+
+    public <T, C> @Nullable T resolveSidedCapability(BlockCapability<T, C> capability) {
+        return this.pickLinkedProbe(probePos -> {
+            if (this.level == null) return null;
+            return LogisticsCapabilityProbeBlock.resolveSidedCapability(this.level, probePos, (BlockCapability<T, @Nullable Direction>) capability);
+        });
     }
 
     public void sendBlockUpdated() {
@@ -110,10 +105,10 @@ public class LogisticsCapabilityProxyBlockEntity extends BlockEntity implements 
         }
 
         List<Pair<BlockPos, Integer>> result = new ArrayList<>();
-        for (var linkedProbe : this.linkedProbes) {
-            result.add(Pair.of(linkedProbe, 0x00FFFF));
+        for (var probe : this.getConnectedProbes()) {
+            result.add(Pair.of(probe, 0x00FFFF));
 
-            var target = com.klikli_dev.theurgy.content.apparatus.logisticscapabilityprobe.LogisticsCapabilityProbeBlock.getTarget(this.level, linkedProbe);
+            var target = LogisticsCapabilityProbeBlock.getTarget(this.level, probe);
             if (target != null) {
                 result.add(Pair.of(target.pos(), 0x00FF00));
             }
@@ -144,14 +139,9 @@ public class LogisticsCapabilityProxyBlockEntity extends BlockEntity implements 
     }
 
     public void readNetwork(ValueInput input) {
-        this.linkedProbes = new ArrayList<>();
-        for (long linkedProbe : input.read("linkedProbes", Codec.LONG.listOf()).orElse(List.of())) {
-            this.linkedProbes.add(BlockPos.of(linkedProbe));
-        }
     }
 
     public void writeNetwork(ValueOutput output) {
-        output.store("linkedProbes", Codec.LONG.listOf(), this.linkedProbes.stream().map(BlockPos::asLong).toList());
     }
 
     @Override

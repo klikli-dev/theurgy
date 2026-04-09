@@ -215,10 +215,10 @@ public class Theurgy {
             Outliner.get().tick();
             BlockRegistry.CALORIC_FLUX_EMITTER.get().selectionBehaviour().tick(player);
             BlockRegistry.SULFURIC_FLUX_EMITTER.get().selectionBehaviour().tick(player);
-            BlockRegistry.LOGISTICS_CAPABILITY_PROXY.get().selectionBehaviour().tick(player);
 
 
             WireItem.onClientTick(player);
+
             HeldStackFitOutline.onClientTick(player);
         }
 
@@ -342,12 +342,8 @@ public class Theurgy {
                 event.setCancellationResult(InteractionResult.SUCCESS);
                 return;
             }
-
-            if (BlockRegistry.LOGISTICS_CAPABILITY_PROXY.get().selectionBehaviour().onRightClickBlock(event.getLevel(), event.getEntity(), event.getHand(), event.getPos(), event.getFace())) {
-                event.setCanceled(true);
-                event.setCancellationResult(InteractionResult.SUCCESS);
-            }
         }
+
 
         public static void onLeftClick(PlayerInteractEvent.LeftClickBlock event) {
             if (BlockRegistry.CALORIC_FLUX_EMITTER.get().selectionBehaviour().onLeftClickBlock(event.getLevel(), event.getEntity(), event.getHand(), event.getPos(), event.getFace())) {
@@ -360,9 +356,6 @@ public class Theurgy {
                 return;
             }
 
-            if (BlockRegistry.LOGISTICS_CAPABILITY_PROXY.get().selectionBehaviour().onLeftClickBlock(event.getLevel(), event.getEntity(), event.getHand(), event.getPos(), event.getFace())) {
-                event.setCanceled(true);
-            }
 
             //filter for "abort" to avoid constant calls while held down
             if (event.getAction() == PlayerInteractEvent.LeftClickBlock.Action.ABORT &&

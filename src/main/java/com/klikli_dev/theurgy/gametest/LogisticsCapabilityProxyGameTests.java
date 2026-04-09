@@ -48,11 +48,12 @@ public class LogisticsCapabilityProxyGameTests {
         helper.setBlock(proxyPos, BlockRegistry.LOGISTICS_CAPABILITY_PROXY.get().defaultBlockState());
 
         helper.runAfterDelay(1, () -> {
-            var proxyBE = helper.getBlockEntity(proxyPos, LogisticsCapabilityProxyBlockEntity.class);
             var tankBE = helper.getBlockEntity(tankPos, SalAmmoniacTankBlockEntity.class);
 
-            // Link proxy to probe
-            proxyBE.setLinkedProbes(List.of(helper.absolutePos(probePos)));
+            // Connect proxy to probe with wires
+            var logistics = com.klikli_dev.theurgy.logistics.Logistics.get();
+            logistics.add(net.minecraft.core.GlobalPos.of(helper.getLevel().dimension(), helper.absolutePos(proxyPos)),
+                          net.minecraft.core.GlobalPos.of(helper.getLevel().dimension(), helper.absolutePos(probePos)));
 
             // Fill tank with some fluid
             tankBE.tank.setFluid(new FluidStack(net.minecraft.world.level.material.Fluids.WATER, 1000));

@@ -33,6 +33,10 @@ public class LogisticsFluidInserterBehaviour extends InserterNodeBehaviour<Resou
 
     @Override
     public void enabled(boolean enabled) {
+        if (this.enabled == enabled) {
+            return;
+        }
+
         this.enabled = enabled;
         this.onEnabledChanged();
     }
@@ -41,10 +45,10 @@ public class LogisticsFluidInserterBehaviour extends InserterNodeBehaviour<Resou
         this.directionOverride = directionOverride;
 
         //first notify the network to remove the old target capabilities
-        this.targetCapabilities.forEach(c -> this.onCapabilityInvalidated(c.pos(), this, true));
+        this.targetCapabilities.forEach(c -> this.onCapabilityInvalidated(c.pos(), true));
 
         //then build the new capabilities
-        this.targetCapabilities = this.buildTargetCapabilities(this.targets());
+        this.rebuildTargetCapabilities();
 
         //then notify the network to add the new target capabilities
         this.targetCapabilities.forEach(this::notifyTargetCapabilityCacheCreated);
@@ -57,8 +61,11 @@ public class LogisticsFluidInserterBehaviour extends InserterNodeBehaviour<Resou
     protected void onEnabledChanged() {
         //a disabled logistics node is equivalent to one not existing
         if (this.enabled) {
+            this.rebuildTargetCapabilities();
             Logistics.get().add(this);
         } else {
+            this.targetCapabilities.forEach(c -> this.onCapabilityInvalidated(c.pos(), true));
+            this.deactivateTargetCapabilities();
             Logistics.get().remove(this, false);
         }
     }

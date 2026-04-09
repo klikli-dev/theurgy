@@ -71,6 +71,9 @@ public abstract class ExtractorNodeBehaviour<T, C> extends LeafNodeBehaviour<T, 
         if (leafNode.mode() != LeafNodeMode.INSERT)
             return; //as we are only caching insert mode all other nodes are not relevant
 
+        if (!leafNode.asInserter().enabled())
+            return;
+
         var inserter = leafNode.asInserter();
         var targets = inserter.availableTargetCapabilities();
 
@@ -89,8 +92,10 @@ public abstract class ExtractorNodeBehaviour<T, C> extends LeafNodeBehaviour<T, 
         if (leafNode.mode() != LeafNodeMode.INSERT)
             return; //as we are only caching insert mode all other nodes are not relevant
 
+        var inserter = leafNode.asInserter();
+
         for (var target : leafNode.targets()) {
-            this.removeInsertTarget(leafNode.level().dimension(), target);
+            this.removeInsertTarget(inserter, leafNode.level().dimension(), target);
         }
     }
 
@@ -104,6 +109,8 @@ public abstract class ExtractorNodeBehaviour<T, C> extends LeafNodeBehaviour<T, 
             return; //as we are only caching insert mode all other nodes are not relevant
 
         var inserter = leafNode.asInserter();
+        if (!inserter.enabled())
+            return;
 
         if (this.isValidInsertTarget(leafNode, capability)) {
             this.addInsertTarget(inserter, capability);
@@ -119,7 +126,7 @@ public abstract class ExtractorNodeBehaviour<T, C> extends LeafNodeBehaviour<T, 
         if (leafNode.mode() != LeafNodeMode.INSERT)
             return; //as we are only caching insert mode all other nodes are not relevant
 
-        this.removeInsertTarget(pos);
+        this.removeInsertTarget(leafNode.asInserter(), pos);
     }
 
     protected void addInsertTarget(InserterNodeBehaviour<T, C> inserter, BlockCapabilityCache<T, C> capability) {
@@ -130,12 +137,15 @@ public abstract class ExtractorNodeBehaviour<T, C> extends LeafNodeBehaviour<T, 
         }
     }
 
-    protected void removeInsertTarget(GlobalPos pos) {
-        this.removeInsertTarget(pos.dimension(), pos.pos());
+    protected void removeInsertTarget(InserterNodeBehaviour<T, C> inserter, GlobalPos pos) {
+        this.removeInsertTarget(inserter, pos.dimension(), pos.pos());
     }
 
-    protected void removeInsertTarget(ResourceKey<Level> dimension, BlockPos pos) {
-        if (this.insertTargets().removeIf(cached -> cached.capability().level().dimension().equals(dimension) && cached.capability().pos().equals(pos))) {
+    protected void removeInsertTarget(InserterNodeBehaviour<T, C> inserter, ResourceKey<Level> dimension, BlockPos pos) {
+        var inserterPos = inserter.globalPos();
+        if (this.insertTargets().removeIf(cached -> cached.inserter().globalPos().equals(inserterPos)
+                && cached.capability().level().dimension().equals(dimension)
+                && cached.capability().pos().equals(pos))) {
             this.distributor.onTargetsChanged();
         }
     }

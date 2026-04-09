@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1-1.79.1] - 2026-04-09
+### :bug: Bug Fixes
+- [`766e32d`](https://github.com/klikli-dev/theurgy/commit/766e32d95a98c1929dbacb07e545646b41d42526) - defer logistics capability cache invalidation *(PR [#330](https://github.com/klikli-dev/theurgy/pull/330) by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.1-1.79.0] - 2026-04-06
 ### :sparkles: New Features
 - [`41c5031`](https://github.com/klikli-dev/theurgy/commit/41c5031459e2af6997d9b1624ced7700a0680724) - re-enable occultism integration *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1402,3 +1407,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1-1.77.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1-1.76.0...release/v26.1-1.77.0
 [release/v26.1-1.78.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1-1.77.0...release/v26.1-1.78.0
 [release/v26.1-1.79.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1-1.78.0...release/v26.1-1.79.0
+[release/v26.1-1.79.1]: https://github.com/klikli-dev/theurgy/compare/release/v26.1-1.79.0...release/v26.1-1.79.1

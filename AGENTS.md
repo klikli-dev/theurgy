@@ -3,7 +3,8 @@
 ## General
 - CREATE CONVENTIONAL COMMITS FOR EACH ATOMIC CHANGE.
 - CREATE A BRANCH FOR EACH FEATURE OR FIX YOU WORK ON, then create a pull request when ready.
-  - If the branch you are already on seems to be an omnibus branch with multiple features or fixes that fits your new task, continue working in it. 
+- If work is a continuation of an already-active change, PR, or branch, STAY ON THAT SAME BRANCH. Do not create a branch-on-branch or a second PR for follow-up tasks like spec sync, archive moves, review fixes, or small supporting changes unless the user explicitly asks for a separate branch.
+- When delegating to another agent for work inside the current change, instruct it to reuse the current branch and not open an additional PR unless explicitly requested. 
 - If prompted to work in a worktree, create the worktree based off the main branch for that minecraft version.
 - Read `gradle.properties` to find the current minecraft version used.
 

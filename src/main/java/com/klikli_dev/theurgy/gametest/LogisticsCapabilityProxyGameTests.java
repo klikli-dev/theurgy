@@ -75,4 +75,58 @@ public class LogisticsCapabilityProxyGameTests {
             helper.succeed();
         });
     }
+
+    public static void fluidCapabilityRoundRobin(GameTestHelper helper) {
+        BlockPos proxyPos = new BlockPos(1, 2, 2);
+        BlockPos probe1Pos = new BlockPos(2, 2, 1); // North of proxy
+        BlockPos probe2Pos = new BlockPos(2, 2, 3); // South of proxy
+        BlockPos tank1Pos = new BlockPos(3, 2, 1); // East of probe1
+        BlockPos tank2Pos = new BlockPos(3, 2, 3); // East of probe2
+
+        // Setup tanks
+        helper.setBlock(tank1Pos, BlockRegistry.SAL_AMMONIAC_TANK.get().defaultBlockState());
+        helper.setBlock(tank2Pos, BlockRegistry.SAL_AMMONIAC_TANK.get().defaultBlockState());
+
+        // Setup probes targeting tanks (probe targets the block opposite its facing)
+        helper.setBlock(probe1Pos, BlockRegistry.LOGISTICS_CAPABILITY_PROBE.get().defaultBlockState().setValue(BlockStateProperties.FACING, Direction.WEST));
+        helper.setBlock(probe2Pos, BlockRegistry.LOGISTICS_CAPABILITY_PROBE.get().defaultBlockState().setValue(BlockStateProperties.FACING, Direction.WEST));
+
+        // Setup proxy
+        helper.setBlock(proxyPos, BlockRegistry.LOGISTICS_CAPABILITY_PROXY.get().defaultBlockState());
+
+        helper.runAfterDelay(1, () -> {
+            var tank1BE = helper.getBlockEntity(tank1Pos, SalAmmoniacTankBlockEntity.class);
+            var tank2BE = helper.getBlockEntity(tank2Pos, SalAmmoniacTankBlockEntity.class);
+
+            // Connect everything in the network
+            var logistics = com.klikli_dev.theurgy.logistics.Logistics.get();
+            var dimension = helper.getLevel().dimension();
+            var gProxy = net.minecraft.core.GlobalPos.of(dimension, helper.absolutePos(proxyPos));
+            var gProbe1 = net.minecraft.core.GlobalPos.of(dimension, helper.absolutePos(probe1Pos));
+            var gProbe2 = net.minecraft.core.GlobalPos.of(dimension, helper.absolutePos(probe2Pos));
+
+            logistics.add(gProxy, gProbe1);
+            logistics.add(gProxy, gProbe2);
+
+            // Fill tanks with distinct amounts
+            tank1BE.tank.setFluid(new FluidStack(net.minecraft.world.level.material.Fluids.WATER, 1000));
+            tank2BE.tank.setFluid(new FluidStack(net.minecraft.world.level.material.Fluids.WATER, 2000));
+
+            // First request
+            var handler1 = helper.getLevel().getCapability(CapabilityRegistry.FLUID_HANDLER, helper.absolutePos(proxyPos), null);
+            helper.assertTrue(handler1 != null, "Proxy should expose fluid capability (1)");
+            long amount1 = com.klikli_dev.theurgy.content.storage.FluidStorageHelper.getFluidInTank(handler1, 0).getAmount();
+
+            // Second request
+            var handler2 = helper.getLevel().getCapability(CapabilityRegistry.FLUID_HANDLER, helper.absolutePos(proxyPos), null);
+            helper.assertTrue(handler2 != null, "Proxy should expose fluid capability (2)");
+            long amount2 = com.klikli_dev.theurgy.content.storage.FluidStorageHelper.getFluidInTank(handler2, 0).getAmount();
+
+            // Verify they are different (round-robin)
+            helper.assertTrue(amount1 != amount2, "Successive requests should hit different tanks. Amounts: " + amount1 + ", " + amount2);
+            helper.assertTrue((amount1 == 1000 && amount2 == 2000) || (amount1 == 2000 && amount2 == 1000), "Amounts should be 1000 and 2000 in some order");
+
+            helper.succeed();
+        });
+    }
 }

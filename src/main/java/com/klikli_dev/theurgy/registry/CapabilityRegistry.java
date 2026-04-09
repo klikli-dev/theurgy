@@ -9,7 +9,6 @@ import com.klikli_dev.theurgy.content.apparatus.calcinationoven.CalcinationOvenB
 import com.klikli_dev.theurgy.content.apparatus.distiller.DistillerBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron.LiquefactionCauldronBlockEntity;
-import com.klikli_dev.theurgy.content.apparatus.logisticscapabilityproxy.*;
 import com.klikli_dev.theurgy.content.capability.HeatProvider;
 import com.klikli_dev.theurgy.content.capability.HeatReceiver;
 import com.klikli_dev.theurgy.content.capability.MercuryFluxStorage;
@@ -235,34 +234,15 @@ public class CapabilityRegistry {
     }
 
     public static void registerLogisticsCapabilityProxy(RegisterCapabilitiesEvent event) {
-        event.registerBlockEntity(
-                ITEM_HANDLER,
-                BlockEntityRegistry.LOGISTICS_CAPABILITY_PROXY.get(),
-                (blockEntity, side) -> blockEntity.resolveSidedCapability(ITEM_HANDLER)
-        );
+        BlockCapability.getAllProxyable().forEach(capability -> registerLogisticsCapabilityProxy(event, capability));
+    }
 
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    private static void registerLogisticsCapabilityProxy(RegisterCapabilitiesEvent event, BlockCapability capability) {
         event.registerBlockEntity(
-                FLUID_HANDLER,
+                capability,
                 BlockEntityRegistry.LOGISTICS_CAPABILITY_PROXY.get(),
-                (blockEntity, side) -> blockEntity.resolveSidedCapability(FLUID_HANDLER)
-        );
-
-        event.registerBlockEntity(
-                MERCURY_FLUX_HANDLER,
-                BlockEntityRegistry.LOGISTICS_CAPABILITY_PROXY.get(),
-                (blockEntity, side) -> blockEntity.resolveSidedCapability(MERCURY_FLUX_HANDLER)
-        );
-
-        event.registerBlockEntity(
-                HEAT_PROVIDER,
-                BlockEntityRegistry.LOGISTICS_CAPABILITY_PROXY.get(),
-                (blockEntity, side) -> blockEntity.resolveSidedCapability(HEAT_PROVIDER)
-        );
-
-        event.registerBlockEntity(
-                HEAT_RECEIVER,
-                BlockEntityRegistry.LOGISTICS_CAPABILITY_PROXY.get(),
-                (blockEntity, side) -> blockEntity.resolveSidedCapability(HEAT_RECEIVER)
+                (blockEntity, side) -> blockEntity.resolveProbeCapability(capability)
         );
     }
 

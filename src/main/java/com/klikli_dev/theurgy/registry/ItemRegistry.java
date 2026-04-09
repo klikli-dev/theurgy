@@ -11,7 +11,6 @@ import com.klikli_dev.theurgy.content.apparatus.distiller.DistillerBlockItem;
 import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorMercuryVesselBlockItem;
 import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorSaltVesselBlockItem;
 import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorSulfurVesselBlockItem;
-import com.klikli_dev.theurgy.content.apparatus.logisticscapabilityproxy.LogisticsCapabilityProxyBlockItem;
 import com.klikli_dev.theurgy.content.apparatus.logisticsfluidconnector.LogisticsFluidConnectorBlockItem;
 import com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector.LogisticsItemConnectorBlockItem;
 import com.klikli_dev.theurgy.content.apparatus.reformationarray.SulfuricFluxEmitterBlockItem;
@@ -232,5 +231,5 @@ public class ItemRegistry {
             ITEMS.registerItem(BlockRegistry.LOGISTICS_CAPABILITY_PROBE.getId().getPath(), p -> new BlockItem(BlockRegistry.LOGISTICS_CAPABILITY_PROBE.get(), p.useBlockDescriptionPrefix()));
 
     public static final DeferredItem<BlockItem> LOGISTICS_CAPABILITY_PROXY =
-            ITEMS.registerItem(BlockRegistry.LOGISTICS_CAPABILITY_PROXY.getId().getPath(), p -> new LogisticsCapabilityProxyBlockItem(BlockRegistry.LOGISTICS_CAPABILITY_PROXY.get(), p.useBlockDescriptionPrefix()));
+            ITEMS.registerItem(BlockRegistry.LOGISTICS_CAPABILITY_PROXY.getId().getPath(), p -> new BlockItem(BlockRegistry.LOGISTICS_CAPABILITY_PROXY.get(), p.useBlockDescriptionPrefix()));
 }

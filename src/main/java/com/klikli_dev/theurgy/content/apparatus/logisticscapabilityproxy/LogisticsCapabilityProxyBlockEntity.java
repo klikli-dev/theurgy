@@ -11,27 +11,19 @@ import com.klikli_dev.theurgy.logistics.Wires;
 import com.klikli_dev.theurgy.registry.BlockEntityRegistry;
 import com.klikli_dev.theurgy.registry.BlockRegistry;
 import com.klikli_dev.theurgy.registry.ItemRegistry;
-import com.klikli_dev.theurgy.util.ValueIOUtils;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.GlobalPos;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.Connection;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
-import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.storage.ValueInput;
-import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.capabilities.BlockCapability;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.Function;
 
@@ -44,7 +36,7 @@ public class LogisticsCapabilityProxyBlockEntity extends BlockEntity implements 
     }
 
     public List<BlockPos> getConnectedProbes() {
-        if (this.level == null || this.level.isClientSide()) {
+        if (this.level == null) {
             return List.of();
         }
 
@@ -55,17 +47,19 @@ public class LogisticsCapabilityProxyBlockEntity extends BlockEntity implements 
 
         List<BlockPos> probes = new ArrayList<>();
         for (var nodePos : network.nodes()) {
-            if (nodePos.dimension() == this.level.dimension()) {
+            if (nodePos.dimension().equals(this.level.dimension())) {
                 var state = this.level.getBlockState(nodePos.pos());
                 if (state.is(BlockRegistry.LOGISTICS_CAPABILITY_PROBE.get())) {
                     probes.add(nodePos.pos());
                 }
             }
         }
+
+        probes.sort(Comparator.comparingLong(BlockPos::asLong));
         return probes;
     }
 
-    public <T> @Nullable T pickLinkedProbe(Function<BlockPos, @Nullable T> resolver) {
+    public <T> @Nullable T pickConnectedProbe(Function<BlockPos, @Nullable T> resolver) {
         var probes = this.getConnectedProbes();
         if (probes.isEmpty()) {
             return null;
@@ -85,17 +79,12 @@ public class LogisticsCapabilityProxyBlockEntity extends BlockEntity implements 
         return null;
     }
 
-    public <T, C> @Nullable T resolveSidedCapability(BlockCapability<T, C> capability) {
-        return this.pickLinkedProbe(probePos -> {
-            if (this.level == null) return null;
-            return LogisticsCapabilityProbeBlock.resolveSidedCapability(this.level, probePos, (BlockCapability<T, @Nullable Direction>) capability);
-        });
-    }
-
-    public void sendBlockUpdated() {
-        if (this.level != null && !this.level.isClientSide()) {
-            this.level.sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), Block.UPDATE_CLIENTS);
+    public <T> @Nullable T resolveProbeCapability(BlockCapability<T, @Nullable Direction> capability) {
+        if (this.level == null) {
+            return null;
         }
+
+        return this.pickConnectedProbe(probePos -> LogisticsCapabilityProbeBlock.resolveSidedCapability(this.level, probePos, capability));
     }
 
     @Override
@@ -115,45 +104,6 @@ public class LogisticsCapabilityProxyBlockEntity extends BlockEntity implements 
         }
 
         return result;
-    }
-
-    @Override
-    public @NotNull CompoundTag getUpdateTag(HolderLookup.@NotNull Provider pRegistries) {
-        return ValueIOUtils.serialize(pRegistries, this::writeNetwork);
-    }
-
-    @Override
-    public void handleUpdateTag(@NotNull ValueInput input) {
-        this.readNetwork(input);
-    }
-
-    @Nullable
-    @Override
-    public Packet<ClientGamePacketListener> getUpdatePacket() {
-        return ClientboundBlockEntityDataPacket.create(this);
-    }
-
-    @Override
-    public void onDataPacket(@NotNull Connection connection, @NotNull ValueInput input) {
-        this.readNetwork(input);
-    }
-
-    public void readNetwork(ValueInput input) {
-    }
-
-    public void writeNetwork(ValueOutput output) {
-    }
-
-    @Override
-    protected void saveAdditional(@NotNull ValueOutput output) {
-        super.saveAdditional(output);
-        this.writeNetwork(output);
-    }
-
-    @Override
-    public void loadAdditional(@NotNull ValueInput input) {
-        super.loadAdditional(input);
-        this.readNetwork(input);
     }
 
     @Override

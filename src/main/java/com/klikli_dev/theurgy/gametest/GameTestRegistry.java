@@ -386,6 +386,14 @@ public class GameTestRegistry {
     public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> LOG_FLUID_EXTRACTS_WORLD_SOURCE =
             TEST_FUNCTIONS.register("logistics_fluid_extracts_world_source", () -> LogisticsGameTests::fluidExtractorPullsFromWorldSource);
 
+    // --- Logistics Capability Proxy ---
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> LCP_PLACEMENT =
+            TEST_FUNCTIONS.register("logistics_capability_proxy_placement", () -> LogisticsCapabilityProxyGameTests::placementAndDefaultState);
+
+    public static final DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> LCP_FLUID_FORWARDING =
+            TEST_FUNCTIONS.register("logistics_capability_proxy_fluid_forwarding", () -> LogisticsCapabilityProxyGameTests::fluidCapabilityForwarding);
+
     public static void onRegisterGameTests(RegisterGameTestsEvent event) {
         registerMercuryCatalystTests(event);
         registerCalcinationOvenTests(event);
@@ -401,6 +409,7 @@ public class GameTestRegistry {
         registerSulfuricFluxEmitterTests(event);
         registerReformationPedestalTests(event);
         registerLogisticsTests(event);
+        registerLogisticsCapabilityProxyTests(event);
     }
 
     private static void registerMercuryCatalystTests(RegisterGameTestsEvent event) {
@@ -597,6 +606,14 @@ public class GameTestRegistry {
         registerTest(event, LOG_INSERTER_PLACEMENT, environment, structure, 40, 0);
         registerTest(event, LOG_EXTRACTOR_PLACEMENT, environment, structure, 40, 0);
         registerTest(event, LOG_FLUID_EXTRACTS_WORLD_SOURCE, environment, structure, 80, 0);
+    }
+
+    private static void registerLogisticsCapabilityProxyTests(RegisterGameTestsEvent event) {
+        var environment = event.registerEnvironment(Theurgy.loc("logistics"));
+        var structure = Theurgy.loc("logistics_test");
+
+        registerTest(event, LCP_PLACEMENT, environment, structure, 40, 0);
+        registerTest(event, LCP_FLUID_FORWARDING, environment, structure, 100, 0);
     }
 
     private static void registerTest(

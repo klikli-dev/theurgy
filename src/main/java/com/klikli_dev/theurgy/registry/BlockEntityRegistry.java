@@ -17,6 +17,7 @@ import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorSulfurVesselB
 import com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron.LiquefactionCauldronBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.logisticsfluidconnector.extractor.LogisticsFluidExtractorBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.logisticsfluidconnector.inserter.LogisticsFluidInserterBlockEntity;
+import com.klikli_dev.theurgy.content.apparatus.logisticscapabilityproxy.LogisticsCapabilityProxyBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector.extractor.LogisticsItemExtractorBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector.inserter.LogisticsItemInserterBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.mercurycatalyst.MercuryCatalystBlockEntity;
@@ -123,5 +124,9 @@ public class BlockEntityRegistry {
     public static final Supplier<BlockEntityType<LogisticsFluidExtractorBlockEntity>> LOGISTICS_FLUID_EXTRACTOR =
             BLOCKS.register(BlockRegistry.LOGISTICS_FLUID_EXTRACTOR.getId().getPath(), () ->
                     new BlockEntityType<>(LogisticsFluidExtractorBlockEntity::new, java.util.Set.of(BlockRegistry.LOGISTICS_FLUID_EXTRACTOR.get())));
+
+    public static final Supplier<BlockEntityType<LogisticsCapabilityProxyBlockEntity>> LOGISTICS_CAPABILITY_PROXY =
+            BLOCKS.register(BlockRegistry.LOGISTICS_CAPABILITY_PROXY.getId().getPath(), () ->
+                    new BlockEntityType<>(LogisticsCapabilityProxyBlockEntity::new, java.util.Set.of(BlockRegistry.LOGISTICS_CAPABILITY_PROXY.get())));
 
 }

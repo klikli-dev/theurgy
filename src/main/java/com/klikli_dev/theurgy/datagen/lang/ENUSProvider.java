@@ -139,6 +139,9 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
         this.add(TheurgyConstants.I18n.Behaviour.SELECTION_SUMMARY_SULFURIC_FLUX_EMITTER_NO_TARGET, "Sulfuric Flux Emitter has no linked target pedestal.");
         this.add(TheurgyConstants.I18n.Behaviour.SELECTION_SUMMARY_SULFURIC_FLUX_EMITTER_NO_SOURCES, "Sulfuric Flux Emitter has no linked source pedestals.");
         this.add(TheurgyConstants.I18n.Behaviour.SELECTION_SUMMARY_SULFURIC_FLUX_EMITTER_NO_RESULT, "Sulfuric Flux Emitter has no linked result pedestal.");
+        this.add(TheurgyConstants.I18n.Behaviour.SELECTION_MODE_LOGISTICS_CAPABILITY_PROXY, "Link capability probe");
+        this.add(TheurgyConstants.I18n.Behaviour.SELECTION_SUMMARY_LOGISTICS_CAPABILITY_PROXY, "Logistics Capability Proxy links to %1$s probe(s).");
+        this.add(TheurgyConstants.I18n.Behaviour.SELECTION_SUMMARY_LOGISTICS_CAPABILITY_PROXY_NO_SELECTION, "Logistics Capability Proxy has no linked probes.");
 
         this.add(TheurgyConstants.I18n.Behaviour.INTERACTION_FERMENTATION_VAT_NO_RECIPE, "Cannot close vat, the items in it do not form a valid fermentation recipe.");
         this.add(TheurgyConstants.I18n.Behaviour.INTERACTION_FERMENTATION_VAT_CLOSED, "Cannot add or remove items or fluids from the vat while it is closed. Shift+Click to open.");
@@ -528,6 +531,32 @@ public class ENUSProvider extends AbstractModonomiconLanguageProvider implements
                         """
                                 {0} the target block with the extractor to place it.
                                 Then {0} the extractor with a cable to connect it to the network.
+                                """,
+                        this.green("Right-Click")
+                )
+        );
+
+        this.addBlock(BlockRegistry.LOGISTICS_CAPABILITY_PROBE, "Logistics Capability Probe");
+        this.addTooltip(BlockRegistry.LOGISTICS_CAPABILITY_PROBE.get()::asItem,
+                "Marks the attached block as a capability target for a linked proxy.",
+                null,
+                this.f(
+                        """
+                                {0} a block face to attach the probe to its target.
+                                Wires can connect to the placed probe like other logistics endpoints.
+                                """,
+                        this.green("Right-Click")
+                )
+        );
+
+        this.addBlock(BlockRegistry.LOGISTICS_CAPABILITY_PROXY, "Logistics Capability Proxy");
+        this.addTooltip(BlockRegistry.LOGISTICS_CAPABILITY_PROXY.get()::asItem,
+                "Proxies the capabilities of linked probes' target blocks.",
+                null,
+                this.f(
+                        """
+                                {0} one or more capability probes with the proxy in hand to select them, then place the proxy.
+                                Multiple linked probes are supported and are queried in round-robin order.
                                 """,
                         this.green("Right-Click")
                 )

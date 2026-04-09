@@ -9,6 +9,7 @@ import com.klikli_dev.theurgy.content.apparatus.calcinationoven.CalcinationOvenB
 import com.klikli_dev.theurgy.content.apparatus.distiller.DistillerBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorBlockEntity;
 import com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron.LiquefactionCauldronBlockEntity;
+import com.klikli_dev.theurgy.content.apparatus.logisticscapabilityproxy.*;
 import com.klikli_dev.theurgy.content.capability.HeatProvider;
 import com.klikli_dev.theurgy.content.capability.HeatReceiver;
 import com.klikli_dev.theurgy.content.capability.MercuryFluxStorage;
@@ -65,6 +66,7 @@ public class CapabilityRegistry {
         registerFermentationVat(event);
         registerIncubator(event);
         registerLiquefactionCauldron(event);
+        registerLogisticsCapabilityProxy(event);
         registerMercuryCatalyst(event);
         registerPyromanticBrazier(event);
         registerReformationArray(event);
@@ -229,6 +231,53 @@ public class CapabilityRegistry {
                 (level, pos, state, be, context) ->
                         doubleBlockCapability(level, pos, be, context, LiquefactionCauldronBlockEntity.class, (blockEntity, c) -> blockEntity.storageBehaviour.solventTank),
                 BlockRegistry.LIQUEFACTION_CAULDRON.get()
+        );
+    }
+
+    public static void registerLogisticsCapabilityProxy(RegisterCapabilitiesEvent event) {
+        event.registerBlockEntity(
+                ITEM_HANDLER,
+                BlockEntityRegistry.LOGISTICS_CAPABILITY_PROXY.get(),
+                (blockEntity, side) -> blockEntity.pickLinkedProbe(probePos -> {
+                    var capability = com.klikli_dev.theurgy.content.apparatus.logisticscapabilityprobe.LogisticsCapabilityProbeBlock.resolveSidedCapability(blockEntity.getLevel(), probePos, ITEM_HANDLER);
+                    return capability == null ? null : new ProxyItemHandler(blockEntity.getLevel(), probePos);
+                })
+        );
+
+        event.registerBlockEntity(
+                FLUID_HANDLER,
+                BlockEntityRegistry.LOGISTICS_CAPABILITY_PROXY.get(),
+                (blockEntity, side) -> blockEntity.pickLinkedProbe(probePos -> {
+                    var capability = com.klikli_dev.theurgy.content.apparatus.logisticscapabilityprobe.LogisticsCapabilityProbeBlock.resolveSidedCapability(blockEntity.getLevel(), probePos, FLUID_HANDLER);
+                    return capability == null ? null : new ProxyFluidHandler(blockEntity.getLevel(), probePos);
+                })
+        );
+
+        event.registerBlockEntity(
+                MERCURY_FLUX_HANDLER,
+                BlockEntityRegistry.LOGISTICS_CAPABILITY_PROXY.get(),
+                (blockEntity, side) -> blockEntity.pickLinkedProbe(probePos -> {
+                    var capability = com.klikli_dev.theurgy.content.apparatus.logisticscapabilityprobe.LogisticsCapabilityProbeBlock.resolveSidedCapability(blockEntity.getLevel(), probePos, MERCURY_FLUX_HANDLER);
+                    return capability == null ? null : new ProxyMercuryFluxStorage(blockEntity.getLevel(), probePos);
+                })
+        );
+
+        event.registerBlockEntity(
+                HEAT_PROVIDER,
+                BlockEntityRegistry.LOGISTICS_CAPABILITY_PROXY.get(),
+                (blockEntity, side) -> blockEntity.pickLinkedProbe(probePos -> {
+                    var capability = com.klikli_dev.theurgy.content.apparatus.logisticscapabilityprobe.LogisticsCapabilityProbeBlock.resolveSidedCapability(blockEntity.getLevel(), probePos, HEAT_PROVIDER);
+                    return capability == null ? null : new ProxyHeatProvider(blockEntity.getLevel(), probePos);
+                })
+        );
+
+        event.registerBlockEntity(
+                HEAT_RECEIVER,
+                BlockEntityRegistry.LOGISTICS_CAPABILITY_PROXY.get(),
+                (blockEntity, side) -> blockEntity.pickLinkedProbe(probePos -> {
+                    var capability = com.klikli_dev.theurgy.content.apparatus.logisticscapabilityprobe.LogisticsCapabilityProbeBlock.resolveSidedCapability(blockEntity.getLevel(), probePos, HEAT_RECEIVER);
+                    return capability == null ? null : new ProxyHeatReceiver(blockEntity.getLevel(), probePos);
+                })
         );
     }
 

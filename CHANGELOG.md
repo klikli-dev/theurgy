@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1-1.80.0] - 2026-04-09
+### :sparkles: New Features
+- [`cd7d6ed`](https://github.com/klikli-dev/theurgy/commit/cd7d6edec9e179143a5f78e2f6bc4b26339adf3e) - add logistics capability probe and proxy *(PR [#333](https://github.com/klikli-dev/theurgy/pull/333) by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.1-1.79.1] - 2026-04-09
 ### :bug: Bug Fixes
 - [`766e32d`](https://github.com/klikli-dev/theurgy/commit/766e32d95a98c1929dbacb07e545646b41d42526) - defer logistics capability cache invalidation *(PR [#330](https://github.com/klikli-dev/theurgy/pull/330) by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1408,3 +1413,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1-1.78.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1-1.77.0...release/v26.1-1.78.0
 [release/v26.1-1.79.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1-1.78.0...release/v26.1-1.79.0
 [release/v26.1-1.79.1]: https://github.com/klikli-dev/theurgy/compare/release/v26.1-1.79.0...release/v26.1-1.79.1
+[release/v26.1-1.80.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1-1.79.1...release/v26.1-1.80.0

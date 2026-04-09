@@ -401,6 +401,26 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
         );
 
         this.makeRecipe(new ShapedRecipeBuilder(
+                ItemRegistry.LOGISTICS_CAPABILITY_PROBE.get(), 1)
+                .pattern(" q ")
+                .pattern(" m ")
+                .pattern(" c ")
+                .define('q', Tags.Items.GEMS_QUARTZ)
+                .define('m', ItemRegistry.MERCURY_SHARD)
+                .define('c', Tags.Items.INGOTS_COPPER)
+        );
+
+        this.makeRecipe(new ShapedRecipeBuilder(
+                ItemRegistry.LOGISTICS_CAPABILITY_PROXY.get(), 1)
+                .pattern(" m ")
+                .pattern("cqc")
+                .pattern(" m ")
+                .define('q', Tags.Items.GEMS_QUARTZ)
+                .define('m', ItemRegistry.MERCURY_SHARD)
+                .define('c', Tags.Items.INGOTS_COPPER)
+        );
+
+        this.makeRecipe(new ShapedRecipeBuilder(
                 ItemRegistry.LIST_FILTER.get(), 9)
                 .pattern("ppp")
                 .pattern("pmp")

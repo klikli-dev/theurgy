@@ -65,6 +65,7 @@ public class CapabilityRegistry {
         registerFermentationVat(event);
         registerIncubator(event);
         registerLiquefactionCauldron(event);
+        registerLogisticsCapabilityProxy(event);
         registerMercuryCatalyst(event);
         registerPyromanticBrazier(event);
         registerReformationArray(event);
@@ -231,6 +232,20 @@ public class CapabilityRegistry {
                 BlockRegistry.LIQUEFACTION_CAULDRON.get()
         );
     }
+
+    public static void registerLogisticsCapabilityProxy(RegisterCapabilitiesEvent event) {
+        BlockCapability.getAllProxyable().forEach(capability -> registerLogisticsCapabilityProxy(event, capability));
+    }
+
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    private static void registerLogisticsCapabilityProxy(RegisterCapabilitiesEvent event, BlockCapability capability) {
+        event.registerBlockEntity(
+                capability,
+                BlockEntityRegistry.LOGISTICS_CAPABILITY_PROXY.get(),
+                (blockEntity, side) -> blockEntity.resolveProbeCapability(capability)
+        );
+    }
+
 
     public static void registerMercuryCatalyst(RegisterCapabilitiesEvent event) {
         event.registerBlockEntity(

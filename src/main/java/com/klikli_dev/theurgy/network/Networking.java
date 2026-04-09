@@ -23,6 +23,7 @@ public class Networking {
         registrar.playToServer(MessageSetMode.TYPE, MessageSetMode.STREAM_CODEC, MessageHandler::handle);
         registrar.playToServer(MessageCaloricFluxEmitterSelection.TYPE, MessageCaloricFluxEmitterSelection.STREAM_CODEC, MessageHandler::handle);
         registrar.playToServer(MessageSulfuricFluxEmitterSelection.TYPE, MessageSulfuricFluxEmitterSelection.STREAM_CODEC, MessageHandler::handle);
+
         registrar.playToServer(MessageClearMenu.TYPE, MessageClearMenu.STREAM_CODEC, MessageHandler::handle);
         registrar.playToServer(MessageSetListFilterScreenOption.TYPE, MessageSetListFilterScreenOption.STREAM_CODEC, MessageHandler::handle);
         registrar.playToServer(MessageOnLeftClickEmpty.TYPE, MessageOnLeftClickEmpty.STREAM_CODEC, MessageHandler::handle);
@@ -32,6 +33,7 @@ public class Networking {
         //to client
         registrar.playToClient(MessageRequestCaloricFluxEmitterSelection.TYPE, MessageRequestCaloricFluxEmitterSelection.STREAM_CODEC, MessageHandler::handle);
         registrar.playToClient(MessageRequestSulfuricFluxEmitterSelection.TYPE, MessageRequestSulfuricFluxEmitterSelection.STREAM_CODEC, MessageHandler::handle);
+
         registrar.playToClient(MessageShowCaloricFlux.TYPE, MessageShowCaloricFlux.STREAM_CODEC, MessageHandler::handle);
         registrar.playToClient(MessageShowSulfuricFluxEmitterStatus.TYPE, MessageShowSulfuricFluxEmitterStatus.STREAM_CODEC, MessageHandler::handle);
         registrar.playToClient(MessageShowCaloricFluxEmitterStatus.TYPE, MessageShowCaloricFluxEmitterStatus.STREAM_CODEC, MessageHandler::handle);

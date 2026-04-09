@@ -16,6 +16,8 @@ import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorSaltVesselBlo
 import com.klikli_dev.theurgy.content.apparatus.incubator.IncubatorSulfurVesselBlock;
 import com.klikli_dev.theurgy.content.apparatus.liquefactioncauldron.LiquefactionCauldronBlock;
 import com.klikli_dev.theurgy.content.apparatus.logisticsconnectionnode.LogisticsConnectionNodeBlock;
+import com.klikli_dev.theurgy.content.apparatus.logisticscapabilityprobe.LogisticsCapabilityProbeBlock;
+import com.klikli_dev.theurgy.content.apparatus.logisticscapabilityproxy.LogisticsCapabilityProxyBlock;
 import com.klikli_dev.theurgy.content.apparatus.logisticsfluidconnector.extractor.LogisticsFluidExtractorBlock;
 import com.klikli_dev.theurgy.content.apparatus.logisticsfluidconnector.inserter.LogisticsFluidInserterBlock;
 import com.klikli_dev.theurgy.content.apparatus.logisticsitemconnector.extractor.LogisticsItemExtractorBlock;
@@ -195,6 +197,18 @@ public class BlockRegistry {
 
     public static final DeferredBlock<LogisticsFluidExtractorBlock> LOGISTICS_FLUID_EXTRACTOR =
             BLOCKS.registerBlock("logistics_fluid_extractor", LogisticsFluidExtractorBlock::new, () -> BlockBehaviour.Properties.of()
+                    .strength(0.1f)
+                    .noOcclusion()
+                    .forceSolidOff());
+
+    public static final DeferredBlock<LogisticsCapabilityProbeBlock> LOGISTICS_CAPABILITY_PROBE =
+            BLOCKS.registerBlock("logistics_capability_probe", LogisticsCapabilityProbeBlock::new, () -> BlockBehaviour.Properties.of()
+                    .strength(0.1f)
+                    .noOcclusion()
+                    .forceSolidOff());
+
+    public static final DeferredBlock<LogisticsCapabilityProxyBlock> LOGISTICS_CAPABILITY_PROXY =
+            BLOCKS.registerBlock("logistics_capability_proxy", LogisticsCapabilityProxyBlock::new, () -> BlockBehaviour.Properties.of()
                     .strength(0.1f)
                     .noOcclusion()
                     .forceSolidOff());

@@ -1,0 +1,7 @@
+{
+  "parent": "theurgy:block/logistics_proxy_template",
+  "textures": {
+    "particle": "minecraft:block/copper_block",
+    "texture": "theurgy:block/logistics_proxy"
+  }
+}

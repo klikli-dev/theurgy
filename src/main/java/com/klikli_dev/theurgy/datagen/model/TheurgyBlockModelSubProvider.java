@@ -72,6 +72,8 @@ public class TheurgyBlockModelSubProvider {
         this.registerLogisticsConnector(blockModels, itemModels, BlockRegistry.LOGISTICS_ITEM_EXTRACTOR.get(), Theurgy.loc("block/logistics_item_extractor"));
         this.registerLogisticsConnector(blockModels, itemModels, BlockRegistry.LOGISTICS_FLUID_INSERTER.get(), Theurgy.loc("block/logistics_fluid_inserter"));
         this.registerLogisticsConnector(blockModels, itemModels, BlockRegistry.LOGISTICS_FLUID_EXTRACTOR.get(), Theurgy.loc("block/logistics_fluid_extractor"));
+        this.registerLogisticsProbe(blockModels, itemModels, BlockRegistry.LOGISTICS_CAPABILITY_PROBE.get(), Theurgy.loc("block/logistics_capability_probe"));
+        this.registerLogisticsCapabilityProxy(blockModels, itemModels, BlockRegistry.LOGISTICS_CAPABILITY_PROXY.get(), Theurgy.loc("block/logistics_proxy"));
         this.registerLogisticsNode(blockModels, itemModels);
         this.registerCubeAll(blockModels, itemModels, BlockRegistry.SAL_AMMONIAC_ORE.get());
         this.registerCubeAll(blockModels, itemModels, BlockRegistry.DEEPSLATE_SAL_AMMONIAC_ORE.get());
@@ -345,6 +347,38 @@ public class TheurgyBlockModelSubProvider {
                             .term(LogisticsItemConnectorBlock.HAS_FILTER, true),
                     BlockModelGenerators.variant(this.variant(Theurgy.loc("block/logistics_connector_filter"), rotation.xDegrees, rotation.yDegrees, false))
             );
+        }
+        blockModels.blockStateOutput.accept(generator);
+
+        this.registerParentedItemModel(itemModels, block, this.blockModel(block));
+    }
+
+    private void registerLogisticsProbe(BlockModelGenerators blockModels, ItemModelGenerators itemModels, Block block, Identifier texture) {
+        this.emitParentModel(blockModels.modelOutput, this.blockModel(block), Theurgy.loc("block/logistics_connector_template"), Map.of(
+                "texture", texture,
+                "particle", Identifier.withDefaultNamespace("block/copper_block")
+        ));
+
+        MultiPartGenerator generator = MultiPartGenerator.multiPart(block);
+        for (Direction direction : Direction.values()) {
+            Rotation rotation = this.connectorRotation(direction);
+            generator = this.addFacingVariant(generator, BlockStateProperties.FACING, direction, this.blockModel(block), rotation.xDegrees, rotation.yDegrees, false);
+        }
+        blockModels.blockStateOutput.accept(generator);
+
+        this.registerParentedItemModel(itemModels, block, this.blockModel(block));
+    }
+
+    private void registerLogisticsCapabilityProxy(BlockModelGenerators blockModels, ItemModelGenerators itemModels, Block block, Identifier texture) {
+        this.emitParentModel(blockModels.modelOutput, this.blockModel(block), Theurgy.loc("block/logistics_proxy_template"), Map.of(
+                "texture", texture,
+                "particle", Identifier.withDefaultNamespace("block/copper_block")
+        ));
+
+        MultiPartGenerator generator = MultiPartGenerator.multiPart(block);
+        for (Direction direction : Direction.values()) {
+            Rotation rotation = this.connectorRotation(direction);
+            generator = this.addFacingVariant(generator, BlockStateProperties.FACING, direction, this.blockModel(block), rotation.xDegrees, rotation.yDegrees, false);
         }
         blockModels.blockStateOutput.accept(generator);
 

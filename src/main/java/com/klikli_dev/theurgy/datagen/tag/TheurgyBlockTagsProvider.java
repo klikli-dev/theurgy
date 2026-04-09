@@ -98,7 +98,9 @@ public class TheurgyBlockTagsProvider extends BlockTagsProvider {
                 .add(BlockRegistry.LOGISTICS_ITEM_INSERTER.get())
                 .add(BlockRegistry.LOGISTICS_ITEM_EXTRACTOR.get())
                 .add(BlockRegistry.LOGISTICS_FLUID_INSERTER.get())
-                .add(BlockRegistry.LOGISTICS_FLUID_EXTRACTOR.get());
+                .add(BlockRegistry.LOGISTICS_FLUID_EXTRACTOR.get())
+                .add(BlockRegistry.LOGISTICS_CAPABILITY_PROBE.get())
+                .add(BlockRegistry.LOGISTICS_CAPABILITY_PROXY.get());
         this.tag(BlockTags.NEEDS_STONE_TOOL).addTag(BlockTagRegistry.SAL_AMMONIAC_ORES);
     }
 }

@@ -23,6 +23,8 @@
     "theurgy:logistics_item_inserter",
     "theurgy:logistics_item_extractor",
     "theurgy:logistics_fluid_inserter",
-    "theurgy:logistics_fluid_extractor"
+    "theurgy:logistics_fluid_extractor",
+    "theurgy:logistics_capability_probe",
+    "theurgy:logistics_capability_proxy"
   ]
 }

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "c": "#c:ingots/copper",
+    "m": "theurgy:mercury_shard",
+    "q": "#c:gems/quartz"
+  },
+  "pattern": [
+    " q ",
+    " m ",
+    " c "
+  ],
+  "result": {
+    "id": "theurgy:logistics_capability_probe"
+  }
+}

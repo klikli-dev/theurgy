@@ -40,7 +40,7 @@ import org.jetbrains.annotations.Nullable;
 public class LogisticsCapabilityProxyBlock extends DirectionalBlock implements EntityBlock, HasWireEndPoint {
 
     public static final MapCodec<LogisticsCapabilityProxyBlock> CODEC = simpleCodec(LogisticsCapabilityProxyBlock::new);
-    public static final DirectionalBlockShape SHAPE = new DirectionalBlockShape(4, 4, 8);
+    public static final VoxelShape SHAPE = Shapes.block();
 
     public LogisticsCapabilityProxyBlock(Properties properties) {
         super(properties);
@@ -78,12 +78,12 @@ public class LogisticsCapabilityProxyBlock extends DirectionalBlock implements E
 
     @Override
     public @NotNull VoxelShape getShape(BlockState pState, @NotNull BlockGetter pLevel, @NotNull BlockPos pPos, @NotNull CollisionContext pContext) {
-        return SHAPE.getShape(pState.getValue(FACING));
+        return SHAPE;
     }
 
     @Override
     protected @NotNull VoxelShape getCollisionShape(@NotNull BlockState pState, @NotNull BlockGetter pLevel, @NotNull BlockPos pPos, @NotNull CollisionContext pContext) {
-        return Shapes.block();
+        return SHAPE;
     }
 
     @Override

@@ -412,8 +412,8 @@ public class ShapedRecipeProvider extends JsonRecipeProvider {
 
         this.makeRecipe(new ShapedRecipeBuilder(
                 ItemRegistry.LOGISTICS_CAPABILITY_PROXY.get(), 1)
-                .pattern(" q ")
-                .pattern(" c ")
+                .pattern(" m ")
+                .pattern("cqc")
                 .pattern(" m ")
                 .define('q', Tags.Items.GEMS_QUARTZ)
                 .define('m', ItemRegistry.MERCURY_SHARD)

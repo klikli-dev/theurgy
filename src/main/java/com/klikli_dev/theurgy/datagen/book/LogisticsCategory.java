@@ -31,9 +31,9 @@ public class LogisticsCategory extends CategoryProvider {
                 "__________________________________",
                 "________________i_____ŵ_n_ň_______",
                 "__________________________________",
-                "________________w___e_____f_______",
+                "________________w___e_____f___p___",
                 "__________________________________",
-                "__________________________a_______",
+                "__________________________a___x___",
                 "__________________________________"
 
         };
@@ -66,6 +66,12 @@ public class LogisticsCategory extends CategoryProvider {
 
         var nodeEntry = new ConnectionNodeEntry(this).generate('ň');
         nodeEntry.withParent(networkEntry);
+
+        var capabilityProbeEntry = new CapabilityProbeEntry(this).generate('p');
+        capabilityProbeEntry.withParent(nodeEntry);
+
+        var capabilityProxyEntry = new CapabilityProxyEntry(this).generate('x');
+        capabilityProxyEntry.withParent(capabilityProbeEntry);
 
         var listFilterEntry = new ListFilterEntry(this).generate('f');
         listFilterEntry.withParent(nodeEntry);

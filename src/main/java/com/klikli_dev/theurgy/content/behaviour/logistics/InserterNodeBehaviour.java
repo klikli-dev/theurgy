@@ -102,8 +102,6 @@ public abstract class InserterNodeBehaviour<T, C> extends LeafNodeBehaviour<T, C
     public void onCapabilityInvalidated(BlockPos targetPos, boolean forceSetRemoved) {
         var serverLevel = (ServerLevel) this.level();
 
-        var capabilityCache = this.targetCapabilities.stream().filter(cache -> cache.pos().equals(targetPos)).findFirst().orElse(null);
-
         var targetGlobalPos = GlobalPos.of(serverLevel.dimension(), targetPos);
 
         var network = Logistics.get().getNetwork(this.globalPos());
@@ -113,8 +111,11 @@ public abstract class InserterNodeBehaviour<T, C> extends LeafNodeBehaviour<T, C
             network.onInserterNodeTargetRemoved(targetGlobalPos, this);
 
             //then if we have a still valid one, re-add it / or if it is valid for the first time add it
-            if (!forceSetRemoved && capabilityCache != null && capabilityCache.getCapability() != null) {
-                network.onInserterNodeTargetAdded(targetGlobalPos, capabilityCache, this);
+            if (!forceSetRemoved) {
+                this.targetCapabilities.stream()
+                        .filter(cache -> cache.pos().equals(targetPos))
+                        .filter(cache -> cache.getCapability() != null)
+                        .forEach(cache -> network.onInserterNodeTargetAdded(targetGlobalPos, cache, this));
             }
         }
     }

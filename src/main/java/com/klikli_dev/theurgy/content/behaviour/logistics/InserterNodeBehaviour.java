@@ -20,11 +20,15 @@ import java.util.List;
  */
 public abstract class InserterNodeBehaviour<T, C> extends LeafNodeBehaviour<T, C> {
     protected List<BlockCapabilityCache<T, C>> targetCapabilities;
+    private int targetCapabilityCacheGeneration;
+    private boolean targetCapabilityCachesActive;
 
     public InserterNodeBehaviour(BlockEntity blockEntity, BlockCapability<T, C> capabilityType) {
         super(blockEntity, capabilityType);
 
         this.targetCapabilities = new ArrayList<>();
+        this.targetCapabilityCacheGeneration = 0;
+        this.targetCapabilityCachesActive = false;
     }
 
     @Override
@@ -34,10 +38,29 @@ public abstract class InserterNodeBehaviour<T, C> extends LeafNodeBehaviour<T, C
 
     @Override
     public void onLoad() {
-        //targets are filled via load(tag) on the parent, the NBT in turn is provided by the BlockItem.
-        this.targetCapabilities = this.buildTargetCapabilities(this.targets());
-
+        this.rebuildTargetCapabilities();
         super.onLoad();
+    }
+
+    @Override
+    public void onChunkUnload() {
+        this.targetCapabilityCachesActive = false;
+        super.onChunkUnload();
+    }
+
+    @Override
+    public void onDestroyed() {
+        this.targetCapabilityCachesActive = false;
+        super.onDestroyed();
+    }
+
+    protected void rebuildTargetCapabilities() {
+        this.targetCapabilityCachesActive = true;
+        this.targetCapabilities = this.buildTargetCapabilities(this.targets());
+    }
+
+    protected void deactivateTargetCapabilities() {
+        this.targetCapabilityCachesActive = false;
     }
 
     /**
@@ -47,25 +70,37 @@ public abstract class InserterNodeBehaviour<T, C> extends LeafNodeBehaviour<T, C
      */
     public List<BlockCapabilityCache<T, C>> buildTargetCapabilities(List<BlockPos> targets) {
         var serverLevel = (ServerLevel) this.level();
+        var server = serverLevel.getServer();
+        var generation = ++this.targetCapabilityCacheGeneration;
+
         return targets.stream()
-                .map(target -> BlockCapabilityCache.create(this.capabilityType(), serverLevel, target, this.getTargetContext(target),
-                        //only listen to the invalidator if we (the BE) still exist.
-                        //Note: Previously we also checked if there is a valid network at this location, however that leads to issues
-                        //  namely a single inserter node that is not connected to anything will not have a network, which can lead to the cap cache being removed despite the inserter being fine!
-                        () -> !this.blockEntity.isRemoved(),
-                        () -> {
-                            //handles chunk loads/unloads and destruction of the target BE
-                            this.onCapabilityInvalidated(target, this, false);
-                        })).toList();
+                .map(target -> {
+                    var immutableTarget = target.immutable();
+                    return BlockCapabilityCache.create(this.capabilityType(), serverLevel, immutableTarget, this.getTargetContext(immutableTarget),
+                        //Only listen while this exact cache generation is still active for this inserter lifecycle.
+                        //This avoids stale callbacks after chunk unloads, disable toggles, or direction/context rebuilds.
+                        () -> this.isTargetCapabilityCacheValid(generation),
+                        () -> server.schedule(server.wrapRunnable(() -> this.handleCapabilityInvalidated(immutableTarget, generation))));
+                }).toList();
     }
 
-    public void onCapabilityInvalidated(BlockPos targetPos, InserterNodeBehaviour<T, C> leafNode, boolean forceSetRemoved) {
-        var serverLevel = (ServerLevel) this.level();
-        //Note: we never modify this.targetCapabilities because it listens for chunk *loads* too!
+    protected boolean isTargetCapabilityCacheValid(int generation) {
+        return generation == this.targetCapabilityCacheGeneration
+                && this.targetCapabilityCachesActive
+                && this.enabled()
+                && !this.blockEntity.isRemoved();
+    }
 
-        //a valid target means the capability changed but is still there.
-        //an invalid target means removed/unloaded.
-        var targetValid = serverLevel.isLoaded(targetPos) && serverLevel.getBlockEntity(targetPos) != null;
+    protected void handleCapabilityInvalidated(BlockPos targetPos, int generation) {
+        if (!this.isTargetCapabilityCacheValid(generation)) {
+            return;
+        }
+
+        this.onCapabilityInvalidated(targetPos, false);
+    }
+
+    public void onCapabilityInvalidated(BlockPos targetPos, boolean forceSetRemoved) {
+        var serverLevel = (ServerLevel) this.level();
 
         var targetGlobalPos = GlobalPos.of(serverLevel.dimension(), targetPos);
 
@@ -73,14 +108,14 @@ public abstract class InserterNodeBehaviour<T, C> extends LeafNodeBehaviour<T, C
         if (network != null) {
             //always call remove to ensure the target is removed from the graph if it was changed
             //this avoids duplicates because we don't know if any extractor nodes already had it in their list
-            network.onInserterNodeTargetRemoved(targetGlobalPos, leafNode);
+            network.onInserterNodeTargetRemoved(targetGlobalPos, this);
 
             //then if we have a still valid one, re-add it / or if it is valid for the first time add it
-            if (targetValid && !forceSetRemoved) {
-                var capabilityCache = this.targetCapabilities.stream().filter(cache -> cache.pos().equals(targetPos)).findFirst().orElse(null);
-                if (capabilityCache != null) {
-                    network.onInserterNodeTargetAdded(targetGlobalPos, capabilityCache, leafNode);
-                }
+            if (!forceSetRemoved) {
+                this.targetCapabilities.stream()
+                        .filter(cache -> cache.pos().equals(targetPos))
+                        .filter(cache -> cache.getCapability() != null)
+                        .forEach(cache -> network.onInserterNodeTargetAdded(targetGlobalPos, cache, this));
             }
         }
     }
@@ -90,12 +125,10 @@ public abstract class InserterNodeBehaviour<T, C> extends LeafNodeBehaviour<T, C
      * The main use is to notify the network when a target capability cache was re-created after its context (direction) changed.
      */
     protected void notifyTargetCapabilityCacheCreated(BlockCapabilityCache<T, C> capability) {
-        var serverLevel = (ServerLevel) this.level();
-
         //only notify if we actually have a valid one - otherwise onCapabilityInvalidated will handle it on load of target
-        var targetValid = serverLevel.isLoaded(capability.pos()) && serverLevel.getBlockEntity(capability.pos()) != null;
+        var targetValid = capability.getCapability() != null;
 
-        var targetGlobalPos = GlobalPos.of(serverLevel.dimension(), capability.pos());
+        var targetGlobalPos = GlobalPos.of(this.level().dimension(), capability.pos());
 
         var network = Logistics.get().getNetwork(this.globalPos());
         if (network != null && targetValid) {
@@ -109,12 +142,7 @@ public abstract class InserterNodeBehaviour<T, C> extends LeafNodeBehaviour<T, C
      * @return
      */
     public List<BlockCapabilityCache<T, C>> availableTargetCapabilities() {
-        return this.targetCapabilities.stream().filter(cache ->
-                this.level().isLoaded(cache.pos()) &&
-                        //instead of querying the BE, we query the cap.
-                        //because some caps come without BE, and even our own double-height blocks don't have a BE for the upper part.
-                        this.level().getCapability(this.capabilityType(), cache.pos(), cache.context()) != null
-        ).toList();
+        return this.targetCapabilities.stream().filter(cache -> cache.getCapability() != null).toList();
     }
 
     /**

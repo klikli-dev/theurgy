@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1.1-1.81.1] - 2026-04-10
+### :bug: Bug Fixes
+- [`77e3609`](https://github.com/klikli-dev/theurgy/commit/77e3609ce9ca04ed424eef78cfc46de06085e042) - **jei**: remove deprecated ingredient builder calls *(PR [#335](https://github.com/klikli-dev/theurgy/pull/335) by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v26.1.1-1.81.0] - 2026-04-10
 ### :sparkles: New Features
 - [`9e6a46e`](https://github.com/klikli-dev/theurgy/commit/9e6a46ea61a8902977e502b596be1b53a9a4b055) - **jei**: re-enable and update JEI integration for 1.21.1 *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -1421,3 +1426,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v26.1-1.79.1]: https://github.com/klikli-dev/theurgy/compare/release/v26.1-1.79.0...release/v26.1-1.79.1
 [release/v26.1-1.80.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1-1.79.1...release/v26.1-1.80.0
 [release/v26.1.1-1.81.0]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.1-0.0.0...release/v26.1.1-1.81.0
+[release/v26.1.1-1.81.1]: https://github.com/klikli-dev/theurgy/compare/release/v26.1.1-1.81.0...release/v26.1.1-1.81.1

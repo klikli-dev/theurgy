@@ -144,7 +144,7 @@ dependencies {
     implementation ("com.klikli_dev:modonomicon-${minecraft_version}-neoforge:${modonomicon_version}") {transitive=false}
 
     //occultism
-    compileOnly ("com.klikli_dev:occultism-${minecraft_major_version}-neoforge:${occultism_version}") {transitive=false}
+    compileOnly ("com.klikli_dev:occultism-${minecraft_version}-neoforge:${occultism_version}") {transitive=false}
 //    localRuntime ("com.klikli_dev:occultism-${minecraft_version}-neoforge:${occultism_version}")
 
     //Jade (Hwyla/Waila)
